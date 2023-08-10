@@ -1,4 +1,4 @@
-# Poetry Website
+# eunomia-bpf mainpage
 
 This is the source of the official [eunomia-bpf website][official website].
 
@@ -16,13 +16,13 @@ This is the source of the official [eunomia-bpf website][official website].
 Clone this repo and enter, then:  
 
 ```
-  $ mkdocs build
+$ mkdocs build
 ```
 
-This will build `site`. Or:
+This will build `site` directory. Or:
 
 ```
-  $ mkdocs serve
+$ mkdocs serve
 ```
 
 The website will now be accessible at http://localhost:8000 and reload on any changes.

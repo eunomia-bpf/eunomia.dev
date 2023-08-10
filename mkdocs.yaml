@@ -69,6 +69,8 @@ nav:
     
   - Tutorials: 
     - tutorials/index.md
+    - tutorials/README.md
+    - tutorials/ChatGPT.md
     - tutorials/0-introduce/README.md
     - tutorials/1-helloworld/README.md
     - tutorials/2-kprobe-unlink/README.md
