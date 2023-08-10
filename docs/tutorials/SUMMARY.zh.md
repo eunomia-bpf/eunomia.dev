@@ -15,7 +15,7 @@ This is a development tutorial for eBPF based on CO-RE (Compile Once, Run Everyw
 
 This tutorial does not cover complex concepts and scenario introductions. Its main purpose is to provide examples of eBPF tools (**very short, starting with twenty lines of code!**) to help eBPF application developers quickly grasp eBPF development methods and techniques. The tutorial content can be found in the directory, with each directory being an independent eBPF tool example.
 
-The tutorial is in Chinese and English versions. For English version, please refer to [README_en.md](README_en.md) and the README_en.md in each directory.
+The tutorial is in Chinese and English versions. For English version, please refer to [SUMMARY.en.md](SUMMARY.en.md) and the SUMMARY.en.md in each directory.
 
 ## 目录
 
@@ -23,28 +23,28 @@ The tutorial is in Chinese and English versions. For English version, please ref
 
 包含简单的 eBPF 程序样例与介绍。
 
-- [lesson 0-introduce](src/0-introduce/README.md) 介绍 eBPF 的基本概念和常见的开发工具
-- [lesson 1-helloworld](src/1-helloworld/README.md) 使用 eBPF 开发最简单的「Hello World」程序，介绍 eBPF 的基本框架和开发流程
-- [lesson 2-kprobe-unlink](src/2-kprobe-unlink/README.md) 在 eBPF 中使用 kprobe 捕获 unlink 系统调用
-- [lesson 3-fentry-unlink](src/3-fentry-unlink/README.md) 在 eBPF 中使用 fentry 捕获 unlink 系统调用
-- [lesson 4-opensnoop](src/4-opensnoop/README.md) 使用 eBPF 捕获进程打开文件的系统调用集合，使用全局变量在 eBPF 中过滤进程 pid
-- [lesson 5-uprobe-bashreadline](src/5-uprobe-bashreadline/README.md) 在 eBPF 中使用 uprobe 捕获 bash 的 readline 函数调用
-- [lesson 6-sigsnoop](src/6-sigsnoop/README.md) 捕获进程发送信号的系统调用集合，使用 hash map 保存状态
-- [lesson 7-execsnoop](src/7-execsnoop/README.md) 捕获进程执行时间，通过 perf event array 向用户态打印输出
-- [lesson 8-execsnoop](src/8-exitsnoop/README.md) 捕获进程退出事件，使用 ring buffer 向用户态打印输出
-- [lesson 9-runqlat](src/9-runqlat/README.md) 捕获进程调度延迟，以直方图方式记录
-- [lesson 10-hardirqs](src/10-hardirqs/README.md) 使用 hardirqs 或 softirqs 捕获中断事件
-- [lesson 11-bootstrap](src/11-bootstrap/README.md) 使用 libbpf-boostrap 为 eBPF 编写原生的 libbpf 用户态代码，并建立完整的 libbpf 工程。
-- [lesson 12-profile](src/12-profile/README.md) 使用 eBPF 进行性能分析
-- [lesson 13-tcpconnlat](src/13-tcpconnlat/README.md) 记录 TCP 连接延迟，并使用 libbpf 在用户态处理数据
-- [lesson 14-tcpstates](src/14-tcpstates/README.md) 记录 TCP 连接状态与 TCP RTT
-- [lesson 15-javagc](src/15-javagc/README.md) 使用 usdt 捕获用户态 Java GC 事件耗时
-- [lesson 16-memleak](src/16-memleak/README.md) 检测内存泄漏
-- [lesson 17-biopattern](src/17-biopattern/README.md) 捕获磁盘 IO 模式
-- [lesson 18-further-reading](src/18-further-reading/README.md) 更进一步的相关资料？
-- [lesson 19-lsm-connect](src/19-lsm-connect/README.md) 使用 LSM 进行安全检测防御
-- [lesson 20-tc](src/20-tc/README.md) 使用 eBPF 进行 tc 流量控制
-- [lesson 21-xdp](src/21-xdp/README.md) 使用 eBPF 进行 XDP 报文处理
+- [lesson 0-introduce](0-introduce/README.zh.md) 介绍 eBPF 的基本概念和常见的开发工具
+- [lesson 1-helloworld](1-helloworld/README.zh.md) 使用 eBPF 开发最简单的「Hello World」程序，介绍 eBPF 的基本框架和开发流程
+- [lesson 2-kprobe-unlink](2-kprobe-unlink/README.zh.md) 在 eBPF 中使用 kprobe 捕获 unlink 系统调用
+- [lesson 3-fentry-unlink](3-fentry-unlink/README.zh.md) 在 eBPF 中使用 fentry 捕获 unlink 系统调用
+- [lesson 4-opensnoop](4-opensnoop/README.zh.md) 使用 eBPF 捕获进程打开文件的系统调用集合，使用全局变量在 eBPF 中过滤进程 pid
+- [lesson 5-uprobe-bashreadline](5-uprobe-bashreadline/README.zh.md) 在 eBPF 中使用 uprobe 捕获 bash 的 readline 函数调用
+- [lesson 6-sigsnoop](6-sigsnoop/README.zh.md) 捕获进程发送信号的系统调用集合，使用 hash map 保存状态
+- [lesson 7-execsnoop](7-execsnoop/README.zh.md) 捕获进程执行时间，通过 perf event array 向用户态打印输出
+- [lesson 8-execsnoop](8-exitsnoop/README.zh.md) 捕获进程退出事件，使用 ring buffer 向用户态打印输出
+- [lesson 9-runqlat](9-runqlat/README.zh.md) 捕获进程调度延迟，以直方图方式记录
+- [lesson 10-hardirqs](10-hardirqs/README.zh.md) 使用 hardirqs 或 softirqs 捕获中断事件
+- [lesson 11-bootstrap](11-bootstrap/README.zh.md) 使用 libbpf-boostrap 为 eBPF 编写原生的 libbpf 用户态代码，并建立完整的 libbpf 工程。
+- [lesson 12-profile](12-profile/README.zh.md) 使用 eBPF 进行性能分析
+- [lesson 13-tcpconnlat](13-tcpconnlat/README.zh.md) 记录 TCP 连接延迟，并使用 libbpf 在用户态处理数据
+- [lesson 14-tcpstates](14-tcpstates/README.zh.md) 记录 TCP 连接状态与 TCP RTT
+- [lesson 15-javagc](15-javagc/README.zh.md) 使用 usdt 捕获用户态 Java GC 事件耗时
+- [lesson 16-memleak](16-memleak/README.zh.md) 检测内存泄漏
+- [lesson 17-biopattern](17-biopattern/README.zh.md) 捕获磁盘 IO 模式
+- [lesson 18-further-reading](18-further-reading/README.zh.md) 更进一步的相关资料？
+- [lesson 19-lsm-connect](19-lsm-connect/README.zh.md) 使用 LSM 进行安全检测防御
+- [lesson 20-tc](20-tc/README.zh.md) 使用 eBPF 进行 tc 流量控制
+- [lesson 21-xdp](21-xdp/README.zh.md) 使用 eBPF 进行 XDP 报文处理
 
 ### 进阶文档与示例程序
 
@@ -52,26 +52,26 @@ The tutorial is in Chinese and English versions. For English version, please ref
 
 Android:
 
-- [在 Android 上使用 eBPF 程序](src/22-android/README.md)
+- [在 Android 上使用 eBPF 程序](22-android/README.zh.md)
 
 网络和追踪：
 
-- [使用 eBPF 追踪 HTTP 请求或其他七层协议](src/23-http/README.md)
-- [使用 sockops 加速网络请求转发](src/29-sockops/README.md)
+- [使用 eBPF 追踪 HTTP 请求或其他七层协议](23-http/README.zh.md)
+- [使用 sockops 加速网络请求转发](29-sockops/README.zh.md)
 
 安全：
 
-- [使用 eBPF 隐藏进程或文件信息](src/24-hide/README.md)
-- [使用 bpf_send_signal 发送信号终止进程](src/25-signal/README.md)
-- [使用 eBPF 添加 sudo 用户](src/26-sudo/README.md)
-- [使用 eBPF 替换任意程序读取或写入的文本](src/27-replace/README.md)
-- [BPF的生命周期：使用 Detached 模式在用户态应用退出后持续运行 eBPF 程序](src/28-detach/README.md)
+- [使用 eBPF 隐藏进程或文件信息](24-hide/README.zh.md)
+- [使用 bpf_send_signal 发送信号终止进程](25-signal/README.zh.md)
+- [使用 eBPF 添加 sudo 用户](26-sudo/README.zh.md)
+- [使用 eBPF 替换任意程序读取或写入的文本](27-replace/README.zh.md)
+- [BPF的生命周期：使用 Detached 模式在用户态应用退出后持续运行 eBPF 程序](28-detach/README.zh.md)
 
 持续更新中...
 
 ## 为什么要写这个教程？
 
-在学习 eBPF 的过程中，我们受到了 [bcc python developer tutorial](src/bcc-documents/tutorial_bcc_python_developer.md) 的许多启发和帮助，但从当下的角度出发，使用 libbpf 开发 eBPF 的应用是目前相对更好的选择。但目前似乎很少有基于 libbpf 和 BPF CO-RE 出发的、通过案例和工具介绍 eBPF 开发的教程，因此我们发起了这个项目，采用类似 bcc python developer tutorial 的组织方式，但使用 CO-RE 的 libbpf 进行开发。
+在学习 eBPF 的过程中，我们受到了 [bcc python developer tutorial](bcc-documents/tutorial_bcc_python_developer.md) 的许多启发和帮助，但从当下的角度出发，使用 libbpf 开发 eBPF 的应用是目前相对更好的选择。但目前似乎很少有基于 libbpf 和 BPF CO-RE 出发的、通过案例和工具介绍 eBPF 开发的教程，因此我们发起了这个项目，采用类似 bcc python developer tutorial 的组织方式，但使用 CO-RE 的 libbpf 进行开发。
 
 本项目主要基于 [libbpf-boostrap](https://github.com/libbpf/libbpf-bootstrap) 和 [eunomia-bpf](https://github.com/eunomia-bpf/eunomia-bpf) 两个框架完成，并使用 eunomia-bpf 帮助简化一部分 libbpf eBPF 用户态代码的编写，让开发者专注于内核态的 eBPF 代码的开发。
 
@@ -100,13 +100,13 @@ Android:
 
 1. 点击您的新仓库中的 Code 按钮，然后选择 Open with Codespaces 选项：
 
-    ![code](imgs/code-button.png)
+    ![code](../imgs/code-button.png)
 
 2. GitHub 将为您创建一个新的 Codespace，这可能需要几分钟的时间，具体取决于您的网络速度和仓库的大小。
 3. 一旦您的 Codespace 启动并准备好使用，您可以打开终端并导航到您的项目目录中。
 4. 可以按照对应的仓库中的介绍来编译和运行 eBPF 程序:
 
-    ![codespace](imgs/codespace.png)
+    ![codespace](../imgs/codespace.png)
 
 使用 Codespaces，您可以轻松地创建、管理和共享云端开发环境，从而将您的开发过程加速并使其更具可靠性。您可以在任何地方、任何设备上使用 Codespaces 进行开发，只需要一个具有 Web 浏览器的计算机即可。同时，GitHub Codespaces 还支持预先配置好的环境、自定义开发容器和可定制化的开发体验等功能，以满足您的开发需求。
 
@@ -171,7 +171,7 @@ eunomia-bpf 由一个编译工具链和一个运行时库组成, 对比传统的
 4. 把修改后的代码再喂给 ChatGPT，让它继续学习
 5. 尝试让 ChatGPT 自动生成 eBPF 程序和对应的教程文档！例如
 
-![ebpf-chatgpt-signal](imgs/ebpf-chatgpt-signal.png)
+![ebpf-chatgpt-signal](../imgs/ebpf-chatgpt-signal.png)
 
 完整的对话记录可以在这里找到: [ChatGPT.md](ChatGPT.md)
 

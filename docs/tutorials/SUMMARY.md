@@ -17,27 +17,27 @@ The tutorial focuses on eBPF examples in observability, networking, security, an
 
 Includes simple eBPF program samples and introductions.
 
-- [lesson 0-introduce](src/0-introduce/README_en.md) Introduces basic concepts of eBPF and common development tools
-- [lesson 1-helloworld](src/1-helloworld/README_en.md) Develops the simplest "Hello World" program using eBPF and introduces the basic framework and development process of eBPF
-- [lesson 2-kprobe-unlink](src/2-kprobe-unlink/README_en.md) Uses kprobe in eBPF to capture the unlink system call
-- [lesson 3-fentry-unlink](src/3-fentry-unlink/README_en.md) Uses fentry in eBPF to capture the unlink system call
-- [lesson 4-opensnoop](src/4-opensnoop/README_en.md) Uses eBPF to capture the system call collection of processes opening files, and filters process PIDs in eBPF using global variables
-- [lesson 5-uprobe-bashreadline](src/5-uprobe-bashreadline/README_en.md) Uses uprobe in eBPF to capture the readline function calls in bash
-- [lesson 6-sigsnoop](src/6-sigsnoop/README_en.md) Captures the system call collection of processes sending signals and uses a hash map to store states
-- [lesson 7-execsnoop](src/7-execsnoop/README_en.md) Captures process execution times and prints output to user space through perf event array
-- [lesson 8-exitsnoop](src/8-exitsnoop/README_en.md) Captures process exit events and prints output to user space using a ring buffer
-- [lesson 9-runqlat](src/9-runqlat/README_en.md) Captures process scheduling delays and records them in histogram format
-- [lesson 10-hardirqs](src/10-hardirqs/README_en.md) Captures interrupt events using hardirqs or softirqs
-- [lesson 11-bootstrap](src/11-bootstrap/README_en.md) Writes native libbpf user space code for eBPF using libbpf-bootstrap and establishes a complete libbpf project.
-- [lesson 12-profile](src/12-profile/README_en.md) Performs performance analysis using eBPF
-- [lesson 13-tcpconnlat](src/13-tcpconnlat/README_en.md) Records TCP connection latency and processes data in user space using libbpf
-- [lesson 14-tcpstates](src/14-tcpstates/README_en.md) Records TCP connection state and TCP RTT.- [lesson 15-javagc](src/15-javagc/README_en.md) Capture user-level Java GC event duration using usdt
-- [lesson 16-memleak](src/16-memleak/README_en.md) Detect memory leaks
-- [lesson 17-biopattern](src/17-biopattern/README_en.md) Capture disk IO patterns
-- [lesson 18-further-reading](src/18-further-reading/README_en.md) Further reading?
-- [lesson 19-lsm-connect](src/19-lsm-connect/README_en.md) Use LSM for security detection and defense
-- [lesson 20-tc](src/20-tc/README_en.md) Use eBPF for tc traffic control
-- [lesson 21-xdp](src/21-xdp/README_en.md) Use eBPF for XDP packet processing
+- [lesson 0-introduce](0-introduce/README.md) Introduces basic concepts of eBPF and common development tools
+- [lesson 1-helloworld](1-helloworld/README.md) Develops the simplest "Hello World" program using eBPF and introduces the basic framework and development process of eBPF
+- [lesson 2-kprobe-unlink](2-kprobe-unlink/README.md) Uses kprobe in eBPF to capture the unlink system call
+- [lesson 3-fentry-unlink](3-fentry-unlink/README.md) Uses fentry in eBPF to capture the unlink system call
+- [lesson 4-opensnoop](4-opensnoop/README.md) Uses eBPF to capture the system call collection of processes opening files, and filters process PIDs in eBPF using global variables
+- [lesson 5-uprobe-bashreadline](5-uprobe-bashreadline/README.md) Uses uprobe in eBPF to capture the readline function calls in bash
+- [lesson 6-sigsnoop](6-sigsnoop/README.md) Captures the system call collection of processes sending signals and uses a hash map to store states
+- [lesson 7-execsnoop](7-execsnoop/README.md) Captures process execution times and prints output to user space through perf event array
+- [lesson 8-exitsnoop](8-exitsnoop/README.md) Captures process exit events and prints output to user space using a ring buffer
+- [lesson 9-runqlat](9-runqlat/README.md) Captures process scheduling delays and records them in histogram format
+- [lesson 10-hardirqs](10-hardirqs/README.md) Captures interrupt events using hardirqs or softirqs
+- [lesson 11-bootstrap](11-bootstrap/README.md) Writes native libbpf user space code for eBPF using libbpf-bootstrap and establishes a complete libbpf project.
+- [lesson 12-profile](12-profile/README.md) Performs performance analysis using eBPF
+- [lesson 13-tcpconnlat](13-tcpconnlat/README.md) Records TCP connection latency and processes data in user space using libbpf
+- [lesson 14-tcpstates](14-tcpstates/README.md) Records TCP connection state and TCP RTT.- [lesson 15-javagc](15-javagc/README.md) Capture user-level Java GC event duration using usdt
+- [lesson 16-memleak](16-memleak/README.md) Detect memory leaks
+- [lesson 17-biopattern](17-biopattern/README.md) Capture disk IO patterns
+- [lesson 18-further-reading](18-further-reading/README.md) Further reading?
+- [lesson 19-lsm-connect](19-lsm-connect/README.md) Use LSM for security detection and defense
+- [lesson 20-tc](20-tc/README.md) Use eBPF for tc traffic control
+- [lesson 21-xdp](21-xdp/README.md) Use eBPF for XDP packet processing
 
 ### Advanced Documentation and Sample Programs
 
@@ -45,26 +45,26 @@ This section covers advanced topics related to eBPF, including using eBPF progra
 
 Android:
 
-- [Using eBPF programs on Android](src/22-android/README_en.md)
+- [Using eBPF programs on Android](22-android/README.md)
 
 Networking and tracing:
 
-- [Tracing HTTP requests or other layer-7 protocols using eBPF](src/23-http/README_en.md)
-- [Accelerating network request forwarding using sockops](src/29-sockops/README_en.md)
+- [Tracing HTTP requests or other layer-7 protocols using eBPF](23-http/README.md)
+- [Accelerating network request forwarding using sockops](29-sockops/README.md)
 
 Security:
 
-- [Hiding process or file information using eBPF](src/24-hide/README_en.md)
-- [Terminating processes by sending signals using bpf_send_signal](src/25-signal/README_en.md)
-- [Adding sudo users using eBPF](src/26-sudo/README_en.md)
-- [Replacing text read or written by any program using eBPF](src/27-replace/README_en.md)
-- [BPF lifecycle: Running eBPF programs continuously in Detached mode after user-mode applications exit](src/28-detach/README_en.md)
+- [Hiding process or file information using eBPF](24-hide/README.md)
+- [Terminating processes by sending signals using bpf_send_signal](25-signal/README.md)
+- [Adding sudo users using eBPF](26-sudo/README.md)
+- [Replacing text read or written by any program using eBPF](27-replace/README.md)
+- [BPF lifecycle: Running eBPF programs continuously in Detached mode after user-mode applications exit](28-detach/README.md)
 
 Continuously updated...
 
 ## Why write this tutorial?
 
-In the process of learning eBPF, we have been inspired and helped by the [bcc python developer tutorial](src/bcc-documents/tutorial_bcc_python_developer.md). However, from the current perspective, using libbpf to develop eBPF applications is a relatively better choice. However, there seems to be few tutorials that focus on eBPF development based on libbpf and BPF CO-RE, introducing it through examples and tools. Therefore, we initiated this project, adopting a similar organization method as the bcc python developer tutorial, but using CO-RE's libbpf for development.
+In the process of learning eBPF, we have been inspired and helped by the [bcc python developer tutorial](bcc-documents/tutorial_bcc_python_developer.md). However, from the current perspective, using libbpf to develop eBPF applications is a relatively better choice. However, there seems to be few tutorials that focus on eBPF development based on libbpf and BPF CO-RE, introducing it through examples and tools. Therefore, we initiated this project, adopting a similar organization method as the bcc python developer tutorial, but using CO-RE's libbpf for development.
 
 This project is mainly based on [libbpf-bootstrap](https://github.com/libbpf/libbpf-bootstrap) and [eunomia-bpf](https://github.com/eunomia-bpf/eunomia-bpf) frameworks, and uses eunomia-bpf to help simplify the development of some user-space libbpf eBPF code, allowing developers to focus on kernel-space eBPF code development.
 
@@ -92,13 +92,13 @@ When you create a new repository using one of the eBPF project templates mention
 
 1. Click the Code button in your new repository and select the Open with Codespaces option:
 
-    ![code](imgs/code-button.png)
+    ![code](../imgs/code-button.png)
 
 2. GitHub will create a new Codespace for you, which may take a few minutes depending on your network speed and the size of the repository.
 3. Once your Codespace is launched and ready to use, you can open the terminal and navigate to your project directory.
 4. You can follow the instructions in the corresponding repository to compile and run eBPF programs:
 
-    ![codespace](imgs/codespace.png)
+    ![codespace](../imgs/codespace.png)
 
 With Codespaces, you can easily create, manage, and share cloud-based development environments, speeding up and making your development process more reliable. You can develop with Codespaces anywhere, on any device, just need a computer with a web browser. Additionally, GitHub Codespaces supports pre-configured environments, customized development containers, and customizable development experiences to meet your development needs.
 
@@ -118,7 +118,7 @@ TIME     COMM             TID     LAT(us)
 12:09:19 systemd-udevd    30796   28721
 ```
 
-![docker](imgs/docker.png)
+![docker](../imgs/docker.png)
 
 ## Why do we need tutorials based on libbpf and BPF CO-RE?
 
@@ -162,7 +162,7 @@ This tutorial uses ChatGPT to learn how to write eBPF programs. At the same time
 4. Feed the modified code back to ChatGPT for further learning.
 5. Try to make ChatGPT generate eBPF programs and corresponding tutorial documents automatically! For example:
 
-![ebpf-chatgpt-signal](imgs/ebpf-chatgpt-signal.png)
+![ebpf-chatgpt-signal](../imgs/ebpf-chatgpt-signal.png)
 
 The complete conversation log can be found here: [ChatGPT.md](ChatGPT.md)
 

@@ -69,7 +69,7 @@ nav:
     
   - Tutorials: 
     - tutorials/index.md
-    - tutorials/README.md
+    - tutorials/SUMMARY.md
     - tutorials/ChatGPT.md
     - tutorials/0-introduce/README.md
     - tutorials/1-helloworld/README.md
@@ -109,7 +109,6 @@ nav:
   - Blogs: 
     - blogs/index.md
     - blogs/coolbpf-eunomia.md
-    - README: blogs/README.md
     - blogs/bpf-news.md
     - blogs/lmp-eunomia.md
     - blogs/wasm-bpf.md
