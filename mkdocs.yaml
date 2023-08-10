@@ -1,0 +1,182 @@
+site_name: eunomia-bpf
+repo_url: https://github.com/eunomia-bpf
+site_url: https://eunomia.dev/
+repo_name: eunomia-bpf
+copyright: Copyright (c) 2023 eunomia-bpf org.
+site_description: Build, Distribute and Run CO-RE eBPF programs easier with JSON and Webassembly OCI images 
+remote_branch: docs
+edit_uri: ""
+theme:
+  name: material
+  logo: assets/icon.svg
+  favicon: assets/icon.svg
+  custom_dir: material/overrides
+  palette:
+    - scheme: default
+      primary: white
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: black
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.indexes
+    - navigation.expand
+    - navigation.sections
+    - header.autohide
+nav:
+  - Home:
+      - index.md
+  - Documents:
+      - Quick Start: miscellaneous/quickstart.md
+      - Support: support.md
+      - Architecture: architecture/index.md
+      - Introduction: miscellaneous/introduction.md
+      - README: setup/doc.md
+      - Installation:
+          - setup/index.md
+          - From source: setup/build.md
+          - Android: setup/build-android-arm.md
+      - eunomia-cc: 
+         - ecc/index.md
+         - ecc/config-lua-depreciate.zh.md
+         - ecc/usage.md
+         - ecc/index.md
+         - ecc/docker-usage.md
+         - ecc/github-template.md
+      - ecli: 
+        - ecli/index.md
+        - ecli/server.md
+        - ecli with docker: ecli/ecli-dockerfile-usage.md
+      - exporter: 
+        - exporter/index.md
+        - exporter/usage.md
+      - Misc: 
+        - miscellaneous/benchmark.md
+        - miscellaneous/SUMMARY.md
+        - miscellaneous/manual.zh.md
+        - miscellaneous/introduction.md
+        - miscellaneous/video.md
+        - miscellaneous/common_problems.md
+        - miscellaneous/online.zh.md
+        - miscellaneous/supporting-external-BTF.zh.md
+        - miscellaneous/quickstart.md
+    
+  - Tutorials: 
+    - tutorials/index.md
+    - tutorials/0-introduce/README.md
+    - tutorials/1-helloworld/README.md
+    - tutorials/2-kprobe-unlink/README.md
+    - tutorials/3-fentry-unlink/README.md
+    - tutorials/4-opensnoop/README.md
+    - tutorials/5-uprobe-bashreadline/README.md
+    - tutorials/6-sigsnoop/README.md
+    - tutorials/7-execsnoop/README.md
+    - tutorials/8-exitsnoop/README.md
+    - tutorials/9-runqlat/README.md
+    - tutorials/10-hardirqs/README.md
+    - tutorials/11-bootstrap/README.md
+    - tutorials/12-profile/README.md
+    - tutorials/13-tcpconnlat/README.md
+    - tutorials/14-tcpstates/README.md
+    - tutorials/15-javagc/README.md
+    - tutorials/16-memleak/README.md
+    - tutorials/17-biopattern/README.md
+    - tutorials/18-further-reading/README.md
+    - tutorials/19-lsm-connect/README.md
+    - tutorials/20-tc/README.md
+    - tutorials/21-xdp/README.md
+    - tutorials/22-android/README.md
+    - tutorials/23-http/README.md
+    - tutorials/24-hide/README.md
+    - tutorials/25-signal/README.md
+    - tutorials/26-sudo/README.md
+    - tutorials/27-replace/README.md
+    - tutorials/28-detach/README.md
+    - tutorials/29-sockops/README.md
+    - tutorials/30-openssl/README.md
+    - tutorials/31-goroutine/README.md
+    - tutorials/32-funclatency/README.md
+    - tutorials/README.md
+    
+  - Blogs: 
+    - blogs/index.md
+    - blogs/coolbpf-eunomia.md
+    - README: blogs/README.md
+    - blogs/bpf-news.md
+    - blogs/lmp-eunomia.md
+    - blogs/wasm-bpf.md
+    - blogs/how-to-write-c-in-wasm.md
+    - blogs/introduce-to-wasm-bpf-wasm.md
+    - blogs/introduce-to-wasm-bpf-bpf-community.md
+    - 0.3.0-RELEASE: blogs/0_3_0-release.md
+    - blogs/ebpf-wasm.md
+    - blogs/GPTtrace.md
+    - blogs/how-to-write-rust-in-wasm.md
+    - blogs/eunomia-bpf的三月进展.md
+    - blogs/test-for-Android.md
+
+markdown_extensions:
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.details
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - admonition
+  - attr_list
+  - md_in_html
+  - footnotes
+  - def_list
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/eunomia-bpf
+  generator: false
+plugins:
+  - search
+  - i18n:
+      default_language: en
+      languages:
+        en:
+          name: English
+          build: true
+        zh:
+          name: 简体中文
+      material_alternate: true
+      nav_translations:
+        zh:
+          Getting Started: 开始
+          Support: 支持
+          Quick Start: 快速开始
+          Architecture: 项目架构
+
+          Installation: 安装
+          From source: 从源代码
+
+          Known Issues: 已知问题
+          Examples: 示例
+
+          Blogs: 博客
+          Misc: 其他
+          Tutorials: 教程
+          Introduction: 简介
+          README: 文档
+          Home: 主页
+          Documents: 文档
+          ecli with docker: 在docker中使用ecli
+          0.3.0-RELEASE: 0.3.0 发布
