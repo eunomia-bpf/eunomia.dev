@@ -314,16 +314,12 @@
     <div class="md-main__inner">
       <div>
         <h1>eunomia-bpf: simplify and enhance eBPF with CO-RE and WebAssembly</h1>
-        <!--<h3>Develop <a href="/basics/">in your shell</a>. Deploy <a href="/containers/">containers</a>.</h3>-->
         <h3>See
           <a href="/tutorials/">tutorials</a> and <a href="/blogs/">blogs</a>
         </h3>
-
-
         </p>
         <a href="/miscellaneous/quickstart/" title="Get Started" class="md-button md-button--primary">
           Get Started
-
         </a>
       </div>
     </div>
@@ -340,12 +336,16 @@
 
 </div>
 </div>
-{% endblock %}
 
-<!-- Content -->
-{% block content %}{% endblock %}
+<div class="md-container secondary-section">
+  <div class="g">
 
-<!-- Application footer -->
-{% block footer %}
-{{ super() }}
-{% endblock %}
+    {% endblock %}
+
+    <!-- Content -->
+    {% block content %}{% endblock %}
+
+    <!-- Application footer -->
+    {% block footer %}
+    {{ super() }}
+    {% endblock %}
