@@ -1,11 +1,16 @@
 name: Generate page
 on:
   workflow_dispatch:
+  repository_dispatch:
+    types:
+      - trigger-tutorial-sync
+      - trigger-document-sync
   push:
     branches:
       - main
     paths:
       - docs/**
+      - material
       - .github/workflows/mkdocs.yml
 jobs:
   deploy:
@@ -15,7 +20,43 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: 3.x
+          ref: main
       - run: |
           pip install mkdocs-material=="9.*" mkdocs-static-i18n=="0.53"
+
+      - uses: LucasRoesler/get-repo-owner-actions@v1.0
+        id: get_owner
+
+      - name: Checkout tutorial repo
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ steps.get_owner.outputs.owner }}/bpf-developer-tutorial
+          ref: main
+          path: tutorial
+
+      - name: Checkout main repository
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ steps.get_owner.outputs.owner }}/eunomia-bpf
+          ref: master
+          path: eunomia-bpf
+
+      - name: Change suffix
+        run: |
+          python3 fix_suffix.py
+      
+      - name: Merge changes
+        run: |
+          cp -rf eunomia-bpf/documents/src docs
+          mkdir docs/tutorials
+          cp -rf tutorial/src/* docs/tutorials
+          mv tutorial/README.zh.md docs/tutorials/SUMMARY.zh.md
+          mv tutorial/README.md docs/tutorials/SUMMARY.md
+          mv tutorial/src/SUMMARY.zh.md docs/tutorials/index.zh.md
+          mv tutorial/src/SUMMARY.md docs/tutorials/index.md
+
+      - name: deploy page
       - run: |
           mkdocs gh-deploy -m "{sha}" --force --ignore-version --no-history
+
+      
