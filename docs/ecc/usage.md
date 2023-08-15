@@ -1,9 +1,4 @@
 ---
-title: usage
-catagories: ['ecc']
----
-
----
 title: ecc usage
 tags: [ecc, maunal]
 ---

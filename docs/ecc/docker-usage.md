@@ -1,10 +1,5 @@
 ---
-title: use with docker
-catagories: ['ecc']
----
-
----
-title: docker usage
+title: ecc docker usage
 tags: [ docker, eunomia-bpf ]
 ---
 
