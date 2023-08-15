@@ -1,6 +1,4 @@
 # 如何在 Linux 显微镜（LMP）项目中开启 eBPF 之旅？
-#! https://zhuanlan.zhihu.com/p/589784489
-
 
 eBPF 为 Linux 内核提供了可扩展性，使开发人员能够对 Linux 内核进行编程，以便根据他们的业务需求快速构建智能的或丰富的功能。
 
