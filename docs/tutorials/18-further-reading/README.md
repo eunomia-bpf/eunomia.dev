@@ -1,3 +1,0 @@
-# More Reference Materials
-
-TODO

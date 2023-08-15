@@ -17,34 +17,61 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: main
+
       - uses: actions/setup-python@v4
         with:
           python-version: 3.x
-          ref: main
-      - run: |
-          pip install mkdocs-material=="9.*" mkdocs-static-i18n=="0.53"
-
-      - uses: LucasRoesler/get-repo-owner-actions@v1.0
-        id: get_owner
-
+      
       - name: Checkout tutorial repo
         uses: actions/checkout@v3
         with:
-          repository: ${{ steps.get_owner.outputs.owner }}/bpf-developer-tutorial
+          repository: ${{ github.repository_owner }}/bpf-developer-tutorial
           ref: main
           path: tutorial
 
       - name: Checkout main repository
         uses: actions/checkout@v3
         with:
-          repository: ${{ steps.get_owner.outputs.owner }}/eunomia-bpf
+          repository: ${{ github.repository_owner }}/eunomia-bpf
           ref: master
           path: eunomia-bpf
 
       - name: Change suffix
         run: |
+          cat << EOF > fix_suffix.py
+          import os
+          # *.md    -> *.zh.md
+          # *_en.md -> *.md
+          
+          def modify_filenames_recursive(folder_path):
+              for root, dirs, files in os.walk(folder_path):
+                  for filename in files:
+                      if filename.endswith(".md") and "_en" not in filename:
+                          name, extension = os.path.splitext(filename)
+                          new_filename = name + ".zh" + extension
+          
+                          old_path = os.path.join(root, filename)
+                          new_path = os.path.join(root, new_filename)
+                          os.rename(old_path, new_path)
+                          print(f"Renamed '{filename}' to '{new_filename}'")
+          
+          def remove_en_from_filenames_recursive(folder_path):
+              for root, dirs, files in os.walk(folder_path):
+                  for filename in files:
+                      if filename.endswith(".md") and "_en" in filename:
+                          new_filename = filename.replace("_en", "")
+                          old_path = os.path.join(root, filename)
+                          new_path = os.path.join(root, new_filename)
+                          os.rename(old_path, new_path)
+                          print(f"Renamed '{filename}' to '{new_filename}'")
+          folder_path = "./tutorial"
+          modify_filenames_recursive(folder_path)
+          remove_en_from_filenames_recursive(folder_path)
+          EOF
           python3 fix_suffix.py
-      
+
       - name: Merge changes
         run: |
           cp -rf eunomia-bpf/documents/src docs
@@ -54,9 +81,11 @@ jobs:
           mv tutorial/README.md docs/tutorials/SUMMARY.md
           mv tutorial/src/SUMMARY.zh.md docs/tutorials/index.zh.md
           mv tutorial/src/SUMMARY.md docs/tutorials/index.md
-
-      - name: deploy page
-      - run: |
-          mkdocs gh-deploy -m "{sha}" --force --ignore-version --no-history
-
       
+      - name: Install dependents
+        run: |
+          pip install mkdocs-material=="9.*" mkdocs-static-i18n=="0.53"
+
+      - name: Deploy page
+        run: |
+          mkdocs gh-deploy -m "{sha}" --force --ignore-version --no-history
