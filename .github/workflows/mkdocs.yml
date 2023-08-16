@@ -81,6 +81,7 @@ jobs:
           mv tutorial/README.md docs/tutorials/SUMMARY.md
           mv tutorial/src/SUMMARY.zh.md docs/tutorials/index.zh.md
           mv tutorial/src/SUMMARY.md docs/tutorials/index.md
+          echo "eunomia.dev" > docs/CNAME
       
       - name: Install dependents
         run: |
