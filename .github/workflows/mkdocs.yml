@@ -21,44 +21,8 @@ jobs:
         with:
           ref: main
 
-      - name: Checkout tutorial repo
-        uses: actions/checkout@v3
-        with:
-          repository: ${{ github.repository_owner }}/bpf-developer-tutorial
-          ref: main
-          path: tutorial
-
-      - name: Checkout main repository
-        uses: actions/checkout@v3
-        with:
-          repository: ${{ github.repository_owner }}/eunomia-bpf
-          ref: master
-          path: eunomia-bpf
-
-      - name: Change suffix
-        run: |
-          find ./tutorial -type f -name "*.md" ! -name "*_en*" -exec bash -c 'mv "$1" "${1%.md}.zh.md"' bash {} \;
-          find ./tutorial -type f -name "*_en*.md" -exec bash -c 'mv "$1" "${1//_en/}"' bash {} \;
-
-
-      - name: Merge changes
-        run: |
-          cp -rf eunomia-bpf/documents/src docs
-          mkdir docs/tutorials
-          cp -rf tutorial/src/* docs/tutorials
-          mv tutorial/README.zh.md docs/tutorials/SUMMARY.zh.md
-          mv tutorial/README.md docs/tutorials/SUMMARY.md
-          mv tutorial/src/SUMMARY.zh.md docs/tutorials/index.zh.md
-          mv tutorial/src/SUMMARY.md docs/tutorials/index.md
-          echo "eunomia.dev" > docs/CNAME
-      
-      - uses: actions/setup-python@v4
-        with:
-          python-version: 3.x
-
-      - name: Install dependents
-        run: |
-          pip install mkdocs-material=="9.*" mkdocs-static-i18n=="0.53"
+      - name: build docs
+        run:  make build
 
       - name: Build page
         if: github.event_name == 'pull_request'
