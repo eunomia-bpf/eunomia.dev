@@ -18,8 +18,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          ref: main
 
       - name: Checkout tutorial repo
         uses: actions/checkout@v3
@@ -35,22 +33,16 @@ jobs:
           ref: master
           path: eunomia-bpf
 
-      - name: Change suffix
-        run: |
-          find ./tutorial -type f -name "*.md" ! -name "*_en*" -exec bash -c 'mv "$1" "${1%.md}.zh.md"' bash {} \;
-          find ./tutorial -type f -name "*_en*.md" -exec bash -c 'mv "$1" "${1//_en/}"' bash {} \;
+      - name: Checkout main repository
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ github.repository_owner }}/GPTtrace
+          ref: main
+          path: GPTtrace
 
-
-      - name: Merge changes
+      - name: Change suffix and merge
         run: |
-          cp -rf eunomia-bpf/documents/src docs
-          mkdir docs/tutorials
-          cp -rf tutorial/src/* docs/tutorials
-          mv tutorial/README.zh.md docs/tutorials/SUMMARY.zh.md
-          mv tutorial/README.md docs/tutorials/SUMMARY.md
-          mv tutorial/src/SUMMARY.zh.md docs/tutorials/index.zh.md
-          mv tutorial/src/SUMMARY.md docs/tutorials/index.md
-          echo "eunomia.dev" > docs/CNAME
+          ./rename.sh
       
       - uses: actions/setup-python@v4
         with:
