@@ -120,8 +120,12 @@ nav:
     - blogs/eunomia-bpf的三月进展.md
     - blogs/test-for-Android.md
   
-  - GPTtrace
-    - GPTtrace/README.md
+  - GPTtrace:
+    - GPTtrace/index.md
+  
+  - wasm-bpf:
+    - wasm-bpf/index.md
+    - wasm-bpf/wasm-bpf.md
 
 markdown_extensions:
   - pymdownx.inlinehilite
