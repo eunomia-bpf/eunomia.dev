@@ -119,6 +119,9 @@ nav:
     - blogs/how-to-write-rust-in-wasm.md
     - blogs/eunomia-bpf的三月进展.md
     - blogs/test-for-Android.md
+  
+  - GPTtrace
+    - GPTtrace/README.md
 
 markdown_extensions:
   - pymdownx.inlinehilite

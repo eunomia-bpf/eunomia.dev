@@ -22,7 +22,7 @@ jobs:
           ref: main
 
       - name: build docs
-        run:  make build
+        run:  make
 
       - name: Build page
         if: github.event_name == 'pull_request'

@@ -9,11 +9,16 @@ tutorial:
 eunomia-bpf:
 	git clone https://github.com/eunomia-bpf/eunomia-bpf eunomia-bpf
 
-tutorial/README.zh.md: tutorial eunomia-bpf
+GPTtrace:
+	git clone https://github.com/eunomia-bpf/GPTtrace
+
+tutorial/README.zh.md: tutorial eunomia-bpf GPTtrace
 	./rename.sh
 
 docs/CNAME: tutorial/README.zh.md
 	cp -rf eunomia-bpf/documents/src docs
+	mkdir -p docs/GPTtrace
+	cp GPTtrace/README.md docs/GPTtrace/README.md
 	mkdir -p docs/tutorials
 	cp -rf tutorial/src/* docs/tutorials
 	mv tutorial/README.zh.md docs/tutorials/SUMMARY.zh.md
@@ -24,4 +29,4 @@ docs/CNAME: tutorial/README.zh.md
 	echo "eunomia.dev" > docs/CNAME
 
 clean:
-	rm -rf eunomia-bpf tutorial docs site
+	rm -rf eunomia-bpf tutorial docs site GPTtrace
