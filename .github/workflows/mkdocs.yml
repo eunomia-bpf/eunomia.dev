@@ -51,8 +51,6 @@ jobs:
       - name: Install dependents
         run: |
           pip install mkdocs-material=="9.*" mkdocs-static-i18n=="0.53"
-      - name: build docs
-        run:  make
 
       - name: Build page
         if: github.event_name == 'pull_request'
