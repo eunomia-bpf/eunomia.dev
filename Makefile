@@ -19,6 +19,7 @@ docs/CNAME: tutorial/README.zh.md
 	cp -rf eunomia-bpf/documents/src docs
 	mkdir -p docs/GPTtrace
 	cp GPTtrace/README.md docs/GPTtrace/index.md
+	cp -rf GPTtrace/doc docs/doc
 	mkdir -p docs/tutorials
 	cp -rf tutorial/src/* docs/tutorials
 	mv tutorial/README.zh.md docs/tutorials/SUMMARY.zh.md
