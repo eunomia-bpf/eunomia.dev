@@ -20,7 +20,8 @@ docs/CNAME: tutorial/README.zh.md
 	mv tutorial/README.md docs/tutorials/SUMMARY.md
 	mv tutorial/src/SUMMARY.zh.md docs/tutorials/index.zh.md
 	mv tutorial/src/SUMMARY.md docs/tutorials/index.md
+	mv tutorial/imgs docs/tutorials/imgs
 	echo "eunomia.dev" > docs/CNAME
 
 clean:
-	rm eunomia-bpf tutorial docs site
+	rm -rf eunomia-bpf tutorial docs site
