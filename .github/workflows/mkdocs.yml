@@ -56,6 +56,8 @@ jobs:
 
       - name: Build page
         if: github.event_name == 'pull_request'
+        run: |
+          mkdocs build -v
 
       - name: Deploy page
         if: github.event_name == 'repository_dispatch'
