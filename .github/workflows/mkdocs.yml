@@ -19,13 +19,43 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Checkout tutorial repo
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ github.repository_owner }}/bpf-developer-tutorial
+          ref: main
+          path: tutorial
+
+      - name: Checkout main repository
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ github.repository_owner }}/eunomia-bpf
+          ref: master
+          path: eunomia-bpf
+
+      - name: Checkout main repository
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ github.repository_owner }}/GPTtrace
+          ref: main
+          path: GPTtrace
+
+      - name: Change suffix and merge
+        run: |
+          ./rename.sh
+      
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+
+      - name: Install dependents
+        run: |
+          pip install mkdocs-material=="9.*" mkdocs-static-i18n=="0.53"
       - name: build docs
         run:  make
 
       - name: Build page
         if: github.event_name == 'pull_request'
-        run: |
-          mkdocs build -v
 
       - name: Deploy page
         if: github.event_name == 'repository_dispatch'
