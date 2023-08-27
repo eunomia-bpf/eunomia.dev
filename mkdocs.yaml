@@ -99,7 +99,7 @@ nav:
     - tutorials/27-replace/README.md
     - tutorials/28-detach/README.md
     - tutorials/29-sockops/README.md
-    - tutorials/30-openssl/README.md
+    - tutorials/30-sslsniff/README.md
     - tutorials/31-goroutine/README.md
     - tutorials/32-funclatency/README.md
     - tutorials/README.md
@@ -126,6 +126,10 @@ nav:
   - wasm-bpf:
     - wasm-bpf/index.md
     - wasm-bpf/wasm-bpf.md
+
+  - Other-Projects:
+    - others/index.ms
+    - others/bpf-benchmark.md
 
 markdown_extensions:
   - pymdownx.inlinehilite
