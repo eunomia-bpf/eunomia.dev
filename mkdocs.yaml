@@ -3,7 +3,7 @@ repo_url: https://github.com/eunomia-bpf
 site_url: https://eunomia.dev/
 repo_name: eunomia-bpf
 copyright: Copyright (c) 2023 eunomia-bpf org.
-site_description: Build, Distribute and Run CO-RE eBPF programs easier with JSON and Webassembly OCI images 
+site_description: 'eunomia-bpf: Simplifying and enhancing eBPF development and deployment'
 remote_branch: docs
 edit_uri: ""
 theme:
@@ -102,7 +102,6 @@ nav:
     - tutorials/30-sslsniff/README.md
     - tutorials/31-goroutine/README.md
     - tutorials/32-funclatency/README.md
-    - tutorials/README.md
     
   - Blogs: 
     - blogs/index.md
