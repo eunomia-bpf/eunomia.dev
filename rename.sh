@@ -7,8 +7,6 @@ cp -rf GPTtrace/doc docs/doc && \
 mkdir -p docs/tutorials && \
 cp -rf tutorial/src/* docs/tutorials && \
 cp -rf others/ docs/others && \
-mv tutorial/README.zh.md docs/tutorials/SUMMARY.zh.md && \
-mv tutorial/README.md docs/tutorials/SUMMARY.md && \
 mv tutorial/src/SUMMARY.zh.md docs/tutorials/index.zh.md && \
 mv tutorial/src/SUMMARY.md docs/tutorials/index.md && \
 mv tutorial/imgs docs/tutorials/imgs && \
