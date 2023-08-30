@@ -4,16 +4,16 @@ build: docs/CNAME
 	mkdocs build -v
 
 tutorial:
-	git clone https://github.com/eunomia-bpf/bpf-developer-tutorial tutorial
+	git clone https://github.com/eunomia-bpf/bpf-developer-tutorial tutorial --depth=1
 
 eunomia-bpf:
-	git clone https://github.com/eunomia-bpf/eunomia-bpf eunomia-bpf
+	git clone https://github.com/eunomia-bpf/eunomia-bpf eunomia-bpf --depth=1
 
 GPTtrace:
-	git clone https://github.com/eunomia-bpf/GPTtrace
+	git clone https://github.com/eunomia-bpf/GPTtrace --depth=1
 
 docs/CNAME: tutorial eunomia-bpf GPTtrace
 	./rename.sh
 
 clean:
-	rm -rf eunomia-bpf tutorial docs site GPTtrace
+	rm -rf eunomia-bpf tutorial site GPTtrace

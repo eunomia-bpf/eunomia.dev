@@ -127,8 +127,9 @@ nav:
     - wasm-bpf/wasm-bpf.md
 
   - Other-Projects:
-    - others/index.ms
+    - others/index.md
     - others/bpf-benchmark.md
+    - others/bpf-compatible.md
 
 markdown_extensions:
   - pymdownx.inlinehilite
