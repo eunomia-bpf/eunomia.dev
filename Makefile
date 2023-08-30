@@ -16,4 +16,4 @@ docs/CNAME: tutorial eunomia-bpf GPTtrace
 	./rename.sh
 
 clean:
-	rm -rf eunomia-bpf tutorial site GPTtrace
+	rm -rf eunomia-bpf tutorial site GPTtrace docs/tutorials docs/setup docs/GPTtrace
