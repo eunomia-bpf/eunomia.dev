@@ -3,7 +3,7 @@
 ## Brief description
 
 This repo contains a set of toolchain to simplify the building and running eBPF program on kernels without native BTF support.
-It utilitizes [btfhub](https://github.com/aquasecurity/btfhub-archive) to drop the depencency of native BTF
+It utilizes [btfhub](https://github.com/aquasecurity/btfhub-archive) to drop the dependency of native BTF
 
 ## What's in it
 
