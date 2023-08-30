@@ -75,7 +75,7 @@ $ ./ecli client list # no program is running
 
 ## API document
 
-For the http api, please refer to [openapi.yaml](../../../ecli/apis.yaml).
+For the http api, please refer to [openapi.yaml](https://github.com/eunomia-bpf/eunomia-bpf/tree/master/ecli/apis.yaml).
 
 You can also use curl to access the ecli server, for example:
 

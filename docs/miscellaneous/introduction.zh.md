@@ -246,7 +246,7 @@ you can also simply use the [ebpm-template](https://github.com/eunomia-bpf/ebpm-
 
 - An Observability tool
 
-    > An prometheus and OpenTelemetry exporter for custom eBPF metrics, written in async rust: [eunomia-exporter](https://github.com/eunomia-bpf/eunomia-exporter). You can compile it or download from [release](https://github.com/eunomia-bpf/eunomia-bpf/releases/)
+    > An prometheus and OpenTelemetry exporter for custom eBPF metrics, written in async rust: [eunomia-exporter](eunomia-exporter). You can compile it or download from [release](https://github.com/eunomia-bpf/eunomia-bpf/releases/)
 
 ## build the project
 

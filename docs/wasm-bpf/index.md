@@ -85,7 +85,7 @@ wasm-bpf-rs = "0.2.2"
 - **`Easy to use`**: provide a similar developing experience as the [libbpf-bootstrap](https://github.com/libbpf/libbpf-bootstrap), `auto generate` the Wasm-eBPF skeleton headers and type definitions for bindings. Write your eBPF programs in `C/C++`, `Rust`, `Go` and compile to Wasm.
 - **`Ultralightweight`**: the miminal runtime has only `1.5 MB` in binary size. Compiled Wasm module would be only `~90K`. With the same toolchain, you can easily build your own Wasm-eBPF runtime in any languages and platforms!
 
-See the [examples](examples) directory for examples of eBPF programs written in C, Rust, Go and compiled to Wasm, covering the use cases from `tracing`, `networking` to `security`.
+See the [examples](https://github.com/eunomia-bpf/wasm-bpf/tree/main/examples) directory for examples of eBPF programs written in C, Rust, Go and compiled to Wasm, covering the use cases from `tracing`, `networking` to `security`.
 
 For tools to distribute Wasm-eBPF programs in [`OCI`](https://opencontainers.org/) images, please refer to [eunomia-bpf](https://github.com/eunomia-bpf/eunomia-bpf) repo.
 
@@ -112,7 +112,7 @@ An eBPF application typically consists of two parts: the `user space part` and `
 The wasm-bpf runtime require two parts: `the host side`(Outside the Wasm runtime) and the `Wasm guest side`(Inside the Wasm runtime).
 
 - host side: A simple runtime implementation example
-  - see [runtime/cpp](runtime/cpp), which would be a sample runtime in `C++` built on the top of [libbpf](https://github.com/libbpf/libbpf) and [WAMR](https://github.com/bytecodealliance/wasm-micro-runtime). Another more complex runtime implement in `Rust` is [runtime/wasm-bpf-rs](https://github.com/eunomia-bpf/wasm-bpf/tree/main/runtime/wasm-bpf-rs), based on [Wasmtime](https://github.com/bytecodealliance/wasmtime).
+  - see [runtime/cpp](https://github.com/eunomia-bpf/wasm-bpf/tree/main/runtime/cpp), which would be a sample runtime in `C++` built on the top of [libbpf](https://github.com/libbpf/libbpf) and [WAMR](https://github.com/bytecodealliance/wasm-micro-runtime). Another more complex runtime implement in `Rust` is [runtime/wasm-bpf-rs](https://github.com/eunomia-bpf/wasm-bpf/tree/main/runtime/wasm-bpf-rs), based on [Wasmtime](https://github.com/bytecodealliance/wasmtime).
   - You can easily build your own Wasm-eBPF runtime in `any` languages, `any` eBPF libraries and `any` Wasm runtimes with the same System interface.
 - wasm side: toolchains and libraries
   - a [`libbpf-wasm`](https://github.com/eunomia-bpf/wasm-bpf/tree/main/wasm-sdk/c/libbpf-wasm.h) header only library to provide libbpf APIs for Wasm guest `C/C++` code.
