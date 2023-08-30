@@ -43,7 +43,6 @@ nav:
       - eunomia-cc: 
          - ecc/index.md
          - ecc/usage.md
-         - ecc/index.md
          - ecc/docker-usage.md
          - ecc/github-template.md
       - ecli: 
@@ -63,7 +62,6 @@ nav:
         
     
   - Tutorials: 
-    - tutorials/index.md
     - tutorials/0-introduce/README.md
     - tutorials/1-helloworld/README.md
     - tutorials/2-kprobe-unlink/README.md
