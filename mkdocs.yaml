@@ -54,47 +54,54 @@ nav:
       - Architecture: architecture/index.md
       - Misc: 
         - miscellaneous/benchmark.md
-        - miscellaneous/manual.zh.md
+        - miscellaneous/manual.md
         - miscellaneous/video.md
-        - miscellaneous/online.zh.md
-        - miscellaneous/supporting-external-BTF.zh.md
+        - miscellaneous/online.md
+        - miscellaneous/supporting-external-BTF.md
         - miscellaneous/quickstart.md
-        
-    
+
   - Tutorials: 
-    - tutorials/0-introduce/README.md
-    - tutorials/1-helloworld/README.md
-    - tutorials/2-kprobe-unlink/README.md
-    - tutorials/3-fentry-unlink/README.md
-    - tutorials/4-opensnoop/README.md
-    - tutorials/5-uprobe-bashreadline/README.md
-    - tutorials/6-sigsnoop/README.md
-    - tutorials/7-execsnoop/README.md
-    - tutorials/8-exitsnoop/README.md
-    - tutorials/9-runqlat/README.md
-    - tutorials/10-hardirqs/README.md
-    - tutorials/11-bootstrap/README.md
-    - tutorials/12-profile/README.md
-    - tutorials/13-tcpconnlat/README.md
-    - tutorials/14-tcpstates/README.md
-    - tutorials/15-javagc/README.md
-    - tutorials/16-memleak/README.md
-    - tutorials/17-biopattern/README.md
-    - tutorials/18-further-reading/README.md
-    - tutorials/19-lsm-connect/README.md
-    - tutorials/20-tc/README.md
-    - tutorials/21-xdp/README.md
-    - tutorials/22-android/README.md
-    - tutorials/23-http/README.md
-    - tutorials/24-hide/README.md
-    - tutorials/25-signal/README.md
-    - tutorials/26-sudo/README.md
-    - tutorials/27-replace/README.md
-    - tutorials/28-detach/README.md
-    - tutorials/29-sockops/README.md
-    - tutorials/30-sslsniff/README.md
-    - tutorials/31-goroutine/README.md
-    - tutorials/32-funclatency/README.md
+    - bpf-developer-tutorial:
+      - tutorials/0-introduce/README.md
+      - tutorials/1-helloworld/README.md
+      - tutorials/2-kprobe-unlink/README.md
+      - tutorials/3-fentry-unlink/README.md
+      - tutorials/4-opensnoop/README.md
+      - tutorials/5-uprobe-bashreadline/README.md
+      - tutorials/6-sigsnoop/README.md
+      - tutorials/7-execsnoop/README.md
+      - tutorials/8-exitsnoop/README.md
+      - tutorials/9-runqlat/README.md
+      - tutorials/10-hardirqs/README.md
+      - tutorials/11-bootstrap/README.md
+      - tutorials/12-profile/README.md
+      - tutorials/13-tcpconnlat/README.md
+      - tutorials/14-tcpstates/README.md
+      - tutorials/15-javagc/README.md
+      - tutorials/16-memleak/README.md
+      - tutorials/17-biopattern/README.md
+      - tutorials/18-further-reading/README.md
+      - tutorials/19-lsm-connect/README.md
+      - tutorials/20-tc/README.md
+      - tutorials/21-xdp/README.md
+      - tutorials/22-android/README.md
+      - tutorials/23-http/README.md
+      - tutorials/24-hide/README.md
+      - tutorials/25-signal/README.md
+      - tutorials/26-sudo/README.md
+      - tutorials/27-replace/README.md
+      - tutorials/28-detach/README.md
+      - tutorials/29-sockops/README.md
+      - tutorials/30-sslsniff/README.md
+      - tutorials/31-goroutine/README.md
+      - tutorials/32-funclatency/README.md
+    - bcc-documents:
+      - tutorials/bcc-documents/kernel-versions.md
+      - tutorials/bcc-documents/kernel_config.md
+      - tutorials/bcc-documents/reference_guide.md
+      - tutorials/bcc-documents/special_filtering.md
+      - tutorials/bcc-documents/tutorial.md
+      - tutorials/bcc-documents/tutorial_bcc_python_developer.md
     
   - Blogs: 
     - blogs/index.md

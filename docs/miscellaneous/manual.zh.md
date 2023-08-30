@@ -1,8 +1,3 @@
----
-title: manual
-catagories: ['misc']
----
-
 # eunomia-bpf 用户手册: 让 eBPF 程序的开发和部署尽可能简单
 
 <!-- TOC -->
@@ -224,7 +219,7 @@ sudo ./ecli run https://eunomia-bpf.github.io/ebpm-template/package.json
 
 由于 eunomia-cc 编译出来的 ebpf 程序代码和附加信息很小（约数十 kb），且不需要同时传递任何的额外依赖，因此我们可以非常方便地通过网络 API 直接进行分发，也可以在很短的时间（大约 100ms）内实现热插拔和热更新。我们提供了一个简单的 client 和 server，请参考;
 
-[ecli-dockerfile-usage.md](ecli/ecli-dockerfile-usage.md)
+[ecli-dockerfile-usage.md](../ecli/server.md)
 
 之前也有一篇比赛项目的可行性验证的文章：
 
