@@ -124,7 +124,6 @@ nav:
   
   - wasm-bpf:
     - wasm-bpf/index.md
-    - wasm-bpf/wasm-bpf.md
 
   - Other-Projects:
     - others/index.md
