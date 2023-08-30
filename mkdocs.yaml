@@ -1,4 +1,4 @@
-site_name: eunomia-bpf
+site_name: eunomia
 repo_url: https://github.com/eunomia-bpf
 site_url: https://eunomia.dev/
 repo_name: eunomia-bpf
@@ -33,42 +33,35 @@ nav:
   - Home:
       - index.md
   - Documents:
+      - Introduction: miscellaneous/introduction.md
       - Quick Start: miscellaneous/quickstart.md
       - Support: support.md
-      - Architecture: architecture/index.md
-      - Introduction: miscellaneous/introduction.md
-      - README: setup/doc.md
       - Installation:
           - setup/index.md
           - From source: setup/build.md
           - Android: setup/build-android-arm.md
       - eunomia-cc: 
          - ecc/index.md
-         - ecc/config-lua-depreciate.zh.md
          - ecc/usage.md
-         - ecc/index.md
          - ecc/docker-usage.md
          - ecc/github-template.md
       - ecli: 
         - ecli/index.md
         - ecli/server.md
-        - ecli with docker: ecli/ecli-dockerfile-usage.md
       - exporter: 
         - exporter/index.md
         - exporter/usage.md
+      - Architecture: architecture/index.md
       - Misc: 
         - miscellaneous/benchmark.md
-        - miscellaneous/SUMMARY.md
         - miscellaneous/manual.zh.md
-        - miscellaneous/introduction.md
         - miscellaneous/video.md
-        - miscellaneous/common_problems.md
         - miscellaneous/online.zh.md
         - miscellaneous/supporting-external-BTF.zh.md
         - miscellaneous/quickstart.md
+        
     
   - Tutorials: 
-    - tutorials/index.md
     - tutorials/0-introduce/README.md
     - tutorials/1-helloworld/README.md
     - tutorials/2-kprobe-unlink/README.md
@@ -110,7 +103,6 @@ nav:
     - blogs/lmp-eunomia.md
     - blogs/wasm-bpf.md
     - blogs/how-to-write-c-in-wasm.md
-    - blogs/introduce-to-wasm-bpf-wasm.md
     - blogs/introduce-to-wasm-bpf-bpf-community.md
     - 0.3.0-RELEASE: blogs/0_3_0-release.md
     - blogs/ebpf-wasm.md
@@ -118,17 +110,18 @@ nav:
     - blogs/how-to-write-rust-in-wasm.md
     - blogs/eunomia-bpf的三月进展.md
     - blogs/test-for-Android.md
+    - blogs/github-templates.md
   
   - GPTtrace:
     - GPTtrace/index.md
   
   - wasm-bpf:
     - wasm-bpf/index.md
-    - wasm-bpf/wasm-bpf.md
 
   - Other-Projects:
-    - others/index.ms
+    - others/index.md
     - others/bpf-benchmark.md
+    - others/bpf-compatible.md
 
 markdown_extensions:
   - pymdownx.inlinehilite

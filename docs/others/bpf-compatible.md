@@ -1,9 +1,7 @@
 # bpf-compatible
 
-## Brief description
-
-This repo contains a set of toolchain to simplify the building and running eBPF program on kernels without native BTF support.
-It utilizes [btfhub](https://github.com/aquasecurity/btfhub-archive) to drop the dependency of native BTF
+A set of toolchain to simplify the building and running eBPF program on kernels without native BTF support.
+It utilizes [btfhub](https://github.com/aquasecurity/btfhub-archive) to drop the dependency of native BTF.
 
 ## What's in it
 
@@ -22,12 +20,14 @@ Usually the `prepare` steps could only be run once.
 You will need a git repo like [btfhub-archive](https://github.com/aquasecurity/btfhub-archive), which contains prebuilt btf archive of various releases, archs, and kernels. We also provided a repo for demonstrating only (It contains a little number of kernel btf archives) [https://github.com/eunomia-bpf/btfhub-archive](https://github.com/eunomia-bpf/btfhub-archive).
 
 The repo should have the structure like:
+
 ```plain
 |- ubuntu <ID in os-release>
 |- ---- 22.04 <VERSION in os-release>
 |- ---- ---- x86_64 <machine in uname>
 |- ---- ---- ---- 5.15.0-71-generic.btf <kernel-release in uname>
 ```
+
 - Note: words in `<>` are explanation of the folder name.
 
 ### Prepare - build `bpf-compatible-sys`
@@ -52,7 +52,10 @@ Run `ld -r -b binary min_core_btfs.tar.gz -o min_core_btfs_tar.o` to generate a 
 
 ### Write the userspace program with `btf_helpers.h`
 
-Call `int ensure_core_btf(struct bpf_object_open_opts*)` before opening the skeleton. For example:
+Call `int ensure_core_btf(struct bpf_object_open_opts*)` before opening the skeleton.
+
+For example:
+
 ```c
 	libbpf_set_print(libbpf_print_fn);
 
