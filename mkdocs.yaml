@@ -118,7 +118,7 @@ nav:
   - wasm-bpf:
     - wasm-bpf/index.md
 
-  - Other-Projects:
+  - ecosystem:
     - others/index.md
     - others/bpf-benchmark.md
     - others/bpf-compatible.md
