@@ -105,6 +105,7 @@ nav:
     
   - Blogs: 
     - blogs/index.md
+    - blogs/1_0-release.md
     - blogs/coolbpf-eunomia.md
     - blogs/bpf-news.md
     - blogs/lmp-eunomia.md
