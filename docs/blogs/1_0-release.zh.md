@@ -4,7 +4,7 @@
 
 ## eunomia-bpf简介
 
-eunomia-bpf的目标是简化和增强eBPF的使用体验。它结合了CO-RE1技术和WebAssembly2技术，为开发者提供了一系列强大的工具和功能：
+eunomia-bpf的目标是简化和增强eBPF的使用体验。它结合了CO-RE技术和WebAssembly技术，为开发者提供了一系列强大的工具和功能：
 
 - **简化eBPF程序编写**：自动从内核采样数据并在用户空间打印；自动生成并配置eBPF程序的命令行参数；支持BCC和libbpf风格的内核部分编写。
   
