@@ -58,6 +58,9 @@ jobs:
           mkdocs build -v
 
       - name: Deploy page
-        if: github.event_name == 'repository_dispatch' || github.event_name == 'push'
+        if: |
+          github.event_name == 'repository_dispatch' ||
+          github.event_name == 'push' ||
+          github.event_name == 'workflow_dispatch'
         run: |
           mkdocs gh-deploy -m "{sha}" --force --ignore-version --no-history
