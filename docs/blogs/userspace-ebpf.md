@@ -69,16 +69,20 @@ One of the innate advantages of userspace eBPF runtimes is the ease with which d
 Userspace eBPF is being utilized in a number of notable projects, each harnessing the unique capabilities of eBPF to enhance their functionalities. Here's how Userspace eBPF is currently utilized in various applications:
 
 1. [**Oko:**](https://github.com/Orange-OpenSource/Oko)
-   - Oko is an extension of Open vSwitch-DPDK that provides runtime extension with BPF programs. It enables the use of BPF programs to process packets in userspace, providing flexible packet processing and facilitating the integration of Open vSwitch with other systems.
+  
+   Oko is an extension of Open vSwitch-DPDK that provides runtime extension with BPF programs. It enables the use of BPF programs to process packets in userspace, providing flexible packet processing and facilitating the integration of Open vSwitch with other systems.
 
-2. [**DPDK eBPF Support:**](https://www.dpdk.org/wp-content/uploads/sites/35/2018/10/pm-07-DPDK-BPFu6.pdf)
-   - The DPDK (Data Plane Development Kit) eBPF support facilitates fast packet processing by enabling the use of eBPF programs in userspace, which can be loaded and run to analyze network packets. This enhances the flexibility and programmability of network applications without requiring kernel modifications.
+1. [**DPDK eBPF Support:**](https://www.dpdk.org/wp-content/uploads/sites/35/2018/10/pm-07-DPDK-BPFu6.pdf)
 
-3. [**Solana:**](https://solana.com/)
-   - Solana utilizes eBPF to implement a JIT (Just-In-Time) compiler, which is essential for executing smart contracts on its blockchain network. The use of eBPF ensures safety, performance, and architecture agnosticism, thus allowing efficient execution of smart contracts across validator nodes on the Solana blockchain.
+   The DPDK (Data Plane Development Kit) eBPF support facilitates fast packet processing by enabling the use of eBPF programs in userspace, which can be loaded and run to analyze network packets. This enhances the flexibility and programmability of network applications without requiring kernel modifications.
 
-4. [**eBPF for Windows (Work-In-Progress):**](https://github.com/microsoft/ebpf-for-windows)
-   - This project is aimed at bringing the eBPF toolchains and APIs familiar in the Linux ecosystem to Windows, allowing existing eBPF toolchains to be utilized on top of Windows. This demonstrates a promising endeavor to extend the capabilities of eBPF beyond Linux, although it's still a work in progress.
+1. [**Solana:**](https://solana.com/)
+
+   Solana utilizes eBPF to implement a JIT (Just-In-Time) compiler, which is essential for executing smart contracts on its blockchain network. The use of eBPF ensures safety, performance, and architecture agnosticism, thus allowing efficient execution of smart contracts across validator nodes on the Solana blockchain.
+
+1. [**eBPF for Windows (Work-In-Progress):**](https://github.com/microsoft/ebpf-for-windows)
+
+   This project is aimed at bringing the eBPF toolchains and APIs familiar in the Linux ecosystem to Windows, allowing existing eBPF toolchains to be utilized on top of Windows. This demonstrates a promising endeavor to extend the capabilities of eBPF beyond Linux, although it's still a work in progress.
 
 The benefits of using eBPF in these applications include:
 
@@ -90,13 +94,18 @@ The benefits of using eBPF in these applications include:
 These attributes make eBPF a powerful tool for augmenting a variety of applications, ranging from network processing to blockchain smart contract execution, and beyond. There are also some papers that discuss the use of eBPF in userspace:
 
 1. [**RapidPatch: Firmware Hotpatching for Real-Time Embedded Devices**](https://www.usenix.org/conference/usenixsecurity22/presentation/he-yi):
-   - This paper introduces a new hotpatching framework named RapidPatch, which is designed to facilitate the propagation of patches by installing generic patches on heterogeneous embedded devices without disrupting other tasks running on them.
-   - Furthermore, RapidPatch proposes two types of eBPF patches for different types of vulnerabilities and develops an eBPF patch verifier to ensure patch safety.
+  
+   This paper introduces a new hotpatching framework named RapidPatch, which is designed to facilitate the propagation of patches by installing generic patches on heterogeneous embedded devices without disrupting other tasks running on them.
 
-2. [**Femto-Containers: Lightweight Virtualization and Fault Isolation For Small Software Functions on Low-Power IoT Microcontrollers**](https://arxiv.org/abs/2210.03432):
-   - This paper presents Femto-Containers, a novel framework that enables the secure deployment, execution, and isolation of small virtual software functions on low-power IoT devices over a network.
-   - The framework is implemented and provided in RIOT, a popular open source IoT operating system, with an emphasis on secure deployment, execution, and isolation of small virtual software functions on low-power IoT devices, over the network.
-   - The paper discusses the implementation of a Femto-Container hosting engine integrated within a common low-power IoT operating system (RIOT), enhancing it with the ability to start, update, or terminate Femto-Containers on demand, securely over a standard IPv6/6LoWPAN network.
+   Furthermore, RapidPatch proposes two types of eBPF patches for different types of vulnerabilities and develops an eBPF patch verifier to ensure patch safety.
+
+1. [**Femto-Containers: Lightweight Virtualization and Fault Isolation For Small Software Functions on Low-Power IoT Microcontrollers**](https://arxiv.org/abs/2210.03432):
+
+   This paper presents Femto-Containers, a novel framework that enables the secure deployment, execution, and isolation of small virtual software functions on low-power IoT devices over a network.
+
+   The framework is implemented and provided in RIOT, a popular open source IoT operating system, with an emphasis on secure deployment, execution, and isolation of small virtual software functions on low-power IoT devices, over the network.
+
+   The paper discusses the implementation of a Femto-Container hosting engine integrated within a common low-power IoT operating system (RIOT), enhancing it with the ability to start, update, or terminate Femto-Containers on demand, securely over a standard IPv6/6LoWPAN network.
   
 These papers delve into pertinent advancements concerning firmware patching and lightweight virtualization, demonstrating innovations that address critical challenges in the domains of real-time embedded systems and low-power IoT microcontrollers respectively.
 

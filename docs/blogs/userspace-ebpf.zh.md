@@ -69,16 +69,20 @@ eBPF，虽然因其在内核空间的操作而著称，但在其用户空间的�
 用户空间 eBPF 正在许多值得注意的项目中使用，每个项目都利用 eBPF 的独特功能来增强它们的功能。以下是用户空间 eBPF 目前在各种应用中的使用方式：
 
 1. [**Oko:**](https://github.com/Orange-OpenSource/Oko)
-   - Oko 是 Open vSwitch-DPDK 的扩展，提供了与 BPF 程序的运行时扩展。它允许使用 BPF 程序在用户空间处理数据包，提供灵活的数据包处理，并促进 Open vSwitch 与其他系统的集成。
 
-2. [**DPDK eBPF 支持:**](https://www.dpdk.org/wp-content/uploads/sites/35/2018/10/pm-07-DPDK-BPFu6.pdf)
-   - DPDK (数据平面开发套件) eBPF 支持通过允许在用户空间使用 eBPF 程序来促进快速的数据包处理，这些程序可以加载并运行以分析网络数据包。这增强了网络应用的灵活性和可编程性，无需修改内核。
+   Oko 是 Open vSwitch-DPDK 的扩展，提供了与 BPF 程序的运行时扩展。它允许使用 BPF 程序在用户空间处理数据包，提供灵活的数据包处理，并促进 Open vSwitch 与其他系统的集成。
 
-3. [**Solana:**](https://solana.com/)
-   - Solana 利用 eBPF 实现一个 JIT (即时)编译器，这对于在其区块链网络上执行智能合约是至关重要的。使用 eBPF 确保了安全性、性能和架构中立性，从而允许在 Solana 区块链上的验证器节点上高效地执行智能合约。
+1. [**DPDK eBPF 支持:**](https://www.dpdk.org/wp-content/uploads/sites/35/2018/10/pm-07-DPDK-BPFu6.pdf)
 
-4. [**eBPF for Windows (进行中的工作):**](https://github.com/microsoft/ebpf-for-windows)
-   - 该项目旨在将 Linux 生态系统中熟悉的 eBPF 工具链和 API 带到 Windows，允许在 Windows 之上使用现有的 eBPF 工具链。这展示了将 eBPF 的功能扩展到 Linux 之外的有前景的尝试，尽管它仍然是一个进行中的工作。
+   DPDK (数据平面开发套件) eBPF 支持通过允许在用户空间使用 eBPF 程序来促进快速的数据包处理，这些程序可以加载并运行以分析网络数据包。这增强了网络应用的灵活性和可编程性，无需修改内核。
+
+1. [**Solana:**](https://solana.com/)
+
+   Solana 利用 eBPF 实现一个 JIT (即时)编译器，这对于在其区块链网络上执行智能合约是至关重要的。使用 eBPF 确保了安全性、性能和架构中立性，从而允许在 Solana 区块链上的验证器节点上高效地执行智能合约。
+
+1. [**eBPF for Windows (进行中的工作):**](https://github.com/microsoft/ebpf-for-windows)
+
+   该项目旨在将 Linux 生态系统中熟悉的 eBPF 工具链和 API 带到 Windows，允许在 Windows 之上使用现有的 eBPF 工具链。这展示了将 eBPF 的功能扩展到 Linux 之外的有前景的尝试，尽管它仍然是一个进行中的工作。
 
 使用 eBPF 的这些应用的好处包括：
 
@@ -90,13 +94,12 @@ eBPF，虽然因其在内核空间的操作而著称，但在其用户空间的�
 这些属性使 eBPF 成为增强各种应用的强大工具，从网络处理到区块链智能合约执行，再到更多。还有一些论文讨论了在用户空间中使用 eBPF 的用途：
 
 1. [**RapidPatch: 用于实时嵌入式设备的固件热修复**](https://www.usenix.org/conference/usenixsecurity22/presentation/he-yi):
-   - 本文介绍了一个名为 RapidPatch 的新的热修复框架，该框架旨在通过在异构嵌入式设备上安装通用修复程序来促进修复的传播，而不会中断它们上运行的其他任务。
-   - 此外，RapidPatch 提出了两种类型的 eBPF 补丁，用于不同类型的漏洞，并开发了一个 eBPF 补丁验证器以确保补丁安全。
+   
+   本文介绍了一个名为 RapidPatch 的新的热修复框架，该框架旨在通过在异构嵌入式设备上安装通用修复程序来促进修复的传播，而不会中断它们上运行的其他任务。此外，RapidPatch 提出了两种类型的 eBPF 补丁，用于不同类型的漏洞，并开发了一个 eBPF 补丁验证器以确保补丁安全。
 
 2. [**Femto-Containers: 低功耗 IoT 微控制器上的小型软件功能的轻量级虚拟化和故障隔离**](https://arxiv.org/abs/2210.03432):
-   - 本文介绍了 Femto-Containers，这是一个新颖的框架，允许在低功耗 IoT 设备上安全地部署、执行和隔离小型虚拟软件功能。
-   - 该框架在 RIOT 中实现并提供，RIOT 是一个受欢迎的开源 IoT 操作系统，强调在低功耗 IoT 设备上安全地部署、执行和隔离小型虚拟软件功能。
-   - 该论文讨论了在一个常见的低功耗 IoT 操作系统 (RIOT) 中集成的 Femto-Container 主机引擎的实现，增强了其在标准的 IPv6/6LoWPAN 网络上按需启动、更新或终止 Femto-Containers 的能力。
+   
+   本文介绍了 Femto-Containers，这是一个新颖的框架，允许在低功耗 IoT 设备上安全地部署、执行和隔离小型虚拟软件功能。该框架在 RIOT 中实现并提供，RIOT 是一个受欢迎的开源 IoT 操作系统，强调在低功耗 IoT 设备上安全地部署、执行和隔离小型虚拟软件功能。该论文讨论了在一个常见的低功耗 IoT 操作系统 (RIOT) 中集成的 Femto-Container 主机引擎的实现，增强了其在标准的 IPv6/6LoWPAN 网络上按需启动、更新或终止 Femto-Containers 的能力。
 
 这些论文深入探讨了固件补丁和轻量级虚拟化方面的相关进展，展示了针对实时嵌入式系统和低功耗 IoT 微控制器领域的关键挑战的创新。
 
