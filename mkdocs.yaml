@@ -105,6 +105,7 @@ nav:
     
   - Blogs: 
     - blogs/index.md
+    - blogs/userspace-ebpf.md
     - blogs/1_0-release.md
     - blogs/ebpf-papers.md
     - blogs/coolbpf-eunomia.md
