@@ -7,12 +7,6 @@ on:
       - trigger-document-sync
   pull_request:
   push:
-    branches:
-      - main
-    paths:
-      - docs/**
-      - material
-      - .github/workflows/mkdocs.yml
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -26,19 +20,26 @@ jobs:
           ref: main
           path: tutorial
 
-      - name: Checkout main repository
+      - name: Checkout main repository eunomia-bpf
         uses: actions/checkout@v3
         with:
           repository: ${{ github.repository_owner }}/eunomia-bpf
           ref: master
           path: eunomia-bpf
 
-      - name: Checkout main repository
+      - name: Checkout main repository GPTtrace
         uses: actions/checkout@v3
         with:
           repository: ${{ github.repository_owner }}/GPTtrace
           ref: main
           path: GPTtrace
+
+      - name: Checkout main repository bpftime
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ github.repository_owner }}/bpftime
+          ref: master
+          path: bpftime
 
       - name: Change suffix and merge
         run: |
