@@ -12,8 +12,11 @@ eunomia-bpf:
 GPTtrace:
 	git clone https://github.com/eunomia-bpf/GPTtrace --depth=1
 
-docs/CNAME: tutorial eunomia-bpf GPTtrace
+bpftime:
+	git clone https://github.com/eunomia-bpf/bpftime --depth=1
+
+docs/CNAME: tutorial eunomia-bpf GPTtrace bpftime
 	./rename.sh
 
 clean:
-	rm -rf eunomia-bpf tutorial site GPTtrace docs/tutorials docs/setup docs/GPTtrace
+	rm -rf eunomia-bpf tutorial site GPTtrace docs/tutorials docs/setup docs/GPTtrace bpftime docs/bpftime

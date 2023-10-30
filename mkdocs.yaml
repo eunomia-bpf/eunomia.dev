@@ -128,6 +128,11 @@ nav:
   - wasm-bpf:
     - wasm-bpf/index.md
 
+  - bpftime:
+    - bpftime/index.md
+    - bpftime/documents/avaliable-features.md
+    - bpftime/documents/build-and-test.md
+
   - ecosystem:
     - others/index.md
     - others/bpf-benchmark.md
