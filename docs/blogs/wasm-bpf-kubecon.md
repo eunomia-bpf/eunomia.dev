@@ -6,11 +6,13 @@ In this blog, after a brief introduction to eBPF and Wasm and the differences be
 
 In the cloud-native ecosystem, eBPF (Extended Berkeley Packet Filter) and WebAssembly (Wasm) serve as emerging technologies facilitating advanced operational capabilities.
 
-`eBPF` (Extended Berkeley Packet Filter) enables dynamic and secure programming within the Linux kernel, enhancing networking, observability, tracing, and security capabilities efficiently. This technology allows for the injection of bytecode into the kernel at runtime, which the kernel can then execute in response to various events. As a result, eBPF is crucial in modern cloud-native environments for its ability to extend kernel functionality dynamically without the need to alter kernel source code or load modules, providing a flexible and powerful means of system optimization and monitoring.
+`eBPF` (Extended Berkeley Packet Filter) enables dynamic and secure programming within the Linux kernel, enhancing networking, observability, tracing, and security capabilities efficiently. This technology allows for the injection of bytecode into the kernel at runtime, which the kernel can then execute in response to various events. As a result, eBPF is essential in modern cloud-native environments for its ability to extend kernel functionality dynamically and safely without the need to alter kernel source code or load modules, providing a flexible and powerful means of system optimization and monitoring.
 
 `WebAssembly` (Wasm), on the other hand, is a binary instruction format that functions as a virtual machine and a compilation target for high-level languages, enabling developers to run sandboxed executable code in web browsers and server-side applications. Wasm is designed to be portable, secure, and execute at near-native speeds, making it an ideal runtime for web applications and increasingly for server-side containerized applications.
 
-`The differences between eBPF and Wasm`: eBPF is designed for performance, utilizing static verification to minimize run-time checks, as it's tailored for a specific intent known before execution. In contrast, WebAssembly (WASM) operates within a sandboxed environment, necessitating run-time checks for any arbitrary code it runs, which can introduce performance overhead. While eBPF is integrated with the kernel, enhancing efficiency and safety, WebAssembly is considered for kernel inclusion due to its versatility in running arbitrary code, albeit with some performance trade-offs. Currently, eBPF is primarily used for kernel programming in C, while Wasm has a wider range of language support and much more use cases.
+`The differences between eBPF and Wasm`: Wasm operates within a sandboxed environment, emphasizing security. It incorporates run-time checks for arbitrary code execution, which, while bolstering safety, introduces some performance overhead. Additionally, Wasm boasts a robust language support and ecosystem, making it versatile and conducive to various applications. Contrastingly, eBPF is finely tuned towards performance optimization. It employs static verification methods, minimizing run-time checks as the functionalities are predetermined before execution. eBPF is predominantly used with small C programs, emphasizing its focus on performance and efficiency.
+
+In essence, while both technologies are instrumental in enhancing the execution of code, Wasm leans more towards flexibility and security, whereas eBPF focuses on performance and efficiency. This delineation marks the fundamental differences in their design philosophies and application domains.
 
 `WasmEdge` is a lightweight and high-performance Wasm runtime that has been integrated into Docker CLI, allowing for seamless deployment of both containerized and Wasm-based applications within the same infrastructure. This integration underscores the cloud-native commitment to interoperability and the ability to abstract underlying infrastructure complexities away from developers and operators.
 
@@ -28,9 +30,9 @@ Moreover, `maintaining consistency` during updates is another pain point. Ensuri
 
 In summary, while tight integration offers efficiency and direct control, it requires careful coordination and broad permissions. On the other hand, daemon delegation provides a layer of abstraction at the cost of additional complexity and potential delays in leveraging new features. Each model carries its own set of "cons," and the choice between them would depend on the specific requirements and constraints of the project in question.
 
-## Challenges for eBPF in Kubernetes
+## Summary: challenges for eBPF in Kubernetes
 
-Deploying eBPF in Kubernetes clusters adds another layer of complexity. These challenges are primarily in the realms of security, compatibility, lifecycle management, and versioning:
+Deploying eBPF in Kubernetes clusters also adds another layer of complexity. To summarize the challenges of deploying eBPF with different models:
 
 1. **Security Risks with Privileged Access**: eBPF applications necessitate elevated access levels in Kubernetes, often requiring privileged pods. The minimum requirement is CAP_BPF capabilities, but the actual permissions may extend further, depending on the eBPF program type. The broad scope of Linux capabilities complicates the restriction of privileges to the essential minimum. This can inadvertently introduce security vulnerabilities, for instance, a compromised eBPF program could extract sensitive data from the host or other containers and could potentially execute in the host namespace, breaching container isolation.
 
@@ -39,6 +41,8 @@ Deploying eBPF in Kubernetes clusters adds another layer of complexity. These ch
 3. **Complex Lifecycle and Deployment Management**: Orchestrating the lifecycle of eBPF programs in Kubernetes is complex. Deployment typically involves creating a DaemonSet, which increases architectural complexity and security considerations. The process includes writing a custom agent to load eBPF bytecode and managing this agent with a DaemonSet. This necessitates an in-depth understanding of the eBPF program lifecycle to ensure persistence across pod restarts and to manage updates efficiently. Using traditional Linux containers for this purpose can be counterproductive and heavy, negating the lightweight advantage of eBPF.
 
 4. **Challenges with Versioning and Plugability**: Current eBPF deployments in Kubernetes often embed the eBPF program within the user space binary responsible for its loading and operation. This tight coupling hinders the ability to version the eBPF program independently of its user space counterpart. If users need to customize eBPF programs, for instance, to track proprietary protocols or analyze specific traffic, they must recompile both the eBPF program and user space library, release a new version, and redeploy. The absence of a dedicated package management system for eBPF programs further complicates management and version control.
+
+There is not a single solution to all these challenges, but maybe we can leverage the advantages of WebAssembly (Wasm) to address some of these issues. In the next section, we will discuss how Wasm can help improve the deployment of eBPF in Kubernetes.
 
 ## How WebAssembly can bring to eBPF deployments in Kubernetes
 
@@ -56,20 +60,34 @@ WebAssembly (Wasm) could address some of these challenges:
 
 In summary, while eBPF offers powerful capabilities for Kubernetes, it comes with significant challenges related to security, manageability, and operational complexity. WebAssembly could provide solutions to these challenges by offering a more secure, isolated, and manageable environment.
 
-## Wasm-bpf
+## Wasm-bpf: A Paradigm Shift in eBPF Deployments
 
-Wasm-bpf is a toolkit designed to bridge the capabilities of WebAssembly (Wasm) with eBPF, making it easier to build, manage, and deploy eBPF applications within Kubernetes. Here are the key points about Wasm-bpf:
+Wasm-bpf is a WebAssembly eBPF library, toolchain and runtime powered by CO-RE(Compile Once – Run Everywhere) libbpf. It allows the construction of eBPF programs into Wasm with little to no changes to the code, and run them cross platforms with Wasm sandbox. Wasm-bpf can be used as a plugin for WasmEdge, a high-performance Wasm runtime optimized for cloud-native environments, to integrate with Kubernetes. The project allows you:
 
-1. **CO-RE Powered**: Utilizes the Compile Once – Run Everywhere (CO-RE) libbpf, enabling eBPF programs to run on different kenrel verisons without modification.
-2. **Streamlined Development**: Allows the construction of eBPF programs into Wasm with little to no changes to the code, simplifying the development process.
-3. **k8s and container integration**: Enables the deployment of eBPF programs as Wasm modules within Kubernetes, leveraging existing container orchestration tools and practices.
-4. **Enhanced Version Control**: Wasm-bpf enables independent versioning and updating of eBPF programs, which can be packaged as OCI images within Wasm modules.
-5. **Plugibility**: Wasm-bpf allows eBPF programs to be loaded and unloaded dynamically, enabling a more flexible and modular approach to observability, with a sandboxed environment for eBPF programs to run in safely.
-6. **Security**: Deploy eBPF programs as Wasm modules, benefiting from the inherent security features of Wasm. This means that eBPF programs can be contained within a well-defined boundary, reducing the risk of unauthorized access or escape to the host system.
+- `Create Wasm-based eBPF control plane applications`: Wasm-bpf empowers developers to create Wasm-based eBPF control plane applications. These applications can tap into the control and communication mechanisms eBPF provides, but with the added advantages of Wasm's lightweight and secure environment. The result is a robust control plane capable of intricate networking and security operations, all managed with Kubernetes' native tooling.
+- `Enable Streamlined Management of eBPF programs in k8s pods with lightweight Wasm container`: With Wasm-bpf, managing eBPF programs becomes an integrated part of Kubernetes' orchestration:
+  - **Lightweight Containers**: Utilizing Wasm containers that are a fraction of the size of traditional LXC images, Wasm-bpf ensures that eBPF programs can be deployed rapidly and with less overhead.
+  - **Kubernetes Pods**: eBPF programs are deployed as Wasm modules within k8s pods, aligning with existing container orchestration practices and enhancing manageability.
+  - **WasmEdge Integration**: As a plugin for WasmEdge, Wasm-bpf benefits from a high-performance runtime optimized for Kubernetes, ensuring seamless cloud-native integration.
+- `Enables Wasm plugin in eBPF core applications`: allow dynamic loading and unloading of eBPF programs, promoting a modular and flexible approach towards system observability and interactions. The user can write their own eBPF programs and load them into the observability agents, without the need to recompile and redeploy it. This allows for a more agile and efficient development process, where eBPF programs can be updated independently of the core application for complex data processing and private protocol analysis.
 
-The Wasm-bpf project is a step towards a more secure and manageable use of eBPF within Kubernetes, promising to simplify the deployment and operation of eBPF-based applications. For further details, the project's GitHub repository offers comprehensive information and updates.
+## Enhancing eBPF Deployment: Efficiency and Ease
 
-Wasm-bpf can be used as a plugin for WasmEdge, a high-performance Wasm runtime optimized for cloud-native environments, to integrate with Kubernetes.
+Wasm-bpf addresses the deployment challenges by offering a runtime that's optimized for eBPF within a Wasm lightweight container:
+
+- **Size and Performance**: The containers are just 1% the size of standard LXC images, coupled with a fast startup time for eBPF programs, ensuring quick deployments. Wasm also has a near native runtime performance.
+- **Cross-Platform Portability**: With CO-RE, these eBPF programs are not just portable across different platforms but also across kernel versions, obviating the need for kernel-specific adaptations. With user space eBPF runtime, no kernel eBPF support is needed.
+- **Version Control**: It allows for independent versioning and updating of eBPF programs, enabling them to be treated as OCI images within Wasm modules, thereby simplifying versioning and updates.
+
+## Elevating Security in eBPF Deployments
+
+Wasm-bpf not only makes deployment easier but also significantly safer:
+
+- **Configurable WASI Behavior**:  It provides a configurable environment with limited eBPF WASI behavior, enhancing security and control. This allows for fine-grained permissions, restricting access to kernel resources and providing a more secure environment. For instance, eBPF programs can be restricted to specific types of useage, such as network monitoring, without the need for broad permissions.
+- **Access Control**: it can also apply RBAC to control the access of eBPF programs easily.
+- **Sandboxed Environment**: By sandboxing the user space, Wasm-bpf enables the safe execution of eBPF programs, avoiding the risks associated with privileged access levels in traditional deployments. This
+
+In essence, Wasm-bpf is crafted to mitigate the inherent challenges faced when deploying eBPF in Kubernetes environments. It leverages the strengths of WebAssembly to make eBPF deployments not only easier and more efficient but also significantly more secure. By encapsulating eBPF programs in lightweight, portable, and secure Wasm modules, Wasm-bpf streamlines the lifecycle and versioning management, offering a sophisticated solution that aligns with the dynamic and scalable nature of cloud-native ecosystems. As Kubernetes continues to evolve, Wasm-bpf stands ready to play a critical role in simplifying and securing eBPF deployments across the cloud-native landscape.
 
 ## trade offs
 
@@ -110,6 +128,7 @@ The introduction of Wasm-bpf is undoubtedly an exciting development, yet it's im
 The integration of eBPF with WebAssembly (Wasm) within Kubernetes is a promising approach but comes with its own set of challenges:
 
 1. **Porting Libraries and Preparing Toolchains**:
+
    For different programming languages, there are corresponding libraries to interface with eBPF. These need to be ported to work with Wasm:
 
    - **C/C++**: `libbpf` is the standard library for working with eBPF in C/C++. Adapting this to work within the Wasm environment requires ensuring compatibility with Wasm's execution model.
@@ -117,19 +136,21 @@ The integration of eBPF with WebAssembly (Wasm) within Kubernetes is a promising
    - **Go**: The Go language has its own eBPF library, `cilium/go`. This too must be adapted for a Wasm runtime, which can be non-trivial given Go's runtime and garbage collection features.
 
 2. **Differences in Data Layout Between Wasm and eBPF**:
+
    Wasm currently operates in a 32-bit environment, whereas eBPF is designed for a 64-bit architecture. This difference in data layout can lead to complications, particularly when handling data structures that are designed with 64-bit systems in mind.
 
    - To address this, toolchains are utilized to generate bindings that can translate between the two architectures. This minimizes the need for serialization and deserialization, which can degrade performance.
 
 3. **Kernel Version Support for eBPF**:
+
    eBPF's functionality can depend heavily on the Linux kernel version, with newer features often requiring the latest kernel releases.
 
    - **CO-RE**: This feature allows eBPF programs to be more portable across different kernel versions by providing a stable ABI that doesn't require recompilation. This can help mitigate kernel compatibility issues.
+   - **A compatible layer for kernel features**: Some eBPF features may not be supported in all kernel versions. For instance, the `ringbuf` feature is only available in kernel versions 5.4 and above, while `perf_event` is available in kernel versions 4.9. This can be addressed by providing a compatible layer that emulates the missing functionality.
+
    - **Userspace eBPF Runtime**: For systems where updating the kernel isn't feasible, a userspace eBPF runtime can be employed. This allows eBPF programs to run without direct kernel support, which is crucial for environments where kernel modifications are restricted.
 
 Once these hurdles are overcome, developers can leverage the power of eBPF in a more flexible and secure manner, enabled by the capabilities of Wasm.
-
-##
 
 ## How can eBPF enhance Wasm: WASI and Debugging
 
@@ -155,6 +176,8 @@ In essence, eBPF's integration with Wasm paves the way for more sophisticated an
 
 ## reference
 
+- Wasm-bpf: <https://github.com/eunomia-bpf/wasm-bpf>
+- WasmEdge eBPF plugin: <https://github.com/WasmEdge/WasmEdge/tree/master/plugins/wasm_bpf>
 - bpfd: <https://bpfd.dev/#why-ebpf-in-kubernetes>
 - Cross Container Attacks: The Bewildered eBPF on Clouds: <https://www.usenix.org/conference/usenixsecurity23/presentation/he>
 - eBPF - The Silent Platform Revolution from Cloud Native: <https://conferences.sigcomm.org/sigcomm/2023/files/workshop-ebpf/1-CloudNative.pdf>
