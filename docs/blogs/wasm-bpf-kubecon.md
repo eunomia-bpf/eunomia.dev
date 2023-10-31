@@ -157,3 +157,5 @@ In essence, eBPF's integration with Wasm paves the way for more sophisticated an
 
 - bpfd: <https://bpfd.dev/#why-ebpf-in-kubernetes>
 - Cross Container Attacks: The Bewildered eBPF on Clouds: <https://www.usenix.org/conference/usenixsecurity23/presentation/he>
+- eBPF - The Silent Platform Revolution from Cloud Native: <https://conferences.sigcomm.org/sigcomm/2023/files/workshop-ebpf/1-CloudNative.pdf>
+- POSTER: Leveraging eBPF to enhance sandboxing of WebAssembly runtimes: <https://dl.acm.org/doi/fullHtml/10.1145/3579856.3592831> - We have done similar works early this year
