@@ -7,12 +7,12 @@ The Linux kernel primarily released versions 5.16-5.19, 6.0, and 6.1 in 2022, ea
 - [eBPF Advanced: Overview of New Kernel Features](#ebpf-advanced-overview-of-new-kernel-features)
   - [BPF kfuncs](#bpf-kfuncs)
   - [Bloom Filter Map: 5.16](#bloom-filter-map-516)
-  - [Compile Once – Run Everywhere: Linux 5.17](#compile-once--run-everywherelinux-517)
-  - [bpf_loop() Helper Function: 5.17](#bpf_loop-helper-function-517)
-  - [BPF_LINK_TYPE_KPROBE_MULTI: 5.18](#bpf_link_type_kprobe_multi-518)
-  - [Dynamic Pointers and Type Pointers: 5.19](#dynamic-pointers-and-type-pointers-519)
+  - [Compile Once – Run Everywhere: Linux 5.17".Linux 5.17 added a new feature called Compile Once - Run Everywhere (CO-RE) for eBPF, which greatly simplifies the complexity of handling multi-version kernel compatibility and loop logic in eBPF programs](#compile-once--run-everywhere-linux-517linux-517-added-a-new-feature-called-compile-once---run-everywhere-co-re-for-ebpf-which-greatly-simplifies-the-complexity-of-handling-multi-version-kernel-compatibility-and-loop-logic-in-ebpf-programs)
+  - [Helper function bpf\_loop(): 5.17](#helper-function-bpf_loop-517)
+  - [BPF\_LINK\_TYPE\_KPROBE\_MULTI: 5.18](#bpf_link_type_kprobe_multi-518)
+  - [Dynamic Pointers and Type Pointers: 5.19.Instructions: Translate the following Chinese text to English](#dynamic-pointers-and-type-pointers-519instructions-translate-the-following-chinese-text-to-english)
   - [USDT: 5.19](#usdt-519)
-  - [bpf panic: 6.1](#bpf-panic61)
+  - [BPF panic: 6.1](#bpf-panic-61)
   - [BPF Memory Allocator, Linked List: 6.1](#bpf-memory-allocator-linked-list-61)
   - [User Ring Buffer 6.1](#user-ring-buffer-61)
 
@@ -37,7 +37,7 @@ This patchset includes benchmarking of bloom filters with configurable numbers o
 
 - BPF: Implement bloom filter map [Link](https://lwn.net/Articles/868024/)
 
-## Compile Once – Run Everywhere: Linux 5.17".Linux 5.17 added a new feature called Compile Once - Run Everywhere (CO-RE) for eBPF, which greatly simplifies the complexity of handling multi-version kernel compatibility and loop logic in eBPF programs.
+## Compile Once – Run Everywhere: Linux 5.17".Linux 5.17 added a new feature called Compile Once - Run Everywhere (CO-RE) for eBPF, which greatly simplifies the complexity of handling multi-version kernel compatibility and loop logic in eBPF programs
 
 The CO-RE project of eBPF relies on the debugging information provided by BPF Type Format (BTF) and goes through the following four steps to enable eBPF programs to adapt to different versions of the kernel:
 
@@ -75,7 +75,8 @@ This patch set adds a new link type called BPF_TRACE_KPROBE_MULTI, which connect
 
 - bpf: Add kprobe multi link: <https://lwn.net/Articles/885811/>
 
-## Dynamic Pointers and Type Pointers: 5.19.Instructions: Translate the following Chinese text to English 
+## Dynamic Pointers and Type Pointers: 5.19.Instructions: Translate the following Chinese text to English
+
 while maintaining the original formatting: "All memory accesses in the BPF program use validators for security static checks, and validators perform comprehensive analysis of the program before allowing it to run. While this enables BPF programs to run safely in kernel space, it restricts how the program can use pointers. Until recently, one such restriction was that the size of the memory region referenced by a pointer in a BPF program had to be statically known when loading the BPF program. Joanne Koong recently introduced a patchset that enhances BPF to support loading programs with pointers to dynamically sized memory regions.
 
 Koong's patchset adds support for accessing dynamically sized memory regions in BPF programs, which includes a new feature called dynptrs. The main idea behind dynptrs is to associate pointers to dynamically sized data regions with validators and some metadata used by BPF helper functions, to ensure that access to that region is valid. Koong's patchset creates this association in a newly defined type called struct bpf_dynptr. This structure is opaque to BPF programs.
