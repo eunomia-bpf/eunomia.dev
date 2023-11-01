@@ -129,7 +129,7 @@ For both technologies, reliance on underlying libraries for complex operations i
 
 On the language support front, while eBPF's niche and specialized nature mean limited language support, Wasm boasts a broader language portfolio due to its origin and design for the web.
 
-### Conclusion
+## Conclusion
 
 Userspace eBPF runtimes are an exciting development that expands the capabilities of eBPF beyond the kernel. As highlighted in this post, they offer compelling benefits like enhanced performance, flexibility, and security compared to kernel-based eBPF. Runtimes like bpftime demonstrate the potential for substantial speedups, even outperforming alternatives like Wasm runtimes in certain dimensions like low-level performance.
 
@@ -140,3 +140,15 @@ While alternatives like Wasm certainly have their place with a strong emphasis o
 > We encourage our readers to dive deep into the world of userspace eBPF, starting with our bpftime GitHub repository: <https://github.com/eunomia-bpf/bpftime> Contributions, feedback, or simply using the tool can further the cause and provide invaluable insights to the community.
 >
 > If you use our project in research, please [cite our repo](https://github.com/eunomia-bpf/bpftime/blob/master/CITATION.cff).
+
+## reference
+
+1. bpftime: <https://github.com/eunomia-bpf/bpftime>
+2. ubpf: <https://github.com/iovisor/ubpf>
+3. rbpf: <https://github.com/qmonnet/rbpf>
+4. Oko: <https://github.com/Orange-OpenSource/Oko>
+5. RapidPatch: Firmware Hotpatching for Real-Time Embedded Devices: <https://www.usenix.org/conference/usenixsecurity22/presentation/he-yi>
+6. DPDK eBPF Support: <https://www.dpdk.org/wp-content/uploads/sites/35/2018/10/pm-07-DPDK-BPFu6.pdf>
+7. Solana: <https://solana.com/>
+8. eBPF for Windows (Work-In-Progress): <https://github.com/microsoft/ebpf-for-windows>
+9. Femto-Containers: Lightweight Virtualization and Fault Isolation For Small Software Functions on Low-Power IoT Microcontrollers: <https://arxiv.org/abs/2210.03432>

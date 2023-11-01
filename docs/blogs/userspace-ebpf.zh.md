@@ -132,7 +132,7 @@ eBPF，原本因其在内核空间的强大性能而被广泛认知，但近年�
 
 从更宏观的角度看，eBPF运行时和Wasm实际上可以被视为是相互补充的。尽管 eBPF 拥有出色的验证器机制来确保运行时安全性，但由于其编程语言的局限性和相对较高的开发难度，它并不总是适合作为业务逻辑的首选运行时。反之，eBPF 更适用于像网络流量转发、可观测性和 livepatch 这样的高专业性任务。相对而言，Wasm 运行时可以作为 Serverless 的运行时平台、插件系统和轻量级虚拟化等场景的首选。这两者都有自己的优势，但它们的选择取决于特定的用例和优先级。
 
-### 总结与前景
+## 总结与前景
 
 用户空间的eBPF运行时正在打破边界，将eBPF的能力从内核扩展到了更广阔的领域。这种扩展带来了显著的性能、灵活性和安全性提升。例如，`bpftime`运行时显示了其在某些低级性能场景下，甚至超越了像 Wasm 这样的其他技术。也有越来越多的应用将用户空间的 eBPF 用于快速补丁、轻量级虚拟化、网络过滤等场景。
 
@@ -141,3 +141,15 @@ Wasm 的主要焦点在于可移植性、轻量级虚拟化、安全性、多语
 > 我们诚邀您深入探索用户空间eBPF的世界，您可以从我们的项目 [https://github.com/eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime) 开始。您的贡献、反馈或仅仅是对此工具的使用和 star，都可以为我们的社区带来巨大价值。
 >
 > 若您在研究中采用了我们的`bpftime`项目，请[引用我们的仓库](https://github.com/eunomia-bpf/bpftime/blob/master/CITATION.cff)。我们期待您的宝贵意见和反馈，您可以通过 GitHub 仓库的 issue、邮箱 [yunwei356@gmail.com](mailto:yunwei356@gmail.com) 或微信 yunwei2567 与我们联系。
+
+## 参考资料
+
+1. bpftime: <https://github.com/eunomia-bpf/bpftime>
+2. ubpf: <https://github.com/iovisor/ubpf>
+3. rbpf: <https://github.com/qmonnet/rbpf>
+4. Oko: <https://github.com/Orange-OpenSource/Oko>
+5. RapidPatch: Firmware Hotpatching for Real-Time Embedded Devices: <https://www.usenix.org/conference/usenixsecurity22/presentation/he-yi>
+6. DPDK eBPF Support: <https://www.dpdk.org/wp-content/uploads/sites/35/2018/10/pm-07-DPDK-BPFu6.pdf>
+7. Solana: <https://solana.com/>
+8. eBPF for Windows (Work-In-Progress): <https://github.com/microsoft/ebpf-for-windows>
+9. Femto-Containers: Lightweight Virtualization and Fault Isolation For Small Software Functions on Low-Power IoT Microcontrollers: <https://arxiv.org/abs/2210.03432>
