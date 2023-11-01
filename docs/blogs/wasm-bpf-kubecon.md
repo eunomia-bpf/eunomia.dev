@@ -123,6 +123,10 @@ While Wasm-bpf presents a promising solution for deploying eBPF programs within 
 
 The introduction of Wasm-bpf is undoubtedly an exciting development, yet it's important to weigh these trade-offs when considering its adoption. For organizations with existing eBPF workloads or those looking to exploit the full range of eBPF capabilities, a careful evaluation of the potential impacts on performance, compatibility, and developer productivity is necessary.
 
+## Run eBPF in Wasm Docker
+
+The following code 
+
 ## Challenges of eBPF for Wasm: Bridging Architecture and Kernel Dependencies
 
 The integration of eBPF with WebAssembly (Wasm) within Kubernetes is a promising approach but comes with its own set of challenges:
@@ -151,6 +155,10 @@ The integration of eBPF with WebAssembly (Wasm) within Kubernetes is a promising
    - **Userspace eBPF Runtime**: For systems where updating the kernel isn't feasible, a userspace eBPF runtime can be employed. This allows eBPF programs to run without direct kernel support, which is crucial for environments where kernel modifications are restricted.
 
 Once these hurdles are overcome, developers can leverage the power of eBPF in a more flexible and secure manner, enabled by the capabilities of Wasm.
+
+## How it works: Wasm-bpf
+
+
 
 ## How can eBPF enhance Wasm: WASI and Debugging
 

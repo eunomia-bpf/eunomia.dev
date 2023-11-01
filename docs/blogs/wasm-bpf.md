@@ -85,7 +85,6 @@ For a complete eBPF application, there are usually two parts: the user state and
 <img src=https://ebpf.io/static/libbpf-ee03b2f4d79b197554fa00671e67129d.png width=60% />
 </div>
 
-
 ### A new eBPF development framework defined on top of the user-state Wasm-eBPF system interface
 
 The project essentially wants to treat the Wasm sandbox as an alternative user-state runtime space on top of the OS, allowing Wasm applications to implement the same programming model and execution logic in the sandbox as eBPF applications that normally run in the user state.
