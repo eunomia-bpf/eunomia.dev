@@ -114,6 +114,40 @@ reference
 - Sign the BPF bytecode: <https://lpc.events/event/16/contributions/1357/attachments/1045/1999/BPF%20Signatures.pdf>
 - bpfd: <https://bpfd.dev/>
 
+## Other possible solutions
+
+Some research or discussions about how to improve the security of eBPF. Existing works can be roughly divided into three categories: virtualization, Software Fault Isolation (SFI), and
+formal methods.
+
+- MOAT: Towards Safe BPF Kernel Extension (Isolation)
+
+    The Linux kernel makes considerable use of
+    Berkeley Packet Filter (BPF) to allow user-written BPF applications
+    to execute in the kernel space. BPF employs a verifier to
+    statically check the security of user-supplied BPF code. Recent
+    attacks show that BPF programs can evade security checks and
+    gain unauthorized access to kernel memory, indicating that the
+    verification process is not flawless. In this paper, we present
+    MOAT, a system that isolates potentially malicious BPF programs
+    using Intel Memory Protection Keys (MPK). Enforcing BPF
+    program isolation with MPK is not straightforward; MOAT is
+    carefully designed to alleviate technical obstacles, such as limited
+    hardware keys and supporting a wide variety of kernel BPF
+    helper functions. We have implemented MOAT in a prototype
+    kernel module, and our evaluation shows that MOAT delivers
+    low-cost isolation of BPF programs under various real-world
+    usage scenarios, such as the isolation of a packet-forwarding
+    BPF program for the memcached database with an average
+    throughput loss of 6%.
+
+    <https://arxiv.org/abs/2301.13421>
+
+- Unleashing Unprivileged eBPF Potential with Dynamic Sandboxing
+
+    For safety reasons, unprivileged users today have only limited ways to customize the kernel through the extended Berkeley Packet Filter (eBPF). This is unfortunate, especially since the eBPF framework itself has seen an increase in scope over the years. We propose SandBPF, a software-based kernel isolation technique that dynamically sandboxes eBPF programs to allow unprivileged users to safely extend the kernel, unleashing eBPF's full potential. Our early proof-of-concept shows that SandBPF can effectively prevent exploits missed by eBPF's native safety mechanism (i.e., static verification) while incurring 0%-10% overhead on web server benchmarks.
+
+    <https://arxiv.org/abs/2308.01983>
+
 ## Limitations in eBPF Access Control
 
 After leading Linux distributions, such as Ubuntu and SUSE, have disallowed unprivileged usage of eBPF Socket Filter and CGroup programs, the current eBPF access control model only supports a single permission level. This level necessitates the CAP_SYS_ADMIN capability for all features. However, CAP_SYS_ADMIN carries inherent risks, particularly to containers, due to its extensive privileges.
