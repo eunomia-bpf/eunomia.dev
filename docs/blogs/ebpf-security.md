@@ -142,11 +142,36 @@ formal methods.
 
     <https://arxiv.org/abs/2301.13421>
 
+    > If we must resort to hardware protection mechanisms, is language safety or verification still necessary to protect the kernel and extensions from one another?
+
 - Unleashing Unprivileged eBPF Potential with Dynamic Sandboxing
 
     For safety reasons, unprivileged users today have only limited ways to customize the kernel through the extended Berkeley Packet Filter (eBPF). This is unfortunate, especially since the eBPF framework itself has seen an increase in scope over the years. We propose SandBPF, a software-based kernel isolation technique that dynamically sandboxes eBPF programs to allow unprivileged users to safely extend the kernel, unleashing eBPF's full potential. Our early proof-of-concept shows that SandBPF can effectively prevent exploits missed by eBPF's native safety mechanism (i.e., static verification) while incurring 0%-10% overhead on web server benchmarks.
 
     <https://arxiv.org/abs/2308.01983>
+
+    > Is the original design of eBPF not to be a sandbox? Why not using webassembly for SFI?
+
+- Kernel extension verification is untenable
+
+    The emergence of verified eBPF bytecode is ushering in a
+    new era of safe kernel extensions. In this paper, we argue
+    that eBPF’s verifier—the source of its safety guarantees—has
+    become a liability. In addition to the well-known bugs and
+    vulnerabilities stemming from the complexity and ad hoc
+    nature of the in-kernel verifier, we highlight a concerning
+    trend in which escape hatches to unsafe kernel functions
+    (in the form of helper functions) are being introduced to
+    bypass verifier-imposed limitations on expressiveness, unfortunately also bypassing its safety guarantees. We propose
+    safe kernel extension frameworks using a balance of not
+    just static but also lightweight runtime techniques. We describe a design centered around kernel extensions in safe
+    Rust that will eliminate the need of the in-kernel verifier,
+    improve expressiveness, allow for reduced escape hatches,
+    and ultimately improve the safety of kernel extensions
+
+    <https://sigops.org/s/conferences/hotos/2023/papers/jia.pdf>
+
+    > Is it limits the kernel to load only eBPF programs that are signed by trusted third parties, as the kernel itself can no longer independently verify them? The rust toolchains also has vulnerabilities?
 
 ## Limitations in eBPF Access Control
 
