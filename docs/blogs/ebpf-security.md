@@ -202,7 +202,7 @@ formal methods.
 
     <https://arxiv.org/abs/2308.01983>
 
-    > Is the original design of eBPF not to be a sandbox? Why not using webassembly for SFI?
+    > It may be conflict with the original design of eBPF, since it's not designed to use sandbox to ensure safety. Why not using webassembly in kernel if you want SFI?
 
 - Kernel extension verification is untenable
 
@@ -223,7 +223,23 @@ formal methods.
 
     <https://sigops.org/s/conferences/hotos/2023/papers/jia.pdf>
 
-    > Is it limits the kernel to load only eBPF programs that are signed by trusted third parties, as the kernel itself can no longer independently verify them? The rust toolchains also has vulnerabilities?
+    > It may limits the kernel to load only eBPF programs that are signed by trusted third parties, as the kernel itself can no longer independently verify them. The rust toolchains also has vulnerabilities.
+
+- Wasm-bpf: WebAssembly eBPF library, toolchain and runtime
+
+    Wasm-bpf is a WebAssembly eBPF library, toolchain and runtime powered by CO-RE(Compile Once – Run Everywhere) libbpf. It allows the construction of eBPF programs into Wasm with little to no changes to the code, and run them cross platforms with Wasm sandbox. Wasm-bpf can be used as a plugin for WasmEdge, a high-performance Wasm runtime optimized for cloud-native environments, to integrate with Kubernetes.
+
+    It provides a configurable environment with limited eBPF WASI behavior, enhancing security and control. This allows for fine-grained permissions, restricting access to kernel resources and providing a more secure environment. For instance, eBPF programs can be restricted to specific types of useage, such as network monitoring, it can also configure what kind of eBPF programs can be loaded in kernel, what kind of attach event it can access without the need for modify kernel eBPF permission models.
+
+    <https://github.com/eunomia-bpf/wasm-bpf>
+
+    > It will require additional effort to port the application to WebAssembly. Additionally, Wasm interface of kernel eBPF also need more effort of maintain, as the BPF daemon does.
+
+- `bpftime`: Userspace eBPF runtime for uprobe & syscall hook & plugin
+
+  It can work together with kernel eBPF, and allow stemless intergration or transparently exection of kernel uprobe or syscall tracepoints.
+
+  > It's only limited to centain eBPF program kinds and usecases, not a general approach.
 
 ## Conclusion
 
