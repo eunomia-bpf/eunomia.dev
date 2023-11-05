@@ -1,66 +1,81 @@
-# The security in eBPF
+# The Secure Path Forward for eBPF: Challenges and Innovations
 
-In this blog, we will focus on the security in eBPF. We will not talk about how to use eBPF to improve the security of the system, but focus on the security of eBPF itself.
+Extended Berkeley Packet Filter (eBPF) represents a significant evolution in the way we interact with and extend the capabilities of modern operating systems. As a powerful technology that enables the Linux kernel to run sandboxed programs in response to events, eBPF has become a cornerstone for system observability, networking, and security features.
 
-## Introduction
+However, as with any system that interfaces closely with the kernel, the security of eBPF itself is paramount. In this blog, we delve into the often-overlooked aspect of eBPF security, exploring how the mechanisms intended to safeguard eBPF can themselves be fortified. We'll dissect the role of the eBPF verifier, scrutinize the current access control model, and investigate potential improvements from ongoing research. Moreover, we'll navigate through the complexities of securing eBPF, addressing open questions and the challenges they pose to system architects and developers alike.
 
-## How eBPF ensures security with verifier
+## How eBPF Ensures Security with Verifier
 
-The verifier is the key to ensure the security of eBPF.
+The security framework of eBPF is largely predicated on the robustness of its verifier. This component acts as the gatekeeper, ensuring that only safe and compliant programs are allowed to run within the kernel space.
 
-### What the eBPF verifier is and what it does
+### What the eBPF Verifier Is and What It Does
 
-Static code analyzer walking in-kernel copy of BPF program instructions
+At its core, the eBPF verifier is a static code analyzer. Its primary function is to vet the BPF program instructions before they are executed. It scrutinizes a copy of the program within the kernel, operating with the following objectives:
 
-- Ensuring program termination
-  - DFS traversal to check program is a DAG
-  - Preventing unbounded loops
-  - Preventing out-of-bounds or malformed jumps
-- Ensuring memory safety
-  - Preventing out-of-bounds memory access
-  - Preventing use-after-free bugs and object leaks
-  - Also mitigating vulnerabilities in the underlying hardware (Spectre)
-- Ensuring type safety
-  - Preventing type confusion bugs
-  - BPF Type Format (BTF) for access to (kernel’s) aggregate types
-- Preventing hardware exceptions (division by zero)
-  - For unknown scalars, instructions rewritten to follow aarch64 spec
+- `Ensuring Program Termination`
 
-### How the eBPF verifier works
+  The verifier uses depth-first search (DFS) algorithms to traverse the program's control flow graph, which it ensures is a Directed Acyclic Graph (DAG). This is crucial for guaranteeing that the program cannot enter into an infinite loop, thereby ensuring its termination. It meticulously checks for any unbounded loops and malformed or out-of-bounds jumps that could disrupt the normal operation of the kernel or lead to a system hang.
 
-Works by simulating execution of all paths of the program
+- `Ensuring Memory Safety`
 
-- Follows control flow graph
-  - For each instruction computes set of possible states (BPF register set & stack)
-  - Performs safety checks (e.g. memory access) depending on current instruction
-  - Register spill/fill tracking for program’s private BPF stack
-- Back-edges in control flow graph
-  - Bounded loops by brute-force simulating all iterations up to a limit
-- Dealing with potentially large number of states
-  - Path pruning logic compares current state vs prior states
-    - Current path “equivalent” to prior paths with safe exit?
-- Function-by-function verification for state reduction
-- On-demand scalar precision (back-)tracking for state reduction
-- Terminates with rejection upon surpassing “complexity” threshold
+  Memory safety is paramount in kernel operations. The verifier checks for potential out-of-bounds memory accesses that could lead to data corruption or security breaches. It also safeguards against use-after-free bugs and object leaks, which are common vulnerabilities that can be exploited. In addition to these, it takes into account hardware vulnerabilities like Spectre, enforcing mitigations to prevent such side-channel attacks.
+
+- `Ensuring Type Safety`
+
+  Type safety is another critical aspect that the verifier ensures. By preventing type confusion bugs, it helps maintain the integrity of data within the kernel. The eBPF verifier utilizes BPF Type Format (BTF), which allows it to accurately understand and check the kernel's complex data structures, ensuring that the program's operations on these structures are valid and safe.
+
+- `Preventing Hardware Exceptions`
+
+  Hardware exceptions, such as division by zero, can cause abrupt program terminations and kernel panics. To prevent this, the verifier includes checks for divisions by unknown scalars, ensuring that instructions are rewritten or handled in a manner consistent with aarch64 specifications, which dictate safe handling of such exceptions.
+
+Through these mechanisms, the eBPF verifier plays a critical role in maintaining the security and stability of the kernel, making it an indispensable component of the eBPF infrastructure. It not only reinforces the system's defenses but also upholds the integrity of operations that eBPF programs intend to perform, making it a quintessential part of the eBPF ecosystem.
+
+### How the eBPF Verifier Works
+
+The eBPF verifier is essentially a sophisticated simulation engine that exhaustively tests every possible execution path of a given eBPF program. This simulation is not a mere theoretical exercise but a stringent enforcement of security and safety policies in kernel operations.
+
+- **Follows control flow graph**
+  The verifier begins its analysis by constructing and following the control flow graph (CFG) of the eBPF program. It carefully computes the set of possible states for each instruction, considering the BPF register set and stack. Safety checks are then performed depending on the current instruction context.
+  
+  One of the critical aspects of this process is register spill/fill tracking for the program's private BPF stack. This ensures that operations involving the stack do not lead to overflows or underflows, which could corrupt data or provide an attack vector.
+
+- **Back-edges in control flow graph**
+  To effectively manage loops within the eBPF program, the verifier identifies back-edges in the CFG. Bounded loops are handled by simulating all iterations up to a predefined limit, thus guaranteeing that loops will not lead to indefinite execution.
+
+- **Dealing with potentially large number of states**
+  The verifier must manage the complexity that comes with the large number of potential states in a program's execution paths. It employs path pruning logic to compare the current state with prior states, assessing whether the current path is "equivalent" to prior paths and has a safe exit. This reduces the overall number of states that need to be considered.
+
+- **Function-by-function verification for state reduction**
+  To streamline the verification process, the verifier conducts a function-by-function analysis. This modular approach allows for a reduction in the number of states that need to be analyzed at any given time, thereby improving the efficiency of the verification.
+
+- **On-demand scalar precision (back-)tracking for state reduction**
+  The verifier uses on-demand scalar precision tracking to reduce the state space further. By back-tracking scalar values when necessary, the verifier can more accurately predict the program's behavior, optimizing its analysis process.
+
+- **Terminates with rejection upon surpassing “complexity” threshold**
+  To maintain practical performance, the verifier has a "complexity" threshold. If a program's analysis surpasses this threshold, the verifier will terminate the process and reject the program. This ensures that only programs that are within the manageable complexity are allowed to execute, balancing security with system performance.
 
 ### Challenges
 
-- Attractive target for exploitation when exposed to non-root
-  - Growing verifier complexity
-  - Programmability can be abused to bypass mitigations once in OS kernel
-- Reasoning about verifier correctness is non-trivial
-  - Especially Spectre mitigations
-  - Only partial formal verification (e.g. tnums, JITs)
-- Occasions where valid programs get rejected
-  - LLVM vs verifier “disconnect” to understand optimizations
-  - Restrictions when tracking state
-- “Stable ABI” for BPF program types (with some limitations)
-  - BPF programs in production should not break upon OS kernel upgrade
-- Performance vs security considerations
-  - Verification of complex programs must be efficient to be practical
-  - Mitigations must be practical as performance of programs crucial
+Despite its thoroughness, the eBPF verifier faces significant challenges:
 
-### Previous works to improve security of verifier
+- **Attractive target for exploitation when exposed to non-root users**
+  As the verifier becomes more complex, it becomes an increasingly attractive target for exploitation. The programmability of eBPF, while powerful, also means that if an attacker were to bypass the verifier and gain execution within the OS kernel, the consequences could be severe.
+
+- **Reasoning about verifier correctness is non-trivial**
+  Ensuring the verifier's correctness, especially concerning Spectre mitigations, is not a straightforward task. While there is some formal verification in place, it is only partial. Areas such as the Just-In-Time (JIT) compilers and abstract interpretation models are particularly challenging.
+
+- **Occasions where valid programs get rejected**
+  There is sometimes a disconnect between the optimizations performed by LLVM (the compiler infrastructure used to prepare eBPF programs) and the verifier's ability to understand these optimizations, leading to valid programs being erroneously rejected.
+
+- **"Stable ABI" for BPF program types**
+  A "stable ABI" is vital so that BPF programs running in production do not break upon an OS kernel upgrade. However, maintaining this stability while also evolving the verifier and the BPF ecosystem presents its own set of challenges.
+
+- **Performance vs. security considerations**
+  Finally, the eternal trade-off between performance and security is pronounced in the verification of complex eBPF programs. While the verifier must be efficient to be practical, it also must not compromise on security, as the performance of the programs it is verifying is crucial for modern computing systems.
+
+The eBPF verifier stands as a testament to the ingenuity in modern computing security, navigating the treacherous waters between maximum programmability and maintaining a fortress-like defense at the kernel level.
+
+### Other works to improve verifier
 
 - Specification and verification in the field: Applying formal methods to BPF just-in-time compilers in the Linux kernel: <https://www.usenix.org/conference/osdi20/presentation/nelson>
 - "Sound, Precise, and Fast Abstract Interpretation with Tristate Numbers”, Vishwanathan et al. <https://arxiv.org/abs/2105.05398>
@@ -70,11 +85,48 @@ Works by simulating execution of all paths of the program
 - “Simple and Precise Static Analysis of Untrusted Linux Kernel Extensions”, Gershuni et al. <https://linuxplumbersconf.org/event/11/contributions/951/>
 - “An Analysis of Speculative Type Confusion Vulnerabilities in the Wild”, Kirzner et al. <https://www.usenix.org/conference/usenixsecurity21/presentation/kirzner>
 
-reference:
+Together, these works signify a robust and multi-faceted research initiative aimed at bolstering the foundations of eBPF verification, ensuring that it remains a secure and performant tool for extending the capabilities of the Linux kernel.
+
+Other reference for you to learn more about eBPF verifier:
 
 - BPF and Spectre: Mitigating transient execution attacks: <https://popl22.sigplan.org/details/prisc-2022-papers/11/BPF-and-Spectre-Mitigating-transient-execution-attacks>
 
-## Unprivileged eBPF
+## Limitations in eBPF Access Control
+
+After leading Linux distributions, such as Ubuntu and SUSE, have disallowed unprivileged usage of eBPF Socket Filter and CGroup programs, the current eBPF access control model only supports a single permission level. This level necessitates the CAP_SYS_ADMIN capability for all features. However, CAP_SYS_ADMIN carries inherent risks, particularly to containers, due to its extensive privileges.
+
+Addressing this, Linux 5.6 introduces a more granular permission system by breaking down eBPF capabilities. Instead of relying solely on CAP_SYS_ADMIN, a new capability, CAP_BPF, is introduced for invoking the bpf syscall. Additionally, installing specific types of eBPF programs demands further capabilities, such as CAP_PERFMON for performance monitoring or CAP_NET_ADMIN for network administration tasks. This structure aims to mitigate certain types of attacks—like altering process memory or eBPF maps—that still require CAP_SYS_ADMIN.
+
+Nevertheless, these segregated capabilities are not bulletproof against all eBPF-based attacks, such as Denial of Service (DoS) and information theft. Attackers may exploit these to craft eBPF-based malware specifically targeting containers. The emergence of eBPF in cloud-native applications exacerbates this threat, as users could inadvertently deploy containers that contain untrusted eBPF programs.
+
+Compounding the issue, the risks associated with eBPF in containerized environments are not entirely understood. Some container services might unintentionally grant eBPF permissions, for reasons such as enabling filesystem mounting functionality. The existing permission model is inadequate in preventing misuse of these potentially harmful eBPF features within containers.
+
+### CAP_BPF
+
+Traditionally, almost all BPF actions required CAP_SYS_ADMIN privileges, which also grant broad system access. Over time, there has been a push to separate BPF permissions from these root privileges. As a result, capabilities like CAP_PERFMON and CAP_BPF were introduced to allow more granular control over BPF operations, such as reading kernel memory and loading tracing or networking programs, without needing full system admin rights.
+
+However, CAP_BPF's scope is ambiguous, leading to a perception problem. Unlike CAP_SYS_MODULE, which is well-defined and used for loading kernel modules, CAP_BPF lacks namespace constraints, meaning it can access all kernel memory rather than being container-specific. This broad access is problematic because verifier bugs in BPF programs can crash the kernel, considered a security vulnerability, leading to an excessive number of CVEs (Common Vulnerabilities and Exposures) being filed, even for bugs that are already fixed. This response to verifier bugs creates undue alarm and urgency to patch older kernel versions that may not have been updated.
+
+Additionally, some security startups have been criticized for exploiting the fears around BPF's capabilities to market their products, paradoxically using BPF itself to safeguard against the issues they highlight. This has led to a contradictory narrative where BPF is both demonized and promoted as a solution.
+
+### bpf namespace
+
+The current security model requires the CAP_SYS_ADMIN capability for iterating BPF object IDs and converting these IDs to file descriptors (FDs). This is to prevent non-privileged users from accessing BPF programs owned by others, but it also restricts them from inspecting their own BPF objects, posing a challenge in container environments.
+
+Users can run BPF programs with CAP_BPF and other specific capabilities, yet they lack a generic method to inspect these programs, as tools like bpftool need CAP_SYS_ADMIN. The existing workaround without CAP_SYS_ADMIN is deemed inconvenient, involving SCM_RIGHTS and Unix domain sockets for sharing BPF object FDs between processes.
+
+To address these limitations, Yafang Shao proposes introducing a BPF namespace. This would allow users to create BPF maps, programs, and links within a specific namespace, isolating these objects from users in different namespaces. However, objects within a BPF namespace would still be visible to the parent namespace, enabling system administrators to maintain oversight.
+
+The BPF namespace is conceptually similar to the PID namespace and is intended to be intuitive. The initial implementation focuses on BPF maps, programs, and links, with plans to extend this to other BPF objects like BTF and bpffs in the future. This could potentially enable container users to trace only the processes within their container without accessing data from other containers, enhancing security and usability in containerized environments.
+
+reference:
+
+- BPF and security: <https://lwn.net/Articles/946389/>
+- Cross Container Attacks: The Bewildered eBPF on Clouds <https://www.usenix.org/system/files/usenixsecurity23-he.pdf>
+- bpf: Introduce BPF namespace: <https://lwn.net/Articles/927354/>
+- ebpf-running-in-linux-namespaces: <https://stackoverflow.com/questions/48815633/ebpf-running-in-linux-namespaces>
+
+### Unprivileged eBPF
 
 Unprivileged BPF:
 
@@ -82,7 +134,7 @@ Unprivileged BPF:
 - Not possible any time soon due to CPU HW vulnerabilities (Spectre & co)
 - Mitigations for v1/v2/v4 implemented but severely limit flexibility and performance
 
-### trusted unprivileged BPF
+#### trusted unprivileged BPF
 
 Potential compromise is “trusted unprivileged BPF”, Allowlist exceptions for trusted and verified production use cases
 
@@ -173,37 +225,6 @@ formal methods.
 
     > Is it limits the kernel to load only eBPF programs that are signed by trusted third parties, as the kernel itself can no longer independently verify them? The rust toolchains also has vulnerabilities?
 
-## Limitations in eBPF Access Control
+## Conclusion
 
-After leading Linux distributions, such as Ubuntu and SUSE, have disallowed unprivileged usage of eBPF Socket Filter and CGroup programs, the current eBPF access control model only supports a single permission level. This level necessitates the CAP_SYS_ADMIN capability for all features. However, CAP_SYS_ADMIN carries inherent risks, particularly to containers, due to its extensive privileges.
-
-Addressing this, Linux 5.6 introduces a more granular permission system by breaking down eBPF capabilities. Instead of relying solely on CAP_SYS_ADMIN, a new capability, CAP_BPF, is introduced for invoking the bpf syscall. Additionally, installing specific types of eBPF programs demands further capabilities, such as CAP_PERFMON for performance monitoring or CAP_NET_ADMIN for network administration tasks. This structure aims to mitigate certain types of attacks—like altering process memory or eBPF maps—that still require CAP_SYS_ADMIN.
-
-Nevertheless, these segregated capabilities are not bulletproof against all eBPF-based attacks, such as Denial of Service (DoS) and information theft. Attackers may exploit these to craft eBPF-based malware specifically targeting containers. The emergence of eBPF in cloud-native applications exacerbates this threat, as users could inadvertently deploy containers that contain untrusted eBPF programs.
-
-Compounding the issue, the risks associated with eBPF in containerized environments are not entirely understood. Some container services might unintentionally grant eBPF permissions, for reasons such as enabling filesystem mounting functionality. The existing permission model is inadequate in preventing misuse of these potentially harmful eBPF features within containers.
-
-### CAP_BPF
-
-Traditionally, almost all BPF actions required CAP_SYS_ADMIN privileges, which also grant broad system access. Over time, there has been a push to separate BPF permissions from these root privileges. As a result, capabilities like CAP_PERFMON and CAP_BPF were introduced to allow more granular control over BPF operations, such as reading kernel memory and loading tracing or networking programs, without needing full system admin rights.
-
-However, CAP_BPF's scope is ambiguous, leading to a perception problem. Unlike CAP_SYS_MODULE, which is well-defined and used for loading kernel modules, CAP_BPF lacks namespace constraints, meaning it can access all kernel memory rather than being container-specific. This broad access is problematic because verifier bugs in BPF programs can crash the kernel, considered a security vulnerability, leading to an excessive number of CVEs (Common Vulnerabilities and Exposures) being filed, even for bugs that are already fixed. This response to verifier bugs creates undue alarm and urgency to patch older kernel versions that may not have been updated.
-
-Additionally, some security startups have been criticized for exploiting the fears around BPF's capabilities to market their products, paradoxically using BPF itself to safeguard against the issues they highlight. This has led to a contradictory narrative where BPF is both demonized and promoted as a solution.
-
-### bpf namespace
-
-The current security model requires the CAP_SYS_ADMIN capability for iterating BPF object IDs and converting these IDs to file descriptors (FDs). This is to prevent non-privileged users from accessing BPF programs owned by others, but it also restricts them from inspecting their own BPF objects, posing a challenge in container environments.
-
-Users can run BPF programs with CAP_BPF and other specific capabilities, yet they lack a generic method to inspect these programs, as tools like bpftool need CAP_SYS_ADMIN. The existing workaround without CAP_SYS_ADMIN is deemed inconvenient, involving SCM_RIGHTS and Unix domain sockets for sharing BPF object FDs between processes.
-
-To address these limitations, Yafang Shao proposes introducing a BPF namespace. This would allow users to create BPF maps, programs, and links within a specific namespace, isolating these objects from users in different namespaces. However, objects within a BPF namespace would still be visible to the parent namespace, enabling system administrators to maintain oversight.
-
-The BPF namespace is conceptually similar to the PID namespace and is intended to be intuitive. The initial implementation focuses on BPF maps, programs, and links, with plans to extend this to other BPF objects like BTF and bpffs in the future. This could potentially enable container users to trace only the processes within their container without accessing data from other containers, enhancing security and usability in containerized environments.
-
-reference:
-
-- BPF and security: <https://lwn.net/Articles/946389/>
-- Cross Container Attacks: The Bewildered eBPF on Clouds <https://www.usenix.org/system/files/usenixsecurity23-he.pdf>
-- bpf: Introduce BPF namespace: <https://lwn.net/Articles/927354/>
-- ebpf-running-in-linux-namespaces: <https://stackoverflow.com/questions/48815633/ebpf-running-in-linux-namespaces>
+As we have traversed the multifaceted domain of eBPF security, it's clear that while eBPF’s verifier provides a robust first line of defense, there are inherent limitations within the current access control model that require attention. We have considered potential solutions from the realms of virtualization, software fault isolation, and formal methods, each offering unique approaches to fortify eBPF against vulnerabilities. However, as with any complex system, new questions and challenges continue to surface. The gaps identified between the theoretical security models and their practical implementation invite continued research and experimentation. The future of eBPF security is not only promising but also demands a collective effort to ensure the technology can be adopted with confidence in its capacity to safeguard systems
