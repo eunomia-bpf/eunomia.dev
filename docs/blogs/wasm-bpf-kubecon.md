@@ -1,34 +1,46 @@
 # eBPF + Wasm: Lightweight Observability on Steroids
 
-In this blog, after a brief introduction to eBPF and Wasm and the differences between them, we will discuss the challenges of deploying eBPF in Kubernetes, and how a webassembly runtime and toolchain like WasmEdge and wasm-bpf can address these challenges. We will also discuss how eBPF applications can help improve the WebAssembly (Wasm) runtime and ecosystem.
+In this blog, after a brief introduction to eBPF and Wasm and explain the differences between them, we will discuss the challenges of deploying eBPF in Kubernetes, and how a webassembly runtime and toolchain like WasmEdge and wasm-bpf can address these challenges. We will also discuss how eBPF applications can help improve the WebAssembly (Wasm) runtime and ecosystem.
 
 ## Background: eBPF and Wasm in Cloud-Native Ecosystems
 
 In the cloud-native ecosystem, eBPF (Extended Berkeley Packet Filter) and WebAssembly (Wasm) serve as emerging technologies facilitating advanced operational capabilities.
 
-`eBPF` (Extended Berkeley Packet Filter) enables dynamic and secure programming within the Linux kernel, enhancing networking, observability, tracing, and security capabilities efficiently. This technology allows for the injection of bytecode into the kernel at runtime, which the kernel can then execute in response to various events. As a result, eBPF is essential in modern cloud-native environments for its ability to extend kernel functionality dynamically and safely without the need to alter kernel source code or load modules, providing a flexible and powerful means of system optimization and monitoring.
+`eBPF` (Extended Berkeley Packet Filter) enables dynamic and secure programming within the Linux kernel, enhancing networking, observability, tracing, and security capabilities efficiently in modern cloud-native environments. This technology allows for the injection of bytecode into the kernel at runtime, which the kernel can then verify and execute in response to various events.
 
-`WebAssembly` (Wasm), on the other hand, is a binary instruction format that functions as a virtual machine and a compilation target for high-level languages, enabling developers to run sandboxed executable code in web browsers and server-side applications. Wasm is designed to be portable, secure, and execute at near-native speeds, making it an ideal runtime for web applications and increasingly for server-side containerized applications.
+`WebAssembly` (Wasm), on the other hand, is a binary instruction format and a compilation target for high-level languages, enabling developers to run sandboxed executable code in web browsers and server-side virtual machine. Wasm is designed to be portable, secure, and execute at near-native speeds, making it an ideal runtime for web applications and increasingly for server-side containerized applications.
 
 `The differences between eBPF and Wasm`: Wasm operates within a sandboxed environment, emphasizing security. It incorporates run-time checks for arbitrary code execution, which, while bolstering safety, introduces some performance overhead. Additionally, Wasm boasts a robust language support and ecosystem, making it versatile and conducive to various applications. Contrastingly, eBPF is finely tuned towards performance optimization. It employs static verification methods, minimizing run-time checks as the functionalities are predetermined before execution. eBPF is predominantly used with small C programs, emphasizing its focus on performance and efficiency.
 
 In essence, while both technologies are instrumental in enhancing the execution of code, Wasm leans more towards flexibility and security, whereas eBPF focuses on performance and efficiency. This delineation marks the fundamental differences in their design philosophies and application domains.
 
-`WasmEdge` is a lightweight and high-performance Wasm runtime that has been integrated into Docker CLI, allowing for seamless deployment of both containerized and Wasm-based applications within the same infrastructure. This integration underscores the cloud-native commitment to interoperability and the ability to abstract underlying infrastructure complexities away from developers and operators.
+`WasmEdge` is a lightweight and high-performance Wasm runtime that has been integrated into Docker CLI, allowing for seamless deployment of both containerized and Wasm-based applications within the same infrastructure. This integration underscores the cloud-native commitment to interoperability and the ability to abstract underlying infrastructure complexities away from developers and operators. `WasmEdge` can also be used as a plugin system for mutiple languages.
 
-## Current deploy models of eBPF
+## How can Wasm enhance eBPF
 
-In large-scale projects, like cilium, pixie, tetragon, falco, the prevalent strategy is to `closely integrate the monitoring or management tools within the core application`, often referred to as the "control plane." This approach allows for a seamless interaction with the system's internals, providing an efficient means of observation and manipulation of low-level operations.
+In the following part, we will discuss how WebAssembly can help enhance the deployment of eBPF programs.
 
-However, this tight integration is not without its drawbacks. A significant challenge is the complexity introduced by the need to `manage multi-user environments`. Without a standardized method to handle the interplay between various applications, coordination becomes more intricate, potentially leading to conflicts. Moreover, the application requires `extensive permissions`, particularly to the `bpf(2)` syscall, which governs powerful network and system monitoring capabilities within the kernel.
+### Current deploy models of eBPF
 
-An alternative to this integration, like bumblebee, inspektor-gadget, bpfd, is the use of Remote Procedure Calls (RPCs) to communicate between the control plane application and a dedicated `BPF daemon`. This BPF daemon acts as an intermediary, managing the BPF lifecycle and permissions. While this decouples the BPF functionality from the application, it introduces its own set of issues.
+In large-scale projects, like cilium, pixie, tetragon, falco, the prevalent strategy is to `closely integrate the monitoring or management tools within the core application`, often referred to as the "control plane."
 
-The daemon delegation model implies an `additional critical component` in the production environment, which increases the risk of failures. Troubleshooting and debugging become more challenging when another layer is involved. When `new kernel features` are introduced, not only does the kernel dependency need to be managed, but the daemon itself also requires updates and deployment, which can slow down the adoption of new capabilities. This model also imposes an `additional support burden` as loaders have to be compatible with both tight integration and daemon delegation scenarios.
+An alternative to this integration, like bumblebee, inspektor-gadget, bpfd, is the use of Remote Procedure Calls (RPCs) to communicate between the control plane application and a dedicated `BPF daemon`. This is mostly used for deploying specific eBPF tools or scripts, they are usually in a smaller size.
 
-Moreover, `maintaining consistency` during updates is another pain point. Ensuring that the application and the daemon are upgraded or downgraded atomically to avoid compatibility issues is a complex task. The problem is further compounded when considering that operating system distributions or cloud providers may each introduce their proprietary daemons, leading to a fragmented ecosystem.
+The first approach of deploying eBPF programs allows for a seamless interaction with the system's internals, providing an efficient means of observation and manipulation of low-level operations.
 
-In summary, while tight integration offers efficiency and direct control, it requires careful coordination and broad permissions. On the other hand, daemon delegation provides a layer of abstraction at the cost of additional complexity and potential delays in leveraging new features. Each model carries its own set of "cons," and the choice between them would depend on the specific requirements and constraints of the project in question.
+However, this tight integration is not without its drawbacks. If you use traditional containers to deploy smaller eBPF tools or probes, it's `heavy weight` and resource consuming.
+
+Another significant challenge is the application requires `extensive permissions`. The current eBPF access control model often require CAP_SYS_ADMIN capability for accessing all features. However, CAP_SYS_ADMIN carries inherent risks, particularly to containers, due to its extensive privileges. Despite more capabilities like `CAP_PERFMON` and `CAP_BPF` were introduced to allow more granular control over BPF operations, it also lacks `namespace constraints`, meaning it can access all kernel memory rather than being container-specific.
+
+Moreover, the complexity introduced by the need to `manage multi-user environments`. Without a standardized method to handle the interplay between various applications, coordination becomes more intricate, potentially leading to conflicts.
+
+Another approach is the use of Remote Procedure Calls (RPCs) to communicate between the control plane application and a dedicated `BPF daemon`. This BPF daemon acts as an intermediary, managing the BPF lifecycle and permissions. While this decouples the BPF functionality from the application, it introduces its own set of issues.
+
+The daemon delegation model implies an `additional critical component` in the production environment, which increases the risk of failures. Troubleshooting and debugging become more challenging when another layer is involved.
+
+Moreover, `maintaining consistency` during updates is another pain point. When `new kernel features` are introduced, not only does the kernel dependency need to be managed, but the daemon itself also requires updates and deployment, which can slow down the adoption of new capabilities. This model also imposes an `additional support burden` as loaders have to be compatible with both tight integration and daemon delegation scenarios. Ensuring that the application and the daemon are upgraded or downgraded atomically to avoid compatibility issues is also a complex task. The problem is further compounded when considering that operating system distributions or cloud providers may each introduce their proprietary daemons, leading to a fragmented ecosystem.
+
+In summary, while tight integration offers `efficiency and direct control`, it requires careful coordination and broad permissions. On the other hand, daemon delegation provides a layer of abstraction at the cost of `additional complexity and potential delays` in leveraging new features. Each model carries its own set of "cons," and the choice between them would depend on the specific requirements and constraints of the project in question.
 
 ## Summary: challenges for eBPF in Kubernetes
 
