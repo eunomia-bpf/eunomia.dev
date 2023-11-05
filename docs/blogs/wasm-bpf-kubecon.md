@@ -240,7 +240,7 @@ The generated eBPF program needs a isolation runtime to deploy and run, but the 
 
 WebAssembly can be lightweight and cheaper than Docker or vm, and we are also able to do configurable fined-grain access control on what kind of eBPF programs can be loaded in kernel, what kind of attach event it can access with the WASI-like interface on eBPF, improve the security and performance of code-gen eBPF programs.
 
-With our agent and GPT4, we can have 80% rate to generate simple eBPF program successfully can correctly.
+With our agent and GPT4, we can have a maximum `80%` rate to generate tracing eBPF scripts in bpftrace successfully can correctly.
 
 ## How can eBPF enhance Wasm: WASI and Debugging
 
@@ -254,6 +254,8 @@ eBPF can significantly enhance WASI by introducing programmable access control w
 
 Consider an example where there's a need to hook into directory removal operations to check permissions for a specific directory. Here, eBPF can be employed to intercept these operations at the kernel level and execute custom verification logic, providing a more robust and flexible access-control mechanism for WASI.
 
+Besides LSM hooks in the kernel, we can also use uprobes or userspace eBPF runtime to dynamically control the behavior of WASI, hotpatching the vulnerabilities in wasm runtime, without mannually intergration in Wasm runtimes.
+
 ### Advancing Debugging Tools with eBPF
 
 When it comes to debugging, Wasm's current tracing methodologies are somewhat rudimentary, lacking the depth required for intricate analysis. eBPF's uprobes (user-space probes) can bridge this gap by enabling detailed tracing of any user-space function invoked by a Wasm module, all without the need for additional code instrumentation.
@@ -261,6 +263,11 @@ When it comes to debugging, Wasm's current tracing methodologies are somewhat ru
 For instance, memory allocation within a Wasm runtime like WasmEdge could be traced using uprobes. This would allow developers to gain insights into the memory behavior of their applications, identifying bottlenecks or leaks that could affect performance and stability.
 
 Additionally, user-space eBPF runtimes such as `bpftime` facilitate rapid and powerful uprobes that don't require kernel modifications or root privileges, making the debugging process less invasive and more accessible.
+
+### Other possibilitys
+
+- Bi-direction ring buffer may enable high speed interprocess communition between different vm instants
+- AF_XDP for fast packet processing in Webassembly runtimes
 
 ## conclusion
 
