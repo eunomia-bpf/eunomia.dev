@@ -154,13 +154,21 @@ A user can build, push, pull, or run the eBPF tools just like LXC, but more ligh
 
 And also, it can enable container tools and OCI storage to manage the eBPF programs.
 
-TODO
+![docker-ebpf-wasm](../assets/ebpf-in-wasm-docker.png)
+
+it is now possible to achieve complete control and interaction with eBPF and almost all system resources that eBPF can access
 
 ### Development of eBPF in Wasm
 
 Similar developing experience as the libbpf-bootstrap, can port eBPF tools with minimal efforts. We have port 10+ tools from the bcc, and also other usecases in C/C++, Go, Rust. We also provide Wasm version of a libbpf, libbpf-rs and Go ebpf library.
 
-TODO
+### Examples of wasm-bpf
+
+it can support eBPF usecases from Observability, Networking to Security.
+
+- uprobe
+- XDP
+- LSM
 
 ### Challenges of eBPF for Wasm: Bridging Architecture and Kernel Dependencies
 
@@ -176,7 +184,7 @@ The integration of eBPF with WebAssembly (Wasm) within Kubernetes is a promising
 
 1. **Differences in Data Layout Between Wasm and eBPF**:
 
-   Wasm currently operates in a 32-bit environment, whereas eBPF is designed for a 64-bit architecture. This difference in data layout can lead to complications, particularly when handling data structures that are designed with 64-bit systems in mind.
+   Wasm currently operates in a 32-bit environment, whereas eBPF is designed for a 64-bit architecture. This difference in data layout can lead to complications like different struct sizes, different pointer widths, particularly when handling data structures that are designed with 64-bit systems in mind.
 
    To address this, toolchains are utilized to generate bindings that can translate between the two architectures. This minimizes the need for serialization and deserialization, which can degrade performance.
 
@@ -192,13 +200,53 @@ The integration of eBPF with WebAssembly (Wasm) within Kubernetes is a promising
 
 Once these hurdles are overcome, developers can leverage the power of eBPF in a more flexible and secure manner, enabled by the capabilities of Wasm.
 
-## How it works: Wasm-bpf
+### How it works: Wasm-bpf
+
+The `wasm-bpf` project essentially wants to treat the Wasm sandbox as an alternative user-state runtime space on top of the OS, allowing Wasm applications to implement the same programming model and execution logic in the sandbox as eBPF applications that normally run in the user state.
+
+Wasm-bpf would require a runtime implementation like the WASI, and some runtime libraries compiled to Wasm bytecode inside the sandbox to provide complete support. It also need some toolchains to package the eBPF kernel code and userspace part into an application.
+
+Wasm-bpf provides the following mechanishs:
+
+- A Wasm module can operate multiple eBPF programs.
+- An instance of an eBPF program can also be shared by multiple Wasm modules
+- The ability to `dynamically load` eBPF programs from the Wasm sandbox into the kernel, select the desired mount points to mount them, unmount them, control the complete lifecycle of multiple eBPF bytecode objects, and support most eBPF program types.
+- Bi-directional communication with the kernel via multiple types of eBPF Maps, and `share memory maps` between Wasm and kernel.
+- Efficient sending of messages from the kernel state to the user state (and vice versa) via `ring buffering` and perf event polling.
+- It can be adapted to most application scenario that uses eBPF programs, and can evolve and extend as kernel features are added, without requiring changes to the Wasm VM's system interface.
+
+To develop an eBPF program, we first need to compile the corresponding source code into bpf bytecode using the clang/LLVM toolchain, which contains the corresponding data structure definitions, maps and progs definitions. progs are program segments, and maps can be used to store data or for bidirectional communication with the user space. After that, we can implement a complete eBPF application with the help of the user state development framework and the loading framework. Wasm-bpf also follows a similar approach.
+
+In the Wasm-bpf project, with the support of code generation techniques and BTF (BPF type format) information in the toolchain, all communications between Wasm and eBPF do not need to `go through serialization` and deserialization mechanisms. At the same time, the eBPF-Wasm development experience for user-state programs is improved by `automatically generating skeleton` (bpf code framework) and type definitions, just like the bpftool does.
+
+Typically, a compiled eBPF-Wasm module is only about `90Kb` and can be dynamically loaded into the kernel and executed in less than `100ms`.
+
+### Wasm with userspace eBPF
+
+Wasm with kernel eBPF enable more possibilities, but require kernel version or configure support and privilege to interact with Linux kernel.
+
+We have a new general-purpose userspace eBPF runtime `bpftime` now, which doesn't rely on kernel and no privilege need to load the eBPF program and interact with it. It doesn't provide as many functions as kernel does, but can stiil use Uprobe and Syscall tracepoints to trace or observe applications in userspace. The uprobe and syscall tracepoints doesn't required mannual integration or restart the application been attached, it work just like kernel eBPF kprobe in userspace and compatible with kernel uprobe, but can speed up 10x than kernel uprobe. It may also work together with DPDK for network packet processing.
+
+it's compatible with kernel eBPF toolchains and provides interprocess maps support,
+can run existing bcc tools and bpftrace in userspace without any modification.
+
+## Wasm + eBPF + LLM
+
+2023 is the year of AI and large language models. With LLM, we are able to generate eBPF with natural language and run it inside the kernel as a safe kernel extension.
+
+However, the AI generated code cannot be trusted, espically with a powerful priviledge and operations in the kernel. It could kill critical process, write data to any address of any process in user space (bpf_probe_write_user[5]), modify the return value of kernel functions, and even cause the kernel crash in some cases. This can lead to a very high security risks and is unacceptable.
+
+The generated eBPF program needs a isolation runtime to deploy and run, but the LXC is heavy and slow to start, it also need a wide privilidge on exection eBPF program and lacks namespace constraints on what BPF can do in the kernel.
+
+WebAssembly can be lightweight and cheaper than Docker or vm, and we are also able to do configurable fined-grain access control on what kind of eBPF programs can be loaded in kernel, what kind of attach event it can access with the WASI-like interface on eBPF, improve the security and performance of code-gen eBPF programs.
+
+With our agent and GPT4, we can have 80% rate to generate simple eBPF program successfully can correctly.
 
 ## How can eBPF enhance Wasm: WASI and Debugging
 
-WebAssembly (Wasm) has been a significant leap forward in the realm of portable binary instruction formats. Accoding to a survey in 2023, the top two features that WebAssembly needs to enhance are a better WASI (WebAssembly System Interface) and a better debugging toolchain.That's where eBPF comes into play, offering solutions to elevate Wasm’s utility within the ecosystem.
+WebAssembly (Wasm) has been a significant leap forward in the realm of portable binary instruction formats. Accoding to a survey in 2023, the top two features that WebAssembly needs to enhance are a better WASI (WebAssembly System Interface) and a better debugging toolchain. That's where eBPF may comes into play, offering solutions to elevate Wasm’s utility within the ecosystem.
 
-### Enhancing WASI with eBPF
+### Enhancing WASI access control with eBPF
 
 The WebAssembly System Interface (WASI) is pivotal in managing how Wasm modules interact with the host system. Currently, WASI ensures that an accessed path is within an allowed list before granting access. This implementation, while functional, is not without its challenges. It can be error-prone, often relying heavily on code reviews to prevent security lapses. Furthermore, its configurability is limited, offering only directory-level granularity instead of more precise file-level control.
 
@@ -214,6 +262,8 @@ For instance, memory allocation within a Wasm runtime like WasmEdge could be tra
 
 Additionally, user-space eBPF runtimes such as `bpftime` facilitate rapid and powerful uprobes that don't require kernel modifications or root privileges, making the debugging process less invasive and more accessible.
 
+## conclusion
+
 In essence, eBPF's integration with Wasm paves the way for more sophisticated and secure system interfaces and debugging capabilities. As these technologies converge, we witness the emergence of a more powerful and developer-friendly platform, capable of driving innovation across diverse computing environments. The synergy of eBPF and Wasm is set to redefine what's possible, opening new horizons for application performance, security, and manageability.
 
 ## reference
@@ -223,4 +273,5 @@ In essence, eBPF's integration with Wasm paves the way for more sophisticated an
 - bpfd: <https://bpfd.dev/#why-ebpf-in-kubernetes>
 - Cross Container Attacks: The Bewildered eBPF on Clouds: <https://www.usenix.org/conference/usenixsecurity23/presentation/he>
 - eBPF - The Silent Platform Revolution from Cloud Native: <https://conferences.sigcomm.org/sigcomm/2023/files/workshop-ebpf/1-CloudNative.pdf>
+- Userspace full-featured eBPF runtime: <https://github.com/eunomia-bpf/bpftime>
 - POSTER: Leveraging eBPF to enhance sandboxing of WebAssembly runtimes: <https://dl.acm.org/doi/fullHtml/10.1145/3579856.3592831> - We have done similar works early this year

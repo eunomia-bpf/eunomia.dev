@@ -58,7 +58,7 @@ In practice, neither option is commonly used; the former is too costly, and the 
 
 With eBPF, there is a new option to reprogram the behavior of the Linux kernel without changing the kernel's source code or loading kernel modules, while guaranteeing a certain degree of consistency and compatibility of behavior, as well as security, between different kernel versions. To achieve this, eBPF programs also need to have a corresponding set of APIs that allow user-defined applications to run and share resources -- in other words, in a sense, the eBPF virtual machine also provides a set of system call-like mechanisms that are available to Wasm virtual machines and user-state applications through the eBPF and user-state communication mechanisms. With the eBPF and user state communication mechanisms, Wasm VMs and user state applications can also gain full access to this set of "system calls", which can programmatically extend the capabilities of traditional system calls on the one hand, and achieve more efficient programmable IO processing on the other.
 
-! [new-os](new-os-model.jpg)
+![new-os](new-os-model.jpg)
 
 As the diagram above shows, today's Linux kernel is evolving into a new kernel model: user-defined applications can execute in both the kernel and user states, with the user state accessing system resources through traditional system calls and the kernel state interacting with various parts of the system through BPF Helper Calls. As of early 2023, there are more than 220 Helper System Interfaces in the eBPF virtual machine in the kernel, covering a very wide range of application scenarios.
 
