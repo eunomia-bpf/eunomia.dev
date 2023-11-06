@@ -227,7 +227,7 @@ formal methods.
 
 - Wasm-bpf: WebAssembly eBPF library, toolchain and runtime
 
-    Wasm-bpf is a WebAssembly eBPF library, toolchain and runtime powered by CO-RE(Compile Once – Run Everywhere) libbpf. It allows the construction of eBPF programs into Wasm with little to no changes to the code, and run them cross platforms with Wasm sandbox. Wasm-bpf can be used as a plugin for WasmEdge, a high-performance Wasm runtime optimized for cloud-native environments, to integrate with Kubernetes.
+    Wasm-bpf is a WebAssembly eBPF library, toolchain and runtime allows the construction of eBPF programs into Wasm with little to no changes to the code, and run them cross platforms with Wasm sandbox.
 
     It provides a configurable environment with limited eBPF WASI behavior, enhancing security and control. This allows for fine-grained permissions, restricting access to kernel resources and providing a more secure environment. For instance, eBPF programs can be restricted to specific types of useage, such as network monitoring, it can also configure what kind of eBPF programs can be loaded in kernel, what kind of attach event it can access without the need for modify kernel eBPF permission models.
 
@@ -237,10 +237,14 @@ formal methods.
 
 - `bpftime`: Userspace eBPF runtime for uprobe & syscall hook & plugin
 
-  It can work together with kernel eBPF, and allow stemless intergration or transparently exection of kernel uprobe or syscall tracepoints.
+  An userspace eBPF runtime that allows existing eBPF applications to operate in unprivileged userspace using the same libraries and toolchains. It offers Uprobe and Syscall tracepoints for eBPF, with significant performance improvements over kernel uprobe and without requiring manual code instrumentation or process restarts. The runtime facilitates interprocess eBPF maps in userspace shared memory, and is also compatible with kernel eBPF maps, allowing for seamless operation with the kernel's eBPF infrastructure. It includes a high-performance LLVM JIT for various architectures, alongside a lightweight JIT for x86 and an interpreter.
 
-  > It's only limited to centain eBPF program kinds and usecases, not a general approach.
+  <https://github.com/eunomia-bpf/bpftime>
+
+  > It's only limited to centain eBPF program types and usecases, not a general approach.
 
 ## Conclusion
 
-As we have traversed the multifaceted domain of eBPF security, it's clear that while eBPF’s verifier provides a robust first line of defense, there are inherent limitations within the current access control model that require attention. We have considered potential solutions from the realms of virtualization, software fault isolation, and formal methods, each offering unique approaches to fortify eBPF against vulnerabilities. However, as with any complex system, new questions and challenges continue to surface. The gaps identified between the theoretical security models and their practical implementation invite continued research and experimentation. The future of eBPF security is not only promising but also demands a collective effort to ensure the technology can be adopted with confidence in its capacity to safeguard systems
+As we have traversed the multifaceted domain of eBPF security, it's clear that while eBPF’s verifier provides a robust first line of defense, there are inherent limitations within the current access control model that require attention. We have considered potential solutions from the realms of virtualization, software fault isolation, and formal methods, each offering unique approaches to fortify eBPF against vulnerabilities. However, as with any complex system, new questions and challenges continue to surface. The gaps identified between the theoretical security models and their practical implementation invite continued research and experimentation. The future of eBPF security is not only promising but also demands a collective effort to ensure the technology can be adopted with confidence in its capacity to safeguard systems.
+
+
