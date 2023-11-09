@@ -32,7 +32,7 @@ The post provides background on eBPF and Wasm, examines the deployment challenge
   - [Wasm + eBPF + LLM](#wasm--ebpf--llm)
   - [How can eBPF enhance Wasm: WASI and Debugging](#how-can-ebpf-enhance-wasm-wasi-and-debugging)
     - [Enhancing WASI access control with eBPF](#enhancing-wasi-access-control-with-ebpf)
-    - [Advancing Debugging Tools with eBPF](#advancing-debugging-tools-with-ebpf)
+    - [Wasm runtime Debug with eBPF](#wasm-runtime-debug-with-ebpf)
     - [Other possibilitys](#other-possibilitys)
   - [conclusion](#conclusion)
   - [reference](#reference)
@@ -303,7 +303,7 @@ Consider an example where there's a need to hook into directory removal operatio
 
 Besides LSM hooks in the kernel, we can also use uprobes or userspace eBPF runtime to dynamically control the behavior of WASI, hotpatching the vulnerabilities in wasm runtime, without mannually intergration in Wasm runtimes.
 
-### Advancing Debugging Tools with eBPF
+### Wasm runtime Debug with eBPF
 
 When it comes to debugging, Wasm's current tracing methodologies are somewhat rudimentary, lacking the depth required for intricate analysis. eBPF's uprobes (user-space probes) can bridge this gap by enabling detailed tracing of any user-space function invoked by a Wasm module, all without the need for additional code instrumentation.
 

@@ -10,24 +10,22 @@ However, as with any system that interfaces closely with the kernel, the securit
 
 The security framework of eBPF is largely predicated on the robustness of its verifier. This component acts as the gatekeeper, ensuring that only safe and compliant programs are allowed to run within the kernel space.
 
-### What the eBPF Verifier Is and What It Does
+<!-- TOC -->
 
-At its core, the eBPF verifier is a static code analyzer. Its primary function is to vet the BPF program instructions before they are executed. It scrutinizes a copy of the program within the kernel, operating with the following objectives:
+- [The Secure Path Forward for eBPF: Challenges and Innovations](#the-secure-path-forward-for-ebpf-challenges-and-innovations)
+  - [How eBPF Ensures Security with Verifier](#how-ebpf-ensures-security-with-verifier)
+    - [How the eBPF Verifier Works](#how-the-ebpf-verifier-works)
+    - [Challenges](#challenges)
+    - [Other works to improve verifier](#other-works-to-improve-verifier)
+  - [Limitations in eBPF Access Control](#limitations-in-ebpf-access-control)
+    - [CAP\_BPF](#cap_bpf)
+    - [bpf namespace](#bpf-namespace)
+    - [Unprivileged eBPF](#unprivileged-ebpf)
+      - [Trusted Unprivileged BPF](#trusted-unprivileged-bpf)
+  - [Other possible solutions](#other-possible-solutions)
+  - [Conclusion](#conclusion)
 
-- `Ensuring Program Termination`
-
-  The verifier uses depth-first search (DFS) algorithms to traverse the program's control flow graph, which it ensures is a Directed Acyclic Graph (DAG). This is crucial for guaranteeing that the program cannot enter into an infinite loop, thereby ensuring its termination. It meticulously checks for any unbounded loops and malformed or out-of-bounds jumps that could disrupt the normal operation of the kernel or lead to a system hang.
-
-- `Ensuring Memory Safety`
-
-  Memory safety is paramount in kernel operations. The verifier checks for potential out-of-bounds memory accesses that could lead to data corruption or security breaches. It also safeguards against use-after-free bugs and object leaks, which are common vulnerabilities that can be exploited. In addition to these, it takes into account hardware vulnerabilities like Spectre, enforcing mitigations to prevent such side-channel attacks.
-
-- `Ensuring Type Safety`
-
-  Type safety is another critical aspect that the verifier ensures. By preventing type confusion bugs, it helps maintain the integrity of data within the kernel. The eBPF verifier utilizes BPF Type Format (BTF), which allows it to accurately understand and check the kernel's complex data structures, ensuring that the program's operations on these structures are valid and safe.
-
-- `Preventing Hardware Exceptions`
-
+<!-- /TOC -->
   Hardware exceptions, such as division by zero, can cause abrupt program terminations and kernel panics. To prevent this, the verifier includes checks for divisions by unknown scalars, ensuring that instructions are rewritten or handled in a manner consistent with aarch64 specifications, which dictate safe handling of such exceptions.
 
 Through these mechanisms, the eBPF verifier plays a critical role in maintaining the security and stability of the kernel, making it an indispensable component of the eBPF infrastructure. It not only reinforces the system's defenses but also upholds the integrity of operations that eBPF programs intend to perform, making it a quintessential part of the eBPF ecosystem.
@@ -168,8 +166,7 @@ reference
 
 ## Other possible solutions
 
-Some research or discussions about how to improve the security of eBPF. Existing works can be roughly divided into three categories: virtualization, Software Fault Isolation (SFI), and
-formal methods.
+Here are also some research or discussions about how to improve the security of eBPF. Existing works can be roughly divided into three categories: virtualization, Software Fault Isolation (SFI), and formal methods. Use a sandbox like WebAssembly to deploy eBPF programs or run eBPF programs in userspace is also a possible solution.
 
 - MOAT: Towards Safe BPF Kernel Extension (Isolation)
 
@@ -227,13 +224,13 @@ formal methods.
 
 - Wasm-bpf: WebAssembly eBPF library, toolchain and runtime
 
-    Wasm-bpf is a WebAssembly eBPF library, toolchain and runtime allows the construction of eBPF programs into Wasm with little to no changes to the code, and run them cross platforms with Wasm sandbox.
+  Wasm-bpf is a WebAssembly eBPF library, toolchain and runtime allows the construction of eBPF programs into Wasm with little to no changes to the code, and run them cross platforms with Wasm sandbox.
 
-    It provides a configurable environment with limited eBPF WASI behavior, enhancing security and control. This allows for fine-grained permissions, restricting access to kernel resources and providing a more secure environment. For instance, eBPF programs can be restricted to specific types of useage, such as network monitoring, it can also configure what kind of eBPF programs can be loaded in kernel, what kind of attach event it can access without the need for modify kernel eBPF permission models.
+  It provides a configurable environment with limited eBPF WASI behavior, enhancing security and control. This allows for fine-grained permissions, restricting access to kernel resources and providing a more secure environment. For instance, eBPF programs can be restricted to specific types of useage, such as network monitoring, it can also configure what kind of eBPF programs can be loaded in kernel, what kind of attach event it can access without the need for modify kernel eBPF permission models.
 
-    <https://github.com/eunomia-bpf/wasm-bpf>
+  <https://github.com/eunomia-bpf/wasm-bpf>
 
-    > It will require additional effort to port the application to WebAssembly. Additionally, Wasm interface of kernel eBPF also need more effort of maintain, as the BPF daemon does.
+  > It will require additional effort to port the application to WebAssembly. Additionally, Wasm interface of kernel eBPF also need more effort of maintain, as the BPF daemon does.
 
 - `bpftime`: Userspace eBPF runtime for uprobe & syscall hook & plugin
 
@@ -245,6 +242,4 @@ formal methods.
 
 ## Conclusion
 
-As we have traversed the multifaceted domain of eBPF security, it's clear that while eBPF’s verifier provides a robust first line of defense, there are inherent limitations within the current access control model that require attention. We have considered potential solutions from the realms of virtualization, software fault isolation, and formal methods, each offering unique approaches to fortify eBPF against vulnerabilities. However, as with any complex system, new questions and challenges continue to surface. The gaps identified between the theoretical security models and their practical implementation invite continued research and experimentation. The future of eBPF security is not only promising but also demands a collective effort to ensure the technology can be adopted with confidence in its capacity to safeguard systems.
-
-
+As we have traversed the multifaceted domain of eBPF security, it's clear that while eBPF’s verifier provides a robust first line of defense, there are inherent limitations within the current access control model that require attention. We have considered potential solutions from the realms of virtualization, software fault isolation, and formal methods to WebAssembly or userspace eBPF runtime, each offering unique approaches to fortify eBPF against vulnerabilities. However, as with any complex system, new questions and challenges continue to surface. The gaps identified between the theoretical security models and their practical implementation invite continued research and experimentation. The future of eBPF security is not only promising but also demands a collective effort to ensure the technology can be adopted with confidence in its capacity to safeguard systems.
