@@ -272,7 +272,7 @@ Typically, a compiled eBPF-Wasm module is only about `90Kb` and can be dynamical
 
 Wasm with kernel eBPF enable more possibilities, but require kernel version or configure support and privilege to interact with Linux kernel.
 
-We have a new general-purpose userspace eBPF runtime `bpftime` now, which doesn't rely on kernel and no privilege need to load the eBPF program and interact with it. It doesn't provide as many functions as kernel does, but can stiil use Uprobe and Syscall tracepoints to trace or observe applications in userspace. The uprobe and syscall tracepoints doesn't required mannual integration or restart the application been attached, it work just like kernel eBPF kprobe in userspace and compatible with kernel uprobe, but can speed up 10x than kernel uprobe. It may also work together with DPDK for network packet processing.
+We have a new general-purpose userspace eBPF runtime `bpftime` now, which doesn't rely on kernel and no privilege need to load the eBPF program and interact with it. It doesn't provide as many functions as kernel does, but can still use Uprobe and Syscall tracepoints to trace or observe applications in userspace. The uprobe and syscall tracepoints doesn't required mannual integration or restart the application been attached, it work just like kernel eBPF kprobe in userspace and compatible with kernel uprobe, but can speed up 10x than kernel uprobe. It may also work together with DPDK for network packet processing.
 
 it's compatible with kernel eBPF toolchains and provides interprocess maps support,
 can run existing bcc tools and bpftrace in userspace without any modification.
