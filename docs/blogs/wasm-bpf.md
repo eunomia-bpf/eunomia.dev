@@ -10,22 +10,18 @@ Wasm-bpf is a new open source project [1] that defines a set of abstractions for
 
 Perhaps you have also read this quote from Solomon Hykes (one of the founders of Docker).
 
-> If we already had Wasm + WASI in 2008, we wouldn't have needed to create Docker at all. Wasm was that important. Server-side WebAssembly is the future of computing.
+<!-- TOC -->
 
-Because it can't rely on the existing JavaScript engine interfaces available in the browser, most Wasm lightweight containers that run outside the browser today require the use of WASI (WebAssembly System Interface). These runtimes allow Wasm applications to interact with their host operating system in a manner similar (but not identical) to POSIX.
+- [Wasm-bpf: A Common eBPF Kernel Programmability for Cloud-Native Webassembly](#wasm-bpf-a-common-ebpf-kernel-programmability-for-cloud-native-webassembly)
+  - [eBPF-based System Interface for Wasm](#ebpf-based-system-interface-for-wasm)
+  - [eBPF: Extending the Kernel Securely and Efficiently](#ebpf-extending-the-kernel-securely-and-efficiently)
+    - [eBPF 的未来：内核的 JavaScript 可编程接口](#ebpf-的未来内核的-javascript-可编程接口)
+  - [Interaction flow between user space and eBPF programs](#interaction-flow-between-user-space-and-ebpf-programs)
+    - [Common user-state eBPF development framework](#common-user-state-ebpf-development-framework)
+    - [A new eBPF development framework defined on top of the user-state Wasm-eBPF system interface](#a-new-ebpf-development-framework-defined-on-top-of-the-user-state-wasm-ebpf-system-interface)
+  - [References](#references)
 
-However, compared to traditional containers where almost all system calls are available, the WASI currently provides very limited system resources, with only some basic support for file systems, socket network connections, etc. There are still significant gaps in the ability to access, control, and manage the underlying operating system resources, such as execution of Wasm modules or other external processes For example, there is still a large gap in the ability to access, control and manage the underlying resources of the operating system, such as the execution of Wasm modules or other external processes, the observation of resource limits and behavior, the fast forwarding and processing of network packets, and even the communication with other processes outside the wasm sandbox and access to peripherals. This also makes most Wasm lightweight containers in practice still mainly focus on purely compute-intensive applications, while in terms of networking, security, etc., still need to rely on traditional container technology.
-
-This is the reason why we want to build Wasm-bpf project: to expand the whole WASI ecological blueprint by using the system interface provided by the current kernel state eBPF and the ability to interact with the user state, to bring more possible usage scenarios for Wasm applications, and to enhance the capability of eBPF programs in the user state.
-
-In other words, similar to the Wasm program running in a browser, which accesses various system resources provided by the browser through the JavaScript engine interface, the Wasm-bpf solution is to access various OS resources with the help of the eBPF virtual machine; thanks to the wide support of eBPF in the Linux kernel and even other operating systems such as Windows. Thanks to the extensive support of eBPF in Linux kernels and even other operating systems such as Windows, the portability between different kernel versions and architectures, and the reliability of the kernel BPF authentication engine, we can still guarantee a certain degree of application portability and security boundaries.
-
-The Wasm-bpf project has implemented a complete abstraction mechanism for the system interface between the kernel-state eBPF virtual machine and the user-state, and provides a corresponding toolchain for compiling eBPF applications into Wasm modules to facilitate efficient serialization-free, memory-sharing bi-directional communication between kernel-state eBPF and user-state Wasm, as well as code generation techniques to provide almost identical functionality to other user-state eBPF development frameworks. eBPF development framework through code generation technology, providing a nearly consistent, easy and convenient development experience. With the improved ecosystem support of the Wasm component model, we can also bring more user-state development languages to the eBPF community, and eBPF applications and data processing plug-ins implemented in different languages can be easily integrated, reused, and managed in a unified way.
-
-On top of the libbpf library, which has almost become the de facto API standard for eBPF user states, and the WAMR (wasm-micro-runtime), a complete generic Wasm-eBPF runtime component can be built with only 300+ lines of code and supports most eBPF usage scenarios - anyone with any major Wasm runtime, or any Anyone with any major Wasm runtime, or any eBPF user state library, and any programming language, can easily add corresponding virtual machine support and reuse our toolchain to easily write and develop Wasm-eBPF programs.
-
-There has been some exploration of combining eBPF and Wasm in the eunomia-bpf project, but it was not designed for Wasm native application scenarios, did not fit the Wasm-eBPF general programming model, and had low performance, so we created a new open source repository for the Wasm-bpf project to focus on using eBPF to enhance and extend WebAssembly usage scenarios and further improve the corresponding toolchain and development library support: <https://github.com/eunomia-bpf/wasm-bpf>
-
+<!-- /TOC -->
 ## eBPF: Extending the Kernel Securely and Efficiently
 
 eBPF is a revolutionary technology, originating from the Linux kernel, that allows sandboxed programs to be run in the kernel of the operating system. It is used to safely and efficiently extend the functionality of the kernel without changing the kernel's source code or loading kernel modules.
@@ -120,7 +116,7 @@ The Wasm-bpf compilation toolchain and runtime modules are currently developed a
 - [2] When Wasm meets eBPF: Writing, distributing, loading and running eBPF programs using WebAssembly: <https://zhuanlan.zhihu.com/p/573941739>
 - [3] <https://ebpf.io/>
 - [4] What is eBPF: <https://ebpf.io/what-is-ebpf>
-- [5] Offensive BPF: Understanding and using bpf_probe_write_user <https://embracethered.com/blog/posts/2021/offensive-bpf-libbpf-bpf_ probe_write_user/>
+- [5] Offensive BPF: Understanding and using bpf_probe_write_user <https://embracethered.com/blog/posts/2021/offensive-bpf-libbpf-bpf>
 - [6] Cloud Native Security Attack and Defense｜Analysis and practice of escape container technology using eBPF: <https://security.tencent.com/index.php/blog/msg/206>
 - [7] kernel-versions.md: <https://github.com/iovisor/bcc/blob/master/docs/kernel-versions.md>
 - [8] WebAssembly: Docker without containers: <https://zhuanlan.zhihu.com/p/595257541>
