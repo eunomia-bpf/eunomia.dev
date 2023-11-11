@@ -150,6 +150,7 @@ time pid tpid sig ret comm
 14:39:39 1723839 1723837 17 0 grep
 14:39:39 1723840 1723837 17 0 grep
 14:39:39 1723841 1723837 17 0 wc
+
 ```
 
 All of our build toolchains have been packaged as Docker images and published to Docker Hub, 
@@ -171,12 +172,12 @@ app.c eunomia-include ewasm-skel.h package.json README.md  sigsnoop.bpf.c  sigsn
 
 The Wasm development framework we provide is written in C and includes the following files:
 
-- ewasm-skel.h: the header file of the user-space WebAssembly development framework, 
+- ewasm-skel.h: the header file of the user-space WebAssembly development framework,
   which contains the pre-compiled eBPF program bytecode and the eBPF program framework auxiliary information for dynamic loading;
 - eunomia-include: some header-only library functions and auxiliary files to assist development;
 - app.c: the main code of the user-space WebAssembly program, which includes the main logic of the eBPF program and the data processing flow of the eBPF program.
 
-Take `sigsnoop` as an example. In user-space, it includes some code for command line parsing, configuring the eBPF program, and data processing. 
+Take `sigsnoop` as an example. In user-space, it includes some code for command line parsing, configuring the eBPF program, and data processing.
 It adds the English names of signal events based on the signal number:
 
 ```c
@@ -193,8 +194,8 @@ int main(int argc, const char** argv)
     };
 
   struct argparse argparse;
-  argparse_init(&argparse, options, usages, 0);".
-format: contentargparse_describe(&argparse, "Trace standard and real-time signals.\n", "");
+  argparse_init(&argparse, options, usages, 0);
+  argparse_describe(&argparse, "Trace standard and real-time signals.\n", "");
   argc = argparse_parse(&argparse, argc, argv);
 
   cJSON *program = cJSON_Parse(program_data);
@@ -271,8 +272,8 @@ The SIG community is incubated in the Linux Microscope (LMP) project [10] in uni
 2. eBPF and Wasm: Exploring the Future of the Service Mesh Data Plane: [https://cloudnative.to/blog/ebpf-wasm-service-mesh/](https://cloudnative.to/blog/ebpf-wasm-service-mesh/)
 3. eBPF Technology Exploration SIG Homepage: [https://openanolis.cn/sig/ebpfresearch](https://openanolis.cn/sig/ebpfresearch)
 4. eunomia-bpf GitHub repository: <https://github.com/eunomia-bpf/eunomia-bpf>.5. eunomia-bpf Mirror Repository: [https://gitee.com/anolis/eunomia](https://gitee.com/anolis/eunomia)
-6. sigsnoop Sample Code: <https://gitee.com/anolis/eunomia/tree/master/examples/bpftools/sigsnoop>
-7. eunomia-bpf User Manual: <https://openanolis.cn/sig/ebpfresearch/doc/646023027267993641>
-8. More Sample Code: <https://gitee.com/anolis/eunomia/tree/master/examples/bpftools/sigsnoop>
-9. Coolbpf Project Introduction: <https://openanolis.cn/sig/ebpfresearch/doc/633529753894377555>
-10. LMP Project Introduction: <https://openanolis.cn/sig/ebpfresearch/doc/633661297090877527>
+5. sigsnoop Sample Code: <https://gitee.com/anolis/eunomia/tree/master/examples/bpftools/sigsnoop>
+6. eunomia-bpf User Manual: <https://openanolis.cn/sig/ebpfresearch/doc/646023027267993641>
+7. More Sample Code: <https://gitee.com/anolis/eunomia/tree/master/examples/bpftools/sigsnoop>
+8. Coolbpf Project Introduction: <https://openanolis.cn/sig/ebpfresearch/doc/633529753894377555>
+9. LMP Project Introduction: <https://openanolis.cn/sig/ebpfresearch/doc/633661297090877527>

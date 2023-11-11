@@ -1,19 +1,18 @@
-# The Secure Path Forward for eBPF: Challenges and Innovations
+# eBPF安全性的新篇章：面临的挑战与前沿创新
 
-TODO: translate this blog to Chinese
+郑昱笙
 
-Yusheng Zheng
+扩展伯克利数据包过滤器（eBPF）代表了我们与现代操作系统交互和扩展其能力方式的重大演变。作为一种强大的技术，它使得Linux内核能够响应事件运行沙盒程序，eBPF已成为系统可观察性、网络和安全特性的基石。
 
-Extended Berkeley Packet Filter (eBPF) represents a significant evolution in the way we interact with and extend the capabilities of modern operating systems. As a powerful technology that enables the Linux kernel to run sandboxed programs in response to events, eBPF has become a cornerstone for system observability, networking, and security features.
+然而，像任何与内核紧密接口的系统一样，eBPF本身的安全性至关重要。在这篇博客中，我们将深入探讨常被忽视的eBPF安全性问题，探索旨在保护eBPF的机制本身如何被加固。我们将解析eBPF验证器的作用，审视当前的访问控制模型，并调查持续研究中的潜在改进。此外，我们将通过eBPF的安全复杂性，解决系统架构师和开发者面临的开放性问题和挑战。
 
-However, as with any system that interfaces closely with the kernel, the security of eBPF itself is paramount. In this blog, we delve into the often-overlooked aspect of eBPF security, exploring how the mechanisms intended to safeguard eBPF can themselves be fortified. We'll dissect the role of the eBPF verifier, scrutinize the current access control model, and investigate potential improvements from ongoing research. Moreover, we'll navigate through the complexities of securing eBPF, addressing open questions and the challenges they pose to system architects and developers alike.
-
-## How eBPF Ensures Security with Verifier
+## 目录
 
 <!-- TOC -->
 
-- [The Secure Path Forward for eBPF: Challenges and Innovations](#the-secure-path-forward-for-ebpf-challenges-and-innovations)
-  - [How eBPF Ensures Security with Verifier](#how-ebpf-ensures-security-with-verifier)
+- [eBPF安全性的新篇章：面临的挑战与前沿创新](#ebpf安全性的新篇章面临的挑战与前沿创新)
+  - [目录](#目录)
+  - [如何通过验证器确保 eBPF 的安全](#如何通过验证器确保-ebpf-的安全)
     - [Challenges](#challenges)
     - [Other works to improve verifier](#other-works-to-improve-verifier)
   - [Limitations in eBPF Access Control](#limitations-in-ebpf-access-control)
@@ -25,25 +24,30 @@ However, as with any system that interfaces closely with the kernel, the securit
   - [Conclusion](#conclusion)
 
 <!-- /TOC -->
-- **Follows control flow graph**
-  The verifier begins its analysis by constructing and following the control flow graph (CFG) of the eBPF program. It carefully computes the set of possible states for each instruction, considering the BPF register set and stack. Safety checks are then performed depending on the current instruction context.
-  
-  One of the critical aspects of this process is register spill/fill tracking for the program's private BPF stack. This ensures that operations involving the stack do not lead to overflows or underflows, which could corrupt data or provide an attack vector.
 
-- **Back-edges in control flow graph**
-  To effectively manage loops within the eBPF program, the verifier identifies back-edges in the CFG. Bounded loops are handled by simulating all iterations up to a predefined limit, thus guaranteeing that loops will not lead to indefinite execution.
+## 如何通过验证器确保 eBPF 的安全
 
-- **Dealing with potentially large number of states**
-  The verifier must manage the complexity that comes with the large number of potential states in a program's execution paths. It employs path pruning logic to compare the current state with prior states, assessing whether the current path is "equivalent" to prior paths and has a safe exit. This reduces the overall number of states that need to be considered.
+- **遵循控制流程图**
+  验证器首先通过构建并遵循eBPF程序的控制流程图（CFG）来进行其分析。它细致地计算出每条指令的所有可能状态，同时考虑BPF寄存器集和堆栈。然后根据当前的指令上下文进行安全检查。
 
-- **Function-by-function verification for state reduction**
-  To streamline the verification process, the verifier conducts a function-by-function analysis. This modular approach allows for a reduction in the number of states that need to be analyzed at any given time, thereby improving the efficiency of the verification.
+  其中一个关键步骤是跟踪程序私有BPF堆栈的寄存器溢出/填充情况。这确保了堆栈相关操作不会引起溢出或下溢，避免了数据破坏或成为攻击路径。
 
-- **On-demand scalar precision (back-)tracking for state reduction**
-  The verifier uses on-demand scalar precision tracking to reduce the state space further. By back-tracking scalar values when necessary, the verifier can more accurately predict the program's behavior, optimizing its analysis process.
+- **控制流程图的回边处理**
+  验证器通过识别CFG中的回边来有效处理eBPF程序内的循环。通过模拟所有迭代直到达到预定的上限，从而确保循环不会导致无限制执行。
 
-- **Terminates with rejection upon surpassing “complexity” threshold**
-  To maintain practical performance, the verifier has a "complexity" threshold. If a program's analysis surpasses this threshold, the verifier will terminate the process and reject the program. This ensures that only programs that are within the manageable complexity are allowed to execute, balancing security with system performance.
+- **处理大量潜在状态**
+  验证器需要处理程序执行路径中大量潜在状态带来的复杂性。它运用路径修剪逻辑，将当前状态与之前的状态进行比较，判断当前路径是否与之前的路径“
+
+等效”，并且有一个安全的出口。这样减少了需要考虑的状态总数。
+
+- **逐函数验证以减少状态数量**
+  为了简化验证过程，验证器进行逐函数分析。这种模块化的方法使得在任何给定时间内需要分析的状态数量得以减少，从而提高了验证过程的效率。
+
+- **按需标量精度追踪以进一步减少状态**
+  验证器运用按需标量精度追踪来进一步减少状态空间。通过在必要时对标量值进行回溯，验证器可以更准确地预测程序的行为，优化其分析过程。
+
+- **超过“复杂性”阈值时终止并拒绝**
+  为了保持实用性能，验证器设定了一个“复杂性”阈值。如果程序分析超过此阈值，验证器将终止过程并拒绝该程序。这样确保只有在可管理的复杂性范围内的程序被允许执行，实现了安全性与系统性能的平衡。
 
 ### Challenges
 

@@ -15,7 +15,7 @@ Perhaps you have also read this quote from Solomon Hykes (one of the founders of
 - [Wasm-bpf: A Common eBPF Kernel Programmability for Cloud-Native Webassembly](#wasm-bpf-a-common-ebpf-kernel-programmability-for-cloud-native-webassembly)
   - [eBPF-based System Interface for Wasm](#ebpf-based-system-interface-for-wasm)
   - [eBPF: Extending the Kernel Securely and Efficiently](#ebpf-extending-the-kernel-securely-and-efficiently)
-    - [eBPF 的未来：内核的 JavaScript 可编程接口](#ebpf-的未来内核的-javascript-可编程接口)
+    - [The Future of eBPF: A JavaScript-Like Programmable Interface for the Kernel](#the-future-of-ebpf-a-javascript-like-programmable-interface-for-the-kernel)
   - [Interaction flow between user space and eBPF programs](#interaction-flow-between-user-space-and-ebpf-programs)
     - [Common user-state eBPF development framework](#common-user-state-ebpf-development-framework)
     - [A new eBPF development framework defined on top of the user-state Wasm-eBPF system interface](#a-new-ebpf-development-framework-defined-on-top-of-the-user-state-wasm-ebpf-system-interface)
@@ -26,25 +26,25 @@ Perhaps you have also read this quote from Solomon Hykes (one of the founders of
 
 eBPF is a revolutionary technology, originating from the Linux kernel, that allows sandboxed programs to be run in the kernel of the operating system. It is used to safely and efficiently extend the functionality of the kernel without changing the kernel's source code or loading kernel modules.
 
-从历史上看，由于内核具有监督和控制整个系统的特权能力，所以操作系统一直是实现可观察性、安全性和网络功能等多种能力的理想场所。 同时，由于操作系统内核对稳定性和安全性的高要求，内核的新功能迭代通常非常谨慎，也很难接受自定义的、较少通用性的功能改进。 因此，与用户态的更多功能相比，内核态操作系统层面的创新率历来都比较低[2]。
+Looking historically, the operating system kernel has been an ideal place to implement various capabilities like observability, security, and networking due to its privileged ability to supervise and control the entire system. However, due to the high demands on stability and security, kernel feature iterations are typically very cautious, and it is difficult to accept customized, less common functionality improvements. Therefore, compared to the functionalities in user space, the rate of innovation at the kernel-level operating system layer has always been relatively low.[2]
 
 <div align="center">
 <img src=https://ebpf.io/static/overview-3c0c9cd2010cb0b7fdc26e5e17d99635.png width=60% />
 </div>
 
-eBPF 从根本上改变了这个公式。 通过允许在操作系统内运行沙盒程序，应用程序开发人员可以在运行时，可编程地向操作系统动态添加额外的功能。 然后，操作系统保证安全和执行效率，就像在即时编译（JIT）编译器和验证引擎的帮助下进行本地编译一样。eBPF 程序在内核版本之间是可移植的，并且可以自动更新，从而避免了工作负载中断和节点重启。
+eBPF fundamentally changes this paradigm. By allowing sandboxed programs to run within the operating system, application developers can programmatically add additional functionalities to the operating system at runtime. The operating system then ensures safety and execution efficiency, as if it were compiled locally with the help of a Just-In-Time (JIT) compiler and a verification engine. eBPF programs are portable across kernel versions and can be automatically updated, thus avoiding workload interruptions and node restarts.
 
-今天，eBPF被广泛用于各类场景：在现代数据中心和云原生环境中，可以提供高性能的网络包处理和负载均衡；以非常低的资源开销，做到对多种细粒度指标的可观测性，帮助应用程序开发人员跟踪应用程序，为性能故障排除提供洞察力；保障应用程序和容器运行时的安全执行，等等。 可能性是无穷的，而 eBPF 在操作系统内核中所释放的创新才刚刚开始[3]。
+Today, eBPF is widely used in various scenarios: in modern data centers and cloud-native environments, it provides high-performance network packet processing and load balancing; with very low resource overhead, it achieves observability of a variety of fine-grained metrics, helping application developers track applications and provide insights for troubleshooting performance issues; it ensures the secure execution of applications and containers, and more. The possibilities are endless, and the innovation unleashed by eBPF in the operating system kernel is just beginning.[3]
 
-### eBPF 的未来：内核的 JavaScript 可编程接口
+### The Future of eBPF: A JavaScript-Like Programmable Interface for the Kernel
 
-对于浏览器而言，JavaScript 的引入带来的可编程性开启了一场巨大的革命，使浏览器发展成为几乎独立的操作系统。 现在让我们回到 eBPF：为了理解 eBPF 对 Linux 内核的可编程性影响，对 Linux 内核的结构以及它如何与应用程序和硬件进行交互有一个高层次的理解是有帮助的[4]。
+For browsers, the introduction of JavaScript's programmability sparked a significant revolution, turning browsers into almost independent operating systems. Now, looking at eBPF: to understand the impact of eBPF on the programmability of the Linux kernel, it is helpful to have a high-level understanding of the structure of the Linux kernel and how it interacts with applications and hardware.[4]
 
 <div align="center">
 <img src=https://ebpf.io/static/kernel_arch-c0be6286222dcd0e6e45250d2d9a87fd.png width=60% />
 </div>
 
-Linux 内核的主要目的是抽象出硬件或虚拟硬件，并提供一个一致的API（系统调用），允许应用程序运行和共享资源。 To achieve this, a series of subsystems and layers are maintained to distribute these responsibilities. Each subsystem typically allows some degree of configuration to take into account the different needs of the user. If the desired behavior cannot be configured, it is necessary to change the kernel. Historically, changing the behavior of the kernel, or enabling user-written programs to run in the kernel, has given two options:
+The main purpose of the Linux kernel is to abstract the hardware or virtual hardware and provide a consistent API (system calls) to allow applications to run and share resources. To achieve this, a series of subsystems and layers are maintained to distribute these responsibilities. Each subsystem typically allows some degree of configuration to take into account the different needs of the user. If the desired behavior cannot be configured, changing the kernel is necessary. Historically, changing the kernel's behavior or enabling user-written programs to run in the kernel has presented two options.
 
 | Support a kernel module locally                                                                                                                                         | Write a kernel module                                                                                                          |
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
