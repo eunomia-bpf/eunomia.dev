@@ -6,10 +6,13 @@ Extended Berkeley Packet Filter (eBPF) represents a significant evolution in the
 
 However, as with any system that interfaces closely with the kernel, the security of eBPF itself is paramount. In this blog, we delve into the often-overlooked aspect of eBPF security, exploring how the mechanisms intended to safeguard eBPF can themselves be fortified. We'll dissect the role of the eBPF verifier, scrutinize the current access control model, and investigate potential improvements from ongoing research. Moreover, we'll navigate through the complexities of securing eBPF, addressing open questions and the challenges they pose to system architects and developers alike.
 
+## Table of Contents
 <!-- TOC -->
 
 - [The Secure Path Forward for eBPF: Challenges and Innovations](#the-secure-path-forward-for-ebpf-challenges-and-innovations)
+  - [Table of Contents](#table-of-contents)
   - [How eBPF Ensures Security with Verifier](#how-ebpf-ensures-security-with-verifier)
+    - [What the eBPF Verifier Is and What It Does](#what-the-ebpf-verifier-is-and-what-it-does)
     - [How the eBPF Verifier Works](#how-the-ebpf-verifier-works)
     - [Challenges](#challenges)
     - [Other works to improve verifier](#other-works-to-improve-verifier)
@@ -22,10 +25,29 @@ However, as with any system that interfaces closely with the kernel, the securit
   - [Conclusion](#conclusion)
 
 <!-- /TOC -->
+<!-- /TOC -->
 
 ## How eBPF Ensures Security with Verifier
 
 The security framework of eBPF is largely predicated on the robustness of its verifier. This component acts as the gatekeeper, ensuring that only safe and compliant programs are allowed to run within the kernel space.
+
+### What the eBPF Verifier Is and What It Does
+
+At its core, the eBPF verifier is a static code analyzer. Its primary function is to vet the BPF program instructions before they are executed. It scrutinizes a copy of the program within the kernel, operating with the following objectives:
+
+- `Ensuring Program Termination`
+
+  The verifier uses depth-first search (DFS) algorithms to traverse the program's control flow graph, which it ensures is a Directed Acyclic Graph (DAG). This is crucial for guaranteeing that the program cannot enter into an infinite loop, thereby ensuring its termination. It meticulously checks for any unbounded loops and malformed or out-of-bounds jumps that could disrupt the normal operation of the kernel or lead to a system hang.
+
+- `Ensuring Memory Safety`
+
+  Memory safety is paramount in kernel operations. The verifier checks for potential out-of-bounds memory accesses that could lead to data corruption or security breaches. It also safeguards against use-after-free bugs and object leaks, which are common vulnerabilities that can be exploited. In addition to these, it takes into account hardware vulnerabilities like Spectre, enforcing mitigations to prevent such side-channel attacks.
+
+- `Ensuring Type Safety`
+
+  Type safety is another critical aspect that the verifier ensures. By preventing type confusion bugs, it helps maintain the integrity of data within the kernel. The eBPF verifier utilizes BPF Type Format (BTF), which allows it to accurately understand and check the kernel's complex data structures, ensuring that the program's operations on these structures are valid and safe.
+
+- `Preventing Hardware Exceptions`
 
   Hardware exceptions, such as division by zero, can cause abrupt program terminations and kernel panics. To prevent this, the verifier includes checks for divisions by unknown scalars, ensuring that instructions are rewritten or handled in a manner consistent with aarch64 specifications, which dictate safe handling of such exceptions.
 
