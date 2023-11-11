@@ -6,10 +6,6 @@ Extended Berkeley Packet Filter (eBPF) represents a significant evolution in the
 
 However, as with any system that interfaces closely with the kernel, the security of eBPF itself is paramount. In this blog, we delve into the often-overlooked aspect of eBPF security, exploring how the mechanisms intended to safeguard eBPF can themselves be fortified. We'll dissect the role of the eBPF verifier, scrutinize the current access control model, and investigate potential improvements from ongoing research. Moreover, we'll navigate through the complexities of securing eBPF, addressing open questions and the challenges they pose to system architects and developers alike.
 
-## How eBPF Ensures Security with Verifier
-
-The security framework of eBPF is largely predicated on the robustness of its verifier. This component acts as the gatekeeper, ensuring that only safe and compliant programs are allowed to run within the kernel space.
-
 <!-- TOC -->
 
 - [The Secure Path Forward for eBPF: Challenges and Innovations](#the-secure-path-forward-for-ebpf-challenges-and-innovations)
@@ -26,6 +22,11 @@ The security framework of eBPF is largely predicated on the robustness of its ve
   - [Conclusion](#conclusion)
 
 <!-- /TOC -->
+
+## How eBPF Ensures Security with Verifier
+
+The security framework of eBPF is largely predicated on the robustness of its verifier. This component acts as the gatekeeper, ensuring that only safe and compliant programs are allowed to run within the kernel space.
+
   Hardware exceptions, such as division by zero, can cause abrupt program terminations and kernel panics. To prevent this, the verifier includes checks for divisions by unknown scalars, ensuring that instructions are rewritten or handled in a manner consistent with aarch64 specifications, which dictate safe handling of such exceptions.
 
 Through these mechanisms, the eBPF verifier plays a critical role in maintaining the security and stability of the kernel, making it an indispensable component of the eBPF infrastructure. It not only reinforces the system's defenses but also upholds the integrity of operations that eBPF programs intend to perform, making it a quintessential part of the eBPF ecosystem.
