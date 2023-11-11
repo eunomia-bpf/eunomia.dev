@@ -195,7 +195,9 @@ BPF命名空间在概念上与PID命名空间相似，设计上直观易用。�
 
     它提供了一个可配置的环境，具有限制性的eBPF WASI行为，增强了安全性和控制力。这使得实现细粒度权限成为可能，限制了对内核资源的访问，提供了更安全的环境。例如，可以限制eBPF程序仅用于特定类型的用途，比如网络监控，并且还可以配置哪些类型的eBPF程序能在内核中加载，以及它们可以访问哪些类型的附加事件，而无需修改内核eBPF的权限模型。
 
-    <https://github.com/eunomia-bpf/wasm-bpf>
+    Kubecon talk: <https://sched.co/1R2uf>
+
+    Repo: <https://github.com/eunomia-bpf/wasm-bpf>
 
     > 将应用程序移植到WebAssembly需要额外的工作。此外，内核eBPF的Wasm接口也需要进行维护，就像BPF守护进程一样。
 
@@ -203,7 +205,9 @@ BPF命名空间在概念上与PID命名空间相似，设计上直观易用。�
 
     `bpftime` 是一个用户空间eBPF运行时，它使现有的eBPF应用能够在非特权用户空间中运行，使用相同的库和工具链。它为eBPF提供了Uprobe和系统调用跟踪点，与内核uprobe相比有显著的性能提升，且不需要手动的代码插桩或进程重启。运行时促进了用户空间共享内存中的进程间eBPF映射，并与内核eBPF映射兼容，实现了与内核eBPF基础架构的无缝操作。它包括了针对各种架构的高性能LLVM JIT，以及专为x86设计的轻量级JIT和解释器。
 
-    <https://github.com/eunomia-bpf/bpftime>
+    Linux Plumbers: <https://lpc.events/event/17/contributions/1639/>
+
+    Repo: <https://github.com/eunomia-bpf/bpftime>
 
     > 它的应用仅限于特定类型的eBPF程序和用例，不是一种普遍适用的方法。
 
