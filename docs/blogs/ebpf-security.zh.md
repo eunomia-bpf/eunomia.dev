@@ -13,15 +13,15 @@
 - [eBPF安全性的新篇章：面临的挑战与前沿创新](#ebpf安全性的新篇章面临的挑战与前沿创新)
   - [目录](#目录)
   - [如何通过验证器确保 eBPF 的安全](#如何通过验证器确保-ebpf-的安全)
-    - [Challenges](#challenges)
-    - [Other works to improve verifier](#other-works-to-improve-verifier)
-  - [Limitations in eBPF Access Control](#limitations-in-ebpf-access-control)
+    - [verifier 的挑战](#verifier-的挑战)
+    - [强化 eBPF 验证器的其他研究工作](#强化-ebpf-验证器的其他研究工作)
+  - [eBPF访问控制的限制](#ebpf访问控制的限制)
     - [CAP\_BPF](#cap_bpf)
-    - [bpf namespace](#bpf-namespace)
-    - [Unprivileged eBPF](#unprivileged-ebpf)
-      - [Trusted Unprivileged BPF](#trusted-unprivileged-bpf)
-  - [Other possible solutions](#other-possible-solutions)
-  - [Conclusion](#conclusion)
+    - [bpf命名空间](#bpf命名空间)
+    - [无特权eBPF](#无特权ebpf)
+    - [可信的非特权BPF](#可信的非特权bpf)
+  - [一些其他的解决方案](#一些其他的解决方案)
+    - [结论](#结论)
 
 <!-- /TOC -->
 
@@ -49,175 +49,170 @@
 - **超过“复杂性”阈值时终止并拒绝**
   为了保持实用性能，验证器设定了一个“复杂性”阈值。如果程序分析超过此阈值，验证器将终止过程并拒绝该程序。这样确保只有在可管理的复杂性范围内的程序被允许执行，实现了安全性与系统性能的平衡。
 
-### Challenges
+### verifier 的挑战
 
-Despite its thoroughness, the eBPF verifier faces significant challenges:
+尽管eBPF验证器执行得非常彻底，但它面临着一系列重大挑战：
 
-- **Attractive target for exploitation when exposed to non-root users**
-  As the verifier becomes more complex, it becomes an increasingly attractive target for exploitation. The programmability of eBPF, while powerful, also means that if an attacker were to bypass the verifier and gain execution within the OS kernel, the consequences could be severe.
+- **对非root用户暴露时成为攻击目标**
+  随着验证器日益复杂化，它逐渐成为攻击者的青睐目标。由于eBPF具备强大的可编程性，一旦攻击者绕过验证器并在操作系统内核中执行代码，可能带来严重的后果。
 
-- **Reasoning about verifier correctness is non-trivial**
-  Ensuring the verifier's correctness, especially concerning Spectre mitigations, is not a straightforward task. While there is some formal verification in place, it is only partial. Areas such as the Just-In-Time (JIT) compilers and abstract interpretation models are particularly challenging.
+- **验证器正确性的复杂推断**
+  确保验证器正确运行，特别是在Spectre缓解方面，并非易事。虽然部分形式的验证已经到位，但仍有许多挑战，特别是在即时编译器（JIT）和抽象解释模型等方面。
 
-- **Occasions where valid programs get rejected**
-  There is sometimes a disconnect between the optimizations performed by LLVM (the compiler infrastructure used to prepare eBPF programs) and the verifier's ability to understand these optimizations, leading to valid programs being erroneously rejected.
+- **有时错误拒绝有效程序**
+  由于LLVM（用于编译eBPF程序的基础架构）的优化与验证器的理解能力之间有时存在不匹配，导致一些有效的程序被错误地拒绝。
 
-- **"Stable ABI" for BPF program types**
-  A "stable ABI" is vital so that BPF programs running in production do not break upon an OS kernel upgrade. However, maintaining this stability while also evolving the verifier and the BPF ecosystem presents its own set of challenges.
+- **为BPF程序类型维护“稳定的ABI”**
+  为了确保操作系统内核更新时不影响生产环境中运行的BPF程序，“稳定的ABI”至关重要。但在保持此稳定性的同时，不断发展验证器和BPF生态系统也是一大挑战。
 
-- **Performance vs. security considerations**
-  Finally, the eternal trade-off between performance and security is pronounced in the verification of complex eBPF programs. While the verifier must be efficient to be practical, it also must not compromise on security, as the performance of the programs it is verifying is crucial for modern computing systems.
+- **性能与安全的平衡**
+  在验证复杂的eBPF程序时，性能与安全之间的平衡格外突出。虽然验证器必须保持高效以确保实用性，但同时也不能在安全性上做出妥协，因为它所验证的程序性能对现代计算系统至关重要。
 
-The eBPF verifier stands as a testament to the ingenuity in modern computing security, navigating the treacherous waters between maximum programmability and maintaining a fortress-like defense at the kernel level.
+eBPF验证器代表了现代计算安全领域的创新，它巧妙地在最大化程序可编程性和在内核级别保持坚固防御之间找到了平衡。
 
-### Other works to improve verifier
+### 强化 eBPF 验证器的其他研究工作
 
-- Specification and verification in the field: Applying formal methods to BPF just-in-time compilers in the Linux kernel: <https://www.usenix.org/conference/osdi20/presentation/nelson>
-- "Sound, Precise, and Fast Abstract Interpretation with Tristate Numbers”, Vishwanathan et al. <https://arxiv.org/abs/2105.05398>
-- “Eliminating bugs in BPF JITs using automated formal verification”, Nelson et al. <https://arxiv.org/abs/2105.05398>
-- “A proof-carrying approach to building correct and flexible BPF verifiers”, Nelson et al. <https://linuxplumbersconf.org/event/7/contributions/685/>
-- “Automatically optimizing BPF programs using program synthesis”, Xu et al. <https://linuxplumbersconf.org/event/11/contributions/944/>
-- “Simple and Precise Static Analysis of Untrusted Linux Kernel Extensions”, Gershuni et al. <https://linuxplumbersconf.org/event/11/contributions/951/>
-- “An Analysis of Speculative Type Confusion Vulnerabilities in the Wild”, Kirzner et al. <https://www.usenix.org/conference/usenixsecurity21/presentation/kirzner>
+- 领域内的规范与验证：将形式化方法应用于Linux内核BPF即时编译器：<https://www.usenix.org/conference/osdi20/presentation/nelson>
+- “使用三态数进行准确、精确和快速的抽象解释”，Vishwanathan等。<https://arxiv.org/abs/2105.05398>
+- “通过自动化形式验证消除BPF JIT的漏洞”，Nelson等。<https://arxiv.org/abs/2105.05398>
+- “使用证明携带方法构建正确且灵活的BPF验证器”，Nelson等。<https://linuxplumbersconf.org/event/7/contributions/685/>
+- “利用程序合成自动优化BPF程序”，徐等。<https://linuxplumbersconf.org/event/11/contributions/944/>
+- “简单且精确地静态分析不受信任的Linux内核扩展”，Gershuni等。<https://linuxplumbersconf.org/event/11/contributions/951/>
+- “对野外存在的投机型类型混淆漏洞进行分析”，Kirzner等。<https://www.usenix.org/conference/usenixsecurity21/presentation/kirzner>
 
-Together, these works signify a robust and multi-faceted research initiative aimed at bolstering the foundations of eBPF verification, ensuring that it remains a secure and performant tool for extending the capabilities of the Linux kernel.
+这些研究共同构成了一个强大而多维的研究倡议，旨在加强eBPF验证的基础，确保其作为扩展Linux内核能力的工具保持安全和高效。
 
-Other reference for you to learn more about eBPF verifier:
+更多eBPF验证器学习资料：
 
-- BPF and Spectre: Mitigating transient execution attacks: <https://popl22.sigplan.org/details/prisc-2022-papers/11/BPF-and-Spectre-Mitigating-transient-execution-attacks>
+- BPF和Spectre：缓解瞬时执行攻击：<https://popl22.sigplan.org/details/prisc-2022-papers/11/BPF-and-Spectre-Mitigating-transient-execution-attacks>
 
-## Limitations in eBPF Access Control
+## eBPF访问控制的限制
 
-After leading Linux distributions, such as Ubuntu and SUSE, have disallowed unprivileged usage of eBPF Socket Filter and CGroup programs, the current eBPF access control model only supports a single permission level. This level necessitates the CAP_SYS_ADMIN capability for all features. However, CAP_SYS_ADMIN carries inherent risks, particularly to containers, due to its extensive privileges.
+在像Ubuntu和SUSE这样的主要Linux发行版禁止非特权用户使用 eBPF 套接字过滤器和 CGroup 程序之后，目前的eBPF访问控制模型只支持一个单一的权限级别。这一级别要求具备CAP_SYS_ADMIN能力，用于所有功能。然而，CAP_SYS_ADMIN因其广泛的特权特性，特别是对于容器环境，带来了显著的风险。
 
-Addressing this, Linux 5.6 introduces a more granular permission system by breaking down eBPF capabilities. Instead of relying solely on CAP_SYS_ADMIN, a new capability, CAP_BPF, is introduced for invoking the bpf syscall. Additionally, installing specific types of eBPF programs demands further capabilities, such as CAP_PERFMON for performance monitoring or CAP_NET_ADMIN for network administration tasks. This structure aims to mitigate certain types of attacks—like altering process memory or eBPF maps—that still require CAP_SYS_ADMIN.
+为应对这一问题，Linux 5.6引入了更为细致的权限系统，通过细分eBPF的能力。它引入了一个新的能力CAP_BPF，用于调用bpf系统调用。此外，安装某些类型的eBPF程序还需要其他能力，如CAP_PERFMON用于性能监控或CAP_NET_ADMIN用于网络管理任务。这种设计旨在减少某些攻击类型，如更改进程内存或eBPF映射，这些攻击仍然需要CAP_SYS_ADMIN权限。
 
-Nevertheless, these segregated capabilities are not bulletproof against all eBPF-based attacks, such as Denial of Service (DoS) and information theft. Attackers may exploit these to craft eBPF-based malware specifically targeting containers. The emergence of eBPF in cloud-native applications exacerbates this threat, as users could inadvertently deploy containers that contain untrusted eBPF programs.
+然而，这些分割的能力并不能完全防止所有基于eBPF的攻击，如拒绝服务（DoS）和信息窃取。攻击者可能利用这些漏洞制造针对容器的eBPF恶意软件。eBPF在云原生应用中的广泛应用加剧了这种威胁，因为用户可能不小心部署了含有不可信eBPF程序的容器。
 
-Compounding the issue, the risks associated with eBPF in containerized environments are not entirely understood. Some container services might unintentionally grant eBPF permissions, for reasons such as enabling filesystem mounting functionality. The existing permission model is inadequate in preventing misuse of these potentially harmful eBPF features within containers.
+此外，eBPF在容器化环境中的风险还没有被完全理解。一些容器服务可能无意中授予了eBPF权限，例如为了实现文件系统挂载功能。现行的权限模型不足以防止容器中这些可能有害的eBPF功能被滥用。
 
 ### CAP_BPF
 
-Traditionally, almost all BPF actions required CAP_SYS_ADMIN privileges, which also grant broad system access. Over time, there has been a push to separate BPF permissions from these root privileges. As a result, capabilities like CAP_PERFMON and CAP_BPF were introduced to allow more granular control over BPF operations, such as reading kernel memory and loading tracing or networking programs, without needing full system admin rights.
+在传统上，几乎所有的BPF行为都需要CAP_SYS_ADMIN权限，这同时也授予了广泛的系统访问权限。随着时间的推移，已经有努力将BPF权限与根权限分开。因此，像CAP_PERFMON和CAP_BPF这样的能力被引入，以便在不需要完整的系统管理员权限的情况下，对BPF操作进行更精细的控制，如读取内核内存和加载跟踪或网络程序。
 
-However, CAP_BPF's scope is ambiguous, leading to a perception problem. Unlike CAP_SYS_MODULE, which is well-defined and used for loading kernel modules, CAP_BPF lacks namespace constraints, meaning it can access all kernel memory rather than being container-specific. This broad access is problematic because verifier bugs in BPF programs can crash the kernel, considered a security vulnerability, leading to an excessive number of CVEs (Common Vulnerabilities and Exposures) being filed, even for bugs that are already fixed. This response to verifier bugs creates undue alarm and urgency to patch older kernel versions that may not have been updated.
+然而，CAP_BPF的范围存在模糊性，导致了认知上的问题。不同于明确定义且用于加载内核模块的CAP_SYS_MODULE，CAP_BPF缺少命名空间约束，这意味着它可以访问所有的内核内存，而不仅仅是与容器相关的部分。这种广泛的访问权限是有问题的，因为BPF程序中的验证器错误可能导致内核崩溃，被视为安全漏洞，导致过多的CVE（常见漏洞和曝光）被记录，即使是那些已经修复的错误。这种对验证器错误的反应引发了不必要的警报和紧迫感，迫使人们修补可能尚未更新的旧内核版本。
 
-Additionally, some security startups have been criticized for exploiting the fears around BPF's capabilities to market their products, paradoxically using BPF itself to safeguard against the issues they highlight. This has led to a contradictory narrative where BPF is both demonized and promoted as a solution.
+此外，一些安全初创公司因利用人们对BPF能力的恐惧来推销产品而受到批评，他们矛盾地使用BPF本身来防御他们强调的问题。这导致了一个矛盾的叙述，其中BPF既被视为问题又被推崇为解决方案。
 
-### bpf namespace
+### bpf命名空间
 
-The current security model requires the CAP_SYS_ADMIN capability for iterating BPF object IDs and converting these IDs to file descriptors (FDs). This is to prevent non-privileged users from accessing BPF programs owned by others, but it also restricts them from inspecting their own BPF objects, posing a challenge in container environments.
+目前的安全模型要求具备 CAP_SYS_ADMIN 权限，以便迭代 BPF 对象 ID，并将其转换为文件描述符（FD）。这样做是为了防止非特权用户访问其他用户的BPF程序，但同时也限制了他们检查自己的BPF对象，这在容器环境中尤为挑战。
 
-Users can run BPF programs with CAP_BPF and other specific capabilities, yet they lack a generic method to inspect these programs, as tools like bpftool need CAP_SYS_ADMIN. The existing workaround without CAP_SYS_ADMIN is deemed inconvenient, involving SCM_RIGHTS and Unix domain sockets for sharing BPF object FDs between processes.
+尽管用户可以使用CAP_BPF等特定权限运行BPF程序，但他们缺少一种通用的方法来检查这些程序，因为如bpftool这类工具需要CAP_SYS_ADMIN权限。目前在没有CAP_SYS_ADMIN的情况下的解决方法，包括使用SCM_RIGHTS和Unix域套接字在
 
-To address these limitations, Yafang Shao proposes introducing a BPF namespace. This would allow users to create BPF maps, programs, and links within a specific namespace, isolating these objects from users in different namespaces. However, objects within a BPF namespace would still be visible to the parent namespace, enabling system administrators to maintain oversight.
+进程间共享BPF对象的FD，但这被认为不够方便。
 
-The BPF namespace is conceptually similar to the PID namespace and is intended to be intuitive. The initial implementation focuses on BPF maps, programs, and links, with plans to extend this to other BPF objects like BTF and bpffs in the future. This could potentially enable container users to trace only the processes within their container without accessing data from other containers, enhancing security and usability in containerized environments.
+为解决这些限制，Yafang Shao提议引入BPF命名空间。这将允许用户在特定的命名空间内创建BPF映射、程序和链接，实现这些对象与其他命名空间用户的隔离。然而，在一个BPF命名空间内的对象对其父命名空间仍然可见，从而使系统管理员能够进行监督。
 
-reference:
+BPF命名空间在概念上与PID命名空间相似，设计上直观易用。最初的实现重点是BPF映射、程序和链接，未来计划将其扩展到其他BPF对象，如BTF和bpffs。这可能使容器用户能够只追踪自己容器内的进程，而不接触到其他容器的数据，从而在容器化环境中提高安全性和易用性。
 
-- BPF and security: <https://lwn.net/Articles/946389/>
-- Cross Container Attacks: The Bewildered eBPF on Clouds <https://www.usenix.org/system/files/usenixsecurity23-he.pdf>
-- bpf: Introduce BPF namespace: <https://lwn.net/Articles/927354/>
-- ebpf-running-in-linux-namespaces: <https://stackoverflow.com/questions/48815633/ebpf-running-in-linux-namespaces>
+参考资料：
 
-### Unprivileged eBPF
+- BPF和安全：<https://lwn.net/Articles/946389/>
+- 云上eBPF的跨容器攻击：<https://www.usenix.org/system/files/usenixsecurity23-he.pdf>
+- bpf：引入BPF命名空间：<https://lwn.net/Articles/927354/>
+- ebpf在Linux命名空间运行的情况：<https://stackoverflow.com/questions/48815633/ebpf-running-in-linux-namespaces>
 
-The concept of unprivileged eBPF refers to the ability for non-root users to load eBPF programs into the kernel. This feature is controversial due to security implications and, as such, is currently turned off by default across all major Linux distributions. The concern stems from hardware vulnerabilities like Spectre to kernel bugs and exploits, which can be exploited by malicious eBPF programs to leak sensitive data or attack the system.
+### 无特权eBPF
 
-To combat this, mitigations have been put in place for various versions of these vulnerabilities, like v1, v2, and v4. However, these mitigations come at a cost, often significantly reducing the flexibility and performance of eBPF programs. This trade-off makes the feature unattractive and impractical for many users and use cases.
+无特权eBPF是指非root用户将eBPF程序加载到内核的能力。由于安全问题，这个特性在所有主要Linux发行版中默认是关闭的。安全担忧主要来自硬件漏洞（如Spectre）和内核漏洞，恶意eBPF程序可能利用这些漏洞泄露敏感数据或攻击系统。
 
-#### Trusted Unprivileged BPF
+为应对这一挑战，针对这些漏洞的各种版本（如v1、v2和v4）已经实施了缓解措施。然而，这些缓解措施常常以牺牲eBPF程序的灵活性和性能为代价。这种权衡使得该功能对许多用户和应用场景来说变得不具吸引力和实用性。
 
-In light of these challenges, a middle ground known as "trusted unprivileged BPF" is being explored. This approach would involve an allowlist system, where specific eBPF programs that have been thoroughly vetted and deemed trustworthy could be loaded by unprivileged users. This vetting process would ensure that only secure, production-ready programs bypass the privilege requirement, maintaining a balance between security and functionality. It's a step toward enabling more widespread use of eBPF without compromising the system's integrity.
+### 可信的非特权BPF
 
-- Permissive LSM hooks: Rejected upstream given LSMs enforce further restrictions
+鉴于这些挑战，目前正在探索一种名为“可信的非特权BPF”的中间方案。这种方法涉及一个白名单系统，其中已经经过彻底审查并被认为是可信的特定eBPF程序可以由非特权用户加载。审查过程确保只有安全、适合生产环境的程序可以绕过特权要求，保持安全性与功能性之间的平衡。这是朝着在不妥协系统完整性的前提下，更广泛地使用eBPF的一步。
 
-    New Linux Security Module (LSM) hooks specifically for the BPF subsystem, with the intent of offering more granular control over BPF maps and BTF data objects. These are fundamental to the operation of modern BPF applications.
+- 宽松的LSM钩子：由于LSM增加了进一步的限制，因此被上游拒绝
 
-    The primary addition includes two LSM hooks: bpf_map_create_security and bpf_btf_load_security, which provide the ability to override the default permission checks that rely on capabilities like CAP_BPF and CAP_NET_ADMIN. This new mechanism allows for finer control, enabling policies to enforce restrictions or bypass checks for trusted applications, shifting the decision-making to custom LSM policy implementations.
+    Linux安全模块（LSM）的新钩子专门为BPF子系统设计，旨在提供对BPF映射和BTF数据对象更细粒度的控制。这些是现代BPF应用程序的运作基础。
 
-    This approach allows for a safer default by not requiring applications to have BPF-related capabilities, which are typically required to interact with the kernel's BPF subsystem. Instead, applications can run without such privileges, with only vetted and trusted cases being granted permission to operate as if they had elevated capabilities.
+    主要添加了两个LSM钩子：bpf_map_create_security和bpf_btf_load_security，它们提供了覆盖依赖于CAP_BPF和CAP_NET_ADMIN等能力的默认权限检查的能力。这种新机制允许更精细的控制，使策略能够强制实施限制或为可信应用程序绕过检查，转移决策至自定义LSM策略实现。
 
-- BPF token concept to delegate subset of BPF via token fd from trusted privileged daemon
+    这种方法通过不要求应用程序具备与内核BPF子系统交互所需的BPF相关能力，实现了更安全的默认设置。相反，应用程序可以在没有这些权限的情况下运行，只有被审查并信任的情况才被授予操作权限，就像它们拥有提升的能力一样。
 
-    the BPF token, a new mechanism allowing privileged daemons to delegate a subset of BPF functionality to trusted unprivileged applications. This concept enables containerized BPF applications to operate safely within user namespaces—a feature previously unattainable due to security restrictions with CAP_BPF capabilities. The BPF token is created and managed via kernel APIs, and it can be pinned within the BPF filesystem for controlled access. The latest version of the patch ensures that a BPF token is confined to its creation instance in the BPF filesystem to prevent misuse. This addition to the BPF subsystem facilitates more secure and flexible unprivileged BPF operations.
+- BPF令牌概念：特权守护进程通过令牌fd委托BPF的子集
 
-- BPF signing as gatekeeper: application vs BPF program (no one-size-fits-all)
+    BPF令牌是一种新机制，允许特权守护进程将BPF功能的子集委托给可信的非特权应用程序。这一概念使得容器化的BPF应用程序能够在用户命名空间内安全运行，这在之前由于CAP_BPF能力的安全限制而无法实现。BPF令牌通过内核API创建和管理，并可以在BPF文件系统中固定，以实现控制访问。最新版本的补丁确保BPF令牌被限制在其在BPF文件系统中的创建实例中，以防止误用。这种添加到BPF子系统的功能促进了更安全、更灵活的无特权BPF操作。
 
-    Song Liu has proposed a patch for unprivileged access to BPF functionality through a new device, `/dev/bpf`. This device controls access via two new ioctl commands that allow users with write permissions to the device to invoke `sys_bpf()`. These commands toggle the ability of the current task to call `sys_bpf()`, with the permission state being stored in the `task_struct`. This permission is also inheritable by new threads created by the task. A new helper function, `bpf_capable()`, is introduced to check if a task has obtained permission through `/dev/bpf`. The patch includes updates to documentation and header files.
+- BPF签名作为守门员：应用程序与BPF程序（没有一刀切的解决方案）
 
-- RPC to privileged BPF daemon: Limitations depending on use cases/environment
+    Song Liu提出了一个补丁，通过一个新设备`/dev/bpf`允许无特权访问BPF功能。这个设备通过两个新的ioctl命令控制访问，允许对该设备具有写权限的用户调用`sys_bpf()`。这些命令切换当前任务调用`sys_bpf()`的能力，权限状态存储在`task_struct`中。这种权限也可以由任务创建的新线程继承。引入了一个新的辅助函数`bpf_capable()`来检查任务是否通过`/dev/bpf`获得了权限。该补丁包括对文档和头文件的更新。
 
-    The RPC approach (eg. bpfd) is similar to the BPF token concept, but it uses a privileged daemon to manage the BPF programs. This daemon is responsible for loading and unloading BPF programs, as well as managing the BPF maps. The daemon is also responsible for verifying the BPF programs before loading them. This approach is more flexible than the BPF token concept, as it allows for more fine-grained control over the BPF programs. However, it is also more complex, bring more maintenance challenges and possibilities for single points of failure.
+- RPC到特权BPF守护进程：根据用例/环境的限制
 
-reference
+    RPC方法（例如bpfd）与BPF令牌概念类似，但它使用特权守护进程来管理BPF程序。这个守护进程负责加载和卸载BPF程序，以及管理BPF映射。守护进程还负责在加载前验证BPF程序。这种方法比BPF令牌概念更灵活，因为它允许更细致的控制BPF程序。然而，它也更复杂，带来了更多的维护挑战和单点故障的可能性。
 
-- Permissive LSM hooks: <https://lore.kernel.org/bpf/20230412043300.360803-1-andrii@kernel.org/>
-- BPF token concept: <https://lore.kernel.org/bpf/20230629051832.897119-1-andrii@kernel.org/>
-- BPF signing using fsverity and LSM gatekeeper: <https://www.youtube.com/watch?v=9p4qviq60z8>
-- Sign the BPF bytecode: <https://lpc.events/event/16/contributions/1357/attachments/1045/1999/BPF%20Signatures.pdf>
-- bpfd: <https://bpfd.dev/>
+参考资料：
 
-## Other possible solutions
+- 宽松的LSM钩子：<https://lore.kernel.org/bpf/20230412043300.360803-1-andrii@kernel.org/>
+- BPF令牌概念：<https://lore.kernel.org/bpf/20230629051832.897119-1-andrii@kernel.org/>
+- 使用fsverity和LSM守门员进行BPF签名：<https://www.youtube.com/watch?v=9p4qviq60z8>
+- 签名BPF字节码：<https://lpc.events/event/16/contributions/1357/attachments/1045/1999/BPF%20Signatures.pdf>
+- bpfd：<https://bpfd.dev/>
 
-Some research or discussions about how to improve the security of eBPF. Existing works can be roughly divided into three categories: virtualization, Software Fault Isolation (SFI), and
-formal methods.
+## 一些其他的解决方案
 
-- MOAT: Towards Safe BPF Kernel Extension (Isolation)
+这里还有一些关于如何提高eBPF安全性的研究或讨论。现有工作大致可分为三类：虚拟化、软件故障隔离（SFI）和形式方法。使用类似WebAssembly的沙箱部署eBPF程序或在用户空间运行eBPF程序也是一种可能的解决方案。
 
-    The Linux kernel makes considerable use of
-    Berkeley Packet Filter (BPF) to allow user-written BPF applications
-    to execute in the kernel space. BPF employs a verifier to
-    statically check the security of user-supplied BPF code. Recent
-    attacks show that BPF programs can evade security checks and
-    gain unauthorized access to kernel memory, indicating that the
-    verification process is not flawless. In this paper, we present
-    MOAT, a system that isolates potentially malicious BPF programs
-    using Intel Memory Protection Keys (MPK). Enforcing BPF
-    program isolation with MPK is not straightforward; MOAT is
-    carefully designed to alleviate technical obstacles, such as limited
-    hardware keys and supporting a wide variety of kernel BPF
-    helper functions. We have implemented MOAT in a prototype
-    kernel module, and our evaluation shows that MOAT delivers
-    low-cost isolation of BPF programs under various real-world
-    usage scenarios, such as the isolation of a packet-forwarding
-    BPF program for the memcached database with an average
-    throughput loss of 6%.
+- MOAT：实现安全的BPF内核扩展（隔离）
+
+    Linux内核广泛使用伯克利数据包过滤器（BPF），允许用户编写的BPF应用在内核空间中执行。BPF使用验证器来静态检查用户提供的BPF代码的安全性。最近的攻击表明，BPF程序可以绕过安全检查，获得对内核内存的未授权访问，这表明验证过程并非无懈可击。在本文中，我们介绍了MOAT，一个使用英特尔内存保护键（MPK）隔离潜在恶意BPF程序的系统。使用MPK强制执行BPF程序隔离并非易事；MOAT被精心设计以解决技术障碍，如硬件键数量有限和支持各种内核BPF辅助函数。我们已在原型内核模块中实现MOAT，评估结果表明，MOAT在多种真实场景下实现了BPF程序的低成本隔离，例如对memcached数据库的数据包转发BPF程序隔离，平均吞吐量损失为6%。
 
     <https://arxiv.org/abs/2301.13421>
 
-    > If we must resort to hardware protection mechanisms, is language safety or verification still necessary to protect the kernel and extensions from one another?
+    > 如果我们必须依赖硬件保护机制，那么语言安全性或验证是否仍然有必要来保护内核及其扩展？
 
-- Unleashing Unprivileged eBPF Potential with Dynamic Sandboxing
+- 利用动态沙箱释放无特权eBPF的潜力
 
-    For safety reasons, unprivileged users today have only limited ways to customize the kernel through the extended Berkeley Packet Filter (eBPF). This is unfortunate, especially since the eBPF framework itself has seen an increase in scope over the years. We propose SandBPF, a software-based kernel isolation technique that dynamically sandboxes eBPF programs to allow unprivileged users to safely extend the kernel, unleashing eBPF's full potential. Our early proof-of-concept shows that SandBPF can effectively prevent exploits missed by eBPF's native safety mechanism (i.e., static verification) while incurring 0%-10% overhead on web server benchmarks.
+    出于安全原因，如今非特权用户只能有限地通过扩展伯克利数据包过滤器（eBPF）来自定义内核。这非常遗憾，尤其是考虑到近年来eBPF框架本身的范围不断扩大。我们提出SandBPF，一种基于软件的内核隔离技术，它通过动态地对eBPF程序进行沙箱化，允许非特权用户安全地扩展内核，释放eBPF的全部潜能。我们的早期概念验证表明，SandBPF可以有效地防止eBPF本机安全机制（即静态验证）遗漏的漏洞，同时在Web服务器基准测试中带来0%-10%的开销。
 
     <https://arxiv.org/abs/2308.01983>
 
-    > Is the original design of eBPF not to be a sandbox? Why not using webassembly for SFI?
+    > 这可能与eBPF的原始设计相悖，因为它并非设计为依赖沙箱来确保安全。如果你想使用软件故障隔离，为什么不在内核中使用 webassembly？
 
-- Kernel extension verification is untenable
+- 内核扩展验证是不切实际的
 
-    The emergence of verified eBPF bytecode is ushering in a
-    new era of safe kernel extensions. In this paper, we argue
-    that eBPF’s verifier—the source of its safety guarantees—has
-    become a liability. In addition to the well-known bugs and
-    vulnerabilities stemming from the complexity and ad hoc
-    nature of the in-kernel verifier, we highlight a concerning
-    trend in which escape hatches to unsafe kernel functions
-    (in the form of helper functions) are being introduced to
-    bypass verifier-imposed limitations on expressiveness, unfortunately also bypassing its safety guarantees. We propose
-    safe kernel extension frameworks using a balance of not
-    just static but also lightweight runtime techniques. We describe a design centered around kernel extensions in safe
-    Rust that will eliminate the need of the in-kernel verifier,
-    improve expressiveness, allow for reduced escape hatches,
-    and ultimately improve the safety of kernel extensions
+    经过验证的eBPF字节码的出现预示着安全内核扩展的新时代。在本文中，我们认为eBPF的验证器——其安全保证的来源——已成为一个负担。除了众所周知的错误和漏洞（源于内核验证器的复杂性和临时性质），我们还突出了一个令人担忧的趋势，即向不安全的内核函数引入逃逸通道（以辅助函数的形式），旨在绕过验证器对表达性的限制，不幸的是，也绕过了其安全保证。我们提出了使用静态和轻量级运行时技术平衡的安全内核扩展框架。我们描述了一个以安全Rust为中心的内核扩展设计，将消除内核验证器的需要，提高表达性，减少逃逸通道，并最终提高内核扩展的安全性。
 
     <https://sigops.org/s/conferences/hotos/2023/papers/jia.pdf>
 
-    > Is it limits the kernel to load only eBPF programs that are signed by trusted third parties, as the kernel itself can no longer independently verify them? The rust toolchains also has vulnerabilities?
+    > 这可能限制内核只加载受信任第三方签名的 eBPF 程序，因为内核本身无法独立验证它们。Rust工具链也存在漏洞。
 
-## Conclusion
+- Wasm-bpf：WebAssembly eBPF库、工具链及运行时
 
-As we have traversed the multifaceted domain of eBPF security, it's clear that while eBPF’s verifier provides a robust first line of defense, there are inherent limitations within the current access control model that require attention. We have considered potential solutions from the realms of virtualization, software fault isolation, and formal methods, each offering unique approaches to fortify eBPF against vulnerabilities. However, as with any complex system, new questions and challenges continue to surface. The gaps identified between the theoretical security models and their practical implementation invite continued research and experimentation. The future of eBPF security is not only promising but also demands a collective effort to ensure the technology can be adopted with confidence in its capacity to safeguard systems
+    Wasm-bpf是一种WebAssembly eBPF库、工具链和运行时，能够使eBPF程序几乎无需更改代码就能构建成Wasm，并在Wasm沙箱中实现跨平台运行。
+
+    它提供了一个可配置的环境，具有限制性的eBPF WASI行为，增强了安全性和控制力。这使得实现细粒度权限成为可能，限制了对内核资源的访问，提供了更安全的环境。例如，可以限制eBPF程序仅用于特定类型的用途，比如网络监控，并且还可以配置哪些类型的eBPF程序能在内核中加载，以及它们可以访问哪些类型的附加事件，而无需修改内核eBPF的权限模型。
+
+    <https://github.com/eunomia-bpf/wasm-bpf>
+
+    > 将应用程序移植到WebAssembly需要额外的工作。此外，内核eBPF的Wasm接口也需要进行维护，就像BPF守护进程一样。
+
+- `bpftime`：用户空间eBPF运行时，用于uprobe、系统调用钩子及插件
+
+    `bpftime` 是一个用户空间eBPF运行时，它使现有的eBPF应用能够在非特权用户空间中运行，使用相同的库和工具链。它为eBPF提供了Uprobe和系统调用跟踪点，与内核uprobe相比有显著的性能提升，且不需要手动的代码插桩或进程重启。运行时促进了用户空间共享内存中的进程间eBPF映射，并与内核eBPF映射兼容，实现了与内核eBPF基础架构的无缝操作。它包括了针对各种架构的高性能LLVM JIT，以及专为x86设计的轻量级JIT和解释器。
+
+    <https://github.com/eunomia-bpf/bpftime>
+
+    > 它的应用仅限于特定类型的eBPF程序和用例，不是一种普遍适用的方法。
+
+### 结论
+
+在我们深入探讨eBPF安全性的多维领域时，很明显，虽然eBPF的验证器提供了坚实的首层防御，但当前访问控制模型中存在的内在限制需要引起关注。我们已经考虑了从虚拟化、软件故障隔离和形式化方法到WebAssembly 或用户空间 eBPF 运行时的各种潜在解决方案，每种方法都为加固eBPF抵抗漏洞提供了独特的途径。
+
+然而，像所有复杂系统一样，新的问题和挑战持续出现。理论安全模型与其实际执行之间的差距呼吁着持续的研究和实验。eBPF安全的未来不仅前景光明，而且还需要集体努力，以确保该技术能够在保障系统安全的能力上被信赖地采纳。
+
+> 我们是 [github.com/eunomia-bpf](https://github.com/eunomia-bpf) 开源社区，希望能使eBPF更易使用，并探索与 eBPF 相关的工具链和运行时等技术。
+>
+> 对eBPF技术感兴趣的朋友，欢迎查看我们的教程代码仓库 <https://github.com/eunomia-bpf/bpf-developer-tutorial> 和我们的网站 <https://eunomia.dev/tutorials/>，以获取更多关于 eBPF 的相关资料和实践经验。
