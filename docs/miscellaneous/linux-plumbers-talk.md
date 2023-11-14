@@ -201,19 +201,15 @@ So, what's the bottom line? We're constantly on the lookout for the optimal bala
 
 ## introduce to Evaluation & Cases
 
-"In the spirit of demonstrating the practicality of bpftime, let's explore some real-world evaluations and use cases. bpftime isn't just a theoretical framework; it's a tool that's been successfully applied to a range of existing eBPF use cases, sometimes without any need for changes, and sometimes with just minor tweaks.
+Let's explore some real-world evaluations and use cases. Existing eBPF use cases can be run without or with minor fixes, and we've tested bpftime with a variety of tools and applications, including bcc, bpftrace, and ebpf_exporter. 
 
-Take for instance the collection of bcc tools, bpftrace, and ebpf_exporter. These are the bread and butter for anyone diving into the world of eBPF for monitoring and tracing. bpftime brings these tools into userspace, tackling tasks from monitoring bash executions, memory allocations, to tracking SSL/TLS handshakes and DNS resolutions.
+With bpftime, bcc tools for userspace traceing, like Bash, Memory Allocation, SSL/TLS, and tools for system call tracing, like Opensnoop, Sigsnoop, and Syscount, can be easily deployed in userspace without kernel support and without any modification to the tools themselves.
 
-And it's not just about these individual tasks. bpftime has been put to the test with complex observability projects like Deepflow. Deepflow isn't just any application; it's a comprehensive observability suite that demands intricate data collection and analysis, all achieved through the power of eBPF.
-
-With bpftime, tools like Opensnoop, Sigsnoop, and syscount are now at your fingertips, ready to be deployed in a userspace environment. This translates to a broadening of the scope where eBPF can be utilized, moving beyond the confines of the kernel space.
-
-In summary, bpftime serves as a bridge, allowing us to take the robust eBPF use cases developed for the kernel and adapt them seamlessly to userspace, thus expanding the horizon of what's possible with eBPF."
+We've also put bpftime to the test with complex observability projects like Deepflow, which is a combination of userspace tracing and kernel tracing.
 
 ## bpftrace and bcc
 
-"Continuing our journey through the capabilities of bpftime, let's turn our attention to how it enhances the utility of bpftrace and BCC, the cornerstone tools of the eBPF ecosystem.
+let's turn our attention to how it enhances the utility of bpftrace and BCC, the tool sets of the eBPF ecosystem.
 
 With bpftime, we've taken bpftrace to new heights—it can now run entirely in userspace. Imagine having a powerful telescope that works just as well from your backyard as it does mounted on a high-altitude observatory; that's bpftrace with bpftime. It can trace system calls or uprobes without leaning on kernel support.
 
@@ -222,8 +218,6 @@ As for BCC, the toolset is vast and versatile, covering everything from applicat
 We haven't just stopped at bpftrace and BCC. We've ported and tested a suite of bcc/libbpf-tools to work seamlessly with bpftime. And for those who are metrics-driven, the Prometheus ebpf_exporter is fully operational under bpftime's wing, ensuring your observability pipelines remain uninterrupted.
 
 The visual here [referring to the slide] provides an expansive view of the eBPF tracing tools landscape, showcasing the breadth of tooling that bpftime supports, from monitoring file systems to network activity, and even CPU performance.
-
-In essence, bpftime is not merely an adaptation of eBPF for userspace; it's an expansion. It allows existing eBPF tools to thrive in a new environment, offering more flexibility and ease of use without sacrificing the depth and comprehensiveness of the data they provide."
 
 ## sslsniff
 
@@ -241,7 +235,7 @@ What we draw from this is clear: userspace SSL Sniff, enabled by bpftime, signif
 
 ## deepflow
 
-"Diving deeper into the realm of application observability, let's spotlight 'Deepflow', a sophisticated workload that truly harnesses the power of eBPF. With over 5000 lines of kernel eBPF code, this project integrates uprobes, kprobes, sockets, and tracepoints to monitor and manage the intricacies of application behavior.
+Deepflow is another realworld and complex workload that using the power of eBPF. With over 5000 lines of kernel eBPF code, this project integrates uprobes, kprobes, sockets, and tracepoints to monitor and manage the intricacies of application behavior.
 
 Deepflow has been battle-tested in production environments and its findings have been shared with the wider community in SIGCOMM 23, showcasing its success and robustness.
 
@@ -251,25 +245,21 @@ The bar charts visually break down these performance impacts. They show us, in n
 
 This is a testament to the efficiency of userspace eBPF implementations. By keeping more of the observation workload in userspace, Deepflow demonstrates that it's possible to maintain a high level of observability with minimal performance sacrifice.
 
-In sum, Deepflow, empowered by bpftime, exemplifies the new age of efficient application observability, achieving the delicate balance between deep insights and maintaining application performance."
-
 ## Roadmap 1 and Future Enhancements
 
-"As we look ahead, the roadmap for bpftime is as exciting as it is ambitious. We're exploring new frontiers where eBPF can extend its reach, especially in the realm of userspace.
+Here is the roadmap for bpftime's development.
 
-First on the horizon is the network domain. We're examining how userspace eBPF can interplay with DPDK, which is a set of libraries for fast packet processing. The goal? To establish a programmable network stack that enhances the performance without the need for a traditional control plane.
+First on the is the network domain. We're examining how userspace eBPF can interplay with DPDK, which is a set of libraries for fast packet processing. The goal? To establish a programmable network stack that enhances the performance without the need for a traditional control plane.
 
 We're also exploring how userspace eBPF can accelerate file systems, particularly fuse — a mechanism widely used for Android and cloud storage. Imagine streamlining the filter process, making it more efficient and less resource-intensive. That's what we're targeting.
 
 And then there's the hotpatching of userspace functions. This is a game-changer for live systems, enabling real-time updates and bug fixes without pausing or rebooting applications.
 
-Each of these initiatives represents a leap forward in making eBPF even more versatile and user-friendly. And this is just the beginning. We're open to the community's ideas, ready to collaborate and innovate together.
+So, what's next?
 
-So, what's next? That's the question we're posing to all of you. The future of bpftime and userspace eBPF is not just in our hands—it's also in yours."
+## Roadmap 2
 
-## Roadmap 2 
-
-"In the spirit of continual improvement and driving the evolution of eBPF in userspace, we have laid out a comprehensive roadmap that charts the course for bpftime's development.
+There are also more improvements on the horizon for bpftime.
 
 Firstly, we're committed to grounding our progress in data, which is why more benchmarks and evaluations are on the docket. This will help us understand and showcase the true capabilities and enhancements of bpftime in various scenarios.
 
@@ -281,11 +271,9 @@ Security is non-negotiable, and we will be vigilant to ensure that the eBPF is r
 
 Lastly, our commitment to quality is unwavering. More tests, continuous integration, and cleaner code are the pillars that will support the reliable growth of bpftime.
 
-This roadmap is not just a path we're laying out; it's an invitation to the community. We welcome collaboration, insights, and innovations from all corners to join us in this journey. Together, let's shape the future of eBPF in userspace."
-
 ## Open Problems and Discussion
 
-"As we navigate the intricate path of eBPF development, particularly in bridging the gap between kernel and userspace, we encounter a set of open problems that invite innovative solutions and collaborative brainstorming.
+As we navigate the intricate path of eBPF development, particularly in bridging the gap between kernel and userspace, we also encounter a set of open problems that remains.
 
 One of the key challenges is the BPF_F_MMAP flag's limitation to arrays. The quest is to devise a high-performance hash map that can be shared efficiently between the kernel and userspace. Could introducing new hash map types be the answer? Or perhaps we should consider overlaying a basic hash map atop the existing array map structure?
 
@@ -297,14 +285,12 @@ We're also pondering the implications of an unprivileged eBPF type that could de
 
 And finally, the security models around eBPF remain a priority. We must continue to innovate to protect against vulnerabilities and ensure that eBPF remains a robust tool for system introspection.
 
-These open problems are not just challenges; they are opportunities. Opportunities to push the boundaries of what eBPF can do and to expand its possibilities into new domains. Your insights, experiences, and creativity are essential as we address these issues and shape the future of eBPF."
-
 ## Closing Slide: Conclusion and Q&A
 
-"In conclusion, we've seen how the userspace uprobes offer a tenfold speed increase over kernel uprobes, which is a significant advancement in our performance optimization efforts. The ability to use shared memory (shm) maps and dynamically inject code into running processes without stopping them is a leap in dynamic tracing, proving essential for real-time monitoring and analysis.
+In conclusion, we've seen how the userspace uprobes offer a tenfold speed increase over kernel uprobes, which is a significant advancement in our performance optimization efforts, and The ability to use shared memory (shm) maps and dynamically inject code into running processes without stopping.
 
-Our tooling is fully compatible with existing eBPF toolchains, libraries, and applications, ensuring a seamless integration into your current workflows. By working in tandem with kernel eBPF, we're not just improving performance but also expanding the scope and capabilities of what we can monitor and how we can intervene.
+Our tooling can be compatible with existing eBPF toolchains, libraries, and applications, ensuring a seamless integration into your current workflows.
 
-Now, I invite you to share your questions, comments, or discuss potential new use cases. Your feedback is crucial to the ongoing development and refinement of these tools. Together, let's explore the frontiers of eBPF and unlock new possibilities.
+By working together with kernel eBPF, we're not just improving performance but also expanding the scope and capabilities of what we can monitor and how we can intervene.
 
-Thank you for your attention, and I'm looking forward to our discussion."
+Thank you for your attention, and I'm looking forward to our discussion.
