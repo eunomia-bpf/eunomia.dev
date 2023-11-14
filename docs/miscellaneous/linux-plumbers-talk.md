@@ -69,7 +69,7 @@ Put it all together, and you've got networks, plugins, edge computing, smart con
 
 "Now, let's talk about bpftime itself — our userspace eBPF runtime that's all about speed and functionality. Imagine having the agility of a cat and the power of an elephant; that's bpftime in the eBPF universe.
 
-Here's the deal: with bpftime, we've supercharged Uprobes. Our userspace uprobe is a real speed demon, up to 10 times faster than the traditional kernel uprobe. And the best part? You can forget about the tedious manual instrumentation or needing to restart processes. It's like having a pit crew in Formula 1; everything happens so fast, you barely notice the changes.
+Here's the deal: with bpftime, Uprobes. Our userspace uprobe can be spped up to 10 times faster than the traditional kernel uprobe. And just like kernel uprobe, you don't need any manual instrumentation or restart processes. It's like having a pit crew in Formula 1; everything happens so fast, you barely notice the changes.
 
 We're not just fast; we play well with others, too. bpftime is compatible with kernel eBPF toolchains and libraries, so there's no need to rewrite your eBPF apps. It's like having a universal remote for all your gadgets.
 
