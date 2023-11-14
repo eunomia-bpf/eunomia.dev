@@ -107,24 +107,204 @@ Think of Mode 2 like a fusion restaurant — you get the best of both worlds. Yo
 
 In a nutshell, whether you're operating solo in userspace or partnering with the kernel, bpftime has got you covered."
 
-## 
+## [Slide 11: Examples - Monitoring Memory Allocation with bpftime]
 
-## How bpftime Works
+"Let's move into the practical world and see bpftime in action with a real-life example. Say you want to keep an eye on memory allocation by monitoring the 'malloc' function in libc – that's a function in C that grabs a chunk of memory for you to use.
 
-Delving into how bpftime works, we've adopted a two-mode approach. Mode 1 allows running eBPF entirely in userspace, ideal for non-Linux systems or where kernel modifications are not feasible. Mode 2, on the other hand, enables bpftime to work alongside kernel eBPF, offering a blend of userspace efficiency and kernel-level capabilities.
+Here's how simple it is: First, you compile and load your eBPF program with bpftime's command line interface. Just a couple of commands and you're set.
 
-## Benchmarks and Examples
+Now, if you want to trace a program from the start, you run it with bpftime, and it'll print out messages every time 'malloc' is called, showing you the process ID. It's like having a tracking device on 'malloc' – you know exactly when and where it's being called.
 
-"Our benchmarks are truly promising. In terms of Uprobe performance, userspace implementation in bpftime can be up to 10 times faster than kernel Uprobe. We've also successfully run and tested tools like bcc, bpftrace, and ebpf_exporter with minor or no modifications."
+But what if your program is already up and running, and you decide you want to start monitoring? No problem. You can dynamically attach bpftime to the running process. Just find out the process ID, and with a single command, bpftime jumps into action, no restart needed. It's like deciding to stream your favorite show and instantly getting the feed – smooth and hassle-free.
 
-## Roadmap and Future Enhancements
+And there you have it, right on your screen, the output from your original program, showing how many times 'malloc' was called. It's that easy to get insights into your program's behavior with bpftime.
 
-"Looking ahead, we're focused on expanding bpftime's capabilities. This includes more benchmarks, enhanced kernel eBPF compatibility, performance optimizations, and ensuring robust security models. We're also exploring exciting new use cases like programmable userspace network stacks and hotpatching functions."
+So, whether you're starting fresh or hooking into an ongoing process, bpftime has got the tools to give you the visibility you need."
+
+## [Slide 12: Examples - Detailed Monitoring with bpftime]
+
+"Continuing with our hands-on examples, let's walk through the steps to get our bpftime daemon up and tracing those 'malloc' calls in libc.
+
+First things first, kick off the bpftime daemon with a simple sudo command. This starts the behind-the-scenes magic that makes monitoring possible, setting up the shared memory space that bpftime will use.
+
+Now, run the 'malloc' example. A few more commands in your terminal, and you'll load the eBPF object from the buffer. It's like loading a game cartridge into a console; you're just moments away from action.
+
+The next part is where things get really interesting. You can trace 'malloc' calls in your target process. Fire up the example victim program, and with the help of bpftime, you'll see real-time output every time 'malloc' is called, along with the process ID. It's like having a live feed of what's happening under the hood of your application.
+
+And there it is, right in another console window, you'll see the tally of 'malloc' calls for the target process. It's a straightforward way to get actionable insights into how your application is behaving, memory-wise.
+
+In essence, with bpftime, monitoring crucial functions like 'malloc' becomes as easy as following a recipe. You're in control, with all the data you need at your fingertips."
+
+## [slice 13-15]
+
+As we delve further into bpftime's capabilities, let's focus on Mode 1, where eBPF runs entirely in userspace. This mode allows for a seamless experience when using tools like bcc and bpftrace, requiring no modifications to the tools themselves. It's like having an app on your phone that works perfectly without needing any updates.
+
+Now, let's bridge the gap between this userspace operation and how bpftime contrasts with the kernel eBPF. Typically, eBPF toolchains like clang, bpf tool, and bpftrace are used to develop eBPF programs that run in the kernel space, requiring a series of steps including loading, verification, and JIT compilation, which ensures that the program is safe and efficient to run.
+
+With bpftime, these eBPF programs live and run in userspace, bypassing the kernel. They are loaded and managed by a userspace library, leveraging a syscall interface provided by bpftime, which still goes through a verification process. The difference here is the final execution location. Instead of running within the kernel, bpftime allows these programs to execute in userspace, interacting with target processes through uprobes or tracepoints, and even attaching to sockets or kprobes as needed. This provides a layer of isolation and security, as it limits the potential impact of the eBPF program to the userspace environment only.
+
+The visualization we see in these slides [referring to slides 14 and 15] clarifies the journey an eBPF program takes when run in userspace via bpftime. It moves from source code through the toolchain, and then within the userspace, it's managed by bpftime components, which handle the verification and JIT compilation. Ultimately, the program can observe and interact with target processes, all within the safety and confines of userspace.
+
+This contrast highlights bpftime's unique approach, offering the power and versatility of eBPF with the added benefits of userspace execution, such as increased safety and flexibility. By running in userspace, bpftime opens the door for eBPF's use in environments where modifying the kernel is not possible or desirable.
+
+In summary, bpftime's Mode 1 exemplifies a significant advancement, providing the tools for developers to harness the power of eBPF in userspace with ease and confidence
+
+## How it works: injection
+
+"Moving on, let's talk about how bpftime takes the concept of eBPF and applies it in a practical, user-friendly manner through the process of injection. Injection here simply means how we insert, or 'inject', the bpftime capabilities into the programs we want to monitor or manipulate.
+
+bpftime simplifies this process by supporting two types of injection, tailored to the state of your application. If you've got a running process and you decide you want to start monitoring it with eBPF, bpftime uses the Ptrace method, which is based on the powerful Frida instrumentation toolkit. Think of it as a minimally invasive surgery for your process — it gets the job done without stopping the patient.
+
+For those situations where you're just about to start a new process, bpftime uses the LD_PRELOAD method. This is like giving your application a pair of glasses before it starts reading — it enhances the process from the get-go.
+
+The diagram here [referring to the slide] offers a visual summary of the injection process. It shows the layers of a running application, from the main executable to the underlying libraries like libc and libpthread, and how the bpftime agent, through Frida, interacts with these components. It's this interaction that allows bpftime to monitor and manipulate the process as needed.
+
+In essence, bpftime's injection mechanism is both flexible and robust, providing the tools necessary for dynamic and responsive eBPF program interaction, whether your process is already up and running or just about to start."
+
+## How it Works: trampoline
+
+"Now, let's get into the nuts and bolts of how bpftime actually gets the job done with something called trampoline hooking. Think of a trampoline - it's a way to get from the ground to the air and back again. Similarly, trampoline hooking is a technique that allows bpftime to 'jump' into a function, do what it needs to do, and then 'jump' back out, so the function can continue running smoothly.
+
+Here's how it looks in practice. For functions running in userspace, bpftime uses something called frida-gum. This is a toolkit that helps us to neatly insert our own code into the function we're interested in. It's like being able to add an extra step in a dance without missing a beat.
+
+For system calls, which are the ways a program requests a service from the kernel, we use two methods: zpoline and pmem/syscall_intercept. These are different techniques for hooking into system calls efficiently.
+
+The beauty of this approach is that it's not rigid; we can add new trampoline methods as needed. This means bpftime is adaptable and can evolve as new requirements or better methods are discovered.
+
+The graphics here [referring to the slide] give you a clear visualization of how the trampoline code is inserted into the process's flow. You can see that we're not disrupting the original program; we're just adding our own layer that allows us to observe or modify behavior before passing control back to the program.
+
+In essence, trampoline hooking is a powerful yet unobtrusive way bpftime interacts with running processes. It's a testament to the flexibility and sophistication that bpftime brings to the table for userspace eBPF."
+
+## How it Works: work with kernel
+
+"In Mode 2, bpftime showcases its versatility by blending userspace eBPF with kernel operations. This is where things get robust, allowing you to run complex observability tools like deepflow, which require a mix of userspace agility and kernel-level depth.
+
+Picture this: bpftime in Mode 2 is like a hybrid car that can switch between electric and gas power. It uses userspace eBPF for quick and safe execution while still interacting transparently with kernel eBPF. It's like having a pass to both VIP and backstage areas at a concert; you get the best of both worlds without compromise.
+
+How does it do this? By using kernel eBPF maps, bpftime can 'offload' certain tasks to userspace, allowing for efficient processing without overloading the kernel. It's akin to cloud computing, where heavy tasks are offloaded to the cloud, keeping your local resources free.
+
+The workflow [refer to slide 19] is intuitive. bpftime's daemon loads the eBPF program, which then hooks into the system calls or functions you're interested in, all verified and JIT-compiled. This hybrid approach means you can monitor and intercept a broad range of activities, from system calls to network packets, all while keeping the heavy lifting within the user's control.
+
+Mode 2 of bpftime is a testament to the tool's adaptability and power, bridging the gap between userspace flexibility and kernel-level control, providing a comprehensive solution for advanced eBPF use cases."
+
+## benchmark llvm jit
+
+"Let's shift gears and look at another critical aspect of bpftime's performance: the JIT, or Just-In-Time compilation benchmarking. JIT is like the sprinter of the programming world—it translates eBPF bytecode to native machine code on the fly, aiming for maximum performance.
+
+Now, the execution time graph here [referring to slide 21] shows us a lineup from various JIT implementations, including ubpf, rbpf, and LLVM's jit/aot, to wasm and native execution. And what's the takeaway? LLVM's JIT is leading the pack—it's the Usain Bolt here, potentially the fastest out there.
+
+But, there's a catch. Sometimes LLVM can feel a bit heavy, like it's carrying extra weight on the track. That's where AOT, or Ahead-Of-Time compilation, comes in. It's like preparing for the race ahead of time, so when the starting gun goes off, you're ready to bolt.
+
+The charts present a clear visual representation of execution times across different runtimes for various functions like prime number calculation or memory copying. They make it evident that LLVM's JIT can significantly reduce execution times, bringing it close to native performance levels.
+
+So, what's the bottom line? We're constantly on the lookout for the optimal balance between speed and efficiency. With LLVM's JIT already showing great potential, and AOT on the horizon, bpftime is well-positioned to offer blistering performance for eBPF in userspace."
+
+## introduce to Evaluation & Cases
+
+"In the spirit of demonstrating the practicality of bpftime, let's explore some real-world evaluations and use cases. bpftime isn't just a theoretical framework; it's a tool that's been successfully applied to a range of existing eBPF use cases, sometimes without any need for changes, and sometimes with just minor tweaks.
+
+Take for instance the collection of bcc tools, bpftrace, and ebpf_exporter. These are the bread and butter for anyone diving into the world of eBPF for monitoring and tracing. bpftime brings these tools into userspace, tackling tasks from monitoring bash executions, memory allocations, to tracking SSL/TLS handshakes and DNS resolutions.
+
+And it's not just about these individual tasks. bpftime has been put to the test with complex observability projects like Deepflow. Deepflow isn't just any application; it's a comprehensive observability suite that demands intricate data collection and analysis, all achieved through the power of eBPF.
+
+With bpftime, tools like Opensnoop, Sigsnoop, and syscount are now at your fingertips, ready to be deployed in a userspace environment. This translates to a broadening of the scope where eBPF can be utilized, moving beyond the confines of the kernel space.
+
+In summary, bpftime serves as a bridge, allowing us to take the robust eBPF use cases developed for the kernel and adapt them seamlessly to userspace, thus expanding the horizon of what's possible with eBPF."
+
+## bpftrace and bcc
+
+"Continuing our journey through the capabilities of bpftime, let's turn our attention to how it enhances the utility of bpftrace and BCC, the cornerstone tools of the eBPF ecosystem.
+
+With bpftime, we've taken bpftrace to new heights—it can now run entirely in userspace. Imagine having a powerful telescope that works just as well from your backyard as it does mounted on a high-altitude observatory; that's bpftrace with bpftime. It can trace system calls or uprobes without leaning on kernel support.
+
+As for BCC, the toolset is vast and versatile, covering everything from applications and runtimes to the system call interface. We've successfully brought these tools, which traditionally operated at the kernel level, into the realm of userspace. This transition is akin to moving from studio-based recording to live streaming; the performance is live, direct, and without the constraints of a studio setting.
+
+We haven't just stopped at bpftrace and BCC. We've ported and tested a suite of bcc/libbpf-tools to work seamlessly with bpftime. And for those who are metrics-driven, the Prometheus ebpf_exporter is fully operational under bpftime's wing, ensuring your observability pipelines remain uninterrupted.
+
+The visual here [referring to the slide] provides an expansive view of the eBPF tracing tools landscape, showcasing the breadth of tooling that bpftime supports, from monitoring file systems to network activity, and even CPU performance.
+
+In essence, bpftime is not merely an adaptation of eBPF for userspace; it's an expansion. It allows existing eBPF tools to thrive in a new environment, offering more flexibility and ease of use without sacrificing the depth and comprehensiveness of the data they provide."
+
+## sslsniff
+
+"Let's focus on a head-to-head comparison that really illustrates the power of userspace eBPF with bpftime: Kernel versus User SSL Sniff on Nginx.
+
+We're using sslsniff, a tool provided by the bcc suite to capture SSL/TLS data. Now, when we talk about SSL interception, we're referring to the ability to peek into the secure communications between clients and servers—vital for security analysis and troubleshooting.
+
+The impact on performance is our primary concern here. The metrics on the slide reveal a stark contrast. When kernel-based SSL Sniff is at play, the overhead is significant. We're seeing a reduction in requests per second by nearly 58% and a similar figure for the transfer rate. That's a heavy toll on performance.
+
+Switch to userspace, and the picture changes dramatically. The overhead drops to just over 12% for both requests and transfer rates. This is like comparing a fuel-efficient car to a gas-guzzler—both get you to your destination, but one does it with much less resource consumption.
+
+To put this into context, the benchmark uses wrk, a modern HTTP benchmarking tool, against a local Nginx server, all running on a Linux kernel version 6.2.0, with Nginx at version 1.22.0.
+
+What we draw from this is clear: userspace SSL Sniff, enabled by bpftime, significantly lessens the performance impact compared to its kernel counterpart, offering a more efficient solution for SSL/TLS data interception in a live server environment."
+
+## deepflow
+
+"Diving deeper into the realm of application observability, let's spotlight 'Deepflow', a sophisticated workload that truly harnesses the power of eBPF. With over 5000 lines of kernel eBPF code, this project integrates uprobes, kprobes, sockets, and tracepoints to monitor and manage the intricacies of application behavior.
+
+Deepflow has been battle-tested in production environments and its findings have been shared with the wider community in SIGCOMM 23, showcasing its success and robustness.
+
+When we zoom in on Layer 7 observability, we encounter a common bottleneck: performance slowdowns due to probing. However, with bpftime's userspace uprobes, this slow down is minimized—reducing request and transfer rates by just over 15%. On the other hand, kernel uprobes exhibit a heavier impact, with reductions close to 22%.
+
+The bar charts visually break down these performance impacts. They show us, in no uncertain terms, the advantage of userspace uprobes enabled by bpftime compared to their kernel counterparts, with a clear lesser impact on request and transfer rates.
+
+This is a testament to the efficiency of userspace eBPF implementations. By keeping more of the observation workload in userspace, Deepflow demonstrates that it's possible to maintain a high level of observability with minimal performance sacrifice.
+
+In sum, Deepflow, empowered by bpftime, exemplifies the new age of efficient application observability, achieving the delicate balance between deep insights and maintaining application performance."
+
+## Roadmap 1 and Future Enhancements
+
+"As we look ahead, the roadmap for bpftime is as exciting as it is ambitious. We're exploring new frontiers where eBPF can extend its reach, especially in the realm of userspace.
+
+First on the horizon is the network domain. We're examining how userspace eBPF can interplay with DPDK, which is a set of libraries for fast packet processing. The goal? To establish a programmable network stack that enhances the performance without the need for a traditional control plane.
+
+We're also exploring how userspace eBPF can accelerate file systems, particularly fuse — a mechanism widely used for Android and cloud storage. Imagine streamlining the filter process, making it more efficient and less resource-intensive. That's what we're targeting.
+
+And then there's the hotpatching of userspace functions. This is a game-changer for live systems, enabling real-time updates and bug fixes without pausing or rebooting applications.
+
+Each of these initiatives represents a leap forward in making eBPF even more versatile and user-friendly. And this is just the beginning. We're open to the community's ideas, ready to collaborate and innovate together.
+
+So, what's next? That's the question we're posing to all of you. The future of bpftime and userspace eBPF is not just in our hands—it's also in yours."
+
+## Roadmap 2 
+
+"In the spirit of continual improvement and driving the evolution of eBPF in userspace, we have laid out a comprehensive roadmap that charts the course for bpftime's development.
+
+Firstly, we're committed to grounding our progress in data, which is why more benchmarks and evaluations are on the docket. This will help us understand and showcase the true capabilities and enhancements of bpftime in various scenarios.
+
+A key focus is to enhance the synergy between bpftime and kernel eBPF. By improving compatibility through expanded support for maps and helpers, we will bridge the gap between userspace and kernel, ensuring a more seamless experience.
+
+Performance is at the heart of our endeavor. We aim to optimize the LLVM JIT and runtime, ensuring that bpftime is not just powerful, but also efficient. And for environments where resources are at a premium, LLVM AOT compilation for eBPF will be a game-changer, offering the benefits of eBPF even in the most constrained environments.
+
+Security is non-negotiable, and we will be vigilant to ensure that the eBPF is robust against potential attacks.
+
+Lastly, our commitment to quality is unwavering. More tests, continuous integration, and cleaner code are the pillars that will support the reliable growth of bpftime.
+
+This roadmap is not just a path we're laying out; it's an invitation to the community. We welcome collaboration, insights, and innovations from all corners to join us in this journey. Together, let's shape the future of eBPF in userspace."
 
 ## Open Problems and Discussion
 
-However, we still face challenges, such as improving hash map performance and error propagation between user and kernel space. We're eager to hear your thoughts, ideas, and suggestions on these topics.
+"As we navigate the intricate path of eBPF development, particularly in bridging the gap between kernel and userspace, we encounter a set of open problems that invite innovative solutions and collaborative brainstorming.
+
+One of the key challenges is the BPF_F_MMAP flag's limitation to arrays. The quest is to devise a high-performance hash map that can be shared efficiently between the kernel and userspace. Could introducing new hash map types be the answer? Or perhaps we should consider overlaying a basic hash map atop the existing array map structure?
+
+Furthermore, there’s the question of facilitating kernel eBPF programs' access to userspace maps. This opens the door to potential cache mechanisms and synchronization with syscalls, merging the speed of kernel operations with the flexibility of userspace.
+
+Error propagation presents another conundrum: How can we design kernel eBPF processes to wait for userspace operations effectively and handle errors gracefully?
+
+We're also pondering the implications of an unprivileged eBPF type that could democratize eBPF usage, reducing the entry barriers for developers and ensuring a broader adoption.
+
+And finally, the security models around eBPF remain a priority. We must continue to innovate to protect against vulnerabilities and ensure that eBPF remains a robust tool for system introspection.
+
+These open problems are not just challenges; they are opportunities. Opportunities to push the boundaries of what eBPF can do and to expand its possibilities into new domains. Your insights, experiences, and creativity are essential as we address these issues and shape the future of eBPF."
 
 ## Closing Slide: Conclusion and Q&A
 
-"In conclusion, bpftime represents a significant step forward in the eBPF ecosystem, offering speed, compatibility, and flexibility. It opens up new possibilities for userspace applications and bridges some critical gaps in the current eBPF landscape. Thank you for your attention. I'm now open to any questions or comments you may have."
+"In conclusion, we've seen how the userspace uprobes offer a tenfold speed increase over kernel uprobes, which is a significant advancement in our performance optimization efforts. The ability to use shared memory (shm) maps and dynamically inject code into running processes without stopping them is a leap in dynamic tracing, proving essential for real-time monitoring and analysis.
+
+Our tooling is fully compatible with existing eBPF toolchains, libraries, and applications, ensuring a seamless integration into your current workflows. By working in tandem with kernel eBPF, we're not just improving performance but also expanding the scope and capabilities of what we can monitor and how we can intervene.
+
+Now, I invite you to share your questions, comments, or discuss potential new use cases. Your feedback is crucial to the ongoing development and refinement of these tools. Together, let's explore the frontiers of eBPF and unlock new possibilities.
+
+Thank you for your attention, and I'm looking forward to our discussion."
