@@ -22,6 +22,11 @@ However, as with any system that interfaces closely with the kernel, the securit
     - [Unprivileged eBPF](#unprivileged-ebpf)
       - [Trusted Unprivileged BPF](#trusted-unprivileged-bpf)
   - [Other possible solutions](#other-possible-solutions)
+    - [MOAT: Towards Safe BPF Kernel Extension (Isolation)](#moat-towards-safe-bpf-kernel-extension-isolation)
+    - [Unleashing Unprivileged eBPF Potential with Dynamic Sandboxing](#unleashing-unprivileged-ebpf-potential-with-dynamic-sandboxing)
+    - [Kernel extension verification is untenable](#kernel-extension-verification-is-untenable)
+    - [Wasm-bpf: WebAssembly eBPF library, toolchain and runtime](#wasm-bpf-webassembly-ebpf-library-toolchain-and-runtime)
+    - [`bpftime`: Userspace eBPF runtime for uprobe \& syscall hook \& plugin](#bpftime-userspace-ebpf-runtime-for-uprobe--syscall-hook--plugin)
   - [Conclusion](#conclusion)
 
 <!-- /TOC -->
@@ -191,81 +196,80 @@ reference
 
 Here are also some research or discussions about how to improve the security of eBPF. Existing works can be roughly divided into three categories: virtualization, Software Fault Isolation (SFI), and formal methods. Use a sandbox like WebAssembly to deploy eBPF programs or run eBPF programs in userspace is also a possible solution.
 
-- MOAT: Towards Safe BPF Kernel Extension (Isolation)
+### MOAT: Towards Safe BPF Kernel Extension (Isolation)
 
-    The Linux kernel makes considerable use of
-    Berkeley Packet Filter (BPF) to allow user-written BPF applications
-    to execute in the kernel space. BPF employs a verifier to
-    statically check the security of user-supplied BPF code. Recent
-    attacks show that BPF programs can evade security checks and
-    gain unauthorized access to kernel memory, indicating that the
-    verification process is not flawless. In this paper, we present
-    MOAT, a system that isolates potentially malicious BPF programs
-    using Intel Memory Protection Keys (MPK). Enforcing BPF
-    program isolation with MPK is not straightforward; MOAT is
-    carefully designed to alleviate technical obstacles, such as limited
-    hardware keys and supporting a wide variety of kernel BPF
-    helper functions. We have implemented MOAT in a prototype
-    kernel module, and our evaluation shows that MOAT delivers
-    low-cost isolation of BPF programs under various real-world
-    usage scenarios, such as the isolation of a packet-forwarding
-    BPF program for the memcached database with an average
-    throughput loss of 6%.
+The Linux kernel makes considerable use of
+Berkeley Packet Filter (BPF) to allow user-written BPF applications
+to execute in the kernel space. BPF employs a verifier to
+statically check the security of user-supplied BPF code. Recent
+attacks show that BPF programs can evade security checks and
+gain unauthorized access to kernel memory, indicating that the
+verification process is not flawless. In this paper, we present
+MOAT, a system that isolates potentially malicious BPF programs
+using Intel Memory Protection Keys (MPK). Enforcing BPF
+program isolation with MPK is not straightforward; MOAT is
+carefully designed to alleviate technical obstacles, such as limited
+hardware keys and supporting a wide variety of kernel BPF
+helper functions. We have implemented MOAT in a prototype
+kernel module, and our evaluation shows that MOAT delivers
+low-cost isolation of BPF programs under various real-world
+usage scenarios, such as the isolation of a packet-forwarding
+BPF program for the memcached database with an average
+throughput loss of 6%.
 
-    <https://arxiv.org/abs/2301.13421>
+<https://arxiv.org/abs/2301.13421>
 
-    > If we must resort to hardware protection mechanisms, is language safety or verification still necessary to protect the kernel and extensions from one another?
+> If we must resort to hardware protection mechanisms, is language safety or verification still necessary to protect the kernel and extensions from one another?
 
-- Unleashing Unprivileged eBPF Potential with Dynamic Sandboxing
+### Unleashing Unprivileged eBPF Potential with Dynamic Sandboxing
 
-    For safety reasons, unprivileged users today have only limited ways to customize the kernel through the extended Berkeley Packet Filter (eBPF). This is unfortunate, especially since the eBPF framework itself has seen an increase in scope over the years. We propose SandBPF, a software-based kernel isolation technique that dynamically sandboxes eBPF programs to allow unprivileged users to safely extend the kernel, unleashing eBPF's full potential. Our early proof-of-concept shows that SandBPF can effectively prevent exploits missed by eBPF's native safety mechanism (i.e., static verification) while incurring 0%-10% overhead on web server benchmarks.
+For safety reasons, unprivileged users today have only limited ways to customize the kernel through the extended Berkeley Packet Filter (eBPF). This is unfortunate, especially since the eBPF framework itself has seen an increase in scope over the years. We propose SandBPF, a software-based kernel isolation technique that dynamically sandboxes eBPF programs to allow unprivileged users to safely extend the kernel, unleashing eBPF's full potential. Our early proof-of-concept shows that SandBPF can effectively prevent exploits missed by eBPF's native safety mechanism (i.e., static verification) while incurring 0%-10% overhead on web server benchmarks.
 
-    <https://arxiv.org/abs/2308.01983>
+<https://arxiv.org/abs/2308.01983>
 
-    > It may be conflict with the original design of eBPF, since it's not designed to use sandbox to ensure safety. Why not using webassembly in kernel if you want SFI?
+> It may be conflict with the original design of eBPF, since it's not designed to use sandbox to ensure safety. Why not using webassembly in kernel if you want SFI?
 
-- Kernel extension verification is untenable
+### Kernel extension verification is untenable
 
-    The emergence of verified eBPF bytecode is ushering in a
-    new era of safe kernel extensions. In this paper, we argue
-    that eBPF’s verifier—the source of its safety guarantees—has
-    become a liability. In addition to the well-known bugs and
-    vulnerabilities stemming from the complexity and ad hoc
-    nature of the in-kernel verifier, we highlight a concerning
-    trend in which escape hatches to unsafe kernel functions
-    (in the form of helper functions) are being introduced to
-    bypass verifier-imposed limitations on expressiveness, unfortunately also bypassing its safety guarantees. We propose
-    safe kernel extension frameworks using a balance of not
-    just static but also lightweight runtime techniques. We describe a design centered around kernel extensions in safe
-    Rust that will eliminate the need of the in-kernel verifier,
-    improve expressiveness, allow for reduced escape hatches,
-    and ultimately improve the safety of kernel extensions
+The emergence of verified eBPF bytecode is ushering in a
+new era of safe kernel extensions. In this paper, we argue
+that eBPF’s verifier—the source of its safety guarantees—has
+become a liability. In addition to the well-known bugs and
+vulnerabilities stemming from the complexity and ad hoc
+nature of the in-kernel verifier, we highlight a concerning
+trend in which escape hatches to unsafe kernel functions
+(in the form of helper functions) are being introduced to
+bypass verifier-imposed limitations on expressiveness, unfortunately also bypassing its safety guarantees. We propose
+safe kernel extension frameworks using a balance of not
+just static but also lightweight runtime techniques. We describe a design centered around kernel extensions in safe
+Rust that will eliminate the need of the in-kernel verifier,
+improve expressiveness, allow for reduced escape hatches,
+and ultimately improve the safety of kernel extensions
 
-    <https://sigops.org/s/conferences/hotos/2023/papers/jia.pdf>
+<https://sigops.org/s/conferences/hotos/2023/papers/jia.pdf>
 
-    > It may limits the kernel to load only eBPF programs that are signed by trusted third parties, as the kernel itself can no longer independently verify them. The rust toolchains also has vulnerabilities.
+> It may limits the kernel to load only eBPF programs that are signed by trusted third parties, as the kernel itself can no longer independently verify them. The rust toolchains also has vulnerabilities.
 
-- Wasm-bpf: WebAssembly eBPF library, toolchain and runtime
+### Wasm-bpf: WebAssembly eBPF library, toolchain and runtime
 
-    Wasm-bpf is a WebAssembly eBPF library, toolchain and runtime allows the construction of eBPF programs into Wasm with little to no changes to the code, and run them cross platforms with Wasm sandbox.
+Wasm-bpf is a WebAssembly eBPF library, toolchain and runtime allows the construction of eBPF programs into Wasm with little to no changes to the code, and run them cross platforms with Wasm sandbox.
 
-    It provides a configurable environment with limited eBPF WASI behavior, enhancing security and control. This allows for fine-grained permissions, restricting access to kernel resources and providing a more secure environment. For instance, eBPF programs can be restricted to specific types of useage, such as network monitoring, it can also configure what kind of eBPF programs can be loaded in kernel, what kind of attach event it can access without the need for modify kernel eBPF permission models.
+It provides a configurable environment with limited eBPF WASI behavior, enhancing security and control. This allows for fine-grained permissions, restricting access to kernel resources and providing a more secure environment. For instance, eBPF programs can be restricted to specific types of useage, such as network monitoring, it can also configure what kind of eBPF programs can be loaded in kernel, what kind of attach event it can access without the need for modify kernel eBPF permission models.
 
-    Kubecon talk: <https://sched.co/1R2uf>
+- Kubecon talk: <https://sched.co/1R2uf>
+- Repo: <https://github.com/eunomia-bpf/wasm-bpf>
 
-    Repo: <https://github.com/eunomia-bpf/wasm-bpf>
+> It will require additional effort to port the application to WebAssembly. Additionally, Wasm interface of kernel eBPF also need more effort of maintain, as the BPF daemon does.
 
-    > It will require additional effort to port the application to WebAssembly. Additionally, Wasm interface of kernel eBPF also need more effort of maintain, as the BPF daemon does.
+### `bpftime`: Userspace eBPF runtime for uprobe & syscall hook & plugin
 
-- `bpftime`: Userspace eBPF runtime for uprobe & syscall hook & plugin
+An userspace eBPF runtime that allows existing eBPF applications to operate in unprivileged userspace using the same libraries and toolchains. It offers Uprobe and Syscall tracepoints for eBPF, with significant performance improvements over kernel uprobe and without requiring manual code instrumentation or process restarts. The runtime facilitates interprocess eBPF maps in userspace shared memory, and is also compatible with kernel eBPF maps, allowing for seamless operation with the kernel's eBPF infrastructure. It includes a high-performance LLVM JIT for various architectures, alongside a lightweight JIT for x86 and an interpreter.
 
-    An userspace eBPF runtime that allows existing eBPF applications to operate in unprivileged userspace using the same libraries and toolchains. It offers Uprobe and Syscall tracepoints for eBPF, with significant performance improvements over kernel uprobe and without requiring manual code instrumentation or process restarts. The runtime facilitates interprocess eBPF maps in userspace shared memory, and is also compatible with kernel eBPF maps, allowing for seamless operation with the kernel's eBPF infrastructure. It includes a high-performance LLVM JIT for various architectures, alongside a lightweight JIT for x86 and an interpreter.
+- <https://arxiv.org/abs/2311.07923>
+- Linux Plumbers: <https://lpc.events/event/17/contributions/1639/>
+- Repo: <https://github.com/eunomia-bpf/bpftime>
 
-    Linux Plumbers: <https://lpc.events/event/17/contributions/1639/>
-
-    Repo: <https://github.com/eunomia-bpf/bpftime>
-
-    > It's only limited to centain eBPF program types and usecases, not a general approach.
+> It may only limited to centain eBPF program types and usecases, not a general approach for kernel eBPF.
 
 ## Conclusion
 
