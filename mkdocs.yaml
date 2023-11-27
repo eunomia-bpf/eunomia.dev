@@ -32,33 +32,6 @@ theme:
 nav:
   - Home:
       - index.md
-  - Documents:
-      - Introduction: miscellaneous/introduction.md
-      - Quick Start: miscellaneous/quickstart.md
-      - Support: support.md
-      - Installation:
-          - setup/index.md
-          - From source: setup/build.md
-          - Android: setup/build-android-arm.md
-      - eunomia-cc: 
-         - ecc/index.md
-         - ecc/usage.md
-         - ecc/docker-usage.md
-         - ecc/github-template.md
-      - ecli: 
-        - ecli/index.md
-        - ecli/server.md
-      - exporter: 
-        - exporter/index.md
-        - exporter/usage.md
-      - Architecture: architecture/index.md
-      - Misc: 
-        - miscellaneous/benchmark.md
-        - miscellaneous/manual.md
-        - miscellaneous/video.md
-        - miscellaneous/online.md
-        - miscellaneous/supporting-external-BTF.md
-        - miscellaneous/quickstart.md
 
   - Tutorials: 
     - bpf-developer-tutorial:
@@ -133,6 +106,34 @@ nav:
     - bpftime/index.md
     - bpftime/documents/avaliable-features.md
     - bpftime/documents/build-and-test.md
+
+  - eunomia-bpf:
+      - Introduction: miscellaneous/introduction.md
+      - Quick Start: miscellaneous/quickstart.md
+      - Support: support.md
+      - Installation:
+          - setup/index.md
+          - From source: setup/build.md
+          - Android: setup/build-android-arm.md
+      - eunomia-cc: 
+         - ecc/index.md
+         - ecc/usage.md
+         - ecc/docker-usage.md
+         - ecc/github-template.md
+      - ecli: 
+        - ecli/index.md
+        - ecli/server.md
+      - exporter: 
+        - exporter/index.md
+        - exporter/usage.md
+      - Architecture: architecture/index.md
+      - Misc: 
+        - miscellaneous/benchmark.md
+        - miscellaneous/manual.md
+        - miscellaneous/video.md
+        - miscellaneous/online.md
+        - miscellaneous/supporting-external-BTF.md
+        - miscellaneous/quickstart.md
 
   - ecosystem:
     - others/index.md
