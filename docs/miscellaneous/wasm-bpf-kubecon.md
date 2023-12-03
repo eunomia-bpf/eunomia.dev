@@ -1,4 +1,8 @@
-# eBPF + Wasm: Lightweight Observability on Steroids
+# Securing and Simplifying eBPF Deployments with WebAssembly
+
+Extended Berkeley Packet Filter (eBPF) and WebAssembly (Wasm) are emerging as powerful technologies for enhancing system capabilities in cloud-native environments. However, deploying eBPF programs at scale presents challenges. This blog explores how integrating eBPF programs with WebAssembly runtimes like WasmEdge addresses these challenges by enabling lightweight, portable, and secure execution of eBPF workloads. The integration streamlines eBPF deployment in Kubernetes through Wasm's pluggable model while improving security with fine-grained access controls. Examples also demonstrate enhanced observability, debugging and access control for Wasm through this integration of eBPF and Wasm.
+
+## introduction
 
 Extended Berkeley Packet Filter (eBPF) and WebAssembly (Wasm) are emerging technologies that are playing important roles in modern cloud-native ecosystems. This blog post explores how these technologies can be combined to enhance system observability and security in innovative ways.
 
@@ -12,7 +16,8 @@ The post provides background on eBPF and Wasm, examines the deployment challenge
 
 <!-- TOC -->
 
-- [eBPF + Wasm: Lightweight Observability on Steroids](#ebpf--wasm-lightweight-observability-on-steroids)
+- [Securing and Simplifying eBPF Deployments with WebAssembly](#securing-and-simplifying-ebpf-deployments-with-webassembly)
+  - [introduction](#introduction)
   - [Table of Contents](#table-of-contents)
   - [Background: eBPF and Wasm in Cloud-Native Ecosystems](#background-ebpf-and-wasm-in-cloud-native-ecosystems)
   - [How can Wasm enhance eBPF](#how-can-wasm-enhance-ebpf)
