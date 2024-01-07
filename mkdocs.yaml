@@ -3,7 +3,7 @@ repo_url: https://github.com/eunomia-bpf
 site_url: https://eunomia.dev/
 repo_name: eunomia-bpf
 copyright: Copyright (c) 2023 eunomia-bpf org.
-site_description: 'eunomia-bpf: Simplifying and enhancing eBPF development and deployment'
+site_description: 'eunomia-bpf: Exploring and improving eBPF toolchains and runtimes'
 remote_branch: docs
 edit_uri: ""
 theme:

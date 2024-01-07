@@ -3,342 +3,210 @@
 <!-- Render hero under tabs -->
 {% block tabs %}
 {{ super() }}
-
-
 <style>
-  /* Apply box shadow on smaller screens that don't display tabs */
-  @media only screen and (max-width: 1220px) {
-    .md-header {
-      box-shadow: 0 0 .2rem rgba(0, 0, 0, .1), 0 .2rem .4rem rgba(0, 0, 0, .2);
-      transition: color 250ms, background-color 250ms, box-shadow 250ms;
+    /* Styles */
+
+    body, html {
+        margin: 0;
+        padding: 0;
+        font-family: 'Arial', sans-serif;
+        background: #f7f7f7;
     }
-  }
 
-  /* Hide main content for now */
-  .md-content {
-    display: none;
-  }
-
-  /* Hide table of contents */
-  @media screen and (min-width: 60em) {
-    .md-sidebar--secondary {
-      display: none;
+    .hero {
+        background: url('https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/material/background.jpg') no-repeat center center;
+        background-size: cover;
+        padding: 100px 0;
+        color: #fff;
+        text-align: center;
+        position: relative;
+        z-index: 1;
     }
-  }
 
-  /* Hide navigation */
-  @media screen and (min-width: 76.25em) {
-    .md-sidebar--primary {
-      display: none;
+    .hero:before {
+        content: '';
+        position: absolute;
+        top: 0; right: 0; bottom: 0; left: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: -1;
     }
-  }
 
-  /* Get started button */
-  .md-typeset .md-button--primary {
-    color: var(--md-primary-fg-color);
-    background-color: var(--md-primary-bg-color);
-    border-color: var(--md-primary-bg-color);
-  }
-
-  .md-typeset .md-button--primary:hover {
-    color: var(--md-primary-bg-color);
-    background-color: var(--md-primary-fg-color);
-    border-color: var(--md-primary-bg-color);
-  }
-
-  .tx-hero {
-    max-width: 700px;
-    display: flex;
-    padding: .4rem;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .tx-hero h1 {
-    font-weight: 700;
-    font-size: 38px;
-    line-height: 46px;
-    color: var(--md-primary-bg-color);
-  }
-
-  .tx-hero p {
-    color: rgb(92, 92, 92);
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 32px;
-  }
-
-  .tx-hero__image {
-    max-width: 1000px;
-    min-width: 600px;
-    width: 100%;
-    height: auto;
-    margin: 0 auto;
-    display: flex;
-    align-items: stretch;
-  }
-
-  .tx-hero__image img {
-    width: 100%;
-    height: 100%;
-    min-width: 0;
-  }
-
-  /* Secondary content styles */
-  .secondary-section {
-    background: rgb(245, 245, 245) none repeat scroll 0% 0%;
-    border-top: 1px solid rgb(222, 222, 222);
-    border-bottom: 1px solid rgb(222, 222, 222)
-  }
-
-  @media screen and (max-width: 1012px) {
-    .secondary-section {
-      display: block;
+    .hero h1 {
+        font-size: 3em;
+        font-weight: 700;
+        margin: 0 0 20px;
     }
-  }
 
-  .secondary-section .g {
-    position: relative;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0px 40px;
-    max-width: 1280px;
-  }
-
-  .secondary-section .g .section {
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 30px;
-    letter-spacing: normal;
-    padding: 88px 0px 116px;
-  }
-
-  .secondary-section .g .section.follow {
-    padding-top: 0px;
-  }
-
-
-  .secondary-section .g .section .component-wrapper {
-    display: flex;
-    -moz-box-align: center;
-    align-items: center;
-  }
-
-  @media screen and (max-width: 1012px) {
-    .secondary-section .g .section .component-wrapper {
-      display: block;
+    .hero p {
+        font-size: 1.25em;
+        max-width: 800px;
+        margin: 0 auto;
     }
-  }
 
-  .secondary-section .g .section .component-wrapper h3 {
-    color: rgb(38, 38, 38);
-    font-size: 36px;
-    font-weight: 700;
-    line-height: 46px;
-    letter-spacing: normal;
-    margin-bottom: 12px;
-  }
-
-  .secondary-section .g .section .component-wrapper h4 {
-    color: rgb(38, 38, 38);
-  }
-
-  .secondary-section .g .section .component-wrapper p {
-    color: rgb(92, 92, 92);
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 30px;
-    letter-spacing: normal;
-    margin-bottom: 16px;
-  }
-
-  .secondary-section .g .section .component-wrapper .image-wrapper {
-    margin-bottom: 12px;
-    overflow: hidden;
-    border-radius: 8px;
-    margin-top: 48px;
-    border: 1px solid rgb(222, 222, 222);
-    box-shadow: rgba(202, 202, 202, 0.15) 0px 0px 0px 6px;
-    max-width: 600px;
-    width: 100%;
-    height: auto;
-    margin: 0 auto;
-    display: flex;
-    align-items: stretch;
-  }
-
-  .image-wrapper img {
-    width: 100%;
-    height: 100%;
-    min-width: 0;
-  }
-
-  .secondary-section .g .section .component-wrapper .first-column {
-    padding-right: 100px;
-    flex: 0 1 auto;
-    height: auto;
-    width: 50%;
-  }
-
-  @media screen and (max-width: 1012px) {
-    .secondary-section .g .section .component-wrapper .first-column {
-      padding-right: 0px;
-      width: 100%;
-      margin-bottom: 32px;
+    .projects, .learn-more, .featured {
+        padding: 50px 20px;
+        text-align: center;
     }
-  }
 
-  .secondary-section .g .section .component-wrapper .second-column {
-    flex: 0 1 auto;
-    height: auto;
-    width: 50%;
-  }
-
-  @media screen and (max-width: 1012px) {
-    .secondary-section .g .section .component-wrapper .second-column {
-      width: 100%;
-      margin-bottom: 32px;
+    .card {
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        background: #fff;
+        border-radius: 8px;
+        padding: 30px;
+        margin: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        float: left;
+        width: calc(33.333% - 40px);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-  }
 
-  .secondary-section .g .section .component-wrapper .responsive-grid {
-    display: grid;
-    width: 100%;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 2rem;
-  }
-
-  @media screen and (min-width: 64rem) {
-    .secondary-section .g .section .component-wrapper .responsive-grid {
-      grid-template-columns: repeat(3, 1fr);
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
     }
-  }
 
-  .secondary-section .g .section .component-wrapper .responsive-grid a.card-wrapper {
-    text-decoration: none;
-    transition: none;
-    background: none;
-    padding: 0;
-  }
-
-  .secondary-section .g .section .component-wrapper .responsive-grid .card {
-    position: relative;
-    background-color: #fff none repeat scroll 0% 0%;
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: row;
-    -moz-box-align: center;
-    align-items: center;
-    height: 100%;
-    -moz-box-pack: start;
-    justify-content: flex-start;
-    box-shadow: rgba(0, 0, 0, 0.09) 0.3125rem 0.3125rem 0px -0.0625rem, rgba(0, 0, 0, 0.15) 0px 0.25rem 0.5rem 0px;
-    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) 0s;
-  }
-
-  .secondary-section .g .section .component-wrapper .responsive-grid .card:hover {
-    box-shadow: rgba(0, 0, 0, 0.2) 0.3125rem 0.3125rem 0px -0.0625rem, rgba(0, 0, 0, 0.26) 0px 0.25rem 0.5rem 0px;
-  }
-
-  @media screen and (min-width: 75rem) {
-    .secondary-section .g .section .component-wrapper .responsive-grid .card {
-      padding: 2rem 2.5rem;
+    .card h3 {
+        color: #004d7a;
+        font-size: 1.5em;
+        margin-bottom: 15px;
     }
-  }
 
-  @media screen and (min-width: 36rem) {
-    .secondary-section .g .section .component-wrapper .responsive-grid .card {
-      padding: 1rem 1.5rem;
+    .card p {
+        font-size: 1em;
+        line-height: 1.6;
+        color: #555;
     }
-  }
 
-  .secondary-section .g .section .component-wrapper .responsive-grid .card .logo {
-    margin-right: 0.75rem;
-    width: 1.2rem;
-    min-width: 1.2rem;
-  }
+    .card a {
+        background: none; /* 移除背景色 */
+        color: #004d7a; /* 设置文字颜色 */
+        padding: 8px 16px; /* 根据需要调整内边距来更改按钮大小 */
+        border: 2px solid #004d7a; /* 添加边框 */
+        border-radius: 50px; /* 保持圆角 */
+        transition: background-color 0.3s ease, color 0.3s ease; /* 添加颜色变化的过渡效果 */
+    }
 
-  .secondary-section .g .section .component-wrapper .responsive-grid .card .card-content {
-    display: flex;
-    flex: 1 1 0%;
-    flex-direction: column;
-    width: 100%;
-  }
+    .card a:hover {
+        background-color: #004d7a; /* 悬停时的背景色 */
+        color: #fff; /* 悬停时的文字颜色 */
+    }
+    @media (max-width: 1024px) {
+        .card {
+            width: calc(50% - 40px);
+        }
+    }
 
-  .secondary-section .g .section .component-wrapper .responsive-grid .card .card-content h5 {
-    color: rgb(61, 61, 61);
-    margin: 0;
-  }
+    @media (max-width: 768px) {
+        .card {
+            width: calc(100% - 40px);
+        }
+    }
 
-  .secondary-section .g .section .component-wrapper .responsive-grid .card .card-content p {
-    margin-top: 0.25em;
-    margin-bottom: 0;
-    color: rgb(92, 92, 92);
-    font-size: 0.65rem;
-    font-weight: 300;
-    line-height: normal;
-  }
+    .section {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
 
-  .secondary-section .g .section .component-wrapper .responsive-grid .card .card-content code {
-    background: rgba(0, 0, 0, 0.05) none repeat scroll 0% 0%;
-    padding: 2px 6px;
-    border-radius: 4px;
-  }
+    .section h2 {
+        font-size: 2.5em;
+        color: #333;
+        margin-bottom: 40px;
+    }
 
+    .section p {
+        font-size: 1.1em;
+        color: #666;
+        margin-bottom: 20px;
+    }
 
-  .component-wrapper span.em {
-    color: rgb(61, 61, 61);
-  }
+    /* 为 'Learn More About eBPF' 和 'Featured Talks and Publications' 部分的标题添加样式 */
+    .section h2 {
+        color: #333;
+        font-size: 2.5em;
+        margin: 40px 0;
+    }
 
-  .component-wrapper a {
-    transition: color 125ms;
-    color: rgb(61, 61, 61);
-    background: rgba(0, 0, 0, 0.05) none repeat scroll 0% 0%;
-    padding: 2px 6px;
-    margin: 0px 1px;
-    border-radius: 4px;
-    display: inline;
-    cursor: pointer;
-    font-weight: 600;
-  }
+    /* 修改链接的样式，去除背景色，添加下划线，以及悬停效果 */
+    .section a {
+        color: #004d7a;
+        padding: 5px 0; /* 调整内边距，如有必要 */
+        display: inline-block; /* 如果希望链接块级显示 */
+        margin-right: 10px; /* 如果链接之间需要间距 */
+        transition: color 0.3s ease; /* 平滑颜色变化的过渡效果 */
+    }
 
-  .component-wrapper a:hover {
-    color: var(--md-typeset-a-color);
-    background: var(--md-accent-fg-color--transparent);
-  }
+    .section a:hover {
+        color: #002951; /* 悬停时的颜色变暗 */
+        text-decoration: none; /* 悬停时去掉下划线 */
+    }
+
+    /* 如果要调整 'Learn More About eBPF' 下方链接的布局，可以添加以下样式 */
+    .learn-more-links {
+        display: flex;
+        justify-content: center; /* 或 'flex-start' 使得链接靠左对齐 */
+        gap: 15px; /* 链接之间的间距 */
+        flex-wrap: wrap; /* 适应不同屏幕大小 */
+    }
+
+    .footer {
+        background: #333;
+        color: white;
+        padding: 20px;
+        text-align: center;
+    }
 </style>
 
+<div class="hero">
+    <h1>Welcome to the eunomia-bpf project</h1>
+    <p>Exploring and improving the toolchains and runtimes for eBPF.</p>
+</div>
 
-
-<!-- Hero for landing page -->
-<div class="md-container tx-hero">
-  <div class="md-grid md-typeset">
-    <div class="md-main__inner">
-      <div>
-        <h1>eunomia-bpf: simplify and enhance eBPF with CO-RE and WebAssembly</h1>
-        <h3>See
-          <a href="/tutorials/">tutorials</a> and <a href="/blogs/">blogs</a>
-        </h3>
-        </p>
-        <a href="/miscellaneous/quickstart/" title="Get Started" class="md-button md-button--primary">
-          Get Started
-        </a>
-      </div>
+<div class="section projects">
+    <h2>Our Projects</h2>
+    <div class="card-container">
+        <!-- Individual cards for each project -->
+        <div class="card">
+            <h3>bpftime</h3>
+            <p>A userspace eBPF runtime offering rapid uprobes 10x faster than kernel uprobes, compatible with kernel eBPF and existing toolchains.</p>
+            <a href="https://github.com/eunomia-bpf/bpftime">Learn More</a>
+        </div>
+        <div class="card">
+            <h3>Wasm-bpf</h3>
+            <p>Cooperating with WasmEdge, we build the first user-space library and runtime for eBPF programs based on WebAssembly.</p>
+            <a href="https://github.com/eunomia-bpf/wasm-bpf">Learn More</a>
+        </div>
+        <div class="card">
+            <h3>GPTtrace</h3>
+            <p>The first tool to generate eBPF programs and trace the Linux kernel using natural language with high accuracy.</p>
+            <a href="https://github.com/eunomia-bpf/GPTtrace">Learn More</a>
+        </div>
+        <div class="card">
+            <h3>eunomia-bpf</h3>
+            <p>A tool to simplify building, distributing, and running eBPF programs with JSON and WebAssembly OCI images.</p>
+            <a href="https://github.com/eunomia-bpf/eunomia-bpf">Learn More</a>
+        </div>
     </div>
-  </div>
 </div>
 
-<div class="section follow">
-  <div style="text-align:center">
-    <h2 style="text-align:center">Built by</h2>
-    <a href="https://github.com/eunomia-bpf"><img src="{{config.site_url}}assets/logo.png"
-        width="350px" /></a>
-  </div>
+<div class="section learn-more">
+    <h2>Learn More About eBPF</h2>
+    <p>Check out our developer tutorials, code repository, and blogs for more information.</p>
+    <a href="https://eunomia.dev/tutorials">Developer Tutorials</a>
+    <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">Github Repository</a>
+    <a href="https://eunomia.dev/blogs/">Blogs and Articles</a>
 </div>
 
-<!--<div class="md-container secondary-section">-->
-
-
+<div class="section featured">
+    <h2>Featured Talks and Publications</h2>
+    <!-- Links to featured talks and publications -->
+    <a href="https://lpc.events/event/17/abstracts/1741/">bpftime at Linux Plumbers Conference 2023</a>
+    <a href="https://sched.co/1R2uf">eBPF + Wasm at KubeCon North American 2023</a>
+    <a href="https://www.alibabacloud.com/blog/eunomia-bpf-the-lightweight-development-framework-for-ebpf-and-webassembly-is-now-available_599688">eunomia-bpf at Apsara Conference 2022</a>
+    <a href="https://arxiv.org/abs/2312.05531">KEN: Kernel Extensions using Natural Language</a>
+    <a href="https://arxiv.org/abs/2311.07923">bpftime: userspace eBPF Runtime for Uprobe, Syscall and Kernel-User Interactions</a>
+</div>
 
 {% endblock %}
 
