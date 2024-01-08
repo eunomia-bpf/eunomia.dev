@@ -1,0 +1,3501 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="eunomia-bpf: Exploring and improving eBPF toolchains and runtimes">
+      
+      
+      
+        <link rel="canonical" href="https://eunomia.dev/en/tutorials/0-introduce/">
+      
+      
+        <link rel="prev" href="../../">
+      
+      
+        <link rel="next" href="../1-helloworld/">
+      
+      
+      <link rel="icon" href="../../../assets/icon.svg">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
+    
+    
+      
+        <title>eBPF Tutorial by Example 0: Introduction to Core Concepts and Tools - eunomia</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.50c56a3b.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ebpf-tutorial-by-example-0-introduction-to-core-concepts-and-tools" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../" title="eunomia" class="md-header__button md-logo" aria-label="eunomia" data-md-component="logo">
+      
+  <img src="../../../assets/icon.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            eunomia
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              eBPF Tutorial by Example 0: Introduction to Core Concepts and Tools
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/eunomia-bpf" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    eunomia-bpf
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../" class="md-tabs__link">
+          
+  
+    
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+    
+  
+  Tutorials
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../blogs/" class="md-tabs__link">
+          
+  
+    
+  
+  Blogs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../GPTtrace/" class="md-tabs__link">
+          
+  
+    
+  
+  GPTtrace
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../wasm-bpf/" class="md-tabs__link">
+          
+  
+    
+  
+  wasm-bpf
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../bpftime/" class="md-tabs__link">
+          
+  
+    
+  
+  bpftime
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../miscellaneous/introduction/" class="md-tabs__link">
+          
+  
+    
+  
+  eunomia-bpf
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../others/" class="md-tabs__link">
+          
+  
+    
+  
+  ecosystem
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="eunomia" class="md-nav__button md-logo" aria-label="eunomia" data-md-component="logo">
+      
+  <img src="../../../assets/icon.svg" alt="logo">
+
+    </a>
+    eunomia
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/eunomia-bpf" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    eunomia-bpf
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Home
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Tutorials
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="./" class="md-nav__link md-nav__link--active">
+              
+  
+  <span class="md-ellipsis">
+    bpf-developer-tutorial
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link md-nav__link--active" for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            bpf-developer-tutorial
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1-helloworld/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 1: Hello World, Framework and Development
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2-kprobe-unlink/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 2: Monitoring unlink System Calls with kprobe
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-fentry-unlink/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 3: Monitoring unlink System Calls with fentry
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4-opensnoop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 4: Capturing Opening Files and Filter with Global Variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5-uprobe-bashreadline/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 5: Capturing readline Function Calls with Uprobe
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6-sigsnoop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 6: Capturing Signal Sending and Store State with Hash Maps
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7-execsnoop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 7: Capturing Process Execution, Output with perf event array
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8-exitsnoop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 8: Monitoring Process Exit Events, Output with Ring Buffer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9-runqlat/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 9: Capturing Scheduling Latency and Recording as Histogram
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-hardirqs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 10: Capturing Interrupts with hardirqs or softirqs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-bootstrap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 11: Develop User-Space Programs with libbpf and Trace exec() and exit()
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-profile/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 12: Using eBPF Program Profile for Performance Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-tcpconnlat/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 13: Statistics of TCP Connection Delay with libbpf
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-tcpstates/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 14: Recording TCP Connection Status and TCP RTT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-javagc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 15: Capturing User-Space Java GC Duration Using USDT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-memleak/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 16: Monitoring Memory Leaks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-biopattern/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 17: Count Random/Sequential Disk I/O
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18-further-reading/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    More Reference Materials： papers, projects
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19-lsm-connect/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 19: Security Detection and Defense using LSM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-tc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 20: tc Traffic Control
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21-xdp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 21: Programmable Packet Processing with XDP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22-android/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example: Using eBPF Programs on Android
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23-http/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    L7 Tracing with eBPF: HTTP and Beyond via Socket Filters and Syscall Tracepoints
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24-hide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Practical Tutorial: Hiding Process or File Information
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25-signal/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using bpf_send_signal to Terminate Malicious Processes in eBPF
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26-sudo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using eBPF to add sudo user
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../27-replace/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Replace Text Read or Written by Any Program with eBPF
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../28-detach/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running eBPF Programs After User-Space Application Exits: The Lifecycle of eBPF Programs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../29-sockops/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF sockops Example
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../30-sslsniff/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Practical Tutorial: Capturing SSL/TLS Plain Text Data Using uprobe
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../31-goroutine/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    goroutine trace
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../32-funclatency/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    func latency
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    bcc-documents
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            bcc-documents
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bcc-documents/kernel-versions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BPF Features by Linux Kernel Version
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bcc-documents/kernel_config/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kernel Configuration for BPF Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bcc-documents/reference_guide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bcc Reference Guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bcc-documents/special_filtering/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Special Filtering
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bcc-documents/tutorial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bcc Tutorial
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bcc-documents/tutorial_bcc_python_developer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bcc Python Developer Tutorial
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../blogs/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Blogs
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Blogs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blogs/ebpf-security/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The Secure Path Forward for eBPF runtime: Challenges and Innovations
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blogs/userspace-ebpf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Userspace eBPF Runtimes: Overview and Applications
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blogs/1_0-release/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introducing eunomia-bpf v1.0: Simplifying eBPF with CO-RE and WebAssembly
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blogs/ebpf-papers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The Evolution and Impact of eBPF: A list of Key Research Papers from Recent Years
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blogs/coolbpf-eunomia/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eunomia-bpf: Looking forward to 2023, let eBPF sprout wings with Wasm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blogs/bpf-news/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Advanced: Overview of New Kernel Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blogs/lmp-eunomia/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    如何在 Linux 显微镜（LMP）项目中开启 eBPF 之旅？
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blogs/wasm-bpf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wasm-bpf: A Common eBPF Kernel Programmability for Cloud-Native Webassembly
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blogs/how-to-write-c-in-wasm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Writing eBPF Programs in C/C++ and libbpf in WebAssembly
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blogs/introduce-to-wasm-bpf-bpf-community/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wasm-bpf: 架起 Webassembly 和 eBPF 内核可编程的桥梁
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blogs/0_3_0-release/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    0.3.0-RELEASE
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blogs/ebpf-wasm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    When Wasm Meets eBPF: Writing, Distributing, Loading, and Running eBPF Programs with WebAssembly
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blogs/GPTtrace/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using ChatGPT to Write eBPF Programs and Trace Linux Systems with Natural Language
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blogs/how-to-write-rust-in-wasm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    在 WebAssembly 中使用 Rust 编写 eBPF 程序并发布 OCI 镜像
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blogs/eunomia-bpf%E7%9A%84%E4%B8%89%E6%9C%88%E8%BF%9B%E5%B1%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Progress of eunomia-bpf in March
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blogs/test-for-Android/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running the ecli on Android 13
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blogs/github-templates/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Simplifying eBPF Development: GitHub Templates and Codespaces for Online Compilation and Execution
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../GPTtrace/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    GPTtrace
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            GPTtrace
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../wasm-bpf/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    wasm-bpf
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            wasm-bpf
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../bpftime/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    bpftime
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            bpftime
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bpftime/documents/avaliable-features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    available kernel features in userspace
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bpftime/documents/build-and-test/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Building and run bpftime
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../architecture/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    eunomia-bpf
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            eunomia-bpf
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../miscellaneous/introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../miscellaneous/quickstart/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quick Start
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../support/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Support
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../setup/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7_4" id="__nav_7_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_4">
+            <span class="md-nav__icon md-icon"></span>
+            Installation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/build/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    From source
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup/build-android-arm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../ecc/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    eunomia-cc
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7_5" id="__nav_7_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_5">
+            <span class="md-nav__icon md-icon"></span>
+            eunomia-cc
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ecc/usage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ecc usage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ecc/docker-usage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ecc docker usage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ecc/github-template/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    github template
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7_6" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../ecli/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    ecli
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7_6" id="__nav_7_6_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_6">
+            <span class="md-nav__icon md-icon"></span>
+            ecli
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ecli/server/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ecli server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7_7" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../exporter/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    exporter
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7_7" id="__nav_7_7_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_7">
+            <span class="md-nav__icon md-icon"></span>
+            exporter
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../exporter/usage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    usage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_9" id="__nav_7_9_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Misc
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_9">
+            <span class="md-nav__icon md-icon"></span>
+            Misc
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../miscellaneous/benchmark/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    benchmark
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../miscellaneous/manual/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    manual
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../miscellaneous/video/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    video
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../miscellaneous/online/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Online Demo
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../miscellaneous/supporting-external-BTF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    supporting-external-BTF
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../miscellaneous/quickstart/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    quickstart
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../others/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    ecosystem
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            ecosystem
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../others/bpf-benchmark/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BPF-Benchmark
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../others/bpf-compatible/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bpf-compatible
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction-to-ebpf-secure-and-efficient-kernel-extension" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction to eBPF: Secure and Efficient Kernel Extension
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction to eBPF: Secure and Efficient Kernel Extension">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-future-of-ebpf-kernels-javascript-programmable-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Future of eBPF: Kernel's JavaScript Programmable Interface
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-some-tips-on-learning-ebpf-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Some Tips on Learning eBPF Development
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Some Tips on Learning eBPF Development">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction-to-ebpf-5-7h" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction to eBPF (5-7h)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#understand-how-to-develop-ebpf-programs-10-15h" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understand how to develop eBPF programs (10-15h)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-ebpf-programs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Writing eBPF programs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Writing eBPF programs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bcc" class="md-nav__link">
+    <span class="md-ellipsis">
+      BCC
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ebpf-go-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      eBPF Go library
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#libbpf" class="md-nav__link">
+    <span class="md-ellipsis">
+      libbpf
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eunomia-bpf" class="md-nav__link">
+    <span class="md-ellipsis">
+      eunomia-bpf
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="ebpf-tutorial-by-example-0-introduction-to-core-concepts-and-tools">eBPF Tutorial by Example 0: Introduction to Core Concepts and Tools</h1>
+<h2 id="introduction-to-ebpf-secure-and-efficient-kernel-extension">Introduction to eBPF: Secure and Efficient Kernel Extension</h2>
+<p>eBPF is a revolutionary technology that originated in the Linux kernel and allows sandbox programs to run in the kernel of an operating system. It is used to securely and efficiently extend the functionality of the kernel without the need to modify the kernel's source code or load kernel modules. By allowing the execution of sandbox programs in the operating system, eBPF enables application developers to dynamically add additional functionality to the operating system at runtime. The operating system then ensures security and execution efficiency, similar to performing native compilation with the help of a Just-In-Time (JIT) compiler and verification engine. eBPF programs are portable between kernel versions and can be automatically updated, avoiding workload interruptions and node restarts.</p>
+<p>Today, eBPF is widely used in various scenarios: in modern data centers and cloud-native environments, it provides high-performance network packet processing and load balancing; it achieves observability of various fine-grained metrics with very low resource overhead, helping application developers trace applications and provide insights for performance troubleshooting; it ensures secure execution of application and container runtimes, and more. The possibilities are endless, and the innovation unleashed by eBPF in the operating system kernel has only just begun [3].</p>
+<h3 id="the-future-of-ebpf-kernels-javascript-programmable-interface">The Future of eBPF: Kernel's JavaScript Programmable Interface</h3>
+<p>For browsers, the introduction of JavaScript brought programmability and initiated a tremendous revolution, transforming browsers into almost independent operating systems. Now let's return to eBPF: in order to understand the programmability impact of eBPF on the Linux kernel, it is helpful to have a high-level understanding of the structure of the Linux kernel and how it interacts with applications and hardware [4].</p>
+<p><img alt="kernel-arch" src="kernel-arch.png" /></p>
+<p>The main purpose of the Linux kernel is to abstract hardware or virtual hardware and provide a consistent API (system calls) that allows applications to run and share resources. To achieve this goal, we maintain a series of subsystems and layers to distribute these responsibilities [5]. Each subsystem typically allows some level of configuration to cater to different user requirements. If the desired behavior cannot be achieved through configuration, there are two options: either modify the kernel source code and convince the Linux kernel community that the change is necessary (waiting for several years for the new kernel version to become a commodity), or write a kernel module and regularly fix it because each kernel version may break it. In practice, neither of the two solutions is commonly used: the former is too costly, and the latter lacks portability.</p>
+<p>With eBPF, there is a new option to reprogram the behavior of the Linux kernel without modifying the kernel's source code or loading kernel modules, while ensuring a certain degree of behavioral consistency, compatibility, and security across different kernel versions [6]. To achieve this, eBPF programs also need a corresponding API that allows the execution and sharing of resources for user-defined applications. In other words, in a sense, the eBPF virtual machine also provides a mechanism similar to system calls. With the help of the communication mechanism between eBPF and user space, both the Wasm virtual machine and user space applications can have full access to this set of "system calls." On the one hand, it can programmatically extend the capabilities of traditional system calls, and on the other hand, it can achieve more efficient programmable IO processing in many layers such as networking and file systems.</p>
+<p><img alt="new-os" src="new-os-model.png" /></p>
+<p>As shown in the above figure, the Linux kernel of today is evolving towards a new kernel model: user-defined applications can run in both kernel space and user space, with user space accessing system resources through traditional system calls and kernel space interacting with various parts of the system through BPF Helper Calls. As of early 2023, there are already more than 220 helper system interfaces in the eBPF virtual machine in the kernel, covering a wide range of application scenarios.## Note
+It is worth noting that BPF Helper Call and system calls are not competitive. Their programming models and performance advantages are completely different and they do not completely replace each other. For the Wasm and Wasi related ecosystems, the situation is similar. The specially designed wasi interface needs to go through a long standardization process. However, it may provide better performance and portability guarantees for user-mode applications in specific scenarios. On the other hand, eBPF can provide a fast and flexible solution for extending system interfaces, while ensuring sandbox nature and portability.</p>
+<p>Currently, eBPF is still in the early stages. However, with the help of the kernel interfaces provided by eBPF and the ability to interact with user space, applications in the Wasm virtual machine can almost access the data and return values of any kernel or user mode function call (kprobe, uprobe...). It can collect and understand all system calls at a low cost and obtain packet-level data and socket-level data for all network operations (tracepoint, socket...). It can also add additional protocol analyzers and easily program any forwarding logic in the network packet processing solution (XDP, TC...), without leaving the packet processing environment of the Linux kernel.</p>
+<p>Moreover, eBPF has the ability to write data to any address of a user space process (bpf_probe_write_user[7]), partially modify the return value of a kernel function (bpf_override_return[8]), and even directly execute certain system calls in kernel mode[9]. Fortunately, eBPF performs strict security checks on the bytecode before loading it into the kernel to ensure that there are no operations such as memory out-of-bounds. Moreover, many features that may expand the attack surface and pose security risks need to be explicitly enabled during kernel compilation. Before loading the bytecode into the kernel, the Wasm virtual machine can also choose to enable or disable certain eBPF features to ensure the security of the sandbox.</p>
+<h2 id="2-some-tips-on-learning-ebpf-development">2. Some Tips on Learning eBPF Development</h2>
+<p>This article will not provide a more detailed introduction to the principles of eBPF, but here is a learning plan and reference materials that may be of value:</p>
+<h3 id="introduction-to-ebpf-5-7h">Introduction to eBPF (5-7h)</h3>
+<ul>
+<li>Google or other search engines: eBPF</li>
+<li>Ask ChatGPT-like things: What is eBPF?</li>
+</ul>
+<p>Recommended:</p>
+<ul>
+<li>Read the introduction to ebpf: <a href="https://ebpf.io/">https://ebpf.io/</a> (30min)</li>
+<li>Briefly understand the ebpf kernel-related documentation: <a href="https://prototype-kernel.readthedocs.io/en/latest/bpf/">https://prototype-kernel.readthedocs.io/en/latest/bpf/</a> (Know where to queries, 30min)</li>
+<li>Read the Chinese ebpf beginner's guide: <a href="https://www.modb.pro/db/391570">https://www.modb.pro/db/391570</a> (1h)</li>
+<li>There are a lot of reference materials: <a href="https://github.com/zoidbergwill/awesome-ebpf">https://github.com/zoidbergwill/awesome-ebpf</a> (2-3h)</li>
+<li>You can choose to flip through PPTs that interest you: <a href="https://github.com/gojue/ebpf-slide">https://github.com/gojue/ebpf-slide</a> (1-2h)</li>
+</ul>
+<p>Answer three questions:</p>
+<ol>
+<li>Understand what eBPF is? Why do we need it? Can't we use kernel modules?</li>
+<li>What functions does it have? What can it do in the Linux kernel? What are the types of eBPF programs and helpers (not all of them need to be known, but need to know where to find them)?</li>
+<li>What can it be used for? For example, in which scenarios can it be used? Networking, security, observability?</li>
+</ol>
+<h3 id="understand-how-to-develop-ebpf-programs-10-15h">Understand how to develop eBPF programs (10-15h)</h3>
+<p>Understand and try eBPF development frameworks:</p>
+<ul>
+<li>Examples of developing various tools with BCC: <a href="https://github.com/iovisor/bcc/blob/master/docs/tutorial_bcc_python_developer.md">https://github.com/iovisor/bcc/blob/master/docs/tutorial_bcc_python_developer.md</a> (Run through, 3-4h)</li>
+<li>Some examples of libbpf: <a href="https://github.com/libbpf/libbpf-bootstrap">https://github.com/libbpf/libbpf-bootstrap</a> (Run any interesting one and read the source code, 2h)</li>
+<li>Tutorial based on libbpf and eunomia-bpf: <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">https://github.com/eunomia-bpf/bpf-developer-tutorial</a> (Read part 1-10, 3-4h)</li>
+</ul>
+<p>Other development frameworks: Go or Rust language, please search and try on your own (0-2h)</p>
+<p>Have questions or things you want to know, whether or not they are related to this project, you can start discussing in the discussions of this project.</p>
+<p>Answer some questions and try some experiments (2-5h):</p>
+<ol>
+<li>How to develop the simplest eBPF program?</li>
+<li>How to trace a kernel feature or function with eBPF? There are many ways, provide corresponding code examples;</li>
+<li>What are the solutions for communication between user mode and kernel mode? How to send information from user mode to kernel mode? How to pass information from kernel mode to user mode? Provide code examples;</li>
+<li>Write your own eBPF program to implement a feature;</li>
+<li>In the entire lifecycle of an eBPF program, what does it do in user mode and kernel mode?## 3. How to use eBPF programming</li>
+</ol>
+<p>Writing original eBPF programs is very tedious and difficult. To change this situation, llvm introduced in 2015 the ability to compile code written in high-level languages into eBPF bytecode, and the eBPF community wrapped primitive system calls such as <code>bpf()</code> and provided the <code>libbpf</code> library. These libraries include functions for loading bytecode into the kernel and other key functions. In the Linux source code package, there are numerous eBPF sample codes provided by Linux based on <code>libbpf</code>, located in the <code>samples/bpf/</code> directory.</p>
+<p>A typical <code>libbpf</code>-based eBPF program consists of two files: <code>*_kern.c</code> and <code>*_user.c</code>. The mounting points and processing functions in the kernel are written in <code>*_kern.c</code>, while the user code for injecting kernel code and performing various tasks in user space is written in <code>*_user.c</code>. For more detailed tutorials, refer to <a href="https://www.bilibili.com/video/BV1f54y1h74r?spm_id_from=333.999.0.0">this video</a>. However, due to the difficulty in understanding and the entry barrier, most eBPF program development at the current stage is based on tools such as:</p>
+<ul>
+<li>BCC</li>
+<li>BPFtrace</li>
+<li>libbpf-bootstrap</li>
+<li>Go eBPF library</li>
+</ul>
+<p>And there are newer tools such as <code>eunomia-bpf</code>.</p>
+<h2 id="writing-ebpf-programs">Writing eBPF programs</h2>
+<p>eBPF programs consist of a kernel space part and a user space part. The kernel space part contains the actual logic of the program, while the user space part is responsible for loading and managing the kernel space part. With the eunomia-bpf development tool, only the kernel space part needs to be written.</p>
+<p>The code in the kernel space part needs to conform to the syntax and instruction set of eBPF. eBPF programs mainly consist of several functions, each with its own specific purpose. The available function types include:</p>
+<ul>
+<li>kprobe: probe function, executed before or after a specified kernel function.</li>
+<li>tracepoint: tracepoint function, executed at a specified kernel tracepoint.</li>
+<li>raw_tracepoint: raw tracepoint function, executed at a specified kernel raw tracepoint.</li>
+<li>xdp: network data processing function, intercepting and processing network packets.</li>
+<li>perf_event: performance event function, used to handle kernel performance events.</li>
+<li>kretprobe: return probe function, executed when a specified kernel function returns.</li>
+<li>tracepoint_return: tracepoint return function, executed when a specified kernel tracepoint returns.</li>
+<li>raw_tracepoint_return: raw tracepoint return function, executed when a specified kernel raw tracepoint returns.</li>
+</ul>
+<h3 id="bcc">BCC</h3>
+<p>BCC stands for BPF Compiler Collection. The project is a Python library that includes a complete toolchain for writing, compiling, and loading BPF programs, as well as tools for debugging and diagnosing performance issues.</p>
+<p>Since its release in 2015, BCC has been continuously improved by hundreds of contributors and now includes a large number of ready-to-use tracing tools. The <a href="https://github.com/iovisor/bcc/blob/master/docs/tutorial.md">official project repository</a> provides a handy tutorial for users to quickly get started with BCC.</p>
+<p>Users can program in high-level languages such as Python and Lua on BCC. Compared to programming directly in C, these high-level languages are much more convenient. Users only need to design BPF programs in C, and the rest, including compilation, parsing, loading, etc., can be done by BCC.</p>
+<p>However, a drawback of using BCC is its compatibility. Each time an eBPF program based on BCC is executed, it needs to be compiled, and compiling requires users to configure related header files and corresponding implementations. In practical applications, as you may have experienced, dependency issues in compilation can be quite tricky. Therefore, in the development of this project, we have abandoned BCC and chosen the libbpf-bootstrap tool, which allows for one-time compilation and multiple runs.</p>
+<h3 id="ebpf-go-library">eBPF Go library</h3>
+<p>The eBPF Go library provides a general-purpose eBPF library that decouples the process of obtaining eBPF bytecode from the loading and management of eBPF programs, and implements similar CO- functionality as libbpf. eBPF programs are usually created by writing high-level languages and then compiled into eBPF bytecode using the clang/LLVM compiler.</p>
+<h3 id="libbpf">libbpf</h3>
+<p><code>libbpf-bootstrap</code> is a BPF development scaffold based on the <code>libbpf</code> library, and its source code can be obtained from its <a href="https://github.com/libbpf/libbpf-bootstrap">GitHub</a>.</p>
+<p><code>libbpf-bootstrap</code> combines years of practice from the BPF community and provides a modern and convenient workflow for developers, achieving the goal of one-time compilation and reuse.</p>
+<p>BPF programs based on <code>libbpf-bootstrap</code> have certain naming conventions for the source files. The file for generating kernel space bytecode ends with <code>.bpf.c</code>, and the file for loading bytecode in user space ends with <code>.c</code>, and the prefixes of these two files must be the same.Instructions: Translate the following Chinese text to English
+while maintaining the original formatting: "Based on <code>libbpf-bootstrap</code>, BPF programs will compile <code>*.bpf.c</code> files into corresponding <code>.o</code> files,
+and then generate the <code>skeleton</code> file based on this file, i.e. <code>*.skel.h</code>. This file will contain some data structures defined in the kernel space,
+as well as the key functions used to load kernel space code. After the user-space code includes this file, it can call the corresponding loading function to load the bytecode into the kernel. Similarly, <code>libbpf-bootstrap</code> also has a comprehensive introduction tutorial that users can refer to <a href="https://nakryiko.com/posts/libbpf-bootstrap/">here</a> for detailed introductory operations.</p>
+<h3 id="eunomia-bpf">eunomia-bpf</h3>
+<p>Developing, building, and distributing eBPF has always been a high-threshold task. The use of tools such as BCC and bpftrace has high development efficiency and good portability. However, when it comes to distribution and deployment, it requires the installation of LLVM, Clang, and other compilation environments, and the compilation process needs to be executed locally or remotely every time, resulting in substantial resource consumption. On the other hand, using the native CO-RE libbpf requires writing a considerable amount of user-mode loading code to help properly load eBPF programs and obtain reported information from the kernel. At the same time, there is no good solution for distributing and managing eBPF programs.</p>
+<p><a href="https://github.com/eunomia-bpf/eunomia-bpf">eunomia-bpf</a> is an open-source eBPF dynamic loading runtime and development toolchain designed to simplify the development, building, distribution, and execution of eBPF programs. It is based on the libbpf CO-RE lightweight development framework.</p>
+<p>With eunomia-bpf, you can:</p>
+<ul>
+<li>When writing eBPF programs or tools, only write kernel space code, automatically retrieve kernel space export information, and dynamically load it as a module.</li>
+<li>Use WASM for user space interactive program development to control the loading and execution of the entire eBPF program, as well as the processing of related data inside the WASM virtual machine.</li>
+<li>eunomia-bpf can package pre-compiled eBPF programs into universal JSON or WASM modules for distribution across architectures and kernel versions. They can be dynamically loaded and run without the need for recompilation.</li>
+</ul>
+<p>eunomia-bpf consists of a compilation toolchain and a runtime library. Compared with traditional frameworks such as BCC and native libbpf, it greatly simplifies the development process of eBPF programs. In most cases, only writing kernel space code is required to easily build, package, and publish complete eBPF applications. At the same time, kernel space eBPF code ensures 100% compatibility with mainstream development frameworks such as libbpf, libbpfgo, libbpf-rs, etc. When there is a need to write user-space code, it can also be developed in multiple languages with the help of WebAssembly. Compared with script tools such as bpftrace, eunomia-bpf retains similar convenience, while not only limited to tracing but also applicable to more scenarios, such as networking, security, etc.</p>
+<blockquote>
+<ul>
+<li>eunomia-bpf project Github address: <a href="https://github.com/eunomia-bpf/eunomia-bpf">https://github.com/eunomia-bpf/eunomia-bpf</a></li>
+<li>gitee mirror: <a href="https://gitee.com/anolis/eunomia">https://gitee.com/anolis/eunomia</a></li>
+</ul>
+</blockquote>
+<h2 id="references">References</h2>
+<ul>
+<li>eBPF Introduction: <a href="https://ebpf.io/">https://ebpf.io/</a></li>
+<li>BPF Compiler Collection (BCC): <a href="https://github.com/iovisor/bcc">https://github.com/iovisor/bcc</a></li>
+<li>eunomia-bpf: <a href="https://github.com/eunomia-bpf/eunomia-bpf">https://github.com/eunomia-bpf/eunomia-bpf</a></li>
+</ul>
+<p>You can also visit our tutorial code repository <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">https://github.com/eunomia-bpf/bpf-developer-tutorial</a> or website <a href="https://eunomia.dev/tutorials/">https://eunomia.dev/tutorials/</a> for more examples and complete tutorial source code. All content is open source. We will continue to share more content about eBPF development practices to help you better understand and master eBPF technology.".</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright (c) 2023 eunomia-bpf org.
+    </div>
+  
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/eunomia-bpf" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.tabs", "navigation.indexes", "navigation.expand", "navigation.sections", "header.autohide"], "search": "../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+<script src="https://cdn.usefathom.com/script.js" data-site="ZLDAHRNN" defer></script>
+<!-- Google tag (gtag.js) --> 
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1YVMXGL0MY"></script> 
+<script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-1YVMXGL0MY'); </script>
+
+      <script src="../../../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+    
+
+  </body>
+</html>
