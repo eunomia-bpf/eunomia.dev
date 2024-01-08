@@ -81,13 +81,13 @@
     }
 
     .hero h1 {
-        font-size: 3em;
+        font-size: 4em;
         font-weight: 700;
         margin: 0 0 20px;
     }
 
     .hero p {
-        font-size: 1.25em;
+        font-size: 2em;
         max-width: 800px;
         margin: 0 auto;
     }
@@ -172,51 +172,6 @@
         gap: 20px;
     }
 
-    .learn-more .button-container {
-        /* This will contain the buttons and make them equal in size */
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        flex-wrap: wrap;
-    }
-
-    .learn-more a {
-        /* Flat design for buttons */
-        background-color: #0056b3;
-        /* Use a solid color */
-        color: white;
-        padding: 12px 24px;
-        /* Adjust padding as needed */
-        border: 1px solid transparent;
-        /* Subtle border */
-        border-radius: 5px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        /* Subtle shadow for depth */
-        text-align: center;
-        font-size: 16px;
-        /* Slightly larger font for better readability */
-        width: 100%;
-        /* Make buttons take full width of their container */
-        max-width: 200px;
-        /* Maximum width of buttons */
-        box-sizing: border-box;
-        /* Include padding and border in the element's width */
-    }
-
-    .learn-more a:hover,
-    .learn-more a:focus {
-        background-color: #00395a;
-        /* Darker shade for hover state */
-        border-color: #fff;
-        /* Highlight border on hover */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        /* More pronounced shadow on hover */
-        text-decoration: none;
-        /* No underline */
-        transform: translateY(-2px);
-        /* Lift the button on hover */
-    }
-
     .featured {
         clear: both;
         /* Clear floated elements */
@@ -249,6 +204,7 @@
         font-weight: 500;
         transition: color 0.3s ease-in-out;
         font-size: 18px;
+        width: 800px;
     }
 
     .section.featured a:hover {
@@ -302,12 +258,13 @@
 </style>
 
 <div class="hero">
-    <h1>Welcome to the eunomia-bpf project</h1>
-    <p>Exploring and improving the toolchains and runtimes for eBPF.</p>
+    <h1>Welcome to eunomia-bpf project!</h1>
+    <p>Unlock the full potential of eBPF with our cutting-edge toolchains and runtimes.</p>
 </div>
 
 <div class="section projects">
-    <h2>Our Projects</h2>
+    <h2>Open source Projects</h2>
+    <p>Our suite of projects addresses key challenges in eBPF development, from runtime performance to ease of use.</p>
     <div class="card-container">
         <!-- Individual cards for each project -->
         <div class="card">
@@ -339,16 +296,29 @@
 
 <div class="section learn-more">
     <h2>Learning eBPF</h2>
-    <p>Want to learn more about eBPF? Checkout our eBPF developer tutorial and examples!</p>
-    <div class="button-container">
-        <a href="https://eunomia.dev/tutorials" class="btn-tutorial">Developer Tutorials</a>
-        <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial" class="btn-repo">Open source examples</a>
-        <a href="https://eunomia.dev/blogs/" class="btn-blog">Blogs and Articles</a>
+    <p>Dive into the world of eBPF with our resources designed to empower your development journey, from novice to expert.</p>
+    <div class="card-container">
+        <div class="card">
+            <h3>Developer Tutorials</h3>
+            <p>Begin your adventure with eBPF through interactive and step-by-step guides that teach you the fundamentals and advanced concepts.</p>
+            <a href="https://eunomia.dev/tutorials" class="btn-tutorial">Start Learning</a>
+        </div>
+        <div class="card">
+            <h3>Open Source Examples</h3>
+            <p>Explore real-world applications of eBPF with our curated collection of open source examples and community contributions.</p>
+            <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial" class="btn-repo">View on GitHub</a>
+        </div>
+        <div class="card">
+            <h3>Blogs and Articles</h3>
+            <p>Stay updated with the latest eBPF trends, best practices, and insights from industry leaders and our developer community.</p>
+            <a href="https://eunomia.dev/blogs/" class="btn-blog">Read More</a>
+        </div>
     </div>
 </div>
 
 <div class="section featured">
-    <h2>Featured Talks and Publications</h2>
+    <h2>Insights and Innovations</h2>
+    <p>Discover the impact of eunomia-bpf through our latest talks and publications, showcasing the forefront of eBPF technology.</p>
     <ul>
         <li>
             <a href="https://lpc.events/event/17/contributions/1639/">bpftime: Fast uprobes with user space BPF
