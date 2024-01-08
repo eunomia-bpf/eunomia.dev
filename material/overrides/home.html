@@ -6,11 +6,57 @@
 <style>
     /* Styles */
 
-    body, html {
+    body,
+    html {
         margin: 0;
         padding: 0;
         font-family: 'Arial', sans-serif;
         background: #f7f7f7;
+    }
+
+
+    /* Base styles for the content */
+    .section {
+        max-width: 800px;
+        margin: 0 auto 50px;
+        padding: 50px 20px;
+        background: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Typography enhancements for a modern look */
+    .section h2 {
+        font-size: 3em;
+        color: #333;
+        font-weight: 600;
+        margin-bottom: 1em;
+        text-align: center;
+    }
+
+    .section p {
+        font-size: 2em;
+        color: #666;
+        margin-bottom: 2em;
+        text-align: center;
+    }
+
+    /* Link styles for a cleaner look */
+    .section a {
+        color: #004d7a;
+        text-decoration: none;
+        /* No underline for a cleaner look */
+        font-weight: 500;
+        margin-right: 15px;
+        /* Space out inline links */
+        transition: color 0.3s ease;
+    }
+
+    .section a:hover {
+        color: #002951;
+        /* Darken color on hover for interaction feedback */
+        text-decoration: underline;
+        /* Underline on hover for accessibility */
     }
 
     .hero {
@@ -26,7 +72,10 @@
     .hero:before {
         content: '';
         position: absolute;
-        top: 0; right: 0; bottom: 0; left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
         background: rgba(0, 0, 0, 0.5);
         z-index: -1;
     }
@@ -43,13 +92,15 @@
         margin: 0 auto;
     }
 
-    .projects, .learn-more, .featured {
+    .projects,
+    .learn-more,
+    .featured {
         padding: 50px 20px;
         text-align: center;
     }
 
     .card {
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         background: #fff;
         border-radius: 8px;
         padding: 30px;
@@ -64,7 +115,7 @@
 
     .card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     }
 
     .card h3 {
@@ -80,18 +131,27 @@
     }
 
     .card a {
-        background: none; /* 移除背景色 */
-        color: #004d7a; /* 设置文字颜色 */
-        padding: 8px 16px; /* 根据需要调整内边距来更改按钮大小 */
-        border: 2px solid #004d7a; /* 添加边框 */
-        border-radius: 50px; /* 保持圆角 */
-        transition: background-color 0.3s ease, color 0.3s ease; /* 添加颜色变化的过渡效果 */
+        background: none;
+        /* 移除背景色 */
+        color: #004d7a;
+        /* 设置文字颜色 */
+        padding: 8px 16px;
+        /* 根据需要调整内边距来更改按钮大小 */
+        border: 2px solid #004d7a;
+        /* 添加边框 */
+        border-radius: 50px;
+        /* 保持圆角 */
+        transition: background-color 0.3s ease, color 0.3s ease;
+        /* 添加颜色变化的过渡效果 */
     }
 
     .card a:hover {
-        background-color: #004d7a; /* 悬停时的背景色 */
-        color: #fff; /* 悬停时的文字颜色 */
+        background-color: #004d7a;
+        /* 悬停时的背景色 */
+        color: #fff;
+        /* 悬停时的文字颜色 */
     }
+
     @media (max-width: 1024px) {
         .card {
             width: calc(50% - 40px);
@@ -104,50 +164,133 @@
         }
     }
 
-    .section {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    .section h2 {
-        font-size: 2.5em;
-        color: #333;
-        margin-bottom: 40px;
-    }
-
-    .section p {
-        font-size: 1.1em;
-        color: #666;
-        margin-bottom: 20px;
-    }
-
-    /* 为 'Learn More About eBPF' 和 'Featured Talks and Publications' 部分的标题添加样式 */
-    .section h2 {
-        color: #333;
-        font-size: 2.5em;
-        margin: 40px 0;
-    }
-
-    /* 修改链接的样式，去除背景色，添加下划线，以及悬停效果 */
-    .section a {
-        color: #004d7a;
-        padding: 5px 0; /* 调整内边距，如有必要 */
-        display: inline-block; /* 如果希望链接块级显示 */
-        margin-right: 10px; /* 如果链接之间需要间距 */
-        transition: color 0.3s ease; /* 平滑颜色变化的过渡效果 */
-    }
-
-    .section a:hover {
-        color: #002951; /* 悬停时的颜色变暗 */
-        text-decoration: none; /* 悬停时去掉下划线 */
-    }
-
-    /* 如果要调整 'Learn More About eBPF' 下方链接的布局，可以添加以下样式 */
-    .learn-more-links {
+    .learn-more {
+        /* Use flexbox to align items and manage spacing */
         display: flex;
-        justify-content: center; /* 或 'flex-start' 使得链接靠左对齐 */
-        gap: 15px; /* 链接之间的间距 */
-        flex-wrap: wrap; /* 适应不同屏幕大小 */
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .learn-more .button-container {
+        /* This will contain the buttons and make them equal in size */
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .learn-more a {
+        /* Flat design for buttons */
+        background-color: #0056b3;
+        /* Use a solid color */
+        color: white;
+        padding: 12px 24px;
+        /* Adjust padding as needed */
+        border: 1px solid transparent;
+        /* Subtle border */
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        /* Subtle shadow for depth */
+        text-align: center;
+        font-size: 16px;
+        /* Slightly larger font for better readability */
+        width: 100%;
+        /* Make buttons take full width of their container */
+        max-width: 200px;
+        /* Maximum width of buttons */
+        box-sizing: border-box;
+        /* Include padding and border in the element's width */
+    }
+
+    .learn-more a:hover,
+    .learn-more a:focus {
+        background-color: #00395a;
+        /* Darker shade for hover state */
+        border-color: #fff;
+        /* Highlight border on hover */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        /* More pronounced shadow on hover */
+        text-decoration: none;
+        /* No underline */
+        transform: translateY(-2px);
+        /* Lift the button on hover */
+    }
+
+    .featured {
+        clear: both;
+        /* Clear floated elements */
+        padding-top: 20px;
+    }
+
+    .featured ul {
+        padding-left: 0;
+        list-style: none;
+        /* Remove bullet points */
+    }
+
+    .featured li {
+        padding-bottom: 10px;
+        /* Add padding below each list item */
+        margin-bottom: 10px;
+        /* Add margin below each list item */
+        border-bottom: 1px solid #eaeaea;
+        /* Add a separator */
+    }
+
+    .featured li:last-child {
+        border-bottom: none;
+        /* No border for the last item */
+    }
+
+    .section.featured a {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease-in-out;
+        font-size: 18px;
+    }
+
+    .section.featured a:hover {
+        color: #0056b3;
+    }
+
+    .section.featured span {
+        color: #6c757d;
+        display: block;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+
+    @media (max-width: 768px) {
+        .section.featured h2 {
+            font-size: 20px;
+        }
+
+        .section.featured a {
+            font-size: 16px;
+        }
+
+        .section.featured span {
+            font-size: 14px;
+        }
+
+        .learn-more a {
+            padding: 10px 15px;
+            /* Reduce padding on mobile */
+            margin: 10px 5px;
+            /* Reduce margin on mobile */
+            min-width: auto;
+            /* Allow buttons to shrink on small screens */
+            font-size: 14px;
+            /* Reduce font size on mobile */
+        }
+
+        .featured li {
+            padding-bottom: 15px;
+            /* Increase padding for touch targets on mobile */
+        }
+
     }
 
     .footer {
@@ -169,43 +312,69 @@
         <!-- Individual cards for each project -->
         <div class="card">
             <h3>bpftime</h3>
-            <p>A userspace eBPF runtime offering rapid uprobes 10x faster than kernel uprobes, compatible with kernel eBPF and existing toolchains.</p>
+            <p>A userspace eBPF runtime offering rapid uprobes 10x faster than kernel uprobes, compatible with kernel
+                eBPF and existing toolchains.</p>
             <a href="https://github.com/eunomia-bpf/bpftime">Learn More</a>
         </div>
         <div class="card">
             <h3>Wasm-bpf</h3>
-            <p>Cooperating with WasmEdge, we build the first user-space library and runtime for eBPF programs based on WebAssembly.</p>
+            <p>Cooperating with WasmEdge, we build the first user-space library and runtime for eBPF programs based on
+                WebAssembly.</p>
             <a href="https://github.com/eunomia-bpf/wasm-bpf">Learn More</a>
         </div>
         <div class="card">
             <h3>GPTtrace</h3>
-            <p>The first tool to generate eBPF programs and trace the Linux kernel using natural language with high accuracy.</p>
+            <p>The first tool to generate eBPF programs and trace the Linux kernel using natural language with high
+                accuracy.</p>
             <a href="https://github.com/eunomia-bpf/GPTtrace">Learn More</a>
         </div>
         <div class="card">
             <h3>eunomia-bpf</h3>
-            <p>A tool to simplify building, distributing, and running eBPF programs with JSON and WebAssembly OCI images.</p>
+            <p>A tool to simplify building, distributing, and running eBPF programs with JSON and WebAssembly OCI
+                images.</p>
             <a href="https://github.com/eunomia-bpf/eunomia-bpf">Learn More</a>
         </div>
     </div>
 </div>
 
 <div class="section learn-more">
-    <h2>Learn More About eBPF</h2>
-    <p>Check out our developer tutorials, code repository, and blogs for more information.</p>
-    <a href="https://eunomia.dev/tutorials">Developer Tutorials</a>
-    <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">Github Repository</a>
-    <a href="https://eunomia.dev/blogs/">Blogs and Articles</a>
+    <h2>Learning eBPF</h2>
+    <p>Want to learn more about eBPF? Checkout our eBPF developer tutorial and examples!</p>
+    <div class="button-container">
+        <a href="https://eunomia.dev/tutorials" class="btn-tutorial">Developer Tutorials</a>
+        <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial" class="btn-repo">Open source examples</a>
+        <a href="https://eunomia.dev/blogs/" class="btn-blog">Blogs and Articles</a>
+    </div>
 </div>
 
 <div class="section featured">
     <h2>Featured Talks and Publications</h2>
-    <!-- Links to featured talks and publications -->
-    <a href="https://lpc.events/event/17/abstracts/1741/">bpftime at Linux Plumbers Conference 2023</a>
-    <a href="https://sched.co/1R2uf">eBPF + Wasm at KubeCon North American 2023</a>
-    <a href="https://www.alibabacloud.com/blog/eunomia-bpf-the-lightweight-development-framework-for-ebpf-and-webassembly-is-now-available_599688">eunomia-bpf at Apsara Conference 2022</a>
-    <a href="https://arxiv.org/abs/2312.05531">KEN: Kernel Extensions using Natural Language</a>
-    <a href="https://arxiv.org/abs/2311.07923">bpftime: userspace eBPF Runtime for Uprobe, Syscall and Kernel-User Interactions</a>
+    <ul>
+        <li>
+            <a href="https://lpc.events/event/17/contributions/1639/">bpftime: Fast uprobes with user space BPF
+                runtime</a>
+            <span>Linux Plumbers Conference 2023</span>
+        </li>
+        <li>
+            <a href="https://sched.co/1R2uf">eBPF + Wasm: Lightweight Observability on Steroids</a>
+            <span>KubeCon North American 2023</span>
+        </li>
+        <li>
+            <a
+                href="https://www.alibabacloud.com/blog/eunomia-bpf-the-lightweight-development-framework-for-ebpf-and-webassembly-is-now-available_599688">eunomia-bpf:
+                The Lightweight Development Framework for eBPF and WebAssembly</a>
+            <span>Apsara Conference 2022</span>
+        </li>
+        <li>
+            <a href="https://arxiv.org/abs/2312.05531">KEN: Kernel Extensions using Natural Language</a>
+            <span>Arxiv preprint</span>
+        </li>
+        <li>
+            <a href="https://arxiv.org/abs/2311.07923">bpftime: userspace eBPF Runtime for Uprobe, Syscall and
+                Kernel-User Interactions</a>
+            <span>Arxiv preprint</span>
+        </li>
+    </ul>
 </div>
 
 {% endblock %}
