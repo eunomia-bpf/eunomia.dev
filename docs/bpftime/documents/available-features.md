@@ -55,4 +55,5 @@ Compatible with kernel eBPF program types:
 ## Others
 
 - Support kernel or userspace verifier
+- AOT support
 - Test JIT with bpf_conformance

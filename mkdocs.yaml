@@ -104,8 +104,10 @@ nav:
 
   - bpftime:
     - bpftime/index.md
-    - bpftime/documents/avaliable-features.md
     - bpftime/documents/build-and-test.md
+    - bpftime/documents/usage.md
+    - bpftime/documents/available-features.md
+    - bpftime/documents/how-it-works.md
 
   - eunomia-bpf:
       - Introduction: miscellaneous/introduction.md
