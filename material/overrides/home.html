@@ -92,6 +92,25 @@
         margin: 0 auto;
     }
 
+    .github-button {
+        display: inline-block;
+        padding: 10px 20px;
+        margin-top: 20px;
+        background-color: #333; /* GitHub's dark gray */
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+    .github-button:hover,
+    .github-button:focus {
+    background-color: #2c2f33; /* Slightly lighter gray for hover effect */
+    color: #ffffff;
+    text-decoration: none;
+    }
+
     .projects,
     .learn-more,
     .featured {
@@ -258,8 +277,9 @@
 </style>
 
 <div class="hero">
-    <h1>Welcome to eunomia-bpf project!</h1>
+    <h1>Welcome to eunomia-bpf lab!</h1>
     <p>Unlock the full potential of eBPF with our cutting-edge toolchains and runtimes.</p>
+    <a href="https://github.com/eunomia-bpf" class="github-button">View on GitHub</a>
 </div>
 
 <div class="section projects">

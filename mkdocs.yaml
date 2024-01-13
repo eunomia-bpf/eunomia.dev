@@ -165,6 +165,8 @@ extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/eunomia-bpf
+    - icon: fontawesome/solid/paper-plane
+      link: mailto:yunwei356@gmail.com
   generator: false
   alternate:
     - name: English
