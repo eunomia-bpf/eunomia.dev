@@ -24,6 +24,12 @@ Generate GPT function call API from command-line help info
 
 https://github.com/eunomia-bpf/func-call-for-command
 
+## eBPF GPTs
+
+An experiment: GPTs for eBPF
+
+https://chat.openai.com/g/g-h1WOms1QT-ebpf-expert
+
 ## ebpf-knowledge-base
 
 An ebpf knowledge base, based on llama_index and bpf-developer-tutorial

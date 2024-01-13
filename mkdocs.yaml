@@ -141,6 +141,7 @@ nav:
     - others/index.md
     - others/bpf-benchmark.md
     - others/bpf-compatible.md
+    - others/ebpf-gpts.md
 
 markdown_extensions:
   - pymdownx.inlinehilite
