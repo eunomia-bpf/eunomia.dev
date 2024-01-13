@@ -1,11 +1,11 @@
 site_name: eunomia
 repo_url: https://github.com/eunomia-bpf
-site_url: https://eunomia.dev/
+site_url: https://eunomia.dev
 repo_name: eunomia-bpf
 copyright: Copyright (c) 2023 eunomia-bpf org.
 site_description: 'eunomia-bpf: Exploring and improving eBPF toolchains and runtimes'
 remote_branch: docs
-edit_uri: ""
+edit_uri: "https://github.com/eunomia-bpf/eunomia.dev"
 theme:
   name: material
   logo: assets/icon.svg
@@ -166,8 +166,17 @@ extra:
     - icon: fontawesome/brands/github
       link: https://github.com/eunomia-bpf
   generator: false
+  alternate:
+    - name: English
+      link: /en/ 
+      lang: en
+    - name: Chinese
+      link: /zh/
+      lang: zh
 plugins:
+  - social
   - search
+  - tags
   - i18n:
       default_language: en
       languages:
