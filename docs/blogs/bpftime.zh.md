@@ -54,11 +54,13 @@ bpftime 希望能保持和现有的内核 eBPF 的良好兼容性，作为内核
 
 ![bpftrace](./imgs/bpftime-bpftrace.png)
 
-同时，也可以在用户态运行 bashreadline，funclatency，gethostlatency，mountsnoop，opensnoop，sigsnoop，statsnoop，syscount 等 BCC/libbpf-tools 工具[7]。
+同时，也可以在用户态运行 bashreadline，funclatency，gethostlatency，mountsnoop，opensnoop，sigsnoop，statsnoop，syscount 等 BCC/libbpf-tools 工具[7]。bpftime 在用户态的共享内存之中构建了 eBPF maps 的数据结构实现，可以同时分析统计多个进程，也可以支持通过 ring buffer、perf buffer 等方式，将数据上报给追踪工具。
 
-bpftime 也提供了和内核兼容的 eBPF 基础设施，可以在完全不需要内核 eBPF 的情况下运行，并且支持一部分内核的 eBPF maps，helpers，动态追踪机制和几乎所有的 eBPF 指令集：
+bpftime 也在用户态提供了和内核兼容的 eBPF 基础设施，可以在完全不需要内核 eBPF 的情况下运行，并且支持一部分内核的 eBPF maps，helpers，动态追踪机制和几乎所有的 eBPF 指令集：
 
 ![bpftime](./imgs/bpftime-features.png)
+
+从安全性角度出发，bpftime 也提供了 eBPF 验证器，用于验证 eBPF 字节码的安全性，防止恶意代码的注入或者破坏被追踪的进程。bpftime 可以使用内核态的 eBPF 验证器，也可以使用另一个独立的用户态 eBPF 验证器，作为无法访问内核 eBPF 的替代方案。
 
 ### 高性能的 Uprobe 和系统调用追踪
 
@@ -76,6 +78,20 @@ bpftime 支持 Uprobe 和系统调用追踪，通过二进制重写的方式，�
 
 ![sslsniff](./imgs/ssl-nginx.png)
 
+对于现代的 eBPF 可观测性工具而言，可能需要对于同一个事件，在内核和用户态函数同时进行采集分析。例如，对于一个 HTTP 请求，可能需要同时分析内核态的网络事件，以及用户态的函数调用，从而得到一个完整的请求链路。bpftime 的 Uprobe 实现可以和内核态的 eBPF 协同工作，从而实现这种跨越边界的分析能力。
+
+### 新的 eBPF JIT 编译器和 AOT 编译器
+
+bpftime 包含了一个新的基于 LLVM 的 eBPF JIT 编译器，可以在运行时将 eBPF 字节码编译为本地机器码，从而提高 eBPF 程序的执行效率。和 ubpf 和 rbpf 等其他用户态运行时的 JIT 编译器，以及和 Wasm 相比，LLVM JIT 编译器可以提供更好的性能，接近 native 代码的执行效率，同时也提供了更好的跨平台支持，例如支持 RISC-V 等架构。我们进行了一个简单的性能对比和分析[9]:
+
+![jit](./imgs/jit_execution_times.png)
+
+除了 JIT 之外，bpftime 也包含了一个 AOT 编译器，可以预先将 eBPF 字节码验证过后编译为机器码，以便在嵌入式上进行部署和使用。
+
+### 更多的探索性用例
+
+除了扩展先前的
+
 ## 下一步
 
 ## 总结
@@ -90,3 +106,4 @@ bpftime 支持 Uprobe 和系统调用追踪，通过二进制重写的方式，�
 6. Capturing Opening Files and Filter with Global Variables: <https://eunomia.dev/tutorials/4-opensnoop/>
 7. examples: <https://github.com/eunomia-bpf/bpftime/tree/master/example>
 8. sslsniff，根据 bcc 中的同名工具编写： <https://github.com/eunomia-bpf/bpftime/tree/master/example/sslsniff>
+9. bpf benchmark: <https://github.com/eunomia-bpf/bpf-benchmark>
