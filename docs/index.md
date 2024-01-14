@@ -1,4 +1,4 @@
 ---
 template: home.html
-title: 'eunomia-bpf: Simplifying and enhancing eBPF development and deployment'
+title: 'eunomia-bpf: Exploring and improving eBPF toolchains and runtimes'
 ---

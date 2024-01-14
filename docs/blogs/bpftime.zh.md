@@ -93,6 +93,7 @@ bpftime 包含了一个新的基于 LLVM 的 eBPF JIT 编译器，可以在运�
 除了扩展先前的 Uprobe 和系统调用追踪点，bpftime 还可以用于其他的探索性用例，例如：
 
 - `错误注入`：借助和内核兼容的 bpf_override_return() helper[10]，bpftime 可以允许在特定 eBPF 程序类型中，修改进程的 Syscall 返回值，阻止特定的 Syscall，或者修改和替换特定的函数调用，从而实现错误注入的功能。内核的 Uprobe 本身并不支持这种功能，同时内核的 `bpf_override_return` 也由于安全原因，需要编译时启用 CONFIG_BPF_KPROBE_OVERRIDE 选项才能开启，主流的 Linux 发行版默认不开启这个选项。
+- `热补丁`：如上所述，借助 bpf_override_return 的 helper 机制，userspace eBPF 也可以替换、过滤某些函数调用，从而实现热补丁的功能。
 - `基于 eBPF 的 Nginx Module`：bpftime 可以作为一个 Nginx Module，通过 eBPF 实现 Nginx 的扩展，例如在 Nginx 中实现动态路由、负载均衡、缓存、安全策略等功能。
 - `增强 Fuse`：已经有一些使用内核中的 eBPF 来优化 Fuse 尝试，bpftime 也可能可以作为用户态文件系统的一部分，通过 eBPF 在对对应的用户态进程中修改系统调用等的行为，实现对文件系统的扩展，例如在用户态文件系统中实现动态路由、缓存、安全策略等功能。
 

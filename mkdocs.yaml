@@ -78,6 +78,7 @@ nav:
     
   - Blogs: 
     - blogs/index.md
+    - blogs/bpftime.md
     - blogs/ebpf-security.md
     - blogs/userspace-ebpf.md
     - blogs/1_0-release.md
