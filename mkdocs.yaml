@@ -67,7 +67,6 @@ nav:
       - tutorials/29-sockops/README.md
       - tutorials/30-sslsniff/README.md
       - tutorials/31-goroutine/README.md
-      - tutorials/32-funclatency/README.md
     - bcc-documents:
       - tutorials/bcc-documents/kernel-versions.md
       - tutorials/bcc-documents/kernel_config.md
@@ -89,7 +88,7 @@ nav:
     - blogs/wasm-bpf.md
     - blogs/how-to-write-c-in-wasm.md
     - blogs/introduce-to-wasm-bpf-bpf-community.md
-    - 0.3.0-RELEASE: blogs/0_3_0-release.md
+    - blogs/0_3_0-release.md
     - blogs/ebpf-wasm.md
     - blogs/GPTtrace.md
     - blogs/how-to-write-rust-in-wasm.md
@@ -213,5 +212,4 @@ plugins:
           Home: 主页
           Documents: 文档
           ecli with docker: 在docker中使用ecli
-          0.3.0-RELEASE: 0.3.0 发布
           ecosystem: 生态
