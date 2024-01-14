@@ -1,4 +1,4 @@
-# bpftime: 高性能用户态 eBPF 运行时
+# bpftime: 让 eBPF 从内核扩展到用户空间
 
 > 郑昱笙，于桐
 
@@ -78,23 +78,35 @@ bpftime 支持 Uprobe 和系统调用追踪，通过二进制重写的方式，�
 
 ![sslsniff](./imgs/ssl-nginx.png)
 
-对于现代的 eBPF 可观测性工具而言，可能需要对于同一个事件，在内核和用户态函数同时进行采集分析。例如，对于一个 HTTP 请求，可能需要同时分析内核态的网络事件，以及用户态的函数调用，从而得到一个完整的请求链路。bpftime 的 Uprobe 实现可以和内核态的 eBPF 协同工作，从而实现这种跨越边界的分析能力。
+对于现代的 eBPF 可观测性工具而言，可能需要对于同一个事件，在内核和用户态函数同时进行采集分析。例如，对于一个 HTTP 请求，可能需要同时分析内核态的网络事件，以及用户态的函数调用，从而得到一个完整的请求链路。bpftime 的 Uprobe 实现可以和内核态的 eBPF kprobe 协同工作，从而实现这种跨越边界的分析能力。对于 USDT 等其他的动态追踪机制的实现和改进，也在我们的计划之中。
 
 ### 新的 eBPF JIT 编译器和 AOT 编译器
 
-bpftime 包含了一个新的基于 LLVM 的 eBPF JIT 编译器，可以在运行时将 eBPF 字节码编译为本地机器码，从而提高 eBPF 程序的执行效率。和 ubpf 和 rbpf 等其他用户态运行时的 JIT 编译器，以及和 Wasm 相比，LLVM JIT 编译器可以提供更好的性能，接近 native 代码的执行效率，同时也提供了更好的跨平台支持，例如支持 RISC-V 等架构。我们进行了一个简单的性能对比和分析[9]:
+bpftime 包含了一个新的基于 LLVM 的 eBPF JIT 编译器，可以在运行时将 eBPF 字节码编译为本地机器码，从而提高 eBPF 程序的执行效率。和 ubpf 和 rbpf 等其他用户态 eBPF 运行时的 JIT 编译器，以及和 Wasm 相比，LLVM JIT 编译器可以提供更好的性能，接近 native 代码的执行效率，同时也提供了更好的跨平台支持，例如支持 RISC-V 等架构。我们进行了一个简单的性能对比和分析[9]:
 
 ![jit](./imgs/jit_execution_times.png)
 
-除了 JIT 之外，bpftime 也包含了一个 AOT 编译器，可以预先将 eBPF 字节码验证过后编译为机器码，以便在嵌入式上进行部署和使用。
+除了 JIT 之外，bpftime 也包含了一个 AOT 编译器，可以预先将 eBPF 字节码验证过后编译为特定架构上的机器码文件，以便在嵌入式上进行部署和使用，可以大大减少编译启动的时间。
 
-### 更多的探索性用例
+### 更多的探索性用例和未来发展
 
-除了扩展先前的
+除了扩展先前的 Uprobe 和系统调用追踪点，bpftime 还可以用于其他的探索性用例，例如：
 
-## 下一步
+- `错误注入`：借助和内核兼容的 bpf_override_return() helper[10]，bpftime 可以允许在特定 eBPF 程序类型中，修改进程的 Syscall 返回值，阻止特定的 Syscall，或者修改和替换特定的函数调用，从而实现错误注入的功能。内核的 Uprobe 本身并不支持这种功能，同时内核的 `bpf_override_return` 也由于安全原因，需要编译时启用 CONFIG_BPF_KPROBE_OVERRIDE 选项才能开启，主流的 Linux 发行版默认不开启这个选项。
+- `基于 eBPF 的 Nginx Module`：bpftime 可以作为一个 Nginx Module，通过 eBPF 实现 Nginx 的扩展，例如在 Nginx 中实现动态路由、负载均衡、缓存、安全策略等功能。
+- `增强 Fuse`：已经有一些使用内核中的 eBPF 来优化 Fuse 尝试，bpftime 也可能可以作为用户态文件系统的一部分，通过 eBPF 在对对应的用户态进程中修改系统调用等的行为，实现对文件系统的扩展，例如在用户态文件系统中实现动态路由、缓存、安全策略等功能。
+
+bpftime 目前还是一个较为早期的探索性项目，我们也在积极探索更多其他可能的应用场景，例如在用户态实现 eBPF 的网络数据包过滤，优化服务网格的数据包转发性能，绕过内核的网络协议栈等等，非常期待大家提出更多的想法和建议，或者和我们一起实现这些功能。之后，我们也希望 bpftime 能提供对内核更好的兼容性支持，借助 LLVM 的 JIT 编译器，可能也可以为内核的 eBPF 提供更好的性能优化指导、更方便的测试和调试环境。
 
 ## 总结
+
+bpftime 在用户空间为 eBPF 应用打开了新的可能性，也为扩展用户态应用提供了一些新的选择。它允许现有 eBPF 应用程序使用相同的库和工具链在非特权用户空间运行，并为用户空间 eBPF 提供了 Uprobe 和 Syscall 等跟踪机制，与内核 Uprobe 相比，性能有了显著提高，而且无需手动检测代码或重启进程。运行时支持用户空间共享内存中的进程间 eBPF 映射，也兼容内核 eBPF 映射，允许与内核 eBPF 基础架构无缝运行。
+
+bpftime 目前已经在 GitHub 上开源，欢迎大家试用和提出反馈： <https://github.com/eunomia-bpf/bpftime> 如果有任何建议或者问题，欢迎在 GitHub 上提出 issue 或者发送邮件到 <yunwei356@gmail.com> 联系我们。
+
+> - 演示文档: <https://eunomia.dev/bpftime/documents/userspace-ebpf-bpftime-lpc.pdf>
+> - Hack news: <https://news.ycombinator.com/item?id=38268958>
+> - arxiv: <https://arxiv.org/abs/2311.07923>
 
 ## 参考资料
 
@@ -107,3 +119,5 @@ bpftime 包含了一个新的基于 LLVM 的 eBPF JIT 编译器，可以在运�
 7. examples: <https://github.com/eunomia-bpf/bpftime/tree/master/example>
 8. sslsniff，根据 bcc 中的同名工具编写： <https://github.com/eunomia-bpf/bpftime/tree/master/example/sslsniff>
 9. bpf benchmark: <https://github.com/eunomia-bpf/bpf-benchmark>
+10. BPF-based error injection for the kernel <https://lwn.net/Articles/740146/>
+11. FUSE BPF: A Stacked Filesystem Extension for FUSE <https://lwn.net/Articles/915717/>
