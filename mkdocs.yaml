@@ -35,6 +35,7 @@ nav:
 
   - Tutorials: 
     - bpf-developer-tutorial:
+      - tutorials/index.md
       - tutorials/0-introduce/README.md
       - tutorials/1-helloworld/README.md
       - tutorials/2-kprobe-unlink/README.md
