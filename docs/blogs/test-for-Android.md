@@ -2,11 +2,11 @@
 >
 >Author: CH3CHOHCH3
 
-# Abstract
+## Abstract
 
 This article mainly records the author's exploration process, results, and encountered issues when testing the support level of the high version Android Kernel for CO-RE technology based on libbpf in the Android Studio Emulator. The testing method used is to build a Debian environment in the Android Shell environment and attempt to build the eunomia-bpf toolchain and run its test cases based on this environment.
 
-# Background
+## Background
 
 As of now (2023-04), Android has not provided good support for dynamic loading of eBPF programs. Whether it is the compiler distribution scheme represented by bcc or the CO-RE scheme based on btf and libbpf, they are largely dependent on the support of the Linux environment and cannot run well on the Android system [^WeiShu].
 
@@ -23,13 +23,13 @@ In fact, the high version of the Android kernel already supports the btf option,
 
 > [eunomia-bpf](https://github.com/eunomia-bpf/eunomia-bpf) is an open-source project that combines libbpf and WebAssembly technologies, aiming to simplify the writing, compiling, and deployment of eBPF programs. This project can be regarded as a practical way of CO-RE, which relies on libbpf at its core. It is believed that the testing work of eunomia-bpf can provide reference for other CO-RE schemes.
 
-# Testing Environment
+## Testing Environment
 
 + Android Emulator (Android Studio Flamingo | 2022.2.1)
 + AVD: Pixel 6
 + Android Image: Tiramisu Android 13.0 x86_64 (5.15.41-android13-8-00055-g4f5025129fe8-ab8949913)
 
-# Environment Setup [^SeeFlowerX]
+## Environment Setup [^SeeFlowerX]
 
 1. Obtain `debianfs-amd64-full.tar.gz` from the releases page of the [eadb repository](https://github.com/tiann/eadb) as the rootfs of the Linux environment, and also get the `assets` directory of the project to build the environment.
 2. Configure and start the Android Virtual Device in Android Studio's Device Manager.
@@ -50,12 +50,12 @@ In fact, the high version of the Android kernel already supports the btf option,
 The Linux environment required for testing eBPF has been built. In addition, in the Android shell (before entering debian), you can use `zcat /proc/config.gz` with `grep` to view the kernel compilation options.
 >Currently, the debian environment packaged by eadb has a low libc version and lacks many tool dependencies. Additionally, due to different kernel compilation options, some eBPF functionalities may not be available.
 >
-# Tool Building
+## Tool Building
 
 Clone the eunomia-bpf repository to the local debian environment. For specific building process, please refer to the [build.md](https://github.com/eunomia-bpf/eunomia-bpf/blob/master/documents/build.md) in the repository. In this test, I used the `ecc` compiler to generate `package.json`, and the build and usage methods of this tool can be found on the [repository page](https://github.com/eunomia-bpf/eunomia-bpf/tree/master/compiler).
 >During the building process, you may need to manually install tools such as `curl`, `pkg-config`, `libssl-dev`, etc.
 >
-# Test Results
+## Test Results
 
 ## Successful Cases
 
