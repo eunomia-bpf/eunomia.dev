@@ -1,6 +1,17 @@
 # available kernel features in userspace
 
-## avalibale map types
+## Table of Contents
+
+- [available kernel features in userspace](#available-kernel-features-in-userspace)
+  - [Table of Contents](#table-of-contents)
+  - [availbale map types](#availbale-map-types)
+  - [avaliable program types](#avaliable-program-types)
+  - [available helpers](#available-helpers)
+    - [maps](#maps)
+    - [kernel\_helper\_group](#kernel_helper_group)
+  - [Others](#others)
+
+## availbale map types
 
 Userspace eBPF shared memory map types:
 
@@ -55,5 +66,5 @@ Compatible with kernel eBPF program types:
 ## Others
 
 - Support kernel or userspace verifier
-- AOT support
+- JIT/AOT support
 - Test JIT with bpf_conformance

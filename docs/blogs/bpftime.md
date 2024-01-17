@@ -78,7 +78,7 @@ We used the sslsniff tool[8] to trace and analyze SSL encrypted traffic of Nginx
 
 ![sslsniff](./imgs/ssl-nginx.png)
 
-For modern eBPF observability tools, it may be necessary to collect and analyze the same event in both kernel and user-space functions. For instance, an HTTP request might require analyzing both kernel-level network events and user-space function calls to obtain a complete request chain. bpftime's Uprobe implementation can work in conjunction with kernel eBPF kprobes, enabling this kind of cross-boundary analysis capability. Implementing and improving other dynamic tracing mechanisms like USDT is also part of our plan.
+For modern eBPF observability tools, it may be necessary to collect and analyze the same event in both kernel and user-space functions. For instance, an HTTP request might require analyzing both kernel-level network events and user-space function calls to obtain a complete request chain. bpftime's Uprobe implementation can work in conjunction with kernel eBPF kprobes, enabling this kind of cross-boundary analysis capability. Implementing and improving other dynamic tracing mechanisms are also part of our plan.
 
 ### New eBPF JIT and AOT Compilers
 

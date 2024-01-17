@@ -38,7 +38,7 @@ $ cd btfhub ; ls
 $ rsync -avz ../btfhub-archive/ --exclude=.git* --exclude=README.md ./archive/
 ```
 
- 整个btfhub-archive目录相当庞大，可以单独下载某个BTF归档文件放入btfhub 目录
+整个btfhub-archive目录相当庞大，可以单独下载某个BTF归档文件放入btfhub 目录
 
 ```sh
 $ rsync -avz ../5.11.0-1027-azure.btf.tar.xz --exclude=.git* --exclude=README.md ./archive/

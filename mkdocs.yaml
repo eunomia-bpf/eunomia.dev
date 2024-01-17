@@ -107,6 +107,7 @@ nav:
 
   - bpftime:
     - bpftime/index.md
+    - Introduction: blogs/bpftime.md
     - bpftime/documents/build-and-test.md
     - bpftime/documents/usage.md
     - bpftime/documents/available-features.md

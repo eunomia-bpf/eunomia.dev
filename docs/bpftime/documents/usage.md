@@ -1,14 +1,14 @@
-# Usgae
+# Mannual
 
-It's at a very early stage and may contain bugs on more platforms and eBPF programs.
+It's at a early stage and may contain bugs on more platforms and eBPF programs.
 
-## Run with JIT enabled
+## Table of Contents
 
-Set `BPFTIME_USE_JIT=true` in the server to enable JIT, for example, when running the server:
-
-```sh
-LD_PRELOAD=~/.bpftime/libbpftime-syscall-server.so BPFTIME_USE_JIT=true example/malloc/malloc
-```
+- [Mannual](#mannual)
+  - [Table of Contents](#table-of-contents)
+  - [Uprobe and uretprobe](#uprobe-and-uretprobe)
+  - [Syscall tracing](#syscall-tracing)
+  - [Run with JIT enabled](#run-with-jit-enabled)
 
 ## Uprobe and uretprobe
 
@@ -119,4 +119,12 @@ VICTIM: closing fd
 Opening test.txt..
 VICTIM: get fd 3
 VICTIM: closing f
+```
+
+## Run with JIT enabled
+
+Set `BPFTIME_USE_JIT=true` in the server to enable JIT, for example, when running the server:
+
+```sh
+LD_PRELOAD=~/.bpftime/libbpftime-syscall-server.so BPFTIME_USE_JIT=true example/malloc/malloc
 ```
