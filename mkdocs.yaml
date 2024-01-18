@@ -5,7 +5,7 @@ repo_name: eunomia-bpf
 copyright: Copyright (c) 2023 eunomia-bpf org.
 site_description: 'eunomia-bpf: Exploring and improving eBPF toolchains and runtimes'
 remote_branch: docs
-edit_uri: "https://github.com/eunomia-bpf/eunomia.dev"
+edit_uri: https://github.com/eunomia-bpf/eunomia.dev
 theme:
   name: material
   logo: assets/icon.svg
@@ -80,7 +80,7 @@ nav:
     
   - Blogs: 
     - blogs/index.md
-    - blogs/bpftime.md
+    - "bpftime: Extending eBPF from Kernel to User Space": blogs/bpftime.md
     - blogs/ebpf-security.md
     - blogs/userspace-ebpf.md
     - blogs/1_0-release.md
