@@ -2,6 +2,9 @@
 
 This is the source of the official [eunomia-bpf website][official website].
 
+For the tutorial, please edit https://github.com/eunomia-bpf/bpf-developer-tutorial
+
+For the home page of each project, please edit the README of them.
 
 [official website]: https://eunomia.dev
 
