@@ -1,14 +1,17 @@
-# Mannual
+# Usage
 
-It's at a early stage and may contain bugs on more platforms and eBPF programs.
+It's at a early stage and may contain bugs on more platforms and eBPF programs. We are working on to improve the stability and compatibility. If you find any bugs, please feel free to open an issue, thanks!
 
 ## Table of Contents
 
-- [Mannual](#mannual)
+- [Usage](#usage)
   - [Table of Contents](#table-of-contents)
   - [Uprobe and uretprobe](#uprobe-and-uretprobe)
   - [Syscall tracing](#syscall-tracing)
+  - [Run with LD\_PRELOAD directly](#run-with-ld_preload-directly)
   - [Run with JIT enabled](#run-with-jit-enabled)
+  - [Run with kernel eBPF](#run-with-kernel-ebpf)
+  - [Control Log Level](#control-log-level)
 
 ## Uprobe and uretprobe
 
@@ -121,10 +124,52 @@ VICTIM: get fd 3
 VICTIM: closing f
 ```
 
+## Run with LD_PRELOAD directly
+
+If the command line interface is not enough, you can also run the eBPF program with `LD_PRELOAD` directly. 
+
+The command line tool is a wrapper of `LD_PRELOAD` and can work with `ptrace` to inject the runtime shared library into a running target process.
+
+Run the eBPF tool with libbpf:
+
+```sh
+LD_PRELOAD=build/runtime/syscall-server/libbpftime-syscall-server.so example/malloc/malloc
+```
+
+Start the target program to trace:
+
+```sh
+LD_PRELOAD=build/runtime/agent/libbpftime-agent.so example/malloc/victim
+```
+
 ## Run with JIT enabled
+
+If the performance is not good enough, you can try to enable JIT. The JIT will be enabled by default in the future after more tests.
 
 Set `BPFTIME_USE_JIT=true` in the server to enable JIT, for example, when running the server:
 
 ```sh
 LD_PRELOAD=~/.bpftime/libbpftime-syscall-server.so BPFTIME_USE_JIT=true example/malloc/malloc
+```
+
+The default behavior is using ubpf JIT, you can also use LLVM JIT by compile with LLVM JIT enabled. See [documents/build-and-test.md](build-and-test.md) for more details.
+
+## Run with kernel eBPF
+
+You can run the eBPF program in userspace with kernel eBPF in two ways. The kernel must have eBPF support enabled, and kernel version should be higher enough to support mmap eBPF map.
+
+1. with the shared library `libbpftime-syscall-server.so`, for example:
+
+```sh
+BPFTIME_NOT_LOAD_PATTERN=start_.* BPFTIME_RUN_WITH_KERNEL=true LD_PRELOAD=~/.bpftime/libbpftime-syscall-server.so example/malloc/malloc
+```
+
+2. Using daemon mode, see https://github.com/eunomia-bpf/bpftime/tree/master/daemon
+
+## Control Log Level
+
+Set `SPDLOG_LEVEL` to control the log level dynamically, for example, when running the server:
+
+```sh
+SPDLOG_LEVEL=Debug LD_PRELOAD=~/.bpftime/libbpftime-syscall-server.so example/malloc/malloc
 ```

@@ -11,6 +11,7 @@
     - [bpftrace](#bpftrace)
   - [Error injections](#error-injections)
   - [Nginx eBPF module](#nginx-ebpf-module)
+  - [Use the vm only(No runtime, No uprobe) as a library](#use-the-vm-onlyno-runtime-no-uprobe-as-a-library)
 
 ## minimal examples
 
@@ -44,7 +45,17 @@ More bcc/libbpf-tools examples can be found in [example/libbpf-tools](https://gi
 
 ### bpftrace
 
-You can also run bpftime with `bpftrace`, we've test it on [this commit](https://github.com/iovisor/bpftrace/commit/75aca47dd8e1d642ff31c9d3ce330e0c616e5b96). More details about how to run bpftrace in usespace, can be found in [example/bpftrace](https://github.com/eunomia-bpf/bpftime/tree/master/example/bpftrace).
+You can also run bpftime with `bpftrace`, we've test it on [this commit](https://github.com/iovisor/bpftrace/commit/75aca47dd8e1d642ff31c9d3ce330e0c616e5b96). 
+
+It should be able to work with the bpftrace from the package manager of your distribution, for example:
+
+```bash
+sudo apt install bpftrace
+```
+
+Or you can build the latest bpftrace from source.
+
+More details about how to run bpftrace in usespace, can be found in [example/bpftrace](https://github.com/eunomia-bpf/bpftime/tree/master/example/bpftrace).
 
 ## Error injections
 
@@ -55,3 +66,12 @@ You can also run bpftime with `bpftrace`, we've test it on [this commit](https:/
 A nginx eBPF module is implemented with bpftime, which can be used to extend nginx with eBPF programs.
 
 See https://github.com/eunomia-bpf/Nginx-eBPF-module
+
+## Use the vm only(No runtime, No uprobe) as a library
+
+The LLVM JIT or AOT can be used as a library, without the runtime and uprobe.
+
+See the examples:
+
+1. Cli: https://github.com/eunomia-bpf/bpftime/tree/master/vm/cli
+2. Simple example: https://github.com/eunomia-bpf/bpftime/tree/master/vm/example

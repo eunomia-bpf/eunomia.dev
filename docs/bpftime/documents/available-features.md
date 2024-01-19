@@ -1,8 +1,8 @@
-# available kernel features in userspace
+# Available kernel features in userspace
 
 ## Table of Contents
 
-- [available kernel features in userspace](#available-kernel-features-in-userspace)
+- [Available kernel features in userspace](#available-kernel-features-in-userspace)
   - [Table of Contents](#table-of-contents)
   - [availbale map types](#availbale-map-types)
   - [avaliable program types](#avaliable-program-types)
@@ -38,6 +38,7 @@ Compatible with kernel eBPF program types:
 - tracepoint:syscalls:sys_enter_*
 - uretprobe:*
 - uprobe:*
+- USDT
 
 ## available helpers
 
@@ -61,7 +62,6 @@ Compatible with kernel eBPF program types:
 - `bpf_get_retval`: Helper function for getting the return value of a function.
 - `bpf_set_retval`: Helper function for setting the return value of a function.
 - `bpf_probe_read_str`: Helper function for reading a null-terminated string from a user address.
-- `bpf_get_stack`: Helper function for retrieving the current kernel stack.
 
 ## Others
 

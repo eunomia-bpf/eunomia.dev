@@ -80,7 +80,7 @@ nav:
     
   - Blogs: 
     - blogs/index.md
-    - "bpftime: Extending eBPF from Kernel to User Space": blogs/bpftime.md
+    - blogs/bpftime.md
     - blogs/ebpf-security.md
     - blogs/userspace-ebpf.md
     - blogs/1_0-release.md
@@ -110,8 +110,11 @@ nav:
     - Introduction: blogs/bpftime.md
     - bpftime/documents/build-and-test.md
     - bpftime/documents/usage.md
+    - bpftime/documents/examples.md
+    - bpftime/documents/performance.md
     - bpftime/documents/available-features.md
     - bpftime/documents/how-it-works.md
+    - bpftime/documents/contact.md
 
   - eunomia-bpf:
       - Introduction: miscellaneous/introduction.md

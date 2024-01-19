@@ -1,14 +1,17 @@
-# Building and run bpftime
+# Building and Test
 
 ## Table of Contents
 
-- [Building and run bpftime](#building-and-run-bpftime)
+- [Building and Test](#building-and-test)
   - [Table of Contents](#table-of-contents)
   - [Use docker image](#use-docker-image)
   - [Install Dependencies](#install-dependencies)
     - [Build and install cli tool](#build-and-install-cli-tool)
   - [Compilation for bpftime](#compilation-for-bpftime)
   - [Compile only the vm (No runtime, No uprobe)](#compile-only-the-vm-no-runtime-no-uprobe)
+  - [Compile with LTO enabled](#compile-with-lto-enabled)
+  - [Compile with userspace verifier](#compile-with-userspace-verifier)
+  - [More compile options](#more-compile-options)
   - [Testing](#testing)
 
 ## Use docker image
@@ -85,6 +88,30 @@ For a lightweight build without the runtime (only vm library and LLVM JIT):
 make build-vm # build the simple vm with a simple jit
 make build-llvm # build the vm with llvm jit
 ```
+
+## Compile with LTO enabled
+
+For example, build the package, with llvm-jit and LTO enabled:
+
+```sh
+# build the package, with llvm-jit
+cmake -Bbuild  -DBPFTIME_ENABLE_UNIT_TESTING=0 \
+				   -DCMAKE_BUILD_TYPE:STRING=Release \
+				   -DBPFTIME_ENABLE_LTO=1 \
+				   -DBPFTIME_LLVM_JIT=1
+cmake --build build --config Release --target install
+```
+
+## Compile with userspace verifier
+
+```sh
+cmake -DBPFTIME_ENABLE_UNIT_TESTING=YES -DBPFTIME_LLVM_JIT=NO -DENABLE_EBPF_VERIFIER=YES -DCMAKE_BUILD_TYPE:STRING=Release -B build
+cmake --build build --config Release --target bpftime_verifier_tests
+```
+
+## More compile options
+
+See https://github.com/eunomia-bpf/bpftime/blob/master/Makefile for more options and cmake commands.
 
 ## Testing
 
