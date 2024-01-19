@@ -2,10 +2,10 @@ site_name: eunomia
 repo_url: https://github.com/eunomia-bpf
 site_url: https://eunomia.dev
 repo_name: eunomia-bpf
-copyright: Copyright (c) 2023 eunomia-bpf org.
+copyright: Copyright (c) 2024 eunomia-bpf org.
 site_description: 'eunomia-bpf: Exploring and improving eBPF toolchains and runtimes'
 remote_branch: docs
-edit_uri: https://github.com/eunomia-bpf/eunomia.dev
+edit_uri: https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs
 theme:
   name: material
   logo: assets/icon.svg
@@ -29,6 +29,8 @@ theme:
     - navigation.expand
     - navigation.sections
     - header.autohide
+    - navigation.footer
+    - content.action.edit
 nav:
   - Home:
       - index.md
