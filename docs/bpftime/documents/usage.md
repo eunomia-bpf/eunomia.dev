@@ -126,7 +126,7 @@ VICTIM: closing f
 
 ## Run with LD_PRELOAD directly
 
-If the command line interface is not enough, you can also run the eBPF program with `LD_PRELOAD` directly. 
+If the command line interface is not enough, you can also run the eBPF program with `LD_PRELOAD` directly.
 
 The command line tool is a wrapper of `LD_PRELOAD` and can work with `ptrace` to inject the runtime shared library into a running target process.
 
@@ -164,7 +164,7 @@ You can run the eBPF program in userspace with kernel eBPF in two ways. The kern
 BPFTIME_NOT_LOAD_PATTERN=start_.* BPFTIME_RUN_WITH_KERNEL=true LD_PRELOAD=~/.bpftime/libbpftime-syscall-server.so example/malloc/malloc
 ```
 
-2. Using daemon mode, see https://github.com/eunomia-bpf/bpftime/tree/master/daemon
+2. Using daemon mode, see <https://github.com/eunomia-bpf/bpftime/tree/master/daemon>
 
 ## Control Log Level
 

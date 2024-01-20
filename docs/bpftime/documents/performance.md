@@ -11,7 +11,6 @@ More performance and benchmark results will be added in the future. If you have 
     - [Microbenchmark](#microbenchmark)
     - [sslsniff: trace SSL/TLS connections and raw traffic data](#sslsniff-trace-ssltls-connections-and-raw-traffic-data)
 
-
 ## Improve performance
 
 There are several configs to improve the performance of bpftime:
@@ -24,7 +23,7 @@ There are several configs to improve the performance of bpftime:
 
 ### Microbenchmark
 
-See https://github.com/eunomia-bpf/bpftime/tree/master/benchmark for how we run the benchmark.
+See <https://github.com/eunomia-bpf/bpftime/tree/master/benchmark> for how we run the benchmark.
 
 | Probe/Tracepoint Types | Kernel (ns)  | Userspace (ns) |
 |------------------------|-------------:|---------------:|
