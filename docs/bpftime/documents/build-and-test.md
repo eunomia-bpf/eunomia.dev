@@ -35,9 +35,9 @@ docker build .
 Install the required packages:
 
 ```bash
-sudo apt-get update && apt-get install \
+sudo apt-get update && sudo apt-get install \
         libelf1 libelf-dev zlib1g-dev make cmake git libboost1.74-all-dev \
-        binutils-dev libyaml-cpp-dev ca-certificates clang llvm
+        binutils-dev libyaml-cpp-dev ca-certificates clang llvm pkg-config
 git submodule update --init --recursive
 ```
 
