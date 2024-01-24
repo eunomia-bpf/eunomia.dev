@@ -53,9 +53,9 @@ Compatible with kernel eBPF program types:
 
 ### kernel_helper_group
 
-- `bpf_probe_read`: Helper function for reading data from a userspace address.
+- `bpf_probe_read`, `bpf_probe_read_user`: Helper function for reading data from a userspace address.
 - `bpf_probe_write_user`: Helper function for writing data to userspace 
-- `bpf_ktime_get_ns`: Helper function for getting the current time in nanoseconds.
+- `bpf_ktime_get_ns`, `bpf_ktime_get_coarse_ns`: Helper function for getting the current time in nanoseconds.
 - `bpf_trace_printk`: Helper function for printing debug messages from eBPF programs.
 - `bpf_get_current_pid_tgid`: Helper function for getting the current PID and TGID (Thread Group ID).
 - `bpf_get_current_uid_gid`: Helper function for getting the current UID (User ID) and GID (Group ID).
@@ -70,7 +70,8 @@ Compatible with kernel eBPF program types:
 - `bpftime_get_prandom_u32`: get random value
 - `bpf_override_return`: change the control flow of the functions
 
-Note: new helpers may be added without a document updated. Please see 
+Note: new helpers may be added without a document updated. 
+Please see 
 https://github.com/eunomia-bpf/bpftime/blob/master/runtime/src/bpf_helper.cpp for more details.
  
 ## Others
