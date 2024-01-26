@@ -1,10 +1,10 @@
-# Usage
+# Manual
 
 It's at a early stage and may contain bugs on more platforms and eBPF programs. We are working on to improve the stability and compatibility. If you find any bugs, please feel free to open an issue, thanks!
 
 ## Table of Contents
 
-- [Usage](#usage)
+- [Manual](#manual)
   - [Table of Contents](#table-of-contents)
   - [Uprobe and uretprobe](#uprobe-and-uretprobe)
   - [Syscall tracing](#syscall-tracing)

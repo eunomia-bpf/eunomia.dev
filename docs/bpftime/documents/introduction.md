@@ -1,6 +1,6 @@
 # Introduction
 
-> Yu Sheng Zheng, Yu Tong
+> Yusheng Zheng, Yu Tong
 
 eBPF is a revolutionary technology that originated in the Linux kernel, enabling sandboxed programs to run within the operating system's kernel. It is used to safely and efficiently extend the kernel's capabilities without altering its source code or loading kernel modules.
 

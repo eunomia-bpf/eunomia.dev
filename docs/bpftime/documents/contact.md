@@ -1,7 +1,7 @@
 # Contact and citations
 
 Have any questions or suggestions on future development? Free free to open an issue or contact
-<yunwei356@gmail.com>!
+<yunwei356@gmail.com> and <team@eunomia.dev>!
 
 Our arxiv preprint: <https://arxiv.org/abs/2311.07923>
 
@@ -15,3 +15,5 @@ Our arxiv preprint: <https://arxiv.org/abs/2311.07923>
       primaryClass={cs.OS}
 }
 ```
+
+Our discord:  <https://discord.gg/jvM73AFdB8>
