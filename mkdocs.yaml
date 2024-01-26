@@ -130,9 +130,9 @@ nav:
       - Quick Start: eunomia-bpf/quickstart.md
       - Support: eunomia-bpf/support.md
       - Installation:
-          - setup/index.md
-          - From source: setup/build.md
-          - Android: setup/build-android-arm.md
+          - eunomia-bpf/setup/index.md
+          - From source: eunomia-bpf/setup/build.md
+          - Android: eunomia-bpf/setup/build-android-arm.md
       - eunomia-cc: 
          - eunomia-bpf/ecc/index.md
          - eunomia-bpf/ecc/usage.md

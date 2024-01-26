@@ -1,7 +1,9 @@
 find ./tutorial -type f -name "*.md" ! -name "*_en*" -exec bash -c 'mv "$1" "${1%.md}.zh.md"' bash {} \; && \
 find ./tutorial -type f -name "*_en*.md" -exec bash -c 'mv "$1" "${1//_en/}"' bash {} \; && \
 mkdir -p docs/setup && \
-cp -rf eunomia-bpf/README* docs/eunomia-bpf/ && \
+cp -rf eunomia-bpf/README.md docs/eunomia-bpf/README.md && \
+cp -rf eunomia-bpf/README_zh.md docs/eunomia-bpf/README.zh.md && \
+mkdir -p docs/eunomia-bpf/setup/ && \
 cp -rf eunomia-bpf/documents/src/setup/* docs/eunomia-bpf/setup/ && \
 cp bpftime/README.md docs/bpftime/index.md && \
 mkdir -p docs/GPTtrace && \
