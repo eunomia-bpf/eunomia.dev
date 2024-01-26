@@ -1,4 +1,4 @@
-# 教程：一个简易的 inline hook 实现控制流劫持
+# 五分钟带你手搓一个简易的 inline hook 实现控制流劫持
 
 编程中令人着迷的一面在于我们尝试在程序运行时改变其行为。在本教程中，我们将揭示一种可以实现这一点的方法- inline hook 。只需要数十行代码，即可用 C 语言实现一个简单的 inline hook 示例，并将其应用于一个示例程序。
 
@@ -8,7 +8,7 @@
 
 inline hook 是一种在运行的程序中插入一段代码的技术，从而改变其控制流的方法。实际上，这是通过用一个跳转到我们插入的代码（通常是另一个函数）的跳转来取代函数的最初几条指令来实现的，该代码在完成后会跳回，继续执行原始函数。Frida是一种流行的工具，它使用这种技术将代码注入到运行的进程中。它用于动态仪器化、调试和逆向工程。
 
-在我们的用户空间 eBPF 运行时 bpftime (<https://github.com/eunomia-bpf/bpftime>)中，我们使用 inline hook 来实现`uprobe`功能。bpftime 是一个用户空间的eBPF运行时，允许现有的eBPF应用在非特权用户空间中使用相同的库和工具链。它为eBPF 提供了Uprobe和 Syscall跟踪点，并且在不需要手动代码仪器化或进程重启的情况下，具有显著的性能提升。
+在我们的用户空间 eBPF 运行时 bpftime (<https://github.com/eunomia-bpf/bpftime>)中，我们使用 inline hook 来实现`uprobe`功能。bpftime 是一个用户空间的eBPF运行时，允许现有的eBPF应用在非特权用户空间中使用相同的库和工具链。它为eBPF 提供了Uprobe和 Syscall跟踪点，并且在不需要手动代码仪器化或进程重启的情况下，具有显著的性能提升。当然，实际的 Uprobe 实现要比本文讨论的复杂得多。
 
 ## inline hook 实现
 

@@ -2,6 +2,8 @@
 
 Blogs about eunomia-bpf:
 
+- [借助 eBPF 和 BTF，让用户态也能一次编译、到处运行](../tutorials/38-btf-uprobe/README.md)
+- [五分钟带你手搓一个简易的 inline hook 实现控制流劫持](inline-hook.md)
 - [bpftime: 让 eBPF 从内核扩展到用户空间](bpftime.zh.md)
 - [eBPF 运行时安全性：面临的挑战与前沿创新](ebpf-security.zh.md)
 - [用户空间 eBPF 运行时：深度解析与应用实践](userspace-ebpf.md)

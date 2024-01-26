@@ -115,41 +115,42 @@ nav:
   - bpftime:
     - bpftime/index.md
     - bpftime/documents/introduction.md
+    - bpftime/documents/available-features.md
     - bpftime/documents/build-and-test.md
-    - bpftime/documents/usage.md
+    - Usage:
+      - bpftime/documents/usage.md
+      - bpftime/documents/co-re.md
     - bpftime/documents/examples.md
     - bpftime/documents/performance.md
-    - bpftime/documents/available-features.md
     - bpftime/documents/how-it-works.md
     - bpftime/documents/contact.md
 
   - eunomia-bpf:
-      - Introduction: miscellaneous/introduction.md
-      - Quick Start: miscellaneous/quickstart.md
-      - Support: support.md
+      - Introduction: eunomia-bpf/introduction.md
+      - Quick Start: eunomia-bpf/quickstart.md
+      - Support: eunomia-bpf/support.md
       - Installation:
           - setup/index.md
           - From source: setup/build.md
           - Android: setup/build-android-arm.md
       - eunomia-cc: 
-         - ecc/index.md
-         - ecc/usage.md
-         - ecc/docker-usage.md
-         - ecc/github-template.md
+         - eunomia-bpf/ecc/index.md
+         - eunomia-bpf/ecc/usage.md
+         - eunomia-bpf/ecc/docker-usage.md
+         - eunomia-bpf/ecc/github-template.md
       - ecli: 
-        - ecli/index.md
-        - ecli/server.md
+        - eunomia-bpf/ecli/index.md
+        - eunomia-bpf/ecli/server.md
       - exporter: 
-        - exporter/index.md
-        - exporter/usage.md
-      - Architecture: architecture/index.md
+        - eunomia-bpf/exporter/index.md
+        - eunomia-bpf/exporter/usage.md
+      - Architecture: eunomia-bpf/architecture/index.md
       - Misc: 
-        - miscellaneous/benchmark.md
-        - miscellaneous/manual.md
-        - miscellaneous/video.md
-        - miscellaneous/online.md
-        - miscellaneous/supporting-external-BTF.md
-        - miscellaneous/quickstart.md
+        - eunomia-bpf/benchmark.md
+        - eunomia-bpf/manual.md
+        - eunomia-bpf/video.md
+        - eunomia-bpf/online.md
+        - eunomia-bpf/supporting-external-BTF.md
 
   - ecosystem:
     - others/index.md

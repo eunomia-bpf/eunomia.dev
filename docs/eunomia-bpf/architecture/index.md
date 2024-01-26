@@ -8,7 +8,7 @@ title: "Project architecture"
 
 we have a loader library, a compile toolchain, and some additional tools like cli and a custom metrics exporter.
 
-![eunomia-arch.png](../img/eunomia-arch.png)
+![eunomia-arch.png](../../img/eunomia-arch.png)
 
 ## An bpf-loader-rs library
 
