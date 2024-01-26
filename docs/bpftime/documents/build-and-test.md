@@ -96,9 +96,9 @@ For example, build the package, with llvm-jit and LTO enabled:
 ```sh
 # build the package, with llvm-jit
 cmake -Bbuild  -DBPFTIME_ENABLE_UNIT_TESTING=0 \
-				   -DCMAKE_BUILD_TYPE:STRING=Release \
-				   -DBPFTIME_ENABLE_LTO=1 \
-				   -DBPFTIME_LLVM_JIT=1
+           -DCMAKE_BUILD_TYPE:STRING=Release \
+           -DBPFTIME_ENABLE_LTO=1 \
+           -DBPFTIME_LLVM_JIT=1
 cmake --build build --config Release --target install
 ```
 
@@ -111,7 +111,7 @@ cmake --build build --config Release --target bpftime_verifier_tests
 
 ## More compile options
 
-See https://github.com/eunomia-bpf/bpftime/blob/master/Makefile for more options and cmake commands.
+See <https://github.com/eunomia-bpf/bpftime/blob/master/Makefile> for more options and cmake commands.
 
 ## Testing
 

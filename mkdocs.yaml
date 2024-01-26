@@ -84,7 +84,8 @@ nav:
     
   - Blogs: 
     - blogs/index.md
-    - bpftime: blogs/bpftime.md
+    - blogs/inline-hook.md
+    - blogs/bpftime.md
     - blogs/ebpf-security.md
     - blogs/userspace-ebpf.md
     - blogs/1_0-release.md
@@ -111,7 +112,7 @@ nav:
 
   - bpftime:
     - bpftime/index.md
-    - Introduction: blogs/bpftime.md
+    - bpftime/documents/introduction.md
     - bpftime/documents/build-and-test.md
     - bpftime/documents/usage.md
     - bpftime/documents/examples.md
