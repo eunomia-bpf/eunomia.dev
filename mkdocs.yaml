@@ -72,6 +72,8 @@ nav:
       - tutorials/34-syscall/README.md
       - tutorials/35-user-ringbuf/README.md
       - tutorials/36-userspace-ebpf/README.md
+      - tutorials/37-uprobe-rust/README.md
+      - tutorials/38-btf-uprobe/README.md
     - bcc-documents:
       - tutorials/bcc-documents/tutorial_bcc_python_developer.md
       - tutorials/bcc-documents/kernel-versions.md
