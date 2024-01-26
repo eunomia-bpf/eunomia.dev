@@ -19,6 +19,8 @@ There are several configs to improve the performance of bpftime:
 2. Compile with LTO enabled. See [documents/build-and-test.md](build-and-test.md) for more details.
 3. Use LLVM JIT instead of ubpf JIT. See [documents/build-and-test.md](build-and-test.md) for more details.
 
+The benchmark results are based on the above configs.
+
 ## Benchmark
 
 ### Microbenchmark
