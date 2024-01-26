@@ -155,6 +155,7 @@ nav:
   - ecosystem:
     - others/index.md
     - others/contribute.md
+    - others/ideas.md
     - others/bpf-benchmark.md
     - others/bpf-compatible.md
     - others/ebpf-gpts.md
