@@ -1,5 +1,39 @@
 # Possible ideas for the future
 
+This is some possible ideas for open source events, like GSOC(Google Summer of Code) or OSPP(Open Source Promotion Plan). Our projects are designed to suit contributors with varying levels of expertise, from students to more advanced developers.
+
+It's also part of our project roadmap, if you don't participate in these events, you can also help or colaborate with these ideas! Need help? Please contact in the [email list](mailto:team@eunomia.dev) or in the [Discord channel](https://discord.gg/jvM73AFdB8).
+
+## Table of contents
+
+- [Possible ideas for the future](#possible-ideas-for-the-future)
+  - [Table of contents](#table-of-contents)
+  - [bpftime](#bpftime)
+  - [Porting bpftime to macOS](#porting-bpftime-to-macos)
+    - [Objectives for enable  eBPF on macOS](#objectives-for-enable--ebpf-on-macos)
+    - [Expected Outcomes](#expected-outcomes)
+    - [Prerequisites and Skills](#prerequisites-and-skills)
+    - [Reference and issue](#reference-and-issue)
+  - [Userspace AOT Compilation of eBPF for Lightweight Containers](#userspace-aot-compilation-of-ebpf-for-lightweight-containers)
+    - [Overview](#overview)
+    - [Goals and Objectives](#goals-and-objectives)
+    - [Prerequisites and Skills Required](#prerequisites-and-skills-required)
+    - [Expected Outcomes](#expected-outcomes-1)
+    - [Additional Resources](#additional-resources)
+  - [Add Fuzzer for bpftime and improve compatibility](#add-fuzzer-for-bpftime-and-improve-compatibility)
+    - [Project Overview](#project-overview)
+    - [Timeframe and Difficulty](#timeframe-and-difficulty)
+    - [Mentors](#mentors)
+    - [Objectives](#objectives)
+    - [Expected Outcomes](#expected-outcomes-2)
+    - [Prerequisites and Skills](#prerequisites-and-skills-1)
+    - [Reference and Issue](#reference-and-issue-1)
+  - [bpftime + fuse: Userspace eBPF for Userspace File System](#bpftime--fuse-userspace-ebpf-for-userspace-file-system)
+    - [Objectives](#objectives-1)
+    - [Expected Outcomes](#expected-outcomes-3)
+    - [Prerequisites and Skills](#prerequisites-and-skills-2)
+    - [Resources](#resources)
+
 ## bpftime
 
 An userspace eBPF runtime that allows existing eBPF applications to operate in unprivileged userspace using the same libraries and toolchains. It offers Uprobe and Syscall tracepoints for eBPF, with significant performance improvements over kernel uprobe and without requiring manual code instrumentation or process restarts. The runtime facilitates interprocess eBPF maps in userspace shared memory, and is also compatible with kernel eBPF maps, allowing for seamless operation with the kernel's eBPF infrastructure. It includes a high-performance LLVM JIT for various architectures, alongside a lightweight JIT for x86 and an interpreter.
@@ -11,77 +45,170 @@ For more details, see:
 
 ## Porting bpftime to macOS
 
-The goal of this project is to port `bpftime` to macOS, expanding its cross-platform capabilities and enabling macOS users to leverage the powerful features of `bpftime`. This porting effort is crucial for fostering a more inclusive and diverse open source community, enabling developers who use macOS as their primary development environment to contribute to and benefit from `bpftime`.
+Since bpftime can run in userspace and does not require kernel eBPF, why not enable eBPF on MacOS?
 
-### Objectives
+The goal of this project is to port `bpftime` to macOS, expanding its cross-platform capabilities and enabling macOS users to leverage the powerful features of `eBPF` in their development and production environments. With bpftime, now you may be able to run bcc and bpftrace tools on macOS!
 
-1. **Compatibility and Integration**: Achieve full compatibility of `bpftime` with macOS, ensuring that core features and capabilities are functional on this platform.
+- time: ~175 hour
+- Difficulty Level: medium
+- mentor: Yusheng Zheng (<yunwei356@gmail.com>) and Yuxi Huang (<Yuxi4096@gmail.com>)
+
+### Objectives for enable  eBPF on macOS
+
+1. **Compatibility and Integration**: Achieve compatibility of `bpftime` with macOS, ensuring that core features and capabilities are functional on this platform.
 2. **Performance Optimization**: Fine-tune the performance of `bpftime` on macOS, focusing on optimizing the LLVM JIT and the lightweight JIT for x86 specifically for macOS architecture.
 3. **Seamless Integration with macOS Ecosystem**: Ensure that `bpftime` integrates smoothly with macOS  environments, providing a native and efficient development experience for macOS eBPF users.
 4. **Documentation and Tutorials**: Develop documentation and tutorials tailored to macOS users, facilitating easy adoption and use of `bpftime` on this platform.
 
-### Skills Required
+### Expected Outcomes
+
+- A functional port of `bpftime` for macOS, with core features operational.
+- You should be able to run bpftrace and bcc tools on MacOS.
+- documentation and guides for using `bpftime` on macOS.
+
+### Prerequisites and Skills
 
 - Proficiency in C/C++ and system programming.
 - Familiarity with macOS development environment and tools.
 - Understanding of eBPF and its applications.
 
+### Reference and issue
+
+- Issue and some initial discussion: <https://github.com/eunomia-bpf/bpftime/issues>
+- Some previous efforts: [Enable bpftime on arm](https://github.com/eunomia-bpf/bpftime/pull/151)
+
+## Userspace AOT Compilation of eBPF for Lightweight Containers
+
+### Overview
+
+In the evolving world of cloud-native applications, IoT, and embedded systems, there's an increasing demand for efficient, secure, and resource-conscious computing solutions. Our project addresses these needs by focusing on the development of a userspace eBPF (Extended Berkeley Packet Filter) with Ahead-of-Time (AOT) compilation. This initiative aims to create a lightweight, event-driven computing model that caters to the unique demands of embedded and resource-constrained environments.
+
+The main difference eBPF AOT can bring is that it can help build a verifiable and secure runtime for applications, and it can be lightweight and efficient enough, with a low startup time to run on embedded devices.
+
+Duration and Difficulty Level
+
+- Estimated Time: ~175 hours
+- Difficulty Level: Medium
+- Mentors: Tong Yu (<yt.xyxx@gmail.com>) Yusheng Zheng (<yunwei356@gmail.com>)
+
+bpftime already have a AOT compiler, we need more work to enable it run on embedded devices or as plugins.
+
+### Goals and Objectives
+
+1. **Develop Userspace eBPF AOT Compilation**: The AOT compiler should be able to work well with helpers, ufuncs maps and other features of eBPF. Currently there is a POC for AOT compiler, but it's not complete and need more work.
+
+You can choose one or two of these goals to work on:
+
+1. **Integration into FaaS Containers**: Seamlessly integrate this technology into Function-as-a-Service (FaaS) lightweight containers, enhancing startup speed and operational efficiency.
+2. **Plugin System Implementation**: Design a system allowing eBPF programs to be embedded as plugins in other applications, offering dynamic, optimized functionality.
+3. **Run AOT eBPF on embedded devices**: Enable AOT eBPF to run on embedded devices, such as Raspberry Pi, and other IoT devices.
+
+### Prerequisites and Skills Required
+
+- Skills in C/C++ and system-level programming.
+- Basic understanding of container technologies and FaaS architectures.
+- Familiarity with eBPF concepts and applications.
+- Interest in IoT, cloud-native, and embedded systems.
+
 ### Expected Outcomes
 
-- A functional port of `bpftime` for macOS, with all features operational.
-- documentation and guides for using `bpftime` on macOS.
+- A functional userspace eBPF runtime with AOT compilation capabilities.
+- Demonstrated integration in FaaS lightweight containers.
+- A plugin system enabling the embedding of eBPF programs in various applications.
+- Run AOT eBPF on embedded devices.
 
-### Impact
+### Additional Resources
 
-This project will significantly contribute to the open source community by expanding the reach of `bpftime` to a broader audience. By enabling macOS compatibility, the project opens up opportunities for a wider range of developers to experiment with and contribute to `bpftime`, fostering innovation and collaboration in the realm of userspace eBPF runtime development.
+1. The AOT example of bpftime
+<https://github.com/eunomia-bpf/bpftime/blob/master/.github/workflows/test-aot-cli.yml>
+2. The API for vm. <https://github.com/eunomia-bpf/bpftime/tree/master/vm/include>
+3. Compile it as a standalone lib
+<https://github.com/eunomia-bpf/bpftime/tree/master/vm/llvm-jit>
 
-## bpftime + fuse: Exploring the Possibility of Synergistic Acceleration Combining User Space File System with Kernel Space
+If you want to add map support for microcontrollers,  I think you can write a c implementation, compile it and link it with bpftime AOT products. We will provide an example later.
+
+## Add Fuzzer for bpftime and improve compatibility
+
+### Project Overview
+
+The `bpftime` project, known for its innovative userspace eBPF runtime, is seeking to enhance its robustness and reliability by integrating a fuzzer. This project aims to develop and integrate a fuzzer specifically designed for `bpftime`, using tools like [Google's Buzzer](https://github.com/google/buzzer). The fuzzer will systematically test `bpftime` to uncover any potential bugs, memory leaks, or vulnerabilities, ensuring a more secure and stable runtime environment.
+
+You also needs to enable the fuzzer in CI.
+
+### Timeframe and Difficulty
+
+- **Time Commitment**: ~90 hours
+- **Difficulty Level**: Easy
+
+### Mentors
+
+- Tong Yu ([yt.xyxx@gmail.com](mailto:yt.xyxx@gmail.com))
+- Yusheng Zheng ([yunwei356@gmail.com](mailto:yunwei356@gmail.com))
+
+### Objectives
+
+1. **Fuzzer Development and Integration**: Design and develop a fuzzer that can be seamlessly integrated with `bpftime`. Or you can use existing fuzzers for eBPF.
+2. **Testing and Debugging**: Use the fuzzer to identify and report bugs, memory leaks, or vulnerabilities in `bpftime` userspace eBPF runtime.
+3. **Documentation**: Create documentation detailing the fuzzer’s implementation and usage within the `bpftime` environment.
+4. **Feedback Implementation**: Actively incorporate feedback from the `bpftime` community to refine and enhance the fuzzer.
+
+### Expected Outcomes
+
+- A fully integrated fuzzer within the `bpftime` environment.
+- An increase in the identified and resolved bugs and vulnerabilities in `bpftime`.
+- Documentation and guidelines for future contributors to utilize and improve the fuzzer.
+
+### Prerequisites and Skills
+
+- Skills in C/C++ and system programming.
+- Familiarity with software testing methodologies, particularly fuzz testing.
+- Experience with fuzzers like Google's Buzzer is highly beneficial.
+- Basic knowledge of eBPF and its ecosystem.
+
+### Reference and Issue
+
+- Initial discussion on the need for a fuzzer in `bpftime`: [GitHub Issue](https://github.com/eunomia-bpf/bpftime/issues/163)
+- Google buzzer: <https://github.com/google/buzzer>
+
+## bpftime + fuse: Userspace eBPF for Userspace File System
 
 In modern operating systems, `fuse` (Filesystem in Userspace) has become a popular choice, allowing developers to create file systems in user space without modifying kernel code. However, the cost of system calls still exists. This is where `bpftime` can play a role.
 
-**Core Advantages and Possibilities**:
+bpftime may help:
 
-1. **User Space and Kernel Space Synergistic Optimization**: Through `bpftime`, certain file system operations, such as caching, metadata queries, etc., can be pre-processed in user space and interact with eBPF in kernel space only when really needed. This greatly reduces unnecessary system calls, speeds up file operations, and accelerates possible fast paths, similar to the XRP mechanism.
-2. **User Space bypass Fuse Mechanism**: We can implement a complete kernel bypass fuse using eBPF to connect corresponding user space programs with VFS and libfuse, achieving a complete kernel bypass user space file system without the need for invasive changes or linking to user space applications.
-3. **Dynamic Adjustment of Strategies**: The user space `bpftime` can dynamically collect performance data and adjust strategies accordingly, such as selecting the best caching strategy, all of which can be done at runtime without the need for shutdown or restart.
-4. **Stronger Customization Capability**: Developers can customize specific eBPF programs according to specific application scenarios, to adapt to different workloads and optimization targets.
+- reducing the overhead of system calls and enhancing performance
+- enable cache for fuse without modifying the kernel
+- dynamic adjustment of file system strategies based on performance data
+- Add more policy and strategy for fuse
 
-## bpftime + Userspace Network: Bringing Synergistic Intelligence to Network Communication
+You can explore more possibilities with us:
 
-Networking is fundamental in modern computing environments, but traditional networking approaches may not meet the demands of modern applications with increasingly complex communication patterns and high traffic needs. In this context, the combination of `bpftime` with network libraries offers a new way to handle network requests.
+- Time Cost: ~350 hours
+- Difficulty Level: Hard
+- Mentors: Yiwei Yang (<yyang363@ucsc.edu>) Yusheng Zheng (<yunwei356@gmail.com>)
 
-**Core Advantages and Possibilities**:
+### Objectives
 
-1. **Intelligent Network Flow Processing**: `bpftime` allows developers to pre-process network requests in user space, such as traffic balancing, QoS policies, etc., and collaborate with eBPF in kernel space only when necessary, effectively reducing context switches and improving network efficiency.
-2. **Dynamic Network Policy Adjustment**: Similar to the collaborative work with file systems, `bpftime` can dynamically collect network performance data and adjust network processing strategies, such as dynamically adjusting traffic distribution, quickly switching communication paths, etc.
-3. **Higher Network Throughput**: Pre-processing network requests in user space can avoid the overhead of traditional network stacks, thereby achieving higher network throughput, especially in high traffic and low latency scenarios. User space eBPF can be combined with user space network libraries to accelerate service mesh network request forwarding and processing in scenarios like Cilium.
+1. **Synergistic Optimization Between User and Kernel Space**: Utilize `bpftime` to pre-process file system operations like caching and metadata queries in user space, thereby minimizing system call overhead.
+2. **Kernel Bypass Mechanism in User Space**: Develop a kernel bypass mechanism for file systems in user space using eBPF, potentially eliminating the need for invasive changes to user applications.
+3. **Dynamic Strategy Adjustment**: Implement a system within `bpftime` to dynamically collect performance data and adjust operational strategies in real-time.
+4. **Customization for Specific Workloads**: Enable developers to tailor eBPF programs for diverse application scenarios, optimizing for various workloads.
 
-`bpftime` opens up new possibilities for collaborative work between user space and kernel space, both in file systems and network communication. This synergistic optimization offers an efficient, flexible, and customizable framework to meet the demands of modern complex computing environments. In the future, this collaborative work model could become the standard way of interaction between operating systems and applications.
+### Expected Outcomes
 
-## Userspace AOT Compilation and Execution of eBPF: New Opportunities for Lightweight Containers
+- A proof-of-concept implementation demonstrating the synergy between `bpftime` and userspace file systems.
+- A reduction in system call overhead for file operations in user space.
+- A framework allowing dynamic adjustment of file system strategies based on performance data.
+- Documentation or papers
 
-**Background**:
+### Prerequisites and Skills
 
-In the fields of cloud-native, IoT, and embedded systems, the three core challenges are limited resources, high security requirements, and the need for highly automated deployment and management. Existing container technologies, while providing high levels of abstraction and isolation, still incur runtime overhead. The potential capabilities of user space eBPF, especially its Ahead-of-Time (AOT) compilation into machine code and signing, bring new possibilities to these fields.
+- Proficiency in C/C++ and system-level programming.
+- Familiarity with file system concepts and user space-kernel space interactions.
+- Basic understanding of eBPF and its applications in modern operating systems.
+- Experience with `fuse` or similar technologies is a plus.
 
-**Goals**:
+### Resources
 
-1. Develop a user space eBPF AOT compilation and execution mechanism, aimed at providing a lightweight, event-driven computing model for embedded and resource-constrained environments.
-2. Integrate this technology into FaaS lightweight containers to reduce their startup latency and improve execution efficiency.
-3. Design and implement a plugin system that allows eBPF programs to be embedded into other applications, providing dynamic, highly optimized functional extensions.
-
-**Challenges**:
-
-1. **Balancing Performance and Security**: How to ensure the performance of eBPF programs while guaranteeing their complete security in user space, especially in the absence of kernel-level isolation.
-2. **Generality and Specificity**: Designing a system that meets the specific needs of embedded and IoT devices while being sufficiently generic to adapt to different application scenarios.
-3. **Compatibility and Innovation**: Ensuring that new technologies are compatible with the existing container ecosystem and IoT standards while introducing innovations.
-
-**Possibilities**:
-
-1. **Low Overhead Computing**: The lightweight nature of eBPF and its ability to AOT compile into machine code can significantly reduce computing overhead in resource-constrained environments.
-2. **Dynamic Extensibility**: Embedding eBPF programs as plugins into other applications provides highly dynamic, on-demand functionality for various applications.
-3. **Cross-Platform and Multi
-
--Scenario Applications**: The portability and security of eBPF programs make them ideal for a variety of platforms and application scenarios, including edge computing, smart homes, automotive systems, etc.
-
-User space eBPF's AOT compilation and execution offer a unique, highly potential method to meet the challenges and needs of the cloud-native, IoT, and embedded systems fields. Its unique combination of performance, security, and flexibility makes it an important direction for future research and innovation in these fields.
+- Extfuse paper and GitHub repo: <https://github.com/extfuse/extfuse>
+- <https://lwn.net/Articles/915717/>
