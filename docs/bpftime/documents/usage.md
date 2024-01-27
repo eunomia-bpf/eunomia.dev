@@ -77,51 +77,34 @@ $ sudo example/malloc/malloc
 
 ## Syscall tracing
 
-An example can be found at [benchmark/hash_maps](../benchmark/hash_maps/).
-
-Build the example:
-
-```sh
-make -C benchmark/hash_maps
-```
-
-Start server:
-
-```sh
-$ sudo ~/.bpftime/bpftime load benchmark/hash_maps/opensnoop
-[2023-10-01 16:46:43.409] [info] manager constructed
-[2023-10-01 16:46:43.409] [info] global_shm_open_type 0 for bpftime_maps_shm
-[2023-10-01 16:46:43.410] [info] Closing 3
-[2023-10-01 16:46:43.411] [info] mmap64 0
-[2023-10-01 16:46:43.411] [info] Calling mocked mmap64
-[2023-10-01 16:46:43.411] [info] Closing 3
-[2023-10-01 16:46:43.411] [info] Closing 3
-[2023-10-01 16:46:43.423] [info] Closing 3
-[2023-10-01 16:46:43.423] [info] Closing 3
-```
-
-Start victim:
+An example can be found at [examples/opensnoop](https://github.com/eunomia-bpf/bpftime/tree/master/example/opensnoop)
 
 ```console
-$ sudo ~/.bpftime/bpftime start -s benchmark/hash_maps/victim
-[2023-10-01 16:46:58.855] [info] Entering new main..
-[2023-10-01 16:46:58.855] [info] Using agent /root/.bpftime/libbpftime-agent.so
-[2023-10-01 16:46:58.856] [info] Page zero setted up..
-[2023-10-01 16:46:58.856] [info] Rewriting segment from 559a839b4000 to 559a839b5000
-[2023-10-01 16:46:58.859] [info] Rewriting segment from 7f130aa22000 to 7f130ab9a000
-[2023-10-01 16:46:59.749] [info] Rewriting segment from 7f130acc3000 to 7f130adb0000
-[2023-10-01 16:47:00.342] [info] Rewriting segment from 7f130ae9c000 to 7f130afcd000
-[2023-10-01 16:47:01.072] [info] Rewriting segment from 7f130b125000 to 7f130b1a3000
-.....
-[2023-10-01 16:47:02.084] [info] Attach successfully
-[2023-10-01 16:47:02.084] [info] Transformer exiting..
+$ sudo ~/.bpftime/bpftime load ./example/opensnoop/opensnoop
+[2023-10-09 04:36:33.891] [info] manager constructed
+[2023-10-09 04:36:33.892] [info] global_shm_open_type 0 for bpftime_maps_shm
+[2023-10-09 04:36:33][info][23999] Enabling helper groups ffi, kernel, shm_map by default
+PID    COMM              FD ERR PATH
+72101  victim             3   0 test.txt
+72101  victim             3   0 test.txt
+72101  victim             3   0 test.txt
+72101  victim             3   0 test.txt
+```
 
-Opening test.txt..
-VICTIM: get fd 3
-VICTIM: closing fd
-Opening test.txt..
-VICTIM: get fd 3
-VICTIM: closing f
+In another terminal, run the victim program:
+
+```console
+$ sudo ~/.bpftime/bpftime start -s example/opensnoop/victim
+[2023-10-09 04:38:16.196] [info] Entering new main..
+[2023-10-09 04:38:16.197] [info] Using agent /root/.bpftime/libbpftime-agent.so
+[2023-10-09 04:38:16.198] [info] Page zero setted up..
+[2023-10-09 04:38:16.198] [info] Rewriting executable segments..
+[2023-10-09 04:38:19.260] [info] Loading dynamic library..
+...
+test.txt closed
+Opening test.txt
+test.txt opened, fd=3
+Closing test.txt...
 ```
 
 ## Run with LD_PRELOAD directly
