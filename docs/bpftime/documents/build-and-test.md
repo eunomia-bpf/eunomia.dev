@@ -47,8 +47,10 @@ On Ubuntu 20.04, you may need to manually switch to gcc-12.
 
 ### Build and install cli tool
 
+Build with makefile:
+
 ```bash
-make release # Build and install the runtime
+make release JOBS=$(nproc) # Build and install the runtime
 export PATH=$PATH:~/.bpftime
 ```
 
