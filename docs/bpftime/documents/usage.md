@@ -1,6 +1,6 @@
 # Manual
 
-It's at an early stage and may contain bugs on more platforms and eBPF programs. We are working on to improve the stability and compatibility. It's not suitable for production use now.
+🚧 It's at an early stage and may contain bugs on more platforms and eBPF programs. We are working on to improve the stability and compatibility. It's not suitable for production use now.
 
 If you find any bugs or suggestions, please feel free to open an issue, thanks!
 
