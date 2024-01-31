@@ -18,6 +18,7 @@ There are several configs to improve the performance of bpftime:
 1. Use JIT when running the eBPF program. The JIT will be enabled by default in the future after more tests. See [documents/usage.md](usage.md) for more details.
 2. Compile with LTO enabled. See [documents/build-and-test.md](build-and-test.md) for more details.
 3. Use LLVM JIT instead of ubpf JIT. See [documents/build-and-test.md](build-and-test.md) for more details.
+4. Disable logs. See [documents/usage.md](usage.md) for more details.
 
 The benchmark results are based on the above configs.
 

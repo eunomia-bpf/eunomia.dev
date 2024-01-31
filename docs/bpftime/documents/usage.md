@@ -156,5 +156,19 @@ BPFTIME_NOT_LOAD_PATTERN=start_.* BPFTIME_RUN_WITH_KERNEL=true LD_PRELOAD=~/.bpf
 Set `SPDLOG_LEVEL` to control the log level dynamically, for example, when running the server:
 
 ```sh
-SPDLOG_LEVEL=Debug LD_PRELOAD=~/.bpftime/libbpftime-syscall-server.so example/malloc/malloc
+SPDLOG_LEVEL=debug LD_PRELOAD=~/.bpftime/libbpftime-syscall-server.so example/malloc/malloc
 ```
+
+Available log level include:
+
+- trace
+- debug
+- info
+- warn
+- err
+- critical
+- off
+
+See <https://github.com/gabime/spdlog/blob/v1.x/include/spdlog/cfg/env.h> for more details.
+
+Log can also be controled at compile time by specifying `-DSPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_INFO` in the cmake compile command.

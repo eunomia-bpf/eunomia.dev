@@ -48,7 +48,16 @@ On Ubuntu 20.04, you may need to manually switch to gcc-12.
 ### Build and install cli tool
 
 ```bash
-make release && make install # Build and install the runtime
+make release # Build and install the runtime
+export PATH=$PATH:~/.bpftime
+```
+
+Or you can also build with `cmake`(The Makefile is a wrapper of cmake commands):
+
+```bash
+cmake -Bbuild  -DCMAKE_BUILD_TYPE:STRING=Release \
+           -DSPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_INFO
+cmake --build build --config Release --target install
 export PATH=$PATH:~/.bpftime
 ```
 
@@ -59,6 +68,8 @@ $ bpftime
 Usage: bpftime [OPTIONS] <COMMAND>
 ...
 ```
+
+See the [Makefile](https://github.com/eunomia-bpf/bpftime/blob/master/Makefile) for some common commands.
 
 ## Compilation for bpftime
 
@@ -71,7 +82,7 @@ make release
 Build the complete runtime in debug mode(With ubpf jit):
 
 ```bash
-make debug
+make build
 ```
 
 Build the complete runtime in release mode(With llvm jit):
@@ -111,7 +122,7 @@ cmake --build build --config Release --target bpftime_verifier_tests
 
 ## More compile options
 
-See <https://github.com/eunomia-bpf/bpftime/blob/master/Makefile> for more options and cmake commands.
+See <https://github.com/eunomia-bpf/bpftime/blob/master/cmake/StandardSettings.cmake> for all cmake build options.
 
 ## Testing
 

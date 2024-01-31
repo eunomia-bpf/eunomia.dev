@@ -12,6 +12,7 @@
     - [Use bpftime to trace SPDK](#use-bpftime-to-trace-spdk)
   - [Error injections](#error-injections)
   - [Nginx eBPF module](#nginx-ebpf-module)
+  - [Use DPDK with userspace eBPF to run XDP seamlessly](#use-dpdk-with-userspace-ebpf-to-run-xdp-seamlessly)
   - [Use the vm only(No runtime, No uprobe) as a library](#use-the-vm-onlyno-runtime-no-uprobe-as-a-library)
 
 ## minimal examples
@@ -71,6 +72,12 @@ See <https://github.com/eunomia-bpf/bpftime/wiki/Benchmark-of-SPDK> for how to u
 A nginx eBPF module is implemented with bpftime, which can be used to extend nginx with eBPF programs.
 
 See <https://github.com/eunomia-bpf/Nginx-eBPF-module>
+
+## Use DPDK with userspace eBPF to run XDP seamlessly
+
+See <https://github.com/eunomia-bpf/XDP-eBPF-in-DPDK>
+
+We can run the same eBPF XDP program in both kernel and userspace, and the userspace eBPF program can be used to run XDP programs seamlessly. Unlike ubpf in DPDK, we don't need to modify the eBPF program, and can support eBPF maps
 
 ## Use the vm only(No runtime, No uprobe) as a library
 
