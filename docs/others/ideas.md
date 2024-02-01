@@ -10,7 +10,7 @@ It's also part of our project roadmap, if you don't participate in these events,
   - [Table of contents](#table-of-contents)
   - [bpftime](#bpftime)
   - [Porting bpftime to macOS](#porting-bpftime-to-macos)
-    - [Objectives for enable  eBPF on macOS](#objectives-for-enable--ebpf-on-macos)
+    - [Objectives for enable eBPF on macOS](#objectives-for-enable-ebpf-on-macos)
     - [Expected Outcomes](#expected-outcomes)
     - [Prerequisites and Skills](#prerequisites-and-skills)
     - [Reference and issue](#reference-and-issue)
@@ -33,6 +33,8 @@ It's also part of our project roadmap, if you don't participate in these events,
     - [Expected Outcomes](#expected-outcomes-3)
     - [Prerequisites and Skills](#prerequisites-and-skills-2)
     - [Resources](#resources)
+  - [Porting bpftime to Windows, FreeBSD, or other platforms](#porting-bpftime-to-windows-freebsd-or-other-platforms)
+  - [](#)
 
 ## bpftime
 
@@ -53,7 +55,7 @@ The goal of this project is to port `bpftime` to macOS, expanding its cross-plat
 - Difficulty Level: medium
 - mentor: Yusheng Zheng (<yunwei356@gmail.com>) and Yuxi Huang (<Yuxi4096@gmail.com>)
 
-### Objectives for enable  eBPF on macOS
+### Objectives for enable eBPF on macOS
 
 1. **Compatibility and Integration**: Achieve compatibility of `bpftime` with macOS, ensuring that core features and capabilities are functional on this platform.
 2. **Performance Optimization**: Fine-tune the performance of `bpftime` on macOS, focusing on optimizing the LLVM JIT and the lightweight JIT for x86 specifically for macOS architecture.
@@ -63,7 +65,7 @@ The goal of this project is to port `bpftime` to macOS, expanding its cross-plat
 ### Expected Outcomes
 
 - A functional port of `bpftime` for macOS, with core features operational.
-- You should be able to run bpftrace and bcc tools on MacOS.
+- You should be able to run `bpftrace` and `bcc` tools on MacOS, and get expected output.
 - documentation and guides for using `bpftime` on macOS.
 
 ### Prerequisites and Skills
@@ -212,3 +214,9 @@ You can explore more possibilities with us:
 
 - Extfuse paper and GitHub repo: <https://github.com/extfuse/extfuse>
 - <https://lwn.net/Articles/915717/>
+
+## Porting bpftime to Windows, FreeBSD, or other platforms
+
+It would be similar to the porting to macOS.
+
+## 
