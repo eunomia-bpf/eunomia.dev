@@ -45,7 +45,15 @@ We've tested on Ubuntu 23.04. The recommended `gcc` >= 12.0.0 `clang` >= 16.0.0
 
 On Ubuntu 20.04, you may need to manually switch to gcc-12.
 
-### Build and install cli tool
+### Build and install all things
+
+Install all things that could be installed to `~/.bpftime`, includes:
+- `bpftime`: A cli tool used for injecting agent & server to userspace programs
+- `bpftime-vm`: A cli tool used for compiling eBPF programs into native programs, or run the compiled program
+- `bpftimetool`: A cli tool used to manage things stored in shared memory, such as the data of maps or programs
+- `bpftime_daemon`: An executable used for implementing the similar thing like syscall server, but don't need to be injected to the userspace program
+- `libbpftime-agent.so`, `libbpftime-agent-transformer.so`: Libraries needed by bpftime agent
+- `libbpftime-syscall-server.so`: Library needed by bpftime syscall server
 
 Build with makefile:
 
@@ -73,25 +81,65 @@ Usage: bpftime [OPTIONS] <COMMAND>
 
 See the [Makefile](https://github.com/eunomia-bpf/bpftime/blob/master/Makefile) for some common commands.
 
-## Compilation for bpftime
+## Detailed things about building
 
-Build the complete runtime in release mode(With ubpf jit):
+We use cmake as build system. You may be interested in the following cmake options:
 
-```bash
-make release
-```
+- `CMAKE_BUILD_TYPE`: Specify the build type. It could be `Debug`, `Release`, `MinSizeRel` or `RelWithDebInfo`. If you are not going to debug bpftime, you just need to set it to `Release`. Default to `Debug`.
+- `BPFTIME_ENABLE_UNIT_TESTING`: Whether to build unit test targets. See `Testing targets` for details. Default to `NO`.
+- `BPFTIME_ENABLE_LTO`: Whether to enable Link Time Optimization. Enabling this may increase the compile time, but it may lead to a better performance. Default to `No`.
+- `BPFTIME_LLVM_JIT`: Whether to use LLVM JIT as the ebpf runtime. Requires LLVM >= 15. It's recommended to enable this, since the ubpf intepreter is no longer maintained. Default to `NO`.
+- `LLVM_DIR`: Specify the installing directory of LLVM. CMake may not discover the LLVM installation by default. Set this option to the directory that contains `LLVMConfig.cmake`, such as `/usr/lib/llvm-15/cmake` on Ubuntu
 
-Build the complete runtime in debug mode(With ubpf jit):
-
-```bash
-make build
-```
-
-Build the complete runtime in release mode(With llvm jit):
+### Build and install the complete runtime in release mode(With ubpf jit):
 
 ```bash
-make release-with-llvm-jit
+cmake -Bbuild -DCMAKE_BUILD_TYPE=Release -DBPFTIME_ENABLE_LTO=NO
+cmake --build build --config Release --target install
 ```
+
+### Build and install the complete runtime in debug mode(With ubpf jit):
+
+```bash
+cmake -Bbuild -DCMAKE_BUILD_TYPE=Debug -DBPFTIME_ENABLE_LTO=NO
+cmake --build build --config Debug --target install
+```
+
+### Build and install the complete runtime in release mode(With llvm jit):
+
+```bash
+cmake -Bbuild -DCMAKE_BUILD_TYPE=Release -DBPFTIME_ENABLE_LTO=NO -DBPFTIME_LLVM_JIT=YES
+cmake --build build --config Release --target install
+```
+
+### Compile with LTO enabled
+
+Just set `BPFTIME_ENABLE_LTO` to `YES`
+
+For example, build  the package, with llvm-jit and LTO enabled:
+
+```sh
+cmake -Bbuild -DCMAKE_BUILD_TYPE=Release -DBPFTIME_ENABLE_LTO=YES -DBPFTIME_LLVM_JIT=YES
+cmake --build build --config Release --target install
+```
+
+### Compile with userspace verifier 
+
+Note that we are using https://github.com/vbpf/ebpf-verifier as userspace verifier. It's not perfect, and may not support some features (such as ringbuf)
+
+```sh
+cmake -DBPFTIME_LLVM_JIT=NO -DENABLE_EBPF_VERIFIER=YES -DCMAKE_BUILD_TYPE=Release -B build
+cmake --build build --config Release --target install
+```
+
+### Testing targets
+
+We have some targets for unit testing, they are:
+- `bpftime_daemon_tests`
+- `bpftime_runtime_tests`
+- `llvm_jjit_tests`
+
+Build and run them to test.
 
 ## Compile only the vm (No runtime, No uprobe)
 
@@ -100,26 +148,6 @@ For a lightweight build without the runtime (only vm library and LLVM JIT):
 ```bash
 make build-vm # build the simple vm with a simple jit
 make build-llvm # build the vm with llvm jit
-```
-
-## Compile with LTO enabled
-
-For example, build the package, with llvm-jit and LTO enabled:
-
-```sh
-# build the package, with llvm-jit
-cmake -Bbuild  -DBPFTIME_ENABLE_UNIT_TESTING=0 \
-           -DCMAKE_BUILD_TYPE:STRING=Release \
-           -DBPFTIME_ENABLE_LTO=1 \
-           -DBPFTIME_LLVM_JIT=1
-cmake --build build --config Release --target install
-```
-
-## Compile with userspace verifier
-
-```sh
-cmake -DBPFTIME_ENABLE_UNIT_TESTING=YES -DBPFTIME_LLVM_JIT=NO -DENABLE_EBPF_VERIFIER=YES -DCMAKE_BUILD_TYPE:STRING=Release -B build
-cmake --build build --config Release --target bpftime_verifier_tests
 ```
 
 ## More compile options
