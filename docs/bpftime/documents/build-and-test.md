@@ -137,9 +137,16 @@ cmake --build build --config Release --target install
 We have some targets for unit testing, they are:
 - `bpftime_daemon_tests`
 - `bpftime_runtime_tests`
-- `llvm_jjit_tests`
+- `llvm_jit_tests`
 
-Build and run them to test.
+These targets will only be enabled when `BPFTIME_ENABLE_UNIT_TESTING` was set to `YES`.
+
+Build and run them to test, for example:
+```sh
+cmake -DBPFTIME_LLVM_JIT=YES -DBPFTIME_ENABLE_UNIT_TESTING=YES -DCMAKE_BUILD_TYPE=Release -B build
+cmake --build build --config Release --target bpftime_runtime_tests
+sudo ./build/runtime/unit-test/bpftime_runtime_tests
+```
 
 ## Compile only the vm (No runtime, No uprobe)
 
@@ -154,10 +161,3 @@ make build-llvm # build the vm with llvm jit
 
 See <https://github.com/eunomia-bpf/bpftime/blob/master/cmake/StandardSettings.cmake> for all cmake build options.
 
-## Testing
-
-Run the test suite for runtime to validate the implementation:
-
-```bash
-make unit-test
-```
