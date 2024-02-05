@@ -28,7 +28,7 @@ It's also part of our project roadmap, if you don't participate in these events,
     - [Expected Outcomes](#expected-outcomes-2)
     - [Prerequisites and Skills](#prerequisites-and-skills-1)
     - [Reference and Issue](#reference-and-issue-1)
-  - [bpftime + fuse: Userspace eBPF for Userspace File System](#bpftime--fuse-userspace-ebpf-for-userspace-file-system)
+  - [Userspace eBPF for Userspace File System](#userspace-ebpf-for-userspace-file-system)
     - [Objectives](#objectives-1)
     - [Expected Outcomes](#expected-outcomes-3)
     - [Prerequisites and Skills](#prerequisites-and-skills-2)
@@ -180,7 +180,7 @@ You also needs to enable the fuzzer and eBPF tests in CI.
 - Google buzzer: <https://github.com/google/buzzer>
 - [FEATURE] Test with kernel eBPF test: <https://github.com/eunomia-bpf/bpftime/issues/210>
 
-## bpftime + fuse: Userspace eBPF for Userspace File System
+## Userspace eBPF for Userspace File System
 
 In modern operating systems, `fuse` (Filesystem in Userspace) has become a popular choice, allowing developers to create file systems in user space without modifying kernel code. However, the cost of system calls still exists. This is where `bpftime` can play a role.
 
