@@ -391,6 +391,7 @@ The triple address translation from physical VirtIO to the userspace memory is a
 
 - Recent paper about offloading userspace program to kernel NVMe device [XRP](https://www.usenix.org/system/files/osdi22-zhong_1.pdf)
 - Paper about the fastpath and offloading for DPU [DPFS](https://github.com/IBM/DPFS), [M3](https://os.inf.tu-dresden.de/papers_ps/asmussen-m3-asplos16.pdf)
+- Youtube video about the fastpath for VirtIO [VirtIO](https://www.youtube.com/watch?v=nTMls33dG8Q)
 
 ## Large Language Model specific metrics observability in BPFTime
 
