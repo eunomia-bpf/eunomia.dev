@@ -8,7 +8,6 @@ It's also part of our project roadmap, if you don't participate in these events,
 
 - [Possible ideas for the future](#possible-ideas-for-the-future)
   - [Table of contents](#table-of-contents)
-  - [bpftime](#bpftime)
   - [Porting bpftime to macOS](#porting-bpftime-to-macos)
     - [Objectives for enable eBPF on macOS](#objectives-for-enable-ebpf-on-macos)
     - [Expected Outcomes](#expected-outcomes)
@@ -39,11 +38,31 @@ It's also part of our project roadmap, if you don't participate in these events,
     - [Expected Outcomes](#expected-outcomes-4)
     - [Prerequisites and Skills](#prerequisites-and-skills-3)
     - [Reference and Issue](#reference-and-issue-2)
+  - [BPFTime Profiling and Machine Learning Prediction for far memory or distributed shared memory management](#bpftime-profiling-and-machine-learning-prediction-for-far-memory-or-distributed-shared-memory-management)
+    - [Project Overview](#project-overview-2)
+    - [Objectives](#objectives-3)
+    - [Expected Outcomes](#expected-outcomes-5)
+    - [Prerequisites and Skills](#prerequisites-and-skills-4)
+    - [Reference and Issue](#reference-and-issue-3)
+  - [Living patching distributed RocksDB with shared IO and Network Interface over io\_uring](#living-patching-distributed-rocksdb-with-shared-io-and-network-interface-over-io_uring)
+    - [Project Overview](#project-overview-3)
+    - [Objectives](#objectives-4)
+    - [Expected Outcomes](#expected-outcomes-6)
+    - [Prerequisites and Skills](#prerequisites-and-skills-5)
+    - [Reference and Issue](#reference-and-issue-4)
+  - [VirtIO devices memory address translation fastpath](#virtio-devices-memory-address-translation-fastpath)
+    - [Project Overview](#project-overview-4)
+    - [Objectives](#objectives-5)
+    - [Expected Outcomes](#expected-outcomes-7)
+    - [Prerequisites and Skills](#prerequisites-and-skills-6)
+    - [Reference and Issue](#reference-and-issue-5)
+  - [Large Language Model specific metrics observability in BPFTime](#large-language-model-specific-metrics-observability-in-bpftime)
+    - [Project Overview](#project-overview-5)
+    - [Objectives](#objectives-6)
+    - [Expected Outcomes](#expected-outcomes-8)
+    - [Prerequisites and Skills](#prerequisites-and-skills-7)
+    - [Reference and Issue](#reference-and-issue-6)
   - [Porting bpftime to Windows, FreeBSD, or other platforms](#porting-bpftime-to-windows-freebsd-or-other-platforms)
-
-## bpftime
-
-An userspace eBPF runtime that allows existing eBPF applications to operate in unprivileged userspace using the same libraries and toolchains. It offers Uprobe and Syscall tracepoints for eBPF, with significant performance improvements over kernel uprobe and without requiring manual code instrumentation or process restarts. The runtime facilitates interprocess eBPF maps in userspace shared memory, and is also compatible with kernel eBPF maps, allowing for seamless operation with the kernel's eBPF infrastructure. It includes a high-performance LLVM JIT for various architectures, alongside a lightweight JIT for x86 and an interpreter.
 
 For more details, see:
 
@@ -272,8 +291,140 @@ You can explore more possibilities with us:
 ### Reference and Issue
 
 - Conceptual foundation for USM in bpftime: [GitHub Discussion](https://github.com/eunomia-bpf/bpftime/issues/148)
-- Initial exploration of eBPF security mechanisms: <https://docs.kernel.org/bpf/prog_lsm.html>
+- Initial exploration of eBPF security mechanisms: <https://docs.kernel.org/bpf/prog_lsm.html>, and kernel Runtime Verification <https://docs.kernel.org/trace/rv/runtime-verification.html#runtime-monitors-and-reactors>
 - Engaging with existing eBPF and LSM communities for insights and collaboration opportunities.
+
+
+## BPFTime Profiling and Machine Learning Prediction for far memory or distributed shared memory management
+
+The upcoming world for CXL.mem provides a new way of memory fabric, it can seemingly share the memory between different nodes adding another layer between NUMA Remote, and SSDs. It can either be far memory node for disaggregation or distributed shared memory shared or pooled across nodes. However, issuing load and store to the CXL pool is easily throttle the performance. BPFTime can provide an extra layer of metrics collection and prediction for profiling guided memory management. BPFTime provides a cross kernel space and userspace boundary observability online. We think the offline access to the far memory is not deterministic across different workloads, and the same workloads with different runs, and the machine learning model can provide a better prediction for the memory access pattern. 
+
+### Project Overview
+
+- Time Cost: ~350 hours
+- Difficulty Level: Hard
+- Mentors: Yiwei Yang (<yyang363@ucsc.edu>) Yusheng Zheng (<yunwei356@gmail.com>)
+
+### Objectives
+
+- Implement application specific metrics collection and profiling in BPFTime.
+- Write eBPF for the far memory or distributed shared memory management.
+
+### Expected Outcomes
+
+- A set of metrics that can provide the right information for the memory scheduling and the memory access pattern.
+- A set of eBPF programs that can provide the right metrics for the large language model Training or Inference.
+
+### Prerequisites and Skills
+
+- Proficiency in C/C++ and system programming.
+- Understanding of kernel memory subsystem and memory management.
+- Familiarity with user-space and kernel-space programming paradigms.
+- Experience with developing and testing eBPF programs is highly advantageous.
+
+### Reference and Issue
+
+- eBPF for profiling: [eBPF for profiling](https://www.groundcover.com/ebpf/ebpf-profiling), eBPF for CPU scheduling: [eBPF for CPU scheduling](https://research.google/pubs/ghost-fast-and-flexible-user-space-delegation-of-linux-scheduling/)
+- Paper's about ML for memory management in kernel: [Predicting Dynamic Properties of Heap Allocations](https://dl.acm.org/doi/pdf/10.1145/3591195.3595275) and [Towards a Machine Learning-Assisted Kernel with LAKE](https://dl.acm.org/doi/pdf/10.1145/3575693.3575697)
+- State of the art far memory allocation [Pond](https://arxiv.org/abs/2203.00241), [Memtis](https://dl.acm.org/doi/10.1145/3600006.3613167), [MIRA](https://cseweb.ucsd.edu/~yiying/Mira-SOSP23.pdf) and [TMTS](https://www.micahlerner.com/assets/pdf/adaptable.pdf)
+
+## Living patching distributed RocksDB with shared IO and Network Interface over io_uring
+
+RocksDB is a high-performance, embedded key-value store for fast storage. It is widely used in distributed systems, such as databases, storage systems, and other applications. However, the performance of RocksDB is highly dependent on the underlying storage and network interfaces. The performance of RocksDB can be further improved by using shared IO and network interfaces over io_uring. This project aims to develop a living patching mechanism for distributed RocksDB with shared IO and network interfaces over io_uring, enabling dynamic and efficient performance optimization. This project will empower RocksDB with remote I/O and network interfaces, allowing it to leverage the performance benefits of io_uring and shared interfaces. 
+
+### Project Overview
+
+- Time Cost: ~350 hours
+- Difficulty Level: Hard
+- Mentors: Yiwei Yang (<yyang363@ucsc.edu>) Yusheng Zheng (<yunwei356@gmail.com>)
+
+### Objectives
+
+- Develop a living patching mechanism for distributed RocksDB with shared IO and network interfaces over io_uring.
+- Implement a dynamic performance optimization system for distributed RocksDB, leveraging the performance benefits of io_uring MMAP interface.
+
+### Expected Outcomes
+
+- A living patching mechanism for distributed RocksDB with shared IO and network interfaces over io_uring.
+- A dynamic performance optimization system for distributed RocksDB, leveraging the performance benefits of io_uring MMAP interface.
+
+### Prerequisites and Skills
+
+- Proficiency in C/C++ and system programming.
+- Understanding of RocksDB and io_uring implementation.
+- Familiarity with user-space and kernel-space programming paradigms.
+- Experience with developing and testing eBPF programs is highly advantageous.
+
+### Reference and Issue
+
+- Recent paper about BPF function offloading to remote [BPF oF](https://arxiv.org/abs/2312.06808)
+- eBPF meets io_uring [io_uring](https://lwn.net/Articles/847951/)
+
+## VirtIO devices memory address translation fastpath
+
+The triple address translation from physical VirtIO to the userspace memory is a performance bottleneck. It requires the DPA to HPA to physical memory translation. The VirtIO devices memory address translation fastpath project aims to develop a fastpath for VirtIO devices memory address translation, reducing the overhead of the triple address translation and improving the performance of VirtIO devices. Also, the side channel attack increases the threats for core isolation for the Cloud Vendors. Leveraging BPFTime to design a safe fastpath primitive message passing for dedicated application access to VirtIO devices memory address translation enables safe, efficient and low-latency memory access for VirtIO devices.
+
+### Project Overview
+
+- Time Cost: ~350 hours
+- Difficulty Level: Hard
+- Mentors: Yiwei Yang (<yyang363@ucsc.edu>) Yusheng Zheng (<yunwei356@gmail.com>)
+
+### Objectives
+
+- Develop a fastpath for VirtIO devices memory address translation, reducing the overhead of the triple address translation and improving the performance of VirtIO devices.
+- Design a safe fastpath primitive message passing for dedicated application access to VirtIO devices memory address translation.
+
+### Expected Outcomes
+
+- A fastpath for VirtIO devices memory address translation, reducing the overhead of the triple address translation and improving the performance of VirtIO devices.
+- A safe fastpath primitive message passing for dedicated application access to VirtIO devices memory address translation.
+
+### Prerequisites and Skills
+
+- Proficiency in C/C++ and system programming.
+- Understanding of VirtIO devices, micro kernel and memory address translation.
+- Familiarity with user-space and kernel-space programming paradigms.
+- Experience with developing and testing eBPF programs is highly advantageous.
+
+### Reference and Issue
+
+- Recent paper about offloading userspace program to kernel NVMe device [XRP](https://www.usenix.org/system/files/osdi22-zhong_1.pdf)
+- Paper about the fastpath and offloading for DPU [DPFS](https://github.com/IBM/DPFS), [M3](https://os.inf.tu-dresden.de/papers_ps/asmussen-m3-asplos16.pdf)
+
+## Large Language Model specific metrics observability in BPFTime
+
+BPFTime is able to provide multiple source of metrics in the userspace from the classical uprobe with maps. We can also provide metrics from gathering from the GPU, memory watch point, and other hardware. To support gdb rwatch BPFTime, we need to set a segfault to the certain memory accessed. For the GPU uprobe, we need static compilation and runtime API hooks to hook the certain GPU function calls. The uprobe attatched to the certain function calls provides the right online spot for annotate and make adjustment to the kernel's memory scheduling. The memory watch points can provide the memory access pattern and the memory access frequency. The GPU metrics can provide the GPU utilization and the memory access pattern. The combination of these metrics can provide the right information for the memory scheduling and the memory access pattern.
+
+### Project Overview
+
+- Time Cost: ~350 hours
+- Difficulty Level: Hard
+- Mentors: Yiwei Yang (<yyang363@ucsc.edu>) Yusheng Zheng (<yunwei356@gmail.com>)
+
+### Objectives
+
+- Provide the right metrics for the large language model Training or Inference.
+- Programme the eBPF program to collect the right metrics and do the right scheduling.
+
+### Expected Outcomes
+
+- Implement the gdb rwatch and GPU metrics in BPFTime.
+- A set of metrics that can provide the right information for the memory scheduling and the memory access pattern.
+- A set of eBPF programs that can provide the right metrics for the large language model Training or Inference.
+
+### Prerequisites and Skills
+
+- Proficiency in C/C++ and system programming.
+- Understanding the architecture of the large language model, and the metrics that are important for the performance.
+- Has strong knowledge of GPU metrics collection, and gdb, perf, and other tools for metrics collection.
+- Experience with developing and testing eBPF programs is highly advantageous.
+
+### Reference and Issue
+
+- Conceptual attach types discussion and in bpftime: [GitHub Discussion](https://github.com/eunomia-bpf/bpftime/issues/202)
+- Papers about GPU metrics collection: [GPU metrics collection](https://itu-dasyalab.github.io/RAD/publication/papers/euromlsys2023.pdf) and [GPU static compilation and runtime API hooks](https://github.com/vosen/ZLUDA/blob/master/ARCHITECTURE.md#zluda-dumper)
+- GDB's rwatch: [GDB rwatch](https://sourceware.org/gdb/onlinedocs/gdb/Set-Watchpoints.html) implemented on [X86](https://en.wikipedia.org/wiki/X86_debug_register) and [Arm](https://developer.arm.com/documentation/ka001494/latest/)
 
 ## Porting bpftime to Windows, FreeBSD, or other platforms
 
