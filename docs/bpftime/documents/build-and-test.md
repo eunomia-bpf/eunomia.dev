@@ -109,7 +109,7 @@ cmake --build build --config Debug --target install
 
 ```bash
 cmake -Bbuild -DCMAKE_BUILD_TYPE=Release -DBPFTIME_ENABLE_LTO=NO -DBPFTIME_LLVM_JIT=YES
-cmake --build build --config Release --target install
+cmake --build build --config RelWithDebInfo --target install
 ```
 
 ### Compile with LTO enabled
@@ -120,7 +120,7 @@ For example, build  the package, with llvm-jit and LTO enabled:
 
 ```sh
 cmake -Bbuild -DCMAKE_BUILD_TYPE=Release -DBPFTIME_ENABLE_LTO=YES -DBPFTIME_LLVM_JIT=YES
-cmake --build build --config Release --target install
+cmake --build build --config RelWithDebInfo --target install
 ```
 
 ### Compile with userspace verifier 
@@ -144,7 +144,7 @@ These targets will only be enabled when `BPFTIME_ENABLE_UNIT_TESTING` was set to
 Build and run them to test, for example:
 ```sh
 cmake -DBPFTIME_LLVM_JIT=YES -DBPFTIME_ENABLE_UNIT_TESTING=YES -DCMAKE_BUILD_TYPE=Release -B build
-cmake --build build --config Release --target bpftime_runtime_tests
+cmake --build build --config RelWithDebInfo --target bpftime_runtime_tests
 sudo ./build/runtime/unit-test/bpftime_runtime_tests
 ```
 
