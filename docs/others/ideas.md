@@ -1,6 +1,6 @@
 # Possible ideas for the future
 
-This is some possible ideas for open source events, like GSOC(Google Summer of Code) or OSPP(Open Source Promotion Plan). Our projects are designed to suit contributors with varying levels of expertise, from students to more advanced developers.
+This is some possible ideas for open source events, like GSOC(Google Summer of Code) or OSPP(Open Source Promotion Plan) and others. Our projects are designed to suit contributors with varying levels of expertise, from students to more advanced developers.
 
 It's also part of our project roadmap, if you don't participate in these events, you can also help or colaborate with these ideas! Need help? Please contact in the [email list](mailto:team@eunomia.dev) or in the [Discord channel](https://discord.gg/jvM73AFdB8).
 
@@ -69,7 +69,7 @@ For more details, see:
 - <https://eunomia.dev/bpftime>
 - [https://github.com/eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime)
 
-## Porting bpftime to macOS
+## Porting bpftime to macOS (For GSOC)
 
 Since bpftime can run in userspace and does not require kernel eBPF, why not enable eBPF on MacOS?
 
@@ -77,7 +77,7 @@ The goal of this project is to port `bpftime` to macOS, expanding its cross-plat
 
 - time: ~175 hour
 - Difficulty Level: medium
-- mentor: Yusheng Zheng (<yunwei356@gmail.com>) and Yuxi Huang (<Yuxi4096@gmail.com>)
+- mentor: Tong Yu (<yt.xyxx@gmail.com>) and Yuxi Huang (<Yuxi4096@gmail.com>)
 
 ### Objectives for enable eBPF on macOS
 
@@ -103,7 +103,39 @@ The goal of this project is to port `bpftime` to macOS, expanding its cross-plat
 - Issue and some initial discussion: <https://github.com/eunomia-bpf/bpftime/issues>
 - Some previous efforts: [Enable bpftime on arm](https://github.com/eunomia-bpf/bpftime/pull/151)
 
-## Userspace AOT Compilation of eBPF for Lightweight Containers
+## Living patching distributed RocksDB with shared IO and Network Interface over io_uring (For GSOC)
+
+RocksDB is a high-performance, embedded key-value store for fast storage. It is widely used in distributed systems, such as databases, storage systems, and other applications. However, the performance of RocksDB is highly dependent on the underlying storage and network interfaces. The performance of RocksDB can be further improved by using shared IO and network interfaces over io_uring. This project aims to develop a living patching mechanism for distributed RocksDB with shared IO and network interfaces over io_uring, enabling dynamic and efficient performance optimization. This project will empower RocksDB with remote I/O and network interfaces, allowing it to leverage the performance benefits of io_uring and shared interfaces. 
+
+### Project Overview
+
+- Time Cost: ~350 hours
+- Difficulty Level: Hard
+- Mentors: Yiwei Yang (<yyang363@ucsc.edu>) and Yusheng Zheng (<yunwei356@gmail.com>)
+
+### Objectives
+
+- Develop a living patching mechanism for distributed RocksDB with shared IO and network interfaces over io_uring.
+- Implement a dynamic performance optimization system for distributed RocksDB, leveraging the performance benefits of io_uring MMAP interface.
+
+### Expected Outcomes
+
+- A living patching mechanism for distributed RocksDB with shared IO and network interfaces over io_uring.
+- A dynamic performance optimization system for distributed RocksDB, leveraging the performance benefits of io_uring MMAP interface.
+
+### Prerequisites and Skills
+
+- Proficiency in C/C++ and system programming.
+- Understanding of RocksDB and io_uring implementation.
+- Familiarity with user-space and kernel-space programming paradigms.
+- Experience with developing and testing eBPF programs is highly advantageous.
+
+### Reference and Issue
+
+- Recent paper about BPF function offloading to remote [BPF oF](https://arxiv.org/abs/2312.06808)
+- eBPF meets io_uring [io_uring](https://lwn.net/Articles/847951/)
+
+## Userspace AOT Compilation of eBPF for Lightweight Containers (For GSOC)
 
 ### Overview
 
@@ -327,38 +359,6 @@ The upcoming world for CXL.mem provides a new way of memory fabric, it can seemi
 - eBPF for profiling: [eBPF for profiling](https://www.groundcover.com/ebpf/ebpf-profiling), eBPF for CPU scheduling: [eBPF for CPU scheduling](https://research.google/pubs/ghost-fast-and-flexible-user-space-delegation-of-linux-scheduling/)
 - Paper's about ML for memory management in kernel: [Predicting Dynamic Properties of Heap Allocations](https://dl.acm.org/doi/pdf/10.1145/3591195.3595275) and [Towards a Machine Learning-Assisted Kernel with LAKE](https://dl.acm.org/doi/pdf/10.1145/3575693.3575697)
 - State of the art far memory allocation [Pond](https://arxiv.org/abs/2203.00241), [Memtis](https://dl.acm.org/doi/10.1145/3600006.3613167), [MIRA](https://cseweb.ucsd.edu/~yiying/Mira-SOSP23.pdf) and [TMTS](https://www.micahlerner.com/assets/pdf/adaptable.pdf)
-
-## Living patching distributed RocksDB with shared IO and Network Interface over io_uring
-
-RocksDB is a high-performance, embedded key-value store for fast storage. It is widely used in distributed systems, such as databases, storage systems, and other applications. However, the performance of RocksDB is highly dependent on the underlying storage and network interfaces. The performance of RocksDB can be further improved by using shared IO and network interfaces over io_uring. This project aims to develop a living patching mechanism for distributed RocksDB with shared IO and network interfaces over io_uring, enabling dynamic and efficient performance optimization. This project will empower RocksDB with remote I/O and network interfaces, allowing it to leverage the performance benefits of io_uring and shared interfaces. 
-
-### Project Overview
-
-- Time Cost: ~350 hours
-- Difficulty Level: Hard
-- Mentors: Yiwei Yang (<yyang363@ucsc.edu>) Yusheng Zheng (<yunwei356@gmail.com>)
-
-### Objectives
-
-- Develop a living patching mechanism for distributed RocksDB with shared IO and network interfaces over io_uring.
-- Implement a dynamic performance optimization system for distributed RocksDB, leveraging the performance benefits of io_uring MMAP interface.
-
-### Expected Outcomes
-
-- A living patching mechanism for distributed RocksDB with shared IO and network interfaces over io_uring.
-- A dynamic performance optimization system for distributed RocksDB, leveraging the performance benefits of io_uring MMAP interface.
-
-### Prerequisites and Skills
-
-- Proficiency in C/C++ and system programming.
-- Understanding of RocksDB and io_uring implementation.
-- Familiarity with user-space and kernel-space programming paradigms.
-- Experience with developing and testing eBPF programs is highly advantageous.
-
-### Reference and Issue
-
-- Recent paper about BPF function offloading to remote [BPF oF](https://arxiv.org/abs/2312.06808)
-- eBPF meets io_uring [io_uring](https://lwn.net/Articles/847951/)
 
 ## VirtIO devices memory address translation fastpath
 
