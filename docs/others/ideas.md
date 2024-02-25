@@ -8,18 +8,18 @@ It's also part of our project roadmap, if you don't participate in these events,
 
 - [Possible ideas for the future](#possible-ideas-for-the-future)
   - [Table of contents](#table-of-contents)
-  - [Porting bpftime to macOS (For GSOC)](#porting-bpftime-to-macos-for-gsoc)
+  - [Porting bpftime to macOS](#porting-bpftime-to-macos)
     - [Objectives for enable eBPF on macOS](#objectives-for-enable-ebpf-on-macos)
     - [Expected Outcomes](#expected-outcomes)
     - [Prerequisites and Skills](#prerequisites-and-skills)
     - [Reference and issue](#reference-and-issue)
-  - [Living patching distributed RocksDB with shared IO and Network Interface over io\_uring (For GSOC)](#living-patching-distributed-rocksdb-with-shared-io-and-network-interface-over-io_uring-for-gsoc)
+  - [Living patching distributed RocksDB with shared IO and Network Interface over io\_uring](#living-patching-distributed-rocksdb-with-shared-io-and-network-interface-over-io_uring)
     - [Project Overview](#project-overview)
     - [Objectives](#objectives)
     - [Expected Outcomes](#expected-outcomes-1)
     - [Prerequisites and Skills](#prerequisites-and-skills-1)
     - [Reference and Issue](#reference-and-issue-1)
-  - [Userspace AOT Compilation of eBPF for Lightweight Containers (For GSOC)](#userspace-aot-compilation-of-ebpf-for-lightweight-containers-for-gsoc)
+  - [Userspace AOT Compilation of eBPF for Lightweight Containers](#userspace-aot-compilation-of-ebpf-for-lightweight-containers)
     - [Overview](#overview)
     - [Goals and Objectives](#goals-and-objectives)
     - [Prerequisites and Skills Required](#prerequisites-and-skills-required)
@@ -69,7 +69,7 @@ For more details, see:
 - <https://eunomia.dev/bpftime>
 - [https://github.com/eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime)
 
-## Porting bpftime to macOS (For GSOC)
+## Porting bpftime to macOS
 
 Since bpftime can run in userspace and does not require kernel eBPF, why not enable eBPF on MacOS?
 
@@ -103,7 +103,7 @@ The goal of this project is to port `bpftime` to macOS, expanding its cross-plat
 - Issue and some initial discussion: <https://github.com/eunomia-bpf/bpftime/issues>
 - Some previous efforts: [Enable bpftime on arm](https://github.com/eunomia-bpf/bpftime/pull/151)
 
-## Living patching distributed RocksDB with shared IO and Network Interface over io_uring (For GSOC)
+## Living patching distributed RocksDB with shared IO and Network Interface over io_uring
 
 RocksDB is a high-performance, embedded key-value store for fast storage. It is widely used in distributed systems, such as databases, storage systems, and other applications. However, the performance of RocksDB is highly dependent on the underlying storage and network interfaces. The performance of RocksDB can be further improved by using shared IO and network interfaces over io_uring. This project aims to develop a living patching mechanism for distributed RocksDB with shared IO and network interfaces over io_uring, enabling dynamic and efficient performance optimization. This project will empower RocksDB with remote I/O and network interfaces, allowing it to leverage the performance benefits of io_uring and shared interfaces. 
 
@@ -135,7 +135,7 @@ RocksDB is a high-performance, embedded key-value store for fast storage. It is 
 - Recent paper about BPF function offloading to remote [BPF oF](https://arxiv.org/abs/2312.06808)
 - eBPF meets io_uring [io_uring](https://lwn.net/Articles/847951/)
 
-## Userspace AOT Compilation of eBPF for Lightweight Containers (For GSOC)
+## Userspace AOT Compilation of eBPF for Lightweight Containers
 
 ### Overview
 
