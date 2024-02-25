@@ -105,7 +105,7 @@ The goal of this project is to port `bpftime` to macOS, expanding its cross-plat
 
 ## Living patching distributed RocksDB with shared IO and Network Interface over io_uring
 
-RocksDB is a high-performance, embedded key-value store for fast storage. It is widely used in distributed systems, such as databases, storage systems, and other applications. However, the performance of RocksDB is highly dependent on the underlying storage and network interfaces. The performance of RocksDB can be further improved by using shared IO and network interfaces over io_uring. This project aims to develop a living patching mechanism for distributed RocksDB with shared IO and network interfaces over io_uring, enabling dynamic and efficient performance optimization. This project will empower RocksDB with remote I/O and network interfaces, allowing it to leverage the performance benefits of io_uring and shared interfaces. 
+RocksDB is a high-performance, embedded key-value store for fast storage. It is widely used in distributed systems, such as databases, storage systems, and other applications. However, the performance of RocksDB is highly dependent on the underlying storage and network interfaces. The performance of RocksDB can be further improved by using shared IO and network interfaces over io_uring. This project aims to develop a living patching mechanism for distributed RocksDB with shared IO and network interfaces over io_uring, enabling dynamic and efficient performance optimization. This project will empower RocksDB with remote I/O and network interfaces, allowing it to leverage the performance benefits of io_uring and shared interfaces.
 
 ### Project Overview
 
@@ -149,7 +149,7 @@ Duration and Difficulty Level
 - Difficulty Level: Medium
 - Mentors: Tong Yu (<yt.xyxx@gmail.com>) Yusheng Zheng (<yunwei356@gmail.com>)
 
-bpftime already have a AOT compiler, we need more work to enable it run on embedded devices or as plugins.
+bpftime already have a AOT compiler, we need more work to enable it run on embedded devices or as plugins. If you want to add map support for microcontrollers with AOT compiler, maybe you can write a c implementation, compile it and link it with bpftime AOT products.
 
 ### Goals and Objectives
 
@@ -182,6 +182,7 @@ You can choose one or two of these goals to work on:
 2. The API for vm. <https://github.com/eunomia-bpf/bpftime/tree/master/vm/include>
 3. Compile it as a standalone lib
 <https://github.com/eunomia-bpf/bpftime/tree/master/vm/llvm-jit>
+4. Femto-containers: lightweight virtualization and fault isolation for small software functions on low-power IoT microcontrollers <https://dl.acm.org/doi/abs/10.1145/3528535.3565242>
 
 If you want to add map support for microcontrollers,  I think you can write a c implementation, compile it and link it with bpftime AOT products. We will provide an example later.
 
@@ -189,7 +190,7 @@ If you want to add map support for microcontrollers,  I think you can write a c 
 
 ### Project Overview
 
-The `bpftime` project, known for its innovative userspace eBPF runtime, is seeking to enhance its robustness and reliability by integrating a fuzzer. This project aims to develop or integrate a fuzzer for `bpftime`, using tools like [Google's Buzzer](https://github.com/google/buzzer). The fuzzer will systematically test `bpftime` to uncover any potential bugs, memory leaks, or vulnerabilities, ensuring a more secure and stable runtime environment. Besides, we also need to add kernel eBPF test for bpftime to improve compatibility.
+The `bpftime` project, known for its innovative userspace eBPF runtime, is seeking to enhance its robustness and reliability by integrating a fuzzer. This project aims to develop or integrate a fuzzer for `bpftime`, using tools like [Google's Buzzer](https://github.com/google/buzzer) or `syzkaller`. The fuzzer will systematically test `bpftime` to uncover any potential bugs, memory leaks, or vulnerabilities, ensuring a more secure and stable runtime environment. Besides, we also need to add kernel eBPF test for bpftime to improve compatibility.
 
 You also needs to enable the fuzzer and eBPF tests in CI.
 
@@ -326,10 +327,9 @@ You can explore more possibilities with us:
 - Initial exploration of eBPF security mechanisms: <https://docs.kernel.org/bpf/prog_lsm.html>, and kernel Runtime Verification <https://docs.kernel.org/trace/rv/runtime-verification.html#runtime-monitors-and-reactors>
 - Engaging with existing eBPF and LSM communities for insights and collaboration opportunities.
 
-
 ## BPFTime Profiling and Machine Learning Prediction for far memory or distributed shared memory management
 
-The upcoming world for CXL.mem provides a new way of memory fabric, it can seemingly share the memory between different nodes adding another layer between NUMA Remote, and SSDs. It can either be far memory node for disaggregation or distributed shared memory shared or pooled across nodes. However, issuing load and store to the CXL pool is easily throttle the performance. BPFTime can provide an extra layer of metrics collection and prediction for profiling guided memory management. BPFTime provides a cross kernel space and userspace boundary observability online. We think the offline access to the far memory is not deterministic across different workloads, and the same workloads with different runs, and the machine learning model can provide a better prediction for the memory access pattern. 
+The upcoming world for CXL.mem provides a new way of memory fabric, it can seemingly share the memory between different nodes adding another layer between NUMA Remote, and SSDs. It can either be far memory node for disaggregation or distributed shared memory shared or pooled across nodes. However, issuing load and store to the CXL pool is easily throttle the performance. BPFTime can provide an extra layer of metrics collection and prediction for profiling guided memory management. BPFTime provides a cross kernel space and userspace boundary observability online. We think the offline access to the far memory is not deterministic across different workloads, and the same workloads with different runs, and the machine learning model can provide a better prediction for the memory access pattern.
 
 ### Project Overview
 
