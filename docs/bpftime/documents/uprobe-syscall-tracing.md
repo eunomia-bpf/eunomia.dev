@@ -1,5 +1,6 @@
+# Uprobe and Syscall Tracing with bpftime
 
-# Uprobe Tracing with bpftime
+## Uprobe Tracing with bpftime
 
 Uprobes(User Probe) allow you to attach dynamic probes to user-space functions, enabling you to monitor and trace specific user-level functions or methods in your applications. bpftime can be utilized within BPF programs attached to uprobes to capture timestamps for different events related to that function.\
 Here's how you can use bpftime for uprobe tracing:
@@ -20,7 +21,7 @@ Replace `/path/to/executable` with the path to the executable binary you want to
 
 This command attaches a BPF program to the main function of the ls command and traces the time taken by the function.
 
-# Syscall Tracing with bpftime
+## Syscall Tracing with bpftime
 
 Syscall tracing involves monitoring system calls made by processes running on your system. By adding bpftime to your BPF programs, you can capture timestamps for various syscall events, such as entry and exit.\
 Here's how you can use bpftime for syscall tracing:
