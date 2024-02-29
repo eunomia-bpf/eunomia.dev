@@ -17,6 +17,8 @@ If you find any bugs or suggestions, please feel free to open an issue, thanks!
 
 ## Uprobe and uretprobe
 
+Uprobes(User Probe) allow you to attach dynamic probes to user-space functions, enabling you to monitor and trace specific user-level functions or methods in your applications. bpftime can be utilized within BPF programs attached to uprobes to capture timestamps for different events related to that function.
+
 With `bpftime`, you can build eBPF applications using familiar tools like clang and libbpf, and execute them in userspace. For instance, the `malloc` eBPF program traces malloc calls using uprobe and aggregates the counts using a hash map.
 
 You can refer to [documents/build-and-test.md](build-and-test.md) for how to build the project.
@@ -78,6 +80,8 @@ $ sudo example/malloc/malloc
 ```
 
 ## Syscall tracing
+
+Syscall tracing involves monitoring system calls made by processes running on your system. By adding bpftime to your BPF programs, you can capture timestamps for various syscall events, such as entry and exit.
 
 An example can be found at [examples/opensnoop](https://github.com/eunomia-bpf/bpftime/tree/master/example/opensnoop)
 
