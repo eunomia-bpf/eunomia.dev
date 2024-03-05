@@ -30,7 +30,7 @@ A Frida-based uprobe attach implementation. It implements the following attach t
 
 UPROBE and URETPROBE are implemented using `GUM_INVOCATION_LISTENER`.
 
-- UFILTER: Invoked when the function enters, it can access arguments of the hooked function, and decide whether to override the return value and bypass the hooked function. It could be used to replace the hooked function or replace the return value based on arguments.
+- UPROBE_OVERRIDE: Invoked when the function enters, it can access arguments of the hooked function, and decide whether to override the return value and bypass the hooked function. It could be used to replace the hooked function or replace the return value based on arguments.
 
 UFILTER are implemented using `gum_interceptor_replace`
 
