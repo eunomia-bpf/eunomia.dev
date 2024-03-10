@@ -1,25 +1,25 @@
-# How bpftime works?
+# How does bpftime work? 
 
-bpftime consists of two main components: a syscall-compatible library and an attachment agent. The syscall-compatible library interfaces with userspace eBPF applications, such as bcc-tools or bpftrace, and translates eBPF-related system calls into function calls. The library also creates shared memory segments for eBPF programs and maps, which are used for communication and data exchange between the userspace eBPF runtime and the control plane application. The attachment agent is a shared library that can be dynamically injected into the target process using ptrace or `LD_PRELOAD`. The agent is responsible for hooking the target functions or syscalls using binary rewriting techniques, and redirecting the execution flow to the userspace eBPF programs. The userspace eBPF programs can then access the host environment by updating userspace maps, using userspace helpers, or invoking userspace Foreign Function Interface (FFI) functions.
+Two key components make up bpftime: a syscall-compatible library and an attachment agent. The library understands the eBPF-related system calls made by userspace eBPF applications (e.g., bcc-tools, bpftrace) and maps them into function calls. It helps in creating shared memory segments for eBPF programs and maps used for communication and data exchange between userspace eBPF runtime and control plane application. The agent is a shared library that can be loaded dynamically into the target process either through ptrace or `LD_PRELOAD`. Agent, on the other hand, uses binary rewriting techniques to hook target functions or syscalls then divert execution flow to userspace eBPF programs . Thereafter, these userspace eBPF programs will be able to access host environment by updating userspace maps, using userspace helpers or invoking Foreign Function Interface (FFI) functions in the user space 
 
+## How does the bpftime work entirely in userspace 
 
-## How the bpftime work entirely in userspace
+- **Binary rewriting**: At runtime, this modifies binary code of target process so as to insert breakpoints as well as trampolines for uprobe and syscall hooks. It employs a syscall server and agent that interact with the target process for safe transparent rewriting.
 
+- **Uprobe hooks**: bpftime inserts a breakpoint instruction into the target function’s entry point that will trigger a signal of type `SIGTRAP` when the program is run. Then, the execution transfers to an eBPF program in the signal handler that can access and edit registers and stacks of a targeted process. Finally, eBPF program finishes its work and returns to the initial function using trampoline.
 
-- **Binary rewriting**: bpftime modifies the binary code of the target process at runtime to insert breakpoints and trampolines for uprobe and syscall hooks. It uses a syscall server and agent to communicate with the target process and perform the rewriting safely and transparently.
-- **Uprobe hooks**: bpftime inserts a breakpoint instruction at the entry point of the target function, which triggers a `SIGTRAP` signal when executed. The signal handler then transfers the execution to the eBPF program, which can access and modify the registers and stack of the target process. After the eBPF program finishes, the execution returns to the original function via a trampoline.
-- **Syscall hooks**: bpftime replaces the syscall instruction with a breakpoint instruction, which also triggers a `SIGTRAP` signal. The signal handler then checks the syscall number and decides whether to run the eBPF program or not. The eBPF program can filter, modify, or redirect the syscall arguments and return value. After the eBPF program finishes, the execution resumes with the original or modified syscall.
-- **eBPF maps**: bpftime implements eBPF maps in shared memory, which can be accessed by multiple processes and eBPF programs. It supports various types of maps, such as hash, array, stack, queue, etc. It also supports kernel eBPF maps, which can be used to cooperate with kernel eBPF programs.
+- **Syscall hooks**: Signal trap will be triggered by SIGTRAP as soon as system calls gives way for it through the replacement of its instructions with break points. SYS_ number is verified then whether or not eBFP is launched using the signal handler. It is there that eBPF modifies return value along with parameter passing and arguments redirecting during system calls. When eBPF has finished execution, it resumes at original or modified system call.
 
-
+- **eBPF maps**: For instance, bpftime provides shared memory implementation of eBPF maps, which can be accessed from multiple processes and programs based on eBPF map operations. Hashmap is one among other forms including arrays, stacks, queue etc. Also supported by it are kernelized eBPF maps for cooperating with kernelized eBPF programs.
 
 
 ### The bpftime runtime can work with kernel eBPF in two ways:
 
-- **Loading userspace eBPF from kernel**: bpftime can load eBPF bytecode from the kernel using the `bpf` system call, and execute it in userspace. This allows userspace eBPF programs to access kernel eBPF maps and cooperate with kernel eBPF programs, such as kprobes and network filters.
-- **Using kernel eBPF maps**: bpftime can use the `bpf` system call to create or attach to kernel eBPF maps, and use them in userspace eBPF programs. This enables userspace eBPF programs to share data with kernel eBPF programs, and leverage the existing kernel eBPF infrastructure.
+- **Kernel-Based User-Space eBPF Loading**: bpftime can load eBPF bytecode from the kernel by using the `bpf` system call and executing it in user space. This allows userspace eBPF programs to use the kernel’s BPF maps, working together with other kernel’s eBPF programs like network filters and kprobes.
 
-For more details, you can refer to the [GitHub repository](https://github.com/eunomia-bpf/bpftime) or the [blog post](https://arxiv.org/abs/2311.07923) of bpftime.
+- **Using Kernel eBPF Maps**: bpftime is able to use `bpf` system call in order to create or attach itself to a kernel eBPF map; then it can also consume such maps in its own userspace-based eBPF functions. By that, it ensures that userspace-based eBPF solutions can share data with their kernels’ counterparts, thus taking full advantage of existing infrastructure provided by the latter.
+
+For more details, refer to the [GitHub repository](https://github.com/eunomia-bpf/bpftime) or the [blog post](https://arxiv.org/abs/2311.07923) of bpftime.
 
 ## References:
 
