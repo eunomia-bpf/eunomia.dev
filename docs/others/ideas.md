@@ -13,26 +13,26 @@ It's also part of our project roadmap, if you don't participate in these events,
     - [Expected Outcomes](#expected-outcomes)
     - [Prerequisites and Skills](#prerequisites-and-skills)
     - [Reference and issue](#reference-and-issue)
-  - [Living patching distributed RocksDB with shared IO and Network Interface over io\_uring](#living-patching-distributed-rocksdb-with-shared-io-and-network-interface-over-io_uring)
+  - [Add Fuzzer and kernel eBPF test for bpftime to improve compatibility](#add-fuzzer-and-kernel-ebpf-test-for-bpftime-to-improve-compatibility)
     - [Project Overview](#project-overview)
+    - [Timeframe and Difficulty](#timeframe-and-difficulty)
+    - [Mentors](#mentors)
     - [Objectives](#objectives)
     - [Expected Outcomes](#expected-outcomes-1)
     - [Prerequisites and Skills](#prerequisites-and-skills-1)
     - [Reference and Issue](#reference-and-issue-1)
+  - [Living patching distributed RocksDB with shared IO and Network Interface over io\_uring](#living-patching-distributed-rocksdb-with-shared-io-and-network-interface-over-io_uring)
+    - [Project Overview](#project-overview-1)
+    - [Objectives](#objectives-1)
+    - [Expected Outcomes](#expected-outcomes-2)
+    - [Prerequisites and Skills](#prerequisites-and-skills-2)
+    - [Reference and Issue](#reference-and-issue-2)
   - [Userspace AOT Compilation of eBPF for Lightweight Containers](#userspace-aot-compilation-of-ebpf-for-lightweight-containers)
     - [Overview](#overview)
     - [Goals and Objectives](#goals-and-objectives)
     - [Prerequisites and Skills Required](#prerequisites-and-skills-required)
-    - [Expected Outcomes](#expected-outcomes-2)
-    - [Additional Resources](#additional-resources)
-  - [Add Fuzzer and kernel eBPF test for bpftime to improve compatibility](#add-fuzzer-and-kernel-ebpf-test-for-bpftime-to-improve-compatibility)
-    - [Project Overview](#project-overview-1)
-    - [Timeframe and Difficulty](#timeframe-and-difficulty)
-    - [Mentors](#mentors)
-    - [Objectives](#objectives-1)
     - [Expected Outcomes](#expected-outcomes-3)
-    - [Prerequisites and Skills](#prerequisites-and-skills-2)
-    - [Reference and Issue](#reference-and-issue-2)
+    - [Additional Resources](#additional-resources)
   - [Userspace eBPF for Userspace File System](#userspace-ebpf-for-userspace-file-system)
     - [Objectives](#objectives-2)
     - [Expected Outcomes](#expected-outcomes-4)
@@ -102,6 +102,52 @@ The goal of this project is to port `bpftime` to macOS, expanding its cross-plat
 
 - Issue and some initial discussion: <https://github.com/eunomia-bpf/bpftime/issues>
 - Some previous efforts: [Enable bpftime on arm](https://github.com/eunomia-bpf/bpftime/pull/151)
+
+## Add Fuzzer and kernel eBPF test for bpftime to improve compatibility
+
+### Project Overview
+
+The `bpftime` project, known for its innovative userspace eBPF runtime, is seeking to enhance its robustness and reliability by integrating a fuzzer. This project aims to develop or integrate a fuzzer for `bpftime`, using tools like [Google's Buzzer](https://github.com/google/buzzer) or `syzkaller`. The fuzzer will systematically test `bpftime` to uncover any potential bugs, memory leaks, or vulnerabilities, ensuring a more secure and stable runtime environment. Besides, we also need to add kernel eBPF test for bpftime to improve compatibility.
+
+You also needs to enable the fuzzer and eBPF tests in CI.
+
+### Timeframe and Difficulty
+
+- **Time Commitment**: ~90 hours
+- **Difficulty Level**: Easy
+
+### Mentors
+
+- Tong Yu ([yt.xyxx@gmail.com](mailto:yt.xyxx@gmail.com))
+- Yusheng Zheng ([yunwei356@gmail.com](mailto:yunwei356@gmail.com))
+
+### Objectives
+
+1. **Fuzzer Development and Integration**: Design or develop a fuzzer that can be seamlessly integrated with `bpftime`. Or you can use existing fuzzers for eBPF.
+2. **Testing and Debugging**: Use the fuzzer to identify and report bugs, memory leaks, or vulnerabilities in `bpftime` userspace eBPF runtime.
+3. **Continuous Integration**: Integrate the fuzzer and kernel eBPF test into the `bpftime` CI pipeline, ensuring that it is run regularly to identify and resolve any issues.
+4. **Documentation**: Create documentation detailing the fuzzer’s implementation or usage within the `bpftime` environment.
+5. **Feedback Implementation**: Actively incorporate feedback from the `bpftime` community to refine and enhance the fuzzer.
+
+### Expected Outcomes
+
+- A fully integrated fuzzer within the `bpftime` environment.
+- An integration of the fuzzer and kernel eBPF test into the `bpftime` CI pipeline.
+- An increase in the identified and resolved bugs and vulnerabilities in `bpftime`.
+- Documentation and guidelines for future contributors to utilize and improve the fuzzer.
+
+### Prerequisites and Skills
+
+- Skills in C/C++ and system programming.
+- Familiarity with software testing methodologies, particularly fuzz testing.
+- Experience with fuzzers like Google's Buzzer is highly beneficial.
+- Basic knowledge of eBPF and its ecosystem.
+
+### Reference and Issue
+
+- Initial discussion on the need for a fuzzer in `bpftime`: [GitHub Issue](https://github.com/eunomia-bpf/bpftime/issues/163)
+- Google buzzer: <https://github.com/google/buzzer>
+- [FEATURE] Test with kernel eBPF test: <https://github.com/eunomia-bpf/bpftime/issues/210>
 
 ## Living patching distributed RocksDB with shared IO and Network Interface over io_uring
 
@@ -185,52 +231,6 @@ You can choose one or two of these goals to work on:
 4. Femto-containers: lightweight virtualization and fault isolation for small software functions on low-power IoT microcontrollers <https://dl.acm.org/doi/abs/10.1145/3528535.3565242>
 
 If you want to add map support for microcontrollers,  I think you can write a c implementation, compile it and link it with bpftime AOT products. We will provide an example later.
-
-## Add Fuzzer and kernel eBPF test for bpftime to improve compatibility
-
-### Project Overview
-
-The `bpftime` project, known for its innovative userspace eBPF runtime, is seeking to enhance its robustness and reliability by integrating a fuzzer. This project aims to develop or integrate a fuzzer for `bpftime`, using tools like [Google's Buzzer](https://github.com/google/buzzer) or `syzkaller`. The fuzzer will systematically test `bpftime` to uncover any potential bugs, memory leaks, or vulnerabilities, ensuring a more secure and stable runtime environment. Besides, we also need to add kernel eBPF test for bpftime to improve compatibility.
-
-You also needs to enable the fuzzer and eBPF tests in CI.
-
-### Timeframe and Difficulty
-
-- **Time Commitment**: ~90 hours
-- **Difficulty Level**: Easy
-
-### Mentors
-
-- Tong Yu ([yt.xyxx@gmail.com](mailto:yt.xyxx@gmail.com))
-- Yusheng Zheng ([yunwei356@gmail.com](mailto:yunwei356@gmail.com))
-
-### Objectives
-
-1. **Fuzzer Development and Integration**: Design or develop a fuzzer that can be seamlessly integrated with `bpftime`. Or you can use existing fuzzers for eBPF.
-2. **Testing and Debugging**: Use the fuzzer to identify and report bugs, memory leaks, or vulnerabilities in `bpftime` userspace eBPF runtime.
-3. **Continuous Integration**: Integrate the fuzzer and kernel eBPF test into the `bpftime` CI pipeline, ensuring that it is run regularly to identify and resolve any issues.
-4. **Documentation**: Create documentation detailing the fuzzer’s implementation or usage within the `bpftime` environment.
-5. **Feedback Implementation**: Actively incorporate feedback from the `bpftime` community to refine and enhance the fuzzer.
-
-### Expected Outcomes
-
-- A fully integrated fuzzer within the `bpftime` environment.
-- An integration of the fuzzer and kernel eBPF test into the `bpftime` CI pipeline.
-- An increase in the identified and resolved bugs and vulnerabilities in `bpftime`.
-- Documentation and guidelines for future contributors to utilize and improve the fuzzer.
-
-### Prerequisites and Skills
-
-- Skills in C/C++ and system programming.
-- Familiarity with software testing methodologies, particularly fuzz testing.
-- Experience with fuzzers like Google's Buzzer is highly beneficial.
-- Basic knowledge of eBPF and its ecosystem.
-
-### Reference and Issue
-
-- Initial discussion on the need for a fuzzer in `bpftime`: [GitHub Issue](https://github.com/eunomia-bpf/bpftime/issues/163)
-- Google buzzer: <https://github.com/google/buzzer>
-- [FEATURE] Test with kernel eBPF test: <https://github.com/eunomia-bpf/bpftime/issues/210>
 
 ## Userspace eBPF for Userspace File System
 
