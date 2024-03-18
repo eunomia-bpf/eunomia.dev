@@ -13,44 +13,44 @@ It's also part of our project roadmap, if you don't participate in these events,
     - [Expected Outcomes](#expected-outcomes)
     - [Prerequisites and Skills](#prerequisites-and-skills)
     - [Reference and issue](#reference-and-issue)
-  - [User-Space eBPF Security Modules for Comprehensive Security Policies](#user-space-ebpf-security-modules-for-comprehensive-security-policies)
+  - [VirtIO devices memory address translation fastpath](#virtio-devices-memory-address-translation-fastpath)
     - [Project Overview](#project-overview)
     - [Objectives](#objectives)
     - [Expected Outcomes](#expected-outcomes-1)
     - [Prerequisites and Skills](#prerequisites-and-skills-1)
     - [Reference and Issue](#reference-and-issue-1)
-  - [Add Fuzzer and kernel eBPF test for bpftime to improve compatibility](#add-fuzzer-and-kernel-ebpf-test-for-bpftime-to-improve-compatibility)
+  - [User-Space eBPF Security Modules for Comprehensive Security Policies](#user-space-ebpf-security-modules-for-comprehensive-security-policies)
     - [Project Overview](#project-overview-1)
-    - [Timeframe and Difficulty](#timeframe-and-difficulty)
-    - [Mentors](#mentors)
     - [Objectives](#objectives-1)
     - [Expected Outcomes](#expected-outcomes-2)
     - [Prerequisites and Skills](#prerequisites-and-skills-2)
     - [Reference and Issue](#reference-and-issue-2)
-  - [Living patching distributed RocksDB with shared IO and Network Interface over io\_uring](#living-patching-distributed-rocksdb-with-shared-io-and-network-interface-over-io_uring)
+  - [Add Fuzzer and kernel eBPF test for bpftime to improve compatibility](#add-fuzzer-and-kernel-ebpf-test-for-bpftime-to-improve-compatibility)
     - [Project Overview](#project-overview-2)
+    - [Timeframe and Difficulty](#timeframe-and-difficulty)
+    - [Mentors](#mentors)
     - [Objectives](#objectives-2)
     - [Expected Outcomes](#expected-outcomes-3)
     - [Prerequisites and Skills](#prerequisites-and-skills-3)
     - [Reference and Issue](#reference-and-issue-3)
+  - [Living patching distributed RocksDB with shared IO and Network Interface over io\_uring](#living-patching-distributed-rocksdb-with-shared-io-and-network-interface-over-io_uring)
+    - [Project Overview](#project-overview-3)
+    - [Objectives](#objectives-3)
+    - [Expected Outcomes](#expected-outcomes-4)
+    - [Prerequisites and Skills](#prerequisites-and-skills-4)
+    - [Reference and Issue](#reference-and-issue-4)
   - [Userspace AOT Compilation of eBPF for Lightweight Containers](#userspace-aot-compilation-of-ebpf-for-lightweight-containers)
     - [Overview](#overview)
     - [Goals and Objectives](#goals-and-objectives)
     - [Prerequisites and Skills Required](#prerequisites-and-skills-required)
-    - [Expected Outcomes](#expected-outcomes-4)
+    - [Expected Outcomes](#expected-outcomes-5)
     - [Additional Resources](#additional-resources)
   - [Userspace eBPF for Userspace File System](#userspace-ebpf-for-userspace-file-system)
-    - [Objectives](#objectives-3)
-    - [Expected Outcomes](#expected-outcomes-5)
-    - [Prerequisites and Skills](#prerequisites-and-skills-4)
-    - [Resources](#resources)
-  - [BPFTime Profiling and Machine Learning Prediction for far memory or distributed shared memory management](#bpftime-profiling-and-machine-learning-prediction-for-far-memory-or-distributed-shared-memory-management)
-    - [Project Overview](#project-overview-3)
     - [Objectives](#objectives-4)
     - [Expected Outcomes](#expected-outcomes-6)
     - [Prerequisites and Skills](#prerequisites-and-skills-5)
-    - [Reference and Issue](#reference-and-issue-4)
-  - [VirtIO devices memory address translation fastpath](#virtio-devices-memory-address-translation-fastpath)
+    - [Resources](#resources)
+  - [BPFTime Profiling and Machine Learning Prediction for far memory or distributed shared memory management](#bpftime-profiling-and-machine-learning-prediction-for-far-memory-or-distributed-shared-memory-management)
     - [Project Overview](#project-overview-4)
     - [Objectives](#objectives-5)
     - [Expected Outcomes](#expected-outcomes-7)
@@ -102,6 +102,40 @@ The goal of this project is to port `bpftime` to macOS and other platforms, expa
 
 - Issue and some initial discussion: <https://github.com/eunomia-bpf/bpftime/issues>
 - Some previous efforts: [Enable bpftime on arm](https://github.com/eunomia-bpf/bpftime/pull/151)
+
+
+## VirtIO devices memory address translation fastpath
+
+The triple address translation from physical VirtIO to the userspace memory is a performance bottleneck. It requires the DPA to HPA to physical memory translation. The VirtIO devices memory address translation fastpath project aims to develop a fastpath for VirtIO devices memory address translation, reducing the overhead of the triple address translation and improving the performance of VirtIO devices. Also, the side channel attack increases the threats for core isolation for the Cloud Vendors. Leveraging BPFTime to design a safe fastpath primitive message passing for dedicated application access to VirtIO devices memory address translation enables safe, efficient and low-latency memory access for VirtIO devices.
+
+### Project Overview
+
+- Time Cost: ~350 hours
+- Difficulty Level: Hard
+- Mentors: Yiwei Yang (<yyang363@ucsc.edu>) Yusheng Zheng (<yunwei356@gmail.com>)
+
+### Objectives
+
+- Develop a fastpath for VirtIO devices memory address translation, reducing the overhead of the triple address translation and improving the performance of VirtIO devices.
+- Design a safe fastpath primitive message passing for dedicated application access to VirtIO devices memory address translation.
+
+### Expected Outcomes
+
+- A fastpath for VirtIO devices memory address translation, reducing the overhead of the triple address translation and improving the performance of VirtIO devices.
+- A safe fastpath primitive message passing for dedicated application access to VirtIO devices memory address translation.
+
+### Prerequisites and Skills
+
+- Proficiency in C/C++ and system programming.
+- Understanding of VirtIO devices, micro kernel and memory address translation.
+- Familiarity with user-space and kernel-space programming paradigms.
+- Experience with developing and testing eBPF programs is highly advantageous.
+
+### Reference and Issue
+
+- Recent paper about offloading userspace program to kernel NVMe device [XRP](https://www.usenix.org/system/files/osdi22-zhong_1.pdf)
+- Paper about the fastpath and offloading for DPU [DPFS](https://github.com/IBM/DPFS), [M3](https://os.inf.tu-dresden.de/papers_ps/asmussen-m3-asplos16.pdf)
+- Youtube video about the fastpath for VirtIO [VirtIO](https://www.youtube.com/watch?v=nTMls33dG8Q)
 
 ## User-Space eBPF Security Modules for Comprehensive Security Policies
 
@@ -359,39 +393,6 @@ The upcoming world for CXL.mem provides a new way of memory fabric, it can seemi
 - eBPF for profiling: [eBPF for profiling](https://www.groundcover.com/ebpf/ebpf-profiling), eBPF for CPU scheduling: [eBPF for CPU scheduling](https://research.google/pubs/ghost-fast-and-flexible-user-space-delegation-of-linux-scheduling/)
 - Paper's about ML for memory management in kernel: [Predicting Dynamic Properties of Heap Allocations](https://dl.acm.org/doi/pdf/10.1145/3591195.3595275) and [Towards a Machine Learning-Assisted Kernel with LAKE](https://dl.acm.org/doi/pdf/10.1145/3575693.3575697)
 - State of the art far memory allocation [Pond](https://arxiv.org/abs/2203.00241), [Memtis](https://dl.acm.org/doi/10.1145/3600006.3613167), [MIRA](https://cseweb.ucsd.edu/~yiying/Mira-SOSP23.pdf) and [TMTS](https://www.micahlerner.com/assets/pdf/adaptable.pdf)
-
-## VirtIO devices memory address translation fastpath
-
-The triple address translation from physical VirtIO to the userspace memory is a performance bottleneck. It requires the DPA to HPA to physical memory translation. The VirtIO devices memory address translation fastpath project aims to develop a fastpath for VirtIO devices memory address translation, reducing the overhead of the triple address translation and improving the performance of VirtIO devices. Also, the side channel attack increases the threats for core isolation for the Cloud Vendors. Leveraging BPFTime to design a safe fastpath primitive message passing for dedicated application access to VirtIO devices memory address translation enables safe, efficient and low-latency memory access for VirtIO devices.
-
-### Project Overview
-
-- Time Cost: ~350 hours
-- Difficulty Level: Hard
-- Mentors: Yiwei Yang (<yyang363@ucsc.edu>) Yusheng Zheng (<yunwei356@gmail.com>)
-
-### Objectives
-
-- Develop a fastpath for VirtIO devices memory address translation, reducing the overhead of the triple address translation and improving the performance of VirtIO devices.
-- Design a safe fastpath primitive message passing for dedicated application access to VirtIO devices memory address translation.
-
-### Expected Outcomes
-
-- A fastpath for VirtIO devices memory address translation, reducing the overhead of the triple address translation and improving the performance of VirtIO devices.
-- A safe fastpath primitive message passing for dedicated application access to VirtIO devices memory address translation.
-
-### Prerequisites and Skills
-
-- Proficiency in C/C++ and system programming.
-- Understanding of VirtIO devices, micro kernel and memory address translation.
-- Familiarity with user-space and kernel-space programming paradigms.
-- Experience with developing and testing eBPF programs is highly advantageous.
-
-### Reference and Issue
-
-- Recent paper about offloading userspace program to kernel NVMe device [XRP](https://www.usenix.org/system/files/osdi22-zhong_1.pdf)
-- Paper about the fastpath and offloading for DPU [DPFS](https://github.com/IBM/DPFS), [M3](https://os.inf.tu-dresden.de/papers_ps/asmussen-m3-asplos16.pdf)
-- Youtube video about the fastpath for VirtIO [VirtIO](https://www.youtube.com/watch?v=nTMls33dG8Q)
 
 ## Large Language Model specific metrics observability in BPFTime
 
