@@ -8,42 +8,42 @@ It's also part of our project roadmap, if you don't participate in these events,
 
 - [Possible ideas for the future](#possible-ideas-for-the-future)
   - [Table of contents](#table-of-contents)
-  - [Porting bpftime to macOS](#porting-bpftime-to-macos)
+  - [Porting bpftime to macOS and other platforms](#porting-bpftime-to-macos-and-other-platforms)
     - [Objectives for enable eBPF on macOS](#objectives-for-enable-ebpf-on-macos)
     - [Expected Outcomes](#expected-outcomes)
     - [Prerequisites and Skills](#prerequisites-and-skills)
     - [Reference and issue](#reference-and-issue)
-  - [Add Fuzzer and kernel eBPF test for bpftime to improve compatibility](#add-fuzzer-and-kernel-ebpf-test-for-bpftime-to-improve-compatibility)
+  - [User-Space eBPF Security Modules for Comprehensive Security Policies](#user-space-ebpf-security-modules-for-comprehensive-security-policies)
     - [Project Overview](#project-overview)
-    - [Timeframe and Difficulty](#timeframe-and-difficulty)
-    - [Mentors](#mentors)
     - [Objectives](#objectives)
     - [Expected Outcomes](#expected-outcomes-1)
     - [Prerequisites and Skills](#prerequisites-and-skills-1)
     - [Reference and Issue](#reference-and-issue-1)
-  - [Living patching distributed RocksDB with shared IO and Network Interface over io\_uring](#living-patching-distributed-rocksdb-with-shared-io-and-network-interface-over-io_uring)
+  - [Add Fuzzer and kernel eBPF test for bpftime to improve compatibility](#add-fuzzer-and-kernel-ebpf-test-for-bpftime-to-improve-compatibility)
     - [Project Overview](#project-overview-1)
+    - [Timeframe and Difficulty](#timeframe-and-difficulty)
+    - [Mentors](#mentors)
     - [Objectives](#objectives-1)
     - [Expected Outcomes](#expected-outcomes-2)
     - [Prerequisites and Skills](#prerequisites-and-skills-2)
     - [Reference and Issue](#reference-and-issue-2)
+  - [Living patching distributed RocksDB with shared IO and Network Interface over io\_uring](#living-patching-distributed-rocksdb-with-shared-io-and-network-interface-over-io_uring)
+    - [Project Overview](#project-overview-2)
+    - [Objectives](#objectives-2)
+    - [Expected Outcomes](#expected-outcomes-3)
+    - [Prerequisites and Skills](#prerequisites-and-skills-3)
+    - [Reference and Issue](#reference-and-issue-3)
   - [Userspace AOT Compilation of eBPF for Lightweight Containers](#userspace-aot-compilation-of-ebpf-for-lightweight-containers)
     - [Overview](#overview)
     - [Goals and Objectives](#goals-and-objectives)
     - [Prerequisites and Skills Required](#prerequisites-and-skills-required)
-    - [Expected Outcomes](#expected-outcomes-3)
+    - [Expected Outcomes](#expected-outcomes-4)
     - [Additional Resources](#additional-resources)
   - [Userspace eBPF for Userspace File System](#userspace-ebpf-for-userspace-file-system)
-    - [Objectives](#objectives-2)
-    - [Expected Outcomes](#expected-outcomes-4)
-    - [Prerequisites and Skills](#prerequisites-and-skills-3)
-    - [Resources](#resources)
-  - [User-Space eBPF Security Modules for Comprehensive Security Policies](#user-space-ebpf-security-modules-for-comprehensive-security-policies)
-    - [Project Overview](#project-overview-2)
     - [Objectives](#objectives-3)
     - [Expected Outcomes](#expected-outcomes-5)
     - [Prerequisites and Skills](#prerequisites-and-skills-4)
-    - [Reference and Issue](#reference-and-issue-3)
+    - [Resources](#resources)
   - [BPFTime Profiling and Machine Learning Prediction for far memory or distributed shared memory management](#bpftime-profiling-and-machine-learning-prediction-for-far-memory-or-distributed-shared-memory-management)
     - [Project Overview](#project-overview-3)
     - [Objectives](#objectives-4)
@@ -69,11 +69,11 @@ For more details, see:
 - <https://eunomia.dev/bpftime>
 - [https://github.com/eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime)
 
-## Porting bpftime to macOS
+## Porting bpftime to macOS and other platforms
 
-Since bpftime can run in userspace and does not require kernel eBPF, why not enable eBPF on MacOS?
+Since bpftime can run in userspace and does not require kernel eBPF, why not enable eBPF on MacOS/FreeBSD/Other Platforms?
 
-The goal of this project is to port `bpftime` to macOS, expanding its cross-platform capabilities and enabling macOS users to leverage the powerful features of `eBPF` in their development and production environments. With bpftime, now you may be able to run bcc and bpftrace tools on macOS!
+The goal of this project is to port `bpftime` to macOS and other platforms, expanding its cross-platform capabilities and enabling macOS users to leverage the powerful features of `eBPF` in their development and production environments. With bpftime, now you may be able to run bcc and bpftrace tools on macOS and other OSs!
 
 - time: ~175 hour
 - Difficulty Level: medium
@@ -81,16 +81,16 @@ The goal of this project is to port `bpftime` to macOS, expanding its cross-plat
 
 ### Objectives for enable eBPF on macOS
 
-1. **Compatibility and Integration**: Achieve compatibility of `bpftime` with macOS, ensuring that core features and capabilities are functional on this platform.
-2. **Performance Optimization**: Fine-tune the performance of `bpftime` on macOS, focusing on optimizing the LLVM JIT and the lightweight JIT for x86 specifically for macOS architecture.
-3. **Seamless Integration with macOS Ecosystem**: Ensure that `bpftime` integrates smoothly with macOS  environments, providing a native and efficient development experience for macOS eBPF users.
+1. **Compatibility and Integration**: Achieve compatibility of `bpftime` with macOS and/or other OSs, ensuring that core features and capabilities are functional on this platform.
+2. **Performance Optimization**: Fine-tune the performance of `bpftime` on macOS and/or other OSs, focusing on optimizing the LLVM JIT and the lightweight JIT for x86 specifically for macOS architecture.
+3. **Seamless Integration with macOS Ecosystem**: Ensure that `bpftime` integrates smoothly with macOS and/or other OSs environments, providing a native and efficient development experience for eBPF users.
 4. **Documentation and Tutorials**: Develop documentation and tutorials tailored to macOS users, facilitating easy adoption and use of `bpftime` on this platform.
 
 ### Expected Outcomes
 
-- A functional port of `bpftime` for macOS, with core features operational.
-- You should be able to run `bpftrace` and `bcc` tools on MacOS, and get expected output.
-- documentation and guides for using `bpftime` on macOS.
+- A functional port of `bpftime` for macOS and/or other OSs, with core features operational.
+- You should be able to run `bpftrace` and `bcc` tools on them, and get expected output.
+- documentation and guides for using `bpftime` on macOS and/or other OSs.
 
 ### Prerequisites and Skills
 
@@ -102,6 +102,58 @@ The goal of this project is to port `bpftime` to macOS, expanding its cross-plat
 
 - Issue and some initial discussion: <https://github.com/eunomia-bpf/bpftime/issues>
 - Some previous efforts: [Enable bpftime on arm](https://github.com/eunomia-bpf/bpftime/pull/151)
+
+## User-Space eBPF Security Modules for Comprehensive Security Policies
+
+### Project Overview
+
+bpftime is a user-space eBPF runtime that allows existing eBPF applications to run directly in unprivileged user space, using the same libraries and toolchains, and to obtain trace analysis results. It provides tracing points such as Uprobe and Syscall tracepoint for eBPF, reducing the overhead by about 10 times compared to kernel uprobe, without the need for manual code instrumentation or process restarts. It enables non-intrusive analysis of source code and compilation processes. It can also be combined with DPDK to implement XDP functionality in user-space networking, compatible with kernel XDP. The runtime supports inter-process eBPF maps in user-space shared memory, as well as kernel eBPF maps, allowing seamless operation with the kernel's eBPF infrastructure. It also includes high-performance eBPF LLVM JIT/AOT compilers for multiple architectures.
+
+Linux Security Modules (LSM) is a security framework implemented in the Linux kernel, providing a mechanism for various security policy modules to be inserted into the kernel, enhancing the system's security. LSM is designed to offer an abstraction layer for the Linux operating system to support multiple security policies without changing the core code of the kernel. This design allows system administrators or distributions to choose a security model that fits their security needs, such as SELinux, AppArmor, Smack, etc.
+
+What can LSM be used for?
+
+- Access Control: LSM is most commonly used to implement Mandatory Access Control (MAC) policies, different from the traditional owner-based Access Control (DAC). MAC can control access to resources like files, network ports, and inter-process communication in a fine-grained manner.
+- Logging and Auditing: LSM can be used to log and audit sensitive operations on the system, providing detailed log information to help detect and prevent potential security threats.
+- Sandboxing and Isolation: By limiting the behavior of programs and the resources they can access, LSM can sandbox applications, reducing the risk of malware or vulnerability exploitation.
+- Enhancing Kernel and User-Space Security: LSM allows for additional security checks and restrictions to enhance the security of both the kernel itself and applications running in user-space.
+- Limiting Privileged Operations: LSM can limit the operations that even processes with root privileges can perform, reducing the potential harm from misconfigurations by system administrators or malicious software with root access.
+
+With bpftime, we can run eBPF programs in user space, compatible with the kernel, and collaborate with the kernel's eBPF to implement defense. Is it possible to further extend eBPF's security mechanisms and features to user space, allowing user-space eBPF and kernel-space eBPF to work together to implement more powerful and flexible security policies and defense capabilities? Let's call this mechanism USM (Userspace Security Modules or Union Security Modules).
+
+You can explore more possibilities with us:
+
+- Time Cost: ~350 hours
+- Difficulty Level: Hard
+- Mentors: Yiwei Yang (<yyang363@ucsc.edu>) Yusheng Zheng (<yunwei356@gmail.com>)
+
+### Objectives
+
+1. **USM Framework Design and Implementation**: Architect and implement the USM framework within bpftime, enabling user-space eBPF programs to work alongside kernel-space eBPF LSM programs.
+2. **Security Scenario Exploration**: Investigate potential security scenarios where USM can effectively intercept and defend against security threats, using both kernel and user-space eBPF mechanisms.
+3. **Continuous Integration and Testing**: Integrate USM testing into the bpftime CI pipeline, conducting regular checks to ensure compatibility and effectiveness of security policies.
+4. **Documentation and Community Feedback**: Generate comprehensive documentation on USM's architecture, API, and implementation. Engage with the bpftime community to gather feedback and refine USM.
+5. **Security Policy Development and Validation**: Develop and validate security policies that leverage USM, demonstrating its potential in enhancing system security.
+
+### Expected Outcomes
+
+- A fully implemented USM framework within the bpftime environment, allowing for seamless operation with kernel-space eBPF LSM programs and compatible with kernel eBPF toolchains and libraries.
+- Integration of USM testing into the bpftime CI pipeline to ensure ongoing compatibility and security efficacy.
+- A set of validated security policies showcasing USM's capability to enhance both kernel and user-space security.
+- Comprehensive documentation and a feedback loop with the community for continuous improvement of USM.
+
+### Prerequisites and Skills
+
+- Proficiency in C/C++ and system programming.
+- Understanding of security mechanisms and policies, especially related to Linux Security Modules (LSM) and eBPF.
+- Familiarity with user-space and kernel-space programming paradigms.
+- Experience with developing and testing eBPF programs is highly advantageous.
+
+### Reference and Issue
+
+- Conceptual foundation for USM in bpftime: [GitHub Discussion](https://github.com/eunomia-bpf/bpftime/issues/148)
+- Initial exploration of eBPF security mechanisms: <https://docs.kernel.org/bpf/prog_lsm.html>, and kernel Runtime Verification <https://docs.kernel.org/trace/rv/runtime-verification.html#runtime-monitors-and-reactors>
+- Engaging with existing eBPF and LSM communities for insights and collaboration opportunities.
 
 ## Add Fuzzer and kernel eBPF test for bpftime to improve compatibility
 
@@ -274,58 +326,6 @@ You can explore more possibilities with us:
 
 - Extfuse paper and GitHub repo: <https://github.com/extfuse/extfuse>
 - <https://lwn.net/Articles/915717/>
-
-## User-Space eBPF Security Modules for Comprehensive Security Policies
-
-### Project Overview
-
-bpftime is a user-space eBPF runtime that allows existing eBPF applications to run directly in unprivileged user space, using the same libraries and toolchains, and to obtain trace analysis results. It provides tracing points such as Uprobe and Syscall tracepoint for eBPF, reducing the overhead by about 10 times compared to kernel uprobe, without the need for manual code instrumentation or process restarts. It enables non-intrusive analysis of source code and compilation processes. It can also be combined with DPDK to implement XDP functionality in user-space networking, compatible with kernel XDP. The runtime supports inter-process eBPF maps in user-space shared memory, as well as kernel eBPF maps, allowing seamless operation with the kernel's eBPF infrastructure. It also includes high-performance eBPF LLVM JIT/AOT compilers for multiple architectures.
-
-Linux Security Modules (LSM) is a security framework implemented in the Linux kernel, providing a mechanism for various security policy modules to be inserted into the kernel, enhancing the system's security. LSM is designed to offer an abstraction layer for the Linux operating system to support multiple security policies without changing the core code of the kernel. This design allows system administrators or distributions to choose a security model that fits their security needs, such as SELinux, AppArmor, Smack, etc.
-
-What can LSM be used for?
-
-- Access Control: LSM is most commonly used to implement Mandatory Access Control (MAC) policies, different from the traditional owner-based Access Control (DAC). MAC can control access to resources like files, network ports, and inter-process communication in a fine-grained manner.
-- Logging and Auditing: LSM can be used to log and audit sensitive operations on the system, providing detailed log information to help detect and prevent potential security threats.
-- Sandboxing and Isolation: By limiting the behavior of programs and the resources they can access, LSM can sandbox applications, reducing the risk of malware or vulnerability exploitation.
-- Enhancing Kernel and User-Space Security: LSM allows for additional security checks and restrictions to enhance the security of both the kernel itself and applications running in user-space.
-- Limiting Privileged Operations: LSM can limit the operations that even processes with root privileges can perform, reducing the potential harm from misconfigurations by system administrators or malicious software with root access.
-
-With bpftime, we can run eBPF programs in user space, compatible with the kernel, and collaborate with the kernel's eBPF to implement defense. Is it possible to further extend eBPF's security mechanisms and features to user space, allowing user-space eBPF and kernel-space eBPF to work together to implement more powerful and flexible security policies and defense capabilities? Let's call this mechanism USM (Userspace Security Modules or Union Security Modules).
-
-You can explore more possibilities with us:
-
-- Time Cost: ~350 hours
-- Difficulty Level: Hard
-- Mentors: Yiwei Yang (<yyang363@ucsc.edu>) Yusheng Zheng (<yunwei356@gmail.com>)
-
-### Objectives
-
-1. **USM Framework Design and Implementation**: Architect and implement the USM framework within bpftime, enabling user-space eBPF programs to work alongside kernel-space eBPF LSM programs.
-2. **Security Scenario Exploration**: Investigate potential security scenarios where USM can effectively intercept and defend against security threats, using both kernel and user-space eBPF mechanisms.
-3. **Continuous Integration and Testing**: Integrate USM testing into the bpftime CI pipeline, conducting regular checks to ensure compatibility and effectiveness of security policies.
-4. **Documentation and Community Feedback**: Generate comprehensive documentation on USM's architecture, API, and implementation. Engage with the bpftime community to gather feedback and refine USM.
-5. **Security Policy Development and Validation**: Develop and validate security policies that leverage USM, demonstrating its potential in enhancing system security.
-
-### Expected Outcomes
-
-- A fully implemented USM framework within the bpftime environment, allowing for seamless operation with kernel-space eBPF LSM programs and compatible with kernel eBPF toolchains and libraries.
-- Integration of USM testing into the bpftime CI pipeline to ensure ongoing compatibility and security efficacy.
-- A set of validated security policies showcasing USM's capability to enhance both kernel and user-space security.
-- Comprehensive documentation and a feedback loop with the community for continuous improvement of USM.
-
-### Prerequisites and Skills
-
-- Proficiency in C/C++ and system programming.
-- Understanding of security mechanisms and policies, especially related to Linux Security Modules (LSM) and eBPF.
-- Familiarity with user-space and kernel-space programming paradigms.
-- Experience with developing and testing eBPF programs is highly advantageous.
-
-### Reference and Issue
-
-- Conceptual foundation for USM in bpftime: [GitHub Discussion](https://github.com/eunomia-bpf/bpftime/issues/148)
-- Initial exploration of eBPF security mechanisms: <https://docs.kernel.org/bpf/prog_lsm.html>, and kernel Runtime Verification <https://docs.kernel.org/trace/rv/runtime-verification.html#runtime-monitors-and-reactors>
-- Engaging with existing eBPF and LSM communities for insights and collaboration opportunities.
 
 ## BPFTime Profiling and Machine Learning Prediction for far memory or distributed shared memory management
 
