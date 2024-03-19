@@ -115,6 +115,7 @@ nav:
   - bpftime:
     - bpftime/index.md
     - bpftime/documents/introduction.md
+    - bpftime/documents/bpftime-working.md
     - bpftime/documents/available-features.md
     - bpftime/documents/build-and-test.md
     - Usage:

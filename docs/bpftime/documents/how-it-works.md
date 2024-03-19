@@ -9,11 +9,11 @@ For more details about how to implement the inline hook, please refer to our blo
 
 The injection of userspace eBPF runtime into a running program is based on ptrace and also provided by [frida-gum](https://github.com/frida/frida-gum) library.
 
-How the bpftime work entirely in userspace:
+### How the bpftime work entirely in userspace:
 
 ![How it works](bpftime.png)
 
-How the bpftime work with kernel eBPF:
+### How the bpftime work with kernel eBPF:
 
 ![How it works with kernel eBPF](bpftime-kernel.png)
 
