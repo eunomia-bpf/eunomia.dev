@@ -37,7 +37,7 @@ Install the required packages:
 ```bash
 sudo apt-get update && sudo apt-get install \
         libelf1 libelf-dev zlib1g-dev make cmake git libboost1.74-all-dev \
-        binutils-dev libyaml-cpp-dev ca-certificates clang llvm pkg-config
+        binutils-dev libyaml-cpp-dev ca-certificates clang llvm pkg-config llvm-dev
 git submodule update --init --recursive
 ```
 
