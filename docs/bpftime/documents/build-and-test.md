@@ -37,7 +37,7 @@ Install the required packages:
 ```bash
 sudo apt-get update && sudo apt-get install \
         libelf1 libelf-dev zlib1g-dev make cmake git libboost1.74-all-dev \
-        binutils-dev libyaml-cpp-dev ca-certificates clang llvm pkg-config
+        binutils-dev libyaml-cpp-dev ca-certificates clang llvm pkg-config llvm-dev
 git submodule update --init --recursive
 ```
 
@@ -143,7 +143,7 @@ These targets will only be enabled when `BPFTIME_ENABLE_UNIT_TESTING` was set to
 
 Build and run them to test, for example:
 ```sh
-cmake -DBPFTIME_LLVM_JIT=YES -DBPFTIME_ENABLE_UNIT_TESTING=YES -DCMAKE_BUILD_TYPE=Release -B build
+cmake -DCMAKE_PREFIX_PATH=/usr/include/llvm -DBPFTIME_LLVM_JIT=YES -DBPFTIME_ENABLE_UNIT_TESTING=YES -DCMAKE_BUILD_TYPE=Release -B build
 cmake --build build --config RelWithDebInfo --target bpftime_runtime_tests
 sudo ./build/runtime/unit-test/bpftime_runtime_tests
 ```
