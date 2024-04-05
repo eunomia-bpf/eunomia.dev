@@ -2,25 +2,34 @@
 
 ## Table of Contents
 
+<!-- TOC -->
+
 - [Building and Test](#building-and-test)
   - [Table of Contents](#table-of-contents)
   - [Use docker image](#use-docker-image)
   - [Install Dependencies](#install-dependencies)
-    - [Build and install cli tool](#build-and-install-cli-tool)
-  - [Compilation for bpftime](#compilation-for-bpftime)
+    - [Build and install all things](#build-and-install-all-things)
+  - [Detailed things about building](#detailed-things-about-building)
+    - [Build and install the complete runtime in release mode(With ubpf jit)](#build-and-install-the-complete-runtime-in-release-modewith-ubpf-jit)
+    - [Build and install the complete runtime in debug mode(With ubpf jit)](#build-and-install-the-complete-runtime-in-debug-modewith-ubpf-jit)
+    - [Build and install the complete runtime in release mode(With llvm jit)](#build-and-install-the-complete-runtime-in-release-modewith-llvm-jit)
+    - [Compile with LTO enabled](#compile-with-lto-enabled)
+    - [Compile with userspace verifier](#compile-with-userspace-verifier)
+    - [Testing targets](#testing-targets)
   - [Compile only the vm (No runtime, No uprobe)](#compile-only-the-vm-no-runtime-no-uprobe)
-  - [Compile with LTO enabled](#compile-with-lto-enabled)
-  - [Compile with userspace verifier](#compile-with-userspace-verifier)
   - [More compile options](#more-compile-options)
-  - [Testing](#testing)
+
+<!-- /TOC -->
 
 ## Use docker image
 
 We provide a docker image for building and testing bpftime.
 
 ```bash
-docker pull ghcr.io/eunomia-bpf/bpftime:latest
-docker run -it --rm -v "$(pwd)":/workdir -w /workdir ghcr.io/eunomia-bpf/bpftime:latest /bin/bash
+# run the container
+docker run -it --rm --name test_bpftime -v "$(pwd)":/workdir -w /workdir ghcr.io/eunomia-bpf/bpftime:latest /bin/bash
+# start another shell in the container (If needed)
+docker exec -it test_bpftime /bin/bash
 ```
 
 Or build the docker from dockerfile:
@@ -48,6 +57,7 @@ On Ubuntu 20.04, you may need to manually switch to gcc-12.
 ### Build and install all things
 
 Install all things that could be installed to `~/.bpftime`, includes:
+
 - `bpftime`: A cli tool used for injecting agent & server to userspace programs
 - `bpftime-vm`: A cli tool used for compiling eBPF programs into native programs, or run the compiled program
 - `bpftimetool`: A cli tool used to manage things stored in shared memory, such as the data of maps or programs
@@ -91,21 +101,21 @@ We use cmake as build system. You may be interested in the following cmake optio
 - `BPFTIME_LLVM_JIT`: Whether to use LLVM JIT as the ebpf runtime. Requires LLVM >= 15. It's recommended to enable this, since the ubpf intepreter is no longer maintained. Default to `NO`.
 - `LLVM_DIR`: Specify the installing directory of LLVM. CMake may not discover the LLVM installation by default. Set this option to the directory that contains `LLVMConfig.cmake`, such as `/usr/lib/llvm-15/cmake` on Ubuntu
 
-### Build and install the complete runtime in release mode(With ubpf jit):
+### Build and install the complete runtime in release mode(With ubpf jit)
 
 ```bash
 cmake -Bbuild -DCMAKE_BUILD_TYPE=Release -DBPFTIME_ENABLE_LTO=NO
 cmake --build build --config Release --target install
 ```
 
-### Build and install the complete runtime in debug mode(With ubpf jit):
+### Build and install the complete runtime in debug mode(With ubpf jit)
 
 ```bash
 cmake -Bbuild -DCMAKE_BUILD_TYPE=Debug -DBPFTIME_ENABLE_LTO=NO
 cmake --build build --config Debug --target install
 ```
 
-### Build and install the complete runtime in release mode(With llvm jit):
+### Build and install the complete runtime in release mode(With llvm jit)
 
 ```bash
 cmake -Bbuild -DCMAKE_BUILD_TYPE=Release -DBPFTIME_ENABLE_LTO=NO -DBPFTIME_LLVM_JIT=YES
@@ -123,9 +133,9 @@ cmake -Bbuild -DCMAKE_BUILD_TYPE=Release -DBPFTIME_ENABLE_LTO=YES -DBPFTIME_LLVM
 cmake --build build --config RelWithDebInfo --target install
 ```
 
-### Compile with userspace verifier 
+### Compile with userspace verifier
 
-Note that we are using https://github.com/vbpf/ebpf-verifier as userspace verifier. It's not perfect, and may not support some features (such as ringbuf)
+Note that we are using <https://github.com/vbpf/ebpf-verifier> as userspace verifier. It's not perfect, and may not support some features (such as ringbuf)
 
 ```sh
 cmake -DBPFTIME_LLVM_JIT=NO -DENABLE_EBPF_VERIFIER=YES -DCMAKE_BUILD_TYPE=Release -B build
@@ -135,6 +145,7 @@ cmake --build build --config Release --target install
 ### Testing targets
 
 We have some targets for unit testing, they are:
+
 - `bpftime_daemon_tests`
 - `bpftime_runtime_tests`
 - `llvm_jit_tests`
@@ -142,6 +153,7 @@ We have some targets for unit testing, they are:
 These targets will only be enabled when `BPFTIME_ENABLE_UNIT_TESTING` was set to `YES`.
 
 Build and run them to test, for example:
+
 ```sh
 cmake -DCMAKE_PREFIX_PATH=/usr/include/llvm -DBPFTIME_LLVM_JIT=YES -DBPFTIME_ENABLE_UNIT_TESTING=YES -DCMAKE_BUILD_TYPE=Release -B build
 cmake --build build --config RelWithDebInfo --target bpftime_runtime_tests
@@ -160,4 +172,3 @@ make build-llvm # build the vm with llvm jit
 ## More compile options
 
 See <https://github.com/eunomia-bpf/bpftime/blob/master/cmake/StandardSettings.cmake> for all cmake build options.
-

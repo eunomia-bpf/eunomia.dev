@@ -39,7 +39,7 @@ The post provides background on eBPF and Wasm, examines the deployment challenge
     - [Enhancing WASI access control with eBPF](#enhancing-wasi-access-control-with-ebpf)
     - [Wasm runtime Debug with eBPF](#wasm-runtime-debug-with-ebpf)
     - [Other possibilitys](#other-possibilitys)
-  - [conclusion](#conclusion)
+  - [conclusion and takeaways](#conclusion-and-takeaways)
   - [reference](#reference)
 
 <!-- /TOC -->
@@ -321,9 +321,15 @@ Additionally, user-space eBPF runtimes such as `bpftime` facilitate rapid and po
 - Bi-direction ring buffer may enable high speed interprocess communition between different vm instants
 - AF_XDP for fast packet processing in Webassembly runtimes
 
-## conclusion
+## conclusion and takeaways
 
-In essence, eBPF's integration with Wasm paves the way for more sophisticated and secure system interfaces and debugging capabilities. As these technologies converge, we witness the emergence of a more powerful and developer-friendly platform, capable of driving innovation across diverse computing environments. The synergy of eBPF and Wasm is set to redefine what's possible, opening new horizons for application performance, security, and manageability.
+In essence, eBPF's integration with Wasm paves the way for more sophisticated and secure system interfaces and debugging capabilities. Here is the 5 key takeaways for this blog:
+
+1. eBPF and WebAssembly are powerful emerging technologies that can be combined to enhance system capabilities, but eBPF deployment has challenges related to security, manageability and complexity.
+2. Wasm-bpf provides a runtime and toolchain that allows eBPF programs to be packaged and run as lightweight Wasm modules, addressing many of eBPF's deployment challenges in containers and Kubernetes.
+3. Running eBPF programs within the secure and isolated sandbox of Wasm improves security by enabling fine-grained permissions and access controls via WASI.
+4. Wasm-bpf streamlines the development process for eBPF by enabling independent versioning of programs as OCI images and providing Kubernetes integration.
+5. Beyond just deployment, eBPF can also enhance Wasm by improving WASI access controls and enabling powerful user-space program tracing with uprobes to aid debugging.
 
 ## reference
 
