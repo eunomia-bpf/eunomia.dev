@@ -63,11 +63,15 @@
 
 换源可以解决下载开发环境过慢或无法访问与下载目标开发环境的问题。
 
-![华为云镜像站](Huawei Cloud Mirror Station.png)
+```
+sudo cp -a /etc/apt/sources.list /etc/apt/sources.list.bak
 
-点击Ubuntu即可查看换源的命令
+sudo sed -i "s@http://.*archive.ubuntu.com@http://mirrors.huaweicloud.com@g" /etc/apt/sources.list
 
-![查看换源的命令](change the source.png)
+sudo sed -i "s@http://.*security.ubuntu.com@http://mirrors.huaweicloud.com@g" /etc/apt/sources.list
+
+apt-get update
+```
 
 打开Ubuntu虚拟机，右键桌面选择Open in Termainal打开终端命令框，然后输入su后回车输入密码，即可获得root权限。成功进入root后按照顺序复制华为云镜像站提供的换源命令。
 
@@ -126,8 +130,6 @@ docker pull ghcr.io/eunomia-bpf/bpftime:latest
 docker run -it --rm -v "$(pwd)":/workdir -w /workdir ghcr.io/eunomia-bpf/bpftime:latest /bin/bash
 ```
 
-![成功进入到docker内](in docker.png)
-
 ## 三.环境实例
 
 ##### 3.1 不使用Docker环境
@@ -163,7 +165,7 @@ apt upgrade
 
 ```
 apt install git
-git clone https://gitee.com/tshl185/bpftime.git
+git clone https://github.com/eunomia-bpf/bpftime.git
 ```
 
 4. cd到那个目录
@@ -178,72 +180,97 @@ cd bpftime
 git submodule update --init --recursive
 ```
 
-6. 安装提示中缺少的环境
+6. 使用cmake编译构建
 
 ```
-apt install libelf-dev zliblg-dev
+cmake -Bbuild  -DCMAKE_BUILD_TYPE:STRING=Release -DSPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_INFO
+cmake --build build --config Release --target install
+export PATH=$PATH:~/.bpftime
 ```
 
-7. make release 后如何按照提示安装缺少的环境
+7. 检验是否构建成功
 
 ```
-make release
-apt install cmake
-apt install cargo
-apt install pkg-config
-apt install libboost-all-dev
-apt install libelf-dev
+bpftime
+bpftime -v
+bpftime -h
 ```
 
-8. make install 后会提示环境缺少 llvm ，安装好此环境后再执行一遍 make install
+## 四. 案例实现
+
+您可以使用 clang 和 libbpf 等熟悉的工具构建 eBPF 应用程序，并在用户空间中执行它们。 例如，malloc eBPF 程序使用 uprobe 跟踪 malloc 调用，并使用哈希映射聚合计数。
+
+##### 4.1 案例
+
+可以使用 cli 启动并运行基于 libbpf 的 eBPF 程序：
 
 ```
-make install
-apt-get install llvm
-make install
+make -C example/malloc  #构建 eBPF 程序示例
+bpftime load ./example/malloc/malloc
 ```
 
-9. cd到那个目录
+在另一个 shell 中，运行内部包含 eBPF 的目标程序：
 
 ```
-cd tools/cli-rs
+bpftime start ./example/malloc/victim
+
+输出：
+Hello malloc!
+malloc called from pid 250215
+continue malloc...
+malloc called from pid 250215
 ```
 
-10. 编译构建
+您还可以将 eBPF 程序动态附加到正在运行的进程：
 
 ```
-cargo build --release
+./example/malloc/victim & echo $!  #pid是101771
+
+输出：
+[1] 101771
+101771
+continue malloc...
+continue malloc...
 ```
 
-11. 继续执行以下命令
+并附加到它：
 
 ```
-mkdir -p ~/.bpftime  //新建目录
+sudo bpftime attach 101771  #需要在 root 中运行 make install
 
-cp ./target/release/bpftime ~/.bpftime 
-//将当前目录下的"target/release/bpftime"文件复制到用户主目录下的".bpftime"目录中
-
-export PATH=$PATH:~/.bpftime         
-//PATH环境变量设置为当前的PATH值加上用户主目录下的".bpftime"目录
-
-cargo build --release
+输出：
+Inject: "/root/.bpftime/libbpftime-agent.so"
+Successfully injected. ID: 1
 ```
 
-12. 注意：下面的命令要另起窗口
+您可以看到原始程序的输出：
 
 ```
-make -C example/malloc
 bpftime load ./example/malloc/malloc
 
-bpftime load ./example/malloc/malloc
+输出：
+...
+12:44:35 
+        pid=247299      malloc calls: 10
+        pid=247322      malloc calls: 10
+```
+
+也可以直接在内核 eBPF 中运行我们的示例 eBPF 程序以查看类似的输出，这是 bpftime 如何与内核 eBPF 兼容工作的示例。
+
+```
 sudo example/malloc/malloc
+
+输出：
+15:38:05
+        pid=30415       malloc calls: 1079
+        pid=30393       malloc calls: 203
+        pid=29882       malloc calls: 1076
+        pid=34809       malloc calls: 8
 ```
 
-![成功后](successed.png)
+有关更多详细信息，请参阅 eunomia.dev/bpftime/documents/usage。
 
-
-
-##### 3.2 在docker环境下
+##### 4.2 在docker环境下
 
 1. 进入提供的docker后直接输入下面的命令
 
@@ -258,4 +285,3 @@ sudo example/malloc/malloc
    
    make release
    ```
-
