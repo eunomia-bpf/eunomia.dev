@@ -142,6 +142,15 @@ cmake -DBPFTIME_LLVM_JIT=NO -DENABLE_EBPF_VERIFIER=YES -DCMAKE_BUILD_TYPE=Releas
 cmake --build build --config Release --target install
 ```
 
+### Compile with libbpf disabled
+
+This flag can be used to compile `bpftime` on macOS. It will disable all the libbpf related libraries and features that are used in bpftime.
+
+```sh
+cmake -Bbuild -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo -DBPFTIME_BUILD_WITH_LIBBPF=OFF -DBPFTIME_BUILD_KERNEL_BPF=OFF
+cmake --build build --config RelWithDebInfo  --target install -j$(JOBS)
+```
+
 ### Testing targets
 
 We have some targets for unit testing, they are:
