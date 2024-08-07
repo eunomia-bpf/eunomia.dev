@@ -86,6 +86,7 @@ nav:
     
   - Blogs: 
     - blogs/index.md
+    - blogs/kgent.md
     - blogs/inline-hook.md
     - blogs/bpftime.md
     - blogs/ebpf-security.md
