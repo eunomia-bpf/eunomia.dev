@@ -1,5 +1,6 @@
 # Blogs about eunomia-bpf community
 
+- [Simplifying Kernel Programming: The LLM-Powered eBPF Tool](kgent.md)
 - [Expanding eBPF Compile Once, Run Everywhere(CO-RE) to Userspace Compatibility](../tutorials/38-btf-uprobe/README.md)
 - [Implementing an Inline Hook in C in 5 minutes](inline-hook.md)
 - [bpftime: Extending eBPF from Kernel to User Space](bpftime.md)

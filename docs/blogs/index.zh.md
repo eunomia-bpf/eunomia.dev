@@ -2,6 +2,7 @@
 
 Blogs about eunomia-bpf:
 
+- [简化内核编程：LLM驱动的eBPF工具](kgent.zh.md)
 - [借助 eBPF 和 BTF，让用户态也能一次编译、到处运行](../tutorials/38-btf-uprobe/README.md)
 - [五分钟带你手搓一个简易的 inline hook 实现控制流劫持](inline-hook.md)
 - [bpftime: 让 eBPF 从内核扩展到用户空间](bpftime.zh.md)

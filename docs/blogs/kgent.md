@@ -38,6 +38,8 @@ To help the LLM learn about new knowledge like eBPF, common approaches include f
 
 To address these issues, we built an LLM agent with three core components: planning, tools, and memory.
 
+![kgent](imgs/kgent2.svg)
+
 **Plan Component**
 The agent follows a predefined workflow:
 
@@ -46,6 +48,8 @@ The agent follows a predefined workflow:
 3. **Comprehension Engine**: Annotates the eBPF candidate, adding necessary assumptions and assertions for verification.
 4. **Symbolic Verifier**: Verifies the candidate's behavior. If invalid, the process iterates until a valid program is produced, forming a feedback loop.
 For some cases, it can also use ReAct mode for decision-making.
+
+![kgent](imgs/kgent1.png)
 
 **Tools Component**
 The agent can use various tools like clang to compile eBPF programs, Seahorn for verification, and bpftrace for obtaining attach points and running eBPF programs.
