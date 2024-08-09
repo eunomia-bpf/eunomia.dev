@@ -15,6 +15,7 @@
     - [Build and install the complete runtime in release mode(With llvm jit)](#build-and-install-the-complete-runtime-in-release-modewith-llvm-jit)
     - [Compile with LTO enabled](#compile-with-lto-enabled)
     - [Compile with userspace verifier](#compile-with-userspace-verifier)
+    - [Compile with libbpf disabled](#compile-with-libbpf-disabled)
     - [Testing targets](#testing-targets)
   - [Compile only the vm (No runtime, No uprobe)](#compile-only-the-vm-no-runtime-no-uprobe)
   - [More compile options](#more-compile-options)
@@ -100,6 +101,9 @@ We use cmake as build system. You may be interested in the following cmake optio
 - `BPFTIME_ENABLE_LTO`: Whether to enable Link Time Optimization. Enabling this may increase the compile time, but it may lead to a better performance. Default to `No`.
 - `BPFTIME_LLVM_JIT`: Whether to use LLVM JIT as the ebpf runtime. Requires LLVM >= 15. It's recommended to enable this, since the ubpf intepreter is no longer maintained. Default to `NO`.
 - `LLVM_DIR`: Specify the installing directory of LLVM. CMake may not discover the LLVM installation by default. Set this option to the directory that contains `LLVMConfig.cmake`, such as `/usr/lib/llvm-15/cmake` on Ubuntu
+- `BUILD_BPFTIME_DAEMON`: Build with the daemon for load the eBPF program into hkernel and se kernel verifier.
+- `BPFTIME_BUILD_WITH_LIBBPF` :Build bpftime without libbpf. It can only be run in userspace with this enabled, but it can be easily port into other platform, e.g. macOS.
+- `BPFTIME_BUILD_STATIC_LIB`: Build bpftime runtime into a whole static libraries. It can be easily linked into other programs.
 
 ### Build and install the complete runtime in release mode(With ubpf jit)
 
