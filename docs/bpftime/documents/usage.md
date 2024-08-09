@@ -11,9 +11,12 @@ If you find any bugs or suggestions, please feel free to open an issue, thanks!
   - [Uprobe and uretprobe](#uprobe-and-uretprobe)
   - [Syscall tracing](#syscall-tracing)
   - [Run with LD\_PRELOAD directly](#run-with-ld_preload-directly)
-  - [Run with JIT enabled](#run-with-jit-enabled)
-  - [Run with kernel eBPF](#run-with-kernel-ebpf)
-  - [Control Log Level](#control-log-level)
+  - [Configurations for runtime](#configurations-for-runtime)
+    - [Run with JIT enabled or disabled](#run-with-jit-enabled-or-disabled)
+    - [Run with kernel eBPF and kernel verifier](#run-with-kernel-ebpf-and-kernel-verifier)
+    - [Control Log Level](#control-log-level)
+    - [Allow external maps](#allow-external-maps)
+    - [Set memory size for shared memory maps](#set-memory-size-for-shared-memory-maps)
 
 ## Uprobe and uretprobe
 
@@ -127,21 +130,34 @@ Start the target program to trace:
 LD_PRELOAD=build/runtime/agent/libbpftime-agent.so example/malloc/victim
 ```
 
-## Run with JIT enabled
+## Configurations for runtime
 
-If the performance is not good enough, you can try to enable JIT. The JIT will be enabled by default in the future after more tests.
+Some configurations can be set in the environment variables to control the runtime behavior. For the full definition of the environment variables, see [https://github.com/eunomia-bpf/bpftime/blob/master/runtime/include/bpftime_config.hpp](https://github.com/eunomia-bpf/bpftime/blob/master/runtime/include/bpftime_config.hpp).
 
-Set `BPFTIME_USE_JIT=true` in the server to enable JIT, for example, when running the server:
+### Run with JIT enabled or disabled
+
+If the performance is not good enough, you can try to enable JIT. The JIT is enabled by default in new version.
+
+Set `BPFTIME_DISABLE_JIT=true` in the server to disable JIT, for example, when running the server:
+
+```sh
+LD_PRELOAD=~/.bpftime/libbpftime-syscall-server.so BPFTIME_DISABLE_JIT=true example/malloc/malloc
+```
+
+The JIT may be disabled in old version. Set `BPFTIME_USE_JIT=true` in the server to enable JIT, for example, when running the server:
 
 ```sh
 LD_PRELOAD=~/.bpftime/libbpftime-syscall-server.so BPFTIME_USE_JIT=true example/malloc/malloc
 ```
 
-The default behavior is using ubpf JIT, you can also use LLVM JIT by compile with LLVM JIT enabled. See [documents/build-and-test.md](build-and-test.md) for more details.
+The default behavior is using LLVM JIT, you can also use ubpf JIT by compile with LLVM JIT enabled. See [documents/build-and-test.md](build-and-test.md) for more details.
 
-## Run with kernel eBPF
+### Run with kernel eBPF and kernel verifier
 
 You can run the eBPF program in userspace with kernel eBPF in two ways. The kernel must have eBPF support enabled, and kernel version should be higher enough to support mmap eBPF map.
+
+- Use `BPFTIME_RUN_WITH_KERNEL` to load the eBPF eBPF application with kernel eBPF loader and kernel verifier. The program will be load into the kernel for verify, but can still run in userspace with bpftime agent.
+- Use `BPFTIME_NOT_LOAD_PATTERN` to skip loading the eBPF program into the kernel when the `BPFTIME_RUN_WITH_KERNEL` is set. The pattern is a regular expression to match the program name. This can help skip some userspace only eBPF programs which is not supported by kernel verifier.
 
 1. with the shared library `libbpftime-syscall-server.so`, for example:
 
@@ -151,7 +167,7 @@ BPFTIME_NOT_LOAD_PATTERN=start_.* BPFTIME_RUN_WITH_KERNEL=true LD_PRELOAD=~/.bpf
 
 2. Using daemon mode, see <https://github.com/eunomia-bpf/bpftime/tree/master/daemon>
 
-## Control Log Level
+### Control Log Level
 
 Set `SPDLOG_LEVEL` to control the log level dynamically, for example, when running the server:
 
@@ -172,3 +188,21 @@ Available log level include:
 See <https://github.com/gabime/spdlog/blob/v1.x/include/spdlog/cfg/env.h> for more details.
 
 Log can also be controled at compile time by specifying `-DSPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_INFO` in the cmake compile command.
+
+### Allow external maps
+
+Sometimes you may want to use external maps which bpftime does not support, for example, load a XDP program with a self define map in shared memory, and use own tools to run it.
+
+- Set `BPFTIME_ALLOW_EXTERNAL_MAPS` to allow external(Unsupport) maps load with the bpftime syscall-server library, for example:
+
+```sh
+BPFTIME_ALLOW_EXTERNAL_MAPS=true LD_PRELOAD=~/.bpftime/libbpftime-syscall-server.so userspace-xdp/xdp_loader
+```
+
+### Set memory size for shared memory maps
+
+Sometimes larger maps may need more memory, you can set the memory size for shared memory maps by setting `BPFTIME_SHM_MEMORY_MB` in the server. The size is in MB, for example, when running the server:
+
+```sh
+BPFTIME_SHM_MEMORY_MB=1024 LD_PRELOAD=~/.bpftime/libbpftime-syscall-server.so example/malloc/malloc
+```
