@@ -126,6 +126,8 @@ nav:
     - bpftime/documents/how-it-works.md
     - bpftime/documents/contact.md
     - bpftime/documents/attach.md
+    - bpftime/documents/bpftimetool.md
+    - bpftime/documents/bpftimeaot.md
 
   - eunomia-bpf:
       - Introduction: eunomia-bpf/introduction.md
