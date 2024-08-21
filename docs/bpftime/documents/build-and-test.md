@@ -10,6 +10,7 @@
   - [Install Dependencies](#install-dependencies)
     - [Build and install all things](#build-and-install-all-things)
   - [Detailed things about building](#detailed-things-about-building)
+    - [build options](#build-options)
     - [Build and install the complete runtime in release mode(With ubpf jit)](#build-and-install-the-complete-runtime-in-release-modewith-ubpf-jit)
     - [Build and install the complete runtime in debug mode(With ubpf jit)](#build-and-install-the-complete-runtime-in-debug-modewith-ubpf-jit)
     - [Build and install the complete runtime in release mode(With llvm jit)](#build-and-install-the-complete-runtime-in-release-modewith-llvm-jit)
@@ -94,16 +95,23 @@ See the [Makefile](https://github.com/eunomia-bpf/bpftime/blob/master/Makefile) 
 
 ## Detailed things about building
 
-We use cmake as build system. You may be interested in the following cmake options:
+We use cmake as build system.
+
+### build options
+
+You may be interested in the following cmake options:
 
 - `CMAKE_BUILD_TYPE`: Specify the build type. It could be `Debug`, `Release`, `MinSizeRel` or `RelWithDebInfo`. If you are not going to debug bpftime, you just need to set it to `Release`. Default to `Debug`.
 - `BPFTIME_ENABLE_UNIT_TESTING`: Whether to build unit test targets. See `Testing targets` for details. Default to `NO`.
 - `BPFTIME_ENABLE_LTO`: Whether to enable Link Time Optimization. Enabling this may increase the compile time, but it may lead to a better performance. Default to `No`.
+- `ENABLE_EBPF_VERIFIER`: Whether to enable userspace eBPF verifier
 - `BPFTIME_LLVM_JIT`: Whether to use LLVM JIT as the ebpf runtime. Requires LLVM >= 15. It's recommended to enable this, since the ubpf intepreter is no longer maintained. Default to `NO`.
 - `LLVM_DIR`: Specify the installing directory of LLVM. CMake may not discover the LLVM installation by default. Set this option to the directory that contains `LLVMConfig.cmake`, such as `/usr/lib/llvm-15/cmake` on Ubuntu
 - `BUILD_BPFTIME_DAEMON`: Build with the daemon for load the eBPF program into hkernel and se kernel verifier.
 - `BPFTIME_BUILD_WITH_LIBBPF` :Build bpftime without libbpf. It can only be run in userspace with this enabled, but it can be easily port into other platform, e.g. macOS.
 - `BPFTIME_BUILD_STATIC_LIB`: Build bpftime runtime into a whole static libraries. It can be easily linked into other programs.
+
+Please see <https://github.com/eunomia-bpf/bpftime/blob/master/cmake/StandardSettings.cmake> forall the build options.
 
 ### Build and install the complete runtime in release mode(With ubpf jit)
 

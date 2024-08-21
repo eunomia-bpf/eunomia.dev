@@ -15,8 +15,10 @@ If you find any bugs or suggestions, please feel free to open an issue, thanks!
     - [Run with JIT enabled or disabled](#run-with-jit-enabled-or-disabled)
     - [Run with kernel eBPF and kernel verifier](#run-with-kernel-ebpf-and-kernel-verifier)
     - [Control Log Level](#control-log-level)
+    - [Controlling the Log Path](#controlling-the-log-path)
     - [Allow external maps](#allow-external-maps)
     - [Set memory size for shared memory maps](#set-memory-size-for-shared-memory-maps)
+  - [Verifier](#verifier)
 
 ## Uprobe and uretprobe
 
@@ -189,6 +191,22 @@ See <https://github.com/gabime/spdlog/blob/v1.x/include/spdlog/cfg/env.h> for mo
 
 Log can also be controled at compile time by specifying `-DSPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_INFO` in the cmake compile command.
 
+### Controlling the Log Path
+
+You can control the log output path by setting the `BPFTIME_LOG_OUTPUT` environment variable. By default, logs are sent to `~/.bpftime/runtime.log` to avoid polluting the target process. You can override this default behavior by specifying a different log output via the environment variable.
+
+To send logs to `stderr`:
+
+```sh
+BPFTIME_LOG_OUTPUT=console LD_PRELOAD=~/.bpftime/libbpftime-syscall-server.so example/malloc/malloc
+```
+
+To send logs to a specific file:
+
+```sh
+BPFTIME_LOG_OUTPUT=./mylog.txt LD_PRELOAD=~/.bpftime/libbpftime-syscall-server.so example/malloc/malloc
+```
+
 ### Allow external maps
 
 Sometimes you may want to use external maps which bpftime does not support, for example, load a XDP program with a self define map in shared memory, and use own tools to run it.
@@ -205,4 +223,20 @@ Sometimes larger maps may need more memory, you can set the memory size for shar
 
 ```sh
 BPFTIME_SHM_MEMORY_MB=1024 LD_PRELOAD=~/.bpftime/libbpftime-syscall-server.so example/malloc/malloc
+```
+
+## Verifier
+
+Since the primary goal of bpftime is to stay aligned with kernel eBPF, it is recommended to use the kernel's eBPF verifier to ensure program safety.
+
+You can set the `BPFTIME_RUN_WITH_KERNEL` environment variable to allow the program to load into the kernel and be verified by the kernel verifier:
+
+```sh
+BPFTIME_RUN_WITH_KERNEL=true LD_PRELOAD=~/.bpftime/libbpftime-syscall-server.so example/malloc/malloc
+```
+
+If the kernel verifier is not available, you can enable the `ENABLE_EBPF_VERIFIER` option during the bpftime build process to use the `PREVAIL` userspace eBPF verifier:
+
+```sh
+cmake -DENABLE_EBPF_VERIFIER=YES -DCMAKE_BUILD_TYPE=Release -S . -B build
 ```

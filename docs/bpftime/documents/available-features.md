@@ -47,14 +47,14 @@ Compatible with kernel eBPF program types:
 - `bpf_map_lookup_elem`: Helper function for looking up an element in a BPF map.
 - `bpf_map_update_elem`: Helper function for updating an element in a BPF map.
 - `bpf_map_delete_elem`: Helper function for deleting an element from a BPF map.
-- `bpf_perf_event_output` for perf events 
-- `bpf_ringbuf_submit` for submitting ring buffer events 
+- `bpf_perf_event_output` for perf events
+- `bpf_ringbuf_submit` for submitting ring buffer events
 - `bpf_ringbuf_reserve` for reserving space for ring buffer
 
 ### kernel_helper_group
 
 - `bpf_probe_read`, `bpf_probe_read_user`: Helper function for reading data from a userspace address.
-- `bpf_probe_write_user`: Helper function for writing data to userspace 
+- `bpf_probe_write_user`: Helper function for writing data to userspace
 - `bpf_ktime_get_ns`, `bpf_ktime_get_coarse_ns`: Helper function for getting the current time in nanoseconds.
 - `bpf_trace_printk`: Helper function for printing debug messages from eBPF programs.
 - `bpf_get_current_pid_tgid`: Helper function for getting the current PID and TGID (Thread Group ID).
@@ -70,10 +70,10 @@ Compatible with kernel eBPF program types:
 - `bpftime_get_prandom_u32`: get random value
 - `bpf_override_return`: change the control flow of the functions
 
-Note: new helpers may be added without a document updated. 
-Please see 
-https://github.com/eunomia-bpf/bpftime/blob/master/runtime/src/bpf_helper.cpp for more details.
- 
+Note: new helpers may be added without a document updated.
+Please see
+<https://github.com/eunomia-bpf/bpftime/blob/master/runtime/src/bpf_helper.cpp> for more details.
+
 ## Others
 
 - Support kernel or userspace verifier
