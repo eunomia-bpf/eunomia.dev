@@ -86,6 +86,7 @@ nav:
     
   - Blogs: 
     - blogs/index.md
+    - blogs/llvmbpf.md
     - blogs/kgent.md
     - blogs/inline-hook.md
     - blogs/bpftime.md
@@ -128,6 +129,8 @@ nav:
     - bpftime/documents/attach.md
     - bpftime/documents/bpftimetool.md
     - bpftime/documents/bpftimeaot.md
+    - llvmbpf: 
+      - bpftime/llvmbpf.md
 
   - eunomia-bpf:
       - Introduction: eunomia-bpf/introduction.md

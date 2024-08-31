@@ -41,6 +41,13 @@ jobs:
           ref: master
           path: bpftime
 
+      - name: Checkout main repository llvmbpf
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ github.repository_owner }}/llvmbpf
+          ref: main
+          path: llvmbpf
+
       - name: Change suffix and merge
         run: |
           ./rename.sh

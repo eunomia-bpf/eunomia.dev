@@ -16,4 +16,5 @@ cp tutorial/src/SUMMARY.zh.md docs/tutorials/index.zh.md && \
 cp tutorial/src/SUMMARY.md docs/tutorials/index.md && \
 mkdir -p docs/tutorials/imgs && \
 cp tutorial/imgs/* docs/tutorials/imgs/ && \
+cp llvmbpf/README.md docs/bpftime/llvmbpf.md && \
 echo "eunomia.dev" > docs/CNAME

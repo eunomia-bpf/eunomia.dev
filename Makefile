@@ -1,6 +1,7 @@
 .PHONY: build clean
 build: docs/CNAME
 	pip install mkdocs-material=="9.*" mkdocs-static-i18n=="0.53"
+	pip install "mkdocs-material[imaging]"
 	mkdocs build
 
 tutorial:
@@ -15,8 +16,11 @@ GPTtrace:
 bpftime:
 	git clone https://github.com/eunomia-bpf/bpftime --depth=1
 
-docs/CNAME: tutorial eunomia-bpf GPTtrace bpftime
+docs/CNAME: tutorial eunomia-bpf GPTtrace bpftime llvmbpf
 	./rename.sh
 
+llvmbpf:
+	git clone https://github.com/eunomia-bpf/llvmbpf
+
 clean:
-	rm -rf eunomia-bpf tutorial site GPTtrace docs/tutorials docs/eunomia-bpf/setup docs/GPTtrace bpftime
+	rm -rf eunomia-bpf tutorial site GPTtrace docs/tutorials docs/eunomia-bpf/setup docs/GPTtrace bpftime llvmbpf
