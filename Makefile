@@ -20,7 +20,7 @@ docs/CNAME: tutorial eunomia-bpf GPTtrace bpftime llvmbpf
 	./rename.sh
 
 llvmbpf:
-	git clone https://github.com/eunomia-bpf/llvmbpf
+	git clone https://github.com/eunomia-bpf/llvmbpf --depth=1
 
 clean:
 	rm -rf eunomia-bpf tutorial site GPTtrace docs/tutorials docs/eunomia-bpf/setup docs/GPTtrace bpftime llvmbpf
