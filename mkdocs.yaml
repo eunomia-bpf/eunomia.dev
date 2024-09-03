@@ -1,7 +1,6 @@
 site_name: eunomia
-repo_url: https://github.com/eunomia-bpf
+repo_url: https://github.com/eunomia-bpf/eunomia.dev
 site_url: https://eunomia.dev
-repo_name: eunomia-bpf
 copyright: Copyright (c) 2024 eunomia-bpf org.
 site_description: 'eunomia-bpf: Exploring and improving eBPF toolchains and runtimes'
 remote_branch: docs
@@ -91,6 +90,7 @@ nav:
   - Blogs: 
     - blogs/index.md
     - blogs/llvmbpf.md
+    - blogs/ebpf-2024.md
     - blogs/kgent.md
     - blogs/inline-hook.md
     - blogs/bpftime.md
@@ -240,3 +240,6 @@ plugins:
           Documents: 文档
           ecli with docker: 在docker中使用ecli
           ecosystem: 生态
+  - git-revision-date-localized:
+      enable_creation_date: true
+  - git-authors  
