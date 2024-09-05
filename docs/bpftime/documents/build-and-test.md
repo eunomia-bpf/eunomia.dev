@@ -47,12 +47,12 @@ Install the required packages:
 
 ```bash
 sudo apt-get update && sudo apt-get install \
-        libelf1 libelf-dev zlib1g-dev make cmake git libboost1.74-all-dev \
+        libelf1 libelf-dev zlib1g-dev make cmake git libboost-all-dev \
         binutils-dev libyaml-cpp-dev ca-certificates clang llvm pkg-config llvm-dev
 git submodule update --init --recursive
 ```
 
-We've tested on Ubuntu 23.04. The recommended `gcc` >= 12.0.0 `clang` >= 16.0.0
+We've tested on Ubuntu 23.04. The recommended `gcc` >= 12.0.0 `clang` >= 16.0.0. It's recommanded to use `libboost1.74-all-dev`.
 
 On Ubuntu 20.04, you may need to manually switch to gcc-12.
 
