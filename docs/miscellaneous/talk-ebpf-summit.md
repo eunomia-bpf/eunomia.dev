@@ -4,13 +4,13 @@ Here’s the improved draft, tailored for an oral presentation style:
 
 ### Slide 1: bpftime: Userspace eBPF Runtime
 
-“Hello, everyone. I’m Yusheng Zheng, and today, I’m excited to talk to you about **bpftime**, a userspace eBPF runtime for network and observability. 
+“Hello, everyone. I’m Yusheng Zheng, and today, I’m excited to talk about **bpftime**, a userspace eBPF runtime for network and observability. 
 
 You may remember bpftime from last year's Linux Plumber, but we’ve made a lot of progress since then. 
 
-So, what is bpftime? It’s a userspace eBPF runtime that supports tracing features like Uprobe, USDT, syscall tracepoints, and even network features like XDP, all in userspace. It supports more than 10 map types and 30 helpers, so it’s highly compatible with the kernel eBPF ecosystem. The great thing is you can develop and deploy eBPF programs in the familiar way, but now, you’re doing it in userspace.
+So, what is bpftime? It’s a userspace eBPF runtime that supports tracing features like Uprobe, USDT, syscall tracepoints, and even network features like XDP, all in userspace. It supports more than 10 map types and 30 helpers, so it’s highly compatible with the kernel eBPF ecosystem. 
 
-This means you can use your fammiliar way to develop and deploy eBPF programs, but in userspace.
+you can use your fammiliar way to develop and deploy eBPF programs, but in userspace.
 bpftime can run alongside kernel eBPF, using kernel eBPF maps and working together with kprobe.
 It can now using either ubpf, which already used by eBPF for windoes, or a new eBPF VM called llvmbpf as its virtual machine for execution.
 
@@ -93,9 +93,9 @@ This can makes it easyer to **deploy eBPF programs** on any machine, including e
 
 ### Conclusion
 
-In conclusion, **bpftime** and **llvmbpf** are about more than just userspace tracing and network performance. 
-They bring the full power of the eBPF ecosystem into userspace, without compromising on speed or flexibility.
+In conclusion, **bpftime** are more than just userspace tracing and network performance. 
+we hope it can bring the power of the eBPF ecosystem into userspace, without compromising on speed or flexibility.
 
-I encourage all of you to explore bpftime for your observability and network needs. 
-Thank you for your time, and feel free to check out the repo on GitHub or ask me any questions.”
+I encourage all of you to explore bpftime for your observability and network needs. Thanks for professor marios from imperial college london, and
+Thank you for your time, and feel free to check out the repo on GitHub or ask me any questions. 
 
