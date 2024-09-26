@@ -77,6 +77,8 @@ nav:
       - tutorials/38-btf-uprobe/README.md
       - tutorials/39-nginx/README.md
       - tutorials/40-mysql/README.md
+      - tutorials/41-xdp-tcpdump/README.md
+      - tutorials/42-xdp-loadbalancer/README.md
     - bcc-documents:
       - tutorials/bcc-documents/tutorial_bcc_python_developer.md
       - tutorials/bcc-documents/kernel-versions.md
