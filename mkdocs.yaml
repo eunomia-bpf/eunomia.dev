@@ -89,6 +89,7 @@ nav:
     
   - Blogs: 
     - blogs/index.md
+    - blogs/ten-years.md
     - blogs/llvmbpf.md
     - blogs/ebpf-2024.md
     - blogs/kgent.md
