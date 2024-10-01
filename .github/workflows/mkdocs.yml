@@ -15,55 +15,9 @@ jobs:
         with:
           fetch-depth: '0'
 
-      - name: Checkout tutorial repo
-        uses: actions/checkout@v3
-        with:
-          repository: ${{ github.repository_owner }}/bpf-developer-tutorial
-          ref: main
-          path: tutorial
-
-      - name: Checkout main repository eunomia-bpf
-        uses: actions/checkout@v3
-        with:
-          repository: ${{ github.repository_owner }}/eunomia-bpf
-          ref: master
-          path: eunomia-bpf
-
-      - name: Checkout main repository GPTtrace
-        uses: actions/checkout@v3
-        with:
-          repository: ${{ github.repository_owner }}/GPTtrace
-          ref: main
-          path: GPTtrace
-
-      - name: Checkout main repository bpftime
-        uses: actions/checkout@v3
-        with:
-          repository: ${{ github.repository_owner }}/bpftime
-          ref: master
-          path: bpftime
-
-      - name: Checkout main repository llvmbpf
-        uses: actions/checkout@v3
-        with:
-          repository: ${{ github.repository_owner }}/llvmbpf
-          ref: main
-          path: llvmbpf
-
-      - name: Change suffix and merge
+      - name: Install all
         run: |
-          ./rename.sh
-      
-      - uses: actions/setup-python@v4
-        with:
-          python-version: 3.x
-
-      - name: Install dependents
-        run: |
-          pip install mkdocs-material=="9.*" mkdocs-static-i18n=="0.53"
-          pip install "mkdocs-material[imaging]"
-          pip install mkdocs-git-revision-date-localized-plugin
-          pip install mkdocs-git-authors-plugin
+          make install
 
       - name: Build page
         if: github.event_name == 'pull_request'
@@ -76,4 +30,4 @@ jobs:
           github.event_name == 'push' ||
           github.event_name == 'workflow_dispatch'
         run: |
-          mkdocs gh-deploy -m "{sha}" --force --ignore-version --no-history
+          mkdocs gh-deploy -m "{sha}"  --force 

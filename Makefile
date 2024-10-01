@@ -1,10 +1,13 @@
-.PHONY: build clean
-build: docs/CNAME
+.PHONY: build clean install
+
+build: install
+	mkdocs build -v
+
+install: docs/CNAME
 	pip install mkdocs-material=="9.*" mkdocs-static-i18n=="0.53"
 	pip install "mkdocs-material[imaging]"
 	pip install mkdocs-git-revision-date-localized-plugin
 	pip install mkdocs-git-authors-plugin
-	mkdocs build
 
 tutorial:
 	git clone https://github.com/eunomia-bpf/bpf-developer-tutorial tutorial --depth=1
