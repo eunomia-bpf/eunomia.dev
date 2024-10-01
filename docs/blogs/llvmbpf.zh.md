@@ -229,7 +229,7 @@ int bpf_main(void* ctx, int size) {
 }
 ```
 
-eBPF 是为验证而设计的指令集，但它可能并不是性能最佳的选择。llvmbpf 还支持使用来自 C 代码的原始 LLVM IR。请参见 [example/load-llvm-ir](example/load-llvm-ir) 获取示例。你可以：
+eBPF 是为验证而设计的指令集，但它可能并不是性能最佳的选择。llvmbpf 还支持使用来自 C 代码的原始 LLVM IR。请参见 [example/load-llvm-ir](https://github.com/eunomia-bpf/llvmbpf/tree/main/example/load-llvm-ir) 获取示例。你可以：
 
 - 将 C 代码编译为 eBPF 以进行验证。
 - 将 C 代码编译为 LLVM IR 和本机代码，以在 VM 中执行。

@@ -229,7 +229,7 @@ int bpf_main(void* ctx, int size) {
 }
 ```
 
-eBPF is an instruction set designed for verification, but it may not be the best for performance. llvmbpf also supports using the original LLVM IR from C code. See [example/load-llvm-ir](example/load-llvm-ir) for an example. You can:
+eBPF is an instruction set designed for verification, but it may not be the best for performance. llvmbpf also supports using the original LLVM IR from C code. See [example/load-llvm-ir](https://github.com/eunomia-bpf/llvmbpf/tree/main/example/load-llvm-ir) for an example. You can:
 
 - Compile the C code to eBPF for verification.
 - Compile the C code to LLVM IR and native code for execution in the VM.
