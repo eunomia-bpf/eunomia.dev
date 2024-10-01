@@ -4278,9 +4278,6 @@
 <a href="https://github.com/eunomia-bpf/bpftime/actions/workflows/test-runtime.yml"><img alt="Build and test runtime" src="https://github.com/eunomia-bpf/bpftime/actions/workflows/test-runtime.yml/badge.svg" /></a>
 <a href="https://doi.org/10.48550/arXiv.2311.07923"><img alt="DOI" src="https://zenodo.org/badge/676866666.svg" /></a></p>
 <p><code>bpftime</code> is a High-Performance userspace eBPF runtime and General Extension Framework designed for userspace. It enables faster Uprobe, USDT, Syscall hooks, XDP, and more event sources by bypassing the kernel and utilizing an optimized compiler like <code>LLVM</code>.</p>
-<blockquote>
-<p>⚠️ <strong>Note</strong>: <code>bpftime</code> is actively under development, and it's not yet recommended for production use now. See our <a href="#roadmap">roadmap</a> for details. We'd love to hear your feedback and suggestions! Please feel free to open an issue or <a href="#contact-and-citations">Contact us</a>.</p>
-</blockquote>
 <p>📦 <a href="#key-features">Key Features</a> \
 🔨 <a href="#quick-start">Quick Start</a> \
 🔌 <a href="#examples--use-cases">Examples &amp; Use Cases</a> \
@@ -4289,6 +4286,9 @@
 📚 <a href="https://arxiv.org/abs/2311.07923">Arxiv preprint</a></p>
 <p><a href="https://eunomia.dev/bpftime/"><strong>Checkout our documents in eunomia.dev!</strong></a></p>
 <p>bpftime is not <code>userspace eBPF VM</code>, it's a userspace runtime framework includes everything to run eBPF in userspace: <code>loader</code>, <code>verifier</code>, <code>helpers</code>, <code>maps</code>, <code>ufunc</code> and multiple <code>events</code> such as Observability, Network, Policy or Access Control. It has multiple VM backend options support. For eBPF VM only, please see <a href="https://github.com/eunomia-bpf/llvmbpf">llvmbpf</a>.</p>
+<blockquote>
+<p>⚠️ <strong>Note</strong>: <code>bpftime</code> is currently under active development and may contain bugs or unstable API. Please use it with caution. For more details, check our <a href="#roadmap">roadmap</a>. We'd love to hear your feedback and suggestions! Feel free to open an issue or <a href="#contact-and-citations">Contact us</a>.</p>
+</blockquote>
 <h2 id="why-bpftime-whats-the-design-goal">Why bpftime? What's the design Goal?</h2>
 <ul>
 <li><strong>Performance Gains</strong>: Achieve better performance by <code>bypassing the kernel</code> (e.g., via <code>Userspace DBI</code> or <code>Network Drivers</code>), with more configurable, optimized and more arch supported JIT/AOT options like <code>LLVM</code>, while maintaining compatibility with Linux kernel eBPF.</li>
@@ -4366,8 +4366,8 @@
 <li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/opensnoop">opensnoop</a> for trace file open syscalls.</li>
 <li>More <a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/libbpf-tools">bcc/libbpf-tools</a>.</li>
 <li>Run with <a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/bpftrace">bpftrace</a> commands or scripts.</li>
-<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/error-injection">error injection</a>: change function behavior with <code>bpf_override_return</code>.</li>
-<li>Use the eBPF LLVM JIT/AOT vm as <a href="https://github.com/eunomia-bpf/bpftime/tree/master/vm/llvm-jit/example">a standalone library</a>.</li>
+<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/error-inject">error injection</a>: change function behavior with <code>bpf_override_return</code>.</li>
+<li>Use the eBPF LLVM JIT/AOT vm as <a href="https://github.com/eunomia-bpf/llvmbpf/tree/main/example">a standalone library</a>.</li>
 <li>Userspace <a href="https://github.com/userspace-xdp/userspace-xdp">XDP with DPDK and AF_XDP</a></li>
 </ul>
 <h2 id="in-depth">In-Depth</h2>
@@ -4441,6 +4441,7 @@
 <p><code>bpftime</code> is continuously evolving with more features in the pipeline:</p>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Keep compatibility with the evolving kernel</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Refactor for General Extension Framework</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Trying to refactor, bug fixing for <code>Production</code>.</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> More examples and usecases:</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Userspace Network Driver on userspace eBPF</li>
@@ -4492,7 +4493,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 26, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 1, 2024</span>
   </span>
 
     
