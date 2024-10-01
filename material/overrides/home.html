@@ -4,368 +4,463 @@
 {% block tabs %}
 {{ super() }}
 <style>
-    /* Styles */
+    /* Reset and Base Styles */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-    body,
-    html {
-        margin: 0;
-        padding: 0;
-        font-family: 'Arial', sans-serif;
-        background: #f7f7f7;
-    }
+body {
+    font-family: 'Inter', sans-serif;
+    color: #333;
+    line-height: 1.6;
+    background-color: #fdfdfd;
+}
 
-
-    /* Base styles for the content */
-    .section {
-        max-width: 800px;
-        margin: 0 auto 50px;
-        padding: 50px 20px;
-        background: #ffffff;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Typography enhancements for a modern look */
-    .section h2 {
-        font-size: 3em;
-        color: #333;
-        font-weight: 600;
-        margin-bottom: 1em;
-        text-align: center;
-    }
-
-    .section p {
-        font-size: 2em;
-        color: #666;
-        margin-bottom: 2em;
-        text-align: center;
-    }
-
-    /* Link styles for a cleaner look */
-    .section a {
-        color: #004d7a;
-        text-decoration: none;
-        /* No underline for a cleaner look */
-        font-weight: 500;
-        margin-right: 15px;
-        /* Space out inline links */
-        transition: color 0.3s ease;
-    }
-
-    .section a:hover {
-        color: #002951;
-        /* Darken color on hover for interaction feedback */
-        text-decoration: underline;
-        /* Underline on hover for accessibility */
-    }
-
-    .hero {
-        background: url('https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/material/background.jpg') no-repeat center center;
-        background-size: cover;
-        padding: 100px 0;
-        color: #fff;
-        text-align: center;
-        position: relative;
-        z-index: 1;
-    }
-
-    .hero:before {
-        content: '';
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: -1;
-    }
-
-    .hero h1 {
-        font-size: 4em;
-        font-weight: 700;
-        margin: 0 0 20px;
-    }
-
-    .hero p {
-        font-size: 2em;
-        max-width: 800px;
-        margin: 0 auto;
-    }
-
-    .github-button {
-        display: inline-block;
-        padding: 10px 20px;
-        margin-top: 20px;
-        background-color: #333; /* GitHub's dark gray */
-        color: white;
-        text-decoration: none;
-        font-weight: bold;
-        border-radius: 5px;
-        transition: background-color 0.3s;
-    }
-
-    .github-button:hover,
-    .github-button:focus {
-    background-color: #2c2f33; /* Slightly lighter gray for hover effect */
-    color: #ffffff;
+a {
     text-decoration: none;
-    }
+    color: #007BFF;
+    transition: color 0.3s ease;
+}
 
-    .projects,
-    .learn-more,
-    .featured {
-        padding: 50px 20px;
+a:hover {
+    color: #0056b3;
+}
+
+/* Container */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+/* Hero Section */
+.hero {
+    background: url('https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/material/background.jpg') center/cover no-repeat;
+    min-height: 60vh;  /* Reduced from 100vh to 60vh */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    color: #fff;
+    text-align: center;
+    padding: 0 20px;
+    max-height: 300px;  /* Reduced from 400px to 300px */
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.hero-content h1 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 3.2rem; /* Slightly reduced font size */
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.hero-content p {
+    font-size: 1rem; /* Reduced font size */
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.hero-content .btn {
+    padding: 10px 25px;  /* Reduced padding */
+    background-color: #28a745;
+    border: none;
+    color: #ffffff;
+    font-size: 1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+}
+
+.hero-content .btn:hover {
+    background-color: #218838;
+    transform: translateY(-3px);
+}
+
+/* About Section */
+.about {
+    padding: 80px 20px;
+    background-color: #ffffff;
+    text-align: center;
+    max-width: 1200px; /* Added */
+    margin: 0 auto;     /* Added */
+}
+
+.about h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #007BFF;
+    font-weight: 700;
+}
+
+.about p {
+    font-size: 1.1rem;
+    color: #555;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.8;
+}
+
+/* Project Sections */
+.project-section {
+    padding: 100px 20px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    background-color: #ffffff;
+    flex-wrap: wrap;
+    max-width: 1200px; /* Added */
+    margin: 0 auto;     /* Added */
+}
+
+.project-section:nth-child(even) {
+    background-color: #f9f9f9;
+    flex-direction: row-reverse;
+}
+
+.project-section img {
+    flex: 1 1 400px;
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    object-fit: cover; /* Ensures the image covers its container without distortion */
+    max-height: 400px; /* Limits the maximum height of the image */
+    max-width: 600px;
+}
+.project-content {
+    flex: 1 1 400px;
+    max-width: 600px;
+    margin: 0 auto;     /* Added */
+}
+
+.project-content h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #28a745;
+    font-weight: 600;
+}
+
+.project-content p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 20px;
+    line-height: 1.8;
+    word-break: break-word;
+}
+
+.project-content .btn-group {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.project-content .btn-group .btn {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    border: none;
+    color: #ffffff;
+    font-size: 0.9rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+}
+
+.project-content .btn-group .btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.project-content .publication-links {
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.project-content .publication-links a {
+    font-size: 0.9rem;
+    color: #007BFF;
+    margin-right: 10px;
+    display: inline-block;
+    margin-bottom: 5px;
+    word-break: break-word;
+}
+
+.project-content .publication-links a:hover {
+    color: #0056b3;
+}
+
+/* Enhanced Footer Section */
+.footer {
+    background-color: #333;
+    color: #ffffff;
+    padding: 40px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px; /* Added */
+    margin: 0 auto;     /* Added */
+}
+
+.footer-section {
+    flex: 1 1 250px;
+    margin: 20px;
+}
+
+.footer-section h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #28a745;
+    font-weight: 600;
+}
+
+.footer-section p,
+.footer-section a {
+    font-size: 1rem;
+    color: #cccccc;
+    margin-bottom: 10px;
+    display: block;
+    word-break: break-word;
+}
+
+.footer-section a:hover {
+    color: #ffffff;
+}
+
+.footer .social-links a {
+    margin-right: 10px;
+    color: #cccccc;
+    font-size: 1.5rem;
+    transition: color 0.3s;
+}
+
+.footer .social-links a:hover {
+    color: #007BFF;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .project-section, .resources {
+        flex-direction: column;
         text-align: center;
+        padding: 60px 20px;
     }
 
-    .card {
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        background: #fff;
-        border-radius: 8px;
-        padding: 30px;
-        margin: 20px;
+    .project-section img, .resources img {
+        flex: 1 1 100%;
+        margin-bottom: 20px;
+    }
+
+    .project-content, .resources-content {
+        flex: 1 1 100%;
+        max-width: 100%;
+        margin: 0 auto; /* Ensure content is centered */
+    }
+
+    .project-content .btn-group, .resources-content .btn-group {
+        justify-content: center;
+    }
+
+    .project-content .publication-links {
+        justify-content: center;
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        float: left;
-        width: calc(33.333% - 40px);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        flex-wrap: wrap;
     }
 
-    .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    }
-
-    .card h3 {
-        color: #004d7a;
-        font-size: 1.5em;
-        margin-bottom: 15px;
-    }
-
-    .card p {
-        font-size: 1.25em;
-        line-height: 1.6;
-        color: #555;
-    }
-
-    .card a {
-        background: none;
-        /* 移除背景色 */
-        color: #004d7a;
-        /* 设置文字颜色 */
-        padding: 8px 16px;
-        /* 根据需要调整内边距来更改按钮大小 */
-        border: 2px solid #004d7a;
-        /* 添加边框 */
-        border-radius: 50px;
-        /* 保持圆角 */
-        transition: background-color 0.3s ease, color 0.3s ease;
-        /* 添加颜色变化的过渡效果 */
-    }
-
-    .card a:hover {
-        background-color: #004d7a;
-        /* 悬停时的背景色 */
-        color: #fff;
-        /* 悬停时的文字颜色 */
-    }
-
-    @media (max-width: 1024px) {
-        .card {
-            width: calc(50% - 40px);
-        }
-    }
-
-    @media (max-width: 768px) {
-        .card {
-            width: calc(100% - 40px);
-        }
-    }
-
-    .learn-more {
-        /* Use flexbox to align items and manage spacing */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
-
-    .featured {
-        clear: both;
-        /* Clear floated elements */
-        padding-top: 20px;
-    }
-
-    .featured ul {
-        padding-left: 0;
-        list-style: none;
-        /* Remove bullet points */
-    }
-
-    .featured li {
-        padding-bottom: 10px;
-        /* Add padding below each list item */
-        margin-bottom: 10px;
-        /* Add margin below each list item */
-        border-bottom: 1px solid #eaeaea;
-        /* Add a separator */
-    }
-
-    .featured li:last-child {
-        border-bottom: none;
-        /* No border for the last item */
-    }
-
-    .section.featured a {
-        color: #007bff;
-        text-decoration: none;
-        font-weight: 500;
-        transition: color 0.3s ease-in-out;
-        font-size: 18px;
-        width: 800px;
-    }
-
-    .section.featured a:hover {
-        color: #0056b3;
-    }
-
-    .section.featured span {
-        color: #6c757d;
-        display: block;
-        font-size: 14px;
-        margin-top: 5px;
-    }
-
-    @media (max-width: 768px) {
-        .section.featured h2 {
-            font-size: 20px;
-        }
-
-        .section.featured a {
-            font-size: 16px;
-        }
-
-        .section.featured span {
-            font-size: 14px;
-        }
-
-        .learn-more a {
-            padding: 10px 15px;
-            /* Reduce padding on mobile */
-            margin: 10px 5px;
-            /* Reduce margin on mobile */
-            min-width: auto;
-            /* Allow buttons to shrink on small screens */
-            font-size: 14px;
-            /* Reduce font size on mobile */
-        }
-
-        .featured li {
-            padding-bottom: 15px;
-            /* Increase padding for touch targets on mobile */
-        }
-
+    .project-content .publication-links a {
+        margin-right: 5px;
+        margin-bottom: 5px;
     }
 
     .footer {
-        background: #333;
-        color: white;
-        padding: 20px;
-        text-align: center;
+        flex-direction: column;
+        align-items: center;
     }
+
+    .footer-section {
+        flex: 1 1 100%;
+        text-align: center;
+        margin: 10px 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    .hero-content .btn {
+        padding: 12px 25px;
+        font-size: 0.9rem;
+    }
+
+    .project-section, .resources {
+        padding: 40px 15px;
+    }
+
+    .project-content p, .resources-content p {
+        font-size: 1rem;
+    }
+
+    .project-content .btn-group, .resources-content .btn-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .project-content .btn-group .btn {
+        width: 100%;
+    }
+
+    .contact .contact-links a {
+        font-size: 1.5rem;
+        margin: 0 10px;
+    }
+
+    .footer .social-links a {
+        margin-right: 5px;
+    }
+}
+
 </style>
 
-<div class="hero">
-    <h1>Welcome to eunomia-bpf lab!</h1>
-    <p>Unlock the potential of eBPF with our toolchains and runtimes.</p>
-    <a href="https://github.com/eunomia-bpf" class="github-button">View on GitHub</a>
-</div>
+<!-- Hero Section -->
+<section class="hero" id="home">
+    <div class="hero-content">
+        <h1>EUNOMIA</h1>
+        <p>Unlock the potential of eBPF.</p>
+        <a href="#projects" class="btn">Explore on Github</a>
+    </div>
+</section>
 
-<div class="section projects">
-    <h2>Open source Projects</h2>
-    <p>Our suite of projects addresses challenges in eBPF development, from runtime performance to ease of use.</p>
-    <div class="card-container">
-        <!-- Individual cards for each project -->
-        <div class="card">
-            <h3>bpftime</h3>
-            <p>A userspace eBPF runtime offering rapid uprobes 10x faster than kernel uprobes, compatible with kernel
-                eBPF and existing toolchains.</p>
-            <a href="https://github.com/eunomia-bpf/bpftime">Learn More</a>
+<!-- About Section -->
+<section class="about container">
+    <h2>About Eunomia</h2>
+    <p>Eunomia is an open-source organization dedicated to exploring and enhancing the eBPF ecosystem. Our mission is to innovate and optimize eBPF technologies, enabling developers to build more efficient, extensible powerful eBPF applications.</p>
+</section>
+
+<!-- Projects Sections -->
+ 
+<!-- Project 1 -->
+<section class="project-section">
+    <img src="https://eunomia.dev/bpftime/documents/bpftime.png" alt="bpftime">
+    <div class="project-content">
+        <h2>bpftime</h2>
+        <p>bpftime is a high-performance userspace eBPF runtime and General Extension Framework designed for userspace. It allows extending eBPF to various applications as a <em>General Extension Framework</em>, compatible with the current eBPF ecosystem. Enables faster Uprobe, USDT, Syscall hooks, XDP, and more by bypassing the kernel and utilizing an optimized compiler like LLVM.</p>
+        <div class="btn-group">
+            <a href="https://github.com/eunomia-bpf/bpftime" target="_blank" class="btn">Github</a>
+            <a href="https://eunomia.dev/tutorials" target="_blank" class="btn">Documents</a>
         </div>
-        <div class="card">
-            <h3>Wasm-bpf</h3>
-            <p>Cooperating with WasmEdge, we build the first user-space library and runtime for eBPF programs based on
-                WebAssembly.</p>
-            <a href="https://github.com/eunomia-bpf/wasm-bpf">Learn More</a>
-        </div>
-        <div class="card">
-            <h3>GPTtrace</h3>
-            <p>The first tool to generate eBPF programs and trace the Linux kernel using natural language with high
-                accuracy.</p>
-            <a href="https://github.com/eunomia-bpf/GPTtrace">Learn More</a>
-        </div>
-        <div class="card">
-            <h3>eunomia-bpf</h3>
-            <p>A tool to simplify building, distributing, and running eBPF programs with JSON and WebAssembly OCI
-                images.</p>
-            <a href="https://github.com/eunomia-bpf/eunomia-bpf">Learn More</a>
+        <div class="publication-links">
+            <a href="https://ebpf.io/summit-2024-schedule/" target="_blank">eBPF Summit 2024</a>
+            <a href="https://lpc.events/event/17/abstracts/1741/" target="_blank">Linux Plumbers Conference 2023</a>
+            <a href="https://arxiv.org/abs/2311.07923" target="_blank">Arxiv</a>
         </div>
     </div>
-</div>
+</section>
 
-<div class="section learn-more">
-    <h2>Learning eBPF</h2>
-    <p>Dive into the world of eBPF with our resources designed to empower your development journey, from novice to expert.</p>
-    <div class="card-container">
-        <div class="card">
-            <h3>Developer Tutorials</h3>
-            <p>Begin your adventure with eBPF through interactive and step-by-step guides that teach you the fundamentals and advanced concepts.</p>
-            <a href="https://eunomia.dev/tutorials" class="btn-tutorial">Start Learning</a>
-        </div>
-        <div class="card">
-            <h3>Open Source Examples</h3>
-            <p>Explore real-world applications of eBPF with our curated collection of open source examples and community contributions.</p>
-            <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial" class="btn-repo">View on GitHub</a>
-        </div>
-        <div class="card">
-            <h3>Blogs and Articles</h3>
-            <p>Stay updated with the latest eBPF trends, best practices, and insights from industry leaders and our developer community.</p>
-            <a href="https://eunomia.dev/blogs/" class="btn-blog">Read More</a>
+<!-- Project 0 -->
+<section class="project-section">
+    <img src="ebpf_arch.png" alt="tutorial">
+    <div class="project-content">
+        <h2>Learn eBPF by examples</h2>
+        <p>Too much Concepts? Let's master eBPF through practical, step-by-step tutorials that focus on real, executable examples to help you learn by doing.</p>
+        <div class="btn-group">
+            <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial" target="_blank" class="btn">Github</a>
+            <a href="https://eunomia.dev/tutorials" target="_blank" class="btn">Tutorial</a>
         </div>
     </div>
-</div>
+</section>
 
-<div class="section featured">
-    <h2>Insights and Innovations</h2>
-    <p>Discover the impact of eunomia-bpf through our latest talks and publications, showcasing the forefront of eBPF technology.</p>
-    <ul>
-        <li>
-            <a href="https://lpc.events/event/17/contributions/1639/">bpftime: Fast uprobes with user space BPF
-                runtime</a>
-            <span>Linux Plumbers Conference 2023</span>
-        </li>
-        <li>
-            <a href="https://sched.co/1R2uf">eBPF + Wasm: Lightweight Observability on Steroids</a>
-            <span>KubeCon North American 2023</span>
-        </li>
-        <li>
-            <a
-                href="https://www.alibabacloud.com/blog/eunomia-bpf-the-lightweight-development-framework-for-ebpf-and-webassembly-is-now-available_599688">eunomia-bpf:
-                The Lightweight Development Framework for eBPF and WebAssembly</a>
-            <span>Apsara Conference 2022</span>
-        </li>
-        <li>
-            <a href="https://arxiv.org/abs/2312.05531">KEN: Kernel Extensions using Natural Language</a>
-            <span>Arxiv preprint</span>
-        </li>
-        <li>
-            <a href="https://arxiv.org/abs/2311.07923">bpftime: userspace eBPF Runtime for Uprobe, Syscall and
-                Kernel-User Interactions</a>
-            <span>Arxiv preprint</span>
-        </li>
-    </ul>
-</div>
+<!-- Project 2 -->
+<section class="project-section">
+    <img src="llvmbpf.png" alt="llvmbpf">
+    <div class="project-content">
+        <h2>llvmbpf</h2>
+        <p>Userspace eBPF VM with LLVM JIT/AOT compiler. It serves as the core component for bpftime without application, event, or map support.</p>
+        <div class="btn-group">
+            <a href="https://github.com/eunomia-bpf/llvmbpf" target="_blank" class="btn">Github</a>
+            <a href="https://eunomia.dev/tutorials" target="_blank" class="btn">Document</a>
+        </div>
+        <div class="publication-links">
+            <a href="https://arxiv.org/abs/2311.07923" target="_blank">Arxiv</a>
+        </div>
+    </div>
+</section>
+
+<!-- Project 3 -->
+<section class="project-section">
+    <img src="https://raw.githubusercontent.com/eunomia-bpf/wasm-bpf/refs/heads/main/docs/wasm-bpf-no-bcc.png" alt="Wasm-bpf">
+    <div class="project-content">
+        <h2>Wasm-bpf</h2>
+        <p>In cooperation with <a href="https://github.com/WasmEdge/WasmEdge" target="_blank">WasmEdge</a>, we built the first user-space development library, toolchain, and runtime for general eBPF programs based on WebAssembly. This allows lightweight Wasm sandboxes to deploy and control eBPF applications in Kubernetes clusters.</p>
+        <div class="btn-group">
+            <a href="https://github.com/eunomia-bpf/wasm-bpf" target="_blank" class="btn">Github</a>
+            <a href="https://eunomia.dev/tutorials" target="_blank" class="btn">Document</a>
+        </div>
+        <div class="publication-links">
+            <a href="https://sched.co/1R2uf" target="_blank">KubeCon North American 2023</a>
+            <a href="https://arxiv.org/abs/2408.04856v1" target="_blank">Arxiv</a>
+        </div>
+    </div>
+</section>
+
+<!-- Project 4 -->
+<section class="project-section">
+    <img src="https://eunomia.dev/GPTtrace/doc/trace.png" alt="GPTtrace">
+    <div class="project-content">
+        <h2>GPTtrace</h2>
+        <p>The first tool to generate eBPF programs and trace the Linux kernel through natural language. With our AI agents, it can produce correct eBPF programs 80% of the time, compared to a GPT-4 baseline of 30%.</p>
+        <div class="btn-group">
+            <a href="https://github.com/eunomia-bpf/GPTtrace" target="_blank" class="btn">Github</a>
+            <a href="https://eunomia.dev/tutorials" target="_blank" class="btn">Document</a>
+        </div>
+        <div class="publication-links">
+            <a href="https://arxiv.org/abs/2311.07923" target="_blank">Arxiv</a>
+        </div>
+    </div>
+</section>
+
+<!-- Project 5 -->
+<section class="project-section">
+    <img src="https://raw.githubusercontent.com/eunomia-bpf/eunomia-bpf/master/documents/src/img/logo.png" alt="eunomia-bpf">
+    <div class="project-content">
+        <h2>eunomia-bpf</h2>
+        <p>A tool to help developers build, distribute, and run eBPF programs more easily using JSON and WebAssembly OCI images.</p>
+        <div class="btn-group">
+            <a href="https://github.com/eunomia-bpf/eunomia-bpf" target="_blank" class="btn">Github</a>
+            <a href="https://eunomia.dev/tutorials" target="_blank" class="btn">Document</a>
+        </div>
+        <div class="publication-links">
+            <a href="https://arxiv.org/abs/2311.07923" target="_blank">Arxiv</a>
+        </div>
+    </div>
+</section>
 
 {% endblock %}
 
