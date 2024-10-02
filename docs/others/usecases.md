@@ -235,6 +235,85 @@ late_initcall(hid_bpf_struct_ops_init);
 - **Performance Profiling:**
   - **Example:** Profiling CPU usage, memory allocations, and I/O operations to identify and resolve performance issues in applications and the kernel.
 
+probes:
+
+```c
+SEC("uretprobe//bin/bash:readline")
+int BPF_KRETPROBE(printret, const void *ret)
+{
+ char str[MAX_LINE_SIZE];
+ char comm[TASK_COMM_LEN];
+ u32 pid;
+
+ if (!ret)
+  return 0;
+
+ bpf_get_current_comm(&comm, sizeof(comm));
+
+ pid = bpf_get_current_pid_tgid() >> 32;
+ bpf_probe_read_user_str(str, sizeof(str), ret);
+
+ bpf_printk("PID %d (%s) read: %s ", pid, comm, str);
+
+ return 0;
+};
+```
+
+tracepoints/USDT
+
+```c
+SEC("tracepoint/syscalls/sys_enter_openat")
+int tracepoint__syscalls__sys_enter_openat(struct trace_event_raw_sys_enter* ctx)
+{
+    u64 id = bpf_get_current_pid_tgid();
+    u32 pid = id >> 32;
+
+    if (pid_target && pid_target != pid)
+        return false;
+
+    // Use bpf_printk to print the process information
+    bpf_printk("Process ID: %d enter sys openat\n", pid);
+    return 0;
+}
+
+```
+
+Foe example, the USDT are define as:
+
+```c
+#include <stdio.h>
+#include <sys sdt.h>
+
+int main(int argc, char *argv[])
+{
+  int nargs = argc;
+
+  getc(stdin);
+
+  nargs = argc;
+
+  DTRACE_PROBE1(example, args, nargs);
+
+        return 0;
+}
+```
+
+The tracepoints are define as
+
+```c
+#include <trace/events/subsys.h>
+
+#define CREATE_TRACE_POINTS
+DEFINE_TRACE(subsys_eventname);
+
+void somefct(void)
+{
+        ...
+        trace_subsys_eventname(arg, task);
+        ...
+}
+```
+
 ---
 
 ### 3. **High-Speed Data Processing**
@@ -250,6 +329,42 @@ late_initcall(hid_bpf_struct_ops_init);
   
 - **Custom Protocol Handling:**
   - **Example:** Implementing custom network protocols or enhancing existing ones directly within the kernel using eBPF, allowing for specialized processing tailored to application needs.
+
+xdp:
+
+```c
+SEC("xdp")
+int xdp_pass(struct xdp_md* ctx) {
+    void* data = (void*)(long)ctx->data;
+    void* data_end = (void*)(long)ctx->data_end;
+    int pkt_sz = data_end - data;
+
+    bpf_printk("packet size is %d", pkt_sz);
+    return XDP_PASS;
+}
+```
+
+sockops:
+
+```c
+SEC("sk_msg")
+int bpf_redir(struct sk_msg_md *msg)
+{
+    if(msg->remote_ip4 != LOCALHOST_IPV4 || msg->local_ip4!= LOCALHOST_IPV4) 
+        return SK_PASS;
+
+    struct sock_key key = {
+        .sip = msg->remote_ip4,
+        .dip = msg->local_ip4,
+        .dport = bpf_htonl(msg->local_port), /* convert to network byte order */
+        .sport = msg->remote_port,
+        .family = msg->family,
+    };
+    return bpf_msg_redirect_hash(msg, &sock_ops_map, &key, BPF_F_INGRESS);
+}
+```
+
+No possible to use probe. <10 ns make a difference, `kprobe` is 100ns. No trampoline. less function call.
 
 ---
 
@@ -363,6 +478,20 @@ int BPF_PROG(mprotect_audit, struct vm_area_struct *vma,
   - **Example:** Adjusting kernel parameters or behaviors dynamically based on changing workload requirements, enhancing flexibility and responsiveness without downtime.
 
 ---
+
+bpf_override_return：
+
+```c
++SEC("kprobe/open_ctree")
++int bpf_prog1(struct pt_regs *ctx)
++{
++	unsigned long rc = -12;
++
++	bpf_override_return(ctx, rc);
++	return 0;
++}
++
+```
 
 ### Summary
 
