@@ -446,7 +446,7 @@ return value = 1
 
 eBPF is a instruction set define for verification, but may not be the best for performance.
 
-llvmbpf also support using the original LLVM IR from C code. See [example/load-llvm-ir](https://github.com/eunomia-bpf/llvmbpf/tree/main/example/load-llvm-ir) for an example. You can:
+llvmbpf also support using the original LLVM IR from C code. See [example/load-llvm-ir](example/load-llvm-ir) for an example. You can:
 
 - Compile the C code to eBPF for verify
 - Compile the C code to LLVM IR and native code for execution in the VM.

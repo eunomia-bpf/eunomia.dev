@@ -82,6 +82,7 @@ nav:
       - tutorials/40-mysql/README.md
       - tutorials/41-xdp-tcpdump/README.md
       - tutorials/42-xdp-loadbalancer/README.md
+      - tutorials/43-kfuncs/README.md
     - bcc-documents:
       - tutorials/bcc-documents/tutorial_bcc_python_developer.md
       - tutorials/bcc-documents/kernel-versions.md
@@ -232,6 +233,9 @@ plugins:
   - social
   - search
   - tags
+  - exclude:
+      glob:
+        - tutorials/third_party*
   - i18n:
       default_language: en
       languages:
