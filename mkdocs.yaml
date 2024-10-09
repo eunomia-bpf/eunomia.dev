@@ -36,7 +36,6 @@ theme:
 nav:
   - Home:
       - index.md
-
   - Tutorials: 
     - bpf-developer-tutorial:
       - tutorials/index.md
@@ -251,13 +250,10 @@ plugins:
           Support: 支持
           Quick Start: 快速开始
           Architecture: 项目架构
-
           Installation: 安装
           From source: 从源代码
-
           Known Issues: 已知问题
           Examples: 示例
-
           Blogs: 博客
           Misc: 其他
           Tutorials: 教程
