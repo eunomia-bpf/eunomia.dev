@@ -577,6 +577,14 @@
          
     </url>
     <url>
+         <loc>https://eunomia.dev/miscellaneous/ebpf-usecases/</loc>
+         <lastmod>2024-10-09</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/miscellaneous/ebpf-usecases/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/miscellaneous/ebpf-usecases/"/>
+         
+    </url>
+    <url>
          <loc>https://eunomia.dev/miscellaneous/ebpf-userspace-port/</loc>
          <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
