@@ -24,7 +24,7 @@
     
     
       
-        <title>将 eBPF 的边界拓展：内核模块中的自定义 kfuncs - eunomia</title>
+        <title>超越 eBPF 的极限：在内核模块中定义自定义 kfunc - eunomia</title>
       
     
     
@@ -69,7 +69,7 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="将 eBPF 的边界拓展：内核模块中的自定义 kfuncs - eunomia" >
+        <meta  property="og:title"  content="超越 eBPF 的极限：在内核模块中定义自定义 kfunc - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
@@ -85,7 +85,7 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="将 eBPF 的边界拓展：内核模块中的自定义 kfuncs - eunomia" >
+        <meta  name="twitter:title"  content="超越 eBPF 的极限：在内核模块中定义自定义 kfunc - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
@@ -112,7 +112,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ebpf-kfuncs" class="md-skip">
+        <a href="#ebpf-kfunc" class="md-skip">
           Skip to content
         </a>
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              将 eBPF 的边界拓展：内核模块中的自定义 kfuncs
+              超越 eBPF 的极限：在内核模块中定义自定义 kfunc
             
           </span>
         </div>
@@ -1740,7 +1740,7 @@
           
   
   <span class="md-ellipsis">
-    将 eBPF 的边界拓展：内核模块中的自定义 kfuncs
+    超越 eBPF 的极限：在内核模块中定义自定义 kfunc
   </span>
   
 
@@ -1751,7 +1751,7 @@
         
   
   <span class="md-ellipsis">
-    将 eBPF 的边界拓展：内核模块中的自定义 kfuncs
+    超越 eBPF 的极限：在内核模块中定义自定义 kfunc
   </span>
   
 
@@ -1773,35 +1773,35 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#kfuncs-ebpf" class="md-nav__link">
+  <a href="#strstr-kfunc-ebpf" class="md-nav__link">
     <span class="md-ellipsis">
-      引言：通过 kfuncs 打破 eBPF 运行时的限制
+      引言：添加 strstr kfunc 以突破 eBPF 运行时的限制
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#kfuncs-ebpf_1" class="md-nav__link">
+  <a href="#kfunc-ebpf" class="md-nav__link">
     <span class="md-ellipsis">
-      理解 kfuncs：将 eBPF 拓展到辅助函数之外
+      理解 kfunc：扩展 eBPF 超越辅助函数
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="理解 kfuncs：将 eBPF 拓展到辅助函数之外">
+    <nav class="md-nav" aria-label="理解 kfunc：扩展 eBPF 超越辅助函数">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#kfuncs" class="md-nav__link">
+  <a href="#kfunc" class="md-nav__link">
     <span class="md-ellipsis">
-      什么是 kfuncs？
+      什么是 kfunc？
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#kfuncs_1" class="md-nav__link">
+  <a href="#kfuncs" class="md-nav__link">
     <span class="md-ellipsis">
       为什么使用 kfuncs？
     </span>
@@ -1810,9 +1810,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#kfuncs-ebpf_2" class="md-nav__link">
+  <a href="#kfuncs-ebpf" class="md-nav__link">
     <span class="md-ellipsis">
-      kfuncs 在 eBPF 中的作用
+      kfuncs 在 eBPF 中的角色
     </span>
   </a>
   
@@ -1824,22 +1824,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#kfuncs_2" class="md-nav__link">
+  <a href="#kfuncs_1" class="md-nav__link">
     <span class="md-ellipsis">
-      kfuncs 的概述及其演变
+      kfuncs 及其演变概述
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#kfunc" class="md-nav__link">
+  <a href="#kfunc_1" class="md-nav__link">
     <span class="md-ellipsis">
-      定义你自己的 kfunc：逐步指南
+      定义你自己的 kfunc：分步指南
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="定义你自己的 kfunc：逐步指南">
+    <nav class="md-nav" aria-label="定义你自己的 kfunc：分步指南">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1926,7 +1926,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ebpf-kfunc" class="md-nav__link">
+  <a href="#ebpf-kfunc_1" class="md-nav__link">
     <span class="md-ellipsis">
       在 eBPF 程序中使用自定义 kfunc
     </span>
@@ -2003,16 +2003,7 @@
         <li class="md-nav__item">
   <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
-      额外资源
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_10" class="md-nav__link">
-    <span class="md-ellipsis">
-      结论
+      附加资源
     </span>
   </a>
   
@@ -4414,35 +4405,35 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#kfuncs-ebpf" class="md-nav__link">
+  <a href="#strstr-kfunc-ebpf" class="md-nav__link">
     <span class="md-ellipsis">
-      引言：通过 kfuncs 打破 eBPF 运行时的限制
+      引言：添加 strstr kfunc 以突破 eBPF 运行时的限制
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#kfuncs-ebpf_1" class="md-nav__link">
+  <a href="#kfunc-ebpf" class="md-nav__link">
     <span class="md-ellipsis">
-      理解 kfuncs：将 eBPF 拓展到辅助函数之外
+      理解 kfunc：扩展 eBPF 超越辅助函数
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="理解 kfuncs：将 eBPF 拓展到辅助函数之外">
+    <nav class="md-nav" aria-label="理解 kfunc：扩展 eBPF 超越辅助函数">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#kfuncs" class="md-nav__link">
+  <a href="#kfunc" class="md-nav__link">
     <span class="md-ellipsis">
-      什么是 kfuncs？
+      什么是 kfunc？
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#kfuncs_1" class="md-nav__link">
+  <a href="#kfuncs" class="md-nav__link">
     <span class="md-ellipsis">
       为什么使用 kfuncs？
     </span>
@@ -4451,9 +4442,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#kfuncs-ebpf_2" class="md-nav__link">
+  <a href="#kfuncs-ebpf" class="md-nav__link">
     <span class="md-ellipsis">
-      kfuncs 在 eBPF 中的作用
+      kfuncs 在 eBPF 中的角色
     </span>
   </a>
   
@@ -4465,22 +4456,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#kfuncs_2" class="md-nav__link">
+  <a href="#kfuncs_1" class="md-nav__link">
     <span class="md-ellipsis">
-      kfuncs 的概述及其演变
+      kfuncs 及其演变概述
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#kfunc" class="md-nav__link">
+  <a href="#kfunc_1" class="md-nav__link">
     <span class="md-ellipsis">
-      定义你自己的 kfunc：逐步指南
+      定义你自己的 kfunc：分步指南
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="定义你自己的 kfunc：逐步指南">
+    <nav class="md-nav" aria-label="定义你自己的 kfunc：分步指南">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -4567,7 +4558,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ebpf-kfunc" class="md-nav__link">
+  <a href="#ebpf-kfunc_1" class="md-nav__link">
     <span class="md-ellipsis">
       在 eBPF 程序中使用自定义 kfunc
     </span>
@@ -4644,16 +4635,7 @@
         <li class="md-nav__item">
   <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
-      额外资源
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_10" class="md-nav__link">
-    <span class="md-ellipsis">
-      结论
+      附加资源
     </span>
   </a>
   
@@ -4682,129 +4664,159 @@
   
 
 
-<h1 id="ebpf-kfuncs">将 eBPF 的边界拓展：内核模块中的自定义 kfuncs</h1>
-<p>你是否曾感到 eBPF 的功能受限？也许你遇到过现有的 eBPF 功能无法完成你的目标的情况。可能你需要与内核进行更深入的交互，或者面临标准 eBPF 运行时无法解决的性能问题。如果你曾希望在 eBPF 程序中拥有更多的灵活性和强大功能，本教程将为你提供帮助。</p>
-<h2 id="kfuncs-ebpf">引言：通过 kfuncs 打破 eBPF 运行时的限制</h2>
-<p><strong>eBPF（扩展伯克利数据包过滤器）</strong> 通过允许开发者在内核中运行受限的程序，彻底改变了 Linux 系统编程。它在网络、安全和可观察性方面带来了革命性的变化，使得无需修改内核源代码或加载传统的内核模块即可实现强大的功能。</p>
-<p>然而，尽管 eBPF 非常强大，它也有其局限性：</p>
+<h1 id="ebpf-kfunc">超越 eBPF 的极限：在内核模块中定义自定义 kfunc</h1>
+<p>你是否曾经觉得 eBPF 的能力有限？也许你遇到了现有 eBPF 功能无法实现目标的情况。或许你需要与内核进行更深层次的交互，或者标准 eBPF 运行时无法解决的性能问题。如果你曾经希望在 eBPF 程序中拥有更多的灵活性和强大功能，那么本教程正适合你。</p>
+<h2 id="strstr-kfunc-ebpf">引言：添加 <code>strstr</code> kfunc 以突破 eBPF 运行时的限制</h2>
+<p><strong>eBPF（扩展伯克利包过滤器）</strong> 通过允许开发者在内核中运行受沙箱限制的程序，彻底改变了 Linux 系统编程。它在网络、安全和可观测性方面具有革命性的作用，能够实现强大的功能，而无需修改内核源代码或加载传统的内核模块。</p>
+<p>但尽管 eBPF 非常强大，它也并非没有局限性：</p>
 <ul>
-<li><strong>功能差距：</strong> 有时，eBPF 运行时现有的功能无法提供你所需的特定能力。</li>
+<li><strong>功能差距：</strong> 有时，eBPF 运行时的现有功能无法提供你所需的特定能力。</li>
 <li><strong>复杂需求：</strong> 某些任务需要更复杂的内核交互，而 eBPF 无法开箱即用地处理这些需求。</li>
 <li><strong>性能问题：</strong> 在某些情况下，eBPF 运行时的开销会引入延迟，或者在高性能需求下效率不够。</li>
 </ul>
-<p>这些挑战源于 <strong>整个 eBPF 运行时</strong> 的限制，而不仅仅是其辅助函数。那么，如何在不更改内核本身的情况下克服这些障碍呢？</p>
-<p>引入 <strong>kfuncs（BPF 内核函数）</strong>。通过在内核模块中定义你自己的 kfuncs，你可以将 eBPF 的功能扩展到其默认限制之外。这种方法让你能够：</p>
+<p>这些挑战源于<strong>整个 eBPF 运行时的限制</strong>，而不仅仅是其辅助函数。那么，如何在不修改内核本身的情况下克服这些障碍呢？</p>
+<p>引入<strong>kfunc（BPF 内核函数）</strong>。通过在内核模块中定义你自己的 kfunc，可以将 eBPF 的能力扩展到默认限制之外。这种方法让你能够：</p>
 <ul>
 <li><strong>增强功能：</strong> 引入标准 eBPF 运行时中不可用的新操作。</li>
-<li><strong>自定义行为：</strong> 根据你的具体需求调整内核交互。</li>
-<li><strong>提升性能：</strong> 通过在内核上下文中直接执行自定义代码来优化关键路径。</li>
+<li><strong>定制行为：</strong> 根据你的特定需求定制内核交互。</li>
+<li><strong>提升性能：</strong> 通过在内核上下文中直接执行自定义代码，优化关键路径。</li>
 </ul>
-<p>最重要的是，你无需修改核心内核，从而保持系统稳定性和代码安全性。</p>
-<p>在本教程中，我们将向你展示如何定义自定义 kfuncs，以填补 eBPF 功能中的任何空白。我们将逐步创建一个引入新 kfuncs 的内核模块，并演示如何在你的 eBPF 程序中使用它们。无论你是希望克服性能瓶颈，还是需要 eBPF 运行时未提供的功能，自定义 kfuncs 都能为你的项目解锁新的可能性。</p>
-<h2 id="kfuncs-ebpf_1">理解 kfuncs：将 eBPF 拓展到辅助函数之外</h2>
-<h3 id="kfuncs">什么是 kfuncs？</h3>
-<p><strong>BPF 内核函数（kfuncs）</strong> 是 Linux 内核中的专用函数，供 eBPF 程序使用。与标准 eBPF 辅助函数不同，kfuncs 没有稳定的接口，且可能在内核版本之间有所不同。这种可变性意味着使用 kfuncs 的 BPF 程序需要与内核更新同步更新，以保持兼容性和稳定性。</p>
-<h3 id="kfuncs_1">为什么使用 kfuncs？</h3>
+<p><strong>在本教程中，我们将特别添加一个 <code>strstr</code> kfunc。</strong> 由于 eBPF 的验证器限制，直接在 eBPF 中实现字符串搜索是具有挑战性的，而将其定义为 kfunc 则允许我们安全高效地绕过这些限制，执行更复杂的操作。</p>
+<p>最棒的是，你可以在不修改核心内核的情况下实现这一目标，保持系统的稳定性和代码的安全性。</p>
+<p>在本教程中，我们将展示如何定义自定义 kfunc 以填补 eBPF 功能的任何空白。我们将逐步讲解如何创建一个引入新 kfunc 的内核模块，并演示如何在 eBPF 程序中使用它们。无论你是希望克服性能瓶颈，还是需要 eBPF 运行时未提供的功能，自定义 kfunc 都能为你的项目解锁新的可能性。</p>
+<h2 id="kfunc-ebpf">理解 kfunc：扩展 eBPF 超越辅助函数</h2>
+<h3 id="kfunc">什么是 kfunc？</h3>
+<p><strong>BPF 内核函数（kfuncs）</strong> 是 Linux 内核中的专用函数，供 eBPF 程序使用。与标准的 eBPF 辅助函数不同，kfuncs 没有稳定的接口，并且在不同的内核版本之间可能有所变化。这种可变性意味着使用 kfuncs 的 BPF 程序需要与内核更新同步更新，以保持兼容性和稳定性。</p>
+<h3 id="kfuncs">为什么使用 kfuncs？</h3>
 <ol>
 <li><strong>扩展功能：</strong> kfuncs 允许执行标准 eBPF 辅助函数无法完成的操作。</li>
-<li><strong>自定义：</strong> 定义针对特定用例的逻辑，增强 eBPF 程序的灵活性。</li>
-<li><strong>安全性和稳定性：</strong> 通过将 kfuncs 封装在内核模块中，避免对核心内核的直接修改，保持系统完整性。</li>
+<li><strong>定制化：</strong> 定义针对特定用例量身定制的逻辑，增强 eBPF 程序的灵活性。</li>
+<li><strong>安全与稳定：</strong> 通过将 kfuncs 封装在内核模块中，避免直接修改核心内核，保持系统完整性。</li>
 </ol>
-<h3 id="kfuncs-ebpf_2">kfuncs 在 eBPF 中的作用</h3>
-<p>kfuncs 作为 eBPF 程序与更深层内核功能之间的桥梁。它们允许 eBPF 程序执行更复杂的操作，方法是暴露现有内核函数或引入专门为 eBPF 交互设计的新封装。这种集成促进了更深入的内核交互，同时确保 eBPF 程序保持安全和可维护。</p>
-<p>需要注意的是，Linux 内核已经包含了大量的 kfuncs。这些内置的 kfuncs 覆盖了广泛的功能，使大多数开发者无需定义新的 kfuncs 就能完成任务。然而，在现有 kfuncs 无法满足特定需求的情况下，定义自定义 kfuncs 就变得必要。本教程将演示如何定义新的 kfuncs 以填补任何空白，确保你的 eBPF 程序能够利用你所需的确切功能。eBPF 还可以扩展到用户空间。在用户空间 eBPF 运行时 <a href="https://github.com/eunomia-bpf/bpftime">bpftime</a> 中，我们还在实现 ufuncs，它们类似于 kfuncs，但用于扩展用户空间应用程序。</p>
-<h2 id="kfuncs_2">kfuncs 的概述及其演变</h2>
-<p>要理解 kfuncs 的重要性，必须了解它们与 eBPF 辅助函数之间的演变关系。</p>
-<p><img alt="累计的 Helper 和 kfunc 时间线" src="https://raw.githubusercontent.com/eunomia-bpf/code-survey/main/imgs/cumulative_helper_kfunc_timeline.png" /></p>
+<h3 id="kfuncs-ebpf">kfuncs 在 eBPF 中的角色</h3>
+<p>kfuncs 作为 eBPF 程序与更深层次内核功能之间的桥梁。它们允许 eBPF 程序执行更复杂的操作，通过暴露现有内核函数或引入专为 eBPF 交互设计的新包装函数。这种集成在确保 eBPF 程序保持安全和可维护的同时，促进了更深入的内核交互。</p>
+<p>需要注意的是，Linux 内核已经包含了大量的 kfuncs。这些内置的 kfuncs 覆盖了广泛的功能，大多数开发者无需定义新的 kfuncs 就能完成任务。然而，在现有 kfuncs 无法满足特定需求的情况下，定义自定义 kfuncs 就变得必要。本教程将演示如何定义新的 kfuncs 以填补任何空白，确保你的 eBPF 程序能够利用你所需的确切功能。eBPF 也可以扩展到用户空间。在用户空间 eBPF 运行时 <a href="https://github.com/eunomia-bpf/bpftime">bpftime</a> 中，我们也在实现 ufuncs，它们类似于 kfuncs，但扩展了用户空间应用程序。</p>
+<h2 id="kfuncs_1">kfuncs 及其演变概述</h2>
+<p>要理解 kfuncs 的重要性，必须了解它们与 eBPF 辅助函数的演变关系。</p>
+<p><img alt="累计辅助函数和 kfunc 时间线" src="https://raw.githubusercontent.com/eunomia-bpf/code-survey/main/imgs/cumulative_helper_kfunc_timeline.png" /></p>
 <p><strong>关键要点：</strong></p>
 <ul>
-<li><strong>辅助函数的稳定性：</strong> eBPF 辅助函数基本保持稳定，新增内容较少。</li>
-<li><strong>kfuncs 的快速增长：</strong> kfuncs 的采用和创建显著增加，表明社区对通过 kfuncs 扩展内核交互的兴趣。</li>
-<li><strong>向更深层内核集成的转变：</strong> 自 2023 年以来，新用例主要利用 kfuncs 影响内核行为，标志着通过 eBPF 进行更深层内核集成的趋势。</li>
+<li><strong>辅助函数的稳定性：</strong> eBPF 辅助函数保持了高度的稳定性，新增内容较少。</li>
+<li><strong>kfuncs 的快速增长：</strong> kfuncs 的采用和创建显著增加，表明社区有兴趣通过 kfuncs 扩展内核交互。</li>
+<li><strong>向更深层次内核集成的转变：</strong> 自 2023 年以来，新的用例主要利用 kfuncs 影响内核行为，显示出通过 kfuncs 实现更深层次内核集成的趋势。</li>
 </ul>
-<p>这一趋势凸显了社区通过 kfuncs 更深入地与内核集成，推动 eBPF 能力的边界的动力。</p>
-<h2 id="kfunc">定义你自己的 kfunc：逐步指南</h2>
-<p>要利用 kfuncs 的强大功能，你需要在内核模块中定义它们。此过程确保你的自定义函数能够安全地暴露给 eBPF 程序，而无需更改核心内核。</p>
+<p>这一趋势凸显了社区通过 kfuncs 更深入地与内核集成，推动 eBPF 能力边界的决心。</p>
+<h2 id="kfunc_1">定义你自己的 kfunc：分步指南</h2>
+<p>为了利用 kfuncs 的强大功能，你需要在内核模块中定义它们。这个过程确保你的自定义函数能够安全地暴露给 eBPF 程序，而无需修改核心内核。</p>
 <h3 id="_1">编写内核模块</h3>
-<p>让我们从创建一个定义 kfunc 的简单内核模块开始。这个 kfunc 将执行一个基本的算术操作，作为理解机制的基础。</p>
+<p>让我们从创建一个简单的内核模块开始，该模块定义一个 <code>strstr</code> kfunc。这个 kfunc 将执行子字符串搜索操作，作为理解机制的基础。</p>
 <h4 id="helloc"><strong>文件：<code>hello.c</code></strong></h4>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/init.h&gt;</span><span class="c1">    // 模块初始化的宏</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/module.h&gt;</span><span class="c1">  // 加载模块的核心头文件</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/kernel.h&gt;</span><span class="c1">  // 内核日志宏</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/init.h&gt;</span><span class="c1">       // 模块初始化宏</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/module.h&gt;</span><span class="c1">     // 加载模块的核心头文件</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/kernel.h&gt;</span><span class="c1">     // 内核日志宏</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/bpf.h&gt;</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/btf.h&gt;</span>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/btf_ids.h&gt;</span>
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1">// 声明 kfunc</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">__bpf_kfunc</span><span class="w"> </span><span class="n">u64</span><span class="w"> </span><span class="n">bpf_kfunc_call_test</span><span class="p">(</span><span class="n">u32</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">u64</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">u64</span><span class="w"> </span><span class="n">d</span><span class="p">);</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="cm">/* 声明 kfunc 原型 */</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">__bpf_kfunc</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">bpf_strstr</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">str</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">str__sz</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">substr</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">substr__sz</span><span class="p">);</span>
 <a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="cm">/* 定义 kfunc 函数 */</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="cm">/* 开始 kfunc 定义 */</span>
 <a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="n">__bpf_kfunc_start_defs</span><span class="p">();</span>
 <a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="n">__bpf_kfunc</span><span class="w"> </span><span class="n">u64</span><span class="w"> </span><span class="n">bpf_kfunc_call_test</span><span class="p">(</span><span class="n">u32</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">u64</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">u64</span><span class="w"> </span><span class="n">d</span><span class="p">)</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="p">{</span>
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">d</span><span class="p">;</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="p">}</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="n">__bpf_kfunc_end_defs</span><span class="p">();</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
-<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="c1">// 定义 BTF kfunc ID 集合</span>
-<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="n">BTF_KFUNCS_START</span><span class="p">(</span><span class="n">bpf_kfunc_example_ids_set</span><span class="p">)</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="n">BTF_ID_FLAGS</span><span class="p">(</span><span class="n">func</span><span class="p">,</span><span class="w"> </span><span class="n">bpf_kfunc_call_test</span><span class="p">)</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="n">BTF_KFUNCS_END</span><span class="p">(</span><span class="n">bpf_kfunc_example_ids_set</span><span class="p">)</span>
-<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>
-<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="c1">// 注册 kfunc ID 集合</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">btf_kfunc_id_set</span><span class="w"> </span><span class="n">bpf_kfunc_example_set</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">    </span><span class="p">.</span><span class="n">owner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">THIS_MODULE</span><span class="p">,</span>
-<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="w">    </span><span class="p">.</span><span class="n">set</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">bpf_kfunc_example_ids_set</span><span class="p">,</span>
-<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="p">};</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>
-<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="c1">// 模块初始化</span>
-<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">__init</span><span class="w"> </span><span class="nf">hello_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="p">{</span>
-<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
-<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>
-<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="w">    </span><span class="n">printk</span><span class="p">(</span><span class="n">KERN_INFO</span><span class="w"> </span><span class="s">&quot;Hello, world!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a><span class="w">    </span><span class="c1">// 注册 BTF kfunc ID 集合</span>
-<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="w">    </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">register_btf_kfunc_id_set</span><span class="p">(</span><span class="n">BPF_PROG_TYPE_KPROBE</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">bpf_kfunc_example_set</span><span class="p">);</span>
-<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ret</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a><span class="w">        </span><span class="n">pr_err</span><span class="p">(</span><span class="s">&quot;bpf_kfunc_example: 注册 BTF kfunc ID 集合失败</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
-<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a><span class="w">    </span><span class="n">printk</span><span class="p">(</span><span class="n">KERN_INFO</span><span class="w"> </span><span class="s">&quot;bpf_kfunc_example: 模块加载成功</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-<a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">  </span><span class="c1">// 成功</span>
-<a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a><span class="p">}</span>
-<a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a>
-<a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a><span class="c1">// 模块清理</span>
-<a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">__exit</span><span class="w"> </span><span class="nf">hello_exit</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a><span class="p">{</span>
-<a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a><span class="w">    </span><span class="c1">// 注销 BTF kfunc ID 集合（根据内核版本可选）</span>
-<a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a><span class="w">    </span><span class="c1">// unregister_btf_kfunc_id_set(BPF_PROG_TYPE_KPROBE, &amp;bpf_kfunc_example_set);</span>
-<a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a><span class="w">    </span><span class="n">printk</span><span class="p">(</span><span class="n">KERN_INFO</span><span class="w"> </span><span class="s">&quot;Goodbye, world!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a><span class="p">}</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a>
-<a id="__codelineno-0-56" name="__codelineno-0-56" href="#__codelineno-0-56"></a><span class="c1">// 定义模块的入口和出口</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57" href="#__codelineno-0-57"></a><span class="n">module_init</span><span class="p">(</span><span class="n">hello_init</span><span class="p">);</span>
-<a id="__codelineno-0-58" name="__codelineno-0-58" href="#__codelineno-0-58"></a><span class="n">module_exit</span><span class="p">(</span><span class="n">hello_exit</span><span class="p">);</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="cm">/* 定义 bpf_strstr kfunc */</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="n">__bpf_kfunc</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">bpf_strstr</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">str</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">str__sz</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">substr</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">substr__sz</span><span class="p">)</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="p">{</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">    </span><span class="c1">// 边界情况：如果 substr 为空，返回 0（假设空字符串在开始处找到）</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">substr__sz</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">    </span><span class="c1">// 边界情况：如果子字符串比主字符串长，则无法找到</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">substr__sz</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">str__sz</span><span class="p">)</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"> </span><span class="c1">// 返回 -1 表示未找到</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">    </span><span class="c1">// 遍历主字符串，考虑大小限制</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">str__sz</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">substr__sz</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="w">        </span><span class="c1">// 将子字符串与当前主字符串位置进行比较</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">substr__sz</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">substr</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="w">        </span><span class="p">{</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="w">            </span><span class="n">j</span><span class="o">++</span><span class="p">;</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a><span class="w">        </span><span class="c1">// 如果整个子字符串都匹配</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">substr__sz</span><span class="p">)</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a><span class="w">        </span><span class="p">{</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"> </span><span class="c1">// 返回第一次匹配的索引</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a><span class="w">    </span><span class="c1">// 如果未找到子字符串，返回 -1</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a><span class="p">}</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a>
+<a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a><span class="cm">/* 结束 kfunc 定义 */</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a><span class="n">__bpf_kfunc_end_defs</span><span class="p">();</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a>
+<a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a><span class="cm">/* 定义 BTF kfuncs ID 集 */</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a><span class="n">BTF_KFUNCS_START</span><span class="p">(</span><span class="n">bpf_kfunc_example_ids_set</span><span class="p">)</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a><span class="n">BTF_ID_FLAGS</span><span class="p">(</span><span class="n">func</span><span class="p">,</span><span class="w"> </span><span class="n">bpf_strstr</span><span class="p">)</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a><span class="n">BTF_KFUNCS_END</span><span class="p">(</span><span class="n">bpf_kfunc_example_ids_set</span><span class="p">)</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a>
+<a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a><span class="cm">/* 注册 kfunc ID 集 */</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">btf_kfunc_id_set</span><span class="w"> </span><span class="n">bpf_kfunc_example_set</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56" href="#__codelineno-0-56"></a><span class="w">    </span><span class="p">.</span><span class="n">owner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">THIS_MODULE</span><span class="p">,</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57" href="#__codelineno-0-57"></a><span class="w">    </span><span class="p">.</span><span class="n">set</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">bpf_kfunc_example_ids_set</span><span class="p">,</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58" href="#__codelineno-0-58"></a><span class="p">};</span>
 <a id="__codelineno-0-59" name="__codelineno-0-59" href="#__codelineno-0-59"></a>
-<a id="__codelineno-0-60" name="__codelineno-0-60" href="#__codelineno-0-60"></a><span class="n">MODULE_LICENSE</span><span class="p">(</span><span class="s">&quot;GPL&quot;</span><span class="p">);</span><span class="w">                 </span><span class="c1">// 许可类型</span>
-<a id="__codelineno-0-61" name="__codelineno-0-61" href="#__codelineno-0-61"></a><span class="n">MODULE_AUTHOR</span><span class="p">(</span><span class="s">&quot;Your Name&quot;</span><span class="p">);</span><span class="w">            </span><span class="c1">// 模块作者</span>
-<a id="__codelineno-0-62" name="__codelineno-0-62" href="#__codelineno-0-62"></a><span class="n">MODULE_DESCRIPTION</span><span class="p">(</span><span class="s">&quot;一个简单的模块&quot;</span><span class="p">);</span><span class="w">    </span><span class="c1">// 模块描述</span>
-<a id="__codelineno-0-63" name="__codelineno-0-63" href="#__codelineno-0-63"></a><span class="n">MODULE_VERSION</span><span class="p">(</span><span class="s">&quot;1.0&quot;</span><span class="p">);</span><span class="w">                 </span><span class="c1">// 模块版本</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60" href="#__codelineno-0-60"></a><span class="cm">/* 模块加载时执行的函数 */</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61" href="#__codelineno-0-61"></a><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">__init</span><span class="w"> </span><span class="nf">hello_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62" href="#__codelineno-0-62"></a><span class="p">{</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63" href="#__codelineno-0-63"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64" href="#__codelineno-0-64"></a>
+<a id="__codelineno-0-65" name="__codelineno-0-65" href="#__codelineno-0-65"></a><span class="w">    </span><span class="n">printk</span><span class="p">(</span><span class="n">KERN_INFO</span><span class="w"> </span><span class="s">&quot;Hello, world!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66" href="#__codelineno-0-66"></a><span class="w">    </span><span class="cm">/* 注册 BPF_PROG_TYPE_KPROBE 的 BTF kfunc ID 集 */</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67" href="#__codelineno-0-67"></a><span class="w">    </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">register_btf_kfunc_id_set</span><span class="p">(</span><span class="n">BPF_PROG_TYPE_KPROBE</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">bpf_kfunc_example_set</span><span class="p">);</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68" href="#__codelineno-0-68"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ret</span><span class="p">)</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69" href="#__codelineno-0-69"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70" href="#__codelineno-0-70"></a><span class="w">        </span><span class="n">pr_err</span><span class="p">(</span><span class="s">&quot;bpf_kfunc_example: 注册 BTF kfunc ID 集失败</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71" href="#__codelineno-0-71"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72" href="#__codelineno-0-72"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-73" name="__codelineno-0-73" href="#__codelineno-0-73"></a><span class="w">    </span><span class="n">printk</span><span class="p">(</span><span class="n">KERN_INFO</span><span class="w"> </span><span class="s">&quot;bpf_kfunc_example: 模块加载成功</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74" href="#__codelineno-0-74"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="c1">// 成功返回 0</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75" href="#__codelineno-0-75"></a><span class="p">}</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76" href="#__codelineno-0-76"></a>
+<a id="__codelineno-0-77" name="__codelineno-0-77" href="#__codelineno-0-77"></a><span class="cm">/* 模块卸载时执行的函数 */</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78" href="#__codelineno-0-78"></a><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">__exit</span><span class="w"> </span><span class="nf">hello_exit</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<a id="__codelineno-0-79" name="__codelineno-0-79" href="#__codelineno-0-79"></a><span class="p">{</span>
+<a id="__codelineno-0-80" name="__codelineno-0-80" href="#__codelineno-0-80"></a><span class="w">    </span><span class="cm">/* 取消注册 BTF kfunc ID 集 */</span>
+<a id="__codelineno-0-81" name="__codelineno-0-81" href="#__codelineno-0-81"></a><span class="w">    </span><span class="n">unregister_btf_kfunc_id_set</span><span class="p">(</span><span class="n">BPF_PROG_TYPE_KPROBE</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">bpf_kfunc_example_set</span><span class="p">);</span>
+<a id="__codelineno-0-82" name="__codelineno-0-82" href="#__codelineno-0-82"></a><span class="w">    </span><span class="n">printk</span><span class="p">(</span><span class="n">KERN_INFO</span><span class="w"> </span><span class="s">&quot;再见，世界！</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-0-83" name="__codelineno-0-83" href="#__codelineno-0-83"></a><span class="p">}</span>
+<a id="__codelineno-0-84" name="__codelineno-0-84" href="#__codelineno-0-84"></a>
+<a id="__codelineno-0-85" name="__codelineno-0-85" href="#__codelineno-0-85"></a><span class="cm">/* 定义模块的初始化和退出点的宏 */</span>
+<a id="__codelineno-0-86" name="__codelineno-0-86" href="#__codelineno-0-86"></a><span class="n">module_init</span><span class="p">(</span><span class="n">hello_init</span><span class="p">);</span>
+<a id="__codelineno-0-87" name="__codelineno-0-87" href="#__codelineno-0-87"></a><span class="n">module_exit</span><span class="p">(</span><span class="n">hello_exit</span><span class="p">);</span>
+<a id="__codelineno-0-88" name="__codelineno-0-88" href="#__codelineno-0-88"></a>
+<a id="__codelineno-0-89" name="__codelineno-0-89" href="#__codelineno-0-89"></a><span class="n">MODULE_LICENSE</span><span class="p">(</span><span class="s">&quot;GPL&quot;</span><span class="p">);</span><span class="w">                 </span><span class="c1">// 许可证类型（GPL）</span>
+<a id="__codelineno-0-90" name="__codelineno-0-90" href="#__codelineno-0-90"></a><span class="n">MODULE_AUTHOR</span><span class="p">(</span><span class="s">&quot;Your Name&quot;</span><span class="p">);</span><span class="w">            </span><span class="c1">// 模块作者</span>
+<a id="__codelineno-0-91" name="__codelineno-0-91" href="#__codelineno-0-91"></a><span class="n">MODULE_DESCRIPTION</span><span class="p">(</span><span class="s">&quot;一个简单的模块&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// 模块描述</span>
+<a id="__codelineno-0-92" name="__codelineno-0-92" href="#__codelineno-0-92"></a><span class="n">MODULE_VERSION</span><span class="p">(</span><span class="s">&quot;1.0&quot;</span><span class="p">);</span><span class="w">                 </span><span class="c1">// 模块版本</span>
 </code></pre></div>
 <p><strong>代码解释：</strong></p>
 <ul>
 <li>
-<p><strong>声明 kfunc：</strong> <code>__bpf_kfunc</code> 宏声明了一个 eBPF 程序可以调用的函数。在这里，<code>bpf_kfunc_call_test</code> 接受四个参数（<code>a</code>、<code>b</code>、<code>c</code>、<code>d</code>），并返回它们的和。</p>
+<p><strong>声明 kfunc：</strong> <code>__bpf_kfunc</code> 宏声明一个 eBPF 程序可以调用的函数。在这里，<code>bpf_strstr</code> 执行给定字符串中的子字符串搜索。</p>
 </li>
 <li>
-<p><strong>BTF 定义：</strong> <code>__bpf_kfunc_start_defs</code> 和 <code>__bpf_kfunc_end_defs</code> 宏标志着 kfunc 定义的开始和结束。<code>BTF_KFUNCS_START</code> 及相关宏有助于将 kfuncs 注册到 BPF 类型格式（BTF）中。</p>
+<p><strong>BTF 定义：</strong> <code>__bpf_kfunc_start_defs</code> 和 <code>__bpf_kfunc_end_defs</code> 宏标示 kfunc 定义的开始和结束。<code>BTF_KFUNCS_START</code> 及相关宏帮助将 kfuncs 注册到 BPF 类型格式（BTF）。</p>
 </li>
 <li>
-<p><strong>模块初始化：</strong> <code>hello_init</code> 函数注册 kfunc ID 集合，使 <code>bpf_kfunc_call_test</code> 对 <code>BPF_PROG_TYPE_KPROBE</code> 类型的 eBPF 程序可用。</p>
+<p><strong>模块初始化：</strong> <code>hello_init</code> 函数注册 kfunc ID 集，使 <code>bpf_strstr</code> 可用于 <code>BPF_PROG_TYPE_KPROBE</code> 类型的 eBPF 程序。</p>
 </li>
 <li>
-<p><strong>模块清理：</strong> <code>hello_exit</code> 函数确保在模块移除时注销 kfunc ID 集合，保持系统的清洁。</p>
+<p><strong>模块清理：</strong> <code>hello_exit</code> 函数确保在模块移除时取消注册 kfunc ID 集，保持系统整洁。</p>
 </li>
 </ul>
 <h4 id="makefile"><strong>文件：<code>Makefile</code></strong></h4>
@@ -4825,36 +4837,34 @@
 <p><strong>目标定义：</strong> <code>obj-m += hello.o</code> 指定 <code>hello.o</code> 是要构建的模块。</p>
 </li>
 <li>
-<p><strong>BTF 生成标志：</strong> <code>KBUILD_CFLAGS += -g -O2</code> 启用调试信息和优化，以促进 BTF 生成。</p>
+<p><strong>BTF 生成标志：</strong> <code>KBUILD_CFLAGS += -g -O2</code> 启用调试信息和优化，便于 BTF 生成。</p>
 </li>
 <li>
 <p><strong>构建命令：</strong></p>
 </li>
-<li><strong><code>all</code>：</strong> 通过调用内核构建系统编译内核模块。</li>
-<li><strong><code>clean</code>：</strong> 清理构建产物。</li>
+<li><strong><code>all</code>:</strong> 通过调用内核构建系统编译内核模块。</li>
+<li><strong><code>clean</code>:</strong> 清理构建产物。</li>
 </ul>
-<p><strong>注意：</strong> 提供的代码已在 <strong>Linux 内核版本 6.11</strong> 上进行了测试。如果你使用的是较早的版本，可能需要实现一些变通方法，例如引用 <code>compact.h</code>。</p>
+<p><strong>注意：</strong> 提供的代码在 Linux 内核版本 <strong>6.11</strong> 上进行了测试。如果你使用的是较早的版本，可能需要实现一些变通方法，例如引用 <code>compact.h</code>。</p>
 <h3 id="_2">编译内核模块</h3>
-<p>有了内核模块的源代码和 Makefile 后，按照以下步骤编译模块：</p>
+<p>在内核模块源代码和 Makefile 就位后，按照以下步骤编译模块：</p>
 <ol>
-<li>
-<p><strong>导航到模块目录：</strong></p>
+<li><strong>导航到模块目录：</strong></li>
+</ol>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">cd</span><span class="w"> </span>/path/to/bpf-developer-tutorial/src/43-kfuncs/module/
 </code></pre></div>
-</li>
-<li>
-<p><strong>编译模块：</strong></p>
+<ol>
+<li><strong>编译模块：</strong></li>
+</ol>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>make
 </code></pre></div>
 <p>该命令将生成一个名为 <code>hello.ko</code> 的文件，即编译后的内核模块。</p>
-</li>
-</ol>
 <h3 id="_3">加载内核模块</h3>
 <p>要将编译好的模块插入内核，使用 <code>insmod</code> 命令：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>sudo<span class="w"> </span>insmod<span class="w"> </span>hello.ko
 </code></pre></div>
 <h3 id="_4">验证模块加载</h3>
-<p>加载模块后，通过检查内核日志来验证是否成功插入：</p>
+<p>加载模块后，通过检查内核日志验证其是否成功插入：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>dmesg<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail
 </code></pre></div>
 <p><strong>预期输出：</strong></p>
@@ -4869,33 +4879,31 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>dmesg<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail
 </code></pre></div>
 <p><strong>预期输出：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>[ 1234.9876] Goodbye, world!
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>[ 1234.9876] 再见，世界！
 </code></pre></div>
 <h2 id="_6">处理编译错误</h2>
-<p>在编译过程中，你可能会遇到以下错误：</p>
+<p>在编译过程中，可能会遇到以下错误：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Skipping BTF generation for /root/bpf-developer-tutorial/src/43-kfuncs/module/hello.ko due to unavailability of vmlinux
 </code></pre></div>
 <p><strong>解决方案：</strong></p>
 <ol>
-<li>
-<p><strong>安装 <code>dwarves</code> 包：</strong></p>
-<p><code>dwarves</code> 包提供了 BTF 生成所需的工具。</p>
+<li><strong>安装 <code>dwarves</code> 包：</strong></li>
+</ol>
+<p><code>dwarves</code> 包提供了生成 BTF 所需的工具。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>dwarves
 </code></pre></div>
-</li>
-<li>
-<p><strong>复制 <code>vmlinux</code> 文件：</strong></p>
+<ol>
+<li><strong>复制 <code>vmlinux</code> 文件：</strong></li>
+</ol>
 <p>确保包含 BTF 信息的 <code>vmlinux</code> 文件在构建目录中可用。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>sudo<span class="w"> </span>cp<span class="w"> </span>/sys/kernel/btf/vmlinux<span class="w"> </span>/usr/lib/modules/<span class="k">$(</span>uname<span class="w"> </span>-r<span class="k">)</span>/build/
 </code></pre></div>
-<p>该命令将 <code>vmlinux</code> 文件复制到适当的构建目录中，确保 BTF 生成成功。</p>
-</li>
-</ol>
-<p>本教程的完整代码可以在 GitHub 的链接 <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/43-kfuncs">https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/43-kfuncs</a> 中找到。这个代码在 Linux 内核版本 6.11 上进行了测试，其他低版本可能需要一些修改，参考 <code>compact.h</code>。</p>
-<h2 id="ebpf-kfunc">在 eBPF 程序中使用自定义 kfunc</h2>
-<p>有了定义自定义 kfunc 的内核模块后，下一步是创建一个利用该函数的 eBPF 程序。这种交互展示了 kfuncs 引入的增强功能。</p>
+<p>该命令将 <code>vmlinux</code> 文件复制到适当的构建目录，确保成功生成 BTF。</p>
+<p>本教程的完整代码可在 <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/43-kfuncs">bpf-developer-tutorial 仓库</a> 的 GitHub 上找到。此代码在 Linux 内核版本 6.11 上进行了测试，对于较低版本，可能需要参考 <code>compact.h</code> 进行一些修改。</p>
+<h2 id="ebpf-kfunc_1">在 eBPF 程序中使用自定义 kfunc</h2>
+<p>有了定义自定义 <code>strstr</code> kfunc 的内核模块后，下一步是创建一个利用此函数的 eBPF 程序。此交互展示了 kfuncs 引入的增强功能。</p>
 <h3 id="ebpf">编写 eBPF 程序</h3>
-<p>创建一个 eBPF 程序，该程序附加到 <code>do_unlinkat</code> 内核函数，并使用自定义的 <code>bpf_kfunc_call_test</code> kfunc。</p>
+<p>创建一个附加到 <code>do_unlinkat</code> 内核函数并使用自定义 <code>bpf_strstr</code> kfunc 的 eBPF 程序。</p>
 <h4 id="kfuncc"><strong>文件：<code>kfunc.c</code></strong></h4>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="cm">/* SPDX-License-Identifier: (LGPL-2.1 OR BSD-2-Clause) */</span>
 <a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="cp">#define BPF_NO_GLOBAL_DATA</span>
@@ -4904,92 +4912,118 @@
 <a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;bpf/bpf_tracing.h&gt;</span>
 <a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
 <a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="k">typedef</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">u32</span><span class="p">;</span>
-<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="k">typedef</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">u64</span><span class="p">;</span>
-<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="k">typedef</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="kt">pid_t</span><span class="p">;</span>
-<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>
-<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="c1">// 声明外部 kfunc</span>
-<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="k">extern</span><span class="w"> </span><span class="n">u64</span><span class="w"> </span><span class="nf">bpf_kfunc_call_test</span><span class="p">(</span><span class="n">u32</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">u64</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">u64</span><span class="w"> </span><span class="n">d</span><span class="p">)</span><span class="w"> </span><span class="n">__ksym</span><span class="p">;</span>
-<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>
-<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="c1">// 许可信息</span>
-<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="kt">char</span><span class="w"> </span><span class="n">LICENSE</span><span class="p">[]</span><span class="w"> </span><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;license&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Dual BSD/GPL&quot;</span><span class="p">;</span>
-<a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a>
-<a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a><span class="c1">// 附加到 do_unlinkat 内核函数</span>
-<a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;kprobe/do_unlinkat&quot;</span><span class="p">)</span>
-<a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a><span class="kt">int</span><span class="w"> </span><span class="n">handle_kprobe</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span>
-<a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a><span class="p">{</span>
-<a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a><span class="w">    </span><span class="kt">pid_t</span><span class="w"> </span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_get_current_pid_tgid</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">32</span><span class="p">;</span>
-<a id="__codelineno-13-22" name="__codelineno-13-22" href="#__codelineno-13-22"></a><span class="w">    </span><span class="n">u64</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_kfunc_call_test</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span>
-<a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a><span class="w">    </span><span class="n">bpf_printk</span><span class="p">(</span><span class="s">&quot;BPF 触发了 do_unlinkat，PID: %d。结果: %lld</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">pid</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p">);</span>
-<a id="__codelineno-13-24" name="__codelineno-13-24" href="#__codelineno-13-24"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<a id="__codelineno-13-25" name="__codelineno-13-25" href="#__codelineno-13-25"></a><span class="p">}</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="k">typedef</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">s64</span><span class="p">;</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="cm">/* 声明外部 kfunc */</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="k">extern</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">bpf_strstr</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">str</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">str__sz</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">substr</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">substr__sz</span><span class="p">)</span><span class="w"> </span><span class="n">__ksym</span><span class="p">;</span>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="kt">char</span><span class="w"> </span><span class="n">LICENSE</span><span class="p">[]</span><span class="w"> </span><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;license&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Dual BSD/GPL&quot;</span><span class="p">;</span>
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>
+<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;kprobe/do_unlinkat&quot;</span><span class="p">)</span>
+<a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a><span class="kt">int</span><span class="w"> </span><span class="n">handle_kprobe</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">pt_regs</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span>
+<a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a><span class="p">{</span>
+<a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a><span class="w">    </span><span class="kt">pid_t</span><span class="w"> </span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_get_current_pid_tgid</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">32</span><span class="p">;</span>
+<a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">str</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Hello, world!&quot;</span><span class="p">;</span>
+<a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">substr</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;wor&quot;</span><span class="p">;</span>
+<a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_strstr</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">str</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">substr</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">substr</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<a id="__codelineno-13-22" name="__codelineno-13-22" href="#__codelineno-13-22"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span>
+<a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-13-24" name="__codelineno-13-24" href="#__codelineno-13-24"></a><span class="w">        </span><span class="n">bpf_printk</span><span class="p">(</span><span class="s">&quot;&#39;%s&#39; found in &#39;%s&#39; at index %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">substr</span><span class="p">,</span><span class="w"> </span><span class="n">str</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p">);</span>
+<a id="__codelineno-13-25" name="__codelineno-13-25" href="#__codelineno-13-25"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-13-26" name="__codelineno-13-26" href="#__codelineno-13-26"></a><span class="w">    </span><span class="n">bpf_printk</span><span class="p">(</span><span class="s">&quot;Hello, world! (pid: %d) bpf_strstr %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">pid</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p">);</span>
+<a id="__codelineno-13-27" name="__codelineno-13-27" href="#__codelineno-13-27"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-13-28" name="__codelineno-13-28" href="#__codelineno-13-28"></a><span class="p">}</span>
 </code></pre></div>
 <p><strong>eBPF 代码解释：</strong></p>
 <ul>
 <li>
-<p><strong>外部 kfunc 声明：</strong> <code>extern</code> 关键字声明了 <code>bpf_kfunc_call_test</code> 函数，使其在 eBPF 程序中可用。</p>
+<p><strong>外部 kfunc 声明：</strong> <code>extern</code> 关键字声明 <code>bpf_strstr</code> 函数，使其在 eBPF 程序中可用。</p>
 </li>
 <li>
-<p><strong>Kprobe 附加：</strong> <code>SEC("kprobe/do_unlinkat")</code> 宏将 eBPF 程序附加到 <code>do_unlinkat</code> 内核函数。每当调用 <code>do_unlinkat</code> 时，<code>handle_kprobe</code> 函数就会执行。</p>
+<p><strong>Kprobe 附加：</strong> <code>SEC("kprobe/do_unlinkat")</code> 宏将 eBPF 程序附加到 <code>do_unlinkat</code> 内核函数。每次调用 <code>do_unlinkat</code> 时，<code>handle_kprobe</code> 函数都会执行。</p>
 </li>
 <li>
-<p><strong>使用 kfunc：</strong> 在 <code>handle_kprobe</code> 中，eBPF 程序调用 <code>bpf_kfunc_call_test</code>，传入四个参数（<code>1, 2, 3, 4</code>）。结果，即这些数字的和，通过 <code>bpf_printk</code> 打印出来，显示 PID 和结果。</p>
+<p><strong>使用 kfunc：</strong> 在 <code>handle_kprobe</code> 中，eBPF 程序调用 <code>bpf_strstr</code>，传入四个参数：</p>
 </li>
+<li><code>str</code>: 要搜索的主字符串。</li>
+<li><code>str__sz</code>: 主字符串的大小。</li>
+<li><code>substr</code>: 要搜索的子字符串。</li>
+<li><code>substr__sz</code>: 子字符串的大小。</li>
 </ul>
+<p>结果（子字符串在主字符串中的首次出现索引，或 -1 表示未找到）然后通过 <code>bpf_printk</code> 打印，显示 PID 和结果。</p>
+<p><strong>重要提示：</strong> 由于验证器限制，直接在 eBPF 中实现类似 <code>strstr</code> 的函数具有挑战性，因为这限制了循环和复杂的内存访问。通过将 <code>strstr</code> 实现为 kfunc，我们绕过了这些限制，使得在 eBPF 程序中执行更复杂和高效的字符串操作成为可能。</p>
 <h3 id="ebpf_1">编译 eBPF 程序</h3>
-<p>要编译 eBPF 程序，确保你已安装必要的工具，如 <code>clang</code> 和 <code>llvm</code>。以下是编译程序的方法：</p>
+<p>要编译 eBPF 程序，确保你已安装必要的工具，如 <code>clang</code> 和 <code>llvm</code>。以下是编译程序的步骤：</p>
 <ol>
-<li>
-<p><strong>导航到 eBPF 程序目录：</strong></p>
+<li><strong>导航到 eBPF 程序目录：</strong></li>
+</ol>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nb">cd</span><span class="w"> </span>/path/to/bpf-developer-tutorial/src/43-kfuncs/
 </code></pre></div>
-</li>
-<li>
-<p><strong>编译 eBPF 程序：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>make
-</code></pre></div>
-</li>
+<ol>
+<li><strong>为 eBPF 程序创建一个 <code>Makefile</code>：</strong></li>
 </ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c"># 文件：Makefile</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="nv">CLANG</span><span class="w"> </span><span class="o">?=</span><span class="w"> </span>clang
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="nv">LLVM_STRIP</span><span class="w"> </span><span class="o">?=</span><span class="w"> </span>llvm-strip
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="nv">BPF_TARGET</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span>bpf
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="nv">CFLAGS</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span>-O2<span class="w"> </span>-g<span class="w"> </span>-target<span class="w"> </span><span class="k">$(</span>BPF_TARGET<span class="k">)</span><span class="w"> </span>-Wall<span class="w"> </span>-Werror<span class="w"> </span>-I/usr/include
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="nf">all</span><span class="o">:</span><span class="w"> </span><span class="n">kfunc</span>.<span class="n">o</span>
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="nf">kfunc.o</span><span class="o">:</span><span class="w"> </span><span class="n">kfunc</span>.<span class="n">c</span>
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="w">    </span><span class="k">$(</span>CLANG<span class="k">)</span><span class="w"> </span><span class="k">$(</span>CFLAGS<span class="k">)</span><span class="w"> </span>-c<span class="w"> </span>$&lt;<span class="w"> </span>-o<span class="w"> </span><span class="nv">$@</span>
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="nf">clean</span><span class="o">:</span>
+<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a><span class="w">    </span>rm<span class="w"> </span>-f<span class="w"> </span>kfunc.o
+</code></pre></div>
+<ol>
+<li><strong>编译 eBPF 程序：</strong></li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>make
+</code></pre></div>
+<p>该命令将生成一个名为 <code>kfunc.o</code> 的文件，即编译后的 eBPF 对象文件。</p>
 <h3 id="ebpf_2">运行 eBPF 程序</h3>
 <p>假设你有一个用户空间应用程序或工具来加载和附加 eBPF 程序，你可以执行它以观察 eBPF 程序与自定义 kfunc 之间的交互。</p>
 <p><strong>示例输出：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>./kfunc
-<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>BPF<span class="w"> </span>程序加载并成功附加。按<span class="w"> </span>Ctrl-C<span class="w"> </span>退出。
-<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">            </span>node-9523<span class="w">    </span><span class="o">[</span><span class="m">004</span><span class="o">]</span><span class="w"> </span>...21<span class="w">  </span><span class="m">7520</span>.587718:<span class="w"> </span>bpf_trace_printk:<span class="w"> </span>BPF<span class="w"> </span>触发了<span class="w"> </span>do_unlinkat，PID:<span class="w"> </span><span class="m">9523</span>。结果:<span class="w"> </span><span class="m">10</span>
-<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>
-<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">        </span>cpptools-11242<span class="w">   </span><span class="o">[</span><span class="m">003</span><span class="o">]</span><span class="w"> </span>...21<span class="w">  </span><span class="m">7859</span>.613060:<span class="w"> </span>bpf_trace_printk:<span class="w"> </span>BPF<span class="w"> </span>触发了<span class="w"> </span>do_unlinkat，PID:<span class="w"> </span><span class="m">11235</span>。结果:<span class="w"> </span><span class="m">10</span>
-<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>
-<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>^C
-<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>cpptools-11242<span class="w">   </span><span class="o">[</span><span class="m">002</span><span class="o">]</span><span class="w"> </span>...21<span class="w">  </span><span class="m">7865</span>.831074:<span class="w"> </span>bpf_trace_printk:<span class="w"> </span>BPF<span class="w"> </span>触发了<span class="w"> </span>do_unlinkat，PID:<span class="w"> </span><span class="m">11235</span>。结果:<span class="w"> </span><span class="m">10</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># sudo ./load_kfunc</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>BPF<span class="w"> </span>程序已加载并成功附加。按<span class="w"> </span>Ctrl-C<span class="w"> </span>退出。
+</code></pre></div>
+<p>然后，当调用 <code>do_unlinkat</code> 函数时（例如，当文件被取消链接时），你可以检查内核日志：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>dmesg<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail
+</code></pre></div>
+<p><strong>预期输出：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>[ 1234.5678] &#39;wor&#39; found in &#39;Hello, world!&#39; at index 7
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>[ 1234.5679] Hello, world! (pid: 2075) bpf_strstr 7
 </code></pre></div>
 <p><strong>输出解释：</strong></p>
-<p>每当内核中调用 <code>do_unlinkat</code> 函数时，eBPF 程序都会打印一条消息，指示进程的 PID 和 kfunc 调用的结果。在此示例中，<code>1 + 2 + 3 + 4</code> 的和为 <code>10</code>，这在输出中得到了体现。</p>
+<p>每次内核调用 <code>do_unlinkat</code> 函数时，eBPF 程序都会打印一条消息，指示进程的 PID 以及 kfunc 调用的结果。在此示例中，子字符串 <code>"wor"</code> 在字符串 <code>"Hello, world!"</code> 的索引 <code>7</code> 处被找到。</p>
 <h2 id="_7">总结与结论</h2>
-<p>在本教程中，我们深入探讨了通过定义和使用自定义内核函数（kfuncs）来扩展 eBPF 功能。以下是我们涵盖的内容回顾：</p>
+<p>在本教程中，我们深入探讨了通过定义和使用自定义内核函数（kfuncs）来扩展 eBPF 的能力。以下是我们涵盖的内容回顾：</p>
 <ul>
-<li><strong>理解 kfuncs：</strong> 掌握了 kfuncs 的概念及其在增强 eBPF 标准辅助函数方面的作用。</li>
-<li><strong>定义 kfuncs：</strong> 创建了一个定义自定义 kfunc 的内核模块，确保其能够安全地暴露给 eBPF 程序，而无需更改核心内核。</li>
-<li><strong>编写使用 kfuncs 的 eBPF 程序：</strong> 开发了一个利用自定义 kfunc 执行特定操作的 eBPF 程序，展示了增强的功能。</li>
-<li><strong>编译与执行：</strong> 提供了逐步指南，编译、加载和运行内核模块及 eBPF 程序，确保你能在自己的系统上复现设置。</li>
-<li><strong>错误处理：</strong> 解决了潜在的编译问题，并提供了解决方案，以确保顺利的开发体验。</li>
+<li><strong>理解 kfuncs：</strong> 理解了 kfuncs 的概念及其在标准辅助函数之外增强 eBPF 的角色。</li>
+<li><strong>定义 kfuncs：</strong> 创建了一个内核模块，定义了自定义的 <code>strstr</code> kfunc，确保其能够安全地暴露给 eBPF 程序，而无需修改核心内核。</li>
+<li><strong>编写包含 kfuncs 的 eBPF 程序：</strong> 开发了一个利用自定义 kfunc 的 eBPF 程序，展示了增强的功能。</li>
+<li><strong>编译与执行：</strong> 提供了逐步指南，编译、加载并运行内核模块和 eBPF 程序，确保你可以在自己的系统上复制设置。</li>
+<li><strong>错误处理：</strong> 解决了潜在的编译问题，并提供了解决方案，确保顺利的开发体验。</li>
 </ul>
 <p><strong>关键要点：</strong></p>
 <ul>
-<li><strong>克服辅助函数的限制：</strong> kfuncs 填补了标准 eBPF 辅助函数留下的空白，提供了针对特定需求的扩展功能。</li>
-<li><strong>维护系统稳定性：</strong> 通过将 kfuncs 封装在内核模块中，确保在不进行侵入性内核更改的情况下保持系统稳定性。</li>
-<li><strong>社区驱动的演变：</strong> kfuncs 的快速增长和采用凸显了 eBPF 社区致力于通过内核级编程推动 eBPF 潜力的决心。</li>
-<li><strong>利用现有 kfuncs：</strong> 在定义新的 kfuncs 之前，探索内核提供的现有 kfuncs。它们涵盖了广泛的功能，除非绝对必要，否则无需创建自定义函数。</li>
+<li><strong>克服辅助函数的限制：</strong> kfuncs 弥合了标准 eBPF 辅助函数留下的空白，提供了针对特定需求的扩展功能。</li>
+<li><strong>维护系统稳定性：</strong> 通过将 kfuncs 封装在内核模块中，确保系统稳定性，而无需对内核进行侵入性更改。</li>
+<li><strong>社区驱动的演变：</strong> kfuncs 的快速增长和采用凸显了 eBPF 社区致力于通过 kfuncs 推动内核级编程可能性的决心。</li>
+<li><strong>利用现有 kfuncs：</strong> 在定义新的 kfuncs 之前，探索内核提供的现有 kfuncs。它们涵盖了广泛的功能，减少了除非绝对必要，否则无需创建自定义函数的需求。</li>
 </ul>
-<p><strong>准备好进一步提升你的 eBPF 技能了吗？</strong> <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">访问我们的教程仓库</a>并<a href="https://eunomia.dev/tutorials/">探索我们网站上的更多教程</a>。深入了解大量示例，深化你的理解，并为动态发展的 eBPF 世界做出贡献！</p>
-<p>祝你 eBPF 编程愉快！</p>
+<p><strong>准备好进一步提升你的 eBPF 技能了吗？</strong> <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">访问我们的教程仓库</a>并<a href="https://eunomia.dev/tutorials/">探索我们网站上的更多教程</a>。深入丰富的示例，深化你的理解，并为 eBPF 的动态世界做出贡献！</p>
+<p>祝你在 eBPF 的旅程中愉快！</p>
 <h2 id="_8">参考资料</h2>
 <ul>
 <li><a href="https://docs.kernel.org/bpf/kfuncs.html">BPF 内核函数文档</a></li>
 <li><a href="https://docs.ebpf.io/linux/kfuncs/">eBPF kfuncs 指南</a></li>
 </ul>
-<h2 id="_9">额外资源</h2>
-<p>如果你想了解更多关于 eBPF 的知识和实践，可以访问我们的开源教程代码仓库 <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">https://github.com/eunomia-bpf/bpf-developer-tutorial</a> 或者我们的网站 <a href="https://eunomia.dev/tutorials/">https://eunomia.dev/tutorials/</a>，获取更多示例和完整代码。</p>
-<h2 id="_10">结论</h2>
-<p>通过遵循本详尽的教程，你已经掌握了使用自定义 kfuncs 扩展 eBPF 功能的知识。无论你是旨在执行高级内核交互、克服辅助函数的限制，还是增强你的可观察性工具，kfuncs 都提供了你所需的灵活性和强大功能。继续尝试，保持好奇，并为不断发展的 eBPF 领域做出贡献！</p>
+<h2 id="_9">附加资源</h2>
+<p>如果你想了解更多关于 eBPF 的知识和实践，可以访问我们的开源教程代码仓库 <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">bpf-developer-tutorial</a> 或访问我们的网站 <a href="https://eunomia.dev/tutorials/">eunomia.dev/tutorials</a> 以获取更多示例和完整代码。</p>
 
 
 
@@ -5012,7 +5046,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 3, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 9, 2024</span>
   </span>
 
     
@@ -5022,7 +5056,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 3, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 9, 2024</span>
   </span>
 
     

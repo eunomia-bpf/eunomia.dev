@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
     <url>
          <loc>https://eunomia.dev/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/"/>
@@ -10,7 +10,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/GPTtrace/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/GPTtrace/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/GPTtrace/"/>
@@ -18,7 +18,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/blogs/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blogs/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blogs/"/>
@@ -26,7 +26,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/blogs/0_3_0-release/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blogs/0_3_0-release/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blogs/0_3_0-release/"/>
@@ -34,7 +34,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/blogs/1_0-release/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blogs/1_0-release/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blogs/1_0-release/"/>
@@ -42,7 +42,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/blogs/GPTtrace/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blogs/GPTtrace/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blogs/GPTtrace/"/>
@@ -50,7 +50,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/blogs/bpf-news/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blogs/bpf-news/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blogs/bpf-news/"/>
@@ -58,7 +58,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/blogs/bpftime/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blogs/bpftime/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blogs/bpftime/"/>
@@ -66,7 +66,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/blogs/coolbpf-eunomia/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blogs/coolbpf-eunomia/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blogs/coolbpf-eunomia/"/>
@@ -74,7 +74,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/blogs/ebpf-2024/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blogs/ebpf-2024/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blogs/ebpf-2024/"/>
@@ -82,7 +82,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/blogs/ebpf-papers/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blogs/ebpf-papers/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blogs/ebpf-papers/"/>
@@ -90,7 +90,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/blogs/ebpf-security/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blogs/ebpf-security/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blogs/ebpf-security/"/>
@@ -98,7 +98,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/blogs/ebpf-wasm/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blogs/ebpf-wasm/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blogs/ebpf-wasm/"/>
@@ -106,7 +106,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/blogs/eunomia-bpf%E7%9A%84%E4%B8%89%E6%9C%88%E8%BF%9B%E5%B1%95/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blogs/eunomia-bpf%E7%9A%84%E4%B8%89%E6%9C%88%E8%BF%9B%E5%B1%95/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blogs/eunomia-bpf%E7%9A%84%E4%B8%89%E6%9C%88%E8%BF%9B%E5%B1%95/"/>
@@ -114,7 +114,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/blogs/github-templates/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blogs/github-templates/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blogs/github-templates/"/>
@@ -122,7 +122,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/blogs/how-to-write-c-in-wasm/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blogs/how-to-write-c-in-wasm/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blogs/how-to-write-c-in-wasm/"/>
@@ -130,7 +130,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/blogs/how-to-write-rust-in-wasm/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blogs/how-to-write-rust-in-wasm/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blogs/how-to-write-rust-in-wasm/"/>
@@ -138,7 +138,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/blogs/inline-hook/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blogs/inline-hook/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blogs/inline-hook/"/>
@@ -146,7 +146,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/blogs/introduce-to-wasm-bpf-bpf-community/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blogs/introduce-to-wasm-bpf-bpf-community/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blogs/introduce-to-wasm-bpf-bpf-community/"/>
@@ -154,7 +154,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/blogs/kgent/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blogs/kgent/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blogs/kgent/"/>
@@ -162,7 +162,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/blogs/llvmbpf/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blogs/llvmbpf/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blogs/llvmbpf/"/>
@@ -170,7 +170,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/blogs/lmp-eunomia/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blogs/lmp-eunomia/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blogs/lmp-eunomia/"/>
@@ -178,7 +178,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/blogs/ten-years/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blogs/ten-years/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blogs/ten-years/"/>
@@ -186,7 +186,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/blogs/test-for-Android/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blogs/test-for-Android/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blogs/test-for-Android/"/>
@@ -194,7 +194,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/blogs/userspace-ebpf/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blogs/userspace-ebpf/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blogs/userspace-ebpf/"/>
@@ -202,7 +202,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/blogs/wasm-bpf/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blogs/wasm-bpf/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blogs/wasm-bpf/"/>
@@ -210,7 +210,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/bpftime/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/bpftime/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/bpftime/"/>
@@ -218,7 +218,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/bpftime/llvmbpf/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/bpftime/llvmbpf/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/bpftime/llvmbpf/"/>
@@ -226,7 +226,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/bpftime/documents/attach/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/bpftime/documents/attach/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/bpftime/documents/attach/"/>
@@ -234,7 +234,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/bpftime/documents/available-features/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/bpftime/documents/available-features/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/bpftime/documents/available-features/"/>
@@ -242,7 +242,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/bpftime/documents/bpftimeaot/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/bpftime/documents/bpftimeaot/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/bpftime/documents/bpftimeaot/"/>
@@ -250,7 +250,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/bpftime/documents/bpftimetool/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/bpftime/documents/bpftimetool/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/bpftime/documents/bpftimetool/"/>
@@ -258,7 +258,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/bpftime/documents/build-and-test/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/bpftime/documents/build-and-test/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/bpftime/documents/build-and-test/"/>
@@ -266,7 +266,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/bpftime/documents/co-re/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/bpftime/documents/co-re/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/bpftime/documents/co-re/"/>
@@ -274,7 +274,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/bpftime/documents/contact/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/bpftime/documents/contact/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/bpftime/documents/contact/"/>
@@ -282,7 +282,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/bpftime/documents/docker.zh/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/bpftime/documents/docker.zh/"/>
          
@@ -290,7 +290,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/bpftime/documents/examples/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/bpftime/documents/examples/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/bpftime/documents/examples/"/>
@@ -298,7 +298,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/bpftime/documents/how-it-works/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/bpftime/documents/how-it-works/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/bpftime/documents/how-it-works/"/>
@@ -306,7 +306,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/bpftime/documents/introduction/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/bpftime/documents/introduction/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/bpftime/documents/introduction/"/>
@@ -314,7 +314,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/bpftime/documents/performance/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/bpftime/documents/performance/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/bpftime/documents/performance/"/>
@@ -322,7 +322,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/bpftime/documents/usage/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/bpftime/documents/usage/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/bpftime/documents/usage/"/>
@@ -330,7 +330,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/eunomia-bpf/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/eunomia-bpf/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/eunomia-bpf/"/>
@@ -338,7 +338,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/eunomia-bpf/benchmark/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/eunomia-bpf/benchmark/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/eunomia-bpf/benchmark/"/>
@@ -346,7 +346,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/eunomia-bpf/introduction/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/eunomia-bpf/introduction/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/eunomia-bpf/introduction/"/>
@@ -354,7 +354,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/eunomia-bpf/manual/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/eunomia-bpf/manual/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/eunomia-bpf/manual/"/>
@@ -362,7 +362,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/eunomia-bpf/online/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/eunomia-bpf/online/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/eunomia-bpf/online/"/>
@@ -370,7 +370,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/eunomia-bpf/quickstart/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/eunomia-bpf/quickstart/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/eunomia-bpf/quickstart/"/>
@@ -378,7 +378,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/eunomia-bpf/support/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/eunomia-bpf/support/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/eunomia-bpf/support/"/>
@@ -386,7 +386,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/eunomia-bpf/supporting-external-BTF/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/eunomia-bpf/supporting-external-BTF/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/eunomia-bpf/supporting-external-BTF/"/>
@@ -394,7 +394,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/eunomia-bpf/video/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/eunomia-bpf/video/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/eunomia-bpf/video/"/>
@@ -402,7 +402,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/eunomia-bpf/architecture/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/eunomia-bpf/architecture/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/eunomia-bpf/architecture/"/>
@@ -410,7 +410,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/eunomia-bpf/ecc/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/eunomia-bpf/ecc/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/eunomia-bpf/ecc/"/>
@@ -418,7 +418,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/eunomia-bpf/ecc/config-lua-depreciate.zh/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/eunomia-bpf/ecc/config-lua-depreciate.zh/"/>
          
@@ -426,7 +426,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/eunomia-bpf/ecc/docker-usage/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/eunomia-bpf/ecc/docker-usage/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/eunomia-bpf/ecc/docker-usage/"/>
@@ -434,7 +434,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/eunomia-bpf/ecc/github-template/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/eunomia-bpf/ecc/github-template/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/eunomia-bpf/ecc/github-template/"/>
@@ -442,7 +442,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/eunomia-bpf/ecc/usage/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/eunomia-bpf/ecc/usage/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/eunomia-bpf/ecc/usage/"/>
@@ -450,7 +450,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/eunomia-bpf/ecli/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/eunomia-bpf/ecli/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/eunomia-bpf/ecli/"/>
@@ -458,7 +458,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/eunomia-bpf/ecli/ecli-dockerfile-usage.zh/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/eunomia-bpf/ecli/ecli-dockerfile-usage.zh/"/>
          
@@ -466,7 +466,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/eunomia-bpf/ecli/server/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/eunomia-bpf/ecli/server/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/eunomia-bpf/ecli/server/"/>
@@ -474,7 +474,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/eunomia-bpf/exporter/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/eunomia-bpf/exporter/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/eunomia-bpf/exporter/"/>
@@ -482,7 +482,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/eunomia-bpf/exporter/usage/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/eunomia-bpf/exporter/usage/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/eunomia-bpf/exporter/usage/"/>
@@ -490,7 +490,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/eunomia-bpf/setup/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/eunomia-bpf/setup/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/eunomia-bpf/setup/"/>
@@ -498,7 +498,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/eunomia-bpf/setup/build-android-arm/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/eunomia-bpf/setup/build-android-arm/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/eunomia-bpf/setup/build-android-arm/"/>
@@ -506,7 +506,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/eunomia-bpf/setup/build/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/eunomia-bpf/setup/build/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/eunomia-bpf/setup/build/"/>
@@ -514,7 +514,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/eunomia-bpf/setup/doc/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/eunomia-bpf/setup/doc/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/eunomia-bpf/setup/doc/"/>
@@ -522,7 +522,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/miscellaneous/about-bpftime/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/miscellaneous/about-bpftime/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/miscellaneous/about-bpftime/"/>
@@ -530,7 +530,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/miscellaneous/bpftime-roadmap/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/miscellaneous/bpftime-roadmap/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/miscellaneous/bpftime-roadmap/"/>
@@ -538,7 +538,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/miscellaneous/bpftime_talk/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/miscellaneous/bpftime_talk/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/miscellaneous/bpftime_talk/"/>
@@ -546,7 +546,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/miscellaneous/ebpf-fuse/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/miscellaneous/ebpf-fuse/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/miscellaneous/ebpf-fuse/"/>
@@ -554,7 +554,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/miscellaneous/ebpf-gpu/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/miscellaneous/ebpf-gpu/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/miscellaneous/ebpf-gpu/"/>
@@ -562,7 +562,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/miscellaneous/ebpf-linux/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/miscellaneous/ebpf-linux/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/miscellaneous/ebpf-linux/"/>
@@ -570,7 +570,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/miscellaneous/ebpf-lsm-usm/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/miscellaneous/ebpf-lsm-usm/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/miscellaneous/ebpf-lsm-usm/"/>
@@ -578,7 +578,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/miscellaneous/ebpf-userspace-port/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/miscellaneous/ebpf-userspace-port/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/miscellaneous/ebpf-userspace-port/"/>
@@ -586,7 +586,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/miscellaneous/gsoc-ospp/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/miscellaneous/gsoc-ospp/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/miscellaneous/gsoc-ospp/"/>
@@ -594,7 +594,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/miscellaneous/ideas.zh/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/miscellaneous/ideas.zh/"/>
          
@@ -602,7 +602,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/miscellaneous/linux-plumbers-talk/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/miscellaneous/linux-plumbers-talk/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/miscellaneous/linux-plumbers-talk/"/>
@@ -610,7 +610,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/miscellaneous/roadmap/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/miscellaneous/roadmap/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/miscellaneous/roadmap/"/>
@@ -618,7 +618,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/miscellaneous/talk-ebpf-summit/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/miscellaneous/talk-ebpf-summit/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/miscellaneous/talk-ebpf-summit/"/>
@@ -626,7 +626,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/miscellaneous/wasm-bpf-kubecon/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/miscellaneous/wasm-bpf-kubecon/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/miscellaneous/wasm-bpf-kubecon/"/>
@@ -634,7 +634,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/miscellaneous/wasm-bpf-talk/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/miscellaneous/wasm-bpf-talk/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/miscellaneous/wasm-bpf-talk/"/>
@@ -642,7 +642,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/others/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/"/>
@@ -650,7 +650,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/others/bpf-benchmark/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/bpf-benchmark/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/bpf-benchmark/"/>
@@ -658,7 +658,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/others/bpf-compatible/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/bpf-compatible/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/bpf-compatible/"/>
@@ -666,7 +666,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/others/contribute/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/contribute/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/contribute/"/>
@@ -674,7 +674,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/others/ebpf-gpts/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/ebpf-gpts/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/ebpf-gpts/"/>
@@ -682,7 +682,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/others/ideas/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/ideas/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/ideas/"/>
@@ -690,7 +690,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/others/usecases/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/usecases/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/usecases/"/>
@@ -698,7 +698,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/"/>
@@ -706,7 +706,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/SUMMARY/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/SUMMARY/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/SUMMARY/"/>
@@ -714,7 +714,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/guideline.zh/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/guideline.zh/"/>
          
@@ -722,7 +722,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/0-introduce/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/0-introduce/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/0-introduce/"/>
@@ -730,7 +730,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/1-helloworld/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/1-helloworld/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/1-helloworld/"/>
@@ -738,7 +738,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/10-hardirqs/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/10-hardirqs/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/10-hardirqs/"/>
@@ -746,7 +746,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/11-bootstrap/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/11-bootstrap/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/11-bootstrap/"/>
@@ -754,7 +754,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/12-profile/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/12-profile/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/12-profile/"/>
@@ -762,7 +762,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/13-tcpconnlat/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/13-tcpconnlat/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/13-tcpconnlat/"/>
@@ -770,7 +770,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/14-tcpstates/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/14-tcpstates/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/14-tcpstates/"/>
@@ -778,7 +778,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/15-javagc/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/15-javagc/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/15-javagc/"/>
@@ -786,7 +786,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/16-memleak/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/16-memleak/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/16-memleak/"/>
@@ -794,7 +794,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/17-biopattern/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/17-biopattern/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/17-biopattern/"/>
@@ -802,7 +802,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/18-further-reading/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/18-further-reading/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/18-further-reading/"/>
@@ -810,7 +810,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/18-further-reading/ebpf-security.zh.zh/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/18-further-reading/ebpf-security.zh.zh/"/>
          
@@ -818,7 +818,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/19-lsm-connect/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/19-lsm-connect/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/19-lsm-connect/"/>
@@ -826,7 +826,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/2-kprobe-unlink/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/2-kprobe-unlink/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/2-kprobe-unlink/"/>
@@ -834,7 +834,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/20-tc/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/20-tc/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/20-tc/"/>
@@ -842,7 +842,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/21-xdp/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/21-xdp/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/21-xdp/"/>
@@ -850,7 +850,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/22-android/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/22-android/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/22-android/"/>
@@ -858,7 +858,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/23-http/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/23-http/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/23-http/"/>
@@ -866,7 +866,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/24-hide/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/24-hide/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/24-hide/"/>
@@ -874,7 +874,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/25-signal/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/25-signal/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/25-signal/"/>
@@ -882,7 +882,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/26-sudo/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/26-sudo/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/26-sudo/"/>
@@ -890,7 +890,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/27-replace/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/27-replace/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/27-replace/"/>
@@ -898,7 +898,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/28-detach/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/28-detach/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/28-detach/"/>
@@ -906,7 +906,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/29-sockops/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/29-sockops/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/29-sockops/"/>
@@ -914,7 +914,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/3-fentry-unlink/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/3-fentry-unlink/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/3-fentry-unlink/"/>
@@ -922,7 +922,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/30-sslsniff/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/30-sslsniff/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/30-sslsniff/"/>
@@ -930,7 +930,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/31-goroutine/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/31-goroutine/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/31-goroutine/"/>
@@ -938,7 +938,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/32-http2/README.zh/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/32-http2/README.zh/"/>
          
@@ -946,7 +946,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/33-funclatency/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/33-funclatency/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/33-funclatency/"/>
@@ -954,7 +954,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/34-syscall/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/34-syscall/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/34-syscall/"/>
@@ -962,7 +962,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/35-user-ringbuf/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/35-user-ringbuf/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/35-user-ringbuf/"/>
@@ -970,7 +970,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/36-userspace-ebpf/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/36-userspace-ebpf/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/36-userspace-ebpf/"/>
@@ -978,7 +978,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/37-uprobe-rust/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/37-uprobe-rust/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/37-uprobe-rust/"/>
@@ -986,7 +986,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/38-btf-uprobe/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/38-btf-uprobe/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/38-btf-uprobe/"/>
@@ -994,7 +994,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/39-nginx/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/39-nginx/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/39-nginx/"/>
@@ -1002,7 +1002,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/4-opensnoop/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/4-opensnoop/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/4-opensnoop/"/>
@@ -1010,7 +1010,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/40-mysql/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/40-mysql/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/40-mysql/"/>
@@ -1018,7 +1018,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/41-xdp-tcpdump/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/41-xdp-tcpdump/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/41-xdp-tcpdump/"/>
@@ -1026,7 +1026,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/42-xdp-loadbalancer/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/42-xdp-loadbalancer/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/42-xdp-loadbalancer/"/>
@@ -1034,7 +1034,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/42-xdp-loadbalancer/connect.zh/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/42-xdp-loadbalancer/connect.zh/"/>
          
@@ -1042,7 +1042,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/43-kfuncs/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/43-kfuncs/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/43-kfuncs/"/>
@@ -1050,7 +1050,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/43-kfuncs/module/README.zh/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/43-kfuncs/module/README.zh/"/>
          
@@ -1058,7 +1058,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/5-uprobe-bashreadline/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/5-uprobe-bashreadline/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/5-uprobe-bashreadline/"/>
@@ -1066,7 +1066,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/6-sigsnoop/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/6-sigsnoop/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/6-sigsnoop/"/>
@@ -1074,7 +1074,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/7-execsnoop/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/7-execsnoop/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/7-execsnoop/"/>
@@ -1082,7 +1082,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/8-exitsnoop/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/8-exitsnoop/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/8-exitsnoop/"/>
@@ -1090,7 +1090,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/9-runqlat/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/9-runqlat/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/9-runqlat/"/>
@@ -1098,7 +1098,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/bcc-documents/kernel-versions/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/bcc-documents/kernel-versions/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/bcc-documents/kernel-versions/"/>
@@ -1106,7 +1106,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/bcc-documents/kernel_config/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/bcc-documents/kernel_config/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/bcc-documents/kernel_config/"/>
@@ -1114,7 +1114,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/bcc-documents/reference_guide/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/bcc-documents/reference_guide/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/bcc-documents/reference_guide/"/>
@@ -1122,7 +1122,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/bcc-documents/special_filtering/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/bcc-documents/special_filtering/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/bcc-documents/special_filtering/"/>
@@ -1130,7 +1130,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/bcc-documents/tutorial/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/bcc-documents/tutorial/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/bcc-documents/tutorial/"/>
@@ -1138,7 +1138,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/bcc-documents/tutorial_bcc_python_developer/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/bcc-documents/tutorial_bcc_python_developer/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/bcc-documents/tutorial_bcc_python_developer/"/>
@@ -1146,7 +1146,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/tutorials/bpftrace-tutorial/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/bpftrace-tutorial/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/bpftrace-tutorial/"/>
@@ -1154,7 +1154,7 @@
     </url>
     <url>
          <loc>https://eunomia.dev/wasm-bpf/</loc>
-         <lastmod>2024-10-03</lastmod>
+         <lastmod>2024-10-09</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/wasm-bpf/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/wasm-bpf/"/>
