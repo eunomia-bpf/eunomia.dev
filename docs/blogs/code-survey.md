@@ -1,8 +1,8 @@
 # Introducing Code-Survey: A New AI-Powered Approach to Understanding Large Codebases
 
-Hey there, fellow tech enthusiasts!
-
 Ever tried diving into a massive codebase like the Linux kernel and felt like you were swimming in an ocean of code with no land in sight? Trust me, you're not alone. Understanding large, complex, and constantly evolving codebases is like trying to read a never-ending novel that's being written by thousands of authors simultaneously. It's overwhelming, to say the least.
+
+> See our [arxiv](https://arxiv.org/html/2410.01837v1) and [GitHub repository](https://github.com/eunomia-bpf/code-survey) for more details!
 
 **The Struggle with Massive Codebases**
 
@@ -126,14 +126,14 @@ We believe Code-Survey represents a significant leap forward in how we understan
 
 Code-Survey is open-source! Check out our [GitHub repository](https://github.com/eunomia-bpf/code-survey) to explore the code, access the datasets, and contribute to the project. Whether you're a developer, researcher, or just curious, we welcome your feedback and collaboration.
 
-For updates on Code-Survey and our other projects, follow us on [GitHub](https://github.com/eunomia-bpf/code-survey) and join the conversation. Together, we can make navigating massive codebases less daunting and more efficient.
+For updates on Code-Survey and our other projects, follow us on [GitHub](https://github.com/eunomia-bpf) and join the conversation. Together, we can make navigating massive codebases less daunting and more efficient.
 
 ---
 
 **References:**
 
-- **CO-RE (Compile Once, Run Everywhere):** [Learn more about CO-RE](https://nakryiko.com/posts/bpf-portability-and-co-re/)
-- **eBPF Documentation:** [What is eBPF?](https://ebpf.io/what-is-ebpf/)
+- **eBPF Intro:** [What is eBPF?](https://ebpf.io/what-is-ebpf/)
+- **eBPF Tutorial:** [bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial)
 - **Code-Survey GitHub Repository:** [github.com/eunomia-bpf/code-survey](https://github.com/eunomia-bpf/code-survey)
 
 ---
