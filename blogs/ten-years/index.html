@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://eunomia.dev/blogs/ten-years/">
       
       
-        <link rel="prev" href="../">
+        <link rel="prev" href="../code-survey/">
       
       
         <link rel="next" href="../llvmbpf/">
@@ -2060,6 +2060,8 @@
       
         
       
+        
+      
     
     
       
@@ -2104,6 +2106,27 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../code-survey/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introducing Code-Survey: A New AI-Powered Approach to Understanding Large Codebases
+  </span>
+  
+
+      </a>
+    </li>
+  
+
               
             
               
@@ -4963,7 +4986,7 @@
 <li><strong>Schedulers:</strong> Creating custom <a href="https://www.kernel.org/doc/html/next/scheduler/sched-ext.html">eBPF task scheduling policies</a> to optimize CPU usage.</li>
 <li><strong>HID (Human Interface Devices):</strong> Developing unique <a href="https://docs.kernel.org/hid/hid-bpf.html">eBPF input device handling mechanisms</a>.</li>
 <li><strong>FUSE (Filesystem in Userspace):</strong> Implementing flexible and efficient <a href="https://lpc.events/event/16/contributions/1339/attachments/945/1861/LPC2022%20Fuse-bpf.pdf">eBPF fuse solutions</a>.</li>
-<li><strong>Queuing Disciplines:</strong> Managing network traffic more effectively, reducing latency, and improving throughput.</li>
+<li><strong>Queuing Disciplines:</strong> Managing network traffic more effectively, reducing latency, and improving throughput. See the <a href="https://netdevconf.info/0x17/sessions/talk/ebpf-qdisc-a-generic-building-block-for-traffic-control.html">link</a> for details.</li>
 </ul>
 <p><a href="https://docs.ebpf.io/linux/program-type/BPF_PROG_TYPE_STRUCT_OPS/">Struct-ops</a> enable eBPF to enhance performance and flexibility across these subsystems, making it a versatile tool for a wide range of kernel-level customizations. By providing a stable interface, struct-ops simplify the integration process, encouraging more widespread adoption and innovative applications of eBPF in system management and optimization.</p>
 <h3 id="how-does-bpf_arena-enhance-data-structures-in-ebpf">How Does bpf_arena Enhance Data Structures in eBPF?</h3>
@@ -4985,8 +5008,8 @@
 <h3 id="how-will-evolving-the-bpf-instruction-set-isa-improve-ebpf">How Will Evolving the BPF Instruction Set (ISA) Improve eBPF?</h3>
 <p>Certain operations in eBPF remain clunky or inefficient. Enhancing the instruction set can make a significant difference in both performance and ease of use. Proposed enhancements include:</p>
 <ul>
-<li><strong>Indirect Calls:</strong> Introducing new opcodes to simplify and speed up function calls.</li>
-<li><strong>Bit Manipulation:</strong> Adding instructions for common bit operations, such as finding and counting bits, can optimize frequent tasks.</li>
+<li><strong>Indirect Calls:</strong> Introducing new opcodes to simplify and speed up function calls. See <a href="https://lpc.events/event/18/contributions/1941/">LPC talk</a>.</li>
+<li><strong>Bit Manipulation:</strong> Adding instructions for common bit operations, such as finding and counting bits, can optimize frequent tasks. See the <a href="https://lpc.events/event/18/contributions/1949/">LPC talk</a>.</li>
 </ul>
 <p>These additions will make eBPF programs more efficient and easier to write, expanding their usability and performance. Detailed specifications can be found in the <a href="https://docs.kernel.org/bpf/standardization/instruction-set.html">Kernel Docs</a>.</p>
 <p>By refining the instruction set, eBPF becomes more powerful and versatile, allowing developers to write more optimized and feature-rich programs without unnecessary complexity.</p>
@@ -5004,7 +5027,7 @@
 <li><strong>Additional Registers:</strong> Utilizing more registers where possible to pass extra arguments.</li>
 <li><strong>Stack Space:</strong> Passing extra arguments via the stack, carefully managing performance and safety.</li>
 </ul>
-<p>These solutions will provide more flexibility in function calls, allowing for more complex and capable eBPF programs. For more information, see the <a href="https://www.kernel.org/doc/html/v5.17/bpf/instruction-set.html">instruction set</a> and <a href="https://stackoverflow.com/questions/70905815/how-to-read-all-parameters-from-a-function-ebpf">Stack Overflow</a>.</p>
+<p>These solutions will provide more flexibility in function calls, allowing for more complex and capable eBPF programs. For more information, see the <a href="https://www.ietf.org/archive/id/draft-ietf-bpf-isa-04.html">instruction set</a> and <a href="https://stackoverflow.com/questions/70905815/how-to-read-all-parameters-from-a-function-ebpf">Stack Overflow</a>.</p>
 <p>Enhancing the ability to handle more function arguments will enable developers to write more comprehensive and feature-rich eBPF programs, expanding the scope of applications that can be efficiently managed within the kernel.</p>
 <hr />
 <h2 id="ambitious-goals-compiling-the-kernel-to-bpf-isa">Ambitious Goals: Compiling the Kernel to BPF ISA</h2>
@@ -5086,13 +5109,13 @@
 <li><a href="https://en.wikipedia.org/wiki/EBPF">Wikipedia</a> - An overview of eBPF’s journey and its capabilities to run programs securely in the kernel.</li>
 <li><a href="https://isovalent.com/blog/post/ebpf-documentary-creation-story/">Isovalent Blog</a> - Chronicles the story behind eBPF’s creation and its impact on the tech industry.</li>
 <li><a href="https://www.iovisor.org/technology/xdp">IO Visor</a> - XDP allows for efficient packet processing directly in the kernel, offering significant performance enhancements.</li>
-<li><a href="https://www.tigera.io/learn/guides/ebpf/ebpf-xdp/">Tigera</a> - A framework for fast packet processing that illustrates the advantages of integrating XDP with eBPF applications.</li>
+<li><a href="https://www.tigera.io/learn/guides/ebpf/ebpf-xdp/">XDP</a> - A framework for fast packet processing that illustrates the advantages of integrating XDP with eBPF applications.</li>
 <li><a href="https://docs.kernel.org/bpf/btf.html">BPF Type Format</a> - BTF provides essential type information that enhances the verifiability and portability of BPF applications.</li>
 <li><a href="https://libbpf.readthedocs.io/en/latest/libbpf_overview.html">libbpf Documentation</a> - Skeleton files ease the interaction between user space and BPF programs, optimizing the management of global variables.</li>
 <li><a href="https://github.com/cilium/ebpf/discussions/943">GitHub Discussion</a> - Discusses how global variables can be accessed and managed within eBPF applications.</li>
 <li><a href="https://speakerdeck.com/f1ko/ebpf-vienna-bpf-evolution-of-a-loop">Speaker Deck</a> - Analyzes the functioning and verification of control flows within eBPF.</li>
 <li><a href="https://docs.kernel.org/bpf/kfuncs.html">Kernel Docs</a> - Provides insights on kernel functions that enhance the flexibility and extensibility of BPF applications.</li>
-<li><a href="https://eunomia.dev/tutorials/43-kfuncs/">Eunomia Blog</a> - Describes how custom kfuncs enable more powerful interactions between kernel functions and eBPF programs.</li>
+<li><a href="https://eunomia.dev/tutorials/43-kfuncs/">Kfunc Tutorial</a> - Describes how custom kfuncs enable more powerful interactions between kernel functions and eBPF programs.</li>
 <li><a href="https://docs.ebpf.io/linux/program-type/BPF_PROG_TYPE_STRUCT_OPS/">eBPF Docs</a> - Explains how struct-ops improve performance and allow for more elaborate interfaces between BPF programs and kernel subsystems.</li>
 <li><a href="https://lwn.net/Articles/961594/">LWN.net</a> - Discusses bpf_arena as a memory region that supports custom data structures shared between BPF programs and user space.</li>
 <li><a href="https://docs.ebpf.io/linux/kfuncs/bpf_arena_free_pages/">eBPF Docs</a> - Details the capabilities of bpf_arena in managing complex data structures.</li>
@@ -5226,7 +5249,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Blogs about eunomia-bpf community">
+          <a href="../code-survey/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Introducing Code-Survey: A New AI-Powered Approach to Understanding Large Codebases">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -5236,7 +5259,7 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Blogs about eunomia-bpf community
+                Introducing Code-Survey: A New AI-Powered Approach to Understanding Large Codebases
               </div>
             </div>
           </a>

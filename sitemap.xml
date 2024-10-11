@@ -65,6 +65,14 @@
          
     </url>
     <url>
+         <loc>https://eunomia.dev/blogs/code-survey/</loc>
+         <lastmod>2024-10-11</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blogs/code-survey/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blogs/code-survey/"/>
+         
+    </url>
+    <url>
          <loc>https://eunomia.dev/blogs/coolbpf-eunomia/</loc>
          <lastmod>2024-10-11</lastmod>
          <changefreq>daily</changefreq>
