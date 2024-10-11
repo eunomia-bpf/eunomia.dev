@@ -66,3 +66,68 @@ https://docs.kernel.org/bpf/libbpf/program_types.html
 
 It has a table that shows the comparison of eBPF program types, attach types and events defined in the elf, such as `cgroup/sendmsg6` or `perf_event`
 
+### Definitions of Core Requirements
+
+1. **Performance:** Extensions must operate efficiently to maintain or enhance system performance without introducing significant overhead.
+2. **Security:** Extensions should protect against vulnerabilities and ensure the integrity and confidentiality of the system.
+3. **Expressiveness:** Extensions need the capability to define and implement complex, detailed, and customizable logic or policies.
+4. **Dynamic:** Extensions must be able to adjust to varying conditions, workloads, or requirements in real-time, including attaching to or modifying system behavior dynamically.
+5. **Control:** Extensions should provide mechanisms for external sources to manage, adjust, and fine-tune behaviors, parameters, or policies.
+6. **Integration Scope:** Extensions must appropriately interact with system components, ranging from minimal interaction for lightweight subsystems to deep integration for more complex systems.
+
+### Core Requirements for eBPF Extensions
+
+#### 1. **Performance**
+Extensions must operate efficiently to maintain or enhance system performance without introducing significant overhead.
+
+#### 2. **Security**
+Extensions should protect against vulnerabilities and ensure the integrity and confidentiality of the system.
+
+#### 3. **Expressiveness**
+Extensions need the capability to define and implement complex, detailed, and customizable logic or policies.
+
+#### 4. **Dynamic**
+Extensions must be able to adjust to varying conditions, workloads, or requirements in real-time, including attaching to or modifying system behavior dynamically.
+
+#### 5. **Control**
+Extensions should provide mechanisms for external sources to manage, adjust, and fine-tune behaviors, parameters, or policies.
+
+#### 6. **Integration Scope**
+Extensions must appropriately interact with system components, ranging from minimal interaction for lightweight subsystems to deep integration for more complex systems.
+
+---
+
+### Summary of Core Requirements Importance
+
+| **Category**                                | **Performance** | **Security** | **Expressiveness** | **Dynamic** | **Control** | **Integration Scope** |
+|---------------------------------------------|-----------------|--------------|--------------------|-------------|-------------|-----------------------|
+| **1. Networking**                           | High            | Medium       | High               | High        | High        | Minimal to Moderate   |
+| **2. Profiling**                            | High            | Medium       | Medium             | Medium      | Medium      | Minimal               |
+| **3. Tracing**                              | Medium          | Medium       | High               | High        | High        | Moderate               |
+| **4. Security**                             | Medium          | High         | Medium             | High        | High        | Moderate to Deep      |
+| **5. Storage and File**                     | High            | Medium       | High               | Medium      | Medium      | Moderate               |
+| **6. Memory**                               | High            | Medium       | Medium             | High        | Medium      | Moderate               |
+| **7. Scheduling**                           | High            | Medium       | High               | High        | High        | Deep                  |
+| **8. Device Drivers**                       | High            | Medium       | High               | High        | Medium      | Deep                  |
+| **9. Testing**                              | Medium          | Medium       | Medium             | High        | High        | Minimal to Moderate   |
+| **10. Runtime Features**                    | High            | Medium       | High               | High        | High        | Moderate to Deep      |
+
+### Key Insights
+
+1. **Performance** is crucial for **Networking**, **Profiling**, **High-Speed Data Processing**, **Scheduling**, and **Device Drivers**, where efficiency and low overhead are essential.
+2. **Security** is paramount in **Security**, **Access Control**, and **Patch Fixing**, focusing on protecting against threats and vulnerabilities.
+3. **Expressiveness** allows for defining complex policies and logic, important across **Networking**, **Tracing**, **Storage and File**, and **Scheduling**.
+4. **Dynamic** capability is essential for **Networking**, **Tracing**, **Security**, **Memory**, and **Runtime Features**, enabling real-time adaptation.
+5. **Control** mechanisms are vital for **Networking**, **Tracing**, **Security**, **Testing**, and **Runtime Features**, facilitating dynamic management and adjustments.
+6. **Integration Scope** varies significantly, with **Device Drivers** and **Scheduling** requiring deep integration, while **Networking** and **Profiling** often need minimal to moderate interaction.
+
+---
+
+### Additional Considerations
+
+- **Integration Scope** helps determine the level of interaction required between extensions and system components, ensuring that extensions are appropriately designed for their target use cases.
+- Balancing **Performance** and **Security** is often critical, especially in high-impact areas like **Networking** and **Scheduling**.
+- **Expressiveness** and **Dynamic** capabilities enable extensions to handle complex and evolving scenarios, making them more versatile and powerful.
+- **Control** mechanisms ensure that extensions can be managed effectively, allowing for fine-tuning and adjustments as system requirements change.
+
+By adhering to these core requirements, designers and developers can create robust, efficient, and secure eBPF extensions tailored to their specific use cases.
