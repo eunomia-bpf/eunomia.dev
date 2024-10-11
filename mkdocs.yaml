@@ -94,6 +94,7 @@ nav:
     
   - Blogs: 
     - blogs/index.md
+    - blogs/code-survey.md
     - blogs/ten-years.md
     - blogs/llvmbpf.md
     - blogs/ebpf-2024.md

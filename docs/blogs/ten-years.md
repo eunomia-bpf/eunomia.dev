@@ -73,7 +73,7 @@ This opens the door for eBPF to integrate deeply with various kernel subsystems,
 - **Schedulers:** Creating custom [eBPF task scheduling policies](https://www.kernel.org/doc/html/next/scheduler/sched-ext.html) to optimize CPU usage.
 - **HID (Human Interface Devices):** Developing unique [eBPF input device handling mechanisms](https://docs.kernel.org/hid/hid-bpf.html).
 - **FUSE (Filesystem in Userspace):** Implementing flexible and efficient [eBPF fuse solutions](https://lpc.events/event/16/contributions/1339/attachments/945/1861/LPC2022%20Fuse-bpf.pdf).
-- **Queuing Disciplines:** Managing network traffic more effectively, reducing latency, and improving throughput.
+- **Queuing Disciplines:** Managing network traffic more effectively, reducing latency, and improving throughput. See the [link](https://netdevconf.info/0x17/sessions/talk/ebpf-qdisc-a-generic-building-block-for-traffic-control.html) for details.
 
 [Struct-ops](https://docs.ebpf.io/linux/program-type/BPF_PROG_TYPE_STRUCT_OPS/) enable eBPF to enhance performance and flexibility across these subsystems, making it a versatile tool for a wide range of kernel-level customizations. By providing a stable interface, struct-ops simplify the integration process, encouraging more widespread adoption and innovative applications of eBPF in system management and optimization.
 
@@ -113,8 +113,8 @@ With these improvements, eBPF can support even more powerful and flexible progra
 
 Certain operations in eBPF remain clunky or inefficient. Enhancing the instruction set can make a significant difference in both performance and ease of use. Proposed enhancements include:
 
-- **Indirect Calls:** Introducing new opcodes to simplify and speed up function calls.
-- **Bit Manipulation:** Adding instructions for common bit operations, such as finding and counting bits, can optimize frequent tasks.
+- **Indirect Calls:** Introducing new opcodes to simplify and speed up function calls. See [LPC talk](https://lpc.events/event/18/contributions/1941/).
+- **Bit Manipulation:** Adding instructions for common bit operations, such as finding and counting bits, can optimize frequent tasks. See the [LPC talk](https://lpc.events/event/18/contributions/1949/).
 
 These additions will make eBPF programs more efficient and easier to write, expanding their usability and performance. Detailed specifications can be found in the [Kernel Docs](https://docs.kernel.org/bpf/standardization/instruction-set.html).
 
@@ -137,7 +137,7 @@ Currently, eBPF functions are limited to passing five arguments due to register 
 - **Additional Registers:** Utilizing more registers where possible to pass extra arguments.
 - **Stack Space:** Passing extra arguments via the stack, carefully managing performance and safety.
 
-These solutions will provide more flexibility in function calls, allowing for more complex and capable eBPF programs. For more information, see the [instruction set](https://www.kernel.org/doc/html/v5.17/bpf/instruction-set.html) and [Stack Overflow](https://stackoverflow.com/questions/70905815/how-to-read-all-parameters-from-a-function-ebpf).
+These solutions will provide more flexibility in function calls, allowing for more complex and capable eBPF programs. For more information, see the [instruction set](https://www.ietf.org/archive/id/draft-ietf-bpf-isa-04.html) and [Stack Overflow](https://stackoverflow.com/questions/70905815/how-to-read-all-parameters-from-a-function-ebpf).
 
 Enhancing the ability to handle more function arguments will enable developers to write more comprehensive and feature-rich eBPF programs, expanding the scope of applications that can be efficiently managed within the kernel.
 
@@ -279,13 +279,13 @@ For more details and interesting topics, please visit [BPFConf 2024](http://oldv
 1. [Wikipedia](https://en.wikipedia.org/wiki/EBPF) - An overview of eBPF’s journey and its capabilities to run programs securely in the kernel.
 2. [Isovalent Blog](https://isovalent.com/blog/post/ebpf-documentary-creation-story/) - Chronicles the story behind eBPF’s creation and its impact on the tech industry.
 3. [IO Visor](https://www.iovisor.org/technology/xdp) - XDP allows for efficient packet processing directly in the kernel, offering significant performance enhancements.
-4. [Tigera](https://www.tigera.io/learn/guides/ebpf/ebpf-xdp/) - A framework for fast packet processing that illustrates the advantages of integrating XDP with eBPF applications.
+4. [XDP](https://www.tigera.io/learn/guides/ebpf/ebpf-xdp/) - A framework for fast packet processing that illustrates the advantages of integrating XDP with eBPF applications.
 5. [BPF Type Format](https://docs.kernel.org/bpf/btf.html) - BTF provides essential type information that enhances the verifiability and portability of BPF applications.
 6. [libbpf Documentation](https://libbpf.readthedocs.io/en/latest/libbpf_overview.html) - Skeleton files ease the interaction between user space and BPF programs, optimizing the management of global variables.
 7. [GitHub Discussion](https://github.com/cilium/ebpf/discussions/943) - Discusses how global variables can be accessed and managed within eBPF applications.
 8. [Speaker Deck](https://speakerdeck.com/f1ko/ebpf-vienna-bpf-evolution-of-a-loop) - Analyzes the functioning and verification of control flows within eBPF.
 9. [Kernel Docs](https://docs.kernel.org/bpf/kfuncs.html) - Provides insights on kernel functions that enhance the flexibility and extensibility of BPF applications.
-10. [Eunomia Blog](https://eunomia.dev/tutorials/43-kfuncs/) - Describes how custom kfuncs enable more powerful interactions between kernel functions and eBPF programs.
+10. [Kfunc Tutorial](https://eunomia.dev/tutorials/43-kfuncs/) - Describes how custom kfuncs enable more powerful interactions between kernel functions and eBPF programs.
 11. [eBPF Docs](https://docs.ebpf.io/linux/program-type/BPF_PROG_TYPE_STRUCT_OPS/) - Explains how struct-ops improve performance and allow for more elaborate interfaces between BPF programs and kernel subsystems.
 12. [LWN.net](https://lwn.net/Articles/961594/) - Discusses bpf_arena as a memory region that supports custom data structures shared between BPF programs and user space.
 13. [eBPF Docs](https://docs.ebpf.io/linux/kfuncs/bpf_arena_free_pages/) - Details the capabilities of bpf_arena in managing complex data structures.
