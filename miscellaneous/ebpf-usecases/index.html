@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../assets/icon.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.39">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.40">
     
     
       
@@ -4217,6 +4217,117 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="The comparison of eBPF program types, attach types and event types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definitions-of-core-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Definitions of Core Requirements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-requirements-for-ebpf-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Requirements for eBPF Extensions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Requirements for eBPF Extensions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Security
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-expressiveness" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Expressiveness
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-dynamic" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Dynamic
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Control
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-integration-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Integration Scope
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-of-core-requirements-importance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary of Core Requirements Importance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-insights" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Insights
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional Considerations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -4309,6 +4420,153 @@
 <h2 id="the-comparison-of-ebpf-program-types-attach-types-and-event-types">The comparison of eBPF program types, attach types and event types</h2>
 <p>https://docs.kernel.org/bpf/libbpf/program_types.html</p>
 <p>It has a table that shows the comparison of eBPF program types, attach types and events defined in the elf, such as <code>cgroup/sendmsg6</code> or <code>perf_event</code></p>
+<h3 id="definitions-of-core-requirements">Definitions of Core Requirements</h3>
+<ol>
+<li><strong>Performance:</strong> Extensions must operate efficiently to maintain or enhance system performance without introducing significant overhead.</li>
+<li><strong>Security:</strong> Extensions should protect against vulnerabilities and ensure the integrity and confidentiality of the system.</li>
+<li><strong>Expressiveness:</strong> Extensions need the capability to define and implement complex, detailed, and customizable logic or policies.</li>
+<li><strong>Dynamic:</strong> Extensions must be able to adjust to varying conditions, workloads, or requirements in real-time, including attaching to or modifying system behavior dynamically.</li>
+<li><strong>Control:</strong> Extensions should provide mechanisms for external sources to manage, adjust, and fine-tune behaviors, parameters, or policies.</li>
+<li><strong>Integration Scope:</strong> Extensions must appropriately interact with system components, ranging from minimal interaction for lightweight subsystems to deep integration for more complex systems.</li>
+</ol>
+<h3 id="core-requirements-for-ebpf-extensions">Core Requirements for eBPF Extensions</h3>
+<h4 id="1-performance">1. <strong>Performance</strong></h4>
+<p>Extensions must operate efficiently to maintain or enhance system performance without introducing significant overhead.</p>
+<h4 id="2-security">2. <strong>Security</strong></h4>
+<p>Extensions should protect against vulnerabilities and ensure the integrity and confidentiality of the system.</p>
+<h4 id="3-expressiveness">3. <strong>Expressiveness</strong></h4>
+<p>Extensions need the capability to define and implement complex, detailed, and customizable logic or policies.</p>
+<h4 id="4-dynamic">4. <strong>Dynamic</strong></h4>
+<p>Extensions must be able to adjust to varying conditions, workloads, or requirements in real-time, including attaching to or modifying system behavior dynamically.</p>
+<h4 id="5-control">5. <strong>Control</strong></h4>
+<p>Extensions should provide mechanisms for external sources to manage, adjust, and fine-tune behaviors, parameters, or policies.</p>
+<h4 id="6-integration-scope">6. <strong>Integration Scope</strong></h4>
+<p>Extensions must appropriately interact with system components, ranging from minimal interaction for lightweight subsystems to deep integration for more complex systems.</p>
+<hr />
+<h3 id="summary-of-core-requirements-importance">Summary of Core Requirements Importance</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Category</strong></th>
+<th><strong>Performance</strong></th>
+<th><strong>Security</strong></th>
+<th><strong>Expressiveness</strong></th>
+<th><strong>Dynamic</strong></th>
+<th><strong>Control</strong></th>
+<th><strong>Integration Scope</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1. Networking</strong></td>
+<td>High</td>
+<td>Medium</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>Minimal to Moderate</td>
+</tr>
+<tr>
+<td><strong>2. Profiling</strong></td>
+<td>High</td>
+<td>Medium</td>
+<td>Medium</td>
+<td>Medium</td>
+<td>Medium</td>
+<td>Minimal</td>
+</tr>
+<tr>
+<td><strong>3. Tracing</strong></td>
+<td>Medium</td>
+<td>Medium</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>Moderate</td>
+</tr>
+<tr>
+<td><strong>4. Security</strong></td>
+<td>Medium</td>
+<td>High</td>
+<td>Medium</td>
+<td>High</td>
+<td>High</td>
+<td>Moderate to Deep</td>
+</tr>
+<tr>
+<td><strong>5. Storage and File</strong></td>
+<td>High</td>
+<td>Medium</td>
+<td>High</td>
+<td>Medium</td>
+<td>Medium</td>
+<td>Moderate</td>
+</tr>
+<tr>
+<td><strong>6. Memory</strong></td>
+<td>High</td>
+<td>Medium</td>
+<td>Medium</td>
+<td>High</td>
+<td>Medium</td>
+<td>Moderate</td>
+</tr>
+<tr>
+<td><strong>7. Scheduling</strong></td>
+<td>High</td>
+<td>Medium</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>Deep</td>
+</tr>
+<tr>
+<td><strong>8. Device Drivers</strong></td>
+<td>High</td>
+<td>Medium</td>
+<td>High</td>
+<td>High</td>
+<td>Medium</td>
+<td>Deep</td>
+</tr>
+<tr>
+<td><strong>9. Testing</strong></td>
+<td>Medium</td>
+<td>Medium</td>
+<td>Medium</td>
+<td>High</td>
+<td>High</td>
+<td>Minimal to Moderate</td>
+</tr>
+<tr>
+<td><strong>10. Runtime Features</strong></td>
+<td>High</td>
+<td>Medium</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>Moderate to Deep</td>
+</tr>
+</tbody>
+</table>
+<h3 id="key-insights">Key Insights</h3>
+<ol>
+<li><strong>Performance</strong> is crucial for <strong>Networking</strong>, <strong>Profiling</strong>, <strong>High-Speed Data Processing</strong>, <strong>Scheduling</strong>, and <strong>Device Drivers</strong>, where efficiency and low overhead are essential.</li>
+<li><strong>Security</strong> is paramount in <strong>Security</strong>, <strong>Access Control</strong>, and <strong>Patch Fixing</strong>, focusing on protecting against threats and vulnerabilities.</li>
+<li><strong>Expressiveness</strong> allows for defining complex policies and logic, important across <strong>Networking</strong>, <strong>Tracing</strong>, <strong>Storage and File</strong>, and <strong>Scheduling</strong>.</li>
+<li><strong>Dynamic</strong> capability is essential for <strong>Networking</strong>, <strong>Tracing</strong>, <strong>Security</strong>, <strong>Memory</strong>, and <strong>Runtime Features</strong>, enabling real-time adaptation.</li>
+<li><strong>Control</strong> mechanisms are vital for <strong>Networking</strong>, <strong>Tracing</strong>, <strong>Security</strong>, <strong>Testing</strong>, and <strong>Runtime Features</strong>, facilitating dynamic management and adjustments.</li>
+<li><strong>Integration Scope</strong> varies significantly, with <strong>Device Drivers</strong> and <strong>Scheduling</strong> requiring deep integration, while <strong>Networking</strong> and <strong>Profiling</strong> often need minimal to moderate interaction.</li>
+</ol>
+<hr />
+<h3 id="additional-considerations">Additional Considerations</h3>
+<ul>
+<li><strong>Integration Scope</strong> helps determine the level of interaction required between extensions and system components, ensuring that extensions are appropriately designed for their target use cases.</li>
+<li>Balancing <strong>Performance</strong> and <strong>Security</strong> is often critical, especially in high-impact areas like <strong>Networking</strong> and <strong>Scheduling</strong>.</li>
+<li><strong>Expressiveness</strong> and <strong>Dynamic</strong> capabilities enable extensions to handle complex and evolving scenarios, making them more versatile and powerful.</li>
+<li><strong>Control</strong> mechanisms ensure that extensions can be managed effectively, allowing for fine-tuning and adjustments as system requirements change.</li>
+</ul>
+<p>By adhering to these core requirements, designers and developers can create robust, efficient, and secure eBPF extensions tailored to their specific use cases.</p>
 
 
 
@@ -4331,7 +4589,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 9, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 11, 2024</span>
   </span>
 
     
