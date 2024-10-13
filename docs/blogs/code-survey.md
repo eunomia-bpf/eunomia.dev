@@ -1,4 +1,4 @@
-# Introducing Code-Survey: A New AI-Powered Approach to Understanding Large Codebases
+# Can LLMs understand Linux kernel? A New AI-Powered Approach to Understanding Large Codebases
 
 Ever tried diving into a massive codebase like the Linux kernel and felt like you were swimming in an ocean of code with no land in sight? Trust me, you're not alone. Understanding large, complex, and constantly evolving codebases is like trying to read a never-ending novel that's being written by thousands of authors simultaneously. It's overwhelming, to say the least.
 
