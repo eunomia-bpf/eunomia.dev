@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../assets/icon.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.40">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.41">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.8c3ca2c6.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
@@ -602,6 +602,14 @@
   
     
     
+      
+        
+          
+        
+      
+        
+          
+        
       
         
           
@@ -1727,6 +1735,48 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../44-scx-simple/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial: Introduction to the BPF Scheduler
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../45-scx-nest/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example: Implementing the scx_nest Scheduler
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1802,7 +1852,7 @@
         
   
   <span class="md-ellipsis">
-    bcc Python Developer Tutorial
+    bcc Python 开发者教程
   </span>
   
 
@@ -1823,7 +1873,7 @@
         
   
   <span class="md-ellipsis">
-    BPF Features by Linux Kernel Version
+    Linux 内核版本的 BPF 功能
   </span>
   
 
@@ -1844,7 +1894,7 @@
         
   
   <span class="md-ellipsis">
-    Kernel Configuration for BPF Features
+    BPF 特性的内核配置
   </span>
   
 
@@ -1865,7 +1915,7 @@
         
   
   <span class="md-ellipsis">
-    bcc Reference Guide
+    bcc 参考指南
   </span>
   
 
@@ -1886,7 +1936,7 @@
         
   
   <span class="md-ellipsis">
-    Special Filtering
+    特殊过滤
   </span>
   
 
@@ -1907,7 +1957,7 @@
         
   
   <span class="md-ellipsis">
-    bcc Tutorial
+    bcc 教程
   </span>
   
 
@@ -4153,71 +4203,68 @@
 <h1 id="getting-started-examples">Getting Started Examples</h1>
 <p>This section contains simple eBPF program examples and introductions. It primarily utilizes the <code>eunomia-bpf</code> framework to simplify development and introduces the basic usage and development process of eBPF.</p>
 <ul>
-<li><a href="../0-introduce/">lesson 0-introduce</a> Introduces basic concepts of eBPF and common development tools</li>
-<li><a href="../1-helloworld/">lesson 1-helloworld</a> Develops the simplest "Hello World" program using eBPF and introduces the basic framework and development process of eBPF</li>
-<li><a href="../2-kprobe-unlink/">lesson 2-kprobe-unlink</a> Uses kprobe in eBPF to capture the unlink system call</li>
-<li><a href="../3-fentry-unlink/">lesson 3-fentry-unlink</a> Uses fentry in eBPF to capture the unlink system call</li>
-<li><a href="../4-opensnoop/">lesson 4-opensnoop</a> Uses eBPF to capture the system call collection of processes opening files, and filters process PIDs in eBPF using global variables</li>
-<li><a href="../5-uprobe-bashreadline/">lesson 5-uprobe-bashreadline</a> Uses uprobe in eBPF to capture the readline function calls in bash</li>
-<li><a href="../6-sigsnoop/">lesson 6-sigsnoop</a> Captures the system call collection of processes sending signals and uses a hash map to store states</li>
-<li><a href="../7-execsnoop/">lesson 7-execsnoop</a> Captures process execution times and prints output to user space through perf event array</li>
-<li><a href="../8-exitsnoop/">lesson 8-exitsnoop</a> Captures process exit events and prints output to user space using a ring buffer</li>
-<li><a href="../9-runqlat/">lesson 9-runqlat</a> Captures process scheduling delays and records them in histogram format</li>
-<li><a href="../10-hardirqs/">lesson 10-hardirqs</a> Captures interrupt events using hardirqs or softirqs</li>
+<li><a href="../0-introduce/">lesson 0-introduce</a> Introduction to Core Concepts and Tools</li>
+<li><a href="../1-helloworld/">lesson 1-helloworld</a> Hello World, Framework and Development</li>
+<li><a href="../2-kprobe-unlink/">lesson 2-kprobe-unlink</a> Monitoring unlink System Calls with kprobe</li>
+<li><a href="../3-fentry-unlink/">lesson 3-fentry-unlink</a> Monitoring unlink System Calls with fentry</li>
+<li><a href="../4-opensnoop/">lesson 4-opensnoop</a> Capturing Opening Files and Filter with Global Variables</li>
+<li><a href="../5-uprobe-bashreadline/">lesson 5-uprobe-bashreadline</a> Capturing readline Function Calls with Uprobe</li>
+<li><a href="../6-sigsnoop/">lesson 6-sigsnoop</a> Capturing Signal Sending and Store State with Hash Maps</li>
+<li><a href="../7-execsnoop/">lesson 7-execsnoop</a> Capturing Process Execution, Output with perf event array</li>
+<li><a href="../8-exitsnoop/">lesson 8-exitsnoop</a> Monitoring Process Exit Events, Output with Ring Buffer</li>
+<li><a href="../9-runqlat/">lesson 9-runqlat</a> Capturing Scheduling Latency and Recording as Histogram</li>
+<li><a href="../10-hardirqs/">lesson 10-hardirqs</a> Capturing Interrupts with hardirqs or softirqs</li>
 </ul>
 <h1 id="advanced-documents-and-examples">Advanced Documents and Examples</h1>
 <p>We start to build complete eBPF projects mainly based on <code>libbpf</code> and combine them with various application scenarios for practical use.</p>
 <ul>
-<li><a href="../11-bootstrap/">lesson 11-bootstrap</a> Writes native libbpf user space code for eBPF using libbpf-bootstrap and establishes a complete libbpf project.</li>
-<li><a href="../12-profile/">lesson 12-profile</a> Performs performance analysis using eBPF</li>
-<li><a href="../13-tcpconnlat/">lesson 13-tcpconnlat</a> Records TCP connection latency and processes data in user space using libbpf</li>
-<li><a href="../14-tcpstates/">lesson 14-tcpstates</a> Records TCP connection state and TCP RTT.- <a href="../15-javagc/">lesson 15-javagc</a> Capture user-level Java GC event duration using usdt</li>
-<li><a href="../16-memleak/">lesson 16-memleak</a> Detect memory leaks</li>
-<li><a href="../17-biopattern/">lesson 17-biopattern</a> Capture disk IO patterns</li>
-<li><a href="../18-further-reading/">lesson 18-further-reading</a> Further reading: papers list, projects, blogs, etc.</li>
-<li><a href="../19-lsm-connect/">lesson 19-lsm-connect</a> Use LSM for security detection and defense</li>
-<li><a href="../20-tc/">lesson 20-tc</a> Use eBPF for tc traffic control</li>
-<li><a href="../21-xdp/">lesson 21-xdp</a> Use eBPF for XDP packet processing</li>
+<li><a href="../11-bootstrap/">lesson 11-bootstrap</a> Develop User-Space Programs with libbpf and Trace exec() and exit()</li>
+<li><a href="../12-profile/">lesson 12-profile</a> Using eBPF Program Profile for Performance Analysis</li>
+<li><a href="../13-tcpconnlat/">lesson 13-tcpconnlat</a> Statistics of TCP Connection Delay with libbpf</li>
+<li><a href="../14-tcpstates/">lesson 14-tcpstates</a> Recording TCP Connection Status and TCP RTT</li>
+<li><a href="../15-javagc/">lesson 15-javagc</a> Capturing User-Space Java GC Duration Using USDT</li>
+<li><a href="../16-memleak/">lesson 16-memleak</a> Monitoring Memory Leaks</li>
+<li><a href="../17-biopattern/">lesson 17-biopattern</a> Count Random/Sequential Disk I/O</li>
+<li><a href="../18-further-reading/">lesson 18-further-reading</a> More Reference Materials： papers, projects</li>
+<li><a href="../19-lsm-connect/">lesson 19-lsm-connect</a> Security Detection and Defense using LSM</li>
+<li><a href="../20-tc/">lesson 20-tc</a> tc Traffic Control</li>
+<li><a href="../21-xdp/">lesson 21-xdp</a> Programmable Packet Processing with XDP</li>
 </ul>
 <h1 id="in-depth-topics">In-Depth Topics</h1>
 <p>This section covers advanced topics related to eBPF, including using eBPF programs on Android, possible attacks and defenses using eBPF programs, and complex tracing. Combining the user-mode and kernel-mode aspects of eBPF can bring great power (as well as security risks).</p>
 <p>Android:</p>
 <ul>
-<li><a href="../22-android/">Using eBPF programs on Android</a></li>
+<li><a href="../22-android/">lesson 22-android</a> Using eBPF Programs on Android</li>
 </ul>
 <p>Networking:</p>
 <ul>
-<li><a href="../29-sockops/">Accelerating network request forwarding using sockops</a></li>
-<li><a href="../41-xdp-tcpdump/">Capturing TCP Information with XDP</a></li>
-<li><a href="../42-xdp-loadbalancer/">XDP Load Balancer</a></li>
-</ul>
-<p>tracing:</p>
-<ul>
-<li><a href="../23-http/">Tracing HTTP requests or other layer-7 protocols using eBPF socket filter or syscall trace</a></li>
-<li><a href="../30-sslsniff/">Capturing Plain Text Data of Various Libraries' SSL/TLS Using uprobe</a></li>
-<li><a href="../31-goroutine/">Using eBPF to Trace Go Routine States</a></li>
-<li><a href="../33-funclatency/">Measuring Function Latency with eBPF</a></li>
-<li><a href="../37-uprobe-rust/">Use uprobe to trace Rust programs</a></li>
-<li><a href="../39-nginx/">Using eBPF to Trace Nginx Requests</a></li>
-<li><a href="src/40-mysql">Using eBPF to Trace MySQL Queries</a></li>
+<li><a href="../23-http/">lesson 23-http</a> L7 Tracing with eBPF: HTTP and Beyond via Socket Filters and Syscall Tracepoints</li>
+<li><a href="../29-sockops/">lesson 29-sockops</a> Accelerating Network Request Forwarding with Sockops</li>
+<li><a href="../41-xdp-tcpdump/">lesson 41-xdp-tcpdump</a> Capturing TCP Information with XDP</li>
+<li><a href="../42-xdp-loadbalancer/">lesson 42-xdp-loadbalancer</a> XDP Load Balancer</li>
 </ul>
 <p>Security:</p>
 <ul>
-<li><a href="../34-syscall/">Use eBPF to modify syscall parameters</a></li>
-<li><a href="18-further-reading/ebpf-security.md">The Secure Path Forward for eBPF: Challenges and Innovations</a></li>
-<li><a href="../24-hide/">Hiding process or file information using eBPF</a></li>
-<li><a href="../25-signal/">Terminating processes by sending signals using bpf_send_signal</a></li>
-<li><a href="../26-sudo/">Adding sudo users using eBPF</a></li>
-<li><a href="../27-replace/">Replacing text read or written by any program using eBPF</a></li>
-<li><a href="../28-detach/">BPF lifecycle: Running eBPF programs continuously in Detached mode after user-mode applications exit</a></li>
-<li><a href="../34-syscall/">Modifying System Call Parameters with eBPF</a></li>
+<li><a href="../24-hide/">lesson 24-hide</a> Hiding Process or File Information</li>
+<li><a href="../25-signal/">lesson 25-signal</a> Using bpf_send_signal to Terminate Malicious Processes in eBPF</li>
+<li><a href="../26-sudo/">lesson 26-sudo</a> Using eBPF to add sudo user</li>
+<li><a href="../27-replace/">lesson 27-replace</a> Replace Text Read or Written by Any Program with eBPF</li>
+<li><a href="../28-detach/">lesson 28-detach</a> Running eBPF After Application Exits: The Lifecycle of eBPF Programs</li>
+<li><a href="../34-syscall/">lesson 34-syscall</a> Modifying System Call Arguments with eBPF</li>
+</ul>
+<p>Scheduler:</p>
+<ul>
+<li><a href="../44-scx-simple/">lesson 44-scx-simple</a> Introduction to the BPF Scheduler</li>
+<li><a href="../45-scx-nest/">lesson 45-scx-nest</a> Implementing the <code>scx_nest</code> Scheduler</li>
 </ul>
 <p>Other:</p>
 <ul>
-<li><a href="../35-user-ringbuf/">Using user ring buffer to send information to the kernel</a></li>
-<li><a href="../36-userspace-ebpf/">Userspace eBPF Runtimes: Overview and Applications</a></li>
-<li><a href="../38-btf-uprobe/">Compile Once, Run Everywhere for userspace with eBPF and BTF</a></li>
+<li><a href="../35-user-ringbuf/">lesson 35-user-ringbuf</a> Asynchronously Send to Kernel with User Ring Buffer</li>
+<li><a href="../36-userspace-ebpf/">lesson 36-userspace-ebpf</a> Userspace eBPF Runtimes: Overview and Applications</li>
+<li><a href="../38-btf-uprobe/">lesson 38-btf-uprobe</a> Expanding eBPF Compile Once, Run Everywhere(CO-RE) to Userspace Compatibility</li>
+<li><a href="../43-kfuncs/">lesson 43-kfuncs</a> Extending eBPF Beyond Its Limits: Custom kfuncs in Kernel Modules</li>
 </ul>
+<p>Continuously updating...</p>
 <h1 id="bcc-and-bpftrace-tutorial">bcc and bpftrace tutorial</h1>
 <p>For reference:</p>
 <ul>
@@ -4391,7 +4438,7 @@
     
 <script src="https://cdn.usefathom.com/script.js" data-site="ZLDAHRNN" defer></script>
 
-      <script src="../../assets/javascripts/bundle.525ec568.min.js"></script>
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
     
 

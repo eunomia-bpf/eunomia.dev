@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../../assets/icon.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.40">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.41">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.8c3ca2c6.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.0253249f.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
@@ -602,6 +602,14 @@
   
     
     
+      
+        
+          
+        
+      
+        
+          
+        
       
         
           
@@ -1718,6 +1726,48 @@
   
   <span class="md-ellipsis">
     超越 eBPF 的极限：在内核模块中定义自定义 kfunc
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../44-scx-simple/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF 教程：BPF 调度器入门
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../45-scx-nest/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF 示例教程：实现 scx_nest 调度器
   </span>
   
 
@@ -4149,55 +4199,77 @@
 <p>这是一个基于 <code>CO-RE</code>（一次编译，到处运行）的 eBPF 的开发教程，提供了从入门到进阶的 eBPF 开发实践，包括基本概念、代码实例、实际应用等内容。和 BCC 不同的是，我们使用 libbpf、Cilium、libbpf-rs、eunomia-bpf 等框架进行开发，包含 C、Go、Rust 等语言的示例。</p>
 <p>本教程不会进行复杂的概念讲解和场景介绍，主要希望提供一些 eBPF 小工具的案例（<strong>非常短小，从二十行代码开始入门！</strong>），来帮助 eBPF 应用的开发者快速上手 eBPF 的开发方法和技巧。教程内容可以在目录中找到，每个目录都是一个独立的 eBPF 工具案例。</p>
 <p>教程关注于可观测性、网络、安全等等方面的 eBPF 示例。完整的代码和教程可以在 <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">https://github.com/eunomia-bpf/bpf-developer-tutorial</a> GitHub 开源仓库中找到。<strong>如果您认为本教程对您有所帮助，也请给我们一个 star 鼓励一下！</strong></p>
-<h1 id="_1">入门文档</h1>
-<p>包含简单的 eBPF 程序样例与介绍，这部分主要使用 <code>eunomia-bpf</code> 框架简化开发，并介绍了 eBPF 的基本使用方式和开发流程。</p>
+<h1 id="_1">入门示例</h1>
+<p>这一部分包含简单的 eBPF 程序示例和介绍。主要利用 <code>eunomia-bpf</code> 框架简化开发，介绍 eBPF 的基本用法和开发流程。</p>
 <ul>
-<li><a href="../0-introduce/">lesson 0-introduce</a> 介绍 eBPF 的基本概念和常见的开发工具</li>
-<li><a href="../1-helloworld/">lesson 1-helloworld</a> 使用 eBPF 开发最简单的「Hello World」程序，介绍 eBPF 的基本框架和开发流程</li>
-<li><a href="../2-kprobe-unlink/">lesson 2-kprobe-unlink</a> 在 eBPF 中使用 kprobe 捕获 unlink 系统调用</li>
-<li><a href="../3-fentry-unlink/">lesson 3-fentry-unlink</a> 在 eBPF 中使用 fentry 捕获 unlink 系统调用</li>
-<li><a href="../4-opensnoop/">lesson 4-opensnoop</a> 使用 eBPF 捕获进程打开文件的系统调用集合，使用全局变量在 eBPF 中过滤进程 pid</li>
-<li><a href="../5-uprobe-bashreadline/">lesson 5-uprobe-bashreadline</a> 在 eBPF 中使用 uprobe 捕获 bash 的 readline 函数调用</li>
-<li><a href="../6-sigsnoop/">lesson 6-sigsnoop</a> 捕获进程发送信号的系统调用集合，使用 hash map 保存状态</li>
-<li><a href="../7-execsnoop/">lesson 7-execsnoop</a> 捕获进程执行时间，通过 perf event array 向用户态打印输出</li>
-<li><a href="../8-exitsnoop/">lesson 8-execsnoop</a> 捕获进程退出事件，使用 ring buffer 向用户态打印输出</li>
-<li><a href="../9-runqlat/">lesson 9-runqlat</a> 捕获进程调度延迟，以直方图方式记录</li>
-<li><a href="../10-hardirqs/">lesson 10-hardirqs</a> 使用 hardirqs 或 softirqs 捕获中断事件</li>
+<li><a href="../0-introduce/">lesson 0-introduce</a> eBPF 示例教程 0：核心概念与工具简介</li>
+<li><a href="../1-helloworld/">lesson 1-helloworld</a> eBPF 入门开发实践教程一：Hello World，基本框架和开发流程</li>
+<li><a href="../2-kprobe-unlink/">lesson 2-kprobe-unlink</a> eBPF 入门开发实践教程二：在 eBPF 中使用 kprobe 监测捕获 unlink 系统调用</li>
+<li><a href="../3-fentry-unlink/">lesson 3-fentry-unlink</a> eBPF 入门开发实践教程三：在 eBPF 中使用 fentry 监测捕获 unlink 系统调用</li>
+<li><a href="../4-opensnoop/">lesson 4-opensnoop</a> eBPF 入门开发实践教程四：在 eBPF 中捕获进程打开文件的系统调用集合，使用全局变量过滤进程 pid</li>
+<li><a href="../5-uprobe-bashreadline/">lesson 5-uprobe-bashreadline</a> eBPF 入门开发实践教程五：在 eBPF 中使用  uprobe 捕获 bash 的 readline 函数调用</li>
+<li><a href="../6-sigsnoop/">lesson 6-sigsnoop</a> eBPF 入门开发实践教程六：捕获进程发送信号的系统调用集合，使用 hash map 保存状态</li>
+<li><a href="../7-execsnoop/">lesson 7-execsnoop</a> eBPF 入门实践教程七：捕获进程执行事件，通过 perf event array 向用户态打印输出</li>
+<li><a href="../8-exitsnoop/">lesson 8-exitsnoop</a> eBPF 入门开发实践教程八：在 eBPF 中使用 exitsnoop 监控进程退出事件，使用 ring buffer 向用户态打印输出</li>
+<li><a href="../9-runqlat/">lesson 9-runqlat</a> eBPF 入门开发实践教程九：捕获进程调度延迟，以直方图方式记录</li>
+<li><a href="../10-hardirqs/">lesson 10-hardirqs</a> eBPF 入门开发实践教程十：在 eBPF 中使用 hardirqs 或 softirqs 捕获中断事件</li>
 </ul>
-<h1 id="_2">进阶文档和示例</h1>
-<p>我们开始主要基于 <code>libbpf</code> 构建完整的 eBPF 工程，并且把它和各种应用场景结合起来进行实践。</p>
+<h1 id="_2">高级文档和示例</h1>
+<p>我们开始构建完整的 eBPF 项目，主要基于 <code>libbpf</code>，并将其与各种应用场景结合起来，以便实际使用。</p>
 <ul>
-<li><a href="../11-bootstrap/">lesson 11-bootstrap</a> 使用 libbpf-bootstrap 为 eBPF 编写原生的 libbpf 用户态代码，并建立完整的 libbpf 工程。</li>
-<li><a href="../12-profile/">lesson 12-profile</a> 使用 eBPF 进行性能分析</li>
-<li><a href="../13-tcpconnlat/">lesson 13-tcpconnlat</a> 记录 TCP 连接延迟，并使用 libbpf 在用户态处理数据</li>
-<li><a href="../14-tcpstates/">lesson 14-tcpstates</a> 记录 TCP 连接状态与 TCP RTT</li>
-<li><a href="../15-javagc/">lesson 15-javagc</a> 使用 usdt 捕获用户态 Java GC 事件耗时</li>
-<li><a href="../16-memleak/">lesson 16-memleak</a> 检测内存泄漏</li>
-<li><a href="../17-biopattern/">lesson 17-biopattern</a> 捕获磁盘 IO 模式</li>
-<li><a href="../18-further-reading/">lesson 18-further-reading</a> 更进一步的相关资料：论文列表、项目、博客等等</li>
-<li><a href="../19-lsm-connect/">lesson 19-lsm-connect</a> 使用 LSM 进行安全检测防御</li>
-<li><a href="../20-tc/">lesson 20-tc</a> 使用 eBPF 进行 tc 流量控制</li>
-<li><a href="../21-xdp/">lesson 21-xdp</a> 使用 eBPF 进行 XDP 报文处理</li>
+<li><a href="../11-bootstrap/">lesson 11-bootstrap</a> eBPF 入门开发实践教程十一：在 eBPF 中使用 libbpf 开发用户态程序并跟踪 exec() 和 exit() 系统调用</li>
+<li><a href="../12-profile/">lesson 12-profile</a> eBPF 入门实践教程十二：使用 eBPF 程序 profile 进行性能分析</li>
+<li><a href="../13-tcpconnlat/">lesson 13-tcpconnlat</a> eBPF入门开发实践教程十三：统计 TCP 连接延时，并使用 libbpf 在用户态处理数据</li>
+<li><a href="../14-tcpstates/">lesson 14-tcpstates</a> eBPF入门实践教程十四：记录 TCP 连接状态与 TCP RTT</li>
+<li><a href="../15-javagc/">lesson 15-javagc</a> eBPF 入门实践教程十五：使用 USDT 捕获用户态 Java GC 事件耗时</li>
+<li><a href="../16-memleak/">lesson 16-memleak</a> eBPF 入门实践教程十六：编写 eBPF 程序 Memleak 监控内存泄漏</li>
+<li><a href="../17-biopattern/">lesson 17-biopattern</a> eBPF 入门实践教程十七：编写 eBPF 程序统计随机/顺序磁盘 I/O</li>
+<li><a href="../18-further-reading/">lesson 18-further-reading</a> 更多的参考资料：论文、项目等等</li>
+<li><a href="../19-lsm-connect/">lesson 19-lsm-connect</a> eBPF 入门实践教程：使用 LSM 进行安全检测防御</li>
+<li><a href="../20-tc/">lesson 20-tc</a> eBPF 入门实践教程二十：使用 eBPF 进行 tc 流量控制</li>
+<li><a href="../21-xdp/">lesson 21-xdp</a> eBPF 入门实践教程二十一： 使用 XDP 进行可编程数据包处理</li>
 </ul>
-<h1 id="_3">高级主题</h1>
-<p>这里涵盖了一系列和 eBPF 相关的高级内容，包含在 Android 上使用 eBPF 程序、使用 eBPF 程序进行可能的攻击与防御、复杂的追踪等等。这部分主要基于 libbpf、Cilium 等框架进行开发。</p>
+<h1 id="_3">深入主题</h1>
+<p>这一部分涵盖了与 eBPF 相关的高级主题，包括在 Android 上使用 eBPF 程序、利用 eBPF 程序进行的潜在攻击和防御以及复杂的追踪。结合用户模式和内核模式的 eBPF 可以带来强大的能力（也可能带来安全风险）。</p>
+<p>Android:</p>
 <ul>
-<li><a href="../22-android/">在 Android 上使用 eBPF 程序</a></li>
-<li><a href="../30-sslsniff/">使用 uprobe 捕获多种库的 SSL/TLS 明文数据</a></li>
-<li><a href="../23-http/">使用 eBPF socket filter 或 syscall trace 追踪 HTTP 请求和其他七层协议</a></li>
-<li><a href="../29-sockops/">使用 sockops 加速网络请求转发</a></li>
-<li><a href="../24-hide/">使用 eBPF 隐藏进程或文件信息</a></li>
-<li><a href="../25-signal/">使用 bpf_send_signal 发送信号终止进程</a></li>
-<li><a href="../26-sudo/">使用 eBPF 添加 sudo 用户</a></li>
-<li><a href="../27-replace/">使用 eBPF 替换任意程序读取或写入的文本</a></li>
-<li><a href="../28-detach/">BPF 的生命周期：使用 Detached 模式在用户态应用退出后持续运行 eBPF 程序</a></li>
-<li><a href="../18-further-reading/ebpf-security/">eBPF 运行时的安全性与面临的挑战</a></li>
-<li><a href="../34-syscall/">使用 eBPF 修改系统调用参数</a></li>
-<li><a href="../35-user-ringbuf/">eBPF开发实践：使用 user ring buffer 向内核异步发送信息</a></li>
-<li><a href="../36-userspace-ebpf/">用户空间 eBPF 运行时：深度解析与应用实践</a></li>
-<li><a href="../37-uprobe-rust/">使用 uprobe 追踪 Rust 应用程序</a></li>
-<li><a href="../38-btf-uprobe/">借助 eBPF 和 BTF，让用户态也能一次编译、到处运行</a></li>
+<li>
+<p><a href="../22-android/">lesson 22-android</a> 在 Android 上使用 eBPF 程序
+网络:</p>
+</li>
+<li>
+<p><a href="../23-http/">lesson 23-http</a> 通过 eBPF socket filter 或 syscall trace 追踪 HTTP 请求等七层协议 - eBPF 实践教程</p>
+</li>
+<li><a href="../29-sockops/">lesson 29-sockops</a> eBPF 开发实践：使用 sockops 加速网络请求转发</li>
+<li><a href="../41-xdp-tcpdump/">lesson 41-xdp-tcpdump</a> eBPF 示例教程：使用 XDP 捕获 TCP 信息</li>
+<li>
+<p><a href="../42-xdp-loadbalancer/">lesson 42-xdp-loadbalancer</a> eBPF 开发者教程： 简单的 XDP 负载均衡器
+安全:</p>
+</li>
+<li>
+<p><a href="../24-hide/">lesson 24-hide</a> eBPF 开发实践：使用 eBPF 隐藏进程或文件信息</p>
+</li>
+<li><a href="../25-signal/">lesson 25-signal</a> eBPF 入门实践教程：用 bpf_send_signal 发送信号终止恶意进程</li>
+<li><a href="../26-sudo/">lesson 26-sudo</a> 使用 eBPF 添加 sudo 用户</li>
+<li><a href="../27-replace/">lesson 27-replace</a> 使用 eBPF 替换任意程序读取或写入的文本</li>
+<li><a href="../28-detach/">lesson 28-detach</a> 在应用程序退出后运行 eBPF 程序：eBPF 程序的生命周期</li>
+<li>
+<p><a href="../34-syscall/">lesson 34-syscall</a> eBPF 开发实践：使用 eBPF 修改系统调用参数
+调度器:</p>
+</li>
+<li>
+<p><a href="../44-scx-simple/">lesson 44-scx-simple</a> eBPF 教程：BPF 调度器入门</p>
+</li>
+<li><a href="../45-scx-nest/">lesson 45-scx-nest</a> eBPF 示例教程：实现 <code>scx_nest</code> 调度器</li>
 </ul>
+<p>其他:</p>
+<ul>
+<li><a href="../35-user-ringbuf/">lesson 35-user-ringbuf</a> eBPF开发实践：使用 user ring buffer 向内核异步发送信息</li>
+<li><a href="../36-userspace-ebpf/">lesson 36-userspace-ebpf</a> 用户空间 eBPF 运行时：深度解析与应用实践</li>
+<li><a href="../38-btf-uprobe/">lesson 38-btf-uprobe</a> 借助 eBPF 和 BTF，让用户态也能一次编译、到处运行</li>
+<li><a href="../43-kfuncs/">lesson 43-kfuncs</a> 超越 eBPF 的极限：在内核模块中定义自定义 kfunc</li>
+</ul>
+<p>持续更新中...</p>
 <h1 id="bcc-bpftrace">bcc 和 bpftrace 教程与文档</h1>
 <ul>
 <li><a href="../bcc-documents/kernel-versions/">BPF Features by Linux Kernel Version</a></li>
@@ -4371,7 +4443,7 @@
     
 <script src="https://cdn.usefathom.com/script.js" data-site="ZLDAHRNN" defer></script>
 
-      <script src="../../../assets/javascripts/bundle.525ec568.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
     
 

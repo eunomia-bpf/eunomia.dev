@@ -20,15 +20,15 @@
       
       
       <link rel="icon" href="../../../../assets/icon.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.40">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.41">
     
     
       
-        <title>Special Filtering - eunomia</title>
+        <title>特殊过滤 - eunomia</title>
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.8c3ca2c6.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.0253249f.min.css">
       
         
         <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
@@ -69,7 +69,7 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="Special Filtering - eunomia" >
+        <meta  property="og:title"  content="特殊过滤 - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
@@ -85,7 +85,7 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="Special Filtering - eunomia" >
+        <meta  name="twitter:title"  content="特殊过滤 - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
@@ -112,7 +112,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#special-filtering" class="md-skip">
+        <a href="#_1" class="md-skip">
           Skip to content
         </a>
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Special Filtering
+              特殊过滤
             
           </span>
         </div>
@@ -613,6 +613,14 @@
   
     
     
+      
+        
+          
+        
+      
+        
+          
+        
       
         
           
@@ -1741,6 +1749,48 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../44-scx-simple/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial: Introduction to the BPF Scheduler
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../45-scx-nest/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example: Implementing the scx_nest Scheduler
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1819,7 +1869,7 @@
         
   
   <span class="md-ellipsis">
-    bcc Python Developer Tutorial
+    bcc Python 开发者教程
   </span>
   
 
@@ -1840,7 +1890,7 @@
         
   
   <span class="md-ellipsis">
-    BPF Features by Linux Kernel Version
+    Linux 内核版本的 BPF 功能
   </span>
   
 
@@ -1861,7 +1911,7 @@
         
   
   <span class="md-ellipsis">
-    Kernel Configuration for BPF Features
+    BPF 特性的内核配置
   </span>
   
 
@@ -1882,7 +1932,7 @@
         
   
   <span class="md-ellipsis">
-    bcc Reference Guide
+    bcc 参考指南
   </span>
   
 
@@ -1912,7 +1962,7 @@
           
   
   <span class="md-ellipsis">
-    Special Filtering
+    特殊过滤
   </span>
   
 
@@ -1923,7 +1973,7 @@
         
   
   <span class="md-ellipsis">
-    Special Filtering
+    特殊过滤
   </span>
   
 
@@ -1945,18 +1995,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#filtering-by-cgroups" class="md-nav__link">
+  <a href="#cgroups" class="md-nav__link">
     <span class="md-ellipsis">
-      Filtering by cgroups
+      按 cgroups过滤
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#filtering-by-mount-by-namespace" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      Filtering by mount by namespace
+      按命名空间选择挂载点进行过滤
     </span>
   </a>
   
@@ -1982,7 +2032,7 @@
         
   
   <span class="md-ellipsis">
-    bcc Tutorial
+    bcc 教程
   </span>
   
 
@@ -4209,18 +4259,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#filtering-by-cgroups" class="md-nav__link">
+  <a href="#cgroups" class="md-nav__link">
     <span class="md-ellipsis">
-      Filtering by cgroups
+      按 cgroups过滤
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#filtering-by-mount-by-namespace" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      Filtering by mount by namespace
+      按命名空间选择挂载点进行过滤
     </span>
   </a>
   
@@ -4249,68 +4299,56 @@
   
 
 
-<h1 id="special-filtering">Special Filtering</h1>
-<p>Some tools have special filtering capabilities, the main use case is to trace
-processes running in containers, but those mechanisms are generic and could
-be used in other cases as well.</p>
-<h2 id="filtering-by-cgroups">Filtering by cgroups</h2>
-<p>Some tools have an option to filter by cgroup by referencing a pinned BPF hash
-map managed externally.</p>
-<p>Examples of commands:</p>
+<h1 id="_1">特殊过滤</h1>
+<p>某些工具具有特殊的过滤能力，主要用例是跟踪运行在容器中的进程，但这些机制是通用的，也可以在其他情况下使用。</p>
+<h2 id="cgroups">按 cgroups过滤</h2>
+<p>某些工具有一个通过引用外部管理的固定的BPF哈希映射来按cgroup过滤的选项。</p>
+<p>命令示例：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># ./opensnoop --cgroupmap /sys/fs/bpf/test01</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1"># ./execsnoop --cgroupmap /sys/fs/bpf/test01</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># ./tcpconnect --cgroupmap /sys/fs/bpf/test01</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># ./tcpaccept --cgroupmap /sys/fs/bpf/test01</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># ./tcptracer --cgroupmap /sys/fs/bpf/test01</span>
 </code></pre></div>
-<p>The commands above will only display results from processes that belong to one
-of the cgroups whose id, returned by <code>bpf_get_current_cgroup_id()</code>, is in the
-pinned BPF hash map.</p>
-<p>The BPF hash map can be created by:</p>
+<p>上述命令将仅显示属于一个或多个cgroup的进程的结果，这些cgroup的ID由<code>bpf_get_current_cgroup_id()</code>返回，并存在固定的BPF哈希映射中。</p>
+<p>通过以下方式创建BPF哈希映射：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># bpftool map create /sys/fs/bpf/test01 type hash key 8 value 8 entries 128 \</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">        </span>name<span class="w"> </span>cgroupset<span class="w"> </span>flags<span class="w"> </span><span class="m">0</span>
 </code></pre></div>
-<p>To get a shell in a new cgroup, you can use:</p>
+<p>要在新cgroup中获取一个shell，可以使用：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># systemd-run --pty --unit test bash</span>
 </code></pre></div>
-<p>The shell will be running in the cgroup
-<code>/sys/fs/cgroup/unified/system.slice/test.service</code>.</p>
-<p>The cgroup id can be discovered using the <code>name_to_handle_at()</code> system call. In
-the examples/cgroupid, you will find an example of program to get the cgroup
-id.</p>
+<p>该shell将在cgroup<code>/sys/fs/cgroup/unified/system.slice/test.service</code>中运行。</p>
+<p>可以使用<code>name_to_handle_at()</code>系统调用来发现cgroup ID。在examples/cgroupid中，您可以找到一个获取cgroup ID的程序示例。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># cd examples/cgroupid</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c1"># make</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1"># ./cgroupid hex /sys/fs/cgroup/unified/system.slice/test.service</span>
 </code></pre></div>
-<p>or, using Docker:</p>
+<p>或者，使用Docker：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># cd examples/cgroupid</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="c1"># docker build -t cgroupid .</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="c1"># docker run --rm --privileged -v /sys/fs/cgroup:/sys/fs/cgroup \</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span>cgroupid<span class="w"> </span>cgroupid<span class="w"> </span>hex<span class="w"> </span>/sys/fs/cgroup/unified/system.slice/test.service
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w"> </span>cgroupid<span class="w"> </span>cgroupid<span class="w"> </span>hex<span class="w"> </span>/sys/fs/cgroup/unified/system.slice/test.service
 </code></pre></div>
-<p>This prints the cgroup id as a hexadecimal string in the host endianness such
-as <code>77 16 00 00 01 00 00 00</code>.</p>
+<p>这将以主机的字节序(hexadecimal string)打印出cgroup ID，例如<code>77 16 00 00 01 00 00 00</code>。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># FILE=/sys/fs/bpf/test01</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1"># CGROUPID_HEX=&quot;77 16 00 00 01 00 00 00&quot;</span>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="c1"># bpftool map update pinned $FILE key hex $CGROUPID_HEX value hex 00 00 00 00 00 00 00 00 any</span>
 </code></pre></div>
-<p>Now that the shell started by systemd-run has its cgroup id in the BPF hash
-map, bcc tools will display results from this shell. Cgroups can be added and
-removed from the BPF hash map without restarting the bcc tool.</p>
-<p>This feature is useful for integrating bcc tools in external projects.</p>
-<h2 id="filtering-by-mount-by-namespace">Filtering by mount by namespace</h2>
-<p>The BPF hash map can be created by:</p>
+<p>现在，通过systemd-run启动的shell的cgroup ID已经存在于BPF哈希映射中，bcc工具将显示来自该shell的结果。可以添加和。从BPF哈希映射中删除而不重新启动bcc工具。</p>
+<p>这个功能对于将bcc工具集成到外部项目中非常有用。</p>
+<h2 id="_2">按命名空间选择挂载点进行过滤</h2>
+<p>BPF哈希映射可以通过以下方式创建：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># bpftool map create /sys/fs/bpf/mnt_ns_set type hash key 8 value 4 entries 128 \</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">        </span>name<span class="w"> </span>mnt_ns_set<span class="w"> </span>flags<span class="w"> </span><span class="m">0</span>
 </code></pre></div>
-<p>Execute the <code>execsnoop</code> tool filtering only the mount namespaces
-in <code>/sys/fs/bpf/mnt_ns_set</code>:</p>
+<p>仅执行<code>execsnoop</code>工具，过滤挂载命名空间在<code>/sys/fs/bpf/mnt_ns_set</code>中：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># tools/execsnoop.py --mntnsmap /sys/fs/bpf/mnt_ns_set</span>
 </code></pre></div>
-<p>Start a terminal in a new mount namespace:</p>
+<p>在新的挂载命名空间中启动一个终端：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># unshare -m bash</span>
 </code></pre></div>
-<p>Update the hash map with the mount namespace ID of the terminal above:</p>
+<p>使用上述终端的挂载命名空间ID更新哈希映射：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nv">FILE</span><span class="o">=</span>/sys/fs/bpf/mnt_ns_set
 <a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="k">$(</span><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;\1&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>od<span class="w"> </span>-dAn<span class="k">)</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
 <a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w"> </span><span class="nv">HOST_ENDIAN_CMD</span><span class="o">=</span>tac
@@ -4321,15 +4359,16 @@ in <code>/sys/fs/bpf/mnt_ns_set</code>:</p>
 <a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="nv">NS_ID_HEX</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;%016x&#39;</span><span class="w"> </span><span class="k">$(</span>stat<span class="w"> </span>-Lc<span class="w"> </span><span class="s1">&#39;%i&#39;</span><span class="w"> </span>/proc/self/ns/mnt<span class="k">)</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s/.\{2\}/&amp;\n/g&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">$HOST_ENDIAN_CMD</span><span class="k">)</span><span class="s2">&quot;</span>
 <a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>bpftool<span class="w"> </span>map<span class="w"> </span>update<span class="w"> </span>pinned<span class="w"> </span><span class="nv">$FILE</span><span class="w"> </span>key<span class="w"> </span>hex<span class="w"> </span><span class="nv">$NS_ID_HEX</span><span class="w"> </span>value<span class="w"> </span>hex<span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span>any
 </code></pre></div>
-<p>Execute a command in this terminal:</p>
+<p>在这个终端中执行命令：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># ping kinvolk.io</span>
 </code></pre></div>
-<p>You'll see how on the <code>execsnoop</code> terminal you started above the call is logged:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># tools/execsnoop.py --mntnsmap /sys/fs/bpf/mnt_ns_set</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="o">[</span>sudo<span class="o">]</span><span class="w"> </span>password<span class="w"> </span><span class="k">for</span><span class="w"> </span>mvb:
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>PCOMM<span class="w">            </span>PID<span class="w">    </span>PPID<span class="w">   </span>RET<span class="w"> </span>ARGS
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>ping<span class="w">             </span><span class="m">8096</span><span class="w">   </span><span class="m">7970</span><span class="w">     </span><span class="m">0</span><span class="w"> </span>/bin/ping<span class="w"> </span>kinvolk.io
-</code></pre></div>
+<p>你会看到在上述你启动的<code>execsnoop</code>终端中，这个调用被记录下来：</p>
+<p>```sh</p>
+<h1 id="toolsexecsnooppy-mntnsmap-sysfsbpfmnt_ns_set">tools/execsnoop.py --mntnsmap /sys/fs/bpf/mnt_ns_set</h1>
+<p>[sudo] password for mvb:
+PCOMM            PID    PPID   RET ARGS
+ping             8096   7970     0 /bin/ping kinvolk.io
+```。</p>
 
 
 
@@ -4447,7 +4486,7 @@ in <code>/sys/fs/bpf/mnt_ns_set</code>:</p>
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../reference_guide/" class="md-footer__link md-footer__link--prev" aria-label="Previous: bcc Reference Guide">
+          <a href="../reference_guide/" class="md-footer__link md-footer__link--prev" aria-label="Previous: bcc 参考指南">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -4457,20 +4496,20 @@ in <code>/sys/fs/bpf/mnt_ns_set</code>:</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                bcc Reference Guide
+                bcc 参考指南
               </div>
             </div>
           </a>
         
         
           
-          <a href="../tutorial/" class="md-footer__link md-footer__link--next" aria-label="Next: bcc Tutorial">
+          <a href="../tutorial/" class="md-footer__link md-footer__link--next" aria-label="Next: bcc 教程">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                bcc Tutorial
+                bcc 教程
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -4531,7 +4570,7 @@ in <code>/sys/fs/bpf/mnt_ns_set</code>:</p>
     
 <script src="https://cdn.usefathom.com/script.js" data-site="ZLDAHRNN" defer></script>
 
-      <script src="../../../../assets/javascripts/bundle.525ec568.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
     
 
