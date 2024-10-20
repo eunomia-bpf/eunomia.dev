@@ -1,5 +1,5 @@
-find ./tutorial -type f -name "*.md" ! -name "*_en*" -exec bash -c 'mv "$1" "${1%.md}.zh.md"' bash {} \; && \
-find ./tutorial -type f -name "*_en*.md" -exec bash -c 'mv "$1" "${1//_en/}"' bash {} \; && \
+# find ./tutorial -type f -name "*.md" ! -name "*_en*" -exec bash -c 'mv "$1" "${1%.md}.zh.md"' bash {} \; && \
+# find ./tutorial -type f -name "*_en*.md" -exec bash -c 'mv "$1" "${1//_en/}"' bash {} \; && \
 mkdir -p docs/setup && \
 cp -rf eunomia-bpf/README.md docs/eunomia-bpf/README.md && \
 cp -rf eunomia-bpf/README_zh.md docs/eunomia-bpf/README.zh.md && \

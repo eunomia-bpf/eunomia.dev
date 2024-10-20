@@ -82,6 +82,8 @@ nav:
       - tutorials/41-xdp-tcpdump/README.md
       - tutorials/42-xdp-loadbalancer/README.md
       - tutorials/43-kfuncs/README.md
+      - tutorials/44-scx-simple/README.md
+      - tutorials/45-scx-nest/README.md
     - bcc-documents:
       - tutorials/bcc-documents/tutorial_bcc_python_developer.md
       - tutorials/bcc-documents/kernel-versions.md
