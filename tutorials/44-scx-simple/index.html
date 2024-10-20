@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../assets/icon.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.41">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
     
     
       
@@ -4696,24 +4696,15 @@
 
 
 <h1 id="ebpf-tutorial-introduction-to-the-bpf-scheduler">eBPF Tutorial: Introduction to the BPF Scheduler</h1>
-<p>Welcome to our deep dive into the world of eBPF with a focus on the BPF scheduler! If you're looking to extend your eBPF knowledge beyond the basics, you're in the right place. In this tutorial, we'll explore the <strong>scx_simple scheduler</strong>, a minimal example of the sched_ext scheduler class introduced in Linux kernel version <code>6.12</code>. We'll walk you through its architecture, how it leverages BPF programs to define scheduling behavior, and guide you through compiling and running the example. By the end, you'll have a solid understanding of how to create and manage advanced scheduling policies using eBPF.</p>
+<p>Welcome to our deep dive into the world of eBPF with a focus on the BPF scheduler! If you're looking to extend your eBPF knowledge beyond the basics, you're in the right place. </p>
+<p>In this tutorial, we'll explore the <strong>scx_simple scheduler</strong>, a minimal example of the sched_ext scheduler class introduced in Linux kernel version <code>6.12</code>. We'll walk you through its architecture, how it leverages BPF programs to define scheduling behavior, and guide you through compiling and running the example. By the end, you'll have a solid understanding of how to create and manage advanced scheduling policies using eBPF.</p>
 <h2 id="understanding-the-extensible-bpf-scheduler">Understanding the Extensible BPF Scheduler</h2>
 <p>At the heart of this tutorial is the <strong>sched_ext</strong> scheduler class. Unlike traditional schedulers, sched_ext allows its behavior to be defined dynamically through a set of BPF programs, making it highly flexible and customizable. This means you can implement any scheduling algorithm on top of sched_ext, tailored to your specific needs.</p>
 <h3 id="key-features-of-sched_ext">Key Features of sched_ext</h3>
-<ul>
-<li><strong>Flexible Scheduling Algorithms:</strong> Implement any scheduling policy by writing BPF programs.</li>
-<li><strong>Dynamic CPU Grouping:</strong> The BPF scheduler can group CPUs as needed, without tying tasks to specific CPUs upon wakeup.</li>
-<li><strong>Runtime Control:</strong> Enable or disable the BPF scheduler on-the-fly without rebooting.</li>
-<li><strong>System Integrity:</strong> Even if the BPF scheduler encounters errors, the system gracefully reverts to the default scheduling behavior.</li>
-<li><strong>Debugging Support:</strong> Comprehensive debug information is available through the <code>sched_ext_dump</code> tracepoint and SysRq key sequences.</li>
-</ul>
+<p><strong>sched_ext</strong> offers flexible scheduling algorithms by allowing the implementation of any scheduling policy through BPF programs. It supports dynamic CPU grouping, enabling the BPF scheduler to group CPUs as needed without binding tasks to specific CPUs upon wakeup. The scheduler can be enabled or disabled at runtime without requiring a system reboot. In terms of system integrity, if the BPF scheduler encounters errors, the system gracefully reverts to the default scheduling behavior. Additionally, sched_ext provides comprehensive debugging support through the <code>sched_ext_dump</code> tracepoint and SysRq key sequences.</p>
 <p>With these features, sched_ext provides a robust foundation for experimenting with and deploying advanced scheduling strategies.</p>
 <h2 id="introducing-scx_simple-a-minimal-sched_ext-scheduler">Introducing scx_simple: A Minimal sched_ext Scheduler</h2>
-<p>The <strong>scx_simple</strong> scheduler is a straightforward example of a sched_ext scheduler in the linux tools. It's designed to be easy to understand and serves as a foundation for more complex scheduling policies. scx_simple can operate in two modes:</p>
-<ol>
-<li><strong>Global Weighted Virtual Time (vtime) Mode:</strong> Prioritizes tasks based on their virtual time, allowing for fair scheduling across different workloads.</li>
-<li><strong>FIFO (First-In-First-Out) Mode:</strong> Simple queue-based scheduling where tasks are executed in the order they arrive.</li>
-</ol>
+<p>The <strong>scx_simple</strong> scheduler is a straightforward example of a sched_ext scheduler in the Linux tools. It's designed to be easy to understand and serves as a foundation for more complex scheduling policies. scx_simple can operate in two modes: <strong>Global Weighted Virtual Time (vtime) Mode</strong>, which prioritizes tasks based on their virtual time, allowing for fair scheduling across different workloads, and <strong>FIFO (First-In-First-Out) Mode</strong>, a simple queue-based scheduling where tasks are executed in the order they arrive.</p>
 <p>scx_simple is particularly effective on single-socket CPUs with a uniform L3 cache topology. While the global FIFO mode can handle many workloads efficiently, it's essential to note that saturating threads might overshadow less active ones. Therefore, scx_simple is best suited for environments where a straightforward scheduling policy meets the performance and fairness requirements.</p>
 <p>While scx_simple is minimalistic, it can be deployed in production settings under the right conditions. It is best suited for systems with single-socket CPUs and uniform cache architectures. Additionally, it is ideal for workloads that don't require intricate scheduling policies and can benefit from simple FIFO or weighted vtime scheduling.</p>
 <h2 id="into-the-code-kernel-and-user-space-analysis">Into the Code: Kernel and User-Space Analysis</h2>
@@ -4856,50 +4847,13 @@
 </code></pre></div>
 <h4 id="kernel-side-breakdown">Kernel-Side Breakdown</h4>
 <p>The kernel-side implementation of scx_simple defines how tasks are selected, enqueued, dispatched, and managed. Here's a high-level overview:</p>
-<ol>
-<li><strong>Initialization and Licensing:</strong></li>
-<li>The scheduler is licensed under GPL.</li>
-<li>
-<p>A global variable <code>fifo_sched</code> determines the scheduling mode (FIFO or weighted vtime).</p>
-</li>
-<li>
-<p><strong>Dispatch Queue (DSQ) Management:</strong></p>
-</li>
-<li>A shared DSQ (<code>SHARED_DSQ</code>) with ID 0 is created to handle task dispatching.</li>
-<li>
-<p>A <code>stats</code> map tracks the number of tasks queued locally and globally.</p>
-</li>
-<li>
-<p><strong>CPU Selection (<code>simple_select_cpu</code>):</strong></p>
-</li>
-<li>Selects the CPU for a waking task.</li>
-<li>
-<p>If the selected CPU is idle, the task is immediately dispatched to the local DSQ.</p>
-</li>
-<li>
-<p><strong>Task Enqueueing (<code>simple_enqueue</code>):</strong></p>
-</li>
-<li>Depending on the <code>fifo_sched</code> flag, tasks are either dispatched to the shared DSQ in FIFO mode or to a priority queue based on virtual time.</li>
-<li>
-<p>Virtual time (<code>vtime</code>) ensures fair scheduling by accounting for task execution time and weight.</p>
-</li>
-<li>
-<p><strong>Task Dispatching (<code>simple_dispatch</code>):</strong></p>
-</li>
-<li>
-<p>Consumes tasks from the shared DSQ and assigns them to CPUs.</p>
-</li>
-<li>
-<p><strong>Running and Stopping Tasks (<code>simple_running</code> &amp; <code>simple_stopping</code>):</strong></p>
-</li>
-<li>
-<p>Manages the progression of virtual time for tasks, ensuring that scheduling decisions remain fair and balanced.</p>
-</li>
-<li>
-<p><strong>Enabling and Exiting:</strong></p>
-</li>
-<li>Handles the enabling of the scheduler and records exit information for debugging.</li>
-</ol>
+<p><strong>Initialization and Licensing:</strong> The scheduler is licensed under GPL. A global variable <code>fifo_sched</code> determines the scheduling mode (FIFO or weighted vtime).</p>
+<p><strong>Dispatch Queue (DSQ) Management:</strong> A shared DSQ (<code>SHARED_DSQ</code>) with ID 0 is created to handle task dispatching. A <code>stats</code> map tracks the number of tasks queued locally and globally.</p>
+<p><strong>CPU Selection (<code>simple_select_cpu</code>):</strong> This function selects the CPU for a waking task. If the selected CPU is idle, the task is immediately dispatched to the local DSQ.</p>
+<p><strong>Task Enqueueing (<code>simple_enqueue</code>):</strong> Depending on the <code>fifo_sched</code> flag, tasks are either dispatched to the shared DSQ in FIFO mode or to a priority queue based on virtual time. Virtual time (<code>vtime</code>) ensures fair scheduling by accounting for task execution time and weight.</p>
+<p><strong>Task Dispatching (<code>simple_dispatch</code>):</strong> This function consumes tasks from the shared DSQ and assigns them to CPUs.</p>
+<p><strong>Running and Stopping Tasks (<code>simple_running</code> &amp; <code>simple_stopping</code>):</strong> These functions manage the progression of virtual time for tasks, ensuring that scheduling decisions remain fair and balanced.</p>
+<p><strong>Enabling and Exiting:</strong> Handles the enabling of the scheduler and records exit information for debugging.</p>
 <p>This modular structure allows scx_simple to be both simple and effective, providing a clear example of how to implement custom scheduling policies using eBPF.</p>
 <h3 id="user-space-implementation">User-Space Implementation</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">read_stats</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">scx_simple</span><span class="w"> </span><span class="o">*</span><span class="n">skel</span><span class="p">,</span><span class="w"> </span><span class="n">__u64</span><span class="w"> </span><span class="o">*</span><span class="n">stats</span><span class="p">)</span>
@@ -4972,114 +4926,33 @@
 </code></pre></div>
 <p>The complete code can be found in <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">https://github.com/eunomia-bpf/bpf-developer-tutorial</a></p>
 <h4 id="user-space-breakdown">User-Space Breakdown</h4>
-<p>The user-space component is responsible for interacting with the BPF scheduler, managing its lifecycle, and monitoring its performance. Here's a snapshot of its responsibilities:</p>
-<ol>
-<li><strong>Statistics Collection (<code>read_stats</code>):</strong></li>
-<li>Reads the number of tasks queued locally and globally from the BPF maps.</li>
-<li>
-<p>Aggregates statistics across all CPUs for reporting.</p>
-</li>
-<li>
-<p><strong>Main Function Workflow:</strong></p>
-</li>
-<li><strong>Initialization:</strong> Sets up libbpf, handles signal interrupts, and opens the scx_simple BPF skeleton.</li>
-<li><strong>Argument Parsing:</strong> Processes command-line options to toggle FIFO scheduling and verbosity.</li>
-<li><strong>Loading and Attaching:</strong> Loads the BPF program and attaches it to the scheduler.</li>
-<li><strong>Monitoring Loop:</strong> Continuously reads and prints scheduling statistics every second.</li>
-<li><strong>Cleanup:</strong> Destroys BPF links and handles potential restarts based on exit codes.</li>
-</ol>
+<p>The user-space component is responsible for interacting with the BPF scheduler, managing its lifecycle, and monitoring its performance.</p>
+<p><strong>Statistics Collection (<code>read_stats</code>):</strong> This function reads the number of tasks queued locally and globally from the BPF maps and aggregates statistics across all CPUs for reporting.</p>
+<p><strong>Main Function Workflow:</strong> The main function sets up libbpf, handles signal interrupts, and opens the scx_simple BPF skeleton. It processes command-line options to toggle FIFO scheduling and verbosity, loads the BPF program, and attaches it to the scheduler. The program enters a monitoring loop where it continuously reads and prints scheduling statistics every second. Upon termination, it cleans up by destroying BPF links and handling potential restarts based on exit codes.</p>
 <p>This user-space program provides a straightforward interface to monitor and control the scx_simple scheduler, making it easier to understand its behavior in real-time.</p>
 <h2 id="deep-dive-into-key-concepts">Deep Dive into Key Concepts</h2>
-<p>To fully grasp how scx_simple operates, let's explore some of the underlying concepts and mechanisms:</p>
+<p>To fully grasp how scx_simple operates, let's explore some of the underlying concepts and mechanisms.</p>
 <h3 id="dispatch-queues-dsqs">Dispatch Queues (DSQs)</h3>
 <p>DSQs are central to sched_ext's operation, acting as buffers where tasks are queued before being dispatched to CPUs. They can function as either FIFO queues or priority queues based on virtual time.</p>
-<ul>
-<li><strong>Local DSQs (<code>SCX_DSQ_LOCAL</code>):</strong> Each CPU has its own local DSQ, ensuring that tasks can be dispatched and consumed efficiently without contention.</li>
-<li><strong>Global DSQ (<code>SCX_DSQ_GLOBAL</code>):</strong> A shared queue where tasks from all CPUs can be queued, providing a fallback when local queues are empty.</li>
-<li><strong>Custom DSQs:</strong> Developers can create additional DSQs using <code>scx_bpf_create_dsq()</code> for more specialized scheduling needs.</li>
-</ul>
+<p>Local DSQs (<code>SCX_DSQ_LOCAL</code>) ensure that each CPU has its own queue, allowing tasks to be dispatched and consumed efficiently without contention. The Global DSQ (<code>SCX_DSQ_GLOBAL</code>) serves as a shared queue where tasks from all CPUs can be queued, providing a fallback when local queues are empty. Developers can also create custom DSQs using <code>scx_bpf_create_dsq()</code> for more specialized scheduling needs.</p>
 <h3 id="virtual-time-vtime">Virtual Time (vtime)</h3>
 <p>Virtual time is a mechanism to ensure fairness in scheduling by tracking how much time a task has consumed relative to its weight. In scx_simple's weighted vtime mode, tasks with higher weights consume virtual time more slowly, allowing lower-weighted tasks to run more frequently.</p>
 <h3 id="scheduling-cycle">Scheduling Cycle</h3>
 <p>Understanding the scheduling cycle is crucial for modifying or extending scx_simple. The following steps detail how a waking task is scheduled and executed:</p>
-<ol>
-<li><strong>Task Wakeup and CPU Selection:</strong></li>
-<li>When a task wakes up, the first operation invoked is <code>ops.select_cpu()</code>.This function serves two purposes:<ul>
-<li><strong>CPU Selection Optimization Hint:</strong> Provides a suggested CPU for the task to run on. While this is an optimization hint and not binding, matching the CPU the task eventually runs on can yield performance gains.</li>
-<li><strong>Waking Up Idle CPUs:</strong> If the selected CPU is idle, <code>ops.select_cpu()</code> can wake it up, preparing it to execute tasks.</li>
-</ul>
-</li>
-<li>
-<p>Note: The scheduler core will ignore invalid CPU selections, such as CPUs outside the allowed CPU mask of the task.</p>
-</li>
-<li>
-<p><strong>Immediate Dispatch from <code>ops.select_cpu()</code>:</strong></p>
-</li>
-<li>A task can be immediately dispatched to a Dispatch Queue (DSQ) directly from <code>ops.select_cpu()</code> by calling <code>scx_bpf_dispatch()</code>.</li>
-<li>If dispatched to <code>SCX_DSQ_LOCAL</code>, the task will be placed in the local DSQ of the CPU returned by <code>ops.select_cpu()</code>.</li>
-<li>
-<p>Dispatching directly from <code>ops.select_cpu()</code> causes the <code>ops.enqueue()</code> callback to be skipped, potentially reducing scheduling latency.</p>
-</li>
-<li>
-<p><strong>Task Enqueueing (<code>ops.enqueue()</code>):</strong></p>
-</li>
-<li>If the task was not dispatched in the previous step, <code>ops.enqueue()</code> is invoked.</li>
-<li>
-<p><code>ops.enqueue()</code> can make several decisions:</p>
-<ul>
-<li><strong>Immediate Dispatch:</strong> Dispatch the task to either the global DSQ (<code>SCX_DSQ_GLOBAL</code>), a local DSQ (<code>SCX_DSQ_LOCAL</code>), or a custom DSQ by calling <code>scx_bpf_dispatch()</code>.</li>
-<li><strong>Queue on BPF Side:</strong> Queue the task within the BPF program for custom scheduling logic.</li>
-</ul>
-</li>
-<li>
-<p><strong>CPU Scheduling Readiness:</strong></p>
-</li>
-<li>
-<p>When a CPU is ready to schedule, it follows this order:</p>
-<ul>
-<li><strong>Local DSQ Check:</strong> The CPU first checks its local DSQ for tasks.</li>
-<li><strong>Global DSQ Check:</strong> If the local DSQ is empty, it checks the global DSQ.</li>
-<li><strong>Invoke <code>ops.dispatch()</code>:</strong> If no tasks are found, <code>ops.dispatch()</code> is invoked to populate the local DSQ.</li>
-<li>Within <code>ops.dispatch()</code>, the following functions can be used:<ul>
-<li><code>scx_bpf_dispatch()</code>: Schedules tasks to any DSQ (local, global, or custom). Note that this function currently cannot be called with BPF locks held.</li>
-<li><code>scx_bpf_consume()</code>: Transfers a task from a specified non-local DSQ to the dispatching DSQ. This function cannot be called with any BPF locks held and will flush pending dispatched tasks before attempting to consume the specified DSQ.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>Task Execution Decision:</strong></p>
-</li>
-<li>After <code>ops.dispatch()</code> returns, if there are tasks in the local DSQ, the CPU runs the first one.</li>
-<li>If the local DSQ is still empty, the CPU performs the following steps:<ul>
-<li><strong>Consume Global DSQ:</strong> Attempts to consume a task from the global DSQ using <code>scx_bpf_consume()</code>. If successful, the task is executed.</li>
-<li><strong>Retry Dispatch:</strong> If <code>ops.dispatch()</code> has dispatched any tasks, the CPU retries checking the local DSQ.</li>
-<li><strong>Execute Previous Task:</strong> If the previous task is an SCX task and still runnable, the CPU continues executing it (see <code>SCX_OPS_ENQ_LAST</code>).</li>
-<li><strong>Idle State:</strong> If no tasks are available, the CPU goes idle.</li>
-</ul>
-</li>
-</ol>
+<p><strong>Task Wakeup and CPU Selection:</strong> When a task wakes up, <code>ops.select_cpu()</code> is invoked. This function provides a suggested CPU for the task to run on and can wake up idle CPUs to prepare them for task execution. If the selected CPU is idle, the task is immediately dispatched to the local DSQ, potentially reducing scheduling latency.</p>
+<p><strong>Immediate Dispatch from <code>ops.select_cpu()</code>:</strong> A task can be dispatched directly to a Dispatch Queue (DSQ) from <code>ops.select_cpu()</code>. If dispatched to <code>SCX_DSQ_LOCAL</code>, the task is placed in the local DSQ of the selected CPU, skipping the <code>ops.enqueue()</code> callback.</p>
+<p><strong>Task Enqueueing (<code>ops.enqueue()</code>):</strong> If the task was not dispatched in the previous step, <code>ops.enqueue()</code> is invoked. This function can dispatch the task to the global DSQ, a local DSQ, or a custom DSQ based on the <code>fifo_sched</code> flag and virtual time calculations.</p>
+<p><strong>CPU Scheduling Readiness:</strong> When a CPU is ready to schedule, it first checks its local DSQ for tasks. If the local DSQ is empty, it checks the global DSQ. If no tasks are found, <code>ops.dispatch()</code> is invoked to populate the local DSQ. After dispatching, if tasks are available in the local DSQ, the CPU executes the first one. If not, it may attempt to consume a task from the global DSQ or go idle.</p>
 <p>This scheduling cycle ensures that tasks are scheduled efficiently while maintaining fairness and responsiveness. By understanding each step, developers can modify or extend scx_simple to implement custom scheduling behaviors that meet specific requirements.</p>
 <h2 id="compiling-and-running-scx_simple">Compiling and Running scx_simple</h2>
 <p>Getting scx_simple up and running involves setting up the necessary toolchain and configuring the kernel appropriately. Here's how you can compile and execute the example scheduler.</p>
 <h3 id="toolchain-dependencies">Toolchain Dependencies</h3>
 <p>Before compiling scx_simple, ensure you have the following tools installed:</p>
-<ol>
-<li><strong>clang &gt;= 16.0.0</strong></li>
-<li>
-<p>Required for compiling BPF programs. While GCC is working on BPF support, it lacks essential features like BTF type tags necessary for certain functionalities.</p>
-</li>
-<li>
-<p><strong>pahole &gt;= 1.25</strong></p>
-</li>
-<li>
-<p>Used to generate BTF from DWARF, which is crucial for type information in BPF programs.</p>
-</li>
-<li>
-<p><strong>rust &gt;= 1.70.0</strong></p>
-</li>
-<li>If you're working with Rust-based schedulers, ensure you have the appropriate Rust toolchain version.</li>
-</ol>
+<ul>
+<li><strong>clang &gt;= 16.0.0:</strong> Required for compiling BPF programs. GCC is working on BPF support but lacks essential features like BTF type tags necessary for certain functionalities.</li>
+<li><strong>pahole &gt;= 1.25:</strong> Used to generate BTF from DWARF, crucial for type information in BPF programs.</li>
+<li><strong>rust &gt;= 1.70.0:</strong> If you're working with Rust-based schedulers, ensure you have the appropriate Rust toolchain version.</li>
+</ul>
 <p>Additionally, tools like <code>make</code> are required for building the examples.</p>
 <h3 id="kernel-configuration">Kernel Configuration</h3>
 <p>To enable and use sched_ext, ensure the following kernel configuration options are set:</p>
@@ -5100,7 +4973,7 @@
 </code></pre></div>
 <p>This command compiles the scx_simple scheduler along with its dependencies.</p>
 <h3 id="running-scx_simple">Running scx_simple</h3>
-<p>Once compiled, you can execute the user-space program to load and monitor the scheduler:</p>
+<p>Once compiled, execute the user-space program to load and monitor the scheduler:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>./scx_simple<span class="w"> </span>-f
 </code></pre></div>
 <p>The <code>-f</code> flag enables FIFO scheduling mode. You can also use <code>-v</code> for verbose output or <code>-h</code> for help.</p>
@@ -5110,17 +4983,12 @@
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>...
 </code></pre></div>
 <h3 id="switching-between-sched_ext-and-cfs">Switching Between sched_ext and CFS</h3>
-<p>sched_ext operates alongside the default Completely Fair Scheduler (CFS). You can switch between sched_ext and CFS dynamically:</p>
-<ul>
-<li><strong>Enable sched_ext:</strong> Load the BPF scheduler using scx_simple.</li>
-<li><strong>Disable sched_ext:</strong> Terminate the scx_simple program, reverting all tasks back to CFS.</li>
-</ul>
-<p>Additionally, using SysRq key sequences like <code>SysRq-S</code> can help manage the scheduler's state and trigger debug dumps with <code>SysRq-D</code>.</p>
+<p>sched_ext operates alongside the default Completely Fair Scheduler (CFS). You can switch between sched_ext and CFS dynamically. To enable sched_ext, load the BPF scheduler using scx_simple. To disable sched_ext, terminate the scx_simple program, reverting all tasks back to CFS. Additionally, using SysRq key sequences like <code>SysRq-S</code> can help manage the scheduler's state and trigger debug dumps with <code>SysRq-D</code>.</p>
 <h2 id="summary-and-next-steps">Summary and Next Steps</h2>
 <p>In this tutorial, we've introduced the <strong>sched_ext</strong> scheduler class and walked through a minimal example, <strong>scx_simple</strong>, demonstrating how to define custom scheduling behaviors using eBPF programs. We've covered the architecture, key concepts like DSQs and virtual time, and provided step-by-step instructions for compiling and running the scheduler.</p>
 <p>By mastering scx_simple, you're well-equipped to design and implement more sophisticated scheduling policies tailored to your specific requirements. Whether you're optimizing for performance, fairness, or specific workload characteristics, sched_ext and eBPF offer the flexibility and power to achieve your goals.</p>
 <blockquote>
-<p>Ready to take your eBPF skills to the next level? Dive deeper into our tutorials and explore more examples by visiting our <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">tutorial repository https://github.com/eunomia-bpf/bpf-developer-tutorial</a> or our <a href="https://eunomia.dev/tutorials/">website https://eunomia.dev/tutorials/</a>.</p>
+<p>Ready to take your eBPF skills to the next level? Dive deeper into our tutorials and explore more examples by visiting our <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">tutorial repository</a> or our <a href="https://eunomia.dev/tutorials/">website</a>.</p>
 </blockquote>
 <h2 id="references">References</h2>
 <ul>
