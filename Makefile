@@ -9,6 +9,7 @@ install: docs/CNAME
 	pip install mkdocs-git-revision-date-localized-plugin
 	pip install mkdocs-git-authors-plugin
 	pip3 install mkdocs-exclude
+    pip install mkdocs-rss-plugin
 
 tutorial:
 	git clone https://github.com/eunomia-bpf/bpf-developer-tutorial tutorial --depth=1
