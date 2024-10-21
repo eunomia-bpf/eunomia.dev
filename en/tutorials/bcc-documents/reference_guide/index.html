@@ -5958,6 +5958,8 @@ class Data(ct.Structure):
 <p>eBPF 程序编译需要内核源代码或已编译的内核头。如果你的内核源代码位于无法被 BCC 找到的非标准位置，可以通过将 <code>BCC_KERNEL_SOURCE</code> 设置为该路径的绝对路径来为 BCC 提供所需的位置信息。</p>
 <h2 id="2">2. 内核版本覆盖</h2>
 <p>默认情况下，BCC 将 <code>LINUX_VERSION_CODE</code> 存储在生成的 eBPF 对象中，并在加载 eBPF 程序时传递给内核。有时，这可能非常不方便，尤其是当内核略有更新时，比如 LTS 内核发布。微小的不匹配几乎不会导致加载的 eBPF 程序出现任何问题。通过将 <code>BCC_LINUX_VERSION_CODE</code> 设置为正在运行的内核版本，可以绕过验证内核版本的检查。这对于程序是必需的。使用kprobes的程序需要以<code>(VERSION * 65536) + (PATCHLEVEL * 256) + SUBLEVEL</code>的格式进行编码。例如，如果当前运行的内核是<code>4.9.10</code>，则可以设置<code>export BCC_LINUX_VERSION_CODE=264458</code>以成功地覆盖内核版本检查。</p>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=bcc%20%E5%8F%82%E8%80%83%E6%8C%87%E5%8D%97%0A&amp;url=https://eunomia.dev/en/tutorials/bcc-documents/reference_guide/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/en/tutorials/bcc-documents/reference_guide/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
 
