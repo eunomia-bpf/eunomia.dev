@@ -66,7 +66,14 @@ $(call allow-override,CC,$(CROSS_COMPILE)cc)
 $(call allow-override,LD,$(CROSS_COMPILE)ld)
 
 .PHONY: all
-all: $(APPS) merge-btf
+all: $(APPS) merge-btf all-btf
+
+.PHONY: all-btf
+all-btf: merge-btf
+	make -C examples
+	./merge-btf /sys/kernel/btf/vmlinux examples/base-new.btf target-base-new.btf
+	./merge-btf /sys/kernel/btf/vmlinux examples/base.btf target-base.btf
+	./merge-btf /sys/kernel/btf/vmlinux examples/base-complete.btf target-base-complete.btf
 
 .PHONY: clean
 clean:

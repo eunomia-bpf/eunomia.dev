@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../../assets/icon.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.46">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.47">
     
     
       
@@ -4492,7 +4492,7 @@
 <a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="p">}</span>
 </code></pre></div>
 <p>我们可以使用pahole和clang来生成每个版本的btf。制作示例并生成btf:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>make<span class="w"> </span>-C<span class="w"> </span>example<span class="w"> </span><span class="c1"># it&#39;s like: pahole --btf_encode_detached base.btf btf-base.o</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>make<span class="w"> </span>-C<span class="w"> </span>examples<span class="w"> </span><span class="c1"># it&#39;s like: pahole --btf_encode_detached base.btf btf-base.o</span>
 </code></pre></div>
 <p>然后我们执行eBPF程序和用户空间程序。 对于 <code>btf-base</code>：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>sudo<span class="w"> </span>./uprobe<span class="w"> </span>examples/btf-base<span class="w"> </span>
@@ -4552,71 +4552,89 @@
 <a id="__codelineno-10-31" name="__codelineno-10-31" href="#__codelineno-10-31"></a><span class="kt">char</span><span class="w"> </span><span class="n">LICENSE</span><span class="p">[]</span><span class="w"> </span><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;license&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Dual BSD/GPL&quot;</span><span class="p">;</span>
 </code></pre></div>
 <p><code>struct data</code>的记录在eBPF程序中被保留下来。然后，我们可以使用 <code>btf-base.btf</code>来编译eBPF程序。</p>
+<p>这时，如果未提供用户态的 BTF 信息，会导致验证失败：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="gp"># </span>./uprobe<span class="w"> </span>examples/btf-base<span class="w"> </span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="go">.....</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="go">; int BPF_UPROBE(add_test, struct data *d) @ uprobe.bpf.c:23</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="go">0: (79) r6 = *(u64 *)(r1 +112)        ; R1=ctx() R6_w=scalar()</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="go">1: (b7) r7 = 0                        ; R7_w=0</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="go">; int a = 0, c = 0; @ uprobe.bpf.c:25</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="go">2: (63) *(u32 *)(r10 -4) = r7         ; R7_w=0 R10=fp0 fp-8=0000????</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="go">3: (63) *(u32 *)(r10 -8) = r7         ; R7_w=0 R10=fp0 fp-8=00000</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="go">4: &lt;invalid CO-RE relocation&gt;</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="go">failed to resolve CO-RE relocation &lt;byte_off&gt; [17] struct data.a (0:0 @ offset 0)</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="go">processed 5 insns (limit 1000000) max_states_per_insn 0 total_states 0 peak_states 0 mark_read 0</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="go">-- END PROG LOAD LOG --</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="go">libbpf: prog &#39;add_test&#39;: failed to load: -22</span>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="go">libbpf: failed to load object &#39;uprobe_bpf&#39;</span>
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="go">libbpf: failed to load BPF skeleton &#39;uprobe_bpf&#39;: -22</span>
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="go">Failed to load and verify BPF skeleton</span>
+</code></pre></div>
 <p>将用户btf与内核btf合并，这样我们就有了一个完整的内核和用户空间的btf:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>./merge-btf<span class="w"> </span>/sys/kernel/btf/vmlinux<span class="w"> </span>examples/base.btf<span class="w"> </span>target-base.btf
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>./merge-btf<span class="w"> </span>/sys/kernel/btf/vmlinux<span class="w"> </span>examples/base.btf<span class="w"> </span>target-base.btf
 </code></pre></div>
 <p>然后我们使用用户空间程序执行eBPF程序。 对于 <code>btf-base</code>：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="gp">$ </span>sudo<span class="w"> </span>./uprobe<span class="w"> </span>examples/btf-base<span class="w"> </span>target-base.btf
-<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="go">...</span>
-<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="go">libbpf: prog &#39;add_test&#39;: relo #1: patched insn #4 (ALU/ALU64) imm 0 -&gt; 0</span>
-<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="go">libbpf: prog &#39;add_test&#39;: relo #2: &lt;byte_off&gt; [7] struct data.c (0:1 @ offset 4)</span>
-<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="go">libbpf: prog &#39;add_test&#39;: relo #2: matching candidate #0 &lt;byte_off&gt; [133110] struct data.c (0:1 @ offset 4)</span>
-<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="go">libbpf: prog &#39;add_test&#39;: relo #2: patched insn #11 (ALU/ALU64) imm 4 -&gt; 4</span>
-<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="go">...</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="gp">$ </span>sudo<span class="w"> </span>./uprobe<span class="w"> </span>examples/btf-base<span class="w"> </span>target-base.btf
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="go">...</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="go">libbpf: prog &#39;add_test&#39;: relo #1: patched insn #4 (ALU/ALU64) imm 0 -&gt; 0</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="go">libbpf: prog &#39;add_test&#39;: relo #2: &lt;byte_off&gt; [7] struct data.c (0:1 @ offset 4)</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="go">libbpf: prog &#39;add_test&#39;: relo #2: matching candidate #0 &lt;byte_off&gt; [133110] struct data.c (0:1 @ offset 4)</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="go">libbpf: prog &#39;add_test&#39;: relo #2: patched insn #11 (ALU/ALU64) imm 4 -&gt; 4</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="go">...</span>
 </code></pre></div>
 <p>执行用户空间程序并获取结果：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="gp">$ </span>sudo<span class="w"> </span>cat<span class="w"> </span>/sys/kernel/debug/tracing/trace_pipe
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="go">[sudo] password for yunwei37: </span>
-<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="go">           &lt;...&gt;-26740   [001] ...11 28180.156220: bpf_trace_printk: add_test(&amp;d) 1 + 3 = 4</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="gp">$ </span>sudo<span class="w"> </span>cat<span class="w"> </span>/sys/kernel/debug/tracing/trace_pipe
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="go">[sudo] password for yunwei37: </span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="go">           &lt;...&gt;-26740   [001] ...11 28180.156220: bpf_trace_printk: add_test(&amp;d) 1 + 3 = 4</span>
 </code></pre></div>
 <p>还可以对另一个版本的用户空间程序<code>btf-base-new</code>做同样的操作:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="gp">$ </span>./merge-btf<span class="w"> </span>/sys/kernel/btf/vmlinux<span class="w"> </span>examples/base-new.btf<span class="w"> </span>target-base-new.btf
-<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="gp">$ </span>sudo<span class="w"> </span>./uprobe<span class="w"> </span>examples/btf-base-new<span class="w"> </span>target-base-new.btf
-<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="go">....</span>
-<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="go">libbpf: sec &#39;uprobe/examples/btf-base:add_test&#39;: found 3 CO-RE relocations</span>
-<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="go">libbpf: CO-RE relocating [2] struct pt_regs: found target candidate [357] struct pt_regs in [vmlinux]</span>
-<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="go">libbpf: prog &#39;add_test&#39;: relo #0: &lt;byte_off&gt; [2] struct pt_regs.di (0:14 @ offset 112)</span>
-<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="go">libbpf: prog &#39;add_test&#39;: relo #0: matching candidate #0 &lt;byte_off&gt; [357] struct pt_regs.di (0:14 @ offset 112)</span>
-<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="go">libbpf: prog &#39;add_test&#39;: relo #0: patched insn #0 (LDX/ST/STX) off 112 -&gt; 112</span>
-<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="go">libbpf: CO-RE relocating [7] struct data: found target candidate [133110] struct data in [vmlinux]</span>
-<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="go">libbpf: prog &#39;add_test&#39;: relo #1: &lt;byte_off&gt; [7] struct data.a (0:0 @ offset 0)</span>
-<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="go">libbpf: prog &#39;add_test&#39;: relo #1: matching candidate #0 &lt;byte_off&gt; [133110] struct data.a (0:0 @ offset 0)</span>
-<a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="go">libbpf: prog &#39;add_test&#39;: relo #1: patched insn #4 (ALU/ALU64) imm 0 -&gt; 0</span>
-<a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a><span class="go">libbpf: prog &#39;add_test&#39;: relo #2: &lt;byte_off&gt; [7] struct data.c (0:1 @ offset 4)</span>
-<a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a><span class="go">libbpf: prog &#39;add_test&#39;: relo #2: matching candidate #0 &lt;byte_off&gt; [133110] struct data.c (0:2 @ offset 8)</span>
-<a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a><span class="go">libbpf: prog &#39;add_test&#39;: relo #2: patched insn #11 (ALU/ALU64) imm 4 -&gt; 8</span>
-<a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a><span class="go">libbpf: elf: symbol address match for &#39;add_test&#39; in &#39;examples/btf-base-new&#39;: 0x1140</span>
-<a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a><span class="go">Successfully started! Press Ctrl+C to stop.</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="gp">$ </span>./merge-btf<span class="w"> </span>/sys/kernel/btf/vmlinux<span class="w"> </span>examples/base-new.btf<span class="w"> </span>target-base-new.btf
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="gp">$ </span>sudo<span class="w"> </span>./uprobe<span class="w"> </span>examples/btf-base-new<span class="w"> </span>target-base-new.btf
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="go">....</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="go">libbpf: sec &#39;uprobe/examples/btf-base:add_test&#39;: found 3 CO-RE relocations</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="go">libbpf: CO-RE relocating [2] struct pt_regs: found target candidate [357] struct pt_regs in [vmlinux]</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="go">libbpf: prog &#39;add_test&#39;: relo #0: &lt;byte_off&gt; [2] struct pt_regs.di (0:14 @ offset 112)</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="go">libbpf: prog &#39;add_test&#39;: relo #0: matching candidate #0 &lt;byte_off&gt; [357] struct pt_regs.di (0:14 @ offset 112)</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="go">libbpf: prog &#39;add_test&#39;: relo #0: patched insn #0 (LDX/ST/STX) off 112 -&gt; 112</span>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="go">libbpf: CO-RE relocating [7] struct data: found target candidate [133110] struct data in [vmlinux]</span>
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="go">libbpf: prog &#39;add_test&#39;: relo #1: &lt;byte_off&gt; [7] struct data.a (0:0 @ offset 0)</span>
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="go">libbpf: prog &#39;add_test&#39;: relo #1: matching candidate #0 &lt;byte_off&gt; [133110] struct data.a (0:0 @ offset 0)</span>
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="go">libbpf: prog &#39;add_test&#39;: relo #1: patched insn #4 (ALU/ALU64) imm 0 -&gt; 0</span>
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="go">libbpf: prog &#39;add_test&#39;: relo #2: &lt;byte_off&gt; [7] struct data.c (0:1 @ offset 4)</span>
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="go">libbpf: prog &#39;add_test&#39;: relo #2: matching candidate #0 &lt;byte_off&gt; [133110] struct data.c (0:2 @ offset 8)</span>
+<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a><span class="go">libbpf: prog &#39;add_test&#39;: relo #2: patched insn #11 (ALU/ALU64) imm 4 -&gt; 8</span>
+<a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a><span class="go">libbpf: elf: symbol address match for &#39;add_test&#39; in &#39;examples/btf-base-new&#39;: 0x1140</span>
+<a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a><span class="go">Successfully started! Press Ctrl+C to stop.</span>
 </code></pre></div>
 <p>结果是正确的：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="gp">$ </span>sudo<span class="w"> </span>cat<span class="w"> </span>/sys/kernel/debug/tracing/trace_pipe
-<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="go">[sudo] password for yunwei37: </span>
-<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="go">           &lt;...&gt;-26740   [001] ...11 28180.156220: bpf_trace_printk: add_test(&amp;d) 1 + 3 = 4</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="gp">$ </span>sudo<span class="w"> </span>cat<span class="w"> </span>/sys/kernel/debug/tracing/trace_pipe
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="go">[sudo] password for yunwei37: </span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="go">           &lt;...&gt;-26740   [001] ...11 28180.156220: bpf_trace_printk: add_test(&amp;d) 1 + 3 = 4</span>
 </code></pre></div>
 <p>我们的 eBPF 追踪程序也几乎不需要进行任何修改，只需要把包含 kernel 和用户态结构体偏移量的 BTF 加载进来即可。这和旧版本内核上没有 btf 信息的使用方式是一样的:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="w">    </span><span class="n">LIBBPF_OPTS</span><span class="p">(</span><span class="n">bpf_object_open_opts</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p">,</span>
-<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">    </span><span class="p">);</span>
-<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">    </span><span class="n">LIBBPF_OPTS</span><span class="p">(</span><span class="n">bpf_uprobe_opts</span><span class="p">,</span><span class="w"> </span><span class="n">uprobe_opts</span><span class="p">);</span>
-<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">argc</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">argc</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">        </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Usage: %s &lt;example-name&gt; [&lt;external-btf&gt;]</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">argc</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span>
-<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="w">        </span><span class="n">opts</span><span class="p">.</span><span class="n">btf_custom_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
-<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>
-<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="w">    </span><span class="cm">/* Set up libbpf errors and debug info callback */</span>
-<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a><span class="w">    </span><span class="n">libbpf_set_print</span><span class="p">(</span><span class="n">libbpf_print_fn</span><span class="p">);</span>
-<a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a>
-<a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a><span class="w">    </span><span class="cm">/* Cleaner handling of Ctrl-C */</span>
-<a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a><span class="w">    </span><span class="n">signal</span><span class="p">(</span><span class="n">SIGINT</span><span class="p">,</span><span class="w"> </span><span class="n">sig_handler</span><span class="p">);</span>
-<a id="__codelineno-16-16" name="__codelineno-16-16" href="#__codelineno-16-16"></a><span class="w">    </span><span class="n">signal</span><span class="p">(</span><span class="n">SIGTERM</span><span class="p">,</span><span class="w"> </span><span class="n">sig_handler</span><span class="p">);</span>
-<a id="__codelineno-16-17" name="__codelineno-16-17" href="#__codelineno-16-17"></a>
-<a id="__codelineno-16-18" name="__codelineno-16-18" href="#__codelineno-16-18"></a><span class="w">    </span><span class="cm">/* Load and verify BPF application */</span>
-<a id="__codelineno-16-19" name="__codelineno-16-19" href="#__codelineno-16-19"></a><span class="w">    </span><span class="n">skel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">uprobe_bpf__open_opts</span><span class="p">(</span><span class="o">&amp;</span><span class="n">opts</span><span class="p">);</span>
-<a id="__codelineno-16-20" name="__codelineno-16-20" href="#__codelineno-16-20"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">skel</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-16-21" name="__codelineno-16-21" href="#__codelineno-16-21"></a><span class="w">        </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Failed to open and load BPF skeleton</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-<a id="__codelineno-16-22" name="__codelineno-16-22" href="#__codelineno-16-22"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-<a id="__codelineno-16-23" name="__codelineno-16-23" href="#__codelineno-16-23"></a><span class="w">    </span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="w">    </span><span class="n">LIBBPF_OPTS</span><span class="p">(</span><span class="n">bpf_object_open_opts</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p">,</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">    </span><span class="p">);</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">    </span><span class="n">LIBBPF_OPTS</span><span class="p">(</span><span class="n">bpf_uprobe_opts</span><span class="p">,</span><span class="w"> </span><span class="n">uprobe_opts</span><span class="p">);</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">argc</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">argc</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="w">        </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Usage: %s &lt;example-name&gt; [&lt;external-btf&gt;]</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">argc</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span>
+<a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a><span class="w">        </span><span class="n">opts</span><span class="p">.</span><span class="n">btf_custom_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+<a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a>
+<a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a><span class="w">    </span><span class="cm">/* Set up libbpf errors and debug info callback */</span>
+<a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a><span class="w">    </span><span class="n">libbpf_set_print</span><span class="p">(</span><span class="n">libbpf_print_fn</span><span class="p">);</span>
+<a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a>
+<a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a><span class="w">    </span><span class="cm">/* Cleaner handling of Ctrl-C */</span>
+<a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a><span class="w">    </span><span class="n">signal</span><span class="p">(</span><span class="n">SIGINT</span><span class="p">,</span><span class="w"> </span><span class="n">sig_handler</span><span class="p">);</span>
+<a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a><span class="w">    </span><span class="n">signal</span><span class="p">(</span><span class="n">SIGTERM</span><span class="p">,</span><span class="w"> </span><span class="n">sig_handler</span><span class="p">);</span>
+<a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a>
+<a id="__codelineno-17-18" name="__codelineno-17-18" href="#__codelineno-17-18"></a><span class="w">    </span><span class="cm">/* Load and verify BPF application */</span>
+<a id="__codelineno-17-19" name="__codelineno-17-19" href="#__codelineno-17-19"></a><span class="w">    </span><span class="n">skel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">uprobe_bpf__open_opts</span><span class="p">(</span><span class="o">&amp;</span><span class="n">opts</span><span class="p">);</span>
+<a id="__codelineno-17-20" name="__codelineno-17-20" href="#__codelineno-17-20"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">skel</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-17-21" name="__codelineno-17-21" href="#__codelineno-17-21"></a><span class="w">        </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Failed to open and load BPF skeleton</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-17-22" name="__codelineno-17-22" href="#__codelineno-17-22"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-17-23" name="__codelineno-17-23" href="#__codelineno-17-23"></a><span class="w">    </span><span class="p">}</span>
 </code></pre></div>
 <p>实际上，btf 实现重定向需要两个部分，一个是 bpf 程序带的编译时的 btf 信息，一个是内核的 btf 信息。在实际加载 ebpf 程序的时候，libbpf 会根据当前内核上准确的 btf 信息，来修改可能存在错误的 ebpf 指令，确保在不同内核版本上能够兼容。</p>
 <p>有趣的是，实际上 libbpf 并不区分这些 btf 信息来自用户态程序还是内核，因此我们只要把用户态的重定向信息一起提供给 libbpf 进行重定向，问题就解决了。</p>
@@ -4653,7 +4671,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 30, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 4, 2024</span>
   </span>
 
     
@@ -4663,7 +4681,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 30, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 4, 2024</span>
   </span>
 
     
