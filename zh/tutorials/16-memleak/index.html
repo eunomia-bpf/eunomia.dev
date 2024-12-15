@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../../assets/icon.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.47">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.48">
     
     
       
@@ -4668,7 +4668,8 @@
 <p>接着，函数清除 <code>info</code> 结构体的内容，并设置它的 <code>size</code> 字段为之前在 map 中找到的内存分配大小。并从 <code>sizes</code> 这个 map 中删除相应的元素，因为此时内存分配操作已经完成，不再需要这个信息。</p>
 <p>接下来，如果 <code>address</code> 不为 0（也就是说，内存分配操作成功了），函数就会进一步收集一些额外的信息。首先，它获取当前的时间戳作为内存分配完成的时间，并获取当前的堆栈跟踪。这些信息都会被储存在 <code>info</code> 结构体中，并随后更新到 <code>allocs</code> 这个 map 中。</p>
 <p>最后，函数调用 <code>update_statistics_add</code> 更新统计数据，如果启用了所有内存分配操作的跟踪，函数还会打印一些关于内存分配操作的信息。</p>
-<p>请注意，<code>gen_alloc_exit</code> 函数是 <code>gen_alloc_exit2</code> 的一个包装，它将 <code>PT_REGS_RC(ctx)</code> 作为 <code>address</code> 参数传递给 <code>gen_alloc_exit2</code>。<code>在我们的讨论中，我们刚刚提到在</code>gen_alloc_exit2<code>函数中，调用了</code>update_statistics_add` 函数以更新内存分配的统计数据。下面我们详细看一下这个函数的具体实现。</p>
+<p>请注意，<code>gen_alloc_exit</code> 函数是 <code>gen_alloc_exit2</code> 的一个包装，它将 <code>PT_REGS_RC(ctx)</code> 作为 <code>address</code> 参数传递给 <code>gen_alloc_exit2</code>。
+在我们的讨论中，我们刚刚提到在 <code>gen_alloc_exit2</code> 函数中，调用了 <code>update_statistics_add</code> 函数以更新内存分配的统计数据。下面我们详细看一下这个函数的具体实现。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">update_statistics_add</span><span class="p">(</span><span class="n">u64</span><span class="w"> </span><span class="n">stack_id</span><span class="p">,</span><span class="w"> </span><span class="n">u64</span><span class="w"> </span><span class="n">sz</span><span class="p">)</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="p">{</span>
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="k">union</span><span class="w"> </span><span class="nc">combined_alloc_info</span><span class="w"> </span><span class="o">*</span><span class="n">existing_cinfo</span><span class="p">;</span>
