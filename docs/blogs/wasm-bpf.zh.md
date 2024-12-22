@@ -33,7 +33,7 @@ eBPF 是一项革命性的技术，起源于 Linux 内核，可以在操作系�
 从历史上看，由于内核具有监督和控制整个系统的特权能力，所以操作系统一直是实现可观察性、安全性和网络功能等多种能力的理想场所。同时，由于操作系统内核对稳定性和安全性的高要求，内核的新功能迭代通常非常谨慎，也很难接受自定义的、较少通用性的功能改进。因此，与用户态的更多功能相比，内核态操作系统层面的创新率历来都比较低[2]。
 
 <div align="center">
-<img src=https://ebpf.io/static/overview-3c0c9cd2010cb0b7fdc26e5e17d99635.png  width=60% />
+<img src=https://github.com/ebpf-io/ebpf.io-website/blob/main/content/static-pages/what-is-ebpf/overview.png width=60% alt="eBPF Overview" />
 </div>
 
 eBPF 从根本上改变了这个公式。通过允许在操作系统内运行沙盒程序，应用程序开发人员可以在运行时，可编程地向操作系统动态添加额外的功能。然后，操作系统保证安全和执行效率，就像在即时编译（JIT）编译器和验证引擎的帮助下进行本地编译一样。eBPF 程序在内核版本之间是可移植的，并且可以自动更新，从而避免了工作负载中断和节点重启。
@@ -45,7 +45,7 @@ eBPF 从根本上改变了这个公式。通过允许在操作系统内运行沙
 对于浏览器而言，JavaScript 的引入带来的可编程性开启了一场巨大的革命，使浏览器发展成为几乎独立的操作系统。现在让我们回到 eBPF：为了理解 eBPF 对 Linux 内核的可编程性影响，对 Linux 内核的结构以及它如何与应用程序和硬件进行交互有一个高层次的理解是有帮助的[4]。
 
 <div align="center">
-<img src=https://ebpf.io/static/kernel_arch-c0be6286222dcd0e6e45250d2d9a87fd.png width=60% />
+<img src=https://github.com/ebpf-io/ebpf.io-website/blob/main/content/static-pages/what-is-ebpf/kernel-arch.png width=60% />
 </div>
 
 Linux 内核的主要目的是抽象出硬件或虚拟硬件，并提供一个一致的API（系统调用），允许应用程序运行和共享资源。为了实现这个目的，我们维护了一系列子系统和层，以分配这些责任。每个子系统通常允许某种程度的配置，以考虑到用户的不同需求。如果不能配置所需的行为，就需要改变内核，从历史上看，改变内核的行为，或者让用户编写的程序能够在内核中运行，就有两种选择:
@@ -82,7 +82,7 @@ eBPF 程序是以函数为单位的、事件驱动的，当内核或用户空间
 - 内核态主要负责具体的计算逻辑与数据收集。
 
 <div align="center">
-<img src=https://ebpf.io/static/libbpf-ee03b2f4d79b197554fa00671e67129d.png width=60% />
+<img src=https://github.com/ebpf-io/ebpf.io-website/blob/main/content/static-pages/what-is-ebpf/libbpf.png width=60% />
 </div>
 
 ### 在用户态 Wasm-eBPF 系统接口之上定义的全新 eBPF 开发框架

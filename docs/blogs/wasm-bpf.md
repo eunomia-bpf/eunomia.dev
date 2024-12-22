@@ -29,7 +29,7 @@ eBPF is a revolutionary technology, originating from the Linux kernel, that allo
 Looking historically, the operating system kernel has been an ideal place to implement various capabilities like observability, security, and networking due to its privileged ability to supervise and control the entire system. However, due to the high demands on stability and security, kernel feature iterations are typically very cautious, and it is difficult to accept customized, less common functionality improvements. Therefore, compared to the functionalities in user space, the rate of innovation at the kernel-level operating system layer has always been relatively low.[2]
 
 <div align="center">
-<img src=https://ebpf.io/static/overview-3c0c9cd2010cb0b7fdc26e5e17d99635.png width=60% />
+<img src=https://github.com/ebpf-io/ebpf.io-website/blob/main/content/static-pages/what-is-ebpf/overview.png width=60% alt="eBPF Overview" />
 </div>
 
 eBPF fundamentally changes this paradigm. By allowing sandboxed programs to run within the operating system, application developers can programmatically add additional functionalities to the operating system at runtime. The operating system then ensures safety and execution efficiency, as if it were compiled locally with the help of a Just-In-Time (JIT) compiler and a verification engine. eBPF programs are portable across kernel versions and can be automatically updated, thus avoiding workload interruptions and node restarts.
@@ -41,7 +41,7 @@ Today, eBPF is widely used in various scenarios: in modern data centers and clou
 For browsers, the introduction of JavaScript's programmability sparked a significant revolution, turning browsers into almost independent operating systems. Now, looking at eBPF: to understand the impact of eBPF on the programmability of the Linux kernel, it is helpful to have a high-level understanding of the structure of the Linux kernel and how it interacts with applications and hardware.[4]
 
 <div align="center">
-<img src=https://ebpf.io/static/kernel_arch-c0be6286222dcd0e6e45250d2d9a87fd.png width=60% />
+<img src=https://github.com/ebpf-io/ebpf.io-website/blob/main/content/static-pages/what-is-ebpf/kernel-arch.png width=60% />
 </div>
 
 The main purpose of the Linux kernel is to abstract the hardware or virtual hardware and provide a consistent API (system calls) to allow applications to run and share resources. To achieve this, a series of subsystems and layers are maintained to distribute these responsibilities. Each subsystem typically allows some degree of configuration to take into account the different needs of the user. If the desired behavior cannot be configured, changing the kernel is necessary. Historically, changing the kernel's behavior or enabling user-written programs to run in the kernel has presented two options.
@@ -78,7 +78,7 @@ For a complete eBPF application, there are usually two parts: the user state and
 - The kernel state is mainly responsible for the specific computational logic and data collection.
 
 <div align="center">
-<img src=https://ebpf.io/static/libbpf-ee03b2f4d79b197554fa00671e67129d.png width=60% />
+<img src=https://github.com/ebpf-io/ebpf.io-website/blob/main/content/static-pages/what-is-ebpf/libbpf.png width=60% />
 </div>
 
 ### A new eBPF development framework defined on top of the user-state Wasm-eBPF system interface
