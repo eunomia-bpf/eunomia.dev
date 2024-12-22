@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../assets/icon.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.48">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
     
     
       
@@ -4431,7 +4431,7 @@
 <p>eBPF is a revolutionary technology, originating from the Linux kernel, that allows sandboxed programs to be run in the kernel of the operating system. It is used to safely and efficiently extend the functionality of the kernel without changing the kernel's source code or loading kernel modules.</p>
 <p>Looking historically, the operating system kernel has been an ideal place to implement various capabilities like observability, security, and networking due to its privileged ability to supervise and control the entire system. However, due to the high demands on stability and security, kernel feature iterations are typically very cautious, and it is difficult to accept customized, less common functionality improvements. Therefore, compared to the functionalities in user space, the rate of innovation at the kernel-level operating system layer has always been relatively low.[2]</p>
 <div align="center">
-<img src=https://ebpf.io/static/overview-3c0c9cd2010cb0b7fdc26e5e17d99635.png width=60% />
+<img src=https://github.com/ebpf-io/ebpf.io-website/blob/main/content/static-pages/what-is-ebpf/overview.png width=60% alt="eBPF Overview" />
 </div>
 
 <p>eBPF fundamentally changes this paradigm. By allowing sandboxed programs to run within the operating system, application developers can programmatically add additional functionalities to the operating system at runtime. The operating system then ensures safety and execution efficiency, as if it were compiled locally with the help of a Just-In-Time (JIT) compiler and a verification engine. eBPF programs are portable across kernel versions and can be automatically updated, thus avoiding workload interruptions and node restarts.</p>
@@ -4439,7 +4439,7 @@
 <h3 id="the-future-of-ebpf-a-javascript-like-programmable-interface-for-the-kernel">The Future of eBPF: A JavaScript-Like Programmable Interface for the Kernel</h3>
 <p>For browsers, the introduction of JavaScript's programmability sparked a significant revolution, turning browsers into almost independent operating systems. Now, looking at eBPF: to understand the impact of eBPF on the programmability of the Linux kernel, it is helpful to have a high-level understanding of the structure of the Linux kernel and how it interacts with applications and hardware.[4]</p>
 <div align="center">
-<img src=https://ebpf.io/static/kernel_arch-c0be6286222dcd0e6e45250d2d9a87fd.png width=60% />
+<img src=https://github.com/ebpf-io/ebpf.io-website/blob/main/content/static-pages/what-is-ebpf/kernel-arch.png width=60% />
 </div>
 
 <p>The main purpose of the Linux kernel is to abstract the hardware or virtual hardware and provide a consistent API (system calls) to allow applications to run and share resources. To achieve this, a series of subsystems and layers are maintained to distribute these responsibilities. Each subsystem typically allows some degree of configuration to take into account the different needs of the user. If the desired behavior cannot be configured, changing the kernel is necessary. Historically, changing the kernel's behavior or enabling user-written programs to run in the kernel has presented two options.</p>
@@ -4474,7 +4474,7 @@
 <li>The kernel state is mainly responsible for the specific computational logic and data collection.</li>
 </ul>
 <div align="center">
-<img src=https://ebpf.io/static/libbpf-ee03b2f4d79b197554fa00671e67129d.png width=60% />
+<img src=https://github.com/ebpf-io/ebpf.io-website/blob/main/content/static-pages/what-is-ebpf/libbpf.png width=60% />
 </div>
 
 <h3 id="a-new-ebpf-development-framework-defined-on-top-of-the-user-state-wasm-ebpf-system-interface">A new eBPF development framework defined on top of the user-state Wasm-eBPF system interface</h3>
@@ -4535,7 +4535,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 11, 2023</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 22, 2024</span>
   </span>
 
     
@@ -4555,11 +4555,12 @@
   <span class="md-source-file__fact">
     <span class="md-icon" title="Contributors">
       
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
       
     </span>
     <nav>
       
+        <a href="mailto:zhenhong030213@gmail.com">WoodHolz</a>, 
         <a href="mailto:1067852565@qq.com">云微</a>
     </nav>
   </span>
@@ -4731,7 +4732,7 @@
     
 <script src="https://cdn.usefathom.com/script.js" data-site="ZLDAHRNN" defer></script>
 
-      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      <script src="../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
       
     
 
