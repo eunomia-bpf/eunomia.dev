@@ -110,6 +110,8 @@ You may be interested in the following cmake options:
 - `BUILD_BPFTIME_DAEMON`: Build with the daemon for load the eBPF program into hkernel and se kernel verifier.
 - `BPFTIME_BUILD_WITH_LIBBPF` :Build bpftime without libbpf. It can only be run in userspace with this enabled, but it can be easily port into other platform, e.g. macOS.
 - `BPFTIME_BUILD_STATIC_LIB`: Build bpftime runtime into a whole static libraries. It can be easily linked into other programs.
+- `ENABLE_PROBE_WRITE_CHECK`: Enable the probe write check. It will check the bpf_probe_write_user operation and report the error if the probe write address is invalid.
+- `ENABLE_PROBE_READ_CHECK`: Enable the probe read check. It will check the bpf_probe_write operation and report the error if the probe read address is invalid.
 
 Please see <https://github.com/eunomia-bpf/bpftime/blob/master/cmake/StandardSettings.cmake> forall the build options.
 
