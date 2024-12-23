@@ -4640,6 +4640,8 @@
 <li><code>BUILD_BPFTIME_DAEMON</code>: Build with the daemon for load the eBPF program into hkernel and se kernel verifier.</li>
 <li><code>BPFTIME_BUILD_WITH_LIBBPF</code> :Build bpftime without libbpf. It can only be run in userspace with this enabled, but it can be easily port into other platform, e.g. macOS.</li>
 <li><code>BPFTIME_BUILD_STATIC_LIB</code>: Build bpftime runtime into a whole static libraries. It can be easily linked into other programs.</li>
+<li><code>ENABLE_PROBE_WRITE_CHECK</code>: Enable the probe write check. It will check the bpf_probe_write_user operation and report the error if the probe write address is invalid.</li>
+<li><code>ENABLE_PROBE_READ_CHECK</code>: Enable the probe read check. It will check the bpf_probe_write operation and report the error if the probe read address is invalid.</li>
 </ul>
 <p>Please see <a href="https://github.com/eunomia-bpf/bpftime/blob/master/cmake/StandardSettings.cmake">https://github.com/eunomia-bpf/bpftime/blob/master/cmake/StandardSettings.cmake</a> forall the build options.</p>
 <h3 id="build-and-install-the-complete-runtime-in-release-modewith-ubpf-jit">Build and install the complete runtime in release mode(With ubpf jit)</h3>
@@ -4714,7 +4716,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 5, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 23, 2024</span>
   </span>
 
     
@@ -4743,6 +4745,7 @@
         <a href="mailto:zeshanahmednobin@gmail.com">NobinPegasus</a>, 
         <a href="mailto:yt.xyxx@gmail.com">Officeyutong</a>, 
         <a href="mailto:github@shawnzhong.com">Shawn Zhong</a>, 
+        <a href="mailto:1370724210@qq.com">Sy03</a>, 
         <a href="mailto:yunwei356@gmail.com">Yusheng Zheng</a>, 
         <a href="mailto:24816726+hp77-creator@users.noreply.github.com">hp</a>, 
         <a href="mailto:1067852565@qq.com">云微</a>
