@@ -1,10 +1,11 @@
 ---
-date: 2022-02-11
+date: 2023-04-11
 ---
 
 # eBPF Advanced: Overview of New Kernel Features
 
 The Linux kernel primarily released versions 5.16-5.19, 6.0, and 6.1 in 2022, each of which introduced numerous new features for eBPF. This article will provide a brief introduction to these new features, and for more detailed information, please refer to the corresponding link. Overall, eBPF remains one of the most active modules in the kernel, and its functionality is still rapidly evolving. In a sense, eBPF is rapidly evolving towards a complete kernel-level programmable interface.
+<!-- more -->
 
 <!-- TOC -->
 

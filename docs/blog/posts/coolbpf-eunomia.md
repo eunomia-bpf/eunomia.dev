@@ -1,10 +1,11 @@
 ---
-date: 2022-02-11
+date: 2023-01-11
 ---
 
 # eunomia-bpf: Looking forward to 2023, let eBPF sprout wings with Wasm
 
 Looking back at 2022, two technologies have received a lot of attention: eBPF and WebAssembly.
+<!-- more -->
 
 ## eBPF: New Possibilities
 

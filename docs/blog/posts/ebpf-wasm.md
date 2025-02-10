@@ -1,10 +1,11 @@
 ---
-date: 2022-02-11
+date: 2023-06-11
 ---
 
 # When Wasm Meets eBPF: Writing, Distributing, Loading, and Running eBPF Programs with WebAssembly
 
 In today's cloud-native world, eBPF and WebAssembly are two of the hottest lightweight code execution sandboxes/virtual machines. Both of them run high-performance bytecode programs compiled from languages such as C, C++, and Rust, and both are cross-platform and portable. The biggest difference between them is that eBPF runs in the Linux kernel, while WebAssembly runs in user space. We want to make an attempt to integrate them: using Wasm to write universal eBPF programs that can be distributed to different versions and architectures of Linux kernels without the need for recompiling.
+<!-- more -->
 
 ## WebAssembly vs. eBPF
 

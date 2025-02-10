@@ -1,14 +1,13 @@
 ---
-date: 2022-02-11
+date: 2022-09-11
 ---
 
 # Running the ecli on Android 13
 >
 >Author: CH3CHOHCH3
 
-## Abstract
-
 This article mainly records the author's exploration process, results, and encountered issues when testing the support level of the high version Android Kernel for CO-RE technology based on libbpf in the Android Studio Emulator. The testing method used is to build a Debian environment in the Android Shell environment and attempt to build the eunomia-bpf toolchain and run its test cases based on this environment.
+<!-- more -->
 
 ## Background
 

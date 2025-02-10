@@ -1,5 +1,5 @@
 ---
-date: 2022-02-11
+date: 2024-04-11
 ---
 
 # 五分钟带你手搓一个简易的 inline hook 实现控制流劫持
@@ -7,6 +7,7 @@ date: 2022-02-11
 编程中令人着迷的一面在于我们尝试在程序运行时改变其行为。在本教程中，我们将揭示一种可以实现这一点的方法- inline hook 。只需要数十行代码，即可用 C 语言实现一个简单的 inline hook 示例，并将其应用于一个示例程序。
 
 我们将探讨如何在 C 编程语言中操纵程序的执行流。通过实现 inline hook ，我们的目标是将程序的执行流分流到我们的函数中，然后再返回到正常流程。您可以在以下存储库中找到完整的开源代码示例： [https://github.com/eunomia-bpf/inline-hook-demo](https://github.com/eunomia-bpf/inline-hook-demo)
+<!-- more -->
 
 ## 什么是 inline hook ？
 

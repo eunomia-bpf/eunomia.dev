@@ -11,6 +11,7 @@ eBPF (extended Berkeley Packet Filter) is a high-performance kernel virtual mach
 WebAssembly (Wasm) was initially developed for browser security sandbox purposes. As of now, WebAssembly has evolved into a high-performance, cross-platform, and multi-language software sandbox environment for cloud-native software components. The lightweight nature of Wasm containers makes them suitable for running as the next-generation serverless platform runtime or for efficient execution in resource-constrained scenarios such as edge computing.
 
 Now, with the help of the Wasm-bpf compilation toolchain and runtime, we can use Wasm to write eBPF programs as cross-platform modules, while using C/C++ or Rust to write Wasm programs. By using eBPF programs in WebAssembly, we not only enable Wasm applications to benefit from the high performance and access to system interfaces of eBPF, but also allow eBPF programs to leverage the sandboxing, flexibility, cross-platform nature, and dynamic loading of Wasm. Additionally, we can conveniently and quickly distribute and manage eBPF programs using Wasm OCI images. Combining these two technologies will provide a completely new development experience for the eBPF and Wasm ecosystems!
+<!-- more -->
 
 ## Writing, Dynamically Loading, and Distributing eBPF Programs in Wasm with the Wasm-bpf Toolchain
 

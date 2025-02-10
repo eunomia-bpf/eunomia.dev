@@ -1,11 +1,12 @@
 ---
-date: 2022-02-11
+date: 2024-04-11
 ---
 # Implementing an Inline Hook in C in 5 minutes
 
 One of the fascinating aspects of programming comes when we try to alter the behavior of a program while it is running.
 
 In this tutorial, we shed light on one method that can make this possible - an "Inline Hook". We will delve into how you can manipulate the execution flow of a program in the C programming language. By implementing an Inline Hook, we aim to divert the program's execution flow to our function, then returning it back to the normal flow.
+<!-- more -->
 
 ## What is an Inline Hook?
 

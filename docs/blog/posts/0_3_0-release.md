@@ -1,5 +1,5 @@
 ---
-date: 2022-02-11
+date: 2023-02-11
 ---
 
 # eunomia-bpf 0.3.0 Release: Easily Build, Package, and Publish Full eBPF Applications by Writing Kernel-Mode Code
@@ -13,6 +13,8 @@ eBPF, derived from BPF, is an efficient and flexible virtual machine component w
 - How can we make it easier to use eBPF tools? Is it possible to download and use them with just one command from the cloud, similar to Docker? Can we run eBPF programs as services, allowing hot updates and dynamic insertion/removal through HTTP requests and URLs?
 
 [eunomia-bpf](https://github.com/eunomia-bpf/eunomia-bpf) is an open-source eBPF dynamic loading runtime and development toolchain designed to simplify the development, building, distribution, and execution of eBPF programs. It is based on the CO-RE lightweight development framework of libbpf.
+
+<!-- more -->
 
 With eunomia-bpf, you can:
 

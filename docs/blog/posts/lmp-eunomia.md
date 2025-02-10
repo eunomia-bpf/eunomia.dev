@@ -1,5 +1,5 @@
 ---
-date: 2022-02-11
+date: 2022-10-11
 ---
 
 # 如何在 Linux 显微镜（LMP）项目中开启 eBPF 之旅？
@@ -9,6 +9,7 @@ eBPF 为 Linux 内核提供了可扩展性，使开发人员能够对 Linux 内�
 我们的 [LMP(Linux Microscope) 项目](https://github.com/linuxkerneltravel/lmp) 是为了充分挖掘 ebpf 的可能性而建立的，项目以构建 eBPF 学习社区、成为 eBPF 工具集散地、孵化 eBPF 想法和项目为目标，正在大力建设中。之前我们在 LMP 其中的 eBPF Supermarket 中包含了大量由个人开发者编写的 eBPF 工具，覆盖了网络、性能分析、安全等多种功能，我们正在尝试把其中的一些程序迁移到 eBPF Hub，一些规范化的 eBPF 程序库，可以随时下载运行，或嵌入大型应用程序中作为插件使用。
 
 我们尝试在 eBPF Hub 中，基于 eunomia-bpf 开发框架创建符合 OCI 标准的 Wasm 和 eBPF 程序，并利用 ORAS 简化扩展 LMP 的 eBPF 分发、加载、运行能力。
+<!-- more -->
 
 ## 快速使用
 

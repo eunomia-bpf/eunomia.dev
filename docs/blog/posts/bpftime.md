@@ -1,5 +1,5 @@
 ---
-date: 2022-02-11
+date: 2023-11-11
 ---
 
 # bpftime: Extending eBPF from Kernel to User Space
@@ -11,6 +11,7 @@ eBPF is a revolutionary technology that originated in the Linux kernel, enabling
 In this blog, we are excited to introduce a new open-source user-space eBPF runtime: <https://github.com/eunomia-bpf/bpftime>. bpftime further expands the capabilities of eBPF, allowing existing eBPF tools and applications, such as BCC tools, bpftrace, Deepflow, etc., to run in non-privileged user space without any code modifications, while using the same libraries and toolchains as kernel eBPF.
 
 bpftime not only provides dynamic tracing or extension mechanisms like Uprobe and system call tracepoints, but also offers an order of magnitude performance improvement over kernel Uprobe. Moreover, like kernel eBPF, it requires no manual code instrumentation or process restarts. bpftime supports inter-process eBPF maps through user-space shared memory, while being compatible with kernel eBPF maps, enabling seamless operations with kernel eBPF infrastructure. Additionally, it includes high-performance LLVM JIT/AOT compilers for various architectures, as well as a lightweight JIT and interpreter for x86. Through performance data and real-world examples, we will demonstrate how bpftime can be effective in the real world and provide insights into its future development. We hope bpftime will bring unprecedented performance and flexibility to system monitoring, analysis, and extension. We also introduced the design and implementation of bpftime at the Linux plumbers 23 conference[2].
+<!-- more -->
 
 ## eBPF: System Extension from Kernel to User Space
 

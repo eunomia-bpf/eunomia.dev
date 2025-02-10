@@ -1,11 +1,12 @@
 ---
-date: 2022-02-11
+date: 2024-09-10
 ---
 # 构建高性能的用户态 eBPF 虚拟机：基于 LLVM 的 llvmbpf 项目
 
 我们很高兴向大家介绍 [**llvmbpf**](https://github.com/eunomia-bpf/llvmbpf)，这是一个全新的项目，旨在为开发者提供一个高性能、支持多架构的 eBPF 虚拟机（VM）。llvmbpf 利用 LLVM 框架实现了即时编译（JIT）和提前编译（AOT），让你能够在用户态中高效运行 eBPF 程序。
 
 该项目是 [bpftime](https://github.com/eunomia-bpf/bpftime) 项目的一部分，但它专注于核心虚拟机功能。llvmbpf 可以作为独立的 eBPF VM 库或编译工具使用。它经过性能优化，具备极高的灵活性，并且依赖极少，能够轻松集成到各种环境中而不会带来额外负担。
+<!-- more -->
 
 ## 为什么选择 llvmbpf？
 

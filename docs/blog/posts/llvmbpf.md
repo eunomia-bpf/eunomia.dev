@@ -1,5 +1,5 @@
 ---
-date: 2022-02-11
+date: 2024-09-10
 ---
 
 # Building High-Performance Userspace eBPF VMs with LLVM
@@ -7,6 +7,7 @@ date: 2022-02-11
 We are excited to introduce [**llvmbpf**](https://github.com/eunomia-bpf/llvmbpf), a new project aimed at empowering developers with a high-performance, multi-architecture eBPF virtual machine (VM) that leverages the LLVM framework for Just-In-Time (JIT) and Ahead-Of-Time (AOT) compilation.
 
 This component is part of the [bpftime](https://github.com/eunomia-bpf/bpftime) project but focuses solely on the core VM. It operates as a standalone eBPF VM library or a compiler tool. This library is optimized for performance, flexibility, and minimal dependencies, making it easy to integrate into various environments without unnecessary overhead.
+<!-- more -->
 
 ## Why llvmbpf?
 

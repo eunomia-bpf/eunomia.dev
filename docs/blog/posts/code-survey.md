@@ -7,6 +7,7 @@ date: 2024-10-01
 Ever tried diving into a massive codebase like the Linux kernel and felt like you were swimming in an ocean of code with no land in sight? Trust me, you're not alone. Understanding large, complex, and constantly evolving codebases is like trying to read a never-ending novel that's being written by thousands of authors simultaneously. It's overwhelming, to say the least.
 
 > See our [arxiv](https://arxiv.org/html/2410.01837v1) and [GitHub repository](https://github.com/eunomia-bpf/code-survey) for more details!
+<!-- more -->
 
 **The Struggle with Massive Codebases**
 

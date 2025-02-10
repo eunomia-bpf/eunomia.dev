@@ -1,5 +1,5 @@
 ---
-date: 2022-02-11
+date: 2024-03-11
 ---
 
 # The Evolution and Impact of eBPF: A list of Key Research Papers from Recent Years
@@ -9,6 +9,7 @@ This is a list of eBPF related papers I read in recent years, might be helpful f
 eBPF (extended Berkeley Packet Filter) is an emerging technology that allows safe execution of user-provided programs in the Linux kernel. It has gained widespread adoption in recent years for accelerating network processing, enhancing observability, and enabling programmable packet processing.
 
 This document list some key research papers on eBPF over the past few years. The papers cover several aspects of eBPF, including accelerating distributed systems, storage, and networking, formally verifying the eBPF JIT compiler and verifier, applying eBPF for intrusion detection, and automatically generating hardware designs from eBPF programs.
+<!-- more -->
 
 Some key highlights:
 

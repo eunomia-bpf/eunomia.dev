@@ -1,5 +1,5 @@
 ---
-date: 2022-02-11
+date: 2023-02-11
 ---
 
 # Wasm-bpf: Bridging WebAssembly and eBPF for Kernel Programmability
@@ -9,6 +9,7 @@ date: 2022-02-11
 Wasm was initially developed as a secure sandbox for browsers, and has since evolved into a high-performance, cross-platform, and multi-language software sandbox environment for cloud-native software components. The lightweight containerization provided by Wasm also makes it a suitable runtime for the next generation of serverless platforms. Another exciting trend is the rise of eBPF, which enables cloud-native developers to build secure networking, service mesh, and observability components. It is gradually penetrating and deepening into various components of the kernel, providing more powerful programmable interaction capabilities in kernel space.
 
 Wasm-bpf is a new open-source project[1] that defines a set of abstract eBPF-related system interfaces and provides a corresponding development toolchain, library, and a universal Wasm + eBPF runtime platform instance. This allows applications in any Wasm virtual machine or Wasm lightweight container to sink and extend their use cases into kernel space, gaining access to almost all data from both kernel and user space. This enables programmable control at the entire operating system level in multiple areas such as networking and security, greatly expanding the applications of the WebAssembly ecosystem outside the browser.
+<!-- more -->
 
 ## Bringing More Possibilities to Cloud-Native WebAssembly with eBPF-based System Interfaces
 

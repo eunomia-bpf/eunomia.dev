@@ -1,10 +1,11 @@
 ---
-date: 2022-02-11
+date: 2023-07-11
 ---
 
 # Simplifying eBPF Development: GitHub Templates and Codespaces for Online Compilation and Execution
 
 Embarking on the eBPF journey can feel daunting, especially when confronted with setting up the perfect environment or making the ideal language choice. But what if there was a streamlined way to immerse yourself in eBPF without the initial hurdles? Look no further! This guide unveils the magic of GitHub templates combined with GitHub Codespaces, empowering you to seamlessly initiate, compile, and run eBPF projects online. Dive in, click once, and turbocharge your eBPF expedition!
+<!-- more -->
 
 ## eBPF: Unveiling the Linux Kernel's Next Frontier
 

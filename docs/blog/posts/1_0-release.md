@@ -1,10 +1,11 @@
 ---
-date: 2022-02-11
+date: 2024-02-11
 ---
 
 # Introducing eunomia-bpf v1.0: Simplifying eBPF with CO-RE and WebAssembly
 
 The world of eBPF (Extended Berkeley Packet Filter) has been rapidly evolving, offering developers powerful tools to monitor and modify the behavior of systems at the kernel level. Today, we're thrilled to introduce the latest milestone in this journey - **eunomia-bpf v1.0**. This release is a testament to our commitment to simplifying and enhancing the eBPF development experience with CO-RE (Compile Once, Run Everywhere) and WebAssembly.
+<!-- more -->
 
 ## Introduction
 

@@ -1,5 +1,5 @@
 ---
-date: 2022-02-11
+date: 2023-11-11
 ---
 
 # bpftime: 让 eBPF 从内核扩展到用户空间
@@ -11,6 +11,7 @@ eBPF 是一项革命性的技术，起源于 Linux 内核，可以在操作系�
 在这篇 Blog 中，我们希望向大家介绍一个全新的开源用户态 eBPF 运行时：<https://github.com/eunomia-bpf/bpftime> 。bpftime 进一步拓展了 eBPF 的能力，使现有的 eBPF 工具和应用，例如 BCC tools, bpftrace, Deepflow 等，能够不需要进行代码修改即可在非特权用户空间运行，同时使用和内核 eBPF 相同的库和工具链。
 
 bpftime 不仅提供了 Uprobe 和系统调用追踪点等动态追踪或扩展机制，还相比内核 Uprobe 有一个数量级的性能提升，并且和内核 eBPF 一样，无需手动进行代码插桩或重启进程。bpftime 通过用户态共享内存支持进程间 eBPF maps，同时兼容内核 eBPF maps，能够实现与内核 eBPF 基础设施的无缝操作。此外，它包含了针对多种架构的高性能 LLVM JIT/AOT 编译器，以及针对 x86 的轻量级 JIT 和解释器。通过性能数据和实际案例，我们也将展示 bpftime 如何在现实世界中发挥作用，并对其未来发展进行展望，希望 bpftime 能为系统监控、分析和扩展带来前所未有的性能和灵活性。在 Linux plumbers 23 会议上，我们也介绍了 bpftime 的设计和实现[2]。
+<!-- more -->
 
 ## eBPF: 从内核态到用户态的系统扩展
 

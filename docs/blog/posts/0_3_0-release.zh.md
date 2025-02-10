@@ -1,5 +1,5 @@
 ---
-date: 2022-02-11
+date: 2023-02-11
 ---
 
 # eunomia-bpf 0.3.0 发布：只需编写内核态代码，轻松构建、打包、发布完整的 eBPF 应用
@@ -13,6 +13,7 @@ eBPF 源于 BPF，本质上是处于内核中的一个高效与灵活的虚拟�
 - 如何更方便地使用 eBPF 的工具：有没有可能从云端一行命令拉下来就使用，类似 docker 那样？或者把 eBPF 程序作为服务运行，通过 HTTP 请求和 URL 即可热更新、动态插拔运行任意一个 eBPF 程序？
 
 [eunomia-bpf](https://github.com/eunomia-bpf/eunomia-bpf) 是一个开源的 eBPF 动态加载运行时和开发工具链，是为了简化 eBPF 程序的开发、构建、分发、运行而设计的，基于 libbpf 的 CO-RE 轻量级开发框架。
+<!-- more -->
 
 使用 eunomia-bpf ，可以：
 

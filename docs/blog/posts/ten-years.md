@@ -1,5 +1,5 @@
 ---
-date: 2022-02-11
+date: 2024-08-11
 ---
 
 # The Past, Present, and Future of eBPF and Its Path to Revolutionizing Systems
@@ -7,6 +7,7 @@ date: 2022-02-11
 > This blog post mainly references Alexei Starovoitov's presentation "[Modernize BPF for the Next 10 Years](http://oldvger.kernel.org/bpfconf2024_material/modernize_bpf.pdf)" at BPFConf 2024.
 
 Imagine having a Swiss Army knife for your computer's core operations—something that lets you peek inside how data moves, tweak processes on the fly, and monitor everything in real-time. That’s exactly what [eBPF](https://en.wikipedia.org/wiki/EBPF) (Extended Berkeley Packet Filter) offers. Over the past decade, eBPF has transformed from a simple packet filtering tool into a powerhouse for networking, observability, and security. So, what’s next for eBPF? Let’s dive into its journey, explore where it’s headed in the next ten years, and discuss the challenges and opportunities that lie ahead. This exploration will help us understand how eBPF is shaping the future of modern systems.
+<!-- more -->
 
 ## A Decade in Review: eBPF's Journey So Far
 

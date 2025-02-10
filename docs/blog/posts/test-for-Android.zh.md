@@ -1,5 +1,5 @@
 ---
-date: 2022-02-11
+date: 2022-09-11
 ---
 
 # ecli 在安卓 13 上的运行测试
@@ -9,6 +9,7 @@ date: 2022-02-11
 # 摘要
 
 本文主要记录了笔者在 Android Studio Emulator 中测试高版本 Android Kernel 对基于 libbpf 的 CO-RE 技术支持程度的探索过程、结果和遇到的问题。测试采用的方式是在 Android Shell 环境下构建 Debian 环境，并基于此尝试构建 eunomia-bpf 工具链、运行其测试用例。
+<!-- more -->
 
 # 背景
 

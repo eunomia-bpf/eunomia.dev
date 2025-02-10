@@ -1,10 +1,11 @@
 ---
-date: 2022-02-11
+date: 2023-03-11
 ---
 
 # Progress of eunomia-bpf in March
 
 The eunomia-bpf project is an open-source project aimed at providing a set of tools for writing and running eBPF programs more conveniently in the Linux kernel. In the past month, the project has made some new progress. Here is an overview of these advances.
+<!-- more -->
 
 Firstly, the eunomia-bpf dynamic loading library has undergone some important updates. The library now supports the btf hub, which makes it easier to port eBPF programs on low kernel versions. The ecli program has also been completely rewritten and is now written in Rust, replacing the original version written in C++. In addition, the library has fixed the output issue when using JSON to dynamically load eBPF programs and automatically publishes Docker images in CI.
 

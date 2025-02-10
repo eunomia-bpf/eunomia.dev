@@ -1,5 +1,5 @@
 ---
-date: 2022-02-11
+date: 2024-07-11
 ---
 
 # Simplifying Kernel Programming: The LLM-Powered eBPF Tool
@@ -7,6 +7,7 @@ date: 2022-02-11
 Kernel programming can be intimidating, requiring deep knowledge of operating system internals and programming constraints. Our latest tool, Kgent, aims to change that by making it easier than ever to create extended Berkeley Packet Filters (eBPF) programs. Kgent leverages the power of large language models (LLMs) to translate natural language prompts into eBPF code, opening up kernel programming to a wider audience.
 
 Our paper, "[Kgent: Kernel Extensions Large Language Model Agent](https://dl.acm.org/doi/10.1145/3672197.3673434)," was recently presented at eBPF '24: Proceedings of the ACM SIGCOMM 2024 Workshop on eBPF and Kernel Extensions. Let's dive into what makes Kgent a game-changer for kernel programming.
+<!-- more -->
 
 ## The Key Idea Behind Kgent
 
