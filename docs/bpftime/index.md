@@ -216,7 +216,7 @@ This project is licensed under the MIT License.
 ## Contact and citations
 
 Have any questions or suggestions on future development? Free free to open an issue or contact
-<yunwei356@gmail.com> !
+<mailto:yunwei356@gmail.com> !
 
 Our arxiv preprint: <https://arxiv.org/abs/2311.07923>
 

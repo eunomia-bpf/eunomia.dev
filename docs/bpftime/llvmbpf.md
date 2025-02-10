@@ -45,7 +45,7 @@ cmake --build build --target all -j
 
 ### Use llvmbpf as a library
 
-See [example](example/main.cpp) of how to use the library as a vm:
+See [example](https://github.com/eunomia-bpf/llvmbpf/blob/main/example/main.cpp) of how to use the library as a vm:
 
 ```cpp
 void run_ebpf_prog(const void *code, size_t code_len)
@@ -316,9 +316,9 @@ LD_PRELOAD=build/runtime/syscall-server/libbpftime-syscall-server.so example/xdp
 ./build/tools/aot/bpftime-aot compile --emit_llvm 1>xdp-counter.ll
 ```
 
-You can see [example/xdp-counter.json](example/xdp-counter.json) for an example json file dump by bpftime.
+You can see [example/xdp-counter.json](https://github.com/eunomia-bpf/llvmbpf/blob/main/example/xdp-counter.json) for an example json file dump by bpftime.
 
-The result xdp-counter.ll can be found in [example/standalone/xdp-counter.ll](example/standalone/xdp-counter.ll).
+The result xdp-counter.ll can be found in [example/standalone/xdp-counter.ll](https://github.com/eunomia-bpf/llvmbpf/blob/main/example/standalone/xdp-counter.ll).
 
 Then you can write a C code and compile it with the llvm IR:
 
@@ -446,7 +446,7 @@ return value = 1
 
 eBPF is a instruction set define for verification, but may not be the best for performance.
 
-llvmbpf also support using the original LLVM IR from C code. See [example/load-llvm-ir](example/load-llvm-ir) for an example. You can:
+llvmbpf also support using the original LLVM IR from C code. See [example/load-llvm-ir](https://github.com/eunomia-bpf/llvmbpf/blob/main/example/load-llvm-ir) for an example. You can:
 
 - Compile the C code to eBPF for verify
 - Compile the C code to LLVM IR and native code for execution in the VM.
@@ -484,7 +484,7 @@ The unit tests can be found at `build/test/unit-test/llvm_jit_tests`.
 
 ### Test with bpf-conformance
 
-See the CI in [.github/workflows/bpf_conformance.yml](.github/workflows/bpf_conformance.yml) for how to run the bpf-conformance tests.
+See the CI in [.github/workflows/bpf_conformance.yml](https://github.com/eunomia-bpf/llvmbpf/blob/main/.github/workflows/bpf_conformance.yml) for how to run the bpf-conformance tests.
 
 The test result can be found in <https://eunomia-bpf.github.io/llvmbpf/bpf_conformance_results.txt>
 

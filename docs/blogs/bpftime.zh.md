@@ -103,7 +103,7 @@ bpftime 目前还是一个较为早期的探索性项目，我们也在积极探
 
 bpftime 在用户空间为 eBPF 应用打开了新的可能性，也为扩展用户态应用提供了一些新的选择。它允许现有 eBPF 应用程序使用相同的库和工具链在非特权用户空间运行，并为用户空间 eBPF 提供了 Uprobe 和 Syscall 等跟踪机制，与内核 Uprobe 相比，性能有了显著提高，而且无需手动检测代码或重启进程。运行时支持用户空间共享内存中的进程间 eBPF 映射，也兼容内核 eBPF 映射，允许与内核 eBPF 基础架构无缝运行。
 
-bpftime 目前已经在 GitHub 上开源，欢迎大家试用和提出反馈： <https://github.com/eunomia-bpf/bpftime> 如果有任何建议或者问题，欢迎在 GitHub 上提出 issue 或者发送邮件到 <yunwei356@gmail.com> 联系我们。
+bpftime 目前已经在 GitHub 上开源，欢迎大家试用和提出反馈： <https://github.com/eunomia-bpf/bpftime> 如果有任何建议或者问题，欢迎在 GitHub 上提出 issue 或者发送邮件到 <mailto:yunwei356@gmail.com> 联系我们。
 
 > - 演示文档: <https://eunomia.dev/bpftime/documents/userspace-ebpf-bpftime-lpc.pdf>
 > - Hack news: <https://news.ycombinator.com/item?id=38268958>

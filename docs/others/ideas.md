@@ -112,7 +112,7 @@ The triple address translation from physical VirtIO to the userspace memory is a
 
 - Time Cost: ~350 hours
 - Difficulty Level: Hard
-- Mentors: Yiwei Yang (<yyang363@ucsc.edu>) Yusheng Zheng (<yunwei356@gmail.com>)
+- Mentors: Yiwei Yang (<yyang363@ucsc.edu>) Yusheng Zheng (<mailto:yunwei356@gmail.com>)
 
 ### Objectives
 
@@ -159,7 +159,7 @@ You can explore more possibilities with us:
 
 - Time Cost: ~350 hours
 - Difficulty Level: Hard
-- Mentors: Yiwei Yang (<yyang363@ucsc.edu>) Yusheng Zheng (<yunwei356@gmail.com>)
+- Mentors: Yiwei Yang (<yyang363@ucsc.edu>) Yusheng Zheng (<mailto:yunwei356@gmail.com>)
 
 ### Objectives
 
@@ -243,7 +243,7 @@ RocksDB is a high-performance, embedded key-value store for fast storage. It is 
 
 - Time Cost: ~350 hours
 - Difficulty Level: Hard
-- Mentors: Yiwei Yang (<yyang363@ucsc.edu>) and Yusheng Zheng (<yunwei356@gmail.com>)
+- Mentors: Yiwei Yang (<yyang363@ucsc.edu>) and Yusheng Zheng (<mailto:yunwei356@gmail.com>)
 
 ### Objectives
 
@@ -279,7 +279,7 @@ Duration and Difficulty Level
 
 - Estimated Time: ~175 hours
 - Difficulty Level: Medium
-- Mentors: Tong Yu (<yt.xyxx@gmail.com>) Yusheng Zheng (<yunwei356@gmail.com>)
+- Mentors: Tong Yu (<yt.xyxx@gmail.com>) Yusheng Zheng (<mailto:yunwei356@gmail.com>)
 
 bpftime already have a AOT compiler, we need more work to enable it run on embedded devices or as plugins. If you want to add map support for microcontrollers with AOT compiler, maybe you can write a c implementation, compile it and link it with bpftime AOT products.
 
@@ -333,7 +333,7 @@ You can explore more possibilities with us:
 
 - Time Cost: ~350 hours
 - Difficulty Level: Hard
-- Mentors: Yiwei Yang (<yyang363@ucsc.edu>) Yusheng Zheng (<yunwei356@gmail.com>)
+- Mentors: Yiwei Yang (<yyang363@ucsc.edu>) Yusheng Zheng (<mailto:yunwei356@gmail.com>)
 
 ### Objectives
 
@@ -369,7 +369,7 @@ The upcoming world for CXL.mem provides a new way of memory fabric, it can seemi
 
 - Time Cost: ~350 hours
 - Difficulty Level: Hard
-- Mentors: Yiwei Yang (<yyang363@ucsc.edu>) Yusheng Zheng (<yunwei356@gmail.com>)
+- Mentors: Yiwei Yang (<yyang363@ucsc.edu>) Yusheng Zheng (<mailto:yunwei356@gmail.com>)
 
 ### Objectives
 
@@ -402,7 +402,7 @@ BPFTime is able to provide multiple source of metrics in the userspace from the 
 
 - Time Cost: ~350 hours
 - Difficulty Level: Hard
-- Mentors: Yiwei Yang (<yyang363@ucsc.edu>) Yusheng Zheng (<yunwei356@gmail.com>)
+- Mentors: Yiwei Yang (<yyang363@ucsc.edu>) Yusheng Zheng (<mailto:yunwei356@gmail.com>)
 
 ### Objectives
 

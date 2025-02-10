@@ -103,7 +103,7 @@ bpftime is currently an early-stage exploratory project. We are actively explori
 
 bpftime opens up new possibilities for eBPF applications in user space and provides new options for extending user-space applications. It allows existing eBPF applications to run in non-privileged user space using the same libraries and toolchains, and offers tracing mechanisms like Uprobe and Syscall for user-space eBPF. Compared to kernel Uprobe, it significantly improves performance and does not require manual code instrumentation or process restarts. The runtime supports inter-process eBPF maps in user-space shared memory, and is also compatible with kernel eBPF maps, allowing seamless operation with the kernel eBPF infrastructure.
 
-bpftime is now open source on GitHub, and everyone is welcome to try it out and provide feedback: <https://github.com/eunomia-bpf/bpftime> If you have any suggestions or questions, feel free to raise an issue on GitHub or contact us by email at <yunwei356@gmail.com>.
+bpftime is now open source on GitHub, and everyone is welcome to try it out and provide feedback: <https://github.com/eunomia-bpf/bpftime> If you have any suggestions or questions, feel free to raise an issue on GitHub or contact us by email at <mailto:yunwei356@gmail.com>.
 
 > - Slides: <https://eunomia.dev/bpftime/documents/userspace-ebpf-bpftime-lpc.pdf>
 > - Hack news: <https://news.ycombinator.com/item?id=38268958>

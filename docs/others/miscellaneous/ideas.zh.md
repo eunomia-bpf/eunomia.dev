@@ -51,7 +51,7 @@
 
 - 时间：~175 小时
 - 难度等级：中等
-- 导师：Yusheng Zheng (<yunwei356@gmail.com>) 和 Yuxi Huang (<Yuxi4096@gmail.com>)
+- 导师：Yusheng Zheng (<mailto:yunwei356@gmail.com>) 和 Yuxi Huang (<Yuxi4096@gmail.com>)
 
 ### 实现在 macOS 上启用 eBPF 的目标
 
@@ -89,7 +89,7 @@
 
 - 预期持续时间：~175 小时
 - 难度等级：中等
-- 导师：Tong Yu (<yt.xyxx@gmail.com>), Yusheng Zheng (<yunwei356@gmail.com>)
+- 导师：Tong Yu (<yt.xyxx@gmail.com>), Yusheng Zheng (<mailto:yunwei356@gmail.com>)
 
 bpftime 已经有了一个 AOT 编译器，我们需要进行更多的工作以使其能在嵌入式设备上运行或者作为插件运行。
 
@@ -185,7 +185,7 @@ bpftime 可能有助于：
 
 - 时间：~350 小时
 - 难度等级：困难
-- 导师：Yiwei Yang (<yyang363@ucsc.edu>) Yusheng Zheng (<yunwei356@gmail.com>)
+- 导师：Yiwei Yang (<yyang363@ucsc.edu>) Yusheng Zheng (<mailto:yunwei356@gmail.com>)
 
 ### 目标
 
