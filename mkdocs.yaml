@@ -73,7 +73,7 @@ nav:
   - Blog: blog
   - bpftime: 
     - bpftime/index.md
-    - ... | bpftime/**/*.md
+    - ... | flat | bpftime/**/*.md
   - eunomia-bpf:
     - eunomia-bpf/index.md
     - ... | eunomia-bpf/**/*.md
