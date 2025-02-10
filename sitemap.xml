@@ -721,14 +721,6 @@
          
     </url>
     <url>
-         <loc>https://eunomia.dev/eunomia-bpf/setup/doc/</loc>
-         <lastmod>2025-02-10</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/eunomia-bpf/setup/doc/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/eunomia-bpf/setup/doc/"/>
-         
-    </url>
-    <url>
          <loc>https://eunomia.dev/others/</loc>
          <lastmod>2025-02-10</lastmod>
          <changefreq>daily</changefreq>
@@ -865,11 +857,11 @@
          
     </url>
     <url>
-         <loc>https://eunomia.dev/others/miscellaneous/ideas.zh/</loc>
+         <loc>https://eunomia.dev/others/miscellaneous/ideas/</loc>
          <lastmod>2025-02-10</lastmod>
          <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/miscellaneous/ideas.zh/"/>
-         
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/miscellaneous/ideas/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/miscellaneous/ideas/"/>
          
     </url>
     <url>

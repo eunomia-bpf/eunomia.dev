@@ -3087,7 +3087,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../others/miscellaneous/ideas.zh/" class="md-nav__link">
+      <a href="../others/miscellaneous/ideas/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3358,22 +3358,22 @@
 <p>With eunnomia-bpf, you can:</p>
 <ul>
 <li>A library to simplify <code>writing</code> eBPF programs:</li>
-<li>simplify building CO-RE<sup id="fnref2:1"><a class="footnote-ref" href="#fn:1">1</a></sup> <code>libbpf</code> eBPF applications: <a href="documents/src/miscellaneous/introduction.md#simplify-building-co-re-libbpf-ebpf-applications">write eBPF kernel code only</a> and automatically exposing your data with <code>perf event</code> or <code>ring buffer</code> from kernel.</li>
-<li><a href="documents/src/miscellaneous/introduction.md#automatically-sample-the-data-and-print-hists-in-userspace">Automatically sample the data</a> from hash maps and print <code>hists</code> in userspace.</li>
-<li><a href="documents/src/miscellaneous/introduction.md#automatically-generate-and-config-command-line-arguments">Automatically generate</a> and config <code>command line arguments</code> for eBPF programs.</li>
+<li>simplify building CO-RE<sup id="fnref2:1"><a class="footnote-ref" href="#fn:1">1</a></sup> <code>libbpf</code> eBPF applications: <a href="introduction/#simplify-building-co-re-libbpf-ebpf-applications">write eBPF kernel code only</a> and automatically exposing your data with <code>perf event</code> or <code>ring buffer</code> from kernel.</li>
+<li><a href="introduction/#automatically-sample-the-data-and-print-hists-in-userspace">Automatically sample the data</a> from hash maps and print <code>hists</code> in userspace.</li>
+<li><a href="introduction/#automatically-generate-and-config-command-line-arguments">Automatically generate</a> and config <code>command line arguments</code> for eBPF programs.</li>
 <li>You can writing the kernel part in both <code>BCC</code> and <code>libbpf</code> styles.</li>
 <li>Build eBPF programs with <code>Wasm</code><sup id="fnref2:2"><a class="footnote-ref" href="#fn:2">2</a></sup>: see <a href="https://github.com/eunomia-bpf/wasm-bpf"><code>Wasm-bpf</code></a> project</li>
 <li>Runtime, libraries and toolchains to <a href="https://github.com/eunomia-bpf/wasm-bpf">write eBPF with Wasm</a> in C/C++, Rust, Go...covering the use cases from <code>tracing</code>, <code>networking</code>, <code>security</code>.</li>
 <li>simplify <code>distributing</code> eBPF programs:</li>
-<li>A <a href="ecli/">tool</a> for push, pull and run pre-compiled eBPF programs as <code>OCI</code> images in Wasm module</li>
-<li>Run eBPF programs from <code>cloud</code> or <code>URL</code> within <a href="documents/src/miscellaneous/introduction.md#dynamic-load-and-run-co-re-ebpf-kernel-code-from-the-cloud-with-url-or-oci-image"><code>1</code> line of bash</a> without recompiling, kernel version and architecture independent.</li>
-<li><a href="bpf-loader-rs">Dynamically load</a> eBPF programs with <code>JSON</code> config file or <code>Wasm</code> module.</li>
+<li>A <a href="https://github.com/eunomia-bpf/eunomia-bpf/tree/master/ecli/">tool</a> for push, pull and run pre-compiled eBPF programs as <code>OCI</code> images in Wasm module</li>
+<li>Run eBPF programs from <code>cloud</code> or <code>URL</code> within <a href="introduction/#dynamic-load-and-run-co-re-ebpf-kernel-code-from-the-cloud-with-url-or-oci-image"><code>1</code> line of bash</a> without recompiling, kernel version and architecture independent.</li>
+<li><a href="https://github.com/eunomia-bpf/eunomia-bpf/tree/master/bpf-loader-rs">Dynamically load</a> eBPF programs with <code>JSON</code> config file or <code>Wasm</code> module.</li>
 </ul>
-<p>For more information, see <a href="documents/src/miscellaneous/introduction.md">documents/introduction.md</a>.</p>
+<p>For more information, see <a href="introduction/">documents/introduction.md</a>.</p>
 <h2 id="getting-started">Getting Started</h2>
 <ul>
 <li>Github Template：<a href="https://github.com/eunomia-bpf/ebpm-template">eunomia-bpf/ebpm-template</a></li>
-<li>example bpf programs: <a href="examples/bpftools/">examples/bpftools</a></li>
+<li>example bpf programs: <a href="https://github.com/eunomia-bpf/eunomia-bpf/tree/master/examples/bpftools/">examples/bpftools</a></li>
 <li>tutorial: <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">eunomia-bpf/bpf-developer-tutorial</a></li>
 </ul>
 <h3 id="run-as-cli-tool-or-server">run as cli tool or server</h3>
@@ -3420,7 +3420,7 @@
 <a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="go">02:05:59  79726 8084   17     0      sh</span>
 <a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="go">02:05:59  79731 79730  17     0      which</span>
 </code></pre></div>
-<p>For more information, see <a href="documents/src/ecli/server.md">documents/src/ecli/server.md</a>.</p>
+<p>For more information, see <a href="ecli/server/">documents/src/ecli/server.md</a>.</p>
 <h2 id="install-the-project">Install the project</h2>
 <ul>
 <li>
@@ -3470,7 +3470,7 @@ docker run -it -v `pwd`/:/src/ ghcr.io/eunomia-bpf/ecc-`uname -m`:latest # compi
 </ul>
 <p>see <a href="https://eunomia.dev/eunomia-bpf/setup/build">build</a> for building details.</p>
 <h2 id="examples">Examples</h2>
-<p>See <a href="examples">examples</a> for details about simple eBPF tools and eunomia-bpf library usage.</p>
+<p>See <a href="https://github.com/eunomia-bpf/eunomia-bpf/tree/master/examples">examples</a> for details about simple eBPF tools and eunomia-bpf library usage.</p>
 <p>See <a href="https://github.com/eunomia-bpf/wasm-bpf/tree/main/examples">github.com/eunomia-bpf/wasm-bpf/tree/main/examples</a> for Wasm eBPF programs and examples.</p>
 <p>We also have a prove of concept video: <a href="https://www.bilibili.com/video/BV1JN4y1A76k/">Writing eBPF programs in Wasm</a>.</p>
 <h2 id="license">License</h2>
@@ -3530,12 +3530,13 @@ docker run -it -v `pwd`/:/src/ ghcr.io/eunomia-bpf/ecc-`uname -m`:latest # compi
   <span class="md-source-file__fact">
     <span class="md-icon" title="Contributors">
       
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
       
     </span>
     <nav>
       
-        <a href="mailto:yusen356@gmail.com">weekendfish</a>
+        <a href="mailto:yusen356@gmail.com">weekendfish</a>, 
+        <a href="mailto:1067852565@qq.com">云微</a>
     </nav>
   </span>
 
