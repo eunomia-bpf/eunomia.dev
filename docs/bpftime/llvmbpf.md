@@ -162,7 +162,7 @@ You can use llvmbpf together with libbpf to load the eBPF bytecode directly from
   }
 ```
 
-For complete code example, please refer to [cli](cli).
+For complete code example, please refer to [cli](https://github.com/eunomia-bpf/llvmbpf/blob/main/cli).
 
 However, the `bpf.o` ELF file has no map and data relocation support. We would recommend using the bpftime to load and relocation the eBPF bytecode from ELF file. This include:
 

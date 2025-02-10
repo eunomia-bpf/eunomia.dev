@@ -5,35 +5,6 @@ catagories: ['misc']
 
 # eunomia-bpf 用户手册: 让 eBPF 程序的开发和部署尽可能简单
 
-<!-- TOC -->
-
-- [eunomia-bpf 用户手册: 让 eBPF 程序的开发和部署尽可能简单](#eunomia-bpf-用户手册-让-ebpf-程序的开发和部署尽可能简单)
-  - [从 _C 语言_ 的 Hello World 开始](#从-c-语言-的-hello-world-开始)
-  - [eunomia-bpf 的 Hello World](#eunomia-bpf-的-hello-world)
-  - [添加 map 记录数据](#添加-map-记录数据)
-  - [使用 ring buffer 往用户态发送数据](#使用-ring-buffer-往用户态发送数据)
-  - [使用 perf event array 往用户态发送数据](#使用-perf-event-array-往用户态发送数据)
-  - [使用 github-template 实现远程编译](#使用-github-template-实现远程编译)
-  - [通过 API 进行热插拔和分发](#通过-api-进行热插拔和分发)
-  - [使用 Prometheus 或 OpenTelemetry 进行可观测性数据收集](#使用-prometheus-或-opentelemetry-进行可观测性数据收集)
-    - [example](#example)
-  - [使用 Wasm 模块分发、动态加载 eBPF 程序](#使用-wasm-模块分发动态加载-ebpf-程序)
-  - [使用 Wasm 开发和打包 eBPF 程序](#使用-wasm-开发和打包-ebpf-程序)
-    - [bootstrap](#bootstrap)
-    - [编写内核态的 eBPF 程序](#编写内核态的-ebpf-程序)
-    - [构建用户态的 Wasm 代码，并获取内核态数据](#构建用户态的-wasm-代码并获取内核态数据)
-    - [bootstrap](#bootstrap-1)
-    - [编写内核态的 eBPF 程序](#编写内核态的-ebpf-程序-1)
-    - [构建用户态的 Wasm 代码，并获取内核态数据](#构建用户态的-wasm-代码并获取内核态数据-1)
-    - [从用户态程序中访问和更新 eBPF 程序的 map 数据](#从用户态程序中访问和更新-ebpf-程序的-map-数据)
-    - [从用户态程序中访问和更新 eBPF 程序的 map 数据](#从用户态程序中访问和更新-ebpf-程序的-map-数据-1)
-    - [更多的例子：socket filter 和 lsm](#更多的例子socket-filter-和-lsm)
-  - [演示视频](#演示视频)
-  - [原理](#原理)
-  - [为我们的项目贡献代码](#为我们的项目贡献代码)
-
-<!-- /TOC -->
-
 传统来说， eBPF 的开发方式主要有 BCC、libbpf 等方式。要完成一个 BPF 二进制程序的开发，需要搭建开发编译环境，要关注目标系统的内核版本情况，需要掌握从 BPF 内核态到用户态程序的编写，以及如何加载、绑定至对应的 HOOK 点等待事件触发，最后再对输出的日志及数据进行处理。
 
 我们希望有这样一种 eBPF 的编译和运行工具链，就像其他很多语言一样：

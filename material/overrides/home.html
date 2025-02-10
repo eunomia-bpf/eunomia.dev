@@ -1,475 +1,251 @@
 {% extends "main.html" %}
 
-<!-- Render hero under tabs -->
 {% block tabs %}
-{{ super() }}
-<style>
-    /* Reset and Base Styles */
-*, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+  {{ super() }}
 
-body {
-    font-family: 'Inter', sans-serif;
-    color: #333;
-    line-height: 1.6;
-    background-color: #fdfdfd;
-}
-
-a {
-    text-decoration: none;
-    color: #007BFF;
-    transition: color 0.3s ease;
-}
-
-a:hover {
-    color: #0056b3;
-}
-
-/* Container */
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px 0;
-}
-/* Hero Section */
-.hero {
-    background: url('https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/material/background.jpg') center/cover no-repeat;
-    min-height: 60vh;  /* Reduced from 100vh to 60vh */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    color: #fff;
-    text-align: center;
-    padding: 0 20px;
-    max-height: 300px;  /* Reduced from 400px to 300px */
-}
-
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    z-index: 1;
-}
-
-.hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-.hero-content h1 {
-    font-family: 'Roboto', sans-serif;
-    font-size: 3.2rem; /* Slightly reduced font size */
-    margin-bottom: 20px;
-    font-weight: 700;
-}
-
-.hero-content p {
-    font-size: 1rem; /* Reduced font size */
-    margin-bottom: 20px;
-    font-weight: 500;
-}
-
-.hero-content .btn {
-    padding: 10px 25px;  /* Reduced padding */
-    background-color: #28a745;
-    border: none;
-    color: #ffffff;
-    font-size: 1rem;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    display: inline-block;
-}
-
-.hero-content .btn:hover {
-    background-color: #218838;
-    transform: translateY(-3px);
-}
-
-/* About Section */
-.about {
-    padding: 80px 20px;
-    background-color: #ffffff;
-    text-align: center;
-    max-width: 1200px; /* Added */
-    margin: 0 auto;     /* Added */
-}
-
-.about h2 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    color: #007BFF;
-    font-weight: 700;
-}
-
-.about p {
-    font-size: 1.1rem;
-    color: #555;
-    max-width: 800px;
-    margin: 0 auto;
-    line-height: 1.8;
-}
-
-/* Project Sections */
-.project-section {
-    padding: 100px 20px;
-    display: flex;
-    align-items: center;
-    gap: 40px;
-    background-color: #ffffff;
-    flex-wrap: wrap;
-    max-width: 1200px; /* Added */
-    margin: 0 auto;     /* Added */
-}
-
-.project-section:nth-child(even) {
-    background-color: #f9f9f9;
-    flex-direction: row-reverse;
-}
-
-.project-section img {
-    flex: 1 1 400px;
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-    object-fit: cover; /* Ensures the image covers its container without distortion */
-    max-height: 400px; /* Limits the maximum height of the image */
-    max-width: 600px;
-}
-.project-content {
-    flex: 1 1 400px;
-    max-width: 600px;
-    margin: 0 auto;     /* Added */
-}
-
-.project-content h2 {
-    font-size: 2rem;
-    margin-bottom: 15px;
-    color: #28a745;
-    font-weight: 600;
-}
-
-.project-content p {
-    font-size: 1rem;
-    color: #555;
-    margin-bottom: 20px;
-    line-height: 1.8;
-    word-break: break-word;
-}
-
-.project-content .btn-group {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.project-content .btn-group .btn {
-    padding: 10px 20px;
-    background-color: #007BFF;
-    border: none;
-    color: #ffffff;
-    font-size: 0.9rem;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    display: inline-block;
-}
-
-.project-content .btn-group .btn:hover {
-    background-color: #0056b3;
-    transform: translateY(-2px);
-}
-
-.project-content .publication-links {
-    margin-top: 15px;
-    flex-wrap: wrap;
-}
-
-.project-content .publication-links a {
-    font-size: 0.9rem;
-    color: #007BFF;
-    margin-right: 10px;
-    display: inline-block;
-    margin-bottom: 5px;
-    word-break: break-word;
-}
-
-.project-content .publication-links a:hover {
-    color: #0056b3;
-}
-
-/* Enhanced Footer Section */
-.footer {
-    background-color: #333;
-    color: #ffffff;
-    padding: 40px 20px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    max-width: 1200px; /* Added */
-    margin: 0 auto;     /* Added */
-}
-
-.footer-section {
-    flex: 1 1 250px;
-    margin: 20px;
-}
-
-.footer-section h3 {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
-    color: #28a745;
-    font-weight: 600;
-}
-
-.footer-section p,
-.footer-section a {
-    font-size: 1rem;
-    color: #cccccc;
-    margin-bottom: 10px;
-    display: block;
-    word-break: break-word;
-}
-
-.footer-section a:hover {
-    color: #ffffff;
-}
-
-.footer .social-links a {
-    margin-right: 10px;
-    color: #cccccc;
-    font-size: 1.5rem;
-    transition: color 0.3s;
-}
-
-.footer .social-links a:hover {
-    color: #007BFF;
-}
-
-/* Responsive Styles */
-@media (max-width: 992px) {
-    .project-section, .resources {
-        flex-direction: column;
-        text-align: center;
-        padding: 60px 20px;
-    }
-
-    .project-section img, .resources img {
-        flex: 1 1 100%;
-        margin-bottom: 20px;
-    }
-
-    .project-content, .resources-content {
-        flex: 1 1 100%;
-        max-width: 100%;
-        margin: 0 auto; /* Ensure content is centered */
-    }
-
-    .project-content .btn-group, .resources-content .btn-group {
-        justify-content: center;
-    }
-
-    .project-content .publication-links {
-        justify-content: center;
-        display: flex;
-        flex-wrap: wrap;
-    }
-
-    .project-content .publication-links a {
-        margin-right: 5px;
-        margin-bottom: 5px;
-    }
-
-    .footer {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .footer-section {
-        flex: 1 1 100%;
-        text-align: center;
-        margin: 10px 0;
-    }
-}
-
-@media (max-width: 576px) {
-    .hero-content h1 {
-        font-size: 2.5rem;
-    }
-
-    .hero-content p {
-        font-size: 1rem;
-    }
-
-    .hero-content .btn {
-        padding: 12px 25px;
-        font-size: 0.9rem;
-    }
-
-    .project-section, .resources {
-        padding: 40px 15px;
-    }
-
-    .project-content p, .resources-content p {
-        font-size: 1rem;
-    }
-
-    .project-content .btn-group, .resources-content .btn-group {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .project-content .btn-group .btn {
-        width: 100%;
-    }
-
-    .contact .contact-links a {
-        font-size: 1.5rem;
-        margin: 0 10px;
-    }
-
-    .footer .social-links a {
-        margin-right: 5px;
-    }
-}
-
-</style>
-
-<!-- Hero Section -->
-<section class="hero" id="home">
-    <div class="hero-content">
-        <h1>eunomia</h1>
-        <p>Unlock the potential of eBPF.</p>
-        <a href="https://github.com/eunomia-bpf/" class="btn">Explore on Github</a>
+  <!-- Hero Section -->
+  <section
+    id="home"
+    class="relative flex items-center justify-center text-center text-white bg-cover bg-center min-h-[60vh] max-h-[300px] px-5"
+    style="background-image: url('https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/material/background.jpg');"
+  >
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-black opacity-60"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-5">
+      <h1 class="font-roboto text-[3.2rem] mb-5 font-bold">eunomia</h1>
+      <p class="text-base mb-5 font-medium">Unlock the potential of eBPF.</p>
+      <a
+        href="https://github.com/eunomia-bpf/"
+        class="inline-block px-6 py-2 bg-green-600 text-white text-base rounded-full transition-transform hover:bg-green-700 hover:-translate-y-1"
+      >
+        Explore on Github
+      </a>
     </div>
-</section>
+  </section>
 
-<!-- About Section -->
-<section class="about container">
-    <h2>About Eunomia</h2>
-    <p>Eunomia is an open-source organization dedicated to exploring and enhancing the eBPF ecosystem. Our mission is to innovate and optimize eBPF technologies, enabling developers to build more efficient, extensible powerful eBPF applications.</p>
-</section>
+  <!-- About Section -->
+  <section class="bg-white text-center py-20 px-5 max-w-[1200px] mx-auto">
+    <h2 class="text-[2.5rem] mb-5 text-blue-500 font-bold">About Eunomia</h2>
+    <p class="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+      Eunomia is an open-source organization dedicated to exploring and enhancing the eBPF ecosystem. Our mission is to innovate and optimize eBPF technologies, enabling developers to build more efficient, extensible, and powerful eBPF applications.
+    </p>
+  </section>
 
-<!-- Projects Sections -->
- 
-<!-- Project 1 -->
-<section class="project-section">
-    <img src="https://eunomia.dev/bpftime/documents/bpftime.png" alt="bpftime">
-    <div class="project-content">
-        <h2>bpftime</h2>
-        <p>bpftime is a high-performance userspace eBPF runtime and General Extension Framework designed for userspace. It allows extending eBPF to various applications as a <em>General Extension Framework</em>, compatible with the current eBPF ecosystem. Enables faster Uprobe, USDT, Syscall hooks, XDP, and more by bypassing the kernel and utilizing an optimized compiler like LLVM.</p>
-        <div class="btn-group">
-            <a href="https://github.com/eunomia-bpf/bpftime" target="_blank" class="btn">Github</a>
-            <a href="https://eunomia.dev/bpftime" target="_blank" class="btn">Documents</a>
-        </div>
-        <div class="publication-links">
-            <a href="https://ebpf.io/summit-2024-schedule/" target="_blank">eBPF Summit 2024</a>
-            <a href="https://lpc.events/event/17/abstracts/1741/" target="_blank">Linux Plumbers Conference 2023</a>
-            <a href="https://arxiv.org/abs/2311.07923" target="_blank">Arxiv</a>
-        </div>
+  <!-- Projects Sections -->
+
+  <!-- Project 1 -->
+  <section class="flex flex-col md:flex-row items-center gap-10 py-24 px-5 max-w-[1200px] mx-auto bg-white">
+    <img
+      src="https://eunomia.dev/bpftime/documents/bpftime.png"
+      alt="bpftime"
+      class="flex-1 basis-[400px] max-w-[600px] rounded-lg shadow-lg object-cover transition-transform hover:scale-105"
+    >
+    <div class="flex-1 basis-[400px] max-w-[600px] mx-auto">
+      <h2 class="text-2xl mb-4 text-green-600 font-semibold">bpftime</h2>
+      <p class="text-base text-gray-600 mb-5 leading-relaxed break-words">
+        bpftime is a high-performance userspace eBPF runtime and General Extension Framework designed for userspace. It allows extending eBPF to various applications as a <em>General Extension Framework</em>, compatible with the current eBPF ecosystem. Enables faster Uprobe, USDT, Syscall hooks, XDP, and more by bypassing the kernel and utilizing an optimized compiler like LLVM.
+      </p>
+      <div class="flex flex-wrap gap-4 mb-4">
+        <a
+          href="https://github.com/eunomia-bpf/bpftime"
+          target="_blank"
+          class="inline-block px-5 py-2 bg-blue-600 text-white text-sm rounded-full transition-transform hover:bg-blue-700 hover:-translate-y-1"
+        >
+          Github
+        </a>
+        <a
+          href="https://eunomia.dev/bpftime"
+          target="_blank"
+          class="inline-block px-5 py-2 bg-blue-600 text-white text-sm rounded-full transition-transform hover:bg-blue-700 hover:-translate-y-1"
+        >
+          Documents
+        </a>
+      </div>
+      <div class="flex flex-wrap gap-2 mt-4">
+        <a href="https://ebpf.io/summit-2024-schedule/" target="_blank" class="text-sm text-blue-600 hover:text-blue-700">eBPF Summit 2024</a>
+        <a href="https://lpc.events/event/17/abstracts/1741/" target="_blank" class="text-sm text-blue-600 hover:text-blue-700">Linux Plumbers Conference 2023</a>
+        <a href="https://arxiv.org/abs/2311.07923" target="_blank" class="text-sm text-blue-600 hover:text-blue-700">Arxiv</a>
+      </div>
     </div>
-</section>
+  </section>
 
-<!-- Project 0 -->
-<section class="project-section">
-    <img src="ebpf_arch.png" alt="tutorial">
-    <div class="project-content">
-        <h2>Learn eBPF by examples</h2>
-        <p>Too much Concepts? Let's master eBPF through practical, step-by-step tutorials that focus on real, executable examples to help you learn by doing.</p>
-        <div class="btn-group">
-            <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial" target="_blank" class="btn">Github</a>
-            <a href="https://eunomia.dev/tutorials" target="_blank" class="btn">Tutorial</a>
-        </div>
+  <!-- Project 0 -->
+  <section class="flex flex-col md:flex-row items-center gap-10 py-24 px-5 max-w-[1200px] mx-auto bg-gray-50">
+    <img
+      src="ebpf_arch.png"
+      alt="tutorial"
+      class="flex-1 basis-[400px] max-w-[600px] rounded-lg shadow-lg object-cover transition-transform hover:scale-105"
+    >
+    <div class="flex-1 basis-[400px] max-w-[600px] mx-auto">
+      <h2 class="text-2xl mb-4 text-green-600 font-semibold">Learn eBPF by examples</h2>
+      <p class="text-base text-gray-600 mb-5 leading-relaxed">
+        Too much Concepts? Let's master eBPF through practical, step-by-step tutorials that focus on real, executable examples to help you learn by doing.
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <a
+          href="https://github.com/eunomia-bpf/bpf-developer-tutorial"
+          target="_blank"
+          class="inline-block px-5 py-2 bg-blue-600 text-white text-sm rounded-full transition-transform hover:bg-blue-700 hover:-translate-y-1"
+        >
+          Github
+        </a>
+        <a
+          href="https://eunomia.dev/tutorials"
+          target="_blank"
+          class="inline-block px-5 py-2 bg-blue-600 text-white text-sm rounded-full transition-transform hover:bg-blue-700 hover:-translate-y-1"
+        >
+          Tutorial
+        </a>
+      </div>
     </div>
-</section>
+  </section>
 
-<!-- Project 2 -->
-<section class="project-section">
-    <img src="llvmbpf.png" alt="llvmbpf">
-    <div class="project-content">
-        <h2>llvmbpf</h2>
-        <p>Userspace eBPF VM with LLVM JIT/AOT compiler. It serves as the core component for bpftime without application, event, or map support.</p>
-        <div class="btn-group">
-            <a href="https://github.com/eunomia-bpf/llvmbpf" target="_blank" class="btn">Github</a>
-            <a href="https://eunomia.dev/bpftime/llvmbpf" target="_blank" class="btn">Documents</a>
-        </div>
-        <div class="publication-links">
-            <a href="https://eunomia.dev/blogs/llvmbpf/" target="_blank">Blog</a>
-            <a href="https://arxiv.org/abs/2311.07923" target="_blank">Arxiv</a>
-        </div>
+  <!-- Project 2 -->
+  <section class="flex flex-col md:flex-row items-center gap-10 py-24 px-5 max-w-[1200px] mx-auto bg-white">
+    <img
+      src="llvmbpf.png"
+      alt="llvmbpf"
+      class="flex-1 basis-[400px] max-w-[600px] rounded-lg shadow-lg object-cover transition-transform hover:scale-105"
+    >
+    <div class="flex-1 basis-[400px] max-w-[600px] mx-auto">
+      <h2 class="text-2xl mb-4 text-green-600 font-semibold">llvmbpf</h2>
+      <p class="text-base text-gray-600 mb-5 leading-relaxed">
+        Userspace eBPF VM with LLVM JIT/AOT compiler. It serves as the core component for bpftime without application, event, or map support.
+      </p>
+      <div class="flex flex-wrap gap-4 mb-4">
+        <a
+          href="https://github.com/eunomia-bpf/llvmbpf"
+          target="_blank"
+          class="inline-block px-5 py-2 bg-blue-600 text-white text-sm rounded-full transition-transform hover:bg-blue-700 hover:-translate-y-1"
+        >
+          Github
+        </a>
+        <a
+          href="https://eunomia.dev/bpftime/llvmbpf"
+          target="_blank"
+          class="inline-block px-5 py-2 bg-blue-600 text-white text-sm rounded-full transition-transform hover:bg-blue-700 hover:-translate-y-1"
+        >
+          Documents
+        </a>
+      </div>
+      <div class="flex flex-wrap gap-2 mt-4">
+        <a href="https://eunomia.dev/blogs/llvmbpf/" target="_blank" class="text-sm text-blue-600 hover:text-blue-700">Blog</a>
+        <a href="https://arxiv.org/abs/2311.07923" target="_blank" class="text-sm text-blue-600 hover:text-blue-700">Arxiv</a>
+      </div>
     </div>
-</section>
+  </section>
 
-<!-- Project 3 -->
-<section class="project-section">
-    <img src="https://raw.githubusercontent.com/eunomia-bpf/wasm-bpf/refs/heads/main/docs/wasm-bpf-no-bcc.png" alt="Wasm-bpf">
-    <div class="project-content">
-        <h2>Wasm-bpf</h2>
-        <p>In cooperation with <a href="https://github.com/WasmEdge/WasmEdge" target="_blank">WasmEdge</a>, we built the first user-space development library, toolchain, and runtime for general eBPF programs based on WebAssembly. This allows lightweight Wasm sandboxes to deploy and control eBPF applications in Kubernetes clusters.</p>
-        <div class="btn-group">
-            <a href="https://github.com/eunomia-bpf/wasm-bpf" target="_blank" class="btn">Github</a>
-            <a href="https://eunomia.dev/wasm-bpf" target="_blank" class="btn">Documents</a>
-        </div>
-        <div class="publication-links">
-            <a href="https://sched.co/1R2uf" target="_blank">KubeCon North American 2023</a>
-            <a href="https://arxiv.org/abs/2408.04856v1" target="_blank">Arxiv</a>
-        </div>
+  <!-- Project 3 -->
+  <section class="flex flex-col md:flex-row md:flex-row-reverse items-center gap-10 py-24 px-5 max-w-[1200px] mx-auto bg-gray-50">
+    <img
+      src="https://raw.githubusercontent.com/eunomia-bpf/wasm-bpf/refs/heads/main/docs/wasm-bpf-no-bcc.png"
+      alt="Wasm-bpf"
+      class="flex-1 basis-[400px] max-w-[600px] rounded-lg shadow-lg object-cover transition-transform hover:scale-105"
+    >
+    <div class="flex-1 basis-[400px] max-w-[600px] mx-auto">
+      <h2 class="text-2xl mb-4 text-green-600 font-semibold">Wasm-bpf</h2>
+      <p class="text-base text-gray-600 mb-5 leading-relaxed">
+        In cooperation with
+        <a href="https://github.com/WasmEdge/WasmEdge" target="_blank" class="text-blue-600 hover:text-blue-700">WasmEdge</a>,
+        we built the first user-space development library, toolchain, and runtime for general eBPF programs based on WebAssembly. This allows lightweight Wasm sandboxes to deploy and control eBPF applications in Kubernetes clusters.
+      </p>
+      <div class="flex flex-wrap gap-4 mb-4">
+        <a
+          href="https://github.com/eunomia-bpf/wasm-bpf"
+          target="_blank"
+          class="inline-block px-5 py-2 bg-blue-600 text-white text-sm rounded-full transition-transform hover:bg-blue-700 hover:-translate-y-1"
+        >
+          Github
+        </a>
+        <a
+          href="https://eunomia.dev/wasm-bpf"
+          target="_blank"
+          class="inline-block px-5 py-2 bg-blue-600 text-white text-sm rounded-full transition-transform hover:bg-blue-700 hover:-translate-y-1"
+        >
+          Documents
+        </a>
+      </div>
+      <div class="flex flex-wrap gap-2 mt-4">
+        <a href="https://sched.co/1R2uf" target="_blank" class="text-sm text-blue-600 hover:text-blue-700">KubeCon North American 2023</a>
+        <a href="https://arxiv.org/abs/2408.04856v1" target="_blank" class="text-sm text-blue-600 hover:text-blue-700">Arxiv</a>
+      </div>
     </div>
-</section>
+  </section>
 
-<!-- Project 4 -->
-<section class="project-section">
-    <img src="https://eunomia.dev/GPTtrace/doc/trace.png" alt="GPTtrace">
-    <div class="project-content">
-        <h2>GPTtrace</h2>
-        <p>The first tool to generate eBPF programs and trace the Linux kernel through natural language. With our AI agents, it can produce correct eBPF programs 80% of the time, compared to a GPT-4 baseline of 30%.</p>
-        <div class="btn-group">
-            <a href="https://github.com/eunomia-bpf/GPTtrace" target="_blank" class="btn">Github</a>
-            <a href="https://eunomia.dev/GPTtrace" target="_blank" class="btn">Documents</a>
-        </div>
-        <div class="publication-links">
-            <a href="https://dl.acm.org/doi/10.1145/3672197.3673434" target="_blank">eBPF'24</a>
-            <a href="https://arxiv.org/abs/2311.07923" target="_blank">Arxiv</a>
-        </div>
+  <!-- Project 4 -->
+  <section class="flex flex-col md:flex-row items-center gap-10 py-24 px-5 max-w-[1200px] mx-auto bg-white">
+    <img
+      src="https://eunomia.dev/GPTtrace/doc/trace.png"
+      alt="GPTtrace"
+      class="flex-1 basis-[400px] max-w-[600px] rounded-lg shadow-lg object-cover transition-transform hover:scale-105"
+    >
+    <div class="flex-1 basis-[400px] max-w-[600px] mx-auto">
+      <h2 class="text-2xl mb-4 text-green-600 font-semibold">GPTtrace</h2>
+      <p class="text-base text-gray-600 mb-5 leading-relaxed">
+        The first tool to generate eBPF programs and trace the Linux kernel through natural language. With our AI agents, it can produce correct eBPF programs 80% of the time, compared to a GPT-4 baseline of 30%.
+      </p>
+      <div class="flex flex-wrap gap-4 mb-4">
+        <a
+          href="https://github.com/eunomia-bpf/GPTtrace"
+          target="_blank"
+          class="inline-block px-5 py-2 bg-blue-600 text-white text-sm rounded-full transition-transform hover:bg-blue-700 hover:-translate-y-1"
+        >
+          Github
+        </a>
+        <a
+          href="https://eunomia.dev/GPTtrace"
+          target="_blank"
+          class="inline-block px-5 py-2 bg-blue-600 text-white text-sm rounded-full transition-transform hover:bg-blue-700 hover:-translate-y-1"
+        >
+          Documents
+        </a>
+      </div>
+      <div class="flex flex-wrap gap-2 mt-4">
+        <a href="https://dl.acm.org/doi/10.1145/3672197.3673434" target="_blank" class="text-sm text-blue-600 hover:text-blue-700">eBPF'24</a>
+        <a href="https://arxiv.org/abs/2311.07923" target="_blank" class="text-sm text-blue-600 hover:text-blue-700">Arxiv</a>
+      </div>
     </div>
-</section>
+  </section>
 
-<!-- Project 5 -->
-<section class="project-section">
-    <img src="https://raw.githubusercontent.com/eunomia-bpf/eunomia-bpf/master/documents/src/img/logo.png" alt="eunomia-bpf">
-    <div class="project-content">
-        <h2>eunomia-bpf</h2>
-        <p>A tool to help developers build, distribute, and run eBPF programs more easily using JSON and WebAssembly OCI images.</p>
-        <div class="btn-group">
-            <a href="https://github.com/eunomia-bpf/eunomia-bpf" target="_blank" class="btn">Github</a>
-            <a href="https://eunomia.dev/eunomia-bpf" target="_blank" class="btn">Document</a>
-        </div>
-        <div class="publication-links">
-            <a href="https://www.alibabacloud.com/blog/eunomia-bpf-the-lightweight-development-framework-for-ebpf-and-webassembly-is-now-available_599688" target="_blank">Apsara Conference 2022</a>
-        </div>
+  <!-- Project 5 -->
+  <section class="flex flex-col md:flex-row md:flex-row-reverse items-center gap-10 py-24 px-5 max-w-[1200px] mx-auto bg-gray-50">
+    <img
+      src="https://raw.githubusercontent.com/eunomia-bpf/eunomia-bpf/master/documents/src/img/logo.png"
+      alt="eunomia-bpf"
+      class="flex-1 basis-[400px] max-w-[600px] rounded-lg shadow-lg object-cover transition-transform hover:scale-105"
+    >
+    <div class="flex-1 basis-[400px] max-w-[600px] mx-auto">
+      <h2 class="text-2xl mb-4 text-green-600 font-semibold">eunomia-bpf</h2>
+      <p class="text-base text-gray-600 mb-5 leading-relaxed">
+        A tool to help developers build, distribute, and run eBPF programs more easily using JSON and WebAssembly OCI images.
+      </p>
+      <div class="flex flex-wrap gap-4 mb-4">
+        <a
+          href="https://github.com/eunomia-bpf/eunomia-bpf"
+          target="_blank"
+          class="inline-block px-5 py-2 bg-blue-600 text-white text-sm rounded-full transition-transform hover:bg-blue-700 hover:-translate-y-1"
+        >
+          Github
+        </a>
+        <a
+          href="https://eunomia.dev/eunomia-bpf"
+          target="_blank"
+          class="inline-block px-5 py-2 bg-blue-600 text-white text-sm rounded-full transition-transform hover:bg-blue-700 hover:-translate-y-1"
+        >
+          Document
+        </a>
+      </div>
+      <div class="flex flex-wrap gap-2 mt-4">
+        <a href="https://www.alibabacloud.com/blog/eunomia-bpf-the-lightweight-development-framework-for-ebpf-and-webassembly-is-now-available_599688" target="_blank" class="text-sm text-blue-600 hover:text-blue-700">Apsara Conference 2022</a>
+      </div>
     </div>
-</section>
-
+  </section>
 {% endblock %}
 
-<!-- Content -->
-{% block content %}{% endblock %}
+{% block content %}
+  {# Additional page content can go here #}
+{% endblock %}
 
-<!-- Application footer -->
 {% block footer %}
-{{ super() }}
+  {{ super() }}
 {% endblock %}

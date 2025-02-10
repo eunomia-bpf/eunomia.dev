@@ -7,6 +7,7 @@ remote_branch: docs
 edit_uri: https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs
 theme:
   name: material
+  language: en
   logo: assets/icon.svg
   favicon: assets/icon.svg
   custom_dir: material/overrides
@@ -73,7 +74,11 @@ nav:
   - Blog: blog
   - bpftime: 
     - bpftime/index.md
-    - ... | flat | bpftime/**/*.md
+    - bpftime/documents/build-and-test.md
+    - bpftime/documents/usage.md
+    - bpftime/documents/examples.md
+    - bpftime/documents/available-features.md
+    - ... | bpftime/**/*.md
   - eunomia-bpf:
     - eunomia-bpf/index.md
     - ... | eunomia-bpf/**/*.md

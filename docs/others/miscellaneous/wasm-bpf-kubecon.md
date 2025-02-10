@@ -14,35 +14,7 @@ The post provides background on eBPF and Wasm, examines the deployment challenge
 
 ## Table of Contents
 
-<!-- TOC -->
-
-- [Securing and Simplifying eBPF Deployments with WebAssembly](#securing-and-simplifying-ebpf-deployments-with-webassembly)
-  - [introduction](#introduction)
-  - [Table of Contents](#table-of-contents)
-  - [Background: eBPF and Wasm in Cloud-Native Ecosystems](#background-ebpf-and-wasm-in-cloud-native-ecosystems)
-  - [How can Wasm enhance eBPF](#how-can-wasm-enhance-ebpf)
-    - [Current deploy models of eBPF](#current-deploy-models-of-ebpf)
-    - [Summary: challenges for eBPF in Kubernetes](#summary-challenges-for-ebpf-in-kubernetes)
-    - [How WebAssembly can bring to eBPF deployments in Kubernetes](#how-webassembly-can-bring-to-ebpf-deployments-in-kubernetes)
-    - [Wasm-bpf: A Paradigm Shift in eBPF Deployments](#wasm-bpf-a-paradigm-shift-in-ebpf-deployments)
-    - [Enhancing eBPF Deployment: Efficiency and Ease](#enhancing-ebpf-deployment-efficiency-and-ease)
-  - [Elevating Security in eBPF Deployments](#elevating-security-in-ebpf-deployments)
-    - [trade offs](#trade-offs)
-    - [Running eBPF with WebAssembly in Docker Containers](#running-ebpf-with-webassembly-in-docker-containers)
-    - [Streamlining eBPF Development with Wasm-bpf](#streamlining-ebpf-development-with-wasm-bpf)
-    - [Examples of wasm-bpf](#examples-of-wasm-bpf)
-    - [Challenges of eBPF for Wasm: Bridging Architecture and Kernel Dependencies](#challenges-of-ebpf-for-wasm-bridging-architecture-and-kernel-dependencies)
-    - [How it works: Wasm-bpf](#how-it-works-wasm-bpf)
-    - [Wasm with userspace eBPF](#wasm-with-userspace-ebpf)
-  - [Wasm + eBPF + LLM](#wasm--ebpf--llm)
-  - [How can eBPF enhance Wasm: WASI and Debugging](#how-can-ebpf-enhance-wasm-wasi-and-debugging)
-    - [Enhancing WASI access control with eBPF](#enhancing-wasi-access-control-with-ebpf)
-    - [Wasm runtime Debug with eBPF](#wasm-runtime-debug-with-ebpf)
-    - [Other possibilitys](#other-possibilitys)
-  - [conclusion and takeaways](#conclusion-and-takeaways)
-  - [reference](#reference)
-
-<!-- /TOC -->
+<!-- TOC -->autoauto- [Securing and Simplifying eBPF Deployments with WebAssembly](#securing-and-simplifying-ebpf-deployments-with-webassembly)auto    - [introduction](#introduction)auto    - [Table of Contents](#table-of-contents)auto    - [Background: eBPF and Wasm in Cloud-Native Ecosystems](#background-ebpf-and-wasm-in-cloud-native-ecosystems)auto    - [How can Wasm enhance eBPF](#how-can-wasm-enhance-ebpf)auto        - [Current deploy models of eBPF](#current-deploy-models-of-ebpf)auto        - [Summary: challenges for eBPF in Kubernetes](#summary-challenges-for-ebpf-in-kubernetes)auto        - [How WebAssembly can bring to eBPF deployments in Kubernetes](#how-webassembly-can-bring-to-ebpf-deployments-in-kubernetes)auto        - [Wasm-bpf: A Paradigm Shift in eBPF Deployments](#wasm-bpf-a-paradigm-shift-in-ebpf-deployments)auto        - [Enhancing eBPF Deployment: Efficiency and Ease](#enhancing-ebpf-deployment-efficiency-and-ease)auto    - [Elevating Security in eBPF Deployments](#elevating-security-in-ebpf-deployments)auto        - [trade offs](#trade-offs)auto        - [Running eBPF with WebAssembly in Docker Containers](#running-ebpf-with-webassembly-in-docker-containers)auto        - [Streamlining eBPF Development with Wasm-bpf](#streamlining-ebpf-development-with-wasm-bpf)auto        - [Examples of wasm-bpf](#examples-of-wasm-bpf)auto        - [Challenges of eBPF for Wasm: Bridging Architecture and Kernel Dependencies](#challenges-of-ebpf-for-wasm-bridging-architecture-and-kernel-dependencies)auto        - [How it works: Wasm-bpf](#how-it-works-wasm-bpf)auto        - [Wasm with userspace eBPF](#wasm-with-userspace-ebpf)auto    - [Wasm + eBPF + LLM](#wasm--ebpf--llm)auto    - [How can eBPF enhance Wasm: WASI and Debugging](#how-can-ebpf-enhance-wasm-wasi-and-debugging)auto        - [Enhancing WASI access control with eBPF](#enhancing-wasi-access-control-with-ebpf)auto        - [Wasm runtime Debug with eBPF](#wasm-runtime-debug-with-ebpf)auto        - [Other possibilitys](#other-possibilitys)auto    - [conclusion and takeaways](#conclusion-and-takeaways)auto    - [reference](#reference)autoauto<!-- /TOC -->
 
 ## Background: eBPF and Wasm in Cloud-Native Ecosystems
 
@@ -196,7 +168,7 @@ WebAssembly containers offer a lighter and more configurable alternative to trad
 
 Furthermore, this approach facilitates the use of container tools and Open Container Initiative (OCI) storage to efficiently manage eBPF programs. With these tools, developers can now achieve unparalleled control over, and interaction with, eBPF and a wide array of system resources that eBPF can tap into, paving the way for sophisticated containerized applications that are both performant and secure.
 
-![docker-ebpf-wasm](../assets/ebpf-in-wasm-docker.png)
+![docker-ebpf-wasm](../../assets/ebpf-in-wasm-docker.png)
 
 ### Streamlining eBPF Development with Wasm-bpf
 
