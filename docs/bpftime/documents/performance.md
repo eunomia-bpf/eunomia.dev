@@ -41,4 +41,4 @@ We used the [sslsniff tool](https://github.com/eunomia-bpf/bpftime/tree/master/e
 
 ![sslsniff](../../blogs/imgs/ssl-nginx.png)
 
-The benchmark script and results can be found in [benchmark/sslsniff]([../../benchmark/sslsniff](https://github.com/eunomia-bpf/bpftime/tree/master/benchmark/ssl-nginx)).
+The benchmark script and results can be found in [benchmark/sslsniff](https://github.com/eunomia-bpf/bpftime/tree/master/benchmark/ssl-nginx).

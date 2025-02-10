@@ -7,22 +7,6 @@ date: 2023-04-11
 The Linux kernel primarily released versions 5.16-5.19, 6.0, and 6.1 in 2022, each of which introduced numerous new features for eBPF. This article will provide a brief introduction to these new features, and for more detailed information, please refer to the corresponding link. Overall, eBPF remains one of the most active modules in the kernel, and its functionality is still rapidly evolving. In a sense, eBPF is rapidly evolving towards a complete kernel-level programmable interface.
 <!-- more -->
 
-<!-- TOC -->
-
-- [eBPF Advanced: Overview of New Kernel Features](#ebpf-advanced-overview-of-new-kernel-features)
-  - [BPF kfuncs](#bpf-kfuncs)
-  - [Bloom Filter Map: 5.16](#bloom-filter-map-516)
-  - [Compile Once – Run Everywhere: Linux 5.17".Linux 5.17 added a new feature called Compile Once - Run Everywhere (CO-RE) for eBPF, which greatly simplifies the complexity of handling multi-version kernel compatibility and loop logic in eBPF programs](#compile-once--run-everywhere-linux-517linux-517-added-a-new-feature-called-compile-once---run-everywhere-co-re-for-ebpf-which-greatly-simplifies-the-complexity-of-handling-multi-version-kernel-compatibility-and-loop-logic-in-ebpf-programs)
-  - [Helper function bpf\_loop(): 5.17](#helper-function-bpf_loop-517)
-  - [BPF\_LINK\_TYPE\_KPROBE\_MULTI: 5.18](#bpf_link_type_kprobe_multi-518)
-  - [Dynamic Pointers and Type Pointers: 5.19.Instructions: Translate the following Chinese text to English](#dynamic-pointers-and-type-pointers-519instructions-translate-the-following-chinese-text-to-english)
-  - [USDT: 5.19](#usdt-519)
-  - [BPF panic: 6.1](#bpf-panic-61)
-  - [BPF Memory Allocator, Linked List: 6.1](#bpf-memory-allocator-linked-list-61)
-  - [User Ring Buffer 6.1](#user-ring-buffer-61)
-
-<!-- /TOC -->
-
 ## BPF kfuncs
 
 The BPF subsystem exposes many aspects of kernel internal algorithms and data structures, which naturally leads to concerns about maintaining interface stability when the kernel changes. For a long time, BPF's stance on not providing interface stability guarantees to user space has been somewhat problematic. In the past, kernel developers found themselves having to maintain interfaces that were not intended to be stable. Now the BPF community is starting to consider what it might mean to provide explicit stability guarantees for at least some of its interfaces.

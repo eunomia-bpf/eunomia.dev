@@ -70,13 +70,17 @@ nav:
   - Tutorials: 
     - tutorials/index.md
     - ... | flat | tutorials/**/*.md
+  - Blog: blog
+  - bpftime: 
+    - bpftime/index.md
+    - ... | bpftime/**/*.md
+  - eunomia-bpf:
+    - eunomia-bpf/index.md
+    - ... | eunomia-bpf/**/*.md
   - GPTtrace: 
     - GPTtrace/index.md
   - wasm-bpf: 
     - wasm-bpf/index.md
-  - bpftime: 
-    - bpftime/index.md
-  - Blog: blog
   - Ecosystem: 
     - others/index.md
     - ... | others/**/*.md

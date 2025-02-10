@@ -1,5 +1,3 @@
-![logo](documents/src/img/logo.png)
-
 # eunomia-bpf：简化并增强eBPF，支持CO-RE[^1]和WebAssembly[^2]
 
 [![Actions Status](https://github.com/eunomia-bpf/eunomia-bpf/workflows/Ubuntu/badge.svg)](https://github.com/eunomia-bpf/eunomia-bpf/actions)

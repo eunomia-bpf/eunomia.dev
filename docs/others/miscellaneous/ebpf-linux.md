@@ -56,7 +56,7 @@ This project has not been accepted by any other consortium or foundation. We are
 
 2.5. Trademark status, if any.
 
-2.6. Proposed Technical Charter, based on the [template](Technical%20Charter%20%28custom+data%29%20--%20LF%20Projects,%20LLC%204-10-2019%20FINAL.docx).
+2.6. Proposed Technical Charter, based on the [template].
 Include doc as attachment or give URL of doc.  It is ok to change the
 text (e.g., "Technical Steering Committee") to match the actual structure of
 the project; projects are free to use whatever governance structure they want.
@@ -98,10 +98,10 @@ Which is tested by the [bpf_conformance](https://github.com/Alan-Jowett/bpf_conf
 3.8. List of project's official communication channels (slack, irc, mailing lists)
 
 - Discord: <https://discord.gg/jvM73AFdB8>
-- Mailing list: <team@eunomia.dev>
+- Mailing list: <mailto:team@eunomia.dev>
 
 3.9. Project Security Response Policy for handling any vulnerabilities reported
 
-3.10. Expected budget request.  See [Project Benefits](project-progression-policy.md#benefits-of-being-a-recognized-foundation-project) for items that may be requested for potential support.
+3.10. Expected budget request.  See [Project Benefits] for items that may be requested for potential support.
 
 3.11. Any additional information the BSC and Board should take into consideration when reviewing your proposal.

@@ -176,7 +176,7 @@ However, the `bpf.o` ELF file has no map and data relocation support. We would r
 
 bpftime already has maps and data relocation support. The easiest way to use it is just use bpftime and write the loader and eBPF program like kernel eBPF. The `llvmbpf` libray provide a approach to interact with the maps.
 
-See [example/maps.cpp](example/maps.cpp) of how to use the library as a vm and works with maps:
+See [example/maps.cpp](https://github.com/eunomia-bpf/llvmbpf/blob/main/example/maps.cpp) of how to use the library as a vm and works with maps:
 
 The eBPF can work with maps in two ways:
 

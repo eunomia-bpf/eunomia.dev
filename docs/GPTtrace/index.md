@@ -29,7 +29,7 @@ example: Write an eBPF program Print entered bash commands from all running shel
 
 <img src="doc/generate.png" alt="Image" width="600">
 
-We use examples from [bpftrace tools](tools) to create vector store and search.
+We use examples from [bpftrace tools](https://github.com/eunomia-bpf/GPTtrace/tree/main/tools) to create vector store and search.
 
 For more detail documents and tutorials about how to write eBPF programs, please refer to:  [`bpf-developer-tutorial`](https://github.com/eunomia-bpf/bpf-developer-tutorial) (a libbpf tool tutorial to teach ChatGPT to write eBPF programs)
 
