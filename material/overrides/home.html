@@ -3,20 +3,28 @@
 {% block tabs %}
   {{ super() }}
 
+  <!-- Add Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @media (max-width: 640px) {
+      #home h1 { font-size: 2.5rem; }
+    }
+  </style>
+
   <!-- Hero Section -->
   <section
     id="home"
-    class="relative flex items-center justify-center text-center text-white bg-cover bg-center min-h-[60vh] max-h-[300px] px-5"
+    class="relative flex items-center justify-center text-center text-white bg-cover bg-center min-h-[40vh] sm:min-h-[50vh] md:min-h-[60vh] max-h-[300px] px-4 sm:px-5"
     style="background-image: url('https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/material/background.jpg');"
   >
     <!-- Overlay -->
     <div class="absolute inset-0 bg-black opacity-60"></div>
-    <div class="relative z-10 max-w-7xl mx-auto px-5">
-      <h1 class="font-roboto text-[3.2rem] mb-5 font-bold">eunomia</h1>
-      <p class="text-base mb-5 font-medium">Unlock the potential of eBPF.</p>
+    <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="font-roboto text-4xl sm:text-5xl md:text-[3.2rem] mb-3 sm:mb-5 font-bold">eunomia</h1>
+      <p class="text-sm sm:text-base mb-4 sm:mb-5 font-medium">Unlock the potential of eBPF.</p>
       <a
         href="https://github.com/eunomia-bpf/"
-        class="inline-block px-6 py-2 bg-green-600 text-white text-base rounded-full transition-transform hover:bg-green-700 hover:-translate-y-1"
+        class="inline-block px-4 sm:px-6 py-2 bg-green-600 text-white text-sm sm:text-base rounded-full transition-all duration-300 hover:bg-green-700 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
       >
         Explore on Github
       </a>
@@ -24,75 +32,77 @@
   </section>
 
   <!-- About Section -->
-  <section class="bg-white text-center py-20 px-5 max-w-[1200px] mx-auto">
-    <h2 class="text-[2.5rem] mb-5 text-blue-500 font-bold">About Eunomia</h2>
-    <p class="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-      Eunomia is an open-source organization dedicated to exploring and enhancing the eBPF ecosystem. Our mission is to innovate and optimize eBPF technologies, enabling developers to build more efficient, extensible, and powerful eBPF applications.
-    </p>
+  <section class="bg-white text-center py-12 sm:py-16 md:py-20 px-4 sm:px-5">
+    <div class="max-w-[1200px] mx-auto">
+      <h2 class="text-3xl sm:text-4xl md:text-[2.5rem] mb-4 sm:mb-5 text-blue-500 font-bold">About Eunomia</h2>
+      <p class="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed px-4">
+        Eunomia is an open-source organization dedicated to exploring and enhancing the eBPF ecosystem. Our mission is to innovate and optimize eBPF technologies, enabling developers to build more efficient, extensible, and powerful eBPF applications.
+      </p>
+    </div>
   </section>
 
   <!-- Projects Sections -->
 
   <!-- Project 1 -->
-  <section class="flex flex-col md:flex-row items-center gap-10 py-24 px-5 max-w-[1200px] mx-auto bg-white">
+  <section class="flex flex-col md:flex-row items-center gap-6 sm:gap-8 md:gap-10 py-16 sm:py-20 md:py-24 px-4 sm:px-5 max-w-[1200px] mx-auto bg-white">
     <img
       src="https://eunomia.dev/bpftime/documents/bpftime.png"
       alt="bpftime"
-      class="flex-1 basis-[400px] max-w-[600px] rounded-lg shadow-lg object-cover transition-transform hover:scale-105"
+      class="w-full md:flex-1 md:basis-[400px] max-w-[600px] rounded-lg shadow-lg object-cover transition-transform duration-300 hover:scale-105"
     >
-    <div class="flex-1 basis-[400px] max-w-[600px] mx-auto">
-      <h2 class="text-2xl mb-4 text-green-600 font-semibold">bpftime</h2>
-      <p class="text-base text-gray-600 mb-5 leading-relaxed break-words">
+    <div class="w-full md:flex-1 md:basis-[400px] max-w-[600px] mx-auto mt-6 md:mt-0">
+      <h2 class="text-xl sm:text-2xl mb-3 sm:mb-4 text-green-600 font-semibold">bpftime</h2>
+      <p class="text-sm sm:text-base text-gray-600 mb-4 sm:mb-5 leading-relaxed break-words">
         bpftime is a high-performance userspace eBPF runtime and General Extension Framework designed for userspace. It allows extending eBPF to various applications as a <em>General Extension Framework</em>, compatible with the current eBPF ecosystem. Enables faster Uprobe, USDT, Syscall hooks, XDP, and more by bypassing the kernel and utilizing an optimized compiler like LLVM.
       </p>
-      <div class="flex flex-wrap gap-4 mb-4">
+      <div class="flex flex-wrap gap-3 sm:gap-4 mb-4">
         <a
           href="https://github.com/eunomia-bpf/bpftime"
           target="_blank"
-          class="inline-block px-5 py-2 bg-blue-600 text-white text-sm rounded-full transition-transform hover:bg-blue-700 hover:-translate-y-1"
+          class="inline-block px-4 sm:px-5 py-2 bg-blue-600 text-white text-xs sm:text-sm rounded-full transition-all duration-300 hover:bg-blue-700 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           Github
         </a>
         <a
           href="https://eunomia.dev/bpftime"
           target="_blank"
-          class="inline-block px-5 py-2 bg-blue-600 text-white text-sm rounded-full transition-transform hover:bg-blue-700 hover:-translate-y-1"
+          class="inline-block px-4 sm:px-5 py-2 bg-blue-600 text-white text-xs sm:text-sm rounded-full transition-all duration-300 hover:bg-blue-700 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           Documents
         </a>
       </div>
       <div class="flex flex-wrap gap-2 mt-4">
-        <a href="https://ebpf.io/summit-2024-schedule/" target="_blank" class="text-sm text-blue-600 hover:text-blue-700">eBPF Summit 2024</a>
-        <a href="https://lpc.events/event/17/abstracts/1741/" target="_blank" class="text-sm text-blue-600 hover:text-blue-700">Linux Plumbers Conference 2023</a>
-        <a href="https://arxiv.org/abs/2311.07923" target="_blank" class="text-sm text-blue-600 hover:text-blue-700">Arxiv</a>
+        <a href="https://ebpf.io/summit-2024-schedule/" target="_blank" class="text-xs sm:text-sm text-blue-600 hover:text-blue-700">eBPF Summit 2024</a>
+        <a href="https://lpc.events/event/17/abstracts/1741/" target="_blank" class="text-xs sm:text-sm text-blue-600 hover:text-blue-700">Linux Plumbers Conference 2023</a>
+        <a href="https://arxiv.org/abs/2311.07923" target="_blank" class="text-xs sm:text-sm text-blue-600 hover:text-blue-700">Arxiv</a>
       </div>
     </div>
   </section>
 
   <!-- Project 0 -->
-  <section class="flex flex-col md:flex-row items-center gap-10 py-24 px-5 max-w-[1200px] mx-auto bg-gray-50">
+  <section class="flex flex-col md:flex-row items-center gap-6 sm:gap-8 md:gap-10 py-16 sm:py-20 md:py-24 px-4 sm:px-5 max-w-[1200px] mx-auto bg-gray-50">
     <img
       src="ebpf_arch.png"
       alt="tutorial"
-      class="flex-1 basis-[400px] max-w-[600px] rounded-lg shadow-lg object-cover transition-transform hover:scale-105"
+      class="w-full md:flex-1 md:basis-[400px] max-w-[600px] rounded-lg shadow-lg object-cover transition-transform duration-300 hover:scale-105"
     >
-    <div class="flex-1 basis-[400px] max-w-[600px] mx-auto">
-      <h2 class="text-2xl mb-4 text-green-600 font-semibold">Learn eBPF by examples</h2>
-      <p class="text-base text-gray-600 mb-5 leading-relaxed">
+    <div class="w-full md:flex-1 md:basis-[400px] max-w-[600px] mx-auto mt-6 md:mt-0">
+      <h2 class="text-xl sm:text-2xl mb-3 sm:mb-4 text-green-600 font-semibold">Learn eBPF by examples</h2>
+      <p class="text-sm sm:text-base text-gray-600 mb-4 sm:mb-5 leading-relaxed">
         Too much Concepts? Let's master eBPF through practical, step-by-step tutorials that focus on real, executable examples to help you learn by doing.
       </p>
-      <div class="flex flex-wrap gap-4">
+      <div class="flex flex-wrap gap-3 sm:gap-4">
         <a
           href="https://github.com/eunomia-bpf/bpf-developer-tutorial"
           target="_blank"
-          class="inline-block px-5 py-2 bg-blue-600 text-white text-sm rounded-full transition-transform hover:bg-blue-700 hover:-translate-y-1"
+          class="inline-block px-4 sm:px-5 py-2 bg-blue-600 text-white text-xs sm:text-sm rounded-full transition-all duration-300 hover:bg-blue-700 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           Github
         </a>
         <a
           href="https://eunomia.dev/tutorials"
           target="_blank"
-          class="inline-block px-5 py-2 bg-blue-600 text-white text-sm rounded-full transition-transform hover:bg-blue-700 hover:-translate-y-1"
+          class="inline-block px-4 sm:px-5 py-2 bg-blue-600 text-white text-xs sm:text-sm rounded-full transition-all duration-300 hover:bg-blue-700 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           Tutorial
         </a>
@@ -101,142 +111,142 @@
   </section>
 
   <!-- Project 2 -->
-  <section class="flex flex-col md:flex-row items-center gap-10 py-24 px-5 max-w-[1200px] mx-auto bg-white">
+  <section class="flex flex-col md:flex-row items-center gap-6 sm:gap-8 md:gap-10 py-16 sm:py-20 md:py-24 px-4 sm:px-5 max-w-[1200px] mx-auto bg-white">
     <img
       src="llvmbpf.png"
       alt="llvmbpf"
-      class="flex-1 basis-[400px] max-w-[600px] rounded-lg shadow-lg object-cover transition-transform hover:scale-105"
+      class="w-full md:flex-1 md:basis-[400px] max-w-[600px] rounded-lg shadow-lg object-cover transition-transform duration-300 hover:scale-105"
     >
-    <div class="flex-1 basis-[400px] max-w-[600px] mx-auto">
-      <h2 class="text-2xl mb-4 text-green-600 font-semibold">llvmbpf</h2>
-      <p class="text-base text-gray-600 mb-5 leading-relaxed">
+    <div class="w-full md:flex-1 md:basis-[400px] max-w-[600px] mx-auto mt-6 md:mt-0">
+      <h2 class="text-xl sm:text-2xl mb-3 sm:mb-4 text-green-600 font-semibold">llvmbpf</h2>
+      <p class="text-sm sm:text-base text-gray-600 mb-4 sm:mb-5 leading-relaxed">
         Userspace eBPF VM with LLVM JIT/AOT compiler. It serves as the core component for bpftime without application, event, or map support.
       </p>
-      <div class="flex flex-wrap gap-4 mb-4">
+      <div class="flex flex-wrap gap-3 sm:gap-4 mb-4">
         <a
           href="https://github.com/eunomia-bpf/llvmbpf"
           target="_blank"
-          class="inline-block px-5 py-2 bg-blue-600 text-white text-sm rounded-full transition-transform hover:bg-blue-700 hover:-translate-y-1"
+          class="inline-block px-4 sm:px-5 py-2 bg-blue-600 text-white text-xs sm:text-sm rounded-full transition-all duration-300 hover:bg-blue-700 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           Github
         </a>
         <a
           href="https://eunomia.dev/bpftime/llvmbpf"
           target="_blank"
-          class="inline-block px-5 py-2 bg-blue-600 text-white text-sm rounded-full transition-transform hover:bg-blue-700 hover:-translate-y-1"
+          class="inline-block px-4 sm:px-5 py-2 bg-blue-600 text-white text-xs sm:text-sm rounded-full transition-all duration-300 hover:bg-blue-700 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           Documents
         </a>
       </div>
       <div class="flex flex-wrap gap-2 mt-4">
-        <a href="https://eunomia.dev/blogs/llvmbpf/" target="_blank" class="text-sm text-blue-600 hover:text-blue-700">Blog</a>
-        <a href="https://arxiv.org/abs/2311.07923" target="_blank" class="text-sm text-blue-600 hover:text-blue-700">Arxiv</a>
+        <a href="https://eunomia.dev/blogs/llvmbpf/" target="_blank" class="text-xs sm:text-sm text-blue-600 hover:text-blue-700">Blog</a>
+        <a href="https://arxiv.org/abs/2311.07923" target="_blank" class="text-xs sm:text-sm text-blue-600 hover:text-blue-700">Arxiv</a>
       </div>
     </div>
   </section>
 
   <!-- Project 3 -->
-  <section class="flex flex-col md:flex-row md:flex-row-reverse items-center gap-10 py-24 px-5 max-w-[1200px] mx-auto bg-gray-50">
+  <section class="flex flex-col md:flex-row md:flex-row-reverse items-center gap-6 sm:gap-8 md:gap-10 py-16 sm:py-20 md:py-24 px-4 sm:px-5 max-w-[1200px] mx-auto bg-gray-50">
     <img
       src="https://raw.githubusercontent.com/eunomia-bpf/wasm-bpf/refs/heads/main/docs/wasm-bpf-no-bcc.png"
       alt="Wasm-bpf"
-      class="flex-1 basis-[400px] max-w-[600px] rounded-lg shadow-lg object-cover transition-transform hover:scale-105"
+      class="w-full md:flex-1 md:basis-[400px] max-w-[600px] rounded-lg shadow-lg object-cover transition-transform duration-300 hover:scale-105"
     >
-    <div class="flex-1 basis-[400px] max-w-[600px] mx-auto">
-      <h2 class="text-2xl mb-4 text-green-600 font-semibold">Wasm-bpf</h2>
-      <p class="text-base text-gray-600 mb-5 leading-relaxed">
+    <div class="w-full md:flex-1 md:basis-[400px] max-w-[600px] mx-auto mt-6 md:mt-0">
+      <h2 class="text-xl sm:text-2xl mb-3 sm:mb-4 text-green-600 font-semibold">Wasm-bpf</h2>
+      <p class="text-sm sm:text-base text-gray-600 mb-4 sm:mb-5 leading-relaxed">
         In cooperation with
         <a href="https://github.com/WasmEdge/WasmEdge" target="_blank" class="text-blue-600 hover:text-blue-700">WasmEdge</a>,
         we built the first user-space development library, toolchain, and runtime for general eBPF programs based on WebAssembly. This allows lightweight Wasm sandboxes to deploy and control eBPF applications in Kubernetes clusters.
       </p>
-      <div class="flex flex-wrap gap-4 mb-4">
+      <div class="flex flex-wrap gap-3 sm:gap-4 mb-4">
         <a
           href="https://github.com/eunomia-bpf/wasm-bpf"
           target="_blank"
-          class="inline-block px-5 py-2 bg-blue-600 text-white text-sm rounded-full transition-transform hover:bg-blue-700 hover:-translate-y-1"
+          class="inline-block px-4 sm:px-5 py-2 bg-blue-600 text-white text-xs sm:text-sm rounded-full transition-all duration-300 hover:bg-blue-700 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           Github
         </a>
         <a
           href="https://eunomia.dev/wasm-bpf"
           target="_blank"
-          class="inline-block px-5 py-2 bg-blue-600 text-white text-sm rounded-full transition-transform hover:bg-blue-700 hover:-translate-y-1"
+          class="inline-block px-4 sm:px-5 py-2 bg-blue-600 text-white text-xs sm:text-sm rounded-full transition-all duration-300 hover:bg-blue-700 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           Documents
         </a>
       </div>
       <div class="flex flex-wrap gap-2 mt-4">
-        <a href="https://sched.co/1R2uf" target="_blank" class="text-sm text-blue-600 hover:text-blue-700">KubeCon North American 2023</a>
-        <a href="https://arxiv.org/abs/2408.04856v1" target="_blank" class="text-sm text-blue-600 hover:text-blue-700">Arxiv</a>
+        <a href="https://sched.co/1R2uf" target="_blank" class="text-xs sm:text-sm text-blue-600 hover:text-blue-700">KubeCon North American 2023</a>
+        <a href="https://arxiv.org/abs/2408.04856v1" target="_blank" class="text-xs sm:text-sm text-blue-600 hover:text-blue-700">Arxiv</a>
       </div>
     </div>
   </section>
 
   <!-- Project 4 -->
-  <section class="flex flex-col md:flex-row items-center gap-10 py-24 px-5 max-w-[1200px] mx-auto bg-white">
+  <section class="flex flex-col md:flex-row items-center gap-6 sm:gap-8 md:gap-10 py-16 sm:py-20 md:py-24 px-4 sm:px-5 max-w-[1200px] mx-auto bg-white">
     <img
       src="https://eunomia.dev/GPTtrace/doc/trace.png"
       alt="GPTtrace"
-      class="flex-1 basis-[400px] max-w-[600px] rounded-lg shadow-lg object-cover transition-transform hover:scale-105"
+      class="w-full md:flex-1 md:basis-[400px] max-w-[600px] rounded-lg shadow-lg object-cover transition-transform duration-300 hover:scale-105"
     >
-    <div class="flex-1 basis-[400px] max-w-[600px] mx-auto">
-      <h2 class="text-2xl mb-4 text-green-600 font-semibold">GPTtrace</h2>
-      <p class="text-base text-gray-600 mb-5 leading-relaxed">
+    <div class="w-full md:flex-1 md:basis-[400px] max-w-[600px] mx-auto mt-6 md:mt-0">
+      <h2 class="text-xl sm:text-2xl mb-3 sm:mb-4 text-green-600 font-semibold">GPTtrace</h2>
+      <p class="text-sm sm:text-base text-gray-600 mb-4 sm:mb-5 leading-relaxed">
         The first tool to generate eBPF programs and trace the Linux kernel through natural language. With our AI agents, it can produce correct eBPF programs 80% of the time, compared to a GPT-4 baseline of 30%.
       </p>
-      <div class="flex flex-wrap gap-4 mb-4">
+      <div class="flex flex-wrap gap-3 sm:gap-4 mb-4">
         <a
           href="https://github.com/eunomia-bpf/GPTtrace"
           target="_blank"
-          class="inline-block px-5 py-2 bg-blue-600 text-white text-sm rounded-full transition-transform hover:bg-blue-700 hover:-translate-y-1"
+          class="inline-block px-4 sm:px-5 py-2 bg-blue-600 text-white text-xs sm:text-sm rounded-full transition-all duration-300 hover:bg-blue-700 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           Github
         </a>
         <a
           href="https://eunomia.dev/GPTtrace"
           target="_blank"
-          class="inline-block px-5 py-2 bg-blue-600 text-white text-sm rounded-full transition-transform hover:bg-blue-700 hover:-translate-y-1"
+          class="inline-block px-4 sm:px-5 py-2 bg-blue-600 text-white text-xs sm:text-sm rounded-full transition-all duration-300 hover:bg-blue-700 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           Documents
         </a>
       </div>
       <div class="flex flex-wrap gap-2 mt-4">
-        <a href="https://dl.acm.org/doi/10.1145/3672197.3673434" target="_blank" class="text-sm text-blue-600 hover:text-blue-700">eBPF'24</a>
-        <a href="https://arxiv.org/abs/2311.07923" target="_blank" class="text-sm text-blue-600 hover:text-blue-700">Arxiv</a>
+        <a href="https://dl.acm.org/doi/10.1145/3672197.3673434" target="_blank" class="text-xs sm:text-sm text-blue-600 hover:text-blue-700">eBPF'24</a>
+        <a href="https://arxiv.org/abs/2311.07923" target="_blank" class="text-xs sm:text-sm text-blue-600 hover:text-blue-700">Arxiv</a>
       </div>
     </div>
   </section>
 
   <!-- Project 5 -->
-  <section class="flex flex-col md:flex-row md:flex-row-reverse items-center gap-10 py-24 px-5 max-w-[1200px] mx-auto bg-gray-50">
+  <section class="flex flex-col md:flex-row md:flex-row-reverse items-center gap-6 sm:gap-8 md:gap-10 py-16 sm:py-20 md:py-24 px-4 sm:px-5 max-w-[1200px] mx-auto bg-gray-50">
     <img
       src="https://raw.githubusercontent.com/eunomia-bpf/eunomia-bpf/master/documents/src/img/logo.png"
       alt="eunomia-bpf"
-      class="flex-1 basis-[400px] max-w-[600px] rounded-lg shadow-lg object-cover transition-transform hover:scale-105"
+      class="w-full md:flex-1 md:basis-[400px] max-w-[600px] rounded-lg shadow-lg object-cover transition-transform duration-300 hover:scale-105"
     >
-    <div class="flex-1 basis-[400px] max-w-[600px] mx-auto">
-      <h2 class="text-2xl mb-4 text-green-600 font-semibold">eunomia-bpf</h2>
-      <p class="text-base text-gray-600 mb-5 leading-relaxed">
+    <div class="w-full md:flex-1 md:basis-[400px] max-w-[600px] mx-auto mt-6 md:mt-0">
+      <h2 class="text-xl sm:text-2xl mb-3 sm:mb-4 text-green-600 font-semibold">eunomia-bpf</h2>
+      <p class="text-sm sm:text-base text-gray-600 mb-4 sm:mb-5 leading-relaxed">
         A tool to help developers build, distribute, and run eBPF programs more easily using JSON and WebAssembly OCI images.
       </p>
-      <div class="flex flex-wrap gap-4 mb-4">
+      <div class="flex flex-wrap gap-3 sm:gap-4 mb-4">
         <a
           href="https://github.com/eunomia-bpf/eunomia-bpf"
           target="_blank"
-          class="inline-block px-5 py-2 bg-blue-600 text-white text-sm rounded-full transition-transform hover:bg-blue-700 hover:-translate-y-1"
+          class="inline-block px-4 sm:px-5 py-2 bg-blue-600 text-white text-xs sm:text-sm rounded-full transition-all duration-300 hover:bg-blue-700 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           Github
         </a>
         <a
           href="https://eunomia.dev/eunomia-bpf"
           target="_blank"
-          class="inline-block px-5 py-2 bg-blue-600 text-white text-sm rounded-full transition-transform hover:bg-blue-700 hover:-translate-y-1"
+          class="inline-block px-4 sm:px-5 py-2 bg-blue-600 text-white text-xs sm:text-sm rounded-full transition-all duration-300 hover:bg-blue-700 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           Document
         </a>
       </div>
       <div class="flex flex-wrap gap-2 mt-4">
-        <a href="https://www.alibabacloud.com/blog/eunomia-bpf-the-lightweight-development-framework-for-ebpf-and-webassembly-is-now-available_599688" target="_blank" class="text-sm text-blue-600 hover:text-blue-700">Apsara Conference 2022</a>
+        <a href="https://www.alibabacloud.com/blog/eunomia-bpf-the-lightweight-development-framework-for-ebpf-and-webassembly-is-now-available_599688" target="_blank" class="text-xs sm:text-sm text-blue-600 hover:text-blue-700">Apsara Conference 2022</a>
       </div>
     </div>
   </section>
