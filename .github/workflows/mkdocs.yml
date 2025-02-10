@@ -17,7 +17,7 @@ jobs:
 
       - name: Install all
         run: |
-          make install
+          make
 
       - name: Build page
         if: github.event_name == 'pull_request'
