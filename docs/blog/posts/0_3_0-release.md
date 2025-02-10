@@ -1,11 +1,8 @@
 ---
-title: 'eunomia-bpf 0.3.0 Release: Easily Build, Package, and Publish Full eBPF Applications by Writing Kernel-Mode Code'
-draft: false
 date: 2022-02-11
-categories:
-  - Hello
-  - World
 ---
+
+# eunomia-bpf 0.3.0 Release: Easily Build, Package, and Publish Full eBPF Applications by Writing Kernel-Mode Code
 
 ## Introduction to eunomia-bpf
 

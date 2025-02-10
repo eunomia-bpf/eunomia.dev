@@ -1,9 +1,9 @@
 /site
 tutorial
-eunomia-bpf
-GPTtrace
-docs/setup
-docs/tutorials
+/eunomia-bpf
+/GPTtrace
+/docs/tutorials
 .cache
 /bpftime
-llvmbpf
+/llvmbpf
+__pycache__

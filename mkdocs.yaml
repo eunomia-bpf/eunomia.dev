@@ -27,157 +27,14 @@ theme:
     - navigation.tracking
     - navigation.tabs
     - navigation.indexes
-    - navigation.expand
+    # - navigation.expand
+    - navigation.tabs
+    - navigation.instant
     - navigation.sections
-    - header.autohide
     - navigation.footer
+    - header.autohide
     - content.action.edit
     - search.suggest
-nav:
-  - Home:
-      - index.md
-  - Tutorials: 
-    - bpf-developer-tutorial:
-      - tutorials/index.md
-      - tutorials/0-introduce/README.md
-      - tutorials/1-helloworld/README.md
-      - tutorials/2-kprobe-unlink/README.md
-      - tutorials/3-fentry-unlink/README.md
-      - tutorials/4-opensnoop/README.md
-      - tutorials/5-uprobe-bashreadline/README.md
-      - tutorials/6-sigsnoop/README.md
-      - tutorials/7-execsnoop/README.md
-      - tutorials/8-exitsnoop/README.md
-      - tutorials/9-runqlat/README.md
-      - tutorials/10-hardirqs/README.md
-      - tutorials/11-bootstrap/README.md
-      - tutorials/12-profile/README.md
-      - tutorials/13-tcpconnlat/README.md
-      - tutorials/14-tcpstates/README.md
-      - tutorials/15-javagc/README.md
-      - tutorials/16-memleak/README.md
-      - tutorials/17-biopattern/README.md
-      - tutorials/18-further-reading/README.md
-      - tutorials/19-lsm-connect/README.md
-      - tutorials/20-tc/README.md
-      - tutorials/21-xdp/README.md
-      - tutorials/22-android/README.md
-      - tutorials/23-http/README.md
-      - tutorials/24-hide/README.md
-      - tutorials/25-signal/README.md
-      - tutorials/26-sudo/README.md
-      - tutorials/27-replace/README.md
-      - tutorials/28-detach/README.md
-      - tutorials/29-sockops/README.md
-      - tutorials/30-sslsniff/README.md
-      - tutorials/31-goroutine/README.md
-      - tutorials/33-funclatency/README.md
-      - tutorials/34-syscall/README.md
-      - tutorials/35-user-ringbuf/README.md
-      - tutorials/36-userspace-ebpf/README.md
-      - tutorials/37-uprobe-rust/README.md
-      - tutorials/38-btf-uprobe/README.md
-      - tutorials/39-nginx/README.md
-      - tutorials/40-mysql/README.md
-      - tutorials/41-xdp-tcpdump/README.md
-      - tutorials/42-xdp-loadbalancer/README.md
-      - tutorials/43-kfuncs/README.md
-      - tutorials/44-scx-simple/README.md
-      - tutorials/45-scx-nest/README.md
-    - bcc-documents:
-      - tutorials/bcc-documents/tutorial_bcc_python_developer.md
-      - tutorials/bcc-documents/kernel-versions.md
-      - tutorials/bcc-documents/kernel_config.md
-      - tutorials/bcc-documents/reference_guide.md
-      - tutorials/bcc-documents/special_filtering.md
-      - tutorials/bcc-documents/tutorial.md
-    - bpftrace-tutorial:
-      - tutorials/bpftrace-tutorial/README.md
-    
-  - Blogs: 
-    - blogs/index.md
-    - blogs/code-survey.md
-    - blogs/ten-years.md
-    - blogs/llvmbpf.md
-    - blogs/ebpf-2024.md
-    - blogs/kgent.md
-    - blogs/inline-hook.md
-    - blogs/bpftime.md
-    - blogs/ebpf-security.md
-    - blogs/userspace-ebpf.md
-    - blogs/1_0-release.md
-    - blogs/ebpf-papers.md
-    - blogs/coolbpf-eunomia.md
-    - blogs/bpf-news.md
-    - blogs/lmp-eunomia.md
-    - blogs/wasm-bpf.md
-    - blogs/how-to-write-c-in-wasm.md
-    - blogs/introduce-to-wasm-bpf-bpf-community.md
-    - blogs/0_3_0-release.md
-    - blogs/ebpf-wasm.md
-    - blogs/GPTtrace.md
-    - blogs/how-to-write-rust-in-wasm.md
-    - blogs/eunomia-bpf的三月进展.md
-    - blogs/test-for-Android.md
-    - blogs/github-templates.md
-  
-  - GPTtrace:
-    - GPTtrace/index.md
-  
-  - wasm-bpf:
-    - wasm-bpf/index.md
-
-  - bpftime:
-    - bpftime/index.md
-    - bpftime/documents/introduction.md
-    - bpftime/documents/available-features.md
-    - bpftime/documents/build-and-test.md
-    - Usage:
-      - bpftime/documents/usage.md
-      - bpftime/documents/co-re.md
-    - bpftime/documents/examples.md
-    - bpftime/documents/performance.md
-    - bpftime/documents/how-it-works.md
-    - bpftime/documents/contact.md
-    - bpftime/documents/attach.md
-    - bpftime/documents/bpftimetool.md
-    - bpftime/documents/bpftimeaot.md
-    - llvmbpf: 
-      - bpftime/llvmbpf.md
-
-  - eunomia-bpf:
-      - Introduction: eunomia-bpf/introduction.md
-      - Quick Start: eunomia-bpf/quickstart.md
-      - Support: eunomia-bpf/support.md
-      - Build:
-          - eunomia-bpf/setup/build.md
-          - Android: eunomia-bpf/setup/build-android-arm.md
-      - eunomia-cc: 
-         - eunomia-bpf/ecc/index.md
-         - eunomia-bpf/ecc/usage.md
-         - eunomia-bpf/ecc/docker-usage.md
-         - eunomia-bpf/ecc/github-template.md
-      - ecli: 
-        - eunomia-bpf/ecli/index.md
-        - eunomia-bpf/ecli/server.md
-      - exporter: 
-        - eunomia-bpf/exporter/index.md
-        - eunomia-bpf/exporter/usage.md
-      - Architecture: eunomia-bpf/architecture/index.md
-      - Misc: 
-        - eunomia-bpf/benchmark.md
-        - eunomia-bpf/manual.md
-        - eunomia-bpf/video.md
-        - eunomia-bpf/online.md
-        - eunomia-bpf/supporting-external-BTF.md
-
-  - ecosystem:
-    - others/index.md
-    - others/contribute.md
-    - others/ideas.md
-    - others/bpf-benchmark.md
-    - others/bpf-compatible.md
-    - others/ebpf-gpts.md
 
 markdown_extensions:
   - pymdownx.inlinehilite
@@ -206,6 +63,23 @@ markdown_extensions:
 
 hooks:
   - hooks/socialmedia.py
+
+nav:
+  - Home: 
+    - index.md
+  - Tutorials: 
+    - tutorials/index.md
+    - ... | flat | tutorials/**/*.md
+  - GPTtrace: 
+    - GPTtrace/index.md
+  - wasm-bpf: 
+    - wasm-bpf/index.md
+  - bpftime: 
+    - bpftime/index.md
+  - Blog: blog
+  - Ecosystem: 
+    - others/index.md
+    - ... | others/**/*.md
 
 extra:
   social:
@@ -240,6 +114,12 @@ extra:
       lang: zh
 plugins:
   - social
+  - awesome-pages
+  - blog:
+      archive: false
+      categories: false
+      pagination: false
+      blog_toc: true
   - search
   - tags
   - exclude:
