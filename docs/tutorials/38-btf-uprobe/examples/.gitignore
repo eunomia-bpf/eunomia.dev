@@ -1,0 +1,5 @@
+*.o
+*.btf
+btf-base
+btf-base-new
+btf-base-complete
