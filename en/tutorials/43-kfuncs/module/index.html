@@ -10,28 +10,28 @@
       
       
       
-        <link rel="canonical" href="https://eunomia.dev/en/tutorials/25-signal/">
+        <link rel="canonical" href="https://eunomia.dev/en/tutorials/43-kfuncs/module/">
       
       
-        <link rel="prev" href="../24-hide/">
+        <link rel="prev" href="../">
       
       
-        <link rel="next" href="../26-sudo/">
+        <link rel="next" href="../../44-scx-simple/">
       
       
-      <link rel="icon" href="../../../assets/icon.svg">
+      <link rel="icon" href="../../../../assets/icon.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.3">
     
     
       
-        <title>Using bpf_send_signal to Terminate Malicious Processes in eBPF - eunomia</title>
+        <title>write a basic kernel module - eunomia</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.d7758b05.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.d7758b05.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -50,7 +50,7 @@
       
     
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -69,11 +69,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="Using bpf_send_signal to Terminate Malicious Processes in eBPF - eunomia" >
+        <meta  property="og:title"  content="write a basic kernel module - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
-        <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/tutorials/25-signal/README.png" >
+        <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/tutorials/43-kfuncs/module/README.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -81,15 +81,15 @@
       
         <meta  property="og:image:height"  content="630" >
       
-        <meta  property="og:url"  content="https://eunomia.dev/en/tutorials/25-signal/" >
+        <meta  property="og:url"  content="https://eunomia.dev/en/tutorials/43-kfuncs/module/" >
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="Using bpf_send_signal to Terminate Malicious Processes in eBPF - eunomia" >
+        <meta  name="twitter:title"  content="write a basic kernel module - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
-        <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/tutorials/25-signal/README.png" >
+        <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/tutorials/43-kfuncs/module/README.png" >
       
     
     
@@ -112,7 +112,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#using-bpf_send_signal-to-terminate-malicious-processes-in-ebpf" class="md-skip">
+        <a href="#write-a-basic-kernel-module" class="md-skip">
           Skip to content
         </a>
       
@@ -126,9 +126,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../" title="eunomia" class="md-header__button md-logo" aria-label="eunomia" data-md-component="logo">
+    <a href="../../../" title="eunomia" class="md-header__button md-logo" aria-label="eunomia" data-md-component="logo">
       
-  <img src="../../../assets/icon.svg" alt="logo">
+  <img src="../../../../assets/icon.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Using bpf_send_signal to Terminate Malicious Processes in eBPF
+              write a basic kernel module
             
           </span>
         </div>
@@ -282,7 +282,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../" class="md-tabs__link">
+        <a href="../../../" class="md-tabs__link">
           
   
     
@@ -304,7 +304,7 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="../" class="md-tabs__link">
+        <a href="../../" class="md-tabs__link">
           
   
     
@@ -324,7 +324,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../GPTtrace/" class="md-tabs__link">
+        <a href="../../../GPTtrace/" class="md-tabs__link">
           
   
     
@@ -344,7 +344,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../wasm-bpf/" class="md-tabs__link">
+        <a href="../../../wasm-bpf/" class="md-tabs__link">
           
   
     
@@ -364,7 +364,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../bpftime/" class="md-tabs__link">
+        <a href="../../../bpftime/" class="md-tabs__link">
           
   
     
@@ -382,7 +382,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../blog" class="md-tabs__link">
+      <a href="../../../../blog" class="md-tabs__link">
         
   
     
@@ -401,7 +401,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../others/" class="md-tabs__link">
+        <a href="../../../others/" class="md-tabs__link">
           
   
     
@@ -436,9 +436,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../" title="eunomia" class="md-nav__button md-logo" aria-label="eunomia" data-md-component="logo">
+    <a href="../../../" title="eunomia" class="md-nav__button md-logo" aria-label="eunomia" data-md-component="logo">
       
-  <img src="../../../assets/icon.svg" alt="logo">
+  <img src="../../../../assets/icon.svg" alt="logo">
 
     </a>
     eunomia
@@ -488,7 +488,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../" class="md-nav__link ">
+            <a href="../../../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -794,7 +794,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../" class="md-nav__link ">
+            <a href="../../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -828,7 +828,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../SUMMARY/" class="md-nav__link">
+      <a href="../../SUMMARY/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -850,7 +850,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../0-introduce/" class="md-nav__link">
+      <a href="../../0-introduce/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -872,7 +872,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../1-helloworld/" class="md-nav__link">
+      <a href="../../1-helloworld/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -894,7 +894,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../10-hardirqs/" class="md-nav__link">
+      <a href="../../10-hardirqs/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -916,7 +916,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../11-bootstrap/" class="md-nav__link">
+      <a href="../../11-bootstrap/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -938,7 +938,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../12-profile/" class="md-nav__link">
+      <a href="../../12-profile/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -960,7 +960,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../13-tcpconnlat/" class="md-nav__link">
+      <a href="../../13-tcpconnlat/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -982,7 +982,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../14-tcpstates/" class="md-nav__link">
+      <a href="../../14-tcpstates/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1004,7 +1004,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../15-javagc/" class="md-nav__link">
+      <a href="../../15-javagc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1026,7 +1026,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../16-memleak/" class="md-nav__link">
+      <a href="../../16-memleak/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1048,7 +1048,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../17-biopattern/" class="md-nav__link">
+      <a href="../../17-biopattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1070,7 +1070,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../18-further-reading/" class="md-nav__link">
+      <a href="../../18-further-reading/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1092,7 +1092,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../18-further-reading/ebpf-security/" class="md-nav__link">
+      <a href="../../18-further-reading/ebpf-security/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1114,7 +1114,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../19-lsm-connect/" class="md-nav__link">
+      <a href="../../19-lsm-connect/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1136,7 +1136,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../2-kprobe-unlink/" class="md-nav__link">
+      <a href="../../2-kprobe-unlink/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1158,7 +1158,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../20-tc/" class="md-nav__link">
+      <a href="../../20-tc/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1180,7 +1180,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../21-xdp/" class="md-nav__link">
+      <a href="../../21-xdp/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1202,7 +1202,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../22-android/" class="md-nav__link">
+      <a href="../../22-android/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1224,7 +1224,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../23-http/" class="md-nav__link">
+      <a href="../../23-http/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1246,11 +1246,561 @@
   
   
     <li class="md-nav__item">
-      <a href="../24-hide/" class="md-nav__link">
+      <a href="../../24-hide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
     eBPF Practical Tutorial: Hiding Process or File Information
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../25-signal/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using bpf_send_signal to Terminate Malicious Processes in eBPF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../26-sudo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using eBPF to add sudo user
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../27-replace/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Replace Text Read or Written by Any Program with eBPF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../28-detach/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running eBPF After Application Exits: The Lifecycle of eBPF Programs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../29-sockops/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Development Practices: Accelerating Network Request Forwarding with Sockops
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-fentry-unlink/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 3: Monitoring unlink System Calls with fentry
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../30-sslsniff/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Practical Tutorial: Capturing SSL/TLS Plain Text Data Using uprobe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../31-goroutine/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Practical Tutorial: Using eBPF to Trace Go Routine States
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../32-http2/README.zh/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    trace http2 request in go
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../33-funclatency/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Measuring Function Latency with eBPF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../34-syscall/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Development Practice: Modifying System Call Arguments with eBPF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../35-user-ringbuf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Development Practices: Asynchronously Send to Kernel with User Ring Buffer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../36-userspace-ebpf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Userspace eBPF Runtimes: Overview and Applications
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../37-uprobe-rust/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Practice: Tracing User Space Rust Applications with Uprobe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../38-btf-uprobe/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Expanding eBPF Compile Once, Run Everywhere(CO-RE) to Userspace Compatibility
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../38-btf-uprobe/test-verify/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    using BTF to verify userspace eBPF extensions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../38-btf-uprobe/test-verify/minimal/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    minimal examples
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../38-btf-uprobe/test-verify/module/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    write a basic kernel module
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../39-nginx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using eBPF to Trace Nginx Requests
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-opensnoop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 4: Capturing Opening Files and Filter with Global Variables
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../40-mysql/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using eBPF to Trace MySQL Queries
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../41-xdp-tcpdump/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example: Capturing TCP Information with XDP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../42-xdp-loadbalancer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Developer Tutorial: XDP Load Balancer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../42-xdp-loadbalancer/connect/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Network setup for bpf-developer-tutorial
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Extending eBPF Beyond Its Limits: Custom kfuncs in Kernel Modules
     
   </span>
   
@@ -1281,7 +1831,7 @@
           
   
   <span class="md-ellipsis">
-    Using bpf_send_signal to Terminate Malicious Processes in eBPF
+    write a basic kernel module
     
   </span>
   
@@ -1293,7 +1843,7 @@
         
   
   <span class="md-ellipsis">
-    Using bpf_send_signal to Terminate Malicious Processes in eBPF
+    write a basic kernel module
     
   </span>
   
@@ -1316,28 +1866,100 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#use-cases" class="md-nav__link">
+  <a href="#hello-world" class="md-nav__link">
     <span class="md-ellipsis">
-      Use Cases
+      hello world
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Use Cases">
+    <nav class="md-nav" aria-label="hello world">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#limitations-of-existing-solutions" class="md-nav__link">
+  <a href="#1-set-up-your-environment" class="md-nav__link">
     <span class="md-ellipsis">
-      Limitations of Existing Solutions
+      1. Set Up Your Environment
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#advantages-of-the-new-solution" class="md-nav__link">
+  <a href="#2-write-the-kernel-module-code" class="md-nav__link">
     <span class="md-ellipsis">
-      Advantages of the New Solution
+      2. Write the Kernel Module Code
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-create-a-makefile" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Create a Makefile
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-compile-the-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Compile the Module
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-load-the-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Load the Module
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-check-the-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Check the Logs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-remove-the-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Remove the Module
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-clean-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Clean Up
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
     </span>
   </a>
   
@@ -1345,75 +1967,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#kernel-code-analysis" class="md-nav__link">
-    <span class="md-ellipsis">
-      Kernel Code Analysis
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#code-analysis" class="md-nav__link">
-    <span class="md-ellipsis">
-      Code Analysis
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Code Analysis">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-data-structure-definition-signalh" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. Data Structure Definition (signal.h)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-ebpf-program-signalbpfc" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. eBPF Program (signal.bpf.c)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#compilation-and-execution" class="md-nav__link">
-    <span class="md-ellipsis">
-      Compilation and Execution
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#conclusion" class="md-nav__link">
-    <span class="md-ellipsis">
-      Conclusion
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
-    <span class="md-ellipsis">
-      References
-    </span>
-  </a>
   
 </li>
       
@@ -1433,557 +1986,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../26-sudo/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Using eBPF to add sudo user
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../27-replace/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Replace Text Read or Written by Any Program with eBPF
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../28-detach/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Running eBPF After Application Exits: The Lifecycle of eBPF Programs
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../29-sockops/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    eBPF Development Practices: Accelerating Network Request Forwarding with Sockops
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../3-fentry-unlink/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    eBPF Tutorial by Example 3: Monitoring unlink System Calls with fentry
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../30-sslsniff/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    eBPF Practical Tutorial: Capturing SSL/TLS Plain Text Data Using uprobe
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../31-goroutine/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    eBPF Practical Tutorial: Using eBPF to Trace Go Routine States
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../32-http2/README.zh/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    trace http2 request in go
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../33-funclatency/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Measuring Function Latency with eBPF
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../34-syscall/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    eBPF Development Practice: Modifying System Call Arguments with eBPF
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../35-user-ringbuf/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    eBPF Development Practices: Asynchronously Send to Kernel with User Ring Buffer
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../36-userspace-ebpf/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Userspace eBPF Runtimes: Overview and Applications
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../37-uprobe-rust/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    eBPF Practice: Tracing User Space Rust Applications with Uprobe
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../38-btf-uprobe/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Expanding eBPF Compile Once, Run Everywhere(CO-RE) to Userspace Compatibility
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../38-btf-uprobe/test-verify/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    using BTF to verify userspace eBPF extensions
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../38-btf-uprobe/test-verify/minimal/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    minimal examples
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../38-btf-uprobe/test-verify/module/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    write a basic kernel module
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../39-nginx/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Using eBPF to Trace Nginx Requests
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../4-opensnoop/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    eBPF Tutorial by Example 4: Capturing Opening Files and Filter with Global Variables
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../40-mysql/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Using eBPF to Trace MySQL Queries
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../41-xdp-tcpdump/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    eBPF Tutorial by Example: Capturing TCP Information with XDP
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../42-xdp-loadbalancer/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    eBPF Developer Tutorial: XDP Load Balancer
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../42-xdp-loadbalancer/connect/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Network setup for bpf-developer-tutorial
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../43-kfuncs/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Extending eBPF Beyond Its Limits: Custom kfuncs in Kernel Modules
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../43-kfuncs/module/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    write a basic kernel module
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../44-scx-simple/" class="md-nav__link">
+      <a href="../../44-scx-simple/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2005,7 +2008,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../45-scx-nest/" class="md-nav__link">
+      <a href="../../45-scx-nest/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2027,7 +2030,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../46-xdp-test/" class="md-nav__link">
+      <a href="../../46-xdp-test/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2049,7 +2052,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../5-uprobe-bashreadline/" class="md-nav__link">
+      <a href="../../5-uprobe-bashreadline/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2071,7 +2074,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../6-sigsnoop/" class="md-nav__link">
+      <a href="../../6-sigsnoop/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2093,7 +2096,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../7-execsnoop/" class="md-nav__link">
+      <a href="../../7-execsnoop/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2115,7 +2118,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../8-exitsnoop/" class="md-nav__link">
+      <a href="../../8-exitsnoop/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2137,7 +2140,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../9-runqlat/" class="md-nav__link">
+      <a href="../../9-runqlat/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2159,7 +2162,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../bcc-documents/kernel-versions/" class="md-nav__link">
+      <a href="../../bcc-documents/kernel-versions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2181,7 +2184,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../bcc-documents/kernel-versions_en/" class="md-nav__link">
+      <a href="../../bcc-documents/kernel-versions_en/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2203,7 +2206,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../bcc-documents/kernel_config/" class="md-nav__link">
+      <a href="../../bcc-documents/kernel_config/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2225,7 +2228,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../bcc-documents/kernel_config_en/" class="md-nav__link">
+      <a href="../../bcc-documents/kernel_config_en/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2247,7 +2250,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../bcc-documents/reference_guide/" class="md-nav__link">
+      <a href="../../bcc-documents/reference_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2269,7 +2272,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../bcc-documents/reference_guide_en/" class="md-nav__link">
+      <a href="../../bcc-documents/reference_guide_en/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2291,7 +2294,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../bcc-documents/special_filtering/" class="md-nav__link">
+      <a href="../../bcc-documents/special_filtering/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2313,7 +2316,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../bcc-documents/special_filtering_en/" class="md-nav__link">
+      <a href="../../bcc-documents/special_filtering_en/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2335,7 +2338,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../bcc-documents/tutorial/" class="md-nav__link">
+      <a href="../../bcc-documents/tutorial/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2357,7 +2360,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../bcc-documents/tutorial_bcc_python_developer/" class="md-nav__link">
+      <a href="../../bcc-documents/tutorial_bcc_python_developer/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2379,7 +2382,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../bcc-documents/tutorial_bcc_python_developer_en/" class="md-nav__link">
+      <a href="../../bcc-documents/tutorial_bcc_python_developer_en/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2401,7 +2404,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../bcc-documents/tutorial_en/" class="md-nav__link">
+      <a href="../../bcc-documents/tutorial_en/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2423,7 +2426,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../bpftrace-tutorial/" class="md-nav__link">
+      <a href="../../bpftrace-tutorial/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2445,7 +2448,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../scripts/guideline_advance/" class="md-nav__link">
+      <a href="../../scripts/guideline_advance/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2467,7 +2470,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../scripts/guideline_basic/" class="md-nav__link">
+      <a href="../../scripts/guideline_basic/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2519,7 +2522,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../GPTtrace/" class="md-nav__link ">
+            <a href="../../../GPTtrace/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2578,7 +2581,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../wasm-bpf/" class="md-nav__link ">
+            <a href="../../../wasm-bpf/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2637,7 +2640,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../bpftime/" class="md-nav__link ">
+            <a href="../../../bpftime/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2673,7 +2676,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../blog" class="md-nav__link">
+      <a href="../../../../blog" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2719,7 +2722,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../others/" class="md-nav__link ">
+            <a href="../../../others/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2810,7 +2813,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../others/bpf-benchmark/" class="md-nav__link">
+      <a href="../../../others/bpf-benchmark/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2832,7 +2835,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../others/bpf-compatible/" class="md-nav__link">
+      <a href="../../../others/bpf-compatible/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2854,7 +2857,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../others/contribute/" class="md-nav__link">
+      <a href="../../../others/contribute/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2876,7 +2879,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../others/ebpf-gpts/" class="md-nav__link">
+      <a href="../../../others/ebpf-gpts/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2898,7 +2901,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../others/ideas/" class="md-nav__link">
+      <a href="../../../others/ideas/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2920,7 +2923,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../others/usecases/" class="md-nav__link">
+      <a href="../../../others/usecases/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3017,7 +3020,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../others/miscellaneous/about-bpftime/" class="md-nav__link">
+      <a href="../../../others/miscellaneous/about-bpftime/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3039,7 +3042,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../others/miscellaneous/bpftime-roadmap/" class="md-nav__link">
+      <a href="../../../others/miscellaneous/bpftime-roadmap/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3061,7 +3064,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../others/miscellaneous/bpftime_talk/" class="md-nav__link">
+      <a href="../../../others/miscellaneous/bpftime_talk/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3083,7 +3086,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../others/miscellaneous/ebpf-fuse/" class="md-nav__link">
+      <a href="../../../others/miscellaneous/ebpf-fuse/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3105,7 +3108,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../others/miscellaneous/ebpf-gpu/" class="md-nav__link">
+      <a href="../../../others/miscellaneous/ebpf-gpu/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3127,7 +3130,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../others/miscellaneous/ebpf-linux/" class="md-nav__link">
+      <a href="../../../others/miscellaneous/ebpf-linux/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3149,7 +3152,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../others/miscellaneous/ebpf-lsm-usm/" class="md-nav__link">
+      <a href="../../../others/miscellaneous/ebpf-lsm-usm/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3171,7 +3174,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../others/miscellaneous/ebpf-usecases/" class="md-nav__link">
+      <a href="../../../others/miscellaneous/ebpf-usecases/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3193,7 +3196,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../others/miscellaneous/ebpf-userspace-port/" class="md-nav__link">
+      <a href="../../../others/miscellaneous/ebpf-userspace-port/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3215,7 +3218,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../others/miscellaneous/gsoc-ospp/" class="md-nav__link">
+      <a href="../../../others/miscellaneous/gsoc-ospp/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3237,7 +3240,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../others/miscellaneous/ideas/" class="md-nav__link">
+      <a href="../../../others/miscellaneous/ideas/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3259,7 +3262,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../others/miscellaneous/linux-plumbers-talk/" class="md-nav__link">
+      <a href="../../../others/miscellaneous/linux-plumbers-talk/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3281,7 +3284,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../others/miscellaneous/roadmap/" class="md-nav__link">
+      <a href="../../../others/miscellaneous/roadmap/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3303,7 +3306,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../others/miscellaneous/talk-ebpf-summit/" class="md-nav__link">
+      <a href="../../../others/miscellaneous/talk-ebpf-summit/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3325,7 +3328,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../others/miscellaneous/wasm-bpf-kubecon/" class="md-nav__link">
+      <a href="../../../others/miscellaneous/wasm-bpf-kubecon/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3347,7 +3350,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../others/miscellaneous/wasm-bpf-talk/" class="md-nav__link">
+      <a href="../../../others/miscellaneous/wasm-bpf-talk/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3412,28 +3415,100 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#use-cases" class="md-nav__link">
+  <a href="#hello-world" class="md-nav__link">
     <span class="md-ellipsis">
-      Use Cases
+      hello world
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Use Cases">
+    <nav class="md-nav" aria-label="hello world">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#limitations-of-existing-solutions" class="md-nav__link">
+  <a href="#1-set-up-your-environment" class="md-nav__link">
     <span class="md-ellipsis">
-      Limitations of Existing Solutions
+      1. Set Up Your Environment
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#advantages-of-the-new-solution" class="md-nav__link">
+  <a href="#2-write-the-kernel-module-code" class="md-nav__link">
     <span class="md-ellipsis">
-      Advantages of the New Solution
+      2. Write the Kernel Module Code
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-create-a-makefile" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Create a Makefile
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-compile-the-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Compile the Module
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-load-the-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Load the Module
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-check-the-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Check the Logs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-remove-the-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Remove the Module
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-clean-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Clean Up
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
     </span>
   </a>
   
@@ -3441,75 +3516,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#kernel-code-analysis" class="md-nav__link">
-    <span class="md-ellipsis">
-      Kernel Code Analysis
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#code-analysis" class="md-nav__link">
-    <span class="md-ellipsis">
-      Code Analysis
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Code Analysis">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-data-structure-definition-signalh" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. Data Structure Definition (signal.h)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-ebpf-program-signalbpfc" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. eBPF Program (signal.bpf.c)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#compilation-and-execution" class="md-nav__link">
-    <span class="md-ellipsis">
-      Compilation and Execution
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#conclusion" class="md-nav__link">
-    <span class="md-ellipsis">
-      Conclusion
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
-    <span class="md-ellipsis">
-      References
-    </span>
-  </a>
   
 </li>
       
@@ -3529,7 +3535,7 @@
 
 
   
-    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/tutorials/25-signal/README.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/tutorials/43-kfuncs/module/README.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -3537,163 +3543,97 @@
   
 
 
-<h1 id="using-bpf_send_signal-to-terminate-malicious-processes-in-ebpf">Using bpf_send_signal to Terminate Malicious Processes in eBPF</h1>
-<p>eBPF (Extended Berkeley Packet Filter) is a revolutionary technology in the Linux kernel that allows users to execute custom programs in kernel space without modifying the kernel source code or loading any kernel modules. This provides developers with great flexibility to observe, modify, and control the Linux system.</p>
-<p>This article introduces how to use the <code>bpf_send_signal</code> feature of eBPF to intervene by sending signals to specified processes. For more tutorial documentation and complete source code, please refer to <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">https://github.com/eunomia-bpf/bpf-developer-tutorial</a>.</p>
-<h2 id="use-cases">Use Cases</h2>
-<p><strong>1. Performance Issues:</strong>  </p>
-<p>Optimizing the performance of applications is a core task for developers and system administrators in the modern software ecosystem. When applications, such as hhvm, run slowly or have abnormally high resource utilization, they can adversely affect the entire system. Therefore, pinpointing these performance bottlenecks and resolving them promptly is crucial.</p>
-<p><strong>2. Anomaly Detection and Response:</strong>  </p>
-<p>Any system running in a production environment may face various anomalies, from simple resource leaks to complex malware attacks. In these situations, the system needs to detect these anomalies quickly and accurately and take appropriate countermeasures.</p>
-<p><strong>3. Dynamic System Management:</strong>  </p>
-<p>With the rise of cloud computing and microservice architectures, dynamically adjusting resource configurations and application behaviors based on the current system state has become a key requirement. For example, auto-scaling based on traffic fluctuations or reducing CPU frequency when detecting system overheating.</p>
-<h3 id="limitations-of-existing-solutions">Limitations of Existing Solutions</h3>
-<p>To meet the needs of the above use cases, traditional technical methods are as follows:</p>
-<ul>
-<li>Install a bpf program that continuously monitors the system while polling a map.</li>
-<li>When an event triggers specific conditions defined in the bpf program, it writes related data to this map.</li>
-<li>Then, external analysis tools read data from this map and send signals to the target process based on the retrieved information.</li>
-</ul>
-<p>Although this method is feasible in many scenarios, it has a major flaw: the time delay from when the event occurs to when the external tool responds can be relatively large. This delay can affect the speed of event response, making performance analysis results inaccurate or failing to respond promptly to malicious activity.</p>
-<h3 id="advantages-of-the-new-solution">Advantages of the New Solution</h3>
-<p>To overcome the limitations of traditional methods, the Linux kernel offers the <code>bpf_send_signal</code> and <code>bpf_send_signal_thread</code> helper functions.</p>
-<p>The main advantages of these functions include:</p>
-<p><strong>1. Real-time Response:</strong>  </p>
-<p>By sending signals directly from kernel space, avoiding extra overhead in user space, signals can be sent immediately after an event occurs, significantly reducing latency.</p>
-<p><strong>2. Accuracy:</strong>  </p>
-<p>Thanks to reduced latency, we can now obtain a more accurate snapshot of the system state, especially important for performance analysis and anomaly detection.</p>
-<p><strong>3. Flexibility:</strong>  </p>
-<p>These new helper functions provide developers with more flexibility. They can customize the signal sending logic according to different use cases and needs, allowing for more precise control and management of system behavior.</p>
-<h2 id="kernel-code-analysis">Kernel Code Analysis</h2>
-<p>In modern operating systems, a common security strategy is to monitor and control interactions between processes. Especially in Linux systems, the <code>ptrace</code> system call is a powerful tool that allows one process to observe and control the execution of another process, modifying its registers and memory. This makes it the primary mechanism for debugging and tracing tools like <code>strace</code> and <code>gdb</code>. However, malicious use of <code>ptrace</code> can also pose security risks.</p>
-<p>The goal of this program is to monitor <code>ptrace</code> calls in kernel mode. When specific conditions are met, it sends a <code>SIGKILL</code> signal to terminate the calling process. Additionally, for debugging or auditing purposes, the program logs this intervention and sends related information to user space.</p>
-<h2 id="code-analysis">Code Analysis</h2>
-<h3 id="1-data-structure-definition-signalh">1. Data Structure Definition (<code>signal.h</code>)</h3>
-<p>signal.h</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">// Simple message structure to get events from eBPF Programs</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1">// in the kernel to user space</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="cp">#define TASK_COMM_LEN 16</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">struct</span><span class="w"> </span><span class="nc">event</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">pid</span><span class="p">;</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">comm</span><span class="p">[</span><span class="n">TASK_COMM_LEN</span><span class="p">];</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">success</span><span class="p">;</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="p">};</span>
+<h1 id="write-a-basic-kernel-module">write a basic kernel module</h1>
+<h2 id="hello-world">hello world</h2>
+<p>Writing a Linux kernel module involves creating code that can be loaded into and unloaded from the kernel dynamically, without rebooting the system. Here’s a simple step-by-step guide to help you write a basic kernel module:</p>
+<h3 id="1-set-up-your-environment">1. Set Up Your Environment</h3>
+<p>Make sure you have the Linux kernel headers installed and a suitable development environment ready. For Ubuntu or Debian, install them with:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>linux-headers-<span class="k">$(</span>uname<span class="w"> </span>-r<span class="k">)</span><span class="w"> </span>build-essential
 </code></pre></div>
-<p>This section defines a simple message structure used to pass events from eBPF programs in the kernel to user space. The structure includes the process ID, command name, and a boolean value indicating whether the signal was successfully sent.</p>
-<h3 id="2-ebpf-program-signalbpfc">2. eBPF Program (<code>signal.bpf.c</code>)</h3>
-<p>signal.bpf.c</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">// SPDX-License-Identifier: BSD-3-Clause</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;vmlinux.h&quot;</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;bpf/bpf_helpers.h&gt;</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;bpf/bpf_tracing.h&gt;</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;bpf/bpf_core_read.h&gt;</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;common.h&quot;</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="kt">char</span><span class="w"> </span><span class="n">LICENSE</span><span class="p">[]</span><span class="w"> </span><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;license&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Dual BSD/GPL&quot;</span><span class="p">;</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="c1">// Ringbuffer Map to pass messages from kernel to user</span>
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="n">__uint</span><span class="p">(</span><span class="n">type</span><span class="p">,</span><span class="w"> </span><span class="n">BPF_MAP_TYPE_RINGBUF</span><span class="p">);</span>
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="n">__uint</span><span class="p">(</span><span class="n">max_entries</span><span class="p">,</span><span class="w"> </span><span class="mi">256</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1024</span><span class="p">);</span>
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="p">}</span><span class="w"> </span><span class="n">rb</span><span class="w"> </span><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;.maps&quot;</span><span class="p">);</span>
-<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>
-<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="c1">// Optional Target Parent PID</span>
-<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="k">const</span><span class="w"> </span><span class="k">volatile</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">target_ppid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<h3 id="2-write-the-kernel-module-code">2. Write the Kernel Module Code</h3>
+<p>Here’s an example of a very basic Linux kernel module:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">// hello.c: A simple Linux kernel module</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/init.h&gt;</span><span class="c1">    // Macros for module initialization</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/module.h&gt;</span><span class="c1">  // Core header for loading modules</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/kernel.h&gt;</span><span class="c1">  // Kernel logging macros</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="c1">// Function executed when the module is loaded</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">__init</span><span class="w"> </span><span class="nf">hello_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="p">{</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="n">printk</span><span class="p">(</span><span class="n">KERN_INFO</span><span class="w"> </span><span class="s">&quot;Hello, world!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">  </span><span class="c1">// Return 0 if successful</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="p">}</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="c1">// Function executed when the module is removed</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">__exit</span><span class="w"> </span><span class="nf">hello_exit</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="p">{</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">    </span><span class="n">printk</span><span class="p">(</span><span class="n">KERN_INFO</span><span class="w"> </span><span class="s">&quot;Goodbye, world!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="p">}</span>
 <a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>
-<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;tp/syscalls/sys_enter_ptrace&quot;</span><span class="p">)</span>
-<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="kt">int</span><span class="w"> </span><span class="n">bpf_dos</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">trace_event_raw_sys_enter</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span>
-<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="p">{</span>
-<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">pid_tgid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_get_current_pid_tgid</span><span class="p">();</span>
-<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pid_tgid</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">32</span><span class="p">;</span>
-<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>
-<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="w">    </span><span class="c1">// if target_ppid is 0 then we target all pids</span>
-<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">target_ppid</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">task_struct</span><span class="w"> </span><span class="o">*</span><span class="n">task</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">task_struct</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">bpf_get_current_task</span><span class="p">();</span>
-<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">ppid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BPF_CORE_READ</span><span class="p">(</span><span class="n">task</span><span class="p">,</span><span class="w"> </span><span class="n">real_parent</span><span class="p">,</span><span class="w"> </span><span class="n">tgid</span><span class="p">);</span>
-<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ppid</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">target_ppid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a><span class="w">        </span><span class="p">}</span>
-<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>
-<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a><span class="w">    </span><span class="c1">// Send signal. 9 == SIGKILL</span>
-<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a><span class="w">    </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_send_signal</span><span class="p">(</span><span class="mi">9</span><span class="p">);</span>
-<a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>
-<a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a><span class="w">    </span><span class="c1">// Log event</span>
-<a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">event</span><span class="w"> </span><span class="o">*</span><span class="n">e</span><span class="p">;</span>
-<a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a><span class="w">    </span><span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_ringbuf_reserve</span><span class="p">(</span><span class="o">&amp;</span><span class="n">rb</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">e</span><span class="p">),</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
-<a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a><span class="w">        </span><span class="n">e</span><span class="o">-&gt;</span><span class="n">success</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">ret</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
-<a id="__codelineno-1-43" name="__codelineno-1-43" href="#__codelineno-1-43"></a><span class="w">        </span><span class="n">e</span><span class="o">-&gt;</span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pid</span><span class="p">;</span>
-<a id="__codelineno-1-44" name="__codelineno-1-44" href="#__codelineno-1-44"></a><span class="w">        </span><span class="n">bpf_get_current_comm</span><span class="p">(</span><span class="o">&amp;</span><span class="n">e</span><span class="o">-&gt;</span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">e</span><span class="o">-&gt;</span><span class="n">comm</span><span class="p">));</span>
-<a id="__codelineno-1-45" name="__codelineno-1-45" href="#__codelineno-1-45"></a><span class="w">        </span><span class="n">bpf_ringbuf_submit</span><span class="p">(</span><span class="n">e</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
-<a id="__codelineno-1-46" name="__codelineno-1-46" href="#__codelineno-1-46"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-1-47" name="__codelineno-1-47" href="#__codelineno-1-47"></a>
-<a id="__codelineno-1-48" name="__codelineno-1-48" href="#__codelineno-1-48"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<a id="__codelineno-1-49" name="__codelineno-1-49" href="#__codelineno-1-49"></a><span class="p">}</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="c1">// Macros to define the module’s init and exit points</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="n">module_init</span><span class="p">(</span><span class="n">hello_init</span><span class="p">);</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="n">module_exit</span><span class="p">(</span><span class="n">hello_exit</span><span class="p">);</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="n">MODULE_LICENSE</span><span class="p">(</span><span class="s">&quot;GPL&quot;</span><span class="p">);</span><span class="w">               </span><span class="c1">// License type (GPL)</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="n">MODULE_AUTHOR</span><span class="p">(</span><span class="s">&quot;Your Name&quot;</span><span class="p">);</span><span class="w">          </span><span class="c1">// Module author</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="n">MODULE_DESCRIPTION</span><span class="p">(</span><span class="s">&quot;A simple module&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// Module description</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="n">MODULE_VERSION</span><span class="p">(</span><span class="s">&quot;1.0&quot;</span><span class="p">);</span><span class="w">               </span><span class="c1">// Module version</span>
 </code></pre></div>
-<ul>
-<li><strong>License Declaration</strong></li>
-</ul>
-<p>The program's license is declared as "Dual BSD/GPL". This is to meet the Linux kernel's licensing requirements for eBPF programs.</p>
-<ul>
-<li><strong>Ringbuffer Map</strong></li>
-</ul>
-<p>This is a ring buffer type map that allows messages generated by the eBPF program in kernel space to be efficiently read by user space programs.</p>
-<ul>
-<li><strong>Target Parent Process ID</strong></li>
-</ul>
-<p><code>target_ppid</code> is an optional parent process ID used to limit which processes are affected. If set to a non-zero value, only processes that match it will be targeted.</p>
-<ul>
-<li>
-<p><strong>Main Function <code>bpf_dos</code></strong></p>
-</li>
-<li>
-<p><strong>Process Check</strong><br />
-    The program first retrieves the current process's ID. If <code>target_ppid</code> is set, it also retrieves the current process's parent process ID and compares them. If they don't match, it returns immediately.</p>
-</li>
-<li>
-<p><strong>Sending Signal</strong><br />
-    It uses <code>bpf_send_signal(9)</code> to send a <code>SIGKILL</code> signal. This terminates the process calling <code>ptrace</code>.</p>
-</li>
-<li>
-<p><strong>Logging the Event</strong><br />
-    The event is logged using the ring buffer map. This includes whether the signal was successfully sent, the process ID, and the process's command name.</p>
-</li>
-</ul>
-<p>In summary, this eBPF program provides a method that allows system administrators or security teams to monitor and intervene <code>ptrace</code> calls at the kernel level, offering an additional layer against potential malicious activities or misoperations.</p>
-<h2 id="compilation-and-execution">Compilation and Execution</h2>
-<p>eunomia-bpf is an open-source eBPF dynamic loading runtime and development toolchain combined with Wasm. Its purpose is to simplify the development, building, distribution, and execution of eBPF programs. You can refer to <a href="https://github.com/eunomia-bpf/eunomia-bpf">https://github.com/eunomia-bpf/eunomia-bpf</a> to download and install the <code>ecc</code> compiler toolchain and <code>ecli</code> runtime. We use eunomia-bpf to compile and run this example.</p>
-<p>Compilation:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>./ecc<span class="w"> </span>signal.bpf.c<span class="w"> </span>signal.h
+<h3 id="3-create-a-makefile">3. Create a Makefile</h3>
+<p>To compile the kernel module, you’ll need a <code>Makefile</code>. Here's a simple one:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nv">obj-m</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span>hello.o<span class="w">  </span><span class="c1"># hello.o is the target</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nf">all</span><span class="o">:</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span>make<span class="w"> </span>-C<span class="w"> </span>/lib/modules/<span class="k">$(</span>shell<span class="w"> </span>uname<span class="w"> </span>-r<span class="k">)</span>/build<span class="w"> </span><span class="nv">M</span><span class="o">=</span><span class="k">$(</span>PWD<span class="k">)</span><span class="w"> </span>modules
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="nf">clean</span><span class="o">:</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span>make<span class="w"> </span>-C<span class="w"> </span>/lib/modules/<span class="k">$(</span>shell<span class="w"> </span>uname<span class="w"> </span>-r<span class="k">)</span>/build<span class="w"> </span><span class="nv">M</span><span class="o">=</span><span class="k">$(</span>PWD<span class="k">)</span><span class="w"> </span>clean
 </code></pre></div>
-<p>Usage:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="gp">$ </span>sudo<span class="w"> </span>./ecli<span class="w"> </span>package.json
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="go">TIME     PID    COMM   SUCCESS</span>
+<h3 id="4-compile-the-module">4. Compile the Module</h3>
+<p>Run the following command in the directory where your <code>hello.c</code> and <code>Makefile</code> are located:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>make
 </code></pre></div>
-<p>This program will send a <code>SIG_KILL</code> signal to any program attempting to use the <code>ptrace</code> system call, such as <code>strace</code>. Once the eBPF program starts running, you can test it by running the following command:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>$<span class="w"> </span>strace<span class="w"> </span>/bin/whoami
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>Killed
+<p>This will generate a file called <code>hello.ko</code>, which is the compiled kernel module.</p>
+<h3 id="5-load-the-module">5. Load the Module</h3>
+<p>To insert the module into the kernel, use <code>insmod</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>sudo<span class="w"> </span>insmod<span class="w"> </span>hello.ko
 </code></pre></div>
-<p>The original console will output:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>INFO [bpf_loader_lib::skeleton] Running ebpf program...
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>TIME     PID    COMM   SUCCESS 
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>13:54:45  8857  strace true
+<h3 id="6-check-the-logs">6. Check the Logs</h3>
+<p>To see the output from the <code>printk</code> statements, use the <code>dmesg</code> command:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>dmesg<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail
 </code></pre></div>
-<p>The complete source code can be found at: <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/25-signal">https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/25-signal</a></p>
-<h2 id="conclusion">Conclusion</h2>
-<p>Through this example, we delved into how to combine eBPF programs with user-space programs to monitor and intervene in system calls. eBPF provides a mechanism for executing programs in kernel space. This technology is not limited to monitoring but can also be used for performance optimization, security defense, system diagnostics, and various other scenarios. For developers, it offers a powerful and flexible tool for performance tuning and troubleshooting in Linux systems.</p>
-<p>Lastly, if you are interested in eBPF technology and wish to further understand and practice, you can visit our tutorial code repository <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">https://github.com/eunomia-bpf/bpf-developer-tutorial</a> and tutorial website <a href="https://eunomia.dev/zh/tutorials/">https://eunomia.dev/zh/tutorials/</a>.</p>
-<h2 id="references">References</h2>
+<p>You should see something like:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>[ 1234.5678] Hello, world!
+</code></pre></div>
+<h3 id="7-remove-the-module">7. Remove the Module</h3>
+<p>To unload the module, use <code>rmmod</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>sudo<span class="w"> </span>rmmod<span class="w"> </span>hello
+</code></pre></div>
+<p>Again, check the logs using <code>dmesg</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>sudo<span class="w"> </span>dmesg<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail
+</code></pre></div>
+<p>You should see:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>[ 1234.9876] Goodbye, world!
+</code></pre></div>
+<h3 id="8-clean-up">8. Clean Up</h3>
+<p>To clean up the build files, run:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>make<span class="w"> </span>clean
+</code></pre></div>
+<h3 id="notes">Notes</h3>
 <ul>
-<li><a href="https://github.com/pathtofile/bad-bpf">https://github.com/pathtofile/bad-bpf</a></li>
-<li><a href="https://www.mail-archive.com/netdev@vger.kernel.org/msg296358.html">https://www.mail-archive.com/netdev@vger.kernel.org/msg296358.html</a></li>
+<li><strong>License</strong>: The <code>MODULE_LICENSE("GPL")</code> ensures the module is GPL-compliant, which allows it to use symbols (functions) exported by the kernel.</li>
+<li><strong>Debugging</strong>: Use <code>printk</code> for logging within the module. It behaves similarly to <code>printf</code> but is designed for kernel space.</li>
+<li><strong>Module Parameters</strong>: You can add parameters to modules using <code>module_param()</code> to pass arguments when the module is loaded.</li>
 </ul>
-<blockquote>
-<p>The original link of this article: <a href="https://eunomia.dev/tutorials/25-signal">https://eunomia.dev/tutorials/25-signal</a></p>
-</blockquote>
-<p><a class="md-button" href="https://x.com/intent/tweet?text=Using%20bpf_send_signal%20to%20Terminate%20Malicious%20Processes%20in%20eBPF%0A&amp;url=https://eunomia.dev/en/tutorials/25-signal/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
-<a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/en/tutorials/25-signal/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
+<h3 id="next-steps">Next Steps</h3>
+<p>Once you are familiar with this basic example, you can explore:</p>
+<ul>
+<li>Writing more advanced modules that interact with hardware or the filesystem.</li>
+<li>Using kernel-specific APIs like work queues, kthreads, or handling interrupts.</li>
+<li>Diving into eBPF or loadable kernel module techniques for debugging and tracing kernel events.</li>
+</ul>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=write%20a%20basic%20kernel%20module%0A&amp;url=https://eunomia.dev/en/tutorials/43-kfuncs/module/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/en/tutorials/43-kfuncs/module/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
 
@@ -3726,7 +3666,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 10, 2023</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 10, 2025</span>
   </span>
 
     
@@ -3741,7 +3681,7 @@
     </span>
     <nav>
       
-        <a href="mailto:1067852565@qq.com">云微</a>
+        <a href="mailto:41898282+github-actions[bot]@users.noreply.github.com">github-actions[bot]</a>
     </nav>
   </span>
 
@@ -3828,7 +3768,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../24-hide/" class="md-footer__link md-footer__link--prev" aria-label="Previous: eBPF Practical Tutorial: Hiding Process or File Information">
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Extending eBPF Beyond Its Limits: Custom kfuncs in Kernel Modules">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -3838,20 +3778,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                eBPF Practical Tutorial: Hiding Process or File Information
+                Extending eBPF Beyond Its Limits: Custom kfuncs in Kernel Modules
               </div>
             </div>
           </a>
         
         
           
-          <a href="../26-sudo/" class="md-footer__link md-footer__link--next" aria-label="Next: Using eBPF to add sudo user">
+          <a href="../../44-scx-simple/" class="md-footer__link md-footer__link--next" aria-label="Next: eBPF Tutorial: Introduction to the BPF Scheduler">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Using eBPF to add sudo user
+                eBPF Tutorial: Introduction to the BPF Scheduler
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -3907,12 +3847,12 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.tabs", "navigation.indexes", "navigation.tabs", "navigation.instant", "navigation.sections", "navigation.footer", "header.autohide", "content.action.edit", "search.suggest"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tracking", "navigation.tabs", "navigation.indexes", "navigation.tabs", "navigation.instant", "navigation.sections", "navigation.footer", "header.autohide", "content.action.edit", "search.suggest"], "search": "../../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
 <script src="https://cdn.usefathom.com/script.js" data-site="ZLDAHRNN" defer></script>
 
-      <script src="../../../assets/javascripts/bundle.f1b6f286.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.f1b6f286.min.js"></script>
       
     
 

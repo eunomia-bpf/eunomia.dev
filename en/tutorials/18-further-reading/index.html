@@ -2003,7 +2003,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../43-kfuncs/module/README.zh/" class="md-nav__link">
+      <a href="../43-kfuncs/module/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3640,7 +3640,7 @@
 <p>The papers demonstrate eBPF's versatility in accelerating systems, enhancing security, and simplifying network programming. As eBPF adoption grows, it is an important area of systems research with many open problems related to performance, safety, hardware integration, and ease of use.</p>
 <p>If you have any suggestions or adding papers, please feel free to open an issue or PR. The list was created in 2023.10, New papers will be added in the future.</p>
 <blockquote>
-<p>Check out our open-source projects at <a href="https://github.com/eunomia-bpf">eunomia-bpf</a> and eBPF tutorials at <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">bpf-developer-tutorial</a>. I'm also looking for a PhD position in the area of systems and networking in 2024/2025. My <a href="https://github.com/yunwei37">Github</a> and <a href="yunwei356@gmail.com">email</a>.</p>
+<p>Check out our open-source projects at <a href="https://github.com/eunomia-bpf">eunomia-bpf</a> and eBPF tutorials at <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">bpf-developer-tutorial</a>. I'm also looking for a PhD position in the area of systems and networking in 2024/2025. My <a href="https://github.com/yunwei37">Github</a> and <a href="mailto:yunwei356@gmail.com">email</a>.</p>
 </blockquote>
 <h2 id="xrp-in-kernel-storage-functions-with-ebpf">XRP: In-Kernel Storage Functions with eBPF</h2>
 <p>With the emergence of microsecond-scale NVMe storage devices, the Linux kernel storage stack overhead has become significant, almost doubling access times. We present XRP, a framework that allows applications to execute user-defined storage functions, such as index lookups or aggregations, from an eBPF hook in the NVMe driver, safely bypassing most of the kernel’s storage stack. To preserve file system semantics, XRP propagates a small amount of kernel state to its NVMe driver hook where the user-registered eBPF functions are called. We show how two key-value stores, BPF-KV, a simple B+-tree key-value store, and WiredTiger, a popular log-structured merge tree storage engine, can leverage XRP to significantly improve throughput and latency.</p>
