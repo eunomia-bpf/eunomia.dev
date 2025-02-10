@@ -250,4 +250,4 @@ you can also simply use the [ebpm-template](https://github.com/eunomia-bpf/ebpm-
 
 ## build the project
 
-see [build](../setup/build.en.md) for details.
+see [build](setup/build.en.md) for details.
