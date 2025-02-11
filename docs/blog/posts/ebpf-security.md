@@ -9,7 +9,7 @@ Yusheng Zheng
 Extended Berkeley Packet Filter (eBPF) represents a significant evolution in the way we interact with and extend the capabilities of modern operating systems. As a powerful technology that enables the Linux kernel to run sandboxed programs in response to events, eBPF has become a cornerstone for system observability, networking, and security features.
 
 However, as with any system that interfaces closely with the kernel, the security of eBPF itself is paramount. In this blog, we delve into the often-overlooked aspect of eBPF security, exploring how the mechanisms intended to safeguard eBPF can themselves be fortified. We'll dissect the role of the eBPF verifier, scrutinize the current access control model, and investigate potential improvements from ongoing research. Moreover, we'll navigate through the complexities of securing eBPF, addressing open questions and the challenges they pose to system architects and developers alike.
-
+<!-- more -->
 ## Table of Contents
 <!-- TOC -->
 
