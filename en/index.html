@@ -441,12 +441,18 @@
     @media (max-width: 640px) {
       #home h1 { font-size: 2.5rem; }
     }
+    .md-header {
+      z-index: 50 !important;
+    }
+    .md-tabs {
+      z-index: 40 !important;
+    }
   </style>
 
   <!-- Hero Section -->
   <section
     id="home"
-    class="relative flex items-center justify-center text-center text-white bg-cover bg-center min-h-[40vh] sm:min-h-[50vh] md:min-h-[60vh] max-h-[300px] px-4 sm:px-5"
+    class="relative flex items-center justify-center text-center text-white bg-cover bg-center min-h-[40vh] sm:min-h-[50vh] md:min-h-[60vh] max-h-[300px] px-4 sm:px-5 mt-[var(--md-header-height)] md:mt-[calc(var(--md-header-height)+var(--md-tabs-height))]"
     style="background-image: url('https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/material/background.jpg');"
   >
     <!-- Overlay -->
