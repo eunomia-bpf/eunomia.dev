@@ -889,6 +889,54 @@
          
     </url>
     <url>
+         <loc>https://eunomia.dev/others/miscellaneous/EIM/</loc>
+         <lastmod>2025-02-11</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/miscellaneous/EIM/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/miscellaneous/EIM/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/miscellaneous/EIM/uprobe/</loc>
+         <lastmod>2025-02-11</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/miscellaneous/EIM/uprobe/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/miscellaneous/EIM/uprobe/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/miscellaneous/EIM/usage/</loc>
+         <lastmod>2025-02-11</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/miscellaneous/EIM/usage/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/miscellaneous/EIM/usage/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/miscellaneous/EIM/draft-spec/spec/</loc>
+         <lastmod>2025-02-11</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/miscellaneous/EIM/draft-spec/spec/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/miscellaneous/EIM/draft-spec/spec/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/miscellaneous/EIM/draft-spec/spec_core/</loc>
+         <lastmod>2025-02-11</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/miscellaneous/EIM/draft-spec/spec_core/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/miscellaneous/EIM/draft-spec/spec_core/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/miscellaneous/EIM/draft-spec/spec_old/</loc>
+         <lastmod>2025-02-11</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/miscellaneous/EIM/draft-spec/spec_old/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/miscellaneous/EIM/draft-spec/spec_old/"/>
+         
+    </url>
+    <url>
          <loc>https://eunomia.dev/tutorials/</loc>
          <lastmod>2025-02-11</lastmod>
          <changefreq>daily</changefreq>
