@@ -897,6 +897,14 @@
          
     </url>
     <url>
+         <loc>https://eunomia.dev/others/miscellaneous/EIM/spec/</loc>
+         <lastmod>2025-02-11</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/miscellaneous/EIM/spec/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/miscellaneous/EIM/spec/"/>
+         
+    </url>
+    <url>
          <loc>https://eunomia.dev/others/miscellaneous/EIM/uprobe/</loc>
          <lastmod>2025-02-11</lastmod>
          <changefreq>daily</changefreq>
