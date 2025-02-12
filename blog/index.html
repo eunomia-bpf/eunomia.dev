@@ -4800,6 +4800,24 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#ebpf-ecosystem-progress-in-20242025-a-technical-deep-dive" class="md-nav__link">
+    <span class="md-ellipsis">
+      eBPF Ecosystem Progress in 2024–2025: A Technical Deep Dive
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-vulnerabilities-study-in-software-extensions-and-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security Vulnerabilities Study in Software Extensions and Plugins
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#can-llms-understand-linux-kernel-a-new-ai-powered-approach-to-understanding-large-codebases" class="md-nav__link">
     <span class="md-ellipsis">
       Can LLMs understand Linux kernel? A New AI-Powered Approach to Understanding Large Codebases
@@ -5031,6 +5049,79 @@
 <p><a class="md-button" href="https://x.com/intent/tweet?text=Blog%0A&amp;url=https://eunomia.dev/blog/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/blog/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
       </header>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2025-02-12 00:00:00+00:00">February 12, 2025</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              41 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="ebpf-ecosystem-progress-in-20242025-a-technical-deep-dive"><a class="toclink" href="2025/02/12/ebpf-ecosystem-progress-in-20242025-a-technical-deep-dive/">eBPF Ecosystem Progress in 2024–2025: A Technical Deep Dive</a></h2>
+<h3 id="introduction-and-summary"><a class="toclink" href="2025/02/12/ebpf-ecosystem-progress-in-20242025-a-technical-deep-dive/#introduction-and-summary">Introduction and Summary</a></h3>
+<p><strong>Extended Berkeley Packet Filter (eBPF)</strong> continues to rapidly evolve, cementing its role as a cornerstone for operating system extensibility. In 2024 and into early 2025, the eBPF ecosystem saw significant advancements across the Linux kernel, tooling, security, networking, and observability domains. This report provides a comprehensive technical deep dive into these developments, with a high-level summary here and detailed sections below. Key highlights include: </p>
+<blockquote>
+<p>This is a AI generated report from OpenAI Deep Reasearch. Let's see how it performs for eBPF.</p>
+</blockquote>
+
+    
+      <nav class="md-post__action">
+        <a href="2025/02/12/ebpf-ecosystem-progress-in-20242025-a-technical-deep-dive/">
+          Continue reading
+        </a>
+      </nav>
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2025-02-10 00:00:00+00:00">February 10, 2025</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              33 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="security-vulnerabilities-study-in-software-extensions-and-plugins"><a class="toclink" href="2025/02/10/security-vulnerabilities-study-in-software-extensions-and-plugins/">Security Vulnerabilities Study in Software Extensions and Plugins</a></h2>
+<h3 id="introduction"><a class="toclink" href="2025/02/10/security-vulnerabilities-study-in-software-extensions-and-plugins/#introduction">Introduction</a></h3>
+<p>Software <strong>extensions and plugins</strong> allow customization and added features across many systems – from web servers and databases to browsers, IDEs, and CMS platforms. However, these extensibility mechanisms introduce <strong>security risks</strong>. Extensions often run with high privileges inside host applications, so a flaw in an extension can compromise the entire system (<a href="https://research.google.com/pubs/archive/38394.pdf#:~:text=,run%20with%20the%20browser%27s">[PDF] Protecting Browsers from Extension Vulnerabilities - Google Research</a>). Common vulnerability types include <strong>memory safety issues</strong> (buffer/stack overflows and heap corruptions), <strong>privilege escalations</strong>, <strong>sandbox escapes</strong>, <strong>infinite loops or livelocks</strong> causing Denial-of-Service, and <strong>arbitrary code execution (ACE)</strong>. This report examines historical and recent vulnerabilities in extensions/plugins across various ecosystems, highlighting notable CVEs, trends, case studies of major incidents, and how improved security models like an <strong>Extension Interface Model (EIM)</strong> could mitigate such issues. </p>
+
+    
+      <nav class="md-post__action">
+        <a href="2025/02/10/security-vulnerabilities-study-in-software-extensions-and-plugins/">
+          Continue reading
+        </a>
+      </nav>
+    
+  </div>
+</article>
       
         <article class="md-post md-post--excerpt">
   <header class="md-post__header">
