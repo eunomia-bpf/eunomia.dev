@@ -449,6 +449,70 @@
          
     </url>
     <url>
+         <loc>https://eunomia.dev/bpftime/EIM/</loc>
+         <lastmod>2025-02-12</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/bpftime/EIM/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/bpftime/EIM/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/bpftime/EIM/example/</loc>
+         <lastmod>2025-02-12</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/bpftime/EIM/example/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/bpftime/EIM/example/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/bpftime/EIM/spec/</loc>
+         <lastmod>2025-02-12</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/bpftime/EIM/spec/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/bpftime/EIM/spec/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/bpftime/EIM/uprobe/</loc>
+         <lastmod>2025-02-12</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/bpftime/EIM/uprobe/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/bpftime/EIM/uprobe/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/bpftime/EIM/usage/</loc>
+         <lastmod>2025-02-12</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/bpftime/EIM/usage/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/bpftime/EIM/usage/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/bpftime/EIM/draft-spec/spec/</loc>
+         <lastmod>2025-02-12</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/bpftime/EIM/draft-spec/spec/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/bpftime/EIM/draft-spec/spec/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/bpftime/EIM/draft-spec/spec_core/</loc>
+         <lastmod>2025-02-12</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/bpftime/EIM/draft-spec/spec_core/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/bpftime/EIM/draft-spec/spec_core/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/bpftime/EIM/draft-spec/spec_old/</loc>
+         <lastmod>2025-02-12</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/bpftime/EIM/draft-spec/spec_old/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/bpftime/EIM/draft-spec/spec_old/"/>
+         
+    </url>
+    <url>
          <loc>https://eunomia.dev/bpftime/documents/attach/</loc>
          <lastmod>2025-02-12</lastmod>
          <changefreq>daily</changefreq>
@@ -625,14 +689,6 @@
          
     </url>
     <url>
-         <loc>https://eunomia.dev/eunomia-bpf/ecc/config-lua-depreciate.zh/</loc>
-         <lastmod>2025-02-12</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/eunomia-bpf/ecc/config-lua-depreciate.zh/"/>
-         
-         
-    </url>
-    <url>
          <loc>https://eunomia.dev/eunomia-bpf/ecc/docker-usage/</loc>
          <lastmod>2025-02-12</lastmod>
          <changefreq>daily</changefreq>
@@ -777,27 +833,11 @@
          
     </url>
     <url>
-         <loc>https://eunomia.dev/others/miscellaneous/about-bpftime/</loc>
-         <lastmod>2025-02-12</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/miscellaneous/about-bpftime/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/miscellaneous/about-bpftime/"/>
-         
-    </url>
-    <url>
          <loc>https://eunomia.dev/others/miscellaneous/bpftime-roadmap/</loc>
          <lastmod>2025-02-12</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/miscellaneous/bpftime-roadmap/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/miscellaneous/bpftime-roadmap/"/>
-         
-    </url>
-    <url>
-         <loc>https://eunomia.dev/others/miscellaneous/bpftime_talk/</loc>
-         <lastmod>2025-02-12</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/miscellaneous/bpftime_talk/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/miscellaneous/bpftime_talk/"/>
          
     </url>
     <url>
@@ -902,62 +942,6 @@
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/miscellaneous/wasm-bpf-talk/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/miscellaneous/wasm-bpf-talk/"/>
-         
-    </url>
-    <url>
-         <loc>https://eunomia.dev/others/miscellaneous/EIM/</loc>
-         <lastmod>2025-02-12</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/miscellaneous/EIM/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/miscellaneous/EIM/"/>
-         
-    </url>
-    <url>
-         <loc>https://eunomia.dev/others/miscellaneous/EIM/spec/</loc>
-         <lastmod>2025-02-12</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/miscellaneous/EIM/spec/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/miscellaneous/EIM/spec/"/>
-         
-    </url>
-    <url>
-         <loc>https://eunomia.dev/others/miscellaneous/EIM/uprobe/</loc>
-         <lastmod>2025-02-12</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/miscellaneous/EIM/uprobe/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/miscellaneous/EIM/uprobe/"/>
-         
-    </url>
-    <url>
-         <loc>https://eunomia.dev/others/miscellaneous/EIM/usage/</loc>
-         <lastmod>2025-02-12</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/miscellaneous/EIM/usage/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/miscellaneous/EIM/usage/"/>
-         
-    </url>
-    <url>
-         <loc>https://eunomia.dev/others/miscellaneous/EIM/draft-spec/spec/</loc>
-         <lastmod>2025-02-12</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/miscellaneous/EIM/draft-spec/spec/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/miscellaneous/EIM/draft-spec/spec/"/>
-         
-    </url>
-    <url>
-         <loc>https://eunomia.dev/others/miscellaneous/EIM/draft-spec/spec_core/</loc>
-         <lastmod>2025-02-12</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/miscellaneous/EIM/draft-spec/spec_core/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/miscellaneous/EIM/draft-spec/spec_core/"/>
-         
-    </url>
-    <url>
-         <loc>https://eunomia.dev/others/miscellaneous/EIM/draft-spec/spec_old/</loc>
-         <lastmod>2025-02-12</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/miscellaneous/EIM/draft-spec/spec_old/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/miscellaneous/EIM/draft-spec/spec_old/"/>
          
     </url>
     <url>
