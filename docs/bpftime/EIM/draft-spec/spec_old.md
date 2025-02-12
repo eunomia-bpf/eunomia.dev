@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Extension Permission and Control Model (EPCM) provides a structured, formally verifiable framework to control the behavior of dynamically loaded extensions within a host environment. EPCM uses *roles*, *capabilities*, *typed interfaces*, and *attributes* to define what operations an extension may perform, how it may perform them, and under what resource constraints.
+The Extension Permission and Control Model (EIM) provides a structured, formally verifiable framework to control the behavior of dynamically loaded extensions within a host environment. EIM uses *roles*, *capabilities*, *typed interfaces*, and *attributes* to define what operations an extension may perform, how it may perform them, and under what resource constraints.
 
 Key highlights:
 

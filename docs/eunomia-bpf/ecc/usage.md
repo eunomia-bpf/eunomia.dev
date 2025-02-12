@@ -3,7 +3,7 @@ title: ecc usage
 tags: [ecc, maunal]
 ---
 
-### Usage
+# ecc usage
 
 ```sh
 ecc [OPTIONS] <SOURCE_PATH> [EXPORT_EVENT_HEADER]

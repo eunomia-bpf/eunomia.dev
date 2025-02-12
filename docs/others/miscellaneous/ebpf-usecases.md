@@ -1,4 +1,4 @@
-## Categorization of eBPF Hooks and Use Cases
+# Categorization of eBPF Hooks and Use Cases
 
 #### 1. **Networking**
 

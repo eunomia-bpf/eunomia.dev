@@ -1,4 +1,4 @@
-# About bpftime
+# About bpftime - bpftime ideas
 
 Some basic information about the bpftime project:
 

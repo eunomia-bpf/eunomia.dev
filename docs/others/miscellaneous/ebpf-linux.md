@@ -1,4 +1,4 @@
-# Project Proposal for bpftime
+# Project Proposal for bpftime - eBPF Foundation  
 
 ## General Information
 

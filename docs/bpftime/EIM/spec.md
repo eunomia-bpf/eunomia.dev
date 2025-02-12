@@ -9,7 +9,20 @@ EIM addresses two competing needs:
 1. **Interconnectedness**: Extensions may require access to specific functions or global state in the host.  
 2. **Safety**: The host may want to ensure that buggy extensions can’t crash the system or cause security issues.
 
-### 1.1 Key Ideas
+### 1.1. Background: Why EIM?
+
+Historically, extension frameworks have faced the problem of letting users do interesting things while not endangering the host. Traditional approaches (like letting all extensions read/write everything in the host) can lead to:
+
+- **Bugs**: A single extension might crash the entire application or cause unexpected side effects.  
+- **Security Incidents**: If an extension can corrupt memory or call privileged functions, it can compromise the host.
+
+EIM avoids these pitfalls by **precisely enumerating** host resources as capabilities. This also has benefits for maintenance and auditing:
+
+- **Clear Separation**: The developer defines all possible extension points once.  
+- **Reusable**: Administrators can add or remove capabilities in the deployment spec without changing the host’s code.  
+- **Auditable**: An EIM specification is a single document that auditors can review to see which resources are actually granted to each extension.
+
+### 1.2. Key Ideas
 
 1. **Resources**: Any “thing” in the host application or the underlying system that an extension might need or want to use—like CPU cycles, memory, global variables, or function calls.  
 2. **Capabilities**: A grant of permission to use a given resource (e.g., the right to read a host variable, the right to call a particular function, or the right to consume a certain amount of CPU instructions).  
@@ -19,7 +32,7 @@ An **EIM specification** codifies, in detail, the resources an application can p
 
 ---
 
-## 2. Background and Concepts
+## 2. Concepts
 
 This section explains the terms relevant to EIM: **extensions**, **resources**, **capabilities**, and **extension entries**.
 
@@ -201,22 +214,7 @@ EIM is flexible but rests on a few key semantics:
 
 ---
 
-## 6. Background: Why EIM?
-
-Historically, extension frameworks have faced the problem of letting users do interesting things while not endangering the host. Traditional approaches (like letting all extensions read/write everything in the host) can lead to:
-
-- **Bugs**: A single extension might crash the entire application or cause unexpected side effects.  
-- **Security Incidents**: If an extension can corrupt memory or call privileged functions, it can compromise the host.
-
-EIM avoids these pitfalls by **precisely enumerating** host resources as capabilities. This also has benefits for maintenance and auditing:
-
-- **Clear Separation**: The developer defines all possible extension points once.  
-- **Reusable**: Administrators can add or remove capabilities in the deployment spec without changing the host’s code.  
-- **Auditable**: An EIM specification is a single document that auditors can review to see which resources are actually granted to each extension.
-
----
-
-## 7. Example in Action
+## 6. Example in Action
 
 Below is a short hypothetical scenario:
 
@@ -277,7 +275,7 @@ This separation of concerns is one of the main advantages of EIM. The host devel
 
 ---
 
-## 8. Advanced Features & Notes
+## 7. Advanced Features & Notes
 
 1. **Constraints on Function Calls**  
    - EIM constraints can do more than “return value > 0.” The admin/developer can define relationships like “arg1 < arg2,” or semantic markers like “return value must be freed by extension.” Enforcement is typically done by the extension framework’s verifier or at runtime.
@@ -296,7 +294,7 @@ This separation of concerns is one of the main advantages of EIM. The host devel
 
 ---
 
-## 9. Conclusion
+## 8. Conclusion
 
 The **Extension Interface Model (EIM)** is a robust way to define _fine-grained_ extension interactions. It puts resource usage under explicit **capabilities** and organizes them into **extension entries**. With EIM, both developers and administrators can confidently add, modify, or remove extensions, knowing each extension can only do what’s explicitly allowed.
 

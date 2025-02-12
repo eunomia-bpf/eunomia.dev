@@ -278,7 +278,7 @@ If verification passes, the extension loads safely. Otherwise, it is rejected.
 
 ## OOP Analogy (Non-Normative)
 
-While EPCM is not object-oriented, one may draw a conceptual analogy:
+While EIM is not object-oriented, one may draw a conceptual analogy:
 
 - **Roles**: Similar to classes, defining a blueprint of what extension entries are exposed and what capabilities and constraints apply.
 - **Extensions**: Similar to objects (instances of roles). Assigning a role to an codebase is like creating an object from a class. The extension code (like object methods) to be loaded must adhere to constraints (like class invariants).

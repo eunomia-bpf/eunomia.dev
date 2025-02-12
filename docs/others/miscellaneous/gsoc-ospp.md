@@ -1,4 +1,4 @@
-# GSOC - OSPP
+# GSOC - OSPP draft proposal
 
 ## GSOC 2024
 

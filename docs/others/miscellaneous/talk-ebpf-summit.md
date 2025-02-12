@@ -1,6 +1,4 @@
-Here’s the improved draft, tailored for an oral presentation style:
-
----
+# eBPF Summit 2025 bpftime talk
 
 ### Slide 1: bpftime: Userspace eBPF Runtime
 

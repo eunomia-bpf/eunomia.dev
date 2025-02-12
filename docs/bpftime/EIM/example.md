@@ -1,12 +1,8 @@
-# spec language
+# EIM: Example code
 
-## The SPEC define the interface between the host and the extension.
+See the source for this page to get example code for the EIM.
 
-1. See [spec.md](spec.md) for the full specification.
-2. See [usage.md](usage.md) for how different role use the interface.
-3. See [uprobe.md](uprobe.md) for the example of uprobe role
-
-## build
+## build the example
 
 ```bash
 make

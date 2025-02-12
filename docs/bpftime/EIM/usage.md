@@ -1,4 +1,6 @@
-Below is a description of how various stakeholders in the eBPF extension ecosystem can use and benefit from the Extension Permission and Control Model (EPCM). The EPCM defines a structured, verifiable way to allow extensions (like eBPF code) to run within a host environment (like a kernel or userspace runtime) securely and reliably.
+# EIM Usage and people involved (Draft v1)
+
+Below is a description of how various stakeholders in the eBPF extension ecosystem can use and benefit from the Extension Permission and Control Model (EIM). The EIM defines a structured, verifiable way to allow extensions (like eBPF code) to run within a host environment (like a kernel or userspace runtime) securely and reliably.
 
 We have several types of people involved in the ecosystem:
 
@@ -8,16 +10,16 @@ We have several types of people involved in the ecosystem:
 4. **Extension Developers**  
 5. **End Users of Extensions**
 
-The EPCM and the concepts of roles, capabilities, attributes, typed interfaces, and formal verification affect each stakeholder differently.
+The EIM and the concepts of roles, capabilities, attributes, typed interfaces, and formal verification affect each stakeholder differently.
 
 ---
 
 ### 1. Runtime Developers (eBPF runtime developers)  
 **Role:** They build and maintain the underlying system that loads, verifies, and executes eBPF-based extensions.  
 
-**How They Use EPCM:**  
+**How They Use EIM:**  
 - **Defining the Verification Framework:**  
-  They use EPCM concepts to implement a generic verifier that can enforce typed interfaces, capability rules, and attribute constraints. Their runtime includes logic to:
+  They use EIM concepts to implement a generic verifier that can enforce typed interfaces, capability rules, and attribute constraints. Their runtime includes logic to:
   - Parse Roles, Capabilities, Attributes, and Types.
   - Perform static or symbolic verification to ensure extension compliance.
   
@@ -28,7 +30,7 @@ The EPCM and the concepts of roles, capabilities, attributes, typed interfaces, 
   The runtime should be flexible, allowing application developers to define their own sets of host APIs, capabilities, and roles without altering the runtime’s core logic.
 
 - **Scalability to New Scenarios:**  
-  Their contribution is making sure the EPCM constructs (roles, attributes, capabilities) are sufficiently abstract to handle new host functions or new safety models. This means:
+  Their contribution is making sure the EIM constructs (roles, attributes, capabilities) are sufficiently abstract to handle new host functions or new safety models. This means:
   - The runtime’s verification engine must adapt to new host APIs easily.
   - The runtime must handle evolving sets of attributes (e.g., new memory constraints, new safety flags) without code changes.
   
@@ -40,7 +42,7 @@ They provide a stable, extensible foundation. Their success is measured by how e
 ### 2. Application Developers  
 **Role:** They create applications that can be extended by external eBPF code. They define the extension points, which roles are available, and what host APIs can be called.
 
-**How They Use EPCM:**  
+**How They Use EIM:**  
 - **Defining Abstractions for Extension Points:**  
   They identify hook points in their application (like “on request arrival” or “on event X”) and specify which capabilities and roles apply there. For instance:
   - A network application might define a `NetworkObserverRole` that grants read-only access to certain packet data (capability `PacketRead`) and sets attributes like `max_memory`.
@@ -61,14 +63,14 @@ They offer a clearly defined interface and environment for extensions, ensuring 
 ### 3. Security/Policy Authors (Those Who Define Security Requirements)  
 **Role:** They specify security policies, constraints, and safety models for extensions. This may be security officers, system architects, or admins who set global policies on what extensions can do.
 
-**How They Use EPCM:**  
+**How They Use EIM:**  
 - **Defining Roles and Capabilities Aligned with Security Policies:**  
   They write down rules like:  
   - “Extensions in `BasicSecurityRole` can only read memory, not write it.”  
   - “`NetworkSafeRole` must have `network_access = false` to prevent outgoing connections.”
   
 - **No Changes to Verifier Code Needed:**  
-  They rely on the runtime’s generic verification engine and EPCM’s flexible attribute system. They don’t need to rewrite the verifier for every new policy. Instead, they:
+  They rely on the runtime’s generic verification engine and EIM’s flexible attribute system. They don’t need to rewrite the verifier for every new policy. Instead, they:
   - Add attributes like `may_have_side_effect = false` to forbid certain operations.
   - Compose capabilities to disallow certain host APIs or restrict usage frequency.
   
@@ -83,7 +85,7 @@ They gain a systematic way to define and enforce security models, ensuring that 
 ### 4. Extension Developers  
 **Role:** They write the actual extension code (e.g., eBPF programs) that plug into the application’s defined hook points.
 
-**How They Use EPCM:**  
+**How They Use EIM:**  
 - **Adhering to Typed Interfaces and Constraints:**  
   They see a clearly documented set of Roles and Capabilities. For example:
   - If they want to run under `UprobeRole`, they know they can call `bpf_probe_read`. If they call unavailable APIs, the verifier will reject their extension.
@@ -103,7 +105,7 @@ They have a clear guide on what is allowed and how to write safe, accepted exten
 ### 5. End Users of Extensions  
 **Role:** They deploy and use these extensions in their environment, benefiting from added functionality.
 
-**How They Use EPCM:**  
+**How They Use EIM:**  
 - **Trust in the System:**  
   When a user picks an extension, they trust that it’s been verified against the roles and capabilities defined by the application and security policies. They don’t need to understand the low-level details.
   
@@ -126,4 +128,4 @@ They enjoy a more robust, secure experience without dealing with the complexitie
 - **Extension Developers** use these rules and definitions to write compliant, secure extensions that pass verification.
 - **End Users** trust the system to enforce rules, letting them safely run extensions without requiring deep technical involvement.
 
-In summary, the EPCM specification creates a structured ecosystem where each stakeholder knows their part: runtime developers build the verification engine, application developers define extension points, security authors specify constraints, extension developers write code within these constraints, and end users run verified extensions confidently.
+In summary, the EIM specification creates a structured ecosystem where each stakeholder knows their part: runtime developers build the verification engine, application developers define extension points, security authors specify constraints, extension developers write code within these constraints, and end users run verified extensions confidently.
