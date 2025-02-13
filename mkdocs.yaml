@@ -25,17 +25,19 @@ theme:
         icon: material/brightness-4
         name: Switch to light mode
   features:
-    - navigation.tracking
-    - navigation.tabs
-    - navigation.indexes
-    # - navigation.expand
-    - navigation.tabs
-    - navigation.instant
-    - navigation.sections
-    - navigation.footer
-    - header.autohide
-    - content.action.edit
     - search.suggest
+    - search.highlight
+    - search.share
+    - navigation.footer
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tabs
+    - navigation.expand
+    - navigation.path
+    - navigation.top
+    - content.tabs.link
+    - content.action.edit
+    - content.action.view
 
 markdown_extensions:
   - pymdownx.inlinehilite
@@ -47,11 +49,15 @@ markdown_extensions:
   - pymdownx.keys
   - pymdownx.mark
   - pymdownx.tilde
+  - pymdownx.keys
+  - pymdownx.blocks.caption
   - admonition
   - attr_list
   - md_in_html
   - footnotes
   - def_list
+  - admonition
+  - tables
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.tabbed:
@@ -61,6 +67,8 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.tabbed:
+      alternate_style: true
 
 hooks:
   - hooks/socialmedia.py
