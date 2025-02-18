@@ -537,6 +537,14 @@
          
     </url>
     <url>
+         <loc>https://eunomia.dev/bpftime/EIM/study/docker-vm-bug-study/</loc>
+         <lastmod>2025-02-18</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/bpftime/EIM/study/docker-vm-bug-study/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/bpftime/EIM/study/docker-vm-bug-study/"/>
+         
+    </url>
+    <url>
          <loc>https://eunomia.dev/bpftime/documents/attach/</loc>
          <lastmod>2025-02-18</lastmod>
          <changefreq>daily</changefreq>
