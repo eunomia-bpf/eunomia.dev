@@ -1,0 +1,5316 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Unlock the potential of eBPF">
+      
+      
+      
+        <link rel="canonical" href="https://eunomia.dev/en/bpftime/EIM/compare/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../example/">
+      
+      
+      <link rel="icon" href="../../../../assets/icon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.4">
+    
+    
+      
+        <title>Extension Systems compare with EIM - eunomia</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.8608ea7d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-1YVMXGL0MY"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-1YVMXGL0MY",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-1YVMXGL0MY",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+      
+        <meta  property="og:type"  content="website" >
+      
+        <meta  property="og:title"  content="Extension Systems compare with EIM - eunomia" >
+      
+        <meta  property="og:description"  content="Unlock the potential of eBPF" >
+      
+        <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/bpftime/EIM/compare.png" >
+      
+        <meta  property="og:image:type"  content="image/png" >
+      
+        <meta  property="og:image:width"  content="1200" >
+      
+        <meta  property="og:image:height"  content="630" >
+      
+        <meta  property="og:url"  content="https://eunomia.dev/en/bpftime/EIM/compare/" >
+      
+        <meta  name="twitter:card"  content="summary_large_image" >
+      
+        <meta  name="twitter:title"  content="Extension Systems compare with EIM - eunomia" >
+      
+        <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
+      
+        <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/bpftime/EIM/compare.png" >
+      
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#extension-systems-compare-with-eim" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../" title="eunomia" class="md-header__button md-logo" aria-label="eunomia" data-md-component="logo">
+      
+  <img src="../../../../assets/icon.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            eunomia
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Extension Systems compare with EIM
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="/en/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="/zh/" hreflang="zh" class="md-select__link">
+              Chinese
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/eunomia-bpf/eunomia.dev" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../" class="md-tabs__link">
+          
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../tutorials/" class="md-tabs__link">
+          
+  
+  Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../blog" class="md-tabs__link">
+        
+  
+    
+  
+  Blog
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  bpftime
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../eunomia-bpf/" class="md-tabs__link">
+          
+  
+  eunomia-bpf
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../GPTtrace/" class="md-tabs__link">
+          
+  
+  GPTtrace
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../wasm-bpf/" class="md-tabs__link">
+          
+  
+  wasm-bpf
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../others/" class="md-tabs__link">
+          
+  
+  Ecosystem
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../" title="eunomia" class="md-nav__button md-logo" aria-label="eunomia" data-md-component="logo">
+      
+  <img src="../../../../assets/icon.svg" alt="logo">
+
+    </a>
+    eunomia
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/eunomia-bpf/eunomia.dev" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Home
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Eunomia - Unlock the potential of eBPF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Tutorials
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example: Learning CO-RE eBPF Step by Step
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/SUMMARY/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example: Learning CO-RE eBPF Step by Step
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/0-introduce/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 0: Introduction to Core Concepts and Tools
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/1-helloworld/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 1: Hello World, Framework and Development
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/10-hardirqs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 10: Capturing Interrupts with hardirqs or softirqs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/11-bootstrap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 11: Develop User-Space Programs with libbpf and Trace exec() and exit()
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/12-profile/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 12: Using eBPF Program Profile for Performance Analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/13-tcpconnlat/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 13: Statistics of TCP Connection Delay with libbpf
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/14-tcpstates/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 14: Recording TCP Connection Status and TCP RTT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/15-javagc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 15: Capturing User-Space Java GC Duration Using USDT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/16-memleak/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 16: Monitoring Memory Leaks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/17-biopattern/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 17: Count Random/Sequential Disk I/O
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/18-further-reading/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    More Reference Materials： papers, projects
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/18-further-reading/ebpf-security/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The Secure Path Forward for eBPF runtime: Challenges and Innovations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/19-lsm-connect/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 19: Security Detection and Defense using LSM
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/2-kprobe-unlink/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 2: Monitoring unlink System Calls with kprobe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/20-tc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 20: tc Traffic Control
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/21-xdp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 21: Programmable Packet Processing with XDP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/22-android/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example: Using eBPF Programs on Android
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/23-http/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    L7 Tracing with eBPF: HTTP and Beyond via Socket Filters and Syscall Tracepoints
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/24-hide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Practical Tutorial: Hiding Process or File Information
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/25-signal/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using bpf_send_signal to Terminate Malicious Processes in eBPF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/26-sudo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using eBPF to add sudo user
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/27-replace/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Replace Text Read or Written by Any Program with eBPF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/28-detach/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running eBPF After Application Exits: The Lifecycle of eBPF Programs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/29-sockops/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Development Practices: Accelerating Network Request Forwarding with Sockops
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/3-fentry-unlink/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 3: Monitoring unlink System Calls with fentry
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/30-sslsniff/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Practical Tutorial: Capturing SSL/TLS Plain Text Data Using uprobe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/31-goroutine/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Practical Tutorial: Using eBPF to Trace Go Routine States
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/32-http2/README.zh/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    trace http2 request in go
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/33-funclatency/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Measuring Function Latency with eBPF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/34-syscall/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Development Practice: Modifying System Call Arguments with eBPF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/35-user-ringbuf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Development Practices: Asynchronously Send to Kernel with User Ring Buffer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/36-userspace-ebpf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Userspace eBPF Runtimes: Overview and Applications
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/37-uprobe-rust/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Practice: Tracing User Space Rust Applications with Uprobe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/38-btf-uprobe/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Expanding eBPF Compile Once, Run Everywhere(CO-RE) to Userspace Compatibility
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/38-btf-uprobe/test-verify/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    using BTF to verify userspace eBPF extensions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/38-btf-uprobe/test-verify/minimal/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    minimal examples
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/38-btf-uprobe/test-verify/module/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    write a basic kernel module
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/39-nginx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using eBPF to Trace Nginx Requests
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/4-opensnoop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 4: Capturing Opening Files and Filter with Global Variables
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/40-mysql/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using eBPF to Trace MySQL Queries
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/41-xdp-tcpdump/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example: Capturing TCP Information with XDP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/42-xdp-loadbalancer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Developer Tutorial: XDP Load Balancer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/42-xdp-loadbalancer/connect/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Network setup for bpf-developer-tutorial
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/43-kfuncs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Extending eBPF Beyond Its Limits: Custom kfuncs in Kernel Modules
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/43-kfuncs/module/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    write a basic kernel module
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/44-scx-simple/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial: Introduction to the BPF Scheduler
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/45-scx-nest/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example: Implementing the scx_nest Scheduler
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/46-xdp-test/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    xdp-pktgen: xdp based packet generator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/5-uprobe-bashreadline/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 5: Capturing readline Function Calls with Uprobe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/6-sigsnoop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 6: Capturing Signal Sending and Store State with Hash Maps
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/7-execsnoop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 7: Capturing Process Execution, Output with perf event array
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/8-exitsnoop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 8: Monitoring Process Exit Events, Output with Ring Buffer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/9-runqlat/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 9: Capturing Scheduling Latency and Recording as Histogram
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/bcc-documents/kernel-versions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux 内核版本的 BPF 功能
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/bcc-documents/kernel-versions_en/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BPF Features by Linux Kernel Version
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/bcc-documents/kernel_config/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BPF 特性的内核配置
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/bcc-documents/kernel_config_en/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kernel Configuration for BPF Features
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/bcc-documents/reference_guide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bcc 参考指南
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/bcc-documents/reference_guide_en/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bcc Reference Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/bcc-documents/special_filtering/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    特殊过滤
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/bcc-documents/special_filtering_en/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Special Filtering
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/bcc-documents/tutorial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bcc 教程
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/bcc-documents/tutorial_bcc_python_developer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bcc Python 开发者教程
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/bcc-documents/tutorial_bcc_python_developer_en/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bcc Python Developer Tutorial
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/bcc-documents/tutorial_en/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bcc Tutorial
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/bpftrace-tutorial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The bpftrace One-Liner Tutorial
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/scripts/guideline_advance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Blog Guidelines for Advanced eBPF Tutorials
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/scripts/guideline_basic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    blog guideline or pattern
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blog" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Blog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    bpftime
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            bpftime
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bpftime: Userspace eBPF runtime for Observability, Network &amp; General extensions Framework
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documents/build-and-test/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Building and Test
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documents/usage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Manual
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documents/examples/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Examples &amp; Use Cases
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documents/available-features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Available kernel features in userspace
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Bpftime
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            Bpftime
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../llvmbpf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Userspace eBPF VM with LLVM JIT/AOT Compiler
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_6_2" id="__nav_4_6_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    EIM
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_6_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            EIM
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EIM: Extension Interface Model
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Extension Systems compare with EIM
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Extension Systems compare with EIM
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-case-studies-of-extension-security-failures" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Case Studies of Extension Security Failures
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Case Studies of Extension Security Failures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-buffer-overflow-vulnerabilities-in-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 Buffer Overflow Vulnerabilities in Extensions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-sandbox-escape-incidents" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 Sandbox Escape Incidents
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-privilege-escalation-through-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3 Privilege Escalation through Extensions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-comparative-table-incidents-vs-eim-mitigations" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.4 Comparative Table: Incidents vs. EIM Mitigations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-similar-sandboxing-and-privilege-reduction-approaches-beyond-ebpf-wasm" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Similar Sandboxing and Privilege-Reduction Approaches (Beyond eBPF &amp; WASM)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Similar Sandboxing and Privilege-Reduction Approaches (Beyond eBPF & WASM)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-rlbox-fine-grained-in-process-sandboxing" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 RLBox – Fine-Grained In-Process Sandboxing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-google-native-client-nacl-and-portable-nacl-pnacl" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Google Native Client (NaCl) and Portable NaCl (PNaCl)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-erim-in-process-isolation-with-memory-protection-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 ERIM – In-Process Isolation with Memory Protection Keys
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-other-sandbox-and-privilege-reduction-techniques" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 Other Sandbox and Privilege-Reduction Techniques
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-prior-art-and-literature-on-extension-security-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Prior Art and Literature on Extension Security Models
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Prior Art and Literature on Extension Security Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-least-privilege-in-browser-extensions-chrome-manifest-v3-firefox-webextensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Least Privilege in Browser Extensions (Chrome Manifest v3, Firefox WebExtensions)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-os-level-security-models-capsicum-seccomp-and-others" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 OS-Level Security Models: Capsicum, Seccomp, and Others
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-eims-approach-to-current-gaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 EIM’s Approach to Current Gaps
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../example/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EIM: Example code
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EIM: Extension Interface Model Specification
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../uprobe/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    UProbe Role Definition README
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EIM Usage and people involved (Draft v1)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_6_2_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6_2_7" id="__nav_4_6_2_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Draft spec
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_6_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            Draft spec
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../draft-spec/spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Extension Inferface Model Specification V3
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../draft-spec/spec_core/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spec core
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../draft-spec/spec_old/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Extension Model Specification V1
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_6_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6_3" id="__nav_4_6_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Documents
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            Documents
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documents/attach/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Detailed Implementation of the Attach Part
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documents/bpftimeaot/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bpftime-aot cli
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documents/bpftimetool/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bpftimetool
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documents/co-re/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compile Once, Run Everywhere(CO-RE)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documents/contact/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contact and citations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documents/how-it-works/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The design and implementation of bpftime
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documents/introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documents/performance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    performance and benchmark
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    eunomia-bpf
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            eunomia-bpf
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eunomia-bpf: simplify and enhance eBPF with CO-RE and WebAssembly
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Eunomia bpf
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Eunomia bpf
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/benchmark/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    benchmark
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/manual/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    manual
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/online/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Online Demo
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/quickstart/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    quickstart
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/supporting-external-BTF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    supporting-external-BTF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/video/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    video
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_2_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_8" id="__nav_5_2_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_8">
+            <span class="md-nav__icon md-icon"></span>
+            Architecture
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/architecture/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_2_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_9" id="__nav_5_2_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ecc
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_9">
+            <span class="md-nav__icon md-icon"></span>
+            Ecc
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/ecc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eunomia-cc
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/ecc/docker-usage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ecc docker usage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/ecc/github-template/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    github template
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/ecc/usage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ecc usage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_2_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_10" id="__nav_5_2_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ecli
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_10">
+            <span class="md-nav__icon md-icon"></span>
+            Ecli
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/ecli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ecli
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/ecli/ecli-dockerfile-usage.zh/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ecli dockerfile usage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/ecli/server/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ecli server
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_2_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_11" id="__nav_5_2_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Exporter
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_11">
+            <span class="md-nav__icon md-icon"></span>
+            Exporter
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/exporter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    exporter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/exporter/usage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    usage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_2_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_12" id="__nav_5_2_12_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Setup
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_12">
+            <span class="md-nav__icon md-icon"></span>
+            Setup
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/setup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/setup/build-android-arm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    build on android aarch64
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/setup/build/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    build from source
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    GPTtrace
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            GPTtrace
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../GPTtrace/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GPTtrace 🤖
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    wasm-bpf
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            wasm-bpf
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wasm-bpf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wasm-bpf
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ecosystem
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Ecosystem
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../others/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Other projects
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_8_2" id="__nav_8_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Others
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_2">
+            <span class="md-nav__icon md-icon"></span>
+            Others
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../others/bpf-benchmark/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BPF-Benchmark
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../others/bpf-compatible/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bpf-compatible
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../others/contribute/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributing to eunomia-bpf
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../others/ebpf-gpts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    An experiment: GPTs for eBPF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../others/ideas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Possible ideas for the future
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../others/usecases/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ebpf usecases analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8_2_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_8_2_7" id="__nav_8_2_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Miscellaneous
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_8_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            Miscellaneous
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../others/miscellaneous/bpftime-roadmap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About bpftime - bpftime ideas
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../others/miscellaneous/ebpf-fuse/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    基于内核态/用户态 eBPF 实现高性能用户态文件系统功能 - 操作系统大赛赛题
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../others/miscellaneous/ebpf-gpu/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用 eBPF 对 AI/ML 工作负载进行追踪和性能分析 - 操作系统大赛赛题
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../others/miscellaneous/ebpf-linux/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project Proposal for bpftime - eBPF Foundation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../others/miscellaneous/ebpf-lsm-usm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    实现内核与用户态共同工作的 eBPF 安全框架 - 操作系统大赛赛题
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../others/miscellaneous/ebpf-usecases/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Categorization of eBPF Hooks and Use Cases
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../others/miscellaneous/ebpf-userspace-port/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    将用户态 eBPF 扩展到 MacOS、Windows、FreeBSD 等更多平台 - 操作系统大赛赛题
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../others/miscellaneous/gsoc-ospp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GSOC - OSPP draft proposal
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../others/miscellaneous/ideas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    开源活动的可能想法 - eunomia-bpf 2024
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../others/miscellaneous/linux-plumbers-talk/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bpftime talk at linux plumbers 2025
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../others/miscellaneous/roadmap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bpftime roadmap and ideas for 2024
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../others/miscellaneous/talk-ebpf-summit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Summit 2025 bpftime talk
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../others/miscellaneous/wasm-bpf-kubecon/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Securing and Simplifying eBPF Deployments with WebAssembly
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../others/miscellaneous/wasm-bpf-talk/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    talk draft in kubecon
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-case-studies-of-extension-security-failures" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Case Studies of Extension Security Failures
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Case Studies of Extension Security Failures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-buffer-overflow-vulnerabilities-in-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 Buffer Overflow Vulnerabilities in Extensions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-sandbox-escape-incidents" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 Sandbox Escape Incidents
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-privilege-escalation-through-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3 Privilege Escalation through Extensions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-comparative-table-incidents-vs-eim-mitigations" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.4 Comparative Table: Incidents vs. EIM Mitigations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-similar-sandboxing-and-privilege-reduction-approaches-beyond-ebpf-wasm" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Similar Sandboxing and Privilege-Reduction Approaches (Beyond eBPF &amp; WASM)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Similar Sandboxing and Privilege-Reduction Approaches (Beyond eBPF & WASM)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-rlbox-fine-grained-in-process-sandboxing" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 RLBox – Fine-Grained In-Process Sandboxing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-google-native-client-nacl-and-portable-nacl-pnacl" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Google Native Client (NaCl) and Portable NaCl (PNaCl)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-erim-in-process-isolation-with-memory-protection-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 ERIM – In-Process Isolation with Memory Protection Keys
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-other-sandbox-and-privilege-reduction-techniques" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 Other Sandbox and Privilege-Reduction Techniques
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-prior-art-and-literature-on-extension-security-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Prior Art and Literature on Extension Security Models
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Prior Art and Literature on Extension Security Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-least-privilege-in-browser-extensions-chrome-manifest-v3-firefox-webextensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Least Privilege in Browser Extensions (Chrome Manifest v3, Firefox WebExtensions)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-os-level-security-models-capsicum-seccomp-and-others" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 OS-Level Security Models: Capsicum, Seccomp, and Others
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-eims-approach-to-current-gaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 EIM’s Approach to Current Gaps
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/bpftime/EIM/compare.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/bpftime/EIM/compare.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+<h1 id="extension-systems-compare-with-eim">Extension Systems compare with EIM</h1>
+<h2 id="1-case-studies-of-extension-security-failures">1. Case Studies of Extension Security Failures</h2>
+<p><strong>Overview:</strong> Software <em>extensions</em> (plugins, add-ons, modules) greatly extend functionality but can introduce serious security risks if not tightly controlled. Historically, <em>loosely controlled extension models</em> have led to vulnerabilities like buffer overflows, sandbox escapes, and privilege escalations. Below, we examine notable incidents and how a stricter model (like <strong>EIM</strong> – an <em>Extension Isolation Mechanism</em>) could have mitigated them. A comparative table at the end of this section summarizes these cases and EIM’s potential impact.</p>
+<h3 id="11-buffer-overflow-vulnerabilities-in-extensions">1.1 Buffer Overflow Vulnerabilities in Extensions</h3>
+<ul>
+<li>
+<p><strong>ActiveX Controls (Internet Explorer):</strong> Microsoft’s ActiveX allowed native code extensions in the browser with minimal restriction. Many ActiveX controls were marked “safe for scripting” (accessible to websites) and contained memory safety bugs. For example, the Windows Troubleshooter ActiveX control had a <em>buffer overflow</em> that let attackers execute arbitrary code by luring a user to a malicious web page (<a href="https://learn.microsoft.com/en-us/security-updates/securitybulletins/2003/ms03-042#:~:text=A%20security%20vulnerability%20exists%20in,The%20Microsoft">Microsoft Security Bulletin MS03-042 - Critical | Microsoft Learn</a>). Because ActiveX had full system access, exploiting this overflow gave the attacker the user’s privileges (or higher, if the user was admin). This lack of memory safety and sandboxing made ActiveX extensions notorious for remote code execution (RCE) exploits.</p>
+</li>
+<li>
+<p><strong>Adobe Acrobat Reader Plug-ins:</strong> Early browser plug-in models (NPAPI) similarly allowed native code with full privileges. Incidents like the <em>Adobe Acrobat ActiveX Buffer Overflow</em> (CVE-2007-5659) let malicious PDFs trigger an overflow in a browser plug-in, leading to code execution (<a href="https://www.sonicwall.com/blog/ibm-tivoli-activex-buffer-overflow-april-20-2012#:~:text=IBM%20Tivoli%20ActiveX%20Buffer%20Overflow,In%20order%20to">IBM Tivoli ActiveX Buffer Overflow (April 20, 2012) - SonicWall</a>) (<a href="https://www.kb.cert.org/vuls/id/272644#:~:text=Yahoo%21%20Audio%20Conferencing%20ActiveX%20control,Yahoo%21%20Audio%20Conferencing%20ActiveX%20control">Yahoo! Audio Conferencing ActiveX control vulnerable to buffer ...</a>). These cases highlight how <strong>memory unsafe extension interfaces</strong> can be a direct vector for attackers.</p>
+</li>
+<li>
+<p><strong>Mitigation with EIM:</strong> An EIM would enforce memory safety for extensions – for instance, by requiring extensions to run in a memory-safe sandbox or language. Buffer overflow exploits as seen in ActiveX would be prevented at the root: the extension code either couldn’t allocate arbitrary memory or would be confined to a sandbox that traps on overflow. For example, EIM might mandate bounds-checked memory access (as WebAssembly does) so an overflow would not corrupt the host’s memory (<a href="https://webassembly.org/docs/security/#:~:text=Each%20WebAssembly%20module%20executes%20within,This%20implies">Security - WebAssembly</a>) (<a href="https://webassembly.org/docs/security/#:~:text=Modules%20must%20declare%20all%20accessible,from%20control%20flow%20hijacking%20attacks">Security - WebAssembly</a>). In the ActiveX case, EIM could have required the control to run in a restricted environment with no direct pointer access, averting arbitrary code execution.</p>
+</li>
+</ul>
+<h3 id="12-sandbox-escape-incidents">1.2 Sandbox Escape Incidents</h3>
+<ul>
+<li>
+<p><strong>Browser Sandboxes (Chrome V8):</strong> Modern browsers isolate extension or webpage code in sandboxed processes. However, sandbox <em>escape</em> vulnerabilities still occur when the isolation is not airtight. A recent Chrome zero-day (CVE-2024-4761) was a <strong>V8 engine out-of-bounds write</strong> bug that allowed code running in a Chrome renderer process to break out of the sandbox and execute with higher privileges (<a href="https://www.darkreading.com/vulnerabilities-threats/dangerous-google-chrome-zero-day-sandbox-escape#:~:text=The%20latest%20update%2C%20to%20version,via%20a%20crafted%20HTML%20page">Dangerous Google Chrome Zero-Day Allows Sandbox Escape</a>). In this case, an attacker first exploits a memory bug in the extension/webpage context, then uses it to escape the sandbox (pivoting from the confined renderer process to the broader system). This kind of two-step exploit (renderer compromise → sandbox escape) is common in Chrome attack chains (<a href="https://blog.mozilla.org/attack-and-defense/2021/12/06/webassembly-and-back-again-fine-grained-sandboxing-in-firefox-95/#:~:text=Unfortunately%2C%20threat%20actors%20routinely%20attack,need%20multiple%20layers%20of%20protection">WebAssembly and Back Again: Fine-Grained Sandboxing in Firefox 95 – Attack &amp; Defense</a>) (<a href="https://blog.mozilla.org/attack-and-defense/2021/12/06/webassembly-and-back-again-fine-grained-sandboxing-in-firefox-95/#:~:text=The%20Limits%20of%20Process%20Sandboxing">WebAssembly and Back Again: Fine-Grained Sandboxing in Firefox 95 – Attack &amp; Defense</a>).</p>
+</li>
+<li>
+<p><strong>DevTools Extension Escape:</strong> In one reported case, a vulnerability in Chrome’s DevTools and extension interaction (CVE-2024-5836) allowed an installed <em>extension to escape Chrome’s sandbox</em> by opening a crafted link (<a href="https://ading.dev/blog/posts/chrome_sandbox_escape.html#:~:text=Escaping%20the%20Chrome%20Sandbox%20Through,escape%20from%20a%20browser%20extension">Escaping the Chrome Sandbox Through DevTools - ading2210</a>). Similarly, Firefox’s content sandbox has been bypassed in the past by chaining browser engine bugs with extension capabilities.</p>
+</li>
+<li>
+<p><strong>VS Code Extensions (Webview Escape):</strong> Extensions are not limited to browsers. In 2022, VS Code (which allows third-party extensions) had a misconfiguration in how extension <em>Webviews</em> were sandboxed. One extension’s XSS bug allowed malicious HTML to break out of the Webview sandbox and execute code in the extension’s context (<a href="https://blog.trailofbits.com/2023/02/21/vscode-extension-escape-vulnerability/#:~:text=Why%20should%20you%20care%20about,is%20running%20in%20the%20background">Escaping misconfigured VSCode extensions - The Trail of Bits Blog</a>) (<a href="https://blog.trailofbits.com/2023/02/21/vscode-extension-escape-vulnerability/#:~:text=VSCode%20Webviews">Escaping misconfigured VSCode extensions - The Trail of Bits Blog</a>). Because VS Code extensions run with the user’s full privileges (able to read files and run shell commands (<a href="https://blog.trailofbits.com/2023/02/21/vscode-extension-escape-vulnerability/#:~:text=Before%20diving%20into%20the%20bugs%2C,full%20compromise%20of%20the%20system">Escaping misconfigured VSCode extensions - The Trail of Bits Blog</a>)), this meant an attacker controlling a Webview could potentially <strong>steal local files (even SSH keys)</strong> or run arbitrary commands by exploiting the extension vulnerability (<a href="https://blog.trailofbits.com/2023/02/21/vscode-extension-escape-vulnerability/#:~:text=Why%20should%20you%20care%20about,is%20running%20in%20the%20background">Escaping misconfigured VSCode extensions - The Trail of Bits Blog</a>).</p>
+</li>
+<li>
+<p><strong>Mitigation with EIM:</strong> EIM would maintain a <em>robust sandbox barrier</em> around extension code. In the Chrome V8 case, EIM could have added an extra layer of isolation – for example, running extension code in a memory-safe intermediate representation (like WASM) with explicit bounds checks, so even a V8 bug couldn’t directly breach the process’s memory. EIM might also employ <strong>multiple enforcement layers</strong> (language safety, process isolation, and OS-level sandboxing) so that a single engine flaw is not enough to escape. In the VS Code scenario, EIM could ensure that even if an extension’s UI (Webview) is compromised, the core extension logic is running with <em>least privilege</em> – e.g., file system access only via vetted APIs, preventing an easy jump from a UI XSS to full file access. Additionally, EIM could require that extensions which render untrusted content (like the Webview) run in a <em>separate, locked-down process</em> or <strong>sandbox compartment</strong>, making it far harder for a Webview exploit to impact the host system.</p>
+</li>
+</ul>
+<h3 id="13-privilege-escalation-through-extensions">1.3 Privilege Escalation through Extensions</h3>
+<ul>
+<li>
+<p><strong>Legacy Firefox Extensions (Full Privileges):</strong> Firefox’s old XUL extension framework (pre-2017) granted installed add-ons <em>unrestricted privileges</em> in the browser process – they could read/write files, execute programs, etc. (<a href="https://citeseerx.ist.psu.edu/document?repid=rep1&amp;type=pdf&amp;doi=b49579dc9924744d7a6a6d945f9431a1ed867848#:~:text=Mozilla%20Firefox%20introduced%20the%20first,Once%20a%20vulnerability%20is"></a>). This meant any vulnerability in an extension’s script (or a malicious extension) could escalate to full host privileges. Attackers demonstrated this at DEFCON 2009 by exploiting popular Firefox add-ons to <strong>execute native code and install malware</strong> (<a href="https://citeseerx.ist.psu.edu/document?repid=rep1&amp;type=pdf&amp;doi=b49579dc9924744d7a6a6d945f9431a1ed867848#:~:text=complete%20browser%20privileges%2C%20including%20full,a%20number%20of%20popular%20Firefox"></a>). Essentially, Firefox’s extensions acted with the user’s authority without isolation – a design now recognized as highly insecure.</p>
+</li>
+<li>
+<p><strong>Chrome Extension Vulnerabilities:</strong> Chrome’s extension model is more restrictive, but <strong>over-privileged extensions</strong> or logic flaws can still lead to escalation. A notable incident was the AVG “Web TuneUp” Chrome extension (installed by an antivirus program) which had <em>multiple critical bugs</em>. It injected insecure scripts into web pages and exposed APIs such that any website could steal browsing history and cookies, or even inject arbitrary scripts into all pages the user visited (<a href="https://www.theregister.com/2015/12/29/avg_google_chrome_extension/#:~:text=According%20to%20Ormandy%2C%20the%20extension,hijack%20the%20victim%27s%20webmail%20inbox">Google probes AVG Chrome widget after 9m users exposed by bugs • The Register</a>) (<a href="https://www.theregister.com/2015/12/29/avg_google_chrome_extension/#:~:text=And%2C%20we%27re%20told%2C%20man,rendering%20any%20SSL%20encryption%20useless">Google probes AVG Chrome widget after 9m users exposed by bugs • The Register</a>). Essentially, a malicious webpage could escalate its privileges by leveraging this overly-powerful extension (gaining access to other sites like the user’s email).</p>
+</li>
+<li>
+<p><strong>Kernel Extensions (eBPF):</strong> At the OS level, <em>eBPF</em> provides a way to load extensions into the Linux kernel (for networking, tracing, etc.) with supposed safety checks. But flaws in the eBPF verifier have led to <strong>privilege escalations</strong> – letting an unprivileged user gain kernel (root) execution. For example, CVE-2023-2163 (a bug in Linux eBPF) was shown to allow a “small bug to compromise the entire system” (<a href="https://pentera.io/blog/the-good-bad-and-compromisable-aspects-of-linux-ebpf/#:~:text=fairly%20small%20bug%20can%20lead,compromise%20of%20the%20entire%20system">Understanding the Security Aspects of Linux eBPF - Pentera</a>). In general, eBPF bugs that bypass its checks give an attacker a path to run arbitrary code in the kernel, a severe privilege escalation (<a href="https://pentera.io/blog/the-good-bad-and-compromisable-aspects-of-linux-ebpf/#:~:text=eBBF%20is%20a%20two,review%20how%20it%20is%20done">Understanding the Security Aspects of Linux eBPF - Pentera</a>).</p>
+</li>
+<li>
+<p><strong>Mitigation with EIM:</strong> EIM is designed around the <em>principle of least privilege</em>. In a browser context, EIM would require that extensions declare and be limited to the minimal permissions they need – similar to Chrome’s Manifest V3 approach, but potentially even more fine-grained and enforced by the runtime. For instance, an EIM-governed browser extension couldn’t arbitrarily inject scripts into every page or read all browsing data unless explicitly allowed, which would have contained the AVG extension’s impact. (Chrome’s newer model in fact blocks remote code and excessive privileges (<a href="https://developer.chrome.com/docs/extensions/develop/security-privacy/stay-secure#:~:text=Request%20minimal%20permissions">Stay secure  |  Chrome Extensions  |  Chrome for Developers</a>) (<a href="https://developer.chrome.com/docs/extensions/develop/security-privacy/stay-secure#:~:text=This%20extension%20in%20the%20sample,https%3A%2F%2Fmalicious_website.com">Stay secure  |  Chrome Extensions  |  Chrome for Developers</a>), aligning with what EIM would enforce.) In the case of kernel extensions like eBPF, EIM would add <strong>defense-in-depth</strong>: even if the verifier has a bug, the extension code might still be running in a secondary sandbox or constrained environment (e.g., user-space eBPF JIT with hardware keys isolation) to prevent total kernel compromise. In short, EIM would assume any single layer can fail, and thus use layered isolation and strict privilege gating to avert escalation.</p>
+</li>
+</ul>
+<h3 id="14-comparative-table-incidents-vs-eim-mitigations">1.4 Comparative Table: Incidents vs. EIM Mitigations</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Security Failure (Extension)</strong></th>
+<th><strong>Root Cause</strong></th>
+<th><strong>Impact</strong></th>
+<th><strong>How EIM Could Mitigate</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ActiveX buffer overflow</strong> (IE, 2003) ([Microsoft Security Bulletin MS03-042 - Critical</td>
+<td>Microsoft Learn](https://learn.microsoft.com/en-us/security-updates/securitybulletins/2003/ms03-042#:~:text=A%20security%20vulnerability%20exists%20in,The%20Microsoft))</td>
+<td>Native extension with no memory safety; marked “safe for scripting”</td>
+<td>Remote code execution on host via overflow exploit</td>
+</tr>
+<tr>
+<td><strong>Firefox XUL Add-ons</strong> (pre-2011) (<a href="https://citeseerx.ist.psu.edu/document?repid=rep1&amp;type=pdf&amp;doi=b49579dc9924744d7a6a6d945f9431a1ed867848#:~:text=Mozilla%20Firefox%20introduced%20the%20first,Once%20a%20vulnerability%20is"></a>)</td>
+<td>Extensions had full OS/browser privileges (no isolation or permission model)</td>
+<td>Extension malware or exploited bug can control browser and OS files</td>
+<td><em>Least privilege enforcement:</em> EIM mandates that extensions get only minimal permissions (e.g. no file access unless needed). Host APIs are gated, so even a compromised extension can’t exceed its small allowance.</td>
+</tr>
+<tr>
+<td><strong>Chrome extension (AVG Web TuneUp)</strong> (2015) (<a href="https://www.theregister.com/2015/12/29/avg_google_chrome_extension/#:~:text=According%20to%20Ormandy%2C%20the%20extension,hijack%20the%20victim%27s%20webmail%20inbox">Google probes AVG Chrome widget after 9m users exposed by bugs • The Register</a>)</td>
+<td>Overly broad privileges and insecure API injection by extension</td>
+<td>Any website could hijack user sessions, steal data, run scripts via the extension</td>
+<td><em>Privilege partitioning:</em> Under EIM, such an extension would be confined to specific contexts. EIM’s policy would prevent an extension from exposing dangerous APIs to untrusted web content, and limit its access to sensitive data by default.</td>
+</tr>
+<tr>
+<td><strong>Chrome V8 sandbox escape</strong> (CVE-2024-4761) (<a href="https://www.darkreading.com/vulnerabilities-threats/dangerous-google-chrome-zero-day-sandbox-escape#:~:text=The%20latest%20update%2C%20to%20version,via%20a%20crafted%20HTML%20page">Dangerous Google Chrome Zero-Day Allows Sandbox Escape</a>)</td>
+<td>Memory error in extension/web content engine + single-process sandbox design</td>
+<td>Sandboxed code escapes to execute with browser or OS privileges (potential full compromise)</td>
+<td><em>Strong multi-layer sandbox:</em> EIM would use layered isolation (e.g. in-process SFI <strong>and</strong> OS process isolation). A memory bug wouldn’t immediately allow escape because the extension code might be further constrained by EIM’s runtime checks (e.g. no arbitrary jumps, as in WASM (<a href="https://webassembly.org/docs/security/#:~:text=Modules%20must%20declare%20all%20accessible,from%20control%20flow%20hijacking%20attacks">Security - WebAssembly</a>)). Even if one layer is breached, another stops the attacker.</td>
+</tr>
+<tr>
+<td><strong>Linux eBPF exploit</strong> (kernel ext, 2022) (<a href="https://pentera.io/blog/the-good-bad-and-compromisable-aspects-of-linux-ebpf/#:~:text=eBBF%20is%20a%20two,review%20how%20it%20is%20done">Understanding the Security Aspects of Linux eBPF - Pentera</a>)</td>
+<td>Bug in verifier of allowed extension code (insufficient control)</td>
+<td>Local priv. escalation – unprivileged user executes code in kernel</td>
+<td><em>Rigorous verification &amp; isolation:</em> EIM would supplement kernel verifier with formal proofs or run extension in user-space with limited kernel hooks. Even if extension code has a bug, it can’t directly write to arbitrary kernel memory. EIM could, for example, run eBPF programs in a <strong>user-space sandbox</strong> and only allow safe interactions with kernel, preventing a runaway exploit.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Sources:</strong> The above incidents draw from documented vulnerabilities and reports (<a href="https://learn.microsoft.com/en-us/security-updates/securitybulletins/2003/ms03-042#:~:text=A%20security%20vulnerability%20exists%20in,The%20Microsoft">Microsoft Security Bulletin MS03-042 - Critical | Microsoft Learn</a>) (<a href="https://www.theregister.com/2015/12/29/avg_google_chrome_extension/#:~:text=According%20to%20Ormandy%2C%20the%20extension,hijack%20the%20victim%27s%20webmail%20inbox">Google probes AVG Chrome widget after 9m users exposed by bugs • The Register</a>) (<a href="https://www.darkreading.com/vulnerabilities-threats/dangerous-google-chrome-zero-day-sandbox-escape#:~:text=The%20latest%20update%2C%20to%20version,via%20a%20crafted%20HTML%20page">Dangerous Google Chrome Zero-Day Allows Sandbox Escape</a>) (<a href="https://pentera.io/blog/the-good-bad-and-compromisable-aspects-of-linux-ebpf/#:~:text=eBBF%20is%20a%20two,review%20how%20it%20is%20done">Understanding the Security Aspects of Linux eBPF - Pentera</a>) (<a href="https://citeseerx.ist.psu.edu/document?repid=rep1&amp;type=pdf&amp;doi=b49579dc9924744d7a6a6d945f9431a1ed867848#:~:text=Mozilla%20Firefox%20introduced%20the%20first,Once%20a%20vulnerability%20is"></a>). They illustrate recurring weaknesses when extension models lack strong isolation. EIM’s approach – combining memory safety, strict sandboxing, and least-privilege policies – directly addresses these weaknesses by design.</p>
+<h2 id="2-similar-sandboxing-and-privilege-reduction-approaches-beyond-ebpf-wasm">2. Similar Sandboxing and Privilege-Reduction Approaches (Beyond eBPF &amp; WASM)</h2>
+<p>To better understand EIM in context, we compare it to existing technologies aimed at securely running extension or plug-in code. Two prominent modern examples are <strong>eBPF</strong> (for kernel extensions) and <strong>WebAssembly (WASM)</strong> (for safe web/app modules), which both strive to execute untrusted code safely. EIM shares goals with these but also with a number of other approaches. Below we examine similar models – RLBox, NaCl, ERIM, and more – highlighting their security benefits and performance trade-offs, and comparing them to what EIM promises.</p>
+<h3 id="21-rlbox-fine-grained-in-process-sandboxing">2.1 RLBox – Fine-Grained In-Process Sandboxing</h3>
+<p><strong>RLBox</strong> is a framework (used in Firefox) that isolates third-party libraries by compiling them to WebAssembly and then back to native code, creating an in-process sandbox (<a href="https://blog.mozilla.org/attack-and-defense/2021/12/06/webassembly-and-back-again-fine-grained-sandboxing-in-firefox-95/#:~:text=Isolating%20with%20RLBox">WebAssembly and Back Again: Fine-Grained Sandboxing in Firefox 95 – Attack &amp; Defense</a>) (<a href="https://blog.mozilla.org/attack-and-defense/2021/12/06/webassembly-and-back-again-fine-grained-sandboxing-in-firefox-95/#:~:text=However%2C%20the%20transformation%20places%20two,easy%20with%20a%20tainting%20layer">WebAssembly and Back Again: Fine-Grained Sandboxing in Firefox 95 – Attack &amp; Defense</a>). The sandboxed code cannot jump to arbitrary addresses in the host application or access memory outside its assigned region (<a href="https://blog.mozilla.org/attack-and-defense/2021/12/06/webassembly-and-back-again-fine-grained-sandboxing-in-firefox-95/#:~:text=However%2C%20the%20transformation%20places%20two,easy%20with%20a%20tainting%20layer">WebAssembly and Back Again: Fine-Grained Sandboxing in Firefox 95 – Attack &amp; Defense</a>). This effectively enforces <em>software-based fault isolation (SFI)</em> within the same process. </p>
+<ul>
+<li>
+<p><strong>Security:</strong> By restricting control flow and memory range, RLBox contains any memory corruption within the sandboxed library, preventing it from hijacking the host application. Even if a vulnerability exists in, say, an image decoding library, an attacker can’t use it to execute code in the browser’s context – they’d be trapped in the WebAssembly sandbox. Mozilla noted that a zero-day in an isolated library should pose <em>“no threat to Firefox”</em> – researchers would be rewarded for a sandbox <em>bypass</em> rather than a library exploit (<a href="https://blog.mozilla.org/attack-and-defense/2021/12/06/webassembly-and-back-again-fine-grained-sandboxing-in-firefox-95/#:~:text=Going%20forward%2C%20we%20can%20treat,vulnerability%20in%20the%20isolated%20library">WebAssembly and Back Again: Fine-Grained Sandboxing in Firefox 95 – Attack &amp; Defense</a>). This layered approach (library isolation on top of process sandboxing) greatly hardens security.</p>
+</li>
+<li>
+<p><strong>Performance:</strong> A key advantage of RLBox is <em>low overhead</em>. Because the sandboxed code runs in the same process (just with checks on calls and memory), it avoids expensive context switches into a separate process. The designers report <strong>modest, transient overhead</strong> – only minor page load latency impacts even when sandboxing performance-sensitive libraries like image and video decoders (<a href="https://www.usenix.org/conference/usenixsecurity20/presentation/narayan#:~:text=RLBox%20supports%20efficient%20sandboxing%20through,and%20the%20zlib%20decompression%20library">Retrofitting Fine Grain Isolation in the Firefox Renderer | USENIX</a>) (<a href="https://www.usenix.org/conference/usenixsecurity20/presentation/narayan#:~:text=isolation%20or%20multi,and%20the%20zlib%20decompression%20library">Retrofitting Fine Grain Isolation in the Firefox Renderer | USENIX</a>). Techniques like ahead-of-time WASM compilation and even cross-boundary inlining are used to optimize performance (<a href="https://blog.mozilla.org/attack-and-defense/2021/12/06/webassembly-and-back-again-fine-grained-sandboxing-in-firefox-95/#:~:text=Clang%20to%20compile%20Firefox%2C%20and,existing%20build%20system%20could%20ingest">WebAssembly and Back Again: Fine-Grained Sandboxing in Firefox 95 – Attack &amp; Defense</a>). Thus, RLBox achieves strong isolation with minimal slowdown (on the order of a few percent overhead in Firefox’s real-world usage).</p>
+</li>
+<li>
+<p><strong>Flexibility:</strong> RLBox can be incrementally applied to individual components without a full app rewrite. It integrates via a <em>tainting API</em> in C++ to ensure all data coming out of the sandbox is checked or copied safely (<a href="https://blog.mozilla.org/attack-and-defense/2021/12/06/webassembly-and-back-again-fine-grained-sandboxing-in-firefox-95/#:~:text=stack%20arxiv,easy%20with%20a%20tainting%20layer">WebAssembly and Back Again: Fine-Grained Sandboxing in Firefox 95 – Attack &amp; Defense</a>). However, it’s currently specialized for isolating known subcomponents (not arbitrary user-installed extensions). EIM could be seen as a generalized version of this concept, potentially allowing <strong>any</strong> extension code to be isolated similarly. Where RLBox requires the host developer to decide which library to sandbox, EIM might automatically sandbox all third-party extension code by default.</p>
+</li>
+</ul>
+<p><strong>Comparison to EIM:</strong> EIM and RLBox share the idea of <em>in-process isolation.</em> If EIM uses a WebAssembly or SFI-based sandbox for extensions, it would be analogous to how RLBox sandboxes libraries. Both aim for security with low overhead. The difference is scope: RLBox is a targeted mechanism (Firefox uses it for specific libraries like Graphite, Hunspell, etc.), whereas EIM is envisioned as a <em>universal model for extensions</em>. EIM might generalize RLBox’s approach to any plugin or extension code, providing a framework to confine that code similarly (with control-flow integrity and memory safety checks). In terms of performance and flexibility, EIM would strive for RLBox’s lightweight overhead, but with a system that extension developers can plug into without needing deep browser integration code – effectively making safe extension isolation a built-in feature.</p>
+<h3 id="22-google-native-client-nacl-and-portable-nacl-pnacl">2.2 Google Native Client (NaCl) and Portable NaCl (PNaCl)</h3>
+<p><strong>Native Client (NaCl)</strong> was Google’s pioneering sandbox for running native code (C/C++ compiled) in the browser. It used <em>static analysis and sandboxing</em> to allow modules of x86 or ARM machine code to run at near-native speed, but constrained by a verifier to prevent unsafe operations (<a href="https://en.wikipedia.org/wiki/Google_Native_Client#:~:text=Google%20Native%20Client%20,3">Google Native Client - Wikipedia</a>). NaCl essentially applied <strong>software fault isolation</strong> at the binary level: it validated instruction sequences (e.g., ensuring no jump could exit a sandboxed memory region, no system calls executed directly, etc.), and executed the code in a restricted process. PNaCl later introduced a portable bitcode format (LLVM IR) to allow architecture-independent binaries (<a href="https://en.wikipedia.org/wiki/Google_Native_Client#:~:text=Portable%20Native%20Client%20,this%20issue%20by%20using%20sandboxing">Google Native Client - Wikipedia</a>).</p>
+<ul>
+<li>
+<p><strong>Security:</strong> NaCl’s security model was much stricter than earlier native extension tech like ActiveX. The Wikipedia summary notes that <em>ActiveX had full access to the system</em>, whereas <em>Native Client avoids this issue by using sandboxing</em> (<a href="https://en.wikipedia.org/wiki/Google_Native_Client#:~:text=has%20been%20implemented%20before%20in,this%20issue%20by%20using%20sandboxing">Google Native Client - Wikipedia</a>). The NaCl sandbox had <strong>granular control</strong>: it restricted memory accesses (segmenting memory so the code can’t touch the browser’s memory) and required all system interactions to go through a broker (the Pepper API). This meant even if a NaCl module had a buffer overflow, at worst it could crash or misbehave inside the sandbox; it shouldn’t execute arbitrary OS calls or read/write outside its sandbox memory. NaCl successfully blocked many traditional exploits by design.</p>
+</li>
+<li>
+<p><strong>Performance:</strong> A major goal of NaCl was <em>speed</em> – achieving near-native execution. In practice, NaCl introduced some overhead due to alignment rules and guard instructions, but it was quite efficient (reports indicated within ~5% of native performance for computation-heavy code) (<a href="https://research.google.com/pubs/archive/34913.pdf#:~:text=Native%20Client%20aims%20to%20give,Native%20Client%20uses">[PDF] Native Client: A Sandbox for Portable, Untrusted x86 Native Code</a>). It leveraged the CPU’s hardware features (segmentation on x86, for example) to enforce memory confines cheaply. PNaCl added a translation step but still focused on efficiency. The trade-off was the complexity of the compiler and verification toolchain, not so much runtime speed.</p>
+</li>
+<li>
+<p><strong>Flexibility:</strong> NaCl required extensions to be specifically compiled for it, and developers had to use Chrome’s Pepper APIs for any interaction (like graphics, input, networking). This was a hurdle; it wasn’t just arbitrary native code – it had to be adapted. Ultimately, NaCl fell out of favor as WebAssembly emerged, because WASM provided similar speed and safety but with a more standard Web platform approach. NaCl also was Chrome-specific. </p>
+</li>
+</ul>
+<p><strong>Comparison to EIM:</strong> EIM could be thought of as a successor in spirit to NaCl, but more universal. Where NaCl focused on <em>browser plugins</em>, EIM might apply to any software extension (browser, app, OS module) using modern techniques. EIM would likely not require a custom CPU-specific sandbox like NaCl did, but could leverage WebAssembly or hardware features (like MPK, see below) to isolate code. In terms of <strong>effectiveness</strong>, NaCl proved it’s possible to run native-speed code safely – EIM would aim for the same, using updated technology. For <strong>flexibility</strong>, EIM might prefer WebAssembly as the input (since any language can compile to WASM), rather than native ISA binaries, to avoid the portability issues NaCl had. The performance of EIM could be comparable to NaCl or better if using hardware support; the overhead should be low enough for real-time use (NaCl’s near-native performance is a benchmark to meet). In summary, EIM can be seen as adopting NaCl’s <em>sandboxing rigor</em> (no uncontrolled syscalls or memory access) but with more openness (not tied to Chrome only) and ease of use (leveraging standards and possibly dynamic translation for extensions). </p>
+<h3 id="23-erim-in-process-isolation-with-memory-protection-keys">2.3 ERIM – In-Process Isolation with Memory Protection Keys</h3>
+<p><strong>ERIM</strong> (Secure, Efficient In-process Isolation with Protection Keys) is a research project that isolates components within a single process using Intel’s Memory Protection Keys (MPK) hardware feature (<a href="https://www.usenix.org/conference/usenixsecurity19/presentation/vahldiek-oberwagner#:~:text=In%20this%20paper%2C%20we%20present,at%20high%20domain%20switching%20rates">ERIM: Secure, Efficient In-process Isolation with Protection Keys (MPK) | USENIX</a>). The key idea is to split the address space into domains (e.g., “trusted” and “untrusted” parts) and use CPU-enforced keys to restrict memory access when switching between domains, without going to the kernel for context switch. ERIM also uses a binary inspector to ensure untrusted code can’t circumvent the restrictions (e.g., by issuing an MPK reconfiguration) (<a href="https://www.usenix.org/conference/usenixsecurity19/presentation/vahldiek-oberwagner#:~:text=In%20this%20paper%2C%20we%20present,at%20high%20domain%20switching%20rates">ERIM: Secure, Efficient In-process Isolation with Protection Keys (MPK) | USENIX</a>).</p>
+<ul>
+<li>
+<p><strong>Security:</strong> ERIM provides hardware-backed memory isolation. For example, an extension (untrusted module) could be in one domain and the host in another. When the extension runs, it cannot read or write the host’s memory (the hardware will block it if it tries), and vice versa. This is somewhat similar to SFI, but enforced by the CPU’s memory management unit rather than instruction-level instrumentation. By inspecting the binary, ERIM ensures the untrusted module doesn’t contain forbidden instructions that could disable the protection keys. This means even a memory corruption in the extension can’t break into the host memory – it would hit a wall enforced at hardware speed. It’s a strong safety property, though currently it primarily protects memory (control-flow isolation still relies on not jumping into the middle of host code, which binary inspection also guards).</p>
+</li>
+<li>
+<p><strong>Performance:</strong> ERIM’s big advantage is very low overhead context switching. Switching protection domains is done entirely in userspace by updating a thread-local protection key register, which is extremely fast (much faster than a full process context switch or even a syscall). The authors measured <strong>&lt;1% overhead</strong> for as many as 100,000 domain switches per second (<a href="https://www.usenix.org/conference/usenixsecurity19/presentation/vahldiek-oberwagner#:~:text=In%20this%20paper%2C%20we%20present,at%20high%20domain%20switching%20rates">ERIM: Secure, Efficient In-process Isolation with Protection Keys (MPK) | USENIX</a>) – essentially negligible performance cost for most applications. This makes ERIM attractive for fine-grained isolation (you could call into untrusted code frequently without a big slowdown). Traditional process isolation, by contrast, would choke on 100k context switches/sec. ERIM does have some fixed overhead in memory usage (each domain needs separate memory regions) and requires CPU support (Intel MPK available on relatively recent CPUs).</p>
+</li>
+<li>
+<p><strong>Flexibility:</strong> ERIM doesn’t require special compilers or languages; it works at binary level with some constraints. It can be applied to existing applications with some modifications to designate isolated modules and replace unsafe instructions. However, it’s currently x86-specific (MPK). For extension systems, using ERIM would mean the host application and extension run in one process but different memory domains. That’s feasible for things like plugin architectures or even browser extensions, provided the runtime can manage the domains. One limitation: all code is still in one process space, so OS-level privileges are the same (if the process is compromised in another way, OS still sees it as one process). But the internal isolation is strong.</p>
+</li>
+</ul>
+<p><strong>Comparison to EIM:</strong> If EIM is implemented at a low level, it could leverage technologies like ERIM. For instance, EIM could say: “When an extension is loaded, it will be placed in an MPK-isolated domain separate from the host.” This would give EIM hardware-enforced safety with minimal overhead – aligning with the goal of not sacrificing performance for security. Effectiveness-wise, ERIM’s approach means even high-frequency interactions between extension and host are safe and fast. EIM can combine this with other measures: memory keys protect memory, but EIM might also impose system call filters or permission checks (ERIM doesn’t inherently limit syscalls from the isolated code – that would need seccomp or other measures in tandem). So EIM could use ERIM for memory isolation and an API call monitor for controlling what the extension can do (thus covering both memory safety and privilege limitation). In terms of flexibility, ERIM shows it’s possible to isolate components without rewriting them in a new language – an extension in native code could be isolated if the platform enforces it with MPK. EIM might abstract that complexity away so extension developers don’t need to know about MPK – it just happens under the hood. The overhead of EIM in such a case would be similar to ERIM’s (&lt;1%), making it extremely appealing: <em>strong isolation with essentially no user-visible performance impact</em> (<a href="https://www.usenix.org/conference/usenixsecurity19/presentation/vahldiek-oberwagner#:~:text=In%20this%20paper%2C%20we%20present,at%20high%20domain%20switching%20rates">ERIM: Secure, Efficient In-process Isolation with Protection Keys (MPK) | USENIX</a>). The main trade-off is the requirement of specific hardware features (on CPUs that support it). EIM might need to fall back to software isolation on other platforms (like using SFI/WASM on ARM where MPK is not available). </p>
+<h3 id="24-other-sandbox-and-privilege-reduction-techniques">2.4 Other Sandbox and Privilege-Reduction Techniques</h3>
+<p>Beyond the three highlighted, there are other notable approaches that aim to securely run untrusted extensions or reduce their privileges:</p>
+<ul>
+<li>
+<p><strong>Language-Based Isolation:</strong> Some systems choose a safe language for extensions. For example, browser extensions in Chrome/Firefox are written in JavaScript/TypeScript (memory-safe languages) rather than C++, which inherently avoids buffer overflow issues. Similarly, sandboxing via <em>type safety</em> is used in systems like the JVM or .NET CLR for plugins. The upside is safety is ensured by the language runtime (no arbitrary pointer manipulation); the downside is that logic errors or abuses of provided APIs can still cause harm. EIM could incorporate this by <em>requiring extensions to be written in or compiled to a memory-safe language (like WASM, which is designed to be memory-safe and sandboxed)</em>. Memory-safe languages alone don’t enforce least privilege, so additional measures are needed for full security.</p>
+</li>
+<li>
+<p><strong>Process Sandboxing and OS Isolation:</strong> Chrome’s multi-process architecture is a prime example – each web site and extension can run in a separate OS process under a restrictive sandbox (using job objects on Windows, seccomp-bpf on Linux, etc.). This greatly limits the damage if one component is compromised. The cost is higher memory usage and some performance overhead in cross-process communication. Another example is <strong>hardware virtualization or containers</strong>: An extreme but secure route is to run extensions in lightweight VMs or containers (like how some IDEs run plugins in separate containerized processes). This provides strong isolation (almost like a separate machine for the extension), but can be heavyweight. EIM would seek a middle ground: achieve <em>process-like</em> isolation strength at much lower cost (similar to how RLBox/ERIM do within one process). However, EIM can still leverage OS features – for instance, using separate processes for extensions where appropriate, combined with OS sandboxing (Seccomp, discussed later) to confine them. The model should be flexible: if an extension is large or untrusted, the system might decide to fork it out as a process under strict controls; if it’s small, maybe an in-process sandbox suffices. EIM’s framework could orchestrate this decision transparently.</p>
+</li>
+<li>
+<p><strong>Software Fault Isolation (SFI):</strong> This is a classic technique underlying several of the above (NaCl, RLBox). Pure SFI (as in the research by Wahbe et al.) inserts checks around memory accesses and jumps in the untrusted code to ensure it stays in its sandbox. Modern incarnations like <strong>WebAssembly</strong> implement SFI at the bytecode level (with structured control flow and explicit bounds checks) (<a href="https://webassembly.org/docs/security/#:~:text=Modules%20must%20declare%20all%20accessible,from%20control%20flow%20hijacking%20attacks">Security - WebAssembly</a>) (<a href="https://webassembly.org/docs/security/#:~:text=,destinations%20within%20the%20enclosing%20function">Security - WebAssembly</a>). Another system, <strong>XFI</strong> (eXtensible Firmware Interface’s policy or eXecutable-only memory enforcement), was a research prototype that added inline reference monitors for security-critical operations. The <em>trade-off</em> for SFI is typically some performance cost (due to added checks) but no need for special hardware. For example, WebAssembly adds bounds-checking on every memory access (unless mitigated by techniques like hardware memory tagging in the future). This can be a few percent overhead in execution speed, but generally acceptable for the safety gained. EIM could use SFI (via WebAssembly or a similar bytecode) as a universal approach since it’s hardware-agnostic. The <em>overhead</em> is usually lower than heavy virtualization but higher than hardware MPK (since MPK has near-zero overhead). Combining SFI with JIT/AOT optimization and other tricks (as Firefox does with wasm2c in RLBox (<a href="https://blog.mozilla.org/attack-and-defense/2021/12/06/webassembly-and-back-again-fine-grained-sandboxing-in-firefox-95/#:~:text=Clang%20to%20compile%20Firefox%2C%20and,existing%20build%20system%20could%20ingest">WebAssembly and Back Again: Fine-Grained Sandboxing in Firefox 95 – Attack &amp; Defense</a>)) can reduce the performance hit significantly. </p>
+</li>
+<li>
+<p><strong>Native OS Sandboxing APIs:</strong> There are also OS-level frameworks like <strong>Windows AppContainer</strong> or <strong>Android’s isolated processes</strong> for apps, which could be analogized to extensions. For instance, a browser extension in Edge could run as a UWP AppContainer with a capability list. These limit accessible resources but are not commonly used for browser add-ons yet. EIM could potentially leverage such OS features when available (running each extension as a locked-down OS-level app). However, doing so for each small extension might be too heavy, which is why EIM would likely combine processes for coarse isolation and in-process sandboxing for fine-grained safety.</p>
+</li>
+</ul>
+<p><strong>Summary of Trade-offs:</strong> All these approaches attempt to balance <strong>security vs. performance vs. flexibility</strong>:</p>
+<ul>
+<li>Approaches like separate processes or VMs give strong security (clear isolation boundaries) but with higher overhead (context switching, memory) and complexity (communication between host and extension).</li>
+<li>Approaches like in-process SFI or MPK (RLBox, ERIM) give fine-grained security with low overhead, but require careful design to ensure completeness of isolation (need to prevent any “backdoors” like stray function pointers or CPU instructions that break out).</li>
+<li>Language-based safety removes whole classes of bugs (like buffer overruns) but doesn’t inherently sandbox the code’s behavior (it could still call unsafe host APIs if allowed). </li>
+</ul>
+<p><strong>EIM’s Position:</strong> The Extension Isolation Mechanism would likely combine these techniques to get the best of each. It might use <em>language-based SFI (WASM)</em> as a baseline so extensions can’t mismanage memory, use <em>OS sandboxing</em> as a guardrail (each extension might be in a process or at least subject to OS syscall filters), and possibly exploit <em>hardware features like MPK</em> when available to reduce overhead. In terms of effectiveness, EIM aims to <strong>match or exceed</strong> the security of these models – meaning an extension under EIM should be at least as contained as under NaCl or RLBox. In terms of flexibility, EIM should allow a wide range of extension logic (not just specific libraries or code compiled in special ways) – more like how WebAssembly can accept many languages. And regarding overhead, EIM aspires to be lightweight enough that users don’t notice a performance difference, comparable to RLBox’s and ERIM’s sub-5% overhead or NaCl’s near-native speed (<a href="https://www.usenix.org/conference/usenixsecurity20/presentation/narayan#:~:text=RLBox%20supports%20efficient%20sandboxing%20through,and%20the%20zlib%20decompression%20library">Retrofitting Fine Grain Isolation in the Firefox Renderer | USENIX</a>) (<a href="https://www.usenix.org/conference/usenixsecurity19/presentation/vahldiek-oberwagner#:~:text=In%20this%20paper%2C%20we%20present,at%20high%20domain%20switching%20rates">ERIM: Secure, Efficient In-process Isolation with Protection Keys (MPK) | USENIX</a>).</p>
+<h2 id="3-prior-art-and-literature-on-extension-security-models">3. Prior Art and Literature on Extension Security Models</h2>
+<p>Securing extension systems has been a focus of both academic research and industry engineering for over a decade. Here we review some key prior art – including <em>browser extension least-privilege frameworks and OS-level security models</em> – and compare them to EIM. The goal is to see how EIM aligns with the principle of <strong>least privilege</strong>, and how it addresses gaps not fully solved by earlier models. We also provide references from papers and reports to contextualize EIM among existing security frameworks.</p>
+<h3 id="31-least-privilege-in-browser-extensions-chrome-manifest-v3-firefox-webextensions">3.1 Least Privilege in Browser Extensions (Chrome Manifest v3, Firefox WebExtensions)</h3>
+<p>Browser vendors have learned the hard way that extensions must be restricted. Early Firefox extensions were essentially <em>unrestricted chrome code</em> running in the browser process (<a href="https://citeseerx.ist.psu.edu/document?repid=rep1&amp;type=pdf&amp;doi=b49579dc9924744d7a6a6d945f9431a1ed867848#:~:text=Mozilla%20Firefox%20introduced%20the%20first,Once%20a%20vulnerability%20is"></a>), which, as discussed, led to multiple security issues. The principle of <strong>least privilege</strong> says an extension should only have the permissions absolutely necessary for its function – nothing more – so that even if it is malicious or exploited, the damage is limited.</p>
+<ul>
+<li>
+<p><strong>Firefox’s evolution:</strong> Research by Adrienne Porter Felt in 2010 showed that 88% of studied Firefox add-ons didn’t need the powerful privileges they were given (<a href="https://citeseerx.ist.psu.edu/document?repid=rep1&amp;type=pdf&amp;doi=b49579dc9924744d7a6a6d945f9431a1ed867848#:~:text=Firefox%20extensions,extension%20system%2C%20which%20supports%20restrictions"></a>). Many add-ons could work with far fewer rights if the system allowed it. This study directly influenced extension reform. Firefox eventually moved to the <strong>WebExtensions</strong> model (around 2017), aligning with Chrome’s model. Under WebExtensions, Firefox extensions are written in JS and have a defined set of APIs and permission prompts, rather than unlimited XPCOM access. This significantly improved the security posture by removing the old XUL add-ons’ capability to, say, delete arbitrary files or launch processes unless explicitly allowed by a specific API.</p>
+</li>
+<li>
+<p><strong>Chrome’s extension model:</strong> From its inception, Chrome designed extensions with a permission system and sandboxing. Each extension runs in a separate process (or several processes for background and content scripts) with restricted privileges. Extensions must declare in their manifest which host permissions (which websites) and which special APIs (e.g. tabs, storage, etc.) they need. The user has to approve these at install time. Chrome’s <strong>Manifest V3</strong>, introduced recently, tightens this further. It <em>forbids remotely hosted code</em> and disallows <code>eval()</code> or new script generation by extensions (<a href="https://developer.chrome.com/docs/extensions/develop/migrate/improve-security#:~:text=Remove%20execution%20of%20arbitrary%20strings">Improve extension security  |  Chrome Extensions  |  Chrome for Developers</a>) (<a href="https://developer.chrome.com/docs/extensions/develop/migrate/improve-security#:~:text=Remove%20remotely%20hosted%20code">Improve extension security  |  Chrome Extensions  |  Chrome for Developers</a>). All extension code must be included in the extension package and go through Chrome’s review (for store extensions). This prevents a huge class of attacks where an extension might fetch and execute unknown code at runtime. Manifest V3 also enforces more granular host permissions: an extension can prompt the user at runtime for access to a site, rather than grabbing blanket access to “<all_urls>”. Chrome explicitly encourages developers to <strong>request minimal permissions</strong> in the manifest (<a href="https://developer.chrome.com/docs/extensions/develop/security-privacy/stay-secure#:~:text=Request%20minimal%20permissions">Stay secure  |  Chrome Extensions  |  Chrome for Developers</a>), noting that limiting privileges also limits what an attacker can do if the extension is compromised (<a href="https://developer.chrome.com/docs/extensions/develop/security-privacy/stay-secure#:~:text=The%20Chrome%20browser%20limits%20an,and%20websites%20they%20depend%20on">Stay secure  |  Chrome Extensions  |  Chrome for Developers</a>) (<a href="https://developer.chrome.com/docs/extensions/develop/security-privacy/stay-secure#:~:text=This%20extension%20in%20the%20sample,https%3A%2F%2Fmalicious_website.com">Stay secure  |  Chrome Extensions  |  Chrome for Developers</a>). </p>
+</li>
+<li>
+<p><strong>Examples of least privilege:</strong> In practice, if an extension only needs to manipulate data on <em>example.com</em>, it should not ask for access to every site. Chrome’s model makes this possible (fine-grained host permissions). Firefox’s WebExtensions follow a similar approach; the same extension manifest can specify permissions and will be honored by Firefox. Additionally, both browsers now mandate that extensions be distributed with a digital signature (for integrity) and can be automatically disabled if malware is detected in them via updates. While signature is not “least privilege” per se, it complements the security model by ensuring only reviewed code runs.</p>
+</li>
+</ul>
+<p><strong>How EIM Compares:</strong> EIM would incorporate these least-privilege principles at its core. In fact, one can think of EIM as <em>an generalized least-privilege framework not just for browser extensions, but for extensions in any software.</em> The way Chrome Manifest v3 limits capabilities of extensions is very much in spirit of EIM. EIM would likely provide a <em>declarative manifest of capabilities</em> for any extension: for example, a Photoshop plugin under EIM might declare it needs “open/save image file access” and nothing else – EIM would then enforce that (the plugin couldn’t suddenly access the network or registry). This is analogous to how Capsicum works at the OS level (more on Capsicum below) but applied at the application extension level.</p>
+<p>Where current browser models focus mostly on permissions to Web APIs and sites, EIM could broaden the concept: it might include <strong>resource sandboxing</strong> (files, network, devices) for all extensions. Also, EIM would integrate with the sandboxing of extension code execution. Chrome and Firefox mainly ensure least privilege by controlling API access but rely on the browser’s existing sandbox to isolate extension processes. EIM would unify these – an extension under EIM gets both <em>a confined execution environment</em> (like a sandboxed process or SFI module) <strong>and</strong> <em>a restricted set of privileges</em>. The combination means even if the extension tries to step out of line, it’s constrained on multiple levels.</p>
+<p>In summary, EIM extends the browser least-privilege concept to a universal model: <strong>each extension declares capabilities, which EIM strictly enforces</strong>, and any action outside those capabilities is blocked (or requires user consent). This addresses a gap in many current systems where enforcement might be ad-hoc or not available for all extension types. EIM’s systematic approach ensures <em>no extension is trusted by default</em> – everything is deny-by-default, allow-by-policy, which is the essence of least privilege.</p>
+<h3 id="32-os-level-security-models-capsicum-seccomp-and-others">3.2 OS-Level Security Models: Capsicum, Seccomp, and Others</h3>
+<p>The operating system provides mechanisms to confine applications, which can be repurposed to confine extensions running within applications. Two notable models are <strong>Capsicum</strong> (capability-based security in FreeBSD) and <strong>seccomp</strong> (secure computing mode in Linux). They represent the state-of-the-art in sandboxing at the OS level, and EIM’s design can learn from them or even utilize them.</p>
+<ul>
+<li>
+<p><strong>Capsicum (FreeBSD Capabilities):</strong> Capsicum is a lightweight OS capability and sandbox framework that brings fine-grained <em>capabilities</em> to Unix (<a href="https://cacm.acm.org/research/a-taste-of-capsicum/#:~:text=Capsicum%20is%20an%20API%20that,0">A Taste of Capsicum – Communications of the ACM</a>). In Capsicum, a process can enter a <em>capability mode</em> where it can no longer access global namespaces (like opening any arbitrary file by path). Instead, it can only operate on already-opened file descriptors (which are like capabilities, with specific rights). For example, a Capsicumized application might open a needed file or socket, then drop into capability mode, and from then on it cannot open any new files that weren’t pre-opened – if it tries, the OS will deny it. This implements the least privilege principle: the app has exactly the set of resources it needs and nothing more (<a href="https://people.freebsd.org/~pgj/bsdday2012/materials/02_Capsicum.pdf#:~:text=,for%20their%20normal%20operation">[PDF] The Capsicum Security Framework: Sandboxing Done the Right Way</a>). Capsicum was used to compartmentalize parts of Chromium and some Unix utilities to prove its viability (<a href="https://cacm.acm.org/research/a-taste-of-capsicum/#:~:text=Capsicum%20is%20a%20lightweight%20operating,Capsicum%20with%20other%20sandboxing%20techniques">A Taste of Capsicum – Communications of the ACM</a>). It basically requires some modification to applications, but it provides a strong partition: even if an attacker takes control of a Capsicum-contained process, they <em>cannot</em> directly open new files or network connections to escalate further; they’re trapped with the file descriptors they have.</p>
+</li>
+<li>
+<p><strong>seccomp (Linux Seccomp-bpf):</strong> Seccomp started as a way to reduce Linux kernel attack surface by restricting syscalls. In its strict mode, a process could be limited to only <code>read</code>, <code>write</code>, <code>_exit</code>, and <code>sigreturn</code> syscalls – effectively nothing but basic I/O (<a href="https://lwn.net/Articles/332974/#:~:text=Seccomp%20solves%20this%20problem%20by,appropriately%2C%20this%20process%20would%20call">Seccomp and sandboxing [LWN.net]</a>). Later, seccomp was extended with a configurable filter (seccomp-bpf) so you can choose exactly which syscalls (and even which arguments) to allow or deny. Chrome uses seccomp-bpf on Linux to sandbox its renderer and extension processes, disallowing risky syscalls (like those that open files, create sockets, etc., which renderer code should never need) (<a href="https://lwn.net/Articles/332974/#:~:text=one%20assumes%20that%2C%20by%20now%2C,sandbox%20is%20described%20this%20way">Seccomp and sandboxing [LWN.net]</a>). The idea is similar to Capsicum: <em>drop anything not needed</em>. A process running under seccomp with a tight filter is in a <strong>strict sandbox</strong> – even if compromised, when it tries to make a forbidden syscall (for example, attempt to execve a new process or open <code>/etc/passwd</code>), the kernel will kill the process or deny the call. Seccomp is very low-overhead (it’s just a check in the syscall path) and flexible, but it needs to be configured per application. It’s typically combined with other controls (filesystem sandboxing via chroot or namespaces, etc., since seccomp itself doesn’t manage file descriptors).</p>
+</li>
+<li>
+<p><strong>Other OS models:</strong> Linux capabilities (not to be confused with Capsicum’s use of the term) allow partitioning root privileges (e.g., a process can be given the capability to bind low-numbered ports but no other root power). OpenBSD’s <code>pledge()</code> and <code>unveil()</code> calls allow processes to drop rights and limit file system access paths respectively, similar in spirit to Capsicum but simpler to use. These all enforce least privilege at the OS level. For instance, <code>unveil()</code> can restrict which file paths a process can access; after calling unveil, any attempt to open a file not unveiled is blocked by the OS – very useful for plugins or extensions that should only ever touch certain directories.</p>
+</li>
+</ul>
+<p><strong>Integration with EIM:</strong> EIM can be thought of as bringing these OS-level sandboxing ideas into the realm of application extensions seamlessly. EIM could orchestrate OS-level protections on behalf of extensions. For example, when an extension is loaded, EIM (through the host application) could <em>invoke seccomp or Capsicum automatically</em> to lock down what that extension’s code can do. Suppose we have a database application that allows extension modules: using EIM, when it loads an extension, it might create a sandboxed subprocess for it, apply a seccomp filter that disallows any networking or file access (since a DB extension might only need some in-memory computation and perhaps use a provided API to fetch data, but not open files on its own). This way, even if the extension tries, it cannot issue a dangerous syscall. Similarly, EIM could use something like Capsicum’s approach: pre-open specific resources for the extension (if needed) and then drop the rest. </p>
+<p>One can see EIM as an orchestrator that combines <em>in-app isolation (like RLBox)</em> with <em>OS isolation (like seccomp/Capsicum)</em> for a belt-and-suspenders approach. The current browser extension systems partly do this (Chrome’s extension processes are in an OS sandbox). But EIM would generalize it. It ensures that not only browsers but any host software uses OS security features to sandbox extensions.</p>
+<p><strong>Effectiveness:</strong> These OS models have proven effective at mitigating exploits. For instance, even if an attacker finds a bug in Chrome’s rendering engine, Chrome’s seccomp sandbox might prevent them from doing a privileged operation to fully compromise the system (<a href="https://lwn.net/Articles/332974/#:~:text=Seccomp%20solves%20this%20problem%20by,appropriately%2C%20this%20process%20would%20call">Seccomp and sandboxing [LWN.net]</a>) (<a href="https://lwn.net/Articles/332974/#:~:text=Sandbox%20leverages%20the%20OS,finished%20implementation%20is%20for%20Windows">Seccomp and sandboxing [LWN.net]</a>). Capsicum has shown that applications can be compartmentalized with minimal performance impact and big security wins (if one compartment is compromised, it can’t affect others it has no capability for). EIM using these means extensions would be as secure as separate processes at the OS level when needed. </p>
+<p><strong>Flexibility and Overhead:</strong> The overhead of using Capsicum or seccomp is very low (mainly some system call checking). The challenge is in making it transparent and easy – which is what EIM would handle. The extension developer wouldn’t need to manually write seccomp filters; EIM knows, based on the extension’s declared needs, what to allow. For example, if an extension doesn’t need to write files, EIM’s policy could automatically disallow all file-system write syscalls for that extension’s process. This is analogous to Android’s manifest permissions translating into Linux DAC rules for the app. The key point: EIM would leverage such <em>principle-of-least-privilege enforcement at multiple layers</em>, something prior art pieces each do individually but EIM combines.</p>
+<h3 id="33-eims-approach-to-current-gaps">3.3 EIM’s Approach to Current Gaps</h3>
+<p>Considering all the above, where does EIM fill gaps in extension security?</p>
+<ul>
+<li>
+<p><strong>Unified Framework:</strong> Many of the approaches (browser manifest, seccomp, RLBox, etc.) address parts of the puzzle. EIM aims to provide a <em>holistic framework</em> that covers memory safety, runtime isolation, and permission control together. Current systems often implement one or two of these, but not all. For example, Chrome’s extensions have sandboxed processes (isolation) and a permission system (least privilege), but the code in the extension is still just JavaScript running in V8 – if V8 had a bug, an extension might still do something unintended (though the OS sandbox would limit it). EIM would additionally ensure the extension code itself is in a safe sandbox representation, so even a JS engine bug has another line of defense.</p>
+</li>
+<li>
+<p><strong>Generalization beyond Browsers:</strong> Much literature focuses on browsers (because they were a major source of extension security issues). EIM generalizes lessons from browsers to <em>any software that supports extensions</em>. For instance, a text editor, a game, or an IoT platform could all allow third-party modules, and EIM would provide a standard way to sandbox them. In industry, we see ad-hoc solutions: e.g., Adobe Reader now sandboxes its PDF plugins, or Microsoft Office has started running add-ins in separate processes with web tech. EIM could provide a consistent, proven approach applicable across domains, informed by the prior art we discussed.</p>
+</li>
+<li>
+<p><strong>Layered Least Privilege:</strong> EIM doesn’t just rely on one mechanism. It would implement least privilege in multiple dimensions: </p>
+</li>
+<li><em>Computational:</em> The extension code can’t exceed certain CPU or memory bounds (prevent DoS).</li>
+<li><em>Memory safety:</em> The extension can’t corrupt the host (via SFI or language safety).</li>
+<li><em>System interactions:</em> The extension can only use allowed host APIs (like browser extension APIs or app-specific services) – no arbitrary syscalls or resource access (enforced via OS sandboxing like seccomp).</li>
+<li><em>Data access:</em> The extension can only see data it’s meant to (e.g., in a web context, respect same-origin policies; in a file context, only certain directories – achieved via capabilities/unveil, etc.).</li>
+<li>
+<p><em>Privilege separation:</em> If an extension needs elevated privileges for some reason, EIM could isolate that portion in a separate component (similar to how Chrome split PDF plugin into a higher-privilege process with very limited rights otherwise). In general, EIM would encourage a design where extensions run with <em>user-level privileges and often even less</em> (no direct hardware access, etc.).</p>
+</li>
+<li>
+<p><strong>Closing Specific Gaps:</strong> </p>
+</li>
+<li><em>Supply Chain &amp; Integrity:</em> One gap not yet mentioned: ensuring extension code isn’t tampered with. EIM can incorporate a signing verification (like browsers do) so only authentic code runs. This doesn’t solve runtime issues, but prevents unauthorized code injection into the extension (which is why Manifest V3 banned remote code (<a href="https://developer.chrome.com/docs/extensions/develop/migrate/improve-security#:~:text=Remove%20remotely%20hosted%20code">Improve extension security  |  Chrome Extensions  |  Chrome for Developers</a>)). </li>
+<li>
+<p><em>API Misuse:</em> Many extension failures (like the AVG case) are not low-level exploits but logic mistakes or overly powerful APIs. EIM addresses this by <em>mediating extension-host interactions.</em> For example, if an extension wants to elevate privileges or perform an action, EIM could prompt the user or simply disallow it if not in the manifest. In essence, EIM acts as a <strong>policy enforcement layer</strong> at runtime, not just a static permission agreement. This dynamic aspect is something literature like “confinement of extensions” (e.g., Brewer and Nash’s Chinese Wall, or more relevantly, browser extension isolation research) suggests: monitor what extensions do, and restrict dangerous behaviors.</p>
+</li>
+<li>
+<p><strong>Performance &amp; Usability:</strong> A gap in some academic solutions is they’re too heavy or too hard to integrate (NaCl required special compile, Capsicum requires refactoring code, etc.). EIM’s contribution could be packaging these techniques in a developer-friendly way. For instance, EIM might provide an SDK or container that developers plug into their apps to get extension safety out-of-the-box, without being security experts. The end-users or sysadmins could also get a unified interface to manage extension permissions (like how browsers show extension permission prompts – EIM could offer a similar UI for any extensible app). By basing EIM on known efficient mechanisms (like WASM, seccomp, MPK), it ensures <em>overhead remains low</em> – critical for adoption. </p>
+</li>
+</ul>
+<p><strong>Insight:</strong> In conclusion, EIM can be viewed as the culmination of principles from prior extension security work: it employs <strong>least privilege</strong> (inspired by Capsicum, Chrome, Firefox), <strong>sandboxing</strong> (inspired by seccomp, NaCl, RLBox), and <strong>memory safety</strong> (inspired by language-based methods, WASM). The novelty of EIM is in how it <em>integrates all these into one coherent model</em>. It addresses current gaps by not leaving any single aspect of extension execution to chance. If a vulnerability slips through one layer (say, a zero-day in the sandbox engine), another layer (OS policy or hardware isolation) still protects the system – this layered defense is key to EIM. </p>
+<p>By drawing on the rich literature and existing technologies, EIM doesn’t reinvent the wheel but rather <strong>combines wheels into a reliable vehicle</strong> for secure extensibility. The case studies underscored the need for such defense-in-depth. Similar approaches showed how to do it with acceptable cost. And prior art in least privilege established the policies that must guide it. EIM stands on these foundations to provide a safer future for extension ecosystems, where users can enjoy added functionality without sacrificing security.</p>
+<p><strong>References:</strong></p>
+<ul>
+<li>Microsoft Security Bulletin MS03-042 – Buffer Overflow in Troubleshooter ActiveX (2003) (<a href="https://learn.microsoft.com/en-us/security-updates/securitybulletins/2003/ms03-042#:~:text=A%20security%20vulnerability%20exists%20in,The%20Microsoft">Microsoft Security Bulletin MS03-042 - Critical | Microsoft Learn</a>)  </li>
+<li>Tavis Ormandy, <em>AVG Chrome Extension vulnerabilities</em> (2015) (<a href="https://www.theregister.com/2015/12/29/avg_google_chrome_extension/#:~:text=According%20to%20Ormandy%2C%20the%20extension,hijack%20the%20victim%27s%20webmail%20inbox">Google probes AVG Chrome widget after 9m users exposed by bugs • The Register</a>)  </li>
+<li>DarkReading, <em>Chrome Zero-Day Sandbox Escape (CVE-2024-4761)</em> (<a href="https://www.darkreading.com/vulnerabilities-threats/dangerous-google-chrome-zero-day-sandbox-escape#:~:text=The%20latest%20update%2C%20to%20version,via%20a%20crafted%20HTML%20page">Dangerous Google Chrome Zero-Day Allows Sandbox Escape</a>)  </li>
+<li>Pentera Blog, <em>eBPF vulnerability leads to kernel compromise</em> (<a href="https://pentera.io/blog/the-good-bad-and-compromisable-aspects-of-linux-ebpf/#:~:text=eBBF%20is%20a%20two,review%20how%20it%20is%20done">Understanding the Security Aspects of Linux eBPF - Pentera</a>)  </li>
+<li>Adrienne Porter Felt, <em>“Least Privilege for Browser Extensions”</em> (2010) (<a href="https://citeseerx.ist.psu.edu/document?repid=rep1&amp;type=pdf&amp;doi=b49579dc9924744d7a6a6d945f9431a1ed867848#:~:text=Mozilla%20Firefox%20introduced%20the%20first,Once%20a%20vulnerability%20is"></a>) (<a href="https://citeseerx.ist.psu.edu/document?repid=rep1&amp;type=pdf&amp;doi=b49579dc9924744d7a6a6d945f9431a1ed867848#:~:text=Firefox%20extensions,extension%20system%2C%20which%20supports%20restrictions"></a>)  </li>
+<li>Chrome Developer Docs – Manifest V3 Security Changes (<a href="https://developer.chrome.com/docs/extensions/develop/migrate/improve-security#:~:text=Remove%20execution%20of%20arbitrary%20strings">Improve extension security  |  Chrome Extensions  |  Chrome for Developers</a>) (<a href="https://developer.chrome.com/docs/extensions/develop/migrate/improve-security#:~:text=Remove%20remotely%20hosted%20code">Improve extension security  |  Chrome Extensions  |  Chrome for Developers</a>) and <em>“Stay Secure”</em> guidelines (<a href="https://developer.chrome.com/docs/extensions/develop/security-privacy/stay-secure#:~:text=Request%20minimal%20permissions">Stay secure  |  Chrome Extensions  |  Chrome for Developers</a>) (<a href="https://developer.chrome.com/docs/extensions/develop/security-privacy/stay-secure#:~:text=This%20extension%20in%20the%20sample,https%3A%2F%2Fmalicious_website.com">Stay secure  |  Chrome Extensions  |  Chrome for Developers</a>)  </li>
+<li>Mozilla Attack &amp; Defense blog – <em>RLBox in Firefox 95</em> (<a href="https://blog.mozilla.org/attack-and-defense/2021/12/06/webassembly-and-back-again-fine-grained-sandboxing-in-firefox-95/#:~:text=However%2C%20the%20transformation%20places%20two,easy%20with%20a%20tainting%20layer">WebAssembly and Back Again: Fine-Grained Sandboxing in Firefox 95 – Attack &amp; Defense</a>)  </li>
+<li>USENIX Security ’20 – <em>Narayan et al., RLBox paper</em> (<a href="https://www.usenix.org/conference/usenixsecurity20/presentation/narayan#:~:text=RLBox%20supports%20efficient%20sandboxing%20through,and%20the%20zlib%20decompression%20library">Retrofitting Fine Grain Isolation in the Firefox Renderer | USENIX</a>)  </li>
+<li>USENIX Security ’19 – <em>Vahldiek-Oberwagner et al., ERIM paper</em> (<a href="https://www.usenix.org/conference/usenixsecurity19/presentation/vahldiek-oberwagner#:~:text=In%20this%20paper%2C%20we%20present,at%20high%20domain%20switching%20rates">ERIM: Secure, Efficient In-process Isolation with Protection Keys (MPK) | USENIX</a>)  </li>
+<li>LWN.net – <em>Seccomp and Sandboxing</em> (2009) (<a href="https://lwn.net/Articles/332974/#:~:text=Seccomp%20solves%20this%20problem%20by,appropriately%2C%20this%20process%20would%20call">Seccomp and sandboxing [LWN.net]</a>)  </li>
+<li>CACM – <em>Capsicum: Practical Capabilities for UNIX</em> (<a href="https://cacm.acm.org/research/a-taste-of-capsicum/#:~:text=Capsicum%20is%20an%20API%20that,0">A Taste of Capsicum – Communications of the ACM</a>)  </li>
+<li>WebAssembly Security Documentation (<a href="https://webassembly.org/docs/security/#:~:text=Each%20WebAssembly%20module%20executes%20within,This%20implies">Security - WebAssembly</a>) (<a href="https://webassembly.org/docs/security/#:~:text=Modules%20must%20declare%20all%20accessible,from%20control%20flow%20hijacking%20attacks">Security - WebAssembly</a>).</li>
+</ul>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=Extension%20Systems%20compare%20with%20EIM%0A&amp;url=https://eunomia.dev/en/bpftime/EIM/compare/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/en/bpftime/EIM/compare/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 18, 2025</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 18, 2025</span>
+  </span>
+
+    
+    
+      
+  
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Contributors">
+      
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+      
+    </span>
+    <nav>
+      
+        <a href="mailto:1067852565@qq.com">云微</a>
+    </nav>
+  </span>
+
+    
+    
+  </aside>
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        Was this page helpful?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m7 0c0 .8-.7 1.5-1.5 1.5S14 10.3 14 9.5 14.7 8 15.5 8s1.5.7 1.5 1.5m-5 7.73c-1.75 0-3.29-.73-4.19-1.81L9.23 14c.45.72 1.52 1.23 2.77 1.23s2.32-.51 2.77-1.23l1.42 1.42c-.9 1.08-2.44 1.81-4.19 1.81"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10m-6.5-4c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5-1.5-.7-1.5-1.5.7-1.5 1.5-1.5M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m2 4.5c1.75 0 3.29.72 4.19 1.81l-1.42 1.42C14.32 16.5 13.25 16 12 16s-2.32.5-2.77 1.23l-1.42-1.42C8.71 14.72 10.25 14 12 14"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              Thanks for your feedback!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              Thanks for your feedback! Help us improve this page by using our <a href="https://github.com/orgs/eunomia-bpf/discussions" target="_blank" rel="noopener">Github discussion</a>.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="eunomia-bpf/bpf-developer-tutorial"
+        data-repo-id="R_kgDOIi0KhQ"
+        data-category="General"
+        data-category-id="DIC_kwDOIi0Khc4CYq-h"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: EIM: Extension Interface Model">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                EIM: Extension Interface Model
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../example/" class="md-footer__link md-footer__link--next" aria-label="Next: EIM: Example code">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                EIM: Example code
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright (c) 2024 eunomia-bpf org.
+    </div>
+  
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/eunomia-bpf" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:yunwei356@gmail.com" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M498.1 5.6c10.1 7 15.4 19.1 13.5 31.2l-64 416c-1.5 9.7-7.4 18.2-16 23s-18.9 5.4-28 1.6L284 427.7l-68.5 74.1c-8.9 9.7-22.9 12.9-35.2 8.1S160 493.2 160 480v-83.6c0-4 1.5-7.8 4.2-10.8l167.6-182.8c5.8-6.3 5.6-16-.4-22s-15.7-6.4-22-.7L106 360.8l-88.3-44.2C7.1 311.3.3 300.7 0 288.9s5.9-22.8 16.1-28.7l448-256c10.7-6.1 23.9-5.5 34 1.4"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["search.suggest", "search.highlight", "search.share", "navigation.footer", "navigation.instant", "navigation.instant.progress", "navigation.tabs", "navigation.expand", "navigation.path", "navigation.top", "content.tabs.link", "content.action.edit", "content.action.view"], "search": "../../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+<script src="https://cdn.usefathom.com/script.js" data-site="ZLDAHRNN" defer></script>
+
+      <script src="../../../../assets/javascripts/bundle.f1b6f286.min.js"></script>
+      
+    
+
+  </body>
+</html>
