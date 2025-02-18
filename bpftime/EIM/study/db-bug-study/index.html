@@ -1,0 +1,5442 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Unlock the potential of eBPF">
+      
+      
+      
+        <link rel="canonical" href="https://eunomia.dev/bpftime/EIM/study/db-bug-study/">
+      
+      
+        <link rel="prev" href="../compare/">
+      
+      
+        <link rel="next" href="../../../documents/attach/">
+      
+      
+      <link rel="icon" href="../../../../assets/icon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.4">
+    
+    
+      
+        <title>Study on Bugs in Database and Web Server Extension Interfaces - eunomia</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.8608ea7d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-1YVMXGL0MY"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-1YVMXGL0MY",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-1YVMXGL0MY",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+      
+        <meta  property="og:type"  content="website" >
+      
+        <meta  property="og:title"  content="Study on Bugs in Database and Web Server Extension Interfaces - eunomia" >
+      
+        <meta  property="og:description"  content="Unlock the potential of eBPF" >
+      
+        <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/bpftime/EIM/study/db-bug-study.png" >
+      
+        <meta  property="og:image:type"  content="image/png" >
+      
+        <meta  property="og:image:width"  content="1200" >
+      
+        <meta  property="og:image:height"  content="630" >
+      
+        <meta  property="og:url"  content="https://eunomia.dev/bpftime/EIM/study/db-bug-study/" >
+      
+        <meta  name="twitter:card"  content="summary_large_image" >
+      
+        <meta  name="twitter:title"  content="Study on Bugs in Database and Web Server Extension Interfaces - eunomia" >
+      
+        <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
+      
+        <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/bpftime/EIM/study/db-bug-study.png" >
+      
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#study-on-bugs-in-database-and-web-server-extension-interfaces" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="eunomia" class="md-header__button md-logo" aria-label="eunomia" data-md-component="logo">
+      
+  <img src="../../../../assets/icon.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            eunomia
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Study on Bugs in Database and Web Server Extension Interfaces
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="/en/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="/zh/" hreflang="zh" class="md-select__link">
+              Chinese
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/eunomia-bpf/eunomia.dev" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../.." class="md-tabs__link">
+          
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../tutorials/" class="md-tabs__link">
+          
+  
+  Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../blog" class="md-tabs__link">
+        
+  
+    
+  
+  Blog
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../" class="md-tabs__link">
+          
+  
+  bpftime
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../eunomia-bpf/" class="md-tabs__link">
+          
+  
+  eunomia-bpf
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../GPTtrace/" class="md-tabs__link">
+          
+  
+  GPTtrace
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../wasm-bpf/" class="md-tabs__link">
+          
+  
+  wasm-bpf
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../others/" class="md-tabs__link">
+          
+  
+  Ecosystem
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="eunomia" class="md-nav__button md-logo" aria-label="eunomia" data-md-component="logo">
+      
+  <img src="../../../../assets/icon.svg" alt="logo">
+
+    </a>
+    eunomia
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/eunomia-bpf/eunomia.dev" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Home
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Eunomia - Unlock the potential of eBPF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Tutorials
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example: Learning CO-RE eBPF Step by Step
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/SUMMARY/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example: Learning CO-RE eBPF Step by Step
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/0-introduce/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 0: Introduction to Core Concepts and Tools
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/1-helloworld/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 1: Hello World, Framework and Development
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/10-hardirqs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 10: Capturing Interrupts with hardirqs or softirqs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/11-bootstrap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 11: Develop User-Space Programs with libbpf and Trace exec() and exit()
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/12-profile/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 12: Using eBPF Program Profile for Performance Analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/13-tcpconnlat/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 13: Statistics of TCP Connection Delay with libbpf
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/14-tcpstates/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 14: Recording TCP Connection Status and TCP RTT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/15-javagc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 15: Capturing User-Space Java GC Duration Using USDT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/16-memleak/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 16: Monitoring Memory Leaks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/17-biopattern/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 17: Count Random/Sequential Disk I/O
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/18-further-reading/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    More Reference Materials： papers, projects
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/18-further-reading/ebpf-security/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The Secure Path Forward for eBPF runtime: Challenges and Innovations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/19-lsm-connect/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 19: Security Detection and Defense using LSM
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/2-kprobe-unlink/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 2: Monitoring unlink System Calls with kprobe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/20-tc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 20: tc Traffic Control
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/21-xdp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 21: Programmable Packet Processing with XDP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/22-android/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example: Using eBPF Programs on Android
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/23-http/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    L7 Tracing with eBPF: HTTP and Beyond via Socket Filters and Syscall Tracepoints
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/24-hide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Practical Tutorial: Hiding Process or File Information
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/25-signal/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using bpf_send_signal to Terminate Malicious Processes in eBPF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/26-sudo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using eBPF to add sudo user
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/27-replace/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Replace Text Read or Written by Any Program with eBPF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/28-detach/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running eBPF After Application Exits: The Lifecycle of eBPF Programs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/29-sockops/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Development Practices: Accelerating Network Request Forwarding with Sockops
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/3-fentry-unlink/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 3: Monitoring unlink System Calls with fentry
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/30-sslsniff/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Practical Tutorial: Capturing SSL/TLS Plain Text Data Using uprobe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/31-goroutine/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Practical Tutorial: Using eBPF to Trace Go Routine States
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/32-http2/README.zh/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    trace http2 request in go
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/33-funclatency/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Measuring Function Latency with eBPF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/34-syscall/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Development Practice: Modifying System Call Arguments with eBPF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/35-user-ringbuf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Development Practices: Asynchronously Send to Kernel with User Ring Buffer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/36-userspace-ebpf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Userspace eBPF Runtimes: Overview and Applications
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/37-uprobe-rust/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Practice: Tracing User Space Rust Applications with Uprobe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/38-btf-uprobe/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Expanding eBPF Compile Once, Run Everywhere(CO-RE) to Userspace Compatibility
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/38-btf-uprobe/test-verify/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    using BTF to verify userspace eBPF extensions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/38-btf-uprobe/test-verify/minimal/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    minimal examples
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/38-btf-uprobe/test-verify/module/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    write a basic kernel module
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/39-nginx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using eBPF to Trace Nginx Requests
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/4-opensnoop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 4: Capturing Opening Files and Filter with Global Variables
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/40-mysql/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using eBPF to Trace MySQL Queries
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/41-xdp-tcpdump/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example: Capturing TCP Information with XDP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/42-xdp-loadbalancer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Developer Tutorial: XDP Load Balancer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/42-xdp-loadbalancer/connect/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Network setup for bpf-developer-tutorial
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/43-kfuncs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Extending eBPF Beyond Its Limits: Custom kfuncs in Kernel Modules
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/43-kfuncs/module/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    write a basic kernel module
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/44-scx-simple/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial: Introduction to the BPF Scheduler
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/45-scx-nest/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example: Implementing the scx_nest Scheduler
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/46-xdp-test/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    xdp-pktgen: xdp based packet generator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/5-uprobe-bashreadline/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 5: Capturing readline Function Calls with Uprobe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/6-sigsnoop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 6: Capturing Signal Sending and Store State with Hash Maps
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/7-execsnoop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 7: Capturing Process Execution, Output with perf event array
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/8-exitsnoop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 8: Monitoring Process Exit Events, Output with Ring Buffer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/9-runqlat/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 9: Capturing Scheduling Latency and Recording as Histogram
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/bcc-documents/kernel-versions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux 内核版本的 BPF 功能
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/bcc-documents/kernel-versions_en/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BPF Features by Linux Kernel Version
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/bcc-documents/kernel_config/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BPF 特性的内核配置
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/bcc-documents/kernel_config_en/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kernel Configuration for BPF Features
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/bcc-documents/reference_guide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bcc 参考指南
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/bcc-documents/reference_guide_en/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bcc Reference Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/bcc-documents/special_filtering/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    特殊过滤
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/bcc-documents/special_filtering_en/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Special Filtering
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/bcc-documents/tutorial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bcc 教程
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/bcc-documents/tutorial_bcc_python_developer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bcc Python 开发者教程
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/bcc-documents/tutorial_bcc_python_developer_en/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bcc Python Developer Tutorial
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/bcc-documents/tutorial_en/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bcc Tutorial
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/bpftrace-tutorial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The bpftrace One-Liner Tutorial
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/scripts/guideline_advance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Blog Guidelines for Advanced eBPF Tutorials
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tutorials/scripts/guideline_basic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    blog guideline or pattern
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blog" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Blog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    bpftime
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            bpftime
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bpftime: Userspace eBPF runtime for Observability, Network &amp; General extensions Framework
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../documents/build-and-test/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Building and Test
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../documents/usage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Manual
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../documents/examples/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Examples &amp; Use Cases
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../documents/available-features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Available kernel features in userspace
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Bpftime
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            Bpftime
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../llvmbpf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Userspace eBPF VM with LLVM JIT/AOT Compiler
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_6_2" id="__nav_4_6_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    EIM
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_6_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            EIM
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EIM: Extension Interface Model
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../example/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EIM: Example code
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EIM: Extension Interface Model Specification
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../uprobe/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    UProbe Role Definition README
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../usage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EIM Usage and people involved (Draft v1)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_6_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6_2_6" id="__nav_4_6_2_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Draft spec
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_6_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            Draft spec
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../draft-spec/spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Extension Inferface Model Specification V3
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../draft-spec/spec_core/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spec core
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../draft-spec/spec_old/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Extension Model Specification V1
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6_2_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_6_2_7" id="__nav_4_6_2_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Study
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_6_2_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_6_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            Study
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compare/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Extension Systems compare with EIM
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Study on Bugs in Database and Web Server Extension Interfaces
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Study on Bugs in Database and Web Server Extension Interfaces
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#case-studies-of-bugs-in-database-web-server-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Case Studies of Bugs in Database &amp; Web Server Extensions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#analysis-of-patterns-and-impacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Analysis of Patterns and Impacts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Analysis of Patterns and Impacts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-patterns-and-root-causes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Patterns and Root Causes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#impact-on-system-stability-maintainability-and-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      Impact on System Stability, Maintainability, and Security
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frequency-and-severity-trends" class="md-nav__link">
+    <span class="md-ellipsis">
+      Frequency and Severity Trends
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusion
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_6_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6_3" id="__nav_4_6_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Documents
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            Documents
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../documents/attach/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Detailed Implementation of the Attach Part
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../documents/bpftimeaot/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bpftime-aot cli
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../documents/bpftimetool/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bpftimetool
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../documents/co-re/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compile Once, Run Everywhere(CO-RE)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../documents/contact/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contact and citations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../documents/how-it-works/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The design and implementation of bpftime
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../documents/introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../documents/performance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    performance and benchmark
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    eunomia-bpf
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            eunomia-bpf
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../eunomia-bpf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eunomia-bpf: simplify and enhance eBPF with CO-RE and WebAssembly
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Eunomia bpf
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Eunomia bpf
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../eunomia-bpf/benchmark/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    benchmark
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../eunomia-bpf/introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../eunomia-bpf/manual/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    manual
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../eunomia-bpf/online/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Online Demo
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../eunomia-bpf/quickstart/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    quickstart
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../eunomia-bpf/supporting-external-BTF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    supporting-external-BTF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../eunomia-bpf/video/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    video
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_2_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_8" id="__nav_5_2_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_8">
+            <span class="md-nav__icon md-icon"></span>
+            Architecture
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../eunomia-bpf/architecture/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_2_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_9" id="__nav_5_2_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ecc
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_9">
+            <span class="md-nav__icon md-icon"></span>
+            Ecc
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../eunomia-bpf/ecc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eunomia-cc
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../eunomia-bpf/ecc/docker-usage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ecc docker usage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../eunomia-bpf/ecc/github-template/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    github template
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../eunomia-bpf/ecc/usage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ecc usage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_2_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_10" id="__nav_5_2_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ecli
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_10">
+            <span class="md-nav__icon md-icon"></span>
+            Ecli
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../eunomia-bpf/ecli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ecli
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../eunomia-bpf/ecli/ecli-dockerfile-usage.zh/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ecli dockerfile usage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../eunomia-bpf/ecli/server/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ecli server
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_2_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_11" id="__nav_5_2_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Exporter
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_11">
+            <span class="md-nav__icon md-icon"></span>
+            Exporter
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../eunomia-bpf/exporter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    exporter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../eunomia-bpf/exporter/usage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    usage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_2_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_12" id="__nav_5_2_12_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Setup
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_12">
+            <span class="md-nav__icon md-icon"></span>
+            Setup
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../eunomia-bpf/setup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../eunomia-bpf/setup/build-android-arm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    build on android aarch64
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../eunomia-bpf/setup/build/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    build from source
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    GPTtrace
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            GPTtrace
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../GPTtrace/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GPTtrace 🤖
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    wasm-bpf
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            wasm-bpf
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../wasm-bpf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wasm-bpf
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ecosystem
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Ecosystem
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../others/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Other projects
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_8_2" id="__nav_8_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Others
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_2">
+            <span class="md-nav__icon md-icon"></span>
+            Others
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../others/bpf-benchmark/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BPF-Benchmark
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../others/bpf-compatible/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bpf-compatible
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../others/contribute/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributing to eunomia-bpf
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../others/ebpf-gpts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    An experiment: GPTs for eBPF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../others/ideas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Possible ideas for the future
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../others/usecases/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ebpf usecases analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8_2_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_8_2_7" id="__nav_8_2_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Miscellaneous
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_8_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            Miscellaneous
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../others/miscellaneous/bpftime-roadmap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About bpftime - bpftime ideas
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../others/miscellaneous/ebpf-fuse/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    基于内核态/用户态 eBPF 实现高性能用户态文件系统功能 - 操作系统大赛赛题
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../others/miscellaneous/ebpf-gpu/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用 eBPF 对 AI/ML 工作负载进行追踪和性能分析 - 操作系统大赛赛题
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../others/miscellaneous/ebpf-linux/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project Proposal for bpftime - eBPF Foundation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../others/miscellaneous/ebpf-lsm-usm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    实现内核与用户态共同工作的 eBPF 安全框架 - 操作系统大赛赛题
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../others/miscellaneous/ebpf-usecases/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Categorization of eBPF Hooks and Use Cases
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../others/miscellaneous/ebpf-userspace-port/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    将用户态 eBPF 扩展到 MacOS、Windows、FreeBSD 等更多平台 - 操作系统大赛赛题
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../others/miscellaneous/gsoc-ospp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GSOC - OSPP draft proposal
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../others/miscellaneous/ideas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    开源活动的可能想法 - eunomia-bpf 2024
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../others/miscellaneous/linux-plumbers-talk/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bpftime talk at linux plumbers 2025
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../others/miscellaneous/roadmap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bpftime roadmap and ideas for 2024
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../others/miscellaneous/talk-ebpf-summit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF Summit 2025 bpftime talk
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../others/miscellaneous/wasm-bpf-kubecon/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Securing and Simplifying eBPF Deployments with WebAssembly
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../others/miscellaneous/wasm-bpf-talk/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    talk draft in kubecon
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#case-studies-of-bugs-in-database-web-server-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Case Studies of Bugs in Database &amp; Web Server Extensions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#analysis-of-patterns-and-impacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Analysis of Patterns and Impacts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Analysis of Patterns and Impacts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-patterns-and-root-causes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Patterns and Root Causes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#impact-on-system-stability-maintainability-and-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      Impact on System Stability, Maintainability, and Security
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frequency-and-severity-trends" class="md-nav__link">
+    <span class="md-ellipsis">
+      Frequency and Severity Trends
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusion
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/bpftime/EIM/study/db-bug-study.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/bpftime/EIM/study/db-bug-study.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+<h1 id="study-on-bugs-in-database-and-web-server-extension-interfaces">Study on Bugs in Database and Web Server Extension Interfaces</h1>
+<p>Database systems and web servers often support <strong>extension interfaces</strong> – plug-in modules or scripting engines that extend core functionality (e.g. PostgreSQL extensions, MySQL plugins/UDFs, Apache/Nginx modules, IIS ISAPI). While powerful, these extensions have historically introduced <strong>numerous bugs</strong>, ranging from critical security vulnerabilities to logic and performance issues. In this study, we examine <strong>both historical and recent cases</strong> of such bugs in database and web server extensions, including security flaws (buffer overflows, privilege escalations, injection bugs) as well as general bugs (logic errors, performance bottlenecks, and compatibility problems). We present 20+ real-world cases in a structured format, then analyze common patterns, impacts on stability/maintainability, and the frequency/severity of different bug types.</p>
+<h2 id="case-studies-of-bugs-in-database-web-server-extensions">Case Studies of Bugs in Database &amp; Web Server Extensions</h2>
+<p>The table below documents a selection of notable bugs affecting extension interfaces in databases (PostgreSQL, MySQL, Redis, MongoDB, etc.) and web servers (Apache HTTPd, Nginx, Microsoft IIS). Each case includes an identifier (CVE or issue), the affected software/module, classification of bug type, root cause, impact on the host system, and the resolution or mitigation.</p>
+<table>
+<thead>
+<tr>
+<th>Bug ID / CVE</th>
+<th>Affected Software (Extension)</th>
+<th>Bug Type</th>
+<th>Root Cause</th>
+<th>Impact on Host Software</th>
+<th>Resolution / Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CVE-2023-39417</strong></td>
+<td>PostgreSQL (Extension Scripts)</td>
+<td>Security</td>
+<td>Improper quoting in extension install script allowed SQL injection (<a href="https://www.postgresql.org/support/security/CVE-2023-39417/#:~:text=An%20extension%20script%20is%20vulnerable,need%20to%20modify%20individual%20extensions">PostgreSQL: CVE-2023-39417: Extension script @substitutions@ within quoting allow SQL injection</a>)</td>
+<td>Attacker can execute arbitrary SQL code as DB superuser (<a href="https://www.postgresql.org/support/security/CVE-2023-39417/#:~:text=prerequisite%20is%20an%20administrator%20having,need%20to%20modify%20individual%20extensions">PostgreSQL: CVE-2023-39417: Extension script @substitutions@ within quoting allow SQL injection</a>)</td>
+<td>Patched in core server to block unsafe script substitutions (<a href="https://www.postgresql.org/support/security/CVE-2023-39417/#:~:text=trusted%2C%20non,need%20to%20modify%20individual%20extensions">PostgreSQL: CVE-2023-39417: Extension script @substitutions@ within quoting allow SQL injection</a>)</td>
+</tr>
+<tr>
+<td><strong>CVE-2022-2625</strong></td>
+<td>PostgreSQL (Extension Scripts)</td>
+<td>Security</td>
+<td>Extension script used <code>CREATE OR REPLACE</code> on non-extension object (logic flaw) (<a href="https://www.postgresql.org/support/security/CVE-2022-2625/#:~:text=Some%20extensions%20use%20,bundled%20extensions.%20PostgreSQL%20is">PostgreSQL: CVE-2022-2625: Extension scripts replace objects not belonging to the extension</a>)</td>
+<td>Malicious object replacement could run code as another role (even superuser) (<a href="https://www.postgresql.org/support/security/CVE-2022-2625/#:~:text=extension%20members%20already,need%20to%20modify%20individual%20extensions">PostgreSQL: CVE-2022-2625: Extension scripts replace objects not belonging to the extension</a>)</td>
+<td>Core server change to prevent replacing out-of-extension objects (<a href="https://www.postgresql.org/support/security/CVE-2022-2625/#:~:text=code%20as%20the%20victim%20role%2C,need%20to%20modify%20individual%20extensions">PostgreSQL: CVE-2022-2625: Extension scripts replace objects not belonging to the extension</a>)</td>
+</tr>
+<tr>
+<td><strong>CVE-2023-32305</strong></td>
+<td>PostgreSQL (Aiven Extras Extension)</td>
+<td>Security</td>
+<td>Missing schema qualification in privileged extension functions (name collision) (<a href="https://nvd.nist.gov/vuln/detail/cve-2023-32305#:~:text=aiven,or%20data%20access%20on%20the">NVD - cve-2023-32305</a>)</td>
+<td>Low-priv user could create fake functions to escalate to superuser (full DB takeover) (<a href="https://nvd.nist.gov/vuln/detail/cve-2023-32305#:~:text=aiven,or%20data%20access%20on%20the">NVD - cve-2023-32305</a>)</td>
+<td>Fixed in extension v1.1.9 – added schema qualifiers to prevent hijacking (<a href="https://nvd.nist.gov/vuln/detail/cve-2023-32305#:~:text=functions,9">NVD - cve-2023-32305</a>)</td>
+</tr>
+<tr>
+<td><strong>CVE-2024-10979</strong></td>
+<td>PostgreSQL (PL/Perl Trusted Lang)</td>
+<td>Security</td>
+<td>PL/Perl trusted extension allowed setting arbitrary environment variables (sandbox escape) (<a href="https://www.varonis.com/blog/cve-postgresql-pl/perl#:~:text=Varonis%20discovered%20a%20vulnerability%20%28CVE,variables%20in%20PostgreSQL%20session%20processes">Varonis Discovers New Vulnerability in PostgreSQL PL/Perl</a>) (<a href="https://www.varonis.com/blog/cve-postgresql-pl/perl#:~:text=The%20vulnerability%2C%20named%20CVE,system%20user%20on%20the%20server">Varonis Discovers New Vulnerability in PostgreSQL PL/Perl</a>)</td>
+<td>Could lead to execution of arbitrary code under DB process user by manipulating PATH (<a href="https://www.varonis.com/blog/cve-postgresql-pl/perl#:~:text=What%20is%20the%20impact%20on,my%20organization">Varonis Discovers New Vulnerability in PostgreSQL PL/Perl</a>)</td>
+<td>Patched in PostgreSQL – update PL/Perl to restrict env variable access (<a href="https://www.varonis.com/blog/cve-postgresql-pl/perl#:~:text=issues,8%20score%20for%20severity">Varonis Discovers New Vulnerability in PostgreSQL PL/Perl</a>)</td>
+</tr>
+<tr>
+<td><strong>CVE-2005-2572</strong></td>
+<td>MySQL (User-Defined Functions)</td>
+<td>Security</td>
+<td>UDF library handling flaws: invalid library load hangs server on Windows; loading non-UDF library with matching symbols causes memory corruption ([MySQL User-Defined Functions Multiple Vulnerabilities<!-- --></td>
+<td>Tenable®](https://www.tenable.com/plugins/nessus/17698#:~:text=User,affected%20by%20the%20following%20vulnerabilities)) ([MySQL User-Defined Functions Multiple Vulnerabilities<!-- --></td>
+<td>Tenable®](https://www.tenable.com/plugins/nessus/17698#:~:text=,memory%20corruption%20and%20stack%20pollution))</td>
+</tr>
+<tr>
+<td><strong>CVE-2021-2429</strong></td>
+<td>MySQL (InnoDB Memcached Plugin)</td>
+<td>Security</td>
+<td>Heap buffer overflow in <code>innodb_get()</code> – no total length check when concatenating table names for Memcached “get @@” requests (<a href="https://www.sonicwall.com/blog/oracle-mysql-server-innodb-memcached-vulnerability#:~:text=A%20heap%20buffer%20overflow%20vulnerability,on%20Windows%20platform%20or%20not">Oracle MySQL Server InnoDB Memcached Vulnerability</a>) (<a href="https://www.sonicwall.com/blog/oracle-mysql-server-innodb-memcached-vulnerability#:~:text=For%20the%20above%20example%2C%20when,the%20said%20heap%20buffer%20overflowed">Oracle MySQL Server InnoDB Memcached Vulnerability</a>)</td>
+<td>Remote, unauthenticated attacker could overflow heap and execute arbitrary code in MySQL context (<a href="https://www.sonicwall.com/blog/oracle-mysql-server-innodb-memcached-vulnerability#:~:text=A%20buffer%20overflow%20vulnerability%20has,the%20InnoDB%20memcached%20plugin%20component">Oracle MySQL Server InnoDB Memcached Vulnerability</a>) (<a href="https://www.sonicwall.com/blog/oracle-mysql-server-innodb-memcached-vulnerability#:~:text=crafted%20packet%20to%20the%20vulnerable,the%20context%20of%20the%20application">Oracle MySQL Server InnoDB Memcached Vulnerability</a>)</td>
+<td>Official patch released (fixed by bounds-checking string assembly) (<a href="https://www.sonicwall.com/blog/oracle-mysql-server-innodb-memcached-vulnerability#:~:text=%E2%80%A2%20The%20exploit%20code%20maturity,of%20this%20vulnerability%20is%20confirmed">Oracle MySQL Server InnoDB Memcached Vulnerability</a>)</td>
+</tr>
+<tr>
+<td><strong>CVE-2020-2921</strong></td>
+<td>MySQL (Group Replication Plugin)</td>
+<td>Security</td>
+<td>Unspecified logic flaw in group replication plugin (likely mishandled input or state)</td>
+<td>High-privilege attacker could cause the MySQL server to <strong>hang or repeatedly crash</strong> (complete DoS) (<a href="https://nvd.nist.gov/vuln/detail/cve-2020-2921#:~:text=prior,CVSS%20Vector">NVD - cve-2020-2921</a>)</td>
+<td>Fixed in MySQL 8.0.20; part of Oracle Critical Patch Update (strengthened plugin input handling)</td>
+</tr>
+<tr>
+<td><strong>CVE-2022-0543</strong></td>
+<td>Redis (Lua Scripting Engine – Debian pkg)</td>
+<td>Security</td>
+<td>Packaging issue led to Lua library misuse – allowed calling OS commands (Lua sandbox escape) ([Redis sandbox escape (CVE-2022-0543)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>](https://docs.datadoghq.com/security/default_rules/redis_sandbox_escape/#:~:text=Redis%20is%20an%20open,loading%20a%20vulnerable%20Lua%20library))</td>
+<td><strong>Remote code execution:</strong> attacker (even unauthenticated) can execute commands on host via crafted Lua script ([Redis sandbox escape (CVE-2022-0543)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>](https://docs.datadoghq.com/security/default_rules/redis_sandbox_escape/#:~:text=Redis%20is%20an%20open,loading%20a%20vulnerable%20Lua%20library))</td>
+<td>Fixed by correcting Lua library linking in Debian/Ubuntu (removed unsafe module loading) ([Redis sandbox escape (CVE-2022-0543)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>](https://docs.datadoghq.com/security/default_rules/redis_sandbox_escape/#:~:text=1,version%20that%20has%20been%20fixed))</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>CVE-2024-46981</strong></td>
+<td>Redis (Embedded Lua)</td>
+<td>Security</td>
+<td>Use-after-free in Lua garbage collector manipulation within Redis (<a href="https://redis.io/blog/security-advisory-cve-2024-46981-cve-2024-51737-cve-2024-51480-cve-2024-55656/#:~:text=%5BCVE,0%C2%A0%20%28High">Security Advisory: CVE-2024-46981, CVE-2024-51737, CVE-2024-51480, CVE-2024-55656 - Redis</a>)</td>
+<td>Authenticated user can trigger memory corruption and achieve remote code execution (RCE) in Redis (<a href="https://redis.io/blog/security-advisory-cve-2024-46981-cve-2024-51737-cve-2024-51480-cve-2024-55656/#:~:text=%5BCVE,0%C2%A0%20%28High">Security Advisory: CVE-2024-46981, CVE-2024-51737, CVE-2024-51480, CVE-2024-55656 - Redis</a>)</td>
+<td>Patched in Redis – update Lua engine and garbage collector handling to prevent UAF (<a href="https://redis.io/blog/security-advisory-cve-2024-46981-cve-2024-51737-cve-2024-51480-cve-2024-55656/#:~:text=%5BCVE,0%C2%A0%20%28High">Security Advisory: CVE-2024-46981, CVE-2024-51737, CVE-2024-51480, CVE-2024-55656 - Redis</a>)</td>
+</tr>
+<tr>
+<td><strong>CVE-2024-51737</strong></td>
+<td>Redis (RediSearch Module)</td>
+<td>Security</td>
+<td>Integer overflow in <code>FT.SEARCH</code>/<code>FT.AGGREGATE</code> (LIMIT or KNN arguments) causes heap overflow (<a href="https://redis.io/blog/security-advisory-cve-2024-46981-cve-2024-51737-cve-2024-51480-cve-2024-55656/#:~:text=%5BCVE,0%20%28High">Security Advisory: CVE-2024-46981, CVE-2024-51737, CVE-2024-51480, CVE-2024-55656 - Redis</a>)</td>
+<td>Authenticated user can overflow heap and potentially execute code with Redis privileges (<a href="https://redis.io/blog/security-advisory-cve-2024-46981-cve-2024-51737-cve-2024-51480-cve-2024-55656/#:~:text=An%20authenticated%20Redis%20user%20executing,and%20potential%20remote%20code%20execution">Security Advisory: CVE-2024-46981, CVE-2024-51737, CVE-2024-51480, CVE-2024-55656 - Redis</a>)</td>
+<td>Fixed in RediSearch ≥1.1.9 – added bounds checking on LIMIT/KNN parameters (<a href="https://redis.io/blog/security-advisory-cve-2024-46981-cve-2024-51737-cve-2024-51480-cve-2024-55656/#:~:text=An%20authenticated%20Redis%20user%20executing,and%20potential%20remote%20code%20execution">Security Advisory: CVE-2024-46981, CVE-2024-51737, CVE-2024-51480, CVE-2024-55656 - Redis</a>)</td>
+</tr>
+<tr>
+<td><strong>CVE-2024-51480</strong></td>
+<td>Redis (RedisTimeSeries Module)</td>
+<td>Security</td>
+<td>Integer overflow in time-series query commands (<code>TS.MGET</code>, <code>TS.MRANGE</code>, etc.) leads to heap buffer overflow (<a href="https://redis.io/blog/security-advisory-cve-2024-46981-cve-2024-51737-cve-2024-51480-cve-2024-55656/#:~:text=%5BCVE,0%20%28High">Security Advisory: CVE-2024-46981, CVE-2024-51737, CVE-2024-51480, CVE-2024-55656 - Redis</a>)</td>
+<td>Heap memory corruption potentially allowing RCE in Redis process (via crafted command arguments) (<a href="https://redis.io/blog/security-advisory-cve-2024-46981-cve-2024-51737-cve-2024-51480-cve-2024-55656/#:~:text=Executing%20one%20of%20these%20commands,lead%20to%20remote%20code%20execution">Security Advisory: CVE-2024-46981, CVE-2024-51737, CVE-2024-51480, CVE-2024-55656 - Redis</a>)</td>
+<td>Patched in RedisTimeSeries – input size validation and safe allocation applied (<a href="https://redis.io/blog/security-advisory-cve-2024-46981-cve-2024-51737-cve-2024-51480-cve-2024-55656/#:~:text=%5BCVE,0%20%28High">Security Advisory: CVE-2024-46981, CVE-2024-51737, CVE-2024-51480, CVE-2024-55656 - Redis</a>)</td>
+</tr>
+<tr>
+<td><strong>CVE-2024-55656</strong></td>
+<td>Redis (RedisBloom Module)</td>
+<td>Security</td>
+<td>Integer overflow in Bloom filter command (e.g. <code>CMS.INITBYDIM</code> with large parameters) (<a href="https://redis.io/blog/security-advisory-cve-2024-46981-cve-2024-51737-cve-2024-51480-cve-2024-55656/#:~:text=%5BCVE,8%20%28High">Security Advisory: CVE-2024-46981, CVE-2024-51737, CVE-2024-51480, CVE-2024-55656 - Redis</a>)</td>
+<td>Heap overflow and remote code execution by authenticated user sending crafted command (CVSS 8.8) (<a href="https://redis.io/blog/security-advisory-cve-2024-46981-cve-2024-51737-cve-2024-51480-cve-2024-55656/#:~:text=%5BCVE,8%20%28High">Security Advisory: CVE-2024-46981, CVE-2024-51737, CVE-2024-51480, CVE-2024-55656 - Redis</a>)</td>
+<td>Fixed in RedisBloom (v2.8.6+) – added checks for dimensions to prevent overflow (<a href="https://redis.io/blog/security-advisory-cve-2024-46981-cve-2024-51737-cve-2024-51480-cve-2024-55656/#:~:text=%5BCVE,8%20%28High">Security Advisory: CVE-2024-46981, CVE-2024-51737, CVE-2024-51480, CVE-2024-55656 - Redis</a>)</td>
+</tr>
+<tr>
+<td><strong>CVE-2018-16843</strong></td>
+<td>Nginx (HTTP/2 Module)</td>
+<td>Performance (DoS)</td>
+<td>Inefficient memory management for HTTP/2 requests – missing limits allowed <strong>excessive memory consumption</strong> (<a href="https://nvd.nist.gov/vuln/detail/cve-2018-16843#:~:text=nginx%20before%20versions%201,used%20in%20a%20configuration%20file">NVD - cve-2018-16843</a>)</td>
+<td>Malicious HTTP/2 client can exhaust server memory, leading to process slowdown or crash (DoS) ([ [nginx-announce] nginx security advisory (CVE-2018-16843, CVE-2018-16844)</td>
+<td></td>
+</tr>
+<tr>
+<td>](https://mailman.nginx.org/pipermail/nginx-announce/2018/000220.html#:~:text=Two%20security%20issues%20were%20identified,16844))</td>
+<td>Fixed in Nginx 1.15.6/1.14.1 – enforced memory usage limits in HTTP/2 processing ([ [nginx-announce] nginx security advisory (CVE-2018-16843,    CVE-2018-16844)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>](https://mailman.nginx.org/pipermail/nginx-announce/2018/000220.html#:~:text=The%20issues%20affect%20nginx%20compiled,used%20in%20a%20configuration%20file))</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>CVE-2018-16844</strong></td>
+<td>Nginx (HTTP/2 Module)</td>
+<td>Performance (DoS)</td>
+<td>HTTP/2 implementation bug causing <strong>high CPU usage</strong> (likely infinite loop or busy-wait) ([ [nginx-announce] nginx security advisory (CVE-2018-16843, CVE-2018-16844)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>](https://mailman.nginx.org/pipermail/nginx-announce/2018/000220.html#:~:text=Two%20security%20issues%20were%20identified,16844))</td>
+<td>Remote client can consume 100% CPU of a worker process, causing request handling to stall (DoS) ([ [nginx-announce] nginx security advisory (CVE-2018-16843, CVE-2018-16844)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>](https://mailman.nginx.org/pipermail/nginx-announce/2018/000220.html#:~:text=Two%20security%20issues%20were%20identified,16844))</td>
+<td>Fixed in Nginx 1.15.6/1.14.1 alongside CVE-16843 – corrected HTTP/2 state handling ([ [nginx-announce] nginx security advisory (CVE-2018-16843,  CVE-2018-16844)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>](https://mailman.nginx.org/pipermail/nginx-announce/2018/000220.html#:~:text=The%20issues%20affect%20nginx%20compiled,used%20in%20a%20configuration%20file))</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>CVE-2018-16845</strong></td>
+<td>Nginx (MP4 Video Module)</td>
+<td>Security/Logic</td>
+<td>Flawed MP4 file parsing could trigger an <strong>infinite loop or buffer over-read</strong>, possibly leaking memory ([ [nginx-announce] nginx security advisory (CVE-2018-16845)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>](https://mailman.nginx.org/pipermail/nginx-announce/2018/000221.html#:~:text=A%20security%20issue%20was%20identified,16845))</td>
+<td>Crafted MP4 file causes worker to hang or crash; potential exposure of memory contents (information leak) ([ [nginx-announce] nginx security advisory (CVE-2018-16845)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>](https://mailman.nginx.org/pipermail/nginx-announce/2018/000221.html#:~:text=A%20security%20issue%20was%20identified,16845))</td>
+<td>Patch applied (in Nginx 1.15.6/1.14.1) ([ [nginx-announce] nginx security advisory (CVE-2018-16845)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>](https://mailman.nginx.org/pipermail/nginx-announce/2018/000221.html#:~:text=The%20issue%20affects%20nginx%201,1)) – fixed loop condition and added bounds checks</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>CVE-2024-7347</strong></td>
+<td>Nginx (MP4 Video Module)</td>
+<td>Security</td>
+<td>Buffer overflow (memory over-read) in MP4 metadata handling when using the <code>mp4</code> directive (<a href="https://cvefeed.io/vuln/detail/CVE-2024-7347#:~:text=NGINX%20Open%20Source%20and%20NGINX,EoTS%29%20are%20not%20evaluated"> CVE-2024-7347 - NGINX MP4 Module Buffer Overflow Vulnerability </a>)</td>
+<td>Attacker can cause the Nginx worker to read beyond buffer and <strong>terminate</strong> (crash) the process (<a href="https://cvefeed.io/vuln/detail/CVE-2024-7347#:~:text=NGINX%20Open%20Source%20and%20NGINX,EoTS%29%20are%20not%20evaluated"> CVE-2024-7347 - NGINX MP4 Module Buffer Overflow Vulnerability </a>)</td>
+<td>Fixed in Nginx (Open Source &amp; Plus) – corrected MP4 parsing logic to prevent over-read (<a href="https://cvefeed.io/vuln/detail/CVE-2024-7347#:~:text=NGINX%20Open%20Source%20and%20NGINX,EoTS%29%20are%20not%20evaluated"> CVE-2024-7347 - NGINX MP4 Module Buffer Overflow Vulnerability </a>)</td>
+</tr>
+<tr>
+<td><strong>CVE-2022-30522</strong></td>
+<td>Apache HTTPd (mod_sed Filter)</td>
+<td>Performance (DoS)</td>
+<td>Buffer size miscalculation in stream-edit filter; memory allocation optimization error (<a href="https://jfrog.com/blog/cve-2022-30522-denial-of-service-dos-vulnerability-in-apache-httpd-mod_sed-filter/#:~:text=the%20Apache%20HTTP%20server,for%20request%20or%20response%20editing">CVE-2022-30522 - Apache httpd Denial of Service (DoS) vulnerability</a>)</td>
+<td>Large request/response data causes uncontrolled memory growth, exceeding limits and <strong>aborting the process</strong> (server crash) (<a href="https://jfrog.com/blog/cve-2022-30522-denial-of-service-dos-vulnerability-in-apache-httpd-mod_sed-filter/#:~:text=the%20Apache%20HTTP%20server,for%20request%20or%20response%20editing">CVE-2022-30522 - Apache httpd Denial of Service (DoS) vulnerability</a>)</td>
+<td>Fixed in Apache 2.4.54 – adjusted memory allocation strategy in mod_sed (proper buffer sizing) (<a href="https://jfrog.com/blog/cve-2022-30522-denial-of-service-dos-vulnerability-in-apache-httpd-mod_sed-filter/#:~:text=the%20Apache%20HTTP%20server,for%20request%20or%20response%20editing">CVE-2022-30522 - Apache httpd Denial of Service (DoS) vulnerability</a>)</td>
+</tr>
+<tr>
+<td><strong>CVE-2023-25690</strong></td>
+<td>Apache HTTPd (mod_proxy + Rewrite)</td>
+<td>Security (Logic)</td>
+<td>Inconsistent URL parsing in rewrite proxy rules – unsanitized user input reinjected into backend request (<a href="https://github.com/dhmosfunk/CVE-2023-25690-POC#:~:text=Some%20mod_proxy%20configurations%20on%20Apache,For%20example%2C%20something%20like">GitHub - dhmosfunk/CVE-2023-25690-POC: CVE 2023 25690 Proof of concept - mod_proxy vulnerable configuration on Apache HTTP Server versions 2.4.0 - 2.4.55 leads to HTTP Request Smuggling vulnerability.</a>)</td>
+<td><strong>HTTP Request Smuggling:</strong> attackers can bypass front-end access controls, proxy unintended internal URLs, or poison caches (<a href="https://github.com/dhmosfunk/CVE-2023-25690-POC#:~:text=RewriteEngine%20on%20RewriteRule%20,ProxyPassReverse%20%2Fhere%2F%20http%3A%2F%2Fexample.com%3A8080">GitHub - dhmosfunk/CVE-2023-25690-POC: CVE 2023 25690 Proof of concept - mod_proxy vulnerable configuration on Apache HTTP Server versions 2.4.0 - 2.4.55 leads to HTTP Request Smuggling vulnerability.</a>)</td>
+<td>Fixed in Apache 2.4.56 – improved URL encoding/decoding in mod_proxy and mod_rewrite (<a href="https://github.com/dhmosfunk/CVE-2023-25690-POC#:~:text=Request%20splitting%2Fsmuggling%20could%20result%20in,56%20of%20Apache%20HTTP%20Server">GitHub - dhmosfunk/CVE-2023-25690-POC: CVE 2023 25690 Proof of concept - mod_proxy vulnerable configuration on Apache HTTP Server versions 2.4.0 - 2.4.55 leads to HTTP Request Smuggling vulnerability.</a>)</td>
+</tr>
+<tr>
+<td><strong>CVE-2010-0425</strong></td>
+<td>Apache HTTPd (mod_isapi on Windows)</td>
+<td>Security</td>
+<td>Use-after-free (dangling pointer) due to unloading ISAPI module before request completion ([</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Apache mod_isapi Remote Code Execution Vulnerability - Threat Encyclopedia</td>
+<td>Trend Micro (US)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>](https://www.trendmicro.com/vinfo/us/threat-encyclopedia/vulnerability/1811/apache-modisapi-remote-code-execution-vulnerability#:~:text=modules%2Farch%2Fwin32%2Fmod_isapi,orphaned%20callback%20pointers))</td>
+<td>Remote attacker can send crafted requests/reset packets to execute arbitrary code within Apache (under SYSTEM on Windows) ([</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Apache mod_isapi Remote Code Execution Vulnerability - Threat Encyclopedia</td>
+<td>Trend Micro (US)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>](https://www.trendmicro.com/vinfo/us/threat-encyclopedia/vulnerability/1811/apache-modisapi-remote-code-execution-vulnerability#:~:text=modules%2Farch%2Fwin32%2Fmod_isapi,orphaned%20callback%20pointers))</td>
+<td>Fixed in Apache 2.2.15/2.3.7 – ensure ISAPI request processing is complete before module unload ([</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Apache mod_isapi Remote Code Execution Vulnerability - Threat Encyclopedia</td>
+<td>Trend Micro (US)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>](https://www.trendmicro.com/vinfo/us/threat-encyclopedia/vulnerability/1811/apache-modisapi-remote-code-execution-vulnerability#:~:text=modules%2Farch%2Fwin32%2Fmod_isapi,orphaned%20callback%20pointers))</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>CVE-2001-0500</strong></td>
+<td>Microsoft IIS (Indexing Service ISAPI, idq.dll)</td>
+<td>Security</td>
+<td>Unchecked buffer in <strong>idq.dll</strong> (ISAPI extension for Index Server) handling incoming URL data ([Microsoft Security Bulletin MS01-033 - Critical</td>
+<td>Microsoft Learn](https://learn.microsoft.com/en-us/security-updates/securitybulletins/2001/ms01-033#:~:text=A%20security%20vulnerability%20results%20because,any%20desired%20action%20on%20it))</td>
+<td>Remote attacker can overflow buffer and execute code with <strong>SYSTEM privileges</strong>, taking complete control of the server ([Microsoft Security Bulletin MS01-033 - Critical</td>
+</tr>
+<tr>
+<td><strong>CVE-2017-7269</strong></td>
+<td>Microsoft IIS 6.0 (WebDAV Extension)</td>
+<td>Security</td>
+<td>Improper validation of the “If:” header in a WebDAV PROPFIND request (buffer overflow in <code>ScStoragePathFromUrl</code>) ([IIS 6.0 Vulnerability Leads to Code Execution</td>
+<td>Trend Micro (US)](https://www.trendmicro.com/en_us/research/17/c/iis-6-0-vulnerability-leads-code-execution.html#:~:text=))</td>
+<td>Crafted WebDAV request causes <strong>buffer overflow</strong>; leads to denial of service or remote code execution in context of IIS process ([IIS 6.0 Vulnerability Leads to Code Execution</td>
+</tr>
+<tr>
+<td><strong>(No CVE)</strong></td>
+<td>PostgreSQL/PostGIS Extension Upgrade</td>
+<td>Compatibility</td>
+<td>Extension version mismatch on major DB upgrade – PostGIS 3.0 required upgrade before PostgreSQL 9.6→10 ([</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Solved: Unable to upgrade PostgreSQL 9.6 with postgis 3.0.... - Google Cloud Community</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>](https://www.googlecloudcommunity.com/gc/Databases/Unable-to-upgrade-PostgreSQL-9-6-with-postgis-3-0-3-because-of/m-p/754437#:~:text=%22pre,major%20version%20upgrade%20for%20database))</td>
+<td><strong>Upgrade failure:</strong> database refused to upgrade until extension was updated (maintenance downtime) ([</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Solved: Unable to upgrade PostgreSQL 9.6 with postgis 3.0.... - Google Cloud Community</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>](https://www.googlecloudcommunity.com/gc/Databases/Unable-to-upgrade-PostgreSQL-9-6-with-postgis-3-0-3-because-of/m-p/754437#:~:text=%22pre,major%20version%20upgrade%20for%20database))</td>
+<td>Resolve by upgrading the PostGIS extension to a compatible version (or using superuser to update extension) ([</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Solved: Unable to upgrade PostgreSQL 9.6 with postgis 3.0.... - Google Cloud Community</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>](https://www.googlecloudcommunity.com/gc/Databases/Unable-to-upgrade-PostgreSQL-9-6-with-postgis-3-0-3-because-of/m-p/754437#:~:text=%22pre,major%20version%20upgrade%20for%20database)) ([</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Solved: Unable to upgrade PostgreSQL 9.6 with postgis 3.0.... - Google Cloud Community</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>](https://www.googlecloudcommunity.com/gc/Databases/Unable-to-upgrade-PostgreSQL-9-6-with-postgis-3-0-3-because-of/m-p/754437#:~:text=clear%20answer%20%28except%20contact%20support%29,available%20for%20Google%27s%20internals%20uses))</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table: Notable bugs in database and web server extensions – covering security vulnerabilities (memory corruption, injection, privilege escalation) as well as general issues (performance bottlenecks, logic errors, and compatibility problems).</strong> Each case lists the bug’s ID, affected platform/module, type, cause, impact, and resolution. Citations refer to sources describing the issue.</p>
+<h2 id="analysis-of-patterns-and-impacts">Analysis of Patterns and Impacts</h2>
+<h3 id="common-patterns-and-root-causes">Common Patterns and Root Causes</h3>
+<p>Reviewing these cases reveals several recurring <strong>root cause patterns</strong> across both database and web server extensions:</p>
+<ul>
+<li>
+<p><strong>Memory Safety Bugs:</strong> A majority of serious extension vulnerabilities stem from memory mismanagement in low-level code (typically C/C++). Examples include <strong>buffer overflows</strong> (e.g. IIS idq.dll overflow (<a href="https://learn.microsoft.com/en-us/security-updates/securitybulletins/2001/ms01-033#:~:text=A%20security%20vulnerability%20results%20because,any%20desired%20action%20on%20it">Microsoft Security Bulletin MS01-033 - Critical | Microsoft Learn</a>), Nginx MP4 module over-read (<a href="https://cvefeed.io/vuln/detail/CVE-2024-7347#:~:text=NGINX%20Open%20Source%20and%20NGINX,EoTS%29%20are%20not%20evaluated"> CVE-2024-7347 - NGINX MP4 Module Buffer Overflow Vulnerability </a>), MySQL InnoDB Memcached heap overflow (<a href="https://www.sonicwall.com/blog/oracle-mysql-server-innodb-memcached-vulnerability#:~:text=A%20buffer%20overflow%20vulnerability%20has,the%20InnoDB%20memcached%20plugin%20component">Oracle MySQL Server InnoDB Memcached Vulnerability</a>) (<a href="https://www.sonicwall.com/blog/oracle-mysql-server-innodb-memcached-vulnerability#:~:text=For%20the%20above%20example%2C%20when,the%20said%20heap%20buffer%20overflowed">Oracle MySQL Server InnoDB Memcached Vulnerability</a>)) and <strong>use-after-free/dangling pointer</strong> bugs (e.g. Apache mod_isapi UAF (<a href="https://www.trendmicro.com/vinfo/us/threat-encyclopedia/vulnerability/1811/apache-modisapi-remote-code-execution-vulnerability#:~:text=modules%2Farch%2Fwin32%2Fmod_isapi,orphaned%20callback%20pointers">
+    Apache mod_isapi Remote Code Execution Vulnerability - Threat Encyclopedia | Trend Micro (US)
+</a>), Redis Lua garbage collector UAF (<a href="https://redis.io/blog/security-advisory-cve-2024-46981-cve-2024-51737-cve-2024-51480-cve-2024-55656/#:~:text=%5BCVE,0%C2%A0%20%28High">Security Advisory: CVE-2024-46981, CVE-2024-51737, CVE-2024-51480, CVE-2024-55656 - Redis</a>)). These flaws often occur due to lack of bounds-checking, improper lifecycle management (unloading modules too early), or integer overflow leading to undersized buffers. Memory corruption allows attackers to crash the host process or even inject malicious code for remote execution. This aligns with industry findings that ~70% of security bugs in systems code are memory-safety issues (<a href="https://en.wikipedia.org/wiki/Memory_safety#:~:text=In%202019%2C%20a%20Microsoft%20,identifying%20memory%20safety%20issues%20as">Memory safety - Wikipedia</a>).</p>
+</li>
+<li>
+<p><strong>Input Validation and Logic Errors:</strong> Another common root cause is improper input handling or logic in extension interfaces. In several cases, extensions failed to properly sanitize or scope user-supplied data:</p>
+</li>
+<li><strong>Injection vulnerabilities:</strong> PostgreSQL extension scripts did not adequately quote substitution parameters, leading to SQL injection (code execution) (<a href="https://www.postgresql.org/support/security/CVE-2023-39417/#:~:text=An%20extension%20script%20is%20vulnerable,need%20to%20modify%20individual%20extensions">PostgreSQL: CVE-2023-39417: Extension script @substitutions@ within quoting allow SQL injection</a>). Apache’s mod_proxy in certain rewrite configurations failed to normalize URLs, enabling HTTP request smuggling (<a href="https://github.com/dhmosfunk/CVE-2023-25690-POC#:~:text=Some%20mod_proxy%20configurations%20on%20Apache,For%20example%2C%20something%20like">GitHub - dhmosfunk/CVE-2023-25690-POC: CVE 2023 25690 Proof of concept - mod_proxy vulnerable configuration on Apache HTTP Server versions 2.4.0 - 2.4.55 leads to HTTP Request Smuggling vulnerability.</a>). These are logic flaws where the extension trusts input in unsafe ways.</li>
+<li><strong>Privilege/Isolation errors:</strong> Some database extensions didn’t enforce schema or ownership boundaries. The <strong>Aiven Extras</strong> Postgres extension trusted function names without schema qualifiers, so a low-privilege user could <strong>hijack extension calls</strong> to escalate privileges (<a href="https://nvd.nist.gov/vuln/detail/cve-2023-32305#:~:text=aiven,or%20data%20access%20on%20the">NVD - cve-2023-32305</a>). Similarly, PostgreSQL’s PL/Perl trusted language allowed environment changes, breaking the expected sandbox and leading to code execution (<a href="https://www.varonis.com/blog/cve-postgresql-pl/perl#:~:text=The%20vulnerability%2C%20named%20CVE,system%20user%20on%20the%20server">Varonis Discovers New Vulnerability in PostgreSQL PL/Perl</a>). These mistakes in following security guidelines or isolating context result in privilege escalation or sandbox escape.</li>
+<li>
+<p><strong>Algorithmic logic bugs:</strong> Extensions have caused infinite loops or excessive resource usage due to logic mistakes. For instance, Nginx’s MP4 module (2018) could enter an <strong>infinite loop</strong> on a crafted file (<a href="https://mailman.nginx.org/pipermail/nginx-announce/2018/000221.html#:~:text=A%20security%20issue%20was%20identified,16845"> [nginx-announce] nginx security advisory (CVE-2018-16845)
+   </a>), and its HTTP/2 module could be tricked into extreme CPU or memory consumption (<a href="https://mailman.nginx.org/pipermail/nginx-announce/2018/000220.html#:~:text=Two%20security%20issues%20were%20identified,16844"> [nginx-announce] nginx security advisory (CVE-2018-16843,    CVE-2018-16844)
+   </a>). Apache’s mod_sed miscalculated buffer resizing, causing runaway memory growth (<a href="https://jfrog.com/blog/cve-2022-30522-denial-of-service-dos-vulnerability-in-apache-httpd-mod_sed-filter/#:~:text=the%20Apache%20HTTP%20server,for%20request%20or%20response%20editing">CVE-2022-30522 - Apache httpd Denial of Service (DoS) vulnerability</a>). These are not memory <em>corruption</em> per se, but logical errors in handling certain states or inputs.</p>
+</li>
+<li>
+<p><strong>Extension API Misuse:</strong> Some bugs arise from how the extension interface itself is used. MySQL’s older UDF mechanism was abused by loading unintended libraries that defined certain symbol names, causing unpredictable behavior (crashes) (<a href="https://www.tenable.com/plugins/nessus/17698#:~:text=,memory%20corruption%20and%20stack%20pollution">MySQL User-Defined Functions Multiple Vulnerabilities<!-- --> | Tenable®</a>) – essentially the extension loader lacked strict validation of module binaries. In Apache, the ISAPI extension interface required careful coordination between the server and the ISAPI module; a failure to do so caused the mod_isapi bug (not waiting for the module call to finish before unloading) (<a href="https://www.trendmicro.com/vinfo/us/threat-encyclopedia/vulnerability/1811/apache-modisapi-remote-code-execution-vulnerability#:~:text=modules%2Farch%2Fwin32%2Fmod_isapi,orphaned%20callback%20pointers">
+    Apache mod_isapi Remote Code Execution Vulnerability - Threat Encyclopedia | Trend Micro (US)
+</a>). These indicate that writing extensions is error-prone and mistakes in using the host’s extension API can introduce serious flaws.</p>
+</li>
+</ul>
+<h3 id="impact-on-system-stability-maintainability-and-security">Impact on System Stability, Maintainability, and Security</h3>
+<p>Bugs in extensions can significantly affect the <strong>stability and security</strong> of the host database or server, given that extensions typically run in-process with full access to host internals:</p>
+<ul>
+<li>
+<p><strong>System Crashes and Downtime:</strong> Many of the cited bugs caused the entire database or web server to crash or hang. For example, a single malformed web request could crash an Nginx worker (MP4 module issues) (<a href="https://mailman.nginx.org/pipermail/nginx-announce/2018/000221.html#:~:text=A%20security%20issue%20was%20identified,16845"> [nginx-announce] nginx security advisory (CVE-2018-16845)
+   </a>) or even the whole Apache server (mod_sed memory overflow) (<a href="https://jfrog.com/blog/cve-2022-30522-denial-of-service-dos-vulnerability-in-apache-httpd-mod_sed-filter/#:~:text=the%20Apache%20HTTP%20server,for%20request%20or%20response%20editing">CVE-2022-30522 - Apache httpd Denial of Service (DoS) vulnerability</a>). In databases, extension bugs like the PostgreSQL script vulnerabilities required an admin to install a malicious extension first, but others like MySQL’s UDF flaw could be triggered by any user with minimal privileges to cause a hang (<a href="https://www.tenable.com/plugins/nessus/17698#:~:text=,affected%20by%20this%20particular%20issue">MySQL User-Defined Functions Multiple Vulnerabilities<!-- --> | Tenable®</a>). Such <strong>denial-of-service</strong> conditions undermine availability and stability, often requiring emergency patches or reboots.</p>
+</li>
+<li>
+<p><strong>Security Compromises:</strong> Extension vulnerabilities often have severe security implications because they run with high privileges. Several cases enabled <strong>remote code execution (RCE)</strong> on the host: e.g., the IIS idq.dll overflow allowed complete takeover of the server as SYSTEM (<a href="https://learn.microsoft.com/en-us/security-updates/securitybulletins/2001/ms01-033#:~:text=A%20security%20vulnerability%20results%20because,any%20desired%20action%20on%20it">Microsoft Security Bulletin MS01-033 - Critical | Microsoft Learn</a>) (<a href="https://learn.microsoft.com/en-us/security-updates/securitybulletins/2001/ms01-033#:~:text=web%20session%20with%20a%20server,any%20desired%20action%20on%20it">Microsoft Security Bulletin MS01-033 - Critical | Microsoft Learn</a>), and the Redis/RedisStack module overflows could execute code within the database process (<a href="https://redis.io/blog/security-advisory-cve-2024-46981-cve-2024-51737-cve-2024-51480-cve-2024-55656/#:~:text=An%20authenticated%20Redis%20user%20executing,and%20potential%20remote%20code%20execution">Security Advisory: CVE-2024-46981, CVE-2024-51737, CVE-2024-51480, CVE-2024-55656 - Redis</a>) (<a href="https://redis.io/blog/security-advisory-cve-2024-46981-cve-2024-51737-cve-2024-51480-cve-2024-55656/#:~:text=Executing%20one%20of%20these%20commands,lead%20to%20remote%20code%20execution">Security Advisory: CVE-2024-46981, CVE-2024-51737, CVE-2024-51480, CVE-2024-55656 - Redis</a>). Privilege escalation within the DB (as with the Postgres extensions (<a href="https://nvd.nist.gov/vuln/detail/cve-2023-32305#:~:text=aiven,or%20data%20access%20on%20the">NVD - cve-2023-32305</a>)) can lead to exfiltration or tampering of all data. Even non-RCE logic flaws can lead to serious breaches, such as request smuggling in a proxy bypassing security controls (<a href="https://github.com/dhmosfunk/CVE-2023-25690-POC#:~:text=RewriteEngine%20on%20RewriteRule%20,ProxyPassReverse%20%2Fhere%2F%20http%3A%2F%2Fexample.com%3A8080">GitHub - dhmosfunk/CVE-2023-25690-POC: CVE 2023 25690 Proof of concept - mod_proxy vulnerable configuration on Apache HTTP Server versions 2.4.0 - 2.4.55 leads to HTTP Request Smuggling vulnerability.</a>). In summary, <strong>bugs in trusted extensions break the security model</strong> of the host application, since they can bypass sandboxing or elevate privileges.</p>
+</li>
+<li>
+<p><strong>Data Integrity and Confidentiality:</strong> Some extension bugs risk data corruption or leakage. For instance, the Nginx MP4 loop bug could leak memory contents (potentially exposing sensitive data in memory) (<a href="https://mailman.nginx.org/pipermail/nginx-announce/2018/000221.html#:~:text=A%20security%20issue%20was%20identified,16845"> [nginx-announce] nginx security advisory (CVE-2018-16845)
+   </a>). While not explicitly in our cases, a buggy storage engine extension in a database could corrupt indexes or data files, undermining integrity. Because extensions often operate at a low level, any flaw can directly impact the correctness and safety of data handled by the server.</p>
+</li>
+<li>
+<p><strong>Maintainability and Compatibility:</strong> Extensions add complexity to system maintenance. The PostGIS upgrade scenario illustrates a <strong>compatibility issue</strong> – an outdated extension blocked a PostgreSQL upgrade (<a href="https://www.googlecloudcommunity.com/gc/Databases/Unable-to-upgrade-PostgreSQL-9-6-with-postgis-3-0-3-because-of/m-p/754437#:~:text=%22pre,major%20version%20upgrade%20for%20database">
+    Solved: Unable to upgrade PostgreSQL 9.6 with postgis 3.0.... - Google Cloud Community
+</a>). This highlights how extension interfaces must be kept in sync with core versions, requiring extra upgrade steps and knowledge. Additionally, patching extension-related bugs can be tricky; the mod_sed case showed that an incomplete fix introduced a new bug (CVE-2022-30522 was created by the patch for CVE-2022-23943 (<a href="https://jfrog.com/blog/cve-2022-30522-denial-of-service-dos-vulnerability-in-apache-httpd-mod_sed-filter/#:~:text=Server%20%60mod_sed%60%20filter%20module%2C%20CVE,a%20miscalculation%20of%20buffers%E2%80%99%20sizes">CVE-2022-30522 - Apache httpd Denial of Service (DoS) vulnerability</a>)). This <strong>fragility</strong> means maintainers must be very careful in testing extension changes. Some vendors responded by moving risky functionality out-of-process or tightening extension privileges (e.g., PostgreSQL only allows superusers to CREATE EXTENSION by default, to mitigate risk). Overall, while extensions provide flexibility, they <strong>increase the attack surface and maintenance burden</strong> on system administrators.</p>
+</li>
+</ul>
+<h3 id="frequency-and-severity-trends">Frequency and Severity Trends</h3>
+<p>From the collected sample of 22 cases, we can draw some insights on which types of bugs are most frequent and which have the most severe consequences:</p>
+<ul>
+<li>
+<p><strong>Security vulnerabilities dominate:</strong> The majority of documented cases are security-related (over 80% of our examples). This is expected since many extension bugs manifest as exploitable vulnerabilities. Within these, memory corruption issues (buffer overflows, etc.) are the single largest category. Roughly <strong>half of the cases</strong> involved memory safety bugs leading to either crashes or RCE. These are among the most severe, with many rated critical. Logic flaws (injection, validation errors) made up another sizable portion of security bugs (around 6–7 cases), and while they sometimes require specific conditions (e.g. a certain config or a pre-installed extension), they can also be critical when exploitable (e.g. SQL injection in an extension script (<a href="https://www.postgresql.org/support/security/CVE-2023-39417/#:~:text=prerequisite%20is%20an%20administrator%20having,need%20to%20modify%20individual%20extensions">PostgreSQL: CVE-2023-39417: Extension script @substitutions@ within quoting allow SQL injection</a>)).</p>
+</li>
+<li>
+<p><strong>Denial-of-Service vs. RCE:</strong> About one-third of the cases were <strong>Denial-of-Service (DoS)</strong> issues without direct code execution (e.g. infinite loops, memory exhaustion). DoS bugs (including the performance-related ones) are generally rated lower severity than RCE, but still significant. In our table, at least 7–8 cases led primarily to DoS (e.g. Nginx HTTP/2 bugs (<a href="https://mailman.nginx.org/pipermail/nginx-announce/2018/000220.html#:~:text=Two%20security%20issues%20were%20identified,16844"> [nginx-announce] nginx security advisory (CVE-2018-16843,  CVE-2018-16844)
+   </a>), Apache mod_sed (<a href="https://jfrog.com/blog/cve-2022-30522-denial-of-service-dos-vulnerability-in-apache-httpd-mod_sed-filter/#:~:text=the%20Apache%20HTTP%20server,for%20request%20or%20response%20editing">CVE-2022-30522 - Apache httpd Denial of Service (DoS) vulnerability</a>), MySQL group replication hang (<a href="https://nvd.nist.gov/vuln/detail/cve-2020-2921#:~:text=prior,CVSS%20Vector">NVD - cve-2020-2921</a>)). <strong>Remote Code Execution</strong> was possible in roughly <strong>half</strong> of the cases – those are the most severe, potentially scoring 9.0+ CVSS (many of the buffer overflows and the Redis/Postgres privilege escalations fall here). Privilege escalation within the server (to a DBA or root account) can be just as severe as direct RCE in context.</p>
+</li>
+<li>
+<p><strong>Performance and compatibility issues are less frequently reported</strong> in public CVEs, but they do occur. Only a few of our examples were purely non-security (e.g. the PostGIS compatibility problem, which isn’t a CVE). However, in practice, extension-related performance bugs (like memory leaks or slowdowns) and upgrade incompatibilities are encountered by administrators. They just tend to appear in bug trackers or release notes rather than security bulletins. In our study, we included a couple of performance-focused bugs (Nginx HTTP/2, mod_sed) that were also security relevant because an external party could trigger them. Purely internal performance bugs in extensions (ones not triggerable by adversaries) are harder to find documented, but they do affect system efficiency and stability over time.</p>
+</li>
+<li>
+<p><strong>Cross-platform observations:</strong> Database extensions and web server modules show <strong>similar bug patterns</strong> despite different domains. Both suffer from memory errors (due to being written in unsafe languages for speed) and logic mistakes. One difference is that database extension vulnerabilities often involve <strong>privilege boundaries</strong> (since databases have authentication and authorization layers) – e.g., misuse of an extension could let a lower-privilege DB user gain superuser. Web server module bugs more often involve direct memory corruption or request parsing issues (since web servers usually assume code modules run with full privilege of the server). Nonetheless, the need for careful validation and sandboxing is common to both.</p>
+</li>
+</ul>
+<p>In summary, <strong>memory-corruption vulnerabilities are the most frequent and severe issues in extension interfaces</strong>, frequently leading to crashes or remote code execution (<a href="https://en.wikipedia.org/wiki/Memory_safety#:~:text=In%202019%2C%20a%20Microsoft%20,identifying%20memory%20safety%20issues%20as">Memory safety - Wikipedia</a>). Logic errors in extension code are the next most common, sometimes causing equally severe privilege breaches or injection attacks. Performance and compatibility bugs are reported less often but can have serious impacts on stability and maintainability if not addressed. The high prevalence of memory safety bugs highlights the importance of safe coding practices or safer languages for extensions, as well as robust testing. Meanwhile, the logic and design issues point to a need for stricter extension frameworks (e.g., sandboxing extensions, minimizing trust of extension inputs) to improve overall system resilience.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Extension interfaces extend the capabilities of databases and web servers but come with inherent risks. The case studies show that bugs in extensions – whether official modules or third-party plugins – have led to <strong>system crashes, severe security breaches, performance degradation, and maintenance headaches</strong>. Common themes include memory safety lapses, inadequate input validation, and insufficient isolation of extension code. These issues have affected a wide range of platforms (PostgreSQL, MySQL, Redis, Apache, Nginx, IIS) over the past two decades, underlining that the challenge is ubiquitous.</p>
+<p>To mitigate these risks, software maintainers have taken steps such as patching vulnerabilities promptly, improving API safety (e.g. adding checks in core for extension actions (<a href="https://www.postgresql.org/support/security/CVE-2023-39417/#:~:text=trusted%2C%20non,need%20to%20modify%20individual%20extensions">PostgreSQL: CVE-2023-39417: Extension script @substitutions@ within quoting allow SQL injection</a>) (<a href="https://www.postgresql.org/support/security/CVE-2022-2625/#:~:text=code%20as%20the%20victim%20role%2C,need%20to%20modify%20individual%20extensions">PostgreSQL: CVE-2022-2625: Extension scripts replace objects not belonging to the extension</a>)), restricting extension privileges, and encouraging best practices for extension developers. From a statistical viewpoint, <strong>security vulnerabilities (especially memory-related) are the most frequent and damaging bugs in extensions</strong>, whereas general bugs like logic errors and compatibility issues, though slightly less publicized, can undermine system reliability if not managed. Organizations using extensible databases or web servers should remain vigilant: keep both core software and extensions up-to-date, apply patches for known CVEs, and follow hardening guidelines (disabling or sandboxing unnecessary extensions). By recognizing the common failure patterns – and learning from past bugs – we can improve the stability, maintainability, and security of systems that rely on extension interfaces.</p>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=Study%20on%20Bugs%20in%20Database%20and%20Web%20Server%20Extension%20Interfaces%0A&amp;url=https://eunomia.dev/bpftime/EIM/study/db-bug-study/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/bpftime/EIM/study/db-bug-study/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 18, 2025</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 18, 2025</span>
+  </span>
+
+    
+    
+      
+  
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Contributors">
+      
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+      
+    </span>
+    <nav>
+      
+        <a href="mailto:1067852565@qq.com">云微</a>
+    </nav>
+  </span>
+
+    
+    
+  </aside>
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        Was this page helpful?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m7 0c0 .8-.7 1.5-1.5 1.5S14 10.3 14 9.5 14.7 8 15.5 8s1.5.7 1.5 1.5m-5 7.73c-1.75 0-3.29-.73-4.19-1.81L9.23 14c.45.72 1.52 1.23 2.77 1.23s2.32-.51 2.77-1.23l1.42 1.42c-.9 1.08-2.44 1.81-4.19 1.81"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10m-6.5-4c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5-1.5-.7-1.5-1.5.7-1.5 1.5-1.5M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m2 4.5c1.75 0 3.29.72 4.19 1.81l-1.42 1.42C14.32 16.5 13.25 16 12 16s-2.32.5-2.77 1.23l-1.42-1.42C8.71 14.72 10.25 14 12 14"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              Thanks for your feedback!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              Thanks for your feedback! Help us improve this page by using our <a href="https://github.com/orgs/eunomia-bpf/discussions" target="_blank" rel="noopener">Github discussion</a>.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="eunomia-bpf/bpf-developer-tutorial"
+        data-repo-id="R_kgDOIi0KhQ"
+        data-category="General"
+        data-category-id="DIC_kwDOIi0Khc4CYq-h"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../compare/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Extension Systems compare with EIM">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Extension Systems compare with EIM
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../../documents/attach/" class="md-footer__link md-footer__link--next" aria-label="Next: Detailed Implementation of the Attach Part">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Detailed Implementation of the Attach Part
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright (c) 2024 eunomia-bpf org.
+    </div>
+  
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/eunomia-bpf" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:yunwei356@gmail.com" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M498.1 5.6c10.1 7 15.4 19.1 13.5 31.2l-64 416c-1.5 9.7-7.4 18.2-16 23s-18.9 5.4-28 1.6L284 427.7l-68.5 74.1c-8.9 9.7-22.9 12.9-35.2 8.1S160 493.2 160 480v-83.6c0-4 1.5-7.8 4.2-10.8l167.6-182.8c5.8-6.3 5.6-16-.4-22s-15.7-6.4-22-.7L106 360.8l-88.3-44.2C7.1 311.3.3 300.7 0 288.9s5.9-22.8 16.1-28.7l448-256c10.7-6.1 23.9-5.5 34 1.4"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["search.suggest", "search.highlight", "search.share", "navigation.footer", "navigation.instant", "navigation.instant.progress", "navigation.tabs", "navigation.expand", "navigation.path", "navigation.top", "content.tabs.link", "content.action.edit", "content.action.view"], "search": "../../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+<script src="https://cdn.usefathom.com/script.js" data-site="ZLDAHRNN" defer></script>
+
+      <script src="../../../../assets/javascripts/bundle.f1b6f286.min.js"></script>
+      
+    
+
+  </body>
+</html>

@@ -457,14 +457,6 @@
          
     </url>
     <url>
-         <loc>https://eunomia.dev/bpftime/EIM/compare/</loc>
-         <lastmod>2025-02-18</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/bpftime/EIM/compare/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/bpftime/EIM/compare/"/>
-         
-    </url>
-    <url>
          <loc>https://eunomia.dev/bpftime/EIM/example/</loc>
          <lastmod>2025-02-18</lastmod>
          <changefreq>daily</changefreq>
@@ -518,6 +510,22 @@
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/bpftime/EIM/draft-spec/spec_old/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/bpftime/EIM/draft-spec/spec_old/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/bpftime/EIM/study/compare/</loc>
+         <lastmod>2025-02-18</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/bpftime/EIM/study/compare/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/bpftime/EIM/study/compare/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/bpftime/EIM/study/db-bug-study/</loc>
+         <lastmod>2025-02-18</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/bpftime/EIM/study/db-bug-study/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/bpftime/EIM/study/db-bug-study/"/>
          
     </url>
     <url>
