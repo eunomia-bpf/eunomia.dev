@@ -4656,6 +4656,24 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#os-level-challenges-in-llm-inference-and-optimizations" class="md-nav__link">
+    <span class="md-ellipsis">
+      OS-Level Challenges in LLM Inference and Optimizations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wasi-and-the-webassembly-component-model-current-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      WASI and the WebAssembly Component Model: Current Status
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ebpf-ecosystem-progress-in-20242025-a-technical-deep-dive" class="md-nav__link">
     <span class="md-ellipsis">
       eBPF Ecosystem Progress in 2024–2025: A Technical Deep Dive
@@ -4905,6 +4923,74 @@
 <p><a class="md-button" href="https://x.com/intent/tweet?text=Blog%0A&amp;url=https://eunomia.dev/blog/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/blog/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
       </header>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2025-02-18 00:00:00+00:00">February 18, 2025</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              31 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="os-level-challenges-in-llm-inference-and-optimizations"><a class="toclink" href="2025/02/18/os-level-challenges-in-llm-inference-and-optimizations/">OS-Level Challenges in LLM Inference and Optimizations</a></h2>
+<p>Large Language Model (LLM) inference pushes computing systems to their limits, not only in raw compute but also in how the operating system (OS) manages resources. This report examines <strong>OS-level challenges</strong> for LLM inference and explores potential solutions. We focus first on key bottlenecks – memory management, CPU scheduling, I/O, and real-time constraints – then discuss how kernel-level techniques (like eBPF and custom scheduling) can address these issues. We also consider the impact of system calls and page faults on performance, security/isolation concerns in multi-tenant environments, best practices and emerging research in OS customization for AI, and practical considerations for implementing such optimizations in a research project. The goal is to guide a research initiative by outlining the challenges and then potential solutions and areas for further investigation.</p>
+
+    
+      <nav class="md-post__action">
+        <a href="2025/02/18/os-level-challenges-in-llm-inference-and-optimizations/">
+          Continue reading
+        </a>
+      </nav>
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2025-02-16 00:00:00+00:00">February 16, 2025</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              37 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="wasi-and-the-webassembly-component-model-current-status"><a class="toclink" href="2025/02/16/wasi-and-the-webassembly-component-model-current-status/">WASI and the WebAssembly Component Model: Current Status</a></h2>
+<p>WebAssembly (WASM) has evolved from a browser-based technology into a promising runtime for server and embedded applications. Key to this evolution are the WebAssembly System Interface (WASI) – a standardized set of syscalls for WASM outside the browser – and the emerging <strong>Component Model</strong>, which enables modular, language-agnostic composition of WebAssembly modules. This report analyzes the current status of WASI (including its major runtimes like Wasmtime and Wasmer) and the Component Model, focusing on the technical limitations that impede adoption. We draw from official proposals, runtime issue trackers, academic studies, and industry experiences to highlight critical gaps, unresolved bugs, and feature requests. Case studies illustrate how these challenges block real-world use cases, and we conclude with recommendations for improving WebAssembly’s performance, security, and integrability with host environments.</p>
+
+    
+      <nav class="md-post__action">
+        <a href="2025/02/16/wasi-and-the-webassembly-component-model-current-status/">
+          Continue reading
+        </a>
+      </nav>
+    
+  </div>
+</article>
       
         <article class="md-post md-post--excerpt">
   <header class="md-post__header">
