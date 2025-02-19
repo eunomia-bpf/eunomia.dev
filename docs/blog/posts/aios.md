@@ -6,6 +6,9 @@ date: 2025-02-18
 
 Large Language Model (LLM) inference pushes computing systems to their limits, not only in raw compute but also in how the operating system (OS) manages resources. This report examines **OS-level challenges** for LLM inference and explores potential solutions. We focus first on key bottlenecks – memory management, CPU scheduling, I/O, and real-time constraints – then discuss how kernel-level techniques (like eBPF and custom scheduling) can address these issues. We also consider the impact of system calls and page faults on performance, security/isolation concerns in multi-tenant environments, best practices and emerging research in OS customization for AI, and practical considerations for implementing such optimizations in a research project. The goal is to guide a research initiative by outlining the challenges and then potential solutions and areas for further investigation.
 
+<!-- more -->
+
+
 ## OS-Level Bottlenecks in LLM Inference
 
 LLM inference workloads strain various aspects of an OS. Key bottlenecks include memory management, CPU scheduling, I/O handling, and the need for real-time responsiveness. These factors can become limiting performance factors as models and workloads scale:
