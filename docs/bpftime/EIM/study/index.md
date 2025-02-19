@@ -1,10 +1,11 @@
 # studies on bugs in extensions/plugins
 
-We have done three studies on bugs in extensions/plugins:
+We have done several studies on bugs in extensions/plugins:
 
 1. [Browser Extensions and IDE Plugins](./browser-ide-bug-study.md)
 2. [Database and Web Server Extensions](./db-bug-study.md)
 3. [Hypervisor and Container Extensions](./docker-vm-bug-study.md)
+4. [Productivity Software and Game Extensions/Plugins](./game-office-bug-study.md)
 
 Each study included around 20 real-world cases, documenting **common patterns**, **impacts**, **statistics**, and **root causes**.
 
