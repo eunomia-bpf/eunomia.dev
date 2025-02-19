@@ -1,3 +1,7 @@
+---
+date: 2025-02-16
+---
+
 # WASI and the WebAssembly Component Model: Current Status
 
 WebAssembly (WASM) has evolved from a browser-based technology into a promising runtime for server and embedded applications. Key to this evolution are the WebAssembly System Interface (WASI) – a standardized set of syscalls for WASM outside the browser – and the emerging **Component Model**, which enables modular, language-agnostic composition of WebAssembly modules. This report analyzes the current status of WASI (including its major runtimes like Wasmtime and Wasmer) and the Component Model, focusing on the technical limitations that impede adoption. We draw from official proposals, runtime issue trackers, academic studies, and industry experiences to highlight critical gaps, unresolved bugs, and feature requests. Case studies illustrate how these challenges block real-world use cases, and we conclude with recommendations for improving WebAssembly’s performance, security, and integrability with host environments.
