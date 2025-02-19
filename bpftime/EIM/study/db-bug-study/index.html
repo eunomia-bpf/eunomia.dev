@@ -4861,9 +4861,9 @@
 <td><strong>CVE-2005-2572</strong></td>
 <td>MySQL (User-Defined Functions)</td>
 <td>Security</td>
-<td>UDF library handling flaws: invalid library load hangs server on Windows; loading non-UDF library with matching symbols causes memory corruption ([MySQL User-Defined Functions Multiple Vulnerabilities<!-- --></td>
-<td>Tenable®](https://www.tenable.com/plugins/nessus/17698#:~:text=User,affected%20by%20the%20following%20vulnerabilities)) ([MySQL User-Defined Functions Multiple Vulnerabilities<!-- --></td>
-<td>Tenable®](https://www.tenable.com/plugins/nessus/17698#:~:text=,memory%20corruption%20and%20stack%20pollution))</td>
+<td>UDF library handling flaws: invalid library load hangs server on Windows; loading non-UDF library with matching symbols causes memory corruption (<a href="https://www.tenable.com/plugins/nessus/17698#:~:text=User,affected%20by%20the%20following%20vulnerabilities">MySQL User-Defined Functions Multiple Vulnerabilities<!-- --> | Tenable®</a>) (<a href="https://www.tenable.com/plugins/nessus/17698#:~:text=,memory%20corruption%20and%20stack%20pollution">MySQL User-Defined Functions Multiple Vulnerabilities<!-- --> | Tenable®</a>)</td>
+<td>Database freeze (Windows GUI dialog hang) or crash due to stack/memory corruption (<a href="https://www.tenable.com/plugins/nessus/17698#:~:text=,affected%20by%20this%20particular%20issue">MySQL User-Defined Functions Multiple Vulnerabilities<!-- --> | Tenable®</a>)</td>
+<td>No immediate patch (at the time); admins instructed to restrict UDF creation privileges (<a href="https://www.tenable.com/plugins/nessus/17698#:~:text=">MySQL User-Defined Functions Multiple Vulnerabilities<!-- --> | Tenable®</a>)</td>
 </tr>
 <tr>
 <td><strong>CVE-2021-2429</strong></td>
@@ -4885,33 +4885,9 @@
 <td><strong>CVE-2022-0543</strong></td>
 <td>Redis (Lua Scripting Engine – Debian pkg)</td>
 <td>Security</td>
-<td>Packaging issue led to Lua library misuse – allowed calling OS commands (Lua sandbox escape) ([Redis sandbox escape (CVE-2022-0543)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>](https://docs.datadoghq.com/security/default_rules/redis_sandbox_escape/#:~:text=Redis%20is%20an%20open,loading%20a%20vulnerable%20Lua%20library))</td>
-<td><strong>Remote code execution:</strong> attacker (even unauthenticated) can execute commands on host via crafted Lua script ([Redis sandbox escape (CVE-2022-0543)</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>](https://docs.datadoghq.com/security/default_rules/redis_sandbox_escape/#:~:text=Redis%20is%20an%20open,loading%20a%20vulnerable%20Lua%20library))</td>
-<td>Fixed by correcting Lua library linking in Debian/Ubuntu (removed unsafe module loading) ([Redis sandbox escape (CVE-2022-0543)</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>](https://docs.datadoghq.com/security/default_rules/redis_sandbox_escape/#:~:text=1,version%20that%20has%20been%20fixed))</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>Packaging issue led to Lua library misuse – allowed calling OS commands (Lua sandbox escape) (<a href="https://docs.datadoghq.com/security/default_rules/redis_sandbox_escape/#:~:text=Redis%20is%20an%20open,loading%20a%20vulnerable%20Lua%20library">Redis sandbox escape (CVE-2022-0543)</a>)</td>
+<td><strong>Remote code execution:</strong> attacker (even unauthenticated) can execute commands on host via crafted Lua script (<a href="https://docs.datadoghq.com/security/default_rules/redis_sandbox_escape/#:~:text=Redis%20is%20an%20open,loading%20a%20vulnerable%20Lua%20library">Redis sandbox escape (CVE-2022-0543)</a>)</td>
+<td>Fixed by correcting Lua library linking in Debian/Ubuntu (removed unsafe module loading) (<a href="https://docs.datadoghq.com/security/default_rules/redis_sandbox_escape/#:~:text=1,version%20that%20has%20been%20fixed">Redis sandbox escape (CVE-2022-0543)</a>)</td>
 </tr>
 <tr>
 <td><strong>CVE-2024-46981</strong></td>
@@ -4950,96 +4926,32 @@
 <td>Nginx (HTTP/2 Module)</td>
 <td>Performance (DoS)</td>
 <td>Inefficient memory management for HTTP/2 requests – missing limits allowed <strong>excessive memory consumption</strong> (<a href="https://nvd.nist.gov/vuln/detail/cve-2018-16843#:~:text=nginx%20before%20versions%201,used%20in%20a%20configuration%20file">NVD - cve-2018-16843</a>)</td>
-<td>Malicious HTTP/2 client can exhaust server memory, leading to process slowdown or crash (DoS) ([ [nginx-announce] nginx security advisory (CVE-2018-16843, CVE-2018-16844)</td>
-<td></td>
-</tr>
-<tr>
-<td>](https://mailman.nginx.org/pipermail/nginx-announce/2018/000220.html#:~:text=Two%20security%20issues%20were%20identified,16844))</td>
-<td>Fixed in Nginx 1.15.6/1.14.1 – enforced memory usage limits in HTTP/2 processing ([ [nginx-announce] nginx security advisory (CVE-2018-16843,    CVE-2018-16844)</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>](https://mailman.nginx.org/pipermail/nginx-announce/2018/000220.html#:~:text=The%20issues%20affect%20nginx%20compiled,used%20in%20a%20configuration%20file))</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>Malicious HTTP/2 client can exhaust server memory, leading to process slowdown or crash (DoS) ([nginx-announce] nginx security advisory (CVE-2018-16843, CVE-2018-16844))(<a href="https://mailman.nginx.org/pipermail/nginx-announce/2018/000220.html#:~:text=The%20issues%20affect%20nginx%20compiled,used%20in%20a%20configuration%20file">https://mailman.nginx.org/pipermail/nginx-announce/2018/000220.html#:~:text=The%20issues%20affect%20nginx%20compiled,used%20in%20a%20configuration%20file</a>)</td>
+<td>Fixed in Nginx 1.15.6/1.14.1 – enforced memory usage limits in HTTP/2 processing ([nginx-announce] nginx security advisory (CVE-2018-16843, CVE-2018-16844))(<a href="https://mailman.nginx.org/pipermail/nginx-announce/2018/000220.html#:~:text=The%20issues%20affect%20nginx%20compiled,used%20in%20a%20configuration%20file">https://mailman.nginx.org/pipermail/nginx-announce/2018/000220.html#:~:text=The%20issues%20affect%20nginx%20compiled,used%20in%20a%20configuration%20file</a>)</td>
 </tr>
 <tr>
 <td><strong>CVE-2018-16844</strong></td>
 <td>Nginx (HTTP/2 Module)</td>
 <td>Performance (DoS)</td>
-<td>HTTP/2 implementation bug causing <strong>high CPU usage</strong> (likely infinite loop or busy-wait) ([ [nginx-announce] nginx security advisory (CVE-2018-16843, CVE-2018-16844)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>](https://mailman.nginx.org/pipermail/nginx-announce/2018/000220.html#:~:text=Two%20security%20issues%20were%20identified,16844))</td>
-<td>Remote client can consume 100% CPU of a worker process, causing request handling to stall (DoS) ([ [nginx-announce] nginx security advisory (CVE-2018-16843, CVE-2018-16844)</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>](https://mailman.nginx.org/pipermail/nginx-announce/2018/000220.html#:~:text=Two%20security%20issues%20were%20identified,16844))</td>
-<td>Fixed in Nginx 1.15.6/1.14.1 alongside CVE-16843 – corrected HTTP/2 state handling ([ [nginx-announce] nginx security advisory (CVE-2018-16843,  CVE-2018-16844)</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>](https://mailman.nginx.org/pipermail/nginx-announce/2018/000220.html#:~:text=The%20issues%20affect%20nginx%20compiled,used%20in%20a%20configuration%20file))</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>HTTP/2 implementation bug causing <strong>high CPU usage</strong> (likely infinite loop or busy-wait) ([nginx-announce] nginx security advisory (CVE-2018-16843, CVE-2018-16844))(<a href="https://mailman.nginx.org/pipermail/nginx-announce/2018/000220.html#:~:text=Two%20security%20issues%20were%20identified,16844">https://mailman.nginx.org/pipermail/nginx-announce/2018/000220.html#:~:text=Two%20security%20issues%20were%20identified,16844</a>)</td>
+<td>Remote client can consume 100% CPU of a worker process, causing request handling to stall (DoS) ([nginx-announce] nginx security advisory (CVE-2018-16843, CVE-2018-16844))(<a href="https://mailman.nginx.org/pipermail/nginx-announce/2018/000220.html#:~:text=Two%20security%20issues%20were%20identified,16844">https://mailman.nginx.org/pipermail/nginx-announce/2018/000220.html#:~:text=Two%20security%20issues%20were%20identified,16844</a>)</td>
+<td>Fixed in Nginx 1.15.6/1.14.1 alongside CVE-16843 – corrected HTTP/2 state handling ([nginx-announce] nginx security advisory (CVE-2018-16843, CVE-2018-16844))(<a href="https://mailman.nginx.org/pipermail/nginx-announce/2018/000220.html#:~:text=The%20issues%20affect%20nginx%20compiled,used%20in%20a%20configuration%20file">https://mailman.nginx.org/pipermail/nginx-announce/2018/000220.html#:~:text=The%20issues%20affect%20nginx%20compiled,used%20in%20a%20configuration%20file</a>)</td>
 </tr>
 <tr>
 <td><strong>CVE-2018-16845</strong></td>
 <td>Nginx (MP4 Video Module)</td>
 <td>Security/Logic</td>
-<td>Flawed MP4 file parsing could trigger an <strong>infinite loop or buffer over-read</strong>, possibly leaking memory ([ [nginx-announce] nginx security advisory (CVE-2018-16845)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>](https://mailman.nginx.org/pipermail/nginx-announce/2018/000221.html#:~:text=A%20security%20issue%20was%20identified,16845))</td>
-<td>Crafted MP4 file causes worker to hang or crash; potential exposure of memory contents (information leak) ([ [nginx-announce] nginx security advisory (CVE-2018-16845)</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>](https://mailman.nginx.org/pipermail/nginx-announce/2018/000221.html#:~:text=A%20security%20issue%20was%20identified,16845))</td>
-<td>Patch applied (in Nginx 1.15.6/1.14.1) ([ [nginx-announce] nginx security advisory (CVE-2018-16845)</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>](https://mailman.nginx.org/pipermail/nginx-announce/2018/000221.html#:~:text=The%20issue%20affects%20nginx%201,1)) – fixed loop condition and added bounds checks</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>Flawed MP4 file parsing could trigger an <strong>infinite loop or buffer over-read</strong>, possibly leaking memory ([nginx-announce] nginx security advisory (CVE-2018-16845))(<a href="https://mailman.nginx.org/pipermail/nginx-announce/2018/000221.html#:~:text=A%20security%20issue%20was%20identified,16845">https://mailman.nginx.org/pipermail/nginx-announce/2018/000221.html#:~:text=A%20security%20issue%20was%20identified,16845</a>)</td>
+<td>Crafted MP4 file causes worker to hang or crash; potential exposure of memory contents (information leak) ([nginx-announce] nginx security advisory (CVE-2018-16845))(<a href="https://mailman.nginx.org/pipermail/nginx-announce/2018/000221.html#:~:text=A%20security%20issue%20was%20identified,16845">https://mailman.nginx.org/pipermail/nginx-announce/2018/000221.html#:~:text=A%20security%20issue%20was%20identified,16845</a>)</td>
+<td>Patch applied (in Nginx 1.15.6/1.14.1) ([nginx-announce] nginx security advisory (CVE-2018-16845))(<a href="https://mailman.nginx.org/pipermail/nginx-announce/2018/000221.html#:~:text=The%20issue%20affects%20nginx%201,1">https://mailman.nginx.org/pipermail/nginx-announce/2018/000221.html#:~:text=The%20issue%20affects%20nginx%201,1</a>) – fixed loop condition and added bounds checks</td>
 </tr>
 <tr>
 <td><strong>CVE-2024-7347</strong></td>
 <td>Nginx (MP4 Video Module)</td>
 <td>Security</td>
-<td>Buffer overflow (memory over-read) in MP4 metadata handling when using the <code>mp4</code> directive (<a href="https://cvefeed.io/vuln/detail/CVE-2024-7347#:~:text=NGINX%20Open%20Source%20and%20NGINX,EoTS%29%20are%20not%20evaluated"> CVE-2024-7347 - NGINX MP4 Module Buffer Overflow Vulnerability </a>)</td>
-<td>Attacker can cause the Nginx worker to read beyond buffer and <strong>terminate</strong> (crash) the process (<a href="https://cvefeed.io/vuln/detail/CVE-2024-7347#:~:text=NGINX%20Open%20Source%20and%20NGINX,EoTS%29%20are%20not%20evaluated"> CVE-2024-7347 - NGINX MP4 Module Buffer Overflow Vulnerability </a>)</td>
-<td>Fixed in Nginx (Open Source &amp; Plus) – corrected MP4 parsing logic to prevent over-read (<a href="https://cvefeed.io/vuln/detail/CVE-2024-7347#:~:text=NGINX%20Open%20Source%20and%20NGINX,EoTS%29%20are%20not%20evaluated"> CVE-2024-7347 - NGINX MP4 Module Buffer Overflow Vulnerability </a>)</td>
+<td>Buffer overflow (memory over-read) in MP4 metadata handling when using the <code>mp4</code> directive (<a href="https://cvefeed.io/vuln/detail/CVE-2024-7347#:~:text=NGINX%20Open%20Source%20and%20NGINX,EoTS%29%20are%20not%20evaluated">CVE-2024-7347 - NGINX MP4 Module Buffer Overflow Vulnerability</a>)</td>
+<td>Attacker can cause the Nginx worker to read beyond buffer and <strong>terminate</strong> (crash) the process (<a href="https://cvefeed.io/vuln/detail/CVE-2024-7347#:~:text=NGINX%20Open%20Source%20and%20NGINX,EoTS%29%20are%20not%20evaluated">CVE-2024-7347 - NGINX MP4 Module Buffer Overflow Vulnerability</a>)</td>
+<td>Fixed in Nginx (Open Source &amp; Plus) – corrected MP4 parsing logic to prevent over-read (<a href="https://cvefeed.io/vuln/detail/CVE-2024-7347#:~:text=NGINX%20Open%20Source%20and%20NGINX,EoTS%29%20are%20not%20evaluated">CVE-2024-7347 - NGINX MP4 Module Buffer Overflow Vulnerability</a>)</td>
 </tr>
 <tr>
 <td><strong>CVE-2022-30522</strong></td>
@@ -5061,145 +4973,33 @@
 <td><strong>CVE-2010-0425</strong></td>
 <td>Apache HTTPd (mod_isapi on Windows)</td>
 <td>Security</td>
-<td>Use-after-free (dangling pointer) due to unloading ISAPI module before request completion ([</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Apache mod_isapi Remote Code Execution Vulnerability - Threat Encyclopedia</td>
-<td>Trend Micro (US)</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>](https://www.trendmicro.com/vinfo/us/threat-encyclopedia/vulnerability/1811/apache-modisapi-remote-code-execution-vulnerability#:~:text=modules%2Farch%2Fwin32%2Fmod_isapi,orphaned%20callback%20pointers))</td>
-<td>Remote attacker can send crafted requests/reset packets to execute arbitrary code within Apache (under SYSTEM on Windows) ([</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Apache mod_isapi Remote Code Execution Vulnerability - Threat Encyclopedia</td>
-<td>Trend Micro (US)</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>](https://www.trendmicro.com/vinfo/us/threat-encyclopedia/vulnerability/1811/apache-modisapi-remote-code-execution-vulnerability#:~:text=modules%2Farch%2Fwin32%2Fmod_isapi,orphaned%20callback%20pointers))</td>
-<td>Fixed in Apache 2.2.15/2.3.7 – ensure ISAPI request processing is complete before module unload ([</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Apache mod_isapi Remote Code Execution Vulnerability - Threat Encyclopedia</td>
-<td>Trend Micro (US)</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>](https://www.trendmicro.com/vinfo/us/threat-encyclopedia/vulnerability/1811/apache-modisapi-remote-code-execution-vulnerability#:~:text=modules%2Farch%2Fwin32%2Fmod_isapi,orphaned%20callback%20pointers))</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>Use-after-free (dangling pointer) due to unloading ISAPI module before request completion (<a href="https://www.trendmicro.com/vinfo/us/threat-encyclopedia/vulnerability/1811/apache-modisapi-remote-code-execution-vulnerability#:~:text=modules%2Farch%2Fwin32%2Fmod_isapi,orphaned%20callback%20pointers">Apache mod_isapi Remote Code Execution Vulnerability - Threat Encyclopedia | Trend Micro (US)</a>)</td>
+<td>Remote attacker can send crafted requests/reset packets to execute arbitrary code within Apache (under SYSTEM on Windows) (<a href="https://www.trendmicro.com/vinfo/us/threat-encyclopedia/vulnerability/1811/apache-modisapi-remote-code-execution-vulnerability#:~:text=modules%2Farch%2Fwin32%2Fmod_isapi,orphaned%20callback%20pointers">Apache mod_isapi Remote Code Execution Vulnerability - Threat Encyclopedia | Trend Micro (US)</a>)</td>
+<td>Fixed in Apache 2.2.15/2.3.7 – ensure ISAPI request processing is complete before module unload (<a href="https://www.trendmicro.com/vinfo/us/threat-encyclopedia/vulnerability/1811/apache-modisapi-remote-code-execution-vulnerability#:~:text=modules%2Farch%2Fwin32%2Fmod_isapi,orphaned%20callback%20pointers">Apache mod_isapi Remote Code Execution Vulnerability - Threat Encyclopedia | Trend Micro (US)</a>)</td>
 </tr>
 <tr>
 <td><strong>CVE-2001-0500</strong></td>
 <td>Microsoft IIS (Indexing Service ISAPI, idq.dll)</td>
 <td>Security</td>
-<td>Unchecked buffer in <strong>idq.dll</strong> (ISAPI extension for Index Server) handling incoming URL data ([Microsoft Security Bulletin MS01-033 - Critical</td>
-<td>Microsoft Learn](https://learn.microsoft.com/en-us/security-updates/securitybulletins/2001/ms01-033#:~:text=A%20security%20vulnerability%20results%20because,any%20desired%20action%20on%20it))</td>
-<td>Remote attacker can overflow buffer and execute code with <strong>SYSTEM privileges</strong>, taking complete control of the server ([Microsoft Security Bulletin MS01-033 - Critical</td>
+<td>Unchecked buffer in <strong>idq.dll</strong> (ISAPI extension for Index Server) handling incoming URL data (<a href="https://learn.microsoft.com/en-us/security-updates/securitybulletins/2001/ms01-033#:~:text=A%20security%20vulnerability%20results%20because,any%20desired%20action%20on%20it">Microsoft Security Bulletin MS01-033 - Critical | Microsoft Learn</a>)</td>
+<td>Remote attacker can overflow buffer and execute code with <strong>SYSTEM privileges</strong>, taking complete control of the server (<a href="https://learn.microsoft.com/en-us/security-updates/securitybulletins/2001/ms01-033#:~:text=A%20security%20vulnerability%20results%20because,any%20desired%20action%20on%20it">Microsoft Security Bulletin MS01-033 - Critical | Microsoft Learn</a>) (<a href="https://learn.microsoft.com/en-us/security-updates/securitybulletins/2001/ms01-033#:~:text=web%20session%20with%20a%20server,any%20desired%20action%20on%20it">Microsoft Security Bulletin MS01-033 - Critical | Microsoft Learn</a>)</td>
+<td>Patch released (MS01-033) – fixed buffer handling; admins urged to remove .ida/.idq script mappings (<a href="https://learn.microsoft.com/en-us/security-updates/securitybulletins/2001/ms01-033#:~:text=A%20security%20vulnerability%20results%20because,any%20desired%20action%20on%20it">Microsoft Security Bulletin MS01-033 - Critical | Microsoft Learn</a>) (<a href="https://learn.microsoft.com/en-us/security-updates/securitybulletins/2001/ms01-033#:~:text=vulnerability,he%20could%20exploit%20the%20vulnerability">Microsoft Security Bulletin MS01-033 - Critical | Microsoft Learn</a>)</td>
 </tr>
 <tr>
 <td><strong>CVE-2017-7269</strong></td>
 <td>Microsoft IIS 6.0 (WebDAV Extension)</td>
 <td>Security</td>
-<td>Improper validation of the “If:” header in a WebDAV PROPFIND request (buffer overflow in <code>ScStoragePathFromUrl</code>) ([IIS 6.0 Vulnerability Leads to Code Execution</td>
-<td>Trend Micro (US)](https://www.trendmicro.com/en_us/research/17/c/iis-6-0-vulnerability-leads-code-execution.html#:~:text=))</td>
-<td>Crafted WebDAV request causes <strong>buffer overflow</strong>; leads to denial of service or remote code execution in context of IIS process ([IIS 6.0 Vulnerability Leads to Code Execution</td>
+<td>Improper validation of the “If:” header in a WebDAV PROPFIND request (buffer overflow in <code>ScStoragePathFromUrl</code>) (<a href="https://www.trendmicro.com/en_us/research/17/c/iis-6-0-vulnerability-leads-code-execution.html#:~:text=Microsoft%20Internet%20Information%20Services%20,header%20in%20a%20PROPFIND%20request">IIS 6.0 Vulnerability Leads to Code Execution | Trend Micro (US)</a>)</td>
+<td>Crafted WebDAV request causes <strong>buffer overflow</strong>; leads to denial of service or remote code execution in context of IIS process (<a href="https://www.trendmicro.com/en_us/research/17/c/iis-6-0-vulnerability-leads-code-execution.html#:~:text=Microsoft%20Internet%20Information%20Services%20,header%20in%20a%20PROPFIND%20request">IIS 6.0 Vulnerability Leads to Code Execution | Trend Micro (US)</a>)</td>
+<td>No official fix for IIS 6.0 (out of support); workaround was to disable WebDAV or apply custom mitigations (<a href="https://www.trendmicro.com/en_us/research/17/c/iis-6-0-vulnerability-leads-code-execution.html#:~:text=A%20remote%20attacker%20could%20exploit,According%20to%20the%20researchers%20who">IIS 6.0 Vulnerability Leads to Code Execution | Trend Micro (US)</a>)</td>
 </tr>
 <tr>
 <td><strong>(No CVE)</strong></td>
 <td>PostgreSQL/PostGIS Extension Upgrade</td>
 <td>Compatibility</td>
-<td>Extension version mismatch on major DB upgrade – PostGIS 3.0 required upgrade before PostgreSQL 9.6→10 ([</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Solved: Unable to upgrade PostgreSQL 9.6 with postgis 3.0.... - Google Cloud Community</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>](https://www.googlecloudcommunity.com/gc/Databases/Unable-to-upgrade-PostgreSQL-9-6-with-postgis-3-0-3-because-of/m-p/754437#:~:text=%22pre,major%20version%20upgrade%20for%20database))</td>
-<td><strong>Upgrade failure:</strong> database refused to upgrade until extension was updated (maintenance downtime) ([</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Solved: Unable to upgrade PostgreSQL 9.6 with postgis 3.0.... - Google Cloud Community</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>](https://www.googlecloudcommunity.com/gc/Databases/Unable-to-upgrade-PostgreSQL-9-6-with-postgis-3-0-3-because-of/m-p/754437#:~:text=%22pre,major%20version%20upgrade%20for%20database))</td>
-<td>Resolve by upgrading the PostGIS extension to a compatible version (or using superuser to update extension) ([</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Solved: Unable to upgrade PostgreSQL 9.6 with postgis 3.0.... - Google Cloud Community</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>](https://www.googlecloudcommunity.com/gc/Databases/Unable-to-upgrade-PostgreSQL-9-6-with-postgis-3-0-3-because-of/m-p/754437#:~:text=%22pre,major%20version%20upgrade%20for%20database)) ([</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Solved: Unable to upgrade PostgreSQL 9.6 with postgis 3.0.... - Google Cloud Community</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>](https://www.googlecloudcommunity.com/gc/Databases/Unable-to-upgrade-PostgreSQL-9-6-with-postgis-3-0-3-because-of/m-p/754437#:~:text=clear%20answer%20%28except%20contact%20support%29,available%20for%20Google%27s%20internals%20uses))</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>Extension version mismatch on major DB upgrade – PostGIS 3.0 required upgrade before PostgreSQL 9.6→10 (<a href="https://www.googlecloudcommunity.com/gc/Databases/Unable-to-upgrade-PostgreSQL-9-6-with-postgis-3-0-3-because-of/m-p/754437#:~:text=%22pre,major%20version%20upgrade%20for%20database">Solved: Unable to upgrade PostgreSQL 9.6 with postgis 3.0.... - Google Cloud Community</a>)</td>
+<td><strong>Upgrade failure:</strong> database refused to upgrade until extension was updated (maintenance downtime) (<a href="https://www.googlecloudcommunity.com/gc/Databases/Unable-to-upgrade-PostgreSQL-9-6-with-postgis-3-0-3-because-of/m-p/754437#:~:text=%22pre,major%20version%20upgrade%20for%20database">Solved: Unable to upgrade PostgreSQL 9.6 with postgis 3.0.... - Google Cloud Community</a>)</td>
+<td>Resolve by upgrading the PostGIS extension to a compatible version (or using superuser to update extension) (<a href="https://www.googlecloudcommunity.com/gc/Databases/Unable-to-upgrade-PostgreSQL-9-6-with-postgis-3-0-3-because-of/m-p/754437#:~:text=%22pre,major%20version%20upgrade%20for%20database">Solved: Unable to upgrade PostgreSQL 9.6 with postgis 3.0.... - Google Cloud Community</a>) (<a href="https://www.googlecloudcommunity.com/gc/Databases/Unable-to-upgrade-PostgreSQL-9-6-with-postgis-3-0-3-because-of/m-p/754437#:~:text=clear%20answer%20%28except%20contact%20support%29,available%20for%20Google%27s%20internals%20uses">Solved: Unable to upgrade PostgreSQL 9.6 with postgis 3.0.... - Google Cloud Community</a>)</td>
 </tr>
 </tbody>
 </table>
@@ -5209,9 +5009,7 @@
 <p>Reviewing these cases reveals several recurring <strong>root cause patterns</strong> across both database and web server extensions:</p>
 <ul>
 <li>
-<p><strong>Memory Safety Bugs:</strong> A majority of serious extension vulnerabilities stem from memory mismanagement in low-level code (typically C/C++). Examples include <strong>buffer overflows</strong> (e.g. IIS idq.dll overflow (<a href="https://learn.microsoft.com/en-us/security-updates/securitybulletins/2001/ms01-033#:~:text=A%20security%20vulnerability%20results%20because,any%20desired%20action%20on%20it">Microsoft Security Bulletin MS01-033 - Critical | Microsoft Learn</a>), Nginx MP4 module over-read (<a href="https://cvefeed.io/vuln/detail/CVE-2024-7347#:~:text=NGINX%20Open%20Source%20and%20NGINX,EoTS%29%20are%20not%20evaluated"> CVE-2024-7347 - NGINX MP4 Module Buffer Overflow Vulnerability </a>), MySQL InnoDB Memcached heap overflow (<a href="https://www.sonicwall.com/blog/oracle-mysql-server-innodb-memcached-vulnerability#:~:text=A%20buffer%20overflow%20vulnerability%20has,the%20InnoDB%20memcached%20plugin%20component">Oracle MySQL Server InnoDB Memcached Vulnerability</a>) (<a href="https://www.sonicwall.com/blog/oracle-mysql-server-innodb-memcached-vulnerability#:~:text=For%20the%20above%20example%2C%20when,the%20said%20heap%20buffer%20overflowed">Oracle MySQL Server InnoDB Memcached Vulnerability</a>)) and <strong>use-after-free/dangling pointer</strong> bugs (e.g. Apache mod_isapi UAF (<a href="https://www.trendmicro.com/vinfo/us/threat-encyclopedia/vulnerability/1811/apache-modisapi-remote-code-execution-vulnerability#:~:text=modules%2Farch%2Fwin32%2Fmod_isapi,orphaned%20callback%20pointers">
-    Apache mod_isapi Remote Code Execution Vulnerability - Threat Encyclopedia | Trend Micro (US)
-</a>), Redis Lua garbage collector UAF (<a href="https://redis.io/blog/security-advisory-cve-2024-46981-cve-2024-51737-cve-2024-51480-cve-2024-55656/#:~:text=%5BCVE,0%C2%A0%20%28High">Security Advisory: CVE-2024-46981, CVE-2024-51737, CVE-2024-51480, CVE-2024-55656 - Redis</a>)). These flaws often occur due to lack of bounds-checking, improper lifecycle management (unloading modules too early), or integer overflow leading to undersized buffers. Memory corruption allows attackers to crash the host process or even inject malicious code for remote execution. This aligns with industry findings that ~70% of security bugs in systems code are memory-safety issues (<a href="https://en.wikipedia.org/wiki/Memory_safety#:~:text=In%202019%2C%20a%20Microsoft%20,identifying%20memory%20safety%20issues%20as">Memory safety - Wikipedia</a>).</p>
+<p><strong>Memory Safety Bugs:</strong> A majority of serious extension vulnerabilities stem from memory mismanagement in low-level code (typically C/C++). Examples include <strong>buffer overflows</strong> (e.g. IIS idq.dll overflow (<a href="https://learn.microsoft.com/en-us/security-updates/securitybulletins/2001/ms01-033#:~:text=A%20security%20vulnerability%20results%20because,any%20desired%20action%20on%20it">Microsoft Security Bulletin MS01-033 - Critical | Microsoft Learn</a>), Nginx MP4 module over-read (<a href="https://cvefeed.io/vuln/detail/CVE-2024-7347#:~:text=NGINX%20Open%20Source%20and%20NGINX,EoTS%29%20are%20not%20evaluated">CVE-2024-7347 - NGINX MP4 Module Buffer Overflow Vulnerability</a>), MySQL InnoDB Memcached heap overflow (<a href="https://www.sonicwall.com/blog/oracle-mysql-server-innodb-memcached-vulnerability#:~:text=A%20buffer%20overflow%20vulnerability%20has,the%20InnoDB%20memcached%20plugin%20component">Oracle MySQL Server InnoDB Memcached Vulnerability</a>) (<a href="https://www.sonicwall.com/blog/oracle-mysql-server-innodb-memcached-vulnerability#:~:text=For%20the%20above%20example%2C%20when,the%20said%20heap%20buffer%20overflowed">Oracle MySQL Server InnoDB Memcached Vulnerability</a>)) and <strong>use-after-free/dangling pointer</strong> bugs (e.g. Apache mod_isapi UAF (<a href="https://www.trendmicro.com/vinfo/us/threat-encyclopedia/vulnerability/1811/apache-modisapi-remote-code-execution-vulnerability#:~:text=modules%2Farch%2Fwin32%2Fmod_isapi,orphaned%20callback%20pointers">Apache mod_isapi Remote Code Execution Vulnerability - Threat Encyclopedia | Trend Micro (US)</a>), Redis Lua garbage collector UAF (<a href="https://redis.io/blog/security-advisory-cve-2024-46981-cve-2024-51737-cve-2024-51480-cve-2024-55656/#:~:text=%5BCVE,0%C2%A0%20%28High">Security Advisory: CVE-2024-46981, CVE-2024-51737, CVE-2024-51480, CVE-2024-55656 - Redis</a>)). These flaws often occur due to lack of bounds-checking, improper lifecycle management (unloading modules too early), or integer overflow leading to undersized buffers. Memory corruption allows attackers to crash the host process or even inject malicious code for remote execution. This aligns with industry findings that ~70% of security bugs in systems code are memory-safety issues (<a href="https://en.wikipedia.org/wiki/Memory_safety#:~:text=In%202019%2C%20a%20Microsoft%20,identifying%20memory%20safety%20issues%20as">Memory safety - Wikipedia</a>).</p>
 </li>
 <li>
 <p><strong>Input Validation and Logic Errors:</strong> Another common root cause is improper input handling or logic in extension interfaces. In several cases, extensions failed to properly sanitize or scope user-supplied data:</p>
@@ -5224,8 +5022,7 @@
    </a>). Apache’s mod_sed miscalculated buffer resizing, causing runaway memory growth (<a href="https://jfrog.com/blog/cve-2022-30522-denial-of-service-dos-vulnerability-in-apache-httpd-mod_sed-filter/#:~:text=the%20Apache%20HTTP%20server,for%20request%20or%20response%20editing">CVE-2022-30522 - Apache httpd Denial of Service (DoS) vulnerability</a>). These are not memory <em>corruption</em> per se, but logical errors in handling certain states or inputs.</p>
 </li>
 <li>
-<p><strong>Extension API Misuse:</strong> Some bugs arise from how the extension interface itself is used. MySQL’s older UDF mechanism was abused by loading unintended libraries that defined certain symbol names, causing unpredictable behavior (crashes) (<a href="https://www.tenable.com/plugins/nessus/17698#:~:text=,memory%20corruption%20and%20stack%20pollution">MySQL User-Defined Functions Multiple Vulnerabilities<!-- --> | Tenable®</a>) – essentially the extension loader lacked strict validation of module binaries. In Apache, the ISAPI extension interface required careful coordination between the server and the ISAPI module; a failure to do so caused the mod_isapi bug (not waiting for the module call to finish before unloading) (<a href="https://www.trendmicro.com/vinfo/us/threat-encyclopedia/vulnerability/1811/apache-modisapi-remote-code-execution-vulnerability#:~:text=modules%2Farch%2Fwin32%2Fmod_isapi,orphaned%20callback%20pointers">
-    Apache mod_isapi Remote Code Execution Vulnerability - Threat Encyclopedia | Trend Micro (US)
+<p><strong>Extension API Misuse:</strong> Some bugs arise from how the extension interface itself is used. MySQL’s older UDF mechanism was abused by loading unintended libraries that defined certain symbol names, causing unpredictable behavior (crashes) (<a href="https://www.tenable.com/plugins/nessus/17698#:~:text=,memory%20corruption%20and%20stack%20pollution">MySQL User-Defined Functions Multiple Vulnerabilities<!-- --> | Tenable®</a>) – essentially the extension loader lacked strict validation of module binaries. In Apache, the ISAPI extension interface required careful coordination between the server and the ISAPI module; a failure to do so caused the mod_isapi bug (not waiting for the module call to finish before unloading) (<a href="https://www.trendmicro.com/vinfo/us/threat-encyclopedia/vulnerability/1811/apache-modisapi-remote-code-execution-vulnerability#:~:text=modules%2Farch%2Fwin32%2Fmod_isapi,orphaned%20callback%20pointers">Apache mod_isapi Remote Code Execution Vulnerability - Threat Encyclopedia | Trend Micro (US)
 </a>). These indicate that writing extensions is error-prone and mistakes in using the host’s extension API can introduce serious flaws.</p>
 </li>
 </ul>
@@ -5294,7 +5091,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 18, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 19, 2025</span>
   </span>
 
     
