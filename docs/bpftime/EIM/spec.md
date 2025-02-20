@@ -88,6 +88,7 @@ At this stage, the developer typically includes:
    - Named permissions to call host functions.  
    - Must include the function prototype and any constraints (pre-/post-conditions).  
    - Form:  
+
      ```text
      Function_Capability(
          name          = some_name,
@@ -100,6 +101,7 @@ At this stage, the developer typically includes:
    - Define the points in the host that can be extended.  
    - Must include the original function name (or similar hook reference) and a prototype.  
    - Form:  
+
      ```text
      Extension_Entry(
          name              = human_readable_name,
@@ -277,20 +279,15 @@ This separation of concerns is one of the main advantages of EIM. The host devel
 
 ## 7. Advanced Features & Notes
 
-1. **Constraints on Function Calls**  
-   - EIM constraints can do more than “return value > 0.” The admin/developer can define relationships like “arg1 < arg2,” or semantic markers like “return value must be freed by extension.” Enforcement is typically done by the extension framework’s verifier or at runtime.
+1. **Constraints on Function Calls**  EIM constraints can do more than “return value > 0.” The admin/developer can define relationships like “arg1 < arg2,” or semantic markers like “return value must be freed by extension.” Enforcement is typically done by the extension framework’s verifier or at runtime.
 
-2. **Parameter-Level Access**  
-   - Some frameworks allow specifying that an extension may read only certain fields of a struct passed as an argument (more fine-grained than just `read(r)`). EIM can represent this, but it depends on the runtime’s ability to enforce.  
+2. **Parameter-Level Access**  Some frameworks allow specifying that an extension may read only certain fields of a struct passed as an argument (more fine-grained than just `read(r)`). EIM can represent this, but it depends on the runtime’s ability to enforce.  
 
-3. **Multiple Classes for One Entry**  
-   - The same extension entry can appear in multiple extension classes with different capabilities. This is helpful if multiple extensions hooking the same function require different privileges.
+3. **Multiple Classes for One Entry**   The same extension entry can appear in multiple extension classes with different capabilities. This is helpful if multiple extensions hooking the same function require different privileges.
 
-4. **Resource Capabilities**  
-   - `instructions < X` or `memory < Y` might be enforced either by a static analysis or a runtime boundary. EIM only _declares_ it; how it’s enforced is up to the extension framework (e.g., using an eBPF-style verifier or a hardware-based memory boundary).
+4. **Resource Capabilities**   `instructions < X` or `memory < Y` might be enforced either by a static analysis or a runtime boundary. EIM only _declares_ it; how it’s enforced is up to the extension framework (e.g., using an eBPF-style verifier or a hardware-based memory boundary).
 
-5. **Forward Compatibility**  
-   - Because the host developer enumerates possible resources, it’s straightforward to add new extension classes later without changing the host code.  
+5. **Forward Compatibility**   Because the host developer enumerates possible resources, it’s straightforward to add new extension classes later without changing the host code.  
 
 ---
 
@@ -310,6 +307,7 @@ With an appropriate runtime to enforce EIM (e.g., via static verification and ha
 ---
 
 **References** (Partial list from the original text)  
+
 - [27] Orbit  
 - [48, 52, 63] Classic references on capabilities  
 - [6] Wedge  
@@ -319,4 +317,4 @@ With an appropriate runtime to enforce EIM (e.g., via static verification and ha
 - [58, 64] ERIM  
 - [67] Native Client (NaCl)
 
-*(The above references are mentioned for historical context. EIM itself is runtime-agnostic—any system that can interpret and enforce the EIM specification is free to do so.)*
+_(The above references are mentioned for historical context. EIM itself is runtime-agnostic—any system that can interpret and enforce the EIM specification is free to do so.)_

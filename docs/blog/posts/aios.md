@@ -8,7 +8,6 @@ Large Language Model (LLM) inference pushes computing systems to their limits, n
 
 <!-- more -->
 
-
 ## OS-Level Bottlenecks in LLM Inference
 
 LLM inference workloads strain various aspects of an OS. Key bottlenecks include memory management, CPU scheduling, I/O handling, and the need for real-time responsiveness. These factors can become limiting performance factors as models and workloads scale:
