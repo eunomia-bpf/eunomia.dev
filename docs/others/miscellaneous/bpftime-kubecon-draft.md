@@ -285,7 +285,7 @@ For example, we might define an "observeProcessBegin" class that allows extensio
 
 This approach enforces the principle of least privilege - each extension gets only the capabilities it needs to do its job, and nothing more. If an extension gets compromised, the damage is limited to the capabilities it was granted.
 
-### Slide 14: bpftime: Efficient runtime for EIM
+### Slide 16: bpftime: Efficient runtime for EIM
 
 - bpftime: Efficient runtime for EIM
   - Brings eBPF concepts fully into userspace
@@ -436,40 +436,3 @@ This shows that userspace eBPF can be fasyer kernel-based solutions, while retai
 - Available today for experimentation and production use
 
 "In conclusion, bpftime is a new approach to userspace eBPF that combines the safety and performance of kernel-level eBPF with the flexibility of userspace extensions. It's a path forward for developers and administrators alike, enabling highly customized, performant, and secure applications."
-
-## backup
-
-<!-- 
-And bpftime complements this by efficiently enforcing these permissions. It builds on top of eBPF concepts but brings them fully into user-space. bpftime uses the same verification and safety guarantees as kernel-level eBPF, ensuring that an extension can't step outside its defined boundaries. Plus, it leverages modern hardware isolation features (like Intel's Memory Protection Keys—MPK) to give near-native performance without the heavyweight overhead of context switches or traps that traditional solutions like uprobes suffer from.
-
-But beyond just safety and speed, bpftime also provides a dynamic and flexible loading mechanism. Extensions can be loaded at runtime, allowing administrators to quickly adapt their systems without restarts. And because it's compatible with eBPF, it also integrates seamlessly with existing kernel-level eBPF monitoring tools, bridging user-space and kernel-space observability.
-
-This new approach isn't just theoretical. Right now, there are already thousands of users running bpftime extensions for various real-world applications. They're using it for performance profiling in microservices, fault injection testing, caching optimizations in file systems, hot-patching running applications, and even security enhancements in web servers.
-
-For example, with bpftime, one user implemented an SSL-aware distributed tracing tool. Compared to traditional eBPF-based uprobes, their performance overhead was nearly four times lower. Another case involved improving Redis durability without significantly reducing throughput—previous approaches would have made such fine-grained tuning too costly or too difficult to safely implement.
-
-So, as we wrap up this motivation today, what I want you to take away is simple:
-
-Software extensions aren't going away—in fact, they're becoming more and more essential. But traditional approaches aren't cutting it anymore. They're either too risky, too limited, or too expensive. We need new, flexible interfaces and runtime systems that let us clearly and safely define exactly how extensions can interact with applications.
-
-That's why we built EIM and bpftime. They're about giving you, the system administrators and engineers, a better way to safely and efficiently extend your software systems, without the painful compromises of the past.
-
-This brings us to the core of what we've developed: first, the Extension Interface Model, or EIM, and second, bpftime—an efficient, practical runtime system designed specifically to enforce EIM.
-
-Let's dive deeper into EIM first. We knew from the start that simply isolating extensions wasn't enough; we needed fine-grained control. The question we asked ourselves was simple yet powerful: "What if we treated every action an extension can perform—like reading a variable, calling a function, or writing to a state—as a resource?" With that mindset, an application's developers can enumerate clearly which resources are potentially available to extensions. Later, at deployment time, a system administrator or DevOps engineer selects exactly which of these resources are allowed per specific extension. This means, if you're deploying an observability extension, you might only allow read access to performance counters. For a security extension, you might allow inspecting incoming requests but restrict all write operations. By modeling each capability explicitly, EIM provides both developers and administrators with precision and clarity in managing what extensions can—and crucially, cannot—do.
-
-But of course, defining precise boundaries is just half the solution. We needed a runtime environment capable of enforcing these rules efficiently. That's why we developed bpftime—an innovative, lightweight extension runtime inspired by the success of eBPF, which many of you probably already use for kernel-level extensions and observability tasks.
-
-bpftime takes this idea to the user-space: it checks extensions at load time using advanced eBPF-style verification, meaning that all safety constraints defined by EIM are enforced before any extension ever runs in production. No runtime overhead, no expensive context switches—just fast, secure execution. To further secure the system, bpftime also integrates hardware isolation technologies, like Intel Memory Protection Keys (MPK), to ensure even accidental or rogue extensions can't tamper with critical application memory.
-
-One of our most exciting innovations with bpftime is what we call "concealed extension entries." This idea is about efficiency. Normally, extensions introduce overhead at their insertion points—each time your application reaches an extension hook, there's a cost. But why pay that cost when no extension is actively being used at a given point? Concealed extension entries dynamically inject hooks into applications at runtime only when necessary, using safe binary rewriting techniques. This means zero overhead when extensions aren't in use, dramatically improving performance compared to traditional approaches.
-
-Now, as industry engineers, you might ask, "How practical is all this? How easy is it to adopt?" Well, bpftime is fully compatible with the existing eBPF ecosystem. If your team already uses eBPF—for monitoring, security, or debugging—you can seamlessly integrate bpftime. You don't need to rebuild your tooling from scratch; you just extend your current setup to benefit from these powerful new capabilities.
-
-Let me share a bit about our experimental validation. We've extensively tested bpftime across diverse practical scenarios. In a microservices observability case, bpftime improved monitoring throughput by 50% compared to traditional eBPF. For Redis, we implemented extensions that significantly enhanced durability with just a minimal performance tradeoff—something previously impractical. We even accelerated filesystem metadata operations in FUSE and dramatically reduced overhead in SSL traffic monitoring scenarios—proving that our theoretical benefits translate directly into real-world performance improvements.
-
-Our experiments showed not only that bpftime could enforce security constraints rigorously but that it did so at speeds close to native execution. This was crucial for adoption because no matter how safe extensions might be, if they slow down your service significantly, they're not practical in a high-performance environment.
-
-Finally, our approach isn't just theoretical—it's available today, experimentally maintained and tested by thousands of active users on GitHub. Engineers across the industry are already leveraging bpftime for tasks ranging from deep performance diagnostics to rapid security patching, all without compromising their application's integrity or responsiveness.
-
-To conclude, our experimental work with EIM and bpftime opens new possibilities for safely extending software at runtime. It's a path forward for developers and administrators alike, enabling highly customized, performant, and secure applications. -->
