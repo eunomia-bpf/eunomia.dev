@@ -4650,9 +4650,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#slide-10-wasm-interface-evolution" class="md-nav__link">
+  <a href="#slide-10-webassembly-interface-approach" class="md-nav__link">
     <span class="md-ellipsis">
-      Slide 10: Wasm Interface Evolution
+      Slide 10: WebAssembly Interface Approach
     </span>
   </a>
   
@@ -4704,9 +4704,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#slide-14-bpftime-efficient-runtime-for-eim" class="md-nav__link">
+  <a href="#slide-16-bpftime-eims-efficient-runtime-implementation" class="md-nav__link">
     <span class="md-ellipsis">
-      Slide 14: bpftime: Efficient runtime for EIM
+      Slide 16: bpftime: EIM's Efficient Runtime Implementation
     </span>
   </a>
   
@@ -4777,15 +4777,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#backup" class="md-nav__link">
-    <span class="md-ellipsis">
-      backup
-    </span>
-  </a>
   
 </li>
       
@@ -5270,9 +5261,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#slide-10-wasm-interface-evolution" class="md-nav__link">
+  <a href="#slide-10-webassembly-interface-approach" class="md-nav__link">
     <span class="md-ellipsis">
-      Slide 10: Wasm Interface Evolution
+      Slide 10: WebAssembly Interface Approach
     </span>
   </a>
   
@@ -5324,9 +5315,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#slide-14-bpftime-efficient-runtime-for-eim" class="md-nav__link">
+  <a href="#slide-16-bpftime-eims-efficient-runtime-implementation" class="md-nav__link">
     <span class="md-ellipsis">
-      Slide 14: bpftime: Efficient runtime for EIM
+      Slide 16: bpftime: EIM's Efficient Runtime Implementation
     </span>
   </a>
   
@@ -5400,15 +5391,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#backup" class="md-nav__link">
-    <span class="md-ellipsis">
-      backup
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -5451,7 +5433,7 @@ Level 1 | Hall Entrance S10 | Room D</p>
 <p>eBPF and Wasm: Unifying Userspace Extensions With Bpftime</p>
 <p><strong>[VISUAL: Title slide with bpftime logo, eBPF and Wasm logos on opposite sides with an arrow connecting them through bpftime]</strong></p>
 <blockquote>
-<p>Good afternoon, everyone! My name is Yusheng Zheng, I'm a PhD student at the UC santa cruz and I'm maintaining some eBPF related open source projects in eunomia-bpf comminity.
+<p>Good afternoon, everyone! My name is Yusheng Zheng, I'm a PhD student at UC Santa Cruz and I'm maintaining several eBPF-related open source projects in the eunomia-bpf community.
 Today, I'm going to talk about something that has been around in the software industry for a really long time—software extensions.</p>
 </blockquote>
 <h3 id="slide-2-agenda">Slide 2: Agenda</h3>
@@ -5466,7 +5448,7 @@ Today, I'm going to talk about something that has been around in the software in
 <li>Conclusion</li>
 </ul>
 <blockquote>
-<p>Specifically, I want to talk about why we need extensions, what makes them challenging to handle correctly, and how our current approaches to managing extensions might not be good enough. And then I'll introduce a new approach to managing extensions called the Extension Interface Model (EIM) and our experimental userspace eBPF runtime called bpftime. This is also a research project that has been accepted by the OSDI 2025.</p>
+<p>Specifically, I want to talk about why we need extensions, what makes them challenging to handle correctly, and how our current approaches to managing extensions might not be good enough. Then I'll introduce a new approach to managing extensions called the Extension Interface Model (EIM) and our experimental userspace eBPF runtime called bpftime that implements these principles. This is also a research project that has been accepted by OSDI 2025.</p>
 </blockquote>
 <h3 id="slide-3-the-history-of-software-extensions">Slide 3: The History of Software Extensions</h3>
 <p><strong>[VISUAL: Timeline showing evolution of extension systems with icons for each example]</strong></p>
@@ -5479,8 +5461,10 @@ Today, I'm going to talk about something that has been around in the software in
 <li>Cloud-native: Kubernetes extensions</li>
 <li>Kernel: eBPF programs, kernel modules</li>
 </ul>
+<blockquote>
 <p>So, first, let's step back a little bit. Software extensions aren't new—they have a very long history. If you've been around software for a while, you might remember Apache HTTP Server modules, browser plugins, or even IDE extensions like VSCode plugins. Extensions are everywhere because we, as engineers, really love flexibility. We love building a core application and then letting other developers or even users customize or add extra features later, without needing to rewrite the original software.</p>
 <p>Think about web servers. In nginx or Apache, you can use modules or plugins to add extra functionality like authentication, caching, compression, or even application-level firewalls. Database systems like Redis and PostgreSQL have extensions to support new query types, custom data formats, or security audits. Our editors—Vim, Emacs, VSCode—all thrive thanks to the flexibility offered by extensions or plugins. In cloud-native systems like Kubernetes, you can use extensions to add observability features like custom metrics collection and tracing. You can extend networking with custom CNI plugins or service mesh sidecars. Security extensions can add policy enforcement, vulnerability scanning, or runtime threat detection. The flexibility of extensions is what makes Kubernetes such a powerful platform for building modern applications. In kernel level, for example, you can use eBPF programs or kernel modules to add custom kernel behaviors.</p>
+</blockquote>
 <h3 id="slide-4-why-use-extensions">Slide 4: Why Use Extensions?</h3>
 <p><strong>[VISUAL: Balance scale showing flexibility and isolation on opposite sides]</strong></p>
 <ul>
@@ -5491,9 +5475,11 @@ Today, I'm going to talk about something that has been around in the software in
 <li>Need to protect the core application</li>
 <li><strong>The Fundamental Tension</strong>: More flexibility often means less isolation</li>
 </ul>
+<blockquote>
 <p>But here's a big question: why don't we just integrate everything into the main codebase directly? Why bother with extensions at all?</p>
 <p>The short answer is—flexibility and isolation.</p>
 <p>We want flexibility because it makes our software adaptable. Users and administrators want to tweak things to meet their specific requirements without waiting for the core developers to implement changes. But flexibility without isolation is risky. Extensions, by definition, are third-party or at least externally-developed code. You might trust your core engineering team, but trusting external code is a different story. Even if it's not malicious, external code can have bugs. And we all know how easily bugs can creep into our systems, causing all sorts of problems—crashes, performance degradation, or even security vulnerabilities.</p>
+</blockquote>
 <h3 id="slide-5-real-world-extension-failures">Slide 5: Real-World Extension Failures</h3>
 <p><strong>[VISUAL: "Incident Report" style graphics showing each failure case with impact metrics]</strong></p>
 <ul>
@@ -5505,9 +5491,11 @@ Today, I'm going to talk about something that has been around in the software in
 <li>Remote code execution vulnerabilities</li>
 <li>These aren't theoretical risks—they've cost companies money and reputation</li>
 </ul>
+<blockquote>
 <p>Let me give you some real-world examples. A few years back, the popular video streaming site Bilibili suffered a serious production outage because one of their nginx extensions got stuck in an infinite loop. Apache HTTP Server had similar issues where buffer overflow bugs in a Lua-based module caused crashes and security holes. Even Redis had cases where improperly sandboxed Lua scripts resulted in remote code execution vulnerabilities. These aren't theoretical risks—these are things that have actually hurt big companies and cost serious money and reputation.</p>
 <p>So, isolation and safety become absolutely critical. We don't want a bug in one extension to crash our entire system. We don't want a poorly-written plugin causing our service to slow down. We definitely don't want external code exposing our internal data to attackers.</p>
 <p>But achieving isolation isn't easy. There's always a tradeoff. If you isolate too strictly, you lose expressiveness—extensions become so limited they're no longer useful. If you're too loose, bugs or malicious code can harm your system.</p>
+</blockquote>
 <h3 id="slide-6-traditional-extension-approaches">Slide 6: Traditional Extension Approaches</h3>
 <p><strong>[VISUAL: Spectrum showing different approaches with isolation vs performance tradeoffs]</strong></p>
 <ul>
@@ -5521,11 +5509,13 @@ Today, I'm going to talk about something that has been around in the software in
 <li>✅ Strong isolation</li>
 <li>❌ High overhead from context switches</li>
 </ul>
+<blockquote>
 <p>So, how have engineers traditionally tried to deal with this balance?</p>
 <p>We've tried many things. Early on, we used dynamically loadable modules—shared libraries, DLLs, LD_PRELOAD hacks. They're great for speed and flexibility. But they have virtually no isolation. A bug in a dynamically-loaded module is a bug in your entire application. There's no safety boundary.</p>
 <p>Later, people adopted scripting languages like Lua and Python for extensions. Languages like Lua are still hugely popular because they're easy to integrate and relatively safe. Redis and nginx are good examples here. But Lua scripts have their own challenges. They rely heavily on the host application to provide security boundaries, which means if the host makes a mistake—maybe not checking array bounds correctly or missing resource limits—the safety promise falls apart. And as we've seen from real incidents, host applications frequently get this wrong.</p>
-<p>A lot of extensions, especially in the cloud-native space, are integrated through process level isolation, such as subprocesses or API calls. They uses OS context switches, adding microseconds of overhead—which is OK for distributed systems, but not for performance-critical applications.</p>
+<p>A lot of extensions, especially in the cloud-native space, are integrated through process level isolation, such as subprocesses or API calls. They use OS context switches, adding microseconds of overhead—which is OK for distributed systems, but not for performance-critical applications.</p>
 <p>Wasm and eBPF are two popular extension frameworks that have been around for a while. Let's take a look at how they handle the balance between interconnectedness and safety.</p>
+</blockquote>
 <h3 id="slide-7-webassembly-for-extensions">Slide 7: WebAssembly for Extensions</h3>
 <p><strong>[VISUAL: Diagram showing Wasm sandbox with import/export boundaries between host and extension]</strong></p>
 <ul>
@@ -5540,7 +5530,11 @@ Today, I'm going to talk about something that has been around in the software in
 <li>Communication overhead between extension and host</li>
 <li>Complex interface management</li>
 </ul>
-<p>Then WebAssembly (or Wasm) came along, promising much better isolation and performance. Wasm uses software fault isolation techniques, which means it's safer because it doesn't blindly trust the extension code. That's why many modern browsers and even server-side applications are moving towards Wasm. But Wasm introduces another issue—the interfaces between extensions and hosts. Wasm needs explicit import/export mechanisms to talk to the host application, and managing this communication can be tricky. It's powerful, but it's still heavyweight, especially if you're running thousands of little extensions or making frequent calls back and forth.</p>
+<blockquote>
+<p>Then WebAssembly (or Wasm) came along, promising much better isolation and performance. Wasm uses software fault isolation techniques, which means it's safer because it doesn't blindly trust the extension code. That's why many modern browsers and even server-side applications are moving towards Wasm. </p>
+<p>But Wasm introduces another issue—the interfaces between extensions and hosts. Wasm needs explicit import/export mechanisms to talk to the host application, and managing this communication can be tricky. It's powerful, but it's still heavyweight, especially if you're running thousands of little extensions or making frequent calls back and forth.</p>
+<p>What do I mean by "heavyweight"? Every time a Wasm module needs to access host functionality, it must cross the sandbox boundary. This involves marshaling data between the Wasm environment and host, which adds overhead. For applications that need frequent host interactions, these costs add up quickly.</p>
+</blockquote>
 <h3 id="slide-8-ebpf-for-extensions">Slide 8: eBPF for Extensions</h3>
 <p><strong>[VISUAL: Architecture diagram showing eBPF in kernel space with verifier, JIT compiler, and hooks into various subsystems]</strong></p>
 <ul>
@@ -5554,8 +5548,11 @@ Today, I'm going to talk about something that has been around in the software in
 <li>No sandboxing overhead</li>
 <li>Automatic instrumentation without application changes</li>
 </ul>
-<p>At the kernel level, eBPF has become the star of the show. Originally designed for network packet filtering, eBPF is now widely used for security monitoring, observability, and even performance optimization at kernel level. eBPF programs run isolated from the kernel itself, thanks to a verifier and JIT compiler that ensures safe execution. But eBPF is not limited to kernel, for userspace tracing, eBPF leverages mechanisms like uprobes and USDT probes. These probes eliminate the need for manual instrumentation - developers don't need to modify their application code to enable tracing. Uprobes can dynamically instrument any function in userspace programs, while USDT provides static tracepoints that are more efficient but require compile-time integration. This automatic instrumentation capability makes eBPF powerful for observability without requiring changes to the target application.</p>
-<p>Compare with Wasm, eBPF has a history of focusing on performance first, which lead to the design of using verifier to check the safety of the extension at load time, instead of checking runtime checking or SFI (software fault isolation) like Wasm.</p>
+<blockquote>
+<p>At the kernel level, eBPF has become the star of the show. Originally designed for network packet filtering, eBPF is now widely used for security monitoring, observability, and even performance optimization at kernel level. eBPF programs run isolated from the kernel itself, thanks to a verifier and JIT compiler that ensures safe execution.</p>
+<p>But eBPF is not limited to kernel. For userspace tracing, eBPF leverages mechanisms like uprobes (dynamic function instrumentation) and USDT probes (User Statically-Defined Tracing points). These probes eliminate the need for manual instrumentation - developers don't need to modify their application code to enable tracing. Uprobes can dynamically instrument any function in userspace programs, while USDT provides static tracepoints that are more efficient but require compile-time integration. This automatic instrumentation capability makes eBPF powerful for observability without requiring changes to the target application.</p>
+<p>Compared with Wasm, eBPF has a history of focusing on performance first, which led to the design of using a verifier to check the safety of the extension at load time, instead of runtime checking or SFI (software fault isolation) like Wasm.</p>
+</blockquote>
 <h3 id="slide-9-three-core-requirements-for-extension-frameworks">Slide 9: Three Core Requirements for Extension Frameworks</h3>
 <p><strong>[VISUAL: Triangle diagram with "Interconnectedness," "Safety," and "Efficiency" at the corners, showing the tension between them]</strong></p>
 <ul>
@@ -5567,41 +5564,52 @@ Today, I'm going to talk about something that has been around in the software in
 <li><strong>Efficiency</strong>: Performance impact on the system</li>
 <li><strong>The Fundamental Tension</strong>: More interconnectedness typically means less safety</li>
 </ul>
-<p>As we can see, there are three core requirements for extension frameworks: <strong>interconnectedness</strong>, <strong>safety</strong> and <strong>efficiency</strong>. efficiency is easy to understand, it's about performance. let's dive deeper into the core issue we're really focusing on today—this fundamental tension between <strong>interconnectedness</strong> and <strong>safety</strong>. this is what we think makes software extensions challenging, and also why getting the interface right is so hard, yet so important.</p>
+<blockquote>
+<p>As we can see, there are three core requirements for extension frameworks: <strong>interconnectedness</strong>, <strong>safety</strong> and <strong>efficiency</strong>. Efficiency is easy to understand, it's about performance. Let's dive deeper into the core issue we're really focusing on today—this fundamental tension between <strong>interconnectedness</strong> and <strong>safety</strong>. This is what we think makes software extensions challenging, and also why getting the interface right is so hard, yet so important.</p>
 <p>So, first off, what do I mean by interconnectedness? Simply put, interconnectedness is how much power we give an extension to interact with the host application. Think of it like this: extensions usually need to do something meaningful—they're not just isolated pieces of code floating around. They actually need to communicate with the main application to read data, modify state, or even call existing functions inside the application. For example, let's say you have an nginx web server. An extension that monitors web requests for security needs to read the request details from the host application. It might also need to call a built-in nginx function to quickly respond or block a suspicious request. This is interconnectedness—extensions working directly with the application's resources or calling its internal functions.</p>
 <p>On the flip side, safety is how much we limit an extension's ability to interact with or alter the main application. Safety means that if there's a bug in your extension—let's face it, we all write buggy code sometimes—this bug won't crash your whole web server or compromise your entire application. If we didn't care about safety, extensions could freely do whatever they wanted—read or write any memory, call any function, open files they shouldn't, or even alter sensitive configuration data. Obviously, this would be a recipe for disaster. A single small mistake in an extension could take down a whole production system or open it up to security vulnerabilities. And trust me, that has happened many times before. Like that time Bilibili's nginx extensions got into a loop and brought their production servers offline, causing a major outage.</p>
 <p>So here's the key issue: interconnectedness and safety are fundamentally at odds. The more interconnectedness you allow—the more you let extensions interact with the host—the less inherently safe it becomes. And vice versa: to keep things perfectly safe, you have to restrict interconnectedness. And that means extensions become severely limited in their usefulness. You can't have an effective firewall extension if you don't allow it to inspect web requests. You can't meaningfully monitor performance if your monitoring extension can't read internal state from the host application. So, balancing this tension is a core challenge.</p>
 <p>Now, historically, software frameworks have not handled this tradeoff very well. Usually, they fall into one of two extremes. Either they allow too much interconnectedness, like dynamically loaded modules—these run fast, sure, but they provide almost no safety at all. One bug and your entire application crashes. Or, on the other extreme, they provide strong safety through heavy isolation, like sandboxed scripting environments or subprocess isolation methods. But these can cripple interconnectedness and performance—extensions often become slow and limited in what they can do.</p>
 <p>So, what we've found is that the key to managing this tension—this interconnectedness versus safety tradeoff—is the interface we choose for extensions. If your extension framework's interface can carefully define and verify exactly which resources and functions an extension can use, you can precisely manage this tension. Ideally, you give the extension just enough interconnectedness to do its job—but absolutely no more. This sounds simple, but current systems struggle to achieve this.</p>
-<h3 id="slide-10-wasm-interface-evolution">Slide 10: Wasm Interface Evolution</h3>
-<p><strong>[VISUAL: Diagram showing evolution from basic Wasm modules to Component Model with more structured interfaces]</strong></p>
+</blockquote>
+<h3 id="slide-10-webassembly-interface-approach">Slide 10: WebAssembly Interface Approach</h3>
+<p><strong>[VISUAL: Diagram showing Wasm sandbox with import/export boundaries and runtime checks]</strong></p>
 <ul>
-<li>Traditional Wasm module interface challenges:</li>
-<li>Rigid import/export boundary</li>
-<li>"All-or-nothing" function exposure</li>
-<li>High data marshaling costs</li>
-<li>Component Model evolution:</li>
-<li>More structured interfaces</li>
-<li>Improved composition</li>
-<li>Interface definition language</li>
-<li>Still faces fundamental tradeoffs</li>
+<li>Runtime checks through Software Fault Isolation (SFI)</li>
+<li>Explicit import/export boundary for host communication</li>
+<li>Component Model evolution for better interfaces</li>
+<li>Tradeoffs:</li>
+<li>✅ Strong isolation guarantees</li>
+<li>✅ Cross-platform compatibility</li>
+<li>❌ Runtime overhead for every operation</li>
+<li>❌ Complex interface management</li>
+<li>❌ Data marshaling costs</li>
 </ul>
-<p>For instance, consider WebAssembly (Wasm). While Wasm provides strong memory isolation through its sandboxed environment, it faces challenges with interface design. The host application needs to explicitly define which functions and memory regions are accessible to Wasm modules through imports and exports. This creates a rigid boundary - either you expose too much functionality making the interface permissive and potentially unsafe, or you restrict access too much making extensions less useful. Additionally, the overhead of marshaling data between Wasm and host environments can impact performance, especially for extensions that need frequent host interactions. This "all-or-nothing" approach to function exposure, combined with the serialization costs, makes it difficult to achieve the fine-grained control needed for many real-world extension scenarios.</p>
-<p>The Component Model is evolving to address some of these challenges by providing more structured interfaces and better composition, but the fundamental tradeoffs remain.</p>
+<blockquote>
+<p>WebAssembly uses Software Fault Isolation (SFI) to provide safety. This means it adds runtime checks to ensure memory accesses stay within bounds and control flow remains valid. While this provides strong isolation, it adds overhead to every operation. </p>
+<p>Wasm modules interact with hosts through explicit import/export mechanisms, which require careful interface design and data marshaling. Every time a Wasm module needs to access host functionality, it must cross the sandbox boundary, which involves converting data between formats.</p>
+<p>The Wasm Component Model is evolving to address some interface challenges by providing more structured interfaces and better composition, but the fundamental runtime overhead remains.</p>
+<p>This approach is excellent for security-critical applications where isolation is paramount, but the performance cost can be significant for extensions that frequently interact with the host application.</p>
+</blockquote>
 <h3 id="slide-11-ebpf-interface-approach">Slide 11: eBPF Interface Approach</h3>
-<p><strong>[VISUAL: Diagram showing eBPF verifier checking program safety at load time vs runtime checks]</strong></p>
+<p><strong>[VISUAL: Diagram showing eBPF verifier analyzing code paths at load time]</strong></p>
 <ul>
-<li>Kernel-level eBPF uses verifier for safety:</li>
-<li>Analyzes all possible execution paths</li>
-<li>Prevents memory violations and infinite loops</li>
-<li>Shifts safety checks from runtime to load-time</li>
-<li>Current limitations for userspace extensions:</li>
-<li>Uprobes require costly kernel traps</li>
-<li>Context switching overhead</li>
-<li>Performance impact for frequent interactions</li>
+<li>Load-time verification through static analysis</li>
+<li>Helper functions and maps for host interaction</li>
+<li>Tradeoffs:</li>
+<li>✅ No runtime overhead after verification</li>
+<li>✅ Automatic instrumentation capabilities</li>
+<li>✅ Efficient host interaction through maps</li>
+<li>❌ Limited to kernel context traditionally</li>
+<li>❌ Userspace requires costly kernel traps</li>
 </ul>
-<p>And then we have eBPF, which many of you might know and even use. Kernel-level eBPF uses a verifier—a special component—to check every extension program before running it. This verifier ensures that extensions never do unsafe things, like accessing random memory or running infinite loops. The verifier approach is powerful because it shifts safety checks from runtime (when things are happening quickly and mistakes are costly) to load-time (when you first add the extension). This is exactly why kernel-level eBPF has become popular—it guarantees safety upfront and doesn't impose runtime overhead for safety checks once the program is loaded.</p>
-<p>But there's an important catch: user-space extensions using current eBPF features (like uprobes) don't get the full benefit of this verifier model. They're isolated in terms of memory safety, but they're expensive. Every time a user-space extension runs, it triggers a costly kernel trap—this means your application needs to pause, switch context into the kernel, run the extension, and then switch back again. That's way too slow for many modern, performance-critical scenarios.</p>
+<blockquote>
+<p>In contrast, eBPF uses a verifier to analyze programs before they run. This verifier checks all possible execution paths to ensure memory safety and prevent infinite loops. This approach shifts safety checks from runtime to load-time, eliminating runtime overhead once the program is loaded. </p>
+<p>eBPF programs interact with the host through predefined helper functions and map structures, which are designed for efficient data sharing.</p>
+<p>The key difference is when safety is enforced: Wasm checks at runtime (adding overhead to every operation), while eBPF verifies everything upfront (adding overhead only when loading the program).</p>
+<p>However, current userspace eBPF implementations like uprobes require costly kernel traps. Every time a userspace extension runs, it triggers a context switch into the kernel, runs the extension, and switches back. This is too slow for many performance-critical scenarios.</p>
+<p>What if we could combine eBPF's load-time verification with efficient userspace execution? That's where our approach comes in.</p>
+</blockquote>
 <h3 id="slide-12-extension-interface-model-eim-overview">Slide 12: Extension Interface Model (EIM) - Overview</h3>
 <p><strong>[VISUAL: Diagram showing EIM as a bridge between extensions and host applications with capability controls]</strong></p>
 <ul>
@@ -5614,6 +5622,7 @@ Today, I'm going to talk about something that has been around in the software in
 <li>Core insight: Treat all extension-host interactions as explicit capabilities</li>
 <li>Follows principle of least privilege for extensions</li>
 </ul>
+<blockquote>
 <p>Our approach, the Extension Interface Model or EIM, takes inspiration from eBPF's verifier-based model and Wasm's component model, but applies it at the user-space level for general extension frameworks.</p>
 <p>Why did we choose a verifier-based approach? There are three key reasons:</p>
 <ol>
@@ -5622,6 +5631,7 @@ Today, I'm going to talk about something that has been around in the software in
 <li><strong>Elimination of manual safety checks</strong> - We remove the burden from developers, preventing the bugs and security flaws that have plagued extension systems</li>
 </ol>
 <p>The core insight of EIM is treating every interaction between an extension and its host as an explicit capability that can be controlled. Think of it as a permission system designed specifically for extensions.</p>
+</blockquote>
 <h3 id="slide-13-eim-usage-model-and-principals">Slide 13: EIM - Usage Model and Principals</h3>
 <p><strong>[VISUAL: Triangle diagram showing the three principals in EIM: Application Developers, Extension Manager, and Input Provider]</strong></p>
 <ul>
@@ -5634,8 +5644,10 @@ Today, I'm going to talk about something that has been around in the software in
 <li>Extensions need different capabilities (DOM access, storage access)</li>
 <li>EIM limits what each extension can do if exploited</li>
 </ul>
+<blockquote>
 <p>Let me explain EIM's usage model. It involves three key roles: First, we have application developers who create both the host application and extensions. They're trusted but fallible - meaning they're not malicious, but their code might contain bugs. Second, we have the extension manager - typically a system administrator - who configures which extensions can access which capabilities. Third, we have input providers - potentially untrusted sources of input to the application, like websites in a browser.</p>
 <p>EIM doesn't try to prevent malicious extensions from being installed - that's a different problem. Instead, it aims to limit the damage that could happen if a buggy extension gets exploited through malicious input. For example, in a web browser with a password manager and an ad blocker, the extension manager would give the ad blocker permission to modify DOM elements related to ads, but not access to stored passwords. If a malicious website exploits the ad blocker, it would only be able to modify ad-related DOM elements, not steal passwords.</p>
+</blockquote>
 <h3 id="slide-14-eim-development-time-specification">Slide 14: EIM - Development-Time Specification</h3>
 <p><strong>[VISUAL: Code example showing development-time EIM specification with annotations]</strong></p>
 <ul>
@@ -5654,11 +5666,13 @@ Today, I'm going to talk about something that has been around in the software in
 </ul>
 </li>
 </ul>
+<blockquote>
 <p>EIM specifications come in two parts. First, at development time, application developers create a specification that defines all the possible capabilities that extensions might need. This includes three types of capabilities:</p>
 <p>State capabilities represent the ability to read or write specific variables in the host application. For example, in nginx, we might define a capability called "readPid" that allows reading the process ID variable.</p>
 <p>Function capabilities represent the ability to call specific functions in the host application. For instance, we might define a capability called "nginxTime" that allows calling nginx's time function. We can also add constraints, like requiring that the return value must be positive.</p>
 <p>Extension entries define the specific points in the application where extensions can hook in. For example, in nginx, we might define extension entries at the beginning of request processing and at the content generation phase.</p>
 <p>This development-time specification essentially creates a catalog of all the ways extensions might interact with the host application.</p>
+</blockquote>
 <h3 id="slide-15-eim-deployment-time-specification">Slide 15: EIM - Deployment-Time Specification</h3>
 <p><strong>[VISUAL: Code example showing deployment-time EIM specification with annotations]</strong></p>
 <ul>
@@ -5671,23 +5685,31 @@ Today, I'm going to talk about something that has been around in the software in
 <li><code>updateResponse</code>: Can both read and write to response data</li>
 <li>Enforces principle of least privilege for each extension</li>
 </ul>
+<blockquote>
 <p>The second part of EIM is the deployment-time specification, created by system administrators or extension managers. This is where the actual security boundaries get defined.</p>
 <p>The deployment-time specification defines extension classes, each associated with a specific extension entry point. For each class, it specifies exactly which capabilities from the development-time specification are allowed.</p>
 <p>For example, we might define an "observeProcessBegin" class that allows extensions to read request data but not modify it. We might also define an "updateResponse" class that allows both reading and writing to response data.</p>
 <p>This approach enforces the principle of least privilege - each extension gets only the capabilities it needs to do its job, and nothing more. If an extension gets compromised, the damage is limited to the capabilities it was granted.</p>
-<h3 id="slide-14-bpftime-efficient-runtime-for-eim">Slide 14: bpftime: Efficient runtime for EIM</h3>
+</blockquote>
+<h3 id="slide-16-bpftime-eims-efficient-runtime-implementation">Slide 16: bpftime: EIM's Efficient Runtime Implementation</h3>
+<p><strong>[VISUAL: Architecture diagram showing how bpftime implements EIM principles]</strong></p>
 <ul>
-<li>bpftime: Efficient runtime for EIM</li>
+<li>bpftime: Our userspace eBPF runtime that implements EIM</li>
+<li>Key features:</li>
 <li>Brings eBPF concepts fully into userspace</li>
+<li>Uses eBPF verifier for load-time safety checks</li>
 <li>Near-native performance without kernel traps</li>
 <li>Compatible with kernel eBPF ecosystem</li>
 <li>Supports 10+ map types and 30+ helpers</li>
 </ul>
-<p>So, what is bpftime? It's a userspace eBPF runtime that supports tracing features like Uprobe, USDT, syscall tracepoints, and even network features like XDP, all in userspace. It supports more than 10 map types and 30 helpers, so it's highly compatible with the kernel eBPF ecosystem. It builds on top of eBPF concepts but brings them fully into user-space. bpftime uses the same verification and safety guarantees as kernel-level eBPF, ensuring that an extension can't step outside its defined boundaries. Plus, it leverages modern hardware isolation features (like Intel's Memory Protection Keys—MPK) to give near-native performance without the heavyweight overhead of context switches or traps that traditional solutions like uprobes suffer from.</p>
-<p>you can use your fammiliar way to develop and deploy eBPF programs, but in userspace. bpftime can run alongside kernel eBPF, using kernel eBPF maps and working together with kprobe.</p>
-<p>We start developing bpftime 2 years ago, and adapt it to efficiently enforcing these permissions from the EIM model this year.</p>
+<blockquote>
+<p>Now, let's talk about bpftime, which is our concrete implementation of the EIM principles. bpftime is a userspace eBPF runtime that supports tracing features like Uprobe, USDT, syscall tracepoints, and even network features like XDP, all in userspace. </p>
+<p>It supports more than 10 map types and 30 helpers, so it's highly compatible with the kernel eBPF ecosystem. It builds on top of eBPF concepts but brings them fully into user-space. bpftime uses the same verification and safety guarantees as kernel-level eBPF, ensuring that an extension can't step outside its defined boundaries. Plus, it leverages modern hardware isolation features (like Intel's Memory Protection Keys—MPK) to give near-native performance without the heavyweight overhead of context switches or traps that traditional solutions like uprobes suffer from.</p>
+<p>You can use your familiar way to develop and deploy eBPF programs, but in userspace. bpftime can run alongside kernel eBPF, using kernel eBPF maps and working together with kprobe.</p>
+<p>We started developing bpftime 2 years ago, and adapted it to efficiently enforce these permissions from the EIM model this year.</p>
+</blockquote>
 <h3 id="slide-17-bpftime-concealed-extension-entries">Slide 17: bpftime - Concealed Extension Entries</h3>
-<p><strong>[VISUAL: Diagram showing how concealed extension entries work, with binary code before and after modification]</strong></p>
+<p><strong>[VISUAL: Before/after diagram showing binary code without hooks, then with dynamically injected hooks]</strong></p>
 <ul>
 <li>Novel approach to reduce overhead when extensions aren't active</li>
 <li>Traditional approach: Static hooks always present in code</li>
@@ -5696,13 +5718,19 @@ Today, I'm going to talk about something that has been around in the software in
 <li>Uses binary rewriting to dynamically inject hooks only when needed</li>
 <li>Zero overhead when extensions aren't in use</li>
 <li>Automatically activates when extensions are loaded</li>
-<li>Significantly improves performance for seldom-used extension points</li>
+<li>Example: Web server with 50 potential extension points</li>
+<li>Traditional: All 50 checks happen on every request</li>
+<li>bpftime: Only points with active extensions have hooks</li>
 </ul>
+<blockquote>
 <p>One of our most innovative features in bpftime is what we call "concealed extension entries." This addresses a common problem with extension frameworks: performance overhead at extension points, even when no extensions are active.</p>
+<p>Think of it like toll booths on a highway. Traditional extension systems are like having toll booths at every possible exit, even if nobody ever takes that exit. Every car still has to slow down to check if they need to pay. This slows down traffic unnecessarily.</p>
 <p>Traditionally, applications with extension support have static hooks in their code. These hooks check if an extension is present and, if so, call into it. But these checks happen every time the code runs, even if no extensions are loaded, causing unnecessary overhead.</p>
-<p>bpftime takes a different approach. We use binary rewriting to dynamically inject hooks into applications only when extensions are actually loaded. When no extensions are active at a particular point, there's zero overhead - the application runs at full speed as if it had no extension support at all.</p>
+<p>bpftime takes a different approach. We use binary rewriting to dynamically inject hooks into applications only when extensions are actually loaded. When no extensions are active at a particular point, there's zero overhead - the application runs at full speed as if it had no extension support at all. It's like only building toll booths at exits people actually use, and leaving the highway clear everywhere else.</p>
 <p>This is actually the opposite of how binary rewriting is typically used. Most systems use it to add new extension points to applications that weren't designed for extensions. We use it to hide extension points that are already there, activating them only when needed.</p>
+<p>For example, imagine a web server with 50 potential extension points. In a traditional system, all 50 checks happen on every request, even if only 2 extensions are active. With bpftime, only the 2 points with active extensions have hooks, eliminating overhead at the other 48 points.</p>
 <p>This approach dramatically improves performance for applications with many potential extension points that are only occasionally used.</p>
+</blockquote>
 <h3 id="slide-18-bpftime-for-observability">Slide 18: bpftime for Observability</h3>
 <p><strong>[VISUAL: Performance comparison chart showing kernel vs userspace tracing latency]</strong></p>
 <ul>
@@ -5715,11 +5743,13 @@ Today, I'm going to talk about something that has been around in the software in
 <li>Combine kprobes and uprobes for hybrid approaches</li>
 <li>Shift workload to improve overall performance</li>
 </ul>
+<blockquote>
 <p>So why do we want to do observability with eBPF in userspace?</p>
 <p>It's simple: userspace tracing is <strong>faster and more flexible</strong>. For example, Uprobes in the kernel take about <strong>1000 nanoseconds</strong>, but in userspace, we've brought that down to just <strong>100 nanoseconds</strong>. Similarly, memory access in userspace is about <strong>10 times faster</strong>—<strong>4 nanoseconds</strong> versus <strong>40 nanoseconds</strong> in the kernel. This speed difference happens because the kernel often has to translate memory addresses or run additional checks to access userspace memory.</p>
 <p>On top of that, there's less overhead on untraced processes, especially when dealing with syscall tracepoints.</p>
 <p>What can we run in userspace?</p>
 <p>With userspace tracing, tools like <strong>bcc</strong> and <strong>bpftrace</strong> can run completely in userspace where kernel eBPF is not available. And you can run more complex observability agents that combine kprobes and uprobes, improving performance by shifting part of the workload to userspace.</p>
+</blockquote>
 <h3 id="slide-19-bpftime-for-userspace-networking">Slide 19: bpftime for Userspace Networking</h3>
 <p><strong>[VISUAL: Diagram showing bpftime integration with kernel-bypass technologies like DPDK and AF_XDP]</strong></p>
 <ul>
@@ -5732,9 +5762,11 @@ Today, I'm going to talk about something that has been around in the software in
 <li>Network function virtualization</li>
 <li>Advanced load balancing</li>
 </ul>
-<p>"Now, let's talk about bpftime in the <strong>networking</strong> context. Why using userspace eBPF instead of running ebpf in kernel?</p>
-<p>We've seen kernel-bypass solutions like <strong>DPDK</strong> and <strong>AF_XDP</strong>. They can offer faster packet processing by bypassing the kernel. But with bpftime, you can combine the performance benefits of these kernel-bypass technologies with the extensive eBPF ecosystem. So, you get the best of both low-latency packet processing and the ability to use eBPF's safety and existing tools.</p>
-<p>We can also use <strong>LLVM optimizations</strong> to further boost performance in userspace."</p>
+<blockquote>
+<p>Now, let's talk about bpftime in the <strong>networking</strong> context. Why use userspace eBPF instead of running eBPF in the kernel?</p>
+<p>We've seen kernel-bypass solutions like <strong>DPDK</strong> (Data Plane Development Kit) and <strong>AF_XDP</strong> (Address Family XDP). They can offer faster packet processing by bypassing the kernel. But with bpftime, you can combine the performance benefits of these kernel-bypass technologies with the extensive eBPF ecosystem. So, you get the best of both low-latency packet processing and the ability to use eBPF's safety and existing tools.</p>
+<p>We can also use <strong>LLVM optimizations</strong> to further boost performance in userspace.</p>
+</blockquote>
 <h3 id="slide-20-bpftime-with-userspace-network-integration">Slide 20: bpftime with Userspace Network Integration</h3>
 <p><strong>[VISUAL: Architecture diagram showing XDP program flow in userspace with bpftime]</strong></p>
 <ul>
@@ -5746,10 +5778,12 @@ Today, I'm going to talk about something that has been around in the software in
 <li>XDP_TX and XDP_DROP limitations</li>
 <li>Solutions for XDP_PASS packet reinjection</li>
 </ul>
-<p>"Using <strong>bpftime</strong>, you can seamlessly integrate the <strong>eBPF XDP ecosystem</strong> into kernel-bypass applications. </p>
-<p>For instance, solutions like <strong>Katran</strong>, a high-performance load balancer, can benefit from the optimizations we've made in bpftime for userspace. </p>
+<blockquote>
+<p>Using <strong>bpftime</strong>, you can seamlessly integrate the <strong>eBPF XDP ecosystem</strong> into kernel-bypass applications. </p>
+<p>For instance, solutions like <strong>Katran</strong>, a high-performance load balancer from Facebook, can benefit from the optimizations we've made in bpftime for userspace. </p>
 <p>bpftime can work with both <strong>AF_XDP</strong> and <strong>DPDK</strong>. You can run your XDP eBPF programs as if they were in the kernel, just load them with bpftime, and they'll work like normal, while a DPDK app handles the network processing.</p>
-<p>Right now, there are some limitations with <strong>XDP_TX</strong> and <strong>XDP_DROP</strong> in userspace, but we're actively working on solutions. We're exploring ways to reinject packets into the kernel to support <strong>XDP_PASS</strong>."</p>
+<p>Right now, there are some limitations with <strong>XDP_TX</strong> (packet transmission) and <strong>XDP_DROP</strong> (packet dropping) in userspace, but we're actively working on solutions. We're exploring ways to reinject packets into the kernel to support <strong>XDP_PASS</strong> (passing packets to the network stack).</p>
+</blockquote>
 <h3 id="slide-21-control-plane-support">Slide 21: Control Plane Support</h3>
 <p><strong>[VISUAL: Diagram showing bpftime control plane architecture with syscall hooking and userspace runtime]</strong></p>
 <ul>
@@ -5794,42 +5828,6 @@ like Katran, bpftime can acheive up to  <strong>40% faster</strong>.</p>
 <li>Available today for experimentation and production use</li>
 </ul>
 <p>"In conclusion, bpftime is a new approach to userspace eBPF that combines the safety and performance of kernel-level eBPF with the flexibility of userspace extensions. It's a path forward for developers and administrators alike, enabling highly customized, performant, and secure applications."</p>
-<h2 id="backup">backup</h2>
-<!-- 
-And bpftime complements this by efficiently enforcing these permissions. It builds on top of eBPF concepts but brings them fully into user-space. bpftime uses the same verification and safety guarantees as kernel-level eBPF, ensuring that an extension can't step outside its defined boundaries. Plus, it leverages modern hardware isolation features (like Intel's Memory Protection Keys—MPK) to give near-native performance without the heavyweight overhead of context switches or traps that traditional solutions like uprobes suffer from.
-
-But beyond just safety and speed, bpftime also provides a dynamic and flexible loading mechanism. Extensions can be loaded at runtime, allowing administrators to quickly adapt their systems without restarts. And because it's compatible with eBPF, it also integrates seamlessly with existing kernel-level eBPF monitoring tools, bridging user-space and kernel-space observability.
-
-This new approach isn't just theoretical. Right now, there are already thousands of users running bpftime extensions for various real-world applications. They're using it for performance profiling in microservices, fault injection testing, caching optimizations in file systems, hot-patching running applications, and even security enhancements in web servers.
-
-For example, with bpftime, one user implemented an SSL-aware distributed tracing tool. Compared to traditional eBPF-based uprobes, their performance overhead was nearly four times lower. Another case involved improving Redis durability without significantly reducing throughput—previous approaches would have made such fine-grained tuning too costly or too difficult to safely implement.
-
-So, as we wrap up this motivation today, what I want you to take away is simple:
-
-Software extensions aren't going away—in fact, they're becoming more and more essential. But traditional approaches aren't cutting it anymore. They're either too risky, too limited, or too expensive. We need new, flexible interfaces and runtime systems that let us clearly and safely define exactly how extensions can interact with applications.
-
-That's why we built EIM and bpftime. They're about giving you, the system administrators and engineers, a better way to safely and efficiently extend your software systems, without the painful compromises of the past.
-
-This brings us to the core of what we've developed: first, the Extension Interface Model, or EIM, and second, bpftime—an efficient, practical runtime system designed specifically to enforce EIM.
-
-Let's dive deeper into EIM first. We knew from the start that simply isolating extensions wasn't enough; we needed fine-grained control. The question we asked ourselves was simple yet powerful: "What if we treated every action an extension can perform—like reading a variable, calling a function, or writing to a state—as a resource?" With that mindset, an application's developers can enumerate clearly which resources are potentially available to extensions. Later, at deployment time, a system administrator or DevOps engineer selects exactly which of these resources are allowed per specific extension. This means, if you're deploying an observability extension, you might only allow read access to performance counters. For a security extension, you might allow inspecting incoming requests but restrict all write operations. By modeling each capability explicitly, EIM provides both developers and administrators with precision and clarity in managing what extensions can—and crucially, cannot—do.
-
-But of course, defining precise boundaries is just half the solution. We needed a runtime environment capable of enforcing these rules efficiently. That's why we developed bpftime—an innovative, lightweight extension runtime inspired by the success of eBPF, which many of you probably already use for kernel-level extensions and observability tasks.
-
-bpftime takes this idea to the user-space: it checks extensions at load time using advanced eBPF-style verification, meaning that all safety constraints defined by EIM are enforced before any extension ever runs in production. No runtime overhead, no expensive context switches—just fast, secure execution. To further secure the system, bpftime also integrates hardware isolation technologies, like Intel Memory Protection Keys (MPK), to ensure even accidental or rogue extensions can't tamper with critical application memory.
-
-One of our most exciting innovations with bpftime is what we call "concealed extension entries." This idea is about efficiency. Normally, extensions introduce overhead at their insertion points—each time your application reaches an extension hook, there's a cost. But why pay that cost when no extension is actively being used at a given point? Concealed extension entries dynamically inject hooks into applications at runtime only when necessary, using safe binary rewriting techniques. This means zero overhead when extensions aren't in use, dramatically improving performance compared to traditional approaches.
-
-Now, as industry engineers, you might ask, "How practical is all this? How easy is it to adopt?" Well, bpftime is fully compatible with the existing eBPF ecosystem. If your team already uses eBPF—for monitoring, security, or debugging—you can seamlessly integrate bpftime. You don't need to rebuild your tooling from scratch; you just extend your current setup to benefit from these powerful new capabilities.
-
-Let me share a bit about our experimental validation. We've extensively tested bpftime across diverse practical scenarios. In a microservices observability case, bpftime improved monitoring throughput by 50% compared to traditional eBPF. For Redis, we implemented extensions that significantly enhanced durability with just a minimal performance tradeoff—something previously impractical. We even accelerated filesystem metadata operations in FUSE and dramatically reduced overhead in SSL traffic monitoring scenarios—proving that our theoretical benefits translate directly into real-world performance improvements.
-
-Our experiments showed not only that bpftime could enforce security constraints rigorously but that it did so at speeds close to native execution. This was crucial for adoption because no matter how safe extensions might be, if they slow down your service significantly, they're not practical in a high-performance environment.
-
-Finally, our approach isn't just theoretical—it's available today, experimentally maintained and tested by thousands of active users on GitHub. Engineers across the industry are already leveraging bpftime for tasks ranging from deep performance diagnostics to rapid security patching, all without compromising their application's integrity or responsiveness.
-
-To conclude, our experimental work with EIM and bpftime opens new possibilities for safely extending software at runtime. It's a path forward for developers and administrators alike, enabling highly customized, performant, and secure applications. -->
-
 <p><a class="md-button" href="https://x.com/intent/tweet?text=eBPF%20and%20Wasm%3A%20Unifying%20Userspace%20Extensions%20With%20Bpftime%20-%20Yusheng%20Zheng%2C%20eunomia-bpf%0A&amp;url=https://eunomia.dev/others/miscellaneous/bpftime-kubecon-draft/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/others/miscellaneous/bpftime-kubecon-draft/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
@@ -5854,7 +5852,7 @@ To conclude, our experimental work with EIM and bpftime opens new possibilities 
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 2, 2025 21:28:17">April 2, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 2, 2025 22:11:22">April 2, 2025</span>
   </span>
 
     
