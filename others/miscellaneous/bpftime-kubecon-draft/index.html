@@ -1,0 +1,6080 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Unlock the potential of eBPF">
+      
+      
+      
+        <link rel="canonical" href="https://eunomia.dev/others/miscellaneous/bpftime-kubecon-draft/">
+      
+      
+        <link rel="prev" href="../../usecases/">
+      
+      
+        <link rel="next" href="../bpftime-roadmap/">
+      
+      
+      <link rel="icon" href="../../../assets/icon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.11">
+    
+    
+      
+        <title>eBPF and Wasm: Unifying Userspace Extensions With Bpftime - Yusheng Zheng, eunomia-bpf - eunomia</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.4af4bdda.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-1YVMXGL0MY"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-1YVMXGL0MY",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-1YVMXGL0MY",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+      
+        <meta  property="og:type"  content="website" >
+      
+        <meta  property="og:title"  content="eBPF and Wasm: Unifying Userspace Extensions With Bpftime - Yusheng Zheng, eunomia-bpf - eunomia" >
+      
+        <meta  property="og:description"  content="Unlock the potential of eBPF" >
+      
+        <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/others/miscellaneous/bpftime-kubecon-draft.png" >
+      
+        <meta  property="og:image:type"  content="image/png" >
+      
+        <meta  property="og:image:width"  content="1200" >
+      
+        <meta  property="og:image:height"  content="630" >
+      
+        <meta  property="og:url"  content="https://eunomia.dev/others/miscellaneous/bpftime-kubecon-draft/" >
+      
+        <meta  name="twitter:card"  content="summary_large_image" >
+      
+        <meta  name="twitter:title"  content="eBPF and Wasm: Unifying Userspace Extensions With Bpftime - Yusheng Zheng, eunomia-bpf - eunomia" >
+      
+        <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
+      
+        <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/others/miscellaneous/bpftime-kubecon-draft.png" >
+      
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ebpf-and-wasm-unifying-userspace-extensions-with-bpftime-yusheng-zheng-eunomia-bpf" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="eunomia" class="md-header__button md-logo" aria-label="eunomia" data-md-component="logo">
+      
+  <img src="../../../assets/icon.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            eunomia
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              eBPF and Wasm: Unifying Userspace Extensions With Bpftime - Yusheng Zheng, eunomia-bpf
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="/en/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="/zh/" hreflang="zh" class="md-select__link">
+              Chinese
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/eunomia-bpf/eunomia.dev" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../.." class="md-tabs__link">
+          
+  
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../tutorials/" class="md-tabs__link">
+          
+  
+  
+  Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../blog" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Blog
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../bpftime/" class="md-tabs__link">
+          
+  
+  
+  bpftime
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../eunomia-bpf/" class="md-tabs__link">
+          
+  
+  
+  eunomia-bpf
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../GPTtrace/" class="md-tabs__link">
+          
+  
+  
+  GPTtrace
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../wasm-bpf/" class="md-tabs__link">
+          
+  
+  
+  wasm-bpf
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+  Ecosystem
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="eunomia" class="md-nav__button md-logo" aria-label="eunomia" data-md-component="logo">
+      
+  <img src="../../../assets/icon.svg" alt="logo">
+
+    </a>
+    eunomia
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/eunomia-bpf/eunomia.dev" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Home
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Eunomia - Unlock the potential of eBPF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tutorials
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example: Learning CO-RE eBPF Step by Step
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/SUMMARY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example: Learning CO-RE eBPF Step by Step
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/0-introduce/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 0: Introduction to Core Concepts and Tools
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/1-helloworld/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 1: Hello World, Framework and Development
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/10-hardirqs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 10: Capturing Interrupts with hardirqs or softirqs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/11-bootstrap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 11: Develop User-Space Programs with libbpf and Trace exec() and exit()
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/12-profile/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 12: Using eBPF Program Profile for Performance Analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/13-tcpconnlat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 13: Statistics of TCP Connection Delay with libbpf
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/14-tcpstates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 14: Recording TCP Connection Status and TCP RTT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/15-javagc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 15: Capturing User-Space Java GC Duration Using USDT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/16-memleak/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 16: Monitoring Memory Leaks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/17-biopattern/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 17: Count Random/Sequential Disk I/O
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/18-further-reading/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    More Reference Materials： papers, projects
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/18-further-reading/ebpf-security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    The Secure Path Forward for eBPF runtime: Challenges and Innovations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/19-lsm-connect/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 19: Security Detection and Defense using LSM
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/2-kprobe-unlink/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 2: Monitoring unlink System Calls with kprobe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/20-tc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 20: tc Traffic Control
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/21-xdp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 21: Programmable Packet Processing with XDP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/22-android/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example: Using eBPF Programs on Android
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/23-http/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    L7 Tracing with eBPF: HTTP and Beyond via Socket Filters and Syscall Tracepoints
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/24-hide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Practical Tutorial: Hiding Process or File Information
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/25-signal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Using bpf_send_signal to Terminate Malicious Processes in eBPF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/26-sudo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Using eBPF to add sudo user
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/27-replace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Replace Text Read or Written by Any Program with eBPF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/28-detach/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Running eBPF After Application Exits: The Lifecycle of eBPF Programs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/29-sockops/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Development Practices: Accelerating Network Request Forwarding with Sockops
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/3-fentry-unlink/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 3: Monitoring unlink System Calls with fentry
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/30-sslsniff/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Practical Tutorial: Capturing SSL/TLS Plain Text Data Using uprobe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/31-goroutine/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Practical Tutorial: Using eBPF to Trace Go Routine States
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/32-http2/README.zh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    trace http2 request in go
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/33-funclatency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Measuring Function Latency with eBPF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/34-syscall/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Development Practice: Modifying System Call Arguments with eBPF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/35-user-ringbuf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Development Practices: Asynchronously Send to Kernel with User Ring Buffer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/36-userspace-ebpf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Userspace eBPF Runtimes: Overview and Applications
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/37-uprobe-rust/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Practice: Tracing User Space Rust Applications with Uprobe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/38-btf-uprobe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Expanding eBPF Compile Once, Run Everywhere(CO-RE) to Userspace Compatibility
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/38-btf-uprobe/test-verify/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    using BTF to verify userspace eBPF extensions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/38-btf-uprobe/test-verify/minimal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    minimal examples
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/38-btf-uprobe/test-verify/module/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    write a basic kernel module
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/39-nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Using eBPF to Trace Nginx Requests
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/4-opensnoop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 4: Capturing Opening Files and Filter with Global Variables
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/40-mysql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Using eBPF to Trace MySQL Queries
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/41-xdp-tcpdump/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example: Capturing TCP Information with XDP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/42-xdp-loadbalancer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Developer Tutorial: XDP Load Balancer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/42-xdp-loadbalancer/connect/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Network setup for bpf-developer-tutorial
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/43-kfuncs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extending eBPF Beyond Its Limits: Custom kfuncs in Kernel Modules
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/43-kfuncs/module/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    write a basic kernel module
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/44-scx-simple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial: Introduction to the BPF Scheduler
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/45-scx-nest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example: Implementing the scx_nest Scheduler
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/46-xdp-test/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    xdp-pktgen: xdp based packet generator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/5-uprobe-bashreadline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 5: Capturing readline Function Calls with Uprobe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/6-sigsnoop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 6: Capturing Signal Sending and Store State with Hash Maps
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/7-execsnoop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 7: Capturing Process Execution, Output with perf event array
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/8-exitsnoop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 8: Monitoring Process Exit Events, Output with Ring Buffer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/9-runqlat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example 9: Capturing Scheduling Latency and Recording as Histogram
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/bcc-documents/kernel-versions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Linux 内核版本的 BPF 功能
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/bcc-documents/kernel-versions_en/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BPF Features by Linux Kernel Version
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/bcc-documents/kernel_config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BPF 特性的内核配置
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/bcc-documents/kernel_config_en/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kernel Configuration for BPF Features
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/bcc-documents/reference_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    bcc 参考指南
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/bcc-documents/reference_guide_en/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    bcc Reference Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/bcc-documents/special_filtering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    特殊过滤
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/bcc-documents/special_filtering_en/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Special Filtering
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/bcc-documents/tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    bcc 教程
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/bcc-documents/tutorial_bcc_python_developer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    bcc Python 开发者教程
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/bcc-documents/tutorial_bcc_python_developer_en/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    bcc Python Developer Tutorial
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/bcc-documents/tutorial_en/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    bcc Tutorial
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/bpftrace-tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    The bpftrace One-Liner Tutorial
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/scripts/guideline_advance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Blog Guidelines for Advanced eBPF Tutorials
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/scripts/guideline_basic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    blog guideline or pattern
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Blog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    bpftime
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            bpftime
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bpftime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    bpftime: Userspace eBPF runtime for Observability, Network &amp; General extensions Framework
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bpftime/documents/build-and-test/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Building and Test
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bpftime/documents/usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Manual
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bpftime/documents/examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Examples &amp; Use Cases
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bpftime/documents/available-features/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Available kernel features in userspace
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Bpftime
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            Bpftime
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bpftime/llvmbpf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Userspace eBPF VM with LLVM JIT/AOT Compiler
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6_2" id="__nav_4_6_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    EIM
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            EIM
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bpftime/EIM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    EIM: Extension Interface Model
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bpftime/EIM/example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    EIM: Example code
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bpftime/EIM/spec/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    EIM: Extension Interface Model Specification
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bpftime/EIM/uprobe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    UProbe Role Definition README
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bpftime/EIM/usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    EIM Usage and people involved (Draft v1)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_6_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6_2_6" id="__nav_4_6_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Draft spec
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_6_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            Draft spec
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bpftime/EIM/draft-spec/current-EIM-lack/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    EIM on verify: what can it do and what cannot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bpftime/EIM/draft-spec/spec/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extension Inferface Model Specification V3
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bpftime/EIM/draft-spec/spec_core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Spec core
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bpftime/EIM/draft-spec/spec_old/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extension Model Specification V1
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_6_2_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6_2_7" id="__nav_4_6_2_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Study
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_6_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            Study
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bpftime/EIM/study/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    studies on bugs in extensions/plugins
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bpftime/EIM/study/browser-ide-bug-study/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Study on Bugs in Browser Extensions and IDE Plugins
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bpftime/EIM/study/compare/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extension Systems compare with EIM
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bpftime/EIM/study/db-bug-study/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Study on Bugs in Database and Web Server Extension Interfaces
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bpftime/EIM/study/docker-vm-bug-study/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Study on Hypervisor and Container Extension Bugs (2018–2024)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bpftime/EIM/study/game-office-bug-study/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Case Studies of Bugs in Productivity Software and Game Extensions/Plugins (2018–2024)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_6_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6_3" id="__nav_4_6_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Documents
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            Documents
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bpftime/documents/attach/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Detailed Implementation of the Attach Part
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bpftime/documents/bpftimeaot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    bpftime-aot cli
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bpftime/documents/bpftimetool/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    bpftimetool
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bpftime/documents/co-re/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Compile Once, Run Everywhere(CO-RE)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bpftime/documents/contact/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contact and citations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bpftime/documents/how-it-works/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    The design and implementation of bpftime
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bpftime/documents/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bpftime/documents/performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    performance and benchmark
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    eunomia-bpf
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            eunomia-bpf
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eunomia-bpf: simplify and enhance eBPF with CO-RE and WebAssembly
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Eunomia bpf
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Eunomia bpf
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/benchmark/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    benchmark
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/manual/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    manual
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/online/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Online Demo
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    quickstart
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/supporting-external-BTF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    supporting-external-BTF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/video/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    video
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_2_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_8" id="__nav_5_2_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_8">
+            <span class="md-nav__icon md-icon"></span>
+            Architecture
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Project architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_2_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_9" id="__nav_5_2_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Ecc
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_9">
+            <span class="md-nav__icon md-icon"></span>
+            Ecc
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/ecc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eunomia-cc
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/ecc/docker-usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ecc docker usage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/ecc/github-template/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    github template
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/ecc/usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ecc usage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_2_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_10" id="__nav_5_2_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Ecli
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_10">
+            <span class="md-nav__icon md-icon"></span>
+            Ecli
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/ecli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ecli
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/ecli/ecli-dockerfile-usage.zh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ecli dockerfile usage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/ecli/server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ecli server
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_2_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_11" id="__nav_5_2_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Exporter
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_11">
+            <span class="md-nav__icon md-icon"></span>
+            Exporter
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/exporter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    exporter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/exporter/usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    usage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_2_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_12" id="__nav_5_2_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Setup
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_12">
+            <span class="md-nav__icon md-icon"></span>
+            Setup
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/setup/build-android-arm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    build on android aarch64
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../eunomia-bpf/setup/build/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    build from source
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    GPTtrace
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            GPTtrace
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../GPTtrace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GPTtrace 🤖
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    wasm-bpf
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            wasm-bpf
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wasm-bpf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Wasm-bpf
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Ecosystem
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Ecosystem
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Other projects
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_8_2" id="__nav_8_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Others
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_8_2">
+            <span class="md-nav__icon md-icon"></span>
+            Others
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bpf-benchmark/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BPF-Benchmark
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bpf-compatible/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    bpf-compatible
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contribute/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing to eunomia-bpf
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebpf-gpts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    An experiment: GPTs for eBPF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ideas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Possible ideas for the future
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../usecases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ebpf usecases analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_2_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_8_2_7" id="__nav_8_2_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Miscellaneous
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_8_2_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_8_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            Miscellaneous
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    eBPF and Wasm: Unifying Userspace Extensions With Bpftime - Yusheng Zheng, eunomia-bpf
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF and Wasm: Unifying Userspace Extensions With Bpftime - Yusheng Zheng, eunomia-bpf
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#abstract" class="md-nav__link">
+    <span class="md-ellipsis">
+      Abstract
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#slides-and-texts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slides and texts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Slides and texts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#slide-1-title" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 1: Title
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-2-agenda" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 2: Agenda
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-3-the-history-of-software-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 3: The History of Software Extensions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-4-why-use-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 4: Why Use Extensions?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-5-real-world-extension-failures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 5: Real-World Extension Failures
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-6-traditional-extension-approaches" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 6: Traditional Extension Approaches
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-7-webassembly-for-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 7: WebAssembly for Extensions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-8-ebpf-for-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 8: eBPF for Extensions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-9-three-core-requirements-for-extension-frameworks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 9: Three Core Requirements for Extension Frameworks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-10-wasm-interface-evolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 10: Wasm Interface Evolution
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-11-ebpf-interface-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 11: eBPF Interface Approach
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-12-extension-interface-model-eim-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 12: Extension Interface Model (EIM) - Overview
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-13-eim-usage-model-and-principals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 13: EIM - Usage Model and Principals
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-14-eim-development-time-specification" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 14: EIM - Development-Time Specification
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-15-eim-deployment-time-specification" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 15: EIM - Deployment-Time Specification
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-14-bpftime-efficient-runtime-for-eim" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 14: bpftime: Efficient runtime for EIM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-17-bpftime-concealed-extension-entries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 17: bpftime - Concealed Extension Entries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-18-bpftime-for-observability" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 18: bpftime for Observability
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-19-bpftime-for-userspace-networking" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 19: bpftime for Userspace Networking
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-20-bpftime-with-userspace-network-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 20: bpftime with Userspace Network Integration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-21-control-plane-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 21: Control Plane Support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-22-performance-benchmarks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 22: Performance Benchmarks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-23-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 23: Conclusion
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backup" class="md-nav__link">
+    <span class="md-ellipsis">
+      backup
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bpftime-roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    About bpftime - bpftime ideas
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ebpf-fuse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    基于内核态/用户态 eBPF 实现高性能用户态文件系统功能 - 操作系统大赛赛题
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ebpf-gpu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    使用 eBPF 对 AI/ML 工作负载进行追踪和性能分析 - 操作系统大赛赛题
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ebpf-linux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Project Proposal for bpftime - eBPF Foundation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ebpf-lsm-usm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    实现内核与用户态共同工作的 eBPF 安全框架 - 操作系统大赛赛题
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ebpf-usecases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Categorization of eBPF Hooks and Use Cases
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ebpf-userspace-port/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    将用户态 eBPF 扩展到 MacOS、Windows、FreeBSD 等更多平台 - 操作系统大赛赛题
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gsoc-ospp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GSOC - OSPP draft proposal
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ideas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    开源活动的可能想法 - eunomia-bpf 2024
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux-plumbers-talk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    bpftime talk at linux plumbers 2025
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    bpftime roadmap and ideas for 2024
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../talk-ebpf-summit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Summit 2025 bpftime talk
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wasm-bpf-kubecon/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Securing and Simplifying eBPF Deployments with WebAssembly
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wasm-bpf-talk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    talk draft in kubecon
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#abstract" class="md-nav__link">
+    <span class="md-ellipsis">
+      Abstract
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#slides-and-texts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slides and texts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Slides and texts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#slide-1-title" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 1: Title
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-2-agenda" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 2: Agenda
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-3-the-history-of-software-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 3: The History of Software Extensions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-4-why-use-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 4: Why Use Extensions?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-5-real-world-extension-failures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 5: Real-World Extension Failures
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-6-traditional-extension-approaches" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 6: Traditional Extension Approaches
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-7-webassembly-for-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 7: WebAssembly for Extensions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-8-ebpf-for-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 8: eBPF for Extensions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-9-three-core-requirements-for-extension-frameworks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 9: Three Core Requirements for Extension Frameworks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-10-wasm-interface-evolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 10: Wasm Interface Evolution
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-11-ebpf-interface-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 11: eBPF Interface Approach
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-12-extension-interface-model-eim-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 12: Extension Interface Model (EIM) - Overview
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-13-eim-usage-model-and-principals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 13: EIM - Usage Model and Principals
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-14-eim-development-time-specification" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 14: EIM - Development-Time Specification
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-15-eim-deployment-time-specification" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 15: EIM - Deployment-Time Specification
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-14-bpftime-efficient-runtime-for-eim" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 14: bpftime: Efficient runtime for EIM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-17-bpftime-concealed-extension-entries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 17: bpftime - Concealed Extension Entries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-18-bpftime-for-observability" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 18: bpftime for Observability
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-19-bpftime-for-userspace-networking" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 19: bpftime for Userspace Networking
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-20-bpftime-with-userspace-network-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 20: bpftime with Userspace Network Integration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-21-control-plane-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 21: Control Plane Support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-22-performance-benchmarks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 22: Performance Benchmarks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slide-23-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide 23: Conclusion
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backup" class="md-nav__link">
+    <span class="md-ellipsis">
+      backup
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/miscellaneous/bpftime-kubecon-draft.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/miscellaneous/bpftime-kubecon-draft.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+<h1 id="ebpf-and-wasm-unifying-userspace-extensions-with-bpftime-yusheng-zheng-eunomia-bpf">eBPF and Wasm: Unifying Userspace Extensions With Bpftime - Yusheng Zheng, eunomia-bpf</h1>
+<p>Thursday April 3, 2025 14:15 - 14:45 BST
+Level 1 | Hall Entrance S10 | Room D</p>
+<h2 id="abstract">Abstract</h2>
+<p>In cloud-native systems, extending and customizing applications is key to improving development, deployment, and observability. eBPF is powerful for kernel-level enhancements, and WebAssembly brings extension to userspace. Yet, both face challenges when userspace extensions need to interact deeply with host applications. eBPF's kernel-focused design struggles in diverse userspace environments, and Wasm's sandboxing introduces overhead and complexity due to extra checks and data copying. Enter bpftime, a framework that extends eBPF's capabilities into userspace. Using dynamic binary instrumentation, bytecode verification, and hardware isolation, bpftime allows secure, high-performance extensions without the overhead of Wasm's sandboxing. This talk explores how bpftime works with the eBPF Interface to simplify userspace extensions, compares the evolution of eBPF and Wasm, and shows how bpftime can power observability, networking, and other cloud-native extensions.</p>
+<h2 id="slides-and-texts">Slides and texts</h2>
+<h3 id="slide-1-title">Slide 1: Title</h3>
+<p>eBPF and Wasm: Unifying Userspace Extensions With Bpftime</p>
+<p><strong>[VISUAL: Title slide with bpftime logo, eBPF and Wasm logos on opposite sides with an arrow connecting them through bpftime]</strong></p>
+<blockquote>
+<p>Good afternoon, everyone! My name is Yusheng Zheng, I'm a PhD student at the UC santa cruz and I'm maintaining some eBPF related open source projects in eunomia-bpf comminity.
+Today, I'm going to talk about something that has been around in the software industry for a really long time—software extensions.</p>
+</blockquote>
+<h3 id="slide-2-agenda">Slide 2: Agenda</h3>
+<p><strong>[VISUAL: Agenda with icons for each section]</strong></p>
+<ul>
+<li>Introduction to Application Extensions</li>
+<li>Challenges: Safety vs. Interconnectedness</li>
+<li>Limitations of Existing Solutions</li>
+<li>EIM: A Fine-Grained Interface Model</li>
+<li>bpftime: Efficient Runtime Design</li>
+<li>Use Cases &amp; Evaluation</li>
+<li>Conclusion</li>
+</ul>
+<blockquote>
+<p>Specifically, I want to talk about why we need extensions, what makes them challenging to handle correctly, and how our current approaches to managing extensions might not be good enough. And then I'll introduce a new approach to managing extensions called the Extension Interface Model (EIM) and our experimental userspace eBPF runtime called bpftime. This is also a research project that has been accepted by the OSDI 2025.</p>
+</blockquote>
+<h3 id="slide-3-the-history-of-software-extensions">Slide 3: The History of Software Extensions</h3>
+<p><strong>[VISUAL: Timeline showing evolution of extension systems with icons for each example]</strong></p>
+<ul>
+<li>Extensions have deep roots in software development</li>
+<li>Common examples across the industry:</li>
+<li>Web servers: nginx/Apache modules</li>
+<li>Databases: Redis and PostgreSQL extensions</li>
+<li>Editors: Vim, Emacs, VSCode plugins</li>
+<li>Cloud-native: Kubernetes extensions</li>
+<li>Kernel: eBPF programs, kernel modules</li>
+</ul>
+<p>So, first, let's step back a little bit. Software extensions aren't new—they have a very long history. If you've been around software for a while, you might remember Apache HTTP Server modules, browser plugins, or even IDE extensions like VSCode plugins. Extensions are everywhere because we, as engineers, really love flexibility. We love building a core application and then letting other developers or even users customize or add extra features later, without needing to rewrite the original software.</p>
+<p>Think about web servers. In nginx or Apache, you can use modules or plugins to add extra functionality like authentication, caching, compression, or even application-level firewalls. Database systems like Redis and PostgreSQL have extensions to support new query types, custom data formats, or security audits. Our editors—Vim, Emacs, VSCode—all thrive thanks to the flexibility offered by extensions or plugins. In cloud-native systems like Kubernetes, you can use extensions to add observability features like custom metrics collection and tracing. You can extend networking with custom CNI plugins or service mesh sidecars. Security extensions can add policy enforcement, vulnerability scanning, or runtime threat detection. The flexibility of extensions is what makes Kubernetes such a powerful platform for building modern applications. In kernel level, for example, you can use eBPF programs or kernel modules to add custom kernel behaviors.</p>
+<h3 id="slide-4-why-use-extensions">Slide 4: Why Use Extensions?</h3>
+<p><strong>[VISUAL: Balance scale showing flexibility and isolation on opposite sides]</strong></p>
+<ul>
+<li><strong>Flexibility</strong>: Adapt software without core codebase changes</li>
+<li><strong>Customization</strong>: Meet specific requirements without waiting for core developers</li>
+<li><strong>Isolation</strong>: Critical for security and stability</li>
+<li>External code may contain bugs or malicious elements</li>
+<li>Need to protect the core application</li>
+<li><strong>The Fundamental Tension</strong>: More flexibility often means less isolation</li>
+</ul>
+<p>But here's a big question: why don't we just integrate everything into the main codebase directly? Why bother with extensions at all?</p>
+<p>The short answer is—flexibility and isolation.</p>
+<p>We want flexibility because it makes our software adaptable. Users and administrators want to tweak things to meet their specific requirements without waiting for the core developers to implement changes. But flexibility without isolation is risky. Extensions, by definition, are third-party or at least externally-developed code. You might trust your core engineering team, but trusting external code is a different story. Even if it's not malicious, external code can have bugs. And we all know how easily bugs can creep into our systems, causing all sorts of problems—crashes, performance degradation, or even security vulnerabilities.</p>
+<h3 id="slide-5-real-world-extension-failures">Slide 5: Real-World Extension Failures</h3>
+<p><strong>[VISUAL: "Incident Report" style graphics showing each failure case with impact metrics]</strong></p>
+<ul>
+<li><strong>Bilibili</strong>: Production outage from nginx extension infinite loop</li>
+<li>Service disruption affecting millions of users</li>
+<li><strong>Apache HTTP Server</strong>: Buffer overflows in Lua modules</li>
+<li>Security vulnerabilities and system crashes</li>
+<li><strong>Redis</strong>: Improperly sandboxed Lua scripts</li>
+<li>Remote code execution vulnerabilities</li>
+<li>These aren't theoretical risks—they've cost companies money and reputation</li>
+</ul>
+<p>Let me give you some real-world examples. A few years back, the popular video streaming site Bilibili suffered a serious production outage because one of their nginx extensions got stuck in an infinite loop. Apache HTTP Server had similar issues where buffer overflow bugs in a Lua-based module caused crashes and security holes. Even Redis had cases where improperly sandboxed Lua scripts resulted in remote code execution vulnerabilities. These aren't theoretical risks—these are things that have actually hurt big companies and cost serious money and reputation.</p>
+<p>So, isolation and safety become absolutely critical. We don't want a bug in one extension to crash our entire system. We don't want a poorly-written plugin causing our service to slow down. We definitely don't want external code exposing our internal data to attackers.</p>
+<p>But achieving isolation isn't easy. There's always a tradeoff. If you isolate too strictly, you lose expressiveness—extensions become so limited they're no longer useful. If you're too loose, bugs or malicious code can harm your system.</p>
+<h3 id="slide-6-traditional-extension-approaches">Slide 6: Traditional Extension Approaches</h3>
+<p><strong>[VISUAL: Spectrum showing different approaches with isolation vs performance tradeoffs]</strong></p>
+<ul>
+<li><strong>Dynamic Loading</strong>: Shared libraries, DLLs, LD_PRELOAD</li>
+<li>✅ Fast and flexible</li>
+<li>❌ Minimal isolation, no safety boundary</li>
+<li><strong>Scripting Languages</strong>: Lua, Python</li>
+<li>✅ Easy integration</li>
+<li>❌ Safety depends on host implementation</li>
+<li><strong>Process-Level Isolation</strong>: Subprocesses, API calls</li>
+<li>✅ Strong isolation</li>
+<li>❌ High overhead from context switches</li>
+</ul>
+<p>So, how have engineers traditionally tried to deal with this balance?</p>
+<p>We've tried many things. Early on, we used dynamically loadable modules—shared libraries, DLLs, LD_PRELOAD hacks. They're great for speed and flexibility. But they have virtually no isolation. A bug in a dynamically-loaded module is a bug in your entire application. There's no safety boundary.</p>
+<p>Later, people adopted scripting languages like Lua and Python for extensions. Languages like Lua are still hugely popular because they're easy to integrate and relatively safe. Redis and nginx are good examples here. But Lua scripts have their own challenges. They rely heavily on the host application to provide security boundaries, which means if the host makes a mistake—maybe not checking array bounds correctly or missing resource limits—the safety promise falls apart. And as we've seen from real incidents, host applications frequently get this wrong.</p>
+<p>A lot of extensions, especially in the cloud-native space, are integrated through process level isolation, such as subprocesses or API calls. They uses OS context switches, adding microseconds of overhead—which is OK for distributed systems, but not for performance-critical applications.</p>
+<p>Wasm and eBPF are two popular extension frameworks that have been around for a while. Let's take a look at how they handle the balance between interconnectedness and safety.</p>
+<h3 id="slide-7-webassembly-for-extensions">Slide 7: WebAssembly for Extensions</h3>
+<p><strong>[VISUAL: Diagram showing Wasm sandbox with import/export boundaries between host and extension]</strong></p>
+<ul>
+<li>Software fault isolation (SFI) provides strong security</li>
+<li>Explicit import/export mechanisms for host communication</li>
+<li>Benefits:</li>
+<li>Strong memory isolation</li>
+<li>Cross-platform compatibility</li>
+<li>Growing ecosystem</li>
+<li>Limitations:</li>
+<li>Heavyweight for thousands of small extensions</li>
+<li>Communication overhead between extension and host</li>
+<li>Complex interface management</li>
+</ul>
+<p>Then WebAssembly (or Wasm) came along, promising much better isolation and performance. Wasm uses software fault isolation techniques, which means it's safer because it doesn't blindly trust the extension code. That's why many modern browsers and even server-side applications are moving towards Wasm. But Wasm introduces another issue—the interfaces between extensions and hosts. Wasm needs explicit import/export mechanisms to talk to the host application, and managing this communication can be tricky. It's powerful, but it's still heavyweight, especially if you're running thousands of little extensions or making frequent calls back and forth.</p>
+<h3 id="slide-8-ebpf-for-extensions">Slide 8: eBPF for Extensions</h3>
+<p><strong>[VISUAL: Architecture diagram showing eBPF in kernel space with verifier, JIT compiler, and hooks into various subsystems]</strong></p>
+<ul>
+<li>Originally for network packet filtering, now widely used</li>
+<li>Key components:</li>
+<li>Verifier ensures safety before execution</li>
+<li>JIT compiler for near-native performance</li>
+<li>Userspace tracing via uprobes and USDT</li>
+<li>Performance-first design:</li>
+<li>Load-time verification instead of runtime checks</li>
+<li>No sandboxing overhead</li>
+<li>Automatic instrumentation without application changes</li>
+</ul>
+<p>At the kernel level, eBPF has become the star of the show. Originally designed for network packet filtering, eBPF is now widely used for security monitoring, observability, and even performance optimization at kernel level. eBPF programs run isolated from the kernel itself, thanks to a verifier and JIT compiler that ensures safe execution. But eBPF is not limited to kernel, for userspace tracing, eBPF leverages mechanisms like uprobes and USDT probes. These probes eliminate the need for manual instrumentation - developers don't need to modify their application code to enable tracing. Uprobes can dynamically instrument any function in userspace programs, while USDT provides static tracepoints that are more efficient but require compile-time integration. This automatic instrumentation capability makes eBPF powerful for observability without requiring changes to the target application.</p>
+<p>Compare with Wasm, eBPF has a history of focusing on performance first, which lead to the design of using verifier to check the safety of the extension at load time, instead of checking runtime checking or SFI (software fault isolation) like Wasm.</p>
+<h3 id="slide-9-three-core-requirements-for-extension-frameworks">Slide 9: Three Core Requirements for Extension Frameworks</h3>
+<p><strong>[VISUAL: Triangle diagram with "Interconnectedness," "Safety," and "Efficiency" at the corners, showing the tension between them]</strong></p>
+<ul>
+<li><strong>Interconnectedness</strong>: Extension's ability to interact with host</li>
+<li>Reading data, modifying state, calling internal functions</li>
+<li>Example: nginx extension reading request details</li>
+<li><strong>Safety</strong>: Limiting extensions' ability to harm the application</li>
+<li>Memory safety, control flow restrictions, resource limits</li>
+<li><strong>Efficiency</strong>: Performance impact on the system</li>
+<li><strong>The Fundamental Tension</strong>: More interconnectedness typically means less safety</li>
+</ul>
+<p>As we can see, there are three core requirements for extension frameworks: <strong>interconnectedness</strong>, <strong>safety</strong> and <strong>efficiency</strong>. efficiency is easy to understand, it's about performance. let's dive deeper into the core issue we're really focusing on today—this fundamental tension between <strong>interconnectedness</strong> and <strong>safety</strong>. this is what we think makes software extensions challenging, and also why getting the interface right is so hard, yet so important.</p>
+<p>So, first off, what do I mean by interconnectedness? Simply put, interconnectedness is how much power we give an extension to interact with the host application. Think of it like this: extensions usually need to do something meaningful—they're not just isolated pieces of code floating around. They actually need to communicate with the main application to read data, modify state, or even call existing functions inside the application. For example, let's say you have an nginx web server. An extension that monitors web requests for security needs to read the request details from the host application. It might also need to call a built-in nginx function to quickly respond or block a suspicious request. This is interconnectedness—extensions working directly with the application's resources or calling its internal functions.</p>
+<p>On the flip side, safety is how much we limit an extension's ability to interact with or alter the main application. Safety means that if there's a bug in your extension—let's face it, we all write buggy code sometimes—this bug won't crash your whole web server or compromise your entire application. If we didn't care about safety, extensions could freely do whatever they wanted—read or write any memory, call any function, open files they shouldn't, or even alter sensitive configuration data. Obviously, this would be a recipe for disaster. A single small mistake in an extension could take down a whole production system or open it up to security vulnerabilities. And trust me, that has happened many times before. Like that time Bilibili's nginx extensions got into a loop and brought their production servers offline, causing a major outage.</p>
+<p>So here's the key issue: interconnectedness and safety are fundamentally at odds. The more interconnectedness you allow—the more you let extensions interact with the host—the less inherently safe it becomes. And vice versa: to keep things perfectly safe, you have to restrict interconnectedness. And that means extensions become severely limited in their usefulness. You can't have an effective firewall extension if you don't allow it to inspect web requests. You can't meaningfully monitor performance if your monitoring extension can't read internal state from the host application. So, balancing this tension is a core challenge.</p>
+<p>Now, historically, software frameworks have not handled this tradeoff very well. Usually, they fall into one of two extremes. Either they allow too much interconnectedness, like dynamically loaded modules—these run fast, sure, but they provide almost no safety at all. One bug and your entire application crashes. Or, on the other extreme, they provide strong safety through heavy isolation, like sandboxed scripting environments or subprocess isolation methods. But these can cripple interconnectedness and performance—extensions often become slow and limited in what they can do.</p>
+<p>So, what we've found is that the key to managing this tension—this interconnectedness versus safety tradeoff—is the interface we choose for extensions. If your extension framework's interface can carefully define and verify exactly which resources and functions an extension can use, you can precisely manage this tension. Ideally, you give the extension just enough interconnectedness to do its job—but absolutely no more. This sounds simple, but current systems struggle to achieve this.</p>
+<h3 id="slide-10-wasm-interface-evolution">Slide 10: Wasm Interface Evolution</h3>
+<p><strong>[VISUAL: Diagram showing evolution from basic Wasm modules to Component Model with more structured interfaces]</strong></p>
+<ul>
+<li>Traditional Wasm module interface challenges:</li>
+<li>Rigid import/export boundary</li>
+<li>"All-or-nothing" function exposure</li>
+<li>High data marshaling costs</li>
+<li>Component Model evolution:</li>
+<li>More structured interfaces</li>
+<li>Improved composition</li>
+<li>Interface definition language</li>
+<li>Still faces fundamental tradeoffs</li>
+</ul>
+<p>For instance, consider WebAssembly (Wasm). While Wasm provides strong memory isolation through its sandboxed environment, it faces challenges with interface design. The host application needs to explicitly define which functions and memory regions are accessible to Wasm modules through imports and exports. This creates a rigid boundary - either you expose too much functionality making the interface permissive and potentially unsafe, or you restrict access too much making extensions less useful. Additionally, the overhead of marshaling data between Wasm and host environments can impact performance, especially for extensions that need frequent host interactions. This "all-or-nothing" approach to function exposure, combined with the serialization costs, makes it difficult to achieve the fine-grained control needed for many real-world extension scenarios.</p>
+<p>The Component Model is evolving to address some of these challenges by providing more structured interfaces and better composition, but the fundamental tradeoffs remain.</p>
+<h3 id="slide-11-ebpf-interface-approach">Slide 11: eBPF Interface Approach</h3>
+<p><strong>[VISUAL: Diagram showing eBPF verifier checking program safety at load time vs runtime checks]</strong></p>
+<ul>
+<li>Kernel-level eBPF uses verifier for safety:</li>
+<li>Analyzes all possible execution paths</li>
+<li>Prevents memory violations and infinite loops</li>
+<li>Shifts safety checks from runtime to load-time</li>
+<li>Current limitations for userspace extensions:</li>
+<li>Uprobes require costly kernel traps</li>
+<li>Context switching overhead</li>
+<li>Performance impact for frequent interactions</li>
+</ul>
+<p>And then we have eBPF, which many of you might know and even use. Kernel-level eBPF uses a verifier—a special component—to check every extension program before running it. This verifier ensures that extensions never do unsafe things, like accessing random memory or running infinite loops. The verifier approach is powerful because it shifts safety checks from runtime (when things are happening quickly and mistakes are costly) to load-time (when you first add the extension). This is exactly why kernel-level eBPF has become popular—it guarantees safety upfront and doesn't impose runtime overhead for safety checks once the program is loaded.</p>
+<p>But there's an important catch: user-space extensions using current eBPF features (like uprobes) don't get the full benefit of this verifier model. They're isolated in terms of memory safety, but they're expensive. Every time a user-space extension runs, it triggers a costly kernel trap—this means your application needs to pause, switch context into the kernel, run the extension, and then switch back again. That's way too slow for many modern, performance-critical scenarios.</p>
+<h3 id="slide-12-extension-interface-model-eim-overview">Slide 12: Extension Interface Model (EIM) - Overview</h3>
+<p><strong>[VISUAL: Diagram showing EIM as a bridge between extensions and host applications with capability controls]</strong></p>
+<ul>
+<li>Our approach: Extension Interface Model (EIM)</li>
+<li>Inspired by eBPF's verifier and Wasm's component model</li>
+<li>Key advantages:</li>
+<li>Load-time safety guarantees eliminate runtime overhead</li>
+<li>Fine-grained control over extension capabilities</li>
+<li>No manual safety checks required from developers</li>
+<li>Core insight: Treat all extension-host interactions as explicit capabilities</li>
+<li>Follows principle of least privilege for extensions</li>
+</ul>
+<p>Our approach, the Extension Interface Model or EIM, takes inspiration from eBPF's verifier-based model and Wasm's component model, but applies it at the user-space level for general extension frameworks.</p>
+<p>Why did we choose a verifier-based approach? There are three key reasons:</p>
+<ol>
+<li><strong>Load-time safety guarantees</strong> - We verify everything before execution, eliminating runtime overhead</li>
+<li><strong>Fine-grained control</strong> - We can precisely tailor what each extension can access</li>
+<li><strong>Elimination of manual safety checks</strong> - We remove the burden from developers, preventing the bugs and security flaws that have plagued extension systems</li>
+</ol>
+<p>The core insight of EIM is treating every interaction between an extension and its host as an explicit capability that can be controlled. Think of it as a permission system designed specifically for extensions.</p>
+<h3 id="slide-13-eim-usage-model-and-principals">Slide 13: EIM - Usage Model and Principals</h3>
+<p><strong>[VISUAL: Triangle diagram showing the three principals in EIM: Application Developers, Extension Manager, and Input Provider]</strong></p>
+<ul>
+<li>Key roles in the EIM model:</li>
+<li><strong>Application Developers</strong>: Trusted but fallible developers of host application and extensions</li>
+<li><strong>Extension Manager</strong>: Trusted administrator who configures extension permissions</li>
+<li><strong>Input Provider</strong>: Potentially untrusted source of inputs to the application</li>
+<li>Security goal: Limit impact of exploitable bugs, not prevent malicious extensions</li>
+<li>Example: Web browser with password manager and ad blocker extensions</li>
+<li>Extensions need different capabilities (DOM access, storage access)</li>
+<li>EIM limits what each extension can do if exploited</li>
+</ul>
+<p>Let me explain EIM's usage model. It involves three key roles: First, we have application developers who create both the host application and extensions. They're trusted but fallible - meaning they're not malicious, but their code might contain bugs. Second, we have the extension manager - typically a system administrator - who configures which extensions can access which capabilities. Third, we have input providers - potentially untrusted sources of input to the application, like websites in a browser.</p>
+<p>EIM doesn't try to prevent malicious extensions from being installed - that's a different problem. Instead, it aims to limit the damage that could happen if a buggy extension gets exploited through malicious input. For example, in a web browser with a password manager and an ad blocker, the extension manager would give the ad blocker permission to modify DOM elements related to ads, but not access to stored passwords. If a malicious website exploits the ad blocker, it would only be able to modify ad-related DOM elements, not steal passwords.</p>
+<h3 id="slide-14-eim-development-time-specification">Slide 14: EIM - Development-Time Specification</h3>
+<p><strong>[VISUAL: Code example showing development-time EIM specification with annotations]</strong></p>
+<ul>
+<li>Created by application developers</li>
+<li>Defines three types of capabilities:</li>
+<li><strong>State Capabilities</strong>: Read/write access to application variables<ul>
+<li>Example: <code>readPid</code> for accessing process ID</li>
+</ul>
+</li>
+<li><strong>Function Capabilities</strong>: Ability to call host functions<ul>
+<li>Example: <code>nginxTime</code> with constraint that return value &gt; 0</li>
+</ul>
+</li>
+<li><strong>Extension Entries</strong>: Points where extensions can hook into application<ul>
+<li>Example: <code>processBegin</code> at request processing start</li>
+</ul>
+</li>
+</ul>
+<p>EIM specifications come in two parts. First, at development time, application developers create a specification that defines all the possible capabilities that extensions might need. This includes three types of capabilities:</p>
+<p>State capabilities represent the ability to read or write specific variables in the host application. For example, in nginx, we might define a capability called "readPid" that allows reading the process ID variable.</p>
+<p>Function capabilities represent the ability to call specific functions in the host application. For instance, we might define a capability called "nginxTime" that allows calling nginx's time function. We can also add constraints, like requiring that the return value must be positive.</p>
+<p>Extension entries define the specific points in the application where extensions can hook in. For example, in nginx, we might define extension entries at the beginning of request processing and at the content generation phase.</p>
+<p>This development-time specification essentially creates a catalog of all the ways extensions might interact with the host application.</p>
+<h3 id="slide-15-eim-deployment-time-specification">Slide 15: EIM - Deployment-Time Specification</h3>
+<p><strong>[VISUAL: Code example showing deployment-time EIM specification with annotations]</strong></p>
+<ul>
+<li>Created by system administrators/extension managers</li>
+<li>Defines <strong>Extension Classes</strong> that specify:</li>
+<li>Which extension entry point to use</li>
+<li>Exactly which capabilities are allowed</li>
+<li>Example extension classes:</li>
+<li><code>observeProcessBegin</code>: Can read request data but not modify it</li>
+<li><code>updateResponse</code>: Can both read and write to response data</li>
+<li>Enforces principle of least privilege for each extension</li>
+</ul>
+<p>The second part of EIM is the deployment-time specification, created by system administrators or extension managers. This is where the actual security boundaries get defined.</p>
+<p>The deployment-time specification defines extension classes, each associated with a specific extension entry point. For each class, it specifies exactly which capabilities from the development-time specification are allowed.</p>
+<p>For example, we might define an "observeProcessBegin" class that allows extensions to read request data but not modify it. We might also define an "updateResponse" class that allows both reading and writing to response data.</p>
+<p>This approach enforces the principle of least privilege - each extension gets only the capabilities it needs to do its job, and nothing more. If an extension gets compromised, the damage is limited to the capabilities it was granted.</p>
+<h3 id="slide-14-bpftime-efficient-runtime-for-eim">Slide 14: bpftime: Efficient runtime for EIM</h3>
+<ul>
+<li>bpftime: Efficient runtime for EIM</li>
+<li>Brings eBPF concepts fully into userspace</li>
+<li>Near-native performance without kernel traps</li>
+<li>Compatible with kernel eBPF ecosystem</li>
+<li>Supports 10+ map types and 30+ helpers</li>
+</ul>
+<p>So, what is bpftime? It's a userspace eBPF runtime that supports tracing features like Uprobe, USDT, syscall tracepoints, and even network features like XDP, all in userspace. It supports more than 10 map types and 30 helpers, so it's highly compatible with the kernel eBPF ecosystem. It builds on top of eBPF concepts but brings them fully into user-space. bpftime uses the same verification and safety guarantees as kernel-level eBPF, ensuring that an extension can't step outside its defined boundaries. Plus, it leverages modern hardware isolation features (like Intel's Memory Protection Keys—MPK) to give near-native performance without the heavyweight overhead of context switches or traps that traditional solutions like uprobes suffer from.</p>
+<p>you can use your fammiliar way to develop and deploy eBPF programs, but in userspace. bpftime can run alongside kernel eBPF, using kernel eBPF maps and working together with kprobe.</p>
+<p>We start developing bpftime 2 years ago, and adapt it to efficiently enforcing these permissions from the EIM model this year.</p>
+<h3 id="slide-17-bpftime-concealed-extension-entries">Slide 17: bpftime - Concealed Extension Entries</h3>
+<p><strong>[VISUAL: Diagram showing how concealed extension entries work, with binary code before and after modification]</strong></p>
+<ul>
+<li>Novel approach to reduce overhead when extensions aren't active</li>
+<li>Traditional approach: Static hooks always present in code</li>
+<li>Causes performance overhead even when unused</li>
+<li>bpftime's approach: Concealed extension entries</li>
+<li>Uses binary rewriting to dynamically inject hooks only when needed</li>
+<li>Zero overhead when extensions aren't in use</li>
+<li>Automatically activates when extensions are loaded</li>
+<li>Significantly improves performance for seldom-used extension points</li>
+</ul>
+<p>One of our most innovative features in bpftime is what we call "concealed extension entries." This addresses a common problem with extension frameworks: performance overhead at extension points, even when no extensions are active.</p>
+<p>Traditionally, applications with extension support have static hooks in their code. These hooks check if an extension is present and, if so, call into it. But these checks happen every time the code runs, even if no extensions are loaded, causing unnecessary overhead.</p>
+<p>bpftime takes a different approach. We use binary rewriting to dynamically inject hooks into applications only when extensions are actually loaded. When no extensions are active at a particular point, there's zero overhead - the application runs at full speed as if it had no extension support at all.</p>
+<p>This is actually the opposite of how binary rewriting is typically used. Most systems use it to add new extension points to applications that weren't designed for extensions. We use it to hide extension points that are already there, activating them only when needed.</p>
+<p>This approach dramatically improves performance for applications with many potential extension points that are only occasionally used.</p>
+<h3 id="slide-18-bpftime-for-observability">Slide 18: bpftime for Observability</h3>
+<p><strong>[VISUAL: Performance comparison chart showing kernel vs userspace tracing latency]</strong></p>
+<ul>
+<li>Userspace tracing advantages:</li>
+<li><strong>10x faster</strong>: Uprobes (100ns vs 1000ns in kernel)</li>
+<li><strong>10x faster</strong>: Memory access (4ns vs 40ns in kernel)</li>
+<li>Reduced overhead on untraced processes</li>
+<li>Compatible with existing tools:</li>
+<li>Run BCC and bpftrace in userspace</li>
+<li>Combine kprobes and uprobes for hybrid approaches</li>
+<li>Shift workload to improve overall performance</li>
+</ul>
+<p>So why do we want to do observability with eBPF in userspace?</p>
+<p>It's simple: userspace tracing is <strong>faster and more flexible</strong>. For example, Uprobes in the kernel take about <strong>1000 nanoseconds</strong>, but in userspace, we've brought that down to just <strong>100 nanoseconds</strong>. Similarly, memory access in userspace is about <strong>10 times faster</strong>—<strong>4 nanoseconds</strong> versus <strong>40 nanoseconds</strong> in the kernel. This speed difference happens because the kernel often has to translate memory addresses or run additional checks to access userspace memory.</p>
+<p>On top of that, there's less overhead on untraced processes, especially when dealing with syscall tracepoints.</p>
+<p>What can we run in userspace?</p>
+<p>With userspace tracing, tools like <strong>bcc</strong> and <strong>bpftrace</strong> can run completely in userspace where kernel eBPF is not available. And you can run more complex observability agents that combine kprobes and uprobes, improving performance by shifting part of the workload to userspace.</p>
+<h3 id="slide-19-bpftime-for-userspace-networking">Slide 19: bpftime for Userspace Networking</h3>
+<p><strong>[VISUAL: Diagram showing bpftime integration with kernel-bypass technologies like DPDK and AF_XDP]</strong></p>
+<ul>
+<li>Advantages over kernel networking:</li>
+<li>Combines kernel-bypass performance with eBPF ecosystem</li>
+<li>Works with DPDK and AF_XDP</li>
+<li>Leverages LLVM optimizations for userspace</li>
+<li>Use cases:</li>
+<li>High-speed packet processing</li>
+<li>Network function virtualization</li>
+<li>Advanced load balancing</li>
+</ul>
+<p>"Now, let's talk about bpftime in the <strong>networking</strong> context. Why using userspace eBPF instead of running ebpf in kernel?</p>
+<p>We've seen kernel-bypass solutions like <strong>DPDK</strong> and <strong>AF_XDP</strong>. They can offer faster packet processing by bypassing the kernel. But with bpftime, you can combine the performance benefits of these kernel-bypass technologies with the extensive eBPF ecosystem. So, you get the best of both low-latency packet processing and the ability to use eBPF's safety and existing tools.</p>
+<p>We can also use <strong>LLVM optimizations</strong> to further boost performance in userspace."</p>
+<h3 id="slide-20-bpftime-with-userspace-network-integration">Slide 20: bpftime with Userspace Network Integration</h3>
+<p><strong>[VISUAL: Architecture diagram showing XDP program flow in userspace with bpftime]</strong></p>
+<ul>
+<li>Seamless integration with eBPF XDP ecosystem</li>
+<li>Compatible with high-performance applications:</li>
+<li>Katran load balancer integration</li>
+<li>Works with both AF_XDP and DPDK</li>
+<li>Current work in progress:</li>
+<li>XDP_TX and XDP_DROP limitations</li>
+<li>Solutions for XDP_PASS packet reinjection</li>
+</ul>
+<p>"Using <strong>bpftime</strong>, you can seamlessly integrate the <strong>eBPF XDP ecosystem</strong> into kernel-bypass applications. </p>
+<p>For instance, solutions like <strong>Katran</strong>, a high-performance load balancer, can benefit from the optimizations we've made in bpftime for userspace. </p>
+<p>bpftime can work with both <strong>AF_XDP</strong> and <strong>DPDK</strong>. You can run your XDP eBPF programs as if they were in the kernel, just load them with bpftime, and they'll work like normal, while a DPDK app handles the network processing.</p>
+<p>Right now, there are some limitations with <strong>XDP_TX</strong> and <strong>XDP_DROP</strong> in userspace, but we're actively working on solutions. We're exploring ways to reinject packets into the kernel to support <strong>XDP_PASS</strong>."</p>
+<h3 id="slide-21-control-plane-support">Slide 21: Control Plane Support</h3>
+<p><strong>[VISUAL: Diagram showing bpftime control plane architecture with syscall hooking and userspace runtime]</strong></p>
+<ul>
+<li>Maintains compatibility with eBPF ecosystem:</li>
+<li>Loading/unloading programs</li>
+<li>Configuring maps</li>
+<li>Monitoring and debugging interfaces</li>
+<li>Implementation methods:</li>
+<li>LD_PRELOAD for syscall hooking</li>
+<li>Kernel eBPF integration</li>
+<li>Seamless connection to userspace runtime</li>
+</ul>
+<p>"One of the core features that allows bpftime to remain compatible with the existing eBPF ecosystem is its <strong>control plane support</strong> for userspace eBPF.</p>
+<p>Control planes in eBPF are usually responsible for tasks like loading and unloading programs, 
+configuring maps, and providing monitoring and debugging interfaces. bpftime can fully supports this in userspace by hooking syscalls using <strong>LD_PRELOAD</strong> or kernel eBPF, and connect to the userspace runtime.</p>
+<h3 id="slide-22-performance-benchmarks">Slide 22: Performance Benchmarks</h3>
+<p><strong>[VISUAL: Bar charts comparing performance metrics between kernel eBPF and bpftime]</strong></p>
+<ul>
+<li>Network performance improvements:</li>
+<li>Up to <strong>3x faster</strong> in simple XDP network functions</li>
+<li>Up to <strong>40% faster</strong> in real-world applications like Katran</li>
+<li>Tracing performance:</li>
+<li><strong>10x faster</strong> memory access</li>
+<li><strong>10x faster</strong> uprobes</li>
+<li>Demonstrates userspace eBPF can outperform kernel-based solutions while maintaining compatibility</li>
+</ul>
+<p>"Now, let's see the <strong>performance benchmarks</strong>. </p>
+<p>We've benchmarked a variety of eBPF programs running with bpftime. bpftime has achieved up to <strong>3x faster performance</strong> in simple XDP network functions. In real-world applications
+like Katran, bpftime can acheive up to  <strong>40% faster</strong>.</p>
+<p>This shows that userspace eBPF can be fasyer kernel-based solutions, while retaining the flexibility that makes eBPF powerful."</p>
+<h3 id="slide-23-conclusion">Slide 23: Conclusion</h3>
+<p><strong>[VISUAL: Summary diagram showing bpftime bridging eBPF and Wasm approaches with key benefits highlighted]</strong></p>
+<ul>
+<li>bpftime: A new approach to userspace extensions</li>
+<li>Combines strengths from both worlds:</li>
+<li>eBPF's verification and performance</li>
+<li>Wasm-like interface flexibility</li>
+<li>Enables:</li>
+<li>High-performance extensions</li>
+<li>Fine-grained safety controls</li>
+<li>Compatibility with existing tools</li>
+<li>Available today for experimentation and production use</li>
+</ul>
+<p>"In conclusion, bpftime is a new approach to userspace eBPF that combines the safety and performance of kernel-level eBPF with the flexibility of userspace extensions. It's a path forward for developers and administrators alike, enabling highly customized, performant, and secure applications."</p>
+<h2 id="backup">backup</h2>
+<!-- 
+And bpftime complements this by efficiently enforcing these permissions. It builds on top of eBPF concepts but brings them fully into user-space. bpftime uses the same verification and safety guarantees as kernel-level eBPF, ensuring that an extension can't step outside its defined boundaries. Plus, it leverages modern hardware isolation features (like Intel's Memory Protection Keys—MPK) to give near-native performance without the heavyweight overhead of context switches or traps that traditional solutions like uprobes suffer from.
+
+But beyond just safety and speed, bpftime also provides a dynamic and flexible loading mechanism. Extensions can be loaded at runtime, allowing administrators to quickly adapt their systems without restarts. And because it's compatible with eBPF, it also integrates seamlessly with existing kernel-level eBPF monitoring tools, bridging user-space and kernel-space observability.
+
+This new approach isn't just theoretical. Right now, there are already thousands of users running bpftime extensions for various real-world applications. They're using it for performance profiling in microservices, fault injection testing, caching optimizations in file systems, hot-patching running applications, and even security enhancements in web servers.
+
+For example, with bpftime, one user implemented an SSL-aware distributed tracing tool. Compared to traditional eBPF-based uprobes, their performance overhead was nearly four times lower. Another case involved improving Redis durability without significantly reducing throughput—previous approaches would have made such fine-grained tuning too costly or too difficult to safely implement.
+
+So, as we wrap up this motivation today, what I want you to take away is simple:
+
+Software extensions aren't going away—in fact, they're becoming more and more essential. But traditional approaches aren't cutting it anymore. They're either too risky, too limited, or too expensive. We need new, flexible interfaces and runtime systems that let us clearly and safely define exactly how extensions can interact with applications.
+
+That's why we built EIM and bpftime. They're about giving you, the system administrators and engineers, a better way to safely and efficiently extend your software systems, without the painful compromises of the past.
+
+This brings us to the core of what we've developed: first, the Extension Interface Model, or EIM, and second, bpftime—an efficient, practical runtime system designed specifically to enforce EIM.
+
+Let's dive deeper into EIM first. We knew from the start that simply isolating extensions wasn't enough; we needed fine-grained control. The question we asked ourselves was simple yet powerful: "What if we treated every action an extension can perform—like reading a variable, calling a function, or writing to a state—as a resource?" With that mindset, an application's developers can enumerate clearly which resources are potentially available to extensions. Later, at deployment time, a system administrator or DevOps engineer selects exactly which of these resources are allowed per specific extension. This means, if you're deploying an observability extension, you might only allow read access to performance counters. For a security extension, you might allow inspecting incoming requests but restrict all write operations. By modeling each capability explicitly, EIM provides both developers and administrators with precision and clarity in managing what extensions can—and crucially, cannot—do.
+
+But of course, defining precise boundaries is just half the solution. We needed a runtime environment capable of enforcing these rules efficiently. That's why we developed bpftime—an innovative, lightweight extension runtime inspired by the success of eBPF, which many of you probably already use for kernel-level extensions and observability tasks.
+
+bpftime takes this idea to the user-space: it checks extensions at load time using advanced eBPF-style verification, meaning that all safety constraints defined by EIM are enforced before any extension ever runs in production. No runtime overhead, no expensive context switches—just fast, secure execution. To further secure the system, bpftime also integrates hardware isolation technologies, like Intel Memory Protection Keys (MPK), to ensure even accidental or rogue extensions can't tamper with critical application memory.
+
+One of our most exciting innovations with bpftime is what we call "concealed extension entries." This idea is about efficiency. Normally, extensions introduce overhead at their insertion points—each time your application reaches an extension hook, there's a cost. But why pay that cost when no extension is actively being used at a given point? Concealed extension entries dynamically inject hooks into applications at runtime only when necessary, using safe binary rewriting techniques. This means zero overhead when extensions aren't in use, dramatically improving performance compared to traditional approaches.
+
+Now, as industry engineers, you might ask, "How practical is all this? How easy is it to adopt?" Well, bpftime is fully compatible with the existing eBPF ecosystem. If your team already uses eBPF—for monitoring, security, or debugging—you can seamlessly integrate bpftime. You don't need to rebuild your tooling from scratch; you just extend your current setup to benefit from these powerful new capabilities.
+
+Let me share a bit about our experimental validation. We've extensively tested bpftime across diverse practical scenarios. In a microservices observability case, bpftime improved monitoring throughput by 50% compared to traditional eBPF. For Redis, we implemented extensions that significantly enhanced durability with just a minimal performance tradeoff—something previously impractical. We even accelerated filesystem metadata operations in FUSE and dramatically reduced overhead in SSL traffic monitoring scenarios—proving that our theoretical benefits translate directly into real-world performance improvements.
+
+Our experiments showed not only that bpftime could enforce security constraints rigorously but that it did so at speeds close to native execution. This was crucial for adoption because no matter how safe extensions might be, if they slow down your service significantly, they're not practical in a high-performance environment.
+
+Finally, our approach isn't just theoretical—it's available today, experimentally maintained and tested by thousands of active users on GitHub. Engineers across the industry are already leveraging bpftime for tasks ranging from deep performance diagnostics to rapid security patching, all without compromising their application's integrity or responsiveness.
+
+To conclude, our experimental work with EIM and bpftime opens new possibilities for safely extending software at runtime. It's a path forward for developers and administrators alike, enabling highly customized, performant, and secure applications. -->
+
+<p><a class="md-button" href="https://x.com/intent/tweet?text=eBPF%20and%20Wasm%3A%20Unifying%20Userspace%20Extensions%20With%20Bpftime%20-%20Yusheng%20Zheng%2C%20eunomia-bpf%0A&amp;url=https://eunomia.dev/others/miscellaneous/bpftime-kubecon-draft/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/others/miscellaneous/bpftime-kubecon-draft/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 2, 2025 21:28:17">April 2, 2025</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 2, 2025 20:57:36">April 2, 2025</span>
+  </span>
+
+    
+    
+      
+  
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Contributors">
+      
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+      
+    </span>
+    <nav>
+      
+        <a href="mailto:yusen356@gmail.com">weekendfish</a>
+    </nav>
+  </span>
+
+    
+    
+  </aside>
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        Was this page helpful?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m7 0c0 .8-.7 1.5-1.5 1.5S14 10.3 14 9.5 14.7 8 15.5 8s1.5.7 1.5 1.5m-5 7.73c-1.75 0-3.29-.73-4.19-1.81L9.23 14c.45.72 1.52 1.23 2.77 1.23s2.32-.51 2.77-1.23l1.42 1.42c-.9 1.08-2.44 1.81-4.19 1.81"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10m-6.5-4c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5-1.5-.7-1.5-1.5.7-1.5 1.5-1.5M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m2 4.5c1.75 0 3.29.72 4.19 1.81l-1.42 1.42C14.32 16.5 13.25 16 12 16s-2.32.5-2.77 1.23l-1.42-1.42C8.71 14.72 10.25 14 12 14"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              Thanks for your feedback!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              Thanks for your feedback! Help us improve this page by using our <a href="https://github.com/orgs/eunomia-bpf/discussions" target="_blank" rel="noopener">Github discussion</a>.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="eunomia-bpf/bpf-developer-tutorial"
+        data-repo-id="R_kgDOIi0KhQ"
+        data-category="General"
+        data-category-id="DIC_kwDOIi0Khc4CYq-h"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../usecases/" class="md-footer__link md-footer__link--prev" aria-label="Previous: ebpf usecases analysis">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                ebpf usecases analysis
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../bpftime-roadmap/" class="md-footer__link md-footer__link--next" aria-label="Next: About bpftime - bpftime ideas">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                About bpftime - bpftime ideas
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright (c) 2024 eunomia-bpf org.
+    </div>
+  
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/eunomia-bpf" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:yunwei356@gmail.com" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M498.1 5.6c10.1 7 15.4 19.1 13.5 31.2l-64 416c-1.5 9.7-7.4 18.2-16 23s-18.9 5.4-28 1.6L284 427.7l-68.5 74.1c-8.9 9.7-22.9 12.9-35.2 8.1S160 493.2 160 480v-83.6c0-4 1.5-7.8 4.2-10.8l167.6-182.8c5.8-6.3 5.6-16-.4-22s-15.7-6.4-22-.7L106 360.8l-88.3-44.2C7.1 311.3.3 300.7 0 288.9s5.9-22.8 16.1-28.7l448-256c10.7-6.1 23.9-5.5 34 1.4"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["search.suggest", "search.highlight", "search.share", "navigation.footer", "navigation.instant", "navigation.instant.progress", "navigation.tabs", "navigation.expand", "navigation.path", "navigation.top", "content.tabs.link", "content.action.edit", "content.action.view"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+<script src="https://cdn.usefathom.com/script.js" data-site="ZLDAHRNN" defer></script>
+
+      <script src="../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+
+  </body>
+</html>
