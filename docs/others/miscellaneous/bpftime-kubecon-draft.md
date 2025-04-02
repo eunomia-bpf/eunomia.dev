@@ -32,16 +32,16 @@ eBPF and Wasm: Unifying Userspace Extensions With Bpftime
 
 > Specifically, I want to talk about why we need extensions, what makes them challenging to handle correctly, and how our current approaches to managing extensions might not be good enough. Then I'll introduce a new approach to managing extensions called the Extension Interface Model (EIM) and our experimental userspace eBPF runtime called bpftime that implements these principles. This is also a research project that has been accepted by OSDI 2025.
 
-### Slide 3: The History of Software Extensions
+### Slide 3: Software Extensions
 
-**[VISUAL: Timeline showing evolution of extension systems with icons for each example]**
+**[VISUAL: Timeline list of extension systems with names and icons for each example, handle writting style]**
 
 - Extensions have deep roots in software development
 - Common examples across the industry:
   - Web servers: nginx/Apache modules
   - Databases: Redis and PostgreSQL extensions
   - Editors: Vim, Emacs, VSCode plugins
-  - Cloud-native: Kubernetes extensions
+  - Cloud-native: Kubernetes extensions, wasm modules in cloud-native systems
   - Kernel: eBPF programs, kernel modules
 
 > So, first, let's step back a little bit. Software extensions aren't new—they have a very long history. If you've been around software for a while, you might remember Apache HTTP Server modules, browser plugins, or even IDE extensions like VSCode plugins. Extensions are everywhere because we, as engineers, really love flexibility. We love building a core application and then letting other developers or even users customize or add extra features later, without needing to rewrite the original software.
@@ -52,14 +52,12 @@ eBPF and Wasm: Unifying Userspace Extensions With Bpftime
 
 **[VISUAL: Balance scale showing flexibility and isolation on opposite sides]**
 
-- **Flexibility**: Adapt software without core codebase changes
-- **Customization**: Meet specific requirements without waiting for core developers
+- **Flexibility**: Adapt software without core codebase changes it also includes Customization, Meet specific requirements without waiting for core developers
 - **Isolation**: Critical for security and stability
   - External code may contain bugs or malicious elements
   - Need to protect the core application
-- **The Fundamental Tension**: More flexibility often means less isolation
 
-> But here's a big question: why don't we just integrate everything into the main codebase directly? Why bother with extensions at all?
+> But there's a question a lot of people may ask: why don't we just integrate everything into the main codebase directly? Why bother with extensions at all?
 >
 > The short answer is—flexibility and isolation.
 >
@@ -107,7 +105,7 @@ eBPF and Wasm: Unifying Userspace Extensions With Bpftime
 >
 > Wasm and eBPF are two popular extension frameworks that have been around for a while. Let's take a look at how they handle the balance between interconnectedness and safety.
 
-### Slide 7: WebAssembly for Extensions
+### Slide 7: WebAssembly for Extensions (SFI approach)
 
 **[VISUAL: Diagram showing Wasm sandbox with import/export boundaries between host and extension]**
 
@@ -117,12 +115,16 @@ eBPF and Wasm: Unifying Userspace Extensions With Bpftime
   - Strong memory isolation
   - Cross-platform compatibility
   - Growing ecosystem
+  - Reduces need for manual safety checks in extensions
 - Limitations:
   - Heavyweight for thousands of small extensions
   - Communication overhead between extension and host
   - Complex interface management
+  - Host application still needs careful API design
 
-> Then WebAssembly (or Wasm) came along, promising much better isolation and performance. Wasm uses software fault isolation techniques, which means it's safer because it doesn't blindly trust the extension code. That's why many modern browsers and even server-side applications are moving towards Wasm. 
+> Then WebAssembly (or Wasm) came along, promising much better isolation and performance. Wasm uses software fault isolation techniques, which means it's safer because it doesn't blindly trust the extension code. That's why many modern browsers and even server-side applications are moving towards Wasm.
+>
+> One significant benefit of Wasm is that it reduces the need for extension developers to implement their own safety checks - the runtime handles memory isolation automatically. However, the host application still needs to carefully design its API to prevent security issues when extensions interact with it.
 >
 > But Wasm introduces another issue—the interfaces between extensions and hosts. Wasm needs explicit import/export mechanisms to talk to the host application, and managing this communication can be tricky. It's powerful, but it's still heavyweight, especially if you're running thousands of little extensions or making frequent calls back and forth.
 >
@@ -172,29 +174,65 @@ eBPF and Wasm: Unifying Userspace Extensions With Bpftime
 >
 > So, what we've found is that the key to managing this tension—this interconnectedness versus safety tradeoff—is the interface we choose for extensions. If your extension framework's interface can carefully define and verify exactly which resources and functions an extension can use, you can precisely manage this tension. Ideally, you give the extension just enough interconnectedness to do its job—but absolutely no more. This sounds simple, but current systems struggle to achieve this.
 
-### Slide 10: WebAssembly Interface Approach
+### Slide 10: WebAssembly Component Model - Overview
 
-**[VISUAL: Diagram showing Wasm sandbox with import/export boundaries and runtime checks]**
+**[VISUAL: Diagram showing Component Model architecture with interfaces, imports/exports, and type system]**
 
-- Runtime checks through Software Fault Isolation (SFI)
-- Explicit import/export boundary for host communication
-- Component Model evolution for better interfaces
+- WebAssembly's approach to standardizing extension interfaces
+- Core goals:
+  - Define portable, language-agnostic interfaces
+  - Enable capability-safe, statically-analyzable extensions
+  - Support virtualization across diverse environments
+- Key concepts:
+  - Components: Composable units built from Wasm modules
+  - Interfaces: Explicit contracts between components and hosts
+  - WIT (WebAssembly Interface Types): Rich type system for interfaces
+
+> The WebAssembly Component Model represents Wasm's approach to solving the extension interface challenge. It's a specification that defines how Wasm modules can be composed together and how they interact with their host environment.
+>
+> The Component Model was designed with several key goals: defining portable interfaces that work across languages, ensuring capability-safety through explicit interfaces, and supporting virtualization in diverse environments from browsers to cloud systems.
+>
+> At its core, the Component Model introduces "components" as composable units built from Wasm modules. These components interact through well-defined interfaces written in WIT (WebAssembly Interface Types), which provides a rich type system including records, variants, enums, and more complex types.
+>
+> This approach is particularly relevant for extensions because it standardizes how extensions declare their requirements and capabilities, making them more portable and easier to reason about. For example, a browser extension written as a Wasm component could clearly specify which DOM elements it needs access to.
+
+### Slide 11: Component Model - Runtime Capabilities & Limitations
+
+**[VISUAL: Diagram showing capability-based security model with handles and interface boundaries]**
+
+- Runtime capabilities through resource handles:
+  - Unforgeable references to resources
+  - First-class values that can be passed between components
+  - Explicit permission model for resource access
 - Tradeoffs:
-  - ✅ Strong isolation guarantees
-  - ✅ Cross-platform compatibility
-  - ❌ Runtime overhead for every operation
-  - ❌ Complex interface management
-  - ❌ Data marshaling costs
+  - ✅ Strong capability-based security
+  - ✅ Rich type system for interfaces
+  - ❌ Still requires runtime checks at interface boundaries
+  - ❌ Performance overhead from data marshaling
 
-> WebAssembly uses Software Fault Isolation (SFI) to provide safety. This means it adds runtime checks to ensure memory accesses stay within bounds and control flow remains valid. While this provides strong isolation, it adds overhead to every operation. 
->
-> Wasm modules interact with hosts through explicit import/export mechanisms, which require careful interface design and data marshaling. Every time a Wasm module needs to access host functionality, it must cross the sandbox boundary, which involves converting data between formats.
->
-> The Wasm Component Model is evolving to address some interface challenges by providing more structured interfaces and better composition, but the fundamental runtime overhead remains.
->
-> This approach is excellent for security-critical applications where isolation is paramount, but the performance cost can be significant for extensions that frequently interact with the host application.
+```wit
+  interface file-system {
+    resource file {
+      read: func() -> list<u8>
+      write: func(data: list<u8>) -> result<_, errno>
+    }
+    open: func(path: string) -> result<file, errno>
+  }
+```
 
-### Slide 11: eBPF Interface Approach
+> The Component Model implements capability-based security through "resource handles" - unforgeable references that grant access to specific resources. These handles can be passed between components, allowing fine-grained control over which extensions can access which resources.
+>
+> For example, in this WIT interface definition for a file system, the "file" resource can only be obtained through the "open" function. An extension would need to be explicitly granted access to this interface to manipulate files.
+>
+> This capability-based approach aligns with the principle of least privilege we discussed earlier - extensions only get access to exactly what they need.
+>
+> However, the Component Model still faces performance challenges. While it provides better interface definition than basic Wasm, it still requires runtime checks at interface boundaries and data marshaling when crossing those boundaries. This creates overhead, especially for extensions that frequently interact with the host.
+>
+> Additionally, the host application still needs to carefully design which capabilities it exposes to extensions. The Component Model provides the mechanism for capability control, but the security policy must still be defined by the host.
+>
+> This is where our approach with bpftime differs - we shift these checks to load time rather than runtime, eliminating the performance overhead while maintaining the security benefits.
+
+### Slide 12: eBPF Interface Approach
 
 **[VISUAL: Diagram showing eBPF verifier analyzing code paths at load time]**
 
@@ -217,30 +255,50 @@ eBPF and Wasm: Unifying Userspace Extensions With Bpftime
 >
 > What if we could combine eBPF's load-time verification with efficient userspace execution? That's where our approach comes in.
 
-### Slide 12: Extension Interface Model (EIM) - Overview
+### Slide 13: Extension Interface Model (EIM) - Overview
 
 **[VISUAL: Diagram showing EIM as a bridge between extensions and host applications with capability controls]**
 
 - Our approach: Extension Interface Model (EIM)
 - Inspired by eBPF's verifier and Wasm's component model
-- Key advantages:
-  - Load-time safety guarantees eliminate runtime overhead
-  - Fine-grained control over extension capabilities
-  - No manual safety checks required from developers
 - Core insight: Treat all extension-host interactions as explicit capabilities
 - Follows principle of least privilege for extensions
+- Designed for both safety and performance in userspace extensions
 
 > Our approach, the Extension Interface Model or EIM, takes inspiration from eBPF's verifier-based model and Wasm's component model, but applies it at the user-space level for general extension frameworks.
 >
-> Why did we choose a verifier-based approach? There are three key reasons:
->
-> 1. **Load-time safety guarantees** - We verify everything before execution, eliminating runtime overhead
-> 2. **Fine-grained control** - We can precisely tailor what each extension can access
-> 3. **Elimination of manual safety checks** - We remove the burden from developers, preventing the bugs and security flaws that have plagued extension systems
->
 > The core insight of EIM is treating every interaction between an extension and its host as an explicit capability that can be controlled. Think of it as a permission system designed specifically for extensions.
+>
+> EIM follows the principle of least privilege - each extension should only have access to exactly what it needs to function, nothing more. This is critical for security, as it minimizes the potential damage from bugs or exploits.
+>
+> Unlike previous approaches that force you to choose between safety and performance, EIM is designed to provide both by shifting safety checks to load time while maintaining fine-grained control over what extensions can do.
 
-### Slide 13: EIM - Usage Model and Principals
+### Slide 14: EIM - Key Advantages
+
+**[VISUAL: Comparison diagram showing EIM advantages over traditional approaches]**
+
+- Key advantages of the EIM approach:
+  - **Load-time safety guarantees**: 
+    - Verify safety before execution
+    - Eliminate runtime overhead after loading
+  - **Fine-grained control**:
+    - Precisely specify which capabilities each extension can use
+    - Different permissions for different extension types
+  - **Comprehensive safety without manual checks**:
+    - Extensions don't need to implement safety checks
+    - Verification happens automatically at load time
+
+> Why did we choose a verifier-based approach for EIM? There are three key reasons:
+>
+> 1. **Load-time safety guarantees** - We verify everything before execution, eliminating runtime overhead. This is similar to eBPF's approach but applied to userspace extensions. Once an extension passes verification, it can run at full speed without additional checks.
+>
+> 2. **Fine-grained control** - We can precisely tailor what each extension can access. For example, a logging extension might only get read access to request headers, while a security extension might get both read and write access to modify suspicious requests.
+>
+> 3. **Elimination of most manual safety checks** - We remove the burden from developers, preventing the bugs and security flaws that have plagued extension systems
+>
+> This third point is important. Unlike traditional approaches where either the extension developer needs to implement safety checks or the host application needs to create custom security boundaries, EIM handles safety verification automatically. This prevents the exact kind of bugs we saw in the real-world failures like Redis and Apache HTTP Server, where manually implemented safety checks had flaws.
+
+### Slide 15: EIM - Usage Model and Principals
 
 **[VISUAL: Triangle diagram showing the three principals in EIM: Application Developers, Extension Manager, and Input Provider]**
 
@@ -257,7 +315,7 @@ eBPF and Wasm: Unifying Userspace Extensions With Bpftime
 >
 > EIM doesn't try to prevent malicious extensions from being installed - that's a different problem. Instead, it aims to limit the damage that could happen if a buggy extension gets exploited through malicious input. For example, in a web browser with a password manager and an ad blocker, the extension manager would give the ad blocker permission to modify DOM elements related to ads, but not access to stored passwords. If a malicious website exploits the ad blocker, it would only be able to modify ad-related DOM elements, not steal passwords.
 
-### Slide 14: EIM - Development-Time Specification
+### Slide 16: EIM - Development-Time Specification
 
 **[VISUAL: Code example showing development-time EIM specification with annotations]**
 
@@ -280,7 +338,7 @@ eBPF and Wasm: Unifying Userspace Extensions With Bpftime
 >
 > This development-time specification essentially creates a catalog of all the ways extensions might interact with the host application.
 
-### Slide 15: EIM - Deployment-Time Specification
+### Slide 17: EIM - Deployment-Time Specification
 
 **[VISUAL: Code example showing deployment-time EIM specification with annotations]**
 
@@ -301,7 +359,7 @@ eBPF and Wasm: Unifying Userspace Extensions With Bpftime
 >
 > This approach enforces the principle of least privilege - each extension gets only the capabilities it needs to do its job, and nothing more. If an extension gets compromised, the damage is limited to the capabilities it was granted.
 
-### Slide 16: bpftime: EIM's Efficient Runtime Implementation
+### Slide 18: bpftime: EIM's Efficient Runtime Implementation
 
 **[VISUAL: Architecture diagram showing how bpftime implements EIM principles]**
 
@@ -312,16 +370,22 @@ eBPF and Wasm: Unifying Userspace Extensions With Bpftime
   - Near-native performance without kernel traps
   - Compatible with kernel eBPF ecosystem
   - Supports 10+ map types and 30+ helpers
+  - **Automatic safety verification without developer effort**:
+    - No manual bounds checking
+    - No custom sandboxing code
+    - No performance-costly runtime checks
 
 > Now, let's talk about bpftime, which is our concrete implementation of the EIM principles. bpftime is a userspace eBPF runtime that supports tracing features like Uprobe, USDT, syscall tracepoints, and even network features like XDP, all in userspace. 
 >
 > It supports more than 10 map types and 30 helpers, so it's highly compatible with the kernel eBPF ecosystem. It builds on top of eBPF concepts but brings them fully into user-space. bpftime uses the same verification and safety guarantees as kernel-level eBPF, ensuring that an extension can't step outside its defined boundaries. Plus, it leverages modern hardware isolation features (like Intel's Memory Protection Keys—MPK) to give near-native performance without the heavyweight overhead of context switches or traps that traditional solutions like uprobes suffer from.
 >
+> A key advantage of bpftime is that neither extension developers nor host application developers need to implement manual safety checks. The verifier automatically ensures memory safety, prevents infinite loops, and enforces capability restrictions. This eliminates an entire class of security vulnerabilities that have historically plagued extension systems, where manually implemented safety checks had flaws or were forgotten entirely.
+>
 > You can use your familiar way to develop and deploy eBPF programs, but in userspace. bpftime can run alongside kernel eBPF, using kernel eBPF maps and working together with kprobe.
 >
 > We started developing bpftime 2 years ago, and adapted it to efficiently enforce these permissions from the EIM model this year.
 
-### Slide 17: bpftime - Concealed Extension Entries
+### Slide 19: bpftime - Concealed Extension Entries
 
 **[VISUAL: Before/after diagram showing binary code without hooks, then with dynamically injected hooks]**
 
@@ -350,7 +414,7 @@ eBPF and Wasm: Unifying Userspace Extensions With Bpftime
 >
 > This approach dramatically improves performance for applications with many potential extension points that are only occasionally used.
 
-### Slide 18: bpftime for Observability
+### Slide 20: bpftime for Observability
 
 **[VISUAL: Performance comparison chart showing kernel vs userspace tracing latency]**
 
@@ -373,7 +437,7 @@ eBPF and Wasm: Unifying Userspace Extensions With Bpftime
 >
 > With userspace tracing, tools like **bcc** and **bpftrace** can run completely in userspace where kernel eBPF is not available. And you can run more complex observability agents that combine kprobes and uprobes, improving performance by shifting part of the workload to userspace.
 
-### Slide 19: bpftime for Userspace Networking
+### Slide 21: bpftime for Userspace Networking
 
 **[VISUAL: Diagram showing bpftime integration with kernel-bypass technologies like DPDK and AF_XDP]**
 
@@ -392,7 +456,7 @@ eBPF and Wasm: Unifying Userspace Extensions With Bpftime
 >
 > We can also use **LLVM optimizations** to further boost performance in userspace.
 
-### Slide 20: bpftime with Userspace Network Integration
+### Slide 22: bpftime with Userspace Network Integration
 
 **[VISUAL: Architecture diagram showing XDP program flow in userspace with bpftime]**
 
@@ -412,7 +476,7 @@ eBPF and Wasm: Unifying Userspace Extensions With Bpftime
 >
 > Right now, there are some limitations with **XDP_TX** (packet transmission) and **XDP_DROP** (packet dropping) in userspace, but we're actively working on solutions. We're exploring ways to reinject packets into the kernel to support **XDP_PASS** (passing packets to the network stack).
 
-### Slide 21: Control Plane Support
+### Slide 23: Control Plane Support
 
 **[VISUAL: Diagram showing bpftime control plane architecture with syscall hooking and userspace runtime]**
 
@@ -430,7 +494,7 @@ eBPF and Wasm: Unifying Userspace Extensions With Bpftime
 Control planes in eBPF are usually responsible for tasks like loading and unloading programs, 
 configuring maps, and providing monitoring and debugging interfaces. bpftime can fully supports this in userspace by hooking syscalls using **LD_PRELOAD** or kernel eBPF, and connect to the userspace runtime.
 
-### Slide 22: Performance Benchmarks
+### Slide 24: Performance Benchmarks
 
 **[VISUAL: Bar charts comparing performance metrics between kernel eBPF and bpftime]**
 
@@ -449,7 +513,7 @@ like Katran, bpftime can acheive up to  **40% faster**.
 
 This shows that userspace eBPF can be fasyer kernel-based solutions, while retaining the flexibility that makes eBPF powerful."
 
-### Slide 23: Conclusion
+### Slide 25: Conclusion
 
 **[VISUAL: Summary diagram showing bpftime bridging eBPF and Wasm approaches with key benefits highlighted]**
 
