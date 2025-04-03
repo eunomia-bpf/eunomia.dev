@@ -30,7 +30,8 @@ eBPF and Wasm: Unifying Userspace Extensions With Bpftime
 - Use Cases & Evaluation
 - Conclusion
 
-> Specifically, I want to talk about why we need extensions, what makes them challenging to handle correctly, and how our current approaches to managing extensions might not be good enough. Then I'll introduce a new approach to managing extensions called the Extension Interface Model (EIM) and our experimental userspace eBPF runtime called bpftime that implements these principles. This is also a research project that has been accepted by OSDI 2025.
+> Specifically, I want to talk about why we need extensions, what makes them challenging to handle correctly, and how our current approaches to managing extensions might not be good enough. Then I'll introduce a new approach to managing extensions called the Extension Interface Model (EIM) and our userspace eBPF runtime called bpftime that implements these principles. The research paper of it, has been accepted by OSDI 2025.
+
 ### Slide 3: Software Extensions
 
 **[VISUAL: Timeline list of extension systems with names and icons for each example, handle writting style]**
@@ -58,7 +59,7 @@ eBPF and Wasm: Unifying Userspace Extensions With Bpftime
 >
 > The short answer is—flexibility and isolation.
 >
-> We want flexibility and customization because it makes our software adaptable. Users and administrators want to tweak things to meet their specific requirements without waiting for the core developers to implement changes. But flexibility without isolation is risky. Extensions, by definition, are third-party or at least externally-developed code. You might trust your core engineering team, but trusting external code is a different story. Even if it's not malicious, external code can have bugs. And we all know how easily bugs can creep into our systems, causing all sorts of problems—crashes, performance degradation, or even security vulnerabilities.
+> We want flexibility and customization because it makes our software adaptable. Users and administrators want to tweak things to meet their specific requirements without waiting for the core developers to implement changes. But flexibility without isolation is risky. Extensions, by definition, are third-party or at least externally-developed code. You might trust your core engineering team, but trusting external code is a different story. Even if it's not malicious, external code can have bugs, causing crashes, performance degradation, or security vulnerabilities.
 
 ### Slide 5: Real-World Extension Failures
 
@@ -76,9 +77,9 @@ https://github.com/eunomia-bpf/cve-extension-study​
 
 We find 1217 CVEs related to extensions in 17279 total CVEs from Postgres, MySQL, Redis, Nginx, Apache httpd, Chrome, Firefox, Kubernetes, Docker, Minecraft
 
-> Here are some real-world examples. For example, a few years back, the popular video streaming site Bilibili suffered a serious production outage because one of their nginx extensions got stuck in an infinite loop. Apache HTTP Server had similar issues where buffer overflow bugs in a Lua-based module caused crashes and security holes. Redis also had cases where improperly sandboxed Lua scripts resulted in remote code execution vulnerabilities. These aren't theoretical risks—these are things that have actually hurt big companies and cost serious money and reputation.
+> Here are some real-world examples. For example, a few years back, the popular video streaming site Bilibili suffered a serious production outage because one of their nginx extensions got stuck in an infinite loop. Apache HTTP Server had similar issues where buffer overflow bugs in a Lua-based module caused crashes and security holes. Redis also had cases where improperly sandboxed Lua scripts resulted in remote code execution vulnerabilities. These are things that have actually hurt big companies and cost money.
 >
-> Of course, the extension-related vulnerabilities are not just limited to the above examples. We recently did a study to analyze CVE reports from some open source projects. We search for all the CVEs in these softwares, and found that there are 1217 CVEs related to extensions in 17279 total CVEs from these projects. What we found was that extension-related vulnerabilities make up a significant portion - about 7% - of all CVEs. Many of them are vulnerabilities that could lead to system compromise or data breaches.
+> Of course, the extension-related vulnerabilities are not just limited to the above examples. We recently did a study to analyze CVE reports from some open source projects. We search for all the CVEs in these softwares, and found that there are 1217 CVEs related to extensions in 17279 total CVEs from these projects. What we found was that extension-related vulnerabilities make up a significant portion - about 7% - of all CVEs. Many of them could lead to system crashes or data leakage.
 >
 > So, isolation and safety become absolutely critical. We don't want a bug in one extension to crash our entire system. We don't want a poorly-written plugin causing our service to slow down. We definitely don't want external code exposing our internal data to attackers.
 
@@ -94,9 +95,9 @@ We find 1217 CVEs related to extensions in 17279 total CVEs from Postgres, MySQL
 - **Efficiency**: Performance impact on the system
 - **The Fundamental Tension**: More interconnectedness typically means less safety
 
-> So this figure shows how a regular application can be extended using a separate extension runtime. Think of the host application as the original app, which has its own state (like variables) and code (like functions). Instead of directly modifying that code, the user adds new behavior through extensions. These extensions run in a separate component called the extension runtime. Each extension, like ext1 and ext2, connects back to the host using defined entry points (entry1, entry2). For example, ext1 might read or modify a variable in the host, while ext2 can actually call a function in the host app, like foo()
+> So this figure shows how a regular application can be extended using a separate extension runtime. Think of the host application as the original app, which has its own state (like variables) and code (like functions). Instead of directly modifying that code, the user adds new behavior through extensions. These extensions run in a separate component called the extension runtime. Each extension connects back to the host using defined entry points (entry1, entry2). For example, ext1 read or modify a variable in the host, while ext2 can actually call a function in the host app, like foo()
 >
-> As we can see from these real-world failures and the extension usecases, there are three core requirements for extension runtime frameworks: **interconnectedness**, **safety** and **efficiency**. 
+> As we can see from these real-world failures and the extension usecases, there are three core requirements for extension runtime frameworks: **interconnectedness**, **safety** and **efficiency**.
 >
 > First, what do I mean by interconnectedness? Simply put, interconnectedness is how much power we give an extension to interact with the host application. Extensions need to do something meaningful—they need to read data, modify state, or call existing functions inside the application. Different extensions need different level of interconnectednes. For example, a security extension needs to read request details and block suspicious requests, while observability extensions just need to read request details.
 >
@@ -104,7 +105,7 @@ We find 1217 CVEs related to extensions in 17279 total CVEs from Postgres, MySQL
 >
 > Efficiency is about performance—how much overhead the extension framework adds to your application. It's easy to understand that different software has different performance requirements.
 >
-> The key challenge is that interconnectedness and safety are fundamentally at odds. The more interconnectedness you allow, the less inherently safe it becomes. To keep things perfectly safe, you have to restrict interconnectedness, which limits extension usefulness. Balancing this tension while maintaining efficiency is what makes extension frameworks so challenging to design.
+> The key challenge is that interconnectedness and safety are fundamentally at odds. The more interconnectedness you allow, the less inherently safe it becomes. To keep things safe, you have to restrict interconnectedness, which limits extension usefulness. Balancing this tension while maintaining efficiency is what makes extension frameworks so challenging to design.
 
 ### Slide 7: Limitation of Extension Framework
 
@@ -123,9 +124,9 @@ We find 1217 CVEs related to extensions in 17279 total CVEs from Postgres, MySQL
 >
 > Subprocess isolation or RPC based approaches, like a lot of cloud-native applications, Model Context Protocol in LLM applications, and some other reseach projects, offer strong isolation by running extensions in separate processes. But they suffer from context switch overhead, making them too slow for performance-critical applications. Some lack per-extension control, while others require significant changes to the host application.
 >
-> Even eBPF-based userspace tracing, while providing safe execution and compatibility with the eBPF ecosystem, has limitations. Current implementations lack fine-grained control over extension capabilities, and each extension call requires a costly kernel trap, making them inefficient for high-frequency hooks.
+> eBPF-based userspace tracing, like uprobe, is also a way to extend user applications. However, current implementations lack fine-grained control over extension capabilities, and each extension call requires a costly kernel context switch, making them inefficient for high-frequency hooks.
 >
-> We can see current software frameworks have not handled this tradeoff very well. Usually, they fall into one of two extremes. Either they allow too much interconnectedness, like dynamically loaded modules—these run fast, sure, but they provide almost no safety at all. One bug and your entire application crashes. Or, on the other extreme, they provide strong safety through heavy isolation, like sandboxed scripting environments or subprocess isolation methods. But these can cripple interconnectedness and performance—extensions often become slow and limited in what they can do.
+> We can see current software frameworks have not handled this tradeoff very well. Either they allow too much interconnectedness, like dynamically loaded modules, or they provide strong safety through heavy isolation, like sandboxed scripting environments or subprocess isolation methods. But these can cripple interconnectedness and performance—extensions often become slow and limited in what they can do.
 >
 > So, what we've found is that the key to managing this tension—this interconnectedness versus safety tradeoff—is the interface we choose for extensions. If your extension framework's interface can carefully define exactly which resources and functions an extension can use, you can precisely manage this tension. Ideally, you give the extension just enough interconnectedness to do its job—but absolutely no more. This sounds simple, but current systems struggle to achieve this.
 >
@@ -194,13 +195,12 @@ world proxy {
 
 > The Component Model implements capability-based security through "resource handles" - unforgeable references that grant access to specific resources. These handles can be passed between components, allowing fine-grained control over which extensions can access which resources.
 >
-> For example, in these WIT interface definitions, we see how components interact through well-defined interfaces. The 'request' and 'response' resources are opaque handles that can only be accessed through the defined functions. A component must explicitly import the handler interface to process requests, enforcing capability-based access control.
+> For example, in these WIT interface definitions, we see how components interact through well-defined interfaces. The 'request' and 'response' resources are handles that can only be accessed through the defined functions. A component must explicitly import the handler interface to process requests, enforcing capability-based access control.
 >
 > This capability-based approach aligns with the principle of least privilege we discussed earlier - extensions only get access to exactly what they need.
 >
-> However, the Component Model still faces performance challenges. While it provides better interface definition than basic Wasm, it still requires runtime checks at interface boundaries and data copying when crossing those boundaries. This creates overhead, especially for extensions that frequently interact with the host.
->
-> Additionally, the host application still needs to carefully design which capabilities it exposes to extensions. The Component Model provides the mechanism for capability control, but the security policy must still be defined by the host.
+> However, the Component Model still faces performance challenges. While it provides better interface definition than basic Wasm, it requires runtime checks at interface boundaries and data copying when crossing those boundaries. This creates overhead, especially for extensions that frequently interact with the host.
+
 
 ### Slide 12: eBPF Interface in Kernel
 
@@ -220,9 +220,9 @@ world proxy {
 >
 > The eBPF interface in the kernel was originally based on three main concepts: helper functions that extensions can call, program types that define what an extension can do, and attach types that determine where an extension can hook into the kernel.
 >
-> As eBPF evolved, the kernel introduced more sophisticated interface mechanisms like struct_ops and kfuncs, which we'll look at next. These provide more flexible ways for extensions to interact with the kernel while maintaining safety.
+> As eBPF evolved, to avoid the growing number of helper functions and entry points, which would need to modify the verifier, the kernel introduced more interface mechanisms like struct_ops and kfuncs, which we'll look at next. These provide more flexible ways for extensions to interact with the kernel while maintaining safety.
 >
-> The kernel uses BPF Type Format (BTF) as its type system, which provides rich type information that the verifier can use to ensure type safety. This is similar in concept to Wasm's interface types, but applied at load time rather than runtime.
+> The kernel uses BPF Type Format (BTF) as its type system, which provides rich type information that the verifier can use to ensure type safety. This is similar in concept to Wasm's interface types, but applied at load time rather than runtime. Besides using for verify, it can also support CO-RE (Compile Once, Run Everywhere) features, like adapting to different kernel versions.
 
 ### Slide 13: eBPF Interface - `struct_ops`
 
@@ -253,9 +253,7 @@ world proxy {
 
 > One of the key interface mechanisms in eBPF is struct_ops, which works somewhat like an "export" in other systems. It allows eBPF programs to register new program types that the kernel can call.
 >
-> Think of struct_ops as a way for eBPF programs to implement interfaces defined by the kernel. For example, here we see a traditional kernel module implementing TCP congestion control through the tcp_congestion_ops structure. Below it, we see how an eBPF program can implement the same interface using struct_ops.
->
-> This is powerful because it allows eBPF programs to extend kernel functionality in ways that were previously only possible with kernel modules, but with the safety guarantees of eBPF. The kernel can call into these eBPF implementations just like it would call into native kernel functions.
+> Think of struct_ops as a way for eBPF programs to implement interfaces defined by the kernel. For example, this is the implemention of TCP congestion control through the tcp_congestion_ops structure. Below it, we see how an eBPF program can attach to the same interface. The kernel can call into these eBPF implementations just like it would call into native kernel functions.
 
 ### Slide 14: eBPF Interface - `kfunc`
 
@@ -277,7 +275,7 @@ world proxy {
 >
 > What's interesting about kfuncs is how they handle safety. The kernel uses annotations and flags to tell the verifier what safety properties to check. For example, the KF_ACQUIRE flag indicates that a function returns a resource that must be released later, while KF_RELEASE indicates a function that releases such a resource.
 >
-> This is similar to how Wasm's Component Model handles resource lifetimes with its resource types, but again, the key difference is that eBPF checks these properties at load time.
+> This is similar to how Wasm's Component Model handles resource lifetimes with its resource types, but again, the key difference is that eBPF verifies these properties at load time.
 >
 > In this example, we see how the kernel registers two functions: bpf_get_task_pid which acquires a resource and might return null, and bpf_put_pid which releases that resource. The verifier will ensure that any eBPF program that calls these functions follows the correct pattern of acquiring and releasing resources.
 
@@ -298,11 +296,9 @@ world proxy {
 >
 > The main advantages are strong security through verification before execution, and better performance compared to runtime-check-based models like Wasm. By catching bugs at load time, eBPF eliminates the need for runtime checks, which can significantly improve performance for frequently executed code.
 >
-> However, there are also limitations. The eBPF interface is tightly coupled with the kernel implementation, making it less portable than Wasm. eBPF programs are written in a restricted subset of C, which limits expressiveness compared to languages supported by Wasm. And while struct_ops and kfuncs provide more flexibility, it can still be challenging to define fine-grained safety properties and abstractions.
+> However, there are also limitations. The eBPF interface is tightly coupled with the kernel implementation, making it less portable and useful for userspace extensions like Wasm. Also, eBPF programs are written in a restricted subset of C, which limits expressiveness compared to languages supported by Wasm. And while struct_ops and kfuncs provide more flexibility, it can still be challenging to define fine-grained safety properties and abstractions.
 >
-> Additionally, current userspace eBPF implementations like uprobes require costly kernel traps. Every time a userspace extension runs, it triggers a context switch into the kernel, runs the extension, and switches back. This is too slow for many performance-critical scenarios.
->
-> What if we could combine eBPF's load-time verification with efficient userspace execution, while addressing these limitations? That's where our approach with the Extension Interface Model and bpftime comes in.
+> What if we could combine eBPF's fine-grained load-time verification with efficient userspace execution, while addressing these limitations? That's where our approach with the Extension Interface Model and bpftime comes in.
 
 ### Slide 16: Extension Interface Model (EIM)
 
@@ -319,11 +315,11 @@ world proxy {
 >
 > EIM takes inspiration from both worlds - eBPF's load-time verification approach and Wasm's component model for interface definition. The core insight of EIM is treating every interaction between an extension and its host as an explicit capability that must be declared and verified.
 >
-> This follows the principle of least privilege - each extension should only have access to exactly what it needs to function, nothing more. This is critical for security, as it minimizes the potential damage from bugs or exploits.
+> This follows the principle of least privilege - each extension should only have access to exactly what it needs to function, including the host functions and memories.
 >
 > Unlike previous approaches that force you to choose between safety and performance, EIM is designed to provide both by shifting safety checks to load time while maintaining fine-grained control over what extensions can do.
 >
-> We do acknowledge one limitation: like eBPF, there are some constraints on expressiveness compared to general-purpose languages. However, we believe this tradeoff is worth it for the safety and performance benefits in extension scenarios.
+> We do acknowledge one limitation: like eBPF, there are some constraints on expressiveness compared to general-purpose languages.
 
 ### Slide 17: EIM – Specification Example
 
@@ -372,12 +368,7 @@ Extension_Entry(
 >
 > Third, Extension Entries define the specific points in the application where extensions can hook in. Here we define two entry points: one at the beginning of request processing, and another at the content generation phase.
 >
-> These capabilities can be combined with rich constraints that encode relationships between arguments and return values, semantic facts about memory allocation or I/O operations, and boolean logic. This gives us fine-grained control over exactly what extensions can do.
->
-> The key innovation here is that we're applying eBPF's verification approach to userspace extensions, with a more structured interface model inspired by Wasm's component model. This gives us the best of both worlds - the performance of load-time verification with the flexibility of a rich interface system.
-
-
-> EIM's constraints can encode binary relationships between arguments and return values, high-level semantic facts, and boolean operators over other constraints. EIM's high-level facts include allocation facts indicating that a function's return was allocated, IO facts indicating that the function requires the capability to perform IO, annotation facts that indicate a relationship between arguments equivalent to those that linux provides through current eBPF annotations, and read/write facts indicating that the caller must hold read/write capabilities for a specified field within a function argument. UserBPF converts binary relationships and boolean logic into C-style assert statements and the annotation facts into BTF. It uses the kernel eBPF verifier's tag support to implement allocation facts and manually implements checks for IO facts.
+> What makes EIM powerful is its rich constraint system that can express complex relationships between arguments and return values, including pre-post conditions, along with high-level semantic facts about your code. For example, we can specify that a function allocates memory, performs I/O operations, or requires specific read/write capabilities for certain data fields. When you define these constraints, our EIM tooling converting relationships into assert statements, encoding annotations into BTF type information, and leveraging the kernel verifier's tag system to track memory allocations. This gives you fine-grained control over what extensions can do while maintaining the performance benefits of load-time verification rather than runtime checking.
 
 ### Slide 18: bpftime – Userspace eBPF runtime
 
@@ -392,9 +383,9 @@ Extension_Entry(
 
 📎 GitHub: [https://github.com/eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime)
 
-> Now, let's talk about bpftime, which is our concrete implementation of the EIM principles. bpftime is a userspace eBPF runtime that we've been developing for over two years.
+> Now, let's talk about bpftime, which is our concrete implementation of the EIM principles. bpftime is a userspace eBPF runtime that we've been developing in the past two years.
 >
-> What makes bpftime special is that it's not just a simple virtual machine like some other userspace eBPF implementations. It's a complete runtime that supports the full range of eBPF features in userspace, including Uprobes for function tracing, USDT for static tracepoints, syscall tracepoints, and even XDP for network processing.
+> What makes bpftime special is that it's not just a simple virtual machine like some other userspace eBPF implementations. It's a complete runtime that supports the full range of eBPF features in userspace, including Uprobes for function tracing, USDT for static tracepoints, syscall tracepoints, and like XDP for network processing.
 >
 > bpftime is designed to work alongside kernel eBPF, not replace it. You can use kernel eBPF for some tasks and bpftime for others, or even have them work together on the same workload. This gives you the flexibility to choose the right approach for each part of your application.
 >
@@ -478,7 +469,7 @@ White arrows (black border): interact with eBPF maps
 > - A binary rewriter that can dynamically inject hooks into running applications
 > - A JIT/AOT compiler that translates eBPF bytecode to native machine code for performance
 > - A verifier that ensures the eBPF program is safe to run
-> - Syscall interposition to intercept and handle eBPF-related system calls
+> - Syscall interposition to intercept and handle eBPF-related system calls, which supports the libbpf and eBPF control plane applications and keep compatibility with kernel eBPF.
 >
 > Once loaded, the eBPF program runs in the target process using the bpftime user runtime. It can interact with eBPF maps, both in userspace and shared with the kernel, and can hook into various points in the application through uprobes, userspace tracepoints, and syscall tracepoints.
 >
@@ -508,11 +499,11 @@ continue malloc...
 malloc called from pid 250215
 ```
 
-> Let me show you how easy it is to get started with bpftime. Here's a simple example that uses uprobes to monitor malloc calls in libc.
+>  Here's a simple example that uses uprobes to monitor malloc calls in libc.
 >
 > First, you build and load the eBPF program using the bpftime CLI. Then, you can run your target application with bpftime, and it will automatically instrument the application to trace malloc calls.
 >
-> What's particularly exciting is that you can run this in unprivileged containers, like GitHub Codespaces. Traditional kernel eBPF requires root privileges, but bpftime works entirely in userspace, so you can use it in environments where you don't have kernel access.
+> You can run this in unprivileged containers, like GitHub Codespaces.
 >
 > This makes bpftime ideal for development, testing, and educational purposes, as well as for production environments where kernel access is restricted.
 >
@@ -522,14 +513,14 @@ malloc called from pid 250215
 
 **[VISUAL: Overview diagram showing different use case categories with icons]**
 
-> Existing eBPF use cases can be run without or with minor fixes, with some additional customization cases
+Existing eBPF use cases can be run without or with minor fixes, with some additional customization cases
 
 - **Observability**: Tracing, profiling, monitoring
 - **Networking**: XDP, load balancing, packet filtering
 - **Security**: Runtime verification, access control
 - **Custom Extensions**: Application-specific plugins
 
-> Now that we've seen how bpftime works, let's look at how it performs in some experimental scenarios. The good news is that most eBPF use cases can run in bpftime with minimal or no changes, while also enabling new customization opportunities that weren't possible before.
+> Now, let's look at some specific use cases and performance benchmarks to see how bpftime performs in real-world scenarios. The good news is that most eBPF use cases can run in bpftime with minimal or no changes, while also enabling new customization opportunities that weren't possible before.
 
 ### Slide 23: bpftime for Observability
 
@@ -573,9 +564,9 @@ malloc called from pid 250215
 
 > Let's look at some specific performance numbers. This table shows a microbenchmark comparison between bpftime and kernel eBPF for various operations.
 >
-> The most significant improvements are in Uprobes and Uretprobes - bpftime is about 10 times faster than kernel eBPF uprobes. This is because kernel-based uprobes require a context switch into the kernel, while bpftime runs entirely in userspace.
+> As we can see, bpftime is about 10 times faster than kernel eBPF uprobes. This is because kernel-based uprobes require a context switch into the kernel, while bpftime runs entirely in userspace.
 >
-> For memory operations, the difference is even more striking. User memory reads are 20 times faster in bpftime, and writes are about 6 times faster. This is because the kernel needs to use special mechanisms to safely access userspace memory, while bpftime can access it directly.
+> For memory operations, User memory access are also about 10 times faster in bpftime. This is because the kernel needs to use special mechanisms to safely access userspace memory, while bpftime can access it directly.
 >
 > For map operations, which are the data structures eBPF programs use to store and share data, bpftime is competitive with or faster than kernel eBPF. This is particularly important for high-throughput applications that need to process a lot of data quickly.
 >
@@ -593,11 +584,9 @@ malloc called from pid 250215
 
 > One of the most exciting aspects of bpftime is its compatibility with existing eBPF tools. We've ported and tested both bpftrace and BCC to work with bpftime, allowing these popular observability tools to run in userspace.
 >
-> Bpftrace, which is a high-level tracing language for eBPF, can now run entirely in userspace. This means you can use bpftrace for application tracing without requiring kernel eBPF support, syscall tracing, or kernel-based uprobes. This is particularly valuable in environments where kernel eBPF is not available or restricted, such as containerized environments or older kernels.
+> Bpftrace, which is a high-level tracing language for eBPF, can now run entirely in userspace. This means you can use bpftrace for application tracing without requiring kernel eBPF support. This is particularly valuable in environments where kernel eBPF is not available or restricted, such as containerized environments or older kernels.
 >
 > Similarly, BCC tools that target applications, runtimes, and the syscall interface can now run in userspace. This includes popular tools for tracing function calls, syscalls, memory allocations, and more.
->
-> This compatibility with existing tools means that users can leverage their existing knowledge and workflows while benefiting from the performance improvements of userspace execution. It also means that bpftime can be adopted incrementally, starting with specific use cases where performance is critical.
 
 ### Slide 26: Benchmark – syscount and sslsniff
 
@@ -610,13 +599,13 @@ malloc called from pid 250215
   - Kernel eBPF overhead: 28.06%
   - Userspace eBPF: only 7.41%
 
-> Moving beyond microbenchmarks, let's look at how bpftime performs with real-world observability tools. We tested two common tracing tools: syscount, which counts system calls, and sslsniff, which traces SSL/TLS traffic.
+> Moving beyond microbenchmarks, let's look at how bpftime performs with observability tools. We tested two common tracing tools: syscount, which counts system calls, and sslsniff, which traces SSL/TLS traffic.
 >
 > For syscount, kernel eBPF introduces about a 10% reduction in requests per second (RPS) compared to no tracing. In contrast, bpftime reduces RPS by only 3%. This means that with bpftime, you can trace system calls with significantly less performance impact.
 >
-> The difference is even more dramatic with sslsniff. Kernel eBPF introduces a 28% overhead, while bpftime reduces this to just 7.4%. This is particularly important for production environments where minimizing the performance impact of observability tools is critical.
+> The difference is even more dramatic with sslsniff. Kernel eBPF introduces a 28% overhead, while bpftime reduces this to just 7.4%.
 >
-> These results demonstrate that bpftime can significantly reduce the performance penalty of tracing tools, making it more feasible to use these tools in production environments without sacrificing application performance.
+> These results demonstrate that bpftime can significantly reduce the performance penalty of tracing tools, making it more feasible to use these tools without sacrificing application performance.
 
 ### Slide 27: bpftime for Userspace Networking
 
@@ -636,35 +625,19 @@ malloc called from pid 250215
 - Up to **3× faster** in simple XDP network functions
 - Up to **40% faster** in **katran**
 
-> Now, let's talk about bpftime in the **networking** context. Why use userspace eBPF instead of running eBPF in the kernel?
->
-> We've seen kernel-bypass solutions like **DPDK** (Data Plane Development Kit) and **AF_XDP** (Address Family XDP). They can offer faster packet processing by bypassing the kernel. But with bpftime, you can combine the performance benefits of these kernel-bypass technologies with the extensive eBPF ecosystem. So, you get the best of both low-latency packet processing and the ability to use eBPF's safety and existing tools.
->
-> Why choose bpftime over other approaches like eBPF-in-DPDK? Existing solutions often lack comprehensive support for eBPF maps and helpers, which limits their functionality. They also typically don't integrate well with control-plane applications. bpftime addresses these limitations while also providing better performance through LLVM optimizations.
->
-> The results speak for themselves: bpftime achieves up to 3 times faster performance in simple XDP network functions compared to kernel eBPF. In real-world applications like Katran, a high-performance load balancer, bpftime is up to 40% faster. This demonstrates that userspace eBPF can outperform kernel-based solutions while maintaining compatibility with the eBPF ecosystem.
+> Now, let's talk about bpftime in the **networking** context. Why using userspace eBPF instead of running ebpf in kernel?
 
-### Slide 28: bpftime with Userspace Network Integration
+> We’ve seen kernel-bypass solutions like DPDK and AF_XDP. They can offer faster packet processing by bypassing the kernel. But with bpftime, you can combine the performance benefits of these kernel-bypass technologies with the extensive eBPF ecosystem. So, you get the best of both low-latency packet processing and the ability to use eBPF’s safety and existing tools.
 
-**[VISUAL: Architecture diagram showing XDP program flow in userspace with bpftime]**
+> We can also use LLVM optimizations to further boost performance in userspace.
 
-- Seamless integration with eBPF XDP ecosystem
-- Compatible with high-performance applications:
-  - Katran load balancer integration
-  - Works with both AF_XDP and DPDK
-- Current work in progress:
-  - XDP_TX and XDP_DROP limitations
-  - Solutions for XDP_PASS packet reinjection
+> Using bpftime, you can seamlessly integrate the eBPF XDP ecosystem into kernel-bypass applications.
 
-> Using **bpftime**, you can seamlessly integrate the **eBPF XDP ecosystem** into kernel-bypass applications. 
->
-> For instance, solutions like **Katran**, a high-performance load balancer from Facebook, can benefit from the optimizations we've made in bpftime for userspace. 
->
-> bpftime can work with both **AF_XDP** and **DPDK**. You can run your XDP eBPF programs as if they were in the kernel, just load them with bpftime, and they'll work like normal, while a DPDK app handles the network processing.
->
-> Right now, there are some limitations with **XDP_TX** (packet transmission) and **XDP_DROP** (packet dropping) in userspace, but we're actively working on solutions. We're exploring ways to reinject packets into the kernel to support **XDP_PASS** (passing packets to the network stack).
->
-> This integration capability is particularly valuable for organizations that have invested in eBPF for networking but want to improve performance through kernel bypass technologies. With bpftime, they can leverage their existing eBPF code while gaining the performance benefits of userspace execution.
+> For instance, solutions like Katran, a high-performance load balancer, can benefit from the optimizations we’ve made in bpftime for userspace.
+
+> bpftime can work with both AF_XDP and DPDK. You can run your XDP eBPF programs as if they were in the kernel, just load them with bpftime, and they’ll work like normal, while a DPDK app handles the network processing.
+
+> Right now, there are some limitations with XDP_TX and XDP_DROP in userspace, but we’re actively working on solutions. We’re exploring ways to reinject packets into the kernel to support XDP_PASS.
 
 ### Slide 29: Benchmark – llvmbpf
 
@@ -683,11 +656,7 @@ malloc called from pid 250215
 
 > A key component of bpftime's performance is its underlying eBPF virtual machine, which we've developed as a separate project called llvmbpf. This is an eBPF VM with LLVM JIT/AOT (Just-In-Time/Ahead-Of-Time) compilation capabilities.
 >
-> llvmbpf is designed to be a standalone VM and compiler tool, making it easy to use in various contexts. We've separated it from the main bpftime repository to make it more modular and reusable.  As you can see in these benchmarks, llvmbpf outperforms traditional eBPF runtimes like ubpf and rbpf across a range of operations, including string comparison, mathematical functions, memory operations, and control flow.
->
-> In many cases, llvmbpf approaches native performance, which is the theoretical maximum. This is achieved through aggressive LLVM optimizations that can transform eBPF bytecode into highly efficient native machine code.
->
-> This performance advantage is a key reason why bpftime can achieve such impressive results in real-world applications. By combining an efficient eBPF runtime with userspace execution, bpftime delivers the best of both worlds: the safety and flexibility of eBPF with performance approaching native code.
+> llvmbpf is designed to be a standalone VM and compiler tool, making it easy to use in various contexts. We've separated it from the main bpftime repository to make it more modular and reusable.  As you can see in these benchmarks, llvmbpf outperforms traditional eBPF VMs like ubpf and rbpf across a range of operations.
 
 ### Slide 30: More use cases
 
@@ -702,9 +671,9 @@ malloc called from pid 250215
 - **Hot patch**  
 - ...
 
-> Checkout our coming papers for more detail
+Checkout our coming papers for more detail
 
-> We've covered observability and networking in detail, but bpftime has many other exciting applications. Let me briefly highlight a few more use cases we've explored.
+> We've covered observability and networking in detail, but bpftime has many other experimental applications. Let me briefly highlight a few more use cases we've explored.
 >
 > For observability, we've integrated bpftime with Deepflow, a popular observability agent, and achieved 1.5 times less overhead compared to the kernel-based approach.
 >
@@ -727,15 +696,11 @@ malloc called from pid 250215
 - Improve stability and fix bugs  
 - Make EIM more easy to use  
 
-> While we're excited about the potential of bpftime and the Extension Interface Model, we want to be clear that there's still a long way to go. This is research software, and it's not production-ready yet.
+> For bpftime,we want to be clear that there's still a long way to go and it's not production-ready yet.
 >
-> Our roadmap focuses on three main areas:
+> Our roadmap focuses on three main areas: we need to improve stability and fix bugs, we want to make the Extension Interface Model easier to use. Right now, defining capabilities and constraints requires a deep understanding of the system. We want to simplify this process and provide better tools and documentation.
 >
-> First, we need to improve stability and fix bugs. As with any new system, there are edge cases and unexpected behaviors that need to be addressed before it can be used in production environments.
->
-> Second, we want to make the Extension Interface Model easier to use. Right now, defining capabilities and constraints requires a deep understanding of the system. We want to simplify this process and provide better tools and documentation.
->
-> Third, we want to expand the range of supported use cases and improve performance even further. We believe there's still untapped potential in the approach we've taken.
+> Also, we want to expand the range of supported use cases and improve performance even further.
 >
 > We welcome contributions and feedback from the community. If you're interested in trying bpftime or contributing to its development, please check out our GitHub repository.
 
@@ -759,6 +724,6 @@ malloc called from pid 250215
 >
 > This combination enables high-performance extensions with fine-grained safety controls, all while maintaining compatibility with the existing eBPF ecosystem. This means you can leverage your existing eBPF knowledge and tools while gaining the benefits of userspace execution.
 >
-> We believe this approach addresses the fundamental tension between interconnectedness, safety, and efficiency that we discussed at the beginning. By providing a structured way to define and enforce capabilities, bpftime allows you to give extensions exactly the access they need - no more, no less - while maintaining high performance.
+> By providing a structured way to define and enforce capabilities, bpftime allows you to give extensions exactly the access they need - no more, no less - while maintaining high performance.
 >
-> Thank you for your attention, and I look forward to your questions!
+> Thank you for your attention!
