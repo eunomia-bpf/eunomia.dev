@@ -518,18 +518,33 @@ malloc called from pid 250215
 >
 > Now, let's look at some specific use cases and performance benchmarks to see how bpftime performs in real-world scenarios.
 
-### Slide 22: bpftime for Observability
+### Slide 22: Evaluation & Use Cases
+
+**[VISUAL: Overview diagram showing different use case categories with icons]**
+
+> Existing eBPF use cases can be run without or with minor fixes, with some additional customization cases
+
+- **Observability**: Tracing, profiling, monitoring
+- **Networking**: XDP, load balancing, packet filtering
+- **Security**: Runtime verification, access control
+- **Custom Extensions**: Application-specific plugins
+
+> Now that we've seen how bpftime works, let's look at how it performs in some experimental scenarios. The good news is that most eBPF use cases can run in bpftime with minimal or no changes, while also enabling new customization opportunities that weren't possible before.
+
+### Slide 23: bpftime for Observability
 
 **[VISUAL: Performance comparison chart showing kernel vs userspace tracing latency]**
 
-- Userspace tracing advantages:
-  - **10x faster**: Uprobes (100ns vs 1000ns in kernel)
-  - **10x faster**: Memory access (4ns vs 40ns in kernel)
-  - Reduced overhead on untraced processes
-- Compatible with existing tools:
-  - Run BCC and bpftrace in userspace
-  - Combine kprobes and uprobes for hybrid approaches
-  - Shift workload to improve overall performance
+**Why userspace tracing? Faster and More Flexible**
+- **Faster** userspace `uprobe`
+- **Faster** userspace memory access
+- No tracing overhead on untraced processes (syscall tracepoint)
+
+**What can we run in userspace?**
+- Tools like `bcc` and `bpftrace`
+- Complex observability agents with `kprobe` and `uprobe` (e.g., **Deepflow**)
+
+🔗 [https://github.com/eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime)
 
 > So why do we want to do observability with eBPF in userspace?
 >
@@ -537,30 +552,99 @@ malloc called from pid 250215
 >
 > On top of that, there's less overhead on untraced processes, especially when dealing with syscall tracepoints.
 >
-> What can we run in userspace?
->
-> With userspace tracing, tools like **bcc** and **bpftrace** can run completely in userspace where kernel eBPF is not available. And you can run more complex observability agents that combine kprobes and uprobes, improving performance by shifting part of the workload to userspace.
+> What can we run in userspace? With bpftime, popular tools like **bcc** and **bpftrace** can run completely in userspace where kernel eBPF is not available. And you can run more complex observability agents like Deepflow that combine kprobes and uprobes, improving performance by shifting part of the workload to userspace.
 
-### Slide 23: bpftime for Userspace Networking
+### Slide 24: bpftime Microbenchmark
+
+**[VISUAL: Table comparing performance metrics between kernel eBPF and bpftime]**
+
+| Bench Type              | eBPF (ns) | bpftime (ns) |
+|------------------------|-----------|--------------|
+| Uprobe                 | 3224      | 315          |
+| Uretprobe              | 3997      | 381          |
+| Syscall Tracepoint     | 152       | 233          |
+| User memory read       | 45.0      | 2.2          |
+| User memory write      | 46.8      | 8.1          |
+| hash_map_update        | 62        | 30           |
+| hash_map_delete        | 15        | 23           |
+| hash_map_lookup        | 19        | 13           |
+
+📌 Table 4: Microbenchmark comparison of `bpftime` and kernel `eBPF`.
+
+> Let's look at some specific performance numbers. This table shows a microbenchmark comparison between bpftime and kernel eBPF for various operations.
+>
+> The most significant improvements are in Uprobes and Uretprobes - bpftime is about 10 times faster than kernel eBPF uprobes. This is because kernel-based uprobes require a context switch into the kernel, while bpftime runs entirely in userspace.
+>
+> For memory operations, the difference is even more striking. User memory reads are 20 times faster in bpftime, and writes are about 6 times faster. This is because the kernel needs to use special mechanisms to safely access userspace memory, while bpftime can access it directly.
+>
+> For map operations, which are the data structures eBPF programs use to store and share data, bpftime is competitive with or faster than kernel eBPF. This is particularly important for high-throughput applications that need to process a lot of data quickly.
+>
+> The only area where kernel eBPF is faster is syscall tracepoints, which is expected since the kernel is already involved in syscall processing. But even here, bpftime is reasonably competitive.
+
+### Slide 25: Bpftrace and BCC
+
+**[VISUAL: Screenshots showing bpftrace and BCC tools running with bpftime]**
+
+- **Bpftrace**: Can run entirely in userspace, no kernel eBPF/syscall/uprobe required
+- **BCC**: Upper-half tools can run in userspace—targeting applications, runtimes, and syscall interface
+- Ported and tested **bcc** and **bpftrace**
+
+🔗 [https://github.com/eunomia-bpf/bpftime/tree/master/example/bpftrace](https://github.com/eunomia-bpf/bpftime/tree/master/example/bpftrace)
+
+> One of the most exciting aspects of bpftime is its compatibility with existing eBPF tools. We've ported and tested both bpftrace and BCC to work with bpftime, allowing these popular observability tools to run in userspace.
+>
+> Bpftrace, which is a high-level tracing language for eBPF, can now run entirely in userspace. This means you can use bpftrace for application tracing without requiring kernel eBPF support, syscall tracing, or kernel-based uprobes. This is particularly valuable in environments where kernel eBPF is not available or restricted, such as containerized environments or older kernels.
+>
+> Similarly, BCC tools that target applications, runtimes, and the syscall interface can now run in userspace. This includes popular tools for tracing function calls, syscalls, memory allocations, and more.
+>
+> This compatibility with existing tools means that users can leverage their existing knowledge and workflows while benefiting from the performance improvements of userspace execution. It also means that bpftime can be adopted incrementally, starting with specific use cases where performance is critical.
+
+### Slide 26: Benchmark – syscount and sslsniff
+
+**[VISUAL: Bar charts comparing performance impact of kernel eBPF vs bpftime]**
+
+- **syscount** tool:
+  - Kernel eBPF overhead: 10% reduction in RPS
+  - Userspace eBPF: only 3% overhead
+- **sslsniff** tool:
+  - Kernel eBPF overhead: 28.06%
+  - Userspace eBPF: only 7.41%
+
+> Moving beyond microbenchmarks, let's look at how bpftime performs with real-world observability tools. We tested two common tracing tools: syscount, which counts system calls, and sslsniff, which traces SSL/TLS traffic.
+>
+> For syscount, kernel eBPF introduces about a 10% reduction in requests per second (RPS) compared to no tracing. In contrast, bpftime reduces RPS by only 3%. This means that with bpftime, you can trace system calls with significantly less performance impact.
+>
+> The difference is even more dramatic with sslsniff. Kernel eBPF introduces a 28% overhead, while bpftime reduces this to just 7.4%. This is particularly important for production environments where minimizing the performance impact of observability tools is critical.
+>
+> These results demonstrate that bpftime can significantly reduce the performance penalty of tracing tools, making it more feasible to use these tools in production environments without sacrificing application performance.
+
+### Slide 27: bpftime for Userspace Networking
 
 **[VISUAL: Diagram showing bpftime integration with kernel-bypass technologies like DPDK and AF_XDP]**
 
-- Advantages over kernel networking:
-  - Combines kernel-bypass performance with eBPF ecosystem
-  - Works with DPDK and AF_XDP
-  - Leverages LLVM optimizations for userspace
-- Use cases:
-  - High-speed packet processing
-  - Network function virtualization
-  - Advanced load balancing
+**Why userspace eBPF?**
+- Kernel bypass is faster: **DPDK**, **AF_XDP**
+- Leverage eBPF ecosystem
+
+**Why bpftime?**
+- Compared to eBPF-in-DPDK:
+  - Lacks eBPF map/helper support
+  - Lacks control-plane apps
+  - `bpftime` is faster/more optimized with LLVM
+
+**Results:**
+- Up to **3× faster** in simple XDP network functions
+- Up to **40% faster** in **katran**
 
 > Now, let's talk about bpftime in the **networking** context. Why use userspace eBPF instead of running eBPF in the kernel?
 >
 > We've seen kernel-bypass solutions like **DPDK** (Data Plane Development Kit) and **AF_XDP** (Address Family XDP). They can offer faster packet processing by bypassing the kernel. But with bpftime, you can combine the performance benefits of these kernel-bypass technologies with the extensive eBPF ecosystem. So, you get the best of both low-latency packet processing and the ability to use eBPF's safety and existing tools.
 >
-> We can also use **LLVM optimizations** to further boost performance in userspace.
+> Why choose bpftime over other approaches like eBPF-in-DPDK? Existing solutions often lack comprehensive support for eBPF maps and helpers, which limits their functionality. They also typically don't integrate well with control-plane applications. bpftime addresses these limitations while also providing better performance through LLVM optimizations.
+>
+> The results speak for themselves: bpftime achieves up to 3 times faster performance in simple XDP network functions compared to kernel eBPF. In real-world applications like Katran, a high-performance load balancer, bpftime is up to 40% faster. This demonstrates that userspace eBPF can outperform kernel-based solutions while maintaining compatibility with the eBPF ecosystem.
 
-### Slide 24: bpftime with Userspace Network Integration
+### Slide 28: bpftime with Userspace Network Integration
 
 **[VISUAL: Architecture diagram showing XDP program flow in userspace with bpftime]**
 
@@ -579,38 +663,102 @@ malloc called from pid 250215
 > bpftime can work with both **AF_XDP** and **DPDK**. You can run your XDP eBPF programs as if they were in the kernel, just load them with bpftime, and they'll work like normal, while a DPDK app handles the network processing.
 >
 > Right now, there are some limitations with **XDP_TX** (packet transmission) and **XDP_DROP** (packet dropping) in userspace, but we're actively working on solutions. We're exploring ways to reinject packets into the kernel to support **XDP_PASS** (passing packets to the network stack).
+>
+> This integration capability is particularly valuable for organizations that have invested in eBPF for networking but want to improve performance through kernel bypass technologies. With bpftime, they can leverage their existing eBPF code while gaining the performance benefits of userspace execution.
 
-### Slide 25: Performance Benchmarks
+### Slide 29: Benchmark – llvmbpf
 
-**[VISUAL: Bar charts comparing performance metrics between kernel eBPF and bpftime]**
+**[VISUAL: Bar charts comparing performance of different eBPF runtimes]**
 
-- Network performance improvements:
-  - Up to **3x faster** in simple XDP network functions
-  - Up to **40% faster** in real-world applications like Katran
-- Tracing performance:
-  - **10x faster** memory access
-  - **10x faster** uprobes
-- Demonstrates userspace eBPF can outperform kernel-based solutions while maintaining compatibility
+- `llvmbpf`: eBPF VM with LLVM JIT/AOT
+- Standalone VM and compiler tool
+- Separated from `bpftime` repo
+- Easy to use
 
-"Now, let's see the **performance benchmarks**. 
+**Chart Benchmarks:**
+- `strcmp`, `log2`, `prime`, `memcpy`, `switch`, etc.
+- Comparison: `ubpf`, `rbpf`, `UserBPF`, `native`
 
-We've benchmarked a variety of eBPF programs running with bpftime. bpftime has achieved up to **3x faster performance** in simple XDP network functions. In real-world applications
-like Katran, bpftime can acheive up to  **40% faster**.
+🔗 [https://github.com/eunomia-bpf/llvmbpf](https://github.com/eunomia-bpf/llvmbpf)
 
-This shows that userspace eBPF can be fasyer kernel-based solutions, while retaining the flexibility that makes eBPF powerful."
+> A key component of bpftime's performance is its underlying eBPF virtual machine, which we've developed as a separate project called llvmbpf. This is an eBPF VM with LLVM JIT/AOT (Just-In-Time/Ahead-Of-Time) compilation capabilities.
+>
+> llvmbpf is designed to be a standalone VM and compiler tool, making it easy to use in various contexts. We've separated it from the main bpftime repository to make it more modular and reusable.  As you can see in these benchmarks, llvmbpf outperforms traditional eBPF runtimes like ubpf and rbpf across a range of operations, including string comparison, mathematical functions, memory operations, and control flow.
+>
+> In many cases, llvmbpf approaches native performance, which is the theoretical maximum. This is achieved through aggressive LLVM optimizations that can transform eBPF bytecode into highly efficient native machine code.
+>
+> This performance advantage is a key reason why bpftime can achieve such impressive results in real-world applications. By combining an efficient eBPF runtime with userspace execution, bpftime delivers the best of both worlds: the safety and flexibility of eBPF with performance approaching native code.
 
-### Slide 26: Conclusion
+### Slide 30: More use cases
+
+**[VISUAL: Grid of application icons with performance metrics]**
+
+- **Deepflow** as observability Agent: 1.5× less overhead  
+- **Nginx plugin**: 10% less overhead than Lua and Wasm  
+- **Fuse cache**: up to 10⁴× latency improvements  
+- **Redis Durability Tuning**: 1.5× more throughput  
+- **GPU tracing**  
+- **Error injection**  
+- **Hot patch**  
+- ...
+
+> Checkout our coming papers for more detail
+
+> We've covered observability and networking in detail, but bpftime has many other exciting applications. Let me briefly highlight a few more use cases we've explored.
+>
+> For observability, we've integrated bpftime with Deepflow, a popular observability agent, and achieved 1.5 times less overhead compared to the kernel-based approach.
+>
+> For web servers, we've created Nginx plugins using bpftime that have 10% less overhead than equivalent plugins written in Lua or WebAssembly. This is significant for high-traffic web servers where every bit of performance matters.
+>
+> In file systems, we've used bpftime to implement a FUSE cache that improves latency by up to 10,000 times in certain operations. This is because we can avoid expensive context switches between userspace and kernel.
+>
+> For databases, we've tuned Redis durability settings with bpftime and achieved 1.5 times more throughput. This shows how bpftime can be used not just for observability but also for performance optimization.
+>
+> We've also explored more experimental use cases like GPU tracing, error injection for testing, and hot patching of running applications. These demonstrate the flexibility of the bpftime approach.
+>
+> For more details on these use cases and our performance evaluations, please check out our upcoming papers.
+
+### Slide 31: Roadmaps
+
+**[VISUAL: Timeline with development milestones]**
+
+> Still a long way to go...
+- Not production ready yet  
+- Improve stability and fix bugs  
+- Make EIM more easy to use  
+
+> While we're excited about the potential of bpftime and the Extension Interface Model, we want to be clear that there's still a long way to go. This is research software, and it's not production-ready yet.
+>
+> Our roadmap focuses on three main areas:
+>
+> First, we need to improve stability and fix bugs. As with any new system, there are edge cases and unexpected behaviors that need to be addressed before it can be used in production environments.
+>
+> Second, we want to make the Extension Interface Model easier to use. Right now, defining capabilities and constraints requires a deep understanding of the system. We want to simplify this process and provide better tools and documentation.
+>
+> Third, we want to expand the range of supported use cases and improve performance even further. We believe there's still untapped potential in the approach we've taken.
+>
+> We welcome contributions and feedback from the community. If you're interested in trying bpftime or contributing to its development, please check out our GitHub repository.
+
+### Slide 32: Takeaways
 
 **[VISUAL: Summary diagram showing bpftime bridging eBPF and Wasm approaches with key benefits highlighted]**
 
-- bpftime: A new approach to userspace extensions
-- Combines strengths from both worlds:
-  - eBPF's verification and performance
-  - Wasm-like interface flexibility
-- Enables:
-  - High-performance extensions
-  - Fine-grained safety controls
-  - Compatibility with existing tools
-- Available today for experimentation use
+> **bpftime**: A new approach to userspace extensions  
+- Combines strengths from both worlds:  
+  - **eBPF's** verification and performance  
+  - **Wasm-like** interface flexibility
 
-"In conclusion, bpftime is a new approach to userspace eBPF that combines the safety and performance of kernel-level eBPF with the flexibility of userspace extensions. It's a path forward for developers and administrators alike, enabling highly customized, performant, and secure applications."
+**Enables:**
+- High-performance extensions  
+- Fine-grained safety controls  
+- Compatibility with existing **eBPF ecosystem**
+
+> To wrap up, let me leave you with the key takeaways from this talk.
+>
+> bpftime represents a new approach to userspace extensions that combines the strengths of both eBPF and WebAssembly worlds. From eBPF, it takes the load-time verification approach and performance focus. From WebAssembly, it takes the flexible interface model and capability-based security.
+>
+> This combination enables high-performance extensions with fine-grained safety controls, all while maintaining compatibility with the existing eBPF ecosystem. This means you can leverage your existing eBPF knowledge and tools while gaining the benefits of userspace execution.
+>
+> We believe this approach addresses the fundamental tension between interconnectedness, safety, and efficiency that we discussed at the beginning. By providing a structured way to define and enforce capabilities, bpftime allows you to give extensions exactly the access they need - no more, no less - while maintaining high performance.
+>
+> Thank you for your attention, and I look forward to your questions!
