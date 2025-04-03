@@ -257,7 +257,6 @@ world proxy {
 >
 > This is powerful because it allows eBPF programs to extend kernel functionality in ways that were previously only possible with kernel modules, but with the safety guarantees of eBPF. The kernel can call into these eBPF implementations just like it would call into native kernel functions.
 
-
 ### Slide 14: eBPF Interface - `kfunc`
 
 **[VISUAL: Code example showing kfunc definition and registration with flags]**
@@ -378,35 +377,148 @@ Extension_Entry(
 > The key innovation here is that we're applying eBPF's verification approach to userspace extensions, with a more structured interface model inspired by Wasm's component model. This gives us the best of both worlds - the performance of load-time verification with the flexibility of a rich interface system.
 
 
-> EIM’s constraints can encode binary relationships between arguments and return values, high-level semantic facts, and boolean operators over other constraints. EIM’s high-level facts include allocation facts indicating that a function’s return was allocated, IO facts indicating that the function requires the capability to perform IO, annotation facts that indicate a relationship between arguments equivalent to those that linux provides through current eBPF annotations, and read/write facts indicating that the caller must hold read/write capabilities for a specified field within a function argument. UserBPF converts binary relationships and boolean logic into C-style assert statements and the annotation facts into BTF. It uses the kernel eBPF verifier’s tag support to implement allocation facts and manually implements checks for IO facts.
+> EIM's constraints can encode binary relationships between arguments and return values, high-level semantic facts, and boolean operators over other constraints. EIM's high-level facts include allocation facts indicating that a function's return was allocated, IO facts indicating that the function requires the capability to perform IO, annotation facts that indicate a relationship between arguments equivalent to those that linux provides through current eBPF annotations, and read/write facts indicating that the caller must hold read/write capabilities for a specified field within a function argument. UserBPF converts binary relationships and boolean logic into C-style assert statements and the annotation facts into BTF. It uses the kernel eBPF verifier's tag support to implement allocation facts and manually implements checks for IO facts.
 
-### Slide 18: bpftime: EIM's Efficient Runtime Implementation
+### Slide 18: bpftime – Userspace eBPF runtime
 
-**[VISUAL: Architecture diagram showing how bpftime implements EIM principles]**
+**[VISUAL: Architecture diagram showing bpftime as a bridge between userspace applications and kernel eBPF]**
 
-- bpftime: Our userspace eBPF runtime that implements EIM
-- Key features:
-  - Brings eBPF concepts fully into userspace
-  - Uses eBPF verifier for load-time safety checks
-  - Near-native performance without kernel traps
-  - Compatible with kernel eBPF ecosystem
-  - Supports 10+ map types and 30+ helpers
-  - **Automatic safety verification without developer effort**:
-    - No manual bounds checking
-    - No custom sandboxing code
-    - No performance-costly runtime checks
+> We build the EIM model on **bpftime**, make it an extension framework:
+- A userspace eBPF runtime compatible with kernel
+- Support **Uprobe** / **USDT** / **syscall tracepoints** / **XDP** and other eBPF features in userspace
+- 10+ map types and 30+ helpers support
+- Run together with kernel eBPF
+- The VM inside: **ubpf** or **llvm-bpf** (bpftime is a runtime, not just a simple VM like ubpf or rbpf)
 
-> Now, let's talk about bpftime, which is our concrete implementation of the EIM principles. bpftime is a userspace eBPF runtime that supports tracing features like Uprobe, USDT, syscall tracepoints, and even network features like XDP, all in userspace. 
+📎 GitHub: [https://github.com/eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime)
+
+> Now, let's talk about bpftime, which is our concrete implementation of the EIM principles. bpftime is a userspace eBPF runtime that we've been developing for over two years.
 >
-> It supports more than 10 map types and 30 helpers, so it's highly compatible with the kernel eBPF ecosystem. It builds on top of eBPF concepts but brings them fully into user-space. bpftime uses the same verification and safety guarantees as kernel-level eBPF, ensuring that an extension can't step outside its defined boundaries. Plus, it leverages modern hardware isolation features (like Intel's Memory Protection Keys—MPK) to give near-native performance without the heavyweight overhead of context switches or traps that traditional solutions like uprobes suffer from.
+> What makes bpftime special is that it's not just a simple virtual machine like some other userspace eBPF implementations. It's a complete runtime that supports the full range of eBPF features in userspace, including Uprobes for function tracing, USDT for static tracepoints, syscall tracepoints, and even XDP for network processing.
 >
-> A key advantage of bpftime is that neither extension developers nor host application developers need to implement manual safety checks. The verifier automatically ensures memory safety, prevents infinite loops, and enforces capability restrictions. This eliminates an entire class of security vulnerabilities that have historically plagued extension systems, where manually implemented safety checks had flaws or were forgotten entirely.
+> bpftime is designed to work alongside kernel eBPF, not replace it. You can use kernel eBPF for some tasks and bpftime for others, or even have them work together on the same workload. This gives you the flexibility to choose the right approach for each part of your application.
 >
-> You can use your familiar way to develop and deploy eBPF programs, but in userspace. bpftime can run alongside kernel eBPF, using kernel eBPF maps and working together with kprobe.
->
-> We started developing bpftime 2 years ago, and adapted it to efficiently enforce these permissions from the EIM model this year.
+> Under the hood, bpftime can use different eBPF virtual machines like ubpf or llvm-bpf, giving you options depending on your performance and compatibility needs.
 
-### Slide 19: bpftime for Observability
+### Slide 19: Current support features
+
+**[VISUAL: Feature matrix showing supported map types and program types]**
+
+**Userspace eBPF shared memory map types:**
+- `BPF_MAP_TYPE_HASH`
+- `BPF_MAP_TYPE_ARRAY`
+- `BPF_MAP_TYPE_PROG_ARRAY`
+- `BPF_MAP_TYPE_RINGBUF`
+- `BPF_MAP_TYPE_PERF_EVENT_ARRAY`
+- `BPF_MAP_TYPE_PERCPU_ARRAY`
+- `BPF_MAP_TYPE_PERCPU_HASH`
+- ...
+
+**User-kernel shared maps:**
+- `BPF_MAP_TYPE_HASH`
+- `BPF_MAP_TYPE_ARRAY`
+- `BPF_MAP_TYPE_PERCPU_ARRAY`
+- `BPF_MAP_TYPE_PERF_EVENT_ARRAY`
+- ...
+
+**Program types attachable in userspace:**
+- `tracepoint:raw_syscalls:sys_enter`
+- `tracepoint:syscalls:sys_exit_*`
+- `tracepoint:syscalls:sys_enter_*`
+- `uretprobe:*`
+- `uprobe:*`
+- `usdt:*`
+- `xdp`
+- GPUs via dynamic PTX injection
+
+**Other capabilities:**
+- Define static tracepoints and prog types in userspace apps
+- ~30 kernel helper functions and **ufunc** (similar to `kfunc`)
+- Kernel or userspace verifier supported
+- JIT tested with `bpf_conformance`
+- **Automatic safety verification without developer effort**:
+  - No manual bounds checking
+  - No custom sandboxing code
+  - No performance-costly runtime checks
+
+> here is a table of the support features of eBPF in bpftime. One of our longtime goals was to maintain compatibility with the kernel eBPF ecosystem, so we've implemented a wide range of map types and program types.
+>
+> For maps, which are the data structures eBPF programs use to store and share data, we support all the common types like hash maps, arrays, ring buffers, and perf event arrays. These can be shared between different userspace eBPF programs, and some can even be shared between userspace and kernel eBPF programs.
+>
+> For program types, we support the full range of userspace tracing mechanisms, including function entry and exit points (uprobes and uretprobes), static tracepoints (USDT), syscall tracepoints, and even XDP for network processing. We've even extended support to GPUs through dynamic PTX injection.
+>
+> Beyond these core features, bpftime offers several additional capabilities that make it a powerful platform for userspace extensions. You can define your own static tracepoints and program types in userspace applications, similar to how the kernel defines them. We've implemented about 30 kernel helper functions and added support for ufuncs, which are similar to kernel kfuncs but for userspace.
+>
+> A key advantage of bpftime is that neither extension developers nor host application developers need to implement manual safety checks. The verifier automatically ensures memory safety, prevents infinite loops, and enforces capability restrictions. This eliminates an entire class of security vulnerabilities that have historically plagued extension systems.
+
+### Slide 20: bpftime Design
+
+**[VISUAL: Architecture diagram showing components and data flow]**
+
+> White components are from **eBPF**; orange components are new to **bpftime**.  
+Blue arrows: compiling/loading flow  
+Green arrows: runtime execution  
+White arrows (black border): interact with eBPF maps
+
+**Diagram Components:**
+- eBPF compiler → eBPF bytecode
+- bpftime Loader: Binary Rewriter, JIT Compiler, Verifier, Syscall Interposition
+- Target Process:
+  - bpftime user runtime
+  - eBPF maps
+  - hooks: `uprobe`, `userspace tracepoint`, `syscall tracepoint`
+- Kernel side:
+  - eBPF runtime
+  - `tracepoint`, `kprobe`, `socket`
+
+> This diagram shows the architecture of bpftime and how it fits into the overall eBPF ecosystem. The white components are standard eBPF components, while the orange ones are new additions from bpftime.
+>
+> The flow starts with the eBPF compiler, which generates eBPF bytecode just like it would for kernel eBPF. This bytecode is then processed by the bpftime loader, which includes several key components:
+>
+> - A binary rewriter that can dynamically inject hooks into running applications
+> - A JIT/AOT compiler that translates eBPF bytecode to native machine code for performance
+> - A verifier that ensures the eBPF program is safe to run
+> - Syscall interposition to intercept and handle eBPF-related system calls
+>
+> Once loaded, the eBPF program runs in the target process using the bpftime user runtime. It can interact with eBPF maps, both in userspace and shared with the kernel, and can hook into various points in the application through uprobes, userspace tracepoints, and syscall tracepoints.
+>
+> This architecture allows bpftime to provide the same capabilities as kernel eBPF, but in userspace, with better performance and without requiring kernel privileges.
+
+### Slide 21: Get Started
+
+**[VISUAL: Command line example with output]**
+
+- Use `uprobe` to monitor `malloc` in `libc`, with hash maps in userspace
+- Try eBPF in GitHub Codespaces (**unprivileged container**)
+
+```bash
+# Build and load eBPF program
+make -C example/malloc
+export PATH=$PATH:~/.bpftime/
+bpftime load ./example/malloc/malloc
+```
+
+```bash
+# Run the instrumented target
+bpftime start ./example/malloc/victim
+
+Hello malloc!
+malloc called from pid 250215
+continue malloc...
+malloc called from pid 250215
+```
+
+> Let me show you how easy it is to get started with bpftime. Here's a simple example that uses uprobes to monitor malloc calls in libc.
+>
+> First, you build and load the eBPF program using the bpftime CLI. Then, you can run your target application with bpftime, and it will automatically instrument the application to trace malloc calls.
+>
+> What's particularly exciting is that you can run this in unprivileged containers, like GitHub Codespaces. Traditional kernel eBPF requires root privileges, but bpftime works entirely in userspace, so you can use it in environments where you don't have kernel access.
+>
+> This makes bpftime ideal for development, testing, and educational purposes, as well as for production environments where kernel access is restricted.
+>
+> Now, let's look at some specific use cases and performance benchmarks to see how bpftime performs in real-world scenarios.
+
+### Slide 22: bpftime for Observability
 
 **[VISUAL: Performance comparison chart showing kernel vs userspace tracing latency]**
 
@@ -429,7 +541,7 @@ Extension_Entry(
 >
 > With userspace tracing, tools like **bcc** and **bpftrace** can run completely in userspace where kernel eBPF is not available. And you can run more complex observability agents that combine kprobes and uprobes, improving performance by shifting part of the workload to userspace.
 
-### Slide 20: bpftime for Userspace Networking
+### Slide 23: bpftime for Userspace Networking
 
 **[VISUAL: Diagram showing bpftime integration with kernel-bypass technologies like DPDK and AF_XDP]**
 
@@ -448,7 +560,7 @@ Extension_Entry(
 >
 > We can also use **LLVM optimizations** to further boost performance in userspace.
 
-### Slide 21: bpftime with Userspace Network Integration
+### Slide 24: bpftime with Userspace Network Integration
 
 **[VISUAL: Architecture diagram showing XDP program flow in userspace with bpftime]**
 
@@ -468,7 +580,7 @@ Extension_Entry(
 >
 > Right now, there are some limitations with **XDP_TX** (packet transmission) and **XDP_DROP** (packet dropping) in userspace, but we're actively working on solutions. We're exploring ways to reinject packets into the kernel to support **XDP_PASS** (passing packets to the network stack).
 
-### Slide 22: Performance Benchmarks
+### Slide 25: Performance Benchmarks
 
 **[VISUAL: Bar charts comparing performance metrics between kernel eBPF and bpftime]**
 
@@ -487,7 +599,7 @@ like Katran, bpftime can acheive up to  **40% faster**.
 
 This shows that userspace eBPF can be fasyer kernel-based solutions, while retaining the flexibility that makes eBPF powerful."
 
-### Slide 23: Conclusion
+### Slide 26: Conclusion
 
 **[VISUAL: Summary diagram showing bpftime bridging eBPF and Wasm approaches with key benefits highlighted]**
 
