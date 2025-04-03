@@ -95,6 +95,15 @@ eBPF and Wasm: Unifying Userspace Extensions With Bpftime
   - ✅ Strong isolation
   - ❌ High overhead from context switches
 
+### **Limitations of Existing Extension Frameworks**
+
+| **Approach**             | **Example(s)**                                                                 | **Strengths**                                             | **Limitations**                                                                                                                                                     |
+|--------------------------|--------------------------------------------------------------------------------|------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Native Execution**     | `LD_PRELOAD`, `nginx dynamic modules`, `GDB-style instrumentation`            | ✅ High performance<br>✅ Simple integration                | ❌ No isolation between host and extension<br>❌ No fine-grained safety/interconnectedness control<br>❌ Extension crash = app crash                                 |
+| **SFI-based Tools**      | `WebAssembly`, `Lua`, `NaCl`, `RLBox`, `XFI`                                  | ✅ Software fault isolation<br>✅ Some cross-platform use   | ❌ Runtime overhead<br>❌ Coarse or no safety/interconnectedness interface<br>❌ Relies on manual host-side checks (often buggy)                                     |
+| **Subprocess Isolation** | `Wedge`, `Shreds`, `lwC`, `Orbit`                                             | ✅ Strong isolation<br>✅ Host can't modify extension state | ❌ Context switch overhead<br>❌ Some (like lwC, Shreds) lack per-extension control<br>❌ Others (like Orbit) require host source code changes to support tradeoffs  |
+| **eBPF Uprobes**         | `eBPF-based user-space tracing (e.g., perf, bcc tools)`                        | ✅ Safe execution<br>✅ Existing eBPF ecosystem compatible   | ❌ No fine-grained control over extension capabilities<br>❌ Each extension call triggers a kernel trap → **inefficient for high-frequency hooks**                   |
+
 > So, how have engineers traditionally tried to deal with this balance?
 >
 > We've tried many things. Early on, we used dynamically loadable modules—shared libraries, DLLs, LD_PRELOAD hacks. They're great for speed and flexibility. But they have virtually no isolation. A bug in a dynamically-loaded module is a bug in your entire application. There's no safety boundary.
