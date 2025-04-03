@@ -81,21 +81,29 @@ eBPF and Wasm: Unifying Userspace Extensions With Bpftime
 >
 > But achieving isolation isn't easy. There's always a tradeoff. If you isolate too strictly, you lose expressiveness—extensions become so limited they're no longer useful. If you're too loose, bugs or malicious code can harm your system.
 
-### Slide 6: Traditional Extension Approaches
+### Slide 6: Three Core Requirements for Extension Frameworks
 
-**[VISUAL: Spectrum showing different approaches with isolation vs performance tradeoffs]**
+**[VISUAL: Triangle diagram with "Interconnectedness," "Safety," and "Efficiency" at the corners, showing the tension between them]**
 
-- **Dynamic Loading**: Shared libraries, DLLs, LD_PRELOAD
-  - ✅ Fast and flexible
-  - ❌ Minimal isolation, no safety boundary
-- **Scripting Languages**: Lua, Python
-  - ✅ Easy integration
-  - ❌ Safety depends on host implementation
-- **Process-Level Isolation**: Subprocesses, API calls
-  - ✅ Strong isolation
-  - ❌ High overhead from context switches
+- **Interconnectedness**: Extension's ability to interact with host
+  - Reading data, modifying state, calling internal functions
+  - Example: nginx extension reading request details
+- **Safety**: Limiting extensions' ability to harm the application
+  - Memory safety, control flow restrictions, resource limits
+- **Efficiency**: Performance impact on the system
+- **The Fundamental Tension**: More interconnectedness typically means less safety
 
-### **Limitations of Existing Extension Frameworks**
+> As we can see from these real-world failures, there are three core requirements for extension frameworks: **interconnectedness**, **safety** and **efficiency**. 
+>
+> First, what do I mean by interconnectedness? Simply put, interconnectedness is how much power we give an extension to interact with the host application. Extensions need to do something meaningful—they need to read data, modify state, or call existing functions inside the application. For example, a security extension for nginx needs to read request details and potentially block suspicious requests.
+>
+> Safety is how much we limit an extension's ability to harm the main application. If there's a bug in your extension, this bug shouldn't crash your whole web server or compromise your entire application. Without safety boundaries, a single small mistake in an extension could take down a production system or open security vulnerabilities—exactly what happened in those real-world examples I just mentioned.
+>
+> Efficiency is about performance—how much overhead the extension framework adds to your application.
+>
+> The key challenge is that interconnectedness and safety are fundamentally at odds. The more interconnectedness you allow, the less inherently safe it becomes. To keep things perfectly safe, you have to restrict interconnectedness, which limits extension usefulness. Balancing this tension while maintaining efficiency is what makes extension frameworks so challenging to design.
+
+### Slide 7: Limitation of Extension Framework
 
 | **Approach**             | **Example(s)**                                                                 | **Strengths**                                             | **Limitations**                                                                                                                                                     |
 |--------------------------|--------------------------------------------------------------------------------|------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -104,42 +112,57 @@ eBPF and Wasm: Unifying Userspace Extensions With Bpftime
 | **Subprocess Isolation** | `Wedge`, `Shreds`, `lwC`, `Orbit`                                             | ✅ Strong isolation<br>✅ Host can't modify extension state | ❌ Context switch overhead<br>❌ Some (like lwC, Shreds) lack per-extension control<br>❌ Others (like Orbit) require host source code changes to support tradeoffs  |
 | **eBPF Uprobes**         | `eBPF-based user-space tracing (e.g., perf, bcc tools)`                        | ✅ Safe execution<br>✅ Existing eBPF ecosystem compatible   | ❌ No fine-grained control over extension capabilities<br>❌ Each extension call triggers a kernel trap → **inefficient for high-frequency hooks**                   |
 
-> So, how have engineers traditionally tried to deal with this balance?
+> Let's look at how existing extension frameworks try to balance these three requirements, and where they fall short.
 >
-> We've tried many things. Early on, we used dynamically loadable modules—shared libraries, DLLs, LD_PRELOAD hacks. They're great for speed and flexibility. But they have virtually no isolation. A bug in a dynamically-loaded module is a bug in your entire application. There's no safety boundary.
+> Native execution approaches like LD_PRELOAD and nginx dynamic modules offer excellent performance and simple integration. But they provide virtually no isolation—a bug in a dynamically-loaded module crashes your entire application. There's no safety boundary and no fine-grained control over what extensions can access.
 >
-> Later, people adopted scripting languages like Lua and Python for extensions. Languages like Lua are still hugely popular because they're easy to integrate and relatively safe. Redis and nginx are good examples here. But Lua scripts have their own challenges. They rely heavily on the host application to provide security boundaries, which means if the host makes a mistake—maybe not checking array bounds correctly or missing resource limits—the safety promise falls apart. And as we've seen from real incidents, host applications frequently get this wrong.
+> Software Fault Isolation (SFI) tools like WebAssembly and Lua provide better isolation through runtime checks. But they introduce performance overhead from these checks and boundary crossings. They also often rely on the host application to implement security boundaries correctly, which as we've seen from Redis and Apache incidents, is error-prone.
 >
-> A lot of extensions, especially in the cloud-native space, are integrated through process level isolation, such as subprocesses or API calls. They use OS context switches, adding microseconds of overhead—which is OK for distributed systems, but not for performance-critical applications.
+> Subprocess isolation approaches like Wedge and Shreds offer strong isolation by running extensions in separate processes. But they suffer from context switch overhead, making them too slow for performance-critical applications. Some lack per-extension control, while others require significant changes to the host application.
 >
-> Wasm and eBPF are two popular extension frameworks that have been around for a while. Let's take a look at how they handle the balance between interconnectedness and safety.
+> Even eBPF-based userspace tracing, while providing safe execution and compatibility with the eBPF ecosystem, has limitations. Current implementations lack fine-grained control over extension capabilities, and each extension call requires a costly kernel trap, making them inefficient for high-frequency hooks.
+>
+> None of these approaches fully satisfies all three requirements of interconnectedness, safety, and efficiency. They all make different tradeoffs, typically sacrificing one requirement to strengthen another.
 
-### Slide 7: WebAssembly for Extensions (SFI approach)
+### Slide 8: WebAssembly vs eBPF for Extensions
 
-**[VISUAL: Diagram showing Wasm sandbox with import/export boundaries between host and extension]**
+**[VISUAL: Side-by-side comparison showing Wasm SFI approach on left and eBPF verifier approach on right]**
 
-- Software fault isolation (SFI) provides strong security
+**WebAssembly (SFI approach)**:
+- Software fault isolation provides strong security
 - Explicit import/export mechanisms for host communication
 - Benefits:
   - Strong memory isolation
   - Cross-platform compatibility
-  - Growing ecosystem
-  - Reduces need for manual safety checks in extensions
-- Limitations:
-  - Heavyweight for thousands of small extensions
-  - Communication overhead between extension and host
-  - Complex interface management
-  - Host application still needs careful API design
+  - Reduces need for manual safety checks
 
-> Then WebAssembly (or Wasm) came along, promising much better isolation and performance. Wasm uses software fault isolation techniques, which means it's safer because it doesn't blindly trust the extension code. That's why many modern browsers and even server-side applications are moving towards Wasm.
->
-> One significant benefit of Wasm is that it reduces the need for extension developers to implement their own safety checks - the runtime handles memory isolation automatically. However, the host application still needs to carefully design its API to prevent security issues when extensions interact with it.
->
-> But Wasm introduces another issue—the interfaces between extensions and hosts. Wasm needs explicit import/export mechanisms to talk to the host application, and managing this communication can be tricky. It's powerful, but it's still heavyweight, especially if you're running thousands of little extensions or making frequent calls back and forth.
->
-> What do I mean by "heavyweight"? Every time a Wasm module needs to access host functionality, it must cross the sandbox boundary. This involves marshaling data between the Wasm environment and host, which adds overhead. For applications that need frequent host interactions, these costs add up quickly.
+**eBPF (Verifier approach)**:
+- Load-time verification through static analysis
+- Helper functions and maps for host interaction
+- Benefits:
+  - No runtime overhead after verification
+  - Automatic instrumentation
+  - Performance-first design
 
-### Slide 8: eBPF for Extensions
+**Common limitations**:
+- Wasm: Runtime overhead from boundary crossing
+- eBPF: Traditionally limited to kernel, userspace requires kernel traps
+
+> Let's compare how WebAssembly and eBPF approach the extension challenge.
+>
+> WebAssembly uses software fault isolation techniques, which means it's safer because it doesn't blindly trust the extension code. Wasm reduces the need for extension developers to implement their own safety checks - the runtime handles memory isolation automatically. However, the host application still needs to carefully design its API to prevent security issues.
+>
+> Every time a Wasm module needs to access host functionality, it must cross the sandbox boundary, which involves marshaling data between environments, adding overhead. The Wasm community has been working on the Component Model to standardize these interfaces, making extensions more portable and easier to reason about.
+>
+> In contrast, eBPF uses a verifier to analyze programs before they run, checking all possible execution paths to ensure memory safety and prevent infinite loops. This shifts safety checks from runtime to load-time, eliminating runtime overhead once the program is loaded.
+>
+> eBPF programs interact with the host through predefined helper functions and map structures. The kernel eBPF community has been extending these interfaces with struct_ops and kfuncs to provide more flexible ways for extensions to interact with the kernel.
+>
+> For userspace tracing, eBPF leverages mechanisms like uprobes and USDT probes, but these require costly kernel traps. Every time a userspace extension runs, it triggers a context switch into the kernel, runs the extension, and switches back.
+>
+> Both approaches have their strengths, but also limitations. What if we could combine eBPF's load-time verification with efficient userspace execution? That's where our approach comes in.
+
+### Slide 9: eBPF for Extensions
 
 **[VISUAL: Architecture diagram showing eBPF in kernel space with verifier, JIT compiler, and hooks into various subsystems]**
 
@@ -158,30 +181,6 @@ eBPF and Wasm: Unifying Userspace Extensions With Bpftime
 > But eBPF is not limited to kernel. For userspace tracing, eBPF leverages mechanisms like uprobes (dynamic function instrumentation) and USDT probes (User Statically-Defined Tracing points). These probes eliminate the need for manual instrumentation - developers don't need to modify their application code to enable tracing. Uprobes can dynamically instrument any function in userspace programs, while USDT provides static tracepoints that are more efficient but require compile-time integration. This automatic instrumentation capability makes eBPF powerful for observability without requiring changes to the target application.
 >
 > Compared with Wasm, eBPF has a history of focusing on performance first, which led to the design of using a verifier to check the safety of the extension at load time, instead of runtime checking or SFI (software fault isolation) like Wasm.
-
-### Slide 9: Three Core Requirements for Extension Frameworks
-
-**[VISUAL: Triangle diagram with "Interconnectedness," "Safety," and "Efficiency" at the corners, showing the tension between them]**
-
-- **Interconnectedness**: Extension's ability to interact with host
-  - Reading data, modifying state, calling internal functions
-  - Example: nginx extension reading request details
-- **Safety**: Limiting extensions' ability to harm the application
-  - Memory safety, control flow restrictions, resource limits
-- **Efficiency**: Performance impact on the system
-- **The Fundamental Tension**: More interconnectedness typically means less safety
-
-> As we can see, there are three core requirements for extension frameworks: **interconnectedness**, **safety** and **efficiency**. Efficiency is easy to understand, it's about performance. Let's dive deeper into the core issue we're really focusing on today—this fundamental tension between **interconnectedness** and **safety**. This is what we think makes software extensions challenging, and also why getting the interface right is so hard, yet so important.
->
-> So, first off, what do I mean by interconnectedness? Simply put, interconnectedness is how much power we give an extension to interact with the host application. Think of it like this: extensions usually need to do something meaningful—they're not just isolated pieces of code floating around. They actually need to communicate with the main application to read data, modify state, or even call existing functions inside the application. For example, let's say you have an nginx web server. An extension that monitors web requests for security needs to read the request details from the host application. It might also need to call a built-in nginx function to quickly respond or block a suspicious request. This is interconnectedness—extensions working directly with the application's resources or calling its internal functions.
->
-> On the flip side, safety is how much we limit an extension's ability to interact with or alter the main application. Safety means that if there's a bug in your extension—let's face it, we all write buggy code sometimes—this bug won't crash your whole web server or compromise your entire application. If we didn't care about safety, extensions could freely do whatever they wanted—read or write any memory, call any function, open files they shouldn't, or even alter sensitive configuration data. Obviously, this would be a recipe for disaster. A single small mistake in an extension could take down a whole production system or open it up to security vulnerabilities. And trust me, that has happened many times before. Like that time Bilibili's nginx extensions got into a loop and brought their production servers offline, causing a major outage.
->
-> So here's the key issue: interconnectedness and safety are fundamentally at odds. The more interconnectedness you allow—the more you let extensions interact with the host—the less inherently safe it becomes. And vice versa: to keep things perfectly safe, you have to restrict interconnectedness. And that means extensions become severely limited in their usefulness. You can't have an effective firewall extension if you don't allow it to inspect web requests. You can't meaningfully monitor performance if your monitoring extension can't read internal state from the host application. So, balancing this tension is a core challenge.
->
-> Now, historically, software frameworks have not handled this tradeoff very well. Usually, they fall into one of two extremes. Either they allow too much interconnectedness, like dynamically loaded modules—these run fast, sure, but they provide almost no safety at all. One bug and your entire application crashes. Or, on the other extreme, they provide strong safety through heavy isolation, like sandboxed scripting environments or subprocess isolation methods. But these can cripple interconnectedness and performance—extensions often become slow and limited in what they can do.
->
-> So, what we've found is that the key to managing this tension—this interconnectedness versus safety tradeoff—is the interface we choose for extensions. If your extension framework's interface can carefully define and verify exactly which resources and functions an extension can use, you can precisely manage this tension. Ideally, you give the extension just enough interconnectedness to do its job—but absolutely no more. This sounds simple, but current systems struggle to achieve this.
 
 ### Slide 10: WebAssembly Component Model - Overview
 
