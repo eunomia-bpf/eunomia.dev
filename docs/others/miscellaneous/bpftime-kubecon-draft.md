@@ -727,3 +727,22 @@ Checkout our coming papers for more detail
 > By providing a structured way to define and enforce capabilities, bpftime allows you to give extensions exactly the access they need - no more, no less - while maintaining high performance.
 >
 > Thank you for your attention!
+
+Hi Ryan,
+
+Thanks for being our shepherd! We are proposing the following improvements to the paper. Our proposed timeline is to send the first draft on May 15, is that enough time for you?
+
+1. Name change: We will modify the UserBPF name to be bpftime and include links to our public project
+2. Quantitative comparison to prior work: We will implement the nginx plugin use case using three baseline strategies, direct code modification, RLBox, and ERIM, to show how bpftime compares in performance to these prior tools
+3. Performance Breakdown: We will create an ablation study to evaluate the key aspects of bpftime’s overhead.
+4. Clarify Usage and Threat Model: Incorporate the language from the rebuttal in terms of principles, isolation requirements, etc.
+5. Refine Motivation: We will include the browser extension examples from the rebuttal in the motivation section and in addition to other case studies.
+6. Clarify EIM Specification: We will provide additional EIM details as described in the rebuttal.
+7. Clarify Novelty: We will clarify the EIM and UserBPF novelty as described in the rebuttal.
+8. Clarify security implications: We will add a discussion of UserBPF’s vulnerability to known MPK syscall-based attacks and articulate how we could solve them.
+9. Typos: We will address all general types and other clarity issues discussed in the reviews.
+
+Please let us know if the proposed timeline works for you or if there’s anything else you'd like us to consider.
+
+Best,
+Yusheng
