@@ -1964,15 +1964,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#learning-objectives" class="md-nav__link">
-    <span class="md-ellipsis">
-      Learning Objectives
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#next-steps" class="md-nav__link">
     <span class="md-ellipsis">
       Next Steps
@@ -1987,57 +1978,6 @@
       References
     </span>
   </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#benchmarking-tracing-overhead" class="md-nav__link">
-    <span class="md-ellipsis">
-      Benchmarking Tracing Overhead
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Benchmarking Tracing Overhead">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-benchmark-tool" class="md-nav__link">
-    <span class="md-ellipsis">
-      The Benchmark Tool
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#running-the-benchmark" class="md-nav__link">
-    <span class="md-ellipsis">
-      Running the Benchmark
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#interpreting-the-results" class="md-nav__link">
-    <span class="md-ellipsis">
-      Interpreting the Results
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#optimization-opportunities" class="md-nav__link">
-    <span class="md-ellipsis">
-      Optimization Opportunities
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -5566,15 +5506,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#learning-objectives" class="md-nav__link">
-    <span class="md-ellipsis">
-      Learning Objectives
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#next-steps" class="md-nav__link">
     <span class="md-ellipsis">
       Next Steps
@@ -5589,57 +5520,6 @@
       References
     </span>
   </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#benchmarking-tracing-overhead" class="md-nav__link">
-    <span class="md-ellipsis">
-      Benchmarking Tracing Overhead
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Benchmarking Tracing Overhead">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-benchmark-tool" class="md-nav__link">
-    <span class="md-ellipsis">
-      The Benchmark Tool
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#running-the-benchmark" class="md-nav__link">
-    <span class="md-ellipsis">
-      Running the Benchmark
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#interpreting-the-results" class="md-nav__link">
-    <span class="md-ellipsis">
-      Interpreting the Results
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#optimization-opportunities" class="md-nav__link">
-    <span class="md-ellipsis">
-      Optimization Opportunities
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -6065,15 +5945,6 @@
 <li><code>-p PATH</code>: Specify the path to the CUDA runtime library or application</li>
 <li><code>-d PID</code>: Trace only the specified process ID</li>
 </ul>
-<h2 id="learning-objectives">Learning Objectives</h2>
-<p>Through this tutorial, you'll learn:</p>
-<ol>
-<li>How CUDA applications interact with GPUs through the CUDA runtime API</li>
-<li>How to use eBPF uprobes to trace user-space libraries</li>
-<li>How to design efficient data structures for kernel-to-user communication</li>
-<li>How to process and display traced events in a user-friendly format</li>
-<li>How to filter events by process ID for focused debugging</li>
-</ol>
 <h2 id="next-steps">Next Steps</h2>
 <p>Once you're comfortable with this basic CUDA tracing tool, you could extend it to:</p>
 <ol>
@@ -6083,6 +5954,7 @@
 <li>Create visualizations of CUDA operations for easier analysis</li>
 <li>Add support for other GPU frameworks like OpenCL or ROCm</li>
 </ol>
+<p>For more detail about the cuda example and tutorial, you can checkout out repo and the code in <a href="https://github.com/eunomia-bpf/basic-cuda-tutorial">https://github.com/eunomia-bpf/basic-cuda-tutorial</a></p>
 <h2 id="references">References</h2>
 <ul>
 <li>CUDA Programming Guide: https://docs.nvidia.com/cuda/cuda-c-programming-guide/</li>
@@ -6090,63 +5962,6 @@
 <li>libbpf Documentation: https://libbpf.readthedocs.io/</li>
 <li>Linux uprobes Documentation: https://www.kernel.org/doc/Documentation/trace/uprobetracer.txt</li>
 </ul>
-<h2 id="benchmarking-tracing-overhead">Benchmarking Tracing Overhead</h2>
-<p>While tracing is an invaluable tool for debugging and understanding CUDA applications, it does introduce some overhead. We've included a benchmarking tool to help you measure this overhead.</p>
-<h3 id="the-benchmark-tool">The Benchmark Tool</h3>
-<p>The <code>bench.cu</code> program performs several CUDA operations repeatedly and measures their execution time:</p>
-<ol>
-<li>Memory allocation (<code>cudaMalloc</code>)</li>
-<li>Memory transfers (host to device and device to host)</li>
-<li>Kernel launches</li>
-<li>Memory deallocation (<code>cudaFree</code>)</li>
-<li>Full operations (the complete sequence)</li>
-</ol>
-<p>Each operation is executed many times to get statistically significant results, and the average time per operation is reported in microseconds.</p>
-<h3 id="running-the-benchmark">Running the Benchmark</h3>
-<p>To build the benchmark tool:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>make<span class="w"> </span>bench
-</code></pre></div>
-<p>To run a complete benchmark that compares performance with and without tracing:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>make<span class="w"> </span>benchmark
-</code></pre></div>
-<p>This will run the benchmark twice:
-1. First without any tracing
-2. Then with the CUDA events tracer attached</p>
-<p>You can also run individual benchmarks:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="c1"># Without tracing</span>
-<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>make<span class="w"> </span>benchmark-no-trace
-<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>
-<a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a><span class="c1"># With tracing</span>
-<a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a>make<span class="w"> </span>benchmark-with-trace
-</code></pre></div>
-<h3 id="interpreting-the-results">Interpreting the Results</h3>
-<p>The benchmark output shows the average time for each CUDA operation in microseconds. Compare the times with and without tracing to understand the overhead.</p>
-<p>For example:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a># Without tracing
-<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>cudaMalloc         :      23.45 µs per operation
-<a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>cudaMemcpyH2D      :      42.67 µs per operation
-<a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a>cudaLaunchKernel   :      15.89 µs per operation
-<a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a>cudaMemcpyD2H      :      38.12 µs per operation
-<a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a>cudaFree           :      10.34 µs per operation
-<a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a>Full Operation     :     130.47 µs per operation
-<a id="__codelineno-33-8" name="__codelineno-33-8" href="#__codelineno-33-8"></a>
-<a id="__codelineno-33-9" name="__codelineno-33-9" href="#__codelineno-33-9"></a># With tracing
-<a id="__codelineno-33-10" name="__codelineno-33-10" href="#__codelineno-33-10"></a>cudaMalloc         :      25.12 µs per operation
-<a id="__codelineno-33-11" name="__codelineno-33-11" href="#__codelineno-33-11"></a>cudaMemcpyH2D      :      45.89 µs per operation
-<a id="__codelineno-33-12" name="__codelineno-33-12" href="#__codelineno-33-12"></a>cudaLaunchKernel   :      17.23 µs per operation
-<a id="__codelineno-33-13" name="__codelineno-33-13" href="#__codelineno-33-13"></a>cudaMemcpyD2H      :      41.56 µs per operation
-<a id="__codelineno-33-14" name="__codelineno-33-14" href="#__codelineno-33-14"></a>cudaFree           :      11.78 µs per operation
-<a id="__codelineno-33-15" name="__codelineno-33-15" href="#__codelineno-33-15"></a>Full Operation     :     141.58 µs per operation
-</code></pre></div>
-<p>In this example, tracing adds about 7-10% overhead to CUDA operations. This is typically acceptable for debugging and profiling purposes, but it's important to be aware of this impact when interpreting the results.</p>
-<h3 id="optimization-opportunities">Optimization Opportunities</h3>
-<p>If you find the tracing overhead too high for your use case, there are several ways to reduce it:</p>
-<ol>
-<li>Trace only specific CUDA functions that are relevant to your investigation</li>
-<li>Filter by specific process IDs to minimize the number of events captured</li>
-<li>Disable return probes using the <code>-r</code> flag if you don't need return values</li>
-<li>Consider running eBPF in user-space with tools like <a href="https://github.com/eunomia-bpf/bpftime">bpftime</a> to reduce context-switching overhead</li>
-</ol>
 <p>If you'd like to dive deeper into eBPF, check out our tutorial repository at https://github.com/eunomia-bpf/bpf-developer-tutorial or visit our website at https://eunomia.dev/tutorials/. </p>
 <p><a class="md-button" href="https://x.com/intent/tweet?text=eBPF%20Tutorial%3A%20Tracing%20CUDA%20GPU%20Operations%0A&amp;url=https://eunomia.dev/tutorials/47-cuda-events/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/tutorials/47-cuda-events/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
@@ -6172,7 +5987,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 24, 2025 10:15:26">May 24, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 24, 2025 10:24:33">May 24, 2025</span>
   </span>
 
     
