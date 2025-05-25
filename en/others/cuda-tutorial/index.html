@@ -16,7 +16,7 @@
         <link rel="prev" href="../usecases/">
       
       
-        <link rel="next" href="basic01/">
+        <link rel="next" href="01-vector-addition/">
       
       
       <link rel="icon" href="../../../assets/icon.svg">
@@ -1261,29 +1261,6 @@
   
   <span class="md-ellipsis">
     eBPF Practical Tutorial: Using eBPF to Trace Go Routine States
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../tutorials/32-http2/README.zh/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    trace http2 request in go
     
   </span>
   
@@ -4581,15 +4558,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#upcoming-mlai-gpu-tutorials" class="md-nav__link">
-    <span class="md-ellipsis">
-      Upcoming ML/AI GPU Tutorials
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -4606,7 +4574,7 @@
   
   
     <li class="md-nav__item">
-      <a href="basic01/" class="md-nav__link">
+      <a href="01-vector-addition/" class="md-nav__link">
         
   
   
@@ -4629,7 +4597,7 @@
   
   
     <li class="md-nav__item">
-      <a href="basic02/" class="md-nav__link">
+      <a href="02-ptx-assembly/" class="md-nav__link">
         
   
   
@@ -4652,7 +4620,7 @@
   
   
     <li class="md-nav__item">
-      <a href="basic03/" class="md-nav__link">
+      <a href="03-gpu-programming-methods/" class="md-nav__link">
         
   
   
@@ -4675,7 +4643,7 @@
   
   
     <li class="md-nav__item">
-      <a href="basic04/" class="md-nav__link">
+      <a href="04-gpu-architecture/" class="md-nav__link">
         
   
   
@@ -4698,7 +4666,7 @@
   
   
     <li class="md-nav__item">
-      <a href="basic05/" class="md-nav__link">
+      <a href="05-neural-network/" class="md-nav__link">
         
   
   
@@ -4721,7 +4689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="basic06/" class="md-nav__link">
+      <a href="06-cnn-convolution/" class="md-nav__link">
         
   
   
@@ -4744,12 +4712,81 @@
   
   
     <li class="md-nav__item">
-      <a href="basic07/" class="md-nav__link">
+      <a href="07-attention-mechanism/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     Attention Mechanism for Transformer Models with CUDA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="08-profiling-tracing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CUDA GPU Profiling and Tracing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="09-gpu-extension/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GPU Application Extension Mechanisms: Modifying Behavior Without Source Code Changes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="10-cpu-gpu-profiling-boundaries/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CPU and GPU Profiling Boundaries: What to Measure Where
     
   </span>
   
@@ -5214,15 +5251,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#upcoming-mlai-gpu-tutorials" class="md-nav__link">
-    <span class="md-ellipsis">
-      Upcoming ML/AI GPU Tutorials
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -5258,22 +5286,21 @@
 <h1 id="basic-cuda-tutorial">basic-cuda-tutorial</h1>
 <p>You can find the code in <a href="https://github.com/eunomia-bpf/basic-cuda-tutorial">https://github.com/eunomia-bpf/basic-cuda-tutorial</a></p>
 <p>A collection of CUDA programming examples to learn GPU programming with NVIDIA CUDA.</p>
-<p>make sure change the gpu architecture <code>sm_61</code> to your own gpu architecture in Makefile</p>
+<p>Make sure to change the gpu architecture <code>sm_61</code> to your own gpu architecture in Makefile</p>
 <h2 id="examples-and-tutorials">Examples and tutorials</h2>
 <ul>
-<li><strong>basic01.cu</strong> and <a href="basic01/">basic01.md</a>: Introduction to CUDA programming with a vector addition example</li>
-<li><strong>basic02.cu</strong> and <a href="basic02/">basic02.md</a>: Demonstration of CUDA PTX inline assembly with a vector multiplication example</li>
-<li><strong>basic03.cu</strong> and <a href="basic03/">basic03.md</a>: Comprehensive comparison of GPU programming methods including CUDA, PTX, Thrust, Unified Memory, Shared Memory, CUDA Streams, and Dynamic Parallelism using matrix multiplication</li>
-<li><strong>basic04.cu</strong> and <a href="basic04/">basic04.md</a>: Detailed exploration of GPU organization hierarchy including hardware architecture, thread/block/grid structure, memory hierarchy, and execution model</li>
-<li><strong>basic05.cu</strong> and <a href="basic05/">basic05.md</a>: Implementing a basic neural network forward pass on GPU with CUDA</li>
-<li><strong>basic06.cu</strong> and <a href="basic06/">basic06.md</a>: GPU-accelerated convolution operations for CNN with shared memory optimization</li>
-<li><strong>basic07.cu</strong> and <a href="basic07/">basic07.md</a>: CUDA implementation of attention mechanism for transformer models</li>
+<li><strong>01-vector-addition.cu</strong> and <a href="01-vector-addition/">01-vector-addition.md</a>: Introduction to CUDA programming with a vector addition example</li>
+<li><strong>02-ptx-assembly.cu</strong> and <a href="02-ptx-assembly/">02-ptx-assembly.md</a>: Demonstration of CUDA PTX inline assembly with a vector multiplication example</li>
+<li><strong>03-gpu-programming-methods.cu</strong> and <a href="03-gpu-programming-methods/">03-gpu-programming-methods.md</a>: Comprehensive comparison of GPU programming methods including CUDA, PTX, Thrust, Unified Memory, Shared Memory, CUDA Streams, and Dynamic Parallelism using matrix multiplication</li>
+<li><strong>04-gpu-architecture.cu</strong> and <a href="04-gpu-architecture/">04-gpu-architecture.md</a>: Detailed exploration of GPU organization hierarchy including hardware architecture, thread/block/grid structure, memory hierarchy, and execution model</li>
+<li><strong>05-neural-network.cu</strong> and <a href="05-neural-network/">05-neural-network.md</a>: Implementing a basic neural network forward pass on GPU with CUDA</li>
+<li><strong>06-cnn-convolution.cu</strong> and <a href="06-cnn-convolution/">06-cnn-convolution.md</a>: GPU-accelerated convolution operations for CNN with shared memory optimization</li>
+<li><strong>07-attention-mechanism.cu</strong> and <a href="07-attention-mechanism/">07-attention-mechanism.md</a>: CUDA implementation of attention mechanism for transformer models</li>
+<li><strong>08-profiling-tracing.cu</strong> and <a href="08-profiling-tracing/">08-profiling-tracing.md</a>: Profiling and tracing CUDA applications with CUDA Events, NVTX, and CUPTI for performance optimization</li>
+<li><strong>09-gpu-extension.cu</strong> and <a href="09-gpu-extension/">09-gpu-extension.md</a>: GPU application extension mechanisms for modifying behavior without source code changes, including API interception, memory management, kernel optimization, and error resilience</li>
+<li><a href="10-cpu-gpu-profiling-boundaries/">10-cpu-gpu-profiling-boundaries.md</a>: Analysis of CPU and GPU profiling boundaries, exploring which operations to measure on CPUs vs GPUs and utilizing techniques like eBPF for function hooking</li>
 </ul>
-<h2 id="upcoming-mlai-gpu-tutorials">Upcoming ML/AI GPU Tutorials</h2>
-<ul>
-<li><strong>basic08.cu</strong>: Mixed-precision training with Tensor Cores using CUDA</li>
-</ul>
-<p>Each tutorial will include comprehensive documentation explaining the concepts, implementation details, and optimization techniques used in ML/AI workloads on GPUs.</p>
+<p>Each tutorial includes comprehensive documentation explaining the concepts, implementation details, and optimization techniques used in ML/AI workloads on GPUs.</p>
 <p><a class="md-button" href="https://x.com/intent/tweet?text=basic-cuda-tutorial%0A&amp;url=https://eunomia.dev/en/others/cuda-tutorial/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/en/others/cuda-tutorial/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
@@ -5298,7 +5325,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 23, 2025 18:08:33">May 23, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 25, 2025 01:28:13">May 25, 2025</span>
   </span>
 
     
@@ -5445,7 +5472,7 @@
         
         
           
-          <a href="basic01/" class="md-footer__link md-footer__link--next" aria-label="Next: CUDA Basic Example - Vector Addition Explanation">
+          <a href="01-vector-addition/" class="md-footer__link md-footer__link--next" aria-label="Next: CUDA Basic Example - Vector Addition Explanation">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next

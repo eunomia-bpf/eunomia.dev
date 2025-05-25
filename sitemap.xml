@@ -913,59 +913,83 @@
          
     </url>
     <url>
-         <loc>https://eunomia.dev/others/cuda-tutorial/basic01/</loc>
+         <loc>https://eunomia.dev/others/cuda-tutorial/01-vector-addition/</loc>
          <lastmod>2025-05-25</lastmod>
          <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cuda-tutorial/basic01/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cuda-tutorial/basic01/"/>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cuda-tutorial/01-vector-addition/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cuda-tutorial/01-vector-addition/"/>
          
     </url>
     <url>
-         <loc>https://eunomia.dev/others/cuda-tutorial/basic02/</loc>
+         <loc>https://eunomia.dev/others/cuda-tutorial/02-ptx-assembly/</loc>
          <lastmod>2025-05-25</lastmod>
          <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cuda-tutorial/basic02/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cuda-tutorial/basic02/"/>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cuda-tutorial/02-ptx-assembly/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cuda-tutorial/02-ptx-assembly/"/>
          
     </url>
     <url>
-         <loc>https://eunomia.dev/others/cuda-tutorial/basic03/</loc>
+         <loc>https://eunomia.dev/others/cuda-tutorial/03-gpu-programming-methods/</loc>
          <lastmod>2025-05-25</lastmod>
          <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cuda-tutorial/basic03/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cuda-tutorial/basic03/"/>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cuda-tutorial/03-gpu-programming-methods/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cuda-tutorial/03-gpu-programming-methods/"/>
          
     </url>
     <url>
-         <loc>https://eunomia.dev/others/cuda-tutorial/basic04/</loc>
+         <loc>https://eunomia.dev/others/cuda-tutorial/04-gpu-architecture/</loc>
          <lastmod>2025-05-25</lastmod>
          <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cuda-tutorial/basic04/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cuda-tutorial/basic04/"/>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cuda-tutorial/04-gpu-architecture/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cuda-tutorial/04-gpu-architecture/"/>
          
     </url>
     <url>
-         <loc>https://eunomia.dev/others/cuda-tutorial/basic05/</loc>
+         <loc>https://eunomia.dev/others/cuda-tutorial/05-neural-network/</loc>
          <lastmod>2025-05-25</lastmod>
          <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cuda-tutorial/basic05/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cuda-tutorial/basic05/"/>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cuda-tutorial/05-neural-network/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cuda-tutorial/05-neural-network/"/>
          
     </url>
     <url>
-         <loc>https://eunomia.dev/others/cuda-tutorial/basic06/</loc>
+         <loc>https://eunomia.dev/others/cuda-tutorial/06-cnn-convolution/</loc>
          <lastmod>2025-05-25</lastmod>
          <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cuda-tutorial/basic06/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cuda-tutorial/basic06/"/>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cuda-tutorial/06-cnn-convolution/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cuda-tutorial/06-cnn-convolution/"/>
          
     </url>
     <url>
-         <loc>https://eunomia.dev/others/cuda-tutorial/basic07/</loc>
+         <loc>https://eunomia.dev/others/cuda-tutorial/07-attention-mechanism/</loc>
          <lastmod>2025-05-25</lastmod>
          <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cuda-tutorial/basic07/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cuda-tutorial/basic07/"/>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cuda-tutorial/07-attention-mechanism/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cuda-tutorial/07-attention-mechanism/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cuda-tutorial/08-profiling-tracing/</loc>
+         <lastmod>2025-05-25</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cuda-tutorial/08-profiling-tracing/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cuda-tutorial/08-profiling-tracing/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cuda-tutorial/09-gpu-extension/</loc>
+         <lastmod>2025-05-25</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cuda-tutorial/09-gpu-extension/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cuda-tutorial/09-gpu-extension/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cuda-tutorial/10-cpu-gpu-profiling-boundaries/</loc>
+         <lastmod>2025-05-25</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cuda-tutorial/10-cpu-gpu-profiling-boundaries/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cuda-tutorial/10-cpu-gpu-profiling-boundaries/"/>
          
     </url>
     <url>
@@ -1318,14 +1342,6 @@
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/31-goroutine/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/31-goroutine/"/>
-         
-    </url>
-    <url>
-         <loc>https://eunomia.dev/tutorials/32-http2/README.zh/</loc>
-         <lastmod>2025-05-25</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/32-http2/README.zh/"/>
-         
          
     </url>
     <url>

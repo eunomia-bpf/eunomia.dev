@@ -1281,29 +1281,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../32-http2/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    trace http2 request in go
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../33-funclatency/" class="md-nav__link">
         
   
@@ -4633,7 +4610,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../others/cuda-tutorial/basic01/" class="md-nav__link">
+      <a href="../../others/cuda-tutorial/01-vector-addition/" class="md-nav__link">
         
   
   
@@ -4656,7 +4633,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../others/cuda-tutorial/basic02/" class="md-nav__link">
+      <a href="../../others/cuda-tutorial/02-ptx-assembly/" class="md-nav__link">
         
   
   
@@ -4679,7 +4656,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../others/cuda-tutorial/basic03/" class="md-nav__link">
+      <a href="../../others/cuda-tutorial/03-gpu-programming-methods/" class="md-nav__link">
         
   
   
@@ -4702,7 +4679,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../others/cuda-tutorial/basic04/" class="md-nav__link">
+      <a href="../../others/cuda-tutorial/04-gpu-architecture/" class="md-nav__link">
         
   
   
@@ -4725,7 +4702,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../others/cuda-tutorial/basic05/" class="md-nav__link">
+      <a href="../../others/cuda-tutorial/05-neural-network/" class="md-nav__link">
         
   
   
@@ -4748,7 +4725,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../others/cuda-tutorial/basic06/" class="md-nav__link">
+      <a href="../../others/cuda-tutorial/06-cnn-convolution/" class="md-nav__link">
         
   
   
@@ -4771,12 +4748,81 @@
   
   
     <li class="md-nav__item">
-      <a href="../../others/cuda-tutorial/basic07/" class="md-nav__link">
+      <a href="../../others/cuda-tutorial/07-attention-mechanism/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     Attention Mechanism for Transformer Models with CUDA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../others/cuda-tutorial/08-profiling-tracing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CUDA GPU Profiling and Tracing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../others/cuda-tutorial/09-gpu-extension/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GPU Application Extension Mechanisms: Modifying Behavior Without Source Code Changes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../others/cuda-tutorial/10-cpu-gpu-profiling-boundaries/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CPU and GPU Profiling Boundaries: What to Measure Where
     
   </span>
   
@@ -5318,7 +5364,7 @@
 <ul>
 <li><a href="../30-sslsniff/">eBPF 实践教程：使用 uprobe 捕获多种库的 SSL/TLS 明文数据</a></li>
 <li><a href="../31-goroutine/">eBPF 实践教程：使用 uprobe 捕获 Golang 的协程切换</a></li>
-<li><a href="../32-http2/">eBPF 实践教程：使用 uprobe 捕获用户态 http2 流量</a></li>
+<li><a href="../32-http2/README.md">eBPF 实践教程：使用 uprobe 捕获用户态 http2 流量</a></li>
 </ul>
 <p>Uprobe 在内核态 eBPF 运行时，也可能产生比较大的性能开销，这时候也可以考虑使用用户态 eBPF 运行时，例如  <a href="https://github.com/eunomia-bpf/bpftime">bpftime</a>。bpftime 是一个基于 LLVM JIT/AOT 的用户态 eBPF 运行时，它可以在用户态运行 eBPF Uprobe 程序，和内核态的 eBPF 兼容，由于避免了内核态和用户态之间的上下文切换，bpftime 的 Uprobe 开销比内核少约 10 倍，并且也更容易扩展。</p>
 <h2 id="rust">Rust</h2>
