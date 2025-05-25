@@ -7,3 +7,4 @@
 /llvmbpf
 __pycache__
 /bpftime-evaluation
+/cuda-exp

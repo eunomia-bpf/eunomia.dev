@@ -17,7 +17,10 @@ tutorial:
 bpftime:
 	git clone https://github.com/eunomia-bpf/bpftime --depth=1
 
-docs/CNAME: tutorial
+cuda-exp:
+	git clone https://github.com/eunomia-bpf/basic-cuda-tutorial cuda-exp --depth=1
+
+docs/CNAME: tutorial cuda-exp
 	./rename.sh
 
 clean:
