@@ -104,9 +104,7 @@ The following operations require GPU-side instrumentation:
 
 ### 4. Synchronization Effects
 
-- **Block Synchronization**: Time spent in `__syncthreads()`
-- **Atomic Operation Contention**: Impact of atomic operations
-- **Warp Scheduling Decisions**: How warps are scheduled on SMs
+- **Block Synchronization**Warp Scheduling Decisions**: How warps are scheduled on SMs
 
 ### Tools and Techniques for GPU-Side Measurement
 
