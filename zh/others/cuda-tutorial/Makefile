@@ -3,7 +3,7 @@ NVCC = nvcc
 # Auto-detect GPU architecture
 ARCH := $(shell $(NVCC) -run ./detect_arch.cu 2>/dev/null || echo "sm_61")
 
-NVCC_FLAGS = -O3 -arch=$(ARCH)
+NVCC_FLAGS = -O3 -arch=$(ARCH) -g -G -lineinfo
 NVCC_DP_FLAGS = -O3 -arch=$(ARCH) -rdc=true
 NVCC_PROF_FLAGS = -O3 -arch=$(ARCH) -lcupti -lnvToolsExt
 NVCC_EXT_FLAGS = -O3 -arch=$(ARCH) -ldl -lpthread

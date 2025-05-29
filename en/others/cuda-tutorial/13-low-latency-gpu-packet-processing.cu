@@ -137,17 +137,20 @@ long long runPinnedMemoryProcessing(int batchSize) {
     Packet* h_pinned_packets;
     PacketResult* h_pinned_results;
     
-    CHECK_CUDA_ERROR(cudaHostAlloc(&h_pinned_packets, batchSize * sizeof(Packet), 
+    CHECK_CUDA_ERROR(cudaHostAlloc(&h_pinned_packets, NUM_PACKETS * sizeof(Packet), 
                      cudaHostAllocDefault));
-    CHECK_CUDA_ERROR(cudaHostAlloc(&h_pinned_results, batchSize * sizeof(PacketResult), 
+    CHECK_CUDA_ERROR(cudaHostAlloc(&h_pinned_results, NUM_PACKETS * sizeof(PacketResult), 
                      cudaHostAllocDefault));
     
     // Allocate device memory (setup - outside timing)
     Packet* d_packets;
     PacketResult* d_results;
     
-    CHECK_CUDA_ERROR(cudaMalloc(&d_packets, batchSize * sizeof(Packet)));
-    CHECK_CUDA_ERROR(cudaMalloc(&d_results, batchSize * sizeof(PacketResult)));
+    CHECK_CUDA_ERROR(cudaMalloc(&d_packets, NUM_PACKETS * sizeof(Packet)));
+    CHECK_CUDA_ERROR(cudaMalloc(&d_results, NUM_PACKETS * sizeof(PacketResult)));
+    
+    // Copy from global to pinned memory
+    memcpy(h_pinned_packets, g_test_packets, NUM_PACKETS * sizeof(Packet));
     
     // Measure only the actual processing performance
     auto start = std::chrono::high_resolution_clock::now();
@@ -160,11 +163,7 @@ long long runPinnedMemoryProcessing(int batchSize) {
         int offset = batch * batchSize;
         int currentBatchSize = (batch == metrics.numBatches - 1) ? 
                              (NUM_PACKETS - batch * batchSize) : batchSize;
-        
-        // Copy from global to pinned memory
-        memcpy(h_pinned_packets, g_test_packets + offset, 
-               currentBatchSize * sizeof(Packet));
-        
+
         // Copy batch to device using pinned memory
         auto transfer_start = std::chrono::high_resolution_clock::now();
         
@@ -192,16 +191,16 @@ long long runPinnedMemoryProcessing(int batchSize) {
         CHECK_CUDA_ERROR(cudaMemcpy(h_pinned_results, d_results, 
                          currentBatchSize * sizeof(PacketResult), 
                          cudaMemcpyDeviceToHost));
-        
-        // Copy from pinned to global memory
-        memcpy(g_test_results + offset, h_pinned_results, 
-               currentBatchSize * sizeof(PacketResult));
+
     }
     
     // End timing before any printf statements
     auto end = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
     
+    // Copy from pinned to global memory
+    memcpy(g_test_results, h_pinned_results, NUM_PACKETS * sizeof(PacketResult));
+
     // Store metrics (after timing)
     metrics.totalTime = duration;
     metrics.transferTime = total_transfer_time;
@@ -391,9 +390,9 @@ long long runZeroCopyProcessing(int batchSize) {
     Packet* h_zero_copy_packets;
     PacketResult* h_zero_copy_results;
     
-    CHECK_CUDA_ERROR(cudaHostAlloc(&h_zero_copy_packets, batchSize * sizeof(Packet), 
+    CHECK_CUDA_ERROR(cudaHostAlloc(&h_zero_copy_packets, NUM_PACKETS * sizeof(Packet), 
                      cudaHostAllocMapped));
-    CHECK_CUDA_ERROR(cudaHostAlloc(&h_zero_copy_results, batchSize * sizeof(PacketResult), 
+    CHECK_CUDA_ERROR(cudaHostAlloc(&h_zero_copy_results, NUM_PACKETS * sizeof(PacketResult), 
                      cudaHostAllocMapped));
     
     // Get device pointers to the mapped memory (setup - outside timing)
@@ -403,34 +402,25 @@ long long runZeroCopyProcessing(int batchSize) {
     CHECK_CUDA_ERROR(cudaHostGetDevicePointer(&d_zero_copy_packets, h_zero_copy_packets, 0));
     CHECK_CUDA_ERROR(cudaHostGetDevicePointer(&d_zero_copy_results, h_zero_copy_results, 0));
     
+    // Copy batch to zero-copy buffer (still needed for test data)
+    memcpy(h_zero_copy_packets, g_test_packets, NUM_PACKETS * sizeof(Packet));
+        
     // Measure only the actual processing performance
     auto start = std::chrono::high_resolution_clock::now();
+        // Launch kernel to process packets
+    int blockSize = 256;
+    int numBlocks = (NUM_PACKETS + blockSize - 1) / blockSize;
     
-    // Process packets in batches
-    for (int batch = 0; batch < metrics.numBatches; batch++) {
-        int offset = batch * batchSize;
-        int currentBatchSize = (batch == metrics.numBatches - 1) ? 
-                             (NUM_PACKETS - batch * batchSize) : batchSize;
-        
-        // Copy batch to zero-copy buffer (still needed for test data)
-        memcpy(h_zero_copy_packets, g_test_packets + offset, 
-               currentBatchSize * sizeof(Packet));
-        
-        // Process batch directly in zero-copy memory
-        int blockSize = 256;
-        int numBlocks = (currentBatchSize + blockSize - 1) / blockSize;
-        
-        processPacketsZeroCopy<<<numBlocks, blockSize>>>(d_zero_copy_packets, 
-                                                        d_zero_copy_results, 
-                                                        currentBatchSize);
-        
-        // Wait for kernel to finish
-        CHECK_CUDA_ERROR(cudaDeviceSynchronize());
-        
-        // Copy results to global buffer (no device-to-host transfer needed)
-        memcpy(g_test_results + offset, h_zero_copy_results, 
-               currentBatchSize * sizeof(PacketResult));
-    }
+    processPacketsBasic<<<numBlocks, blockSize>>>(d_zero_copy_packets, d_zero_copy_results, NUM_PACKETS);
+    
+    // Measure synchronization time specifically
+    auto sync_start = std::chrono::high_resolution_clock::now();
+    
+    // Wait for kernel to finish
+    CHECK_CUDA_ERROR(cudaDeviceSynchronize());
+    
+    auto sync_end = std::chrono::high_resolution_clock::now();
+    auto sync_duration = std::chrono::duration_cast<std::chrono::microseconds>(sync_end - sync_start).count();
     
     // End timing before any calculations or cleanup
     auto end = std::chrono::high_resolution_clock::now();
@@ -440,12 +430,16 @@ long long runZeroCopyProcessing(int batchSize) {
     metrics.totalTime = duration;
     
     // Calculate statistics (after timing)
-    calculateResults(g_test_results, NUM_PACKETS, metrics);
+    calculateResults(h_zero_copy_results, NUM_PACKETS, metrics);
     
     // Print performance metrics (after timing)
     char stageTitle[100];
     snprintf(stageTitle, sizeof(stageTitle), "Stage 4: Zero-Copy Memory (Batch Size = %d)", batchSize);
     printPerformanceMetrics(stageTitle, metrics);
+    
+    // Print synchronization time
+    printf("Zero-copy cudaDeviceSynchronize time: %lld us (%.2f%% of total time)\n", 
+           sync_duration, (float)sync_duration * 100.0f / duration);
     
     // Cleanup (after timing)
     CHECK_CUDA_ERROR(cudaFreeHost(h_zero_copy_packets));
