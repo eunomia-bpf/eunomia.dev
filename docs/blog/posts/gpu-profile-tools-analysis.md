@@ -10,6 +10,7 @@ Modern computing increasingly relies on specialized accelerators – notably **G
 
 <!-- more -->
 
+
 ## Profiling and Tracing Tools for GPUs
 
 GPU profiling has matured over years of graphics and GPGPU development, yielding a rich ecosystem of vendor tools and open-source frameworks. Broadly, GPU profilers fall into two categories: **development-time profilers** that provide fine-grained insight for optimization (often with high overhead and GUI analysis), and **lightweight monitors** suitable for runtime or production use (low overhead, focusing on high-level metrics).
