@@ -153,6 +153,14 @@
          
     </url>
     <url>
+         <loc>https://eunomia.dev/blog/2025/04/11/the-accelerator-toolkit-a-review-of-profiling-and-tracing-for-gpus-and-other-co-processor/</loc>
+         <lastmod>2025-05-31</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blog/posts/gpu-profile-tools-analysis/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/posts/gpu-profile-tools-analysis/"/>
+         
+    </url>
+    <url>
          <loc>https://eunomia.dev/blog/2022/02/11/%E5%9C%A8-webassembly-%E4%B8%AD%E7%BC%96%E5%86%99-ebpf-%E7%A8%8B%E5%BA%8F%E5%92%8C%E4%BD%BF%E7%94%A8-libbpf/</loc>
          <lastmod>2025-05-31</lastmod>
          <changefreq>daily</changefreq>
@@ -206,14 +214,6 @@
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blog/posts/lmp-eunomia/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/posts/lmp-eunomia/"/>
-         
-    </url>
-    <url>
-         <loc>https://eunomia.dev/blog/2025/04/11/the-accelerator-toolkit-a-review-of-profiling-and-tracing-for-gpus-and-other-co-processor/</loc>
-         <lastmod>2025-05-31</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blog/posts/profile-tools-analysis/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/posts/profile-tools-analysis/"/>
          
     </url>
     <url>
