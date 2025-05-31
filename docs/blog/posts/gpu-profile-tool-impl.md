@@ -1,3 +1,8 @@
+---
+date: 2025-04-21
+---
+
+
 # GPU Profiling Under the Hood: An Implementation-Focused Survey of Modern Accelerator Tracing Tools
 
 ## Introduction
