@@ -149,42 +149,18 @@ Looking ahead, the trends point to more **integration (unified timelines across 
 
 In conclusion, developers and engineers aiming to optimize accelerator-powered systems should take a **hybrid approach**: leverage the rich features of vendor-specific profilers for detailed analysis, use open-source and cross-platform tools to get the "big picture" across diverse hardware, and keep an eye on emerging tools that can be adopted to improve continuous performance monitoring. By combining these tools and techniques, one can obtain a comprehensive understanding of performance for GPUs, DPUs, and APUs across any workload – from a single GPU kernel's instruction stalls up to the end-to-end behavior of an entire heterogeneous pipeline. Such deep and broad profiling capability will be essential to fully exploit the computational power of modern accelerators in general-purpose and domain-specific applications alike.
 
-## **Numbered References**
+## **References**
 
-
-**References:** The information in this review was gathered from a broad survey of documentation, academic papers, and tool manuals, including vendor resources (NVIDIA, AMD, Intel), open-source project docs, and recent research contributions in the field[dev.to](https://dev.to/ethgraham/snooping-on-your-gpu-using-ebpf-to-build-zero-instrumentation-cuda-monitoring-2hh1#:~:text=NSight%20Systems%20is%20NVIDIA%27s%20primary,fundamentally%20different%20from%20continuous%20monitoring)[lei.chat](https://www.lei.chat/posts/sampling-performance-counters-from-gpu-drivers/#:~:text=Unlike%20CPU%2C%20in%20the%20GPU,need%20to%20support%20multiple%20vendors)[hpctoolkit.org](https://hpctoolkit.org/overview.html#:~:text=GPU,Using%20results%20from)[rocm.docs.amd.com](https://rocm.docs.amd.com/en/docs-6.2.0/about/release-notes.html#:~:text=%2A%20Omniperf%20%E2%80%93%20A%20kernel,For%20more%20information%2C%20see%20Omniperf)[docs.napatech.com](https://docs.napatech.com/r/Running-Open-Source-Libraries-and-Applications-with-Napatech-SmartNICs/SmartNIC-Performance-Monitoring#:~:text=This%20procedure%20describes%20how%20to,detailed%20information%20about%20these%20tools)[linkedin.com](https://www.linkedin.com/posts/ebpf-summit_gpu-profiling-with-bpf-at-meta-riham-selim-activity-7138119919023419392-prW4#:~:text=Talks%20from%20,Watch%20it%20here%3A%20%2018), among many others. The cited sources throughout provide detailed insights and serve as further reading on specific tools and techniques discussed.
-
-
-[1] NVIDIA Blog, "What Is a DPU?" - https://blogs.nvidia.com/blog/whats-a-dpu-data-processing-unit/
-[2] NVIDIA Blog, "What Is a DPU?" - https://blogs.nvidia.com/blog/whats-a-dpu-data-processing-unit/
-[3] NVIDIA Blog, "What Is a DPU?" - https://blogs.nvidia.com/blog/whats-a-dpu-data-processing-unit/
-[4] NVIDIA Blog, "What Is a DPU?" - https://blogs.nvidia.com/blog/whats-a-dpu-data-processing-unit/
-[5] AMD, "AMD Instinct™ MI300A Accelerators" - https://www.amd.com/en/products/accelerators/instinct/mi300/mi300a.html
-[6] ADMIN Magazine, "Profiling Is the Key to Survival" - https://www.admin-magazine.com/HPC/Articles/Profiling-Is-the-Key-to-Survival
-[7] DEV Community, "Snooping on your GPU: Using eBPF to Build Zero-instrumentation CUDA Monitoring" - https://dev.to/ethgraham/snooping-on-your-gpu-using-ebpf-to-build-zero-instrumentation-cuda-monitoring-2hh1
-[8] DEV Community, "Snooping on your GPU: Using eBPF to Build Zero-instrumentation CUDA Monitoring" - https://dev.to/ethgraham/snooping-on-your-gpu-using-ebpf-to-build-zero-instrumentation-cuda-monitoring-2hh1
-[9] DEV Community, "Snooping on your GPU: Using eBPF to Build Zero-instrumentation CUDA Monitoring" - https://dev.to/ethgraham/snooping-on-your-gpu-using-ebpf-to-build-zero-instrumentation-cuda-monitoring-2hh1
-[10] CodeXL Documentation, "Using the GPU Profiler" - https://documentation.help/codexl/using-the-gpu-profiler.htm
-[11] AMD Community, "CodeXL 2.6 GA Release Notes" - https://community.amd.com/sdtpp67534/attachments/sdtpp67534/codexl-discussions/62/1/CodeXL_Release_Notes.pdf
-[12] ROCm Documentation, "ROCm 6.2.0 release notes" - https://rocm.docs.amd.com/en/docs-6.2.0/about/release-notes.html
-[13] ROCm Documentation, "ROCm 6.2.0 release notes" - https://rocm.docs.amd.com/en/docs-6.2.0/about/release-notes.html
-[14] Performance Intensive Computing, "Developing AI and HPC solutions? Check out the new AMD ROCm" - https://www.performance-intensive-computing.com/objectives/developing-ai-and-hpc-solutions-check-out-the-new-amd-rocm-62-release
-[15] ROCm Documentation, "ROCm 6.2.0 release notes" - https://rocm.docs.amd.com/en/docs-6.2.0/about/release-notes.html
-[16] Lei.Chat, "Sampling Performance Counters from Mobile GPU Drivers" - https://www.lei.chat/posts/sampling-performance-counters-from-gpu-drivers/
-[17] ADMIN Magazine, "Profiling Is the Key to Survival" - https://www.admin-magazine.com/HPC/Articles/Profiling-Is-the-Key-to-Survival
-[18] AMD GPUOpen, "GPUPerfAPI" - https://gpuopen.com/gpuperfapi/
-[19] BizTech Magazine, "What Is a DPU (Data Processing Unit)? How Does It Work?" - https://biztechmagazine.com/article/2024/09/what-data-processing-unit-and-how-does-it-help-computing-perfcon
-[20] LinkedIn - eBPF Summit, "GPU Profiling with BPF at Meta - Riham Selim" - https://www.linkedin.com/posts/ebpf-summit_gpu-profiling-with-bpf-at-meta-riham-selim-activity-7138119919023419392-prW4
-[21] DEV Community, "Snooping on your GPU: Using eBPF to Build Zero-instrumentation CUDA Monitoring" - https://dev.to/ethgraham/snooping-on-your-gpu-using-ebpf-to-build-zero-instrumentation-cuda-monitoring-2hh1
-[22] DEV Community, "Snooping on your GPU: Using eBPF to Build Zero-instrumentation CUDA Monitoring" - https://dev.to/ethgraham/snooping-on-your-gpu-using-ebpf-to-build-zero-instrumentation-cuda-monitoring-2hh1
-[23] DEV Community, "Snooping on your GPU: Using eBPF to Build Zero-instrumentation CUDA Monitoring" - https://dev.to/ethgraham/snooping-on-your-gpu-using-ebpf-to-build-zero-instrumentation-cuda-monitoring-2hh1
-[24] DEV Community, "Snooping on your GPU: Using eBPF to Build Zero-instrumentation CUDA Monitoring" - https://dev.to/ethgraham/snooping-on-your-gpu-using-ebpf-to-build-zero-instrumentation-cuda-monitoring-2hh1
-[25] DEV Community, "Snooping on your GPU: Using eBPF to Build Zero-instrumentation CUDA Monitoring" - https://dev.to/ethgraham/snooping-on-your-gpu-using-ebpf-to-build-zero-instrumentation-cuda-monitoring-2hh1
-[26] DEV Community, "Snooping on your GPU: Using eBPF to Build Zero-instrumentation CUDA Monitoring" - https://dev.to/ethgraham/snooping-on-your-gpu-using-ebpf-to-build-zero-instrumentation-cuda-monitoring-2hh1
-[27] DEV Community, "Snooping on your GPU: Using eBPF to Build Zero-instrumentation CUDA Monitoring" - https://dev.to/ethgraham/snooping-on-your-gpu-using-ebpf-to-build-zero-instrumentation-cuda-monitoring-2hh1
-[28] DEV Community, "Snooping on your GPU: Using eBPF to Build Zero-instrumentation CUDA Monitoring" - https://dev.to/ethgraham/snooping-on-your-gpu-using-ebpf-to-build-zero-instrumentation-cuda-monitoring-2hh1
-[29] DEV Community, "Snooping on your GPU: Using eBPF to Build Zero-instrumentation CUDA Monitoring" - https://dev.to/ethgraham/snooping-on-your-gpu-using-ebpf-to-build-zero-instrumentation-cuda-monitoring-2hh1
-[30] DEV Community, "Snooping on your GPU: Using eBPF to Build Zero-instrumentation CUDA Monitoring" - https://dev.to/ethgraham/snooping-on-your-gpu-using-ebpf-to-build-zero-instrumentation-cuda-monitoring-2hh1
-[31] DEV Community, "Snooping on your GPU: Using eBPF to Build Zero-instrumentation CUDA Monitoring" - https://dev.to/ethgraham/snooping-on-your-gpu-using-ebpf-to-build-zero-instrumentation-cuda-monitoring-2hh1
-[32] GitHub, "GPUprobe/gpuprobe-daemon" - https://github.com/GPUprobe/gpuprobe-daemon
-[33] GitHub, "GPUprobe/gpuprobe-daemon" - https://github.com/GPUprobe/gpuprobe-daemon
+* [NVIDIA Blog - "What Is a DPU?"](https://blogs.nvidia.com/blog/whats-a-dpu-data-processing-unit/)
+* [AMD - "AMD Instinct™ MI300A Accelerators"](https://www.amd.com/en/products/accelerators/instinct/mi300/mi300a.html)
+* [ADMIN Magazine - "Profiling Is the Key to Survival"](https://www.admin-magazine.com/HPC/Articles/Profiling-Is-the-Key-to-Survival)
+* [DEV Community - "Snooping on your GPU: Using eBPF to Build Zero-instrumentation CUDA Monitoring"](https://dev.to/ethgraham/snooping-on-your-gpu-using-ebpf-to-build-zero-instrumentation-cuda-monitoring-2hh1)
+* [CodeXL Documentation - "Using the GPU Profiler"](https://documentation.help/codexl/using-the-gpu-profiler.htm)
+* [AMD Community - "CodeXL 2.6 GA Release Notes"](https://community.amd.com/sdtpp67534/attachments/sdtpp67534/codexl-discussions/62/1/CodeXL_Release_Notes.pdf)
+* [ROCm Documentation - "ROCm 6.2.0 release notes"](https://rocm.docs.amd.com/en/docs-6.2.0/about/release-notes.html)
+* [Performance Intensive Computing - "Developing AI and HPC solutions? Check out the new AMD ROCm"](https://www.performance-intensive-computing.com/objectives/developing-ai-and-hpc-solutions-check-out-the-new-amd-rocm-62-release)
+* [Lei.Chat - "Sampling Performance Counters from Mobile GPU Drivers"](https://www.lei.chat/posts/sampling-performance-counters-from-gpu-drivers/)
+* [AMD GPUOpen - "GPUPerfAPI"](https://gpuopen.com/gpuperfapi/)
+* [BizTech Magazine - "What Is a DPU (Data Processing Unit)? How Does It Work?"](https://biztechmagazine.com/article/2024/09/what-data-processing-unit-and-how-does-it-help-computing-perfcon)
+* [LinkedIn - eBPF Summit - "GPU Profiling with BPF at Meta - Riham Selim"](https://www.linkedin.com/posts/ebpf-summit_gpu-profiling-with-bpf-at-meta-riham-selim-activity-7138119919023419392-prW4)
+* [GitHub - "GPUprobe/gpuprobe-daemon"](https://github.com/GPUprobe/gpuprobe-daemon)
