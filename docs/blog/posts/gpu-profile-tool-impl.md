@@ -5,9 +5,10 @@ date: 2025-04-21
 
 # GPU Profiling Under the Hood: An Implementation-Focused Survey of Modern Accelerator Tracing Tools
 
-## Introduction
-
 Profiling and tracing heterogeneous accelerators (GPUs, DPUs, and APUs) is crucial for optimizing performance in modern systems. This survey provides a deep implementation-oriented review of how state-of-the-art tools capture low-level execution details. We target two audiences: (1) tool developers seeking insight into **how existing profilers are built** – including what interfaces they hook and how they trace both CPUs and accelerators – and (2) system engineers deciding **which tools to integrate**, based on capabilities and overhead. We explore internal architectures of key profiling tools, the runtime libraries and driver APIs they intercept, whether they trace events on CPU, GPU, or both, and how they handle cross-device correlation. We then examine implementation strategies (instrumentation vs. sampling, use of performance counters, dynamic binary instrumentation, kernel hooks like eBPF), as well as GPU-specific techniques (e.g. warp-level instruction sampling). Data handling and visualization approaches are compared, including trace data formats, storage and export methods, and GUI/CLI/Web interfaces (with integration into dashboards like TensorBoard or Grafana). We catalog the performance metrics these tools collect – from kernel latencies and throughput to SM occupancy, cache misses, and interconnect utilization – explaining how raw hardware counters are translated into **derived metrics** and the granularity/accuracy trade-offs involved. Next, we discuss what insights users can glean from visualizations (timelines, flame charts, dependency graphs, etc.), such as detecting pipeline stalls, memory bottlenecks, or CPU–GPU desynchronization. Tool *extensibility* (support for plugins or user-defined instrumentation) is reviewed, as are the relative overheads and intrusiveness of different measurement techniques. We also address security and sandboxing concerns – e.g. profiling in containerized or multi-tenant environments – and outline known limitations plus future directions (including support for emerging DPUs and integrated CPU-GPU APUs). The goal is a comprehensive systems-level survey that **goes beyond feature lists** to compare *how* these profilers work under the hood, including any reverse-engineered or undocumented methods used by open-source tools.
+
+<!-- more -->
+
 
 ## Internal Architectures of Key Profiling Tools
 

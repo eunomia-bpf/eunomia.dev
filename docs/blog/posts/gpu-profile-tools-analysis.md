@@ -8,6 +8,8 @@ Modern computing increasingly relies on specialized accelerators – notably **G
 
 **Profiling and tracing** tools are crucial for optimizing performance on these accelerators. Such tools collect **low-level hardware telemetry** (e.g. counters for utilization, memory throughput, SM occupancy, cache misses) and can perform **instruction or event-level tracing** (capturing timelines of kernel executions, memory copies, network packet flows, etc.). The goal is to identify bottlenecks and inefficiencies in both *general-purpose* code and *domain-specific* pipelines (like ML model training, network function processing, or graphics rendering). However, profiling highly parallel, heterogeneous systems presents challenges of overhead, data volume, and cross-platform compatibility. This review categorizes current tracing/profiling tools by hardware type and domain, compares open-source and commercial solutions, and highlights major projects and recent research. We also discuss specialized toolsets (including eBPF-based approaches akin to Linux's BCC) adapted for GPUs/DPUs/APUs, typical workloads and matching toolchains, and the limitations and emerging directions in this landscape.
 
+<!-- more -->
+
 ## Profiling and Tracing Tools for GPUs
 
 GPU profiling has matured over years of graphics and GPGPU development, yielding a rich ecosystem of vendor tools and open-source frameworks. Broadly, GPU profilers fall into two categories: **development-time profilers** that provide fine-grained insight for optimization (often with high overhead and GUI analysis), and **lightweight monitors** suitable for runtime or production use (low overhead, focusing on high-level metrics).
