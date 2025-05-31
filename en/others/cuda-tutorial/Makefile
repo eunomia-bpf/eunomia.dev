@@ -18,7 +18,7 @@ OPENCL_INCLUDES := $(shell pkg-config --cflags OpenCL 2>/dev/null || echo "")
 
 .PHONY: all clean detect_arch ptx-demos
 
-all: detect_arch 01-vector-addition 02-ptx-assembly 03-gpu-programming-methods 04-gpu-architecture 05-neural-network 06-cnn-convolution 07-attention-mechanism 08-profiling-tracing 09-gpu-extension 10-cpu-gpu-profiling-boundaries 11-fine-grained-gpu-modifications 12-advanced-gpu-customizations 13-low-latency-gpu-packet-processing 14-cuda-function-annotations 15-opencl-vector-addition ptx-demos
+all: detect_arch 01-vector-addition 02-ptx-assembly 03-gpu-programming-methods 04-gpu-architecture 05-neural-network 06-cnn-convolution 07-attention-mechanism 08-profiling-tracing 09-gpu-extension 10-cpu-gpu-profiling-boundaries 11-fine-grained-gpu-modifications 12-advanced-gpu-customizations 13-low-latency-gpu-packet-processing 14-cuda-function-annotations 15-opencl-vector-addition
 
 # PTX Demo targets
 ptx-demos: ptx_demo device_ptx_demo simple_ptx_demo
@@ -84,10 +84,6 @@ detect_arch:
 # Generate PTX file from CUDA kernel
 vector_add.ptx: vector_add_kernel.cu
 	$(NVCC) -ptx $< -o $@
-
-# Main PTX loading demo
-ptx_demo: 02-ptx-assembly.cu vector_add.ptx
-	$(NVCC) $(NVCC_PTX_FLAGS) -lcuda $< -o $@
 
 # Simple device PTX demo
 simple_ptx_demo: simple-device-ptx.cu
