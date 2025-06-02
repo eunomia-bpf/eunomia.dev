@@ -5325,6 +5325,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#checkpointrestore-systems-evolution-techniques-and-applications-in-ai-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Checkpoint/Restore Systems: Evolution, Techniques, and Applications in AI Agents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#asplos-2025-paper-summaries-and-insights" class="md-nav__link">
     <span class="md-ellipsis">
       ASPLOS 2025: Paper Summaries and Insights
@@ -5628,6 +5637,40 @@
 <p><a class="md-button" href="https://x.com/intent/tweet?text=Blog%0A&amp;url=https://eunomia.dev/blog/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/blog/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
       </header>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2025-05-11 00:00:00+00:00">May 11, 2025</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              68 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="checkpointrestore-systems-evolution-techniques-and-applications-in-ai-agents"><a class="toclink" href="2025/05/11/checkpointrestore-systems-evolution-techniques-and-applications-in-ai-agents/">Checkpoint/Restore Systems: Evolution, Techniques, and Applications in AI Agents</a></h2>
+<p>Checkpoint/restore (C/R) technology – the ability to save a running program’s state to persistent storage and later resume execution from that point – has long been a cornerstone of fault tolerance and process management in computing. By capturing a <em>snapshot</em> of a process or group of processes, C/R enables recovery from failures, migration of computations, load balancing, and the suspension/resumption of work. Traditionally, C/R has been critical in high-performance computing (HPC) environments to mitigate frequent failures in large clusters, in operating systems for process migration and preemption, and in virtualization platforms for live virtual machine (VM) migration with minimal downtime. As we usher in an era of AI-centric applications – from AI-assisted developer tools and autonomous agents to distributed machine learning pipelines – the scope of C/R is expanding. Modern AI systems often consist of long-running <em>stateful</em> agents, complex multi-process pipelines, and GPU-accelerated workloads, all of which introduce new requirements and challenges for checkpointing. For example, training massive deep learning models over weeks exposes a system to many failures; one 54-day run of a 405-billion parameter model across 16,000 GPUs experienced 419 interruptions (78% from hardware faults), potentially costing millions in lost work. Techniques like maintaining redundant in-memory states for fast recovery are used in such cases, underscoring the importance of robust checkpointing. This survey provides a comprehensive overview of C/R systems and their evolution, spanning traditional use cases (before the advent of AI agents) and emerging applications in AI. We cover checkpointing at all levels of the software stack (OS-level, container, VM, application, and library-level), discuss stateless vs. stateful restoration strategies for AI systems, compare prominent open-source and proprietary C/R solutions, delve into the technical mechanisms enabling C/R (memory snapshotting, I/O and descriptor handling, GPU state, etc.), and highlight research challenges in bringing reliable, efficient C/R to dynamic, interactive AI agent environments. We also include extensive references to both classic literature and recent works (with a focus on peer-reviewed research), and we provide comparative tables to summarize the landscape of C/R tools and their capabilities. By looking at past and present developments, we aim to outline the trajectory of checkpoint/restore technology and identify opportunities for new tooling tailored to the next generation of AI-driven applications.</p>
+
+    
+      <nav class="md-post__action">
+        <a href="2025/05/11/checkpointrestore-systems-evolution-techniques-and-applications-in-ai-agents/">
+          Continue reading
+        </a>
+      </nav>
+    
+  </div>
+</article>
       
         <article class="md-post md-post--excerpt">
   <header class="md-post__header">

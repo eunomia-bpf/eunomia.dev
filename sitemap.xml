@@ -89,6 +89,14 @@
          
     </url>
     <url>
+         <loc>https://eunomia.dev/blog/2025/05/11/checkpointrestore-systems-evolution-techniques-and-applications-in-ai-agents/</loc>
+         <lastmod>2025-06-02</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blog/posts/check-restore/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/posts/check-restore/"/>
+         
+    </url>
+    <url>
          <loc>https://eunomia.dev/blog/2024/10/01/can-llms-understand-linux-kernel-a-new-ai-powered-approach-to-understanding-large-codebases/</loc>
          <lastmod>2025-06-02</lastmod>
          <changefreq>daily</changefreq>
