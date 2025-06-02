@@ -57,6 +57,7 @@ running and waiting for the ebpf events from perf event...
 {"pid":1717420,"tpid":1717419,"sig":17,"ret":0,"comm":"cat","sig_name":"SIGCHLD"}`"ts":0,"pid":2344,"uid":0,"ret":26,"flags":0,"comm":"YDService","fname":"/proc/1718823/cmdline"}`
 `{"ts":0,"pid":2344,"uid":0,"ret":26,"flags":0,"comm":"YDService","fname":"/proc/1718824/cmdline"}`
 `{"ts":0,"pid":2344,"uid":0,"ret":26,"flags":0,"comm":"YDService","fname":"/proc/self/stat"}`
+```
 
 opensnoop tracks the `open()` system call of a process, which means all file opening operations in the kernel. Here we can see process information such as PID, UID, return value, flags, process name, and file name. The eBPF program in kernel space is distributed within a Wasm module and is relocated using BTF information and libbpf during loading to adapt to different kernel versions. Additionally, because the user-space related processing code is entirely written in Wasm and the kernel-space is written in eBPF instructions, it is not restricted by specific instruction sets (e.g., x86, ARM) and can run on different platforms.
 
