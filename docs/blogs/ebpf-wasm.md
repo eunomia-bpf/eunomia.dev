@@ -128,7 +128,7 @@ struct event {
 
 We can compile it into JSON format using the eunomia-bpf toolchain, generate a `package.json` file, and directly run it using the ecli command:
 
-```console".```console
+```console
 $ docker run -it -v `pwd`/:/src/ ghcr.io/eunomia-bpf/ecc-`uname -m`:latest
 make
   BPF      .output/client.bpf.o
