@@ -65,6 +65,14 @@
          
     </url>
     <url>
+         <loc>https://eunomia.dev/blog/2025/04/25/asplos-2025-paper-summaries-and-insights/</loc>
+         <lastmod>2025-06-02</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blog/posts/asplos-2025/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/posts/asplos-2025/"/>
+         
+    </url>
+    <url>
          <loc>https://eunomia.dev/blog/2023/04/11/ebpf-advanced-overview-of-new-kernel-features/</loc>
          <lastmod>2025-06-02</lastmod>
          <changefreq>daily</changefreq>

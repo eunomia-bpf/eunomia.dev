@@ -24,7 +24,7 @@
     
     
       
-        <title>The Accelerator Toolkit: A Review of Profiling and Tracing for GPUs and other co-processor - eunomia</title>
+        <title>加速器工具箱：GPU和其他协处理器的性能分析和追踪详解 - eunomia</title>
       
     
     
@@ -69,11 +69,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="The Accelerator Toolkit: A Review of Profiling and Tracing for GPUs and other co-processor - eunomia" >
+        <meta  property="og:title"  content="加速器工具箱：GPU和其他协处理器的性能分析和追踪详解 - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
-        <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/blog/posts/gpu-profile-tools-analysis.png" >
+        <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/blog/posts/gpu-profile-tools-analysis.zh.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -85,11 +85,11 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="The Accelerator Toolkit: A Review of Profiling and Tracing for GPUs and other co-processor - eunomia" >
+        <meta  name="twitter:title"  content="加速器工具箱：GPU和其他协处理器的性能分析和追踪详解 - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
-        <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/blog/posts/gpu-profile-tools-analysis.png" >
+        <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/blog/posts/gpu-profile-tools-analysis.zh.png" >
       
     
     
@@ -112,7 +112,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#the-accelerator-toolkit-a-review-of-profiling-and-tracing-for-gpus-and-other-co-processor" class="md-skip">
+        <a href="#gpu" class="md-skip">
           Skip to content
         </a>
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              The Accelerator Toolkit: A Review of Profiling and Tracing for GPUs and other co-processor
+              加速器工具箱：GPU和其他协处理器的性能分析和追踪详解
             
           </span>
         </div>
@@ -5325,19 +5325,19 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#profiling-and-tracing-tools-for-gpus" class="md-nav__link">
+  <a href="#gpu_1" class="md-nav__link">
     <span class="md-ellipsis">
-      Profiling and Tracing Tools for GPUs
+      GPU的性能分析和追踪工具
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Profiling and Tracing Tools for GPUs">
+    <nav class="md-nav" aria-label="GPU的性能分析和追踪工具">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#gpu-tracing-with-low-overhead-and-continuous-monitoring" class="md-nav__link">
+  <a href="#gpu_2" class="md-nav__link">
     <span class="md-ellipsis">
-      GPU Tracing with Low-Overhead and Continuous Monitoring
+      低开销和持续监控的GPU追踪
     </span>
   </a>
   
@@ -5349,72 +5349,72 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#profiling-and-tracing-tools-for-dpus-smartnics" class="md-nav__link">
+  <a href="#dpu" class="md-nav__link">
     <span class="md-ellipsis">
-      Profiling and Tracing Tools for DPUs (SmartNICs)
+      DPU（智能网卡）的性能分析和追踪工具
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#profiling-and-tracing-tools-for-apus-cpugpu-integrated-platforms" class="md-nav__link">
+  <a href="#apucpu-gpu" class="md-nav__link">
     <span class="md-ellipsis">
-      Profiling and Tracing Tools for APUs (CPU–GPU Integrated Platforms)
+      APU（CPU-GPU集成平台）的性能分析和追踪工具
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#open-source-vs-commercial-solutions-a-comparison" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      Open-Source vs Commercial Solutions – A Comparison
+      开源与商业解决方案的比较
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#workload-specific-tool-mappings" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      Workload-Specific Tool Mappings
+      特定工作负载的工具映射
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#current-research-directions-and-emerging-trends" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      Current Research Directions and Emerging Trends
+      现有工具链的局限和挑战
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#limitations-and-challenges-of-existing-toolchains" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      Limitations and Challenges of Existing Toolchains
+      当前研究方向和新兴趋势
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#conclusion" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      Conclusion
+      结论
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      References
+      参考文献
     </span>
   </a>
   
@@ -5436,7 +5436,7 @@
 
 
   
-    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/blog/posts/gpu-profile-tools-analysis.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/blog/posts/gpu-profile-tools-analysis.zh.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -5445,244 +5445,244 @@
     
       
     
-    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/blog/posts/gpu-profile-tools-analysis.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/blog/posts/gpu-profile-tools-analysis.zh.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-<h1 id="the-accelerator-toolkit-a-review-of-profiling-and-tracing-for-gpus-and-other-co-processor">The Accelerator Toolkit: A Review of Profiling and Tracing for GPUs and other co-processor</h1>
-<p>Modern computing increasingly relies on specialized accelerators – notably <strong>GPUs</strong>, <strong>DPUs</strong>, and <strong>APUs</strong> – to handle diverse workloads. A <em>graphics processing unit (GPU)</em> is a massively parallel processor originally for graphics, now essential in general-purpose computing (HPC) and AI. A <em>data processing unit (DPU)</em> is a newer class of programmable processor combining CPU cores with high-performance network/storage engines. DPUs offload networking, security, and storage tasks from the CPU, and are considered the "third pillar" of computing alongside CPUs and GPUs. Meanwhile, <em>accelerated processing units (APUs)</em> integrate CPU and GPU components on one chip – an approach pioneered by AMD's Fusion architecture – enabling unified memory and high throughput for HPC and AI workloads. These accelerators run a range of workloads: GPUs excel in parallel math (HPC simulation, deep learning training/inference, data analytics) and rendering graphics; DPUs focus on data-centric tasks (network packet processing, encryption, storage offload, virtualization); and APUs target heterogeneous workloads needing tight CPU-GPU coupling (e.g. sharing memory for AI or multimedia applications).</p>
-<p><strong>Profiling and tracing</strong> tools are crucial for optimizing performance on these accelerators. Such tools collect <strong>low-level hardware telemetry</strong> (e.g. counters for utilization, memory throughput, SM occupancy, cache misses) and can perform <strong>instruction or event-level tracing</strong> (capturing timelines of kernel executions, memory copies, network packet flows, etc.). The goal is to identify bottlenecks and inefficiencies in both <em>general-purpose</em> code and <em>domain-specific</em> pipelines (like ML model training, network function processing, or graphics rendering). However, profiling highly parallel, heterogeneous systems presents challenges of overhead, data volume, and cross-platform compatibility. This review categorizes current tracing/profiling tools by hardware type and domain, compares open-source and commercial solutions, and highlights major projects and recent research. We also discuss specialized toolsets (including eBPF-based approaches akin to Linux's BCC) adapted for GPUs/DPUs/APUs, typical workloads and matching toolchains, and the limitations and emerging directions in this landscape.</p>
+<h1 id="gpu">加速器工具箱：GPU和其他协处理器的性能分析和追踪详解</h1>
+<p>现代计算越来越依赖专用加速器——尤其是<strong>GPU</strong>、<strong>DPU</strong>和<strong>APU</strong>——来处理各种工作负载。<em>图形处理单元(GPU)</em>是一种大规模并行处理器，最初用于图形处理，现在在通用计算(HPC)和AI中必不可少。<em>数据处理单元(DPU)</em>是一种较新类型的可编程处理器，结合了CPU核心和高性能网络/存储引擎。DPU从CPU卸载网络、安全和存储任务，被认为是继CPU和GPU之后计算的"第三支柱"。同时，<em>加速处理单元(APU)</em>在一个芯片上集成了CPU和GPU组件——这一方法由AMD的Fusion架构首创——实现了统一内存和高吞吐量，适用于HPC和AI工作负载。这些加速器运行各种工作负载：GPU在并行数学（HPC模拟、深度学习训练/推理、数据分析）和图形渲染方面表现出色；DPU专注于数据中心任务（网络数据包处理、加密、存储卸载、虚拟化）；而APU针对需要紧密CPU-GPU耦合的异构工作负载（例如共享内存的AI或多媒体应用程序）。</p>
+<p><strong>性能分析和追踪</strong>工具对于优化这些加速器上的性能至关重要。这些工具收集<strong>低级硬件遥测数据</strong>（例如利用率、内存吞吐量、SM占用率、缓存未命中等计数器）并可以执行<strong>指令或事件级追踪</strong>（捕获内核执行、内存复制、网络数据包流等的时间线）。目标是识别通用代码和特定领域流水线（如ML模型训练、网络功能处理或图形渲染）中的瓶颈和低效率。然而，对高度并行、异构系统进行性能分析带来了开销、数据量和跨平台兼容性的挑战。本综述按硬件类型和领域对当前追踪/性能分析工具进行分类，比较开源和商业解决方案，并强调主要项目和最新研究。我们还讨论专门的工具集（包括类似于Linux BCC的基于eBPF的方法）如何适应GPU/DPU/APU，典型工作负载和匹配工具链，以及这一领域的局限和新兴方向。</p>
 <!-- more -->
 
-<h2 id="profiling-and-tracing-tools-for-gpus">Profiling and Tracing Tools for GPUs</h2>
-<p>GPU profiling has matured over years of graphics and GPGPU development, yielding a rich ecosystem of vendor tools and open-source frameworks. Broadly, GPU profilers fall into two categories: <strong>development-time profilers</strong> that provide fine-grained insight for optimization (often with high overhead and GUI analysis), and <strong>lightweight monitors</strong> suitable for runtime or production use (low overhead, focusing on high-level metrics).</p>
+<h2 id="gpu_1">GPU的性能分析和追踪工具</h2>
+<p>GPU性能分析经过多年图形和GPGPU开发的成熟，形成了丰富的厂商工具和开源框架生态系统。广义上，GPU性能分析器分为两类：<strong>开发时性能分析器</strong>，提供细粒度洞察以优化（通常具有高开销和GUI分析），以及<strong>轻量级监控器</strong>，适用于运行时或生产环境（低开销，专注于高级指标）。 </p>
 <ul>
 <li>
-<p><strong>NVIDIA's Profiling Suite:</strong> NVIDIA's GPUs dominate in HPC/AI, and their tools are considered industry-standard. <em>Nsight Systems</em> provides system-wide timeline tracing – capturing CPU threads, CUDA kernel launches, memory copies, etc. – to pinpoint bottlenecks across the CPU-GPU boundary. It uses the CUDA Profiling Tools Interface (CUPTI) to gather detailed metrics and events. Nsight Systems is extremely powerful for deep analysis of GPU-accelerated applications, but it must explicitly start a profiling session and can incur significant overhead (often slowing programs by <strong>2×–10×</strong> during profiling). It's intended for development and tuning rather than continuous use. <em>Nsight Compute</em>, on the other hand, focuses on per-kernel deep dives: it profiles individual GPU kernels, providing instruction-level stats (e.g. instruction mix, memory transactions, warp occupancy, execution stalls) and can even associate performance metrics with source lines or PTX/SASS assembly. NVIDIA also offers <em>Visual Profiler</em> (an older GUI, now largely replaced by Nsight) and command-line profiling via <code>nvprof</code>/<code>nsys</code>. For graphics workloads (DirectX, OpenGL, Vulkan), NVIDIA's <strong>Nsight Graphics</strong> captures frame renderer pipelines, shader timings, and GPU state to assist game developers. All these NVIDIA tools are free but proprietary (closed-source). They are tightly optimized for NVIDIA hardware and support domain-specific analysis modes (graphics vs. compute vs. AI).</p>
+<p><strong>NVIDIA的性能分析套件：</strong> NVIDIA的GPU在HPC/AI中占主导地位，其工具被认为是行业标准。<em>Nsight Systems</em>提供系统范围的时间线追踪——捕获CPU线程、CUDA内核启动、内存复制等——以精确定位CPU-GPU边界上的瓶颈。它使用CUDA性能分析工具接口(CUPTI)收集详细的指标和事件。Nsight Systems对深入分析GPU加速应用程序极其强大，但它必须显式启动性能分析会话，并可能产生显著开销（在性能分析期间通常使程序速度降低<strong>2×–10×</strong>）。它适用于开发和调优，而非持续使用。另一方面，<em>Nsight Compute</em>专注于逐内核深入分析：它分析单个GPU内核，提供指令级统计（如指令混合、内存事务、warp占用率、执行停滞）甚至可以将性能指标与源代码行或PTX/SASS汇编关联。NVIDIA还提供<em>Visual Profiler</em>（一个较旧的GUI，现在主要被Nsight取代）和通过<code>nvprof</code>/<code>nsys</code>进行命令行性能分析。对于图形工作负载（DirectX、OpenGL、Vulkan），NVIDIA的<strong>Nsight Graphics</strong>捕获帧渲染管线、着色器计时和GPU状态以辅助游戏开发者。所有这些NVIDIA工具都是免费但专有（闭源）的。它们针对NVIDIA硬件进行严格优化，并支持特定领域的分析模式（图形vs计算vs AI）。</p>
 </li>
 <li>
-<p><strong>AMD's GPU Profiling Tools:</strong> AMD provides both open-source and proprietary tools as part of the ROCm and GPUOpen ecosystems. Historically, <em>CodeXL</em> was AMD's all-in-one profiler and debugger for CPUs, GPUs, and APUs. CodeXL (now discontinued) could profile OpenCL, HIP, and HSA applications on AMD APUs/GPUs, collecting kernel execution times and hardware counters on integrated devices. In recent years, AMD shifted to ROCm-based tooling: <strong>rocProfiler</strong> and <strong>rocTracer</strong> libraries (analogous to NVIDIA's CUPTI) enable profiling and tracing of HIP and OpenCL applications. In 2024, AMD introduced new tools in ROCm 6.2: <em>Omniperf</em> and <em>Omnitrace</em>. <strong>Omniperf</strong> is a kernel-level profiler for machine learning and HPC workloads on AMD Instinct GPUs, offering detailed performance counters analysis via CLI or a GUI dashboard. <strong>Omnitrace</strong> is a <em>multi-purpose profiling/tracing tool</em> for CPU <strong>and</strong> GPU, supporting dynamic binary instrumentation, call-stack sampling, and even causal profiling to pinpoint which functions consume time on heterogeneous CPU-GPU executions. These tools are open-source or part of AMD's open ROCm stack. For graphics and game development, AMD provides <strong>Radeon GPU Profiler (RGP)</strong> and <strong>Radeon Developer Panel</strong> under GPUOpen. RGP offers low-level timeline and wavefront occupancy data for Vulkan/DX12 applications on Radeon GPUs, while Radeon Memory Visualizer helps track memory usage. AMD's tools can be used on their APUs as well, benefiting from unified memory (e.g., profiling an APU means GPU kernels can be traced without PCIe transfer overhead). Overall, AMD's approach emphasizes open interfaces (e.g., the <em>GPUPerfAPI</em> library gives developers direct access to GPU performance counters) and integration with generic profilers.</p>
+<p><strong>AMD的GPU性能分析工具：</strong> AMD提供开源和专有工具作为ROCm和GPUOpen生态系统的一部分。历史上，<em>CodeXL</em>是AMD的用于CPU、GPU和APU的多合一性能分析器和调试器。CodeXL（现已停止）可以分析AMD APU/GPU上的OpenCL、HIP和HSA应用程序，收集内核执行时间和集成设备上的硬件计数器。近年来，AMD转向基于ROCm的工具：<strong>rocProfiler</strong>和<strong>rocTracer</strong>库（类似于NVIDIA的CUPTI）使HIP和OpenCL应用程序能够进行性能分析和追踪。2024年，AMD在ROCm 6.2中引入了新工具：<em>Omniperf</em>和<em>Omnitrace</em>。<strong>Omniperf</strong>是AMD Instinct GPU上机器学习和HPC工作负载的内核级性能分析器，通过CLI或GUI仪表板提供详细的性能计数器分析。<strong>Omnitrace</strong>是一个<em>多用途性能分析/追踪工具</em>，用于CPU<strong>和</strong>GPU，支持动态二进制插桩、调用栈采样，甚至因果性能分析，以精确指出在异构CPU-GPU执行中哪些函数消耗时间。这些工具是开源的，或者是AMD开放ROCm栈的一部分。对于图形和游戏开发，AMD在GPUOpen下提供<strong>Radeon GPU Profiler (RGP)</strong>和<strong>Radeon Developer Panel</strong>。RGP为Radeon GPU上的Vulkan/DX12应用程序提供低级时间线和波前占用数据，而Radeon Memory Visualizer帮助跟踪内存使用情况。AMD的工具也可以在他们的APU上使用，受益于统一内存（例如，在APU上进行性能分析意味着可以追踪GPU内核而不需要PCIe传输开销）。总体而言，AMD的方法强调开放接口（例如，<em>GPUPerfAPI</em>库让开发者直接访问GPU性能计数器）和与通用性能分析器的集成。</p>
 </li>
 <li>
-<p><strong>Intel and Other GPU Tools:</strong> Intel's GPUs (integrated Iris Xe and data-center GPUs like Ponte Vecchio) can be profiled by Intel's oneAPI toolset. <strong>Intel VTune Profiler</strong> supports GPU offload analysis, providing kernel timelines, EU (execution unit) occupancy, and memory bandwidth for Intel GPUs. Intel also offers <strong>Graphics Performance Analyzers (GPA)</strong> for game/graphics profiling on Intel hardware. Notably, Intel has open-sourced a suite called <em>Profiling Tools Interface (PTI) for GPU</em>, which includes lightweight tracing tools for oneAPI Level Zero and OpenCL applications. These command-line tools (available on GitHub) can trace GPU kernel submissions, memory operations, etc., on Intel GPUs, reflecting Intel's push for an open profiling ecosystem. Beyond the big three vendors, there are domain-specific GPU profilers: e.g., ARM's <em>Mali</em> GPUs (for mobile) have <strong>ARM Mobile Studio</strong> with tools like Streamline for profiling mobile GPU workloads; Qualcomm Adreno GPUs can be analyzed with Qualcomm's Snapdragon Profiler. These are more specialized but underscore that across vendors, profiling often requires <em>proprietary SDKs or tools</em> unique to each architecture, with little standardization – a pain point if one needs to support multiple GPU vendors.</p>
+<p><strong>Intel和其他GPU工具：</strong> Intel的GPU（集成Iris Xe和数据中心GPU如Ponte Vecchio）可以通过Intel的oneAPI工具集进行性能分析。<strong>Intel VTune Profiler</strong>支持GPU卸载分析，提供内核时间线、EU（执行单元）占用率和Intel GPU的内存带宽。Intel还提供<strong>Graphics Performance Analyzers (GPA)</strong>用于在Intel硬件上进行游戏/图形性能分析。值得注意的是，Intel开源了一套名为<em>Profiling Tools Interface (PTI) for GPU</em>的工具，其中包括用于oneAPI Level Zero和OpenCL应用程序的轻量级追踪工具。这些命令行工具（在GitHub上可用）可以在Intel GPU上追踪GPU内核提交、内存操作等，反映了Intel推动开放性能分析生态系统的努力。除了三大供应商之外，还有特定领域的GPU性能分析器：例如，ARM的<em>Mali</em> GPU（用于移动设备）有<strong>ARM Mobile Studio</strong>，其中包括用于分析移动GPU工作负载的Streamline工具；Qualcomm Adreno GPU可以使用高通的Snapdragon Profiler进行分析。这些更专业化的工具强调，跨供应商的性能分析通常需要特定于每种架构的<em>专有SDK或工具</em>，标准化程度较低——如果需要支持多个GPU供应商，这是一个痛点。</p>
 </li>
 <li>
-<p><strong>HPC and Cross-Platform Profiling:</strong> Outside vendor-specific utilities, the HPC community has developed powerful <strong>open-source profiling frameworks</strong> that work across CPUs and accelerators. <strong>HPCToolkit</strong> is a prominent example: it uses statistical sampling to profile both CPU and GPU execution with minimal overhead (often &lt;5%). HPCToolkit can trace GPU operations (kernels, memcopies, sync) on NVIDIA, AMD, and Intel GPUs, and on NVIDIA it even leverages hardware PC sampling to measure instruction-level execution and stall cycles. The tool correlates GPU activity back to CPU call stacks, allowing a <em>unified profile</em> attributing GPU costs to the calling CPU code context. This is invaluable for <em>heterogeneous applications</em>, e.g. identifying which CPU-side function launched a slow GPU kernel. Other cross-platform tools include <strong>TAU</strong> and <strong>Score-P/Extrae</strong>, which can instrument MPI+GPU programs and produce integrated traces. For instance, the Extrae tracer (from BSC) records CPU events and CUDA runtime events, enabling visualization in Paraver of both CPU timeline and GPU kernel timelines. These OSS tools typically support multiple accelerators via plugins (CUPTI for CUDA, ROCm tools for AMD, etc.), providing vendor-neutral analysis. They may not always expose the full depth of vendor tools' metrics, but they excel in <em>coordinating multi-node, multi-accelerator traces</em>. Academic efforts like <strong>Paraver/Extrae, Vampir, and Allinea MAP (Arm Forge)</strong> have evolved to handle GPU-accelerated HPC codes, indicating a trend toward unified performance analysis for heterogeneous systems.</p>
+<p><strong>HPC和跨平台性能分析：</strong> 在供应商特定工具之外，HPC社区开发了强大的<strong>开源性能分析框架</strong>，这些框架可以跨CPU和加速器工作。<strong>HPCToolkit</strong>是一个突出的例子：它使用统计采样以最小开销（通常&lt;5%）对CPU和GPU执行进行性能分析。HPCToolkit可以在NVIDIA、AMD和Intel GPU上追踪GPU操作（内核、内存复制、同步），并且在NVIDIA上它甚至利用硬件PC采样来测量指令级执行和停滞周期。该工具将GPU活动关联回CPU调用栈，允许一个<em>统一的分析</em>，将GPU成本归因于调用的CPU代码上下文。这对<em>异构应用程序</em>非常宝贵，例如识别哪个CPU端函数启动了一个慢速GPU内核。其他跨平台工具包括<strong>TAU</strong>和<strong>Score-P/Extrae</strong>，它们可以对MPI+GPU程序进行插桩并产生集成的追踪。例如，Extrae追踪器（来自BSC）记录CPU事件和CUDA运行时事件，使得在Paraver中可以同时可视化CPU时间线和GPU内核时间线。这些开源工具通常通过插件支持多种加速器（CUDA用CUPTI，AMD用ROCm工具等），提供厂商中立的分析。它们可能不总是公开供应商工具指标的全部深度，但它们在<em>协调多节点、多加速器追踪</em>方面表现出色。学术界的努力如<strong>Paraver/Extrae、Vampir和Allinea MAP (Arm Forge)</strong>已经发展到能够处理GPU加速的HPC代码，表明了向异构系统统一性能分析的趋势。</p>
 </li>
 <li>
-<p><strong>Graphics and Game Profiling:</strong> In graphics domains, <strong>tracing GPU workloads</strong> often involves capturing API calls and GPU command streams. Open-source projects like <strong>RenderDoc</strong> allow frame-by-frame capture of Vulkan/OpenGL/Direct3D calls, with introspection of GPU draw call timing (helpful for graphics debugging/performance). While RenderDoc is more of a debugger, it can give insights on whether the GPU is bound by certain draw calls or shaders. Platform-specific tools exist too: Microsoft's <strong>PIX</strong> (for DirectX on Windows/Xbox) provides detailed GPU timing for each render pass, and even Linux has tools like <strong>GPUView</strong> that trace kernel-level GPU scheduling events for graphics workloads. These are highly domain-specific (targeting graphics pipelines rather than general compute). They complement general GPU profilers by focusing on frame rendering latency, vs. kernel throughput.</p>
+<p><strong>图形和游戏性能分析：</strong> 在图形领域，<strong>追踪GPU工作负载</strong>通常涉及捕获API调用和GPU命令流。开源项目如<strong>RenderDoc</strong>允许逐帧捕获Vulkan/OpenGL/Direct3D调用，并提供GPU绘制调用计时的内省（有助于图形调试/性能）。虽然RenderDoc更多是一个调试器，但它可以提供关于GPU是否受某些绘制调用或着色器限制的洞察。也存在特定平台的工具：微软的<strong>PIX</strong>（用于Windows/Xbox上的DirectX）为每个渲染通道提供详细的GPU计时，甚至Linux也有<strong>GPUView</strong>等工具，可以为图形工作负载追踪内核级GPU调度事件。这些工具高度特定于领域（针对图形管线而非通用计算）。它们通过专注于帧渲染延迟而非内核吞吐量来补充通用GPU性能分析器。 </p>
 </li>
 </ul>
-<p><strong>Table 1</strong> below summarizes a sample of representative GPU profiling/tracing tools across vendors and domains, highlighting their availability and focus:</p>
+<p>下表<strong>表1</strong>总结了一系列具有代表性的GPU性能分析/追踪工具，跨供应商和领域，突出显示了它们的可用性和重点：</p>
 <table>
 <thead>
 <tr>
-<th><strong>Tool</strong></th>
-<th><strong>Vendor / Origin</strong></th>
-<th><strong>Open-Source?</strong></th>
-<th><strong>Primary Focus</strong></th>
-<th><strong>Supported Domain</strong></th>
+<th><strong>工具</strong></th>
+<th><strong>供应商/来源</strong></th>
+<th><strong>开源？</strong></th>
+<th><strong>主要重点</strong></th>
+<th><strong>支持领域</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><strong>Nsight Systems</strong></td>
 <td>NVIDIA</td>
-<td>No (free)</td>
-<td>Timeline tracing (CPU &amp; GPU), deep metrics</td>
-<td>CUDA Compute, AI, some Graphics</td>
+<td>否（免费）</td>
+<td>时间线追踪（CPU和GPU），深度指标</td>
+<td>CUDA计算，AI，部分图形</td>
 </tr>
 <tr>
 <td><strong>Nsight Compute</strong></td>
 <td>NVIDIA</td>
-<td>No (free)</td>
-<td>Kernel microarchitecture profiling</td>
-<td>CUDA/HPC/AI (per-kernel)</td>
+<td>否（免费）</td>
+<td>内核微架构性能分析</td>
+<td>CUDA/HPC/AI（每内核）</td>
 </tr>
 <tr>
 <td><strong>NVIDIA PerfKit/DCGM</strong></td>
 <td>NVIDIA</td>
-<td>No (free)</td>
-<td>Low-level HW counters (PerfKit); Datacenter GPU monitoring (DCGM)</td>
-<td>System GPU Telemetry</td>
+<td>否（免费）</td>
+<td>低级硬件计数器（PerfKit）；数据中心GPU监控（DCGM）</td>
+<td>系统GPU遥测</td>
 </tr>
 <tr>
 <td><strong>Radeon GPU Profiler</strong></td>
 <td>AMD (GPUOpen)</td>
-<td><strong>Yes</strong> (free)</td>
-<td>Low-level GPU trace (wavefront, ISA)</td>
-<td>Graphics (Vulkan/DX12), GPGPU</td>
+<td><strong>是</strong>（免费）</td>
+<td>低级GPU追踪（波前，ISA）</td>
+<td>图形（Vulkan/DX12），GPGPU</td>
 </tr>
 <tr>
 <td><strong>ROCm Omniperf</strong></td>
 <td>AMD ROCm (Instinct MI GPUs)</td>
-<td><strong>Yes</strong></td>
-<td>Kernel profiling (counters &amp; analysis)</td>
-<td>HPC/AI Compute</td>
+<td><strong>是</strong></td>
+<td>内核性能分析（计数器和分析）</td>
+<td>HPC/AI计算</td>
 </tr>
 <tr>
 <td><strong>ROCm Omnitrace</strong></td>
 <td>AMD ROCm</td>
-<td><strong>Yes</strong></td>
-<td>CPU-GPU tracing, call-stack profiling</td>
-<td>HPC/AI, Heterogeneous apps</td>
+<td><strong>是</strong></td>
+<td>CPU-GPU追踪，调用栈性能分析</td>
+<td>HPC/AI，异构应用</td>
 </tr>
 <tr>
 <td><strong>Intel VTune &amp; GPA</strong></td>
 <td>Intel oneAPI</td>
-<td>Partial (VTune closed, PTI open)</td>
-<td>VTune: GPU offload analysis; GPA: frame analysis</td>
-<td>Compute (oneAPI) &amp; Graphics</td>
+<td>部分（VTune闭源，PTI开源）</td>
+<td>VTune：GPU卸载分析；GPA：帧分析</td>
+<td>计算（oneAPI）和图形</td>
 </tr>
 <tr>
 <td><strong>HPCToolkit</strong></td>
-<td>Rice Univ. (HPC tool)</td>
-<td><strong>Yes</strong></td>
-<td>Sampling-based profiling (CPU &amp; GPU)</td>
-<td>HPC/AI (CPU+GPU)</td>
+<td>莱斯大学（HPC工具）</td>
+<td><strong>是</strong></td>
+<td>基于采样的性能分析（CPU和GPU）</td>
+<td>HPC/AI（CPU+GPU）</td>
 </tr>
 <tr>
 <td><strong>RenderDoc</strong></td>
-<td>Community / Baldur Karlsson</td>
-<td><strong>Yes</strong></td>
-<td>Frame capture &amp; API trace</td>
-<td>Graphics debugging</td>
+<td>社区/Baldur Karlsson</td>
+<td><strong>是</strong></td>
+<td>帧捕获和API追踪</td>
+<td>图形调试</td>
 </tr>
 <tr>
 <td><strong>PyTorch Kineto</strong></td>
-<td>FB/Intel (via PyTorch)</td>
-<td><strong>Yes</strong></td>
-<td>In-framework profiler (CPU+GPU)</td>
-<td>AI/ML (Deep Learning)</td>
+<td>FB/Intel（通过PyTorch）</td>
+<td><strong>是</strong></td>
+<td>框架内性能分析器（CPU+GPU）</td>
+<td>AI/ML（深度学习）</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Sources:</strong> GPU vendor documentation and tool websites.</p>
-<p>As the table suggests, <strong>open-source solutions</strong> are prominent in research and HPC (e.g. HPCToolkit, Omniperf/Omnitrace, RenderDoc), while <strong>commercial/vendor tools</strong> (Nsight, VTune, etc.) often provide the most optimized access to proprietary hardware features (like NVIDIA's profilers using privileged CUPTI APIs). Open tools may trade some low-level detail for broader applicability – for example, HPCToolkit can profile across NVIDIA, AMD, and Intel GPUs in a uniform way, but for deepest NVIDIA-specific metrics (e.g. SM warp stall reasons), developers still rely on Nsight Compute. Conversely, vendor tools are typically free-of-cost but <strong>closed-source</strong>, and each vendor's toolchain is distinct, leading to fragmentation. A developer targeting multiple GPU platforms might need to juggle multiple profilers (one for CUDA, one for ROCm, one for Intel) since there is <em>no single standard interface</em> for GPU performance counters across vendors. The lack of standardization has led to projects like ARM's <strong>HWCPipe</strong> library that attempt to abstract GPU counters for multiple architectures in one API, but such efforts are still evolving.</p>
-<h3 id="gpu-tracing-with-low-overhead-and-continuous-monitoring">GPU Tracing with Low-Overhead and Continuous Monitoring</h3>
-<p>Classic GPU profilers (as described above) are extremely useful during development, but their overhead and intrusive workflows make them unsuitable for always-on monitoring in production (for instance, you can't afford a 5× slowdown on a live AI inference server just to collect traces). To fill this gap, recent tools leverage <em>low-overhead tracing techniques</em> inspired by systems like Linux's eBPF. One notable approach is Meta's deployment of <strong>eBPF</strong> for fleet-wide GPU profiling, as presented by Selim (2023) at the eBPF Summit. Instead of instrumenting GPU code, Meta's tool attaches to GPU driver events via eBPF, enabling continuous collection of GPU metrics across thousands of machines with negligible overhead.</p>
-<p>An example of an open project in this vein is <strong>GPUprobe</strong>, a Linux eBPF-based GPU observability tool. GPUprobe uses <em>uprobes</em> (user-level probes) to hook into NVIDIA's CUDA runtime library functions at the kernel level. In doing so, it can monitor events like GPU memory allocations (<code>cudaMalloc/free</code>) and kernel launches in real time – <strong>without</strong> requiring any modifications or instrumentation in the target application code. The overhead is very low (measured under 4% in benchmarks), so it's feasible to run in production continuously. GPUprobe fills a <em>middle ground</em> between heavy profilers and coarse monitoring: it provides richer, per-application insights than NVIDIA's Data Center GPU Manager (DCGM) – such as tracking memory leaks per process and kernel launch frequencies – but with far less overhead than Nsight's full profiling. As the GPUprobe authors note, <strong>Nsight Systems</strong> is like a "GPU-specific debugger" that's great for deep dives but not for continuous use, while <strong>DCGM</strong> gives high-level stats (utilization, temps, health) and misses app-specific details. Tools like GPUprobe bridge this gap, exporting metrics to standard observability systems (e.g. Prometheus/Grafana) for integration into data center dashboards. In fact, GPUprobe's design allows scraping of its metrics (memory usage maps, kernel launch counts, bandwidth usage) in <strong>OpenMetrics</strong> format, so operators can visualize GPU behavior over time in Grafana alongside CPU, network, and other metrics.</p>
-<p>This <strong>BCC/eBPF-inspired approach</strong> is an emerging trend for GPU profiling. It aims to bring the powerful methodology of kernel tracing (pioneered on CPUs by tools like <code>perf</code>, <code>bcc</code>, and eBPF) into the GPU realm. Research prototypes have even explored running eBPF programs <em>on the GPU</em> itself (for instance, an academic project "eGPU" offloaded BPF bytecode to GPUs via PTX injection), though such techniques are not yet mainstream. At present, the more practical uses involve hooking GPU driver or runtime events from the CPU side. The result is a non-intrusive peek into GPU operations: for example, detecting if a GPU job is launch-bound (many small kernel launches) or memory-leak-prone, <em>without</em> recompiling the application. This is particularly valuable for cloud providers or large-scale AI deployments, where continuous profiling can catch performance regressions or resource leaks in long-running GPU services.</p>
-<h2 id="profiling-and-tracing-tools-for-dpus-smartnics">Profiling and Tracing Tools for DPUs (SmartNICs)</h2>
-<p><strong>DPUs</strong> (data processing units), often manifested as <strong>SmartNICs</strong>, combine general-purpose cores with specialized packet-processing hardware. They are used to offload networking (packet switching, virtualization), storage (NVMe-oF, encryption), and security tasks from the main CPU. Profiling DPUs presents a distinct challenge: one must consider both the on-board CPU (usually an Arm SoC running Linux) and the networking data plane which may involve FPGA logic or ASIC accelerators on the NIC.</p>
-<p>In general, profiling on a DPU can leverage many of the <em>standard Linux tools</em> for the embedded CPU portion. For example, NVIDIA's BlueField DPUs run Ubuntu, so one can use <strong>Linux perf</strong>, standard CPU profilers, or even eBPF-based monitors <em>on the DPU's Arm cores</em> to profile software running locally (e.g., an offloaded software switch). If a user application or agent runs on the DPU's OS, it's profiled much like on any Linux server – albeit with an awareness of the limited cores and unique tasks (often packet-handling threads). In fact, one could run BCC tools on a BlueField to measure syscalls, or use <code>perf</code> to sample cache misses in the DPU's code. This is the <em>general-purpose workload</em> profiling on DPUs (similar to any Linux host, but constrained resources).</p>
-<p>However, much of a DPU's workload is <em>domain-specific (networking and storage)</em> and handled by specialized hardware blocks. For instance, a DPU may accelerate an Open vSwitch (OVS) datapath in hardware, or perform RDMA and NVMe operations via dedicated engines. Profiling these aspects often relies on <strong>vendor-provided telemetry and counters</strong>. Vendors like NVIDIA (Mellanox) and Broadcom supply tools to monitor packet throughput, latency, and offload engine stats on their SmartNICs. NVIDIA's <strong>DOCA</strong> SDK for BlueField includes profiling APIs and performance monitors for accelerated functions (e.g., crypto, RDMA). The BlueField DPU exposes metrics such as packets per second, drops, and queue depths via standard interfaces (perhaps through DPDK or /sys counters). In the case of DPDK (a common user-space packet I/O library used with SmartNICs), developers can profile their packet processing pipeline on CPU using Intel VTune or perf, and measure NIC throughput using DPDK's built-in event counters. Intel's documentation even covers using VTune to analyze DPDK event scheduling on their infrastructure processing units (IPUs).</p>
-<p>Commercial SmartNIC vendors offer their own monitoring suites. For example, <strong>Napatech</strong> (a SmartNIC manufacturer) distributes profiling tools that report port throughput, packet counters (RMON statistics), and even host application interaction metrics. These tools often come as command-line monitors or GUI dashboards. Napatech's monitoring CLI (shown in their docs) can live-update line rate (e.g., ~48 Gbps Rx/Tx on a 100G NIC) and various packet size counters. Such vendor tools are usually proprietary (bundled with the NIC), highlighting a similarity with GPU space: to get full visibility into hardware accelerators on the DPU, you typically use the vendor's API or utility. Another example: Broadcom/Pensando DPUs (now part of AMD) have an SDK that likely includes telemetry for their packet processors, though details are often behind NDAs. <strong>Cisco</strong> and <strong>Marvell</strong> likewise provide manageability interfaces for their SmartNICs (often as part of network OS or NIC firmware), focusing on throughput and latency metrics rather than instruction-level traces.</p>
-<p>That said, open-source efforts are emerging for SmartNIC performance analysis. The P4 language, used to program some NICs, has debugging tools which can simulate or log packet flow through the pipeline (though not exactly a profiler in the traditional sense). Academic research has produced tools like <em>Clara</em> and <em>Pipefuse</em> to analyze or even <em>predict</em> network function performance on SmartNICs. These aim to answer questions like "if I offload this function to a SmartNIC, what throughput can I expect?" by modeling the NIC's resources. While not runtime profilers, they address the broader performance tuning of DPU workloads. Another research example is <em>LogNIC</em>, which provides a performance model for SmartNIC pipelines. Such tools are largely experimental but point toward future <strong>high-level profilers</strong> for networking tasks.</p>
-<p>In summary, <strong>DPU profiling today is a patchwork</strong> of general CPU profiling on one hand, and specialized network telemetry on the other. One might profile the <strong>software control plane</strong> on the DPU using familiar tools (to ensure the DPU's CPU isn't a bottleneck) while simultaneously using NIC counters or synthetic traffic tests to profile the <strong>data plane throughput</strong>. Coordinating these is often manual. For instance, to profile an Open vSwitch offloaded to a DPU, you'd measure the DPU's CPU usage (for control tasks, flow setup) and gather NIC stats for packet rate and latency, possibly by generating test traffic and measuring end-to-end latency. Standard performance profilers for <em>network workloads</em> (like how to trace a P4 program on hardware) are still nascent. We expect that as DPUs become more common, vendor-agnostic profiling standards may emerge – perhaps an extension of eBPF/XDP to trace through a SmartNIC, or an open telemetry schema for NICs – but currently much is vendor-specific.</p>
-<h2 id="profiling-and-tracing-tools-for-apus-cpugpu-integrated-platforms">Profiling and Tracing Tools for APUs (CPU–GPU Integrated Platforms)</h2>
-<p>Accelerated Processing Units (APUs) blend CPU and GPU on a single die, sharing memory and interconnect. AMD's latest Instinct MI300A is a prime example: a data-center APU combining 24 Zen4 CPU cores with 128 GB of HBM memory and a CDNA3 GPU in one package. Profiling APUs involves understanding the <strong>interaction between the on-chip CPU and GPU</strong>, which can be both a blessing and a challenge. On one hand, unified memory means developers don't need to profile PCIe transfer bottlenecks – CPU and GPU can access the same HBM pool, and data movement is via pointers rather than explicit copies. On the other hand, an APU's GPU shares power/thermal budgets with CPUs, which can introduce contention that profiling tools should reveal (e.g., if the GPU is throttling when CPU is maxed out).</p>
-<p>Tools for APUs largely overlap with the CPU and GPU tools discussed, with added emphasis on <strong>integrated analysis</strong>. AMD's toolchain, for example, is APU-aware: <strong>AMD uProf</strong> is a profiling suite that covers CPU performance (PMU events, cache misses, etc.) and also can correlate with GPU activity on supported APUs. AMD uProf and CodeXL historically allowed profiling OpenCL kernels on an APU's iGPU, reporting each kernel's performance counters. The new ROCm Omnitrace (mentioned earlier) explicitly supports profiling both CPU and GPU in one timeline, which is ideal for APUs where CPU threads launch GPU work frequently. Omnitrace's ability to use binary instrumentation and call-stack sampling on the CPU side, while tracing GPU kernels, helps map performance "holographically" across the APU. This means if a CPU function on the APU calls a GPU kernel, the tool can show the time in the CPU function and the nested time in the GPU kernel as part of the same call tree – a critical capability for optimizing heterogeneous code.</p>
-<p>For consumer APUs (like AMD Ryzen processors with Radeon graphics), developers commonly use <strong>graphics profilers</strong> (for gaming use-cases) or <strong>OpenCL/Vulkan profilers</strong> for compute. AMD's Radeon GPU Profiler, for instance, works on integrated GPUs the same as discrete. The unified memory also allows use of standard OS performance counters: on Linux, AMD's GPU drivers expose certain GPU utilization metrics via <code>drm/sysfs</code>, so one could even use system monitors or custom scripts to log GPU activity alongside CPU. Windows developers with APUs might use Microsoft's <strong>PIX</strong> or AMD's Radeon Developer tools to profile DirectX12 games running on the integrated GPU – these tools show CPU and GPU timelines and could highlight if the CPU is starving the GPU or vice versa. Essentially, APU profiling doesn't require an entirely new class of tools, but it <strong>benefits from tools that can correlate CPU and GPU performance</strong> tightly. This is similar to profiling on a discrete GPU system, except the latency between CPU-GPU is lower and memory is shared, which tools need to account for (e.g., a cache coherency effect might appear where CPU and GPU contend on memory).</p>
-<p>It's worth noting that integrated architectures spurred the development of HSA (Heterogeneous System Architecture) in the mid-2010s, and AMD's tools had HSA-specific profiling modes. For example, CodeXL included an HSA profiler for AMD APUs which could trace HSA kernel dispatches and HSAIL instructions. Much of that functionality has been absorbed into ROCm tools now. The essence remains: <strong>APUs require profiling of the <em>whole system</em> rather than just "CPU vs GPU" in isolation</strong>. Tools like Omnitrace, VTune, or HPCToolkit (with its heterogeneous call path analysis) are particularly apt for APU-based workloads because they naturally mix CPU and GPU metrics.</p>
-<h2 id="open-source-vs-commercial-solutions-a-comparison">Open-Source vs Commercial Solutions – A Comparison</h2>
-<p>There is a healthy mix of open-source (OSS) and commercial/proprietary solutions in accelerator profiling, each with pros and cons. Here we compare key aspects:</p>
+<p><strong>来源：</strong> GPU供应商文档和工具网站。</p>
+<p>如表所示，<strong>开源解决方案</strong>在研究和HPC中很突出（例如HPCToolkit、Omniperf/Omnitrace、RenderDoc），而<strong>商业/供应商工具</strong>（Nsight、VTune等）通常提供对专有硬件功能的最优化访问（如NVIDIA的性能分析器使用特权CUPTI API）。开源工具可能会用更广泛的适用性来交换一些低级细节——例如，HPCToolkit可以以统一的方式在NVIDIA、AMD和Intel GPU上进行性能分析，但对于最深入的NVIDIA特定指标（如SM warp停滞原因），开发者仍然依赖于Nsight Compute。相反，供应商工具通常是免费的但<strong>闭源</strong>，并且每个供应商的工具链都是不同的，导致碎片化。针对多个GPU平台的开发者可能需要处理多个性能分析器（一个用于CUDA，一个用于ROCm，一个用于Intel），因为<em>没有跨供应商的GPU性能计数器单一标准接口</em>。这种标准化缺乏导致了像ARM的<strong>HWCPipe</strong>库这样的项目，它试图在一个API中抽象多种架构的GPU计数器，但这样的努力仍在发展中。 </p>
+<h3 id="gpu_2">低开销和持续监控的GPU追踪</h3>
+<p>经典的GPU性能分析器（如上所述）在开发过程中非常有用，但它们的开销和侵入性工作流程使其不适合在生产环境中进行持续监控（例如，你不能仅仅为了收集追踪而让一个实时AI推理服务器的速度降低5倍）。为了填补这一空白，最近的工具利用了<em>受Linux eBPF启发的低开销追踪技术</em>。一个值得注意的方法是Meta在eBPF峰会上由Selim (2023)介绍的<strong>eBPF</strong>用于全队规模的GPU性能分析。Meta的工具不是对GPU代码进行插桩，而是通过eBPF附加到GPU驱动程序事件，使其能够以可忽略的开销在数千台机器上持续收集GPU指标。</p>
+<p>这一领域的一个开源项目例子是<strong>GPUprobe</strong>，一个基于Linux eBPF的GPU可观察性工具。GPUprobe使用<em>uprobes</em>（用户级探针）在内核级别钩入NVIDIA的CUDA运行时库函数。通过这样做，它可以实时监控像GPU内存分配（<code>cudaMalloc/free</code>）和内核启动等事件——<strong>无需</strong>对目标应用程序代码进行任何修改或插桩。开销非常低（在基准测试中测量低于4%），因此可以在生产环境中持续运行。GPUprobe填补了重型性能分析器和粗粒度监控之间的<em>中间地带</em>：它提供比NVIDIA的数据中心GPU管理器(DCGM)更丰富的、每个应用程序的洞察——例如跟踪每个进程和内核启动频率的内存泄漏——但开销远低于Nsight的完整性能分析。正如GPUprobe作者所指出的，<strong>Nsight Systems</strong>就像一个"GPU特定调试器"，非常适合深入分析但不适合持续使用，而<strong>DCGM</strong>提供高级统计数据（利用率、温度、健康状况）但缺少特定于应用程序的详细信息。像GPUprobe这样的工具弥补了这一差距，将指标导出到标准可观察性系统（例如Prometheus/Grafana）以集成到数据中心仪表板中。事实上，GPUprobe的设计允许以<strong>OpenMetrics</strong>格式抓取其指标（内存使用图、内核启动计数、带宽使用），因此操作员可以在Grafana中与CPU、网络和其他指标一起可视化GPU行为随时间的变化。</p>
+<p>这种<strong>BCC/eBPF启发的方法</strong>是GPU性能分析的一个新兴趋势。它旨在将强大的内核追踪方法（由<code>perf</code>、<code>bcc</code>和eBPF等工具在CPU上开创）引入GPU领域。研究原型甚至探索了在GPU<em>本身</em>上运行eBPF程序（例如，一个学术项目"eGPU"通过PTX注入将BPF字节码卸载到GPU上），尽管这样的技术尚未成为主流。目前，更实用的用途是从CPU端钩入GPU驱动程序或运行时事件。结果是对GPU操作的非侵入性窥视：例如，检测GPU作业是否受启动限制（许多小内核启动）或容易内存泄漏，<em>无需</em>重新编译应用程序。这对云提供商或大规模AI部署特别有价值，持续性能分析可以捕获长时间运行的GPU服务中的性能回归或资源泄漏。 </p>
+<h2 id="dpu">DPU（智能网卡）的性能分析和追踪工具</h2>
+<p><strong>DPU</strong>（数据处理单元），通常以<strong>智能网卡</strong>的形式出现，结合了通用处理核心和专用数据包处理硬件。它们用于从主CPU卸载网络（数据包交换、虚拟化）、存储（NVMe-oF、加密）和安全任务。DPU的性能分析提出了一个独特的挑战：必须同时考虑板载CPU（通常是运行Linux的Arm SoC）和网络数据面，后者可能涉及网卡上的FPGA逻辑或ASIC加速器。</p>
+<p>一般来说，DPU上的性能分析可以利用许多<em>标准Linux工具</em>用于嵌入式CPU部分。例如，NVIDIA的BlueField DPU运行Ubuntu，因此可以使用<strong>Linux perf</strong>、标准CPU性能分析器，甚至基于eBPF的监视器<em>在DPU的Arm核心上</em>对本地运行的软件（例如，卸载的软件交换机）进行性能分析。如果用户应用程序或代理在DPU的操作系统上运行，它的性能分析方式与在任何Linux服务器上很相似——尽管要意识到有限的核心和独特的任务（通常是数据包处理线程）。事实上，可以在BlueField上运行BCC工具来测量系统调用，或使用<code>perf</code>对DPU代码中的缓存未命中进行采样。这是DPU上的<em>通用工作负载</em>性能分析（类似于任何Linux主机，但资源受限）。</p>
+<p>然而，DPU的许多工作负载是<em>特定领域的（网络和存储）</em>，由专用硬件块处理。例如，DPU可能在硬件中加速Open vSwitch (OVS)数据路径，或通过专用引擎执行RDMA和NVMe操作。这些方面的性能分析通常依赖于<strong>供应商提供的遥测和计数器</strong>。像NVIDIA（Mellanox）和Broadcom这样的供应商提供工具来监控其智能网卡上的数据包吞吐量、延迟和卸载引擎统计数据。NVIDIA的<strong>DOCA</strong> SDK for BlueField包括用于加速功能（例如，加密、RDMA）的性能分析API和性能监视器。BlueField DPU通过标准接口（可能通过DPDK或/sys计数器）暴露每秒数据包数、丢包和队列深度等指标。在DPDK（与智能网卡一起使用的常见用户空间数据包I/O库）的情况下，开发者可以使用Intel VTune或perf对CPU上的数据包处理管道进行性能分析，并使用DPDK的内置事件计数器测量NIC吞吐量。Intel的文档甚至涵盖了使用VTune分析其基础设施处理单元(IPU)上的DPDK事件调度。</p>
+<p>商业智能网卡供应商提供自己的监控套件。例如，<strong>Napatech</strong>（一家智能网卡制造商）分发性能分析工具，报告端口吞吐量、数据包计数器（RMON统计数据），甚至主机应用程序交互指标。这些工具通常以命令行监视器或GUI仪表板的形式出现。Napatech的监控CLI（在其文档中显示）可以实时更新线路速率（例如，在100G NIC上约48 Gbps Rx/Tx）和各种数据包大小计数器。这类供应商工具通常是专有的（与NIC捆绑在一起），突显了与GPU领域的相似之处：要获得对DPU上硬件加速器的完全可见性，通常使用供应商的API或实用程序。另一个例子：Broadcom/Pensando DPU（现在是AMD的一部分）有一个SDK，可能包括其数据包处理器的遥测，尽管详细信息通常隐藏在NDA之后。<strong>思科</strong>和<strong>Marvell</strong>同样为其智能网卡提供可管理性接口（通常作为网络操作系统或NIC固件的一部分），专注于吞吐量和延迟指标，而非指令级追踪。</p>
+<p>话虽如此，开源努力正在为智能网卡性能分析而兴起。用于对某些NIC进行编程的P4语言有调试工具，可以模拟或记录数据包通过管道的流程（尽管不完全是传统意义上的性能分析器）。学术研究已经产生了像<em>Clara</em>和<em>Pipefuse</em>这样的工具，用于分析甚至<em>预测</em>智能网卡上的网络功能性能。这些工具旨在回答"如果我将这个功能卸载到智能网卡，可以预期什么吞吐量？"之类的问题，通过对NIC资源进行建模。虽然不是运行时性能分析器，但它们解决了DPU工作负载更广泛的性能调优问题。另一个研究例子是<em>LogNIC</em>，它为智能网卡管道提供性能模型。这类工具主要是实验性的，但指向未来的<strong>高级性能分析器</strong>用于网络任务。</p>
+<p>总之，<strong>今天的DPU性能分析是CPU性能分析和专用网络遥测的拼凑组合</strong>。一方面可能使用熟悉的工具对DPU上的<strong>软件控制平面</strong>进行性能分析（以确保DPU的CPU不是瓶颈），同时使用NIC计数器或合成流量测试对<strong>数据平面吞吐量</strong>进行性能分析。协调这些通常是手动的。例如，要对卸载到DPU的Open vSwitch进行性能分析，你会测量DPU的CPU使用情况（控制任务、流设置）并收集NIC统计数据以了解数据包速率和延迟，可能通过生成测试流量并测量端到端延迟。<em>网络工作负载</em>的标准性能分析器（例如如何在硬件上追踪P4程序）仍处于起步阶段。我们预计，随着DPU变得更加普遍，厂商中立的性能分析标准可能会出现——可能是eBPF/XDP的扩展，以通过智能网卡进行追踪，或NIC的开放遥测模式——但目前很多内容都是厂商特定的。 </p>
+<h2 id="apucpu-gpu">APU（CPU-GPU集成平台）的性能分析和追踪工具</h2>
+<p>加速处理单元（APU）将CPU和GPU集成在单个芯片上，共享内存和互连。AMD最新的Instinct MI300A是一个典型例子：一个数据中心APU，在一个封装中结合了24个Zen4 CPU核心、128 GB的HBM内存和CDNA3 GPU。对APU进行性能分析需要理解<strong>片上CPU和GPU之间的交互</strong>，这既是一种优势也是一种挑战。一方面，统一内存意味着开发者不需要分析PCIe传输瓶颈——CPU和GPU可以访问同一个HBM池，数据移动通过指针而非显式复制。另一方面，APU的GPU与CPU共享功耗/散热预算，这可能引入性能分析工具应该揭示的争用问题（例如，当CPU满负荷运行时GPU是否被限制）。</p>
+<p>APU的工具在很大程度上与上面讨论的CPU和GPU工具重叠，但更强调<strong>集成分析</strong>。例如，AMD的工具链是APU感知的：<strong>AMD uProf</strong>是一个覆盖CPU性能（PMU事件、缓存未命中等）的性能分析套件，也可以在支持的APU上与GPU活动关联。AMD uProf和CodeXL历史上允许在APU的集成GPU上分析OpenCL内核，报告每个内核的性能计数器。前面提到的新的ROCm Omnitrace明确支持在一个时间线中同时分析CPU和GPU，这对于CPU线程频繁启动GPU工作的APU来说是理想的。Omnitrace能够在CPU端使用二进制插桩和调用栈采样，同时追踪GPU内核，有助于在APU上"全息"映射性能。这意味着如果APU上的CPU函数调用GPU内核，该工具可以显示CPU函数中的时间和GPU内核中的嵌套时间作为同一调用树的一部分——这对于优化异构代码至关重要。</p>
+<p>对于消费级APU（如带有Radeon图形的AMD Ryzen处理器），开发者通常使用<strong>图形性能分析器</strong>（用于游戏用例）或<strong>OpenCL/Vulkan性能分析器</strong>进行计算。例如，AMD的Radeon GPU Profiler在集成GPU上的工作方式与独立GPU相同。统一内存也允许使用标准操作系统性能计数器：在Linux上，AMD的GPU驱动程序通过<code>drm/sysfs</code>暴露某些GPU利用率指标，因此甚至可以使用系统监视器或自定义脚本来记录GPU活动和CPU活动。使用APU的Windows开发者可能使用Microsoft的<strong>PIX</strong>或AMD的Radeon Developer工具来分析在集成GPU上运行的DirectX12游戏——这些工具显示CPU和GPU时间线，并可以突出显示CPU是否饿死了GPU或相反。本质上，APU性能分析不需要全新的工具类别，但它<strong>受益于能够紧密关联CPU和GPU性能的工具</strong>。这类似于在独立GPU系统上进行性能分析，只是CPU-GPU之间的延迟更低，内存是共享的，工具需要考虑这一点（例如，可能出现CPU和GPU在内存上争用的缓存一致性效应）。</p>
+<p>值得注意的是，集成架构在2010年代中期促进了HSA（异构系统架构）的发展，AMD的工具有HSA特定的性能分析模式。例如，CodeXL包含一个用于AMD APU的HSA性能分析器，可以追踪HSA内核调度和HSAIL指令。现在这些功能大部分已被吸收到ROCm工具中。本质仍然是：<strong>APU需要对<em>整个系统</em>进行性能分析，而不仅仅是孤立地分析"CPU vs GPU"</strong>。像Omnitrace、VTune或HPCToolkit（具有异构调用路径分析）这样的工具对基于APU的工作负载特别适用，因为它们自然地混合CPU和GPU指标。</p>
+<h2 id="_1">开源与商业解决方案的比较</h2>
+<p>在加速器性能分析领域，开源（OSS）和商业/专有解决方案各有优缺点。以下是几个关键方面的比较：</p>
 <ul>
 <li>
-<p><strong>Feature Depth and Hardware Access:</strong> Vendor-provided tools (usually closed-source, but often free of charge) tend to have the most <strong>comprehensive access to hardware performance counters and features</strong>. For example, NVIDIA's Nsight can report SM warp stall reasons and texture cache hit rates – metrics exposed by NVIDIA's secret sauce interfaces that open tools generally don't get. Similarly, AMD's proprietary driver might expose GPU wavefront occupancy details to RGP that generic tools can't obtain. OSS tools rely on published or reverse-engineered interfaces; for instance, AMD's GPUPerfAPI (open library) provides cross-platform counter access, which is why AMD's own tools could be open-sourced. <strong>Open-source projects</strong> sometimes lack the very latest hardware support until vendors release documentation, whereas commercial tools are ready on Day 1 for new GPUs (since the vendor builds them). On the other hand, open tools like HPCToolkit have innovated features like fully automated call-stack unwinding and statistical GPU instruction sampling that are not available in vendor GUIs, showing that OSS can lead in certain capabilities (particularly around integration and low overhead).</p>
+<p><strong>功能深度和硬件访问：</strong> 供应商提供的工具（通常闭源，但往往免费）往往对硬件性能计数器和功能有最<strong>全面的访问权限</strong>。例如，NVIDIA的Nsight可以报告SM warp停滞原因和纹理缓存命中率——这些指标由NVIDIA的专有接口暴露，开源工具通常无法获取。同样，AMD的专有驱动程序可能向RGP暴露通用工具无法获得的GPU波前占用率详情。OSS工具依赖于发布或逆向工程的接口；例如，AMD的GPUPerfAPI（开放库）提供跨平台计数器访问，这就是为什么AMD自己的工具可以开源。<strong>开源项目</strong>有时缺乏对最新硬件的支持，直到供应商发布文档，而商业工具在新GPU发布第一天就准备就绪（因为供应商负责构建它们）。另一方面，像HPCToolkit这样的开源工具在某些功能上有创新，如完全自动化的调用栈展开和统计GPU指令采样，这些在供应商GUI中不可用，表明OSS在某些功能（特别是集成和低开销方面）可以领先。</p>
 </li>
 <li>
-<p><strong>Extensibility and Customization:</strong> Open-source profilers (HPCToolkit, TAU, etc.) allow users to modify or script them, enabling <strong>custom analyses</strong> or integration into automated pipelines. For instance, you can instrument code with Score-P and emit traces in Open Trace Format (OTF2), then post-process with custom analytics – all because the formats and code are open. In contrast, commercial tools often lock data in proprietary formats (e.g., Nsight's <code>.nsys-rep</code> trace files) that require the vendor's viewer, though some export options exist (like CSV exports). The OSS approach also fosters community contributions – e.g., support for new programming models (OpenMP offload, Kokkos, etc.) often appears first in tools like TAU or Score-P via community patches.</p>
+<p><strong>可扩展性和定制化：</strong> 开源性能分析器（HPCToolkit、TAU等）允许用户修改或编写脚本，实现<strong>自定义分析</strong>或集成到自动化管道中。例如，你可以使用Score-P对代码进行插桩并以开放追踪格式（OTF2）输出追踪，然后使用自定义分析工具进行后处理——这一切都是因为格式和代码是开放的。相比之下，商业工具通常将数据锁定在专有格式中（例如，Nsight的<code>.nsys-rep</code>追踪文件）需要供应商的查看器，尽管存在一些导出选项（如CSV导出）。OSS方法还促进了社区贡献——例如，对新编程模型（OpenMP卸载、Kokkos等）的支持通常首先通过社区补丁出现在TAU或Score-P等工具中。</p>
 </li>
 <li>
-<p><strong>Cross-Vendor Support:</strong> As noted, open-source tools are generally more <strong>vendor-neutral</strong>. A single tool like Vampir or HPCToolkit can handle <em>multiple</em> accelerator types in one run, whereas vendor tools are siloed (Nsight won't profile an AMD GPU, and AMD's rocprof won't work on NVIDIA). For a heterogeneous environment (say, an Intel CPU, an NVIDIA GPU, and maybe a Xilinx FPGA in one system), your only hope for a unified trace might be an open tool that supports all via plugins or standard APIs (OpenCL, oneAPI, etc.). This is a strong point in favor of OSS solutions in research or multi-vendor shops. The downside is that <strong>vendor tools are often better optimized</strong> for their own hardware – they may offer a more polished UI, or more stable data collection on that platform. For example, an open tool using unofficial GPU counters might be brittle or less accurate if drivers change.</p>
+<p><strong>跨供应商支持：</strong> 如前所述，开源工具通常更<strong>供应商中立</strong>。像Vampir或HPCToolkit这样的单一工具可以在一次运行中处理<em>多种</em>加速器类型，而供应商工具是孤立的（Nsight不会分析AMD GPU，AMD的rocprof不会在NVIDIA上工作）。对于异构环境（例如，在一个系统中有Intel CPU、NVIDIA GPU和可能的Xilinx FPGA），你唯一的希望可能是一个通过插件或标准API（OpenCL、oneAPI等）支持所有这些的开源工具来获得统一的追踪。这在研究或多供应商环境中是OSS解决方案的一个优势。缺点是<strong>供应商工具通常针对自己的硬件更加优化</strong>——它们可能提供更精致的UI，或在该平台上更稳定的数据收集。例如，使用非官方GPU计数器的开源工具如果驱动程序发生变化，可能会变得脆弱或不太准确。</p>
 </li>
 <li>
-<p><strong>Cost and Support:</strong> Most vendor tools for GPUs/DPUs are free (as in beer) but closed. There are a few truly commercial (for-purchase) performance tools in HPC, such as the Arm Forge suite (which includes the MAP profiler) – these come with professional support. Open-source tools are free (as in speech/beer) but support comes from community or self-expertise. Companies with mission-critical needs sometimes prefer tools backed by vendor support (to help interpret results or get bug fixes). That said, big vendors (NVIDIA, Intel) do provide support forums even for their free tools. In niche domains like networking, some commercial analyzers (e.g., deep packet inspection performance profilers) might come from specialized firms and require licenses – but these are relatively rare.</p>
+<p><strong>成本和支持：</strong> 大多数GPU/DPU的供应商工具是免费的（以啤酒的意义），但闭源。HPC中有一些真正的商业（需要购买）性能工具，如Arm Forge套件（包括MAP性能分析器）——这些带有专业支持。开源工具是免费的（以言论/啤酒的意义），但支持来自社区或自我专业知识。具有关键任务需求的公司有时更喜欢由供应商支持的工具（以帮助解释结果或获取bug修复）。话虽如此，大型供应商（NVIDIA、Intel）确实为他们的免费工具提供支持论坛。在网络等特定领域，一些商业分析器（例如，深度数据包检测性能分析器）可能来自专业公司并需要许可证——但这些相对罕见。</p>
 </li>
 </ul>
-<p>In practice, environments often use a <strong>combination</strong>: e.g., an HPC center might use vendor profilers to optimize code on a specific GPU, but then integrate HPCToolkit or IPM (an MPI profiler) for regression testing and cross-system comparisons. Notably, open and closed tools can complement each other. A developer might run an OSS tracing tool for a high-level overview and cross-check specific kernels with the vendor's detailed profiler. An example from the GPU domain: a user could run a Score-P instrumented program to get an overall MPI+GPU timeline, then zoom into a particular GPU kernel of interest with Nsight Compute to inspect its memory throughput. This layered approach plays to each tool's strengths.</p>
-<h2 id="workload-specific-tool-mappings">Workload-Specific Tool Mappings</h2>
-<p>Different workloads stress accelerators in different ways, and accordingly, certain tools are favored in each domain:</p>
+<p>在实践中，环境通常使用<strong>组合方式</strong>：例如，HPC中心可能使用供应商性能分析器来优化特定GPU上的代码，但然后集成HPCToolkit或IPM（一个MPI性能分析器）进行回归测试和跨系统比较。值得注意的是，开源和闭源工具可以相互补充。开发者可能运行OSS追踪工具获取高级概览，并使用供应商的详细性能分析器交叉检查特定内核。GPU领域的一个例子：用户可以运行使用Score-P插桩的程序获取整体MPI+GPU时间线，然后使用Nsight Compute放大特定感兴趣的GPU内核，检查其内存吞吐量。这种分层方法发挥了每种工具的优势。</p>
+<h2 id="_2">特定工作负载的工具映射</h2>
+<p>不同的工作负载以不同方式压力测试加速器，相应地，在每个领域都有特定工具被青睐：</p>
 <ul>
 <li>
-<p><strong>General-Purpose Computing / HPC:</strong> These workloads (scientific simulations, linear algebra, data analytics) use GPUs for throughput. Profiling focuses on kernel efficiency and GPU utilization. Tools like Nsight Compute (for compute kernel analysis) or HPCToolkit/Omniperf are well-suited. HPC codes also run on thousands of GPUs in parallel; tracing each in detail is impractical, so tools like HPCToolkit that add only ~1-5% overhead via sampling are invaluable for profiling large-scale runs. HPC workloads often use MPI + GPU, so tools that can correlate communication and computation (e.g., timeline traces via Extrae, or MPI profiles via mpiP combined with GPU profiles) map well. On DPUs in HPC (e.g., using SmartNICs for RDMA), the "workload" is typically just networking – here one cares about throughput and overlap (profiling ensures that the DPU handles data transfers while GPUs compute, for example). Tools: network benchmarks (like IB Profiler for InfiniBand) plus GPU profilers to see if communication overlaps with computation.</p>
+<p><strong>通用计算/HPC：</strong> 这些工作负载（科学模拟、线性代数、数据分析）使用GPU获取吞吐量。性能分析关注内核效率和GPU利用率。像Nsight Compute（用于计算内核分析）或HPCToolkit/Omniperf这样的工具非常适合。HPC代码也在数千个GPU上并行运行；详细跟踪每一个是不切实际的，因此像HPCToolkit这样仅增加~1-5%开销的工具对于大规模运行的性能分析非常宝贵。HPC工作负载通常使用MPI + GPU，因此可以关联通信和计算的工具（例如，通过Extrae的时间线追踪，或通过mpiP与GPU性能分析相结合的MPI分析）非常适合。在HPC中的DPU（例如，使用智能网卡进行RDMA），"工作负载"通常只是网络——这里关注的是吞吐量和重叠（性能分析确保DPU处理数据传输而GPU计算，例如）。工具：网络基准测试（如用于InfiniBand的IB Profiler）加上GPU性能分析器，查看通信是否与计算重叠。</p>
 </li>
 <li>
-<p><strong>Machine Learning / AI:</strong> ML training combines heavy GPU compute with data pipeline overhead. Profiling an ML workload might involve <strong>framework-level profilers</strong>: e.g., <em>PyTorch Profiler</em> (built on Kineto) which internally uses CUPTI to record each op's GPU time, or <em>TensorFlow Profiler</em> which similarly captures timelines of ops and streams. These produce high-level views (which model layer took time) as well as low-level kernel details. NVIDIA has a <em>DLProf</em> tool that integrates with TensorBoard to show GPU kernel metrics in the context of neural network operations. For multi-GPU training, Nsight Systems can trace activity across GPUs (especially if using NCCL for communication – Nsight can show NCCL calls timeline). An emerging challenge is profiling <strong>distributed training</strong>: tools like PyTorch Profiler now have distributed traces, but it's still an area of active development to seamlessly profile 100s of GPUs training one model. On the DPU side, AI may use DPUs for preprocessing or moving data – profiling the DPU's effect (say using it to do data filtering) would involve monitoring how much the DPU speeds up data ingestion (tracked via throughput) and ensuring the GPU is not starved. In the future, <em>AI accelerators on DPUs</em> (some DPUs might include tiny ML cores) could require new profilers, but currently most AI work is GPU-centric.</p>
+<p><strong>机器学习/AI：</strong> ML训练结合了繁重的GPU计算和数据管道开销。分析ML工作负载可能涉及<strong>框架级性能分析器</strong>：例如，<em>PyTorch Profiler</em>（建立在Kineto上）内部使用CUPTI记录每个操作的GPU时间，或<em>TensorFlow Profiler</em>同样捕获操作和流的时间线。这些产生高级视图（哪个模型层花费时间）以及低级内核详情。NVIDIA有一个<em>DLProf</em>工具，与TensorBoard集成，在神经网络操作的上下文中显示GPU内核指标。对于多GPU训练，Nsight Systems可以跟踪跨GPU的活动（特别是如果使用NCCL进行通信——Nsight可以显示NCCL调用时间线）。一个新兴的挑战是<strong>分布式训练</strong>的性能分析：像PyTorch Profiler现在有分布式追踪，但无缝分析100多个GPU训练一个模型仍然是一个活跃的开发领域。在DPU方面，AI可能使用DPU进行预处理或移动数据——分析DPU的效果（例如使用它进行数据过滤）涉及监控DPU加速数据摄取的程度（通过吞吐量跟踪）并确保GPU不会饥饿。未来，<em>DPU上的AI加速器</em>（一些DPU可能包括微型ML核心）可能需要新的性能分析器，但目前大多数AI工作侧重于GPU。</p>
 </li>
 <li>
-<p><strong>Networking and I/O Workloads:</strong> For pure networking tasks on DPUs or GPUs (yes, GPUs can also do packet processing in some cases using CUDA or OpenCL), the profiling is about latency and throughput. Tools here include packet generators (to measure how many Mpps a pipeline can handle) and tracing tools for code paths. For instance, if using a GPU to accelerate packet encryption, one might use Nsight to ensure kernel launches overlap with data transfers. If using a DPU to run, say, an IDS (intrusion detection) in software, one might profile it with perf to see if it's CPU-bound and use NIC counters for drops. Networking workloads often demand real-time tracing (to catch jitter spikes), so eBPF-based monitors or even hardware telemetry (like P4 runtime logs) could be employed. There's also interest in using GPU for networking (GPU-accelerated NIC offloads via CUDA pipelines), which would involve both GPU and network profiling – but that's fairly niche and experimental.</p>
+<p><strong>网络和I/O工作负载：</strong> 对于DPU或GPU上的纯网络任务（是的，GPU在某些情况下也可以使用CUDA或OpenCL进行数据包处理），性能分析关注延迟和吞吐量。这里的工具包括数据包生成器（测量管道可以处理多少Mpps）和代码路径的追踪工具。例如，如果使用GPU加速数据包加密，可能使用Nsight确保内核启动与数据传输重叠。如果使用DPU在软件中运行IDS（入侵检测），可能使用perf分析它是否受CPU限制，并使用NIC计数器查看丢包。网络工作负载通常需要实时追踪（捕获抖动峰值），因此可能使用基于eBPF的监视器甚至硬件遥测（如P4运行时日志）。也有人对使用GPU进行网络（通过CUDA管道的GPU加速NIC卸载）感兴趣，这将涉及GPU和网络性能分析——但这相当小众和实验性。</p>
 </li>
 <li>
-<p><strong>Graphics and Visualization:</strong> For game engines or VR apps on GPUs (especially APUs in consoles or laptops), tools like RenderDoc, Nsight Graphics, and platform profilers (e.g., Apple's Xcode Instruments for Metal) are tailored to measure <em>frame times</em>, <em>GPU pipeline stages</em>, and <em>CPU-GPU synchronization</em>. A graphics workload is typically limited by either the GPU shader throughput or the CPU draw-call submission rate. Profiling maps to checking if the GPU's frame time budget is being exceeded and why (which stage – vertex shading? fragment? memory?). These tools often provide specialized visualizations (HUD overlays, frame scrubbers) that general compute profilers don't. For APUs handling graphics, one must also consider that the CPU and GPU share memory bandwidth – graphics debuggers can show if CPU memory traffic (e.g., updating textures) is affecting the GPU. Additionally, in professional visualization (CAD, etc.), GPU memory usage can be limiting; tools like NVIDIA's Nsight or AMD's RGPA can profile VRAM usage and cache behavior to optimize large models.</p>
+<p><strong>图形和可视化：</strong> 对于GPU（特别是游戏机或笔记本电脑中的APU）上的游戏引擎或VR应用，RenderDoc、Nsight Graphics和平台性能分析器（例如用于Metal的Apple的Xcode Instruments）专为测量<em>帧时间</em>、<em>GPU管线阶段</em>和<em>CPU-GPU同步</em>而设计。图形工作负载通常受GPU着色器吞吐量或CPU绘制调用提交率的限制。性能分析映射到检查GPU的帧时间预算是否被超出以及原因（哪个阶段——顶点着色？片段？内存？）。这些工具通常提供专门的可视化（HUD叠加层、帧刮刀）是一般计算性能分析器不提供的。对于处理图形的APU，还必须考虑CPU和GPU共享内存带宽——图形调试器可以显示CPU内存流量（例如，更新纹理）是否影响GPU。此外，在专业可视化（CAD等）中，GPU内存使用可能是限制因素；像NVIDIA的Nsight或AMD的RGPA这样的工具可以分析VRAM使用情况和缓存行为，以优化大型模型。</p>
 </li>
 </ul>
-<p>In essence, each processing unit type sees use in particular domains, and the profiling solutions have evolved accordingly – but there is also convergence. A modern AI application may involve <strong>GPUs for compute, CPUs for orchestration, DPUs for data loading</strong>, all in one pipeline. This raises the need for <strong>multi-accelerator profiling</strong> – the ability to trace an operation as it moves through CPU, DPU, and GPU. Today this often means running multiple tools and correlating timestamps manually. For instance, one might use Nsight to trace the GPU and <em>simultaneously</em> run <code>tcpdump</code> or NIC counters on the network side, then align the logs. Such multi-component workflows are cumbersome, pointing to an opportunity for more integrated profiling of heterogeneous workflows.</p>
-<h2 id="current-research-directions-and-emerging-trends">Current Research Directions and Emerging Trends</h2>
-<p>The field of accelerator tracing/profiling is actively evolving. Several key research and development directions are apparent:</p>
+<p>本质上，每种处理单元类型在特定领域都有使用，性能分析解决方案相应地发展——但也存在趋同。现代AI应用可能涉及<strong>GPU用于计算，CPU用于编排，DPU用于数据加载</strong>，所有这些都在一个管道中。这提出了对<strong>多加速器性能分析</strong>的需求——跟踪一个操作在CPU、DPU和GPU之间移动的能力。今天这通常意味着运行多个工具并手动关联时间戳。例如，可能使用Nsight跟踪GPU，<em>同时</em>在网络端运行<code>tcpdump</code>或NIC计数器，然后对齐日志。这种多组件工作流程很麻烦，表明有机会对异构工作流程进行更集成的性能分析。 </p>
+<h2 id="_3">现有工具链的局限和挑战</h2>
+<p>尽管有众多已讨论的工具，但在对GPU、DPU和APU进行性能分析时，从业者面临几个持续存在的挑战：</p>
 <ul>
 <li>
-<p><strong>Low-Overhead, Always-On Profiling:</strong> As discussed, techniques borrowing from OS telemetry (eBPF, hardware performance monitors) are being adapted for accelerators. Meta's continuous GPU profiler and tools like GPUprobe demonstrate that one can collect useful data <em>in production</em> with minimal overhead. We anticipate more work in this area: for example, <em>continuous DPU monitoring</em> integrated into data center observability stacks (similar to DCGM for GPUs) – perhaps using eBPF to monitor DPU NIC drivers or using in-hardware telemetry (many NICs have telemetry streams for packet pacing, queue occupancy, etc., which could be tapped into). For GPUs, researchers are exploring <strong>sampling-based profiling</strong> to reduce overhead further. NVIDIA's latest architectures support <em>PC sampling</em>, where the GPU periodically samples its program counter and reports which instructions are executing and if they stalled. This can be done in the background with little interference. HPCToolkit already leverages this on NVIDIA GPUs to sample instructions and derive stall breakdowns. Future tools might extend such sampling to gather a statistical trace of GPU activity without instrumenting each kernel launch.</p>
+<p><strong>碎片化和供应商锁定：</strong> 如前所述，每个供应商的加速器通常带有一个孤立的工具链。这意味着在一种工具中的专业知识不容易转移到另一种，混合硬件会导致多个工具。它还有<em>锁定</em>风险：使用专有工具进行的优化可能依赖于供应商特定的功能。没有像"perf"这样的通用标准可以普遍覆盖所有加速器类型（尽管在CPU上，perf本身仅限于Linux）。GPU供应商之间缺乏通用性能计数器接口就是一个典型例子——开发者必须使用CUDA特定或ROCm特定的API，这使得可移植的性能分析变得困难。对于DPU，它们相对较新，甚至没有广泛采用的第三方性能分析器——你使用DPU供应商提供的任何工具。这种碎片化不仅使开发者的生活复杂化，也使试图公平比较平台的研究者复杂化。</p>
 </li>
 <li>
-<p><strong>Unified and Standardized Interfaces:</strong> A recurring theme is the lack of standardization across vendors. There are calls for a <strong>vendor-neutral GPU profiling API</strong> – for instance, a past suggestion in the OpenGL community proposed a unified API for GPU performance counters across vendors. In the compute realm, something analogous to the CPU's PAPI (Performance API) for GPUs would be valuable. We see early steps: the Khronos Group's OpenCL and Vulkan APIs have performance query extensions (like Vulkan's <code>VK_KHR_performance_query</code>) that let applications gather some counters in a standardized way. Also, Intel's oneAPI aims to provide a uniform interface (Level Zero) for accelerators, including tools support. While oneAPI is Intel-centric, it sets a precedent for abstracting profiling: an application could, in theory, use oneAPI to profile code on CPUs, GPUs, and FPGAs with a single tool – but only if other vendors adopt or adapt to it. Another push is in <strong>OpenTelemetry</strong> for hardware – currently OpenTelemetry (popular in cloud for tracing requests) doesn't cover internal hardware events, but conceivably it could be extended to span spans across CPU, accelerator, and network events for distributed tracing of heterogeneous workloads.</p>
+<p><strong>有限的可见性（"黑盒"问题）：</strong> 加速器性能的某些方面对当前的性能分析器来说实际上是黑盒。例如，GPU内部调度（warp如何调度，L2缓存行如何驱逐）可能不会通过计数器完全暴露。同样，如果DPU的数据包加速器是FPGA或ASIC，外部工具可能只看到吞吐量数字，而不是<em>为什么</em>它在X Gbps饱和（例如，NIC内部的微架构细节）。即使使用NVIDIA的计数器，也经常有<em>未记录的指标</em>或难以解释的指标。这种有限的可见性通常是设计上的（IP保护），但阻碍了优化。另一个可见性问题出现在<em>闭源工作负载</em>中：如果你在GPU上分析第三方库，你可能会看到内核名称和时间，但不知道它内部做了什么。像HPCToolkit这样的工具通过将成本归因于指令（即使没有源代码）来提供帮助，但通常很难优化你无法检查的内容。</p>
 </li>
 <li>
-<p><strong>Integration of AI in Performance Analysis:</strong> With the complexity of performance data (especially from fine-grained traces), there's interest in using machine learning to assist performance analysis. Research projects have looked at learning models to predict performance from partial traces or to automatically classify bottlenecks from counter signatures. For example, an ML model might learn the patterns in counters that indicate memory bandwidth bottleneck vs computation-bound, automating what human experts do manually with roofline models. While not mainstream in tools yet, some profilers (like Intel Advisor's automated roofline analysis, or NVIDIA's Guided Analysis in Nsight Compute) incorporate heuristic guidance that could evolve into ML-driven suggestions. The goal is to help developers interpret the deluge of profiling data more easily.</p>
+<p><strong>开销与侵入性：</strong> 许多精确的追踪工具扰动它们所测量的性能。基于插桩的追踪（在每个内核启动或每个数据包上插入钩子）可能导致海森堡效应，即测量行为改变时序。虽然基于采样的方法缓解了这一点，但它们用较低的开销换取细节。总是存在一个挑战，即找到正确的平衡：<em>收集多少数据</em>和<em>以什么频率</em>，以获得代表性概况而不会淹没在开销或数据量中。高开销工具必须限于测试环境，意味着你可能无法捕获只在规模或生产环境中显现的问题。相反，超轻量级监视器可能只标记"GPU利用率低"，但不解释原因。弥合这一差距仍然是一个持续的挑战。</p>
 </li>
 <li>
-<p><strong>Causal Tracing and Causal Profiling:</strong> Traditional profiling observes performance passively. A newer research direction is <em>causal profiling</em>, where the profiler experiments by perturbing execution to gauge impact on performance (e.g., artificially slow down one component to see if others idle, determining causality of bottlenecks). Omnitrace's mention of causal profiling support hints that such techniques are being implemented for GPU/CPU combos. Causal tracing could identify, for instance, that GPU kernel X finishing late is what delays CPU task Y, by seeing how timings change if X is made faster or slower. This is an advanced capability with potential to untangle complex dependencies in asynchronous pipelines.</p>
+<p><strong>并发和排序问题：</strong> 分析多线程、多流工作负载可能遇到对齐事件的问题。例如，来自不同GPU或不同设备的时间线追踪可能有时钟偏差，使得确定事件的真实顺序变得棘手。即使在一个GPU上，硬件也可以并发执行许多内核（在不同的SM上或使用异步流），可视化或理解重叠活动很复杂。工具尝试（例如，Nsight Systems在时间线上显示重叠内核），但随着系统扩展，人们面临我们可能称之为"事件爆炸"问题：需要推理的事件太多。过滤和专注于正确的子集很困难。工具才刚开始引入更智能的过滤（例如，只追踪长于X微秒的内核，或仅在GPU利用率下降时追踪GPU活动等）。</p>
 </li>
 <li>
-<p><strong>Multi-Accelerator and Distributed Coordination:</strong> As systems integrate CPUs + various accelerators (GPUs, DPUs, FPGAs, TPUs, etc.), one research challenge is coordinating profiling across them. How do we get a coherent timeline or profile when parts of the work happen on different chips with their own clocks and trace buffers? Tools like <strong>Extrae/Paraver</strong> in HPC can merge traces from CPU and GPU by aligning timestamps (assuming synchronized clocks) and allow analyzing them together. We expect further development here, possibly with standard timestamping (PTP – precision time protocol – could be used to sync time between host and DPU, for example). Also, orchestrating triggers across tools – e.g., start a GPU profiler when a network event happens – is being explored. Some current tools allow triggers (Nsight can start/stop based on CUDA API calls or markers); extending this across devices (start GPU trace when DPU's packet queue overflows) could be extremely useful for diagnosing cross-stack performance issues (like a slow GPU causing packet backlog on a SmartNIC).</p>
+<p><strong>缺乏多加速器协调：</strong> 今天的工具在很大程度上是按设备孤立运行的。如果你有一个带有CPU、GPU、DPU、FPGA的异构节点，每个可能单独分析，产生用户必须关联的单独报告。假设一个性能问题是由于GPU吞吐量和NIC吞吐量不匹配导致的——GPU性能分析器可能只显示GPU空闲20%的时间（等待数据），而NIC监视器显示队列100%利用率——由工程师来关联这些并推断原因（网络绑定）。理想情况下，性能分析器会自动捕获此类跨设备依赖性（例如，视觉提示表明GPU空闲与NIC饱和相关）。实现这一点需要全面视图，也许是可以跨设备链接的标准化追踪事件（例如，NIC上的"帧传递"事件可以与"GPU上处理的帧"事件关联）。没有通用标准，这种关联主要是手动的或通过临时插桩（在应用代码中插入时间戳）。</p>
 </li>
 <li>
-<p><strong>Better Profiling for New Accelerator Types:</strong> While this report focuses on GPUs, DPUs, and APUs, the universe of accelerators includes FPGAs, AI ASICs (e.g., Google's TPUs), and more. Each is spawning its own tooling – Xilinx (AMD) FPGAs have the Vivado and Vitis analyzer for hardware kernels, Google TPUs have a profiler in TensorBoard, etc. A clear direction is to bring these together. If a cloud has CPUs, GPUs, DPUs, TPUs all working in tandem, the dream is a <em>single pane of glass</em> to observe them. Industry consortia may eventually collaborate on open standards for accelerator telemetry (analogous to how OpenCL was a standard for compute). Until then, research often steps in: for example, academic work on monitoring FPGAs in datacenters via in-fabric monitors, or using eBPF-like techniques on other devices.</p>
+<p><strong>缩放和大数据问题：</strong> 在分析大规模工作负载时（想想1000个GPU或处理每秒数百万数据包的DPU），性能分析数据量可能非常庞大。存储和分析即使是几秒钟操作的追踪日志可能都是非常重要的。<strong>数据减少</strong>是一个挑战——如何有意义地总结性能数据。当前工具提供一些总结（如平均内核时间、前10大内存消费者等），但需要更多自动化总结，可能采用分层或统计技术来压缩追踪。HPC中心通过选择性追踪（仅在少数等级上捕获等）或使用采样来处理这个问题。未来的工具可能包含在线分析，工具本身在收集数据时进行一些处理（例如，计算分布而不是记录每个事件）。</p>
+</li>
+<li>
+<p><strong>教育和可用性：</strong> 最后，值得注意的是一个实际挑战：学习曲线。每个工具通常都有自己的GUI或输出格式，理解"warp序列化"或"bank冲突"或"DPU缓存命中"等指标需要一些架构知识。这些加速器上的性能分析在某种程度上是一门黑魔法，虽然工具提供数据，但理解它并不总是直接的。屋顶线模型等努力试图简化解释，但用户仍然很难从性能分析器输出转变为具体优化。这部分是教育挑战——文档和培训需要伴随工具。这也是工具构建者的设计挑战，以直观的方式呈现数据（例如，Nvidia现在通常直接集成AI性能指标，如"Tensor Cores的利用率"，告诉ML工程师他们如何利用GPU）。</p>
 </li>
 </ul>
-<p>In summary, <strong>profiling/tracing research is moving toward making these tools more <em>pervasive<em>, </em>intelligent<em>, and </em>unified</em></strong>. The aim is to reduce the burden on developers to manually instrument and correlate performance data from disparate sources, and instead provide smarter tools that work across the complex heterogeneous systems of today's data centers.</p>
-<h2 id="limitations-and-challenges-of-existing-toolchains">Limitations and Challenges of Existing Toolchains</h2>
-<p>Despite the plethora of tools discussed, practitioners face several persistent challenges when profiling GPUs, DPUs, and APUs:</p>
+<p>总之，虽然当前用于GPU、DPU和APU的追踪和性能分析工具强大且必不可少，但它们在一个<strong>高度专业化和碎片化的环境</strong>中运作，存在可见性差距和集成缺陷。克服这些局限需要协作努力——硬件供应商（开放接口）、工具开发者（创建更智能、标准的工具）和研究社区（开创低开销和组合追踪的新技术）之间的协作。</p>
+<h2 id="_4">当前研究方向和新兴趋势</h2>
+<p>加速器追踪/性能分析领域正在积极发展。以下是几个关键的研究和开发方向：</p>
 <ul>
 <li>
-<p><strong>Fragmentation and Vendor Lock-In:</strong> As noted, each vendor's accelerators often come with a siloed toolchain. This means expertise in one doesn't translate easily to another, and mixing hardware leads to multiple tools. It also risks <em>lock-in</em>: optimizations done with a proprietary tool might rely on vendor-specific features. There is no universal standard like "perf" that universally covers all accelerator types (though on CPUs, perf itself is limited to Linux). The lack of common performance counter interfaces across GPU vendors is a prime example – developers must use CUDA-specific or ROCm-specific APIs, making portable performance analysis difficult. For DPUs, which are relatively new, there isn't even a widely adopted third-party profiler – you use whatever the DPU vendor provides. This fragmentation not only complicates life for developers, but also for researchers trying to compare platforms fairly.</p>
+<p><strong>低开销、常时开启的性能分析：</strong> 如前所述，借鉴操作系统遥测（eBPF、硬件性能监视器）的技术正在适应加速器。Meta的连续GPU性能分析器和GPUprobe等工具表明，可以在<em>生产环境中</em>以最小的开销收集有用的数据。我们预计这一领域会有更多工作：例如，<em>连续DPU监控</em>集成到数据中心可观察性栈中（类似于GPU的DCGM）——可能使用eBPF监控DPU NIC驱动程序或使用硬件内置遥测（许多NIC有用于数据包调度、队列占用等的遥测流，可以利用这些）。对于GPU，研究人员正在探索<strong>基于采样的性能分析</strong>以进一步减少开销。NVIDIA的最新架构支持<em>PC采样</em>，GPU定期采样其程序计数器并报告正在执行哪些指令以及它们是否停滞。这可以在后台进行，几乎不会干扰。HPCToolkit已经在NVIDIA GPU上利用这一点来采样指令并推导停滞分析。未来的工具可能扩展此类采样，以获取GPU活动的统计跟踪，而无需对每个内核启动进行插桩。</p>
 </li>
 <li>
-<p><strong>Limited Visibility ("Black Box" issues):</strong> Some aspects of accelerator performance are effectively black boxes to current profilers. For instance, GPU internal scheduling (how warps are scheduled, how L2 cache lines are evicted) might not be fully exposed by counters. Similarly, if a DPU's packet accelerator is an FPGA or ASIC, external tools might only see a throughput number, not <em>why</em> it saturates at X Gbps (e.g., a microarchitecture detail inside the NIC). Even with something like NVIDIA's counters, there are often <em>undocumented metrics</em> or ones that are hard to interpret. This limited visibility is often by design (IP protection), but hampers optimization. Another visibility issue arises in <em>closed-source workloads</em>: if you are profiling a third-party library on the GPU, you might see a kernel name and time but not what it did internally. Tools like HPCToolkit help by attributing costs to instructions even without source, but generally it's hard to optimize what you can't inspect.</p>
+<p><strong>统一和标准化接口：</strong> 一个反复出现的主题是跨供应商缺乏标准化。有人呼吁建立<strong>供应商中立的GPU性能分析API</strong>——例如，OpenGL社区过去曾建议一个跨供应商统一的GPU性能计数器API。在计算领域，类似于CPU的PAPI（性能API）的GPU版本将是有价值的。我们看到早期步骤：Khronos Group的OpenCL和Vulkan API有性能查询扩展（如Vulkan的<code>VK_KHR_performance_query</code>）允许应用程序以标准化方式收集一些计数器。此外，Intel的oneAPI旨在为加速器提供统一接口（Level Zero），包括工具支持。虽然oneAPI以Intel为中心，但它为抽象性能分析设立了先例：理论上，应用程序可以使用oneAPI在CPU、GPU和FPGA上使用单一工具进行性能分析——但前提是其他供应商采用或适应它。另一个推动力是硬件的<strong>OpenTelemetry</strong>——目前OpenTelemetry（在云中流行用于追踪请求）不涵盖内部硬件事件，但可以设想将其扩展到CPU、加速器和网络事件，用于异构工作负载的分布式追踪。</p>
 </li>
 <li>
-<p><strong>Overhead vs. Intrusiveness:</strong> Many precise tracing tools perturb the very performance they measure. Instrumentation-based tracing (inserting hooks on each kernel launch or each packet) can cause Heisenberg effects where the act of measuring changes timing. While sampling-based methods alleviate this, they trade detail for lower overhead. There is always a challenge to find the right balance: <em>how much data to collect</em> and <em>at what frequency</em> to get a representative profile without drowning in overhead or data volume. High-overhead tools must be limited to test environments, meaning you might not catch issues that only manifest at scale or in production. Conversely, ultra-light monitors might only flag "GPU utilization low" but not explain the cause. Bridging this gap remains an ongoing challenge.</p>
+<p><strong>AI在性能分析中的集成：</strong> 随着性能数据的复杂性（特别是来自细粒度追踪），有兴趣使用机器学习辅助性能分析。研究项目已经研究了从部分追踪预测性能或从计数器特征自动分类瓶颈的学习模型。例如，ML模型可能学习计数器模式，表明内存带宽瓶颈与计算绑定，自动化人类专家手动使用屋顶线模型做的事情。虽然在工具中尚未主流化，但一些性能分析器（如Intel Advisor的自动屋顶线分析，或NVIDIA在Nsight Compute中的引导分析）纳入了启发式指导，可能发展为ML驱动的建议。目标是帮助开发者更容易解释性能分析数据的洪流。</p>
 </li>
 <li>
-<p><strong>Concurrency and Ordering Issues:</strong> Profiling multi-threaded, multi-stream workloads can run into issues aligning events. For example, timeline traces from different GPUs or different devices may have clock skew, making it tricky to know the true sequence of events. Even on one GPU, the hardware can execute many kernels concurrently (on different SMs or using async streams), and visualizing or understanding overlapping activities is complex. Tools try (Nsight Systems, for instance, shows overlapping kernels on a timeline), but as systems scale, one confronts what we might call the "explosion of events" problem: too many events to reason about. Filtering and focusing on the right subset is difficult. Tools are only beginning to introduce smarter filtering (like only trace kernels longer than X microseconds, or only trace GPU activity when GPU utilization drops, etc.).</p>
+<p><strong>因果追踪和因果性能分析：</strong> 传统性能分析被动观察性能。一个较新的研究方向是<em>因果性能分析</em>，性能分析器通过扰动执行来实验，以测量对性能的影响（例如，人为减慢一个组件，看看其他组件是否空闲，确定瓶颈的因果关系）。Omnitrace提到对因果性能分析的支持暗示这类技术正在为GPU/CPU组合实施。因果追踪可以识别，例如，GPU内核X完成延迟是导致CPU任务Y延迟的原因，通过观察如果X更快或更慢，时间如何变化。这是一种高级功能，有潜力解开异步管道中的复杂依赖关系。</p>
 </li>
 <li>
-<p><strong>Lack of Multi-Accelerator Coordination:</strong> Today's tools largely operate in isolation per device. If you have a heterogeneous node with CPU, GPU, DPU, FPGA, each might be profiled separately, yielding separate reports that the user must correlate. Suppose a performance issue is due to a mismatch between GPU throughput and NIC throughput – a GPU profiler might just show the GPU is idle 20% of time (waiting for data), and a NIC monitor shows 100% utilization on a queue – it's up to the engineer to correlate those and deduce the cause (network-bound). Ideally, a profiler would capture such cross-device dependency automatically (e.g., a visual cue that GPU idleness correlates with NIC saturation). Achieving that requires a holistic view and perhaps standardized trace events that can link across devices (like an event on NIC "frame delivered" could be tied to an event "frame processed on GPU"). Without common standards, such correlation is mostly manual or via ad-hoc instrumentation (inserting timestamps in app code).</p>
+<p><strong>多加速器和分布式协调：</strong> 随着系统集成CPU + 各种加速器（GPU、DPU、FPGA、TPU等），一个研究挑战是在它们之间协调性能分析。当工作的部分发生在不同的芯片上，每个都有自己的时钟和追踪缓冲区时，我们如何获得一个连贯的时间线或概况？HPC中的<strong>Extrae/Paraver</strong>等工具可以通过对齐时间戳（假设时钟同步）合并来自CPU和GPU的追踪，并允许一起分析它们。我们期待在这方面的进一步发展，可能使用标准时间戳（可以使用PTP——精密时间协议——同步主机和DPU之间的时间，例如）。此外，正在探索跨工具协调触发器——例如，当网络事件发生时启动GPU性能分析器。一些当前工具允许触发器（Nsight可以基于CUDA API调用或标记启动/停止）；将其扩展到跨设备（当DPU的数据包队列溢出时启动GPU追踪）对于诊断跨栈性能问题（如缓慢的GPU导致智能网卡上的数据包积压）可能非常有用。</p>
 </li>
 <li>
-<p><strong>Scaling and Big Data Problems:</strong> When profiling large-scale workloads (think 1000 GPUs or a DPU handling millions of packets per second), the volume of profiling data can be enormous. Storing and analyzing trace logs from even a few seconds of operation may be non-trivial. There is a challenge in <strong>data reduction</strong> – how to summarize performance data meaningfully. Current tools offer some summaries (like average kernel time, top 10 memory consumers, etc.), but more automated summarization is needed, possibly with hierarchical or statistical techniques to condense traces. HPC centers have dealt with this by selective tracing (capturing only on a few ranks, etc.) or using sampling. Future tools might incorporate on-line analysis, where the tool itself does some processing of data as it's collected (for example, computing distributions instead of logging every event).</p>
-</li>
-<li>
-<p><strong>Education and Usability:</strong> Finally, it's worth noting a practical challenge: the learning curve. Each tool often comes with its own GUI or output format, and understanding metrics like "warp serialize" or "bank conflict" or "DPU cache hit" requires some architecture knowledge. Performance analysis on these accelerators is somewhat a dark art, and although tools provide data, making sense of it is not always straightforward. Efforts like roofline models are attempts to simplify interpretation, but users still struggle to go from profiler output to concrete optimizations. This is partially an educational challenge – documentation and training need to accompany tools. It's also a design challenge for tool builders to present data in intuitive ways (e.g., Nvidia now often integrates AI performance metrics like "utilization of Tensor Cores" directly, to tell ML engineers how well they used the GPU).</p>
+<p><strong>新型加速器的更好性能分析：</strong> 虽然本报告主要关注GPU、DPU和APU，但加速器世界还包括FPGA、AI ASIC（例如Google的TPU）等。每一种都在孵化自己的工具——Xilinx（AMD）FPGA有用于硬件内核的Vivado和Vitis分析器，Google TPU在TensorBoard中有性能分析器等。一个明确的方向是将这些整合在一起。如果一个云有CPU、GPU、DPU、TPU一起工作，理想情况是有一个<em>单一窗口</em>来观察它们。行业联盟最终可能在加速器遥测方面合作制定开放标准（类似于OpenCL是计算的标准）。在此之前，研究通常会介入：例如，关于通过结构内监视器监控数据中心FPGA的学术工作，或在其他设备上使用类似eBPF的技术。</p>
 </li>
 </ul>
-<p>In summary, while current tracing and profiling tools for GPUs, DPUs, and APUs are powerful and essential, they operate in a landscape that is <strong>highly specialized and fragmented</strong>, with visibility gaps and integration shortcomings. Overcoming these limitations will require collaborative efforts – between hardware vendors (to open up interfaces), tool developers (to create smarter, standard tools), and the research community (to pioneer new techniques for low-overhead and combined tracing).</p>
-<h2 id="conclusion">Conclusion</h2>
-<p>Tracing and profiling accelerators has become as critical as profiling CPUs was in earlier eras. We now have a broad arsenal of tools tailored to different hardware and use cases: from NVIDIA's Nsight suite and AMD's ROCm tools for deep GPU analysis, to open-source frameworks like HPCToolkit for holistic profiling, to emerging eBPF-based approaches enabling continuous monitoring. <strong>GPUs</strong> enjoy the most mature tool support (reflecting their longer history in computing), while <strong>DPUs</strong> and other domain-specific accelerators are catching up with their own nascent profilers and telemetry systems. <strong>APUs</strong> illustrate the need for tools that can seamlessly profile across traditional processor boundaries, as computing moves toward tightly integrated heterogeneous designs.</p>
-<p>This review has highlighted that both open-source and commercial solutions play important roles: open tools foster cross-platform agility and innovation, whereas vendor tools leverage proprietary knowledge for maximum insight on their hardware. The best outcomes often arise from using them in combination. In specialized domains like ML, networking, and graphics, domain-specific profiling capabilities augment general tools to provide the needed perspective (e.g., viewing a GPU timeline in terms of neural network layers, or network throughput in context of CPU cycles).</p>
-<p>Looking ahead, the trends point to more <strong>integration (unified timelines across accelerators), automation (intelligent analysis), and low-overhead observability</strong> becoming standard. Research is actively addressing many current gaps, from standardizing performance metrics to using novel techniques like causal profiling and ML-driven analysis to interpret performance data. At the same time, challenges like vendor lock-in and black-box hardware will require industry collaboration and perhaps a push for more open hardware telemetry interfaces.</p>
-<p>In conclusion, developers and engineers aiming to optimize accelerator-powered systems should take a <strong>hybrid approach</strong>: leverage the rich features of vendor-specific profilers for detailed analysis, use open-source and cross-platform tools to get the "big picture" across diverse hardware, and keep an eye on emerging tools that can be adopted to improve continuous performance monitoring. By combining these tools and techniques, one can obtain a comprehensive understanding of performance for GPUs, DPUs, and APUs across any workload – from a single GPU kernel's instruction stalls up to the end-to-end behavior of an entire heterogeneous pipeline. Such deep and broad profiling capability will be essential to fully exploit the computational power of modern accelerators in general-purpose and domain-specific applications alike.</p>
-<h2 id="references"><strong>References</strong></h2>
+<p>总之，<strong>性能分析/追踪研究正朝着使这些工具更<em>普遍</em>、<em>智能</em>和<em>统一</em>的方向发展</strong>。目标是减轻开发者手动插桩和关联来自不同来源的性能数据的负担，而是提供更智能的工具，适用于当今数据中心复杂的异构系统。 </p>
+<h2 id="_5">结论</h2>
+<p>加速器的追踪和性能分析已经变得与早期对CPU进行性能分析一样关键。我们现在拥有针对不同硬件和用例的广泛工具：从NVIDIA的Nsight套件和AMD的ROCm工具进行深度GPU分析，到像HPCToolkit这样用于整体性能分析的开源框架，再到基于eBPF的新兴方法，实现连续监控。<strong>GPU</strong>享有最成熟的工具支持（反映了它们在计算中的较长历史），而<strong>DPU</strong>和其他领域特定加速器正在赶上，拥有自己的新兴性能分析器和遥测系统。<strong>APU</strong>说明了需要能够无缝地跨越传统处理器边界进行性能分析的工具，因为计算正朝着紧密集成的异构设计发展。</p>
+<p>本综述强调了开源和商业解决方案都扮演着重要角色：开源工具促进跨平台敏捷性和创新，而供应商工具利用专有知识为其硬件提供最大洞察。最佳结果通常来自于将它们结合使用。在ML、网络和图形等专业领域，领域特定的性能分析能力增强了通用工具，提供所需的视角（例如，从神经网络层的角度查看GPU时间线，或在CPU周期上下文中的网络吞吐量）。</p>
+<p>展望未来，趋势指向更多<strong>集成（跨加速器的统一时间线）、自动化（智能分析）和低开销可观察性</strong>成为标准。研究正在积极解决许多当前差距，从标准化性能指标到使用因果性能分析和ML驱动分析等新技术来解释性能数据。同时，供应商锁定和黑盒硬件等挑战将需要行业合作，也许需要推动更开放的硬件遥测接口。</p>
+<p>总结起来，旨在优化加速器驱动系统的开发者和工程师应采取<strong>混合方法</strong>：利用供应商特定性能分析器的丰富功能进行详细分析，使用开源和跨平台工具获取跨多样化硬件的"大图景"，并关注可以采用的新兴工具，以改进连续性能监控。通过结合这些工具和技术，可以获得对任何工作负载上GPU、DPU和APU性能的全面理解——从单个GPU内核的指令停滞到整个异构管道的端到端行为。这种深入而广泛的性能分析能力对于充分利用现代加速器在通用和领域特定应用中的计算能力至关重要。</p>
+<h2 id="_6"><strong>参考文献</strong></h2>
 <ul>
-<li><a href="https://blogs.nvidia.com/blog/whats-a-dpu-data-processing-unit/">NVIDIA Blog - "What Is a DPU?"</a></li>
-<li><a href="https://www.amd.com/en/products/accelerators/instinct/mi300/mi300a.html">AMD - "AMD Instinct™ MI300A Accelerators"</a></li>
-<li><a href="https://www.admin-magazine.com/HPC/Articles/Profiling-Is-the-Key-to-Survival">ADMIN Magazine - "Profiling Is the Key to Survival"</a></li>
-<li><a href="https://dev.to/ethgraham/snooping-on-your-gpu-using-ebpf-to-build-zero-instrumentation-cuda-monitoring-2hh1">DEV Community - "Snooping on your GPU: Using eBPF to Build Zero-instrumentation CUDA Monitoring"</a></li>
-<li><a href="https://documentation.help/codexl/using-the-gpu-profiler.htm">CodeXL Documentation - "Using the GPU Profiler"</a></li>
-<li><a href="https://community.amd.com/sdtpp67534/attachments/sdtpp67534/codexl-discussions/62/1/CodeXL_Release_Notes.pdf">AMD Community - "CodeXL 2.6 GA Release Notes"</a></li>
-<li><a href="https://rocm.docs.amd.com/en/docs-6.2.0/about/release-notes.html">ROCm Documentation - "ROCm 6.2.0 release notes"</a></li>
-<li><a href="https://www.performance-intensive-computing.com/objectives/developing-ai-and-hpc-solutions-check-out-the-new-amd-rocm-62-release">Performance Intensive Computing - "Developing AI and HPC solutions? Check out the new AMD ROCm"</a></li>
-<li><a href="https://www.lei.chat/posts/sampling-performance-counters-from-gpu-drivers/">Lei.Chat - "Sampling Performance Counters from Mobile GPU Drivers"</a></li>
+<li><a href="https://blogs.nvidia.com/blog/whats-a-dpu-data-processing-unit/">NVIDIA博客 - "什么是DPU？"</a></li>
+<li><a href="https://www.amd.com/en/products/accelerators/instinct/mi300/mi300a.html">AMD - "AMD Instinct™ MI300A加速器"</a></li>
+<li><a href="https://www.admin-magazine.com/HPC/Articles/Profiling-Is-the-Key-to-Survival">ADMIN杂志 - "性能分析是生存的关键"</a></li>
+<li><a href="https://dev.to/ethgraham/snooping-on-your-gpu-using-ebpf-to-build-zero-instrumentation-cuda-monitoring-2hh1">DEV社区 - "窥探你的GPU：使用eBPF构建零插桩CUDA监控"</a></li>
+<li><a href="https://documentation.help/codexl/using-the-gpu-profiler.htm">CodeXL文档 - "使用GPU性能分析器"</a></li>
+<li><a href="https://community.amd.com/sdtpp67534/attachments/sdtpp67534/codexl-discussions/62/1/CodeXL_Release_Notes.pdf">AMD社区 - "CodeXL 2.6 GA发布说明"</a></li>
+<li><a href="https://rocm.docs.amd.com/en/docs-6.2.0/about/release-notes.html">ROCm文档 - "ROCm 6.2.0发布说明"</a></li>
+<li><a href="https://www.performance-intensive-computing.com/objectives/developing-ai-and-hpc-solutions-check-out-the-new-amd-rocm-62-release">高性能计算 - "开发AI和HPC解决方案？看看新的AMD ROCm"</a></li>
+<li><a href="https://www.lei.chat/posts/sampling-performance-counters-from-gpu-drivers/">Lei.Chat - "从移动GPU驱动程序采样性能计数器"</a></li>
 <li><a href="https://gpuopen.com/gpuperfapi/">AMD GPUOpen - "GPUPerfAPI"</a></li>
-<li><a href="https://biztechmagazine.com/article/2024/09/what-data-processing-unit-and-how-does-it-help-computing-perfcon">BizTech Magazine - "What Is a DPU (Data Processing Unit)? How Does It Work?"</a></li>
-<li><a href="https://www.linkedin.com/posts/ebpf-summit_gpu-profiling-with-bpf-at-meta-riham-selim-activity-7138119919023419392-prW4">LinkedIn - eBPF Summit - "GPU Profiling with BPF at Meta - Riham Selim"</a></li>
+<li><a href="https://biztechmagazine.com/article/2024/09/what-data-processing-unit-and-how-does-it-help-computing-perfcon">BizTech杂志 - "什么是DPU（数据处理单元）？它如何工作？"</a></li>
+<li><a href="https://www.linkedin.com/posts/ebpf-summit_gpu-profiling-with-bpf-at-meta-riham-selim-activity-7138119919023419392-prW4">LinkedIn - eBPF峰会 - "Meta的GPU使用BPF进行性能分析 - Riham Selim"</a></li>
 <li><a href="https://github.com/GPUprobe/gpuprobe-daemon">GitHub - "GPUprobe/gpuprobe-daemon"</a></li>
 </ul>
-<p><a class="md-button" href="https://x.com/intent/tweet?text=The%20Accelerator%20Toolkit%3A%20A%20Review%20of%20Profiling%20and%20Tracing%20for%20GPUs%20and%20other%20co-processor%0A&amp;url=https://eunomia.dev/zh/blog/posts/gpu-profile-tools-analysis/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=%E5%8A%A0%E9%80%9F%E5%99%A8%E5%B7%A5%E5%85%B7%E7%AE%B1%EF%BC%9AGPU%E5%92%8C%E5%85%B6%E4%BB%96%E5%8D%8F%E5%A4%84%E7%90%86%E5%99%A8%E7%9A%84%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E5%92%8C%E8%BF%BD%E8%B8%AA%E8%AF%A6%E8%A7%A3%0A&amp;url=https://eunomia.dev/zh/blog/posts/gpu-profile-tools-analysis/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/zh/blog/posts/gpu-profile-tools-analysis/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
@@ -5706,7 +5706,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 31, 2025 22:29:08 UTC">May 31, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 2, 2025 05:33:01 UTC">June 2, 2025</span>
   </span>
 
     
@@ -5716,7 +5716,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 31, 2025 20:42:42 UTC">May 31, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 2, 2025 05:33:01 UTC">June 2, 2025</span>
   </span>
 
     
@@ -5836,7 +5836,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../gpu-profile-tool-impl/" class="md-footer__link md-footer__link--prev" aria-label="Previous: GPU Profiling Under the Hood: An Implementation-Focused Survey of Modern Accelerator Tracing Tools">
+          <a href="../gpu-profile-tool-impl/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 深入GPU性能分析工具：现代加速器追踪工具的实现调研">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -5846,7 +5846,7 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                GPU Profiling Under the Hood: An Implementation-Focused Survey of Modern Accelerator Tracing Tools
+                深入GPU性能分析工具：现代加速器追踪工具的实现调研
               </div>
             </div>
           </a>
