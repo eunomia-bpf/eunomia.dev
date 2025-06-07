@@ -24,7 +24,7 @@
     
     
       
-        <title>Attention Mechanism for Transformer Models with CUDA - eunomia</title>
+        <title>使用CUDA实现Transformer模型的注意力机制 - eunomia</title>
       
     
     
@@ -69,11 +69,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="Attention Mechanism for Transformer Models with CUDA - eunomia" >
+        <meta  property="og:title"  content="使用CUDA实现Transformer模型的注意力机制 - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
-        <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/others/cuda-tutorial/07-attention-mechanism.png" >
+        <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/others/cuda-tutorial/07-attention-mechanism.zh.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -85,11 +85,11 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="Attention Mechanism for Transformer Models with CUDA - eunomia" >
+        <meta  name="twitter:title"  content="使用CUDA实现Transformer模型的注意力机制 - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
-        <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/others/cuda-tutorial/07-attention-mechanism.png" >
+        <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/others/cuda-tutorial/07-attention-mechanism.zh.png" >
       
     
     
@@ -112,7 +112,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#attention-mechanism-for-transformer-models-with-cuda" class="md-skip">
+        <a href="#cudatransformer" class="md-skip">
           Skip to content
         </a>
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Attention Mechanism for Transformer Models with CUDA
+              使用CUDA实现Transformer模型的注意力机制
             
           </span>
         </div>
@@ -4528,7 +4528,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA Basic Example - Vector Addition Explanation
+    CUDA 基础示例 - 向量加法解释
     
   </span>
   
@@ -4551,7 +4551,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA PTX Example: Vector Multiplication Using Inline PTX Assembly
+    CUDA PTX示例：使用内联PTX汇编进行向量乘法
     
   </span>
   
@@ -4574,7 +4574,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA Programming Methods Comparison: Matrix Multiplication
+    CUDA编程方法比较：矩阵乘法
     
   </span>
   
@@ -4597,7 +4597,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA GPU Organization Hierarchy
+    CUDA GPU组织层次结构
     
   </span>
   
@@ -4620,7 +4620,7 @@
   
   
   <span class="md-ellipsis">
-    Neural Network Forward Pass on GPU with CUDA
+    使用CUDA在GPU上实现神经网络前向传播
     
   </span>
   
@@ -4643,7 +4643,7 @@
   
   
   <span class="md-ellipsis">
-    GPU-Accelerated Convolution Operations with Shared Memory Optimization
+    使用共享内存优化的GPU加速卷积操作
     
   </span>
   
@@ -4675,7 +4675,7 @@
   
   
   <span class="md-ellipsis">
-    Attention Mechanism for Transformer Models with CUDA
+    使用CUDA实现Transformer模型的注意力机制
     
   </span>
   
@@ -4688,7 +4688,7 @@
   
   
   <span class="md-ellipsis">
-    Attention Mechanism for Transformer Models with CUDA
+    使用CUDA实现Transformer模型的注意力机制
     
   </span>
   
@@ -4711,91 +4711,91 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#table-of-contents" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      Table of Contents
+      目录
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#introduction-to-attention-mechanisms" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      Introduction to Attention Mechanisms
+      注意力机制简介
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#transformer-architecture-overview" class="md-nav__link">
+  <a href="#transformer" class="md-nav__link">
     <span class="md-ellipsis">
-      Transformer Architecture Overview
+      Transformer架构概述
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#scaled-dot-product-attention" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      Scaled Dot-Product Attention
+      缩放点积注意力
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#multi-head-attention" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      Multi-Head Attention
+      多头注意力
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#memory-optimization-techniques" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      Memory Optimization Techniques
+      内存优化技术
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#cuda-implementation" class="md-nav__link">
+  <a href="#cuda" class="md-nav__link">
     <span class="md-ellipsis">
-      CUDA Implementation
+      CUDA实现
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="CUDA Implementation">
+    <nav class="md-nav" aria-label="CUDA实现">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#standard-attention" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      Standard Attention
+      标准注意力
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#multi-head-attention-implementation" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
-      Multi-Head Attention Implementation
+      多头注意力实现
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#block-sparse-attention" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
-      Block-Sparse Attention
+      块稀疏注意力
     </span>
   </a>
   
@@ -4807,36 +4807,36 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#performance-analysis" class="md-nav__link">
+  <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
-      Performance Analysis
+      性能分析
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#advanced-optimizations" class="md-nav__link">
+  <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
-      Advanced Optimizations
+      高级优化
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#conclusion" class="md-nav__link">
+  <a href="#_11" class="md-nav__link">
     <span class="md-ellipsis">
-      Conclusion
+      结论
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
+  <a href="#_12" class="md-nav__link">
     <span class="md-ellipsis">
-      References
+      参考资料
     </span>
   </a>
   
@@ -4863,7 +4863,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA GPU Profiling and Tracing
+    CUDA GPU性能分析与跟踪
     
   </span>
   
@@ -4886,7 +4886,7 @@
   
   
   <span class="md-ellipsis">
-    GPU Application Extension Mechanisms: Modifying Behavior Without Source Code Changes
+    GPU应用程序扩展机制：无需更改源代码修改行为
     
   </span>
   
@@ -4909,7 +4909,7 @@
   
   
   <span class="md-ellipsis">
-    CPU and GPU Profiling Boundaries: What to Measure Where
+    CPU和GPU分析边界：在哪里测量什么
     
   </span>
   
@@ -4932,7 +4932,7 @@
   
   
   <span class="md-ellipsis">
-    Fine-Grained GPU Code Modifications
+    细粒度GPU代码修改
     
   </span>
   
@@ -4955,7 +4955,7 @@
   
   
   <span class="md-ellipsis">
-    Advanced GPU Customizations
+    高级GPU定制技术
     
   </span>
   
@@ -4978,7 +4978,7 @@
   
   
   <span class="md-ellipsis">
-    Low-Latency GPU Packet Processing
+    低延迟GPU数据包处理
     
   </span>
   
@@ -5001,7 +5001,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA Function Type Annotations: A Comprehensive Guide
+    CUDA函数类型注解：全面指南
     
   </span>
   
@@ -5024,7 +5024,7 @@
   
   
   <span class="md-ellipsis">
-    OpenCL Basic Example - Vector Addition Explanation
+    OpenCL基础示例 - 向量加法解释
     
   </span>
   
@@ -5047,7 +5047,7 @@
   
   
   <span class="md-ellipsis">
-    PTX File Loading and Execution Demo
+    PTX文件加载和执行演示
     
   </span>
   
@@ -5504,91 +5504,91 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#table-of-contents" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      Table of Contents
+      目录
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#introduction-to-attention-mechanisms" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      Introduction to Attention Mechanisms
+      注意力机制简介
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#transformer-architecture-overview" class="md-nav__link">
+  <a href="#transformer" class="md-nav__link">
     <span class="md-ellipsis">
-      Transformer Architecture Overview
+      Transformer架构概述
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#scaled-dot-product-attention" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      Scaled Dot-Product Attention
+      缩放点积注意力
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#multi-head-attention" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      Multi-Head Attention
+      多头注意力
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#memory-optimization-techniques" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      Memory Optimization Techniques
+      内存优化技术
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#cuda-implementation" class="md-nav__link">
+  <a href="#cuda" class="md-nav__link">
     <span class="md-ellipsis">
-      CUDA Implementation
+      CUDA实现
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="CUDA Implementation">
+    <nav class="md-nav" aria-label="CUDA实现">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#standard-attention" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      Standard Attention
+      标准注意力
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#multi-head-attention-implementation" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
-      Multi-Head Attention Implementation
+      多头注意力实现
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#block-sparse-attention" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
-      Block-Sparse Attention
+      块稀疏注意力
     </span>
   </a>
   
@@ -5600,36 +5600,36 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#performance-analysis" class="md-nav__link">
+  <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
-      Performance Analysis
+      性能分析
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#advanced-optimizations" class="md-nav__link">
+  <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
-      Advanced Optimizations
+      高级优化
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#conclusion" class="md-nav__link">
+  <a href="#_11" class="md-nav__link">
     <span class="md-ellipsis">
-      Conclusion
+      结论
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
+  <a href="#_12" class="md-nav__link">
     <span class="md-ellipsis">
-      References
+      参考资料
     </span>
   </a>
   
@@ -5651,7 +5651,7 @@
 
 
   
-    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cuda-tutorial/07-attention-mechanism.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cuda-tutorial/07-attention-mechanism.zh.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -5660,63 +5660,63 @@
     
       
     
-    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cuda-tutorial/07-attention-mechanism.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cuda-tutorial/07-attention-mechanism.zh.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-<h1 id="attention-mechanism-for-transformer-models-with-cuda">Attention Mechanism for Transformer Models with CUDA</h1>
-<p>This tutorial demonstrates how to implement efficient attention mechanisms for transformer models using CUDA. The attention mechanism is a cornerstone of modern natural language processing models, enabling transformers to selectively focus on different parts of the input sequence.</p>
-<p>You can find the code in <a href="https://github.com/eunomia-bpf/basic-cuda-tutorial">https://github.com/eunomia-bpf/basic-cuda-tutorial</a></p>
-<h2 id="table-of-contents">Table of Contents</h2>
+<h1 id="cudatransformer">使用CUDA实现Transformer模型的注意力机制</h1>
+<p>本教程演示如何使用CUDA为transformer模型实现高效的注意力机制。注意力机制是现代自然语言处理模型的基石，使transformer能够有选择地关注输入序列的不同部分。</p>
+<p>您可以在 <a href="https://github.com/eunomia-bpf/basic-cuda-tutorial">https://github.com/eunomia-bpf/basic-cuda-tutorial</a> 找到代码</p>
+<h2 id="_1">目录</h2>
 <ol>
-<li><a href="#introduction-to-attention-mechanisms">Introduction to Attention Mechanisms</a></li>
-<li><a href="#transformer-architecture-overview">Transformer Architecture Overview</a></li>
-<li><a href="#scaled-dot-product-attention">Scaled Dot-Product Attention</a></li>
-<li><a href="#multi-head-attention">Multi-Head Attention</a></li>
-<li><a href="#memory-optimization-techniques">Memory Optimization Techniques</a></li>
-<li><a href="#cuda-implementation">CUDA Implementation</a></li>
-<li><a href="#standard-attention">Standard Attention</a></li>
-<li><a href="#multi-head-attention-implementation">Multi-Head Attention</a></li>
-<li><a href="#block-sparse-attention">Block-Sparse Attention</a></li>
-<li><a href="#performance-analysis">Performance Analysis</a></li>
-<li><a href="#advanced-optimizations">Advanced Optimizations</a></li>
+<li><a href="#注意力机制简介">注意力机制简介</a></li>
+<li><a href="#transformer架构概述">Transformer架构概述</a></li>
+<li><a href="#缩放点积注意力">缩放点积注意力</a></li>
+<li><a href="#多头注意力">多头注意力</a></li>
+<li><a href="#内存优化技术">内存优化技术</a></li>
+<li><a href="#cuda实现">CUDA实现</a></li>
+<li><a href="#标准注意力">标准注意力</a></li>
+<li><a href="#多头注意力实现">多头注意力</a></li>
+<li><a href="#块稀疏注意力">块稀疏注意力</a></li>
+<li><a href="#性能分析">性能分析</a></li>
+<li><a href="#高级优化">高级优化</a></li>
 </ol>
-<h2 id="introduction-to-attention-mechanisms">Introduction to Attention Mechanisms</h2>
-<p>Attention mechanisms allow neural networks to focus on relevant parts of the input when producing an output. In the context of transformers, attention enables each position in a sequence to attend to all positions in the previous layer, providing a way to capture long-range dependencies without using recurrence or convolution.</p>
-<p>Key advantages of attention mechanisms include:</p>
+<h2 id="_2">注意力机制简介</h2>
+<p>注意力机制允许神经网络在生成输出时专注于输入的相关部分。在transformer的上下文中，注意力使序列中的每个位置都能关注前一层中的所有位置，提供了一种捕获长距离依赖关系的方式，而无需使用循环或卷积。</p>
+<p>注意力机制的主要优势包括：</p>
 <ol>
-<li><strong>Parallelization</strong>: Unlike recurrent models, transformers can process all elements of a sequence in parallel</li>
-<li><strong>Long-range dependencies</strong>: Attention directly connects any two positions, helping to capture relationships regardless of distance</li>
-<li><strong>Interpretability</strong>: Attention weights can be visualized to understand which parts of the input influenced each output</li>
+<li><strong>并行化</strong>：与循环模型不同，transformer可以并行处理序列的所有元素</li>
+<li><strong>长距离依赖关系</strong>：注意力直接连接任意两个位置，帮助捕获不受距离限制的关系</li>
+<li><strong>可解释性</strong>：注意力权重可以被可视化，以理解输入的哪些部分影响了每个输出</li>
 </ol>
-<p>The attention mechanism has revolutionized natural language processing, enabling state-of-the-art models like BERT, GPT, and T5.</p>
-<h2 id="transformer-architecture-overview">Transformer Architecture Overview</h2>
-<p>The transformer architecture consists of an encoder and a decoder, both composed of stacked "layers." Each layer contains two main components:</p>
+<p>注意力机制彻底改变了自然语言处理，使BERT、GPT和T5等最先进的模型成为可能。</p>
+<h2 id="transformer">Transformer架构概述</h2>
+<p>Transformer架构由编码器和解码器组成，两者都由堆叠的"层"组成。每一层包含两个主要组件：</p>
 <ol>
-<li><strong>Multi-head attention</strong>: Allows the model to focus on different parts of the input</li>
-<li><strong>Feed-forward neural network</strong>: Applies the same feed-forward network to each position</li>
+<li><strong>多头注意力</strong>：允许模型关注输入的不同部分</li>
+<li><strong>前馈神经网络</strong>：对每个位置应用相同的前馈网络</li>
 </ol>
-<p>This tutorial focuses specifically on the attention component, which is the most computationally intensive part of the transformer and benefits greatly from GPU acceleration.</p>
-<h2 id="scaled-dot-product-attention">Scaled Dot-Product Attention</h2>
-<p>The fundamental building block of transformer models is the scaled dot-product attention, defined as:</p>
+<p>本教程特别关注注意力组件，这是transformer中计算密集度最高的部分，并且从GPU加速中获益最大。</p>
+<h2 id="_3">缩放点积注意力</h2>
+<p>Transformer模型的基本构建块是缩放点积注意力，定义为：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Attention(Q, K, V) = softmax(QK^T / sqrt(d_k))V
 </code></pre></div>
-<p>Where:
-- Q (Query): Matrix of query vectors
-- K (Key): Matrix of key vectors
-- V (Value): Matrix of value vectors
-- d_k: Dimension of the key vectors</p>
-<p>The computation follows these steps:</p>
+<p>其中：
+- Q (Query)：查询向量矩阵
+- K (Key)：键向量矩阵
+- V (Value)：值向量矩阵
+- d_k：键向量的维度</p>
+<p>计算步骤如下：</p>
 <ol>
-<li>Compute dot products between query and all keys (<code>QK^T</code>)</li>
-<li>Scale by <code>1/sqrt(d_k)</code> to prevent extremely small gradients when d_k is large</li>
-<li>Apply softmax to obtain attention weights</li>
-<li>Multiply weights by values to get the final output</li>
+<li>计算查询和所有键之间的点积（<code>QK^T</code>）</li>
+<li>通过<code>1/sqrt(d_k)</code>进行缩放，以防止当d_k较大时梯度过小</li>
+<li>应用softmax获取注意力权重</li>
+<li>将权重乘以值得到最终输出</li>
 </ol>
-<p>This can be visualized as:</p>
+<p>这可以可视化为：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>     ┌───┐          ┌───┐ 
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>     │ Q │          │ K │ 
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>     └───┘          └───┘ 
@@ -5747,47 +5747,47 @@
 <a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>   │ Output│              
 <a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>   └───────┘              
 </code></pre></div>
-<h2 id="multi-head-attention">Multi-Head Attention</h2>
-<p>Instead of performing a single attention function, transformers use multi-head attention:</p>
+<h2 id="_4">多头注意力</h2>
+<p>transformer不是执行单一的注意力函数，而是使用多头注意力：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>MultiHead(Q, K, V) = Concat(head_1, ..., head_h)W^O
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>where head_i = Attention(QW_i^Q, KW_i^K, VW_i^V)
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>其中 head_i = Attention(QW_i^Q, KW_i^K, VW_i^V)
 </code></pre></div>
-<p>This allows the model to:
-1. Attend to information from different representation subspaces
-2. Focus on different positions simultaneously
-3. Capture different types of patterns and relationships</p>
-<p>In practice, multi-head attention splits the embedding dimension into <code>h</code> heads, runs attention in parallel for each head, and then concatenates and linearly transforms the results.</p>
-<h2 id="memory-optimization-techniques">Memory Optimization Techniques</h2>
-<p>The standard attention implementation has quadratic memory complexity with respect to sequence length, which becomes problematic for long sequences. Several techniques have been developed to address this:</p>
+<p>这允许模型：
+1. 关注不同表示子空间的信息
+2. 同时关注不同位置
+3. 捕获不同类型的模式和关系</p>
+<p>在实践中，多头注意力将嵌入维度分成<code>h</code>个头，为每个头并行运行注意力，然后将结果连接并线性变换。</p>
+<h2 id="_5">内存优化技术</h2>
+<p>标准注意力实现在序列长度方面具有二次内存复杂度，这对长序列来说是个问题。为解决这个问题，已经开发了几种技术：</p>
 <ol>
-<li><strong>Block-sparse attention</strong>: Only attend to specific blocks of the input, reducing complexity</li>
-<li><strong>Low-rank approximation</strong>: Approximate the attention matrix with lower-rank matrices</li>
-<li><strong>Local attention</strong>: Each token only attends to nearby tokens in a fixed window</li>
-<li><strong>Sliding window attention</strong>: Different sliding windows of attention for different heads</li>
-<li><strong>Linear attention</strong>: Reformulate attention to achieve linear complexity</li>
+<li><strong>块稀疏注意力</strong>：只关注输入的特定块，降低复杂度</li>
+<li><strong>低秩近似</strong>：用低秩矩阵近似注意力矩阵</li>
+<li><strong>局部注意力</strong>：每个标记只关注固定窗口内的附近标记</li>
+<li><strong>滑动窗口注意力</strong>：不同头使用不同的注意力滑动窗口</li>
+<li><strong>线性注意力</strong>：重新制定注意力以实现线性复杂度</li>
 </ol>
-<p>Our implementation demonstrates block-sparse attention, which offers a good balance between efficiency and effectiveness.</p>
-<h2 id="cuda-implementation">CUDA Implementation</h2>
-<h3 id="standard-attention">Standard Attention</h3>
-<p>The standard attention implementation follows the mathematical definition directly:</p>
+<p>我们的实现演示了块稀疏注意力，它在效率和有效性之间提供了良好的平衡。</p>
+<h2 id="cuda">CUDA实现</h2>
+<h3 id="_6">标准注意力</h3>
+<p>标准注意力实现直接遵循数学定义：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">scalarAttention</span><span class="p">(</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">d_query</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">d_key</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">d_value</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">d_output</span><span class="p">,</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">batchSize</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">seqLen</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">embedDim</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">useMask</span><span class="p">)</span><span class="w"> </span>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">{</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="c1">// 1. Transpose key for matrix multiplication</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="c1">// 2. Compute attention scores: scores = query * key^T</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="c1">// 3. Scale attention scores</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="c1">// 4. Apply mask (optional)</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="c1">// 5. Apply softmax</span>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="c1">// 6. Apply attention: output = scores * value</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="c1">// 1. 转置键以进行矩阵乘法</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="c1">// 2. 计算注意力分数：scores = query * key^T</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="c1">// 3. 缩放注意力分数</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="c1">// 4. 应用掩码（可选）</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="c1">// 5. 应用softmax</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="c1">// 6. 应用注意力：output = scores * value</span>
 <a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="p">}</span>
 </code></pre></div>
-<p>This implementation is straightforward but inefficient, as it requires multiple kernel launches and temporary buffers.</p>
-<h3 id="multi-head-attention-implementation">Multi-Head Attention Implementation</h3>
-<p>Our optimized multi-head attention uses a single custom kernel that:
-1. Computes attention scores directly
-2. Uses shared memory for attention scores
-3. Applies softmax and attention in one pass</p>
+<p>这种实现直接但效率低下，因为它需要多次内核启动和临时缓冲区。</p>
+<h3 id="_7">多头注意力实现</h3>
+<p>我们优化的多头注意力使用单个自定义内核，该内核：
+1. 直接计算注意力分数
+2. 使用共享内存存储注意力分数
+3. 在一次传递中应用softmax和注意力</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">attentionKernel</span><span class="p">(</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">output</span><span class="p">,</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">scale</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">useMask</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">seqLen</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">headDim</span><span class="p">,</span>
@@ -5795,70 +5795,70 @@
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="p">{</span>
 <a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="k">extern</span><span class="w"> </span><span class="n">__shared__</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">scores</span><span class="p">[];</span>
 <a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="c1">// 1. Compute attention scores and store in shared memory</span>
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="c1">// 2. Apply softmax normalization</span>
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">    </span><span class="c1">// 3. Compute weighted sum of values</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="c1">// 1. 计算注意力分数并存储在共享内存中</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="c1">// 2. 应用softmax归一化</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">    </span><span class="c1">// 3. 计算值的加权和</span>
 <a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="p">}</span>
 </code></pre></div>
-<p>This approach reduces global memory traffic and kernel launch overhead.</p>
-<h3 id="block-sparse-attention">Block-Sparse Attention</h3>
-<p>Block-sparse attention divides the attention matrix into blocks and only computes selected blocks based on a sparsity pattern:</p>
+<p>这种方法减少了全局内存流量和内核启动开销。</p>
+<h3 id="_8">块稀疏注意力</h3>
+<p>块稀疏注意力将注意力矩阵分成块，并根据稀疏模式只计算选定的块：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">blockSparseAttention</span><span class="p">(</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">d_query</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">d_key</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">d_value</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">d_output</span><span class="p">,</span>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">batchSize</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">seqLen</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">embedDim</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">blockSize</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">sparsity</span><span class="p">)</span><span class="w"> </span>
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="p">{</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="c1">// 1. Determine which blocks to compute</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="c1">// 2. Only compute attention for selected blocks</span>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="c1">// 3. Use specialized kernels for sparse operations</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="c1">// 1. 确定要计算的块</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="c1">// 2. 仅为选定的块计算注意力</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="c1">// 3. 使用专门的内核进行稀疏操作</span>
 <a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="p">}</span>
 </code></pre></div>
-<p>In practice, various sparsity patterns can be used:
-- Fixed patterns (e.g., block diagonal)
-- Data-dependent patterns
-- Learned patterns</p>
-<p>In our simplified implementation, we just indicate the structure without fully implementing the sparse computation.</p>
-<h2 id="performance-analysis">Performance Analysis</h2>
-<p>The performance of different attention implementations varies significantly:</p>
+<p>在实践中，可以使用各种稀疏模式：
+- 固定模式（如块对角线）
+- 数据依赖模式
+- 学习模式</p>
+<p>在我们的简化实现中，我们只是指示结构，而不完全实现稀疏计算。</p>
+<h2 id="_9">性能分析</h2>
+<p>不同注意力实现的性能差异显著：</p>
 <ol>
-<li><strong>Standard Attention</strong>:</li>
-<li>Simple implementation</li>
-<li>Multiple kernel launches</li>
-<li>High memory usage (O(n²))</li>
+<li><strong>标准注意力</strong>：</li>
+<li>简单实现</li>
+<li>多次内核启动</li>
+<li>高内存使用率（O(n²)）</li>
 <li>
-<p>Baseline performance</p>
+<p>基准性能</p>
 </li>
 <li>
-<p><strong>Multi-Head Attention</strong>:</p>
+<p><strong>多头注意力</strong>：</p>
 </li>
-<li>Fused kernel implementation</li>
-<li>Shared memory usage</li>
-<li>Reduced memory transfers</li>
+<li>融合内核实现</li>
+<li>共享内存使用</li>
+<li>减少内存传输</li>
 <li>
-<p>Typically 1.5-3x faster than standard</p>
+<p>通常比标准实现快1.5-3倍</p>
 </li>
 <li>
-<p><strong>Block-Sparse Attention</strong>:</p>
+<p><strong>块稀疏注意力</strong>：</p>
 </li>
-<li>Reduced computation (proportional to sparsity)</li>
-<li>Lower memory footprint</li>
-<li>Can handle longer sequences</li>
-<li>For 90% sparsity, can be 5-10x faster</li>
+<li>减少计算（与稀疏度成正比）</li>
+<li>更低的内存占用</li>
+<li>可以处理更长的序列</li>
+<li>对于90%稀疏度，可以快5-10倍</li>
 </ol>
-<p>The optimal choice depends on sequence length, model size, and hardware capabilities.</p>
-<h2 id="advanced-optimizations">Advanced Optimizations</h2>
-<p>Beyond the techniques shown in our example, production implementations often include:</p>
+<p>最佳选择取决于序列长度、模型大小和硬件能力。</p>
+<h2 id="_10">高级优化</h2>
+<p>除了我们示例中显示的技术外，生产实现通常包括：</p>
 <ol>
-<li><strong>Kernel Fusion</strong>: Combining multiple operations (projection, attention, dropout) into a single kernel</li>
-<li><strong>Mixed Precision</strong>: Using FP16/BF16 computation with FP32 accumulation</li>
-<li><strong>Persistent Kernels</strong>: Keeping kernels resident for multiple operations</li>
-<li><strong>Tensor Core Acceleration</strong>: Reformulating operations to use Tensor Cores</li>
-<li><strong>Flash Attention</strong>: Memory-efficient attention algorithm that avoids materializing the full attention matrix</li>
-<li><strong>Customized Memory Layouts</strong>: Optimizing data layout for better memory access patterns</li>
+<li><strong>内核融合</strong>：将多个操作（投影、注意力、丢弃）合并到单个内核中</li>
+<li><strong>混合精度</strong>：使用FP16/BF16计算与FP32累加</li>
+<li><strong>持久内核</strong>：保持内核驻留以进行多次操作</li>
+<li><strong>Tensor核心加速</strong>：重新制定操作以使用Tensor核心</li>
+<li><strong>Flash注意力</strong>：高效内存的注意力算法，避免具现化完整的注意力矩阵</li>
+<li><strong>自定义内存布局</strong>：优化数据布局以获得更好的内存访问模式</li>
 </ol>
-<h2 id="conclusion">Conclusion</h2>
-<p>Efficient implementation of attention mechanisms is crucial for transformer model performance. By leveraging CUDA and GPU-specific optimizations, we can significantly accelerate these operations, enabling larger models and longer sequences.</p>
-<p>The techniques demonstrated in this tutorial provide a foundation for understanding how modern deep learning frameworks implement attention. These optimizations are critical for the practical deployment of large language models like GPT and BERT.</p>
-<h2 id="references">References</h2>
+<h2 id="_11">结论</h2>
+<p>高效实现注意力机制对transformer模型性能至关重要。通过利用CUDA和GPU特定优化，我们可以显著加速这些操作，使更大的模型和更长的序列成为可能。</p>
+<p>本教程中演示的技术为理解现代深度学习框架如何实现注意力提供了基础。这些优化对于GPT和BERT等大型语言模型的实际部署至关重要。</p>
+<h2 id="_12">参考资料</h2>
 <ol>
 <li>Vaswani, A., et al. (2017). "Attention Is All You Need." NeurIPS.</li>
 <li>Child, R., et al. (2019). "Generating Long Sequences with Sparse Transformers." arXiv.</li>
@@ -5866,7 +5866,7 @@
 <li>NVIDIA. (2023). "CUDA C++ Programming Guide."</li>
 <li>Hoffer, E., et al. (2020). "Improving Transformer Models by Reordering their Sublayers." ACL. </li>
 </ol>
-<p><a class="md-button" href="https://x.com/intent/tweet?text=Attention%20Mechanism%20for%20Transformer%20Models%20with%20CUDA%0A&amp;url=https://eunomia.dev/zh/others/cuda-tutorial/07-attention-mechanism/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=%E4%BD%BF%E7%94%A8CUDA%E5%AE%9E%E7%8E%B0Transformer%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%0A&amp;url=https://eunomia.dev/zh/others/cuda-tutorial/07-attention-mechanism/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/zh/others/cuda-tutorial/07-attention-mechanism/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
@@ -5890,7 +5890,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 25, 2025 01:28:13 UTC">May 25, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 7, 2025 20:04:19 UTC">June 7, 2025</span>
   </span>
 
     
@@ -5900,7 +5900,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 23, 2025 18:08:33 UTC">May 23, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 7, 2025 20:04:19 UTC">June 7, 2025</span>
   </span>
 
     
@@ -5915,7 +5915,7 @@
     </span>
     <nav>
       
-        <a href="mailto:yt.xyxx@gmail.com">officeyutong</a>
+        <a href="mailto:41898282+github-actions[bot]@users.noreply.github.com">github-actions[bot]</a>
     </nav>
   </span>
 
@@ -6020,7 +6020,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../06-cnn-convolution/" class="md-footer__link md-footer__link--prev" aria-label="Previous: GPU-Accelerated Convolution Operations with Shared Memory Optimization">
+          <a href="../06-cnn-convolution/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 使用共享内存优化的GPU加速卷积操作">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -6030,20 +6030,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                GPU-Accelerated Convolution Operations with Shared Memory Optimization
+                使用共享内存优化的GPU加速卷积操作
               </div>
             </div>
           </a>
         
         
           
-          <a href="../08-profiling-tracing/" class="md-footer__link md-footer__link--next" aria-label="Next: CUDA GPU Profiling and Tracing">
+          <a href="../08-profiling-tracing/" class="md-footer__link md-footer__link--next" aria-label="Next: CUDA GPU性能分析与跟踪">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                CUDA GPU Profiling and Tracing
+                CUDA GPU性能分析与跟踪
               </div>
             </div>
             <div class="md-footer__button md-icon">

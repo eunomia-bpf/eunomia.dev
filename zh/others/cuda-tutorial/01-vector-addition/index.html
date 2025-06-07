@@ -24,7 +24,7 @@
     
     
       
-        <title>CUDA Basic Example - Vector Addition Explanation - eunomia</title>
+        <title>CUDA 基础示例 - 向量加法解释 - eunomia</title>
       
     
     
@@ -69,11 +69,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="CUDA Basic Example - Vector Addition Explanation - eunomia" >
+        <meta  property="og:title"  content="CUDA 基础示例 - 向量加法解释 - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
-        <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/others/cuda-tutorial/01-vector-addition.png" >
+        <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/others/cuda-tutorial/01-vector-addition.zh.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -85,11 +85,11 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="CUDA Basic Example - Vector Addition Explanation - eunomia" >
+        <meta  name="twitter:title"  content="CUDA 基础示例 - 向量加法解释 - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
-        <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/others/cuda-tutorial/01-vector-addition.png" >
+        <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/others/cuda-tutorial/01-vector-addition.zh.png" >
       
     
     
@@ -112,7 +112,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#cuda-basic-example-vector-addition-explanation" class="md-skip">
+        <a href="#cuda-" class="md-skip">
           Skip to content
         </a>
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              CUDA Basic Example - Vector Addition Explanation
+              CUDA 基础示例 - 向量加法解释
             
           </span>
         </div>
@@ -4537,7 +4537,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA Basic Example - Vector Addition Explanation
+    CUDA 基础示例 - 向量加法解释
     
   </span>
   
@@ -4550,7 +4550,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA Basic Example - Vector Addition Explanation
+    CUDA 基础示例 - 向量加法解释
     
   </span>
   
@@ -4573,110 +4573,110 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      Prerequisites
+      前提条件
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#building-and-running" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      Building and Running
+      构建和运行
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#code-structure-and-explanation" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      Code Structure and Explanation
+      代码结构和解释
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Code Structure and Explanation">
+    <nav class="md-nav" aria-label="代码结构和解释">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-header-files-and-includes" class="md-nav__link">
+  <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Header Files and Includes
+      1. 头文件和包含
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-cuda-kernel-function" class="md-nav__link">
+  <a href="#2-cuda" class="md-nav__link">
     <span class="md-ellipsis">
-      2. CUDA Kernel Function
+      2. CUDA内核函数
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-main-function-components" class="md-nav__link">
+  <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
-      3. Main Function Components
+      3. 主函数组件
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="3. Main Function Components">
+    <nav class="md-nav" aria-label="3. 主函数组件">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#31-memory-allocation" class="md-nav__link">
+  <a href="#31" class="md-nav__link">
     <span class="md-ellipsis">
-      3.1 Memory Allocation
+      3.1 内存分配
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#32-data-transfer" class="md-nav__link">
+  <a href="#32" class="md-nav__link">
     <span class="md-ellipsis">
-      3.2 Data Transfer
+      3.2 数据传输
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#33-kernel-launch-configuration" class="md-nav__link">
+  <a href="#33" class="md-nav__link">
     <span class="md-ellipsis">
-      3.3 Kernel Launch Configuration
+      3.3 内核启动配置
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#34-error-checking" class="md-nav__link">
+  <a href="#34" class="md-nav__link">
     <span class="md-ellipsis">
-      3.4 Error Checking
+      3.4 错误检查
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#35-result-verification" class="md-nav__link">
+  <a href="#35" class="md-nav__link">
     <span class="md-ellipsis">
-      3.5 Result Verification
+      3.5 结果验证
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#36-cleanup" class="md-nav__link">
+  <a href="#36" class="md-nav__link">
     <span class="md-ellipsis">
-      3.6 Cleanup
+      3.6 清理
     </span>
   </a>
   
@@ -4693,36 +4693,36 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#performance-considerations" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      Performance Considerations
+      性能考虑
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#common-issues-and-debugging" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      Common Issues and Debugging
+      常见问题和调试
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#expected-output" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      Expected Output
+      预期输出
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#modifying-the-example" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
-      Modifying the Example
+      修改示例
     </span>
   </a>
   
@@ -4749,7 +4749,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA PTX Example: Vector Multiplication Using Inline PTX Assembly
+    CUDA PTX示例：使用内联PTX汇编进行向量乘法
     
   </span>
   
@@ -4772,7 +4772,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA Programming Methods Comparison: Matrix Multiplication
+    CUDA编程方法比较：矩阵乘法
     
   </span>
   
@@ -4795,7 +4795,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA GPU Organization Hierarchy
+    CUDA GPU组织层次结构
     
   </span>
   
@@ -4818,7 +4818,7 @@
   
   
   <span class="md-ellipsis">
-    Neural Network Forward Pass on GPU with CUDA
+    使用CUDA在GPU上实现神经网络前向传播
     
   </span>
   
@@ -4841,7 +4841,7 @@
   
   
   <span class="md-ellipsis">
-    GPU-Accelerated Convolution Operations with Shared Memory Optimization
+    使用共享内存优化的GPU加速卷积操作
     
   </span>
   
@@ -4864,7 +4864,7 @@
   
   
   <span class="md-ellipsis">
-    Attention Mechanism for Transformer Models with CUDA
+    使用CUDA实现Transformer模型的注意力机制
     
   </span>
   
@@ -4887,7 +4887,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA GPU Profiling and Tracing
+    CUDA GPU性能分析与跟踪
     
   </span>
   
@@ -4910,7 +4910,7 @@
   
   
   <span class="md-ellipsis">
-    GPU Application Extension Mechanisms: Modifying Behavior Without Source Code Changes
+    GPU应用程序扩展机制：无需更改源代码修改行为
     
   </span>
   
@@ -4933,7 +4933,7 @@
   
   
   <span class="md-ellipsis">
-    CPU and GPU Profiling Boundaries: What to Measure Where
+    CPU和GPU分析边界：在哪里测量什么
     
   </span>
   
@@ -4956,7 +4956,7 @@
   
   
   <span class="md-ellipsis">
-    Fine-Grained GPU Code Modifications
+    细粒度GPU代码修改
     
   </span>
   
@@ -4979,7 +4979,7 @@
   
   
   <span class="md-ellipsis">
-    Advanced GPU Customizations
+    高级GPU定制技术
     
   </span>
   
@@ -5002,7 +5002,7 @@
   
   
   <span class="md-ellipsis">
-    Low-Latency GPU Packet Processing
+    低延迟GPU数据包处理
     
   </span>
   
@@ -5025,7 +5025,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA Function Type Annotations: A Comprehensive Guide
+    CUDA函数类型注解：全面指南
     
   </span>
   
@@ -5048,7 +5048,7 @@
   
   
   <span class="md-ellipsis">
-    OpenCL Basic Example - Vector Addition Explanation
+    OpenCL基础示例 - 向量加法解释
     
   </span>
   
@@ -5071,7 +5071,7 @@
   
   
   <span class="md-ellipsis">
-    PTX File Loading and Execution Demo
+    PTX文件加载和执行演示
     
   </span>
   
@@ -5528,110 +5528,110 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      Prerequisites
+      前提条件
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#building-and-running" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      Building and Running
+      构建和运行
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#code-structure-and-explanation" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      Code Structure and Explanation
+      代码结构和解释
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Code Structure and Explanation">
+    <nav class="md-nav" aria-label="代码结构和解释">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-header-files-and-includes" class="md-nav__link">
+  <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Header Files and Includes
+      1. 头文件和包含
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-cuda-kernel-function" class="md-nav__link">
+  <a href="#2-cuda" class="md-nav__link">
     <span class="md-ellipsis">
-      2. CUDA Kernel Function
+      2. CUDA内核函数
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-main-function-components" class="md-nav__link">
+  <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
-      3. Main Function Components
+      3. 主函数组件
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="3. Main Function Components">
+    <nav class="md-nav" aria-label="3. 主函数组件">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#31-memory-allocation" class="md-nav__link">
+  <a href="#31" class="md-nav__link">
     <span class="md-ellipsis">
-      3.1 Memory Allocation
+      3.1 内存分配
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#32-data-transfer" class="md-nav__link">
+  <a href="#32" class="md-nav__link">
     <span class="md-ellipsis">
-      3.2 Data Transfer
+      3.2 数据传输
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#33-kernel-launch-configuration" class="md-nav__link">
+  <a href="#33" class="md-nav__link">
     <span class="md-ellipsis">
-      3.3 Kernel Launch Configuration
+      3.3 内核启动配置
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#34-error-checking" class="md-nav__link">
+  <a href="#34" class="md-nav__link">
     <span class="md-ellipsis">
-      3.4 Error Checking
+      3.4 错误检查
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#35-result-verification" class="md-nav__link">
+  <a href="#35" class="md-nav__link">
     <span class="md-ellipsis">
-      3.5 Result Verification
+      3.5 结果验证
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#36-cleanup" class="md-nav__link">
+  <a href="#36" class="md-nav__link">
     <span class="md-ellipsis">
-      3.6 Cleanup
+      3.6 清理
     </span>
   </a>
   
@@ -5648,36 +5648,36 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#performance-considerations" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      Performance Considerations
+      性能考虑
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#common-issues-and-debugging" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      Common Issues and Debugging
+      常见问题和调试
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#expected-output" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      Expected Output
+      预期输出
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#modifying-the-example" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
-      Modifying the Example
+      修改示例
     </span>
   </a>
   
@@ -5699,7 +5699,7 @@
 
 
   
-    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cuda-tutorial/01-vector-addition.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cuda-tutorial/01-vector-addition.zh.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -5708,108 +5708,108 @@
     
       
     
-    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cuda-tutorial/01-vector-addition.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cuda-tutorial/01-vector-addition.zh.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-<h1 id="cuda-basic-example-vector-addition-explanation">CUDA Basic Example - Vector Addition Explanation</h1>
-<p>This document provides a detailed explanation of the vector addition CUDA example in <code>basic01.cu</code>.</p>
-<p>You can find the code in <a href="https://github.com/eunomia-bpf/basic-cuda-tutorial">https://github.com/eunomia-bpf/basic-cuda-tutorial</a></p>
-<h2 id="prerequisites">Prerequisites</h2>
-<p>To run this example, you need:
-- NVIDIA GPU with CUDA support
-- NVIDIA CUDA Toolkit installed
-- A C++ compiler compatible with your CUDA version
-- GNU Make (for building with the provided Makefile)</p>
-<h2 id="building-and-running">Building and Running</h2>
+<h1 id="cuda-">CUDA 基础示例 - 向量加法解释</h1>
+<p>本文档提供了<code>basic01.cu</code>中向量加法CUDA示例的详细解释。</p>
+<p>您可以在 <a href="https://github.com/eunomia-bpf/basic-cuda-tutorial">https://github.com/eunomia-bpf/basic-cuda-tutorial</a> 找到代码</p>
+<h2 id="_1">前提条件</h2>
+<p>要运行此示例，您需要：
+- 支持CUDA的NVIDIA GPU
+- 已安装NVIDIA CUDA工具包
+- 与您的CUDA版本兼容的C++编译器
+- GNU Make（用于使用提供的Makefile进行构建）</p>
+<h2 id="_2">构建和运行</h2>
 <ol>
 <li>
-<p>Build the example:
+<p>构建示例：
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>make
 </code></pre></div></p>
 </li>
 <li>
-<p>Run the program:
+<p>运行程序：
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>./basic01
 </code></pre></div></p>
 </li>
 </ol>
-<h2 id="code-structure-and-explanation">Code Structure and Explanation</h2>
-<h3 id="1-header-files-and-includes">1. Header Files and Includes</h3>
+<h2 id="_3">代码结构和解释</h2>
+<h3 id="1">1. 头文件和包含</h3>
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
 </code></pre></div>
-These standard C headers provide:
-- <code>stdio.h</code>: Input/output functions like <code>printf</code>
-- <code>stdlib.h</code>: Memory management functions like <code>malloc</code> and <code>free</code></p>
-<h3 id="2-cuda-kernel-function">2. CUDA Kernel Function</h3>
+这些标准C头文件提供：
+- <code>stdio.h</code>：输入/输出函数，如<code>printf</code>
+- <code>stdlib.h</code>：内存管理函数，如<code>malloc</code>和<code>free</code></p>
+<h3 id="2-cuda">2. CUDA内核函数</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">vectorAdd</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">numElements</span><span class="p">)</span>
 </code></pre></div>
 <ul>
-<li><code>__global__</code>: Specifies this is a CUDA kernel function that:</li>
-<li>Runs on the GPU</li>
-<li>Can be called from CPU code</li>
-<li>Must return void</li>
-<li>Parameters:</li>
-<li><code>float *A, *B</code>: Input vectors in GPU memory</li>
-<li><code>float *C</code>: Output vector in GPU memory</li>
-<li><code>numElements</code>: Size of the vectors</li>
+<li><code>__global__</code>：指定这是一个CUDA内核函数，它：</li>
+<li>在GPU上运行</li>
+<li>可以从CPU代码调用</li>
+<li>必须返回void</li>
+<li>参数：</li>
+<li><code>float *A, *B</code>：GPU内存中的输入向量</li>
+<li><code>float *C</code>：GPU内存中的输出向量</li>
+<li><code>numElements</code>：向量的大小</li>
 </ul>
-<p>Inside the kernel:
+<p>内核内部：
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
 </code></pre></div>
-This calculates a unique index for each thread where:
-- <code>threadIdx.x</code>: Thread index within the block (0 to blockDim.x-1)
-- <code>blockIdx.x</code>: Block index within the grid
-- <code>blockDim.x</code>: Number of threads per block</p>
-<h3 id="3-main-function-components">3. Main Function Components</h3>
-<h4 id="31-memory-allocation">3.1 Memory Allocation</h4>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">// Host memory allocation</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">h_A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">size</span><span class="p">);</span><span class="w">  </span><span class="c1">// CPU memory</span>
+这计算每个线程的唯一索引，其中：
+- <code>threadIdx.x</code>：块内的线程索引（0到blockDim.x-1）
+- <code>blockIdx.x</code>：网格内的块索引
+- <code>blockDim.x</code>：每个块的线程数</p>
+<h3 id="3">3. 主函数组件</h3>
+<h4 id="31">3.1 内存分配</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">// 主机内存分配</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">h_A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">size</span><span class="p">);</span><span class="w">  </span><span class="c1">// CPU内存</span>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1">// Device memory allocation</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1">// 设备内存分配</span>
 <a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">d_A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="n">cudaMalloc</span><span class="p">((</span><span class="kt">void</span><span class="w"> </span><span class="o">**</span><span class="p">)</span><span class="o">&amp;</span><span class="n">d_A</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">);</span><span class="w">     </span><span class="c1">// GPU memory</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="n">cudaMalloc</span><span class="p">((</span><span class="kt">void</span><span class="w"> </span><span class="o">**</span><span class="p">)</span><span class="o">&amp;</span><span class="n">d_A</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">);</span><span class="w">     </span><span class="c1">// GPU内存</span>
 </code></pre></div>
 <ul>
-<li>Host (CPU) memory uses standard C <code>malloc</code></li>
-<li>Device (GPU) memory uses CUDA's <code>cudaMalloc</code></li>
-<li>The 'h_' prefix denotes host memory</li>
-<li>The 'd_' prefix denotes device memory</li>
+<li>主机（CPU）内存使用标准C的<code>malloc</code></li>
+<li>设备（GPU）内存使用CUDA的<code>cudaMalloc</code></li>
+<li>'h_'前缀表示主机内存</li>
+<li>'d_'前缀表示设备内存</li>
 </ul>
-<h4 id="32-data-transfer">3.2 Data Transfer</h4>
+<h4 id="32">3.2 数据传输</h4>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">cudaMemcpy</span><span class="p">(</span><span class="n">d_A</span><span class="p">,</span><span class="w"> </span><span class="n">h_A</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">cudaMemcpyHostToDevice</span><span class="p">);</span>
 </code></pre></div>
-<p><code>cudaMemcpy</code> parameters:
-1. Destination pointer
-2. Source pointer
-3. Size in bytes
-4. Direction of transfer:
-   - <code>cudaMemcpyHostToDevice</code>: CPU to GPU
-   - <code>cudaMemcpyDeviceToHost</code>: GPU to CPU</p>
-<h4 id="33-kernel-launch-configuration">3.3 Kernel Launch Configuration</h4>
+<p><code>cudaMemcpy</code>参数：
+1. 目标指针
+2. 源指针
+3. 字节大小
+4. 传输方向：
+   - <code>cudaMemcpyHostToDevice</code>：CPU到GPU
+   - <code>cudaMemcpyDeviceToHost</code>：GPU到CPU</p>
+<h4 id="33">3.3 内核启动配置</h4>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">threadsPerBlock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">256</span><span class="p">;</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="kt">int</span><span class="w"> </span><span class="n">blocksPerGrid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">numElements</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">threadsPerBlock</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">threadsPerBlock</span><span class="p">;</span>
 <a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">vectorAdd</span><span class="o">&lt;&lt;&lt;</span><span class="n">blocksPerGrid</span><span class="p">,</span><span class="w"> </span><span class="n">threadsPerBlock</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">d_A</span><span class="p">,</span><span class="w"> </span><span class="n">d_B</span><span class="p">,</span><span class="w"> </span><span class="n">d_C</span><span class="p">,</span><span class="w"> </span><span class="n">numElements</span><span class="p">);</span>
 </code></pre></div>
 <ul>
-<li><code>threadsPerBlock = 256</code>: Common size for good performance</li>
-<li><code>blocksPerGrid</code>: Calculated to ensure enough threads for all elements</li>
-<li>The formula <code>(numElements + threadsPerBlock - 1) / threadsPerBlock</code> rounds up the division</li>
-<li>Launch syntax <code>&lt;&lt;&lt;blocks, threads&gt;&gt;&gt;</code> specifies the execution configuration</li>
+<li><code>threadsPerBlock = 256</code>：常见大小，性能良好</li>
+<li><code>blocksPerGrid</code>：计算以确保有足够的线程处理所有元素</li>
+<li>公式<code>(numElements + threadsPerBlock - 1) / threadsPerBlock</code>向上取整除法</li>
+<li>启动语法<code>&lt;&lt;&lt;blocks, threads&gt;&gt;&gt;</code>指定执行配置</li>
 </ul>
-<h4 id="34-error-checking">3.4 Error Checking</h4>
+<h4 id="34">3.4 错误检查</h4>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">cudaError_t</span><span class="w"> </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span>
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cudaSuccess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Failed to launch kernel: %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">cudaGetErrorString</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
 <a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="n">exit</span><span class="p">(</span><span class="n">EXIT_FAILURE</span><span class="p">);</span>
 <a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="p">}</span>
 </code></pre></div>
-<p>Always check for CUDA errors after kernel launches and CUDA API calls.</p>
-<h4 id="35-result-verification">3.5 Result Verification</h4>
+<p>在内核启动和CUDA API调用后始终检查CUDA错误。</p>
+<h4 id="35">3.5 结果验证</h4>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">numElements</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fabs</span><span class="p">(</span><span class="n">h_A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">h_B</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">h_C</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">1e-5</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">        </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Result verification failed at element %d!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">);</span>
@@ -5817,80 +5817,80 @@ This calculates a unique index for each thread where:
 <a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="p">}</span>
 </code></pre></div>
-<p>Verifies the GPU computation by comparing with CPU results.</p>
-<h4 id="36-cleanup">3.6 Cleanup</h4>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1">// Free GPU memory</span>
+<p>通过与CPU结果比较来验证GPU计算。</p>
+<h4 id="36">3.6 清理</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1">// 释放GPU内存</span>
 <a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">cudaFree</span><span class="p">(</span><span class="n">d_A</span><span class="p">);</span>
 <a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="n">cudaFree</span><span class="p">(</span><span class="n">d_B</span><span class="p">);</span>
 <a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="n">cudaFree</span><span class="p">(</span><span class="n">d_C</span><span class="p">);</span>
 <a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>
-<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="c1">// Free CPU memory</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="c1">// 释放CPU内存</span>
 <a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="n">free</span><span class="p">(</span><span class="n">h_A</span><span class="p">);</span>
 <a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="n">free</span><span class="p">(</span><span class="n">h_B</span><span class="p">);</span>
 <a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="n">free</span><span class="p">(</span><span class="n">h_C</span><span class="p">);</span>
 </code></pre></div>
-<p>Always free allocated memory to prevent memory leaks.</p>
-<h2 id="performance-considerations">Performance Considerations</h2>
+<p>始终释放分配的内存以防止内存泄漏。</p>
+<h2 id="_4">性能考虑</h2>
 <ol>
-<li><strong>Thread Block Size</strong></li>
-<li>We use 256 threads per block</li>
-<li>This is a common choice that works well on most GPUs</li>
+<li><strong>线程块大小</strong></li>
+<li>我们每个块使用256个线程</li>
+<li>这是一个在大多数GPU上都能良好工作的常见选择</li>
 <li>
-<p>Powers of 2 are typically efficient</p>
+<p>2的幂通常是高效的</p>
 </li>
 <li>
-<p><strong>Memory Coalescing</strong></p>
+<p><strong>内存合并访问</strong></p>
 </li>
-<li>Adjacent threads access adjacent memory locations</li>
+<li>相邻线程访问相邻内存位置</li>
 <li>
-<p>This pattern enables efficient memory access</p>
+<p>这种模式实现高效内存访问</p>
 </li>
 <li>
-<p><strong>Error Checking</strong></p>
+<p><strong>错误检查</strong></p>
 </li>
-<li>The code includes robust error checking</li>
-<li>Important for debugging and reliability</li>
+<li>代码包含健壮的错误检查</li>
+<li>对调试和可靠性很重要</li>
 </ol>
-<h2 id="common-issues-and-debugging">Common Issues and Debugging</h2>
+<h2 id="_5">常见问题和调试</h2>
 <ol>
-<li><strong>CUDA Installation</strong></li>
-<li>Ensure CUDA toolkit is properly installed</li>
-<li>Check <code>nvcc --version</code> works</li>
+<li><strong>CUDA安装</strong></li>
+<li>确保CUDA工具包正确安装</li>
+<li>检查<code>nvcc --version</code>能够正常工作</li>
 <li>
-<p>Verify GPU compatibility with <code>nvidia-smi</code></p>
+<p>使用<code>nvidia-smi</code>验证GPU兼容性</p>
 </li>
 <li>
-<p><strong>Compilation Errors</strong></p>
+<p><strong>编译错误</strong></p>
 </li>
-<li>Check CUDA path is in system PATH</li>
+<li>检查CUDA路径是否在系统PATH中</li>
 <li>
-<p>Verify GPU compute capability matches <code>-arch</code> flag in Makefile</p>
+<p>验证GPU计算能力与Makefile中的<code>-arch</code>标志匹配</p>
 </li>
 <li>
-<p><strong>Runtime Errors</strong></p>
+<p><strong>运行时错误</strong></p>
 </li>
-<li>Out of memory: Reduce vector size</li>
-<li>Kernel launch failure: Check GPU availability</li>
-<li>Incorrect results: Verify index calculations</li>
+<li>内存不足：减小向量大小</li>
+<li>内核启动失败：检查GPU可用性</li>
+<li>结果不正确：验证索引计算</li>
 </ol>
-<h2 id="expected-output">Expected Output</h2>
-<p>When running successfully, you should see:
+<h2 id="_6">预期输出</h2>
+<p>成功运行时，您应该看到：
 <div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>Vector addition of 50000 elements
 <a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>CUDA kernel launch with 196 blocks of 256 threads
 <a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>Test PASSED
 <a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>Done
 </code></pre></div></p>
-<h2 id="modifying-the-example">Modifying the Example</h2>
-<p>To experiment with the code:</p>
+<h2 id="_7">修改示例</h2>
+<p>要试验代码：</p>
 <ol>
-<li>Change vector size (<code>numElements</code>)</li>
-<li>Modify threads per block</li>
-<li>Add timing measurements</li>
-<li>Try different data types</li>
-<li>Implement other vector operations</li>
+<li>更改向量大小（<code>numElements</code>）</li>
+<li>修改每个块的线程数</li>
+<li>添加时间测量</li>
+<li>尝试不同的数据类型</li>
+<li>实现其他向量操作</li>
 </ol>
-<p>Remember to handle errors and verify results after modifications.</p>
-<p><a class="md-button" href="https://x.com/intent/tweet?text=CUDA%20Basic%20Example%20-%20Vector%20Addition%20Explanation%0A&amp;url=https://eunomia.dev/zh/others/cuda-tutorial/01-vector-addition/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<p>修改后记得处理错误并验证结果。 </p>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=CUDA%20%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B%20-%20%E5%90%91%E9%87%8F%E5%8A%A0%E6%B3%95%E8%A7%A3%E9%87%8A%0A&amp;url=https://eunomia.dev/zh/others/cuda-tutorial/01-vector-addition/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/zh/others/cuda-tutorial/01-vector-addition/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
@@ -5914,7 +5914,7 @@ This calculates a unique index for each thread where:
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 25, 2025 01:28:13 UTC">May 25, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 7, 2025 20:04:19 UTC">June 7, 2025</span>
   </span>
 
     
@@ -5924,7 +5924,7 @@ This calculates a unique index for each thread where:
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 23, 2025 18:08:33 UTC">May 23, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 7, 2025 20:04:19 UTC">June 7, 2025</span>
   </span>
 
     
@@ -5939,7 +5939,7 @@ This calculates a unique index for each thread where:
     </span>
     <nav>
       
-        <a href="mailto:yt.xyxx@gmail.com">officeyutong</a>
+        <a href="mailto:41898282+github-actions[bot]@users.noreply.github.com">github-actions[bot]</a>
     </nav>
   </span>
 
@@ -6061,13 +6061,13 @@ This calculates a unique index for each thread where:
         
         
           
-          <a href="../02-ptx-assembly/" class="md-footer__link md-footer__link--next" aria-label="Next: CUDA PTX Example: Vector Multiplication Using Inline PTX Assembly">
+          <a href="../02-ptx-assembly/" class="md-footer__link md-footer__link--next" aria-label="Next: CUDA PTX示例：使用内联PTX汇编进行向量乘法">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                CUDA PTX Example: Vector Multiplication Using Inline PTX Assembly
+                CUDA PTX示例：使用内联PTX汇编进行向量乘法
               </div>
             </div>
             <div class="md-footer__button md-icon">

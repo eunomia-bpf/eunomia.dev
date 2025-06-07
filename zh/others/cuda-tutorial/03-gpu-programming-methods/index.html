@@ -24,7 +24,7 @@
     
     
       
-        <title>CUDA Programming Methods Comparison: Matrix Multiplication - eunomia</title>
+        <title>CUDA编程方法比较：矩阵乘法 - eunomia</title>
       
     
     
@@ -69,11 +69,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="CUDA Programming Methods Comparison: Matrix Multiplication - eunomia" >
+        <meta  property="og:title"  content="CUDA编程方法比较：矩阵乘法 - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
-        <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/others/cuda-tutorial/03-gpu-programming-methods.png" >
+        <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/others/cuda-tutorial/03-gpu-programming-methods.zh.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -85,11 +85,11 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="CUDA Programming Methods Comparison: Matrix Multiplication - eunomia" >
+        <meta  name="twitter:title"  content="CUDA编程方法比较：矩阵乘法 - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
-        <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/others/cuda-tutorial/03-gpu-programming-methods.png" >
+        <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/others/cuda-tutorial/03-gpu-programming-methods.zh.png" >
       
     
     
@@ -112,7 +112,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#cuda-programming-methods-comparison-matrix-multiplication" class="md-skip">
+        <a href="#cuda" class="md-skip">
           Skip to content
         </a>
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              CUDA Programming Methods Comparison: Matrix Multiplication
+              CUDA编程方法比较：矩阵乘法
             
           </span>
         </div>
@@ -4528,7 +4528,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA Basic Example - Vector Addition Explanation
+    CUDA 基础示例 - 向量加法解释
     
   </span>
   
@@ -4551,7 +4551,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA PTX Example: Vector Multiplication Using Inline PTX Assembly
+    CUDA PTX示例：使用内联PTX汇编进行向量乘法
     
   </span>
   
@@ -4583,7 +4583,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA Programming Methods Comparison: Matrix Multiplication
+    CUDA编程方法比较：矩阵乘法
     
   </span>
   
@@ -4596,7 +4596,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA Programming Methods Comparison: Matrix Multiplication
+    CUDA编程方法比较：矩阵乘法
     
   </span>
   
@@ -4619,82 +4619,82 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      Overview
+      概述
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#programming-methods-explained" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      Programming Methods Explained
+      编程方法解释
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Programming Methods Explained">
+    <nav class="md-nav" aria-label="编程方法解释">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-standard-cuda-cc" class="md-nav__link">
+  <a href="#1-cuda-cc" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Standard CUDA C/C++
+      1. 标准CUDA C/C++
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-cuda-with-inline-ptx-assembly" class="md-nav__link">
+  <a href="#2-ptxcuda" class="md-nav__link">
     <span class="md-ellipsis">
-      2. CUDA with Inline PTX Assembly
+      2. 使用内联PTX汇编的CUDA
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-cuda-unified-memory" class="md-nav__link">
+  <a href="#3-cuda" class="md-nav__link">
     <span class="md-ellipsis">
-      3. CUDA Unified Memory
+      3. CUDA统一内存
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-cuda-shared-memory" class="md-nav__link">
+  <a href="#4-cuda" class="md-nav__link">
     <span class="md-ellipsis">
-      4. CUDA Shared Memory
+      4. CUDA共享内存
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#5-thrust-high-level-implementation" class="md-nav__link">
+  <a href="#5-thrust" class="md-nav__link">
     <span class="md-ellipsis">
-      5. Thrust High-Level Implementation
+      5. Thrust高级实现
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#6-cuda-streams" class="md-nav__link">
+  <a href="#6-cuda" class="md-nav__link">
     <span class="md-ellipsis">
-      6. CUDA Streams
+      6. CUDA流
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#7-dynamic-parallelism" class="md-nav__link">
+  <a href="#7" class="md-nav__link">
     <span class="md-ellipsis">
-      7. Dynamic Parallelism
+      7. 动态并行
     </span>
   </a>
   
@@ -4706,72 +4706,72 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#memory-hierarchy-and-access-patterns" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      Memory Hierarchy and Access Patterns
+      内存层次结构和访问模式
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#advanced-optimization-techniques" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      Advanced Optimization Techniques
+      高级优化技术
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#choosing-the-right-approach" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      Choosing the Right Approach
+      选择合适的方法
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#compiler-flags-and-optimization-levels" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      Compiler Flags and Optimization Levels
+      编译器标志和优化级别
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#building-and-running" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
-      Building and Running
+      构建和运行
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#profiling-and-performance-analysis" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
-      Profiling and Performance Analysis
+      分析和性能分析
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#future-directions-and-advanced-topics" class="md-nav__link">
+  <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
-      Future Directions and Advanced Topics
+      未来方向和高级主题
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#further-reading" class="md-nav__link">
+  <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
-      Further Reading
+      进一步阅读
     </span>
   </a>
   
@@ -4798,7 +4798,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA GPU Organization Hierarchy
+    CUDA GPU组织层次结构
     
   </span>
   
@@ -4821,7 +4821,7 @@
   
   
   <span class="md-ellipsis">
-    Neural Network Forward Pass on GPU with CUDA
+    使用CUDA在GPU上实现神经网络前向传播
     
   </span>
   
@@ -4844,7 +4844,7 @@
   
   
   <span class="md-ellipsis">
-    GPU-Accelerated Convolution Operations with Shared Memory Optimization
+    使用共享内存优化的GPU加速卷积操作
     
   </span>
   
@@ -4867,7 +4867,7 @@
   
   
   <span class="md-ellipsis">
-    Attention Mechanism for Transformer Models with CUDA
+    使用CUDA实现Transformer模型的注意力机制
     
   </span>
   
@@ -4890,7 +4890,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA GPU Profiling and Tracing
+    CUDA GPU性能分析与跟踪
     
   </span>
   
@@ -4913,7 +4913,7 @@
   
   
   <span class="md-ellipsis">
-    GPU Application Extension Mechanisms: Modifying Behavior Without Source Code Changes
+    GPU应用程序扩展机制：无需更改源代码修改行为
     
   </span>
   
@@ -4936,7 +4936,7 @@
   
   
   <span class="md-ellipsis">
-    CPU and GPU Profiling Boundaries: What to Measure Where
+    CPU和GPU分析边界：在哪里测量什么
     
   </span>
   
@@ -4959,7 +4959,7 @@
   
   
   <span class="md-ellipsis">
-    Fine-Grained GPU Code Modifications
+    细粒度GPU代码修改
     
   </span>
   
@@ -4982,7 +4982,7 @@
   
   
   <span class="md-ellipsis">
-    Advanced GPU Customizations
+    高级GPU定制技术
     
   </span>
   
@@ -5005,7 +5005,7 @@
   
   
   <span class="md-ellipsis">
-    Low-Latency GPU Packet Processing
+    低延迟GPU数据包处理
     
   </span>
   
@@ -5028,7 +5028,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA Function Type Annotations: A Comprehensive Guide
+    CUDA函数类型注解：全面指南
     
   </span>
   
@@ -5051,7 +5051,7 @@
   
   
   <span class="md-ellipsis">
-    OpenCL Basic Example - Vector Addition Explanation
+    OpenCL基础示例 - 向量加法解释
     
   </span>
   
@@ -5074,7 +5074,7 @@
   
   
   <span class="md-ellipsis">
-    PTX File Loading and Execution Demo
+    PTX文件加载和执行演示
     
   </span>
   
@@ -5531,82 +5531,82 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      Overview
+      概述
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#programming-methods-explained" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      Programming Methods Explained
+      编程方法解释
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Programming Methods Explained">
+    <nav class="md-nav" aria-label="编程方法解释">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-standard-cuda-cc" class="md-nav__link">
+  <a href="#1-cuda-cc" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Standard CUDA C/C++
+      1. 标准CUDA C/C++
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-cuda-with-inline-ptx-assembly" class="md-nav__link">
+  <a href="#2-ptxcuda" class="md-nav__link">
     <span class="md-ellipsis">
-      2. CUDA with Inline PTX Assembly
+      2. 使用内联PTX汇编的CUDA
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-cuda-unified-memory" class="md-nav__link">
+  <a href="#3-cuda" class="md-nav__link">
     <span class="md-ellipsis">
-      3. CUDA Unified Memory
+      3. CUDA统一内存
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-cuda-shared-memory" class="md-nav__link">
+  <a href="#4-cuda" class="md-nav__link">
     <span class="md-ellipsis">
-      4. CUDA Shared Memory
+      4. CUDA共享内存
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#5-thrust-high-level-implementation" class="md-nav__link">
+  <a href="#5-thrust" class="md-nav__link">
     <span class="md-ellipsis">
-      5. Thrust High-Level Implementation
+      5. Thrust高级实现
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#6-cuda-streams" class="md-nav__link">
+  <a href="#6-cuda" class="md-nav__link">
     <span class="md-ellipsis">
-      6. CUDA Streams
+      6. CUDA流
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#7-dynamic-parallelism" class="md-nav__link">
+  <a href="#7" class="md-nav__link">
     <span class="md-ellipsis">
-      7. Dynamic Parallelism
+      7. 动态并行
     </span>
   </a>
   
@@ -5618,72 +5618,72 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#memory-hierarchy-and-access-patterns" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      Memory Hierarchy and Access Patterns
+      内存层次结构和访问模式
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#advanced-optimization-techniques" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      Advanced Optimization Techniques
+      高级优化技术
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#choosing-the-right-approach" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      Choosing the Right Approach
+      选择合适的方法
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#compiler-flags-and-optimization-levels" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      Compiler Flags and Optimization Levels
+      编译器标志和优化级别
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#building-and-running" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
-      Building and Running
+      构建和运行
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#profiling-and-performance-analysis" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
-      Profiling and Performance Analysis
+      分析和性能分析
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#future-directions-and-advanced-topics" class="md-nav__link">
+  <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
-      Future Directions and Advanced Topics
+      未来方向和高级主题
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#further-reading" class="md-nav__link">
+  <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
-      Further Reading
+      进一步阅读
     </span>
   </a>
   
@@ -5705,7 +5705,7 @@
 
 
   
-    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cuda-tutorial/03-gpu-programming-methods.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cuda-tutorial/03-gpu-programming-methods.zh.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -5714,31 +5714,31 @@
     
       
     
-    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cuda-tutorial/03-gpu-programming-methods.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cuda-tutorial/03-gpu-programming-methods.zh.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-<h1 id="cuda-programming-methods-comparison-matrix-multiplication">CUDA Programming Methods Comparison: Matrix Multiplication</h1>
-<p>This example demonstrates and compares different approaches to GPU programming using CUDA, focusing on a matrix multiplication problem. By implementing the same algorithm using various techniques, we can understand the trade-offs between programming complexity, performance, and code maintainability.</p>
-<p>You can find the code in <a href="https://github.com/eunomia-bpf/basic-cuda-tutorial">https://github.com/eunomia-bpf/basic-cuda-tutorial</a></p>
-<h2 id="overview">Overview</h2>
-<p>Matrix multiplication is a classic problem that benefits greatly from parallelization. This example implements a simple matrix multiplication C = A × B using seven different approaches:</p>
+<h1 id="cuda">CUDA编程方法比较：矩阵乘法</h1>
+<p>本示例演示并比较了使用CUDA进行GPU编程的不同方法，重点关注矩阵乘法问题。通过使用各种技术实现相同的算法，我们可以了解编程复杂性、性能和代码可维护性之间的权衡。</p>
+<p>您可以在 <a href="https://github.com/eunomia-bpf/basic-cuda-tutorial">https://github.com/eunomia-bpf/basic-cuda-tutorial</a> 找到代码</p>
+<h2 id="_1">概述</h2>
+<p>矩阵乘法是一个非常适合并行化的经典问题。本示例使用七种不同的方法实现了简单的矩阵乘法C = A × B：</p>
 <ol>
-<li>Standard CUDA C/C++</li>
-<li>CUDA with Inline PTX Assembly</li>
-<li>CUDA Unified Memory</li>
-<li>CUDA Shared Memory</li>
-<li>Thrust (high-level C++ abstraction)</li>
-<li>CUDA Streams</li>
-<li>CUDA Dynamic Parallelism</li>
+<li>标准CUDA C/C++</li>
+<li>使用内联PTX汇编的CUDA</li>
+<li>CUDA统一内存</li>
+<li>CUDA共享内存</li>
+<li>Thrust（高级C++抽象）</li>
+<li>CUDA流</li>
+<li>CUDA动态并行</li>
 </ol>
-<p>For each implementation, we measure and compare the execution time, verifying the correctness of results against a CPU implementation.</p>
-<h2 id="programming-methods-explained">Programming Methods Explained</h2>
-<h3 id="1-standard-cuda-cc">1. Standard CUDA C/C++</h3>
-<p>The standard CUDA approach uses explicit memory management and a kernel function:</p>
+<p>对于每种实现，我们测量并比较执行时间，并与CPU实现的结果进行验证，确保正确性。</p>
+<h2 id="_2">编程方法解释</h2>
+<h3 id="1-cuda-cc">1. 标准CUDA C/C++</h3>
+<p>标准CUDA方法使用显式内存管理和内核函数：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">matrix_multiply_cuda</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
@@ -5752,364 +5752,364 @@
 <a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="p">}</span>
 </code></pre></div>
-<p>This implementation requires manual:
-- Memory allocation on both host and device
-- Data transfer between host and device
-- Kernel launch configuration
-- Synchronization
-- Memory deallocation</p>
-<p><strong>Advantages</strong>:
-- Direct control over memory management
-- Good performance
-- Familiar programming model</p>
-<p><strong>Disadvantages</strong>:
-- Requires explicit memory management
-- More verbose code
-- Memory transfers can be a bottleneck</p>
-<p><strong>Implementation Details</strong>:
-- Each thread computes one element of the output matrix
-- Threads are organized in a 2D grid that maps directly to the output matrix dimensions
-- The kernel has O(n) computational complexity per thread
-- Global memory is used for all matrix elements</p>
-<h3 id="2-cuda-with-inline-ptx-assembly">2. CUDA with Inline PTX Assembly</h3>
-<p>PTX (Parallel Thread Execution) is NVIDIA's low-level assembly language. We can embed PTX directly in CUDA C++ code:</p>
+<p>这种实现需要手动进行：
+- 主机和设备上的内存分配
+- 主机和设备之间的数据传输
+- 内核启动配置
+- 同步
+- 内存释放</p>
+<p><strong>优势</strong>：
+- 对内存管理有直接控制
+- 良好的性能
+- 熟悉的编程模型</p>
+<p><strong>劣势</strong>：
+- 需要显式内存管理
+- 代码更冗长
+- 内存传输可能成为瓶颈</p>
+<p><strong>实现细节</strong>：
+- 每个线程计算输出矩阵的一个元素
+- 线程组织在2D网格中，直接映射到输出矩阵维度
+- 内核对每个线程具有O(n)的计算复杂度
+- 所有矩阵元素都使用全局内存</p>
+<h3 id="2-ptxcuda">2. 使用内联PTX汇编的CUDA</h3>
+<p>PTX（并行线程执行）是NVIDIA的低级汇编语言。我们可以直接在CUDA C++代码中嵌入PTX：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kt">__device__</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">multiply_add_ptx</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">c</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="k">asm</span><span class="p">(</span><span class="s">&quot;fma.rn.f32 %0, %1, %2, %3;&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;=f&quot;</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;f&quot;</span><span class="p">(</span><span class="n">a</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;f&quot;</span><span class="p">(</span><span class="n">b</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;f&quot;</span><span class="p">(</span><span class="n">c</span><span class="p">));</span>
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="p">}</span>
 </code></pre></div>
-<p>This implementation uses a fused multiply-add (FMA) instruction which computes <code>a * b + c</code> in a single operation, potentially improving performance and numerical accuracy.</p>
-<p><strong>Advantages</strong>:
-- Fine-grained control over specific operations
-- Can leverage architecture-specific instructions
-- Potentially better performance for critical sections
-- Direct access to hardware features not exposed in CUDA C/C++</p>
-<p><strong>Disadvantages</strong>:
-- Least portable across different architectures
-- Most complex to write and maintain
-- Requires deep knowledge of GPU architecture
-- Architecture-specific optimizations may become obsolete with newer hardware</p>
-<p><strong>Implementation Details</strong>:
-- Uses the <code>fma.rn.f32</code> PTX instruction for fused multiply-add
-- The <code>.rn</code> suffix specifies round-to-nearest-even rounding mode
-- The instruction executes in a single clock cycle on compatible hardware
-- PTX assembly allows precise control over instruction selection and scheduling</p>
-<h3 id="3-cuda-unified-memory">3. CUDA Unified Memory</h3>
-<p>Unified Memory provides a single memory space accessible by both CPU and GPU:</p>
+<p>这种实现使用融合乘加（FMA）指令，在单个操作中计算<code>a * b + c</code>，可能会提高性能和数值精度。</p>
+<p><strong>优势</strong>：
+- 对特定操作的细粒度控制
+- 可以利用特定架构的指令
+- 对关键代码段可能具有更好的性能
+- 直接访问CUDA C/C++中未公开的硬件特性</p>
+<p><strong>劣势</strong>：
+- 在不同架构之间的可移植性最差
+- 最复杂的编写和维护
+- 需要深入了解GPU架构
+- 特定架构的优化可能会随着新硬件的出现而过时</p>
+<p><strong>实现细节</strong>：
+- 使用<code>fma.rn.f32</code> PTX指令进行融合乘加
+- <code>.rn</code>后缀指定舍入到最近偶数的舍入模式
+- 该指令在兼容硬件上在单个时钟周期内执行
+- PTX汇编允许精确控制指令选择和调度</p>
+<h3 id="3-cuda">3. CUDA统一内存</h3>
+<p>统一内存提供了一个可由CPU和GPU同时访问的单一内存空间：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">cudaMallocManaged</span><span class="p">(</span><span class="o">&amp;</span><span class="n">u_A</span><span class="p">,</span><span class="w"> </span><span class="n">matrix_size</span><span class="p">);</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">cudaMallocManaged</span><span class="p">(</span><span class="o">&amp;</span><span class="n">u_B</span><span class="p">,</span><span class="w"> </span><span class="n">matrix_size</span><span class="p">);</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">cudaMallocManaged</span><span class="p">(</span><span class="o">&amp;</span><span class="n">u_C</span><span class="p">,</span><span class="w"> </span><span class="n">matrix_size</span><span class="p">);</span>
 </code></pre></div>
-<p>The kernel code remains the same as the standard CUDA version, but memory management is simplified.</p>
-<p><strong>Advantages</strong>:
-- Simplified memory management
-- No explicit data transfers
-- Easier programming model
-- Automatic page migration between CPU and GPU
-- Enables larger-than-GPU-memory datasets</p>
-<p><strong>Disadvantages</strong>:
-- Potentially lower performance due to automatic page migration
-- Less control over data movement
-- Performance depends heavily on the access pattern
-- First-touch overhead and potential page faults</p>
-<p><strong>Implementation Details</strong>:
-- Uses <code>cudaMallocManaged()</code> instead of separate <code>malloc()</code> and <code>cudaMalloc()</code>
-- The CUDA runtime handles data transfers automatically
-- Memory pages migrate on-demand between CPU and GPU
-- The same pointer can be used on both host and device
-- Prefetching hints can be used to optimize data movement (not shown in this example)</p>
-<h3 id="4-cuda-shared-memory">4. CUDA Shared Memory</h3>
-<p>Shared memory is a fast on-chip memory accessible by all threads in a block:</p>
+<p>内核代码与标准CUDA版本相同，但内存管理得到了简化。</p>
+<p><strong>优势</strong>：
+- 简化的内存管理
+- 无需显式数据传输
+- 更容易的编程模型
+- CPU和GPU之间自动页面迁移
+- 支持大于GPU内存的数据集</p>
+<p><strong>劣势</strong>：
+- 由于自动页面迁移，可能性能较低
+- 对数据移动的控制较少
+- 性能很大程度上取决于访问模式
+- 首次访问开销和潜在的页面错误</p>
+<p><strong>实现细节</strong>：
+- 使用<code>cudaMallocManaged()</code>代替单独的<code>malloc()</code>和<code>cudaMalloc()</code>
+- CUDA运行时自动处理数据传输
+- 内存页根据需求在CPU和GPU之间迁移
+- 相同的指针可以在主机和设备上使用
+- 可以使用预取提示来优化数据移动（本示例中未显示）</p>
+<h3 id="4-cuda">4. CUDA共享内存</h3>
+<p>共享内存是一种快速的片上内存，可由块中的所有线程访问：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">matrix_multiply_shared</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="kt">__shared__</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">shared_A</span><span class="p">[</span><span class="n">BLOCK_SIZE</span><span class="p">][</span><span class="n">BLOCK_SIZE</span><span class="p">];</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="kt">__shared__</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">shared_B</span><span class="p">[</span><span class="n">BLOCK_SIZE</span><span class="p">][</span><span class="n">BLOCK_SIZE</span><span class="p">];</span>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="c1">// Load tiles of matrices into shared memory</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="c1">// 将矩阵的瓦片加载到共享内存中</span>
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="c1">// ...</span>
 <a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="c1">// Compute using the faster shared memory</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="c1">// 使用更快的共享内存进行计算</span>
 <a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="c1">// ...</span>
 <a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="p">}</span>
 </code></pre></div>
-<p>This implementation divides matrices into tiles that fit in shared memory, reducing global memory accesses.</p>
-<p><strong>Advantages</strong>:
-- Much faster memory access (typically 100x faster than global memory)
-- Reduced global memory bandwidth requirements
-- Better performance for memory-bound applications
-- Enables data reuse within thread blocks</p>
-<p><strong>Disadvantages</strong>:
-- Limited size of shared memory (typically 48KB-64KB per SM)
-- More complex programming model
-- Requires careful management of tile sizes
-- Potential for bank conflicts if not carefully designed</p>
-<p><strong>Implementation Details</strong>:
-- Matrices are divided into tiles of size BLOCK_SIZE × BLOCK_SIZE
-- Each thread block loads one tile from each input matrix into shared memory
-- Threads within a block synchronize using <code>__syncthreads()</code>
-- Each thread computes one element of the output tile
-- The algorithm reduces global memory accesses by a factor of BLOCK_SIZE</p>
-<h3 id="5-thrust-high-level-implementation">5. Thrust High-Level Implementation</h3>
-<p>Thrust is a C++ template library for CUDA that provides high-level abstractions:</p>
+<p>这种实现将矩阵分成适合共享内存的瓦片，减少了全局内存访问。</p>
+<p><strong>优势</strong>：
+- 内存访问速度快得多（通常比全局内存快100倍）
+- 减少全局内存带宽需求
+- 对内存受限的应用有更好的性能
+- 支持线程块内的数据重用</p>
+<p><strong>劣势</strong>：
+- 共享内存大小有限（通常每个SM 48KB-64KB）
+- 更复杂的编程模型
+- 需要仔细管理瓦片大小
+- 如果设计不当，可能会导致存储体冲突</p>
+<p><strong>实现细节</strong>：
+- 矩阵被分成大小为BLOCK_SIZE × BLOCK_SIZE的瓦片
+- 每个线程块从每个输入矩阵加载一个瓦片到共享内存
+- 块内的线程使用<code>__syncthreads()</code>同步
+- 每个线程计算输出瓦片的一个元素
+- 该算法将全局内存访问减少了BLOCK_SIZE倍</p>
+<h3 id="5-thrust">5. Thrust高级实现</h3>
+<p>Thrust是CUDA的C++模板库，提供高级抽象：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">run_thrust_implementation</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">h_A</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">h_B</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">h_C</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="n">thrust</span><span class="o">::</span><span class="n">device_vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">d_A</span><span class="p">(</span><span class="n">h_A</span><span class="p">,</span><span class="w"> </span><span class="n">h_A</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n</span><span class="p">);</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="n">thrust</span><span class="o">::</span><span class="n">device_vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">d_B</span><span class="p">(</span><span class="n">h_B</span><span class="p">,</span><span class="w"> </span><span class="n">h_B</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n</span><span class="p">);</span>
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="n">thrust</span><span class="o">::</span><span class="n">device_vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">d_C</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n</span><span class="p">);</span>
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="c1">// Create a 2D index space and transform</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="c1">// 创建2D索引空间并转换</span>
 <a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="c1">// ...</span>
 <a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="p">}</span>
 </code></pre></div>
-<p><strong>Advantages</strong>:
-- Most concise code
-- High-level abstractions similar to STL
-- Automatic memory management
-- Highly reusable components
-- Reduced development time and fewer bugs</p>
-<p><strong>Disadvantages</strong>:
-- Less control over implementation details
-- May be less performant for specific use cases
-- Can be harder to debug
-- Potential overhead from abstractions</p>
-<p><strong>Implementation Details</strong>:
-- Uses <code>thrust::device_vector</code> for automatic GPU memory management
-- Leverages <code>thrust::transform</code> algorithm with a custom functor
-- Creates a 2D index space using <code>thrust::make_zip_iterator</code> and <code>thrust::counting_iterator</code>
-- The functor implements the matrix multiplication for each element
-- Memory transfers are handled automatically by the Thrust containers</p>
-<h3 id="6-cuda-streams">6. CUDA Streams</h3>
-<p>CUDA streams enable concurrent operations on the GPU:</p>
+<p><strong>优势</strong>：
+- 代码最简洁
+- 类似于STL的高级抽象
+- 自动内存管理
+- 高度可重用的组件
+- 减少开发时间和减少错误</p>
+<p><strong>劣势</strong>：
+- 对实现细节的控制较少
+- 对特定用例可能性能较低
+- 可能更难调试
+- 抽象可能带来的开销</p>
+<p><strong>实现细节</strong>：
+- 使用<code>thrust::device_vector</code>进行自动GPU内存管理
+- 利用<code>thrust::transform</code>算法和自定义函子
+- 使用<code>thrust::make_zip_iterator</code>和<code>thrust::counting_iterator</code>创建2D索引空间
+- 函子为每个元素实现矩阵乘法
+- 内存传输由Thrust容器自动处理</p>
+<h3 id="6-cuda">6. CUDA流</h3>
+<p>CUDA流使GPU上的并发操作成为可能：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">run_cuda_streams_implementation</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">h_A</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">h_B</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">h_C</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="c1">// Create multiple CUDA streams</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="c1">// 创建多个CUDA流</span>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">numStreams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="n">cudaStream_t</span><span class="w"> </span><span class="n">streams</span><span class="p">[</span><span class="n">numStreams</span><span class="p">];</span>
 <a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="c1">// Divide work among streams</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="c1">// 在流之间分配工作</span>
 <a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">numStreams</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">        </span><span class="c1">// Asynchronous memory transfers and kernel launches</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">        </span><span class="c1">// 异步内存传输和内核启动</span>
 <a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">        </span><span class="n">cudaMemcpyAsync</span><span class="p">(...,</span><span class="w"> </span><span class="n">streams</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
 <a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">        </span><span class="n">matrix_multiply_cuda</span><span class="o">&lt;&lt;&lt;</span><span class="n">grid</span><span class="p">,</span><span class="w"> </span><span class="n">threads</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">streams</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&gt;&gt;&gt;</span><span class="p">(...);</span>
 <a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">        </span><span class="n">cudaMemcpyAsync</span><span class="p">(...,</span><span class="w"> </span><span class="n">streams</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
 <a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>
-<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">    </span><span class="c1">// Synchronize all streams</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">    </span><span class="c1">// 同步所有流</span>
 <a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">numStreams</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="w">        </span><span class="n">cudaStreamSynchronize</span><span class="p">(</span><span class="n">streams</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
 <a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="p">}</span>
 </code></pre></div>
-<p><strong>Advantages</strong>:
-- Overlaps computation with data transfers
-- Enables concurrent kernel execution
-- Better utilization of GPU resources
-- Can significantly improve overall throughput
-- Good for processing independent data chunks</p>
-<p><strong>Disadvantages</strong>:
-- More complex synchronization
-- Harder to debug and reason about
-- Potential for race conditions if not carefully designed
-- Benefits depend on hardware capabilities</p>
-<p><strong>Implementation Details</strong>:
-- Divides the matrix into horizontal strips, one per stream
-- Each stream processes its strip independently
-- Uses <code>cudaMemcpyAsync()</code> for non-blocking memory transfers
-- Launches kernels in different streams with the stream parameter
-- Each stream has its own command queue that executes independently
-- Final synchronization ensures all operations complete</p>
-<h3 id="7-dynamic-parallelism">7. Dynamic Parallelism</h3>
-<p>Dynamic parallelism allows CUDA kernels to launch nested kernels:</p>
+<p><strong>优势</strong>：
+- 计算与数据传输重叠
+- 支持并发内核执行
+- 更好地利用GPU资源
+- 可以显著提高整体吞吐量
+- 适合处理独立的数据块</p>
+<p><strong>劣势</strong>：
+- 更复杂的同步
+- 更难调试和推理
+- 如果设计不当，可能会出现竞态条件
+- 效益取决于硬件能力</p>
+<p><strong>实现细节</strong>：
+- 将矩阵分成水平条带，每个流一个
+- 每个流独立处理其条带
+- 使用<code>cudaMemcpyAsync()</code>进行非阻塞内存传输
+- 在不同的流中使用流参数启动内核
+- 每个流有自己的独立执行的命令队列
+- 最终同步确保所有操作完成</p>
+<h3 id="7">7. 动态并行</h3>
+<p>动态并行允许CUDA内核启动嵌套内核：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">matrix_multiply_dynamic_parent</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="c1">// Calculate submatrix position based on thread index</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="c1">// 根据线程索引计算子矩阵位置</span>
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="c1">// ...</span>
 <a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="c1">// Launch a child kernel for this submatrix</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="c1">// 为这个子矩阵启动子内核</span>
 <a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="n">multiply_submatrix</span><span class="o">&lt;&lt;&lt;</span><span class="n">dimGrid</span><span class="p">,</span><span class="w"> </span><span class="n">dimBlock</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">row_start</span><span class="p">,</span><span class="w"> </span><span class="n">col_start</span><span class="p">,</span><span class="w"> </span><span class="n">subsize</span><span class="p">);</span>
 <a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="p">}</span>
 </code></pre></div>
-<p><strong>Advantages</strong>:
-- Enables adaptive algorithms that refine work dynamically
-- Allows recursive problem decomposition
-- Can handle irregular workloads efficiently
-- Reduces CPU-GPU coordination overhead
-- More natural expression of divide-and-conquer algorithms</p>
-<p><strong>Disadvantages</strong>:
-- Additional overhead of kernel launch from device
-- More complex resource management
-- Requires newer GPU architectures (Compute Capability 3.5+)
-- Potentially deeper call stacks and more register usage</p>
-<p><strong>Implementation Details</strong>:
-- Parent kernel divides the matrix into large submatrices
-- Each thread in the parent grid launches a child grid to process one submatrix
-- Child kernels work on smaller, more manageable chunks
-- Requires the <code>-rdc=true</code> compilation flag for relocatable device code
-- Parent grid synchronizes automatically with all child grids at kernel end</p>
-<h2 id="memory-hierarchy-and-access-patterns">Memory Hierarchy and Access Patterns</h2>
-<p>Different memory types in CUDA have vastly different performance characteristics:</p>
+<p><strong>优势</strong>：
+- 支持动态细化工作的自适应算法
+- 允许递归问题分解
+- 可以高效处理不规则工作负载
+- 减少CPU-GPU协调开销
+- 对分治算法更自然的表达</p>
+<p><strong>劣势</strong>：
+- 从设备启动内核的额外开销
+- 更复杂的资源管理
+- 需要较新的GPU架构（计算能力3.5+）
+- 可能更深的调用栈和更多的寄存器使用</p>
+<p><strong>实现细节</strong>：
+- 父内核将矩阵分成大的子矩阵
+- 父网格中的每个线程启动一个子网格处理一个子矩阵
+- 子内核处理更小、更易管理的块
+- 需要<code>-rdc=true</code>编译标志来支持可重定位设备代码
+- 父网格在内核结束时自动与所有子网格同步</p>
+<h2 id="_3">内存层次结构和访问模式</h2>
+<p>CUDA中不同类型的内存具有截然不同的性能特征：</p>
 <table>
 <thead>
 <tr>
-<th>Memory Type</th>
-<th>Access Speed</th>
-<th>Scope</th>
-<th>Lifetime</th>
-<th>Caching</th>
+<th>内存类型</th>
+<th>访问速度</th>
+<th>范围</th>
+<th>生命周期</th>
+<th>缓存</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Global Memory</td>
-<td>Slowest</td>
-<td>Host &amp; All threads</td>
-<td>Application</td>
-<td>L2 only</td>
+<td>全局内存</td>
+<td>最慢</td>
+<td>主机和所有线程</td>
+<td>应用程序</td>
+<td>仅L2</td>
 </tr>
 <tr>
-<td>Shared Memory</td>
-<td>Fast</td>
-<td>Thread block</td>
-<td>Kernel execution</td>
-<td>On-chip</td>
+<td>共享内存</td>
+<td>快</td>
+<td>线程块</td>
+<td>内核执行</td>
+<td>片上</td>
 </tr>
 <tr>
-<td>Registers</td>
-<td>Fastest</td>
-<td>Single thread</td>
-<td>Thread lifetime</td>
-<td>On-chip</td>
+<td>寄存器</td>
+<td>最快</td>
+<td>单个线程</td>
+<td>线程生命周期</td>
+<td>片上</td>
 </tr>
 <tr>
-<td>Constant Memory</td>
-<td>Medium</td>
-<td>All threads (read)</td>
-<td>Application</td>
-<td>Special cache</td>
+<td>常量内存</td>
+<td>中等</td>
+<td>所有线程（读）</td>
+<td>应用程序</td>
+<td>特殊缓存</td>
 </tr>
 <tr>
-<td>Texture Memory</td>
-<td>Medium</td>
-<td>All threads (read)</td>
-<td>Application</td>
-<td>Special cache</td>
+<td>纹理内存</td>
+<td>中等</td>
+<td>所有线程（读）</td>
+<td>应用程序</td>
+<td>特殊缓存</td>
 </tr>
 <tr>
-<td>Local Memory</td>
-<td>Slow</td>
-<td>Single thread</td>
-<td>Thread lifetime</td>
-<td>L2 only</td>
+<td>本地内存</td>
+<td>慢</td>
+<td>单个线程</td>
+<td>线程生命周期</td>
+<td>仅L2</td>
 </tr>
 <tr>
-<td>Unified Memory</td>
-<td>Variable</td>
-<td>Host &amp; All threads</td>
-<td>Application</td>
-<td>System managed</td>
+<td>统一内存</td>
+<td>可变</td>
+<td>主机和所有线程</td>
+<td>应用程序</td>
+<td>系统管理</td>
 </tr>
 </tbody>
 </table>
-<p>Our implementations demonstrate different ways to leverage this memory hierarchy:</p>
+<p>我们的实现展示了利用这种内存层次结构的不同方式：</p>
 <ol>
-<li><strong>Standard CUDA</strong>: Uses global memory for all data</li>
-<li><strong>PTX Assembly</strong>: Same memory pattern as standard CUDA but with optimized instructions</li>
-<li><strong>Unified Memory</strong>: Uses automatically managed memory</li>
-<li><strong>Shared Memory</strong>: Explicitly caches data in on-chip shared memory</li>
-<li><strong>Thrust</strong>: Abstracts memory management through containers</li>
-<li><strong>CUDA Streams</strong>: Uses global memory with overlapped transfers</li>
-<li><strong>Dynamic Parallelism</strong>: Uses global memory with hierarchical access patterns</li>
+<li><strong>标准CUDA</strong>：对所有数据使用全局内存</li>
+<li><strong>PTX汇编</strong>：与标准CUDA相同的内存模式，但使用优化的指令</li>
+<li><strong>统一内存</strong>：使用自动管理的内存</li>
+<li><strong>共享内存</strong>：显式地将数据缓存在片上共享内存中</li>
+<li><strong>Thrust</strong>：通过容器抽象内存管理</li>
+<li><strong>CUDA流</strong>：使用全局内存，但传输重叠</li>
+<li><strong>动态并行</strong>：使用全局内存，但具有层次化的访问模式</li>
 </ol>
-<h2 id="advanced-optimization-techniques">Advanced Optimization Techniques</h2>
-<p>Beyond the methods shown in the examples, other optimization techniques include:</p>
+<h2 id="_4">高级优化技术</h2>
+<p>除了示例中显示的方法外，其他优化技术包括：</p>
 <ol>
-<li><strong>Warp Shuffle Instructions</strong>: Exchange data between threads in a warp without using shared memory</li>
-<li><strong>Tensor Cores</strong>: Specialized hardware for matrix operations (on newer GPUs)</li>
-<li><strong>Persistent Threads</strong>: Keep threads resident for multiple work items</li>
-<li><strong>Register Blocking</strong>: Store partial results in registers to reduce memory traffic</li>
-<li><strong>Memory Coalescing</strong>: Ensure aligned, contiguous memory access patterns</li>
-<li><strong>Instruction-Level Parallelism</strong>: Schedule independent operations to hide latency</li>
-<li><strong>Loop Unrolling</strong>: Reduce loop overhead and increase instruction-level parallelism</li>
-<li><strong>Function Inlining</strong>: Eliminate function call overhead</li>
-<li><strong>Occupancy Optimization</strong>: Balance resource usage to maximize active warps</li>
+<li><strong>线程束洗牌指令</strong>：在不使用共享内存的情况下交换线程束内的数据</li>
+<li><strong>Tensor核心</strong>：用于矩阵运算的专用硬件（在较新的GPU上）</li>
+<li><strong>持久线程</strong>：保持线程驻留以处理多个工作项</li>
+<li><strong>寄存器阻塞</strong>：在寄存器中存储部分结果以减少内存流量</li>
+<li><strong>内存合并</strong>：确保对齐、连续的内存访问模式</li>
+<li><strong>指令级并行</strong>：调度独立操作以隐藏延迟</li>
+<li><strong>循环展开</strong>：减少循环开销并增加指令级并行性</li>
+<li><strong>函数内联</strong>：消除函数调用开销</li>
+<li><strong>占用率优化</strong>：平衡资源使用以最大化活动线程束</li>
 </ol>
-<h2 id="choosing-the-right-approach">Choosing the Right Approach</h2>
-<p>Use this decision framework to select the appropriate implementation:</p>
+<h2 id="_5">选择合适的方法</h2>
+<p>使用这个决策框架选择适当的实现：</p>
 <ul>
-<li><strong>Standard CUDA</strong> when you need a balance of control and readability</li>
-<li><strong>PTX Assembly</strong> only for performance-critical sections that can benefit from specific instructions</li>
-<li><strong>Unified Memory</strong> for easier development with modest performance requirements</li>
-<li><strong>Shared Memory</strong> when memory access is a bottleneck and memory locality can be exploited</li>
-<li><strong>Thrust</strong> for rapid development, especially when implementing standard algorithms</li>
-<li><strong>CUDA Streams</strong> when you need to overlap computation and data transfers</li>
-<li><strong>Dynamic Parallelism</strong> for problems that benefit from recursive decomposition or adaptive refinement</li>
+<li>当需要平衡控制和可读性时使用<strong>标准CUDA</strong></li>
+<li>仅在性能关键部分可以从特定指令中受益时使用<strong>PTX汇编</strong></li>
+<li>对于具有适度性能需求的更容易开发的情况使用<strong>统一内存</strong></li>
+<li>当内存访问是瓶颈且可以利用内存局部性时使用<strong>共享内存</strong></li>
+<li>对于快速开发使用<strong>Thrust</strong>，特别是在实现标准算法时</li>
+<li>当需要重叠计算和数据传输时使用<strong>CUDA流</strong></li>
+<li>对于从递归分解或自适应细化中受益的问题使用<strong>动态并行</strong></li>
 </ul>
-<h2 id="compiler-flags-and-optimization-levels">Compiler Flags and Optimization Levels</h2>
-<p>Different compiler flags can significantly impact performance:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c"># Basic compilation</span>
+<h2 id="_6">编译器标志和优化级别</h2>
+<p>不同的编译器标志可以显著影响性能：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c"># 基本编译</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="err">nvcc</span><span class="w"> </span><span class="err">-o</span><span class="w"> </span><span class="err">basic_version</span><span class="w"> </span><span class="err">file.cu</span>
 <a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c"># Optimized compilation</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c"># 优化编译</span>
 <a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="err">nvcc</span><span class="w"> </span><span class="err">-O3</span><span class="w"> </span><span class="nv">-arch</span><span class="o">=</span>sm_70<span class="w"> </span>-o<span class="w"> </span>optimized_version<span class="w"> </span>file.cu
 <a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c"># With dynamic parallelism</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c"># 使用动态并行</span>
 <a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="err">nvcc</span><span class="w"> </span><span class="nv">-rdc</span><span class="o">=</span><span class="nb">true</span><span class="w"> </span>-O3<span class="w"> </span>-arch<span class="o">=</span>sm_70<span class="w"> </span>-o<span class="w"> </span>dynamic_parallel_version<span class="w"> </span>file.cu
 <a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>
-<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="c"># With fast math (may reduce precision)</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="c"># 使用快速数学（可能降低精度）</span>
 <a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="err">nvcc</span><span class="w"> </span><span class="err">-O3</span><span class="w"> </span><span class="err">-use_fast_math</span><span class="w"> </span><span class="nv">-arch</span><span class="o">=</span>sm_70<span class="w"> </span>-o<span class="w"> </span>fast_math_version<span class="w"> </span>file.cu
 </code></pre></div>
-<p>Our example uses <code>-O3</code> for high optimization and <code>-rdc=true</code> for dynamic parallelism.</p>
-<h2 id="building-and-running">Building and Running</h2>
-<p>To compile the example:
+<p>我们的示例使用<code>-O3</code>进行高度优化，使用<code>-rdc=true</code>支持动态并行。</p>
+<h2 id="_7">构建和运行</h2>
+<p>编译示例：
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>make<span class="w"> </span>basic03
 </code></pre></div></p>
-<p>To run:
+<p>运行：
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>./basic03
 </code></pre></div></p>
-<p>The program will:
-1. Generate random matrices
-2. Compute the result on CPU for reference
-3. Run each GPU implementation
-4. Verify correctness of each implementation
-5. Print timing information and speedup compared to CPU</p>
-<h2 id="profiling-and-performance-analysis">Profiling and Performance Analysis</h2>
-<p>To analyze the performance of these implementations more deeply, use NVIDIA's profiling tools:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Basic profiling</span>
+<p>程序将：
+1. 生成随机矩阵
+2. 在CPU上计算结果作为参考
+3. 运行每个GPU实现
+4. 验证每个实现的正确性
+5. 打印时间信息和与CPU相比的加速比</p>
+<h2 id="_8">分析和性能分析</h2>
+<p>要更深入地分析这些实现的性能，请使用NVIDIA的分析工具：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># 基本分析</span>
 <a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>nvprof<span class="w"> </span>./basic03
 <a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1"># Detailed timeline</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1"># 详细时间线</span>
 <a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>nvprof<span class="w"> </span>--export-profile<span class="w"> </span>timeline.nvvp<span class="w"> </span>./basic03
 <a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
-<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="c1"># For newer versions, use Nsight Systems</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="c1"># 对于较新版本，使用Nsight Systems</span>
 <a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>nsys<span class="w"> </span>profile<span class="w"> </span>./basic03
 </code></pre></div>
-<p>Key metrics to monitor:
-- Global memory load/store throughput
-- Shared memory load/store throughput
-- Achieved occupancy
-- SM efficiency
-- Warp execution efficiency
-- Memory bandwidth utilization</p>
-<h2 id="future-directions-and-advanced-topics">Future Directions and Advanced Topics</h2>
-<p>The field of GPU computing continues to evolve. Some advanced topics to explore:</p>
+<p>需要监控的关键指标：
+- 全局内存加载/存储吞吐量
+- 共享内存加载/存储吞吐量
+- 实现的占用率
+- SM效率
+- 线程束执行效率
+- 内存带宽利用率</p>
+<h2 id="_9">未来方向和高级主题</h2>
+<p>GPU计算领域不断发展。一些值得探索的高级主题：</p>
 <ol>
-<li><strong>Multi-GPU Programming</strong>: Distributing work across multiple GPUs</li>
-<li><strong>Heterogeneous Computing</strong>: Combining CPU and GPU computation optimally</li>
-<li><strong>Mixed Precision</strong>: Using lower precision where appropriate for better performance</li>
-<li><strong>Tensor Core Programming</strong>: Leveraging specialized hardware for matrix operations</li>
-<li><strong>Graph-based Execution</strong>: Using CUDA Graphs for optimized workflow execution</li>
-<li><strong>Cooperative Groups</strong>: More flexible thread synchronization capabilities</li>
-<li><strong>CUDA-aware MPI</strong>: Direct GPU-to-GPU communication in distributed systems</li>
+<li><strong>多GPU编程</strong>：在多个GPU之间分配工作</li>
+<li><strong>异构计算</strong>：最佳地结合CPU和GPU计算</li>
+<li><strong>混合精度</strong>：在适当的地方使用较低精度以获得更好的性能</li>
+<li><strong>Tensor核心编程</strong>：利用专用硬件进行矩阵运算</li>
+<li><strong>基于图的执行</strong>：使用CUDA图进行优化的工作流执行</li>
+<li><strong>协作组</strong>：更灵活的线程同步能力</li>
+<li><strong>CUDA感知MPI</strong>：分布式系统中的直接GPU到GPU通信</li>
 </ol>
-<h2 id="further-reading">Further Reading</h2>
+<h2 id="_10">进一步阅读</h2>
 <ul>
-<li><a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html">CUDA C++ Programming Guide</a></li>
-<li><a href="https://docs.nvidia.com/cuda/parallel-thread-execution/index.html">CUDA PTX ISA Documentation</a></li>
-<li><a href="https://developer.nvidia.com/blog/unified-memory-cuda-beginners/">CUDA Unified Memory</a></li>
-<li><a href="https://developer.nvidia.com/blog/using-shared-memory-cuda-cc/">CUDA Shared Memory</a></li>
-<li><a href="https://docs.nvidia.com/cuda/thrust/index.html">Thrust Documentation</a></li>
-<li><a href="https://developer.nvidia.com/blog/gpu-pro-tip-cuda-7-streams-simplify-concurrency/">CUDA Streams and Concurrency</a></li>
-<li><a href="https://developer.nvidia.com/blog/introduction-cuda-dynamic-parallelism/">CUDA Dynamic Parallelism</a></li>
-<li><a href="https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/index.html">CUDA Best Practices Guide</a> </li>
+<li><a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html">CUDA C++编程指南</a></li>
+<li><a href="https://docs.nvidia.com/cuda/parallel-thread-execution/index.html">CUDA PTX ISA文档</a></li>
+<li><a href="https://developer.nvidia.com/blog/unified-memory-cuda-beginners/">CUDA统一内存</a></li>
+<li><a href="https://developer.nvidia.com/blog/using-shared-memory-cuda-cc/">CUDA共享内存</a></li>
+<li><a href="https://docs.nvidia.com/cuda/thrust/index.html">Thrust文档</a></li>
+<li><a href="https://developer.nvidia.com/blog/gpu-pro-tip-cuda-7-streams-simplify-concurrency/">CUDA流和并发</a></li>
+<li><a href="https://developer.nvidia.com/blog/introduction-cuda-dynamic-parallelism/">CUDA动态并行</a></li>
+<li><a href="https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/index.html">CUDA最佳实践指南</a> </li>
 </ul>
-<p><a class="md-button" href="https://x.com/intent/tweet?text=CUDA%20Programming%20Methods%20Comparison%3A%20Matrix%20Multiplication%0A&amp;url=https://eunomia.dev/zh/others/cuda-tutorial/03-gpu-programming-methods/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=CUDA%E7%BC%96%E7%A8%8B%E6%96%B9%E6%B3%95%E6%AF%94%E8%BE%83%EF%BC%9A%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95%0A&amp;url=https://eunomia.dev/zh/others/cuda-tutorial/03-gpu-programming-methods/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/zh/others/cuda-tutorial/03-gpu-programming-methods/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
@@ -6133,7 +6133,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 25, 2025 01:28:13 UTC">May 25, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 7, 2025 20:04:19 UTC">June 7, 2025</span>
   </span>
 
     
@@ -6143,7 +6143,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 23, 2025 18:08:33 UTC">May 23, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 7, 2025 20:04:19 UTC">June 7, 2025</span>
   </span>
 
     
@@ -6158,7 +6158,7 @@
     </span>
     <nav>
       
-        <a href="mailto:yt.xyxx@gmail.com">officeyutong</a>
+        <a href="mailto:41898282+github-actions[bot]@users.noreply.github.com">github-actions[bot]</a>
     </nav>
   </span>
 
@@ -6263,7 +6263,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../02-ptx-assembly/" class="md-footer__link md-footer__link--prev" aria-label="Previous: CUDA PTX Example: Vector Multiplication Using Inline PTX Assembly">
+          <a href="../02-ptx-assembly/" class="md-footer__link md-footer__link--prev" aria-label="Previous: CUDA PTX示例：使用内联PTX汇编进行向量乘法">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -6273,20 +6273,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                CUDA PTX Example: Vector Multiplication Using Inline PTX Assembly
+                CUDA PTX示例：使用内联PTX汇编进行向量乘法
               </div>
             </div>
           </a>
         
         
           
-          <a href="../04-gpu-architecture/" class="md-footer__link md-footer__link--next" aria-label="Next: CUDA GPU Organization Hierarchy">
+          <a href="../04-gpu-architecture/" class="md-footer__link md-footer__link--next" aria-label="Next: CUDA GPU组织层次结构">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                CUDA GPU Organization Hierarchy
+                CUDA GPU组织层次结构
               </div>
             </div>
             <div class="md-footer__button md-icon">

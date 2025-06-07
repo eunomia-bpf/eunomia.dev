@@ -24,7 +24,7 @@
     
     
       
-        <title>Neural Network Forward Pass on GPU with CUDA - eunomia</title>
+        <title>使用CUDA在GPU上实现神经网络前向传播 - eunomia</title>
       
     
     
@@ -69,11 +69,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="Neural Network Forward Pass on GPU with CUDA - eunomia" >
+        <meta  property="og:title"  content="使用CUDA在GPU上实现神经网络前向传播 - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
-        <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/others/cuda-tutorial/05-neural-network.png" >
+        <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/others/cuda-tutorial/05-neural-network.zh.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -85,11 +85,11 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="Neural Network Forward Pass on GPU with CUDA - eunomia" >
+        <meta  name="twitter:title"  content="使用CUDA在GPU上实现神经网络前向传播 - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
-        <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/others/cuda-tutorial/05-neural-network.png" >
+        <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/others/cuda-tutorial/05-neural-network.zh.png" >
       
     
     
@@ -112,7 +112,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#neural-network-forward-pass-on-gpu-with-cuda" class="md-skip">
+        <a href="#cudagpu" class="md-skip">
           Skip to content
         </a>
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Neural Network Forward Pass on GPU with CUDA
+              使用CUDA在GPU上实现神经网络前向传播
             
           </span>
         </div>
@@ -4528,7 +4528,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA Basic Example - Vector Addition Explanation
+    CUDA 基础示例 - 向量加法解释
     
   </span>
   
@@ -4551,7 +4551,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA PTX Example: Vector Multiplication Using Inline PTX Assembly
+    CUDA PTX示例：使用内联PTX汇编进行向量乘法
     
   </span>
   
@@ -4574,7 +4574,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA Programming Methods Comparison: Matrix Multiplication
+    CUDA编程方法比较：矩阵乘法
     
   </span>
   
@@ -4597,7 +4597,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA GPU Organization Hierarchy
+    CUDA GPU组织层次结构
     
   </span>
   
@@ -4629,7 +4629,7 @@
   
   
   <span class="md-ellipsis">
-    Neural Network Forward Pass on GPU with CUDA
+    使用CUDA在GPU上实现神经网络前向传播
     
   </span>
   
@@ -4642,7 +4642,7 @@
   
   
   <span class="md-ellipsis">
-    Neural Network Forward Pass on GPU with CUDA
+    使用CUDA在GPU上实现神经网络前向传播
     
   </span>
   
@@ -4665,37 +4665,37 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#table-of-contents" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      Table of Contents
+      目录
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#introduction-to-neural-networks-on-gpu" class="md-nav__link">
+  <a href="#gpu" class="md-nav__link">
     <span class="md-ellipsis">
-      Introduction to Neural Networks on GPU
+      GPU上的神经网络简介
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#network-architecture" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      Network Architecture
+      网络架构
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Network Architecture">
+    <nav class="md-nav" aria-label="网络架构">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mathematical-operations" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      Mathematical Operations
+      数学运算
     </span>
   </a>
   
@@ -4707,47 +4707,47 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#cuda-implementation" class="md-nav__link">
+  <a href="#cuda" class="md-nav__link">
     <span class="md-ellipsis">
-      CUDA Implementation
+      CUDA实现
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="CUDA Implementation">
+    <nav class="md-nav" aria-label="CUDA实现">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#matrix-multiplication" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      Matrix Multiplication
+      矩阵乘法
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#activation-functions" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      Activation Functions
+      激活函数
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Activation Functions">
+    <nav class="md-nav" aria-label="激活函数">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#relu-activation" class="md-nav__link">
+  <a href="#relu" class="md-nav__link">
     <span class="md-ellipsis">
-      ReLU Activation
+      ReLU激活
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#softmax-activation" class="md-nav__link">
+  <a href="#softmax" class="md-nav__link">
     <span class="md-ellipsis">
-      Softmax Activation
+      Softmax激活
     </span>
   </a>
   
@@ -4759,18 +4759,18 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#memory-management" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      Memory Management
+      内存管理
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#forward-pass-workflow" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
-      Forward Pass Workflow
+      前向传播工作流程
     </span>
   </a>
   
@@ -4782,37 +4782,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#performance-considerations" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
-      Performance Considerations
+      性能考虑因素
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Performance Considerations">
+    <nav class="md-nav" aria-label="性能考虑因素">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#kernel-launch-overhead" class="md-nav__link">
+  <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
-      Kernel Launch Overhead
+      内核启动开销
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#memory-bandwidth" class="md-nav__link">
+  <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
-      Memory Bandwidth
+      内存带宽
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#batch-processing" class="md-nav__link">
+  <a href="#_11" class="md-nav__link">
     <span class="md-ellipsis">
-      Batch Processing
+      批处理
     </span>
   </a>
   
@@ -4824,27 +4824,27 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#further-improvements" class="md-nav__link">
+  <a href="#_12" class="md-nav__link">
     <span class="md-ellipsis">
-      Further Improvements
+      进一步改进
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#conclusion" class="md-nav__link">
+  <a href="#_13" class="md-nav__link">
     <span class="md-ellipsis">
-      Conclusion
+      结论
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
+  <a href="#_14" class="md-nav__link">
     <span class="md-ellipsis">
-      References
+      参考资料
     </span>
   </a>
   
@@ -4871,7 +4871,7 @@
   
   
   <span class="md-ellipsis">
-    GPU-Accelerated Convolution Operations with Shared Memory Optimization
+    使用共享内存优化的GPU加速卷积操作
     
   </span>
   
@@ -4894,7 +4894,7 @@
   
   
   <span class="md-ellipsis">
-    Attention Mechanism for Transformer Models with CUDA
+    使用CUDA实现Transformer模型的注意力机制
     
   </span>
   
@@ -4917,7 +4917,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA GPU Profiling and Tracing
+    CUDA GPU性能分析与跟踪
     
   </span>
   
@@ -4940,7 +4940,7 @@
   
   
   <span class="md-ellipsis">
-    GPU Application Extension Mechanisms: Modifying Behavior Without Source Code Changes
+    GPU应用程序扩展机制：无需更改源代码修改行为
     
   </span>
   
@@ -4963,7 +4963,7 @@
   
   
   <span class="md-ellipsis">
-    CPU and GPU Profiling Boundaries: What to Measure Where
+    CPU和GPU分析边界：在哪里测量什么
     
   </span>
   
@@ -4986,7 +4986,7 @@
   
   
   <span class="md-ellipsis">
-    Fine-Grained GPU Code Modifications
+    细粒度GPU代码修改
     
   </span>
   
@@ -5009,7 +5009,7 @@
   
   
   <span class="md-ellipsis">
-    Advanced GPU Customizations
+    高级GPU定制技术
     
   </span>
   
@@ -5032,7 +5032,7 @@
   
   
   <span class="md-ellipsis">
-    Low-Latency GPU Packet Processing
+    低延迟GPU数据包处理
     
   </span>
   
@@ -5055,7 +5055,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA Function Type Annotations: A Comprehensive Guide
+    CUDA函数类型注解：全面指南
     
   </span>
   
@@ -5078,7 +5078,7 @@
   
   
   <span class="md-ellipsis">
-    OpenCL Basic Example - Vector Addition Explanation
+    OpenCL基础示例 - 向量加法解释
     
   </span>
   
@@ -5101,7 +5101,7 @@
   
   
   <span class="md-ellipsis">
-    PTX File Loading and Execution Demo
+    PTX文件加载和执行演示
     
   </span>
   
@@ -5558,37 +5558,37 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#table-of-contents" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      Table of Contents
+      目录
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#introduction-to-neural-networks-on-gpu" class="md-nav__link">
+  <a href="#gpu" class="md-nav__link">
     <span class="md-ellipsis">
-      Introduction to Neural Networks on GPU
+      GPU上的神经网络简介
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#network-architecture" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      Network Architecture
+      网络架构
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Network Architecture">
+    <nav class="md-nav" aria-label="网络架构">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mathematical-operations" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      Mathematical Operations
+      数学运算
     </span>
   </a>
   
@@ -5600,47 +5600,47 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#cuda-implementation" class="md-nav__link">
+  <a href="#cuda" class="md-nav__link">
     <span class="md-ellipsis">
-      CUDA Implementation
+      CUDA实现
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="CUDA Implementation">
+    <nav class="md-nav" aria-label="CUDA实现">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#matrix-multiplication" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      Matrix Multiplication
+      矩阵乘法
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#activation-functions" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      Activation Functions
+      激活函数
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Activation Functions">
+    <nav class="md-nav" aria-label="激活函数">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#relu-activation" class="md-nav__link">
+  <a href="#relu" class="md-nav__link">
     <span class="md-ellipsis">
-      ReLU Activation
+      ReLU激活
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#softmax-activation" class="md-nav__link">
+  <a href="#softmax" class="md-nav__link">
     <span class="md-ellipsis">
-      Softmax Activation
+      Softmax激活
     </span>
   </a>
   
@@ -5652,18 +5652,18 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#memory-management" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      Memory Management
+      内存管理
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#forward-pass-workflow" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
-      Forward Pass Workflow
+      前向传播工作流程
     </span>
   </a>
   
@@ -5675,37 +5675,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#performance-considerations" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
-      Performance Considerations
+      性能考虑因素
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Performance Considerations">
+    <nav class="md-nav" aria-label="性能考虑因素">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#kernel-launch-overhead" class="md-nav__link">
+  <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
-      Kernel Launch Overhead
+      内核启动开销
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#memory-bandwidth" class="md-nav__link">
+  <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
-      Memory Bandwidth
+      内存带宽
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#batch-processing" class="md-nav__link">
+  <a href="#_11" class="md-nav__link">
     <span class="md-ellipsis">
-      Batch Processing
+      批处理
     </span>
   </a>
   
@@ -5717,27 +5717,27 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#further-improvements" class="md-nav__link">
+  <a href="#_12" class="md-nav__link">
     <span class="md-ellipsis">
-      Further Improvements
+      进一步改进
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#conclusion" class="md-nav__link">
+  <a href="#_13" class="md-nav__link">
     <span class="md-ellipsis">
-      Conclusion
+      结论
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
+  <a href="#_14" class="md-nav__link">
     <span class="md-ellipsis">
-      References
+      参考资料
     </span>
   </a>
   
@@ -5759,7 +5759,7 @@
 
 
   
-    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cuda-tutorial/05-neural-network.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cuda-tutorial/05-neural-network.zh.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -5768,68 +5768,68 @@
     
       
     
-    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cuda-tutorial/05-neural-network.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cuda-tutorial/05-neural-network.zh.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-<h1 id="neural-network-forward-pass-on-gpu-with-cuda">Neural Network Forward Pass on GPU with CUDA</h1>
-<p>This tutorial demonstrates how to implement a basic neural network forward pass on a GPU using CUDA. Neural networks are at the core of deep learning and have revolutionized fields like computer vision, natural language processing, and reinforcement learning. GPUs are particularly well-suited for neural network computation due to their ability to perform massive parallel computations.</p>
-<p>You can find the code in <a href="https://github.com/eunomia-bpf/basic-cuda-tutorial">https://github.com/eunomia-bpf/basic-cuda-tutorial</a></p>
-<h2 id="table-of-contents">Table of Contents</h2>
+<h1 id="cudagpu">使用CUDA在GPU上实现神经网络前向传播</h1>
+<p>本教程演示了如何使用CUDA在GPU上实现基本神经网络前向传播。神经网络是深度学习的核心，已经彻底改变了计算机视觉、自然语言处理和强化学习等领域。由于GPU能够执行大规模并行计算，它们特别适合神经网络计算。</p>
+<p>您可以在 <a href="https://github.com/eunomia-bpf/basic-cuda-tutorial">https://github.com/eunomia-bpf/basic-cuda-tutorial</a> 找到代码</p>
+<h2 id="_1">目录</h2>
 <ol>
-<li><a href="#introduction-to-neural-networks-on-gpu">Introduction to Neural Networks on GPU</a></li>
-<li><a href="#network-architecture">Network Architecture</a></li>
-<li><a href="#cuda-implementation">CUDA Implementation</a></li>
-<li><a href="#matrix-multiplication">Matrix Multiplication</a></li>
-<li><a href="#activation-functions">Activation Functions</a></li>
-<li><a href="#memory-management">Memory Management</a></li>
-<li><a href="#forward-pass-workflow">Forward Pass Workflow</a></li>
-<li><a href="#performance-considerations">Performance Considerations</a></li>
-<li><a href="#further-improvements">Further Improvements</a></li>
+<li><a href="#gpu上的神经网络简介">GPU上的神经网络简介</a></li>
+<li><a href="#网络架构">网络架构</a></li>
+<li><a href="#cuda实现">CUDA实现</a></li>
+<li><a href="#矩阵乘法">矩阵乘法</a></li>
+<li><a href="#激活函数">激活函数</a></li>
+<li><a href="#内存管理">内存管理</a></li>
+<li><a href="#前向传播工作流程">前向传播工作流程</a></li>
+<li><a href="#性能考虑因素">性能考虑因素</a></li>
+<li><a href="#进一步改进">进一步改进</a></li>
 </ol>
-<h2 id="introduction-to-neural-networks-on-gpu">Introduction to Neural Networks on GPU</h2>
-<p>Neural networks consist of layers of neurons that transform input data through a series of mathematical operations. The two primary operations in neural networks are:</p>
+<h2 id="gpu">GPU上的神经网络简介</h2>
+<p>神经网络由通过一系列数学运算转换输入数据的神经元层组成。神经网络中的两个主要操作是：</p>
 <ol>
-<li><strong>Linear Transformations</strong>: Matrix multiplications followed by bias additions</li>
-<li><strong>Non-linear Activations</strong>: Functions like ReLU, sigmoid, or tanh that introduce non-linearity</li>
+<li><strong>线性变换</strong>：矩阵乘法后接偏置加法</li>
+<li><strong>非线性激活</strong>：像ReLU、sigmoid或tanh这样引入非线性的函数</li>
 </ol>
-<p>These operations are inherently parallel, making them perfect for GPU acceleration:</p>
+<p>这些操作本质上是并行的，使其非常适合GPU加速：</p>
 <ul>
-<li>Matrix multiplications can be distributed across thousands of GPU cores</li>
-<li>Activation functions can be applied independently to each element</li>
-<li>Batch processing allows multiple samples to be processed simultaneously</li>
+<li>矩阵乘法可以分布在数千个GPU核心上</li>
+<li>激活函数可以独立应用于每个元素</li>
+<li>批处理允许同时处理多个样本</li>
 </ul>
-<p>GPUs can provide 10-50x speedup for neural network inference compared to CPUs, making real-time applications possible.</p>
-<h2 id="network-architecture">Network Architecture</h2>
-<p>Our example implements a simple feedforward neural network with:</p>
+<p>与CPU相比，GPU可以为神经网络推理提供10-50倍的加速，使实时应用成为可能。</p>
+<h2 id="_2">网络架构</h2>
+<p>我们的示例实现了一个简单的前馈神经网络，包含：</p>
 <ul>
-<li><strong>Input Layer</strong>: 784 neurons (representing a 28×28 image, like MNIST digits)</li>
-<li><strong>Hidden Layer</strong>: 128 neurons with ReLU activation</li>
-<li><strong>Output Layer</strong>: 10 neurons with softmax activation (for 10-class classification)</li>
+<li><strong>输入层</strong>：784个神经元（代表28×28的图像，如MNIST数字）</li>
+<li><strong>隐藏层</strong>：128个神经元，使用ReLU激活函数</li>
+<li><strong>输出层</strong>：10个神经元，使用softmax激活（用于10类分类）</li>
 </ul>
-<p>The network performs a forward pass on a batch of 64 samples simultaneously.</p>
-<h3 id="mathematical-operations">Mathematical Operations</h3>
-<p>For each layer, the forward pass involves:</p>
+<p>该网络同时对64个样本的批次执行前向传播。</p>
+<h3 id="_3">数学运算</h3>
+<p>对于每一层，前向传播包括：</p>
 <ol>
-<li><strong>Linear transformation</strong>: <code>Y = X × W + b</code></li>
-<li><code>X</code>: Input matrix (batch_size × input_features)</li>
-<li><code>W</code>: Weight matrix (input_features × output_features)</li>
-<li><code>b</code>: Bias vector (output_features)</li>
+<li><strong>线性变换</strong>：<code>Y = X × W + b</code></li>
+<li><code>X</code>：输入矩阵（batch_size × input_features）</li>
+<li><code>W</code>：权重矩阵（input_features × output_features）</li>
+<li><code>b</code>：偏置向量（output_features）</li>
 <li>
-<p><code>Y</code>: Output matrix (batch_size × output_features)</p>
+<p><code>Y</code>：输出矩阵（batch_size × output_features）</p>
 </li>
 <li>
-<p><strong>Activation function</strong>:</p>
+<p><strong>激活函数</strong>：</p>
 </li>
-<li>Hidden layer: <code>ReLU(x) = max(0, x)</code></li>
-<li>Output layer: <code>Softmax(x_i) = exp(x_i) / Σ exp(x_j)</code></li>
+<li>隐藏层：<code>ReLU(x) = max(0, x)</code></li>
+<li>输出层：<code>Softmax(x_i) = exp(x_i) / Σ exp(x_j)</code></li>
 </ol>
-<h2 id="cuda-implementation">CUDA Implementation</h2>
-<h3 id="matrix-multiplication">Matrix Multiplication</h3>
-<p>Matrix multiplication is the most computationally intensive operation in neural networks. Our implementation uses a straightforward CUDA kernel:</p>
+<h2 id="cuda">CUDA实现</h2>
+<h3 id="_4">矩阵乘法</h3>
+<p>矩阵乘法是神经网络中计算强度最高的操作。我们的实现使用了一个直接的CUDA内核：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">matrixMultiplyKernel</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">C</span><span class="p">,</span><span class="w"> </span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">                                     </span><span class="kt">int</span><span class="w"> </span><span class="n">A_rows</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">A_cols</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">B_cols</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
@@ -5844,11 +5844,11 @@
 <a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="p">}</span>
 </code></pre></div>
-<p>This kernel assigns each thread to compute one element of the output matrix. For a batch size of 64 with 128 hidden neurons, we're computing 8,192 elements in parallel.</p>
-<p><strong>Note</strong>: This implementation focuses on clarity rather than maximum performance. Production systems would use optimized libraries like cuBLAS for matrix operations.</p>
-<h3 id="activation-functions">Activation Functions</h3>
-<h4 id="relu-activation">ReLU Activation</h4>
-<p>The ReLU function is applied element-wise and is highly parallelizable:</p>
+<p>这个内核让每个线程计算输出矩阵的一个元素。对于批量大小为64，隐藏神经元128个的情况，我们同时计算8,192个元素。</p>
+<p><strong>注意</strong>：这个实现注重清晰度而非最大性能。生产系统会使用优化库如cuBLAS进行矩阵运算。</p>
+<h3 id="_5">激活函数</h3>
+<h4 id="relu">ReLU激活</h4>
+<p>ReLU函数按元素应用，高度可并行化：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">reluKernel</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
@@ -5857,143 +5857,143 @@
 <a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="p">}</span>
 </code></pre></div>
-<h4 id="softmax-activation">Softmax Activation</h4>
-<p>Softmax is slightly more complex as it requires normalization across all output classes:</p>
+<h4 id="softmax">Softmax激活</h4>
+<p>Softmax稍微复杂一些，因为它需要在所有输出类别上进行归一化：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">softmaxKernel</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">output</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">batch_size</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">num_classes</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">batch_idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">batch_idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">batch_size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">        </span><span class="c1">// Find max value for numerical stability</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">        </span><span class="c1">// 找到最大值以确保数值稳定性</span>
 <a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">max_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">FLT_MAX</span><span class="p">;</span>
 <a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">num_classes</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">            </span><span class="n">max_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fmaxf</span><span class="p">(</span><span class="n">max_val</span><span class="p">,</span><span class="w"> </span><span class="n">input</span><span class="p">[</span><span class="n">batch_idx</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">num_classes</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">]);</span>
 <a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">        </span><span class="p">}</span>
 <a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">        </span><span class="c1">// Compute exponentials and sum</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">        </span><span class="c1">// 计算指数和总和</span>
 <a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
 <a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">num_classes</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">            </span><span class="n">output</span><span class="p">[</span><span class="n">batch_idx</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">num_classes</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">expf</span><span class="p">(</span><span class="n">input</span><span class="p">[</span><span class="n">batch_idx</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">num_classes</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">max_val</span><span class="p">);</span>
 <a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">            </span><span class="n">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">output</span><span class="p">[</span><span class="n">batch_idx</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">num_classes</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">];</span>
 <a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">        </span><span class="p">}</span>
 <a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>
-<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">        </span><span class="c1">// Normalize</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">        </span><span class="c1">// 归一化</span>
 <a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">num_classes</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">            </span><span class="n">output</span><span class="p">[</span><span class="n">batch_idx</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">num_classes</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="n">sum</span><span class="p">;</span>
 <a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="w">        </span><span class="p">}</span>
 <a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="p">}</span>
 </code></pre></div>
-<p>The softmax implementation includes numerical stability techniques by subtracting the maximum value before exponentiation to prevent overflow.</p>
-<h3 id="memory-management">Memory Management</h3>
-<p>Neural networks require careful memory management to efficiently handle:</p>
+<p>Softmax实现包括数值稳定性技术，在指数运算前减去最大值以防止溢出。</p>
+<h3 id="_6">内存管理</h3>
+<p>神经网络需要仔细的内存管理，以高效处理：</p>
 <ol>
-<li><strong>Network Parameters</strong>: Weights and biases</li>
-<li><strong>Activations</strong>: Input, hidden layers, and output</li>
-<li><strong>Temporary Buffers</strong>: Pre-activation values and gradients (for training)</li>
+<li><strong>网络参数</strong>：权重和偏置</li>
+<li><strong>激活值</strong>：输入、隐藏层和输出</li>
+<li><strong>临时缓冲区</strong>：预激活值和梯度（用于训练）</li>
 </ol>
-<p>Our implementation follows these steps:</p>
+<p>我们的实现遵循这些步骤：</p>
 <ol>
-<li><strong>Allocate host memory</strong> for network parameters and initialize them</li>
-<li><strong>Transfer parameters to GPU memory</strong> using <code>cudaMemcpy</code></li>
-<li><strong>Allocate GPU memory</strong> for intermediate activations</li>
-<li><strong>Perform forward pass</strong> entirely on the GPU</li>
-<li><strong>Transfer results back</strong> to host memory for evaluation</li>
+<li><strong>分配主机内存</strong>用于网络参数并初始化它们</li>
+<li><strong>将参数传输到GPU内存</strong>使用<code>cudaMemcpy</code></li>
+<li><strong>分配GPU内存</strong>用于中间激活值</li>
+<li><strong>执行前向传播</strong>完全在GPU上进行</li>
+<li><strong>将结果传回</strong>主机内存进行评估</li>
 </ol>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">// Allocate device memory for network parameters</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">// 为网络参数分配设备内存</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">d_weights1</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">d_bias1</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">d_weights2</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">d_bias2</span><span class="p">;</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">cudaMalloc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">d_weights1</span><span class="p">,</span><span class="w"> </span><span class="n">INPUT_SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">HIDDEN_SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">));</span>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1">// ...</span>
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="c1">// Allocate device memory for intermediate results</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="c1">// 为中间结果分配设备内存</span>
 <a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">d_hidden_preact</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">d_hidden_output</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">d_output_preact</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">d_output</span><span class="p">;</span>
 <a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="n">cudaMalloc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">d_hidden_preact</span><span class="p">,</span><span class="w"> </span><span class="n">BATCH_SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">HIDDEN_SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">));</span>
 <a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="c1">// ...</span>
 </code></pre></div>
-<h3 id="forward-pass-workflow">Forward Pass Workflow</h3>
-<p>The forward pass combines all operations into a sequential workflow:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1">// Forward pass: input -&gt; hidden layer</span>
+<h3 id="_7">前向传播工作流程</h3>
+<p>前向传播将所有操作组合成一个顺序工作流：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1">// 前向传播：输入 -&gt; 隐藏层</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">matrixMultiplyKernel</span><span class="o">&lt;&lt;&lt;</span><span class="n">grid_mm2</span><span class="p">,</span><span class="w"> </span><span class="n">block_mm</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">d_input</span><span class="p">,</span><span class="w"> </span><span class="n">d_weights1</span><span class="p">,</span><span class="w"> </span><span class="n">d_hidden_preact</span><span class="p">,</span><span class="w"> </span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">                                            </span><span class="n">BATCH_SIZE</span><span class="p">,</span><span class="w"> </span><span class="n">INPUT_SIZE</span><span class="p">,</span><span class="w"> </span><span class="n">HIDDEN_SIZE</span><span class="p">);</span>
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">addBiasKernel</span><span class="o">&lt;&lt;&lt;</span><span class="n">grid_bias1</span><span class="p">,</span><span class="w"> </span><span class="n">block_bias</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">d_hidden_preact</span><span class="p">,</span><span class="w"> </span><span class="n">d_bias1</span><span class="p">,</span><span class="w"> </span><span class="n">BATCH_SIZE</span><span class="p">,</span><span class="w"> </span><span class="n">HIDDEN_SIZE</span><span class="p">);</span>
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">reluKernel</span><span class="o">&lt;&lt;&lt;</span><span class="n">grid_act1</span><span class="p">,</span><span class="w"> </span><span class="n">block_act</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">d_hidden_preact</span><span class="p">,</span><span class="w"> </span><span class="n">BATCH_SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">HIDDEN_SIZE</span><span class="p">);</span>
 <a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1">// Copy hidden layer activation to output for next layer</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1">// 将隐藏层激活复制到输出，用于下一层</span>
 <a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="n">cudaMemcpy</span><span class="p">(</span><span class="n">d_hidden_output</span><span class="p">,</span><span class="w"> </span><span class="n">d_hidden_preact</span><span class="p">,</span><span class="w"> </span><span class="n">BATCH_SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">HIDDEN_SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">),</span>
 <a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">          </span><span class="n">cudaMemcpyDeviceToDevice</span><span class="p">);</span>
 <a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="c1">// Forward pass: hidden -&gt; output layer</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="c1">// 前向传播：隐藏层 -&gt; 输出层</span>
 <a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="n">matrixMultiplyKernel</span><span class="o">&lt;&lt;&lt;</span><span class="n">grid_mm1</span><span class="p">,</span><span class="w"> </span><span class="n">block_mm</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">d_hidden_output</span><span class="p">,</span><span class="w"> </span><span class="n">d_weights2</span><span class="p">,</span><span class="w"> </span><span class="n">d_output_preact</span><span class="p">,</span>
 <a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">                                            </span><span class="n">BATCH_SIZE</span><span class="p">,</span><span class="w"> </span><span class="n">HIDDEN_SIZE</span><span class="p">,</span><span class="w"> </span><span class="n">OUTPUT_SIZE</span><span class="p">);</span>
 <a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="n">addBiasKernel</span><span class="o">&lt;&lt;&lt;</span><span class="n">grid_bias2</span><span class="p">,</span><span class="w"> </span><span class="n">block_bias</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">d_output_preact</span><span class="p">,</span><span class="w"> </span><span class="n">d_bias2</span><span class="p">,</span><span class="w"> </span><span class="n">BATCH_SIZE</span><span class="p">,</span><span class="w"> </span><span class="n">OUTPUT_SIZE</span><span class="p">);</span>
 <a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>
-<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="c1">// Apply softmax activation</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="c1">// 应用softmax激活</span>
 <a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="n">softmaxKernel</span><span class="o">&lt;&lt;&lt;</span><span class="n">grid_pred</span><span class="p">,</span><span class="w"> </span><span class="n">block_pred</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">d_output_preact</span><span class="p">,</span><span class="w"> </span><span class="n">d_output</span><span class="p">,</span><span class="w"> </span><span class="n">BATCH_SIZE</span><span class="p">,</span><span class="w"> </span><span class="n">OUTPUT_SIZE</span><span class="p">);</span>
 </code></pre></div>
-<p>Each kernel is launched with an appropriate grid and block configuration to ensure all elements are processed efficiently.</p>
-<h2 id="performance-considerations">Performance Considerations</h2>
-<h3 id="kernel-launch-overhead">Kernel Launch Overhead</h3>
-<p>Each kernel launch incurs overhead. For small networks, this overhead can be significant. Techniques to mitigate this include:</p>
+<p>每个内核都以适当的网格和块配置启动，以确保所有元素都被高效处理。</p>
+<h2 id="_8">性能考虑因素</h2>
+<h3 id="_9">内核启动开销</h3>
+<p>每次内核启动都会产生开销。对于小型网络，这种开销可能很显著。减轻这种开销的技术包括：</p>
 <ol>
-<li><strong>Kernel Fusion</strong>: Combining multiple operations into a single kernel</li>
-<li><strong>Persistent Kernels</strong>: Keeping kernels running and feeding them new work</li>
-<li><strong>CUDA Graphs</strong>: Creating a graph of operations that can be launched together</li>
+<li><strong>内核融合</strong>：将多个操作合并到一个内核中</li>
+<li><strong>持久内核</strong>：保持内核运行并向其提供新工作</li>
+<li><strong>CUDA图</strong>：创建可一起启动的操作图</li>
 </ol>
-<h3 id="memory-bandwidth">Memory Bandwidth</h3>
-<p>Neural networks are often memory-bound rather than compute-bound. Strategies to optimize memory usage include:</p>
+<h3 id="_10">内存带宽</h3>
+<p>神经网络通常受内存限制而非计算限制。优化内存使用的策略包括：</p>
 <ol>
-<li><strong>Coalesced Memory Access</strong>: Ensuring threads in a warp access adjacent memory locations</li>
-<li><strong>Shared Memory</strong>: Using on-chip shared memory for frequently accessed data</li>
-<li><strong>Memory Layout</strong>: Organizing data for better memory access patterns (e.g., NHWC vs NCHW format)</li>
+<li><strong>合并内存访问</strong>：确保线程束中的线程访问相邻的内存位置</li>
+<li><strong>共享内存</strong>：为频繁访问的数据使用片上共享内存</li>
+<li><strong>内存布局</strong>：组织数据以获得更好的内存访问模式（例如NHWC与NCHW格式）</li>
 </ol>
-<h3 id="batch-processing">Batch Processing</h3>
-<p>Increasing batch size generally improves GPU utilization up to a point:</p>
+<h3 id="_11">批处理</h3>
+<p>增加批量大小通常会提高GPU利用率，但有一定限度：</p>
 <ul>
-<li>Larger batches amortize kernel launch overhead</li>
-<li>Matrix operations become more efficient with larger dimensions</li>
-<li>Too large batches can exceed available memory</li>
+<li>更大的批量可以分摊内核启动开销</li>
+<li>更大维度的矩阵操作更有效</li>
+<li>太大的批量可能超出可用内存</li>
 </ul>
-<p>The optimal batch size depends on the specific GPU and network architecture.</p>
-<h2 id="further-improvements">Further Improvements</h2>
-<p>This implementation can be enhanced in several ways:</p>
+<p>最佳批量大小取决于特定的GPU和网络架构。</p>
+<h2 id="_12">进一步改进</h2>
+<p>这个实现可以通过多种方式增强：</p>
 <ol>
-<li><strong>Use Optimized Libraries</strong>:</li>
-<li>Replace custom matrix multiplication with cuBLAS</li>
+<li><strong>使用优化库</strong>：</li>
+<li>用cuBLAS替换自定义矩阵乘法</li>
 <li>
-<p>Use cuDNN for standard neural network operations</p>
+<p>使用cuDNN进行标准神经网络操作</p>
 </li>
 <li>
-<p><strong>Memory Optimization</strong>:</p>
+<p><strong>内存优化</strong>：</p>
 </li>
-<li>Implement in-place operations where possible</li>
-<li>Use half-precision (FP16) for inference</li>
+<li>尽可能实现原地操作</li>
+<li>使用半精度（FP16）进行推理</li>
 <li>
-<p>Add memory pooling for dynamic networks</p>
-</li>
-<li>
-<p><strong>Advanced Features</strong>:</p>
-</li>
-<li>Implement backpropagation for training</li>
-<li>Add convolutional layers and pooling</li>
-<li>
-<p>Support recurrent and transformer architectures</p>
+<p>为动态网络添加内存池</p>
 </li>
 <li>
-<p><strong>Multi-GPU Support</strong>:</p>
+<p><strong>高级功能</strong>：</p>
 </li>
-<li>Distribute computation across multiple GPUs</li>
-<li>Implement model parallelism for large networks</li>
+<li>实现反向传播进行训练</li>
+<li>添加卷积层和池化层</li>
+<li>
+<p>支持循环和transformer架构</p>
+</li>
+<li>
+<p><strong>多GPU支持</strong>：</p>
+</li>
+<li>在多个GPU上分布计算</li>
+<li>为大型网络实现模型并行</li>
 </ol>
-<h2 id="conclusion">Conclusion</h2>
-<p>This tutorial demonstrates the fundamental techniques for implementing neural network inference on GPUs using CUDA. While our implementation prioritizes clarity over maximum performance, it illustrates the key concepts and operations required for neural network computation.</p>
-<p>By leveraging the massive parallelism of GPUs, even this basic implementation can achieve significant speedups compared to CPU-only execution, highlighting why GPUs have become the standard hardware for deep learning applications.</p>
-<h2 id="references">References</h2>
+<h2 id="_13">结论</h2>
+<p>本教程演示了使用CUDA在GPU上实现神经网络推理的基本技术。虽然我们的实现优先考虑清晰度而非最大性能，但它说明了神经网络计算所需的关键概念和操作。</p>
+<p>通过利用GPU的大规模并行性，即使这个基本实现也可以与仅CPU执行相比获得显著的加速，强调了为什么GPU已成为深度学习应用的标准硬件。</p>
+<h2 id="_14">参考资料</h2>
 <ul>
-<li><a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/">NVIDIA CUDA Programming Guide</a></li>
-<li><a href="https://docs.nvidia.com/deeplearning/cudnn/developer-guide/">NVIDIA cuDNN Documentation</a></li>
-<li><a href="http://neuralnetworksanddeeplearning.com/">Neural Networks and Deep Learning</a></li>
-<li><a href="https://www.deeplearningbook.org/">Deep Learning Book</a> </li>
+<li><a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/">NVIDIA CUDA编程指南</a></li>
+<li><a href="https://docs.nvidia.com/deeplearning/cudnn/developer-guide/">NVIDIA cuDNN文档</a></li>
+<li><a href="http://neuralnetworksanddeeplearning.com/">神经网络与深度学习</a></li>
+<li><a href="https://www.deeplearningbook.org/">深度学习书籍</a> </li>
 </ul>
-<p><a class="md-button" href="https://x.com/intent/tweet?text=Neural%20Network%20Forward%20Pass%20on%20GPU%20with%20CUDA%0A&amp;url=https://eunomia.dev/zh/others/cuda-tutorial/05-neural-network/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=%E4%BD%BF%E7%94%A8CUDA%E5%9C%A8GPU%E4%B8%8A%E5%AE%9E%E7%8E%B0%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD%0A&amp;url=https://eunomia.dev/zh/others/cuda-tutorial/05-neural-network/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/zh/others/cuda-tutorial/05-neural-network/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
@@ -6017,7 +6017,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 25, 2025 01:28:13 UTC">May 25, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 7, 2025 20:04:19 UTC">June 7, 2025</span>
   </span>
 
     
@@ -6027,7 +6027,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 23, 2025 18:08:33 UTC">May 23, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 7, 2025 20:04:19 UTC">June 7, 2025</span>
   </span>
 
     
@@ -6042,7 +6042,7 @@
     </span>
     <nav>
       
-        <a href="mailto:yt.xyxx@gmail.com">officeyutong</a>
+        <a href="mailto:41898282+github-actions[bot]@users.noreply.github.com">github-actions[bot]</a>
     </nav>
   </span>
 
@@ -6147,7 +6147,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../04-gpu-architecture/" class="md-footer__link md-footer__link--prev" aria-label="Previous: CUDA GPU Organization Hierarchy">
+          <a href="../04-gpu-architecture/" class="md-footer__link md-footer__link--prev" aria-label="Previous: CUDA GPU组织层次结构">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -6157,20 +6157,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                CUDA GPU Organization Hierarchy
+                CUDA GPU组织层次结构
               </div>
             </div>
           </a>
         
         
           
-          <a href="../06-cnn-convolution/" class="md-footer__link md-footer__link--next" aria-label="Next: GPU-Accelerated Convolution Operations with Shared Memory Optimization">
+          <a href="../06-cnn-convolution/" class="md-footer__link md-footer__link--next" aria-label="Next: 使用共享内存优化的GPU加速卷积操作">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                GPU-Accelerated Convolution Operations with Shared Memory Optimization
+                使用共享内存优化的GPU加速卷积操作
               </div>
             </div>
             <div class="md-footer__button md-icon">

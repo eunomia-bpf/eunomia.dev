@@ -24,7 +24,7 @@
     
     
       
-        <title>Fine-Grained GPU Code Modifications - eunomia</title>
+        <title>细粒度GPU代码修改 - eunomia</title>
       
     
     
@@ -69,11 +69,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="Fine-Grained GPU Code Modifications - eunomia" >
+        <meta  property="og:title"  content="细粒度GPU代码修改 - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
-        <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/others/cuda-tutorial/11-fine-grained-gpu-modifications.png" >
+        <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/others/cuda-tutorial/11-fine-grained-gpu-modifications.zh.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -85,11 +85,11 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="Fine-Grained GPU Code Modifications - eunomia" >
+        <meta  name="twitter:title"  content="细粒度GPU代码修改 - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
-        <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/others/cuda-tutorial/11-fine-grained-gpu-modifications.png" >
+        <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/others/cuda-tutorial/11-fine-grained-gpu-modifications.zh.png" >
       
     
     
@@ -112,7 +112,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#fine-grained-gpu-code-modifications" class="md-skip">
+        <a href="#gpu" class="md-skip">
           Skip to content
         </a>
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Fine-Grained GPU Code Modifications
+              细粒度GPU代码修改
             
           </span>
         </div>
@@ -4528,7 +4528,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA Basic Example - Vector Addition Explanation
+    CUDA 基础示例 - 向量加法解释
     
   </span>
   
@@ -4551,7 +4551,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA PTX Example: Vector Multiplication Using Inline PTX Assembly
+    CUDA PTX示例：使用内联PTX汇编进行向量乘法
     
   </span>
   
@@ -4574,7 +4574,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA Programming Methods Comparison: Matrix Multiplication
+    CUDA编程方法比较：矩阵乘法
     
   </span>
   
@@ -4597,7 +4597,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA GPU Organization Hierarchy
+    CUDA GPU组织层次结构
     
   </span>
   
@@ -4620,7 +4620,7 @@
   
   
   <span class="md-ellipsis">
-    Neural Network Forward Pass on GPU with CUDA
+    使用CUDA在GPU上实现神经网络前向传播
     
   </span>
   
@@ -4643,7 +4643,7 @@
   
   
   <span class="md-ellipsis">
-    GPU-Accelerated Convolution Operations with Shared Memory Optimization
+    使用共享内存优化的GPU加速卷积操作
     
   </span>
   
@@ -4666,7 +4666,7 @@
   
   
   <span class="md-ellipsis">
-    Attention Mechanism for Transformer Models with CUDA
+    使用CUDA实现Transformer模型的注意力机制
     
   </span>
   
@@ -4689,7 +4689,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA GPU Profiling and Tracing
+    CUDA GPU性能分析与跟踪
     
   </span>
   
@@ -4712,7 +4712,7 @@
   
   
   <span class="md-ellipsis">
-    GPU Application Extension Mechanisms: Modifying Behavior Without Source Code Changes
+    GPU应用程序扩展机制：无需更改源代码修改行为
     
   </span>
   
@@ -4735,7 +4735,7 @@
   
   
   <span class="md-ellipsis">
-    CPU and GPU Profiling Boundaries: What to Measure Where
+    CPU和GPU分析边界：在哪里测量什么
     
   </span>
   
@@ -4767,7 +4767,7 @@
   
   
   <span class="md-ellipsis">
-    Fine-Grained GPU Code Modifications
+    细粒度GPU代码修改
     
   </span>
   
@@ -4780,7 +4780,7 @@
   
   
   <span class="md-ellipsis">
-    Fine-Grained GPU Code Modifications
+    细粒度GPU代码修改
     
   </span>
   
@@ -4803,38 +4803,38 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#when-to-use-fine-grained-modifications" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      When to Use Fine-Grained Modifications
+      何时使用细粒度修改
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#key-fine-grained-optimization-techniques" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      Key Fine-Grained Optimization Techniques
+      关键细粒度优化技术
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Key Fine-Grained Optimization Techniques">
+    <nav class="md-nav" aria-label="关键细粒度优化技术">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-data-structure-layout-optimization-aos-vs-soa" class="md-nav__link">
+  <a href="#1-aossoa" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Data Structure Layout Optimization (AoS vs SoA)
+      1. 数据结构布局优化（AoS与SoA）
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="1. Data Structure Layout Optimization (AoS vs SoA)">
+    <nav class="md-nav" aria-label="1. 数据结构布局优化（AoS与SoA）">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#array-of-structures-aos-vs-structure-of-arrays-soa" class="md-nav__link">
+  <a href="#aossoa" class="md-nav__link">
     <span class="md-ellipsis">
-      Array of Structures (AoS) vs Structure of Arrays (SoA)
+      结构数组(AoS)与数组结构(SoA)
     </span>
   </a>
   
@@ -4846,19 +4846,19 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-warp-level-primitives-and-synchronization" class="md-nav__link">
+  <a href="#2" class="md-nav__link">
     <span class="md-ellipsis">
-      2. Warp-Level Primitives and Synchronization
+      2. 线程束级原语和同步
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="2. Warp-Level Primitives and Synchronization">
+    <nav class="md-nav" aria-label="2. 线程束级原语和同步">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#example-optimized-histogram-calculation" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      Example: Optimized Histogram Calculation
+      示例：优化的直方图计算
     </span>
   </a>
   
@@ -4870,19 +4870,19 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-memory-access-pattern-optimization-with-tiling" class="md-nav__link">
+  <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
-      3. Memory Access Pattern Optimization with Tiling
+      3. 使用分块的内存访问模式优化
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="3. Memory Access Pattern Optimization with Tiling">
+    <nav class="md-nav" aria-label="3. 使用分块的内存访问模式优化">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#example-matrix-transpose-with-tiling" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      Example: Matrix Transpose with Tiling
+      示例：带分块的矩阵转置
     </span>
   </a>
   
@@ -4894,19 +4894,19 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-kernel-fusion-for-performance" class="md-nav__link">
+  <a href="#4" class="md-nav__link">
     <span class="md-ellipsis">
-      4. Kernel Fusion for Performance
+      4. 内核融合提升性能
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="4. Kernel Fusion for Performance">
+    <nav class="md-nav" aria-label="4. 内核融合提升性能">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#example-fused-vector-operations" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      Example: Fused Vector Operations
+      示例：融合的向量操作
     </span>
   </a>
   
@@ -4918,19 +4918,19 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#5-dynamic-execution-path-selection" class="md-nav__link">
+  <a href="#5" class="md-nav__link">
     <span class="md-ellipsis">
-      5. Dynamic Execution Path Selection
+      5. 动态执行路径选择
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="5. Dynamic Execution Path Selection">
+    <nav class="md-nav" aria-label="5. 动态执行路径选择">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#example-sparse-vs-dense-data-processing" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      Example: Sparse vs Dense Data Processing
+      示例：稀疏与密集数据处理
     </span>
   </a>
   
@@ -4938,57 +4938,6 @@
         
       </ul>
     </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#implementation-considerations" class="md-nav__link">
-    <span class="md-ellipsis">
-      Implementation Considerations
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#advanced-topics" class="md-nav__link">
-    <span class="md-ellipsis">
-      Advanced Topics
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Advanced Topics">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#thread-divergence-management" class="md-nav__link">
-    <span class="md-ellipsis">
-      Thread Divergence Management
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#tuning-for-different-gpu-architectures" class="md-nav__link">
-    <span class="md-ellipsis">
-      Tuning for Different GPU Architectures
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#custom-memory-management-techniques" class="md-nav__link">
-    <span class="md-ellipsis">
-      Custom Memory Management Techniques
-    </span>
-  </a>
   
 </li>
         
@@ -4998,18 +4947,69 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#conclusion" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
-      Conclusion
+      实现考虑因素
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
-      References
+      高级主题
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="高级主题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      线程发散管理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpu_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      针对不同GPU架构的调整
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      自定义内存管理技术
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      结论
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      参考文献
     </span>
   </a>
   
@@ -5036,7 +5036,7 @@
   
   
   <span class="md-ellipsis">
-    Advanced GPU Customizations
+    高级GPU定制技术
     
   </span>
   
@@ -5059,7 +5059,7 @@
   
   
   <span class="md-ellipsis">
-    Low-Latency GPU Packet Processing
+    低延迟GPU数据包处理
     
   </span>
   
@@ -5082,7 +5082,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA Function Type Annotations: A Comprehensive Guide
+    CUDA函数类型注解：全面指南
     
   </span>
   
@@ -5105,7 +5105,7 @@
   
   
   <span class="md-ellipsis">
-    OpenCL Basic Example - Vector Addition Explanation
+    OpenCL基础示例 - 向量加法解释
     
   </span>
   
@@ -5128,7 +5128,7 @@
   
   
   <span class="md-ellipsis">
-    PTX File Loading and Execution Demo
+    PTX文件加载和执行演示
     
   </span>
   
@@ -5585,38 +5585,38 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#when-to-use-fine-grained-modifications" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      When to Use Fine-Grained Modifications
+      何时使用细粒度修改
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#key-fine-grained-optimization-techniques" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      Key Fine-Grained Optimization Techniques
+      关键细粒度优化技术
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Key Fine-Grained Optimization Techniques">
+    <nav class="md-nav" aria-label="关键细粒度优化技术">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-data-structure-layout-optimization-aos-vs-soa" class="md-nav__link">
+  <a href="#1-aossoa" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Data Structure Layout Optimization (AoS vs SoA)
+      1. 数据结构布局优化（AoS与SoA）
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="1. Data Structure Layout Optimization (AoS vs SoA)">
+    <nav class="md-nav" aria-label="1. 数据结构布局优化（AoS与SoA）">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#array-of-structures-aos-vs-structure-of-arrays-soa" class="md-nav__link">
+  <a href="#aossoa" class="md-nav__link">
     <span class="md-ellipsis">
-      Array of Structures (AoS) vs Structure of Arrays (SoA)
+      结构数组(AoS)与数组结构(SoA)
     </span>
   </a>
   
@@ -5628,19 +5628,19 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-warp-level-primitives-and-synchronization" class="md-nav__link">
+  <a href="#2" class="md-nav__link">
     <span class="md-ellipsis">
-      2. Warp-Level Primitives and Synchronization
+      2. 线程束级原语和同步
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="2. Warp-Level Primitives and Synchronization">
+    <nav class="md-nav" aria-label="2. 线程束级原语和同步">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#example-optimized-histogram-calculation" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      Example: Optimized Histogram Calculation
+      示例：优化的直方图计算
     </span>
   </a>
   
@@ -5652,19 +5652,19 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-memory-access-pattern-optimization-with-tiling" class="md-nav__link">
+  <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
-      3. Memory Access Pattern Optimization with Tiling
+      3. 使用分块的内存访问模式优化
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="3. Memory Access Pattern Optimization with Tiling">
+    <nav class="md-nav" aria-label="3. 使用分块的内存访问模式优化">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#example-matrix-transpose-with-tiling" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      Example: Matrix Transpose with Tiling
+      示例：带分块的矩阵转置
     </span>
   </a>
   
@@ -5676,19 +5676,19 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-kernel-fusion-for-performance" class="md-nav__link">
+  <a href="#4" class="md-nav__link">
     <span class="md-ellipsis">
-      4. Kernel Fusion for Performance
+      4. 内核融合提升性能
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="4. Kernel Fusion for Performance">
+    <nav class="md-nav" aria-label="4. 内核融合提升性能">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#example-fused-vector-operations" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      Example: Fused Vector Operations
+      示例：融合的向量操作
     </span>
   </a>
   
@@ -5700,19 +5700,19 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#5-dynamic-execution-path-selection" class="md-nav__link">
+  <a href="#5" class="md-nav__link">
     <span class="md-ellipsis">
-      5. Dynamic Execution Path Selection
+      5. 动态执行路径选择
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="5. Dynamic Execution Path Selection">
+    <nav class="md-nav" aria-label="5. 动态执行路径选择">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#example-sparse-vs-dense-data-processing" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      Example: Sparse vs Dense Data Processing
+      示例：稀疏与密集数据处理
     </span>
   </a>
   
@@ -5720,57 +5720,6 @@
         
       </ul>
     </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#implementation-considerations" class="md-nav__link">
-    <span class="md-ellipsis">
-      Implementation Considerations
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#advanced-topics" class="md-nav__link">
-    <span class="md-ellipsis">
-      Advanced Topics
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Advanced Topics">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#thread-divergence-management" class="md-nav__link">
-    <span class="md-ellipsis">
-      Thread Divergence Management
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#tuning-for-different-gpu-architectures" class="md-nav__link">
-    <span class="md-ellipsis">
-      Tuning for Different GPU Architectures
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#custom-memory-management-techniques" class="md-nav__link">
-    <span class="md-ellipsis">
-      Custom Memory Management Techniques
-    </span>
-  </a>
   
 </li>
         
@@ -5780,18 +5729,69 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#conclusion" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
-      Conclusion
+      实现考虑因素
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
-      References
+      高级主题
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="高级主题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      线程发散管理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpu_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      针对不同GPU架构的调整
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      自定义内存管理技术
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      结论
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      参考文献
     </span>
   </a>
   
@@ -5813,7 +5813,7 @@
 
 
   
-    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cuda-tutorial/11-fine-grained-gpu-modifications.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cuda-tutorial/11-fine-grained-gpu-modifications.zh.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -5822,65 +5822,65 @@
     
       
     
-    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cuda-tutorial/11-fine-grained-gpu-modifications.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cuda-tutorial/11-fine-grained-gpu-modifications.zh.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-<h1 id="fine-grained-gpu-code-modifications">Fine-Grained GPU Code Modifications</h1>
-<p>In GPU programming, certain optimizations can only be achieved through direct modifications to the kernel code itself, rather than through API-level interception or external profiling. This document explores various fine-grained GPU customization techniques that require direct modifications to CUDA kernels.</p>
-<h2 id="when-to-use-fine-grained-modifications">When to Use Fine-Grained Modifications</h2>
-<p>While external profiling tools can help identify bottlenecks, certain optimizations require modifying the kernel code directly:</p>
+<h1 id="gpu">细粒度GPU代码修改</h1>
+<p>在GPU编程中，某些优化只能通过直接修改内核代码本身来实现，而不能通过API级拦截或外部分析实现。本文档探讨了需要直接修改CUDA内核的各种细粒度GPU自定义技术。</p>
+<h2 id="_1">何时使用细粒度修改</h2>
+<p>虽然外部分析工具可以帮助识别瓶颈，但某些优化需要直接修改内核代码：</p>
 <ol>
-<li><strong>Memory access pattern optimizations</strong>: Restructuring data layouts and access patterns</li>
-<li><strong>Thread/warp-level primitives</strong>: Utilizing low-level CUDA features like warp shuffles and voting</li>
-<li><strong>Custom synchronization mechanisms</strong>: Implementing fine-grained control over thread execution</li>
-<li><strong>Algorithm-specific optimizations</strong>: Tailoring execution to data characteristics</li>
-<li><strong>Memory hierarchy utilization</strong>: Custom management of shared memory, registers, and caches</li>
+<li><strong>内存访问模式优化</strong>：重构数据布局和访问模式</li>
+<li><strong>线程/线程束级原语</strong>：利用低级CUDA功能如线程束洗牌和投票</li>
+<li><strong>自定义同步机制</strong>：对线程执行实现细粒度控制</li>
+<li><strong>算法特定优化</strong>：根据数据特性调整执行</li>
+<li><strong>内存层次结构利用</strong>：共享内存、寄存器和缓存的自定义管理</li>
 </ol>
-<h2 id="key-fine-grained-optimization-techniques">Key Fine-Grained Optimization Techniques</h2>
-<h3 id="1-data-structure-layout-optimization-aos-vs-soa">1. Data Structure Layout Optimization (AoS vs SoA)</h3>
-<p>The memory layout of data structures significantly impacts performance due to how GPUs access memory.</p>
-<h4 id="array-of-structures-aos-vs-structure-of-arrays-soa">Array of Structures (AoS) vs Structure of Arrays (SoA)</h4>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">// Array of Structures (AoS) - Less efficient on GPUs</span>
+<h2 id="_2">关键细粒度优化技术</h2>
+<h3 id="1-aossoa">1. 数据结构布局优化（AoS与SoA）</h3>
+<p>数据结构的内存布局由于GPU访问内存的方式而对性能有重大影响。</p>
+<h4 id="aossoa">结构数组(AoS)与数组结构(SoA)</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">// 结构数组 (AoS) - 在GPU上效率较低</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">struct</span><span class="w"> </span><span class="nc">Particle_AoS</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">;</span><span class="w">    </span><span class="c1">// Position</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">vx</span><span class="p">,</span><span class="w"> </span><span class="n">vy</span><span class="p">,</span><span class="w"> </span><span class="n">vz</span><span class="p">;</span><span class="w"> </span><span class="c1">// Velocity</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">;</span><span class="w">    </span><span class="c1">// 位置</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">vx</span><span class="p">,</span><span class="w"> </span><span class="n">vy</span><span class="p">,</span><span class="w"> </span><span class="n">vz</span><span class="p">;</span><span class="w"> </span><span class="c1">// 速度</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">};</span>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1">// Structure of Arrays (SoA) - More efficient on GPUs</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1">// 数组结构 (SoA) - 在GPU上效率更高</span>
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="k">struct</span><span class="w"> </span><span class="nc">Particles_SoA</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">z</span><span class="p">;</span><span class="w">    </span><span class="c1">// Positions</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">vx</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">vy</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">vz</span><span class="p">;</span><span class="w"> </span><span class="c1">// Velocities</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">z</span><span class="p">;</span><span class="w">    </span><span class="c1">// 位置</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">vx</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">vy</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">vz</span><span class="p">;</span><span class="w"> </span><span class="c1">// 速度</span>
 <a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="p">};</span>
 </code></pre></div>
-<p><strong>Why SoA is often better:</strong>
-- Enables coalesced memory access patterns
-- Threads within a warp access adjacent memory locations
-- Better utilizes memory bandwidth
-- Improves cache hit rates</p>
-<p><strong>Performance Impact:</strong>
-- Can provide 2-5x speedup for memory-bound kernels
-- Especially beneficial for large data structures with partial access patterns</p>
-<h3 id="2-warp-level-primitives-and-synchronization">2. Warp-Level Primitives and Synchronization</h3>
-<p>Modern CUDA GPUs provide warp-level primitives that allow threads within a warp to communicate directly.</p>
-<h4 id="example-optimized-histogram-calculation">Example: Optimized Histogram Calculation</h4>
-<p>Histograms traditionally suffer from atomic operation contention. Using warp-level primitives can significantly improve performance:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">// Optimized histogram using warp-level primitives</span>
+<p><strong>为什么SoA通常更好：</strong>
+- 启用合并内存访问模式
+- 线程束内的线程访问相邻内存位置
+- 更好地利用内存带宽
+- 提高缓存命中率</p>
+<p><strong>性能影响：</strong>
+- 对于内存受限内核可提供2-5倍加速
+- 对于具有部分访问模式的大型数据结构特别有益</p>
+<h3 id="2">2. 线程束级原语和同步</h3>
+<p>现代CUDA GPU提供了线程束级原语，允许线程束内的线程直接通信。</p>
+<h4 id="_3">示例：优化的直方图计算</h4>
+<p>直方图传统上受原子操作争用的影响。使用线程束级原语可显著提高性能：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">// 使用线程束级原语的优化直方图</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">histogram_optimized</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">histogram</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="c1">// Shared memory for per-block histograms</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="c1">// 每块直方图的共享内存</span>
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="kt">__shared__</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">localHist</span><span class="p">[</span><span class="n">HISTOGRAM_SIZE</span><span class="p">];</span>
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="c1">// Initialize shared memory</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="c1">// 初始化共享内存</span>
 <a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">tid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
 <a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">tid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">HISTOGRAM_SIZE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">        </span><span class="n">localHist</span><span class="p">[</span><span class="n">tid</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="nf">__syncthreads</span><span class="p">();</span>
 <a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="c1">// Process data with less atomic contention using shared memory</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="c1">// 使用共享内存处理数据，减少原子争用</span>
 <a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
 <a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">stride</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">gridDim</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
 <a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
@@ -5891,8 +5891,8 @@
 <a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">    </span><span class="nf">__syncthreads</span><span class="p">();</span>
 <a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>
-<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">    </span><span class="c1">// Cooperative reduction to global memory</span>
-<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="w">    </span><span class="c1">// Each warp handles a portion of the histogram</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">    </span><span class="c1">// 协作减少到全局内存</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="w">    </span><span class="c1">// 每个线程束处理直方图的一部分</span>
 <a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="nb">warpSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">32</span><span class="p">;</span>
 <a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">warpId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nb">warpSize</span><span class="p">;</span>
 <a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">laneId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="nb">warpSize</span><span class="p">;</span>
@@ -5909,45 +5909,45 @@
 <a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a><span class="p">}</span>
 </code></pre></div>
-<p><strong>Benefits:</strong>
-- Reduced atomic contention
-- Better workload distribution
-- Improved memory access patterns
-- Significant performance improvement for scatter operations</p>
-<h3 id="3-memory-access-pattern-optimization-with-tiling">3. Memory Access Pattern Optimization with Tiling</h3>
-<p>Memory access patterns are critical for GPU performance. Tiling is a technique that restructures data access to better utilize caches and memory bandwidth.</p>
-<h4 id="example-matrix-transpose-with-tiling">Example: Matrix Transpose with Tiling</h4>
+<p><strong>好处：</strong>
+- 减少原子争用
+- 更好的工作负载分配
+- 改进的内存访问模式
+- 显著提高分散操作的性能</p>
+<h3 id="3">3. 使用分块的内存访问模式优化</h3>
+<p>内存访问模式对GPU性能至关重要。分块是一种重构数据访问以更好利用缓存和内存带宽的技术。</p>
+<h4 id="_4">示例：带分块的矩阵转置</h4>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">transposeTiled</span><span class="p">(</span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">output</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">width</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">height</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="kt">__shared__</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">tile</span><span class="p">[</span><span class="n">TILE_DIM</span><span class="p">][</span><span class="n">TILE_DIM</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span><span class="w"> </span><span class="c1">// +1 to avoid bank conflicts</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="kt">__shared__</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">tile</span><span class="p">[</span><span class="n">TILE_DIM</span><span class="p">][</span><span class="n">TILE_DIM</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span><span class="w"> </span><span class="c1">// +1避免存储体冲突</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">TILE_DIM</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">TILE_DIM</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
 <a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="c1">// Load tile collaboratively with coalesced reads</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="c1">// 协作加载瓦片，使用合并读取</span>
 <a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">height</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">        </span><span class="n">tile</span><span class="p">[</span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">y</span><span class="p">][</span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">[</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x</span><span class="p">];</span>
 <a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="nf">__syncthreads</span><span class="p">();</span>
 <a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">    </span><span class="c1">// Calculate transposed coordinates</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">    </span><span class="c1">// 计算转置坐标</span>
 <a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">out_x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">TILE_DIM</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
 <a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">out_y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">TILE_DIM</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
 <a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>
-<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">    </span><span class="c1">// Write tile with coalesced writes</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">    </span><span class="c1">// 使用合并写入写入瓦片</span>
 <a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">out_x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">height</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">out_y</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">width</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">out_y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">height</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">out_x</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tile</span><span class="p">[</span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">][</span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">y</span><span class="p">];</span>
 <a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="p">}</span>
 </code></pre></div>
-<p><strong>Key aspects:</strong>
-- Uses shared memory as a collaborative cache
-- Avoids bank conflicts with padding (+1 in the tile dimension)
-- Ensures coalesced memory access for both reads and writes
-- Dramatically improves performance for matrix operations</p>
-<h3 id="4-kernel-fusion-for-performance">4. Kernel Fusion for Performance</h3>
-<p>Kernel fusion combines multiple operations into a single kernel to reduce memory traffic and kernel launch overhead.</p>
-<h4 id="example-fused-vector-operations">Example: Fused Vector Operations</h4>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">// Separate kernels</span>
+<p><strong>关键方面：</strong>
+- 使用共享内存作为协作缓存
+- 通过填充避免存储体冲突（瓦片维度+1）
+- 确保读写都是合并内存访问
+- 极大提高矩阵操作的性能</p>
+<h3 id="4">4. 内核融合提升性能</h3>
+<p>内核融合将多个操作组合到一个内核中，以减少内存流量和内核启动开销。</p>
+<h4 id="_5">示例：融合的向量操作</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">// 独立内核</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">vectorAdd</span><span class="p">(</span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -5962,33 +5962,33 @@
 <a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="p">}</span>
 <a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>
-<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="c1">// Fused kernel</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="c1">// 融合内核</span>
 <a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">vectorAddAndScale</span><span class="p">(</span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">scale</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
 <a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">        </span><span class="c1">// Fuse the operations to avoid extra global memory traffic</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">        </span><span class="c1">// 融合操作以避免额外的全局内存流量</span>
 <a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="w">        </span><span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">scale</span><span class="p">;</span>
 <a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="p">}</span>
 </code></pre></div>
-<p><strong>Benefits:</strong>
-- Reduced global memory traffic
-- Eliminated intermediate data storage
-- Fewer kernel launches and associated overhead
-- Improved data locality and cache utilization</p>
-<h3 id="5-dynamic-execution-path-selection">5. Dynamic Execution Path Selection</h3>
-<p>GPU kernels can dynamically adapt their execution based on data characteristics, allowing for optimized performance across different scenarios.</p>
-<h4 id="example-sparse-vs-dense-data-processing">Example: Sparse vs Dense Data Processing</h4>
+<p><strong>好处：</strong>
+- 减少全局内存流量
+- 消除中间数据存储
+- 减少内核启动及相关开销
+- 改进数据局部性和缓存利用率</p>
+<h3 id="5">5. 动态执行路径选择</h3>
+<p>GPU内核可以根据数据特性动态调整其执行，允许在不同场景下优化性能。</p>
+<h4 id="_6">示例：稀疏与密集数据处理</h4>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">processAdaptive</span><span class="p">(</span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">output</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">density</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">[</span><span class="n">idx</span><span class="p">];</span>
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">        </span><span class="c1">// Dynamic branch based on data characteristics</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">        </span><span class="c1">// 基于数据特性的动态分支</span>
 <a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">density</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">0.5f</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">            </span><span class="c1">// Sparse data path</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">            </span><span class="c1">// 稀疏数据路径</span>
 <a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">val</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">                </span><span class="c1">// Perform expensive computation only on non-zero elements</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">                </span><span class="c1">// 仅对非零元素执行昂贵计算</span>
 <a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">                </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">                    </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sinf</span><span class="p">(</span><span class="n">val</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cosf</span><span class="p">(</span><span class="n">val</span><span class="p">);</span>
 <a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">                </span><span class="p">}</span>
@@ -5997,7 +5997,7 @@
 <a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">                </span><span class="n">output</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
 <a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">            </span><span class="p">}</span>
 <a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">            </span><span class="c1">// Dense data path</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">            </span><span class="c1">// 密集数据路径</span>
 <a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="w">                </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sinf</span><span class="p">(</span><span class="n">val</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cosf</span><span class="p">(</span><span class="n">val</span><span class="p">);</span>
 <a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="w">            </span><span class="p">}</span>
@@ -6006,68 +6006,68 @@
 <a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="p">}</span>
 </code></pre></div>
-<p><strong>Key aspects:</strong>
-- Runtime decision making based on data properties
-- Different execution paths for different data characteristics
-- Adaptation to workload patterns
-- Can reduce unnecessary computation for certain data types</p>
-<h2 id="implementation-considerations">Implementation Considerations</h2>
-<p>When implementing fine-grained GPU optimizations:</p>
+<p><strong>关键方面：</strong>
+- 基于数据属性的运行时决策
+- 针对不同数据特性的不同执行路径
+- 适应工作负载模式
+- 能减少某些数据类型的不必要计算</p>
+<h2 id="_7">实现考虑因素</h2>
+<p>实现细粒度GPU优化时：</p>
 <ol>
-<li><strong>Measure the impact</strong>: Always benchmark before and after optimizations</li>
-<li><strong>Consider maintainability</strong>: Complex optimizations may reduce code readability</li>
-<li><strong>Evaluate portability</strong>: Some optimizations are architecture-specific</li>
-<li><strong>Balance between optimization techniques</strong>: Sometimes combining techniques yields the best results</li>
-<li><strong>Consider compute vs. memory bounds</strong>: Apply the right optimizations for your bottleneck</li>
-<li><strong>Test across different data sizes</strong>: Optimization benefits can vary with problem size</li>
+<li><strong>测量影响</strong>：始终在优化前后进行基准测试</li>
+<li><strong>考虑可维护性</strong>：复杂优化可能降低代码可读性</li>
+<li><strong>评估可移植性</strong>：某些优化是特定于架构的</li>
+<li><strong>平衡优化技术</strong>：有时结合技术能产生最佳结果</li>
+<li><strong>考虑计算与内存边界</strong>：为您的瓶颈应用正确的优化</li>
+<li><strong>测试不同数据大小</strong>：优化收益可能因问题规模而异</li>
 </ol>
-<h2 id="advanced-topics">Advanced Topics</h2>
-<h3 id="thread-divergence-management">Thread Divergence Management</h3>
-<p>Thread divergence occurs when threads within a warp take different execution paths, causing serialization:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">// Poor code with divergence</span>
+<h2 id="_8">高级主题</h2>
+<h3 id="_9">线程发散管理</h3>
+<p>线程发散发生在线程束内的线程采取不同执行路径时，导致串行化：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">// 带发散的糟糕代码</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="c1">// Path A - executed by even threads</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="c1">// 路径A - 由偶数线程执行</span>
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="c1">// Path B - executed by odd threads</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="c1">// 路径B - 由奇数线程执行</span>
 <a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="p">}</span>
 <a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="c1">// Better organization to minimize divergence</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="c1">// 更好的组织以最小化发散</span>
 <a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">    </span><span class="c1">// All threads in this block take this path</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">    </span><span class="c1">// 此块中的所有线程走这条路径</span>
 <a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">    </span><span class="c1">// All threads in this block take this path</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">    </span><span class="c1">// 此块中的所有线程走这条路径</span>
 <a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="p">}</span>
 </code></pre></div>
-<h3 id="tuning-for-different-gpu-architectures">Tuning for Different GPU Architectures</h3>
-<p>Different GPU architectures have varying characteristics:</p>
+<h3 id="gpu_1">针对不同GPU架构的调整</h3>
+<p>不同GPU架构有不同特性：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="cp">#if __CUDA_ARCH__ &gt;= 700</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="c1">// Volta/Turing/Ampere specific optimizations</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="n">__syncwarp</span><span class="p">();</span><span class="w"> </span><span class="c1">// Synchronize active threads in warp</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="c1">// Volta/Turing/Ampere特定优化</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="n">__syncwarp</span><span class="p">();</span><span class="w"> </span><span class="c1">// 同步线程束中的活跃线程</span>
 <a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="cp">#else</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="c1">// Pre-Volta fallback</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="nf">__syncthreads</span><span class="p">();</span><span class="w"> </span><span class="c1">// Full block synchronization as fallback</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="c1">// Pre-Volta回退</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="nf">__syncthreads</span><span class="p">();</span><span class="w"> </span><span class="c1">// 作为回退的全块同步</span>
 <a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="cp">#endif</span>
 </code></pre></div>
-<h3 id="custom-memory-management-techniques">Custom Memory Management Techniques</h3>
-<p>Advanced memory management for better performance:</p>
+<h3 id="_10">自定义内存管理技术</h3>
+<p>用于更好性能的高级内存管理：</p>
 <ol>
-<li><strong>Register usage optimization</strong>: Adjust kernel complexity based on register pressure</li>
-<li><strong>Shared memory bank conflict avoidance</strong>: Use padding or data layout changes</li>
-<li><strong>L1/L2 cache utilization</strong>: Control data access patterns to maximize cache hits</li>
-<li><strong>Texture memory for irregular access</strong>: Use texture cache for random access patterns</li>
+<li><strong>寄存器使用优化</strong>：根据寄存器压力调整内核复杂性</li>
+<li><strong>共享内存存储体冲突避免</strong>：使用填充或数据布局更改</li>
+<li><strong>L1/L2缓存利用</strong>：控制数据访问模式以最大化缓存命中</li>
+<li><strong>不规则访问的纹理内存</strong>：为随机访问模式使用纹理缓存</li>
 </ol>
-<h2 id="conclusion">Conclusion</h2>
-<p>Fine-grained GPU code modifications are essential for achieving maximum performance in GPU applications. By understanding and applying these techniques, developers can significantly improve the execution efficiency of their CUDA kernels.</p>
-<p>The examples provided in this document demonstrate practical implementation of these concepts, but the real power comes from combining multiple techniques and adapting them to specific application requirements.</p>
-<h2 id="references">References</h2>
+<h2 id="_11">结论</h2>
+<p>细粒度GPU代码修改对于在GPU应用程序中实现最大性能至关重要。通过理解并应用这些技术，开发人员可以显著提高CUDA内核的执行效率。</p>
+<p>本文档中提供的示例演示了这些概念的实际实现，但真正的力量来自结合多种技术并将其适应特定应用需求。</p>
+<h2 id="_12">参考文献</h2>
 <ol>
-<li>NVIDIA CUDA Programming Guide: https://docs.nvidia.com/cuda/cuda-c-programming-guide/</li>
-<li>NVIDIA CUDA Best Practices Guide: https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/</li>
+<li>NVIDIA CUDA编程指南: https://docs.nvidia.com/cuda/cuda-c-programming-guide/</li>
+<li>NVIDIA CUDA最佳实践指南: https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/</li>
 <li>Volkov, V. (2010). "Better performance at lower occupancy." GPU Technology Conference.</li>
 <li>Harris, M. "GPU Performance Analysis and Optimization." NVIDIA Developer Blog.</li>
 <li>Jia, Z., et al. (2019). "Dissecting the NVIDIA Volta GPU Architecture via Microbenchmarking." arXiv:1804.06826. </li>
 </ol>
-<p><a class="md-button" href="https://x.com/intent/tweet?text=Fine-Grained%20GPU%20Code%20Modifications%0A&amp;url=https://eunomia.dev/zh/others/cuda-tutorial/11-fine-grained-gpu-modifications/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=%E7%BB%86%E7%B2%92%E5%BA%A6GPU%E4%BB%A3%E7%A0%81%E4%BF%AE%E6%94%B9%0A&amp;url=https://eunomia.dev/zh/others/cuda-tutorial/11-fine-grained-gpu-modifications/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/zh/others/cuda-tutorial/11-fine-grained-gpu-modifications/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
@@ -6091,7 +6091,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 28, 2025 08:15:23 UTC">May 28, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 7, 2025 20:04:19 UTC">June 7, 2025</span>
   </span>
 
     
@@ -6101,7 +6101,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 28, 2025 08:15:23 UTC">May 28, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 7, 2025 20:04:19 UTC">June 7, 2025</span>
   </span>
 
     
@@ -6221,7 +6221,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../10-cpu-gpu-profiling-boundaries/" class="md-footer__link md-footer__link--prev" aria-label="Previous: CPU and GPU Profiling Boundaries: What to Measure Where">
+          <a href="../10-cpu-gpu-profiling-boundaries/" class="md-footer__link md-footer__link--prev" aria-label="Previous: CPU和GPU分析边界：在哪里测量什么">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -6231,20 +6231,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                CPU and GPU Profiling Boundaries: What to Measure Where
+                CPU和GPU分析边界：在哪里测量什么
               </div>
             </div>
           </a>
         
         
           
-          <a href="../12-advanced-gpu-customizations/" class="md-footer__link md-footer__link--next" aria-label="Next: Advanced GPU Customizations">
+          <a href="../12-advanced-gpu-customizations/" class="md-footer__link md-footer__link--next" aria-label="Next: 高级GPU定制技术">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Advanced GPU Customizations
+                高级GPU定制技术
               </div>
             </div>
             <div class="md-footer__button md-icon">
