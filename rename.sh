@@ -3,6 +3,7 @@
 mkdir -p docs/setup && \
 mkdir -p docs/tutorials && \
 mkdir -p docs/others/cuda-tutorial && \
+mkdir -p docs/others/cupti-tutorial && \
 cp -rf tutorial/src/* docs/tutorials/ && \
 mv tutorial/src/SUMMARY.zh.md docs/tutorials/index.zh.md && \
 mv tutorial/src/SUMMARY.md docs/tutorials/index.md && \
