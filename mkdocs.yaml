@@ -1,7 +1,7 @@
 site_name: eunomia
 repo_url: https://github.com/eunomia-bpf/eunomia.dev
 site_url: https://eunomia.dev
-copyright: Copyright (c) 2024 eunomia-bpf org.
+copyright: Copyright (c) 2025 eunomia-bpf org.
 site_description: 'Unlock the potential of eBPF'
 remote_branch: docs
 edit_uri: https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs
