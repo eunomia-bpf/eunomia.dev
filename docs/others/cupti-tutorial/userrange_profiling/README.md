@@ -1,5 +1,7 @@
 # CUPTI User-Range Profiling Tutorial
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 ## Introduction
 
 When profiling CUDA applications, you often need to focus on specific sections of code rather than entire kernels or the complete application. CUPTI's User-Range Profiling feature allows you to define custom ranges in your code and collect performance metrics only within these ranges. This gives you precise control over which parts of your application are profiled, making it easier to identify and optimize performance bottlenecks in complex applications. This tutorial demonstrates how to use CUPTI's Profiler API to define custom ranges and collect performance metrics within them.

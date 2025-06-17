@@ -1,5 +1,7 @@
 # CUPTI NVLink Bandwidth Monitoring Tutorial
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 ## Introduction
 
 In multi-GPU systems, the communication bandwidth between GPUs can significantly impact application performance. NVLink is NVIDIA's high-speed GPU interconnect technology that provides much higher bandwidth than traditional PCIe connections. This tutorial demonstrates how to use CUPTI to detect NVLink connections and monitor data transfer rates between GPUs, helping you optimize multi-GPU applications.

@@ -1,5 +1,7 @@
 # CUPTI Profiling API Injection Tutorial
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 ## Introduction
 
 The CUPTI Profiling API Injection sample demonstrates how to create a profiling library that can be injected into any CUDA application without requiring source code modifications. This powerful technique allows you to collect detailed performance metrics from existing applications using CUDA's injection mechanism.

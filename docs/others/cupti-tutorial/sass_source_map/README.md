@@ -1,5 +1,7 @@
 # CUPTI SASS Source Mapping Tutorial
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 ## Introduction
 
 When optimizing CUDA kernels, understanding how your source code translates to actual GPU assembly instructions can provide powerful insights. SASS (Streaming Assembly) is the native assembly language executed by NVIDIA GPUs, and mapping between your CUDA C/C++ code and the resulting SASS instructions can reveal optimization opportunities that aren't apparent at the source level. This tutorial demonstrates how to use CUPTI to extract SASS code for your kernels and map it back to the original source code, helping you understand the relationship between your high-level code and the instructions that actually execute on the GPU.

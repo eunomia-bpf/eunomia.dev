@@ -1,5 +1,7 @@
 # CUPTI Multi-GPU Event Profiling Tutorial
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 ## Introduction
 
 Many high-performance computing systems use multiple GPUs to accelerate computations. When profiling such systems, you need to collect performance data from all GPUs simultaneously without affecting their parallel execution. This tutorial demonstrates how to use CUPTI to collect performance events from multiple GPUs concurrently while maintaining their independent execution.

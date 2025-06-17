@@ -1,5 +1,7 @@
 # CUPTI NVTX Integration Tutorial
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 ## Introduction
 
 NVTX (NVIDIA Tools Extension) provides a powerful way to annotate your CUDA applications with custom ranges, markers, and metadata. This sample demonstrates how to integrate NVTX with CUPTI to capture and analyze custom annotations, enabling better understanding of application structure and performance bottlenecks.

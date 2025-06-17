@@ -1,5 +1,7 @@
 # CUPTI Nested Range Profiling Tutorial
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 ## Introduction
 
 The CUPTI Nested Range Profiling sample demonstrates how to implement hierarchical performance analysis using nested profiling ranges. This technique allows you to create detailed performance profiles with multiple levels of granularity, enabling fine-grained analysis of complex algorithms and nested function calls.

@@ -1,5 +1,7 @@
 # CUDA Memory Tracing Tutorial
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 ## Introduction
 
 The CUDA Memory Tracing sample demonstrates how to track and analyze memory operations in CUDA applications using CUPTI's activity tracing capabilities. This tutorial focuses specifically on memory management, transfer patterns, and memory usage optimization through detailed tracing and analysis.

@@ -1,5 +1,7 @@
 # CUDA Graphs Tracing Tutorial
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 ## Introduction
 
 CUDA Graphs provide a powerful way to optimize GPU workloads by capturing and replaying sequences of operations with minimal CPU overhead. This tutorial demonstrates how to use CUPTI to trace CUDA Graph execution, correlate graph node launches with their creation APIs, and analyze graph performance characteristics.

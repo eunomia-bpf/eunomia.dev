@@ -1,5 +1,7 @@
 # CUPTI Query API Tutorial
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 ## Introduction
 
 Before you can effectively profile a CUDA application, you need to know what performance metrics and events are available on your GPU. The CUPTI Query API provides a way to discover and explore the profiling capabilities of your NVIDIA GPU. This tutorial demonstrates how to use this API to list available domains, events, and metrics.

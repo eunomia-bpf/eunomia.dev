@@ -1,5 +1,7 @@
 # CUPTI Callback-Based Profiling Tutorial
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 ## Introduction
 
 The CUPTI Callback-Based Profiling sample demonstrates how to implement comprehensive profiling using CUPTI's callback API. This approach allows you to intercept CUDA runtime and driver API calls, collect detailed performance metrics, and analyze GPU activity patterns in real-time during application execution.

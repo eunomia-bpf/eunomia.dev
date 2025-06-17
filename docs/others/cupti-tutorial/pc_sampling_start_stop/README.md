@@ -1,5 +1,7 @@
 # CUPTI PC Sampling Start/Stop Control Tutorial
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 ## Introduction
 
 The CUPTI PC Sampling Start/Stop Control sample demonstrates how to precisely control Program Counter (PC) sampling sessions with start and stop commands. This tutorial shows you how to implement fine-grained control over when PC sampling occurs, allowing you to profile specific phases of your application or respond to runtime conditions.

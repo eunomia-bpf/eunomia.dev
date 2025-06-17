@@ -1,5 +1,7 @@
 # CUPTI Activity Trace Tutorial
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 ## Introduction
 
 Profiling CUDA applications is essential for understanding their performance characteristics. The CUPTI Activity API provides a powerful way to collect detailed traces of both CUDA API calls and GPU activities. This tutorial explains how to use CUPTI to gather and analyze this data.

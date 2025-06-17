@@ -1,5 +1,7 @@
 # CUPTI Range Profiling Tutorial
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 ## Introduction
 
 The CUPTI Range Profiling sample demonstrates how to implement targeted performance analysis using custom-defined ranges within your CUDA applications. This technique allows you to profile specific code sections, algorithm phases, or functional components with precise control over what gets measured and analyzed.

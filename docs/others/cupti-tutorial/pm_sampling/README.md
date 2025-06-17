@@ -1,5 +1,7 @@
 # Performance Monitor Sampling Tutorial
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 ## Introduction
 
 The CUPTI Performance Monitor (PM) Sampling sample demonstrates how to collect detailed GPU performance metrics using CUPTI's performance monitoring capabilities. This tutorial shows you how to gather, analyze, and interpret various performance counters and metrics that provide insights into GPU utilization, memory bandwidth, instruction throughput, and other critical performance indicators.

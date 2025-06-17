@@ -1,5 +1,7 @@
 # CUPTI Timestamp Callback Tutorial
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 ## Introduction
 
 Accurately measuring the execution time of CUDA operations is essential for performance optimization. While CPU-based timing can give approximate results, GPU timestamps provide precise measurements of when operations actually execute on the device. This tutorial demonstrates how to use CUPTI callbacks to collect GPU timestamps for CUDA operations, giving you accurate timing information for memory transfers and kernel executions.

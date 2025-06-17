@@ -1,5 +1,7 @@
 # CUPTI OpenACC Tracing Tutorial
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 ## Introduction
 
 OpenACC is a directive-based programming model that simplifies GPU programming by allowing developers to annotate their code with pragmas that the compiler translates into GPU operations. While this simplifies development, it can make performance analysis challenging because the relationship between your directives and the actual GPU operations isn't always clear. This tutorial demonstrates how to use CUPTI to trace OpenACC API calls and correlate them with GPU activities, giving you insights into how your OpenACC code executes on the GPU.

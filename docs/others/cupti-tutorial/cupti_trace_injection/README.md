@@ -1,5 +1,7 @@
 # CUPTI Trace Injection Tutorial
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 ## Introduction
 
 The CUPTI Trace Injection sample demonstrates how to create a lightweight tracing library that can be automatically injected into any CUDA application. This approach enables comprehensive activity tracing without requiring source code modifications, making it perfect for profiling existing applications, third-party libraries, or production workloads.

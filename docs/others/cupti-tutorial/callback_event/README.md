@@ -1,5 +1,7 @@
 # CUPTI Callback Event Tutorial
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 ## Introduction
 
 Tracking GPU performance events is critical for optimizing CUDA applications. This tutorial demonstrates how to use CUPTI's callback mechanism to collect specific performance events during kernel execution. We'll focus on the "instructions executed" metric to show how many GPU instructions your kernels are running.

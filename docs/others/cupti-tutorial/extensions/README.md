@@ -1,5 +1,7 @@
 # CUPTI Extensions
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 This directory contains additional utilities and extensions for the CUPTI samples.
 
 ## Overview

@@ -1,5 +1,7 @@
 # CUPTI Unified Memory Profiling Tutorial
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 ## Introduction
 
 CUDA Unified Memory creates a single memory space accessible by both CPU and GPU, simplifying memory management in heterogeneous computing. While this abstraction makes programming easier, it introduces behind-the-scenes data migrations that can significantly impact performance. This tutorial demonstrates how to use CUPTI to profile and analyze Unified Memory operations, helping you understand memory migration patterns and optimize your applications for better performance.

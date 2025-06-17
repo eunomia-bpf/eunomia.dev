@@ -1,5 +1,7 @@
 # CUPTI Performance Metrics Tutorial
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 ## Introduction
 
 Understanding GPU performance requires more than just raw event counts - it requires meaningful metrics that provide insights into how efficiently your code is running. This tutorial demonstrates how to use CUPTI callbacks to collect and calculate performance metrics during CUDA kernel execution, giving you powerful insights into your application's GPU utilization.

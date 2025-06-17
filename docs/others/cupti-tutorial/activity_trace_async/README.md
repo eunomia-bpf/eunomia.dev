@@ -1,5 +1,7 @@
 # CUPTI Asynchronous Activity Tracing Tutorial
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 ## Introduction
 
 Profiling GPU applications can significantly impact performance if not done carefully. This tutorial demonstrates how to use CUPTI's asynchronous activity tracing to collect performance data with minimal impact on your application's execution time. You'll learn how to collect detailed GPU and API activity traces while your application continues to run at full speed.

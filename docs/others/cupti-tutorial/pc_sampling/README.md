@@ -1,5 +1,7 @@
 # CUPTI PC Sampling Tutorial
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 ## Introduction
 
 When optimizing CUDA kernels, it's essential to know which parts of your code consume the most execution time. Program Counter (PC) sampling is a powerful technique that allows you to identify hotspots in your GPU code with minimal performance overhead. This tutorial demonstrates how to use CUPTI's PC Sampling API to collect program counter samples during kernel execution and map them back to your source code, helping you focus your optimization efforts where they'll have the most impact.

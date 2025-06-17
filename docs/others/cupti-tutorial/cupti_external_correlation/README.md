@@ -1,5 +1,7 @@
 # CUPTI External Correlation Tutorial
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 ## Introduction
 
 External correlation allows you to correlate CUDA activities with high-level application phases or external events. This sample demonstrates how to use CUPTI's external correlation API to track different phases of execution (initialization, computation, cleanup) and correlate them with GPU activities.

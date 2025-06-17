@@ -1,5 +1,7 @@
 # CUPTI Finalization and Cleanup Tutorial
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 ## Introduction
 
 The CUPTI Finalization sample demonstrates proper cleanup procedures and finalization techniques for CUPTI-based profiling applications. This tutorial covers best practices for resource management, graceful shutdown procedures, and ensuring complete data collection before application termination.

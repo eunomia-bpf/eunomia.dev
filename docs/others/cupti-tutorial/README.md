@@ -1,5 +1,7 @@
 # NVIDIA CUPTI Tutorials
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 This repository contains tutorial applications demonstrating the use of the CUDA Profiling Tools Interface (CUPTI). CUPTI provides performance analysis tools with detailed information about how applications are using the GPU through a standardized interface. Each sample is structured as a comprehensive tutorial to help you understand and apply specific CUPTI features.
 
 The samples are from NVIDIA's CUPTI samples.

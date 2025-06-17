@@ -1,5 +1,7 @@
 # CUPTI Checkpoint API Tutorial
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 ## Introduction
 
 The CUPTI Checkpoint API provides a powerful mechanism for capturing and restoring GPU device state, enabling reproducible kernel execution even when kernels modify their own input data. This tutorial demonstrates how to use checkpoints to ensure consistent results across multiple kernel invocations.

@@ -1,5 +1,7 @@
 # CUPTI PC Sampling Analysis Utility Tutorial
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 ## Introduction
 
 The PC Sampling Utility is a powerful post-processing tool that analyzes data collected by the `pc_sampling_continuous` sample. It transforms raw PC sampling data into actionable insights by correlating assembly instructions with stall reasons and providing source-level mapping when debug information is available.

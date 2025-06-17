@@ -1,5 +1,7 @@
 # CUPTI Event Sampling Tutorial
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 ## Introduction
 
 When profiling CUDA applications, you often need to monitor performance metrics while your application is running. This tutorial demonstrates how to use CUPTI's event sampling capabilities to collect GPU performance data at regular intervals during kernel execution, giving you real-time insights into your application's behavior.

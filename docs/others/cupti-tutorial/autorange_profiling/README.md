@@ -1,5 +1,7 @@
 # CUPTI Autorange Profiling Tutorial
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 ## Introduction
 
 Profiling CUDA applications typically requires manually instrumenting your code to define which regions to profile. However, CUPTI's autorange profiling feature simplifies this process by automatically detecting and profiling kernel launches. This tutorial demonstrates how to use this powerful feature to collect performance metrics without modifying your kernels.

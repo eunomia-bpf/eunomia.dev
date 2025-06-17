@@ -1,5 +1,7 @@
 # CUPTI Metric Properties Tutorial
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 ## Introduction
 
 Understanding the properties of available GPU metrics is crucial for effective performance analysis. This sample demonstrates how to query metric properties using CUPTI's profiling APIs, including metric types, collection methods, hardware units, and pass requirements.

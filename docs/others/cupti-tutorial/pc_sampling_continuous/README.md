@@ -1,5 +1,7 @@
 # CUPTI Program Counter (PC) Sampling Continuous Tutorial
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 ## Introduction
 
 Program Counter (PC) sampling is a powerful profiling technique that allows you to understand where your CUDA kernels spend their execution time at the assembly instruction level. This tutorial demonstrates how to implement continuous PC sampling that can monitor any CUDA application without requiring source code modifications.

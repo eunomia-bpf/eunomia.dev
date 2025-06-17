@@ -1,5 +1,7 @@
 # CUPTI Concurrent Profiling Tutorial
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 ## Introduction
 
 The CUPTI Concurrent Profiling sample demonstrates advanced techniques for profiling complex CUDA applications that use multiple streams, devices, and threads. This tutorial shows how to handle the challenges of profiling concurrent GPU operations while maintaining accuracy and minimizing overhead.

@@ -1,5 +1,7 @@
 # SASS Metrics Collection Tutorial
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 ## Introduction
 
 The SASS Metrics Collection sample demonstrates how to collect detailed performance metrics at the SASS (Shader ASSembly) level using CUPTI. This tutorial shows you how to gather low-level performance data about GPU instruction execution, providing insights into the actual assembly code performance of your CUDA kernels.

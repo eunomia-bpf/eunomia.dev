@@ -1,5 +1,7 @@
 # CUPTI Common Helper Files
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 ## Overview
 
 This directory contains shared helper files and utilities used across multiple CUPTI samples. These files provide common functionality for CUPTI initialization, error handling, activity record processing, and other frequently used operations.

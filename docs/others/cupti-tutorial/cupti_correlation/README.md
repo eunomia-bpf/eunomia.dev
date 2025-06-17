@@ -1,5 +1,7 @@
 # CUPTI API-GPU Activity Correlation Tutorial
 
+> The GitHub repo and complete tutorial is available at <https://github.com/eunomia-bpf/cupti-tutorial>.
+
 ## Introduction
 
 This sample demonstrates how to correlate CUDA API calls with their corresponding GPU activities using CUPTI correlation IDs. Understanding this relationship is essential for performance analysis and debugging.
