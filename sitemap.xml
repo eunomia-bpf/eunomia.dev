@@ -1081,6 +1081,302 @@
          
     </url>
     <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/activity_trace/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/activity_trace/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/activity_trace/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/activity_trace_async/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/activity_trace_async/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/activity_trace_async/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/autorange_profiling/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/autorange_profiling/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/autorange_profiling/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/callback_event/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/callback_event/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/callback_event/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/callback_metric/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/callback_metric/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/callback_metric/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/callback_profiling/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/callback_profiling/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/callback_profiling/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/callback_timestamp/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/callback_timestamp/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/callback_timestamp/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/checkpoint_kernels/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/checkpoint_kernels/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/checkpoint_kernels/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/common/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/common/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/common/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/concurrent_profiling/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/concurrent_profiling/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/concurrent_profiling/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/cuda_graphs_trace/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/cuda_graphs_trace/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/cuda_graphs_trace/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/cuda_memory_trace/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/cuda_memory_trace/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/cuda_memory_trace/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/cupti_correlation/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/cupti_correlation/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/cupti_correlation/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/cupti_external_correlation/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/cupti_external_correlation/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/cupti_external_correlation/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/cupti_finalize/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/cupti_finalize/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/cupti_finalize/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/cupti_metric_properties/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/cupti_metric_properties/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/cupti_metric_properties/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/cupti_nvtx/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/cupti_nvtx/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/cupti_nvtx/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/cupti_query/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/cupti_query/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/cupti_query/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/cupti_trace_injection/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/cupti_trace_injection/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/cupti_trace_injection/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/event_multi_gpu/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/event_multi_gpu/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/event_multi_gpu/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/event_sampling/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/event_sampling/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/event_sampling/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/extensions/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/extensions/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/extensions/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/nested_range_profiling/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/nested_range_profiling/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/nested_range_profiling/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/nvlink_bandwidth/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/nvlink_bandwidth/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/nvlink_bandwidth/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/openacc_trace/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/openacc_trace/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/openacc_trace/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/pc_sampling/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/pc_sampling/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/pc_sampling/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/pc_sampling_continuous/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/pc_sampling_continuous/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/pc_sampling_continuous/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/pc_sampling_start_stop/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/pc_sampling_start_stop/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/pc_sampling_start_stop/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/pc_sampling_utility/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/pc_sampling_utility/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/pc_sampling_utility/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/pm_sampling/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/pm_sampling/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/pm_sampling/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/profiling_injection/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/profiling_injection/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/profiling_injection/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/range_profiling/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/range_profiling/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/range_profiling/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/sass_metrics/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/sass_metrics/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/sass_metrics/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/sass_source_map/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/sass_source_map/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/sass_source_map/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/unified_memory/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/unified_memory/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/unified_memory/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/cupti-tutorial/userrange_profiling/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/cupti-tutorial/userrange_profiling/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/cupti-tutorial/userrange_profiling/"/>
+         
+    </url>
+    <url>
          <loc>https://eunomia.dev/others/miscellaneous/bpftime-kubecon-draft/</loc>
          <lastmod>2025-06-17</lastmod>
          <changefreq>daily</changefreq>
@@ -1166,6 +1462,14 @@
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/miscellaneous/linux-plumbers-talk/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/miscellaneous/linux-plumbers-talk/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/miscellaneous/osdi-talk/</loc>
+         <lastmod>2025-06-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/miscellaneous/osdi-talk/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/miscellaneous/osdi-talk/"/>
          
     </url>
     <url>
