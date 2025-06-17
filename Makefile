@@ -20,6 +20,9 @@ bpftime:
 cuda-exp:
 	git clone https://github.com/eunomia-bpf/basic-cuda-tutorial cuda-exp --depth=1
 
+cupti-exp:
+	git clone https://github.com/eunomia-bpf/cupti-tutorial cupti-exp --depth=1
+
 docs/CNAME: tutorial cuda-exp
 	./rename.sh
 

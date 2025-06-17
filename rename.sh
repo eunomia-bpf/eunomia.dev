@@ -9,4 +9,5 @@ mv tutorial/src/SUMMARY.md docs/tutorials/index.md && \
 mkdir -p docs/tutorials/imgs && \
 cp tutorial/imgs/* docs/tutorials/imgs/ && \
 cp -rf cuda-exp/* docs/others/cuda-tutorial/ && \
+cp -rf cupti-exp/* docs/others/cupti-tutorial/ && \
 echo "eunomia.dev" > docs/CNAME
