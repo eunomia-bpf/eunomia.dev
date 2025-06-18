@@ -7992,9 +7992,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#slide-05-do-we-need-this-slide" class="md-nav__link">
+  <a href="#slide-05-outlineroadmap-of-the-talk" class="md-nav__link">
     <span class="md-ellipsis">
-      [Slide 0.5] do we need this slide?
+      [Slide 0.5] outline/roadmap of the talk
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#slide-06-roadmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      [Slide 0.6] Roadmap
     </span>
   </a>
   
@@ -8019,6 +8028,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#slide-25" class="md-nav__link">
+    <span class="md-ellipsis">
+      [Slide 2.5]
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#slide-3" class="md-nav__link">
     <span class="md-ellipsis">
       [Slide 3]
@@ -8031,6 +8049,15 @@
   <a href="#slide-4" class="md-nav__link">
     <span class="md-ellipsis">
       [Slide 4]
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#slide-45" class="md-nav__link">
+    <span class="md-ellipsis">
+      [Slide 4.5]
     </span>
   </a>
   
@@ -8304,9 +8331,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#slide-05-do-we-need-this-slide" class="md-nav__link">
+  <a href="#slide-05-outlineroadmap-of-the-talk" class="md-nav__link">
     <span class="md-ellipsis">
-      [Slide 0.5] do we need this slide?
+      [Slide 0.5] outline/roadmap of the talk
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#slide-06-roadmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      [Slide 0.6] Roadmap
     </span>
   </a>
   
@@ -8331,6 +8367,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#slide-25" class="md-nav__link">
+    <span class="md-ellipsis">
+      [Slide 2.5]
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#slide-3" class="md-nav__link">
     <span class="md-ellipsis">
       [Slide 3]
@@ -8343,6 +8388,15 @@
   <a href="#slide-4" class="md-nav__link">
     <span class="md-ellipsis">
       [Slide 4]
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#slide-45" class="md-nav__link">
+    <span class="md-ellipsis">
+      [Slide 4.5]
     </span>
   </a>
   
@@ -8491,56 +8545,88 @@
 <h1 id="speech-script-for-osdi-2025-bpftime-talk">Speech Script for OSDI 2025 bpftime talk</h1>
 <p>≈ 2 250 words, ~15 minutes</p>
 <h2 id="slide-0">[Slide 0]</h2>
-<p>Good morning, everyone. Thank you for joining our session. My name is <strong>Yusheng Zheng</strong> from UC santa cruz. Today I will present our OSDI ’25 paper titled <strong>“Extending Applications Safely and Efficiently.”</strong> </p>
-<h2 id="slide-05-do-we-need-this-slide">[Slide 0.5] do we need this slide?</h2>
+<p>Good morning, everyone. Thank you for joining our session. My name is <strong>Yusheng Zheng</strong> from UC santa cruz. Today I will present our OSDI ’25 paper titled <strong>"Extending Applications Safely and Efficiently."</strong> </p>
+<h2 id="slide-05-outlineroadmap-of-the-talk">[Slide 0.5] outline/roadmap of the talk</h2>
 <p>In this talk, I will describe our new <strong>Extension Interface Model</strong>, or EIM, and <strong>bpftime</strong>, a userspace extension framework. Together, they enable extension code to run inside production applications with <strong>kernel-grade safety</strong>, <strong>per-entry least-privilege policies</strong>, and <strong>near-native performance</strong>, all without requiring kernel patches or restructuring existing toolchains.</p>
+<h2 id="slide-06-roadmap">[Slide 0.6] Roadmap</h2>
+<p>Here's what I'll cover today. First, I'll motivate why current extension systems force painful tradeoffs between safety, performance, and flexibility. Then I'll present our solution with two key contributions: EIM, a fine-grained capability model that lets managers grant least-privilege policies per extension entry, and bpftime, an efficient runtime using offline verification, hardware isolation, and concealed entries. Next, I'll show six real-world use cases from Nginx firewalls to distributed tracing. Our evaluation demonstrates 5-6× better performance than WebAssembly and Lua, and 14× faster than kernel eBPF for uprobes.</p>
 <h2 id="slide-1">[Slide 1]</h2>
-<p>To explain why we built this system, let us first look at some real-world incidents. In 2023, a malformed Lua plug-in accidentally created an infinite loop inside Nginx, causing Bilibili’s entire content delivery network to go down for hours. Soon thereafter, Apache’s Lua module suffered a buffer-overflow bug that silently crashed httpd under a heavy workload. Early this year, a stack overflow in a Redis Lua script was weaponized to achieve arbitrary remote code execution. These examples, summarized in Table 1, show that even mature plug-in ecosystems can introduce vulnerabilities that bring production systems to a halt. Equally important, operators often disable Wasm or language-based sandboxes in production due to their persistent <strong>10–15 percent</strong> throughput tax on the hot path. In short, we still face a painful tension between safety, extensibility, and performance.</p>
+<p>Extensions are everywhere in modern software systems. Web browsers use extensions like AdBlock and password managers. HTTP servers like Nginx and Apache support Lua scripts and WebAssembly modules. Databases like PostgreSQL and MySQL enable custom functions and plugins. Text editors from Vim to VS Code rely heavily on extensions for functionality. Even operating systems use extensions—eBPF programs extend kernel capabilities for monitoring, networking, and security. The common theme is that extensions allow software to be customized without modifying the original application source code.</p>
 <h2 id="slide-2">[Slide 2]</h2>
-<p>To clarify the problem, Figure 1 depicts the four principal actors in any extension deployment. First, <strong>application developers</strong> build and ship the host application, instrumenting it with named extension entries that mark safe hook points. Second, <strong>extension developers</strong> write modules targeting those entries, potentially invoking host-provided functions or reading and writing application state. Third, the trusted <strong>extension manager</strong>—often a DevOps or security engineer—selects which modules to deploy, configures their privileges, and oversees policy updates. Finally, <strong>end users</strong> generate traffic or inputs that drive both the host and extension code. A robust framework must empower the extension manager to set per-entry policies, must protect the extension’s integrity even if the host misbehaves, and must introduce zero or near-zero steady-state overhead on the critical path.</p>
+<p>To clarify the problem, Figure 1 depicts the four principal actors in any extension deployment. First, <strong>application developers</strong> build and ship the host application, instrumenting it with named extension entries that mark safe hook points. Second, <strong>extension developers</strong> write modules targeting those entries, potentially invoking host-provided functions or reading and writing application state. Third, the trusted <strong>extension manager</strong>—often a DevOps or security engineer—selects which modules to deploy, configures their privileges, and oversees policy updates. Finally, <strong>end users</strong> generate traffic or inputs that drive both the host and extension code. A robust framework must empower the extension manager to set per-entry policies, must protect the extension's integrity even if the host misbehaves, and must introduce zero or near-zero steady-state overhead on the critical path.</p>
+<h2 id="slide-25">[Slide 2.5]</h2>
+<p>However, these extension systems face serious safety and performance challenges. Let me show you some real-world incidents. In 2023, a malformed Lua plug-in accidentally created an infinite loop inside Nginx, causing Bilibili's entire content delivery network to go down for hours. Soon thereafter, Apache's Lua module suffered a buffer-overflow bug that silently crashed httpd under a heavy workload. Early this year, a stack overflow in a Redis Lua script was weaponized to achieve arbitrary remote code execution. These examples, summarized in Table 1, show that even mature plug-in ecosystems can introduce vulnerabilities that bring production systems to a halt. Equally important, operators often disable Wasm or language-based sandboxes in production due to their persistent <strong>10–15 percent</strong> throughput tax on the hot path. In short, we still face a painful tension between safety, extensibility, and performance.</p>
 <h2 id="slide-3">[Slide 3]</h2>
 <p>Extension use-cases require three key framework features. The first is <strong>fine-grained safety/interconnectedness trade-offs</strong>. Extensions must be interconnected—able to interact with the host application by reading/writing host state and executing host-defined functions. However, extension managers wish to ensure extensions are safe and cannot harm deployment reliability or security. Since safety and interconnectedness are in tension, managers should follow the principle of least privilege, allowing each extension to perform only the actions necessary for its specific task. For example, Nginx observability extensions only need read access to specific host states, while firewall extensions need read/write access to different host states. The second requirement is <strong>isolation</strong>: extensions must be protected from harm by the host application. This ensures that attackers cannot circumvent extension-based security by exploiting bugs in the host. The third requirement is <strong>efficiency</strong>: extensions should execute at near-native speed since they may be deployed on the hot path of production systems, such as per HTTP request processing.</p>
 <h2 id="slide-4">[Slide 4]</h2>
 <p>Unfortunately, existing approaches cannot satisfy all three simultaneously. Mechanisms based on <strong>dynamic loading</strong>—for example, LD_PRELOAD or binary instrumentation—achieve great speed but provide neither isolation nor fine-grained policies. <strong>Software Fault Isolation</strong> systems, including Native Client, Lua sandboxes, or WebAssembly runtimes, do deliver safety, but they do so by inserting runtime instrumentation that carries a <strong>10–15 percent</strong> performance penalty. <strong>Subprocess isolation</strong> frameworks such as lwC, Wedge, or Orbit ensure strong separation at the OS level, but the overhead of process boundaries and IPC is untenable on low-latency paths. <strong>Kernel eBPF uprobes</strong> offer isolation and moderately rich policies, but they trap into the kernel on every invocation, costing several microseconds each time. And <strong>aspect-oriented programming</strong> tools have no built-in model for per-entry privilege constraints. The bottom line is that no single framework today can express extension-specific, per-entry policies, isolate code from host faults, and still perform like native code.</p>
+<h2 id="slide-45">[Slide 4.5]</h2>
+<p>Let's walk through the Extension Interface Model, or EIM, at a high level. At its core, EIM treats every extension feature—whether it's reading a global variable, calling a host function, or consuming CPU cycles—as a named capability. We then split the work into two phases.</p>
+<p>During development, the application developer declares what capabilities the host could ever provide and where extensions might hook into the code. This is the development-time EIM spec, where you enumerate state capabilities, function capabilities, and the exact hook points, or extension entries. At deployment, the extension manager chooses which of those capabilities each extension actually needs, creating extension classes that map entries to a minimal set of permissions. This follows the principle of least privilege—extensions only get what they absolutely require.</p>
 <h2 id="slide-5">[Slide 5]</h2>
-<p>Our first contribution, the <strong>Extension Interface Model</strong>, or <strong>EIM</strong>, addresses the policy gap. EIM treats every extension capability—be it concrete, like memory allocation or CPU instructions, or abstract, like calling a host function or reading a global variable—as a <strong>resource</strong>. During <strong>development time</strong>, the application developer annotates the host code to declare precisely which resources each extension entry could possibly consume. For example, as shown in Figure 2, a developer might declare a <strong>state capability</strong> named <code>readPid</code> that allows reading the global <code>ngx_pid</code> field, a <strong>function capability</strong> named <code>nginxTime()</code> with a post-condition ensuring a positive return value, and two <strong>extension entries</strong>—<code>processBegin</code> at the start of request processing, and <code>updateResponseContent</code> right before sending the response. These annotations are pulled from C attributes or kfunc annotations, fed into a static analysis tool that extracts symbol and DWARF debug information, and compiled into a binary-embedded manifest representing the full set of possible capabilities.</p>
+<p>During <strong>development time</strong>, the application developer annotates the host code to declare precisely which resources each extension entry could possibly consume. For example, as shown in Figure 2, a developer might declare a <strong>state capability</strong> named <code>readPid</code> that allows reading the global <code>ngx_pid</code> field, a <strong>function capability</strong> named <code>nginxTime()</code> with a post-condition ensuring a positive return value, and two <strong>extension entries</strong>—<code>processBegin</code> at the start of request processing, and <code>updateResponseContent</code> right before sending the response. These annotations are pulled from C attributes or kfunc annotations, fed into a static analysis tool that extracts symbol and DWARF debug information, and compiled into a binary-embedded manifest representing the full set of possible capabilities.</p>
 <h2 id="slide-6">[Slide 6]</h2>
-<p>Then, at <strong>deployment time</strong>, the trusted extension manager writes a small, human-readable <strong>deployment-time EIM</strong>. As shown in Figure 3, the manager creates one or more <strong>extension classes</strong> per entry point that bundle the exact capabilities to grant. For instance, an “observeProcessBegin” class might allow infinite instructions, <code>readPid</code>, <code>nginxTime()</code>, and reading the <code>Request *r</code> argument, but no writes or additional helpers. A separate “updateResponse” class might allow both <code>read(r)</code> and <code>write(r)</code> to modify response buffers. Crucially, these policies live outside the host code, so the manager can refine or revoke privileges in production without changing application binaries.</p>
+<p>Then, at <strong>deployment time</strong>, the trusted extension manager writes a small, human-readable <strong>deployment-time EIM</strong>. As shown in Figure 3, the manager creates one or more <strong>extension classes</strong> per entry point that bundle the exact capabilities to grant. For instance, an "observeProcessBegin" class might allow infinite instructions, <code>readPid</code>, <code>nginxTime()</code>, and reading the <code>Request *r</code> argument, but no writes or additional helpers. A separate "updateResponse" class might allow both <code>read(r)</code> and <code>write(r)</code> to modify response buffers. Crucially, these policies live outside the host code, so the manager can refine or revoke privileges in production without changing application binaries.</p>
 <h2 id="slide-7">[Slide 7]</h2>
 <p>Having defined a flexible, fine-grained policy model, we built <strong>bpftime</strong>, a new extension <strong>runtime</strong> that enforces EIM and delivers native-class performance, and keep it compatible with eBPF.</p>
 <p>Figure 4 shows the high-level architecture, White components are from eBPF; orange components are new to bpftime. Blue arrows show execution flow when compiling and loading an eBPF application. Green arrows show execution flow when an eBPF extension executes. White arrows with black outline indicate components that interact with eBPF maps</p>
-<p>We start with the standard Linux eBPF toolchain—compiler, loader, verifier, and JIT—shown in white. We then insert three orange components: a <strong>loader</strong> in userspace that intercepts <code>bpf()</code> syscalls, feeds the bytecode through the kernel’s eBPF verifier with extra EIM-derived assertions, and JIT-compiles the result; a <strong>binary rewriter</strong> that patches five-byte trampolines at each extension entry only when an extension is loaded; and a lean <strong>user-runtime</strong> inside the target process that flips memory protection keys and executes the JIT-compiled native code. We also provide <strong>bpftime maps</strong>, user-space equivalents of eBPF maps, to eliminate syscalls for map operations.</p>
+<p>We start with the standard Linux eBPF toolchain—compiler, loader, verifier, and JIT—shown in white. We then insert three orange components: a <strong>loader</strong> in userspace that intercepts <code>bpf()</code> syscalls, feeds the bytecode through the kernel's eBPF verifier with extra EIM-derived assertions, and JIT-compiles the result; a <strong>binary rewriter</strong> that patches five-byte trampolines at each extension entry only when an extension is loaded; and a lean <strong>user-runtime</strong> inside the target process that flips memory protection keys and executes the JIT-compiled native code. We also provide <strong>bpftime maps</strong>, user-space equivalents of eBPF maps, to eliminate syscalls for map operations.</p>
 <h2 id="slide-8">[Slide 8]</h2>
-<p>The <strong>loader and runtime workflow</strong> is as follows. First, the bpftime loader intercepts the standard <code>bpf()</code> syscalls from libbpf or bcc and parses the embedded EIM manifests alongside DWARF/BTF information. It converts the deployment-time policy into bytecode assertions, then invokes the kernel’s eBPF verifier to prove compliance. Next, it JIT-compiles the verified bytecode to native x86, attaches the resulting code and data into the target process via <code>ptrace</code> and helper libraries like Frida and Capstone, and writes trampolines at the designated entry offsets. At runtime, when the host process executes one of those patched instructions, it jumps into the user-runtime, executes two <code>WRPKRU</code> instructions to switch to the extension domain, jumps to the extension code, and upon return resets the key and continues execution. Meanwhile, any shared state lives in bpftime maps in user space, avoiding repeated kernel traps.</p>
+<p>The <strong>loader and runtime workflow</strong> is as follows. First, the bpftime loader intercepts the standard <code>bpf()</code> syscalls from libbpf or bcc and parses the embedded EIM manifests alongside DWARF/BTF information. It converts the deployment-time policy into bytecode assertions, then invokes the kernel's eBPF verifier to prove compliance. Next, it JIT-compiles the verified bytecode to native x86, attaches the resulting code and data into the target process via <code>ptrace</code> and helper libraries like Frida and Capstone, and writes trampolines at the designated entry offsets. At runtime, when the host process executes one of those patched instructions, it jumps into the user-runtime, executes two <code>WRPKRU</code> instructions to switch to the extension domain, jumps to the extension code, and upon return resets the key and continues execution. Meanwhile, any shared state lives in bpftime maps in user space, avoiding repeated kernel traps.</p>
 <h2 id="slide-9">[Slide 9]</h2>
-<p>bpftime’s performance advantage rests on three synergistic techniques. First, we leverage <strong>offline verification</strong>: by using the eBPF verifier at load time with added EIM constraints, we guarantee pointer safety, type safety, and resource limits upfront—so the hot path carries no extra checks. Second, we employ <strong>Intel Memory Protection Keys (MPK)</strong> for <strong>intra-process isolation</strong>. A single pair of <code>WRPKRU</code> instructions flips the protection domain, obviating expensive <code>mprotect</code> calls or context switches. Third, we introduce <strong>concealed extension entries</strong>: if no extension attaches to a given hook, our rewriter erases the trampoline entirely, no overhead for per potential hook. In combination, these techniques yield near-native performance even under heavy load.</p>
+<p>bpftime's performance advantage rests on three synergistic techniques. First, we leverage <strong>offline verification</strong>: by using the eBPF verifier at load time with added EIM constraints, we guarantee pointer safety, type safety, and resource limits upfront—so the hot path carries no extra checks. Second, we employ <strong>Intel Memory Protection Keys (MPK)</strong> for <strong>intra-process isolation</strong>. A single pair of <code>WRPKRU</code> instructions flips the protection domain, obviating expensive <code>mprotect</code> calls or context switches. Third, we introduce <strong>concealed extension entries</strong>: if no extension attaches to a given hook, our rewriter erases the trampoline entirely, no overhead for per potential hook. In combination, these techniques yield near-native performance even under heavy load.</p>
 <h2 id="slide-10">[Slide 10]</h2>
-<p>We validated our design with <strong>six</strong> real-world use cases drawn from observability, security, and performance tuning. First, an <strong>inline firewall</strong> module for Nginx that filters malicious URLs at line rate. Second, a <strong>durability tuner</strong> for Redis’s Append-Only File that batches fsync calls to tune the throughput-safety trade-off. Third, a <strong>metadata cache</strong> for FUSE that collapses repeated <code>stat</code> calls into a fast in-process lookup. Fourth, <strong>DeepFlow</strong>, an open-source distributed tracing platform that instruments both kernel and user APIs. Fifth, <strong>syscount</strong>, the classic per-process syscall profiler from the bcc toolkit. And sixth, <strong>sslsniff</strong>, which decrypts and logs SSL/TLS traffic in userspace for end-to-end observability. Each use case exercises a different corner of our requirement triangle—some demand throughput, some demand low latency, some demand precise policy control.</p>
+<p>We validated our design with <strong>six</strong> real-world use cases drawn from observability, security, and performance tuning. First, an <strong>inline firewall</strong> module for Nginx that filters malicious URLs at line rate. Second, a <strong>durability tuner</strong> for Redis's Append-Only File that batches fsync calls to tune the throughput-safety trade-off. Third, a <strong>metadata cache</strong> for FUSE that collapses repeated <code>stat</code> calls into a fast in-process lookup. Fourth, <strong>DeepFlow</strong>, an open-source distributed tracing platform that instruments both kernel and user APIs. Fifth, <strong>syscount</strong>, the classic per-process syscall profiler from the bcc toolkit. And sixth, <strong>sslsniff</strong>, which decrypts and logs SSL/TLS traffic in userspace for end-to-end observability. Each use case exercises a different corner of our requirement triangle—some demand throughput, some demand low latency, some demand precise policy control.</p>
 <h2 id="slide-11">[Slide 11]</h2>
-<p>Let us begin with <strong>throughput-critical</strong> scenarios. In Figure 6 we show Nginx performance under an eight-thread, 64-connection <code>wrk</code> workload. The same firewall logic implemented in Lua or WebAssembly incurs an <strong>11–12 percent</strong> throughput loss. Rewriting it as a bpftime plug-in governed by an EIM policy reduces that penalty to only <strong>2 percent</strong>, a <strong>5×–6×</strong> improvement. Next, in Figure 8 we explore Redis durability. Redis offers “always-on” fsync, which blocks on every write and cuts throughput sixfold, or “every-second” fsync, which is faster but risks losing tens of thousands of writes on crash. With a 20-line bpftime extension we implement <strong>delayed-fsync</strong>, batching at most two writes per flush and consulting a shared kernel counter to avoid redundant calls. This delivers <strong>65 000 req/s</strong>—five times faster than always-on—while risking at most two lost writes. Finally, Table 2 reports FUSE caching. A simple passthrough FUSE filesystem takes <strong>3.65 s</strong> to issue 100 000 <code>stat</code> calls; with bpftime’s metadata cache that drops to <strong>0.176 s</strong>, a <strong>20×</strong> speed-up and dramatically improved responsiveness for file-system–heavy workloads.</p>
+<p>Let us begin with <strong>throughput-critical</strong> scenarios. In Figure 6 we show Nginx performance under an eight-thread, 64-connection <code>wrk</code> workload. The same firewall logic implemented in Lua or WebAssembly incurs an <strong>11–12 percent</strong> throughput loss. Rewriting it as a bpftime plug-in governed by an EIM policy reduces that penalty to only <strong>2 percent</strong>, a <strong>5×–6×</strong> improvement. Next, in Figure 8 we explore Redis durability. Redis offers "always-on" fsync, which blocks on every write and cuts throughput sixfold, or "every-second" fsync, which is faster but risks losing tens of thousands of writes on crash. With a 20-line bpftime extension we implement <strong>delayed-fsync</strong>, batching at most two writes per flush and consulting a shared kernel counter to avoid redundant calls. This delivers <strong>65 000 req/s</strong>—five times faster than always-on—while risking at most two lost writes. Finally, Table 2 reports FUSE caching. A simple passthrough FUSE filesystem takes <strong>3.65 s</strong> to issue 100 000 <code>stat</code> calls; with bpftime's metadata cache that drops to <strong>0.176 s</strong>, a <strong>20×</strong> speed-up and dramatically improved responsiveness for file-system–heavy workloads.</p>
 <h2 id="slide-12">[Slide 12]</h2>
-<p>Turning to <strong>observability</strong>, we examine DeepFlow, syscount, and sslsniff. Figure 7 plots the throughput of a TLS-protected Go microservice under DeepFlow instrumentation. Kernel uprobes alone cut throughput by <strong>54 percent</strong> on large responses; swapping in bpftime uprobes with identical tracing code shrinks that drop to <strong>20 percent</strong>. Next, syscount traditionally hooks every syscall in every process, imposing a <strong>9–10 percent</strong> overhead machine-wide. Figure 10 shows that bpftime confines syscount’s overhead to the target PID—other processes run at native speed, enhancing multi-tenant fairness. Finally, Figure 9 shows that sslsniff’s TLS interception costs <strong>28 percent</strong> under kernel eBPF; under bpftime it costs only <strong>7 percent</strong>, making end-to-end encrypted tracing feasible in performance-sensitive servers.</p>
+<p>Turning to <strong>observability</strong>, we examine DeepFlow, syscount, and sslsniff. Figure 7 plots the throughput of a TLS-protected Go microservice under DeepFlow instrumentation. Kernel uprobes alone cut throughput by <strong>54 percent</strong> on large responses; swapping in bpftime uprobes with identical tracing code shrinks that drop to <strong>20 percent</strong>. Next, syscount traditionally hooks every syscall in every process, imposing a <strong>9–10 percent</strong> overhead machine-wide. Figure 10 shows that bpftime confines syscount's overhead to the target PID—other processes run at native speed, enhancing multi-tenant fairness. Finally, Figure 9 shows that sslsniff's TLS interception costs <strong>28 percent</strong> under kernel eBPF; under bpftime it costs only <strong>7 percent</strong>, making end-to-end encrypted tracing feasible in performance-sensitive servers.</p>
 <h2 id="slide-13">[Slide 13]</h2>
-<p>To peel back the layers, we ran <strong>micro-benchmarks</strong> shown in Figure 11 and Table 3. Dispatching a user-space uprobe via kernel eBPF takes <strong>2.5 µs</strong>; bpftime’s trampoline and MPK switch complete in <strong>190 ns</strong>, a <strong>14×</strong> improvement. Syscall tracepoints under bpftime finish in <strong>232 ns</strong>, compared to <strong>151 ns</strong> in kernel mode—only a <strong>1.5×</strong> overhead for argument marshaling. Map operations like hash update, delete, and lookup run <strong>2×</strong> faster or better, since they operate on in-process data structures rather than kernel objects. Overall, we observe an average <strong>1.5–1.7×</strong> speed-up over existing userspace eBPF VMs such as ubpf and rbpf, confirming that our verifier-offline, MPK-protected design delivers near-native performance.</p>
+<p>To peel back the layers, we ran <strong>micro-benchmarks</strong> shown in Figure 11 and Table 3. Dispatching a user-space uprobe via kernel eBPF takes <strong>2.5 µs</strong>; bpftime's trampoline and MPK switch complete in <strong>190 ns</strong>, a <strong>14×</strong> improvement. Syscall tracepoints under bpftime finish in <strong>232 ns</strong>, compared to <strong>151 ns</strong> in kernel mode—only a <strong>1.5×</strong> overhead for argument marshaling. Map operations like hash update, delete, and lookup run <strong>2×</strong> faster or better, since they operate on in-process data structures rather than kernel objects. Overall, we observe an average <strong>1.5–1.7×</strong> speed-up over existing userspace eBPF VMs such as ubpf and rbpf, confirming that our verifier-offline, MPK-protected design delivers near-native performance.</p>
 <h2 id="slide-14">[Slide 14]</h2>
 <p>I will close with three <strong>take-aways</strong> and a glance at the <strong>roadmap</strong>. First, <strong>EIM</strong> gives extension managers a precise, declarative policy language to grant least-privilege resource sets at the granularity of individual entry points, all without touching application source code at deployment time. Second, <strong>bpftime</strong> enforces those policies with three lightweight primitives—offline eBPF verification, Intel MPK for domain switching, and dynamic trampolines—yielding kernel-grade safety and library-grade speed. Third, we preserve <strong>100 percent compatibility</strong> with the existing eBPF syscall ABI, so you can run eBPF applications seamlessly without recompilation and modification. Looking ahead, we are also extending bpftime to support GPU and ML workloads.</p>
 <h2 id="slide-15">[Slide 15]</h2>
-<p>Thank you for your attention. <strong>bpftime</strong> is open-source under the MIT license at <strong>github.com/eunomia-bpf/bpftime</strong>. We welcome your issues, pull requests, and collaboration. I’m happy to take your questions.</p>
+<p>Thank you for your attention. <strong>bpftime</strong> is open-source under the MIT license at <strong>github.com/eunomia-bpf/bpftime</strong>. We welcome your issues, pull requests, and collaboration. I'm happy to take your questions.</p>
 <h2 id="complete-slide-deck-16-slides-169"><strong>Complete Slide Deck (16 slides, 16:9)</strong></h2>
 <hr />
 <p><strong>Slide 0</strong>
 <strong>Extending Applications Safely &amp; Efficiently</strong>
 Yusheng Zheng¹ • Tong Yu² • Yiwei Yang¹ • Yanpeng Hu³
 Xiaozheng Lai⁴ • Dan Williams⁵ • Andi Quinn¹
-¹UC Santa Cruz   ²eunomia-bpf Community   ³ShanghaiTech University
-⁴South China University of Technology   ⁵Virginia Tech</p>
-<p><strong>Slide 0.5</strong></p>
-<p>Outline of the talk</p>
+¹UC Santa Cruz   ²eunomia-bpf Community   ³ShanghaiTech University
+⁴South China University of Technology   ⁵Virginia Tech</p>
+<p><strong>Slide 0.5</strong>
+<strong>Roadmap</strong></p>
+<ol>
+<li><strong>Motivation</strong> → Extension safety vs. performance</li>
+<li><strong>EIM + bpftime</strong> → Our two-part solution  </li>
+<li><strong>Use Cases</strong> → Six real-world applications</li>
+<li><strong>Evaluation</strong> → 5-14× performance improvements</li>
+</ol>
 <hr />
 <p><strong>Slide 1</strong>
-<strong>Why Plug-in Safety and Performance Matters</strong></p>
+<strong>Extensions Are Everywhere</strong></p>
 <ul>
-<li>Example issues caused by extension safety violations</li>
+<li><strong>Web browsers</strong>: AdBlock, password managers, developer tools</li>
+<li><strong>HTTP servers</strong>: Nginx Lua scripts, Apache modules, WebAssembly plugins  </li>
+<li><strong>Databases</strong>: PostgreSQL functions, MySQL plugins, custom operators</li>
+<li><strong>Text editors</strong>: Vim/VS Code extensions, language servers, formatters</li>
+<li><strong>Operating systems</strong>: eBPF programs for monitoring, networking, security</li>
+</ul>
+<p><strong>Common theme</strong>: Customize software without modifying application source code</p>
+<hr />
+<p><strong>Slide 2</strong>
+<strong>Four Roles in an Extension Ecosystem</strong></p>
+<p>![Figure 1 from paper]</p>
+<p>– <strong>Application Developers</strong> write and ship the host binary with named extension entries.
+– <strong>Extension Developers</strong> implement modules against those entries.
+– <strong>Extension Manager</strong> chooses which module runs where and with what privileges.
+– <strong>Users</strong> generate inputs that exercise both host and extensions.</p>
+<hr />
+<p><strong>Slide 3</strong>
+<strong>Extensions Have Serious Problems</strong></p>
+<ul>
+<li>Real-world extension safety violations:</li>
 </ul>
 <table>
 <thead>
@@ -8569,18 +8655,11 @@ Xiaozheng Lai⁴ • Dan Williams⁵ • Andi Quinn¹
 </tbody>
 </table>
 <ul>
-<li>The performance penalty of existing approaches</li>
+<li><strong>Performance penalty</strong>: Wasm/language sandboxes impose 10–15% overhead</li>
+<li><strong>Painful tension</strong>: Safety vs. Extensibility vs. Performance</li>
 </ul>
 <hr />
-<p><strong>Slide 2</strong>
-<strong>Four Roles in an Extension Ecosystem</strong></p>
-<p>![Figure 1 from paper]</p>
-<p>– <strong>Application Developers</strong> write and ship the host binary with named extension entries.
-– <strong>Extension Developers</strong> implement modules against those entries.
-– <strong>Extension Manager</strong> chooses which module runs where and with what privileges.
-– <strong>Users</strong> generate inputs that exercise both host and extensions.</p>
-<hr />
-<p><strong>Slide 3</strong>
+<p><strong>Slide 4</strong>
 <strong>Key Extension Framework Features</strong></p>
 <blockquote>
 <p>short version</p>
@@ -8603,7 +8682,7 @@ Xiaozheng Lai⁴ • Dan Williams⁵ • Andi Quinn¹
    – Critical for per-request, per-operation extension deployments</li>
 </ol>
 <hr />
-<p><strong>Slide 4</strong>
+<p><strong>Slide 5</strong>
 <strong>State-of-the-Art Falls Short</strong></p>
 <ul>
 <li><strong>Native Loading (LD_PRELOAD, DBI)</strong>
@@ -8617,8 +8696,23 @@ Xiaozheng Lai⁴ • Dan Williams⁵ • Andi Quinn¹
 <li><strong>Aspect-Oriented Languages</strong>
   No built-in model for specifying or enforcing per-entry policies.</li>
 </ul>
+<p><strong>Slide 5.5</strong>
+<strong>EIM: Extension Interface Model</strong></p>
+<ul>
+<li>Capabilities as Resources​</li>
+<li>State access (e.g., read/write variables)​</li>
+<li>Function calls (with pre/post-conditions)​</li>
+<li>
+<p>Hardware resources (instructions, memory)​</p>
+</li>
+<li>
+<p>Two-Phase Specification​</p>
+</li>
+<li>Development-Time (by Developer)​</li>
+<li>Deployment-Time (by Manager)</li>
+</ul>
 <hr />
-<p><strong>Slide 5</strong>
+<p><strong>Slide 6</strong>
 <strong>EIM: Development-Time Specification</strong></p>
 <ul>
 <li>Developed by application developer</li>
@@ -8626,7 +8720,7 @@ Xiaozheng Lai⁴ • Dan Williams⁵ • Andi Quinn¹
 </ul>
 <p><em>(Figure 2: Example development-time EIM for Nginx observability)</em></p>
 <hr />
-<p><strong>Slide 6</strong>
+<p><strong>Slide 7</strong>
 <strong>EIM: Deployment-Time Specification</strong></p>
 <ul>
 <li>Developed by extension developer or manager</li>
@@ -8634,17 +8728,21 @@ Xiaozheng Lai⁴ • Dan Williams⁵ • Andi Quinn¹
 </ul>
 <p><em>(Figure 3: Example deployment-time EIM for Nginx observability)</em></p>
 <hr />
-<p><strong>Slide 7</strong>
+<p><strong>Slide 8</strong>
 <strong>bpftime Architecture at a Glance</strong></p>
+<ul>
+<li>Compatible with eBPF</li>
+<li>Verification for safety and efficiency</li>
+</ul>
 <p>![Figure 4 from paper]</p>
 <ul>
-<li><strong>Loader</strong> intercepts <code>bpf()</code> syscalls; enforces EIM via kernel’s verifier + extra assertions.</li>
+<li><strong>Loader</strong> intercepts <code>bpf()</code> syscalls; enforces EIM via kernel's verifier + extra assertions.</li>
 <li><strong>Binary Rewriter</strong> inserts trampolines at extension entries only when needed.</li>
 <li><strong>User-Runtime</strong> in target process flips MPK keys and executes JIT-compiled code.</li>
 <li><strong>bpftime Maps</strong> mirror eBPF maps in user space to avoid syscalls.</li>
 </ul>
 <hr />
-<p><strong>Slide 8</strong>
+<p><strong>Slide 9</strong>
 <strong>Efficient Safety &amp; Isolation</strong></p>
 <ul>
 <li><strong>Offline Verification</strong>
@@ -8655,18 +8753,18 @@ Xiaozheng Lai⁴ • Dan Williams⁵ • Andi Quinn¹
   Unused trampolines erased at load time ⇒ dormant cost per hook only ≈ 1.3 ns.</li>
 </ul>
 <hr />
-<p><strong>Slide 9</strong>
+<p><strong>Slide 10</strong>
 <strong>Loader &amp; Runtime Workflow</strong></p>
 <ol>
 <li><strong>Intercept</strong> standard eBPF syscalls from libbpf/bcc.</li>
 <li><strong>Parse</strong> EIM manifests and DWARF/BTF to generate constraints.</li>
-<li><strong>Verify</strong> byte-code via kernel’s eBPF verifier with added assertions.</li>
+<li><strong>Verify</strong> byte-code via kernel's eBPF verifier with added assertions.</li>
 <li><strong>JIT-Compile</strong> verified byte-code into native x86.</li>
 <li><strong>Inject</strong> user-runtime via <code>ptrace</code> + Frida + Capstone trampolines.</li>
 <li><strong>Execute</strong> extension: flip MPK key → jump to code → flip back → resume.</li>
 </ol>
 <hr />
-<p><strong>Slide 10</strong>
+<p><strong>Slide 11</strong>
 <strong>Six Real-World Use Cases</strong></p>
 <ul>
 <li><strong>Nginx Firewall</strong>: A lightweight request filtering and logging Nginx module.</li>
@@ -8677,7 +8775,7 @@ Xiaozheng Lai⁴ • Dan Williams⁵ • Andi Quinn¹
 <li><strong>sslsniff</strong>: A TLS traffic analysis eBPF tool from bcc.</li>
 </ul>
 <hr />
-<p><strong>Slide 11</strong>
+<p><strong>Slide 12</strong>
 <strong>Customization: Nginx, Redis, FUSE</strong></p>
 <ul>
 <li><strong>Nginx (Figure 6)</strong></li>
@@ -8756,7 +8854,7 @@ We welcome issues, pull requests, and collaboration.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 17, 2025 09:08:33 UTC">June 17, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 18, 2025 01:52:46 UTC">June 18, 2025</span>
   </span>
 
     
