@@ -4,11 +4,15 @@
 
 ## [Slide 0]
 
-Good morning, everyone. Thank you for joining our session. My name is **Yusheng Zheng** from UC santa cruz. Today I will present our OSDI ’25 paper titled **“Extending Applications Safely and Efficiently.”** 
+Good morning, everyone. Thank you for joining our session. My name is **Yusheng Zheng** from UC santa cruz. Today I will present our OSDI ’25 paper titled **"Extending Applications Safely and Efficiently."** 
 
-## [Slide 0.5] outline of the talk
+## [Slide 0.5] outline/roadmap of the talk
 
 In this talk, I will describe our new **Extension Interface Model**, or EIM, and **bpftime**, a userspace extension framework. Together, they enable extension code to run inside production applications with **kernel-grade safety**, **per-entry least-privilege policies**, and **near-native performance**, all without requiring kernel patches or restructuring existing toolchains.
+
+## [Slide 0.6] Roadmap
+
+Here's what I'll cover today. First, I'll motivate why current extension systems force painful tradeoffs between safety, performance, and flexibility. Then I'll present our solution with two key contributions: EIM, a fine-grained capability model that lets managers grant least-privilege policies per extension entry, and bpftime, an efficient runtime using offline verification, hardware isolation, and concealed entries. Next, I'll show six real-world use cases from Nginx firewalls to distributed tracing. Our evaluation demonstrates 5-6× better performance than WebAssembly and Lua, and 14× faster than kernel eBPF for uprobes.
 
 ## [Slide 1]
 
@@ -16,7 +20,7 @@ Extensions are everywhere in modern software systems. Web browsers use extension
 
 ## [Slide 2]
 
-To clarify the problem, Figure 1 depicts the four principal actors in any extension deployment. First, **application developers** build and ship the host application, instrumenting it with named extension entries that mark safe hook points. Second, **extension developers** write modules targeting those entries, potentially invoking host-provided functions or reading and writing application state. Third, the trusted **extension manager**—often a DevOps or security engineer—selects which modules to deploy, configures their privileges, and oversees policy updates. Finally, **end users** generate traffic or inputs that drive both the host and extension code. A robust framework must empower the extension manager to set per-entry policies, must protect the extension’s integrity even if the host misbehaves, and must introduce zero or near-zero steady-state overhead on the critical path.
+To clarify the problem, Figure 1 depicts the four principal actors in any extension deployment. First, **application developers** build and ship the host application, instrumenting it with named extension entries that mark safe hook points. Second, **extension developers** write modules targeting those entries, potentially invoking host-provided functions or reading and writing application state. Third, the trusted **extension manager**—often a DevOps or security engineer—selects which modules to deploy, configures their privileges, and oversees policy updates. Finally, **end users** generate traffic or inputs that drive both the host and extension code. A robust framework must empower the extension manager to set per-entry policies, must protect the extension's integrity even if the host misbehaves, and must introduce zero or near-zero steady-state overhead on the critical path.
 
 ## [Slide 2.5]
 
@@ -29,13 +33,19 @@ Extension use-cases require three key framework features. The first is **fine-gr
 
 Unfortunately, existing approaches cannot satisfy all three simultaneously. Mechanisms based on **dynamic loading**—for example, LD\_PRELOAD or binary instrumentation—achieve great speed but provide neither isolation nor fine-grained policies. **Software Fault Isolation** systems, including Native Client, Lua sandboxes, or WebAssembly runtimes, do deliver safety, but they do so by inserting runtime instrumentation that carries a **10–15 percent** performance penalty. **Subprocess isolation** frameworks such as lwC, Wedge, or Orbit ensure strong separation at the OS level, but the overhead of process boundaries and IPC is untenable on low-latency paths. **Kernel eBPF uprobes** offer isolation and moderately rich policies, but they trap into the kernel on every invocation, costing several microseconds each time. And **aspect-oriented programming** tools have no built-in model for per-entry privilege constraints. The bottom line is that no single framework today can express extension-specific, per-entry policies, isolate code from host faults, and still perform like native code.
 
+## [Slide 4.5]
+
+Let's walk through the Extension Interface Model, or EIM, at a high level. At its core, EIM treats every extension feature—whether it's reading a global variable, calling a host function, or consuming CPU cycles—as a named capability. We then split the work into two phases.
+
+During development, the application developer declares what capabilities the host could ever provide and where extensions might hook into the code. This is the development-time EIM spec, where you enumerate state capabilities, function capabilities, and the exact hook points, or extension entries. At deployment, the extension manager chooses which of those capabilities each extension actually needs, creating extension classes that map entries to a minimal set of permissions. This follows the principle of least privilege—extensions only get what they absolutely require.
+
 ## [Slide 5]
 
-Our first contribution, the **Extension Interface Model**, or **EIM**, addresses the policy gap. EIM treats every extension capability—be it concrete, like memory allocation or CPU instructions, or abstract, like calling a host function or reading a global variable—as a **resource**. During **development time**, the application developer annotates the host code to declare precisely which resources each extension entry could possibly consume. For example, as shown in Figure 2, a developer might declare a **state capability** named `readPid` that allows reading the global `ngx_pid` field, a **function capability** named `nginxTime()` with a post-condition ensuring a positive return value, and two **extension entries**—`processBegin` at the start of request processing, and `updateResponseContent` right before sending the response. These annotations are pulled from C attributes or kfunc annotations, fed into a static analysis tool that extracts symbol and DWARF debug information, and compiled into a binary-embedded manifest representing the full set of possible capabilities.
+During **development time**, the application developer annotates the host code to declare precisely which resources each extension entry could possibly consume. For example, as shown in Figure 2, a developer might declare a **state capability** named `readPid` that allows reading the global `ngx_pid` field, a **function capability** named `nginxTime()` with a post-condition ensuring a positive return value, and two **extension entries**—`processBegin` at the start of request processing, and `updateResponseContent` right before sending the response. These annotations are pulled from C attributes or kfunc annotations, fed into a static analysis tool that extracts symbol and DWARF debug information, and compiled into a binary-embedded manifest representing the full set of possible capabilities.
 
 ## [Slide 6]
 
-Then, at **deployment time**, the trusted extension manager writes a small, human-readable **deployment-time EIM**. As shown in Figure 3, the manager creates one or more **extension classes** per entry point that bundle the exact capabilities to grant. For instance, an “observeProcessBegin” class might allow infinite instructions, `readPid`, `nginxTime()`, and reading the `Request *r` argument, but no writes or additional helpers. A separate “updateResponse” class might allow both `read(r)` and `write(r)` to modify response buffers. Crucially, these policies live outside the host code, so the manager can refine or revoke privileges in production without changing application binaries.
+Then, at **deployment time**, the trusted extension manager writes a small, human-readable **deployment-time EIM**. As shown in Figure 3, the manager creates one or more **extension classes** per entry point that bundle the exact capabilities to grant. For instance, an "observeProcessBegin" class might allow infinite instructions, `readPid`, `nginxTime()`, and reading the `Request *r` argument, but no writes or additional helpers. A separate "updateResponse" class might allow both `read(r)` and `write(r)` to modify response buffers. Crucially, these policies live outside the host code, so the manager can refine or revoke privileges in production without changing application binaries.
 
 ## [Slide 7]
 
@@ -43,38 +53,38 @@ Having defined a flexible, fine-grained policy model, we built **bpftime**, a ne
 
 Figure 4 shows the high-level architecture, White components are from eBPF; orange components are new to bpftime. Blue arrows show execution flow when compiling and loading an eBPF application. Green arrows show execution flow when an eBPF extension executes. White arrows with black outline indicate components that interact with eBPF maps
 
-We start with the standard Linux eBPF toolchain—compiler, loader, verifier, and JIT—shown in white. We then insert three orange components: a **loader** in userspace that intercepts `bpf()` syscalls, feeds the bytecode through the kernel’s eBPF verifier with extra EIM-derived assertions, and JIT-compiles the result; a **binary rewriter** that patches five-byte trampolines at each extension entry only when an extension is loaded; and a lean **user-runtime** inside the target process that flips memory protection keys and executes the JIT-compiled native code. We also provide **bpftime maps**, user-space equivalents of eBPF maps, to eliminate syscalls for map operations.
+We start with the standard Linux eBPF toolchain—compiler, loader, verifier, and JIT—shown in white. We then insert three orange components: a **loader** in userspace that intercepts `bpf()` syscalls, feeds the bytecode through the kernel's eBPF verifier with extra EIM-derived assertions, and JIT-compiles the result; a **binary rewriter** that patches five-byte trampolines at each extension entry only when an extension is loaded; and a lean **user-runtime** inside the target process that flips memory protection keys and executes the JIT-compiled native code. We also provide **bpftime maps**, user-space equivalents of eBPF maps, to eliminate syscalls for map operations.
 
 ## [Slide 8]
 
-The **loader and runtime workflow** is as follows. First, the bpftime loader intercepts the standard `bpf()` syscalls from libbpf or bcc and parses the embedded EIM manifests alongside DWARF/BTF information. It converts the deployment-time policy into bytecode assertions, then invokes the kernel’s eBPF verifier to prove compliance. Next, it JIT-compiles the verified bytecode to native x86, attaches the resulting code and data into the target process via `ptrace` and helper libraries like Frida and Capstone, and writes trampolines at the designated entry offsets. At runtime, when the host process executes one of those patched instructions, it jumps into the user-runtime, executes two `WRPKRU` instructions to switch to the extension domain, jumps to the extension code, and upon return resets the key and continues execution. Meanwhile, any shared state lives in bpftime maps in user space, avoiding repeated kernel traps.
+The **loader and runtime workflow** is as follows. First, the bpftime loader intercepts the standard `bpf()` syscalls from libbpf or bcc and parses the embedded EIM manifests alongside DWARF/BTF information. It converts the deployment-time policy into bytecode assertions, then invokes the kernel's eBPF verifier to prove compliance. Next, it JIT-compiles the verified bytecode to native x86, attaches the resulting code and data into the target process via `ptrace` and helper libraries like Frida and Capstone, and writes trampolines at the designated entry offsets. At runtime, when the host process executes one of those patched instructions, it jumps into the user-runtime, executes two `WRPKRU` instructions to switch to the extension domain, jumps to the extension code, and upon return resets the key and continues execution. Meanwhile, any shared state lives in bpftime maps in user space, avoiding repeated kernel traps.
 
 
 ## [Slide 9]
 
-bpftime’s performance advantage rests on three synergistic techniques. First, we leverage **offline verification**: by using the eBPF verifier at load time with added EIM constraints, we guarantee pointer safety, type safety, and resource limits upfront—so the hot path carries no extra checks. Second, we employ **Intel Memory Protection Keys (MPK)** for **intra-process isolation**. A single pair of `WRPKRU` instructions flips the protection domain, obviating expensive `mprotect` calls or context switches. Third, we introduce **concealed extension entries**: if no extension attaches to a given hook, our rewriter erases the trampoline entirely, no overhead for per potential hook. In combination, these techniques yield near-native performance even under heavy load.
+bpftime's performance advantage rests on three synergistic techniques. First, we leverage **offline verification**: by using the eBPF verifier at load time with added EIM constraints, we guarantee pointer safety, type safety, and resource limits upfront—so the hot path carries no extra checks. Second, we employ **Intel Memory Protection Keys (MPK)** for **intra-process isolation**. A single pair of `WRPKRU` instructions flips the protection domain, obviating expensive `mprotect` calls or context switches. Third, we introduce **concealed extension entries**: if no extension attaches to a given hook, our rewriter erases the trampoline entirely, no overhead for per potential hook. In combination, these techniques yield near-native performance even under heavy load.
 
 ## [Slide 10]
 
-We validated our design with **six** real-world use cases drawn from observability, security, and performance tuning. First, an **inline firewall** module for Nginx that filters malicious URLs at line rate. Second, a **durability tuner** for Redis’s Append-Only File that batches fsync calls to tune the throughput-safety trade-off. Third, a **metadata cache** for FUSE that collapses repeated `stat` calls into a fast in-process lookup. Fourth, **DeepFlow**, an open-source distributed tracing platform that instruments both kernel and user APIs. Fifth, **syscount**, the classic per-process syscall profiler from the bcc toolkit. And sixth, **sslsniff**, which decrypts and logs SSL/TLS traffic in userspace for end-to-end observability. Each use case exercises a different corner of our requirement triangle—some demand throughput, some demand low latency, some demand precise policy control.
+We validated our design with **six** real-world use cases drawn from observability, security, and performance tuning. First, an **inline firewall** module for Nginx that filters malicious URLs at line rate. Second, a **durability tuner** for Redis's Append-Only File that batches fsync calls to tune the throughput-safety trade-off. Third, a **metadata cache** for FUSE that collapses repeated `stat` calls into a fast in-process lookup. Fourth, **DeepFlow**, an open-source distributed tracing platform that instruments both kernel and user APIs. Fifth, **syscount**, the classic per-process syscall profiler from the bcc toolkit. And sixth, **sslsniff**, which decrypts and logs SSL/TLS traffic in userspace for end-to-end observability. Each use case exercises a different corner of our requirement triangle—some demand throughput, some demand low latency, some demand precise policy control.
 
 ## [Slide 11]
 
-Let us begin with **throughput-critical** scenarios. In Figure 6 we show Nginx performance under an eight-thread, 64-connection `wrk` workload. The same firewall logic implemented in Lua or WebAssembly incurs an **11–12 percent** throughput loss. Rewriting it as a bpftime plug-in governed by an EIM policy reduces that penalty to only **2 percent**, a **5×–6×** improvement. Next, in Figure 8 we explore Redis durability. Redis offers “always-on” fsync, which blocks on every write and cuts throughput sixfold, or “every-second” fsync, which is faster but risks losing tens of thousands of writes on crash. With a 20-line bpftime extension we implement **delayed-fsync**, batching at most two writes per flush and consulting a shared kernel counter to avoid redundant calls. This delivers **65 000 req/s**—five times faster than always-on—while risking at most two lost writes. Finally, Table 2 reports FUSE caching. A simple passthrough FUSE filesystem takes **3.65 s** to issue 100 000 `stat` calls; with bpftime’s metadata cache that drops to **0.176 s**, a **20×** speed-up and dramatically improved responsiveness for file-system–heavy workloads.
+Let us begin with **throughput-critical** scenarios. In Figure 6 we show Nginx performance under an eight-thread, 64-connection `wrk` workload. The same firewall logic implemented in Lua or WebAssembly incurs an **11–12 percent** throughput loss. Rewriting it as a bpftime plug-in governed by an EIM policy reduces that penalty to only **2 percent**, a **5×–6×** improvement. Next, in Figure 8 we explore Redis durability. Redis offers "always-on" fsync, which blocks on every write and cuts throughput sixfold, or "every-second" fsync, which is faster but risks losing tens of thousands of writes on crash. With a 20-line bpftime extension we implement **delayed-fsync**, batching at most two writes per flush and consulting a shared kernel counter to avoid redundant calls. This delivers **65 000 req/s**—five times faster than always-on—while risking at most two lost writes. Finally, Table 2 reports FUSE caching. A simple passthrough FUSE filesystem takes **3.65 s** to issue 100 000 `stat` calls; with bpftime's metadata cache that drops to **0.176 s**, a **20×** speed-up and dramatically improved responsiveness for file-system–heavy workloads.
 
 ## [Slide 12]
 
-Turning to **observability**, we examine DeepFlow, syscount, and sslsniff. Figure 7 plots the throughput of a TLS-protected Go microservice under DeepFlow instrumentation. Kernel uprobes alone cut throughput by **54 percent** on large responses; swapping in bpftime uprobes with identical tracing code shrinks that drop to **20 percent**. Next, syscount traditionally hooks every syscall in every process, imposing a **9–10 percent** overhead machine-wide. Figure 10 shows that bpftime confines syscount’s overhead to the target PID—other processes run at native speed, enhancing multi-tenant fairness. Finally, Figure 9 shows that sslsniff’s TLS interception costs **28 percent** under kernel eBPF; under bpftime it costs only **7 percent**, making end-to-end encrypted tracing feasible in performance-sensitive servers.
+Turning to **observability**, we examine DeepFlow, syscount, and sslsniff. Figure 7 plots the throughput of a TLS-protected Go microservice under DeepFlow instrumentation. Kernel uprobes alone cut throughput by **54 percent** on large responses; swapping in bpftime uprobes with identical tracing code shrinks that drop to **20 percent**. Next, syscount traditionally hooks every syscall in every process, imposing a **9–10 percent** overhead machine-wide. Figure 10 shows that bpftime confines syscount's overhead to the target PID—other processes run at native speed, enhancing multi-tenant fairness. Finally, Figure 9 shows that sslsniff's TLS interception costs **28 percent** under kernel eBPF; under bpftime it costs only **7 percent**, making end-to-end encrypted tracing feasible in performance-sensitive servers.
 
 ## [Slide 13]
 
-To peel back the layers, we ran **micro-benchmarks** shown in Figure 11 and Table 3. Dispatching a user-space uprobe via kernel eBPF takes **2.5 µs**; bpftime’s trampoline and MPK switch complete in **190 ns**, a **14×** improvement. Syscall tracepoints under bpftime finish in **232 ns**, compared to **151 ns** in kernel mode—only a **1.5×** overhead for argument marshaling. Map operations like hash update, delete, and lookup run **2×** faster or better, since they operate on in-process data structures rather than kernel objects. Overall, we observe an average **1.5–1.7×** speed-up over existing userspace eBPF VMs such as ubpf and rbpf, confirming that our verifier-offline, MPK-protected design delivers near-native performance.
+To peel back the layers, we ran **micro-benchmarks** shown in Figure 11 and Table 3. Dispatching a user-space uprobe via kernel eBPF takes **2.5 µs**; bpftime's trampoline and MPK switch complete in **190 ns**, a **14×** improvement. Syscall tracepoints under bpftime finish in **232 ns**, compared to **151 ns** in kernel mode—only a **1.5×** overhead for argument marshaling. Map operations like hash update, delete, and lookup run **2×** faster or better, since they operate on in-process data structures rather than kernel objects. Overall, we observe an average **1.5–1.7×** speed-up over existing userspace eBPF VMs such as ubpf and rbpf, confirming that our verifier-offline, MPK-protected design delivers near-native performance.
 
 ## [Slide 14]
 I will close with three **take-aways** and a glance at the **roadmap**. First, **EIM** gives extension managers a precise, declarative policy language to grant least-privilege resource sets at the granularity of individual entry points, all without touching application source code at deployment time. Second, **bpftime** enforces those policies with three lightweight primitives—offline eBPF verification, Intel MPK for domain switching, and dynamic trampolines—yielding kernel-grade safety and library-grade speed. Third, we preserve **100 percent compatibility** with the existing eBPF syscall ABI, so you can run eBPF applications seamlessly without recompilation and modification. Looking ahead, we are also extending bpftime to support GPU and ML workloads.
 
 ## [Slide 15]
-Thank you for your attention. **bpftime** is open-source under the MIT license at **github.com/eunomia-bpf/bpftime**. We welcome your issues, pull requests, and collaboration. I’m happy to take your questions.
+Thank you for your attention. **bpftime** is open-source under the MIT license at **github.com/eunomia-bpf/bpftime**. We welcome your issues, pull requests, and collaboration. I'm happy to take your questions.
 
 ## **Complete Slide Deck (16 slides, 16:9)**
 
@@ -84,12 +94,17 @@ Thank you for your attention. **bpftime** is open-source under the MIT license a
 **Extending Applications Safely & Efficiently**
 Yusheng Zheng¹ • Tong Yu² • Yiwei Yang¹ • Yanpeng Hu³
 Xiaozheng Lai⁴ • Dan Williams⁵ • Andi Quinn¹
-¹UC Santa Cruz   ²eunomia-bpf Community   ³ShanghaiTech University
-⁴South China University of Technology   ⁵Virginia Tech
+¹UC Santa Cruz   ²eunomia-bpf Community   ³ShanghaiTech University
+⁴South China University of Technology   ⁵Virginia Tech
 
 **Slide 0.5**
+**Roadmap**
 
-Outline of the talk
+1. **Motivation** → Extension safety vs. performance
+2. **EIM + bpftime** → Our two-part solution  
+3. **Use Cases** → Six real-world applications
+4. **Evaluation** → 5-14× performance improvements
+
 
 ---
 
@@ -173,6 +188,18 @@ Outline of the talk
 * **Aspect-Oriented Languages**
   No built-in model for specifying or enforcing per-entry policies.
 
+**Slide 5.5**
+**EIM: Extension Interface Model**
+
+- Capabilities as Resources​
+  - State access (e.g., read/write variables)​
+  - Function calls (with pre/post-conditions)​
+  - Hardware resources (instructions, memory)​
+
+- Two-Phase Specification​
+  - Development-Time (by Developer)​
+  - Deployment-Time (by Manager)
+
 ---
 
 **Slide 6**
@@ -199,6 +226,9 @@ Outline of the talk
 
 **Slide 8**
 **bpftime Architecture at a Glance**
+
+- Compatible with eBPF
+- Verification for safety and efficiency
 
 !\[Figure 4 from paper]
 
