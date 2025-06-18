@@ -6,16 +6,21 @@
 
 Good morning, everyone. Thank you for joining our session. My name is **Yusheng Zheng** from UC santa cruz. Today I will present our OSDI ’25 paper titled **“Extending Applications Safely and Efficiently.”** 
 
-## [Slide 0.5] do we need this slide?
+## [Slide 0.5] outline of the talk
 
 In this talk, I will describe our new **Extension Interface Model**, or EIM, and **bpftime**, a userspace extension framework. Together, they enable extension code to run inside production applications with **kernel-grade safety**, **per-entry least-privilege policies**, and **near-native performance**, all without requiring kernel patches or restructuring existing toolchains.
 
 ## [Slide 1]
 
-To explain why we built this system, let us first look at some real-world incidents. In 2023, a malformed Lua plug-in accidentally created an infinite loop inside Nginx, causing Bilibili’s entire content delivery network to go down for hours. Soon thereafter, Apache’s Lua module suffered a buffer-overflow bug that silently crashed httpd under a heavy workload. Early this year, a stack overflow in a Redis Lua script was weaponized to achieve arbitrary remote code execution. These examples, summarized in Table 1, show that even mature plug-in ecosystems can introduce vulnerabilities that bring production systems to a halt. Equally important, operators often disable Wasm or language-based sandboxes in production due to their persistent **10–15 percent** throughput tax on the hot path. In short, we still face a painful tension between safety, extensibility, and performance.
+Extensions are everywhere in modern software systems. Web browsers use extensions like AdBlock and password managers. HTTP servers like Nginx and Apache support Lua scripts and WebAssembly modules. Databases like PostgreSQL and MySQL enable custom functions and plugins. Text editors from Vim to VS Code rely heavily on extensions for functionality. Even operating systems use extensions—eBPF programs extend kernel capabilities for monitoring, networking, and security. The common theme is that extensions allow software to be customized without modifying the original application source code.
 
 ## [Slide 2]
+
 To clarify the problem, Figure 1 depicts the four principal actors in any extension deployment. First, **application developers** build and ship the host application, instrumenting it with named extension entries that mark safe hook points. Second, **extension developers** write modules targeting those entries, potentially invoking host-provided functions or reading and writing application state. Third, the trusted **extension manager**—often a DevOps or security engineer—selects which modules to deploy, configures their privileges, and oversees policy updates. Finally, **end users** generate traffic or inputs that drive both the host and extension code. A robust framework must empower the extension manager to set per-entry policies, must protect the extension’s integrity even if the host misbehaves, and must introduce zero or near-zero steady-state overhead on the critical path.
+
+## [Slide 2.5]
+
+However, these extension systems face serious safety and performance challenges. Let me show you some real-world incidents. In 2023, a malformed Lua plug-in accidentally created an infinite loop inside Nginx, causing Bilibili's entire content delivery network to go down for hours. Soon thereafter, Apache's Lua module suffered a buffer-overflow bug that silently crashed httpd under a heavy workload. Early this year, a stack overflow in a Redis Lua script was weaponized to achieve arbitrary remote code execution. These examples, summarized in Table 1, show that even mature plug-in ecosystems can introduce vulnerabilities that bring production systems to a halt. Equally important, operators often disable Wasm or language-based sandboxes in production due to their persistent **10–15 percent** throughput tax on the hot path. In short, we still face a painful tension between safety, extensibility, and performance.
 
 ## [Slide 3]
 Extension use-cases require three key framework features. The first is **fine-grained safety/interconnectedness trade-offs**. Extensions must be interconnected—able to interact with the host application by reading/writing host state and executing host-defined functions. However, extension managers wish to ensure extensions are safe and cannot harm deployment reliability or security. Since safety and interconnectedness are in tension, managers should follow the principle of least privilege, allowing each extension to perform only the actions necessary for its specific task. For example, Nginx observability extensions only need read access to specific host states, while firewall extensions need read/write access to different host states. The second requirement is **isolation**: extensions must be protected from harm by the host application. This ensures that attackers cannot circumvent extension-based security by exploiting bugs in the host. The third requirement is **efficiency**: extensions should execute at near-native speed since they may be deployed on the hot path of production systems, such as per HTTP request processing.
@@ -89,17 +94,15 @@ Outline of the talk
 ---
 
 **Slide 1**
-**Why Plug-in Safety and Performance Matters**
+**Extensions Are Everywhere**
 
-- Example issues caused by extension safety violations
+- **Web browsers**: AdBlock, password managers, developer tools
+- **HTTP servers**: Nginx Lua scripts, Apache modules, WebAssembly plugins  
+- **Databases**: PostgreSQL functions, MySQL plugins, custom operators
+- **Text editors**: Vim/VS Code extensions, language servers, formatters
+- **Operating systems**: eBPF programs for monitoring, networking, security
 
-| Bug                  | Software   | Summary                                                |
-| -------------------- | ---------- | ------------------------------------------------------ |
-| Bilibili \[73]       | Nginx      | Livelock in a Lua extension caused a multi-hour outage |
-| CVE-2021-44790 \[47] | Apache Lua | Buffer overflow crashed httpd under load               |
-| CVE-2024-31449 \[42] | Redis Lua  | Stack overflow enabled remote code execution           |
-
-- The performance penalty of existing approaches
+**Common theme**: Customize software without modifying application source code
 
 ---
 
@@ -115,7 +118,24 @@ Outline of the talk
 
 ---
 
+
 **Slide 3**
+**Extensions Have Serious Problems**
+
+- Real-world extension safety violations:
+
+| Bug                  | Software   | Summary                                                |
+| -------------------- | ---------- | ------------------------------------------------------ |
+| Bilibili \[73]       | Nginx      | Livelock in a Lua extension caused a multi-hour outage |
+| CVE-2021-44790 \[47] | Apache Lua | Buffer overflow crashed httpd under load               |
+| CVE-2024-31449 \[42] | Redis Lua  | Stack overflow enabled remote code execution           |
+
+- **Performance penalty**: Wasm/language sandboxes impose 10–15% overhead
+- **Painful tension**: Safety vs. Extensibility vs. Performance
+
+---
+
+**Slide 4**
 **Key Extension Framework Features**
 
 > short version
@@ -139,7 +159,7 @@ Outline of the talk
 
 ---
 
-**Slide 4**
+**Slide 5**
 **State-of-the-Art Falls Short**
 
 * **Native Loading (LD\_PRELOAD, DBI)**
@@ -155,7 +175,7 @@ Outline of the talk
 
 ---
 
-**Slide 5**
+**Slide 6**
 **EIM: Development-Time Specification**
 
 - Developed by application developer
@@ -166,7 +186,7 @@ Outline of the talk
 
 ---
 
-**Slide 6**
+**Slide 7**
 **EIM: Deployment-Time Specification**
 
 - Developed by extension developer or manager
@@ -177,19 +197,19 @@ Outline of the talk
 
 ---
 
-**Slide 7**
+**Slide 8**
 **bpftime Architecture at a Glance**
 
 !\[Figure 4 from paper]
 
-* **Loader** intercepts `bpf()` syscalls; enforces EIM via kernel’s verifier + extra assertions.
+* **Loader** intercepts `bpf()` syscalls; enforces EIM via kernel's verifier + extra assertions.
 * **Binary Rewriter** inserts trampolines at extension entries only when needed.
 * **User-Runtime** in target process flips MPK keys and executes JIT-compiled code.
 * **bpftime Maps** mirror eBPF maps in user space to avoid syscalls.
 
 ---
 
-**Slide 8**
+**Slide 9**
 **Efficient Safety & Isolation**
 
 * **Offline Verification**
@@ -201,19 +221,19 @@ Outline of the talk
 
 ---
 
-**Slide 9**
+**Slide 10**
 **Loader & Runtime Workflow**
 
 1. **Intercept** standard eBPF syscalls from libbpf/bcc.
 2. **Parse** EIM manifests and DWARF/BTF to generate constraints.
-3. **Verify** byte-code via kernel’s eBPF verifier with added assertions.
+3. **Verify** byte-code via kernel's eBPF verifier with added assertions.
 4. **JIT-Compile** verified byte-code into native x86.
 5. **Inject** user-runtime via `ptrace` + Frida + Capstone trampolines.
 6. **Execute** extension: flip MPK key → jump to code → flip back → resume.
 
 ---
 
-**Slide 10**
+**Slide 11**
 **Six Real-World Use Cases**
 
 * **Nginx Firewall**: A lightweight request filtering and logging Nginx module.
@@ -225,7 +245,7 @@ Outline of the talk
 
 ---
 
-**Slide 11**
+**Slide 12**
 **Customization: Nginx, Redis, FUSE**
 
 * **Nginx (Figure 6)**
