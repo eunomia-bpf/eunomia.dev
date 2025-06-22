@@ -24,7 +24,7 @@
     
     
       
-        <title>CUPTI Timestamp Callback Tutorial - eunomia</title>
+        <title>CUPTI 时间戳回调教程 - eunomia</title>
       
     
     
@@ -69,11 +69,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="CUPTI Timestamp Callback Tutorial - eunomia" >
+        <meta  property="og:title"  content="CUPTI 时间戳回调教程 - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
-        <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/others/cupti-tutorial/callback_timestamp/README.png" >
+        <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/others/cupti-tutorial/callback_timestamp/README.zh.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -85,11 +85,11 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="CUPTI Timestamp Callback Tutorial - eunomia" >
+        <meta  name="twitter:title"  content="CUPTI 时间戳回调教程 - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
-        <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/others/cupti-tutorial/callback_timestamp/README.png" >
+        <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/others/cupti-tutorial/callback_timestamp/README.zh.png" >
       
     
     
@@ -112,7 +112,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#cupti-timestamp-callback-tutorial" class="md-skip">
+        <a href="#cupti" class="md-skip">
           Skip to content
         </a>
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              CUPTI Timestamp Callback Tutorial
+              CUPTI 时间戳回调教程
             
           </span>
         </div>
@@ -5013,7 +5013,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Activity Trace Tutorial
+    CUPTI 活动跟踪教程
     
   </span>
   
@@ -5087,7 +5087,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Asynchronous Activity Tracing Tutorial
+    CUPTI 异步活动跟踪教程
     
   </span>
   
@@ -5161,7 +5161,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Autorange Profiling Tutorial
+    CUPTI 自动范围性能分析教程
     
   </span>
   
@@ -5235,7 +5235,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Callback Event Tutorial
+    CUPTI 回调事件教程
     
   </span>
   
@@ -5309,7 +5309,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Performance Metrics Tutorial
+    CUPTI 性能指标教程
     
   </span>
   
@@ -5383,7 +5383,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Callback-Based Profiling Tutorial
+    CUPTI 基于回调的性能分析教程
     
   </span>
   
@@ -5466,7 +5466,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Timestamp Callback Tutorial
+    CUPTI 时间戳回调教程
     
   </span>
   
@@ -5479,7 +5479,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Timestamp Callback Tutorial
+    CUPTI 时间戳回调教程
     
   </span>
   
@@ -5502,73 +5502,73 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      Introduction
+      简介
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      What You'll Learn
+      学习内容
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#understanding-gpu-timestamps" class="md-nav__link">
+  <a href="#gpu" class="md-nav__link">
     <span class="md-ellipsis">
-      Understanding GPU Timestamps
+      理解 GPU 时间戳
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#code-walkthrough" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      Code Walkthrough
+      代码详解
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Code Walkthrough">
+    <nav class="md-nav" aria-label="代码详解">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-setting-up-the-callback-system" class="md-nav__link">
+  <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Setting Up the Callback System
+      1. 设置回调系统
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-the-callback-function" class="md-nav__link">
+  <a href="#2" class="md-nav__link">
     <span class="md-ellipsis">
-      2. The Callback Function
+      2. 回调函数
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-the-test-workload" class="md-nav__link">
+  <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
-      3. The Test Workload
+      3. 测试工作负载
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-displaying-timing-results" class="md-nav__link">
+  <a href="#4" class="md-nav__link">
     <span class="md-ellipsis">
-      4. Displaying Timing Results
+      4. 显示时序结果
     </span>
   </a>
   
@@ -5580,55 +5580,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#running-the-tutorial" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      Running the Tutorial
+      运行教程
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#understanding-the-output" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      Understanding the Output
+      理解输出
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#performance-insights" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      Performance Insights
+      性能洞察
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#advanced-applications" class="md-nav__link">
-    <span class="md-ellipsis">
-      Advanced Applications
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Advanced Applications">
+    <nav class="md-nav" aria-label="性能洞察">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#timing-custom-operations" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
-      Timing Custom Operations
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#correlating-with-application-phases" class="md-nav__link">
-    <span class="md-ellipsis">
-      Correlating with Application Phases
+      优化机会识别
     </span>
   </a>
   
@@ -5640,11 +5622,77 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
-      Next Steps
+      高级时序分析
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="高级时序分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      多流分析
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      内存传输模式
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      最佳实践
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="最佳实践">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      时序精度
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      性能影响
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      数据验证
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -5720,7 +5768,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Checkpoint API Tutorial
+    CUPTI 检查点 API 教程
     
   </span>
   
@@ -5794,7 +5842,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Common Helper Files
+    CUPTI 通用辅助文件
     
   </span>
   
@@ -5868,7 +5916,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Concurrent Profiling Tutorial
+    CUPTI 并发分析教程
     
   </span>
   
@@ -5942,7 +5990,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA Graphs Tracing Tutorial
+    CUDA 图追踪教程
     
   </span>
   
@@ -6016,7 +6064,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA Memory Tracing Tutorial
+    CUDA 内存追踪教程
     
   </span>
   
@@ -6090,7 +6138,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI API-GPU Activity Correlation Tutorial
+    CUPTI API-GPU 活动关联教程
     
   </span>
   
@@ -6164,7 +6212,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI External Correlation Tutorial
+    CUPTI 外部关联教程
     
   </span>
   
@@ -6238,7 +6286,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Finalization and Cleanup Tutorial
+    CUPTI 终结和清理教程
     
   </span>
   
@@ -6312,7 +6360,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Metric Properties Tutorial
+    CUPTI 指标属性教程
     
   </span>
   
@@ -6386,7 +6434,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI NVTX Integration Tutorial
+    CUPTI NVTX 集成教程
     
   </span>
   
@@ -6460,7 +6508,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Query API Tutorial
+    CUPTI 查询 API 教程
     
   </span>
   
@@ -6534,7 +6582,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Trace Injection Tutorial
+    CUPTI 跟踪注入教程
     
   </span>
   
@@ -6608,7 +6656,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Multi-GPU Event Profiling Tutorial
+    CUPTI 多 GPU 事件分析教程
     
   </span>
   
@@ -6682,7 +6730,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Event Sampling Tutorial
+    CUPTI 事件采样教程
     
   </span>
   
@@ -6756,7 +6804,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Extensions
+    CUPTI 扩展工具
     
   </span>
   
@@ -6830,7 +6878,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Nested Range Profiling Tutorial
+    CUPTI 嵌套范围分析教程
     
   </span>
   
@@ -6904,7 +6952,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI NVLink Bandwidth Monitoring Tutorial
+    CUPTI NVLink 带宽监控教程
     
   </span>
   
@@ -6978,7 +7026,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI OpenACC Tracing Tutorial
+    CUPTI OpenACC 跟踪教程
     
   </span>
   
@@ -7052,7 +7100,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI PC Sampling Tutorial
+    CUPTI PC 采样教程
     
   </span>
   
@@ -7126,7 +7174,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Program Counter (PC) Sampling Continuous Tutorial
+    CUPTI 程序计数器 (PC) 连续采样教程
     
   </span>
   
@@ -7200,7 +7248,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI PC Sampling Start/Stop Control Tutorial
+    CUPTI PC 采样启动/停止控制教程
     
   </span>
   
@@ -7274,7 +7322,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI PC Sampling Analysis Utility Tutorial
+    CUPTI PC 采样分析工具教程
     
   </span>
   
@@ -7348,7 +7396,7 @@
   
   
   <span class="md-ellipsis">
-    Performance Monitor Sampling Tutorial
+    性能监控采样教程
     
   </span>
   
@@ -7422,7 +7470,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Profiling API Injection Tutorial
+    CUPTI 分析 API 注入教程
     
   </span>
   
@@ -7496,7 +7544,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Range Profiling Tutorial
+    CUPTI 范围性能分析教程
     
   </span>
   
@@ -7570,7 +7618,7 @@
   
   
   <span class="md-ellipsis">
-    SASS Metrics Collection Tutorial
+    SASS 指标收集教程
     
   </span>
   
@@ -7644,7 +7692,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI SASS Source Mapping Tutorial
+    CUPTI SASS 源代码映射教程
     
   </span>
   
@@ -7718,7 +7766,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Unified Memory Profiling Tutorial
+    CUPTI 统一内存分析教程
     
   </span>
   
@@ -7792,7 +7840,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI User-Range Profiling Tutorial
+    CUPTI 用户范围分析教程
     
   </span>
   
@@ -8280,73 +8328,73 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      Introduction
+      简介
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      What You'll Learn
+      学习内容
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#understanding-gpu-timestamps" class="md-nav__link">
+  <a href="#gpu" class="md-nav__link">
     <span class="md-ellipsis">
-      Understanding GPU Timestamps
+      理解 GPU 时间戳
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#code-walkthrough" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      Code Walkthrough
+      代码详解
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Code Walkthrough">
+    <nav class="md-nav" aria-label="代码详解">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-setting-up-the-callback-system" class="md-nav__link">
+  <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Setting Up the Callback System
+      1. 设置回调系统
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-the-callback-function" class="md-nav__link">
+  <a href="#2" class="md-nav__link">
     <span class="md-ellipsis">
-      2. The Callback Function
+      2. 回调函数
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-the-test-workload" class="md-nav__link">
+  <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
-      3. The Test Workload
+      3. 测试工作负载
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-displaying-timing-results" class="md-nav__link">
+  <a href="#4" class="md-nav__link">
     <span class="md-ellipsis">
-      4. Displaying Timing Results
+      4. 显示时序结果
     </span>
   </a>
   
@@ -8358,55 +8406,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#running-the-tutorial" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      Running the Tutorial
+      运行教程
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#understanding-the-output" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      Understanding the Output
+      理解输出
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#performance-insights" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      Performance Insights
+      性能洞察
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#advanced-applications" class="md-nav__link">
-    <span class="md-ellipsis">
-      Advanced Applications
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Advanced Applications">
+    <nav class="md-nav" aria-label="性能洞察">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#timing-custom-operations" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
-      Timing Custom Operations
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#correlating-with-application-phases" class="md-nav__link">
-    <span class="md-ellipsis">
-      Correlating with Application Phases
+      优化机会识别
     </span>
   </a>
   
@@ -8418,11 +8448,77 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
-      Next Steps
+      高级时序分析
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="高级时序分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      多流分析
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      内存传输模式
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      最佳实践
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="最佳实践">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      时序精度
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      性能影响
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      数据验证
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -8442,7 +8538,7 @@
 
 
   
-    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cupti-tutorial/callback_timestamp/README.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cupti-tutorial/callback_timestamp/README.zh.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -8451,84 +8547,84 @@
     
       
     
-    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cupti-tutorial/callback_timestamp/README.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cupti-tutorial/callback_timestamp/README.zh.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-<h1 id="cupti-timestamp-callback-tutorial">CUPTI Timestamp Callback Tutorial</h1>
+<h1 id="cupti">CUPTI 时间戳回调教程</h1>
 <blockquote>
-<p>The GitHub repo and complete tutorial is available at <a href="https://github.com/eunomia-bpf/cupti-tutorial">https://github.com/eunomia-bpf/cupti-tutorial</a>.</p>
+<p>完整的 GitHub 仓库和教程请访问 <a href="https://github.com/eunomia-bpf/cupti-tutorial">https://github.com/eunomia-bpf/cupti-tutorial</a>。</p>
 </blockquote>
-<h2 id="introduction">Introduction</h2>
-<p>Accurately measuring the execution time of CUDA operations is essential for performance optimization. While CPU-based timing can give approximate results, GPU timestamps provide precise measurements of when operations actually execute on the device. This tutorial demonstrates how to use CUPTI callbacks to collect GPU timestamps for CUDA operations, giving you accurate timing information for memory transfers and kernel executions.</p>
-<h2 id="what-youll-learn">What You'll Learn</h2>
+<h2 id="_1">简介</h2>
+<p>准确测量 CUDA 操作的执行时间对于性能优化至关重要。虽然基于 CPU 的计时可以给出近似结果，但 GPU 时间戳提供了操作在设备上实际执行时间的精确测量。本教程演示如何使用 CUPTI 回调来收集 CUDA 操作的 GPU 时间戳，为内存传输和内核执行提供准确的时序信息。</p>
+<h2 id="_2">学习内容</h2>
 <ul>
-<li>How to set up CUPTI callbacks for CUDA runtime API functions</li>
-<li>Collecting precise GPU timestamps at the beginning and end of operations</li>
-<li>Measuring execution time for memory transfers and kernels</li>
-<li>Analyzing the performance of a complete CUDA workflow</li>
+<li>如何为 CUDA 运行时 API 函数设置 CUPTI 回调</li>
+<li>在操作开始和结束时收集精确的 GPU 时间戳</li>
+<li>测量内存传输和内核的执行时间</li>
+<li>分析完整 CUDA 工作流的性能</li>
 </ul>
-<h2 id="understanding-gpu-timestamps">Understanding GPU Timestamps</h2>
-<p>GPU timestamps differ from CPU timestamps in several important ways:</p>
+<h2 id="gpu">理解 GPU 时间戳</h2>
+<p>GPU 时间戳在几个重要方面与 CPU 时间戳不同：</p>
 <ol>
-<li>They measure time from the GPU's perspective</li>
-<li>They provide nanosecond precision</li>
-<li>They accurately capture when operations execute on the device, not just when they're submitted</li>
-<li>They're essential for understanding the true performance characteristics of GPU operations</li>
+<li>它们从 GPU 的角度测量时间</li>
+<li>它们提供纳秒级精度</li>
+<li>它们准确捕获操作在设备上执行的时间，而不仅仅是提交的时间</li>
+<li>它们对于理解 GPU 操作的真实性能特征至关重要</li>
 </ol>
-<h2 id="code-walkthrough">Code Walkthrough</h2>
-<h3 id="1-setting-up-the-callback-system">1. Setting Up the Callback System</h3>
-<p>First, we need to initialize CUPTI and register our callback function:</p>
+<h2 id="_3">代码详解</h2>
+<h3 id="1">1. 设置回调系统</h3>
+<p>首先，我们需要初始化 CUPTI 并注册我们的回调函数：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="p">{</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="c1">// Initialize CUDA</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="c1">// 初始化 CUDA</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="n">RUNTIME_API_CALL</span><span class="p">(</span><span class="n">cudaSetDevice</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="c1">// Subscribe to CUPTI callbacks</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="c1">// 订阅 CUPTI 回调</span>
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="n">CUpti_SubscriberHandle</span><span class="w"> </span><span class="n">subscriber</span><span class="p">;</span>
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiSubscribe</span><span class="p">(</span><span class="o">&amp;</span><span class="n">subscriber</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">CUpti_CallbackFunc</span><span class="p">)</span><span class="n">getTimestampCallback</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">traceData</span><span class="p">));</span>
 <a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="c1">// Enable callbacks for CUDA runtime</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="c1">// 启用 CUDA 运行时的回调</span>
 <a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiEnableDomain</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">subscriber</span><span class="p">,</span><span class="w"> </span><span class="n">CUPTI_CB_DOMAIN_RUNTIME_API</span><span class="p">));</span>
 <a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="c1">// Run our test workload</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="c1">// 运行我们的测试工作负载</span>
 <a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span><span class="n">runTest</span><span class="p">();</span>
 <a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="c1">// Unsubscribe from callbacks</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="c1">// 取消订阅回调</span>
 <a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">    </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiUnsubscribe</span><span class="p">(</span><span class="n">subscriber</span><span class="p">));</span>
 <a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
 <a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="p">}</span>
 </code></pre></div>
-<p>This sets up CUPTI to call our <code>getTimestampCallback</code> function whenever a CUDA runtime API function is called.</p>
-<h3 id="2-the-callback-function">2. The Callback Function</h3>
-<p>The heart of the sample is the callback function that collects timestamps:</p>
+<p>这设置了 CUPTI，在调用 CUDA 运行时 API 函数时调用我们的 <code>getTimestampCallback</code> 函数。</p>
+<h3 id="2">2. 回调函数</h3>
+<p>示例的核心是收集时间戳的回调函数：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">CUPTIAPI</span><span class="w"> </span><span class="nf">getTimestampCallback</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">userdata</span><span class="p">,</span><span class="w"> </span><span class="n">CUpti_CallbackDomain</span><span class="w"> </span><span class="n">domain</span><span class="p">,</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">                                  </span><span class="n">CUpti_CallbackId</span><span class="w"> </span><span class="n">cbid</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">CUpti_CallbackData</span><span class="w"> </span><span class="o">*</span><span class="n">cbInfo</span><span class="p">)</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="p">{</span>
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="n">RuntimeApiTrace_t</span><span class="w"> </span><span class="o">*</span><span class="n">traceData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">RuntimeApiTrace_t</span><span class="o">*</span><span class="p">)</span><span class="n">userdata</span><span class="p">;</span>
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="c1">// Only process runtime API callbacks</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="c1">// 只处理运行时 API 回调</span>
 <a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">domain</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">CUPTI_CB_DOMAIN_RUNTIME_API</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="p">;</span>
 <a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="c1">// We&#39;re interested in memory transfers and kernel launches</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="c1">// 我们对内存传输和内核启动感兴趣</span>
 <a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">cbid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">CUPTI_RUNTIME_TRACE_CBID_cudaMemcpy_v3020</span><span class="p">)</span><span class="w"> </span><span class="o">||</span>
 <a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">        </span><span class="p">(</span><span class="n">cbid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">CUPTI_RUNTIME_TRACE_CBID_cudaLaunch_v3020</span><span class="p">)</span><span class="w"> </span><span class="o">||</span>
 <a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">        </span><span class="p">(</span><span class="n">cbid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">CUPTI_RUNTIME_TRACE_CBID_cudaDeviceSynchronize_v3020</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
 <a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cbInfo</span><span class="o">-&gt;</span><span class="n">callbackSite</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">CUPTI_API_ENTER</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">            </span><span class="c1">// Record information at the start of the API call</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">            </span><span class="c1">// 在 API 调用开始时记录信息</span>
 <a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">            </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">timestamp</span><span class="p">;</span>
 <a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">            </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiDeviceGetTimestamp</span><span class="p">(</span><span class="n">cbInfo</span><span class="o">-&gt;</span><span class="n">context</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">timestamp</span><span class="p">));</span>
 <a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>
-<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">            </span><span class="c1">// Store function name</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">            </span><span class="c1">// 存储函数名</span>
 <a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">            </span><span class="n">traceData</span><span class="o">-&gt;</span><span class="n">functionName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cbInfo</span><span class="o">-&gt;</span><span class="n">functionName</span><span class="p">;</span>
 <a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">            </span><span class="n">traceData</span><span class="o">-&gt;</span><span class="n">startTimestamp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">timestamp</span><span class="p">;</span>
 <a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>
-<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="w">            </span><span class="c1">// For memory transfers, capture size and direction</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="w">            </span><span class="c1">// 对于内存传输，捕获大小和方向</span>
 <a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cbid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">CUPTI_RUNTIME_TRACE_CBID_cudaMemcpy_v3020</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="w">                </span><span class="n">cudaMemcpy_v3020_params</span><span class="w"> </span><span class="o">*</span><span class="n">params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
 <a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="w">                    </span><span class="p">(</span><span class="n">cudaMemcpy_v3020_params</span><span class="o">*</span><span class="p">)</span><span class="n">cbInfo</span><span class="o">-&gt;</span><span class="n">functionParams</span><span class="p">;</span>
@@ -8537,26 +8633,26 @@
 <a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a><span class="w">            </span><span class="p">}</span>
 <a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a><span class="w">        </span><span class="p">}</span>
 <a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a><span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cbInfo</span><span class="o">-&gt;</span><span class="n">callbackSite</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">CUPTI_API_EXIT</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a><span class="w">            </span><span class="c1">// Record information at the end of the API call</span>
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a><span class="w">            </span><span class="c1">// 在 API 调用结束时记录信息</span>
 <a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a><span class="w">            </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">timestamp</span><span class="p">;</span>
 <a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a><span class="w">            </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiDeviceGetTimestamp</span><span class="p">(</span><span class="n">cbInfo</span><span class="o">-&gt;</span><span class="n">context</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">timestamp</span><span class="p">));</span>
 <a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>
-<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a><span class="w">            </span><span class="c1">// Calculate duration</span>
+<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a><span class="w">            </span><span class="c1">// 计算持续时间</span>
 <a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a><span class="w">            </span><span class="n">traceData</span><span class="o">-&gt;</span><span class="n">gpuTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">timestamp</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">traceData</span><span class="o">-&gt;</span><span class="n">startTimestamp</span><span class="p">;</span>
 <a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a>
-<a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a><span class="w">            </span><span class="c1">// Print the timing information</span>
+<a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a><span class="w">            </span><span class="c1">// 打印时序信息</span>
 <a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a><span class="w">            </span><span class="n">printTimestampData</span><span class="p">(</span><span class="n">traceData</span><span class="p">);</span>
 <a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a><span class="w">        </span><span class="p">}</span>
 <a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-1-43" name="__codelineno-1-43" href="#__codelineno-1-43"></a><span class="p">}</span>
 </code></pre></div>
-<p>Key aspects of this function:
-1. It filters for specific CUDA functions we want to time
-2. On API entry, it records the function name, start timestamp, and any relevant parameters
-3. On API exit, it records the end timestamp and calculates the duration
-4. For memory transfers, it captures the size and direction</p>
-<h3 id="3-the-test-workload">3. The Test Workload</h3>
-<p>To demonstrate timing, we run a simple vector addition workflow:</p>
+<p>此函数的关键方面：
+1. 它过滤我们想要计时的特定 CUDA 函数
+2. 在 API 进入时，它记录函数名、开始时间戳和任何相关参数
+3. 在 API 退出时，它记录结束时间戳并计算持续时间
+4. 对于内存传输，它捕获大小和方向</p>
+<h3 id="3">3. 测试工作负载</h3>
+<p>为了演示计时，我们运行一个简单的向量加法工作流：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">runTest</span><span class="p">()</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="p">{</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">50000</span><span class="p">;</span>
@@ -8564,38 +8660,38 @@
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">h_A</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">h_B</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">h_C</span><span class="p">;</span>
 <a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">d_A</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">d_B</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">d_C</span><span class="p">;</span>
 <a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="c1">// Allocate host memory</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="c1">// 分配主机内存</span>
 <a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="n">h_A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
 <a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="n">h_B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
 <a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="n">h_C</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
 <a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">    </span><span class="c1">// Initialize host arrays</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">    </span><span class="c1">// 初始化主机数组</span>
 <a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">        </span><span class="n">h_A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rand</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">RAND_MAX</span><span class="p">;</span>
 <a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">        </span><span class="n">h_B</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rand</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">RAND_MAX</span><span class="p">;</span>
 <a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>
-<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="w">    </span><span class="c1">// Allocate device memory</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="w">    </span><span class="c1">// 分配设备内存</span>
 <a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">    </span><span class="n">RUNTIME_API_CALL</span><span class="p">(</span><span class="n">cudaMalloc</span><span class="p">((</span><span class="kt">void</span><span class="o">**</span><span class="p">)</span><span class="o">&amp;</span><span class="n">d_A</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">));</span>
 <a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="w">    </span><span class="n">RUNTIME_API_CALL</span><span class="p">(</span><span class="n">cudaMalloc</span><span class="p">((</span><span class="kt">void</span><span class="o">**</span><span class="p">)</span><span class="o">&amp;</span><span class="n">d_B</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">));</span>
 <a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="w">    </span><span class="n">RUNTIME_API_CALL</span><span class="p">(</span><span class="n">cudaMalloc</span><span class="p">((</span><span class="kt">void</span><span class="o">**</span><span class="p">)</span><span class="o">&amp;</span><span class="n">d_C</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">));</span>
 <a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>
-<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="w">    </span><span class="c1">// Transfer data from host to device (these will be timed)</span>
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="w">    </span><span class="c1">// 从主机传输数据到设备（这些将被计时）</span>
 <a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="w">    </span><span class="n">RUNTIME_API_CALL</span><span class="p">(</span><span class="n">cudaMemcpy</span><span class="p">(</span><span class="n">d_A</span><span class="p">,</span><span class="w"> </span><span class="n">h_A</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">cudaMemcpyHostToDevice</span><span class="p">));</span>
 <a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="w">    </span><span class="n">RUNTIME_API_CALL</span><span class="p">(</span><span class="n">cudaMemcpy</span><span class="p">(</span><span class="n">d_B</span><span class="p">,</span><span class="w"> </span><span class="n">h_B</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">cudaMemcpyHostToDevice</span><span class="p">));</span>
 <a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>
-<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a><span class="w">    </span><span class="c1">// Launch kernel (this will be timed)</span>
+<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a><span class="w">    </span><span class="c1">// 启动内核（这将被计时）</span>
 <a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">threadsPerBlock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">256</span><span class="p">;</span>
 <a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">blocksPerGrid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">N</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">threadsPerBlock</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">threadsPerBlock</span><span class="p">;</span>
 <a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a><span class="w">    </span><span class="n">VecAdd</span><span class="o">&lt;&lt;&lt;</span><span class="n">blocksPerGrid</span><span class="p">,</span><span class="w"> </span><span class="n">threadsPerBlock</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">d_A</span><span class="p">,</span><span class="w"> </span><span class="n">d_B</span><span class="p">,</span><span class="w"> </span><span class="n">d_C</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">);</span>
 <a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a>
-<a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a><span class="w">    </span><span class="c1">// Transfer results back to host (this will be timed)</span>
+<a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a><span class="w">    </span><span class="c1">// 将结果传输回主机（这将被计时）</span>
 <a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a><span class="w">    </span><span class="n">RUNTIME_API_CALL</span><span class="p">(</span><span class="n">cudaMemcpy</span><span class="p">(</span><span class="n">h_C</span><span class="p">,</span><span class="w"> </span><span class="n">d_C</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">cudaMemcpyDeviceToHost</span><span class="p">));</span>
 <a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a>
-<a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a><span class="w">    </span><span class="c1">// Synchronize to make sure all operations are complete</span>
+<a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a><span class="w">    </span><span class="c1">// 同步以确保所有操作完成</span>
 <a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a><span class="w">    </span><span class="n">RUNTIME_API_CALL</span><span class="p">(</span><span class="n">cudaDeviceSynchronize</span><span class="p">());</span>
 <a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a>
-<a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a><span class="w">    </span><span class="c1">// Clean up</span>
+<a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a><span class="w">    </span><span class="c1">// 清理</span>
 <a id="__codelineno-2-40" name="__codelineno-2-40" href="#__codelineno-2-40"></a><span class="w">    </span><span class="n">free</span><span class="p">(</span><span class="n">h_A</span><span class="p">);</span>
 <a id="__codelineno-2-41" name="__codelineno-2-41" href="#__codelineno-2-41"></a><span class="w">    </span><span class="n">free</span><span class="p">(</span><span class="n">h_B</span><span class="p">);</span>
 <a id="__codelineno-2-42" name="__codelineno-2-42" href="#__codelineno-2-42"></a><span class="w">    </span><span class="n">free</span><span class="p">(</span><span class="n">h_C</span><span class="p">);</span>
@@ -8604,106 +8700,183 @@
 <a id="__codelineno-2-45" name="__codelineno-2-45" href="#__codelineno-2-45"></a><span class="w">    </span><span class="n">RUNTIME_API_CALL</span><span class="p">(</span><span class="n">cudaFree</span><span class="p">(</span><span class="n">d_C</span><span class="p">));</span>
 <a id="__codelineno-2-46" name="__codelineno-2-46" href="#__codelineno-2-46"></a><span class="p">}</span>
 </code></pre></div>
-<p>This workflow includes:
-1. Two host-to-device memory transfers
-2. One kernel execution
-3. One device-to-host memory transfer
-4. A device synchronization</p>
-<h3 id="4-displaying-timing-results">4. Displaying Timing Results</h3>
-<p>The results are displayed in a formatted table:</p>
+<p>此工作流包括：
+1. 两个主机到设备的内存传输
+2. 一个内核执行
+3. 一个设备到主机的内存传输
+4. 一个设备同步</p>
+<h3 id="4">4. 显示时序结果</h3>
+<p>结果以格式化表格显示：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">printTimestampData</span><span class="p">(</span><span class="n">RuntimeApiTrace_t</span><span class="w"> </span><span class="o">*</span><span class="n">traceData</span><span class="p">)</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="p">{</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">headerPrinted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">headerPrinted</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">startTimeStamp/gpuTime reported in nano-seconds</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">);</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%-15s %-24s %-15s %-8s %-10s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Name&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Start Time&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;GPU Time&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Bytes&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Kind&quot;</span><span class="p">);</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">开始时间戳/GPU时间以纳秒报告</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%-15s %-24s %-15s %-8s %-10s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;名称&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;开始时间&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;GPU时间&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;字节数&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;类型&quot;</span><span class="p">);</span>
 <a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">        </span><span class="n">headerPrinted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
 <a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="c1">// Print function name and timing information</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="c1">// 打印函数名和时序信息</span>
 <a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%-15s %-24llu %-15llu&quot;</span><span class="p">,</span><span class="w"> </span>
 <a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">           </span><span class="n">traceData</span><span class="o">-&gt;</span><span class="n">functionName</span><span class="p">,</span>
 <a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">           </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="p">)</span><span class="n">traceData</span><span class="o">-&gt;</span><span class="n">startTimestamp</span><span class="p">,</span>
 <a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">           </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="p">)</span><span class="n">traceData</span><span class="o">-&gt;</span><span class="n">gpuTime</span><span class="p">);</span>
 <a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>
-<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">    </span><span class="c1">// For memory transfers, print size and direction</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">    </span><span class="c1">// 对于内存传输，打印大小和方向</span>
 <a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">traceData</span><span class="o">-&gt;</span><span class="n">functionName</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;cudaMemcpy&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot; %-8lu %-10s&quot;</span><span class="p">,</span><span class="w"> </span>
 <a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">               </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="p">)</span><span class="n">traceData</span><span class="o">-&gt;</span><span class="n">memcpyBytes</span><span class="p">,</span>
 <a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="w">               </span><span class="n">getMemcpyKindString</span><span class="p">((</span><span class="n">cudaMemcpyKind</span><span class="p">)</span><span class="n">traceData</span><span class="o">-&gt;</span><span class="n">memcpyKind</span><span class="p">));</span>
 <a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot; %-8s %-10s&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;NA&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;NA&quot;</span><span class="p">);</span>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot; %-8s %-10s&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;不适用&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;不适用&quot;</span><span class="p">);</span>
 <a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>
 <a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
 <a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="p">}</span>
 </code></pre></div>
-<h2 id="running-the-tutorial">Running the Tutorial</h2>
+<h2 id="_4">运行教程</h2>
 <ol>
 <li>
-<p>Build the sample:
+<p>构建示例：
    <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>make
 </code></pre></div></p>
 </li>
 <li>
-<p>Run the timestamp collector:
+<p>运行时间戳收集器：
    <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>./callback_timestamp
 </code></pre></div></p>
 </li>
 </ol>
-<h2 id="understanding-the-output">Understanding the Output</h2>
-<p>The sample produces output similar to:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>startTimeStamp/gpuTime reported in nano-seconds
+<h2 id="_5">理解输出</h2>
+<p>示例产生类似的输出：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>开始时间戳/GPU时间以纳秒报告
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>Name            Start Time              GPU Time        Bytes   Kind
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>cudaMemcpy      123456789012            5432           200000   HostToDevice
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>cudaMemcpy      123456794444            5432           200000   HostToDevice
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>VecAdd          123456799876            10864          NA       NA
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>cudaMemcpy      123456810740            5432           200000   DeviceToHost
-<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>cudaDeviceSync  123456816172            0              NA       NA
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>名称            开始时间                GPU时间        字节数   类型
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>cudaMemcpy      123456789012            5432           200000   主机到设备
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>cudaMemcpy      123456794444            5432           200000   主机到设备
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>VecAdd          123456799876            10864          不适用    不适用
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>cudaMemcpy      123456810740            5432           200000   设备到主机
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>cudaDeviceSync  123456816172            0              不适用    不适用
 </code></pre></div>
-<p>Let's analyze this output:</p>
+<p>让我们分析这个输出：</p>
 <ol>
-<li><strong>Start Time</strong>: The GPU timestamp when the operation began (in nanoseconds)</li>
-<li><strong>GPU Time</strong>: The duration of the operation on the GPU (in nanoseconds)</li>
-<li><strong>Bytes</strong>: For memory transfers, the amount of data transferred</li>
-<li><strong>Kind</strong>: For memory transfers, the direction (HostToDevice or DeviceToHost)</li>
+<li><strong>开始时间</strong>：操作开始时的 GPU 时间戳（以纳秒为单位）</li>
+<li><strong>GPU 时间</strong>：GPU 上操作的持续时间（以纳秒为单位）</li>
+<li><strong>字节数</strong>：对于内存传输，传输的数据量</li>
+<li><strong>类型</strong>：对于内存传输，方向（主机到设备或设备到主机）</li>
 </ol>
-<p>From this output, we can see:
-- Memory transfers take about 5.4 microseconds each
-- The kernel execution takes about 10.8 microseconds
-- The entire workflow completes in about 27 microseconds</p>
-<h2 id="performance-insights">Performance Insights</h2>
-<p>This timing data reveals several important aspects of CUDA performance:</p>
+<p>从这个输出我们可以看到：
+- 内存传输每次大约需要 5.4 微秒
+- 内核执行大约需要 10.8 微秒
+- 整个工作流在大约 27 微秒内完成</p>
+<h2 id="_6">性能洞察</h2>
+<p>这个时序数据揭示了 CUDA 性能的几个重要方面：</p>
 <ol>
-<li><strong>Memory Transfer Overhead</strong>: Memory transfers can be a significant bottleneck</li>
-<li><strong>Kernel Execution Time</strong>: The actual computation time on the GPU</li>
-<li><strong>Operation Sequence</strong>: The order and timing of operations in your workflow</li>
+<li><strong>内存传输开销</strong>：内存传输可能是一个重要的瓶颈</li>
+<li><strong>内核执行时间</strong>：GPU 上的实际计算时间</li>
+<li><strong>操作序列</strong>：工作流中操作的顺序和时序</li>
 </ol>
-<p>By analyzing this data, you can:
-- Identify bottlenecks in your application
-- Optimize memory transfer patterns
-- Balance computation and data movement
-- Make informed decisions about kernel optimization priorities</p>
-<h2 id="advanced-applications">Advanced Applications</h2>
-<h3 id="timing-custom-operations">Timing Custom Operations</h3>
-<p>To time custom operations:
-1. Wrap them in CUDA API calls that will trigger callbacks
-2. Use <code>cudaEventRecord</code> to create timing points within complex operations</p>
-<h3 id="correlating-with-application-phases">Correlating with Application Phases</h3>
-<p>To understand performance in the context of your application:
-1. Add markers or identifiers to your timing data
-2. Correlate GPU timestamps with application phases
-3. Look for patterns or anomalies in specific parts of your workflow</p>
-<h2 id="next-steps">Next Steps</h2>
-<ul>
-<li>Modify the sample to time additional CUDA operations</li>
-<li>Integrate timestamp collection into your own CUDA applications</li>
-<li>Compare GPU timestamps with CPU-based timing to understand the relationship</li>
-<li>Use the timing data to prioritize optimization efforts in your code </li>
-</ul>
-<p><a class="md-button" href="https://x.com/intent/tweet?text=CUPTI%20Timestamp%20Callback%20Tutorial%0A&amp;url=https://eunomia.dev/zh/others/cupti-tutorial/callback_timestamp/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<h3 id="_7">优化机会识别</h3>
+<p>基于时序数据，我们可以识别：</p>
+<ol>
+<li>
+<p><strong>内存带宽利用率</strong>：
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kt">float</span><span class="w"> </span><span class="n">bandwidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">bytes</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">1e9</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">time_seconds</span><span class="p">);</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">printf</span><span class="p">(</span><span class="s">&quot;内存带宽：%.1f GB/s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">bandwidth</span><span class="p">);</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>计算密度</strong>：
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kt">float</span><span class="w"> </span><span class="n">computeRatio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kernelTime</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">totalTime</span><span class="p">;</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">printf</span><span class="p">(</span><span class="s">&quot;计算时间比例：%.1f%%</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">computeRatio</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="p">);</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>API 开销</strong>：
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kt">float</span><span class="w"> </span><span class="n">apiOverhead</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">apiExitTime</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">apiEnterTime</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">gpuTime</span><span class="p">;</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">printf</span><span class="p">(</span><span class="s">&quot;API 开销：%.2f 微秒</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">apiOverhead</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">1000.0</span><span class="p">);</span>
+</code></pre></div></p>
+</li>
+</ol>
+<h2 id="_8">高级时序分析</h2>
+<h3 id="_9">多流分析</h3>
+<p>对于复杂的应用程序，您可能需要分析多个 CUDA 流：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">struct</span><span class="w"> </span><span class="nc">StreamTimeline</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">streamId</span><span class="p">;</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">OperationTiming</span><span class="o">&gt;</span><span class="w"> </span><span class="n">operations</span><span class="p">;</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">analyzeOverlap</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">        </span><span class="c1">// 分析流之间的重叠</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">operations</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">operations</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">endTime</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">operations</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">].</span><span class="n">startTime</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">                </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;流 %d：操作重叠检测</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">streamId</span><span class="p">);</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="p">};</span>
+</code></pre></div>
+<h3 id="_10">内存传输模式</h3>
+<p>分析内存访问模式：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">MemoryAnalyzer</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="k">private</span><span class="o">:</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">allocationSizes</span><span class="p">;</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">MemoryTransfer</span><span class="o">&gt;</span><span class="w"> </span><span class="n">transfers</span><span class="p">;</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="k">public</span><span class="o">:</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">analyzePattern</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">totalHostToDevice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">totalDeviceToHost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">transfer</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">transfers</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">transfer</span><span class="p">.</span><span class="n">kind</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">cudaMemcpyHostToDevice</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="w">                </span><span class="n">totalHostToDevice</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">transfer</span><span class="p">.</span><span class="n">bytes</span><span class="p">;</span>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">transfer</span><span class="p">.</span><span class="n">kind</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">cudaMemcpyDeviceToHost</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="w">                </span><span class="n">totalDeviceToHost</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">transfer</span><span class="p">.</span><span class="n">bytes</span><span class="p">;</span>
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a>
+<a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;总主机到设备传输：%zu MB</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">totalHostToDevice</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">));</span>
+<a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;总设备到主机传输：%zu MB</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">totalDeviceToHost</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">));</span>
+<a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;数据传输比率：%.2f</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span>
+<a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a><span class="w">               </span><span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">totalDeviceToHost</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">totalHostToDevice</span><span class="p">);</span>
+<a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a><span class="p">};</span>
+</code></pre></div>
+<h2 id="_11">最佳实践</h2>
+<h3 id="_12">时序精度</h3>
+<ol>
+<li><strong>使用 GPU 时间戳</strong>：始终使用 <code>cuptiDeviceGetTimestamp</code> 而不是 CPU 时钟</li>
+<li><strong>避免同步开销</strong>：最小化不必要的同步点</li>
+<li><strong>考虑时钟域</strong>：GPU 和 CPU 时钟可能不同步</li>
+</ol>
+<h3 id="_13">性能影响</h3>
+<ol>
+<li><strong>最小化回调开销</strong>：只跟踪关键操作</li>
+<li><strong>批量数据收集</strong>：避免在回调中进行昂贵的操作</li>
+<li><strong>后处理分析</strong>：将详细分析推迟到执行后</li>
+</ol>
+<h3 id="_14">数据验证</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kt">bool</span><span class="w"> </span><span class="nf">validateTimingData</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">TimingResult</span><span class="o">&amp;</span><span class="w"> </span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span><span class="c1">// 检查合理的时间范围</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">duration</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">duration</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">MAX_REASONABLE_TIME</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">    </span><span class="c1">// 验证内存传输速率</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">isMemoryTransfer</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">bandwidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">calculateBandwidth</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">bandwidth</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">MAX_MEMORY_BANDWIDTH</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;警告：内存带宽超出预期：%.1f GB/s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">bandwidth</span><span class="p">);</span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>
+<a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a><span class="p">}</span>
+</code></pre></div>
+<p>这个时间戳回调教程为精确测量和分析 CUDA 应用程序性能提供了强大的基础。 </p>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=CUPTI%20%E6%97%B6%E9%97%B4%E6%88%B3%E5%9B%9E%E8%B0%83%E6%95%99%E7%A8%8B%0A&amp;url=https://eunomia.dev/zh/others/cupti-tutorial/callback_timestamp/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/zh/others/cupti-tutorial/callback_timestamp/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
@@ -8727,7 +8900,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 17, 2025 09:26:20 UTC">June 17, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 22, 2025 05:40:48 UTC">June 22, 2025</span>
   </span>
 
     
@@ -8737,7 +8910,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 17, 2025 09:19:24 UTC">June 17, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 22, 2025 05:40:48 UTC">June 22, 2025</span>
   </span>
 
     
@@ -8857,7 +9030,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../callback_profiling/" class="md-footer__link md-footer__link--prev" aria-label="Previous: CUPTI Callback-Based Profiling Tutorial">
+          <a href="../callback_profiling/" class="md-footer__link md-footer__link--prev" aria-label="Previous: CUPTI 基于回调的性能分析教程">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -8867,20 +9040,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                CUPTI Callback-Based Profiling Tutorial
+                CUPTI 基于回调的性能分析教程
               </div>
             </div>
           </a>
         
         
           
-          <a href="../checkpoint_kernels/" class="md-footer__link md-footer__link--next" aria-label="Next: CUPTI Checkpoint API Tutorial">
+          <a href="../checkpoint_kernels/" class="md-footer__link md-footer__link--next" aria-label="Next: CUPTI 检查点 API 教程">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                CUPTI Checkpoint API Tutorial
+                CUPTI 检查点 API 教程
               </div>
             </div>
             <div class="md-footer__button md-icon">

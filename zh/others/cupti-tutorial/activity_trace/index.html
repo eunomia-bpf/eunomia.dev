@@ -24,7 +24,7 @@
     
     
       
-        <title>CUPTI Activity Trace Tutorial - eunomia</title>
+        <title>CUPTI 活动跟踪教程 - eunomia</title>
       
     
     
@@ -69,11 +69,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="CUPTI Activity Trace Tutorial - eunomia" >
+        <meta  property="og:title"  content="CUPTI 活动跟踪教程 - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
-        <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/others/cupti-tutorial/activity_trace/README.png" >
+        <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/others/cupti-tutorial/activity_trace/README.zh.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -85,11 +85,11 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="CUPTI Activity Trace Tutorial - eunomia" >
+        <meta  name="twitter:title"  content="CUPTI 活动跟踪教程 - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
-        <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/others/cupti-tutorial/activity_trace/README.png" >
+        <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/others/cupti-tutorial/activity_trace/README.zh.png" >
       
     
     
@@ -112,7 +112,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#cupti-activity-trace-tutorial" class="md-skip">
+        <a href="#cupti" class="md-skip">
           Skip to content
         </a>
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              CUPTI Activity Trace Tutorial
+              CUPTI 活动跟踪教程
             
           </span>
         </div>
@@ -5022,7 +5022,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Activity Trace Tutorial
+    CUPTI 活动跟踪教程
     
   </span>
   
@@ -5035,7 +5035,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Activity Trace Tutorial
+    CUPTI 活动跟踪教程
     
   </span>
   
@@ -5058,73 +5058,73 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      Introduction
+      简介
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      What You'll Learn
+      您将学到什么
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#code-walkthrough" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      Code Walkthrough
+      代码演练
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Code Walkthrough">
+    <nav class="md-nav" aria-label="代码演练">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-setting-up-activity-tracing" class="md-nav__link">
+  <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Setting Up Activity Tracing
+      1. 设置活动跟踪
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-processing-completed-buffers" class="md-nav__link">
+  <a href="#2" class="md-nav__link">
     <span class="md-ellipsis">
-      2. Processing Completed Buffers
+      2. 处理已完成的缓冲区
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-activity-record-processing" class="md-nav__link">
+  <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
-      3. Activity Record Processing
+      3. 活动记录处理
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-initialization-and-cleanup" class="md-nav__link">
+  <a href="#4" class="md-nav__link">
     <span class="md-ellipsis">
-      4. Initialization and Cleanup
+      4. 初始化和清理
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#5-the-test-kernel" class="md-nav__link">
+  <a href="#5" class="md-nav__link">
     <span class="md-ellipsis">
-      5. The Test Kernel
+      5. 测试内核
     </span>
   </a>
   
@@ -5136,36 +5136,36 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#running-the-sample" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      Running the Sample
+      运行示例
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#understanding-the-output" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      Understanding the Output
+      理解输出
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#performance-insights" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      Performance Insights
+      性能见解
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
-      Next Steps
+      下一步
     </span>
   </a>
   
@@ -5243,7 +5243,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Asynchronous Activity Tracing Tutorial
+    CUPTI 异步活动跟踪教程
     
   </span>
   
@@ -5317,7 +5317,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Autorange Profiling Tutorial
+    CUPTI 自动范围性能分析教程
     
   </span>
   
@@ -5391,7 +5391,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Callback Event Tutorial
+    CUPTI 回调事件教程
     
   </span>
   
@@ -5465,7 +5465,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Performance Metrics Tutorial
+    CUPTI 性能指标教程
     
   </span>
   
@@ -5539,7 +5539,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Callback-Based Profiling Tutorial
+    CUPTI 基于回调的性能分析教程
     
   </span>
   
@@ -5613,7 +5613,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Timestamp Callback Tutorial
+    CUPTI 时间戳回调教程
     
   </span>
   
@@ -5687,7 +5687,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Checkpoint API Tutorial
+    CUPTI 检查点 API 教程
     
   </span>
   
@@ -5761,7 +5761,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Common Helper Files
+    CUPTI 通用辅助文件
     
   </span>
   
@@ -5835,7 +5835,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Concurrent Profiling Tutorial
+    CUPTI 并发分析教程
     
   </span>
   
@@ -5909,7 +5909,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA Graphs Tracing Tutorial
+    CUDA 图追踪教程
     
   </span>
   
@@ -5983,7 +5983,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA Memory Tracing Tutorial
+    CUDA 内存追踪教程
     
   </span>
   
@@ -6057,7 +6057,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI API-GPU Activity Correlation Tutorial
+    CUPTI API-GPU 活动关联教程
     
   </span>
   
@@ -6131,7 +6131,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI External Correlation Tutorial
+    CUPTI 外部关联教程
     
   </span>
   
@@ -6205,7 +6205,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Finalization and Cleanup Tutorial
+    CUPTI 终结和清理教程
     
   </span>
   
@@ -6279,7 +6279,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Metric Properties Tutorial
+    CUPTI 指标属性教程
     
   </span>
   
@@ -6353,7 +6353,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI NVTX Integration Tutorial
+    CUPTI NVTX 集成教程
     
   </span>
   
@@ -6427,7 +6427,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Query API Tutorial
+    CUPTI 查询 API 教程
     
   </span>
   
@@ -6501,7 +6501,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Trace Injection Tutorial
+    CUPTI 跟踪注入教程
     
   </span>
   
@@ -6575,7 +6575,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Multi-GPU Event Profiling Tutorial
+    CUPTI 多 GPU 事件分析教程
     
   </span>
   
@@ -6649,7 +6649,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Event Sampling Tutorial
+    CUPTI 事件采样教程
     
   </span>
   
@@ -6723,7 +6723,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Extensions
+    CUPTI 扩展工具
     
   </span>
   
@@ -6797,7 +6797,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Nested Range Profiling Tutorial
+    CUPTI 嵌套范围分析教程
     
   </span>
   
@@ -6871,7 +6871,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI NVLink Bandwidth Monitoring Tutorial
+    CUPTI NVLink 带宽监控教程
     
   </span>
   
@@ -6945,7 +6945,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI OpenACC Tracing Tutorial
+    CUPTI OpenACC 跟踪教程
     
   </span>
   
@@ -7019,7 +7019,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI PC Sampling Tutorial
+    CUPTI PC 采样教程
     
   </span>
   
@@ -7093,7 +7093,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Program Counter (PC) Sampling Continuous Tutorial
+    CUPTI 程序计数器 (PC) 连续采样教程
     
   </span>
   
@@ -7167,7 +7167,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI PC Sampling Start/Stop Control Tutorial
+    CUPTI PC 采样启动/停止控制教程
     
   </span>
   
@@ -7241,7 +7241,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI PC Sampling Analysis Utility Tutorial
+    CUPTI PC 采样分析工具教程
     
   </span>
   
@@ -7315,7 +7315,7 @@
   
   
   <span class="md-ellipsis">
-    Performance Monitor Sampling Tutorial
+    性能监控采样教程
     
   </span>
   
@@ -7389,7 +7389,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Profiling API Injection Tutorial
+    CUPTI 分析 API 注入教程
     
   </span>
   
@@ -7463,7 +7463,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Range Profiling Tutorial
+    CUPTI 范围性能分析教程
     
   </span>
   
@@ -7537,7 +7537,7 @@
   
   
   <span class="md-ellipsis">
-    SASS Metrics Collection Tutorial
+    SASS 指标收集教程
     
   </span>
   
@@ -7611,7 +7611,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI SASS Source Mapping Tutorial
+    CUPTI SASS 源代码映射教程
     
   </span>
   
@@ -7685,7 +7685,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Unified Memory Profiling Tutorial
+    CUPTI 统一内存分析教程
     
   </span>
   
@@ -7759,7 +7759,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI User-Range Profiling Tutorial
+    CUPTI 用户范围分析教程
     
   </span>
   
@@ -8247,73 +8247,73 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      Introduction
+      简介
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      What You'll Learn
+      您将学到什么
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#code-walkthrough" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      Code Walkthrough
+      代码演练
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Code Walkthrough">
+    <nav class="md-nav" aria-label="代码演练">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-setting-up-activity-tracing" class="md-nav__link">
+  <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Setting Up Activity Tracing
+      1. 设置活动跟踪
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-processing-completed-buffers" class="md-nav__link">
+  <a href="#2" class="md-nav__link">
     <span class="md-ellipsis">
-      2. Processing Completed Buffers
+      2. 处理已完成的缓冲区
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-activity-record-processing" class="md-nav__link">
+  <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
-      3. Activity Record Processing
+      3. 活动记录处理
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-initialization-and-cleanup" class="md-nav__link">
+  <a href="#4" class="md-nav__link">
     <span class="md-ellipsis">
-      4. Initialization and Cleanup
+      4. 初始化和清理
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#5-the-test-kernel" class="md-nav__link">
+  <a href="#5" class="md-nav__link">
     <span class="md-ellipsis">
-      5. The Test Kernel
+      5. 测试内核
     </span>
   </a>
   
@@ -8325,36 +8325,36 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#running-the-sample" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      Running the Sample
+      运行示例
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#understanding-the-output" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      Understanding the Output
+      理解输出
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#performance-insights" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      Performance Insights
+      性能见解
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
-      Next Steps
+      下一步
     </span>
   </a>
   
@@ -8376,7 +8376,7 @@
 
 
   
-    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cupti-tutorial/activity_trace/README.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cupti-tutorial/activity_trace/README.zh.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -8385,49 +8385,49 @@
     
       
     
-    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cupti-tutorial/activity_trace/README.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cupti-tutorial/activity_trace/README.zh.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-<h1 id="cupti-activity-trace-tutorial">CUPTI Activity Trace Tutorial</h1>
+<h1 id="cupti">CUPTI 活动跟踪教程</h1>
 <blockquote>
-<p>The GitHub repo and complete tutorial is available at <a href="https://github.com/eunomia-bpf/cupti-tutorial">https://github.com/eunomia-bpf/cupti-tutorial</a>.</p>
+<p>GitHub 仓库和完整教程可在 <a href="https://github.com/eunomia-bpf/cupti-tutorial">https://github.com/eunomia-bpf/cupti-tutorial</a> 获取。</p>
 </blockquote>
-<h2 id="introduction">Introduction</h2>
-<p>Profiling CUDA applications is essential for understanding their performance characteristics. The CUPTI Activity API provides a powerful way to collect detailed traces of both CUDA API calls and GPU activities. This tutorial explains how to use CUPTI to gather and analyze this data.</p>
-<h2 id="what-youll-learn">What You'll Learn</h2>
+<h2 id="_1">简介</h2>
+<p>对CUDA应用程序进行性能分析对于理解其性能特征至关重要。CUPTI Activity API 提供了一种强大的方法来收集CUDA API调用和GPU活动的详细跟踪信息。本教程解释如何使用CUPTI收集和分析这些数据。</p>
+<h2 id="_2">您将学到什么</h2>
 <ul>
-<li>How to initialize the CUPTI Activity API</li>
-<li>Setting up and managing activity record buffers</li>
-<li>Processing activity records from multiple sources</li>
-<li>Interpreting activity data for optimization</li>
+<li>如何初始化CUPTI Activity API</li>
+<li>设置和管理活动记录缓冲区</li>
+<li>处理来自多个源的活动记录</li>
+<li>解释活动数据以进行优化</li>
 </ul>
-<h2 id="code-walkthrough">Code Walkthrough</h2>
-<h3 id="1-setting-up-activity-tracing">1. Setting Up Activity Tracing</h3>
-<p>The core of the activity tracing system revolves around buffer management. CUPTI requests buffers to store activity records and notifies when those buffers are filled.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">// Buffer request callback - called when CUPTI needs a new buffer</span>
+<h2 id="_3">代码演练</h2>
+<h3 id="1">1. 设置活动跟踪</h3>
+<p>活动跟踪系统的核心围绕缓冲区管理展开。CUPTI请求缓冲区来存储活动记录，并在这些缓冲区被填满时通知。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">// 缓冲区请求回调 - 当CUPTI需要新缓冲区时调用</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">CUPTIAPI</span><span class="w"> </span><span class="nf">bufferRequested</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">**</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="o">*</span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="o">*</span><span class="n">maxNumRecords</span><span class="p">)</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">{</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="c1">// Allocate buffer for CUPTI records</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="c1">// 为CUPTI记录分配缓冲区</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="o">*</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BUF_SIZE</span><span class="p">;</span>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="o">*</span><span class="n">buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="o">*</span><span class="n">size</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ALIGN_SIZE</span><span class="p">);</span>
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span><span class="c1">// Ensure buffer is properly aligned</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span><span class="c1">// 确保缓冲区正确对齐</span>
 <a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span><span class="o">*</span><span class="n">buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ALIGN_BUFFER</span><span class="p">(</span><span class="o">*</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="n">ALIGN_SIZE</span><span class="p">);</span>
 <a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">  </span><span class="o">*</span><span class="n">maxNumRecords</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="p">}</span>
 </code></pre></div>
-<p>This function allocates memory when CUPTI requests a buffer to store activity records. The alignment is important for performance.</p>
-<h3 id="2-processing-completed-buffers">2. Processing Completed Buffers</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">// Buffer completion callback - called when CUPTI has filled a buffer</span>
+<p>当CUPTI请求缓冲区来存储活动记录时，此函数分配内存。对齐对性能很重要。</p>
+<h3 id="2">2. 处理已完成的缓冲区</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">// 缓冲区完成回调 - 当CUPTI填满缓冲区时调用</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">CUPTIAPI</span><span class="w"> </span><span class="nf">bufferCompleted</span><span class="p">(</span><span class="n">CUcontext</span><span class="w"> </span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">streamId</span><span class="p">,</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">validSize</span><span class="p">)</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="p">{</span>
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="n">CUpti_Activity</span><span class="w"> </span><span class="o">*</span><span class="n">record</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="c1">// Process all records in the buffer</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="c1">// 处理缓冲区中的所有记录</span>
 <a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">  </span><span class="n">CUptiResult</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CUPTI_SUCCESS</span><span class="p">;</span>
 <a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">validSize</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cuptiActivityGetNextRecord</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="n">validSize</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">record</span><span class="p">);</span>
@@ -8443,55 +8443,55 @@
 <a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">  </span><span class="n">free</span><span class="p">(</span><span class="n">buffer</span><span class="p">);</span>
 <a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="p">}</span>
 </code></pre></div>
-<p>When CUPTI fills a buffer with activity data, this callback processes each record and then frees the buffer.</p>
-<h3 id="3-activity-record-processing">3. Activity Record Processing</h3>
-<p>The <code>printActivity</code> function is the heart of the analysis, interpreting different types of activities:</p>
+<p>当CUPTI用活动数据填满缓冲区时，此回调处理每个记录，然后释放缓冲区。</p>
+<h3 id="3">3. 活动记录处理</h3>
+<p><code>printActivity</code> 函数是分析的核心，解释不同类型的活动：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">printActivity</span><span class="p">(</span><span class="n">CUpti_Activity</span><span class="w"> </span><span class="o">*</span><span class="n">record</span><span class="p">)</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="p">{</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">record</span><span class="o">-&gt;</span><span class="n">kind</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">CUPTI_ACTIVITY_KIND_DEVICE</span><span class="p">:</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="c1">// Print device information</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="c1">// 打印设备信息</span>
 <a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="p">...</span>
 <a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">CUPTI_ACTIVITY_KIND_MEMCPY</span><span class="p">:</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="c1">// Print memory copy details</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="c1">// 打印内存复制详细信息</span>
 <a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="p">...</span>
 <a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">CUPTI_ACTIVITY_KIND_KERNEL</span><span class="p">:</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="c1">// Print kernel execution details</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="c1">// 打印内核执行详细信息</span>
 <a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="p">...</span>
 <a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">  </span><span class="c1">// Many more activity types...</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">  </span><span class="c1">// 更多活动类型...</span>
 <a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">  </span><span class="p">}</span>
 <a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="p">}</span>
 </code></pre></div>
-<p>Each activity type provides different insights:
-- Device activities show hardware capabilities
-- Memory copy activities reveal data transfer patterns and times
-- Kernel activities show execution time and parameters</p>
-<h3 id="4-initialization-and-cleanup">4. Initialization and Cleanup</h3>
+<p>每种活动类型提供不同的见解：
+- 设备活动显示硬件能力
+- 内存复制活动显示数据传输模式和时间
+- 内核活动显示执行时间和参数</p>
+<h3 id="4">4. 初始化和清理</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">initTrace</span><span class="p">()</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="p">{</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="c1">// Register callbacks for buffer management</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="c1">// 为缓冲区管理注册回调</span>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiActivityRegisterCallbacks</span><span class="p">(</span><span class="n">bufferRequested</span><span class="p">,</span><span class="w"> </span><span class="n">bufferCompleted</span><span class="p">));</span>
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span><span class="c1">// Enable various activity kinds</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span><span class="c1">// 启用各种活动类型</span>
 <a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">  </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiActivityEnable</span><span class="p">(</span><span class="n">CUPTI_ACTIVITY_KIND_DEVICE</span><span class="p">));</span>
 <a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">  </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiActivityEnable</span><span class="p">(</span><span class="n">CUPTI_ACTIVITY_KIND_CONTEXT</span><span class="p">));</span>
 <a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">  </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiActivityEnable</span><span class="p">(</span><span class="n">CUPTI_ACTIVITY_KIND_KERNEL</span><span class="p">));</span>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">  </span><span class="c1">// ... more activity kinds ...</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">  </span><span class="c1">// ... 更多活动类型 ...</span>
 <a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">  </span><span class="c1">// Capture timestamp for normalizing times</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">  </span><span class="c1">// 捕获时间戳以标准化时间</span>
 <a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">  </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiGetTimestamp</span><span class="p">(</span><span class="o">&amp;</span><span class="n">startTimestamp</span><span class="p">));</span>
 <a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="p">}</span>
 <a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>
 <a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="kt">void</span><span class="w"> </span><span class="nf">finiTrace</span><span class="p">()</span>
 <a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="p">{</span>
-<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">  </span><span class="c1">// Flush any remaining data</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">  </span><span class="c1">// 刷新任何剩余数据</span>
 <a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">  </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiActivityFlushAll</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
 <a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="p">}</span>
 </code></pre></div>
-<p>The initialization function enables specific activity kinds that you want to monitor and registers the callbacks. The cleanup function ensures all data is processed.</p>
-<h3 id="5-the-test-kernel">5. The Test Kernel</h3>
-<p>The sample uses a simple vector addition kernel (in <code>vec.cu</code>) to generate activities to trace:</p>
+<p>初始化函数启用您想要监控的特定活动类型并注册回调。清理函数确保处理所有数据。</p>
+<h3 id="5">5. 测试内核</h3>
+<p>示例使用简单的向量加法内核（在 <code>vec.cu</code> 中）来生成要跟踪的活动：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">vecAdd</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">numElements</span><span class="p">)</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="p">{</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
@@ -8499,50 +8499,50 @@
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
 <a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="p">}</span>
 </code></pre></div>
-<h2 id="running-the-sample">Running the Sample</h2>
+<h2 id="_4">运行示例</h2>
 <ol>
 <li>
-<p>Build the sample:
+<p>构建示例：
    <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>make
 </code></pre></div></p>
 </li>
 <li>
-<p>Run the activity trace:
+<p>运行活动跟踪：
    <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>./activity_trace
 </code></pre></div></p>
 </li>
 </ol>
-<h2 id="understanding-the-output">Understanding the Output</h2>
-<p>The output shows a chronological trace of activities:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>DEVICE Device Name (0), capability 7.0, global memory (bandwidth 900 GB/s, size 16000 MB), multiprocessors 80, clock 1530 MHz
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>CONTEXT 1, device 0, compute API CUDA, NULL stream 1
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>DRIVER_API cuCtxCreate [ 10223 - 15637 ] 
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>MEMCPY HtoD [ 22500 - 23012 ] device 0, context 1, stream 7, correlation 1/1
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>KERNEL &quot;vecAdd&quot; [ 32058 - 35224 ] device 0, context 1, stream 7, correlation 2
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>MEMCPY DtoH [ 40388 - 41002 ] device 0, context 1, stream 7, correlation 3/3
+<h2 id="_5">理解输出</h2>
+<p>输出显示活动的时间顺序跟踪：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>设备 Device Name (0)，计算能力 7.0，全局内存（带宽 900 GB/s，大小 16000 MB），多处理器 80，时钟 1530 MHz
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>上下文 1，设备 0，计算 API CUDA，NULL 流 1
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>驱动器_API cuCtxCreate [ 10223 - 15637 ] 
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>内存复制 HtoD [ 22500 - 23012 ] 设备 0，上下文 1，流 7，相关性 1/1
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>内核 &quot;vecAdd&quot; [ 32058 - 35224 ] 设备 0，上下文 1，流 7，相关性 2
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>内存复制 DtoH [ 40388 - 41002 ] 设备 0，上下文 1，流 7，相关性 3/3
 </code></pre></div>
-<p>Let's decode this:
-1. <strong>Device information</strong>: Shows GPU capabilities
-2. <strong>Context creation</strong>: CUDA context initialization
-3. <strong>Memory copies</strong>: 
-   - <code>HtoD</code> (Host to Device) shows data being uploaded to the GPU
-   - <code>DtoH</code> (Device to Host) shows results being downloaded
-4. <strong>Kernel execution</strong>: Shows the execution time of our vector addition</p>
-<p>The timestamps (in brackets) are normalized to the start of tracing, making it easy to see the relative timing of operations.</p>
-<h2 id="performance-insights">Performance Insights</h2>
-<p>With this trace data, you can:
-- Identify bottlenecks in memory transfers
-- Determine kernel execution efficiency
-- Find synchronization points and their impact
-- Measure the overhead of CUDA API calls</p>
-<h2 id="next-steps">Next Steps</h2>
+<p>让我们解码这些信息：
+1. <strong>设备信息</strong>：显示GPU能力
+2. <strong>上下文创建</strong>：CUDA上下文初始化
+3. <strong>内存复制</strong>：
+   - <code>HtoD</code>（主机到设备）显示数据正在上传到GPU
+   - <code>DtoH</code>（设备到主机）显示结果正在下载
+4. <strong>内核执行</strong>：显示我们向量加法的执行时间</p>
+<p>时间戳（方括号中）标准化为跟踪开始时的时间，使得容易看到操作的相对时序。</p>
+<h2 id="_6">性能见解</h2>
+<p>使用这些跟踪数据，您可以：
+- 识别内存传输中的瓶颈
+- 确定内核执行效率
+- 找到同步点及其影响
+- 测量CUDA API调用的开销</p>
+<h2 id="_7">下一步</h2>
 <ul>
-<li>Try modifying the vector size to see how it affects performance</li>
-<li>Enable additional activity kinds to gather more detailed information</li>
-<li>Compare the timings of different GPU operations in your own applications</li>
-<li>Explore CUPTI's other activity-based samples for more advanced tracing </li>
+<li>尝试修改向量大小以查看它如何影响性能</li>
+<li>启用其他活动类型以收集更详细的信息</li>
+<li>比较您自己应用程序中不同GPU操作的时序</li>
+<li>探索CUPTI的其他基于活动的示例以获得更高级的跟踪功能 </li>
 </ul>
-<p><a class="md-button" href="https://x.com/intent/tweet?text=CUPTI%20Activity%20Trace%20Tutorial%0A&amp;url=https://eunomia.dev/zh/others/cupti-tutorial/activity_trace/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=CUPTI%20%E6%B4%BB%E5%8A%A8%E8%B7%9F%E8%B8%AA%E6%95%99%E7%A8%8B%0A&amp;url=https://eunomia.dev/zh/others/cupti-tutorial/activity_trace/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/zh/others/cupti-tutorial/activity_trace/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
@@ -8566,7 +8566,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 17, 2025 09:26:20 UTC">June 17, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 22, 2025 05:40:48 UTC">June 22, 2025</span>
   </span>
 
     
@@ -8576,7 +8576,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 17, 2025 09:19:24 UTC">June 17, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 22, 2025 05:40:48 UTC">June 22, 2025</span>
   </span>
 
     
@@ -8713,13 +8713,13 @@
         
         
           
-          <a href="../activity_trace_async/" class="md-footer__link md-footer__link--next" aria-label="Next: CUPTI Asynchronous Activity Tracing Tutorial">
+          <a href="../activity_trace_async/" class="md-footer__link md-footer__link--next" aria-label="Next: CUPTI 异步活动跟踪教程">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                CUPTI Asynchronous Activity Tracing Tutorial
+                CUPTI 异步活动跟踪教程
               </div>
             </div>
             <div class="md-footer__button md-icon">

@@ -24,7 +24,7 @@
     
     
       
-        <title>CUPTI Autorange Profiling Tutorial - eunomia</title>
+        <title>CUPTI 自动范围性能分析教程 - eunomia</title>
       
     
     
@@ -69,11 +69,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="CUPTI Autorange Profiling Tutorial - eunomia" >
+        <meta  property="og:title"  content="CUPTI 自动范围性能分析教程 - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
-        <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/others/cupti-tutorial/autorange_profiling/README.png" >
+        <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/others/cupti-tutorial/autorange_profiling/README.zh.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -85,11 +85,11 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="CUPTI Autorange Profiling Tutorial - eunomia" >
+        <meta  name="twitter:title"  content="CUPTI 自动范围性能分析教程 - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
-        <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/others/cupti-tutorial/autorange_profiling/README.png" >
+        <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/others/cupti-tutorial/autorange_profiling/README.zh.png" >
       
     
     
@@ -112,7 +112,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#cupti-autorange-profiling-tutorial" class="md-skip">
+        <a href="#cupti" class="md-skip">
           Skip to content
         </a>
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              CUPTI Autorange Profiling Tutorial
+              CUPTI 自动范围性能分析教程
             
           </span>
         </div>
@@ -5013,7 +5013,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Activity Trace Tutorial
+    CUPTI 活动跟踪教程
     
   </span>
   
@@ -5087,7 +5087,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Asynchronous Activity Tracing Tutorial
+    CUPTI 异步活动跟踪教程
     
   </span>
   
@@ -5170,7 +5170,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Autorange Profiling Tutorial
+    CUPTI 自动范围性能分析教程
     
   </span>
   
@@ -5183,7 +5183,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Autorange Profiling Tutorial
+    CUPTI 自动范围性能分析教程
     
   </span>
   
@@ -5206,82 +5206,82 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      Introduction
+      简介
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      What You'll Learn
+      您将学到的内容
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#understanding-autorange-profiling" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      Understanding Autorange Profiling
+      理解自动范围分析
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#code-walkthrough" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      Code Walkthrough
+      代码演练
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Code Walkthrough">
+    <nav class="md-nav" aria-label="代码演练">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-setting-up-the-profiling-environment" class="md-nav__link">
+  <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Setting Up the Profiling Environment
+      1. 设置分析环境
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-creating-the-counter-data-image" class="md-nav__link">
+  <a href="#2" class="md-nav__link">
     <span class="md-ellipsis">
-      2. Creating the Counter Data Image
+      2. 创建计数器数据镜像
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-configuring-the-metrics-to-collect" class="md-nav__link">
+  <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
-      3. Configuring the Metrics to Collect
+      3. 配置要收集的指标
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-enabling-profiling-and-running-kernels" class="md-nav__link">
+  <a href="#4" class="md-nav__link">
     <span class="md-ellipsis">
-      4. Enabling Profiling and Running Kernels
+      4. 启用分析并运行内核
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#5-processing-the-results" class="md-nav__link">
+  <a href="#5" class="md-nav__link">
     <span class="md-ellipsis">
-      5. Processing the Results
+      5. 处理结果
     </span>
   </a>
   
@@ -5293,64 +5293,64 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#sample-kernels" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      Sample Kernels
+      示例内核
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#running-the-tutorial" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      Running the Tutorial
+      运行教程
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#understanding-the-output" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
-      Understanding the Output
+      示例输出
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#available-metrics" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
-      Available Metrics
+      性能优势
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#advanced-usage" class="md-nav__link">
-    <span class="md-ellipsis">
-      Advanced Usage
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Advanced Usage">
+    <nav class="md-nav" aria-label="性能优势">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#collecting-multiple-metrics" class="md-nav__link">
+  <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
-      Collecting Multiple Metrics
+      零代码修改
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#filtering-specific-kernels" class="md-nav__link">
+  <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
-      Filtering Specific Kernels
+      全面覆盖
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      最小开销
     </span>
   </a>
   
@@ -5362,18 +5362,75 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#performance-considerations" class="md-nav__link">
+  <a href="#_12" class="md-nav__link">
     <span class="md-ellipsis">
-      Performance Considerations
+      高级配置
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="高级配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      自定义指标
     </span>
   </a>
   
 </li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      多设备支持
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
+  <a href="#_15" class="md-nav__link">
     <span class="md-ellipsis">
-      Next Steps
+      故障排除
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="故障排除">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      常见问题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      调试提示
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      总结
     </span>
   </a>
   
@@ -5451,7 +5508,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Callback Event Tutorial
+    CUPTI 回调事件教程
     
   </span>
   
@@ -5525,7 +5582,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Performance Metrics Tutorial
+    CUPTI 性能指标教程
     
   </span>
   
@@ -5599,7 +5656,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Callback-Based Profiling Tutorial
+    CUPTI 基于回调的性能分析教程
     
   </span>
   
@@ -5673,7 +5730,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Timestamp Callback Tutorial
+    CUPTI 时间戳回调教程
     
   </span>
   
@@ -5747,7 +5804,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Checkpoint API Tutorial
+    CUPTI 检查点 API 教程
     
   </span>
   
@@ -5821,7 +5878,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Common Helper Files
+    CUPTI 通用辅助文件
     
   </span>
   
@@ -5895,7 +5952,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Concurrent Profiling Tutorial
+    CUPTI 并发分析教程
     
   </span>
   
@@ -5969,7 +6026,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA Graphs Tracing Tutorial
+    CUDA 图追踪教程
     
   </span>
   
@@ -6043,7 +6100,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA Memory Tracing Tutorial
+    CUDA 内存追踪教程
     
   </span>
   
@@ -6117,7 +6174,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI API-GPU Activity Correlation Tutorial
+    CUPTI API-GPU 活动关联教程
     
   </span>
   
@@ -6191,7 +6248,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI External Correlation Tutorial
+    CUPTI 外部关联教程
     
   </span>
   
@@ -6265,7 +6322,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Finalization and Cleanup Tutorial
+    CUPTI 终结和清理教程
     
   </span>
   
@@ -6339,7 +6396,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Metric Properties Tutorial
+    CUPTI 指标属性教程
     
   </span>
   
@@ -6413,7 +6470,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI NVTX Integration Tutorial
+    CUPTI NVTX 集成教程
     
   </span>
   
@@ -6487,7 +6544,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Query API Tutorial
+    CUPTI 查询 API 教程
     
   </span>
   
@@ -6561,7 +6618,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Trace Injection Tutorial
+    CUPTI 跟踪注入教程
     
   </span>
   
@@ -6635,7 +6692,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Multi-GPU Event Profiling Tutorial
+    CUPTI 多 GPU 事件分析教程
     
   </span>
   
@@ -6709,7 +6766,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Event Sampling Tutorial
+    CUPTI 事件采样教程
     
   </span>
   
@@ -6783,7 +6840,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Extensions
+    CUPTI 扩展工具
     
   </span>
   
@@ -6857,7 +6914,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Nested Range Profiling Tutorial
+    CUPTI 嵌套范围分析教程
     
   </span>
   
@@ -6931,7 +6988,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI NVLink Bandwidth Monitoring Tutorial
+    CUPTI NVLink 带宽监控教程
     
   </span>
   
@@ -7005,7 +7062,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI OpenACC Tracing Tutorial
+    CUPTI OpenACC 跟踪教程
     
   </span>
   
@@ -7079,7 +7136,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI PC Sampling Tutorial
+    CUPTI PC 采样教程
     
   </span>
   
@@ -7153,7 +7210,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Program Counter (PC) Sampling Continuous Tutorial
+    CUPTI 程序计数器 (PC) 连续采样教程
     
   </span>
   
@@ -7227,7 +7284,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI PC Sampling Start/Stop Control Tutorial
+    CUPTI PC 采样启动/停止控制教程
     
   </span>
   
@@ -7301,7 +7358,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI PC Sampling Analysis Utility Tutorial
+    CUPTI PC 采样分析工具教程
     
   </span>
   
@@ -7375,7 +7432,7 @@
   
   
   <span class="md-ellipsis">
-    Performance Monitor Sampling Tutorial
+    性能监控采样教程
     
   </span>
   
@@ -7449,7 +7506,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Profiling API Injection Tutorial
+    CUPTI 分析 API 注入教程
     
   </span>
   
@@ -7523,7 +7580,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Range Profiling Tutorial
+    CUPTI 范围性能分析教程
     
   </span>
   
@@ -7597,7 +7654,7 @@
   
   
   <span class="md-ellipsis">
-    SASS Metrics Collection Tutorial
+    SASS 指标收集教程
     
   </span>
   
@@ -7671,7 +7728,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI SASS Source Mapping Tutorial
+    CUPTI SASS 源代码映射教程
     
   </span>
   
@@ -7745,7 +7802,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Unified Memory Profiling Tutorial
+    CUPTI 统一内存分析教程
     
   </span>
   
@@ -7819,7 +7876,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI User-Range Profiling Tutorial
+    CUPTI 用户范围分析教程
     
   </span>
   
@@ -8307,82 +8364,82 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      Introduction
+      简介
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      What You'll Learn
+      您将学到的内容
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#understanding-autorange-profiling" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      Understanding Autorange Profiling
+      理解自动范围分析
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#code-walkthrough" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      Code Walkthrough
+      代码演练
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Code Walkthrough">
+    <nav class="md-nav" aria-label="代码演练">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-setting-up-the-profiling-environment" class="md-nav__link">
+  <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Setting Up the Profiling Environment
+      1. 设置分析环境
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-creating-the-counter-data-image" class="md-nav__link">
+  <a href="#2" class="md-nav__link">
     <span class="md-ellipsis">
-      2. Creating the Counter Data Image
+      2. 创建计数器数据镜像
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-configuring-the-metrics-to-collect" class="md-nav__link">
+  <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
-      3. Configuring the Metrics to Collect
+      3. 配置要收集的指标
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-enabling-profiling-and-running-kernels" class="md-nav__link">
+  <a href="#4" class="md-nav__link">
     <span class="md-ellipsis">
-      4. Enabling Profiling and Running Kernels
+      4. 启用分析并运行内核
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#5-processing-the-results" class="md-nav__link">
+  <a href="#5" class="md-nav__link">
     <span class="md-ellipsis">
-      5. Processing the Results
+      5. 处理结果
     </span>
   </a>
   
@@ -8394,64 +8451,64 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#sample-kernels" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      Sample Kernels
+      示例内核
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#running-the-tutorial" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      Running the Tutorial
+      运行教程
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#understanding-the-output" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
-      Understanding the Output
+      示例输出
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#available-metrics" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
-      Available Metrics
+      性能优势
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#advanced-usage" class="md-nav__link">
-    <span class="md-ellipsis">
-      Advanced Usage
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Advanced Usage">
+    <nav class="md-nav" aria-label="性能优势">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#collecting-multiple-metrics" class="md-nav__link">
+  <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
-      Collecting Multiple Metrics
+      零代码修改
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#filtering-specific-kernels" class="md-nav__link">
+  <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
-      Filtering Specific Kernels
+      全面覆盖
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      最小开销
     </span>
   </a>
   
@@ -8463,18 +8520,75 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#performance-considerations" class="md-nav__link">
+  <a href="#_12" class="md-nav__link">
     <span class="md-ellipsis">
-      Performance Considerations
+      高级配置
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="高级配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      自定义指标
     </span>
   </a>
   
 </li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      多设备支持
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
+  <a href="#_15" class="md-nav__link">
     <span class="md-ellipsis">
-      Next Steps
+      故障排除
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="故障排除">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      常见问题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      调试提示
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      总结
     </span>
   </a>
   
@@ -8496,7 +8610,7 @@
 
 
   
-    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cupti-tutorial/autorange_profiling/README.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cupti-tutorial/autorange_profiling/README.zh.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -8505,49 +8619,49 @@
     
       
     
-    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cupti-tutorial/autorange_profiling/README.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cupti-tutorial/autorange_profiling/README.zh.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-<h1 id="cupti-autorange-profiling-tutorial">CUPTI Autorange Profiling Tutorial</h1>
+<h1 id="cupti">CUPTI 自动范围性能分析教程</h1>
 <blockquote>
-<p>The GitHub repo and complete tutorial is available at <a href="https://github.com/eunomia-bpf/cupti-tutorial">https://github.com/eunomia-bpf/cupti-tutorial</a>.</p>
+<p>GitHub 仓库和完整教程可在 <a href="https://github.com/eunomia-bpf/cupti-tutorial">https://github.com/eunomia-bpf/cupti-tutorial</a> 获取。</p>
 </blockquote>
-<h2 id="introduction">Introduction</h2>
-<p>Profiling CUDA applications typically requires manually instrumenting your code to define which regions to profile. However, CUPTI's autorange profiling feature simplifies this process by automatically detecting and profiling kernel launches. This tutorial demonstrates how to use this powerful feature to collect performance metrics without modifying your kernels.</p>
-<h2 id="what-youll-learn">What You'll Learn</h2>
+<h2 id="_1">简介</h2>
+<p>分析 CUDA 应用程序通常需要手动在代码中添加插桩来定义要分析的区域。然而，CUPTI 的自动范围分析功能通过自动检测和分析内核启动来简化这一过程。本教程演示了如何使用这一强大功能在不修改内核的情况下收集性能指标。</p>
+<h2 id="_2">您将学到的内容</h2>
 <ul>
-<li>How to set up automatic profiling of CUDA kernels</li>
-<li>Collecting performance metrics without manual instrumentation</li>
-<li>Using NVIDIA's advanced profiling APIs</li>
-<li>Interpreting the collected metrics for performance analysis</li>
+<li>如何设置 CUDA 内核的自动性能分析</li>
+<li>在无需手动插桩的情况下收集性能指标</li>
+<li>使用 NVIDIA 的高级分析 API</li>
+<li>解释收集的指标以进行性能分析</li>
 </ul>
-<h2 id="understanding-autorange-profiling">Understanding Autorange Profiling</h2>
-<p>Autorange profiling automatically detects when CUDA kernels are launched and collects performance metrics for each kernel. This is particularly useful when:</p>
+<h2 id="_3">理解自动范围分析</h2>
+<p>自动范围分析能够自动检测 CUDA 内核启动的时机，并为每个内核收集性能指标。这在以下情况下特别有用：</p>
 <ul>
-<li>You're analyzing third-party code where you can't add instrumentation</li>
-<li>You want to profile all kernels in an application without manual intervention</li>
-<li>You need a quick performance overview without modifying source code</li>
+<li>分析第三方代码时无法添加插桩</li>
+<li>希望在不手动干预的情况下分析应用程序中的所有内核</li>
+<li>需要在不修改源代码的情况下快速了解性能概况</li>
 </ul>
-<h2 id="code-walkthrough">Code Walkthrough</h2>
-<h3 id="1-setting-up-the-profiling-environment">1. Setting Up the Profiling Environment</h3>
-<p>First, we need to initialize the CUPTI profiler and configure it for autorange profiling:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">// Initialize CUPTI and NVPW libraries</span>
+<h2 id="_4">代码演练</h2>
+<h3 id="1">1. 设置分析环境</h3>
+<p>首先，我们需要初始化 CUPTI 分析器并将其配置为自动范围分析：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">// 初始化 CUPTI 和 NVPW 库</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">NVPW_InitializeHost_Params</span><span class="w"> </span><span class="n">initializeHostParams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">NVPW_InitializeHost_Params_STRUCT_SIZE</span><span class="p">};</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">NVPW_InitializeHost</span><span class="p">(</span><span class="o">&amp;</span><span class="n">initializeHostParams</span><span class="p">);</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1">// Create counter data image</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1">// 创建计数器数据镜像</span>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">NV_CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiProfilerInitialize</span><span class="p">(</span><span class="o">&amp;</span><span class="n">profilerInitializeParams</span><span class="p">));</span>
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1">// Set up configuration for the metrics we want to collect</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">metricName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">METRIC_NAME</span><span class="p">;</span><span class="w"> </span><span class="c1">// Default is &quot;smsp__warps_launched.avg+&quot;</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1">// 为我们要收集的指标设置配置</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">metricName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">METRIC_NAME</span><span class="p">;</span><span class="w"> </span><span class="c1">// 默认为 &quot;smsp__warps_launched.avg+&quot;</span>
 </code></pre></div>
-<h3 id="2-creating-the-counter-data-image">2. Creating the Counter Data Image</h3>
-<p>The counter data image is where CUPTI stores the raw performance data:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">// Create counter data image that will store the collected metrics</span>
+<h3 id="2">2. 创建计数器数据镜像</h3>
+<p>计数器数据镜像是 CUPTI 存储原始性能数据的地方：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">// 创建将存储收集指标的计数器数据镜像</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">CUpti_Profiler_CounterDataImageOptions</span><span class="w"> </span><span class="n">counterDataImageOptions</span><span class="p">;</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">counterDataImageOptions</span><span class="p">.</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CUpti_Profiler_CounterDataImageOptions_STRUCT_SIZE</span><span class="p">;</span>
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">counterDataImageOptions</span><span class="p">.</span><span class="n">pCounterDataPrefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
@@ -8561,12 +8675,12 @@
 <a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="n">calculateSizeParams</span><span class="p">.</span><span class="n">pOptions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">counterDataImageOptions</span><span class="p">;</span>
 <a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="n">NV_CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiProfilerCounterDataImageCalculateSize</span><span class="p">(</span><span class="o">&amp;</span><span class="n">calculateSizeParams</span><span class="p">));</span>
 <a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
-<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="c1">// Allocate memory for the counter data image</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="c1">// 为计数器数据镜像分配内存</span>
 <a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="n">counterDataImage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">calculateSizeParams</span><span class="p">.</span><span class="n">counterDataImageSize</span><span class="p">);</span>
 </code></pre></div>
-<h3 id="3-configuring-the-metrics-to-collect">3. Configuring the Metrics to Collect</h3>
-<p>We need to specify which metrics we want to collect:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">// Create configuration for the metrics</span>
+<h3 id="3">3. 配置要收集的指标</h3>
+<p>我们需要指定要收集哪些指标：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">// 为指标创建配置</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">CUpti_Profiler_BeginSession_Params</span><span class="w"> </span><span class="n">beginSessionParams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="n">CUpti_Profiler_BeginSession_Params_STRUCT_SIZE</span><span class="p">};</span>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">beginSessionParams</span><span class="p">.</span><span class="n">ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
@@ -8581,54 +8695,54 @@
 <a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>
 <a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="n">NV_CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiProfilerBeginSession</span><span class="p">(</span><span class="o">&amp;</span><span class="n">beginSessionParams</span><span class="p">));</span>
 <a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>
-<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="c1">// Set up the metric to be collected (e.g., &quot;smsp__warps_launched.avg+&quot;)</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="c1">// 设置要收集的指标（例如 &quot;smsp__warps_launched.avg+&quot;）</span>
 <a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="n">CUpti_Profiler_SetConfig_Params</span><span class="w"> </span><span class="n">setConfigParams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">CUpti_Profiler_SetConfig_Params_STRUCT_SIZE</span><span class="p">};</span>
 <a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="n">setConfigParams</span><span class="p">.</span><span class="n">pConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">metricConfig</span><span class="p">;</span>
 <a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="n">setConfigParams</span><span class="p">.</span><span class="n">configSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">configSize</span><span class="p">;</span>
 <a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="n">setConfigParams</span><span class="p">.</span><span class="n">passIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="n">NV_CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiProfilerSetConfig</span><span class="p">(</span><span class="o">&amp;</span><span class="n">setConfigParams</span><span class="p">));</span>
 </code></pre></div>
-<h3 id="4-enabling-profiling-and-running-kernels">4. Enabling Profiling and Running Kernels</h3>
-<p>Now we enable profiling and run our kernels:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">// Enable profiling</span>
+<h3 id="4">4. 启用分析并运行内核</h3>
+<p>现在我们启用分析并运行内核：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">// 启用分析</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">CUpti_Profiler_EnableProfiling_Params</span><span class="w"> </span><span class="n">enableProfilingParams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="n">CUpti_Profiler_EnableProfiling_Params_STRUCT_SIZE</span><span class="p">};</span>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">NV_CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiProfilerEnableProfiling</span><span class="p">(</span><span class="o">&amp;</span><span class="n">enableProfilingParams</span><span class="p">));</span>
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="c1">// Launch the first kernel (VecAdd)</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="c1">// 启动第一个内核（VecAdd）</span>
 <a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="n">VecAdd</span><span class="o">&lt;&lt;&lt;</span><span class="n">blocksPerGrid</span><span class="p">,</span><span class="w"> </span><span class="n">threadsPerBlock</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">d_A</span><span class="p">,</span><span class="w"> </span><span class="n">d_B</span><span class="p">,</span><span class="w"> </span><span class="n">d_C</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">);</span>
 <a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="n">cudaDeviceSynchronize</span><span class="p">();</span>
 <a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="c1">// Launch the second kernel (VecSub)</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="c1">// 启动第二个内核（VecSub）</span>
 <a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="n">VecSub</span><span class="o">&lt;&lt;&lt;</span><span class="n">blocksPerGrid</span><span class="p">,</span><span class="w"> </span><span class="n">threadsPerBlock</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">d_A</span><span class="p">,</span><span class="w"> </span><span class="n">d_B</span><span class="p">,</span><span class="w"> </span><span class="n">d_D</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">);</span>
 <a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="n">cudaDeviceSynchronize</span><span class="p">();</span>
 <a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
-<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="c1">// Disable profiling</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="c1">// 禁用分析</span>
 <a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="n">CUpti_Profiler_DisableProfiling_Params</span><span class="w"> </span><span class="n">disableProfilingParams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">    </span><span class="n">CUpti_Profiler_DisableProfiling_Params_STRUCT_SIZE</span><span class="p">};</span>
 <a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="n">NV_CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiProfilerDisableProfiling</span><span class="p">(</span><span class="o">&amp;</span><span class="n">disableProfilingParams</span><span class="p">));</span>
 </code></pre></div>
-<p>The autorange feature automatically detects these kernel launches and collects metrics for each one.</p>
-<h3 id="5-processing-the-results">5. Processing the Results</h3>
-<p>After profiling, we need to process the collected data:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1">// End the profiling session</span>
+<p>自动范围功能自动检测这些内核启动并为每个内核收集指标。</p>
+<h3 id="5">5. 处理结果</h3>
+<p>分析完成后，我们需要处理收集的数据：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1">// 结束分析会话</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">CUpti_Profiler_EndSession_Params</span><span class="w"> </span><span class="n">endSessionParams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">CUpti_Profiler_EndSession_Params_STRUCT_SIZE</span><span class="p">};</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">NV_CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiProfilerEndSession</span><span class="p">(</span><span class="o">&amp;</span><span class="n">endSessionParams</span><span class="p">));</span>
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1">// Unset the profiler configuration</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1">// 取消设置分析器配置</span>
 <a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="n">CUpti_Profiler_UnsetConfig_Params</span><span class="w"> </span><span class="n">unsetConfigParams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">CUpti_Profiler_UnsetConfig_Params_STRUCT_SIZE</span><span class="p">};</span>
 <a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="n">NV_CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiProfilerUnsetConfig</span><span class="p">(</span><span class="o">&amp;</span><span class="n">unsetConfigParams</span><span class="p">));</span>
 <a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="c1">// Get the number of ranges (kernels) that were profiled</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="c1">// 获取被分析的范围（内核）数量</span>
 <a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="n">CUpti_Profiler_CounterDataImage_GetNumRanges_Params</span><span class="w"> </span><span class="n">getNumRangesParams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">    </span><span class="n">CUpti_Profiler_CounterDataImage_GetNumRanges_Params_STRUCT_SIZE</span><span class="p">};</span>
 <a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="n">getNumRangesParams</span><span class="p">.</span><span class="n">pCounterDataImage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">counterDataImage</span><span class="p">;</span>
 <a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="n">getNumRangesParams</span><span class="p">.</span><span class="n">counterDataImageSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">calculateSizeParams</span><span class="p">.</span><span class="n">counterDataImageSize</span><span class="p">;</span>
 <a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="n">NV_CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiProfilerCounterDataImageGetNumRanges</span><span class="p">(</span><span class="o">&amp;</span><span class="n">getNumRangesParams</span><span class="p">));</span>
 <a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>
-<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="c1">// Process each range (kernel)</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="c1">// 处理每个范围（内核）</span>
 <a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">rangeIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">rangeIndex</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">getNumRangesParams</span><span class="p">.</span><span class="n">numRanges</span><span class="p">;</span><span class="w"> </span><span class="n">rangeIndex</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">    </span><span class="c1">// Get the range name (kernel name)</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">    </span><span class="c1">// 获取范围名称（内核名称）</span>
 <a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">    </span><span class="n">CUpti_Profiler_CounterDataImage_GetRangeName_Params</span><span class="w"> </span><span class="n">getRangeNameParams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">        </span><span class="n">CUpti_Profiler_CounterDataImage_GetRangeName_Params_STRUCT_SIZE</span><span class="p">};</span>
 <a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="w">    </span><span class="n">getRangeNameParams</span><span class="p">.</span><span class="n">pCounterDataImage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">counterDataImage</span><span class="p">;</span>
@@ -8636,7 +8750,7 @@
 <a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="w">    </span><span class="n">getRangeNameParams</span><span class="p">.</span><span class="n">rangeIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rangeIndex</span><span class="p">;</span>
 <a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="w">    </span><span class="n">NV_CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiProfilerCounterDataImageGetRangeName</span><span class="p">(</span><span class="o">&amp;</span><span class="n">getRangeNameParams</span><span class="p">));</span>
 <a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a>
-<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="w">    </span><span class="c1">// Evaluate the metrics for this range</span>
+<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="w">    </span><span class="c1">// 为此范围评估指标</span>
 <a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="w">    </span><span class="n">NVPW_MetricsContext_SetCounterData_Params</span><span class="w"> </span><span class="n">setCounterDataParams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="w">        </span><span class="n">NVPW_MetricsContext_SetCounterData_Params_STRUCT_SIZE</span><span class="p">};</span>
 <a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a><span class="w">    </span><span class="n">setCounterDataParams</span><span class="p">.</span><span class="n">pMetricsContext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">metricsContext</span><span class="p">;</span>
@@ -8644,7 +8758,7 @@
 <a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a><span class="w">    </span><span class="n">setCounterDataParams</span><span class="p">.</span><span class="n">rangeIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rangeIndex</span><span class="p">;</span>
 <a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a><span class="w">    </span><span class="n">NVPW_MetricsContext_SetCounterData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">setCounterDataParams</span><span class="p">);</span>
 <a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a>
-<a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a><span class="w">    </span><span class="c1">// Get the metric value</span>
+<a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a><span class="w">    </span><span class="c1">// 获取指标值</span>
 <a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">metricValue</span><span class="p">;</span>
 <a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a><span class="w">    </span><span class="n">NVPW_MetricsContext_EvaluateToGpuValues_Params</span><span class="w"> </span><span class="n">evaluateToGpuParams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-4-37" name="__codelineno-4-37" href="#__codelineno-4-37"></a><span class="w">        </span><span class="n">NVPW_MetricsContext_EvaluateToGpuValues_Params_STRUCT_SIZE</span><span class="p">};</span>
@@ -8654,14 +8768,14 @@
 <a id="__codelineno-4-41" name="__codelineno-4-41" href="#__codelineno-4-41"></a><span class="w">    </span><span class="n">evaluateToGpuParams</span><span class="p">.</span><span class="n">pMetricValues</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">metricValue</span><span class="p">;</span>
 <a id="__codelineno-4-42" name="__codelineno-4-42" href="#__codelineno-4-42"></a><span class="w">    </span><span class="n">NVPW_MetricsContext_EvaluateToGpuValues</span><span class="p">(</span><span class="o">&amp;</span><span class="n">evaluateToGpuParams</span><span class="p">);</span>
 <a id="__codelineno-4-43" name="__codelineno-4-43" href="#__codelineno-4-43"></a>
-<a id="__codelineno-4-44" name="__codelineno-4-44" href="#__codelineno-4-44"></a><span class="w">    </span><span class="c1">// Print the results</span>
+<a id="__codelineno-4-44" name="__codelineno-4-44" href="#__codelineno-4-44"></a><span class="w">    </span><span class="c1">// 打印结果</span>
 <a id="__codelineno-4-45" name="__codelineno-4-45" href="#__codelineno-4-45"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Range %d : %s</span><span class="se">\n</span><span class="s">  %s: %.1f</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span>
 <a id="__codelineno-4-46" name="__codelineno-4-46" href="#__codelineno-4-46"></a><span class="w">           </span><span class="n">rangeIndex</span><span class="p">,</span><span class="w"> </span><span class="n">getRangeNameParams</span><span class="p">.</span><span class="n">pRangeName</span><span class="p">,</span><span class="w"> </span><span class="n">metricName</span><span class="p">,</span><span class="w"> </span><span class="n">metricValue</span><span class="p">);</span>
 <a id="__codelineno-4-47" name="__codelineno-4-47" href="#__codelineno-4-47"></a><span class="p">}</span>
 </code></pre></div>
-<h2 id="sample-kernels">Sample Kernels</h2>
-<p>The sample includes two simple kernels to demonstrate profiling multiple functions:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">// Vector addition kernel</span>
+<h2 id="_5">示例内核</h2>
+<p>示例包含两个简单内核来演示分析多个函数：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">// 向量加法内核</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">VecAdd</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">N</span><span class="p">)</span>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="p">{</span>
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
@@ -8669,7 +8783,7 @@
 <a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">        </span><span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
 <a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="p">}</span>
 <a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="c1">// Vector subtraction kernel</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="c1">// 向量减法内核</span>
 <a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="n">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">VecSub</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">D</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">N</span><span class="p">)</span>
 <a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="p">{</span>
 <a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
@@ -8677,77 +8791,106 @@
 <a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">        </span><span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
 <a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="p">}</span>
 </code></pre></div>
-<h2 id="running-the-tutorial">Running the Tutorial</h2>
+<h2 id="_6">运行教程</h2>
 <ol>
 <li>
-<p>Make sure you have the required dependencies:
-   <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">cd</span><span class="w"> </span>../<span class="w">  </span><span class="c1"># Go to cupti_samples root</span>
+<p>确保您有所需的依赖项：
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">cd</span><span class="w"> </span>../<span class="w">  </span><span class="c1"># 转到 cupti_samples 根目录</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>./install.sh
 </code></pre></div></p>
 </li>
 <li>
-<p>Build the sample:
+<p>构建示例：
    <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nb">cd</span><span class="w"> </span>autorange_profiling
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>make
 </code></pre></div></p>
 </li>
 <li>
-<p>Run the sample:
-   <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>./autoRangeSample
+<p>运行示例：
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>./autorange_profiling
+</code></pre></div></p>
+</li>
+<li>
+<p>您还可以指定不同的指标：
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>./autorange_profiling<span class="w"> </span>smsp__throughput.avg.pct_of_peak_sustained_elapsed
 </code></pre></div></p>
 </li>
 </ol>
-<h2 id="understanding-the-output">Understanding the Output</h2>
-<p>The sample produces output similar to:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>Launching kernel: blocks 196, thread/block 256
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>Range 0 : VecAdd
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>  smsp__warps_launched.avg: 196.0
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>Range 1 : VecSub
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>  smsp__warps_launched.avg: 196.0
+<h2 id="_7">示例输出</h2>
+<p>运行示例会产生类似于以下的输出：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Range 0 : VecAdd(const int *, const int *, int *, int)
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>  smsp__warps_launched.avg+: 128.0
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>Range 1 : VecSub(const int *, const int *, int *, int) 
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>  smsp__warps_launched.avg+: 128.0
 </code></pre></div>
-<p>This shows:
-1. The kernel configuration (blocks and threads per block)
-2. Each detected kernel range with its name
-3. The metric value for each kernel</p>
-<p>In this example, both kernels launched the same number of warps (196), which makes sense since they have identical thread configurations and similar complexity.</p>
-<h2 id="available-metrics">Available Metrics</h2>
-<p>The default metric <code>smsp__warps_launched.avg</code> shows the average number of warps launched per streaming multiprocessor (SM). Other useful metrics include:</p>
+<p>这显示了：
+1. 检测到的内核范围（VecAdd 和 VecSub）
+2. 每个内核的指定指标值
+3. 自动范围分析如何无缝捕获所有内核启动</p>
+<h2 id="_8">性能优势</h2>
+<p>自动范围分析提供了几个关键优势：</p>
+<h3 id="_9">零代码修改</h3>
 <ul>
-<li><code>sm__throughput.avg.pct_of_peak_sustained_elapsed</code>: SM throughput as a percentage of peak</li>
-<li><code>dram__throughput.avg.pct_of_peak_sustained_elapsed</code>: Memory throughput as a percentage of peak</li>
-<li><code>sm__pipe_alu_cycles_active.avg.pct_of_peak_sustained_elapsed</code>: ALU utilization</li>
-<li><code>l1tex__t_sectors_pipe_lsu_mem_global_op_ld.sum</code>: Global memory load operations</li>
-<li><code>l1tex__t_sectors_pipe_lsu_mem_global_op_st.sum</code>: Global memory store operations</li>
+<li>无需在应用程序代码中添加分析调用</li>
+<li>可以分析第三方库和二进制文件</li>
+<li>适用于现有应用程序，无需重新编译</li>
 </ul>
-<p>To use a different metric, modify the <code>METRIC_NAME</code> definition in the code.</p>
-<h2 id="advanced-usage">Advanced Usage</h2>
-<h3 id="collecting-multiple-metrics">Collecting Multiple Metrics</h3>
-<p>To collect multiple metrics in a single run, you can:</p>
-<ol>
-<li>Create a metric group in your configuration</li>
-<li>Add multiple metrics to that group</li>
-<li>Process each metric separately in the results phase</li>
-</ol>
-<h3 id="filtering-specific-kernels">Filtering Specific Kernels</h3>
-<p>While autorange profiles all kernels, you can filter the results by:</p>
-<ol>
-<li>Checking the kernel name in the results processing phase</li>
-<li>Only evaluating metrics for kernels you're interested in</li>
-</ol>
-<h2 id="performance-considerations">Performance Considerations</h2>
-<ol>
-<li><strong>Overhead</strong>: Profiling adds overhead to kernel execution, especially when collecting complex metrics</li>
-<li><strong>Multiple Passes</strong>: Some metrics require multiple kernel replays, increasing execution time</li>
-<li><strong>Memory Usage</strong>: Counter data images can be large for applications with many kernels</li>
-</ol>
-<h2 id="next-steps">Next Steps</h2>
+<h3 id="_10">全面覆盖</h3>
 <ul>
-<li>Try collecting different metrics to understand various aspects of your kernels</li>
-<li>Apply autorange profiling to your own CUDA applications</li>
-<li>Compare the performance of different implementations of the same algorithm</li>
-<li>Use the collected metrics to identify optimization opportunities </li>
+<li>自动检测所有内核启动</li>
+<li>不会遗漏任何 GPU 活动</li>
+<li>为每个独特的内核提供单独的指标</li>
 </ul>
-<p><a class="md-button" href="https://x.com/intent/tweet?text=CUPTI%20Autorange%20Profiling%20Tutorial%0A&amp;url=https://eunomia.dev/zh/others/cupti-tutorial/autorange_profiling/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<h3 id="_11">最小开销</h3>
+<ul>
+<li>高效的硬件计数器收集</li>
+<li>自动范围检测的低 CPU 成本</li>
+<li>可配置的指标选择以控制开销</li>
+</ul>
+<h2 id="_12">高级配置</h2>
+<h3 id="_13">自定义指标</h3>
+<p>您可以收集各种性能指标：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1">// 吞吐量指标</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">throughputMetric</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;smsp__throughput.avg.pct_of_peak_sustained_elapsed&quot;</span><span class="p">;</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="c1">// 内存指标</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">memoryMetric</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;dram__throughput.avg.pct_of_peak_sustained_elapsed&quot;</span><span class="p">;</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="c1">// 占用率指标</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">occupancyMetric</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;sm__warps_active.avg.pct_of_peak_sustained_active&quot;</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="_14">多设备支持</h3>
+<p>自动范围分析可以扩展到多个 GPU：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">device</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">device</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">deviceCount</span><span class="p">;</span><span class="w"> </span><span class="n">device</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span><span class="n">cudaSetDevice</span><span class="p">(</span><span class="n">device</span><span class="p">);</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="c1">// 为每个设备设置分析</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="n">setupProfilingForDevice</span><span class="p">(</span><span class="n">device</span><span class="p">);</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="p">}</span>
+</code></pre></div>
+<h2 id="_15">故障排除</h2>
+<h3 id="_16">常见问题</h3>
+<ol>
+<li><strong>权限错误</strong>：确保以管理员权限运行</li>
+<li><strong>CUPTI 初始化失败</strong>：验证 CUDA 驱动程序和工具包版本</li>
+<li><strong>指标不可用</strong>：检查 GPU 架构支持</li>
+<li><strong>内存不足</strong>：为大型应用程序调整缓冲区大小</li>
+</ol>
+<h3 id="_17">调试提示</h3>
+<ul>
+<li>使用 <code>CUPTI_ERROR_PRINT</code> 宏进行详细错误报告</li>
+<li>检查 NVIDIA 驱动程序版本兼容性</li>
+<li>验证 CUDA 上下文在分析期间保持活动状态</li>
+</ul>
+<h2 id="_18">总结</h2>
+<p>自动范围分析为 GPU 性能分析提供了一种强大且易于使用的方法。通过自动检测内核边界和收集指标，它简化了性能分析工作流程，同时提供有价值的优化见解。</p>
+<p>这种方法特别适用于：
+- 快速性能评估
+- 第三方代码分析
+- 生产系统监控
+- 性能回归检测</p>
+<p>结合其他 CUPTI 功能，自动范围分析构成了一个全面的 GPU 性能分析工具包的重要组成部分。 </p>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=CUPTI%20%E8%87%AA%E5%8A%A8%E8%8C%83%E5%9B%B4%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B%0A&amp;url=https://eunomia.dev/zh/others/cupti-tutorial/autorange_profiling/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/zh/others/cupti-tutorial/autorange_profiling/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
@@ -8771,7 +8914,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 17, 2025 09:26:20 UTC">June 17, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 22, 2025 05:40:48 UTC">June 22, 2025</span>
   </span>
 
     
@@ -8781,7 +8924,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 17, 2025 09:19:24 UTC">June 17, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 22, 2025 05:40:48 UTC">June 22, 2025</span>
   </span>
 
     
@@ -8901,7 +9044,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../activity_trace_async/" class="md-footer__link md-footer__link--prev" aria-label="Previous: CUPTI Asynchronous Activity Tracing Tutorial">
+          <a href="../activity_trace_async/" class="md-footer__link md-footer__link--prev" aria-label="Previous: CUPTI 异步活动跟踪教程">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -8911,20 +9054,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                CUPTI Asynchronous Activity Tracing Tutorial
+                CUPTI 异步活动跟踪教程
               </div>
             </div>
           </a>
         
         
           
-          <a href="../callback_event/" class="md-footer__link md-footer__link--next" aria-label="Next: CUPTI Callback Event Tutorial">
+          <a href="../callback_event/" class="md-footer__link md-footer__link--next" aria-label="Next: CUPTI 回调事件教程">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                CUPTI Callback Event Tutorial
+                CUPTI 回调事件教程
               </div>
             </div>
             <div class="md-footer__button md-icon">

@@ -24,7 +24,7 @@
     
     
       
-        <title>CUPTI Performance Metrics Tutorial - eunomia</title>
+        <title>CUPTI 性能指标教程 - eunomia</title>
       
     
     
@@ -69,11 +69,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="CUPTI Performance Metrics Tutorial - eunomia" >
+        <meta  property="og:title"  content="CUPTI 性能指标教程 - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
-        <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/others/cupti-tutorial/callback_metric/README.png" >
+        <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/others/cupti-tutorial/callback_metric/README.zh.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -85,11 +85,11 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="CUPTI Performance Metrics Tutorial - eunomia" >
+        <meta  name="twitter:title"  content="CUPTI 性能指标教程 - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
-        <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/others/cupti-tutorial/callback_metric/README.png" >
+        <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/others/cupti-tutorial/callback_metric/README.zh.png" >
       
     
     
@@ -112,7 +112,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#cupti-performance-metrics-tutorial" class="md-skip">
+        <a href="#cupti" class="md-skip">
           Skip to content
         </a>
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              CUPTI Performance Metrics Tutorial
+              CUPTI 性能指标教程
             
           </span>
         </div>
@@ -5013,7 +5013,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Activity Trace Tutorial
+    CUPTI 活动跟踪教程
     
   </span>
   
@@ -5087,7 +5087,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Asynchronous Activity Tracing Tutorial
+    CUPTI 异步活动跟踪教程
     
   </span>
   
@@ -5161,7 +5161,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Autorange Profiling Tutorial
+    CUPTI 自动范围性能分析教程
     
   </span>
   
@@ -5235,7 +5235,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Callback Event Tutorial
+    CUPTI 回调事件教程
     
   </span>
   
@@ -5318,7 +5318,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Performance Metrics Tutorial
+    CUPTI 性能指标教程
     
   </span>
   
@@ -5331,7 +5331,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Performance Metrics Tutorial
+    CUPTI 性能指标教程
     
   </span>
   
@@ -5354,91 +5354,82 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      Introduction
+      简介
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      What You'll Learn
+      您将学到的内容
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#understanding-performance-metrics" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      Understanding Performance Metrics
+      理解性能指标
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#code-walkthrough" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      Code Walkthrough
+      代码演练
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Code Walkthrough">
+    <nav class="md-nav" aria-label="代码演练">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-setting-up-metric-collection" class="md-nav__link">
+  <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Setting Up Metric Collection
+      1. 设置指标收集
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-creating-event-groups" class="md-nav__link">
+  <a href="#2" class="md-nav__link">
     <span class="md-ellipsis">
-      2. Creating Event Groups
+      2. 创建事件组
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-setting-up-the-callback-function" class="md-nav__link">
+  <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
-      3. Setting Up the Callback Function
+      3. 设置回调函数
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-the-callback-function" class="md-nav__link">
+  <a href="#4" class="md-nav__link">
     <span class="md-ellipsis">
-      4. The Callback Function
+      4. 回调函数
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#5-calculating-the-metric-value" class="md-nav__link">
+  <a href="#5" class="md-nav__link">
     <span class="md-ellipsis">
-      5. Calculating the Metric Value
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#6-the-test-kernel" class="md-nav__link">
-    <span class="md-ellipsis">
-      6. The Test Kernel
+      5. 计算指标值
     </span>
   </a>
   
@@ -5450,55 +5441,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#running-the-tutorial" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      Running the Tutorial
+      可用指标
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#understanding-the-output" class="md-nav__link">
-    <span class="md-ellipsis">
-      Understanding the Output
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#interpreting-common-metrics" class="md-nav__link">
-    <span class="md-ellipsis">
-      Interpreting Common Metrics
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Interpreting Common Metrics">
+    <nav class="md-nav" aria-label="可用指标">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#instructions-per-cycle-ipc" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      Instructions Per Cycle (IPC)
+      计算指标
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#achieved-occupancy" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
-      Achieved Occupancy
+      内存指标
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#memory-throughput" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
-      Memory Throughput
+      控制流指标
     </span>
   </a>
   
@@ -5510,28 +5483,55 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#advanced-usage" class="md-nav__link">
+  <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
-      Advanced Usage
+      运行示例
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Advanced Usage">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      示例输出
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      性能分析见解
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="性能分析见解">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#collecting-multiple-metrics" class="md-nav__link">
+  <a href="#ipc" class="md-nav__link">
     <span class="md-ellipsis">
-      Collecting Multiple Metrics
+      IPC（每周期指令数）分析
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#multi-pass-collection" class="md-nav__link">
+  <a href="#_12" class="md-nav__link">
     <span class="md-ellipsis">
-      Multi-Pass Collection
+      占用率分析
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      内存效率分析
     </span>
   </a>
   
@@ -5543,9 +5543,108 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
+  <a href="#_14" class="md-nav__link">
     <span class="md-ellipsis">
-      Next Steps
+      高级用法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="高级用法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      多指标批量分析
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      性能瓶颈识别
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      时间序列分析
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      故障排除
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="故障排除">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      常见问题
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      性能考虑
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="性能考虑">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      多遍历开销
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      选择性分析
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      总结
     </span>
   </a>
   
@@ -5623,7 +5722,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Callback-Based Profiling Tutorial
+    CUPTI 基于回调的性能分析教程
     
   </span>
   
@@ -5697,7 +5796,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Timestamp Callback Tutorial
+    CUPTI 时间戳回调教程
     
   </span>
   
@@ -5771,7 +5870,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Checkpoint API Tutorial
+    CUPTI 检查点 API 教程
     
   </span>
   
@@ -5845,7 +5944,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Common Helper Files
+    CUPTI 通用辅助文件
     
   </span>
   
@@ -5919,7 +6018,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Concurrent Profiling Tutorial
+    CUPTI 并发分析教程
     
   </span>
   
@@ -5993,7 +6092,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA Graphs Tracing Tutorial
+    CUDA 图追踪教程
     
   </span>
   
@@ -6067,7 +6166,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA Memory Tracing Tutorial
+    CUDA 内存追踪教程
     
   </span>
   
@@ -6141,7 +6240,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI API-GPU Activity Correlation Tutorial
+    CUPTI API-GPU 活动关联教程
     
   </span>
   
@@ -6215,7 +6314,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI External Correlation Tutorial
+    CUPTI 外部关联教程
     
   </span>
   
@@ -6289,7 +6388,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Finalization and Cleanup Tutorial
+    CUPTI 终结和清理教程
     
   </span>
   
@@ -6363,7 +6462,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Metric Properties Tutorial
+    CUPTI 指标属性教程
     
   </span>
   
@@ -6437,7 +6536,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI NVTX Integration Tutorial
+    CUPTI NVTX 集成教程
     
   </span>
   
@@ -6511,7 +6610,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Query API Tutorial
+    CUPTI 查询 API 教程
     
   </span>
   
@@ -6585,7 +6684,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Trace Injection Tutorial
+    CUPTI 跟踪注入教程
     
   </span>
   
@@ -6659,7 +6758,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Multi-GPU Event Profiling Tutorial
+    CUPTI 多 GPU 事件分析教程
     
   </span>
   
@@ -6733,7 +6832,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Event Sampling Tutorial
+    CUPTI 事件采样教程
     
   </span>
   
@@ -6807,7 +6906,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Extensions
+    CUPTI 扩展工具
     
   </span>
   
@@ -6881,7 +6980,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Nested Range Profiling Tutorial
+    CUPTI 嵌套范围分析教程
     
   </span>
   
@@ -6955,7 +7054,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI NVLink Bandwidth Monitoring Tutorial
+    CUPTI NVLink 带宽监控教程
     
   </span>
   
@@ -7029,7 +7128,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI OpenACC Tracing Tutorial
+    CUPTI OpenACC 跟踪教程
     
   </span>
   
@@ -7103,7 +7202,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI PC Sampling Tutorial
+    CUPTI PC 采样教程
     
   </span>
   
@@ -7177,7 +7276,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Program Counter (PC) Sampling Continuous Tutorial
+    CUPTI 程序计数器 (PC) 连续采样教程
     
   </span>
   
@@ -7251,7 +7350,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI PC Sampling Start/Stop Control Tutorial
+    CUPTI PC 采样启动/停止控制教程
     
   </span>
   
@@ -7325,7 +7424,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI PC Sampling Analysis Utility Tutorial
+    CUPTI PC 采样分析工具教程
     
   </span>
   
@@ -7399,7 +7498,7 @@
   
   
   <span class="md-ellipsis">
-    Performance Monitor Sampling Tutorial
+    性能监控采样教程
     
   </span>
   
@@ -7473,7 +7572,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Profiling API Injection Tutorial
+    CUPTI 分析 API 注入教程
     
   </span>
   
@@ -7547,7 +7646,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Range Profiling Tutorial
+    CUPTI 范围性能分析教程
     
   </span>
   
@@ -7621,7 +7720,7 @@
   
   
   <span class="md-ellipsis">
-    SASS Metrics Collection Tutorial
+    SASS 指标收集教程
     
   </span>
   
@@ -7695,7 +7794,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI SASS Source Mapping Tutorial
+    CUPTI SASS 源代码映射教程
     
   </span>
   
@@ -7769,7 +7868,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI Unified Memory Profiling Tutorial
+    CUPTI 统一内存分析教程
     
   </span>
   
@@ -7843,7 +7942,7 @@
   
   
   <span class="md-ellipsis">
-    CUPTI User-Range Profiling Tutorial
+    CUPTI 用户范围分析教程
     
   </span>
   
@@ -8331,91 +8430,82 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      Introduction
+      简介
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      What You'll Learn
+      您将学到的内容
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#understanding-performance-metrics" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      Understanding Performance Metrics
+      理解性能指标
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#code-walkthrough" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      Code Walkthrough
+      代码演练
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Code Walkthrough">
+    <nav class="md-nav" aria-label="代码演练">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-setting-up-metric-collection" class="md-nav__link">
+  <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Setting Up Metric Collection
+      1. 设置指标收集
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-creating-event-groups" class="md-nav__link">
+  <a href="#2" class="md-nav__link">
     <span class="md-ellipsis">
-      2. Creating Event Groups
+      2. 创建事件组
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-setting-up-the-callback-function" class="md-nav__link">
+  <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
-      3. Setting Up the Callback Function
+      3. 设置回调函数
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-the-callback-function" class="md-nav__link">
+  <a href="#4" class="md-nav__link">
     <span class="md-ellipsis">
-      4. The Callback Function
+      4. 回调函数
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#5-calculating-the-metric-value" class="md-nav__link">
+  <a href="#5" class="md-nav__link">
     <span class="md-ellipsis">
-      5. Calculating the Metric Value
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#6-the-test-kernel" class="md-nav__link">
-    <span class="md-ellipsis">
-      6. The Test Kernel
+      5. 计算指标值
     </span>
   </a>
   
@@ -8427,55 +8517,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#running-the-tutorial" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      Running the Tutorial
+      可用指标
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#understanding-the-output" class="md-nav__link">
-    <span class="md-ellipsis">
-      Understanding the Output
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#interpreting-common-metrics" class="md-nav__link">
-    <span class="md-ellipsis">
-      Interpreting Common Metrics
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Interpreting Common Metrics">
+    <nav class="md-nav" aria-label="可用指标">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#instructions-per-cycle-ipc" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      Instructions Per Cycle (IPC)
+      计算指标
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#achieved-occupancy" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
-      Achieved Occupancy
+      内存指标
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#memory-throughput" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
-      Memory Throughput
+      控制流指标
     </span>
   </a>
   
@@ -8487,28 +8559,55 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#advanced-usage" class="md-nav__link">
+  <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
-      Advanced Usage
+      运行示例
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Advanced Usage">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      示例输出
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      性能分析见解
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="性能分析见解">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#collecting-multiple-metrics" class="md-nav__link">
+  <a href="#ipc" class="md-nav__link">
     <span class="md-ellipsis">
-      Collecting Multiple Metrics
+      IPC（每周期指令数）分析
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#multi-pass-collection" class="md-nav__link">
+  <a href="#_12" class="md-nav__link">
     <span class="md-ellipsis">
-      Multi-Pass Collection
+      占用率分析
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      内存效率分析
     </span>
   </a>
   
@@ -8520,9 +8619,108 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
+  <a href="#_14" class="md-nav__link">
     <span class="md-ellipsis">
-      Next Steps
+      高级用法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="高级用法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      多指标批量分析
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      性能瓶颈识别
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      时间序列分析
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      故障排除
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="故障排除">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      常见问题
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      性能考虑
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="性能考虑">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      多遍历开销
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      选择性分析
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      总结
     </span>
   </a>
   
@@ -8544,7 +8742,7 @@
 
 
   
-    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cupti-tutorial/callback_metric/README.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cupti-tutorial/callback_metric/README.zh.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -8553,65 +8751,65 @@
     
       
     
-    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cupti-tutorial/callback_metric/README.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/cupti-tutorial/callback_metric/README.zh.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-<h1 id="cupti-performance-metrics-tutorial">CUPTI Performance Metrics Tutorial</h1>
+<h1 id="cupti">CUPTI 性能指标教程</h1>
 <blockquote>
-<p>The GitHub repo and complete tutorial is available at <a href="https://github.com/eunomia-bpf/cupti-tutorial">https://github.com/eunomia-bpf/cupti-tutorial</a>.</p>
+<p>GitHub 仓库和完整教程可在 <a href="https://github.com/eunomia-bpf/cupti-tutorial">https://github.com/eunomia-bpf/cupti-tutorial</a> 获取。</p>
 </blockquote>
-<h2 id="introduction">Introduction</h2>
-<p>Understanding GPU performance requires more than just raw event counts - it requires meaningful metrics that provide insights into how efficiently your code is running. This tutorial demonstrates how to use CUPTI callbacks to collect and calculate performance metrics during CUDA kernel execution, giving you powerful insights into your application's GPU utilization.</p>
-<h2 id="what-youll-learn">What You'll Learn</h2>
+<h2 id="_1">简介</h2>
+<p>理解 GPU 性能需要的不仅仅是原始事件计数——它需要有意义的指标来提供关于代码运行效率的见解。本教程演示了如何使用 CUPTI 回调在 CUDA 内核执行期间收集和计算性能指标，为您的应用程序的 GPU 利用率提供强大的见解。</p>
+<h2 id="_2">您将学到的内容</h2>
 <ul>
-<li>How to collect complex performance metrics during kernel execution</li>
-<li>Techniques for handling metrics that require multiple passes</li>
-<li>Converting raw event counts into meaningful performance indicators</li>
-<li>Interpreting metrics to identify optimization opportunities</li>
+<li>如何在内核执行期间收集复杂的性能指标</li>
+<li>处理需要多次遍历的指标的技术</li>
+<li>将原始事件计数转换为有意义的性能指标</li>
+<li>解释指标以识别优化机会</li>
 </ul>
-<h2 id="understanding-performance-metrics">Understanding Performance Metrics</h2>
-<p>Performance metrics in CUDA provide high-level insights by combining multiple hardware events. For example:</p>
+<h2 id="_3">理解性能指标</h2>
+<p>CUDA 中的性能指标通过组合多个硬件事件提供高级见解。例如：</p>
 <ul>
-<li><strong>IPC (Instructions Per Cycle)</strong>: Measures computational efficiency</li>
-<li><strong>Memory Throughput</strong>: Measures memory bandwidth utilization</li>
-<li><strong>Warp Execution Efficiency</strong>: Measures thread utilization within warps</li>
+<li><strong>IPC (每周期指令数)</strong>：测量计算效率</li>
+<li><strong>内存吞吐量</strong>：测量内存带宽利用率</li>
+<li><strong>Warp 执行效率</strong>：测量 warp 内线程利用率</li>
 </ul>
-<p>These metrics are more intuitive than raw event counts and directly relate to optimization strategies.</p>
-<h2 id="code-walkthrough">Code Walkthrough</h2>
-<h3 id="1-setting-up-metric-collection">1. Setting Up Metric Collection</h3>
-<p>First, we need to identify which events are required for our target metric:</p>
+<p>这些指标比原始事件计数更直观，并直接关联到优化策略。</p>
+<h2 id="_4">代码演练</h2>
+<h3 id="1">1. 设置指标收集</h3>
+<p>首先，我们需要识别目标指标所需的事件：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="p">{</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="c1">// Default to &quot;ipc&quot; (instructions per cycle) or use command line argument</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="c1">// 默认为 &quot;ipc&quot;（每周期指令数）或使用命令行参数</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">metricName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;ipc&quot;</span><span class="p">;</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">argc</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">        </span><span class="n">metricName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="c1">// Initialize CUDA</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="c1">// 初始化 CUDA</span>
 <a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="n">RUNTIME_API_CALL</span><span class="p">(</span><span class="n">cudaSetDevice</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
 <a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="c1">// Get device properties</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="c1">// 获取设备属性</span>
 <a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="n">CUdevice</span><span class="w"> </span><span class="n">device</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span><span class="n">DRIVER_API_CALL</span><span class="p">(</span><span class="n">cuDeviceGet</span><span class="p">(</span><span class="o">&amp;</span><span class="n">device</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">));</span>
 <a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="c1">// Get the metric ID for the requested metric</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="c1">// 获取请求指标的指标 ID</span>
 <a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">    </span><span class="n">CUpti_MetricID</span><span class="w"> </span><span class="n">metricId</span><span class="p">;</span>
 <a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">    </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiMetricGetIdFromName</span><span class="p">(</span><span class="n">device</span><span class="p">,</span><span class="w"> </span><span class="n">metricName</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">metricId</span><span class="p">));</span>
 <a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
-<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">    </span><span class="c1">// Determine the events needed for this metric</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">    </span><span class="c1">// 确定此指标所需的事件</span>
 <a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">numEvents</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">    </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiMetricGetNumEvents</span><span class="p">(</span><span class="n">metricId</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">numEvents</span><span class="p">));</span>
 <a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>
-<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">    </span><span class="c1">// Allocate space for event IDs</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">    </span><span class="c1">// 为事件 ID 分配空间</span>
 <a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">    </span><span class="n">CUpti_EventID</span><span class="w"> </span><span class="o">*</span><span class="n">eventIds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">CUpti_EventID</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">numEvents</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">CUpti_EventID</span><span class="p">));</span>
 <a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">    </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiMetricEnumEvents</span><span class="p">(</span><span class="n">metricId</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">numEvents</span><span class="p">,</span><span class="w"> </span><span class="n">eventIds</span><span class="p">));</span>
 <a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>
-<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">    </span><span class="c1">// Determine how many passes are needed to collect all events</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">    </span><span class="c1">// 确定收集所有事件需要多少次遍历</span>
 <a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="w">    </span><span class="n">MetricData_t</span><span class="w"> </span><span class="n">metricData</span><span class="p">;</span>
 <a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="w">    </span><span class="n">metricData</span><span class="p">.</span><span class="n">device</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">device</span><span class="p">;</span>
 <a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="w">    </span><span class="n">metricData</span><span class="p">.</span><span class="n">eventIdArray</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">eventIds</span><span class="p">;</span>
@@ -8619,40 +8817,40 @@
 <a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="w">    </span><span class="n">metricData</span><span class="p">.</span><span class="n">eventValueArray</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">uint64_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">calloc</span><span class="p">(</span><span class="n">numEvents</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">uint64_t</span><span class="p">));</span>
 <a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="w">    </span><span class="n">metricData</span><span class="p">.</span><span class="n">eventIdx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>
-<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a><span class="w">    </span><span class="c1">// Create event groups for each pass</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a><span class="w">    </span><span class="c1">// 为每次遍历创建事件组</span>
 <a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="w">    </span><span class="n">createEventGroups</span><span class="p">(</span><span class="o">&amp;</span><span class="n">metricData</span><span class="p">);</span>
 <a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>
-<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Collecting events for metric %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">metricName</span><span class="p">);</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;为指标 %s 收集事件</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">metricName</span><span class="p">);</span>
 <a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a><span class="p">}</span>
 </code></pre></div>
-<p>This code:
-1. Identifies which metric to collect (default is "ipc")
-2. Gets the list of events required for that metric
-3. Sets up data structures to hold event values
-4. Creates event groups for collecting the events</p>
-<h3 id="2-creating-event-groups">2. Creating Event Groups</h3>
-<p>Some events can't be collected simultaneously due to hardware limitations, so we need to organize them into compatible groups:</p>
+<p>此代码：
+1. 识别要收集的指标（默认为 "ipc"）
+2. 获取该指标所需的事件列表
+3. 设置用于保存事件值的数据结构
+4. 创建用于收集事件的事件组</p>
+<h3 id="2">2. 创建事件组</h3>
+<p>某些事件由于硬件限制无法同时收集，因此我们需要将它们组织成兼容的组：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">createEventGroups</span><span class="p">(</span><span class="n">MetricData_t</span><span class="w"> </span><span class="o">*</span><span class="n">metricData</span><span class="p">)</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="p">{</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="n">CUcontext</span><span class="w"> </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="n">DRIVER_API_CALL</span><span class="p">(</span><span class="n">cuCtxGetCurrent</span><span class="p">(</span><span class="o">&amp;</span><span class="n">context</span><span class="p">));</span>
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="c1">// Get number of event domains on the device</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="c1">// 获取设备上的事件域数量</span>
 <a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">numDomains</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiDeviceGetNumEventDomains</span><span class="p">(</span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">device</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">numDomains</span><span class="p">));</span>
 <a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="c1">// Get the event domains</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="c1">// 获取事件域</span>
 <a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="n">CUpti_EventDomainID</span><span class="w"> </span><span class="o">*</span><span class="n">domainIds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">CUpti_EventDomainID</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">numDomains</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">CUpti_EventDomainID</span><span class="p">));</span>
 <a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiDeviceEnumEventDomains</span><span class="p">(</span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">device</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">numDomains</span><span class="p">,</span><span class="w"> </span><span class="n">domainIds</span><span class="p">));</span>
 <a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span><span class="c1">// For each event, find its domain and available instances</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span><span class="c1">// 对于每个事件，找到其域和可用实例</span>
 <a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">numEvents</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">        </span><span class="n">CUpti_EventDomainID</span><span class="w"> </span><span class="n">domainId</span><span class="p">;</span>
 <a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">        </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiEventGetAttribute</span><span class="p">(</span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">eventIdArray</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span>
 <a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">                                        </span><span class="n">CUPTI_EVENT_ATTR_DOMAIN</span><span class="p">,</span><span class="w"> </span>
 <a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">                                        </span><span class="o">&amp;</span><span class="n">domainId</span><span class="p">));</span>
 <a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>
-<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">        </span><span class="c1">// Find this domain in our list</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">        </span><span class="c1">// 在我们的列表中找到此域</span>
 <a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">domainIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
 <a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">numDomains</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">domainId</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">domainIds</span><span class="p">[</span><span class="n">j</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
@@ -8661,23 +8859,23 @@
 <a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="w">            </span><span class="p">}</span>
 <a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="w">        </span><span class="p">}</span>
 <a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>
-<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a><span class="w">        </span><span class="c1">// If this is a new event group or the event can&#39;t go in the current group,</span>
-<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a><span class="w">        </span><span class="c1">// create a new event group</span>
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a><span class="w">        </span><span class="c1">// 如果这是新的事件组或事件无法放入当前组，</span>
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a><span class="w">        </span><span class="c1">// 创建新的事件组</span>
 <a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">numEventGroups</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">||</span><span class="w"> </span>
 <a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a><span class="w">            </span><span class="o">!</span><span class="n">canAddEventToGroup</span><span class="p">(</span><span class="n">metricData</span><span class="p">,</span><span class="w"> </span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">eventIdArray</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>
-<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a><span class="w">            </span><span class="c1">// Create a new event group</span>
+<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a><span class="w">            </span><span class="c1">// 创建新的事件组</span>
 <a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a><span class="w">            </span><span class="n">CUpti_EventGroup</span><span class="w"> </span><span class="n">eventGroup</span><span class="p">;</span>
 <a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a><span class="w">            </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiEventGroupCreate</span><span class="p">(</span><span class="n">context</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">eventGroup</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">));</span>
 <a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a>
-<a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a><span class="w">            </span><span class="c1">// Add the event to the group</span>
+<a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a><span class="w">            </span><span class="c1">// 将事件添加到组</span>
 <a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a><span class="w">            </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiEventGroupAddEvent</span><span class="p">(</span><span class="n">eventGroup</span><span class="p">,</span><span class="w"> </span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">eventIdArray</span><span class="p">[</span><span class="n">i</span><span class="p">]));</span>
 <a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a>
-<a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a><span class="w">            </span><span class="c1">// Store the event group</span>
+<a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a><span class="w">            </span><span class="c1">// 存储事件组</span>
 <a id="__codelineno-1-43" name="__codelineno-1-43" href="#__codelineno-1-43"></a><span class="w">            </span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">eventGroups</span><span class="p">[</span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">numEventGroups</span><span class="o">++</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">eventGroup</span><span class="p">;</span>
 <a id="__codelineno-1-44" name="__codelineno-1-44" href="#__codelineno-1-44"></a><span class="w">        </span><span class="p">}</span>
 <a id="__codelineno-1-45" name="__codelineno-1-45" href="#__codelineno-1-45"></a><span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-46" name="__codelineno-1-46" href="#__codelineno-1-46"></a><span class="w">            </span><span class="c1">// Add the event to the existing group</span>
+<a id="__codelineno-1-46" name="__codelineno-1-46" href="#__codelineno-1-46"></a><span class="w">            </span><span class="c1">// 将事件添加到现有组</span>
 <a id="__codelineno-1-47" name="__codelineno-1-47" href="#__codelineno-1-47"></a><span class="w">            </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiEventGroupAddEvent</span><span class="p">(</span>
 <a id="__codelineno-1-48" name="__codelineno-1-48" href="#__codelineno-1-48"></a><span class="w">                </span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">eventGroups</span><span class="p">[</span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">numEventGroups</span><span class="mi">-1</span><span class="p">],</span><span class="w"> </span>
 <a id="__codelineno-1-49" name="__codelineno-1-49" href="#__codelineno-1-49"></a><span class="w">                </span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">eventIdArray</span><span class="p">[</span><span class="n">i</span><span class="p">]));</span>
@@ -8687,44 +8885,44 @@
 <a id="__codelineno-1-53" name="__codelineno-1-53" href="#__codelineno-1-53"></a><span class="w">    </span><span class="n">free</span><span class="p">(</span><span class="n">domainIds</span><span class="p">);</span>
 <a id="__codelineno-1-54" name="__codelineno-1-54" href="#__codelineno-1-54"></a><span class="p">}</span>
 </code></pre></div>
-<p>This function:
-1. Gets all event domains on the device
-2. For each event, determines its domain
-3. Creates event groups that are compatible with hardware limitations
-4. May create multiple groups if events can't be collected simultaneously</p>
-<h3 id="3-setting-up-the-callback-function">3. Setting Up the Callback Function</h3>
-<p>Now we register a callback that will be called when kernels are launched:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">// Subscribe to CUPTI callbacks</span>
+<p>此函数：
+1. 获取设备上的所有事件域
+2. 对于每个事件，确定其域
+3. 创建与硬件限制兼容的事件组
+4. 如果事件无法同时收集，可能创建多个组</p>
+<h3 id="3">3. 设置回调函数</h3>
+<p>现在我们注册一个在内核启动时被调用的回调：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">// 订阅 CUPTI 回调</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">CUpti_SubscriberHandle</span><span class="w"> </span><span class="n">subscriber</span><span class="p">;</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiSubscribe</span><span class="p">(</span><span class="o">&amp;</span><span class="n">subscriber</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">CUpti_CallbackFunc</span><span class="p">)</span><span class="n">getMetricValueCallback</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">metricData</span><span class="p">));</span>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1">// Enable callbacks for CUDA runtime</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1">// 为 CUDA 运行时启用回调</span>
 <a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiEnableDomain</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">subscriber</span><span class="p">,</span><span class="w"> </span><span class="n">CUPTI_CB_DOMAIN_RUNTIME_API</span><span class="p">));</span>
 </code></pre></div>
-<h3 id="4-the-callback-function">4. The Callback Function</h3>
-<p>The heart of the sample is the callback function that collects event data:</p>
+<h3 id="4">4. 回调函数</h3>
+<p>示例的核心是收集事件数据的回调函数：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">CUPTIAPI</span><span class="w"> </span><span class="nf">getMetricValueCallback</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">userdata</span><span class="p">,</span><span class="w"> </span><span class="n">CUpti_CallbackDomain</span><span class="w"> </span><span class="n">domain</span><span class="p">,</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">                                    </span><span class="n">CUpti_CallbackId</span><span class="w"> </span><span class="n">cbid</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">CUpti_CallbackData</span><span class="w"> </span><span class="o">*</span><span class="n">cbInfo</span><span class="p">)</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="p">{</span>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="n">MetricData_t</span><span class="w"> </span><span class="o">*</span><span class="n">metricData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">MetricData_t</span><span class="o">*</span><span class="p">)</span><span class="n">userdata</span><span class="p">;</span>
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="c1">// Only process runtime API callbacks for kernel launches</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="c1">// 仅处理内核启动的运行时 API 回调</span>
 <a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">domain</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">CUPTI_CB_DOMAIN_RUNTIME_API</span><span class="w"> </span><span class="o">||</span>
 <a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">        </span><span class="p">(</span><span class="n">cbid</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">CUPTI_RUNTIME_TRACE_CBID_cudaLaunch_v3020</span><span class="w"> </span><span class="o">&amp;&amp;</span>
 <a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">         </span><span class="n">cbid</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">CUPTI_RUNTIME_TRACE_CBID_cudaLaunchKernel_v7000</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">        </span><span class="k">return</span><span class="p">;</span>
 <a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
-<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">    </span><span class="c1">// Check if we&#39;re entering or exiting the function</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">    </span><span class="c1">// 检查我们是进入还是退出函数</span>
 <a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cbInfo</span><span class="o">-&gt;</span><span class="n">callbackSite</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">CUPTI_API_ENTER</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">        </span><span class="c1">// We&#39;re about to launch a kernel</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">        </span><span class="c1">// 我们即将启动内核</span>
 <a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>
-<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">        </span><span class="c1">// Enable the event groups for this pass</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">        </span><span class="c1">// 为此遍历启用事件组</span>
 <a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">numEventGroups</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">            </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiEventGroupEnable</span><span class="p">(</span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">eventGroups</span><span class="p">[</span><span class="n">i</span><span class="p">]));</span>
 <a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">        </span><span class="p">}</span>
 <a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>
-<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="w">        </span><span class="c1">// Set the collection mode to collect only during kernel execution</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="w">        </span><span class="c1">// 设置收集模式为仅在内核执行期间收集</span>
 <a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="w">        </span><span class="n">CUpti_EventCollectionMode</span><span class="w"> </span><span class="n">mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CUPTI_EVENT_COLLECTION_MODE_KERNEL</span><span class="p">;</span>
 <a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">numEventGroups</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="w">            </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiEventGroupSetAttribute</span><span class="p">(</span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">eventGroups</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
@@ -8733,224 +8931,307 @@
 <a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="w">        </span><span class="p">}</span>
 <a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a><span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cbInfo</span><span class="o">-&gt;</span><span class="n">callbackSite</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">CUPTI_API_EXIT</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a><span class="w">        </span><span class="c1">// The kernel has completed</span>
+<a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a><span class="w">        </span><span class="c1">// 内核已完成</span>
 <a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a>
-<a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a><span class="w">        </span><span class="c1">// Make sure all work is done</span>
+<a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a><span class="w">        </span><span class="c1">// 确保所有工作完成</span>
 <a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a><span class="w">        </span><span class="n">RUNTIME_API_CALL</span><span class="p">(</span><span class="n">cudaDeviceSynchronize</span><span class="p">());</span>
 <a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a>
-<a id="__codelineno-3-36" name="__codelineno-3-36" href="#__codelineno-3-36"></a><span class="w">        </span><span class="c1">// For each event group, read and normalize the event values</span>
+<a id="__codelineno-3-36" name="__codelineno-3-36" href="#__codelineno-3-36"></a><span class="w">        </span><span class="c1">// 从所有事件组读取事件值</span>
 <a id="__codelineno-3-37" name="__codelineno-3-37" href="#__codelineno-3-37"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">numEventGroups</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a><span class="w">            </span><span class="n">CUpti_EventGroup</span><span class="w"> </span><span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">eventGroups</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-<a id="__codelineno-3-39" name="__codelineno-3-39" href="#__codelineno-3-39"></a>
-<a id="__codelineno-3-40" name="__codelineno-3-40" href="#__codelineno-3-40"></a><span class="w">            </span><span class="c1">// Get the number of events in this group</span>
-<a id="__codelineno-3-41" name="__codelineno-3-41" href="#__codelineno-3-41"></a><span class="w">            </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">numEvents</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<a id="__codelineno-3-42" name="__codelineno-3-42" href="#__codelineno-3-42"></a><span class="w">            </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiEventGroupGetAttribute</span><span class="p">(</span><span class="n">group</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-3-43" name="__codelineno-3-43" href="#__codelineno-3-43"></a><span class="w">                                                 </span><span class="n">CUPTI_EVENT_GROUP_ATTR_NUM_EVENTS</span><span class="p">,</span>
-<a id="__codelineno-3-44" name="__codelineno-3-44" href="#__codelineno-3-44"></a><span class="w">                                                 </span><span class="o">&amp;</span><span class="n">numEvents</span><span class="p">));</span>
-<a id="__codelineno-3-45" name="__codelineno-3-45" href="#__codelineno-3-45"></a>
-<a id="__codelineno-3-46" name="__codelineno-3-46" href="#__codelineno-3-46"></a><span class="w">            </span><span class="c1">// Get the event IDs in this group</span>
-<a id="__codelineno-3-47" name="__codelineno-3-47" href="#__codelineno-3-47"></a><span class="w">            </span><span class="n">CUpti_EventID</span><span class="w"> </span><span class="o">*</span><span class="n">eventIds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">CUpti_EventID</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">numEvents</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">CUpti_EventID</span><span class="p">));</span>
-<a id="__codelineno-3-48" name="__codelineno-3-48" href="#__codelineno-3-48"></a><span class="w">            </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiEventGroupGetAttribute</span><span class="p">(</span><span class="n">group</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-3-49" name="__codelineno-3-49" href="#__codelineno-3-49"></a><span class="w">                                                 </span><span class="n">CUPTI_EVENT_GROUP_ATTR_EVENTS</span><span class="p">,</span>
-<a id="__codelineno-3-50" name="__codelineno-3-50" href="#__codelineno-3-50"></a><span class="w">                                                 </span><span class="n">eventIds</span><span class="p">));</span>
-<a id="__codelineno-3-51" name="__codelineno-3-51" href="#__codelineno-3-51"></a>
-<a id="__codelineno-3-52" name="__codelineno-3-52" href="#__codelineno-3-52"></a><span class="w">            </span><span class="c1">// Get the number of instances for this group</span>
-<a id="__codelineno-3-53" name="__codelineno-3-53" href="#__codelineno-3-53"></a><span class="w">            </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">numInstances</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<a id="__codelineno-3-54" name="__codelineno-3-54" href="#__codelineno-3-54"></a><span class="w">            </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiEventGroupGetAttribute</span><span class="p">(</span><span class="n">group</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-3-55" name="__codelineno-3-55" href="#__codelineno-3-55"></a><span class="w">                                                 </span><span class="n">CUPTI_EVENT_GROUP_ATTR_INSTANCE_COUNT</span><span class="p">,</span>
-<a id="__codelineno-3-56" name="__codelineno-3-56" href="#__codelineno-3-56"></a><span class="w">                                                 </span><span class="o">&amp;</span><span class="n">numInstances</span><span class="p">));</span>
+<a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a><span class="w">            </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">numInstances</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-3-39" name="__codelineno-3-39" href="#__codelineno-3-39"></a><span class="w">            </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">numTotalInstances</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-3-40" name="__codelineno-3-40" href="#__codelineno-3-40"></a><span class="w">            </span><span class="kt">uint64_t</span><span class="w"> </span><span class="o">*</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<a id="__codelineno-3-41" name="__codelineno-3-41" href="#__codelineno-3-41"></a><span class="w">            </span><span class="kt">size_t</span><span class="w"> </span><span class="n">valuesSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-3-42" name="__codelineno-3-42" href="#__codelineno-3-42"></a>
+<a id="__codelineno-3-43" name="__codelineno-3-43" href="#__codelineno-3-43"></a><span class="w">            </span><span class="c1">// 获取此组中的实例数</span>
+<a id="__codelineno-3-44" name="__codelineno-3-44" href="#__codelineno-3-44"></a><span class="w">            </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiEventGroupGetAttribute</span><span class="p">(</span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">eventGroups</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+<a id="__codelineno-3-45" name="__codelineno-3-45" href="#__codelineno-3-45"></a><span class="w">                                                 </span><span class="n">CUPTI_EVENT_GROUP_ATTR_INSTANCE_COUNT</span><span class="p">,</span>
+<a id="__codelineno-3-46" name="__codelineno-3-46" href="#__codelineno-3-46"></a><span class="w">                                                 </span><span class="o">&amp;</span><span class="n">valueSize</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">numInstances</span><span class="p">));</span>
+<a id="__codelineno-3-47" name="__codelineno-3-47" href="#__codelineno-3-47"></a>
+<a id="__codelineno-3-48" name="__codelineno-3-48" href="#__codelineno-3-48"></a><span class="w">            </span><span class="c1">// 获取此组中的事件数</span>
+<a id="__codelineno-3-49" name="__codelineno-3-49" href="#__codelineno-3-49"></a><span class="w">            </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">numEvents</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-3-50" name="__codelineno-3-50" href="#__codelineno-3-50"></a><span class="w">            </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiEventGroupGetAttribute</span><span class="p">(</span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">eventGroups</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+<a id="__codelineno-3-51" name="__codelineno-3-51" href="#__codelineno-3-51"></a><span class="w">                                                 </span><span class="n">CUPTI_EVENT_GROUP_ATTR_NUM_EVENTS</span><span class="p">,</span>
+<a id="__codelineno-3-52" name="__codelineno-3-52" href="#__codelineno-3-52"></a><span class="w">                                                 </span><span class="o">&amp;</span><span class="n">valueSize</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">numEvents</span><span class="p">));</span>
+<a id="__codelineno-3-53" name="__codelineno-3-53" href="#__codelineno-3-53"></a>
+<a id="__codelineno-3-54" name="__codelineno-3-54" href="#__codelineno-3-54"></a><span class="w">            </span><span class="c1">// 分配值数组</span>
+<a id="__codelineno-3-55" name="__codelineno-3-55" href="#__codelineno-3-55"></a><span class="w">            </span><span class="n">valuesSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">uint64_t</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">numInstances</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">numEvents</span><span class="p">;</span>
+<a id="__codelineno-3-56" name="__codelineno-3-56" href="#__codelineno-3-56"></a><span class="w">            </span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">uint64_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">valuesSize</span><span class="p">);</span>
 <a id="__codelineno-3-57" name="__codelineno-3-57" href="#__codelineno-3-57"></a>
-<a id="__codelineno-3-58" name="__codelineno-3-58" href="#__codelineno-3-58"></a><span class="w">            </span><span class="c1">// Read the event values for each event in this group</span>
-<a id="__codelineno-3-59" name="__codelineno-3-59" href="#__codelineno-3-59"></a><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">numEvents</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-60" name="__codelineno-3-60" href="#__codelineno-3-60"></a><span class="w">                </span><span class="c1">// Find the index of this event in our global list</span>
-<a id="__codelineno-3-61" name="__codelineno-3-61" href="#__codelineno-3-61"></a><span class="w">                </span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
-<a id="__codelineno-3-62" name="__codelineno-3-62" href="#__codelineno-3-62"></a><span class="w">                </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">numEvents</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-63" name="__codelineno-3-63" href="#__codelineno-3-63"></a><span class="w">                    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">eventIds</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">eventIdArray</span><span class="p">[</span><span class="n">k</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-64" name="__codelineno-3-64" href="#__codelineno-3-64"></a><span class="w">                        </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">k</span><span class="p">;</span>
-<a id="__codelineno-3-65" name="__codelineno-3-65" href="#__codelineno-3-65"></a><span class="w">                        </span><span class="k">break</span><span class="p">;</span>
-<a id="__codelineno-3-66" name="__codelineno-3-66" href="#__codelineno-3-66"></a><span class="w">                    </span><span class="p">}</span>
-<a id="__codelineno-3-67" name="__codelineno-3-67" href="#__codelineno-3-67"></a><span class="w">                </span><span class="p">}</span>
-<a id="__codelineno-3-68" name="__codelineno-3-68" href="#__codelineno-3-68"></a>
-<a id="__codelineno-3-69" name="__codelineno-3-69" href="#__codelineno-3-69"></a><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">index</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-70" name="__codelineno-3-70" href="#__codelineno-3-70"></a><span class="w">                    </span><span class="c1">// Read the event value</span>
-<a id="__codelineno-3-71" name="__codelineno-3-71" href="#__codelineno-3-71"></a><span class="w">                    </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<a id="__codelineno-3-72" name="__codelineno-3-72" href="#__codelineno-3-72"></a><span class="w">                    </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiEventGroupReadEvent</span><span class="p">(</span><span class="n">group</span><span class="p">,</span>
-<a id="__codelineno-3-73" name="__codelineno-3-73" href="#__codelineno-3-73"></a><span class="w">                                                      </span><span class="n">CUPTI_EVENT_READ_FLAG_NONE</span><span class="p">,</span>
-<a id="__codelineno-3-74" name="__codelineno-3-74" href="#__codelineno-3-74"></a><span class="w">                                                      </span><span class="n">eventIds</span><span class="p">[</span><span class="n">j</span><span class="p">],</span>
-<a id="__codelineno-3-75" name="__codelineno-3-75" href="#__codelineno-3-75"></a><span class="w">                                                      </span><span class="o">&amp;</span><span class="n">value</span><span class="p">));</span>
-<a id="__codelineno-3-76" name="__codelineno-3-76" href="#__codelineno-3-76"></a>
-<a id="__codelineno-3-77" name="__codelineno-3-77" href="#__codelineno-3-77"></a><span class="w">                    </span><span class="c1">// Store the value</span>
-<a id="__codelineno-3-78" name="__codelineno-3-78" href="#__codelineno-3-78"></a><span class="w">                    </span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">eventValueArray</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
-<a id="__codelineno-3-79" name="__codelineno-3-79" href="#__codelineno-3-79"></a>
-<a id="__codelineno-3-80" name="__codelineno-3-80" href="#__codelineno-3-80"></a><span class="w">                    </span><span class="c1">// Get the event name for display</span>
-<a id="__codelineno-3-81" name="__codelineno-3-81" href="#__codelineno-3-81"></a><span class="w">                    </span><span class="kt">char</span><span class="w"> </span><span class="n">eventName</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span>
-<a id="__codelineno-3-82" name="__codelineno-3-82" href="#__codelineno-3-82"></a><span class="w">                    </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiEventGetAttribute</span><span class="p">(</span><span class="n">eventIds</span><span class="p">[</span><span class="n">j</span><span class="p">],</span>
-<a id="__codelineno-3-83" name="__codelineno-3-83" href="#__codelineno-3-83"></a><span class="w">                                                    </span><span class="n">CUPTI_EVENT_ATTR_NAME</span><span class="p">,</span>
-<a id="__codelineno-3-84" name="__codelineno-3-84" href="#__codelineno-3-84"></a><span class="w">                                                    </span><span class="n">eventName</span><span class="p">));</span>
-<a id="__codelineno-3-85" name="__codelineno-3-85" href="#__codelineno-3-85"></a>
-<a id="__codelineno-3-86" name="__codelineno-3-86" href="#__codelineno-3-86"></a><span class="w">                    </span><span class="c1">// Print the raw and normalized values</span>
-<a id="__codelineno-3-87" name="__codelineno-3-87" href="#__codelineno-3-87"></a><span class="w">                    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\t</span><span class="s">%s = %llu (%llu)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">eventName</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-3-88" name="__codelineno-3-88" href="#__codelineno-3-88"></a><span class="w">                           </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="p">)</span><span class="n">value</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-3-89" name="__codelineno-3-89" href="#__codelineno-3-89"></a><span class="w">                           </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="p">)</span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">eventValueArray</span><span class="p">[</span><span class="n">index</span><span class="p">]);</span>
-<a id="__codelineno-3-90" name="__codelineno-3-90" href="#__codelineno-3-90"></a>
-<a id="__codelineno-3-91" name="__codelineno-3-91" href="#__codelineno-3-91"></a><span class="w">                    </span><span class="c1">// Normalize the value by the number of instances</span>
-<a id="__codelineno-3-92" name="__codelineno-3-92" href="#__codelineno-3-92"></a><span class="w">                    </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">normalized</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">numInstances</span><span class="p">;</span>
-<a id="__codelineno-3-93" name="__codelineno-3-93" href="#__codelineno-3-93"></a><span class="w">                    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\t</span><span class="s">%s (normalized) (%llu * %u) / %u = %llu</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-3-94" name="__codelineno-3-94" href="#__codelineno-3-94"></a><span class="w">                           </span><span class="n">eventName</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-3-95" name="__codelineno-3-95" href="#__codelineno-3-95"></a><span class="w">                           </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="p">)</span><span class="n">value</span><span class="p">,</span>
-<a id="__codelineno-3-96" name="__codelineno-3-96" href="#__codelineno-3-96"></a><span class="w">                           </span><span class="n">numInstances</span><span class="p">,</span>
-<a id="__codelineno-3-97" name="__codelineno-3-97" href="#__codelineno-3-97"></a><span class="w">                           </span><span class="n">numInstances</span><span class="p">,</span>
-<a id="__codelineno-3-98" name="__codelineno-3-98" href="#__codelineno-3-98"></a><span class="w">                           </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="p">)</span><span class="n">normalized</span><span class="p">);</span>
-<a id="__codelineno-3-99" name="__codelineno-3-99" href="#__codelineno-3-99"></a><span class="w">                </span><span class="p">}</span>
-<a id="__codelineno-3-100" name="__codelineno-3-100" href="#__codelineno-3-100"></a><span class="w">            </span><span class="p">}</span>
-<a id="__codelineno-3-101" name="__codelineno-3-101" href="#__codelineno-3-101"></a>
-<a id="__codelineno-3-102" name="__codelineno-3-102" href="#__codelineno-3-102"></a><span class="w">            </span><span class="n">free</span><span class="p">(</span><span class="n">eventIds</span><span class="p">);</span>
-<a id="__codelineno-3-103" name="__codelineno-3-103" href="#__codelineno-3-103"></a><span class="w">        </span><span class="p">}</span>
-<a id="__codelineno-3-104" name="__codelineno-3-104" href="#__codelineno-3-104"></a>
-<a id="__codelineno-3-105" name="__codelineno-3-105" href="#__codelineno-3-105"></a><span class="w">        </span><span class="c1">// Disable the event groups</span>
-<a id="__codelineno-3-106" name="__codelineno-3-106" href="#__codelineno-3-106"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">numEventGroups</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-107" name="__codelineno-3-107" href="#__codelineno-3-107"></a><span class="w">            </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiEventGroupDisable</span><span class="p">(</span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">eventGroups</span><span class="p">[</span><span class="n">i</span><span class="p">]));</span>
-<a id="__codelineno-3-108" name="__codelineno-3-108" href="#__codelineno-3-108"></a><span class="w">        </span><span class="p">}</span>
-<a id="__codelineno-3-109" name="__codelineno-3-109" href="#__codelineno-3-109"></a>
-<a id="__codelineno-3-110" name="__codelineno-3-110" href="#__codelineno-3-110"></a><span class="w">        </span><span class="c1">// Calculate the metric value from the collected events</span>
-<a id="__codelineno-3-111" name="__codelineno-3-111" href="#__codelineno-3-111"></a><span class="w">        </span><span class="n">calculateMetricValue</span><span class="p">(</span><span class="n">metricData</span><span class="p">);</span>
-<a id="__codelineno-3-112" name="__codelineno-3-112" href="#__codelineno-3-112"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-3-113" name="__codelineno-3-113" href="#__codelineno-3-113"></a><span class="p">}</span>
+<a id="__codelineno-3-58" name="__codelineno-3-58" href="#__codelineno-3-58"></a><span class="w">            </span><span class="c1">// 读取事件值</span>
+<a id="__codelineno-3-59" name="__codelineno-3-59" href="#__codelineno-3-59"></a><span class="w">            </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiEventGroupReadAllEvents</span><span class="p">(</span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">eventGroups</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+<a id="__codelineno-3-60" name="__codelineno-3-60" href="#__codelineno-3-60"></a><span class="w">                                                   </span><span class="n">CUPTI_EVENT_READ_FLAG_NONE</span><span class="p">,</span>
+<a id="__codelineno-3-61" name="__codelineno-3-61" href="#__codelineno-3-61"></a><span class="w">                                                   </span><span class="o">&amp;</span><span class="n">valuesSize</span><span class="p">,</span>
+<a id="__codelineno-3-62" name="__codelineno-3-62" href="#__codelineno-3-62"></a><span class="w">                                                   </span><span class="n">values</span><span class="p">,</span>
+<a id="__codelineno-3-63" name="__codelineno-3-63" href="#__codelineno-3-63"></a><span class="w">                                                   </span><span class="o">&amp;</span><span class="n">numTotalInstances</span><span class="p">,</span>
+<a id="__codelineno-3-64" name="__codelineno-3-64" href="#__codelineno-3-64"></a><span class="w">                                                   </span><span class="o">&amp;</span><span class="n">numEvents</span><span class="p">));</span>
+<a id="__codelineno-3-65" name="__codelineno-3-65" href="#__codelineno-3-65"></a>
+<a id="__codelineno-3-66" name="__codelineno-3-66" href="#__codelineno-3-66"></a><span class="w">            </span><span class="c1">// 聚合所有实例的值</span>
+<a id="__codelineno-3-67" name="__codelineno-3-67" href="#__codelineno-3-67"></a><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">numEvents</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-68" name="__codelineno-3-68" href="#__codelineno-3-68"></a><span class="w">                </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-3-69" name="__codelineno-3-69" href="#__codelineno-3-69"></a><span class="w">                </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">numInstances</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-70" name="__codelineno-3-70" href="#__codelineno-3-70"></a><span class="w">                    </span><span class="n">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">values</span><span class="p">[</span><span class="n">j</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">numInstances</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k</span><span class="p">];</span>
+<a id="__codelineno-3-71" name="__codelineno-3-71" href="#__codelineno-3-71"></a><span class="w">                </span><span class="p">}</span>
+<a id="__codelineno-3-72" name="__codelineno-3-72" href="#__codelineno-3-72"></a><span class="w">                </span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">eventValueArray</span><span class="p">[</span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">eventIdx</span><span class="o">++</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sum</span><span class="p">;</span>
+<a id="__codelineno-3-73" name="__codelineno-3-73" href="#__codelineno-3-73"></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-3-74" name="__codelineno-3-74" href="#__codelineno-3-74"></a>
+<a id="__codelineno-3-75" name="__codelineno-3-75" href="#__codelineno-3-75"></a><span class="w">            </span><span class="n">free</span><span class="p">(</span><span class="n">values</span><span class="p">);</span>
+<a id="__codelineno-3-76" name="__codelineno-3-76" href="#__codelineno-3-76"></a><span class="w">            </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiEventGroupDisable</span><span class="p">(</span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">eventGroups</span><span class="p">[</span><span class="n">i</span><span class="p">]));</span>
+<a id="__codelineno-3-77" name="__codelineno-3-77" href="#__codelineno-3-77"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-3-78" name="__codelineno-3-78" href="#__codelineno-3-78"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-3-79" name="__codelineno-3-79" href="#__codelineno-3-79"></a><span class="p">}</span>
 </code></pre></div>
-<p>This function:
-1. Enables event collection when a kernel is about to launch
-2. Reads event values after the kernel completes
-3. Normalizes event values based on the number of instances
-4. Displays raw and normalized values for each event</p>
-<h3 id="5-calculating-the-metric-value">5. Calculating the Metric Value</h3>
-<p>After collecting all events, we calculate the actual metric value:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">calculateMetricValue</span><span class="p">(</span><span class="n">MetricData_t</span><span class="w"> </span><span class="o">*</span><span class="n">metricData</span><span class="p">)</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="p">{</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="c1">// Get the metric ID</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="n">CUpti_MetricID</span><span class="w"> </span><span class="n">metricId</span><span class="p">;</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiMetricGetIdFromName</span><span class="p">(</span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">device</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;ipc&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">metricId</span><span class="p">));</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="c1">// Calculate the metric value from the collected events</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">metricValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiMetricGetValue</span><span class="p">(</span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">device</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">                                  </span><span class="n">metricId</span><span class="p">,</span>
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">                                  </span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">numEvents</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">CUpti_EventID</span><span class="p">),</span>
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">                                  </span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">eventIdArray</span><span class="p">,</span>
-<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">                                  </span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">numEvents</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">uint64_t</span><span class="p">),</span>
-<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">                                  </span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">eventValueArray</span><span class="p">,</span>
-<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">                                  </span><span class="mi">0</span><span class="p">,</span>
-<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">                                  </span><span class="o">&amp;</span><span class="n">metricValue</span><span class="p">));</span>
-<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>
-<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">    </span><span class="c1">// Get the metric name</span>
-<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">metricName</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span>
-<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">    </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiMetricGetAttribute</span><span class="p">(</span><span class="n">metricId</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="w">                                      </span><span class="n">CUPTI_METRIC_ATTR_NAME</span><span class="p">,</span>
-<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="w">                                      </span><span class="n">metricName</span><span class="p">));</span>
-<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>
-<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="w">    </span><span class="c1">// Print the metric value</span>
-<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">Metric %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">metricName</span><span class="p">);</span>
-<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\t</span><span class="s">Value: %f</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">metricValue</span><span class="p">);</span>
-<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="p">}</span>
+<p>此回调函数：
+1. 检测内核启动
+2. 在内核开始前启用事件收集
+3. 在内核完成后读取所有事件值
+4. 聚合多个实例的事件计数</p>
+<h3 id="5">5. 计算指标值</h3>
+<p>收集所有事件后，我们计算最终指标：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">calculateMetricValue</span><span class="p">(</span><span class="n">MetricData_t</span><span class="w"> </span><span class="o">*</span><span class="n">metricData</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">metricName</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="n">CUpti_MetricID</span><span class="w"> </span><span class="n">metricId</span><span class="p">;</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiMetricGetIdFromName</span><span class="p">(</span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">device</span><span class="p">,</span><span class="w"> </span><span class="n">metricName</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">metricId</span><span class="p">));</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="c1">// 计算指标值</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="n">CUpti_MetricValue</span><span class="w"> </span><span class="n">metricValue</span><span class="p">;</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="n">CUPTI_CALL</span><span class="p">(</span><span class="n">cuptiMetricGetValue</span><span class="p">(</span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">device</span><span class="p">,</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">                                  </span><span class="n">metricId</span><span class="p">,</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">                                  </span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">numEvents</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">CUpti_EventID</span><span class="p">),</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">                                  </span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">eventIdArray</span><span class="p">,</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">                                  </span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">numEvents</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">uint64_t</span><span class="p">),</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">                                  </span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">eventValueArray</span><span class="p">,</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">                                  </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="c1">// 持续时间（对于某些指标）</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">                                  </span><span class="o">&amp;</span><span class="n">metricValue</span><span class="p">));</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">    </span><span class="c1">// 根据指标类型显示值</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">metricValue</span><span class="p">.</span><span class="n">kind</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="no">CUPTI_METRIC_VALUE_KIND_DOUBLE</span><span class="p">:</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s = %.2f</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">metricName</span><span class="p">,</span><span class="w"> </span><span class="n">metricValue</span><span class="p">.</span><span class="n">metricValueDouble</span><span class="p">);</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">            </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="no">CUPTI_METRIC_VALUE_KIND_UINT64</span><span class="p">:</span>
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s = %llu</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">metricName</span><span class="p">,</span><span class="w"> </span><span class="n">metricValue</span><span class="p">.</span><span class="n">metricValueUint64</span><span class="p">);</span>
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="w">            </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="no">CUPTI_METRIC_VALUE_KIND_INT64</span><span class="p">:</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s = %lld</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">metricName</span><span class="p">,</span><span class="w"> </span><span class="n">metricValue</span><span class="p">.</span><span class="n">metricValueInt64</span><span class="p">);</span>
+<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="w">            </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="no">CUPTI_METRIC_VALUE_KIND_PERCENT</span><span class="p">:</span>
+<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s = %.2f%%</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">metricName</span><span class="p">,</span><span class="w"> </span><span class="n">metricValue</span><span class="p">.</span><span class="n">metricValuePercent</span><span class="p">);</span>
+<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a><span class="w">            </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a><span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="no">CUPTI_METRIC_VALUE_KIND_THROUGHPUT</span><span class="p">:</span>
+<a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a><span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s = %llu bytes/sec</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">metricName</span><span class="p">,</span><span class="w"> </span><span class="n">metricValue</span><span class="p">.</span><span class="n">metricValueThroughput</span><span class="p">);</span>
+<a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a><span class="w">            </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a><span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="no">CUPTI_METRIC_VALUE_KIND_UTILIZATION_LEVEL</span><span class="p">:</span>
+<a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a><span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s = Level %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">metricName</span><span class="p">,</span><span class="w"> </span><span class="n">metricValue</span><span class="p">.</span><span class="n">metricValueUtilizationLevel</span><span class="p">);</span>
+<a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a><span class="w">            </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-4-37" name="__codelineno-4-37" href="#__codelineno-4-37"></a><span class="p">}</span>
 </code></pre></div>
-<p>This function:
-1. Takes the raw event values we collected
-2. Uses CUPTI to calculate the metric value
-3. Displays the final metric value</p>
-<h3 id="6-the-test-kernel">6. The Test Kernel</h3>
-<p>The sample uses a simple vector addition kernel to demonstrate metric collection:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">VecAdd</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">N</span><span class="p">)</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="p">{</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">        </span><span class="c1">// Do some extra work to generate more instructions</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">            </span><span class="n">temp</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">        </span><span class="p">}</span>
-<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">        </span><span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temp</span><span class="p">;</span>
-<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="p">}</span>
+<h2 id="_5">可用指标</h2>
+<p>CUPTI 提供多种有用的性能指标：</p>
+<h3 id="_6">计算指标</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="s">&quot;ipc&quot;</span><span class="w">                           </span><span class="c1">// 每周期指令数</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="s">&quot;achieved_occupancy&quot;</span><span class="w">            </span><span class="c1">// 实际占用率</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="s">&quot;sm_efficiency&quot;</span><span class="w">                 </span><span class="c1">// 流多处理器效率</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="s">&quot;warp_execution_efficiency&quot;</span><span class="w">     </span><span class="c1">// Warp 执行效率</span>
 </code></pre></div>
-<h2 id="running-the-tutorial">Running the Tutorial</h2>
+<h3 id="_7">内存指标</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="s">&quot;gld_efficiency&quot;</span><span class="w">                </span><span class="c1">// 全局加载效率</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="s">&quot;gst_efficiency&quot;</span><span class="w">                </span><span class="c1">// 全局存储效率</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="s">&quot;shared_efficiency&quot;</span><span class="w">             </span><span class="c1">// 共享内存效率</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="s">&quot;l1_cache_global_hit_rate&quot;</span><span class="w">      </span><span class="c1">// L1 缓存命中率</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="s">&quot;l2_l1_read_hit_rate&quot;</span><span class="w">          </span><span class="c1">// L2 对 L1 读取命中率</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="s">&quot;dram_read_throughput&quot;</span><span class="w">          </span><span class="c1">// DRAM 读取吞吐量</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="s">&quot;dram_write_throughput&quot;</span><span class="w">         </span><span class="c1">// DRAM 写入吞吐量</span>
+</code></pre></div>
+<h3 id="_8">控制流指标</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="s">&quot;branch_efficiency&quot;</span><span class="w">             </span><span class="c1">// 分支效率</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="s">&quot;divergent_branch&quot;</span><span class="w">              </span><span class="c1">// 发散分支</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="s">&quot;warp_nonpred_execution_efficiency&quot;</span><span class="w"> </span><span class="c1">// Warp 非预测执行效率</span>
+</code></pre></div>
+<h2 id="_9">运行示例</h2>
 <ol>
 <li>
-<p>Build the sample:
-   <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>make
+<p>构建示例：
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>make
 </code></pre></div></p>
 </li>
 <li>
-<p>Run with the default metric (instructions per cycle):
-   <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>./callback_metric
+<p>使用默认指标（ipc）运行：
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>./callback_metric
 </code></pre></div></p>
 </li>
 <li>
-<p>Try a different metric:
-   <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>./callback_metric<span class="w"> </span>achieved_occupancy
+<p>指定不同的指标：
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>./callback_metric<span class="w"> </span>achieved_occupancy
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>./callback_metric<span class="w"> </span>gld_efficiency<span class="w">  </span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>./callback_metric<span class="w"> </span>dram_read_throughput
 </code></pre></div></p>
 </li>
 </ol>
-<h2 id="understanding-the-output">Understanding the Output</h2>
-<p>When running with the default "ipc" metric, you'll see output like:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>Collecting events for metric ipc
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>Pass 1/1 collecting 2 events using 1 event group
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>        inst_executed = 51200 (51200)
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>        inst_executed (normalized) (51200 * 1) / 1 = 51200
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>        active_cycles = 25600 (25600)
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>        active_cycles (normalized) (25600 * 1) / 1 = 25600
-<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>
-<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>Metric ipc
-<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>        Value: 2.000000
+<h2 id="_10">示例输出</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>为指标 ipc 收集事件
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>向量加法内核执行完成
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>ipc = 0.85
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>为指标 achieved_occupancy 收集事件  
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>向量加法内核执行完成
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>achieved_occupancy = 62.50%
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>为指标 gld_efficiency 收集事件
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>向量加法内核执行完成
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>gld_efficiency = 100.00%
 </code></pre></div>
-<p>Let's decode this output:</p>
+<h2 id="_11">性能分析见解</h2>
+<h3 id="ipc">IPC（每周期指令数）分析</h3>
+<ul>
+<li><strong>高 IPC (&gt;0.8)</strong>：内核计算密集，GPU 核心利用率高</li>
+<li><strong>中等 IPC (0.4-0.8)</strong>：均衡的计算和内存操作</li>
+<li><strong>低 IPC (&lt;0.4)</strong>：可能是内存绑定或有大量分支发散</li>
+</ul>
+<h3 id="_12">占用率分析</h3>
+<ul>
+<li><strong>高占用率 (&gt;75%)</strong>：GPU 资源被充分利用</li>
+<li><strong>中等占用率 (50-75%)</strong>：可能有资源限制（寄存器、共享内存）</li>
+<li><strong>低占用率 (&lt;50%)</strong>：可能需要优化线程块大小或资源使用</li>
+</ul>
+<h3 id="_13">内存效率分析</h3>
+<ul>
+<li><strong>高内存效率 (&gt;90%)</strong>：良好的内存合并访问</li>
+<li><strong>低内存效率 (&lt;50%)</strong>：需要优化内存访问模式</li>
+</ul>
+<h2 id="_14">高级用法</h2>
+<h3 id="_15">多指标批量分析</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">metrics</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span><span class="s">&quot;ipc&quot;</span><span class="p">,</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="s">&quot;achieved_occupancy&quot;</span><span class="p">,</span><span class="w"> </span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="s">&quot;gld_efficiency&quot;</span><span class="p">,</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">    </span><span class="s">&quot;gst_efficiency&quot;</span><span class="p">,</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">    </span><span class="s">&quot;shared_efficiency&quot;</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="p">};</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="kt">void</span><span class="w"> </span><span class="nf">analyzeMultipleMetrics</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">numMetrics</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">metricNames</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">numMetrics</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">分析指标: %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">metricNames</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="w">        </span><span class="c1">// 重置事件收集</span>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="w">        </span><span class="n">resetMetricData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">metricData</span><span class="p">);</span>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="w">        </span><span class="c1">// 为新指标设置事件</span>
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a><span class="w">        </span><span class="n">setupMetricEvents</span><span class="p">(</span><span class="o">&amp;</span><span class="n">metricData</span><span class="p">,</span><span class="w"> </span><span class="n">metricNames</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a><span class="w">        </span><span class="c1">// 运行内核并收集数据</span>
+<a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a><span class="w">        </span><span class="n">runKernelWithProfiling</span><span class="p">();</span>
+<a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a><span class="w">        </span><span class="c1">// 计算并显示结果</span>
+<a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a><span class="w">        </span><span class="n">calculateMetricValue</span><span class="p">(</span><span class="o">&amp;</span><span class="n">metricData</span><span class="p">,</span><span class="w"> </span><span class="n">metricNames</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="_16">性能瓶颈识别</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">identifyBottlenecks</span><span class="p">(</span><span class="n">MetricResults</span><span class="o">*</span><span class="w"> </span><span class="n">results</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span><span class="c1">// 分析计算绑定</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">results</span><span class="o">-&gt;</span><span class="n">ipc</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0.7</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">results</span><span class="o">-&gt;</span><span class="n">occupancy</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0.7</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;内核是计算绑定的</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">    </span><span class="c1">// 分析内存绑定</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">results</span><span class="o">-&gt;</span><span class="n">gld_efficiency</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">results</span><span class="o">-&gt;</span><span class="n">gst_efficiency</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">0.5</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;检测到内存访问效率低下</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">results</span><span class="o">-&gt;</span><span class="n">l1_hit_rate</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">0.5</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;考虑优化数据局部性</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>
+<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="w">    </span><span class="c1">// 分析发散问题</span>
+<a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">results</span><span class="o">-&gt;</span><span class="n">warp_efficiency</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">0.8</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;检测到 warp 发散问题</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;考虑减少分支发散</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="_17">时间序列分析</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">PerformanceHistory_st</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">timestamps</span><span class="p">[</span><span class="n">MAX_SAMPLES</span><span class="p">];</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">metricValues</span><span class="p">[</span><span class="n">MAX_SAMPLES</span><span class="p">];</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">sampleCount</span><span class="p">;</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="p">}</span><span class="w"> </span><span class="n">PerformanceHistory</span><span class="p">;</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="kt">void</span><span class="w"> </span><span class="nf">trackPerformanceOverTime</span><span class="p">(</span><span class="n">PerformanceHistory</span><span class="o">*</span><span class="w"> </span><span class="n">history</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">metric</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">history</span><span class="o">-&gt;</span><span class="n">sampleCount</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">MAX_SAMPLES</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="w">        </span><span class="n">history</span><span class="o">-&gt;</span><span class="n">timestamps</span><span class="p">[</span><span class="n">history</span><span class="o">-&gt;</span><span class="n">sampleCount</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getCurrentTime</span><span class="p">();</span>
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="w">        </span><span class="n">history</span><span class="o">-&gt;</span><span class="n">metricValues</span><span class="p">[</span><span class="n">history</span><span class="o">-&gt;</span><span class="n">sampleCount</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">metric</span><span class="p">;</span>
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="w">        </span><span class="n">history</span><span class="o">-&gt;</span><span class="n">sampleCount</span><span class="o">++</span><span class="p">;</span>
+<a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a><span class="p">}</span>
+<a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a>
+<a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a><span class="kt">void</span><span class="w"> </span><span class="nf">analyzePerformanceTrends</span><span class="p">(</span><span class="n">PerformanceHistory</span><span class="o">*</span><span class="w"> </span><span class="n">history</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a><span class="w">    </span><span class="c1">// 计算趋势、方差等</span>
+<a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">avgMetric</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">calculateAverage</span><span class="p">(</span><span class="n">history</span><span class="o">-&gt;</span><span class="n">metricValues</span><span class="p">,</span><span class="w"> </span><span class="n">history</span><span class="o">-&gt;</span><span class="n">sampleCount</span><span class="p">);</span>
+<a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">variance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">calculateVariance</span><span class="p">(</span><span class="n">history</span><span class="o">-&gt;</span><span class="n">metricValues</span><span class="p">,</span><span class="w"> </span><span class="n">history</span><span class="o">-&gt;</span><span class="n">sampleCount</span><span class="p">);</span>
+<a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a>
+<a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;平均指标值: %.2f</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">avgMetric</span><span class="p">);</span>
+<a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;性能方差: %.2f</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">variance</span><span class="p">);</span>
+<a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a><span class="p">}</span>
+</code></pre></div>
+<h2 id="_18">故障排除</h2>
+<h3 id="_19">常见问题</h3>
 <ol>
-<li><strong>Events Collected</strong>: The "ipc" metric requires two events - instructions executed and active cycles</li>
-<li><strong>Raw Values</strong>: The actual hardware counter values read from the GPU</li>
-<li><strong>Normalized Values</strong>: Adjusted values accounting for all instances of the counters</li>
-<li><strong>Metric Value</strong>: The calculated IPC value (2.0), meaning on average 2 instructions are executed per clock cycle</li>
+<li>
+<p><strong>指标不可用</strong>：
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">CUptiResult</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cuptiMetricGetIdFromName</span><span class="p">(</span><span class="n">device</span><span class="p">,</span><span class="w"> </span><span class="n">metricName</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">metricId</span><span class="p">);</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">CUPTI_SUCCESS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;指标 &#39;%s&#39; 在此设备上不可用</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">metricName</span><span class="p">);</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">    </span><span class="n">listAvailableMetrics</span><span class="p">(</span><span class="n">device</span><span class="p">);</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="p">}</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>多遍历需求</strong>：
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">metricData</span><span class="p">.</span><span class="n">numEventGroups</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;此指标需要 %d 次遍历来收集所有事件</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">           </span><span class="n">metricData</span><span class="p">.</span><span class="n">numEventGroups</span><span class="p">);</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="p">}</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>内存不足</strong>：
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1">// 监控事件缓冲区大小</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="kt">size_t</span><span class="w"> </span><span class="n">requiredSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">numEvents</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">numInstances</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">uint64_t</span><span class="p">);</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">requiredSize</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">MAX_BUFFER_SIZE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;警告：需要大事件缓冲区 (%zu 字节)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">requiredSize</span><span class="p">);</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="p">}</span>
+</code></pre></div></p>
+</li>
 </ol>
-<h2 id="interpreting-common-metrics">Interpreting Common Metrics</h2>
-<h3 id="instructions-per-cycle-ipc">Instructions Per Cycle (IPC)</h3>
+<h2 id="_20">性能考虑</h2>
+<h3 id="_21">多遍历开销</h3>
+<p>某些指标需要多次内核执行来收集所有必需的事件：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">optimizeMultiPassCollection</span><span class="p">(</span><span class="n">MetricData_t</span><span class="o">*</span><span class="w"> </span><span class="n">metricData</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">    </span><span class="c1">// 检查是否可以减少遍历次数</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">metricData</span><span class="o">-&gt;</span><span class="n">numEventGroups</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;考虑使用需要较少事件的替代指标</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="w">    </span><span class="c1">// 实现智能缓存以避免重复计算</span>
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">isMetricCached</span><span class="p">(</span><span class="n">metricName</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">getCachedMetricValue</span><span class="p">(</span><span class="n">metricName</span><span class="p">);</span>
+<a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="_22">选择性分析</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1">// 仅对重要内核启用指标收集</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="kt">bool</span><span class="w"> </span><span class="nf">shouldCollectMetrics</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">kernelName</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">    </span><span class="c1">// 实现启发式规则来决定是否分析</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">strstr</span><span class="p">(</span><span class="n">kernelName</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Critical&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="o">||</span>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="w">           </span><span class="p">(</span><span class="n">getKernelImportance</span><span class="p">(</span><span class="n">kernelName</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">IMPORTANCE_THRESHOLD</span><span class="p">);</span>
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="p">}</span>
+</code></pre></div>
+<h2 id="_23">总结</h2>
+<p>CUPTI 指标回调提供了对 GPU 性能的深入了解。通过收集和分析诸如 IPC、占用率和内存效率等高级指标，开发者可以：</p>
 <ul>
-<li><strong>What it measures</strong>: Computational efficiency</li>
-<li><strong>Ideal range</strong>: Varies by architecture, but higher is better</li>
-<li><strong>Optimization hints</strong>:</li>
-<li>Low IPC (&lt;1): May indicate memory bottlenecks or thread divergence</li>
-<li>High IPC (&gt;2): Good instruction-level parallelism</li>
+<li>识别性能瓶颈</li>
+<li>指导优化策略</li>
+<li>验证性能改进</li>
+<li>理解硬件利用率模式</li>
 </ul>
-<h3 id="achieved-occupancy">Achieved Occupancy</h3>
-<ul>
-<li><strong>What it measures</strong>: Ratio of active warps to maximum possible warps</li>
-<li><strong>Ideal range</strong>: Closer to 1.0 is better</li>
-<li><strong>Optimization hints</strong>:</li>
-<li>Low occupancy: Consider reducing register usage or shared memory</li>
-<li>High occupancy doesn't guarantee better performance but provides more latency hiding</li>
-</ul>
-<h3 id="memory-throughput">Memory Throughput</h3>
-<ul>
-<li><strong>What it measures</strong>: Memory bandwidth utilization</li>
-<li><strong>Ideal range</strong>: Closer to peak bandwidth is better</li>
-<li><strong>Optimization hints</strong>:</li>
-<li>Low throughput: Consider memory access patterns, coalescing, or caching</li>
-<li>High throughput with low IPC: Application is memory-bound</li>
-</ul>
-<h2 id="advanced-usage">Advanced Usage</h2>
-<h3 id="collecting-multiple-metrics">Collecting Multiple Metrics</h3>
-<p>To collect multiple metrics:
-1. Run the application multiple times, each with a different metric
-2. Or modify the code to collect all required events and calculate multiple metrics</p>
-<h3 id="multi-pass-collection">Multi-Pass Collection</h3>
-<p>Some metrics require events that can't be collected simultaneously. The sample handles this by:
-1. Determining which events can be collected together
-2. Creating multiple event groups if needed
-3. Running the kernel multiple times if necessary</p>
-<h2 id="next-steps">Next Steps</h2>
-<ul>
-<li>Try collecting different metrics to understand various aspects of your kernels</li>
-<li>Apply metric collection to your own CUDA applications</li>
-<li>Use metrics to identify optimization opportunities</li>
-<li>Combine multiple metrics to get a complete performance picture </li>
-</ul>
-<p><a class="md-button" href="https://x.com/intent/tweet?text=CUPTI%20Performance%20Metrics%20Tutorial%0A&amp;url=https://eunomia.dev/zh/others/cupti-tutorial/callback_metric/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<p>这种方法为 CUDA 应用程序优化提供了数据驱动的见解，实现更好的 GPU 性能和效率。 </p>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=CUPTI%20%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E6%95%99%E7%A8%8B%0A&amp;url=https://eunomia.dev/zh/others/cupti-tutorial/callback_metric/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/zh/others/cupti-tutorial/callback_metric/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
@@ -8974,7 +9255,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 17, 2025 09:26:20 UTC">June 17, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 22, 2025 05:40:48 UTC">June 22, 2025</span>
   </span>
 
     
@@ -8984,7 +9265,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 17, 2025 09:19:24 UTC">June 17, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 22, 2025 05:40:48 UTC">June 22, 2025</span>
   </span>
 
     
@@ -9104,7 +9385,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../callback_event/" class="md-footer__link md-footer__link--prev" aria-label="Previous: CUPTI Callback Event Tutorial">
+          <a href="../callback_event/" class="md-footer__link md-footer__link--prev" aria-label="Previous: CUPTI 回调事件教程">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -9114,20 +9395,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                CUPTI Callback Event Tutorial
+                CUPTI 回调事件教程
               </div>
             </div>
           </a>
         
         
           
-          <a href="../callback_profiling/" class="md-footer__link md-footer__link--next" aria-label="Next: CUPTI Callback-Based Profiling Tutorial">
+          <a href="../callback_profiling/" class="md-footer__link md-footer__link--next" aria-label="Next: CUPTI 基于回调的性能分析教程">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                CUPTI Callback-Based Profiling Tutorial
+                CUPTI 基于回调的性能分析教程
               </div>
             </div>
             <div class="md-footer__button md-icon">
