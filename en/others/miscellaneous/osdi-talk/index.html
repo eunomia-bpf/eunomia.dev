@@ -8073,9 +8073,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#slide-10-bpftime-architecture" class="md-nav__link">
+  <a href="#slide-10-bpftime-overview" class="md-nav__link">
     <span class="md-ellipsis">
-      [Slide 10] bpftime Architecture
+      [Slide 10] bpftime Overview
     </span>
   </a>
   
@@ -8385,9 +8385,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#slide-10-bpftime-architecture" class="md-nav__link">
+  <a href="#slide-10-bpftime-overview" class="md-nav__link">
     <span class="md-ellipsis">
-      [Slide 10] bpftime Architecture
+      [Slide 10] bpftime Overview
     </span>
   </a>
   
@@ -8493,59 +8493,158 @@
 <h2 id="slide-0">[Slide 0]</h2>
 <p>Good morning! I'm <strong>Yusheng Zheng</strong> from UC Santa Cruz, presenting our OSDI '25 paper on extension systems. I'll show why current extensions force painful tradeoffs between safety and performance, then present our solution: EIM for fine-grained policies and bpftime, a userspace eBPF runtime, for efficient enforcement.</p>
 <h2 id="slide-1-extensions-a-concrete-example">[Slide 1] Extensions: A Concrete Example</h2>
+<blockquote>
+<p>split to 2 slides</p>
+</blockquote>
 <p>Extensions are everywhere in modern software. PostgreSQL has over 100 extensions for everything from geospatial data to time-series analytics. Nginx has evolved from a basic HTTP server into a versatile platform through its rich extension ecosystem. Emacs users install packages for language support and productivity tools. Vim has thousands of plugins for syntax highlighting and development workflows. Redis uses Lua scripts for custom data processing. Even browsers depend on extensions for ad blocking and developer tools.</p>
+<blockquote>
+<p>2 is detail, the rest is just some images. too many example.</p>
+<p>maybe new slide starts from here, around nginx example</p>
+</blockquote>
 <p>Let me start with a concrete example to show you what extensions are and why we need them. Consider Nginx deployed as a reverse proxy. The original Nginx developers write the core server functionality. But different deployments need different behaviors. Some need firewalls to block malicious requests. Others need load balancers to distribute traffic. Many need monitoring for observability. Extensions solve this problem by allowing customization without modifying the original application source code.</p>
+<blockquote>
+<p>add why that's good idea not to modify the original application source code? one sentence</p>
+</blockquote>
 <p>Here's how the extension execution model works in Nginx. A developer defines new logic as Nginx modules or plugins, and associates each extension with specific locations in Nginx's request processing pipeline, called extension entries. When a user runs Nginx, the system loads both the core Nginx binary and the configured extensions. Each time an Nginx worker thread reaches an extension entry—like when processing an incoming HTTP request—the thread jumps to the associated extension. It executes the extension logic within Nginx's runtime context. Once the extension completes, the thread returns to Nginx's core processing at the point immediately after the extension entry.</p>
+<blockquote>
+<p>add a figture</p>
+</blockquote>
 <h2 id="slide-2-extension-problems-and-requirements">[Slide 2] Extension Problems and Requirements</h2>
 <p>However, Nginx extension systems face serious safety and performance challenges. Real-world incidents show the risks: In 2023, a malformed Lua plugin created an infinite loop inside Nginx, causing Bilibili's entire CDN to go down for hours. Apache's Lua module also suffered buffer overflows that crashed httpd. Redis scripts can enable remote code execution through stack overflows. These examples show that even mature plugin ecosystems can bring production services to a halt.</p>
+<blockquote>
+<p>shorter and around nginx, and add not just, like redis. </p>
+<p>add for example, many people using lua and wasm to .... that's too much to pay ...</p>
+</blockquote>
 <p>Meanwhile, Nginx operators often disable WebAssembly or Lua-based extensions in production due to their persistent 10–15 percent throughput penalty on HTTP request processing. This creates a painful tension between safety, extensibility, and performance.</p>
+<blockquote>
+<p>put it in seperate slide.</p>
+</blockquote>
 <p>Nginx extension frameworks need three key features. First, fine-grained safety and interconnectedness trade-offs. Nginx extensions must interact with the web server by reading request headers and calling HTTP processing functions, but managers need to follow the principle of least privilege, granting only necessary permissions per extension. Second, isolation to protect Nginx extensions from core server bugs and vice versa. Third, efficiency with near-native speed execution, since Nginx extensions often run on critical paths like per-request processing where every millisecond matters for user experience.</p>
+<blockquote>
+<p>use the system diagram here with annotations to show the requirements and bugs. the first one is system diagram + issues, the second is system diagram + requirements.</p>
+</blockquote>
 <h2 id="slide-3-state-of-the-art-falls-short">[Slide 3] State-of-the-Art Falls Short</h2>
 <p>Unfortunately, existing approaches cannot satisfy all requirements simultaneously. Dynamic loading achieves speed but provides no isolation or policies. Software Fault Isolation systems like WebAssembly deliver safety but carry 10–15 percent performance penalties. Subprocess isolation ensures separation but has untenable IPC overhead. Kernel eBPF uprobes offer isolation but trap into the kernel on every invocation, costing microseconds each time.</p>
+<blockquote>
+<p>bullet points and animation will make people easy to follow.</p>
+</blockquote>
 <h2 id="slide-4-contribution-eim-bpftime">[Slide 4] Contribution: EIM + bpftime</h2>
+<blockquote>
+<p>reuse it as outline, tell people what you are talking about</p>
+</blockquote>
 <p>We present a two-part solution. First, the Extension Interface Model (EIM) treats every extension capability as a named resource. We split the work into development time, where application developers declare possible capabilities, and deployment time, where extension managers choose minimal privilege sets following least privilege principles.</p>
-<p>Second, bpftime is a new runtime that efficiently enforces EIM using three key techniques: offline eBPF verification for zero runtime safety checks, Intel Memory Protection Keys for fast domain switching, and concealed extension entries that eliminate overhead for unused hooks. Together, they provide kernel-grade safety with library-grade performance while maintaining 100% eBPF compatibility.</p>
+<p>Second, bpftime is a new runtime that efficiently enforces EIM using three key techniques: offline eBPF verification for zero runtime safety checks, Intel Memory Protection Keys for fast domain switching, and concealed extension entries that eliminate overhead for unused hooks. Together, they provide kernel-grade safety with library-grade performance while maintaining eBPF compatibility.</p>
+<blockquote>
+<p>add a evaluation sentence here.</p>
+<p>add some visualization/image</p>
+</blockquote>
 <h2 id="slide-5-eim-extension-interface-model">[Slide 5] EIM: Extension Interface Model</h2>
-<p>To enable fine-grained control, we introduce the Extension Interface Model, or EIM. EIM treats extension capabilities as named resources with a two-phase specification approach.</p>
+<p>To enable fine-grained safety-interconnectness trade-offs, we introduce the Extension Interface Model, or EIM. EIM treats extension capabilities as named resources with a two-phase specification approach.</p>
 <p>Let me explain this using our Nginx example. In the extension ecosystem, we have four key roles. First, Nginx application developers write the core web server code. Second, extension developers create plugins like firewalls, load balancers, and monitoring tools. Third, the extension manager—typically a system administrator or DevOps engineer—decides which extensions to deploy and what privileges each should have. Finally, end users send HTTP requests that trigger both the host application and extensions.</p>
-<p>EIM captures this separation of concerns through capabilities as resources. State access capabilities control reading and writing variables like request headers or connection counts. Function call capabilities govern invoking Nginx APIs like <code>nginx_time()</code> or <code>ngx_http_finalize_request()</code>, complete with pre- and post-conditions. Hardware resource capabilities limit CPU instructions and memory access patterns.</p>
-<p>The key insight is splitting specification into two phases. During development time, Nginx developers annotate their code to declare the universe of possible extension behaviors—what state could be accessed, which functions could be called, where extensions could hook. This creates a comprehensive capability manifest embedded in the binary.</p>
-<p>At deployment time, the extension manager writes policies that grant minimal privilege sets to specific extensions. A monitoring extension might only read request data and call logging functions. A firewall extension needs both read and write access to modify responses. A load balancer requires network capabilities to contact upstream servers.</p>
+<p>EIM captures this separation of concerns through capabilities as resources.</p>
+<!-- State access capabilities control reading and writing variables like request headers or connection counts. Function call capabilities govern invoking Nginx APIs like `nginx_time()` or `ngx_http_finalize_request()`, complete with pre- and post-conditions. Hardware resource capabilities limit CPU instructions and memory access patterns. -->
+<blockquote>
+<p>cover them later</p>
+</blockquote>
+<p>The key insight is splitting specification into two phases. During development time, Nginx developers annotate their code to declare the universe of possible extension behaviors—what state could be accessed, which functions could be called, where extensions could hook.</p>
+<blockquote>
+<p>make it a little shorter and not too much detail.</p>
+</blockquote>
+<p>At deployment time, the extension manager writes policies that grant minimal privilege sets to specific extensions.</p>
 <p>This separation means managers can refine security policies in production without touching application source code, enabling true least-privilege extension deployment.</p>
 <h2 id="slide-6-eim-development-time-specification">[Slide 6] EIM Development-Time Specification</h2>
 <p>Now let me show you how EIM works in practice. During development time, Nginx developers annotate their code to declare what extensions could possibly do. They might add a state capability called <code>readPid</code> for accessing the process ID, a function capability <code>nginxTime()</code> for getting timestamps, and extension entries like <code>processBegin</code> when request processing starts.</p>
 <p>These annotations are automatically extracted and compiled into the binary. This happens once during development and creates a complete map of what extensions could ever access. The key insight is that developers only declare possibilities—they don't decide what actually gets used.</p>
+<blockquote>
+<p>need to modify the image, maybe add something to nginx system diagram to show what the developer can annotate and can do. maybe not full image, just some annotations.</p>
+</blockquote>
 <h2 id="slide-7-eim-deployment-time-specification">[Slide 7] EIM Deployment-Time Specification</h2>
-<p>Here's where the magic happens. At deployment time, the system administrator writes simple policies that grant minimal privileges to each extension. An observability extension might only read request data and call logging functions. A firewall extension gets both read and write access to modify responses. A load balancer needs network capabilities to contact upstream servers.</p>
-<p>The beauty is that these policies live completely outside the application code. You can refine security settings in production without recompiling anything. This separation enables true least-privilege deployment while keeping the original application unchanged.</p>
+<p>At deployment time, the system administrator writes simple policies that grant minimal privileges to each extension. </p>
+<p>An observability extension might only read request data and call logging functions. A firewall extension gets both read and write access to modify responses. A load balancer needs network capabilities to contact upstream servers.</p>
+<blockquote>
+<p>like 2 different extension entry example spec, we can show them.</p>
+</blockquote>
+<p>These policies live completely outside the application code. You can refine security settings in production without recompiling anything. This separation enables true least-privilege deployment while keeping the original application unchanged.</p>
+<blockquote>
+<p>change figture. similar to the previous one, from system diagram add more.</p>
+</blockquote>
 <h2 id="slide-8-eim-summary">[Slide 8] EIM Summary</h2>
 <p>To summarize EIM, we've solved the fine-grained control problem through two innovations. First, we model every extension capability as a named resource that can be precisely granted or denied. Second, we separate development time concerns from deployment time policies.</p>
-<p>This fills a critical gap. Existing frameworks either give you no control at all, or they bundle everything into coarse-grained categories. EIM lets you say "this monitoring extension can only read request headers and call logging functions" while "this firewall can read and modify response content"—all without changing a single line of application code.</p>
-<p>The key breakthrough is treating safety and interconnectedness as independent dimensions that can be balanced precisely for each use case.</p>
+<p>Existing frameworks either give you no control at all, or they bundle everything into coarse-grained categories. EIM lets you say "this monitoring extension can only read request headers and call logging functions" while "this firewall can read and modify response content"—all without changing a single line of application code.</p>
+<p>The key idea is treating safety and interconnectedness as independent dimensions that can be balanced precisely for each use case.</p>
+<blockquote>
+<p>maybe we don't need this slide. We can show the contribution again. we can use hightlight in contribution to replace empty title slide, se show it multiple times across the slides to guide people.</p>
+</blockquote>
 <h2 id="slide-9-bpftime-why-we-need-a-new-runtime">[Slide 9] bpftime: Why We Need a New Runtime</h2>
+<blockquote>
+<p>introduce the idea of bpftime</p>
+</blockquote>
 <p>Now you might ask, "Can't we just use existing frameworks to enforce EIM policies?" Unfortunately, no. Current frameworks make painful trade-offs that prevent efficient EIM enforcement. Software fault isolation like WebAssembly adds 10-15% runtime overhead. Subprocess isolation requires expensive context switches. Kernel eBPF uprobes trap into the kernel on every single function call.</p>
+<blockquote>
+<p>"we talk about previous work..."</p>
+</blockquote>
+<p>bpftime is a userspace extension framework in eBPF​...</p>
 <p>We built bpftime specifically to enforce EIM efficiently while maintaining complete eBPF compatibility. This compatibility is crucial—it means existing eBPF tools work immediately with bpftime, and extensions can share data with kernel eBPF programs for comprehensive monitoring that spans both kernel and userspace.</p>
-<h2 id="slide-10-bpftime-architecture">[Slide 10] bpftime Architecture</h2>
-<p>Here's how bpftime works at a high level. We intercept eBPF system calls before they reach the kernel. Our loader converts EIM policies into bytecode assertions and feeds everything through the kernel's proven eBPF verifier for safety guarantees. After JIT compilation to native code, we use binary rewriting to patch trampolines into the target application only when extensions are actually loaded. At runtime, we flip memory protection keys to switch security domains and execute the native extension code directly.</p>
+<blockquote>
+<p>maybe change , shorter and just say compatibilit and work with kernel ebpf.</p>
+<p>maybe shorter a little bit.</p>
+<ol>
+<li>compatibility ebpf (verification for safety + ecosystem)</li>
+<li>binary rewriting (conceal extension entry)</li>
+<li>isolation (mpk)</li>
+</ol>
+</blockquote>
+<h2 id="slide-10-bpftime-overview">[Slide 10] bpftime Overview</h2>
+<p>Here's how bpftime works at a high level.
+ <!-- We intercept eBPF system calls before they reach the kernel. Our loader converts EIM policies into bytecode assertions and feeds everything through the kernel's proven eBPF verifier for safety guarantees. After JIT compilation to native code, we use binary rewriting to patch trampolines into the target application only when extensions are actually loaded. At runtime, we flip memory protection keys to switch security domains and execute the native extension code directly. -->
+</p>
+<blockquote>
+<p>"to ensure compatibility, we need to do something like this..."
+" to ensure ..."
+" we convert the eim into..."
+" this enable us to resure the verifier..."
+each things you introduce match previous slide.</p>
+</blockquote>
 <p>The key insight is reusing the existing eBPF ecosystem while adding just the minimal components needed for userspace deployment with EIM enforcement.</p>
+<blockquote>
+<p>we need to simplify this diagram. only the necessary parts.</p>
+</blockquote>
 <h2 id="slide-11-bpftime-key-challenges-and-design">[Slide 11] bpftime: Key Challenges and Design</h2>
-<p>Now you might ask, "Can't we just expand existing extension frameworks to enforce EIM policies?" Unfortunately, that approach won't work. Existing frameworks provide safety and isolation through heavyweight operating-system isolation or software-fault isolation techniques like WebAssembly. These are already inefficient, imposing 10-15% overhead. Adding EIM enforcement on top would degrade their performance even further, making them unsuitable for production use.</p>
+<blockquote>
+<p>no need this one, but introduce each in the overview with the figture. </p>
+</blockquote>
 <p>So we designed bpftime as a new extension framework specifically for compiled applications. But ensuring eBPF compatibility presented a major challenge. The Linux eBPF ecosystem consists of tightly coupled components—compilers, runtime libraries, and the kernel—that are nearly impossible to disentangle. Prior user-level eBPF systems tried re-implementing the entire eBPF technology stack and ultimately failed to provide reasonable performance and compatibility.</p>
 <p>Instead, bpftime takes a different approach. We identify a narrow waist in the current eBPF ecosystem and interpose at that point. Specifically, we intercept eBPF-related system calls and the shared map mechanism for data sharing between extensions. This lets us reuse the proven eBPF ecosystem while adding just the minimal new components needed for userspace deployment.</p>
 <p>bpftime employs two key design constraints that work together. First, we use separate lightweight approaches for EIM enforcement versus isolation—similar to how KFlex uses two separate verification techniques for kernel extensions. We enforce EIM safety without runtime overhead using eBPF-style verification, and provide efficient isolation using ERIM-style intra-process hardware isolation. Second, we introduce concealed extension entries using binary rewriting, so extension entries are zero-cost when not in use.</p>
 <h2 id="slide-12-real-world-use-cases">[Slide 12] Real-World Use Cases</h2>
 <p>To prove our approach works, we built six real-world applications. For security, we created an Nginx firewall that blocks malicious URLs in real time. For reliability, we built a Redis extension that bridges the durability gap between losing thousands of writes versus taking a 6× performance hit. For performance, we accelerated FUSE file operations with in-process caching. For observability, we ported existing tools like DeepFlow, syscount, and sslsniff to demonstrate seamless eBPF compatibility.</p>
+<blockquote>
+<p>about the oss part, the code is opensource since... and we have community and suers... the things are done by and we pick ...</p>
+</blockquote>
 <h2 id="slide-13-performance-results-nginx-firewall">[Slide 13] Performance Results: Nginx Firewall</h2>
-<p>Let me show you the performance impact. For our Nginx firewall, we compared different extension approaches under a realistic workload. Lua and WebAssembly extensions impose 11–12 percent throughput loss—that's significant overhead that many operators can't accept in production. Our bpftime implementation achieves the same security functionality with only 2 percent overhead. That's a 5× to 6× improvement over existing approaches.</p>
-<p>This result matters because it crosses the threshold where extension overhead becomes acceptable in production environments.</p>
+<p>Let me show you the performance impact. For our Nginx firewall, we compared different extension approaches under a realistic workload. Lua and WebAssembly extensions impose 11–12 percent throughput loss—that's significant overhead that many operators can't accept in production. Our bpftime implementation achieves the same security functionality with only 2 percent overhead. That's a 5× to 6× improvement over existing approaches. </p>
+<blockquote>
+<p>"in this diagram, the more to the right, the better."</p>
+</blockquote>
 <h2 id="slide-14-performance-results-ssl-monitoring">[Slide 14] Performance Results: SSL Monitoring</h2>
 <p>For observability, consider sslsniff, which monitors encrypted TLS traffic—crucial for debugging production microservices. With kernel eBPF, this monitoring costs 28 percent throughput loss. That's prohibitive for production use. With bpftime, the same monitoring functionality costs only 7 percent overhead.</p>
-<p>This improvement makes encrypted traffic monitoring practical in performance-sensitive environments where every percentage point of overhead matters.</p>
+<blockquote>
+<p>say in words and describe more about the figure.</p>
+</blockquote>
 <h2 id="slide-15-take-aways-and-future-work">[Slide 15] Take-Aways and Future Work</h2>
+<blockquote>
+<p>use the contribution slide  again, to say summary....</p>
+</blockquote>
 <p>Let me close with three key takeaways. First, EIM provides the missing piece for fine-grained extension control—you can now specify precise least-privilege policies per extension entry without touching application source code. Second, bpftime shows that you don't have to choose between safety and performance. We achieve kernel-grade safety with library-grade performance using offline verification, hardware isolation, and concealed trampolines. Third, maintaining 100% eBPF compatibility means you can adopt our approach immediately without changing your existing workflows.</p>
-<p>Looking ahead, we're expanding bpftime to support GPU and ML workloads, broadening the scope of safe, efficient extension deployment beyond traditional systems programming.</p>
-<p>However, current bpftime and EIM still have some limitations. First, EIM tools and policies are mainly for compiled applications, and we are working on supporting more languages. Also, you need to write the extension code in eBPF, which is not easy for some users.</p>
+<!-- 
+Looking ahead, we're expanding bpftime to support GPU and ML workloads, broadening the scope of safe, efficient extension deployment beyond traditional systems programming.
+
+However, current bpftime and EIM still have some limitations. First, EIM tools and policies are mainly for compiled applications, and we are working on supporting more languages. Also, you need to write the extension code in eBPF, which is not easy for some users. -->
+
 <h2 id="slide-16-thank-you-questions">[Slide 16] Thank You &amp; Questions</h2>
+<blockquote>
+<p>not a seperate slide, merge it into contribution outline...</p>
+</blockquote>
 <p>Thank you for your attention. <strong>bpftime</strong> is open-source under the MIT license at <strong>github.com/eunomia-bpf/bpftime</strong>. You can get started today by running it as a drop-in replacement for eBPF applications. We welcome your issues, pull requests, and collaboration. I'm happy to take your questions.</p>
 <h2 id="complete-slide-deck-16-slides-169"><strong>Complete Slide Deck (16 slides, 16:9)</strong></h2>
 <hr />
@@ -8771,7 +8870,7 @@ Xiaozheng Lai⁴ • Dan Williams⁵ • Andi Quinn¹</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 23, 2025 16:02:46 UTC">June 23, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 23, 2025 17:15:09 UTC">June 23, 2025</span>
   </span>
 
     
