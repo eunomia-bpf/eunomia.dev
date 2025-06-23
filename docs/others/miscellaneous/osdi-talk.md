@@ -135,32 +135,22 @@ Xiaozheng Lai⁴ • Dan Williams⁵ • Andi Quinn¹
 
 **Slide 1: Extensions - A Concrete Example**
 
-**Extensions are everywhere:**
-• **PostgreSQL**: 100+ extensions (PostGIS, TimescaleDB)
-• **Kong API Gateway**: Lua plugins (rate limiting, auth)
-• **Emacs/Vim**: Thousands of packages and plugins
-• **Redis**: Lua scripts for custom processing
-• **Browsers**: Extensions for ad blocking, dev tools
+- **Extensions are everywhere:** PostgreSQL (PostGIS), API gateways (Lua plugins), Redis (custom scripts), browsers (ad blockers)
+- **What are extensions?** Customize software without modifying source code
+- **Why do we need them?** Different deployments, different needs
 
-**What are extensions?** Customize software without modifying source code
-
-**Why do we need them?** Different deployments, different needs
+**Extension execution model:**
+Thread → Extension entry → Jump to extension → Execute → Return to host
 
 ---
 
 **Slide 2: Extension Problems & Requirements**
 
-**Real-world safety violations:**
-- **Bilibili [73]**: Nginx Lua livelock → multi-hour CDN outage
-- **Apache CVE-2021-44790**: Buffer overflow in Lua module
-- **Redis CVE-2024-31449**: Lua stack overflow → RCE
-
+**Real-world safety violations:** Bilibili CDN outage, Apache buffer overflow, Redis RCE
 **Performance penalty**: WebAssembly/Lua impose 10-15% overhead
 
-**Three key requirements:**
-1. **Fine-grained safety** → Least privilege per extension
-2. **Isolation** → Protect extensions from host bugs
-3. **Efficiency** → Near-native speed on hot paths
+**A painful tension**: Safety vs. Extensibility vs. Performance
+
 
 ---
 
@@ -179,16 +169,8 @@ Xiaozheng Lai⁴ • Dan Williams⁵ • Andi Quinn¹
 
 **Slide 4: Contribution - EIM + bpftime**
 
-**Extension Interface Model (EIM)**
-- Treats capabilities as named resources
-- Development-time: declare possibilities
-- Deployment-time: grant minimal privileges
-
-**bpftime Runtime**
-- Offline eBPF verification → zero runtime checks
-- Intel MPK → fast domain switching
-- Concealed entries → no overhead for unused hooks
-- **100% eBPF compatible**
+**Extension Interface Model (EIM)**: Fine-grained capability control
+**bpftime Runtime**: Kernel-grade safety with library-grade performance
 
 ---
 
@@ -212,6 +194,7 @@ Xiaozheng Lai⁴ • Dan Williams⁵ • Andi Quinn¹
 **Slide 6: EIM Development-Time Specification**
 
 **Nginx developers annotate code:**
+
 ```c
 // State capability
 State_Capability(name="readPid", operation=read(ngx_pid))
@@ -275,8 +258,8 @@ Extension_Class:
 
 **bpftime advantages:**
 - Efficient EIM enforcement
-- 100% eBPF compatibility
-- Share data with kernel eBPF programs
+- **100% eBPF compatibility** → Existing tools work immediately
+- **Share data with kernel eBPF** → Comprehensive kernel+userspace monitoring
 
 ---
 
@@ -308,6 +291,7 @@ Extension_Class:
 2. **Intel MPK** → Fast domain switching (2 WRPKRU instructions)
 3. **Concealed entries** → Zero cost for unused hooks
 
+**Result**: **Kernel-grade safety** with **library-grade performance**
 **Microbenchmark result**: 190ns vs 2.5μs (14× faster than kernel eBPF)
 
 ---
