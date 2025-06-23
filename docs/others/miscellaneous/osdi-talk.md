@@ -90,25 +90,16 @@ Thank you for your attention. **bpftime** is open-source under the MIT license a
 
 ---
 
-**Slide 0**
+**Slide**
 **Extending Applications Safely & Efficiently**
 Yusheng Zheng¹ • Tong Yu² • Yiwei Yang¹ • Yanpeng Hu³
 Xiaozheng Lai⁴ • Dan Williams⁵ • Andi Quinn¹
 ¹UC Santa Cruz   ²eunomia-bpf Community   ³ShanghaiTech University
 ⁴South China University of Technology   ⁵Virginia Tech
 
-**Slide 0.5**
-**Roadmap**
-
-1. **Motivation** → Extension safety vs. performance
-2. **EIM + bpftime** → Our two-part solution  
-3. **Use Cases** → Six real-world applications
-4. **Evaluation** → 5-14× performance improvements
-
-
 ---
 
-**Slide 1**
+**Slide**
 **Extensions Are Everywhere**
 
 - **Web browsers**: AdBlock, password managers, developer tools
@@ -119,22 +110,88 @@ Xiaozheng Lai⁴ • Dan Williams⁵ • Andi Quinn¹
 
 **Common theme**: Customize software without modifying application source code
 
+> There are too many examples. you should illustrate what are the extensions/plugins? Why we want them?
+
+you can reorganize it as: 
+
+- Popular / high level exampl​e of extensions and plugins
+- What is extension?
+- Why we care about extensions?
+
+Slide
+
 ---
 
-**Slide 2**
-**Four Roles in an Extension Ecosystem**
+**Slide**
+**Nginx plugin example**
 
 !\[Figure 1 from paper]
 
-– **Application Developers** write and ship the host binary with named extension entries.
-– **Extension Developers** implement modules against those entries.
-– **Extension Manager** chooses which module runs where and with what privileges.
-– **Users** generate inputs that exercise both host and extensions.
+a simple example can go first​ and help people understand the extension and plugin background.
+
+3 min to understand the background of it. no need to introduce role here, introduce role in EIM part
+
+=== some text for reference
+
+System extensions augment an application without modifying
+its source code to customize behavior, enhance security, add
+custom features, and observe behavior. By supporting appli-
+cation modifications without requiring source code changes,
+extensions allow a customized deployment to integrate main-
+tenance updates from upstream repositories easily and can
+provide assurances of security and safety. The rest of this sec-
+tion discusses the principal roles of system extensions (2.1),
+provides an example web-server use-case (2.2), articulates
+the key properties of extension frameworks (2.3), discusses
+limitations of the current state-of-the-art (2.4), and articulates
+the threat model (2.5).
+2.1 Roles
+The system extension usage model considers four key prin-
+cipals. The application developers are a group of trusted
+developers who write the original application, while the ex-
+tension developers are a group of trusted developers who
+create the extensions. System extensions assume that both
+the application developer(s) and extension developer(s) are
+trusted but fallible, so applications and extensions might be
+exploitable but are not intentionally malicious. Next, the sys-
+tem extension model includes an extension manager, a trusted
+individual that installs and manages the extensions; the model
+relies on the manager to be both trusted and infallible. Finally,
+users are untrusted individuals who interact with the extended
+application; users can be malicious and may try to craft inputs
+that would trigger vulnerabilities in otherwise benign code.
+Figure 1 provides a representation of an extended appli-
+cation and shows the role of each principal. The application
+developers write the host application. The extension devel-
+oper creates the extension program, which can read and write
+application state and execute application-defined functions.
+The extension manager is responsible for deciding which ex-
+tensions to use at each extension entry. Finally, users produce
+input that interacts with the host application and, indirectly,
+the extension program.
+2.2 Web-Server Example
+Consider an instance of Nginx deployed as a reverse proxy.
+The application developers write the server, while the ex-
+tension developers provide a suite of possible extensions to
+deploy on the system for monitoring, firewalls, and load bal-
+ancing. The extension manager determines the extensions for
+the deployment and the privileges to provide each extension.
+First, the manager uses an extension program that monitors
+traffic to detect reliability issues [27]. Second, the manager
+deploys an extension program that implements a firewall that
+returns a 404 response for URLs that are indicative of SQL
+injection and cross-site scripting attack. Finally, the man-
+ager deploys an extension program to perform load balancing
+across the possible servers downstream from the proxy by pe-
+riodically contacting downstream servers to measure system
+load [26]
+
+=== you should simplify and make this into 3 mins talk
 
 ---
 
 
-**Slide 3**
+**Slide**
 **Extensions Have Serious Problems**
 
 - Real-world extension safety violations:
@@ -145,12 +202,13 @@ Xiaozheng Lai⁴ • Dan Williams⁵ • Andi Quinn¹
 | CVE-2021-44790 \[47] | Apache Lua | Buffer overflow crashed httpd under load               |
 | CVE-2024-31449 \[42] | Redis Lua  | Stack overflow enabled remote code execution           |
 
+(No need to have a full table.)
+
 - **Performance penalty**: Wasm/language sandboxes impose 10–15% overhead
 - **Painful tension**: Safety vs. Extensibility vs. Performance
 
----
+[merge this slide and the next slide, merge the issues and key requirements]
 
-**Slide 4**
 **Key Extension Framework Features**
 
 > short version
@@ -172,6 +230,8 @@ Xiaozheng Lai⁴ • Dan Williams⁵ • Andi Quinn¹
    – Near-native speed execution on production hot paths
    – Critical for per-request, per-operation extension deployments
 
+> merge it with previous one.
+
 ---
 
 **Slide 5**
@@ -188,6 +248,26 @@ Xiaozheng Lai⁴ • Dan Williams⁵ • Andi Quinn¹
 * **Aspect-Oriented Languages**
   No built-in model for specifying or enforcing per-entry policies.
 
+[tight this up with a table to make it more concise]
+
+
+**Slide**
+**Contribution**
+
+1. **Motivation** → Extension safety vs. performance
+2. **EIM + bpftime** → Our two-part solution  
+3. **Use Cases** → Six real-world applications
+4. **Evaluation** → 5-14× performance improvements
+
+> move the  contribution after the motivation
+> Like roadmap​
+> Say what is eim and what is bpftime​
+> See the slide and understand the struct​
+> Roadmap can be after​
+
+Roadmap is a signal for back to abstractions
+
+
 **Slide 5.5**
 **EIM: Extension Interface Model**
 
@@ -200,9 +280,12 @@ Xiaozheng Lai⁴ • Dan Williams⁵ • Andi Quinn¹
   - Development-Time (by Developer)​
   - Deployment-Time (by Manager)
 
+> Can cite something here​
+> modify it, Reintroduce it using nginx example, make everything around nginx
+
 ---
 
-**Slide 6**
+**Slide**
 **EIM: Development-Time Specification**
 
 - Developed by application developer
@@ -211,20 +294,43 @@ Xiaozheng Lai⁴ • Dan Williams⁵ • Andi Quinn¹
 
 *(Figure 2: Example development-time EIM for Nginx observability)*
 
+> a picture, no need to detail​, Show they are short and what people are doing on it. Tell people to look at paper and we are not talking about some detail​. make it around the nginx example
+
+
 ---
 
-**Slide 7**
+**Slide**
 **EIM: Deployment-Time Specification**
 
 - Developed by extension developer or manager
 - YAML configs to explore the interconnectedness/safety trade-offs
 
+> make it around the nginx example.
+
 
 *(Figure 3: Example deployment-time EIM for Nginx observability)*
 
+**Slide**
+> add a slide tosummary of eim
+
+>  Do need some abstract concept here. to summary the eim.
+
+**Slide**
+**High level overview​ for bpftime**
+
+> add a slide 
+
+- Motivate bpftime​: Some tools that can use eim, but they fail short​
+- Why bpftime​
+- challenge
+
+
+
+
+
 ---
 
-**Slide 8**
+**Slide**
 **bpftime Architecture at a Glance**
 
 - Compatible with eBPF
@@ -236,6 +342,8 @@ Xiaozheng Lai⁴ • Dan Williams⁵ • Andi Quinn¹
 * **Binary Rewriter** inserts trampolines at extension entries only when needed.
 * **User-Runtime** in target process flips MPK keys and executes JIT-compiled code.
 * **bpftime Maps** mirror eBPF maps in user space to avoid syscalls.
+
+> A little too complex ​ in the figture. Replace with High level summay
 
 ---
 
@@ -249,17 +357,7 @@ Xiaozheng Lai⁴ • Dan Williams⁵ • Andi Quinn¹
 * **Concealed Entries**
   Unused trampolines erased at load time ⇒ dormant cost per hook only ≈ 1.3 ns.
 
----
-
-**Slide 10**
-**Loader & Runtime Workflow**
-
-1. **Intercept** standard eBPF syscalls from libbpf/bcc.
-2. **Parse** EIM manifests and DWARF/BTF to generate constraints.
-3. **Verify** byte-code via kernel's eBPF verifier with added assertions.
-4. **JIT-Compile** verified byte-code into native x86.
-5. **Inject** user-runtime via `ptrace` + Frida + Capstone trampolines.
-6. **Execute** extension: flip MPK key → jump to code → flip back → resume.
+> Replace the name and content  with key tech and challenge 1. mpk/ verify 2. hook
 
 ---
 
@@ -273,6 +371,8 @@ Xiaozheng Lai⁴ • Dan Williams⁵ • Andi Quinn¹
 * **syscount**: A per-process syscall analysis eBPF tool from bcc.
 * **sslsniff**: A TLS traffic analysis eBPF tool from bcc.
 
+> a little less detail here.
+
 ---
 
 **Slide 12**
@@ -281,25 +381,18 @@ Xiaozheng Lai⁴ • Dan Williams⁵ • Andi Quinn¹
 * **Nginx (Figure 6)**
   - Lua/Wasm: 11–12 % throughput loss
   - bpftime: **2 %** loss ⇒ 5–6× improvement
-* **Redis (Figure 8)**
-  - Always-on: 13 k req/s
-  - Delayed-fsync: **65 k req/s**, risk ≤2 lost writes
-* **FUSE (Table 2)**
-  - Passthrough `fstat`: 3.65 s native → 0.176 s cached
+
+> around nginx, and show the figture here 
 
 ---
 
 **Observability: DeepFlow, syscount, sslsniff**
 
-* **DeepFlow (Figure 7)**
-  - Kernel uprobes: 54 % throughput drop
-  - bpftime uprobes: **20 %** drop
-* **syscount (Figure 10)**
-  - kernel eBPF: 10 % slowdown on all processes
-  - bpftime: **3.36 %** on target only
 * **sslsniff (Figure 9)**
   - kernel eBPF: 28 % overhead
   - bpftime: **7 %** overhead
+
+make it around sslsniff
 
 ---
 
@@ -312,6 +405,8 @@ Compare with eBPF:
 * **Syscall Tracepoint**: 151 ns → 232 ns (1.5× slower)
 * **Memory access** (Table 3): user-space read/write <2 ns vs 23 ns (10× faster)
 * **Overall**: average 1.5× faster than ubpf/rbpf (Figure 11)
+
+> Remove microbench ​and Take it as one sentence inline into design to say why it's much more faster
 
 ---
 
@@ -326,6 +421,8 @@ Compare with eBPF:
 
 - GPU and ML workloadssupport
 - Keep compatibility with eBPF upstream
+
+get started: you can run bpftime just as ebpf pogram and please visit the github page for more details.
 
 ---
 
