@@ -68,19 +68,19 @@ This fills a critical gap. Existing frameworks either give you no control at all
 
 The key breakthrough is treating safety and interconnectedness as independent dimensions that can be balanced precisely for each use case.
 
-## [Slide 10] bpftime: Why We Need a New Runtime
+## [Slide 9] bpftime: Why We Need a New Runtime
 
 Now you might ask, "Can't we just use existing frameworks to enforce EIM policies?" Unfortunately, no. Current frameworks make painful trade-offs that prevent efficient EIM enforcement. Software fault isolation like WebAssembly adds 10-15% runtime overhead. Subprocess isolation requires expensive context switches. Kernel eBPF uprobes trap into the kernel on every single function call.
 
 We built bpftime specifically to enforce EIM efficiently while maintaining complete eBPF compatibility. This compatibility is crucial—it means existing eBPF tools work immediately with bpftime, and extensions can share data with kernel eBPF programs for comprehensive monitoring that spans both kernel and userspace.
 
-## [Slide 11] bpftime Architecture
+## [Slide 10] bpftime Architecture
 
 Here's how bpftime works at a high level. We intercept eBPF system calls before they reach the kernel. Our loader converts EIM policies into bytecode assertions and feeds everything through the kernel's proven eBPF verifier for safety guarantees. After JIT compilation to native code, we use binary rewriting to patch trampolines into the target application only when extensions are actually loaded. At runtime, we flip memory protection keys to switch security domains and execute the native extension code directly.
 
 The key insight is reusing the existing eBPF ecosystem while adding just the minimal components needed for userspace deployment with EIM enforcement.
 
-## [Slide 9] bpftime: Key Techniques and Challenges
+## [Slide 11] bpftime: Key Techniques and Challenges
 
 Now let me explain the core challenge that bpftime solves and how we achieve our performance advantages. Current extension frameworks face a fundamental three-way tension between safety, isolation, and efficiency that existing solutions cannot resolve simultaneously.
 
@@ -280,7 +280,21 @@ Extension_Class:
 
 ---
 
-**Slide 10: bpftime - Key Techniques & Challenges**
+**Slide 10: bpftime Architecture**
+
+**High-level approach:**
+- Intercept eBPF syscalls before kernel
+- Convert EIM policies into bytecode assertions
+- Use kernel's proven eBPF verifier for safety
+- JIT compile to native code
+- Binary rewriting for trampolines only when needed
+- MPK for fast security domain switching
+
+**Key insight**: Reuse existing eBPF ecosystem + minimal new components
+
+---
+
+**Slide 11: bpftime - Key Techniques & Challenges**
 
 **The fundamental challenge**: Safety + Isolation + Efficiency simultaneously
 
@@ -295,20 +309,6 @@ Extension_Class:
 3. **Concealed entries** → Zero cost for unused hooks
 
 **Microbenchmark result**: 190ns vs 2.5μs (14× faster than kernel eBPF)
-
----
-
-**Slide 11: bpftime Architecture**
-
-**High-level approach:**
-- Intercept eBPF syscalls before kernel
-- Convert EIM policies into bytecode assertions
-- Use kernel's proven eBPF verifier for safety
-- JIT compile to native code
-- Binary rewriting for trampolines only when needed
-- MPK for fast security domain switching
-
-**Key insight**: Reuse existing eBPF ecosystem + minimal new components
 
 ---
 
