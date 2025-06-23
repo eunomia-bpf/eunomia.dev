@@ -8544,6 +8544,7 @@
 <h2 id="slide-15-take-aways-and-future-work">[Slide 15] Take-Aways and Future Work</h2>
 <p>Let me close with three key takeaways. First, EIM provides the missing piece for fine-grained extension control—you can now specify precise least-privilege policies per extension entry without touching application source code. Second, bpftime shows that you don't have to choose between safety and performance. We achieve kernel-grade safety with library-grade performance using offline verification, hardware isolation, and concealed trampolines. Third, maintaining 100% eBPF compatibility means you can adopt our approach immediately without changing your existing workflows.</p>
 <p>Looking ahead, we're expanding bpftime to support GPU and ML workloads, broadening the scope of safe, efficient extension deployment beyond traditional systems programming.</p>
+<p>However, current bpftime and EIM still have some limitations. First, EIM tools and policies are mainly for compiled applications, and we are working on supporting more languages. Also, you need to write the extension code in eBPF, which is not easy for some users.</p>
 <h2 id="slide-16-thank-you-questions">[Slide 16] Thank You &amp; Questions</h2>
 <p>Thank you for your attention. <strong>bpftime</strong> is open-source under the MIT license at <strong>github.com/eunomia-bpf/bpftime</strong>. You can get started today by running it as a drop-in replacement for eBPF applications. We welcome your issues, pull requests, and collaboration. I'm happy to take your questions.</p>
 <h2 id="complete-slide-deck-16-slides-169"><strong>Complete Slide Deck (16 slides, 16:9)</strong></h2>
@@ -8770,7 +8771,7 @@ Xiaozheng Lai⁴ • Dan Williams⁵ • Andi Quinn¹</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 23, 2025 15:57:27 UTC">June 23, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 23, 2025 16:02:46 UTC">June 23, 2025</span>
   </span>
 
     
