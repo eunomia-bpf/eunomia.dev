@@ -12,11 +12,11 @@ Here's what I'll cover today. First, I'll explain what extensions are and why th
 
 ## [Slide 1] Extensions: A Concrete Example
 
-> provoide more extension/plugin cases
+Extensions are everywhere in modern software. PostgreSQL has over 100 extensions for everything from geospatial data to time-series analytics. Kong API Gateway relies on Lua plugins for rate limiting and authentication. Emacs users install packages for language support and productivity tools. Vim has thousands of plugins for syntax highlighting and development workflows. Redis uses Lua scripts for custom data processing. Even browsers depend on extensions for ad blocking and developer tools.
 
-Let me start with a concrete example to illustrate what extensions are and why we need them. Consider Nginx deployed as a reverse proxy. The original Nginx developers write the core server functionality. But different deployments need different behaviors: some need firewalls to block malicious requests, others need load balancers to distribute traffic, and many need monitoring for observability. Extensions solve this problem by allowing customization without modifying the original application source code. 
+Let me start with a concrete example to show you what extensions are and why we need them. Consider Nginx deployed as a reverse proxy. The original Nginx developers write the core server functionality. But different deployments need different behaviors. Some need firewalls to block malicious requests. Others need load balancers to distribute traffic. Many need monitoring for observability. Extensions solve this problem by allowing customization without modifying the original application source code.
 
-> more detail about the plugin/extension execution model here.
+Here's how the extension execution model works. A developer defines new logic for the program as a set of extensions, and associates each extension with a specific location in the host application, called an extension entry. When a user runs the application, the system loads both the host application and the user's configured extensions. Each time an application thread reaches an extension entry, the thread jumps to the associated extension. It executes the extension in the extension runtime context. Once the extension completes, the thread returns to the host at the point immediately after the extension entry.
 
 ## [Slide 2] Extension Problems and Requirements
 
@@ -43,52 +43,19 @@ We present a two-part solution. First, the Extension Interface Model (EIM) treat
 
 Second, bpftime is a new runtime that efficiently enforces EIM using three key techniques: offline eBPF verification for zero runtime safety checks, Intel Memory Protection Keys for fast domain switching, and concealed extension entries that eliminate overhead for unused hooks. Together, they provide kernel-grade safety with library-grade performance while maintaining 100% eBPF compatibility.
 
->> add a new slide to introduce the eim, and the roles here. the roles should bne around nginx.
+## [Slide 5] EIM: Extension Interface Model
 
-## sldies
+To enable fine-grained control, we introduce the Extension Interface Model, or EIM. EIM treats extension capabilities as named resources with a two-phase specification approach.
 
-Extension developers write modules that can read request data, call Nginx functions, and modify responses. A trusted extension manager decides which extensions to deploy and what privileges to grant them. This separation allows the original application to receive updates while maintaining custom functionality.
+Let me explain this using our Nginx example. In the extension ecosystem, we have four key roles. First, Nginx application developers write the core web server code. Second, extension developers create plugins like firewalls, load balancers, and monitoring tools. Third, the extension manager—typically a system administrator or DevOps engineer—decides which extensions to deploy and what privileges each should have. Finally, end users send HTTP requests that trigger both the host application and extensions.
 
-=== 
-The system extension usage model considers four key prin-
-cipals. The application developers are a group of trusted
-developers who write the original application, while the ex-
-tension developers are a group of trusted developers who
-create the extensions. System extensions assume that both
-the application developer(s) and extension developer(s) are
-trusted but fallible, so applications and extensions might be
-exploitable but are not intentionally malicious. Next, the sys-
-tem extension model includes an extension manager, a trusted
-individual that installs and manages the extensions; the model
-relies on the manager to be both trusted and infallible. Finally,
-users are untrusted individuals who interact with the extended
-application; users can be malicious and may try to craft inputs
-that would trigger vulnerabilities in otherwise benign code.
-Figure 1 provides a representation of an extended appli-
-cation and shows the role of each principal. The application
-developers write the host application. The extension devel-
-oper creates the extension program, which can read and write
-application state and execute application-defined functions.
-The extension manager is responsible for deciding which ex-
-tensions to use at each extension entry. Finally, users produce
-input that interacts with the host application and, indirectly,
-the extension program.
-2.2 Web-Server Example
-Consider an instance of Nginx deployed as a reverse proxy.
-The application developers write the server, while the ex-
-tension developers provide a suite of possible extensions to
-deploy on the system for monitoring, firewalls, and load bal-
-ancing. The extension manager determines the extensions for
-the deployment and the privileges to provide each extension.
-First, the manager uses an extension program that monitors
-traffic to detect reliability issues [27]. Second, the manager
-deploys an extension program that implements a firewall that
-returns a 404 response for URLs that are indicative of SQL
-injection and cross-site scripting attack. Finally, the man-
-ager deploys an extension program to perform load balancing
-across the possible servers downstream from the proxy by pe-
-riodically contacting downstream servers to measure system
-====
+EIM captures this separation of concerns through capabilities as resources. State access capabilities control reading and writing variables like request headers or connection counts. Function call capabilities govern invoking Nginx APIs like `nginx_time()` or `ngx_http_finalize_request()`, complete with pre- and post-conditions. Hardware resource capabilities limit CPU instructions and memory access patterns.
+
+The key insight is splitting specification into two phases. During development time, Nginx developers annotate their code to declare the universe of possible extension behaviors—what state could be accessed, which functions could be called, where extensions could hook. This creates a comprehensive capability manifest embedded in the binary.
+
+At deployment time, the extension manager writes policies that grant minimal privilege sets to specific extensions. A monitoring extension might only read request data and call logging functions. A firewall extension needs both read and write access to modify responses. A load balancer requires network capabilities to contact upstream servers.
+
+This separation means managers can refine security policies in production without touching application source code, enabling true least-privilege extension deployment.
 
 ## [Slide 5] EIM Development-Time Specification
 
@@ -102,7 +69,14 @@ At deployment time, the trusted extension manager writes human-readable policies
 
 Crucially, these policies live outside the host application, so managers can refine privileges in production without changing binaries. This enables fine-grained least-privilege policies per extension entry without touching application source code.
 
->> add a summary of the eim here.
+## [Slide 7] EIM Summary
+
+To summarize, EIM enables fine-grained extension control through two key innovations. First, it models all extension capabilities—from memory access patterns to function calls—as named resources that can be precisely granted or denied. Second, it separates concerns between development time (where application developers declare possible capabilities) and deployment time (where managers craft least-privilege policies).
+
+This approach solves a critical gap: existing frameworks either provide no fine-grained control (like native loading) or bundle capabilities into coarse-grained program types (like eBPF's networking vs. tracing classifications). EIM allows managers to grant an observability extension only read access to specific variables and approved logging functions, while giving a firewall extension both read and write permissions for request modification—all without touching application source code.
+
+The key insight is treating interconnectedness and safety as orthogonal dimensions that can be balanced precisely for each extension entry point, enabling true least-privilege deployment in production environments.
+
 
 ## [Slide 7] bpftime: Why We Need a New Runtime
 
@@ -115,10 +89,15 @@ We built bpftime to efficiently enforce EIM while maintaining eBPF compatibility
 Our architecture interposes at the narrow waist of the eBPF ecosystem. The loader intercepts `bpf()` syscalls, converts EIM policies into bytecode assertions, and uses the kernel's eBPF verifier for safety proofs. After JIT compilation, the binary rewriter patches trampolines at extension entries only when extensions are loaded. The user-runtime switches memory protection domains and executes native code, while bpftime maps eliminate syscalls for map operations.
 
 This design reuses the proven eBPF verifier and toolchain while adding the minimal components needed for userspace extension deployment with EIM enforcement.
+## [Slide 9] bpftime: Key Techniques and Challenges
 
-## [Slide 9] Key Techniques for Efficiency
+Now let me explain the core challenge that bpftime solves and how we achieve our performance advantages. Current extension frameworks face a fundamental three-way tension between safety, isolation, and efficiency that existing solutions cannot resolve simultaneously.
 
-bpftime's performance advantage comes from three synergistic techniques. Offline verification uses the eBPF verifier at load time with EIM constraints, guaranteeing safety upfront so the hot path carries no extra checks. Intel Memory Protection Keys enable intra-process isolation with just two `WRPKRU` instructions, avoiding expensive `mprotect` calls or context switches. Concealed extension entries erase unused trampolines entirely, adding zero overhead for dormant hooks while active extensions pay only 84 nanoseconds for domain switching.
+Extension safety requires preventing extension failures from harming the host application by restricting system resources and host interactions, but this often conflicts with the interconnectedness that extensions need to be useful. Extension isolation means protecting extensions from host application interference, which is essential for security monitoring, but traditional OS-level abstractions require expensive context switches. Extension efficiency demands near-native speed execution, yet current frameworks impose significant overhead through heavyweight isolation or software fault isolation techniques.
+
+The core problem is that existing frameworks make painful trade-offs. Process-based isolation is safe but slow due to context switching costs. Software fault isolation like WebAssembly or NaCl sacrifices 10-15% performance for runtime safety checks. Kernel eBPF uprobes trap on every function call, adding microseconds of overhead that kills performance on hot paths.
+
+bpftime resolves this fundamental tension through three synergistic techniques that work together to achieve kernel-grade safety with library-grade performance. First, offline verification uses the eBPF verifier at load time with EIM constraints, guaranteeing safety upfront so the hot path carries no extra runtime checks whatsoever. Second, Intel Memory Protection Keys enable intra-process isolation with just two fast WRPKRU instructions, completely avoiding expensive mprotect calls or context switches. Third, concealed extension entries dynamically erase unused trampolines entirely, adding zero overhead for dormant hooks while active extensions pay only 84 nanoseconds for domain switching. Together, these techniques deliver the efficiency of native code with the safety guarantees of sandboxed execution.
 
 ## [Slide 10] Real-World Use Cases
 
