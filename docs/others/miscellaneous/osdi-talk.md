@@ -80,17 +80,15 @@ Here's how bpftime works at a high level. We intercept eBPF system calls before 
 
 The key insight is reusing the existing eBPF ecosystem while adding just the minimal components needed for userspace deployment with EIM enforcement.
 
-## [Slide 11] bpftime: Key Techniques and Challenges
+## [Slide 11] bpftime: Key Challenges and Design
 
-Now let me explain the core challenge that bpftime solves and how we achieve our performance advantages. Current extension frameworks face a fundamental three-way tension between safety, isolation, and efficiency that existing solutions cannot resolve simultaneously.
+Now you might ask, "Can't we just expand existing extension frameworks to enforce EIM policies?" Unfortunately, that approach won't work. Existing frameworks provide safety and isolation through heavyweight operating-system isolation or software-fault isolation techniques like WebAssembly. These are already inefficient, imposing 10-15% overhead. Adding EIM enforcement on top would degrade their performance even further, making them unsuitable for production use.
 
-Extension safety requires preventing extension failures from harming the host application by restricting system resources and host interactions, but this often conflicts with the interconnectedness that extensions need to be useful. Extension isolation means protecting extensions from host application interference, which is essential for security monitoring, but traditional OS-level abstractions require expensive context switches. Extension efficiency demands near-native speed execution, yet current frameworks impose significant overhead through heavyweight isolation or software fault isolation techniques.
+So we designed bpftime as a new extension framework specifically for compiled applications. But ensuring eBPF compatibility presented a major challenge. The Linux eBPF ecosystem consists of tightly coupled components—compilers, runtime libraries, and the kernel—that are nearly impossible to disentangle. Prior user-level eBPF systems tried re-implementing the entire eBPF technology stack and ultimately failed to provide reasonable performance and compatibility.
 
-The core problem is that existing frameworks make painful trade-offs. Process-based isolation is safe but slow due to context switching costs. Software fault isolation like WebAssembly or NaCl sacrifices 10-15% performance for runtime safety checks. Kernel eBPF uprobes trap on every function call, adding microseconds of overhead that kills performance on hot paths.
+Instead, bpftime takes a different approach. We identify a narrow waist in the current eBPF ecosystem and interpose at that point. Specifically, we intercept eBPF-related system calls and the shared map mechanism for data sharing between extensions. This lets us reuse the proven eBPF ecosystem while adding just the minimal new components needed for userspace deployment.
 
-bpftime resolves this tension through three techniques that work together. First, offline verification uses the eBPF verifier at load time to guarantee safety upfront—the hot path runs with zero runtime checks. Second, Intel Memory Protection Keys enable domain switching with just two fast WRPKRU instructions, avoiding expensive system calls entirely. Third, concealed extension entries erase unused trampolines completely—dormant hooks cost nothing, while active extensions pay only 84 nanoseconds for domain switching.
-
-Our microbenchmarks show the impact: uprobe dispatch takes 190 nanoseconds versus 2.5 microseconds for kernel eBPF—that's 14× faster. Map operations run 2× faster since they operate on in-process data structures. Together, these techniques deliver native code efficiency with sandboxed execution safety.
+bpftime employs two key design constraints that work together. First, we use separate lightweight approaches for EIM enforcement versus isolation—similar to how KFlex uses two separate verification techniques for kernel extensions. We enforce EIM safety without runtime overhead using eBPF-style verification, and provide efficient isolation using ERIM-style intra-process hardware isolation. Second, we introduce concealed extension entries using binary rewriting, so extension entries are zero-cost when not in use.
 
 ## [Slide 12] Real-World Use Cases
 
@@ -136,20 +134,21 @@ Xiaozheng Lai⁴ • Dan Williams⁵ • Andi Quinn¹
 **Slide 1: Extensions - A Concrete Example**
 
 - **Extensions are everywhere:** PostgreSQL (PostGIS), API gateways (Lua plugins), Redis (custom scripts), browsers (ad blockers)
+
+Nginx plugin as an example:​
+
 - **What are extensions?** Customize software without modifying source code
 - **Why do we need them?** Different deployments, different needs
 
-**Extension execution model:**
-Thread → Extension entry → Jump to extension → Execute → Return to host
+- **Extension execution model:** Thread → Extension entry → Jump to extension → Execute → Return to host
 
 ---
 
 **Slide 2: Extension Problems & Requirements**
 
-**Real-world safety violations:** Bilibili CDN outage, Apache buffer overflow, Redis RCE
-**Performance penalty**: WebAssembly/Lua impose 10-15% overhead
-
-**A painful tension**: Safety vs. Extensibility vs. Performance
+- **Real-world safety violations:** Bilibili CDN outage, Apache buffer overflow, Redis RCE
+- **Performance penalty**: WebAssembly/Lua impose 10-15% overhead
+- **A painful tension**: Safety vs. Extensibility vs. Performance
 
 
 ---
@@ -169,97 +168,83 @@ Thread → Extension entry → Jump to extension → Execute → Return to host
 
 **Slide 4: Contribution - EIM + bpftime**
 
-**Extension Interface Model (EIM)**: Fine-grained capability control
-**bpftime Runtime**: Kernel-grade safety with library-grade performance
+- **Extension Interface Model (EIM)**: Fine-grained capability control
+- **bpftime Runtime**: Kernel-grade safety with library-grade performance
 
 ---
 
 **Slide 5: EIM - Extension Interface Model**
 
 **Four key roles in Nginx ecosystem:**
-- **Nginx developers**: Write core web server
-- **Extension developers**: Create firewall, load balancer, monitoring
-- **Extension manager**: Deploy & configure privileges
-- **End users**: Send HTTP requests
+  - **Nginx developers**
+  - **Extension developers**
+  - **Extension manager**
+  - **End users**
 
-**Capabilities as resources:**
-- **State access**: Read/write request headers, connection counts
-- **Function calls**: `nginx_time()`, `ngx_http_finalize_request()`
-- **Hardware resources**: CPU instructions, memory patterns
+- **Capabilities as resources:**
 
-**Key insight**: Separate development-time possibilities from deployment-time policies
+- Separate development-time possibilities from deployment-time policies
 
 ---
 
 **Slide 6: EIM Development-Time Specification**
 
 **Nginx developers annotate code:**
-
 ```c
-// State capability
 State_Capability(name="readPid", operation=read(ngx_pid))
-
-// Function capability
-Function_Capability(name="nginxTime", prototype=(void)->time_t)
-
-// Extension entry
-Extension_Entry(name="processBegin",
-               entry="ngx_http_process_request")
+Function_Capability(name="nginxTime") 
+Extension_Entry(name="processBegin")
 ```
 
-**Result**: Binary-embedded capability manifest
-**Happens once**: During development, creates complete map
+Automatically extracted into capability manifest
 
 ---
 
 **Slide 7: EIM Deployment-Time Specification**
 
-**System administrator writes policies:**
+Extension Developer or Manager  write simple policies to explore interconnectedness/safety trade-offs
+
 ```yaml
-Extension_Class:
-  name: "observeProcessBegin"
+observeProcessBegin:
   entry: "processBegin"
   allowed: [readPid, nginxTime, read(request)]
 
-Extension_Class:
-  name: "updateResponse"
-  entry: "updateResponseContent"
+updateResponse:
+  entry: "updateResponseContent"  
   allowed: [read(request), write(response)]
 ```
 
-**Key advantage**: Policies live outside application code → runtime updates
+Refine security policies in production **without recompiling**
 
 ---
 
 **Slide 8: EIM Summary**
 
-**Two key innovations:**
-1. **Named resource capabilities** → Precise grant/deny control
-2. **Development/deployment separation** → Different concerns, different times
+Existing frameworks → no control OR coarse-grained bundles
 
-**Breakthrough**: Treats safety and interconnectedness as independent dimensions
+**Two innovations:**
+1. **Named capabilities** → Precise control
+2. **Separate concerns** → Development ≠ Deployment
+
+Treats safety and interconnectedness as independent dimensions
 
 **Example policies:**
 - Monitoring extension: read-only access to specific variables
 - Firewall extension: read/write for response modification
 
-**All without changing application source code**
-
 ---
 
 **Slide 9: bpftime - Why We Need a New Runtime**
 
-**Can't existing frameworks enforce EIM efficiently?**
+Can't existing frameworks enforce EIM efficiently?
 
-**Painful trade-offs:**
-- **WebAssembly/SFI**: 10-15% runtime overhead
-- **Subprocess isolation**: Expensive context switches
-- **Kernel eBPF uprobes**: Trap on every function call
+- **WebAssembly/SFI**: 10-15% overhead
+- **Subprocess isolation**: Expensive switches
+- **Kernel eBPF uprobes**: Kernel traps
 
 **bpftime advantages:**
-- Efficient EIM enforcement
-- **100% eBPF compatibility** → Existing tools work immediately
-- **Share data with kernel eBPF** → Comprehensive kernel+userspace monitoring
+- **eBPF ecosystem compatibility**
+- **Work together with kernel eBPF extensions**
 
 ---
 
@@ -273,26 +258,27 @@ Extension_Class:
 - Binary rewriting for trampolines only when needed
 - MPK for fast security domain switching
 
+[use the figure here]
+
 **Key insight**: Reuse existing eBPF ecosystem + minimal new components
 
 ---
+**Slide 11: bpftime - Key Challenges & Design**
 
-**Slide 11: bpftime - Key Techniques & Challenges**
+**Why not expand existing frameworks?**
+- Heavyweight isolation is inefficient
+- Adding EIM would degrade performance further
 
-**The fundamental challenge**: Safety + Isolation + Efficiency simultaneously
+**The eBPF compatibility challenge:**
+- Linux eBPF has tightly coupled components (compilers, runtime, kernel)
+- Prior user eBPF failed by re-implementing entire stack
+- **bpftime solution**: Interpose on eBPF syscalls only
 
-**Three-way tension:**
-- Safety requires restricting resources
-- Isolation needs protection from host
-- Efficiency demands native speed
+**Key design principles:**
+1. **Lightweight EIM enforcement**
+2. **Concealed extension entries**
 
-**Our solution - three techniques:**
-1. **Offline verification** → Safety checks at load time, not runtime
-2. **Intel MPK** → Fast domain switching (2 WRPKRU instructions)
-3. **Concealed entries** → Zero cost for unused hooks
-
-**Result**: **Kernel-grade safety** with **library-grade performance**
-**Microbenchmark result**: 190ns vs 2.5μs (14× faster than kernel eBPF)
+Reuse proven eBPF ecosystem + minimal new components
 
 ---
 
@@ -343,6 +329,11 @@ Extension_Class:
 **Future work**: GPU and ML workload support
 
 **Get started**: Drop-in eBPF replacement available today
+
+```bash
+bpftime load ./example/malloc/malloc
+bpftime start nginx -c ./nginx.conf
+```
 
 ---
 
