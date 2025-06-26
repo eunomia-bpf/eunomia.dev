@@ -1,6 +1,6 @@
 # Speech Script for OSDI 2025 bpftime talk
 
-≈ 2 250 words, ~15 minutes
+≈ 2,250 words, ~15 minutes
 
 ## [Slide 0]
 
@@ -12,7 +12,7 @@ Extensions are everywhere in modern software. PostgreSQL has over 100 extensions
 
 ## [Slide 2] Nginx Extension Example
 
-Let me start with a concrete example to show you what extensions are and why we need them. Consider Nginx deployed as a reverse proxy. The original Nginx developers write the core server functionality. But different deployments need different behaviors. Some need firewalls to block malicious requests. Others need load balancers to distribute traffic. Many need monitoring for observability. Extensions solve this problem by allowing customization without modifying the original application source code. This approach preserves maintainability by keeping core code stable, reduces security risks, enables early experiment, and allows different teams to develop functionality independently without coordination overhead.
+Let me start with a concrete example to show you what extensions are and why we need them. Consider Nginx deployed as a reverse proxy. The original Nginx developers write the core server functionality. But different deployments need different behaviors. Some need firewalls to block malicious requests. Others need load balancers to distribute traffic. Many need monitoring for observability. Extensions like Nginx modules solve this problem by allowing customization without modifying the original application source code. This approach preserves maintainability by keeping core code stable, reduces security risks, enables early experimentation, and allows different teams to develop functionality independently.
 
 Here's how the extension execution model works in Nginx. A developer defines new logic as Nginx modules or plugins, and associates each extension with specific locations in Nginx's request processing pipeline, called extension entries. When a user runs Nginx, the system loads both the core Nginx binary and the configured extensions. Each time an Nginx worker thread reaches an extension entry—like when processing an incoming HTTP request—the thread jumps to the associated extension. It executes the extension logic within Nginx's runtime context. Once the extension completes, the thread returns to Nginx's core processing at the point immediately after the extension entry.
 
@@ -20,11 +20,11 @@ Here's how the extension execution model works in Nginx. A developer defines new
 
 However, Nginx extension systems face serious safety and performance challenges. Real-world incidents show the risks: In 2023, a malformed Lua plugin created an infinite loop inside Nginx, causing Bilibili's entire CDN to go down for hours. Similar issues plague other software—Redis scripts can enable remote code execution, and Apache modules suffer buffer overflows. These examples show that even mature plugin ecosystems can bring production services to a halt.
 
-Meanwhile, many people using sandbox technology like WebAssembly for safer extension development, but these approaches impose a persistent 10–15 percent throughput penalty on HTTP request processing—that's simply too much overhead to pay in production environments. Nginx operators often disable these safer extension systems entirely due to performance concerns.
+Meanwhile, many people are using sandbox technology like WebAssembly for safer extension development, but these approaches impose a persistent 10–15 percent throughput penalty on HTTP request processing—that's simply too much overhead to pay in production environments. Nginx operators often disable these safer extension systems entirely due to performance concerns.
 
 ## [Slide 4] Extension Requirements
 
-Nginx extension frameworks need three key features. First, fine-grained safety and interconnectedness trade-offs. Nginx extensions must interact with the web server by reading request headers and calling HTTP processing functions, but managers need to follow the principle of least privilege, granting only necessary permissions per extension. Second, isolation to protect Nginx extensions from core server bugs and vice versa. Third, efficiency with near-native speed execution, since Nginx extensions often run on critical paths like per-request processing where every millisecond matters for user experience.
+Extension frameworks need three key features. First, fine-grained safety and interconnectedness trade-offs. For example, Nginx extensions must interact with the web server by reading request headers and calling HTTP processing functions, but systems managers need to follow the principle of least privilege, granting only necessary permissions per extension. Second, isolation to protect Nginx extensions from core server bugs and vice versa. Third, efficiency with near-native speed execution, since Nginx extensions often run on critical paths like per-request processing where every millisecond matters for user experience.
 
 ## [Slide 5] State-of-the-Art Falls Short
 
@@ -122,7 +122,7 @@ Xiaozheng Lai⁴ • Dan Williams⁵ • Andi Quinn¹
 
 **Slide 1: Extensions Everywhere**
 
-- **Extensions are everywhere:** PostgreSQL (PostGIS), API gateways (Lua plugins), Redis (custom scripts), browsers (ad blockers)
+- **Extensions are everywhere:** PostgreSQL (PostGIS, TimescaleDB), VS Code (language servers, debuggers, GitLens), Nginx (modules), Redis (Lua scripts), browsers (ad blockers, developer tools)
 
 ---
 
@@ -149,19 +149,13 @@ Xiaozheng Lai⁴ • Dan Williams⁵ • Andi Quinn¹
 
 **Slide 5: State-of-the-Art Falls Short**
 
-No single approach meets all requirement​
+**No single approach meets all requirements:**
 
-Dynamic loading: fast but no isolation or policy
-enforcement​
+- **Dynamic loading**: fast but no isolation or policy enforcement
+- **Software Fault Isolation (e.g., WebAssembly)**: safety with 10–15% performance penalty
+- **Subprocess isolation**: strong separation but high IPC overhead  
+- **Kernel eBPF uprobes**: isolation at microsecond-level trap cost
 
-Software Fault Isolation (e.g., WebAssembly): safety
-with 10–15 % performance penalty​
-
-Subprocess isolation: strong separation but high IPC
-overhead​
-
-Kernel eBPF uprobes: isolation at microsecond-level
-trap cost
 **Problem**: No single framework satisfies all requirements
 
 ---
@@ -202,7 +196,7 @@ Automatically extracted into capability manifest
 
 **Slide 9: EIM Deployment-Time Specification**
 
-Extension Developer or Manager write simple policies to explore interconnectedness/safety trade-offs
+**System administrator writes simple policies that grant minimal privileges to each extension:**
 
 ```yaml
 observeProcessBegin:
@@ -214,25 +208,19 @@ updateResponse:
   allowed: [read(request), write(response)]
 ```
 
-Refine security policies in production **without recompiling**
+**Benefits:**
+- Policies live completely outside application code
+- Refine security settings in production **without recompiling**
+- True least-privilege deployment
 
 ---
 
 **Slide 10: bpftime: userspace eBPF extension framework**
 
-**Two innovations:**
-1. **Named capabilities** → Precise control
-2. **Separate concerns** → Development ≠ Deployment
-
-Treats safety and interconnectedness as independent dimensions
-
-**Example policies:**
-- Monitoring extension: read-only access to specific variables
-- Firewall extension: read/write for response modification
-
-**bpftime advantages:**
-- **eBPF ecosystem compatibility**
-- **Work together with kernel eBPF extensions**
+**Why eBPF?**
+- **Proven safety** through verification
+- **Rich ecosystem** we can reuse
+- **Compatibility** - existing eBPF tools work immediately
 
 **The eBPF compatibility challenge:**
 - Linux eBPF has tightly coupled components (compilers, runtime, kernel)
@@ -247,13 +235,12 @@ Treats safety and interconnectedness as independent dimensions
 - Binary rewriting for trampolines only when needed
 - MPK for fast security domain switching
 
+**Key efficiency techniques:**
+1. **Offline eBPF verification** for zero runtime safety checks
+2. **Intel Memory Protection Keys** for fast domain switching
+3. **Concealed extension entries** that eliminate overhead for unused hooks
+
 [use the figure here]
-
-**Key design principles:**
-1. **Lightweight EIM enforcement**
-2. **Concealed extension entries**
-
-Reuse proven eBPF ecosystem + minimal new components
 
 ---
 
@@ -294,13 +281,11 @@ Reuse proven eBPF ecosystem + minimal new components
 
 ---
 
-**Slide 14: Take-Aways & Future Work on outline slide again**
+**Slide 14: Take-Aways**
 
-**Three key takeaways:**
+**Key takeaways:**
 1. **EIM** → Fine-grained least-privilege policies without source changes
-2. **bpftime** → Don't choose between safety and performance
-
-**Future work**: GPU and ML workload support
+2. **bpftime** → Don't choose between safety and performance 
 
 **Get started**: Drop-in eBPF replacement available today
 
