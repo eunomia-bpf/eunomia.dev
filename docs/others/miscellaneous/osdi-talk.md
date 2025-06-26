@@ -52,7 +52,7 @@ The key insight is splitting specification into two phases. During development t
 
 ## [Slide 6] EIM Development-Time Specification
 
-Now let me show you how EIM works in practice. During development time, Nginx developers annotate their code to declare what extensions could possibly do. They might add a state capability called `readPid` for accessing the process ID, a function capability `nginxTime()` for getting timestamps, and extension entries like `processBegin` when request processing starts.
+Now let me show you how EIM works in practice. During development time, Nginx developers annotate their code to declare what extensions could possibly do. They might add a state capability called `readPid` for accessing the process ID, a function capability `nginxTime()` for getting timestamps, complete with pre- and post-conditions, and extension entries like `processBegin` when request processing starts.
 
 These annotations are automatically extracted and compiled into the binary. This happens once during development and creates a complete map of what extensions could ever access. The key insight is that developers only declare possibilities—they don't decide what actually gets used.
 
@@ -88,7 +88,7 @@ Let me show you the performance impact. For our Nginx firewall, we compared diff
 
 ## [Slide 14] Performance Results: SSL Monitoring
 
-For observability, consider sslsniff, which monitors encrypted TLS traffic—crucial for debugging production microservices.The figure shows a clear performance comparison across different data sizes from 1K to 256K bytes. With kernel eBPF, this monitoring costs 28 percent throughput loss. That's prohibitive for production use. With bpftime, the same monitoring functionality costs only 7 percent overhead. 
+For observability, consider sslsniff, which monitors encrypted TLS traffic—crucial for debugging production microservices.The figure shows a clear performance comparison across different data sizes from 1K to 256K bytes. Also, the more to the top, the better. With kernel eBPF, this monitoring costs 28 percent throughput loss. That's prohibitive for production use. With bpftime, the same monitoring functionality costs only 7 percent overhead. 
 
 ## [Slide 15] Take-Aways (On Outline, not separate slide)
 
