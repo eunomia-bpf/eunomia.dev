@@ -1497,6 +1497,14 @@
          
     </url>
     <url>
+         <loc>https://eunomia.dev/others/miscellaneous/osdi-talk_new/</loc>
+         <lastmod>2025-06-26</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/miscellaneous/osdi-talk_new/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/miscellaneous/osdi-talk_new/"/>
+         
+    </url>
+    <url>
          <loc>https://eunomia.dev/others/miscellaneous/roadmap/</loc>
          <lastmod>2025-06-26</lastmod>
          <changefreq>daily</changefreq>
