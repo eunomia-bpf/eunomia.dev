@@ -7992,6 +7992,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#slide-05-outline" class="md-nav__link">
+    <span class="md-ellipsis">
+      [Slide 0.5] Outline
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#slide-1-extensions-everywhere" class="md-nav__link">
     <span class="md-ellipsis">
       [Slide 1] Extensions Everywhere
@@ -8037,9 +8046,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#slide-6-outline" class="md-nav__link">
+  <a href="#slide-6-outline-and-transition-to-eim" class="md-nav__link">
     <span class="md-ellipsis">
-      [Slide 6] Outline
+      [Slide 6] Outline and transition to EIM
     </span>
   </a>
   
@@ -8073,6 +8082,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#slide-95-transition-to-bpftime" class="md-nav__link">
+    <span class="md-ellipsis">
+      [Slide 9.5] Transition to bpftime
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#slide-10-bpftime-userspace-ebpf-extension-framework" class="md-nav__link">
     <span class="md-ellipsis">
       [Slide 10] bpftime: userspace eBPF extension framework
@@ -8091,6 +8109,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#slide-1075-transition-to-real-world-use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      [Slide 10.75] transition to real-world use cases
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#slide-11-real-world-use-cases" class="md-nav__link">
     <span class="md-ellipsis">
       [Slide 11] Real-World Use Cases
@@ -8100,9 +8127,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#slide-12-performance-results-nginx-firewall" class="md-nav__link">
+  <a href="#slide-12-customization-nginx-firewall" class="md-nav__link">
     <span class="md-ellipsis">
-      [Slide 12] Performance Results: Nginx Firewall
+      [Slide 12] Customization: Nginx Firewall
     </span>
   </a>
   
@@ -8327,6 +8354,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#slide-05-outline" class="md-nav__link">
+    <span class="md-ellipsis">
+      [Slide 0.5] Outline
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#slide-1-extensions-everywhere" class="md-nav__link">
     <span class="md-ellipsis">
       [Slide 1] Extensions Everywhere
@@ -8372,9 +8408,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#slide-6-outline" class="md-nav__link">
+  <a href="#slide-6-outline-and-transition-to-eim" class="md-nav__link">
     <span class="md-ellipsis">
-      [Slide 6] Outline
+      [Slide 6] Outline and transition to EIM
     </span>
   </a>
   
@@ -8408,6 +8444,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#slide-95-transition-to-bpftime" class="md-nav__link">
+    <span class="md-ellipsis">
+      [Slide 9.5] Transition to bpftime
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#slide-10-bpftime-userspace-ebpf-extension-framework" class="md-nav__link">
     <span class="md-ellipsis">
       [Slide 10] bpftime: userspace eBPF extension framework
@@ -8426,6 +8471,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#slide-1075-transition-to-real-world-use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      [Slide 10.75] transition to real-world use cases
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#slide-11-real-world-use-cases" class="md-nav__link">
     <span class="md-ellipsis">
       [Slide 11] Real-World Use Cases
@@ -8435,9 +8489,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#slide-12-performance-results-nginx-firewall" class="md-nav__link">
+  <a href="#slide-12-customization-nginx-firewall" class="md-nav__link">
     <span class="md-ellipsis">
-      [Slide 12] Performance Results: Nginx Firewall
+      [Slide 12] Customization: Nginx Firewall
     </span>
   </a>
   
@@ -8514,7 +8568,9 @@
 <h1 id="speech-script-for-osdi-2025-bpftime-talk">Speech Script for OSDI 2025 bpftime talk</h1>
 <p>≈ 2,250 words, ~15 minutes</p>
 <h2 id="slide-0">[Slide 0]</h2>
-<p>Good morning! I'm <strong>Yusheng Zheng</strong> from UC Santa Cruz, presenting our OSDI '25 paper on extension systems. I'll show why current extensions force painful tradeoffs between safety and performance, then present our solution: EIM for fine-grained policies and bpftime, a userspace eBPF runtime, for efficient enforcement.</p>
+<p>Good morning! I'm <strong>Yusheng Zheng</strong> from UC Santa Cruz, presenting our OSDI '25 paper on extension systems. </p>
+<h2 id="slide-05-outline">[Slide 0.5] Outline</h2>
+<p>This is the outline of my talk, I'll first show why current extensions frameworks force painful tradeoffs between safety and performance, then look at our solution: EIM for fine-grained policies and bpftime, a userspace eBPF runtime, for efficient enforcement.</p>
 <h2 id="slide-1-extensions-everywhere">[Slide 1] Extensions Everywhere</h2>
 <p>Extensions are everywhere in modern software. PostgreSQL has over 100 extensions that turn a basic database into specialized systems—PostGIS adds geospatial data support, TimescaleDB handles time-series analytics, all without changing PostgreSQL's core code. VS Code works the same way—it starts as a simple text editor but becomes a full development environment through extensions like language servers, debuggers, and productivity tools like GitLens. This pattern repeats across software: Nginx gains new features through modules, Redis uses Lua scripts, and browsers rely on ad blockers and developer tools.</p>
 <h2 id="slide-2-nginx-extension-example">[Slide 2] Nginx Extension Example</h2>
@@ -8524,41 +8580,42 @@
 <p>However, Nginx extension systems face serious safety and performance challenges. Real-world incidents show the risks: In 2023, a malformed Lua plugin created an infinite loop inside Nginx, causing Bilibili's entire CDN to go down for hours. Similar issues plague other software—Redis scripts can enable remote code execution, and Apache modules suffer buffer overflows. These examples show that even mature plugin ecosystems can bring production services to a halt.</p>
 <p>Meanwhile, many people are using sandbox technology like WebAssembly for safer extension development, but these approaches impose a persistent 10–15 percent throughput penalty on HTTP request processing—that's simply too much overhead to pay in production environments. Nginx operators often disable these safer extension systems entirely due to performance concerns.</p>
 <h2 id="slide-4-extension-requirements">[Slide 4] Extension Requirements</h2>
-<p>Extension frameworks need three key features. First, fine-grained safety and interconnectedness trade-offs. For example, Nginx extensions must interact with the web server by reading request headers and calling HTTP processing functions, but systems managers need to follow the principle of least privilege, granting only necessary permissions per extension. Second, isolation to protect Nginx extensions from core server bugs and vice versa. Third, efficiency with near-native speed execution, since Nginx extensions often run on critical paths like per-request processing where every millisecond matters for user experience.</p>
+<p>These real-world problems highlight what extension frameworks actually need. Extension frameworks need three key features. First, fine-grained safety and interconnectedness trade-offs. For example, Nginx extensions must interact with the web server by reading request headers and calling HTTP processing functions, but systems managers need to follow the principle of least privilege, granting only necessary permissions per extension. Second, isolation to protect Nginx extensions from core server bugs and vice versa. Third, efficiency with near-native speed execution, since Nginx extensions often run on critical paths like per-request processing where every millisecond matters for user experience.</p>
 <h2 id="slide-5-state-of-the-art-falls-short">[Slide 5] State-of-the-Art Falls Short</h2>
 <p>Unfortunately, existing approaches cannot satisfy all requirements simultaneously. Dynamic loading achieves speed but provides no isolation or policies. Software Fault Isolation systems like WebAssembly deliver safety but carry 10–15 percent performance penalties. Subprocess isolation ensures separation but has untenable IPC overhead. Kernel eBPF uprobes offer isolation but trap into the kernel on every invocation, costing microseconds each time.</p>
-<h2 id="slide-6-outline">[Slide 6] Outline</h2>
+<h2 id="slide-6-outline-and-transition-to-eim">[Slide 6] Outline and transition to EIM</h2>
 <p>Now that we've established the motivation and challenges, let me outline our two-part solution and walk you through how we'll address these problems.</p>
 <p>We present a two-part solution. First, the Extension Interface Model (EIM) treats every extension capability as a named resource. We split the work into development time, where application developers declare possible capabilities, and deployment time, where extension managers choose minimal privilege sets following least privilege principles.</p>
 <p>Second, bpftime is a new runtime that efficiently enforces EIM using three key techniques: offline eBPF verification for zero runtime safety checks, Intel Memory Protection Keys for fast domain switching, and concealed extension entries that eliminate overhead for unused hooks. Together, they provide kernel-grade safety with library-grade performance while maintaining eBPF compatibility.</p>
 <p>Our evaluation on six real-world applications shows bpftime can reduce overhead by up to 6x compared to solutions like WebAssembly, bringing performance to near-native levels while providing strong safety guarantees.</p>
 <h2 id="slide-7-eim-extension-interface-model">[Slide 7] EIM: Extension Interface Model</h2>
-<p>To enable fine-grained safety-interconnectedness trade-offs, we introduce the Extension Interface Model, or EIM. EIM treats extension capabilities as named resources with a two-phase specification approach.</p>
+<p>So how do we achieve this? To enable fine-grained safety-interconnectedness trade-offs, we introduce the Extension Interface Model, or EIM. EIM treats extension capabilities as named resources with a two-phase specification approach.</p>
 <p>Let me explain this using our Nginx example. In the extension ecosystem, we have four key roles. First, Nginx application developers write the core web server code. Second, extension developers create plugins like firewalls, load balancers, and monitoring tools. Third, the extension manager—typically a system administrator or DevOps engineer—decides which extensions to deploy and what privileges each should have. Finally, end users send HTTP requests that trigger both the host application and extensions.</p>
 <p>EIM captures this separation of concerns through capabilities as resources.</p>
 <p>The key insight is splitting specification into two phases. During development time, Nginx developers annotate their code to declare possible extension behaviors. At deployment time, the extension manager writes policies that grant minimal privilege sets to specific extensions. This separation means managers can refine security policies in production without touching application source code, enabling true least-privilege extension deployment.</p>
 <h2 id="slide-8-eim-development-time-specification">[Slide 8] EIM Development-Time Specification</h2>
 <p>Now let me show you how EIM works in practice. During development time, Nginx developers annotate their code to declare what extensions could possibly do. They might add a state capability called <code>readPid</code> for accessing the process ID, a function capability <code>nginxTime()</code> for getting timestamps, complete with pre- and post-conditions, and extension entries like <code>processBegin</code> when request processing starts.</p>
 <p>These annotations are automatically extracted and compiled into the binary. This happens once during development and creates a complete map of what extensions could ever access. The key insight is that developers only declare possibilities—they don't decide what actually gets used.</p>
-<!-- State access capabilities control reading and writing variables like request headers or connection counts. Function call capabilities govern invoking Nginx APIs like `nginx_time()` or `ngx_http_finalize_request()`, complete with pre- and post-conditions. Hardware resource capabilities limit CPU instructions and memory access patterns. -->
-
 <h2 id="slide-9-eim-deployment-time-specification">[Slide 9] EIM Deployment-Time Specification</h2>
 <p>At deployment time, the system administrator writes simple policies that grant minimal privileges to each extension. </p>
 <p>An observability extension might only read request data and call logging functions. A firewall extension gets both read and write access to modify responses. A load balancer needs network capabilities to contact upstream servers.</p>
 <p>These policies live completely outside the application code. You can refine security settings in production without recompiling anything. This separation enables true least-privilege deployment while keeping the original application unchanged.</p>
+<h2 id="slide-95-transition-to-bpftime">[Slide 9.5] Transition to bpftime</h2>
+<p>Now you might ask, "Can't we just use existing frameworks to enforce EIM policies?" Unfortunately, as we discussed in the previous work, current frameworks make painful trade-offs that prevent efficient EIM enforcement. So, we built a new userspace eBPF extension framework called bpftime.</p>
 <h2 id="slide-10-bpftime-userspace-ebpf-extension-framework">[Slide 10] bpftime: userspace eBPF extension framework</h2>
-<p>Now you might ask, "Can't we just use existing frameworks to enforce EIM policies?" Unfortunately, as we discussed in the previous work, current frameworks make painful trade-offs that prevent efficient EIM enforcement.</p>
 <p>We built bpftime specifically to enforce EIM efficiently while maintaining complete eBPF compatibility. Why we are using eBPF? It provides proven safety through verification and a rich ecosystem we can reuse. Our efficiency comes from binary rewriting with concealed extension entries, which is similar to eBPF Uprobes, and we achieve isolation using Intel Memory Protection Keys. This compatibility is crucial—existing eBPF tools work immediately with bpftime, and extensions can share data with kernel eBPF programs for full system customization, from user-level to kernel-level.</p>
 <h2 id="slide-105-bpftime-userspace-ebpf-extension-framework">[Slide 10.5] bpftime: userspace eBPF extension framework</h2>
 <p>But ensuring eBPF compatibility presented a major challenge. The Linux eBPF ecosystem consists of tightly coupled components—compilers, runtime libraries, and the kernel—that are nearly impossible to disentangle. Prior user-level eBPF systems tried re-implementing the entire eBPF technology stack and ultimately failed to provide reasonable performance and compatibility.</p>
 <p>Instead, bpftime takes a different approach. We identify a narrow waist in the current eBPF ecosystem and interpose at that point. Specifically, we intercept eBPF-related system calls and the shared map mechanism for data sharing between extensions. This lets us reuse the proven eBPF ecosystem while adding just the minimal new components needed for userspace deployment.</p>
 <p>So, Here's how bpftime works at a high level. We intercept eBPF system calls before they reach the kernel. Our loader converts EIM policies into bytecode assertions and feeds everything through the kernel's proven eBPF verifier for safety guarantees. After JIT compilation to native code, we use binary rewriting to patch trampolines into the target application only when extensions are actually loaded. At runtime, we use memory protection keys to protect and execute the extension.</p>
+<h2 id="slide-1075-transition-to-real-world-use-cases">[Slide 10.75] transition to real-world use cases</h2>
+<p>Now, let me show you how bpftime works in practice, and our evaluation results.</p>
 <h2 id="slide-11-real-world-use-cases">[Slide 11] Real-World Use Cases</h2>
 <p>To prove our approach works, we built six real-world applications. For security, we created an Nginx firewall that blocks malicious URLs in real time. For reliability, we built a Redis extension that bridges the durability gap between losing thousands of writes versus taking a 6× performance hit. For performance, we accelerated FUSE file operations with in-process caching. For observability, we ported existing tools like DeepFlow, syscount, and sslsniff to demonstrate seamless eBPF compatibility. bpftime is open source on GitHub with an active community, and these applications demonstrate both the versatility of our approach and real-world user adoption.</p>
-<h2 id="slide-12-performance-results-nginx-firewall">[Slide 12] Performance Results: Nginx Firewall</h2>
-<p>Let me show you the performance impact. For our Nginx firewall, we compared different extension approaches under a realistic workload. In this diagram, the more to the top, the higher throughput, the better. Lua and WebAssembly extensions impose 11–12 percent throughput loss—that's significant overhead that many operators can't accept in production. Our bpftime implementation achieves the same security functionality with only 2 percent overhead. That's a 5× to 6× improvement over existing approaches.</p>
+<h2 id="slide-12-customization-nginx-firewall">[Slide 12] Customization: Nginx Firewall</h2>
+<p>Let me show you the performance impact for customization purposes plugins. For our Nginx firewall, we compared different extension approaches under a realistic workload. In this diagram, the more to the top, the higher throughput, the better. Lua and WebAssembly extensions impose 11–12 percent throughput loss—that's significant overhead that many operators can't accept in production. Our bpftime implementation achieves the same security functionality with only 2 percent overhead. That's a 5× to 6× improvement over existing approaches.</p>
 <h2 id="slide-13-performance-results-ssl-monitoring">[Slide 13] Performance Results: SSL Monitoring</h2>
-<p>For observability, consider sslsniff, which monitors encrypted TLS traffic—crucial for debugging production microservices.The figure shows a clear performance comparison across different data sizes from 1K to 256K bytes. Also, the more to the top, the better. With kernel eBPF, this monitoring costs 28 percent throughput loss. That's prohibitive for production use. With bpftime, the same monitoring functionality costs only 7 percent overhead. </p>
+<p>Beyond web servers, let's look at observability. Consider sslsniff, which monitors encrypted TLS traffic—crucial for debugging production microservices. The figure shows a clear performance comparison across different data sizes from 1K to 256K bytes. Also, the more to the top, the better. With kernel eBPF, this monitoring costs 28 percent throughput loss. That's prohibitive for production use. With bpftime, the same monitoring functionality costs only 7 percent overhead. </p>
 <h2 id="slide-14-take-aways-on-outline-not-separate-slide">[Slide 14] Take-Aways (On Outline, not separate slide)</h2>
 <p>Let me close with three key takeaways. First, EIM provides the missing piece for fine-grained extension control—you can now specify precise least-privilege policies per extension entry without touching application source code. Second, bpftime shows that you don't have to choose between safety and performance. We achieve safety with near-native performance using offline verification, hardware isolation, and concealed trampolines. Third, maintaining eBPF compatibility means you can adopt our approach immediately without changing your existing workflows.</p>
 <!-- 
@@ -8734,7 +8791,7 @@ Xiaozheng Lai⁴ • Dan Williams⁵ • Andi Quinn¹</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 26, 2025 12:35:12 UTC">June 26, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 26, 2025 12:45:30 UTC">June 26, 2025</span>
   </span>
 
     
