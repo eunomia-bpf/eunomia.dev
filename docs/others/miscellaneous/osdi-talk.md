@@ -30,7 +30,7 @@ Nginx extension frameworks need three key features. First, fine-grained safety a
 
 Unfortunately, existing approaches cannot satisfy all requirements simultaneously. Dynamic loading achieves speed but provides no isolation or policies. Software Fault Isolation systems like WebAssembly deliver safety but carry 10–15 percent performance penalties. Subprocess isolation ensures separation but has untenable IPC overhead. Kernel eBPF uprobes offer isolation but trap into the kernel on every invocation, costing microseconds each time.
 
-## [Slide 6] Contribution: EIM + bpftime
+## [Slide 6] Outline
 
 Now that we've established the motivation and challenges, let me outline our two-part solution and walk you through how we'll address these problems.
 
@@ -103,7 +103,7 @@ However, current bpftime and EIM still have some limitations. First, EIM tools a
 
 Thank you for your attention. **bpftime** is open-source under the MIT license at GitHub. You can get started today by running it as a drop-in replacement for eBPF applications. We welcome your issues, pull requests, and collaboration. I'm happy to take your questions.
 
-## **Complete Slide Deck (16 slides, 16:9)**
+## **Complete Slide Deck (15 slides, 16:9)**
 
 ---
 
@@ -118,49 +118,62 @@ Xiaozheng Lai⁴ • Dan Williams⁵ • Andi Quinn¹
 
 ---
 
-**Slide 1: Extensions - A Concrete Example**
+**Slide 1: Extensions Everywhere**
 
 - **Extensions are everywhere:** PostgreSQL (PostGIS), API gateways (Lua plugins), Redis (custom scripts), browsers (ad blockers)
 
-Nginx plugin as an example:​
+---
 
-- **What are extensions?** Customize software without modifying source code
-- **Why do we need them?** Different deployments, different needs
+**Slide 2: Nginx Extension Example**
 
 - **Extension execution model:** Thread → Extension entry → Jump to extension → Execute → Return to host
 
 ---
 
-**Slide 2: Extension Problems & Requirements**
+**Slide 3: Extension Problems**
 
 - **Real-world safety violations:** Bilibili CDN outage, Apache buffer overflow, Redis RCE
 - **Performance penalty**: WebAssembly/Lua impose 10-15% overhead
-- **A painful tension**: Safety vs. Extensibility vs. Performance
-
 
 ---
 
-**Slide 3: State-of-the-Art Falls Short**
+**Slide 4: Extension Requirements**
 
-| Approach | Safety | Isolation | Efficiency | Fine-Grained Control |
-|----------|---------|-----------|------------|---------------------|
-| Native Loading | ✗ | ✗ | ✓ | ✗ |
-| SFI (Wasm, Lua) | Limited | ✓ | ✗ (10-15% overhead) | ✗ |
-| Subprocess | ✓ | ✓ | ✗ (context switches) | Limited |
-| eBPF uprobes | ✓ | ✓ | ✗ (kernel traps) | Limited |
+- **Fine-grained safety** and interconnectedness trade-offs
+- **Isolation** to protect extensions from core server bugs and vice-versa
+- **Efficiency** with near-native speed execution
 
+---
+
+**Slide 5: State-of-the-Art Falls Short**
+
+No single approach meets all requirement​
+
+Dynamic loading: fast but no isolation or policy
+enforcement​
+
+Software Fault Isolation (e.g., WebAssembly): safety
+with 10–15 % performance penalty​
+
+Subprocess isolation: strong separation but high IPC
+overhead​
+
+Kernel eBPF uprobes: isolation at microsecond-level
+trap cost
 **Problem**: No single framework satisfies all requirements
 
 ---
 
-**Slide 4: Contribution - EIM + bpftime**
+**Slide 6: Outline**
 
-- **Extension Interface Model (EIM)**: Fine-grained capability control
-- **bpftime Runtime**: Kernel-grade safety with library-grade performance
+- **Background & motivation:** Extensions
+- **Extension Interface Model (EIM):** Fine-grained Interface
+- **bpftime Runtime:** safety & performance
+- **Evaluation**
 
 ---
 
-**Slide 5: EIM - Extension Interface Model**
+**Slide 7: EIM - Extension Interface Model**
 
 **Four key roles in Nginx ecosystem:**
   - **Nginx developers**
@@ -168,13 +181,11 @@ Nginx plugin as an example:​
   - **Extension manager**
   - **End users**
 
-- **Capabilities as resources:**
-
-- Separate development-time possibilities from deployment-time policies
+- **Capabilities as resources:** Separate development-time possibilities from deployment-time policies
 
 ---
 
-**Slide 6: EIM Development-Time Specification**
+**Slide 8: EIM Development-Time Specification**
 
 **Nginx developers annotate code:**
 ```c
@@ -187,9 +198,9 @@ Automatically extracted into capability manifest
 
 ---
 
-**Slide 7: EIM Deployment-Time Specification**
+**Slide 9: EIM Deployment-Time Specification**
 
-Extension Developer or Manager  write simple policies to explore interconnectedness/safety trade-offs
+Extension Developer or Manager write simple policies to explore interconnectedness/safety trade-offs
 
 ```yaml
 observeProcessBegin:
@@ -205,9 +216,7 @@ Refine security policies in production **without recompiling**
 
 ---
 
-**Slide 8: EIM Summary**
-
-Existing frameworks → no control OR coarse-grained bundles
+**Slide 10: bpftime: userspace eBPF extension framework**
 
 **Two innovations:**
 1. **Named capabilities** → Precise control
@@ -219,23 +228,11 @@ Treats safety and interconnectedness as independent dimensions
 - Monitoring extension: read-only access to specific variables
 - Firewall extension: read/write for response modification
 
----
-
-**Slide 9: bpftime - Why We Need a New Runtime**
-
-Can't existing frameworks enforce EIM efficiently?
-
-- **WebAssembly/SFI**: 10-15% overhead
-- **Subprocess isolation**: Expensive switches
-- **Kernel eBPF uprobes**: Kernel traps
-
 **bpftime advantages:**
 - **eBPF ecosystem compatibility**
 - **Work together with kernel eBPF extensions**
 
 ---
-
-**Slide 10: bpftime Architecture**
 
 **High-level approach:**
 - Intercept eBPF syscalls before kernel
@@ -246,15 +243,6 @@ Can't existing frameworks enforce EIM efficiently?
 - MPK for fast security domain switching
 
 [use the figure here]
-
-**Key insight**: Reuse existing eBPF ecosystem + minimal new components
-
----
-**Slide 11: bpftime - Key Challenges & Design**
-
-**Why not expand existing frameworks?**
-- Heavyweight isolation is inefficient
-- Adding EIM would degrade performance further
 
 **The eBPF compatibility challenge:**
 - Linux eBPF has tightly coupled components (compilers, runtime, kernel)
@@ -269,7 +257,7 @@ Reuse proven eBPF ecosystem + minimal new components
 
 ---
 
-**Slide 12: Real-World Use Cases**
+**Slide 11: Real-World Use Cases**
 
 **Six applications demonstrate breadth:**
 
@@ -280,7 +268,7 @@ Reuse proven eBPF ecosystem + minimal new components
 
 ---
 
-**Slide 13: Performance Results - Nginx Firewall**
+**Slide 12: Performance Results - Nginx Firewall**
 
 **Workload**: 8 threads, 64 connections, realistic traffic
 
@@ -293,7 +281,7 @@ Reuse proven eBPF ecosystem + minimal new components
 
 ---
 
-**Slide 14: Performance Results - SSL Monitoring**
+**Slide 13: Performance Results - SSL Monitoring**
 
 **Use case**: sslsniff for encrypted TLS traffic monitoring
 
@@ -306,12 +294,11 @@ Reuse proven eBPF ecosystem + minimal new components
 
 ---
 
-**Slide 15: Take-Aways & Future Work**
+**Slide 14: Take-Aways & Future Work on outline slide again**
 
 **Three key takeaways:**
 1. **EIM** → Fine-grained least-privilege policies without source changes
 2. **bpftime** → Don't choose between safety and performance
-3. **100% eBPF compatibility** → Immediate adoption possible
 
 **Future work**: GPU and ML workload support
 
@@ -324,7 +311,7 @@ bpftime start nginx -c ./nginx.conf
 
 ---
 
-**Slide 16: Thank You & Questions**
+**Slide 15: Thank You & Questions**
 
 **GitHub**: github.com/eunomia-bpf/bpftime (MIT license)
 **Ready to use**: Drop-in replacement for eBPF applications
