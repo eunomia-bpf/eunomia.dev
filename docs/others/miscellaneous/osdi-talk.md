@@ -42,7 +42,7 @@ Our evaluation on six real-world applications shows bpftime can reduce overhead 
 
 ## [Slide 7] EIM: Extension Interface Model
 
-To enable fine-grained safety-interconnectness trade-offs, we introduce the Extension Interface Model, or EIM. EIM treats extension capabilities as named resources with a two-phase specification approach.
+To enable fine-grained safety-interconnectedness trade-offs, we introduce the Extension Interface Model, or EIM. EIM treats extension capabilities as named resources with a two-phase specification approach.
 
 Let me explain this using our Nginx example. In the extension ecosystem, we have four key roles. First, Nginx application developers write the core web server code. Second, extension developers create plugins like firewalls, load balancers, and monitoring tools. Third, the extension manager—typically a system administrator or DevOps engineer—decides which extensions to deploy and what privileges each should have. Finally, end users send HTTP requests that trigger both the host application and extensions.
 
@@ -66,11 +66,13 @@ An observability extension might only read request data and call logging functio
 
 These policies live completely outside the application code. You can refine security settings in production without recompiling anything. This separation enables true least-privilege deployment while keeping the original application unchanged.
 
-## [Slide 10] bpftime: userspace eBPF​ extension framework
+## [Slide 10] bpftime: userspace eBPF extension framework
 
 Now you might ask, "Can't we just use existing frameworks to enforce EIM policies?" Unfortunately, as we discussed in the previous work, current frameworks make painful trade-offs that prevent efficient EIM enforcement.
 
 We built bpftime specifically to enforce EIM efficiently while maintaining complete eBPF compatibility. Why we are using eBPF? It provides proven safety through verification and a rich ecosystem we can reuse. Our efficiency comes from binary rewriting with concealed extension entries, which is similar to eBPF Uprobes, and we achieve isolation using Intel Memory Protection Keys. This compatibility is crucial—existing eBPF tools work immediately with bpftime, and extensions can share data with kernel eBPF programs for full system customization, from user-level to kernel-level.
+
+## [Slide 10.5] bpftime: userspace eBPF extension framework
 
 But ensuring eBPF compatibility presented a major challenge. The Linux eBPF ecosystem consists of tightly coupled components—compilers, runtime libraries, and the kernel—that are nearly impossible to disentangle. Prior user-level eBPF systems tried re-implementing the entire eBPF technology stack and ultimately failed to provide reasonable performance and compatibility.
 
@@ -232,7 +234,10 @@ Treats safety and interconnectedness as independent dimensions
 - **eBPF ecosystem compatibility**
 - **Work together with kernel eBPF extensions**
 
----
+**The eBPF compatibility challenge:**
+- Linux eBPF has tightly coupled components (compilers, runtime, kernel)
+- Prior user eBPF failed by re-implementing entire stack
+- **bpftime solution**: Interpose on eBPF syscalls only
 
 **High-level approach:**
 - Intercept eBPF syscalls before kernel
@@ -243,11 +248,6 @@ Treats safety and interconnectedness as independent dimensions
 - MPK for fast security domain switching
 
 [use the figure here]
-
-**The eBPF compatibility challenge:**
-- Linux eBPF has tightly coupled components (compilers, runtime, kernel)
-- Prior user eBPF failed by re-implementing entire stack
-- **bpftime solution**: Interpose on eBPF syscalls only
 
 **Key design principles:**
 1. **Lightweight EIM enforcement**
@@ -270,7 +270,7 @@ Reuse proven eBPF ecosystem + minimal new components
 
 **Slide 12: Performance Results - Nginx Firewall**
 
-**Workload**: 8 threads, 64 connections, realistic traffic
+**Workload**: 8 threads, 256 connections, realistic traffic
 
 **Results**:
 - **Lua/WebAssembly**: 11-12% throughput loss
