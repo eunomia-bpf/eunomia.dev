@@ -65,11 +65,11 @@ Unfortunately, existing approaches cannot satisfy all requirements simultaneousl
 
 > To help nav tradoffs....
 
-We present a two-part solution. First, the Extension Interface Model (EIM) treats every extension capability as a named resource. We split the work into development time, where application developers declare possible capabilities, and deployment time, where extension managers choose minimal privilege sets following least privilege principles.
+We present a two-part solution that addresses all three requirements. First, the Extension Interface Model (EIM) enables fine-grained safety and interconnectedness trade-offs by treating every extension capability as a named resource. We split the work into development time, where application developers declare possible capabilities, and deployment time, where extension managers choose minimal privilege sets following least privilege principles.
 
-Second, bpftime is a new runtime that efficiently enforces EIM using three key techniques: offline eBPF verification for zero runtime safety checks, Intel Memory Protection Keys for fast domain switching, and concealed extension entries that eliminate overhead for unused hooks. Together, they provide kernel-grade safety with library-grade performance while maintaining eBPF compatibility.
+Second, bpftime is a new userspace eBPF runtime that provides isolation and efficiency while enforcing EIM policies. It uses three key techniques: offline eBPF verification for zero runtime safety checks, Intel Memory Protection Keys for fast domain switching and isolation, and concealed extension entries that eliminate efficiency overhead for unused hooks. Together, they provide kernel-grade safety with library-grade performance while maintaining eBPF compatibility.
 
-Our evaluation on six real-world applications shows bpftime can reduce overhead by up to 6x compared to solutions like WebAssembly, bringing performance to near-native levels while providing strong safety guarantees.
+Our evaluation on six real-world applications shows bpftime achieves all three requirements: fine-grained safety controls, strong isolation, and efficiency with up to 6x better performance compared to solutions like WebAssembly.
 
 > make them to figtures
 
@@ -179,15 +179,17 @@ Beyond web servers, let's look at observability. Consider sslsniff, which monito
 > add a axis for better direction.
 > only have largest and smallest.
 
-## [Slide 14] Take-Aways (On Outline, not separate slide)
+## [Slide 14] Take-Aways
 
-Let me close with three key takeaways. First, EIM provides the missing piece for fine-grained extension control—you can now specify precise least-privilege policies per extension entry without touching application source code. Second, bpftime shows that you don't have to choose between safety and performance. We achieve safety with near-native performance using offline verification, hardware isolation, and concealed trampolines. Third, maintaining eBPF compatibility means you can adopt our approach immediately without changing your existing workflows.
+Let me close with three key takeaways that address our original three requirements. First, EIM enables fine-grained safety and interconnectedness trade-offs—you can now specify precise least-privilege policies per extension entry without touching application source code. Second, bpftime provides both isolation and efficiency—we achieve hardware-level isolation with near-native performance using offline verification, Intel Memory Protection Keys, and concealed trampolines. Third, maintaining eBPF compatibility means you can adopt our approach immediately without changing your existing workflows, getting all three requirements satisfied together.
+
 > 
 
 <!-- 
 Looking ahead, we're expanding bpftime to support GPU and ML workloads, broadening the scope of safe, efficient extension deployment beyond traditional systems programming.
 
 However, current bpftime and EIM still have some limitations. First, EIM tools and policies are mainly for compiled applications, and we are working on supporting more languages. Also, you need to write the extension code in eBPF, which is not easy for some users. -->
+
 
 ## Thank You & Questions (On Outline, not separate slide)
 
@@ -237,14 +239,14 @@ Xiaozheng Lai⁴ • Dan Williams⁵ • Andi Quinn¹
 
 **Slide 5: State-of-the-Art Falls Short**
 
-**No single approach meets all requirements:**
+**No single approach meets all three requirements:**
 
-- **Dynamic loading**: fast but no isolation or policy enforcement
-- **Software Fault Isolation (e.g., WebAssembly)**: safety with 10–15% performance penalty
-- **Subprocess isolation**: strong separation but high IPC overhead  
-- **Kernel eBPF uprobes**: isolation at microsecond-level trap cost
+- **Dynamic loading**: efficiency but no isolation or fine-grained safety policies
+- **Software Fault Isolation (e.g., WebAssembly)**: isolation but 10–15% efficiency penalty and lack fine-grained safety controls
+- **Subprocess isolation**: strong isolation but sacrifices efficiency with high IPC overhead  
+- **Kernel eBPF uprobes**: isolation but reduces efficiency with microsecond-level trap cost
 
-**Problem**: No single framework satisfies all requirements
+**Problem**: No single framework satisfies all three requirements
 
 ---
 
@@ -310,6 +312,11 @@ updateResponse:
 - **Rich ecosystem** we can reuse
 - **Compatibility** - existing eBPF tools work immediately
 
+**Addressing the three requirements:**
+- **Fine-grained safety**: EIM policies converted to bytecode assertions
+- **Isolation**: Intel Memory Protection Keys for fast domain switching
+- **Efficiency**: Concealed extension entries eliminate overhead for unused hooks
+
 **The eBPF compatibility challenge:**
 - Linux eBPF has tightly coupled components (compilers, runtime, kernel)
 - Prior user eBPF failed by re-implementing entire stack
@@ -371,9 +378,10 @@ updateResponse:
 
 **Slide 14: Take-Aways**
 
-**Key takeaways:**
-1. **EIM** → Fine-grained least-privilege policies without source changes
-2. **bpftime** → Don't choose between safety and performance 
+**Key takeaways addressing our three requirements:**
+1. **Fine-grained safety & interconnectedness**: EIM enables least-privilege policies without source changes
+2. **Isolation & efficiency**: bpftime provides hardware isolation with near-native performance 
+3. **eBPF compatibility**: Drop-in replacement available today
 
 **Get started**: Drop-in eBPF replacement available today
 
