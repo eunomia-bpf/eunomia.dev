@@ -93,39 +93,46 @@ These policies live completely outside the application code. You can adjust the 
 
 ## [Slide 9.5] Transition to bpftime
 
-Now you might ask, "Can't we just use existing frameworks to enforce EIM policies?" Unfortunately, as we discussed in the previous work, current frameworks make painful trade-offs that prevent efficient EIM enforcement. So, we built a new userspace eBPF extension framework called bpftime.
+In the next part, I will introduce our new userspace eBPF extension framework called bpftime.
 
 ## [Slide 10] bpftime: userspace eBPF extension framework
 
-We built bpftime specifically to enforce EIM efficiently while maintaining complete eBPF compatibility. Why we are using eBPF? It provides proven safety through verification and a rich ecosystem we can reuse. Our efficiency comes from binary rewriting with concealed extension entries, which is similar to eBPF Uprobes, and we achieve isolation using Intel Memory Protection Keys. This compatibility is crucial—existing eBPF tools work immediately with bpftime, and extensions can share data with kernel eBPF programs for full system customization, from user-level to kernel-level.
+Our goal with bpftime is to efficiently support EIM and isolation for userspace extensions. 
 
-> add popup or diagram near the verifier, to  
+Now you might ask, "Can't we just use existing frameworks to enforce EIM policies?" Unfortunately, as we discussed in the previous work, current frameworks  use heavyweight techniques for safety and isolation, which introduces significant performance overhead.
 
-## [Slide 10.75] transition to real-world use cases
+So, our solution is a new design that exploits verification, binary rewriting, and hardware features to enable efficient intra-process extensions.  We are using eBPF here because it provides proven safety through verification and a rich ecosystem we can reuse.
+
+Let me walk you through how we achieve this with the bpftime framework, as shown in the diagram.
+
+Here's how it works. An eBPF application same as kernel eBPF Application, which acts as our extension, is first passed to the bpftime Loader. This loader includes a verifier that performs (1) verification for efficient EIM support. By checking the eBPF code against the specifications before execution, we can enforce our EIM policies with zero runtime overhead.
+
+To maintain isolation between the host and the extension, we use (2) hardware features like Intel Memory Protection Keys. This prevents extensions from accessing unauthorized memory and protects the host application from buggy or malicious extensions, and vice-versa.
+
+For invoking extensions, the (3) conceal extension entries using binary rewriting for efficiency. Instead of heavyweight hooks, we patch the host application with lightweight trampolines that redirect execution to the extension at the right moment. This is similar to how kernel eBPF uprobes work but entirely in userspace.
+
+As you can see, the Host application and the extension run in the same process, which enables (4) intra-process extensions for efficiency, eliminating cross-process communication costs.
+
+Finally, our entire framework is (5) compatible with eBPF. Existing eBPF applications and toolchains work with bpftime out of the box. This compatibility also allows user-space extensions to communicate with kernel-space eBPF programs, enabling powerful, full-system observability and control.
+
+## [Slide 10.5] transition to real-world use cases
 
 Now, let me show you how bpftime works in practice, and our evaluation results.
 
 ## [Slide 11] Real-World Use Cases
 
-bpftime is open source on GitHub with an active community, and these applications demonstrate both the versatility of our approach and real-world user adoption.
-... we design the 6 useca
-we built six real-world applications. For security, we created an Nginx firewall that blocks malicious URLs in real time. For reliability, we built a Redis extension that bridges the durability gap between losing thousands of writes versus taking a 6× performance hit. For performance, we accelerated FUSE file operations with in-process caching. For observability, we ported existing tools like DeepFlow, syscount, and sslsniff to demonstrate seamless eBPF compatibility.
+bpftime is open source on GitHub with an active community. We built six real-world applications in 2 categories to demonstrate how useful our approach is and how people are actually using it.
 
-For more detail, you can check the paper.... because of time limit, I will not go into the details...
+For customization, we created an Nginx firewall that blocks bad URLs in real time, we built a Redis extension that helps balance data safety with performance, we made FUSE file operations faster with caching. For observability, we adapted existing tools like DeepFlow, syscount, and sslsniff to show that our system works with current eBPF tools.
 
-we will only look at ....
+You can find more details in our paper, but due to time limits, I will focus on just two example to show you the performance benefits.
 
 ## [Slide 12] Customization: Nginx Firewall
 
 Let me show you the performance impact for customization purposes plugins. For our Nginx firewall, we compared different extension approaches under a realistic workload. In this diagram, the more to the top, the higher throughput, the better. Lua and WebAssembly extensions impose 11–12 percent throughput loss—that's significant overhead that many operators can't accept in production. Our bpftime implementation achieves the same security functionality with only 2 percent overhead. That's a 5× to 6× improvement over existing approaches.
 
-> add lua, wasm not proviing safety/interconnectedness trade-offs...
+> add lua, wasm not proviing safety/interconnectedness trade-offs ect in one sentence.
 
-> add a axis for better direction.
-> y axis request per second 
-> put bpftime to the right
-
-> label and group them no provideing xxx, 
 
 ## [Slide 13] Performance Results: SSL Monitoring
 
