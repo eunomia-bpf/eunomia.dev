@@ -129,27 +129,29 @@ You can find more details in our paper, but due to time limits, I will focus on 
 
 ## [Slide 12] Customization: Nginx Firewall
 
-Let me show you the performance impact for customization purposes plugins. For our Nginx firewall, we compared different extension approaches under a realistic workload. In this diagram, the more to the top, the higher throughput, the better. Lua and WebAssembly extensions impose 11–12 percent throughput loss—that's significant overhead that many operators can't accept in production. Our bpftime implementation achieves the same security functionality with only 2 percent overhead. That's a 5× to 6× improvement over existing approaches.
-
-> add lua, wasm not proviing safety/interconnectedness trade-offs ect in one sentence.
-
+Let me show you the performance impact for customization purposes plugins. For our Nginx firewall, we compared different extension approaches. In this diagram, the more to the top, the higher throughput, the better. Lua and WebAssembly extensions impose 11–12 percent throughput loss—that's significant overhead that many operators can't accept in production. Plus, these older methods don't let you control safety and interconnectedness trade-offs like EIM does. Our bpftime implementation achieves the same security functionality with only 2 percent overhead. That's a 5× to 6× improvement over existing approaches.
 
 ## [Slide 13] Performance Results: SSL Monitoring
 
-Beyond web servers, let's look at observability. Consider sslsniff, which monitors encrypted TLS traffic—crucial for debugging production microservices. 
-> we run sslsniff on nginx deployment...
-> have more reference for what the things are
-> label the y axis...
- The figure shows a clear performance comparison across different data sizes from 1K to 256K bytes. Also, the more to the top, the better. With kernel eBPF, this monitoring costs 28 percent throughput loss. That's prohibitive for production use. With bpftime, the same monitoring functionality costs only 7 percent overhead. 
+Let's look at observability. Consider sslsniff, which monitors encrypted TLS traffic, as part of the bcc eBPF tools.
 
-> add a axis for better direction.
-> only have largest and smallest.
+We run sslsniff on an nginx deployment to test different data sizes from 1K to 256K bytes. The y-axis shows throughput, where higher is better. You can see the performance difference is most clear with 1K data size.
+
+With kernel eBPF, this monitoring costs 28 percent throughput loss. That's too much overhead for production use. With bpftime, the same monitoring functionality costs only 7 percent overhead.
 
 ## [Slide 14] Take-Aways
 
 Let me close with three key takeaways that address our original three requirements. First, EIM enables fine-grained safety and interconnectedness trade-offs—you can now specify precise least-privilege policies per extension entry without touching application source code. Second, bpftime provides both isolation and efficiency—we achieve hardware-level isolation with near-native performance using offline verification, Intel Memory Protection Keys, and concealed trampolines. Third, maintaining eBPF compatibility means you can adopt our approach immediately without changing your existing workflows, getting all three requirements satisfied together.
 
-> 
+You can scan the QR code to see the project website on GitHub. Thank you for your attention. Any questions?
+
+
+
+
+
+
+
+
 
 <!-- 
 Looking ahead, we're expanding bpftime to support GPU and ML workloads, broadening the scope of safe, efficient extension deployment beyond traditional systems programming.
