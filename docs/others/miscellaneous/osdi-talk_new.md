@@ -38,8 +38,6 @@ Second, isolation to protect extensions from application bugs and protect applic
 Unfortunately, existing approaches cannot satisfy all requirements simultaneously. Dynamic loading achieves speed but provides no isolation or  fine-
 grained safety-interconnectedness policies. Software Fault Isolation systems like WebAssembly deliver safety but carry 10–15 percent performance penalties. Subprocess isolation ensures separation but has higher IPC overhead. eBPF in kernel can also be used for userspace extensions, but Kernel eBPF uprobes offer isolation but trap into the kernel on every invocation, make it less efficiency.
 
-> include citations and papers in the slide 
-
 ## [Slide 5.5] Contribution
 
 We present a two-part solution that addresses all three requirements. First, to help navigate fine-grained safety and interconnectedness trade-offs, we create the Extension Interface Model, or EIM. EIM treats every extension capability as a named resource and uses a two-stage specification approach.
