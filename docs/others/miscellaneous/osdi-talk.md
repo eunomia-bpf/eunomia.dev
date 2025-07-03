@@ -141,12 +141,13 @@ With kernel eBPF, this monitoring costs 28 percent throughput loss. That's too m
 
 Let me close with three key takeaways that address our original three requirements. First, EIM enables fine-grained safety and interconnectedness trade-offs—you can now specify precise least-privilege policies per extension entry without touching application source code. Second, bpftime provides both isolation and efficiency—we achieve hardware-level isolation with near-native performance using offline verification, Intel Memory Protection Keys, and concealed trampolines. Third, maintaining eBPF compatibility means you can adopt our approach immediately without changing your existing workflows, getting all three requirements satisfied together.
 
-You can scan the QR code to see the project website on GitHub. Thank you for your attention. Any questions?
+## Thank You & Questions (On Outline, not separate slide)
 
+Thank you for your attention. **bpftime** is open-source under the MIT license at GitHub. You can get started today by running it as a drop-in replacement for eBPF applications. We welcome your issues, pull requests, and collaboration. I'm happy to take your questions.
 
+## Deprecation notes
 
-
-
+---
 
 
 
@@ -156,14 +157,6 @@ Looking ahead, we're expanding bpftime to support GPU and ML workloads, broadeni
 
 However, current bpftime and EIM still have some limitations. First, EIM tools and policies are mainly for compiled applications, and we are working on supporting more languages. Also, you need to write the extension code in eBPF, which is not easy for some users. -->
 
-
-## Thank You & Questions (On Outline, not separate slide)
-
-Thank you for your attention. **bpftime** is open-source under the MIT license at GitHub. You can get started today by running it as a drop-in replacement for eBPF applications. We welcome your issues, pull requests, and collaboration. I'm happy to take your questions.
-
-## Deprecation notes
-
----
 
 
 <!-- 
