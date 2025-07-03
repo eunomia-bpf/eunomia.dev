@@ -53,25 +53,26 @@ Our evaluation on six real-world applications shows bpftime achieves all three r
 Now that we've discussed the motivation of the problems and challenges, let me outline our two-part solution and walk you through how we'll address these problems. I'll first explain our Extension Interface Model for fine-grained policy specification, then demonstrate how bpftime efficiently enforces these policies while maintaining eBPF compatibility.
 
 ## [Slide 7] EIM: Extension Interface Model
-  
-So how do we achieve this? To enable fine-grained safety-interconnectedness trade-offs, we introduce the Extension Interface Model, or EIM.
 
-We split the work into development time, where application developers declare possible capabilities, and deployment time, where extension managers choose minimal privilege sets following least privilege principles.
+So, how do we solve these problems? Our solution is the Extension Interface Model, or EIM.
 
+The goal of EIM is to enable fine-grained trade-offs between safety and interconnectedness. But here's the key challenge: supporting these trade-offs on a per-deployment basis. 
 
-> use only 2 roles
+Let me explain why this is challenging. Safety and interconnectedness trade-offs are a per-deployment decision. It depends on what the person who deploys the system wants to enable. For example, one deployment might prioritize maximum security and limit extension capabilities, while another deployment might need extensions to have broader access to perform their tasks effectively.
 
-> 1. Developer ()
-> 2. Extension manager
+However, the person deploying the system lacks application expertise to know what extension features could be allowed by the application. They understand their security requirements and deployment needs, but they don't know the internal workings of the host application well enough to make informed decisions about what capabilities should be available.
 
-> the key insight is manager spec fine-grained safety-interconnectedness trade-offs, but them don't know .... those need to be make by develoepr.... the fine-grained safety-interconnectedness trade-offs are deployment time feature.
+EIM's solution to this challenge is a two-phase specification. We model all resources as capabilities and split the process into a development phase and a deployment phase.
 
-> general description for the 2 phases, not nginx
+Here is a simplified version of our model in the paper. As you can see in the diagram, there are two main roles: the Application Developer and the Extension Manager.
 
-During development time, Nginx developers annotate their code to declare possible extension behaviors. , the extension manager writes policies that grant minimal privilege sets to specific extensions. deployment time EIM.
+During Development, the application developer, who understands the host application's internals, defines the possible interaction points for extensions. They create a Development-Time EIM Spec for "What's possible". It lists all the functions an extension could call or data it could access, like a menu of capabilities.
 
-EIM treats extension capabilities as named resources with a two-phase specification approach.
+Before Deployment, the extension manager, who understands the specific needs of a deployment, is responsible for security and configuration. They review the capabilities offered and create a Deployment-Time EIM Spec. This spec grants the minimal set of privileges an extension actually needs to do its job, following the principle of least privilege. They are choosing from the menu created by the developer.
 
+Finally, when the extension is deployed, the Extension Runtime uses the deployment spec to verify that the extension only performs allowed operations. This ensures that policies are enforced at runtime.
+
+This two-phase approach separates the declaration of capabilities from the granting of privileges. This allows for flexible, per-deployment policies without modifying the original application code.
 
 ## [Slide 8] EIM Development-Time Specification
 
