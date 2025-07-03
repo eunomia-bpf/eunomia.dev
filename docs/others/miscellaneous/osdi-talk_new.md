@@ -66,7 +66,7 @@ EIM's solution to this challenge is a two-phase specification. We model all reso
 
 Here is a simplified version of our model in the paper. As you can see in the diagram, there are two main roles: the Application Developer and the Extension Manager.
 
-During Development, the application developer, who understands the host application's internals, defines the possible interaction points for extensions. They create a Development-Time EIM Spec for "What's possible". It lists all the functions an extension could call or data it could access, like a menu of capabilities.
+During Development, the application developer, who understands the host application's internals, defines the possible interaction points for extensions. They create a Development-Time EIM Spec, which lists all the functions an extension could call or data it could access, like a menu of capabilities.
 
 Before Deployment, the extension manager, who understands the specific needs of a deployment, is responsible for security and configuration. They review the capabilities offered and create a Deployment-Time EIM Spec. This spec grants the minimal set of privileges an extension actually needs to do its job, following the principle of least privilege. They are choosing from the menu created by the developer.
 
@@ -76,27 +76,20 @@ This two-phase approach separates the declaration of capabilities from the grant
 
 ## [Slide 8] EIM Development-Time Specification
 
-> Let us use nginx as an example....
+Now let me show you how EIM works in practice, using Nginx as an example. 
 
-Now let me show you how EIM works in practice. During development time, Nginx developers annotate their code to declare what extensions could possibly do. They might add a state capability called `readPid` for accessing the process ID, a function capability `nginxTime()` for getting timestamps, complete with pre- and post-conditions, and extension entries like `processBegin` when request processing starts.
+During development time, Nginx developers annotate their code to declare what extensions could possibly do. They can add a state capability called `readPid` for accessing the process ID, a function capability `nginxTime()` for getting timestamps, complete with pre- and post-conditions, and extension entries like `processBegin` when request processing starts.
 
 These annotations are automatically extracted and compiled into the binary. This happens once during development and creates a complete map of what extensions could ever access. The key insight is that developers only declare possibilities—they don't decide what actually gets used.
 
-> white background for the code
-
-> keep only the developer, and make the figure around host application.
 
 ## [Slide 9] EIM Deployment-Time Specification
 
-> more around fine-grained safety-interconnectedness trade-offs
+At deployment time, the extension manager writes simple YAML policies that grant minimal privileges to each extension, enabling fine-grained safety-interconnectedness trade-offs.
 
-At deployment time, the system administrator writes simple policies that grant minimal privileges to each extension. 
+For example, an observability extension might only read request data and call logging functions—high interconnectedness for data access but limited write access for safety. A firewall extension gets both read and write access to modify responses—more interconnectedness for security tasks but restricted to specific operations.
 
-An observability extension might only read request data and call logging functions. A firewall extension gets both read and write access to modify responses. A load balancer needs network capabilities to contact upstream servers.
-
-These policies live completely outside the application code. You can refine security settings in production without recompiling anything. This separation enables true least-privilege deployment while keeping the original application unchanged.
-
-> use the same figure 
+These policies live completely outside the application code. You can adjust the safety-interconnectedness balance per extension without recompiling. The policy is typically compact, like in 30 lines of YAML.
 
 ## [Slide 9.5] Transition to bpftime
 
