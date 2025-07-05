@@ -16,7 +16,7 @@
         <link rel="prev" href="../47-cuda-events/">
       
       
-        <link rel="next" href="ebpf-energy/">
+        <link rel="next" href="README_zh/">
       
       
       <link rel="icon" href="../../assets/icon.svg">
@@ -24,7 +24,7 @@
     
     
       
-        <title>System Energy Monitoring with Intel RAPL - eunomia</title>
+        <title>eBPF Tutorial: Energy Monitoring for Process-Level Power Analysis - eunomia</title>
       
     
     
@@ -69,7 +69,7 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="System Energy Monitoring with Intel RAPL - eunomia" >
+        <meta  property="og:title"  content="eBPF Tutorial: Energy Monitoring for Process-Level Power Analysis - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
@@ -85,7 +85,7 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="System Energy Monitoring with Intel RAPL - eunomia" >
+        <meta  name="twitter:title"  content="eBPF Tutorial: Energy Monitoring for Process-Level Power Analysis - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
@@ -112,7 +112,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#system-energy-monitoring-with-intel-rapl" class="md-skip">
+        <a href="#ebpf-tutorial-energy-monitoring-for-process-level-power-analysis" class="md-skip">
           Skip to content
         </a>
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              System Energy Monitoring with Intel RAPL
+              eBPF Tutorial: Energy Monitoring for Process-Level Power Analysis
             
           </span>
         </div>
@@ -1778,7 +1778,7 @@
   
   
   <span class="md-ellipsis">
-    System Energy Monitoring with Intel RAPL
+    eBPF Tutorial: Energy Monitoring for Process-Level Power Analysis
     
   </span>
   
@@ -1791,7 +1791,7 @@
   
   
   <span class="md-ellipsis">
-    System Energy Monitoring with Intel RAPL
+    eBPF Tutorial: Energy Monitoring for Process-Level Power Analysis
     
   </span>
   
@@ -1814,55 +1814,46 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#features" class="md-nav__link">
+  <a href="#introduction-to-energy-monitoring-and-power-analysis" class="md-nav__link">
     <span class="md-ellipsis">
-      Features
+      Introduction to Energy Monitoring and Power Analysis
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#requirements" class="md-nav__link">
+  <a href="#understanding-cpu-power-consumption" class="md-nav__link">
     <span class="md-ellipsis">
-      Requirements
+      Understanding CPU Power Consumption
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Installation
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#usage" class="md-nav__link">
-    <span class="md-ellipsis">
-      Usage
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Usage">
+    <nav class="md-nav" aria-label="Understanding CPU Power Consumption">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#real-time-monitoring" class="md-nav__link">
+  <a href="#dynamic-power-consumption" class="md-nav__link">
     <span class="md-ellipsis">
-      Real-time Monitoring
+      Dynamic Power Consumption
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#logging-energy-data" class="md-nav__link">
+  <a href="#static-power-consumption" class="md-nav__link">
     <span class="md-ellipsis">
-      Logging Energy Data
+      Static Power Consumption
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#power-states-and-dvfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Power States and DVFS
     </span>
   </a>
   
@@ -1874,29 +1865,476 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#permissions" class="md-nav__link">
+  <a href="#comparing-traditional-vs-ebpf-energy-monitoring" class="md-nav__link">
     <span class="md-ellipsis">
-      Permissions
+      Comparing Traditional vs eBPF Energy Monitoring
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Comparing Traditional vs eBPF Energy Monitoring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#traditional-proc-based-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Traditional /proc-based Monitoring
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ebpf-based-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      eBPF-based Monitoring
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-ebpf-for-energy-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why eBPF for Energy Monitoring?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Why eBPF for Energy Monitoring?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#current-state-of-ebpf-energy-projects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Current State of eBPF Energy Projects
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-our-approach-matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Our Approach Matters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-impact" class="md-nav__link">
+    <span class="md-ellipsis">
+      Real-World Impact
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-ebpf-energy-monitoring-is-essential" class="md-nav__link">
+    <span class="md-ellipsis">
+      When eBPF Energy Monitoring is Essential
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Architecture Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Architecture Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#header-file-energy_monitorh" class="md-nav__link">
+    <span class="md-ellipsis">
+      Header File (energy_monitor.h)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ebpf-program-energy_monitorbpfc" class="md-nav__link">
+    <span class="md-ellipsis">
+      eBPF Program (energy_monitor.bpf.c)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-space-application-energy_monitorc" class="md-nav__link">
+    <span class="md-ellipsis">
+      User-Space Application (energy_monitor.c)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-deep-dive" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation Deep Dive
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation Deep Dive">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hooking-into-the-scheduler" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hooking into the Scheduler
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#efficient-time-calculation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Efficient Time Calculation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy-calculation-in-userspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      Energy Calculation in Userspace
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#final-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Final Statistics
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-and-running-the-energy-monitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Building and Running the Energy Monitor
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Building and Running the Energy Monitor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compilation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compilation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-the-ebpf-monitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running the eBPF Monitor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-the-traditional-monitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running the Traditional Monitor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparing-both-approaches" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comparing Both Approaches
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-energy-monitoring-trade-offs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding Energy Monitoring Trade-offs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understanding Energy Monitoring Trade-offs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#accuracy-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Accuracy Considerations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use-each-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      When to Use Each Approach
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practical-use-cases-and-deployment-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      Practical Use Cases and Deployment Scenarios
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Practical Use Cases and Deployment Scenarios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-center-energy-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Center Energy Optimization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mobile-and-edge-computing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mobile and Edge Computing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#development-and-cicd-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Development and CI/CD Integration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#research-and-education" class="md-nav__link">
+    <span class="md-ellipsis">
+      Research and Education
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extending-the-energy-monitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extending the Energy Monitor
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#rapl-domains" class="md-nav__link">
+  <a href="#troubleshooting-common-issues" class="md-nav__link">
     <span class="md-ellipsis">
-      RAPL Domains
+      Troubleshooting Common Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting Common Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#permission-denied" class="md-nav__link">
+    <span class="md-ellipsis">
+      Permission Denied
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#example-output" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#missing-btf-information" class="md-nav__link">
     <span class="md-ellipsis">
-      Example Output
+      Missing BTF Information
     </span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#high-cpu-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      High CPU Usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#missing-processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Missing Processes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#future-directions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Future Directions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Future Directions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#integration-with-hardware-accelerators" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integration with Hardware Accelerators
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#machine-learning-for-power-prediction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Machine Learning for Power Prediction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#standardization-efforts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Standardization Efforts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#carbon-aware-computing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Carbon-Aware Computing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references-and-further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      References and Further Reading
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="References and Further Reading">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy-and-power-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Energy and Power Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#related-projects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Projects
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#academic-papers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Academic Papers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1916,12 +2354,58 @@
   
   
     <li class="md-nav__item">
+      <a href="README_zh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF 教程：进程级能源监控与功耗分析
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="ebpf-energy/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     Ebpf energy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="%E8%83%BD%E6%BA%90%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF 能源监控系统详解
     
   </span>
   
@@ -8312,55 +8796,46 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#features" class="md-nav__link">
+  <a href="#introduction-to-energy-monitoring-and-power-analysis" class="md-nav__link">
     <span class="md-ellipsis">
-      Features
+      Introduction to Energy Monitoring and Power Analysis
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#requirements" class="md-nav__link">
+  <a href="#understanding-cpu-power-consumption" class="md-nav__link">
     <span class="md-ellipsis">
-      Requirements
+      Understanding CPU Power Consumption
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Installation
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#usage" class="md-nav__link">
-    <span class="md-ellipsis">
-      Usage
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Usage">
+    <nav class="md-nav" aria-label="Understanding CPU Power Consumption">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#real-time-monitoring" class="md-nav__link">
+  <a href="#dynamic-power-consumption" class="md-nav__link">
     <span class="md-ellipsis">
-      Real-time Monitoring
+      Dynamic Power Consumption
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#logging-energy-data" class="md-nav__link">
+  <a href="#static-power-consumption" class="md-nav__link">
     <span class="md-ellipsis">
-      Logging Energy Data
+      Static Power Consumption
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#power-states-and-dvfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Power States and DVFS
     </span>
   </a>
   
@@ -8372,29 +8847,476 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#permissions" class="md-nav__link">
+  <a href="#comparing-traditional-vs-ebpf-energy-monitoring" class="md-nav__link">
     <span class="md-ellipsis">
-      Permissions
+      Comparing Traditional vs eBPF Energy Monitoring
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Comparing Traditional vs eBPF Energy Monitoring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#traditional-proc-based-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Traditional /proc-based Monitoring
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ebpf-based-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      eBPF-based Monitoring
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-ebpf-for-energy-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why eBPF for Energy Monitoring?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Why eBPF for Energy Monitoring?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#current-state-of-ebpf-energy-projects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Current State of eBPF Energy Projects
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-our-approach-matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Our Approach Matters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-impact" class="md-nav__link">
+    <span class="md-ellipsis">
+      Real-World Impact
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-ebpf-energy-monitoring-is-essential" class="md-nav__link">
+    <span class="md-ellipsis">
+      When eBPF Energy Monitoring is Essential
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Architecture Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Architecture Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#header-file-energy_monitorh" class="md-nav__link">
+    <span class="md-ellipsis">
+      Header File (energy_monitor.h)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ebpf-program-energy_monitorbpfc" class="md-nav__link">
+    <span class="md-ellipsis">
+      eBPF Program (energy_monitor.bpf.c)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-space-application-energy_monitorc" class="md-nav__link">
+    <span class="md-ellipsis">
+      User-Space Application (energy_monitor.c)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-deep-dive" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation Deep Dive
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation Deep Dive">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hooking-into-the-scheduler" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hooking into the Scheduler
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#efficient-time-calculation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Efficient Time Calculation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#energy-calculation-in-userspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      Energy Calculation in Userspace
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#final-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Final Statistics
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-and-running-the-energy-monitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Building and Running the Energy Monitor
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Building and Running the Energy Monitor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compilation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compilation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-the-ebpf-monitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running the eBPF Monitor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-the-traditional-monitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running the Traditional Monitor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparing-both-approaches" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comparing Both Approaches
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-energy-monitoring-trade-offs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding Energy Monitoring Trade-offs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understanding Energy Monitoring Trade-offs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#accuracy-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Accuracy Considerations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use-each-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      When to Use Each Approach
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practical-use-cases-and-deployment-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      Practical Use Cases and Deployment Scenarios
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Practical Use Cases and Deployment Scenarios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-center-energy-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Center Energy Optimization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mobile-and-edge-computing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mobile and Edge Computing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#development-and-cicd-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Development and CI/CD Integration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#research-and-education" class="md-nav__link">
+    <span class="md-ellipsis">
+      Research and Education
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extending-the-energy-monitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extending the Energy Monitor
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#rapl-domains" class="md-nav__link">
+  <a href="#troubleshooting-common-issues" class="md-nav__link">
     <span class="md-ellipsis">
-      RAPL Domains
+      Troubleshooting Common Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting Common Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#permission-denied" class="md-nav__link">
+    <span class="md-ellipsis">
+      Permission Denied
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#example-output" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#missing-btf-information" class="md-nav__link">
     <span class="md-ellipsis">
-      Example Output
+      Missing BTF Information
     </span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#high-cpu-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      High CPU Usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#missing-processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Missing Processes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#future-directions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Future Directions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Future Directions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#integration-with-hardware-accelerators" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integration with Hardware Accelerators
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#machine-learning-for-power-prediction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Machine Learning for Power Prediction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#standardization-efforts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Standardization Efforts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#carbon-aware-computing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Carbon-Aware Computing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references-and-further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      References and Further Reading
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="References and Further Reading">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energy-and-power-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Energy and Power Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#related-projects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Projects
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#academic-papers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Academic Papers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -8430,58 +9352,549 @@
   
 
 
-<h1 id="system-energy-monitoring-with-intel-rapl">System Energy Monitoring with Intel RAPL</h1>
-<p>This project provides tools to monitor system energy consumption using Intel's Running Average Power Limit (RAPL) interface.</p>
-<h2 id="features">Features</h2>
+<h1 id="ebpf-tutorial-energy-monitoring-for-process-level-power-analysis">eBPF Tutorial: Energy Monitoring for Process-Level Power Analysis</h1>
+<p>Have you ever wondered how much energy your applications are consuming? As energy efficiency becomes increasingly critical in both data centers and edge devices, understanding power consumption at the process level is essential for optimization. In this tutorial, we'll build an eBPF-based energy monitoring tool that provides real-time insights into process-level power consumption with minimal overhead.</p>
+<h2 id="introduction-to-energy-monitoring-and-power-analysis">Introduction to Energy Monitoring and Power Analysis</h2>
+<p>Energy monitoring in computing systems has traditionally been challenging due to the lack of fine-grained measurement capabilities. While hardware counters like Intel RAPL (Running Average Power Limit) can measure total system or CPU package power, they don't tell you which processes are consuming that power. This is where software-based energy attribution comes into play.</p>
+<p>When a process runs on a CPU, it consumes power proportional to its CPU time and the processor's power state. The challenge is accurately tracking this relationship in real-time without introducing significant overhead that would itself consume power and skew measurements. Traditional approaches using polling-based monitoring can miss short-lived processes and introduce measurement overhead that affects the very metrics being measured.</p>
+<p>This is where eBPF shines! By hooking into the kernel's scheduler events, we can track process CPU time with nanosecond precision at every context switch. This gives us:</p>
 <ul>
-<li>Real-time power consumption monitoring</li>
-<li>Live terminal-based display of power usage across different domains (CPU, DRAM, etc.)</li>
-<li>Data logging to CSV or JSON formats</li>
-<li>Support for multiple Intel RAPL domains</li>
-<li>No external dependencies - uses only Python standard library</li>
+<li>Exact CPU time measurements for every process</li>
+<li>Zero sampling error for short-lived processes  </li>
+<li>Minimal overhead compared to polling approaches</li>
+<li>Real-time energy attribution based on CPU time</li>
+<li>The ability to correlate energy usage with specific workloads</li>
 </ul>
-<h2 id="requirements">Requirements</h2>
+<h2 id="understanding-cpu-power-consumption">Understanding CPU Power Consumption</h2>
+<p>Before diving into the implementation, it's important to understand how CPU power consumption works. Modern processors consume power in several ways:</p>
+<h3 id="dynamic-power-consumption">Dynamic Power Consumption</h3>
+<p>Dynamic power is consumed when transistors switch states during computation. It's proportional to:
+- Frequency: Higher clock speeds mean more switching per second
+- Voltage: Higher voltages require more energy per switch
+- Activity: More instructions executed means more transistor switching</p>
+<p>The relationship is approximately: P_dynamic = C × V² × f × α</p>
+<p>Where C is capacitance, V is voltage, f is frequency, and α is the activity factor.</p>
+<h3 id="static-power-consumption">Static Power Consumption</h3>
+<p>Static (or leakage) power is consumed even when transistors aren't switching, due to current leakage through the transistors. This has become increasingly significant in modern processors with billions of transistors.</p>
+<h3 id="power-states-and-dvfs">Power States and DVFS</h3>
+<p>Modern CPUs use Dynamic Voltage and Frequency Scaling (DVFS) to balance performance and power consumption. The processor can operate at different P-states (performance states) with varying frequency/voltage combinations, and enter C-states (idle states) when not actively computing.</p>
+<p>Our energy monitoring approach estimates energy consumption by multiplying CPU time by average power consumption. While this is a simplification (it doesn't account for frequency changes or idle states), it provides a useful approximation for comparing relative energy usage between processes.</p>
+<h2 id="comparing-traditional-vs-ebpf-energy-monitoring">Comparing Traditional vs eBPF Energy Monitoring</h2>
+<p>To understand why eBPF is superior for energy monitoring, let's compare it with traditional approaches:</p>
+<h3 id="traditional-proc-based-monitoring">Traditional /proc-based Monitoring</h3>
+<p>Traditional energy monitoring tools typically work by periodically reading <code>/proc/stat</code> to sample CPU usage. Here's how our traditional monitor works:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Read total CPU time for a process</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nv">cpu_time</span><span class="o">=</span><span class="k">$(</span>awk<span class="w"> </span><span class="s1">&#39;{print $14 + $15}&#39;</span><span class="w"> </span>/proc/<span class="nv">$pid</span>/stat<span class="k">)</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Calculate energy based on time delta</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nv">energy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>cpu_power<span class="w"> </span>*<span class="w"> </span><span class="o">(</span>current_time<span class="w"> </span>-<span class="w"> </span>previous_time<span class="o">)</span>
+</code></pre></div>
+<p>This approach has several limitations:</p>
+<ol>
+<li><strong>Sampling Error</strong>: Processes that start and stop between samples are missed entirely</li>
+<li><strong>Fixed Overhead</strong>: Each sample requires reading and parsing <code>/proc</code> files</li>
+<li><strong>Limited Precision</strong>: Typical sampling intervals are 100ms or more</li>
+<li><strong>Scalability Issues</strong>: Monitoring many processes requires reading many files</li>
+</ol>
+<h3 id="ebpf-based-monitoring">eBPF-based Monitoring</h3>
+<p>Our eBPF approach hooks directly into the kernel scheduler:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;tp/sched/sched_switch&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kt">int</span><span class="w"> </span><span class="n">monitor_energy</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">trace_event_raw_sched_switch</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="n">u64</span><span class="w"> </span><span class="n">ts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_ktime_get_ns</span><span class="p">();</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="c1">// Track exact time when process stops running</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="n">u64</span><span class="w"> </span><span class="n">delta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ts</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">previous_timestamp</span><span class="p">;</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="n">update_runtime</span><span class="p">(</span><span class="n">prev_pid</span><span class="p">,</span><span class="w"> </span><span class="n">delta</span><span class="p">);</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="p">}</span>
+</code></pre></div>
+<p>The advantages are significant:</p>
+<ol>
+<li><strong>Perfect Accuracy</strong>: Every context switch is captured</li>
+<li><strong>Minimal Overhead</strong>: No polling or file parsing needed</li>
+<li><strong>Nanosecond Precision</strong>: Exact CPU time measurements</li>
+<li><strong>Scalable</strong>: Same overhead whether monitoring 1 or 1000 processes</li>
+</ol>
+<h2 id="why-ebpf-for-energy-monitoring">Why eBPF for Energy Monitoring?</h2>
+<p>The landscape of energy monitoring has evolved significantly, as detailed in the comprehensive survey of eBPF energy projects. Let me incorporate the key insights from the energy monitoring ecosystem:</p>
+<h3 id="current-state-of-ebpf-energy-projects">Current State of eBPF Energy Projects</h3>
+<p>The eBPF ecosystem for energy management is rapidly evolving across two main categories: mature telemetry solutions and emerging power control frameworks.</p>
+<p><strong>Energy Telemetry and Accounting (Production-Ready)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Project</th>
+<th>Capabilities</th>
+<th>Implementation Approach</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Kepler</strong></td>
+<td>Container/pod energy attribution for Kubernetes</td>
+<td>eBPF tracepoints + RAPL + performance counters</td>
+<td>CNCF sandbox project, production deployments</td>
+</tr>
+<tr>
+<td><strong>Wattmeter</strong></td>
+<td>Per-process energy tracking</td>
+<td>Context-switch eBPF programs reading RAPL MSRs</td>
+<td>Research prototype (HotCarbon '24), &lt;1μs overhead</td>
+</tr>
+<tr>
+<td><strong>DEEP-mon</strong></td>
+<td>Container power monitoring</td>
+<td>In-kernel eBPF aggregation of scheduler events</td>
+<td>Proven academic approach, avoids userspace overhead</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Power Control via eBPF (Research and Development)</strong></p>
+<p>The emerging power control landscape represents the next frontier in eBPF energy management. <strong>cpufreq_ext</strong> stands as the first upstream-bound eBPF implementation that can actually modify CPU frequency through a <code>bpf_struct_ops</code> interface, allowing frequency scaling policies to be written in eBPF rather than kernel C code. </p>
+<p>Research prototypes include an <strong>eBPF CPU-Idle Governor</strong> that replaces traditional menu/TEO governors with eBPF hooks for dynamic idle state selection and idle injection. The conceptual <strong>BEAR (BPF Energy-Aware Runtime)</strong> framework aims to unify DVFS, idle, and thermal management under a single eBPF-based policy engine, though no public implementation exists yet.</p>
+<h3 id="why-our-approach-matters">Why Our Approach Matters</h3>
+<p>Our energy monitor fits into the telemetry category but with a unique focus on educational clarity and comparison with traditional methods. eBPF's <strong>event-driven architecture</strong> fundamentally differs from polling-based approaches by reacting to kernel events in real-time. When the scheduler switches processes, our code runs immediately, capturing the exact transition moment with nanosecond precision.</p>
+<p>The <strong>in-kernel aggregation</strong> capability eliminates the overhead of sending every context switch event to userspace by maintaining per-CPU hash maps in the kernel. Only aggregated data or sampled events need to cross the kernel-user boundary, dramatically reducing monitoring overhead. Combined with eBPF's <strong>safety guarantees</strong> through program verification before loading, this creates a production-ready solution that can't crash the kernel or create infinite loops.</p>
+<p>Perhaps most importantly, eBPF enables <strong>hot-pluggable analysis</strong> where you can attach and detach the energy monitor without restarting applications or rebooting the system. This capability enables ad-hoc analysis of production workloads, something impossible with traditional kernel modules or instrumentation approaches.</p>
+<h3 id="real-world-impact">Real-World Impact</h3>
+<p>The practical benefits of eBPF energy monitoring are substantial across different deployment scenarios:</p>
+<table>
+<thead>
+<tr>
+<th>Use Case</th>
+<th>Traditional Approach</th>
+<th>eBPF Approach</th>
+<th>Benefit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Short-lived processes</strong></td>
+<td>Often missed entirely</td>
+<td>Every microsecond tracked</td>
+<td>100% visibility</td>
+</tr>
+<tr>
+<td><strong>Container monitoring</strong></td>
+<td>High overhead per container</td>
+<td>Shared kernel infrastructure</td>
+<td>10-100x less overhead</td>
+</tr>
+<tr>
+<td><strong>Production systems</strong></td>
+<td>Risky kernel modules</td>
+<td>Verified safe programs</td>
+<td>Zero crash risk</td>
+</tr>
+<tr>
+<td><strong>Dynamic workloads</strong></td>
+<td>Fixed sampling misses spikes</td>
+<td>Event-driven captures all</td>
+<td>Accurate spike detection</td>
+</tr>
+</tbody>
+</table>
+<h3 id="when-ebpf-energy-monitoring-is-essential">When eBPF Energy Monitoring is Essential</h3>
+<p>eBPF energy monitoring becomes critical in scenarios where precision, low overhead, and real-time feedback are paramount. </p>
+<table>
+<thead>
+<tr>
+<th>Deployment Scenario</th>
+<th>Key Requirements</th>
+<th>Why eBPF Excels</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Battery-Powered Devices</strong></td>
+<td>Every millijoule matters, minimal monitoring overhead</td>
+<td>Low overhead means monitoring doesn't impact battery life</td>
+</tr>
+<tr>
+<td><strong>Multi-Tenant Clouds</strong></td>
+<td>Accurate billing, power budget enforcement</td>
+<td>Precise attribution enables fair energy accounting</td>
+</tr>
+<tr>
+<td><strong>Thermal Management</strong></td>
+<td>Real-time feedback in thermally constrained environments</td>
+<td>Event-driven updates provide immediate thermal response</td>
+</tr>
+<tr>
+<td><strong>Sustainability Reporting</strong></td>
+<td>Audit-quality measurements for carbon footprint</td>
+<td>Production-grade accuracy without traditional overhead</td>
+</tr>
+<tr>
+<td><strong>Performance/Watt Optimization</strong></td>
+<td>Measure impact of code changes with minimal perturbation</td>
+<td>A/B testing capabilities with near-zero measurement bias</td>
+</tr>
+</tbody>
+</table>
+<p>These use cases share common requirements that traditional polling-based approaches struggle to meet: the need for accurate, low-overhead, real-time energy attribution that can operate reliably in production environments.</p>
+<p>The ecosystem is rapidly maturing, with projects like Kepler already deployed in production Kubernetes clusters and cpufreq_ext heading toward mainline kernel inclusion. Our tutorial provides a foundation for understanding and building upon these advanced capabilities.</p>
+<h2 id="architecture-overview">Architecture Overview</h2>
+<p>Our energy monitoring solution provides a comprehensive comparison framework with two distinct implementations. The <strong>eBPF Energy Monitor</strong> delivers high-performance monitoring through kernel hooks, while the <strong>Traditional Energy Monitor</strong> uses bash-based <code>/proc</code> sampling to represent conventional approaches. A <strong>Comparison Script</strong> enables direct evaluation of both methods under identical conditions.</p>
+<p>The eBPF implementation architecture consists of three tightly integrated components:</p>
+<h3 id="header-file-energy_monitorh">Header File (energy_monitor.h)</h3>
+<p>Defines the shared data structure for kernel-user communication:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">struct</span><span class="w"> </span><span class="nc">energy_event</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="n">__u64</span><span class="w"> </span><span class="n">ts</span><span class="p">;</span><span class="w">           </span><span class="c1">// Timestamp of context switch</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="n">__u32</span><span class="w"> </span><span class="n">cpu</span><span class="p">;</span><span class="w">          </span><span class="c1">// CPU core where process ran</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="n">__u32</span><span class="w"> </span><span class="n">pid</span><span class="p">;</span><span class="w">          </span><span class="c1">// Process ID</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="n">__u64</span><span class="w"> </span><span class="n">runtime_ns</span><span class="p">;</span><span class="w">   </span><span class="c1">// How long process ran (nanoseconds)</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">comm</span><span class="p">[</span><span class="mi">16</span><span class="p">];</span><span class="w">      </span><span class="c1">// Process name</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">};</span>
+</code></pre></div>
+<h3 id="ebpf-program-energy_monitorbpfc">eBPF Program (energy_monitor.bpf.c)</h3>
+<p>Implements the kernel-side logic with three key maps:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">// Track when each process started running</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="n">__uint</span><span class="p">(</span><span class="n">type</span><span class="p">,</span><span class="w"> </span><span class="n">BPF_MAP_TYPE_PERCPU_HASH</span><span class="p">);</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="n">__uint</span><span class="p">(</span><span class="n">max_entries</span><span class="p">,</span><span class="w"> </span><span class="mi">10240</span><span class="p">);</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="n">__type</span><span class="p">(</span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="p">);</span><span class="w">    </span><span class="c1">// PID</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="n">__type</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">u64</span><span class="p">);</span><span class="w">  </span><span class="c1">// Start timestamp</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="p">}</span><span class="w"> </span><span class="n">time_lookup</span><span class="w"> </span><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;.maps&quot;</span><span class="p">);</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="c1">// Accumulate total runtime per process</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="n">__uint</span><span class="p">(</span><span class="n">type</span><span class="p">,</span><span class="w"> </span><span class="n">BPF_MAP_TYPE_PERCPU_HASH</span><span class="p">);</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">    </span><span class="n">__uint</span><span class="p">(</span><span class="n">max_entries</span><span class="p">,</span><span class="w"> </span><span class="mi">10240</span><span class="p">);</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">    </span><span class="n">__type</span><span class="p">(</span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="p">);</span><span class="w">    </span><span class="c1">// PID</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">    </span><span class="n">__type</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">u64</span><span class="p">);</span><span class="w">  </span><span class="c1">// Total runtime in microseconds</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="p">}</span><span class="w"> </span><span class="n">runtime_lookup</span><span class="w"> </span><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;.maps&quot;</span><span class="p">);</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="c1">// Send events to userspace</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">    </span><span class="n">__uint</span><span class="p">(</span><span class="n">type</span><span class="p">,</span><span class="w"> </span><span class="n">BPF_MAP_TYPE_RINGBUF</span><span class="p">);</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">    </span><span class="n">__uint</span><span class="p">(</span><span class="n">max_entries</span><span class="p">,</span><span class="w"> </span><span class="mi">256</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1024</span><span class="p">);</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="p">}</span><span class="w"> </span><span class="n">rb</span><span class="w"> </span><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;.maps&quot;</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="user-space-application-energy_monitorc">User-Space Application (energy_monitor.c)</h3>
+<p>Processes events and calculates energy consumption based on configured CPU power.</p>
+<h2 id="implementation-deep-dive">Implementation Deep Dive</h2>
+<p>Let's explore the key parts of our eBPF energy monitor implementation:</p>
+<h3 id="hooking-into-the-scheduler">Hooking into the Scheduler</h3>
+<p>The core of our monitor is the scheduler tracepoint that fires on every context switch:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;tp/sched/sched_switch&quot;</span><span class="p">)</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kt">int</span><span class="w"> </span><span class="n">monitor_energy</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">trace_event_raw_sched_switch</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="p">{</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="n">u64</span><span class="w"> </span><span class="n">ts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_ktime_get_ns</span><span class="p">();</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="n">u32</span><span class="w"> </span><span class="n">cpu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_get_smp_processor_id</span><span class="p">();</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="n">u32</span><span class="w"> </span><span class="n">prev_pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">prev_pid</span><span class="p">;</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="n">u32</span><span class="w"> </span><span class="n">next_pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">next_pid</span><span class="p">;</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">    </span><span class="c1">// Calculate runtime for the process that just stopped</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">    </span><span class="n">u64</span><span class="w"> </span><span class="o">*</span><span class="n">old_ts_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_map_lookup_elem</span><span class="p">(</span><span class="o">&amp;</span><span class="n">time_lookup</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">prev_pid</span><span class="p">);</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">old_ts_ptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">        </span><span class="n">u64</span><span class="w"> </span><span class="n">delta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ts</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">*</span><span class="n">old_ts_ptr</span><span class="p">;</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">        </span><span class="n">update_runtime</span><span class="p">(</span><span class="n">prev_pid</span><span class="p">,</span><span class="w"> </span><span class="n">delta</span><span class="p">);</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">        </span><span class="c1">// Send event to userspace for real-time monitoring</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">energy_event</span><span class="w"> </span><span class="o">*</span><span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_ringbuf_reserve</span><span class="p">(</span><span class="o">&amp;</span><span class="n">rb</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">e</span><span class="p">),</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">            </span><span class="n">e</span><span class="o">-&gt;</span><span class="n">ts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ts</span><span class="p">;</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">            </span><span class="n">e</span><span class="o">-&gt;</span><span class="n">cpu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cpu</span><span class="p">;</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="w">            </span><span class="n">e</span><span class="o">-&gt;</span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">prev_pid</span><span class="p">;</span>
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="w">            </span><span class="n">e</span><span class="o">-&gt;</span><span class="n">runtime_ns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">delta</span><span class="p">;</span>
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="w">            </span><span class="n">bpf_probe_read_kernel_str</span><span class="p">(</span><span class="n">e</span><span class="o">-&gt;</span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">e</span><span class="o">-&gt;</span><span class="n">comm</span><span class="p">),</span><span class="w"> </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">prev_comm</span><span class="p">);</span>
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="w">            </span><span class="n">bpf_ringbuf_submit</span><span class="p">(</span><span class="n">e</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a>
+<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="w">    </span><span class="c1">// Record when the next process starts running</span>
+<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a><span class="w">    </span><span class="n">bpf_map_update_elem</span><span class="p">(</span><span class="o">&amp;</span><span class="n">time_lookup</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">next_pid</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ts</span><span class="p">,</span><span class="w"> </span><span class="n">BPF_ANY</span><span class="p">);</span>
+<a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a>
+<a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a><span class="p">}</span>
+</code></pre></div>
+<p>This function captures the exact moment when the CPU switches from one process to another, allowing us to calculate precisely how long each process ran.</p>
+<h3 id="efficient-time-calculation">Efficient Time Calculation</h3>
+<p>To minimize overhead in the kernel, we use an optimized division function to convert nanoseconds to microseconds:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="n">u64</span><span class="w"> </span><span class="nf">div_u64_by_1000</span><span class="p">(</span><span class="n">u64</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="n">u64</span><span class="w"> </span><span class="n">q</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">;</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">7</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">12</span><span class="p">);</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="n">q</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">15</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">t</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">t</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">14</span><span class="p">);</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="n">q</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">9</span><span class="p">;</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">((</span><span class="n">r</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">24</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="p">}</span>
+</code></pre></div>
+<p>This bit-shifting approach is much faster than regular division in the kernel context where floating-point operations aren't available.</p>
+<h3 id="energy-calculation-in-userspace">Energy Calculation in Userspace</h3>
+<p>The userspace program receives runtime events and calculates energy consumption:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">handle_event</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">data_sz</span><span class="p">)</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="p">{</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">energy_event</span><span class="w"> </span><span class="o">*</span><span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="c1">// Calculate energy in nanojoules</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="c1">// Energy (J) = Power (W) × Time (s)</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="c1">// Energy (nJ) = Power (W) × Time (ns)</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">    </span><span class="n">__u64</span><span class="w"> </span><span class="n">energy_nj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">__u64</span><span class="p">)(</span><span class="n">env</span><span class="p">.</span><span class="n">cpu_power_watts</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">e</span><span class="o">-&gt;</span><span class="n">runtime_ns</span><span class="p">);</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="n">verbose</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%-16s pid=%-6d cpu=%-2d runtime=%llu ns energy=%llu nJ</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">               </span><span class="n">e</span><span class="o">-&gt;</span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="o">-&gt;</span><span class="n">pid</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="o">-&gt;</span><span class="n">cpu</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="o">-&gt;</span><span class="n">runtime_ns</span><span class="p">,</span><span class="w"> </span><span class="n">energy_nj</span><span class="p">);</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="final-statistics">Final Statistics</h3>
+<p>When the monitoring session ends, we aggregate the data from all CPU cores:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">print_stats</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">energy_monitor_bpf</span><span class="w"> </span><span class="o">*</span><span class="n">skel</span><span class="p">)</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="p">{</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">num_cpus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">libbpf_num_possible_cpus</span><span class="p">();</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="n">__u64</span><span class="w"> </span><span class="o">*</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">calloc</span><span class="p">(</span><span class="n">num_cpus</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">__u64</span><span class="p">));</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="c1">// Iterate through all processes</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">bpf_map_get_next_key</span><span class="p">(</span><span class="n">bpf_map__fd</span><span class="p">(</span><span class="n">skel</span><span class="o">-&gt;</span><span class="n">maps</span><span class="p">.</span><span class="n">runtime_lookup</span><span class="p">),</span><span class="w"> </span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">                                </span><span class="o">&amp;</span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">next_key</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">        </span><span class="c1">// Sum values from all CPUs (percpu map)</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">bpf_map_lookup_elem</span><span class="p">(</span><span class="n">bpf_map__fd</span><span class="p">(</span><span class="n">skel</span><span class="o">-&gt;</span><span class="n">maps</span><span class="p">.</span><span class="n">runtime_lookup</span><span class="p">),</span><span class="w"> </span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">                               </span><span class="o">&amp;</span><span class="n">next_key</span><span class="p">,</span><span class="w"> </span><span class="n">values</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">num_cpus</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">                </span><span class="n">runtime_us</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="w">            </span><span class="c1">// Calculate energy</span>
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="w">            </span><span class="kt">double</span><span class="w"> </span><span class="n">energy_mj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="n">cpu_power_watts</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">runtime_us</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">1000000.0</span><span class="p">;</span>
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%-10d %-16s %-15.2f %-15.4f</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span>
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="w">                   </span><span class="n">next_key</span><span class="p">,</span><span class="w"> </span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="n">runtime_ms</span><span class="p">,</span><span class="w"> </span><span class="n">energy_mj</span><span class="p">);</span>
+<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a><span class="p">}</span>
+</code></pre></div>
+<h2 id="building-and-running-the-energy-monitor">Building and Running the Energy Monitor</h2>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>Before building, ensure you have:
+- Linux kernel 5.4 or newer with BTF support
+- libbpf development files
+- clang and llvm for eBPF compilation
+- Basic build tools (make, gcc)</p>
+<h3 id="compilation">Compilation</h3>
+<p>Build all components with the provided Makefile:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">cd</span><span class="w"> </span>/yunwei37/bpf-developer-tutorial/src/48-energy
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>make<span class="w"> </span>clean<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make
+</code></pre></div>
+<p>This creates:
+- <code>energy_monitor</code>: The eBPF-based energy monitor
+- <code>energy_monitor_traditional.sh</code>: The traditional polling-based monitor
+- <code>compare_monitors.sh</code>: Script to compare both approaches</p>
+<h3 id="running-the-ebpf-monitor">Running the eBPF Monitor</h3>
+<p>The eBPF monitor requires root privileges to attach to kernel tracepoints:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Monitor all processes for 10 seconds with 15W CPU power</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>sudo<span class="w"> </span>./energy_monitor<span class="w"> </span>-d<span class="w"> </span><span class="m">10</span><span class="w"> </span>-p<span class="w"> </span><span class="m">15</span>.0
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1"># Monitor with verbose output</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>sudo<span class="w"> </span>./energy_monitor<span class="w"> </span>-v<span class="w"> </span>-d<span class="w"> </span><span class="m">10</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="c1"># Continuous monitoring (Ctrl+C to stop)</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>sudo<span class="w"> </span>./energy_monitor
+</code></pre></div>
+<p>Example output:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Energy monitor started... Hit Ctrl-C to end.
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>CPU Power: 15.00 W
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>Running for 10 seconds
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>=== Energy Usage Summary ===
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>PID        COMM             Runtime (ms)    Energy (mJ)    
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>---------- ---------------- --------------- ---------------
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>39716      firefox          541.73          8.1260         
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>19845      node             67.71           1.0157         
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>39719      vscode           63.15           0.9472         
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>29712      chrome           13.34           0.2000         
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>...
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>Total CPU time: 2781.52 ms
+<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>Total estimated energy: 0.0417 J (41.7229 mJ)
+<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>CPU power setting: 15.00 W
+</code></pre></div>
+<h3 id="running-the-traditional-monitor">Running the Traditional Monitor</h3>
+<p>The traditional monitor uses <code>/proc</code> sampling and runs without special privileges:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Monitor for 10 seconds with verbose output</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>./energy_monitor_traditional.sh<span class="w"> </span>-d<span class="w"> </span><span class="m">10</span><span class="w"> </span>-v
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="c1"># Adjust sampling interval (default 100ms)</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>./energy_monitor_traditional.sh<span class="w"> </span>-d<span class="w"> </span><span class="m">10</span><span class="w"> </span>-i<span class="w"> </span><span class="m">0</span>.05
+</code></pre></div>
+<h3 id="comparing-both-approaches">Comparing Both Approaches</h3>
+<p>Use the comparison script to see the differences:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Basic comparison</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>sudo<span class="w"> </span>./compare_monitors.sh<span class="w"> </span>-d<span class="w"> </span><span class="m">10</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1"># With a CPU workload</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>sudo<span class="w"> </span>./compare_monitors.sh<span class="w"> </span>-d<span class="w"> </span><span class="m">10</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;stress --cpu 2 --timeout 10&quot;</span>
+</code></pre></div>
+<p>Example comparison output:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>Comparison Results
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>==================
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>Metric                    Traditional     eBPF           
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>------------------------- --------------- ---------------
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>Total Energy (J)          1.050000        0.0288         
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>Monitoring Time (s)       5.112031        4.500215       
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>Samples/Events            50              Continuous     
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>Performance Analysis:
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>- Traditional monitoring overhead: 13.00% compared to eBPF
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>- eBPF provides per-context-switch granularity
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>- Traditional samples at fixed intervals (100ms)
+</code></pre></div>
+<h2 id="understanding-energy-monitoring-trade-offs">Understanding Energy Monitoring Trade-offs</h2>
+<p>While our energy monitor provides valuable insights, it's important to understand its limitations and trade-offs:</p>
+<h3 id="accuracy-considerations">Accuracy Considerations</h3>
+<p>Our energy monitoring model employs a simplified approach using the formula: Energy = CPU_Power × CPU_Time. While this provides valuable comparative insights, it doesn't account for several dynamic factors that affect real power consumption.</p>
+<p><strong>Frequency scaling</strong> represents a significant limitation as modern CPUs change frequency dynamically based on workload and thermal conditions. Different <strong>idle states</strong> (C-states) also consume varying amounts of power, from near-zero in deep sleep to significant standby power in shallow idle states. Additionally, <strong>workload characteristics</strong> matter because some instructions (particularly vector operations and memory-intensive tasks) consume more power per cycle than simple arithmetic operations.</p>
+<p>The model also overlooks <strong>shared resource consumption</strong> from cache, memory controllers, and I/O subsystems that contribute to total system power but aren't directly attributable to CPU execution time.</p>
+<p>For production deployments requiring higher accuracy, enhancements would include reading hardware performance counters for actual power measurements, tracking frequency changes through DVFS events, modeling different instruction types based on performance counters, and incorporating memory and I/O activity metrics from the broader system.</p>
+<h3 id="when-to-use-each-approach">When to Use Each Approach</h3>
+<p>The choice between eBPF and traditional monitoring depends on your specific requirements and constraints.</p>
+<p><strong>eBPF monitoring</strong> excels when you need accurate CPU time tracking, particularly for short-lived processes that traditional sampling might miss entirely. Its minimal measurement overhead makes it ideal for production environments where the monitoring tool itself shouldn't impact the workload being measured. eBPF is particularly valuable for comparative analysis between processes, where relative accuracy matters more than absolute precision.</p>
+<p><strong>Traditional monitoring</strong> remains appropriate when eBPF isn't available due to permission restrictions or older kernel versions lacking BTF support. It provides a simple, portable solution that requires no special privileges and works across different platforms. For monitoring long-running, stable workloads where approximate measurements are sufficient, traditional approaches offer adequate insight with simpler deployment requirements.</p>
+<h2 id="practical-use-cases-and-deployment-scenarios">Practical Use Cases and Deployment Scenarios</h2>
+<p>Understanding when and how to deploy eBPF energy monitoring helps maximize its value. Here are real-world scenarios where it excels:</p>
+<h3 id="data-center-energy-optimization">Data Center Energy Optimization</h3>
+<p>Modern data centers operate under strict power budgets and cooling constraints where eBPF energy monitoring provides critical operational capabilities. <strong>Workload placement</strong> becomes intelligent when schedulers understand the energy profile of different applications, enabling balanced power consumption across racks while avoiding thermal hot spots and maximizing overall efficiency.</p>
+<p>During peak demand periods, <strong>power capping</strong> systems can leverage real-time energy attribution to identify and selectively throttle the most power-hungry processes without impacting critical services. This surgical approach maintains service levels while staying within power infrastructure limits.</p>
+<p>For cloud providers, <strong>billing and chargeback</strong> accuracy drives customer behavior toward more efficient code. When customers can see the actual energy cost of their workloads, they have direct financial incentives to optimize their applications for energy efficiency.</p>
+<h3 id="mobile-and-edge-computing">Mobile and Edge Computing</h3>
+<p>Battery-powered devices present unique energy constraints where precise monitoring becomes essential for user experience and device longevity. <strong>App energy profiling</strong> empowers developers with exact energy consumption data during different operations, enabling targeted optimizations that can significantly extend battery life without sacrificing functionality.</p>
+<p>Operating systems benefit from <strong>background task management</strong> intelligence, where historical energy consumption patterns inform decisions about which background tasks to allow or defer. This prevents energy-hungry background processes from draining batteries while maintaining essential services.</p>
+<p>In devices without active cooling, <strong>thermal management</strong> becomes critical as energy monitoring helps predict thermal buildup before throttling occurs. By understanding energy patterns, the system can proactively manage workloads to maintain consistent performance within thermal limits.</p>
+<h3 id="development-and-cicd-integration">Development and CI/CD Integration</h3>
+<p>Integrating energy monitoring into development workflows creates a continuous feedback loop that prevents efficiency regressions from reaching production. <strong>Energy regression testing</strong> becomes automated through CI/CD pipelines that flag code changes increasing energy consumption beyond predefined thresholds, treating energy efficiency as a first-class software quality metric.</p>
+<p><strong>Performance/watt optimization</strong> provides developers with visibility into the true cost of performance improvements. Some optimizations may increase speed while dramatically increasing energy consumption, and others may achieve better efficiency with minimal performance impact. This visibility enables informed architectural decisions that balance speed and efficiency based on actual workload requirements.</p>
+<p><strong>Green software metrics</strong> integration allows organizations to track and report energy efficiency as part of sustainability initiatives. Regular measurement provides concrete data for environmental impact reporting while creating accountability for software teams to consider energy efficiency in their development practices.</p>
+<h3 id="research-and-education">Research and Education</h3>
+<p>eBPF energy monitoring serves as a powerful research and educational tool that bridges the gap between theoretical understanding and practical system behavior. <strong>Algorithm comparison</strong> becomes rigorous when researchers can measure energy efficiency differences between approaches under production-realistic conditions, providing empirical data that complements theoretical complexity analysis.</p>
+<p><strong>System behavior analysis</strong> reveals complex interactions between different components from an energy perspective, uncovering optimization opportunities that aren't apparent when looking at performance metrics alone. These insights drive system design decisions that consider the total cost of ownership, including operational energy costs.</p>
+<p>As a <strong>teaching tool</strong>, energy monitoring makes abstract concepts tangible by showing students the immediate energy impact of their code. When algorithmic complexity discussions are paired with real energy measurements, students develop intuition about the practical implications of their design choices beyond just computational efficiency.</p>
+<h2 id="extending-the-energy-monitor">Extending the Energy Monitor</h2>
+<p>The current implementation provides a solid foundation for building more sophisticated energy monitoring capabilities. Several enhancement directions offer significant value for different deployment scenarios.</p>
+<table>
+<thead>
+<tr>
+<th>Extension Area</th>
+<th>Implementation Approach</th>
+<th>Value Proposition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Hardware Counter Integration</strong></td>
+<td>Integrate RAPL counters via <code>PERF_TYPE_POWER</code> events</td>
+<td>Replace estimation with actual hardware measurements</td>
+</tr>
+<tr>
+<td><strong>Per-Core Power Modeling</strong></td>
+<td>Track core assignment and model P-core vs E-core differences</td>
+<td>Accurate attribution on heterogeneous processors</td>
+</tr>
+<tr>
+<td><strong>Workload Classification</strong></td>
+<td>Classify CPU-intensive, memory-bound, I/O-bound, and idle patterns</td>
+<td>Enable workload-specific power optimization</td>
+</tr>
+<tr>
+<td><strong>Container Runtime Integration</strong></td>
+<td>Aggregate energy by container/pod for Kubernetes environments</td>
+<td>Cloud-native energy attribution and billing</td>
+</tr>
+<tr>
+<td><strong>Real-time Visualization</strong></td>
+<td>Web dashboard with live energy consumption graphs</td>
+<td>Immediate feedback for energy optimization</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Hardware counter integration</strong> represents the most impactful enhancement, replacing our simplified estimation model with actual hardware measurements through RAPL (Running Average Power Limit) interfaces. Modern processors provide detailed energy counters that can be read via performance events, offering precise energy measurements down to individual CPU packages.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1">// Read RAPL counters for actual energy measurements</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="k">struct</span><span class="w"> </span><span class="nc">perf_event_attr</span><span class="w"> </span><span class="n">attr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PERF_TYPE_POWER</span><span class="p">,</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">    </span><span class="p">.</span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PERF_COUNT_HW_POWER_PKG</span><span class="p">,</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="p">};</span>
+</code></pre></div>
+<p><strong>Per-core power modeling</strong> becomes essential on heterogeneous processors where performance cores and efficiency cores have dramatically different power characteristics. Tracking which core each process runs on enables accurate energy attribution:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1">// Different cores may have different power characteristics</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="kt">double</span><span class="w"> </span><span class="n">core_power</span><span class="p">[</span><span class="n">MAX_CPUS</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mf">15.0</span><span class="p">,</span><span class="w"> </span><span class="mf">15.0</span><span class="p">,</span><span class="w"> </span><span class="mf">10.0</span><span class="p">,</span><span class="w"> </span><span class="mf">10.0</span><span class="p">};</span><span class="w"> </span><span class="c1">// P-cores vs E-cores</span>
+</code></pre></div>
+<p><strong>Workload classification</strong> enhances energy monitoring by recognizing different computational patterns and their associated energy costs:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="k">enum</span><span class="w"> </span><span class="n">workload_type</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">    </span><span class="n">WORKLOAD_CPU_INTENSIVE</span><span class="p">,</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">    </span><span class="n">WORKLOAD_MEMORY_BOUND</span><span class="p">,</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">    </span><span class="n">WORKLOAD_IO_BOUND</span><span class="p">,</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">    </span><span class="n">WORKLOAD_IDLE</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="p">};</span>
+</code></pre></div>
+<h2 id="troubleshooting-common-issues">Troubleshooting Common Issues</h2>
+<p>When deploying eBPF energy monitoring, you might encounter these common issues:</p>
+<h3 id="permission-denied">Permission Denied</h3>
+<p>If you see permission errors when running the eBPF monitor:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># Check if BPF is enabled</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>sudo<span class="w"> </span>sysctl<span class="w"> </span>kernel.unprivileged_bpf_disabled
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="c1"># Enable BPF for debugging (not recommended for production)</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>sudo<span class="w"> </span>sysctl<span class="w"> </span>kernel.unprivileged_bpf_disabled<span class="o">=</span><span class="m">0</span>
+</code></pre></div>
+<h3 id="missing-btf-information">Missing BTF Information</h3>
+<p>If the kernel lacks BTF (BPF Type Format) data:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># Check for BTF support</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>ls<span class="w"> </span>/sys/kernel/btf/vmlinux
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="c1"># On older kernels, you may need to generate BTF</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="c1"># or use a kernel with CONFIG_DEBUG_INFO_BTF=y</span>
+</code></pre></div>
+<h3 id="high-cpu-usage">High CPU Usage</h3>
+<p>If the monitor itself causes high CPU usage:</p>
+<ol>
+<li>Reduce the ring buffer size in the eBPF program</li>
+<li>Increase the batch size for reading events</li>
+<li>Filter events in the kernel to reduce volume</li>
+</ol>
+<h3 id="missing-processes">Missing Processes</h3>
+<p>If some processes aren't being tracked:</p>
+<ol>
+<li>Check if they're running in a different PID namespace</li>
+<li>Ensure the monitor starts before the processes</li>
+<li>Verify the hash map size is sufficient</li>
+</ol>
+<h2 id="future-directions">Future Directions</h2>
+<p>The field of eBPF-based energy monitoring is rapidly evolving. Here are exciting developments on the horizon:</p>
+<h3 id="integration-with-hardware-accelerators">Integration with Hardware Accelerators</h3>
+<p>As GPUs, TPUs, and other accelerators become common, extending eBPF monitoring to track their energy consumption will provide complete system visibility.</p>
+<h3 id="machine-learning-for-power-prediction">Machine Learning for Power Prediction</h3>
+<p>Using eBPF-collected data to train models that predict future power consumption based on workload patterns, enabling proactive power management.</p>
+<h3 id="standardization-efforts">Standardization Efforts</h3>
+<p>Work is underway to standardize eBPF energy monitoring interfaces, making it easier to build portable tools that work across different platforms.</p>
+<h3 id="carbon-aware-computing">Carbon-Aware Computing</h3>
+<p>Combining energy monitoring with real-time carbon intensity data to automatically shift workloads to times and locations with cleaner energy.</p>
+<h2 id="references-and-further-reading">References and Further Reading</h2>
+<p>To dive deeper into the topics covered in this tutorial:</p>
+<h3 id="energy-and-power-management">Energy and Power Management</h3>
 <ul>
-<li>Intel CPU with RAPL support</li>
-<li>Python 3.6+</li>
-<li>Root access or appropriate permissions for <code>/sys/class/powercap/intel-rapl</code></li>
+<li>Intel Running Average Power Limit (RAPL): <a href="https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/advisory-guidance/running-average-power-limit-energy-reporting.html">https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/advisory-guidance/running-average-power-limit-energy-reporting.html</a></li>
+<li>Linux Power Management: <a href="https://www.kernel.org/doc/html/latest/admin-guide/pm/index.html">https://www.kernel.org/doc/html/latest/admin-guide/pm/index.html</a></li>
+<li>ACPI Specification: <a href="https://uefi.org/specifications">https://uefi.org/specifications</a></li>
 </ul>
-<h2 id="installation">Installation</h2>
-<p>No additional Python packages required - uses only Python standard library.</p>
-<h2 id="usage">Usage</h2>
-<h3 id="real-time-monitoring">Real-time Monitoring</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>sudo<span class="w"> </span>python3<span class="w"> </span>energy_monitor.py
-</code></pre></div>
-<p>This displays real-time power consumption in the terminal:
-- Power consumption for each domain (Package, DRAM, etc.)
-- Total system power consumption
-- Updates every 0.5 seconds</p>
-<h3 id="logging-energy-data">Logging Energy Data</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sudo<span class="w"> </span>python3<span class="w"> </span>energy_monitor.py<span class="w"> </span>-l<span class="w"> </span>-d<span class="w"> </span><span class="m">300</span><span class="w"> </span>-i<span class="w"> </span><span class="m">0</span>.5<span class="w"> </span>-f<span class="w"> </span>csv<span class="w"> </span>-o<span class="w"> </span>my_energy_log
-</code></pre></div>
-<p>Options:
-- <code>-d, --duration</code>: Monitoring duration in seconds (default: 60)
-- <code>-i, --interval</code>: Sampling interval in seconds (default: 1.0)
-- <code>-f, --format</code>: Output format - csv or json (default: csv)
-- <code>-o, --output</code>: Output filename without extension</p>
-<h2 id="permissions">Permissions</h2>
-<p>If you don't want to run with sudo, adjust permissions:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>sudo<span class="w"> </span>chmod<span class="w"> </span>-R<span class="w"> </span>a+r<span class="w"> </span>/sys/class/powercap/intel-rapl
-</code></pre></div>
-<p>Note: This allows all users to read RAPL data but not modify power limits.</p>
-<h2 id="rapl-domains">RAPL Domains</h2>
-<p>Common domains include:
-- <code>package-0</code>: Entire CPU package power
-- <code>core</code>: CPU cores power
-- <code>uncore</code>: CPU uncore components (cache, memory controller)
-- <code>dram</code>: Memory power consumption</p>
-<h2 id="example-output">Example Output</h2>
-<p>The logger provides a summary like:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Total samples: 300
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>Average power: 45.23 W
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>Total energy: 0.0377 Wh
-</code></pre></div></p>
-<p><a class="md-button" href="https://x.com/intent/tweet?text=System%20Energy%20Monitoring%20with%20Intel%20RAPL%0A&amp;url=https://eunomia.dev/tutorials/48-energy/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<h3 id="related-projects">Related Projects</h3>
+<ul>
+<li>Kepler (Kubernetes Efficient Power Level Exporter): <a href="https://sustainable-computing.io/">https://sustainable-computing.io/</a></li>
+<li>Scaphandre Power Measurement: <a href="https://github.com/hubblo-org/scaphandre">https://github.com/hubblo-org/scaphandre</a></li>
+<li>PowerTOP: <a href="https://github.com/fenrus75/powertop">https://github.com/fenrus75/powertop</a></li>
+<li>cpufreq_ext eBPF Governor: <a href="https://lwn.net/Articles/991991/">https://lwn.net/Articles/991991/</a></li>
+<li>Wattmeter (HotCarbon '24): <a href="https://www.asafcidon.com/uploads/5/9/7/0/59701649/energy-aware-ebpf.pdf">https://www.asafcidon.com/uploads/5/9/7/0/59701649/energy-aware-ebpf.pdf</a></li>
+</ul>
+<h3 id="academic-papers">Academic Papers</h3>
+<ul>
+<li>"Energy-Aware Process Scheduling in Linux" (HotCarbon '24)</li>
+<li>"DEEP-mon: Dynamic and Energy Efficient Power monitoring for container-based infrastructures"</li>
+<li>"eBPF-based Energy-Aware Scheduling" research papers</li>
+</ul>
+<p>The complete code for this tutorial is available at: <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/48-energy">https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/48-energy</a></p>
+<p>For more eBPF tutorials and projects, visit: <a href="https://eunomia.dev/tutorials/">https://eunomia.dev/tutorials/</a></p>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=eBPF%20Tutorial%3A%20Energy%20Monitoring%20for%20Process-Level%20Power%20Analysis%0A&amp;url=https://eunomia.dev/tutorials/48-energy/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/tutorials/48-energy/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
@@ -8505,7 +9918,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 5, 2025 14:58:26 UTC">July 5, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 5, 2025 16:54:45 UTC">July 5, 2025</span>
   </span>
 
     
@@ -8652,13 +10065,13 @@
         
         
           
-          <a href="ebpf-energy/" class="md-footer__link md-footer__link--next" aria-label="Next: Ebpf energy">
+          <a href="README_zh/" class="md-footer__link md-footer__link--next" aria-label="Next: eBPF 教程：进程级能源监控与功耗分析">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Ebpf energy
+                eBPF 教程：进程级能源监控与功耗分析
               </div>
             </div>
             <div class="md-footer__button md-icon">
