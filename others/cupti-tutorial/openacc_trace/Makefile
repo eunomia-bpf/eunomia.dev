@@ -20,7 +20,7 @@ INCLUDES += -I../../include -I../common
 INCLUDES += -I"$(CUDA_INSTALL_PATH)/include"
 INCLUDES += -I$(OPENACC_INCLUDE_PATH)
 
-PGCPP       = nvc++
+PGCPP       = nvcc
 PGCPP_FLAGS = -acc -ta=nvidia:cuda11.0 -Mcuda=nordc -pgf90libs
 ifneq ($(HOST_ARCH),ppc64le)
         PGCPP_FLAGS += -tp=p7 -mp=nonuma
@@ -31,10 +31,13 @@ endif
 export LD_LIBRARY_PATH := $(LD_LIBRARY_PATH):$(LIB_PATH)
 TRACE_LIB = libopenacc_trace.so
 
+build:
+	# skip
+
 all: openacc_app
 
 $(TRACE_LIB): openacc_trace.cpp
-	$(PGCPP) $(INCLUDES) -DCUPTI_DIRECTIVE_SUPPORT -fPIC -shared -o $@ $<
+	$(PGCPP) $(INCLUDES) -DCUPTI_DIRECTIVE_SUPPORT -shared -o $@ $<
 
 openacc_app: $(TRACE_LIB) openacc_app.cpp
 	$(PGCPP) $(INCLUDES) $(PGCPP_FLAGS)         \

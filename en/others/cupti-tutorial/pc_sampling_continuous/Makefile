@@ -8,7 +8,7 @@ endif
 
 CUDA_INSTALL_PATH ?= ../../../..
 NVCC := "$(CUDA_INSTALL_PATH)/bin/nvcc"
-INCLUDES := -I"$(CUDA_INSTALL_PATH)/include" -I../../include -I../common
+INCLUDES := -I"$(CUDA_INSTALL_PATH)/include" -I$(CUPTI_INCLUDE_PATH) -I../../include -I../common
 
 ifeq ($(OS),Windows_NT)
     LIB_PATH ?= ..\..\lib64
@@ -63,4 +63,4 @@ all: pc_sampling_continuous
 pc_sampling_continuous: pc_sampling_continuous.cpp
 	$(NVCC) $(NVCC_COMPILER) $(NVCCFLAGS) $(INCLUDES) -o $(LIBNAME) -shared $< $(LIBS)
 clean:
-	rm $(LIBNAME)
+	rm -f $(LIBNAME)
