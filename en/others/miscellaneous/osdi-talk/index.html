@@ -13,10 +13,10 @@
         <link rel="canonical" href="https://eunomia.dev/en/others/miscellaneous/osdi-talk/">
       
       
-        <link rel="prev" href="../osdi-talk-old/">
+        <link rel="prev" href="../linux-plumbers-talk/">
       
       
-        <link rel="next" href="../osdi-talk_bak/">
+        <link rel="next" href="../roadmap/">
       
       
       <link rel="icon" href="../../../../assets/icon.svg">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Speech Script for OSDI 2025 bpftime talk - eunomia</title>
+        <title>Speech Script for OSDI 2025 bpftime talk "Extending Applications Safely and Efficiently" - eunomia</title>
       
     
     
@@ -69,7 +69,7 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="Speech Script for OSDI 2025 bpftime talk - eunomia" >
+        <meta  property="og:title"  content="Speech Script for OSDI 2025 bpftime talk "Extending Applications Safely and Efficiently" - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
@@ -85,7 +85,7 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="Speech Script for OSDI 2025 bpftime talk - eunomia" >
+        <meta  name="twitter:title"  content="Speech Script for OSDI 2025 bpftime talk "Extending Applications Safely and Efficiently" - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
@@ -112,7 +112,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#speech-script-for-osdi-2025-bpftime-talk" class="md-skip">
+        <a href="#speech-script-for-osdi-2025-bpftime-talk-extending-applications-safely-and-efficiently" class="md-skip">
           Skip to content
         </a>
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Speech Script for OSDI 2025 bpftime talk
+              Speech Script for OSDI 2025 bpftime talk "Extending Applications Safely and Efficiently"
             
           </span>
         </div>
@@ -8022,29 +8022,6 @@
                 
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../osdi-talk-old/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Speech Script for OSDI 2025 bpftime talk
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
     
   
   
@@ -8062,7 +8039,7 @@
   
   
   <span class="md-ellipsis">
-    Speech Script for OSDI 2025 bpftime talk
+    Speech Script for OSDI 2025 bpftime talk "Extending Applications Safely and Efficiently"
     
   </span>
   
@@ -8075,7 +8052,7 @@
   
   
   <span class="md-ellipsis">
-    Speech Script for OSDI 2025 bpftime talk
+    Speech Script for OSDI 2025 bpftime talk "Extending Applications Safely and Efficiently"
     
   </span>
   
@@ -8272,29 +8249,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../osdi-talk_bak/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Speech Script for OSDI 2025 bpftime talk
-    
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -8644,20 +8598,34 @@
   
 
 
-<h1 id="speech-script-for-osdi-2025-bpftime-talk">Speech Script for OSDI 2025 bpftime talk</h1>
+<h1 id="speech-script-for-osdi-2025-bpftime-talk-extending-applications-safely-and-efficiently">Speech Script for OSDI 2025 bpftime talk "Extending Applications Safely and Efficiently"</h1>
+<p>The paper is https://www.usenix.org/conference/osdi25/presentation/zheng-yusheng</p>
+<blockquote>
+<p>Abstract: This paper presents the Extension Interface Model (EIM) and bpftime, which together enable safer and more efficient extension of userspace applications than the current state-of-the-art. EIM is a new model that treats each required feature of an extension as a resource, including concrete hardware resources (e.g., memory) and abstract ones (e.g., the ability to invoke a function from the extended application). An extension manager, i.e., the person who manages a deployment, uses EIM to specify only the resources an extension needs to perform its task. bpftime is a new extension framework that enforces an EIM specification. Compared to prior systems, bpftime is efficient because it uses extended Berkeley Packet Filter (eBPF)-style verification, hardware-supported isolation features (e.g., Intel MPK), and dynamic binary rewriting. Moreover, bpftime is easy to adopt into existing workflows since it is compatible with the current eBPF ecosystem. We demonstrate the usefulness of EIM and bpftime across 6 use cases that improve security, monitor and enhance performance, and explore configuration trade-offs.</p>
+</blockquote>
 <p>≈ 2,250 words, ~15 minutes</p>
 <h2 id="slide-0">[Slide 0]</h2>
 <p>Good morning! I'm <strong>Yusheng Zheng</strong> from UC Santa Cruz, presenting our work on a safe and efficient userspace extension.</p>
 <h2 id="slide-1-extensions-everywhere">[Slide 1] Extensions Everywhere</h2>
 <p>Extensions are everywhere in modern software.</p>
-<p>Extensions allow us to customize software to a specific deployment's needs without modifying the original application source code, in order to add new functionality, modify behavior, or integrate with external systems. We use extensions instead of modifying the source code because it is easier to maintain and update our systems.</p>
+<p>Extensions allow us to customize software to a specific deployment's needs without modifying the original application source code, for adding new functionality, modifying behavior, or integrating with external systems. </p>
+<p>We use extensions instead of modifying the source code because it is easier to maintain and update our systems.</p>
 <h2 id="slide-2-nginx-extension-example">[Slide 2] Nginx Extension Example</h2>
-<p>Take Nginx as an example. Different Nginx deployments need different extensions: some need firewalls to block malicious requests, others need load balancers to distribute traffic, and many need monitoring for observability.</p>
+<p>Take Nginx as an example. </p>
+<p>Different Nginx deployments need different extensions: some need firewalls to block malicious requests, others need load balancers to distribute traffic, and many need monitoring for observability.</p>
 <p>Consider a user wants to deploy a firewall extension to block malicious requests.</p>
-<p>Here's how the firewall extension execution model works in Nginx. Before deployment, the user writes firewall logic using Nginx APIs and associates the firewall with request processing extension entries. During runtime, when Nginx reaches a request processing entry, it jumps to the firewall extension. The firewall executes in the extension runtime execution context, analyzing the request and deciding whether to block or allow it. Once the firewall completes its security checks, execution returns to Nginx's core processing.</p>
+<p>Here's how the firewall extension execution model works in Nginx. </p>
+<p>Before deployment, the user writes firewall logic using Nginx APIs and associates the firewall with request processing extension entries. </p>
+<p>During runtime, when Nginx reaches a request processing entry, it jumps to the firewall extension. </p>
+<p>The firewall executes in the extension runtime execution context, analyzing the request and deciding whether to block or allow it. </p>
+<p>Once the firewall completes its security checks, execution returns to Nginx's core processing.</p>
 <h2 id="slide-3-extension-problems-requirements">[Slide 3] Extension Problems &amp; Requirements</h2>
 <p>Extension frameworks need three key features, as shown in the figure.</p>
-<p>First, fine-grained safety/ interconnectedness trade-offs. Extensions need to interact with applications by reading data and calling functions. For example, a firewall extension needs to read request headers and decide whether to block or allow the request, while a monitoring extension need read-only access. However, allowing too much interconnecteness comes with risks: real world incidents describe production outages from safety violations in nginx, apache, and redis extensions.  So, system managers want to specify safety/interconnectedness tradeoffs that allow only the minimum permissions each extension needs. </p>
+<p>First, fine-grained safety/ interconnectedness trade-offs. </p>
+<p>Extensions need to interact with applications by reading data and calling functions. </p>
+<p>For example, a firewall extension needs to read request headers and decide whether to block or allow the request, while a monitoring extension need read-only access. </p>
+<p>However, allowing too much interconnecteness comes with risks: real world incidents describe production outages from safety violations in nginx, apache, and redis extensions.  </p>
+<p>So, system managers want to specify safety/interconnectedness tradeoffs that allow only the minimum permissions each extension needs. </p>
 <p>Second, extension frameworks need isolation to protect extensions from application bugs.  We use extensions to provide security guarantees, so isolation is paramount for correctness.</p>
 <p>Third, efficiency.  Extensions often run on critical paths where every millisecond matters for user experience, so we need them to be quick.</p>
 <h2 id="slide-5-state-of-the-art-falls-short">[Slide 5] State-of-the-Art Falls Short</h2>
@@ -8735,7 +8703,7 @@ Instead, bpftime takes a different approach. We identify a narrow waist in the c
 So, Here's how bpftime works at a high level. We intercept eBPF application system calls before they reach the kernel. Our loader converts EIM policies into bytecode assertions and feeds everything through the kernel's proven eBPF verifier for safety guarantees. After JIT compilation to native code, we use dynamic binary rewriting to patch trampolines into the target application only when extensions are actually loaded. At runtime, we use memory protection keys to protect and execute the extension.
  -->
 
-<p><a class="md-button" href="https://x.com/intent/tweet?text=Speech%20Script%20for%20OSDI%202025%20bpftime%20talk%0A&amp;url=https://eunomia.dev/en/others/miscellaneous/osdi-talk/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=Speech%20Script%20for%20OSDI%202025%20bpftime%20talk%20%22Extending%20Applications%20Safely%20and%20Efficiently%22%0A&amp;url=https://eunomia.dev/en/others/miscellaneous/osdi-talk/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/en/others/miscellaneous/osdi-talk/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
@@ -8759,7 +8727,7 @@ So, Here's how bpftime works at a high level. We intercept eBPF application syst
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 8, 2025 03:14:29 UTC">July 8, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 8, 2025 03:31:12 UTC">July 8, 2025</span>
   </span>
 
     
@@ -8890,7 +8858,7 @@ So, Here's how bpftime works at a high level. We intercept eBPF application syst
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../osdi-talk-old/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Speech Script for OSDI 2025 bpftime talk">
+          <a href="../linux-plumbers-talk/" class="md-footer__link md-footer__link--prev" aria-label="Previous: bpftime talk at linux plumbers 2025">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -8900,20 +8868,20 @@ So, Here's how bpftime works at a high level. We intercept eBPF application syst
                 Previous
               </span>
               <div class="md-ellipsis">
-                Speech Script for OSDI 2025 bpftime talk
+                bpftime talk at linux plumbers 2025
               </div>
             </div>
           </a>
         
         
           
-          <a href="../osdi-talk_bak/" class="md-footer__link md-footer__link--next" aria-label="Next: Speech Script for OSDI 2025 bpftime talk">
+          <a href="../roadmap/" class="md-footer__link md-footer__link--next" aria-label="Next: bpftime roadmap and ideas for 2024">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Speech Script for OSDI 2025 bpftime talk
+                bpftime roadmap and ideas for 2024
               </div>
             </div>
             <div class="md-footer__button md-icon">
