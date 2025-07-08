@@ -179,8 +179,11 @@ GetActivityKindString(
             return "GRAPH_TRACE";
         case CUPTI_ACTIVITY_KIND_JIT:
             return "JIT";
+// if cuda 12.8
+#if CUPTI_VERSION >= 12080
         case CUPTI_ACTIVITY_KIND_MEM_DECOMPRESS:
             return "MEM_DECOMPRESS";
+#endif
         default:
             return "<unknown>";
     }
@@ -404,10 +407,12 @@ GetActivityKindFromString(
     {
         return CUPTI_ACTIVITY_KIND_JIT;
     }
-else if (!stricmp(pActivityKindString, "MEM_DECOMPRESS"))
+#if CUPTI_VERSION >= 12080
+    else if (!stricmp(pActivityKindString, "MEM_DECOMPRESS"))
     {
         return CUPTI_ACTIVITY_KIND_MEM_DECOMPRESS;
     }
+#endif
     else {
         std::cerr << "\n\nError: Invalid string " << pActivityKindString << " cannot be converted to CUPTI Activity Kind.\n\n";
         exit(-1);
@@ -487,8 +492,10 @@ GetActivityOverheadKindString(
             return "COMMAND_BUFFER_FULL";
         case CUPTI_ACTIVITY_OVERHEAD_ACTIVITY_BUFFER_REQUEST:
             return "ACTIVITY_BUFFER_REQUEST";
+#if CUPTI_VERSION >= 12080
         case CUPTI_ACTIVITY_OVERHEAD_UVM_ACTIVITY_INIT:
             return "UVM_ACTIVITY_INIT";
+#endif
         default:
             return "<unknown>";
     }
@@ -797,8 +804,10 @@ GetChannelType(
             return "COMPUTE";
         case CUPTI_CHANNEL_TYPE_ASYNC_MEMCPY:
            return "ASYNC_MEMCPY";
+#if CUPTI_VERSION >= 12080
         case CUPTI_CHANNEL_TYPE_DECOMP:
             return "DECOMP";
+#endif
         default:
             return "<unknown>";
     }
@@ -955,8 +964,10 @@ GetCorrelationId(
 {
     switch (pRecord->kind)
     {
+#if CUPTI_VERSION >= 12080
         case CUPTI_ACTIVITY_KIND_MEMCPY:
             return ((CUpti_ActivityMemcpy6 *)pRecord)->correlationId;
+#endif
         case CUPTI_ACTIVITY_KIND_MEMSET:
             return ((CUpti_ActivityMemset4 *)pRecord)->correlationId;
         case CUPTI_ACTIVITY_KIND_KERNEL:
@@ -974,9 +985,17 @@ GetCorrelationId(
         case CUPTI_ACTIVITY_KIND_EVENT_INSTANCE:
             return ((CUpti_ActivityEventInstance *)pRecord)->correlationId;
         case CUPTI_ACTIVITY_KIND_MEMCPY2:
-            return ((CUpti_ActivityMemcpyPtoP4 *)pRecord)->correlationId;
+            return ((CUpti_ActivityMemcpy2 *)pRecord)->correlationId;
         case CUPTI_ACTIVITY_KIND_METRIC_INSTANCE:
             return ((CUpti_ActivityMetricInstance *)pRecord)->correlationId;
+#if CUPTI_VERSION >= 12080
+        case CUPTI_ACTIVITY_KIND_MEM_DECOMPRESS:
+            return ((CUpti_ActivityMemDecompress *)pRecord)->correlationId;
+        case CUPTI_ACTIVITY_KIND_CUDA_EVENT:
+            return ((CUpti_ActivityCudaEvent2 *)pRecord)->correlationId;
+        case CUPTI_ACTIVITY_KIND_SYNCHRONIZATION:
+            return ((CUpti_ActivitySynchronization2 *)pRecord)->correlationId;
+#endif
         default:
             return 0;
     }
@@ -1028,6 +1047,7 @@ PrintActivity(
 
     switch (activityKind)
     {
+#if CUPTI_VERSION >= 12080
         case CUPTI_ACTIVITY_KIND_MEMCPY:
         {
             CUpti_ActivityMemcpy6 *pMemcpyRecord = (CUpti_ActivityMemcpy6 *)pRecord;
@@ -1054,6 +1074,7 @@ PrintActivity(
 
             break;
         }
+#endif
         case CUPTI_ACTIVITY_KIND_MEMSET:
         {
             CUpti_ActivityMemset4 *pMemsetRecord = (CUpti_ActivityMemset4 *)pRecord;
@@ -1854,6 +1875,7 @@ PrintActivity(
 
             break;
         }
+#if CUPTI_VERSION >= 12080
         case CUPTI_ACTIVITY_KIND_CUDA_EVENT:
         {
             CUpti_ActivityCudaEvent2 *pCudaEventRecord = (CUpti_ActivityCudaEvent2 *)pRecord;
@@ -1869,6 +1891,7 @@ PrintActivity(
 
             break;
         }
+#endif
         case CUPTI_ACTIVITY_KIND_STREAM:
         {
             CUpti_ActivityStream *pStreamRecord = (CUpti_ActivityStream *)pRecord;
@@ -1882,6 +1905,7 @@ PrintActivity(
                     pStreamRecord->correlationId);
             break;
         }
+#if CUPTI_VERSION >= 12080
         case CUPTI_ACTIVITY_KIND_SYNCHRONIZATION:
         {
             CUpti_ActivitySynchronization2 *pSynchronizationRecord = (CUpti_ActivitySynchronization2 *)pRecord;
@@ -1900,6 +1924,7 @@ PrintActivity(
 
             break;
         }
+#endif
         case CUPTI_ACTIVITY_KIND_EXTERNAL_CORRELATION:
         {
             CUpti_ActivityExternalCorrelation *pExternalCorrelationRecord = (CUpti_ActivityExternalCorrelation *)pRecord;
@@ -2308,6 +2333,7 @@ PrintActivity(
 
             break;
         }
+#if CUPTI_VERSION >= 12080
         case CUPTI_ACTIVITY_KIND_MEM_DECOMPRESS:
         {
             CUpti_ActivityMemDecompress *pMemDecompress = (CUpti_ActivityMemDecompress *)pRecord;
@@ -2329,6 +2355,7 @@ PrintActivity(
 
             break;
         }
+#endif
         default:
             fprintf(pFileHandle, "  <unknown>\n");
             break;

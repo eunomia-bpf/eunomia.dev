@@ -9,7 +9,7 @@ endif
 CUDA_INSTALL_PATH ?= ../../../..
 PROFILER_HOST_UTILS_SRC ?= ../extensions/src/profilerhost_util
 NVCC := "$(CUDA_INSTALL_PATH)/bin/nvcc"
-INCLUDES := -I"$(CUDA_INSTALL_PATH)/include" -I../../include -I../extensions/include/profilerhost_util -I../extensions/include/c_util -I../common
+INCLUDES := -I"$(CUDA_INSTALL_PATH)/include" -I$(CUPTI_INCLUDE_PATH) -I../../include -I../extensions/include/profilerhost_util -I../extensions/include/c_util -I../common
 
 TARGET_ARCH ?= $(HOST_ARCH)
 TARGET_OS ?= $(shell uname | tr A-Z a-z)
