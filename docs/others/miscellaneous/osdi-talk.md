@@ -56,14 +56,29 @@ Third, efficiency.  Extensions often run on critical paths where every milliseco
 
 ## [Slide 5] State-of-the-Art Falls Short
 
-Unfortunately, existing approaches cannot satisfy all requirements simultaneously. Dynamic loading achieves speed but provides no isolation or  fine-
-grained safety-interconnectedness policies. Software Fault Isolation systems like WebAssembly deliver safety but carry 10–15 percent performance penalties. Subprocess isolation ensures separation but has higher IPC overhead. eBPF in kernel can also be used for userspace extensions, but Kernel eBPF uprobes offer isolation but trap into the kernel on every invocation, make it less efficiency.
+Unfortunately, existing approaches cannot satisfy all requirements simultaneously. 
+
+Dynamic loading achieves speed but provides no isolation or fine-grained safety-interconnectedness policies.
+
+Software Fault Isolation systems like WebAssembly deliver safety but carry 10–15 percent performance penalties. 
+
+Subprocess isolation ensures separation but has higher IPC overhead.
+
+eBPF in kernel can also be used for userspace extensions, but Kernel eBPF uprobes offer isolation but trap into the kernel on every invocation, make it less efficient.
 
 ## [Slide 5.5] Contribution
 
-We present a two-part solution that addresses all three requirements. First, to help navigate fine-grained safety/ interconnectedness trade-offs, we create the Extension Interface Model, or EIM. EIM treats every extension capability as a named resource and uses a two-stage specification approach.
+We present a two-part solution that addresses all three requirements. 
 
-Second, We created bpftime, a new userspace eBPF runtime that provides efficient support for EIM and isolation. It uses three key techniques: eBPF verification for zero runtime safety checks, MPK for isolation, and concealed extension entries that eliminate performance overhead. Together, they provide safety with efficiency while maintaining eBPF compatibility with kernel and existing eBPF tools.
+First, to help navigate fine-grained safety/ interconnectedness trade-offs, we create the Extension Interface Model, or EIM. 
+
+EIM treats every extension capability as a named resource and uses a two-stage specification approach.
+
+Second, We created bpftime, a new userspace eBPF runtime that provides efficient support for EIM and isolation. 
+
+It uses three key techniques: eBPF verification for zero runtime safety checks, MPK for isolation, and concealed extension entries that eliminate performance overhead. 
+
+Together, they provide safety with efficiency while maintaining eBPF compatibility with kernel and existing eBPF tools.
 
 Our evaluation on six real-world applications shows bpftime achieves all three requirements: fine-grained safety controls, strong isolation, and efficiency with up to 6 times better performance compared to solutions like WebAssembly.
 
@@ -75,15 +90,21 @@ Now that we've discussed the motivation of the problems and challenges, let me e
 
 The goal of EIM is to enable fine-grained trade-offs between safety and interconnectedness.
 
-This is challenging because safety/interconnectedness trade-offs are a per-deployment decision that depend upon what the person who deploys the system wants to enable. But, the person deploying the system is not a developer of the system, so they lack application expertise to know what extension features should be allowed by the application. 
+This is challenging because safety/interconnectedness trade-offs are a per-deployment decision that depend upon what the person who deploys the system wants to enable. 
+
+But, the person deploying the system is not a developer of the system, so they lack application expertise to know what extension features should be allowed by the application. 
 
 EIM's solution to this challenge is a two-phase specification. We model all resources as capabilities and split the process into a development phase and a deployment phase. 
 
 It works like this.
 
-During Development, the application developer, who understands the host application's internals, defines the possible interaction points for extensions. They create a Development-Time EIM Spec, which lists all the functions an extension could call or data it could access, like a menu of capabilities.
+During Development, the application developer, who understands the host application's internals, defines the possible interaction points for extensions. 
 
-Before Deployment, the extension manager, who understands the specific needs of a deployment, is responsible for security and configuration. They review the capabilities offered and create a Deployment-Time EIM Spec. This spec grants the minimal set of privileges an extension actually needs to do its job, following the principle of least privilege. They are choosing from the menu created by the developer.
+They create a Development-Time EIM Spec, which lists all the functions an extension could call or data it could access.
+
+Before Deployment, the extension manager, who understands the specific needs of a deployment, is responsible for security and configuration. 
+
+They review the capabilities offered and create a Deployment-Time EIM Spec. This spec grants the minimal set of privileges an extension actually needs to do its job, following the principle of least privilege. 
 
 Finally, when the extension is deployed, the Extension Runtime uses the deployment spec to verify that the extension only performs allowed operations. This ensures that policies are enforced at runtime.
 
@@ -91,10 +112,15 @@ Finally, when the extension is deployed, the Extension Runtime uses the deployme
 
 Now let me show you how EIM works in practice, using Nginx as an example. 
 
-During development time, Nginx developers annotate their code to declare what extensions could possibly do. They can add a state capability called `readPid` for accessing the process ID, a function capability `nginxTime()` for getting timestamps, complete with pre- and post-conditions, and extension entries like `processBegin` when request processing starts.
+During development time, Nginx developers annotate their code to declare what extensions could possibly do. 
 
-These annotations are automatically extracted and compiled into the binary. This happens once during development and creates a complete map of what extensions could ever access. The key insight is that developers only declare possibilities—they don't decide what actually gets used.
+They can add a state capability called `readPid` for accessing the process ID, a function capability `nginxTime()` for getting timestamps, complete with pre- and post-conditions, and extension entries like `processBegin` when request processing starts.
 
+These annotations are automatically extracted and compiled into the binary. 
+
+This happens once during development and creates a complete map of what extensions could ever access. 
+
+The key insight is that developers only declare possibilities—they don't decide what actually gets used.
 
 ## [Slide 9] EIM Deployment-Time Specification
 
@@ -112,9 +138,13 @@ In the next part, I will introduce our new userspace eBPF extension framework ca
 
 Our goal is to efficiently support EIM and isolation for userspace extensions. 
 
-Now you might ask, "Can't we just use existing frameworks to enforce EIM policies?" Unfortunately, as we discussed in the previous work, current frameworks  use heavyweight techniques for safety and isolation, which introduces significant performance overhead.
+Now you might ask, "Can't we just use existing frameworks to enforce EIM policies?" 
 
-So, our solution is a new design that exploits verification, binary rewriting, and hardware features to enable efficient intra-process extensions. We are using eBPF here because it provides verification based safety and a rich ecosystem we can reuse.
+Unfortunately, as we discussed in the previous work, current frameworks  use heavyweight techniques for safety and isolation, which introduces significant performance overhead.
+
+So, our solution is a new design that exploits verification, binary rewriting, and hardware features to enable efficient intra-process extensions.
+
+We are using eBPF here because it provides verification based safety and a rich ecosystem we can reuse.
 
 Let me walk you through how we achieve this with the bpftime framework.
 
@@ -138,13 +168,19 @@ bpftime is open source on GitHub with an active community, with thousands of sta
 
 We built six real-world applications to demonstrate how people are actually using it. 
 
-First, we use extensions to customize applications, including an Nginx firewall, a Redis optimization, and a FUSE cache. Second, we use extensions for observability, by adapting existing tools like DeepFlow, syscount, and sslsniff.
+First, we use extensions to customize applications, including an Nginx firewall, a Redis optimization, and a FUSE cache. 
+
+Second, we use extensions for observability, by adapting existing tools like DeepFlow, syscount, and sslsniff.
 
 You can find more details in our paper, but due to time limits, I will focus on just two examples.
 
 ## [Slide 12] Customization: Nginx Firewall
 
-We implement an Nginx firewall with EIM and bpftime and compare it with different extension approaches. In this diagram, higher is better. Lua and WebAssembly extensions impose 11–12 percent throughput loss—that's significant overhead that many operators can't accept in production. Plus, these older methods don't let you control safety and interconnectedness trade-offs like EIM does. bpftime achieves only 2 percent overhead. That's a 5× to 6× improvement over existing approaches.
+We implement an Nginx firewall with EIM and bpftime and compare it with different extension approaches. In this diagram, higher is better. 
+
+Lua and WebAssembly extensions impose 11–12 percent throughput loss—that's significant overhead that many operators can't accept in production. Plus, these older methods don't let you control safety and interconnectedness trade-offs like EIM does. 
+
+bpftime achieves only 2 percent overhead. That's a 5 times to 6 times improvement over existing approaches.
 
 ## [Slide 13] Performance Results: SSL Monitoring
 
@@ -156,11 +192,13 @@ With kernel eBPF, this monitoring costs 28 percent throughput loss. That's too m
 
 ## [Slide 14] Take-Aways
 
-In summary, our contributions are EIM and bpftime. EIM enables fine-grained safety/interconnectedness trade-offs that allow you to specify least-privilege policies without touching application source code. And bpftime supports efficient safety/interconnectedness tradeoffs and isolation with near-native performance using offline verification, Intel Memory Protection Keys, and concealed trampolines. 
+In summary, our contributions are EIM and bpftime. EIM enables fine-grained safety/interconnectedness trade-offs that allow you to specify least-privilege policies without touching application source code. 
+
+And bpftime supports efficient safety/interconnectedness tradeoffs and isolation with near-native performance using offline verification, Intel Memory Protection Keys, and concealed trampolines. 
 
 ## Thank You & Questions (On Outline, not separate slide)
 
-**bpftime** is open-source under the MIT license at GitHub. You can get started today by running it as a drop-in replacement for eBPF applications. We welcome your issues, pull requests, and collaboration.  
+**bpftime** is open-source at GitHub, you can scan the QR code to see it. It's fully compatible with the eBPF ecosystem, you can get started by running it as a drop-in replacement for eBPF commands. We welcome your issues, pull requests, and collaboration. 
 
 I'm happy to take your questions.
 
