@@ -1,4 +1,8 @@
-# Speech Script for OSDI 2025 bpftime talk
+# Speech Script for OSDI 2025 bpftime talk "Extending Applications Safely and Efficiently"
+
+The paper is https://www.usenix.org/conference/osdi25/presentation/zheng-yusheng
+
+> Abstract: This paper presents the Extension Interface Model (EIM) and bpftime, which together enable safer and more efficient extension of userspace applications than the current state-of-the-art. EIM is a new model that treats each required feature of an extension as a resource, including concrete hardware resources (e.g., memory) and abstract ones (e.g., the ability to invoke a function from the extended application). An extension manager, i.e., the person who manages a deployment, uses EIM to specify only the resources an extension needs to perform its task. bpftime is a new extension framework that enforces an EIM specification. Compared to prior systems, bpftime is efficient because it uses extended Berkeley Packet Filter (eBPF)-style verification, hardware-supported isolation features (e.g., Intel MPK), and dynamic binary rewriting. Moreover, bpftime is easy to adopt into existing workflows since it is compatible with the current eBPF ecosystem. We demonstrate the usefulness of EIM and bpftime across 6 use cases that improve security, monitor and enhance performance, and explore configuration trade-offs.
 
 ≈ 2,250 words, ~15 minutes
 
@@ -10,21 +14,41 @@ Good morning! I'm **Yusheng Zheng** from UC Santa Cruz, presenting our work on a
 
 Extensions are everywhere in modern software.
 
-Extensions allow us to customize software to a specific deployment's needs without modifying the original application source code, in order to add new functionality, modify behavior, or integrate with external systems. We use extensions instead of modifying the source code because it is easier to maintain and update our systems.
+Extensions allow us to customize software to a specific deployment's needs without modifying the original application source code, for adding new functionality, modifying behavior, or integrating with external systems. 
+
+We use extensions instead of modifying the source code because it is easier to maintain and update our systems.
 
 ## [Slide 2] Nginx Extension Example
 
-Take Nginx as an example. Different Nginx deployments need different extensions: some need firewalls to block malicious requests, others need load balancers to distribute traffic, and many need monitoring for observability.
+Take Nginx as an example. 
+
+Different Nginx deployments need different extensions: some need firewalls to block malicious requests, others need load balancers to distribute traffic, and many need monitoring for observability.
 
 Consider a user wants to deploy a firewall extension to block malicious requests.
 
-Here's how the firewall extension execution model works in Nginx. Before deployment, the user writes firewall logic using Nginx APIs and associates the firewall with request processing extension entries. During runtime, when Nginx reaches a request processing entry, it jumps to the firewall extension. The firewall executes in the extension runtime execution context, analyzing the request and deciding whether to block or allow it. Once the firewall completes its security checks, execution returns to Nginx's core processing.
+Here's how the firewall extension execution model works in Nginx. 
+
+Before deployment, the user writes firewall logic using Nginx APIs and associates the firewall with request processing extension entries. 
+
+During runtime, when Nginx reaches a request processing entry, it jumps to the firewall extension. 
+
+The firewall executes in the extension runtime execution context, analyzing the request and deciding whether to block or allow it. 
+
+Once the firewall completes its security checks, execution returns to Nginx's core processing.
 
 ## [Slide 3] Extension Problems & Requirements
 
 Extension frameworks need three key features, as shown in the figure.
 
-First, fine-grained safety/ interconnectedness trade-offs. Extensions need to interact with applications by reading data and calling functions. For example, a firewall extension needs to read request headers and decide whether to block or allow the request, while a monitoring extension need read-only access. However, allowing too much interconnecteness comes with risks: real world incidents describe production outages from safety violations in nginx, apache, and redis extensions.  So, system managers want to specify safety/interconnectedness tradeoffs that allow only the minimum permissions each extension needs. 
+First, fine-grained safety/ interconnectedness trade-offs. 
+
+Extensions need to interact with applications by reading data and calling functions. 
+
+For example, a firewall extension needs to read request headers and decide whether to block or allow the request, while a monitoring extension need read-only access. 
+
+However, allowing too much interconnecteness comes with risks: real world incidents describe production outages from safety violations in nginx, apache, and redis extensions.  
+
+So, system managers want to specify safety/interconnectedness tradeoffs that allow only the minimum permissions each extension needs. 
 
 Second, extension frameworks need isolation to protect extensions from application bugs.  We use extensions to provide security guarantees, so isolation is paramount for correctness.
 
