@@ -2023,6 +2023,39 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="runqlat.bpf.c">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      常量与全局变量
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ebpf-maps" class="md-nav__link">
+    <span class="md-ellipsis">
+      eBPF Maps 映射
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      辅助函数
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -2040,7 +2073,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       编译运行
     </span>
@@ -2049,7 +2082,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       总结
     </span>
@@ -8333,6 +8366,39 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="runqlat.bpf.c">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      常量与全局变量
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ebpf-maps" class="md-nav__link">
+    <span class="md-ellipsis">
+      eBPF Maps 映射
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      辅助函数
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -8350,7 +8416,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       编译运行
     </span>
@@ -8359,7 +8425,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       总结
     </span>
@@ -8598,7 +8664,8 @@
 <a id="__codelineno-1-151" name="__codelineno-1-151" href="#__codelineno-1-151"></a>
 <a id="__codelineno-1-152" name="__codelineno-1-152" href="#__codelineno-1-152"></a><span class="kt">char</span><span class="w"> </span><span class="n">LICENSE</span><span class="p">[]</span><span class="w"> </span><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;license&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;GPL&quot;</span><span class="p">;</span>
 </code></pre></div>
-<p>这其中定义了一些常量和全局变量，用于过滤对应的追踪目标：</p>
+<h4 id="_1">常量与全局变量</h4>
+<p>代码中定义了一些常量和 volatile 全局变量，用于过滤对应的追踪目标。这些变量包括：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">#define MAX_ENTRIES 10240</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="cp">#define TASK_RUNNING  0</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
@@ -8609,7 +8676,12 @@
 <a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="k">const</span><span class="w"> </span><span class="k">volatile</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">targ_ms</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
 <a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="k">const</span><span class="w"> </span><span class="k">volatile</span><span class="w"> </span><span class="kt">pid_t</span><span class="w"> </span><span class="n">targ_tgid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 </code></pre></div>
-<p>这些变量包括最大映射项数量、任务状态、过滤选项和目标选项。这些选项可以通过用户空间程序设置，以定制 eBPF 程序的行为。</p>
+<ul>
+<li><code>MAX_ENTRIES</code>:  map 条目最大数量</li>
+<li><code>TASK_RUNNING</code>: 任务状态值</li>
+<li><code>filter_cg</code>, <code>targ_per_process</code>, <code>targ_per_thread</code>, <code>targ_per_pidns</code>, <code>targ_ms</code>, <code>targ_tgid</code>: 用于过滤选项和目标选项的布尔变量。这些选项可以通过用户空间程序设置来自定义eBPF程序的行为。</li>
+</ul>
+<h4 id="ebpf-maps">eBPF Maps 映射</h4>
 <p>接下来，定义了一些 eBPF 映射：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w"> </span><span class="n">__uint</span><span class="p">(</span><span class="n">type</span><span class="p">,</span><span class="w"> </span><span class="n">BPF_MAP_TYPE_CGROUP_ARRAY</span><span class="p">);</span>
@@ -8636,12 +8708,15 @@
 </code></pre></div>
 <p>这些映射包括：</p>
 <ul>
-<li>cgroup_map 用于过滤 cgroup；</li>
-<li>start 用于存储进程入队时的时间戳；</li>
-<li>hists 用于存储直方图数据，记录进程调度延迟。</li>
+<li><code>cgroup_map</code> 用于过滤 cgroup；</li>
+<li><code>start</code> 用于存储进程入队时的时间戳；</li>
+<li><code>hists</code> 用于存储直方图数据，记录进程调度延迟。</li>
 </ul>
+<h4 id="_2">辅助函数</h4>
 <p>接下来是一些辅助函数：</p>
-<p>trace_enqueue 函数用于在进程入队时记录其时间戳：</p>
+<ul>
+<li><code>trace_enqueue</code>: 此功能用于记录进程入队时的时间戳。它将 <code>tgid</code> 和 <code>pid</code> 值作为参数。如果<code>pid</code>值是0或者<code>targ_tgid</code>值不是0且不等于<code>tgid</code>，函数返回0。否则，它使用 <code>bpf_ktime_get_ns</code> 获取当前时间戳，并使用 <code>pid</code> 键和时间戳值更新 <code>start</code> 映射。</li>
+</ul>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">trace_enqueue</span><span class="p">(</span><span class="n">u32</span><span class="w"> </span><span class="n">tgid</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">pid</span><span class="p">)</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="p">{</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w"> </span><span class="n">u64</span><span class="w"> </span><span class="n">ts</span><span class="p">;</span>
@@ -8656,7 +8731,9 @@
 <a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="p">}</span>
 </code></pre></div>
-<p>pid_namespace 函数用于获取进程所属的 PID namespace：</p>
+<ul>
+<li><code>pid_namespace</code> : 此函数用于获取进程的PID命名空间。它接受一个<code>task_struct</code>指针作为参数，并返回进程的PID命名空间。该函数通过<code>task_active_pid_ns()</code>和<code>pid-&gt;numbers[pid-&gt;level].ns</code>来检索PID命名空间。</li>
+</ul>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">static</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">pid_namespace</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">task_struct</span><span class="w"> </span><span class="o">*</span><span class="n">task</span><span class="p">)</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="p">{</span>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">pid</span><span class="w"> </span><span class="o">*</span><span class="n">pid</span><span class="p">;</span>
@@ -8675,18 +8752,18 @@
 <a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">inum</span><span class="p">;</span>
 <a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="p">}</span>
 </code></pre></div>
-<p>handle_switch 函数是核心部分，用于处理调度切换事件，计算进程调度延迟并更新直方图数据：</p>
+<p><code>handle_switch</code> 函数是核心部分，用于处理调度切换事件，计算进程调度延迟并更新直方图数据：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">handle_switch</span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="n">preempt</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">task_struct</span><span class="w"> </span><span class="o">*</span><span class="n">prev</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">task_struct</span><span class="w"> </span><span class="o">*</span><span class="n">next</span><span class="p">)</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="p">{</span>
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w"> </span><span class="p">...</span>
 <a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="p">}</span>
 </code></pre></div>
-<p>首先，函数根据 filter_cg 的设置判断是否需要过滤 cgroup。然后，如果之前的进程状态为 TASK_RUNNING，则调用 trace_enqueue 函数记录进程的入队时间。接着，函数查找下一个进程的入队时间戳，如果找不到，直接返回。计算调度延迟（delta），并根据不同的选项设置（targ_per_process，targ_per_thread，targ_per_pidns），确定直方图映射的键（hkey）。然后查找或初始化直方图映射，更新直方图数据，最后删除进程的入队时间戳记录。</p>
+<p>首先，函数根据 <code>filter_cg</code> 的设置判断是否需要过滤 cgroup。然后，如果之前的进程状态为 <code>TASK_RUNNING</code>，则调用 <code>trace_enqueue</code> 函数记录进程的入队时间。接着，函数查找下一个进程的入队时间戳，如果找不到，直接返回。计算调度延迟（delta），并根据不同的选项设置（targ_per_process，targ_per_thread，targ_per_pidns），确定直方图映射的键（hkey）。然后查找或初始化直方图映射，更新直方图数据，最后删除进程的入队时间戳记录。</p>
 <p>接下来是 eBPF 程序的入口点。程序使用三个入口点来捕获不同的调度事件：</p>
 <ul>
-<li>handle_sched_wakeup：用于处理 sched_wakeup 事件，当一个进程从睡眠状态被唤醒时触发。</li>
-<li>handle_sched_wakeup_new：用于处理 sched_wakeup_new 事件，当一个新创建的进程被唤醒时触发。</li>
-<li>handle_sched_switch：用于处理 sched_switch 事件，当调度器选择一个新的进程运行时触发。</li>
+<li><code>handle_sched_wakeup</code>：用于处理 <code>sched_wakeup</code> 事件，当一个进程从睡眠状态被唤醒时触发。</li>
+<li><code>handle_sched_wakeup_new</code>：用于处理 <code>sched_wakeup_new</code> 事件，当一个新创建的进程被唤醒时触发。</li>
+<li><code>handle_sched_switch</code>：用于处理 <code>sched_switch</code> 事件，当调度器选择一个新的进程运行时触发。</li>
 </ul>
 <p>这些入口点分别处理不同的调度事件，但都会调用 handle_switch 函数来计算进程的调度延迟并更新直方图数据。</p>
 <p>最后，程序包含一个许可证声明：</p>
@@ -8709,7 +8786,7 @@
 <a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>
 <a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="cp">#endif </span><span class="cm">/* __RUNQLAT_H */</span>
 </code></pre></div>
-<h2 id="_1">编译运行</h2>
+<h2 id="_3">编译运行</h2>
 <p>eunomia-bpf 是一个结合 Wasm 的开源 eBPF 动态加载运行时和开发工具链，它的目的是简化 eBPF 程序的开发、构建、分发、运行。可以参考 <a href="https://github.com/eunomia-bpf/eunomia-bpf">https://github.com/eunomia-bpf/eunomia-bpf</a> 下载和安装 ecc 编译工具链和 ecli 运行时。我们使用 eunomia-bpf 编译运行这个例子。</p>
 <p>Compile:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/:/src/<span class="w"> </span>ghcr.io/eunomia-bpf/ecc-<span class="sb">`</span>uname<span class="w"> </span>-m<span class="sb">`</span>:latest
@@ -8781,7 +8858,7 @@
 <li><a href="https://www.brendangregg.com/blog/2016-10-08/linux-bcc-runqlat.html">https://www.brendangregg.com/blog/2016-10-08/linux-bcc-runqlat.html</a></li>
 <li><a href="https://github.com/iovisor/bcc/blob/master/libbpf-tools/runqlat.c">https://github.com/iovisor/bcc/blob/master/libbpf-tools/runqlat.c</a></li>
 </ul>
-<h2 id="_2">总结</h2>
+<h2 id="_4">总结</h2>
 <p>runqlat 是一个 Linux 内核 BPF 程序，通过柱状图来总结调度程序运行队列延迟，显示任务等待运行在 CPU 上的时间长度。编译这个程序可以使用 ecc 工具，运行时可以使用 ecli 命令。</p>
 <p>runqlat 是一种用于监控Linux内核中进程调度延迟的工具。它可以帮助您了解进程在内核中等待执行的时间，并根据这些信息优化进程调度，提高系统的性能。可以在 libbpf-tools 中找到最初的源代码：<a href="https://github.com/iovisor/bcc/blob/master/libbpf-tools/runqlat.bpf.c">https://github.com/iovisor/bcc/blob/master/libbpf-tools/runqlat.bpf.c</a></p>
 <p>如果您希望学习更多关于 eBPF 的知识和实践，可以访问我们的教程代码仓库 <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">https://github.com/eunomia-bpf/bpf-developer-tutorial</a> 或网站 <a href="https://eunomia.dev/zh/tutorials/">https://eunomia.dev/zh/tutorials/</a> 以获取更多示例和完整的教程。</p>
@@ -8809,7 +8886,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 10, 2025 23:07:43 UTC">February 10, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 8, 2025 21:29:03 UTC">July 8, 2025</span>
   </span>
 
     
@@ -8829,11 +8906,12 @@
   <span class="md-source-file__fact">
     <span class="md-icon" title="Contributors">
       
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
       
     </span>
     <nav>
       
+        <a href="mailto:41898282+github-actions[bot]@users.noreply.github.com">github-actions[bot]</a>, 
         <a href="mailto:1067852565@qq.com">云微</a>
     </nav>
   </span>
