@@ -120,11 +120,11 @@ You can find more details in our paper, but due to time limits, I will focus on 
 
 ## [Slide 12] Customization: Nginx Firewall
 
-Let me show you the performance impact for customization purposes plugins. For our Nginx firewall, we compared different extension approaches. In this diagram, the more to the top, the higher throughput, the better. Lua and WebAssembly extensions impose 11–12 percent throughput loss—that's significant overhead that many operators can't accept in production. Plus, these older methods don't let you control safety and interconnectedness trade-offs like EIM does. Our bpftime implementation achieves the same security functionality with only 2 percent overhead. That's a 5× to 6× improvement over existing approaches.
+We implement an Nginx firewall with EIM and bpftime and compare it with different extension approaches. In this diagram, higher is better. Lua and WebAssembly extensions impose 11–12 percent throughput loss—that's significant overhead that many operators can't accept in production. Plus, these older methods don't let you control safety and interconnectedness trade-offs like EIM does. bpftime achieves only 2 percent overhead. That's a 5× to 6× improvement over existing approaches.
 
 ## [Slide 13] Performance Results: SSL Monitoring
 
-Let's look at observability. Consider sslsniff, which monitors encrypted TLS traffic, as part of the bcc eBPF tools.
+Then we use bpftime for sslsniff, which monitors encrypted TLS traffic, as part of the bcc eBPF tools and compare to kernel eBPF.
 
 We run sslsniff on an nginx deployment to test different data sizes from 1K to 256K bytes. The y-axis shows throughput, where higher is better. You can see the performance difference is most clear with 1K data size.
 
@@ -132,11 +132,13 @@ With kernel eBPF, this monitoring costs 28 percent throughput loss. That's too m
 
 ## [Slide 14] Take-Aways
 
-Let me close with three key takeaways that address our original three requirements. First, EIM enables fine-grained safety and interconnectedness trade-offs—you can now specify precise least-privilege policies per extension entry without touching application source code. Second, bpftime provides both isolation and efficiency—we achieve hardware-level isolation with near-native performance using offline verification, Intel Memory Protection Keys, and concealed trampolines. Third, maintaining eBPF compatibility means you can adopt our approach immediately without changing your existing workflows, getting all three requirements satisfied together.
+In summary, our contributions are EIM and bpftime. EIM enables fine-grained safety/interconnectedness trade-offs that allow you to specify least-privilege policies without touching application source code. And bpftime supports efficient safety/interconnectedness tradeoffs and isolation with near-native performance using offline verification, Intel Memory Protection Keys, and concealed trampolines. 
 
 ## Thank You & Questions (On Outline, not separate slide)
 
-Thank you for your attention. **bpftime** is open-source under the MIT license at GitHub. You can get started today by running it as a drop-in replacement for eBPF applications. We welcome your issues, pull requests, and collaboration. I'm happy to take your questions.
+**bpftime** is open-source under the MIT license at GitHub. You can get started today by running it as a drop-in replacement for eBPF applications. We welcome your issues, pull requests, and collaboration.  
+
+I'm happy to take your questions.
 
 ## Deprecation notes
 
