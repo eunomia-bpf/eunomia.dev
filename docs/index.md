@@ -1,5 +1,7 @@
 ---
 title: Eunomia - Unlock the potential of eBPF
+description: Learn eBPF programming with comprehensive tutorials, tools, and frameworks. Explore eunomia-bpf, bpftime, and the complete eBPF ecosystem for building high-performance Linux kernel programs.
+keywords: eBPF, BPF, Linux kernel programming, eunomia-bpf, bpftime, eBPF tutorials, kernel tracing
 hide:
   - navigation
   - toc

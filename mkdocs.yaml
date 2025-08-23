@@ -130,6 +130,7 @@ extra:
       link: /zh/
       lang: zh
 plugins:
+  - meta
   - social
   - awesome-pages
   - blog:
