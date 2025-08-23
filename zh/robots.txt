@@ -1,0 +1,8 @@
+# robots.txt for https://eunomia.dev
+# Allow all web crawlers access to all content
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://eunomia.dev/sitemap.xml
