@@ -1,4 +1,11 @@
-# GPTtrace 🤖
+---
+title: GPTtrace Documentation
+description: Generate and run eBPF programs using natural language and AI. Trace your Linux system with GPT-powered automation and intelligent analysis.
+keywords: GPTtrace, AI eBPF, natural language tracing, GPT tracing, eBPF automation, LLM kernel agent, intelligent system monitoring
+author: eunomia-bpf community
+---
+
+## GPTtrace 🤖
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Actions Status](https://github.com/eunomia-bpf/GPTtrace/workflows/Pylint/badge.svg)](https://github.com/eunomia-bpf/GPTtrace/actions)
@@ -99,7 +106,7 @@ options:
 
 ### First: login to ChatGPT
 
-- Access https://platform.openai.com/docs/quickstart/add-your-api-key，then create your openai api key as following:
+- Access <https://platform.openai.com/docs/quickstart/add-your-api-key>，then create your openai api key as following:
 
   ![image-20230402163041886](doc/api-key.png)
 
@@ -156,6 +163,6 @@ MIT
 
 ## 🔗 Links
 
-- detail documents and tutorials about how we train ChatGPT to write eBPF programs: https://github.com/eunomia-bpf/bpf-developer-tutorial （基于 CO-RE (一次编写，到处运行） libbpf 的 eBPF 开发者教程：通过 20 个小工具一步步学习 eBPF（尝试教会 ChatGPT 编写 eBPF 程序）
-- bpftrace: https://github.com/iovisor/bpftrace
-- ChatGPT: https://chat.openai.com/
+- detail documents and tutorials about how we train ChatGPT to write eBPF programs: <https://github.com/eunomia-bpf/bpf-developer-tutorial> （基于 CO-RE (一次编写，到处运行） libbpf 的 eBPF 开发者教程：通过 20 个小工具一步步学习 eBPF（尝试教会 ChatGPT 编写 eBPF 程序）
+- bpftrace: <https://github.com/iovisor/bpftrace>
+- ChatGPT: <https://chat.openai.com/>

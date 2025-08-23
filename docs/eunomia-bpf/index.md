@@ -1,4 +1,11 @@
-# eunomia-bpf: simplify and enhance eBPF with CO-RE[^1] and WebAssembly[^2]
+---
+title: eunomia-bpf Documentation
+description: Simplify eBPF development with CO-RE and WebAssembly. Build, compile, and distribute eBPF programs easier with automatic code generation.
+keywords: eunomia-bpf, eBPF compiler, WebAssembly eBPF, CO-RE libbpf, eBPF development tools, OCI images, eBPF distribution
+author: eunomia-bpf community
+---
+
+## eunomia-bpf: simplify and enhance eBPF with CO-RE[^1] and WebAssembly[^2]
 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/eunomia-bpf/eunomia-bpf)](https://github.com/eunomia-bpf/eunomia-bpf/releases)
 [![codecov](https://codecov.io/gh/eunomia-bpf/eunomia-bpf/branch/master/graph/badge.svg?token=YTR1M16I70)](https://codecov.io/gh/eunomia-bpf/eunomia-bpf)
@@ -30,7 +37,7 @@ For more information, see [documents/introduction.md](introduction.md).
 [^1]: CO-RE: [Compile Once – Run Everywhere](https://facebookmicrosites.github.io/bpf/blog/2020/02/19/bpf-portability-and-co-re.html)
 [^2]: WebAssembly or Wasm: <https://webassembly.org/>
 
-## Getting Started
+### Getting Started
 
 - Github Template：[eunomia-bpf/ebpm-template](https://github.com/eunomia-bpf/ebpm-template)
 - example bpf programs: [examples/bpftools](https://github.com/eunomia-bpf/eunomia-bpf/tree/master/examples/bpftools/)

@@ -1,19 +1,22 @@
 ---
-title: Wasm-bpf
+title: Wasm-bpf Documentation
+description: WebAssembly eBPF library and toolchain. Build cross-platform eBPF programs in C/C++, Rust, Go and run them securely in Wasm sandbox.
+keywords: Wasm-bpf, WebAssembly eBPF, eBPF toolchain, cross-platform eBPF, Wasm runtime, eBPF security, portable eBPF programs
+author: eunomia-bpf community
 ---
 
-# 📦 Wasm-bpf: Wasm library and toolchain for eBPF
+## 📦 Wasm-bpf: Wasm library and toolchain for eBPF
 
 [![codecov](https://codecov.io/gh/eunomia-bpf/wasm-bpf/branch/main/graph/badge.svg?token=6TKN4WU99U)](https://codecov.io/gh/eunomia-bpf/wasm-bpf)
 [![CodeFactor](https://www.codefactor.io/repository/github/eunomia-bpf/wasm-bpf/badge)](https://www.codefactor.io/repository/github/eunomia-bpf/wasm-bpf)
 [![DeepSource](https://deepsource.io/gh/eunomia-bpf/wasm-bpf.svg/?label=active+issues&show_trend=true&token=rcSI3J1-gpwLIgZWtKZC-N6C)](https://deepsource.io/gh/eunomia-bpf/wasm-bpf/?ref=repository-badge)
 [![](https://img.shields.io/crates/v/wasm-bpf-rs.svg)](https://crates.io/crates/wasm-bpf-rs)
 
-[Gitee](https://gitee.com/eunomia-bpf/wasm-bpf) [Github](https://github.com/eunomia-bpf/wasm-bpf)
+[Gitee](<https://gitee.com/eunomia-bpf/wasm-bpf>) [Github](<https://github.com/eunomia-bpf/wasm-bpf>)
 
-`Wasm-bpf` is a WebAssembly eBPF library, toolchain and runtime powered by [CO-RE](https://facebookmicrosites.github.io/bpf/blog/2020/02/19/bpf-portability-and-co-re.html)(Compile Once – Run Everywhere) [libbpf](https://github.com/libbpf/libbpf). It can help you build almost every eBPF programs or usecases to `Wasm` with nearly zero modification, and run them cross platforms with Wasm sandbox.
+`Wasm-bpf` is a WebAssembly eBPF library, toolchain and runtime powered by [CO-RE](<https://facebookmicrosites.github.io/bpf/blog/2020/02/19/bpf-portability-and-co-re.html>)(Compile Once – Run Everywhere) [libbpf](<https://github.com/libbpf/libbpf>). It can help you build almost every eBPF programs or usecases to `Wasm` with nearly zero modification, and run them cross platforms with Wasm sandbox.
 
-# Quick start guides
+## Quick start guides
 
 ⌨️ [Introduction](#introduction) to wasm-bpf \
 📦 [Features](#features) \
@@ -23,7 +26,7 @@ title: Wasm-bpf
 📚 [How it works](#how-it-works) \
 🤖 [Build](#build-the-runtime) the runtime
 
-📚 **[Check out our more documentations](https://eunomia.dev/)**
+📚 **[Check out our more documentations](<https://eunomia.dev/>)**
 
 ## ⌨️ Introduction
 
@@ -148,8 +151,8 @@ See:
 
 ## 🔗 Links
 
-- eunomia-bpf project: simplify and enhance eBPF with CO-RE and WebAssembly https://github.com/eunomia-bpf/eunomia-bpf
-- documents and blogs: https://docs.eunomia.dev
-- CO-RE (Compile Once – Run Everywhere): https://facebookmicrosites.github.io/bpf/blog/2020/02/19/bpf-portability-and-co-re.html
-- WAMR (WebAssembly Micro Runtime): https://github.com/bytecodealliance/wasm-micro-runtime
-- libbpf: https://github.com/libbpf/libbpf
+- eunomia-bpf project: simplify and enhance eBPF with CO-RE and WebAssembly <https://github.com/eunomia-bpf/eunomia-bpf>
+- documents and blogs: <https://docs.eunomia.dev>
+- CO-RE (Compile Once – Run Everywhere): <https://facebookmicrosites.github.io/bpf/blog/2020/02/19/bpf-portability-and-co-re.html>
+- WAMR (WebAssembly Micro Runtime): <https://github.com/bytecodealliance/wasm-micro-runtime>
+- libbpf: <https://github.com/libbpf/libbpf>

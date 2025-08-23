@@ -1,4 +1,11 @@
-# bpftime: Userspace eBPF runtime for Observability, Network & General extensions Framework
+---
+title: bpftime Documentation
+description: High-performance userspace eBPF runtime. Run eBPF programs with 10x faster uprobe performance, cross-platform support, and no kernel requirements.
+keywords: bpftime, userspace eBPF, eBPF runtime, uprobe performance, LLVM JIT, eBPF framework, kernel bypass, cross-platform eBPF, GPU
+author: eunomia-bpf community
+---
+
+## bpftime: Userspace eBPF runtime for Observability, Network & General extensions Framework
 
 [![Build and Test VM](https://github.com/eunomia-bpf/bpftime/actions/workflows/test-vm.yml/badge.svg)](https://github.com/eunomia-bpf/bpftime/actions/workflows/test-vm.yml)
 [![Build and test runtime](https://github.com/eunomia-bpf/bpftime/actions/workflows/test-runtime.yml/badge.svg)](https://github.com/eunomia-bpf/bpftime/actions/workflows/test-runtime.yml)
