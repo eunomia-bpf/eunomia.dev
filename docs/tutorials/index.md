@@ -1,19 +1,12 @@
----
-title: eBPF Tutorial by Example
-description: Learn eBPF development with practical examples from basics to advanced. Step-by-step tutorials using libbpf, Cilium, and eunomia-bpf frameworks.
-keywords: eBPF tutorial, eBPF examples, CO-RE eBPF, libbpf tutorial, eBPF development, kernel programming, Linux tracing
-author: eunomia-bpf community
----
-
-## eBPF Tutorial by Example: Learning CO-RE eBPF Step by Step
+# eBPF Tutorial by Example: Learning CO-RE eBPF Step by Step
 
 This is a development tutorial for eBPF based on CO-RE (Compile Once, Run Everywhere). It provides practical eBPF development practices from beginner to advanced, including basic concepts, code examples, and real-world applications. Unlike BCC, we use frameworks like libbpf, Cilium, libbpf-rs, and eunomia-bpf for development, with examples in languages such as C, Go, and Rust.
 
 This tutorial does not cover complex concepts and scenario introductions. Its main purpose is to provide examples of eBPF tools (**very short, starting with twenty lines of code!**) to help eBPF application developers quickly grasp eBPF development methods and techniques. The tutorial content can be found in the directory, with each directory being an independent eBPF tool example.
 
-For the complete source code of the tutorial, please refer to the repo <https://github.com/eunomia-bpf/bpf-developer-tutorial> on GitHub. **If you find this tutorial helpful, please give us a star!**
+For the complete source code of the tutorial, please refer to the repo [https://github.com/eunomia-bpf/bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial) on GitHub. **If you find this tutorial helpful, please give us a star!**
 
-## Getting Started Examples
+# Getting Started Examples
 
 This section contains simple eBPF program examples and introductions. It primarily utilizes the `eunomia-bpf` framework to simplify development and introduces the basic usage and development process of eBPF.
 
@@ -29,7 +22,7 @@ This section contains simple eBPF program examples and introductions. It primari
 - [lesson 9-runqlat](9-runqlat/README.md) Capturing Scheduling Latency and Recording as Histogram
 - [lesson 10-hardirqs](10-hardirqs/README.md) Capturing Interrupts with hardirqs or softirqs
 
-## Advanced Documents and Examples
+# Advanced Documents and Examples
 
 We start to build complete eBPF projects mainly based on `libbpf` and combine them with various application scenarios for practical use.
 
@@ -45,7 +38,7 @@ We start to build complete eBPF projects mainly based on `libbpf` and combine th
 - [lesson 20-tc](20-tc/README.md) tc Traffic Control
 - [lesson 21-xdp](21-xdp/README.md) Programmable Packet Processing with XDP
 
-## In-Depth Topics
+# In-Depth Topics
 
 This section covers advanced topics related to eBPF, including using eBPF programs on Android, possible attacks and defenses using eBPF programs, and complex tracing. Combining the user-mode and kernel-mode aspects of eBPF can bring great power (as well as security risks).
 
@@ -87,7 +80,7 @@ Other:
 
 Continuously updating...
 
-## bcc and bpftrace tutorial
+# bcc and bpftrace tutorial
 
 For reference:
 
