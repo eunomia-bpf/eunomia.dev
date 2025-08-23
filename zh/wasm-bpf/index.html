@@ -6,8 +6,10 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Unlock the potential of eBPF">
+        <meta name="description" content="WebAssembly eBPF library and toolchain. Build cross-platform eBPF programs in C/C++, Rust, Go and run them securely in Wasm sandbox.">
       
+      
+        <meta name="author" content="eunomia-bpf community">
       
       
         <link rel="canonical" href="https://eunomia.dev/zh/wasm-bpf/">
@@ -24,7 +26,7 @@
     
     
       
-        <title>Wasm-bpf - eunomia</title>
+        <title>Wasm-bpf Documentation - eunomia</title>
       
     
     
@@ -69,9 +71,9 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="Wasm-bpf - eunomia" >
+        <meta  property="og:title"  content="Wasm-bpf Documentation - eunomia" >
       
-        <meta  property="og:description"  content="Unlock the potential of eBPF" >
+        <meta  property="og:description"  content="WebAssembly eBPF library and toolchain. Build cross-platform eBPF programs in C/C++, Rust, Go and run them securely in Wasm sandbox." >
       
         <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/wasm-bpf/index.png" >
       
@@ -85,9 +87,9 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="Wasm-bpf - eunomia" >
+        <meta  name="twitter:title"  content="Wasm-bpf Documentation - eunomia" >
       
-        <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
+        <meta  name="twitter:description"  content="WebAssembly eBPF library and toolchain. Build cross-platform eBPF programs in C/C++, Rust, Go and run them securely in Wasm sandbox." >
       
         <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/wasm-bpf/index.png" >
       
@@ -145,7 +147,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Wasm-bpf
+              Wasm-bpf Documentation
             
           </span>
         </div>
@@ -2390,7 +2392,7 @@
   
   
   <span class="md-ellipsis">
-    bpftime: Userspace eBPF runtime for Observability, Network &amp; General extensions Framework
+    bpftime Documentation
     
   </span>
   
@@ -4201,7 +4203,7 @@
   
   
   <span class="md-ellipsis">
-    GPTtrace 🤖
+    GPTtrace Documentation
     
   </span>
   
@@ -4278,20 +4280,186 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
-        
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Wasm-bpf Documentation
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
   <span class="md-ellipsis">
-    Wasm-bpf
+    Wasm-bpf Documentation
     
   </span>
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#wasm-bpf-wasm-library-and-toolchain-for-ebpf" class="md-nav__link">
+    <span class="md-ellipsis">
+      📦 Wasm-bpf: Wasm library and toolchain for eBPF
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start-guides" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick start guides
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⌨️ Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 Get started
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 Get started">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-wasm-bpf" class="md-nav__link">
+    <span class="md-ellipsis">
+      📦 Install wasm-bpf
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-a-standalone-wasm-ebpf-program" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running a standalone Wasm-eBPF program
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#embed-a-wasm-ebpf-function-in-your-program" class="md-nav__link">
+    <span class="md-ellipsis">
+      Embed a Wasm-eBPF function in your program
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      How it works
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-the-runtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      Build the runtime
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Build the runtime">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-nix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use Nix
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    <span class="md-ellipsis">
+      LICENSE
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#links" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔗 Links
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -4360,7 +4528,7 @@
   
   
   <span class="md-ellipsis">
-    Other projects
+    Ecosystem & Other Projects
     
   </span>
   
@@ -8206,8 +8374,152 @@
   
   
   
-    
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#wasm-bpf-wasm-library-and-toolchain-for-ebpf" class="md-nav__link">
+    <span class="md-ellipsis">
+      📦 Wasm-bpf: Wasm library and toolchain for eBPF
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start-guides" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick start guides
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⌨️ Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 Get started
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 Get started">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-wasm-bpf" class="md-nav__link">
+    <span class="md-ellipsis">
+      📦 Install wasm-bpf
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-a-standalone-wasm-ebpf-program" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running a standalone Wasm-eBPF program
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#embed-a-wasm-ebpf-function-in-your-program" class="md-nav__link">
+    <span class="md-ellipsis">
+      Embed a Wasm-eBPF function in your program
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      How it works
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-the-runtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      Build the runtime
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Build the runtime">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-nix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use Nix
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    <span class="md-ellipsis">
+      LICENSE
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#links" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔗 Links
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -8239,14 +8551,16 @@
   
 
 
-<h1 id="wasm-bpf-wasm-library-and-toolchain-for-ebpf">📦 Wasm-bpf: Wasm library and toolchain for eBPF</h1>
+  <h1>Wasm-bpf Documentation</h1>
+
+<h2 id="wasm-bpf-wasm-library-and-toolchain-for-ebpf">📦 Wasm-bpf: Wasm library and toolchain for eBPF</h2>
 <p><a href="https://codecov.io/gh/eunomia-bpf/wasm-bpf"><img alt="codecov" src="https://codecov.io/gh/eunomia-bpf/wasm-bpf/branch/main/graph/badge.svg?token=6TKN4WU99U" /></a>
 <a href="https://www.codefactor.io/repository/github/eunomia-bpf/wasm-bpf"><img alt="CodeFactor" src="https://www.codefactor.io/repository/github/eunomia-bpf/wasm-bpf/badge" /></a>
 <a href="https://deepsource.io/gh/eunomia-bpf/wasm-bpf/?ref=repository-badge"><img alt="DeepSource" src="https://deepsource.io/gh/eunomia-bpf/wasm-bpf.svg/?label=active+issues&amp;show_trend=true&amp;token=rcSI3J1-gpwLIgZWtKZC-N6C" /></a>
 <a href="https://crates.io/crates/wasm-bpf-rs"><img alt="" src="https://img.shields.io/crates/v/wasm-bpf-rs.svg" /></a></p>
 <p><a href="https://gitee.com/eunomia-bpf/wasm-bpf">Gitee</a> <a href="https://github.com/eunomia-bpf/wasm-bpf">Github</a></p>
 <p><code>Wasm-bpf</code> is a WebAssembly eBPF library, toolchain and runtime powered by <a href="https://facebookmicrosites.github.io/bpf/blog/2020/02/19/bpf-portability-and-co-re.html">CO-RE</a>(Compile Once – Run Everywhere) <a href="https://github.com/libbpf/libbpf">libbpf</a>. It can help you build almost every eBPF programs or usecases to <code>Wasm</code> with nearly zero modification, and run them cross platforms with Wasm sandbox.</p>
-<h1 id="quick-start-guides">Quick start guides</h1>
+<h2 id="quick-start-guides">Quick start guides</h2>
 <p>⌨️ <a href="#introduction">Introduction</a> to wasm-bpf \
 📦 <a href="#features">Features</a> \
 🚀 <a href="#running-a-standalone-wasm-ebpf-program">Running</a> a standalone Wasm program from CLI or Docker \
@@ -8341,13 +8655,13 @@ See:
 <p><a href="https://github.com/eunomia-bpf/wasm-bpf/tree/main/LICENSE">MIT LICENSE</a></p>
 <h2 id="links">🔗 Links</h2>
 <ul>
-<li>eunomia-bpf project: simplify and enhance eBPF with CO-RE and WebAssembly https://github.com/eunomia-bpf/eunomia-bpf</li>
-<li>documents and blogs: https://docs.eunomia.dev</li>
-<li>CO-RE (Compile Once – Run Everywhere): https://facebookmicrosites.github.io/bpf/blog/2020/02/19/bpf-portability-and-co-re.html</li>
-<li>WAMR (WebAssembly Micro Runtime): https://github.com/bytecodealliance/wasm-micro-runtime</li>
-<li>libbpf: https://github.com/libbpf/libbpf</li>
+<li>eunomia-bpf project: simplify and enhance eBPF with CO-RE and WebAssembly <a href="https://github.com/eunomia-bpf/eunomia-bpf">https://github.com/eunomia-bpf/eunomia-bpf</a></li>
+<li>documents and blogs: <a href="https://docs.eunomia.dev">https://docs.eunomia.dev</a></li>
+<li>CO-RE (Compile Once – Run Everywhere): <a href="https://facebookmicrosites.github.io/bpf/blog/2020/02/19/bpf-portability-and-co-re.html">https://facebookmicrosites.github.io/bpf/blog/2020/02/19/bpf-portability-and-co-re.html</a></li>
+<li>WAMR (WebAssembly Micro Runtime): <a href="https://github.com/bytecodealliance/wasm-micro-runtime">https://github.com/bytecodealliance/wasm-micro-runtime</a></li>
+<li>libbpf: <a href="https://github.com/libbpf/libbpf">https://github.com/libbpf/libbpf</a></li>
 </ul>
-<p><a class="md-button" href="https://x.com/intent/tweet?text=Wasm-bpf%0A&amp;url=https://eunomia.dev/zh/wasm-bpf/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=Wasm-bpf%20Documentation%0A&amp;url=https://eunomia.dev/zh/wasm-bpf/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/zh/wasm-bpf/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
@@ -8371,7 +8685,7 @@ See:
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 10, 2025 23:15:39 UTC">February 10, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 23, 2025 15:07:50 UTC">August 23, 2025</span>
   </span>
 
     
@@ -8391,11 +8705,12 @@ See:
   <span class="md-source-file__fact">
     <span class="md-icon" title="Contributors">
       
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
       
     </span>
     <nav>
       
+        <a href="mailto:41898282+github-actions[bot]@users.noreply.github.com">github-actions[bot]</a>, 
         <a href="mailto:1067852565@qq.com">云微</a>
     </nav>
   </span>
@@ -8501,7 +8816,7 @@ See:
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../GPTtrace/" class="md-footer__link md-footer__link--prev" aria-label="Previous: GPTtrace 🤖">
+          <a href="../GPTtrace/" class="md-footer__link md-footer__link--prev" aria-label="Previous: GPTtrace Documentation">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -8511,20 +8826,20 @@ See:
                 Previous
               </span>
               <div class="md-ellipsis">
-                GPTtrace 🤖
+                GPTtrace Documentation
               </div>
             </div>
           </a>
         
         
           
-          <a href="../others/" class="md-footer__link md-footer__link--next" aria-label="Next: Other projects">
+          <a href="../others/" class="md-footer__link md-footer__link--next" aria-label="Next: Ecosystem &amp; Other Projects">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Other projects
+                Ecosystem & Other Projects
               </div>
             </div>
             <div class="md-footer__button md-icon">
