@@ -16,8 +16,8 @@ jobs:
           fetch-depth: '0'
       - name: Configure Git Credentials
         run: |
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git config user.name yunwei37
+          git config user.email yunwei356@gmail.com
           git submodule update --init --recursive
       - name: Install all
         run: |
