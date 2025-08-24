@@ -8512,8 +8512,8 @@ probe函数名为<code>tracepoint__&lt;category&gt;__&lt;event&gt;</code>。</p>
 注意，上面定义的探针函数的名称是 <code>tracepoint__random__urandom_read</code>。</p>
 <p>实际示例：
 <a href="https://github.com/iovisor/bcc/blob/a4159da8c4ea8a05a3c6e402451f530d6e5a8b41/examples/tracing/urandomread.py#L19">code</a> (<a href="https://github.com/iovisor/bcc/commit/e422f5e50ecefb96579b6391a2ada7f6367b83c4#diff-41e5ecfae4a3b38de5f4e0887ed160e5R10">output</a>)，
-<a href="https://github.com/iovisor/bcc/search?q=TRACEPOINT_PROBE+path%3Aexamples&amp;type=Code">search /examples</a>，
-<a href="https://github.com/iovisor/bcc/search?q=TRACEPOINT_PROBE+path%3Atools&amp;type=Code">search /tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">search /examples</a>，
+<a href="https://github.com/iovisor/bcc/tree/master/tools">search /tools</a></p>
 <h3 id="4-uprobes">4. uprobes</h3>
 <p>这些是通过在 C 中声明一个普通函数，然后在 Python 中通过 <code>BPF.attach_uprobe()</code> 将其关联为 uprobes 探针来进行注入的（稍后会介绍）。</p>
 <p>可以使用 <code>PT_REGS_PARM</code> 宏来检查参数。</p>
@@ -8605,7 +8605,7 @@ probe函数名为<code>tracepoint__&lt;category&gt;__&lt;event&gt;</code>。</p>
 </code></pre></div>
 <p>这将对do_sys_open内核函数进行探查，并将其参数作为标准参数值访问。</p>
 <p>示例：
-<a href="https://github.com/iovisor/bcc/search?q=KFUNC_PROBE+path%3Atools&amp;type=Code">search /tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/tools">search /tools</a></p>
 <h3 id="10-kretfuncs">10. kretfuncs</h3>
 <p>语法：KRETFUNC_PROBE(<em>event</em>, typeof(arg1) arg1, typeof(arg2) arge ..., int ret)</p>
 <p>这是一个通过跳板来在内核函数执行<strong>之前</strong>探查的宏。
@@ -8618,7 +8618,7 @@ probe函数名为<code>tracepoint__&lt;category&gt;__&lt;event&gt;</code>。</p>
 </code></pre></div>
 <p>这会对do_sys_open内核函数进行检测，并将其参数作为标准参数值一起与其返回值一起提取。</p>
 <p>原地示例：
-<a href="https://github.com/iovisor/bcc/search?q=KRETFUNC_PROBE+path%3Atools&amp;type=Code">搜索 /tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索 /tools</a></p>
 <h3 id="11-lsm-probes">11. LSM Probes</h3>
 <p>语法：LSM_PROBE(<em>hook</em>, typeof(arg1) arg1, typeof(arg2) arg2 ...)</p>
 <p>这是一种将LSM挂钩作为BPF程序进行检测的宏。它可以用于审计安全事件和实施BPF中的MAC安全策略。
@@ -8643,7 +8643,7 @@ probe函数名为<code>tracepoint__&lt;category&gt;__&lt;event&gt;</code>。</p>
 <li><code>CONFIG_LSM</code> 逗号分隔的字符串必须包含"bpf"（例如，
   <code>CONFIG_LSM="lockdown,yama,bpf"</code>)</li>
 </ul>
-<p>原地示例："<a href="https://github.com/iovisor/bcc/search?q=LSM_PROBE+path%3Atests&amp;type=Code">搜索/tests</a></p>
+<p>原地示例："<a href="https://github.com/iovisor/bcc/tree/master/tests">搜索/tests</a></p>
 <h3 id="12-bpf">12. BPF迭代器</h3>
 <p>语法: BPF_ITER(target)</p>
 <p>这是一个宏，用于定义一个bpf迭代器程序的程序签名。参数 <em>target</em> 指定要迭代的内容。</p>
@@ -8668,8 +8668,8 @@ probe函数名为<code>tracepoint__&lt;category&gt;__&lt;event&gt;</code>。</p>
 <p>返回值: 成功时返回0</p>
 <p>该函数将从内核地址空间复制size字节到BPF堆栈，以便BPF之后可以对其进行操作。为了安全起见，所有内核内存读取都必须通过bpf_probe_read_kernel()进行。在某些情况下，比如解引用内核变量时，这会自动发生，因为bcc会重新编写BPF程序以包含所需的bpf_probe_read_kernel()。</p>
 <p>现场示例：
-<a href="https://github.com/iovisor/bcc/search?q=bpf_probe_read_kernel+path%3Aexamples&amp;type=Code">搜索 /examples</a>,
-<a href="https://github.com/iovisor/bcc/search?q=bpf_probe_read_kernel+path%3Atools&amp;type=Code">搜索 /tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索 /examples</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索 /tools</a></p>
 <h3 id="2-bpf_probe_read_kernel_strshell">2. bpf_probe_read_kernel_str()".```shell</h3>
 <p>语法：<code>int bpf_probe_read_kernel_str(void *dst, int size, const void*src)</code></p>
 <p>返回值：</p>
@@ -8679,26 +8679,26 @@ probe函数名为<code>tracepoint__&lt;category&gt;__&lt;event&gt;</code>。</p>
 </ul>
 <p>该函数将一个以<code>NULL</code>结尾的字符串从内核地址空间复制到BPF堆栈中，以便BPF以后可以对其进行操作。如果字符串的长度小于size，则目标不会用更多的<code>NULL</code>字节进行填充。如果字符串的长度大于size，则只会复制<code>size - 1</code>个字节，并将最后一个字节设置为<code>NULL</code>。</p>
 <p>示例：
-<a href="https://github.com/iovisor/bcc/search?q=bpf_probe_read_kernel_str+path%3Aexamples&amp;type=Code">搜索/examples</a>,
-<a href="https://github.com/iovisor/bcc/search?q=bpf_probe_read_kernel_str+path%3Atools&amp;type=Code">搜索/tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索/examples</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索/tools</a></p>
 <h3 id="3-bpf_ktime_get_ns">3. bpf_ktime_get_ns()</h3>
 <p>语法：<code>u64 bpf_ktime_get_ns(void)</code></p>
 <p>返回值：u64 纳秒数。从系统启动时间开始计数，但在挂起期间停止计数。</p>
 <p>示例：
-<a href="https://github.com/iovisor/bcc/search?q=bpf_ktime_get_ns+path%3Aexamples&amp;type=Code">搜索/examples</a>,
-<a href="https://github.com/iovisor/bcc/search?q=bpf_ktime_get_ns+path%3Atools&amp;type=Code">搜索/tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索/examples</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索/tools</a></p>
 <h3 id="4-bpf_get_current_pid_tgid">4. bpf_get_current_pid_tgid()</h3>
 <p>语法：<code>u64 bpf_get_current_pid_tgid(void)</code></p>
 <p>返回值：<code>current-&gt;tgid &lt;&lt; 32 | current-&gt;pid</code></p>
 <p>返回进程ID位于低32位（内核视图的PID，在用户空间通常表示为线程ID），线程组ID位于高32位（在用户空间通常被认为是PID）。通过直接设置为u32类型，我们丢弃了高32位。</p>
 <p>示例：
-<a href="https://github.com/iovisor/bcc/search?q=bpf_get_current_pid_tgid+path%3Aexamples&amp;type=Code">搜索/examples</a>,
-<a href="https://github.com/iovisor/bcc/search?q=bpf_get_current_pid_tgid+path%3Atools&amp;type=Code">搜索/tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索/examples</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索/tools</a></p>
 <h3 id="5-bpf_get_current_uid_gid">5. bpf_get_current_uid_gid()</h3>
 <p>语法：<code>u64 bpf_get_current_uid_gid(void)</code></p>
 <p>返回值：<code>current_gid &lt;&lt; 32 | current_uid</code></p>
 <p>返回用户ID和组ID。</p>
-<p>示例：<a href="https://github.com/iovisor/bcc/search?q=bpf_get_current_uid_gid+path%3Aexamples&amp;type=Code">搜索/examples</a>, <a href="https://github.com/iovisor/bcc/search?q=bpf_get_current_uid_gid+path%3Atools&amp;type=Code">搜索/tools</a></p>
+<p>示例：<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索/examples</a>, <a href="https://github.com/iovisor/bcc/tree/master/tools">搜索/tools</a></p>
 <h3 id="6-bpf_get_current_comm">6. bpf_get_current_comm()</h3>
 <p>语法: <code>bpf_get_current_comm(char *buf, int size_of_buf)</code></p>
 <p>返回值: 成功时返回0</p>
@@ -8711,7 +8711,7 @@ probe函数名为<code>tracepoint__&lt;category&gt;__&lt;event&gt;</code>。</p>
 <a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="p">[...]</span>
 </code></pre></div>
 <p>现有示例:
-<a href="https://github.com/iovisor/bcc/search?q=bpf_get_current_comm+path%3Aexamples&amp;type=Code">搜索/examples</a>, <a href="https://github.com/iovisor/bcc/search?q=bpf_get_current_comm+path%3Atools&amp;type=Code">搜索/tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索/examples</a>, <a href="https://github.com/iovisor/bcc/tree/master/tools">搜索/tools</a></p>
 <h3 id="7-bpf_get_current_task">7. bpf_get_current_task()</h3>
 <p>语法: <code>bpf_get_current_task()</code></p>
 <p>返回值: 返回指向当前任务的struct task_struct指针。</p>
@@ -8726,25 +8726,25 @@ probe函数名为<code>tracepoint__&lt;category&gt;__&lt;event&gt;</code>。</p>
 <a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="p">[...]</span>
 </code></pre></div>
 <p>现有示例:
-<a href="https://github.com/iovisor/bcc/search?q=bpf_get_current_task+path%3Aexamples&amp;type=Code">搜索/examples</a>, <a href="https://github.com/iovisor/bcc/search?q=bpf_get_current_task+path%3Atools&amp;type=Code">搜索/tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索/examples</a>, <a href="https://github.com/iovisor/bcc/tree/master/tools">搜索/tools</a></p>
 <h3 id="8-bpf_log2l">8. bpf_log2l()</h3>
 <p>语法: <code>unsigned int bpf_log2l(unsigned long v)</code></p>
 <p>返回提供的值的log-2。这通常用于创建直方图的索引，以构建2的幂次直方图。在原地示例：</p>
-<p><a href="https://github.com/iovisor/bcc/search?q=bpf_log2l+path%3Aexamples&amp;type=Code">搜索/示例</a>，
-<a href="https://github.com/iovisor/bcc/search?q=bpf_log2l+path%3Atools&amp;type=Code">搜索/工具</a></p>
+<p><a href="https://github.com/iovisor/bcc/tree/master/examples">搜索/示例</a>，
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索/工具</a></p>
 <h3 id="9-bpf_get_prandom_u32">9. bpf_get_prandom_u32()</h3>
 <p>语法：<code>u32 bpf_get_prandom_u32()</code></p>
 <p>返回一个伪随机的 u32。</p>
 <p>在原地示例：</p>
-<p><a href="https://github.com/iovisor/bcc/search?q=bpf_get_prandom_u32+path%3Aexamples&amp;type=Code">搜索/示例</a>，
-<a href="https://github.com/iovisor/bcc/search?q=bpf_get_prandom_u32+path%3Atools&amp;type=Code">搜索/工具</a></p>
+<p><a href="https://github.com/iovisor/bcc/tree/master/examples">搜索/示例</a>，
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索/工具</a></p>
 <h3 id="10-bpf_probe_read_user">10. bpf_probe_read_user()</h3>
 <p>语法：<code>int bpf_probe_read_user(void *dst, int size, const void*src)</code></p>
 <p>返回值：成功时返回0</p>
 <p>该函数尝试安全地从用户地址空间读取size个字节到BPF栈中，以便BPF之后可以操作它。为确保安全，所有用户地址空间内存读取必须通过bpf_probe_read_user()。</p>
 <p>在原地示例：</p>
-<p><a href="https://github.com/iovisor/bcc/search?q=bpf_probe_read_user+path%3Aexamples&amp;type=Code">搜索/示例</a>，
-<a href="https://github.com/iovisor/bcc/search?q=bpf_probe_read_user+path%3Atools&amp;type=Code">搜索/工具</a></p>
+<p><a href="https://github.com/iovisor/bcc/tree/master/examples">搜索/示例</a>，
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索/工具</a></p>
 <h3 id="11-bpf_probe_read_user_str">11. bpf_probe_read_user_str()</h3>
 <p>语法：<code>int bpf_probe_read_user_str(void *dst, int size, const void*src)</code></p>
 <p>返回值：</p>
@@ -8754,8 +8754,8 @@ probe函数名为<code>tracepoint__&lt;category&gt;__&lt;event&gt;</code>。</p>
 </ul>
 <p>该函数将一个以<code>NULL</code>结尾的字符串从用户地址空间复制到BPF栈中，以便BPF之后可以操作它。如果字符串长度小于size，则目标不会用额外的<code>NULL</code>字节填充。如果字符串长度大于size，则只会复制<code>size - 1</code>字节，并将最后一字节设置为<code>NULL</code>。</p>
 <p>在原地示例：</p>
-<p><a href="https://github.com/iovisor/bcc/search?q=bpf_probe_read_user_str+path%3Aexamples&amp;type=Code">搜索/示例</a>，
-<a href="https://github.com/iovisor/bcc/search?q=bpf_probe_read_user_str+path%3Atools&amp;type=Code">搜索/工具</a></p>
+<p><a href="https://github.com/iovisor/bcc/tree/master/examples">搜索/示例</a>，
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索/工具</a></p>
 <h3 id="12-bpf_get_ns_current_pid_tgid">12. bpf_get_ns_current_pid_tgid()</h3>
 <p>语法：<code>u32 bpf_get_ns_current_pid_tgid(u64 dev, u64 ino, struct bpf_pidns_info*nsdata, u32 size)</code>。从当前<strong>命名空间</strong>中看到的<em>pid</em>和<em>tgid</em>的值将在<em>nsdata</em>中返回。</p>
 <p>成功返回0，失败时返回以下之一：</p>
@@ -8768,8 +8768,8 @@ probe函数名为<code>tracepoint__&lt;category&gt;__&lt;event&gt;</code>。</p>
 </li>
 </ul>
 <p>原地示例：
-<a href="https://github.com/iovisor/bcc/search?q=bpf_get_ns_current_pid_tgid+path%3Aexamples&amp;type=Code">搜索/examples</a>,
-<a href="https://github.com/iovisor/bcc/search?q=bpf_get_ns_current_pid_tgid+path%3Atools&amp;type=Code">搜索/tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索/examples</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索/tools</a></p>
 <h2 id="_3">调试</h2>
 <h3 id="1-bpf_override_return">1. bpf_override_return()</h3>
 <p>语法：<code>int bpf_override_return(struct pt_regs *, unsigned long rc)</code></p>
@@ -8786,7 +8786,7 @@ probe函数名为<code>tracepoint__&lt;category&gt;__&lt;event&gt;</code>。</p>
 <p>语法：<code>int bpf_trace_printk(const char *fmt, ...)</code></p>
 <p>返回值：成功时返回0</p>
 <p>对于通常的trace_pipe (/sys/kernel/debug/tracing/trace_pipe)提供了一个简单的内核printf()功能。这对于一些快速示例是可以接受的，但有一些限制：最多3个参数，只有一个%s，而且trace_pipe是全局共享的，所以并发程序会有冲突输出。更好的接口是通过BPF_PERF_OUTPUT()。注意，与原始内核版本相比，调用这个辅助函数变得更简单，它的第二个参数已经是 <code>fmt_size</code>。</p>
-<p>原地示例："<a href="https://github.com/iovisor/bcc/search?q=bpf_trace_printk+path%3Aexamples&amp;type=Code">搜索 /示例</a>, <a href="https://github.com/iovisor/bcc/search?q=bpf_trace_printk+path%3Atools&amp;type=Code">搜索 /工具</a></p>
+<p>原地示例："<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索 /示例</a>, <a href="https://github.com/iovisor/bcc/tree/master/tools">搜索 /工具</a></p>
 <h3 id="2-bpf_perf_output">2. BPF_PERF_OUTPUT</h3>
 <p>语法：<code>BPF_PERF_OUTPUT(name)</code></p>
 <p>创建一个BPF表格，通过性能环形缓冲区将自定义事件数据推送到用户空间。这是将每个事件数据推送到用户空间的首选方法。</p>
@@ -8812,20 +8812,20 @@ probe函数名为<code>tracepoint__&lt;category&gt;__&lt;event&gt;</code>。</p>
 </code></pre></div>
 <p>输出表格名为<code>events</code>，数据通过<code>events.perf_submit()</code>推送到该表格。</p>
 <p>示例中包含以下内容：
-<a href="https://github.com/iovisor/bcc/search?q=BPF_PERF_OUTPUT+path%3Aexamples&amp;type=Code">搜索 /示例</a>, <a href="https://github.com/iovisor/bcc/search?q=BPF_PERF_OUTPUT+path%3Atools&amp;type=Code">搜索 /工具</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索 /示例</a>, <a href="https://github.com/iovisor/bcc/tree/master/tools">搜索 /工具</a></p>
 <h3 id="3-perf_submit">3. perf_submit()</h3>
 <p>语法：<code>int perf_submit((void *)ctx, (void*)data, u32 data_size)</code></p>
 <p>返回值：成功返回0</p>
 <p>这是BPF_PERF_OUTPUT表格的一种方法，用于向用户空间提交自定义事件数据。参见BPF_PERF_OUTPUT条目（最终调用bpf_perf_event_output()）。</p>
 <p><code>ctx</code>参数在<a href="#1-kprobes">kprobes</a>或<a href="#2-kretprobes">kretprobes</a>中提供。对于<code>SCHED_CLS</code>或<code>SOCKET_FILTER</code>程序，必须使用<code>struct __sk_buff *skb</code>。</p>
 <p>示例中包含以下内容：
-<a href="https://github.com/iovisor/bcc/search?q=perf_submit+path%3Aexamples&amp;type=Code">搜索 /示例</a>, <a href="https://github.com/iovisor/bcc/search?q=perf_submit+path%3Atools&amp;type=Code">搜索 /工具</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索 /示例</a>, <a href="https://github.com/iovisor/bcc/tree/master/tools">搜索 /工具</a></p>
 <h3 id="4-perf_submit_skb">4. perf_submit_skb()</h3>
 <p>语法：<code>int perf_submit_skb((void *)ctx, u32 packet_size, (void*)data, u32 data_size)</code></p>
 <p>返回值：成功返回0".一种在网络程序类型中可用的BPF_PERF_OUTPUT表的方法，用于将自定义事件数据和数据包缓冲区的前<code>packet_size</code>字节一起提交到用户空间。请参阅BPF_PERF_OUTPUT条目。（最终调用bpf_perf_event_output()函数。）</p>
 <p>现场示例：
-<a href="https://github.com/iovisor/bcc/search?q=perf_submit_skb+path%3Aexamples&amp;type=Code">搜索/examples</a>
-<a href="https://github.com/iovisor/bcc/search?q=perf_submit_skb+path%3Atools&amp;type=Code">搜索/tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索/examples</a>
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索/tools</a></p>
 <h3 id="5-bpf_ringbuf_output">5. BPF_RINGBUF_OUTPUT</h3>
 <p>语法：<code>BPF_RINGBUF_OUTPUT(name, page_cnt)</code></p>
 <p>创建一个BPF表，通过一个环形缓冲区将自定义事件数据推送到用户空间。
@@ -8842,7 +8842,7 @@ probe函数名为<code>tracepoint__&lt;category&gt;__&lt;event&gt;</code>。</p>
 <p>从Linux 5.8开始，这应该是将事件数据推送到用户空间的首选方法。</p>
 <p>输出表命名为'事件'。数据通过'事件'。ringbuf_reserve（）分配，并通过'事件'。ringbuf_submit（）推送到其中。</p>
 <p>在situ示例：<!-- TODO -->
-<a href="https://github.com/iovisor/bcc/search?q=BPF_RINGBUF_OUTPUT+path%3Aexamples&amp;type=Code">搜索/示例</a>，</p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索/示例</a>，</p>
 <h3 id="6-ringbuf_output">6. ringbuf_output（）</h3>
 <p>语法：int ringbuf_output（（void *）data，u64 data_size，u64 flags）</p>
 <p>返回：成功返回0</p>
@@ -8853,23 +8853,15 @@ probe函数名为<code>tracepoint__&lt;category&gt;__&lt;event&gt;</code>。</p>
 </ul>
 <p>BPF_RINGBUF_OUTPUT表的方法，用于将自定义事件数据提交给用户空间。此方法类似于<code>perf_submit（）</code>，但不需要ctx参数。</p>
 <p>在situ示例：<!-- TODO -->
-<a href="https://github.com/iovisor/bcc/search?q=ringbuf_output+path%3Aexamples&amp;type=Code">搜索/示例</a>，</p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索/示例</a>，</p>
 <h3 id="7-ringbuf_reserve">7. ringbuf_reserve()</h3>
 <p>语法：void * ringbuf_reserve（u64 data_size）</p>
 <p>返回：成功时返回数据结构的指针，失败时返回NULL</p>
 <p>BPF_RINGBUF_OUTPUT表的方法，用于在环形缓冲区中保留空间并同时分配一个用于输出的数据结构。必须与<code>ringbuf_submit</code>或<code>ringbuf_discard</code>之一配合使用。</p>
 <p>在situ示例：<!-- TODO -->
-[搜索/示例]（<a href="https://github.com/iovisor/bcc/search?q=ringbuf_reserve+path%3Aexamples&amp;type=Code），">https://github.com/iovisor/bcc/search?q=ringbuf_reserve+path%3Aexamples&amp;type=Code），</a></p>
-<h3 id="8-ringbuf_submit">8. ringbuf_submit（）</h3>
-<p>语法：void ringbuf_submit（（void *）data，u64 flags）</p>
-<p>返回：无，始终成功</p>
-<p>标志：- <code>BPF_RB_NO_WAKEUP</code>: 不发送新数据可用的通知</p>
-<ul>
-<li><code>BPF_RB_FORCE_WAKEUP</code>: 无条件发送新数据可用的通知</li>
-</ul>
-<p>BPF_RINGBUF_OUTPUT表的方法，用于将自定义事件数据提交到用户态。必须在调用<code>ringbuf_reserve()</code>之前调用，以为数据预留空间。</p>
+[搜索/示例]（&lt;https://github.com/iovisor/bcc/tree/master/examples)```之前调用，以为数据预留空间。</p>
 <p>现场示例：<!-- TODO -->
-<a href="https://github.com/iovisor/bcc/search?q=ringbuf_submit+path%3Aexamples&amp;type=Code">搜索/examples</a>,</p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索/examples</a>,</p>
 <h3 id="9-ringbuf_discard">9. ringbuf_discard()</h3>
 <p>语法: <code>void ringbuf_discard((void *)data, u64 flags)</code></p>
 <p>返回值: 无，始终成功</p>
@@ -8880,7 +8872,7 @@ probe函数名为<code>tracepoint__&lt;category&gt;__&lt;event&gt;</code>。</p>
 </ul>
 <p>BPF_RINGBUF_OUTPUT表的方法，用于丢弃自定义事件数据；用户空间将忽略与丢弃事件相关联的数据。必须在调用<code>ringbuf_reserve()</code>之前调用，以为数据预留空间。</p>
 <p>现场示例：<!-- TODO -->
-<a href="https://github.com/iovisor/bcc/search?q=ringbuf_submit+path%3Aexamples&amp;type=Code">搜索/examples</a>,</p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索/examples</a>,</p>
 <h2 id="maps">Maps</h2>
 <p>Maps是BPF数据存储，是更高级对象类型（包括表、哈希和直方图）的基础。</p>
 <h3 id="1-bpf_table">1. BPF_TABLE</h3>
@@ -8889,7 +8881,7 @@ probe函数名为<code>tracepoint__&lt;category&gt;__&lt;event&gt;</code>。</p>
 <p><code>BPF_F_TABLE</code>是一个变体，最后一个参数采用标志。<code>BPF_TABLE(https://github.com/iovisor/bcc/tree/master.)</code>实际上是`BPF_F_TABLE(<a href="https://github.com/iovisor/bcc/tree/master">https://github.com/iovisor/bcc/tree/master</a>., 0 /<em>flag</em>/)```的包装。</p>
 <p>方法（稍后讨论）：map.lookup()、map.lookup_or_try_init()、map.delete()、map.update()、map.insert()、map.increment()。</p>
 <p>现场示例：
-<a href="https://github.com/iovisor/bcc/search?q=BPF_TABLE+path%3Aexamples&amp;type=Code">搜索/examples</a>,"<a href="https://github.com/iovisor/bcc/search?q=BPF_TABLE+path%3Atools&amp;type=Code">搜索 /工具</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索/examples</a>,"<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索 /工具</a></p>
 <h4 id="_5">固定映射</h4>
 <p>语法: <code>BPF_TABLE_PINNED(_table_type,_key_type, _leaf_type,_name, _max_entries, "/sys/fs/bpf/xyz")</code></p>
 <p>如果映射不存在，则创建一个新的映射并将其固定到bpffs作为文件；否则使用已固定到bpffs的映射。类型信息不强制执行，实际的映射类型取决于固定到位置的映射。</p>
@@ -8906,8 +8898,8 @@ probe函数名为<code>tracepoint__&lt;category&gt;__&lt;event&gt;</code>。</p>
 <p>这将创建一个名为<code>start</code>的哈希，其中关键字为<code>struct request *</code>，值默认为u64。此哈希由disksnoop.py示例用于保存每个I/O请求的时间戳，其中关键字是指向struct request的指针，而值是时间戳。</p>
 <p>这是<code>BPF_TABLE("hash", ...)</code>的包装宏。</p>
 <p>方法（稍后涵盖）：map.lookup()，map.lookup_or_try_init()，map.delete()，map.update()，map.insert()，map.increment()。</p>
-<p>示例中的原位置链接：<a href="https://github.com/iovisor/bcc/search?q=BPF_HASH+path%3Aexamples&amp;type=Code">搜索 /示例</a>,
-<a href="https://github.com/iovisor/bcc/search?q=BPF_HASH+path%3Atools&amp;type=Code">搜索 /工具</a></p>
+<p>示例中的原位置链接：<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索 /示例</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索 /工具</a></p>
 <h3 id="3-bpf_array">3. BPF_ARRAY</h3>
 <p>语法: <code>BPF_ARRAY(name [, leaf_type [, size]])</code></p>
 <p>创建一个以整数索引的数组，最快速的查找和更新为优化，名称为<code>name</code>，具有可选参数。</p>
@@ -8918,8 +8910,8 @@ probe函数名为<code>tracepoint__&lt;category&gt;__&lt;event&gt;</code>。</p>
 <p>这将创建一个名为<code>counts</code>的数组，其中有32个存储桶和64位整数值。funccount.py示例使用此数组保存每个函数的调用计数。".这是一个 <code>BPF_TABLE("array", ...)</code> 的包装宏。</p>
 <p>方法（稍后介绍）：map.lookup()、map.update()、map.increment()。注意，所有数组元素都预先分配为零值，无法删除。</p>
 <p>在当前位置的示例：
-<a href="https://github.com/iovisor/bcc/search?q=BPF_ARRAY+path%3Aexamples&amp;type=Code">搜索/examples</a>，
-<a href="https://github.com/iovisor/bcc/search?q=BPF_ARRAY+path%3Atools&amp;type=Code">搜索/tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索/examples</a>，
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索/tools</a></p>
 <h3 id="4-bpf_histogram">4. BPF_HISTOGRAM</h3>
 <p>语法：<code>BPF_HISTOGRAM(name [, key_type [, size ]])</code></p>
 <p>创建一个名为 <code>name</code> 的直方图映射，包含可选参数。</p>
@@ -8931,8 +8923,8 @@ probe函数名为<code>tracepoint__&lt;category&gt;__&lt;event&gt;</code>。</p>
 <p>这是一个 <code>BPF_TABLE("histgram", ...)</code> 的包装宏。</p>
 <p>方法（稍后介绍）：map.increment()。</p>
 <p>在当前位置的示例：
-<a href="https://github.com/iovisor/bcc/search?q=BPF_HISTOGRAM+path%3Aexamples&amp;type=Code">搜索/examples</a>，
-<a href="https://github.com/iovisor/bcc/search?q=BPF_HISTOGRAM+path%3Atools&amp;type=Code">搜索/tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索/examples</a>，
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索/tools</a></p>
 <h3 id="5-bpf_stack_trace">5. BPF_STACK_TRACE</h3>
 <p>语法：<code>BPF_STACK_TRACE(name, max_entries)</code></p>
 <p>创建一个名为 <code>name</code> 的堆栈跟踪映射，提供最大条目数。这些映射用于存储堆栈跟踪。</p>
@@ -8943,8 +8935,8 @@ probe函数名为<code>tracepoint__&lt;category&gt;__&lt;event&gt;</code>。</p>
 <p>这是一个 <code>BPF_TABLE("stacktrace", ...)</code> 的包装宏。</p>
 <p>方法（稍后介绍）：map.get_stackid()。</p>
 <p>在当前位置的示例：
-<a href="https://github.com/iovisor/bcc/search?q=BPF_STACK_TRACE+path%3Aexamples&amp;type=Code">搜索/examples</a>，
-<a href="https://github.com/iovisor/bcc/search?q=BPF_STACK_TRACE+path%3Atools&amp;type=Code">搜索/tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索/examples</a>，
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索/tools</a></p>
 <h3 id="6-bpf_perf_array">6. BPF_PERF_ARRAY</h3>
 <p>语法：<code>BPF_PERF_ARRAY(name, max_entries)</code></p>
 <p>创建一个名为 <code>name</code> 的 perf 数组，提供最大条目数，该数必须等于系统 CPU 的数量。这些映射用于获取硬件性能计数器。例如：</p>
@@ -8957,7 +8949,7 @@ probe函数名为<code>tracepoint__&lt;category&gt;__&lt;event&gt;</code>。</p>
 <p>这将创建一个名为<code>cpu_cycles</code>的性能数组，条目数量等于CPU核心数。该数组被配置为，稍后调用<code>map.perf_read()</code>将返回从过去某一时刻开始计算的硬件计数器的周期数。每个表只能配置一种类型的硬件计数器。</p>
 <p>方法（稍后介绍）：<code>map.perf_read()</code>。</p>
 <p>现场示例：
-<a href="https://github.com/iovisor/bcc/search?q=BPF_PERF_ARRAY+path%3Atests&amp;type=Code">搜索 /tests</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/tests">搜索 /tests</a></p>
 <h3 id="7-bpf_percpu_hash">7. BPF_PERCPU_HASH</h3>
 <p>语法：<code>BPF_PERCPU_HASH(name [, key_type [, leaf_type [, size]]])</code></p>
 <p>创建NUM_CPU个以int索引的哈希映射（关联数组），名为<code>name</code>，具有可选参数。每个CPU都会有一个单独的该数组副本。这些副本不以任何方式进行同步。</p>
@@ -8971,8 +8963,8 @@ probe函数名为<code>tracepoint__&lt;category&gt;__&lt;event&gt;</code>。</p>
 <p>这是对<code>BPF_TABLE("percpu_hash", ...)</code>的包装宏。</p>
 <p>方法（稍后介绍）：<code>map.lookup()</code>、<code>map.lookup_or_try_init()</code>、<code>map.delete()</code>、<code>map.update()</code>、<code>map.insert()</code>、<code>map.increment()</code>。</p>
 <p>现场示例：
-<a href="https://github.com/iovisor/bcc/search?q=BPF_PERCPU_HASH+path%3Aexamples&amp;type=Code">搜索 /examples</a>,
-<a href="https://github.com/iovisor/bcc/search?q=BPF_PERCPU_HASH+path%3Atools&amp;type=Code">搜索 /tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索 /examples</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索 /tools</a></p>
 <h3 id="8-bpf_percpu_array">8. BPF_PERCPU_ARRAY</h3>
 <p>语法：<code>BPF_PERCPU_ARRAY(name [, leaf_type [, size]])</code>。创建<code>name</code>的NUM_CPU个按整数索引优化的数组，以实现最快的查找和更新，具有可选参数。每个CPU都会有一个单独的副本。这些副本不能以任何方式同步。</p>
 <p>请注意，由于内核（在linux/mm/percpu.c中）定义的限制，<code>leaf_type</code>的大小不能超过32KB。
@@ -8985,8 +8977,8 @@ probe函数名为<code>tracepoint__&lt;category&gt;__&lt;event&gt;</code>。</p>
 <p>这是<code>BPF_TABLE("percpu_array", ...)</code>的包装宏。</p>
 <p>方法（稍后介绍）：map.lookup()，map.update()，map.increment()。请注意，所有数组元素都预先分配为零值，并且不能被删除。</p>
 <p>In situ示例：
-<a href="https://github.com/iovisor/bcc/search?q=BPF_PERCPU_ARRAY+path%3Aexamples&amp;type=Code">搜索/examples</a>，
-<a href="https://github.com/iovisor/bcc/search?q=BPF_PERCPU_ARRAY+path%3Atools&amp;type=Code">搜索/tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索/examples</a>，
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索/tools</a></p>
 <h3 id="9-bpf_lpm_trie">9. BPF_LPM_TRIE</h3>
 <p>语法：<code>BPF_LPM_TRIE(name [, key_type [, leaf_type [, size]]])</code></p>
 <p>创建一个名为<code>name</code>的最长前缀匹配字典树映射，带有可选参数。</p>
@@ -8998,15 +8990,15 @@ probe函数名为<code>tracepoint__&lt;category&gt;__&lt;event&gt;</code>。</p>
 <p>这是一个对<code>BPF_F_TABLE("lpm_trie", ..., BPF_F_NO_PREALLOC)</code>的包装宏。</p>
 <p>方法（稍后介绍）：map.lookup()，map.lookup_or_try_init()，map.delete()，map.update()，map.insert()，map.increment()。</p>
 <p>In situ示例：
-<a href="https://github.com/iovisor/bcc/search?q=BPF_LPM_TRIE+path%3Aexamples&amp;type=Code">搜索/examples</a>，
-<a href="https://github.com/iovisor/bcc/search?q=BPF_LPM_TRIE+path%3Atools&amp;type=Code">搜索/tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索/examples</a>，
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索/tools</a></p>
 <h3 id="10-bpf_prog_array">10. BPF_PROG_ARRAY</h3>
 <p>语法：<code>BPF_PROG_ARRAY(name, size)</code>。创建一个名为 <code>name</code> 的程序数组，其中包含 <code>size</code> 个条目。数组的每个条目要么是指向一个 bpf 程序的文件描述符，要么是 <code>NULL</code>。该数组作为一个跳转表，以便 bpf 程序可以“尾调用”其他 bpf 程序。</p>
 <p>这是一个 <code>BPF_TABLE("prog", ...)</code> 的包装宏。</p>
 <p>方法（稍后介绍）：map.call()。</p>
 <p>实时示例：
-<a href="https://github.com/iovisor/bcc/search?q=BPF_PROG_ARRAY+path%3Aexamples&amp;type=Code">搜索 /examples</a>,
-<a href="https://github.com/iovisor/bcc/search?q=BPF_PROG_ARRAY+path%3Atests&amp;type=Code">搜索 /tests</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索 /examples</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/tests">搜索 /tests</a>,
 <a href="https://github.com/iovisor/bcc/blob/master/examples/networking/tunnel_monitor/monitor.py#L24-L26">分配 fd</a></p>
 <h3 id="11-bpf_devmap">11. BPF_DEVMAP</h3>
 <p>语法：<code>BPF_DEVMAP(name, size)</code></p>
@@ -9016,7 +9008,7 @@ probe函数名为<code>tracepoint__&lt;category&gt;__&lt;event&gt;</code>。</p>
 </code></pre></div>
 <p>方法（稍后介绍）：map.redirect_map()。</p>
 <p>实时示例：
-<a href="https://github.com/iovisor/bcc/search?q=BPF_DEVMAP+path%3Aexamples&amp;type=Code">搜索 /examples</a>,</p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索 /examples</a>,</p>
 <h3 id="12-bpf_cpumap">12. BPF_CPUMAP</h3>
 <p>语法：<code>BPF_CPUMAP(name, size)</code></p>
 <p>这创建了一个名为 <code>name</code> 的 CPU 映射，其中包含 <code>size</code> 个条目。映射的索引表示 CPU 的 ID，每个条目是为 CPU 分配的环形缓冲区的大小。此映射仅在 XDP 中使用。</p>
@@ -9025,7 +9017,7 @@ probe函数名为<code>tracepoint__&lt;category&gt;__&lt;event&gt;</code>。</p>
 </code></pre></div>
 <p>方法（稍后介绍）：map.redirect_map()。</p>
 <p>实时示例：
-<a href="https://github.com/iovisor/bcc/search?q=BPF_CPUMAP+path%3Aexamples&amp;type=Code">搜索 /examples</a>,</p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索 /examples</a>,</p>
 <h3 id="13-bpf_xskmap">13. BPF_XSKMAP</h3>
 <p>语法：<code>BPF_XSKMAP(name, size [, "/sys/fs/bpf/xyz"])</code>。这将创建一个名为<code>name</code>的xsk映射，带有<code>size</code>个条目，并将其固定到bpffs作为一个文件。每个条目表示一个NIC的队列ID。该映射仅在XDP中用于将数据包重定向到AF_XDP套接字。如果AF_XDP套接字绑定到与当前数据包的队列ID不同的队列，则数据包将被丢弃。对于内核v5.3及更高版本，“lookup”方法可用于检查当前数据包的队列ID是否可用于AF_XDP套接字。有关详细信息，请参阅<a href="https://www.kernel.org/doc/html/latest/networking/af_xdp.html">AF_XDP</a>。</p>
 <p>例如：</p>
@@ -9033,7 +9025,7 @@ probe函数名为<code>tracepoint__&lt;category&gt;__&lt;event&gt;</code>。</p>
 </code></pre></div>
 <p>方法（稍后涵盖）：map.redirect_map()。map.lookup()</p>
 <p>现场示例：
-<a href="https://github.com/iovisor/bcc/search?q=BPF_XSKMAP+path%3Aexamples&amp;type=Code">search /examples</a>,</p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">search /examples</a>,</p>
 <h3 id="14-bpf_array_of_maps">14. BPF_ARRAY_OF_MAPS</h3>
 <p>语法：<code>BPF_ARRAY_OF_MAPS(name, inner_map_name, size)</code></p>
 <p>这将创建一个带有映射内部类型（BPF_MAP_TYPE_HASH_OF_MAPS）的数组映射，名称为<code>name</code>，包含<code>size</code>个条目。映射的内部元数据由映射<code>inner_map_name</code>提供，可以是除了<code>BPF_MAP_TYPE_PROG_ARRAY</code>、<code>BPF_MAP_TYPE_CGROUP_STORAGE</code>和<code>BPF_MAP_TYPE_PERCPU_CGROUP_STORAGE</code>之外的大多数数组或哈希映射。</p>
@@ -9059,7 +9051,7 @@ probe函数名为<code>tracepoint__&lt;category&gt;__&lt;event&gt;</code>。</p>
 <p>这将创建一个名为 <code>stack</code> 的堆栈，其值类型为 <code>struct event</code>，最多可容纳 10240 个条目。</p>
 <p>方法（后面会涉及）：map.push()、map.pop()、map.peek()。</p>
 <p>示例：</p>
-<p>在 <a href="https://github.com/iovisor/bcc/search?q=BPF_STACK+path%3Atests&amp;type=Code">search /tests</a> 中。</p>
+<p>在 <a href="https://github.com/iovisor/bcc/tree/master/tests">search /tests</a> 中。</p>
 <h3 id="17-bpf_queue">17. BPF_QUEUE</h3>
 <p>语法：<code>BPF_QUEUE(name, leaf_type, max_entries[, flags])</code></p>
 <p>创建一个名为 <code>name</code> 的队列，其值类型为 <code>leaf_type</code>，最大条目数为 <code>max_entries</code>。
@@ -9070,7 +9062,7 @@ probe函数名为<code>tracepoint__&lt;category&gt;__&lt;event&gt;</code>。</p>
 <p>这将创建一个名为 <code>queue</code> 的队列，其值类型为 <code>struct event</code>，最多可容纳 10240 个条目。</p>
 <p>方法（后面会涉及）：map.push()、map.pop()、map.peek()。</p>
 <p>示例：</p>
-<p>在 <a href="https://github.com/iovisor/bcc/search?q=BPF_QUEUE+path%3Atests&amp;type=Code">search /tests</a> 中。</p>
+<p>在 <a href="https://github.com/iovisor/bcc/tree/master/tests">search /tests</a> 中。</p>
 <h3 id="18-bpf_sockhash">18. BPF_SOCKHASH</h3>
 <p>语法：<code>BPF_SOCKHASH(name[, key_type [, max_entries)</code></p>
 <p>创建一个名为 <code>name</code> 的哈希，带有可选参数。sockhash仅适用于Linux 4.18+。</p>
@@ -9088,54 +9080,54 @@ probe函数名为<code>tracepoint__&lt;category&gt;__&lt;event&gt;</code>。</p>
 <p>sockhash是一种BPF映射类型，它保存对sock结构体的引用。然后，通过使用新的sk/msg重定向BPF辅助函数，BPF程序可以使用该映射在套接字之间重定向skbs/msgs（<code>map.sk_redirect_hash()/map.msg_redirect_hash()</code>）。<code>BPF_SOCKHASH</code>和<code>BPF_SOCKMAP</code>的区别在于<code>BPF_SOCKMAP</code>是基于数组实现的，并且强制键为四个字节。
 而<code>BPF_SOCKHASH</code>是基于哈希表实现的，并且键的类型可以自由指定。</p>
 <p>方法（稍后介绍）：map.sock_hash_update()，map.msg_redirect_hash()，map.sk_redirect_hash()。</p>
-<p><a href="https://github.com/iovisor/bcc/search?q=BPF_SOCKHASH+path%3Atests&amp;type=Code">搜索/tests</a></p>
+<p><a href="https://github.com/iovisor/bcc/tree/master/tests">搜索/tests</a></p>
 <h3 id="19-maplookup">19. map.lookup()</h3>
 <p>语法：<code>*val map.lookup(&amp;key)</code></p>
 <p>在映射中查找键，如果存在则返回指向其值的指针，否则返回NULL。我们将键作为指针的地址传入。</p>
 <p>示例：
-<a href="https://github.com/iovisor/bcc/search?q=lookup+path%3Aexamples&amp;type=Code">搜索/examples</a>,
-<a href="https://github.com/iovisor/bcc/search?q=lookup+path%3Atools&amp;type=Code">搜索/tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索/examples</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索/tools</a></p>
 <h3 id="20-maplookup_or_try_init">20. map.lookup_or_try_init()</h3>
 <p>语法：<code>*val map.lookup_or_try_init(&amp;key, &amp;zero)</code></p>
 <p>在映射中查找键，如果存在则返回指向其值的指针，否则将键的值初始化为第二个参数。通常用于将值初始化为零。如果无法插入键（例如映射已满），则返回NULL。</p>
 <p>示例：
-<a href="https://github.com/iovisor/bcc/search?q=lookup_or_try_init+path%3Aexamples&amp;type=Code">搜索/examples</a>,
-<a href="https://github.com/iovisor/bcc/search?q=lookup_or_try_init+path%3Atools&amp;type=Code">搜索/tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索/examples</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索/tools</a></p>
 <p>注意：旧的map.lookup_or_init()可能导致函数返回，因此建议使用lookup_or_try_init()，它没有这种副作用。</p>
 <h3 id="21-mapdelete">21. map.delete()</h3>
 <p>语法：<code>map.delete(&amp;key)</code></p>
 <p>从哈希表中删除键。</p>
 <p>示例：
-<a href="https://github.com/iovisor/bcc/search?q=delete+path%3Aexamples&amp;type=Code">搜索/examples</a>,
-<a href="https://github.com/iovisor/bcc/search?q=delete+path%3Atools&amp;type=Code">搜索/tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索/examples</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索/tools</a></p>
 <h3 id="22-mapupdate">22. map.update()</h3>
 <p>语法：<code>map.update(&amp;key, &amp;val)</code></p>
 <p>将第二个参数中的值与键关联，覆盖任何先前的值。</p>
-<p>示例："<a href="https://github.com/iovisor/bcc/search?q=update+path%3Aexamples&amp;type=Code">搜索/examples</a>,
-<a href="https://github.com/iovisor/bcc/search?q=update+path%3Atools&amp;type=Code">搜索/tools</a></p>
+<p>示例："<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索/examples</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索/tools</a></p>
 <h3 id="23-mapinsert">23. map.insert()</h3>
 <p>语法: <code>map.insert(&amp;key, &amp;val)</code></p>
 <p>将第二个参数中的值与键相关联，仅在之前没有值的情况下。</p>
 <p>现场示例:
-<a href="https://github.com/iovisor/bcc/search?q=insert+path%3Aexamples&amp;type=Code">搜索/examples</a>,
-<a href="https://github.com/iovisor/bcc/search?q=insert+path%3Atools&amp;type=Code">搜索/tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索/examples</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索/tools</a></p>
 <h3 id="24-mapincrement">24. map.increment()</h3>
 <p>语法: <code>map.increment(key[, increment_amount])</code></p>
 <p>通过 <code>increment_amount</code>（默认为1）增加键的值。用于柱状图。</p>
 <p><code>map.increment()</code>不是原子操作。在并发情况下，如果要获得更准确的结果，请使用 <code>map.atomic_increment()</code> 而不是 <code>map.increment()</code>。<code>map.increment()</code> 和 <code>map.atomic_increment()</code> 的开销相似。</p>
 <p>注意. 当使用 <code>map.atomic_increment()</code> 操作类型为 <code>BPF_MAP_TYPE_HASH</code> 的 BPF map 时，如果指定的键不存在，则 <code>map.atomic_increment()</code> 无法保证操作的原子性。</p>
 <p>现场示例:
-<a href="https://github.com/iovisor/bcc/search?q=increment+path%3Aexamples&amp;type=Code">搜索/examples</a>,
-<a href="https://github.com/iovisor/bcc/search?q=increment+path%3Atools&amp;type=Code">搜索/tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索/examples</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索/tools</a></p>
 <h3 id="25-mapget_stackid">25. map.get_stackid()</h3>
 <p>语法: <code>int map.get_stackid(void *ctx, u64 flags)</code></p>
 <p>这会遍历在 <code>ctx</code> 中找到的 struct pt_regs 中的堆栈，将其保存在堆栈跟踪 map 中，并返回一个唯一的堆栈跟踪 ID。</p>
 <p>现场示例:
-<a href="https://github.com/iovisor/bcc/search?q=get_stackid+path%3Aexamples&amp;type=Code">搜索/examples</a>,
-<a href="https://github.com/iovisor/bcc/search?q=get_stackid+path%3Atools&amp;type=Code">搜索/tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索/examples</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索/tools</a></p>
 <h3 id="26-mapperf_read">26. map.perf_read()</h3>
 <p>语法: <code>u64 map.perf_read(u32 cpu)</code></p>
-<p>现场示例:""<a href="https://github.com/iovisor/bcc/search?q=perf_read+path%3Atests&amp;type=Code">搜索/tests</a></p>
+<p>现场示例:""<a href="https://github.com/iovisor/bcc/tree/master/tests">搜索/tests</a></p>
 <h3 id="27-mapcall">27. map.call()</h3>
 <p>语法：<code>void map.call(void *ctx, int index)</code></p>
 <p>这将调用<code>bpf_tail_call()</code>来尾调用<a href="#10-bpf_prog_array">BPF_PROG_ARRAY</a>中指向<code>index</code>入口的bpf程序。尾调用与普通调用不同。它在跳转到另一个bpf程序后重用当前的栈帧，并且不会返回。如果<code>index</code>入口为空，它将不会跳转到任何地方，程序的执行将会继续进行。</p>
@@ -9196,18 +9188,18 @@ probe函数名为<code>tracepoint__&lt;category&gt;__&lt;event&gt;</code>。</p>
 <p>语法：<code>int map.push(&amp;val, int flags)</code></p>
 <p>将元素推入堆栈或队列表。将 BPF_EXIST 作为标志传递会导致队列或堆栈在已满时丢弃最旧的元素。成功返回0，失败返回负错误值。</p>
 <p>示例位置：
-<a href="https://github.com/iovisor/bcc/search?q=push+path%3Atests&amp;type=Code">搜索 /tests</a>,</p>
+<a href="https://github.com/iovisor/bcc/tree/master/tests">搜索 /tests</a>,</p>
 <h3 id="30-mappop">30. map.pop()</h3>
 <p>语法：<code>int map.pop(&amp;val)</code></p>
 <p>从堆栈或队列表中弹出一个元素。<code>*val</code>被填充为结果。与查看不同，弹出操作会移除该元素。成功返回0，失败返回负错误值。</p>
 <p>示例位置：
-<a href="https://github.com/iovisor/bcc/search?q=pop+path%3Atests&amp;type=Code">搜索 /tests</a>,</p>
+<a href="https://github.com/iovisor/bcc/tree/master/tests">搜索 /tests</a>,</p>
 <h3 id="31-mappeek">31. map.peek()</h3>
 <p>语法：<code>int map.peek(&amp;val)</code>查看堆栈或队列表头的元素。<code>*val</code>将被结果填充。
 与弹出不同，查看不会删除元素。
 成功返回0，失败返回负错误。</p>
 <p>实例：
-<a href="https://github.com/iovisor/bcc/search?q=peek+path%3Atests&amp;type=Code">搜索/tests</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/tests">搜索/tests</a></p>
 <h3 id="32-mapsock_hash_update">32. map.sock_hash_update()</h3>
 <p>语法：<code>int map.sock_hash_update(struct bpf_sock_ops *skops, &amp;key, int flags)</code></p>
 <p>向sockhash映射添加条目或更新条目。skops用作与键相关联的条目的新值。flags为以下之一：</p>
@@ -9218,13 +9210,13 @@ probe函数名为<code>tracepoint__&lt;category&gt;__&lt;event&gt;</code>。</p>
 <p>如果映射具有eBPF程序（解析器和判决器），则这些程序将被添加的套接字继承。如果套接字已经附加到eBPF程序，则会出错。</p>
 <p>成功返回0，失败返回负错误。</p>
 <p>实例：
-<a href="https://github.com/iovisor/bcc/search?q=sock_hash_update+path%3Atests&amp;type=Code">搜索/tests</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/tests">搜索/tests</a></p>
 <h3 id="33-mapmsg_redirect_hash">33. map.msg_redirect_hash()</h3>
 <p>语法：<code>int map.msg_redirect_hash(struct sk_msg_buff *msg, void*key, u64 flags)</code></p>
 <p>该辅助程序用于在套接字级别实施策略的程序中。如果消息msg被允许通过（即判决eBPF程序返回SK_PASS），则使用哈希键将其重定向到映射引用的套接字（类型为BPF_MAP_TYPE_SOCKHASH）。可以使用入站和出站接口进行重定向。标志中的BPF_F_INGRESS值用于区分（如果存在该标志，则选择入站路径，否则选择出站路径）。目前，这是唯一支持的标志。</p>
 <p>成功返回SK_PASS，发生错误返回SK_DROP。</p>
 <p>实例：
-<a href="https://github.com/iovisor/bcc/search?q=msg_redirect_hash+path%3Atests&amp;type=Code">搜索/tests</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/tests">搜索/tests</a></p>
 <h3 id="34-mapsk_redirect_hash">34. map.sk_redirect_hash()</h3>
 <p>语法：<code>int map.sk_redirect_hash(struct sk_buff *skb, void*key, u64 flags)</code>".This helper is used in programs implementing policies at the skb socket level.
 If the sk_buff skb is allowed to pass (i.e. if the verdict eBPF program returns SK_PASS), redirect it to the socket referenced by map (of type BPF_MAP_TYPE_SOCKHASH) using hash key.
@@ -9233,7 +9225,7 @@ The BPF_F_INGRESS value in flags is used to make the distinction (ingress path i
 This is the only flag supported for now.</p>
 <p>Return SK_PASS on success, or SK_DROP on error.</p>
 <p>Examples in situ:
-[搜索/tests](&lt;https://github.com/iovisor/bcc/search?q=sk_redirect_hash+path%3Atests&amp;type=Code&gt;),</p>
+[搜索/tests](&lt;https://github.com/iovisor/bcc/tree/master/tests),</p>
 <h2 id="_6">许可证</h2>
 <p>Depending on which [BPF helpers](kernel-versions.md#helpers) are used, a GPL-compatible license is required.</p>
 <p>The special BCC macro <code>BPF_LICENSE</code> specifies the license of the BPF program.
@@ -9288,8 +9280,8 @@ b = BPF(text=bpf_text, usdt_contexts=[u])</p>
 <h1 id="_10">添加包含路径:</h1>
 <p>u = BPF(text=prog, cflags=["-I/path/to/include"])</p>
 <p>在原地的示例:
-<a href="https://github.com/iovisor/bcc/search?q=BPF+path%3Aexamples+language%3Apython&amp;type=Code">搜索 /examples</a>,
-<a href="https://github.com/iovisor/bcc/search?q=BPF+path%3Atools+language%3Apython&amp;type=Code">搜索 /tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索 /examples</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索 /tools</a></p>
 <h3 id="2-usdt">2. USDT</h3>
 <p>语法: <code>USDT({pid=pid | path=path})</code></p>
 <p>创建一个对象以检测用户静态定义的跟踪(USDT)探针。它的主要方法是<code>enable_probe()</code>。</p>
@@ -9305,8 +9297,8 @@ b = BPF(text=bpf_text, usdt_contexts=[u])</p>
 <a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a><span class="n">b</span> <span class="o">=</span> <span class="n">BPF</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">bpf_text</span><span class="p">,</span> <span class="n">usdt_contexts</span><span class="o">=</span><span class="p">[</span><span class="n">u</span><span class="p">])</span>
 </code></pre></div>
 <p>在原地的示例:
-<a href="https://github.com/iovisor/bcc/search?q=USDT+path%3Aexamples+language%3Apython&amp;type=Code">搜索 /examples</a>,
-<a href="https://github.com/iovisor/bcc/search?q=USDT+path%3Atools+language%3Apython&amp;type=Code">搜索 /tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索 /examples</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索 /tools</a></p>
 <h2 id="_11">事件</h2>
 <h3 id="1-attach_kprobe">1. attach_kprobe()</h3>
 <p>语法: <code>BPF.attach_kprobe(event="event", fn_name="name")</code></p>
@@ -9318,8 +9310,8 @@ b = BPF(text=bpf_text, usdt_contexts=[u])</p>
 <p>您可以多次调用attach_kprobe()，并将您的BPF函数附加到多个内核函数上。您也可以多次调用attach_kprobe()函数将多个BPF函数附加到同一个内核函数。</p>
 <p>有关如何从BPF中提取参数的详细信息，请参阅前面的kprobes部分。</p>
 <p>示例：
-<a href="https://github.com/iovisor/bcc/search?q=attach_kprobe+path%3Aexamples+language%3Apython&amp;type=Code">查找/examples</a>,
-<a href="https://github.com/iovisor/bcc/search?q=attach_kprobe+path%3Atools+language%3Apython&amp;type=Code">查找/tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">查找/examples</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/tools">查找/tools</a></p>
 <h3 id="2-attach_kretprobe">2. attach_kretprobe()</h3>
 <p>语法：BPF.attach_kretprobe(event="事件", fn_name="名称" [, maxactive=int])</p>
 <p>使用内核动态跟踪函数返回来检测内核函数event()的返回，并附加我们定义的C函数name()在内核函数返回时调用。</p>
@@ -9332,8 +9324,8 @@ b = BPF(text=bpf_text, usdt_contexts=[u])</p>
 <p>当在内核函数上安装kretprobe时，它可以捕获的并行调用次数存在限制。您可以使用maxactive参数更改该限制。有关默认值，请参阅kprobes文档。</p>
 <p>有关如何从BPF中提取返回值的详细信息，请参阅前面的kretprobes部分。</p>
 <p>示例：
-<a href="https://github.com/iovisor/bcc/search?q=attach_kretprobe+path%3Aexamples+language%3Apython&amp;type=Code">查找/examples</a>,
-<a href="https://github.com/iovisor/bcc/search?q=attach_kretprobe+path%3Atools+language%3Apython&amp;type=Code">查找/tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">查找/examples</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/tools">查找/tools</a></p>
 <h3 id="3-attach_tracepoint">3. attach_tracepoint()</h3>
 <p>语法：BPF.attach_tracepoint(tp="追踪点", fn_name="名称")</p>
 <p>检测由tracepoint描述的内核追踪点，并在命中时运行BPF函数name()。这是一种显式方式来操控 tracepoints。在前面的 tracepoints 部分讲解过的 <code>TRACEPOINT_PROBE</code> 语法是另一种方法，其优点是自动声明一个包含 tracepoint 参数的 <code>args</code> 结构体。在使用 <code>attach_tracepoint()</code> 时，tracepoint 参数需要在 BPF 程序中声明。</p>
@@ -9363,8 +9355,8 @@ b = BPF(text=bpf_text, usdt_contexts=[u])</p>
 <p>注意，<code>printarg()</code> 的第一个参数现在是我们定义的结构体。</p>
 <p>代码示例：
 <a href="https://github.com/iovisor/bcc/blob/a4159da8c4ea8a05a3c6e402451f530d6e5a8b41/examples/tracing/urandomread-explicit.py#L41">code</a>,
-<a href="https://github.com/iovisor/bcc/search?q=attach_tracepoint+path%3Aexamples+language%3Apython&amp;type=Code">search /examples</a>,
-<a href="https://github.com/iovisor/bcc/search?q=attach_tracepoint+path%3Atools+language%3Apython&amp;type=Code">search /tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">search /examples</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/tools">search /tools</a></p>
 <h3 id="4-attach_uprobe">4. attach_uprobe()</h3>
 <p>语法：<code>BPF.attach_uprobe(name="location", sym="symbol", fn_name="name" [, sym_off=int])</code>, <code>BPF.attach_uprobe(name="location", sym_re="regex", fn_name="name")</code>, <code>BPF.attach_uprobe(name="location", addr=int, fn_name="name")</code></p>
 <p>用于操控位于 <code>location</code> 中的库或二进制文件中的用户级别函数 <code>symbol()</code>，使用用户级别动态跟踪该函数的入口，并将我们定义的 C 函数 <code>name()</code> 附加为在用户级别函数被调用时调用的函数。如果给定了 <code>sym_off</code>，则该函数将附加到符号的偏移量上。真实的地址<code>addr</code>可以替代<code>sym</code>，在这种情况下，<code>sym</code>必须设置为其默认值。如果文件是非PIE可执行文件，则<code>addr</code>必须是虚拟地址，否则它必须是相对于文件加载地址的偏移量。</p>
@@ -9381,8 +9373,8 @@ b = BPF(text=bpf_text, usdt_contexts=[u])</p>
 <p>您可以多次调用attach_uprobe()，并将BPF函数附加到多个用户级函数。</p>
 <p>有关如何从BPF工具获取参数的详细信息，请参见上一节uprobes。</p>
 <p>原址示例：
-<a href="https://github.com/iovisor/bcc/search?q=attach_uprobe+path%3Aexamples+language%3Apython&amp;type=Code">search /examples</a>,
-<a href="https://github.com/iovisor/bcc/search?q=attach_uprobe+path%3Atools+language%3Apython&amp;type=Code">search /tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">search /examples</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/tools">search /tools</a></p>
 <h3 id="5-attach_uretprobe">5. attach_uretprobe()</h3>
 <p>语法: <code>BPF.attach_uretprobe(name="location", sym="symbol", fn_name="name")</code></p>
 <p>使用用户级动态跟踪从名为<code>location</code>的库或二进制文件中的用户级函数<code>symbol()</code>返回值的方式仪器化，并将我们定义的C函数<code>name()</code>附加到用户级函数返回时调用。</p>
@@ -9399,8 +9391,8 @@ b = BPF(text=bpf_text, usdt_contexts=[u])</p>
 <p>您可以多次调用attach_uretprobe()，并将您的BPF函数附加到多个用户级函数上。</p>
 <p>有关如何对BPF返回值进行插装的详细信息，请参阅前面的uretprobes部分。</p>
 <p>内部示例：
-<a href="https://github.com/iovisor/bcc/search?q=attach_uretprobe+path%3Aexamples+language%3Apython&amp;type=Code">搜索/examples</a>,
-<a href="https://github.com/iovisor/bcc/search?q=attach_uretprobe+path%3Atools+language%3Apython&amp;type=Code">搜索/tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索/examples</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索/tools</a></p>
 <h3 id="6-usdtenable_probe">6. USDT.enable_probe()</h3>
 <p>语法：<code>USDT.enable_probe(probe=probe, fn_name=name)</code></p>
 <p>将BPF C函数<code>name</code>附加到USDT探针<code>probe</code>。</p>
@@ -9411,8 +9403,8 @@ b = BPF(text=bpf_text, usdt_contexts=[u])</p>
 </code></pre></div>
 <p>要检查您的二进制文件是否具有USDT探针以及它们的详细信息，可以运行<code>readelf -n binary</code>并检查stap调试部分。</p>
 <p>内部示例：
-<a href="https://github.com/iovisor/bcc/search?q=enable_probe+path%3Aexamples+language%3Apython&amp;type=Code">搜索/examples</a>,
-<a href="https://github.com/iovisor/bcc/search?q=enable_probe+path%3Atools+language%3Apython&amp;type=Code">搜索/tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索/examples</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索/tools</a></p>
 <h3 id="7-attach_raw_tracepoint">7. attach_raw_tracepoint()</h3>
 <p>语法：<code>BPF.attach_raw_tracepoint(tp="tracepoint", fn_name="name")</code></p>
 <p>对由<code>tracepoint</code>（仅<code>event</code>，无<code>category</code>）描述的内核原始跟踪点进行插装，并在命中时运行BPF函数<code>name()</code>。</p>
@@ -9420,7 +9412,7 @@ b = BPF(text=bpf_text, usdt_contexts=[u])</p>
 <p>例如：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="n">b</span><span class="o">.</span><span class="n">attach_raw_tracepoint</span><span class="p">(</span><span class="s2">&quot;sched_switch&quot;</span><span class="p">,</span> <span class="s2">&quot;do_trace&quot;</span><span class="p">)</span>
 </code></pre></div>
-<p>内部示例："."<a href="https://github.com/iovisor/bcc/search?q=attach_raw_tracepoint+path%3Atools+language%3Apython&amp;type=Code">搜索 /工具</a></p>
+<p>内部示例："."<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索 /工具</a></p>
 <h3 id="8-attach_raw_socket">8. attach_raw_socket()</h3>
 <p>语法: <code>BPF.attach_raw_socket(fn, dev)</code></p>
 <p>将一个BPF函数附加到指定的网络接口。</p>
@@ -9433,7 +9425,7 @@ b = BPF(text=bpf_text, usdt_contexts=[u])</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="n">BPF</span><span class="o">.</span><span class="n">attach_raw_socket</span><span class="p">(</span><span class="n">bpf_func</span><span class="p">,</span> <span class="n">ifname</span><span class="p">)</span>
 </code></pre></div>
 <p>示例位置:
-<a href="https://github.com/iovisor/bcc/search?q=attach_raw_socket+path%3Aexamples+language%3Apython&amp;type=Code">搜索 /示例</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索 /示例</a></p>
 <h3 id="9-attach_xdp">9. attach_xdp()</h3>
 <p>语法: <code>BPF.attach_xdp(dev="device", fn=b.load_func("fn_name",BPF.XDP), flags)</code></p>
 <p>改装由 <code>dev</code> 描述的网络驱动程序，然后接收数据包，并使用标志运行 BPF 函数 <code>fn_name()</code>。</p>
@@ -9462,8 +9454,8 @@ XDP程序可以工作，但没有真正的性能优势，因为数据包无论�
 <p>这将为网络设备<code>ens1</code>安装工具，并在接收数据包时运行我们定义的BPF函数<code>do_xdp()</code>。</p>
 <p>不要忘记在最后调用<code>b.remove_xdp("ens1")</code>！</p>
 <p>示例：
-<a href="https://github.com/iovisor/bcc/search?q=attach_xdp+path%3Aexamples+language%3Apython&amp;type=Code">搜索/examples</a>,
-<a href="https://github.com/iovisor/bcc/search?q=attach_xdp+path%3Atools+language%3Apython&amp;type=Code">搜索/tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索/examples</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索/tools</a></p>
 <h3 id="10-attach_func">10. attach_func()</h3>
 <p>语法：<code>BPF.attach_func(fn, attachable_fd, attach_type [, flags])</code></p>
 <p>将指定类型的BPF函数附加到特定的<code>attachable_fd</code>上。如果<code>attach_type</code>是<code>BPF_FLOW_DISSECTOR</code>，则预期该函数将附加到当前的网络命名空间，并且<code>attachable_fd</code>必须为0。</p>
@@ -9474,7 +9466,7 @@ XDP程序可以工作，但没有真正的性能优势，因为数据包无论�
 <a id="__codelineno-53-4" name="__codelineno-53-4" href="#__codelineno-53-4"></a>
 <a id="__codelineno-53-5" name="__codelineno-53-5" href="#__codelineno-53-5"></a><span class="n">示例中的内部代码</span><span class="err">：</span>
 <a id="__codelineno-53-6" name="__codelineno-53-6" href="#__codelineno-53-6"></a>
-<a id="__codelineno-53-7" name="__codelineno-53-7" href="#__codelineno-53-7"></a><span class="p">[</span><span class="n">search</span> <span class="o">/</span><span class="n">examples</span><span class="p">](</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">iovisor</span><span class="o">/</span><span class="n">bcc</span><span class="o">/</span><span class="n">search</span><span class="err">?</span><span class="n">q</span><span class="o">=</span><span class="n">attach_func</span><span class="o">+</span><span class="n">path</span><span class="o">%</span><span class="mi">3</span><span class="n">Aexamples</span><span class="o">+</span><span class="n">language</span><span class="o">%</span><span class="mi">3</span><span class="n">Apython</span><span class="o">&amp;</span><span class="nb">type</span><span class="o">=</span><span class="n">Code</span><span class="p">),</span>
+<a id="__codelineno-53-7" name="__codelineno-53-7" href="#__codelineno-53-7"></a><span class="p">[</span><span class="n">search</span> <span class="o">/</span><span class="n">examples</span><span class="p">](</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">iovisor</span><span class="o">/</span><span class="n">bcc</span><span class="o">/</span><span class="n">tree</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">examples</span><span class="p">),</span>
 <a id="__codelineno-53-8" name="__codelineno-53-8" href="#__codelineno-53-8"></a>
 <a id="__codelineno-53-9" name="__codelineno-53-9" href="#__codelineno-53-9"></a><span class="c1">### 11. detach_func()</span>
 <a id="__codelineno-53-10" name="__codelineno-53-10" href="#__codelineno-53-10"></a>
@@ -9489,7 +9481,7 @@ XDP程序可以工作，但没有真正的性能优势，因为数据包无论�
 <a id="__codelineno-53-19" name="__codelineno-53-19" href="#__codelineno-53-19"></a><span class="n">b</span><span class="o">.</span><span class="n">detach_func</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">map_fd</span><span class="p">,</span> <span class="n">BPFAttachType</span><span class="o">.</span><span class="n">SK_MSG_VERDICT</span><span class="p">)</span>  <span class="o">//</span> <span class="n">断开</span> <span class="n">map_fd</span> <span class="n">上的</span> <span class="n">fn</span> <span class="n">函数</span>
 </code></pre></div>
 <p>示例中的内部代码：</p>
-<p><a href="https://github.com/iovisor/bcc/search?q=detach_func+path%3Aexamples+language%3Apython&amp;type=Code">search /examples</a>,</p>
+<p><a href="https://github.com/iovisor/bcc/tree/master/examples">search /examples</a>,</p>
 <h3 id="12-detach_kprobe">12. detach_kprobe()</h3>
 <p>语法：<code>BPF.detach_kprobe(event="event", fn_name="name")</code></p>
 <p>断开指定事件的 kprobe 处理函数。</p>
@@ -9518,7 +9510,7 @@ XDP程序可以工作，但没有真正的性能优势，因为数据包无论�
 <a id="__codelineno-56-5" name="__codelineno-56-5" href="#__codelineno-56-5"></a><span class="n">b</span><span class="o">.</span><span class="n">trace_print</span><span class="p">(</span><span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{1}</span><span class="s2"> </span><span class="si">{5}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
 <p>示例中的内部代码：
-<a href="https://github.com/iovisor/bcc/search?q=trace_print+path%3Aexamples+language%3Apython&amp;type=Code">search /examples</a>。"<a href="https://github.com/iovisor/bcc/search?q=trace_print+path%3Atools+language%3Apython&amp;type=Code">搜索 /工具</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">search /examples</a>。"<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索 /工具</a></p>
 <h3 id="2-trace_fields">2. trace_fields()</h3>
 <p>语法: <code>BPF.trace_fields(nonblocking=False)</code></p>
 <p>该方法从全局共享的 /sys/kernel/debug/tracing/trace_pipe 文件中读取一行，并将其作为字段返回。该文件可以通过 BPF 和 bpf_trace_printk() 函数进行写入，但该方法有一些限制，包括缺乏并发追踪支持。我们更推荐使用之前介绍的 BPF_PERF_OUTPUT 机制。</p>
@@ -9535,8 +9527,8 @@ XDP程序可以工作，但没有真正的性能优势，因为数据包无论�
 <a id="__codelineno-57-6" name="__codelineno-57-6" href="#__codelineno-57-6"></a>    <span class="p">[</span><span class="o">...</span><span class="p">]</span>
 </code></pre></div>
 <p>内联示例:
-<a href="https://github.com/iovisor/bcc/search?q=trace_fields+path%3Aexamples+language%3Apython&amp;type=Code">搜索 /示例</a>,
-<a href="https://github.com/iovisor/bcc/search?q=trace_fields+path%3Atools+language%3Apython&amp;type=Code">搜索 /工具</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索 /示例</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索 /工具</a></p>
 <h2 id="api">输出 API</h2>
 <p>BPF 程序的正常输出有两种方式:</p>
 <ul>
@@ -9557,8 +9549,8 @@ XDP程序可以工作，但没有真正的性能优势，因为数据包无论�
 <a id="__codelineno-58-7" name="__codelineno-58-7" href="#__codelineno-58-7"></a>        <span class="n">exit</span><span class="p">()</span>
 </code></pre></div>
 <p>内联示例:
-<a href="https://github.com/iovisor/bcc/blob/v0.9.0/examples/tracing/hello_perf_output.py#L55">代码</a>"."<a href="https://github.com/iovisor/bcc/search?q=perf_buffer_poll+path%3Aexamples+language%3Apython&amp;type=Code">搜索 /示例</a>,
-<a href="https://github.com/iovisor/bcc/search?q=perf_buffer_poll+path%3Atools+language%3Apython&amp;type=Code">搜索 /工具</a></p>
+<a href="https://github.com/iovisor/bcc/blob/v0.9.0/examples/tracing/hello_perf_output.py#L55">代码</a>"."<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索 /示例</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索 /工具</a></p>
 <h3 id="2-ring_buffer_poll">2. ring_buffer_poll()</h3>
 <p>语法: <code>BPF.ring_buffer_poll(timeout=T)</code></p>
 <p>这个方法从所有已打开的ringbuf环形缓冲区中轮询数据，对每个条目调用在调用open_ring_buffer时提供的回调函数。</p>
@@ -9573,7 +9565,7 @@ XDP程序可以工作，但没有真正的性能优势，因为数据包无论�
 <a id="__codelineno-59-7" name="__codelineno-59-7" href="#__codelineno-59-7"></a>        <span class="n">exit</span><span class="p">();</span>
 </code></pre></div>
 <p>示例：
-<a href="https://github.com/iovisor/bcc/search?q=ring_buffer_poll+path%3Aexamples+language%3Apython&amp;type=Code">搜索 /示例</a>,</p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索 /示例</a>,</p>
 <h3 id="3-ring_buffer_consume">3. ring_buffer_consume()</h3>
 <p>语法: <code>BPF.ring_buffer_consume()</code></p>
 <p>这个方法从所有已打开的ringbuf环形缓冲区中消费数据，对每个条目调用在调用open_ring_buffer时提供的回调函数。</p>
@@ -9588,7 +9580,7 @@ XDP程序可以工作，但没有真正的性能优势，因为数据包无论�
 <a id="__codelineno-60-7" name="__codelineno-60-7" href="#__codelineno-60-7"></a>        <span class="n">exit</span><span class="p">();</span>
 </code></pre></div>
 <p>示例：
-<a href="https://github.com/iovisor/bcc/search?q=ring_buffer_consume+path%3Aexamples+language%3Apython&amp;type=Code">搜索 /示例</a>,</p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索 /示例</a>,</p>
 <h2 id="map-apis">Map APIs</h2>
 <p>Maps是BPF数据存储器，在bcc中用于实现表、哈希和直方图等更高层次的对象。</p>
 <h3 id="1-get_table">1. get_table()</h3>
@@ -9644,8 +9636,8 @@ XDP程序可以工作，但没有真正的性能优势，因为数据包无论�
 <a id="__codelineno-65-10" name="__codelineno-65-10" href="#__codelineno-65-10"></a>
 <a id="__codelineno-65-11" name="__codelineno-65-11" href="#__codelineno-65-11"></a><span class="n">在此处的示例中</span><span class="err">：</span>
 <a id="__codelineno-65-12" name="__codelineno-65-12" href="#__codelineno-65-12"></a><span class="p">[</span><span class="n">code</span><span class="p">](</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">iovisor</span><span class="o">/</span><span class="n">bcc</span><span class="o">/</span><span class="n">blob</span><span class="o">/</span><span class="n">v0</span><span class="mf">.9.0</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">tracing</span><span class="o">/</span><span class="n">hello_perf_output</span><span class="o">.</span><span class="n">py</span><span class="c1">#L52),</span>
-<a id="__codelineno-65-13" name="__codelineno-65-13" href="#__codelineno-65-13"></a><span class="p">[</span><span class="n">search</span> <span class="o">/</span><span class="n">examples</span><span class="p">](</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">iovisor</span><span class="o">/</span><span class="n">bcc</span><span class="o">/</span><span class="n">search</span><span class="err">?</span><span class="n">q</span><span class="o">=</span><span class="n">open_perf_buffer</span><span class="o">+</span><span class="n">path</span><span class="o">%</span><span class="mi">3</span><span class="n">Aexamples</span><span class="o">+</span><span class="n">language</span><span class="o">%</span><span class="mi">3</span><span class="n">Apython</span><span class="o">&amp;</span><span class="nb">type</span><span class="o">=</span><span class="n">Code</span><span class="p">),</span>
-<a id="__codelineno-65-14" name="__codelineno-65-14" href="#__codelineno-65-14"></a><span class="p">[</span><span class="n">search</span> <span class="o">/</span><span class="n">tools</span><span class="p">](</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">iovisor</span><span class="o">/</span><span class="n">bcc</span><span class="o">/</span><span class="n">search</span><span class="err">?</span><span class="n">q</span><span class="o">=</span><span class="n">open_perf_buffer</span><span class="o">+</span><span class="n">path</span><span class="o">%</span><span class="mi">3</span><span class="n">Atools</span><span class="o">+</span><span class="n">language</span><span class="o">%</span><span class="mi">3</span><span class="n">Apython</span><span class="o">&amp;</span><span class="nb">type</span><span class="o">=</span><span class="n">Code</span><span class="p">)</span>
+<a id="__codelineno-65-13" name="__codelineno-65-13" href="#__codelineno-65-13"></a><span class="p">[</span><span class="n">search</span> <span class="o">/</span><span class="n">examples</span><span class="p">](</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">iovisor</span><span class="o">/</span><span class="n">bcc</span><span class="o">/</span><span class="n">tree</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">examples</span><span class="p">),</span>
+<a id="__codelineno-65-14" name="__codelineno-65-14" href="#__codelineno-65-14"></a><span class="p">[</span><span class="n">search</span> <span class="o">/</span><span class="n">tools</span><span class="p">](</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">iovisor</span><span class="o">/</span><span class="n">bcc</span><span class="o">/</span><span class="n">tree</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">tools</span><span class="p">)</span>
 <a id="__codelineno-65-15" name="__codelineno-65-15" href="#__codelineno-65-15"></a>
 <a id="__codelineno-65-16" name="__codelineno-65-16" href="#__codelineno-65-16"></a><span class="c1">### 3. items()</span>
 <a id="__codelineno-65-17" name="__codelineno-65-17" href="#__codelineno-65-17"></a>
@@ -9664,8 +9656,8 @@ XDP程序可以工作，但没有真正的性能优势，因为数据包无论�
 </code></pre></div>
 <p>此示例还使用<code>sorted()</code>方法按值排序。</p>
 <p>在此处的示例中：
-<a href="https://github.com/iovisor/bcc/search?q=items+path%3Aexamples+language%3Apython&amp;type=Code">search /examples</a>,
-<a href="https://github.com/iovisor/bcc/search?q=items+path%3Atools+language%3Apython&amp;type=Code">search /tools</a>。</p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">search /examples</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/tools">search /tools</a>。</p>
 <h3 id="4-values">4. values()</h3>
 <p>语法: <code>table.values()</code></p>
 <p>返回一个表中的值数组。</p>
@@ -9681,8 +9673,8 @@ XDP程序可以工作，但没有真正的性能优势，因为数据包无论�
 <a id="__codelineno-66-6" name="__codelineno-66-6" href="#__codelineno-66-6"></a>    <span class="n">dist</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 </code></pre></div>
 <p>在此处的示例中:
-<a href="https://github.com/iovisor/bcc/search?q=clear+path%3Aexamples+language%3Apython&amp;type=Code">search /examples</a>,
-<a href="https://github.com/iovisor/bcc/search?q=clear+path%3Atools+language%3Apython&amp;type=Code">search /tools</a>。</p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">search /examples</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/tools">search /tools</a>。</p>
 <h3 id="6-items_lookup_and_delete_batch">6. items_lookup_and_delete_batch()</h3>
 <p>语法: <code>table.items_lookup_and_delete_batch()</code>。返回一个使用一次BPF系统调用在表中的键的数组。可以与BPF_HASH映射一起使用以获取和迭代键。还会清除表：删除所有条目。
 您应该使用table.items_lookup_and_delete_batch()而不是table.items()后跟table.clear()。它需要内核v5.6。</p>
@@ -9756,8 +9748,8 @@ XDP程序可以工作，但没有真正的性能优势，因为数据包无论�
 <p>这个输出显示了一个多模式分布，最大模式是128-&gt;255 kbytes，计数为800。</p>
 <p>这是一种高效的数据概括方法，因为概括是在内核中执行的，只有计数列被传递到用户空间。</p>
 <p>实际示例:
-<a href="https://github.com/iovisor/bcc/search?q=print_log2_hist+path%3Aexamples+language%3Apython&amp;type=Code">搜索 /examples</a>,
-<a href="https://github.com/iovisor/bcc/search?q=print_log2_hist+path%3Atools+language%3Apython&amp;type=Code">搜索 /tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索 /examples</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索 /tools</a></p>
 <h3 id="11-print_linear_hist-tableprint_linear_histval_typevalue-section_headerbucket-ptr-section_print_fnnone">11. print_linear_hist()".语法: <code>table.print_linear_hist(val_type="value", section_header="Bucket ptr", section_print_fn=None)</code></h3>
 <p>以ASCII字符形式打印一个线性直方图的表格。此功能旨在可视化小的整数范围，例如0到100。</p>
 <p>参数:</p>
@@ -9803,8 +9795,8 @@ XDP程序可以工作，但没有真正的性能优势，因为数据包无论�
 </code></pre></div>
 <p>这是一种高效的数据汇总方式，因为汇总是在内核中执行的，只有计数列中的值传递到用户空间。</p>
 <p>现场示例:
-<a href="https://github.com/iovisor/bcc/search?q=print_linear_hist+path%3Aexamples+language%3Apython&amp;type=Code">搜索 /examples</a>,
-<a href="https://github.com/iovisor/bcc/search?q=print_linear_hist+path%3Atools+language%3Apython&amp;type=Code">搜索 /tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索 /examples</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索 /tools</a></p>
 <h3 id="12-open_ring_buffer">12. open_ring_buffer()</h3>
 <p>语法: <code>table.open_ring_buffer(callback, ctx=None)</code></p>
 <p>此操作用于在BPF中定义为BPF_RINGBUF_OUTPUT()的表，并将Python回调函数<code>callback</code>与ringbuf环形缓冲区中有可用数据时调用相连。这是从内核向用户空间传输每个事件数据的新（Linux 5.8+）推荐机制的一部分。不同于perf缓冲区，ringbuf大小在BPF程序中指定，作为<code>BPF_RINGBUF_OUTPUT</code>宏的一部分。如果回调函数处理数据不够快，可能会丢失一些提交的数据。在这种情况下，事件应该更频繁地进行轮询和/或增加环形缓冲区的大小。</p>
@@ -9848,7 +9840,7 @@ class Data(ct.Structure):
     event = ct.cast(data, ct.POINTER(Data)).contents
 [...]</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-76-1" name="__codelineno-76-1" href="#__codelineno-76-1"></a>在原地的示例:
-<a id="__codelineno-76-2" name="__codelineno-76-2" href="#__codelineno-76-2"></a>[在/examples中搜索](https://github.com/iovisor/bcc/search?q=open_ring_buffer+path%3Aexamples+language%3Apython&amp;type=Code),
+<a id="__codelineno-76-2" name="__codelineno-76-2" href="#__codelineno-76-2"></a>[在/examples中搜索](https://github.com/iovisor/bcc/tree/master/examples),
 <a id="__codelineno-76-3" name="__codelineno-76-3" href="#__codelineno-76-3"></a>
 <a id="__codelineno-76-4" name="__codelineno-76-4" href="#__codelineno-76-4"></a>### 13. push()
 <a id="__codelineno-76-5" name="__codelineno-76-5" href="#__codelineno-76-5"></a>
@@ -9857,7 +9849,7 @@ class Data(ct.Structure):
 <a id="__codelineno-76-8" name="__codelineno-76-8" href="#__codelineno-76-8"></a>将元素推入堆栈或队列表。如果操作不成功，会引发异常。传递QueueStack.BPF_EXIST作为标志会使队列或堆栈丢弃最旧的元素，如果表已满。
 <a id="__codelineno-76-9" name="__codelineno-76-9" href="#__codelineno-76-9"></a>
 <a id="__codelineno-76-10" name="__codelineno-76-10" href="#__codelineno-76-10"></a>在原地的示例:
-<a id="__codelineno-76-11" name="__codelineno-76-11" href="#__codelineno-76-11"></a>[在/tests中搜索](https://github.com/iovisor/bcc/search?q=push+path%3Atests+language%3Apython&amp;type=Code),
+<a id="__codelineno-76-11" name="__codelineno-76-11" href="#__codelineno-76-11"></a>[在/tests中搜索](https://github.com/iovisor/bcc/tree/master/tests),
 <a id="__codelineno-76-12" name="__codelineno-76-12" href="#__codelineno-76-12"></a>
 <a id="__codelineno-76-13" name="__codelineno-76-13" href="#__codelineno-76-13"></a>### 14. pop()
 <a id="__codelineno-76-14" name="__codelineno-76-14" href="#__codelineno-76-14"></a>
@@ -9866,7 +9858,7 @@ class Data(ct.Structure):
 <a id="__codelineno-76-17" name="__codelineno-76-17" href="#__codelineno-76-17"></a>从堆栈或队列表中弹出一个元素。与```peek()```不同，```pop()```在返回元素之前会将其从表中移除。如果操作不成功，会引发KeyError异常。
 <a id="__codelineno-76-18" name="__codelineno-76-18" href="#__codelineno-76-18"></a>
 <a id="__codelineno-76-19" name="__codelineno-76-19" href="#__codelineno-76-19"></a>在原地的示例:
-<a id="__codelineno-76-20" name="__codelineno-76-20" href="#__codelineno-76-20"></a>[在/tests中搜索](https://github.com/iovisor/bcc/search?q=pop+path%3Atests+language%3Apython&amp;type=Code),
+<a id="__codelineno-76-20" name="__codelineno-76-20" href="#__codelineno-76-20"></a>[在/tests中搜索](https://github.com/iovisor/bcc/tree/master/tests),
 <a id="__codelineno-76-21" name="__codelineno-76-21" href="#__codelineno-76-21"></a>
 <a id="__codelineno-76-22" name="__codelineno-76-22" href="#__codelineno-76-22"></a>### 15. peek()
 <a id="__codelineno-76-23" name="__codelineno-76-23" href="#__codelineno-76-23"></a>
@@ -9875,7 +9867,7 @@ class Data(ct.Structure):
 <a id="__codelineno-76-26" name="__codelineno-76-26" href="#__codelineno-76-26"></a>查看堆栈或队列表头部的元素。与```pop()```不同，```peek()```不会将元素从表中移除。如果操作不成功，会引发异常。
 <a id="__codelineno-76-27" name="__codelineno-76-27" href="#__codelineno-76-27"></a>
 <a id="__codelineno-76-28" name="__codelineno-76-28" href="#__codelineno-76-28"></a>在原地的示例:
-<a id="__codelineno-76-29" name="__codelineno-76-29" href="#__codelineno-76-29"></a>[在/tests中搜索](https://github.com/iovisor/bcc/search?q=peek+path%3Atests+language%3Apython&amp;type=Code),
+<a id="__codelineno-76-29" name="__codelineno-76-29" href="#__codelineno-76-29"></a>[在/tests中搜索](https://github.com/iovisor/bcc/tree/master/tests),
 <a id="__codelineno-76-30" name="__codelineno-76-30" href="#__codelineno-76-30"></a>
 <a id="__codelineno-76-31" name="__codelineno-76-31" href="#__codelineno-76-31"></a>## 辅助方法
 <a id="__codelineno-76-32" name="__codelineno-76-32" href="#__codelineno-76-32"></a>
@@ -9894,8 +9886,8 @@ class Data(ct.Structure):
 <a id="__codelineno-76-45" name="__codelineno-76-45" href="#__codelineno-76-45"></a>print(&quot;内核函数：&quot; + b.ksym(addr))
 </code></pre></div>
 <p>例子：
-<a href="https://github.com/iovisor/bcc/search?q=ksym+path%3Aexamples+language%3Apython&amp;type=Code">搜索 /examples</a>,
-<a href="https://github.com/iovisor/bcc/search?q=ksym+path%3Atools+language%3Apython&amp;type=Code">搜索 /tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索 /examples</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索 /tools</a></p>
 <h3 id="2-ksymname">2. ksymname()</h3>
 <p>语法：<code>BPF.ksymname(name)</code></p>
 <p>将内核名称翻译为地址。这是ksym的反向过程。当函数名称未知时，返回-1。</p>
@@ -9903,8 +9895,8 @@ class Data(ct.Structure):
 <div class="highlight"><pre><span></span><code><a id="__codelineno-77-1" name="__codelineno-77-1" href="#__codelineno-77-1"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;内核地址：</span><span class="si">%x</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">b</span><span class="o">.</span><span class="n">ksymname</span><span class="p">(</span><span class="s2">&quot;vfs_read&quot;</span><span class="p">))</span>
 </code></pre></div>
 <p>例子：
-<a href="https://github.com/iovisor/bcc/search?q=ksymname+path%3Aexamples+language%3Apython&amp;type=Code">搜索 /examples</a>,
-<a href="https://github.com/iovisor/bcc/search?q=ksymname+path%3Atools+language%3Apython&amp;type=Code">搜索 /tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索 /examples</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索 /tools</a></p>
 <h3 id="3-sym">3. sym()</h3>
 <p>语法：<code>BPF.sym(addr, pid, show_module=False, show_offset=False)</code></p>
 <p>将内存地址翻译为pid的函数名称，并返回。小于零的pid将访问内核符号缓存。<code>show_module</code>和<code>show_offset</code>参数控制是否显示函数所在的模块以及是否显示从符号开头的指令偏移量。这些额外参数的默认值为<code>False</code>。</p>
@@ -9912,8 +9904,8 @@ class Data(ct.Structure):
 <div class="highlight"><pre><span></span><code><a id="__codelineno-78-1" name="__codelineno-78-1" href="#__codelineno-78-1"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;函数：&quot;</span> <span class="o">+</span> <span class="n">b</span><span class="o">.</span><span class="n">sym</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="n">pid</span><span class="p">))</span>
 </code></pre></div>
 <p>例子：
-<a href="https://github.com/iovisor/bcc/search?q=sym+path%3Aexamples+language%3Apython&amp;type=Code">搜索 /examples</a>,
-<a href="https://github.com/iovisor/bcc/search?q=sym+path%3Atools+language%3Apython&amp;type=Code">搜索 /tools</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索 /examples</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索 /tools</a></p>
 <h3 id="4-num_open_kprobes">4. num_open_kprobes()</h3>
 <p>语法：<code>BPF.num_open_kprobes()</code></p>
 <p>返回打开的k[ret]probe的数量。当使用event_re附加和分离探测点时，可以发挥作用。不包括perf_events读取器。</p>
@@ -9924,8 +9916,8 @@ class Data(ct.Structure):
 <a id="__codelineno-79-4" name="__codelineno-79-4" href="#__codelineno-79-4"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;0个函数与</span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2">匹配。程序退出。&quot;</span> <span class="o">%</span> <span class="n">args</span><span class="o">.</span><span class="n">pattern</span><span class="p">)</span>
 <a id="__codelineno-79-5" name="__codelineno-79-5" href="#__codelineno-79-5"></a>    <span class="n">exit</span><span class="p">()</span>
 </code></pre></div>
-<p>例子："<a href="https://github.com/iovisor/bcc/search?q=num_open_kprobes+path%3Aexamples+language%3Apython&amp;type=Code">搜索 /示例</a>,
-<a href="https://github.com/iovisor/bcc/search?q=num_open_kprobes+path%3Atools+language%3Apython&amp;type=Code">搜索 /工具</a></p>
+<p>例子："<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索 /示例</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索 /工具</a></p>
 <h3 id="5-get_syscall_fnname">5. get_syscall_fnname()</h3>
 <p>语法: <code>BPF.get_syscall_fnname(name : str)</code></p>
 <p>返回系统调用的相应内核函数名。该辅助函数将尝试不同的前缀，并与系统调用名连接起来。请注意，返回值可能在不同版本的Linux内核中有所不同，有时会引起问题。 （见 <a href="https://github.com/iovisor/bcc/issues/2590">#2590</a>）</p>
@@ -9934,8 +9926,8 @@ class Data(ct.Structure):
 <a id="__codelineno-80-2" name="__codelineno-80-2" href="#__codelineno-80-2"></a><span class="c1"># sys_clone 或 __x64_sys_clone 或 ...</span>
 </code></pre></div>
 <p>现场示例:
-<a href="https://github.com/iovisor/bcc/search?q=get_syscall_fnname+path%3Aexamples+language%3Apython&amp;type=Code">搜索 /示例</a>,
-<a href="https://github.com/iovisor/bcc/search?q=get_syscall_fnname+path%3Atools+language%3Apython&amp;type=Code">搜索 /工具</a></p>
+<a href="https://github.com/iovisor/bcc/tree/master/examples">搜索 /示例</a>,
+<a href="https://github.com/iovisor/bcc/tree/master/tools">搜索 /工具</a></p>
 <h1 id="bpf">BPF 错误</h1>
 <p>请参阅内核源码中的“Understanding eBPF verifier messages”部分，位于 Documentation/networking/filter.txt。</p>
 <h2 id="1-invalid-mem-access">1. Invalid mem access</h2>
@@ -9998,7 +9990,7 @@ class Data(ct.Structure):
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 10, 2025 23:07:43 UTC">February 10, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 24, 2025 04:27:23 UTC">August 24, 2025</span>
   </span>
 
     
@@ -10018,11 +10010,12 @@ class Data(ct.Structure):
   <span class="md-source-file__fact">
     <span class="md-icon" title="Contributors">
       
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
       
     </span>
     <nav>
       
+        <a href="mailto:yunwei356@gmail.com">yunwei37</a>, 
         <a href="mailto:1067852565@qq.com">云微</a>
     </nav>
   </span>
