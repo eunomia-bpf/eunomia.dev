@@ -289,6 +289,14 @@
          
     </url>
     <url>
+         <loc>https://eunomia.dev/blog/2025/08/20/profiling-and-tracing-tools-across-system-layers-and-architectures/</loc>
+         <lastmod>2025-08-26</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blog/posts/profile-tools-limitation/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/posts/profile-tools-limitation/"/>
+         
+    </url>
+    <url>
          <loc>https://eunomia.dev/blog/2024/08/11/the-past-present-and-future-of-ebpf-and-its-path-to-revolutionizing-systems/</loc>
          <lastmod>2025-08-26</lastmod>
          <changefreq>daily</changefreq>
