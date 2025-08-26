@@ -15,7 +15,6 @@ When optimizing CUDA kernels, it's essential to know which parts of your code co
 - Analyzing sampling data to guide optimization efforts
 
 ## Understanding PC Sampling
-
 Program Counter (PC) sampling works by periodically recording the current instruction being executed by each active thread. The process works as follows:
 
 1. The GPU hardware periodically samples the program counter of active warps

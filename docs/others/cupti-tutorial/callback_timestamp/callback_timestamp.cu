@@ -282,7 +282,7 @@ main(
 
     DRIVER_API_CALL(cuInit(0));
 
-    DRIVER_API_CALL(cuCtxCreate(&context, 0, device));
+    DRIVER_API_CALL(cuCtxCreate(&context, (CUctxCreateParams*)0, 0, device));
 
     // Allocate input vectors pHostA and pHostB in host memory.
     pHostA = (int *)malloc(size);

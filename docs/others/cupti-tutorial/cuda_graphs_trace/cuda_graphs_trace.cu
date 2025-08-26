@@ -188,7 +188,7 @@ GraphTraceRecords(
         case CUPTI_ACTIVITY_KIND_KERNEL:
         case CUPTI_ACTIVITY_KIND_CONCURRENT_KERNEL:
         {
-            CUpti_ActivityKernel9 *pKernelRecord = (CUpti_ActivityKernel9 *) pRecord;
+            CUpti_ActivityKernel10 *pKernelRecord = (CUpti_ActivityKernel10 *) pRecord;
 
             // Retrieve the information of the API used to create the node.
             NodeIdApiDataMap::iterator it = nodeIdCorrelationMap.find(pKernelRecord->graphNodeId);

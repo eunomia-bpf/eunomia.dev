@@ -33,6 +33,262 @@ The continuous PC sampling system consists of:
 3. **CUPTI Integration**: Leverages CUPTI's PC sampling APIs
 4. **Helper Script**: `libpc_sampling_continuous.pl` for easy execution
 
+## Detailed Component Analysis
+
+### 1. Helper Script (`libpc_sampling_continuous.pl`)
+
+The Perl script serves as a wrapper that simplifies the PC sampling process. Here's how it works:
+
+#### Script Workflow
+
+1. **Command Line Parsing (Lines 29-41)**
+   ```perl
+   GetOptions( 'help'                => \$help
+             , 'app=s'               => \$applicationName
+             , 'collection-mode=i'   => \$collectionMode
+             , 'sampling-period=i'   => \$samplingPeriod
+             # ... more options
+   ```
+   - Uses Perl's `Getopt::Long` module to parse command-line arguments
+   - Supports various sampling configuration parameters
+
+2. **Parameter Validation (Lines 44-104)**
+   - **Collection Mode**: Validates values (1 for continuous, 2 for kernel-serialized)
+   - **Sampling Period**: Ensures value is between 5-31 (represents 2^n cycles)
+   - **Buffer Sizes**: Validates scratch buffer and hardware buffer sizes
+   - Builds command line options string for passing to the injection library
+
+3. **Library Path Verification (`init` function, Lines 150-233)**
+   ```perl
+   sub init {
+       my $ldLibraryPath = $ENV{'LD_LIBRARY_PATH'};
+       my @libPaths = split /:/, $ldLibraryPath;
+   ```
+   - Checks for required libraries in the system paths:
+     - `libpc_sampling_continuous.so`: The main profiling library
+     - `libcupti.so`: CUPTI library for GPU profiling
+     - `libpcsamplingutil.so`: Utility library for PC sampling
+   - Sets `CUDA_INJECTION64_PATH` environment variable for CUDA injection
+
+4. **Application Execution (`RunApplication` function, Lines 235-244)**
+   ```perl
+   sub RunApplication {
+       $ENV{INJECTION_PARAM} = $injectionParameters;
+       my $returnCode = system($applicationName);
+   }
+   ```
+   - Sets injection parameters as environment variable
+   - Launches the target application with the injection library loaded
+
+#### Key Configuration Parameters
+
+| Parameter | Description | Default | Valid Range |
+|-----------|-------------|---------|-------------|
+| `--collection-mode` | Sampling mode (1=continuous, 2=serialized) | 1 | 1-2 |
+| `--sampling-period` | Sets sampling to 2^n cycles | - | 5-31 |
+| `--scratch-buf-size` | Buffer for temporary PC records | 1 MB | Any size |
+| `--hw-buf-size` | Hardware buffer size | 512 MB | Any size |
+| `--pc-config-buf-record-count` | PC records for configuration | 5000 | Any count |
+| `--pc-circular-buf-record-count` | Records per circular buffer | 500 | Any count |
+| `--circular-buf-count` | Number of circular buffers | 10 | Any count |
+| `--file-name` | Output filename | pcsampling.dat | Any name |
+
+### 2. Core Implementation (`pc_sampling_continuous.cpp`)
+
+The C++ implementation handles the actual PC sampling through CUPTI callbacks and data collection.
+
+#### Initialization Flow
+
+1. **Entry Point (`InitializeInjection`, Lines 987-1025)**
+   ```cpp
+   extern "C" int InitializeInjection(void) {
+       // Read environment parameters
+       ReadInputParams();
+       
+       // Subscribe to CUPTI callbacks
+       CUPTI_API_CALL(cuptiSubscribe(&subscriber, 
+                      (CUpti_CallbackFunc)&CallbackHandler, NULL));
+       
+       // Enable callbacks for all kernel launch variants
+       CUPTI_API_CALL(cuptiEnableCallback(1, subscriber, 
+                      CUPTI_CB_DOMAIN_DRIVER_API, 
+                      CUPTI_DRIVER_TRACE_CBID_cuLaunchKernel));
+       // ... more launch callbacks
+       
+       // Enable resource callbacks
+       CUPTI_API_CALL(cuptiEnableCallback(1, subscriber, 
+                      CUPTI_CB_DOMAIN_RESOURCE, 
+                      CUPTI_CBID_RESOURCE_CONTEXT_CREATED));
+   }
+   ```
+   - Called automatically when CUDA loads the injection library
+   - Subscribes to all kernel launch callbacks and resource events
+   - Sets up exit handler for cleanup
+
+#### Data Structures
+
+2. **Context Information Management (Lines 95-106)**
+   ```cpp
+   typedef struct ContextInfo_st {
+       uint32_t contextUid;
+       CUpti_PCSamplingData pcSamplingData;
+       std::vector<CUpti_PCSamplingConfigurationInfo> pcSamplingConfigurationInfo;
+       PcSamplingStallReasons pcSamplingStallReasons;
+       bool ctxDestroyed;
+       uint8_t *pPcSamplingBuffer;
+   } ContextInfo;
+   ```
+   - Stores per-context PC sampling configuration
+   - Maintains sampling data and stall reason information
+   - Tracks context lifecycle
+
+#### Callback System
+
+3. **Main Callback Handler (`CallbackHandler`, Lines 758-983)**
+   ```cpp
+   void CallbackHandler(void *pUserdata, 
+                       CUpti_CallbackDomain domain,
+                       CUpti_CallbackId callbackId, 
+                       void *pCallbackData) {
+       switch (domain) {
+           case CUPTI_CB_DOMAIN_DRIVER_API:
+               // Handle kernel launches
+               HandleDriverApiCallback(callbackId, pCallbackData);
+               break;
+           case CUPTI_CB_DOMAIN_RESOURCE:
+               // Handle context and module events
+               HandleResourceCallback(callbackId, pCallbackData);
+               break;
+       }
+   }
+   ```
+
+4. **Context Creation Handling**
+   - Enables PC sampling for new contexts
+   - Configures sampling parameters (stall reasons, buffer sizes)
+   - Creates worker thread for data processing (first context only)
+   - Allocates circular buffers for data collection
+
+5. **Kernel Launch Processing**
+   - **Serialized Mode**: Flushes all PC records after each kernel
+   - **Continuous Mode**: Flushes when buffer reaches threshold
+   - Uses `cuptiPCSamplingGetData()` to retrieve samples
+   - Pushes data to queue for file writing
+
+6. **Module Load Events**
+   - Handles dynamic module loading/unloading
+   - Flushes any pending PC records when modules change
+   - Ensures data consistency across module boundaries
+
+#### Data Collection Workflow
+
+7. **PC Sampling Data Retrieval**
+   ```cpp
+   bool GetPcSamplingDataFromCupti(
+       CUpti_PCSamplingGetDataParams &params,
+       ContextInfo *pContextInfo) {
+       // Allocate circular buffer
+       params.pPcData = g_circularBuffer[g_bufferIndexForCupti];
+       params.pcDataBufferSize = g_circularbufSize;
+       
+       // Get data from CUPTI
+       CUptiResult result = cuptiPCSamplingGetData(&params);
+       
+       // Handle buffer and queue data for writing
+       if (pContextInfo->pcSamplingData.totalNumPcs > 0) {
+           g_pcSampDataQueue.push(
+               std::make_pair(&pContextInfo->pcSamplingData, 
+                            pContextInfo));
+       }
+   }
+   ```
+
+8. **Worker Thread (`StoreDataInFile`, Lines 541-583)**
+   ```cpp
+   void StoreDataInFile() {
+       while (g_running || !g_pcSampDataQueue.empty()) {
+           if (!g_pcSampDataQueue.empty()) {
+               // Get data from queue
+               auto pcSampData = g_pcSampDataQueue.front();
+               g_pcSampDataQueue.pop();
+               
+               // Write to file using CUPTI utility
+               CuptiUtilPutPcSampData(fileName, 
+                                    &pContextInfo->pcSamplingStallReasons,
+                                    &pcSamplingConfigurationInfo,
+                                    &pcSamplingData);
+           }
+       }
+   }
+   ```
+   - Runs continuously in background
+   - Processes queued PC sampling data
+   - Writes data to binary files using CUPTI utilities
+   - Creates per-context output files
+
+#### Cleanup and Exit
+
+9. **Exit Handler (`AtExitHandler`, Lines 595-673)**
+   ```cpp
+   void AtExitHandler() {
+       // Disable PC sampling for all active contexts
+       for (auto& itr: g_contextInfoMap) {
+           // Flush remaining data
+           while (itr.second->pcSamplingData.remainingNumPcs > 0) {
+               GetPcSamplingData(pcSamplingGetDataParams, itr.second);
+           }
+           
+           // Disable sampling
+           cuptiPCSamplingDisable(&pcSamplingDisableParams);
+           
+           // Queue final buffer for writing
+           g_pcSampDataQueue.push(
+               std::make_pair(&itr.second->pcSamplingData, 
+                            itr.second));
+       }
+       
+       // Join worker thread and cleanup
+       g_thread.join();
+       FreeAllocatedMemory();
+   }
+   ```
+
+### 3. Data Flow Architecture
+
+```
+Application Launch
+        |
+        v
+[libpc_sampling_continuous.pl]
+        |
+        | Sets CUDA_INJECTION64_PATH
+        | Sets INJECTION_PARAM
+        v
+[CUDA Runtime Loads Library]
+        |
+        v
+[InitializeInjection()]
+        |
+        | Subscribes to callbacks
+        v
+[Context Created] -----> [Configure PC Sampling]
+        |                         |
+        v                         v
+[Kernel Launch] -----> [Collect PC Samples]
+        |                         |
+        v                         v
+[Module Events] -----> [Flush to Circular Buffer]
+        |                         |
+        v                         v
+[Worker Thread] <------ [Queue PC Data]
+        |
+        v
+[Write to File]
+        |
+        v
+[N_pcsampling.dat]
+```
+
 ## Building the Sample
 
 ### Linux Build Process
@@ -87,6 +343,10 @@ For Windows, you need to build the Microsoft Detours library first:
    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/path/to/CUPTI/lib64:/path/to/pc_sampling_continuous:/path/to/pcsamplingutil
    ```
 
+   ```bash
+   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-13.0/extras/CUPTI/lib64:/usr/local/cuda-13.0/extras/CUPTI/samples/pc_sampling_continuous:/usr/local/cuda-13.0/extras/CUPTI/samples/pc_sampling_utility
+   ```
+
 2. **Use the helper script**:
    ```bash
    ./libpc_sampling_continuous.pl --help
@@ -111,125 +371,192 @@ For Windows, you need to build the Microsoft Detours library first:
    pc_sampling_continuous.exe your_cuda_application.exe
    ```
 
-## Helper Script Options
-
-The `libpc_sampling_continuous.pl` script provides various configuration options:
-
-```bash
-# Show help
-./libpc_sampling_continuous.pl --help
-
-# Basic usage
-./libpc_sampling_continuous.pl --app ./my_cuda_app
-
-# Specify sampling frequency
-./libpc_sampling_continuous.pl --app ./my_cuda_app --frequency 1000
-
-# Set output file
-./libpc_sampling_continuous.pl --app ./my_cuda_app --output samples.data
-
-# Enable verbose output
-./libpc_sampling_continuous.pl --app ./my_cuda_app --verbose
-```
-
 ## Understanding the Output
 
-### Sample Data Format
+### Binary Data Format
 
-The PC sampling generates data files containing:
+The output files (`N_pcsampling.dat`) contain binary data in CUPTI's PC sampling format:
 
-1. **Function Information**: Kernel names and their addresses
-2. **PC Samples**: Program counter values with timestamps
-3. **Stall Reasons**: Why warps were stalled at each sample point
-4. **Source Correlation**: Assembly to source code mapping (when debug info is available)
+1. **Header Section**
+   - Magic string: "CUPS" (CUPTI Unified Profiling Samples)
+   - Version information
+   - Number of buffers
+   - Configuration parameters
 
-### Example Output Structure
+2. **Configuration Data**
+   - Stall reason names and indices
+   - Sampling period and collection mode
+   - Buffer sizes and counts
+
+3. **PC Sample Records**
+   - Program counter addresses
+   - Stall reason codes
+   - Sample counts
+   - Timestamp information
+
+### Parsing the Data
+
+Use the `pc_sampling_utility` tool to parse and analyze the binary data:
+
+```bash
+# Basic parsing
+../pc_sampling_utility/pc_sampling_utility --file-name 2_pcsampling.dat
+
+# With source correlation
+../pc_sampling_utility/pc_sampling_utility --file-name 2_pcsampling.dat --disable-source-correlation
+
+# Verbose output
+../pc_sampling_utility/pc_sampling_utility --file-name 2_pcsampling.dat --verbose
+```
+
+### Example Parsed Output
 
 ```
-Kernel: vectorAdd(float*, float*, float*, int)
-PC: 0x7f8b2c001000, Stall: MEMORY_DEPENDENCY, Count: 15
-PC: 0x7f8b2c001008, Stall: EXECUTION_DEPENDENCY, Count: 8
-PC: 0x7f8b2c001010, Stall: NOT_SELECTED, Count: 12
+Function: vectorAdd
+Module: module_1
+Total Samples: 10000
+
+PC Address    | Stall Reason           | Count | Percentage
+0x7f8b2c1000 | MEMORY_DEPENDENCY      | 3500  | 35.0%
+0x7f8b2c1008 | EXECUTION_DEPENDENCY   | 2000  | 20.0%
+0x7f8b2c1010 | NOT_SELECTED          | 1500  | 15.0%
+0x7f8b2c1018 | SYNCHRONIZATION       | 1000  | 10.0%
 ...
 ```
 
-## Key Features
+## Advanced Configuration
 
-### Automatic Injection
+### Performance Tuning
 
-The library automatically:
-- Intercepts CUDA runtime and driver API calls
-- Sets up PC sampling for each kernel launch
-- Collects samples during kernel execution
-- Generates detailed reports
+1. **Sampling Period Optimization**
+   - Lower values (5-10): High detail, more overhead
+   - Medium values (11-20): Balanced approach
+   - Higher values (21-31): Low overhead, less detail
 
-### No Source Modification Required
+2. **Buffer Size Considerations**
+   ```
+   Scratch Buffer Size = (Expected PCs) × (16 bytes + 16 bytes × stall_reasons)
+   
+   Example: 1000 PCs with 4 stall reasons
+   = 1000 × (16 + 16 × 4)
+   = 1000 × 80 bytes
+   = 80 KB minimum
+   ```
 
-Benefits include:
-- Profile existing applications without recompilation
-- Analyze third-party CUDA libraries
-- Monitor production workloads
-- Compare different optimization strategies
+3. **Collection Mode Selection**
+   - **Continuous**: Best for long-running kernels
+   - **Serialized**: Better for short, frequent kernel launches
 
-### Cross-Platform Support
+### Memory Management
 
-The implementation handles:
-- Different dynamic loading mechanisms (Linux vs Windows)
-- Platform-specific library formats
-- Varying CUDA installation paths
-- Different debugging symbol formats
+The system uses a multi-buffer approach:
 
-## Practical Applications
+1. **Configuration Buffer**: Holds PC sampling setup (default: 5000 records)
+2. **Circular Buffers**: Temporary storage for collected data (default: 10 buffers × 500 records)
+3. **Hardware Buffer**: GPU-side storage (default: 512 MB)
+4. **Scratch Buffer**: Working memory for data processing (default: 1 MB)
 
-### Performance Hotspot Identification
+### Stall Reason Analysis
 
-Use PC sampling to:
-1. **Find bottleneck instructions**: Identify assembly instructions where execution time is spent
-2. **Analyze stall patterns**: Understand why warps are not making progress
-3. **Optimize memory access**: Detect memory-bound operations
-4. **Improve instruction scheduling**: Identify dependency stalls
+Common stall reasons and their implications:
 
-### Algorithm Analysis
-
-Apply to:
-1. **Compare implementations**: Profile different algorithmic approaches
-2. **Validate optimizations**: Measure the impact of code changes
-3. **Understand GPU utilization**: See how well your code uses available resources
-4. **Debug performance regressions**: Identify when and where performance degrades
-
-## Advanced Usage
-
-### Custom Sampling Configurations
-
-Modify sampling behavior by:
-1. **Adjusting sampling frequency**: Balance detail vs overhead
-2. **Filtering specific kernels**: Focus on particular functions
-3. **Setting duration limits**: Control profiling duration
-4. **Configuring output formats**: Choose appropriate data formats
-
-### Integration with Other Tools
-
-Combine with:
-1. **NVIDIA Nsight Compute**: Correlate with detailed metrics
-2. **NVIDIA Nsight Systems**: Add timeline context
-3. **Custom analysis scripts**: Process sampling data programmatically
-4. **Visualization tools**: Create performance charts and graphs
+| Stall Reason | Description | Optimization Strategy |
+|--------------|-------------|----------------------|
+| MEMORY_DEPENDENCY | Waiting for memory operations | Improve memory coalescing, use shared memory |
+| EXECUTION_DEPENDENCY | Waiting for previous instructions | Reorder instructions, increase ILP |
+| NOT_SELECTED | Warp not scheduled | Balance workload, reduce divergence |
+| SYNCHRONIZATION | Waiting at sync points | Minimize __syncthreads(), optimize barriers |
+| TEXTURE | Waiting for texture fetch | Optimize texture cache usage |
+| CONSTANT_MEMORY | Waiting for constant memory | Use shared memory for frequently accessed constants |
 
 ## Troubleshooting
 
-### Common Issues
+### Common Issues and Solutions
 
-1. **Library not found**: Ensure all paths are correctly set in LD_LIBRARY_PATH/PATH
-2. **Permission errors**: Check that the target application has necessary permissions
-3. **CUDA version mismatch**: Verify CUPTI version matches CUDA runtime
-4. **Missing symbols**: Ensure debug information is available for source correlation
+1. **Library Loading Failures**
+   ```
+   ERROR: Library libpc_sampling_continuous.so not present
+   ```
+   Solution: Ensure LD_LIBRARY_PATH includes the library directory
+
+2. **CUPTI Initialization Errors**
+   ```
+   CUPTI_ERROR_NOT_INITIALIZED
+   ```
+   Solution: Verify CUDA and CUPTI versions match
+
+3. **Buffer Overflow**
+   ```
+   WARNING: N records are discarded during cuptiPCSamplingDisable()
+   ```
+   Solution: Increase buffer sizes using command-line parameters
+
+4. **Permission Denied**
+   ```
+   Failed to open file for writing
+   ```
+   Solution: Ensure write permissions in output directory
 
 ### Debug Tips
 
-1. **Enable verbose logging**: Use `--verbose` flag to see detailed execution
-2. **Check dependencies**: Verify all required libraries are accessible
-3. **Test with simple apps**: Start with basic CUDA samples before complex applications
-4. **Monitor resource usage**: Ensure sufficient memory for sampling data
+1. **Enable Verbose Logging**
+   ```bash
+   ./libpc_sampling_continuous.pl --app ./myapp --verbose
+   ```
+
+2. **Check Library Dependencies**
+   ```bash
+   ldd libpc_sampling_continuous.so
+   ```
+
+3. **Monitor System Resources**
+   ```bash
+   # Check available memory
+   free -h
+   
+   # Monitor during execution
+   watch -n 1 'free -h'
+   ```
+
+4. **Test with Simple Kernels First**
+   ```cuda
+   __global__ void simpleKernel() {
+       int idx = blockIdx.x * blockDim.x + threadIdx.x;
+       // Simple operation for testing
+   }
+   ```
+
+## Performance Impact
+
+PC sampling overhead depends on:
+
+1. **Sampling Frequency**: Higher frequency = more overhead
+2. **Kernel Duration**: Longer kernels amortize setup costs
+3. **Buffer Sizes**: Larger buffers reduce flush frequency
+4. **Collection Mode**: Continuous mode has lower overhead than serialized
+
+Typical overhead ranges:
+- Low sampling (period=20-31): 1-5% overhead
+- Medium sampling (period=10-19): 5-15% overhead
+- High sampling (period=5-9): 15-30% overhead
+
+## Best Practices
+
+1. **Start with Conservative Settings**
+   - Use larger sampling periods initially
+   - Increase detail gradually as needed
+
+2. **Profile Representative Workloads**
+   - Ensure profiling covers typical use cases
+   - Run multiple iterations for statistical significance
+
+3. **Correlate with Other Metrics**
+   - Combine with nvprof/ncu metrics
+   - Cross-reference with application-level timing
+
+4. **Automate Analysis**
+   - Script data parsing and analysis
+   - Create performance regression tests
 
 ## Next Steps
 
@@ -237,4 +564,4 @@ Combine with:
 - Apply continuous PC sampling to your own CUDA applications
 - Combine with the `pc_sampling_utility` to analyze collected data
 - Explore correlation with source code using debug symbols
-- Integrate PC sampling data with your performance analysis workflow 
+- Integrate PC sampling data with your performance analysis workflow

@@ -125,6 +125,7 @@ struct ParsedArgs
 };
 
 ParsedArgs parseArgs(int argc, char *argv[]);
+void ProfilingDeviceSupportStatus(CUdevice device);
 
 int main(int argc, char *argv[])
 {
@@ -136,15 +137,16 @@ int main(int argc, char *argv[])
     // Get the current ctx for the device
     CUdevice cuDevice;
     DRIVER_API_CALL(cuDeviceGet(&cuDevice, args.deviceIndex));
+    ProfilingDeviceSupportStatus(cuDevice);
 
     int computeCapabilityMajor = 0, computeCapabilityMinor = 0;
     DRIVER_API_CALL(cuDeviceGetAttribute(&computeCapabilityMajor, CU_DEVICE_ATTRIBUTE_COMPUTE_CAPABILITY_MAJOR, cuDevice));
     DRIVER_API_CALL(cuDeviceGetAttribute(&computeCapabilityMinor, CU_DEVICE_ATTRIBUTE_COMPUTE_CAPABILITY_MINOR, cuDevice));
     printf("Compute Capability of Device: %d.%d\n", computeCapabilityMajor, computeCapabilityMinor);
 
-    if (computeCapabilityMajor < 7)
+    if (computeCapabilityMajor < 7 || (computeCapabilityMajor == 7 && computeCapabilityMinor < 5))
     {
-        std::cerr << "Range Profiling is supported only on devices with compute capability 7.0 and above" << std::endl;
+        std::cerr << "Range Profiling is supported only on devices with compute capability 7.5 and above" << std::endl;
         exit(EXIT_FAILURE);
     }
 
@@ -157,7 +159,7 @@ int main(int argc, char *argv[])
 
     // Create a context
     CUcontext cuContext;
-    DRIVER_API_CALL(cuCtxCreate(&cuContext, 0, cuDevice));
+    DRIVER_API_CALL(cuCtxCreate(&cuContext, (CUctxCreateParams*)0, 0, cuDevice));
     RangeProfilerTargetPtr pRangeProfilerTarget = std::make_shared<RangeProfilerTarget>(cuContext, config);
 
     // Get chip name
@@ -269,22 +271,52 @@ ParsedArgs parseArgs(int argc, char *argv[])
         std::string arg = argv[i];
         if (arg == "--device" || arg == "-d")
         {
+            if (i + 1 >= argc)
+            {
+                fprintf(stderr, "Missing value for argument: %s\n", arg.c_str());
+                PrintHelp();
+                exit(EXIT_FAILURE);
+            }
             args.deviceIndex = std::stoi(argv[++i]);
         }
         else if (arg == "--range" || arg == "-r")
         {
+            if (i + 1 >= argc)
+            {
+                fprintf(stderr, "Missing value for argument: %s\n", arg.c_str());
+                PrintHelp();
+                exit(EXIT_FAILURE);
+            }
             args.rangeMode = argv[++i];
         }
         else if (arg == "--replay" || arg == "-e")
         {
+            if (i + 1 >= argc)
+            {
+                fprintf(stderr, "Missing value for argument: %s\n", arg.c_str());
+                PrintHelp();
+                exit(EXIT_FAILURE);
+            }
             args.replayMode = argv[++i];
         }
         else if (arg == "--maxNumRanges" || arg == "-n")
         {
+            if (i + 1 >= argc)
+            {
+                fprintf(stderr, "Missing value for argument: %s\n", arg.c_str());
+                PrintHelp();
+                exit(EXIT_FAILURE);
+            }
             args.maxRange = std::stoull(argv[++i]);
         }
         else if (arg == "--metrics" || arg == "-m")
         {
+            if (i + 1 >= argc)
+            {
+                fprintf(stderr, "Missing value for argument: %s\n", arg.c_str());
+                PrintHelp();
+                exit(EXIT_FAILURE);
+            }
             std::stringstream ss(argv[++i]);
             std::string metric;
             args.metrics.clear();
@@ -306,4 +338,53 @@ ParsedArgs parseArgs(int argc, char *argv[])
         }
     }
     return args;
+}
+
+void ProfilingDeviceSupportStatus(CUdevice device)
+{
+    CUpti_Profiler_DeviceSupported_Params params = { CUpti_Profiler_DeviceSupported_Params_STRUCT_SIZE };
+    params.cuDevice = device;
+    params.api = CUPTI_PROFILER_RANGE_PROFILING;
+    CUPTI_API_CALL(cuptiProfilerDeviceSupported(&params));
+
+    if (params.isSupported != CUPTI_PROFILER_CONFIGURATION_SUPPORTED)
+    {
+        ::std::cerr << "Unable to profile on device " << device << ::std::endl;
+
+        if (params.architecture == CUPTI_PROFILER_CONFIGURATION_UNSUPPORTED)
+        {
+            ::std::cerr << "\tdevice architecture is not supported" << ::std::endl;
+        }
+
+        if (params.sli == CUPTI_PROFILER_CONFIGURATION_UNSUPPORTED)
+        {
+            ::std::cerr << "\tdevice sli configuration is not supported" << ::std::endl;
+        }
+
+        if (params.vGpu == CUPTI_PROFILER_CONFIGURATION_UNSUPPORTED)
+        {
+            ::std::cerr << "\tdevice vgpu configuration is not supported" << ::std::endl;
+        }
+        else if (params.vGpu == CUPTI_PROFILER_CONFIGURATION_DISABLED)
+        {
+            ::std::cerr << "\tdevice vgpu configuration disabled profiling support" << ::std::endl;
+        }
+
+        if (params.confidentialCompute == CUPTI_PROFILER_CONFIGURATION_UNSUPPORTED)
+        {
+            ::std::cerr << "\tdevice confidential compute configuration is not supported" << ::std::endl;
+        }
+
+        if (params.cmp == CUPTI_PROFILER_CONFIGURATION_UNSUPPORTED)
+        {
+            ::std::cerr << "\tNVIDIA Crypto Mining Processors (CMP) are not supported" << ::std::endl;
+        }
+
+        if (params.wsl == CUPTI_PROFILER_CONFIGURATION_UNSUPPORTED)
+        {
+            ::std::cerr << "\tWSL is not supported" << ::std::endl;
+        }
+
+        exit(EXIT_WAIVED);
+    }
 }
