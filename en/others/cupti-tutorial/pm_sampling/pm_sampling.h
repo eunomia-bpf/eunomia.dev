@@ -117,6 +117,12 @@ public:
 
     void PrintSampleRanges()
     {
+        if (m_samplerRanges.empty())
+        {
+            std::cout << "No samples to print\n";
+            return;
+        }
+
         std::cout << "Total num of Samples: " << m_samplerRanges.size() << "\n";
         std::cout << "Printing first 50 samples:" << "\n";
         for(size_t sampleIndex = 0; sampleIndex < 50; ++sampleIndex)

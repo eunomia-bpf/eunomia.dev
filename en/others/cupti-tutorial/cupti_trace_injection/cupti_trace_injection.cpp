@@ -429,6 +429,7 @@ InitializeInjection(void)
 {
     if (injectionGlobals.initialized)
     {
+        // Return 1 to indicate that the injection is already successfully initialized.
         return 1;
     }
 
@@ -447,5 +448,6 @@ InitializeInjection(void)
 
     initializeInjectionMutex.unlock();
 
+    // Return 1 to indicate that the injection is successfully initialized.
     return 1;
 }

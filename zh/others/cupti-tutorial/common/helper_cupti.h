@@ -29,6 +29,7 @@
 #endif
 
 #define CUDA_MAX_DEVICES    256     // consider theoretical max devices as 256
+#define DEV_NAME_LEN 256
 
 #ifndef DRIVER_API_CALL
 #define DRIVER_API_CALL(apiFunctionCall)                                            \

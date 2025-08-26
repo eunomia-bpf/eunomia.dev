@@ -184,7 +184,7 @@ PrintCorrealtionInformation()
             case CUPTI_ACTIVITY_KIND_KERNEL:
             case CUPTI_ACTIVITY_KIND_CONCURRENT_KERNEL:
             {
-                CUpti_ActivityKernel9 *pKernelRecord = (CUpti_ActivityKernel9 *)s_Iter->second;
+                CUpti_ActivityKernel10 *pKernelRecord = (CUpti_ActivityKernel10 *)s_Iter->second;
                 // Check whether kernel correlation id is present in connection map.
                 if (s_ConnectionMap.find(pKernelRecord->correlationId) != s_ConnectionMap.end())
                 {
@@ -205,8 +205,15 @@ PrintCorrealtionInformation()
                 break;
         }
 
+        // Free the allocated memory for the activity record
+        free(s_Iter->second);
         s_Iter++;
     }
+    for (auto& pair : s_ConnectionMap) {
+        free(pair.second);
+    }
+    s_CorrelationMap.clear();
+    s_ConnectionMap.clear();
 }
 
 // Store the runtime and driver API records in s_ConnectionMap and others in s_CorrelationMap.
@@ -248,8 +255,8 @@ CorrelationActivityRecords(
         case CUPTI_ACTIVITY_KIND_KERNEL:
         case CUPTI_ACTIVITY_KIND_CONCURRENT_KERNEL:
         {
-            CUpti_ActivityKernel9 *pKernelRecord = (CUpti_ActivityKernel9 *)pRecord;
-            uint32_t recordSize = sizeof(CUpti_ActivityKernel9);
+            CUpti_ActivityKernel10 *pKernelRecord = (CUpti_ActivityKernel10 *)pRecord;
+            uint32_t recordSize = sizeof(CUpti_ActivityKernel10);
 
             // Creating copy of the record to print correaltion data after the application is over.
             CUpti_Activity *pRecordCopy = (CUpti_Activity *)malloc(recordSize);

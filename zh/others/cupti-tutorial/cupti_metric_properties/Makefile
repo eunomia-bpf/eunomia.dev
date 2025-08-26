@@ -6,10 +6,10 @@ ifndef OS
  HOST_ARCH := $(shell uname -m)
 endif
 
-CUDA_INSTALL_PATH ?= ../../../..
-PROFILER_HOST_UTILS_SRC ?= ../extensions/src/profilerhost_util
+CUDA_INSTALL_PATH ?= /usr/local/cuda-13.0
+CUPTI_INSTALL_PATH ?= $(CUDA_INSTALL_PATH)/extras/CUPTI
 NVCC := "$(CUDA_INSTALL_PATH)/bin/nvcc"
-INCLUDES := -I"$(CUDA_INSTALL_PATH)/include" -I$(CUPTI_INCLUDE_PATH) -I../../include -I../extensions/include/profilerhost_util -I../extensions/include/c_util -I../common
+INCLUDES := -I"$(CUDA_INSTALL_PATH)/include" -I$(CUPTI_INSTALL_PATH)/include -I$(CUPTI_INSTALL_PATH)/samples/common
 
 TARGET_ARCH ?= $(HOST_ARCH)
 TARGET_OS ?= $(shell uname | tr A-Z a-z)
@@ -18,7 +18,7 @@ TARGET_OS ?= $(shell uname | tr A-Z a-z)
 # In the case of cross-compilation, set the libs to the correct ones under /usr/local/cuda/targets/<TARGET_ARCH>-<TARGET_OS>/lib
 
 ifeq ($(OS), Windows_NT)
-    LIB_PATH ?= ..\..\lib64
+    LIB_PATH ?= $(CUPTI_INSTALL_PATH)\lib64
 else
     ifneq ($(TARGET_ARCH), $(HOST_ARCH))
         INCLUDES += -I$(CUDA_INSTALL_PATH)/targets/$(HOST_ARCH)-$(shell uname | tr A-Z a-z)/include
@@ -26,13 +26,13 @@ else
         LIB_PATH ?= $(CUDA_INSTALL_PATH)/targets/$(TARGET_ARCH)-$(TARGET_OS)/lib
         TARGET_CUDA_PATH = -L $(LIB_PATH)/stubs
     else
-        EXTRAS_LIB_PATH := ../../lib64
+        EXTRAS_LIB_PATH := $(CUPTI_INSTALL_PATH)/lib64
         LIB_PATH ?= $(CUDA_INSTALL_PATH)/lib64
     endif
 endif
 
 ifeq ($(OS), Windows_NT)
-    LIBS = -lcuda -L $(LIB_PATH) -lcupti -lnvperf_host -lnvperf_target -L ..\extensions\src\profilerhost_util -lprofilerHostUtil
+    LIBS = -lcuda -L $(LIB_PATH) -lcupti
     OBJ = obj
     LIBEXT = lib
     LIBPREFIX =
@@ -40,14 +40,14 @@ ifeq ($(OS), Windows_NT)
 else
     ifeq ($(OS), Darwin)
         export DYLD_LIBRARY_PATH := $(DYLD_LIBRARY_PATH):$(LIB_PATH)
-        LIBS = -Xlinker -framework -Xlinker cuda -L $(LIB_PATH) -lcupti -lnvperf_host -lnvperf_target -L ../extensions/src/profilerhost_util -lprofilerHostUtil
+        LIBS = -Xlinker -framework -Xlinker cuda -L $(LIB_PATH) -lcupti
     else
         LIBS :=
         ifeq ($(HOST_ARCH), $(TARGET_ARCH))
             export LD_LIBRARY_PATH := $(LD_LIBRARY_PATH):$(LIB_PATH)
             LIBS = -L $(EXTRAS_LIB_PATH)
         endif
-        LIBS += $(TARGET_CUDA_PATH) -lcuda -L $(LIB_PATH) -lcupti -lnvperf_host -lnvperf_target -L ../extensions/src/profilerhost_util -lprofilerHostUtil
+        LIBS += $(TARGET_CUDA_PATH) -lcuda -L $(LIB_PATH) -lcupti
     endif
     OBJ = o
     LIBEXT = a
@@ -83,17 +83,14 @@ ifneq ($(TARGET_ARCH), $(HOST_ARCH))
 endif
 
 # Gencode arguments
-SMS ?= 70 72 75 80 86 87 89 90 100
+SMS ?= 75 80 86 87 89 90 100 103 110 120 121
 # Generate SASS code for each SM architecture listed in $(SMS)
 $(foreach sm,$(SMS),$(eval GENCODE_FLAGS += -gencode arch=compute_$(sm),code=sm_$(sm)))
 
 .DEFAULT: all
 .PHONY: all
 
-all : profiler_host_util cupti_metric_properties
-
-profiler_host_util:
-	cd $(PROFILER_HOST_UTILS_SRC) && $(MAKE)
+all : cupti_metric_properties
 
 cupti_metric_properties: cupti_metric_properties.$(OBJ)
 	$(NVCC) $(NVCC_COMPILER) $(NVCCFLAGS) -o $@ $^ $(LIBS) $(INCLUDES)

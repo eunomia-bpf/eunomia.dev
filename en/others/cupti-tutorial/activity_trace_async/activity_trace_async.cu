@@ -127,6 +127,35 @@ DoPass(
     }
 }
 
+void CUPTIAPI CallbackHandler(CUpti_CallbackDomain domain, CUpti_CallbackId callbackId)
+{
+    CUPTI_API_CALL(cuptiGetLastError());
+
+    switch (domain)
+    {
+        case CUPTI_CB_DOMAIN_RESOURCE:
+            switch (callbackId)
+            {
+                CUptiResult result;
+                case CUPTI_CBID_RESOURCE_CU_INIT_FINISHED:
+                    result = cuptiActivityEnableHWTrace(1);
+                    if (result != CUPTI_SUCCESS)
+                    {
+                        const char *errstr;
+                        cuptiGetResultString(result, &errstr);
+                        printf("cuptiActivityEnableHWTrace failed with error %s. Legacy tracing will be continued.\n", errstr);
+                    }
+                    break;
+                default:
+                    break;
+            }
+            break;
+        default:
+            break;
+    }
+    return;
+}
+
 static void
 SetupCupti()
 {
@@ -138,7 +167,7 @@ SetupCupti()
     pUserData->printActivityRecords        = 1;
 
     // Common CUPTI Initialization
-    InitCuptiTrace(pUserData, NULL, stdout);
+    InitCuptiTrace(pUserData, (void *)CallbackHandler, stdout);
 
     // Device activity record is created when CUDA initializes, so we
     // want to enable it before cuInit() or any CUDA runtime call.
@@ -155,6 +184,12 @@ SetupCupti()
     CUPTI_API_CALL_VERBOSE(cuptiActivityEnable(CUPTI_ACTIVITY_KIND_OVERHEAD));
 }
 
+void printUsage() {
+    std::cout << "Usage: \n"
+              << "  ./activity_trace_async -e [ --enableHwTrace ] <value>\n"
+              << "  Non-zero value to enable, 0 to disable (disabled by default)\n";
+}
+
 int
 main(
     int argc,
@@ -163,8 +198,37 @@ main(
     CUdevice device;
     char deviceName[256];
     int deviceId = 0, deviceCount = 0;
+    int enableHwTrace = 0;
+
+    for (int i = 1; i < argc; i++)
+    {
+        std::string arg = argv[i];
+        if (arg == "--enableHwTrace" || arg == "-e")
+        {
+            if (i + 1 >= argc)
+            {
+                std::cout << "Missing value for " << arg << " option." << std::endl;
+                printUsage();
+                return 1;
+            }
+
+            enableHwTrace = std::atoi(argv[++i]);
+        }
+        else
+        {
+            std::cout << "Unknown option: " << arg << std::endl;
+            printUsage();
+            return 1;
+        }
+    }
 
     SetupCupti();
+
+    // Enable CUPTI callback on CUDA Initialization Finished if hardware trace is enabled
+    if (enableHwTrace)
+    {
+        CUPTI_API_CALL_VERBOSE(cuptiEnableCallback(1, globals.subscriberHandle, CUPTI_CB_DOMAIN_RESOURCE, CUPTI_CBID_RESOURCE_CU_INIT_FINISHED));
+    }
 
     // Intialize CUDA
     DRIVER_API_CALL(cuInit(0));
@@ -193,6 +257,11 @@ main(
     }
 
     DeInitCuptiTrace();
+
+    if (enableHwTrace)
+    {
+        cuptiActivityEnableHWTrace(0);
+    }
 
     exit(EXIT_SUCCESS);
 }

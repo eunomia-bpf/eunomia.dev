@@ -31,6 +31,7 @@
 
 // NVTX headers
 #include "nvtx3/nvToolsExt.h"
+#include "nvtx3/nvToolsExtSync.h"
 #include "nvtx3/nvToolsExtCuda.h"
 #include "nvtx3/nvToolsExtCudaRt.h"
 
@@ -113,7 +114,7 @@ DoVectorAddition()
     InitializeVector(pHostB, N);
     memset(pHostC, 0, size);
 
-    DRIVER_API_CALL(cuCtxCreate(&context, 0, device));
+    DRIVER_API_CALL(cuCtxCreate(&context, (CUctxCreateParams*)0, 0, device));
     nvtxNameCuContextA(context, "CUDA Context");
 
     // Push range "Allocate device memory" on domain "Vector Addition".

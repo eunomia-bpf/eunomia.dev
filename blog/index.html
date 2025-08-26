@@ -8211,6 +8211,24 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#agentsight-keeping-your-ai-agents-under-control-with-ebpf-powered-system-observability" class="md-nav__link">
+    <span class="md-ellipsis">
+      AgentSight: Keeping Your AI Agents Under Control with eBPF-Powered System Observability
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agentsight-ai-agent-ebpf" class="md-nav__link">
+    <span class="md-ellipsis">
+      AgentSight: 让 AI Agent 的一举一动都在掌控之中，基于 eBPF 的系统级可观测性方案
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#the-modern-memory-testing-arsenal-a-complete-guide-to-benchmarking-tools-for-next-gen-memory-systems" class="md-nav__link">
     <span class="md-ellipsis">
       The Modern Memory Testing Arsenal -- A Complete Guide to Benchmarking Tools for Next-Gen Memory Systems
@@ -8546,6 +8564,76 @@
 <p><a class="md-button" href="https://x.com/intent/tweet?text=Blog%0A&amp;url=https://eunomia.dev/blog/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/blog/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
       </header>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2025-08-26 00:00:00+00:00">August 26, 2025</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              12 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="agentsight-keeping-your-ai-agents-under-control-with-ebpf-powered-system-observability"><a class="toclink" href="2025/08/26/agentsight-keeping-your-ai-agents-under-control-with-ebpf-powered-system-observability/">AgentSight: Keeping Your AI Agents Under Control with eBPF-Powered System Observability</a></h2>
+<p>Picture this: your AI agent is autonomously writing code and executing commands, but you have no idea what it's actually doing. Sounds a bit unsettling, right? As LLM agents like Claude Code and Gemini-cli become increasingly prevalent, we're handing more and more control to AI. But here's the catch: these AI agents are fundamentally different from traditional software, and our existing monitoring tools are struggling to keep up. They can either see what the AI is "thinking" (through LLM prompts) or what it's "doing" (system calls), but never both together. It's like watching someone's mouth move or seeing their actions, but never connecting the two. This blind spot makes it nearly impossible to tell if your AI is working normally, under attack, or burning through your budget in an infinite loop.</p>
+<p>That's why we built AgentSight. We leverage eBPF to monitor AI agents at system boundaries where they can't hide. AgentSight intercepts encrypted LLM communications to understand what the AI intends to do, monitors kernel events to track what it actually does, then uses a smart correlation engine to connect these dots into a complete causal chain. The best part? You don't need to modify your code, it works with any framework, and the performance overhead is less than 3%! In our tests, AgentSight successfully caught prompt injection attacks, spotted expensive reasoning loops before they drained budgets, and revealed hidden bottlenecks in multi-agent collaborations. AgentSight is now open source and ready to use at <a href="https://github.com/agent-sight/agentsight">https://github.com/agent-sight/agentsight</a>. The arxiv paper is available at <a href="https://arxiv.org/abs/2508.02736">https://arxiv.org/abs/2508.02736</a>.</p>
+
+    
+      <nav class="md-post__action">
+        <a href="2025/08/26/agentsight-keeping-your-ai-agents-under-control-with-ebpf-powered-system-observability/">
+          Continue reading
+        </a>
+      </nav>
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2025-08-26 00:00:00+00:00">August 26, 2025</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              6 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="agentsight-ai-agent-ebpf"><a class="toclink" href="2025/08/26/agentsight-%E8%AE%A9-ai-agent-%E7%9A%84%E4%B8%80%E4%B8%BE%E4%B8%80%E5%8A%A8%E9%83%BD%E5%9C%A8%E6%8E%8C%E6%8E%A7%E4%B9%8B%E4%B8%AD%E5%9F%BA%E4%BA%8E-ebpf-%E7%9A%84%E7%B3%BB%E7%BB%9F%E7%BA%A7%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E6%96%B9%E6%A1%88/">AgentSight: 让 AI Agent 的一举一动都在掌控之中，基于 eBPF 的系统级可观测性方案</a></h2>
+<p>想象一下，当你的 AI Agent 正在自主编写代码、执行命令时，你却不知道它究竟在做什么，或许有点令人不安？随着 Claude Code、Gemini-cli 等 LLM 智能体工具的普及，我们正在将越来越多的控制权交给 AI。但这里有个棘手的问题：这些 AI 智能体与传统软件截然不同，现有的监控工具要么只能看到它们的"想法"（LLM 提示词），要么只能看到它们的"行动"（系统调用），却无法将两者联系起来。就像你只能听到一个人在说什么，或者只能看到他在做什么，却不知道言行之间的联系。这个盲区让我们难以判断 AI 是在正常工作、遭受攻击还是陷入了昂贵的死循环。</p>
+<p>这就是我们开发 AgentSight 的初衷，我们用 eBPF 在系统边界处巧妙地监控 AI Agent 的一举一动。AgentSight 能够拦截加密的 LLM 通信来理解 AI 的意图，同时监控内核事件来追踪它的实际行为，然后用智能引擎将这两条线索关联起来，形成完整的因果链。最棒的是，这一切都不需要修改你的代码，不依赖特定框架，性能开销还不到 3%！在实际测试中，AgentSight 成功检测出了提示注入攻击，及时发现了烧钱的推理死循环，还帮助我们找到了多智能体协作中的性能瓶颈。AgentSight 已经开源，欢迎来 <a href="https://github.com/agent-sight/agentsight">https://github.com/agent-sight/agentsight</a> 体验！论文的 arxiv 版本在 <a href="https://arxiv.org/abs/2508.02736">https://arxiv.org/abs/2508.02736</a> 。</p>
+
+    
+      <nav class="md-post__action">
+        <a href="2025/08/26/agentsight-%E8%AE%A9-ai-agent-%E7%9A%84%E4%B8%80%E4%B8%BE%E4%B8%80%E5%8A%A8%E9%83%BD%E5%9C%A8%E6%8E%8C%E6%8E%A7%E4%B9%8B%E4%B8%AD%E5%9F%BA%E4%BA%8E-ebpf-%E7%9A%84%E7%B3%BB%E7%BB%9F%E7%BA%A7%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E6%96%B9%E6%A1%88/">
+          Continue reading
+        </a>
+      </nav>
+    
+  </div>
+</article>
       
         <article class="md-post md-post--excerpt">
   <header class="md-post__header">

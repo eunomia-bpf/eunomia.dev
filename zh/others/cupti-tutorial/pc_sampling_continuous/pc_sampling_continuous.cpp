@@ -2,7 +2,7 @@
  * Copyright 2020-2022 NVIDIA Corporation. All rights reserved
  *
  * Sample CUPTI app to demonstrate the usage of pc sampling APIs.
- * This app will work on devices with compute capability 7.0 and higher.
+ * This app will work on devices with compute capability 7.5 and higher.
  *
  * Work flow in brief:
  *

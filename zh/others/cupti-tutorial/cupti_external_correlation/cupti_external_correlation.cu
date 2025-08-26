@@ -97,7 +97,7 @@ DoVectorAddition() {
     // Push external id for the initialization: memory allocation and memcpy operations from host to device.
     CUPTI_API_CALL_VERBOSE(cuptiActivityPushExternalCorrelationId(CUPTI_EXTERNAL_CORRELATION_KIND_UNKNOWN, static_cast<uint64_t>(INITIALIZATION_EXTERNAL_ID)));
 
-    DRIVER_API_CALL(cuCtxCreate(&context, 0, device));
+    DRIVER_API_CALL(cuCtxCreate(&context, (CUctxCreateParams*)0, 0, device));
 
     // Allocate vectors in device memory.
     RUNTIME_API_CALL(cudaMalloc((void **)&pDeviceA, size));

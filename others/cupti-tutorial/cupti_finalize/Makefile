@@ -8,7 +8,7 @@ OS   := $(shell uname)
 HOST_ARCH := $(shell uname -m)
 endif
 
-CUDA_INSTALL_PATH ?= ../../../..
+CUDA_INSTALL_PATH ?= /usr/local/cuda-13.0
 NVCC := "$(CUDA_INSTALL_PATH)/bin/nvcc"
 
 TARGET_ARCH ?= $(HOST_ARCH)
@@ -20,7 +20,7 @@ ifneq ($(TARGET_ARCH), $(HOST_ARCH))
     LIB_PATH ?= $(CUDA_INSTALL_PATH)/targets/$(TARGET_ARCH)-$(TARGET_OS)/lib
     TARGET_CUDA_PATH = -L $(LIB_PATH)/stubs
 else
-    INCLUDES := -I"$(CUDA_INSTALL_PATH)/include" -I$(CUPTI_INCLUDE_PATH) -I../../include
+    INCLUDES := -I"$(CUDA_INSTALL_PATH)/include" -I../../include
     EXTRAS_LIB_PATH := ../../lib64
     LIB_PATH ?= "$(CUDA_INSTALL_PATH)/lib64"
 endif

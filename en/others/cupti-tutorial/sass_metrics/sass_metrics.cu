@@ -2,7 +2,7 @@
  * Copyright 2023 NVIDIA Corporation. All rights reserved
  *
  * Sample CUPTI app to demonstrate the usage of new sass metrics APIs.
- * This app will work on devices with compute capability 7.0 and higher.
+ * This app will work on devices with compute capability 7.5 and higher.
  */
 
 // System headers
@@ -372,11 +372,15 @@ main(int argc, char *argv[])
         metrics.push_back("smsp__sass_inst_executed");
     }
 
-    cudaDeviceProp prop;
     RUNTIME_API_CALL(cudaSetDevice(deviceNum));
-    RUNTIME_API_CALL(cudaGetDeviceProperties(&prop, deviceNum));
-    printf("Device Name: %s\n", prop.name);
-    printf("Device compute capability: %d.%d\n", prop.major, prop.minor);
+    char deviceName[DEV_NAME_LEN];
+    DRIVER_API_CALL(cuDeviceGetName(deviceName, DEV_NAME_LEN, deviceNum));
+    int major, minor;
+    RUNTIME_API_CALL(cudaDeviceGetAttribute(&major, cudaDevAttrComputeCapabilityMajor, deviceNum));
+    RUNTIME_API_CALL(cudaDeviceGetAttribute(&minor, cudaDevAttrComputeCapabilityMinor, deviceNum));
+    
+    printf("Device Name: %s\n", deviceName);
+    printf("Device compute capability: %d.%d\n", major, minor);
 
     // Initialize profiler API and test device compatibility
     CUpti_Profiler_Initialize_Params profilerInitializeParams = { CUpti_Profiler_Initialize_Params_STRUCT_SIZE };
@@ -429,7 +433,7 @@ main(int argc, char *argv[])
 
 
     CUcontext cuCtx;
-    DRIVER_API_CALL(cuCtxCreate(&cuCtx, 0, deviceNum));
+    DRIVER_API_CALL(cuCtxCreate(&cuCtx, (CUctxCreateParams*)0, 0, deviceNum));
 
     if (bListMetrics){
         ListSupportedMetrics(deviceNum);

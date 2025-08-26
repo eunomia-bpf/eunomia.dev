@@ -182,7 +182,7 @@ main(
         deviceData[device].deviceId = deviceIds[device];// GPU device ID
 
         // Either set to a context, or may be NULL if a default context has been created.
-        DRIVER_API_CALL(cuCtxCreate(&(deviceData[device].context), 0, deviceIds[device]));
+        DRIVER_API_CALL(cuCtxCreate(&(deviceData[device].context), (CUctxCreateParams*)0, 0, deviceIds[device]));
 
         // Per-stream initialization & memory allocation - copy from constant host array to each device array.
         deviceData[device].streams.resize(numStreams);

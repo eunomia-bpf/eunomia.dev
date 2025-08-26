@@ -69,7 +69,7 @@ main()
 
     // Set up a context for device 0.
     RUNTIME_API_CALL(cudaSetDevice(0));
-    DRIVER_API_CALL(cuCtxCreate(&ctx, 0, 0));
+    DRIVER_API_CALL(cuCtxCreate(&ctx, (CUctxCreateParams*)0, 0, 0));
 
     // Allocate host and device arrays and initialize to known values.
     float *pDeviceA;

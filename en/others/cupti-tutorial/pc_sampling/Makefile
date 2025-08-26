@@ -6,9 +6,10 @@ ifndef OS
  HOST_ARCH := $(shell uname -m)
 endif
 
-CUDA_INSTALL_PATH ?= ../../../..
+CUDA_INSTALL_PATH ?= /usr/local/cuda-13.0/
 NVCC := "$(CUDA_INSTALL_PATH)/bin/nvcc"
-INCLUDES := -I"$(CUDA_INSTALL_PATH)/include" -I$(CUPTI_INCLUDE_PATH) -I../../include -I../common
+CUPTI_INSTALL_PATH ?= $(CUDA_INSTALL_PATH)/extras/CUPTI
+INCLUDES := -I"$(CUDA_INSTALL_PATH)/include" -I$(CUPTI_INSTALL_PATH)/include -I$(CUPTI_INSTALL_PATH)/samples/common
 
 ifeq ($(OS),Windows_NT)
     LIB_PATH ?= ..\..\lib64
@@ -60,13 +61,13 @@ endif
 # Gencode arguments
 SMS ?= 52 53 60 61 62 70 72 75 80 86 87 89 90
 # Generate SASS code for each SM architecture listed in $(SMS)
-$(foreach sm,$(SMS),$(eval GENCODE_FLAGS += -gencode arch=compute_$(sm),code=sm_$(sm)))
+# $(foreach sm,$(SMS),$(eval GENCODE_FLAGS += -gencode arch=compute_$(sm),code=sm_$(sm)))
 
 pc_sampling: pc_sampling.$(OBJ)
 	$(NVCC) $(NVCC_COMPILER) $(NVCCFLAGS) -o $@ pc_sampling.$(OBJ) $(LIBS)
 
 pc_sampling.$(OBJ): pc_sampling.cu
-	$(NVCC) $(NVCC_COMPILER) $(NVCCFLAGS) -arch=sm_52 -lineinfo $(GENCODE_FLAGS) -c $(INCLUDES) $<
+	$(NVCC) $(NVCC_COMPILER) $(NVCCFLAGS) -lineinfo $(GENCODE_FLAGS) -c $(INCLUDES) $<
 
 run: pc_sampling
 	./$<

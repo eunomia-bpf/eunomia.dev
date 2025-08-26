@@ -51,6 +51,10 @@ void vectorAdd(const int *pA, const int *pB, int *pC, int N)
 
 std::atomic<bool> stopDecodeThread(false);
 
+const int NUM_OF_ELEMS = 4096*4096*2;
+const int THREAD_PER_BLOCKS = 512;
+
+
 class VectorLaunchWorkLoad
 {
     int m_numOfElements;
@@ -61,7 +65,7 @@ class VectorLaunchWorkLoad
     std::vector<int> pHostA, pHostB, pHostC;
 
 public:
-    VectorLaunchWorkLoad(int numElements = 50000, int threadsPerBlock = 256) :
+    VectorLaunchWorkLoad(int numElements = NUM_OF_ELEMS, int threadsPerBlock = THREAD_PER_BLOCKS) :
         m_numOfElements(numElements), m_threadsPerBlock(threadsPerBlock)
     {
         m_size = m_numOfElements * sizeof(int);
@@ -136,11 +140,13 @@ public:
 
 struct ParsedArgs
 {
+    bool isDeviceIndexSet = false;
+    bool isChipNameSet = false;
     int deviceIndex = 0;
     int queryBaseMetrics = 0;
     int queryMetricProperties = 0;
     std::string chipName;
-    uint64_t samplingInterval = 100000; // 100us
+    uint64_t samplingInterval = 10000; // 100us
     size_t hardwareBufferSize = 512 * 1024 * 1024; // 512MB
     uint64_t maxSamples = 10000;
     std::vector<const char*> metrics =
@@ -172,7 +178,7 @@ int main(int argc, char *argv[])
 
     std::string chipName = args.chipName;
     std::vector<uint8_t> counterAvailibilityImage;
-    if (args.deviceIndex >= 0)
+    if ((args.isDeviceIndexSet && args.deviceIndex >= 0) || !args.isChipNameSet)
     {
         CUdevice cuDevice;
         DRIVER_API_CALL(cuDeviceGet(&cuDevice, args.deviceIndex));
@@ -282,7 +288,7 @@ int PmSamplingCollection(std::vector<uint8_t>& counterAvailibilityImage, ParsedA
     CUPTI_API_CALL(cuptiPmSamplingTarget.StartPmSampling());
     stopDecodeThread = false;
 
-    const size_t NUM_OF_ITERATIONS = 100000;
+    const size_t NUM_OF_ITERATIONS = 100;
     for (size_t ii = 0; ii < NUM_OF_ITERATIONS; ++ii)
     {
         cudaError_t result = vectorWorkLoad.LaunchKernel();
@@ -378,6 +384,7 @@ ParsedArgs parseArgs(int argc, char *argv[])
         if (arg == "--device" || arg == "-d")
         {
             args.deviceIndex = std::stoi(argv[++i]);
+            args.isDeviceIndexSet = true;
         }
         else if (arg == "--samplingInterval" || arg == "-i")
         {
@@ -394,6 +401,7 @@ ParsedArgs parseArgs(int argc, char *argv[])
         else if (arg == "--chip" || arg == "-c")
         {
             args.chipName = std::string(argv[++i]);
+            args.isChipNameSet = true;
         }
         else if (arg == "--queryBaseMetrics" || arg == "-q")
         {
