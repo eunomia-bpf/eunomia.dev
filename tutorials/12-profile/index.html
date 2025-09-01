@@ -8732,27 +8732,11 @@
 <a id="__codelineno-14-87" name="__codelineno-14-87" href="#__codelineno-14-87"></a><span class="p">}</span>
 </code></pre></div></p>
 <p><strong>Key Features of the Rust Implementation:</strong></p>
-<ol>
-<li>
-<p><strong>Type Safety</strong>: The Rust implementation provides strong type safety through the type system, preventing memory safety issues common in C.</p>
-</li>
-<li>
-<p><strong>Blazesym Integration</strong>: Uses blazesym-rs for efficient symbol resolution with support for DWARF debug information, providing detailed source file and line number information.</p>
-</li>
-<li>
-<p><strong>Error Handling</strong>: Comprehensive error handling using Rust's <code>Result</code> type, ensuring robust operation.</p>
-</li>
-<li>
-<p><strong>Structured Logging</strong>: Integration with the <code>tracing</code> crate for structured logging with configurable verbosity levels.</p>
-</li>
-<li>
-<p><strong>Command-line Interface</strong>: Uses <code>clap</code> for a user-friendly CLI with options for:</p>
-</li>
-<li>Adjustable sampling frequency (<code>-f</code>)</li>
-<li>Software vs hardware perf events (<code>--sw-event</code>)</li>
-<li>PID filtering (<code>-p</code>)</li>
-<li>Extended output format (<code>-E</code>)</li>
-</ol>
+<p>The Rust implementation provides strong type safety through its type system, effectively preventing memory safety issues that are common in C, such as buffer overflows and null pointer dereferences. This safety guarantee allows developers to focus on business logic without worrying about low-level memory management issues.</p>
+<p>Symbol resolution is a core feature of performance analysis tools. This implementation integrates the blazesym library, which efficiently converts memory addresses into readable function names and source code locations. Blazesym supports DWARF debug information parsing, meaning that even optimized binaries can provide accurate source file paths and line number information. This capability is crucial for pinpointing the exact code locations of performance bottlenecks.</p>
+<p>For error handling, Rust's <code>Result</code> type provides an explicit error handling mechanism. Every operation that might fail returns a Result type, forcing developers to handle potential error conditions. This design prevents unhandled errors from causing program crashes, improving the tool's stability and reliability.</p>
+<p>The logging system uses the <code>tracing</code> crate, which provides structured logging capabilities. Through environment variables or command-line arguments, users can dynamically adjust the log level from WARN, INFO, DEBUG to TRACE, making it convenient to obtain appropriate levels of diagnostic information in different scenarios. This flexibility is very useful for debugging and troubleshooting.</p>
+<p>The command-line interface is implemented through the <code>clap</code> library, providing intuitive argument parsing and help message generation. Users can adjust the sampling frequency with the <code>-f</code> parameter, switch to software events using <code>--sw-event</code> in environments like virtual machines that don't support hardware performance counters, filter specific processes with the <code>-p</code> parameter, and output in an extended format suitable for flame graph generation using the <code>-E</code> parameter.</p>
 <p>This integrated approach combines the performance of eBPF with the safety and expressiveness of Rust, providing a robust profiling tool for system performance analysis.</p>
 <h3 id="summary">Summary</h3>
 <p>Through this introductory tutorial on eBPF, we have learned how to use eBPF programs for performance analysis. In this process, we explained in detail how to create eBPF programs, monitor process performance, and retrieve data from the ring buffer for analyzing stack traces. We also learned how to use the <code>perf_event_open()</code> function to set up performance monitoring and attach BPF programs to performance events. In this tutorial, we also demonstrated how to write eBPF programs to capture the kernel and userspace stack information of processes in order to analyze program performance bottlenecks. With this example, you can understand the powerful features of eBPF in performance analysis.</p>
@@ -8785,7 +8769,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 1, 2025 11:11:02 UTC">September 1, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 1, 2025 12:42:19 UTC">September 1, 2025</span>
   </span>
 
     
