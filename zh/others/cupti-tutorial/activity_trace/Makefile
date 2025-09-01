@@ -1,7 +1,8 @@
 #
 # Copyright 2011-2013 NVIDIA Corporation. All rights reserved
 # 
-INCLUDES=-I../../include
+INCLUDES=-I../common
+NVCC=/usr/local/cuda-13.0/bin/nvcc
 
 ifndef OS
  OS   := $(shell uname)
@@ -30,13 +31,13 @@ else
 endif
 
 activity_trace: activity_trace.$(OBJ) vec.$(OBJ)
-	nvcc -o $@ $^ $(LIBS)
+	$(NVCC) -o $@ $^ $(LIBS)
 
 activity_trace.$(OBJ): activity_trace.cpp
-	nvcc -c $(INCLUDES) $<
+	$(NVCC) -c $(INCLUDES) $<
 
 vec.$(OBJ): vec.cu
-	nvcc -c $(INCLUDES) $<
+	$(NVCC) -c $(INCLUDES) $<
 
 run: activity_trace
 	./$<

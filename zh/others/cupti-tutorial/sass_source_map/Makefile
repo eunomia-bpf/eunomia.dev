@@ -78,7 +78,7 @@ endif
 # Gencode arguments
 SMS ?= 50 52 53 60 61 62 70 72 75 80 86 87 89 90
 # Generate SASS code for each SM architecture listed in $(SMS)
-$(foreach sm,$(SMS),$(eval GENCODE_FLAGS += -gencode arch=compute_$(sm),code=sm_$(sm)))
+# $(foreach sm,$(SMS),$(eval GENCODE_FLAGS += -gencode arch=compute_$(sm),code=sm_$(sm)))
 
 sass_source_map: sass_source_map.$(OBJ)
 	$(NVCC) $(NVCC_COMPILER) $(NVCCFLAGS) -o $@ sass_source_map.$(OBJ) $(LIBS) $(INCLUDES)

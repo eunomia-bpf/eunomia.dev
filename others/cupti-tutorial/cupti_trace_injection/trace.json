@@ -1,0 +1,6567 @@
+{
+  "traceEvents": [
+    {
+      "name": "Runtime: cudaSetDevice_v3020",
+      "ph": "X",
+      "ts": 1756213856511953.0,
+      "dur": 12.06,
+      "tid": 2147479552,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "16",
+        "correlationId": 314
+      }
+    },
+    {
+      "name": "Overhead: ACTIVITY_BUFFER_REQUEST",
+      "ph": "X",
+      "ts": 1756213856511966.2,
+      "dur": 11448.685,
+      "tid": 2147479552,
+      "pid": "CUPTI_Overhead",
+      "cat": "Overhead",
+      "args": {
+        "type": "ACTIVITY_BUFFER_REQUEST",
+        "target": "THREAD",
+        "correlationId": 314
+      }
+    },
+    {
+      "name": "Driver: cuCtxSetCurrent",
+      "ph": "X",
+      "ts": 1756213856523421.8,
+      "dur": 0.716,
+      "tid": 2147479552,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "303",
+        "correlationId": 329
+      }
+    },
+    {
+      "name": "Driver: cuKernelGetName",
+      "ph": "X",
+      "ts": 1756213856523436.0,
+      "dur": 0.809,
+      "tid": 2147479552,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "719",
+        "correlationId": 330
+      }
+    },
+    {
+      "name": "Overhead: LAZY_FUNCTION_LOADING",
+      "ph": "X",
+      "ts": 1756213856523585.0,
+      "dur": 174.213,
+      "tid": 2147479552,
+      "pid": "CUPTI_Overhead",
+      "cat": "Overhead",
+      "args": {
+        "type": "LAZY_FUNCTION_LOADING",
+        "target": "THREAD",
+        "correlationId": 331
+      }
+    },
+    {
+      "name": "Kernel: _Z11DaxpyKernelidPdS_",
+      "ph": "X",
+      "ts": 1756213856523812.0,
+      "dur": 108710.809,
+      "cat": "GPU_Kernel",
+      "args": {
+        "correlationId": 331
+      }
+    },
+    {
+      "name": "Runtime: cudaLaunchKernel_v7000",
+      "ph": "X",
+      "ts": 1756213856523437.8,
+      "dur": 376.918,
+      "tid": 2147479552,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "211",
+        "correlationId": 331
+      }
+    },
+    {
+      "name": "Runtime: cudaGetLastError_v3020",
+      "ph": "X",
+      "ts": 1756213856523816.2,
+      "dur": 0.502,
+      "tid": 2147479552,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "10",
+        "correlationId": 332
+      }
+    },
+    {
+      "name": "Driver: cuKernelGetName",
+      "ph": "X",
+      "ts": 1756213856523821.2,
+      "dur": 0.127,
+      "tid": 2147479552,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "719",
+        "correlationId": 333
+      }
+    },
+    {
+      "name": "Kernel: _Z11DaxpyKernelidPdS_",
+      "ph": "X",
+      "ts": 1756213856523841.5,
+      "dur": 217678.868,
+      "cat": "GPU_Kernel",
+      "args": {
+        "correlationId": 334
+      }
+    },
+    {
+      "name": "Runtime: cudaLaunchKernel_v7000",
+      "ph": "X",
+      "ts": 1756213856523821.8,
+      "dur": 17.869,
+      "tid": 2147479552,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "211",
+        "correlationId": 334
+      }
+    },
+    {
+      "name": "Runtime: cudaGetLastError_v3020",
+      "ph": "X",
+      "ts": 1756213856523840.0,
+      "dur": 0.179,
+      "tid": 2147479552,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "10",
+        "correlationId": 335
+      }
+    },
+    {
+      "name": "Driver: cuKernelGetName",
+      "ph": "X",
+      "ts": 1756213856523844.0,
+      "dur": 0.145,
+      "tid": 2147479552,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "719",
+        "correlationId": 336
+      }
+    },
+    {
+      "name": "Kernel: _Z11DaxpyKernelidPdS_",
+      "ph": "X",
+      "ts": 1756213856523860.0,
+      "dur": 326434.061,
+      "cat": "GPU_Kernel",
+      "args": {
+        "correlationId": 337
+      }
+    },
+    {
+      "name": "Runtime: cudaLaunchKernel_v7000",
+      "ph": "X",
+      "ts": 1756213856523844.2,
+      "dur": 13.673,
+      "tid": 2147479552,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "211",
+        "correlationId": 337
+      }
+    },
+    {
+      "name": "Runtime: cudaGetLastError_v3020",
+      "ph": "X",
+      "ts": 1756213856523858.2,
+      "dur": 0.179,
+      "tid": 2147479552,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "10",
+        "correlationId": 338
+      }
+    },
+    {
+      "name": "Driver: cuKernelGetName",
+      "ph": "X",
+      "ts": 1756213856523862.2,
+      "dur": 0.117,
+      "tid": 2147479552,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "719",
+        "correlationId": 339
+      }
+    },
+    {
+      "name": "Kernel: _Z11DaxpyKernelidPdS_",
+      "ph": "X",
+      "ts": 1756213856523882.0,
+      "dur": 435336.839,
+      "cat": "GPU_Kernel",
+      "args": {
+        "correlationId": 340
+      }
+    },
+    {
+      "name": "Runtime: cudaLaunchKernel_v7000",
+      "ph": "X",
+      "ts": 1756213856523862.5,
+      "dur": 17.966,
+      "tid": 2147479552,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "211",
+        "correlationId": 340
+      }
+    },
+    {
+      "name": "Runtime: cudaGetLastError_v3020",
+      "ph": "X",
+      "ts": 1756213856523880.8,
+      "dur": 0.157,
+      "tid": 2147479552,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "10",
+        "correlationId": 341
+      }
+    },
+    {
+      "name": "Runtime: cudaStreamSynchronize_v3020",
+      "ph": "X",
+      "ts": 1756213856523882.2,
+      "dur": 108644.685,
+      "tid": 2147479552,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "131",
+        "correlationId": 342
+      }
+    },
+    {
+      "name": "Runtime: cudaStreamSynchronize_v3020",
+      "ph": "X",
+      "ts": 1756213856632527.0,
+      "dur": 108996.36,
+      "tid": 2147479552,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "131",
+        "correlationId": 343
+      }
+    },
+    {
+      "name": "Runtime: cudaStreamSynchronize_v3020",
+      "ph": "X",
+      "ts": 1756213856741523.8,
+      "dur": 108773.816,
+      "tid": 2147479552,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "131",
+        "correlationId": 345
+      }
+    },
+    {
+      "name": "Runtime: cudaStreamSynchronize_v3020",
+      "ph": "X",
+      "ts": 1756213856850297.8,
+      "dur": 108924.524,
+      "tid": 2147479552,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "131",
+        "correlationId": 347
+      }
+    },
+    {
+      "name": "Driver: cuModuleGetLoadingMode",
+      "ph": "X",
+      "ts": 1756213854101132.0,
+      "dur": 0.446,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "673",
+        "correlationId": 1
+      }
+    },
+    {
+      "name": "Overhead: ACTIVITY_BUFFER_REQUEST",
+      "ph": "X",
+      "ts": 1756213854101135.0,
+      "dur": 4547.887,
+      "tid": 3498807296,
+      "pid": "CUPTI_Overhead",
+      "cat": "Overhead",
+      "args": {
+        "type": "ACTIVITY_BUFFER_REQUEST",
+        "target": "THREAD",
+        "correlationId": 1
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetCount",
+      "ph": "X",
+      "ts": 1756213854105715.5,
+      "dur": 0.363,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "4",
+        "correlationId": 2
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGet",
+      "ph": "X",
+      "ts": 1756213854105716.5,
+      "dur": 5.684,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "3",
+        "correlationId": 3
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetName",
+      "ph": "X",
+      "ts": 1756213854105726.5,
+      "dur": 22.027,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "5",
+        "correlationId": 4
+      }
+    },
+    {
+      "name": "Driver: cuDeviceTotalMem_v2",
+      "ph": "X",
+      "ts": 1756213854105749.8,
+      "dur": 0.425,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "259",
+        "correlationId": 5
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105751.0,
+      "dur": 0.858,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 6
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105752.0,
+      "dur": 0.067,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 7
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105752.2,
+      "dur": 0.328,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 8
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105752.5,
+      "dur": 0.135,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 9
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105752.8,
+      "dur": 0.147,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 10
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105753.0,
+      "dur": 0.056,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 11
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105753.2,
+      "dur": 0.147,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 12
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105753.5,
+      "dur": 0.401,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 13
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105754.0,
+      "dur": 0.062,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 14
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105754.2,
+      "dur": 0.063,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 15
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105754.2,
+      "dur": 0.063,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 16
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105754.5,
+      "dur": 0.063,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 17
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105754.8,
+      "dur": 0.219,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 18
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105755.0,
+      "dur": 0.063,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 19
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105755.2,
+      "dur": 0.073,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 20
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105755.2,
+      "dur": 0.073,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 21
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105755.5,
+      "dur": 0.073,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 22
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105755.8,
+      "dur": 0.23,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 23
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105756.0,
+      "dur": 0.074,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 24
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105756.2,
+      "dur": 0.095,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 25
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105756.5,
+      "dur": 0.074,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 26
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105756.5,
+      "dur": 0.073,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 27
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105756.8,
+      "dur": 0.074,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 28
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105757.0,
+      "dur": 0.075,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 29
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105757.0,
+      "dur": 0.091,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 30
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105757.2,
+      "dur": 0.073,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 31
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105757.5,
+      "dur": 0.073,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 32
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105757.8,
+      "dur": 0.072,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 33
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105757.8,
+      "dur": 0.074,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 34
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105758.0,
+      "dur": 0.071,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 35
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105758.2,
+      "dur": 0.073,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 36
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105758.2,
+      "dur": 0.075,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 37
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105758.5,
+      "dur": 0.072,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 38
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105758.8,
+      "dur": 0.073,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 39
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105759.0,
+      "dur": 0.072,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 40
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105759.0,
+      "dur": 0.072,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 41
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105759.2,
+      "dur": 0.073,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 42
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105759.5,
+      "dur": 0.072,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 43
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105759.5,
+      "dur": 0.074,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 44
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105759.8,
+      "dur": 0.072,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 45
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105760.0,
+      "dur": 0.072,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 46
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105760.0,
+      "dur": 0.074,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 47
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105760.2,
+      "dur": 0.072,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 48
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105760.5,
+      "dur": 0.072,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 49
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105760.8,
+      "dur": 0.074,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 50
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105760.8,
+      "dur": 0.065,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 51
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105761.0,
+      "dur": 0.073,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 52
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105761.2,
+      "dur": 0.072,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 53
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105761.2,
+      "dur": 0.074,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 54
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105761.5,
+      "dur": 0.073,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 55
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105761.8,
+      "dur": 0.072,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 56
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105762.0,
+      "dur": 0.073,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 57
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105762.0,
+      "dur": 0.073,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 58
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105762.2,
+      "dur": 0.073,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 59
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105762.5,
+      "dur": 0.233,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 60
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105762.8,
+      "dur": 0.063,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 61
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105763.0,
+      "dur": 0.063,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 62
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105763.0,
+      "dur": 0.073,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 63
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105763.2,
+      "dur": 0.168,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 64
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105763.5,
+      "dur": 0.24,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 65
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105764.0,
+      "dur": 0.073,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 66
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105764.0,
+      "dur": 0.119,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 67
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105764.2,
+      "dur": 0.073,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 68
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105764.5,
+      "dur": 0.143,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 69
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105764.8,
+      "dur": 0.073,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 70
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105765.0,
+      "dur": 0.338,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 71
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105765.2,
+      "dur": 0.074,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 72
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105765.5,
+      "dur": 0.074,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 73
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105765.8,
+      "dur": 0.073,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 74
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105766.0,
+      "dur": 0.124,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 75
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105766.2,
+      "dur": 0.076,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 76
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105766.2,
+      "dur": 0.075,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 77
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105766.5,
+      "dur": 0.073,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 78
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105766.8,
+      "dur": 0.073,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 79
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105767.0,
+      "dur": 0.338,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 80
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105767.2,
+      "dur": 0.073,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 81
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105767.5,
+      "dur": 0.073,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 82
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105767.8,
+      "dur": 0.073,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 83
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105767.8,
+      "dur": 0.073,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 84
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105768.0,
+      "dur": 0.112,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 85
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105768.2,
+      "dur": 1.757,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 86
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105770.0,
+      "dur": 0.102,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 87
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105770.2,
+      "dur": 0.074,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 88
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105770.5,
+      "dur": 0.674,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 89
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105771.2,
+      "dur": 0.067,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 90
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105771.5,
+      "dur": 0.324,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 91
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105772.0,
+      "dur": 0.072,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 92
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105772.0,
+      "dur": 0.071,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 93
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetUuid",
+      "ph": "X",
+      "ts": 1756213854105773.2,
+      "dur": 0.136,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "482",
+        "correlationId": 94
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105773.5,
+      "dur": 0.074,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 95
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105773.5,
+      "dur": 0.161,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 96
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105773.8,
+      "dur": 0.075,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 97
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105774.0,
+      "dur": 0.086,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 98
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105774.2,
+      "dur": 5.075,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 99
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105779.5,
+      "dur": 0.346,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 100
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105779.8,
+      "dur": 0.081,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 101
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105780.0,
+      "dur": 3.595,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 102
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105783.8,
+      "dur": 0.131,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 103
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105784.0,
+      "dur": 0.067,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 104
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105784.2,
+      "dur": 0.066,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 105
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105784.2,
+      "dur": 0.327,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 106
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105784.8,
+      "dur": 0.494,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 107
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105785.2,
+      "dur": 0.063,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 108
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105785.5,
+      "dur": 0.269,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 109
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105786.0,
+      "dur": 0.099,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 110
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105786.2,
+      "dur": 0.12,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 111
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105786.5,
+      "dur": 0.076,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 112
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105786.5,
+      "dur": 0.077,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 113
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105786.8,
+      "dur": 0.063,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 114
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105787.0,
+      "dur": 0.238,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 115
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105787.2,
+      "dur": 0.064,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 116
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105787.5,
+      "dur": 0.297,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 117
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGet",
+      "ph": "X",
+      "ts": 1756213854105787.8,
+      "dur": 0.175,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "3",
+        "correlationId": 118
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetName",
+      "ph": "X",
+      "ts": 1756213854105788.5,
+      "dur": 7.872,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "5",
+        "correlationId": 119
+      }
+    },
+    {
+      "name": "Driver: cuDeviceTotalMem_v2",
+      "ph": "X",
+      "ts": 1756213854105796.5,
+      "dur": 0.113,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "259",
+        "correlationId": 120
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105796.8,
+      "dur": 0.105,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 121
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105797.0,
+      "dur": 0.064,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 122
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105797.0,
+      "dur": 0.1,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 123
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105797.2,
+      "dur": 0.111,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 124
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105797.5,
+      "dur": 0.092,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 125
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105797.8,
+      "dur": 0.045,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 126
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105797.8,
+      "dur": 0.113,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 127
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105798.0,
+      "dur": 0.101,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 128
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105798.2,
+      "dur": 0.059,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 129
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105798.5,
+      "dur": 0.112,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 130
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105798.8,
+      "dur": 0.067,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 131
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105798.8,
+      "dur": 0.122,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 132
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105799.0,
+      "dur": 0.044,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 133
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105799.2,
+      "dur": 0.045,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 134
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105799.2,
+      "dur": 0.047,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 135
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105799.5,
+      "dur": 0.044,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 136
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105799.5,
+      "dur": 0.044,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 137
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105799.8,
+      "dur": 0.059,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 138
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105799.8,
+      "dur": 0.058,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 139
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105800.0,
+      "dur": 0.057,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 140
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105800.2,
+      "dur": 0.061,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 141
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105800.2,
+      "dur": 0.056,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 142
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105800.5,
+      "dur": 0.047,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 143
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105800.8,
+      "dur": 0.044,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 144
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105800.8,
+      "dur": 0.115,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 145
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105801.0,
+      "dur": 0.059,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 146
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105801.2,
+      "dur": 0.058,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 147
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105801.2,
+      "dur": 0.044,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 148
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105801.5,
+      "dur": 0.044,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 149
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105801.8,
+      "dur": 0.057,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 150
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105801.8,
+      "dur": 0.046,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 151
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105802.0,
+      "dur": 0.055,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 152
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105802.0,
+      "dur": 0.044,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 153
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105802.2,
+      "dur": 0.062,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 154
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105802.5,
+      "dur": 0.057,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 155
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105802.5,
+      "dur": 0.045,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 156
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105802.8,
+      "dur": 0.058,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 157
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105802.8,
+      "dur": 0.056,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 158
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105803.0,
+      "dur": 0.059,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 159
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105803.2,
+      "dur": 0.045,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 160
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105803.2,
+      "dur": 0.059,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 161
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105803.5,
+      "dur": 0.055,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 162
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105803.8,
+      "dur": 0.045,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 163
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105803.8,
+      "dur": 0.045,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 164
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105804.0,
+      "dur": 0.045,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 165
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105804.0,
+      "dur": 0.057,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 166
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105804.2,
+      "dur": 0.058,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 167
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105804.5,
+      "dur": 0.044,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 168
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105804.5,
+      "dur": 0.044,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 169
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105804.8,
+      "dur": 0.083,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 170
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105804.8,
+      "dur": 0.045,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 171
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105805.0,
+      "dur": 0.058,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 172
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105805.2,
+      "dur": 0.043,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 173
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105805.2,
+      "dur": 0.044,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 174
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105805.5,
+      "dur": 0.046,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 175
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105805.5,
+      "dur": 0.056,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 176
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105805.8,
+      "dur": 0.055,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 177
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105806.0,
+      "dur": 0.057,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 178
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105806.0,
+      "dur": 0.12,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 179
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105806.2,
+      "dur": 0.048,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 180
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105806.5,
+      "dur": 0.059,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 181
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105806.5,
+      "dur": 0.111,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 182
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105806.8,
+      "dur": 0.047,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 183
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105807.0,
+      "dur": 0.06,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 184
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105807.2,
+      "dur": 0.045,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 185
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105807.2,
+      "dur": 0.049,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 186
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105807.5,
+      "dur": 0.046,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 187
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105807.5,
+      "dur": 0.044,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 188
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105807.8,
+      "dur": 0.045,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 189
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105808.0,
+      "dur": 0.054,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 190
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105808.0,
+      "dur": 0.054,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 191
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105808.2,
+      "dur": 0.057,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 192
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105808.2,
+      "dur": 0.044,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 193
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105808.5,
+      "dur": 0.06,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 194
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105808.8,
+      "dur": 0.118,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 195
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105808.8,
+      "dur": 0.058,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 196
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105809.0,
+      "dur": 0.057,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 197
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105809.2,
+      "dur": 0.057,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 198
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105809.2,
+      "dur": 0.044,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 199
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105809.5,
+      "dur": 0.06,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 200
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105809.5,
+      "dur": 0.358,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 201
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105810.0,
+      "dur": 0.122,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 202
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105810.2,
+      "dur": 0.056,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 203
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105810.5,
+      "dur": 0.113,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 204
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105810.8,
+      "dur": 0.055,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 205
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105810.8,
+      "dur": 0.069,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 206
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105811.0,
+      "dur": 0.099,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 207
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105811.2,
+      "dur": 0.044,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 208
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetUuid",
+      "ph": "X",
+      "ts": 1756213854105811.2,
+      "dur": 0.085,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "482",
+        "correlationId": 209
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105811.5,
+      "dur": 0.059,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 210
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105811.8,
+      "dur": 0.106,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 211
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105811.8,
+      "dur": 0.053,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 212
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105812.0,
+      "dur": 0.046,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 213
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105812.2,
+      "dur": 0.124,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 214
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105812.2,
+      "dur": 0.05,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 215
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105812.5,
+      "dur": 0.046,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 216
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105812.8,
+      "dur": 0.047,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 217
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105812.8,
+      "dur": 0.056,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 218
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105813.0,
+      "dur": 0.044,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 219
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105813.0,
+      "dur": 0.056,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 220
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105813.2,
+      "dur": 0.051,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 221
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105813.5,
+      "dur": 0.249,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 222
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105813.8,
+      "dur": 0.047,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 223
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105814.0,
+      "dur": 0.064,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 224
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105814.0,
+      "dur": 0.208,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 225
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105814.5,
+      "dur": 0.315,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 226
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105814.8,
+      "dur": 0.06,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 227
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105815.0,
+      "dur": 0.063,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 228
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105815.2,
+      "dur": 0.044,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 229
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105815.2,
+      "dur": 0.043,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 230
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105815.5,
+      "dur": 0.045,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 231
+      }
+    },
+    {
+      "name": "Driver: cuDeviceGetAttribute",
+      "ph": "X",
+      "ts": 1756213854105815.8,
+      "dur": 0.05,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "9",
+        "correlationId": 232
+      }
+    },
+    {
+      "name": "Runtime: cudaGetDeviceCount_v3020",
+      "ph": "X",
+      "ts": 1756213854105874.5,
+      "dur": 0.415,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "3",
+        "correlationId": 233
+      }
+    },
+    {
+      "name": "Overhead: CUPTI_INSTRUMENTATION",
+      "ph": "X",
+      "ts": 1756213854270292.8,
+      "dur": 166.286,
+      "tid": 3498807296,
+      "pid": "CUPTI_Overhead",
+      "cat": "Overhead",
+      "args": {
+        "type": "CUPTI_INSTRUMENTATION",
+        "target": "THREAD",
+        "correlationId": 234
+      }
+    },
+    {
+      "name": "Overhead: CUPTI_INSTRUMENTATION",
+      "ph": "X",
+      "ts": 1756213854271013.8,
+      "dur": 272.363,
+      "tid": 3498807296,
+      "pid": "CUPTI_Overhead",
+      "cat": "Overhead",
+      "args": {
+        "type": "CUPTI_INSTRUMENTATION",
+        "target": "THREAD",
+        "correlationId": 234
+      }
+    },
+    {
+      "name": "Overhead: CUPTI_RESOURCE",
+      "ph": "X",
+      "ts": 1756213854271286.2,
+      "dur": 7.883,
+      "tid": 3498807296,
+      "pid": "CUPTI_Overhead",
+      "cat": "Overhead",
+      "args": {
+        "type": "CUPTI_RESOURCE",
+        "target": "THREAD",
+        "correlationId": 234
+      }
+    },
+    {
+      "name": "Overhead: CUPTI_RESOURCE",
+      "ph": "X",
+      "ts": 1756213854271423.0,
+      "dur": 2203.018,
+      "tid": 3498807296,
+      "pid": "CUPTI_Overhead",
+      "cat": "Overhead",
+      "args": {
+        "type": "CUPTI_RESOURCE",
+        "target": "THREAD",
+        "correlationId": 234
+      }
+    },
+    {
+      "name": "Overhead: CUPTI_RESOURCE",
+      "ph": "X",
+      "ts": 1756213854273626.8,
+      "dur": 2120.387,
+      "tid": 3498807296,
+      "pid": "CUPTI_Overhead",
+      "cat": "Overhead",
+      "args": {
+        "type": "CUPTI_RESOURCE",
+        "target": "THREAD",
+        "correlationId": 234
+      }
+    },
+    {
+      "name": "Overhead: CUPTI_RESOURCE",
+      "ph": "X",
+      "ts": 1756213854275747.5,
+      "dur": 2094.478,
+      "tid": 3498807296,
+      "pid": "CUPTI_Overhead",
+      "cat": "Overhead",
+      "args": {
+        "type": "CUPTI_RESOURCE",
+        "target": "THREAD",
+        "correlationId": 234
+      }
+    },
+    {
+      "name": "Runtime: cudaSetDevice_v3020",
+      "ph": "X",
+      "ts": 1756213854106180.2,
+      "dur": 171676.315,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "16",
+        "correlationId": 234
+      }
+    },
+    {
+      "name": "Overhead: CUPTI_INSTRUMENTATION",
+      "ph": "X",
+      "ts": 1756213854434640.2,
+      "dur": 159.7,
+      "tid": 3498807296,
+      "pid": "CUPTI_Overhead",
+      "cat": "Overhead",
+      "args": {
+        "type": "CUPTI_INSTRUMENTATION",
+        "target": "THREAD",
+        "correlationId": 235
+      }
+    },
+    {
+      "name": "Overhead: CUPTI_INSTRUMENTATION",
+      "ph": "X",
+      "ts": 1756213854435359.5,
+      "dur": 273.248,
+      "tid": 3498807296,
+      "pid": "CUPTI_Overhead",
+      "cat": "Overhead",
+      "args": {
+        "type": "CUPTI_INSTRUMENTATION",
+        "target": "THREAD",
+        "correlationId": 235
+      }
+    },
+    {
+      "name": "Overhead: CUPTI_RESOURCE",
+      "ph": "X",
+      "ts": 1756213854435633.0,
+      "dur": 6.293,
+      "tid": 3498807296,
+      "pid": "CUPTI_Overhead",
+      "cat": "Overhead",
+      "args": {
+        "type": "CUPTI_RESOURCE",
+        "target": "THREAD",
+        "correlationId": 235
+      }
+    },
+    {
+      "name": "Overhead: CUPTI_RESOURCE",
+      "ph": "X",
+      "ts": 1756213854435743.0,
+      "dur": 2267.75,
+      "tid": 3498807296,
+      "pid": "CUPTI_Overhead",
+      "cat": "Overhead",
+      "args": {
+        "type": "CUPTI_RESOURCE",
+        "target": "THREAD",
+        "correlationId": 235
+      }
+    },
+    {
+      "name": "Overhead: CUPTI_RESOURCE",
+      "ph": "X",
+      "ts": 1756213854438011.5,
+      "dur": 2136.564,
+      "tid": 3498807296,
+      "pid": "CUPTI_Overhead",
+      "cat": "Overhead",
+      "args": {
+        "type": "CUPTI_RESOURCE",
+        "target": "THREAD",
+        "correlationId": 235
+      }
+    },
+    {
+      "name": "Overhead: CUPTI_RESOURCE",
+      "ph": "X",
+      "ts": 1756213854440148.8,
+      "dur": 2080.789,
+      "tid": 3498807296,
+      "pid": "CUPTI_Overhead",
+      "cat": "Overhead",
+      "args": {
+        "type": "CUPTI_RESOURCE",
+        "target": "THREAD",
+        "correlationId": 235
+      }
+    },
+    {
+      "name": "Driver: cuCtxCreate_v4",
+      "ph": "X",
+      "ts": 1756213854277874.0,
+      "dur": 164362.904,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "757",
+        "correlationId": 235
+      }
+    },
+    {
+      "name": "Runtime: cudaStreamCreate_v3020",
+      "ph": "X",
+      "ts": 1756213854442242.8,
+      "dur": 20.176,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "129",
+        "correlationId": 236
+      }
+    },
+    {
+      "name": "Memory: ALLOCATE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213854442373.5,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "ALLOCATE",
+        "kind": "DEVICE",
+        "size": 32768,
+        "address": "0x721fa1c00000"
+      }
+    },
+    {
+      "name": "Memory: ALLOCATE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213854442378.5,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "ALLOCATE",
+        "kind": "DEVICE",
+        "size": 32768,
+        "address": "0x721fa1c00000"
+      }
+    },
+    {
+      "name": "Runtime: cudaMalloc_v3020",
+      "ph": "X",
+      "ts": 1756213854442268.8,
+      "dur": 111.004,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "20",
+        "correlationId": 237
+      }
+    },
+    {
+      "name": "MemCopy: HtoD",
+      "ph": "X",
+      "ts": 1756213854442634.0,
+      "dur": 4.064,
+      "cat": "MemCopy",
+      "args": {
+        "type": "HtoD",
+        "size": 32768,
+        "copyCount": 1,
+        "srcKind": "PAGEABLE",
+        "dstKind": "DEVICE",
+        "correlationId": 238
+      },
+      "tid": "MemCopy_Operations",
+      "pid": "MemCopy"
+    },
+    {
+      "name": "Runtime: cudaMemcpy_v3020",
+      "ph": "X",
+      "ts": 1756213854442385.0,
+      "dur": 32.138,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "31",
+        "correlationId": 238
+      }
+    },
+    {
+      "name": "Memory: ALLOCATE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213854442421.5,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "ALLOCATE",
+        "kind": "DEVICE",
+        "size": 32768,
+        "address": "0x721fa1c08000"
+      }
+    },
+    {
+      "name": "Memory: ALLOCATE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213854442422.0,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "ALLOCATE",
+        "kind": "DEVICE",
+        "size": 32768,
+        "address": "0x721fa1c08000"
+      }
+    },
+    {
+      "name": "Runtime: cudaMalloc_v3020",
+      "ph": "X",
+      "ts": 1756213854442417.2,
+      "dur": 5.155,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "20",
+        "correlationId": 239
+      }
+    },
+    {
+      "name": "MemCopy: HtoD",
+      "ph": "X",
+      "ts": 1756213854442929.8,
+      "dur": 3.296,
+      "cat": "MemCopy",
+      "args": {
+        "type": "HtoD",
+        "size": 32768,
+        "copyCount": 1,
+        "srcKind": "PAGEABLE",
+        "dstKind": "DEVICE",
+        "correlationId": 240
+      },
+      "tid": "MemCopy_Operations",
+      "pid": "MemCopy"
+    },
+    {
+      "name": "Runtime: cudaMemcpy_v3020",
+      "ph": "X",
+      "ts": 1756213854442422.8,
+      "dur": 225.63,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "31",
+        "correlationId": 240
+      }
+    },
+    {
+      "name": "Runtime: cudaStreamCreate_v3020",
+      "ph": "X",
+      "ts": 1756213854442648.8,
+      "dur": 2.718,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "129",
+        "correlationId": 241
+      }
+    },
+    {
+      "name": "Memory: ALLOCATE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213854442655.0,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "ALLOCATE",
+        "kind": "DEVICE",
+        "size": 65536,
+        "address": "0x721fa1c10000"
+      }
+    },
+    {
+      "name": "Memory: ALLOCATE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213854442655.8,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "ALLOCATE",
+        "kind": "DEVICE",
+        "size": 65536,
+        "address": "0x721fa1c10000"
+      }
+    },
+    {
+      "name": "Runtime: cudaMalloc_v3020",
+      "ph": "X",
+      "ts": 1756213854442651.5,
+      "dur": 4.563,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "20",
+        "correlationId": 242
+      }
+    },
+    {
+      "name": "MemCopy: HtoD",
+      "ph": "X",
+      "ts": 1756213854443200.5,
+      "dur": 5.984,
+      "cat": "MemCopy",
+      "args": {
+        "type": "HtoD",
+        "size": 65536,
+        "copyCount": 1,
+        "srcKind": "PAGEABLE",
+        "dstKind": "DEVICE",
+        "correlationId": 243
+      },
+      "tid": "MemCopy_Operations",
+      "pid": "MemCopy"
+    },
+    {
+      "name": "Runtime: cudaMemcpy_v3020",
+      "ph": "X",
+      "ts": 1756213854442656.2,
+      "dur": 293.735,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "31",
+        "correlationId": 243
+      }
+    },
+    {
+      "name": "Memory: ALLOCATE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213854442953.5,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "ALLOCATE",
+        "kind": "DEVICE",
+        "size": 65536,
+        "address": "0x721fa1c20000"
+      }
+    },
+    {
+      "name": "Memory: ALLOCATE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213854442953.8,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "ALLOCATE",
+        "kind": "DEVICE",
+        "size": 65536,
+        "address": "0x721fa1c20000"
+      }
+    },
+    {
+      "name": "Runtime: cudaMalloc_v3020",
+      "ph": "X",
+      "ts": 1756213854442950.2,
+      "dur": 4.012,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "20",
+        "correlationId": 244
+      }
+    },
+    {
+      "name": "MemCopy: HtoD",
+      "ph": "X",
+      "ts": 1756213854443491.2,
+      "dur": 5.248,
+      "cat": "MemCopy",
+      "args": {
+        "type": "HtoD",
+        "size": 65536,
+        "copyCount": 1,
+        "srcKind": "PAGEABLE",
+        "dstKind": "DEVICE",
+        "correlationId": 245
+      },
+      "tid": "MemCopy_Operations",
+      "pid": "MemCopy"
+    },
+    {
+      "name": "Runtime: cudaMemcpy_v3020",
+      "ph": "X",
+      "ts": 1756213854442954.5,
+      "dur": 268.623,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "31",
+        "correlationId": 245
+      }
+    },
+    {
+      "name": "Runtime: cudaStreamCreate_v3020",
+      "ph": "X",
+      "ts": 1756213854443223.2,
+      "dur": 2.682,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "129",
+        "correlationId": 246
+      }
+    },
+    {
+      "name": "Memory: ALLOCATE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213854443229.8,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "ALLOCATE",
+        "kind": "DEVICE",
+        "size": 98304,
+        "address": "0x721fa1c30000"
+      }
+    },
+    {
+      "name": "Memory: ALLOCATE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213854443230.2,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "ALLOCATE",
+        "kind": "DEVICE",
+        "size": 98304,
+        "address": "0x721fa1c30000"
+      }
+    },
+    {
+      "name": "Runtime: cudaMalloc_v3020",
+      "ph": "X",
+      "ts": 1756213854443226.0,
+      "dur": 4.559,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "20",
+        "correlationId": 247
+      }
+    },
+    {
+      "name": "MemCopy: HtoD",
+      "ph": "X",
+      "ts": 1756213854443511.5,
+      "dur": 5.152,
+      "cat": "MemCopy",
+      "args": {
+        "type": "HtoD",
+        "size": 98304,
+        "copyCount": 1,
+        "srcKind": "PAGEABLE",
+        "dstKind": "DEVICE",
+        "correlationId": 248
+      },
+      "tid": "MemCopy_Operations",
+      "pid": "MemCopy"
+    },
+    {
+      "name": "Runtime: cudaMemcpy_v3020",
+      "ph": "X",
+      "ts": 1756213854443230.8,
+      "dur": 278.885,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "31",
+        "correlationId": 248
+      }
+    },
+    {
+      "name": "Memory: ALLOCATE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213854443512.8,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "ALLOCATE",
+        "kind": "DEVICE",
+        "size": 98304,
+        "address": "0x721fa1c48000"
+      }
+    },
+    {
+      "name": "Memory: ALLOCATE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213854443513.2,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "ALLOCATE",
+        "kind": "DEVICE",
+        "size": 98304,
+        "address": "0x721fa1c48000"
+      }
+    },
+    {
+      "name": "Runtime: cudaMalloc_v3020",
+      "ph": "X",
+      "ts": 1756213854443509.8,
+      "dur": 3.845,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "20",
+        "correlationId": 249
+      }
+    },
+    {
+      "name": "MemCopy: HtoD",
+      "ph": "X",
+      "ts": 1756213854443528.2,
+      "dur": 5.12,
+      "cat": "MemCopy",
+      "args": {
+        "type": "HtoD",
+        "size": 98304,
+        "copyCount": 1,
+        "srcKind": "PAGEABLE",
+        "dstKind": "DEVICE",
+        "correlationId": 250
+      },
+      "tid": "MemCopy_Operations",
+      "pid": "MemCopy"
+    },
+    {
+      "name": "Runtime: cudaMemcpy_v3020",
+      "ph": "X",
+      "ts": 1756213854443513.8,
+      "dur": 12.981,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "31",
+        "correlationId": 250
+      }
+    },
+    {
+      "name": "Runtime: cudaStreamCreate_v3020",
+      "ph": "X",
+      "ts": 1756213854443527.0,
+      "dur": 48.01,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "129",
+        "correlationId": 251
+      }
+    },
+    {
+      "name": "Memory: ALLOCATE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213854443578.8,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "ALLOCATE",
+        "kind": "DEVICE",
+        "size": 131072,
+        "address": "0x721fa1c60000"
+      }
+    },
+    {
+      "name": "Memory: ALLOCATE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213854443579.8,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "ALLOCATE",
+        "kind": "DEVICE",
+        "size": 131072,
+        "address": "0x721fa1c60000"
+      }
+    },
+    {
+      "name": "Runtime: cudaMalloc_v3020",
+      "ph": "X",
+      "ts": 1756213854443575.2,
+      "dur": 5.056,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "20",
+        "correlationId": 252
+      }
+    },
+    {
+      "name": "MemCopy: HtoD",
+      "ph": "X",
+      "ts": 1756213854443596.5,
+      "dur": 6.176,
+      "cat": "MemCopy",
+      "args": {
+        "type": "HtoD",
+        "size": 131072,
+        "copyCount": 1,
+        "srcKind": "PAGEABLE",
+        "dstKind": "DEVICE",
+        "correlationId": 253
+      },
+      "tid": "MemCopy_Operations",
+      "pid": "MemCopy"
+    },
+    {
+      "name": "Runtime: cudaMemcpy_v3020",
+      "ph": "X",
+      "ts": 1756213854443580.5,
+      "dur": 13.877,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "31",
+        "correlationId": 253
+      }
+    },
+    {
+      "name": "Memory: ALLOCATE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213854443597.5,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "ALLOCATE",
+        "kind": "DEVICE",
+        "size": 131072,
+        "address": "0x721fa1c80000"
+      }
+    },
+    {
+      "name": "Memory: ALLOCATE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213854443598.0,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "ALLOCATE",
+        "kind": "DEVICE",
+        "size": 131072,
+        "address": "0x721fa1c80000"
+      }
+    },
+    {
+      "name": "Runtime: cudaMalloc_v3020",
+      "ph": "X",
+      "ts": 1756213854443594.5,
+      "dur": 3.957,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "20",
+        "correlationId": 254
+      }
+    },
+    {
+      "name": "MemCopy: HtoD",
+      "ph": "X",
+      "ts": 1756213854443615.8,
+      "dur": 6.176,
+      "cat": "MemCopy",
+      "args": {
+        "type": "HtoD",
+        "size": 131072,
+        "copyCount": 1,
+        "srcKind": "PAGEABLE",
+        "dstKind": "DEVICE",
+        "correlationId": 255
+      },
+      "tid": "MemCopy_Operations",
+      "pid": "MemCopy"
+    },
+    {
+      "name": "Runtime: cudaMemcpy_v3020",
+      "ph": "X",
+      "ts": 1756213854443598.5,
+      "dur": 15.623,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "31",
+        "correlationId": 255
+      }
+    },
+    {
+      "name": "Overhead: CUPTI_INSTRUMENTATION",
+      "ph": "X",
+      "ts": 1756213854607176.5,
+      "dur": 38.381,
+      "tid": 3498807296,
+      "pid": "CUPTI_Overhead",
+      "cat": "Overhead",
+      "args": {
+        "type": "CUPTI_INSTRUMENTATION",
+        "target": "THREAD",
+        "correlationId": 256
+      }
+    },
+    {
+      "name": "Overhead: CUPTI_INSTRUMENTATION",
+      "ph": "X",
+      "ts": 1756213854607295.8,
+      "dur": 24.875,
+      "tid": 3498807296,
+      "pid": "CUPTI_Overhead",
+      "cat": "Overhead",
+      "args": {
+        "type": "CUPTI_INSTRUMENTATION",
+        "target": "THREAD",
+        "correlationId": 256
+      }
+    },
+    {
+      "name": "Overhead: CUPTI_RESOURCE",
+      "ph": "X",
+      "ts": 1756213854607320.8,
+      "dur": 6.181,
+      "tid": 3498807296,
+      "pid": "CUPTI_Overhead",
+      "cat": "Overhead",
+      "args": {
+        "type": "CUPTI_RESOURCE",
+        "target": "THREAD",
+        "correlationId": 256
+      }
+    },
+    {
+      "name": "Overhead: CUPTI_RESOURCE",
+      "ph": "X",
+      "ts": 1756213854607407.0,
+      "dur": 2197.807,
+      "tid": 3498807296,
+      "pid": "CUPTI_Overhead",
+      "cat": "Overhead",
+      "args": {
+        "type": "CUPTI_RESOURCE",
+        "target": "THREAD",
+        "correlationId": 256
+      }
+    },
+    {
+      "name": "Overhead: CUPTI_RESOURCE",
+      "ph": "X",
+      "ts": 1756213854609605.5,
+      "dur": 2149.691,
+      "tid": 3498807296,
+      "pid": "CUPTI_Overhead",
+      "cat": "Overhead",
+      "args": {
+        "type": "CUPTI_RESOURCE",
+        "target": "THREAD",
+        "correlationId": 256
+      }
+    },
+    {
+      "name": "Overhead: CUPTI_RESOURCE",
+      "ph": "X",
+      "ts": 1756213854611755.8,
+      "dur": 2103.938,
+      "tid": 3498807296,
+      "pid": "CUPTI_Overhead",
+      "cat": "Overhead",
+      "args": {
+        "type": "CUPTI_RESOURCE",
+        "target": "THREAD",
+        "correlationId": 256
+      }
+    },
+    {
+      "name": "Runtime: cudaSetDevice_v3020",
+      "ph": "X",
+      "ts": 1756213854443615.0,
+      "dur": 170258.205,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "16",
+        "correlationId": 256
+      }
+    },
+    {
+      "name": "Overhead: CUPTI_INSTRUMENTATION",
+      "ph": "X",
+      "ts": 1756213854773164.5,
+      "dur": 33.816,
+      "tid": 3498807296,
+      "pid": "CUPTI_Overhead",
+      "cat": "Overhead",
+      "args": {
+        "type": "CUPTI_INSTRUMENTATION",
+        "target": "THREAD",
+        "correlationId": 257
+      }
+    },
+    {
+      "name": "Overhead: CUPTI_INSTRUMENTATION",
+      "ph": "X",
+      "ts": 1756213854773275.0,
+      "dur": 23.649,
+      "tid": 3498807296,
+      "pid": "CUPTI_Overhead",
+      "cat": "Overhead",
+      "args": {
+        "type": "CUPTI_INSTRUMENTATION",
+        "target": "THREAD",
+        "correlationId": 257
+      }
+    },
+    {
+      "name": "Overhead: CUPTI_RESOURCE",
+      "ph": "X",
+      "ts": 1756213854773298.8,
+      "dur": 6.708,
+      "tid": 3498807296,
+      "pid": "CUPTI_Overhead",
+      "cat": "Overhead",
+      "args": {
+        "type": "CUPTI_RESOURCE",
+        "target": "THREAD",
+        "correlationId": 257
+      }
+    },
+    {
+      "name": "Overhead: CUPTI_RESOURCE",
+      "ph": "X",
+      "ts": 1756213854773395.8,
+      "dur": 2211.432,
+      "tid": 3498807296,
+      "pid": "CUPTI_Overhead",
+      "cat": "Overhead",
+      "args": {
+        "type": "CUPTI_RESOURCE",
+        "target": "THREAD",
+        "correlationId": 257
+      }
+    },
+    {
+      "name": "Overhead: CUPTI_RESOURCE",
+      "ph": "X",
+      "ts": 1756213854775607.8,
+      "dur": 2183.746,
+      "tid": 3498807296,
+      "pid": "CUPTI_Overhead",
+      "cat": "Overhead",
+      "args": {
+        "type": "CUPTI_RESOURCE",
+        "target": "THREAD",
+        "correlationId": 257
+      }
+    },
+    {
+      "name": "Overhead: CUPTI_RESOURCE",
+      "ph": "X",
+      "ts": 1756213854777792.0,
+      "dur": 2090.978,
+      "tid": 3498807296,
+      "pid": "CUPTI_Overhead",
+      "cat": "Overhead",
+      "args": {
+        "type": "CUPTI_RESOURCE",
+        "target": "THREAD",
+        "correlationId": 257
+      }
+    },
+    {
+      "name": "Driver: cuCtxCreate_v4",
+      "ph": "X",
+      "ts": 1756213854613893.0,
+      "dur": 165997.055,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "757",
+        "correlationId": 257
+      }
+    },
+    {
+      "name": "Runtime: cudaStreamCreate_v3020",
+      "ph": "X",
+      "ts": 1756213854779895.8,
+      "dur": 12.89,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "129",
+        "correlationId": 258
+      }
+    },
+    {
+      "name": "Memory: ALLOCATE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213854780014.5,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "ALLOCATE",
+        "kind": "DEVICE",
+        "size": 32768,
+        "address": "0x721f83c00000"
+      }
+    },
+    {
+      "name": "Memory: ALLOCATE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213854780018.2,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "ALLOCATE",
+        "kind": "DEVICE",
+        "size": 32768,
+        "address": "0x721f83c00000"
+      }
+    },
+    {
+      "name": "Runtime: cudaMalloc_v3020",
+      "ph": "X",
+      "ts": 1756213854779909.5,
+      "dur": 110.317,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "20",
+        "correlationId": 259
+      }
+    },
+    {
+      "name": "MemCopy: HtoD",
+      "ph": "X",
+      "ts": 1756213854780044.0,
+      "dur": 2.848,
+      "cat": "MemCopy",
+      "args": {
+        "type": "HtoD",
+        "size": 32768,
+        "copyCount": 1,
+        "srcKind": "PAGEABLE",
+        "dstKind": "DEVICE",
+        "correlationId": 260
+      },
+      "tid": "MemCopy_Operations",
+      "pid": "MemCopy"
+    },
+    {
+      "name": "Runtime: cudaMemcpy_v3020",
+      "ph": "X",
+      "ts": 1756213854780020.5,
+      "dur": 23.865,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "31",
+        "correlationId": 260
+      }
+    },
+    {
+      "name": "Memory: ALLOCATE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213854780049.0,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "ALLOCATE",
+        "kind": "DEVICE",
+        "size": 32768,
+        "address": "0x721f83c08000"
+      }
+    },
+    {
+      "name": "Memory: ALLOCATE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213854780050.0,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "ALLOCATE",
+        "kind": "DEVICE",
+        "size": 32768,
+        "address": "0x721f83c08000"
+      }
+    },
+    {
+      "name": "Runtime: cudaMalloc_v3020",
+      "ph": "X",
+      "ts": 1756213854780044.8,
+      "dur": 5.674,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "20",
+        "correlationId": 261
+      }
+    },
+    {
+      "name": "MemCopy: HtoD",
+      "ph": "X",
+      "ts": 1756213854780062.0,
+      "dur": 2.528,
+      "cat": "MemCopy",
+      "args": {
+        "type": "HtoD",
+        "size": 32768,
+        "copyCount": 1,
+        "srcKind": "PAGEABLE",
+        "dstKind": "DEVICE",
+        "correlationId": 262
+      },
+      "tid": "MemCopy_Operations",
+      "pid": "MemCopy"
+    },
+    {
+      "name": "Runtime: cudaMemcpy_v3020",
+      "ph": "X",
+      "ts": 1756213854780050.8,
+      "dur": 9.718,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "31",
+        "correlationId": 262
+      }
+    },
+    {
+      "name": "Runtime: cudaStreamCreate_v3020",
+      "ph": "X",
+      "ts": 1756213854780060.8,
+      "dur": 3.455,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "129",
+        "correlationId": 263
+      }
+    },
+    {
+      "name": "Memory: ALLOCATE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213854780068.2,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "ALLOCATE",
+        "kind": "DEVICE",
+        "size": 65536,
+        "address": "0x721f83c10000"
+      }
+    },
+    {
+      "name": "Memory: ALLOCATE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213854780069.0,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "ALLOCATE",
+        "kind": "DEVICE",
+        "size": 65536,
+        "address": "0x721f83c10000"
+      }
+    },
+    {
+      "name": "Runtime: cudaMalloc_v3020",
+      "ph": "X",
+      "ts": 1756213854780064.2,
+      "dur": 4.974,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "20",
+        "correlationId": 264
+      }
+    },
+    {
+      "name": "MemCopy: HtoD",
+      "ph": "X",
+      "ts": 1756213854780090.5,
+      "dur": 4.736,
+      "cat": "MemCopy",
+      "args": {
+        "type": "HtoD",
+        "size": 65536,
+        "copyCount": 1,
+        "srcKind": "PAGEABLE",
+        "dstKind": "DEVICE",
+        "correlationId": 265
+      },
+      "tid": "MemCopy_Operations",
+      "pid": "MemCopy"
+    },
+    {
+      "name": "Runtime: cudaMemcpy_v3020",
+      "ph": "X",
+      "ts": 1756213854780069.5,
+      "dur": 19.1,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "31",
+        "correlationId": 265
+      }
+    },
+    {
+      "name": "Memory: ALLOCATE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213854780091.8,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "ALLOCATE",
+        "kind": "DEVICE",
+        "size": 65536,
+        "address": "0x721f83c20000"
+      }
+    },
+    {
+      "name": "Memory: ALLOCATE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213854780092.5,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "ALLOCATE",
+        "kind": "DEVICE",
+        "size": 65536,
+        "address": "0x721f83c20000"
+      }
+    },
+    {
+      "name": "Runtime: cudaMalloc_v3020",
+      "ph": "X",
+      "ts": 1756213854780088.8,
+      "dur": 4.039,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "20",
+        "correlationId": 266
+      }
+    },
+    {
+      "name": "MemCopy: HtoD",
+      "ph": "X",
+      "ts": 1756213854780111.8,
+      "dur": 4.64,
+      "cat": "MemCopy",
+      "args": {
+        "type": "HtoD",
+        "size": 65536,
+        "copyCount": 1,
+        "srcKind": "PAGEABLE",
+        "dstKind": "DEVICE",
+        "correlationId": 267
+      },
+      "tid": "MemCopy_Operations",
+      "pid": "MemCopy"
+    },
+    {
+      "name": "Runtime: cudaMemcpy_v3020",
+      "ph": "X",
+      "ts": 1756213854780093.0,
+      "dur": 16.851,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "31",
+        "correlationId": 267
+      }
+    },
+    {
+      "name": "Runtime: cudaStreamCreate_v3020",
+      "ph": "X",
+      "ts": 1756213854780110.0,
+      "dur": 3.054,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "129",
+        "correlationId": 268
+      }
+    },
+    {
+      "name": "Memory: ALLOCATE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213854780116.8,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "ALLOCATE",
+        "kind": "DEVICE",
+        "size": 98304,
+        "address": "0x721f83c30000"
+      }
+    },
+    {
+      "name": "Memory: ALLOCATE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213854780117.2,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "ALLOCATE",
+        "kind": "DEVICE",
+        "size": 98304,
+        "address": "0x721f83c30000"
+      }
+    },
+    {
+      "name": "Runtime: cudaMalloc_v3020",
+      "ph": "X",
+      "ts": 1756213854780113.2,
+      "dur": 4.544,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "20",
+        "correlationId": 269
+      }
+    },
+    {
+      "name": "MemCopy: HtoD",
+      "ph": "X",
+      "ts": 1756213854780132.5,
+      "dur": 5.152,
+      "cat": "MemCopy",
+      "args": {
+        "type": "HtoD",
+        "size": 98304,
+        "copyCount": 1,
+        "srcKind": "PAGEABLE",
+        "dstKind": "DEVICE",
+        "correlationId": 270
+      },
+      "tid": "MemCopy_Operations",
+      "pid": "MemCopy"
+    },
+    {
+      "name": "Runtime: cudaMemcpy_v3020",
+      "ph": "X",
+      "ts": 1756213854780118.0,
+      "dur": 12.579,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "31",
+        "correlationId": 270
+      }
+    },
+    {
+      "name": "Memory: ALLOCATE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213854780133.5,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "ALLOCATE",
+        "kind": "DEVICE",
+        "size": 98304,
+        "address": "0x721f83c48000"
+      }
+    },
+    {
+      "name": "Memory: ALLOCATE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213854780134.2,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "ALLOCATE",
+        "kind": "DEVICE",
+        "size": 98304,
+        "address": "0x721f83c48000"
+      }
+    },
+    {
+      "name": "Runtime: cudaMalloc_v3020",
+      "ph": "X",
+      "ts": 1756213854780130.8,
+      "dur": 4.151,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "20",
+        "correlationId": 271
+      }
+    },
+    {
+      "name": "MemCopy: HtoD",
+      "ph": "X",
+      "ts": 1756213854780150.2,
+      "dur": 5.056,
+      "cat": "MemCopy",
+      "args": {
+        "type": "HtoD",
+        "size": 98304,
+        "copyCount": 1,
+        "srcKind": "PAGEABLE",
+        "dstKind": "DEVICE",
+        "correlationId": 272
+      },
+      "tid": "MemCopy_Operations",
+      "pid": "MemCopy"
+    },
+    {
+      "name": "Runtime: cudaMemcpy_v3020",
+      "ph": "X",
+      "ts": 1756213854780135.0,
+      "dur": 12.92,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "31",
+        "correlationId": 272
+      }
+    },
+    {
+      "name": "Runtime: cudaStreamCreate_v3020",
+      "ph": "X",
+      "ts": 1756213854780148.2,
+      "dur": 50.518,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "129",
+        "correlationId": 273
+      }
+    },
+    {
+      "name": "Memory: ALLOCATE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213854780203.0,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "ALLOCATE",
+        "kind": "DEVICE",
+        "size": 131072,
+        "address": "0x721f83c60000"
+      }
+    },
+    {
+      "name": "Memory: ALLOCATE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213854780204.0,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "ALLOCATE",
+        "kind": "DEVICE",
+        "size": 131072,
+        "address": "0x721f83c60000"
+      }
+    },
+    {
+      "name": "Runtime: cudaMalloc_v3020",
+      "ph": "X",
+      "ts": 1756213854780199.0,
+      "dur": 5.471,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "20",
+        "correlationId": 274
+      }
+    },
+    {
+      "name": "MemCopy: HtoD",
+      "ph": "X",
+      "ts": 1756213854780220.0,
+      "dur": 6.72,
+      "cat": "MemCopy",
+      "args": {
+        "type": "HtoD",
+        "size": 131072,
+        "copyCount": 1,
+        "srcKind": "PAGEABLE",
+        "dstKind": "DEVICE",
+        "correlationId": 275
+      },
+      "tid": "MemCopy_Operations",
+      "pid": "MemCopy"
+    },
+    {
+      "name": "Runtime: cudaMemcpy_v3020",
+      "ph": "X",
+      "ts": 1756213854780204.5,
+      "dur": 13.748,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "31",
+        "correlationId": 275
+      }
+    },
+    {
+      "name": "Memory: ALLOCATE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213854780221.5,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "ALLOCATE",
+        "kind": "DEVICE",
+        "size": 131072,
+        "address": "0x721f83c80000"
+      }
+    },
+    {
+      "name": "Memory: ALLOCATE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213854780222.2,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "ALLOCATE",
+        "kind": "DEVICE",
+        "size": 131072,
+        "address": "0x721f83c80000"
+      }
+    },
+    {
+      "name": "Runtime: cudaMalloc_v3020",
+      "ph": "X",
+      "ts": 1756213854780218.5,
+      "dur": 4.118,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "20",
+        "correlationId": 276
+      }
+    },
+    {
+      "name": "MemCopy: HtoD",
+      "ph": "X",
+      "ts": 1756213854780240.0,
+      "dur": 6.304,
+      "cat": "MemCopy",
+      "args": {
+        "type": "HtoD",
+        "size": 131072,
+        "copyCount": 1,
+        "srcKind": "PAGEABLE",
+        "dstKind": "DEVICE",
+        "correlationId": 277
+      },
+      "tid": "MemCopy_Operations",
+      "pid": "MemCopy"
+    },
+    {
+      "name": "Runtime: cudaMemcpy_v3020",
+      "ph": "X",
+      "ts": 1756213854780222.8,
+      "dur": 15.743,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "31",
+        "correlationId": 277
+      }
+    },
+    {
+      "name": "Runtime: cudaSetDevice_v3020",
+      "ph": "X",
+      "ts": 1756213854780242.5,
+      "dur": 1.184,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "16",
+        "correlationId": 278
+      }
+    },
+    {
+      "name": "Driver: cuCtxSetCurrent",
+      "ph": "X",
+      "ts": 1756213854780244.2,
+      "dur": 0.141,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "303",
+        "correlationId": 279
+      }
+    },
+    {
+      "name": "Driver: cuLibraryLoadData",
+      "ph": "X",
+      "ts": 1756213854780255.0,
+      "dur": 54.249,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "678",
+        "correlationId": 280
+      }
+    },
+    {
+      "name": "Driver: cuLibraryGetKernel",
+      "ph": "X",
+      "ts": 1756213854780310.0,
+      "dur": 0.271,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "681",
+        "correlationId": 281
+      }
+    },
+    {
+      "name": "Driver: cuKernelGetName",
+      "ph": "X",
+      "ts": 1756213854780312.8,
+      "dur": 0.481,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "719",
+        "correlationId": 282
+      }
+    },
+    {
+      "name": "Overhead: LAZY_FUNCTION_LOADING",
+      "ph": "X",
+      "ts": 1756213854780472.8,
+      "dur": 15.928,
+      "tid": 3498807296,
+      "pid": "CUPTI_Overhead",
+      "cat": "Overhead",
+      "args": {
+        "type": "LAZY_FUNCTION_LOADING",
+        "target": "THREAD",
+        "correlationId": 283
+      }
+    },
+    {
+      "name": "Kernel: _Z11DaxpyKernelidPdS_",
+      "ph": "X",
+      "ts": 1756213854780745.2,
+      "dur": 123365.45,
+      "cat": "GPU_Kernel",
+      "args": {
+        "correlationId": 283
+      }
+    },
+    {
+      "name": "Runtime: cudaLaunchKernel_v7000",
+      "ph": "X",
+      "ts": 1756213854780314.0,
+      "dur": 200.497,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "211",
+        "correlationId": 283
+      }
+    },
+    {
+      "name": "Runtime: cudaGetLastError_v3020",
+      "ph": "X",
+      "ts": 1756213854780515.5,
+      "dur": 0.279,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "10",
+        "correlationId": 284
+      }
+    },
+    {
+      "name": "Driver: cuKernelGetName",
+      "ph": "X",
+      "ts": 1756213854780516.0,
+      "dur": 0.079,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "719",
+        "correlationId": 285
+      }
+    },
+    {
+      "name": "Kernel: _Z11DaxpyKernelidPdS_",
+      "ph": "X",
+      "ts": 1756213854904112.0,
+      "dur": 247249.401,
+      "cat": "GPU_Kernel",
+      "args": {
+        "correlationId": 286
+      }
+    },
+    {
+      "name": "Runtime: cudaLaunchKernel_v7000",
+      "ph": "X",
+      "ts": 1756213854780516.2,
+      "dur": 4.504,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "211",
+        "correlationId": 286
+      }
+    },
+    {
+      "name": "Runtime: cudaGetLastError_v3020",
+      "ph": "X",
+      "ts": 1756213854780521.0,
+      "dur": 0.064,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "10",
+        "correlationId": 287
+      }
+    },
+    {
+      "name": "Driver: cuKernelGetName",
+      "ph": "X",
+      "ts": 1756213854780521.2,
+      "dur": 0.058,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "719",
+        "correlationId": 288
+      }
+    },
+    {
+      "name": "Kernel: _Z11DaxpyKernelidPdS_",
+      "ph": "X",
+      "ts": 1756213855151362.2,
+      "dur": 370939.558,
+      "cat": "GPU_Kernel",
+      "args": {
+        "correlationId": 289
+      }
+    },
+    {
+      "name": "Runtime: cudaLaunchKernel_v7000",
+      "ph": "X",
+      "ts": 1756213854780521.2,
+      "dur": 3.188,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "211",
+        "correlationId": 289
+      }
+    },
+    {
+      "name": "Runtime: cudaGetLastError_v3020",
+      "ph": "X",
+      "ts": 1756213854780524.8,
+      "dur": 0.079,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "10",
+        "correlationId": 290
+      }
+    },
+    {
+      "name": "Driver: cuKernelGetName",
+      "ph": "X",
+      "ts": 1756213854780525.0,
+      "dur": 0.058,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "719",
+        "correlationId": 291
+      }
+    },
+    {
+      "name": "Kernel: _Z11DaxpyKernelidPdS_",
+      "ph": "X",
+      "ts": 1756213855522303.0,
+      "dur": 494503.442,
+      "cat": "GPU_Kernel",
+      "args": {
+        "correlationId": 292
+      }
+    },
+    {
+      "name": "Runtime: cudaLaunchKernel_v7000",
+      "ph": "X",
+      "ts": 1756213854780525.2,
+      "dur": 3.582,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "211",
+        "correlationId": 292
+      }
+    },
+    {
+      "name": "Runtime: cudaGetLastError_v3020",
+      "ph": "X",
+      "ts": 1756213854780528.8,
+      "dur": 0.071,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "10",
+        "correlationId": 293
+      }
+    },
+    {
+      "name": "Runtime: cudaStreamSynchronize_v3020",
+      "ph": "X",
+      "ts": 1756213854780529.5,
+      "dur": 1236304.567,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "131",
+        "correlationId": 294
+      }
+    },
+    {
+      "name": "Runtime: cudaSetDevice_v3020",
+      "ph": "X",
+      "ts": 1756213856016871.5,
+      "dur": 8.505,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "16",
+        "correlationId": 295
+      }
+    },
+    {
+      "name": "Driver: cuCtxSetCurrent",
+      "ph": "X",
+      "ts": 1756213856016882.0,
+      "dur": 0.151,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "303",
+        "correlationId": 296
+      }
+    },
+    {
+      "name": "Driver: cuKernelGetName",
+      "ph": "X",
+      "ts": 1756213856016887.5,
+      "dur": 1.152,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "719",
+        "correlationId": 297
+      }
+    },
+    {
+      "name": "Kernel: _Z11DaxpyKernelidPdS_",
+      "ph": "X",
+      "ts": 1756213856017090.5,
+      "dur": 123724.013,
+      "cat": "GPU_Kernel",
+      "args": {
+        "correlationId": 298
+      }
+    },
+    {
+      "name": "Runtime: cudaLaunchKernel_v7000",
+      "ph": "X",
+      "ts": 1756213856016891.0,
+      "dur": 59.094,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "211",
+        "correlationId": 298
+      }
+    },
+    {
+      "name": "Runtime: cudaGetLastError_v3020",
+      "ph": "X",
+      "ts": 1756213856016951.0,
+      "dur": 0.172,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "10",
+        "correlationId": 299
+      }
+    },
+    {
+      "name": "Driver: cuKernelGetName",
+      "ph": "X",
+      "ts": 1756213856016953.2,
+      "dur": 0.092,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "719",
+        "correlationId": 300
+      }
+    },
+    {
+      "name": "Kernel: _Z11DaxpyKernelidPdS_",
+      "ph": "X",
+      "ts": 1756213856017090.5,
+      "dur": 247297.21,
+      "cat": "GPU_Kernel",
+      "args": {
+        "correlationId": 301
+      }
+    },
+    {
+      "name": "Runtime: cudaLaunchKernel_v7000",
+      "ph": "X",
+      "ts": 1756213856016953.5,
+      "dur": 9.899,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "211",
+        "correlationId": 301
+      }
+    },
+    {
+      "name": "Runtime: cudaGetLastError_v3020",
+      "ph": "X",
+      "ts": 1756213856016963.5,
+      "dur": 0.071,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "10",
+        "correlationId": 302
+      }
+    },
+    {
+      "name": "Driver: cuKernelGetName",
+      "ph": "X",
+      "ts": 1756213856016965.8,
+      "dur": 0.066,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "719",
+        "correlationId": 303
+      }
+    },
+    {
+      "name": "Kernel: _Z11DaxpyKernelidPdS_",
+      "ph": "X",
+      "ts": 1756213856017092.5,
+      "dur": 370954.95,
+      "cat": "GPU_Kernel",
+      "args": {
+        "correlationId": 304
+      }
+    },
+    {
+      "name": "Runtime: cudaLaunchKernel_v7000",
+      "ph": "X",
+      "ts": 1756213856016966.8,
+      "dur": 11.198,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "211",
+        "correlationId": 304
+      }
+    },
+    {
+      "name": "Runtime: cudaGetLastError_v3020",
+      "ph": "X",
+      "ts": 1756213856016978.2,
+      "dur": 0.067,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "10",
+        "correlationId": 305
+      }
+    },
+    {
+      "name": "Driver: cuKernelGetName",
+      "ph": "X",
+      "ts": 1756213856016980.2,
+      "dur": 0.048,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "719",
+        "correlationId": 306
+      }
+    },
+    {
+      "name": "Kernel: _Z11DaxpyKernelidPdS_",
+      "ph": "X",
+      "ts": 1756213856017093.2,
+      "dur": 494578.771,
+      "cat": "GPU_Kernel",
+      "args": {
+        "correlationId": 307
+      }
+    },
+    {
+      "name": "Runtime: cudaLaunchKernel_v7000",
+      "ph": "X",
+      "ts": 1756213856016980.5,
+      "dur": 8.242,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "211",
+        "correlationId": 307
+      }
+    },
+    {
+      "name": "Runtime: cudaGetLastError_v3020",
+      "ph": "X",
+      "ts": 1756213856016988.8,
+      "dur": 0.071,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "10",
+        "correlationId": 308
+      }
+    },
+    {
+      "name": "Runtime: cudaStreamSynchronize_v3020",
+      "ph": "X",
+      "ts": 1756213856016989.2,
+      "dur": 123828.53,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "131",
+        "correlationId": 309
+      }
+    },
+    {
+      "name": "Runtime: cudaStreamSynchronize_v3020",
+      "ph": "X",
+      "ts": 1756213856140818.0,
+      "dur": 123573.022,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "131",
+        "correlationId": 310
+      }
+    },
+    {
+      "name": "Runtime: cudaStreamSynchronize_v3020",
+      "ph": "X",
+      "ts": 1756213856264391.2,
+      "dur": 123659.279,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "131",
+        "correlationId": 311
+      }
+    },
+    {
+      "name": "Runtime: cudaStreamSynchronize_v3020",
+      "ph": "X",
+      "ts": 1756213856388050.5,
+      "dur": 123624.48,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "131",
+        "correlationId": 312
+      }
+    },
+    {
+      "name": "Memory: RELEASE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213857017713.0,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "RELEASE",
+        "kind": "DEVICE",
+        "size": 32768,
+        "address": "0x721fa1c00000"
+      }
+    },
+    {
+      "name": "Memory: RELEASE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213857017878.8,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "RELEASE",
+        "kind": "DEVICE",
+        "size": 32768,
+        "address": "0x721fa1c00000"
+      }
+    },
+    {
+      "name": "Runtime: cudaFree_v3020",
+      "ph": "X",
+      "ts": 1756213857017683.2,
+      "dur": 289.12,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "22",
+        "correlationId": 349
+      }
+    },
+    {
+      "name": "Memory: RELEASE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213857017975.8,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "RELEASE",
+        "kind": "DEVICE",
+        "size": 32768,
+        "address": "0x721fa1c08000"
+      }
+    },
+    {
+      "name": "Memory: RELEASE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213857017985.8,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "RELEASE",
+        "kind": "DEVICE",
+        "size": 32768,
+        "address": "0x721fa1c08000"
+      }
+    },
+    {
+      "name": "Runtime: cudaFree_v3020",
+      "ph": "X",
+      "ts": 1756213857017973.5,
+      "dur": 60.819,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "22",
+        "correlationId": 350
+      }
+    },
+    {
+      "name": "Memory: RELEASE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213857018036.8,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "RELEASE",
+        "kind": "DEVICE",
+        "size": 65536,
+        "address": "0x721fa1c10000"
+      }
+    },
+    {
+      "name": "Memory: RELEASE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213857018046.8,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "RELEASE",
+        "kind": "DEVICE",
+        "size": 65536,
+        "address": "0x721fa1c10000"
+      }
+    },
+    {
+      "name": "Runtime: cudaFree_v3020",
+      "ph": "X",
+      "ts": 1756213857018035.2,
+      "dur": 31.204,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "22",
+        "correlationId": 351
+      }
+    },
+    {
+      "name": "Memory: RELEASE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213857018068.5,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "RELEASE",
+        "kind": "DEVICE",
+        "size": 65536,
+        "address": "0x721fa1c20000"
+      }
+    },
+    {
+      "name": "Memory: RELEASE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213857018078.8,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "RELEASE",
+        "kind": "DEVICE",
+        "size": 65536,
+        "address": "0x721fa1c20000"
+      }
+    },
+    {
+      "name": "Runtime: cudaFree_v3020",
+      "ph": "X",
+      "ts": 1756213857018067.2,
+      "dur": 18.526,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "22",
+        "correlationId": 352
+      }
+    },
+    {
+      "name": "Memory: RELEASE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213857018087.8,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "RELEASE",
+        "kind": "DEVICE",
+        "size": 98304,
+        "address": "0x721fa1c30000"
+      }
+    },
+    {
+      "name": "Memory: RELEASE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213857018097.5,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "RELEASE",
+        "kind": "DEVICE",
+        "size": 98304,
+        "address": "0x721fa1c30000"
+      }
+    },
+    {
+      "name": "Runtime: cudaFree_v3020",
+      "ph": "X",
+      "ts": 1756213857018086.5,
+      "dur": 17.691,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "22",
+        "correlationId": 353
+      }
+    },
+    {
+      "name": "Memory: RELEASE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213857018106.2,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "RELEASE",
+        "kind": "DEVICE",
+        "size": 98304,
+        "address": "0x721fa1c48000"
+      }
+    },
+    {
+      "name": "Memory: RELEASE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213857018115.8,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "RELEASE",
+        "kind": "DEVICE",
+        "size": 98304,
+        "address": "0x721fa1c48000"
+      }
+    },
+    {
+      "name": "Runtime: cudaFree_v3020",
+      "ph": "X",
+      "ts": 1756213857018105.0,
+      "dur": 16.509,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "22",
+        "correlationId": 354
+      }
+    },
+    {
+      "name": "Memory: RELEASE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213857018123.2,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "RELEASE",
+        "kind": "DEVICE",
+        "size": 131072,
+        "address": "0x721fa1c60000"
+      }
+    },
+    {
+      "name": "Memory: RELEASE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213857018129.2,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "RELEASE",
+        "kind": "DEVICE",
+        "size": 131072,
+        "address": "0x721fa1c60000"
+      }
+    },
+    {
+      "name": "Runtime: cudaFree_v3020",
+      "ph": "X",
+      "ts": 1756213857018122.0,
+      "dur": 24.095,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "22",
+        "correlationId": 355
+      }
+    },
+    {
+      "name": "Memory: RELEASE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213857018148.0,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "RELEASE",
+        "kind": "DEVICE",
+        "size": 131072,
+        "address": "0x721fa1c80000"
+      }
+    },
+    {
+      "name": "Memory: RELEASE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213857018182.8,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "RELEASE",
+        "kind": "DEVICE",
+        "size": 131072,
+        "address": "0x721fa1c80000"
+      }
+    },
+    {
+      "name": "Runtime: cudaFree_v3020",
+      "ph": "X",
+      "ts": 1756213857018146.8,
+      "dur": 484.662,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "22",
+        "correlationId": 356
+      }
+    },
+    {
+      "name": "Memory: RELEASE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213857018649.5,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "RELEASE",
+        "kind": "DEVICE",
+        "size": 32768,
+        "address": "0x721f83c00000"
+      }
+    },
+    {
+      "name": "Memory: RELEASE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213857018777.5,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "RELEASE",
+        "kind": "DEVICE",
+        "size": 32768,
+        "address": "0x721f83c00000"
+      }
+    },
+    {
+      "name": "Runtime: cudaFree_v3020",
+      "ph": "X",
+      "ts": 1756213857018632.8,
+      "dur": 167.03,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "22",
+        "correlationId": 357
+      }
+    },
+    {
+      "name": "Memory: RELEASE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213857018802.5,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "RELEASE",
+        "kind": "DEVICE",
+        "size": 32768,
+        "address": "0x721f83c08000"
+      }
+    },
+    {
+      "name": "Memory: RELEASE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213857018812.0,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "RELEASE",
+        "kind": "DEVICE",
+        "size": 32768,
+        "address": "0x721f83c08000"
+      }
+    },
+    {
+      "name": "Runtime: cudaFree_v3020",
+      "ph": "X",
+      "ts": 1756213857018800.8,
+      "dur": 49.803,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "22",
+        "correlationId": 358
+      }
+    },
+    {
+      "name": "Memory: RELEASE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213857018853.0,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "RELEASE",
+        "kind": "DEVICE",
+        "size": 65536,
+        "address": "0x721f83c10000"
+      }
+    },
+    {
+      "name": "Memory: RELEASE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213857018865.2,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "RELEASE",
+        "kind": "DEVICE",
+        "size": 65536,
+        "address": "0x721f83c10000"
+      }
+    },
+    {
+      "name": "Runtime: cudaFree_v3020",
+      "ph": "X",
+      "ts": 1756213857018851.2,
+      "dur": 21.67,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "22",
+        "correlationId": 359
+      }
+    },
+    {
+      "name": "Memory: RELEASE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213857018874.8,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "RELEASE",
+        "kind": "DEVICE",
+        "size": 65536,
+        "address": "0x721f83c20000"
+      }
+    },
+    {
+      "name": "Memory: RELEASE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213857018885.8,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "RELEASE",
+        "kind": "DEVICE",
+        "size": 65536,
+        "address": "0x721f83c20000"
+      }
+    },
+    {
+      "name": "Runtime: cudaFree_v3020",
+      "ph": "X",
+      "ts": 1756213857018873.5,
+      "dur": 19.525,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "22",
+        "correlationId": 360
+      }
+    },
+    {
+      "name": "Memory: RELEASE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213857018895.2,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "RELEASE",
+        "kind": "DEVICE",
+        "size": 98304,
+        "address": "0x721f83c30000"
+      }
+    },
+    {
+      "name": "Memory: RELEASE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213857018902.2,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "RELEASE",
+        "kind": "DEVICE",
+        "size": 98304,
+        "address": "0x721f83c30000"
+      }
+    },
+    {
+      "name": "Runtime: cudaFree_v3020",
+      "ph": "X",
+      "ts": 1756213857018893.8,
+      "dur": 18.249,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "22",
+        "correlationId": 361
+      }
+    },
+    {
+      "name": "Memory: RELEASE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213857018914.0,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "RELEASE",
+        "kind": "DEVICE",
+        "size": 98304,
+        "address": "0x721f83c48000"
+      }
+    },
+    {
+      "name": "Memory: RELEASE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213857018920.8,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "RELEASE",
+        "kind": "DEVICE",
+        "size": 98304,
+        "address": "0x721f83c48000"
+      }
+    },
+    {
+      "name": "Runtime: cudaFree_v3020",
+      "ph": "X",
+      "ts": 1756213857018912.5,
+      "dur": 21.38,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "22",
+        "correlationId": 362
+      }
+    },
+    {
+      "name": "Memory: RELEASE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213857018936.0,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "RELEASE",
+        "kind": "DEVICE",
+        "size": 131072,
+        "address": "0x721f83c60000"
+      }
+    },
+    {
+      "name": "Memory: RELEASE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213857018942.0,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "RELEASE",
+        "kind": "DEVICE",
+        "size": 131072,
+        "address": "0x721f83c60000"
+      }
+    },
+    {
+      "name": "Runtime: cudaFree_v3020",
+      "ph": "X",
+      "ts": 1756213857018934.5,
+      "dur": 13.951,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "22",
+        "correlationId": 363
+      }
+    },
+    {
+      "name": "Memory: RELEASE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213857018950.2,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "RELEASE",
+        "kind": "DEVICE",
+        "size": 131072,
+        "address": "0x721f83c80000"
+      }
+    },
+    {
+      "name": "Memory: RELEASE (DEVICE)",
+      "ph": "i",
+      "ts": 1756213857018972.5,
+      "tid": "Memory_Operations",
+      "pid": "Memory",
+      "cat": "Memory",
+      "s": "g",
+      "args": {
+        "operation": "RELEASE",
+        "kind": "DEVICE",
+        "size": 131072,
+        "address": "0x721f83c80000"
+      }
+    },
+    {
+      "name": "Runtime: cudaFree_v3020",
+      "ph": "X",
+      "ts": 1756213857018949.0,
+      "dur": 289.319,
+      "tid": 3498807296,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "22",
+        "correlationId": 364
+      }
+    },
+    {
+      "name": "Runtime: cudaSetDevice_v3020",
+      "ph": "X",
+      "ts": 1756213856511892.5,
+      "dur": 14.934,
+      "tid": 2365526016,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "16",
+        "correlationId": 313
+      }
+    },
+    {
+      "name": "Overhead: ACTIVITY_BUFFER_REQUEST",
+      "ph": "X",
+      "ts": 1756213856511909.5,
+      "dur": 11331.353,
+      "tid": 2365526016,
+      "pid": "CUPTI_Overhead",
+      "cat": "Overhead",
+      "args": {
+        "type": "ACTIVITY_BUFFER_REQUEST",
+        "target": "THREAD",
+        "correlationId": 313
+      }
+    },
+    {
+      "name": "Driver: cuCtxSetCurrent",
+      "ph": "X",
+      "ts": 1756213856523248.8,
+      "dur": 0.833,
+      "tid": 2365526016,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "303",
+        "correlationId": 315
+      }
+    },
+    {
+      "name": "Driver: cuKernelGetName",
+      "ph": "X",
+      "ts": 1756213856523258.5,
+      "dur": 1.627,
+      "tid": 2365526016,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "719",
+        "correlationId": 316
+      }
+    },
+    {
+      "name": "Kernel: _Z11DaxpyKernelidPdS_",
+      "ph": "X",
+      "ts": 1756213856523457.0,
+      "dur": 123246.824,
+      "cat": "GPU_Kernel",
+      "args": {
+        "correlationId": 317
+      }
+    },
+    {
+      "name": "Runtime: cudaLaunchKernel_v7000",
+      "ph": "X",
+      "ts": 1756213856523262.0,
+      "dur": 72.266,
+      "tid": 2365526016,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "211",
+        "correlationId": 317
+      }
+    },
+    {
+      "name": "Runtime: cudaGetLastError_v3020",
+      "ph": "X",
+      "ts": 1756213856523336.0,
+      "dur": 0.717,
+      "tid": 2365526016,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "10",
+        "correlationId": 318
+      }
+    },
+    {
+      "name": "Driver: cuKernelGetName",
+      "ph": "X",
+      "ts": 1756213856523338.2,
+      "dur": 0.157,
+      "tid": 2365526016,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "719",
+        "correlationId": 319
+      }
+    },
+    {
+      "name": "Kernel: _Z11DaxpyKernelidPdS_",
+      "ph": "X",
+      "ts": 1756213856523457.0,
+      "dur": 246930.101,
+      "cat": "GPU_Kernel",
+      "args": {
+        "correlationId": 320
+      }
+    },
+    {
+      "name": "Runtime: cudaLaunchKernel_v7000",
+      "ph": "X",
+      "ts": 1756213856523338.8,
+      "dur": 9.44,
+      "tid": 2365526016,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "211",
+        "correlationId": 320
+      }
+    },
+    {
+      "name": "Runtime: cudaGetLastError_v3020",
+      "ph": "X",
+      "ts": 1756213856523348.5,
+      "dur": 0.201,
+      "tid": 2365526016,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "10",
+        "correlationId": 321
+      }
+    },
+    {
+      "name": "Driver: cuKernelGetName",
+      "ph": "X",
+      "ts": 1756213856523350.0,
+      "dur": 0.131,
+      "tid": 2365526016,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "719",
+        "correlationId": 322
+      }
+    },
+    {
+      "name": "Kernel: _Z11DaxpyKernelidPdS_",
+      "ph": "X",
+      "ts": 1756213856523458.8,
+      "dur": 370563.714,
+      "cat": "GPU_Kernel",
+      "args": {
+        "correlationId": 323
+      }
+    },
+    {
+      "name": "Runtime: cudaLaunchKernel_v7000",
+      "ph": "X",
+      "ts": 1756213856523350.2,
+      "dur": 8.989,
+      "tid": 2365526016,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "211",
+        "correlationId": 323
+      }
+    },
+    {
+      "name": "Runtime: cudaGetLastError_v3020",
+      "ph": "X",
+      "ts": 1756213856523359.5,
+      "dur": 0.151,
+      "tid": 2365526016,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "10",
+        "correlationId": 324
+      }
+    },
+    {
+      "name": "Driver: cuKernelGetName",
+      "ph": "X",
+      "ts": 1756213856523361.0,
+      "dur": 0.104,
+      "tid": 2365526016,
+      "pid": 1043317,
+      "cat": "CUDA_Driver",
+      "args": {
+        "cbid": "719",
+        "correlationId": 325
+      }
+    },
+    {
+      "name": "Kernel: _Z11DaxpyKernelidPdS_",
+      "ph": "X",
+      "ts": 1756213856523459.0,
+      "dur": 494107.694,
+      "cat": "GPU_Kernel",
+      "args": {
+        "correlationId": 326
+      }
+    },
+    {
+      "name": "Runtime: cudaLaunchKernel_v7000",
+      "ph": "X",
+      "ts": 1756213856523361.2,
+      "dur": 7.929,
+      "tid": 2365526016,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "211",
+        "correlationId": 326
+      }
+    },
+    {
+      "name": "Runtime: cudaGetLastError_v3020",
+      "ph": "X",
+      "ts": 1756213856523369.5,
+      "dur": 0.168,
+      "tid": 2365526016,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "10",
+        "correlationId": 327
+      }
+    },
+    {
+      "name": "Runtime: cudaStreamSynchronize_v3020",
+      "ph": "X",
+      "ts": 1756213856523371.5,
+      "dur": 123337.322,
+      "tid": 2365526016,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "131",
+        "correlationId": 328
+      }
+    },
+    {
+      "name": "Runtime: cudaStreamSynchronize_v3020",
+      "ph": "X",
+      "ts": 1756213856646709.0,
+      "dur": 123681.307,
+      "tid": 2365526016,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "131",
+        "correlationId": 344
+      }
+    },
+    {
+      "name": "Runtime: cudaStreamSynchronize_v3020",
+      "ph": "X",
+      "ts": 1756213856770390.8,
+      "dur": 123635.031,
+      "tid": 2365526016,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "131",
+        "correlationId": 346
+      }
+    },
+    {
+      "name": "Runtime: cudaStreamSynchronize_v3020",
+      "ph": "X",
+      "ts": 1756213856894026.0,
+      "dur": 123544.631,
+      "tid": 2365526016,
+      "pid": 1043317,
+      "cat": "CUDA_Runtime",
+      "args": {
+        "cbid": "131",
+        "correlationId": 348
+      }
+    },
+    {
+      "name": "Overhead: CUPTI_BUFFER_FLUSH",
+      "ph": "X",
+      "ts": 1756213856959279.5,
+      "dur": 79.265,
+      "tid": 3377016832,
+      "pid": "CUPTI_Overhead",
+      "cat": "Overhead",
+      "args": {
+        "type": "CUPTI_BUFFER_FLUSH",
+        "target": "THREAD",
+        "correlationId": 0
+      }
+    },
+    {
+      "name": "Overhead: ACTIVITY_BUFFER_REQUEST",
+      "ph": "X",
+      "ts": 1756213856959360.0,
+      "dur": 11341.291,
+      "tid": 3377016832,
+      "pid": "CUPTI_Overhead",
+      "cat": "Overhead",
+      "args": {
+        "type": "ACTIVITY_BUFFER_REQUEST",
+        "target": "THREAD",
+        "correlationId": 0
+      }
+    }
+  ],
+  "displayTimeUnit": "ms",
+  "metadata": {
+    "tool": "CUPTI to Chrome Trace Converter",
+    "format": "Chrome Trace Format"
+  }
+}

@@ -92,10 +92,10 @@ $(foreach sm,$(SMS),$(eval GENCODE_FLAGS += -gencode arch=compute_$(sm),code=sm_
 all: simple_target complex_target libinjection.so
 
 simple_target: simple_target.cu
-	$(NVCC) $(NVCC_COMPILER) $(NVCCFLAGS) -o $@ $^ $(INCLUDES) $(GENCODE_FLAGS)
+	$(NVCC) $(NVCC_COMPILER) $(NVCCFLAGS) -g -o $@ $^ $(INCLUDES) $(GENCODE_FLAGS)
 
 complex_target: complex_target.cu
-	$(NVCC) $(NVCC_COMPILER) $(NVCCFLAGS) -o $@ $^ $(INCLUDES) -lcuda $(GENCODE_FLAGS)
+	$(NVCC) $(NVCC_COMPILER) $(NVCCFLAGS) -g -o $@ $^ $(INCLUDES) -lcuda $(GENCODE_FLAGS)
 
 libinjection.so: injection.cpp
 	$(NVCC) $(NVCC_COMPILER) $(NVCCFLAGS) -o $@ $< $(INCLUDES) $(LIBS) -Ldl -Xcompiler -fPIC --shared
