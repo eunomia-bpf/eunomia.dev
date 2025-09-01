@@ -73,37 +73,41 @@ This creates the `sass_metrics` executable for collecting SASS-level performance
 ### Sample Output
 
 ```
-=== SASS Metrics Analysis ===
+evice Num: 0
+Lazy Patching Enabled
+Device Name: NVIDIA H100 MIG 1c.4g.48gb
+Device compute capability: 9.0
+Metric Name: smsp__sass_inst_executed, MetricID: 8913560818632243504, Metric Description: # of warp instructions executed
+Enable SASS Patching
+Launching VectorAdd
 
-Kernel: vectorAdd
-SASS Instruction Analysis:
-  Total Instructions: 2,048,576
-  FP32 Instructions: 1,024,288 (50.0%)
-  Integer Instructions: 512,144 (25.0%)
-  Memory Instructions: 409,716 (20.0%)
-  Control Instructions: 102,428 (5.0%)
+Module cubinCrc: 2917979105
+Kernel Name: _Z9VectorAddPKiS0_Pii
+metric Name: smsp__sass_inst_executed
+                [Inst] pcOffset: 0x0    metricValue:    [0]: 1000
+                [Inst] pcOffset: 0x10   metricValue:    [0]: 1000
+                [Inst] pcOffset: 0x20   metricValue:    [0]: 1000
+                [Inst] pcOffset: 0x30   metricValue:    [0]: 1000
+                [Inst] pcOffset: 0x40   metricValue:    [0]: 1000
+                [Inst] pcOffset: 0x50   metricValue:    [0]: 1000
+                [Inst] pcOffset: 0x60   metricValue:    [0]: 1000
+                [Inst] pcOffset: 0x70   metricValue:    [0]: 1000
+                [Inst] pcOffset: 0x80   metricValue:    [0]: 1000
+                [Inst] pcOffset: 0x90   metricValue:    [0]: 1000
+                [Inst] pcOffset: 0xa0   metricValue:    [0]: 1000
+                [Inst] pcOffset: 0xb0   metricValue:    [0]: 1000
+                [Inst] pcOffset: 0xc0   metricValue:    [0]: 1000
+                [Inst] pcOffset: 0xd0   metricValue:    [0]: 1000
+                [Inst] pcOffset: 0xe0   metricValue:    [0]: 1000
+                [Inst] pcOffset: 0xf0   metricValue:    [0]: 1000
+                [Inst] pcOffset: 0x100  metricValue:    [0]: 1000
+                [Inst] pcOffset: 0x110  metricValue:    [0]: 1000
+                [Inst] pcOffset: 0x120  metricValue:    [0]: 1000
+                [Inst] pcOffset: 0x130  metricValue:    [0]: 1000
 
-Execution Efficiency:
-  Warp Execution Efficiency: 87.5%
-  Branch Efficiency: 94.2%
-  Thread Instruction Efficiency: 91.8%
-
-Memory Access Patterns:
-  Global Load Instructions: 204,858
-  Global Store Instructions: 204,858
-  Shared Memory Access: 0
-  Local Memory Access: 0
-
-Pipeline Utilization:
-  ALU Pipeline: 85.3%
-  FPU Pipeline: 78.9%
-  Memory Pipeline: 92.1%
-  Control Pipeline: 15.2%
-
-Performance Bottlenecks:
-  - Memory bandwidth limited: 45.2% of execution time
-  - ALU utilization could be improved
-  - No significant control divergence detected
+Launching VectorSubtract
+Disable SASS Patching
+Launching VectorMultiply
 ```
 
 ## Code Architecture

@@ -73,37 +73,41 @@ make
 ### 示例输出
 
 ```
-=== SASS 指标分析 ===
+evice Num: 0
+Lazy Patching Enabled
+Device Name: NVIDIA H100 MIG 1c.4g.48gb
+Device compute capability: 9.0
+Metric Name: smsp__sass_inst_executed, MetricID: 8913560818632243504, Metric Description: # of warp instructions executed
+Enable SASS Patching
+Launching VectorAdd
 
-内核：vectorAdd
-SASS 指令分析：
-  总指令数：2,048,576
-  FP32 指令：1,024,288 (50.0%)
-  整数指令：512,144 (25.0%)
-  内存指令：409,716 (20.0%)
-  控制指令：102,428 (5.0%)
+Module cubinCrc: 2917979105
+Kernel Name: _Z9VectorAddPKiS0_Pii
+metric Name: smsp__sass_inst_executed
+                [Inst] pcOffset: 0x0    metricValue:    [0]: 1000
+                [Inst] pcOffset: 0x10   metricValue:    [0]: 1000
+                [Inst] pcOffset: 0x20   metricValue:    [0]: 1000
+                [Inst] pcOffset: 0x30   metricValue:    [0]: 1000
+                [Inst] pcOffset: 0x40   metricValue:    [0]: 1000
+                [Inst] pcOffset: 0x50   metricValue:    [0]: 1000
+                [Inst] pcOffset: 0x60   metricValue:    [0]: 1000
+                [Inst] pcOffset: 0x70   metricValue:    [0]: 1000
+                [Inst] pcOffset: 0x80   metricValue:    [0]: 1000
+                [Inst] pcOffset: 0x90   metricValue:    [0]: 1000
+                [Inst] pcOffset: 0xa0   metricValue:    [0]: 1000
+                [Inst] pcOffset: 0xb0   metricValue:    [0]: 1000
+                [Inst] pcOffset: 0xc0   metricValue:    [0]: 1000
+                [Inst] pcOffset: 0xd0   metricValue:    [0]: 1000
+                [Inst] pcOffset: 0xe0   metricValue:    [0]: 1000
+                [Inst] pcOffset: 0xf0   metricValue:    [0]: 1000
+                [Inst] pcOffset: 0x100  metricValue:    [0]: 1000
+                [Inst] pcOffset: 0x110  metricValue:    [0]: 1000
+                [Inst] pcOffset: 0x120  metricValue:    [0]: 1000
+                [Inst] pcOffset: 0x130  metricValue:    [0]: 1000
 
-执行效率：
-  线程束执行效率：87.5%
-  分支效率：94.2%
-  线程指令效率：91.8%
-
-内存访问模式：
-  全局加载指令：204,858
-  全局存储指令：204,858
-  共享内存访问：0
-  本地内存访问：0
-
-流水线利用率：
-  ALU 流水线：85.3%
-  FPU 流水线：78.9%
-  内存流水线：92.1%
-  控制流水线：15.2%
-
-性能瓶颈：
-  - 内存带宽限制：45.2% 的执行时间
-  - ALU 利用率可以改进
-  - 未检测到显著的控制分歧
+Launching VectorSubtract
+Disable SASS Patching
+Launching VectorMultiply
 ```
 
 ## 代码架构

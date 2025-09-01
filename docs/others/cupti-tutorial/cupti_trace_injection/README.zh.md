@@ -111,8 +111,9 @@ CUPTI 跟踪注入示例演示如何创建一个轻量级跟踪库，可以自�
 
 1. **设置注入环境**：
    ```bash
-   export CUDA_INJECTION64_PATH=/full/path/to/libcupti_trace_injection.so
-   export NVTX_INJECTION64_PATH=/full/path/to/libcupti.so
+   export CUDA_INJECTION64_PATH=/root/yunwei37/cupti-tutorial/cupti_trace_injection/libcupti_trace_injection.so
+   export NVTX_INJECTION64_PATH=/usr/local/cuda-13.0/extras/CUPTI/lib64/libcupti.so
+   export LD_LIBRARY_PATH=/usr/local/cuda-13.0/extras/CUPTI/lib64:$LD_LIBRARY_PATH
    ```
 
 2. **运行您的 CUDA 应用程序**：
