@@ -129,7 +129,7 @@ Here's a high-level look at uXDP's design, which is shown in the diagram. It has
 *   **Path 2 (Orange)**: Use original LLVM IR -> Inline -> Better Native Code (SIMD)
 
 **Speaker notes (~100–120 words)**
-This diagram shows our two main optimization strategies. The first path, in black, works even without the original source code. We lift the verified eBPF bytecode to LLVM IR, and then we do something the kernel can't—we aggressively inline our own IR implementations of common helpers and map lookups. This allows the compiler to see across call boundaries and generate much more efficient native code.
+This diagram shows our two main optimization strategies. The first path, in black, works even without the original source code. We lift the verified eBPF bytecode to LLVM IR, and then we can do something the kernel can't. we aggressively inline our own IR implementations of common helpers and map lookups. This allows the compiler to see across call boundaries and generate much more efficient native code.
 
 The second path, in orange, is even more powerful. When we have access to the original LLVM IR from the compiler, we package it with the bytecode. We still have the kernel verify the bytecode for safety, but we generate the final native code from the much richer IR. This preserves type information and data layout, leading to better register allocation and unlocking advanced optimizations like SIMD.
 
@@ -172,7 +172,7 @@ For our evaluation, we used two servers connected back-to-back with dual-port 10
 *   Katran: **+40%**; Simple NFs: up to **3.3x**.
 
 **Speaker notes (~90–110 words)**
-This graph shows our main throughput results. As you'd expect, DPDK mode consistently delivered the highest performance because of its poll-mode driver. But the really interesting result is with AF_XDP. For complex NFs like Katran and the firewall, AF_XDP actually beats the native kernel driver mode. This is a powerful finding. It means that even with the overhead of crossing the kernel-userspace boundary, our userspace optimizations—better code generation and inlining—win out. For simpler NFs, the kernel driver is still competitive, but DPDK is the clear winner. Overall, we saw a 40% improvement for Katran and up to 3.3x for simple NFs, all with the same eBPF binary.
+This graph shows our main throughput results. As you'd expect, DPDK mode consistently delivered the highest performance because of its poll-mode driver. But the really interesting result is with AF_XDP. For complex NFs like Katran and the firewall, AF_XDP actually beats the native kernel driver mode. This is a powerful finding. It means that even with the overhead of crossing the kernel-userspace boundary, our userspace optimizations like better code generation and inlining can win out. For simpler NFs, the kernel driver is still competitive, but DPDK is the clear winner. Overall, we saw a 40% improvement for Katran and up to 3.3x for simple NFs, all with the same eBPF binary.
 
 ---
 
