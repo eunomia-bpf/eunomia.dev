@@ -10,28 +10,28 @@
       
       
       
-        <link rel="canonical" href="https://eunomia.dev/en/others/miscellaneous/osdi-talk_bak/">
+        <link rel="canonical" href="https://eunomia.dev/others/miscellaneous/ebpf-uxdp-workshop-talk/">
       
       
-        <link rel="prev" href="../osdi-talk/">
+        <link rel="prev" href="../ebpf-userspace-port/">
       
       
-        <link rel="next" href="../roadmap/">
+        <link rel="next" href="../gsoc-ospp/">
       
       
-      <link rel="icon" href="../../../../assets/icon.svg">
+      <link rel="icon" href="../../../assets/icon.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
     
     
       
-        <title>Speech Script for OSDI 2025 bpftime talk "Extending Applications Safely and Efficiently" - eunomia</title>
+        <title>uXDP: Frictionless XDP Deployments in Userspace — 12‑min talk - eunomia</title>
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.7e37652d.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.7e37652d.min.css">
       
         
-        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -50,7 +50,7 @@
       
     
     
-    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -69,11 +69,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="Speech Script for OSDI 2025 bpftime talk "Extending Applications Safely and Efficiently" - eunomia" >
+        <meta  property="og:title"  content="uXDP: Frictionless XDP Deployments in Userspace — 12‑min talk - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
-        <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/others/miscellaneous/osdi-talk_bak.png" >
+        <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/others/miscellaneous/ebpf-uxdp-workshop-talk.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -81,15 +81,15 @@
       
         <meta  property="og:image:height"  content="630" >
       
-        <meta  property="og:url"  content="https://eunomia.dev/en/others/miscellaneous/osdi-talk_bak/" >
+        <meta  property="og:url"  content="https://eunomia.dev/others/miscellaneous/ebpf-uxdp-workshop-talk/" >
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="Speech Script for OSDI 2025 bpftime talk "Extending Applications Safely and Efficiently" - eunomia" >
+        <meta  name="twitter:title"  content="uXDP: Frictionless XDP Deployments in Userspace — 12‑min talk - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
-        <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/others/miscellaneous/osdi-talk_bak.png" >
+        <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/others/miscellaneous/ebpf-uxdp-workshop-talk.png" >
       
     
     
@@ -112,7 +112,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#speech-script-for-osdi-2025-bpftime-talk-extending-applications-safely-and-efficiently" class="md-skip">
+        <a href="#uxdp-frictionless-xdp-deployments-in-userspace-12min-talk" class="md-skip">
           Skip to content
         </a>
       
@@ -126,9 +126,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../../" title="eunomia" class="md-header__button md-logo" aria-label="eunomia" data-md-component="logo">
+    <a href="../../.." title="eunomia" class="md-header__button md-logo" aria-label="eunomia" data-md-component="logo">
       
-  <img src="../../../../assets/icon.svg" alt="logo">
+  <img src="../../../assets/icon.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Speech Script for OSDI 2025 bpftime talk "Extending Applications Safely and Efficiently"
+              uXDP: Frictionless XDP Deployments in Userspace — 12‑min talk
             
           </span>
         </div>
@@ -291,7 +291,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../" class="md-tabs__link">
+        <a href="../../.." class="md-tabs__link">
           
   
   
@@ -329,7 +329,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../../blog" class="md-tabs__link">
+      <a href="../../../blog" class="md-tabs__link">
         
   
   
@@ -466,9 +466,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../../" title="eunomia" class="md-nav__button md-logo" aria-label="eunomia" data-md-component="logo">
+    <a href="../../.." title="eunomia" class="md-nav__button md-logo" aria-label="eunomia" data-md-component="logo">
       
-  <img src="../../../../assets/icon.svg" alt="logo">
+  <img src="../../../assets/icon.svg" alt="logo">
 
     </a>
     eunomia
@@ -538,7 +538,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../" class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         
   
   
@@ -2320,7 +2320,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../blog" class="md-nav__link">
+      <a href="../../../blog" class="md-nav__link">
         
   
   
@@ -7953,6 +7953,266 @@
                 
   
   
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    uXDP: Frictionless XDP Deployments in Userspace — 12‑min talk
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    uXDP: Frictionless XDP Deployments in Userspace — 12‑min talk
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#goals-for-a-12min-slot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Goals (for a 12‑min slot)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timeline-minutebyminute" class="md-nav__link">
+    <span class="md-ellipsis">
+      Timeline (minute‑by‑minute)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#slidebyslide-outline-with-speaker-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide‑by‑slide outline with speaker notes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Slide‑by‑slide outline with speaker notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-title-uxdp-frictionless-xdp-deployments-in-userspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      1) Title — uXDP: Frictionless XDP Deployments in Userspace
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-problem-todays-nf-tradeoff" class="md-nav__link">
+    <span class="md-ellipsis">
+      2) Problem: today’s NF trade‑off
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-idea-contributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      3) Idea &amp; contributions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-background-controlplane-pain" class="md-nav__link">
+    <span class="md-ellipsis">
+      4) Background &amp; control‑plane pain
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-why-this-should-work-profiling-insight" class="md-nav__link">
+    <span class="md-ellipsis">
+      5) Why this should work: profiling insight
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-design-overview-deployment-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      6) Design overview &amp; deployment modes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-optimizations-i-inline-helpers-maps" class="md-nav__link">
+    <span class="md-ellipsis">
+      7) Optimizations I — inline helpers &amp; maps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-optimizations-ii-llvm-ir-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      8) Optimizations II — LLVM IR path
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-implementation-highlights" class="md-nav__link">
+    <span class="md-ellipsis">
+      9) Implementation highlights
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-evaluation-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      10) Evaluation setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11-results-throughput-latency" class="md-nav__link">
+    <span class="md-ellipsis">
+      11) Results — throughput &amp; latency
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-ablations-limits-and-whats-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      12) Ablations, limits, and what’s next
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oneliner-and-closing" class="md-nav__link">
+    <span class="md-ellipsis">
+      One‑liner and closing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#qa-cheatsheet-expected-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q\&amp;A cheat‑sheet (expected questions)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#slide-building-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slide building tips
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rehearsal-plan-word-budget" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rehearsal plan &amp; word budget
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backup-slides-if-allowed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backup slides (if allowed)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-closing-script-2025-s" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optional closing script (20–25 s)
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
   
   
     <li class="md-nav__item">
@@ -8036,242 +8296,6 @@
   
 
       </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Speech Script for OSDI 2025 bpftime talk "Extending Applications Safely and Efficiently"
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    Speech Script for OSDI 2025 bpftime talk "Extending Applications Safely and Efficiently"
-    
-  </span>
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#slide-0" class="md-nav__link">
-    <span class="md-ellipsis">
-      [Slide 0]
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#slide-1-extensions-everywhere" class="md-nav__link">
-    <span class="md-ellipsis">
-      [Slide 1] Extensions Everywhere
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#slide-2-nginx-extension-example" class="md-nav__link">
-    <span class="md-ellipsis">
-      [Slide 2] Nginx Extension Example
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#slide-3-extension-problems-requirements" class="md-nav__link">
-    <span class="md-ellipsis">
-      [Slide 3] Extension Problems &amp; Requirements
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#slide-5-state-of-the-art-falls-short" class="md-nav__link">
-    <span class="md-ellipsis">
-      [Slide 5] State-of-the-Art Falls Short
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#slide-55-contribution" class="md-nav__link">
-    <span class="md-ellipsis">
-      [Slide 5.5] Contribution
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#slide-6-outline-and-transition-to-eim" class="md-nav__link">
-    <span class="md-ellipsis">
-      [Slide 6] Outline and transition to EIM
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#slide-7-eim-extension-interface-model" class="md-nav__link">
-    <span class="md-ellipsis">
-      [Slide 7] EIM: Extension Interface Model
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#slide-8-eim-development-time-specification" class="md-nav__link">
-    <span class="md-ellipsis">
-      [Slide 8] EIM Development-Time Specification
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#slide-9-eim-deployment-time-specification" class="md-nav__link">
-    <span class="md-ellipsis">
-      [Slide 9] EIM Deployment-Time Specification
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#slide-95-transition-to-bpftime" class="md-nav__link">
-    <span class="md-ellipsis">
-      [Slide 9.5] Transition to bpftime
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#slide-10-bpftime-userspace-ebpf-extension-framework" class="md-nav__link">
-    <span class="md-ellipsis">
-      [Slide 10] bpftime: userspace eBPF extension framework
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#slide-105-transition-to-real-world-use-cases" class="md-nav__link">
-    <span class="md-ellipsis">
-      [Slide 10.5] transition to real-world use cases
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#slide-11-real-world-use-cases" class="md-nav__link">
-    <span class="md-ellipsis">
-      [Slide 11] Real-World Use Cases
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#slide-12-customization-nginx-firewall" class="md-nav__link">
-    <span class="md-ellipsis">
-      [Slide 12] Customization: Nginx Firewall
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#slide-13-performance-results-ssl-monitoring" class="md-nav__link">
-    <span class="md-ellipsis">
-      [Slide 13] Performance Results: SSL Monitoring
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#slide-14-take-aways" class="md-nav__link">
-    <span class="md-ellipsis">
-      [Slide 14] Take-Aways
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#thank-you-questions-on-outline-not-separate-slide" class="md-nav__link">
-    <span class="md-ellipsis">
-      Thank You &amp; Questions (On Outline, not separate slide)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#deprecation-notes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Deprecation notes
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -8419,171 +8443,195 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#slide-0" class="md-nav__link">
+  <a href="#goals-for-a-12min-slot" class="md-nav__link">
     <span class="md-ellipsis">
-      [Slide 0]
+      Goals (for a 12‑min slot)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#slide-1-extensions-everywhere" class="md-nav__link">
+  <a href="#timeline-minutebyminute" class="md-nav__link">
     <span class="md-ellipsis">
-      [Slide 1] Extensions Everywhere
+      Timeline (minute‑by‑minute)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#slide-2-nginx-extension-example" class="md-nav__link">
+  <a href="#slidebyslide-outline-with-speaker-notes" class="md-nav__link">
     <span class="md-ellipsis">
-      [Slide 2] Nginx Extension Example
+      Slide‑by‑slide outline with speaker notes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Slide‑by‑slide outline with speaker notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-title-uxdp-frictionless-xdp-deployments-in-userspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      1) Title — uXDP: Frictionless XDP Deployments in Userspace
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-problem-todays-nf-tradeoff" class="md-nav__link">
+    <span class="md-ellipsis">
+      2) Problem: today’s NF trade‑off
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-idea-contributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      3) Idea &amp; contributions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-background-controlplane-pain" class="md-nav__link">
+    <span class="md-ellipsis">
+      4) Background &amp; control‑plane pain
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-why-this-should-work-profiling-insight" class="md-nav__link">
+    <span class="md-ellipsis">
+      5) Why this should work: profiling insight
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-design-overview-deployment-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      6) Design overview &amp; deployment modes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-optimizations-i-inline-helpers-maps" class="md-nav__link">
+    <span class="md-ellipsis">
+      7) Optimizations I — inline helpers &amp; maps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-optimizations-ii-llvm-ir-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      8) Optimizations II — LLVM IR path
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-implementation-highlights" class="md-nav__link">
+    <span class="md-ellipsis">
+      9) Implementation highlights
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-evaluation-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      10) Evaluation setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11-results-throughput-latency" class="md-nav__link">
+    <span class="md-ellipsis">
+      11) Results — throughput &amp; latency
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-ablations-limits-and-whats-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      12) Ablations, limits, and what’s next
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oneliner-and-closing" class="md-nav__link">
+    <span class="md-ellipsis">
+      One‑liner and closing
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#slide-3-extension-problems-requirements" class="md-nav__link">
+  <a href="#qa-cheatsheet-expected-questions" class="md-nav__link">
     <span class="md-ellipsis">
-      [Slide 3] Extension Problems &amp; Requirements
+      Q\&amp;A cheat‑sheet (expected questions)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#slide-5-state-of-the-art-falls-short" class="md-nav__link">
+  <a href="#slide-building-tips" class="md-nav__link">
     <span class="md-ellipsis">
-      [Slide 5] State-of-the-Art Falls Short
+      Slide building tips
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#slide-55-contribution" class="md-nav__link">
+  <a href="#rehearsal-plan-word-budget" class="md-nav__link">
     <span class="md-ellipsis">
-      [Slide 5.5] Contribution
+      Rehearsal plan &amp; word budget
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#slide-6-outline-and-transition-to-eim" class="md-nav__link">
+  <a href="#backup-slides-if-allowed" class="md-nav__link">
     <span class="md-ellipsis">
-      [Slide 6] Outline and transition to EIM
+      Backup slides (if allowed)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#slide-7-eim-extension-interface-model" class="md-nav__link">
+  <a href="#optional-closing-script-2025-s" class="md-nav__link">
     <span class="md-ellipsis">
-      [Slide 7] EIM: Extension Interface Model
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#slide-8-eim-development-time-specification" class="md-nav__link">
-    <span class="md-ellipsis">
-      [Slide 8] EIM Development-Time Specification
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#slide-9-eim-deployment-time-specification" class="md-nav__link">
-    <span class="md-ellipsis">
-      [Slide 9] EIM Deployment-Time Specification
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#slide-95-transition-to-bpftime" class="md-nav__link">
-    <span class="md-ellipsis">
-      [Slide 9.5] Transition to bpftime
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#slide-10-bpftime-userspace-ebpf-extension-framework" class="md-nav__link">
-    <span class="md-ellipsis">
-      [Slide 10] bpftime: userspace eBPF extension framework
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#slide-105-transition-to-real-world-use-cases" class="md-nav__link">
-    <span class="md-ellipsis">
-      [Slide 10.5] transition to real-world use cases
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#slide-11-real-world-use-cases" class="md-nav__link">
-    <span class="md-ellipsis">
-      [Slide 11] Real-World Use Cases
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#slide-12-customization-nginx-firewall" class="md-nav__link">
-    <span class="md-ellipsis">
-      [Slide 12] Customization: Nginx Firewall
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#slide-13-performance-results-ssl-monitoring" class="md-nav__link">
-    <span class="md-ellipsis">
-      [Slide 13] Performance Results: SSL Monitoring
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#slide-14-take-aways" class="md-nav__link">
-    <span class="md-ellipsis">
-      [Slide 14] Take-Aways
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#thank-you-questions-on-outline-not-separate-slide" class="md-nav__link">
-    <span class="md-ellipsis">
-      Thank You &amp; Questions (On Outline, not separate slide)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#deprecation-notes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Deprecation notes
+      Optional closing script (20–25 s)
     </span>
   </a>
   
@@ -8605,7 +8653,7 @@
 
 
   
-    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/miscellaneous/osdi-talk_bak.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/miscellaneous/ebpf-uxdp-workshop-talk.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -8614,139 +8662,216 @@
     
       
     
-    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/miscellaneous/osdi-talk_bak.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/others/miscellaneous/ebpf-uxdp-workshop-talk.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-<h1 id="speech-script-for-osdi-2025-bpftime-talk-extending-applications-safely-and-efficiently">Speech Script for OSDI 2025 bpftime talk "Extending Applications Safely and Efficiently"</h1>
-<p>The paper is <a href="https://www.usenix.org/conference/osdi25/presentation/zheng-yusheng">https://www.usenix.org/conference/osdi25/presentation/zheng-yusheng</a></p>
-<blockquote>
-<p>Abstract: This paper presents the Extension Interface Model (EIM) and bpftime, which together enable safer and more efficient extension of userspace applications than the current state-of-the-art. EIM is a new model that treats each required feature of an extension as a resource, including concrete hardware resources (e.g., memory) and abstract ones (e.g., the ability to invoke a function from the extended application). An extension manager, i.e., the person who manages a deployment, uses EIM to specify only the resources an extension needs to perform its task. bpftime is a new extension framework that enforces an EIM specification. Compared to prior systems, bpftime is efficient because it uses extended Berkeley Packet Filter (eBPF)-style verification, hardware-supported isolation features (e.g., Intel MPK), and dynamic binary rewriting. Moreover, bpftime is easy to adopt into existing workflows since it is compatible with the current eBPF ecosystem. We demonstrate the usefulness of EIM and bpftime across 6 use cases that improve security, monitor and enhance performance, and explore configuration trade-offs.</p>
-</blockquote>
-<p>≈ 2,250 words, ~15 minutes</p>
-<h2 id="slide-0">[Slide 0]</h2>
-<p>Good morning! I'm <strong>Yusheng Zheng</strong> from UC Santa Cruz, presenting our work on a safe and efficient userspace extension.</p>
-<h2 id="slide-1-extensions-everywhere">[Slide 1] Extensions Everywhere</h2>
-<p>Extensions are everywhere in modern software.</p>
-<p>Extensions allow us to customize software to a specific deployment's needs without modifying the original application source code, for adding new functionality, modifying behavior, or integrating with external systems. </p>
-<p>We use extensions instead of modifying the source code because it is easier to maintain and update our systems.</p>
-<h2 id="slide-2-nginx-extension-example">[Slide 2] Nginx Extension Example</h2>
-<p>Take Nginx as an example. </p>
-<p>Different Nginx deployments need different extensions: some need firewalls to block malicious requests, others need load balancers to distribute traffic, and many need monitoring for observability.</p>
-<p>Consider a user wants to deploy a firewall extension to block malicious requests.</p>
-<p>Here's how the firewall extension execution model works in Nginx. </p>
-<p>Before deployment, the user writes firewall logic using Nginx APIs and associates the firewall with request processing extension entries. </p>
-<p>During runtime, when Nginx reaches a request processing entry, it jumps to the firewall extension. </p>
-<p>The firewall executes in the extension runtime execution context, analyzing the request and deciding whether to block or allow it. </p>
-<p>Once the firewall completes its security checks, execution returns to Nginx's core processing.</p>
-<h2 id="slide-3-extension-problems-requirements">[Slide 3] Extension Problems &amp; Requirements</h2>
-<p>Extension frameworks need three key features, as shown in the figure.</p>
-<p>First, fine-grained safety/ interconnectedness trade-offs. </p>
-<p>Extensions need to interact with applications by reading data and calling functions. </p>
-<p>For example, a firewall extension needs to read request headers and decide whether to block or allow the request, while a monitoring extension need read-only access. </p>
-<p>However, allowing too much interconnecteness comes with risks: real world incidents describe production outages from safety violations in nginx, apache, and redis extensions.  </p>
-<p>So, system managers want to specify safety/interconnectedness tradeoffs that allow only the minimum permissions each extension needs. </p>
-<p>Second, extension frameworks need isolation to protect extensions from application bugs.  We use extensions to provide security guarantees, so isolation is paramount for correctness.</p>
-<p>Third, efficiency.  Extensions often run on critical paths where every millisecond matters for user experience, so we need them to be quick.</p>
-<h2 id="slide-5-state-of-the-art-falls-short">[Slide 5] State-of-the-Art Falls Short</h2>
-<p>Unfortunately, existing approaches cannot satisfy all requirements simultaneously. </p>
-<p>Dynamic loading achieves speed but provides no isolation or fine-grained safety-interconnectedness policies.</p>
-<p>Software Fault Isolation systems like WebAssembly deliver safety but carry 10–15 percent performance penalties. </p>
-<p>Subprocess isolation ensures separation but has higher IPC overhead.</p>
-<p>eBPF in kernel can also be used for userspace extensions, but Kernel eBPF uprobes offer isolation but trap into the kernel on every invocation, make it less efficient.</p>
-<h2 id="slide-55-contribution">[Slide 5.5] Contribution</h2>
-<p>We present a two-part solution that addresses all three requirements. </p>
-<p>First, to help navigate fine-grained safety/ interconnectedness trade-offs, we create the Extension Interface Model, or EIM. </p>
-<p>EIM treats every extension capability as a named resource and uses a two-stage specification approach.</p>
-<p>Second, We created bpftime, a new userspace eBPF runtime that provides efficient support for EIM and isolation. </p>
-<p>It uses three key techniques: eBPF verification for zero runtime safety checks, MPK for isolation, and concealed extension entries that eliminate performance overhead. </p>
-<p>Together, they provide safety with efficiency while maintaining eBPF compatibility with kernel and existing eBPF tools.</p>
-<p>Our evaluation on six real-world applications shows bpftime achieves all three requirements: fine-grained safety controls, strong isolation, and efficiency with up to 6 times better performance compared to solutions like WebAssembly.</p>
-<h2 id="slide-6-outline-and-transition-to-eim">[Slide 6] Outline and transition to EIM</h2>
-<p>Now that we've discussed the motivation of the problems and challenges, let me explain the Extension Interface Model to enable fine-grained safety/interconnectedness trade-offs.</p>
-<h2 id="slide-7-eim-extension-interface-model">[Slide 7] EIM: Extension Interface Model</h2>
-<p>The goal of EIM is to enable fine-grained trade-offs between safety and interconnectedness.</p>
-<p>This is challenging because safety/interconnectedness trade-offs are a per-deployment decision that depend upon what the person who deploys the system wants to enable. </p>
-<p>But, the person deploying the system is not a developer of the system, so they lack application expertise to know what extension features should be allowed by the application. </p>
-<p>EIM's solution to this challenge is a two-phase specification. We model all resources as capabilities and split the process into a development phase and a deployment phase. </p>
-<p>It works like this.</p>
-<p>During Development, the application developer, who understands the host application's internals, defines the possible interaction points for extensions. </p>
-<p>They create a Development-Time EIM Spec, which lists all the functions an extension could call or data it could access.</p>
-<p>Before Deployment, the extension manager, who understands the specific needs of a deployment, is responsible for security and configuration. </p>
-<p>They review the capabilities offered and create a Deployment-Time EIM Spec. This spec grants the minimal set of privileges an extension actually needs to do its job, following the principle of least privilege. </p>
-<p>Finally, when the extension is deployed, the Extension Runtime uses the deployment spec to verify that the extension only performs allowed operations. This ensures that policies are enforced at runtime.</p>
-<h2 id="slide-8-eim-development-time-specification">[Slide 8] EIM Development-Time Specification</h2>
-<p>Now let me show you how EIM works in practice, using Nginx as an example. </p>
-<p>During development time, Nginx developers annotate their code to declare what extensions could possibly do. </p>
-<p>They can add a state capability called <code>readPid</code> for accessing the process ID, a function capability <code>nginxTime()</code> for getting timestamps, complete with pre- and post-conditions, and extension entries like <code>processBegin</code> when request processing starts.</p>
-<p>These annotations are automatically extracted and compiled into the binary. </p>
-<p>This happens once during development and creates a complete map of what extensions could ever access. </p>
-<p>The key insight is that developers only declare possibilities—they don't decide what actually gets used.</p>
-<h2 id="slide-9-eim-deployment-time-specification">[Slide 9] EIM Deployment-Time Specification</h2>
-<p>At deployment time, the extension manager writes simple YAML policies that grant minimal privileges to each extension, enabling fine-grained safety-interconnectedness trade-offs.</p>
-<p>For example, an observability extension might only read request data and call logging functions, while a firewall extension needs both read and write access to modify responses.</p>
-<p>These policies live completely outside the application code. You can adjust the safety-interconnectedness balance per extension without recompiling. The policy is typically compact, like in 30 lines of YAML.</p>
-<h2 id="slide-95-transition-to-bpftime">[Slide 9.5] Transition to bpftime</h2>
-<p>In the next part, I will introduce our new userspace eBPF extension framework called bpftime.</p>
-<h2 id="slide-10-bpftime-userspace-ebpf-extension-framework">[Slide 10] bpftime: userspace eBPF extension framework</h2>
-<p>Our goal is to efficiently support EIM and isolation for userspace extensions. </p>
-<p>Now you might ask, "Can't we just use existing frameworks to enforce EIM policies?" </p>
-<p>Unfortunately, as we discussed in the previous work, current frameworks  use heavyweight techniques for safety and isolation, which introduces significant performance overhead.</p>
-<p>So, our solution is a new design that exploits verification, binary rewriting, and hardware features to enable efficient intra-process extensions.</p>
-<p>We are using eBPF here because it provides verification based safety and a rich ecosystem we can reuse.</p>
-<p>Let me walk you through how we achieve this with the bpftime framework.</p>
-<p>An eBPF application same as kernel eBPF Application, which acts as our extension, is first passed to the bpftime Loader. This loader includes a verifier that performs (1) verification for efficient EIM support. By checking the eBPF code against the specifications before execution, we can enforce our EIM policies with zero runtime overhead.</p>
-<p>To maintain isolation between the host and the extension, we use (2) hardware features like Intel Memory Protection Keys. This prevents extensions from accessing unauthorized memory and protects the host application from buggy or malicious extensions, and vice-versa.</p>
-<p>For invoking extensions, the (3) conceal extension entries using binary rewriting for efficiency. Instead of heavyweight hooks, we patch the host application with lightweight trampolines that redirect execution to the extension at the right moment. This is similar to how kernel eBPF uprobes work but entirely in userspace.</p>
-<p>As you can see, the Host application and the extension run in the same process, which enables (4) intra-process extensions for efficiency, eliminating cross-process communication costs.</p>
-<p>Finally, our entire framework is (5) compatible with eBPF. Existing eBPF applications and toolchains work with bpftime out of the box. This compatibility also allows user-space extensions to communicate with kernel-space eBPF programs, enabling powerful, full-system observability and control.</p>
-<h2 id="slide-105-transition-to-real-world-use-cases">[Slide 10.5] transition to real-world use cases</h2>
-<p>Now, let me show you how bpftime works in practice, and our evaluation results.</p>
-<h2 id="slide-11-real-world-use-cases">[Slide 11] Real-World Use Cases</h2>
-<p>bpftime is open source on GitHub with an active community, with thousands of stars and many users.</p>
-<p>We built six real-world applications to demonstrate how people are actually using it. </p>
-<p>First, we use extensions to customize applications, including an Nginx firewall, a Redis optimization, and a FUSE cache. </p>
-<p>Second, we use extensions for observability, by adapting existing tools like DeepFlow, syscount, and sslsniff.</p>
-<p>You can find more details in our paper, but due to time limits, I will focus on just two examples.</p>
-<h2 id="slide-12-customization-nginx-firewall">[Slide 12] Customization: Nginx Firewall</h2>
-<p>We implement an Nginx firewall with EIM and bpftime and compare it with different extension approaches. In this diagram, higher is better. </p>
-<p>Lua and WebAssembly extensions impose 11–12 percent throughput loss—that's significant overhead that many operators can't accept in production. Plus, these older methods don't let you control safety and interconnectedness trade-offs like EIM does. </p>
-<p>bpftime achieves only 2 percent overhead. That's a 5 times to 6 times improvement over existing approaches.</p>
-<h2 id="slide-13-performance-results-ssl-monitoring">[Slide 13] Performance Results: SSL Monitoring</h2>
-<p>Then we use bpftime for sslsniff, which monitors encrypted TLS traffic, as part of the bcc eBPF tools and compare to kernel eBPF.</p>
-<p>We run sslsniff on an nginx deployment to test different data sizes from 1K to 256K bytes. The y-axis shows throughput, where higher is better. You can see the performance difference is most clear with 1K data size.</p>
-<p>With kernel eBPF, this monitoring costs 28 percent throughput loss. That's too much overhead for production use. With bpftime, the same monitoring functionality costs only 7 percent overhead.</p>
-<h2 id="slide-14-take-aways">[Slide 14] Take-Aways</h2>
-<p>In summary, our contributions are EIM and bpftime. EIM enables fine-grained safety/interconnectedness trade-offs that allow you to specify least-privilege policies without touching application source code. </p>
-<p>And bpftime supports efficient safety/interconnectedness tradeoffs and isolation with near-native performance using offline verification, Intel Memory Protection Keys, and concealed trampolines. </p>
-<h2 id="thank-you-questions-on-outline-not-separate-slide">Thank You &amp; Questions (On Outline, not separate slide)</h2>
-<p><strong>bpftime</strong> is open-source at GitHub, you can scan the QR code to see it. It's fully compatible with the eBPF ecosystem, you can get started by running it as a drop-in replacement for eBPF commands. We welcome your issues, pull requests, and collaboration. </p>
-<p>I'm happy to take your questions.</p>
-<h2 id="deprecation-notes">Deprecation notes</h2>
+<h1 id="uxdp-frictionless-xdp-deployments-in-userspace-12min-talk">uXDP: Frictionless XDP Deployments in Userspace — 12‑min talk</h1>
+<p><strong>Venue:</strong> eBPF Workshop (Coimbra, Sep 8–11, 2025)
+<strong>Speaker:</strong> Yusheng Zheng (with Panayiotis Gavriil, Marios Kogias)</p>
 <hr />
-<!-- 
-Looking ahead, we're expanding bpftime to support GPU and ML workloads, broadening the scope of safe, efficient extension deployment beyond traditional systems programming.
-
-However, current bpftime and EIM still have some limitations. First, EIM tools and policies are mainly for compiled applications, and we are working on supporting more languages. Also, you need to write the extension code in eBPF, which is not easy for some users. -->
-
-<!-- 
-Let me explain this using our Nginx example. In the extension ecosystem, we have 2 key roles. First, Nginx application developers write the core web server code. Second, extension developers create plugins like firewalls, load balancers, and monitoring tools. Third, the extension manager—typically a system administrator or DevOps engineer—decides which extensions to deploy and what privileges each should have. Finally, end users send HTTP requests that trigger both the host application and extensions. -->
-
-<!-- 
-## [Slide 10.5] bpftime: userspace eBPF extension framework
-
-But ensuring eBPF compatibility and efficiency presented a major challenge. The Linux eBPF ecosystem consists of tightly coupled components, like compilers, runtime libraries, and the kernel, they are nearly impossible to disentangle. Prior user-level eBPF systems tried re-implementing the entire eBPF technology stack and ultimately failed to provide reasonable performance and compatibility.
-
-Instead, bpftime takes a different approach. We identify a narrow waist in the current eBPF ecosystem and interpose at that point. Specifically, we intercept eBPF-related system call, and use the shared map mechanism for data sharing between extensions, applications, and kernel eBPF. This lets us reuse the proven eBPF ecosystem while adding just the minimal new components needed for userspace deployment.
-
-So, Here's how bpftime works at a high level. We intercept eBPF application system calls before they reach the kernel. Our loader converts EIM policies into bytecode assertions and feeds everything through the kernel's proven eBPF verifier for safety guarantees. After JIT compilation to native code, we use dynamic binary rewriting to patch trampolines into the target application only when extensions are actually loaded. At runtime, we use memory protection keys to protect and execute the extension.
- -->
-
-<p><a class="md-button" href="https://x.com/intent/tweet?text=Speech%20Script%20for%20OSDI%202025%20bpftime%20talk%20%22Extending%20Applications%20Safely%20and%20Efficiently%22%0A&amp;url=https://eunomia.dev/en/others/miscellaneous/osdi-talk_bak/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
-<a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/en/others/miscellaneous/osdi-talk_bak/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
+<h2 id="goals-for-a-12min-slot">Goals (for a 12‑min slot)</h2>
+<ul>
+<li>Land the problem: today’s NF trade‑off (kernel eBPF vs kernel‑bypass).</li>
+<li>State the idea in one line: <em>run verified XDP programs in userspace without recompiling</em>.</li>
+<li>Show the shape of the system: control plane + runtime, DPDK &amp; AF_XDP modes.</li>
+<li>One slide of profiling insight (why these optimizations matter).</li>
+<li>Three slides of results: throughput, latency, ablations.</li>
+<li>Close with limits + what’s next.</li>
+</ul>
+<p><strong>Pacing:</strong> ~55–60 s/slide × 12 slides ≈ 11–12 min.</p>
+<p><strong>Script length target:</strong> 1,200–1,400 words (spoken). On‑slide text ≤30–40 words/slide.</p>
+<hr />
+<h2 id="timeline-minutebyminute">Timeline (minute‑by‑minute)</h2>
+<p>0:00 Title &amp; hook (0:45)
+0:45 Problem trade‑off (0:50)
+1:35 Our idea &amp; contributions (0:55)
+2:30 Background &amp; control plane pain (0:55)
+3:25 Profiling insight (0:55)
+4:20 Design overview &amp; modes (1:10)
+5:30 Optimizations I — inline helpers/maps (1:05)
+6:35 Optimizations II — LLVM IR path (1:00)
+7:35 Implementation highlights (0:55)
+8:30 Eval setup (0:50)
+9:20 Results — throughput/latency (1:30)
+10:50 Ablations &amp; takeaways; limits &amp; future (1:10)
+12:00 End.</p>
+<hr />
+<h2 id="slidebyslide-outline-with-speaker-notes">Slide‑by‑slide outline with speaker notes</h2>
+<h3 id="1-title-uxdp-frictionless-xdp-deployments-in-userspace">1) Title — <em>uXDP: Frictionless XDP Deployments in Userspace</em></h3>
+<p><strong>On slide</strong></p>
+<ul>
+<li>uXDP: run verified XDP in userspace</li>
+<li>No source changes, no recompile</li>
+<li>DPDK &amp; AF_XDP modes</li>
+</ul>
+<p><strong>Speaker notes (~90–110 words)</strong>
+Hi everyone, I’m Yusheng. This talk is about uXDP: we keep the eBPF/XDP development model you already use, but execute the verified program in userspace. So you don’t maintain a separate userspace NF codebase. You get the verifier’s safety, maps, and control‑plane workflows, while opening the door to userspace optimizations—JIT/AOT, SIMD, etc. The headline: with the same eBPF binary, we saw up to <strong>3.3×</strong> throughput over in‑kernel execution on simple NFs, and <strong>+40%</strong> on Katran. I’ll show why this is possible, how the system looks, and what the data says.</p>
+<hr />
+<h3 id="2-problem-todays-nf-tradeoff">2) Problem: today’s NF trade‑off</h3>
+<p><strong>On slide</strong></p>
+<ul>
+<li>Kernel eBPF: safe, portable, easy ops → performance ceiling</li>
+<li>Kernel‑bypass: fast → fragmented, harder to verify/operate</li>
+<li>We want both</li>
+</ul>
+<p><strong>Speaker notes (~80–100 words)</strong>
+In production you choose between two worlds. Kernel eBPF/XDP integrates well: verifier, maps, tooling, and easy rollout. But running inside the kernel constrains optimization—no SIMD, interrupt‑driven costs, helper call overhead. Kernel‑bypass frameworks like DPDK/VPP remove those limits but bring their own complexity and safety risks, and often need dedicated NIC resources. Teams end up re‑implementing logic in C for userspace, duplicating control plane code. The gap is not small—especially for complex NFs like load balancers. uXDP aims to combine the safety and workflows of eBPF with the performance headroom of userspace.</p>
+<hr />
+<h3 id="3-idea-contributions">3) Idea &amp; contributions</h3>
+<p><strong>On slide</strong></p>
+<ul>
+<li>Run <strong>unmodified</strong> verified XDP in userspace</li>
+<li>Keep verifier, maps, control‑plane workflows</li>
+<li>Two modes: <strong>DPDK</strong> and <strong>AF_XDP</strong></li>
+<li>Optimizations: <strong>inline helpers/maps</strong>, LLVM‑IR path</li>
+<li>Results: up to <strong>3.3×</strong>; Katran <strong>+40%</strong></li>
+</ul>
+<p><strong>Speaker notes (~80–100 words)</strong>
+The core idea: take the verified XDP program and move execution to userspace—without touching the source or bypassing safety. We support DPDK and AF_XDP. We add optimizations that are hard in‑kernel: inlining common helpers and map access, and an LLVM IR path that preserves types and enables better register allocation and vectorization. The same eBPF binary is still verified by the kernel; we just execute a native version in userspace. In our tests, simple NFs hit up to 3.3× throughput gains, and Katran improves by about 40%.</p>
+<hr />
+<h3 id="4-background-controlplane-pain">4) Background &amp; control‑plane pain</h3>
+<p><strong>On slide</strong></p>
+<ul>
+<li>eBPF/XDP verifier &amp; maps</li>
+<li>Control plane: libbpf/libxdp, dynamic map updates</li>
+<li>Userspace NFs often duplicate this logic</li>
+</ul>
+<p><strong>Speaker notes (~80–90 words)</strong>
+Most real deployments have a userspace control plane that loads programs, updates maps, and reads stats. Katran is a good example. That plumbing is mature in the eBPF world. But when moving to userspace packet processing, teams must re‑implement policy/data‑plane split and safety checks. AF_XDP reduces some friction by exposing packets to userspace, but you still carry correctness and maintenance burden. uXDP keeps the verified program and the familiar control plane, so you don’t rewrite those parts.</p>
+<hr />
+<h3 id="5-why-this-should-work-profiling-insight">5) Why this should work: profiling insight</h3>
+<p><strong>On slide</strong></p>
+<ul>
+<li>Katran: ~67% time in program; rest in driver</li>
+<li>~50% program time in map/helper calls</li>
+<li>Opportunity: inline + better codegen</li>
+</ul>
+<p><strong>Speaker notes (~85–100 words)</strong>
+We profiled Katran. About two‑thirds of CPU time is inside the XDP program, and within that, around half sits in helper and map calls. That suggests two levers: reduce call overhead and expose more code to the optimizer. In kernel space, the verifier and calling conventions limit inlining and vectorization. In userspace, with the same semantics, we can inline common helpers and map access for ARRAY/HASH maps, and let LLVM optimize across boundaries. This is where a lot of the speedup comes from.</p>
+<hr />
+<h3 id="6-design-overview-deployment-modes">6) Design overview &amp; deployment modes</h3>
+<p><strong>On slide</strong></p>
+<ul>
+<li>Two processes: <strong>control</strong> &amp; <strong>data</strong> share maps/metadata</li>
+<li>Userspace eBPF runtime (bpftime‑based)</li>
+<li><strong>DPDK</strong>: full userspace RX/TX</li>
+<li><strong>AF_XDP</strong>: kernel forwards frames to socket</li>
+</ul>
+<p><strong>Speaker notes (~95–110 words)</strong>
+uXDP has a control process that loads and verifies the eBPF program, and a data process that runs it. They share maps and metadata via shared memory. The runtime builds on bpftime—fast JIT/AOT and map management—and we extended it for XDP helpers and map types like LPM_TRIE, LRU_HASH, ARRAY_OF_MAPS, DEVMAP. For deployment, you can run fully in userspace with DPDK, or use AF_XDP where a small kernel XDP program redirects frames to userspace queues. Both keep the eBPF program and control plane as‑is.</p>
+<hr />
+<h3 id="7-optimizations-i-inline-helpers-maps">7) Optimizations I — inline helpers &amp; maps</h3>
+<p><strong>On slide</strong></p>
+<ul>
+<li>Inline common helpers (e.g., xdp_load/store, csum, adjust_head/tail)</li>
+<li>Inline ARRAY map as globals; HASH via inlined helpers</li>
+<li>Benefits: fewer calls, const folding, loop unrolling, better register use</li>
+</ul>
+<p><strong>Speaker notes (~90–110 words)</strong>
+We provide LLVM IR for common helpers and for map access. During JIT/AOT we merge that IR and mark it always‑inline. Now the optimizer sees across call boundaries. With constants, it can fold checks away. In loops, it can unroll and schedule better. For ARRAY maps, accesses become normal memory reads/writes. For HASH maps we still use helpers, but inlined versions reduce overhead. After JIT/AOT, we emit a native binary. Optionally, we can freeze selected maps as read‑only so constants propagate further.</p>
+<hr />
+<h3 id="8-optimizations-ii-llvm-ir-path">8) Optimizations II — LLVM IR path</h3>
+<p><strong>On slide</strong></p>
+<ul>
+<li>Package <strong>original LLVM IR</strong> with verified bytecode</li>
+<li>Verify safety with bytecode; codegen from IR</li>
+<li>Better reg alloc, data layout, <strong>SIMD</strong></li>
+</ul>
+<p><strong>Speaker notes (~85–100 words)</strong>
+eBPF bytecode is great for verification but loses types and layout hints. When we can, we ship the original LLVM IR inside the ELF alongside the bytecode. At load time we still ask the kernel to verify the bytecode for safety, but we generate native code from the IR. That improves register allocation and unlocks things like <code>llvm.memcpy</code> and vector ops. We can sign the IR; if the toolchain is untrusted, we can check equivalence with Alive2 against IR lifted from bytecode.</p>
+<hr />
+<h3 id="9-implementation-highlights">9) Implementation highlights</h3>
+<p><strong>On slide</strong></p>
+<ul>
+<li>~3.9K LOC runtime/loader (C/C++), Python tools, IR libs</li>
+<li>bpftime extensions: XDP helpers, map types, bpf_link</li>
+<li>CO‑RE/BTF to fix xdp_md pointer width</li>
+</ul>
+<p><strong>Speaker notes (~80–95 words)</strong>
+We extended bpftime to attach XDP programs via bpf_link and to support XDP helper set and NIC‑related maps. A small but important detail: in kernel, <code>xdp_md</code> uses 32‑bit offsets; userspace needs 64‑bit pointers. We use CO‑RE and a custom BTF so the same bytecode runs both places. The loader verifies bytecode, lifts or imports IR, applies inlining passes, then uses <code>opt</code>/<code>llc</code> for native code. Maps live in shared memory so the control plane can update them as usual.</p>
+<hr />
+<h3 id="10-evaluation-setup">10) Evaluation setup</h3>
+<p><strong>On slide</strong></p>
+<ul>
+<li>2× CX‑6 Dx 100G, back‑to‑back; Xeon 5318N (24C/48T)</li>
+<li>Linux 6.7.10 (DUT), pktgen on peer</li>
+<li>64B TCP / 128B ICMP; 1 core per NF</li>
+<li>Workloads: Linux samples + Katran + open‑source NFs</li>
+</ul>
+<p><strong>Speaker notes (~70–85 words)</strong>
+Two servers with dual‑port CX‑6 Dx 100G, back‑to‑back. Xeon 5318N, single NUMA node. DUT runs the NF; the other runs pktgen. We include simple NFs (xdp_tx, xdping, xdp_adjust_tail), tools like xdp_httpdump, and Katran. We compare kernel driver/SKB modes with AF_XDP and DPDK. Single core for fairness. We also report unloaded latency on xdp_tx.</p>
+<hr />
+<h3 id="11-results-throughput-latency">11) Results — throughput &amp; latency</h3>
+<p><strong>On slide</strong></p>
+<ul>
+<li>DPDK highest throughput across NFs</li>
+<li>AF_XDP &gt; driver for complex NFs (better codegen)</li>
+<li>Latency: DPDK lowest; AF_XDP slightly above driver</li>
+<li>Katran: +40%; simple NFs up to 3.3×</li>
+</ul>
+<p><strong>Speaker notes (~110–130 words)</strong>
+Throughput: DPDK leads, as expected from poll‑mode. The interesting part is AF_XDP: for complex NFs like Katran and load balancers, AF_XDP beats kernel driver mode, even though AF_XDP still crosses the kernel boundary—because the userspace execution lets us inline and generate better native code. For simple NFs, kernel driver mode can still be competitive with AF_XDP, but DPDK is best. Latency with xdp_tx: DPDK is the lowest; AF_XDP is a bit higher than driver, but still reasonable. Overall, with the same eBPF binary, we saw up to 3.3× for simple NFs and around 40% for Katran.</p>
+<hr />
+<h3 id="12-ablations-limits-and-whats-next">12) Ablations, limits, and what’s next</h3>
+<p><strong>On slide</strong></p>
+<ul>
+<li>Inlining + LLVM IR path add big gains (Katran +83% vs AOT baseline)</li>
+<li>One caveat: branch prediction overhead on a small NF</li>
+<li>Today: DROP/TX only; next: reinject to kernel</li>
+<li>Idea: upstream some optimizations (FPU save, etc.)</li>
+</ul>
+<p><strong>Speaker notes (~110–130 words)</strong>
+Ablation shows where the speedup comes from: inlining helpers/maps and compiling from LLVM IR stack up. On Katran, the ablations add ~83% throughput over an AOT baseline that already beats the kernel. There is a corner where inlining slightly hurts due to branch prediction, but it’s small. Current limitation: in this version we support XDP_DROP and XDP_TX. Reinjecting to the kernel path is planned so we can compose with other kernel eBPF programs. Longer‑term, parts of these ideas could move into the kernel—e.g., enabling vector code with proper state save. <strong>Takeaway:</strong> uXDP keeps your verifier and workflows, but opens userspace headroom without changing your code.</p>
+<hr />
+<h2 id="oneliner-and-closing">One‑liner and closing</h2>
+<ul>
+<li><strong>One‑liner:</strong> <em>uXDP runs your verified XDP programs in userspace, no code changes, with DPDK or AF_XDP, and speeds up real NFs.</em></li>
+<li><strong>Ask:</strong> try it on your NF; we’d love feedback on reinjection and multi‑core scaling.</li>
+</ul>
+<hr />
+<h2 id="qa-cheatsheet-expected-questions">Q\&amp;A cheat‑sheet (expected questions)</h2>
+<p><strong>Safety if it’s userspace?</strong> Bytecode is still verified; runtime mirrors helper/map semantics; crashes don’t take the kernel down.
+<strong>Map semantics: per‑CPU, LRU, etc.?</strong> Implemented to match kernel behavior; ARRAY globals, HASH via inlined helpers; shared memory for control plane.
+<strong>xdp_md pointer widths?</strong> CO‑RE/BTF shim so same bytecode works; offsets handled correctly.
+<strong>Why not AF_XDP alone?</strong> AF_XDP is transport; uXDP executes the verified program and preserves workflows, plus codegen/inlining wins.
+<strong>Why not write DPDK NFs directly?</strong> You lose verifier/tooling and need a separate codebase; uXDP keeps one source and safety model.
+<strong>Can it run without kernel eBPF?</strong> You still need verifier and minimal hooks; offline AOT can produce native binary once verified.
+<strong>CPU/power?</strong> Poll‑mode costs more power; AF_XDP offers a middle ground.
+<strong>Multi‑core and NUMA?</strong> Maps per‑CPU supported; scaling across cores is straightforward; NUMA pinning recommended.
+<strong>Zero‑copy vs copy in AF_XDP?</strong> We support both; zero‑copy depends on NIC/driver; gains persist in both modes.
+<strong>SIMD correctness?</strong> Only inlined code; verifier‑visible semantics preserved; Alive2 checks can be used.</p>
+<hr />
+<h2 id="slide-building-tips">Slide building tips</h2>
+<ul>
+<li>Max 4 bullets, 1–2 lines each; 32–36 pt text.</li>
+<li>Plots: large labels; annotate 1 takeaway per plot.</li>
+<li>Dark theme, high contrast; no code on slides (just keywords).</li>
+<li>Show only two numbers: <em>3.3×</em> and <em>+40%</em>.</li>
+</ul>
+<hr />
+<h2 id="rehearsal-plan-word-budget">Rehearsal plan &amp; word budget</h2>
+<ul>
+<li>Aim for <strong>~1,300 words</strong> spoken. Print the notes, but don’t read; use the bolded phrases as anchors.</li>
+<li>Do a 10‑min dry run first; then add the missing 2 min with results &amp; takeaways.</li>
+<li>Time checkpoints: slide 6 at ~5:30, slide 11 at ~9:20.</li>
+</ul>
+<hr />
+<h2 id="backup-slides-if-allowed">Backup slides (if allowed)</h2>
+<ul>
+<li>Flamegraph details.</li>
+<li>Loader/JIT pipeline with IR snippets.</li>
+<li>Map layout and shared‑memory schema.</li>
+<li>Extra results: per‑packet size, zero‑copy vs copy.</li>
+</ul>
+<hr />
+<h2 id="optional-closing-script-2025-s">Optional closing script (20–25 s)</h2>
+<p>“uXDP keeps what’s good about XDP—safety, maps, workflows—and gives you userspace performance without a second codebase. Same binary, better codegen. We’ll release reinjection soon; if you run big NFs, we’d love to test with you.”</p>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=uXDP%3A%20Frictionless%20XDP%20Deployments%20in%20Userspace%20%E2%80%94%2012%E2%80%91min%20talk%0A&amp;url=https://eunomia.dev/others/miscellaneous/ebpf-uxdp-workshop-talk/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/others/miscellaneous/ebpf-uxdp-workshop-talk/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
 
@@ -8769,7 +8894,7 @@ So, Here's how bpftime works at a high level. We intercept eBPF application syst
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 9, 2025 03:49:13 UTC">July 9, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 2, 2025 10:00:11 UTC">September 2, 2025</span>
   </span>
 
     
@@ -8779,7 +8904,7 @@ So, Here's how bpftime works at a high level. We intercept eBPF application syst
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 17, 2025 09:08:33 UTC">June 17, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 2, 2025 10:00:11 UTC">September 2, 2025</span>
   </span>
 
     
@@ -8794,7 +8919,7 @@ So, Here's how bpftime works at a high level. We intercept eBPF application syst
     </span>
     <nav>
       
-        <a href="mailto:yunwei356@gmail.com">yunwei37</a>
+        <a href="mailto:yangyiwei2000@gmail.com">victoryang00</a>
     </nav>
   </span>
 
@@ -8899,7 +9024,7 @@ So, Here's how bpftime works at a high level. We intercept eBPF application syst
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../osdi-talk/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Speech Script for OSDI 2025 bpftime talk &#34;Extending Applications Safely and Efficiently&#34;">
+          <a href="../ebpf-userspace-port/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 将用户态 eBPF 扩展到 MacOS、Windows、FreeBSD 等更多平台 - 操作系统大赛赛题">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -8909,20 +9034,20 @@ So, Here's how bpftime works at a high level. We intercept eBPF application syst
                 Previous
               </span>
               <div class="md-ellipsis">
-                Speech Script for OSDI 2025 bpftime talk "Extending Applications Safely and Efficiently"
+                将用户态 eBPF 扩展到 MacOS、Windows、FreeBSD 等更多平台 - 操作系统大赛赛题
               </div>
             </div>
           </a>
         
         
           
-          <a href="../roadmap/" class="md-footer__link md-footer__link--next" aria-label="Next: bpftime roadmap and ideas for 2024">
+          <a href="../gsoc-ospp/" class="md-footer__link md-footer__link--next" aria-label="Next: GSOC - OSPP draft proposal">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                bpftime roadmap and ideas for 2024
+                GSOC - OSPP draft proposal
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -8983,12 +9108,12 @@ So, Here's how bpftime works at a high level. We intercept eBPF application syst
     
     
       
-      <script id="__config" type="application/json">{"base": "../../../..", "features": ["search.suggest", "search.highlight", "search.share", "navigation.footer", "navigation.instant", "navigation.instant.progress", "navigation.tabs", "navigation.expand", "navigation.path", "navigation.top", "content.tabs.link", "content.action.edit", "content.action.view"], "search": "../../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["search.suggest", "search.highlight", "search.share", "navigation.footer", "navigation.instant", "navigation.instant.progress", "navigation.tabs", "navigation.expand", "navigation.path", "navigation.top", "content.tabs.link", "content.action.edit", "content.action.view"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
 <script src="https://cdn.usefathom.com/script.js" data-site="ZLDAHRNN" defer></script>
 
-      <script src="../../../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.92b07e13.min.js"></script>
       
     
 
