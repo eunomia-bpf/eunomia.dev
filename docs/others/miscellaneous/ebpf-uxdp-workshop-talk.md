@@ -32,8 +32,8 @@
 6:10 How We Optimize (1:00)
 7:10 Implementation highlights (0:50)
 8:00 Eval setup (0:40)
-8:40 Results: Throughput (1:00)
-9:40 Results: Latency & Ablations (1:25)
+8:40 Results: Throughput & Latency (1:30)
+10:10 Results: Optimization Ablations (0:55)
 11:05 Conclusion (0:55)
 12:00 End.
 
@@ -183,32 +183,33 @@ Our evaluation seeks to answer three key questions, taken directly from our pape
 
 ---
 
-### 11) Results: Throughput
+### 11) Results: Throughput & Latency
 
 **On slide**
 
-- **Show Figure 4: Throughput Graph**
-- DPDK is fastest across the board.
-- Key finding: AF_XDP > Kernel Driver for complex NFs.
+- **Show Figure 4 (Throughput) & 5 (Latency)**
+- **Throughput:** DPDK is fastest; AF_XDP > Kernel for complex NFs.
+- **Latency:** DPDK is lowest; AF_XDP is reasonable.
 - Katran: **+40%**; Simple NFs: up to **3.3x**.
 
-**Speaker notes (~90–110 words)**
-This graph shows our main throughput results. As you'd expect, DPDK mode consistently delivered the highest performance because of its poll-mode driver. But the really interesting result is with AF_XDP. For complex NFs like Katran and the firewall, AF_XDP actually beats the native kernel driver mode. This is a powerful finding. It means that even with the overhead of crossing the kernel-userspace boundary, our userspace optimizations like better code generation and inlining can win out. For simpler NFs, the kernel driver is still competitive, but DPDK is the clear winner. Overall, we saw a 40% improvement for Katran and up to 3.3x for simple NFs, all with the same eBPF binary.
+**Speaker notes (~110–120 words)**
+Our main results are shown here. The graph on the left shows throughput. As expected, DPDK is the top performer across all workloads. But the key finding is that for complex NFs like Katran, our AF_XDP mode is faster than the native kernel driver. This is significant because it shows our userspace optimizations can overcome the cost of the kernel-userspace transition. We see a 40% gain for Katran and up to 3.3x for simpler functions.
+
+The graph on the right shows unloaded latency for a simple echo NF. Again, DPDK is the lowest. AF_XDP has slightly higher latency than the kernel, but it remains in a very reasonable range, making it a viable option for latency-sensitive workloads that also demand high throughput.
 
 ---
 
-### 12) Results: Latency & Ablations
+### 12) Results: Optimization Ablations
 
 **On slide**
 
-- **Show Figure 5 (Latency) & Figure 6 (Ablations)**
-- Latency: DPDK lowest, AF_XDP reasonable.
-- Ablations: Inlining + LLVM IR path are key.
+- **Show Figure 6 (Ablations)**
+- Where does the speedup come from?
+- Inlining + LLVM IR path are key.
+- Together: **+83%** boost for Katran over baseline AOT.
 
-**Speaker notes (~90–110 words)**
-On the left, you can see unloaded latency for a simple echo NF. DPDK is the lowest, while AF_XDP is slightly higher than the kernel driver, but still very reasonable.
-
-On the right, our ablation study shows where the speedup comes from. This graph shows the performance for Katran with different optimizations enabled. The combination of inlining and compiling from the original LLVM IR are the biggest contributors. Together, these optimizations provided an **83% throughput boost** over a baseline ahead-of-time compiled version that already beats the kernel. This confirms that our userspace compilation strategy is the key to unlocking this performance.
+**Speaker notes (~90–100 words)**
+So where does this performance boost actually come from? Our ablation study on Katran, shown here, breaks it down. We started with a baseline AOT-compiled version, which already beats the kernel, and then enabled our optimizations one by one. The results are clear: the combination of inlining helper functions and compiling from the original LLVM IR are the biggest contributors to the speedup. Together, these two techniques gave us an 83% throughput increase over the baseline. This confirms that our core optimization strategy is effective and is the key to unlocking this new level of performance.
 
 ---
 
