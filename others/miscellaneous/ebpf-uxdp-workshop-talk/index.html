@@ -8115,9 +8115,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#10-evaluation-setup" class="md-nav__link">
+  <a href="#10-evaluation" class="md-nav__link">
     <span class="md-ellipsis">
-      10) Evaluation setup
+      10) Evaluation
     </span>
   </a>
   
@@ -8561,9 +8561,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#10-evaluation-setup" class="md-nav__link">
+  <a href="#10-evaluation" class="md-nav__link">
     <span class="md-ellipsis">
-      10) Evaluation setup
+      10) Evaluation
     </span>
   </a>
   
@@ -8816,16 +8816,18 @@ This diagram shows our two main optimization strategies. The first path, in blac
 <p><strong>Speaker notes (~80–95 words)</strong>
 Just a few implementation details. We extended the <code>bpftime</code> runtime to support attaching XDP programs via <code>bpf_link</code> and to handle the full set of XDP helpers and various map types. One small but critical detail was handling pointer widths. The <code>xdp_md</code> struct uses 32-bit offsets in the kernel, but userspace needs 64-bit pointers. We use CO-RE and a custom BTF definition to bridge this gap, allowing the same bytecode to run correctly in both environments. The loader handles verification, IR processing, and JIT compilation, while maps are placed in shared memory so the control plane can access them just like it always does.</p>
 <hr />
-<h3 id="10-evaluation-setup">10) Evaluation setup</h3>
+<h3 id="10-evaluation">10) Evaluation</h3>
 <p><strong>On slide</strong></p>
 <ul>
-<li>2× CX‑6 Dx 100G, back‑to‑back; Xeon 5318N (24C/48T)</li>
-<li>Linux 6.7.10 (DUT), pktgen on peer</li>
-<li>64B TCP / 128B ICMP; 1 core per NF</li>
-<li>Workloads: Linux samples + Katran + open‑source NFs</li>
+<li><strong>Key Questions:</strong></li>
+<li>Is there any development cost in porting existing XDP programs to uXDP?</li>
+<li>What is the performance benefit of running XDP in userspace on DPDK or AF_XDP?</li>
+<li>What is the impact of the proposed optimization techniques on the performance of eBPF XDP-based NFs?</li>
+<li><strong>Setup:</strong> 2x 100G NICs, Xeon CPU, connected back-to-back</li>
+<li><strong>Workloads:</strong> Linux samples + Katran + open-source NFs</li>
 </ul>
-<p><strong>Speaker notes (~70–85 words)</strong>
-For our evaluation, we used two servers connected back-to-back with dual-port 100-gigabit Mellanox ConnectX-6 Dx cards. The test machine has an Intel Xeon 5318N processor. One machine runs the network function while the other generates traffic with pktgen. We tested a variety of workloads, from simple Linux examples to more complex open-source NFs, including Katran. To ensure a fair comparison, we pinned each NF to a single CPU core. We'll look at both throughput and unloaded latency.</p>
+<p><strong>Speaker notes (~90–100 words)</strong>
+Our evaluation seeks to answer three key questions, taken directly from our paper. First: Is there any development cost in porting existing XDP programs to uXDP? Second: What is the performance benefit of running XDP in userspace on DPDK or AF_XDP? And third: What is the impact of the proposed optimization techniques on the performance of eBPF XDP-based NFs? To answer these, we used a testbed with 100-gigabit NICs to test workloads from simple packet forwarders to Katran. The next slides will detail our findings.</p>
 <hr />
 <h3 id="11-results-throughput">11) Results: Throughput</h3>
 <p><strong>On slide</strong></p>
@@ -8927,7 +8929,7 @@ To summarize, today's network functions force a difficult choice between the saf
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 2, 2025 13:12:01 UTC">September 2, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 2, 2025 13:20:59 UTC">September 2, 2025</span>
   </span>
 
     
