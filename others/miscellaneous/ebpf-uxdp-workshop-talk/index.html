@@ -8771,7 +8771,7 @@ Here's a high-level look at uXDP's design, which is shown in the diagram. It has
 <li><strong>Path 2 (Orange)</strong>: Use original LLVM IR -&gt; Inline -&gt; Better Native Code (SIMD)</li>
 </ul>
 <p><strong>Speaker notes (~100–120 words)</strong>
-This diagram shows our two main optimization strategies. The first path, in black, works even without the original source code. We lift the verified eBPF bytecode to LLVM IR, and then we do something the kernel can't—we aggressively inline our own IR implementations of common helpers and map lookups. This allows the compiler to see across call boundaries and generate much more efficient native code.</p>
+This diagram shows our two main optimization strategies. The first path, in black, works even without the original source code. We lift the verified eBPF bytecode to LLVM IR, and then we can do something the kernel can't. we aggressively inline our own IR implementations of common helpers and map lookups. This allows the compiler to see across call boundaries and generate much more efficient native code.</p>
 <p>The second path, in orange, is even more powerful. When we have access to the original LLVM IR from the compiler, we package it with the bytecode. We still have the kernel verify the bytecode for safety, but we generate the final native code from the much richer IR. This preserves type information and data layout, leading to better register allocation and unlocking advanced optimizations like SIMD.</p>
 <hr />
 <h3 id="8-implementation-highlights">8) Implementation highlights</h3>
@@ -8804,7 +8804,7 @@ For our evaluation, we used two servers connected back-to-back with dual-port 10
 <li>Katran: <strong>+40%</strong>; Simple NFs: up to <strong>3.3x</strong>.</li>
 </ul>
 <p><strong>Speaker notes (~90–110 words)</strong>
-This graph shows our main throughput results. As you'd expect, DPDK mode consistently delivered the highest performance because of its poll-mode driver. But the really interesting result is with AF_XDP. For complex NFs like Katran and the firewall, AF_XDP actually beats the native kernel driver mode. This is a powerful finding. It means that even with the overhead of crossing the kernel-userspace boundary, our userspace optimizations—better code generation and inlining—win out. For simpler NFs, the kernel driver is still competitive, but DPDK is the clear winner. Overall, we saw a 40% improvement for Katran and up to 3.3x for simple NFs, all with the same eBPF binary.</p>
+This graph shows our main throughput results. As you'd expect, DPDK mode consistently delivered the highest performance because of its poll-mode driver. But the really interesting result is with AF_XDP. For complex NFs like Katran and the firewall, AF_XDP actually beats the native kernel driver mode. This is a powerful finding. It means that even with the overhead of crossing the kernel-userspace boundary, our userspace optimizations like better code generation and inlining can win out. For simpler NFs, the kernel driver is still competitive, but DPDK is the clear winner. Overall, we saw a 40% improvement for Katran and up to 3.3x for simple NFs, all with the same eBPF binary.</p>
 <hr />
 <h3 id="11-results-latency-ablations">11) Results: Latency &amp; Ablations</h3>
 <p><strong>On slide</strong></p>
@@ -8895,7 +8895,7 @@ So what are the current limitations? Right now, we only support XDP_DROP and XDP
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 2, 2025 11:47:07 UTC">September 2, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 2, 2025 12:06:40 UTC">September 2, 2025</span>
   </span>
 
     
