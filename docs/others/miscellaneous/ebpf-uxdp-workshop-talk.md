@@ -167,17 +167,19 @@ Just a few implementation details. We extended the `bpftime` runtime to support 
 
 ---
 
-### 10) Evaluation setup
+### 10) Evaluation
 
 **On slide**
 
-- 2× CX‑6 Dx 100G, back‑to‑back; Xeon 5318N (24C/48T)
-- Linux 6.7.10 (DUT), pktgen on peer
-- 64B TCP / 128B ICMP; 1 core per NF
-- Workloads: Linux samples + Katran + open‑source NFs
+- **Key Questions:**
+  - Is there any development cost in porting existing XDP programs to uXDP?
+  - What is the performance benefit of running XDP in userspace on DPDK or AF_XDP?
+  - What is the impact of the proposed optimization techniques on the performance of eBPF XDP-based NFs?
+- **Setup:** 2x 100G NICs, Xeon CPU, connected back-to-back
+- **Workloads:** Linux samples + Katran + open-source NFs
 
-**Speaker notes (~70–85 words)**
-For our evaluation, we used two servers connected back-to-back with dual-port 100-gigabit Mellanox ConnectX-6 Dx cards. The test machine has an Intel Xeon 5318N processor. One machine runs the network function while the other generates traffic with pktgen. We tested a variety of workloads, from simple Linux examples to more complex open-source NFs, including Katran. To ensure a fair comparison, we pinned each NF to a single CPU core. We'll look at both throughput and unloaded latency.
+**Speaker notes (~90–100 words)**
+Our evaluation seeks to answer three key questions, taken directly from our paper. First: Is there any development cost in porting existing XDP programs to uXDP? Second: What is the performance benefit of running XDP in userspace on DPDK or AF_XDP? And third: What is the impact of the proposed optimization techniques on the performance of eBPF XDP-based NFs? To answer these, we used a testbed with 100-gigabit NICs to test workloads from simple packet forwarders to Katran. The next slides will detail our findings.
 
 ---
 
