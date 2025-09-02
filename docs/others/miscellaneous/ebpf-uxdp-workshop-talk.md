@@ -118,7 +118,7 @@ So, what was the technical motivation for our approach? We started by profiling 
 - Real-world NFs have: complex control planes (e.g., Katran)​
   - Maps to interact with kernel eBPF programs​
   - Multiple Syscalls​
-  - Complex Libraries like libbpf​
+  - Complex userspace Libraries and logic​
 - Moving to userspace means rewriting all of it.
 
 **Speaker notes (~80–90 words)**
