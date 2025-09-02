@@ -8124,18 +8124,18 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#11-results-throughput" class="md-nav__link">
+  <a href="#11-results-throughput-latency" class="md-nav__link">
     <span class="md-ellipsis">
-      11) Results: Throughput
+      11) Results: Throughput &amp; Latency
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#12-results-latency-ablations" class="md-nav__link">
+  <a href="#12-results-optimization-ablations" class="md-nav__link">
     <span class="md-ellipsis">
-      12) Results: Latency &amp; Ablations
+      12) Results: Optimization Ablations
     </span>
   </a>
   
@@ -8570,18 +8570,18 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#11-results-throughput" class="md-nav__link">
+  <a href="#11-results-throughput-latency" class="md-nav__link">
     <span class="md-ellipsis">
-      11) Results: Throughput
+      11) Results: Throughput &amp; Latency
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#12-results-latency-ablations" class="md-nav__link">
+  <a href="#12-results-optimization-ablations" class="md-nav__link">
     <span class="md-ellipsis">
-      12) Results: Latency &amp; Ablations
+      12) Results: Optimization Ablations
     </span>
   </a>
   
@@ -8714,8 +8714,8 @@
 6:10 How We Optimize (1:00)
 7:10 Implementation highlights (0:50)
 8:00 Eval setup (0:40)
-8:40 Results: Throughput (1:00)
-9:40 Results: Latency &amp; Ablations (1:25)
+8:40 Results: Throughput &amp; Latency (1:30)
+10:10 Results: Optimization Ablations (0:55)
 11:05 Conclusion (0:55)
 12:00 End.</p>
 <hr />
@@ -8829,27 +8829,28 @@ Just a few implementation details. We extended the <code>bpftime</code> runtime 
 <p><strong>Speaker notes (~90–100 words)</strong>
 Our evaluation seeks to answer three key questions, taken directly from our paper. First: Is there any development cost in porting existing XDP programs to uXDP? Second: What is the performance benefit of running XDP in userspace on DPDK or AF_XDP? And third: What is the impact of the proposed optimization techniques on the performance of eBPF XDP-based NFs? To answer these, we used a testbed with 100-gigabit NICs to test workloads from simple packet forwarders to Katran. The next slides will detail our findings.</p>
 <hr />
-<h3 id="11-results-throughput">11) Results: Throughput</h3>
+<h3 id="11-results-throughput-latency">11) Results: Throughput &amp; Latency</h3>
 <p><strong>On slide</strong></p>
 <ul>
-<li><strong>Show Figure 4: Throughput Graph</strong></li>
-<li>DPDK is fastest across the board.</li>
-<li>Key finding: AF_XDP &gt; Kernel Driver for complex NFs.</li>
+<li><strong>Show Figure 4 (Throughput) &amp; 5 (Latency)</strong></li>
+<li><strong>Throughput:</strong> DPDK is fastest; AF_XDP &gt; Kernel for complex NFs.</li>
+<li><strong>Latency:</strong> DPDK is lowest; AF_XDP is reasonable.</li>
 <li>Katran: <strong>+40%</strong>; Simple NFs: up to <strong>3.3x</strong>.</li>
 </ul>
-<p><strong>Speaker notes (~90–110 words)</strong>
-This graph shows our main throughput results. As you'd expect, DPDK mode consistently delivered the highest performance because of its poll-mode driver. But the really interesting result is with AF_XDP. For complex NFs like Katran and the firewall, AF_XDP actually beats the native kernel driver mode. This is a powerful finding. It means that even with the overhead of crossing the kernel-userspace boundary, our userspace optimizations like better code generation and inlining can win out. For simpler NFs, the kernel driver is still competitive, but DPDK is the clear winner. Overall, we saw a 40% improvement for Katran and up to 3.3x for simple NFs, all with the same eBPF binary.</p>
+<p><strong>Speaker notes (~110–120 words)</strong>
+Our main results are shown here. The graph on the left shows throughput. As expected, DPDK is the top performer across all workloads. But the key finding is that for complex NFs like Katran, our AF_XDP mode is faster than the native kernel driver. This is significant because it shows our userspace optimizations can overcome the cost of the kernel-userspace transition. We see a 40% gain for Katran and up to 3.3x for simpler functions.</p>
+<p>The graph on the right shows unloaded latency for a simple echo NF. Again, DPDK is the lowest. AF_XDP has slightly higher latency than the kernel, but it remains in a very reasonable range, making it a viable option for latency-sensitive workloads that also demand high throughput.</p>
 <hr />
-<h3 id="12-results-latency-ablations">12) Results: Latency &amp; Ablations</h3>
+<h3 id="12-results-optimization-ablations">12) Results: Optimization Ablations</h3>
 <p><strong>On slide</strong></p>
 <ul>
-<li><strong>Show Figure 5 (Latency) &amp; Figure 6 (Ablations)</strong></li>
-<li>Latency: DPDK lowest, AF_XDP reasonable.</li>
-<li>Ablations: Inlining + LLVM IR path are key.</li>
+<li><strong>Show Figure 6 (Ablations)</strong></li>
+<li>Where does the speedup come from?</li>
+<li>Inlining + LLVM IR path are key.</li>
+<li>Together: <strong>+83%</strong> boost for Katran over baseline AOT.</li>
 </ul>
-<p><strong>Speaker notes (~90–110 words)</strong>
-On the left, you can see unloaded latency for a simple echo NF. DPDK is the lowest, while AF_XDP is slightly higher than the kernel driver, but still very reasonable.</p>
-<p>On the right, our ablation study shows where the speedup comes from. This graph shows the performance for Katran with different optimizations enabled. The combination of inlining and compiling from the original LLVM IR are the biggest contributors. Together, these optimizations provided an <strong>83% throughput boost</strong> over a baseline ahead-of-time compiled version that already beats the kernel. This confirms that our userspace compilation strategy is the key to unlocking this performance.</p>
+<p><strong>Speaker notes (~90–100 words)</strong>
+So where does this performance boost actually come from? Our ablation study on Katran, shown here, breaks it down. We started with a baseline AOT-compiled version, which already beats the kernel, and then enabled our optimizations one by one. The results are clear: the combination of inlining helper functions and compiling from the original LLVM IR are the biggest contributors to the speedup. Together, these two techniques gave us an 83% throughput increase over the baseline. This confirms that our core optimization strategy is effective and is the key to unlocking this new level of performance.</p>
 <hr />
 <h3 id="13-conclusion">13) Conclusion</h3>
 <p><strong>On slide</strong></p>
@@ -8929,7 +8930,7 @@ To summarize, today's network functions force a difficult choice between the saf
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 2, 2025 13:20:59 UTC">September 2, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 2, 2025 13:32:24 UTC">September 2, 2025</span>
   </span>
 
     
