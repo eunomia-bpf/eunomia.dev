@@ -27,7 +27,7 @@
 1:35 Problem trade‑off (0:50)
 2:25 Our idea (0:55)
 3:20 Our Motivation: A Profiling Insight (0:55)
-4:15 The Challenge: The Control Plane Problem (0:55)
+4:15 The Challenge: The Compatibility Problem (0:55)
 5:10 uXDP Architecture (1:00)
 6:10 How We Optimize (1:00)
 7:10 Implementation highlights (0:50)
@@ -115,12 +115,14 @@ So, what was the technical motivation for our approach? We started by profiling 
 
 **On slide**
 
-- Real-world NFs have complex control planes (e.g., Katran).
-- This logic is mature in the eBPF ecosystem (libbpf).
+- Real-world NFs have: complex control planes (e.g., Katran)​
+  - Maps to interact with kernel eBPF programs​
+  - Multiple Syscalls​
+  - Complex Libraries like libbpf​
 - Moving to userspace means rewriting all of it.
 
 **Speaker notes (~80–90 words)**
-But raw performance isn't the only problem. There's another major challenge in the userspace world, and that is the control plane. Most real-world eBPF deployments have a complex userspace control plane that handles loading programs, updating maps, and reading stats. All that plumbing is very mature in the eBPF ecosystem, but it's not trivial to replicate. For instance, even a basic tutorial XDP program can require hundreds of system calls to manage eBPF programs and maps. When teams move to userspace eBPF for packet processing, they often have to re-implement everything, like the userspace Katran library and the state management code. uXDP solves this by keeping the verified program and the familiar control plane, so you don't have to rewrite those critical, complex pieces.
+But raw performance isn't the only problem. Moving eBPF to userspace introduces a major compatibility challenge. It's not just about running the eBPF bytecode; it's about recreating the entire environment the program expects. The biggest part of this is the **control plane**. Most real-world eBPF deployments have a complex userspace control plane for loading programs, updating maps to reflect topology changes, and reading stats. For instance, even a basic tutorial XDP program can require hundreds of system calls to manage eBPF programs and maps. Replicating this, along with the semantics of map types and helper calls, is a huge effort. When teams move to a userspace dataplane, they often have to re-implement everything from map management to the program loader library in userspace. uXDP solves this compatibility problem by preserving the original, verified eBPF program and its familiar control plane, so you don't have to rewrite those critical pieces.
 
 ---
 
