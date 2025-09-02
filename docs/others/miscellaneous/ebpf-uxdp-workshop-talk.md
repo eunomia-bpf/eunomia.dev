@@ -34,7 +34,7 @@
 8:00 Eval setup (0:40)
 8:40 Results: Throughput (1:00)
 9:40 Results: Latency & Ablations (1:25)
-11:05 Limits & future (0:55)
+11:05 Conclusion (0:55)
 12:00 End.
 
 ---
@@ -210,18 +210,17 @@ On the right, our ablation study shows where the speedup comes from. This graph 
 
 ---
 
-### 13) Limits, and what’s next
+### 13) Conclusion
 
 **On slide**
 
-- Today: DROP/TX only; next: reinject to kernel (XDP_PASS)
-- Idea: Upstream some optimizations to the kernel? (e.g., FPU state save for SIMD)
-- Github: https://github.com/userspace-xdp/userspace-xdp
+- **Problem:** NFs face a trade-off: kernel safety & ecosystem vs. userspace speed.
+- **uXDP:** Runs verified XDP in userspace, no code changes.
+- **Combines:** eBPF's safety & workflows with userspace performance (DPDK/AF_XDP).
+- **Results:** Up to 3.3x speedup; +40% for Katran.
 
-**Speaker notes (~110–130 words)**
-So what are the current limitations? Right now, we only support XDP_DROP and XDP_TX actions. We're actively working on adding support for reinjecting packets back into the kernel networking stack, which will enable integration with the rest of the networking stack. Looking ahead, we think some of these ideas, like using SIMD with proper FPU state saving, could even be beneficial in the kernel itself.
-
-The key takeaway is that uXDP keeps your existing verifier and workflows, but unlocks userspace performance without forcing you to rewrite your code. We encourage you to try it out on your own network functions; we’d love to get your feedback.
+**Speaker notes (~90–110 words)**
+To summarize, today's network functions force a difficult choice between the safety and ecosystem of kernel eBPF and the raw performance of userspace frameworks. uXDP bridges this gap. We take your existing, verified XDP programs and run them in userspace without any code changes. This approach allows you to keep the entire eBPF control plane and safety guarantees you rely on, while unlocking significant performance gains through userspace-specific optimizations like JIT compilation and aggressive inlining. We've shown this can boost throughput by up to 3.3x for simple functions and provides a 40% improvement for a complex load balancer like Katran. The key takeaway is that with uXDP, you no longer have to choose. You can have the best of both worlds: the trusted eBPF development model and the performance of a dedicated userspace solution. We encourage you to try it out on your own network functions; we’d love to get your feedback.
 
 ---
 
