@@ -1913,14 +1913,6 @@
          
     </url>
     <url>
-         <loc>https://eunomia.dev/tutorials/43-kfuncs/module/</loc>
-         <lastmod>2025-09-24</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/43-kfuncs/module/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/43-kfuncs/module/"/>
-         
-    </url>
-    <url>
          <loc>https://eunomia.dev/tutorials/44-scx-simple/</loc>
          <lastmod>2025-09-24</lastmod>
          <changefreq>daily</changefreq>
@@ -1958,30 +1950,6 @@
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/48-energy/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/48-energy/"/>
-         
-    </url>
-    <url>
-         <loc>https://eunomia.dev/tutorials/48-energy/README_zh/</loc>
-         <lastmod>2025-09-24</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/48-energy/README_zh/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/48-energy/README_zh/"/>
-         
-    </url>
-    <url>
-         <loc>https://eunomia.dev/tutorials/48-energy/ebpf-energy/</loc>
-         <lastmod>2025-09-24</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/48-energy/ebpf-energy/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/48-energy/ebpf-energy/"/>
-         
-    </url>
-    <url>
-         <loc>https://eunomia.dev/tutorials/48-energy/%E8%83%BD%E6%BA%90%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E8%AF%A6%E8%A7%A3/</loc>
-         <lastmod>2025-09-24</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/48-energy/%E8%83%BD%E6%BA%90%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E8%AF%A6%E8%A7%A3/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/48-energy/%E8%83%BD%E6%BA%90%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E8%AF%A6%E8%A7%A3/"/>
          
     </url>
     <url>
@@ -2033,27 +2001,11 @@
          
     </url>
     <url>
-         <loc>https://eunomia.dev/tutorials/bcc-documents/kernel-versions_en/</loc>
-         <lastmod>2025-09-24</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/bcc-documents/kernel-versions_en/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/bcc-documents/kernel-versions_en/"/>
-         
-    </url>
-    <url>
          <loc>https://eunomia.dev/tutorials/bcc-documents/kernel_config/</loc>
          <lastmod>2025-09-24</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/bcc-documents/kernel_config/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/bcc-documents/kernel_config/"/>
-         
-    </url>
-    <url>
-         <loc>https://eunomia.dev/tutorials/bcc-documents/kernel_config_en/</loc>
-         <lastmod>2025-09-24</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/bcc-documents/kernel_config_en/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/bcc-documents/kernel_config_en/"/>
          
     </url>
     <url>
@@ -2065,27 +2017,11 @@
          
     </url>
     <url>
-         <loc>https://eunomia.dev/tutorials/bcc-documents/reference_guide_en/</loc>
-         <lastmod>2025-09-24</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/bcc-documents/reference_guide_en/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/bcc-documents/reference_guide_en/"/>
-         
-    </url>
-    <url>
          <loc>https://eunomia.dev/tutorials/bcc-documents/special_filtering/</loc>
          <lastmod>2025-09-24</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/bcc-documents/special_filtering/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/bcc-documents/special_filtering/"/>
-         
-    </url>
-    <url>
-         <loc>https://eunomia.dev/tutorials/bcc-documents/special_filtering_en/</loc>
-         <lastmod>2025-09-24</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/bcc-documents/special_filtering_en/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/bcc-documents/special_filtering_en/"/>
          
     </url>
     <url>
@@ -2105,43 +2041,11 @@
          
     </url>
     <url>
-         <loc>https://eunomia.dev/tutorials/bcc-documents/tutorial_bcc_python_developer_en/</loc>
-         <lastmod>2025-09-24</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/bcc-documents/tutorial_bcc_python_developer_en/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/bcc-documents/tutorial_bcc_python_developer_en/"/>
-         
-    </url>
-    <url>
-         <loc>https://eunomia.dev/tutorials/bcc-documents/tutorial_en/</loc>
-         <lastmod>2025-09-24</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/bcc-documents/tutorial_en/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/bcc-documents/tutorial_en/"/>
-         
-    </url>
-    <url>
          <loc>https://eunomia.dev/tutorials/bpftrace-tutorial/</loc>
          <lastmod>2025-09-24</lastmod>
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/bpftrace-tutorial/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/bpftrace-tutorial/"/>
-         
-    </url>
-    <url>
-         <loc>https://eunomia.dev/tutorials/scripts/guideline_advance/</loc>
-         <lastmod>2025-09-24</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/scripts/guideline_advance/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/scripts/guideline_advance/"/>
-         
-    </url>
-    <url>
-         <loc>https://eunomia.dev/tutorials/scripts/guideline_basic/</loc>
-         <lastmod>2025-09-24</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/scripts/guideline_basic/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/scripts/guideline_basic/"/>
          
     </url>
     <url>
