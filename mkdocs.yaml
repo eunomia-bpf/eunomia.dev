@@ -136,12 +136,13 @@ nav:
     - bpftime/documents/examples.md
     - bpftime/documents/available-features.md
     - ... | bpftime/**/*.md
+  - eBPF×AI/LLMs: 
+    - index.md
+    - GPTtrace/index.md
+    - ... | GPTtrace/**/*.md
   - eunomia-bpf:
     - eunomia-bpf/index.md
     - ... | eunomia-bpf/**/*.md
-  - GPTtrace: 
-    - GPTtrace/index.md
-    - ... | GPTtrace/**/*.md
   - wasm-bpf: 
     - wasm-bpf/index.md
     - ... | wasm-bpf/**/*.md
