@@ -93,9 +93,6 @@ hide:
   .hero p { font-size: 1.05rem; }
 }
 }
-.md-content__button {
-    display: none;
-}
 </style>
 
 ## About Eunomia
