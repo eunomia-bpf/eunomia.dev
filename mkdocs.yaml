@@ -141,8 +141,10 @@ nav:
     - ... | eunomia-bpf/**/*.md
   - GPTtrace: 
     - GPTtrace/index.md
+    - ... | GPTtrace/**/*.md
   - wasm-bpf: 
     - wasm-bpf/index.md
+    - ... | wasm-bpf/**/*.md
   - Ecosystem: 
     - others/index.md
     - ... | others/**/*.md
