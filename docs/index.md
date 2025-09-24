@@ -38,6 +38,7 @@ hide:
     linear-gradient(130deg, #061a33 0%, #0d305d 38%, #154173 55%, #1b4d85 70%, #225b95 85%);
   box-shadow: 0 4px 24px -4px rgba(0,0,0,0.35), 0 2px 4px rgba(0,0,0,0.15);
 }
+
 .hero::before {
   content: "";
   position: absolute;
@@ -92,6 +93,9 @@ hide:
   .hero p { font-size: 1.05rem; }
 }
 }
+.md-content__button {
+    display: none;
+}
 </style>
 
 ## About Eunomia
@@ -104,11 +108,12 @@ Eunomia Lab is an open-source organization dedicated to exploring and enhancing 
 
 ![bpftime](https://eunomia.dev/bpftime/documents/bpftime.png){ align=left width="400" }
 
-bpftime is a high-performance userspace eBPF runtime and General Extension Framework designed for userspace. It allows extending eBPF to various applications as a *General Extension Framework*, compatible with the current eBPF ecosystem. Enables faster Uprobe, USDT, Syscall hooks, XDP, and more by bypassing the kernel and utilizing an optimized compiler like LLVM.
+bpftime is a high-performance userspace eBPF runtime and General Extension Framework designed for userspace. It allows extending eBPF to various applications as a *General Extension Framework*, compatible with the current eBPF ecosystem. Enables faster Uprobe, USDT, Syscall hooks, XDP, GPU, and more by bypassing the kernel and utilizing an optimized compiler like LLVM.
 
 [Github :fontawesome-brands-github:](https://github.com/eunomia-bpf/bpftime){ .md-button }
 [Documentation :material-file-document:](https://eunomia.dev/bpftime){ .md-button }
 
+[:material-presentation: OSDI 2025](https://www.usenix.org/conference/osdi25/presentation/zheng-yusheng) ·
 [:material-presentation: eBPF Summit 2024](https://ebpf.io/summit-2024-schedule/) ·
 [:material-presentation: Linux Plumbers Conference 2023](https://lpc.events/event/17/abstracts/1741/) ·
 [:material-file-document: Arxiv](https://arxiv.org/abs/2311.07923)
