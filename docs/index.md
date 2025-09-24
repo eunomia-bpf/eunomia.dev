@@ -7,52 +7,96 @@ hide:
   - toc
 ---
 
-<div class="grid cards" markdown>
-
--   :fontawesome-brands-linux:{ .lg .middle } __Unlock the Power of eBPF__
-
-    ---
-
-    Explore and enhance the eBPF ecosystem with our open-source tools and frameworks
-
-    [:octicons-arrow-right-24: Get started](https://github.com/eunomia-bpf/){ .md-button }
-
+<div class="hero" markdown>
+  <div class="hero-text">
+    <h1>Unlock the Power of eBPF</h1>
+    <p>Explore and enhance eBPF with our open-source tools and frameworks.</p>
+    <a href="https://github.com/eunomia-bpf/" class="md-button md-button--primary">
+      Get started
+    </a>
+    <a href="https://eunomia.dev/tutorials" class="md-button">
+      View Tutorials
+    </a>
+  </div>
 </div>
 
 <style>
-.md-typeset .grid {
-    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-    grid-gap: 1rem;
-    margin: 1rem 0;
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 5rem 1rem 4.5rem;
+  border-radius: 4px;
+  overflow: hidden;
+  color: #fff;
+  /* Layered gradients to avoid the muddy mid-tone & add depth */
+  background:
+    radial-gradient(circle at 78% 60%, rgba(255,182,41,0.55), rgba(255,182,41,0) 60%),
+    linear-gradient(140deg, rgba(8,27,52,0.05) 0%, rgba(255,182,41,0.08) 70%),
+    linear-gradient(130deg, #061a33 0%, #0d305d 38%, #154173 55%, #1b4d85 70%, #225b95 85%);
+  box-shadow: 0 4px 24px -4px rgba(0,0,0,0.35), 0 2px 4px rgba(0,0,0,0.15);
 }
-.md-typeset .grid.cards > :is(ul, ol) {
-    display: contents;
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(60deg, rgba(255,255,255,0.06) 0 2px, transparent 2px 90px),
+    repeating-linear-gradient(-15deg, rgba(255,255,255,0.04) 0 1px, transparent 1px 55px);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  opacity: .55;
 }
-.md-typeset .grid.cards > :is(ul, ol) > li,
-.md-typeset .grid > .card {
-    border: .05rem solid var(--md-default-fg-color--lightest);
-    border-radius: .5rem;
-    display: block;
-    margin: 0;
-    padding: 1rem;
-    transition: border .25s,box-shadow .25s;
+.hero-text {
+  max-width: 600px;
 }
-.md-typeset .grid.cards > :is(ul, ol) > li:focus-within,
-.md-typeset .grid.cards > :is(ul, ol) > li:hover,
-.md-typeset .grid > .card:focus-within,
-.md-typeset .grid > .card:hover {
-    border-color: #0FF1CE;
-    box-shadow: var(--md-shadow-z2);
+.hero h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  letter-spacing: .5px;
+  color: #fff;
 }
-.lg.middle {
-    font-size: 2.5rem;
-    vertical-align: middle;
+.hero p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  color: #e2e8f0;
+}
+.hero .md-button {
+  margin: 0.5rem;
+  font-weight: 600;
+  backdrop-filter: blur(4px);
+}
+.hero .md-button--primary {
+  background: linear-gradient(100deg, #4356d6 0%, #4a5fe6 60%, #5870f0 100%);
+  border: none;
+  box-shadow: 0 4px 16px -2px rgba(40,60,160,0.55), 0 2px 4px rgba(0,0,0,0.25);
+}
+.hero .md-button--primary:hover {
+  filter: brightness(1.08);
+}
+.hero .md-button:not(.md-button--primary) {
+  border: 1.5px solid rgba(255,255,255,0.45);
+  color: #fff;
+}
+.hero .md-button:not(.md-button--primary):hover {
+  border-color: #ffb629;
+  color: #ffcf6b;
+}
+@media (max-width: 680px) {
+  .hero { padding: 4rem 1rem 3.5rem; }
+  .hero h1 { font-size: 2.35rem; }
+  .hero p { font-size: 1.05rem; }
+}
 }
 </style>
 
 ## About Eunomia
 
-Eunomia is an open-source organization dedicated to exploring and enhancing the eBPF ecosystem. Our mission is to innovate and optimize eBPF technologies, enabling developers to build more efficient, extensible, and powerful eBPF applications.
+Eunomia Lab is an open-source organization dedicated to exploring and enhancing the eBPF ecosystem. Our mission is to innovate and optimize eBPF technologies, enabling developers to build more efficient, extensible, and powerful eBPF applications.
 
 ## Our Projects
 
@@ -65,8 +109,8 @@ bpftime is a high-performance userspace eBPF runtime and General Extension Frame
 [Github :fontawesome-brands-github:](https://github.com/eunomia-bpf/bpftime){ .md-button }
 [Documentation :material-file-document:](https://eunomia.dev/bpftime){ .md-button }
 
-[:material-presentation: eBPF Summit 2024](https://ebpf.io/summit-2024-schedule/) · 
-[:material-presentation: Linux Plumbers Conference 2023](https://lpc.events/event/17/abstracts/1741/) · 
+[:material-presentation: eBPF Summit 2024](https://ebpf.io/summit-2024-schedule/) ·
+[:material-presentation: Linux Plumbers Conference 2023](https://lpc.events/event/17/abstracts/1741/) ·
 [:material-file-document: Arxiv](https://arxiv.org/abs/2311.07923)
 
 ---
@@ -91,7 +135,7 @@ Userspace eBPF VM with LLVM JIT/AOT compiler. It serves as the core component fo
 [Github :fontawesome-brands-github:](https://github.com/eunomia-bpf/llvmbpf){ .md-button }
 [Documentation :material-file-document:](https://eunomia.dev/bpftime/llvmbpf){ .md-button }
 
-[:material-post: Blog](https://eunomia.dev/blogs/llvmbpf/) · 
+[:material-post: Blog](https://eunomia.dev/blogs/llvmbpf/) ·
 [:material-file-document: Arxiv](https://arxiv.org/abs/2311.07923)
 
 ---
@@ -105,7 +149,7 @@ In cooperation with [WasmEdge](https://github.com/WasmEdge/WasmEdge), we built t
 [Github :fontawesome-brands-github:](https://github.com/eunomia-bpf/wasm-bpf){ .md-button }
 [Documentation :material-file-document:](https://eunomia.dev/wasm-bpf){ .md-button }
 
-[:material-presentation: KubeCon North American 2023](https://sched.co/1R2uf) · 
+[:material-presentation: KubeCon North American 2023](https://sched.co/1R2uf) ·
 [:material-file-document: Arxiv](https://arxiv.org/abs/2408.04856v1)
 
 ---
@@ -119,7 +163,7 @@ The first tool to generate eBPF programs and trace the Linux kernel through natu
 [Github :fontawesome-brands-github:](https://github.com/eunomia-bpf/GPTtrace){ .md-button }
 [Documentation :material-file-document:](https://eunomia.dev/GPTtrace){ .md-button }
 
-[:material-presentation: eBPF'24](https://dl.acm.org/doi/10.1145/3672197.3673434) · 
+[:material-presentation: eBPF'24](https://dl.acm.org/doi/10.1145/3672197.3673434) ·
 [:material-file-document: Arxiv](https://arxiv.org/abs/2311.07923)
 
 ---
