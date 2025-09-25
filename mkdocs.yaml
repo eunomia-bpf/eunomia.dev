@@ -137,7 +137,6 @@ nav:
     - bpftime/documents/available-features.md
     - ... | bpftime/**/*.md
   - eBPF×AI/LLMs: 
-    - index.md
     - GPTtrace/index.md
     - ... | GPTtrace/**/*.md
   - eunomia-bpf:
