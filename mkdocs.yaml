@@ -138,6 +138,9 @@ nav:
     - ... | bpftime/**/*.md
   - eBPF×AI/LLMs: 
     - GPTtrace/index.md
+    - GPTtrace/agentsight.md
+    - GPTtrace/mcptrace.md
+    - GPTtrace/gpttrace.md
     - ... | GPTtrace/**/*.md
   - eunomia-bpf:
     - eunomia-bpf/index.md
