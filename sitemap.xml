@@ -17,6 +17,14 @@
          
     </url>
     <url>
+         <loc>https://eunomia.dev/GPTtrace/agentsight/</loc>
+         <lastmod>2025-09-25</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/GPTtrace/agentsight/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/GPTtrace/agentsight/"/>
+         
+    </url>
+    <url>
          <loc>https://eunomia.dev/GPTtrace/gpttrace/</loc>
          <lastmod>2025-09-25</lastmod>
          <changefreq>daily</changefreq>
