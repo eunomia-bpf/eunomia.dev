@@ -43,11 +43,10 @@ A practical approach to GPU performance monitoring is to **start with eBPF uprob
 
 * **eGPU**: Research prototype that offloads eBPF bytecode onto GPUs via PTX injection—a device-resident path that aligns with AI/GPU workflows ([ACM HCDS'25](https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/HCDS25/10/13a8f7c0-0a7e-11f0-ada9-16bb50361d1f/OUT/hcds25-10.html)). It's merged into the main branch of [bpftime](https://github.com/bpftime/bpftime).
 * **CUDA Events Tutorial**: A comprehensive guide for tracing specific CUDA GPU operations using eBPF ([eunomia.dev](https://eunomia.dev/tutorials/47-cuda-events/)).
-* **GPU Workload Tracing**: Practitioner guides and tutorials demonstrate using eBPF to catch RDMA tail latencies, OOM conditions, GPU stalls, and prompt rate-limits with minimal application changes ([Medium](https://klizosolutions.medium.com/harnessing-ebpf-for-high-performance-llm-workloads-a-cloud-native-guide-efb7d73e19ed)).
 * **eACGM**: A system that merges eBPF kernel events with NVML device metrics to enable end-to-end performance analysis and fault diagnosis for GPU training ([arXiv](https://arxiv.org/html/2506.02007v1)).
 * **GPUprobe Tutorials**: A collection of guides on using eBPF uprobes for zero-instrumentation CUDA API tracing, memory tracking, and kernel launch profiling ([DEV Community](https://dev.to/ethgraham/snooping-on-your-gpu-using-ebpf-to-build-zero-instrumentation-cuda-monitoring-2hh1), [Medium](https://medium.com/%40kcl17/inside-cuda-building-ebpf-uprobes-for-gpu-monitoring-449519b236ed)).
 * **CUDA Events Tutorial**: A comprehensive guide for tracing specific CUDA GPU operations using eBPF ([eunomia.dev](https://eunomia.dev/tutorials/47-cuda-events/)).
-* **eGPU**: Research prototype that offloads eBPF bytecode onto GPUs via PTX injection—a device-resident path that aligns with AI/GPU workflows ([ACM HCDS'25](https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/HCDS25/10/13a8f7c0-0a7e-11f0-ada9-16bb50361d1f/OUT/hcds25-10.html)). It's 
+
 ---
 
 ### **Part 2: eBPF for AI — In-Kernel Data Path Acceleration**
