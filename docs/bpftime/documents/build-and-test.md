@@ -1,4 +1,4 @@
-# Building and Test
+# Installation and Test
 
 ## Table of Contents
 
@@ -195,3 +195,4 @@ make build-llvm # build the vm with llvm jit
 ## More compile options
 
 See <https://github.com/eunomia-bpf/bpftime/blob/master/cmake/StandardSettings.cmake> for all cmake build options.
+
