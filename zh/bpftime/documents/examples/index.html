@@ -2163,7 +2163,7 @@
   
   
   <span class="md-ellipsis">
-    Building and Test
+    Installation and Test
     
   </span>
   
@@ -2323,11 +2323,80 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#bpf-features-demos" class="md-nav__link">
+    <span class="md-ellipsis">
+      BPF Features Demos
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gpucudarocm-tracing" class="md-nav__link">
+    <span class="md-ellipsis">
+      GPU/CUDA/ROCm Tracing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hotpatching-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hotpatching Applications
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#error-injections" class="md-nav__link">
     <span class="md-ellipsis">
       Error injections
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xdp-in-userspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      XDP in Userspace
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Examples
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#attach-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Attach Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-bpftime-as-a-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using bpftime as a Library
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -3170,7 +3239,7 @@
   
   
   <span class="md-ellipsis">
-    performance and benchmark
+    Benchmark and performance evaluation for bpftime
     
   </span>
   
@@ -8238,11 +8307,80 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#bpf-features-demos" class="md-nav__link">
+    <span class="md-ellipsis">
+      BPF Features Demos
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gpucudarocm-tracing" class="md-nav__link">
+    <span class="md-ellipsis">
+      GPU/CUDA/ROCm Tracing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hotpatching-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hotpatching Applications
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#error-injections" class="md-nav__link">
     <span class="md-ellipsis">
       Error injections
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xdp-in-userspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      XDP in Userspace
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Examples
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#attach-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Attach Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-bpftime-as-a-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using bpftime as a Library
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -8310,16 +8448,31 @@
 <li><a href="#use-bpftime-to-trace-spdk">Use bpftime to trace SPDK</a></li>
 </ul>
 </li>
+<li><a href="#bpf-features-demos">BPF Features Demos</a></li>
+<li><a href="#gpucudarocm-tracing">GPU/CUDA/ROCm Tracing</a></li>
+<li><a href="#hotpatching-applications">Hotpatching Applications</a></li>
 <li><a href="#error-injections">Error injections</a></li>
+<li><a href="#xdp-in-userspace">XDP in Userspace</a></li>
+<li><a href="#advanced-examples">Advanced Examples</a><ul>
+<li><a href="#attach-implementation">Attach Implementation</a></li>
+<li><a href="#using-bpftime-as-a-library">Using bpftime as a Library</a></li>
+</ul>
+</li>
 <li><a href="#nginx-ebpf-module">Nginx eBPF module</a></li>
 <li><a href="#use-dpdk-with-userspace-ebpf-to-run-xdp-seamlessly">Use DPDK with userspace eBPF to run XDP seamlessly</a></li>
 <li><a href="#use-the-vm-onlyno-runtime-no-uprobe-as-a-library">Use the vm only(No runtime, No uprobe) as a library</a></li>
 </ul>
 <h2 id="minimal-examples">minimal examples</h2>
-<p>See <a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/minimal">example/minimal</a> and <a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/usdt_minimal">usdt_minimal</a>.</p>
+<p>See <a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/minimal">example/minimal</a> for basic examples demonstrating core bpftime features:</p>
+<ul>
+<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/minimal"><code>uprobe</code></a>: Basic uprobe example</li>
+<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/minimal"><code>syscall</code></a>: Syscall tracing example</li>
+<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/minimal"><code>uprobe-override</code></a>: Demonstrates using <code>bpf_override_return</code> to change function return values</li>
+<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/minimal/usdt_minimal"><code>usdt_minimal</code></a>: User Statically Defined Tracing (USDT) example</li>
+</ul>
 <p>The bpftime supports the following types of eBPF programs:</p>
 <ul>
-<li><code>uprobe/uretprobe</code>: trace userspace functions at start or and.</li>
+<li><code>uprobe/uretprobe</code>: trace userspace functions at start or end.</li>
 <li><code>syscall tracepoints</code>: trace the specific syscall types.</li>
 <li><code>USDT</code>: trace the userspace functions with USDT.</li>
 </ul>
@@ -8330,26 +8483,67 @@
 <p>Attach uprobe, uretprobe or all syscall tracepoints(currently x86 only) eBPF programs to a process or a group of processes</p>
 <ul>
 <li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/malloc"><code>malloc</code></a>: count the malloc calls in libc by pid. demonstrate how to use the userspace <code>uprobe</code> with basic <code>hashmap</code>.</li>
-<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/libbpf-tools/bashreadline"><code>bashreadline</code></a>: Print entered bash commands from running shells,</li>
-<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/sslsniff"><code>sslsniff</code></a>: Trace and print all SSL/TLS connections and raw traffic data.</li>
+<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/tracing/bashreadline"><code>bashreadline</code></a>: Print entered bash commands from running shells.</li>
+<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/tracing/sslsniff"><code>sslsniff</code></a>: Trace and print all SSL/TLS connections and raw traffic data.</li>
+<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/tracing/funclatency"><code>funclatency</code></a>: Measure function latency distribution.</li>
+<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/tracing/goroutine"><code>goroutine</code></a>: Trace Go runtime goroutine operations.</li>
 </ul>
 <h3 id="tracing-all-syscalls-with-tracepoints">tracing all syscalls with tracepoints</h3>
 <ul>
-<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/opensnoop"><code>opensnoop</code></a>: trace file open or close syscalls in a process. demonstrate how to use the userspace <code>syscall tracepoint</code> with <code>ring buffer</code> output.</li>
+<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/tracing/opensnoop"><code>opensnoop</code></a>: trace file open or close syscalls in a process. demonstrate how to use the userspace <code>syscall tracepoint</code> with <code>ring buffer</code> output.</li>
+<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/tracing/opensnoop_ring_buf"><code>opensnoop_ring_buf</code></a>: Alternative implementation using ring buffer for output.</li>
+<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/tracing/statsnoop"><code>statsnoop</code></a>: Trace stat() syscalls system-wide.</li>
+<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/tracing/syscount"><code>syscount</code></a>: Count system calls by type and process.</li>
+<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/tracing/mountsnoop"><code>mountsnoop</code></a>: Trace mount and umount system calls.</li>
+<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/tracing/sigsnoop"><code>sigsnoop</code></a>: Trace signals sent to processes.</li>
 </ul>
-<p>More bcc/libbpf-tools examples can be found in <a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/libbpf-tools">example/libbpf-tools</a>.</p>
+<p>More bcc/libbpf-tools style examples can be found in <a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/tracing">example/tracing</a>.</p>
 <h3 id="bpftrace">bpftrace</h3>
 <p>You can also run bpftime with <code>bpftrace</code>, we've test it on <a href="https://github.com/iovisor/bpftrace/commit/75aca47dd8e1d642ff31c9d3ce330e0c616e5b96">this commit</a>.</p>
 <p>It should be able to work with the bpftrace from the package manager of your distribution, for example:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>bpftrace
 </code></pre></div>
 <p>Or you can build the latest bpftrace from source.</p>
-<p>More details about how to run bpftrace in usespace, can be found in <a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/bpftrace">example/bpftrace</a>.</p>
+<p>More details about how to run bpftrace in userspace, can be found in <a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/tracing/bpftrace">example/tracing/bpftrace</a>.</p>
 <h3 id="use-bpftime-to-trace-spdk">Use bpftime to trace SPDK</h3>
 <p>See <a href="https://github.com/eunomia-bpf/bpftime/wiki/Benchmark-of-SPDK">https://github.com/eunomia-bpf/bpftime/wiki/Benchmark-of-SPDK</a> for how to use bpftime to trace SPDK.</p>
+<h2 id="bpf-features-demos">BPF Features Demos</h2>
+<p>The <a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/bpf_features">example/bpf_features</a> directory contains demonstrations of various BPF map types and features:</p>
+<ul>
+<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/bpf_features/bloom_filter_demo"><code>bloom_filter_demo</code></a>: Demonstrates the use of BPF bloom filter maps for efficient set membership testing.</li>
+<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/bpf_features/get_stack_id_example"><code>get_stack_id_example</code></a>: Shows how to capture and use stack traces with <code>bpf_get_stackid</code>.</li>
+<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/bpf_features/lpm_trie_demo"><code>lpm_trie_demo</code></a>: Demonstrates Longest Prefix Match (LPM) trie maps for IP address matching.</li>
+<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/bpf_features/queue_demo"><code>queue_demo</code></a>: Examples of using BPF queue and stack maps for FIFO/LIFO data structures.</li>
+<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/bpf_features/tailcall_minimal"><code>tailcall_minimal</code></a>: Minimal example of BPF tail calls for program chaining.</li>
+</ul>
+<h2 id="gpucudarocm-tracing">GPU/CUDA/ROCm Tracing</h2>
+<p>The <a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu">example/gpu</a> directory contains examples for tracing GPU kernels:</p>
+<ul>
+<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu/cuda-counter"><code>cuda-counter</code></a>: Basic CUDA kernel tracing example</li>
+<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu/cuda-counter-gpu-array"><code>cuda-counter-gpu-array</code></a>: CUDA tracing with GPU array maps</li>
+<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu/cuda-counter-gpu-ringbuf"><code>cuda-counter-gpu-ringbuf</code></a>: CUDA tracing with GPU ring buffer</li>
+<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu/rocm-counter"><code>rocm-counter</code></a>: AMD ROCm GPU kernel tracing</li>
+</ul>
+<h2 id="hotpatching-applications">Hotpatching Applications</h2>
+<p>The <a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/hotpatch">example/hotpatch</a> directory shows how to dynamically modify application behavior:</p>
+<ul>
+<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/hotpatch/redis"><code>redis</code></a>: Hotpatch Redis server behavior without modifying source code</li>
+<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/hotpatch/vim"><code>vim</code></a>: Example of hotpatching Vim editor</li>
+</ul>
 <h2 id="error-injections">Error injections</h2>
 <ul>
-<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/error-inject"><code>error-injection</code></a> Inject errors into userspace functions or syscalls to test its error handling capabilities.</li>
+<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/error-inject"><code>error-injection</code></a>: Inject errors into userspace functions or syscalls to test its error handling capabilities.</li>
+</ul>
+<h2 id="xdp-in-userspace">XDP in Userspace</h2>
+<ul>
+<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/xdp-counter"><code>xdp-counter</code></a>: Example of running XDP programs in userspace for packet processing</li>
+</ul>
+<h2 id="advanced-examples">Advanced Examples</h2>
+<h3 id="attach-implementation">Attach Implementation</h3>
+<p>The <a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/attach_implementation">example/attach_implementation</a> directory contains a complete example of implementing a high-performance nginx request filter using bpftime, including benchmarks comparing different filtering approaches (eBPF, WASM, LuaJIT, RLBox, etc.).</p>
+<h3 id="using-bpftime-as-a-library">Using bpftime as a Library</h3>
+<ul>
+<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/libbpftime_example"><code>libbpftime_example</code></a>: Example of using bpftime's shared memory and runtime features as a library</li>
 </ul>
 <h2 id="nginx-ebpf-module">Nginx eBPF module</h2>
 <p>A nginx eBPF module is implemented with bpftime, which can be used to extend nginx with eBPF programs.</p>
@@ -8388,7 +8582,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 31, 2024 21:19:37 UTC">January 31, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 29, 2025 05:36:16 UTC">September 29, 2025</span>
   </span>
 
     
