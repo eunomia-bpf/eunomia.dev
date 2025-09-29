@@ -11,4 +11,8 @@ mkdir -p docs/tutorials/imgs && \
 cp tutorial/imgs/* docs/tutorials/imgs/ && \
 cp -rf cuda-exp/* docs/others/cuda-tutorial/ && \
 cp -rf cupti-exp/* docs/others/cupti-tutorial/ && \
+cp bpftime/usage.md docs/bpftime/documents/usage.md && \
+cp bpftime/installation.md docs/bpftime/documents/build-and-test.md && \
+cp bpftime/example/README.md docs/bpftime/documents/examples.md  && \
+cp bpftime/benchmark/README.md docs/bpftime/documents/performance.md && \
 echo "eunomia.dev" > docs/CNAME
