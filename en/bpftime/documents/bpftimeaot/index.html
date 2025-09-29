@@ -13,10 +13,10 @@
         <link rel="canonical" href="https://eunomia.dev/en/bpftime/documents/bpftimeaot/">
       
       
-        <link rel="prev" href="../attach/">
+        <link rel="prev" href="../bpftimetool/">
       
       
-        <link rel="next" href="../bpftimetool/">
+        <link rel="next" href="../../llvmbpf/">
       
       
       <link rel="icon" href="../../../../assets/icon.svg">
@@ -2158,6 +2158,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../../bpftime/introduction.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    None
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../build-and-test/" class="md-nav__link">
         
   
@@ -2247,26 +2270,182 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Benchmark and performance evaluation for bpftime
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bpftimetool/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    bpftimetool
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
   
-    
-    
-    
-    
+    <li class="md-nav__item md-nav__item--active">
       
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    bpftime-aot cli
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" checked>
+  
+  
+  <span class="md-ellipsis">
+    bpftime-aot cli
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-elf-from-shared-mnemory-and-use-it-with-helpers-and-maps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Build ELF from shared mnemory and use it with helpers and maps
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compile-from-ebpf-bytecode-elf" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compile from eBPF bytecode ELF
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-native-elf" class="md-nav__link">
+    <span class="md-ellipsis">
+      run native ELF
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#emit-llvm-ir" class="md-nav__link">
+    <span class="md-ellipsis">
+      emit llvm ir
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
         
           
-          <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_10" id="__nav_4_10_label" tabindex="0">
             
   
   
@@ -2279,8 +2458,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_4_6">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_10">
             <span class="md-nav__icon md-icon"></span>
             Bpftime
           </label>
@@ -2329,10 +2508,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_6_2" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_10_2" >
         
           
-          <label class="md-nav__link" for="__nav_4_6_2" id="__nav_4_6_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_10_2" id="__nav_4_10_2_label" tabindex="0">
             
   
   
@@ -2345,8 +2524,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_6_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_6_2">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_10_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_10_2">
             <span class="md-nav__icon md-icon"></span>
             EIM
           </label>
@@ -2487,10 +2666,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_6_2_6" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_10_2_6" >
         
           
-          <label class="md-nav__link" for="__nav_4_6_2_6" id="__nav_4_6_2_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_10_2_6" id="__nav_4_10_2_6_label" tabindex="0">
             
   
   
@@ -2503,8 +2682,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_6_2_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_6_2_6">
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_10_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_10_2_6">
             <span class="md-nav__icon md-icon"></span>
             Draft spec
           </label>
@@ -2630,10 +2809,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_6_2_7" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_10_2_7" >
         
           
-          <label class="md-nav__link" for="__nav_4_6_2_7" id="__nav_4_6_2_7_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_10_2_7" id="__nav_4_10_2_7_label" tabindex="0">
             
   
   
@@ -2646,8 +2825,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_6_2_7_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_6_2_7">
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_10_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_10_2_7">
             <span class="md-nav__icon md-icon"></span>
             Study
           </label>
@@ -2811,8 +2990,6 @@
                 
   
   
-    
-  
   
   
     
@@ -2823,14 +3000,16 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6_3" checked>
         
           
-          <label class="md-nav__link" for="__nav_4_6_3" id="__nav_4_6_3_label" tabindex="0">
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_10_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_10_3" id="__nav_4_10_3_label" tabindex="0">
             
   
   
@@ -2843,8 +3022,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_6_3_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_4_6_3">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_10_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_10_3">
             <span class="md-nav__icon md-icon"></span>
             Documents
           </label>
@@ -2863,139 +3042,6 @@
   
   <span class="md-ellipsis">
     Detailed Implementation of the Attach Part
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    bpftime-aot cli
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    bpftime-aot cli
-    
-  </span>
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#usage" class="md-nav__link">
-    <span class="md-ellipsis">
-      Usage
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#build-elf-from-shared-mnemory-and-use-it-with-helpers-and-maps" class="md-nav__link">
-    <span class="md-ellipsis">
-      Build ELF from shared mnemory and use it with helpers and maps
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#compile-from-ebpf-bytecode-elf" class="md-nav__link">
-    <span class="md-ellipsis">
-      Compile from eBPF bytecode ELF
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#run-native-elf" class="md-nav__link">
-    <span class="md-ellipsis">
-      run native ELF
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#emit-llvm-ir" class="md-nav__link">
-    <span class="md-ellipsis">
-      emit llvm ir
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../bpftimetool/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    bpftimetool
     
   </span>
   
@@ -3088,29 +3134,6 @@
   
   <span class="md-ellipsis">
     Introduction
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../performance/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Benchmark and performance evaluation for bpftime
     
   </span>
   
@@ -8520,7 +8543,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../attach/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Detailed Implementation of the Attach Part">
+          <a href="../bpftimetool/" class="md-footer__link md-footer__link--prev" aria-label="Previous: bpftimetool">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -8530,20 +8553,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Detailed Implementation of the Attach Part
+                bpftimetool
               </div>
             </div>
           </a>
         
         
           
-          <a href="../bpftimetool/" class="md-footer__link md-footer__link--next" aria-label="Next: bpftimetool">
+          <a href="../../llvmbpf/" class="md-footer__link md-footer__link--next" aria-label="Next: Userspace eBPF VM with LLVM JIT/AOT Compiler">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                bpftimetool
+                Userspace eBPF VM with LLVM JIT/AOT Compiler
               </div>
             </div>
             <div class="md-footer__button md-icon">
