@@ -13,10 +13,10 @@
         <link rel="canonical" href="https://eunomia.dev/zh/bpftime/documents/attach/">
       
       
-        <link rel="prev" href="../../EIM/study/game-office-bug-study/">
+        <link rel="prev" href="../co-re/">
       
       
-        <link rel="next" href="../co-re/">
+        <link rel="next" href="../bpftimetool/">
       
       
       <link rel="icon" href="../../../../assets/icon.svg">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Detailed Implementation of the Attach Part - eunomia</title>
+        <title>bpftime Attach System - eunomia</title>
       
     
     
@@ -69,7 +69,7 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="Detailed Implementation of the Attach Part - eunomia" >
+        <meta  property="og:title"  content="bpftime Attach System - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
@@ -85,7 +85,7 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="Detailed Implementation of the Attach Part - eunomia" >
+        <meta  name="twitter:title"  content="bpftime Attach System - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
@@ -112,7 +112,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#detailed-implementation-of-the-attach-part" class="md-skip">
+        <a href="#bpftime-attach-system" class="md-skip">
           Skip to content
         </a>
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Detailed Implementation of the Attach Part
+              bpftime Attach System
             
           </span>
         </div>
@@ -2155,15 +2155,58 @@
                 
   
   
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    文档
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            文档
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
   
   
     <li class="md-nav__item">
-      <a href="../../../../bpftime/introduction.md" class="md-nav__link">
+      <a href="../introduction/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    None
+    简介
     
   </span>
   
@@ -2273,6 +2316,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../how-it-works/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    The design and implementation of bpftime
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../performance/" class="md-nav__link">
         
   
@@ -2296,12 +2362,271 @@
   
   
     <li class="md-nav__item">
+      <a href="../co-re/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Compile Once, Run Everywhere(CO-RE)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    bpftime Attach System
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    bpftime Attach System
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Architecture Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Architecture Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-design-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Design Principles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#component-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Component Structure
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#base-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Base Interface
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Base Interface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Types
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#attach-implementations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Attach Implementations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Attach Implementations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-frida-uprobe-attach-frida_uprobe_attach_impl" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Frida Uprobe Attach (frida_uprobe_attach_impl)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-syscall-trace-attach-syscall_trace_attach_impl" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Syscall Trace Attach (syscall_trace_attach_impl)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-cuda-attach-nv_attach_impl" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. CUDA Attach (nv_attach_impl)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-simple-attach-simple_attach_impl" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Simple Attach (simple_attach_impl)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#private-data-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Private Data System
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helper-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Helper Functions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#thread-safety" class="md-nav__link">
+    <span class="md-ellipsis">
+      Thread Safety
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-new-attach-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adding New Attach Types
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#platform-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Platform Support
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Considerations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration-with-runtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integration with Runtime
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../bpftimetool/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    bpftimetool
+    bpftime tool
     
   </span>
   
@@ -2339,44 +2664,32 @@
                 
   
   
-    
   
   
-  
-    
-    
-    
-    
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
-      
+    <li class="md-nav__item">
+      <a href="../contact/" class="md-nav__link">
         
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_10" checked>
-        
-          
-          <label class="md-nav__link" for="__nav_4_10" id="__nav_4_10_label" tabindex="0">
-            
   
   
   <span class="md-ellipsis">
-    Bpftime
+    Contact and citations
     
   </span>
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_10_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_4_10">
-            <span class="md-nav__icon md-icon"></span>
-            Bpftime
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
             
               
                 
@@ -2390,7 +2703,7 @@
   
   
   <span class="md-ellipsis">
-    Userspace eBPF VM with LLVM JIT/AOT Compiler
+    LLVM BPF
     
   </span>
   
@@ -2421,10 +2734,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_10_2" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_4" >
         
           
-          <label class="md-nav__link" for="__nav_4_10_2" id="__nav_4_10_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
             
   
   
@@ -2437,8 +2750,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_10_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_10_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
             <span class="md-nav__icon md-icon"></span>
             EIM
           </label>
@@ -2457,29 +2770,6 @@
   
   <span class="md-ellipsis">
     EIM: Extension Interface Model
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../EIM/example/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    EIM: Example code
     
   </span>
   
@@ -2543,6 +2833,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../../EIM/example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    EIM: Example code
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../EIM/usage/" class="md-nav__link">
         
   
@@ -2579,10 +2892,293 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_10_2_6" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_4_6" >
         
           
-          <label class="md-nav__link" for="__nav_4_10_2_6" id="__nav_4_10_2_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_4_6" id="__nav_4_4_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Case Studies
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            Case Studies
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../EIM/study/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    studies on bugs in extensions/plugins
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../EIM/study/browser-ide-bug-study/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    关于浏览器扩展和 IDE 插件漏洞的研究
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../EIM/study/db-bug-study/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    关于数据库和 Web 服务器扩展接口中的缺陷研究
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../EIM/study/docker-vm-bug-study/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    关于虚拟机管理程序和容器扩展漏洞的研究（2018–2024）
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../EIM/study/game-office-bug-study/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    关于生产力软件和游戏扩展/插件漏洞的案例研究（2018–2024）
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../EIM/study/compare/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extension Systems compare with EIM
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Bpftime
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Bpftime
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5_1" id="__nav_4_5_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    EIM
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            EIM
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_5_1_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5_1_1" id="__nav_4_5_1_1_label" tabindex="0">
             
   
   
@@ -2595,8 +3191,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_10_2_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_10_2_6">
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_5_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5_1_1">
             <span class="md-nav__icon md-icon"></span>
             Draft spec
           </label>
@@ -2697,463 +3293,6 @@
           </ul>
         </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-    
-    
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_10_2_7" >
-        
-          
-          <label class="md-nav__link" for="__nav_4_10_2_7" id="__nav_4_10_2_7_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    Study
-    
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_10_2_7_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_10_2_7">
-            <span class="md-nav__icon md-icon"></span>
-            Study
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../EIM/study/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    studies on bugs in extensions/plugins
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../EIM/study/browser-ide-bug-study/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    关于浏览器扩展和 IDE 插件漏洞的研究
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../EIM/study/compare/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Extension Systems compare with EIM
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../EIM/study/db-bug-study/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    关于数据库和 Web 服务器扩展接口中的缺陷研究
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../EIM/study/docker-vm-bug-study/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    关于虚拟机管理程序和容器扩展漏洞的研究（2018–2024）
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../EIM/study/game-office-bug-study/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    关于生产力软件和游戏扩展/插件漏洞的案例研究（2018–2024）
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-    
-  
-  
-  
-    
-    
-    
-    
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_10_3" checked>
-        
-          
-          <label class="md-nav__link" for="__nav_4_10_3" id="__nav_4_10_3_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    文档
-    
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_10_3_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_4_10_3">
-            <span class="md-nav__icon md-icon"></span>
-            文档
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Detailed Implementation of the Attach Part
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    Detailed Implementation of the Attach Part
-    
-  </span>
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#a-brief-description" class="md-nav__link">
-    <span class="md-ellipsis">
-      A Brief Description
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#targets-libraries-in-bpftime-related-to-attach" class="md-nav__link">
-    <span class="md-ellipsis">
-      Targets (Libraries) in bpftime Related to Attach
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Targets (Libraries) in bpftime Related to Attach">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#base_attach_impl" class="md-nav__link">
-    <span class="md-ellipsis">
-      base_attach_impl
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#frida_uprobe_attach_impl" class="md-nav__link">
-    <span class="md-ellipsis">
-      frida_uprobe_attach_impl
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#syscall_trace_attach_impl" class="md-nav__link">
-    <span class="md-ellipsis">
-      syscall_trace_attach_impl
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#runtime" class="md-nav__link">
-    <span class="md-ellipsis">
-      Runtime
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../co-re/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Compile Once, Run Everywhere(CO-RE)
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../contact/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Contact and citations
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../how-it-works/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    The design and implementation of bpftime
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../introduction/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    简介
-    
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -8147,55 +8286,28 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#a-brief-description" class="md-nav__link">
+  <a href="#architecture-overview" class="md-nav__link">
     <span class="md-ellipsis">
-      A Brief Description
+      Architecture Overview
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#targets-libraries-in-bpftime-related-to-attach" class="md-nav__link">
-    <span class="md-ellipsis">
-      Targets (Libraries) in bpftime Related to Attach
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Targets (Libraries) in bpftime Related to Attach">
+    <nav class="md-nav" aria-label="Architecture Overview">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#base_attach_impl" class="md-nav__link">
+  <a href="#core-design-principles" class="md-nav__link">
     <span class="md-ellipsis">
-      base_attach_impl
+      Core Design Principles
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#frida_uprobe_attach_impl" class="md-nav__link">
+  <a href="#component-structure" class="md-nav__link">
     <span class="md-ellipsis">
-      frida_uprobe_attach_impl
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#syscall_trace_attach_impl" class="md-nav__link">
-    <span class="md-ellipsis">
-      syscall_trace_attach_impl
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#runtime" class="md-nav__link">
-    <span class="md-ellipsis">
-      Runtime
+      Component Structure
     </span>
   </a>
   
@@ -8203,6 +8315,144 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#base-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Base Interface
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Base Interface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Types
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#attach-implementations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Attach Implementations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Attach Implementations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-frida-uprobe-attach-frida_uprobe_attach_impl" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Frida Uprobe Attach (frida_uprobe_attach_impl)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-syscall-trace-attach-syscall_trace_attach_impl" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Syscall Trace Attach (syscall_trace_attach_impl)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-cuda-attach-nv_attach_impl" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. CUDA Attach (nv_attach_impl)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-simple-attach-simple_attach_impl" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Simple Attach (simple_attach_impl)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#private-data-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Private Data System
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helper-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Helper Functions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#thread-safety" class="md-nav__link">
+    <span class="md-ellipsis">
+      Thread Safety
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-new-attach-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adding New Attach Types
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#platform-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Platform Support
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Considerations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration-with-runtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integration with Runtime
+    </span>
+  </a>
   
 </li>
       
@@ -8230,42 +8480,166 @@
   
 
 
-<h1 id="detailed-implementation-of-the-attach-part">Detailed Implementation of the Attach Part</h1>
-<h2 id="a-brief-description">A Brief Description</h2>
-<p>Attach is an important part of bpftime.</p>
-<p><code>Attach</code> refers to connecting eBPF programs stored in memory to some userspace hook point. Such hook points could be a userspace function in a certain process, a syscall invocation, or something similar. When the hook point is triggered, the connected eBPF program is called automatically. The whole process is managed by bpftime.</p>
-<p>bpftime itself comes with two types of attach implementations: uprobe and syscall.
-- uprobe: Hooks a userspace function in a certain process, monitoring the arguments and return value, or modifying the return value based on conditions.
-- syscall: Hooks calls to some or all syscall IDs in a certain process. It monitors arguments or return values of the syscall, or replaces the syscall implementation.</p>
-<p>The attach implementations above are similar to <code>uprobe</code> and <code>tracepoint/syscalls/sys_[enter/exit]_XXXX</code> in the kernel, with some enhancements.</p>
-<h2 id="targets-libraries-in-bpftime-related-to-attach">Targets (Libraries) in bpftime Related to Attach</h2>
-<h3 id="base_attach_impl">base_attach_impl</h3>
-<p>This is a header-only library, providing abstractions for all attach implementations. There are two major classes: <code>base_attach_impl</code> and <code>attach_private_data</code>.</p>
-<p><code>base_attach_impl</code> is the base class for all attach implementations. It is composed of several pure virtual functions, including functions to detach a certain attach entry and create an attach entry with a unified interface.</p>
-<p><code>attach_private_data</code> is the base class for all attach private data. Since we can only access a certain attach implementation through the unified interface, we also need a unified interface to pass attach-specific data to the attach implementation. Such data are called <code>attach private data</code></p>
-<h3 id="frida_uprobe_attach_impl">frida_uprobe_attach_impl</h3>
-<p>A Frida-based uprobe attach implementation. It implements the following attach types:
-- UPROBE: Similar to <code>uprobe</code> in kernel eBPF, invoked at the entrance of a certain userspace function. It can access the arguments of the hooked function.
-- URETPROBE: Similar to <code>uretprobe</code> in kernel eBPF, invoked at the exit of a certain userspace function. It can access the return value of the hooked function.</p>
-<p>UPROBE and URETPROBE are implemented using <code>GUM_INVOCATION_LISTENER</code>.</p>
+<h1 id="bpftime-attach-system">bpftime Attach System</h1>
+<p>The attach system in bpftime provides a modular framework for attaching eBPF programs to various event sources in userspace. It supports multiple attachment types including function probes (uprobes), syscall tracing, and specialized attachments like CUDA kernel instrumentation.</p>
+<h2 id="architecture-overview">Architecture Overview</h2>
+<h3 id="core-design-principles">Core Design Principles</h3>
+<ol>
+<li><strong>Modular Design</strong>: Each attach type is implemented as a separate module inheriting from <code>base_attach_impl</code></li>
+<li><strong>Unified Interface</strong>: All attach implementations follow the same interface pattern for consistency</li>
+<li><strong>Extensibility</strong>: New attach types can be easily added by implementing the base interface</li>
+<li><strong>Cross-Process Support</strong>: Attach points can be shared across processes using shared memory</li>
+</ol>
+<h3 id="component-structure">Component Structure</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>attach/
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── base_attach_impl/           # Base interface and common functionality
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├── frida_uprobe_attach_impl/   # Function instrumentation using Frida
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>├── syscall_trace_attach_impl/  # System call tracing
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>├── nv_attach_impl/             # CUDA/GPU kernel instrumentation
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>├── simple_attach_impl/         # Simplified attach wrapper
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>└── text_segment_transformer/   # Binary rewriting for syscall interception
+</code></pre></div>
+<h2 id="base-interface">Base Interface</h2>
+<p>The <code>base_attach_impl</code> class defines the core interface that all attach implementations must follow:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">base_attach_impl</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">public</span><span class="o">:</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="c1">// Detach an attachment by ID</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">detach_by_id</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="c1">// Create attachment with eBPF callback</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">create_attach_with_ebpf_callback</span><span class="p">(</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">        </span><span class="n">ebpf_run_callback</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="n">cb</span><span class="p">,</span><span class="w"> </span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">attach_private_data</span><span class="w"> </span><span class="o">&amp;</span><span class="n">private_data</span><span class="p">,</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">attach_type</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="c1">// Register custom helper functions</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">register_custom_helpers</span><span class="p">(</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">        </span><span class="n">ebpf_helper_register_callback</span><span class="w"> </span><span class="n">register_callback</span><span class="p">);</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">    </span><span class="c1">// Call attach-specific functionality</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">call_attach_specific_function</span><span class="p">(</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">);</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="p">};</span>
+</code></pre></div>
+<h3 id="key-types">Key Types</h3>
 <ul>
-<li>UPROBE_OVERRIDE: Invoked when the function enters, it can access arguments of the hooked function, and decide whether to override the return value and bypass the hooked function. It could be used to replace the hooked function or replace the return value based on arguments.</li>
+<li><strong><code>ebpf_run_callback</code></strong>: Function that executes eBPF program with prepared context</li>
+<li><strong><code>attach_private_data</code></strong>: Base class for attach-specific configuration data</li>
+<li><strong><code>override_return_set_callback</code></strong>: Thread-local callback for modifying return values</li>
 </ul>
-<p>UFILTER are implemented using <code>gum_interceptor_replace</code></p>
-<h3 id="syscall_trace_attach_impl">syscall_trace_attach_impl</h3>
-<p>A zpoline-based userspace syscall trace implementation. It rewrites the code segment to trace syscalls in userspace, eliminating the need to modify the executable.</p>
-<p>It provides the attach type SYSCALL_TRACEPOINT, which is triggered when the userspace process emits a syscall. It can monitor the arguments, invoke the original syscall, and replace the syscall.</p>
-<p>It is similar to <code>tracepoint/syscalls/sys_[enter/exit]_XXXX</code> in the kernel eBPF.</p>
-<h3 id="runtime">Runtime</h3>
-<p>This is the core part of bpftime and an important part of attaching.</p>
-<p>User applications, such as bpftime-agent, should register attach implementations to <code>bpf_attach_ctx</code>, a class managed by runtime. In this way, runtime doesn't need to depend on concrete attach implementations; it just needs to depend on <code>base_attach_impl</code>, which provides a general interface for all attach implementations.</p>
-<p>When the user application wants to instantiate an attach, which means:
-- Creating an eBPF virtual machine based on eBPF programs stored in memory.
-- Creating attach private data through the unified interface from perf events stored in memory.
-- Creating an attach entry through the unified interface.</p>
-<p>runtime will iterate over all handlers stored in memory and handle different types. The type related to attach is <code>bpf_link_handler</code>, which records the relationship between <code>bpf_prog_handler</code> and <code>perf_event_handler</code>, meaning when the specified perf event is triggered, the corresponding eBPF program should be called.</p>
-<p>runtime will call <code>create_attach_with_ebpf_callback</code> to create an attach entry. This function is provided by <code>base_attach_impl</code> and implemented by various attach implementations. runtime will generate the attach private data using the registered attach private data generator and create a lambda callback to call the corresponding eBPF program. After attaching, runtime will record the attach entry ID for future purposes (such as detachment).</p>
-<p><a class="md-button" href="https://x.com/intent/tweet?text=Detailed%20Implementation%20of%20the%20Attach%20Part%0A&amp;url=https://eunomia.dev/zh/bpftime/documents/attach/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<h2 id="attach-implementations">Attach Implementations</h2>
+<h3 id="1-frida-uprobe-attach-frida_uprobe_attach_impl">1. Frida Uprobe Attach (<code>frida_uprobe_attach_impl</code>)</h3>
+<p>Provides dynamic function instrumentation using Frida-gum framework.</p>
+<p><strong>Features:</strong>
+- Function entry probes (uprobe)
+- Function return probes (uretprobe)
+- Override probes (modify function behavior)
+- Function replacement (ureplace)</p>
+<p><strong>Attach Types:</strong>
+- <code>ATTACH_UPROBE</code> (6): Execute at function entry
+- <code>ATTACH_URETPROBE</code> (7): Execute at function return
+- <code>ATTACH_UPROBE_OVERRIDE</code> (1008): Override function behavior
+- <code>ATTACH_UREPLACE</code> (1009): Replace function entirely</p>
+<p><strong>Key Components:</strong>
+- Register state capture via <code>pt_regs</code>
+- Multiple callback types for different probe scenarios
+- Thread-local CPU context management</p>
+<h3 id="2-syscall-trace-attach-syscall_trace_attach_impl">2. Syscall Trace Attach (<code>syscall_trace_attach_impl</code>)</h3>
+<p>Intercepts and traces system calls without kernel support.</p>
+<p><strong>Features:</strong>
+- Trace syscall entry and exit
+- Per-syscall or global callbacks
+- Minimal performance overhead</p>
+<p><strong>Key Components:</strong>
+- <code>trace_event_raw_sys_enter/exit</code>: eBPF-compatible event structures
+- Syscall dispatcher with up to 512 syscall slots
+- Integration with text segment transformer for interception</p>
+<p><strong>Workflow:</strong>
+1. Text segment transformer hooks syscall instructions
+2. Hooks redirect to <code>dispatch_syscall</code>
+3. Dispatcher calls registered eBPF programs
+4. Original syscall executed if not overridden</p>
+<h3 id="3-cuda-attach-nv_attach_impl">3. CUDA Attach (<code>nv_attach_impl</code>)</h3>
+<p>Instruments CUDA kernels and GPU operations (Linux only).</p>
+<p><strong>Features:</strong>
+- Memory operation capture
+- Kernel function probes/retprobes
+- PTX code transformation
+- eBPF-to-PTX compilation</p>
+<p><strong>Attach Types:</strong>
+- <code>ATTACH_CUDA_PROBE</code> (8): CUDA kernel entry
+- <code>ATTACH_CUDA_RETPROBE</code> (9): CUDA kernel exit</p>
+<p><strong>Implementation:</strong>
+1. Intercepts CUDA runtime APIs
+2. Extracts and modifies PTX code
+3. Injects eBPF programs as PTX
+4. Recompiles and loads modified kernels</p>
+<h3 id="4-simple-attach-simple_attach_impl">4. Simple Attach (<code>simple_attach_impl</code>)</h3>
+<p>Wrapper providing simplified attach interface for custom event sources.</p>
+<p><strong>Features:</strong>
+- Single callback model
+- String-based configuration
+- Easy integration for new event types</p>
+<p><strong>Use Case:</strong>
+Ideal for prototyping new attach types or simple event sources that don't require complex context preparation.</p>
+<h2 id="private-data-system">Private Data System</h2>
+<p>Each attach type defines its own <code>attach_private_data</code> subclass:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">struct</span><span class="w"> </span><span class="nc">attach_private_data</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">initialize_from_string</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span><span class="w"> </span><span class="o">&amp;</span><span class="n">sv</span><span class="p">);</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="nf">to_string</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">};</span>
+</code></pre></div>
+<p>Examples:
+- <code>frida_attach_private_data</code>: Function address, offset, module info
+- <code>syscall_trace_private_data</code>: Syscall number, entry/exit flag
+- <code>nv_attach_private_data</code>: Kernel name, attach type</p>
+<h2 id="helper-functions">Helper Functions</h2>
+<p>Attach implementations can register custom helper functions:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">// Global helpers available to all attach types</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">bpftime_set_retval</span><span class="p">()</span><span class="w">      </span><span class="c1">// Set function return value</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">bpftime_override_return</span><span class="p">()</span><span class="w">  </span><span class="c1">// Override with specific value</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="c1">// Attach-specific helpers registered via register_custom_helpers()</span>
+</code></pre></div>
+<h2 id="thread-safety">Thread Safety</h2>
+<ul>
+<li>Each attach implementation manages its own synchronization</li>
+<li>Thread-local storage for per-thread state (e.g., override callbacks)</li>
+<li>Shared memory operations are atomic where necessary</li>
+</ul>
+<h2 id="adding-new-attach-types">Adding New Attach Types</h2>
+<ol>
+<li>Create new directory under <code>attach/</code></li>
+<li>Inherit from <code>base_attach_impl</code></li>
+<li>Implement required virtual methods</li>
+<li>Define custom <code>attach_private_data</code> if needed</li>
+<li>Add to <code>CMakeLists.txt</code></li>
+<li>Register attach type IDs in runtime</li>
+</ol>
+<h2 id="platform-support">Platform Support</h2>
+<ul>
+<li><strong>Linux</strong>: All attach types supported</li>
+<li><strong>macOS</strong>: Limited to Frida-based attachments</li>
+<li><strong>Windows</strong>: Not currently supported</li>
+</ul>
+<p>Special requirements:
+- CUDA attach requires NVIDIA GPU and CUDA toolkit
+- Syscall trace requires text segment modification permissions
+- Some features may require root/elevated privileges</p>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ol>
+<li><strong>Frida Uprobe</strong>: ~10-100ns overhead per probe</li>
+<li><strong>Syscall Trace</strong>: Minimal overhead for untraced syscalls</li>
+<li><strong>CUDA Attach</strong>: Overhead varies with kernel complexity</li>
+<li><strong>Simple Attach</strong>: Depends on callback implementation</li>
+</ol>
+<h2 id="integration-with-runtime">Integration with Runtime</h2>
+<p>The attach system integrates with the bpftime runtime through:
+- Handler manager for object lifecycle
+- Shared memory for cross-process access
+- VM interface for eBPF program execution
+- Helper function registration system</p>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=bpftime%20Attach%20System%0A&amp;url=https://eunomia.dev/zh/bpftime/documents/attach/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/zh/bpftime/documents/attach/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
@@ -8289,7 +8663,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 5, 2024 17:00:10 UTC">March 5, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 30, 2025 06:00:32 UTC">September 30, 2025</span>
   </span>
 
     
@@ -8309,12 +8683,13 @@
   <span class="md-source-file__fact">
     <span class="md-icon" title="Contributors">
       
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
       
     </span>
     <nav>
       
-        <a href="mailto:yt.xyxx@gmail.com">officeyutong</a>
+        <a href="mailto:yt.xyxx@gmail.com">officeyutong</a>, 
+        <a href="mailto:yunwei356@gmail.com">yunwei37</a>
     </nav>
   </span>
 
@@ -8419,7 +8794,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../../EIM/study/game-office-bug-study/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 关于生产力软件和游戏扩展/插件漏洞的案例研究（2018–2024）">
+          <a href="../co-re/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Compile Once, Run Everywhere(CO-RE)">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -8429,20 +8804,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                关于生产力软件和游戏扩展/插件漏洞的案例研究（2018–2024）
+                Compile Once, Run Everywhere(CO-RE)
               </div>
             </div>
           </a>
         
         
           
-          <a href="../co-re/" class="md-footer__link md-footer__link--next" aria-label="Next: Compile Once, Run Everywhere(CO-RE)">
+          <a href="../bpftimetool/" class="md-footer__link md-footer__link--next" aria-label="Next: bpftime tool">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Compile Once, Run Everywhere(CO-RE)
+                bpftime tool
               </div>
             </div>
             <div class="md-footer__button md-icon">
