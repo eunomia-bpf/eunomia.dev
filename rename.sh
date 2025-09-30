@@ -18,4 +18,5 @@ cp bpftime/benchmark/README.md docs/bpftime/documents/performance.md && \
 cp bpftime/tools/bpftimetool/README.md docs/bpftime/documents/bpftimetool.md && \
 cp bpftime/tools/aot/README.md docs/bpftime/documents/bpftimeaot.md && \
 cp bpftime/attach/README.md docs/bpftime/documents/attach.md && \
+cp bpftime/example/gpu/README.md docs/bpftime/documents/gpu.md && \
 echo "eunomia.dev" > docs/CNAME
