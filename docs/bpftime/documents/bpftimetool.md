@@ -1,16 +1,8 @@
-# bpftimetool
+# bpftime tool
 
-Similar to bpftool, bpftimetool is tools to inspect or operate the shared memory status of the target process.
+Inspect or operate the shared memory status of the target process.
 
-It supports:
-
-- serialize the shared memory status to json
-- load the json and restore the status in shared memory
-- run ebpf program (XDP or others) and measure the time
-
-The tool can be found in <https://github.com/eunomia-bpf/bpftime/tree/master/tools/bpftimetool>
-
-You may also use bpftool with the syscall server.
+You can use bpftime tool to serialize the shared memory status to json, and load and run the json file.
 
 ## Export data in json
 

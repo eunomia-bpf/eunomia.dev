@@ -1,58 +1,200 @@
-# Detailed Implementation of the Attach Part
+# bpftime Attach System
 
-## A Brief Description
+The attach system in bpftime provides a modular framework for attaching eBPF programs to various event sources in userspace. It supports multiple attachment types including function probes (uprobes), syscall tracing, and specialized attachments like CUDA kernel instrumentation.
 
-Attach is an important part of bpftime.
+## Architecture Overview
 
-`Attach` refers to connecting eBPF programs stored in memory to some userspace hook point. Such hook points could be a userspace function in a certain process, a syscall invocation, or something similar. When the hook point is triggered, the connected eBPF program is called automatically. The whole process is managed by bpftime.
+### Core Design Principles
 
-bpftime itself comes with two types of attach implementations: uprobe and syscall.
-- uprobe: Hooks a userspace function in a certain process, monitoring the arguments and return value, or modifying the return value based on conditions.
-- syscall: Hooks calls to some or all syscall IDs in a certain process. It monitors arguments or return values of the syscall, or replaces the syscall implementation.
+1. **Modular Design**: Each attach type is implemented as a separate module inheriting from `base_attach_impl`
+2. **Unified Interface**: All attach implementations follow the same interface pattern for consistency
+3. **Extensibility**: New attach types can be easily added by implementing the base interface
+4. **Cross-Process Support**: Attach points can be shared across processes using shared memory
 
-The attach implementations above are similar to `uprobe` and `tracepoint/syscalls/sys_[enter/exit]_XXXX` in the kernel, with some enhancements.
+### Component Structure
 
-## Targets (Libraries) in bpftime Related to Attach
+```
+attach/
+├── base_attach_impl/           # Base interface and common functionality
+├── frida_uprobe_attach_impl/   # Function instrumentation using Frida
+├── syscall_trace_attach_impl/  # System call tracing
+├── nv_attach_impl/             # CUDA/GPU kernel instrumentation
+├── simple_attach_impl/         # Simplified attach wrapper
+└── text_segment_transformer/   # Binary rewriting for syscall interception
+```
 
-### base_attach_impl
+## Base Interface
 
-This is a header-only library, providing abstractions for all attach implementations. There are two major classes: `base_attach_impl` and `attach_private_data`.
+The `base_attach_impl` class defines the core interface that all attach implementations must follow:
 
-`base_attach_impl` is the base class for all attach implementations. It is composed of several pure virtual functions, including functions to detach a certain attach entry and create an attach entry with a unified interface.
+```cpp
+class base_attach_impl {
+public:
+    // Detach an attachment by ID
+    virtual int detach_by_id(int id) = 0;
+    
+    // Create attachment with eBPF callback
+    virtual int create_attach_with_ebpf_callback(
+        ebpf_run_callback &&cb, 
+        const attach_private_data &private_data,
+        int attach_type) = 0;
+    
+    // Register custom helper functions
+    virtual void register_custom_helpers(
+        ebpf_helper_register_callback register_callback);
+    
+    // Call attach-specific functionality
+    virtual void *call_attach_specific_function(
+        const std::string &name, void *data);
+};
+```
 
-`attach_private_data` is the base class for all attach private data. Since we can only access a certain attach implementation through the unified interface, we also need a unified interface to pass attach-specific data to the attach implementation. Such data are called `attach private data`
+### Key Types
 
-### frida_uprobe_attach_impl
+- **`ebpf_run_callback`**: Function that executes eBPF program with prepared context
+- **`attach_private_data`**: Base class for attach-specific configuration data
+- **`override_return_set_callback`**: Thread-local callback for modifying return values
 
-A Frida-based uprobe attach implementation. It implements the following attach types:
-- UPROBE: Similar to `uprobe` in kernel eBPF, invoked at the entrance of a certain userspace function. It can access the arguments of the hooked function.
-- URETPROBE: Similar to `uretprobe` in kernel eBPF, invoked at the exit of a certain userspace function. It can access the return value of the hooked function.
+## Attach Implementations
 
-UPROBE and URETPROBE are implemented using `GUM_INVOCATION_LISTENER`.
+### 1. Frida Uprobe Attach (`frida_uprobe_attach_impl`)
 
-- UPROBE_OVERRIDE: Invoked when the function enters, it can access arguments of the hooked function, and decide whether to override the return value and bypass the hooked function. It could be used to replace the hooked function or replace the return value based on arguments.
+Provides dynamic function instrumentation using Frida-gum framework.
 
-UFILTER are implemented using `gum_interceptor_replace`
+**Features:**
+- Function entry probes (uprobe)
+- Function return probes (uretprobe)
+- Override probes (modify function behavior)
+- Function replacement (ureplace)
 
-### syscall_trace_attach_impl
+**Attach Types:**
+- `ATTACH_UPROBE` (6): Execute at function entry
+- `ATTACH_URETPROBE` (7): Execute at function return
+- `ATTACH_UPROBE_OVERRIDE` (1008): Override function behavior
+- `ATTACH_UREPLACE` (1009): Replace function entirely
 
-A zpoline-based userspace syscall trace implementation. It rewrites the code segment to trace syscalls in userspace, eliminating the need to modify the executable.
+**Key Components:**
+- Register state capture via `pt_regs`
+- Multiple callback types for different probe scenarios
+- Thread-local CPU context management
 
-It provides the attach type SYSCALL_TRACEPOINT, which is triggered when the userspace process emits a syscall. It can monitor the arguments, invoke the original syscall, and replace the syscall.
+### 2. Syscall Trace Attach (`syscall_trace_attach_impl`)
 
-It is similar to `tracepoint/syscalls/sys_[enter/exit]_XXXX` in the kernel eBPF.
+Intercepts and traces system calls without kernel support.
 
-### Runtime
+**Features:**
+- Trace syscall entry and exit
+- Per-syscall or global callbacks
+- Minimal performance overhead
 
-This is the core part of bpftime and an important part of attaching.
+**Key Components:**
+- `trace_event_raw_sys_enter/exit`: eBPF-compatible event structures
+- Syscall dispatcher with up to 512 syscall slots
+- Integration with text segment transformer for interception
 
-User applications, such as bpftime-agent, should register attach implementations to `bpf_attach_ctx`, a class managed by runtime. In this way, runtime doesn't need to depend on concrete attach implementations; it just needs to depend on `base_attach_impl`, which provides a general interface for all attach implementations.
+**Workflow:**
+1. Text segment transformer hooks syscall instructions
+2. Hooks redirect to `dispatch_syscall`
+3. Dispatcher calls registered eBPF programs
+4. Original syscall executed if not overridden
 
-When the user application wants to instantiate an attach, which means:
-- Creating an eBPF virtual machine based on eBPF programs stored in memory.
-- Creating attach private data through the unified interface from perf events stored in memory.
-- Creating an attach entry through the unified interface.
+### 3. CUDA Attach (`nv_attach_impl`)
 
-runtime will iterate over all handlers stored in memory and handle different types. The type related to attach is `bpf_link_handler`, which records the relationship between `bpf_prog_handler` and `perf_event_handler`, meaning when the specified perf event is triggered, the corresponding eBPF program should be called.
+Instruments CUDA kernels and GPU operations (Linux only).
 
-runtime will call `create_attach_with_ebpf_callback` to create an attach entry. This function is provided by `base_attach_impl` and implemented by various attach implementations. runtime will generate the attach private data using the registered attach private data generator and create a lambda callback to call the corresponding eBPF program. After attaching, runtime will record the attach entry ID for future purposes (such as detachment).
+**Features:**
+- Memory operation capture
+- Kernel function probes/retprobes
+- PTX code transformation
+- eBPF-to-PTX compilation
+
+**Attach Types:**
+- `ATTACH_CUDA_PROBE` (8): CUDA kernel entry
+- `ATTACH_CUDA_RETPROBE` (9): CUDA kernel exit
+
+**Implementation:**
+1. Intercepts CUDA runtime APIs
+2. Extracts and modifies PTX code
+3. Injects eBPF programs as PTX
+4. Recompiles and loads modified kernels
+
+### 4. Simple Attach (`simple_attach_impl`)
+
+Wrapper providing simplified attach interface for custom event sources.
+
+**Features:**
+- Single callback model
+- String-based configuration
+- Easy integration for new event types
+
+**Use Case:**
+Ideal for prototyping new attach types or simple event sources that don't require complex context preparation.
+
+## Private Data System
+
+Each attach type defines its own `attach_private_data` subclass:
+
+```cpp
+struct attach_private_data {
+    virtual int initialize_from_string(const std::string_view &sv);
+    virtual std::string to_string() const;
+};
+```
+
+Examples:
+- `frida_attach_private_data`: Function address, offset, module info
+- `syscall_trace_private_data`: Syscall number, entry/exit flag
+- `nv_attach_private_data`: Kernel name, attach type
+
+## Helper Functions
+
+Attach implementations can register custom helper functions:
+
+```cpp
+// Global helpers available to all attach types
+bpftime_set_retval()      // Set function return value
+bpftime_override_return()  // Override with specific value
+
+// Attach-specific helpers registered via register_custom_helpers()
+```
+
+## Thread Safety
+
+- Each attach implementation manages its own synchronization
+- Thread-local storage for per-thread state (e.g., override callbacks)
+- Shared memory operations are atomic where necessary
+
+## Adding New Attach Types
+
+1. Create new directory under `attach/`
+2. Inherit from `base_attach_impl`
+3. Implement required virtual methods
+4. Define custom `attach_private_data` if needed
+5. Add to `CMakeLists.txt`
+6. Register attach type IDs in runtime
+
+## Platform Support
+
+- **Linux**: All attach types supported
+- **macOS**: Limited to Frida-based attachments
+- **Windows**: Not currently supported
+
+Special requirements:
+- CUDA attach requires NVIDIA GPU and CUDA toolkit
+- Syscall trace requires text segment modification permissions
+- Some features may require root/elevated privileges
+
+## Performance Considerations
+
+1. **Frida Uprobe**: ~10-100ns overhead per probe
+2. **Syscall Trace**: Minimal overhead for untraced syscalls
+3. **CUDA Attach**: Overhead varies with kernel complexity
+4. **Simple Attach**: Depends on callback implementation
+
+## Integration with Runtime
+
+The attach system integrates with the bpftime runtime through:
+- Handler manager for object lifecycle
+- Shared memory for cross-process access
+- VM interface for eBPF program execution
+- Helper function registration system

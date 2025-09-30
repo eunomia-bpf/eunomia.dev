@@ -2,11 +2,7 @@
 
 An cli for help to compile eBPF to native ELF.
 
-It can be used to compile eBPF insns to native insns with helpers, maps define, or load native ELF to run in the userspace runtime.
-
-The tool can be found in <https://github.com/eunomia-bpf/bpftime/tree/master/tools/aot>
-
-If you are looking for a library, please see <https://github.com/eunomia-bpf/llvmbpf>
+It can be used to compile eBPF insns to native insns with helpers, maps define, or load native ELF to run.
 
 ## Usage
 
