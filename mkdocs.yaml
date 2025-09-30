@@ -129,16 +129,35 @@ nav:
     - tutorials/48-energy/README.md
     - ... | flat | tutorials/**/*.md
   - Blog: blog
-  - bpftime: 
+  - bpftime:
     - bpftime/index.md
-    - bpftime/introduction.md
-    - bpftime/documents/build-and-test.md
-    - bpftime/documents/usage.md
-    - bpftime/documents/examples.md
-    - bpftime/documents/available-features.md
-    - bpftime/documents/performance.md
-    - bpftime/documents/bpftimetool.md
-    - bpftime/documents/bpftimeaot.md
+    - Documents:
+      - bpftime/documents/introduction.md
+      - bpftime/documents/build-and-test.md
+      - bpftime/documents/usage.md
+      - bpftime/documents/examples.md
+      - bpftime/documents/available-features.md
+      - bpftime/documents/how-it-works.md
+      - bpftime/documents/performance.md
+      - bpftime/documents/co-re.md
+      - bpftime/documents/attach.md
+      - bpftime/documents/bpftimetool.md
+      - bpftime/documents/bpftimeaot.md
+      - bpftime/documents/contact.md
+    - LLVM BPF: bpftime/llvmbpf.md
+    - EIM:
+      - bpftime/EIM/README.md
+      - bpftime/EIM/spec.md
+      - bpftime/EIM/uprobe.md
+      - bpftime/EIM/example.md
+      - bpftime/EIM/usage.md
+      - Case Studies:
+        - bpftime/EIM/study/index.md
+        - bpftime/EIM/study/browser-ide-bug-study.md
+        - bpftime/EIM/study/db-bug-study.md
+        - bpftime/EIM/study/docker-vm-bug-study.md
+        - bpftime/EIM/study/game-office-bug-study.md
+        - bpftime/EIM/study/compare.md
     - ... | bpftime/**/*.md
   - eBPF×AI/LLMs: 
     - GPTtrace/index.md

@@ -15,4 +15,7 @@ cp bpftime/usage.md docs/bpftime/documents/usage.md && \
 cp bpftime/installation.md docs/bpftime/documents/build-and-test.md && \
 cp bpftime/example/README.md docs/bpftime/documents/examples.md  && \
 cp bpftime/benchmark/README.md docs/bpftime/documents/performance.md && \
+cp bpftime/tools/bpftimetool/README.md docs/bpftime/documents/bpftimetool.md && \
+cp bpftime/tools/aot/README.md docs/bpftime/documents/bpftimeaot.md && \
+cp bpftime/attach/README.md docs/bpftime/documents/attach.md && \
 echo "eunomia.dev" > docs/CNAME
