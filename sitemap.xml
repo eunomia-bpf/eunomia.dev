@@ -745,6 +745,14 @@
          
     </url>
     <url>
+         <loc>https://eunomia.dev/bpftime/documents/gpu/</loc>
+         <lastmod>2025-09-30</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/bpftime/documents/gpu/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/bpftime/documents/gpu/"/>
+         
+    </url>
+    <url>
          <loc>https://eunomia.dev/bpftime/documents/how-it-works/</loc>
          <lastmod>2025-09-30</lastmod>
          <changefreq>daily</changefreq>

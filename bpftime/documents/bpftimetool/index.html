@@ -24,7 +24,7 @@
     
     
       
-        <title>bpftime tool - eunomia</title>
+        <title>bpftimetool - eunomia</title>
       
     
     
@@ -69,7 +69,7 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="bpftime tool - eunomia" >
+        <meta  property="og:title"  content="bpftimetool - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
@@ -85,7 +85,7 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="bpftime tool - eunomia" >
+        <meta  name="twitter:title"  content="bpftimetool - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
@@ -112,7 +112,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#bpftime-tool" class="md-skip">
+        <a href="#bpftimetool" class="md-skip">
           Skip to content
         </a>
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              bpftime tool
+              bpftimetool
             
           </span>
         </div>
@@ -2422,7 +2422,7 @@
   
   
   <span class="md-ellipsis">
-    bpftime tool
+    bpftimetool
     
   </span>
   
@@ -2435,7 +2435,7 @@
   
   
   <span class="md-ellipsis">
-    bpftime tool
+    bpftimetool
     
   </span>
   
@@ -2458,18 +2458,189 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#export-data-in-json" class="md-nav__link">
+  <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
-      Export data in json
+      Overview
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#import-data-from-json" class="md-nav__link">
+  <a href="#installation" class="md-nav__link">
     <span class="md-ellipsis">
-      Import data from json
+      Installation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command Reference
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Command Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#export-dump-shared-memory-to-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      export - Dump Shared Memory to JSON
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#import-load-json-into-shared-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      import - Load JSON into Shared Memory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-execute-and-benchmark-programs" class="md-nav__link">
+    <span class="md-ellipsis">
+      run - Execute and Benchmark Programs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-clean-up-shared-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      remove - Clean Up Shared Memory
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Workflows
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Workflows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#debugging-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debugging Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-analysis-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Analysis Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backup-and-restore" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backup and Restore
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cross-system-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cross-System Testing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#json-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      JSON Format
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="JSON Format">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#handler-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Handler Types
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environment Variables
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Notes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration-with-bpftime" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integration with bpftime
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      See Also
     </span>
   </a>
   
@@ -2496,7 +2667,7 @@
   
   
   <span class="md-ellipsis">
-    bpftime-aot cli
+    bpftime-aot
     
   </span>
   
@@ -3140,6 +3311,80 @@
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5_2" id="__nav_4_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Documents
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Documents
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gpu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Write and Run eBPF on GPU with bpftime
+    
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -8133,18 +8378,189 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#export-data-in-json" class="md-nav__link">
+  <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
-      Export data in json
+      Overview
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#import-data-from-json" class="md-nav__link">
+  <a href="#installation" class="md-nav__link">
     <span class="md-ellipsis">
-      Import data from json
+      Installation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command Reference
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Command Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#export-dump-shared-memory-to-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      export - Dump Shared Memory to JSON
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#import-load-json-into-shared-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      import - Load JSON into Shared Memory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-execute-and-benchmark-programs" class="md-nav__link">
+    <span class="md-ellipsis">
+      run - Execute and Benchmark Programs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-clean-up-shared-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      remove - Clean Up Shared Memory
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Workflows
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Workflows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#debugging-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debugging Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-analysis-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Analysis Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backup-and-restore" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backup and Restore
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cross-system-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cross-System Testing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#json-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      JSON Format
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="JSON Format">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#handler-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Handler Types
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environment Variables
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Notes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration-with-bpftime" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integration with bpftime
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      See Also
     </span>
   </a>
   
@@ -8174,29 +8590,246 @@
   
 
 
-<h1 id="bpftime-tool">bpftime tool</h1>
-<p>Inspect or operate the shared memory status of the target process.</p>
-<p>You can use bpftime tool to serialize the shared memory status to json, and load and run the json file.</p>
-<h2 id="export-data-in-json">Export data in json</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gp">$ </span>~/.bpftime/bpftimetool<span class="w"> </span><span class="nb">export</span><span class="w"> </span>res.json
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="go">[2023-10-23 18:45:25.893] [info] Global shm constructed. shm_open_type 1 for bpftime_maps_shm</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="go">[2023-10-23 18:45:25.894] [info] bpf_map_handler name=.rodata.str1.1 found at 3</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="go">[2023-10-23 18:45:25.894] [info] find prog fd=4 name=do_uprobe_trace</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="go">[2023-10-23 18:45:25.894] [info] bpf_perf_event_handler found at 5</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="go">INFO [93828]: Global shm destructed</span>
+<h1 id="bpftimetool">bpftimetool</h1>
+<p>Command-line tool for inspecting and managing bpftime shared memory state.</p>
+<h2 id="overview">Overview</h2>
+<p><code>bpftimetool</code> provides utilities to:
+- <strong>Export</strong> shared memory state to JSON for inspection or backup
+- <strong>Import</strong> eBPF objects from JSON into shared memory
+- <strong>Run</strong> eBPF programs with performance benchmarking
+- <strong>Remove</strong> shared memory segments system-wide</p>
+<h2 id="installation">Installation</h2>
+<p>After building bpftime, the tool is available at:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>~/.bpftime/bpftimetool
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1"># Or add to PATH</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:~/.bpftime/
+</code></pre></div></p>
+<h2 id="command-reference">Command Reference</h2>
+<h3 id="export-dump-shared-memory-to-json">export - Dump Shared Memory to JSON</h3>
+<p>Export all eBPF objects (programs, maps, links) from shared memory to a JSON file:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>bpftimetool<span class="w"> </span><span class="nb">export</span><span class="w"> </span>&lt;filename&gt;
 </code></pre></div>
-<h2 id="import-data-from-json">Import data from json</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="go">SPDLOG_LEVEL=Debug ~/.bpftime/bpftimetool import /home/yunwei/bpftime/tools/bpftimetool/minimal.json</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="go">[2023-10-23 19:02:04.955] [info] Global shm constructed. shm_open_type 3 for bpftime_maps_shm</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="go">[2023-10-23 19:02:04.955] [info] import handler fd 3 {&quot;attr&quot;:{&quot;btf_id&quot;:2,&quot;btf_key_type_id&quot;:0,&quot;btf_value_type_id&quot;:0,&quot;btf_vmlinux_value_type_id&quot;:0,&quot;flags&quot;:128,&quot;ifindex&quot;:0,&quot;key_size&quot;:4,&quot;map_extra&quot;:0,&quot;map_type&quot;:2,&quot;max_entries&quot;:1,&quot;value_size&quot;:21},&quot;name&quot;:&quot;.rodata.str1.1&quot;,&quot;type&quot;:&quot;bpf_map_handler&quot;}</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="go">[2023-10-23 19:02:04.955] [info] import handler type bpf_map_handler fd 3</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="go">[2023-10-23 19:02:04.956] [info] import handler fd 4 {&quot;attr&quot;:{&quot;attach_fds&quot;:[5],&quot;cnt&quot;:16,&quot;insns&quot;:&quot;b701000065642e0a631af8ff0000000018010000756e63200000000063616c6c7b1af0ff0000000018010000746172670000000065745f667b1ae8ff00000000b701000000000000731afcff00000000bfa100000000000007010000e8ffffffb7020000150000008500000006000000b7000000000000009500000000000000&quot;,&quot;type&quot;:0},&quot;name&quot;:&quot;do_uprobe_trace&quot;,&quot;type&quot;:&quot;bpf_prog_handler&quot;}</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="go">[2023-10-23 19:02:04.956] [info] import handler type bpf_prog_handler fd 4</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="go">[2023-10-23 19:02:04.956] [info] import handler fd 5 {&quot;attr&quot;:{&quot;_module_name&quot;:&quot;example/minimal/victim&quot;,&quot;offset&quot;:4457,&quot;pid&quot;:-1,&quot;ref_ctr_off&quot;:0,&quot;tracepoint_id&quot;:-1,&quot;type&quot;:6},&quot;type&quot;:&quot;bpf_perf_event_handler&quot;}</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="go">[2023-10-23 19:02:04.956] [info] import handler type bpf_perf_event_handler fd 5</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="go">INFO [99712]: Global shm destructed</span>
+<p><strong>Example:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="gp">$ </span>bpftimetool<span class="w"> </span><span class="nb">export</span><span class="w"> </span>state.json
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="go">[info] Global shm constructed. shm_open_type 1 for bpftime_maps_shm</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="go">[info] bpf_map_handler name=.rodata.str1.1 found at 3</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="go">[info] find prog fd=4 name=do_uprobe_trace</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="go">[info] bpf_perf_event_handler found at 5</span>
+</code></pre></div></p>
+<p>The JSON file contains:
+- eBPF program bytecode and metadata
+- Map definitions and attributes
+- Perf event attachments
+- Handler file descriptors</p>
+<p><strong>Use cases:</strong>
+- Debugging runtime state
+- Backup before modifications
+- Analysis and reverse engineering
+- Sharing test cases</p>
+<h3 id="import-load-json-into-shared-memory">import - Load JSON into Shared Memory</h3>
+<p>Import eBPF objects from a JSON file into bpftime shared memory:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>bpftimetool<span class="w"> </span>import<span class="w"> </span>&lt;filename&gt;
 </code></pre></div>
-<p><a class="md-button" href="https://x.com/intent/tweet?text=bpftime%20tool%0A&amp;url=https://eunomia.dev/bpftime/documents/bpftimetool/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<p><strong>Example:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="gp">$ </span><span class="nv">SPDLOG_LEVEL</span><span class="o">=</span>Debug<span class="w"> </span>bpftimetool<span class="w"> </span>import<span class="w"> </span>minimal.json
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="go">[info] Global shm constructed. shm_open_type 3 for bpftime_maps_shm</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="go">[info] import handler fd 3 {&quot;attr&quot;:{...},&quot;name&quot;:&quot;.rodata.str1.1&quot;,&quot;type&quot;:&quot;bpf_map_handler&quot;}</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="go">[info] import handler type bpf_prog_handler fd 4</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="go">[info] import handler type bpf_perf_event_handler fd 5</span>
+</code></pre></div></p>
+<p><strong>Use cases:</strong>
+- Restore previous state
+- Load pre-configured environments
+- Testing and CI/CD pipelines
+- Cross-system deployment</p>
+<h3 id="run-execute-and-benchmark-programs">run - Execute and Benchmark Programs</h3>
+<p>Run an eBPF program from shared memory with performance measurement:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>bpftimetool<span class="w"> </span>run<span class="w"> </span>&lt;id&gt;<span class="w"> </span>&lt;data_file&gt;<span class="w"> </span><span class="o">[</span>repeat<span class="w"> </span>N<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="nb">type</span><span class="w"> </span>RUN_TYPE<span class="o">]</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>Arguments:
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span>id<span class="w">          </span>Program<span class="w"> </span>ID<span class="w"> </span><span class="k">in</span><span class="w"> </span>shared<span class="w"> </span>memory
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span>data_file<span class="w">   </span>Input<span class="w"> </span>data<span class="w"> </span>file<span class="w"> </span><span class="o">(</span>program<span class="w"> </span>context<span class="o">)</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>Options:
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">  </span>repeat<span class="w"> </span>N<span class="w">           </span>Run<span class="w"> </span>N<span class="w"> </span><span class="nb">times</span><span class="w"> </span>and<span class="w"> </span>report<span class="w"> </span>average<span class="w"> </span><span class="o">(</span>default:<span class="w"> </span><span class="m">1</span><span class="o">)</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">  </span><span class="nb">type</span><span class="w"> </span>RUN_TYPE<span class="w">      </span>Execution<span class="w"> </span>mode:<span class="w"> </span>JIT<span class="w"> </span><span class="p">|</span><span class="w"> </span>AOT<span class="w"> </span><span class="p">|</span><span class="w"> </span>INTERPRET<span class="w"> </span><span class="o">(</span>default:<span class="w"> </span>JIT<span class="o">)</span>
+</code></pre></div>
+<p><strong>Examples:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Run program once with JIT</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>bpftimetool<span class="w"> </span>run<span class="w"> </span><span class="m">4</span><span class="w"> </span>input.bin
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># Benchmark with 10000 iterations</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>bpftimetool<span class="w"> </span>run<span class="w"> </span><span class="m">4</span><span class="w"> </span>input.bin<span class="w"> </span>repeat<span class="w"> </span><span class="m">10000</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="c1"># Compare execution modes</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>bpftimetool<span class="w"> </span>run<span class="w"> </span><span class="m">4</span><span class="w"> </span>input.bin<span class="w"> </span>repeat<span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="nb">type</span><span class="w"> </span>JIT
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>bpftimetool<span class="w"> </span>run<span class="w"> </span><span class="m">4</span><span class="w"> </span>input.bin<span class="w"> </span>repeat<span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="nb">type</span><span class="w"> </span>AOT
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>bpftimetool<span class="w"> </span>run<span class="w"> </span><span class="m">4</span><span class="w"> </span>input.bin<span class="w"> </span>repeat<span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="nb">type</span><span class="w"> </span>INTERPRET
+</code></pre></div></p>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="go">Running eBPF program with id 4 and data in file input.bin</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="go">Repeat N: 10000 with run type JIT</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="go">Time taken: 1250 ns</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="go">Return value: 0</span>
+</code></pre></div></p>
+<p><strong>Execution modes:</strong>
+- <code>JIT</code>: LLVM JIT compilation (fast compilation, good performance)
+- <code>AOT</code>: Pre-compiled native code (best performance, requires prior compilation)
+- <code>INTERPRET</code>: Bytecode interpreter (slowest, no compilation overhead)</p>
+<h3 id="remove-clean-up-shared-memory">remove - Clean Up Shared Memory</h3>
+<p>Remove bpftime shared memory segments system-wide:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>bpftimetool<span class="w"> </span>remove
+</code></pre></div>
+<p><strong>Warning:</strong> This destroys all loaded eBPF programs, maps, and state for all processes using bpftime.</p>
+<p><strong>Use cases:</strong>
+- Clean up after crashes
+- Reset test environment
+- Free system resources</p>
+<h2 id="common-workflows">Common Workflows</h2>
+<h3 id="debugging-workflow">Debugging Workflow</h3>
+<ol>
+<li>
+<p><strong>Capture current state:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>bpftimetool<span class="w"> </span><span class="nb">export</span><span class="w"> </span>debug_state.json
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Inspect JSON to find program IDs and understand state:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>cat<span class="w"> </span>debug_state.json<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.handlers[] | select(.type==&quot;bpf_prog_handler&quot;)&#39;</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Test specific program:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>bpftimetool<span class="w"> </span>run<span class="w"> </span><span class="m">4</span><span class="w"> </span>test_input.bin
+</code></pre></div></p>
+</li>
+</ol>
+<h3 id="performance-analysis-workflow">Performance Analysis Workflow</h3>
+<p>Compare execution modes for a program:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Create test data</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;test data&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>input.bin
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1"># Benchmark different modes</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== Interpreter ===&quot;</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>bpftimetool<span class="w"> </span>run<span class="w"> </span><span class="m">4</span><span class="w"> </span>input.bin<span class="w"> </span>repeat<span class="w"> </span><span class="m">10000</span><span class="w"> </span><span class="nb">type</span><span class="w"> </span>INTERPRET
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== JIT ===&quot;</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>bpftimetool<span class="w"> </span>run<span class="w"> </span><span class="m">4</span><span class="w"> </span>input.bin<span class="w"> </span>repeat<span class="w"> </span><span class="m">10000</span><span class="w"> </span><span class="nb">type</span><span class="w"> </span>JIT
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== AOT (after compilation) ===&quot;</span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>bpftime-aot<span class="w"> </span>compile<span class="w">  </span><span class="c1"># Compile first</span>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>bpftimetool<span class="w"> </span>run<span class="w"> </span><span class="m">4</span><span class="w"> </span>input.bin<span class="w"> </span>repeat<span class="w"> </span><span class="m">10000</span><span class="w"> </span><span class="nb">type</span><span class="w"> </span>AOT
+</code></pre></div>
+<h3 id="backup-and-restore">Backup and Restore</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Backup before making changes</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>bpftimetool<span class="w"> </span><span class="nb">export</span><span class="w"> </span>backup_<span class="k">$(</span>date<span class="w"> </span>+%Y%m%d_%H%M%S<span class="k">)</span>.json
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># ... make changes ...</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="c1"># Restore if needed</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>bpftimetool<span class="w"> </span>remove
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>bpftimetool<span class="w"> </span>import<span class="w"> </span>backup_20250930_120000.json
+</code></pre></div>
+<h3 id="cross-system-testing">Cross-System Testing</h3>
+<p>Export on development machine, import on test machine:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># On dev machine</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>bpftimetool<span class="w"> </span><span class="nb">export</span><span class="w"> </span>production_config.json
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>scp<span class="w"> </span>production_config.json<span class="w"> </span>test-server:~/
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="c1"># On test machine</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>bpftimetool<span class="w"> </span>import<span class="w"> </span>production_config.json
+</code></pre></div>
+<h2 id="json-format">JSON Format</h2>
+<p>The exported JSON contains an array of handlers with this structure:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="p">{</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">  </span><span class="nt">&quot;handlers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">      </span><span class="nt">&quot;fd&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bpf_map_handler&quot;</span><span class="p">,</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;.rodata.str1.1&quot;</span><span class="p">,</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="w">      </span><span class="nt">&quot;attr&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="w">        </span><span class="nt">&quot;map_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="w">        </span><span class="nt">&quot;key_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="w">        </span><span class="nt">&quot;value_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">21</span><span class="p">,</span>
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="w">        </span><span class="nt">&quot;max_entries&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="w">        </span><span class="nt">&quot;flags&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">128</span>
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="w">      </span><span class="p">}</span>
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="w">    </span><span class="p">},</span>
+<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a><span class="w">      </span><span class="nt">&quot;fd&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a><span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bpf_prog_handler&quot;</span><span class="p">,</span>
+<a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a><span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;do_uprobe_trace&quot;</span><span class="p">,</span>
+<a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a><span class="w">      </span><span class="nt">&quot;attr&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a><span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-15-21" name="__codelineno-15-21" href="#__codelineno-15-21"></a><span class="w">        </span><span class="nt">&quot;cnt&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span>
+<a id="__codelineno-15-22" name="__codelineno-15-22" href="#__codelineno-15-22"></a><span class="w">        </span><span class="nt">&quot;insns&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;hex-encoded-bytecode&gt;&quot;</span><span class="p">,</span>
+<a id="__codelineno-15-23" name="__codelineno-15-23" href="#__codelineno-15-23"></a><span class="w">        </span><span class="nt">&quot;attach_fds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+<a id="__codelineno-15-24" name="__codelineno-15-24" href="#__codelineno-15-24"></a><span class="w">      </span><span class="p">}</span>
+<a id="__codelineno-15-25" name="__codelineno-15-25" href="#__codelineno-15-25"></a><span class="w">    </span><span class="p">},</span>
+<a id="__codelineno-15-26" name="__codelineno-15-26" href="#__codelineno-15-26"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-15-27" name="__codelineno-15-27" href="#__codelineno-15-27"></a><span class="w">      </span><span class="nt">&quot;fd&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<a id="__codelineno-15-28" name="__codelineno-15-28" href="#__codelineno-15-28"></a><span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bpf_perf_event_handler&quot;</span><span class="p">,</span>
+<a id="__codelineno-15-29" name="__codelineno-15-29" href="#__codelineno-15-29"></a><span class="w">      </span><span class="nt">&quot;attr&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-15-30" name="__codelineno-15-30" href="#__codelineno-15-30"></a><span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span>
+<a id="__codelineno-15-31" name="__codelineno-15-31" href="#__codelineno-15-31"></a><span class="w">        </span><span class="nt">&quot;pid&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span>
+<a id="__codelineno-15-32" name="__codelineno-15-32" href="#__codelineno-15-32"></a><span class="w">        </span><span class="nt">&quot;_module_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;example/minimal/victim&quot;</span><span class="p">,</span>
+<a id="__codelineno-15-33" name="__codelineno-15-33" href="#__codelineno-15-33"></a><span class="w">        </span><span class="nt">&quot;offset&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4457</span>
+<a id="__codelineno-15-34" name="__codelineno-15-34" href="#__codelineno-15-34"></a><span class="w">      </span><span class="p">}</span>
+<a id="__codelineno-15-35" name="__codelineno-15-35" href="#__codelineno-15-35"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-15-36" name="__codelineno-15-36" href="#__codelineno-15-36"></a><span class="w">  </span><span class="p">]</span>
+<a id="__codelineno-15-37" name="__codelineno-15-37" href="#__codelineno-15-37"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="handler-types">Handler Types</h3>
+<ul>
+<li><strong>bpf_map_handler</strong>: eBPF maps (hash, array, ringbuf, etc.)</li>
+<li><strong>bpf_prog_handler</strong>: eBPF programs with bytecode</li>
+<li><strong>bpf_perf_event_handler</strong>: Uprobe/kprobe/tracepoint attachments</li>
+<li><strong>bpf_link_handler</strong>: BPF links connecting programs to hooks</li>
+</ul>
+<h2 id="environment-variables">Environment Variables</h2>
+<ul>
+<li><code>SPDLOG_LEVEL</code>: Set logging level (trace, debug, info, warn, error, critical)
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="nv">SPDLOG_LEVEL</span><span class="o">=</span>debug<span class="w"> </span>bpftimetool<span class="w"> </span>import<span class="w"> </span>state.json
+</code></pre></div></li>
+</ul>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p><strong>Q: "Global shm not found" error</strong>
+A: No bpftime processes are running. Start a process with bpftime first:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nv">LD_PRELOAD</span><span class="o">=</span>~/.bpftime/libbpftime-syscall-server.so<span class="w"> </span>your_program
+</code></pre></div></p>
+<p><strong>Q: "Invalid id not exist" when running</strong>
+A: Use <code>export</code> to see available program IDs. The ID may have been destroyed or never created.</p>
+<p><strong>Q: "AOT instructions not found" error</strong>
+A: The program hasn't been AOT-compiled yet. Run <code>bpftime-aot compile</code> first.</p>
+<p><strong>Q: JSON import fails</strong>
+A: Ensure the JSON format matches the expected schema. Use <code>export</code> to see correct format.</p>
+<h2 id="performance-notes">Performance Notes</h2>
+<ul>
+<li><strong>Export</strong>: Fast, reads shared memory without copying large data</li>
+<li><strong>Import</strong>: Creates all objects in shared memory, may take time for large programs</li>
+<li><strong>Run</strong>: Performance depends on execution mode:</li>
+<li>INTERPRET: ~100-500ns per iteration overhead</li>
+<li>JIT: ~10-50ns per iteration overhead (first run includes compilation)</li>
+<li>AOT: ~5-20ns per iteration overhead (pre-compiled)</li>
+</ul>
+<h2 id="integration-with-bpftime">Integration with bpftime</h2>
+<p><code>bpftimetool</code> works with the bpftime runtime's shared memory:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># Terminal 1: Start target with bpftime</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="nv">LD_PRELOAD</span><span class="o">=</span>~/.bpftime/libbpftime-syscall-server.so<span class="w"> </span>./my_app
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="c1"># Terminal 2: Inspect state</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>bpftimetool<span class="w"> </span><span class="nb">export</span><span class="w"> </span>current_state.json
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="c1"># Terminal 3: Run benchmarks</span>
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>bpftimetool<span class="w"> </span>run<span class="w"> </span><span class="m">4</span><span class="w"> </span>test_data.bin<span class="w"> </span>repeat<span class="w"> </span><span class="m">100000</span><span class="w"> </span><span class="nb">type</span><span class="w"> </span>JIT
+</code></pre></div>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/tools/aot">bpftime-aot</a> - AOT compiler for eBPF programs</li>
+<li><a href="https://github.com/eunomia-bpf/bpftime">bpftime documentation</a> - Main project documentation</li>
+<li><a href="https://github.com/eunomia-bpf/bpftime/blob/master/runtime/include/bpftime_shm.hpp">Shared memory architecture</a> - Implementation details</li>
+</ul>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=bpftimetool%0A&amp;url=https://eunomia.dev/bpftime/documents/bpftimetool/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/bpftime/documents/bpftimetool/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
@@ -8220,7 +8853,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 30, 2025 06:00:32 UTC">September 30, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 30, 2025 07:42:21 UTC">September 30, 2025</span>
   </span>
 
     
@@ -8367,13 +9000,13 @@
         
         
           
-          <a href="../bpftimeaot/" class="md-footer__link md-footer__link--next" aria-label="Next: bpftime-aot cli">
+          <a href="../bpftimeaot/" class="md-footer__link md-footer__link--next" aria-label="Next: bpftime-aot">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                bpftime-aot cli
+                bpftime-aot
               </div>
             </div>
             <div class="md-footer__button md-icon">
