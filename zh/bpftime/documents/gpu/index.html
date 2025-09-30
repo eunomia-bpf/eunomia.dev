@@ -2140,7 +2140,7 @@
   
   
   <span class="md-ellipsis">
-    bpftime Documentation
+    Index
     
   </span>
   
@@ -3191,6 +3191,39 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-ebpf-on-gpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why eBPF on GPU?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Why eBPF on GPU?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-problem-with-current-gpu-observability-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Problem with Current GPU Observability Tools
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bpftimes-unified-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      bpftime's Unified Approach
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#architecture" class="md-nav__link">
@@ -8363,6 +8396,39 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#why-ebpf-on-gpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why eBPF on GPU?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Why eBPF on GPU?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-problem-with-current-gpu-observability-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Problem with Current GPU Observability Tools
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bpftimes-unified-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      bpftime's Unified Approach
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#architecture" class="md-nav__link">
     <span class="md-ellipsis">
       Architecture
@@ -8565,6 +8631,44 @@
 <blockquote>
 <p><code>Experimental</code></p>
 </blockquote>
+<h2 id="why-ebpf-on-gpu">Why eBPF on GPU?</h2>
+<p>GPUs are widely used for ML workloads and are typically SIMT (Single Instruction, Multiple Thread) accelerators with threads organized in warps executing on streaming multiprocessors (SMs). These threads are grouped into blocks and launched as kernels, utilizing a complex multi-level memory hierarchy including registers, shared memory/LDS (Local Data Share), L2 cache, and device memory. GPUs also have limited preemption capabilities compared to CPUs. This architectural complexity creates rich but challenging behavior patterns that are difficult to observe and customize, particularly when diagnosing performance bottlenecks, memory access patterns, warp divergence, or resource contention issues.</p>
+<h3 id="the-problem-with-current-gpu-observability-tools">The Problem with Current GPU Observability Tools</h3>
+<p>Today's GPU tracing and profiling landscape suffers from two major limitations:</p>
+<p><strong>1. CPU-Boundary Tools Lack Device-Side Visibility</strong>
+Many tracing tools operate at the CPU boundary by placing probes on CUDA userspace libraries (like <code>libcuda.so</code>, <code>libcudart.so</code>) or kernel drivers. While these tools can capture host-side events such as kernel launches, memory copies, and API calls, they treat the GPU device as a black box. This approach provides:
+- No visibility into what happens <em>inside</em> a running kernel
+- Weak or no linkage to device-side events like warp stalls, bank conflicts, or memory traffic patterns
+- No ability to safely adapt or modify kernel behavior in-flight based on runtime conditions
+- Limited correlation between host actions and device-side performance issues</p>
+<p><strong>2. GPU-Specific Profilers Are Siloed</strong>
+Device-side profilers like NVIDIA's CUPTI, Intel's GTPin, Nvbit, and Neutrino do provide detailed device-side visibility including instruction-level profiling, memory traces, and warp execution analysis. However, they suffer from:
+- <strong>Vendor lock-in</strong>: Each tool is typically tied to a specific GPU vendor (NVIDIA, AMD, Intel)
+- <strong>Isolation from eBPF ecosystems</strong>: These tools don't integrate with Linux's eBPF infrastructure, making it difficult to correlate GPU events with system-wide observability data from kprobes, uprobes, tracepoints, or network events
+- <strong>Limited programmability</strong>: Most provide fixed metrics rather than user-programmable instrumentation
+- <strong>High overhead</strong>: Binary instrumentation tools can introduce significant performance overhead (e.g., NVBit can be 10-100x slower)</p>
+<h3 id="bpftimes-unified-approach">bpftime's Unified Approach</h3>
+<p><strong>bpftime bridges this gap</strong> by offloading eBPF programs directly into GPU device contexts, bringing the same programmability model that revolutionized kernel observability to GPUs. The implementation includes:</p>
+<p><strong>GPU-Side Attach Points:</strong>
+- Device function entry/exit for profiling kernel execution
+- Block begin/end for tracking thread block lifecycle
+- Barrier/synchronization points for analyzing warp coordination
+- Memory operation hooks for capturing access patterns
+- Stream operation events for tracking asynchronous execution</p>
+<p><strong>eBPF-to-GPU Compilation Pipeline:</strong>
+- Compiles standard eBPF bytecode into GPU-native instruction sets (PTX for NVIDIA, SPIR-V for AMD)
+- Includes full verifier support to ensure safety and prevent crashes
+- Provides GPU-optimized helper functions for timing, thread identification, and map operations
+- Supports standard eBPF maps (hash, array, ringbuf) with GPU-resident variants for zero-copy access</p>
+<p>This unified approach enables:</p>
+<ul>
+<li><strong>3-10x faster performance</strong> than tools like NVBit for instrumentation</li>
+<li><strong>Vendor-neutral design</strong> that works across NVIDIA and AMD GPUs</li>
+<li><strong>Unified observability</strong> with Linux kernel eBPF programs (kprobes, uprobes)</li>
+<li><strong>Fine-grained profiling</strong> at the warp or instruction level</li>
+<li><strong>Adaptive GPU kernel memory optimization</strong> and programmable scheduling across SMs</li>
+<li><strong>Accelerated eBPF applications</strong> by leveraging GPU compute power</li>
+</ul>
 <h2 id="architecture">Architecture</h2>
 <h3 id="cuda-attachment-pipeline">CUDA Attachment Pipeline</h3>
 <p>The GPU support is built on the <code>nv_attach_impl</code> system (<code>attach/nv_attach_impl/</code>), which implements an instrumentation pipeline:</p>
@@ -8752,7 +8856,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 30, 2025 07:42:21 UTC">September 30, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 30, 2025 09:02:23 UTC">September 30, 2025</span>
   </span>
 
     
