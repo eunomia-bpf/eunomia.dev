@@ -8364,7 +8364,7 @@
 <p>Off-CPU profilers flip the problem around. They track when threads go to sleep and wake up, measuring blocked time and capturing stack traces at blocking points. This reveals I/O bottlenecks and lock contention. But they miss pure computation problems.</p>
 <p>The tools in this tutorial solve both problems by running two eBPF programs simultaneously. The <code>oncputime</code> tool samples on-CPU execution using perf events. The <code>offcputime</code> tool hooks into the kernel scheduler to catch blocking operations. A Python script combines the results, normalizing the time scales so you can see CPU-intensive code paths (marked red) and blocking operations (marked blue) in the same flame graph. This complete view shows where every microsecond goes.</p>
 <p>Here's an example flame graph showing combined on-CPU and off-CPU profiling results:</p>
-<p><img alt="Combined Wall Clock Flame Graph Example" src="https://github.com/eunomia-bpf/bpf-developer-tutorial/blob/main/src/32-wallclock-profiler/tests/example.svg" /></p>
+<p><img alt="Combined Wall Clock Flame Graph Example" src="https://raw.githubusercontent.com/eunomia-bpf/bpf-developer-tutorial/c9d3d65c15fb6528ee378657a05ec0b062eff5b7/src/32-wallclock-profiler/tests/example.svg" /></p>
 <p>In this visualization, you can clearly see the distinction between CPU-intensive work (shown in red/warm colors marked with <code>_[c]</code>) and blocking operations (shown in blue/cool colors marked with <code>_[o]</code>). The relative widths immediately reveal where your application spends its wall clock time.</p>
 <h2 id="the-tools-oncputime-and-offcputime">The Tools: oncputime and offcputime</h2>
 <p>This tutorial provides two complementary profiling tools. The <code>oncputime</code> tool samples your process at regular intervals using perf events, capturing stack traces when code actively runs on the CPU. At a default rate of 49 Hz, it wakes up roughly every 20 milliseconds to record where your program is executing. Higher sample counts in the output indicate more CPU time spent in those code paths.</p>
@@ -8679,7 +8679,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 1, 2025 05:16:00 UTC">October 1, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 1, 2025 05:54:24 UTC">October 1, 2025</span>
   </span>
 
     
