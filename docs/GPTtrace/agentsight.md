@@ -127,4 +127,4 @@ eBPF Programs → JSON Events → Runners → Analyzer Chain → Frontend/Storag
 
 ## 📄 License
 
-MIT License - see [LICENSE](LICENSE) for details.
+MIT License - see [LICENSE](https://github.com/eunomia-bpf/agentsight/blob/master/LICENSE) for details.

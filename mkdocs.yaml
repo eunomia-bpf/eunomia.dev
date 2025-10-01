@@ -169,11 +169,11 @@ nav:
   - eunomia-bpf:
     - eunomia-bpf/index.md
     - ... | eunomia-bpf/**/*.md
-  - wasm-bpf: 
-    - wasm-bpf/index.md
-    - ... | wasm-bpf/**/*.md
-  - Ecosystem: 
+  - Ecosystem:
     - others/index.md
+    - wasm-bpf:
+      - wasm-bpf/index.md
+      - ... | wasm-bpf/**/*.md
     - ... | others/**/*.md
 
 extra:

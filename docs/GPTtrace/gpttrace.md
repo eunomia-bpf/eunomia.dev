@@ -25,7 +25,7 @@ Want the online version? please see [GPTtrace-web](https://github.com/eunomia-bp
 
 example: tracing with Count page faults by process
 
-<img src="doc/trace.png" alt="Image" width="600">
+<img src="https://github.com/eunomia-bpf/GPTtrace/raw/main/doc/trace.png" alt="Image" width="600">
 
 - start tracing with natural language
 - let AI explain the result to you
@@ -34,7 +34,7 @@ example: tracing with Count page faults by process
 
 example: Write an eBPF program Print entered bash commands from all running shells, save the bpf program to a file and exit without actual run it.
 
-<img src="doc/generate.png" alt="Image" width="600">
+<img src="https://github.com/eunomia-bpf/GPTtrace/raw/main/doc/generate.png" alt="Image" width="600">
 
 We use examples from [bpftrace tools](https://github.com/eunomia-bpf/GPTtrace/tree/main/tools) to create vector store and search.
 
@@ -63,7 +63,7 @@ Attaching to kernel allocators, Ctrl+C to quit.
 
 ## How it works
 
-![GPTtrace/doc/how-it-works.png](doc/how-it-works.png)
+![GPTtrace/doc/how-it-works.png](https://github.com/eunomia-bpf/GPTtrace/raw/main/doc/how-it-works.png)
 
 1. **User Input**: The user provides their operating system information and kernel version. This information is crucial as it helps to tailor the eBPF program to the specific environment of the user.
 2. **Prompt Construction**: The user's input, along with the OS info and kernel version, is used to construct a prompt. This prompt is designed to guide the generation of the eBPF program.
@@ -108,7 +108,7 @@ options:
 
 - Access <https://platform.openai.com/docs/quickstart/add-your-api-key>，then create your openai api key as following:
 
-  ![image-20230402163041886](doc/api-key.png)
+  ![image-20230402163041886](https://github.com/eunomia-bpf/GPTtrace/raw/main/doc/api-key.png)
 
 - Remember your key, and then set it to the environment variable `OPENAI_API_KEY` or use the `-k` option.
 

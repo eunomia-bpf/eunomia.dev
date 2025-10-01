@@ -12,7 +12,7 @@ A minimal MCP (Model Context Protocol) server that provides AI assistants with a
 
 **Now implemented in Rust** using the `rmcp` crate for better performance and type safety. The Python implementation is still available in the git history.
 
-![bpftrace MCP Server Demo](./doc/compressed_output.gif)
+![bpftrace MCP Server Demo](https://github.com/eunomia-bpf/MCPtrace/raw/main/doc/compressed_output.gif)
 
 ## Features
 

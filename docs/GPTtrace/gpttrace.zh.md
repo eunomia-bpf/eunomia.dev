@@ -25,7 +25,7 @@ author: eunomia-bpf 社区
 
 示例：按进程统计页面错误
 
-<img src="doc/trace.png" alt="Image" width="600">
+<img src="https://github.com/eunomia-bpf/GPTtrace/raw/main/doc/trace.png" alt="Image" width="600">
 
 - 使用自然语言开始追踪
 - 让AI为您解释结果
@@ -34,7 +34,7 @@ author: eunomia-bpf 社区
 
 示例：编写一个eBPF程序，打印所有运行中的shell输入的bash命令，将bpf程序保存到文件并退出，不实际运行它。
 
-<img src="doc/generate.png" alt="Image" width="600">
+<img src="https://github.com/eunomia-bpf/GPTtrace/raw/main/doc/generate.png" alt="Image" width="600">
 
 我们使用来自 [bpftrace tools](https://github.com/eunomia-bpf/GPTtrace/tree/main/tools) 的示例创建向量存储并进行搜索。
 
@@ -63,7 +63,7 @@ Attaching to kernel allocators, Ctrl+C to quit.
 
 ## 工作原理
 
-![GPTtrace/doc/how-it-works.png](doc/how-it-works.png)
+![GPTtrace/doc/how-it-works.png](https://github.com/eunomia-bpf/GPTtrace/raw/main/doc/how-it-works.png)
 
 1. **用户输入**：用户提供其操作系统信息和内核版本。这些信息至关重要，因为它有助于根据用户的特定环境定制eBPF程序。
 2. **提示构建**：用户的输入以及操作系统信息和内核版本用于构建提示。此提示旨在指导eBPF程序的生成。
@@ -108,7 +108,7 @@ options:
 
 - 访问 <https://platform.openai.com/docs/quickstart/add-your-api-key>，然后按照以下步骤创建您的openai api密钥：
 
-  ![image-20230402163041886](doc/api-key.png)
+  ![image-20230402163041886](https://github.com/eunomia-bpf/GPTtrace/raw/main/doc/api-key.png)
 
 - 记住您的密钥，然后将其设置为环境变量 `OPENAI_API_KEY` 或使用 `-k` 选项。
 

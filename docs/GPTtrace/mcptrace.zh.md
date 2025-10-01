@@ -12,7 +12,7 @@ keywords: MCPtrace, bpftrace, MCP服务器, AI内核调试, eBPF追踪, Linux内
 
 **现已使用Rust实现**，使用`rmcp` crate以获得更好的性能和类型安全。Python实现仍可在git历史记录中找到。
 
-![bpftrace MCP服务器演示](./doc/compressed_output.gif)
+![bpftrace MCP服务器演示](https://github.com/eunomia-bpf/MCPtrace/raw/main/doc/compressed_output.gif)
 
 ## 功能特性
 
