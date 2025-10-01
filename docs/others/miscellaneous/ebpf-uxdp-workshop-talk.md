@@ -1,7 +1,7 @@
 # uXDP: Frictionless XDP Deployments in Userspace (12-min talk)
 
 **Venue:** eBPF Workshop (Coimbra, Sep 8–11, 2025)
-**Speaker:** Yusheng Zheng (with Panayiotis Gavriil, Marios Kogias)
+**Speaker:** Panayiotis Gavriil (with Yusheng Zheng, Marios Kogias)
 
 ---
 
