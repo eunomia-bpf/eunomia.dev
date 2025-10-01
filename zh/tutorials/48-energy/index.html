@@ -2073,6 +2073,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#rapl" class="md-nav__link">
+    <span class="md-ellipsis">
+      硬件 RAPL 能源测量
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -8954,6 +8963,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#rapl" class="md-nav__link">
+    <span class="md-ellipsis">
+      硬件 RAPL 能源测量
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -9487,6 +9505,36 @@
 <a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>- eBPF 提供每个上下文切换的粒度
 <a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>- 传统采样以固定间隔（100ms）
 </code></pre></div>
+<h3 id="rapl">硬件 RAPL 能源测量</h3>
+<p>能源监控器现已内置<strong>对 Intel RAPL（运行平均功率限制）硬件计数器的原生支持</strong>，可直接从 CPU 硬件获取实时能源测量，而无需依赖软件估算。RAPL 在 Intel Sandy Bridge（2011 年）之后的处理器和 AMD Zen+（2019 年）之后的处理器上可用。</p>
+<p>当 RAPL 可用时，工具会通过 Linux <code>perf_event</code> 接口自动检测并使用硬件能源计数器。相比软件估算，这提供了几个显著优势：它能够捕获实际功耗，包括动态频率调节（DVFS）、CPU 空闲状态（C 状态）和电压变化，这些是简单的基于时间的估算无法考虑的。RAPL 可以测量多个能源域，包括整个 CPU 封装、单独的核心、集成显卡（uncore）和 DRAM，为您提供系统能源消耗的完整画面。</p>
+<p>使用 RAPL 硬件测量：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># 自动 RAPL 检测（默认行为）</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>sudo<span class="w"> </span>./energy_monitor<span class="w"> </span>-d<span class="w"> </span><span class="m">10</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="c1"># 禁用 RAPL 并使用软件估算</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>sudo<span class="w"> </span>./energy_monitor<span class="w"> </span>-d<span class="w"> </span><span class="m">10</span><span class="w"> </span>--no-rapl<span class="w"> </span>-p<span class="w"> </span><span class="m">15</span>.0
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="c1"># 检查系统上的 RAPL 可用性</span>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>ls<span class="w"> </span>/sys/bus/event_source/devices/power/events/
+</code></pre></div>
+<p>启用 RAPL 的示例输出：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>RAPL initialized with 2 domains
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>Using hardware RAPL energy counters
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>Energy monitor started... Hit Ctrl-C to end.
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>=== Energy Usage Summary ===
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>PID        COMM             Runtime (ms)    Energy (mJ)
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>...
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>=== RAPL Hardware Energy Measurements ===
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>pkg       : 231.716422 J (231716.42 mJ)
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>cores     : 159.937200 J (159937.20 mJ)
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>Total RAPL energy: 391.653622 J (391653.62 mJ)
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a>Measurement method: Hardware RAPL counters
+</code></pre></div>
+<p>RAPL 测量显示所有进程的总系统能源消耗，而每个进程的 CPU 时间细分有助于识别哪些应用程序消耗了最多的 CPU 周期。有关 RAPL 和功率限制的更多信息，请参阅 <a href="https://docs.kernel.org/power/powercap/powercap.html">Linux Powercap 框架文档</a>。</p>
 <h2 id="_17">理解能源监控权衡</h2>
 <p>虽然我们的能源监控器提供了有价值的见解，但了解其局限性和权衡很重要：</p>
 <h3 id="_18">精度考虑</h3>
@@ -9517,43 +9565,73 @@
 <p><strong>系统行为分析</strong>从能源角度揭示了不同组件之间的复杂交互，发现了仅查看性能指标时不明显的优化机会。这些见解推动了考虑总拥有成本（包括运营能源成本）的系统设计决策。</p>
 <p>作为<strong>教学工具</strong>，能源监控通过向学生展示其代码的即时能源影响，使抽象概念变得具体。当算法复杂性讨论与真实能源测量配对时，学生们对其设计选择的实际影响有了直觉，而不仅仅是计算效率。</p>
 <h2 id="_24">扩展能源监控器</h2>
-<p>当前的实现为构建更复杂的能源监控功能提供了坚实的基础，有多个扩展方向值得探索。<strong>硬件计数器集成</strong>是最有影响力的增强方向，通过 <code>PERF_TYPE_POWER</code> 事件集成 RAPL 计数器，可以用实际的硬件测量来替换我们的估算模型，大幅提升精度。<strong>每核功率建模</strong>在处理异构处理器时尤为重要，通过跟踪进程的核心分配并建模性能核心（P 核）与效率核心（E 核）之间的功耗差异，能够实现更准确的能源归因。<strong>工作负载分类</strong>功能可以识别 CPU 密集型、内存绑定、I/O 绑定和空闲模式等不同工作负载类型，从而实现针对特定工作负载的功率优化策略。<strong>容器运行时集成</strong>使得系统能够按容器或 pod 聚合 Kubernetes 环境中的能源消耗，支持云原生的能源归因和计费。<strong>实时可视化</strong>通过提供带有能源消耗图表的 Web 仪表板，为能源优化提供即时的视觉反馈。</p>
-<p><strong>硬件计数器集成</strong>代表了最有影响力的增强，通过 RAPL（运行平均功率限制）接口用实际硬件测量替换我们的简化估计模型。现代处理器提供详细的能源计数器，可以通过性能事件读取，提供精确到单个 CPU 封装的能源测量。</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1">// 读取 RAPL 计数器以获取实际能源测量</span>
-<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="k">struct</span><span class="w"> </span><span class="nc">perf_event_attr</span><span class="w"> </span><span class="n">attr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PERF_TYPE_POWER</span><span class="p">,</span>
-<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">    </span><span class="p">.</span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PERF_COUNT_HW_POWER_PKG</span><span class="p">,</span>
-<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="p">};</span>
-</code></pre></div>
+<p>当前实现已包含<strong>原生 RAPL 硬件计数器支持</strong>以实现实时能源测量，并为构建更复杂的能源监控功能提供了坚实的基础。多个扩展方向为不同的部署场景提供了重要价值。</p>
+<table>
+<thead>
+<tr>
+<th>扩展领域</th>
+<th>实现状态</th>
+<th>价值主张</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>硬件计数器集成</strong></td>
+<td>✅ <strong>已实现</strong> - 通过 <code>perf_event_open()</code> 的 RAPL 计数器</td>
+<td>实际硬件测量，自动回退功能</td>
+</tr>
+<tr>
+<td><strong>每核功率建模</strong></td>
+<td>未来增强</td>
+<td>异构处理器上的准确归因（P 核与 E 核）</td>
+</tr>
+<tr>
+<td><strong>工作负载分类</strong></td>
+<td>未来增强</td>
+<td>实现特定工作负载的功率优化</td>
+</tr>
+<tr>
+<td><strong>容器运行时集成</strong></td>
+<td>未来增强</td>
+<td>云原生能源归因和计费</td>
+</tr>
+<tr>
+<td><strong>实时可视化</strong></td>
+<td>未来增强</td>
+<td>能源优化的即时反馈</td>
+</tr>
+</tbody>
+</table>
+<p><strong>硬件计数器集成（✅ 已实现）</strong>：能源监控器现已包含完整的 RAPL 支持，通过 Linux <code>perf_event</code> 接口读取实际的硬件能源计数器。这提供了跨多个域（封装、核心、DRAM）的精确能源测量，并在 RAPL 不可用时自动回退到软件估算。详情请参阅上面的<a href="#硬件-rapl-能源测量">硬件 RAPL 能源测量</a>部分。</p>
 <p><strong>每核功率建模</strong>在异构处理器上变得至关重要，其中性能核心和效率核心具有截然不同的功率特性。跟踪每个进程在哪个核心上运行可以实现准确的能源归因：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1">// 不同的核心可能具有不同的功率特性</span>
-<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="kt">double</span><span class="w"> </span><span class="n">core_power</span><span class="p">[</span><span class="n">MAX_CPUS</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mf">15.0</span><span class="p">,</span><span class="w"> </span><span class="mf">15.0</span><span class="p">,</span><span class="w"> </span><span class="mf">10.0</span><span class="p">,</span><span class="w"> </span><span class="mf">10.0</span><span class="p">};</span><span class="w"> </span><span class="c1">// P 核与 E 核</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1">// 不同的核心可能具有不同的功率特性</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="kt">double</span><span class="w"> </span><span class="n">core_power</span><span class="p">[</span><span class="n">MAX_CPUS</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mf">15.0</span><span class="p">,</span><span class="w"> </span><span class="mf">15.0</span><span class="p">,</span><span class="w"> </span><span class="mf">10.0</span><span class="p">,</span><span class="w"> </span><span class="mf">10.0</span><span class="p">};</span><span class="w"> </span><span class="c1">// P 核与 E 核</span>
 </code></pre></div>
 <p><strong>工作负载分类</strong>通过识别不同的计算模式及其相关的能源成本来增强能源监控：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="k">enum</span><span class="w"> </span><span class="n">workload_type</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">    </span><span class="n">WORKLOAD_CPU_INTENSIVE</span><span class="p">,</span>
-<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">    </span><span class="n">WORKLOAD_MEMORY_BOUND</span><span class="p">,</span>
-<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">    </span><span class="n">WORKLOAD_IO_BOUND</span><span class="p">,</span>
-<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">    </span><span class="n">WORKLOAD_IDLE</span>
-<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="p">};</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="k">enum</span><span class="w"> </span><span class="n">workload_type</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">    </span><span class="n">WORKLOAD_CPU_INTENSIVE</span><span class="p">,</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">    </span><span class="n">WORKLOAD_MEMORY_BOUND</span><span class="p">,</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="w">    </span><span class="n">WORKLOAD_IO_BOUND</span><span class="p">,</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="w">    </span><span class="n">WORKLOAD_IDLE</span>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="p">};</span>
 </code></pre></div>
 <h2 id="_25">故障排除常见问题</h2>
 <p>部署 eBPF 能源监控时，您可能会遇到这些常见问题：</p>
 <h3 id="_26">权限被拒绝</h3>
 <p>如果在运行 eBPF 监控器时看到权限错误：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># 检查 BPF 是否已启用</span>
-<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>sudo<span class="w"> </span>sysctl<span class="w"> </span>kernel.unprivileged_bpf_disabled
-<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>
-<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="c1"># 启用 BPF 进行调试（不建议用于生产）</span>
-<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>sudo<span class="w"> </span>sysctl<span class="w"> </span>kernel.unprivileged_bpf_disabled<span class="o">=</span><span class="m">0</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># 检查 BPF 是否已启用</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>sudo<span class="w"> </span>sysctl<span class="w"> </span>kernel.unprivileged_bpf_disabled
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="c1"># 启用 BPF 进行调试（不建议用于生产）</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>sudo<span class="w"> </span>sysctl<span class="w"> </span>kernel.unprivileged_bpf_disabled<span class="o">=</span><span class="m">0</span>
 </code></pre></div>
 <h3 id="btf">缺少 BTF 信息</h3>
 <p>如果内核缺少 BTF（BPF 类型格式）数据：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># 检查 BTF 支持</span>
-<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>ls<span class="w"> </span>/sys/kernel/btf/vmlinux
-<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>
-<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="c1"># 在较旧的内核上，您可能需要生成 BTF</span>
-<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="c1"># 或使用带有 CONFIG_DEBUG_INFO_BTF=y 的内核</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1"># 检查 BTF 支持</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>ls<span class="w"> </span>/sys/kernel/btf/vmlinux
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="c1"># 在较旧的内核上，您可能需要生成 BTF</span>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="c1"># 或使用带有 CONFIG_DEBUG_INFO_BTF=y 的内核</span>
 </code></pre></div>
 <h3 id="cpu_1">高 CPU 使用率</h3>
 <p>如果监控器本身导致高 CPU 使用率，可以采取几种优化措施。首先考虑减少 eBPF 程序中的环形缓冲区大小，这能够降低内存压力和处理开销。其次，增加批量读取事件的大小可以减少系统调用的频率。最有效的方法是在内核中添加事件过滤逻辑，从源头上减少需要传递到用户空间的事件数量。</p>
@@ -9607,7 +9685,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 26, 2025 10:25:31 UTC">August 26, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 1, 2025 00:36:56 UTC">October 1, 2025</span>
   </span>
 
     
