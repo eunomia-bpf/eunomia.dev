@@ -8481,24 +8481,11 @@
 <h1 id="ebpf-tutorial-tracing-cuda-gpu-operations">eBPF Tutorial: Tracing CUDA GPU Operations</h1>
 <p>Have you ever wondered what's happening under the hood when your CUDA application is running? GPU operations can be challenging to debug and profile because they happen in a separate device with its own memory space. In this tutorial, we'll build a powerful eBPF-based tracing tool that lets you peek into CUDA API calls in real time.</p>
 <h2 id="introduction-to-cuda-and-gpu-tracing">Introduction to CUDA and GPU Tracing</h2>
-<p>CUDA (Compute Unified Device Architecture) is NVIDIA's parallel computing platform and programming model that enables developers to use NVIDIA GPUs for general-purpose processing. When you run a CUDA application, several things happen behind the scenes:</p>
-<ol>
-<li>The host (CPU) allocates memory on the device (GPU)</li>
-<li>Data is transferred from host to device memory</li>
-<li>GPU kernels (functions) are launched to process the data</li>
-<li>Results are transferred back from device to host</li>
-<li>Device memory is freed</li>
-</ol>
-<p>Each of these operations involves CUDA API calls like <code>cudaMalloc</code>, <code>cudaMemcpy</code>, and <code>cudaLaunchKernel</code>. Tracing these calls can provide valuable insights for debugging and performance optimization, but this isn't straightforward. GPU operations happen asynchronously, and traditional debugging tools often can't access GPU internals.</p>
-<p>This is where eBPF comes to the rescue! By using uprobes, we can intercept CUDA API calls in the user-space CUDA runtime library (<code>libcudart.so</code>) before they reach the GPU. This gives us visibility into:</p>
-<ul>
-<li>Memory allocation sizes and patterns</li>
-<li>Data transfer directions and sizes</li>
-<li>Kernel launch parameters</li>
-<li>Error codes and failures</li>
-<li>Timing of operations</li>
-</ul>
-<p>This blog mainly focuses on the CPU side of the CUDA API calls, for fined-grained tracing of GPU operations, you can see <a href="https://dl.acm.org/doi/10.1145/3723851.3726984">eGPU</a> paper and <a href="https://github.com/eunomia-bpf/bpftime">bpftime</a> project.</p>
+<p>CUDA (Compute Unified Device Architecture) is NVIDIA's parallel computing platform and programming model that enables developers to use NVIDIA GPUs for general-purpose processing. When you run a CUDA application, a typical workflow begins with the host (CPU) allocating memory on the device (GPU), followed by data transfer from host memory to device memory, then GPU kernels (functions) are launched to process the data, after which results are transferred back from device to host, and finally device memory is freed.</p>
+<p>Each operation in this process involves CUDA API calls, such as <code>cudaMalloc</code> for memory allocation, <code>cudaMemcpy</code> for data transfer, and <code>cudaLaunchKernel</code> for kernel execution. Tracing these calls can provide valuable insights for debugging and performance optimization, but this isn't straightforward. GPU operations are asynchronous, meaning the CPU can continue executing after submitting work to the GPU without waiting, and traditional debugging tools often can't penetrate this asynchronous boundary to access GPU internal state.</p>
+<p>This is where eBPF comes to the rescue! By using uprobes, we can intercept CUDA API calls in the user-space CUDA runtime library (<code>libcudart.so</code>) before they reach the GPU driver, capturing critical information. This approach allows us to gain deep insights into memory allocation sizes and patterns, data transfer directions and volumes, kernel launch parameters, error codes and failure reasons returned by the API, and precise timing information for each operation. By intercepting these calls on the CPU side, we can build a complete view of an application's GPU usage behavior without modifying application code or relying on proprietary profiling tools.</p>
+<p>This tutorial primarily focuses on CPU-side CUDA API tracing, which provides a macro view of how applications interact with the GPU. However, CPU-side tracing alone has clear limitations. When a CUDA API function like <code>cudaLaunchKernel</code> is called, it merely submits a work request to the GPU. We can see when the kernel was launched, but we cannot observe what actually happens inside the GPU. Critical details such as how thousands of threads access memory, their execution patterns, branching behavior, and synchronization operations remain invisible. These details are crucial for understanding performance bottlenecks, such as whether memory access patterns cause coalesced access failures or whether severe thread divergence reduces execution efficiency.</p>
+<p>To achieve fine-grained tracing of GPU operations, eBPF programs need to run directly on the GPU. This is exactly what the eGPU paper and <a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu">bpftime GPU examples</a> explore. bpftime converts eBPF programs into PTX instructions that GPUs can execute, then dynamically modifies CUDA binaries at runtime to inject these eBPF programs at kernel entry and exit points, enabling observation of GPU internal behavior. This approach allows developers to access GPU-specific information such as block indices, thread indices, global timers, and perform measurements and tracing on critical paths during kernel execution. This GPU-internal observability is essential for diagnosing complex performance issues, understanding kernel execution behavior, and optimizing GPU computation—capabilities that CPU-side tracing simply cannot provide.</p>
 <h2 id="key-cuda-functions-we-trace">Key CUDA Functions We Trace</h2>
 <p>Our tracer monitors several critical CUDA functions that represent the main operations in GPU computing. Understanding these functions helps you interpret the tracing results and diagnose issues in your CUDA applications:</p>
 <h3 id="memory-management">Memory Management</h3>
@@ -8886,6 +8873,8 @@
 <li>NVIDIA CUDA Runtime API: <a href="https://docs.nvidia.com/cuda/cuda-runtime-api/">https://docs.nvidia.com/cuda/cuda-runtime-api/</a></li>
 <li>libbpf Documentation: <a href="https://libbpf.readthedocs.io/">https://libbpf.readthedocs.io/</a></li>
 <li>Linux uprobes Documentation: <a href="https://www.kernel.org/doc/Documentation/trace/uprobetracer.txt">https://www.kernel.org/doc/Documentation/trace/uprobetracer.txt</a></li>
+<li>eGPU: eBPF on GPUs: <a href="https://dl.acm.org/doi/10.1145/3723851.3726984">https://dl.acm.org/doi/10.1145/3723851.3726984</a></li>
+<li>bpftime GPU Examples: <a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu">https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu</a></li>
 </ul>
 <p>If you'd like to dive deeper into eBPF, check out our tutorial repository at <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">https://github.com/eunomia-bpf/bpf-developer-tutorial</a> or visit our website at <a href="https://eunomia.dev/tutorials/">https://eunomia.dev/tutorials/</a>. </p>
 <p><a class="md-button" href="https://x.com/intent/tweet?text=eBPF%20Tutorial%3A%20Tracing%20CUDA%20GPU%20Operations%0A&amp;url=https://eunomia.dev/en/tutorials/47-cuda-events/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
@@ -8912,7 +8901,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 26, 2025 10:25:31 UTC">August 26, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 1, 2025 05:33:43 UTC">October 1, 2025</span>
   </span>
 
     

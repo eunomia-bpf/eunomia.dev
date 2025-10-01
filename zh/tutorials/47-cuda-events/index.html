@@ -24,7 +24,7 @@
     
     
       
-        <title>eBPF 与机器学习可观测：追踪 CUDA GPU 操作 - eunomia</title>
+        <title>eBPF 教程：追踪 CUDA GPU 操作 - eunomia</title>
       
     
     
@@ -69,7 +69,7 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="eBPF 与机器学习可观测：追踪 CUDA GPU 操作 - eunomia" >
+        <meta  property="og:title"  content="eBPF 教程：追踪 CUDA GPU 操作 - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
@@ -85,7 +85,7 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="eBPF 与机器学习可观测：追踪 CUDA GPU 操作 - eunomia" >
+        <meta  name="twitter:title"  content="eBPF 教程：追踪 CUDA GPU 操作 - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              eBPF 与机器学习可观测：追踪 CUDA GPU 操作
+              eBPF 教程：追踪 CUDA GPU 操作
             
           </span>
         </div>
@@ -1712,7 +1712,7 @@
   
   
   <span class="md-ellipsis">
-    eBPF 与机器学习可观测：追踪 CUDA GPU 操作
+    eBPF 教程：追踪 CUDA GPU 操作
     
   </span>
   
@@ -1725,7 +1725,7 @@
   
   
   <span class="md-ellipsis">
-    eBPF 与机器学习可观测：追踪 CUDA GPU 操作
+    eBPF 教程：追踪 CUDA GPU 操作
     
   </span>
   
@@ -8496,31 +8496,18 @@
   
 
 
-<h1 id="ebpf-cuda-gpu">eBPF 与机器学习可观测：追踪 CUDA GPU 操作</h1>
+<h1 id="ebpf-cuda-gpu">eBPF 教程：追踪 CUDA GPU 操作</h1>
 <p>你是否曾经想知道CUDA应用程序在运行时底层发生了什么？GPU操作由于发生在具有独立内存空间的设备上，因此调试和性能分析变得极为困难。在本教程中，我们将构建一个强大的基于eBPF的追踪工具，让你实时查看CUDA API调用。</p>
 <h2 id="cudagpu">CUDA和GPU追踪简介</h2>
-<p>CUDA（Compute Unified Device Architecture，计算统一设备架构）是NVIDIA的并行计算平台和编程模型，使开发者能够利用NVIDIA GPU进行通用计算。当你运行CUDA应用程序时，后台会发生以下步骤：</p>
-<ol>
-<li>主机（CPU）在设备（GPU）上分配内存</li>
-<li>数据从主机内存传输到设备内存</li>
-<li>GPU内核（函数）被启动以处理数据</li>
-<li>结果从设备传回主机</li>
-<li>设备内存被释放</li>
-</ol>
-<p>每个操作都涉及CUDA API调用，如<code>cudaMalloc</code>、<code>cudaMemcpy</code>和<code>cudaLaunchKernel</code>。追踪这些调用可以提供宝贵的调试和性能优化信息，但这并不简单。GPU操作是异步的，传统调试工具通常无法访问GPU内部。</p>
-<p>这时eBPF就派上用场了！通过使用uprobes，我们可以在用户空间CUDA运行库（<code>libcudart.so</code>）中拦截CUDA API调用，在它们到达GPU之前。这使我们能够了解：</p>
-<ul>
-<li>内存分配大小和模式</li>
-<li>数据传输方向和大小</li>
-<li>内核启动参数</li>
-<li>错误代码和失败原因</li>
-<li>操作的时间信息</li>
-</ul>
-<p>本教程主要关注CPU侧的CUDA API调用，对于细粒度的GPU操作追踪，你可以参考<a href="https://dl.acm.org/doi/10.1145/3723851.3726984">eGPU</a>论文和<a href="https://github.com/eunomia-bpf/bpftime">bpftime</a>项目。</p>
+<p>CUDA（Compute Unified Device Architecture，计算统一设备架构）是NVIDIA的并行计算平台和编程模型，使开发者能够利用NVIDIA GPU进行通用计算。当你运行CUDA应用程序时，一个典型的工作流程从主机（CPU）在设备（GPU）上分配内存开始，随后数据从主机内存传输到设备内存，接着GPU内核（函数）被启动以处理数据，处理完成后结果从设备传回主机，最后设备内存被释放。</p>
+<p>这个过程中的每个操作都涉及CUDA API调用，例如用于内存分配的<code>cudaMalloc</code>、用于数据传输的<code>cudaMemcpy</code>以及用于启动内核的<code>cudaLaunchKernel</code>。追踪这些调用可以提供宝贵的调试和性能优化信息，但这并不简单。GPU操作是异步的，这意味着CPU在提交工作给GPU后可以继续执行而无需等待，而传统调试工具通常无法穿透这层异步边界来访问GPU内部状态。</p>
+<p>这时eBPF就派上用场了！通过使用uprobes，我们可以在用户空间CUDA运行库（<code>libcudart.so</code>）中拦截CUDA API调用，在它们到达GPU驱动之前捕获关键信息。这种方法使我们能够深入了解内存分配的大小和模式、数据传输的方向和大小、内核启动时使用的参数、API返回的错误代码和失败原因，以及各个操作的精确时间信息。通过在CPU侧拦截这些调用，我们可以构建应用程序GPU使用行为的完整视图，而无需修改应用程序代码或依赖专有的性能分析工具。</p>
 <h2 id="ebpfgpu">eBPF技术背景与GPU追踪的挑战</h2>
 <p>eBPF（Extended Berkeley Packet Filter）最初是为网络数据包过滤而设计的，但现在已经发展成为一个强大的内核编程框架，使开发人员能够在内核空间运行用户定义的程序，而无需修改内核源代码或加载内核模块。eBPF的安全性通过静态分析和运行时验证器来保证，这使得它能够在生产环境中安全地运行。</p>
 <p>传统的系统追踪方法往往存在显著的性能开销和功能限制。例如，使用strace等工具追踪系统调用会导致每个被追踪的系统调用产生数倍的性能损失，因为它需要在内核空间和用户空间之间频繁切换。相比之下，eBPF程序直接在内核空间执行，可以就地处理事件，只在必要时才将汇总或过滤后的数据传递给用户空间，从而大大减少了上下文切换的开销。</p>
 <p>GPU追踪面临着独特的挑战。现代GPU是高度并行的处理器，包含数千个小型计算核心，这些核心可以同时执行数万个线程。GPU具有自己的内存层次结构，包括全局内存、共享内存、常数内存和纹理内存，这些内存的访问模式对性能有着巨大影响。更复杂的是，GPU操作通常是异步的，这意味着当CPU启动一个GPU操作后，它可以继续执行其他任务，而无需等待GPU操作完成。另外，CUDA编程模型的异步特性使得调试变得特别困难。当一个内核函数在GPU上执行时，CPU无法直接观察到GPU的内部状态。错误可能在GPU上发生，但直到后续的同步操作（如cudaDeviceSynchronize或cudaStreamSynchronize）时才被检测到，这使得错误源的定位变得困难。此外，GPU内存错误（如数组越界访问）可能导致静默的数据损坏，而不是立即的程序崩溃，这进一步增加了调试的复杂性。</p>
+<p>本教程主要关注CPU侧的CUDA API调用，这为我们提供了应用程序与GPU交互的宏观视图。然而，仅在CPU侧进行追踪存在明显的局限性。当CUDA API函数如<code>cudaLaunchKernel</code>被调用时，它只是向GPU提交了一个工作请求，我们可以看到内核何时被启动，但无法观察到GPU内部实际发生了什么。GPU上运行的成千上万个线程如何访问内存、它们的执行模式、分支行为和同步操作等关键细节都是不可见的。这些细节对于理解性能瓶颈至关重要，比如内存访问模式是否导致了合并访问失败，或者是否存在严重的线程分化导致执行效率降低。</p>
+<p>要实现对GPU操作的细粒度追踪，需要直接在GPU上运行eBPF程序。这正是eGPU论文和<a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu">bpftime GPU示例</a>所探索的方向。bpftime通过将eBPF程序转换为GPU可以执行的PTX指令，然后在运行时动态修改CUDA二进制文件，将这些eBPF程序注入到GPU内核的入口和出口点，从而实现对GPU内部行为的观测。这种方法使得开发者可以访问GPU特有的信息，如块索引、线程索引、全局计时器等，并且可以在GPU内核执行的关键路径上进行测量和追踪。这种GPU内部的可观测性对于诊断复杂的性能问题、理解内核执行行为以及优化GPU计算至关重要，是CPU侧追踪无法企及的。</p>
 <h2 id="cuda">我们追踪的关键CUDA函数</h2>
 <p>我们的追踪工具监控几个关键CUDA函数，这些函数代表GPU计算中的主要操作。了解这些函数有助于解释追踪结果并诊断CUDA应用程序中的问题：</p>
 <h3 id="_1">内存管理</h3>
@@ -8908,9 +8895,11 @@
 <li>NVIDIA CUDA运行时API：<a href="https://docs.nvidia.com/cuda/cuda-runtime-api/">https://docs.nvidia.com/cuda/cuda-runtime-api/</a></li>
 <li>libbpf文档：<a href="https://libbpf.readthedocs.io/">https://libbpf.readthedocs.io/</a></li>
 <li>Linux uprobes文档：<a href="https://www.kernel.org/doc/Documentation/trace/uprobetracer.txt">https://www.kernel.org/doc/Documentation/trace/uprobetracer.txt</a></li>
+<li>eGPU: eBPF on GPUs: <a href="https://dl.acm.org/doi/10.1145/3723851.3726984">https://dl.acm.org/doi/10.1145/3723851.3726984</a></li>
+<li>bpftime GPU示例: <a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu">https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu</a></li>
 </ul>
 <p>如果你想深入了解eBPF，请查看我们的教程仓库：<a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">https://github.com/eunomia-bpf/bpf-developer-tutorial</a> 或访问我们的网站：<a href="https://eunomia.dev/tutorials/">https://eunomia.dev/tutorials/</a>。</p>
-<p><a class="md-button" href="https://x.com/intent/tweet?text=eBPF%20%E4%B8%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%8F%AF%E8%A7%82%E6%B5%8B%EF%BC%9A%E8%BF%BD%E8%B8%AA%20CUDA%20GPU%20%E6%93%8D%E4%BD%9C%0A&amp;url=https://eunomia.dev/zh/tutorials/47-cuda-events/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=eBPF%20%E6%95%99%E7%A8%8B%EF%BC%9A%E8%BF%BD%E8%B8%AA%20CUDA%20GPU%20%E6%93%8D%E4%BD%9C%0A&amp;url=https://eunomia.dev/zh/tutorials/47-cuda-events/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/zh/tutorials/47-cuda-events/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
@@ -8934,7 +8923,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 11, 2025 14:17:28 UTC">July 11, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 1, 2025 05:33:43 UTC">October 1, 2025</span>
   </span>
 
     
@@ -8954,12 +8943,13 @@
   <span class="md-source-file__fact">
     <span class="md-icon" title="Contributors">
       
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
       
     </span>
     <nav>
       
-        <a href="mailto:41898282+github-actions[bot]@users.noreply.github.com">github-actions[bot]</a>
+        <a href="mailto:41898282+github-actions[bot]@users.noreply.github.com">github-actions[bot]</a>, 
+        <a href="mailto:yunwei356@gmail.com">yunwei37</a>
     </nav>
   </span>
 
