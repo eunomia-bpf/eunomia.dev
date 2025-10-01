@@ -1809,6 +1809,14 @@
          
     </url>
     <url>
+         <loc>https://eunomia.dev/tutorials/32-wallclock-profiler/</loc>
+         <lastmod>2025-10-01</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/32-wallclock-profiler/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/32-wallclock-profiler/"/>
+         
+    </url>
+    <url>
          <loc>https://eunomia.dev/tutorials/33-funclatency/</loc>
          <lastmod>2025-10-01</lastmod>
          <changefreq>daily</changefreq>

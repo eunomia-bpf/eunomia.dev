@@ -1350,12 +1350,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../tutorials/32-http2/README.md" class="md-nav__link">
+      <a href="../../../tutorials/32-wallclock-profiler/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    None
+    eBPF 开发实践教程：示例 32 - 结合 On-CPU 和 Off-CPU 分析的挂钟时间分析
     
   </span>
   
@@ -2351,30 +2351,6 @@
       Why eBPF on GPU?
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Why eBPF on GPU?">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-problem-with-current-gpu-observability-tools" class="md-nav__link">
-    <span class="md-ellipsis">
-      The Problem with Current GPU Observability Tools
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#bpftimes-unified-approach" class="md-nav__link">
-    <span class="md-ellipsis">
-      bpftime's Unified Approach
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -8332,30 +8308,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Why eBPF on GPU?">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-problem-with-current-gpu-observability-tools" class="md-nav__link">
-    <span class="md-ellipsis">
-      The Problem with Current GPU Observability Tools
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#bpftimes-unified-approach" class="md-nav__link">
-    <span class="md-ellipsis">
-      bpftime's Unified Approach
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -8557,46 +8509,21 @@
 
 
 <h1 id="write-and-run-ebpf-on-gpu-with-bpftime">Write and Run eBPF on GPU with bpftime</h1>
-<p>bpftime provides GPU support through its CUDA/ROCm attachment implementation, enabling eBPF programs to execute <strong>within GPU kernels</strong> on NVIDIA and AMD GPUs. This brings eBPF's programmability and observability to GPU computing workloads, enabling real-time profiling and debugging of GPU applications without source code modification.</p>
+<p>bpftime provides GPU support through its CUDA/ROCm attachment implementation, enabling eBPF programs to execute <strong>within GPU kernels</strong> on NVIDIA and AMD GPUs. This brings eBPF's programmability, observability, and customization capabilities to GPU computing workloads, enabling real-time profiling, debugging, and runtime extension of GPU applications without source code modification.</p>
 <blockquote>
 <p><code>Experimental</code></p>
 </blockquote>
 <h2 id="why-ebpf-on-gpu">Why eBPF on GPU?</h2>
-<p>GPUs are widely used for ML workloads and are typically SIMT (Single Instruction, Multiple Thread) accelerators with threads organized in warps executing on streaming multiprocessors (SMs). These threads are grouped into blocks and launched as kernels, utilizing a complex multi-level memory hierarchy including registers, shared memory/LDS (Local Data Share), L2 cache, and device memory. GPUs also have limited preemption capabilities compared to CPUs. This architectural complexity creates rich but challenging behavior patterns that are difficult to observe and customize, particularly when diagnosing performance bottlenecks, memory access patterns, warp divergence, or resource contention issues.</p>
-<h3 id="the-problem-with-current-gpu-observability-tools">The Problem with Current GPU Observability Tools</h3>
-<p>Today's GPU tracing and profiling landscape suffers from two major limitations:</p>
-<p><strong>1. CPU-Boundary Tools Lack Device-Side Visibility</strong>
-Many tracing tools operate at the CPU boundary by placing probes on CUDA userspace libraries (like <code>libcuda.so</code>, <code>libcudart.so</code>) or kernel drivers. While these tools can capture host-side events such as kernel launches, memory copies, and API calls, they treat the GPU device as a black box. This approach provides:
-- No visibility into what happens <em>inside</em> a running kernel
-- Weak or no linkage to device-side events like warp stalls, bank conflicts, or memory traffic patterns
-- No ability to safely adapt or modify kernel behavior in-flight based on runtime conditions
-- Limited correlation between host actions and device-side performance issues</p>
-<p><strong>2. GPU-Specific Profilers Are Siloed</strong>
-Device-side profilers like NVIDIA's CUPTI, Intel's GTPin, Nvbit, and Neutrino do provide detailed device-side visibility including instruction-level profiling, memory traces, and warp execution analysis. However, they suffer from:
-- <strong>Vendor lock-in</strong>: Each tool is typically tied to a specific GPU vendor (NVIDIA, AMD, Intel)
-- <strong>Isolation from eBPF ecosystems</strong>: These tools don't integrate with Linux's eBPF infrastructure, making it difficult to correlate GPU events with system-wide observability data from kprobes, uprobes, tracepoints, or network events
-- <strong>Limited programmability</strong>: Most provide fixed metrics rather than user-programmable instrumentation
-- <strong>High overhead</strong>: Binary instrumentation tools can introduce significant performance overhead (e.g., NVBit can be 10-100x slower)</p>
-<h3 id="bpftimes-unified-approach">bpftime's Unified Approach</h3>
-<p><strong>bpftime bridges this gap</strong> by offloading eBPF programs directly into GPU device contexts, bringing the same programmability model that revolutionized kernel observability to GPUs. The implementation includes:</p>
-<p><strong>GPU-Side Attach Points:</strong>
-- Device function entry/exit for profiling kernel execution
-- Block begin/end for tracking thread block lifecycle
-- Barrier/synchronization points for analyzing warp coordination
-- Memory operation hooks for capturing access patterns
-- Stream operation events for tracking asynchronous execution</p>
-<p><strong>eBPF-to-GPU Compilation Pipeline:</strong>
-- Compiles standard eBPF bytecode into GPU-native instruction sets (PTX for NVIDIA, SPIR-V for AMD)
-- Includes full verifier support to ensure safety and prevent crashes
-- Provides GPU-optimized helper functions for timing, thread identification, and map operations
-- Supports standard eBPF maps (hash, array, ringbuf) with GPU-resident variants for zero-copy access</p>
-<p>This unified approach enables:</p>
+<p>GPUs have become the dominant accelerators for machine learning, scientific computing, and high-performance computing workloads, but their SIMT (Single Instruction, Multiple Thread) execution model introduces significant observability and extensibility challenges. Modern GPUs organize thousands of threads into warps (typically 32 threads) that execute in lockstep on streaming multiprocessors (SMs), with kernels launched asynchronously from the host. These threads navigate complex multi-level memory hierarchies—from fast but limited per-thread registers, to shared memory/LDS within thread blocks, through L1/L2 caches, to slower but abundant device memory—while contending with limited preemption capabilities that make kernel execution difficult to interrupt, inspect, or extend. This architectural complexity creates rich performance characteristics including warp divergence, memory coalescing patterns, bank conflicts, and occupancy variations that directly impact throughput, yet these behaviors remain largely opaque to traditional observability tools. Understanding and optimizing issues like kernel stalls, memory bottlenecks, inefficient synchronization, or suboptimal SM utilization requires fine-grained visibility into the execution flow, memory access patterns, and inter-warp coordination happening deep inside the GPU—along with the ability to dynamically inject custom logic—capabilities that existing tooling struggles to provide in a flexible, programmable manner.</p>
+<p>Existing GPU tracing and profiling tools fall into two categories, each with significant limitations. First, many tracing tools operate exclusively at the CPU-GPU boundary by intercepting CUDA/ROCm userspace library calls (e.g., via LD_PRELOAD hooks on libcuda.so) or instrumenting kernel drivers at the system call layer. While this approach captures host-side events like kernel launches, memory transfers, and API timing, it fundamentally treats the GPU as a black box—providing no visibility into what happens during kernel execution, no correlation with specific warp behaviors or memory stalls, and no ability to adaptively modify behavior based on runtime conditions inside the device. Second, GPU vendor-specific profilers (NVIDIA's CUPTI, Nsight Compute, Intel's GTPin, AMD's ROCProfiler, research tools like NVBit or Neutrino) do provide device-side instrumentation and can collect hardware performance counters, warp-level traces, or instruction-level metrics. However, these tools operate in isolated ecosystems disconnected from Linux kernel observability and extension stacks: they cannot correlate GPU events with CPU-side eBPF probes (kprobes, uprobes, tracepoints), require separate data collection pipelines and analysis workflows, often impose substantial overhead (10-100x slowdowns for fine-grained instrumentation), and lack the dynamic programmability and control from the control plane that makes eBPF powerful for customizing what data to collect and how to process it in production environments, without recompilation or service interruption.</p>
+<p><strong>bpftime's approach</strong> bridges this gap by extending eBPF's programmability and customization model directly into GPU execution contexts, enabling eBPF programs to run natively inside GPU kernels alongside application workloads. The system defines a comprehensive set of GPU-side attach points that mirror the flexibility of CPU-side kprobes/uprobes: developers can instrument CUDA/ROCm device function entry and exit points (analogous to function probes), thread block lifecycle events (block begin/end), synchronization primitives (barriers, atomics), memory operations (loads, stores, transfers), and stream/event operations. eBPF programs written in restricted C are compiled through LLVM into device-native bytecode—PTX (Parallel Thread Execution) assembly for NVIDIA GPUs or SPIR-V for AMD/Intel—and dynamically injected into target kernels at runtime through binary instrumentation, without requiring source code modification or recompilation. The runtime provides a full eBPF execution environment on the GPU including: (1) a safety verifier adapted from PREVAIL to ensure bounded execution and memory safety in the SIMT context, (2) a rich set of GPU-aware helper functions for accessing thread/block/grid context, timing, synchronization, and formatted output, (3) specialized BPF map types that live in GPU memory for high-throughput per-thread data collection (GPU array maps) and event streaming (GPU ringbuf maps), and (4) a host-GPU communication protocol using shared memory and spinlocks for safely calling host-side helpers when needed. This architecture enables not only collecting fine-grained telemetry (per-warp timing, memory access patterns, control flow divergence) at nanosecond granularity, but also adaptively modifying kernel behavior based on runtime conditions, building custom extensions and optimizations, and unifying GPU observability with existing CPU-side eBPF programs into a single analysis pipeline—all while maintaining production-ready overhead characteristics. This enables:</p>
 <ul>
 <li><strong>3-10x faster performance</strong> than tools like NVBit for instrumentation</li>
 <li><strong>Vendor-neutral design</strong> that works across NVIDIA and AMD GPUs</li>
-<li><strong>Unified observability</strong> with Linux kernel eBPF programs (kprobes, uprobes)</li>
-<li><strong>Fine-grained profiling</strong> at the warp or instruction level</li>
+<li><strong>Unified observability and control</strong> with Linux kernel eBPF programs (kprobes, uprobes)</li>
+<li><strong>Fine-grained profiling and runtime customization</strong> at the warp or instruction level</li>
 <li><strong>Adaptive GPU kernel memory optimization</strong> and programmable scheduling across SMs</li>
+<li><strong>Dynamic extensions</strong> for GPU workloads without recompilation</li>
 <li><strong>Accelerated eBPF applications</strong> by leveraging GPU compute power</li>
 </ul>
 <h2 id="architecture">Architecture</h2>
@@ -8786,7 +8713,7 @@ Device-side profilers like NVIDIA's CUPTI, Intel's GTPin, Nvbit, and Neutrino do
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 30, 2025 09:02:23 UTC">September 30, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 1, 2025 05:16:00 UTC">October 1, 2025</span>
   </span>
 
     

@@ -1119,6 +1119,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#testing-memleak" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing memleak
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
       Summary
@@ -1488,12 +1497,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../32-http2/README.md" class="md-nav__link">
+      <a href="../32-wallclock-profiler/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    None
+    eBPF Tutorial by Example 32: Wall Clock Profiling with Combined On-CPU and Off-CPU Analysis
     
   </span>
   
@@ -8296,6 +8305,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#testing-memleak" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing memleak
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
       Summary
@@ -8658,6 +8676,7 @@ We have just analyzed the entry function <code>gen_alloc_enter</code> of memory 
 <p>Complete source code: <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/16-memleak">https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/16-memleak</a></p>
 <p>Reference: <a href="https://github.com/iovisor/bcc/blob/master/libbpf-tools/memleak.c">https://github.com/iovisor/bcc/blob/master/libbpf-tools/memleak.c</a></p>
 <h2 id="compile-and-run">Compile and Run</h2>
+<p>This implementation uses the latest <strong>blazesym v0.2.0</strong> library for symbol resolution, which provides improved performance and a modern C API through the <code>capi</code> package.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="gp">$ </span>make
 <a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="gp">$ </span>sudo<span class="w"> </span>./memleak
 <a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="go">using default object: libc.so.6</span>
@@ -8675,6 +8694,29 @@ We have just analyzed the entry function <code>gen_alloc_enter</code> of memory 
 <a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="go">        6 [&lt;ffffffff82000b62&gt;] &lt;null sym&gt;</span>
 <a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="go">...</span>
 </code></pre></div>
+<h2 id="testing-memleak">Testing memleak</h2>
+<p>This repository includes a test program (<code>test_memleak.c</code>) that intentionally leaks memory for testing purposes. You can build and run it to verify that memleak correctly detects memory leaks:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="gp">$ </span>make<span class="w"> </span>test_memleak
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="gp">$ </span>./test_memleak<span class="w"> </span><span class="p">&amp;</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="gp">$ </span>sudo<span class="w"> </span>./memleak<span class="w"> </span>-p<span class="w"> </span><span class="k">$(</span>pidof<span class="w"> </span>test_memleak<span class="k">)</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="go">using default object: libc.so.6</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="go">using page size: 4096</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="go">tracing kernel: false</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="go">Tracing outstanding memory allocs...  Hit Ctrl-C to end</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="go">[19:31:49] Top 1 stacks with outstanding allocations:</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="go">10240 bytes in 5 allocations from stack</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="go">    0 [&lt;00005a7ea0a34212&gt;] leak_with_loop+0x1f</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="go">    1 [&lt;00005a7ea0a3428e&gt;] main+0x6e</span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="go">    2 [&lt;00007b4ea482a1ca&gt;] &lt;null sym&gt;</span>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="go">    3 [&lt;00007b4ea482a28b&gt;] __libc_start_main+0x8b</span>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="go">    4 [&lt;00005a7ea0a34105&gt;] _start+0x25</span>
+</code></pre></div>
+<p>As shown above, memleak successfully:
+- Detected <strong>10240 bytes in 5 allocations</strong> (5 × 2048 bytes) that were leaked
+- Identified the leaking function <strong>leak_with_loop+0x1f</strong> with the correct offset
+- Provided the complete call stack showing the leak originated from <code>main</code> function
+- Used the new <strong>blazesym v0.2.0</strong> C API for fast and accurate symbol resolution</p>
+<p>The test demonstrates that memleak with the updated blazesym library can effectively trace memory allocations and pinpoint the exact functions responsible for memory leaks.</p>
 <h2 id="summary">Summary</h2>
 <p>Through this eBPF introductory tutorial, you have learned how to write a Memleak eBPF monitoring program to monitor memory leaks in real time. You have also learned about the application of eBPF in memory monitoring, how to write eBPF programs using the BPF API, create and use eBPF maps, and how to use eBPF tools to monitor and analyze memory leak issues. We have provided a detailed example to help you understand the execution flow and principles of eBPF code.</p>
 <p>You can visit our tutorial code repository at <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">https://github.com/eunomia-bpf/bpf-developer-tutorial</a> or website <a href="https://eunomia.dev/tutorials/">https://eunomia.dev/tutorials/</a> for more examples and complete tutorials.</p>
@@ -8705,7 +8747,7 @@ We have just analyzed the entry function <code>gen_alloc_enter</code> of memory 
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 10, 2025 23:07:43 UTC">February 10, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 1, 2025 05:16:00 UTC">October 1, 2025</span>
   </span>
 
     
@@ -8725,11 +8767,12 @@ We have just analyzed the entry function <code>gen_alloc_enter</code> of memory 
   <span class="md-source-file__fact">
     <span class="md-icon" title="Contributors">
       
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
       
     </span>
     <nav>
       
+        <a href="mailto:yunwei356@gmail.com">yunwei37</a>, 
         <a href="mailto:1067852565@qq.com">云微</a>
     </nav>
   </span>

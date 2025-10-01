@@ -1350,12 +1350,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/32-http2/README.md" class="md-nav__link">
+      <a href="../../../tutorials/32-wallclock-profiler/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    None
+    eBPF Tutorial by Example 32: Wall Clock Profiling with Combined On-CPU and Off-CPU Analysis
     
   </span>
   
@@ -2363,6 +2363,15 @@
   <a href="#compile-with-libbpf-disabled" class="md-nav__link">
     <span class="md-ellipsis">
       Compile with libbpf disabled
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compile-with-cudagpu-attach-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compile with CUDA/GPU attach support
     </span>
   </a>
   
@@ -8381,6 +8390,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#compile-with-cudagpu-attach-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compile with CUDA/GPU attach support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#testing-targets" class="md-nav__link">
     <span class="md-ellipsis">
       Testing targets
@@ -8518,14 +8536,24 @@
 <li><code>CMAKE_BUILD_TYPE</code>: Specify the build type. It could be <code>Debug</code>, <code>Release</code>, <code>MinSizeRel</code> or <code>RelWithDebInfo</code>. If you are not going to debug bpftime, you just need to set it to <code>Release</code>. Default to <code>Debug</code>.</li>
 <li><code>BPFTIME_ENABLE_UNIT_TESTING</code>: Whether to build unit test targets. See <code>Testing targets</code> for details. Default to <code>NO</code>.</li>
 <li><code>BPFTIME_ENABLE_LTO</code>: Whether to enable Link Time Optimization. Enabling this may increase the compile time, but it may lead to a better performance. Default to <code>No</code>.</li>
-<li><code>ENABLE_EBPF_VERIFIER</code>: Whether to enable userspace eBPF verifier</li>
-<li><code>BPFTIME_LLVM_JIT</code>: Whether to use LLVM JIT as the ebpf runtime. Requires LLVM &gt;= 15. It's recommended to enable this, since the ubpf intepreter is no longer maintained. Default to <code>NO</code>.</li>
+<li><code>BPFTIME_ENABLE_CCACHE</code>: Enable the usage of Ccache to speed up rebuild times. Default to <code>OFF</code>.</li>
+<li><code>BPFTIME_ENABLE_ASAN</code>: Enable Address Sanitizer to detect memory errors. Default to <code>OFF</code>.</li>
+<li><code>ENABLE_EBPF_VERIFIER</code>: Whether to enable userspace eBPF verifier. Default to <code>OFF</code>.</li>
+<li><code>BPFTIME_LLVM_JIT</code>: Whether to use LLVM JIT as the ebpf runtime. Requires LLVM &gt;= 15. It's recommended to enable this, since the ubpf intepreter is no longer maintained. Default to <code>ON</code>.</li>
+<li><code>BPFTIME_UBPF_JIT</code>: Whether to use uBPF JIT backend. Default to <code>ON</code>.</li>
 <li><code>LLVM_DIR</code>: Specify the installing directory of LLVM. CMake may not discover the LLVM installation by default. Set this option to the directory that contains <code>LLVMConfig.cmake</code>, such as <code>/usr/lib/llvm-15/cmake</code> on Ubuntu</li>
-<li><code>BUILD_BPFTIME_DAEMON</code>: Build with the daemon for load the eBPF program into hkernel and se kernel verifier.</li>
-<li><code>BPFTIME_BUILD_WITH_LIBBPF</code> :Build bpftime without libbpf. It can only be run in userspace with this enabled, but it can be easily port into other platform, e.g. macOS.</li>
-<li><code>BPFTIME_BUILD_STATIC_LIB</code>: Build bpftime runtime into a whole static libraries. It can be easily linked into other programs.</li>
-<li><code>ENABLE_PROBE_WRITE_CHECK</code>: Enable the probe write check. It will check the bpf_probe_write_user operation and report the error if the probe write address is invalid.</li>
-<li><code>ENABLE_PROBE_READ_CHECK</code>: Enable the probe read check. It will check the bpf_probe_write operation and report the error if the probe read address is invalid.</li>
+<li><code>BUILD_BPFTIME_DAEMON</code>: Build with the daemon for load the eBPF program into hkernel and se kernel verifier. Default to <code>ON</code>.</li>
+<li><code>BPFTIME_BUILD_WITH_LIBBPF</code>: Build bpftime with libbpf. When disabled, it can only be run in userspace but can be easily ported to other platforms, e.g. macOS. Default to <code>ON</code>.</li>
+<li><code>BPFTIME_BUILD_KERNEL_BPF</code>: Whether to build with bpf share maps. Default to <code>ON</code>.</li>
+<li><code>BPFTIME_BUILD_STATIC_LIB</code>: Build bpftime runtime into a whole static libraries. It can be easily linked into other programs. Default to <code>OFF</code>.</li>
+<li><code>BPFTIME_ENABLE_MPK</code>: Enable Memory Protection Keys for the shared memory. Default to <code>OFF</code>.</li>
+<li><code>BPFTIME_ENABLE_IOURING_EXT</code>: Enable iouring helpers extensions. Default to <code>OFF</code>.</li>
+<li><code>ENABLE_PROBE_WRITE_CHECK</code>: Enable the probe write check. It will check the bpf_probe_write_user operation and report the error if the probe write address is invalid. Default to <code>ON</code>.</li>
+<li><code>ENABLE_PROBE_READ_CHECK</code>: Enable the probe read check. It will check the bpf_probe_write operation and report the error if the probe read address is invalid. Default to <code>ON</code>.</li>
+<li><code>BPFTIME_ENABLE_CUDA_ATTACH</code>: Enable CUDA/GPU attach support. Requires <code>BPFTIME_CUDA_ROOT</code> to be set to the CUDA installation directory (e.g., <code>/usr/local/cuda-12.8</code>). Default to <code>OFF</code>.</li>
+<li><code>BPFTIME_CUDA_ROOT</code>: Specify the root directory of CUDA installation. Required when <code>BPFTIME_ENABLE_CUDA_ATTACH=1</code>.</li>
+<li><code>BPFTIME_WARNINGS_AS_ERRORS</code>: Treat compiler warnings as errors. Default to <code>OFF</code>.</li>
+<li><code>BPFTIME_VERBOSE_OUTPUT</code>: Enable verbose output, allowing for a better understanding of each step taken. Default to <code>ON</code>.</li>
 </ul>
 <p>Please see <a href="https://github.com/eunomia-bpf/bpftime/blob/master/cmake/StandardSettings.cmake">https://github.com/eunomia-bpf/bpftime/blob/master/cmake/StandardSettings.cmake</a> forall the build options.</p>
 <h3 id="build-and-install-the-complete-runtime-in-release-modewith-ubpf-jit">Build and install the complete runtime in release mode(With ubpf jit)</h3>
@@ -8556,6 +8584,13 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>cmake<span class="w"> </span>-Bbuild<span class="w"> </span>-DCMAKE_BUILD_TYPE:STRING<span class="o">=</span>RelWithDebInfo<span class="w"> </span>-DBPFTIME_BUILD_WITH_LIBBPF<span class="o">=</span>OFF<span class="w"> </span>-DBPFTIME_BUILD_KERNEL_BPF<span class="o">=</span>OFF
 <a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>--config<span class="w"> </span>RelWithDebInfo<span class="w">  </span>--target<span class="w"> </span>install<span class="w"> </span>-j<span class="k">$(</span>JOBS<span class="k">)</span>
 </code></pre></div>
+<h3 id="compile-with-cudagpu-attach-support">Compile with CUDA/GPU attach support</h3>
+<p>To enable CUDA attach support, set <code>BPFTIME_ENABLE_CUDA_ATTACH=1</code> and specify the CUDA installation path:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Example with CUDA 12.8</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>cmake<span class="w"> </span>-Bbuild<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release<span class="w"> </span>-DBPFTIME_ENABLE_CUDA_ATTACH<span class="o">=</span><span class="m">1</span><span class="w"> </span>-DBPFTIME_CUDA_ROOT<span class="o">=</span>/usr/local/cuda-12.8
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>--config<span class="w"> </span>Release<span class="w"> </span>--target<span class="w"> </span>install
+</code></pre></div>
+<p>Note: Ensure that <code>BPFTIME_CUDA_ROOT</code> points to your CUDA installation directory (e.g., <code>/usr/local/cuda-12.8</code>, <code>/usr/local/cuda-12.6</code>, etc.).</p>
 <h3 id="testing-targets">Testing targets</h3>
 <p>We have some targets for unit testing, they are:</p>
 <ul>
@@ -8565,14 +8600,14 @@
 </ul>
 <p>These targets will only be enabled when <code>BPFTIME_ENABLE_UNIT_TESTING</code> was set to <code>YES</code>.</p>
 <p>Build and run them to test, for example:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>cmake<span class="w"> </span>-DCMAKE_PREFIX_PATH<span class="o">=</span>/usr/include/llvm<span class="w"> </span>-DBPFTIME_LLVM_JIT<span class="o">=</span>YES<span class="w"> </span>-DBPFTIME_ENABLE_UNIT_TESTING<span class="o">=</span>YES<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release<span class="w"> </span>-B<span class="w"> </span>build
-<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>--config<span class="w"> </span>RelWithDebInfo<span class="w"> </span>--target<span class="w"> </span>bpftime_runtime_tests
-<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>sudo<span class="w"> </span>./build/runtime/unit-test/bpftime_runtime_tests
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>cmake<span class="w"> </span>-DCMAKE_PREFIX_PATH<span class="o">=</span>/usr/include/llvm<span class="w"> </span>-DBPFTIME_LLVM_JIT<span class="o">=</span>YES<span class="w"> </span>-DBPFTIME_ENABLE_UNIT_TESTING<span class="o">=</span>YES<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release<span class="w"> </span>-B<span class="w"> </span>build
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>--config<span class="w"> </span>RelWithDebInfo<span class="w"> </span>--target<span class="w"> </span>bpftime_runtime_tests
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>sudo<span class="w"> </span>./build/runtime/unit-test/bpftime_runtime_tests
 </code></pre></div>
 <h2 id="compile-only-the-vm-no-runtime-no-uprobe">Compile only the vm (No runtime, No uprobe)</h2>
 <p>For a lightweight build without the runtime (only vm library and LLVM JIT):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>make<span class="w"> </span>build-vm<span class="w"> </span><span class="c1"># build the simple vm with a simple jit</span>
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>make<span class="w"> </span>build-llvm<span class="w"> </span><span class="c1"># build the vm with llvm jit</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>make<span class="w"> </span>build-vm<span class="w"> </span><span class="c1"># build the simple vm with a simple jit</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>make<span class="w"> </span>build-llvm<span class="w"> </span><span class="c1"># build the vm with llvm jit</span>
 </code></pre></div>
 <h2 id="more-compile-options">More compile options</h2>
 <p>See <a href="https://github.com/eunomia-bpf/bpftime/blob/master/cmake/StandardSettings.cmake">https://github.com/eunomia-bpf/bpftime/blob/master/cmake/StandardSettings.cmake</a> for all cmake build options.</p>
@@ -8600,7 +8635,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 29, 2025 05:36:16 UTC">September 29, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 1, 2025 05:16:00 UTC">October 1, 2025</span>
   </span>
 
     
@@ -8628,7 +8663,6 @@
         <a href="mailto:lizheao940510@gmail.com">Nadeshiko Manju</a>, 
         <a href="mailto:zeshanahmednobin@gmail.com">NobinPegasus</a>, 
         <a href="mailto:github@shawnzhong.com">Shawn Zhong</a>, 
-        <a href="mailto:1370724210@qq.com">Sy03</a>, 
         <a href="mailto:24816726+hp77-creator@users.noreply.github.com">hp</a>, 
         <a href="mailto:yt.xyxx@gmail.com">officeyutong</a>, 
         <a href="mailto:yunwei356@gmail.com">yunwei37</a>, 

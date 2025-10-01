@@ -1119,6 +1119,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#memleak_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      测试 memleak
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       总结
@@ -1488,12 +1497,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/32-http2/README.md" class="md-nav__link">
+      <a href="../32-wallclock-profiler/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    None
+    eBPF 开发实践教程：示例 32 - 结合 On-CPU 和 Off-CPU 分析的挂钟时间分析
     
   </span>
   
@@ -8296,6 +8305,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#memleak_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      测试 memleak
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       总结
@@ -8698,6 +8716,7 @@
 <p>注意，一些内存分配函数可能并不存在或已弃用，比如valloc、pvalloc等，因此它们的附加可能会失败。在这种情况下，我们允许附加失败，并不会阻止程序的执行。这是因为我们更关注的是主流和常用的内存分配函数，而这些已经被弃用的函数往往在实际应用中较少使用。</p>
 <p>完整的源代码：<a href="https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/16-memleak">https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/16-memleak</a> 关于如何安装依赖，请参考：<a href="https://eunomia.dev/tutorials/11-bootstrap/">https://eunomia.dev/tutorials/11-bootstrap/</a></p>
 <h2 id="_4">编译运行</h2>
+<p>本实现使用最新的 <strong>blazesym v0.2.0</strong> 库进行符号解析，该库通过 <code>capi</code> 包提供了改进的性能和现代化的 C API。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="gp">$ </span>make
 <a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="gp">$ </span>sudo<span class="w"> </span>./memleak<span class="w"> </span>
 <a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="go">using default object: libc.so.6</span>
@@ -8715,6 +8734,29 @@
 <a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a><span class="go">        6 [&lt;ffffffff82000b62&gt;] &lt;null sym&gt;</span>
 <a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a><span class="go">...</span>
 </code></pre></div>
+<h2 id="memleak_1">测试 memleak</h2>
+<p>本仓库包含一个测试程序（<code>test_memleak.c</code>），该程序会故意泄漏内存以供测试使用。您可以编译并运行它来验证 memleak 是否能正确检测内存泄漏：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="gp">$ </span>make<span class="w"> </span>test_memleak
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="gp">$ </span>./test_memleak<span class="w"> </span><span class="p">&amp;</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="gp">$ </span>sudo<span class="w"> </span>./memleak<span class="w"> </span>-p<span class="w"> </span><span class="k">$(</span>pidof<span class="w"> </span>test_memleak<span class="k">)</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="go">using default object: libc.so.6</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="go">using page size: 4096</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="go">tracing kernel: false</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="go">Tracing outstanding memory allocs...  Hit Ctrl-C to end</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="go">[19:31:49] Top 1 stacks with outstanding allocations:</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="go">10240 bytes in 5 allocations from stack</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="go">    0 [&lt;00005a7ea0a34212&gt;] leak_with_loop+0x1f</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="go">    1 [&lt;00005a7ea0a3428e&gt;] main+0x6e</span>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="go">    2 [&lt;00007b4ea482a1ca&gt;] &lt;null sym&gt;</span>
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="go">    3 [&lt;00007b4ea482a28b&gt;] __libc_start_main+0x8b</span>
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="go">    4 [&lt;00005a7ea0a34105&gt;] _start+0x25</span>
+</code></pre></div>
+<p>如上所示，memleak 成功地：
+- 检测到 <strong>10240 字节的 5 次分配</strong>（5 × 2048 字节）发生了泄漏
+- 识别出泄漏函数 <strong>leak_with_loop+0x1f</strong> 及其正确的偏移量
+- 提供了完整的调用栈，显示泄漏源自 <code>main</code> 函数
+- 使用新的 <strong>blazesym v0.2.0</strong> C API 进行快速准确的符号解析</p>
+<p>该测试演示了更新 blazesym 库后的 memleak 可以有效地跟踪内存分配，并精确定位导致内存泄漏的函数。</p>
 <h2 id="_5">总结</h2>
 <p>通过本篇 eBPF 入门实践教程，您已经学习了如何编写 Memleak eBPF 监控程序，以实时监控程序的内存泄漏。您已经了解了 eBPF 在内存监控方面的应用，学会了使用 BPF API 编写 eBPF 程序，创建和使用 eBPF maps，并且明白了如何用 eBPF 工具监测和分析内存泄漏问题。我们展示了一个详细的例子，帮助您理解 eBPF 代码的运行流程和原理。</p>
 <p>您可以访问我们的教程代码仓库 <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">https://github.com/eunomia-bpf/bpf-developer-tutorial</a> 或网站 <a href="https://eunomia.dev/zh/tutorials/">https://eunomia.dev/zh/tutorials/</a> 以获取更多示例和完整的教程。</p>
@@ -8744,7 +8786,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 10, 2025 23:07:43 UTC">February 10, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 1, 2025 05:16:00 UTC">October 1, 2025</span>
   </span>
 
     
@@ -8764,11 +8806,12 @@
   <span class="md-source-file__fact">
     <span class="md-icon" title="Contributors">
       
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
       
     </span>
     <nav>
       
+        <a href="mailto:yunwei356@gmail.com">yunwei37</a>, 
         <a href="mailto:1067852565@qq.com">云微</a>
     </nav>
   </span>
