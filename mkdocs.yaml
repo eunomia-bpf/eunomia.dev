@@ -165,6 +165,7 @@ nav:
     - GPTtrace/agentsight.md
     - GPTtrace/mcptrace.md
     - GPTtrace/gpttrace.md
+    - bpftime/documents/gpu.md
     - ... | GPTtrace/**/*.md
   - eunomia-bpf:
     - eunomia-bpf/index.md
