@@ -8348,7 +8348,7 @@
 <li>Debugging and optimization: Use tools like bpftool to debug and optimize eBPF programs, improving program performance and stability.</li>
 </ol>
 <p>Through the above process, you can develop, compile, run, and debug eBPF programs using the BCC tool. Note that the development process of other frameworks, such as libbpf, cilium/ebpf, and eunomia-bpf, is similar but slightly different. Therefore, when choosing a framework, please refer to the respective official documentation and examples.</p>
-<p>By following this process, you can develop an eBPF program that runs in the kernel. eunomia-bpf is an open-source eBPF dynamic loading runtime and development toolchain. It aims to simplify the development, building, distribution, and running of eBPF programs. It is based on the libbpf CO-RE lightweight development framework, supports loading and executing eBPF programs through a user space WebAssembly (WASM) virtual machine, and packages precompiled eBPF programs into universal JSON or WASM modules for distribution. We will use eunomia-bpf for demonstration purposes.</p>
+<p>We use eunomia-bpf to compile and run this example. You can install it from <a href="https://github.com/eunomia-bpf/eunomia-bpf">https://github.com/eunomia-bpf/eunomia-bpf</a>.</p>
 <h2 id="download-and-install-eunomia-bpf-development-tools">Download and Install eunomia-bpf Development Tools</h2>
 <p>You can download and install eunomia-bpf using the following steps:</p>
 <p>Download the ecli tool for running eBPF programs:</p>
@@ -8394,12 +8394,11 @@
 <a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="p">}</span>
 </code></pre></div>
-<p>This program defines a handle_tp function and attaches it to the sys_enter_write tracepoint using the SEC macro (i.e., it is executed when the write system call is entered). The function retrieves the process ID of the write system call invocation using the bpf_get_current_pid_tgid and bpf_printk functions, and prints it in the kernel log.</p>
-<ul>
-<li><code>bpf_printk()</code>: A simple mechanism to output information to the trace_pipe (/sys/kernel/debug/tracing/trace_pipe). This is fine for simple use cases, but it has limitations: a maximum of 3 parameters; the first parameter must be %s (i.e., a string); and the trace_pipe is globally shared in the kernel, so other programs using the trace_pipe concurrently might disrupt its output. A better approach is to use BPF_PERF_OUTPUT(), which will be discussed later.</li>
-<li><code>void *ctx</code>: ctx is originally a parameter of a specific type, but since it is not used here, it is written as void *.</li>
-<li><code>return 0;</code>: This is necessary, returning 0 (to know why, refer to #139 <a href="https://github.com/iovisor/bcc/issues/139">https://github.com/iovisor/bcc/issues/139</a>).</li>
-</ul>
+<p>This program defines a handle_tp function and attaches it to the sys_enter_write tracepoint using the SEC macro. This means it gets executed every time the write system call is entered. The function retrieves the process ID of the current process and prints it to the kernel log using <code>bpf_printk</code>.</p>
+<p>The <code>SEC("tp/syscalls/sys_enter_write")</code> macro tells the eBPF loader where to attach this function. The format is <code>tp</code> for tracepoint, followed by the subsystem (<code>syscalls</code>), and the specific event name (<code>sys_enter_write</code>). You can find available tracepoints by running <code>sudo ls /sys/kernel/debug/tracing/events/syscalls/</code> on your system.</p>
+<p>The <code>BPF_NO_GLOBAL_DATA</code> macro at the top is for compatibility with older kernels (before 5.2) that don't support global variables in eBPF. If you're running a modern kernel (5.15+), this isn't strictly necessary but doesn't hurt to include for portability.</p>
+<p>The <code>bpf_printk()</code> function is your friend for debugging. It outputs to <code>/sys/kernel/debug/tracing/trace_pipe</code>, which is a simple way to see what your eBPF program is doing. However, it has some limitations you should know about. It only accepts up to 3 parameters, the trace_pipe is shared globally across all eBPF programs, and it can impact performance on high-frequency events. For production use, you'll want to use ring buffers or perf event arrays, which we'll cover in later tutorials.</p>
+<p>The <code>ctx</code> parameter contains tracepoint-specific data, but since we don't need it for this simple example, we just declare it as <code>void *</code>. In more advanced programs, you would cast this to access the tracepoint's arguments. Finally, eBPF programs must return an integer - returning 0 is standard practice for tracepoints.</p>
 <p>To compile and run this program, you can use the ecc tool and ecli command. First, on Ubuntu/Debian, execute the following command:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>clang<span class="w"> </span>llvm
 </code></pre></div>
@@ -8421,10 +8420,10 @@
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="go">           &lt;...&gt;-3840345 [010] d... 3220701.101143: bpf_trace_printk: write system call from PID 3840345.</span>
 </code></pre></div>
 <p>Once you stop the ecli process by pressing Ctrl+C, the corresponding output will also stop.</p>
-<p>Note: If your Linux distribution (e.g. Ubuntu) does not have the tracing subsystem enabled by default, you may not see any output. Use the following command to enable this feature:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="gp">$ </span>sudo<span class="w"> </span>su
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="gp"># </span><span class="nb">echo</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>/sys/kernel/debug/tracing/tracing_on
+<p>If you don't see any output, the tracing subsystem might not be enabled on your system. This is common on some Linux distributions. You can enable it by running:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="gp">$ </span>sudo<span class="w"> </span>sh<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;echo 1 &gt; /sys/kernel/debug/tracing/tracing_on&#39;</span>
 </code></pre></div>
+<p>If you're still not seeing output, make sure the program is actually loaded and running (you should see "Running eBPF program..." in the ecli terminal). Try triggering some write syscalls manually by running <code>echo "test" &gt; /tmp/test.txt</code> in another terminal. You can also check if your eBPF program is loaded by running <code>sudo bpftool prog list</code>.</p>
 <h2 id="basic-framework-of-ebpf-program">Basic Framework of eBPF Program</h2>
 <p>As mentioned above, the basic framework of an eBPF program includes:</p>
 <ul>
@@ -8463,7 +8462,7 @@
 <li>Use the eBPF program: This includes monitoring the execution of the eBPF program and exchanging and sharing data using eBPF kernel maps and shared memory.</li>
 <li>In practical development, there may be additional steps such as configuring compilation and loading parameters, managing eBPF kernel modules and kernel maps, and using other advanced features.</li>
 </ul>
-<p>It should be noted that the execution of BPF programs occurs in the kernel space, so special tools and techniques are needed to write, compile, and debug BPF programs. eunomia-bpf is an open-source BPF compiler and toolkit that can help developers write and run BPF programs quickly and easily.</p>
+<p>The execution of BPF programs occurs in the kernel space, so special tools and techniques are needed to write, compile, and debug them.</p>
 <p>You can also visit our tutorial code repository <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">https://github.com/eunomia-bpf/bpf-developer-tutorial</a> or website <a href="https://eunomia.dev/tutorials/">https://eunomia.dev/tutorials/</a> for more examples and complete tutorials, all of which are open-source. We will continue to share more about eBPF development practices to help you better understand and master eBPF technology.</p>
 <p><a class="md-button" href="https://x.com/intent/tweet?text=eBPF%20Tutorial%20by%20Example%201%3A%20Hello%20World%2C%20Framework%20and%20Development%0A&amp;url=https://eunomia.dev/en/tutorials/1-helloworld/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/en/tutorials/1-helloworld/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
@@ -8489,7 +8488,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 1, 2025 01:20:26 UTC">October 1, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 3, 2025 23:57:29 UTC">October 3, 2025</span>
   </span>
 
     

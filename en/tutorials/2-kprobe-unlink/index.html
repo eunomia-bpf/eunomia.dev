@@ -8284,7 +8284,7 @@
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
 <a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="kt">char</span><span class="w"> </span><span class="n">LICENSE</span><span class="p">[]</span><span class="w"> </span><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;license&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Dual BSD/GPL&quot;</span><span class="p">;</span>
 </code></pre></div>
-<p>Next, we define a kprobe named <code>BPF_KPROBE(do_unlinkat)</code> which gets triggered when the <code>do_unlinkat</code> function is entered. It takes two parameters: <code>dfd</code> (file descriptor) and <code>name</code> (filename structure pointer). In this kprobe, we retrieve the PID (process identifier) of the current process and then read the filename. Finally, we use the <code>bpf_printk</code> function to print the PID and filename in the kernel log.</p>
+<p>The first kprobe hooks into the entry point of <code>do_unlinkat</code>. The <code>BPF_KPROBE</code> macro makes it easy to access the function's parameters - in this case <code>dfd</code> (file descriptor) and <code>name</code> (a pointer to the filename structure). We grab the current process ID and then use <code>BPF_CORE_READ</code> to safely read the filename from kernel memory.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;kprobe/do_unlinkat&quot;</span><span class="p">)</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kt">int</span><span class="w"> </span><span class="n">BPF_KPROBE</span><span class="p">(</span><span class="n">do_unlinkat</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">dfd</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">filename</span><span class="w"> </span><span class="o">*</span><span class="n">name</span><span class="p">)</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="p">{</span>
@@ -8297,7 +8297,8 @@
 <a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="p">}</span>
 </code></pre></div>
-<p>Next, we define a kretprobe named <code>BPF_KRETPROBE(do_unlinkat_exit)</code> that will be triggered when exiting the <code>do_unlinkat</code> function. The purpose of this kretprobe is to capture the return value (<code>ret</code>) of the function. We again obtain the PID of the current process and use the <code>bpf_printk</code> function to print the PID and return value in the kernel log.</p>
+<p>You might wonder why we can't just access <code>name-&gt;name</code> directly. The answer is that eBPF programs run in a restricted environment and need special helpers to safely read kernel memory. <code>BPF_CORE_READ</code> handles this safely and also provides CO-RE (Compile Once - Run Everywhere) support, meaning your program will work across different kernel versions even if the structure layout changes.</p>
+<p>The kretprobe is the counterpart that triggers when the function returns. Here we can capture the return value to see if the unlink operation succeeded or failed. A return value of 0 means success, while negative values indicate errors.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;kretprobe/do_unlinkat&quot;</span><span class="p">)</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kt">int</span><span class="w"> </span><span class="n">BPF_KRETPROBE</span><span class="p">(</span><span class="n">do_unlinkat_exit</span><span class="p">,</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">ret</span><span class="p">)</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="p">{</span>
@@ -8308,7 +8309,8 @@
 <a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="p">}</span>
 </code></pre></div>
-<p>eunomia-bpf is an open-source eBPF dynamic loading runtime and development toolchain that combines with Wasm. Its goal is to simplify the development, build, distribution, and execution of eBPF programs. You can refer to <a href="https://github.com/eunomia-bpf/eunomia-bpf">https://github.com/eunomia-bpf/eunomia-bpf</a> to download and install the ecc compiler toolchain and ecli runtime.</p>
+<p>By combining kprobe and kretprobe, you get the complete picture - you can see what file is being deleted and whether the operation succeeded. This pattern is useful for debugging, security monitoring, or building observability tools.</p>
+<p>We use eunomia-bpf to compile and run this example. You can install it from <a href="https://github.com/eunomia-bpf/eunomia-bpf">https://github.com/eunomia-bpf/eunomia-bpf</a>.</p>
 <p>To compile this program, use the ecc tool:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="gp">$ </span>ecc<span class="w"> </span>kprobe-link.bpf.c
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="go">Compiling bpf object...</span>
@@ -8358,7 +8360,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 2, 2025 00:04:47 UTC">October 2, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 3, 2025 23:57:29 UTC">October 3, 2025</span>
   </span>
 
     
