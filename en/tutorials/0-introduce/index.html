@@ -8424,7 +8424,7 @@
 <p><strong>Security:</strong> eBPF plays a vital role in real-time security monitoring. It enables deep inspection of system calls, network traffic, and other kernel activities, helping to enforce dynamic security policies and detect anomalous behavior, providing an efficient way to safeguard infrastructure.</p>
 </li>
 <li>
-<p><strong>Scheduler Optimization:</strong> eBPF is increasingly used to enhance CPU scheduling, offering the ability to monitor CPU load and optimize how tasks are distributed across cores. This can lead to more efficient use of CPU resources and improved system responsiveness.</p>
+<p><strong>Scheduler Optimization:</strong> Since Linux kernel 6.12, eBPF-powered CPU schedulers (sched_ext) are now mainline, allowing custom scheduling policies to be implemented as BPF programs. This enables runtime-customizable scheduling that can optimize for different workloads without kernel modifications, and is already deployed on over 1 million machines in production.</p>
 </li>
 <li>
 <p><strong>HID (Human Interface Device) Driver Enhancements:</strong> Developers use eBPF to optimize HID drivers for devices like keyboards, mice, and touchscreens. By adding custom logic for handling input events, eBPF improves responsiveness in latency-sensitive applications.</p>
@@ -8432,9 +8432,10 @@
 </ul>
 <p>Organizations across industries have adopted eBPF at scale:</p>
 <ul>
-<li><strong>Google:</strong> Uses eBPF for security auditing, packet processing, real-time performance monitoring, and optimizing CPU scheduling across its vast infrastructure.</li>
+<li><strong>Google:</strong> Uses eBPF for security auditing, packet processing, real-time performance monitoring, and is actively testing eBPF-based CPU schedulers across its vast infrastructure.</li>
 <li><strong>Netflix:</strong> Leverages eBPF for network traffic analysis, ensuring high availability and performance for streaming services.</li>
-<li><strong>Android:</strong> Applies eBPF to optimize network usage, power consumption, and resource allocation, improving performance and battery life on millions of devices.</li>
+<li><strong>Android:</strong> Every Android phone uses eBPF to optimize network usage, power consumption, and resource allocation, improving performance and battery life across billions of devices worldwide.</li>
+<li><strong>Meta:</strong> Runs eBPF-based schedulers in production (over 1 million machines with scx_layered) alongside its network load balancing (Katran).</li>
 <li><strong>S&amp;P Global:</strong> Utilizes eBPF through <strong>Cilium</strong> for managing networking across multiple clouds and on-premises systems, ensuring scalability and security.</li>
 <li><strong>Shopify:</strong> Implements eBPF with <strong>Falco</strong> for intrusion detection, bolstering security on its e-commerce platform.</li>
 <li><strong>Cloudflare:</strong> Uses eBPF for network observability, security monitoring, and performance optimization, protecting millions of websites globally.</li>
@@ -8526,7 +8527,7 @@
 <p>Answer some questions and try some experiments (2-5h):</p>
 <ol>
 <li>How to develop the simplest eBPF program?</li>
-<li>How to trace a kernel feature or function with eBPF? There are many ways, provide corresponding code examples;</li>
+<li>How to trace a kernel feature or function with eBPF? There are many ways, provide corresponding code examples; How to write a XDP network function or write a scheduler?</li>
 <li>What are the solutions for communication between user mode and kernel mode? How to send information from user mode to kernel mode? How to pass information from kernel mode to user mode? Provide code examples;</li>
 <li>Write your own eBPF program to implement a feature;</li>
 <li>In the entire lifecycle of an eBPF program, what does it do in user mode and kernel mode?</li>
@@ -8562,7 +8563,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 4, 2025 07:42:39 UTC">October 4, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 4, 2025 08:44:31 UTC">October 4, 2025</span>
   </span>
 
     
