@@ -1877,144 +1877,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/bcc-documents/kernel-versions/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    BPF Features by Linux Kernel Version
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../tutorials/bcc-documents/kernel_config/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Kernel Configuration for BPF Features
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../tutorials/bcc-documents/reference_guide/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    bcc Reference Guide
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../tutorials/bcc-documents/special_filtering/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Special Filtering
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../tutorials/bcc-documents/tutorial/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    bcc Tutorial
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../tutorials/bcc-documents/tutorial_bcc_python_developer/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    bcc Python Developer Tutorial
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../../tutorials/bpftrace-tutorial/" class="md-nav__link">
         
   
@@ -8123,6 +7985,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#developing-and-packaging-ebpf-programs-with-wasm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Developing and Packaging eBPF Programs with Wasm
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#demo-video" class="md-nav__link">
     <span class="md-ellipsis">
       Demo video
@@ -8220,8 +8091,8 @@
 <p>The eunomia-bpf library includes a simple command-line tool (ecli) that contains a small Wasm runtime module and the ability to dynamically load eBPF. It can be downloaded and used directly:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gp"># </span>download<span class="w"> </span>the<span class="w"> </span>release<span class="w"> </span>from<span class="w"> </span>https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="gp">$ </span>wget<span class="w"> </span>https://aka.pw/bpf-ecli<span class="w"> </span>-O<span class="w"> </span>ecli<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>./ecli
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="gp">$ </span>sudo<span class="w"> </span>./ecli<span class="w"> </span>run<span class="w"> </span>https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/app.wasm<span class="s2">&quot;Instructions: Translate the following Chinese text to English </span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="go">while maintaining the original formatting: &quot;2022-10-11 14:05:50 URL:https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/app.wasm [70076/70076] -&gt; &quot;/tmp/ebpm/app.wasm&quot; [1]</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="gp">$ </span>sudo<span class="w"> </span>./ecli<span class="w"> </span>run<span class="w"> </span>https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/app.wasm
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="go">2022-10-11 14:05:50 URL:https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/app.wasm [70076/70076] -&gt; &quot;/tmp/ebpm/app.wasm&quot; [1]</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="go">running and waiting for the ebpf events from perf event...</span>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="go">{&quot;pid&quot;:1709490,&quot;tpid&quot;:1709077,&quot;sig&quot;:0,&quot;ret&quot;:0,&quot;comm&quot;:&quot;node&quot;,&quot;sig_name&quot;:&quot;N/A&quot;}</span>
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="go">{&quot;pid&quot;:1712603,&quot;tpid&quot;:1717412,&quot;sig&quot;:2,&quot;ret&quot;:0,&quot;comm&quot;:&quot;kworker/u4:3&quot;,&quot;sig_name&quot;:&quot;SIGINT&quot;}</span>
@@ -8232,108 +8103,102 @@
 <a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="go">{&quot;pid&quot;:1717420,&quot;tpid&quot;:1717419,&quot;sig&quot;:17,&quot;ret&quot;:0,&quot;comm&quot;:&quot;cat&quot;,&quot;sig_name&quot;:&quot;SIGCHLD&quot;}`&quot;ts&quot;:0,&quot;pid&quot;:2344,&quot;uid&quot;:0,&quot;ret&quot;:26,&quot;flags&quot;:0,&quot;comm&quot;:&quot;YDService&quot;,&quot;fname&quot;:&quot;/proc/1718823/cmdline&quot;}`</span>
 <a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="go">`{&quot;ts&quot;:0,&quot;pid&quot;:2344,&quot;uid&quot;:0,&quot;ret&quot;:26,&quot;flags&quot;:0,&quot;comm&quot;:&quot;YDService&quot;,&quot;fname&quot;:&quot;/proc/1718824/cmdline&quot;}`</span>
 <a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="go">`{&quot;ts&quot;:0,&quot;pid&quot;:2344,&quot;uid&quot;:0,&quot;ret&quot;:26,&quot;flags&quot;:0,&quot;comm&quot;:&quot;YDService&quot;,&quot;fname&quot;:&quot;/proc/self/stat&quot;}`</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="go">opensnoop tracks the `open()` system call of a process, which means all file opening operations in the kernel. Here we can see process information such as PID, UID, return value, flags, process name, and file name. The eBPF program in kernel space is distributed within a Wasm module and is relocated using BTF information and libbpf during loading to adapt to different kernel versions. Additionally, because the user-space related processing code is entirely written in Wasm and the kernel-space is written in eBPF instructions, it is not restricted by specific instruction sets (e.g., x86, ARM) and can run on different platforms.</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
-<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="gp">#</span><span class="c1">## Developing and Packaging eBPF Programs with Wasm</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
-<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="go">Similarly, taking the example of sigsnoop mentioned earlier for tracking signal sending and receiving of a process, we first need to write the eBPF code in the kernel space in `sigsnoop.bpf.c`:</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>
-<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="go">```c</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="gp">#</span>include<span class="w"> </span>&lt;vmlinux.h&gt;
-<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="gp">#</span>include<span class="w"> </span>&lt;bpf/bpf_helpers.h&gt;
-<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="gp">#</span>include<span class="w"> </span><span class="s2">&quot;sigsnoop.h&quot;</span>
-<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>
-<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="go">const volatile pid_t filtered_pid = 0;</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="go">.....</span>
-<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>
-<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="go">struct {</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="go"> __uint(type, BPF_MAP_TYPE_PERF_EVENT_ARRAY);</span>
-<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="go"> __uint(key_size, sizeof(__u32));</span>
-<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="go"> __uint(value_size, sizeof(__u32));</span>
-<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="go">} events SEC(&quot;.maps&quot;);</span>
-<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>
-<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a><span class="go">SEC(&quot;tracepoint/signal/signal_generate&quot;)</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="go">int sig_trace(struct trace_event_raw_signal_generate *ctx)</span>
-<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a><span class="go">{</span>
-<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="go"> struct event event = {};</span>
-<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a><span class="go"> pid_t tpid = ctx-&gt;pid;</span>
-<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a><span class="go"> int ret = ctx-&gt;errno;</span>
-<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a><span class="go"> int sig = ctx-&gt;sig;</span>
-<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a><span class="go"> __u64 pid_tgid;</span>
-<a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a><span class="go"> __u32 pid;</span>
-<a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a>
-<a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a><span class="go"> ...</span>
-<a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a><span class="go"> pid_tgid = bpf_get_current_pid_tgid();</span>
-<a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a><span class="go"> pid = pid_tgid &gt;&gt; 32;</span>
-<a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a><span class="go"> if (filtered_pid &amp;&amp; pid != filtered_pid)</span>
-<a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a><span class="go">  return 0;</span>
-<a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a>
-<a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a><span class="go"> event.pid = pid;</span>
-<a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a><span class="go"> event.tpid = tpid;</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a><span class="go"> event.sig = sig;</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a><span class="go"> event.ret = ret;</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56" href="#__codelineno-0-56"></a><span class="go"> bpf_get_current_comm(event.comm, sizeof(event.comm));</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57" href="#__codelineno-0-57"></a><span class="go"> bpf_perf_event_output(ctx, &amp;events, BPF_F_CURRENT_CPU, &amp;event, sizeof(event));</span>
-<a id="__codelineno-0-58" name="__codelineno-0-58" href="#__codelineno-0-58"></a><span class="go"> return 0;</span>
-<a id="__codelineno-0-59" name="__codelineno-0-59" href="#__codelineno-0-59"></a><span class="go">}</span>
-<a id="__codelineno-0-60" name="__codelineno-0-60" href="#__codelineno-0-60"></a>
-<a id="__codelineno-0-61" name="__codelineno-0-61" href="#__codelineno-0-61"></a><span class="go">char LICENSE[] SEC(&quot;license&quot;) = &quot;Dual BSD/GPL&quot;;</span>
+</code></pre></div>
+<p>opensnoop tracks the <code>open()</code> system call of a process, which means all file opening operations in the kernel. Here we can see process information such as PID, UID, return value, flags, process name, and file name. The eBPF program in kernel space is distributed within a Wasm module and is relocated using BTF information and libbpf during loading to adapt to different kernel versions. Additionally, because the user-space related processing code is entirely written in Wasm and the kernel-space is written in eBPF instructions, it is not restricted by specific instruction sets (e.g., x86, ARM) and can run on different platforms.</p>
+<h3 id="developing-and-packaging-ebpf-programs-with-wasm">Developing and Packaging eBPF Programs with Wasm</h3>
+<p>Similarly, taking the example of sigsnoop mentioned earlier for tracking signal sending and receiving of a process, we first need to write the eBPF code in the kernel space in <code>sigsnoop.bpf.c</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vmlinux.h&gt;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;bpf/bpf_helpers.h&gt;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;sigsnoop.h&quot;</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="k">const</span><span class="w"> </span><span class="k">volatile</span><span class="w"> </span><span class="kt">pid_t</span><span class="w"> </span><span class="n">filtered_pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="p">.....</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w"> </span><span class="n">__uint</span><span class="p">(</span><span class="n">type</span><span class="p">,</span><span class="w"> </span><span class="n">BPF_MAP_TYPE_PERF_EVENT_ARRAY</span><span class="p">);</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w"> </span><span class="n">__uint</span><span class="p">(</span><span class="n">key_size</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">__u32</span><span class="p">));</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w"> </span><span class="n">__uint</span><span class="p">(</span><span class="n">value_size</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">__u32</span><span class="p">));</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="p">}</span><span class="w"> </span><span class="n">events</span><span class="w"> </span><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;.maps&quot;</span><span class="p">);</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;tracepoint/signal/signal_generate&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="kt">int</span><span class="w"> </span><span class="n">sig_trace</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">trace_event_raw_signal_generate</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="p">{</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">event</span><span class="w"> </span><span class="n">event</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w"> </span><span class="kt">pid_t</span><span class="w"> </span><span class="n">tpid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">pid</span><span class="p">;</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">errno</span><span class="p">;</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">sig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">sig</span><span class="p">;</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w"> </span><span class="n">__u64</span><span class="w"> </span><span class="n">pid_tgid</span><span class="p">;</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w"> </span><span class="n">__u32</span><span class="w"> </span><span class="n">pid</span><span class="p">;</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w"> </span><span class="p">...</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="w"> </span><span class="n">pid_tgid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_get_current_pid_tgid</span><span class="p">();</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="w"> </span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pid_tgid</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">32</span><span class="p">;</span>
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">filtered_pid</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">pid</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">filtered_pid</span><span class="p">)</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a><span class="w"> </span><span class="n">event</span><span class="p">.</span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pid</span><span class="p">;</span>
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a><span class="w"> </span><span class="n">event</span><span class="p">.</span><span class="n">tpid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tpid</span><span class="p">;</span>
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a><span class="w"> </span><span class="n">event</span><span class="p">.</span><span class="n">sig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sig</span><span class="p">;</span>
+<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a><span class="w"> </span><span class="n">event</span><span class="p">.</span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a><span class="w"> </span><span class="n">bpf_get_current_comm</span><span class="p">(</span><span class="n">event</span><span class="p">.</span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">event</span><span class="p">.</span><span class="n">comm</span><span class="p">));</span>
+<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a><span class="w"> </span><span class="n">bpf_perf_event_output</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">events</span><span class="p">,</span><span class="w"> </span><span class="n">BPF_F_CURRENT_CPU</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">event</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">event</span><span class="p">));</span>
+<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a><span class="p">}</span>
+<a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a>
+<a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a><span class="kt">char</span><span class="w"> </span><span class="n">LICENSE</span><span class="p">[]</span><span class="w"> </span><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;license&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Dual BSD/GPL&quot;</span><span class="p">;</span>
 </code></pre></div>
 <p>Here, we use the <code>tracepoint/signal/signal_generate</code> tracepoint to track the signal generation events in the kernel. The kernel code exports information to user space using <code>BPF_MAP_TYPE_PERF_EVENT_ARRAY</code>. Therefore, we need to define a structure for exporting information in the <code>sigsnoop.h</code> header file:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">#ifndef __SIGSNOOP_H</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="cp">#define __SIGSNOOP_H</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="cp">#define TASK_COMM_LEN 16</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="k">struct</span><span class="w"> </span><span class="nc">event</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">pid</span><span class="p">;</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">tpid</span><span class="p">;</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">sig</span><span class="p">;</span>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">comm</span><span class="p">[</span><span class="n">TASK_COMM_LEN</span><span class="p">];</span>
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="p">};</span>
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="cp">#endif </span><span class="cm">/* __SIGSNOOP_H */</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">#ifndef __SIGSNOOP_H</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="cp">#define __SIGSNOOP_H</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="cp">#define TASK_COMM_LEN 16</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="k">struct</span><span class="w"> </span><span class="nc">event</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">pid</span><span class="p">;</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">tpid</span><span class="p">;</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">sig</span><span class="p">;</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">comm</span><span class="p">[</span><span class="n">TASK_COMM_LEN</span><span class="p">];</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="p">};</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="cp">#endif </span><span class="cm">/* __SIGSNOOP_H */</span>
 </code></pre></div>
 <p>We can compile it into JSON format using the eunomia-bpf toolchain, generate a <code>package.json</code> file, and directly run it using the ecli command:</p>
-<p><code>console".</code>console
-$ docker run -it -v <code>pwd</code>/:/src/ ghcr.io/eunomia-bpf/ecc-<code>uname -m</code>:latest
-make
-  BPF      .output/client.bpf.o
-  GEN-SKEL .output/client.skel.h
-  CC       .output/client.o
-  CC       .output/cJSON.o
-  CC       .output/create_skel_json.o
-  BINARY   client
-  DUMP_LLVM_MEMORY_LAYOUT
-  DUMP_EBPF_PROGRAM
-  FIX_TYPE_INFO_IN_EBPF
-  GENERATE_PACKAGE_JSON</p>
-<p>$ sudo ./ecli run package.json
-running and waiting for the ebpf events from perf event...
-time pid tpid sig ret comm
-14:39:39 1723835 1723834 17 0 dirname
-14:39:39 1723836 1723834 17 0 chmod
-14:39:39 1723838 1723837 17 0 ps
-14:39:39 1723839 1723837 17 0 grep
-14:39:39 1723840 1723837 17 0 grep
-14:39:39 1723841 1723837 17 0 wc</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>All of our build toolchains have been packaged as Docker images and published to Docker Hub, 
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>so they can be used directly. At this time, only the kernel-space eBPF code and some auxiliary information are dynamically loaded and executed, 
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>helping the eunomia-bpf library automatically obtain events reported from kernel-space to user-space. 
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>If we want to perform some parameter configuration and adjustment in user-space, as well as data processing, 
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>we need to write code in user-space and package the kernel-space eBPF code and user-space code into a complete eBPF program.
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>A one-liner command can directly generate a user-space WebAssembly development framework for eBPF programs:
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>```console
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>$ docker run -it -v `pwd`/:/src/ ghcr.io/eunomia-bpf/ecc-`uname -m`:latest gen-wasm-skel
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>make
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>  GENERATE_PACKAGE_JSON
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>  GEN-Wasm-SKEL
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>$ ls
-<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>app.c eunomia-include ewasm-skel.h package.json README.md  sigsnoop.bpf.c  sigsnoop.h
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="gp">$ </span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/:/src/<span class="w"> </span>ghcr.io/eunomia-bpf/ecc-<span class="sb">`</span>uname<span class="w"> </span>-m<span class="sb">`</span>:latest
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="go">make</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="go">  BPF      .output/client.bpf.o</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="go">  GEN-SKEL .output/client.skel.h</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="go">  CC       .output/client.o</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="go">  CC       .output/cJSON.o</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="go">  CC       .output/create_skel_json.o</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="go">  BINARY   client</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="go">  DUMP_LLVM_MEMORY_LAYOUT</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="go">  DUMP_EBPF_PROGRAM</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="go">  FIX_TYPE_INFO_IN_EBPF</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="go">  GENERATE_PACKAGE_JSON</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="gp">$ </span>sudo<span class="w"> </span>./ecli<span class="w"> </span>run<span class="w"> </span>package.json
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="go">running and waiting for the ebpf events from perf event...</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="go">time pid tpid sig ret comm</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="go">14:39:39 1723835 1723834 17 0 dirname</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="go">14:39:39 1723836 1723834 17 0 chmod</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="go">14:39:39 1723838 1723837 17 0 ps</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="go">14:39:39 1723839 1723837 17 0 grep</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="go">14:39:39 1723840 1723837 17 0 grep</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="go">14:39:39 1723841 1723837 17 0 wc</span>
+</code></pre></div>
+<p>All of our build toolchains have been packaged as Docker images and published to Docker Hub, 
+so they can be used directly. At this time, only the kernel-space eBPF code and some auxiliary information are dynamically loaded and executed, 
+helping the eunomia-bpf library automatically obtain events reported from kernel-space to user-space. 
+If we want to perform some parameter configuration and adjustment in user-space, as well as data processing, 
+we need to write code in user-space and package the kernel-space eBPF code and user-space code into a complete eBPF program.</p>
+<p>A one-liner command can directly generate a user-space WebAssembly development framework for eBPF programs:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="gp">$ </span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/:/src/<span class="w"> </span>ghcr.io/eunomia-bpf/ecc-<span class="sb">`</span>uname<span class="w"> </span>-m<span class="sb">`</span>:latest<span class="w"> </span>gen-wasm-skel
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="go">make</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="go">  GENERATE_PACKAGE_JSON</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="go">  GEN-Wasm-SKEL</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="gp">$ </span>ls
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="go">app.c eunomia-include ewasm-skel.h package.json README.md  sigsnoop.bpf.c  sigsnoop.h</span>
 </code></pre></div>
 <p>The Wasm development framework we provide is written in C and includes the following files:</p>
 <ul>
@@ -8344,49 +8209,49 @@ time pid tpid sig ret comm
 </ul>
 <p>Take <code>sigsnoop</code> as an example. In user-space, it includes some code for command line parsing, configuring the eBPF program, and data processing.
 It adds the English names of signal events based on the signal number:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">....</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">**</span><span class="w"> </span><span class="n">argv</span><span class="p">)</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="p">{</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">argparse_option</span><span class="w"> </span><span class="n">options</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">        </span><span class="n">OPT_HELP</span><span class="p">(),</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">        </span><span class="n">OPT_BOOLEAN</span><span class="p">(</span><span class="sc">&#39;x&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;failed&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">failed_only</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;failed signals only&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">),</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">        </span><span class="n">OPT_BOOLEAN</span><span class="p">(</span><span class="sc">&#39;k&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;killed&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">kill_only</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;kill only&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">),</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">        </span><span class="n">OPT_INTEGER</span><span class="p">(</span><span class="sc">&#39;p&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;pid&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">target_pid</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;target pid&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">),</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">  </span><span class="n">OPT_INTEGER</span><span class="p">(</span><span class="sc">&#39;s&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;signal&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">target_signal</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;target signal&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">),</span>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">        </span><span class="n">OPT_END</span><span class="p">(),</span>
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="p">};</span>
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
-<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">argparse</span><span class="w"> </span><span class="n">argparse</span><span class="p">;</span>
-<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">  </span><span class="n">argparse_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">argparse</span><span class="p">,</span><span class="w"> </span><span class="n">options</span><span class="p">,</span><span class="w"> </span><span class="n">usages</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
-<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">  </span><span class="n">argparse_describe</span><span class="p">(</span><span class="o">&amp;</span><span class="n">argparse</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Trace standard and real-time signals.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">);</span>
-<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">  </span><span class="n">argc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">argparse_parse</span><span class="p">(</span><span class="o">&amp;</span><span class="n">argparse</span><span class="p">,</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">);</span>
-<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>
-<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">  </span><span class="n">cJSON</span><span class="w"> </span><span class="o">*</span><span class="n">program</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cJSON_Parse</span><span class="p">(</span><span class="n">program_data</span><span class="p">);</span>
-<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">  </span><span class="n">program</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">set_bpf_program_global_var</span><span class="p">(</span><span class="n">program</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;filtered_pid&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">cJSON_CreateNumber</span><span class="p">(</span><span class="n">target_pid</span><span class="p">));</span>
-<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">  </span><span class="n">program</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">set_bpf_program_global_var</span><span class="p">(</span><span class="n">program</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;target_signal&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">cJSON_CreateNumber</span><span class="p">(</span><span class="n">target_signal</span><span class="p">));</span>
-<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="w">  </span><span class="n">program</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">set_bpf_program_global_var</span><span class="p">(</span><span class="n">program</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;failed_only&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">cJSON_CreateBool</span><span class="p">(</span><span class="n">failed_only</span><span class="p">));</span>
-<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">start_bpf_program</span><span class="p">(</span><span class="n">cJSON_PrintUnformatted</span><span class="p">(</span><span class="n">program</span><span class="p">));</span>
-<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="p">}</span>
-<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>
-<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="kt">int</span><span class="w"> </span><span class="n">process_event</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">e</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">str_len</span><span class="p">)</span>
-<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="p">{</span>
-<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="w"> </span><span class="n">cJSON</span><span class="w"> </span><span class="o">*</span><span class="n">json</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cJSON_Parse</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
-<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">sig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cJSON_GetObjectItem</span><span class="p">(</span><span class="n">json</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;sig&quot;</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">valueint</span><span class="p">;</span>
-<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sig_name</span><span class="p">[</span><span class="n">sig</span><span class="p">];</span>
-<a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a><span class="w"> </span><span class="n">cJSON_AddItemToObject</span><span class="p">(</span><span class="n">json</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;sig_name&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">cJSON_CreateString</span><span class="p">(</span><span class="n">name</span><span class="p">));</span>
-<a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cJSON_PrintUnformatted</span><span class="p">(</span><span class="n">json</span><span class="p">);</span>
-<a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a><span class="w"> </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">out</span><span class="p">);</span>
-<a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">....</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">**</span><span class="w"> </span><span class="n">argv</span><span class="p">)</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="p">{</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">argparse_option</span><span class="w"> </span><span class="n">options</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">        </span><span class="n">OPT_HELP</span><span class="p">(),</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">        </span><span class="n">OPT_BOOLEAN</span><span class="p">(</span><span class="sc">&#39;x&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;failed&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">failed_only</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;failed signals only&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">),</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">        </span><span class="n">OPT_BOOLEAN</span><span class="p">(</span><span class="sc">&#39;k&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;killed&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">kill_only</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;kill only&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">),</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">        </span><span class="n">OPT_INTEGER</span><span class="p">(</span><span class="sc">&#39;p&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;pid&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">target_pid</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;target pid&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">),</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">  </span><span class="n">OPT_INTEGER</span><span class="p">(</span><span class="sc">&#39;s&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;signal&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">target_signal</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;target signal&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">),</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">        </span><span class="n">OPT_END</span><span class="p">(),</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">    </span><span class="p">};</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">argparse</span><span class="w"> </span><span class="n">argparse</span><span class="p">;</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">  </span><span class="n">argparse_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">argparse</span><span class="p">,</span><span class="w"> </span><span class="n">options</span><span class="p">,</span><span class="w"> </span><span class="n">usages</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="w">  </span><span class="n">argparse_describe</span><span class="p">(</span><span class="o">&amp;</span><span class="n">argparse</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Trace standard and real-time signals.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="w">  </span><span class="n">argc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">argparse_parse</span><span class="p">(</span><span class="o">&amp;</span><span class="n">argparse</span><span class="p">,</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">);</span>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="w">  </span><span class="n">cJSON</span><span class="w"> </span><span class="o">*</span><span class="n">program</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cJSON_Parse</span><span class="p">(</span><span class="n">program_data</span><span class="p">);</span>
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="w">  </span><span class="n">program</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">set_bpf_program_global_var</span><span class="p">(</span><span class="n">program</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;filtered_pid&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">cJSON_CreateNumber</span><span class="p">(</span><span class="n">target_pid</span><span class="p">));</span>
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="w">  </span><span class="n">program</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">set_bpf_program_global_var</span><span class="p">(</span><span class="n">program</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;target_signal&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">cJSON_CreateNumber</span><span class="p">(</span><span class="n">target_signal</span><span class="p">));</span>
+<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a><span class="w">  </span><span class="n">program</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">set_bpf_program_global_var</span><span class="p">(</span><span class="n">program</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;failed_only&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">cJSON_CreateBool</span><span class="p">(</span><span class="n">failed_only</span><span class="p">));</span>
+<a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">start_bpf_program</span><span class="p">(</span><span class="n">cJSON_PrintUnformatted</span><span class="p">(</span><span class="n">program</span><span class="p">));</span>
+<a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a><span class="p">}</span>
+<a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a>
+<a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a><span class="kt">int</span><span class="w"> </span><span class="n">process_event</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">e</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">str_len</span><span class="p">)</span>
+<a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a><span class="p">{</span>
+<a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a><span class="w"> </span><span class="n">cJSON</span><span class="w"> </span><span class="o">*</span><span class="n">json</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cJSON_Parse</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+<a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">sig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cJSON_GetObjectItem</span><span class="p">(</span><span class="n">json</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;sig&quot;</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">valueint</span><span class="p">;</span>
+<a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sig_name</span><span class="p">[</span><span class="n">sig</span><span class="p">];</span>
+<a id="__codelineno-5-30" name="__codelineno-5-30" href="#__codelineno-5-30"></a><span class="w"> </span><span class="n">cJSON_AddItemToObject</span><span class="p">(</span><span class="n">json</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;sig_name&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">cJSON_CreateString</span><span class="p">(</span><span class="n">name</span><span class="p">));</span>
+<a id="__codelineno-5-31" name="__codelineno-5-31" href="#__codelineno-5-31"></a><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cJSON_PrintUnformatted</span><span class="p">(</span><span class="n">json</span><span class="p">);</span>
+<a id="__codelineno-5-32" name="__codelineno-5-32" href="#__codelineno-5-32"></a><span class="w"> </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">out</span><span class="p">);</span>
+<a id="__codelineno-5-33" name="__codelineno-5-33" href="#__codelineno-5-33"></a><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-5-34" name="__codelineno-5-34" href="#__codelineno-5-34"></a><span class="p">}</span>
 </code></pre></div>
 <p>Finally, the use of container images can complete the compilation and packaging of WebAssembly/eBPF programs in one command. Use ecli to run with one click:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="gp">$ </span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/:/src/<span class="w"> </span>ghcr.io/eunomia-bpf/ecc-<span class="sb">`</span>uname<span class="w"> </span>-m<span class="sb">`</span>:latest<span class="w"> </span>build-wasm
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="go">make</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="go">  GENERATE_PACKAGE_JSON</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="go">  BUILD-Wasm</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="go">build app.wasm success</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="gp">$ </span>sudo<span class="w"> </span>./ecli<span class="w"> </span>run<span class="w"> </span>app.wasm<span class="w"> </span>-h
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="go">Usage: sigsnoop [-h] [-x] [-k] [-n] [-p PID] [-s SIGNAL]</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="gp">$ </span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/:/src/<span class="w"> </span>ghcr.io/eunomia-bpf/ecc-<span class="sb">`</span>uname<span class="w"> </span>-m<span class="sb">`</span>:latest<span class="w"> </span>build-wasm
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="go">make</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="go">  GENERATE_PACKAGE_JSON</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="go">  BUILD-Wasm</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="go">build app.wasm success</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="gp">$ </span>sudo<span class="w"> </span>./ecli<span class="w"> </span>run<span class="w"> </span>app.wasm<span class="w"> </span>-h
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="go">Usage: sigsnoop [-h] [-x] [-k] [-n] [-p PID] [-s SIGNAL]</span>
 </code></pre></div>
 <p>Since we use the libbpf framework to load and start eBPF programs based on one-time compilation and universal execution, the compilation and execution steps are completely separate. eBPF programs can be distributed and deployed directly over the network or any other means, without relying on specific kernel versions. With the lightweight nature of WebAssembly, the startup speed of eBPF programs is also much faster than that of libbpf programs distributed in image form, usually taking less than 100 ms to complete. Compared to the time and resources consumed by LLVM and Clang for compiling and running when deploying and starting with BCC, it is a qualitative leap.</p>
 <p>For the complete code of the example program mentioned above, you can refer to here [6].</p>
@@ -8446,7 +8311,7 @@ It adds the English names of signal events based on the signal number:</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 10, 2025 22:48:22 UTC">February 10, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 4, 2025 00:14:57 UTC">October 4, 2025</span>
   </span>
 
     
@@ -8466,12 +8331,13 @@ It adds the English names of signal events based on the signal number:</p>
   <span class="md-source-file__fact">
     <span class="md-icon" title="Contributors">
       
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
       
     </span>
     <nav>
       
-        <a href="mailto:yusen356@gmail.com">weekendfish</a>
+        <a href="mailto:yusen356@gmail.com">weekendfish</a>, 
+        <a href="mailto:yunwei356@gmail.com">yunwei37</a>
     </nav>
   </span>
 

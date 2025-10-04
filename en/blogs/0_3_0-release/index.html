@@ -1877,144 +1877,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/bcc-documents/kernel-versions/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    BPF Features by Linux Kernel Version
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../tutorials/bcc-documents/kernel_config/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Kernel Configuration for BPF Features
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../tutorials/bcc-documents/reference_guide/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    bcc Reference Guide
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../tutorials/bcc-documents/special_filtering/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Special Filtering
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../tutorials/bcc-documents/tutorial/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    bcc Tutorial
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../tutorials/bcc-documents/tutorial_bcc_python_developer/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    bcc Python Developer Tutorial
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../tutorials/bpftrace-tutorial/" class="md-nav__link">
         
   
@@ -8113,7 +7975,7 @@
         <li class="md-nav__item">
   <a href="#include" class="md-nav__link">
     <span class="md-ellipsis">
-      include ".
+      include
     </span>
   </a>
   
@@ -8137,6 +7999,15 @@
   
     <nav class="md-nav" aria-label="include &#34;opensnoop.h&#34;">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#regarding-compilation-improved-compilation-experience-formatting-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Regarding compilation: Improved compilation experience, formatting changes
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#download-and-install-eunomia-bpf" class="md-nav__link">
@@ -8253,8 +8124,7 @@
 </code></pre></div>
 <p>Kernel-mode code opensnoop.bpf.c</p>
 <p>```c</p>
-<h1 id="include">include <vmlinux.h>".</h1>
-<p>format: Return only the translated content, not including the original text.```c</p>
+<h1 id="include">include <vmlinux.h></h1>
 <h1 id="include_1">include <bpf/bpf_helpers.h></h1>
 <h1 id="include-opensnooph">include "opensnoop.h"</h1>
 </li>
@@ -8319,335 +8189,299 @@ int tracepoint__syscalls__sys_enter_open(struct trace_event_raw_sys_enter<em> ct
   return 0;
 }</p>
 <p>SEC("tracepoint/syscalls/sys_enter_openat")
-int tracepoint__syscalls__sys_enter_openat(struct trace_event_raw_sys_enter* ctx)
+int tracepoint__syscalls__sys_enter_openat(struct trace_event_raw_sys_enter<em> ctx)
 {
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">u64</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_get_current_pid_tgid</span><span class="p">();</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="cm">/* use kernel terminology here for tgid/pid: */</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">u32</span><span class="w"> </span><span class="n">tgid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">32</span><span class="p">;</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">u32</span><span class="w"> </span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id</span><span class="p">;</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="cm">/* store arg info for later lookup */</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">trace_allowed</span><span class="p">(</span><span class="n">tgid</span><span class="p">,</span><span class="w"> </span><span class="n">pid</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">args_t</span><span class="w"> </span><span class="n">args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">  </span><span class="n">args</span><span class="p">.</span><span class="n">fname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">  </span><span class="n">args</span><span class="p">.</span><span class="n">flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">  </span><span class="n">bpf_map_update_elem</span><span class="p">(</span><span class="o">&amp;</span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pid</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">args</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="p">}</span>
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="p">}</span>
-<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>
-<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="k">static</span><span class="w"> </span><span class="n">__always_inline</span>
-<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="kt">int</span><span class="w"> </span><span class="n">trace_exit</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">trace_event_raw_sys_exit</span><span class="o">*</span><span class="w"> </span><span class="n">ctx</span><span class="p">)</span>
-<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="p">{</span>
-<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">event</span><span class="w"> </span><span class="n">event</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
-<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">args_t</span><span class="w"> </span><span class="o">*</span><span class="n">ap</span><span class="p">;</span>
-<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
-<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">  </span><span class="n">u32</span><span class="w"> </span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_get_current_pid_tgid</span><span class="p">();</span>
-<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>
-<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">  </span><span class="n">ap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_map_lookup_elem</span><span class="p">(</span><span class="o">&amp;</span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pid</span><span class="p">);</span>
-<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">ap</span><span class="p">)</span>
-<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="cm">/* missed entry */</span>
-<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="w">  </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">ret</span><span class="p">;</span>
-<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">targ_failed</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">ret</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
-<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a><span class="w">    </span><span class="k">goto</span><span class="w"> </span><span class="n">cleanup</span><span class="p">;</span><span class="w"> </span><span class="cm">/* want failed only */</span>
-<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>
-<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a><span class="w">  </span><span class="cm">/* event data */</span>
-<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a><span class="w">  </span><span class="n">event</span><span class="p">.</span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_get_current_pid_tgid</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">32</span><span class="p">;</span>
-<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a><span class="w">  </span><span class="n">event</span><span class="p">.</span><span class="n">uid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_get_current_uid_gid</span><span class="p">();</span>
-<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a><span class="w">  </span><span class="n">bpf_get_current_comm</span><span class="p">(</span><span class="o">&amp;</span><span class="n">event</span><span class="p">.</span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">event</span><span class="p">.</span><span class="n">comm</span><span class="p">));</span>
-<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a><span class="w">  </span><span class="n">bpf_probe_read_user_str</span><span class="p">(</span><span class="o">&amp;</span><span class="n">event</span><span class="p">.</span><span class="n">fname</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">event</span><span class="p">.</span><span class="n">fname</span><span class="p">),</span><span class="w"> </span><span class="n">ap</span><span class="o">-&gt;</span><span class="n">fname</span><span class="p">);</span>
-<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a><span class="w">  </span><span class="n">event</span><span class="p">.</span><span class="n">flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ap</span><span class="o">-&gt;</span><span class="n">flags</span><span class="p">;</span>
-<a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a><span class="w">  </span><span class="n">event</span><span class="p">.</span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
-<a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a>
-<a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a><span class="w">  </span><span class="cm">/* emit event */</span>
-<a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a><span class="w">  </span><span class="n">bpf_perf_event_output</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">events</span><span class="p">,</span><span class="w"> </span><span class="n">BPF_F_CURRENT_CPU</span><span class="p">,</span>
-<a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a><span class="w">            </span><span class="o">&amp;</span><span class="n">event</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">event</span><span class="p">));</span>
-<a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a>
-<a id="__codelineno-1-43" name="__codelineno-1-43" href="#__codelineno-1-43"></a><span class="nl">cleanup</span><span class="p">:</span>
-<a id="__codelineno-1-44" name="__codelineno-1-44" href="#__codelineno-1-44"></a><span class="w">  </span><span class="n">bpf_map_delete_elem</span><span class="p">(</span><span class="o">&amp;</span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pid</span><span class="p">);</span>
-<a id="__codelineno-1-45" name="__codelineno-1-45" href="#__codelineno-1-45"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<a id="__codelineno-1-46" name="__codelineno-1-46" href="#__codelineno-1-46"></a><span class="p">}</span>
-<a id="__codelineno-1-47" name="__codelineno-1-47" href="#__codelineno-1-47"></a>
-<a id="__codelineno-1-48" name="__codelineno-1-48" href="#__codelineno-1-48"></a><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;tracepoint/syscalls/sys_exit_open&quot;</span><span class="p">)</span>
-<a id="__codelineno-1-49" name="__codelineno-1-49" href="#__codelineno-1-49"></a><span class="kt">int</span><span class="w"> </span><span class="n">tracepoint__syscalls__sys_exit_open</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">trace_event_raw_sys_exit</span><span class="o">*</span><span class="w"> </span><span class="n">ctx</span><span class="p">)</span>
-<a id="__codelineno-1-50" name="__codelineno-1-50" href="#__codelineno-1-50"></a><span class="p">{</span>
-<a id="__codelineno-1-51" name="__codelineno-1-51" href="#__codelineno-1-51"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">trace_exit</span><span class="p">(</span><span class="n">ctx</span><span class="p">);</span>
-<a id="__codelineno-1-52" name="__codelineno-1-52" href="#__codelineno-1-52"></a><span class="p">}</span>
-<a id="__codelineno-1-53" name="__codelineno-1-53" href="#__codelineno-1-53"></a>
-<a id="__codelineno-1-54" name="__codelineno-1-54" href="#__codelineno-1-54"></a><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;tracepoint/syscalls/sys_exit_openat&quot;</span><span class="p">)</span>
-<a id="__codelineno-1-55" name="__codelineno-1-55" href="#__codelineno-1-55"></a><span class="kt">int</span><span class="w"> </span><span class="n">tracepoint__syscalls__sys_exit_openat</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">trace_event_raw_sys_exit</span><span class="o">*</span><span class="w"> </span><span class="n">ctx</span><span class="p">)</span>
-<a id="__codelineno-1-56" name="__codelineno-1-56" href="#__codelineno-1-56"></a><span class="p">{</span>
-<a id="__codelineno-1-57" name="__codelineno-1-57" href="#__codelineno-1-57"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">trace_exit</span><span class="p">(</span><span class="n">ctx</span><span class="p">);</span>
-<a id="__codelineno-1-58" name="__codelineno-1-58" href="#__codelineno-1-58"></a><span class="p">}</span>
-<a id="__codelineno-1-59" name="__codelineno-1-59" href="#__codelineno-1-59"></a>
-<a id="__codelineno-1-60" name="__codelineno-1-60" href="#__codelineno-1-60"></a><span class="c1">/// Trace open family syscalls.</span>
-<a id="__codelineno-1-61" name="__codelineno-1-61" href="#__codelineno-1-61"></a><span class="kt">char</span><span class="w"> </span><span class="n">LICENSE</span><span class="p">[]</span><span class="w"> </span><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;license&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;GPL&quot;</span><span class="p">;</span>
-<a id="__codelineno-1-62" name="__codelineno-1-62" href="#__codelineno-1-62"></a><span class="err">```</span>
-<a id="__codelineno-1-63" name="__codelineno-1-63" href="#__codelineno-1-63"></a>
-<a id="__codelineno-1-64" name="__codelineno-1-64" href="#__codelineno-1-64"></a><span class="n">Compile</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">run</span><span class="o">:</span>
-<a id="__codelineno-1-65" name="__codelineno-1-65" href="#__codelineno-1-65"></a>
-<a id="__codelineno-1-66" name="__codelineno-1-66" href="#__codelineno-1-66"></a><span class="err">```</span><span class="n">console</span>
-<a id="__codelineno-1-67" name="__codelineno-1-67" href="#__codelineno-1-67"></a><span class="n">$</span><span class="w"> </span><span class="n">ecc</span><span class="w"> </span><span class="n">opensnoop</span><span class="p">.</span><span class="n">bpf</span><span class="p">.</span><span class="n">c</span><span class="w"> </span><span class="n">opensnoop</span><span class="p">.</span><span class="n">h</span>
-<a id="__codelineno-1-68" name="__codelineno-1-68" href="#__codelineno-1-68"></a><span class="n">Compiling</span><span class="w"> </span><span class="n">bpf</span><span class="w"> </span><span class="n">object</span><span class="p">...</span>
-<a id="__codelineno-1-69" name="__codelineno-1-69" href="#__codelineno-1-69"></a><span class="n">Generating</span><span class="w"> </span><span class="n">export</span><span class="w"> </span><span class="n">types</span><span class="p">...</span>
-<a id="__codelineno-1-70" name="__codelineno-1-70" href="#__codelineno-1-70"></a><span class="n">Packing</span><span class="w"> </span><span class="n">ebpf</span><span class="w"> </span><span class="n">object</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="n">into</span><span class="w"> </span><span class="n">package</span><span class="p">.</span><span class="n">json</span><span class="p">...</span>
-<a id="__codelineno-1-71" name="__codelineno-1-71" href="#__codelineno-1-71"></a><span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">ecli</span><span class="w"> </span><span class="n">examples</span><span class="o">/</span><span class="n">bpftools</span><span class="o">/</span><span class="n">opensnoop</span><span class="o">/</span><span class="n">package</span><span class="p">.</span><span class="n">json</span><span class="s">&quot;.</span>
-<a id="__codelineno-1-72" name="__codelineno-1-72" href="#__codelineno-1-72"></a><span class="err">```</span>
-<a id="__codelineno-1-73" name="__codelineno-1-73" href="#__codelineno-1-73"></a>
-<a id="__codelineno-1-74" name="__codelineno-1-74" href="#__codelineno-1-74"></a><span class="n">Compilation</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">execution</span><span class="o">:**</span><span class="n">Markdown</span><span class="w"> </span><span class="n">Translation</span><span class="o">:**</span>
-<a id="__codelineno-1-75" name="__codelineno-1-75" href="#__codelineno-1-75"></a>
-<a id="__codelineno-1-76" name="__codelineno-1-76" href="#__codelineno-1-76"></a><span class="err">```</span>
-<a id="__codelineno-1-77" name="__codelineno-1-77" href="#__codelineno-1-77"></a><span class="n">TIME</span><span class="w">     </span><span class="n">TS</span><span class="w">    </span><span class="n">PID</span><span class="w">   </span><span class="n">UID</span><span class="w">   </span><span class="n">RET</span><span class="w">   </span><span class="n">FLAGS</span><span class="w">   </span><span class="n">COMM</span><span class="w">        </span><span class="n">FNAME</span>
-<a id="__codelineno-1-78" name="__codelineno-1-78" href="#__codelineno-1-78"></a><span class="mi">20</span><span class="o">:</span><span class="mi">31</span><span class="o">:</span><span class="mi">50</span><span class="w">  </span><span class="mi">0</span><span class="w">    </span><span class="mi">1</span><span class="w">     </span><span class="mi">0</span><span class="w">     </span><span class="mi">51</span><span class="w">    </span><span class="mi">524288</span><span class="w">  </span><span class="n">systemd</span><span class="w">     </span><span class="o">/</span><span class="n">proc</span><span class="o">/</span><span class="mi">614</span><span class="o">/</span><span class="n">cgroup</span>
-<a id="__codelineno-1-79" name="__codelineno-1-79" href="#__codelineno-1-79"></a><span class="mi">20</span><span class="o">:</span><span class="mi">31</span><span class="o">:</span><span class="mi">50</span><span class="w">  </span><span class="mi">0</span><span class="w">    </span><span class="mi">33182</span><span class="w"> </span><span class="mi">0</span><span class="w">     </span><span class="mi">25</span><span class="w">    </span><span class="mi">524288</span><span class="w">  </span><span class="n">ecli</span><span class="w">        </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">localtime</span>
-<a id="__codelineno-1-80" name="__codelineno-1-80" href="#__codelineno-1-80"></a><span class="mi">20</span><span class="o">:</span><span class="mi">31</span><span class="o">:</span><span class="mi">53</span><span class="w">  </span><span class="mi">0</span><span class="w">    </span><span class="mi">754</span><span class="w">   </span><span class="mi">0</span><span class="w">     </span><span class="mi">6</span><span class="w">     </span><span class="mi">0</span><span class="w">       </span><span class="n">irqbalance</span><span class="w">  </span><span class="o">/</span><span class="n">proc</span><span class="o">/</span><span class="n">interrupts</span>
-<a id="__codelineno-1-81" name="__codelineno-1-81" href="#__codelineno-1-81"></a><span class="mi">20</span><span class="o">:</span><span class="mi">31</span><span class="o">:</span><span class="mi">53</span><span class="w">  </span><span class="mi">0</span><span class="w">    </span><span class="mi">754</span><span class="w">   </span><span class="mi">0</span><span class="w">     </span><span class="mi">6</span><span class="w">     </span><span class="mi">0</span><span class="w">       </span><span class="n">irqbalance</span><span class="w">  </span><span class="o">/</span><span class="n">proc</span><span class="o">/</span><span class="n">stat</span>
-<a id="__codelineno-1-82" name="__codelineno-1-82" href="#__codelineno-1-82"></a><span class="mi">20</span><span class="o">:</span><span class="mi">32</span><span class="o">:</span><span class="mo">03</span><span class="w">  </span><span class="mi">0</span><span class="w">    </span><span class="mi">754</span><span class="w">   </span><span class="mi">0</span><span class="w">     </span><span class="mi">6</span><span class="w">     </span><span class="mi">0</span><span class="w">       </span><span class="n">irqbalance</span><span class="w">  </span><span class="o">/</span><span class="n">proc</span><span class="o">/</span><span class="n">interrupts</span>
-<a id="__codelineno-1-83" name="__codelineno-1-83" href="#__codelineno-1-83"></a><span class="mi">20</span><span class="o">:</span><span class="mi">32</span><span class="o">:</span><span class="mo">03</span><span class="w">  </span><span class="mi">0</span><span class="w">    </span><span class="mi">754</span><span class="w">   </span><span class="mi">0</span><span class="w">     </span><span class="mi">6</span><span class="w">     </span><span class="mi">0</span><span class="w">       </span><span class="n">irqbalance</span><span class="w">  </span><span class="o">/</span><span class="n">proc</span><span class="o">/</span><span class="n">stat</span>
-<a id="__codelineno-1-84" name="__codelineno-1-84" href="#__codelineno-1-84"></a><span class="mi">20</span><span class="o">:</span><span class="mi">32</span><span class="o">:</span><span class="mo">03</span><span class="w">  </span><span class="mi">0</span><span class="w">    </span><span class="mi">632</span><span class="w">   </span><span class="mi">0</span><span class="w">     </span><span class="mi">7</span><span class="w">     </span><span class="mi">524288</span><span class="w">  </span><span class="n">vmtoolsd</span><span class="w">    </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">mtab</span>
-<a id="__codelineno-1-85" name="__codelineno-1-85" href="#__codelineno-1-85"></a><span class="mi">20</span><span class="o">:</span><span class="mi">32</span><span class="o">:</span><span class="mo">03</span><span class="w">  </span><span class="mi">0</span><span class="w">    </span><span class="mi">632</span><span class="w">   </span><span class="mi">0</span><span class="w">     </span><span class="mi">9</span><span class="w">     </span><span class="mi">0</span><span class="w">       </span><span class="n">vmtoolsd</span><span class="w">    </span><span class="o">/</span><span class="n">proc</span><span class="o">/</span><span class="n">devices</span>
-<a id="__codelineno-1-86" name="__codelineno-1-86" href="#__codelineno-1-86"></a>
-<a id="__codelineno-1-87" name="__codelineno-1-87" href="#__codelineno-1-87"></a><span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">ecli</span><span class="w"> </span><span class="n">examples</span><span class="o">/</span><span class="n">bpftools</span><span class="o">/</span><span class="n">opensnoop</span><span class="o">/</span><span class="n">package</span><span class="p">.</span><span class="n">json</span><span class="w"> </span><span class="o">--</span><span class="n">pid_target</span><span class="w"> </span><span class="mi">754</span>
-<a id="__codelineno-1-88" name="__codelineno-1-88" href="#__codelineno-1-88"></a><span class="n">TIME</span><span class="w">     </span><span class="n">TS</span><span class="w">    </span><span class="n">PID</span><span class="w">   </span><span class="n">UID</span><span class="w">   </span><span class="n">RET</span><span class="w">   </span><span class="n">FLAGS</span><span class="w">  </span><span class="n">COMM</span><span class="w">        </span><span class="n">FNAME</span>
-<a id="__codelineno-1-89" name="__codelineno-1-89" href="#__codelineno-1-89"></a><span class="mi">20</span><span class="o">:</span><span class="mi">34</span><span class="o">:</span><span class="mi">13</span><span class="w">  </span><span class="mi">0</span><span class="w">    </span><span class="mi">754</span><span class="w">   </span><span class="mi">0</span><span class="w">     </span><span class="mi">6</span><span class="w">     </span><span class="mi">0</span><span class="w">      </span><span class="n">irqbalance</span><span class="w">  </span><span class="o">/</span><span class="n">proc</span><span class="o">/</span><span class="n">interrupts</span>
-<a id="__codelineno-1-90" name="__codelineno-1-90" href="#__codelineno-1-90"></a><span class="mi">20</span><span class="o">:</span><span class="mi">34</span><span class="o">:</span><span class="mi">13</span><span class="w">  </span><span class="mi">0</span><span class="w">    </span><span class="mi">754</span><span class="w">   </span><span class="mi">0</span><span class="w">     </span><span class="mi">6</span><span class="w">     </span><span class="mi">0</span><span class="w">      </span><span class="n">irqbalance</span><span class="w">  </span><span class="o">/</span><span class="n">proc</span><span class="o">/</span><span class="n">stat</span>
-<a id="__codelineno-1-91" name="__codelineno-1-91" href="#__codelineno-1-91"></a><span class="mi">20</span><span class="o">:</span><span class="mi">34</span><span class="o">:</span><span class="mi">23</span><span class="w">  </span><span class="mi">0</span><span class="w">    </span><span class="mi">754</span><span class="w">   </span><span class="mi">0</span><span class="w">     </span><span class="mi">6</span><span class="w">     </span><span class="mi">0</span><span class="w">      </span><span class="n">irqbalance</span><span class="w">  </span><span class="o">/</span><span class="n">proc</span><span class="o">/</span><span class="n">interrupts</span>
-<a id="__codelineno-1-92" name="__codelineno-1-92" href="#__codelineno-1-92"></a><span class="mi">20</span><span class="o">:</span><span class="mi">34</span><span class="o">:</span><span class="mi">23</span><span class="w">  </span><span class="mi">0</span><span class="w">    </span><span class="mi">754</span><span class="w">   </span><span class="mi">0</span><span class="w">     </span><span class="mi">6</span><span class="w">     </span><span class="mi">0</span><span class="w">      </span><span class="n">irqbalance</span><span class="w">  </span><span class="o">/</span><span class="n">proc</span><span class="o">/</span><span class="n">stat</span>
-<a id="__codelineno-1-93" name="__codelineno-1-93" href="#__codelineno-1-93"></a><span class="err">```</span>
-<a id="__codelineno-1-94" name="__codelineno-1-94" href="#__codelineno-1-94"></a>
-<a id="__codelineno-1-95" name="__codelineno-1-95" href="#__codelineno-1-95"></a><span class="n">Or</span><span class="w"> </span><span class="n">compile</span><span class="w"> </span><span class="n">using</span><span class="w"> </span><span class="n">Docker</span><span class="o">:</span>
-<a id="__codelineno-1-96" name="__codelineno-1-96" href="#__codelineno-1-96"></a>
-<a id="__codelineno-1-97" name="__codelineno-1-97" href="#__codelineno-1-97"></a><span class="err">```</span><span class="n">shell</span>
-<a id="__codelineno-1-98" name="__codelineno-1-98" href="#__codelineno-1-98"></a><span class="n">docker</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="o">-</span><span class="n">it</span><span class="w"> </span><span class="o">-</span><span class="n">v</span><span class="w"> </span><span class="err">`</span><span class="n">pwd</span><span class="err">`</span><span class="o">/:/</span><span class="n">src</span><span class="o">/</span><span class="w"> </span><span class="n">ghcr</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="n">eunomia</span><span class="o">-</span><span class="n">bpf</span><span class="o">/</span><span class="n">ecc</span><span class="o">-</span><span class="err">`</span><span class="n">uname</span><span class="w"> </span><span class="o">-</span><span class="n">m</span><span class="err">`</span><span class="o">:</span><span class="n">latest</span>
-<a id="__codelineno-1-99" name="__codelineno-1-99" href="#__codelineno-1-99"></a><span class="err">```</span>
-<a id="__codelineno-1-100" name="__codelineno-1-100" href="#__codelineno-1-100"></a>
-<a id="__codelineno-1-101" name="__codelineno-1-101" href="#__codelineno-1-101"></a><span class="n">After</span><span class="w"> </span><span class="n">compiling</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">publishing</span><span class="p">,</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">easily</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="n">any</span><span class="w"> </span><span class="n">eBPF</span><span class="w"> </span><span class="n">program</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">cloud</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">command</span><span class="p">,</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">example</span><span class="o">:</span>
-<a id="__codelineno-1-102" name="__codelineno-1-102" href="#__codelineno-1-102"></a>
-<a id="__codelineno-1-103" name="__codelineno-1-103" href="#__codelineno-1-103"></a><span class="err">```</span><span class="n">bash</span>
-<a id="__codelineno-1-104" name="__codelineno-1-104" href="#__codelineno-1-104"></a><span class="n">wget</span><span class="w"> </span><span class="n">https</span><span class="o">:</span><span class="c1">//aka.pw/bpf-ecli -O ecli &amp;&amp; chmod +x ./ecli     # download the release from https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli</span>
-<a id="__codelineno-1-105" name="__codelineno-1-105" href="#__codelineno-1-105"></a><span class="n">sudo</span><span class="w"> </span><span class="p">.</span><span class="o">/</span><span class="n">ecli</span><span class="w"> </span><span class="n">https</span><span class="o">:</span><span class="c1">//eunomia-bpf.github.io/eunomia-bpf/sigsnoop/package.json # simply run a pre-compiled ebpf code from a url</span>
-<a id="__codelineno-1-106" name="__codelineno-1-106" href="#__codelineno-1-106"></a><span class="n">sudo</span><span class="w"> </span><span class="p">.</span><span class="o">/</span><span class="n">ecli</span><span class="w"> </span><span class="n">sigsnoop</span><span class="o">:</span><span class="n">latest</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">download</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">latest</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="n">bpf</span><span class="w"> </span><span class="n">tool</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">our</span><span class="w"> </span><span class="n">repo</span>
-<a id="__codelineno-1-107" name="__codelineno-1-107" href="#__codelineno-1-107"></a><span class="err">```</span>
-<a id="__codelineno-1-108" name="__codelineno-1-108" href="#__codelineno-1-108"></a>
-<a id="__codelineno-1-109" name="__codelineno-1-109" href="#__codelineno-1-109"></a><span class="n">The</span><span class="w"> </span><span class="n">complete</span><span class="w"> </span><span class="n">code</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">available</span><span class="w"> </span><span class="n">here</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="n">https</span><span class="o">:</span><span class="c1">//github.com/eunomia-bpf/eunomia-bpf/tree/master/examples/bpftools/opensnoop](https://github.com/eunomia-bpf/eunomia-bpf/tree/master/examples/bpftools/opensnoop)</span>
-<a id="__codelineno-1-110" name="__codelineno-1-110" href="#__codelineno-1-110"></a>
-<a id="__codelineno-1-111" name="__codelineno-1-111" href="#__codelineno-1-111"></a><span class="mf">2.</span><span class="w"> </span><span class="n">Support</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">automatic</span><span class="w"> </span><span class="n">generation</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="n">command</span><span class="o">-</span><span class="n">line</span><span class="w"> </span><span class="n">parameters</span><span class="w"> </span><span class="n">based</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">comments</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">code</span><span class="p">.</span>
-<a id="__codelineno-1-112" name="__codelineno-1-112" href="#__codelineno-1-112"></a>
-<a id="__codelineno-1-113" name="__codelineno-1-113" href="#__codelineno-1-113"></a><span class="n">For</span><span class="w"> </span><span class="n">example</span><span class="p">,</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">implement</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">PID</span><span class="w"> </span><span class="n">filter</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">eBPF</span><span class="w"> </span><span class="n">program</span><span class="p">,</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">only</span><span class="w"> </span><span class="n">need</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">write</span><span class="w"> </span><span class="n">kernel</span><span class="w"> </span><span class="n">code</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">declare</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">global</span><span class="w"> </span><span class="n">variable</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">eBPF</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">automatically</span><span class="w"> </span><span class="n">generate</span><span class="w"> </span><span class="n">command</span><span class="o">-</span><span class="n">line</span><span class="w"> </span><span class="n">parameters</span><span class="o">:</span>
-<a id="__codelineno-1-114" name="__codelineno-1-114" href="#__codelineno-1-114"></a>
-<a id="__codelineno-1-115" name="__codelineno-1-115" href="#__codelineno-1-115"></a><span class="err">```</span><span class="n">c</span>
-<a id="__codelineno-1-116" name="__codelineno-1-116" href="#__codelineno-1-116"></a><span class="c1">/// Process ID to trace</span>
-<a id="__codelineno-1-117" name="__codelineno-1-117" href="#__codelineno-1-117"></a><span class="k">const</span><span class="w"> </span><span class="k">volatile</span><span class="w"> </span><span class="kt">pid_t</span><span class="w"> </span><span class="n">pid_target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<a id="__codelineno-1-118" name="__codelineno-1-118" href="#__codelineno-1-118"></a><span class="c1">/// Thread ID to trace&quot;.</span>
-</code></pre></div>
+``````c
+u64 id = bpf_get_current_pid_tgid();
+/</em> use kernel terminology here for tgid/pid: */
+u32 tgid = id &gt;&gt; 32;
+u32 pid = id;</p>
+<p>/<em> store arg info for later lookup </em>/
+if (trace_allowed(tgid, pid)) {
+  struct args_t args = {};
+  args.fname = (const char *)ctx-&gt;args[1];
+  args.flags = (int)ctx-&gt;args[2];
+  bpf_map_update_elem(&amp;start, &amp;pid, &amp;args, 0);
+}
+return 0;
+}</p>
+<p>static __always_inline
+int trace_exit(struct trace_event_raw_sys_exit<em> ctx)
+{
+  struct event event = {};
+  struct args_t </em>ap;
+  int ret;
+  u32 pid = bpf_get_current_pid_tgid();</p>
+<p>ap = bpf_map_lookup_elem(&amp;start, &amp;pid);
+  if (!ap)
+    return 0; /<em> missed entry </em>/
+  ret = ctx-&gt;ret;
+  if (targ_failed &amp;&amp; ret &gt;= 0)
+    goto cleanup; /<em> want failed only </em>/</p>
+<p>/<em> event data </em>/
+  event.pid = bpf_get_current_pid_tgid() &gt;&gt; 32;
+  event.uid = bpf_get_current_uid_gid();
+  bpf_get_current_comm(&amp;event.comm, sizeof(event.comm));
+  bpf_probe_read_user_str(&amp;event.fname, sizeof(event.fname), ap-&gt;fname);
+  event.flags = ap-&gt;flags;
+  event.ret = ret;</p>
+<p>/<em> emit event </em>/
+  bpf_perf_event_output(ctx, &amp;events, BPF_F_CURRENT_CPU,
+            &amp;event, sizeof(event));</p>
+<p>cleanup:
+  bpf_map_delete_elem(&amp;start, &amp;pid);
+  return 0;
+}</p>
+<p>SEC("tracepoint/syscalls/sys_exit_open")
+int tracepoint__syscalls__sys_exit_open(struct trace_event_raw_sys_exit* ctx)
+{
+  return trace_exit(ctx);
+}</p>
+<p>SEC("tracepoint/syscalls/sys_exit_openat")
+int tracepoint__syscalls__sys_exit_openat(struct trace_event_raw_sys_exit* ctx)
+{
+  return trace_exit(ctx);
+}</p>
+<p>/// Trace open family syscalls.
+char LICENSE[] SEC("license") = "GPL";
+```</p>
+<p>Compile and run:</p>
+<p>```console
+$ ecc opensnoop.bpf.c opensnoop.h
+Compiling bpf object...
+Generating export types...
+Packing ebpf object and config into package.json...
+$ sudo ecli examples/bpftools/opensnoop/package.json
+TIME     TS    PID   UID   RET   FLAGS   COMM        FNAME
+20:31:50  0    1     0     51    524288  systemd     /proc/614/cgroup
+20:31:50  0    33182 0     25    524288  ecli        /etc/localtime
+20:31:53  0    754   0     6     0       irqbalance  /proc/interrupts
+20:31:53  0    754   0     6     0       irqbalance  /proc/stat
+20:32:03  0    754   0     6     0       irqbalance  /proc/interrupts
+20:32:03  0    754   0     6     0       irqbalance  /proc/stat
+20:32:03  0    632   0     7     524288  vmtoolsd    /etc/mtab
+20:32:03  0    632   0     9     0       vmtoolsd    /proc/devices</p>
+<p>$ sudo ecli examples/bpftools/opensnoop/package.json --pid_target 754
+TIME     TS    PID   UID   RET   FLAGS  COMM        FNAME
+20:34:13  0    754   0     6     0      irqbalance  /proc/interrupts
+20:34:13  0    754   0     6     0      irqbalance  /proc/stat
+20:34:23  0    754   0     6     0      irqbalance  /proc/interrupts
+20:34:23  0    754   0     6     0      irqbalance  /proc/stat
+```</p>
+<p>Or compile using Docker:</p>
+<p><code>shell
+docker run -it -v `pwd`/:/src/ ghcr.io/eunomia-bpf/ecc-`uname -m`:latest</code></p>
+<p>After compiling and publishing, you can easily start any eBPF program from the cloud with a single command, for example:</p>
+<p><code>bash
+wget https://aka.pw/bpf-ecli -O ecli &amp;&amp; chmod +x ./ecli     # download the release from https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli
+sudo ./ecli https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/package.json # simply run a pre-compiled ebpf code from a url
+sudo ./ecli sigsnoop:latest # run with a name and download the latest version bpf tool from our repo</code></p>
+<p>The complete code is available here: <a href="https://github.com/eunomia-bpf/eunomia-bpf/tree/master/examples/bpftools/opensnoop">https://github.com/eunomia-bpf/eunomia-bpf/tree/master/examples/bpftools/opensnoop</a></p>
+<ol>
+<li>Support the automatic generation of user command-line parameters based on comments in the code.</li>
+</ol>
+<p>For example, to implement a PID filter in an eBPF program, you only need to write kernel code and declare a global variable in eBPF to automatically generate command-line parameters:</p>
+<p><code>c
+/// Process ID to trace
+const volatile pid_t pid_target = 0;
+/// Thread ID to trace
 const volatile pid_t tgid_target = 0;
 /// @description User ID to trace
 const volatile uid_t uid_target = 0;
 /// @cmdarg {"default": false, "short": "f", "long": "failed"}
 /// @description target pid to trace
-const volatile bool targ_failed = false;
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>We will extract the description information of the comments and put it in the configuration file, and convert it into command line arguments for the eBPF application. Take tracing all open system calls with opensnoop as an example:
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>```console
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>$ sudo ecli  examples/bpftools/opensnoop/package.json -h
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>Usage: opensnoop_bpf [--help] [--version] [--verbose] [--pid_target VAR] [--tgid_target VAR] [--uid_target VAR] [--failed]
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>Trace open family syscalls.
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>Optional arguments:
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>  -h, --help    shows help message and exits
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>  -v, --version prints version information and exits
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>  --verbose     prints libbpf debug information
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>  --pid_target  Process ID to trace
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>  --tgid_target Thread ID to trace
-<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>
-<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>$ sudo ecli examples/bpftools/opensnoop/package.json --pid_target 754
-<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>TIME     TS      PID     UID     RET     FLAGS   COMM    FNAME
-<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>20:34:13  0      754     0       6       0       irqbalance /proc/interrupts
-<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>20:34:13  0      754     0       6       0       irqbalance /proc/stat
-<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>20:34:23  0      754     0       6       0       irqbalance /proc/interrupts
-<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>20:34:23  0      754     0       6       0       irqbalance /proc/stat
-</code></pre></div></p>
+const volatile bool targ_failed = false;</code></p>
+<p>We will extract the description information of the comments and put it in the configuration file, and convert it into command line arguments for the eBPF application. Take tracing all open system calls with opensnoop as an example:</p>
+<p>```console
+$ sudo ecli  examples/bpftools/opensnoop/package.json -h
+Usage: opensnoop_bpf [--help] [--version] [--verbose] [--pid_target VAR] [--tgid_target VAR] [--uid_target VAR] [--failed]</p>
+<p>Trace open family syscalls.</p>
+<p>Optional arguments:
+  -h, --help    shows help message and exits
+  -v, --version prints version information and exits
+  --verbose     prints libbpf debug information
+  --pid_target  Process ID to trace
+  --tgid_target Thread ID to trace</p>
+<p>$ sudo ecli examples/bpftools/opensnoop/package.json --pid_target 754
+TIME     TS      PID     UID     RET     FLAGS   COMM    FNAME
+20:34:13  0      754     0       6       0       irqbalance /proc/interrupts
+20:34:13  0      754     0       6       0       irqbalance /proc/stat
+20:34:23  0      754     0       6       0       irqbalance /proc/interrupts
+20:34:23  0      754     0       6       0       irqbalance /proc/stat
+```</p>
 <ol>
 <li>Support automatically collecting and synthesizing maps that are not ring buffer or perf event, such as hash map, and print out information or generate histograms.</li>
 </ol>
 <p>Previously, the use of ring buffer and perf event was slightly limited, so there needs to be a way to automatically collect data from maps by adding comments in the source code:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">/// @sample {&quot;interval&quot;: 1000, &quot;type&quot; : &quot;log2_hist&quot;}</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="n">__uint</span><span class="p">(</span><span class="n">type</span><span class="p">,</span><span class="w"> </span><span class="n">BPF_MAP_TYPE_HASH</span><span class="p">);</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="n">__uint</span><span class="p">(</span><span class="n">max_entries</span><span class="p">,</span><span class="w"> </span><span class="n">MAX_ENTRIES</span><span class="p">);</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="n">__type</span><span class="p">(</span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="n">u32</span><span class="p">);</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="n">__type</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">hist</span><span class="p">);</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="p">}</span><span class="w"> </span><span class="n">hists</span><span class="w"> </span><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;.maps&quot;</span><span class="p">);</span>
-</code></pre></div>
+<p><code>c
+/// @sample {"interval": 1000, "type" : "log2_hist"}
+struct {
+    __uint(type, BPF_MAP_TYPE_HASH);
+    __uint(max_entries, MAX_ENTRIES);
+    __type(key, u32);
+    __type(value, struct hist);
+} hists SEC(".maps");</code></p>
 <p>It will collect the contents of counters every second (print_map), using runqlat as an example:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="gp">$ </span>sudo<span class="w"> </span>ecli<span class="w"> </span>examples/bpftools/runqlat/package.json<span class="w"> </span>-h
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="go">Usage: runqlat_bpf [--help] [--version] [--verbose] [--filter_cg] [--targ_per_process] [--targ_per_thread] [--targ_per_pidns] [--targ_ms] [--targ_tgid VAR]</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="go">```Summarize run queue (scheduler) latency as a histogram.</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="go">    Optional arguments:</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="go">      -h, --help            shows help message and exits</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="go">      -v, --version         prints version information and exits</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="go">      --verbose             prints libbpf debug information</span>
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="go">      --filter_cg           set value of bool variable filter_cg</span>
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="go">      --targ_per_process    set value of bool variable targ_per_process</span>
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="go">      --targ_per_thread     set value of bool variable targ_per_thread</span>
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="go">      --targ_per_pidns      set value of bool variable targ_per_pidns</span>
-<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="go">      --targ_ms             set value of bool variable targ_ms</span>
-<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="go">      --targ_tgid           set value of pid_t variable targ_tgid</span>
-<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>
-<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="go">    Built with eunomia-bpf framework.</span>
-<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="go">    See https://github.com/eunomia-bpf/eunomia-bpf for more information.</span>
-<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>
-<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="gp">    $ </span>sudo<span class="w"> </span>ecli<span class="w"> </span>examples/bpftools/runqlat/package.json
-<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="go">    key =  4294967295</span>
-<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="go">    comm = rcu_preempt</span>
-<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>
-<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="go">        (unit)              : count    distribution</span>
-<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="go">            0 -&gt; 1          : 9        |****                                    |</span>
-<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="go">            2 -&gt; 3          : 6        |**                                      |</span>
-<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="go">            4 -&gt; 7          : 12       |*****                                   |</span>
-<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="go">            8 -&gt; 15         : 28       |*************                           |</span>
-<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="go">           16 -&gt; 31         : 40       |*******************                     |</span>
-<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a><span class="go">           32 -&gt; 63         : 83       |****************************************|</span>
-<a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a><span class="go">           64 -&gt; 127        : 57       |***************************             |</span>
-<a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a><span class="go">          128 -&gt; 255        : 19       |*********                               |</span>
-<a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a><span class="go">          256 -&gt; 511        : 11       |*****                                   |</span>
-<a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a><span class="go">          512 -&gt; 1023       : 2        |                                        |</span>
-<a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a><span class="go">         1024 -&gt; 2047       : 2        |                                        |</span>
-<a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a><span class="go">         2048 -&gt; 4095       : 0        |                                        |</span>
-<a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a><span class="go">         4096 -&gt; 8191       : 0        |                                        |</span>
-<a id="__codelineno-4-37" name="__codelineno-4-37" href="#__codelineno-4-37"></a>
-<a id="__codelineno-4-38" name="__codelineno-4-38" href="#__codelineno-4-38"></a>
-<a id="__codelineno-4-39" name="__codelineno-4-39" href="#__codelineno-4-39"></a>
-<a id="__codelineno-4-40" name="__codelineno-4-40" href="#__codelineno-4-40"></a><span class="go">Built with eunomia-bpf framework.</span>
-<a id="__codelineno-4-41" name="__codelineno-4-41" href="#__codelineno-4-41"></a><span class="go">See https://github.com/eunomia-bpf/eunomia-bpf for more information.8192 -&gt; 16383      : 0        |                                        |</span>
-<a id="__codelineno-4-42" name="__codelineno-4-42" href="#__codelineno-4-42"></a><span class="go">        16384 -&gt; 32767      : 1        |                                        |</span>
-<a id="__codelineno-4-43" name="__codelineno-4-43" href="#__codelineno-4-43"></a>
-<a id="__codelineno-4-44" name="__codelineno-4-44" href="#__codelineno-4-44"></a><span class="gp">    $ </span>sudo<span class="w"> </span>ecli<span class="w"> </span>examples/bpftools/runqlat/package.json<span class="w"> </span>--targ_per_process
-<a id="__codelineno-4-45" name="__codelineno-4-45" href="#__codelineno-4-45"></a><span class="go">    key =  3189</span>
-<a id="__codelineno-4-46" name="__codelineno-4-46" href="#__codelineno-4-46"></a><span class="go">    comm = cpptools</span>
-<a id="__codelineno-4-47" name="__codelineno-4-47" href="#__codelineno-4-47"></a>
-<a id="__codelineno-4-48" name="__codelineno-4-48" href="#__codelineno-4-48"></a><span class="go">        (unit)              : count    distribution</span>
-<a id="__codelineno-4-49" name="__codelineno-4-49" href="#__codelineno-4-49"></a><span class="go">            0 -&gt; 1          : 0        |                                        |</span>
-<a id="__codelineno-4-50" name="__codelineno-4-50" href="#__codelineno-4-50"></a><span class="go">            2 -&gt; 3          : 0        |                                        |</span>
-<a id="__codelineno-4-51" name="__codelineno-4-51" href="#__codelineno-4-51"></a><span class="go">            4 -&gt; 7          : 0        |                                        |</span>
-<a id="__codelineno-4-52" name="__codelineno-4-52" href="#__codelineno-4-52"></a><span class="go">            8 -&gt; 15         : 1        |***                                     |</span>
-<a id="__codelineno-4-53" name="__codelineno-4-53" href="#__codelineno-4-53"></a><span class="go">           16 -&gt; 31         : 2        |*******                                 |</span>
-<a id="__codelineno-4-54" name="__codelineno-4-54" href="#__codelineno-4-54"></a><span class="go">           32 -&gt; 63         : 11       |****************************************|</span>
-<a id="__codelineno-4-55" name="__codelineno-4-55" href="#__codelineno-4-55"></a><span class="go">           64 -&gt; 127        : 8        |*****************************           |</span>
-<a id="__codelineno-4-56" name="__codelineno-4-56" href="#__codelineno-4-56"></a><span class="go">          128 -&gt; 255        : 3        |**********                              |</span>
-<a id="__codelineno-4-57" name="__codelineno-4-57" href="#__codelineno-4-57"></a><span class="go">    ```</span>
-<a id="__codelineno-4-58" name="__codelineno-4-58" href="#__codelineno-4-58"></a>
-<a id="__codelineno-4-59" name="__codelineno-4-59" href="#__codelineno-4-59"></a><span class="go">    Here is the complete code: &lt;https://github.com/eunomia-bpf/eunomia-bpf/tree/master/examples/bpftools/runqlat&gt;</span>
-<a id="__codelineno-4-60" name="__codelineno-4-60" href="#__codelineno-4-60"></a>
-<a id="__codelineno-4-61" name="__codelineno-4-61" href="#__codelineno-4-61"></a><span class="go">4. Add support for multiple types of maps like uprobe, tc, etc., allowing additional attach information to be added using annotations, for example:</span>
-<a id="__codelineno-4-62" name="__codelineno-4-62" href="#__codelineno-4-62"></a>
-<a id="__codelineno-4-63" name="__codelineno-4-63" href="#__codelineno-4-63"></a><span class="go">    ```c</span>
-<a id="__codelineno-4-64" name="__codelineno-4-64" href="#__codelineno-4-64"></a>
-<a id="__codelineno-4-65" name="__codelineno-4-65" href="#__codelineno-4-65"></a><span class="go">    /// @tchook {&quot;ifindex&quot;:1, &quot;attach_point&quot;:&quot;BPF_TC_INGRESS&quot;}</span>
-<a id="__codelineno-4-66" name="__codelineno-4-66" href="#__codelineno-4-66"></a><span class="go">    /// @tcopts {&quot;handle&quot;:1,  &quot;priority&quot;:1}</span>
-<a id="__codelineno-4-67" name="__codelineno-4-67" href="#__codelineno-4-67"></a><span class="go">    SEC(&quot;tc&quot;)</span>
-<a id="__codelineno-4-68" name="__codelineno-4-68" href="#__codelineno-4-68"></a><span class="go">    int tc_ingress(struct __sk_buff *ctx)</span>
-<a id="__codelineno-4-69" name="__codelineno-4-69" href="#__codelineno-4-69"></a><span class="go">    {</span>
-<a id="__codelineno-4-70" name="__codelineno-4-70" href="#__codelineno-4-70"></a><span class="go">        void *data_end = (void *)(__u64)ctx-&gt;data_end;</span>
-<a id="__codelineno-4-71" name="__codelineno-4-71" href="#__codelineno-4-71"></a><span class="go">        void *data = (void *)(__u64)ctx-&gt;data;</span>
-<a id="__codelineno-4-72" name="__codelineno-4-72" href="#__codelineno-4-72"></a><span class="go">        struct ethhdr *l2;</span>
-<a id="__codelineno-4-73" name="__codelineno-4-73" href="#__codelineno-4-73"></a><span class="go">        struct iphdr *l3;</span>
-<a id="__codelineno-4-74" name="__codelineno-4-74" href="#__codelineno-4-74"></a>
-<a id="__codelineno-4-75" name="__codelineno-4-75" href="#__codelineno-4-75"></a><span class="go">        if (ctx-&gt;protocol != bpf_htons(ETH_P_IP))</span>
-<a id="__codelineno-4-76" name="__codelineno-4-76" href="#__codelineno-4-76"></a><span class="go">            return TC_ACT_OK;</span>
-<a id="__codelineno-4-77" name="__codelineno-4-77" href="#__codelineno-4-77"></a>
-<a id="__codelineno-4-78" name="__codelineno-4-78" href="#__codelineno-4-78"></a><span class="go">        l2 = data;</span>
-<a id="__codelineno-4-79" name="__codelineno-4-79" href="#__codelineno-4-79"></a><span class="go">        if ((void *)(l2 + 1) &gt; data_end)</span>
-<a id="__codelineno-4-80" name="__codelineno-4-80" href="#__codelineno-4-80"></a><span class="go">            return TC_ACT_OK;</span>
-<a id="__codelineno-4-81" name="__codelineno-4-81" href="#__codelineno-4-81"></a>
-<a id="__codelineno-4-82" name="__codelineno-4-82" href="#__codelineno-4-82"></a><span class="go">        l3 = (struct iphdr *)(l2 + 1);</span>
-<a id="__codelineno-4-83" name="__codelineno-4-83" href="#__codelineno-4-83"></a><span class="go">        if ((void *)(l3 + 1) &gt; data_end)</span>
-<a id="__codelineno-4-84" name="__codelineno-4-84" href="#__codelineno-4-84"></a><span class="go">            return TC_ACT_OK;</span>
-<a id="__codelineno-4-85" name="__codelineno-4-85" href="#__codelineno-4-85"></a>
-<a id="__codelineno-4-86" name="__codelineno-4-86" href="#__codelineno-4-86"></a><span class="go">        bpf_printk(&quot;Got IP packet: tot_len: %d, ttl: %d&quot;, bpf_ntohs(l3-&gt;tot_len), l3-&gt;ttl);</span>
-<a id="__codelineno-4-87" name="__codelineno-4-87" href="#__codelineno-4-87"></a><span class="go">        return TC_ACT_OK;</span>
-<a id="__codelineno-4-88" name="__codelineno-4-88" href="#__codelineno-4-88"></a><span class="go">    }</span>
-<a id="__codelineno-4-89" name="__codelineno-4-89" href="#__codelineno-4-89"></a><span class="go">    ```</span>
-<a id="__codelineno-4-90" name="__codelineno-4-90" href="#__codelineno-4-90"></a>
-<a id="__codelineno-4-91" name="__codelineno-4-91" href="#__codelineno-4-91"></a><span class="gp">#</span><span class="c1"># Regarding compilation: Improved compilation experience, formatting changes</span>
-<a id="__codelineno-4-92" name="__codelineno-4-92" href="#__codelineno-4-92"></a>
-<a id="__codelineno-4-93" name="__codelineno-4-93" href="#__codelineno-4-93"></a><span class="go">1. Completely refactored the compilation toolchain and configuration file format, returning to the essence of a configuration file + ebpf bytecode .o format. It no longer requires the packaging to be in JSON format, making it more user-friendly for distribution and human editing of configuration files. It also improves compatibility with libbpf-related toolchains.&quot;.2. Support both JSON and YAML formats for configuration files (xxx.skel.yaml and xxx.skel.json), or package them as package.json and package.yaml for distribution;</span>
-<a id="__codelineno-4-94" name="__codelineno-4-94" href="#__codelineno-4-94"></a><span class="go">3. Use BTF information to express symbol types as much as possible, and hide BTF information in binary files to make configuration files more readable and editable, while reusing the BTF handling mechanism provided by libbpf to improve type handling;</span>
-<a id="__codelineno-4-95" name="__codelineno-4-95" href="#__codelineno-4-95"></a><span class="go">4. Support more data export types: enum, struct, bool, etc.</span>
-<a id="__codelineno-4-96" name="__codelineno-4-96" href="#__codelineno-4-96"></a><span class="go">5. Compilation can be done without relying on docker. The binaries and header files can be installed in ~/.eunomia (more friendly to embedded or domestic networks, more convenient to use). The original way of using docker can still be continued;</span>
-<a id="__codelineno-4-97" name="__codelineno-4-97" href="#__codelineno-4-97"></a><span class="go">6. There is no specific restriction on the file name. It does not have to be xxx.bpf.h and xxx.bpf.c. The files to be compiled in the current directory can be specified through ecc;</span>
-<a id="__codelineno-4-98" name="__codelineno-4-98" href="#__codelineno-4-98"></a><span class="go">7. Rename the old xxx.bpf.h header file in the example to xxx.h, to be consistent with libbpf-tools and libbpf-bootstrap, and ensure that the libbpf-related code ecosystem can be reused with 0 code modifications;</span>
-<a id="__codelineno-4-99" name="__codelineno-4-99" href="#__codelineno-4-99"></a><span class="go">8. Greatly optimize compilation speed and reduce compilation dependencies by refactoring the compilation toolchain with Rust, replacing the original Python script.</span>
-<a id="__codelineno-4-100" name="__codelineno-4-100" href="#__codelineno-4-100"></a>
-<a id="__codelineno-4-101" name="__codelineno-4-101" href="#__codelineno-4-101"></a><span class="go">In the configuration file, you can directly modify progs/attach to control the mounting point, variables/value to control global variables, maps/data to control the data to be placed in the map when loading the ebpf program, and export_types/members to control the data format to be transmitted to the user space, without the need to recompile the eBPF program. The configuration file and bpf.o binary are complementary and should be used together, or packaged as a package.json/yaml for distribution. When packaging, compression will be applied, and generally the combined size of the compressed configuration file and binary is several tens of kilobytes.</span>
-<a id="__codelineno-4-102" name="__codelineno-4-102" href="#__codelineno-4-102"></a>
-<a id="__codelineno-4-103" name="__codelineno-4-103" href="#__codelineno-4-103"></a><span class="go">Configuration file example:</span>
-<a id="__codelineno-4-104" name="__codelineno-4-104" href="#__codelineno-4-104"></a>
-<a id="__codelineno-4-105" name="__codelineno-4-105" href="#__codelineno-4-105"></a><span class="go">```yaml</span>
-<a id="__codelineno-4-106" name="__codelineno-4-106" href="#__codelineno-4-106"></a><span class="go">bpf_skel:</span>
-<a id="__codelineno-4-107" name="__codelineno-4-107" href="#__codelineno-4-107"></a><span class="go">  data_sections:</span>
-<a id="__codelineno-4-108" name="__codelineno-4-108" href="#__codelineno-4-108"></a><span class="go">  - name: .rodata</span>
-<a id="__codelineno-4-109" name="__codelineno-4-109" href="#__codelineno-4-109"></a><span class="go">    variables:</span>
-<a id="__codelineno-4-110" name="__codelineno-4-110" href="#__codelineno-4-110"></a><span class="go">    - name: min_duration_ns</span>
-<a id="__codelineno-4-111" name="__codelineno-4-111" href="#__codelineno-4-111"></a><span class="go">      type: unsigned long long</span>
-<a id="__codelineno-4-112" name="__codelineno-4-112" href="#__codelineno-4-112"></a><span class="go">      value: 100</span>
-<a id="__codelineno-4-113" name="__codelineno-4-113" href="#__codelineno-4-113"></a><span class="go">  maps:</span>
-<a id="__codelineno-4-114" name="__codelineno-4-114" href="#__codelineno-4-114"></a><span class="go">  - ident: exec_start</span>
-<a id="__codelineno-4-115" name="__codelineno-4-115" href="#__codelineno-4-115"></a><span class="go">    name: exec_start</span>
-<a id="__codelineno-4-116" name="__codelineno-4-116" href="#__codelineno-4-116"></a><span class="go">    data:</span>
-<a id="__codelineno-4-117" name="__codelineno-4-117" href="#__codelineno-4-117"></a><span class="go">      - key: 123</span>
-<a id="__codelineno-4-118" name="__codelineno-4-118" href="#__codelineno-4-118"></a><span class="go">        value: 456</span>
-<a id="__codelineno-4-119" name="__codelineno-4-119" href="#__codelineno-4-119"></a><span class="go">  - ident: rb</span>
-<a id="__codelineno-4-120" name="__codelineno-4-120" href="#__codelineno-4-120"></a><span class="go">    name: rb</span>
-<a id="__codelineno-4-121" name="__codelineno-4-121" href="#__codelineno-4-121"></a><span class="go">  - ident: rodata</span>
-<a id="__codelineno-4-122" name="__codelineno-4-122" href="#__codelineno-4-122"></a><span class="go">    mmaped: true</span>
-<a id="__codelineno-4-123" name="__codelineno-4-123" href="#__codelineno-4-123"></a><span class="go">    name: client_b.rodata</span>
-<a id="__codelineno-4-124" name="__codelineno-4-124" href="#__codelineno-4-124"></a><span class="go">  obj_name: client_bpf</span>
-<a id="__codelineno-4-125" name="__codelineno-4-125" href="#__codelineno-4-125"></a><span class="go">  progs:</span>
-<a id="__codelineno-4-126" name="__codelineno-4-126" href="#__codelineno-4-126"></a><span class="go">  - attach: tp/sched/sched_process_exec</span>
-<a id="__codelineno-4-127" name="__codelineno-4-127" href="#__codelineno-4-127"></a><span class="go">    link: true</span>
-<a id="__codelineno-4-128" name="__codelineno-4-128" href="#__codelineno-4-128"></a><span class="go">    name: handle_exec</span>
-<a id="__codelineno-4-129" name="__codelineno-4-129" href="#__codelineno-4-129"></a><span class="go">export_types:</span>
-<a id="__codelineno-4-130" name="__codelineno-4-130" href="#__codelineno-4-130"></a><span class="go">- members:</span>
-<a id="__codelineno-4-131" name="__codelineno-4-131" href="#__codelineno-4-131"></a><span class="go">  - name: pid</span>
-<a id="__codelineno-4-132" name="__codelineno-4-132" href="#__codelineno-4-132"></a><span class="go">    type: int</span>
-<a id="__codelineno-4-133" name="__codelineno-4-133" href="#__codelineno-4-133"></a><span class="go">  - name: ppid</span>
-<a id="__codelineno-4-134" name="__codelineno-4-134" href="#__codelineno-4-134"></a><span class="go">    type: int</span>
-<a id="__codelineno-4-135" name="__codelineno-4-135" href="#__codelineno-4-135"></a><span class="go">  - name: comm</span>
-<a id="__codelineno-4-136" name="__codelineno-4-136" href="#__codelineno-4-136"></a><span class="go">    type: char[16]</span>
-<a id="__codelineno-4-137" name="__codelineno-4-137" href="#__codelineno-4-137"></a><span class="go">  - name: filename</span>
-<a id="__codelineno-4-138" name="__codelineno-4-138" href="#__codelineno-4-138"></a><span class="go">    type: char[127]</span>
-<a id="__codelineno-4-139" name="__codelineno-4-139" href="#__codelineno-4-139"></a><span class="go">  - name: exit_event</span>
-<a id="__codelineno-4-140" name="__codelineno-4-140" href="#__codelineno-4-140"></a><span class="go">    type: bool</span>
-<a id="__codelineno-4-141" name="__codelineno-4-141" href="#__codelineno-4-141"></a><span class="go">  name: event</span>
-<a id="__codelineno-4-142" name="__codelineno-4-142" href="#__codelineno-4-142"></a><span class="go">  type_id: 613</span>
+<p><code>console
+$ sudo ecli examples/bpftools/runqlat/package.json -h
+Usage: runqlat_bpf [--help] [--version] [--verbose] [--filter_cg] [--targ_per_process] [--targ_per_thread] [--targ_per_pidns] [--targ_ms] [--targ_tgid VAR]</code>Summarize run queue (scheduler) latency as a histogram.</p>
+<div class="highlight"><pre><span></span><code>Optional arguments:
+  -h, --help            shows help message and exits
+  -v, --version         prints version information and exits
+  --verbose             prints libbpf debug information
+  --filter_cg           set value of bool variable filter_cg
+  --targ_per_process    set value of bool variable targ_per_process
+  --targ_per_thread     set value of bool variable targ_per_thread
+  --targ_per_pidns      set value of bool variable targ_per_pidns
+  --targ_ms             set value of bool variable targ_ms
+  --targ_tgid           set value of pid_t variable targ_tgid
+
+Built with eunomia-bpf framework.
+See https://github.com/eunomia-bpf/eunomia-bpf for more information.
+
+$ sudo ecli examples/bpftools/runqlat/package.json
+key =  4294967295
+comm = rcu_preempt
+
+    (unit)              : count    distribution
+        0 -&gt; 1          : 9        |****                                    |
+        2 -&gt; 3          : 6        |**                                      |
+        4 -&gt; 7          : 12       |*****                                   |
+        8 -&gt; 15         : 28       |*************                           |
+       16 -&gt; 31         : 40       |*******************                     |
+       32 -&gt; 63         : 83       |****************************************|
+       64 -&gt; 127        : 57       |***************************             |
+      128 -&gt; 255        : 19       |*********                               |
+      256 -&gt; 511        : 11       |*****                                   |
+      512 -&gt; 1023       : 2        |                                        |
+     1024 -&gt; 2047       : 2        |                                        |
+     2048 -&gt; 4095       : 0        |                                        |
+     4096 -&gt; 8191       : 0        |                                        |
+     8192 -&gt; 16383      : 0        |                                        |
+    16384 -&gt; 32767      : 1        |                                        |
+
+$ sudo ecli examples/bpftools/runqlat/package.json --targ_per_process
+key =  3189
+comm = cpptools
+
+    (unit)              : count    distribution
+        0 -&gt; 1          : 0        |                                        |
+        2 -&gt; 3          : 0        |                                        |
+        4 -&gt; 7          : 0        |                                        |
+        8 -&gt; 15         : 1        |***                                     |
+       16 -&gt; 31         : 2        |*******                                 |
+       32 -&gt; 63         : 11       |****************************************|
+       64 -&gt; 127        : 8        |*****************************           |
+      128 -&gt; 255        : 3        |**********                              |
+```
+
+Here is the complete code: &lt;https://github.com/eunomia-bpf/eunomia-bpf/tree/master/examples/bpftools/runqlat&gt;
 </code></pre></div>
+<ol>
+<li>
+<p>Add support for multiple types of maps like uprobe, tc, etc., allowing additional attach information to be added using annotations, for example:</p>
+<p>```c</p>
+<p>/// @tchook {"ifindex":1, "attach_point":"BPF_TC_INGRESS"}
+/// @tcopts {"handle":1,  "priority":1}
+SEC("tc")
+int tc_ingress(struct __sk_buff <em>ctx)
+{
+    void </em>data_end = (void <em>)(__u64)ctx-&gt;data_end;
+    void </em>data = (void <em>)(__u64)ctx-&gt;data;
+    struct ethhdr </em>l2;
+    struct iphdr *l3;</p>
+<div class="highlight"><pre><span></span><code>if (ctx-&gt;protocol != bpf_htons(ETH_P_IP))
+    return TC_ACT_OK;
+
+l2 = data;
+if ((void *)(l2 + 1) &gt; data_end)
+    return TC_ACT_OK;
+
+l3 = (struct iphdr *)(l2 + 1);
+if ((void *)(l3 + 1) &gt; data_end)
+    return TC_ACT_OK;
+
+bpf_printk(&quot;Got IP packet: tot_len: %d, ttl: %d&quot;, bpf_ntohs(l3-&gt;tot_len), l3-&gt;ttl);
+return TC_ACT_OK;
+</code></pre></div>
+<p>}
+```</p>
+</li>
+</ol>
+<h2 id="regarding-compilation-improved-compilation-experience-formatting-changes">Regarding compilation: Improved compilation experience, formatting changes</h2>
+<ol>
+<li>Completely refactored the compilation toolchain and configuration file format, returning to the essence of a configuration file + ebpf bytecode .o format. It no longer requires the packaging to be in JSON format, making it more user-friendly for distribution and human editing of configuration files. It also improves compatibility with libbpf-related toolchains.</li>
+<li>Support both JSON and YAML formats for configuration files (xxx.skel.yaml and xxx.skel.json), or package them as package.json and package.yaml for distribution;</li>
+<li>Use BTF information to express symbol types as much as possible, and hide BTF information in binary files to make configuration files more readable and editable, while reusing the BTF handling mechanism provided by libbpf to improve type handling;</li>
+<li>Support more data export types: enum, struct, bool, etc.</li>
+<li>Compilation can be done without relying on docker. The binaries and header files can be installed in ~/.eunomia (more friendly to embedded or domestic networks, more convenient to use). The original way of using docker can still be continued;</li>
+<li>There is no specific restriction on the file name. It does not have to be xxx.bpf.h and xxx.bpf.c. The files to be compiled in the current directory can be specified through ecc;</li>
+<li>Rename the old xxx.bpf.h header file in the example to xxx.h, to be consistent with libbpf-tools and libbpf-bootstrap, and ensure that the libbpf-related code ecosystem can be reused with 0 code modifications;</li>
+<li>Greatly optimize compilation speed and reduce compilation dependencies by refactoring the compilation toolchain with Rust, replacing the original Python script.</li>
+</ol>
+<p>In the configuration file, you can directly modify progs/attach to control the mounting point, variables/value to control global variables, maps/data to control the data to be placed in the map when loading the ebpf program, and export_types/members to control the data format to be transmitted to the user space, without the need to recompile the eBPF program. The configuration file and bpf.o binary are complementary and should be used together, or packaged as a package.json/yaml for distribution. When packaging, compression will be applied, and generally the combined size of the compressed configuration file and binary is several tens of kilobytes.</p>
+<p>Configuration file example:</p>
+<p><code>yaml
+bpf_skel:
+  data_sections:
+  - name: .rodata
+    variables:
+    - name: min_duration_ns
+      type: unsigned long long
+      value: 100
+  maps:
+  - ident: exec_start
+    name: exec_start
+    data:
+      - key: 123
+        value: 456
+  - ident: rb
+    name: rb
+  - ident: rodata
+    mmaped: true
+    name: client_b.rodata
+  obj_name: client_bpf
+  progs:
+  - attach: tp/sched/sched_process_exec
+    link: true
+    name: handle_exec
+export_types:
+- members:
+  - name: pid
+    type: int
+  - name: ppid
+    type: int
+  - name: comm
+    type: char[16]
+  - name: filename
+    type: char[127]
+  - name: exit_event
+    type: bool
+  name: event
+  type_id: 613</code></p>
 <h2 id="download-and-install-eunomia-bpf">Download and install eunomia-bpf</h2>
 <ul>
 <li>
 <p>Install the <code>ecli</code> tool for running eBPF programs from the cloud:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="gp">$ </span>wget<span class="w"> </span>https://aka.pw/bpf-ecli<span class="w"> </span>-O<span class="w"> </span>ecli<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>./ecli
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="gp">$ </span>./ecli<span class="w"> </span>-h
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="go">Usage: ecli [--help] [--version] [--json] [--no-cache] url-and-args</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="go">....</span>
-</code></pre></div>
+<p><code>console
+$ wget https://aka.pw/bpf-ecli -O ecli &amp;&amp; chmod +x ./ecli
+$ ./ecli -h
+Usage: ecli [--help] [--version] [--json] [--no-cache] url-and-args
+....</code></p>
 </li>
 <li>
 <p>Install the compiler-toolchain for compiling eBPF kernel code to a <code>config</code> file or <code>Wasm</code> module:</p>
-<p>```console
+<p><code>console
 $ wget https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecc &amp;&amp; chmod +x ./ecc
 $ ./ecc -h
-eunomia-bpf compiler"Usage: ecc [OPTIONS] <SOURCE_PATH> [EXPORT_EVENT_HEADER]
-....
-....</p>
+eunomia-bpf compiler
+Usage: ecc [OPTIONS] &lt;SOURCE_PATH&gt; [EXPORT_EVENT_HEADER]
+....</code></p>
 </li>
 </ul>
-<p>```</p>
 <p>or use the docker image for compile:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/:/src/<span class="w"> </span>ghcr.io/eunomia-bpf/ecc-<span class="sb">`</span>uname<span class="w"> </span>-m<span class="sb">`</span>:latest<span class="w"> </span><span class="c1"># compile with docker. `pwd` should contains *.bpf.c files and *.h files.</span>
-</code></pre></div>
+<p><code>bash
+docker run -it -v `pwd`/:/src/ ghcr.io/eunomia-bpf/ecc-`uname -m`:latest # compile with docker. `pwd` should contains *.bpf.c files and *.h files.</code></p>
 <h2 id="development-plans">Development Plans</h2>
 <ol>
 <li>Collaborate with more community partners and gradually establish a standardized eBPF program format that is packaged and distributed using configuration files or Wasm binary. Achieve the goal of compiling once and running everywhere.</li>
@@ -8688,7 +8522,7 @@ eunomia-bpf compiler"Usage: ecc [OPTIONS] <SOURCE_PATH> [EXPORT_EVENT_HEADER]
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 10, 2025 22:38:08 UTC">February 10, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 4, 2025 00:14:57 UTC">October 4, 2025</span>
   </span>
 
     
@@ -8714,6 +8548,7 @@ eunomia-bpf compiler"Usage: ecc [OPTIONS] <SOURCE_PATH> [EXPORT_EVENT_HEADER]
     <nav>
       
         <a href="mailto:yusen356@gmail.com">weekendfish</a>, 
+        <a href="mailto:yunwei356@gmail.com">yunwei37</a>, 
         <a href="mailto:1067852565@qq.com">云微</a>
     </nav>
   </span>

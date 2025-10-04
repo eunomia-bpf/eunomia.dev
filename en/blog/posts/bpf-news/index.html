@@ -1877,144 +1877,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/bcc-documents/kernel-versions/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    BPF Features by Linux Kernel Version
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../tutorials/bcc-documents/kernel_config/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Kernel Configuration for BPF Features
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../tutorials/bcc-documents/reference_guide/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    bcc Reference Guide
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../tutorials/bcc-documents/special_filtering/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Special Filtering
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../tutorials/bcc-documents/tutorial/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    bcc Tutorial
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../tutorials/bcc-documents/tutorial_bcc_python_developer/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    bcc Python Developer Tutorial
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../../tutorials/bpftrace-tutorial/" class="md-nav__link">
         
   
@@ -8113,9 +7975,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#compile-once-run-everywhere-linux-517linux-517-added-a-new-feature-called-compile-once-run-everywhere-co-re-for-ebpf-which-greatly-simplifies-the-complexity-of-handling-multi-version-kernel-compatibility-and-loop-logic-in-ebpf-programs" class="md-nav__link">
+  <a href="#compile-once-run-everywhere-linux-517" class="md-nav__link">
     <span class="md-ellipsis">
-      Compile Once – Run Everywhere: Linux 5.17".Linux 5.17 added a new feature called Compile Once - Run Everywhere (CO-RE) for eBPF, which greatly simplifies the complexity of handling multi-version kernel compatibility and loop logic in eBPF programs
+      Compile Once – Run Everywhere: Linux 5.17
     </span>
   </a>
   
@@ -8140,9 +8002,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#dynamic-pointers-and-type-pointers-519instructions-translate-the-following-chinese-text-to-english" class="md-nav__link">
+  <a href="#dynamic-pointers-and-type-pointers-519" class="md-nav__link">
     <span class="md-ellipsis">
-      Dynamic Pointers and Type Pointers: 5.19.Instructions: Translate the following Chinese text to English
+      Dynamic Pointers and Type Pointers: 5.19
     </span>
   </a>
   
@@ -8226,7 +8088,8 @@
 <ul>
 <li>BPF: Implement bloom filter map <a href="https://lwn.net/Articles/868024/">Link</a></li>
 </ul>
-<h2 id="compile-once-run-everywhere-linux-517linux-517-added-a-new-feature-called-compile-once-run-everywhere-co-re-for-ebpf-which-greatly-simplifies-the-complexity-of-handling-multi-version-kernel-compatibility-and-loop-logic-in-ebpf-programs">Compile Once – Run Everywhere: Linux 5.17".Linux 5.17 added a new feature called Compile Once - Run Everywhere (CO-RE) for eBPF, which greatly simplifies the complexity of handling multi-version kernel compatibility and loop logic in eBPF programs</h2>
+<h2 id="compile-once-run-everywhere-linux-517">Compile Once – Run Everywhere: Linux 5.17</h2>
+<p>Linux 5.17 added a new feature called Compile Once - Run Everywhere (CO-RE) for eBPF, which greatly simplifies the complexity of handling multi-version kernel compatibility and loop logic in eBPF programs</p>
 <p>The CO-RE project of eBPF relies on the debugging information provided by BPF Type Format (BTF) and goes through the following four steps to enable eBPF programs to adapt to different versions of the kernel:</p>
 <ul>
 <li>First, the bpftool provides a tool to generate header files from BTF, eliminating the need for kernel header files.</li>
@@ -8256,8 +8119,8 @@
 <ul>
 <li>bpf: Add kprobe multi link: <a href="https://lwn.net/Articles/885811/">https://lwn.net/Articles/885811/</a></li>
 </ul>
-<h2 id="dynamic-pointers-and-type-pointers-519instructions-translate-the-following-chinese-text-to-english">Dynamic Pointers and Type Pointers: 5.19.Instructions: Translate the following Chinese text to English</h2>
-<p>while maintaining the original formatting: "All memory accesses in the BPF program use validators for security static checks, and validators perform comprehensive analysis of the program before allowing it to run. While this enables BPF programs to run safely in kernel space, it restricts how the program can use pointers. Until recently, one such restriction was that the size of the memory region referenced by a pointer in a BPF program had to be statically known when loading the BPF program. Joanne Koong recently introduced a patchset that enhances BPF to support loading programs with pointers to dynamically sized memory regions.</p>
+<h2 id="dynamic-pointers-and-type-pointers-519">Dynamic Pointers and Type Pointers: 5.19</h2>
+<p>All memory accesses in the BPF program use validators for security static checks, and validators perform comprehensive analysis of the program before allowing it to run. While this enables BPF programs to run safely in kernel space, it restricts how the program can use pointers. Until recently, one such restriction was that the size of the memory region referenced by a pointer in a BPF program had to be statically known when loading the BPF program. Joanne Koong recently introduced a patchset that enhances BPF to support loading programs with pointers to dynamically sized memory regions.</p>
 <p>Koong's patchset adds support for accessing dynamically sized memory regions in BPF programs, which includes a new feature called dynptrs. The main idea behind dynptrs is to associate pointers to dynamically sized data regions with validators and some metadata used by BPF helper functions, to ensure that access to that region is valid. Koong's patchset creates this association in a newly defined type called struct bpf_dynptr. This structure is opaque to BPF programs.</p>
 <ul>
 <li><a href="https://mp.weixin.qq.com/s/rz4pd41Y-Cet5YVSAKmCRw">https://mp.weixin.qq.com/s/rz4pd41Y-Cet5YVSAKmCRw</a></li>
@@ -8292,21 +8155,23 @@
 <p>Reference: <a href="https://lwn.net/Articles/914833/">https://lwn.net/Articles/914833/</a></p>
 <h2 id="user-ring-buffer-61">User Ring Buffer 6.1</h2>
 <p>This patchset defines a new map type, BPF_MAP_TYPE_USER_RINGBUF, which provides single-user space producer/single-kernel consumer semantics on top of a ring buffer. In addition to the new map type, it adds an auxiliary function called bpf_user_ringbuf_drain() that allows a BPF program to specify a callback with the following signature, to which the samples are published by the helper function.</p>
-<p><code>c".
-format: Return only the translated content, not including the original text.</code>
-void (struct bpf_dynptr <em>dynptr, void </em>context).</p>
-<p>Then the program can safely read samples from dynptr using the bpf_dynptr_read() or bpf_dynptr_data() helper functions. Currently, there are no available helper functions to determine the size of the samples, but one can easily be added if needed.</p>
-<p>libbpf has also added some corresponding APIs:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">struct</span><span class="w"> </span><span class="nc">ring_buffer_user</span><span class="w"> </span><span class="o">*</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">ring_buffer_user__new</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">map_fd</span><span class="p">,</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">                      </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">ring_buffer_user_opts</span><span class="w"> </span><span class="o">*</span><span class="n">opts</span><span class="p">);</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="kt">void</span><span class="w"> </span><span class="nf">ring_buffer_user__free</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">ring_buffer_user</span><span class="w"> </span><span class="o">*</span><span class="n">rb</span><span class="p">);</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">ring_buffer_user__reserve</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">ring_buffer_user</span><span class="w"> </span><span class="o">*</span><span class="n">rb</span><span class="p">,</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">        </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">size</span><span class="p">);</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">ring_buffer_user__poll</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">ring_buffer_user</span><span class="w"> </span><span class="o">*</span><span class="n">rb</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">size</span><span class="p">,</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">           </span><span class="kt">int</span><span class="w"> </span><span class="n">timeout_ms</span><span class="p">);</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="kt">void</span><span class="w"> </span><span class="nf">ring_buffer_user__discard</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">ring_buffer_user</span><span class="w"> </span><span class="o">*</span><span class="n">rb</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">sample</span><span class="p">);</span>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="kt">void</span><span class="w"> </span><span class="nf">ring_buffer_user__submit</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">ring_buffer_user</span><span class="w"> </span><span class="o">*</span><span class="n">rb</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">sample</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">bpf_dynptr</span><span class="w"> </span><span class="o">*</span><span class="n">dynptr</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">context</span><span class="p">).</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">Then</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">program</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">safely</span><span class="w"> </span><span class="n">read</span><span class="w"> </span><span class="n">samples</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">dynptr</span><span class="w"> </span><span class="n">using</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">bpf_dynptr_read</span><span class="p">()</span><span class="w"> </span><span class="n">or</span><span class="w"> </span><span class="n">bpf_dynptr_data</span><span class="p">()</span><span class="w"> </span><span class="n">helper</span><span class="w"> </span><span class="n">functions</span><span class="p">.</span><span class="w"> </span><span class="n">Currently</span><span class="p">,</span><span class="w"> </span><span class="n">there</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">no</span><span class="w"> </span><span class="n">available</span><span class="w"> </span><span class="n">helper</span><span class="w"> </span><span class="n">functions</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">determine</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">samples</span><span class="p">,</span><span class="w"> </span><span class="n">but</span><span class="w"> </span><span class="n">one</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">easily</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">added</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">needed</span><span class="p">.</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">libbpf</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">also</span><span class="w"> </span><span class="n">added</span><span class="w"> </span><span class="n">some</span><span class="w"> </span><span class="n">corresponding</span><span class="w"> </span><span class="n">APIs</span><span class="o">:</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="err">```</span><span class="n">c</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="k">struct</span><span class="w"> </span><span class="nc">ring_buffer_user</span><span class="w"> </span><span class="o">*</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="n">ring_buffer_user__new</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">map_fd</span><span class="p">,</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">                      </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">ring_buffer_user_opts</span><span class="w"> </span><span class="o">*</span><span class="n">opts</span><span class="p">);</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="kt">void</span><span class="w"> </span><span class="nf">ring_buffer_user__free</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">ring_buffer_user</span><span class="w"> </span><span class="o">*</span><span class="n">rb</span><span class="p">);</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">ring_buffer_user__reserve</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">ring_buffer_user</span><span class="w"> </span><span class="o">*</span><span class="n">rb</span><span class="p">,</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">        </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">size</span><span class="p">);</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">ring_buffer_user__poll</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">ring_buffer_user</span><span class="w"> </span><span class="o">*</span><span class="n">rb</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">size</span><span class="p">,</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">           </span><span class="kt">int</span><span class="w"> </span><span class="n">timeout_ms</span><span class="p">);</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="kt">void</span><span class="w"> </span><span class="nf">ring_buffer_user__discard</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">ring_buffer_user</span><span class="w"> </span><span class="o">*</span><span class="n">rb</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">sample</span><span class="p">);</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="kt">void</span><span class="w"> </span><span class="nf">ring_buffer_user__submit</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">ring_buffer_user</span><span class="w"> </span><span class="o">*</span><span class="n">rb</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">sample</span><span class="p">);</span>
 </code></pre></div>
 <ul>
 <li>bpf: Add user-space-publisher ring buffer map type: <a href="https://lwn.net/Articles/907056/">https://lwn.net/Articles/907056/</a></li>
@@ -8341,7 +8206,7 @@ void (struct bpf_dynptr <em>dynptr, void </em>context).</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 10, 2025 23:35:40 UTC">February 10, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 4, 2025 00:14:57 UTC">October 4, 2025</span>
   </span>
 
     
@@ -8361,12 +8226,13 @@ void (struct bpf_dynptr <em>dynptr, void </em>context).</p>
   <span class="md-source-file__fact">
     <span class="md-icon" title="Contributors">
       
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
       
     </span>
     <nav>
       
-        <a href="mailto:yusen356@gmail.com">weekendfish</a>
+        <a href="mailto:yusen356@gmail.com">weekendfish</a>, 
+        <a href="mailto:yunwei356@gmail.com">yunwei37</a>
     </nav>
   </span>
 

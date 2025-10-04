@@ -2025,54 +2025,6 @@
          
     </url>
     <url>
-         <loc>https://eunomia.dev/tutorials/bcc-documents/kernel-versions/</loc>
-         <lastmod>2025-10-04</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/bcc-documents/kernel-versions/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/bcc-documents/kernel-versions/"/>
-         
-    </url>
-    <url>
-         <loc>https://eunomia.dev/tutorials/bcc-documents/kernel_config/</loc>
-         <lastmod>2025-10-04</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/bcc-documents/kernel_config/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/bcc-documents/kernel_config/"/>
-         
-    </url>
-    <url>
-         <loc>https://eunomia.dev/tutorials/bcc-documents/reference_guide/</loc>
-         <lastmod>2025-10-04</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/bcc-documents/reference_guide/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/bcc-documents/reference_guide/"/>
-         
-    </url>
-    <url>
-         <loc>https://eunomia.dev/tutorials/bcc-documents/special_filtering/</loc>
-         <lastmod>2025-10-04</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/bcc-documents/special_filtering/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/bcc-documents/special_filtering/"/>
-         
-    </url>
-    <url>
-         <loc>https://eunomia.dev/tutorials/bcc-documents/tutorial/</loc>
-         <lastmod>2025-10-04</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/bcc-documents/tutorial/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/bcc-documents/tutorial/"/>
-         
-    </url>
-    <url>
-         <loc>https://eunomia.dev/tutorials/bcc-documents/tutorial_bcc_python_developer/</loc>
-         <lastmod>2025-10-04</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/bcc-documents/tutorial_bcc_python_developer/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/bcc-documents/tutorial_bcc_python_developer/"/>
-         
-    </url>
-    <url>
          <loc>https://eunomia.dev/tutorials/bpftrace-tutorial/</loc>
          <lastmod>2025-10-04</lastmod>
          <changefreq>daily</changefreq>

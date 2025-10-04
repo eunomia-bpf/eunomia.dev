@@ -1877,144 +1877,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/bcc-documents/kernel-versions/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    BPF Features by Linux Kernel Version
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../tutorials/bcc-documents/kernel_config/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Kernel Configuration for BPF Features
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../tutorials/bcc-documents/reference_guide/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    bcc Reference Guide
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../tutorials/bcc-documents/special_filtering/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Special Filtering
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../tutorials/bcc-documents/tutorial/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    bcc Tutorial
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../tutorials/bcc-documents/tutorial_bcc_python_developer/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    bcc Python Developer Tutorial
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../../tutorials/bpftrace-tutorial/" class="md-nav__link">
         
   
@@ -8168,6 +8030,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#opensnoop" class="md-nav__link">
+    <span class="md-ellipsis">
+      opensnoop
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#runqlat" class="md-nav__link">
     <span class="md-ellipsis">
       runqlat
@@ -8277,95 +8148,95 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>TIME<span class="w">     </span>SADDR<span class="w">   </span>DADDR<span class="w">   </span>SKADDR<span class="w">  </span>TS_US<span class="w">   </span>DELTA_US<span class="w">  </span>PID<span class="w">     </span>OLDSTATE<span class="w">  </span>NEWSTATE<span class="w">  </span>FAMILY<span class="w">  </span>SPORT<span class="w">   </span>DPORT<span class="w">   </span>TASK
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="m">09</span>:07:46<span class="w">  </span>0x4007000200005000000000000f02000a<span class="w"> </span>0x5000000000000f02000a8bc53f77<span class="w"> </span><span class="m">18446635827774444352</span><span class="w"> </span><span class="m">3315344998</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">10115</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">80</span><span class="w"> </span>wget
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="m">09</span>:07:46<span class="w">  </span>0x40020002d98e50003d99f8090f02000a<span class="w"> </span>0xd98e50003d99f8090f02000a8bc53f77<span class="w"> </span><span class="m">18446635827774444352</span><span class="w"> </span><span class="m">3315465870</span><span class="w"> </span><span class="m">120872</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">55694</span><span class="w"> </span><span class="m">80</span><span class="w"> </span>swapper/0
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="m">09</span>:07:46<span class="w">  </span>0x40010002d98e50003d99f8090f02000a<span class="w"> </span>0xd98e50003d99f8090f02000a8bc53f77<span class="w"> </span><span class="m">18446635827774444352</span><span class="w"> </span><span class="m">3315668799</span><span class="w"> </span><span class="m">202929</span><span class="w"> </span><span class="m">10115</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">55694</span><span class="w"> </span><span class="m">80</span><span class="w"> </span>wget<span class="s2">&quot;.</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="m">09</span>:07:46<span class="w">  </span>0x40010002d98e50003d99f8090f02000a<span class="w"> </span>0xd98e50003d99f8090f02000a8bc53f77<span class="w"> </span><span class="m">18446635827774444352</span><span class="w"> </span><span class="m">3315668799</span><span class="w"> </span><span class="m">202929</span><span class="w"> </span><span class="m">10115</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">55694</span><span class="w"> </span><span class="m">80</span><span class="w"> </span>wget
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="m">09</span>:07:46<span class="w">  </span>0x40040002d98e50003d99f8090f02000a<span class="w"> </span>0xd98e50003d99f8090f02000a8bc53f77<span class="w"> </span><span class="m">18446635827774444352</span><span class="w"> </span><span class="m">3315670037</span><span class="w"> </span><span class="m">1237</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">55694</span><span class="w"> </span><span class="m">80</span><span class="w"> </span>swapper/0
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="m">09</span>:07:46<span class="w">  </span>0x40050002000050003d99f8090f02000a<span class="w"> </span>0x50003d99f8090f02000a8bc53f77<span class="w"> </span><span class="m">18446635827774444352</span><span class="w"> </span><span class="m">3315670225</span><span class="w"> </span><span class="m">188</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">55694</span><span class="w"> </span><span class="m">80</span><span class="w"> </span>swapper/0
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="m">09</span>:07:47<span class="w">  </span>0x400200020000bb01565811650f02000a<span class="w"> </span>0xbb01565811650f02000a6aa0d9ac<span class="w"> </span><span class="m">18446635828348806592</span><span class="w"> </span><span class="m">3316433261</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">2546</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">49970</span><span class="w"> </span><span class="m">443</span><span class="w"> </span>ChromiumNet
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="m">09</span>:07:47<span class="w">  </span>0x400200020000bb01db794a690f02000a<span class="w"> </span>0xbb01db794a690f02000aea2afb8e<span class="w"> </span><span class="m">18446635827774427776</span><span class="w"> </span><span class="m">3316535591</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1469</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">37386</span><span class="w"> </span><span class="m">443</span><span class="w"> </span>ChromiumNet
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>Begin<span class="w"> </span>testing<span class="w"> </span>by<span class="w"> </span>opening<span class="w"> </span>the<span class="w"> </span>Chrome<span class="w"> </span>browser<span class="w"> </span>on<span class="w"> </span>the<span class="w"> </span>Android<span class="w"> </span>Studio<span class="w"> </span>simulation<span class="w"> </span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>and<span class="w"> </span>visiting<span class="w"> </span>the<span class="w"> </span>Baidu<span class="w"> </span>webpage:
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="sb">```</span>sh
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>TIME<span class="w">     </span>SADDR<span class="w">   </span>DADDR<span class="w">   </span>SKADDR<span class="w">  </span>TS_US<span class="w">   </span>DELTA_US<span class="w">  </span>PID<span class="w">     </span>OLDSTATE<span class="w">  </span>NEWSTATE<span class="w">  </span>FAMILY<span class="w">  </span>SPORT<span class="w">   </span>DPORT<span class="w">   </span>TASK
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="m">07</span>:46:58<span class="w">  </span>0x400700020000bb01000000000f02000a<span class="w"> </span>0xbb01000000000f02000aeb6f2270<span class="w"> </span><span class="m">18446631020066638144</span><span class="w"> </span><span class="m">192874641</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">3305</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">443</span><span class="w"> </span>NetworkService
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="m">07</span>:46:58<span class="w">  </span>0x40020002d28abb01494b6ebe0f02000a<span class="w"> </span>0xd28abb01494b6ebe0f02000aeb6f2270<span class="w"> </span><span class="m">18446631020066638144</span><span class="w"> </span><span class="m">192921938</span><span class="w"> </span><span class="m">47297</span><span class="w"> </span><span class="m">3305</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">53898</span><span class="w"> </span><span class="m">443</span><span class="w"> </span>NetworkService
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="m">07</span>:46:58<span class="w">  </span>0x400700020000bb01000000000f02000a<span class="w"> </span>0xbb01000000000f02000ae7e7e8b7<span class="w"> </span><span class="m">18446631020132433920</span><span class="w"> </span><span class="m">193111426</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">3305</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">443</span><span class="w"> </span>NetworkService
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="m">07</span>:46:58<span class="w">  </span>0x40020002b4a0bb0179ff85e80f02000a<span class="w"> </span>0xb4a0bb0179ff85e80f02000ae7e7e8b7<span class="w"> </span><span class="m">18446631020132433920</span><span class="w"> </span><span class="m">193124670</span><span class="w"> </span><span class="m">13244</span><span class="w"> </span><span class="m">3305</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">46240</span><span class="w"> </span><span class="m">443</span><span class="w"> </span>NetworkService
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="m">07</span>:46:58<span class="w">  </span>0x40010002b4a0bb0179ff85e80f02000a<span class="w"> </span>0xb4a0bb0179ff85e80f02000ae7e7e8b7<span class="w"> </span><span class="m">18446631020132433920</span><span class="w"> </span><span class="m">193185397</span><span class="w"> </span><span class="m">60727</span><span class="w"> </span><span class="m">3305</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">46240</span><span class="w"> </span><span class="m">443</span><span class="w"> </span>NetworkService
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="m">07</span>:46:58<span class="w">  </span>0x40040002b4a0bb0179ff85e80f02000a<span class="w"> </span>0xb4a0bb0179ff85e80f02000ae7e7e8b7<span class="w"> </span><span class="m">18446631020132433920</span><span class="w"> </span><span class="m">193186122</span><span class="w"> </span><span class="m">724</span><span class="w"> </span><span class="m">3305</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">46240</span><span class="w"> </span><span class="m">443</span><span class="w"> </span>NetworkService
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="m">07</span>:46:58<span class="w">  </span>0x400500020000bb0179ff85e80f02000a<span class="w"> </span>0xbb0179ff85e80f02000ae7e7e8b7<span class="w"> </span><span class="m">18446631020132433920</span><span class="w"> </span><span class="m">193186244</span><span class="w"> </span><span class="m">122</span><span class="w"> </span><span class="m">3305</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">46240</span><span class="w"> </span><span class="m">443</span><span class="w"> </span>NetworkService
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="m">07</span>:46:59<span class="w">  </span>0x40010002d01ebb01d0c52f5c0f02000a<span class="w"> </span>0xd01ebb01d0c52f5c0f02000a51449c27<span class="w"> </span><span class="m">18446631020103553856</span><span class="w"> </span><span class="m">194110884</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">5130</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">53278</span><span class="w"> </span><span class="m">443</span><span class="w"> </span>ThreadPoolForeg
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="m">07</span>:46:59<span class="w">  </span>0x400800020000bb01d0c52f5c0f02000a<span class="w"> </span>0xbb01d0c52f5c0f02000a51449c27<span class="w"> </span><span class="m">18446631020103553856</span><span class="w"> </span><span class="m">194121000</span><span class="w"> </span><span class="m">10116</span><span class="w"> </span><span class="m">3305</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">53278</span><span class="w"> </span><span class="m">443</span><span class="w"> </span>NetworkService
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="m">07</span>:46:59<span class="w">  </span>0x400700020000bb01000000000f02000a<span class="w"> </span>0xbb01000000000f02000aeb6f2270<span class="w"> </span><span class="m">18446631020099513920</span><span class="w"> </span><span class="m">194603677</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">3305</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">443</span><span class="w"> </span>NetworkService
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="m">07</span>:46:59<span class="w">  </span>0x40020002d28ebb0182dd92990f02000a<span class="w"> </span>0xd28ebb0182dd92990f02000aeb6f2270<span class="w"> </span><span class="m">18446631020099513920</span><span class="w"> </span><span class="m">194649313</span><span class="w"> </span><span class="m">45635</span><span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">53902</span><span class="w"> </span><span class="m">443</span><span class="w"> </span>ksoftirqd/0
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="m">07</span>:47:00<span class="w">  </span>0x400700020000bb01000000000f02000a<span class="w"> </span>0xbb01000000000f02000a26f6e878<span class="w"> </span><span class="m">18446631020132433920</span><span class="w"> </span><span class="m">195193350</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">3305</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">443</span><span class="w"> </span>NetworkService
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="m">07</span>:47:00<span class="w">  </span>0x40020002ba32bb01e0e09e3a0f02000a<span class="w"> </span>0xba32bb01e0e09e3a0f02000a26f6e878<span class="w"> </span><span class="m">18446631020132433920</span><span class="w"> </span><span class="m">195206992</span><span class="w"> </span><span class="m">13642</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">47666</span><span class="w"> </span><span class="m">443</span><span class="w"> </span>swapper/0
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="m">07</span>:47:00<span class="w">  </span>0x400700020000bb01000000000f02000a<span class="w"> </span>0xbb01000000000f02000ae7e7e8b7<span class="w"> </span><span class="m">18446631020132448128</span><span class="w"> </span><span class="m">195233125</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">3305</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">443</span><span class="w"> </span>NetworkService
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a><span class="m">07</span>:47:00<span class="w">  </span>0x40020002b4a8bb0136cac8dd0f02000a<span class="w"> </span>0xb4a8bb0136cac8dd0f02000ae7e7e8b7<span class="w"> </span><span class="m">18446631020132448128</span><span class="w"> </span><span class="m">195246569</span><span class="w"> </span><span class="m">13444</span><span class="w"> </span><span class="m">3305</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">46248</span><span class="w"> </span><span class="m">443</span><span class="w"> </span>NetworkService
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a><span class="m">07</span>:47:00<span class="w">  </span>0xf02000affff00000000000000000000<span class="w"> </span>0x1aca06cffff00000000000000000000<span class="w"> </span><span class="m">18446631019225912320</span><span class="w"> </span><span class="m">195383897</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">947</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">80</span><span class="w"> </span>Thread-11
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a><span class="m">07</span>:47:00<span class="w">  </span>0x40010002b4a8bb0136cac8dd0f02000a<span class="w"> </span>0xb4a8bb0136cac8dd0f02000ae7e7e8b7<span class="w"> </span><span class="m">18446631020132448128</span><span class="w"> </span><span class="m">195421584</span><span class="w"> </span><span class="m">175014</span><span class="w"> </span><span class="m">3305</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">46248</span><span class="w"> </span><span class="m">443</span><span class="w"> </span>NetworkService
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a><span class="m">07</span>:47:00<span class="w">  </span>0x40040002b4a8bb0136cac8dd0f02000a<span class="w"> </span>0xb4a8bb0136cac8dd0f02000ae7e7e8b7<span class="w"> </span><span class="m">18446631020132448128</span><span class="w"> </span><span class="m">195422361</span><span class="w"> </span><span class="m">777</span><span class="w"> </span><span class="m">3305</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">46248</span><span class="w"> </span><span class="m">443</span><span class="w"> </span>NetworkService
+<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a><span class="m">07</span>:47:00<span class="w">  </span>0x400500020000bb0136cac8dd0f02000a<span class="w"> </span>0xbb0136cac8dd0f02000ae7e7e8b7<span class="w"> </span><span class="m">18446631020132448128</span><span class="w"> </span><span class="m">195422450</span><span class="w"> </span><span class="m">88</span><span class="w"> </span><span class="m">3305</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">46248</span><span class="w"> </span><span class="m">443</span><span class="w"> </span>NetworkService
+<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a><span class="m">07</span>:47:01<span class="w">  </span>0x400700020000bb01000000000f02000a<span class="w"> </span>0xbb01000000000f02000aea2afb8e<span class="w"> </span><span class="m">18446631020099528128</span><span class="w"> </span><span class="m">196321556</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1315</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">443</span><span class="w"> </span>ChromiumNet
+<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>
+<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a><span class="c1">## Failed Cases</span>
+<a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>
+<a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a><span class="c1">### [fentry-link](https://github.com/eunomia-bpf/eunomia-bpf/tree/master/examples/bpftools/fentry-link)</span>
+<a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a>
+<a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a>Builds<span class="w"> </span>successfully,<span class="w"> </span>but<span class="w"> </span>encounters<span class="w"> </span>an<span class="w"> </span>error<span class="w"> </span>when<span class="w"> </span>running:
+<a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a>
+<a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a><span class="sb">```</span>sh
+<a id="__codelineno-1-43" name="__codelineno-1-43" href="#__codelineno-1-43"></a>libbpf:<span class="w"> </span>prog<span class="w"> </span><span class="s1">&#39;do_unlinkat&#39;</span>:<span class="w"> </span>failed<span class="w"> </span>to<span class="w"> </span>attach:<span class="w"> </span>Device<span class="w"> </span>or<span class="w"> </span>resource<span class="w"> </span>busy
+<a id="__codelineno-1-44" name="__codelineno-1-44" href="#__codelineno-1-44"></a>libbpf:<span class="w"> </span>prog<span class="w"> </span><span class="s1">&#39;do_unlinkat&#39;</span>:<span class="w"> </span>failed<span class="w"> </span>to<span class="w"> </span>auto-attach:<span class="w"> </span>-16
+<a id="__codelineno-1-45" name="__codelineno-1-45" href="#__codelineno-1-45"></a>failed<span class="w"> </span>to<span class="w"> </span>attach<span class="w"> </span>skeleton
+<a id="__codelineno-1-46" name="__codelineno-1-46" href="#__codelineno-1-46"></a>Error:<span class="w"> </span>BpfError<span class="o">(</span><span class="s2">&quot;load and attach ebpf program failed&quot;</span><span class="o">)</span>
 </code></pre></div>
-<p>format: Return only the translated content, not including the original text.09:07:46  0x40040002d98e50003d99f8090f02000a 0xd98e50003d99f8090f02000a8bc53f77 18446635827774444352 3315670037 1237 0 4 5 2 55694 80 swapper/0
-09:07:46  0x40050002000050003d99f8090f02000a 0x50003d99f8090f02000a8bc53f77 18446635827774444352 3315670225 188 0 5 7 2 55694 80 swapper/0
-09:07:47  0x400200020000bb01565811650f02000a 0xbb01565811650f02000a6aa0d9ac 18446635828348806592 3316433261 0 2546 2 7 2 49970 443 ChromiumNet
-09:07:47  0x400200020000bb01db794a690f02000a 0xbb01db794a690f02000aea2afb8e 18446635827774427776 3316535591 0 1469 2 7 2 37386 443 ChromiumNet</p>
-<p>Begin testing by opening the Chrome browser on the Android Studio simulation 
-and visiting the Baidu webpage:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>TIME<span class="w">     </span>SADDR<span class="w">   </span>DADDR<span class="w">   </span>SKADDR<span class="w">  </span>TS_US<span class="w">   </span>DELTA_US<span class="w">  </span>PID<span class="w">     </span>OLDSTATE<span class="w">  </span>NEWSTATE<span class="w">  </span>FAMILY<span class="w">  </span>SPORT<span class="w">   </span>DPORT<span class="w">   </span>TASK
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="m">07</span>:46:58<span class="w">  </span>0x400700020000bb01000000000f02000a<span class="w"> </span>0xbb01000000000f02000aeb6f2270<span class="w"> </span><span class="m">18446631020066638144</span><span class="w"> </span><span class="m">192874641</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">3305</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">443</span><span class="w"> </span>NetworkService
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="m">07</span>:46:58<span class="w">  </span>0x40020002d28abb01494b6ebe0f02000a<span class="w"> </span>0xd28abb01494b6ebe0f02000aeb6f2270<span class="w"> </span><span class="m">18446631020066638144</span><span class="w"> </span><span class="m">192921938</span><span class="w"> </span><span class="m">47297</span><span class="w"> </span><span class="m">3305</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">53898</span><span class="w"> </span><span class="m">443</span><span class="w"> </span>NetworkService
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="m">07</span>:46:58<span class="w">  </span>0x400700020000bb01000000000f02000a<span class="w"> </span>0xbb01000000000f02000ae7e7e8b7<span class="w"> </span><span class="m">18446631020132433920</span><span class="w"> </span><span class="m">193111426</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">3305</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">443</span><span class="w"> </span>NetworkService
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="m">07</span>:46:58<span class="w">  </span>0x40020002b4a0bb0179ff85e80f02000a<span class="w"> </span>0xb4a0bb0179ff85e80f02000ae7e7e8b7<span class="w"> </span><span class="m">18446631020132433920</span><span class="w"> </span><span class="m">193124670</span><span class="w"> </span><span class="m">13244</span><span class="w"> </span><span class="m">3305</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">46240</span><span class="w"> </span><span class="m">443</span><span class="w"> </span>NetworkService
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="m">07</span>:46:58<span class="w">  </span>0x40010002b4a0bb0179ff85e80f02000a<span class="w"> </span>0xb4a0bb0179ff85e80f02000ae7e7e8b7<span class="w"> </span><span class="m">18446631020132433920</span><span class="w"> </span><span class="m">193185397</span><span class="w"> </span><span class="m">60727</span><span class="w"> </span><span class="m">3305</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">46240</span><span class="w"> </span><span class="m">443</span><span class="w"> </span>NetworkService
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="m">07</span>:46:58<span class="w">  </span>0x40040002b4a0bb0179ff85e80f02000a<span class="w"> </span>0xb4a0bb0179ff85e80f02000ae7e7e8b7<span class="w"> </span><span class="m">18446631020132433920</span><span class="w"> </span><span class="m">193186122</span><span class="w"> </span><span class="m">724</span><span class="w"> </span><span class="m">3305</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">46240</span><span class="w"> </span><span class="m">443</span><span class="w"> </span>NetworkService
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="m">07</span>:46:58<span class="w">  </span>0x400500020000bb0179ff85e80f02000a<span class="w"> </span>0xbb0179ff85e80f02000ae7e7e8b7<span class="w"> </span><span class="m">18446631020132433920</span><span class="w"> </span><span class="m">193186244</span><span class="w"> </span><span class="m">122</span><span class="w"> </span><span class="m">3305</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">46240</span><span class="w"> </span><span class="m">443</span><span class="w"> </span>NetworkService
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="m">07</span>:46:59<span class="w">  </span>0x40010002d01ebb01d0c52f5c0f02000a<span class="w"> </span>0xd01ebb01d0c52f5c0f02000a51449c27<span class="w"> </span><span class="m">18446631020103553856</span><span class="w"> </span><span class="m">194110884</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">5130</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">53278</span><span class="w"> </span><span class="m">443</span><span class="w"> </span>ThreadPoolForeg<span class="s2">&quot;.07:46:59  0x400800020000bb01d0c52f5c0f02000a 0xbb01d0c52f5c0f02000a51449c27 18446631020103553856 194121000 10116 3305 8 7 2 53278 443 NetworkService</span>
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="s2">07:46:59  0x400700020000bb01000000000f02000a 0xbb01000000000f02000aeb6f2270 18446631020099513920 194603677 0 3305 7 2 2 0 443 NetworkService</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="s2">07:46:59  0x40020002d28ebb0182dd92990f02000a 0xd28ebb0182dd92990f02000aeb6f2270 18446631020099513920 194649313 45635 12 2 1 2 53902 443 ksoftirqd/0</span>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="s2">07:47:00  0x400700020000bb01000000000f02000a 0xbb01000000000f02000a26f6e878 18446631020132433920 195193350 0 3305 7 2 2 0 443 NetworkService</span>
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="s2">07:47:00  0x40020002ba32bb01e0e09e3a0f02000a 0xba32bb01e0e09e3a0f02000a26f6e878 18446631020132433920 195206992 13642 0 2 1 2 47666 443 swapper/0</span>
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="s2">07:47:00  0x400700020000bb01000000000f02000a 0xbb01000000000f02000ae7e7e8b7 18446631020132448128 195233125 0 3305 7 2 2 0 443 NetworkService</span>
-<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="s2">07:47:00  0x40020002b4a8bb0136cac8dd0f02000a 0xb4a8bb0136cac8dd0f02000ae7e7e8b7 18446631020132448128 195246569 13444 3305 2 1 2 46248 443 NetworkService</span>
-<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="s2">07:47:00  0xf02000affff00000000000000000000 0x1aca06cffff00000000000000000000 18446631019225912320 195383897 0 947 7 2 10 0 80 Thread-11</span>
-<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="s2">07:47:00  0x40010002b4a8bb0136cac8dd0f02000a 0xb4a8bb0136cac8dd0f02000ae7e7e8b7 18446631020132448128 195421584 175014 3305 1 4 2 46248 443 NetworkService</span>
-<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="s2">07:47:00  0x40040002b4a8bb0136cac8dd0f02000a 0xb4a8bb0136cac8dd0f02000ae7e7e8b7 18446631020132448128 195422361 777 3305 4 5 2 46248 443 NetworkService</span>
-<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="s2">07:47:00  0x400500020000bb0136cac8dd0f02000a 0xbb0136cac8dd0f02000ae7e7e8b7 18446631020132448128 195422450 88 3305 5 7 2 46248 443 NetworkService</span>
-<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="s2">07:47:01  0x400700020000bb01000000000f02000a 0xbb01000000000f02000aea2afb8e 18446631020099528128 196321556 0 1315 7 2 2 0 443 ChromiumNet</span>
-<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>
-<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="s2">## Failed Cases</span>
-<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>
-<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="s2">### [fentry-link](https://github.com/eunomia-bpf/eunomia-bpf/tree/master/examples/bpftools/fentry-link)</span>
-<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>
-<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="s2">Builds successfully, but encounters an error when running:</span>
-<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>
-<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a><span class="s2">```sh</span>
-<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a><span class="s2">libbpf: prog &#39;do_unlinkat&#39;: failed to attach: Device or resource busy</span>
-<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a><span class="s2">libbpf: prog &#39;do_unlinkat&#39;: failed to auto-attach: -16</span>
-<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a><span class="s2">failed to attach skeleton&quot;</span>.
+<h3 id="opensnoop"><a href="https://github.com/eunomia-bpf/eunomia-bpf/tree/master/examples/bpftools/opensnoop">opensnoop</a></h3>
+<p>Successfully built, but encountered an error when running:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>libbpf:<span class="w"> </span>failed<span class="w"> </span>to<span class="w"> </span>determine<span class="w"> </span>tracepoint<span class="w"> </span><span class="s1">&#39;syscalls/sys_enter_open&#39;</span><span class="w"> </span>perf<span class="w"> </span>event<span class="w"> </span>ID:<span class="w"> </span>No<span class="w"> </span>such<span class="w"> </span>file<span class="w"> </span>or<span class="w"> </span>directory
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>libbpf:<span class="w"> </span>prog<span class="w"> </span><span class="s1">&#39;tracepoint__syscalls__sys_enter_open&#39;</span>:<span class="w"> </span>failed<span class="w"> </span>to<span class="w"> </span>create<span class="w"> </span>tracepoint<span class="w"> </span><span class="s1">&#39;syscalls/sys_enter_open&#39;</span><span class="w"> </span>perf<span class="w"> </span>event:<span class="w"> </span>No<span class="w"> </span>such<span class="w"> </span>file<span class="w"> </span>or<span class="w"> </span>directory
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>libbpf:<span class="w"> </span>prog<span class="w"> </span><span class="s1">&#39;tracepoint__syscalls__sys_enter_open&#39;</span>:<span class="w"> </span>failed<span class="w"> </span>to<span class="w"> </span>auto-attach:<span class="w"> </span>-2
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>failed<span class="w"> </span>to<span class="w"> </span>attach<span class="w"> </span>skeleton
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>Error:<span class="w"> </span>BpfError<span class="o">(</span><span class="s2">&quot;load and attach ebpf program failed&quot;</span><span class="o">)</span>
 </code></pre></div>
-<p>Please note that this is a translation of the Markdown text provided.Error: BpfError("load and attach ebpf program failed")
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>### [opensnoop](https://github.com/eunomia-bpf/eunomia-bpf/tree/master/examples/bpftools/opensnoop)
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>Successfully built, but encountered an error when running:
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>```sh
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>libbpf: failed to determine tracepoint &#39;syscalls/sys_enter_open&#39; perf event ID: No such file or directory
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>libbpf: prog &#39;tracepoint__syscalls__sys_enter_open&#39;: failed to create tracepoint &#39;syscalls/sys_enter_open&#39; perf event: No such file or directory
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>libbpf: prog &#39;tracepoint__syscalls__sys_enter_open&#39;: failed to auto-attach: -2
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>failed to attach skeleton
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>Error: BpfError(&quot;load and attach ebpf program failed&quot;)
-</code></pre></div></p>
 <p>After investigation, it was found that the <code>CONFIG_FTRACE_SYSCALLS</code> option was not enabled in the kernel, which caused the tracepoint for syscalls to be unavailable.</p>
 <h3 id="runqlat"><a href="https://github.com/eunomia-bpf/eunomia-bpf/tree/master/examples/bpftools/runqlat">runqlat</a></h3>
 <p>Encountered an error during the build process:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Compiling<span class="w"> </span>bpf<span class="w"> </span>object...
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>$<span class="w"> </span>clang<span class="w"> </span>-g<span class="w"> </span>-O2<span class="w"> </span>-target<span class="w"> </span>bpf<span class="w"> </span>-Wno-unknown-attributes<span class="w"> </span>-D__TARGET_ARCH_x86<span class="w"> </span>-idirafter<span class="w"> </span>/usr/local/include<span class="w"> </span>-idirafter<span class="w"> </span>/usr/lib/llvm-11/lib/clang/11.0.1/include<span class="w"> </span>-idirafter<span class="w"> </span>/usr/include/x86_64-linux-gnu<span class="w"> </span>-idirafter<span class="w"> </span>/usr/include<span class="w">  </span>-I/tmp/eunomia.9fwyJN/include<span class="w"> </span>-I/tmp/eunomia.9fwyJN/include/vmlinux/x86<span class="w">  </span>-I/root/eunomia-bpf/examples/bpftools/runqlat<span class="w"> </span>-c<span class="w"> </span>examples/bpftools/runqlat/runqlat.bpf.temp.c<span class="w"> </span>-o<span class="w"> </span>examples/bpftools/runqlat/runqlat.bpf.o
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w"> </span>In<span class="w"> </span>file<span class="w"> </span>included<span class="w"> </span>from<span class="w"> </span>examples/bpftools/runqlat/runqlat.bpf.temp.c:10:
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>/root/eunomia-bpf/examples/bpftools/runqlat/core_fixes.bpf.h:76:9:<span class="w"> </span>error:<span class="w"> </span>use<span class="w"> </span>of<span class="w"> </span>unknown<span class="w"> </span><span class="nb">builtin</span><span class="w"> </span><span class="s1">&#39;__builtin_preserve_type_info&#39;</span><span class="w"> </span><span class="o">[</span>-Wimplicit-function-declaration<span class="o">]</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span>bpf_core_type_exists<span class="o">(</span>struct<span class="w"> </span>trace_event_raw_block_rq_completion___x<span class="o">))</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">        </span>^
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>/tmp/eunomia.9fwyJN/include/bpf/bpf_core_read.h:185:2:<span class="w"> </span>note:<span class="w"> </span>expanded<span class="w"> </span>from<span class="w"> </span>macro<span class="w"> </span><span class="s1">&#39;bpf_core_type_exists&#39;</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">        </span>__builtin_preserve_type_info<span class="o">(</span>*<span class="o">(</span>typeof<span class="o">(</span><span class="nb">type</span><span class="o">)</span><span class="w"> </span>*<span class="o">)</span><span class="m">0</span>,<span class="w"> </span>BPF_TYPE_EXISTS<span class="o">)</span>
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">        </span>^
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>/root/eunomia-bpf/examples/bpftools/runqlat/core_fixes.bpf.h:76:9:<span class="w"> </span>note:<span class="w"> </span>did<span class="w"> </span>you<span class="w"> </span>mean<span class="w"> </span><span class="s1">&#39;__builtin_preserve_field_info&#39;</span>?
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>/tmp/eunomia.9fwyJN/include/bpf/bpf_core_read.h:185:2:<span class="w"> </span>note:<span class="w"> </span>expanded<span class="w"> </span>from<span class="w"> </span>macro<span class="w"> </span><span class="s1">&#39;bpf_core_type_exists&#39;</span>
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">        </span>__builtin_preserve_type_info<span class="o">(</span>*<span class="o">(</span>typeof<span class="o">(</span><span class="nb">type</span><span class="o">)</span><span class="w"> </span>*<span class="o">)</span><span class="m">0</span>,<span class="w"> </span>BPF_TYPE_EXISTS<span class="o">)</span><span class="s2">&quot;.</span>
-<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="s2">```^</span>
-<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="s2">/root/eunomia-bpf/examples/bpftools/runqlat/core_fixes.bpf.h:27:9: note: &#39;__builtin_preserve_field_info&#39; declared here</span>
-<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="s2">    if (bpf_core_field_exists(t-&gt;__state))</span>
-<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="s2">        ^</span>
-<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="s2">/tmp/eunomia.9fwyJN/include/bpf/bpf_core_read.h:132:2: note: expanded from macro &#39;bpf_core_field_exists&#39;</span>
-<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="s2">        __builtin_preserve_field_info(___bpf_field_ref(field), BPF_FIELD_EXISTS)</span>
-<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="s2">        ^</span>
-<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="s2">In file included from examples/bpftools/runqlat/runqlat.bpf.temp.c:10:</span>
-<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="s2">/root/eunomia-bpf/examples/bpftools/runqlat/core_fixes.bpf.h:76:9: warning: indirection of non-volatile null pointer will be deleted, not trap [-Wnull-dereference]</span>
-<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="s2">    if (bpf_core_type_exists(struct trace_event_raw_block_rq_completion___x))</span>
-<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="s2">        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
-<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="s2">/tmp/eunomia.9fwyJN/include/bpf/bpf_core_read.h:185:31: note: expanded from macro &#39;bpf_core_type_exists&#39;</span>
-<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="s2">        __builtin_preserve_type_info(*(typeof(type) *)0, BPF_TYPE_EXISTS)</span>
-<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="s2">                                     ^~~~~~~~~~~~~~~~~~</span>
-<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="s2">/root/eunomia-bpf/examples/bpftools/runqlat/core_fixes.bpf.h:76:9: note: consider using __builtin_trap() or qualifying pointer with &#39;volatile&#39;</span>
-<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="s2">/tmp/eunomia.9fwyJN/include/bpf/bpf_core_read.h:185:31: note: expanded from macro &#39;bpf_core_type_exists&#39;</span>
-<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a><span class="s2">        __builtin_preserve_type_info(*(typeof(type) *)0, BPF_TYPE_EXISTS)</span>
-<a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a><span class="s2">                                     ^</span>
-<a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a><span class="s2">1 warning and 1 error generated.</span>
-<a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a>
-<a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a><span class="s2">thread &#39;main&#39; panicked at &#39;called `Result::unwrap()` on an `Err` value: No such file or directory (os error 2)&#39;, src/compile_bpf.rs:171:37</span>
-<a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a><span class="s2">note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Compiling<span class="w"> </span>bpf<span class="w"> </span>object...
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>$<span class="w"> </span>clang<span class="w"> </span>-g<span class="w"> </span>-O2<span class="w"> </span>-target<span class="w"> </span>bpf<span class="w"> </span>-Wno-unknown-attributes<span class="w"> </span>-D__TARGET_ARCH_x86<span class="w"> </span>-idirafter<span class="w"> </span>/usr/local/include<span class="w"> </span>-idirafter<span class="w"> </span>/usr/lib/llvm-11/lib/clang/11.0.1/include<span class="w"> </span>-idirafter<span class="w"> </span>/usr/include/x86_64-linux-gnu<span class="w"> </span>-idirafter<span class="w"> </span>/usr/include<span class="w">  </span>-I/tmp/eunomia.9fwyJN/include<span class="w"> </span>-I/tmp/eunomia.9fwyJN/include/vmlinux/x86<span class="w">  </span>-I/root/eunomia-bpf/examples/bpftools/runqlat<span class="w"> </span>-c<span class="w"> </span>examples/bpftools/runqlat/runqlat.bpf.temp.c<span class="w"> </span>-o<span class="w"> </span>examples/bpftools/runqlat/runqlat.bpf.o
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w"> </span>In<span class="w"> </span>file<span class="w"> </span>included<span class="w"> </span>from<span class="w"> </span>examples/bpftools/runqlat/runqlat.bpf.temp.c:10:
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>/root/eunomia-bpf/examples/bpftools/runqlat/core_fixes.bpf.h:76:9:<span class="w"> </span>error:<span class="w"> </span>use<span class="w"> </span>of<span class="w"> </span>unknown<span class="w"> </span><span class="nb">builtin</span><span class="w"> </span><span class="s1">&#39;__builtin_preserve_type_info&#39;</span><span class="w"> </span><span class="o">[</span>-Wimplicit-function-declaration<span class="o">]</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span>bpf_core_type_exists<span class="o">(</span>struct<span class="w"> </span>trace_event_raw_block_rq_completion___x<span class="o">))</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">        </span>^
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>/tmp/eunomia.9fwyJN/include/bpf/bpf_core_read.h:185:2:<span class="w"> </span>note:<span class="w"> </span>expanded<span class="w"> </span>from<span class="w"> </span>macro<span class="w"> </span><span class="s1">&#39;bpf_core_type_exists&#39;</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">        </span>__builtin_preserve_type_info<span class="o">(</span>*<span class="o">(</span>typeof<span class="o">(</span><span class="nb">type</span><span class="o">)</span><span class="w"> </span>*<span class="o">)</span><span class="m">0</span>,<span class="w"> </span>BPF_TYPE_EXISTS<span class="o">)</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">        </span>^
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>/root/eunomia-bpf/examples/bpftools/runqlat/core_fixes.bpf.h:76:9:<span class="w"> </span>note:<span class="w"> </span>did<span class="w"> </span>you<span class="w"> </span>mean<span class="w"> </span><span class="s1">&#39;__builtin_preserve_field_info&#39;</span>?
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>/tmp/eunomia.9fwyJN/include/bpf/bpf_core_read.h:185:2:<span class="w"> </span>note:<span class="w"> </span>expanded<span class="w"> </span>from<span class="w"> </span>macro<span class="w"> </span><span class="s1">&#39;bpf_core_type_exists&#39;</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">        </span>__builtin_preserve_type_info<span class="o">(</span>*<span class="o">(</span>typeof<span class="o">(</span><span class="nb">type</span><span class="o">)</span><span class="w"> </span>*<span class="o">)</span><span class="m">0</span>,<span class="w"> </span>BPF_TYPE_EXISTS<span class="o">)</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">        </span>^
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>/root/eunomia-bpf/examples/bpftools/runqlat/core_fixes.bpf.h:27:9:<span class="w"> </span>note:<span class="w"> </span><span class="s1">&#39;__builtin_preserve_field_info&#39;</span><span class="w"> </span>declared<span class="w"> </span>here
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span>bpf_core_field_exists<span class="o">(</span>t-&gt;__state<span class="o">))</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">        </span>^
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>/tmp/eunomia.9fwyJN/include/bpf/bpf_core_read.h:132:2:<span class="w"> </span>note:<span class="w"> </span>expanded<span class="w"> </span>from<span class="w"> </span>macro<span class="w"> </span><span class="s1">&#39;bpf_core_field_exists&#39;</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">        </span>__builtin_preserve_field_info<span class="o">(</span>___bpf_field_ref<span class="o">(</span>field<span class="o">)</span>,<span class="w"> </span>BPF_FIELD_EXISTS<span class="o">)</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">        </span>^
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>In<span class="w"> </span>file<span class="w"> </span>included<span class="w"> </span>from<span class="w"> </span>examples/bpftools/runqlat/runqlat.bpf.temp.c:10:
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>/root/eunomia-bpf/examples/bpftools/runqlat/core_fixes.bpf.h:76:9:<span class="w"> </span>warning:<span class="w"> </span>indirection<span class="w"> </span>of<span class="w"> </span>non-volatile<span class="w"> </span>null<span class="w"> </span>pointer<span class="w"> </span>will<span class="w"> </span>be<span class="w"> </span>deleted,<span class="w"> </span>not<span class="w"> </span><span class="nb">trap</span><span class="w"> </span><span class="o">[</span>-Wnull-dereference<span class="o">]</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span>bpf_core_type_exists<span class="o">(</span>struct<span class="w"> </span>trace_event_raw_block_rq_completion___x<span class="o">))</span>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="w">        </span>^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>/tmp/eunomia.9fwyJN/include/bpf/bpf_core_read.h:185:31:<span class="w"> </span>note:<span class="w"> </span>expanded<span class="w"> </span>from<span class="w"> </span>macro<span class="w"> </span><span class="s1">&#39;bpf_core_type_exists&#39;</span>
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="w">        </span>__builtin_preserve_type_info<span class="o">(</span>*<span class="o">(</span>typeof<span class="o">(</span><span class="nb">type</span><span class="o">)</span><span class="w"> </span>*<span class="o">)</span><span class="m">0</span>,<span class="w"> </span>BPF_TYPE_EXISTS<span class="o">)</span>
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="w">                                     </span>^~~~~~~~~~~~~~~~~~
+<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>/root/eunomia-bpf/examples/bpftools/runqlat/core_fixes.bpf.h:76:9:<span class="w"> </span>note:<span class="w"> </span>consider<span class="w"> </span>using<span class="w"> </span>__builtin_trap<span class="o">()</span><span class="w"> </span>or<span class="w"> </span>qualifying<span class="w"> </span>pointer<span class="w"> </span>with<span class="w"> </span><span class="s1">&#39;volatile&#39;</span>
+<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a>/tmp/eunomia.9fwyJN/include/bpf/bpf_core_read.h:185:31:<span class="w"> </span>note:<span class="w"> </span>expanded<span class="w"> </span>from<span class="w"> </span>macro<span class="w"> </span><span class="s1">&#39;bpf_core_type_exists&#39;</span>
+<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="w">        </span>__builtin_preserve_type_info<span class="o">(</span>*<span class="o">(</span>typeof<span class="o">(</span><span class="nb">type</span><span class="o">)</span><span class="w"> </span>*<span class="o">)</span><span class="m">0</span>,<span class="w"> </span>BPF_TYPE_EXISTS<span class="o">)</span>
+<a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a><span class="w">                                     </span>^
+<a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a><span class="m">1</span><span class="w"> </span>warning<span class="w"> </span>and<span class="w"> </span><span class="m">1</span><span class="w"> </span>error<span class="w"> </span>generated.
+<a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a>
+<a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a>thread<span class="w"> </span><span class="s1">&#39;main&#39;</span><span class="w"> </span>panicked<span class="w"> </span>at<span class="w"> </span><span class="s1">&#39;called `Result::unwrap()` on an `Err` value: No such file or directory (os error 2)&#39;</span>,<span class="w"> </span>src/compile_bpf.rs:171:37
+<a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a>note:<span class="w"> </span>run<span class="w"> </span>with<span class="w"> </span><span class="sb">`</span><span class="nv">RUST_BACKTRACE</span><span class="o">=</span><span class="m">1</span><span class="sb">`</span><span class="w"> </span>environment<span class="w"> </span>variable<span class="w"> </span>to<span class="w"> </span>display<span class="w"> </span>a<span class="w"> </span>backtrace
 </code></pre></div>
 <p>The specific cause of the error currently needs further investigation.</p>
 <h1 id="summary">Summary</h1>
@@ -8375,8 +8246,8 @@ and visiting the Baidu webpage:</p>
 <li>The kernel compilation options do not support the relevant eBPF features;</li>
 <li>The Linux environment packaged by eadb is relatively weak and lacks necessary dependencies;</li>
 </ol>
-<p>Currently, using eBPF tools in the Android system still requires building a complete Linux runtime environment. However, the Android kernel itself has comprehensive support for eBPF. The test this time proves that higher versions of the Android kernel support BTF debugging information and the execution of eBPF programs dependent on CO-RE.Instructions: Translate the following Chinese text to English 
-while maintaining the original formatting: "Android system eBPF tool development requires the addition of official new features. At present, it seems that using eBPF tools directly through Android apps requires a lot of work. Additionally, since eBPF tools require root permissions, ordinary Android users will face many difficulties.</p>
+<p>Currently, using eBPF tools in the Android system still requires building a complete Linux runtime environment. However, the Android kernel itself has comprehensive support for eBPF. The test this time proves that higher versions of the Android kernel support BTF debugging information and the execution of eBPF programs dependent on CO-RE.</p>
+<p>Android system eBPF tool development requires the addition of official new features. At present, it seems that using eBPF tools directly through Android apps requires a lot of work. Additionally, since eBPF tools require root permissions, ordinary Android users will face many difficulties.</p>
 <h1 id="references">References</h1>
 <p><a class="md-button" href="https://x.com/intent/tweet?text=Running%20the%20ecli%20on%20Android%2013%0A&amp;url=https://eunomia.dev/en/blog/posts/test-for-Android/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/en/blog/posts/test-for-Android/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
@@ -8390,8 +8261,7 @@ while maintaining the original formatting: "Android system eBPF tool development
 <p><a href="https://source.android.google.cn/docs/core/architecture/kernel/bpf">https://source.android.google.cn/docs/core/architecture/kernel/bpf</a>&#160;<a class="footnote-backref" href="#fnref:Google" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 <li id="fn:SeeFlowerX">
-<p><a href="https://blog.seeflower.dev/archives/138/">https://blog.seeflower.dev/archives/138/</a>".
-format: Return only the translated content, not including the original text.&#160;<a class="footnote-backref" href="#fnref:SeeFlowerX" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+<p><a href="https://blog.seeflower.dev/archives/138/">https://blog.seeflower.dev/archives/138/</a>&#160;<a class="footnote-backref" href="#fnref:SeeFlowerX" title="Jump back to footnote 3 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
@@ -8417,7 +8287,7 @@ format: Return only the translated content, not including the original text.&#16
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 10, 2025 22:48:22 UTC">February 10, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 4, 2025 00:14:57 UTC">October 4, 2025</span>
   </span>
 
     
@@ -8437,12 +8307,13 @@ format: Return only the translated content, not including the original text.&#16
   <span class="md-source-file__fact">
     <span class="md-icon" title="Contributors">
       
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
       
     </span>
     <nav>
       
-        <a href="mailto:yusen356@gmail.com">weekendfish</a>
+        <a href="mailto:yusen356@gmail.com">weekendfish</a>, 
+        <a href="mailto:yunwei356@gmail.com">yunwei37</a>
     </nav>
   </span>
 
