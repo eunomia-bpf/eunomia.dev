@@ -1490,6 +1490,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#related-work-and-further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Work and Further Reading
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
       Summary
@@ -8196,6 +8205,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#related-work-and-further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Work and Further Reading
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
       Summary
@@ -8522,6 +8540,8 @@
 <p>The flame graph is interactive. Click any box to zoom in and see details about that subtree. The search function lets you highlight all frames matching a pattern, useful for finding specific functions or libraries. Hovering shows the full function name and exact sample count or time value.</p>
 <p>Pay attention to the relative proportions. An application that's 90% blue is I/O bound and probably won't benefit much from CPU optimization. One that's mostly red is CPU bound. Applications split evenly between red and blue might benefit from overlapping computation and I/O, such as using asynchronous I/O or threading.</p>
 <p>For multi-threaded profiles, compare the per-thread flame graphs. Ideally, worker threads should show similar patterns if the workload is balanced. If one thread is mostly red while others are mostly blue, you might have load imbalance. If all threads show lots of blue time in futex waits with similar stacks, that's lock contention.</p>
+<h2 id="related-work-and-further-reading">Related Work and Further Reading</h2>
+<p>Wall-clock profiling builds on decades of research in performance analysis that distinguishes on-CPU computation from off-CPU waiting. Curtsinger and Berger's Coz (ASPLOS'15) introduced causal profiling, which experimentally determines which code regions, if optimized, actually reduce end-to-end latency—addressing the fundamental question of where optimization effort pays off. Zhou et al.'s wPerf (OSDI'18) presented a generic off-CPU analysis framework that identifies critical waiting events (locks, I/O) bounding throughput with low overhead, while the more recent work by Ahn et al. (OSDI'24) unified on- and off-CPU analysis through blocked-sample profiling that captures both running and blocked thread states. The visualization techniques we employ draw from Gregg's flame graph methodology (CACM'16, USENIX ATC'17), which transforms stack-trace aggregations into intuitive hierarchical diagrams; his off-CPU flame graphs specifically highlight blocking patterns by rendering sleep stacks in contrasting colors. Timing accuracy itself poses challenges, as Najafi et al. (HotOS'21) argue that modern systems research increasingly depends on precise wall-clock measurements, and earlier work on time-sensitive Linux (Goel et al., OSDI'02) explored kernel techniques for low-latency timing under load. Practical eBPF-based profiling has been demonstrated in production contexts, including Java profiling with off-CPU "offwaketime" analysis (ICPE'19) and comprehensive workflows outlined in recent eBPF performance tutorials (Gregg, SIGCOMM'24). Together, these techniques and tools provide the foundation for understanding where applications spend time and how to optimize holistically across both compute and blocking dimensions.</p>
 <h2 id="summary">Summary</h2>
 <p>Wall clock profiling with eBPF gives you complete visibility into application performance by combining on-CPU and off-CPU analysis. The on-CPU profiler samples execution to find hot code paths that consume CPU cycles. The off-CPU profiler hooks into the scheduler to measure blocking time and identify I/O bottlenecks or lock contention. Together, they account for every microsecond of wall clock time, showing where your application actually spends its life.</p>
 <p>The tools use eBPF's low-overhead instrumentation to collect this data with minimal impact on the target application. Stack trace capture and aggregation happen in the kernel, avoiding expensive context switches. The user space programs only need to periodically read accumulated results and resolve symbols, making the overhead negligible even for production use.</p>
@@ -8536,6 +8556,14 @@
 <li>Blazesym symbol resolution: <a href="https://github.com/libbpf/blazesym">https://github.com/libbpf/blazesym</a></li>
 <li>FlameGraph visualization: <a href="https://github.com/brendangregg/FlameGraph">https://github.com/brendangregg/FlameGraph</a></li>
 <li>"Off-CPU Analysis" by Brendan Gregg: <a href="http://www.brendangregg.com/offcpuanalysis.html">http://www.brendangregg.com/offcpuanalysis.html</a></li>
+<li>Coz: Finding Code that Counts with Causal Profiling (ASPLOS'15): <a href="https://dl.acm.org/doi/10.1145/2815400.2815409">https://dl.acm.org/doi/10.1145/2815400.2815409</a></li>
+<li>wPerf: Generic Off-CPU Analysis (OSDI'18): <a href="https://www.usenix.org/system/files/osdi18-zhou.pdf">https://www.usenix.org/system/files/osdi18-zhou.pdf</a></li>
+<li>Identifying On-/Off-CPU Bottlenecks with Blocked Samples (OSDI'24): <a href="https://www.usenix.org/system/files/osdi24-ahn.pdf">https://www.usenix.org/system/files/osdi24-ahn.pdf</a></li>
+<li>The Flame Graph (CACM'16): <a href="https://queue.acm.org/detail.cfm?id=2927301">https://queue.acm.org/detail.cfm?id=2927301</a></li>
+<li>Systems Research is Running out of Time (HotOS'21): <a href="https://sigops.org/s/conferences/hotos/2021/papers/hotos21-s04-najafi.pdf">https://sigops.org/s/conferences/hotos/2021/papers/hotos21-s04-najafi.pdf</a></li>
+<li>Time-Sensitive Linux (OSDI'02): <a href="https://www.usenix.org/legacy/event/osdi02/tech/full_papers/goel/goel.pdf">https://www.usenix.org/legacy/event/osdi02/tech/full_papers/goel/goel.pdf</a></li>
+<li>Profiling and Tracing Support for Java Applications (ICPE'19): <a href="https://research.spec.org/icpe_proceedings/2019/proceedings/p119.pdf">https://research.spec.org/icpe_proceedings/2019/proceedings/p119.pdf</a></li>
+<li>eBPF Performance Analysis (SIGCOMM'24): <a href="https://www.brendangregg.com/Slides/SIGCOMM2024_eBPF_Performance.pdf">https://www.brendangregg.com/Slides/SIGCOMM2024_eBPF_Performance.pdf</a></li>
 </ul>
 <blockquote>
 <p>The original link of this article: <a href="https://eunomia.dev/tutorials/32-wallclock-profiler">https://eunomia.dev/tutorials/32-wallclock-profiler</a></p>
@@ -8564,7 +8592,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 1, 2025 05:54:24 UTC">October 1, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 4, 2025 07:30:51 UTC">October 4, 2025</span>
   </span>
 
     

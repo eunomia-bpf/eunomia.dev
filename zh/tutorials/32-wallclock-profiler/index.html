@@ -1492,7 +1492,7 @@
         <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      总结
+      相关工作与延伸阅读
     </span>
   </a>
   
@@ -1500,6 +1500,15 @@
       
         <li class="md-nav__item">
   <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      总结
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       参考资料
     </span>
@@ -8198,7 +8207,7 @@
         <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      总结
+      相关工作与延伸阅读
     </span>
   </a>
   
@@ -8206,6 +8215,15 @@
       
         <li class="md-nav__item">
   <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      总结
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       参考资料
     </span>
@@ -8522,20 +8540,30 @@
 <p>火焰图是交互式的。单击任何框以放大并查看该子树的详细信息。搜索功能让你突出显示匹配模式的所有帧,这对查找特定函数或库很有用。悬停显示完整的函数名和确切的样本计数或时间值。</p>
 <p>注意相对比例。90% 蓝色的应用程序是 I/O 绑定的,可能不会从 CPU 优化中受益太多。大部分红色的应用程序是 CPU 绑定的。红色和蓝色均分的应用程序可能受益于重叠计算和 I/O,例如使用异步 I/O 或线程。</p>
 <p>对于多线程配置文件,比较每个线程的火焰图。理想情况下,如果工作负载平衡,工作线程应该显示相似的模式。如果一个线程大多是红色而其他线程大多是蓝色,你可能有负载不平衡。如果所有线程在 futex 等待中显示大量蓝色时间,具有相似的栈,那就是锁竞争。</p>
-<h2 id="_5">总结</h2>
+<h2 id="_5">相关工作与延伸阅读</h2>
+<p>挂钟时间分析建立在数十年来区分 CPU 计算与 off-CPU 等待的性能分析研究基础之上。Curtsinger 和 Berger 的 Coz(ASPLOS'15)引入了因果分析(causal profiling),通过实验确定哪些代码区域在优化后能真正减少端到端延迟,从而解决了优化工作应投入何处的根本问题。Zhou 等人的 wPerf(OSDI'18)提出了一个通用的 off-CPU 分析框架,以低开销识别限制吞吐量的关键等待事件(锁、I/O),而 Ahn 等人最近的工作(OSDI'24)通过阻塞采样分析统一了 on-CPU 和 off-CPU 分析,同时捕获运行和阻塞线程状态。我们使用的可视化技术源自 Gregg 的火焰图方法论(CACM'16,USENIX ATC'17),它将调用栈聚合转换为直观的层次图;他的 off-CPU 火焰图专门通过用对比色渲染睡眠栈来突出阻塞模式。时间精度本身也带来挑战,正如 Najafi 等人(HotOS'21)所论述的,现代系统研究越来越依赖精确的挂钟测量,而早期关于时间敏感型 Linux 的工作(Goel 等,OSDI'02)探索了负载下低延迟计时的内核技术。基于 eBPF 的实用分析已在生产环境中得到验证,包括使用 off-CPU "offwaketime" 分析的 Java 性能分析(ICPE'19)以及近期 eBPF 性能教程中概述的综合工作流程(Gregg,SIGCOMM'24)。这些技术和工具共同为理解应用程序如何分配时间以及如何在计算和阻塞两个维度上进行整体优化提供了基础。</p>
+<h2 id="_6">总结</h2>
 <p>使用 eBPF 进行挂钟时间分析通过结合 on-CPU 和 off-CPU 分析,为你提供应用程序性能的完整可见性。On-CPU 分析器采样执行以查找消耗 CPU 周期的热代码路径。Off-CPU 分析器挂钩到调度器以测量阻塞时间并识别 I/O 瓶颈或锁竞争。它们一起统计挂钟时间的每一微秒,显示应用程序实际花费生命的地方。</p>
 <p>这些工具使用 eBPF 的低开销检测来收集这些数据,对目标应用程序的影响最小。调用栈捕获和聚合在内核中进行,避免昂贵的上下文切换。用户空间程序只需要定期读取累积结果并解析符号,即使在生产环境中使用,开销也可以忽略不计。</p>
 <p>通过在带有颜色编码的单个火焰图中可视化两种类型的时间,你可以快速识别问题是计算性质还是阻塞性质。这比传统的只显示图景一面的分析方法更有效地指导优化工作。多线程分析支持揭示并行性问题和线程级瓶颈。</p>
 <blockquote>
 <p>如果你想更深入地了解 eBPF,请访问我们的教程代码仓库 <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">https://github.com/eunomia-bpf/bpf-developer-tutorial</a> 或网站 <a href="https://eunomia.dev/tutorials/">https://eunomia.dev/tutorials/</a></p>
 </blockquote>
-<h2 id="_6">参考资料</h2>
+<h2 id="_7">参考资料</h2>
 <ul>
 <li>BCC libbpf-tools offcputime: <a href="https://github.com/iovisor/bcc/tree/master/libbpf-tools">https://github.com/iovisor/bcc/tree/master/libbpf-tools</a></li>
 <li>BCC libbpf-tools profile: <a href="https://github.com/iovisor/bcc/tree/master/libbpf-tools">https://github.com/iovisor/bcc/tree/master/libbpf-tools</a></li>
 <li>Blazesym 符号解析: <a href="https://github.com/libbpf/blazesym">https://github.com/libbpf/blazesym</a></li>
 <li>FlameGraph 可视化: <a href="https://github.com/brendangregg/FlameGraph">https://github.com/brendangregg/FlameGraph</a></li>
 <li>Brendan Gregg 的 "Off-CPU Analysis": <a href="http://www.brendangregg.com/offcpuanalysis.html">http://www.brendangregg.com/offcpuanalysis.html</a></li>
+<li>Coz: Finding Code that Counts with Causal Profiling (ASPLOS'15): <a href="https://dl.acm.org/doi/10.1145/2815400.2815409">https://dl.acm.org/doi/10.1145/2815400.2815409</a></li>
+<li>wPerf: Generic Off-CPU Analysis (OSDI'18): <a href="https://www.usenix.org/system/files/osdi18-zhou.pdf">https://www.usenix.org/system/files/osdi18-zhou.pdf</a></li>
+<li>Identifying On-/Off-CPU Bottlenecks with Blocked Samples (OSDI'24): <a href="https://www.usenix.org/system/files/osdi24-ahn.pdf">https://www.usenix.org/system/files/osdi24-ahn.pdf</a></li>
+<li>The Flame Graph (CACM'16): <a href="https://queue.acm.org/detail.cfm?id=2927301">https://queue.acm.org/detail.cfm?id=2927301</a></li>
+<li>Systems Research is Running out of Time (HotOS'21): <a href="https://sigops.org/s/conferences/hotos/2021/papers/hotos21-s04-najafi.pdf">https://sigops.org/s/conferences/hotos/2021/papers/hotos21-s04-najafi.pdf</a></li>
+<li>Time-Sensitive Linux (OSDI'02): <a href="https://www.usenix.org/legacy/event/osdi02/tech/full_papers/goel/goel.pdf">https://www.usenix.org/legacy/event/osdi02/tech/full_papers/goel/goel.pdf</a></li>
+<li>Profiling and Tracing Support for Java Applications (ICPE'19): <a href="https://research.spec.org/icpe_proceedings/2019/proceedings/p119.pdf">https://research.spec.org/icpe_proceedings/2019/proceedings/p119.pdf</a></li>
+<li>eBPF Performance Analysis (SIGCOMM'24): <a href="https://www.brendangregg.com/Slides/SIGCOMM2024_eBPF_Performance.pdf">https://www.brendangregg.com/Slides/SIGCOMM2024_eBPF_Performance.pdf</a></li>
 </ul>
 <blockquote>
 <p>本文原文链接: <a href="https://eunomia.dev/zh/tutorials/32-wallclock-profiler">https://eunomia.dev/zh/tutorials/32-wallclock-profiler</a></p>
@@ -8564,7 +8592,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 1, 2025 05:54:24 UTC">October 1, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 4, 2025 07:30:51 UTC">October 4, 2025</span>
   </span>
 
     
