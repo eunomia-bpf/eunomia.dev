@@ -84,10 +84,8 @@ After monitoring starts, download the web page using `wget` in the Linux environ
 TIME     SADDR   DADDR   SKADDR  TS_US   DELTA_US  PID     OLDSTATE  NEWSTATE  FAMILY  SPORT   DPORT   TASK
 09:07:46  0x4007000200005000000000000f02000a 0x5000000000000f02000a8bc53f77 18446635827774444352 3315344998 0 10115 7 2 2 0 80 wget
 09:07:46  0x40020002d98e50003d99f8090f02000a 0xd98e50003d99f8090f02000a8bc53f77 18446635827774444352 3315465870 120872 0 2 1 2 55694 80 swapper/0
-09:07:46  0x40010002d98e50003d99f8090f02000a 0xd98e50003d99f8090f02000a8bc53f77 18446635827774444352 3315668799 202929 10115 1 4 2 55694 80 wget".
-```
-
-format: Return only the translated content, not including the original text.09:07:46  0x40040002d98e50003d99f8090f02000a 0xd98e50003d99f8090f02000a8bc53f77 18446635827774444352 3315670037 1237 0 4 5 2 55694 80 swapper/0
+09:07:46  0x40010002d98e50003d99f8090f02000a 0xd98e50003d99f8090f02000a8bc53f77 18446635827774444352 3315668799 202929 10115 1 4 2 55694 80 wget
+09:07:46  0x40040002d98e50003d99f8090f02000a 0xd98e50003d99f8090f02000a8bc53f77 18446635827774444352 3315670037 1237 0 4 5 2 55694 80 swapper/0
 09:07:46  0x40050002000050003d99f8090f02000a 0x50003d99f8090f02000a8bc53f77 18446635827774444352 3315670225 188 0 5 7 2 55694 80 swapper/0
 09:07:47  0x400200020000bb01565811650f02000a 0xbb01565811650f02000a6aa0d9ac 18446635828348806592 3316433261 0 2546 2 7 2 49970 443 ChromiumNet
 09:07:47  0x400200020000bb01db794a690f02000a 0xbb01db794a690f02000aea2afb8e 18446635827774427776 3316535591 0 1469 2 7 2 37386 443 ChromiumNet
@@ -104,7 +102,8 @@ TIME     SADDR   DADDR   SKADDR  TS_US   DELTA_US  PID     OLDSTATE  NEWSTATE  F
 07:46:58  0x40010002b4a0bb0179ff85e80f02000a 0xb4a0bb0179ff85e80f02000ae7e7e8b7 18446631020132433920 193185397 60727 3305 1 4 2 46240 443 NetworkService
 07:46:58  0x40040002b4a0bb0179ff85e80f02000a 0xb4a0bb0179ff85e80f02000ae7e7e8b7 18446631020132433920 193186122 724 3305 4 5 2 46240 443 NetworkService
 07:46:58  0x400500020000bb0179ff85e80f02000a 0xbb0179ff85e80f02000ae7e7e8b7 18446631020132433920 193186244 122 3305 5 7 2 46240 443 NetworkService
-07:46:59  0x40010002d01ebb01d0c52f5c0f02000a 0xd01ebb01d0c52f5c0f02000a51449c27 18446631020103553856 194110884 0 5130 1 8 2 53278 443 ThreadPoolForeg".07:46:59  0x400800020000bb01d0c52f5c0f02000a 0xbb01d0c52f5c0f02000a51449c27 18446631020103553856 194121000 10116 3305 8 7 2 53278 443 NetworkService
+07:46:59  0x40010002d01ebb01d0c52f5c0f02000a 0xd01ebb01d0c52f5c0f02000a51449c27 18446631020103553856 194110884 0 5130 1 8 2 53278 443 ThreadPoolForeg
+07:46:59  0x400800020000bb01d0c52f5c0f02000a 0xbb01d0c52f5c0f02000a51449c27 18446631020103553856 194121000 10116 3305 8 7 2 53278 443 NetworkService
 07:46:59  0x400700020000bb01000000000f02000a 0xbb01000000000f02000aeb6f2270 18446631020099513920 194603677 0 3305 7 2 2 0 443 NetworkService
 07:46:59  0x40020002d28ebb0182dd92990f02000a 0xd28ebb0182dd92990f02000aeb6f2270 18446631020099513920 194649313 45635 12 2 1 2 53902 443 ksoftirqd/0
 07:47:00  0x400700020000bb01000000000f02000a 0xbb01000000000f02000a26f6e878 18446631020132433920 195193350 0 3305 7 2 2 0 443 NetworkService
@@ -126,10 +125,8 @@ Builds successfully, but encounters an error when running:
 ```sh
 libbpf: prog 'do_unlinkat': failed to attach: Device or resource busy
 libbpf: prog 'do_unlinkat': failed to auto-attach: -16
-failed to attach skeleton".
-```
-
-Please note that this is a translation of the Markdown text provided.Error: BpfError("load and attach ebpf program failed")
+failed to attach skeleton
+Error: BpfError("load and attach ebpf program failed")
 ```
 
 ### [opensnoop](https://github.com/eunomia-bpf/eunomia-bpf/tree/master/examples/bpftools/opensnoop)
@@ -162,8 +159,8 @@ $ clang -g -O2 -target bpf -Wno-unknown-attributes -D__TARGET_ARCH_x86 -idirafte
         ^
 /root/eunomia-bpf/examples/bpftools/runqlat/core_fixes.bpf.h:76:9: note: did you mean '__builtin_preserve_field_info'?
 /tmp/eunomia.9fwyJN/include/bpf/bpf_core_read.h:185:2: note: expanded from macro 'bpf_core_type_exists'
-        __builtin_preserve_type_info(*(typeof(type) *)0, BPF_TYPE_EXISTS)".
-```^
+        __builtin_preserve_type_info(*(typeof(type) *)0, BPF_TYPE_EXISTS)
+        ^
 /root/eunomia-bpf/examples/bpftools/runqlat/core_fixes.bpf.h:27:9: note: '__builtin_preserve_field_info' declared here
     if (bpf_core_field_exists(t->__state))
         ^
@@ -198,12 +195,12 @@ For projects that cannot run, the reasons are mainly as follows:
 1. The kernel compilation options do not support the relevant eBPF features;
 2. The Linux environment packaged by eadb is relatively weak and lacks necessary dependencies;
 
-Currently, using eBPF tools in the Android system still requires building a complete Linux runtime environment. However, the Android kernel itself has comprehensive support for eBPF. The test this time proves that higher versions of the Android kernel support BTF debugging information and the execution of eBPF programs dependent on CO-RE.Instructions: Translate the following Chinese text to English 
-while maintaining the original formatting: "Android system eBPF tool development requires the addition of official new features. At present, it seems that using eBPF tools directly through Android apps requires a lot of work. Additionally, since eBPF tools require root permissions, ordinary Android users will face many difficulties.
+Currently, using eBPF tools in the Android system still requires building a complete Linux runtime environment. However, the Android kernel itself has comprehensive support for eBPF. The test this time proves that higher versions of the Android kernel support BTF debugging information and the execution of eBPF programs dependent on CO-RE.
+
+Android system eBPF tool development requires the addition of official new features. At present, it seems that using eBPF tools directly through Android apps requires a lot of work. Additionally, since eBPF tools require root permissions, ordinary Android users will face many difficulties.
 
 # References
 
 [^Google]: <https://source.android.google.cn/docs/core/architecture/kernel/bpf>
 [^WeiShu]: <https://mp.weixin.qq.com/s/mul4n5D3nXThjxuHV7GpMA>
-[^SeeFlowerX]: <https://blog.seeflower.dev/archives/138/>".
-format: Return only the translated content, not including the original text.
+[^SeeFlowerX]: <https://blog.seeflower.dev/archives/138/>

@@ -305,8 +305,9 @@ In runqlat, the `map` API is used to access and directly read data from a `map` 
         ...
         lookup_key = next_key;
     }
-```".Instructions: Translate the following Chinese text to English 
-while maintaining the original formatting: "When running wasm code, shared memory will be used to access the kernel map. The kernel space can directly copy data to the stack of the Wasm virtual machine in user space, without the additional copy overhead between the user space host program and the Wasm runtime. Similarly, for type definitions shared between the Wasm virtual machine and the kernel space, careful checking is required to ensure that they have consistent types in both Wasm and kernel space.
+```
+
+When running wasm code, shared memory will be used to access the kernel map. The kernel space can directly copy data to the stack of the Wasm virtual machine in user space, without the additional copy overhead between the user space host program and the Wasm runtime. Similarly, for type definitions shared between the Wasm virtual machine and the kernel space, careful checking is required to ensure that they have consistent types in both Wasm and kernel space.
 
 The `bpf_map_update_elem` function can be used to update the eBPF map in user space programs to update the kernel's eBPF map, for example:
 

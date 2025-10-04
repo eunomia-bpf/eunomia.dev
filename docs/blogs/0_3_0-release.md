@@ -62,9 +62,8 @@ We have released the latest version 0.3, which optimizes the overall development
     Kernel-mode code opensnoop.bpf.c
 
     ```c
-    #include <vmlinux.h>".
-format: Return only the translated content, not including the original text.```c
-#include <bpf/bpf_helpers.h>
+    #include <vmlinux.h>
+    #include <bpf/bpf_helpers.h>
 #include "opensnoop.h"
 
 struct args_t {
@@ -209,12 +208,7 @@ $ ecc opensnoop.bpf.c opensnoop.h
 Compiling bpf object...
 Generating export types...
 Packing ebpf object and config into package.json...
-$ sudo ecli examples/bpftools/opensnoop/package.json".
-```
-
-Compilation and execution:**Markdown Translation:**
-
-```
+$ sudo ecli examples/bpftools/opensnoop/package.json
 TIME     TS    PID   UID   RET   FLAGS   COMM        FNAME
 20:31:50  0    1     0     51    524288  systemd     /proc/614/cgroup
 20:31:50  0    33182 0     25    524288  ecli        /etc/localtime
@@ -256,8 +250,7 @@ For example, to implement a PID filter in an eBPF program, you only need to writ
 ```c
 /// Process ID to trace
 const volatile pid_t pid_target = 0;
-/// Thread ID to trace".
-``````
+/// Thread ID to trace
 const volatile pid_t tgid_target = 0;
 /// @description User ID to trace
 const volatile uid_t uid_target = 0;
@@ -342,11 +335,7 @@ Usage: runqlat_bpf [--help] [--version] [--verbose] [--filter_cg] [--targ_per_pr
          1024 -> 2047       : 2        |                                        |
          2048 -> 4095       : 0        |                                        |
          4096 -> 8191       : 0        |                                        |
-         
-         
-         
-Built with eunomia-bpf framework.
-See https://github.com/eunomia-bpf/eunomia-bpf for more information.8192 -> 16383      : 0        |                                        |
+         8192 -> 16383      : 0        |                                        |
         16384 -> 32767      : 1        |                                        |
 
     $ sudo ecli examples/bpftools/runqlat/package.json --targ_per_process
@@ -398,7 +387,8 @@ See https://github.com/eunomia-bpf/eunomia-bpf for more information.8192 -> 1638
 
 ## Regarding compilation: Improved compilation experience, formatting changes
 
-1. Completely refactored the compilation toolchain and configuration file format, returning to the essence of a configuration file + ebpf bytecode .o format. It no longer requires the packaging to be in JSON format, making it more user-friendly for distribution and human editing of configuration files. It also improves compatibility with libbpf-related toolchains.".2. Support both JSON and YAML formats for configuration files (xxx.skel.yaml and xxx.skel.json), or package them as package.json and package.yaml for distribution;
+1. Completely refactored the compilation toolchain and configuration file format, returning to the essence of a configuration file + ebpf bytecode .o format. It no longer requires the packaging to be in JSON format, making it more user-friendly for distribution and human editing of configuration files. It also improves compatibility with libbpf-related toolchains.
+2. Support both JSON and YAML formats for configuration files (xxx.skel.yaml and xxx.skel.json), or package them as package.json and package.yaml for distribution;
 3. Use BTF information to express symbol types as much as possible, and hide BTF information in binary files to make configuration files more readable and editable, while reusing the BTF handling mechanism provided by libbpf to improve type handling;
 4. Support more data export types: enum, struct, bool, etc.
 5. Compilation can be done without relying on docker. The binaries and header files can be installed in ~/.eunomia (more friendly to embedded or domestic networks, more convenient to use). The original way of using docker can still be continued;
@@ -466,11 +456,10 @@ export_types:
     ```console
     $ wget https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecc && chmod +x ./ecc
     $ ./ecc -h
-    eunomia-bpf compiler"Usage: ecc [OPTIONS] <SOURCE_PATH> [EXPORT_EVENT_HEADER]
+    eunomia-bpf compiler
+    Usage: ecc [OPTIONS] <SOURCE_PATH> [EXPORT_EVENT_HEADER]
     ....
-    ....
-
-```
+    ```
 
 or use the docker image for compile:
 

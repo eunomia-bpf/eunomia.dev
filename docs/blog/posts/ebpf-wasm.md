@@ -50,8 +50,8 @@ The eunomia-bpf library includes a simple command-line tool (ecli) that contains
 ```console
 # download the release from https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli
 $ wget https://aka.pw/bpf-ecli -O ecli && chmod +x ./ecli
-$ sudo ./ecli run https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/app.wasm"Instructions: Translate the following Chinese text to English 
-while maintaining the original formatting: "2022-10-11 14:05:50 URL:https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/app.wasm [70076/70076] -> "/tmp/ebpm/app.wasm" [1]
+$ sudo ./ecli run https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/app.wasm
+2022-10-11 14:05:50 URL:https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/app.wasm [70076/70076] -> "/tmp/ebpm/app.wasm" [1]
 running and waiting for the ebpf events from perf event...
 {"pid":1709490,"tpid":1709077,"sig":0,"ret":0,"comm":"node","sig_name":"N/A"}
 {"pid":1712603,"tpid":1717412,"sig":2,"ret":0,"comm":"kworker/u4:3","sig_name":"SIGINT"}
@@ -62,6 +62,7 @@ running and waiting for the ebpf events from perf event...
 {"pid":1717420,"tpid":1717419,"sig":17,"ret":0,"comm":"cat","sig_name":"SIGCHLD"}`"ts":0,"pid":2344,"uid":0,"ret":26,"flags":0,"comm":"YDService","fname":"/proc/1718823/cmdline"}`
 `{"ts":0,"pid":2344,"uid":0,"ret":26,"flags":0,"comm":"YDService","fname":"/proc/1718824/cmdline"}`
 `{"ts":0,"pid":2344,"uid":0,"ret":26,"flags":0,"comm":"YDService","fname":"/proc/self/stat"}`
+```
 
 opensnoop tracks the `open()` system call of a process, which means all file opening operations in the kernel. Here we can see process information such as PID, UID, return value, flags, process name, and file name. The eBPF program in kernel space is distributed within a Wasm module and is relocated using BTF information and libbpf during loading to adapt to different kernel versions. Additionally, because the user-space related processing code is entirely written in Wasm and the kernel-space is written in eBPF instructions, it is not restricted by specific instruction sets (e.g., x86, ARM) and can run on different platforms.
 
@@ -132,7 +133,7 @@ struct event {
 
 We can compile it into JSON format using the eunomia-bpf toolchain, generate a `package.json` file, and directly run it using the ecli command:
 
-```console".```console
+```console
 $ docker run -it -v `pwd`/:/src/ ghcr.io/eunomia-bpf/ecc-`uname -m`:latest
 make
   BPF      .output/client.bpf.o

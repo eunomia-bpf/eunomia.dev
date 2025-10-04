@@ -45,8 +45,8 @@ The eunomia-bpf library includes a simple command-line tool (ecli) that contains
 ```console
 # download the release from https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli
 $ wget https://aka.pw/bpf-ecli -O ecli && chmod +x ./ecli
-$ sudo ./ecli run https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/app.wasm"Instructions: Translate the following Chinese text to English 
-while maintaining the original formatting: "2022-10-11 14:05:50 URL:https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/app.wasm [70076/70076] -> "/tmp/ebpm/app.wasm" [1]
+$ sudo ./ecli run https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/app.wasm
+2022-10-11 14:05:50 URL:https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/app.wasm [70076/70076] -> "/tmp/ebpm/app.wasm" [1]
 running and waiting for the ebpf events from perf event...
 {"pid":1709490,"tpid":1709077,"sig":0,"ret":0,"comm":"node","sig_name":"N/A"}
 {"pid":1712603,"tpid":1717412,"sig":2,"ret":0,"comm":"kworker/u4:3","sig_name":"SIGINT"}
