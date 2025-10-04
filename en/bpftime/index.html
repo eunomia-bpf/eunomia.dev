@@ -2154,15 +2154,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#roadmap" class="md-nav__link">
-    <span class="md-ellipsis">
-      Roadmap
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#license" class="md-nav__link">
     <span class="md-ellipsis">
       License
@@ -8294,15 +8285,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#roadmap" class="md-nav__link">
-    <span class="md-ellipsis">
-      Roadmap
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#license" class="md-nav__link">
     <span class="md-ellipsis">
       License
@@ -8364,8 +8346,8 @@
 🔌 <a href="#examples--use-cases">Examples &amp; Use Cases</a> \
 ⌨️ <a href="https://lpc.events/event/17/contributions/1639/">Linux Plumbers 23 talk</a> \
 📖 <a href="https://eunomia.dev/bpftime/documents/userspace-ebpf-bpftime-lpc.pdf">Slides</a> \
-📚 <a href="https://arxiv.org/abs/2311.07923">Arxiv preprint</a></p>
-<p><a href="https://eunomia.dev/bpftime/"><strong>Checkout our documents in eunomia.dev!</strong></a></p>
+📚 <a href="https://www.usenix.org/conference/osdi25/presentation/zheng-yusheng">OSDI '25 Paper</a></p>
+<p><a href="https://eunomia.dev/bpftime/"><strong>Checkout our documents in eunomia.dev</strong></a> and <a href="https://deepwiki.com/eunomia-bpf/bpftime">Deepwiki</a>!</p>
 <p>bpftime is not <code>userspace eBPF VM</code>, it's a userspace runtime framework includes everything to run eBPF in userspace: <code>loader</code>, <code>verifier</code>, <code>helpers</code>, <code>maps</code>, <code>ufunc</code> and multiple <code>events</code> such as Observability, Network, Policy or Access Control. It has multiple VM backend options support. For eBPF VM only, please see <a href="https://github.com/eunomia-bpf/llvmbpf">llvmbpf</a>.</p>
 <blockquote>
 <p>⚠️ <strong>Note</strong>: <code>bpftime</code> is currently under active development and refactoring towards v2. It may contain bugs or unstable API. Please use it with caution. For more details, check our <a href="#roadmap">roadmap</a>. We'd love to hear your feedback and suggestions! Feel free to open an issue or <a href="#contact-and-citations">Contact us</a>.</p>
@@ -8378,8 +8360,8 @@
 </ul>
 <h2 id="key-features">Key Features</h2>
 <ul>
-<li><strong>Dynamic Binary rewriting</strong>: Run eBPF programs in userspace, attaching them to <code>Uprobes</code> and <code>Syscall tracepoints</code>: <strong>No manual instrumentation or restart required!</strong>. It can <code>trace</code> or <code>change</code> the execution of a function, <code>hook</code> or <code>filter</code> all syscalls of a process safely, and efficiently with an eBPF userspace runtime. Can inject eBPF runtime into any running process without the need for a restart or manual recompilation.</li>
-<li><strong>Performance</strong>: Experience up to a <code>10x</code> speedup in Uprobe overhead compared to kernel uprobe and uretprobe. Read/Write userspace memory is also faster than kernel eBPF.</li>
+<li><strong>Dynamic Binary rewriting</strong>: Run eBPF programs in userspace, attaching them to <code>Uprobes</code>, <code>Syscall tracepoints</code> and inside <code>GPU</code> kernel: <strong>No manual instrumentation or restart required!</strong>. It can <code>trace</code> or <code>change</code> the execution of a function, <code>hook</code> or <code>filter</code> all syscalls of a process safely, and efficiently with an eBPF userspace runtime. Can inject eBPF runtime into any running process without the need for a restart or manual recompilation.</li>
+<li><strong>Performance</strong>: Experience up to a <code>10x</code> speedup in Uprobe overhead compared to kernel uprobe and uretprobe， up to a 10x faster than <code>NVbit</code>. Read/Write userspace memory is also faster than kernel eBPF.</li>
 <li><strong>Interprocess eBPF Maps</strong>: Implement userspace <code>eBPF maps</code> in shared userspace memory for summary aggregation or control plane communication.</li>
 <li><strong>Compatibility</strong>: use <code>existing eBPF toolchains</code> like clang, libbpf and bpftrace to develop userspace eBPF application without any modifications. Supporting CO-RE via BTF, and offering userspace <code>ufunc</code> access.</li>
 <li><strong>Multi JIT Support</strong>: Support <a href="https://github.com/eunomia-bpf/llvmbpf">llvmbpf</a>, a high-speed <code>JIT/AOT</code> compiler powered by LLVM, or using <code>ubpf JIT</code> and INTERPRETER. The vm can be built as <code>a standalone library</code> like ubpf.</li>
@@ -8396,7 +8378,7 @@
 </ul>
 <h2 id="quick-start-uprobe">Quick Start: Uprobe</h2>
 <p>With <code>bpftime</code>, you can build eBPF applications using familiar tools like clang and libbpf, and execute them in userspace. For instance, the <a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/malloc"><code>malloc</code></a> eBPF program traces malloc calls using uprobe and aggregates the counts using a hash map.</p>
-<p>You can refer to <a href="https://eunomia.dev/bpftime/documents/build-and-test">eunomia.dev/bpftime/documents/build-and-test</a> for how to build the project, or using the container images from <a href="https://github.com/eunomia-bpf/bpftime/pkgs/container/bpftime">GitHub packages</a>.</p>
+<p>You can refer to <a href="https://eunomia.dev/bpftime/documents/build-and-test">eunomia.dev/bpftime/documents/build-and-test</a> or the <code>installation.md</code> in the repo for how to build the project. Or You can using the container images from <a href="https://github.com/eunomia-bpf/bpftime/pkgs/container/bpftime">GitHub packages</a>.</p>
 <p>To get started, you can build and run a libbpf based eBPF program starts with <code>bpftime</code> cli:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="go">make -C example/malloc # Build the eBPF program example</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="go">export PATH=$PATH:~/.bpftime/</span>
@@ -8409,6 +8391,7 @@
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="go">continue malloc...</span>
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="go">malloc called from pid 250215</span>
 </code></pre></div>
+<p>You should always run the <code>load</code> first then run the <code>start</code> command, or the eBPF program will not be attached.</p>
 <p>You can also dynamically attach the eBPF program with a running process:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="gp">$ </span>./example/malloc/victim<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$!</span><span class="w"> </span><span class="c1"># The pid is 101771</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="go">[1] 101771</span>
@@ -8438,26 +8421,14 @@
 </code></pre></div>
 <p>See <a href="https://eunomia.dev/bpftime/documents/usage">eunomia.dev/bpftime/documents/usage</a> for more details.</p>
 <h2 id="examples-use-cases">Examples &amp; Use Cases</h2>
-<p>For more examples and details, please refer to <a href="https://eunomia.dev/bpftime/documents/examples/">eunomia.dev/bpftime/documents/examples/</a> webpage.</p>
-<p>Examples including:</p>
-<ul>
-<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/minimal">Minimal examples</a> of eBPF programs.</li>
-<li>eBPF <code>Uprobe/USDT</code> tracing and <code>syscall tracing</code>:</li>
-<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/sslsniff">sslsniff</a> for trace SSL/TLS unencrypted data.</li>
-<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/opensnoop">opensnoop</a> for trace file open syscalls.</li>
-<li>More <a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/libbpf-tools">bcc/libbpf-tools</a>.</li>
-<li>Run with <a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/bpftrace">bpftrace</a> commands or scripts.</li>
-<li><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/error-inject">error injection</a>: change function behavior with <code>bpf_override_return</code>.</li>
-<li>Use the eBPF LLVM JIT/AOT vm as <a href="https://github.com/eunomia-bpf/llvmbpf/tree/main/example">a standalone library</a>.</li>
-<li>Userspace <a href="https://github.com/userspace-xdp/userspace-xdp">XDP with DPDK and AF_XDP</a></li>
-</ul>
+<p>For more examples and details, please refer to <a href="https://eunomia.dev/bpftime/documents/examples/">eunomia.dev/bpftime/documents/examples/</a> webpage and <a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/">example</a> dir.</p>
 <h2 id="in-depth">In-Depth</h2>
 <h3 id="how-it-works"><strong>How it Works</strong></h3>
 <p>bpftime supports two modes:</p>
 <h4 id="running-in-userspace-only">Running in userspace only</h4>
 <p>Left: original kernel eBPF | Right: bpftime</p>
 <p><img alt="How it works" src="https://eunomia.dev/bpftime/documents/bpftime.png" /></p>
-<p>In this mode, bpftime can run eBPF programs in userspace without kernel, so it can be ported into low version of Linux or event other systems, and running without root permissions. It relies on a <a href="https://github.com/vbpf/ebpf-verifier">userspace verifier</a> to ensure the safety of eBPF programs.</p>
+<p>In this mode, bpftime can run eBPF programs in userspace without kernel, so it can be ported into low version of Linux or even other systems, and running without root permissions. It relies on a <a href="https://github.com/vbpf/ebpf-verifier">userspace verifier</a> to ensure the safety of eBPF programs.</p>
 <h4 id="run-with-kernel-ebpf">Run with kernel eBPF</h4>
 <p><img alt="documents/bpftime-kernel.png" src="https://eunomia.dev/bpftime/documents/bpftime-kernel.png" /></p>
 <p>In this mode, bpftime can run together with kernel eBPF. It can load eBPF programs from kernel, and using kernel eBPF maps to cooperate with kernel eBPF programs like kprobes and network filters.</p>
@@ -8466,49 +8437,12 @@
 <ul>
 <li>Userspace function hook: <a href="https://github.com/frida/frida-gum">frida-gum</a></li>
 <li>Syscall hooks: <a href="https://www.usenix.org/conference/atc23/presentation/yasukata">zpoline</a> and <a href="https://github.com/pmem/syscall_intercept">pmem/syscall_intercept</a>.</li>
+<li>GPU hooks: our new implementation by converting eBPF into PTX and injecting into GPU kernels. See <a href="https://github.com/eunomia-bpf/bpftime/tree/master/attach/nv_attach_impl">attach/nv_attach_impl</a> for more details.</li>
+<li>XDP with DPDK. See the <a href="https://dl.acm.org/doi/10.1145/3748355.3748360">uXDP paper</a> for more details.</li>
 </ul>
-<p>The hook can be easily replaced with other DBI methods or frameworks, or add more hook mechanisms in the future.</p>
-<p>See our draft arxiv paper <a href="https://arxiv.org/abs/2311.07923">bpftime: userspace eBPF Runtime for Uprobe, Syscall and Kernel-User Interactions</a> for details.</p>
+<p>The hook can be easily replaced with other DBI methods or frameworks, to make it a general extension framework. See our OSDI '25 paper <a href="https://www.usenix.org/conference/osdi25/presentation/zheng-yusheng">Extending Applications Safely and Efficiently</a> for details.</p>
 <h3 id="performance-benchmarks"><strong>Performance Benchmarks</strong></h3>
-<p>How is the performance of <code>userspace uprobe</code> compared to <code>kernel uprobes</code>?</p>
-<table>
-<thead>
-<tr>
-<th>Probe/Tracepoint Types</th>
-<th style="text-align: right;">Kernel (ns)</th>
-<th style="text-align: right;">Userspace (ns)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Uprobe</td>
-<td style="text-align: right;">3224.172760</td>
-<td style="text-align: right;">314.569110</td>
-</tr>
-<tr>
-<td>Uretprobe</td>
-<td style="text-align: right;">3996.799580</td>
-<td style="text-align: right;">381.270270</td>
-</tr>
-<tr>
-<td>Syscall Tracepoint</td>
-<td style="text-align: right;">151.82801</td>
-<td style="text-align: right;">232.57691</td>
-</tr>
-<tr>
-<td>Manually Instrument</td>
-<td style="text-align: right;">Not avaliable</td>
-<td style="text-align: right;">110.008430</td>
-</tr>
-</tbody>
-</table>
-<p>It can be attached to functions in running process just like the kernel uprobe does.</p>
-<p>How is the performance of LLVM JIT/AOT compared to other eBPF userspace runtimes, native code or wasm runtimes?</p>
-<p><img alt="LLVM jit benchmark" src="https://github.com/eunomia-bpf/bpf-benchmark/raw/main/example-output/jit_execution_times.png?raw=true" /></p>
-<p>Across all tests, the LLVM JIT for bpftime consistently showcased superior performance. Both demonstrated high efficiency in integer computations (as seen in log2_int), complex mathematical operations (as observed in prime), and memory operations (evident in memcpy and strcmp). While they lead in performance across the board, each runtime exhibits unique strengths and weaknesses. These insights can be invaluable for users when choosing the most appropriate runtime for their specific use-cases.</p>
 <p>see <a href="https://github.com/eunomia-bpf/bpf-benchmark">github.com/eunomia-bpf/bpf-benchmark</a> for how we evaluate and details.</p>
-<p>Hash map or ring buffer compared to kernel(TODO)</p>
-<p>See <a href="https://github.com/eunomia-bpf/bpftime/tree/master/benchmark">benchmark</a> dir for detail performance benchmarks.</p>
 <h3 id="comparing-with-kernel-ebpf-runtime">Comparing with Kernel eBPF Runtime</h3>
 <ul>
 <li><code>bpftime</code> allows you to use <code>clang</code> and <code>libbpf</code> to build eBPF programs, and run them directly in this runtime, just like normal kernel eBPF. We have tested it with a libbpf version in <a href="https://github.com/eunomia-bpf/bpftime/tree/master/third_party/libbpf">third_party/libbpf</a>. No specify libbpf or clang version needed.</li>
@@ -8518,35 +8452,19 @@
 <p>Refer to <a href="https://eunomia.dev/bpftime/documents/available-features">eunomia.dev/bpftime/documents/available-features</a> for more details.</p>
 <h2 id="build-and-test">Build and test</h2>
 <p>See <a href="https://eunomia.dev/bpftime/documents/build-and-test">eunomia.dev/bpftime/documents/build-and-test</a> for details.</p>
-<h2 id="roadmap">Roadmap</h2>
-<p><code>bpftime</code> is continuously evolving with more features in the pipeline:</p>
-<ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Keep compatibility with the evolving kernel</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Refactor for General Extension Framework</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Trying to refactor, bug fixing for <code>Production</code>.</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> More examples and usecases:</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Userspace Network Driver on userspace eBPF</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Hotpatch userspace application</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Error injection and filter syscall</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Syscall bypassing, batching</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Userspace Storage Driver on userspace eBPF</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> etc...</li>
-</ul>
-<p>Stay tuned for more developments from this promising project! You can find <code>bpftime</code> on <a href="https://github.com/eunomia-bpf/bpftime">GitHub</a>.</p>
 <h2 id="license">License</h2>
 <p>This project is licensed under the MIT License.</p>
 <h2 id="contact-and-citations">Contact and citations</h2>
-<p>Have any questions or suggestions on future development? Free free to open an issue or contact
+<p>Have any questions or suggestions on future development? Feel free to open an issue or contact
 <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#121;&#117;&#110;&#119;&#101;&#105;&#51;&#53;&#54;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#121;&#117;&#110;&#119;&#101;&#105;&#51;&#53;&#54;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a> !</p>
-<p>Our arxiv preprint: <a href="https://arxiv.org/abs/2311.07923">https://arxiv.org/abs/2311.07923</a></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>@misc{zheng2023bpftime,
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>      title={bpftime: userspace eBPF Runtime for Uprobe, Syscall and Kernel-User Interactions}, 
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>      author={Yusheng Zheng and Tong Yu and Yiwei Yang and Yanpeng Hu and XiaoZheng Lai and Andrew Quinn},
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>      year={2023},
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>      eprint={2311.07923},
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>      archivePrefix={arXiv},
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>      primaryClass={cs.OS}
-<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>}
+<p>Our OSDI '25 paper: <a href="https://www.usenix.org/conference/osdi25/presentation/zheng-yusheng">https://www.usenix.org/conference/osdi25/presentation/zheng-yusheng</a></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>@inproceedings{zheng2025extending,
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  title={Extending Applications Safely and Efficiently},
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>  author={Zheng, Yusheng and Yu, Tong and Yang, Yiwei and Hu, Yanpeng and Lai, Xiaozheng and Williams, Dan and Quinn, Andi},
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>  booktitle={19th USENIX Symposium on Operating Systems Design and Implementation (OSDI 25)},
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>  pages={557--574},
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>  year={2025}
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>}
 </code></pre></div>
 <h2 id="acknowledgement">Acknowledgement</h2>
 <p>eunomia-bpf community is sponsored by <a href="https://plctlab.github.io/">PLCT Lab</a> from <a href="http://english.is.cas.cn/au/">ISCAS</a>.</p>
@@ -8576,7 +8494,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 30, 2025 18:49:03 UTC">September 30, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 4, 2025 04:09:01 UTC">October 4, 2025</span>
   </span>
 
     
