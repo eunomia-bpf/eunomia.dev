@@ -8422,7 +8422,7 @@
 <li><strong>Cloudflare</strong>：使用 eBPF 进行网络可观测性、安全监控和性能优化，保护全球数百万网站。</li>
 </ul>
 <p>eBPF 能够动态调整系统行为并扩展到用户空间，使其成为现代计算不可或缺的技术。无论是优化网络流量、提升安全性，还是增强系统性能，eBPF 都能帮助开发者高效、安全地应对实时需求。</p>
-<p>除了其内核模式运行时，eBPF 还可以扩展到用户空间。例如，<a href="https://github.com/eunomia-bpf/bpftime">bpftime</a> 是一个用户空间 eBPF 运行时，允许在用户空间应用中进行高性能追踪、性能分析和插件支持。这种 eBPF 向用户空间的扩展有助于在各种超越内核级任务的用例中提高灵活性和性能。</p>
+<p>除了其内核模式运行时，eBPF 还可以扩展到内核之外。例如，<a href="https://github.com/eunomia-bpf/bpftime">bpftime</a> 是一个用户空间 eBPF 运行时，允许在用户空间应用中进行高性能追踪(比内核 uprobe 快 10 倍)、性能分析和插件支持，且无需手动重新编译或重启进程。通过 bpftime 集成，eBPF 程序现在甚至可以卸载到 GPU，以低开销实现 GPU 内核的动态检测。这种 eBPF 超越内核空间的扩展有助于在 CPU、用户空间和 GPU 工作负载中提高灵活性和性能。</p>
 <h3 id="ebpf_3">未来：eBPF 的扩展潜力</h3>
 <p>展望未来，预计 eBPF 将成为操作系统更为重要的一部分。重点将放在提升其灵活性、模块化和易用性上，使其能够应用于更广泛的场景。内存管理、并发机制的创新以及与用户空间应用的更好集成已在路上。已经有项目在编译 Linux 内核的关键部分到 BPF 指令集，这可能彻底改变内核开发和分析的方式。</p>
 <p>动态栈、更好的用户空间可观测性工具（例如快速 Uprobes 和特定语言的栈行走器）以及更安全的程序终止机制等进展将继续增强 eBPF 的可靠性并扩展其使用场景。此外，新工具和库将简化 eBPF 开发，降低内核和应用开发者的入门门槛。</p>
@@ -8550,7 +8550,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 24, 2025 04:39:03 UTC">August 24, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 4, 2025 07:42:39 UTC">October 4, 2025</span>
   </span>
 
     
@@ -8570,11 +8570,12 @@
   <span class="md-source-file__fact">
     <span class="md-icon" title="Contributors">
       
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
       
     </span>
     <nav>
       
+        <a href="mailto:yunwei356@gmail.com">yunwei37</a>, 
         <a href="mailto:1067852565@qq.com">云微</a>
     </nav>
   </span>

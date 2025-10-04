@@ -8440,7 +8440,7 @@
 <li><strong>Cloudflare:</strong> Uses eBPF for network observability, security monitoring, and performance optimization, protecting millions of websites globally.</li>
 </ul>
 <p>eBPF's ability to dynamically adjust system behavior and extend into user space makes it an essential technology for modern computing. Whether it's optimizing network traffic, improving security, or enhancing system performance, eBPF enables developers to address real-time requirements efficiently and safely.</p>
-<p>In addition to its kernel-mode runtime, eBPF can also be extended to user space. For example, <a href="https://github.com/eunomia-bpf/bpftime">bpftime</a>, a user-space eBPF runtime, allows for higher-performance tracing, performance analysis, and plugin support in user-space applications. This extension of eBPF into user space helps improve flexibility and performance in various use cases that go beyond kernel-level tasks.</p>
+<p>In addition to its kernel-mode runtime, eBPF can also be extended beyond the kernel. For example, <a href="https://github.com/eunomia-bpf/bpftime">bpftime</a> is a user-space eBPF runtime that allows for higher-performance tracing (10x faster than kernel uprobes), performance analysis, and plugin support in user-space applications without requiring manual recompilation or process restarts. eBPF programs can now even be offloaded to GPUs through bpftime integration, enabling dynamic instrumentation of GPU kernels with low overhead. This extension of eBPF beyond kernel space helps improve flexibility and performance across CPU, user-space, and GPU workloads.</p>
 <h3 id="future-the-expanding-potential-of-ebpf">Future: The Expanding Potential of eBPF</h3>
 <p>Looking forward, eBPF is expected to become an even more integral part of operating systems. The focus is on improving its flexibility, modularity, and ease of use, making it accessible for an even broader range of applications. Innovations in memory management, concurrency mechanisms, and better integration with user-space applications are on the horizon. Projects are already underway to compile significant parts of the Linux kernel to the BPF instruction set, potentially revolutionizing how kernel development and analysis are performed.</p>
 <p>Advancements such as dynamic stacks, better observability tools for user space (e.g., Fast Uprobes and language-specific stack walkers), and safer program termination mechanisms will continue to strengthen eBPF’s reliability and expand its use cases. Additionally, new tools and libraries will simplify eBPF development, lowering the barrier to entry for both kernel and application developers.</p>
@@ -8451,7 +8451,7 @@
 <h3 id="what-will-you-learn">What Will You Learn?</h3>
 <p>You'll learn eBPF fundamentals and how they integrate with the Linux kernel. We'll cover practical skills for writing and deploying eBPF programs, from simple "Hello World" examples to advanced topics like security monitoring, tracing, and performance profiling. By the end, you'll be able to write your own eBPF tools and understand how to apply them to real-world problems.</p>
 <h3 id="prerequisites">Prerequisites</h3>
-<p>Before starting, make sure you have a Linux system with kernel version 4.8 or higher (we recommend 5.15+ or 6.2+ for full feature support). You'll need basic C programming knowledge and familiarity with system concepts like processes and system calls. Most examples require root or sudo privileges to run. You should also install development tools like clang, llvm, and libelf-dev on your system.</p>
+<p>Before starting, make sure you have a Linux system with kernel version 4.8 or higher (we recommend 5.15+ or 6.9+ for full feature support, including BPF arena and tokens). You'll need basic C programming knowledge and familiarity with system concepts like processes and system calls. Most examples require root or sudo privileges to run. You should also install development tools like clang, llvm, and libelf-dev on your system.</p>
 <hr />
 <h2 id="table-of-contents">Table of Contents</h2>
 <ol>
@@ -8562,7 +8562,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 3, 2025 23:57:29 UTC">October 3, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 4, 2025 07:42:39 UTC">October 4, 2025</span>
   </span>
 
     
