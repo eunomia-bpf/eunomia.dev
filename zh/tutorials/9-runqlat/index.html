@@ -8357,15 +8357,7 @@
 <h2 id="runqlat">runqlat 原理</h2>
 <p>本教程是 eBPF 入门开发实践系列的第九部分，主题是 "捕获进程调度延迟"。在此，我们将介绍一个名为 runqlat 的程序，其作用是以直方图的形式记录进程调度延迟。</p>
 <p>Linux 操作系统使用进程来执行所有的系统和用户任务。这些进程可能被阻塞、杀死、运行，或者正在等待运行。处在后两种状态的进程数量决定了 CPU 运行队列的长度。</p>
-<p>进程有几种可能的状态，如：</p>
-<ul>
-<li>可运行或正在运行</li>
-<li>可中断睡眠</li>
-<li>不可中断睡眠</li>
-<li>停止</li>
-<li>僵尸进程</li>
-</ul>
-<p>等待资源或其他函数信号的进程会处在可中断或不可中断的睡眠状态：进程被置入睡眠状态，直到它需要的资源变得可用。然后，根据睡眠的类型，进程可以转移到可运行状态，或者保持睡眠。</p>
+<p>进程有几种可能的状态：可运行或正在运行、可中断睡眠、不可中断睡眠、停止，以及僵尸进程。等待资源或其他函数信号的进程会处在可中断或不可中断的睡眠状态：进程被置入睡眠状态，直到它需要的资源变得可用。然后，根据睡眠的类型，进程可以转移到可运行状态，或者保持睡眠。</p>
 <p>即使进程拥有它需要的所有资源，它也不会立即开始运行。它会转移到可运行状态，与其他处在相同状态的进程一起排队。CPU可以在接下来的几秒钟或毫秒内执行这些进程。调度器为 CPU 排列进程，并决定下一个要执行的进程。</p>
 <p>根据系统的硬件配置，这个可运行队列（称为 CPU 运行队列）的长度可以短也可以长。短的运行队列长度表示 CPU 没有被充分利用。另一方面，如果运行队列长，那么可能意味着 CPU 不够强大，无法执行所有的进程，或者 CPU 的核心数量不足。在理想的 CPU 利用率下，运行队列的长度将等于系统中的核心数量。</p>
 <p>进程调度延迟，也被称为 "run queue latency"，是衡量线程从变得可运行（例如，接收到中断，促使其处理更多工作）到实际在 CPU 上运行的时间。在 CPU 饱和的情况下，你可以想象线程必须等待其轮次。但在其他奇特的场景中，这也可能发生，而且在某些情况下，它可以通过调优减少，从而提高整个系统的性能。</p>
@@ -8673,7 +8665,7 @@
 <a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="cp">#endif </span><span class="cm">/* __RUNQLAT_H */</span>
 </code></pre></div>
 <h2 id="_3">编译运行</h2>
-<p>eunomia-bpf 是一个结合 Wasm 的开源 eBPF 动态加载运行时和开发工具链，它的目的是简化 eBPF 程序的开发、构建、分发、运行。可以参考 <a href="https://github.com/eunomia-bpf/eunomia-bpf">https://github.com/eunomia-bpf/eunomia-bpf</a> 下载和安装 ecc 编译工具链和 ecli 运行时。我们使用 eunomia-bpf 编译运行这个例子。</p>
+<p>我们使用 eunomia-bpf 来编译和运行这个示例。你可以从 <a href="https://github.com/eunomia-bpf/eunomia-bpf">https://github.com/eunomia-bpf/eunomia-bpf</a> 安装它。</p>
 <p>Compile:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/:/src/<span class="w"> </span>ghcr.io/eunomia-bpf/ecc-<span class="sb">`</span>uname<span class="w"> </span>-m<span class="sb">`</span>:latest
 </code></pre></div>
@@ -8772,7 +8764,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 8, 2025 21:29:03 UTC">July 8, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 4, 2025 00:10:08 UTC">October 4, 2025</span>
   </span>
 
     
@@ -8798,6 +8790,7 @@
     <nav>
       
         <a href="mailto:41898282+github-actions[bot]@users.noreply.github.com">github-actions[bot]</a>, 
+        <a href="mailto:yunwei356@gmail.com">yunwei37</a>, 
         <a href="mailto:1067852565@qq.com">云微</a>
     </nav>
   </span>

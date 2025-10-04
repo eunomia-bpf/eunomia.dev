@@ -8248,19 +8248,12 @@
 <a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="c1">/// &quot;Trace open family syscalls.&quot;</span>
 <a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="kt">char</span><span class="w"> </span><span class="n">LICENSE</span><span class="p">[]</span><span class="w"> </span><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;license&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;GPL&quot;</span><span class="p">;</span>
 </code></pre></div>
-<p>这段 eBPF 程序实现了：</p>
-<ol>
-<li>引入头文件：<vmlinux.h> 包含了内核数据结构的定义，<bpf/bpf_helpers.h> 包含了 eBPF 程序所需的辅助函数。</li>
-<li>定义全局变量 <code>pid_target</code>，用于过滤指定进程 ID。这里设为 0 表示捕获所有进程的 sys_openat 调用。</li>
-<li>使用 <code>SEC</code> 宏定义一个 eBPF 程序，关联到 tracepoint "tracepoint/syscalls/sys_enter_openat"。这个 tracepoint 会在进程发起 <code>sys_openat</code> 系统调用时触发。</li>
-<li>实现 eBPF 程序 <code>tracepoint__syscalls__sys_enter_openat</code>，它接收一个类型为 <code>struct trace_event_raw_sys_enter</code> 的参数 <code>ctx</code>。这个结构体包含了关于系统调用的信息。</li>
-<li>使用 <code>bpf_get_current_pid_tgid()</code> 函数获取当前进程的 PID 和 TID（线程 ID）。由于我们只关心 PID，所以将其值右移 32 位赋值给 <code>u32</code> 类型的变量 <code>pid</code>。</li>
-<li>检查 <code>pid_target</code> 变量是否与当前进程的 pid 相等。如果 <code>pid_target</code> 不为 0 且与当前进程的 pid 不相等，则返回 <code>false</code>，不对该进程的 <code>sys_openat</code> 调用进行捕获。</li>
-<li>使用 <code>bpf_printk()</code> 函数打印捕获到的进程 ID 和 <code>sys_openat</code> 调用的相关信息。这些信息可以在用户空间通过 BPF 工具查看。</li>
-<li>将程序许可证设置为 "GPL"，这是运行 eBPF 程序的必要条件。</li>
-</ol>
+<p>让我们看看代码的工作原理。首先我们引入了必要的头文件：vmlinux.h 包含内核数据结构的定义，bpf_helpers.h 包含 eBPF 所需的辅助函数。</p>
+<p>全局变量 <code>pid_target</code> 用于过滤指定进程 ID。注意这里使用了 <code>const volatile</code> 关键字 <code>const</code> 防止 eBPF 程序修改它，而 <code>volatile</code> 告诉编译器这个值可能会被用户空间程序修改。设为 0 表示捕获所有进程的 sys_openat 调用。</p>
+<p>我们使用 <code>SEC</code> 宏将程序关联到 tracepoint "tracepoint/syscalls/sys_enter_openat"。这个 tracepoint 会在进程发起 <code>sys_openat</code> 系统调用时触发，函数接收一个 <code>struct trace_event_raw_sys_enter</code> 类型的参数，包含了系统调用的信息。</p>
+<p>在函数中，我们使用 <code>bpf_get_current_pid_tgid()</code> 获取当前进程的 PID 和 TID（线程 ID），由于我们只关心 PID，所以将返回值右移 32 位，然后检查 <code>pid_target</code>——如果设置了特定值且不匹配当前 pid，就直接返回，不进行捕获，最后使用 <code>bpf_printk()</code> 打印捕获到的进程 ID。</p>
 <p>这个 eBPF 程序可以通过 libbpf 或 eunomia-bpf 等工具加载到内核并执行。它将捕获指定进程（或所有进程）的 sys_openat 系统调用，并在用户空间输出相关信息。</p>
-<p>eunomia-bpf 是一个结合 Wasm 的开源 eBPF 动态加载运行时和开发工具链，它的目的是简化 eBPF 程序的开发、构建、分发、运行。可以参考 <a href="https://github.com/eunomia-bpf/eunomia-bpf">https://github.com/eunomia-bpf/eunomia-bpf</a> 下载和安装 ecc 编译工具链和 ecli 运行时。我们使用 eunomia-bpf 编译运行这个例子。完整代码请查看 <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/4-opensnoop">https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/4-opensnoop</a> 。</p>
+<p>我们使用 eunomia-bpf 来编译和运行这个示例。你可以从 <a href="https://github.com/eunomia-bpf/eunomia-bpf">https://github.com/eunomia-bpf/eunomia-bpf</a> 安装它。完整代码请查看 <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/4-opensnoop">https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/4-opensnoop</a> 。</p>
 <p>编译运行上述代码：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="gp">$ </span>ecc<span class="w"> </span>opensnoop.bpf.c
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="go">Compiling bpf object...</span>
@@ -8330,7 +8323,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 2, 2025 00:04:47 UTC">October 2, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 4, 2025 00:10:08 UTC">October 4, 2025</span>
   </span>
 
     
@@ -8350,11 +8343,12 @@
   <span class="md-source-file__fact">
     <span class="md-icon" title="Contributors">
       
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
       
     </span>
     <nav>
       
+        <a href="mailto:yunwei356@gmail.com">yunwei37</a>, 
         <a href="mailto:1067852565@qq.com">云微</a>
     </nav>
   </span>
