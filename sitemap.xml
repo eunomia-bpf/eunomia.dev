@@ -41,6 +41,14 @@
          
     </url>
     <url>
+         <loc>https://eunomia.dev/GPTtrace/schedcp/</loc>
+         <lastmod>2025-10-05</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/GPTtrace/schedcp/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/GPTtrace/schedcp/"/>
+         
+    </url>
+    <url>
          <loc>https://eunomia.dev/blog/</loc>
          <lastmod>2025-10-05</lastmod>
          <changefreq>daily</changefreq>
