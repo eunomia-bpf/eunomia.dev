@@ -1873,22 +1873,6 @@
          
     </url>
     <url>
-         <loc>https://eunomia.dev/tutorials/38-btf-uprobe/test-verify/minimal/</loc>
-         <lastmod>2025-10-05</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/38-btf-uprobe/test-verify/minimal/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/38-btf-uprobe/test-verify/minimal/"/>
-         
-    </url>
-    <url>
-         <loc>https://eunomia.dev/tutorials/38-btf-uprobe/test-verify/module/</loc>
-         <lastmod>2025-10-05</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/38-btf-uprobe/test-verify/module/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/38-btf-uprobe/test-verify/module/"/>
-         
-    </url>
-    <url>
          <loc>https://eunomia.dev/tutorials/39-nginx/</loc>
          <lastmod>2025-10-05</lastmod>
          <changefreq>daily</changefreq>
