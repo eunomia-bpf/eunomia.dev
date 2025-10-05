@@ -24,7 +24,7 @@
     
     
       
-        <title>eBPF Tutorial by Example: BPF Iterators for Kernel Data Export - eunomia</title>
+        <title>eBPF 教程：BPF 迭代器用于内核数据导出 - eunomia</title>
       
     
     
@@ -69,11 +69,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="eBPF Tutorial by Example: BPF Iterators for Kernel Data Export - eunomia" >
+        <meta  property="og:title"  content="eBPF 教程：BPF 迭代器用于内核数据导出 - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
-        <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/tutorials/features/bpf_iters/README.png" >
+        <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/tutorials/features/bpf_iters/README.zh.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -85,11 +85,11 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="eBPF Tutorial by Example: BPF Iterators for Kernel Data Export - eunomia" >
+        <meta  name="twitter:title"  content="eBPF 教程：BPF 迭代器用于内核数据导出 - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
-        <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/tutorials/features/bpf_iters/README.png" >
+        <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/tutorials/features/bpf_iters/README.zh.png" >
       
     
     
@@ -112,7 +112,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ebpf-tutorial-by-example-bpf-iterators-for-kernel-data-export" class="md-skip">
+        <a href="#ebpf-bpf" class="md-skip">
           Skip to content
         </a>
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              eBPF Tutorial by Example: BPF Iterators for Kernel Data Export
+              eBPF 教程：BPF 迭代器用于内核数据导出
             
           </span>
         </div>
@@ -1864,7 +1864,7 @@
   
   
   <span class="md-ellipsis">
-    eBPF Tutorial by Example: BPF Arena for Zero-Copy Shared Memory
+    eBPF 实例教程：BPF Arena 零拷贝共享内存
     
   </span>
   
@@ -1896,7 +1896,7 @@
   
   
   <span class="md-ellipsis">
-    eBPF Tutorial by Example: BPF Iterators for Kernel Data Export
+    eBPF 教程：BPF 迭代器用于内核数据导出
     
   </span>
   
@@ -1909,7 +1909,7 @@
   
   
   <span class="md-ellipsis">
-    eBPF Tutorial by Example: BPF Iterators for Kernel Data Export
+    eBPF 教程：BPF 迭代器用于内核数据导出
     
   </span>
   
@@ -1932,37 +1932,37 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction-to-bpf-iterators-the-proc-replacement" class="md-nav__link">
+  <a href="#bpf-proc" class="md-nav__link">
     <span class="md-ellipsis">
-      Introduction to BPF Iterators: The /proc Replacement
+      BPF 迭代器简介：/proc 的替代品
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Introduction to BPF Iterators: The /proc Replacement">
+    <nav class="md-nav" aria-label="BPF 迭代器简介：/proc 的替代品">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-problem-proc-is-slow-and-rigid" class="md-nav__link">
+  <a href="#proc" class="md-nav__link">
     <span class="md-ellipsis">
-      The Problem: /proc is Slow and Rigid
+      问题：/proc 缓慢且僵化
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#the-solution-programmable-in-kernel-iteration" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      The Solution: Programmable In-Kernel Iteration
+      解决方案：可编程的内核内迭代
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#iterator-types-and-capabilities" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      Iterator Types and Capabilities
+      迭代器类型和能力
     </span>
   </a>
   
@@ -1974,46 +1974,46 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#implementation-dual-mode-task-iterator" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      Implementation: Dual-Mode Task Iterator
+      实现：双模式任务迭代器
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Implementation: Dual-Mode Task Iterator">
+    <nav class="md-nav" aria-label="实现：双模式任务迭代器">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#complete-bpf-program-task_stackbpfc" class="md-nav__link">
+  <a href="#bpf-task_stackbpfc" class="md-nav__link">
     <span class="md-ellipsis">
-      Complete BPF Program: task_stack.bpf.c
+      完整的 BPF 程序：task_stack.bpf.c
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#understanding-the-bpf-code" class="md-nav__link">
+  <a href="#bpf" class="md-nav__link">
     <span class="md-ellipsis">
-      Understanding the BPF Code
+      理解 BPF 代码
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#complete-user-space-program-task_stackc" class="md-nav__link">
+  <a href="#task_stackc" class="md-nav__link">
     <span class="md-ellipsis">
-      Complete User-Space Program: task_stack.c
+      完整的用户空间程序：task_stack.c
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#understanding-the-user-space-code" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      Understanding the User-Space Code
+      理解用户空间代码
     </span>
   </a>
   
@@ -2025,36 +2025,36 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#compilation-and-execution" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      Compilation and Execution
+      编译和执行
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#when-to-use-bpf-iterators-vs-proc" class="md-nav__link">
+  <a href="#bpf-proc_1" class="md-nav__link">
     <span class="md-ellipsis">
-      When to Use BPF Iterators vs /proc
+      何时使用 BPF 迭代器与 /proc
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#summary-and-next-steps" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      Summary and Next Steps
+      总结和下一步
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
-      References
+      参考资料
     </span>
   </a>
   
@@ -2081,7 +2081,7 @@
   
   
   <span class="md-ellipsis">
-    eBPF Tutorial by Example: BPF Workqueues for Asynchronous Sleepable Tasks
+    eBPF 教程：BPF 工作队列用于异步可睡眠任务
     
   </span>
   
@@ -2104,7 +2104,7 @@
   
   
   <span class="md-ellipsis">
-    eBPF Tutorial by Example: Monitoring GPU Activity with Kernel Tracepoints
+    eBPF 教程：使用内核跟踪点监控 GPU 驱动活动
     
   </span>
   
@@ -8253,37 +8253,37 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction-to-bpf-iterators-the-proc-replacement" class="md-nav__link">
+  <a href="#bpf-proc" class="md-nav__link">
     <span class="md-ellipsis">
-      Introduction to BPF Iterators: The /proc Replacement
+      BPF 迭代器简介：/proc 的替代品
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Introduction to BPF Iterators: The /proc Replacement">
+    <nav class="md-nav" aria-label="BPF 迭代器简介：/proc 的替代品">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-problem-proc-is-slow-and-rigid" class="md-nav__link">
+  <a href="#proc" class="md-nav__link">
     <span class="md-ellipsis">
-      The Problem: /proc is Slow and Rigid
+      问题：/proc 缓慢且僵化
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#the-solution-programmable-in-kernel-iteration" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      The Solution: Programmable In-Kernel Iteration
+      解决方案：可编程的内核内迭代
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#iterator-types-and-capabilities" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      Iterator Types and Capabilities
+      迭代器类型和能力
     </span>
   </a>
   
@@ -8295,46 +8295,46 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#implementation-dual-mode-task-iterator" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      Implementation: Dual-Mode Task Iterator
+      实现：双模式任务迭代器
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Implementation: Dual-Mode Task Iterator">
+    <nav class="md-nav" aria-label="实现：双模式任务迭代器">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#complete-bpf-program-task_stackbpfc" class="md-nav__link">
+  <a href="#bpf-task_stackbpfc" class="md-nav__link">
     <span class="md-ellipsis">
-      Complete BPF Program: task_stack.bpf.c
+      完整的 BPF 程序：task_stack.bpf.c
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#understanding-the-bpf-code" class="md-nav__link">
+  <a href="#bpf" class="md-nav__link">
     <span class="md-ellipsis">
-      Understanding the BPF Code
+      理解 BPF 代码
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#complete-user-space-program-task_stackc" class="md-nav__link">
+  <a href="#task_stackc" class="md-nav__link">
     <span class="md-ellipsis">
-      Complete User-Space Program: task_stack.c
+      完整的用户空间程序：task_stack.c
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#understanding-the-user-space-code" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      Understanding the User-Space Code
+      理解用户空间代码
     </span>
   </a>
   
@@ -8346,36 +8346,36 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#compilation-and-execution" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      Compilation and Execution
+      编译和执行
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#when-to-use-bpf-iterators-vs-proc" class="md-nav__link">
+  <a href="#bpf-proc_1" class="md-nav__link">
     <span class="md-ellipsis">
-      When to Use BPF Iterators vs /proc
+      何时使用 BPF 迭代器与 /proc
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#summary-and-next-steps" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      Summary and Next Steps
+      总结和下一步
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
-      References
+      参考资料
     </span>
   </a>
   
@@ -8397,7 +8397,7 @@
 
 
   
-    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/tutorials/features/bpf_iters/README.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/tutorials/features/bpf_iters/README.zh.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -8405,33 +8405,33 @@
   
 
 
-<h1 id="ebpf-tutorial-by-example-bpf-iterators-for-kernel-data-export">eBPF Tutorial by Example: BPF Iterators for Kernel Data Export</h1>
-<p>Ever tried monitoring hundreds of processes and ended up parsing thousands of <code>/proc</code> files just to find the few you care about? Or needed custom formatted kernel data but didn't want to modify the kernel itself? Traditional <code>/proc</code> filesystem access is slow, inflexible, and forces you to process tons of data in userspace even when you only need a small filtered subset.</p>
-<p>This is what <strong>BPF Iterators</strong> solve. Introduced in Linux kernel 5.8, iterators let you traverse kernel data structures directly from BPF programs, apply filters in-kernel, and output exactly the data you need in any format you want. In this tutorial, we'll build a dual-mode iterator that shows kernel stack traces and open file descriptors for processes, with in-kernel filtering by process name - dramatically faster than parsing <code>/proc</code>.</p>
-<h2 id="introduction-to-bpf-iterators-the-proc-replacement">Introduction to BPF Iterators: The /proc Replacement</h2>
-<h3 id="the-problem-proc-is-slow-and-rigid">The Problem: /proc is Slow and Rigid</h3>
-<p>Traditional Linux monitoring revolves around the <code>/proc</code> filesystem. Need to see what processes are doing? Read <code>/proc/*/stack</code>. Want open files? Parse <code>/proc/*/fd/*</code>. This works, but it's painfully inefficient when you're monitoring systems at scale or need specific filtered views of kernel data.</p>
-<p>The performance problem is systemic. Every <code>/proc</code> access requires a syscall, kernel mode transition, text formatting, data copy to userspace, and then you parse that text back into structures. If you want stack traces for all "bash" processes among 1000 total processes, you still read all 1000 <code>/proc/*/stack</code> files and filter in userspace. That's 1000 syscalls, 1000 text parsing operations, and megabytes of data transferred just to find a handful of matches.</p>
-<p>Format inflexibility compounds the problem. The kernel chooses what data to show and how to format it. Want stack traces with custom annotations? Too bad, you get the kernel's fixed format. Need to aggregate data across processes? Parse everything in userspace. The <code>/proc</code> interface is designed for human consumption, not programmatic filtering and analysis.</p>
-<p>Here's what traditional monitoring looks like:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Find stack traces for all bash processes</span>
+<h1 id="ebpf-bpf">eBPF 教程：BPF 迭代器用于内核数据导出</h1>
+<p>你是否曾经尝试监控数百个进程，却不得不解析数千个 <code>/proc</code> 文件，只为找到你关心的几个进程？或者需要自定义格式的内核数据，但不想修改内核本身？传统的 <code>/proc</code> 文件系统访问速度慢、不灵活，即使你只需要一小部分过滤后的数据，也会强制你在用户空间处理大量数据。</p>
+<p>这正是 <strong>BPF 迭代器</strong>要解决的问题。在 Linux 内核 5.8 中引入，迭代器让你可以直接从 BPF 程序遍历内核数据结构，在内核中应用过滤器，并以你想要的任何格式输出你需要的确切数据。在本教程中，我们将构建一个双模式迭代器，它显示进程的内核堆栈跟踪和打开的文件描述符，并通过进程名称进行内核内过滤 - 比解析 <code>/proc</code> 快得多。</p>
+<h2 id="bpf-proc">BPF 迭代器简介：/proc 的替代品</h2>
+<h3 id="proc">问题：/proc 缓慢且僵化</h3>
+<p>传统的 Linux 监控围绕着 <code>/proc</code> 文件系统展开。需要查看进程在做什么？读取 <code>/proc/*/stack</code>。想要打开的文件？解析 <code>/proc/*/fd/*</code>。这样可以工作，但当你在大规模监控系统或需要内核数据的特定过滤视图时，效率非常低下。</p>
+<p>性能问题是系统性的。每次 <code>/proc</code> 访问都需要一个系统调用、内核模式转换、文本格式化、数据复制到用户空间，然后你将文本解析回结构。如果你想要 1000 个进程中所有 "bash" 进程的堆栈跟踪，你仍然需要读取所有 1000 个 <code>/proc/*/stack</code> 文件并在用户空间过滤。这就是 1000 次系统调用、1000 次文本解析操作，以及传输的数兆字节数据，只是为了找到少数几个匹配项。</p>
+<p>格式不灵活性加剧了问题。内核选择显示什么数据以及如何格式化。想要带有自定义注释的堆栈跟踪？抱歉，你只能得到内核的固定格式。需要跨进程聚合数据？在用户空间解析所有内容。<code>/proc</code> 接口是为人类使用而设计的，而不是为程序化过滤和分析设计的。</p>
+<p>传统监控是这样的：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># 查找所有 bash 进程的堆栈跟踪</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">for</span><span class="w"> </span>pid<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>pgrep<span class="w"> </span>bash<span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== PID </span><span class="nv">$pid</span><span class="s2"> ===&quot;</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span>cat<span class="w"> </span>/proc/<span class="nv">$pid</span>/stack
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">done</span>
 </code></pre></div>
-<p>This spawns <code>pgrep</code> as a subprocess, makes a syscall per matching PID to read stack files, parses text output, and does all filtering in userspace. Simple to write, horrible for performance.</p>
-<h3 id="the-solution-programmable-in-kernel-iteration">The Solution: Programmable In-Kernel Iteration</h3>
-<p>BPF iterators flip the model. Instead of pulling all data to userspace for processing, you push your processing logic into the kernel where the data lives. An iterator is a BPF program attached to a kernel data structure traversal that gets called for each element. The kernel walks tasks, files, or sockets, invokes your BPF program with each element's context, and your code decides what to output and how to format it.</p>
-<p>The architecture is elegant. You write a BPF program marked <code>SEC("iter/task")</code> or <code>SEC("iter/task_file")</code> that receives each task or file during iteration. Inside this program, you have direct access to kernel struct fields, can filter based on any criteria using normal C logic, and use <code>BPF_SEQ_PRINTF()</code> to format output exactly as needed. The kernel handles the iteration mechanics while your code focuses purely on filtering and formatting.</p>
-<p>When userspace reads from the iterator file descriptor, the magic happens entirely in the kernel. The kernel walks the task list, calls your BPF program for each task passing the task_struct pointer. Your program checks if the task name matches your filter - if not, it returns 0 immediately with no output. If it matches, your program extracts the stack trace and formats it to a seq_file. All this happens in kernel context before any data crosses to userspace.</p>
-<p>The benefits are transformative. <strong>In-kernel filtering</strong> means only relevant data crosses the kernel boundary, eliminating wasted work. <strong>Custom formats</strong> let you output binary, JSON, CSV, whatever your tools need. <strong>Single read operation</strong> replaces thousands of individual <code>/proc</code> file accesses. <strong>Zero parsing</strong> because you formatted the data correctly in the kernel. <strong>Composability</strong> works with standard Unix tools since iterator output comes through a normal file descriptor.</p>
-<h3 id="iterator-types-and-capabilities">Iterator Types and Capabilities</h3>
-<p>The kernel provides iterators for many subsystems. <strong>Task iterators</strong> (<code>iter/task</code>) walk all tasks giving you access to process state, credentials, resource usage, and parent-child relationships. <strong>File iterators</strong> (<code>iter/task_file</code>) traverse open file descriptors showing files, sockets, pipes, and other fd types. <strong>Network iterators</strong> (<code>iter/tcp</code>, <code>iter/udp</code>) walk active network connections with full socket state. <strong>BPF object iterators</strong> (<code>iter/bpf_map</code>, <code>iter/bpf_prog</code>) enumerate loaded BPF programs and maps for introspection.</p>
-<p>Our tutorial focuses on task and task_file iterators because they solve common monitoring needs and demonstrate core concepts applicable to all iterator types.</p>
-<h2 id="implementation-dual-mode-task-iterator">Implementation: Dual-Mode Task Iterator</h2>
-<p>Let's build a complete example demonstrating two iterator types in one tool. We'll create a program that can show either kernel stack traces or open file descriptors for processes, with optional filtering by process name.</p>
-<h3 id="complete-bpf-program-task_stackbpfc">Complete BPF Program: task_stack.bpf.c</h3>
+<p>这会生成 <code>pgrep</code> 作为子进程，对每个匹配的 PID 进行一次系统调用以读取堆栈文件，解析文本输出，并在用户空间进行所有过滤。编写简单，但性能糟糕。</p>
+<h3 id="_1">解决方案：可编程的内核内迭代</h3>
+<p>BPF 迭代器翻转了这个模型。与其将所有数据拉到用户空间进行处理，不如将处理逻辑推送到数据所在的内核中。迭代器是一个附加到内核数据结构遍历的 BPF 程序，它会为每个元素调用。内核遍历任务、文件或套接字，用每个元素的上下文调用你的 BPF 程序，你的代码决定输出什么以及如何格式化。</p>
+<p>架构很优雅。你编写一个标记为 <code>SEC("iter/task")</code> 或 <code>SEC("iter/task_file")</code> 的 BPF 程序，在迭代期间接收每个任务或文件。在这个程序中，你可以直接访问内核结构字段，可以使用普通的 C 逻辑根据任何条件进行过滤，并使用 <code>BPF_SEQ_PRINTF()</code> 按需格式化输出。内核处理迭代机制，而你的代码纯粹专注于过滤和格式化。</p>
+<p>当用户空间从迭代器文件描述符读取时，魔法完全发生在内核中。内核遍历任务列表，为每个任务调用你的 BPF 程序并传递 task_struct 指针。你的程序检查任务名称是否匹配你的过滤器 - 如果不匹配，它立即返回 0 且不输出。如果匹配，你的程序提取堆栈跟踪并将其格式化到 seq_file。所有这些都发生在内核上下文中，然后数据才会跨越到用户空间。</p>
+<p>好处是变革性的。<strong>内核内过滤</strong>意味着只有相关数据跨越内核边界，消除了浪费的工作。<strong>自定义格式</strong>让你可以输出二进制、JSON、CSV，无论你的工具需要什么。<strong>单次读取操作</strong>取代了数千次单独的 <code>/proc</code> 文件访问。<strong>零解析</strong>，因为你在内核中正确格式化了数据。<strong>可组合性</strong>与标准 Unix 工具配合使用，因为迭代器输出通过普通文件描述符传递。</p>
+<h3 id="_2">迭代器类型和能力</h3>
+<p>内核为许多子系统提供迭代器。<strong>任务迭代器</strong>（<code>iter/task</code>）遍历所有任务，让你访问进程状态、凭据、资源使用和父子关系。<strong>文件迭代器</strong>（<code>iter/task_file</code>）遍历打开的文件描述符，显示文件、套接字、管道和其他 fd 类型。<strong>网络迭代器</strong>（<code>iter/tcp</code>、<code>iter/udp</code>）遍历活动网络连接及完整的套接字状态。<strong>BPF 对象迭代器</strong>（<code>iter/bpf_map</code>、<code>iter/bpf_prog</code>）枚举已加载的 BPF 程序和 map 以进行内省。</p>
+<p>我们的教程专注于任务和 task_file 迭代器，因为它们解决了常见的监控需求，并展示了适用于所有迭代器类型的核心概念。</p>
+<h2 id="_3">实现：双模式任务迭代器</h2>
+<p>让我们构建一个完整的示例，在一个工具中演示两种迭代器类型。我们将创建一个程序，可以显示进程的内核堆栈跟踪或打开的文件描述符，并可选择按进程名称进行过滤。</p>
+<h3 id="bpf-task_stackbpfc">完整的 BPF 程序：task_stack.bpf.c</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">// SPDX-License-Identifier: GPL-2.0</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="cm">/* Kernel task stack and file descriptor iterator */</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vmlinux.h&gt;</span>
@@ -8551,13 +8551,13 @@
 <a id="__codelineno-1-117" name="__codelineno-1-117" href="#__codelineno-1-117"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <a id="__codelineno-1-118" name="__codelineno-1-118" href="#__codelineno-1-118"></a><span class="p">}</span>
 </code></pre></div>
-<h3 id="understanding-the-bpf-code">Understanding the BPF Code</h3>
-<p>The program implements two separate iterators sharing common filtering logic. The <code>SEC("iter/task")</code> annotation registers <code>dump_task_stack</code> as a task iterator - the kernel will call this function once for each task in the system. The context structure <code>bpf_iter__task</code> provides three critical pieces: the <code>meta</code> field containing iteration metadata and the seq_file for output, the <code>task</code> pointer to the current task_struct, and a NULL task pointer when iteration finishes so you can print summaries.</p>
-<p>The task stack iterator shows in-kernel filtering in action. When <code>task</code> is NULL, we've reached the end of iteration and can print summary statistics showing how many tasks matched our filter. For each task, we first apply filtering by comparing <code>task-&gt;comm</code> (the process name) against <code>target_comm</code>. We can't use standard library functions like <code>strcmp()</code> in BPF, so we manually loop through characters comparing byte by byte. If the names don't match and filtering is enabled, we immediately return 0 with no output - this task is skipped entirely in the kernel without crossing to userspace.</p>
-<p>Once a task passes filtering, we extract its kernel stack trace using <code>bpf_get_task_stack()</code>. This BPF helper captures up to 64 stack frames into our <code>entries</code> array, returning the number of bytes written. We format the output using <code>BPF_SEQ_PRINTF()</code> which writes to the kernel's seq_file infrastructure. The special <code>%pB</code> format specifier symbolizes kernel addresses, turning raw pointers into human-readable function names like <code>schedule+0x42/0x100</code>. This makes stack traces immediately useful for debugging.</p>
-<p>The file descriptor iterator demonstrates a different iterator type. <code>SEC("iter/task_file")</code> tells the kernel to call this function for every open file descriptor across all tasks. The context provides <code>task</code>, <code>file</code> (the kernel's struct file pointer), and <code>fd</code> (the numeric file descriptor). We apply the same task name filtering, then format output as a table. Using <code>ctx-&gt;meta-&gt;seq_num</code> to detect the first output lets us print column headers exactly once.</p>
-<p>Notice how filtering happens before any expensive operations. We check the task name first, and only if it matches do we extract stack traces or format file information. This minimizes work in the kernel fast path - non-matching tasks are rejected with just a string comparison, no memory allocation, no formatting, no output.</p>
-<h3 id="complete-user-space-program-task_stackc">Complete User-Space Program: task_stack.c</h3>
+<h3 id="bpf">理解 BPF 代码</h3>
+<p>程序实现了两个共享通用过滤逻辑的独立迭代器。<code>SEC("iter/task")</code> 注解将 <code>dump_task_stack</code> 注册为任务迭代器 - 内核将为系统中的每个任务调用此函数一次。上下文结构 <code>bpf_iter__task</code> 提供三个关键部分：包含迭代元数据和用于输出的 seq_file 的 <code>meta</code> 字段，指向当前 task_struct 的 <code>task</code> 指针，以及当迭代结束时为 NULL 的任务指针，以便你可以打印摘要。</p>
+<p>任务堆栈迭代器展示了内核内过滤的实际应用。当 <code>task</code> 为 NULL 时，我们已到达迭代的结尾，可以打印摘要统计信息，显示有多少任务与我们的过滤器匹配。对于每个任务，我们首先通过将 <code>task-&gt;comm</code>（进程名称）与 <code>target_comm</code> 进行比较来应用过滤。我们不能在 BPF 中使用像 <code>strcmp()</code> 这样的标准库函数，所以我们手动循环遍历字符逐字节比较。如果名称不匹配且启用了过滤，我们立即返回 0 且不输出 - 这个任务在内核中完全被跳过，不会跨越到用户空间。</p>
+<p>一旦任务通过过滤，我们使用 <code>bpf_get_task_stack()</code> 提取其内核堆栈跟踪。这个 BPF 辅助函数将最多 64 个堆栈帧捕获到我们的 <code>entries</code> 数组中，返回写入的字节数。我们使用 <code>BPF_SEQ_PRINTF()</code> 格式化输出，它写入内核的 seq_file 基础设施。特殊的 <code>%pB</code> 格式说明符将内核地址符号化，将原始指针转换为人类可读的函数名称，如 <code>schedule+0x42/0x100</code>。这使得堆栈跟踪立即可用于调试。</p>
+<p>文件描述符迭代器演示了不同的迭代器类型。<code>SEC("iter/task_file")</code> 告诉内核为所有任务的每个打开的文件描述符调用此函数。上下文提供 <code>task</code>、<code>file</code>（内核的 struct file 指针）和 <code>fd</code>（数字文件描述符）。我们应用相同的任务名称过滤，然后将输出格式化为表格。使用 <code>ctx-&gt;meta-&gt;seq_num</code> 检测第一次输出让我们可以只打印一次列标题。</p>
+<p>注意过滤如何在任何昂贵的操作之前发生。我们首先检查任务名称，只有在匹配时才提取堆栈跟踪或格式化文件信息。这最小化了内核快速路径中的工作 - 不匹配的任务只需进行字符串比较就被拒绝，没有内存分配、没有格式化、没有输出。</p>
+<h3 id="task_stackc">完整的用户空间程序：task_stack.c</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">// SPDX-License-Identifier: GPL-2.0</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="cm">/* Userspace program for task stack and file iterator */</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
@@ -8652,21 +8652,21 @@
 <a id="__codelineno-2-92" name="__codelineno-2-92" href="#__codelineno-2-92"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
 <a id="__codelineno-2-93" name="__codelineno-2-93" href="#__codelineno-2-93"></a><span class="p">}</span>
 </code></pre></div>
-<h3 id="understanding-the-user-space-code">Understanding the User-Space Code</h3>
-<p>The userspace program showcases how simple iterator usage is once you understand the pattern. The <code>run_iterator()</code> function encapsulates the three-step iterator lifecycle. First, <code>bpf_program__attach_iter()</code> attaches the BPF program to the iterator infrastructure, registering it to be called during iteration. Second, <code>bpf_iter_create()</code> creates a file descriptor representing an iterator instance. Third, simple <code>read()</code> calls consume the iterator output.</p>
-<p>Here's what makes this powerful: when you read from the iterator fd, the kernel transparently starts walking tasks or files. For each element, it calls your BPF program passing the element's context. Your BPF code filters and formats output to a seq_file buffer. The kernel accumulates this output and returns it through the read() call. From userspace's perspective, it's just reading a file - all the iteration, filtering, and formatting complexity is hidden in the kernel.</p>
-<p>The main function handles mode selection and configuration. We parse command-line arguments to determine whether to show stacks or files, and what process name to filter for. Critically, we set <code>skel-&gt;bss-&gt;target_comm</code> before loading the BPF program. This writes the filter string into the BPF program's global data section, making it visible to kernel code when the program runs. This is how we pass configuration from userspace to kernel without complex communication channels.</p>
-<p>After loading, we select which iterator to run based on the <code>--files</code> flag. Both iterators use the same filtering logic, but produce different output - one shows stack traces, the other shows file descriptors. The shared filtering code demonstrates how BPF programs can implement reusable logic across different iterator types.</p>
-<h2 id="compilation-and-execution">Compilation and Execution</h2>
-<p>Navigate to the bpf_iters directory and build:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">cd</span><span class="w"> </span>/home/yunwei37/workspace/bpf-developer-tutorial/src/features/bpf_iters
+<h3 id="_4">理解用户空间代码</h3>
+<p>用户空间程序展示了一旦你理解了模式，迭代器的使用是多么简单。<code>run_iterator()</code> 函数封装了三步迭代器生命周期。首先，<code>bpf_program__attach_iter()</code> 将 BPF 程序附加到迭代器基础设施，注册它以在迭代期间被调用。其次，<code>bpf_iter_create()</code> 创建表示迭代器实例的文件描述符。第三，简单的 <code>read()</code> 调用使用迭代器输出。</p>
+<p>这就是使其强大的原因：当你从迭代器 fd 读取时，内核透明地开始遍历任务或文件。对于每个元素，它调用你的 BPF 程序并传递元素的上下文。你的 BPF 代码过滤并格式化输出到 seq_file 缓冲区。内核累积此输出并通过 read() 调用返回它。从用户空间的角度来看，它只是在读取文件 - 所有迭代、过滤和格式化的复杂性都隐藏在内核中。</p>
+<p>main 函数处理模式选择和配置。我们解析命令行参数以确定是显示堆栈还是文件，以及要过滤的进程名称。至关重要的是，我们在加载 BPF 程序之前设置 <code>skel-&gt;bss-&gt;target_comm</code>。这将过滤字符串写入 BPF 程序的全局数据节，使其在程序运行时对内核代码可见。这就是我们如何在没有复杂通信通道的情况下将配置从用户空间传递到内核的方法。</p>
+<p>加载后，我们根据 <code>--files</code> 标志选择要运行哪个迭代器。两个迭代器使用相同的过滤逻辑，但产生不同的输出 - 一个显示堆栈跟踪，另一个显示文件描述符。共享的过滤代码展示了 BPF 程序如何在不同的迭代器类型之间实现可重用的逻辑。</p>
+<h2 id="_5">编译和执行</h2>
+<p>导航到 bpf_iters 目录并构建：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">cd</span><span class="w"> </span>bpf-developer-tutorial/src/features/bpf_iters
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>make
 </code></pre></div>
-<p>The Makefile compiles the BPF program with BTF support and generates a skeleton header containing the compiled bytecode embedded in C structures. This skeleton API makes BPF program loading trivial.</p>
-<p>Show kernel stack traces for all systemd processes:</p>
+<p>Makefile 使用 BTF 支持编译 BPF 程序，并生成包含嵌入在 C 结构中的编译字节码的骨架头。这个骨架 API 使 BPF 程序加载变得简单。</p>
+<p>显示所有 systemd 进程的内核堆栈跟踪：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>sudo<span class="w"> </span>./task_stack<span class="w"> </span>systemd
 </code></pre></div>
-<p>Expected output:</p>
+<p>预期输出：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Filtering for tasks matching: systemd
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>=== BPF Task Stack Iterator ===
@@ -8682,10 +8682,10 @@
 <a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>
 <a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>=== Summary: 1 task stacks shown ===
 </code></pre></div>
-<p>Show open file descriptors for bash processes:</p>
+<p>显示 bash 进程的打开文件描述符：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>sudo<span class="w"> </span>./task_stack<span class="w"> </span>--files<span class="w"> </span>bash
 </code></pre></div>
-<p>Expected output:</p>
+<p>预期输出：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Filtering for tasks matching: bash
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
 <a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>=== BPF Task File Descriptor Iterator ===
@@ -8698,30 +8698,30 @@
 <a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>
 <a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>=== Summary: 4 file descriptors shown ===
 </code></pre></div>
-<p>Run without filtering to see all tasks:</p>
+<p>不带过滤运行以查看所有任务：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>sudo<span class="w"> </span>./task_stack
 </code></pre></div>
-<p>This shows stacks for every task in the system. On a typical desktop, this might display hundreds of tasks. Notice how fast it runs compared to parsing <code>/proc/*/stack</code> for all processes - the iterator is dramatically more efficient.</p>
-<h2 id="when-to-use-bpf-iterators-vs-proc">When to Use BPF Iterators vs /proc</h2>
-<p>Choose <strong>BPF iterators</strong> when you need filtered kernel data without userspace processing overhead, custom output formats that don't match <code>/proc</code> text, performance-critical monitoring that runs frequently, or integration with BPF-based observability infrastructure. Iterators excel when you're monitoring many entities but only care about a subset, or when you need to aggregate and transform data in the kernel.</p>
-<p>Choose <strong>/proc</strong> when you need simple one-off queries, are debugging or prototyping where development speed matters more than runtime performance, want maximum portability across kernel versions (iterators require relatively recent kernels), or run in restricted environments where you can't load BPF programs.</p>
-<p>The fundamental trade-off is processing location. Iterators push filtering and formatting into the kernel for efficiency and flexibility, while <code>/proc</code> keeps the kernel simple and does all processing in userspace. For production monitoring of complex systems, iterators usually win due to their performance benefits and programming flexibility.</p>
-<h2 id="summary-and-next-steps">Summary and Next Steps</h2>
-<p>BPF iterators revolutionize how we export kernel data by enabling programmable, filtered iteration directly from BPF code. Instead of repeatedly reading and parsing <code>/proc</code> files, you write a BPF program that iterates kernel structures in-kernel, applies filtering at the source, and formats output exactly as needed. This eliminates massive overhead from syscalls, mode transitions, and userspace parsing while providing complete flexibility in output format.</p>
-<p>Our dual-mode iterator demonstrates both task and file iteration, showing how one BPF program can export multiple views of kernel data with shared filtering logic. The kernel handles complex iteration mechanics while your BPF code focuses purely on filtering and formatting. Iterators integrate seamlessly with standard Unix tools through their file descriptor interface, making them composable building blocks for sophisticated monitoring pipelines.</p>
+<p>这显示了系统中每个任务的堆栈。在典型的桌面上，这可能会显示数百个任务。注意它与为所有进程解析 <code>/proc/*/stack</code> 相比运行速度有多快 - 迭代器效率更高。</p>
+<h2 id="bpf-proc_1">何时使用 BPF 迭代器与 /proc</h2>
+<p>选择 <strong>BPF 迭代器</strong>当你需要过滤的内核数据而不需要用户空间处理开销、不匹配 <code>/proc</code> 文本的自定义输出格式、频繁运行的性能关键监控，或与基于 BPF 的可观测性基础设施集成时。当你监控许多实体但只关心一个子集，或者当你需要在内核中聚合和转换数据时，迭代器表现出色。</p>
+<p>选择 <strong>/proc</strong> 当你需要简单的一次性查询、调试或原型设计（开发速度比运行时性能更重要）、希望在内核版本之间获得最大可移植性（迭代器需要相对较新的内核），或在无法加载 BPF 程序的受限环境中运行时。</p>
+<p>基本权衡是处理位置。迭代器将过滤和格式化推入内核以提高效率和灵活性，而 <code>/proc</code> 保持内核简单并在用户空间进行所有处理。对于复杂系统的生产监控，迭代器通常因其性能优势和编程灵活性而获胜。</p>
+<h2 id="_6">总结和下一步</h2>
+<p>BPF 迭代器通过直接从 BPF 代码启用可编程、过滤的迭代，彻底改变了我们导出内核数据的方式。与其重复读取和解析 <code>/proc</code> 文件，你编写一个 BPF 程序，在内核内迭代内核结构，在源头应用过滤，并完全按需格式化输出。这消除了来自系统调用、模式转换和用户空间解析的大量开销，同时在输出格式方面提供了完全的灵活性。</p>
+<p>我们的双模式迭代器演示了任务和文件迭代，展示了一个 BPF 程序如何使用共享过滤逻辑导出内核数据的多个视图。内核处理复杂的迭代机制，而你的 BPF 代码纯粹专注于过滤和格式化。迭代器通过其文件描述符接口与标准 Unix 工具无缝集成，使它们成为复杂监控管道的可组合构建块。</p>
 <blockquote>
-<p>If you'd like to dive deeper into eBPF, check out our tutorial repository at <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">https://github.com/eunomia-bpf/bpf-developer-tutorial</a> or visit our website at <a href="https://eunomia.dev/tutorials/">https://eunomia.dev/tutorials/</a>.</p>
+<p>如果你想深入了解 eBPF，请查看我们的教程仓库 <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">https://github.com/eunomia-bpf/bpf-developer-tutorial</a> 或访问我们的网站 <a href="https://eunomia.dev/tutorials/">https://eunomia.dev/tutorials/</a>。</p>
 </blockquote>
-<h2 id="references">References</h2>
+<h2 id="_7">参考资料</h2>
 <ul>
-<li><strong>BPF Iterator Documentation:</strong> <a href="https://docs.kernel.org/bpf/bpf_iterators.html">https://docs.kernel.org/bpf/bpf_iterators.html</a></li>
-<li><strong>Kernel Iterator Selftests:</strong> Linux kernel tree <code>tools/testing/selftests/bpf/*iter*.c</code></li>
-<li><strong>Tutorial Repository:</strong> <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/features/bpf_iters">https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/features/bpf_iters</a></li>
-<li><strong>libbpf Iterator API:</strong> <a href="https://github.com/libbpf/libbpf">https://github.com/libbpf/libbpf</a></li>
-<li><strong>BPF Helpers Manual:</strong> <a href="https://man7.org/linux/man-pages/man7/bpf-helpers.7.html">https://man7.org/linux/man-pages/man7/bpf-helpers.7.html</a></li>
+<li><strong>BPF 迭代器文档：</strong> <a href="https://docs.kernel.org/bpf/bpf_iterators.html">https://docs.kernel.org/bpf/bpf_iterators.html</a></li>
+<li><strong>内核迭代器自测：</strong> Linux 内核树 <code>tools/testing/selftests/bpf/*iter*.c</code></li>
+<li><strong>教程仓库：</strong> <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/features/bpf_iters">https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/features/bpf_iters</a></li>
+<li><strong>libbpf 迭代器 API：</strong> <a href="https://github.com/libbpf/libbpf">https://github.com/libbpf/libbpf</a></li>
+<li><strong>BPF 辅助函数手册：</strong> <a href="https://man7.org/linux/man-pages/man7/bpf-helpers.7.html">https://man7.org/linux/man-pages/man7/bpf-helpers.7.html</a></li>
 </ul>
-<p>Examples adapted from Linux kernel BPF selftests with educational enhancements. Requires Linux kernel 5.8+ for iterator support, BTF enabled, and libbpf. Complete source code available in the tutorial repository.</p>
-<p><a class="md-button" href="https://x.com/intent/tweet?text=eBPF%20Tutorial%20by%20Example%3A%20BPF%20Iterators%20for%20Kernel%20Data%20Export%0A&amp;url=https://eunomia.dev/zh/tutorials/features/bpf_iters/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<p>示例改编自 Linux 内核 BPF 自测，并增加了教育性增强。需要 Linux 内核 5.8+ 以获得迭代器支持、启用 BTF 和 libbpf。完整源代码可在教程仓库中获得。</p>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=eBPF%20%E6%95%99%E7%A8%8B%EF%BC%9ABPF%20%E8%BF%AD%E4%BB%A3%E5%99%A8%E7%94%A8%E4%BA%8E%E5%86%85%E6%A0%B8%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%87%BA%0A&amp;url=https://eunomia.dev/zh/tutorials/features/bpf_iters/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/zh/tutorials/features/bpf_iters/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
@@ -8745,7 +8745,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 5, 2025 06:19:39 UTC">October 5, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 5, 2025 22:28:38 UTC">October 5, 2025</span>
   </span>
 
     
@@ -8755,7 +8755,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 5, 2025 06:19:39 UTC">October 5, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 5, 2025 22:28:38 UTC">October 5, 2025</span>
   </span>
 
     
@@ -8875,7 +8875,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../bpf_arena/" class="md-footer__link md-footer__link--prev" aria-label="Previous: eBPF Tutorial by Example: BPF Arena for Zero-Copy Shared Memory">
+          <a href="../bpf_arena/" class="md-footer__link md-footer__link--prev" aria-label="Previous: eBPF 实例教程：BPF Arena 零拷贝共享内存">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -8885,20 +8885,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                eBPF Tutorial by Example: BPF Arena for Zero-Copy Shared Memory
+                eBPF 实例教程：BPF Arena 零拷贝共享内存
               </div>
             </div>
           </a>
         
         
           
-          <a href="../bpf_wq/" class="md-footer__link md-footer__link--next" aria-label="Next: eBPF Tutorial by Example: BPF Workqueues for Asynchronous Sleepable Tasks">
+          <a href="../bpf_wq/" class="md-footer__link md-footer__link--next" aria-label="Next: eBPF 教程：BPF 工作队列用于异步可睡眠任务">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                eBPF Tutorial by Example: BPF Workqueues for Asynchronous Sleepable Tasks
+                eBPF 教程：BPF 工作队列用于异步可睡眠任务
               </div>
             </div>
             <div class="md-footer__button md-icon">

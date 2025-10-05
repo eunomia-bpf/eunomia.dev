@@ -24,7 +24,7 @@
     
     
       
-        <title>eBPF Tutorial by Example: BPF Workqueues for Asynchronous Sleepable Tasks - eunomia</title>
+        <title>eBPF 教程：BPF 工作队列用于异步可睡眠任务 - eunomia</title>
       
     
     
@@ -69,11 +69,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="eBPF Tutorial by Example: BPF Workqueues for Asynchronous Sleepable Tasks - eunomia" >
+        <meta  property="og:title"  content="eBPF 教程：BPF 工作队列用于异步可睡眠任务 - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
-        <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/tutorials/features/bpf_wq/README.png" >
+        <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/tutorials/features/bpf_wq/README.zh.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -85,11 +85,11 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="eBPF Tutorial by Example: BPF Workqueues for Asynchronous Sleepable Tasks - eunomia" >
+        <meta  name="twitter:title"  content="eBPF 教程：BPF 工作队列用于异步可睡眠任务 - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
-        <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/tutorials/features/bpf_wq/README.png" >
+        <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/tutorials/features/bpf_wq/README.zh.png" >
       
     
     
@@ -112,7 +112,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ebpf-tutorial-by-example-bpf-workqueues-for-asynchronous-sleepable-tasks" class="md-skip">
+        <a href="#ebpf-bpf" class="md-skip">
           Skip to content
         </a>
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              eBPF Tutorial by Example: BPF Workqueues for Asynchronous Sleepable Tasks
+              eBPF 教程：BPF 工作队列用于异步可睡眠任务
             
           </span>
         </div>
@@ -1864,7 +1864,7 @@
   
   
   <span class="md-ellipsis">
-    eBPF Tutorial by Example: BPF Arena for Zero-Copy Shared Memory
+    eBPF 实例教程：BPF Arena 零拷贝共享内存
     
   </span>
   
@@ -1887,7 +1887,7 @@
   
   
   <span class="md-ellipsis">
-    eBPF Tutorial by Example: BPF Iterators for Kernel Data Export
+    eBPF 教程：BPF 迭代器用于内核数据导出
     
   </span>
   
@@ -1919,7 +1919,7 @@
   
   
   <span class="md-ellipsis">
-    eBPF Tutorial by Example: BPF Workqueues for Asynchronous Sleepable Tasks
+    eBPF 教程：BPF 工作队列用于异步可睡眠任务
     
   </span>
   
@@ -1932,7 +1932,7 @@
   
   
   <span class="md-ellipsis">
-    eBPF Tutorial by Example: BPF Workqueues for Asynchronous Sleepable Tasks
+    eBPF 教程：BPF 工作队列用于异步可睡眠任务
     
   </span>
   
@@ -1955,37 +1955,37 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction-to-bpf-workqueues-solving-the-sleep-problem" class="md-nav__link">
+  <a href="#bpf" class="md-nav__link">
     <span class="md-ellipsis">
-      Introduction to BPF Workqueues: Solving the Sleep Problem
+      BPF 工作队列简介：解决睡眠问题
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Introduction to BPF Workqueues: Solving the Sleep Problem">
+    <nav class="md-nav" aria-label="BPF 工作队列简介：解决睡眠问题">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-problem-when-ebpf-cant-sleep" class="md-nav__link">
+  <a href="#ebpf" class="md-nav__link">
     <span class="md-ellipsis">
-      The Problem: When eBPF Can't Sleep
+      问题：当 eBPF 无法睡眠时
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#the-solution-process-context-execution" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      The Solution: Process Context Execution
+      解决方案：进程上下文执行
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#real-world-applications" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      Real-World Applications
+      实际应用
     </span>
   </a>
   
@@ -1997,46 +1997,46 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#implementation-simple-workqueue-test" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      Implementation: Simple Workqueue Test
+      实现：简单的工作队列测试
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Implementation: Simple Workqueue Test">
+    <nav class="md-nav" aria-label="实现：简单的工作队列测试">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#complete-bpf-program-wq_simplebpfc" class="md-nav__link">
+  <a href="#bpf-wq_simplebpfc" class="md-nav__link">
     <span class="md-ellipsis">
-      Complete BPF Program: wq_simple.bpf.c
+      完整的 BPF 程序：wq_simple.bpf.c
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#understanding-the-bpf-code" class="md-nav__link">
+  <a href="#bpf_1" class="md-nav__link">
     <span class="md-ellipsis">
-      Understanding the BPF Code
+      理解 BPF 代码
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#complete-user-space-program-wq_simplec" class="md-nav__link">
+  <a href="#wq_simplec" class="md-nav__link">
     <span class="md-ellipsis">
-      Complete User-Space Program: wq_simple.c
+      完整的用户空间程序：wq_simple.c
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#understanding-the-user-space-code" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      Understanding the User-Space Code
+      理解用户空间代码
     </span>
   </a>
   
@@ -2048,54 +2048,54 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#understanding-workqueue-apis" class="md-nav__link">
+  <a href="#api" class="md-nav__link">
     <span class="md-ellipsis">
-      Understanding Workqueue APIs
+      理解工作队列 API
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#when-to-use-workqueues-vs-timers" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      When to Use Workqueues vs Timers
+      何时使用工作队列与定时器
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#compilation-and-execution" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      Compilation and Execution
+      编译和执行
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#historical-timeline-and-context" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
-      Historical Timeline and Context
+      历史时间线和背景
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#summary-and-next-steps" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
-      Summary and Next Steps
+      总结和下一步
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
+  <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
-      References
+      参考资料
     </span>
   </a>
   
@@ -2122,7 +2122,7 @@
   
   
   <span class="md-ellipsis">
-    eBPF Tutorial by Example: Monitoring GPU Activity with Kernel Tracepoints
+    eBPF 教程：使用内核跟踪点监控 GPU 驱动活动
     
   </span>
   
@@ -8271,37 +8271,37 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction-to-bpf-workqueues-solving-the-sleep-problem" class="md-nav__link">
+  <a href="#bpf" class="md-nav__link">
     <span class="md-ellipsis">
-      Introduction to BPF Workqueues: Solving the Sleep Problem
+      BPF 工作队列简介：解决睡眠问题
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Introduction to BPF Workqueues: Solving the Sleep Problem">
+    <nav class="md-nav" aria-label="BPF 工作队列简介：解决睡眠问题">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-problem-when-ebpf-cant-sleep" class="md-nav__link">
+  <a href="#ebpf" class="md-nav__link">
     <span class="md-ellipsis">
-      The Problem: When eBPF Can't Sleep
+      问题：当 eBPF 无法睡眠时
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#the-solution-process-context-execution" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      The Solution: Process Context Execution
+      解决方案：进程上下文执行
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#real-world-applications" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      Real-World Applications
+      实际应用
     </span>
   </a>
   
@@ -8313,46 +8313,46 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#implementation-simple-workqueue-test" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      Implementation: Simple Workqueue Test
+      实现：简单的工作队列测试
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Implementation: Simple Workqueue Test">
+    <nav class="md-nav" aria-label="实现：简单的工作队列测试">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#complete-bpf-program-wq_simplebpfc" class="md-nav__link">
+  <a href="#bpf-wq_simplebpfc" class="md-nav__link">
     <span class="md-ellipsis">
-      Complete BPF Program: wq_simple.bpf.c
+      完整的 BPF 程序：wq_simple.bpf.c
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#understanding-the-bpf-code" class="md-nav__link">
+  <a href="#bpf_1" class="md-nav__link">
     <span class="md-ellipsis">
-      Understanding the BPF Code
+      理解 BPF 代码
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#complete-user-space-program-wq_simplec" class="md-nav__link">
+  <a href="#wq_simplec" class="md-nav__link">
     <span class="md-ellipsis">
-      Complete User-Space Program: wq_simple.c
+      完整的用户空间程序：wq_simple.c
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#understanding-the-user-space-code" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      Understanding the User-Space Code
+      理解用户空间代码
     </span>
   </a>
   
@@ -8364,54 +8364,54 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#understanding-workqueue-apis" class="md-nav__link">
+  <a href="#api" class="md-nav__link">
     <span class="md-ellipsis">
-      Understanding Workqueue APIs
+      理解工作队列 API
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#when-to-use-workqueues-vs-timers" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      When to Use Workqueues vs Timers
+      何时使用工作队列与定时器
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#compilation-and-execution" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      Compilation and Execution
+      编译和执行
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#historical-timeline-and-context" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
-      Historical Timeline and Context
+      历史时间线和背景
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#summary-and-next-steps" class="md-nav__link">
+  <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
-      Summary and Next Steps
+      总结和下一步
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
+  <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
-      References
+      参考资料
     </span>
   </a>
   
@@ -8433,7 +8433,7 @@
 
 
   
-    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/tutorials/features/bpf_wq/README.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/tutorials/features/bpf_wq/README.zh.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -8441,68 +8441,68 @@
   
 
 
-<h1 id="ebpf-tutorial-by-example-bpf-workqueues-for-asynchronous-sleepable-tasks">eBPF Tutorial by Example: BPF Workqueues for Asynchronous Sleepable Tasks</h1>
-<p>Ever needed your eBPF program to sleep, allocate memory, or wait for device I/O? Traditional eBPF programs run in restricted contexts where blocking operations crash the system. But what if your HID device needs timing delays between injected key events, or your cleanup routine needs to sleep while freeing resources?</p>
-<p>This is what <strong>BPF Workqueues</strong> enable. Created by Benjamin Tissoires at Red Hat in 2024 for HID-BPF device handling, workqueues let you schedule asynchronous work that runs in process context where sleeping and blocking operations are allowed. In this tutorial, we'll explore why workqueues were created, how they differ from timers, and build a complete example demonstrating async callback execution.</p>
-<h2 id="introduction-to-bpf-workqueues-solving-the-sleep-problem">Introduction to BPF Workqueues: Solving the Sleep Problem</h2>
-<h3 id="the-problem-when-ebpf-cant-sleep">The Problem: When eBPF Can't Sleep</h3>
-<p>Before BPF workqueues existed, developers had <code>bpf_timer</code> for deferred execution. Timers work great for scheduling callbacks after a delay, perfect for updating counters or triggering periodic events. But there's a fundamental limitation that made timers unusable for certain critical use cases: <strong>bpf_timer runs in softirq (software interrupt) context</strong>.</p>
-<p>Softirq context has strict rules enforced by the kernel. You cannot sleep or wait for I/O - any attempt to do so will cause kernel panics or deadlocks. You cannot allocate memory using <code>kzalloc()</code> with <code>GFP_KERNEL</code> flag because memory allocation might need to wait for pages. You cannot communicate with hardware devices that require waiting for responses. Essentially, you cannot perform any blocking operations that might cause the CPU to wait.</p>
-<p>This limitation became a real problem for Benjamin Tissoires at Red Hat when he was developing HID-BPF in 2023. HID devices (keyboards, mice, tablets, game controllers) frequently need operations that timers simply can't handle. Imagine implementing keyboard macro functionality where pressing F1 types "hello" - you need 10ms delays between each keystroke for the system to properly process events. Or consider a device with buggy firmware that needs re-initialization after system wake - you must send commands and wait for hardware responses. Timer callbacks in softirq context can't do any of this.</p>
-<p>As Benjamin Tissoires explained in his kernel patches: "I need something similar to bpf_timers, but not in soft IRQ context... the bpf_timer functionality would prevent me to kzalloc and wait for the device."</p>
-<h3 id="the-solution-process-context-execution">The Solution: Process Context Execution</h3>
-<p>In early 2024, Benjamin proposed and developed <strong>bpf_wq</strong> - essentially "bpf_timer but in process context instead of softirq." The kernel community merged it into Linux v6.10+ in April 2024. The key insight is simple but powerful: by running callbacks in process context (through the kernel's workqueue infrastructure), BPF programs gain access to the full range of kernel operations.</p>
-<p>Here's what changes with process context:</p>
+<h1 id="ebpf-bpf">eBPF 教程：BPF 工作队列用于异步可睡眠任务</h1>
+<p>你是否曾经需要你的 eBPF 程序睡眠、分配内存或等待设备 I/O？传统的 eBPF 程序在受限的上下文中运行，阻塞操作会导致系统崩溃。但是，如果你的 HID 设备需要在注入的按键事件之间进行时序延迟，或者你的清理例程需要在释放资源时睡眠怎么办？</p>
+<p>这就是 <strong>BPF 工作队列</strong>所实现的功能。由 Red Hat 的 Benjamin Tissoires 于 2024 年为 HID-BPF 设备处理而创建，工作队列让你可以调度在进程上下文中运行的异步工作，在那里允许睡眠和阻塞操作。在本教程中，我们将探讨为什么创建工作队列、它们与定时器有何不同，并构建一个演示异步回调执行的完整示例。</p>
+<h2 id="bpf">BPF 工作队列简介：解决睡眠问题</h2>
+<h3 id="ebpf">问题：当 eBPF 无法睡眠时</h3>
+<p>在 BPF 工作队列出现之前，开发者有 <code>bpf_timer</code> 用于延迟执行。定时器非常适合在延迟后调度回调，非常适合更新计数器或触发周期性事件。但有一个根本性的限制使得定时器对某些关键用例不可用：<strong>bpf_timer 在 softirq（软件中断）上下文中运行</strong>。</p>
+<p>Softirq 上下文有内核强制执行的严格规则。你不能睡眠或等待 I/O - 任何这样做的尝试都会导致内核恐慌或死锁。你不能使用 <code>GFP_KERNEL</code> 标志的 <code>kzalloc()</code> 分配内存，因为内存分配可能需要等待页面。你不能与需要等待响应的硬件设备通信。本质上，你不能执行任何可能导致 CPU 等待的阻塞操作。</p>
+<p>这个限制在 Red Hat 的 Benjamin Tissoires 于 2023 年开发 HID-BPF 时成为一个真正的问题。HID 设备（键盘、鼠标、平板电脑、游戏控制器）经常需要定时器根本无法处理的操作。想象一下实现键盘宏功能，按下 F1 输入 "hello" - 你需要在每次按键之间延迟 10ms，以便系统正确处理事件。或者考虑一个固件有问题的设备，在系统唤醒后需要重新初始化 - 你必须发送命令并等待硬件响应。softirq 上下文中的定时器回调无法做到这一切。</p>
+<p>正如 Benjamin Tissoires 在他的内核补丁中解释的那样："我需要类似于 bpf_timers 的东西，但不在软 IRQ 上下文中……bpf_timer 功能会阻止我 kzalloc 并等待设备。"</p>
+<h3 id="_1">解决方案：进程上下文执行</h3>
+<p>2024 年初，Benjamin 提出并开发了 <strong>bpf_wq</strong> - 本质上是"在进程上下文而不是 softirq 中的 bpf_timer"。内核社区在 2024 年 4 月将其合并到 Linux v6.10+ 中。关键见解简单但强大：通过在进程上下文中运行回调（通过内核的工作队列基础设施），BPF 程序可以访问全套内核操作。</p>
+<p>以下是进程上下文的变化：</p>
 <table>
 <thead>
 <tr>
-<th>Feature</th>
+<th>功能</th>
 <th>bpf_timer (softirq)</th>
-<th>bpf_wq (process)</th>
+<th>bpf_wq (进程)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Can sleep?</strong></td>
-<td>❌ No - will crash</td>
-<td>✅ Yes - safe to sleep</td>
+<td><strong>可以睡眠？</strong></td>
+<td>❌ 否 - 会崩溃</td>
+<td>✅ 是 - 安全睡眠</td>
 </tr>
 <tr>
-<td><strong>Memory allocation</strong></td>
-<td>❌ Limited flags only</td>
-<td>✅ Full <code>kzalloc()</code> support</td>
+<td><strong>内存分配</strong></td>
+<td>❌ 仅限有限标志</td>
+<td>✅ 完整 <code>kzalloc()</code> 支持</td>
 </tr>
 <tr>
-<td><strong>Device I/O</strong></td>
-<td>❌ Cannot wait</td>
-<td>✅ Can wait for responses</td>
+<td><strong>设备 I/O</strong></td>
+<td>❌ 不能等待</td>
+<td>✅ 可以等待响应</td>
 </tr>
 <tr>
-<td><strong>Blocking operations</strong></td>
-<td>❌ Prohibited</td>
-<td>✅ Fully supported</td>
+<td><strong>阻塞操作</strong></td>
+<td>❌ 禁止</td>
+<td>✅ 完全支持</td>
 </tr>
 <tr>
-<td><strong>Latency</strong></td>
-<td>Very low (microseconds)</td>
-<td>Higher (milliseconds)</td>
+<td><strong>延迟</strong></td>
+<td>非常低（微秒）</td>
+<td>较高（毫秒）</td>
 </tr>
 <tr>
-<td><strong>Use case</strong></td>
-<td>Time-critical fast path</td>
-<td>Sleepable slow path</td>
+<td><strong>用例</strong></td>
+<td>时间关键快速路径</td>
+<td>可睡眠慢速路径</td>
 </tr>
 </tbody>
 </table>
-<p>Workqueues enable the classic "fast path + slow path" pattern. Your eBPF program handles performance-critical operations immediately in the fast path, then schedules expensive cleanup or I/O operations to run asynchronously in the slow path. The fast path stays responsive while the slow path gets the capabilities it needs.</p>
-<h3 id="real-world-applications">Real-World Applications</h3>
-<p>The applications span multiple domains. <strong>HID device handling</strong> was the original motivation - injecting keyboard macros with timing delays, fixing broken device firmware dynamically without kernel drivers, re-initializing devices after wake from sleep, transforming input events on the fly. All these require sleepable operations that only workqueues can provide.</p>
-<p><strong>Network packet processing</strong> benefits from async cleanup patterns. Your XDP program enforces rate limits and drops packets in the fast path (non-blocking), while a workqueue cleans up stale tracking entries in the background. This prevents memory leaks without impacting packet processing performance.</p>
-<p><strong>Security monitoring</strong> can apply fast rules immediately, then use workqueues to query reputation databases or external threat intelligence services. The fast path makes instant decisions while the slow path updates policies based on complex analysis.</p>
-<p><strong>Resource cleanup</strong> defers expensive operations. Instead of blocking the main code path while freeing memory, closing connections, or compacting data structures, you schedule a workqueue to handle cleanup in the background.</p>
-<h2 id="implementation-simple-workqueue-test">Implementation: Simple Workqueue Test</h2>
-<p>Let's build a complete example that demonstrates the workqueue lifecycle. We'll create a program that triggers on the <code>unlink</code> syscall, schedules async work, and verifies that both the main path and workqueue callback execute correctly.</p>
-<h3 id="complete-bpf-program-wq_simplebpfc">Complete BPF Program: wq_simple.bpf.c</h3>
+<p>工作队列启用了经典的"快速路径 + 慢速路径"模式。你的 eBPF 程序在快速路径中立即处理性能关键操作，然后调度昂贵的清理或 I/O 操作在慢速路径中异步运行。快速路径保持响应性，而慢速路径获得所需的能力。</p>
+<h3 id="_2">实际应用</h3>
+<p>应用跨越多个领域。<strong>HID 设备处理</strong>是最初的动机 - 注入带时序延迟的键盘宏、无需内核驱动程序即可动态修复损坏的设备固件、从睡眠中唤醒后重新初始化设备、即时转换输入事件。所有这些都需要只有工作队列才能提供的可睡眠操作。</p>
+<p><strong>网络数据包处理</strong>受益于异步清理模式。你的 XDP 程序在快速路径中执行速率限制并丢弃数据包（非阻塞），而工作队列在后台清理过时的跟踪条目。这可以防止内存泄漏而不影响数据包处理性能。</p>
+<p><strong>安全监控</strong>可以立即应用快速规则，然后使用工作队列查询信誉数据库或外部威胁情报服务。快速路径做出即时决策，而慢速路径根据复杂分析更新策略。</p>
+<p><strong>资源清理</strong>推迟昂贵的操作。与其在释放内存、关闭连接或压缩数据结构时阻塞主代码路径，不如调度工作队列在后台处理清理。</p>
+<h2 id="_3">实现：简单的工作队列测试</h2>
+<p>让我们构建一个演示工作队列生命周期的完整示例。我们将创建一个在 <code>unlink</code> 系统调用上触发、调度异步工作并验证主路径和工作队列回调都正确执行的程序。</p>
+<h3 id="bpf-wq_simplebpfc">完整的 BPF 程序：wq_simple.bpf.c</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">// SPDX-License-Identifier: GPL-2.0</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="cm">/* Simple BPF workqueue example */</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vmlinux.h&gt;</span>
@@ -8573,14 +8573,14 @@
 <a id="__codelineno-0-68" name="__codelineno-0-68" href="#__codelineno-0-68"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <a id="__codelineno-0-69" name="__codelineno-0-69" href="#__codelineno-0-69"></a><span class="p">}</span>
 </code></pre></div>
-<h3 id="understanding-the-bpf-code">Understanding the BPF Code</h3>
-<p>The program demonstrates the complete workqueue workflow from initialization through async execution. We start by defining a structure that embeds a workqueue. The <code>struct elem</code> contains both application data (<code>value</code>) and the workqueue handle (<code>struct bpf_wq work</code>). This embedding pattern is critical - the workqueue infrastructure needs to know which map contains the workqueue structure, and embedding it in the map value establishes this relationship.</p>
-<p>Our map is a simple array with one entry, chosen for simplicity in this example. In production code, you'd typically use hash maps to track multiple entities, each with its own embedded workqueue. The global variables <code>wq_executed</code> and <code>main_executed</code> serve as test instrumentation, letting userspace verify that both code paths ran.</p>
-<p>The workqueue callback shows the signature that all workqueue callbacks must follow: <code>int callback(void *map, int *key, void *value)</code>. The kernel invokes this function asynchronously in process context, passing the map containing the workqueue, the key of the entry, and a pointer to the value. This signature gives the callback full context about which element triggered it and access to the element's data. Our callback sets <code>wq_executed = 1</code> to prove it ran, and modifies <code>val-&gt;value = 42</code> to demonstrate that async modifications persist in the map.</p>
-<p>The main program attached to <code>fentry/do_unlinkat</code> triggers whenever the <code>unlink</code> syscall executes. This gives us an easy way to activate the program - userspace just needs to delete a file. We set <code>main_executed = 1</code> immediately to mark the synchronous path. Then we initialize an element and store it in the map using <code>bpf_map_update_elem()</code>. This is necessary because the workqueue must be embedded in a map entry.</p>
-<p>The workqueue initialization follows a three-step sequence. First, <code>bpf_wq_init(wq, &amp;array, 0)</code> initializes the workqueue handle, passing the map that contains it. The verifier uses this information to validate that the workqueue and its container are properly related. Second, <code>bpf_wq_set_callback(wq, wq_callback, 0)</code> registers our callback function. The verifier checks that the callback has the correct signature. Third, <code>bpf_wq_start(wq, 0)</code> schedules the workqueue to execute asynchronously. This call returns immediately - the main program continues executing while the kernel queues the work for later execution in process context.</p>
-<p>The flags parameter in all three functions is reserved for future use and should be 0 in current kernels. The pattern allows future extensions without breaking API compatibility.</p>
-<h3 id="complete-user-space-program-wq_simplec">Complete User-Space Program: wq_simple.c</h3>
+<h3 id="bpf_1">理解 BPF 代码</h3>
+<p>程序演示了从初始化到异步执行的完整工作队列工作流程。我们首先定义一个嵌入工作队列的结构。<code>struct elem</code> 包含应用数据（<code>value</code>）和工作队列句柄（<code>struct bpf_wq work</code>）。这种嵌入模式至关重要 - 工作队列基础设施需要知道哪个 map 包含工作队列结构，将其嵌入到 map 值中建立了这种关系。</p>
+<p>我们的 map 是一个只有一个条目的简单数组，为了本例的简单性而选择。在生产代码中，你通常会使用哈希 map 来跟踪多个实体，每个实体都有自己的嵌入式工作队列。全局变量 <code>wq_executed</code> 和 <code>main_executed</code> 作为测试工具，让用户空间验证两个代码路径都运行了。</p>
+<p>工作队列回调显示了所有工作队列回调必须遵循的签名：<code>int callback(void *map, int *key, void *value)</code>。内核在进程上下文中异步调用此函数，传递包含工作队列的 map、条目的键和指向值的指针。这个签名为回调提供了关于哪个元素触发它的完整上下文以及对元素数据的访问。我们的回调设置 <code>wq_executed = 1</code> 来证明它运行了，并修改 <code>val-&gt;value = 42</code> 来演示异步修改在 map 中持久化。</p>
+<p>附加到 <code>fentry/do_unlinkat</code> 的主程序在 <code>unlink</code> 系统调用执行时触发。这为我们提供了一种简单的方法来激活程序 - 用户空间只需删除一个文件。我们立即设置 <code>main_executed = 1</code> 来标记同步路径。然后我们初始化一个元素并使用 <code>bpf_map_update_elem()</code> 将其存储在 map 中。这是必要的，因为工作队列必须嵌入在 map 条目中。</p>
+<p>工作队列初始化遵循三步序列。首先，<code>bpf_wq_init(wq, &amp;array, 0)</code> 初始化工作队列句柄，传递包含它的 map。验证器使用此信息来验证工作队列及其容器是否正确相关。其次，<code>bpf_wq_set_callback(wq, wq_callback, 0)</code> 注册我们的回调函数。验证器在加载时检查此签名，并将拒绝签名不匹配的程序。第三，<code>bpf_wq_start(wq, 0)</code> 调度工作队列异步执行。此调用立即返回 - 主程序继续同步执行，而内核将工作排队以便稍后在进程上下文中执行。</p>
+<p>所有三个函数中的 flags 参数都保留供将来使用，在当前内核中应为 0。该模式允许将来扩展而不破坏 API 兼容性。</p>
+<h3 id="wq_simplec">完整的用户空间程序：wq_simple.c</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">// SPDX-License-Identifier: GPL-2.0</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="cm">/* Userspace test for BPF workqueue */</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
@@ -8645,30 +8645,30 @@
 <a id="__codelineno-1-62" name="__codelineno-1-62" href="#__codelineno-1-62"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
 <a id="__codelineno-1-63" name="__codelineno-1-63" href="#__codelineno-1-63"></a><span class="p">}</span>
 </code></pre></div>
-<h3 id="understanding-the-user-space-code">Understanding the User-Space Code</h3>
-<p>The userspace program orchestrates the test and verifies results. We use the skeleton API from libbpf which embeds the compiled BPF bytecode in a C structure, making loading trivial. The <code>wq_simple_bpf__open_and_load()</code> call compiles (if needed), loads the BPF program into the kernel, and creates all maps in one operation.</p>
-<p>After loading, <code>wq_simple_bpf__attach()</code> attaches the fentry program to <code>do_unlinkat</code>. From this point, any unlink syscall will trigger our BPF program. We deliberately trigger this by creating and immediately deleting a temporary file. The <code>open()</code> creates <code>/tmp/wq_test_file</code>, we close the fd, then <code>unlink()</code> deletes it. This deletion enters the kernel's <code>do_unlinkat</code> function, triggering our fentry probe.</p>
-<p>Here's the critical timing aspect: workqueue execution is asynchronous. Our main BPF program schedules the work and returns immediately. The kernel queues the callback for later execution by a kernel worker thread. This is why we <code>sleep(1)</code> - giving the workqueue time to execute before we check results. In production code, you'd use more sophisticated synchronization, but for a simple test, sleep is sufficient.</p>
-<p>After the sleep, we read global variables from the BPF program's <code>.bss</code> section. The skeleton provides convenient access through <code>skel-&gt;bss-&gt;main_executed</code> and <code>skel-&gt;bss-&gt;wq_executed</code>. If both are 1, we know the synchronous path (fentry) and async path (workqueue callback) both executed successfully.</p>
-<h2 id="understanding-workqueue-apis">Understanding Workqueue APIs</h2>
-<p>The workqueue API consists of three essential functions that manage the lifecycle. <strong><code>bpf_wq_init(wq, map, flags)</code></strong> initializes a workqueue handle, establishing the relationship between the workqueue and its containing map. The map parameter is crucial - it tells the verifier which map contains the value with the embedded <code>bpf_wq</code> structure. The verifier uses this to ensure memory safety across async execution. Flags should be 0 in current kernels.</p>
-<p><strong><code>bpf_wq_set_callback(wq, callback_fn, flags)</code></strong> registers the function to execute asynchronously. The callback must have the signature <code>int callback(void *map, int *key, void *value)</code>. The verifier checks this signature at load time and will reject programs with mismatched signatures. This type safety prevents common async programming errors. Flags should be 0.</p>
-<p><strong><code>bpf_wq_start(wq, flags)</code></strong> schedules the workqueue to run. This returns immediately - your BPF program continues executing synchronously. The kernel queues the callback for execution by a worker thread in process context at some point in the future. The callback might run microseconds or milliseconds later depending on system load. Flags should be 0.</p>
-<p>The callback signature deserves attention. Unlike <code>bpf_timer</code> callbacks which receive <code>(void *map, __u32 *key, void *value)</code>, workqueue callbacks receive <code>(void *map, int *key, void *value)</code>. Note the key type difference - <code>int *</code> vs <code>__u32 *</code>. This reflects the evolution of the API and must be matched exactly or the verifier rejects your program. The callback runs in process context, so it can safely perform operations that would crash in softirq context.</p>
-<h2 id="when-to-use-workqueues-vs-timers">When to Use Workqueues vs Timers</h2>
-<p>Choose <strong>bpf_timer</strong> when you need microsecond-precision timing, operations are fast and non-blocking, you're updating counters or simple state, or implementing periodic fast-path operations like statistics collection or packet pacing. Timers excel at time-critical tasks that must execute with minimal latency.</p>
-<p>Choose <strong>bpf_wq</strong> when you need to sleep or wait, allocate memory with <code>kzalloc()</code>, perform device or network I/O, or defer cleanup operations that can happen later. Workqueues are perfect for the "fast path + slow path" pattern where critical operations happen immediately and expensive processing runs asynchronously. Examples include HID device I/O (keyboard macro injection with delays), async map cleanup (preventing memory leaks), security policy updates (querying external databases), and background processing (compression, encryption, aggregation).</p>
-<p>The fundamental trade-off is latency vs capability. Timers have lower latency but restricted capabilities. Workqueues have higher latency but full process context capabilities including sleeping and blocking I/O.</p>
-<h2 id="compilation-and-execution">Compilation and Execution</h2>
-<p>Navigate to the bpf_wq directory and build:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">cd</span><span class="w"> </span>/home/yunwei37/workspace/bpf-developer-tutorial/src/features/bpf_wq
+<h3 id="_4">理解用户空间代码</h3>
+<p>用户空间程序编排测试并验证结果。我们使用 libbpf 的骨架 API，它将编译的 BPF 字节码嵌入到 C 结构中，使加载变得简单。<code>wq_simple_bpf__open_and_load()</code> 调用编译（如果需要）、将 BPF 程序加载到内核中，并在一次操作中创建所有 map。</p>
+<p>加载后，<code>wq_simple_bpf__attach()</code> 将 fentry 程序附加到 <code>do_unlinkat</code>。从这一点开始，任何 unlink 系统调用都会触发我们的 BPF 程序。我们通过创建并立即删除临时文件来故意触发这一点。<code>open()</code> 创建 <code>/tmp/wq_test_file</code>，我们关闭 fd，然后 <code>unlink()</code> 删除它。此删除进入内核的 <code>do_unlinkat</code> 函数，触发我们的 fentry 探针。</p>
+<p>以下是关键的时序方面：工作队列执行是异步的。我们的主 BPF 程序调度工作并立即返回。内核将回调排队以供内核工作线程稍后执行。这就是为什么我们 <code>sleep(1)</code> - 在检查结果之前给工作队列时间执行。在生产代码中，你会使用更复杂的同步，但对于简单的测试，sleep 就足够了。</p>
+<p>sleep 后，我们从 BPF 程序的 <code>.bss</code> 节读取全局变量。骨架通过 <code>skel-&gt;bss-&gt;main_executed</code> 和 <code>skel-&gt;bss-&gt;wq_executed</code> 提供便捷访问。如果两者都为 1，我们知道同步路径（fentry）和异步路径（工作队列回调）都成功执行了。</p>
+<h2 id="api">理解工作队列 API</h2>
+<p>工作队列 API 由管理生命周期的三个基本函数组成。<strong><code>bpf_wq_init(wq, map, flags)</code></strong> 初始化工作队列句柄，建立工作队列与其包含 map 之间的关系。map 参数至关重要 - 它告诉验证器哪个 map 包含带有嵌入式 <code>bpf_wq</code> 结构的值。验证器使用此信息来确保跨异步执行的内存安全。在当前内核中，标志应为 0。</p>
+<p><strong><code>bpf_wq_set_callback(wq, callback_fn, flags)</code></strong> 注册要异步执行的函数。回调必须具有签名 <code>int callback(void *map, int *key, void *value)</code>。验证器在加载时检查此签名，并将拒绝签名不匹配的程序。这种类型安全防止了常见的异步编程错误。标志应为 0。</p>
+<p><strong><code>bpf_wq_start(wq, flags)</code></strong> 调度工作队列运行。这会立即返回 - 你的 BPF 程序继续同步执行。内核将回调排队以供工作线程在进程上下文中在将来某个时间点执行。回调可能在微秒或毫秒后运行，具体取决于系统负载。标志应为 0。</p>
+<p>回调签名值得注意。与接收 <code>(void *map, __u32 *key, void *value)</code> 的 <code>bpf_timer</code> 回调不同，工作队列回调接收 <code>(void *map, int *key, void *value)</code>。注意键类型差异 - <code>int *</code> 与 <code>__u32 *</code>。这反映了 API 的演变，必须完全匹配，否则验证器会拒绝你的程序。回调在进程上下文中运行，因此它可以安全地执行在 softirq 上下文中会崩溃的操作。</p>
+<h2 id="_5">何时使用工作队列与定时器</h2>
+<p>选择 <strong>bpf_timer</strong> 当你需要微秒精度的定时、操作快速且非阻塞、你正在更新计数器或简单状态，或实现周期性快速路径操作（如统计收集或数据包调度）时。定时器在必须以最小延迟执行的时间关键任务方面表现出色。</p>
+<p>选择 <strong>bpf_wq</strong> 当你需要睡眠或等待、使用 <code>kzalloc()</code> 分配内存、执行设备或网络 I/O，或推迟可以稍后发生的清理操作时。工作队列非常适合"快速路径 + 慢速路径"模式，其中关键操作立即发生，而昂贵的处理异步运行而不阻塞。示例包括 HID 设备 I/O（带延迟的键盘宏注入）、异步 map 清理（防止内存泄漏）、安全策略更新（查询外部数据库）和后台处理（压缩、加密、聚合）。</p>
+<p>基本权衡是延迟与能力。定时器具有较低的延迟但受限的能力。工作队列具有较高的延迟但完整的进程上下文能力，包括睡眠和阻塞 I/O。</p>
+<h2 id="_6">编译和执行</h2>
+<p>导航到 bpf_wq 目录并构建：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">cd</span><span class="w"> </span>bpf-developer-tutorial/src/features/bpf_wq
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>make
 </code></pre></div>
-<p>The Makefile compiles the BPF program with the experimental workqueue features enabled and generates a skeleton header.</p>
-<p>Run the simple workqueue test:</p>
+<p>Makefile 使用启用的实验性工作队列功能编译 BPF 程序并生成骨架头。</p>
+<p>运行简单的工作队列测试：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>sudo<span class="w"> </span>./wq_simple
 </code></pre></div>
-<p>Expected output:</p>
+<p>预期输出：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>BPF workqueue program attached. Triggering unlink syscall...
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>Results:
@@ -8677,25 +8677,25 @@
 <a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
 <a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>✓ Test PASSED!
 </code></pre></div>
-<p>The test verifies that both the synchronous fentry probe and the asynchronous workqueue callback executed successfully. If the workqueue callback didn't run, <code>wq_executed</code> would be 0 and the test would fail.</p>
-<h2 id="historical-timeline-and-context">Historical Timeline and Context</h2>
-<p>Understanding how workqueues came to exist helps appreciate their design. In 2022, Benjamin Tissoires started work on HID-BPF, aiming to let users fix broken HID devices without kernel drivers. By 2023, he realized <code>bpf_timer</code> limitations made HID device I/O impossible - you can't wait for hardware responses in softirq context. In early 2024, he proposed <code>bpf_wq</code> as "bpf_timer in process context," collaborating with the BPF community on the design. The kernel merged workqueues in April 2024 as part of Linux v6.10. Since then, they've been used for HID quirks, rate limiting, async cleanup, and other sleepable operations.</p>
-<p>The key quote from Benjamin's patches captures the motivation perfectly: "I need something similar to bpf_timers, but not in soft IRQ context... the bpf_timer functionality would prevent me to kzalloc and wait for the device."</p>
-<p>This real-world need drove the design. Workqueues exist because device handling and resource management require sleepable, blocking operations that timers fundamentally cannot provide.</p>
-<h2 id="summary-and-next-steps">Summary and Next Steps</h2>
-<p>BPF workqueues solve a fundamental limitation of eBPF by enabling sleepable, blocking operations in process context. Created specifically to support HID device handling where timing delays and device I/O are essential, workqueues unlock powerful new capabilities for eBPF programs. They enable the "fast path + slow path" pattern where performance-critical operations execute immediately while expensive cleanup and I/O happen asynchronously without blocking.</p>
-<p>Our simple example demonstrates the core workqueue lifecycle: embedding a <code>bpf_wq</code> in a map value, initializing and configuring it, scheduling async execution, and verifying the callback runs in process context. This same pattern scales to production use cases like network rate limiting with async cleanup, security monitoring with external service queries, and device handling with I/O operations.</p>
+<p>测试验证同步 fentry 探针和异步工作队列回调都成功执行。如果工作队列回调没有运行，<code>wq_executed</code> 将为 0，测试将失败。</p>
+<h2 id="_7">历史时间线和背景</h2>
+<p>理解工作队列如何产生有助于欣赏它们的设计。2022 年，Benjamin Tissoires 开始研究 HID-BPF，旨在让用户在没有内核驱动程序的情况下修复损坏的 HID 设备。到 2023 年，他意识到 <code>bpf_timer</code> 的限制使 HID 设备 I/O 变得不可能 - 你不能在 softirq 上下文中等待硬件响应。2024 年初，他提出 <code>bpf_wq</code> 作为"进程上下文中的 bpf_timer"，与 BPF 社区合作设计。内核在 2024 年 4 月将工作队列作为 Linux v6.10 的一部分合并。从那时起，它们已被用于 HID 怪癖、速率限制、异步清理和其他可睡眠操作。</p>
+<p>Benjamin 的补丁中的关键引用完美地捕捉了动机："我需要类似于 bpf_timers 的东西，但不在软 IRQ 上下文中……bpf_timer 功能会阻止我 kzalloc 并等待设备。"</p>
+<p>这种现实世界的需求推动了设计。工作队列的存在是因为设备处理和资源管理需要定时器根本无法提供的可睡眠、阻塞操作。</p>
+<h2 id="_8">总结和下一步</h2>
+<p>BPF 工作队列通过在进程上下文中启用可睡眠、阻塞操作解决了 eBPF 的根本限制。专门为支持 HID 设备处理而创建，其中时序延迟和设备 I/O 至关重要，工作队列为 eBPF 程序解锁了强大的新功能。它们启用了"快速路径 + 慢速路径"模式，其中性能关键操作立即执行，而昂贵的清理和 I/O 异步发生而不阻塞。</p>
+<p>我们的简单示例演示了核心工作队列生命周期：在 map 值中嵌入 <code>bpf_wq</code>、初始化和配置它、调度异步执行，以及验证回调在进程上下文中运行。相同的模式可以扩展到生产用例，如带异步清理的网络速率限制、带外部服务查询的安全监控，以及带 I/O 操作的设备处理。</p>
 <blockquote>
-<p>If you'd like to dive deeper into eBPF, check out our tutorial repository at <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">https://github.com/eunomia-bpf/bpf-developer-tutorial</a> or visit our website at <a href="https://eunomia.dev/tutorials/">https://eunomia.dev/tutorials/</a>.</p>
+<p>如果你想深入了解 eBPF，请查看我们的教程仓库 <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">https://github.com/eunomia-bpf/bpf-developer-tutorial</a> 或访问我们的网站 <a href="https://eunomia.dev/tutorials/">https://eunomia.dev/tutorials/</a>。</p>
 </blockquote>
-<h2 id="references">References</h2>
+<h2 id="_9">参考资料</h2>
 <ul>
-<li><strong>Original Kernel Patches:</strong> Benjamin Tissoires' HID-BPF and bpf_wq patches (2023-2024)</li>
-<li><strong>Linux Kernel Source:</strong> <code>kernel/bpf/helpers.c</code> - workqueue implementation</li>
-<li><strong>Tutorial Repository:</strong> <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/features/bpf_wq">https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/features/bpf_wq</a></li>
+<li><strong>原始内核补丁：</strong> Benjamin Tissoires 的 HID-BPF 和 bpf_wq 补丁（2023-2024）</li>
+<li><strong>Linux 内核源码：</strong> <code>kernel/bpf/helpers.c</code> - 工作队列实现</li>
+<li><strong>教程仓库：</strong> <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/features/bpf_wq">https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/features/bpf_wq</a></li>
 </ul>
-<p>Example adapted from Linux kernel BPF selftests with educational enhancements. Requires Linux kernel 6.10+ for workqueue support. Complete source code available in the tutorial repository.</p>
-<p><a class="md-button" href="https://x.com/intent/tweet?text=eBPF%20Tutorial%20by%20Example%3A%20BPF%20Workqueues%20for%20Asynchronous%20Sleepable%20Tasks%0A&amp;url=https://eunomia.dev/zh/tutorials/features/bpf_wq/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<p>示例改编自 Linux 内核 BPF 自测，并增加了教育性增强。需要 Linux 内核 6.10+ 以获得工作队列支持。完整源代码可在教程仓库中获得。</p>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=eBPF%20%E6%95%99%E7%A8%8B%EF%BC%9ABPF%20%E5%B7%A5%E4%BD%9C%E9%98%9F%E5%88%97%E7%94%A8%E4%BA%8E%E5%BC%82%E6%AD%A5%E5%8F%AF%E7%9D%A1%E7%9C%A0%E4%BB%BB%E5%8A%A1%0A&amp;url=https://eunomia.dev/zh/tutorials/features/bpf_wq/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/zh/tutorials/features/bpf_wq/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
@@ -8719,7 +8719,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 5, 2025 06:19:39 UTC">October 5, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 5, 2025 22:28:38 UTC">October 5, 2025</span>
   </span>
 
     
@@ -8729,7 +8729,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 5, 2025 06:19:39 UTC">October 5, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 5, 2025 22:28:38 UTC">October 5, 2025</span>
   </span>
 
     
@@ -8849,7 +8849,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../bpf_iters/" class="md-footer__link md-footer__link--prev" aria-label="Previous: eBPF Tutorial by Example: BPF Iterators for Kernel Data Export">
+          <a href="../bpf_iters/" class="md-footer__link md-footer__link--prev" aria-label="Previous: eBPF 教程：BPF 迭代器用于内核数据导出">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -8859,20 +8859,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                eBPF Tutorial by Example: BPF Iterators for Kernel Data Export
+                eBPF 教程：BPF 迭代器用于内核数据导出
               </div>
             </div>
           </a>
         
         
           
-          <a href="../../xpu/gpu-kernel-driver/" class="md-footer__link md-footer__link--next" aria-label="Next: eBPF Tutorial by Example: Monitoring GPU Activity with Kernel Tracepoints">
+          <a href="../../xpu/gpu-kernel-driver/" class="md-footer__link md-footer__link--next" aria-label="Next: eBPF 教程：使用内核跟踪点监控 GPU 驱动活动">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                eBPF Tutorial by Example: Monitoring GPU Activity with Kernel Tracepoints
+                eBPF 教程：使用内核跟踪点监控 GPU 驱动活动
               </div>
             </div>
             <div class="md-footer__button md-icon">
