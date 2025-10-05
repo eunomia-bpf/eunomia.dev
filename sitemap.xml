@@ -2057,6 +2057,14 @@
          
     </url>
     <url>
+         <loc>https://eunomia.dev/tutorials/xpu/gpu-kernel-driver/</loc>
+         <lastmod>2025-10-05</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/xpu/gpu-kernel-driver/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/xpu/gpu-kernel-driver/"/>
+         
+    </url>
+    <url>
          <loc>https://eunomia.dev/wasm-bpf/</loc>
          <lastmod>2025-10-05</lastmod>
          <changefreq>daily</changefreq>

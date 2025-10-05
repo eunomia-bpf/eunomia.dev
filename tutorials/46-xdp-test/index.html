@@ -24,7 +24,7 @@
     
     
       
-        <title>xdp-pktgen: xdp based packet generator - eunomia</title>
+        <title>eBPF Tutorial by Example: Building a High-Performance XDP Packet Generator - eunomia</title>
       
     
     
@@ -69,7 +69,7 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="xdp-pktgen: xdp based packet generator - eunomia" >
+        <meta  property="og:title"  content="eBPF Tutorial by Example: Building a High-Performance XDP Packet Generator - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
@@ -85,7 +85,7 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="xdp-pktgen: xdp based packet generator - eunomia" >
+        <meta  name="twitter:title"  content="eBPF Tutorial by Example: Building a High-Performance XDP Packet Generator - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
@@ -112,7 +112,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#xdp-pktgen-xdp-based-packet-generator" class="md-skip">
+        <a href="#ebpf-tutorial-by-example-building-a-high-performance-xdp-packet-generator" class="md-skip">
           Skip to content
         </a>
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              xdp-pktgen: xdp based packet generator
+              eBPF Tutorial by Example: Building a High-Performance XDP Packet Generator
             
           </span>
         </div>
@@ -1689,7 +1689,7 @@
   
   
   <span class="md-ellipsis">
-    xdp-pktgen: xdp based packet generator
+    eBPF Tutorial by Example: Building a High-Performance XDP Packet Generator
     
   </span>
   
@@ -1702,7 +1702,7 @@
   
   
   <span class="md-ellipsis">
-    xdp-pktgen: xdp based packet generator
+    eBPF Tutorial by Example: Building a High-Performance XDP Packet Generator
     
   </span>
   
@@ -1725,37 +1725,37 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-to-use" class="md-nav__link">
+  <a href="#understanding-xdp-packet-generation" class="md-nav__link">
     <span class="md-ellipsis">
-      How to use
+      Understanding XDP Packet Generation
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="How to use">
+    <nav class="md-nav" aria-label="Understanding XDP Packet Generation">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#3-install-dependencies" class="md-nav__link">
+  <a href="#the-bpf_prog_run-testing-interface" class="md-nav__link">
     <span class="md-ellipsis">
-      3. Install dependencies
+      The BPF_PROG_RUN Testing Interface
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-build-the-project" class="md-nav__link">
+  <a href="#live-frames-mode-real-packet-injection" class="md-nav__link">
     <span class="md-ellipsis">
-      4. Build the project
+      Live Frames Mode: Real Packet Injection
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#run-the-project" class="md-nav__link">
+  <a href="#the-xdp_tx-reflection-loop" class="md-nav__link">
     <span class="md-ellipsis">
-      Run the Project
+      The XDP_TX Reflection Loop
     </span>
   </a>
   
@@ -1763,6 +1763,123 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-the-packet-generator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Building the Packet Generator
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Building the Packet Generator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#complete-xdp-program-xdp-pktgenbpfc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete XDP Program: xdp-pktgen.bpf.c
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#userspace-control-program-xdp-pktgenc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Userspace Control Program: xdp-pktgen.c
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Userspace Control Program: xdp-pktgen.c">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#packet-construction-and-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Packet Construction and Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bpf_prog_run-invocation-and-live-frames" class="md-nav__link">
+    <span class="md-ellipsis">
+      BPF_PROG_RUN Invocation and Live Frames
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kernel-support-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kernel Support Detection
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-the-packet-generator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running the Packet Generator
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Running the Packet Generator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-packet-injection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom Packet Injection
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-characteristics-and-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Characteristics and Tuning
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-and-next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary and Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
   
 </li>
       
@@ -2041,6 +2158,29 @@
   
   <span class="md-ellipsis">
     eBPF Tutorial by Example: BPF Workqueues for Asynchronous Sleepable Tasks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xpu/gpu-kernel-driver/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example: Monitoring GPU Activity with Kernel Tracepoints
     
   </span>
   
@@ -8115,37 +8255,37 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-to-use" class="md-nav__link">
+  <a href="#understanding-xdp-packet-generation" class="md-nav__link">
     <span class="md-ellipsis">
-      How to use
+      Understanding XDP Packet Generation
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="How to use">
+    <nav class="md-nav" aria-label="Understanding XDP Packet Generation">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#3-install-dependencies" class="md-nav__link">
+  <a href="#the-bpf_prog_run-testing-interface" class="md-nav__link">
     <span class="md-ellipsis">
-      3. Install dependencies
+      The BPF_PROG_RUN Testing Interface
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-build-the-project" class="md-nav__link">
+  <a href="#live-frames-mode-real-packet-injection" class="md-nav__link">
     <span class="md-ellipsis">
-      4. Build the project
+      Live Frames Mode: Real Packet Injection
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#run-the-project" class="md-nav__link">
+  <a href="#the-xdp_tx-reflection-loop" class="md-nav__link">
     <span class="md-ellipsis">
-      Run the Project
+      The XDP_TX Reflection Loop
     </span>
   </a>
   
@@ -8153,6 +8293,123 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-the-packet-generator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Building the Packet Generator
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Building the Packet Generator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#complete-xdp-program-xdp-pktgenbpfc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete XDP Program: xdp-pktgen.bpf.c
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#userspace-control-program-xdp-pktgenc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Userspace Control Program: xdp-pktgen.c
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Userspace Control Program: xdp-pktgen.c">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#packet-construction-and-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Packet Construction and Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bpf_prog_run-invocation-and-live-frames" class="md-nav__link">
+    <span class="md-ellipsis">
+      BPF_PROG_RUN Invocation and Live Frames
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kernel-support-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kernel Support Detection
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-the-packet-generator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running the Packet Generator
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Running the Packet Generator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-packet-injection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom Packet Injection
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-characteristics-and-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Characteristics and Tuning
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-and-next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary and Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
   
 </li>
       
@@ -8180,30 +8437,193 @@
   
 
 
-<h1 id="xdp-pktgen-xdp-based-packet-generator">xdp-pktgen: xdp based packet generator</h1>
-<p>This is a simple xdp based packet generator.</p>
-<h2 id="how-to-use"><strong>How to use</strong></h2>
-<p>clone the repo, you can update the git submodule with following commands:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>submodule<span class="w"> </span>update<span class="w"> </span>--init<span class="w"> </span>--recursive
+<h1 id="ebpf-tutorial-by-example-building-a-high-performance-xdp-packet-generator">eBPF Tutorial by Example: Building a High-Performance XDP Packet Generator</h1>
+<p>Need to stress-test your network stack or measure XDP program performance? Traditional packet generators like <code>pktgen</code> require kernel modules or run in userspace with high overhead. There's a better way - XDP's BPF_PROG_RUN feature lets you inject packets directly into the kernel's fast path at millions of packets per second, all from userspace without loading network drivers.</p>
+<p>In this tutorial, we'll build an XDP-based packet generator that leverages the kernel's BPF_PROG_RUN test infrastructure. We'll explore how XDP's <code>XDP_TX</code> action creates a packet reflection loop, understand the live frames mode that enables real packet injection, and measure the performance characteristics of XDP programs under load. By the end, you'll have a production-ready tool for network testing and XDP benchmarking.</p>
+<h2 id="understanding-xdp-packet-generation">Understanding XDP Packet Generation</h2>
+<p>XDP (eXpress Data Path) provides the fastest programmable packet processing in Linux by hooking into network drivers before the kernel's networking stack allocates socket buffers. Normally, XDP programs process packets arriving from network interfaces. But what if you want to test an XDP program's performance without real network traffic? Or inject synthetic packets to stress-test your network infrastructure?</p>
+<h3 id="the-bpf_prog_run-testing-interface">The BPF_PROG_RUN Testing Interface</h3>
+<p>The kernel exposes <code>bpf_prog_test_run()</code> (BPF_PROG_RUN) as a testing mechanism for BPF programs. Originally designed for unit testing, this syscall lets userspace invoke a BPF program with synthetic input and capture its output. For XDP programs, you provide a packet buffer and an <code>xdp_md</code> context describing the packet metadata (interface index, RX queue). The kernel runs your XDP program and returns the action code (XDP_DROP, XDP_PASS, XDP_TX, etc.) along with any packet modifications.</p>
+<p>Traditional BPF_PROG_RUN operates in "dry run" mode - packets are processed but never actually transmitted. The XDP program runs, modifies packet data, returns an action, but nothing hits the wire. This is perfect for testing packet parsing logic or measuring program execution time in isolation.</p>
+<h3 id="live-frames-mode-real-packet-injection">Live Frames Mode: Real Packet Injection</h3>
+<p>In Linux 5.18+, the kernel introduced <strong>live frames mode</strong> via the <code>BPF_F_TEST_XDP_LIVE_FRAMES</code> flag. This fundamentally changes BPF_PROG_RUN behavior. When enabled, XDP_TX actions don't just return - they actually transmit packets on the wire through the specified network interface. This turns BPF_PROG_RUN into a powerful packet generator.</p>
+<p>Here's how it works: Your userspace program constructs a packet (Ethernet frame with IP header, UDP payload, etc.) and passes it to <code>bpf_prog_test_run()</code> with live frames enabled. The XDP program receives this packet in its <code>xdp_md</code> context. If the program returns <code>XDP_TX</code>, the kernel transmits the packet through the network driver as if it arrived on the interface and was reflected back. The packet appears on the wire with full hardware offload support (checksumming, segmentation, etc.).</p>
+<p>This enables several powerful use cases. <strong>Network stack stress testing</strong>: Flood your system with millions of packets per second to find breaking points in the network stack, driver, or application layer. <strong>XDP program benchmarking</strong>: Measure how many packets per second your XDP program can process under realistic load without external packet generators. <strong>Protocol fuzzing</strong>: Generate malformed packets or unusual protocol sequences to test robustness. <strong>Synthetic traffic generation</strong>: Create realistic traffic patterns for testing load balancers, firewalls, or intrusion detection systems.</p>
+<h3 id="the-xdp_tx-reflection-loop">The XDP_TX Reflection Loop</h3>
+<p>The simplest XDP packet generator uses the <code>XDP_TX</code> action. This tells the kernel "transmit this packet back out the interface it arrived on." Our minimal XDP program is literally three lines:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;xdp&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kt">int</span><span class="w"> </span><span class="n">xdp_redirect_notouch</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">xdp_md</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">{</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">XDP_TX</span><span class="p">;</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">}</span>
 </code></pre></div>
-<h3 id="3-install-dependencies"><strong>3. Install dependencies</strong></h3>
-<p>For dependencies, it varies from distribution to distribution. You can refer to shell.nix and dockerfile for installation.</p>
-<p>On Ubuntu, you may run <code>make install</code> or</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>--no-install-recommends<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">        </span>libelf1<span class="w"> </span>libelf-dev<span class="w"> </span>zlib1g-dev<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">        </span>make<span class="w"> </span>clang<span class="w"> </span>llvm
+<p>That's it. No packet parsing, no header modification - just reflect everything. Combined with BPF_PROG_RUN in live frames mode, this creates a packet generation loop: userspace injects a packet, XDP reflects it to the wire, repeat at millions of packets per second.</p>
+<p>Why is this so fast? The XDP program runs in the driver's receive path with direct access to DMA buffers. There's no socket buffer allocation, no protocol stack traversal, no context switching to userspace between packets. The kernel can batch packet processing across multiple frames, amortizing syscall overhead. On modern hardware, a single CPU core can generate 5-10 million packets per second.</p>
+<h2 id="building-the-packet-generator">Building the Packet Generator</h2>
+<p>Let's examine how the complete packet generator works, from userspace control to kernel packet injection.</p>
+<h3 id="complete-xdp-program-xdp-pktgenbpfc">Complete XDP Program: xdp-pktgen.bpf.c</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cm">/* SPDX-License-Identifier: MIT */</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;vmlinux.h&quot;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;bpf/bpf_helpers.h&gt;</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;bpf/bpf_endian.h&gt;</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="kt">char</span><span class="w"> </span><span class="n">_license</span><span class="p">[]</span><span class="w"> </span><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;license&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;GPL&quot;</span><span class="p">;</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;xdp&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="kt">int</span><span class="w"> </span><span class="n">xdp_redirect_notouch</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">xdp_md</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="p">{</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">XDP_TX</span><span class="p">;</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="p">}</span>
 </code></pre></div>
-<p>to install dependencies.</p>
-<h3 id="4-build-the-project"><strong>4. Build the project</strong></h3>
-<p>To build the project, run the following command:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>make<span class="w"> </span>build
+<p>This is the entire XDP program. The <code>SEC("xdp")</code> attribute marks it as an XDP program for libbpf's program loader. The function receives an <code>xdp_md</code> context containing packet metadata - <code>data</code> and <code>data_end</code> pointers frame the packet buffer, <code>ingress_ifindex</code> identifies the receiving interface, and RX queue information is available for multi-queue NICs.</p>
+<p>We immediately return <code>XDP_TX</code> without touching the packet. In live frames mode, this causes the kernel to transmit the packet. The packet data itself comes from userspace - we'll construct UDP or custom protocol packets and inject them via BPF_PROG_RUN.</p>
+<p>The beauty of this minimal approach is that all packet construction happens in userspace where you have full control. Want to fuzz protocols? Generate packets in C with arbitrary header fields. Need realistic traffic patterns? Read pcap files and replay them through the XDP program. Testing specific edge cases? Craft packets byte-by-byte. The XDP program is just a vehicle for getting packets onto the wire at line rate.</p>
+<h3 id="userspace-control-program-xdp-pktgenc">Userspace Control Program: xdp-pktgen.c</h3>
+<p>The userspace program handles packet construction, BPF program loading, and injection control. Let's walk through the key components.</p>
+<h4 id="packet-construction-and-configuration">Packet Construction and Configuration</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">struct</span><span class="w"> </span><span class="nc">config</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ifindex</span><span class="p">;</span><span class="w">        </span><span class="c1">// Which interface to inject packets on</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">xdp_flags</span><span class="p">;</span><span class="w">      </span><span class="c1">// XDP attachment flags</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">repeat</span><span class="p">;</span><span class="w">         </span><span class="c1">// How many times to inject each packet</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">batch_size</span><span class="p">;</span><span class="w">     </span><span class="c1">// Batch size for BPF_PROG_RUN (0 = auto)</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="p">};</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="k">struct</span><span class="w"> </span><span class="nc">config</span><span class="w"> </span><span class="n">cfg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="p">.</span><span class="n">ifindex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">              </span><span class="c1">// Network interface (e.g., eth0)</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="p">.</span><span class="n">repeat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">         </span><span class="c1">// 1 million repeats per batch</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="p">.</span><span class="n">batch_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">           </span><span class="c1">// Let kernel choose optimal batch</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="p">};</span>
 </code></pre></div>
-<p>This will compile your code and create the necessary binaries. You can you the <code>Github Code space</code> or <code>Github Action</code> to build the project as well.</p>
-<h3 id="run-the-project"><strong><em>Run the Project</em></strong></h3>
-<p>You can run the binary with:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="go">sudo ./xdp-pktgen</span>
+<p>The configuration controls packet injection parameters. Interface index identifies which NIC to use - find it with <code>ip link show</code>. Repeat count determines how many times to inject each packet in a single BPF_PROG_RUN call. Higher counts amortize syscall overhead but increase latency before the next packet template. Batch size lets you inject multiple different packets in one syscall (advanced feature, 0 means single packet mode).</p>
+<p>Packet construction supports two modes. By default, it generates a synthetic UDP/IPv4 packet:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">struct</span><span class="w"> </span><span class="nc">test_udp_packet_v4</span><span class="w"> </span><span class="n">pkt_udp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_test_udp_packet_v4</span><span class="p">();</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">pkt_udp</span><span class="p">);</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">memcpy</span><span class="p">(</span><span class="n">pkt_file_buffer</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pkt_udp</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">);</span>
 </code></pre></div>
-<p><a class="md-button" href="https://x.com/intent/tweet?text=xdp-pktgen%3A%20xdp%20based%20packet%20generator%0A&amp;url=https://eunomia.dev/tutorials/46-xdp-test/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<p>This creates a minimal valid UDP packet - Ethernet frame with source/dest MACs, IPv4 header with addresses and checksums, UDP header with ports, and a small payload. The <code>create_test_udp_packet_v4()</code> helper (from test_udp_pkt.h) constructs a wire-format packet that network stacks will accept.</p>
+<p>For custom packets, set the <code>PKTGEN_FILE</code> environment variable to a file containing raw packet bytes:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">pkt_file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;PKTGEN_FILE&quot;</span><span class="p">))</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="kt">FILE</span><span class="o">*</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fopen</span><span class="p">(</span><span class="n">pkt_file</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;r&quot;</span><span class="p">);</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fread</span><span class="p">(</span><span class="n">pkt_file_buffer</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1024</span><span class="p">,</span><span class="w"> </span><span class="n">file</span><span class="p">);</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="n">fclose</span><span class="p">(</span><span class="n">file</span><span class="p">);</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="p">}</span>
+</code></pre></div>
+<p>This lets you inject arbitrary packets - pcap extracts, fuzzing payloads, or protocol test vectors. Any binary data works as long as it forms a valid Ethernet frame.</p>
+<h4 id="bpf_prog_run-invocation-and-live-frames">BPF_PROG_RUN Invocation and Live Frames</h4>
+<p>The packet injection loop uses <code>bpf_prog_test_run_opts()</code> to repeatedly invoke the XDP program:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">struct</span><span class="w"> </span><span class="nc">xdp_md</span><span class="w"> </span><span class="n">ctx_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="p">.</span><span class="n">data_end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w">                 </span><span class="c1">// Packet length</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="p">.</span><span class="n">ingress_ifindex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cfg</span><span class="p">.</span><span class="n">ifindex</span><span class="w">    </span><span class="c1">// Which interface</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="p">};</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="n">DECLARE_LIBBPF_OPTS</span><span class="p">(</span><span class="n">bpf_test_run_opts</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p">,</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="p">.</span><span class="n">data_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pkt_file_buffer</span><span class="p">,</span><span class="w">       </span><span class="c1">// Packet data</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">    </span><span class="p">.</span><span class="n">data_size_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w">             </span><span class="c1">// Packet length</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">    </span><span class="p">.</span><span class="n">ctx_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ctx_in</span><span class="p">,</span><span class="w">                </span><span class="c1">// XDP metadata</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">    </span><span class="p">.</span><span class="n">ctx_size_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">ctx_in</span><span class="p">),</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">    </span><span class="p">.</span><span class="n">repeat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cfg</span><span class="p">.</span><span class="n">repeat</span><span class="p">,</span><span class="w">             </span><span class="c1">// Repeat count</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">    </span><span class="p">.</span><span class="n">flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BPF_F_TEST_XDP_LIVE_FRAMES</span><span class="p">,</span><span class="w">  </span><span class="c1">// Enable live TX</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">    </span><span class="p">.</span><span class="n">batch_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cfg</span><span class="p">.</span><span class="n">batch_size</span><span class="p">,</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">    </span><span class="p">.</span><span class="n">cpu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">                         </span><span class="c1">// Pin to CPU 0</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="p">);</span>
+</code></pre></div>
+<p>The critical flag is <code>BPF_F_TEST_XDP_LIVE_FRAMES</code>. Without it, the XDP program runs but packets stay in memory. With it, XDP_TX actions actually transmit packets through the driver. The kernel validates that the interface index is valid and the interface is up, ensuring packets hit the wire.</p>
+<p>CPU pinning (<code>cpu = 0</code>) is important for performance measurement. By pinning the injection thread to CPU 0, you get consistent performance numbers and avoid cache bouncing across cores. For maximum throughput, you'd spawn multiple threads pinned to different CPUs, each injecting packets on separate interfaces or queues.</p>
+<p>The injection loop continues until interrupted:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">do</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_prog_test_run_opts</span><span class="p">(</span><span class="n">run_prog_fd</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">opts</span><span class="p">);</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">errno</span><span class="p">;</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="n">iterations</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">opts</span><span class="p">.</span><span class="n">repeat</span><span class="p">;</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="p">}</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="p">((</span><span class="n">count</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">iterations</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">count</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">exiting</span><span class="p">);</span>
+</code></pre></div>
+<p>Each <code>bpf_prog_test_run_opts()</code> call injects <code>repeat</code> packets (1 million by default). With a fast XDP program, this completes in milliseconds. The kernel batches packet processing, minimizing per-packet overhead. Total throughput depends on packet size, NIC capability, and CPU performance, but 5-10 Mpps per core is achievable.</p>
+<h4 id="kernel-support-detection">Kernel Support Detection</h4>
+<p>Not all kernels support live frames mode. The program probes for support before starting injection:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">probe_kernel_support</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">run_prog_fd</span><span class="p">)</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="p">{</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">run_prog</span><span class="p">(</span><span class="n">run_prog_fd</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w">  </span><span class="c1">// Try injecting 1 packet</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="o">-</span><span class="n">EOPNOTSUPP</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;BPF_PROG_RUN with batch size support is missing from libbpf.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="o">-</span><span class="n">EINVAL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">        </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">EOPNOTSUPP</span><span class="p">;</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Kernel doesn&#39;t support live packet mode for XDP BPF_PROG_RUN.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Error probing kernel support: %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">strerror</span><span class="p">(</span><span class="o">-</span><span class="n">err</span><span class="p">));</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Kernel supports live packet mode for XDP BPF_PROG_RUN.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="p">}</span>
+</code></pre></div>
+<p>This attempts a single packet injection. If the kernel lacks support (Linux &lt;5.18 or CONFIG_XDP_SOCKETS not enabled), it returns <code>-EINVAL</code>. Older libbpf versions without batch support return <code>-EOPNOTSUPP</code>. Success means you can proceed with full packet generation.</p>
+<h2 id="running-the-packet-generator">Running the Packet Generator</h2>
+<p>Navigate to the tutorial directory and build the project:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">cd</span><span class="w"> </span>/home/yunwei37/workspace/bpf-developer-tutorial/src/46-xdp-test
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>make<span class="w"> </span>build
+</code></pre></div>
+<p>This compiles both the XDP program (<code>xdp-pktgen.bpf.o</code>) and userspace control program (<code>xdp-pktgen</code>). The build requires Clang for BPF compilation and libbpf for skeleton generation.</p>
+<p>Before running, identify your network interface index. Use <code>ip link show</code> to list interfaces:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ip<span class="w"> </span>link<span class="w"> </span>show
+</code></pre></div>
+<p>You'll see output like:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; ...
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; ...
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>6: veth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; ...
+</code></pre></div>
+<p>Note the interface number (e.g., 6 for veth0). Update the config in xdp-pktgen.c if needed:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">struct</span><span class="w"> </span><span class="nc">config</span><span class="w"> </span><span class="n">cfg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="p">.</span><span class="n">ifindex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">  </span><span class="c1">// Change to your interface index</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="p">...</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="p">};</span>
+</code></pre></div>
+<p>Run the packet generator with root privileges (required for BPF_PROG_RUN):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>sudo<span class="w"> </span>./xdp-pktgen
+</code></pre></div>
+<p>You'll see output like:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>Kernel supports live packet mode for XDP BPF_PROG_RUN.
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>pkt size: 42
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>[Generating packets...]
+</code></pre></div>
+<p>The program runs until interrupted with Ctrl-C. Monitor packet transmission with:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># In another terminal, watch interface statistics</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s1">&#39;ip -s link show veth0&#39;</span>
+</code></pre></div>
+<p>You'll see TX packet counters increasing rapidly. On a modern CPU, expect 5-10 million packets per second per core for minimal-size packets.</p>
+<h3 id="custom-packet-injection">Custom Packet Injection</h3>
+<p>To inject custom packets, create a binary packet file and set the environment variable:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Create a custom packet (e.g., using scapy or hping3 to generate the binary)</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;\x00\x01\x02\x03\x04\x05...&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>custom_packet.bin
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="c1"># Inject it</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>sudo<span class="w"> </span><span class="nv">PKTGEN_FILE</span><span class="o">=</span>custom_packet.bin<span class="w"> </span>./xdp-pktgen
+</code></pre></div>
+<p>The generator reads up to 1024 bytes from the file and injects that packet repeatedly. This works for any protocol - IPv6, ICMP, custom L2 protocols, even malformed packets for fuzzing.</p>
+<h2 id="performance-characteristics-and-tuning">Performance Characteristics and Tuning</h2>
+<p>XDP packet generation performance depends on several factors. Let's understand what limits throughput and how to maximize it.</p>
+<p><strong>Packet size impact</strong>: Smaller packets achieve higher packet rates but lower throughput in bytes per second. A 64-byte packet at 10 Mpps delivers 5 Gbps. A 1500-byte packet at 2 Mpps delivers 24 Gbps. The CPU processes packets at roughly constant packet-per-second rates, so larger packets achieve higher bandwidth.</p>
+<p><strong>CPU frequency and microarchitecture</strong>: Newer CPUs with higher frequencies and better IPC (instructions per cycle) achieve higher rates. Intel Xeon or AMD EPYC server CPUs can hit 10+ Mpps per core. Older or lower-power CPUs may only reach 2-5 Mpps.</p>
+<p><strong>NIC capabilities</strong>: The network driver must keep up with injection rates. High-end NICs (Intel X710, Mellanox ConnectX) support millions of packets per second. Consumer gigabit NICs often saturate at 1-2 Mpps due to driver limitations or hardware buffering.</p>
+<p><strong>Memory bandwidth</strong>: At high rates, packet data transfer to/from NIC DMA buffers can become a bottleneck. Ensure the system has sufficient memory bandwidth (use <code>perf stat</code> to monitor memory controller utilization).</p>
+<p><strong>Interrupt and polling overhead</strong>: Network drivers use interrupts or polling (NAPI) to process packets. Under extreme load, interrupt overhead can slow processing. Consider tuning interrupt coalescing or using busy-polling.</p>
+<p>For maximum performance, pin the injection thread to a dedicated CPU core, disable CPU frequency scaling (set governor to performance), use huge pages for packet buffers to reduce TLB misses, and consider multi-queue NICs with RSS (Receive Side Scaling) - spawn threads per queue for parallel injection.</p>
+<h2 id="summary-and-next-steps">Summary and Next Steps</h2>
+<p>XDP packet generators leverage the kernel's BPF_PROG_RUN infrastructure to inject packets at line rate from userspace. By combining a minimal XDP program that returns XDP_TX with live frames mode, you can transmit millions of packets per second without external hardware or kernel modules. This enables network stack stress testing, XDP program benchmarking, protocol fuzzing, and synthetic traffic generation.</p>
+<p>Our implementation demonstrates the core concepts: a simple XDP reflection program, userspace packet construction with custom or default UDP packets, BPF_PROG_RUN invocation with live frames flag, and kernel support detection. The result is a flexible, high-performance packet generator suitable for testing network infrastructure, measuring XDP program performance, or generating realistic traffic patterns.</p>
+<p>Beyond basic generation, you can extend this approach to create sophisticated testing tools. Add packet templates for different protocols (TCP SYN floods, ICMP echo, DNS queries). Implement traffic shaping (vary inter-packet delays). Support multiple interfaces simultaneously for throughput aggregation. Integrate with network monitoring to measure drop rates or latency. The XDP packet generator framework provides a foundation for advanced network testing capabilities.</p>
+<blockquote>
+<p>If you'd like to dive deeper into eBPF and XDP, check out our tutorial repository at <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">https://github.com/eunomia-bpf/bpf-developer-tutorial</a> or visit our website at <a href="https://eunomia.dev/tutorials/">https://eunomia.dev/tutorials/</a>.</p>
+</blockquote>
+<h2 id="references">References</h2>
+<ul>
+<li><strong>Tutorial Repository</strong>: <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/46-xdp-test">https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/46-xdp-test</a></li>
+<li><strong>Linux Kernel XDP Documentation</strong>: <code>Documentation/networking/xdp.rst</code></li>
+<li><strong>BPF_PROG_RUN Documentation</strong>: <code>tools/testing/selftests/bpf/README.rst</code></li>
+<li><strong>XDP Tutorial</strong>: <a href="https://github.com/xdp-project/xdp-tutorial">https://github.com/xdp-project/xdp-tutorial</a></li>
+<li><strong>libbpf Documentation</strong>: <a href="https://libbpf.readthedocs.io/">https://libbpf.readthedocs.io/</a></li>
+</ul>
+<p>Complete source code with build instructions and example packet templates is available in the tutorial repository. Contributions welcome!</p>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=eBPF%20Tutorial%20by%20Example%3A%20Building%20a%20High-Performance%20XDP%20Packet%20Generator%0A&amp;url=https://eunomia.dev/tutorials/46-xdp-test/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/tutorials/46-xdp-test/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
@@ -8227,7 +8647,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 10, 2025 23:07:43 UTC">February 10, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 5, 2025 07:31:16 UTC">October 5, 2025</span>
   </span>
 
     
@@ -8247,11 +8667,12 @@
   <span class="md-source-file__fact">
     <span class="md-icon" title="Contributors">
       
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
       
     </span>
     <nav>
       
+        <a href="mailto:yunwei356@gmail.com">yunwei37</a>, 
         <a href="mailto:1067852565@qq.com">云微</a>
     </nav>
   </span>

@@ -24,7 +24,7 @@
     
     
       
-        <title>xdp-pktgen: xdp based packet generator - eunomia</title>
+        <title>eBPF 实例教程：构建高性能 XDP 数据包生成器 - eunomia</title>
       
     
     
@@ -69,7 +69,7 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="xdp-pktgen: xdp based packet generator - eunomia" >
+        <meta  property="og:title"  content="eBPF 实例教程：构建高性能 XDP 数据包生成器 - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
@@ -85,7 +85,7 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="xdp-pktgen: xdp based packet generator - eunomia" >
+        <meta  name="twitter:title"  content="eBPF 实例教程：构建高性能 XDP 数据包生成器 - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
@@ -112,7 +112,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#xdp-pktgen-xdp-based-packet-generator" class="md-skip">
+        <a href="#ebpf-xdp" class="md-skip">
           Skip to content
         </a>
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              xdp-pktgen: xdp based packet generator
+              eBPF 实例教程：构建高性能 XDP 数据包生成器
             
           </span>
         </div>
@@ -1689,7 +1689,7 @@
   
   
   <span class="md-ellipsis">
-    xdp-pktgen: xdp based packet generator
+    eBPF 实例教程：构建高性能 XDP 数据包生成器
     
   </span>
   
@@ -1702,7 +1702,7 @@
   
   
   <span class="md-ellipsis">
-    xdp-pktgen: xdp based packet generator
+    eBPF 实例教程：构建高性能 XDP 数据包生成器
     
   </span>
   
@@ -1725,37 +1725,37 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-to-use" class="md-nav__link">
+  <a href="#xdp" class="md-nav__link">
     <span class="md-ellipsis">
-      How to use
+      理解 XDP 数据包生成
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="How to use">
+    <nav class="md-nav" aria-label="理解 XDP 数据包生成">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#3-install-dependencies" class="md-nav__link">
+  <a href="#bpf_prog_run" class="md-nav__link">
     <span class="md-ellipsis">
-      3. Install dependencies
+      BPF_PROG_RUN 测试接口
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-build-the-project" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      4. Build the project
+      实时帧模式：真实数据包注入
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#run-the-project" class="md-nav__link">
+  <a href="#xdp_tx" class="md-nav__link">
     <span class="md-ellipsis">
-      Run the Project
+      XDP_TX 反射循环
     </span>
   </a>
   
@@ -1763,6 +1763,123 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      构建数据包生成器
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="构建数据包生成器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#xdp-xdp-pktgenbpfc" class="md-nav__link">
+    <span class="md-ellipsis">
+      完整的 XDP 程序：xdp-pktgen.bpf.c
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xdp-pktgenc" class="md-nav__link">
+    <span class="md-ellipsis">
+      用户空间控制程序：xdp-pktgen.c
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="用户空间控制程序：xdp-pktgen.c">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      数据包构造和配置
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bpf_prog_run_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      BPF_PROG_RUN 调用和实时帧
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      内核支持检测
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      运行数据包生成器
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="运行数据包生成器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      自定义数据包注入
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      性能特征和调优
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      总结与下一步
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      参考资料
+    </span>
+  </a>
   
 </li>
       
@@ -2041,6 +2158,29 @@
   
   <span class="md-ellipsis">
     eBPF Tutorial by Example: BPF Workqueues for Asynchronous Sleepable Tasks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xpu/gpu-kernel-driver/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial by Example: Monitoring GPU Activity with Kernel Tracepoints
     
   </span>
   
@@ -8115,37 +8255,37 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-to-use" class="md-nav__link">
+  <a href="#xdp" class="md-nav__link">
     <span class="md-ellipsis">
-      How to use
+      理解 XDP 数据包生成
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="How to use">
+    <nav class="md-nav" aria-label="理解 XDP 数据包生成">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#3-install-dependencies" class="md-nav__link">
+  <a href="#bpf_prog_run" class="md-nav__link">
     <span class="md-ellipsis">
-      3. Install dependencies
+      BPF_PROG_RUN 测试接口
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-build-the-project" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      4. Build the project
+      实时帧模式：真实数据包注入
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#run-the-project" class="md-nav__link">
+  <a href="#xdp_tx" class="md-nav__link">
     <span class="md-ellipsis">
-      Run the Project
+      XDP_TX 反射循环
     </span>
   </a>
   
@@ -8153,6 +8293,123 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      构建数据包生成器
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="构建数据包生成器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#xdp-xdp-pktgenbpfc" class="md-nav__link">
+    <span class="md-ellipsis">
+      完整的 XDP 程序：xdp-pktgen.bpf.c
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xdp-pktgenc" class="md-nav__link">
+    <span class="md-ellipsis">
+      用户空间控制程序：xdp-pktgen.c
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="用户空间控制程序：xdp-pktgen.c">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      数据包构造和配置
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bpf_prog_run_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      BPF_PROG_RUN 调用和实时帧
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      内核支持检测
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      运行数据包生成器
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="运行数据包生成器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      自定义数据包注入
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      性能特征和调优
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      总结与下一步
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      参考资料
+    </span>
+  </a>
   
 </li>
       
@@ -8180,30 +8437,193 @@
   
 
 
-<h1 id="xdp-pktgen-xdp-based-packet-generator">xdp-pktgen: xdp based packet generator</h1>
-<p>This is a simple xdp based packet generator.</p>
-<h2 id="how-to-use"><strong>How to use</strong></h2>
-<p>clone the repo, you can update the git submodule with following commands:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>submodule<span class="w"> </span>update<span class="w"> </span>--init<span class="w"> </span>--recursive
+<h1 id="ebpf-xdp">eBPF 实例教程：构建高性能 XDP 数据包生成器</h1>
+<p>需要对网络栈进行压力测试或测量 XDP 程序性能吗？传统的数据包生成器如 <code>pktgen</code> 需要内核模块或在用户态运行，开销很大。有更好的方法 - XDP 的 BPF_PROG_RUN 功能让你可以直接从用户态向内核快速路径注入数据包，速度可达每秒数百万包，而且不需要加载网络驱动。</p>
+<p>在本教程中，我们将构建一个基于 XDP 的数据包生成器，利用内核的 BPF_PROG_RUN 测试基础设施。我们将探索 XDP 的 <code>XDP_TX</code> 动作如何创建数据包反射循环，理解启用真实数据包注入的实时帧模式，并测量高负载下 XDP 程序的性能特征。最后，你将拥有一个用于网络测试和 XDP 基准测试的生产级工具。</p>
+<h2 id="xdp">理解 XDP 数据包生成</h2>
+<p>XDP（eXpress Data Path）通过在内核网络栈分配套接字缓冲区之前挂钩到网络驱动程序，提供了 Linux 中最快的可编程数据包处理。通常，XDP 程序处理从网络接口到达的数据包。但是，如果你想在没有真实网络流量的情况下测试 XDP 程序的性能怎么办？或者注入合成数据包来对网络基础设施进行压力测试？</p>
+<h3 id="bpf_prog_run">BPF_PROG_RUN 测试接口</h3>
+<p>内核通过 <code>bpf_prog_test_run()</code>（BPF_PROG_RUN）暴露了一个用于测试 BPF 程序的机制。最初设计用于单元测试，这个系统调用让用户空间可以使用合成输入调用 BPF 程序并捕获其输出。对于 XDP 程序，你提供一个数据包缓冲区和描述数据包元数据（接口索引、RX 队列）的 <code>xdp_md</code> 上下文。内核运行你的 XDP 程序并返回动作代码（XDP_DROP、XDP_PASS、XDP_TX 等）以及任何数据包修改。</p>
+<p>传统的 BPF_PROG_RUN 在"空运行"模式下操作 - 数据包被处理但从不实际传输。XDP 程序运行，修改数据包数据，返回一个动作，但没有任何东西到达网络。这对于测试数据包解析逻辑或在隔离环境中测量程序执行时间非常完美。</p>
+<h3 id="_1">实时帧模式：真实数据包注入</h3>
+<p>在 Linux 5.18+ 中，内核通过 <code>BPF_F_TEST_XDP_LIVE_FRAMES</code> 标志引入了<strong>实时帧模式</strong>。这从根本上改变了 BPF_PROG_RUN 的行为。当启用时，XDP_TX 动作不仅仅是返回 - 它们实际上通过指定的网络接口在网络上传输数据包。这将 BPF_PROG_RUN 变成了一个强大的数据包生成器。</p>
+<p>工作原理如下：你的用户空间程序构造一个数据包（带有 IP 头、UDP 负载等的以太网帧），并在启用实时帧的情况下将其传递给 <code>bpf_prog_test_run()</code>。XDP 程序在其 <code>xdp_md</code> 上下文中接收这个数据包。如果程序返回 <code>XDP_TX</code>，内核会通过网络驱动传输数据包，就像它到达接口并被反射回去一样。数据包出现在网络上，完全支持硬件卸载（校验和、分段等）。</p>
+<p>这启用了几个强大的用例。<strong>网络栈压力测试</strong>：用每秒数百万个数据包淹没你的系统，以找到网络栈、驱动程序或应用层的瓶颈。<strong>XDP 程序基准测试</strong>：在没有外部数据包生成器的情况下，测量 XDP 程序在真实负载下每秒可以处理多少个数据包。<strong>协议模糊测试</strong>：生成格式错误的数据包或不寻常的协议序列来测试健壮性。<strong>合成流量生成</strong>：创建真实的流量模式来测试负载均衡器、防火墙或入侵检测系统。</p>
+<h3 id="xdp_tx">XDP_TX 反射循环</h3>
+<p>最简单的 XDP 数据包生成器使用 <code>XDP_TX</code> 动作。这告诉内核"将这个数据包传输回它到达的接口"。我们的最小 XDP 程序字面上只有三行：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;xdp&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kt">int</span><span class="w"> </span><span class="n">xdp_redirect_notouch</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">xdp_md</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">{</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">XDP_TX</span><span class="p">;</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">}</span>
 </code></pre></div>
-<h3 id="3-install-dependencies"><strong>3. Install dependencies</strong></h3>
-<p>For dependencies, it varies from distribution to distribution. You can refer to shell.nix and dockerfile for installation.</p>
-<p>On Ubuntu, you may run <code>make install</code> or</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>--no-install-recommends<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">        </span>libelf1<span class="w"> </span>libelf-dev<span class="w"> </span>zlib1g-dev<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">        </span>make<span class="w"> </span>clang<span class="w"> </span>llvm
+<p>就是这样。没有数据包解析，没有头部修改 - 只是反射所有内容。结合实时帧模式下的 BPF_PROG_RUN，这创建了一个数据包生成循环：用户空间注入一个数据包，XDP 将其反射到网络，以每秒数百万个数据包的速度重复。</p>
+<p>为什么这么快？XDP 程序在驱动程序的接收路径中运行，直接访问 DMA 缓冲区。没有套接字缓冲区分配，没有协议栈遍历，数据包之间没有上下文切换到用户空间。内核可以批量处理多个帧的数据包，摊销每个数据包的开销。在现代硬件上，单个 CPU 核心可以生成 500-1000 万个数据包每秒。</p>
+<h2 id="_2">构建数据包生成器</h2>
+<p>让我们检查完整的数据包生成器如何工作，从用户空间控制到内核数据包注入。</p>
+<h3 id="xdp-xdp-pktgenbpfc">完整的 XDP 程序：xdp-pktgen.bpf.c</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cm">/* SPDX-License-Identifier: MIT */</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;vmlinux.h&quot;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;bpf/bpf_helpers.h&gt;</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;bpf/bpf_endian.h&gt;</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="kt">char</span><span class="w"> </span><span class="n">_license</span><span class="p">[]</span><span class="w"> </span><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;license&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;GPL&quot;</span><span class="p">;</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;xdp&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="kt">int</span><span class="w"> </span><span class="n">xdp_redirect_notouch</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">xdp_md</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="p">{</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">XDP_TX</span><span class="p">;</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="p">}</span>
 </code></pre></div>
-<p>to install dependencies.</p>
-<h3 id="4-build-the-project"><strong>4. Build the project</strong></h3>
-<p>To build the project, run the following command:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>make<span class="w"> </span>build
+<p>这就是整个 XDP 程序。<code>SEC("xdp")</code> 属性将其标记为 libbpf 程序加载器的 XDP 程序。该函数接收一个 <code>xdp_md</code> 上下文，其中包含数据包元数据 - <code>data</code> 和 <code>data_end</code> 指针框定数据包缓冲区，<code>ingress_ifindex</code> 标识接收接口，并且 RX 队列信息可用于多队列网卡。</p>
+<p>我们立即返回 <code>XDP_TX</code> 而不触碰数据包。在实时帧模式下，这会导致内核传输数据包。数据包数据本身来自用户空间 - 我们将构造 UDP 或自定义协议数据包，并通过 BPF_PROG_RUN 注入它们。</p>
+<p>这种最小化方法的美妙之处在于所有数据包构造都发生在用户空间，你可以完全控制。想要模糊测试协议？在 C 中生成具有任意头字段的数据包。需要真实的流量模式？读取 pcap 文件并通过 XDP 程序重放它们。测试特定的边缘情况？逐字节制作数据包。XDP 程序只是将数据包以线速发送到网络的工具。</p>
+<h3 id="xdp-pktgenc">用户空间控制程序：xdp-pktgen.c</h3>
+<p>用户空间程序处理数据包构造、BPF 程序加载和注入控制。让我们逐步了解关键组件。</p>
+<h4 id="_3">数据包构造和配置</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">struct</span><span class="w"> </span><span class="nc">config</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ifindex</span><span class="p">;</span><span class="w">        </span><span class="c1">// 在哪个接口上注入数据包</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">xdp_flags</span><span class="p">;</span><span class="w">      </span><span class="c1">// XDP 附加标志</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">repeat</span><span class="p">;</span><span class="w">         </span><span class="c1">// 注入每个数据包的次数</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">batch_size</span><span class="p">;</span><span class="w">     </span><span class="c1">// BPF_PROG_RUN 的批量大小（0 = 自动）</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="p">};</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="k">struct</span><span class="w"> </span><span class="nc">config</span><span class="w"> </span><span class="n">cfg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="p">.</span><span class="n">ifindex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">              </span><span class="c1">// 网络接口（例如，eth0）</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="p">.</span><span class="n">repeat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">         </span><span class="c1">// 每批 100 万次重复</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="p">.</span><span class="n">batch_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">           </span><span class="c1">// 让内核选择最佳批次</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="p">};</span>
 </code></pre></div>
-<p>This will compile your code and create the necessary binaries. You can you the <code>Github Code space</code> or <code>Github Action</code> to build the project as well.</p>
-<h3 id="run-the-project"><strong><em>Run the Project</em></strong></h3>
-<p>You can run the binary with:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="go">sudo ./xdp-pktgen</span>
+<p>配置控制数据包注入参数。接口索引标识要使用的网卡 - 使用 <code>ip link show</code> 查找。重复计数确定在单个 BPF_PROG_RUN 调用中注入每个数据包的次数。更高的计数可以摊销系统调用开销，但会增加下一个数据包模板之前的延迟。批量大小允许你在一次系统调用中注入多个不同的数据包（高级功能，0 表示单数据包模式）。</p>
+<p>数据包构造支持两种模式。默认情况下，它生成一个合成的 UDP/IPv4 数据包：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">struct</span><span class="w"> </span><span class="nc">test_udp_packet_v4</span><span class="w"> </span><span class="n">pkt_udp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_test_udp_packet_v4</span><span class="p">();</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">pkt_udp</span><span class="p">);</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">memcpy</span><span class="p">(</span><span class="n">pkt_file_buffer</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pkt_udp</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">);</span>
 </code></pre></div>
-<p><a class="md-button" href="https://x.com/intent/tweet?text=xdp-pktgen%3A%20xdp%20based%20packet%20generator%0A&amp;url=https://eunomia.dev/zh/tutorials/46-xdp-test/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<p>这创建了一个最小的有效 UDP 数据包 - 带有源/目标 MAC 的以太网帧、带有地址和校验和的 IPv4 头、带有端口的 UDP 头和小的负载。<code>create_test_udp_packet_v4()</code> 辅助函数（来自 test_udp_pkt.h）构造一个网络栈可以接受的线格式数据包。</p>
+<p>对于自定义数据包，将 <code>PKTGEN_FILE</code> 环境变量设置为包含原始数据包字节的文件：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">pkt_file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;PKTGEN_FILE&quot;</span><span class="p">))</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="kt">FILE</span><span class="o">*</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fopen</span><span class="p">(</span><span class="n">pkt_file</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;r&quot;</span><span class="p">);</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fread</span><span class="p">(</span><span class="n">pkt_file_buffer</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1024</span><span class="p">,</span><span class="w"> </span><span class="n">file</span><span class="p">);</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="n">fclose</span><span class="p">(</span><span class="n">file</span><span class="p">);</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="p">}</span>
+</code></pre></div>
+<p>这允许你注入任意数据包 - pcap 提取、模糊测试负载或协议测试向量。任何二进制数据都可以工作，只要它形成一个有效的以太网帧。</p>
+<h4 id="bpf_prog_run_1">BPF_PROG_RUN 调用和实时帧</h4>
+<p>数据包注入循环使用 <code>bpf_prog_test_run_opts()</code> 重复调用 XDP 程序：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">struct</span><span class="w"> </span><span class="nc">xdp_md</span><span class="w"> </span><span class="n">ctx_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="p">.</span><span class="n">data_end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w">                 </span><span class="c1">// 数据包长度</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="p">.</span><span class="n">ingress_ifindex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cfg</span><span class="p">.</span><span class="n">ifindex</span><span class="w">    </span><span class="c1">// 哪个接口</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="p">};</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="n">DECLARE_LIBBPF_OPTS</span><span class="p">(</span><span class="n">bpf_test_run_opts</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p">,</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="p">.</span><span class="n">data_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pkt_file_buffer</span><span class="p">,</span><span class="w">       </span><span class="c1">// 数据包数据</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">    </span><span class="p">.</span><span class="n">data_size_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w">             </span><span class="c1">// 数据包长度</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">    </span><span class="p">.</span><span class="n">ctx_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ctx_in</span><span class="p">,</span><span class="w">                </span><span class="c1">// XDP 元数据</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">    </span><span class="p">.</span><span class="n">ctx_size_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">ctx_in</span><span class="p">),</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">    </span><span class="p">.</span><span class="n">repeat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cfg</span><span class="p">.</span><span class="n">repeat</span><span class="p">,</span><span class="w">             </span><span class="c1">// 重复计数</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">    </span><span class="p">.</span><span class="n">flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BPF_F_TEST_XDP_LIVE_FRAMES</span><span class="p">,</span><span class="w">  </span><span class="c1">// 启用实时传输</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">    </span><span class="p">.</span><span class="n">batch_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cfg</span><span class="p">.</span><span class="n">batch_size</span><span class="p">,</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">    </span><span class="p">.</span><span class="n">cpu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">                         </span><span class="c1">// 固定到 CPU 0</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="p">);</span>
+</code></pre></div>
+<p>关键标志是 <code>BPF_F_TEST_XDP_LIVE_FRAMES</code>。如果没有它，XDP 程序会运行但数据包保留在内存中。有了它，XDP_TX 动作实际上通过驱动程序传输数据包。内核验证接口索引是否有效且接口是否启动，确保数据包到达网络。</p>
+<p>CPU 固定（<code>cpu = 0</code>）对性能测量很重要。通过将注入线程固定到 CPU 0，你可以获得一致的性能数字并避免跨核心的缓存抖动。为了获得最大吞吐量，你可以生成多个固定到不同 CPU 的线程，每个线程在单独的接口或队列上注入数据包。</p>
+<p>注入循环一直持续到中断：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">do</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_prog_test_run_opts</span><span class="p">(</span><span class="n">run_prog_fd</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">opts</span><span class="p">);</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">errno</span><span class="p">;</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="n">iterations</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">opts</span><span class="p">.</span><span class="n">repeat</span><span class="p">;</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="p">}</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="p">((</span><span class="n">count</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">iterations</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">count</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">exiting</span><span class="p">);</span>
+</code></pre></div>
+<p>每次 <code>bpf_prog_test_run_opts()</code> 调用注入 <code>repeat</code> 个数据包（默认 100 万个）。使用快速的 XDP 程序，这在几毫秒内完成。内核批量处理数据包，最小化每个数据包的开销。总吞吐量取决于数据包大小、网卡能力和 CPU 性能，但每个核心可以实现 500-1000 万 pps。</p>
+<h4 id="_4">内核支持检测</h4>
+<p>并非所有内核都支持实时帧模式。程序在开始注入之前探测支持：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">probe_kernel_support</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">run_prog_fd</span><span class="p">)</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="p">{</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">run_prog</span><span class="p">(</span><span class="n">run_prog_fd</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w">  </span><span class="c1">// 尝试注入 1 个数据包</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="o">-</span><span class="n">EOPNOTSUPP</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;BPF_PROG_RUN with batch size support is missing from libbpf.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="o">-</span><span class="n">EINVAL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">        </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">EOPNOTSUPP</span><span class="p">;</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Kernel doesn&#39;t support live packet mode for XDP BPF_PROG_RUN.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Error probing kernel support: %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">strerror</span><span class="p">(</span><span class="o">-</span><span class="n">err</span><span class="p">));</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Kernel supports live packet mode for XDP BPF_PROG_RUN.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="p">}</span>
+</code></pre></div>
+<p>这尝试单个数据包注入。如果内核缺乏支持（Linux &lt;5.18 或未启用 CONFIG_XDP_SOCKETS），它返回 <code>-EINVAL</code>。没有批量支持的旧 libbpf 版本返回 <code>-EOPNOTSUPP</code>。成功意味着你可以继续完整的数据包生成。</p>
+<h2 id="_5">运行数据包生成器</h2>
+<p>导航到教程目录并构建项目：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">cd</span><span class="w"> </span>/home/yunwei37/workspace/bpf-developer-tutorial/src/46-xdp-test
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>make<span class="w"> </span>build
+</code></pre></div>
+<p>这会编译 XDP 程序（<code>xdp-pktgen.bpf.o</code>）和用户空间控制程序（<code>xdp-pktgen</code>）。构建需要 Clang 用于 BPF 编译和 libbpf 用于骨架生成。</p>
+<p>在运行之前，识别你的网络接口索引。使用 <code>ip link show</code> 列出接口：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ip<span class="w"> </span>link<span class="w"> </span>show
+</code></pre></div>
+<p>你会看到类似以下的输出：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; ...
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; ...
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>6: veth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; ...
+</code></pre></div>
+<p>注意接口编号（例如，veth0 为 6）。如果需要，在 xdp-pktgen.c 中更新配置：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">struct</span><span class="w"> </span><span class="nc">config</span><span class="w"> </span><span class="n">cfg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="p">.</span><span class="n">ifindex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">  </span><span class="c1">// 更改为你的接口索引</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="p">...</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="p">};</span>
+</code></pre></div>
+<p>使用 root 权限运行数据包生成器（BPF_PROG_RUN 需要）：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>sudo<span class="w"> </span>./xdp-pktgen
+</code></pre></div>
+<p>你会看到类似以下的输出：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>Kernel supports live packet mode for XDP BPF_PROG_RUN.
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>pkt size: 42
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>[Generating packets...]
+</code></pre></div>
+<p>程序一直运行直到使用 Ctrl-C 中断。使用以下命令监控数据包传输：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># 在另一个终端中，监视接口统计信息</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s1">&#39;ip -s link show veth0&#39;</span>
+</code></pre></div>
+<p>你会看到 TX 数据包计数器快速增加。在现代 CPU 上，对于最小大小的数据包，预计每个核心每秒 500-1000 万个数据包。</p>
+<h3 id="_6">自定义数据包注入</h3>
+<p>要注入自定义数据包，创建一个二进制数据包文件并设置环境变量：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># 创建自定义数据包（例如，使用 scapy 或 hping3 生成二进制文件）</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;\x00\x01\x02\x03\x04\x05...&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>custom_packet.bin
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="c1"># 注入它</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>sudo<span class="w"> </span><span class="nv">PKTGEN_FILE</span><span class="o">=</span>custom_packet.bin<span class="w"> </span>./xdp-pktgen
+</code></pre></div>
+<p>生成器从文件中读取最多 1024 字节并重复注入该数据包。这适用于任何协议 - IPv6、ICMP、自定义 L2 协议，甚至用于模糊测试的格式错误的数据包。</p>
+<h2 id="_7">性能特征和调优</h2>
+<p>XDP 数据包生成性能取决于几个因素。让我们了解什么限制了吞吐量以及如何最大化它。</p>
+<p><strong>数据包大小影响</strong>：较小的数据包实现更高的包速率，但每秒字节数的吞吐量较低。64 字节的数据包在 1000 万 pps 时提供 5 Gbps。1500 字节的数据包在 200 万 pps 时提供 24 Gbps。CPU 以大致恒定的每秒包速率处理数据包，因此较大的数据包实现更高的带宽。</p>
+<p><strong>CPU 频率和微架构</strong>：具有更高频率和更好 IPC（每周期指令数）的新 CPU 实现更高的速率。Intel Xeon 或 AMD EPYC 服务器 CPU 每个核心可以达到 1000 万以上 pps。较旧或低功耗 CPU 可能只能达到 200-500 万 pps。</p>
+<p><strong>网卡能力</strong>：网络驱动程序必须跟上注入速率。高端网卡（Intel X710、Mellanox ConnectX）支持每秒数百万个数据包。消费级千兆网卡由于驱动程序限制或硬件缓冲，通常在 100-200 万 pps 时饱和。</p>
+<p><strong>内存带宽</strong>：在高速率下，往返于网卡 DMA 缓冲区的数据包数据传输可能成为瓶颈。确保系统有足够的内存带宽（使用 <code>perf stat</code> 监控内存控制器利用率）。</p>
+<p><strong>中断和轮询开销</strong>：网络驱动程序使用中断或轮询（NAPI）来处理数据包。在极端负载下，中断开销可能会减慢处理速度。考虑调整中断合并或使用忙轮询。</p>
+<p>为了获得最大性能，将注入线程固定到专用 CPU 核心，禁用 CPU 频率缩放（将调节器设置为 performance），使用大页面用于数据包缓冲区以减少 TLB 未命中，并考虑带有 RSS（接收侧缩放）的多队列网卡 - 为每个队列生成线程以进行并行注入。</p>
+<h2 id="_8">总结与下一步</h2>
+<p>XDP 数据包生成器利用内核的 BPF_PROG_RUN 基础设施以线速从用户空间注入数据包。通过将返回 XDP_TX 的最小 XDP 程序与实时帧模式相结合，你可以在没有外部硬件或内核模块的情况下每秒传输数百万个数据包。这使得网络栈压力测试、XDP 程序基准测试、协议模糊测试和合成流量生成成为可能。</p>
+<p>我们的实现演示了核心概念：一个简单的 XDP 反射程序、使用自定义或默认 UDP 数据包的用户空间数据包构造、带有实时帧标志的 BPF_PROG_RUN 调用，以及内核支持检测。结果是一个灵活的、高性能的数据包生成器，适用于测试网络基础设施、测量 XDP 程序性能或生成真实的流量模式。</p>
+<p>除了基本生成之外，你可以扩展这种方法来创建复杂的测试工具。为不同的协议添加数据包模板（TCP SYN 洪水、ICMP echo、DNS 查询）。实现流量整形（改变数据包间延迟）。同时支持多个接口以进行吞吐量聚合。与网络监控集成以测量丢包率或延迟。XDP 数据包生成器框架为高级网络测试功能提供了基础。</p>
+<blockquote>
+<p>如果你想深入了解 eBPF 和 XDP，请查看我们的教程仓库 <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">https://github.com/eunomia-bpf/bpf-developer-tutorial</a> 或访问我们的网站 <a href="https://eunomia.dev/tutorials/">https://eunomia.dev/tutorials/</a>。</p>
+</blockquote>
+<h2 id="_9">参考资料</h2>
+<ul>
+<li><strong>教程仓库</strong>: <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/46-xdp-test">https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/46-xdp-test</a></li>
+<li><strong>Linux 内核 XDP 文档</strong>: <code>Documentation/networking/xdp.rst</code></li>
+<li><strong>BPF_PROG_RUN 文档</strong>: <code>tools/testing/selftests/bpf/README.rst</code></li>
+<li><strong>XDP 教程</strong>: <a href="https://github.com/xdp-project/xdp-tutorial">https://github.com/xdp-project/xdp-tutorial</a></li>
+<li><strong>libbpf 文档</strong>: <a href="https://libbpf.readthedocs.io/">https://libbpf.readthedocs.io/</a></li>
+</ul>
+<p>完整的源代码及构建说明和示例数据包模板可在教程仓库中获取。欢迎贡献！</p>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=eBPF%20%E5%AE%9E%E4%BE%8B%E6%95%99%E7%A8%8B%EF%BC%9A%E6%9E%84%E5%BB%BA%E9%AB%98%E6%80%A7%E8%83%BD%20XDP%20%E6%95%B0%E6%8D%AE%E5%8C%85%E7%94%9F%E6%88%90%E5%99%A8%0A&amp;url=https://eunomia.dev/zh/tutorials/46-xdp-test/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/zh/tutorials/46-xdp-test/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
@@ -8227,7 +8647,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 10, 2025 23:07:43 UTC">February 10, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 5, 2025 07:31:16 UTC">October 5, 2025</span>
   </span>
 
     
@@ -8247,11 +8667,12 @@
   <span class="md-source-file__fact">
     <span class="md-icon" title="Contributors">
       
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
       
     </span>
     <nav>
       
+        <a href="mailto:yunwei356@gmail.com">yunwei37</a>, 
         <a href="mailto:1067852565@qq.com">云微</a>
     </nav>
   </span>
