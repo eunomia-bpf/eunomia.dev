@@ -24,7 +24,13 @@ def run_gh_api(endpoint: str, params: Dict[str, str] = None, paginate: bool = Fa
 
     cmd.append(endpoint)
 
-    result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+    except subprocess.CalledProcessError as e:
+        print(f"Error running gh api command: {' '.join(cmd)}", file=sys.stderr)
+        print(f"stdout: {e.stdout}", file=sys.stderr)
+        print(f"stderr: {e.stderr}", file=sys.stderr)
+        raise
 
     # Handle paginated results (multiple JSON objects)
     if paginate:
@@ -58,7 +64,14 @@ def run_gh_api_with_header(endpoint: str, headers: List[str], params: Dict[str, 
 
     cmd.append(endpoint)
 
-    result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+    except subprocess.CalledProcessError as e:
+        print(f"Error running gh api command: {' '.join(cmd)}", file=sys.stderr)
+        print(f"stdout: {e.stdout}", file=sys.stderr)
+        print(f"stderr: {e.stderr}", file=sys.stderr)
+        raise
+
     return json.loads(result.stdout)
 
 
@@ -66,107 +79,131 @@ def count_new_stars(org: str, start_z: str, end_z: str) -> int:
     """Count new stars across all repos in the organization."""
     total_stars = 0
 
-    # Get all repos in org
-    repos = run_gh_api(f"/orgs/{org}/repos", paginate=True)
-    repo_names = [repo["name"] for repo in repos]
+    try:
+        # Get all repos in org
+        repos = run_gh_api(f"/orgs/{org}/repos", paginate=True)
+        repo_names = [repo["name"] for repo in repos]
 
-    for repo_name in repo_names:
-        # Get stargazers with timestamps
-        stargazers = run_gh_api_with_header(
-            f"/repos/{org}/{repo_name}/stargazers",
-            ["Accept: application/vnd.github.star+json"],
-            paginate=True
-        )
+        for repo_name in repo_names:
+            try:
+                # Get stargazers with timestamps
+                stargazers = run_gh_api_with_header(
+                    f"/repos/{org}/{repo_name}/stargazers",
+                    ["Accept: application/vnd.github.star+json"],
+                    paginate=True
+                )
 
-        # Count stars in date range
-        if isinstance(stargazers, list):
-            count = sum(1 for s in stargazers
-                       if s.get("starred_at", "") >= start_z and s.get("starred_at", "") <= end_z)
-            total_stars += count
+                # Count stars in date range
+                if isinstance(stargazers, list):
+                    count = sum(1 for s in stargazers
+                               if s.get("starred_at", "") >= start_z and s.get("starred_at", "") <= end_z)
+                    total_stars += count
+            except Exception as e:
+                print(f"Warning: Failed to get stars for {org}/{repo_name}: {e}", file=sys.stderr)
+                continue
 
-    return total_stars
+        return total_stars
+    except Exception as e:
+        print(f"Warning: Failed to count stars: {e}", file=sys.stderr)
+        return 0
 
 
 def get_new_repos(org: str, start_z: str, end_z: str) -> List[str]:
     """Get repositories created in the date range."""
-    repos = run_gh_api(f"/orgs/{org}/repos", paginate=True)
+    try:
+        repos = run_gh_api(f"/orgs/{org}/repos", paginate=True)
 
-    new_repos = []
-    for repo in repos:
-        if repo.get("created_at", "") >= start_z and repo.get("created_at", "") <= end_z:
-            new_repos.append(f"- [{repo['full_name']}]({repo['html_url']}) — created {repo['created_at']}")
+        new_repos = []
+        for repo in repos:
+            if repo.get("created_at", "") >= start_z and repo.get("created_at", "") <= end_z:
+                new_repos.append(f"- [{repo['full_name']}]({repo['html_url']}) — created {repo['created_at']}")
 
-    return new_repos
+        return new_repos
+    except Exception as e:
+        print(f"Warning: Failed to get new repos: {e}", file=sys.stderr)
+        return []
 
 
 def get_prs_opened(org: str, start: str, end: str) -> List[str]:
     """Get PRs opened in the date range."""
-    result = run_gh_api_with_header(
-        "/search/issues",
-        ["Accept: application/vnd.github+json"],
-        params={
-            "q": f"org:{org} is:pr created:{start}..{end}",
-            "per_page": "100"
-        },
-        paginate=True
-    )
+    try:
+        result = run_gh_api_with_header(
+            "/search/issues",
+            ["Accept: application/vnd.github+json"],
+            params={
+                "q": f"org:{org} is:pr created:{start}..{end}",
+                "per_page": "100"
+            },
+            paginate=False  # Search API pagination works differently
+        )
 
-    items = result.get("items", []) if isinstance(result, dict) else []
+        items = result.get("items", []) if isinstance(result, dict) else []
 
-    prs = []
-    for item in items:
-        repo_name = item["repository_url"].split("/repos/")[1] if "/repos/" in item["repository_url"] else "unknown"
-        prs.append(f"- [{item['title']}]({item['html_url']}) — {repo_name} #{item['number']}")
+        prs = []
+        for item in items:
+            repo_name = item["repository_url"].split("/repos/")[1] if "/repos/" in item["repository_url"] else "unknown"
+            prs.append(f"- [{item['title']}]({item['html_url']}) — {repo_name} #{item['number']}")
 
-    return prs
+        return prs
+    except Exception as e:
+        print(f"Warning: Failed to get PRs opened: {e}", file=sys.stderr)
+        return []
 
 
 def get_prs_merged(org: str, start: str, end: str) -> List[str]:
     """Get PRs merged in the date range."""
-    result = run_gh_api_with_header(
-        "/search/issues",
-        ["Accept: application/vnd.github+json"],
-        params={
-            "q": f"org:{org} is:pr is:merged merged:{start}..{end}",
-            "per_page": "100"
-        },
-        paginate=True
-    )
+    try:
+        result = run_gh_api_with_header(
+            "/search/issues",
+            ["Accept: application/vnd.github+json"],
+            params={
+                "q": f"org:{org} is:pr is:merged merged:{start}..{end}",
+                "per_page": "100"
+            },
+            paginate=False  # Search API pagination works differently
+        )
 
-    items = result.get("items", []) if isinstance(result, dict) else []
+        items = result.get("items", []) if isinstance(result, dict) else []
 
-    prs = []
-    for item in items:
-        repo_name = item["repository_url"].split("/repos/")[1] if "/repos/" in item["repository_url"] else "unknown"
-        prs.append(f"- [{item['title']}]({item['html_url']}) — {repo_name} #{item['number']}")
+        prs = []
+        for item in items:
+            repo_name = item["repository_url"].split("/repos/")[1] if "/repos/" in item["repository_url"] else "unknown"
+            prs.append(f"- [{item['title']}]({item['html_url']}) — {repo_name} #{item['number']}")
 
-    return prs
+        return prs
+    except Exception as e:
+        print(f"Warning: Failed to get PRs merged: {e}", file=sys.stderr)
+        return []
 
 
 def get_commits(org: str, start: str, end: str) -> List[str]:
     """Get commits in the date range."""
-    result = run_gh_api_with_header(
-        "/search/commits",
-        ["Accept: application/vnd.github+json"],
-        params={
-            "q": f"org:{org} committer-date:{start}..{end}",
-            "per_page": "100"
-        },
-        paginate=True
-    )
-
-    items = result.get("items", []) if isinstance(result, dict) else []
-
-    commits = []
-    for item in items:
-        message = item["commit"]["message"].split("\n")[0]
-        sha_short = item["sha"][:7]
-        commits.append(
-            f"- [{message}]({item['html_url']}) — {item['repository']['full_name']} "
-            f"@{sha_short} ({item['commit']['committer']['date']})"
+    try:
+        result = run_gh_api_with_header(
+            "/search/commits",
+            ["Accept: application/vnd.github+json"],
+            params={
+                "q": f"org:{org} committer-date:{start}..{end}",
+                "per_page": "100"
+            },
+            paginate=False  # Search API pagination works differently
         )
 
-    return commits
+        items = result.get("items", []) if isinstance(result, dict) else []
+
+        commits = []
+        for item in items:
+            message = item["commit"]["message"].split("\n")[0]
+            sha_short = item["sha"][:7]
+            commits.append(
+                f"- [{message}]({item['html_url']}) — {item['repository']['full_name']} "
+                f"@{sha_short} ({item['commit']['committer']['date']})"
+            )
+
+        return commits
+    except Exception as e:
+        print(f"Warning: Failed to get commits: {e}", file=sys.stderr)
+        return []
 
 
 def append_org_activity(org: str, start: str, end: str, output_file: str = "issue_metrics.md"):
