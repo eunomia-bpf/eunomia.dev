@@ -1,0 +1,64 @@
+name: Auto Publish Posts
+
+on:
+  # Run weekly on Mondays at 9:00 AM UTC
+  schedule:
+    - cron: '0 9 * * 1'
+
+  # Allow manual triggering
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (preview only, do not publish)'
+        required: false
+        type: boolean
+        default: false
+      draft_only:
+        description: 'Publish as draft only'
+        required: false
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Run publisher script
+        env:
+          PUBLISH_PASSWORD: ${{ secrets.PUBLISH_PASSWORD }}
+          DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+          DRAFT_ONLY: ${{ github.event.inputs.draft_only || 'false' }}
+        run: |
+          python .github/publisher/publish.py
+
+      - name: Commit changes
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .github/publisher/posts_queue.txt
+          git diff --staged --quiet || git commit -m "Published post and updated queue [skip ci]"
+
+      - name: Push changes
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
