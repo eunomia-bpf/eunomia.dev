@@ -24,7 +24,7 @@
     
     
       
-        <title>eBPF Tutorial by Example: Tracing Intel NPU Kernel Driver Operations - eunomia</title>
+        <title>eBPF 实例教程：跟踪 Intel NPU 内核驱动操作 - eunomia</title>
       
     
     
@@ -69,11 +69,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="eBPF Tutorial by Example: Tracing Intel NPU Kernel Driver Operations - eunomia" >
+        <meta  property="og:title"  content="eBPF 实例教程：跟踪 Intel NPU 内核驱动操作 - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
-        <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/tutorials/xpu/npu-kernel-driver/README.png" >
+        <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/tutorials/xpu/npu-kernel-driver/README.zh.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -85,11 +85,11 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="eBPF Tutorial by Example: Tracing Intel NPU Kernel Driver Operations - eunomia" >
+        <meta  name="twitter:title"  content="eBPF 实例教程：跟踪 Intel NPU 内核驱动操作 - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
-        <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/tutorials/xpu/npu-kernel-driver/README.png" >
+        <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/tutorials/xpu/npu-kernel-driver/README.zh.png" >
       
     
     
@@ -112,7 +112,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ebpf-tutorial-by-example-tracing-intel-npu-kernel-driver-operations" class="md-skip">
+        <a href="#ebpf-intel-npu" class="md-skip">
           Skip to content
         </a>
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              eBPF Tutorial by Example: Tracing Intel NPU Kernel Driver Operations
+              eBPF 实例教程：跟踪 Intel NPU 内核驱动操作
             
           </span>
         </div>
@@ -1965,7 +1965,7 @@
   
   
   <span class="md-ellipsis">
-    eBPF Tutorial by Example: Tracing Intel NPU Kernel Driver Operations
+    eBPF 实例教程：跟踪 Intel NPU 内核驱动操作
     
   </span>
   
@@ -1978,7 +1978,7 @@
   
   
   <span class="md-ellipsis">
-    eBPF Tutorial by Example: Tracing Intel NPU Kernel Driver Operations
+    eBPF 实例教程：跟踪 Intel NPU 内核驱动操作
     
   </span>
   
@@ -2001,46 +2001,46 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#intel-npu-driver-architecture" class="md-nav__link">
+  <a href="#intel-npu" class="md-nav__link">
     <span class="md-ellipsis">
-      Intel NPU Driver Architecture
+      Intel NPU 驱动架构
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#level-zero-api-to-kernel-driver-mapping" class="md-nav__link">
+  <a href="#level-zero-api" class="md-nav__link">
     <span class="md-ellipsis">
-      Level Zero API to Kernel Driver Mapping
+      Level Zero API 到内核驱动的映射
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#tracing-npu-operations-with-bpftrace" class="md-nav__link">
+  <a href="#bpftrace-npu" class="md-nav__link">
     <span class="md-ellipsis">
-      Tracing NPU Operations with Bpftrace
+      使用 Bpftrace 跟踪 NPU 操作
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Tracing NPU Operations with Bpftrace">
+    <nav class="md-nav" aria-label="使用 Bpftrace 跟踪 NPU 操作">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#complete-bpftrace-tracing-script" class="md-nav__link">
+  <a href="#bpftrace" class="md-nav__link">
     <span class="md-ellipsis">
-      Complete Bpftrace Tracing Script
+      完整的 Bpftrace 跟踪脚本
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#understanding-the-tracing-output" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      Understanding the Tracing Output
+      理解跟踪输出
     </span>
   </a>
   
@@ -2052,54 +2052,54 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#analyzing-npu-performance-bottlenecks" class="md-nav__link">
+  <a href="#npu" class="md-nav__link">
     <span class="md-ellipsis">
-      Analyzing NPU Performance Bottlenecks
+      分析 NPU 性能瓶颈
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#running-the-tracing-tools" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      Running the Tracing Tools
+      运行跟踪工具
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#advanced-analysis-techniques" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      Advanced Analysis Techniques
+      高级分析技术
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#compilation-and-execution" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      Compilation and Execution
+      编译和执行
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#understanding-intel-vpu-kernel-module-symbols" class="md-nav__link">
+  <a href="#intel-vpu" class="md-nav__link">
     <span class="md-ellipsis">
-      Understanding Intel VPU Kernel Module Symbols
+      理解 Intel VPU 内核模块符号
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      References
+      参考资料
     </span>
   </a>
   
@@ -8252,46 +8252,46 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#intel-npu-driver-architecture" class="md-nav__link">
+  <a href="#intel-npu" class="md-nav__link">
     <span class="md-ellipsis">
-      Intel NPU Driver Architecture
+      Intel NPU 驱动架构
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#level-zero-api-to-kernel-driver-mapping" class="md-nav__link">
+  <a href="#level-zero-api" class="md-nav__link">
     <span class="md-ellipsis">
-      Level Zero API to Kernel Driver Mapping
+      Level Zero API 到内核驱动的映射
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#tracing-npu-operations-with-bpftrace" class="md-nav__link">
+  <a href="#bpftrace-npu" class="md-nav__link">
     <span class="md-ellipsis">
-      Tracing NPU Operations with Bpftrace
+      使用 Bpftrace 跟踪 NPU 操作
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Tracing NPU Operations with Bpftrace">
+    <nav class="md-nav" aria-label="使用 Bpftrace 跟踪 NPU 操作">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#complete-bpftrace-tracing-script" class="md-nav__link">
+  <a href="#bpftrace" class="md-nav__link">
     <span class="md-ellipsis">
-      Complete Bpftrace Tracing Script
+      完整的 Bpftrace 跟踪脚本
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#understanding-the-tracing-output" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      Understanding the Tracing Output
+      理解跟踪输出
     </span>
   </a>
   
@@ -8303,54 +8303,54 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#analyzing-npu-performance-bottlenecks" class="md-nav__link">
+  <a href="#npu" class="md-nav__link">
     <span class="md-ellipsis">
-      Analyzing NPU Performance Bottlenecks
+      分析 NPU 性能瓶颈
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#running-the-tracing-tools" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      Running the Tracing Tools
+      运行跟踪工具
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#advanced-analysis-techniques" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      Advanced Analysis Techniques
+      高级分析技术
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#compilation-and-execution" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      Compilation and Execution
+      编译和执行
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#understanding-intel-vpu-kernel-module-symbols" class="md-nav__link">
+  <a href="#intel-vpu" class="md-nav__link">
     <span class="md-ellipsis">
-      Understanding Intel VPU Kernel Module Symbols
+      理解 Intel VPU 内核模块符号
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      References
+      参考资料
     </span>
   </a>
   
@@ -8372,7 +8372,7 @@
 
 
   
-    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/tutorials/xpu/npu-kernel-driver/README.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/tutorials/xpu/npu-kernel-driver/README.zh.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -8380,211 +8380,212 @@
   
 
 
-<h1 id="ebpf-tutorial-by-example-tracing-intel-npu-kernel-driver-operations">eBPF Tutorial by Example: Tracing Intel NPU Kernel Driver Operations</h1>
-<p>Neural Processing Units (NPUs) are the next frontier in AI acceleration - built directly into modern CPUs to handle machine learning workloads without burning through GPU power budgets. Intel's Lunar Lake and Meteor Lake processors pack dedicated NPU hardware, but when your AI model runs slow, inference fails, or memory allocation crashes, debugging feels impossible. The NPU driver is a black box, firmware communication is opaque, and userspace APIs hide what's really happening in the kernel.</p>
-<p>This tutorial shows you how to trace Intel NPU kernel driver operations using eBPF and bpftrace. We'll monitor the complete workflow from Level Zero API calls down to kernel functions, track IPC communication with NPU firmware, measure memory allocation patterns, and diagnose performance bottlenecks. By the end, you'll understand how NPU drivers work internally and have practical tools for debugging AI workload issues.</p>
-<h2 id="intel-npu-driver-architecture">Intel NPU Driver Architecture</h2>
-<p>Intel's NPU driver follows a two-layer architecture similar to GPU drivers. The kernel module (<code>intel_vpu</code>) lives in mainline Linux at <code>drivers/accel/ivpu/</code> and exposes <code>/dev/accel/accel0</code> as the device interface. This handles hardware communication, memory management through an MMU, and IPC (Inter-Processor Communication) with NPU firmware running on the accelerator itself.</p>
-<p>The userspace driver (<code>libze_intel_vpu.so</code>) implements the Level Zero API - Intel's unified programming interface for accelerators. When you call Level Zero functions like <code>zeMemAllocHost()</code> or <code>zeCommandQueueExecuteCommandLists()</code>, the library translates these into DRM ioctls that hit the kernel module. The kernel validates requests, sets up memory mappings, submits work to the NPU firmware, and polls for completion.</p>
-<p>The NPU firmware itself runs autonomously on the accelerator hardware. It receives command buffers from the kernel, schedules compute kernels, manages on-chip memory, and signals completion through interrupts. All communication happens via IPC channels - shared memory regions where kernel and firmware exchange messages. This architecture means three layers must coordinate correctly: your application, the kernel driver, and NPU firmware.</p>
-<p>Understanding this flow is critical for debugging. When an AI inference stalls, is it the kernel waiting for firmware? Is memory allocation thrashing? Are IPC messages backing up? eBPF tracing reveals the kernel side of this story - every ioctl, every memory mapping, every IPC interrupt.</p>
-<h2 id="level-zero-api-to-kernel-driver-mapping">Level Zero API to Kernel Driver Mapping</h2>
-<p>Let's trace a simple NPU workload - matrix multiplication running through Level Zero - and see exactly how API calls map to kernel operations. We'll use a test program that allocates host memory for input/output matrices, submits the computation, and waits for results.</p>
-<p>The Level Zero workflow breaks down into five phases. Initialization opens the NPU device and queries capabilities. Memory allocation creates buffers for compute data. Command setup builds work queues and command lists. Execution submits the workload to NPU firmware. Synchronization polls for completion and retrieves results.</p>
-<p>Here's how each API call translates to kernel operations:</p>
-<p><strong>zeMemAllocHost</strong> allocates host-visible memory accessible by both CPU and NPU. This triggers <code>DRM_IOCTL_IVPU_BO_CREATE</code> ioctl, hitting <code>ivpu_bo_create_ioctl()</code> in the kernel. The driver calls <code>ivpu_gem_create_object()</code> to allocate a GEM (Graphics Execution Manager) buffer object, then <code>ivpu_mmu_context_map_page()</code> maps pages into NPU's address space via the MMU. Finally <code>ivpu_bo_pin()</code> pins the buffer in memory so it can't be swapped out during compute.</p>
-<p>For our matrix multiplication example with three buffers (input matrix A, input matrix B, output matrix C), we see three <code>zeMemAllocHost()</code> calls. Each triggers approximately 1,377 <code>ivpu_mmu_context_map_page()</code> calls - that's 4,131 total page mappings for setting up compute memory.</p>
-<p><strong>zeCommandQueueCreate</strong> establishes a queue for submitting work. This maps to <code>DRM_IOCTL_IVPU_GET_PARAM</code> ioctl calling <code>ivpu_get_param_ioctl()</code> to query queue capabilities. The actual queue object lives in userspace - the kernel just provides device parameters.</p>
-<p><strong>zeCommandListCreate</strong> builds a command list in userspace. No kernel call happens here - the library constructs command buffers in memory that will later be submitted to the NPU.</p>
-<p><strong>zeCommandQueueExecuteCommandLists</strong> is where work actually reaches the NPU. This triggers <code>DRM_IOCTL_IVPU_SUBMIT</code> ioctl, calling <code>ivpu_submit_ioctl()</code> in the kernel. The driver validates the command buffer, sets up DMA transfers, and sends an IPC message to NPU firmware requesting execution. The firmware wakes up, processes the request, schedules compute kernels on NPU hardware, and starts sending IPC interrupts back to signal progress.</p>
-<p>During execution, we observe massive IPC traffic: 946 <code>ivpu_ipc_irq_handler()</code> calls (interrupt handler for IPC messages from firmware), 945 <code>ivpu_ipc_receive()</code> calls (reading messages from shared memory), and 951 <code>ivpu_hw_ip_ipc_rx_count_get()</code> calls (polling IPC queue depth). This intense communication is normal - the firmware sends status updates, memory fence signals, and completion notifications throughout the compute operation.</p>
-<p><strong>zeFenceHostSynchronize</strong> blocks until the NPU completes work. This doesn't trigger a dedicated ioctl - instead the library continuously calls <code>ivpu_get_param_ioctl()</code> to poll fence status. The kernel checks if the firmware signaled completion via IPC. More <code>ivpu_ipc_irq_handler()</code> calls fire as the firmware sends the final completion message.</p>
-<h2 id="tracing-npu-operations-with-bpftrace">Tracing NPU Operations with Bpftrace</h2>
-<p>Now let's build a practical tracing tool. We'll use bpftrace to attach kprobes to all intel_vpu kernel functions and watch the complete execution flow.</p>
-<h3 id="complete-bpftrace-tracing-script">Complete Bpftrace Tracing Script</h3>
+<h1 id="ebpf-intel-npu">eBPF 实例教程：跟踪 Intel NPU 内核驱动操作</h1>
+<p>神经处理单元(NPU)是 AI 加速的下一个前沿 - 直接内置于现代 CPU 中，无需消耗 GPU 功耗预算即可处理机器学习工作负载。Intel 的 Lunar Lake 和 Meteor Lake 处理器集成了专用 NPU 硬件，但当 AI 模型运行缓慢、推理失败或内存分配崩溃时，调试几乎不可能。NPU 驱动是一个黑盒，固件通信不透明，用户空间 API 隐藏了内核中真正发生的事情。</p>
+<p>本教程展示如何使用 eBPF 和 bpftrace 跟踪 Intel NPU 内核驱动操作。我们将监控从 Level Zero API 调用到内核函数的完整工作流，跟踪与 NPU 固件的 IPC 通信，测量内存分配模式，并诊断性能瓶颈。最后，你将理解 NPU 驱动的内部工作原理，并拥有调试 AI 工作负载问题的实用工具。</p>
+<h2 id="intel-npu">Intel NPU 驱动架构</h2>
+<p>Intel 的 NPU 驱动遵循类似 GPU 驱动的两层架构。内核模块(<code>intel_vpu</code>)位于主线 Linux 的 <code>drivers/accel/ivpu/</code> 中，并将 <code>/dev/accel/accel0</code> 暴露为设备接口。它处理硬件通信、通过 MMU 进行内存管理，以及与加速器上运行的 NPU 固件的 IPC(进程间通信)。</p>
+<p>用户空间驱动(<code>libze_intel_vpu.so</code>)实现 Level Zero API - Intel 的加速器统一编程接口。当你调用 <code>zeMemAllocHost()</code> 或 <code>zeCommandQueueExecuteCommandLists()</code> 等 Level Zero 函数时，库将这些转换为 DRM ioctl 调用内核模块。内核验证请求，设置内存映射，向 NPU 固件提交工作，并轮询完成。</p>
+<p>NPU 固件本身在加速器硬件上自主运行。它从内核接收命令缓冲区，调度计算内核，管理片上内存，并通过中断发出完成信号。所有通信都通过 IPC 通道进行 - 内核和固件交换消息的共享内存区域。这种架构意味着三层必须正确协调：应用程序、内核驱动和 NPU 固件。</p>
+<p>理解这个流程对于调试至关重要。当 AI 推理停顿时，是内核在等待固件吗？内存分配在抖动吗？IPC 消息在积压吗？eBPF 跟踪揭示了这个故事的内核侧 - 每个 ioctl、每个内存映射、每个 IPC 中断。</p>
+<h2 id="level-zero-api">Level Zero API 到内核驱动的映射</h2>
+<p>让我们跟踪一个简单的 NPU 工作负载 - 通过 Level Zero 运行的矩阵乘法 - 看看 API 调用如何精确映射到内核操作。我们将使用一个测试程序，为输入/输出矩阵分配主机内存，提交计算，并等待结果。</p>
+<p>Level Zero 工作流分为五个阶段。初始化打开 NPU 设备并查询能力。内存分配为计算数据创建缓冲区。命令设置构建工作队列和命令列表。执行向 NPU 固件提交工作负载。同步轮询完成并检索结果。</p>
+<p>以下是每个 API 调用如何转换为内核操作：</p>
+<p><strong>zeMemAllocHost</strong> 分配 CPU 和 NPU 都可访问的主机可见内存。这触发 <code>DRM_IOCTL_IVPU_BO_CREATE</code> ioctl，在内核中调用 <code>ivpu_bo_create_ioctl()</code>。驱动调用 <code>ivpu_gem_create_object()</code> 分配 GEM(图形执行管理器)缓冲对象，然后 <code>ivpu_mmu_context_map_page()</code> 通过 MMU 将页面映射到 NPU 地址空间。最后 <code>ivpu_bo_pin()</code> 将缓冲区固定在内存中，使其在计算期间无法被换出。</p>
+<p>对于我们的矩阵乘法示例，有三个缓冲区(输入矩阵 A、输入矩阵 B、输出矩阵 C)，我们看到三个 <code>zeMemAllocHost()</code> 调用。每个触发大约 1,377 次 <code>ivpu_mmu_context_map_page()</code> 调用 - 设置计算内存总共 4,131 次页面映射。</p>
+<p><strong>zeCommandQueueCreate</strong> 建立用于提交工作的队列。这映射到 <code>DRM_IOCTL_IVPU_GET_PARAM</code> ioctl 调用 <code>ivpu_get_param_ioctl()</code> 查询队列能力。实际的队列对象存在于用户空间 - 内核只提供设备参数。</p>
+<p><strong>zeCommandListCreate</strong> 在用户空间构建命令列表。这里不发生内核调用 - 库在内存中构造命令缓冲区，稍后将提交到 NPU。</p>
+<p><strong>zeCommandQueueExecuteCommandLists</strong> 是工作实际到达 NPU 的地方。这触发 <code>DRM_IOCTL_IVPU_SUBMIT</code> ioctl，在内核中调用 <code>ivpu_submit_ioctl()</code>。驱动验证命令缓冲区，设置 DMA 传输，并向 NPU 固件发送 IPC 消息请求执行。固件唤醒，处理请求，在 NPU 硬件上调度计算内核，并开始发送 IPC 中断以发出进度信号。</p>
+<p>执行期间，我们观察到大量 IPC 流量：946 次 <code>ivpu_ipc_irq_handler()</code> 调用(来自固件的 IPC 消息中断处理程序)，945 次 <code>ivpu_ipc_receive()</code> 调用(从共享内存读取消息)，以及 951 次 <code>ivpu_hw_ip_ipc_rx_count_get()</code> 调用(轮询 IPC 队列深度)。这种密集的通信是正常的 - 固件在整个计算操作期间发送状态更新、内存栅栏信号和完成通知。</p>
+<p><strong>zeFenceHostSynchronize</strong> 阻塞直到 NPU 完成工作。这不会触发专用的 ioctl - 相反，库持续调用 <code>ivpu_get_param_ioctl()</code> 轮询栅栏状态。内核检查固件是否通过 IPC 发出完成信号。当固件发送最终完成消息时，会触发更多 <code>ivpu_ipc_irq_handler()</code> 调用。</p>
+<h2 id="bpftrace-npu">使用 Bpftrace 跟踪 NPU 操作</h2>
+<p>现在让我们构建一个实用的跟踪工具。我们将使用 bpftrace 将 kprobe 附加到所有 intel_vpu 内核函数，并观察完整的执行流程。</p>
+<h3 id="bpftrace">完整的 Bpftrace 跟踪脚本</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="ch">#!/usr/bin/env bpftrace</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>BEGIN
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="o">{</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span>printf<span class="o">(</span><span class="s2">&quot;Tracing Intel NPU kernel driver... Hit Ctrl-C to end.\n&quot;</span><span class="o">)</span><span class="p">;</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span>printf<span class="o">(</span><span class="s2">&quot;%-10s %-40s\n&quot;</span>,<span class="w"> </span><span class="s2">&quot;TIME(ms)&quot;</span>,<span class="w"> </span><span class="s2">&quot;FUNCTION&quot;</span><span class="o">)</span><span class="p">;</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span>printf<span class="o">(</span><span class="s2">&quot;正在跟踪 Intel NPU 内核驱动... 按 Ctrl-C 结束。\n&quot;</span><span class="o">)</span><span class="p">;</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span>printf<span class="o">(</span><span class="s2">&quot;%-10s %-40s\n&quot;</span>,<span class="w"> </span><span class="s2">&quot;时间(ms)&quot;</span>,<span class="w"> </span><span class="s2">&quot;函数&quot;</span><span class="o">)</span><span class="p">;</span>
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="o">}</span>
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>/*<span class="w"> </span>Attach<span class="w"> </span>to<span class="w"> </span>all<span class="w"> </span>intel_vpu<span class="w"> </span>kernel<span class="w"> </span>functions<span class="w"> </span>*/
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>/*<span class="w"> </span>附加到所有<span class="w"> </span>intel_vpu<span class="w"> </span>内核函数<span class="w"> </span>*/
 <a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>kprobe:intel_vpu:ivpu_*
 <a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="o">{</span>
 <a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span>printf<span class="o">(</span><span class="s2">&quot;%-10llu %-40s\n&quot;</span>,
 <a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">           </span>nsecs<span class="w"> </span>/<span class="w"> </span><span class="m">1000000</span>,
 <a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">           </span>probe<span class="o">)</span><span class="p">;</span>
 <a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span>/*<span class="w"> </span>Count<span class="w"> </span><span class="k">function</span><span class="w"> </span>calls<span class="w"> </span>*/
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span>/*<span class="w"> </span>统计函数调用次数<span class="w"> </span>*/
 <a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">    </span>@calls<span class="o">[</span>probe<span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>count<span class="o">()</span><span class="p">;</span>
 <a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="o">}</span>
 <a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
 <a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>END
 <a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="o">{</span>
-<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">    </span>printf<span class="o">(</span><span class="s2">&quot;\n=== Intel NPU Function Call Statistics ===\n&quot;</span><span class="o">)</span><span class="p">;</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">    </span>printf<span class="o">(</span><span class="s2">&quot;\nTop functions by call count:\n&quot;</span><span class="o">)</span><span class="p">;</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">    </span>printf<span class="o">(</span><span class="s2">&quot;\n=== Intel NPU 函数调用统计 ===\n&quot;</span><span class="o">)</span><span class="p">;</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">    </span>printf<span class="o">(</span><span class="s2">&quot;\n按调用次数排序的前 20 个函数：\n&quot;</span><span class="o">)</span><span class="p">;</span>
 <a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">    </span>print<span class="o">(</span>@calls,<span class="w"> </span><span class="m">20</span><span class="o">)</span><span class="p">;</span>
 <a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="o">}</span>
 </code></pre></div>
-<p>This script attaches kprobes to every function in the intel_vpu kernel module (all functions starting with <code>ivpu_</code>). When any function executes, we print a timestamp and function name. The <code>@calls</code> map tracks how many times each function was called - perfect for identifying hot paths in the driver.</p>
-<h3 id="understanding-the-tracing-output">Understanding the Tracing Output</h3>
-<p>When you run this while executing an NPU workload, you'll see a sequential trace of kernel operations. Let's walk through a typical execution captured from our matrix multiplication test.</p>
-<p>The trace starts with device initialization: <code>ivpu_open()</code> opens the <code>/dev/accel/accel0</code> device file. Then <code>ivpu_mmu_context_init()</code> sets up the MMU context for this process. A burst of <code>ivpu_get_param_ioctl()</code> calls queries device capabilities - firmware version, compute engine count, memory size, supported operations.</p>
-<p>Memory allocation dominates the middle section. For each <code>zeMemAllocHost()</code> call, we see the pattern: <code>ivpu_bo_create_ioctl()</code> creates the buffer object, <code>ivpu_gem_create_object()</code> allocates backing memory, then hundreds of <code>ivpu_mmu_context_map_page()</code> calls map pages into NPU address space. With three buffers for matrix multiplication, this repeats three times - 4,131 page mappings total.</p>
-<p>Command submission triggers <code>ivpu_submit_ioctl()</code>, which kicks off firmware communication. The <code>ivpu_boot()</code> and <code>ivpu_fw_boot_params_setup()</code> functions prepare the firmware if it wasn't already running. Then <code>ivpu_hw_boot_fw()</code> starts NPU execution, and IPC traffic explodes.</p>
-<p>The IPC communication section shows the NPU firmware actively processing work. Every <code>ivpu_ipc_irq_handler()</code> indicates a hardware interrupt from the NPU. The pattern <code>ivpu_hw_ip_ipc_rx_count_get()</code> → <code>ivpu_ipc_receive()</code> reads an IPC message from shared memory. With 945 message receives, we know the firmware sent nearly a thousand status updates during our compute operation - that's how actively it communicates with the kernel.</p>
-<p>Finally, cleanup appears: <code>ivpu_postclose()</code> closes the device, <code>ivpu_ms_cleanup()</code> releases resources, <code>ivpu_file_priv_put()</code> drops file handle references, and <code>ivpu_pgtable_free_page()</code> unmaps memory pages (517 calls to release our 4,131 mapped pages).</p>
-<h2 id="analyzing-npu-performance-bottlenecks">Analyzing NPU Performance Bottlenecks</h2>
-<p>The function call statistics reveal where the driver spends time. From our test run of 8,198 total function calls, three categories dominate:</p>
-<p><strong>Memory Management (4,648 calls, 57% of total)</strong>: <code>ivpu_mmu_context_map_page()</code> accounts for 4,131 calls, nearly half of all driver activity. This makes sense - mapping memory into NPU address space is page-by-page work. On cleanup, <code>ivpu_pgtable_free_page()</code> gets called 517 times to unmap. If memory allocation is slow in your NPU application, this is why - thousands of MMU operations for large buffers.</p>
-<p><strong>IPC Communication (2,842 calls, 35% of total)</strong>: The firmware communication triad of <code>ivpu_ipc_irq_handler()</code> (946 calls), <code>ivpu_hw_ip_ipc_rx_count_get()</code> (951 calls), and <code>ivpu_ipc_receive()</code> (945 calls) shows intense messaging. Nearly 1,000 interrupts and message receives means the firmware actively reports progress. If your NPU workload shows higher IPC counts than expected, the firmware might be thrashing or hitting memory contention.</p>
-<p><strong>Buffer Management (74 calls, &lt;1% of total)</strong>: GEM object operations like <code>ivpu_bo_create_ioctl()</code> (24), <code>ivpu_gem_create_object()</code> (25), and <code>ivpu_bo_pin()</code> (25) are relatively rare. This matches expectations - you create buffers once, then reuse them across many compute operations.</p>
-<p>By comparing these ratios against normal workloads, you spot anomalies. If IPC calls explode to 10,000+ on a simple inference, something's wrong - maybe firmware is stuck in a retry loop. If memory mapping calls exceed your buffer count × page count, you're allocating and freeing inefficiently. The trace gives you hard numbers to diagnose these issues.</p>
-<h2 id="running-the-tracing-tools">Running the Tracing Tools</h2>
-<p>The bpftrace script works on any Linux system with Intel NPU hardware and the intel_vpu kernel module loaded. Here's how to use it.</p>
-<p>First, verify the NPU driver is active:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Check if intel_vpu module is loaded</span>
+<p>此脚本将 kprobe 附加到 intel_vpu 内核模块中的每个函数(所有以 <code>ivpu_</code> 开头的函数)。当任何函数执行时，我们打印时间戳和函数名。<code>@calls</code> map 跟踪每个函数被调用了多少次 - 非常适合识别驱动中的热点路径。</p>
+<h3 id="_1">理解跟踪输出</h3>
+<p>在执行 NPU 工作负载时运行此脚本，你将看到内核操作的顺序跟踪。让我们逐步了解从我们的矩阵乘法测试中捕获的典型执行。</p>
+<p>跟踪从设备初始化开始：<code>ivpu_open()</code> 打开 <code>/dev/accel/accel0</code> 设备文件。然后 <code>ivpu_mmu_context_init()</code> 为此进程设置 MMU 上下文。一连串的 <code>ivpu_get_param_ioctl()</code> 调用查询设备能力 - 固件版本、计算引擎数量、内存大小、支持的操作。</p>
+<p>内存分配占据了中间部分。对于每个 <code>zeMemAllocHost()</code> 调用，我们看到模式：<code>ivpu_bo_create_ioctl()</code> 创建缓冲对象，<code>ivpu_gem_create_object()</code> 分配后备内存，然后数百次 <code>ivpu_mmu_context_map_page()</code> 调用将页面映射到 NPU 地址空间。对于矩阵乘法的三个缓冲区，这重复三次 - 总共 4,131 次页面映射。</p>
+<p>命令提交触发 <code>ivpu_submit_ioctl()</code>，启动固件通信。如果固件尚未运行，<code>ivpu_boot()</code> 和 <code>ivpu_fw_boot_params_setup()</code> 函数准备固件。然后 <code>ivpu_hw_boot_fw()</code> 启动 NPU 执行，IPC 流量激增。</p>
+<p>IPC 通信部分显示 NPU 固件正在主动处理工作。每个 <code>ivpu_ipc_irq_handler()</code> 表示来自 NPU 的硬件中断。模式 <code>ivpu_hw_ip_ipc_rx_count_get()</code> → <code>ivpu_ipc_receive()</code> 从共享内存读取 IPC 消息。有 945 次消息接收，我们知道固件在计算操作期间发送了近一千次状态更新 - 这就是它与内核通信的活跃程度。</p>
+<p>最后，清理出现：<code>ivpu_postclose()</code> 关闭设备，<code>ivpu_ms_cleanup()</code> 释放资源，<code>ivpu_file_priv_put()</code> 释放文件句柄引用，<code>ivpu_pgtable_free_page()</code> 取消映射内存页面(517 次调用释放我们的 4,131 个映射页面)。</p>
+<h2 id="npu">分析 NPU 性能瓶颈</h2>
+<p>函数调用统计揭示了驱动花费时间的地方。从我们的测试运行的 8,198 次总函数调用中，三个类别占主导地位：</p>
+<p><strong>内存管理(4,648 次调用，占总数的 57%)</strong>：<code>ivpu_mmu_context_map_page()</code> 占 4,131 次调用，几乎是所有驱动活动的一半。这是有道理的 - 将内存映射到 NPU 地址空间是逐页工作。在清理时，<code>ivpu_pgtable_free_page()</code> 被调用 517 次以取消映射。如果你的 NPU 应用程序中内存分配很慢，这就是原因 - 大缓冲区需要数千次 MMU 操作。</p>
+<p><strong>IPC 通信(2,842 次调用，占总数的 35%)</strong>：固件通信三元组 <code>ivpu_ipc_irq_handler()</code>(946 次调用)、<code>ivpu_hw_ip_ipc_rx_count_get()</code>(951 次调用)和 <code>ivpu_ipc_receive()</code>(945 次调用)显示了密集的消息传递。近 1,000 次中断和消息接收意味着固件主动报告进度。如果你的 NPU 工作负载显示的 IPC 计数高于预期，固件可能在抖动或遇到内存争用。</p>
+<p><strong>缓冲区管理(74 次调用，&lt;1% 的总数)</strong>：GEM 对象操作如 <code>ivpu_bo_create_ioctl()</code>(24)、<code>ivpu_gem_create_object()</code>(25)和 <code>ivpu_bo_pin()</code>(25)相对较少。这符合预期 - 你创建缓冲区一次，然后在许多计算操作中重用它们。</p>
+<p>通过将这些比率与正常工作负载进行比较，你可以发现异常。如果简单推理的 IPC 调用激增到 10,000+，那就有问题 - 也许固件卡在重试循环中。如果内存映射调用超过缓冲区数量 × 页面数量，你的分配和释放效率低下。跟踪为你提供了诊断这些问题的硬数据。</p>
+<h2 id="_2">运行跟踪工具</h2>
+<p>bpftrace 脚本适用于任何具有 Intel NPU 硬件和加载了 intel_vpu 内核模块的 Linux 系统。以下是使用方法。</p>
+<p>首先，验证 NPU 驱动是否活动：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># 检查 intel_vpu 模块是否已加载</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>lsmod<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>intel_vpu
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Verify NPU device exists</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># 验证 NPU 设备是否存在</span>
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>ls<span class="w"> </span>-l<span class="w"> </span>/dev/accel/accel0
 <a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># Check driver version and supported devices</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># 检查驱动版本和支持的设备</span>
 <a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>modinfo<span class="w"> </span>intel_vpu
 </code></pre></div>
-<p>You should see the intel_vpu module loaded and <code>/dev/accel/accel0</code> device present. The modinfo output shows supported PCI device IDs (0x643E, 0x7D1D, 0xAD1D, 0xB03E) - these correspond to Meteor Lake and Lunar Lake NPU hardware.</p>
-<p>Now run the tracing script. Save the bpftrace code above as <code>trace_npu.bt</code> and execute:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Simple function call tracing</span>
+<p>你应该看到 intel_vpu 模块已加载，并且 <code>/dev/accel/accel0</code> 设备存在。modinfo 输出显示支持的 PCI 设备 ID(0x643E、0x7D1D、0xAD1D、0xB03E) - 这些对应于 Meteor Lake 和 Lunar Lake NPU 硬件。</p>
+<p>现在运行跟踪脚本。将上面的 bpftrace 代码保存为 <code>trace_npu.bt</code> 并执行：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># 简单函数调用跟踪</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>sudo<span class="w"> </span>bpftrace<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;kprobe:intel_vpu:ivpu_* { printf(&quot;%s\n&quot;, probe); }&#39;</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Or run the full script with statistics</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># 或运行带统计信息的完整脚本</span>
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>sudo<span class="w"> </span>bpftrace<span class="w"> </span>trace_npu.bt
 </code></pre></div>
-<p>In another terminal, run your NPU workload - Level Zero applications, OpenVINO inference, or any program using <code>/dev/accel/accel0</code>. The trace output streams in real-time. When done, hit Ctrl-C to see the function call statistics sorted by frequency.</p>
-<p>For more detailed analysis, redirect output to a file:</p>
+<p>在另一个终端中，运行你的 NPU 工作负载 - Level Zero 应用程序、OpenVINO 推理或任何使用 <code>/dev/accel/accel0</code> 的程序。跟踪输出实时流式传输。完成后，按 Ctrl-C 查看按频率排序的函数调用统计信息。</p>
+<p>要进行更详细的分析，将输出重定向到文件：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>sudo<span class="w"> </span>bpftrace<span class="w"> </span>trace_npu.bt<span class="w"> </span>&gt;<span class="w"> </span>npu_trace_<span class="k">$(</span>date<span class="w"> </span>+%Y%m%d_%H%M%S<span class="k">)</span>.txt
 </code></pre></div>
-<p>This captures the complete execution trace for offline analysis. You can grep for specific patterns, count function call sequences, or correlate timestamps with application-level events.</p>
-<h2 id="advanced-analysis-techniques">Advanced Analysis Techniques</h2>
-<p>Beyond basic tracing, you can extract deeper insights by filtering specific operations or measuring latencies.</p>
-<p><strong>Track memory allocation patterns</strong> by filtering for buffer object functions:</p>
+<p>这会捕获完整的执行跟踪以供离线分析。你可以 grep 特定模式、计算函数调用序列，或将时间戳与应用程序级事件关联。</p>
+<h2 id="_3">高级分析技术</h2>
+<p>除了基本跟踪之外，你还可以通过过滤特定操作或测量延迟来提取更深入的见解。</p>
+<p><strong>跟踪内存分配模式</strong> 通过过滤缓冲对象函数：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>sudo<span class="w"> </span>bpftrace<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="s1">kprobe:intel_vpu:ivpu_bo_create_ioctl {</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="s1">    @alloc_time[tid] = nsecs;</span>
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="s1">}</span>
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="s1">kretprobe:intel_vpu:ivpu_bo_create_ioctl /@alloc_time[tid]/ {</span>
 <a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="s1">    $latency_us = (nsecs - @alloc_time[tid]) / 1000;</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="s1">    printf(&quot;Buffer allocation took %llu us\n&quot;, $latency_us);</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="s1">    printf(&quot;缓冲区分配耗时 %llu us\n&quot;, $latency_us);</span>
 <a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="s1">    delete(@alloc_time[tid]);</span>
 <a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="s1">    @alloc_latency = hist($latency_us);</span>
 <a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="s1">}</span>
 <a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="s1">END {</span>
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="s1">    printf(&quot;\nBuffer Allocation Latency (microseconds):\n&quot;);</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="s1">    printf(&quot;\n缓冲区分配延迟(微秒):\n&quot;);</span>
 <a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="s1">    print(@alloc_latency);</span>
 <a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="s1">}&#39;</span>
 </code></pre></div>
-<p>This measures time from <code>ivpu_bo_create_ioctl()</code> entry to return, showing allocation latency distribution. High latencies indicate memory pressure or MMU contention.</p>
-<p><strong>Monitor IPC message rates</strong> to detect firmware communication issues:</p>
+<p>这测量从 <code>ivpu_bo_create_ioctl()</code> 进入到返回的时间，显示分配延迟分布。高延迟表示内存压力或 MMU 争用。</p>
+<p><strong>监控 IPC 消息速率</strong> 以检测固件通信问题：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>sudo<span class="w"> </span>bpftrace<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="s1">kprobe:intel_vpu:ivpu_ipc_receive {</span>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="s1">    @last_time = nsecs;</span>
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="s1">    @ipc_count++;</span>
 <a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="s1">}</span>
 <a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="s1">interval:s:1 {</span>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="s1">    printf(&quot;IPC messages/sec: %llu\n&quot;, @ipc_count);</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="s1">    printf(&quot;IPC 消息/秒: %llu\n&quot;, @ipc_count);</span>
 <a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="s1">    @ipc_count = 0;</span>
 <a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="s1">}</span>
 <a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="s1">END {</span>
 <a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="s1">    clear(@ipc_count);</span>
 <a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="s1">}&#39;</span>
 </code></pre></div>
-<p>This counts IPC messages per second. Normal workloads show steady rates (50-200 msg/sec). Spikes indicate firmware distress - retries, errors, or stuck operations.</p>
-<p><strong>Correlate with userspace API calls</strong> using uprobes on libze_intel_vpu.so:</p>
+<p>这计算每秒的 IPC 消息数。正常工作负载显示稳定的速率(50-200 msg/sec)。峰值表示固件困境 - 重试、错误或卡住的操作。</p>
+<p><strong>与用户空间 API 调用关联</strong> 使用 libze_intel_vpu.so 上的 uprobe：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>sudo<span class="w"> </span>bpftrace<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="s1">uprobe:/usr/lib/x86_64-linux-gnu/libze_intel_vpu.so:zeCommandQueueExecuteCommandLists {</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="s1">    printf(&quot;[API] Submit command queue\n&quot;);</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="s1">    printf(&quot;[API] 提交命令队列\n&quot;);</span>
 <a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="s1">    @submit_time = nsecs;</span>
 <a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="s1">}</span>
 <a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="s1">kprobe:intel_vpu:ivpu_submit_ioctl {</span>
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="s1">    printf(&quot;[KERNEL] Submit ioctl\n&quot;);</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="s1">    printf(&quot;[内核] 提交 ioctl\n&quot;);</span>
 <a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="s1">}</span>
 <a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="s1">kprobe:intel_vpu:ivpu_ipc_irq_handler {</span>
-<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="s1">    printf(&quot;[FIRMWARE] IPC interrupt\n&quot;);</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="s1">    printf(&quot;[固件] IPC 中断\n&quot;);</span>
 <a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="s1">}</span>
 <a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="s1">&#39;</span>
 </code></pre></div>
-<p>This correlates userspace API calls with kernel ioctls and firmware IPC, revealing the complete control flow across all three layers.</p>
-<h2 id="compilation-and-execution">Compilation and Execution</h2>
-<p>The bpftrace scripts in this tutorial require no compilation - they run directly. Ensure you have:</p>
+<p>这将用户空间 API 调用与内核 ioctl 和固件 IPC 关联，揭示跨所有三层的完整控制流。</p>
+<h2 id="_4">编译和执行</h2>
+<p>本教程中的 bpftrace 脚本无需编译 - 它们可以直接运行。确保你有：</p>
 <ul>
-<li>Linux kernel with intel_vpu driver (mainline kernel 6.2+ includes it)</li>
-<li>Intel NPU hardware (Meteor Lake or Lunar Lake processor)</li>
-<li>bpftrace installed (<code>apt install bpftrace</code> on Ubuntu/Debian)</li>
-<li>Root access for running bpftrace</li>
+<li>带有 intel_vpu 驱动的 Linux 内核(主线内核 6.2+ 包含它)</li>
+<li>Intel NPU 硬件(Meteor Lake 或 Lunar Lake 处理器)</li>
+<li>安装了 bpftrace(在 Ubuntu/Debian 上为 <code>apt install bpftrace</code>)</li>
+<li>运行 bpftrace 的 root 访问权限</li>
 </ul>
-<p>Navigate to the tutorial directory:</p>
+<p>导航到教程目录：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nb">cd</span><span class="w"> </span>/home/yunwei37/workspace/bpf-developer-tutorial/src/xpu/npu-kernel-driver
 </code></pre></div>
-<p>The directory contains:</p>
+<p>目录包含：</p>
 <ul>
-<li><strong>README.md</strong> - This tutorial</li>
-<li><strong>intel_npu_driver_analysis.md</strong> - Detailed driver architecture analysis</li>
-<li><strong>intel_vpu_symbols.txt</strong> - Complete list of 1,312 kernel module symbols</li>
-<li><strong>trace_res.txt</strong> - Example trace output from matrix multiplication workload</li>
+<li><strong>README.md</strong> - 英文教程</li>
+<li><strong>README.zh.md</strong> - 本教程</li>
+<li><strong>intel_npu_driver_analysis.md</strong> - 详细的驱动架构分析</li>
+<li><strong>intel_vpu_symbols.txt</strong> - 1,312 个内核模块符号的完整列表</li>
+<li><strong>trace_res.txt</strong> - 矩阵乘法工作负载的示例跟踪输出</li>
 </ul>
-<p>To reproduce the trace results:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Start tracing</span>
+<p>要重现跟踪结果：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># 开始跟踪</span>
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>sudo<span class="w"> </span>bpftrace<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;kprobe:intel_vpu:ivpu_* { printf(&quot;%s\n&quot;, probe); }&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>my_trace.txt
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># In another terminal, run your NPU workload</span>
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="c1"># For example, using OpenVINO:</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># 在另一个终端中，运行你的 NPU 工作负载</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="c1"># 例如，使用 OpenVINO：</span>
 <a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="c1"># benchmark_app -m model.xml -d NPU</span>
 <a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
-<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="c1"># Stop tracing with Ctrl-C</span>
-<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="c1"># Analyze the output</span>
-<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>wc<span class="w"> </span>-l<span class="w"> </span>my_trace.txt<span class="w">  </span><span class="c1"># Count function calls</span>
-<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>sort<span class="w"> </span>my_trace.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-rn<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-20<span class="w">  </span><span class="c1"># Top functions</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="c1"># 使用 Ctrl-C 停止跟踪</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="c1"># 分析输出</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>wc<span class="w"> </span>-l<span class="w"> </span>my_trace.txt<span class="w">  </span><span class="c1"># 计算函数调用次数</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>sort<span class="w"> </span>my_trace.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-rn<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-20<span class="w">  </span><span class="c1"># 前 20 个函数</span>
 </code></pre></div>
-<p>For Level Zero applications, ensure the runtime is installed (<code>apt install level-zero-loader</code>). The library will automatically discover the NPU device through <code>/dev/accel/accel0</code>.</p>
-<h2 id="understanding-intel-vpu-kernel-module-symbols">Understanding Intel VPU Kernel Module Symbols</h2>
-<p>The intel_vpu kernel module exports 1,312 symbols visible in <code>/proc/kallsyms</code>. These fall into categories based on symbol type:</p>
+<p>对于 Level Zero 应用程序，确保已安装运行时(<code>apt install level-zero-loader</code>)。库将通过 <code>/dev/accel/accel0</code> 自动发现 NPU 设备。</p>
+<h2 id="intel-vpu">理解 Intel VPU 内核模块符号</h2>
+<p>intel_vpu 内核模块在 <code>/proc/kallsyms</code> 中导出 1,312 个可见符号。这些根据符号类型分为以下类别：</p>
 <ul>
-<li><strong>t (text)</strong>: Function symbols like <code>ivpu_submit_ioctl</code>, <code>ivpu_mmu_context_map_page</code></li>
-<li><strong>d (data)</strong>: Global variables and data structures</li>
-<li><strong>r (read-only data)</strong>: Constant data, string literals, device ID tables</li>
-<li><strong>b (BSS)</strong>: Uninitialized data allocated at module load</li>
+<li><strong>t (text)</strong>：函数符号，如 <code>ivpu_submit_ioctl</code>、<code>ivpu_mmu_context_map_page</code></li>
+<li><strong>d (data)</strong>：全局变量和数据结构</li>
+<li><strong>r (read-only data)</strong>：常量数据、字符串字面量、设备 ID 表</li>
+<li><strong>b (BSS)</strong>：模块加载时分配的未初始化数据</li>
 </ul>
-<p>The module doesn't export symbols for external linking (no EXPORT_SYMBOL macros). Instead, it provides functionality through:
-1. DRM device file interface (<code>/dev/accel/accel0</code>)
-2. Standard DRM ioctls for buffer management
-3. Custom ioctls for NPU-specific operations
-4. IPC protocol with firmware</p>
-<p>Key function families to understand:</p>
+<p>模块不导出用于外部链接的符号(没有 EXPORT_SYMBOL 宏)。相反，它通过以下方式提供功能：
+1. DRM 设备文件接口(<code>/dev/accel/accel0</code>)
+2. 用于缓冲区管理的标准 DRM ioctl
+3. NPU 特定操作的自定义 ioctl
+4. 与固件的 IPC 协议</p>
+<p>要理解的关键函数系列：</p>
 <ul>
-<li><code>ivpu_bo_*</code>: Buffer object management (allocation, pinning, mapping)</li>
-<li><code>ivpu_mmu_*</code>: Memory management unit operations (page tables, address translation)</li>
-<li><code>ivpu_ipc_*</code>: Inter-processor communication with firmware</li>
-<li><code>ivpu_hw_*</code>: Hardware-specific operations (power management, register access)</li>
-<li><code>ivpu_fw_*</code>: Firmware loading and boot coordination</li>
-<li><code>ivpu_pm_*</code>: Power management (runtime suspend/resume)</li>
+<li><code>ivpu_bo_*</code>：缓冲对象管理(分配、固定、映射)</li>
+<li><code>ivpu_mmu_*</code>：内存管理单元操作(页表、地址转换)</li>
+<li><code>ivpu_ipc_*</code>：与固件的进程间通信</li>
+<li><code>ivpu_hw_*</code>：硬件特定操作(电源管理、寄存器访问)</li>
+<li><code>ivpu_fw_*</code>：固件加载和引导协调</li>
+<li><code>ivpu_pm_*</code>：电源管理(运行时挂起/恢复)</li>
 </ul>
-<p>The complete symbol list is available in <code>intel_vpu_symbols.txt</code> for reference when tracing specific operations.</p>
+<p>完整的符号列表在 <code>intel_vpu_symbols.txt</code> 中可供参考，用于跟踪特定操作。</p>
 <blockquote>
-<p>If you'd like to dive deeper into eBPF and accelerator tracing, check out our tutorial repository at <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">https://github.com/eunomia-bpf/bpf-developer-tutorial</a> or visit our website at <a href="https://eunomia.dev/tutorials/">https://eunomia.dev/tutorials/</a>.</p>
+<p>如果你想深入了解 eBPF 和加速器跟踪，请查看我们的教程仓库 <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">https://github.com/eunomia-bpf/bpf-developer-tutorial</a> 或访问我们的网站 <a href="https://eunomia.dev/tutorials/">https://eunomia.dev/tutorials/</a>。</p>
 </blockquote>
-<h2 id="references">References</h2>
+<h2 id="_5">参考资料</h2>
 <ul>
-<li><strong>Intel NPU Driver Source</strong>: <a href="https://github.com/intel/linux-npu-driver">https://github.com/intel/linux-npu-driver</a></li>
-<li><strong>Linux Kernel Accelerator Subsystem</strong>: <code>drivers/accel/</code> in kernel tree</li>
-<li><strong>Intel VPU Kernel Module</strong>: <code>drivers/accel/ivpu/</code> in mainline kernel</li>
-<li><strong>DRM Subsystem Documentation</strong>: <code>Documentation/gpu/drm-uapi.rst</code></li>
-<li><strong>Bpftrace Reference</strong>: <a href="https://github.com/iovisor/bpftrace/blob/master/docs/reference_guide.md">https://github.com/iovisor/bpftrace/blob/master/docs/reference_guide.md</a></li>
-<li><strong>Tutorial Repository</strong>: <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/xpu/npu-kernel-driver">https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/xpu/npu-kernel-driver</a></li>
+<li><strong>Intel NPU 驱动源码</strong>: <a href="https://github.com/intel/linux-npu-driver">https://github.com/intel/linux-npu-driver</a></li>
+<li><strong>Linux 内核加速器子系统</strong>: 内核树中的 <code>drivers/accel/</code></li>
+<li><strong>Intel VPU 内核模块</strong>: 主线内核中的 <code>drivers/accel/ivpu/</code></li>
+<li><strong>DRM 子系统文档</strong>: <code>Documentation/gpu/drm-uapi.rst</code></li>
+<li><strong>Bpftrace 参考</strong>: <a href="https://github.com/iovisor/bpftrace/blob/master/docs/reference_guide.md">https://github.com/iovisor/bpftrace/blob/master/docs/reference_guide.md</a></li>
+<li><strong>教程仓库</strong>: <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/xpu/npu-kernel-driver">https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/xpu/npu-kernel-driver</a></li>
 </ul>
-<p>Complete source code with trace examples and analysis tools is available in the tutorial repository.</p>
-<p><a class="md-button" href="https://x.com/intent/tweet?text=eBPF%20Tutorial%20by%20Example%3A%20Tracing%20Intel%20NPU%20Kernel%20Driver%20Operations%0A&amp;url=https://eunomia.dev/zh/tutorials/xpu/npu-kernel-driver/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<p>完整的源代码以及跟踪示例和分析工具可在教程仓库中获得。</p>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=eBPF%20%E5%AE%9E%E4%BE%8B%E6%95%99%E7%A8%8B%EF%BC%9A%E8%B7%9F%E8%B8%AA%20Intel%20NPU%20%E5%86%85%E6%A0%B8%E9%A9%B1%E5%8A%A8%E6%93%8D%E4%BD%9C%0A&amp;url=https://eunomia.dev/zh/tutorials/xpu/npu-kernel-driver/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/zh/tutorials/xpu/npu-kernel-driver/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
@@ -8608,7 +8609,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 6, 2025 02:08:17 UTC">October 6, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 6, 2025 02:44:57 UTC">October 6, 2025</span>
   </span>
 
     
@@ -8618,7 +8619,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 6, 2025 02:08:17 UTC">October 6, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 6, 2025 02:44:57 UTC">October 6, 2025</span>
   </span>
 
     
