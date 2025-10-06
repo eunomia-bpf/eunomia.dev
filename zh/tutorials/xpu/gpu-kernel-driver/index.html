@@ -24,7 +24,7 @@
     
     
       
-        <title>eBPF 教程：使用内核跟踪点监控 GPU 驱动活动 - eunomia</title>
+        <title>eBPF 实例教程：使用内核跟踪点监控 GPU 驱动活动 - eunomia</title>
       
     
     
@@ -69,7 +69,7 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="eBPF 教程：使用内核跟踪点监控 GPU 驱动活动 - eunomia" >
+        <meta  property="og:title"  content="eBPF 实例教程：使用内核跟踪点监控 GPU 驱动活动 - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
@@ -85,7 +85,7 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="eBPF 教程：使用内核跟踪点监控 GPU 驱动活动 - eunomia" >
+        <meta  name="twitter:title"  content="eBPF 实例教程：使用内核跟踪点监控 GPU 驱动活动 - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              eBPF 教程：使用内核跟踪点监控 GPU 驱动活动
+              eBPF 实例教程：使用内核跟踪点监控 GPU 驱动活动
             
           </span>
         </div>
@@ -1942,7 +1942,7 @@
   
   
   <span class="md-ellipsis">
-    eBPF 教程：使用内核跟踪点监控 GPU 驱动活动
+    eBPF 实例教程：使用内核跟踪点监控 GPU 驱动活动
     
   </span>
   
@@ -1955,7 +1955,7 @@
   
   
   <span class="md-ellipsis">
-    eBPF 教程：使用内核跟踪点监控 GPU 驱动活动
+    eBPF 实例教程：使用内核跟踪点监控 GPU 驱动活动
     
   </span>
   
@@ -1980,26 +1980,26 @@
         <li class="md-nav__item">
   <a href="#gpu" class="md-nav__link">
     <span class="md-ellipsis">
-      理解 GPU 内核跟踪点
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="理解 GPU 内核跟踪点">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#gpu_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      为什么内核跟踪点对 GPU 监控很重要
+      GPU 内核跟踪点：零开销可观测性
     </span>
   </a>
   
 </li>
+      
+        <li class="md-nav__item">
+  <a href="#drm-gpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      DRM 调度器监视器：通用 GPU 跟踪
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DRM 调度器监视器：通用 GPU 跟踪">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#drm" class="md-nav__link">
+  <a href="#bpftrace-drm_schedulerbt" class="md-nav__link">
     <span class="md-ellipsis">
-      DRM 跟踪点生态系统
+      完整的 Bpftrace 脚本：drm_scheduler.bt
     </span>
   </a>
   
@@ -2008,7 +2008,7 @@
           <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      实际应用场景
+      理解脚本
     </span>
   </a>
   
@@ -2020,261 +2020,45 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#intel-i915" class="md-nav__link">
     <span class="md-ellipsis">
-      跟踪点参考指南
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="跟踪点参考指南">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#drm-gpu" class="md-nav__link">
-    <span class="md-ellipsis">
-      DRM 调度器跟踪点：通用 GPU 监视器
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="DRM 调度器跟踪点：通用 GPU 监视器">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#drm_run_jobgpu" class="md-nav__link">
-    <span class="md-ellipsis">
-      drm_run_job：GPU 工作开始执行时
+      Intel i915 跟踪点：内存管理深入分析
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#drm_sched_process_job" class="md-nav__link">
-    <span class="md-ellipsis">
-      drm_sched_process_job：作业完成信号
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#drm_sched_job_wait_dep" class="md-nav__link">
-    <span class="md-ellipsis">
-      drm_sched_job_wait_dep：依赖停顿
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#intel-i915-io" class="md-nav__link">
-    <span class="md-ellipsis">
-      Intel i915 跟踪点：内存和 I/O 深入分析
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Intel i915 跟踪点：内存和 I/O 深入分析">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#i915_gem_object_creategpu" class="md-nav__link">
-    <span class="md-ellipsis">
-      i915_gem_object_create：GPU 内存分配
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#i915_vma_bind-gpu" class="md-nav__link">
-    <span class="md-ellipsis">
-      i915_vma_bind：将内存映射到 GPU 地址空间
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#i915_gem_shrink" class="md-nav__link">
-    <span class="md-ellipsis">
-      i915_gem_shrink：内存压力响应
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#i915_gem_object_faultgpu" class="md-nav__link">
-    <span class="md-ellipsis">
-      i915_gem_object_fault：GPU 页面故障
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#amd-amdgpu" class="md-nav__link">
     <span class="md-ellipsis">
-      AMD AMDGPU 跟踪点：命令流和中断
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="AMD AMDGPU 跟踪点：命令流和中断">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#amdgpu_cs_ioctl" class="md-nav__link">
-    <span class="md-ellipsis">
-      amdgpu_cs_ioctl：用户空间命令提交
+      AMD AMDGPU 跟踪点：命令提交管道
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#amdgpu_sched_run_job" class="md-nav__link">
-    <span class="md-ellipsis">
-      amdgpu_sched_run_job：内核调度作业
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#amdgpu_bo_create" class="md-nav__link">
-    <span class="md-ellipsis">
-      amdgpu_bo_create：缓冲对象分配
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#amdgpu_bo_move" class="md-nav__link">
-    <span class="md-ellipsis">
-      amdgpu_bo_move：内存迁移
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#amdgpu_ivgpu" class="md-nav__link">
-    <span class="md-ellipsis">
-      amdgpu_iv：GPU 中断
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#drm-vblank" class="md-nav__link">
     <span class="md-ellipsis">
       DRM Vblank 跟踪点：显示同步
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="DRM Vblank 跟踪点：显示同步">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#drm_vblank_event" class="md-nav__link">
-    <span class="md-ellipsis">
-      drm_vblank_event：垂直消隐发生
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#drm_vblank_event_queued-drm_vblank_event_delivered" class="md-nav__link">
-    <span class="md-ellipsis">
-      drm_vblank_event_queued 和 drm_vblank_event_delivered
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
-  <a href="#bpftrace" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      使用 Bpftrace 脚本监控
+      运行监控脚本
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="使用 Bpftrace 脚本监控">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#drm-gpu_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      DRM 调度器监视器：通用 GPU 跟踪
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#intel-i915-io_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      Intel i915 监视器：内存和 I/O 分析
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#amd-amdgpu_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      AMD AMDGPU 监视器：命令提交分析
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vblank" class="md-nav__link">
-    <span class="md-ellipsis">
-      显示 Vblank 监视器：帧时序分析
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      运行监视器
+      总结
     </span>
   </a>
   
@@ -2282,24 +2066,6 @@
       
         <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      验证跟踪点可用性
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      总结和下一步
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       参考资料
     </span>
@@ -8479,26 +8245,26 @@
         <li class="md-nav__item">
   <a href="#gpu" class="md-nav__link">
     <span class="md-ellipsis">
-      理解 GPU 内核跟踪点
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="理解 GPU 内核跟踪点">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#gpu_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      为什么内核跟踪点对 GPU 监控很重要
+      GPU 内核跟踪点：零开销可观测性
     </span>
   </a>
   
 </li>
+      
+        <li class="md-nav__item">
+  <a href="#drm-gpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      DRM 调度器监视器：通用 GPU 跟踪
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DRM 调度器监视器：通用 GPU 跟踪">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#drm" class="md-nav__link">
+  <a href="#bpftrace-drm_schedulerbt" class="md-nav__link">
     <span class="md-ellipsis">
-      DRM 跟踪点生态系统
+      完整的 Bpftrace 脚本：drm_scheduler.bt
     </span>
   </a>
   
@@ -8507,7 +8273,7 @@
           <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      实际应用场景
+      理解脚本
     </span>
   </a>
   
@@ -8519,261 +8285,45 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#intel-i915" class="md-nav__link">
     <span class="md-ellipsis">
-      跟踪点参考指南
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="跟踪点参考指南">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#drm-gpu" class="md-nav__link">
-    <span class="md-ellipsis">
-      DRM 调度器跟踪点：通用 GPU 监视器
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="DRM 调度器跟踪点：通用 GPU 监视器">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#drm_run_jobgpu" class="md-nav__link">
-    <span class="md-ellipsis">
-      drm_run_job：GPU 工作开始执行时
+      Intel i915 跟踪点：内存管理深入分析
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#drm_sched_process_job" class="md-nav__link">
-    <span class="md-ellipsis">
-      drm_sched_process_job：作业完成信号
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#drm_sched_job_wait_dep" class="md-nav__link">
-    <span class="md-ellipsis">
-      drm_sched_job_wait_dep：依赖停顿
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#intel-i915-io" class="md-nav__link">
-    <span class="md-ellipsis">
-      Intel i915 跟踪点：内存和 I/O 深入分析
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Intel i915 跟踪点：内存和 I/O 深入分析">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#i915_gem_object_creategpu" class="md-nav__link">
-    <span class="md-ellipsis">
-      i915_gem_object_create：GPU 内存分配
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#i915_vma_bind-gpu" class="md-nav__link">
-    <span class="md-ellipsis">
-      i915_vma_bind：将内存映射到 GPU 地址空间
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#i915_gem_shrink" class="md-nav__link">
-    <span class="md-ellipsis">
-      i915_gem_shrink：内存压力响应
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#i915_gem_object_faultgpu" class="md-nav__link">
-    <span class="md-ellipsis">
-      i915_gem_object_fault：GPU 页面故障
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#amd-amdgpu" class="md-nav__link">
     <span class="md-ellipsis">
-      AMD AMDGPU 跟踪点：命令流和中断
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="AMD AMDGPU 跟踪点：命令流和中断">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#amdgpu_cs_ioctl" class="md-nav__link">
-    <span class="md-ellipsis">
-      amdgpu_cs_ioctl：用户空间命令提交
+      AMD AMDGPU 跟踪点：命令提交管道
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#amdgpu_sched_run_job" class="md-nav__link">
-    <span class="md-ellipsis">
-      amdgpu_sched_run_job：内核调度作业
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#amdgpu_bo_create" class="md-nav__link">
-    <span class="md-ellipsis">
-      amdgpu_bo_create：缓冲对象分配
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#amdgpu_bo_move" class="md-nav__link">
-    <span class="md-ellipsis">
-      amdgpu_bo_move：内存迁移
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#amdgpu_ivgpu" class="md-nav__link">
-    <span class="md-ellipsis">
-      amdgpu_iv：GPU 中断
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#drm-vblank" class="md-nav__link">
     <span class="md-ellipsis">
       DRM Vblank 跟踪点：显示同步
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="DRM Vblank 跟踪点：显示同步">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#drm_vblank_event" class="md-nav__link">
-    <span class="md-ellipsis">
-      drm_vblank_event：垂直消隐发生
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#drm_vblank_event_queued-drm_vblank_event_delivered" class="md-nav__link">
-    <span class="md-ellipsis">
-      drm_vblank_event_queued 和 drm_vblank_event_delivered
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
-  <a href="#bpftrace" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      使用 Bpftrace 脚本监控
+      运行监控脚本
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="使用 Bpftrace 脚本监控">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#drm-gpu_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      DRM 调度器监视器：通用 GPU 跟踪
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#intel-i915-io_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      Intel i915 监视器：内存和 I/O 分析
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#amd-amdgpu_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      AMD AMDGPU 监视器：命令提交分析
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vblank" class="md-nav__link">
-    <span class="md-ellipsis">
-      显示 Vblank 监视器：帧时序分析
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      运行监视器
+      总结
     </span>
   </a>
   
@@ -8781,24 +8331,6 @@
       
         <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      验证跟踪点可用性
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      总结和下一步
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       参考资料
     </span>
@@ -8830,165 +8362,157 @@
   
 
 
-<h1 id="ebpf-gpu">eBPF 教程：使用内核跟踪点监控 GPU 驱动活动</h1>
-<p>你是否曾经想知道你的 GPU 在底层到底在做什么？当游戏卡顿、机器学习训练变慢或视频编码冻结时，答案就隐藏在内核 GPU 驱动的深处。传统调试依赖于猜测和供应商特定的工具，但有更好的方法。Linux 内核 GPU 跟踪点暴露了作业调度、内存分配和命令提交的实时洞察 - 而 eBPF 让你可以以最小的开销分析这些数据。</p>
-<p>在本教程中，我们将探索跨 DRM 调度器、Intel i915 和 AMD AMDGPU 驱动的 GPU 内核跟踪点。我们将编写 bpftrace 脚本来监控实时 GPU 活动、跟踪内存压力、测量作业延迟并诊断性能瓶颈。最后，你将拥有生产就绪的监控工具以及对 GPU 如何与内核交互的深入了解。</p>
-<h2 id="gpu">理解 GPU 内核跟踪点</h2>
-<p>GPU 跟踪点是直接内置在内核的直接渲染管理器（DRM）子系统中的仪器点。当你的 GPU 调度作业、分配内存或发出栅栏信号时，这些跟踪点会触发 - 捕获精确的时序、资源标识符和驱动状态。与周期性采样并错过事件的用户空间分析工具不同，内核跟踪点以纳秒级时间戳捕获每一个操作。</p>
-<h3 id="gpu_1">为什么内核跟踪点对 GPU 监控很重要</h3>
-<p>想想当你启动 GPU 工作负载时会发生什么。你的应用通过图形 API（Vulkan、OpenGL、CUDA）提交命令。用户空间驱动将这些转换为硬件特定的命令缓冲区。内核驱动接收 ioctl，验证工作，分配 GPU 内存，将资源绑定到 GPU 地址空间，在硬件环上调度作业，并等待完成。传统分析看到开始和结束 - 内核跟踪点看到每一步。</p>
-<p>性能影响是显著的。基于轮询的监控每 100ms 检查一次 GPU 状态，每次检查都会消耗 CPU 周期。跟踪点仅在事件发生时激活，每个事件仅添加纳秒级的开销，并捕获 100% 的活动，包括微秒级持续时间的作业。对于 Kubernetes GPU 工作负载的生产监控或调试 ML 训练性能，这种差异至关重要。</p>
-<h3 id="drm">DRM 跟踪点生态系统</h3>
-<p>GPU 跟踪点跨越图形堆栈的三层。<strong>DRM 调度器跟踪点</strong>（gpu_scheduler 事件组）被标记为稳定的 uAPI - 它们的格式永远不会改变。这些在 Intel、AMD 和 Nouveau 驱动上工作完全相同，使它们成为供应商中立监控的完美选择。它们跟踪作业提交（<code>drm_run_job</code>）、完成（<code>drm_sched_process_job</code>）和依赖等待（<code>drm_sched_job_wait_dep</code>）。</p>
-<p><strong>供应商特定跟踪点</strong>暴露驱动内部。Intel i915 跟踪点跟踪 GEM 对象创建（<code>i915_gem_object_create</code>）、VMA 绑定到 GPU 地址空间（<code>i915_vma_bind</code>）、内存压力事件（<code>i915_gem_shrink</code>）和页面故障（<code>i915_gem_object_fault</code>）。AMD AMDGPU 跟踪点监控缓冲对象生命周期（<code>amdgpu_bo_create</code>）、从用户空间提交命令（<code>amdgpu_cs_ioctl</code>）、调度器执行（<code>amdgpu_sched_run_job</code>）和 GPU 中断（<code>amdgpu_iv</code>）。注意 Intel 低级跟踪点需要在内核配置中启用 <code>CONFIG_DRM_I915_LOW_LEVEL_TRACEPOINTS=y</code>。</p>
-<p><strong>通用 DRM 跟踪点</strong>通过 vblank 事件处理显示同步 - 对于诊断丢帧和合成器延迟至关重要。事件包括 vblank 发生（<code>drm_vblank_event</code>）、用户空间排队（<code>drm_vblank_event_queued</code>）和传递（<code>drm_vblank_event_delivered</code>）。</p>
-<h3 id="_1">实际应用场景</h3>
-<p>GPU 跟踪点解决了传统工具无法触及的问题。<strong>诊断游戏卡顿</strong>：你注意到每隔几秒就会丢帧。Vblank 跟踪点揭示了错过的垂直消隐。作业调度跟踪显示命令提交中的 CPU 端延迟。内存跟踪点暴露在关键帧期间触发驱逐的分配。几分钟内你就能识别出纹理上传正在阻塞渲染管道。</p>
-<p><strong>优化 ML 训练性能</strong>：你的 PyTorch 训练比预期慢 40%。AMDGPU 命令提交跟踪揭示了过度同步 - CPU 过于频繁地等待 GPU 完成。作业依赖跟踪点显示独立操作之间不必要的栅栏。内存跟踪暴露了 VRAM 和系统 RAM 之间的抖动。你重新组织批处理以消除停顿。</p>
-<p><strong>云 GPU 计费准确性</strong>：多租户系统需要公平的能源和资源核算。DRM 调度器跟踪点将确切的 GPU 时间归因于每个容器。内存跟踪点跟踪每个工作负载的分配。这些数据馈送到基于实际资源消耗而非基于时间估计收费的准确计费系统。</p>
-<p><strong>热节流调查</strong>：GPU 性能在负载下降级。中断跟踪显示来自 GPU 的热事件。作业调度跟踪揭示影响执行时间的频率缩放。内存迁移跟踪显示驱动将工作负载移动到更冷的 GPU 芯片。你调整功率限制并改善气流。</p>
-<h2 id="_2">跟踪点参考指南</h2>
-<p>让我们详细检查每个跟踪点类别，了解它们暴露的数据以及如何解释它。</p>
-<h3 id="drm-gpu">DRM 调度器跟踪点：通用 GPU 监视器</h3>
-<p>DRM 调度器提供 GPU 作业管理的供应商中立视图。无论你运行的是 Intel 集成显卡、AMD 独立 GPU 还是 NVIDIA 硬件上的 Nouveau，这些跟踪点的工作方式都完全相同。</p>
-<h4 id="drm_run_jobgpu">drm_run_job：GPU 工作开始执行时</h4>
-<p>当调度器将作业分配给 GPU 硬件时，<code>drm_run_job</code> 触发。这标志着从"在软件中排队"到"在硅上主动运行"的转换。跟踪点捕获作业 ID（关联的唯一标识符）、环名称（哪个执行引擎：图形、计算、视频解码）、队列深度（有多少作业在等待）和硬件作业计数（当前在 GPU 上执行的作业）。</p>
-<p>格式看起来像：<code>entity=0xffff888... id=12345 fence=0xffff888... ring=gfx job count:5 hw job count:2</code>。这告诉你图形环上的作业 12345 开始执行。五个作业在它后面排队，两个作业当前在硬件上运行（多引擎 GPU 可以并行运行作业）。</p>
-<p>使用此来测量作业调度延迟。记录用户空间提交工作时的时间戳（使用命令提交跟踪点），然后测量到 <code>drm_run_job</code> 触发的时间。超过 1ms 的延迟表示 CPU 端调度延迟。每个环的统计数据揭示特定引擎（视频编码、计算）是否存在瓶颈。</p>
-<h4 id="drm_sched_process_job">drm_sched_process_job：作业完成信号</h4>
-<p>当 GPU 硬件完成作业并发出其栅栏信号时，此跟踪点触发。栅栏指针标识已完成的作业 - 将其与 <code>drm_run_job</code> 关联以计算 GPU 执行时间。格式：<code>fence=0xffff888... signaled</code>。</p>
-<p>与 <code>drm_run_job</code> 时间戳结合以计算作业执行时间：<code>completion_time - run_time = GPU_execution_duration</code>。如果应该需要 5ms 的作业需要 50ms，你就发现了 GPU 性能问题。吞吐量指标（每秒完成的作业）表示总体 GPU 利用率。</p>
-<h4 id="drm_sched_job_wait_dep">drm_sched_job_wait_dep：依赖停顿</h4>
-<p>在作业可以执行之前，其依赖项（它等待的先前作业）必须完成。此跟踪点在作业阻塞等待栅栏时触发。格式：<code>job ring=gfx id=12345 depends fence=0xffff888... context=1234 seq=567</code>。</p>
-<p>这揭示了管道停顿。如果计算作业不断等待图形作业，你就没有利用并行性。如果等待时间很长，依赖链太深 - 考虑批处理独立工作。过度的依赖表示 CPU 端调度效率低下。</p>
-<h3 id="intel-i915-io">Intel i915 跟踪点：内存和 I/O 深入分析</h3>
-<p>Intel 的 i915 驱动暴露了内存管理和数据传输的详细跟踪点。这些需要 <code>CONFIG_DRM_I915_LOW_LEVEL_TRACEPOINTS=y</code> - 使用 <code>grep CONFIG_DRM_I915_LOW_LEVEL_TRACEPOINTS /boot/config-$(uname -r)</code> 检查。</p>
-<h4 id="i915_gem_object_creategpu">i915_gem_object_create：GPU 内存分配</h4>
-<p>当驱动分配 GEM（图形执行管理器）对象 - GPU 可访问内存的基本单位时，此触发。格式：<code>obj=0xffff888... size=0x100000</code> 表示分配 1MB 对象。</p>
-<p>随时间跟踪总分配内存以检测泄漏。性能下降前的突然分配峰值表示内存压力。将对象指针与后续绑定/故障事件关联以了解对象生命周期。高频率小分配表示低效批处理。</p>
-<h4 id="i915_vma_bind-gpu">i915_vma_bind：将内存映射到 GPU 地址空间</h4>
-<p>分配内存还不够 - 它必须映射（绑定）到 GPU 地址空间。此跟踪点在 VMA（虚拟内存区域）绑定时触发。格式：<code>obj=0xffff888... offset=0x0000100000 size=0x10000 mappable vm=0xffff888...</code> 显示在 GPU 虚拟地址 0x100000 处绑定的 64KB。</p>
-<p>绑定开销影响性能。频繁的重新绑定表示内存抖动 - 驱动在压力下驱逐和重新绑定对象。GPU 页面故障通常与绑定操作相关 - CPU 在 GPU 访问之前绑定内存。像 <code>PIN_MAPPABLE</code> 这样的标志表示 CPU 和 GPU 都可以访问的内存。</p>
-<h4 id="i915_gem_shrink">i915_gem_shrink：内存压力响应</h4>
-<p>在内存压力下，驱动回收 GPU 内存。格式：<code>dev=0 target=0x1000000 flags=0x3</code> 意味着驱动尝试回收 16MB。高收缩活动表示工作负载的 GPU 内存过小。</p>
-<p>与性能下降关联 - 如果在帧渲染期间发生收缩，会导致卡顿。标志表示收缩的激进程度。反复收缩小目标表示内存碎片。将目标与实际释放量（跟踪对象销毁）进行比较以测量回收效率。</p>
-<h4 id="i915_gem_object_faultgpu">i915_gem_object_fault：GPU 页面故障</h4>
-<p>当 CPU 或 GPU 访问未映射的内存时，会发生故障。格式：<code>obj=0xffff888... GTT index=128 writable</code> 表示图形转换表页 128 上的写故障。故障代价昂贵 - 它们在内核解决缺失映射时停止执行。</p>
-<p>过度的故障会降低性能。写故障比读故障更昂贵（需要使缓存失效）。GTT 故障（GPU 访问未映射的内存）表示作业提交前资源绑定不完整。CPU 故障表示低效的 CPU/GPU 同步 - CPU 在 GPU 使用对象时访问它们。</p>
-<h3 id="amd-amdgpu">AMD AMDGPU 跟踪点：命令流和中断</h3>
+<h1 id="ebpf-gpu">eBPF 实例教程：使用内核跟踪点监控 GPU 驱动活动</h1>
+<p>当游戏卡顿或机器学习训练变慢时，答案就隐藏在 GPU 内核驱动内部。Linux 内核跟踪点暴露了实时的作业调度、内存分配和命令提交数据。与周期性采样并错过事件的用户空间分析工具不同，内核跟踪点以纳秒级时间戳和最小开销捕获每个操作。</p>
+<p>本教程展示如何使用 eBPF 和 bpftrace 监控 GPU 活动。我们将跟踪 DRM 调度器作业、测量延迟，并使用跨 Intel、AMD 和 Nouveau 驱动工作的稳定内核跟踪点诊断瓶颈。</p>
+<h2 id="gpu">GPU 内核跟踪点：零开销可观测性</h2>
+<p>GPU 跟踪点是内核直接渲染管理器（DRM）子系统中内置的仪器点。当 GPU 调度作业、分配内存或发出栅栏信号时，这些跟踪点会以精确的时序和驱动状态触发。</p>
+<p>关键洞察：内核跟踪点仅在事件发生时激活，每个事件添加纳秒级开销。它们捕获 100% 的活动，包括微秒级持续时间的作业。基于轮询的监控每 100ms 检查一次 GPU 状态，完全错过短期操作。</p>
+<p>GPU 跟踪点跨越三层。<strong>DRM 调度器跟踪点</strong>（<code>gpu_scheduler</code> 事件组）是稳定的 uAPI - 格式永不改变。它们在 Intel、AMD 和 Nouveau 驱动上工作完全相同，适合供应商中立的监控。<strong>供应商特定跟踪点</strong>暴露驱动内部 - Intel i915 跟踪 GEM 对象创建和 VMA 绑定，AMD AMDGPU 监控缓冲对象和命令提交。<strong>通用 DRM 跟踪点</strong>通过 vblank 事件处理显示同步，用于诊断丢帧。</p>
+<h2 id="drm-gpu">DRM 调度器监视器：通用 GPU 跟踪</h2>
+<p><code>drm_scheduler.bt</code> 脚本在<strong>所有 GPU 驱动</strong>上工作，因为它使用稳定的 uAPI 跟踪点。它跟踪作业提交（<code>drm_run_job</code>）、完成（<code>drm_sched_process_job</code>）和依赖等待（<code>drm_sched_job_wait_dep</code>）跨所有环。</p>
+<h3 id="bpftrace-drm_schedulerbt">完整的 Bpftrace 脚本：drm_scheduler.bt</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">#!/usr/bin/env bpftrace</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="cm">/*</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="cm"> * drm_scheduler.bt - 监控 DRM GPU 调度器活动</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="cm"> *</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="cm"> * 此脚本使用稳定的 DRM 调度器跟踪点跟踪 GPU 作业调度。</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="cm"> * 适用于所有现代 GPU 驱动（Intel i915、AMD AMDGPU、Nouveau 等）</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="cm"> *</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="cm"> * gpu_scheduler 跟踪点是稳定的 uAPI - 保证不会改变。</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="cm"> *</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="cm"> * 使用方法：sudo bpftrace drm_scheduler.bt</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="cm"> */</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="n">BEGIN</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="p">{</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;正在跟踪 DRM GPU 调度器... 按 Ctrl-C 结束。</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%-18s %-12s %-16s %-12s %-8s %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">           </span><span class="s">&quot;时间(ms)&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;事件&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;作业ID&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;环&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;排队&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;详情&quot;</span><span class="p">);</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="p">}</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="cm">/* GPU 作业开始执行 */</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="nl">tracepoint</span><span class="p">:</span><span class="n">gpu_scheduler</span><span class="o">:</span><span class="n">drm_run_job</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="p">{</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">    </span><span class="n">$job_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">args</span><span class="o">-&gt;</span><span class="n">id</span><span class="p">;</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">    </span><span class="n">$ring</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">str</span><span class="p">(</span><span class="n">args</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">);</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">    </span><span class="n">$queue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">args</span><span class="o">-&gt;</span><span class="n">job_count</span><span class="p">;</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">    </span><span class="n">$hw_queue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">args</span><span class="o">-&gt;</span><span class="n">hw_job_count</span><span class="p">;</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">    </span><span class="cm">/* 记录开始时间用于延迟计算 */</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="w">    </span><span class="err">@</span><span class="n">start</span><span class="p">[</span><span class="n">$job_id</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nsecs</span><span class="p">;</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%-18llu %-12s %-16llu %-12s %-8u hw=%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="w">           </span><span class="n">nsecs</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000000</span><span class="p">,</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="w">           </span><span class="s">&quot;RUN&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="w">           </span><span class="n">$job_id</span><span class="p">,</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="w">           </span><span class="n">$ring</span><span class="p">,</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a><span class="w">           </span><span class="n">$queue</span><span class="p">,</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="w">           </span><span class="n">$hw_queue</span><span class="p">);</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="w">    </span><span class="cm">/* 跟踪每个环的统计 */</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a><span class="w">    </span><span class="err">@</span><span class="n">jobs_per_ring</span><span class="p">[</span><span class="n">$ring</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">count</span><span class="p">();</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a><span class="p">}</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a>
+<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a><span class="cm">/* GPU 作业完成（栅栏已发出信号）*/</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a><span class="nl">tracepoint</span><span class="p">:</span><span class="n">gpu_scheduler</span><span class="o">:</span><span class="n">drm_sched_process_job</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a><span class="p">{</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a><span class="w">    </span><span class="n">$fence</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">args</span><span class="o">-&gt;</span><span class="n">fence</span><span class="p">;</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a>
+<a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%-18llu %-12s %-16p</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a><span class="w">           </span><span class="n">nsecs</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000000</span><span class="p">,</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a><span class="w">           </span><span class="s">&quot;COMPLETE&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a><span class="w">           </span><span class="n">$fence</span><span class="p">);</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a>
+<a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a><span class="w">    </span><span class="err">@</span><span class="n">completion_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">count</span><span class="p">();</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a><span class="p">}</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a>
+<a id="__codelineno-0-56" name="__codelineno-0-56" href="#__codelineno-0-56"></a><span class="cm">/* 作业等待依赖 */</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57" href="#__codelineno-0-57"></a><span class="nl">tracepoint</span><span class="p">:</span><span class="n">gpu_scheduler</span><span class="o">:</span><span class="n">drm_sched_job_wait_dep</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58" href="#__codelineno-0-58"></a><span class="p">{</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59" href="#__codelineno-0-59"></a><span class="w">    </span><span class="n">$job_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">args</span><span class="o">-&gt;</span><span class="n">id</span><span class="p">;</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60" href="#__codelineno-0-60"></a><span class="w">    </span><span class="n">$ring</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">str</span><span class="p">(</span><span class="n">args</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">);</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61" href="#__codelineno-0-61"></a><span class="w">    </span><span class="n">$dep_ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">args</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="p">;</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62" href="#__codelineno-0-62"></a><span class="w">    </span><span class="n">$dep_seq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">args</span><span class="o">-&gt;</span><span class="n">seqno</span><span class="p">;</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63" href="#__codelineno-0-63"></a>
+<a id="__codelineno-0-64" name="__codelineno-0-64" href="#__codelineno-0-64"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%-18llu %-12s %-16llu %-12s %-8s ctx=%llu seq=%u</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65" href="#__codelineno-0-65"></a><span class="w">           </span><span class="n">nsecs</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000000</span><span class="p">,</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66" href="#__codelineno-0-66"></a><span class="w">           </span><span class="s">&quot;WAIT_DEP&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67" href="#__codelineno-0-67"></a><span class="w">           </span><span class="n">$job_id</span><span class="p">,</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68" href="#__codelineno-0-68"></a><span class="w">           </span><span class="n">$ring</span><span class="p">,</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69" href="#__codelineno-0-69"></a><span class="w">           </span><span class="s">&quot;-&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70" href="#__codelineno-0-70"></a><span class="w">           </span><span class="n">$dep_ctx</span><span class="p">,</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71" href="#__codelineno-0-71"></a><span class="w">           </span><span class="n">$dep_seq</span><span class="p">);</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72" href="#__codelineno-0-72"></a>
+<a id="__codelineno-0-73" name="__codelineno-0-73" href="#__codelineno-0-73"></a><span class="w">    </span><span class="err">@</span><span class="n">wait_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">count</span><span class="p">();</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74" href="#__codelineno-0-74"></a><span class="w">    </span><span class="err">@</span><span class="n">waits_per_ring</span><span class="p">[</span><span class="n">$ring</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">count</span><span class="p">();</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75" href="#__codelineno-0-75"></a><span class="p">}</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76" href="#__codelineno-0-76"></a>
+<a id="__codelineno-0-77" name="__codelineno-0-77" href="#__codelineno-0-77"></a><span class="n">END</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78" href="#__codelineno-0-78"></a><span class="p">{</span>
+<a id="__codelineno-0-79" name="__codelineno-0-79" href="#__codelineno-0-79"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">=== DRM 调度器统计 ===</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-0-80" name="__codelineno-0-80" href="#__codelineno-0-80"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">每个环的作业数：</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-0-81" name="__codelineno-0-81" href="#__codelineno-0-81"></a><span class="w">    </span><span class="n">print</span><span class="p">(</span><span class="err">@</span><span class="n">jobs_per_ring</span><span class="p">);</span>
+<a id="__codelineno-0-82" name="__codelineno-0-82" href="#__codelineno-0-82"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">每个环的等待数：</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-0-83" name="__codelineno-0-83" href="#__codelineno-0-83"></a><span class="w">    </span><span class="n">print</span><span class="p">(</span><span class="err">@</span><span class="n">waits_per_ring</span><span class="p">);</span>
+<a id="__codelineno-0-84" name="__codelineno-0-84" href="#__codelineno-0-84"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="_1">理解脚本</h3>
+<p>脚本附加到三个稳定的 DRM 调度器跟踪点。当 <code>drm_run_job</code> 触发时，作业从"在软件中排队"转换为"在硅上运行"。跟踪点捕获 <code>args-&gt;id</code>（用于关联的作业 ID）、<code>args-&gt;name</code>（环名称 - 哪个执行引擎如图形、计算或视频解码）、<code>args-&gt;job_count</code>（队列深度 - 有多少作业在等待）和 <code>args-&gt;hw_job_count</code>（当前在 GPU 硬件上执行的作业）。</p>
+<p>格式 <code>entity=0xffff888... id=12345 fence=0xffff888... ring=gfx job count:5 hw job count:2</code> 告诉你图形环上的作业 12345 开始执行，后面有 5 个作业排队，硬件上当前运行 2 个作业。多引擎 GPU 可以跨不同环并行运行作业。</p>
+<p>我们记录 <code>@start[$job_id] = nsecs</code> 以启用延迟计算。脚本存储按作业 ID 键控的时间戳。稍后，在跟踪完成或测量端到端延迟时，你可以计算 <code>nsecs - @start[$job_id]</code> 以获得执行时间。<code>@jobs_per_ring[$ring] = count()</code> 行递增每个环的计数器，显示跨引擎的工作负载分布。</p>
+<p>当 <code>drm_sched_process_job</code> 触发时，GPU 硬件完成了作业并发出其栅栏信号。栅栏指针 <code>args-&gt;fence</code> 标识已完成的作业。在 <code>drm_run_job</code> 和此跟踪点之间关联栅栏指针，让你可以计算 GPU 执行时间：<code>completion_time - run_time = GPU_execution_duration</code>。如果应该需要 5ms 的作业需要 50ms，你就发现了 GPU 性能问题。</p>
+<p><code>drm_sched_job_wait_dep</code> 跟踪点在作业阻塞等待栅栏时触发。在作业执行之前，其依赖项（它等待的先前作业）必须完成。格式显示 <code>args-&gt;ctx</code>（依赖上下文）和 <code>args-&gt;seqno</code>（序列号）标识哪个栅栏阻塞此作业。</p>
+<p>这揭示了管道停顿。如果计算作业不断等待图形作业，你就没有利用并行性。长等待时间表明依赖链太深 - 考虑批处理独立工作。过度的依赖表示 CPU 端调度效率低下。<code>@waits_per_ring[$ring] = count()</code> 指标跟踪哪些环经历最多的依赖停顿。</p>
+<p>程序结束时，<code>END</code> 块打印统计信息。<code>@jobs_per_ring</code> 显示每个执行引擎的作业计数 - 揭示特定环（视频编码、计算）是否饱和。<code>@waits_per_ring</code> 暴露依赖瓶颈。这些数据揭示了总体 GPU 利用率模式以及作业是否被依赖阻塞。</p>
+<h2 id="intel-i915">Intel i915 跟踪点：内存管理深入分析</h2>
+<p>Intel 的 i915 驱动暴露了内存操作的详细跟踪点。这些需要内核配置中的 <code>CONFIG_DRM_I915_LOW_LEVEL_TRACEPOINTS=y</code> - 使用 <code>grep CONFIG_DRM_I915_LOW_LEVEL_TRACEPOINTS /boot/config-$(uname -r)</code> 检查。</p>
+<p><strong>i915_gem_object_create</strong> 在驱动分配 GEM（图形执行管理器）对象时触发 - GPU 可访问内存的基本单位。格式：<code>obj=0xffff888... size=0x100000</code> 表示分配 1MB 对象。随时间跟踪总分配内存以检测泄漏。性能下降前的突然分配峰值表示内存压力。将对象指针与后续绑定/故障事件关联以了解对象生命周期。</p>
+<p><strong>i915_vma_bind</strong> 跟踪将内存映射到 GPU 地址空间。分配内存还不够 - 它必须绑定到 GPU 虚拟地址空间。格式：<code>obj=0xffff888... offset=0x0000100000 size=0x10000 mappable vm=0xffff888...</code> 显示在 GPU 虚拟地址 0x100000 处绑定的 64KB。频繁的重新绑定表示内存抖动 - 驱动在压力下驱逐和重新绑定对象。GPU 页面故障通常与绑定操作相关。</p>
+<p><strong>i915_gem_shrink</strong> 捕获内存压力响应。在内存压力下，驱动回收 GPU 内存。格式：<code>dev=0 target=0x1000000 flags=0x3</code> 意味着驱动尝试回收 16MB。高收缩活动表示工作负载的 GPU 内存过小。与性能下降关联 - 如果在帧渲染期间发生收缩，会导致卡顿。</p>
+<p><strong>i915_gem_object_fault</strong> 跟踪 CPU 或 GPU 访问未映射内存时的页面故障。格式：<code>obj=0xffff888... GTT index=128 writable</code> 表示图形转换表页 128 上的写故障。故障代价昂贵 - 它们在内核解决缺失映射时停止执行。写故障比读故障更昂贵（需要使缓存失效）。GTT 故障表示作业提交前资源绑定不完整。</p>
+<h2 id="amd-amdgpu">AMD AMDGPU 跟踪点：命令提交管道</h2>
 <p>AMD 的 AMDGPU 驱动提供命令提交和硬件中断的全面跟踪。</p>
-<h4 id="amdgpu_cs_ioctl">amdgpu_cs_ioctl：用户空间命令提交</h4>
-<p>当应用通过 ioctl 提交 GPU 工作时，此捕获请求。格式：<code>sched_job=12345 timeline=gfx context=1000 seqno=567 ring_name=gfx_0.0.0 num_ibs=2</code> 显示提交到图形环的作业 12345 有 2 个间接缓冲区。</p>
-<p>这标志着用户空间将工作交给内核的时间。记录时间戳以在与 <code>amdgpu_sched_run_job</code> 结合时测量提交到执行的延迟。高频率表示小批次 - 更好批处理的潜力。每个环的分布显示跨引擎的工作负载平衡。</p>
-<h4 id="amdgpu_sched_run_job">amdgpu_sched_run_job：内核调度作业</h4>
-<p>内核调度器开始执行先前提交的作业。将时间戳与 <code>amdgpu_cs_ioctl</code> 比较可揭示提交延迟。格式包括作业 ID 和用于关联的环。</p>
-<p>超过 100μs 的提交延迟表示内核调度延迟。每个环的延迟显示特定引擎是否受调度限制。与 CPU 调度器跟踪关联以识别内核线程是否被抢占。</p>
-<h4 id="amdgpu_bo_create">amdgpu_bo_create：缓冲对象分配</h4>
-<p>AMD 的 i915 GEM 对象等价物。格式：<code>bo=0xffff888... pages=256 type=2 preferred=4 allowed=7 visible=1</code> 分配 1MB（256 页）。类型表示 VRAM 与 GTT（GPU 可访问的系统内存）。首选/允许域显示放置策略。</p>
-<p>跟踪 VRAM 分配以监控内存使用。类型不匹配（请求 VRAM 但回退到 GTT）表示 VRAM 耗尽。可见标志表示 CPU 可访问的内存 - 昂贵，谨慎使用。</p>
-<h4 id="amdgpu_bo_move">amdgpu_bo_move：内存迁移</h4>
-<p>当缓冲对象在 VRAM 和 GTT 之间迁移时，此触发。迁移代价昂贵（需要通过 PCIe 复制数据）。过度的移动表示内存抖动 - 工作集超过 VRAM 容量。</p>
-<p>测量移动频率和大小以量化 PCIe 带宽消耗。与性能下降关联 - 迁移停止 GPU 执行。通过减少工作集或使用更智能的放置策略（将频繁访问的数据保留在 VRAM 中）进行优化。</p>
-<h4 id="amdgpu_ivgpu">amdgpu_iv：GPU 中断</h4>
-<p>GPU 为完成的工作、错误和事件发出中断信号。格式：<code>ih:0 client_id:1 src_id:42 ring:0 vmid:5 timestamp:1234567890 pasid:100 src_data: 00000001...</code> 捕获中断详细信息。</p>
-<p>源 ID 表示中断类型（完成、故障、热）。高中断率影响 CPU 性能。意外中断表示硬件错误。VMID 和 PASID 识别哪个进程/VM 触发了中断 - 对于多租户调试至关重要。</p>
-<h3 id="drm-vblank">DRM Vblank 跟踪点：显示同步</h3>
+<p><strong>amdgpu_cs_ioctl</strong> 捕获用户空间命令提交。当应用通过 ioctl 提交 GPU 工作时，此跟踪点触发。格式：<code>sched_job=12345 timeline=gfx context=1000 seqno=567 ring_name=gfx_0.0.0 num_ibs=2</code> 显示提交到图形环的作业 12345 有 2 个间接缓冲区。这标志着用户空间将工作交给内核的时间。记录时间戳以在与 <code>amdgpu_sched_run_job</code> 结合时测量提交到执行的延迟。高频率表示小批次 - 更好批处理的潜力。</p>
+<p><strong>amdgpu_sched_run_job</strong> 在内核调度器开始执行先前提交的作业时触发。将时间戳与 <code>amdgpu_cs_ioctl</code> 比较可揭示提交延迟。超过 100μs 的提交延迟表示内核调度延迟。每个环的延迟显示特定引擎是否受调度限制。</p>
+<p><strong>amdgpu_bo_create</strong> 跟踪缓冲对象分配 - AMD 的 i915 GEM 对象等价物。格式：<code>bo=0xffff888... pages=256 type=2 preferred=4 allowed=7 visible=1</code> 分配 1MB（256 页）。类型表示 VRAM 与 GTT（GPU 可访问的系统内存）。首选/允许域显示放置策略。类型不匹配（请求 VRAM 但回退到 GTT）表示 VRAM 耗尽。可见标志表示 CPU 可访问的内存 - 昂贵，谨慎使用。</p>
+<p><strong>amdgpu_bo_move</strong> 在缓冲对象在 VRAM 和 GTT 之间迁移时触发。迁移代价昂贵（需要通过 PCIe 复制数据）。过度的移动表示内存抖动 - 工作集超过 VRAM 容量。测量移动频率和大小以量化 PCIe 带宽消耗。与性能下降关联 - 迁移停止 GPU 执行。</p>
+<p><strong>amdgpu_iv</strong> 捕获 GPU 中断。GPU 为完成的工作、错误和事件发出中断信号。格式：<code>ih:0 client_id:1 src_id:42 ring:0 vmid:5 timestamp:1234567890 pasid:100 src_data: 00000001...</code> 捕获中断详细信息。源 ID 表示中断类型（完成、故障、热）。高中断率影响 CPU 性能。VMID 和 PASID 识别哪个进程/VM 触发了中断 - 对于多租户调试至关重要。</p>
+<h2 id="drm-vblank">DRM Vblank 跟踪点：显示同步</h2>
 <p>Vblank（垂直消隐）事件将渲染与显示刷新同步。错过 vblank 会导致丢帧和卡顿。</p>
-<h4 id="drm_vblank_event">drm_vblank_event：垂直消隐发生</h4>
-<p>当显示进入垂直消隐期时，此触发。格式：<code>crtc=0 seq=12345 time=1234567890 high-prec=true</code> 表示显示控制器 0 上的 vblank，序列号 12345。</p>
-<p>跟踪 vblank 频率以验证刷新率（60Hz = 60 vblanks/秒）。错过的序列表示丢帧。高精度时间戳启用亚毫秒帧时序分析。多显示器设置的每 CRTC 跟踪。</p>
-<h4 id="drm_vblank_event_queued-drm_vblank_event_delivered">drm_vblank_event_queued 和 drm_vblank_event_delivered</h4>
-<p>这些跟踪 vblank 事件传递到用户空间。排队延迟（队列到传递）测量内核调度延迟。总延迟（vblank 到传递）包括内核和驱动处理。</p>
-<p>超过 1ms 的延迟表示合成器问题。跨 CRTC 比较以识别有问题的显示。与用户可见的丢帧关联 - 延迟传递的事件意味着错过的帧。</p>
-<h2 id="bpftrace">使用 Bpftrace 脚本监控</h2>
-<p>我们为生产监控创建了供应商特定的 bpftrace 脚本。每个脚本专注于其 GPU 供应商的特定跟踪点，同时共享通用输出格式。</p>
-<h3 id="drm-gpu_1">DRM 调度器监视器：通用 GPU 跟踪</h3>
-<p><code>drm_scheduler.bt</code> 脚本在<strong>所有 GPU 驱动</strong>上工作，因为它使用稳定的 uAPI 跟踪点。它跟踪所有环上的作业，测量完成率，并识别依赖停顿。</p>
-<p>脚本附加到 <code>gpu_scheduler:drm_run_job</code>、<code>gpu_scheduler:drm_sched_process_job</code> 和 <code>gpu_scheduler:drm_sched_job_wait_dep</code>。在作业开始时，它在按作业 ID 键控的 map 中记录时间戳以供以后计算延迟。它递增每个环的计数器以显示工作负载分布。在完成时，它打印栅栏信息。在依赖等待时，它显示哪个作业阻塞哪个栅栏。</p>
-<p>输出显示时间戳、事件类型（RUN/COMPLETE/WAIT_DEP）、作业 ID、环名称和队列深度。程序结束时，统计数据总结每个环的作业和依赖等待计数。这揭示了特定环是否饱和、作业是否被依赖阻塞以及总体 GPU 利用率模式。</p>
-<h3 id="intel-i915-io_1">Intel i915 监视器：内存和 I/O 分析</h3>
-<p><code>intel_i915.bt</code> 脚本跟踪 Intel GPU 内存操作、I/O 传输和页面故障。它需要 <code>CONFIG_DRM_I915_LOW_LEVEL_TRACEPOINTS=y</code>。</p>
-<p>在 <code>i915_gem_object_create</code> 上，它累积总分配内存并存储每个对象的大小。VMA 绑定/解绑事件跟踪 GPU 地址空间更改。收缩事件测量内存压力。Pwrite/pread 跟踪 CPU-GPU 数据传输。故障按类型分类（GTT 与 CPU，读与写）。</p>
-<p>输出报告分配大小和以 MB 为单位的运行总计。绑定操作显示 GPU 虚拟地址和标志。I/O 操作跟踪偏移量和长度。故障指示类型以及它们是读还是写。结束统计汇总总分配、VMA 操作、内存压力（收缩操作和回收字节）、I/O 量（读/写计数和大小）以及故障分析（总故障，写与读）。</p>
-<p>这揭示了内存泄漏（没有相应释放的分配）、绑定开销（频繁的重新绑定表示抖动）、内存压力时序（将收缩与性能下降关联）、I/O 模式（大传输与许多小传输）和故障热点（要优化的昂贵操作）。</p>
-<h3 id="amd-amdgpu_1">AMD AMDGPU 监视器：命令提交分析</h3>
-<p><code>amd_amdgpu.bt</code> 脚本专注于 AMD 的命令提交管道，测量从 ioctl 到执行的延迟。</p>
-<p>在 <code>amdgpu_cs_ioctl</code> 上，它记录按作业 ID 键控的提交时间戳。当 <code>amdgpu_sched_run_job</code> 触发时，它计算延迟：<code>(current_time - submit_time)</code>。缓冲对象创建/移动事件跟踪内存。中断事件按源 ID 计数。虚拟内存操作（刷新、映射、取消映射）测量 TLB 活动。</p>
-<p>输出显示时间戳、事件类型、作业 ID、环名称和以微秒为单位的计算延迟。结束统计包括内存分配总计、每个环的命令提交计数、提交延迟的平均值和分布（直方图显示有多少作业经历了不同的延迟桶）、按源的中断计数以及虚拟内存操作计数。</p>
-<p>延迟直方图至关重要 - 大多数作业应该有 &lt;50μs 的延迟。高延迟作业的尾部表示调度问题。每个环的统计显示计算工作负载是否具有与图形不同的延迟。内存迁移跟踪有助于诊断 VRAM 压力。</p>
-<h3 id="vblank">显示 Vblank 监视器：帧时序分析</h3>
-<p><code>drm_vblank.bt</code> 脚本跟踪显示同步以诊断丢帧。</p>
-<p>在 <code>drm_vblank_event</code> 上，它记录按 CRTC 和序列键控的时间戳。当 <code>drm_vblank_event_queued</code> 触发时，它时间戳队列时间。在 <code>drm_vblank_event_delivered</code> 上，它计算队列到传递延迟和总 vblank 到传递延迟。</p>
-<p>输出显示 vblank 事件、排队事件和带时间戳的传递事件。结束统计包括每个 CRTC 的总 vblank 计数、事件传递计数、平均传递延迟、延迟分布直方图以及总事件延迟（vblank 发生到用户空间传递）。</p>
-<p>超过 1ms 的传递延迟表示合成器调度问题。总延迟揭示应用可见的端到端延迟。每 CRTC 统计显示特定显示器是否有问题。延迟直方图暴露导致可见卡顿的异常值。</p>
-<h2 id="_3">运行监视器</h2>
-<p>让我们跟踪实时 GPU 活动。导航到脚本目录并使用 bpftrace 运行任何监视器。DRM 调度器监视器在所有 GPU 上工作：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">cd</span><span class="w"> </span>bpf-developer-tutorial/src/xpu/gpu-kernel-driver/scripts
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>sudo<span class="w"> </span>bpftrace<span class="w"> </span>drm_scheduler.bt
+<p><strong>drm_vblank_event</strong> 在显示进入垂直消隐期时触发。格式：<code>crtc=0 seq=12345 time=1234567890 high-prec=true</code> 表示显示控制器 0 上的 vblank，序列号 12345。跟踪 vblank 频率以验证刷新率（60Hz = 60 vblanks/秒）。错过的序列表示丢帧。高精度时间戳启用亚毫秒帧时序分析。</p>
+<p><strong>drm_vblank_event_queued</strong> 和 <strong>drm_vblank_event_delivered</strong> 跟踪 vblank 事件传递到用户空间。排队延迟（队列到传递）测量内核调度延迟。总延迟（vblank 到传递）包括内核和驱动处理。超过 1ms 的延迟表示合成器问题。与用户可见的丢帧关联 - 延迟传递的事件意味着错过的帧。</p>
+<h2 id="_2">运行监控脚本</h2>
+<p>导航到脚本目录并运行 DRM 调度器监视器。它在所有 GPU 上工作：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">cd</span><span class="w"> </span>bpf-developer-tutorial/src/xpu/gpu-kernel-driver/scripts
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>sudo<span class="w"> </span>bpftrace<span class="w"> </span>drm_scheduler.bt
 </code></pre></div>
-<p>你将看到如下输出：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Tracing DRM GPU scheduler... Hit Ctrl-C to end.
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>TIME(ms)           EVENT        JOB_ID           RING         QUEUED   DETAILS
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>296119090          RUN          12345            gfx          5        hw=2
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>296120190          COMPLETE     0xffff888...
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>=== DRM Scheduler Statistics ===
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>Jobs per ring:
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>@jobs_per_ring[gfx]: 1523
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>@jobs_per_ring[compute]: 89
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>Waits per ring:
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>@waits_per_ring[gfx]: 12
+<p>预期输出：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Tracing DRM GPU scheduler... Hit Ctrl-C to end.
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>TIME(ms)           EVENT        JOB_ID           RING         QUEUED   DETAILS
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>296119090          RUN          12345            gfx          5        hw=2
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>296120190          COMPLETE     0xffff888...
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>=== DRM Scheduler Statistics ===
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>Jobs per ring:
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>@jobs_per_ring[gfx]: 1523
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>@jobs_per_ring[compute]: 89
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>Waits per ring:
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>@waits_per_ring[gfx]: 12
 </code></pre></div>
-<p>这显示图形作业主导工作负载（1523 对 89 个计算作业）。很少的依赖等待（12）表示良好的管道并行性。</p>
-<p>对于 Intel GPU，运行 i915 监视器：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>sudo<span class="w"> </span>bpftrace<span class="w"> </span>intel_i915.bt
+<p>图形作业占主导地位（1523 对 89 个计算作业）。很少的依赖等待（12）表示良好的管道并行性。对于 Intel GPU，使用 <code>intel_i915.bt</code>。对于 AMD GPU，使用 <code>amd_amdgpu.bt</code>。对于显示时序，使用 <code>drm_vblank.bt</code>。在 GPU 工作负载（游戏、ML 训练、视频编码）期间运行这些脚本以捕获活动模式。</p>
+<p>在运行脚本之前验证跟踪点存在于你的系统上：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># 所有 GPU 跟踪点</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>sudo<span class="w"> </span>cat<span class="w"> </span>/sys/kernel/debug/tracing/available_events<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;(gpu_scheduler|i915|amdgpu|^drm:)&#39;</span>
 </code></pre></div>
-<p>对于 AMD GPU：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>sudo<span class="w"> </span>bpftrace<span class="w"> </span>amd_amdgpu.bt
-</code></pre></div>
-<p>对于显示时序：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>sudo<span class="w"> </span>bpftrace<span class="w"> </span>drm_vblank.bt
-</code></pre></div>
-<p>每个脚本都输出实时事件和运行结束统计。在 GPU 工作负载（游戏、ML 训练、视频编码）期间运行它们以捕获特征模式。</p>
-<h2 id="_4">验证跟踪点可用性</h2>
-<p>在运行脚本之前，验证你的系统上存在跟踪点。我们包含了一个测试脚本：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">cd</span><span class="w"> </span>bpf-developer-tutorial/src/xpu/gpu-kernel-driver/tests
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>sudo<span class="w"> </span>./test_basic_tracing.sh
-</code></pre></div>
-<p>这检查 gpu_scheduler、drm、i915 和 amdgpu 事件组。它报告哪些跟踪点可用并为你的硬件推荐适当的监控脚本。对于 Intel 系统，它验证内核配置中是否启用了低级跟踪点。</p>
-<p>你还可以手动检查可用的跟踪点：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># 所有 GPU 跟踪点</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>sudo<span class="w"> </span>cat<span class="w"> </span>/sys/kernel/debug/tracing/available_events<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;(gpu_scheduler|i915|amdgpu|^drm:)&#39;</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># DRM 调度器（稳定，所有供应商）</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>sudo<span class="w"> </span>cat<span class="w"> </span>/sys/kernel/debug/tracing/available_events<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>gpu_scheduler
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="c1"># Intel i915</span>
-<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>sudo<span class="w"> </span>cat<span class="w"> </span>/sys/kernel/debug/tracing/available_events<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>i915
-<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
-<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="c1"># AMD AMDGPU</span>
-<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>sudo<span class="w"> </span>cat<span class="w"> </span>/sys/kernel/debug/tracing/available_events<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>amdgpu
-</code></pre></div>
-<p>要手动启用跟踪点并查看原始输出：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># 启用 drm_run_job</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nb">echo</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/sys/kernel/debug/tracing/events/gpu_scheduler/drm_run_job/enable
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># 查看跟踪输出</span>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>sudo<span class="w"> </span>cat<span class="w"> </span>/sys/kernel/debug/tracing/trace
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c1"># 完成后禁用</span>
-<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="nb">echo</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/sys/kernel/debug/tracing/events/gpu_scheduler/drm_run_job/enable
-</code></pre></div>
-<h2 id="_5">总结和下一步</h2>
-<p>GPU 内核跟踪点提供对图形驱动行为的前所未有的可见性。DRM 调度器的稳定 uAPI 跟踪点在所有供应商上工作，使它们成为生产监控的完美选择。来自 Intel i915 和 AMD AMDGPU 的供应商特定跟踪点暴露详细的内存管理、命令提交管道和硬件中断模式。</p>
-<p>我们的 bpftrace 脚本演示了实际监控：测量作业调度延迟、跟踪内存压力、分析命令提交瓶颈以及诊断丢帧。这些技术直接应用于实际问题 - 优化 ML 训练性能、调试游戏卡顿、在云环境中实现公平的 GPU 资源核算以及调查热节流。</p>
-<p>与传统工具相比，关键优势是完整性和开销。内核跟踪点以纳秒级精度捕获每个事件，成本可忽略不计。没有轮询，没有采样间隙，没有错过的短期作业。这些数据馈送生产监控系统（Prometheus 导出器读取 bpftrace 输出）、临时性能调试（用户报告问题时运行脚本）和自动化优化（基于延迟阈值触发工作负载重新平衡）。</p>
+<h2 id="_3">总结</h2>
+<p>GPU 内核跟踪点提供零开销的驱动内部可见性。DRM 调度器的稳定 uAPI 跟踪点跨所有供应商工作，适合生产监控。供应商特定跟踪点暴露详细的内存管理和命令提交管道。bpftrace 脚本演示了跟踪作业调度、测量延迟和识别依赖停顿 - 所有这些对于诊断游戏、ML 训练和云 GPU 工作负载中的性能问题都至关重要。</p>
 <blockquote>
 <p>如果你想深入了解 eBPF，请查看我们的教程仓库 <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">https://github.com/eunomia-bpf/bpf-developer-tutorial</a> 或访问我们的网站 <a href="https://eunomia.dev/tutorials/">https://eunomia.dev/tutorials/</a>。</p>
 </blockquote>
-<h2 id="_6">参考资料</h2>
+<h2 id="_4">参考资料</h2>
 <ul>
 <li><strong>Linux 内核源码</strong>: <code>/drivers/gpu/drm/</code></li>
 <li><strong>DRM 调度器</strong>: <code>/drivers/gpu/drm/scheduler/gpu_scheduler_trace.h</code></li>
@@ -8999,7 +8523,7 @@
 <li><strong>教程仓库</strong>: <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/xpu/gpu-kernel-driver">https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/xpu/gpu-kernel-driver</a></li>
 </ul>
 <p>完整的源代码包括所有 bpftrace 脚本和测试用例可在教程仓库中获得。欢迎贡献和问题报告！</p>
-<p><a class="md-button" href="https://x.com/intent/tweet?text=eBPF%20%E6%95%99%E7%A8%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E5%86%85%E6%A0%B8%E8%B7%9F%E8%B8%AA%E7%82%B9%E7%9B%91%E6%8E%A7%20GPU%20%E9%A9%B1%E5%8A%A8%E6%B4%BB%E5%8A%A8%0A&amp;url=https://eunomia.dev/zh/tutorials/xpu/gpu-kernel-driver/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=eBPF%20%E5%AE%9E%E4%BE%8B%E6%95%99%E7%A8%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E5%86%85%E6%A0%B8%E8%B7%9F%E8%B8%AA%E7%82%B9%E7%9B%91%E6%8E%A7%20GPU%20%E9%A9%B1%E5%8A%A8%E6%B4%BB%E5%8A%A8%0A&amp;url=https://eunomia.dev/zh/tutorials/xpu/gpu-kernel-driver/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/zh/tutorials/xpu/gpu-kernel-driver/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
@@ -9023,7 +8547,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 5, 2025 22:28:38 UTC">October 5, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 6, 2025 02:28:18 UTC">October 6, 2025</span>
   </span>
 
     

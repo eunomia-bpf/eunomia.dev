@@ -24,7 +24,7 @@
     
     
       
-        <title>eBPF Tutorial: Monitoring GPU Driver Activity with Kernel Tracepoints - eunomia</title>
+        <title>eBPF Tutorial by Example: Monitoring GPU Driver Activity with Kernel Tracepoints - eunomia</title>
       
     
     
@@ -69,7 +69,7 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="eBPF Tutorial: Monitoring GPU Driver Activity with Kernel Tracepoints - eunomia" >
+        <meta  property="og:title"  content="eBPF Tutorial by Example: Monitoring GPU Driver Activity with Kernel Tracepoints - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
@@ -85,7 +85,7 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="eBPF Tutorial: Monitoring GPU Driver Activity with Kernel Tracepoints - eunomia" >
+        <meta  name="twitter:title"  content="eBPF Tutorial by Example: Monitoring GPU Driver Activity with Kernel Tracepoints - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
@@ -112,7 +112,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ebpf-tutorial-monitoring-gpu-driver-activity-with-kernel-tracepoints" class="md-skip">
+        <a href="#ebpf-tutorial-by-example-monitoring-gpu-driver-activity-with-kernel-tracepoints" class="md-skip">
           Skip to content
         </a>
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              eBPF Tutorial: Monitoring GPU Driver Activity with Kernel Tracepoints
+              eBPF Tutorial by Example: Monitoring GPU Driver Activity with Kernel Tracepoints
             
           </span>
         </div>
@@ -1942,7 +1942,7 @@
   
   
   <span class="md-ellipsis">
-    eBPF Tutorial: Monitoring GPU Driver Activity with Kernel Tracepoints
+    eBPF Tutorial by Example: Monitoring GPU Driver Activity with Kernel Tracepoints
     
   </span>
   
@@ -1955,7 +1955,7 @@
   
   
   <span class="md-ellipsis">
-    eBPF Tutorial: Monitoring GPU Driver Activity with Kernel Tracepoints
+    eBPF Tutorial by Example: Monitoring GPU Driver Activity with Kernel Tracepoints
     
   </span>
   
@@ -1978,289 +1978,37 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#understanding-gpu-kernel-tracepoints" class="md-nav__link">
+  <a href="#gpu-kernel-tracepoints-zero-overhead-observability" class="md-nav__link">
     <span class="md-ellipsis">
-      Understanding GPU Kernel Tracepoints
+      GPU Kernel Tracepoints: Zero-Overhead Observability
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Understanding GPU Kernel Tracepoints">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#why-kernel-tracepoints-matter-for-gpu-monitoring" class="md-nav__link">
-    <span class="md-ellipsis">
-      Why Kernel Tracepoints Matter for GPU Monitoring
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-drm-tracepoint-ecosystem" class="md-nav__link">
-    <span class="md-ellipsis">
-      The DRM Tracepoint Ecosystem
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#real-world-use-cases" class="md-nav__link">
-    <span class="md-ellipsis">
-      Real-World Use Cases
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#tracepoint-reference-guide" class="md-nav__link">
-    <span class="md-ellipsis">
-      Tracepoint Reference Guide
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Tracepoint Reference Guide">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#drm-scheduler-tracepoints-the-universal-gpu-monitor" class="md-nav__link">
-    <span class="md-ellipsis">
-      DRM Scheduler Tracepoints: The Universal GPU Monitor
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="DRM Scheduler Tracepoints: The Universal GPU Monitor">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#drm_run_job-when-gpu-work-starts-executing" class="md-nav__link">
-    <span class="md-ellipsis">
-      drm_run_job: When GPU Work Starts Executing
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#drm_sched_process_job-job-completion-signal" class="md-nav__link">
-    <span class="md-ellipsis">
-      drm_sched_process_job: Job Completion Signal
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#drm_sched_job_wait_dep-dependency-stalls" class="md-nav__link">
-    <span class="md-ellipsis">
-      drm_sched_job_wait_dep: Dependency Stalls
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#intel-i915-tracepoints-memory-and-io-deep-dive" class="md-nav__link">
-    <span class="md-ellipsis">
-      Intel i915 Tracepoints: Memory and I/O Deep Dive
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Intel i915 Tracepoints: Memory and I/O Deep Dive">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#i915_gem_object_create-gpu-memory-allocation" class="md-nav__link">
-    <span class="md-ellipsis">
-      i915_gem_object_create: GPU Memory Allocation
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#i915_vma_bind-mapping-memory-to-gpu-address-space" class="md-nav__link">
-    <span class="md-ellipsis">
-      i915_vma_bind: Mapping Memory to GPU Address Space
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#i915_gem_shrink-memory-pressure-response" class="md-nav__link">
-    <span class="md-ellipsis">
-      i915_gem_shrink: Memory Pressure Response
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#i915_gem_object_fault-gpu-page-faults" class="md-nav__link">
-    <span class="md-ellipsis">
-      i915_gem_object_fault: GPU Page Faults
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#amd-amdgpu-tracepoints-command-flow-and-interrupts" class="md-nav__link">
-    <span class="md-ellipsis">
-      AMD AMDGPU Tracepoints: Command Flow and Interrupts
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="AMD AMDGPU Tracepoints: Command Flow and Interrupts">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#amdgpu_cs_ioctl-userspace-command-submission" class="md-nav__link">
-    <span class="md-ellipsis">
-      amdgpu_cs_ioctl: Userspace Command Submission
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#amdgpu_sched_run_job-kernel-schedules-job" class="md-nav__link">
-    <span class="md-ellipsis">
-      amdgpu_sched_run_job: Kernel Schedules Job
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#amdgpu_bo_create-buffer-object-allocation" class="md-nav__link">
-    <span class="md-ellipsis">
-      amdgpu_bo_create: Buffer Object Allocation
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#amdgpu_bo_move-memory-migration" class="md-nav__link">
-    <span class="md-ellipsis">
-      amdgpu_bo_move: Memory Migration
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#amdgpu_iv-gpu-interrupts" class="md-nav__link">
-    <span class="md-ellipsis">
-      amdgpu_iv: GPU Interrupts
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#drm-vblank-tracepoints-display-synchronization" class="md-nav__link">
-    <span class="md-ellipsis">
-      DRM Vblank Tracepoints: Display Synchronization
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="DRM Vblank Tracepoints: Display Synchronization">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#drm_vblank_event-vertical-blank-occurs" class="md-nav__link">
-    <span class="md-ellipsis">
-      drm_vblank_event: Vertical Blank Occurs
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#drm_vblank_event_queued-and-drm_vblank_event_delivered" class="md-nav__link">
-    <span class="md-ellipsis">
-      drm_vblank_event_queued and drm_vblank_event_delivered
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#monitoring-with-bpftrace-scripts" class="md-nav__link">
-    <span class="md-ellipsis">
-      Monitoring with Bpftrace Scripts
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Monitoring with Bpftrace Scripts">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#drm-scheduler-monitor-universal-gpu-tracking" class="md-nav__link">
     <span class="md-ellipsis">
       DRM Scheduler Monitor: Universal GPU Tracking
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="DRM Scheduler Monitor: Universal GPU Tracking">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#intel-i915-monitor-memory-and-io-profiling" class="md-nav__link">
+  <a href="#complete-bpftrace-script-drm_schedulerbt" class="md-nav__link">
     <span class="md-ellipsis">
-      Intel i915 Monitor: Memory and I/O Profiling
+      Complete Bpftrace Script: drm_scheduler.bt
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#amd-amdgpu-monitor-command-submission-analysis" class="md-nav__link">
+  <a href="#understanding-the-script" class="md-nav__link">
     <span class="md-ellipsis">
-      AMD AMDGPU Monitor: Command Submission Analysis
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#display-vblank-monitor-frame-timing-analysis" class="md-nav__link">
-    <span class="md-ellipsis">
-      Display Vblank Monitor: Frame Timing Analysis
+      Understanding the Script
     </span>
   </a>
   
@@ -2272,27 +2020,45 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#running-the-monitors" class="md-nav__link">
+  <a href="#intel-i915-tracepoints-memory-management-deep-dive" class="md-nav__link">
     <span class="md-ellipsis">
-      Running the Monitors
+      Intel i915 Tracepoints: Memory Management Deep Dive
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#verifying-tracepoint-availability" class="md-nav__link">
+  <a href="#amd-amdgpu-tracepoints-command-submission-pipeline" class="md-nav__link">
     <span class="md-ellipsis">
-      Verifying Tracepoint Availability
+      AMD AMDGPU Tracepoints: Command Submission Pipeline
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#summary-and-next-steps" class="md-nav__link">
+  <a href="#drm-vblank-tracepoints-display-synchronization" class="md-nav__link">
     <span class="md-ellipsis">
-      Summary and Next Steps
+      DRM Vblank Tracepoints: Display Synchronization
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-the-monitor-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running the Monitor Scripts
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
     </span>
   </a>
   
@@ -8477,289 +8243,37 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#understanding-gpu-kernel-tracepoints" class="md-nav__link">
+  <a href="#gpu-kernel-tracepoints-zero-overhead-observability" class="md-nav__link">
     <span class="md-ellipsis">
-      Understanding GPU Kernel Tracepoints
+      GPU Kernel Tracepoints: Zero-Overhead Observability
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Understanding GPU Kernel Tracepoints">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#why-kernel-tracepoints-matter-for-gpu-monitoring" class="md-nav__link">
-    <span class="md-ellipsis">
-      Why Kernel Tracepoints Matter for GPU Monitoring
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-drm-tracepoint-ecosystem" class="md-nav__link">
-    <span class="md-ellipsis">
-      The DRM Tracepoint Ecosystem
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#real-world-use-cases" class="md-nav__link">
-    <span class="md-ellipsis">
-      Real-World Use Cases
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#tracepoint-reference-guide" class="md-nav__link">
-    <span class="md-ellipsis">
-      Tracepoint Reference Guide
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Tracepoint Reference Guide">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#drm-scheduler-tracepoints-the-universal-gpu-monitor" class="md-nav__link">
-    <span class="md-ellipsis">
-      DRM Scheduler Tracepoints: The Universal GPU Monitor
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="DRM Scheduler Tracepoints: The Universal GPU Monitor">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#drm_run_job-when-gpu-work-starts-executing" class="md-nav__link">
-    <span class="md-ellipsis">
-      drm_run_job: When GPU Work Starts Executing
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#drm_sched_process_job-job-completion-signal" class="md-nav__link">
-    <span class="md-ellipsis">
-      drm_sched_process_job: Job Completion Signal
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#drm_sched_job_wait_dep-dependency-stalls" class="md-nav__link">
-    <span class="md-ellipsis">
-      drm_sched_job_wait_dep: Dependency Stalls
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#intel-i915-tracepoints-memory-and-io-deep-dive" class="md-nav__link">
-    <span class="md-ellipsis">
-      Intel i915 Tracepoints: Memory and I/O Deep Dive
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Intel i915 Tracepoints: Memory and I/O Deep Dive">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#i915_gem_object_create-gpu-memory-allocation" class="md-nav__link">
-    <span class="md-ellipsis">
-      i915_gem_object_create: GPU Memory Allocation
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#i915_vma_bind-mapping-memory-to-gpu-address-space" class="md-nav__link">
-    <span class="md-ellipsis">
-      i915_vma_bind: Mapping Memory to GPU Address Space
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#i915_gem_shrink-memory-pressure-response" class="md-nav__link">
-    <span class="md-ellipsis">
-      i915_gem_shrink: Memory Pressure Response
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#i915_gem_object_fault-gpu-page-faults" class="md-nav__link">
-    <span class="md-ellipsis">
-      i915_gem_object_fault: GPU Page Faults
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#amd-amdgpu-tracepoints-command-flow-and-interrupts" class="md-nav__link">
-    <span class="md-ellipsis">
-      AMD AMDGPU Tracepoints: Command Flow and Interrupts
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="AMD AMDGPU Tracepoints: Command Flow and Interrupts">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#amdgpu_cs_ioctl-userspace-command-submission" class="md-nav__link">
-    <span class="md-ellipsis">
-      amdgpu_cs_ioctl: Userspace Command Submission
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#amdgpu_sched_run_job-kernel-schedules-job" class="md-nav__link">
-    <span class="md-ellipsis">
-      amdgpu_sched_run_job: Kernel Schedules Job
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#amdgpu_bo_create-buffer-object-allocation" class="md-nav__link">
-    <span class="md-ellipsis">
-      amdgpu_bo_create: Buffer Object Allocation
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#amdgpu_bo_move-memory-migration" class="md-nav__link">
-    <span class="md-ellipsis">
-      amdgpu_bo_move: Memory Migration
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#amdgpu_iv-gpu-interrupts" class="md-nav__link">
-    <span class="md-ellipsis">
-      amdgpu_iv: GPU Interrupts
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#drm-vblank-tracepoints-display-synchronization" class="md-nav__link">
-    <span class="md-ellipsis">
-      DRM Vblank Tracepoints: Display Synchronization
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="DRM Vblank Tracepoints: Display Synchronization">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#drm_vblank_event-vertical-blank-occurs" class="md-nav__link">
-    <span class="md-ellipsis">
-      drm_vblank_event: Vertical Blank Occurs
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#drm_vblank_event_queued-and-drm_vblank_event_delivered" class="md-nav__link">
-    <span class="md-ellipsis">
-      drm_vblank_event_queued and drm_vblank_event_delivered
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#monitoring-with-bpftrace-scripts" class="md-nav__link">
-    <span class="md-ellipsis">
-      Monitoring with Bpftrace Scripts
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Monitoring with Bpftrace Scripts">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#drm-scheduler-monitor-universal-gpu-tracking" class="md-nav__link">
     <span class="md-ellipsis">
       DRM Scheduler Monitor: Universal GPU Tracking
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="DRM Scheduler Monitor: Universal GPU Tracking">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#intel-i915-monitor-memory-and-io-profiling" class="md-nav__link">
+  <a href="#complete-bpftrace-script-drm_schedulerbt" class="md-nav__link">
     <span class="md-ellipsis">
-      Intel i915 Monitor: Memory and I/O Profiling
+      Complete Bpftrace Script: drm_scheduler.bt
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#amd-amdgpu-monitor-command-submission-analysis" class="md-nav__link">
+  <a href="#understanding-the-script" class="md-nav__link">
     <span class="md-ellipsis">
-      AMD AMDGPU Monitor: Command Submission Analysis
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#display-vblank-monitor-frame-timing-analysis" class="md-nav__link">
-    <span class="md-ellipsis">
-      Display Vblank Monitor: Frame Timing Analysis
+      Understanding the Script
     </span>
   </a>
   
@@ -8771,27 +8285,45 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#running-the-monitors" class="md-nav__link">
+  <a href="#intel-i915-tracepoints-memory-management-deep-dive" class="md-nav__link">
     <span class="md-ellipsis">
-      Running the Monitors
+      Intel i915 Tracepoints: Memory Management Deep Dive
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#verifying-tracepoint-availability" class="md-nav__link">
+  <a href="#amd-amdgpu-tracepoints-command-submission-pipeline" class="md-nav__link">
     <span class="md-ellipsis">
-      Verifying Tracepoint Availability
+      AMD AMDGPU Tracepoints: Command Submission Pipeline
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#summary-and-next-steps" class="md-nav__link">
+  <a href="#drm-vblank-tracepoints-display-synchronization" class="md-nav__link">
     <span class="md-ellipsis">
-      Summary and Next Steps
+      DRM Vblank Tracepoints: Display Synchronization
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-the-monitor-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running the Monitor Scripts
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
     </span>
   </a>
   
@@ -8830,161 +8362,153 @@
   
 
 
-<h1 id="ebpf-tutorial-monitoring-gpu-driver-activity-with-kernel-tracepoints">eBPF Tutorial: Monitoring GPU Driver Activity with Kernel Tracepoints</h1>
-<p>Ever wondered what your GPU is really doing under the hood? When games stutter, ML training slows down, or video encoding freezes, the answers lie deep inside the kernel's GPU driver. Traditional debugging relies on guesswork and vendor-specific tools, but there's a better way. Linux kernel GPU tracepoints expose real-time insights into job scheduling, memory allocation, and command submission - and eBPF lets you analyze this data with minimal overhead.</p>
-<p>In this tutorial, we'll explore GPU kernel tracepoints across DRM scheduler, Intel i915, and AMD AMDGPU drivers. We'll write bpftrace scripts to monitor live GPU activity, track memory pressure, measure job latency, and diagnose performance bottlenecks. By the end, you'll have production-ready monitoring tools and deep knowledge of how GPUs interact with the kernel.</p>
-<h2 id="understanding-gpu-kernel-tracepoints">Understanding GPU Kernel Tracepoints</h2>
-<p>GPU tracepoints are instrumentation points built directly into the kernel's Direct Rendering Manager (DRM) subsystem. When your GPU schedules a job, allocates memory, or signals a fence, these tracepoints fire - capturing precise timing, resource identifiers, and driver state. Unlike userspace profiling tools that sample periodically and miss events, kernel tracepoints catch every single operation with nanosecond timestamps.</p>
-<h3 id="why-kernel-tracepoints-matter-for-gpu-monitoring">Why Kernel Tracepoints Matter for GPU Monitoring</h3>
-<p>Think about what happens when you launch a GPU workload. Your application submits commands through the graphics API (Vulkan, OpenGL, CUDA). The userspace driver translates these into hardware-specific command buffers. The kernel driver receives an ioctl, validates the work, allocates GPU memory, binds resources to GPU address space, schedules the job on a hardware ring, and waits for completion. Traditional profiling sees the start and end - kernel tracepoints see every step in between.</p>
-<p>The performance implications are significant. Polling-based monitoring checks GPU state every 100ms and consumes CPU cycles on every check. Tracepoints activate only when events occur, adding mere nanoseconds of overhead per event, and capture 100% of activity including microsecond-duration jobs. For production monitoring of Kubernetes GPU workloads or debugging ML training performance, this difference is critical.</p>
-<h3 id="the-drm-tracepoint-ecosystem">The DRM Tracepoint Ecosystem</h3>
-<p>GPU tracepoints span three layers of the graphics stack. <strong>DRM scheduler tracepoints</strong> (gpu_scheduler event group) are marked as stable uAPI - their format will never change. These work identically across Intel, AMD, and Nouveau drivers, making them perfect for vendor-neutral monitoring. They track job submission (<code>drm_run_job</code>), completion (<code>drm_sched_process_job</code>), and dependency waits (<code>drm_sched_job_wait_dep</code>).</p>
-<p><strong>Vendor-specific tracepoints</strong> expose driver internals. Intel i915 tracepoints track GEM object creation (<code>i915_gem_object_create</code>), VMA binding to GPU address space (<code>i915_vma_bind</code>), memory pressure events (<code>i915_gem_shrink</code>), and page faults (<code>i915_gem_object_fault</code>). AMD AMDGPU tracepoints monitor buffer object lifecycle (<code>amdgpu_bo_create</code>), command submission from userspace (<code>amdgpu_cs_ioctl</code>), scheduler execution (<code>amdgpu_sched_run_job</code>), and GPU interrupts (<code>amdgpu_iv</code>). Note that Intel low-level tracepoints require <code>CONFIG_DRM_I915_LOW_LEVEL_TRACEPOINTS=y</code> in your kernel config.</p>
-<p><strong>Generic DRM tracepoints</strong> handle display synchronization through vblank events - critical for diagnosing frame drops and compositor latency. Events include vblank occurrence (<code>drm_vblank_event</code>), userspace queueing (<code>drm_vblank_event_queued</code>), and delivery (<code>drm_vblank_event_delivered</code>).</p>
-<h3 id="real-world-use-cases">Real-World Use Cases</h3>
-<p>GPU tracepoints solve problems that traditional tools can't touch. <strong>Diagnosing stuttering in games</strong>: You notice frame drops every few seconds. Vblank tracepoints reveal missed vertical blanks. Job scheduling traces show CPU-side delays in command submission. Memory tracepoints expose allocations triggering evictions during critical frames. Within minutes you identify that texture uploads are blocking the rendering pipeline.</p>
-<p><strong>Optimizing ML training performance</strong>: Your PyTorch training is 40% slower than expected. AMDGPU command submission tracing reveals excessive synchronization - the CPU waits for GPU completion too often. Job dependency tracepoints show unnecessary fences between independent operations. Memory traces expose thrashing between VRAM and system RAM. You reorganize batching to eliminate stalls.</p>
-<p><strong>Cloud GPU billing accuracy</strong>: Multi-tenant systems need fair energy and resource accounting. DRM scheduler tracepoints attribute exact GPU time to each container. Memory tracepoints track allocation per workload. This data feeds into accurate billing systems that charge based on actual resource consumption rather than time-based estimates.</p>
-<p><strong>Thermal throttling investigation</strong>: GPU performance degrades under load. Interrupt tracing shows thermal events from the GPU. Job scheduling traces reveal frequency scaling impacting execution time. Memory migration traces show the driver moving workloads to cooler GPU dies. You adjust power limits and improve airflow.</p>
-<h2 id="tracepoint-reference-guide">Tracepoint Reference Guide</h2>
-<p>Let's examine each tracepoint category in detail, understanding the data they expose and how to interpret it.</p>
-<h3 id="drm-scheduler-tracepoints-the-universal-gpu-monitor">DRM Scheduler Tracepoints: The Universal GPU Monitor</h3>
-<p>The DRM scheduler provides a vendor-neutral view of GPU job management. These tracepoints work identically whether you're running Intel integrated graphics, AMD discrete GPUs, or Nouveau on NVIDIA hardware.</p>
-<h4 id="drm_run_job-when-gpu-work-starts-executing">drm_run_job: When GPU Work Starts Executing</h4>
-<p>When the scheduler assigns a job to GPU hardware, <code>drm_run_job</code> fires. This marks the transition from "queued in software" to "actively running on silicon." The tracepoint captures the job ID (unique identifier for correlation), ring name (which execution engine: graphics, compute, video decode), queue depth (how many jobs are waiting), and hardware job count (jobs currently executing on GPU).</p>
-<p>The format looks like: <code>entity=0xffff888... id=12345 fence=0xffff888... ring=gfx job count:5 hw job count:2</code>. This tells you job 12345 on the graphics ring started executing. Five jobs are queued behind it, and two jobs are currently running on hardware (multi-engine GPUs can run jobs in parallel).</p>
-<p>Use this to measure job scheduling latency. Record the timestamp when userspace submits work (using command submission tracepoints), then measure time until <code>drm_run_job</code> fires. Latencies over 1ms indicate CPU-side scheduling delays. Per-ring statistics reveal if specific engines (video encode, compute) are bottlenecked.</p>
-<h4 id="drm_sched_process_job-job-completion-signal">drm_sched_process_job: Job Completion Signal</h4>
-<p>When GPU hardware completes a job and signals its fence, this tracepoint fires. The fence pointer identifies the completed job - correlate it with <code>drm_run_job</code> to calculate GPU execution time. Format: <code>fence=0xffff888... signaled</code>.</p>
-<p>Combine with <code>drm_run_job</code> timestamps to compute job execution time: <code>completion_time - run_time = GPU_execution_duration</code>. If jobs that should take 5ms are taking 50ms, you've found a GPU performance problem. Throughput metrics (jobs completed per second) indicate overall GPU utilization.</p>
-<h4 id="drm_sched_job_wait_dep-dependency-stalls">drm_sched_job_wait_dep: Dependency Stalls</h4>
-<p>Before a job can execute, its dependencies (previous jobs it waits for) must complete. This tracepoint fires when a job blocks waiting for a fence. Format: <code>job ring=gfx id=12345 depends fence=0xffff888... context=1234 seq=567</code>.</p>
-<p>This reveals pipeline stalls. If compute jobs constantly wait for graphics jobs, you're not exploiting parallelism. If wait times are long, dependency chains are too deep - consider batching independent work. Excessive dependencies indicate a CPU-side scheduling inefficiency.</p>
-<h3 id="intel-i915-tracepoints-memory-and-io-deep-dive">Intel i915 Tracepoints: Memory and I/O Deep Dive</h3>
-<p>Intel's i915 driver exposes detailed tracepoints for memory management and data transfer. These require <code>CONFIG_DRM_I915_LOW_LEVEL_TRACEPOINTS=y</code> - check with <code>grep CONFIG_DRM_I915_LOW_LEVEL_TRACEPOINTS /boot/config-$(uname -r)</code>.</p>
-<h4 id="i915_gem_object_create-gpu-memory-allocation">i915_gem_object_create: GPU Memory Allocation</h4>
-<p>When the driver allocates a GEM (Graphics Execution Manager) object - the fundamental unit of GPU-accessible memory - this fires. Format: <code>obj=0xffff888... size=0x100000</code> indicates allocating a 1MB object.</p>
-<p>Track total allocated memory over time to detect leaks. Sudden allocation spikes before performance drops suggest memory pressure. Correlate object pointers with subsequent bind/fault events to understand object lifecycle. High-frequency small allocations indicate inefficient batching.</p>
-<h4 id="i915_vma_bind-mapping-memory-to-gpu-address-space">i915_vma_bind: Mapping Memory to GPU Address Space</h4>
-<p>Allocating memory isn't enough - it must be mapped (bound) into GPU address space. This tracepoint fires on VMA (Virtual Memory Area) binding. Format: <code>obj=0xffff888... offset=0x0000100000 size=0x10000 mappable vm=0xffff888...</code> shows 64KB bound at GPU virtual address 0x100000.</p>
-<p>Binding overhead impacts performance. Frequent rebinding indicates memory thrashing - the driver evicting and rebinding objects under pressure. GPU page faults often correlate with bind operations - the CPU bound memory just before GPU accessed it. Flags like <code>PIN_MAPPABLE</code> indicate memory accessible by both CPU and GPU.</p>
-<h4 id="i915_gem_shrink-memory-pressure-response">i915_gem_shrink: Memory Pressure Response</h4>
-<p>Under memory pressure, the driver reclaims GPU memory. Format: <code>dev=0 target=0x1000000 flags=0x3</code> means the driver tries to reclaim 16MB. High shrink activity indicates undersized GPU memory for the workload.</p>
-<p>Correlate with performance drops - if shrinking happens during frame rendering, it causes stutters. Flags indicate shrink aggressiveness. Repeated shrinks with small targets suggest memory fragmentation. Compare target with actual freed amount (track object destructions) to measure reclaim efficiency.</p>
-<h4 id="i915_gem_object_fault-gpu-page-faults">i915_gem_object_fault: GPU Page Faults</h4>
-<p>When CPU or GPU accesses unmapped memory, a fault occurs. Format: <code>obj=0xffff888... GTT index=128 writable</code> indicates a write fault on Graphics Translation Table page 128. Faults are expensive - they stall execution while the kernel resolves the missing mapping.</p>
-<p>Excessive faults kill performance. Write faults are more expensive than reads (require invalidating caches). GTT faults (GPU accessing unmapped memory) indicate incomplete resource binding before job submission. CPU faults suggest inefficient CPU/GPU synchronization - CPU accessing objects while GPU is using them.</p>
-<h3 id="amd-amdgpu-tracepoints-command-flow-and-interrupts">AMD AMDGPU Tracepoints: Command Flow and Interrupts</h3>
+<h1 id="ebpf-tutorial-by-example-monitoring-gpu-driver-activity-with-kernel-tracepoints">eBPF Tutorial by Example: Monitoring GPU Driver Activity with Kernel Tracepoints</h1>
+<p>When games stutter or ML training slows down, the answers lie inside the GPU kernel driver. Linux kernel tracepoints expose real-time job scheduling, memory allocation, and command submission data. Unlike userspace profiling tools that sample periodically and miss events, kernel tracepoints catch every operation with nanosecond timestamps and minimal overhead.</p>
+<p>This tutorial shows how to monitor GPU activity using eBPF and bpftrace. We'll track DRM scheduler jobs, measure latency, and diagnose bottlenecks using stable kernel tracepoints that work across Intel, AMD, and Nouveau drivers.</p>
+<h2 id="gpu-kernel-tracepoints-zero-overhead-observability">GPU Kernel Tracepoints: Zero-Overhead Observability</h2>
+<p>GPU tracepoints are instrumentation points built into the kernel's Direct Rendering Manager (DRM) subsystem. When your GPU schedules a job, allocates memory, or signals a fence, these tracepoints fire with precise timing and driver state.</p>
+<p>The key insight: kernel tracepoints activate only when events occur, adding nanoseconds of overhead per event. They capture 100% of activity including microsecond-duration jobs. Polling-based monitoring checks GPU state every 100ms and misses short-lived operations entirely.</p>
+<p>GPU tracepoints span three layers. <strong>DRM scheduler tracepoints</strong> (<code>gpu_scheduler</code> event group) are stable uAPI - their format never changes. They work identically across Intel, AMD, and Nouveau drivers for vendor-neutral monitoring. <strong>Vendor-specific tracepoints</strong> expose driver internals - Intel i915 tracks GEM object creation and VMA binding, AMD AMDGPU monitors buffer objects and command submission. <strong>Generic DRM tracepoints</strong> handle display synchronization through vblank events for diagnosing frame drops.</p>
+<h2 id="drm-scheduler-monitor-universal-gpu-tracking">DRM Scheduler Monitor: Universal GPU Tracking</h2>
+<p>The <code>drm_scheduler.bt</code> script works on <strong>all GPU drivers</strong> because it uses stable uAPI tracepoints. It tracks job submission (<code>drm_run_job</code>), completion (<code>drm_sched_process_job</code>), and dependency waits (<code>drm_sched_job_wait_dep</code>) across all rings.</p>
+<h3 id="complete-bpftrace-script-drm_schedulerbt">Complete Bpftrace Script: drm_scheduler.bt</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">#!/usr/bin/env bpftrace</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="cm">/*</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="cm"> * drm_scheduler.bt - Monitor DRM GPU scheduler activity</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="cm"> *</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="cm"> * This script tracks GPU job scheduling using stable DRM scheduler tracepoints.</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="cm"> * Works across ALL modern GPU drivers (Intel i915, AMD AMDGPU, Nouveau, etc.)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="cm"> *</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="cm"> * The gpu_scheduler tracepoints are stable uAPI - guaranteed not to change.</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="cm"> *</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="cm"> * Usage: sudo bpftrace drm_scheduler.bt</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="cm"> */</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="n">BEGIN</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="p">{</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Tracing DRM GPU scheduler... Hit Ctrl-C to end.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%-18s %-12s %-16s %-12s %-8s %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">           </span><span class="s">&quot;TIME(ms)&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;EVENT&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;JOB_ID&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;RING&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;QUEUED&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;DETAILS&quot;</span><span class="p">);</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="p">}</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="cm">/* GPU job starts executing */</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="nl">tracepoint</span><span class="p">:</span><span class="n">gpu_scheduler</span><span class="o">:</span><span class="n">drm_run_job</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="p">{</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">    </span><span class="n">$job_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">args</span><span class="o">-&gt;</span><span class="n">id</span><span class="p">;</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">    </span><span class="n">$ring</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">str</span><span class="p">(</span><span class="n">args</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">);</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">    </span><span class="n">$queue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">args</span><span class="o">-&gt;</span><span class="n">job_count</span><span class="p">;</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">    </span><span class="n">$hw_queue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">args</span><span class="o">-&gt;</span><span class="n">hw_job_count</span><span class="p">;</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">    </span><span class="cm">/* Record start time for latency calculation */</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="w">    </span><span class="err">@</span><span class="n">start</span><span class="p">[</span><span class="n">$job_id</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nsecs</span><span class="p">;</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%-18llu %-12s %-16llu %-12s %-8u hw=%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="w">           </span><span class="n">nsecs</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000000</span><span class="p">,</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="w">           </span><span class="s">&quot;RUN&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="w">           </span><span class="n">$job_id</span><span class="p">,</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="w">           </span><span class="n">$ring</span><span class="p">,</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a><span class="w">           </span><span class="n">$queue</span><span class="p">,</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="w">           </span><span class="n">$hw_queue</span><span class="p">);</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="w">    </span><span class="cm">/* Track per-ring statistics */</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a><span class="w">    </span><span class="err">@</span><span class="n">jobs_per_ring</span><span class="p">[</span><span class="n">$ring</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">count</span><span class="p">();</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a><span class="p">}</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a>
+<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a><span class="cm">/* GPU job completes (fence signaled) */</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a><span class="nl">tracepoint</span><span class="p">:</span><span class="n">gpu_scheduler</span><span class="o">:</span><span class="n">drm_sched_process_job</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a><span class="p">{</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a><span class="w">    </span><span class="n">$fence</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">args</span><span class="o">-&gt;</span><span class="n">fence</span><span class="p">;</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a>
+<a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%-18llu %-12s %-16p</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a><span class="w">           </span><span class="n">nsecs</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000000</span><span class="p">,</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a><span class="w">           </span><span class="s">&quot;COMPLETE&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a><span class="w">           </span><span class="n">$fence</span><span class="p">);</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a>
+<a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a><span class="w">    </span><span class="err">@</span><span class="n">completion_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">count</span><span class="p">();</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a><span class="p">}</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a>
+<a id="__codelineno-0-56" name="__codelineno-0-56" href="#__codelineno-0-56"></a><span class="cm">/* Job waiting for dependencies */</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57" href="#__codelineno-0-57"></a><span class="nl">tracepoint</span><span class="p">:</span><span class="n">gpu_scheduler</span><span class="o">:</span><span class="n">drm_sched_job_wait_dep</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58" href="#__codelineno-0-58"></a><span class="p">{</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59" href="#__codelineno-0-59"></a><span class="w">    </span><span class="n">$job_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">args</span><span class="o">-&gt;</span><span class="n">id</span><span class="p">;</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60" href="#__codelineno-0-60"></a><span class="w">    </span><span class="n">$ring</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">str</span><span class="p">(</span><span class="n">args</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">);</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61" href="#__codelineno-0-61"></a><span class="w">    </span><span class="n">$dep_ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">args</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="p">;</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62" href="#__codelineno-0-62"></a><span class="w">    </span><span class="n">$dep_seq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">args</span><span class="o">-&gt;</span><span class="n">seqno</span><span class="p">;</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63" href="#__codelineno-0-63"></a>
+<a id="__codelineno-0-64" name="__codelineno-0-64" href="#__codelineno-0-64"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%-18llu %-12s %-16llu %-12s %-8s ctx=%llu seq=%u</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65" href="#__codelineno-0-65"></a><span class="w">           </span><span class="n">nsecs</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000000</span><span class="p">,</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66" href="#__codelineno-0-66"></a><span class="w">           </span><span class="s">&quot;WAIT_DEP&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67" href="#__codelineno-0-67"></a><span class="w">           </span><span class="n">$job_id</span><span class="p">,</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68" href="#__codelineno-0-68"></a><span class="w">           </span><span class="n">$ring</span><span class="p">,</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69" href="#__codelineno-0-69"></a><span class="w">           </span><span class="s">&quot;-&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70" href="#__codelineno-0-70"></a><span class="w">           </span><span class="n">$dep_ctx</span><span class="p">,</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71" href="#__codelineno-0-71"></a><span class="w">           </span><span class="n">$dep_seq</span><span class="p">);</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72" href="#__codelineno-0-72"></a>
+<a id="__codelineno-0-73" name="__codelineno-0-73" href="#__codelineno-0-73"></a><span class="w">    </span><span class="err">@</span><span class="n">wait_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">count</span><span class="p">();</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74" href="#__codelineno-0-74"></a><span class="w">    </span><span class="err">@</span><span class="n">waits_per_ring</span><span class="p">[</span><span class="n">$ring</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">count</span><span class="p">();</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75" href="#__codelineno-0-75"></a><span class="p">}</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76" href="#__codelineno-0-76"></a>
+<a id="__codelineno-0-77" name="__codelineno-0-77" href="#__codelineno-0-77"></a><span class="n">END</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78" href="#__codelineno-0-78"></a><span class="p">{</span>
+<a id="__codelineno-0-79" name="__codelineno-0-79" href="#__codelineno-0-79"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">=== DRM Scheduler Statistics ===</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-0-80" name="__codelineno-0-80" href="#__codelineno-0-80"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">Jobs per ring:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-0-81" name="__codelineno-0-81" href="#__codelineno-0-81"></a><span class="w">    </span><span class="n">print</span><span class="p">(</span><span class="err">@</span><span class="n">jobs_per_ring</span><span class="p">);</span>
+<a id="__codelineno-0-82" name="__codelineno-0-82" href="#__codelineno-0-82"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">Waits per ring:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-0-83" name="__codelineno-0-83" href="#__codelineno-0-83"></a><span class="w">    </span><span class="n">print</span><span class="p">(</span><span class="err">@</span><span class="n">waits_per_ring</span><span class="p">);</span>
+<a id="__codelineno-0-84" name="__codelineno-0-84" href="#__codelineno-0-84"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="understanding-the-script">Understanding the Script</h3>
+<p>The script attaches to three stable DRM scheduler tracepoints. When <code>drm_run_job</code> fires, a job transitions from "queued in software" to "running on silicon." The tracepoint captures <code>args-&gt;id</code> (job ID for correlation), <code>args-&gt;name</code> (ring name - which execution engine like graphics, compute, or video decode), <code>args-&gt;job_count</code> (queue depth - how many jobs are waiting), and <code>args-&gt;hw_job_count</code> (jobs currently executing on GPU hardware).</p>
+<p>The format <code>entity=0xffff888... id=12345 fence=0xffff888... ring=gfx job count:5 hw job count:2</code> tells you job 12345 on the graphics ring started executing with 5 jobs queued behind it and 2 jobs currently running on hardware. Multi-engine GPUs can run jobs in parallel across different rings.</p>
+<p>We record <code>@start[$job_id] = nsecs</code> to enable latency calculation. The script stores the timestamp keyed by job ID. Later, when tracking completion or measuring end-to-end latency, you can compute <code>nsecs - @start[$job_id]</code> to get execution time. The <code>@jobs_per_ring[$ring] = count()</code> line increments per-ring counters, showing workload distribution across engines.</p>
+<p>When <code>drm_sched_process_job</code> fires, GPU hardware completed a job and signaled its fence. The fence pointer <code>args-&gt;fence</code> identifies the completed job. Correlating fence pointers between <code>drm_run_job</code> and this tracepoint lets you calculate GPU execution time: <code>completion_time - run_time = GPU_execution_duration</code>. If jobs that should take 5ms are taking 50ms, you've found a GPU performance problem.</p>
+<p>The <code>drm_sched_job_wait_dep</code> tracepoint fires when a job blocks waiting for a fence. Before a job executes, its dependencies (previous jobs it waits for) must complete. The format shows <code>args-&gt;ctx</code> (dependency context) and <code>args-&gt;seqno</code> (sequence number) identifying which fence blocks this job.</p>
+<p>This reveals pipeline stalls. If compute jobs constantly wait for graphics jobs, you're not exploiting parallelism. Long wait times suggest dependency chains are too deep - consider batching independent work. Excessive dependencies indicate CPU-side scheduling inefficiency. The <code>@waits_per_ring[$ring] = count()</code> metric tracks which rings experience the most dependency stalls.</p>
+<p>At program end, the <code>END</code> block prints statistics. <code>@jobs_per_ring</code> shows job counts per execution engine - revealing if specific rings (video encode, compute) are saturated. <code>@waits_per_ring</code> exposes dependency bottlenecks. This data reveals overall GPU utilization patterns and whether jobs are blocked by dependencies.</p>
+<h2 id="intel-i915-tracepoints-memory-management-deep-dive">Intel i915 Tracepoints: Memory Management Deep Dive</h2>
+<p>Intel's i915 driver exposes detailed tracepoints for memory operations. These require <code>CONFIG_DRM_I915_LOW_LEVEL_TRACEPOINTS=y</code> in your kernel config - check with <code>grep CONFIG_DRM_I915_LOW_LEVEL_TRACEPOINTS /boot/config-$(uname -r)</code>.</p>
+<p><strong>i915_gem_object_create</strong> fires when the driver allocates a GEM (Graphics Execution Manager) object - the fundamental unit of GPU-accessible memory. Format: <code>obj=0xffff888... size=0x100000</code> indicates allocating a 1MB object. Track total allocated memory over time to detect leaks. Sudden allocation spikes before performance drops suggest memory pressure. Correlate object pointers with subsequent bind/fault events to understand object lifecycle.</p>
+<p><strong>i915_vma_bind</strong> tracks mapping memory into GPU address space. Allocating memory isn't enough - it must be bound into GPU virtual address space. Format: <code>obj=0xffff888... offset=0x0000100000 size=0x10000 mappable vm=0xffff888...</code> shows 64KB bound at GPU virtual address 0x100000. Frequent rebinding indicates memory thrashing - the driver evicting and rebinding objects under pressure. GPU page faults often correlate with bind operations.</p>
+<p><strong>i915_gem_shrink</strong> captures memory pressure response. Under memory pressure, the driver reclaims GPU memory. Format: <code>dev=0 target=0x1000000 flags=0x3</code> means the driver tries to reclaim 16MB. High shrink activity indicates undersized GPU memory for the workload. Correlate with performance drops - if shrinking happens during frame rendering, it causes stutters.</p>
+<p><strong>i915_gem_object_fault</strong> tracks page faults when CPU or GPU accesses unmapped memory. Format: <code>obj=0xffff888... GTT index=128 writable</code> indicates a write fault on Graphics Translation Table page 128. Faults are expensive - they stall execution while the kernel resolves the missing mapping. Write faults are more expensive than reads (require invalidating caches). GTT faults indicate incomplete resource binding before job submission.</p>
+<h2 id="amd-amdgpu-tracepoints-command-submission-pipeline">AMD AMDGPU Tracepoints: Command Submission Pipeline</h2>
 <p>AMD's AMDGPU driver provides comprehensive tracing of command submission and hardware interrupts.</p>
-<h4 id="amdgpu_cs_ioctl-userspace-command-submission">amdgpu_cs_ioctl: Userspace Command Submission</h4>
-<p>When an application submits GPU work via ioctl, this captures the request. Format: <code>sched_job=12345 timeline=gfx context=1000 seqno=567 ring_name=gfx_0.0.0 num_ibs=2</code> shows job 12345 submitted to graphics ring with 2 indirect buffers.</p>
-<p>This marks when userspace hands off work to kernel. Record timestamp to measure submission-to-execution latency when combined with <code>amdgpu_sched_run_job</code>. High frequency indicates small batches - potential for better batching. Per-ring distribution shows workload balance across engines.</p>
-<h4 id="amdgpu_sched_run_job-kernel-schedules-job">amdgpu_sched_run_job: Kernel Schedules Job</h4>
-<p>The kernel scheduler starts executing a previously submitted job. Comparing timestamps with <code>amdgpu_cs_ioctl</code> reveals submission latency. Format includes job ID and ring for correlation.</p>
-<p>Submission latencies over 100μs indicate kernel scheduling delays. Per-ring latencies show if specific engines are scheduling-bound. Correlate with CPU scheduler traces to identify if kernel threads are being preempted.</p>
-<h4 id="amdgpu_bo_create-buffer-object-allocation">amdgpu_bo_create: Buffer Object Allocation</h4>
-<p>AMD's equivalent to i915 GEM objects. Format: <code>bo=0xffff888... pages=256 type=2 preferred=4 allowed=7 visible=1</code> allocates 1MB (256 pages). Type indicates VRAM vs GTT (system memory accessible by GPU). Preferred/allowed domains show placement policy.</p>
-<p>Track VRAM allocations to monitor memory usage. Type mismatches (requesting VRAM but falling back to GTT) indicate VRAM exhaustion. Visible flag indicates CPU-accessible memory - expensive, use sparingly.</p>
-<h4 id="amdgpu_bo_move-memory-migration">amdgpu_bo_move: Memory Migration</h4>
-<p>When buffer objects migrate between VRAM and GTT, this fires. Migrations are expensive (require copying data over PCIe). Excessive moves indicate memory thrashing - working set exceeds VRAM capacity.</p>
-<p>Measure move frequency and size to quantify PCIe bandwidth consumption. Correlate with performance drops - migrations stall GPU execution. Optimize by reducing working set or using smarter placement policies (keep frequently accessed data in VRAM).</p>
-<h4 id="amdgpu_iv-gpu-interrupts">amdgpu_iv: GPU Interrupts</h4>
-<p>The GPU signals interrupts for completed work, errors, and events. Format: <code>ih:0 client_id:1 src_id:42 ring:0 vmid:5 timestamp:1234567890 pasid:100 src_data: 00000001...</code> captures interrupt details.</p>
-<p>Source ID indicates interrupt type (completion, fault, thermal). High interrupt rates impact CPU performance. Unexpected interrupts suggest hardware errors. VMID and PASID identify which process/VM triggered the interrupt - critical for multi-tenant debugging.</p>
-<h3 id="drm-vblank-tracepoints-display-synchronization">DRM Vblank Tracepoints: Display Synchronization</h3>
+<p><strong>amdgpu_cs_ioctl</strong> captures userspace command submission. When an application submits GPU work via ioctl, this tracepoint fires. Format: <code>sched_job=12345 timeline=gfx context=1000 seqno=567 ring_name=gfx_0.0.0 num_ibs=2</code> shows job 12345 submitted to graphics ring with 2 indirect buffers. This marks when userspace hands off work to kernel. Record timestamp to measure submission-to-execution latency when combined with <code>amdgpu_sched_run_job</code>. High frequency indicates small batches - potential for better batching.</p>
+<p><strong>amdgpu_sched_run_job</strong> fires when the kernel scheduler starts executing a previously submitted job. Comparing timestamps with <code>amdgpu_cs_ioctl</code> reveals submission latency. Submission latencies over 100μs indicate kernel scheduling delays. Per-ring latencies show if specific engines are scheduling-bound.</p>
+<p><strong>amdgpu_bo_create</strong> tracks buffer object allocation - AMD's equivalent to i915 GEM objects. Format: <code>bo=0xffff888... pages=256 type=2 preferred=4 allowed=7 visible=1</code> allocates 1MB (256 pages). Type indicates VRAM vs GTT (system memory accessible by GPU). Preferred/allowed domains show placement policy. Type mismatches (requesting VRAM but falling back to GTT) indicate VRAM exhaustion. Visible flag indicates CPU-accessible memory - expensive, use sparingly.</p>
+<p><strong>amdgpu_bo_move</strong> fires when buffer objects migrate between VRAM and GTT. Migrations are expensive (require copying data over PCIe). Excessive moves indicate memory thrashing - working set exceeds VRAM capacity. Measure move frequency and size to quantify PCIe bandwidth consumption. Correlate with performance drops - migrations stall GPU execution.</p>
+<p><strong>amdgpu_iv</strong> captures GPU interrupts. The GPU signals interrupts for completed work, errors, and events. Format: <code>ih:0 client_id:1 src_id:42 ring:0 vmid:5 timestamp:1234567890 pasid:100 src_data: 00000001...</code> captures interrupt details. Source ID indicates interrupt type (completion, fault, thermal). High interrupt rates impact CPU performance. VMID and PASID identify which process/VM triggered the interrupt - critical for multi-tenant debugging.</p>
+<h2 id="drm-vblank-tracepoints-display-synchronization">DRM Vblank Tracepoints: Display Synchronization</h2>
 <p>Vblank (vertical blanking) events synchronize rendering with display refresh. Missing vblanks causes dropped frames and stutter.</p>
-<h4 id="drm_vblank_event-vertical-blank-occurs">drm_vblank_event: Vertical Blank Occurs</h4>
-<p>When the display enters vertical blanking period, this fires. Format: <code>crtc=0 seq=12345 time=1234567890 high-prec=true</code> indicates vblank on display controller 0, sequence number 12345.</p>
-<p>Track vblank frequency to verify refresh rate (60Hz = 60 vblanks/second). Missed sequences indicate frame drops. High-precision timestamps enable sub-millisecond frame timing analysis. Per-CRTC tracking for multi-monitor setups.</p>
-<h4 id="drm_vblank_event_queued-and-drm_vblank_event_delivered">drm_vblank_event_queued and drm_vblank_event_delivered</h4>
-<p>These track vblank event delivery to userspace. Queuing latency (queue to delivery) measures kernel scheduling delay. Total latency (vblank to delivery) includes both kernel and driver processing.</p>
-<p>Latencies over 1ms indicate compositor problems. Compare across CRTCs to identify problematic displays. Correlate with frame drops visible to users - events delivered late mean missed frames.</p>
-<h2 id="monitoring-with-bpftrace-scripts">Monitoring with Bpftrace Scripts</h2>
-<p>We've created vendor-specific bpftrace scripts for production monitoring. Each script focuses on its GPU vendor's specific tracepoints while sharing a common output format.</p>
-<h3 id="drm-scheduler-monitor-universal-gpu-tracking">DRM Scheduler Monitor: Universal GPU Tracking</h3>
-<p>The <code>drm_scheduler.bt</code> script works on <strong>all GPU drivers</strong> because it uses stable uAPI tracepoints. It tracks jobs across all rings, measures completion rates, and identifies dependency stalls.</p>
-<p>The script attaches to <code>gpu_scheduler:drm_run_job</code>, <code>gpu_scheduler:drm_sched_process_job</code>, and <code>gpu_scheduler:drm_sched_job_wait_dep</code>. On job start, it records timestamps in a map keyed by job ID for later latency calculation. It increments per-ring counters to show workload distribution. On completion, it prints fence information. On dependency wait, it shows which job blocks which fence.</p>
-<p>Output shows timestamp, event type (RUN/COMPLETE/WAIT_DEP), job ID, ring name, and queue depth. At program end, statistics summarize jobs per ring and dependency wait counts. This reveals if specific rings are saturated, whether jobs are blocked by dependencies, and overall GPU utilization patterns.</p>
-<h3 id="intel-i915-monitor-memory-and-io-profiling">Intel i915 Monitor: Memory and I/O Profiling</h3>
-<p>The <code>intel_i915.bt</code> script tracks Intel GPU memory operations, I/O transfers, and page faults. It requires <code>CONFIG_DRM_I915_LOW_LEVEL_TRACEPOINTS=y</code>.</p>
-<p>On <code>i915_gem_object_create</code>, it accumulates total allocated memory and stores per-object sizes. VMA bind/unbind events track GPU address space changes. Shrink events measure memory pressure. Pwrite/pread track CPU-GPU data transfers. Faults categorize by type (GTT vs CPU, read vs write).</p>
-<p>Output reports allocation size and running total in MB. Bind operations show GPU virtual address and flags. I/O operations track offset and length. Faults indicate type and whether they're reads or writes. End statistics summarize total allocations, VMA operations, memory pressure (shrink operations and bytes reclaimed), I/O volume (read/write counts and sizes), and fault analysis (total faults, write vs read).</p>
-<p>This reveals memory leaks (allocations without corresponding frees), binding overhead (frequent rebinds indicate thrashing), memory pressure timing (correlate shrinks with performance drops), I/O patterns (large transfers vs many small ones), and fault hotspots (expensive operations to optimize).</p>
-<h3 id="amd-amdgpu-monitor-command-submission-analysis">AMD AMDGPU Monitor: Command Submission Analysis</h3>
-<p>The <code>amd_amdgpu.bt</code> script focuses on AMD's command submission pipeline, measuring latency from ioctl to execution.</p>
-<p>On <code>amdgpu_cs_ioctl</code>, it records submission timestamp keyed by job ID. When <code>amdgpu_sched_run_job</code> fires, it calculates latency: <code>(current_time - submit_time)</code>. Buffer object create/move events track memory. Interrupt events count by source ID. Virtual memory operations (flush, map, unmap) measure TLB activity.</p>
-<p>Output shows timestamp, event type, job ID, ring name, and calculated latency in microseconds. End statistics include memory allocation totals, command submission counts per ring, average and distribution of submission latency (histogram showing how many jobs experienced different latency buckets), interrupt counts by source, and virtual memory operation counts.</p>
-<p>Latency histograms are critical - most jobs should have &lt;50μs latency. A tail of high-latency jobs indicates scheduling problems. Per-ring statistics show if compute workloads have different latency than graphics. Memory migration tracking helps diagnose VRAM pressure.</p>
-<h3 id="display-vblank-monitor-frame-timing-analysis">Display Vblank Monitor: Frame Timing Analysis</h3>
-<p>The <code>drm_vblank.bt</code> script tracks display synchronization for diagnosing frame drops.</p>
-<p>On <code>drm_vblank_event</code>, it records timestamp keyed by CRTC and sequence. When <code>drm_vblank_event_queued</code> fires, it timestamps queue time. On <code>drm_vblank_event_delivered</code>, it calculates queue-to-delivery latency and total vblank-to-delivery latency.</p>
-<p>Output shows vblank events, queued events, and delivered events with timestamps. End statistics include total vblank counts per CRTC, event delivery counts, average delivery latency, latency distribution histogram, and total event latency (vblank occurrence to userspace delivery).</p>
-<p>Delivery latencies over 1ms indicate compositor scheduling issues. Total latencies reveal end-to-end delay visible to applications. Per-CRTC statistics show if specific monitors have problems. Latency histograms expose outliers causing visible stutter.</p>
-<h2 id="running-the-monitors">Running the Monitors</h2>
-<p>Let's trace live GPU activity. Navigate to the scripts directory and run any monitor with bpftrace. The DRM scheduler monitor works on all GPUs:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">cd</span><span class="w"> </span>bpf-developer-tutorial/srcsrc/xpu/gpu-kernel-driver/scripts
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>sudo<span class="w"> </span>bpftrace<span class="w"> </span>drm_scheduler.bt
+<p><strong>drm_vblank_event</strong> fires when the display enters vertical blanking period. Format: <code>crtc=0 seq=12345 time=1234567890 high-prec=true</code> indicates vblank on display controller 0, sequence number 12345. Track vblank frequency to verify refresh rate (60Hz = 60 vblanks/second). Missed sequences indicate frame drops. High-precision timestamps enable sub-millisecond frame timing analysis.</p>
+<p><strong>drm_vblank_event_queued</strong> and <strong>drm_vblank_event_delivered</strong> track vblank event delivery to userspace. Queuing latency (queue to delivery) measures kernel scheduling delay. Total latency (vblank to delivery) includes both kernel and driver processing. Latencies over 1ms indicate compositor problems. Correlate with frame drops visible to users - events delivered late mean missed frames.</p>
+<h2 id="running-the-monitor-scripts">Running the Monitor Scripts</h2>
+<p>Navigate to the scripts directory and run the DRM scheduler monitor. It works on all GPUs:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">cd</span><span class="w"> </span>bpf-developer-tutorial/src/xpu/gpu-kernel-driver/scripts
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>sudo<span class="w"> </span>bpftrace<span class="w"> </span>drm_scheduler.bt
 </code></pre></div>
-<p>You'll see output like:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Tracing DRM GPU scheduler... Hit Ctrl-C to end.
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>TIME(ms)           EVENT        JOB_ID           RING         QUEUED   DETAILS
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>296119090          RUN          12345            gfx          5        hw=2
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>296120190          COMPLETE     0xffff888...
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>=== DRM Scheduler Statistics ===
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>Jobs per ring:
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>@jobs_per_ring[gfx]: 1523
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>@jobs_per_ring[compute]: 89
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>Waits per ring:
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>@waits_per_ring[gfx]: 12
+<p>Expected output:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Tracing DRM GPU scheduler... Hit Ctrl-C to end.
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>TIME(ms)           EVENT        JOB_ID           RING         QUEUED   DETAILS
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>296119090          RUN          12345            gfx          5        hw=2
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>296120190          COMPLETE     0xffff888...
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>=== DRM Scheduler Statistics ===
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>Jobs per ring:
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>@jobs_per_ring[gfx]: 1523
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>@jobs_per_ring[compute]: 89
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>Waits per ring:
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>@waits_per_ring[gfx]: 12
 </code></pre></div>
-<p>This shows graphics jobs dominating workload (1523 vs 89 compute jobs). Few dependency waits (12) indicate good pipeline parallelism.</p>
-<p>For Intel GPUs, run the i915 monitor:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>sudo<span class="w"> </span>bpftrace<span class="w"> </span>intel_i915.bt
+<p>Graphics jobs dominate (1523 vs 89 compute jobs). Few dependency waits (12) indicate good pipeline parallelism. For Intel GPUs, use <code>intel_i915.bt</code>. For AMD GPUs, use <code>amd_amdgpu.bt</code>. For display timing, use <code>drm_vblank.bt</code>. Run these during GPU workloads (gaming, ML training, video encoding) to capture activity patterns.</p>
+<p>Verify tracepoints exist on your system before running scripts:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># All GPU tracepoints</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>sudo<span class="w"> </span>cat<span class="w"> </span>/sys/kernel/debug/tracing/available_events<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;(gpu_scheduler|i915|amdgpu|^drm:)&#39;</span>
 </code></pre></div>
-<p>For AMD GPUs:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>sudo<span class="w"> </span>bpftrace<span class="w"> </span>amd_amdgpu.bt
-</code></pre></div>
-<p>For display timing:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>sudo<span class="w"> </span>bpftrace<span class="w"> </span>drm_vblank.bt
-</code></pre></div>
-<p>Each script outputs real-time events and end-of-run statistics. Run them during GPU workloads (gaming, ML training, video encoding) to capture characteristic patterns.</p>
-<h2 id="verifying-tracepoint-availability">Verifying Tracepoint Availability</h2>
-<p>Before running scripts, verify tracepoints exist on your system. We've included a test script:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">cd</span><span class="w"> </span>bpf-developer-tutorial/srcsrc/xpu/gpu-kernel-driver/tests
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>sudo<span class="w"> </span>./test_basic_tracing.sh
-</code></pre></div>
-<p>This checks for gpu_scheduler, drm, i915, and amdgpu event groups. It reports which tracepoints are available and recommends appropriate monitoring scripts for your hardware. For Intel systems, it verifies if low-level tracepoints are enabled in kernel config.</p>
-<p>You can also manually inspect available tracepoints:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># All GPU tracepoints</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>sudo<span class="w"> </span>cat<span class="w"> </span>/sys/kernel/debug/tracing/available_events<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;(gpu_scheduler|i915|amdgpu|^drm:)&#39;</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># DRM scheduler (stable, all vendors)</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>sudo<span class="w"> </span>cat<span class="w"> </span>/sys/kernel/debug/tracing/available_events<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>gpu_scheduler
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="c1"># Intel i915</span>
-<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>sudo<span class="w"> </span>cat<span class="w"> </span>/sys/kernel/debug/tracing/available_events<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>i915
-<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
-<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="c1"># AMD AMDGPU</span>
-<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>sudo<span class="w"> </span>cat<span class="w"> </span>/sys/kernel/debug/tracing/available_events<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>amdgpu
-</code></pre></div>
-<p>To manually enable a tracepoint and view raw output:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Enable drm_run_job</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nb">echo</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/sys/kernel/debug/tracing/events/gpu_scheduler/drm_run_job/enable
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># View trace output</span>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>sudo<span class="w"> </span>cat<span class="w"> </span>/sys/kernel/debug/tracing/trace
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c1"># Disable when done</span>
-<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="nb">echo</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/sys/kernel/debug/tracing/events/gpu_scheduler/drm_run_job/enable
-</code></pre></div>
-<h2 id="summary-and-next-steps">Summary and Next Steps</h2>
-<p>GPU kernel tracepoints provide unprecedented visibility into graphics driver behavior. The DRM scheduler's stable uAPI tracepoints work across all vendors, making them perfect for production monitoring. Vendor-specific tracepoints from Intel i915 and AMD AMDGPU expose detailed memory management, command submission pipelines, and hardware interrupt patterns.</p>
-<p>Our bpftrace scripts demonstrate practical monitoring: measuring job scheduling latency, tracking memory pressure, analyzing command submission bottlenecks, and diagnosing frame drops. These techniques apply directly to real-world problems - optimizing ML training performance, debugging game stutters, implementing fair GPU resource accounting in cloud environments, and investigating thermal throttling.</p>
-<p>The key advantage over traditional tools is completeness and overhead. Kernel tracepoints capture every event with nanosecond precision at negligible cost. No polling, no sampling gaps, no missed short-lived jobs. This data feeds production monitoring systems (Prometheus exporters reading bpftrace output), ad-hoc performance debugging (run a script when users report issues), and automated optimization (trigger workload rebalancing based on latency thresholds).</p>
+<h2 id="summary">Summary</h2>
+<p>GPU kernel tracepoints provide zero-overhead visibility into driver internals. DRM scheduler's stable uAPI tracepoints work across all vendors for production monitoring. Vendor-specific tracepoints expose detailed memory management and command submission pipelines. The bpftrace script demonstrates tracking job scheduling, measuring latency, and identifying dependency stalls - all critical for diagnosing performance issues in games, ML training, and cloud GPU workloads.</p>
 <blockquote>
 <p>If you'd like to dive deeper into eBPF, check out our tutorial repository at <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">https://github.com/eunomia-bpf/bpf-developer-tutorial</a> or visit our website at <a href="https://eunomia.dev/tutorials/">https://eunomia.dev/tutorials/</a>.</p>
 </blockquote>
@@ -8999,7 +8523,7 @@
 <li><strong>Tutorial Repository</strong>: <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/xpu/gpu-kernel-driver">https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/xpu/gpu-kernel-driver</a></li>
 </ul>
 <p>Complete source code including all bpftrace scripts and test cases is available in the tutorial repository. Contributions and issue reports welcome!</p>
-<p><a class="md-button" href="https://x.com/intent/tweet?text=eBPF%20Tutorial%3A%20Monitoring%20GPU%20Driver%20Activity%20with%20Kernel%20Tracepoints%0A&amp;url=https://eunomia.dev/en/tutorials/xpu/gpu-kernel-driver/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=eBPF%20Tutorial%20by%20Example%3A%20Monitoring%20GPU%20Driver%20Activity%20with%20Kernel%20Tracepoints%0A&amp;url=https://eunomia.dev/en/tutorials/xpu/gpu-kernel-driver/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/en/tutorials/xpu/gpu-kernel-driver/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
@@ -9023,7 +8547,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 5, 2025 22:28:38 UTC">October 5, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 6, 2025 02:28:18 UTC">October 6, 2025</span>
   </span>
 
     
