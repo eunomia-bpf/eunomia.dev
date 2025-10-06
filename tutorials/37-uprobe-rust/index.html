@@ -8285,7 +8285,10 @@
 
 <h1 id="ebpf-practice-tracing-user-space-rust-applications-with-uprobe">eBPF Practice: Tracing User Space Rust Applications with Uprobe</h1>
 <p>eBPF, or Extended Berkeley Packet Filter, is a revolutionary technology in the Linux kernel that allows developers to run custom "micro-programs" in kernel mode, thus changing system behavior or collecting granular performance data without modifying the kernel code.</p>
-<p>This article discusses how to trace user space Rust applications with Uprobe and eBPF, including how to obtain symbol names and attach them, get function parameters, get return values, etc. This article is part of the eBPF developer tutorial, more detailed content can be found here: <a href="https://eunomia.dev/tutorials/">https://eunomia.dev/tutorials/</a> The source code is open source in the <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">GitHub repository</a>.</p>
+<p>This article discusses how to trace user space Rust applications with Uprobe and eBPF, including how to obtain symbol names and attach them, get function parameters, get return values, etc. This article is part of the eBPF developer tutorial, more detailed content can be found here: <a href="https://eunomia.dev/tutorials/">https://eunomia.dev/tutorials/</a></p>
+<blockquote>
+<p>The complete source code: <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/37-uprobe-rust">https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/37-uprobe-rust</a></p>
+</blockquote>
 <h2 id="uprobe">Uprobe</h2>
 <p>Uprobe is a user space probe. Uprobe probes allow dynamic instrumentation in user space programs, with instrumentation locations including: function entry points, specific offsets, and function return points. When we define a Uprobe, the kernel creates a fast breakpoint instruction (the int3 instruction on x86 machines) at the attached instruction. When the program executes this instruction, the kernel triggers an event, the program falls into kernel mode, and the probe function is called in a callback manner. After the probe function is executed, it returns to user mode to continue executing subsequent instructions.</p>
 <p>Uprobe is useful for parsing traffic in user space that cannot be parsed by kernel probes, such as http2 traffic, https traffic, and can also analyze runtime program, business logic, etc. For more information about Uprobe, you can refer to:</p>
@@ -8415,7 +8418,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 24, 2025 04:39:03 UTC">August 24, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 6, 2025 05:52:35 UTC">October 6, 2025</span>
   </span>
 
     

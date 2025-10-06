@@ -1127,15 +1127,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#background" class="md-nav__link">
-    <span class="md-ellipsis">
-      Background
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#overview-of-tc" class="md-nav__link">
     <span class="md-ellipsis">
       Overview of tc
@@ -8224,15 +8215,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#background" class="md-nav__link">
-    <span class="md-ellipsis">
-      Background
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#overview-of-tc" class="md-nav__link">
     <span class="md-ellipsis">
       Overview of tc
@@ -8302,8 +8284,10 @@
 
 
 <h1 id="ebpf-tutorial-by-example-20-tc-traffic-control">eBPF Tutorial by Example 20: tc Traffic Control</h1>
-<h2 id="background">Background</h2>
 <p>Linux's Traffic Control (tc) subsystem has been present in the kernel for many years. Similar to the relationship between iptables and netfilter, tc includes a user-space tc program and a kernel-level traffic control framework. It is mainly used to control the sending and receiving of packets in terms of rate, sequence, and other aspects. Starting from Linux 4.1, tc has added some new attachment points and supports loading eBPF programs as filters onto these attachment points.</p>
+<blockquote>
+<p>The complete source code: <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/20-tc">https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/20-tc</a></p>
+</blockquote>
 <h2 id="overview-of-tc">Overview of tc</h2>
 <p>From the protocol stack perspective, tc is located at the link layer. Its position has already completed the allocation of sk_buff and is later than xdp. In order to control the sending and receiving of packets, tc uses a queue structure to temporarily store and organize packets. In the tc subsystem, the corresponding data structure and algorithm control mechanism are abstracted as qdisc (Queueing discipline). It exposes two callback interfaces for enqueuing and dequeuing packets externally, and internally hides the implementation of queuing algorithms. In qdisc, we can implement complex tree structures based on filters and classes. Filters are mounted on qdisc or class to implement specific filtering logic, and the return value determines whether the packet belongs to a specific class.</p>
 <p>When a packet reaches the top-level qdisc, its enqueue interface is called, and the mounted filters are executed one by one until a filter matches successfully. Then the packet is sent to the class pointed to by that filter and enters the qdisc processing process configured by that class. The tc framework provides the so-called classifier-action mechanism, that is, when a packet matches a specific filter, the action mounted by that filter is executed to process the packet, implementing a complete packet classification and processing mechanism.</p>
@@ -8405,7 +8389,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 10, 2025 23:07:43 UTC">February 10, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 6, 2025 05:52:35 UTC">October 6, 2025</span>
   </span>
 
     
@@ -8425,11 +8409,12 @@
   <span class="md-source-file__fact">
     <span class="md-icon" title="Contributors">
       
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
       
     </span>
     <nav>
       
+        <a href="mailto:yunwei356@gmail.com">yunwei37</a>, 
         <a href="mailto:1067852565@qq.com">云微</a>
     </nav>
   </span>

@@ -8250,7 +8250,9 @@
 <h1 id="ebpf-development-practice-modifying-system-call-arguments-with-ebpf">eBPF Development Practice: Modifying System Call Arguments with eBPF</h1>
 <p>eBPF (Extended Berkeley Packet Filter) is a powerful feature in the Linux kernel that allows user-defined code to be run, loaded, and updated without the need to modify kernel source code or reboot the kernel. This functionality has enabled a wide range of applications for eBPF, such as network and system performance analysis, packet filtering, and security policies.</p>
 <p>In this tutorial, we will explore how to use eBPF to modify the arguments of a running system call. This technique can be used for security auditing, system monitoring, or even malicious behavior. However, it is important to note that modifying system call arguments can have negative implications for system stability and security, so caution must be exercised. To implement this functionality, we will use the <code>bpf_probe_write_user</code> feature of eBPF, which allows us to modify memory in the user space and therefore modify system call arguments before the kernel reads them from user space.</p>
-<p>The complete code for this tutorial can be found in the <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/34-syscall/">https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/34-syscall/</a> repository on GitHub.</p>
+<blockquote>
+<p>The complete source code: <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/34-syscall">https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/34-syscall</a></p>
+</blockquote>
 <h2 id="modifying-the-file-name-of-the-open-system-call">Modifying the File Name of the <code>open</code> System Call</h2>
 <p>This functionality is used to modify the arguments of the <code>openat</code> system call to open a different file. This technique can be useful for:</p>
 <ol>
@@ -8436,7 +8438,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 4, 2025 00:04:48 UTC">October 4, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 6, 2025 05:52:35 UTC">October 6, 2025</span>
   </span>
 
     
