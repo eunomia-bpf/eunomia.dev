@@ -1,0 +1,58 @@
+name: Org Reports (weekly & monthly)
+
+on:
+  schedule:
+    - cron: "7 3 * * 1"     # Weekly: 03:07 UTC every Monday
+    - cron: "11 4 1 * *"    # Monthly: 04:11 UTC on the 1st
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  weekly:
+    if: startsWith(github.event.schedule, '7 3')
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: read
+    steps:
+      - name: Compute last week window
+        run: |
+          start=$(date -u -d "last monday -7 days" +%Y-%m-%d)
+          end=$(date -u -d "last monday -1 day" +%Y-%m-%d)
+          echo "RANGE=$start..$end" >> $GITHUB_ENV
+      - name: Run issue-metrics (org-wide)
+        uses: github/issue-metrics@v3
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SEARCH_QUERY: 'org:eunomia-bpf created:${{ env.RANGE }}'
+      - name: Create weekly report issue
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: "Weekly Org Report (${{ env.RANGE }})"
+          content-filepath: ./issue_metrics.md
+
+  monthly:
+    if: startsWith(github.event.schedule, '11 4')
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: read
+    steps:
+      - name: Compute last month window
+        shell: bash
+        run: |
+          first=$(date -u -d "last month" +%Y-%m-01)
+          last=$(date -u -d "$first +1 month -1 day" +%Y-%m-%d)
+          echo "RANGE=$first..$last" >> $GITHUB_ENV
+      - name: Run issue-metrics (org-wide)
+        uses: github/issue-metrics@v3
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SEARCH_QUERY: 'org:eunomia-bpf created:${{ env.RANGE }}'
+      - name: Create monthly report issue
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: "Monthly Org Report (${{ env.RANGE }})"
+          content-filepath: ./issue_metrics.md
