@@ -174,6 +174,12 @@ def append_org_activity(org: str, start: str, end: str, output_file: str = "issu
     start_z = f"{start}T00:00:00Z"
     end_z = f"{end}T23:59:59Z"
 
+    # Ensure we have write permissions to the file
+    import os
+    import stat
+    if os.path.exists(output_file):
+        os.chmod(output_file, stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP | stat.S_IWGRP | stat.S_IROTH | stat.S_IWOTH)
+
     with open(output_file, "a") as f:
         f.write(f"\n## Org Activity Addendum ({org}, {start}..{end})\n")
 

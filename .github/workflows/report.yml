@@ -76,6 +76,9 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SEARCH_QUERY: '${{ env.QUERY }} created:${{ env.RANGE }}'
 
+      - name: Fix file permissions
+        run: sudo chmod 666 issue_metrics.md
+
       - name: Append Org Activity Addendum (stars/PRs/repos/commits)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -120,6 +123,9 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SEARCH_QUERY: '${{ env.QUERY }} created:${{ env.RANGE }}'
+
+      - name: Fix file permissions
+        run: sudo chmod 666 issue_metrics.md
 
       - name: Append Org Activity Addendum (stars/PRs/repos/commits)
         env:
@@ -185,6 +191,9 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SEARCH_QUERY: '${{ env.QUERY }} created:${{ env.RANGE }}'
+
+      - name: Fix file permissions
+        run: sudo chmod 666 issue_metrics.md
 
       - name: Append Org Activity Addendum (stars/PRs/repos/commits)
         env:
