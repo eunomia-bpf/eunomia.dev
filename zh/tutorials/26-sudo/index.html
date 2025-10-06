@@ -24,7 +24,7 @@
     
     
       
-        <title>使用 eBPF 添加 sudo 用户 - eunomia</title>
+        <title>eBPF 教程: 文件操纵实现 sudo 权限提升 - eunomia</title>
       
     
     
@@ -69,7 +69,7 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="使用 eBPF 添加 sudo 用户 - eunomia" >
+        <meta  property="og:title"  content="eBPF 教程: 文件操纵实现 sudo 权限提升 - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
@@ -85,7 +85,7 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="使用 eBPF 添加 sudo 用户 - eunomia" >
+        <meta  name="twitter:title"  content="eBPF 教程: 文件操纵实现 sudo 权限提升 - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              使用 eBPF 添加 sudo 用户
+              eBPF 教程: 文件操纵实现 sudo 权限提升
             
           </span>
         </div>
@@ -1229,7 +1229,7 @@
   
   
   <span class="md-ellipsis">
-    使用 eBPF 添加 sudo 用户
+    eBPF 教程: 文件操纵实现 sudo 权限提升
     
   </span>
   
@@ -1242,7 +1242,7 @@
   
   
   <span class="md-ellipsis">
-    使用 eBPF 添加 sudo 用户
+    eBPF 教程: 文件操纵实现 sudo 权限提升
     
   </span>
   
@@ -1266,6 +1266,60 @@
       
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      攻击向量:拦截文件读取
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      实现:挂钩系统调用路径
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      用户空间加载器和配置
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      安全影响和检测
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      编译和执行
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      总结
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       参考资料
     </span>
@@ -1294,7 +1348,7 @@
   
   
   <span class="md-ellipsis">
-    使用 eBPF 替换任意程序读取或写入的文本
+    eBPF 教程: 替换任意程序读取或者写入的文本
     
   </span>
   
@@ -1892,7 +1946,7 @@
   
   
   <span class="md-ellipsis">
-    eBPF Tutorial: Fixing Broken HID Devices Without Kernel Patches
+    eBPF 教程：无需内核补丁修复故障的 HID 设备
     
   </span>
   
@@ -8181,6 +8235,60 @@
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
+      攻击向量:拦截文件读取
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      实现:挂钩系统调用路径
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      用户空间加载器和配置
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      安全影响和检测
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      编译和执行
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      总结
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
       参考资料
     </span>
   </a>
@@ -8211,22 +8319,264 @@
   
 
 
-<h1 id="ebpf-sudo">使用 eBPF 添加 sudo 用户</h1>
-<p>本文完整的源代码：<a href="https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/26-sudo">https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/26-sudo</a></p>
-<p>关于如何安装依赖，请参考：<a href="https://eunomia.dev/tutorials/11-bootstrap/">https://eunomia.dev/tutorials/11-bootstrap/</a></p>
-<p>编译：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>make
+<h1 id="ebpf-sudo">eBPF 教程: 文件操纵实现 sudo 权限提升</h1>
+<p>eBPF 的能力远不止简单的跟踪——它可以实时修改流经内核的数据。虽然这种能力为性能优化和安全监控提供了创新解决方案,但它也为传统安全工具可能遗漏的复杂攻击向量打开了大门。本教程演示了其中一种技术:使用 eBPF 通过操纵 <code>sudo</code> 读取 <code>/etc/sudoers</code> 时看到的内容,向非特权用户授予 root 访问权限。</p>
+<p>此示例揭示了攻击者如何滥用 eBPF 的 <code>bpf_probe_write_user</code> 辅助函数来完全绕过 Linux 的权限模型,而不会在日志文件中留下痕迹或修改实际的系统文件。理解这些攻击模式对于构建 eBPF 感知安全监控的防御者至关重要。</p>
+<blockquote>
+<p>完整源代码: <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/26-sudo">https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/26-sudo</a></p>
+</blockquote>
+<h2 id="_1">攻击向量:拦截文件读取</h2>
+<p>传统的权限提升攻击直接修改 <code>/etc/sudoers</code>,在文件时间戳、审计日志和完整性监控系统中留下明显痕迹。这种基于 eBPF 的方法要微妙得多——它拦截 <code>sudo</code> 的读取操作,并在 <code>sudo</code> 处理之前替换内存中的文件内容。磁盘上的实际文件保持不变,击败了大多数文件完整性监视器。</p>
+<p>攻击的工作原理是利用一个关键窗口:当 <code>sudo</code> 将 <code>/etc/sudoers</code> 读入缓冲区时,数据短暂地存在于用户空间内存中。eBPF 程序可以使用 <code>bpf_probe_write_user</code> 访问和修改此用户空间内存,有效地向 <code>sudo</code> 撒谎关于存在什么权限,而无需触摸真实文件。</p>
+<p>以下是攻击流程:当任何进程打开 <code>/etc/sudoers</code> 时,我们记录其文件描述符。当同一进程从文件读取时,我们捕获缓冲区地址。读取完成后,我们用 <code>&lt;username&gt; ALL=(ALL:ALL) NOPASSWD:ALL #</code> 覆盖第一行,使 <code>sudo</code> 相信目标用户具有完全的 root 权限。尾部的 <code>#</code> 注释掉该行上的任何原始内容,防止解析错误。</p>
+<h2 id="_2">实现:挂钩系统调用路径</h2>
+<p>让我们检查如何在 eBPF 中实现此攻击。完整的内核端代码协调四个系统调用挂钩来跟踪文件操作并注入恶意内容。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">// SPDX-License-Identifier: BSD-3-Clause</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;vmlinux.h&quot;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;bpf/bpf_helpers.h&gt;</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;bpf/bpf_tracing.h&gt;</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;bpf/bpf_core_read.h&gt;</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;common.h&quot;</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="kt">char</span><span class="w"> </span><span class="n">LICENSE</span><span class="p">[]</span><span class="w"> </span><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;license&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Dual BSD/GPL&quot;</span><span class="p">;</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c1">// 环形缓冲区映射,用于从内核向用户传递消息</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="n">__uint</span><span class="p">(</span><span class="n">type</span><span class="p">,</span><span class="w"> </span><span class="n">BPF_MAP_TYPE_RINGBUF</span><span class="p">);</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="n">__uint</span><span class="p">(</span><span class="n">max_entries</span><span class="p">,</span><span class="w"> </span><span class="mi">256</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1024</span><span class="p">);</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="p">}</span><span class="w"> </span><span class="n">rb</span><span class="w"> </span><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;.maps&quot;</span><span class="p">);</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="c1">// 保存来自 &#39;openat&#39; 调用的文件描述符的映射</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">    </span><span class="n">__uint</span><span class="p">(</span><span class="n">type</span><span class="p">,</span><span class="w"> </span><span class="n">BPF_MAP_TYPE_HASH</span><span class="p">);</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">    </span><span class="n">__uint</span><span class="p">(</span><span class="n">max_entries</span><span class="p">,</span><span class="w"> </span><span class="mi">8192</span><span class="p">);</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">    </span><span class="n">__type</span><span class="p">(</span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="p">);</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">    </span><span class="n">__type</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="p">);</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="p">}</span><span class="w"> </span><span class="n">map_fds</span><span class="w"> </span><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;.maps&quot;</span><span class="p">);</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="c1">// 保存来自 &#39;read&#39; 调用的缓冲区地址的映射</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">    </span><span class="n">__uint</span><span class="p">(</span><span class="n">type</span><span class="p">,</span><span class="w"> </span><span class="n">BPF_MAP_TYPE_HASH</span><span class="p">);</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">    </span><span class="n">__uint</span><span class="p">(</span><span class="n">max_entries</span><span class="p">,</span><span class="w"> </span><span class="mi">8192</span><span class="p">);</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">    </span><span class="n">__type</span><span class="p">(</span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="p">);</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="w">    </span><span class="n">__type</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="p">);</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="p">}</span><span class="w"> </span><span class="n">map_buff_addrs</span><span class="w"> </span><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;.maps&quot;</span><span class="p">);</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="c1">// 可选的目标父进程 PID</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="k">const</span><span class="w"> </span><span class="k">volatile</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">target_ppid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="c1">// 用户的 UserID,如果我们要限制仅针对此用户运行</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a><span class="k">const</span><span class="w"> </span><span class="k">volatile</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">uid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a><span class="c1">// 这些存储我们要添加到 /etc/sudoers 的字符串</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="c1">// 当 sudo 查看时,这使它认为我们的用户可以无密码 sudo</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a><span class="k">const</span><span class="w"> </span><span class="k">volatile</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">payload_len</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a><span class="k">const</span><span class="w"> </span><span class="k">volatile</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">payload</span><span class="p">[</span><span class="n">max_payload_len</span><span class="p">];</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a>
+<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;tp/syscalls/sys_enter_openat&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a><span class="kt">int</span><span class="w"> </span><span class="n">handle_openat_enter</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">trace_event_raw_sys_enter</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a><span class="p">{</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">pid_tgid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_get_current_pid_tgid</span><span class="p">();</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pid_tgid</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">32</span><span class="p">;</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a><span class="w">    </span><span class="c1">// 检查我们是否是感兴趣的进程线程</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a><span class="w">    </span><span class="c1">// 如果 target_ppid 为 0,则我们针对所有 pid</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">target_ppid</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a><span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">task_struct</span><span class="w"> </span><span class="o">*</span><span class="n">task</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">task_struct</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">bpf_get_current_task</span><span class="p">();</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">ppid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BPF_CORE_READ</span><span class="p">(</span><span class="n">task</span><span class="p">,</span><span class="w"> </span><span class="n">real_parent</span><span class="p">,</span><span class="w"> </span><span class="n">tgid</span><span class="p">);</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ppid</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">target_ppid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56" href="#__codelineno-0-56"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57" href="#__codelineno-0-57"></a>
+<a id="__codelineno-0-58" name="__codelineno-0-58" href="#__codelineno-0-58"></a><span class="w">    </span><span class="c1">// 检查 comm 是否为 sudo</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59" href="#__codelineno-0-59"></a><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">comm</span><span class="p">[</span><span class="n">TASK_COMM_LEN</span><span class="p">];</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60" href="#__codelineno-0-60"></a><span class="w">    </span><span class="n">bpf_get_current_comm</span><span class="p">(</span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">comm</span><span class="p">));</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61" href="#__codelineno-0-61"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">sudo_len</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62" href="#__codelineno-0-62"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">sudo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;sudo&quot;</span><span class="p">;</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63" href="#__codelineno-0-63"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">sudo_len</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64" href="#__codelineno-0-64"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">comm</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">sudo</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65" href="#__codelineno-0-65"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66" href="#__codelineno-0-66"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67" href="#__codelineno-0-67"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68" href="#__codelineno-0-68"></a>
+<a id="__codelineno-0-69" name="__codelineno-0-69" href="#__codelineno-0-69"></a><span class="w">    </span><span class="c1">// 现在检查我们是否正在打开 sudoers</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70" href="#__codelineno-0-70"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">sudoers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/etc/sudoers&quot;</span><span class="p">;</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71" href="#__codelineno-0-71"></a><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">filename</span><span class="p">[</span><span class="n">sudoers_len</span><span class="p">];</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72" href="#__codelineno-0-72"></a><span class="w">    </span><span class="n">bpf_probe_read_user</span><span class="p">(</span><span class="o">&amp;</span><span class="n">filename</span><span class="p">,</span><span class="w"> </span><span class="n">sudoers_len</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+<a id="__codelineno-0-73" name="__codelineno-0-73" href="#__codelineno-0-73"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">sudoers_len</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74" href="#__codelineno-0-74"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">filename</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">sudoers</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75" href="#__codelineno-0-75"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76" href="#__codelineno-0-76"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-0-77" name="__codelineno-0-77" href="#__codelineno-0-77"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78" href="#__codelineno-0-78"></a><span class="w">    </span><span class="n">bpf_printk</span><span class="p">(</span><span class="s">&quot;Comm %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">comm</span><span class="p">);</span>
+<a id="__codelineno-0-79" name="__codelineno-0-79" href="#__codelineno-0-79"></a><span class="w">    </span><span class="n">bpf_printk</span><span class="p">(</span><span class="s">&quot;Filename %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">filename</span><span class="p">);</span>
+<a id="__codelineno-0-80" name="__codelineno-0-80" href="#__codelineno-0-80"></a>
+<a id="__codelineno-0-81" name="__codelineno-0-81" href="#__codelineno-0-81"></a><span class="w">    </span><span class="c1">// 如果按 UID 过滤,检查它</span>
+<a id="__codelineno-0-82" name="__codelineno-0-82" href="#__codelineno-0-82"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">uid</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-83" name="__codelineno-0-83" href="#__codelineno-0-83"></a><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">current_uid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_get_current_uid_gid</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">32</span><span class="p">;</span>
+<a id="__codelineno-0-84" name="__codelineno-0-84" href="#__codelineno-0-84"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">uid</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">current_uid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-85" name="__codelineno-0-85" href="#__codelineno-0-85"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-0-86" name="__codelineno-0-86" href="#__codelineno-0-86"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-0-87" name="__codelineno-0-87" href="#__codelineno-0-87"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-88" name="__codelineno-0-88" href="#__codelineno-0-88"></a>
+<a id="__codelineno-0-89" name="__codelineno-0-89" href="#__codelineno-0-89"></a><span class="w">    </span><span class="c1">// 为 sys_exit 调用将 pid_tgid 添加到映射</span>
+<a id="__codelineno-0-90" name="__codelineno-0-90" href="#__codelineno-0-90"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">zero</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-0-91" name="__codelineno-0-91" href="#__codelineno-0-91"></a><span class="w">    </span><span class="n">bpf_map_update_elem</span><span class="p">(</span><span class="o">&amp;</span><span class="n">map_fds</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pid_tgid</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">zero</span><span class="p">,</span><span class="w"> </span><span class="n">BPF_ANY</span><span class="p">);</span>
+<a id="__codelineno-0-92" name="__codelineno-0-92" href="#__codelineno-0-92"></a>
+<a id="__codelineno-0-93" name="__codelineno-0-93" href="#__codelineno-0-93"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-0-94" name="__codelineno-0-94" href="#__codelineno-0-94"></a><span class="p">}</span>
+<a id="__codelineno-0-95" name="__codelineno-0-95" href="#__codelineno-0-95"></a>
+<a id="__codelineno-0-96" name="__codelineno-0-96" href="#__codelineno-0-96"></a><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;tp/syscalls/sys_exit_openat&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-97" name="__codelineno-0-97" href="#__codelineno-0-97"></a><span class="kt">int</span><span class="w"> </span><span class="n">handle_openat_exit</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">trace_event_raw_sys_exit</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span>
+<a id="__codelineno-0-98" name="__codelineno-0-98" href="#__codelineno-0-98"></a><span class="p">{</span>
+<a id="__codelineno-0-99" name="__codelineno-0-99" href="#__codelineno-0-99"></a><span class="w">    </span><span class="c1">// 检查此 open 调用是否正在打开我们的目标文件</span>
+<a id="__codelineno-0-100" name="__codelineno-0-100" href="#__codelineno-0-100"></a><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">pid_tgid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_get_current_pid_tgid</span><span class="p">();</span>
+<a id="__codelineno-0-101" name="__codelineno-0-101" href="#__codelineno-0-101"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">check</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_map_lookup_elem</span><span class="p">(</span><span class="o">&amp;</span><span class="n">map_fds</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pid_tgid</span><span class="p">);</span>
+<a id="__codelineno-0-102" name="__codelineno-0-102" href="#__codelineno-0-102"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">check</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-103" name="__codelineno-0-103" href="#__codelineno-0-103"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-0-104" name="__codelineno-0-104" href="#__codelineno-0-104"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-105" name="__codelineno-0-105" href="#__codelineno-0-105"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pid_tgid</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">32</span><span class="p">;</span>
+<a id="__codelineno-0-106" name="__codelineno-0-106" href="#__codelineno-0-106"></a>
+<a id="__codelineno-0-107" name="__codelineno-0-107" href="#__codelineno-0-107"></a><span class="w">    </span><span class="c1">// 将映射值设置为返回的文件描述符</span>
+<a id="__codelineno-0-108" name="__codelineno-0-108" href="#__codelineno-0-108"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">ret</span><span class="p">;</span>
+<a id="__codelineno-0-109" name="__codelineno-0-109" href="#__codelineno-0-109"></a><span class="w">    </span><span class="n">bpf_map_update_elem</span><span class="p">(</span><span class="o">&amp;</span><span class="n">map_fds</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pid_tgid</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="n">BPF_ANY</span><span class="p">);</span>
+<a id="__codelineno-0-110" name="__codelineno-0-110" href="#__codelineno-0-110"></a>
+<a id="__codelineno-0-111" name="__codelineno-0-111" href="#__codelineno-0-111"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-0-112" name="__codelineno-0-112" href="#__codelineno-0-112"></a><span class="p">}</span>
+<a id="__codelineno-0-113" name="__codelineno-0-113" href="#__codelineno-0-113"></a>
+<a id="__codelineno-0-114" name="__codelineno-0-114" href="#__codelineno-0-114"></a><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;tp/syscalls/sys_enter_read&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-115" name="__codelineno-0-115" href="#__codelineno-0-115"></a><span class="kt">int</span><span class="w"> </span><span class="n">handle_read_enter</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">trace_event_raw_sys_enter</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span>
+<a id="__codelineno-0-116" name="__codelineno-0-116" href="#__codelineno-0-116"></a><span class="p">{</span>
+<a id="__codelineno-0-117" name="__codelineno-0-117" href="#__codelineno-0-117"></a><span class="w">    </span><span class="c1">// 检查此 open 调用是否正在打开我们的目标文件</span>
+<a id="__codelineno-0-118" name="__codelineno-0-118" href="#__codelineno-0-118"></a><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">pid_tgid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_get_current_pid_tgid</span><span class="p">();</span>
+<a id="__codelineno-0-119" name="__codelineno-0-119" href="#__codelineno-0-119"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pid_tgid</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">32</span><span class="p">;</span>
+<a id="__codelineno-0-120" name="__codelineno-0-120" href="#__codelineno-0-120"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">pfd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_map_lookup_elem</span><span class="p">(</span><span class="o">&amp;</span><span class="n">map_fds</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pid_tgid</span><span class="p">);</span>
+<a id="__codelineno-0-121" name="__codelineno-0-121" href="#__codelineno-0-121"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pfd</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-122" name="__codelineno-0-122" href="#__codelineno-0-122"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-0-123" name="__codelineno-0-123" href="#__codelineno-0-123"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-124" name="__codelineno-0-124" href="#__codelineno-0-124"></a>
+<a id="__codelineno-0-125" name="__codelineno-0-125" href="#__codelineno-0-125"></a><span class="w">    </span><span class="c1">// 检查这是否是 sudoers 文件描述符</span>
+<a id="__codelineno-0-126" name="__codelineno-0-126" href="#__codelineno-0-126"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">map_fd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">pfd</span><span class="p">;</span>
+<a id="__codelineno-0-127" name="__codelineno-0-127" href="#__codelineno-0-127"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<a id="__codelineno-0-128" name="__codelineno-0-128" href="#__codelineno-0-128"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">map_fd</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">fd</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-129" name="__codelineno-0-129" href="#__codelineno-0-129"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-0-130" name="__codelineno-0-130" href="#__codelineno-0-130"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-131" name="__codelineno-0-131" href="#__codelineno-0-131"></a>
+<a id="__codelineno-0-132" name="__codelineno-0-132" href="#__codelineno-0-132"></a><span class="w">    </span><span class="c1">// 从参数中存储缓冲区地址到映射</span>
+<a id="__codelineno-0-133" name="__codelineno-0-133" href="#__codelineno-0-133"></a><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">buff_addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<a id="__codelineno-0-134" name="__codelineno-0-134" href="#__codelineno-0-134"></a><span class="w">    </span><span class="n">bpf_map_update_elem</span><span class="p">(</span><span class="o">&amp;</span><span class="n">map_buff_addrs</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pid_tgid</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">buff_addr</span><span class="p">,</span><span class="w"> </span><span class="n">BPF_ANY</span><span class="p">);</span>
+<a id="__codelineno-0-135" name="__codelineno-0-135" href="#__codelineno-0-135"></a>
+<a id="__codelineno-0-136" name="__codelineno-0-136" href="#__codelineno-0-136"></a><span class="w">    </span><span class="c1">// 记录并退出</span>
+<a id="__codelineno-0-137" name="__codelineno-0-137" href="#__codelineno-0-137"></a><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">buff_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="p">)</span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+<a id="__codelineno-0-138" name="__codelineno-0-138" href="#__codelineno-0-138"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-0-139" name="__codelineno-0-139" href="#__codelineno-0-139"></a><span class="p">}</span>
+<a id="__codelineno-0-140" name="__codelineno-0-140" href="#__codelineno-0-140"></a>
+<a id="__codelineno-0-141" name="__codelineno-0-141" href="#__codelineno-0-141"></a><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;tp/syscalls/sys_exit_read&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-142" name="__codelineno-0-142" href="#__codelineno-0-142"></a><span class="kt">int</span><span class="w"> </span><span class="n">handle_read_exit</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">trace_event_raw_sys_exit</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span>
+<a id="__codelineno-0-143" name="__codelineno-0-143" href="#__codelineno-0-143"></a><span class="p">{</span>
+<a id="__codelineno-0-144" name="__codelineno-0-144" href="#__codelineno-0-144"></a><span class="w">    </span><span class="c1">// 检查此 open 调用是否正在读取我们的目标文件</span>
+<a id="__codelineno-0-145" name="__codelineno-0-145" href="#__codelineno-0-145"></a><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">pid_tgid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_get_current_pid_tgid</span><span class="p">();</span>
+<a id="__codelineno-0-146" name="__codelineno-0-146" href="#__codelineno-0-146"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pid_tgid</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">32</span><span class="p">;</span>
+<a id="__codelineno-0-147" name="__codelineno-0-147" href="#__codelineno-0-147"></a><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">pbuff_addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_map_lookup_elem</span><span class="p">(</span><span class="o">&amp;</span><span class="n">map_buff_addrs</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pid_tgid</span><span class="p">);</span>
+<a id="__codelineno-0-148" name="__codelineno-0-148" href="#__codelineno-0-148"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pbuff_addr</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-149" name="__codelineno-0-149" href="#__codelineno-0-149"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-0-150" name="__codelineno-0-150" href="#__codelineno-0-150"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-151" name="__codelineno-0-151" href="#__codelineno-0-151"></a><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">buff_addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">pbuff_addr</span><span class="p">;</span>
+<a id="__codelineno-0-152" name="__codelineno-0-152" href="#__codelineno-0-152"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">buff_addr</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-153" name="__codelineno-0-153" href="#__codelineno-0-153"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-0-154" name="__codelineno-0-154" href="#__codelineno-0-154"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-155" name="__codelineno-0-155" href="#__codelineno-0-155"></a>
+<a id="__codelineno-0-156" name="__codelineno-0-156" href="#__codelineno-0-156"></a><span class="w">    </span><span class="c1">// 这是从 read 系统调用返回的数据量</span>
+<a id="__codelineno-0-157" name="__codelineno-0-157" href="#__codelineno-0-157"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">ret</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-158" name="__codelineno-0-158" href="#__codelineno-0-158"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-0-159" name="__codelineno-0-159" href="#__codelineno-0-159"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-160" name="__codelineno-0-160" href="#__codelineno-0-160"></a><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">read_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">ret</span><span class="p">;</span>
+<a id="__codelineno-0-161" name="__codelineno-0-161" href="#__codelineno-0-161"></a>
+<a id="__codelineno-0-162" name="__codelineno-0-162" href="#__codelineno-0-162"></a><span class="w">    </span><span class="c1">// 添加我们的有效负载到第一行</span>
+<a id="__codelineno-0-163" name="__codelineno-0-163" href="#__codelineno-0-163"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">read_size</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">payload_len</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-164" name="__codelineno-0-164" href="#__codelineno-0-164"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-0-165" name="__codelineno-0-165" href="#__codelineno-0-165"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-166" name="__codelineno-0-166" href="#__codelineno-0-166"></a>
+<a id="__codelineno-0-167" name="__codelineno-0-167" href="#__codelineno-0-167"></a><span class="w">    </span><span class="c1">// 覆盖第一块数据</span>
+<a id="__codelineno-0-168" name="__codelineno-0-168" href="#__codelineno-0-168"></a><span class="w">    </span><span class="c1">// 然后添加 &#39;#&#39; 来注释掉块中的其余数据。</span>
+<a id="__codelineno-0-169" name="__codelineno-0-169" href="#__codelineno-0-169"></a><span class="w">    </span><span class="c1">// 这有点破坏了 sudoers 文件,但一切仍然按预期工作</span>
+<a id="__codelineno-0-170" name="__codelineno-0-170" href="#__codelineno-0-170"></a><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">local_buff</span><span class="p">[</span><span class="n">max_payload_len</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mh">0x00</span><span class="w"> </span><span class="p">};</span>
+<a id="__codelineno-0-171" name="__codelineno-0-171" href="#__codelineno-0-171"></a><span class="w">    </span><span class="n">bpf_probe_read</span><span class="p">(</span><span class="o">&amp;</span><span class="n">local_buff</span><span class="p">,</span><span class="w"> </span><span class="n">max_payload_len</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="n">buff_addr</span><span class="p">);</span>
+<a id="__codelineno-0-172" name="__codelineno-0-172" href="#__codelineno-0-172"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">max_payload_len</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-173" name="__codelineno-0-173" href="#__codelineno-0-173"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">payload_len</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-174" name="__codelineno-0-174" href="#__codelineno-0-174"></a><span class="w">            </span><span class="n">local_buff</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;#&#39;</span><span class="p">;</span>
+<a id="__codelineno-0-175" name="__codelineno-0-175" href="#__codelineno-0-175"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-0-176" name="__codelineno-0-176" href="#__codelineno-0-176"></a><span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-177" name="__codelineno-0-177" href="#__codelineno-0-177"></a><span class="w">            </span><span class="n">local_buff</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">payload</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<a id="__codelineno-0-178" name="__codelineno-0-178" href="#__codelineno-0-178"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-0-179" name="__codelineno-0-179" href="#__codelineno-0-179"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-180" name="__codelineno-0-180" href="#__codelineno-0-180"></a><span class="w">    </span><span class="c1">// 将数据写回缓冲区</span>
+<a id="__codelineno-0-181" name="__codelineno-0-181" href="#__codelineno-0-181"></a><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_probe_write_user</span><span class="p">((</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="n">buff_addr</span><span class="p">,</span><span class="w"> </span><span class="n">local_buff</span><span class="p">,</span><span class="w"> </span><span class="n">max_payload_len</span><span class="p">);</span>
+<a id="__codelineno-0-182" name="__codelineno-0-182" href="#__codelineno-0-182"></a>
+<a id="__codelineno-0-183" name="__codelineno-0-183" href="#__codelineno-0-183"></a><span class="w">    </span><span class="c1">// 发送事件</span>
+<a id="__codelineno-0-184" name="__codelineno-0-184" href="#__codelineno-0-184"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">event</span><span class="w"> </span><span class="o">*</span><span class="n">e</span><span class="p">;</span>
+<a id="__codelineno-0-185" name="__codelineno-0-185" href="#__codelineno-0-185"></a><span class="w">    </span><span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_ringbuf_reserve</span><span class="p">(</span><span class="o">&amp;</span><span class="n">rb</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">e</span><span class="p">),</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-0-186" name="__codelineno-0-186" href="#__codelineno-0-186"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-187" name="__codelineno-0-187" href="#__codelineno-0-187"></a><span class="w">        </span><span class="n">e</span><span class="o">-&gt;</span><span class="n">success</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">ret</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-0-188" name="__codelineno-0-188" href="#__codelineno-0-188"></a><span class="w">        </span><span class="n">e</span><span class="o">-&gt;</span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pid</span><span class="p">;</span>
+<a id="__codelineno-0-189" name="__codelineno-0-189" href="#__codelineno-0-189"></a><span class="w">        </span><span class="n">bpf_get_current_comm</span><span class="p">(</span><span class="o">&amp;</span><span class="n">e</span><span class="o">-&gt;</span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">e</span><span class="o">-&gt;</span><span class="n">comm</span><span class="p">));</span>
+<a id="__codelineno-0-190" name="__codelineno-0-190" href="#__codelineno-0-190"></a><span class="w">        </span><span class="n">bpf_ringbuf_submit</span><span class="p">(</span><span class="n">e</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-0-191" name="__codelineno-0-191" href="#__codelineno-0-191"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-192" name="__codelineno-0-192" href="#__codelineno-0-192"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-0-193" name="__codelineno-0-193" href="#__codelineno-0-193"></a><span class="p">}</span>
+<a id="__codelineno-0-194" name="__codelineno-0-194" href="#__codelineno-0-194"></a>
+<a id="__codelineno-0-195" name="__codelineno-0-195" href="#__codelineno-0-195"></a><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;tp/syscalls/sys_exit_close&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-196" name="__codelineno-0-196" href="#__codelineno-0-196"></a><span class="kt">int</span><span class="w"> </span><span class="n">handle_close_exit</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">trace_event_raw_sys_exit</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span>
+<a id="__codelineno-0-197" name="__codelineno-0-197" href="#__codelineno-0-197"></a><span class="p">{</span>
+<a id="__codelineno-0-198" name="__codelineno-0-198" href="#__codelineno-0-198"></a><span class="w">    </span><span class="c1">// 检查我们是否是感兴趣的进程线程</span>
+<a id="__codelineno-0-199" name="__codelineno-0-199" href="#__codelineno-0-199"></a><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">pid_tgid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_get_current_pid_tgid</span><span class="p">();</span>
+<a id="__codelineno-0-200" name="__codelineno-0-200" href="#__codelineno-0-200"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pid_tgid</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">32</span><span class="p">;</span>
+<a id="__codelineno-0-201" name="__codelineno-0-201" href="#__codelineno-0-201"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">check</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_map_lookup_elem</span><span class="p">(</span><span class="o">&amp;</span><span class="n">map_fds</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pid_tgid</span><span class="p">);</span>
+<a id="__codelineno-0-202" name="__codelineno-0-202" href="#__codelineno-0-202"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">check</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-203" name="__codelineno-0-203" href="#__codelineno-0-203"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-0-204" name="__codelineno-0-204" href="#__codelineno-0-204"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-205" name="__codelineno-0-205" href="#__codelineno-0-205"></a>
+<a id="__codelineno-0-206" name="__codelineno-0-206" href="#__codelineno-0-206"></a><span class="w">    </span><span class="c1">// 关闭文件,从所有映射中删除 fd 以清理</span>
+<a id="__codelineno-0-207" name="__codelineno-0-207" href="#__codelineno-0-207"></a><span class="w">    </span><span class="n">bpf_map_delete_elem</span><span class="p">(</span><span class="o">&amp;</span><span class="n">map_fds</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pid_tgid</span><span class="p">);</span>
+<a id="__codelineno-0-208" name="__codelineno-0-208" href="#__codelineno-0-208"></a><span class="w">    </span><span class="n">bpf_map_delete_elem</span><span class="p">(</span><span class="o">&amp;</span><span class="n">map_buff_addrs</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pid_tgid</span><span class="p">);</span>
+<a id="__codelineno-0-209" name="__codelineno-0-209" href="#__codelineno-0-209"></a>
+<a id="__codelineno-0-210" name="__codelineno-0-210" href="#__codelineno-0-210"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-0-211" name="__codelineno-0-211" href="#__codelineno-0-211"></a><span class="p">}</span>
 </code></pre></div>
-<p>使用方式：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sudo<span class="w"> </span>./sudoadd<span class="w"> </span>--username<span class="w"> </span>lowpriv-user
+<p>程序使用多阶段方法。首先,<code>handle_openat_enter</code> 充当过滤器——它检查进程是否为 <code>sudo</code>,是否正在打开 <code>/etc/sudoers</code>,以及可选地是否匹配特定的 UID 或父 PID。此过滤至关重要,因为我们不想影响系统上的每个文件操作,只影响 <code>sudo</code> 读取其配置的特定情况。</p>
+<p>当 <code>sudo</code> 打开 <code>/etc/sudoers</code> 时,内核返回一个文件描述符。我们在 <code>handle_openat_exit</code> 中捕获它并将文件描述符存储在 <code>map_fds</code> 中。此映射将进程(由 <code>pid_tgid</code> 标识)链接到其 sudoers 文件描述符,以便我们知道要拦截哪些读取。</p>
+<p>下一个挂钩 <code>handle_read_enter</code> 在 <code>sudo</code> 对该文件描述符调用 <code>read()</code> 时触发。这里的关键细节是捕获缓冲区地址——那是内核将复制文件内容的地方,也是我们将覆盖的地方。我们将此地址存储在 <code>map_buff_addrs</code> 中。</p>
+<p>攻击在 <code>handle_read_exit</code> 中执行。在内核完成读取操作并用真实的 sudoers 内容填充缓冲区后,我们使用 <code>bpf_probe_write_user</code> 覆盖它。我们用有效负载(<code>&lt;username&gt; ALL=(ALL:ALL) NOPASSWD:ALL #</code>)替换第一行,并用 <code>#</code> 字符填充缓冲区的其余部分以注释掉原始内容。从 <code>sudo</code> 的角度来看,它读取了一个合法的 sudoers 文件,授予我们的用户完全权限。</p>
+<p>最后,<code>handle_close_exit</code> 在 <code>sudo</code> 关闭文件时清理我们的跟踪映射,防止内存泄漏。</p>
+<h2 id="_3">用户空间加载器和配置</h2>
+<p>用户空间组件很简单——它配置攻击参数并加载 eBPF 程序。关键部分是设置将注入到 <code>sudo</code> 内存中的有效负载字符串。此字符串存储在 eBPF 程序的只读数据部分,使其在验证时对内核可见,但在加载前可修改。</p>
+<p>加载器接受命令行参数来指定要授予权限的用户名,可选地将攻击限制为特定用户或进程树,然后使用这些参数烘焙到字节码中加载 eBPF 程序。当 <code>sudo</code> 接下来运行时,攻击会自动执行,无需进一步的用户空间交互。</p>
+<h2 id="_4">安全影响和检测</h2>
+<p>此攻击演示了为什么 eBPF 需要 <code>CAP_BPF</code> 或 <code>CAP_SYS_ADMIN</code> 权限——这些程序可以从根本上改变系统行为。即使攻击者短暂地获得了 root 访问权限,也可以加载此 eBPF 程序并在其初始立足点被移除后维持持久访问。</p>
+<p>检测具有挑战性。磁盘上的文件保持不变,因此传统的文件完整性监控失败。攻击完全发生在正常系统调用执行期间的内核空间中,不留下异常的进程行为。然而,防御者可以查找具有写入能力的已加载 eBPF 程序(<code>bpftool prog list</code>),监控 <code>bpf()</code> 系统调用,或使用可以检查已加载程序的 eBPF 感知安全工具。</p>
+<p>像 Falco 和 Tetragon 这样的现代安全平台可以通过监控程序加载和检查附加的挂钩来检测可疑的 eBPF 活动。关键是保持对 eBPF 子系统本身的可见性。</p>
+<h2 id="_5">编译和执行</h2>
+<p>通过在教程目录中运行 make 来编译程序:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">cd</span><span class="w"> </span>src/26-sudo
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>make
 </code></pre></div>
-<p>这个程序允许一个通常权限较低的用户使用 <code>sudo</code> 成为 root。</p>
-<p>它通过拦截 <code>sudo</code> 读取 <code>/etc/sudoers</code> 文件，并将第一行覆盖为 <code>&lt;username&gt; ALL=(ALL:ALL) NOPASSWD:ALL #</code> 的方式工作。这欺骗了 sudo，使其认为用户被允许成为 root。其他程序如 <code>cat</code> 或 <code>sudoedit</code> 不受影响，所以对于这些程序来说，文件未改变，用户并没有这些权限。行尾的 <code>#</code> 确保行的其余部分被当作注释处理，因此不会破坏文件的逻辑。</p>
-<h2 id="_1">参考资料</h2>
+<p>要测试攻击(在安全的 VM 环境中),以 root 身份运行并指定目标用户名:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>sudo<span class="w"> </span>./sudoadd<span class="w"> </span>--username<span class="w"> </span>lowpriv-user
+</code></pre></div>
+<p>这将拦截 <code>sudo</code> 操作并授予 <code>lowpriv-user</code> root 访问权限,而不修改 <code>/etc/sudoers</code>。当 <code>lowpriv-user</code> 运行 <code>sudo</code> 时,他们将能够以 root 身份执行命令而无需输入密码。读取 <code>/etc/sudoers</code> 的其他程序(如 <code>cat</code> 或文本编辑器)仍将看到原始的、未修改的文件。</p>
+<p><code>--restrict</code> 标志将攻击限制为仅在由指定用户执行时工作,<code>--target-ppid</code> 可以将攻击范围限定为特定的进程树。</p>
+<h2 id="_6">总结</h2>
+<p>本教程展示了 eBPF 的内存操纵能力如何通过拦截和修改流经内核的数据来颠覆 Linux 的安全模型。虽然对于合法的调试和监控非常强大,但这些相同的功能使得能够绕过传统安全控制的复杂攻击成为可能。防御者的关键要点是,eBPF 程序本身必须被视为攻击面的关键部分——监控加载了哪些 eBPF 程序以及它们使用什么能力对于现代 Linux 安全至关重要。</p>
+<blockquote>
+<p>如果你想深入了解 eBPF,请查看我们的教程代码仓库 <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">https://github.com/eunomia-bpf/bpf-developer-tutorial</a> 或访问我们的网站 <a href="https://eunomia.dev/tutorials/">https://eunomia.dev/tutorials/</a>。</p>
+</blockquote>
+<h2 id="_7">参考资料</h2>
 <ul>
-<li><a href="https://github.com/pathtofile/bad-bpf">https://github.com/pathtofile/bad-bpf</a></li>
+<li>原始 bad-bpf 项目: <a href="https://github.com/pathtofile/bad-bpf">https://github.com/pathtofile/bad-bpf</a></li>
+<li>eBPF 辅助函数文档: <a href="https://man7.org/linux/man-pages/man7/bpf-helpers.7.html">https://man7.org/linux/man-pages/man7/bpf-helpers.7.html</a></li>
+<li><code>bpf_probe_write_user</code> 安全考虑: <a href="https://lwn.net/Articles/695991/">https://lwn.net/Articles/695991/</a></li>
 </ul>
-<p><a class="md-button" href="https://x.com/intent/tweet?text=%E4%BD%BF%E7%94%A8%20eBPF%20%E6%B7%BB%E5%8A%A0%20sudo%20%E7%94%A8%E6%88%B7%0A&amp;url=https://eunomia.dev/zh/tutorials/26-sudo/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=eBPF%20%E6%95%99%E7%A8%8B%3A%20%E6%96%87%E4%BB%B6%E6%93%8D%E7%BA%B5%E5%AE%9E%E7%8E%B0%20sudo%20%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87%0A&amp;url=https://eunomia.dev/zh/tutorials/26-sudo/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/zh/tutorials/26-sudo/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
@@ -8250,7 +8600,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 10, 2025 23:07:43 UTC">February 10, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 6, 2025 06:24:08 UTC">October 6, 2025</span>
   </span>
 
     
@@ -8270,11 +8620,12 @@
   <span class="md-source-file__fact">
     <span class="md-icon" title="Contributors">
       
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
       
     </span>
     <nav>
       
+        <a href="mailto:yunwei356@gmail.com">yunwei37</a>, 
         <a href="mailto:1067852565@qq.com">云微</a>
     </nav>
   </span>
@@ -8397,13 +8748,13 @@
         
         
           
-          <a href="../27-replace/" class="md-footer__link md-footer__link--next" aria-label="Next: 使用 eBPF 替换任意程序读取或写入的文本">
+          <a href="../27-replace/" class="md-footer__link md-footer__link--next" aria-label="Next: eBPF 教程: 替换任意程序读取或者写入的文本">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                使用 eBPF 替换任意程序读取或写入的文本
+                eBPF 教程: 替换任意程序读取或者写入的文本
               </div>
             </div>
             <div class="md-footer__button md-icon">
