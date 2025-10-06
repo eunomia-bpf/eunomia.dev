@@ -204,7 +204,16 @@ def get_commits(org: str, start: str, end: str) -> List[str]:
         for item in items:
             message = item["commit"]["message"].split("\n")[0]
             sha_short = item["sha"][:7]
-            repo_name = item["repository"]["nameWithOwner"]
+            # The repository structure might not have nameWithOwner, construct it from name and owner
+            repo_info = item.get("repository", {})
+            if "nameWithOwner" in repo_info:
+                repo_name = repo_info["nameWithOwner"]
+            elif "name" in repo_info and "owner" in repo_info:
+                owner = repo_info["owner"].get("login", "unknown")
+                repo_name = f"{owner}/{repo_info['name']}"
+            else:
+                repo_name = repo_info.get("name", "unknown")
+
             # Get committer date from the committer object
             committer_date = item.get("committer", {}).get("date", item["commit"].get("committer", {}).get("date", ""))
             commits.append(
@@ -268,6 +277,11 @@ def get_issue_metrics(org: str, start: str, end: str) -> Dict[str, Any]:
             "avg_time_to_close": avg_time_str,
             "issues": items
         }
+    except subprocess.CalledProcessError as e:
+        print(f"Error running gh search issues: {' '.join(cmd)}", file=sys.stderr)
+        print(f"stdout: {e.stdout}", file=sys.stderr)
+        print(f"stderr: {e.stderr}", file=sys.stderr)
+        return {"total_items": 0, "closed_items": 0, "avg_time_to_close": "N/A", "issues": []}
     except Exception as e:
         print(f"Warning: Failed to get issue metrics: {e}", file=sys.stderr)
         import traceback
