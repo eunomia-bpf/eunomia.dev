@@ -5,54 +5,148 @@ on:
     - cron: "7 3 * * 1"     # Weekly: 03:07 UTC every Monday
     - cron: "11 4 1 * *"    # Monthly: 04:11 UTC on the 1st
   workflow_dispatch:
+    inputs:
+      mode:
+        description: "Report mode"
+        required: true
+        default: "weekly"
+        type: choice
+        options: ["weekly", "monthly", "custom"]
+      start_date:
+        description: "Custom start date (YYYY-MM-DD) if mode=custom"
+        required: false
+        type: string
+      end_date:
+        description: "Custom end date (YYYY-MM-DD) if mode=custom"
+        required: false
+        type: string
+      search_query:
+        description: "GitHub search query (defaults to org:eunomia-bpf)"
+        required: false
+        default: "org:eunomia-bpf"
+        type: string
+      create_issue:
+        description: "Create an issue with the report"
+        required: true
+        default: true
+        type: boolean
+      issue_title_prefix:
+        description: "Issue title prefix"
+        required: false
+        default: "Org Report"
+        type: string
 
 permissions:
   contents: read
 
 jobs:
   weekly:
-    if: startsWith(github.event.schedule, '7 3')
+    if: github.event_name == 'schedule' && startsWith(github.event.schedule, '7 3')
     runs-on: ubuntu-latest
     permissions:
       issues: write
       pull-requests: read
     steps:
-      - name: Compute last week window
+      - name: Compute last week window (UTC)
         run: |
           start=$(date -u -d "last monday -7 days" +%Y-%m-%d)
           end=$(date -u -d "last monday -1 day" +%Y-%m-%d)
           echo "RANGE=$start..$end" >> $GITHUB_ENV
+          echo "TITLE=Weekly Org Report ($start..$end)" >> $GITHUB_ENV
+          echo "QUERY=org:eunomia-bpf" >> $GITHUB_ENV
       - name: Run issue-metrics (org-wide)
         uses: github/issue-metrics@v3
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SEARCH_QUERY: 'org:eunomia-bpf created:${{ env.RANGE }}'
+          SEARCH_QUERY: '${{ env.QUERY }} created:${{ env.RANGE }}'
       - name: Create weekly report issue
         uses: peter-evans/create-issue-from-file@v5
         with:
-          title: "Weekly Org Report (${{ env.RANGE }})"
+          title: "${{ env.TITLE }}"
           content-filepath: ./issue_metrics.md
 
   monthly:
-    if: startsWith(github.event.schedule, '11 4')
+    if: github.event_name == 'schedule' && startsWith(github.event.schedule, '11 4')
     runs-on: ubuntu-latest
     permissions:
       issues: write
       pull-requests: read
     steps:
-      - name: Compute last month window
+      - name: Compute last month window (UTC)
         shell: bash
         run: |
           first=$(date -u -d "last month" +%Y-%m-01)
           last=$(date -u -d "$first +1 month -1 day" +%Y-%m-%d)
           echo "RANGE=$first..$last" >> $GITHUB_ENV
+          echo "TITLE=Monthly Org Report ($first..$last)" >> $GITHUB_ENV
+          echo "QUERY=org:eunomia-bpf" >> $GITHUB_ENV
       - name: Run issue-metrics (org-wide)
         uses: github/issue-metrics@v3
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SEARCH_QUERY: 'org:eunomia-bpf created:${{ env.RANGE }}'
+          SEARCH_QUERY: '${{ env.QUERY }} created:${{ env.RANGE }}'
       - name: Create monthly report issue
         uses: peter-evans/create-issue-from-file@v5
         with:
-          title: "Monthly Org Report (${{ env.RANGE }})"
+          title: "${{ env.TITLE }}"
           content-filepath: ./issue_metrics.md
+
+  manual:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: read
+      contents: read
+      actions: read
+    steps:
+      - name: Resolve date range (UTC) from inputs
+        shell: bash
+        run: |
+          mode='${{ github.event.inputs.mode }}'
+          query='${{ github.event.inputs.search_query }}'
+          prefix='${{ github.event.inputs.issue_title_prefix }}'
+
+          if [[ "$mode" == "weekly" ]]; then
+            start=$(date -u -d "last monday -7 days" +%Y-%m-%d)
+            end=$(date -u -d "last monday -1 day" +%Y-%m-%d)
+          elif [[ "$mode" == "monthly" ]]; then
+            first=$(date -u -d "last month" +%Y-%m-01)
+            last=$(date -u -d "$first +1 month -1 day" +%Y-%m-%d)
+            start="$first"
+            end="$last"
+          else
+            start='${{ github.event.inputs.start_date }}'
+            end='${{ github.event.inputs.end_date }}'
+            if [[ -z "$start" || -z "$end" ]]; then
+              echo "For mode=custom you must provide start_date and end_date (YYYY-MM-DD)." >&2
+              exit 1
+            fi
+          fi
+
+          echo "RANGE=$start..$end" >> $GITHUB_ENV
+          echo "QUERY=$query" >> $GITHUB_ENV
+          echo "TITLE=$prefix ($start..$end)" >> $GITHUB_ENV
+
+          echo "Resolved RANGE=$start..$end"
+          echo "Using QUERY=$query"
+
+      - name: Run issue-metrics
+        uses: github/issue-metrics@v3
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SEARCH_QUERY: '${{ env.QUERY }} created:${{ env.RANGE }}'
+
+      - name: Maybe create an issue
+        if: ${{ github.event.inputs.create_issue == 'true' }}
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: "${{ env.TITLE }}"
+          content-filepath: ./issue_metrics.md
+
+      - name: Upload report artifact (if not creating issue)
+        if: ${{ github.event.inputs.create_issue != 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue-metrics-${{ env.RANGE }}
+          path: ./issue_metrics.md
