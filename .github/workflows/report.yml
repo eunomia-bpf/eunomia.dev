@@ -54,6 +54,14 @@ jobs:
     env:
       ORG: eunomia-bpf
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
       - name: Compute last week window (UTC)
         run: |
           start=$(date -u -d "last monday -7 days" +%Y-%m-%d)
@@ -73,78 +81,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ORG: ${{ env.ORG }}
           RANGE: ${{ env.RANGE }}
-        run: |
-          set -euo pipefail
-          START="${RANGE%%..*}"
-          END="${RANGE##*..}"
-          STARTZ="${START}T00:00:00Z"
-          ENDZ="${END}T23:59:59Z"
-
-          echo "" >> issue_metrics.md
-          echo "## Org Activity Addendum (${ORG}, ${START}..${END})" >> issue_metrics.md
-
-          # --- New stars (count only) ---
-          echo "### New Stars (count)" >> issue_metrics.md
-          total_stars=0
-          # list all repos in org
-          repos=$(gh api --paginate /orgs/${ORG}/repos -q '.[].name')
-          for r in $repos; do
-            # list stargazers with timestamps
-            count=$(gh api --paginate \
-              -H "Accept: application/vnd.github.star+json" \
-              /repos/${ORG}/${r}/stargazers \
-              | jq --arg s "$STARTZ" --arg e "$ENDZ" '[.[] | select(.starred_at >= $s and .starred_at <= $e)] | length' )
-            # jq returns 0 for empty pages as well; sum all
-            total_stars=$(( total_stars + ${count:-0} ))
-          done
-          echo "- Total new stars: **$total_stars**" >> issue_metrics.md
-
-          # --- New repositories created in range ---
-          echo "" >> issue_metrics.md
-          echo "### New Repositories" >> issue_metrics.md
-          new_repos=$(gh api --paginate /orgs/${ORG}/repos \
-            | jq --arg s "$STARTZ" --arg e "$ENDZ" -r '.[] | select(.created_at >= $s and .created_at <= $e) | "- [" + .full_name + "](" + .html_url + ") — created " + .created_at')
-          if [ -z "$new_repos" ]; then
-            echo "- (none)" >> issue_metrics.md
-          else
-            echo "$new_repos" >> issue_metrics.md
-          fi
-
-          # --- PRs opened in range ---
-          echo "" >> issue_metrics.md
-          echo "### Pull Requests Opened" >> issue_metrics.md
-          prs_opened=$(gh api -H "Accept: application/vnd.github+json" /search/issues \
-            -f q="org:${ORG} is:pr created:${START}..${END}" -f per_page=100 --paginate \
-            -q '.items[] | "- [" + .title + "](" + .html_url + ") — " + (.repository_url | split("/repos/")[1]) + " #" + (.number|tostring)')
-          if [ -z "$prs_opened" ]; then
-            echo "- (none)" >> issue_metrics.md
-          else
-            echo "$prs_opened" >> issue_metrics.md
-          fi
-
-          # --- PRs merged in range ---
-          echo "" >> issue_metrics.md
-          echo "### Pull Requests Merged" >> issue_metrics.md
-          prs_merged=$(gh api -H "Accept: application/vnd.github+json" /search/issues \
-            -f q="org:${ORG} is:pr is:merged merged:${START}..${END}" -f per_page=100 --paginate \
-            -q '.items[] | "- [" + .title + "](" + .html_url + ") — " + (.repository_url | split("/repos/")[1]) + " #" + (.number|tostring)')
-          if [ -z "$prs_merged" ]; then
-            echo "- (none)" >> issue_metrics.md
-          else
-            echo "$prs_merged" >> issue_metrics.md
-          fi
-
-          # --- Commits in range ---
-          echo "" >> issue_metrics.md
-          echo "### Commits" >> issue_metrics.md
-          commits=$(gh api -H "Accept: application/vnd.github+json" /search/commits \
-            -f q="org:${ORG} committer-date:${START}..${END}" -f per_page=100 --paginate \
-            -q '.items[] | "- [" + .commit.message | split("\n")[0] + "](" + .html_url + ") — " + .repository.full_name + " @" + (.sha[0:7]) + " (" + .commit.committer.date + ")"')
-          if [ -z "$commits" ]; then
-            echo "- (none)" >> issue_metrics.md
-          else
-            echo "$commits" >> issue_metrics.md
-          fi
+        run: python3 .github/generate_org_report.py
 
       - name: Create weekly report issue
         uses: peter-evans/create-issue-from-file@v5
@@ -161,6 +98,14 @@ jobs:
     env:
       ORG: eunomia-bpf
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
       - name: Compute last month window (UTC)
         shell: bash
         run: |
@@ -181,54 +126,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ORG: ${{ env.ORG }}
           RANGE: ${{ env.RANGE }}
-        run: |
-          set -euo pipefail
-          START="${RANGE%%..*}"
-          END="${RANGE##*..}"
-          STARTZ="${START}T00:00:00Z"
-          ENDZ="${END}T23:59:59Z"
-
-          echo "" >> issue_metrics.md
-          echo "## Org Activity Addendum (${ORG}, ${START}..${END})" >> issue_metrics.md
-
-          total_stars=0
-          repos=$(gh api --paginate /orgs/${ORG}/repos -q '.[].name')
-          for r in $repos; do
-            count=$(gh api --paginate \
-              -H "Accept: application/vnd.github.star+json" \
-              /repos/${ORG}/${r}/stargazers \
-              | jq --arg s "$STARTZ" --arg e "$ENDZ" '[.[] | select(.starred_at >= $s and .starred_at <= $e)] | length' )
-            total_stars=$(( total_stars + ${count:-0} ))
-          done
-          echo "### New Stars (count)" >> issue_metrics.md
-          echo "- Total new stars: **$total_stars**" >> issue_metrics.md
-
-          echo "" >> issue_metrics.md
-          echo "### New Repositories" >> issue_metrics.md
-          new_repos=$(gh api --paginate /orgs/${ORG}/repos \
-            | jq --arg s "$STARTZ" --arg e "$ENDZ" -r '.[] | select(.created_at >= $s and .created_at <= $e) | "- [" + .full_name + "](" + .html_url + ") — created " + .created_at')
-          [ -z "$new_repos" ] && echo "- (none)" >> issue_metrics.md || echo "$new_repos" >> issue_metrics.md
-
-          echo "" >> issue_metrics.md
-          echo "### Pull Requests Opened" >> issue_metrics.md
-          prs_opened=$(gh api -H "Accept: application/vnd.github+json" /search/issues \
-            -f q="org:${ORG} is:pr created:${START}..${END}" -f per_page=100 --paginate \
-            -q '.items[] | "- [" + .title + "](" + .html_url + ") — " + (.repository_url | split("/repos/")[1]) + " #" + (.number|tostring)')
-          [ -z "$prs_opened" ] && echo "- (none)" >> issue_metrics.md || echo "$prs_opened" >> issue_metrics.md
-
-          echo "" >> issue_metrics.md
-          echo "### Pull Requests Merged" >> issue_metrics.md
-          prs_merged=$(gh api -H "Accept: application/vnd.github+json" /search/issues \
-            -f q="org:${ORG} is:pr is:merged merged:${START}..${END}" -f per_page=100 --paginate \
-            -q '.items[] | "- [" + .title + "](" + .html_url + ") — " + (.repository_url | split("/repos/")[1]) + " #" + (.number|tostring)')
-          [ -z "$prs_merged" ] && echo "- (none)" >> issue_metrics.md || echo "$prs_merged" >> issue_metrics.md
-
-          echo "" >> issue_metrics.md
-          echo "### Commits" >> issue_metrics.md
-          commits=$(gh api -H "Accept: application/vnd.github+json" /search/commits \
-            -f q="org:${ORG} committer-date:${START}..${END}" -f per_page=100 --paginate \
-            -q '.items[] | "- [" + .commit.message | split("\n")[0] + "](" + .html_url + ") — " + .repository.full_name + " @" + (.sha[0:7]) + " (" + .commit.committer.date + ")"')
-          [ -z "$commits" ] && echo "- (none)" >> issue_metrics.md || echo "$commits" >> issue_metrics.md
+        run: python3 .github/generate_org_report.py
 
       - name: Create monthly report issue
         uses: peter-evans/create-issue-from-file@v5
@@ -245,6 +143,14 @@ jobs:
       contents: read
       actions: read
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
       - name: Resolve date range (UTC) from inputs
         shell: bash
         run: |
@@ -285,54 +191,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ORG: ${{ env.ORG }}
           RANGE: ${{ env.RANGE }}
-        run: |
-          set -euo pipefail
-          START="${RANGE%%..*}"
-          END="${RANGE##*..}"
-          STARTZ="${START}T00:00:00Z"
-          ENDZ="${END}T23:59:59Z"
-
-          echo "" >> issue_metrics.md
-          echo "## Org Activity Addendum (${ORG}, ${START}..${END})" >> issue_metrics.md
-
-          total_stars=0
-          repos=$(gh api --paginate /orgs/${ORG}/repos -q '.[].name')
-          for r in $repos; do
-            count=$(gh api --paginate \
-              -H "Accept: application/vnd.github.star+json" \
-              /repos/${ORG}/${r}/stargazers \
-              | jq --arg s "$STARTZ" --arg e "$ENDZ" '[.[] | select(.starred_at >= $s and .starred_at <= $e)] | length' )
-            total_stars=$(( total_stars + ${count:-0} ))
-          done
-          echo "### New Stars (count)" >> issue_metrics.md
-          echo "- Total new stars: **$total_stars**" >> issue_metrics.md
-
-          echo "" >> issue_metrics.md
-          echo "### New Repositories" >> issue_metrics.md
-          new_repos=$(gh api --paginate /orgs/${ORG}/repos \
-            | jq --arg s "$STARTZ" --arg e "$ENDZ" -r '.[] | select(.created_at >= $s and .created_at <= $e) | "- [" + .full_name + "](" + .html_url + ") — created " + .created_at')
-          [ -z "$new_repos" ] && echo "- (none)" >> issue_metrics.md || echo "$new_repos" >> issue_metrics.md
-
-          echo "" >> issue_metrics.md
-          echo "### Pull Requests Opened" >> issue_metrics.md
-          prs_opened=$(gh api -H "Accept: application/vnd.github+json" /search/issues \
-            -f q="org:${ORG} is:pr created:${START}..${END}" -f per_page=100 --paginate \
-            -q '.items[] | "- [" + .title + "](" + .html_url + ") — " + (.repository_url | split("/repos/")[1]) + " #" + (.number|tostring)')
-          [ -z "$prs_opened" ] && echo "- (none)" >> issue_metrics.md || echo "$prs_opened" >> issue_metrics.md
-
-          echo "" >> issue_metrics.md
-          echo "### Pull Requests Merged" >> issue_metrics.md
-          prs_merged=$(gh api -H "Accept: application/vnd.github+json" /search/issues \
-            -f q="org:${ORG} is:pr is:merged merged:${START}..${END}" -f per_page=100 --paginate \
-            -q '.items[] | "- [" + .title + "](" + .html_url + ") — " + (.repository_url | split("/repos/")[1]) + " #" + (.number|tostring)')
-          [ -z "$prs_merged" ] && echo "- (none)" >> issue_metrics.md || echo "$prs_merged" >> issue_metrics.md
-
-          echo "" >> issue_metrics.md
-          echo "### Commits" >> issue_metrics.md
-          commits=$(gh api -H "Accept: application/vnd.github+json" /search/commits \
-            -f q="org:${ORG} committer-date:${START}..${END}" -f per_page=100 --paginate \
-            -q '.items[] | "- [" + .commit.message | split("\n")[0] + "](" + .html_url + ") — " + .repository.full_name + " @" + (.sha[0:7]) + " (" + .commit.committer.date + ")"')
-          [ -z "$commits" ] && echo "- (none)" >> issue_metrics.md || echo "$commits" >> issue_metrics.md
+        run: python3 .github/generate_org_report.py
 
       - name: Maybe create an issue
         if: ${{ github.event.inputs.create_issue == 'true' }}
