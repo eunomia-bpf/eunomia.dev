@@ -70,18 +70,12 @@ jobs:
           echo "TITLE=Weekly Org Report ($start..$end)" >> $GITHUB_ENV
           echo "QUERY=org:${{ env.ORG }}" >> $GITHUB_ENV
 
-      - name: Run issue-metrics (org-wide)
-        uses: github/issue-metrics@v3
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SEARCH_QUERY: '${{ env.QUERY }} created:${{ env.RANGE }}'
-
-      - name: Append Org Activity Addendum (stars/PRs/repos/commits)
+      - name: Generate complete org report (issues/PRs/commits/stars)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ORG: ${{ env.ORG }}
           RANGE: ${{ env.RANGE }}
-        run: sudo -E python3 .github/generate_org_report.py
+        run: python3 .github/generate_org_report.py
 
       - name: Create weekly report issue
         uses: peter-evans/create-issue-from-file@v5
@@ -115,18 +109,12 @@ jobs:
           echo "TITLE=Monthly Org Report ($first..$last)" >> $GITHUB_ENV
           echo "QUERY=org:${{ env.ORG }}" >> $GITHUB_ENV
 
-      - name: Run issue-metrics (org-wide)
-        uses: github/issue-metrics@v3
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SEARCH_QUERY: '${{ env.QUERY }} created:${{ env.RANGE }}'
-
-      - name: Append Org Activity Addendum (stars/PRs/repos/commits)
+      - name: Generate complete org report (issues/PRs/commits/stars)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ORG: ${{ env.ORG }}
           RANGE: ${{ env.RANGE }}
-        run: sudo -E python3 .github/generate_org_report.py
+        run: python3 .github/generate_org_report.py
 
       - name: Create monthly report issue
         uses: peter-evans/create-issue-from-file@v5
@@ -180,18 +168,12 @@ jobs:
           echo "ORG=$org" >> $GITHUB_ENV
           echo "TITLE=$prefix ($start..$end)" >> $GITHUB_ENV
 
-      - name: Run issue-metrics
-        uses: github/issue-metrics@v3
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SEARCH_QUERY: '${{ env.QUERY }} created:${{ env.RANGE }}'
-
-      - name: Append Org Activity Addendum (stars/PRs/repos/commits)
+      - name: Generate complete org report (issues/PRs/commits/stars)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ORG: ${{ env.ORG }}
           RANGE: ${{ env.RANGE }}
-        run: sudo -E python3 .github/generate_org_report.py
+        run: python3 .github/generate_org_report.py
 
       - name: Maybe create an issue
         if: ${{ github.event.inputs.create_issue == 'true' }}

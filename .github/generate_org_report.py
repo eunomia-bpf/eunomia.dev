@@ -133,8 +133,10 @@ def get_prs_opened(org: str, start: str, end: str) -> List[str]:
     try:
         # Use gh search prs command instead of gh api
         cmd = ["gh", "search", "prs", f"org:{org}", f"created:{start}..{end}", "--json", "title,url,repository,number", "--limit", "1000"]
+        print(f"Running command: {' '.join(cmd)}", file=sys.stderr)
         result = subprocess.run(cmd, capture_output=True, text=True, check=True)
         items = json.loads(result.stdout)
+        print(f"Found {len(items)} PRs opened", file=sys.stderr)
 
         prs = []
         for item in items:
@@ -157,8 +159,10 @@ def get_prs_merged(org: str, start: str, end: str) -> List[str]:
     try:
         # Use gh search prs command instead of gh api
         cmd = ["gh", "search", "prs", f"org:{org}", "is:merged", f"merged:{start}..{end}", "--json", "title,url,repository,number", "--limit", "1000"]
+        print(f"Running command: {' '.join(cmd)}", file=sys.stderr)
         result = subprocess.run(cmd, capture_output=True, text=True, check=True)
         items = json.loads(result.stdout)
+        print(f"Found {len(items)} PRs merged", file=sys.stderr)
 
         prs = []
         for item in items:
@@ -179,19 +183,33 @@ def get_prs_merged(org: str, start: str, end: str) -> List[str]:
 def get_commits(org: str, start: str, end: str) -> List[str]:
     """Get commits in the date range."""
     try:
-        # Use gh search commits command instead of gh api
-        cmd = ["gh", "search", "commits", f"org:{org}", f"committer-date:{start}..{end}", "--json", "commit,sha,url,repository", "--limit", "1000"]
+        # Use gh search commits command with proper date range format
+        cmd = ["gh", "search", "commits",
+               f"org:{org}",
+               f"committer-date:{start}..{end}",
+               "--json", "commit,sha,url,repository,committer",
+               "--limit", "1000"]
+
+        print(f"Running command: {' '.join(cmd)}", file=sys.stderr)
         result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+
+        if not result.stdout.strip():
+            print("Warning: No commits found (empty response)", file=sys.stderr)
+            return []
+
         items = json.loads(result.stdout)
+        print(f"Found {len(items)} commits", file=sys.stderr)
 
         commits = []
         for item in items:
             message = item["commit"]["message"].split("\n")[0]
             sha_short = item["sha"][:7]
             repo_name = item["repository"]["nameWithOwner"]
+            # Get committer date from the committer object
+            committer_date = item.get("committer", {}).get("date", item["commit"].get("committer", {}).get("date", ""))
             commits.append(
                 f"- [{message}]({item['url']}) — {repo_name} "
-                f"@{sha_short} ({item['commit']['committer']['date']})"
+                f"@{sha_short} ({committer_date})"
             )
 
         return commits
@@ -202,7 +220,86 @@ def get_commits(org: str, start: str, end: str) -> List[str]:
         return []
     except Exception as e:
         print(f"Warning: Failed to get commits: {e}", file=sys.stderr)
+        import traceback
+        traceback.print_exc(file=sys.stderr)
         return []
+
+
+def get_issue_metrics(org: str, start: str, end: str) -> Dict[str, Any]:
+    """Get issue metrics for the date range."""
+    try:
+        # Search for issues created in the date range
+        cmd = ["gh", "search", "issues", f"org:{org}", f"created:{start}..{end}",
+               "--json", "title,url,repository,number,createdAt,closedAt,comments",
+               "--limit", "1000"]
+        print(f"Running command: {' '.join(cmd)}", file=sys.stderr)
+        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+        items = json.loads(result.stdout)
+        print(f"Found {len(items)} issues", file=sys.stderr)
+
+        total_items = len(items)
+        closed_items = sum(1 for item in items if item.get("closedAt"))
+
+        # Calculate average time to first response and time to close
+        # Note: This is a simplified version - full version would need to fetch comments
+        from datetime import datetime
+
+        time_to_close_sum = 0
+        closed_count = 0
+
+        for item in items:
+            if item.get("closedAt"):
+                created = datetime.fromisoformat(item["createdAt"].replace("Z", "+00:00"))
+                closed = datetime.fromisoformat(item["closedAt"].replace("Z", "+00:00"))
+                time_to_close_sum += (closed - created).total_seconds()
+                closed_count += 1
+
+        avg_time_to_close = time_to_close_sum / closed_count if closed_count > 0 else 0
+
+        # Format average time
+        days = int(avg_time_to_close // 86400)
+        hours = int((avg_time_to_close % 86400) // 3600)
+        minutes = int((avg_time_to_close % 3600) // 60)
+        avg_time_str = f"{days} day{'s' if days != 1 else ''}, {hours:02d}:{minutes:02d}:{int(avg_time_to_close % 60):02d}"
+
+        return {
+            "total_items": total_items,
+            "closed_items": closed_items,
+            "avg_time_to_close": avg_time_str,
+            "issues": items
+        }
+    except Exception as e:
+        print(f"Warning: Failed to get issue metrics: {e}", file=sys.stderr)
+        import traceback
+        traceback.print_exc(file=sys.stderr)
+        return {"total_items": 0, "closed_items": 0, "avg_time_to_close": "N/A", "issues": []}
+
+
+def generate_complete_report(org: str, start: str, end: str, output_file: str = "issue_metrics.md"):
+    """Generate complete report including issue metrics and org activity."""
+    start_z = f"{start}T00:00:00Z"
+    end_z = f"{end}T23:59:59Z"
+
+    # Get issue metrics
+    metrics = get_issue_metrics(org, start, end)
+
+    with open(output_file, "w") as f:
+        # Write issue metrics section
+        f.write(f"# Issue Metrics ({start}..{end})\n\n")
+        f.write(f"## Summary\n\n")
+        f.write(f"- Total issues/PRs: **{metrics['total_items']}**\n")
+        f.write(f"- Closed issues/PRs: **{metrics['closed_items']}**\n")
+        f.write(f"- Average time to close: **{metrics['avg_time_to_close']}**\n\n")
+
+        if metrics['issues']:
+            f.write(f"## Issues and Pull Requests\n\n")
+            for item in metrics['issues']:
+                repo_name = item.get('repository', {}).get('nameWithOwner', 'unknown')
+                status = "✅ Closed" if item.get("closedAt") else "🔄 Open"
+                f.write(f"- [{item['title']}]({item['url']}) — {repo_name} #{item['number']} ({status})\n")
+            f.write("\n")
+
+    append_org_activity(org, start, end, output_file)
 
 
 def append_org_activity(org: str, start: str, end: str, output_file: str = "issue_metrics.md"):
@@ -273,9 +370,9 @@ def main():
         print(f"Error: Invalid RANGE format '{date_range}'. Expected 'YYYY-MM-DD..YYYY-MM-DD'", file=sys.stderr)
         sys.exit(1)
 
-    print(f"Generating org activity report for {org} from {start} to {end}")
-    append_org_activity(org, start, end)
-    print("Report appended to issue_metrics.md")
+    print(f"Generating complete org report for {org} from {start} to {end}")
+    generate_complete_report(org, start, end)
+    print("Report generated to issue_metrics.md")
 
 
 if __name__ == "__main__":
