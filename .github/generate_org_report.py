@@ -239,7 +239,7 @@ def get_issue_metrics(org: str, start: str, end: str) -> Dict[str, Any]:
     try:
         # Search for issues created in the date range
         cmd = ["gh", "search", "issues", f"org:{org}", f"created:{start}..{end}",
-               "--json", "title,url,repository,number,createdAt,closedAt,comments",
+               "--json", "title,url,repository,number,createdAt,closedAt,commentsCount",
                "--limit", "1000"]
         print(f"Running command: {' '.join(cmd)}", file=sys.stderr)
         result = subprocess.run(cmd, capture_output=True, text=True, check=True)
