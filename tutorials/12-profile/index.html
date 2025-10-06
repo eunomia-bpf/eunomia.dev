@@ -1929,6 +1929,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../49-hid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial: Fixing Broken HID Devices Without Kernel Patches
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../bpftrace-tutorial/" class="md-nav__link">
         
   
@@ -8275,6 +8298,9 @@
 <h1 id="ebpf-tutorial-by-example-12-using-ebpf-program-profile-for-performance-analysis">eBPF Tutorial by Example 12: Using eBPF Program Profile for Performance Analysis</h1>
 <p>This tutorial will guide you on using eBPF programs for performance analysis with a Rust implementation. We will leverage the perf mechanism in the kernel to learn how to capture the execution time of functions and view performance data.</p>
 <p>This implementation uses libbpf-rs, a Rust wrapper around libbpf, along with blazesym for symbol resolution. Perf is a performance analysis tool in the Linux kernel that allows users to measure and analyze the performance of kernel and user space programs, as well as obtain corresponding call stacks. It collects performance data using hardware counters and software events in the kernel.</p>
+<blockquote>
+<p>The complete source code: <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/12-profile">https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/12-profile</a></p>
+</blockquote>
 <h2 id="ebpf-tool-profile-performance-analysis-example">eBPF Tool: profile Performance Analysis Example</h2>
 <p>The <code>profile</code> tool is implemented based on eBPF and utilizes the perf events in the Linux kernel for performance analysis. The <code>profile</code> tool periodically samples each processor to capture the execution of kernel and user space functions.</p>
 <p>In the stack trace information, the tool displays the memory addresses of function calls, which represent the most primitive location information. Through symbol resolution, these addresses are converted to corresponding function names, allowing developers to directly identify which functions are being executed. Furthermore, when debug information is available, the tool can provide source code file names and specific line numbers, pinpointing the exact location in the code. This complete information chain from addresses to symbols to source code locations provides developers with a comprehensive perspective for performance analysis.</p>
@@ -8660,7 +8686,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 2, 2025 00:04:47 UTC">October 2, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 6, 2025 05:45:55 UTC">October 6, 2025</span>
   </span>
 
     

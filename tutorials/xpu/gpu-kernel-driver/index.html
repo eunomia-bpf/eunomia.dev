@@ -1836,6 +1836,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../../49-hid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial: Fixing Broken HID Devices Without Kernel Patches
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../bpftrace-tutorial/" class="md-nav__link">
         
   
@@ -8383,6 +8406,9 @@
 <h1 id="ebpf-tutorial-by-example-monitoring-gpu-driver-activity-with-kernel-tracepoints">eBPF Tutorial by Example: Monitoring GPU Driver Activity with Kernel Tracepoints</h1>
 <p>When games stutter or ML training slows down, the answers lie inside the GPU kernel driver. Linux kernel tracepoints expose real-time job scheduling, memory allocation, and command submission data. Unlike userspace profiling tools that sample periodically and miss events, kernel tracepoints catch every operation with nanosecond timestamps and minimal overhead.</p>
 <p>This tutorial shows how to monitor GPU activity using eBPF and bpftrace. We'll track DRM scheduler jobs, measure latency, and diagnose bottlenecks using stable kernel tracepoints that work across Intel, AMD, and Nouveau drivers.</p>
+<blockquote>
+<p>The complete source code: <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/xpu/gpu-kernel-driver">https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/xpu/gpu-kernel-driver</a></p>
+</blockquote>
 <h2 id="gpu-kernel-tracepoints-zero-overhead-observability">GPU Kernel Tracepoints: Zero-Overhead Observability</h2>
 <p>GPU tracepoints are instrumentation points built into the kernel's Direct Rendering Manager (DRM) subsystem. When your GPU schedules a job, allocates memory, or signals a fence, these tracepoints fire with precise timing and driver state.</p>
 <p>The key insight: kernel tracepoints activate only when events occur, adding nanoseconds of overhead per event. They capture 100% of activity including microsecond-duration jobs. Polling-based monitoring checks GPU state every 100ms and misses short-lived operations entirely.</p>
@@ -8568,7 +8594,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 6, 2025 02:44:57 UTC">October 6, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 6, 2025 05:45:55 UTC">October 6, 2025</span>
   </span>
 
     

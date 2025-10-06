@@ -1836,6 +1836,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../../49-hid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial: Fixing Broken HID Devices Without Kernel Patches
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../bpftrace-tutorial/" class="md-nav__link">
         
   
@@ -8383,6 +8406,9 @@
 <h1 id="ebpf-tutorial-by-example-tracing-intel-npu-kernel-driver-operations">eBPF Tutorial by Example: Tracing Intel NPU Kernel Driver Operations</h1>
 <p>Neural Processing Units (NPUs) are the next frontier in AI acceleration - built directly into modern CPUs to handle machine learning workloads without burning through GPU power budgets. Intel's Lunar Lake and Meteor Lake processors pack dedicated NPU hardware, but when your AI model runs slow, inference fails, or memory allocation crashes, debugging feels impossible. The NPU driver is a black box, firmware communication is opaque, and userspace APIs hide what's really happening in the kernel.</p>
 <p>This tutorial shows you how to trace Intel NPU kernel driver operations using eBPF and bpftrace. We'll monitor the complete workflow from Level Zero API calls down to kernel functions, track IPC communication with NPU firmware, measure memory allocation patterns, and diagnose performance bottlenecks. By the end, you'll understand how NPU drivers work internally and have practical tools for debugging AI workload issues.</p>
+<blockquote>
+<p>The complete source code: <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/xpu/npu-kernel-driver">https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/xpu/npu-kernel-driver</a></p>
+</blockquote>
 <h2 id="intel-npu-driver-architecture">Intel NPU Driver Architecture</h2>
 <p>Intel's NPU driver follows a two-layer architecture similar to GPU drivers. The kernel module (<code>intel_vpu</code>) lives in mainline Linux at <code>drivers/accel/ivpu/</code> and exposes <code>/dev/accel/accel0</code> as the device interface. This handles hardware communication, memory management through an MMU, and IPC (Inter-Processor Communication) with NPU firmware running on the accelerator itself.</p>
 <p>The userspace driver (<code>libze_intel_vpu.so</code>) implements the Level Zero API - Intel's unified programming interface for accelerators. When you call Level Zero functions like <code>zeMemAllocHost()</code> or <code>zeCommandQueueExecuteCommandLists()</code>, the library translates these into DRM ioctls that hit the kernel module. The kernel validates requests, sets up memory mappings, submits work to the NPU firmware, and polls for completion.</p>
@@ -8608,7 +8634,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 6, 2025 02:08:17 UTC">October 6, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 6, 2025 05:45:55 UTC">October 6, 2025</span>
   </span>
 
     

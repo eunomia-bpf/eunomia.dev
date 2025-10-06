@@ -1977,6 +1977,14 @@
          
     </url>
     <url>
+         <loc>https://eunomia.dev/tutorials/49-hid/</loc>
+         <lastmod>2025-10-06</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/49-hid/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/49-hid/"/>
+         
+    </url>
+    <url>
          <loc>https://eunomia.dev/tutorials/5-uprobe-bashreadline/</loc>
          <lastmod>2025-10-06</lastmod>
          <changefreq>daily</changefreq>

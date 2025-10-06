@@ -2412,6 +2412,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../49-hid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    eBPF Tutorial: Fixing Broken HID Devices Without Kernel Patches
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../bpftrace-tutorial/" class="md-nav__link">
         
   
@@ -9240,6 +9263,9 @@
 
 <h1 id="ebpf-tutorial-energy-monitoring-for-process-level-power-analysis">eBPF Tutorial: Energy Monitoring for Process-Level Power Analysis</h1>
 <p>Have you ever wondered how much energy your applications are consuming? As energy efficiency becomes increasingly critical in both data centers and edge devices, understanding power consumption at the process level is essential for optimization. In this tutorial, we'll build an eBPF-based energy monitoring tool that provides real-time insights into process-level power consumption with minimal overhead.</p>
+<blockquote>
+<p>The complete source code: <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/48-energy">https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/48-energy</a></p>
+</blockquote>
 <h2 id="introduction-to-energy-monitoring-and-power-analysis">Introduction to Energy Monitoring and Power Analysis</h2>
 <p>Energy monitoring in computing systems has traditionally been challenging due to the lack of fine-grained measurement capabilities. While hardware counters like Intel RAPL (Running Average Power Limit) can measure total system or CPU package power, they don't tell you which processes are consuming that power. This is where software-based energy attribution comes into play.</p>
 <p>When a process runs on a CPU, it consumes power proportional to its CPU time and the processor's power state. The challenge is accurately tracking this relationship in real-time without introducing significant overhead that would itself consume power and skew measurements. Traditional approaches using polling-based monitoring can miss short-lived processes and introduce measurement overhead that affects the very metrics being measured.</p>
@@ -9828,7 +9854,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 1, 2025 00:36:56 UTC">October 1, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 6, 2025 05:45:55 UTC">October 6, 2025</span>
   </span>
 
     
