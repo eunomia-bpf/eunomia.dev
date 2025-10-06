@@ -1,9 +1,9 @@
 name: Auto Publish Posts
 
 on:
-  # Run weekly on Mondays at 9:00 AM UTC
+  # Run weekly on Mondays at 4:30 AM UTC
   schedule:
-    - cron: '0 9 * * 1'
+    - cron: '30 4 * * 1'
 
   # Allow manual triggering
   workflow_dispatch:
@@ -44,7 +44,8 @@ jobs:
         env:
           PUBLISH_PASSWORD: ${{ secrets.PUBLISH_PASSWORD }}
           DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
-          DRAFT_ONLY: ${{ github.event.inputs.draft_only || 'false' }}
+          # For scheduled runs, publish live (not draft). For manual runs, default to draft.
+          DRAFT_ONLY: ${{ github.event_name == 'schedule' && 'false' || github.event.inputs.draft_only || 'true' }}
         run: |
           python .github/publisher/publish.py
 

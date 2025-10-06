@@ -15,22 +15,39 @@ API_ENDPOINT = "https://media-publisher.vercel.app/api/publish-multi"
 QUEUE_FILE = ".github/publisher/posts_queue.txt"
 
 
+def has_yaml_frontmatter(content):
+    """Check if content starts with YAML frontmatter."""
+    return content.strip().startswith('---')
+
+
 def extract_title_from_markdown(content):
     """
     Extract the first H1 title from markdown content.
-    Supports both # Title and Title\n=== formats.
+    Supports:
+    1. YAML frontmatter with title in H1
+    2. # Title format
+    3. Title\n=== format
     """
     lines = content.strip().split('\n')
+    start_index = 0
 
-    # Look for # Title format
-    for i, line in enumerate(lines):
-        line = line.strip()
+    # Skip YAML frontmatter if present
+    if lines and lines[0].strip() == '---':
+        # Find the closing ---
+        for i in range(1, len(lines)):
+            if lines[i].strip() == '---':
+                start_index = i + 1
+                break
+
+    # Look for # Title format (after frontmatter)
+    for i in range(start_index, len(lines)):
+        line = lines[i].strip()
         if line.startswith('# '):
             title = line[2:].strip()
             return title, i
 
     # Look for Title\n=== format
-    for i in range(len(lines) - 1):
+    for i in range(start_index, len(lines) - 1):
         if lines[i+1].strip().startswith('===') or lines[i+1].strip().startswith('---'):
             if lines[i].strip():
                 title = lines[i].strip()
@@ -41,28 +58,41 @@ def extract_title_from_markdown(content):
 
 def remove_title_from_content(content):
     """
-    Remove the first title from markdown content and return cleaned content.
+    Remove the first title and YAML frontmatter from markdown content.
+    Returns cleaned content suitable for publishing to Medium/Dev.to.
     """
     lines = content.strip().split('\n')
+    start_index = 0
+
+    # Skip YAML frontmatter if present
+    if lines and lines[0].strip() == '---':
+        for i in range(1, len(lines)):
+            if lines[i].strip() == '---':
+                start_index = i + 1
+                break
 
     # Remove # Title format
-    for i, line in enumerate(lines):
-        if line.strip().startswith('# '):
+    for i in range(start_index, len(lines)):
+        if lines[i].strip().startswith('# '):
             # Remove the title line and any following empty lines
-            new_lines = lines[:i] + lines[i+1:]
+            new_lines = lines[i+1:]
             while new_lines and not new_lines[0].strip():
                 new_lines.pop(0)
             return '\n'.join(new_lines).strip()
 
     # Remove Title\n=== format
-    for i in range(len(lines) - 1):
+    for i in range(start_index, len(lines) - 1):
         if lines[i+1].strip().startswith('===') or lines[i+1].strip().startswith('---'):
             if lines[i].strip():
                 # Remove title and underline
-                new_lines = lines[:i] + lines[i+2:]
+                new_lines = lines[i+2:]
                 while new_lines and not new_lines[0].strip():
                     new_lines.pop(0)
                 return '\n'.join(new_lines).strip()
+
+    # No title found, just remove frontmatter if it exists
+    if start_index > 0:
+        return '\n'.join(lines[start_index:]).strip()
 
     return content
 

@@ -1,0 +1,14 @@
+{"path": "docs/tutorials/48-energy/README.md", "tags": ["eBPF", "energy", "monitoring"]}
+{"path": "docs/tutorials/26-sudo/README.md", "tags": ["eBPF", "security", "LSM"]}
+{"path": "docs/tutorials/xpu/gpu-kernel-driver/README.md", "tags": ["eBPF", "GPU", "kernel"]}
+{"path": "docs/tutorials/46-xdp-test/README.md", "tags": ["eBPF", "XDP", "network"]}
+{"path": "docs/tutorials/45-scx-nest/README.md", "tags": ["eBPF", "scheduler", "kernel"]}
+{"path": "docs/tutorials/44-scx-simple/README.md", "tags": ["eBPF", "scheduler", "kernel"]}
+{"path": "docs/tutorials/43-kfuncs/README.md", "tags": ["eBPF", "kernel", "kfunc"]}
+{"path": "docs/tutorials/xpu/npu-kernel-driver/README.md", "tags": ["eBPF", "NPU", "kernel"]}
+{"path": "docs/tutorials/32-wallclock-profiler/README.md", "tags": ["eBPF", "profiler", "tracing"]}
+{"path": "docs/tutorials/27-replace/README.md", "tags": ["eBPF", "kernel", "tracing"]}
+{"path": "docs/tutorials/47-cuda-events/README.md", "tags": ["eBPF", "CUDA", "GPU"]}
+{"path": "docs/tutorials/features/bpf_arena/README.md", "tags": ["eBPF", "arena", "memory"]}
+{"path": "docs/tutorials/features/bpf_iters/README.md", "tags": ["eBPF", "iterator", "kernel"]}
+{"path": "docs/tutorials/features/bpf_wq/README.md", "tags": ["eBPF", "workqueue", "kernel"]}
