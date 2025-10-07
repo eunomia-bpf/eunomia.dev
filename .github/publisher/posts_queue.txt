@@ -1,4 +1,3 @@
-{"path": "docs/blog/posts/agentsight_paper.md", "tags": ["eBPF", "AI", "observability"]}
 {"path": "docs/tutorials/48-energy/README.md", "tags": ["eBPF", "energy", "monitoring"]}
 {"path": "docs/tutorials/26-sudo/README.md", "tags": ["eBPF", "security", "LSM"]}
 {"path": "docs/tutorials/xpu/gpu-kernel-driver/README.md", "tags": ["eBPF", "GPU", "kernel"]}
