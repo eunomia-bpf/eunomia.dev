@@ -3,7 +3,7 @@ name: Auto Publish Posts
 on:
   # Run weekly on Mondays at 4:30 AM UTC
   schedule:
-    - cron: '30 4 * * 1'
+    - cron: '00 7 * * 2'
 
   # Allow manual triggering
   workflow_dispatch:
