@@ -24,7 +24,7 @@
     
     
       
-        <title>CUDA PTX Example: Vector Multiplication Using Inline PTX Assembly - eunomia</title>
+        <title>Tutorial: Understanding GPU Assembly with PTX - eunomia</title>
       
     
     
@@ -69,7 +69,7 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="CUDA PTX Example: Vector Multiplication Using Inline PTX Assembly - eunomia" >
+        <meta  property="og:title"  content="Tutorial: Understanding GPU Assembly with PTX - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
@@ -85,7 +85,7 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="CUDA PTX Example: Vector Multiplication Using Inline PTX Assembly - eunomia" >
+        <meta  name="twitter:title"  content="Tutorial: Understanding GPU Assembly with PTX - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
@@ -112,7 +112,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#cuda-ptx-example-vector-multiplication-using-inline-ptx-assembly" class="md-skip">
+        <a href="#tutorial-understanding-gpu-assembly-with-ptx" class="md-skip">
           Skip to content
         </a>
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              CUDA PTX Example: Vector Multiplication Using Inline PTX Assembly
+              Tutorial: Understanding GPU Assembly with PTX
             
           </span>
         </div>
@@ -4542,7 +4542,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA Basic Example - Vector Addition Explanation
+    Tutorial: Your First CUDA Program - Vector Addition
     
   </span>
   
@@ -4574,7 +4574,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA PTX Example: Vector Multiplication Using Inline PTX Assembly
+    Tutorial: Understanding GPU Assembly with PTX
     
   </span>
   
@@ -4587,7 +4587,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA PTX Example: Vector Multiplication Using Inline PTX Assembly
+    Tutorial: Understanding GPU Assembly with PTX
     
   </span>
   
@@ -4610,46 +4610,73 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-is-ptx" class="md-nav__link">
+  <a href="#what-is-ptx-and-why-should-you-care" class="md-nav__link">
     <span class="md-ellipsis">
-      What is PTX?
+      What is PTX and Why Should You Care?
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#example-overview" class="md-nav__link">
+  <a href="#the-compilation-pipeline" class="md-nav__link">
     <span class="md-ellipsis">
-      Example Overview
+      The Compilation Pipeline
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#code-explanation" class="md-nav__link">
+  <a href="#generating-and-inspecting-ptx" class="md-nav__link">
     <span class="md-ellipsis">
-      Code Explanation
+      Generating and Inspecting PTX
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Code Explanation">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ptx-structure-and-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      PTX Structure and Syntax
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PTX Structure and Syntax">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#ptx-inline-assembly-function" class="md-nav__link">
+  <a href="#register-declaration" class="md-nav__link">
     <span class="md-ellipsis">
-      PTX Inline Assembly Function
+      Register Declaration
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#cuda-kernel" class="md-nav__link">
+  <a href="#thread-index-calculation" class="md-nav__link">
     <span class="md-ellipsis">
-      CUDA Kernel
+      Thread Index Calculation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#control-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Control Flow
     </span>
   </a>
   
@@ -4661,18 +4688,171 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#common-ptx-instructions" class="md-nav__link">
+  <a href="#writing-inline-ptx-assembly" class="md-nav__link">
     <span class="md-ellipsis">
-      Common PTX Instructions
+      Writing Inline PTX Assembly
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Writing Inline PTX Assembly">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-inline-ptx-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Inline PTX Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#more-complex-example-multiply-add" class="md-nav__link">
+    <span class="md-ellipsis">
+      More Complex Example: Multiply-Add
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimizing-memory-access-with-ptx" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optimizing Memory Access with PTX
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hands-on-exercise-comparing-compiler-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hands-On Exercise: Comparing Compiler Output
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#building-and-running" class="md-nav__link">
+  <a href="#building-and-running-the-ptx-example" class="md-nav__link">
     <span class="md-ellipsis">
-      Building and Running
+      Building and Running the PTX Example
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-ptx-instruction-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding PTX Instruction Types
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understanding PTX Instruction Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arithmetic-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Arithmetic Instructions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparison-and-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comparison and Selection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bit-manipulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bit Manipulation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#special-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Special Functions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memory-spaces-and-qualifiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Spaces and Qualifiers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cache-control-and-memory-modifiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cache Control and Memory Modifiers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp-level-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Warp-Level Operations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Warp-Level Operations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#warp-shuffle" class="md-nav__link">
+    <span class="md-ellipsis">
+      Warp Shuffle
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#warp-vote" class="md-nav__link">
+    <span class="md-ellipsis">
+      Warp Vote
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debugging-ptx-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debugging PTX Code
     </span>
   </a>
   
@@ -4682,6 +4862,117 @@
   <a href="#performance-considerations" class="md-nav__link">
     <span class="md-ellipsis">
       Performance Considerations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use-inline-ptx" class="md-nav__link">
+    <span class="md-ellipsis">
+      When to Use Inline PTX
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-not-to-use-inline-ptx" class="md-nav__link">
+    <span class="md-ellipsis">
+      When Not to Use Inline PTX
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-specific-optimizations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Architecture-Specific Optimizations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#real-world-use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Real-World Use Cases
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Real-World Use Cases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#case-study-1-custom-atomic-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Case Study 1: Custom Atomic Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#case-study-2-warp-level-reduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Case Study 2: Warp-Level Reduction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#case-study-3-memory-fence-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      Case Study 3: Memory Fence Control
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-topics-preview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Topics Preview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#challenge-exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      Challenge Exercises
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
     </span>
   </a>
   
@@ -4740,7 +5031,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA GPU Organization Hierarchy
+    Tutorial: Understanding GPU Architecture and Execution Model
     
   </span>
   
@@ -4763,7 +5054,7 @@
   
   
   <span class="md-ellipsis">
-    Neural Network Forward Pass on GPU with CUDA
+    Tutorial: Neural Network Forward Pass on GPU
     
   </span>
   
@@ -4786,7 +5077,7 @@
   
   
   <span class="md-ellipsis">
-    GPU-Accelerated Convolution Operations with Shared Memory Optimization
+    Tutorial: CNN Convolution with Shared Memory Optimization
     
   </span>
   
@@ -8053,29 +8344,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../miscellaneous/iaprof-analysis/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Understanding iaprof: A Deep Dive into AI/GPU Flame Graph Profiling
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../miscellaneous/ideas/" class="md-nav__link">
         
   
@@ -8377,46 +8645,73 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-is-ptx" class="md-nav__link">
+  <a href="#what-is-ptx-and-why-should-you-care" class="md-nav__link">
     <span class="md-ellipsis">
-      What is PTX?
+      What is PTX and Why Should You Care?
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#example-overview" class="md-nav__link">
+  <a href="#the-compilation-pipeline" class="md-nav__link">
     <span class="md-ellipsis">
-      Example Overview
+      The Compilation Pipeline
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#code-explanation" class="md-nav__link">
+  <a href="#generating-and-inspecting-ptx" class="md-nav__link">
     <span class="md-ellipsis">
-      Code Explanation
+      Generating and Inspecting PTX
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Code Explanation">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ptx-structure-and-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      PTX Structure and Syntax
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PTX Structure and Syntax">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#ptx-inline-assembly-function" class="md-nav__link">
+  <a href="#register-declaration" class="md-nav__link">
     <span class="md-ellipsis">
-      PTX Inline Assembly Function
+      Register Declaration
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#cuda-kernel" class="md-nav__link">
+  <a href="#thread-index-calculation" class="md-nav__link">
     <span class="md-ellipsis">
-      CUDA Kernel
+      Thread Index Calculation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#control-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Control Flow
     </span>
   </a>
   
@@ -8428,18 +8723,171 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#common-ptx-instructions" class="md-nav__link">
+  <a href="#writing-inline-ptx-assembly" class="md-nav__link">
     <span class="md-ellipsis">
-      Common PTX Instructions
+      Writing Inline PTX Assembly
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Writing Inline PTX Assembly">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-inline-ptx-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Inline PTX Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#more-complex-example-multiply-add" class="md-nav__link">
+    <span class="md-ellipsis">
+      More Complex Example: Multiply-Add
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimizing-memory-access-with-ptx" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optimizing Memory Access with PTX
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hands-on-exercise-comparing-compiler-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hands-On Exercise: Comparing Compiler Output
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#building-and-running" class="md-nav__link">
+  <a href="#building-and-running-the-ptx-example" class="md-nav__link">
     <span class="md-ellipsis">
-      Building and Running
+      Building and Running the PTX Example
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-ptx-instruction-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding PTX Instruction Types
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understanding PTX Instruction Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arithmetic-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Arithmetic Instructions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparison-and-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comparison and Selection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bit-manipulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bit Manipulation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#special-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Special Functions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memory-spaces-and-qualifiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Spaces and Qualifiers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cache-control-and-memory-modifiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cache Control and Memory Modifiers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp-level-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Warp-Level Operations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Warp-Level Operations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#warp-shuffle" class="md-nav__link">
+    <span class="md-ellipsis">
+      Warp Shuffle
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#warp-vote" class="md-nav__link">
+    <span class="md-ellipsis">
+      Warp Vote
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debugging-ptx-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debugging PTX Code
     </span>
   </a>
   
@@ -8449,6 +8897,117 @@
   <a href="#performance-considerations" class="md-nav__link">
     <span class="md-ellipsis">
       Performance Considerations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use-inline-ptx" class="md-nav__link">
+    <span class="md-ellipsis">
+      When to Use Inline PTX
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-not-to-use-inline-ptx" class="md-nav__link">
+    <span class="md-ellipsis">
+      When Not to Use Inline PTX
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-specific-optimizations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Architecture-Specific Optimizations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#real-world-use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Real-World Use Cases
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Real-World Use Cases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#case-study-1-custom-atomic-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Case Study 1: Custom Atomic Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#case-study-2-warp-level-reduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Case Study 2: Warp-Level Reduction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#case-study-3-memory-fence-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      Case Study 3: Memory Fence Control
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-topics-preview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Topics Preview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#challenge-exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      Challenge Exercises
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
     </span>
   </a>
   
@@ -8487,95 +9046,364 @@
   
 
 
-<h1 id="cuda-ptx-example-vector-multiplication-using-inline-ptx-assembly">CUDA PTX Example: Vector Multiplication Using Inline PTX Assembly</h1>
-<p>This example demonstrates how to use CUDA PTX (Parallel Thread Execution) inline assembly in your CUDA programs. PTX is NVIDIA's low-level parallel thread execution virtual machine and instruction set architecture (ISA).</p>
-<p>You can find the code in <a href="https://github.com/eunomia-bpf/basic-cuda-tutorial">https://github.com/eunomia-bpf/basic-cuda-tutorial</a></p>
-<h2 id="what-is-ptx">What is PTX?</h2>
-<p>PTX is an intermediate assembly language that provides a stable programming model and instruction set for CUDA programs. It serves several purposes:</p>
-<ol>
-<li>Provides a machine-independent ISA for parallel computing</li>
-<li>Enables hand-tuning of code for specific GPU architectures</li>
-<li>Allows direct control over GPU instructions</li>
-<li>Facilitates optimization of performance-critical code sections</li>
-</ol>
-<h2 id="example-overview">Example Overview</h2>
-<p>The example in <code>basic02.cu</code> shows how to:
-1. Write inline PTX assembly in CUDA C++
-2. Use PTX for a simple arithmetic operation (multiplication by 2)
-3. Integrate PTX code with regular CUDA kernels</p>
-<h2 id="code-explanation">Code Explanation</h2>
-<h3 id="ptx-inline-assembly-function">PTX Inline Assembly Function</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kt">__device__</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">multiplyByTwo</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="k">asm</span><span class="p">(</span><span class="s">&quot;mul.lo.s32 %0, %1, 2;&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;=r&quot;</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;r&quot;</span><span class="p">(</span><span class="n">x</span><span class="p">));</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">}</span>
+<h1 id="tutorial-understanding-gpu-assembly-with-ptx">Tutorial: Understanding GPU Assembly with PTX</h1>
+<p><strong>Time Required:</strong> 45-60 minutes
+<strong>Difficulty:</strong> Intermediate
+<strong>Prerequisites:</strong> Completed Tutorial 01 (Vector Addition), understanding of assembly language concepts helpful but not required</p>
+<p>By the end of this tutorial, you will understand PTX (Parallel Thread Execution), NVIDIA's virtual assembly language for GPUs. You'll learn how to read compiler-generated PTX, write inline PTX assembly for performance optimization, and understand the relationship between high-level CUDA code and what actually executes on the GPU.</p>
+<h2 id="what-is-ptx-and-why-should-you-care">What is PTX and Why Should You Care?</h2>
+<p>When you write CUDA code, it doesn't directly become machine instructions that run on your GPU. Instead, it goes through several compilation stages. Understanding PTX sits at the sweet spot between high-level CUDA C++ and low-level GPU machine code (SASS).</p>
+<p>Think of PTX as an intermediate language similar to Java bytecode or LLVM IR. It provides several advantages:</p>
+<p><strong>Architecture Independence:</strong> PTX code can run on different GPU architectures. The driver compiles PTX to actual machine code for your specific GPU at runtime. This means code compiled years ago can still take advantage of newer GPUs.</p>
+<p><strong>Performance Tuning:</strong> Sometimes the CUDA compiler makes conservative choices. By writing inline PTX, you can hand-optimize critical sections when profiling shows they're bottlenecks.</p>
+<p><strong>Understanding Compiler Output:</strong> Reading PTX helps you understand what the compiler does with your code. You can spot inefficiencies and write better high-level code.</p>
+<p><strong>Low-Level Control:</strong> PTX gives you access to special instructions and hardware features not exposed in CUDA C++.</p>
+<h2 id="the-compilation-pipeline">The Compilation Pipeline</h2>
+<p>Before diving into PTX, understand where it fits in the compilation process:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>CUDA C++ (.cu)
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    ↓ [nvcc frontend]
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>PTX Assembly (.ptx)
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    ↓ [ptxas assembler]
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>SASS Machine Code (.cubin)
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    ↓ [driver at runtime]
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>GPU Execution
 </code></pre></div>
-<p>This function uses inline PTX assembly to multiply a number by 2. Let's break down the PTX instruction:</p>
-<ul>
-<li><code>mul.lo.s32</code>: Multiply operation for 32-bit signed integers</li>
-<li><code>%0</code>: First output operand (result)</li>
-<li><code>%1</code>: First input operand (x)</li>
-<li><code>2</code>: Immediate value to multiply by</li>
-<li><code>:</code>: Separates the instruction from the operand mappings</li>
-<li><code>"=r"(result)</code>: Output operand mapping</li>
-<li><code>"r"(x)</code>: Input operand mapping</li>
-</ul>
-<h3 id="cuda-kernel">CUDA Kernel</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">vectorMultiplyByTwoPTX</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">output</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">multiplyByTwo</span><span class="p">(</span><span class="n">input</span><span class="p">[</span><span class="n">idx</span><span class="p">]);</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="p">}</span>
+<p>The <code>nvcc</code> compiler first translates your CUDA code to PTX. Then <code>ptxas</code> (the PTX assembler) converts PTX to SASS (Shader Assembly), which is the actual machine code for your GPU architecture. The CUDA driver can also perform this final step at runtime, enabling forward compatibility.</p>
+<h2 id="generating-and-inspecting-ptx">Generating and Inspecting PTX</h2>
+<p>Let's start by looking at the PTX generated from our vector addition example. Compile with the PTX output flag:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>nvcc<span class="w"> </span>-ptx<span class="w"> </span><span class="m">01</span>-vector-addition.cu<span class="w"> </span>-o<span class="w"> </span><span class="m">01</span>-vector-addition.ptx
 </code></pre></div>
-<p>The kernel applies our PTX function to each element of the input array in parallel.</p>
-<h2 id="common-ptx-instructions">Common PTX Instructions</h2>
-<p>Here are some commonly used PTX instructions:</p>
-<ol>
-<li>Arithmetic Operations:</li>
-<li><code>add.s32</code>: 32-bit integer addition</li>
-<li><code>sub.s32</code>: 32-bit integer subtraction</li>
-<li><code>mul.lo.s32</code>: 32-bit integer multiplication (low 32 bits)</li>
-<li>
-<p><code>div.s32</code>: 32-bit integer division</p>
-</li>
-<li>
-<p>Memory Operations:</p>
-</li>
-<li><code>ld.global</code>: Load from global memory</li>
-<li><code>st.global</code>: Store to global memory</li>
-<li><code>ld.shared</code>: Load from shared memory</li>
-<li>
-<p><code>st.shared</code>: Store to shared memory</p>
-</li>
-<li>
-<p>Control Flow:</p>
-</li>
-<li><code>bra</code>: Branch</li>
-<li><code>setp</code>: Set predicate</li>
-<li><code>@p</code>: Predicated execution</li>
-</ol>
-<h2 id="building-and-running">Building and Running</h2>
-<p>To compile the example:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>nvcc<span class="w"> </span>-o<span class="w"> </span>basic02<span class="w"> </span>basic02.cu
+<p>Open <code>01-vector-addition.ptx</code> in a text editor. You'll see something like this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kr">.visible</span><span class="w"> </span><span class="kr">.entry</span><span class="w"> </span><span class="nv">vectorAdd</span><span class="p">(</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="kp">.param</span><span class="w"> </span><span class="kt">.u64</span><span class="w"> </span><span class="nv">vectorAdd_param_0</span><span class="o">,</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="kp">.param</span><span class="w"> </span><span class="kt">.u64</span><span class="w"> </span><span class="nv">vectorAdd_param_1</span><span class="o">,</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="kp">.param</span><span class="w"> </span><span class="kt">.u64</span><span class="w"> </span><span class="nv">vectorAdd_param_2</span><span class="o">,</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="kp">.param</span><span class="w"> </span><span class="kt">.u32</span><span class="w"> </span><span class="nv">vectorAdd_param_3</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="p">)</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">{</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="kr">.reg</span><span class="w"> </span><span class="kt">.pred</span><span class="w">  </span><span class="nv">%p</span><span class="p">&lt;</span><span class="m">2</span><span class="p">&gt;;</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="kr">.reg</span><span class="w"> </span><span class="kt">.b32</span><span class="w">   </span><span class="nv">%r</span><span class="p">&lt;</span><span class="m">5</span><span class="p">&gt;;</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="kr">.reg</span><span class="w"> </span><span class="kt">.b64</span><span class="w">   </span><span class="nv">%rd</span><span class="p">&lt;</span><span class="m">11</span><span class="p">&gt;;</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="k">ld</span><span class="kp">.param</span><span class="kt">.u64</span><span class="w">    </span><span class="nv">%rd1</span><span class="o">,</span><span class="w"> </span><span class="p">[</span><span class="nv">vectorAdd_param_0</span><span class="p">];</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">    </span><span class="k">ld</span><span class="kp">.param</span><span class="kt">.u64</span><span class="w">    </span><span class="nv">%rd2</span><span class="o">,</span><span class="w"> </span><span class="p">[</span><span class="nv">vectorAdd_param_1</span><span class="p">];</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">    </span><span class="k">ld</span><span class="kp">.param</span><span class="kt">.u64</span><span class="w">    </span><span class="nv">%rd3</span><span class="o">,</span><span class="w"> </span><span class="p">[</span><span class="nv">vectorAdd_param_2</span><span class="p">];</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">    </span><span class="k">ld</span><span class="kp">.param</span><span class="kt">.u32</span><span class="w">    </span><span class="nv">%r1</span><span class="o">,</span><span class="w"> </span><span class="p">[</span><span class="nv">vectorAdd_param_3</span><span class="p">];</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">    </span><span class="k">mov</span><span class="kt">.u32</span><span class="w">         </span><span class="nv">%r2</span><span class="o">,</span><span class="w"> </span><span class="nv">%ctaid.x</span><span class="p">;</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">    </span><span class="k">mov</span><span class="kt">.u32</span><span class="w">         </span><span class="nv">%r3</span><span class="o">,</span><span class="w"> </span><span class="nv">%ntid.x</span><span class="p">;</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="w">    </span><span class="k">mov</span><span class="kt">.u32</span><span class="w">         </span><span class="nv">%r4</span><span class="o">,</span><span class="w"> </span><span class="nv">%tid.x</span><span class="p">;</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">    </span><span class="k">mad</span><span class="nv">.lo.s32</span><span class="w">      </span><span class="nv">%r1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r3</span><span class="o">,</span><span class="w"> </span><span class="nv">%r2</span><span class="o">,</span><span class="w"> </span><span class="nv">%r4</span><span class="p">;</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="w">    </span><span class="k">setp</span><span class="nv">.ge.s32</span><span class="w">     </span><span class="nv">%p1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r2</span><span class="p">;</span>
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="w">    </span><span class="err">@</span><span class="nv">%p1</span><span class="w"> </span><span class="k">bra</span><span class="w">        </span><span class="nv">BB0_2</span><span class="p">;</span>
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="w">    </span><span class="c">// ... vector addition code ...</span>
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="p">}</span>
+</code></pre></div>
+<p>Let's decode what this means.</p>
+<h2 id="ptx-structure-and-syntax">PTX Structure and Syntax</h2>
+<h3 id="register-declaration">Register Declaration</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kr">.reg</span><span class="w"> </span><span class="kt">.pred</span><span class="w">  </span><span class="nv">%p</span><span class="p">&lt;</span><span class="m">2</span><span class="p">&gt;;</span><span class="w">      </span><span class="c">// Predicate registers (for conditionals)</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kr">.reg</span><span class="w"> </span><span class="kt">.b32</span><span class="w">   </span><span class="nv">%r</span><span class="p">&lt;</span><span class="m">5</span><span class="p">&gt;;</span><span class="w">      </span><span class="c">// 32-bit integer registers</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="kr">.reg</span><span class="w"> </span><span class="kt">.b64</span><span class="w">   </span><span class="nv">%rd</span><span class="p">&lt;</span><span class="m">11</span><span class="p">&gt;;</span><span class="w">    </span><span class="c">// 64-bit integer registers</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="kr">.reg</span><span class="w"> </span><span class="kt">.f32</span><span class="w">   </span><span class="nv">%f</span><span class="p">&lt;</span><span class="m">8</span><span class="p">&gt;;</span><span class="w">      </span><span class="c">// 32-bit floating-point registers</span>
+</code></pre></div>
+<p>PTX uses virtual registers with unlimited supply. The actual hardware has a limited number of registers per thread, so <code>ptxas</code> maps these virtual registers to physical ones. This is why high register usage can limit occupancy.</p>
+<h3 id="thread-index-calculation">Thread Index Calculation</h3>
+<p>Remember our CUDA code:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
 </code></pre></div></p>
-<p>To run:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>./basic02
+<p>In PTX, this becomes:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">mov</span><span class="kt">.u32</span><span class="w">  </span><span class="nv">%r2</span><span class="o">,</span><span class="w"> </span><span class="nv">%ctaid.x</span><span class="p">;</span><span class="w">      </span><span class="c">// blockIdx.x → r2</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">mov</span><span class="kt">.u32</span><span class="w">  </span><span class="nv">%r3</span><span class="o">,</span><span class="w"> </span><span class="nv">%ntid.x</span><span class="p">;</span><span class="w">       </span><span class="c">// blockDim.x → r3</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="k">mov</span><span class="kt">.u32</span><span class="w">  </span><span class="nv">%r4</span><span class="o">,</span><span class="w"> </span><span class="nv">%tid.x</span><span class="p">;</span><span class="w">        </span><span class="c">// threadIdx.x → r4</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="k">mad</span><span class="nv">.lo.s32</span><span class="w">  </span><span class="nv">%r1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r3</span><span class="o">,</span><span class="w"> </span><span class="nv">%r2</span><span class="o">,</span><span class="w"> </span><span class="nv">%r4</span><span class="p">;</span><span class="w">  </span><span class="c">// r1 = r3 * r2 + r4</span>
 </code></pre></div></p>
+<p>The <code>mad.lo.s32</code> instruction performs multiply-add in a single operation. This is a fused multiply-add (FMA), which is both faster and more accurate than separate multiply and add.</p>
+<p>The special registers <code>%ctaid</code>, <code>%ntid</code>, and <code>%tid</code> correspond to CUDA built-ins:
+- <code>%ctaid</code>: Block index (ctaid = compute task ID)
+- <code>%ntid</code>: Block dimension (ntid = number of threads)
+- <code>%tid</code>: Thread index within block</p>
+<h3 id="memory-operations">Memory Operations</h3>
+<p>Loading from global memory:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">ld</span><span class="kp">.global</span><span class="kt">.f32</span><span class="w">  </span><span class="nv">%f1</span><span class="o">,</span><span class="w"> </span><span class="p">[</span><span class="nv">%rd1</span><span class="p">];</span><span class="w">     </span><span class="c">// Load 32-bit float from address in rd1</span>
+</code></pre></div></p>
+<p>Storing to global memory:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">st</span><span class="kp">.global</span><span class="kt">.f32</span><span class="w">  </span><span class="p">[</span><span class="nv">%rd2</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="nv">%f1</span><span class="p">;</span><span class="w">     </span><span class="c">// Store f1 to address in rd2</span>
+</code></pre></div></p>
+<p>The <code>.global</code> qualifier specifies the memory space. Other options include <code>.shared</code>, <code>.local</code>, <code>.const</code>, and <code>.param</code>.</p>
+<h3 id="control-flow">Control Flow</h3>
+<p>PTX uses predicates and conditional branches:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">setp</span><span class="nv">.ge.s32</span><span class="w">  </span><span class="nv">%p1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r2</span><span class="p">;</span><span class="w">     </span><span class="c">// p1 = (r1 &gt;= r2)</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="err">@</span><span class="nv">%p1</span><span class="w"> </span><span class="k">bra</span><span class="w">  </span><span class="nv">BB0_2</span><span class="p">;</span><span class="w">                </span><span class="c">// Branch to BB0_2 if p1 is true</span>
+</code></pre></div>
+<p>The <code>setp</code> instruction sets a predicate register based on a comparison. The <code>@%p1</code> prefix makes the branch conditional on that predicate. This is more efficient than traditional if-else branches because the GPU can predicate instructions rather than diverge execution.</p>
+<h2 id="writing-inline-ptx-assembly">Writing Inline PTX Assembly</h2>
+<p>Now let's write some inline PTX in CUDA code. Open <code>02-ptx-assembly.cu</code> to see practical examples.</p>
+<h3 id="basic-inline-ptx-syntax">Basic Inline PTX Syntax</h3>
+<p>The syntax for inline PTX in CUDA is:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">asm</span><span class="p">(</span><span class="s">&quot;instruction&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">output_operands</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">input_operands</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">clobbered_registers</span><span class="p">);</span>
+</code></pre></div>
+<p>Here's a simple example adding two integers:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kt">__device__</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">addTwoNumbers</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="k">asm</span><span class="p">(</span><span class="s">&quot;add.s32 %0, %1, %2;&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;=r&quot;</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;r&quot;</span><span class="p">(</span><span class="n">a</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;r&quot;</span><span class="p">(</span><span class="n">b</span><span class="p">));</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="p">}</span>
+</code></pre></div>
+<p>Breaking this down:
+- <code>"add.s32 %0, %1, %2;"</code>: The PTX instruction with placeholders
+- <code>"=r"(result)</code>: Output operand (= means write, r means register)
+- <code>"r"(a), "r"(b)</code>: Input operands (both in registers)
+- <code>%0, %1, %2</code>: Refer to operands in order they're listed</p>
+<h3 id="more-complex-example-multiply-add">More Complex Example: Multiply-Add</h3>
+<p>Let's implement a fused multiply-add operation:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kt">__device__</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">fma_custom</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">c</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="k">asm</span><span class="p">(</span><span class="s">&quot;fma.rn.f32 %0, %1, %2, %3;&quot;</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;=f&quot;</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;f&quot;</span><span class="p">(</span><span class="n">a</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;f&quot;</span><span class="p">(</span><span class="n">b</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;f&quot;</span><span class="p">(</span><span class="n">c</span><span class="p">));</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="p">}</span>
+</code></pre></div>
+<p>The <code>fma.rn.f32</code> instruction:
+- <code>fma</code>: Fused multiply-add
+- <code>rn</code>: Rounding mode (round to nearest even)
+- <code>f32</code>: 32-bit floating-point
+- Computes: result = a * b + c</p>
+<p>This single instruction is both faster and more accurate than separate multiply and add because it performs rounding only once.</p>
+<h3 id="optimizing-memory-access-with-ptx">Optimizing Memory Access with PTX</h3>
+<p>Here's an example using vector memory operations:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kt">__device__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">load_vector4</span><span class="p">(</span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="kt">float4</span><span class="o">&amp;</span><span class="w"> </span><span class="n">vec</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span><span class="k">asm</span><span class="p">(</span><span class="s">&quot;ld.global.v4.f32 {%0, %1, %2, %3}, [%4];&quot;</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;=f&quot;</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">x</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;=f&quot;</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">y</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;=f&quot;</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">z</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;=f&quot;</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">w</span><span class="p">)</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;l&quot;</span><span class="p">(</span><span class="n">ptr</span><span class="p">));</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="p">}</span>
+</code></pre></div>
+<p>The <code>.v4</code> qualifier loads four floats in a single transaction, which is much more efficient than four separate loads when accessing contiguous memory.</p>
+<h2 id="hands-on-exercise-comparing-compiler-output">Hands-On Exercise: Comparing Compiler Output</h2>
+<p>Let's write two versions of a simple kernel and compare their PTX:</p>
+<p>Version 1 (Regular CUDA):
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">saxpy_simple</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">        </span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="p">}</span>
+</code></pre></div></p>
+<p>Version 2 (With inline PTX):
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">saxpy_ptx</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">xi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">yi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="w">        </span><span class="k">asm</span><span class="p">(</span><span class="s">&quot;fma.rn.f32 %0, %1, %2, %3;&quot;</span>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="w">            </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;=f&quot;</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;f&quot;</span><span class="p">(</span><span class="n">a</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;f&quot;</span><span class="p">(</span><span class="n">xi</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;f&quot;</span><span class="p">(</span><span class="n">yi</span><span class="p">));</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="w">        </span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="p">}</span>
+</code></pre></div></p>
+<p>Compile both with PTX output and compare:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>nvcc<span class="w"> </span>-ptx<span class="w"> </span>-o<span class="w"> </span>saxpy_simple.ptx<span class="w"> </span>saxpy.cu
+</code></pre></div>
+<p>You'll likely find the compiler already uses <code>fma</code> instructions for the first version. Modern CUDA compilers are quite good at optimization, so inline PTX is only beneficial for very specific cases.</p>
+<h2 id="building-and-running-the-ptx-example">Building and Running the PTX Example</h2>
+<p>Let's compile and run the full example:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>make<span class="w"> </span><span class="m">02</span>-ptx-assembly
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>./02-ptx-assembly
+</code></pre></div>
+<p>The program demonstrates different PTX techniques including inline assembly, device function pointers, and cooperative groups. Study the output to understand how each approach works.</p>
+<h2 id="understanding-ptx-instruction-types">Understanding PTX Instruction Types</h2>
+<h3 id="arithmetic-instructions">Arithmetic Instructions</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="k">add</span><span class="kt">.s32</span><span class="w">  </span><span class="nv">%r1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r2</span><span class="o">,</span><span class="w"> </span><span class="nv">%r3</span><span class="p">;</span><span class="w">         </span><span class="c">// Integer addition</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="k">sub</span><span class="kt">.f32</span><span class="w">  </span><span class="nv">%f1</span><span class="o">,</span><span class="w"> </span><span class="nv">%f2</span><span class="o">,</span><span class="w"> </span><span class="nv">%f3</span><span class="p">;</span><span class="w">         </span><span class="c">// Float subtraction</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="k">mul</span><span class="nv">.lo.s32</span><span class="w">  </span><span class="nv">%r1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r2</span><span class="o">,</span><span class="w"> </span><span class="nv">%r3</span><span class="p">;</span><span class="w">      </span><span class="c">// Integer multiply (low 32 bits)</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="k">div</span><span class="nv">.rn.f32</span><span class="w">  </span><span class="nv">%f1</span><span class="o">,</span><span class="w"> </span><span class="nv">%f2</span><span class="o">,</span><span class="w"> </span><span class="nv">%f3</span><span class="p">;</span><span class="w">      </span><span class="c">// Float division (round nearest)</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="k">mad</span><span class="nv">.lo.s32</span><span class="w">  </span><span class="nv">%r1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r2</span><span class="o">,</span><span class="w"> </span><span class="nv">%r3</span><span class="o">,</span><span class="w"> </span><span class="nv">%r4</span><span class="p">;</span><span class="w"> </span><span class="c">// Multiply-add</span>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="k">fma</span><span class="nv">.rn.f32</span><span class="w">  </span><span class="nv">%f1</span><span class="o">,</span><span class="w"> </span><span class="nv">%f2</span><span class="o">,</span><span class="w"> </span><span class="nv">%f3</span><span class="o">,</span><span class="w"> </span><span class="nv">%f4</span><span class="p">;</span><span class="w"> </span><span class="c">// Fused multiply-add</span>
+</code></pre></div>
+<h3 id="comparison-and-selection">Comparison and Selection</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="k">setp</span><span class="nv">.eq.s32</span><span class="w">  </span><span class="nv">%p1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r2</span><span class="p">;</span><span class="w">     </span><span class="c">// p1 = (r1 == r2)</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="k">setp</span><span class="nv">.lt.f32</span><span class="w">  </span><span class="nv">%p1</span><span class="o">,</span><span class="w"> </span><span class="nv">%f1</span><span class="o">,</span><span class="w"> </span><span class="nv">%f2</span><span class="p">;</span><span class="w">     </span><span class="c">// p1 = (f1 &lt; f2)</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="k">selp</span><span class="kt">.s32</span><span class="w">  </span><span class="nv">%r1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r2</span><span class="o">,</span><span class="w"> </span><span class="nv">%r3</span><span class="o">,</span><span class="w"> </span><span class="nv">%p1</span><span class="p">;</span><span class="w">   </span><span class="c">// r1 = p1 ? r2 : r3</span>
+</code></pre></div>
+<h3 id="bit-manipulation">Bit Manipulation</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">and</span><span class="kt">.b32</span><span class="w">  </span><span class="nv">%r1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r2</span><span class="o">,</span><span class="w"> </span><span class="nv">%r3</span><span class="p">;</span><span class="w">         </span><span class="c">// Bitwise AND</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="k">or</span><span class="kt">.b32</span><span class="w">  </span><span class="nv">%r1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r2</span><span class="o">,</span><span class="w"> </span><span class="nv">%r3</span><span class="p">;</span><span class="w">          </span><span class="c">// Bitwise OR</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="k">xor</span><span class="kt">.b32</span><span class="w">  </span><span class="nv">%r1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r2</span><span class="o">,</span><span class="w"> </span><span class="nv">%r3</span><span class="p">;</span><span class="w">         </span><span class="c">// Bitwise XOR</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="k">shl</span><span class="kt">.b32</span><span class="w">  </span><span class="nv">%r1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r2</span><span class="o">,</span><span class="w"> </span><span class="m">3</span><span class="p">;</span><span class="w">           </span><span class="c">// Shift left by 3</span>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="k">shr</span><span class="kt">.u32</span><span class="w">  </span><span class="nv">%r1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r2</span><span class="o">,</span><span class="w"> </span><span class="m">3</span><span class="p">;</span><span class="w">           </span><span class="c">// Unsigned shift right</span>
+</code></pre></div>
+<h3 id="special-functions">Special Functions</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="k">sin</span><span class="nv">.approx.f32</span><span class="w">  </span><span class="nv">%f1</span><span class="o">,</span><span class="w"> </span><span class="nv">%f2</span><span class="p">;</span><span class="w">       </span><span class="c">// Fast sine approximation</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="k">cos</span><span class="nv">.approx.f32</span><span class="w">  </span><span class="nv">%f1</span><span class="o">,</span><span class="w"> </span><span class="nv">%f2</span><span class="p">;</span><span class="w">       </span><span class="c">// Fast cosine approximation</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="k">rsqrt</span><span class="nv">.approx.f32</span><span class="w">  </span><span class="nv">%f1</span><span class="o">,</span><span class="w"> </span><span class="nv">%f2</span><span class="p">;</span><span class="w">     </span><span class="c">// Fast reciprocal square root</span>
+</code></pre></div>
+<h2 id="memory-spaces-and-qualifiers">Memory Spaces and Qualifiers</h2>
+<p>PTX distinguishes different memory spaces:</p>
+<p><strong>Global Memory (.global):</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="k">ld</span><span class="kp">.global</span><span class="kt">.f32</span><span class="w">  </span><span class="nv">%f1</span><span class="o">,</span><span class="w"> </span><span class="p">[</span><span class="nv">%rd1</span><span class="p">];</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="k">st</span><span class="kp">.global</span><span class="kt">.f32</span><span class="w">  </span><span class="p">[</span><span class="nv">%rd1</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="nv">%f1</span><span class="p">;</span>
+</code></pre></div>
+Highest capacity, highest latency. Accessible by all threads.</p>
+<p><strong>Shared Memory (.shared):</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="k">ld</span><span class="kp">.shared</span><span class="kt">.f32</span><span class="w">  </span><span class="nv">%f1</span><span class="o">,</span><span class="w"> </span><span class="p">[</span><span class="nv">%rd1</span><span class="p">];</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="k">st</span><span class="kp">.shared</span><span class="kt">.f32</span><span class="w">  </span><span class="p">[</span><span class="nv">%rd1</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="nv">%f1</span><span class="p">;</span>
+</code></pre></div>
+Low latency, limited capacity. Shared within a thread block.</p>
+<p><strong>Constant Memory (.const):</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="k">ld</span><span class="kp">.const</span><span class="kt">.f32</span><span class="w">  </span><span class="nv">%f1</span><span class="o">,</span><span class="w"> </span><span class="p">[</span><span class="nv">%rd1</span><span class="p">];</span>
+</code></pre></div>
+Read-only, cached. Good for broadcast patterns.</p>
+<p><strong>Local Memory (.local):</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="k">ld</span><span class="kp">.local</span><span class="kt">.f32</span><span class="w">  </span><span class="nv">%f1</span><span class="o">,</span><span class="w"> </span><span class="p">[</span><span class="nv">%rd1</span><span class="p">];</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="k">st</span><span class="kp">.local</span><span class="kt">.f32</span><span class="w">  </span><span class="p">[</span><span class="nv">%rd1</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="nv">%f1</span><span class="p">;</span>
+</code></pre></div>
+Per-thread private memory. Actually stored in global memory but cached.</p>
+<p><strong>Registers:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="k">mov</span><span class="kt">.f32</span><span class="w">  </span><span class="nv">%f1</span><span class="o">,</span><span class="w"> </span><span class="nv">%f2</span><span class="p">;</span>
+</code></pre></div>
+Fastest memory, most limited. Each thread has its own registers.</p>
+<h2 id="cache-control-and-memory-modifiers">Cache Control and Memory Modifiers</h2>
+<p>PTX allows control over caching behavior:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="k">ld</span><span class="kp">.global</span><span class="nv">.ca.f32</span><span class="w">  </span><span class="nv">%f1</span><span class="o">,</span><span class="w"> </span><span class="p">[</span><span class="nv">%rd1</span><span class="p">];</span><span class="w">   </span><span class="c">// Cache at all levels</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="k">ld</span><span class="kp">.global</span><span class="nv">.cg.f32</span><span class="w">  </span><span class="nv">%f1</span><span class="o">,</span><span class="w"> </span><span class="p">[</span><span class="nv">%rd1</span><span class="p">];</span><span class="w">   </span><span class="c">// Cache globally</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="k">ld</span><span class="kp">.global</span><span class="nv">.cs.f32</span><span class="w">  </span><span class="nv">%f1</span><span class="o">,</span><span class="w"> </span><span class="p">[</span><span class="nv">%rd1</span><span class="p">];</span><span class="w">   </span><span class="c">// Cache streaming</span>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="k">ld</span><span class="kp">.global</span><span class="nv">.cv.f32</span><span class="w">  </span><span class="nv">%f1</span><span class="o">,</span><span class="w"> </span><span class="p">[</span><span class="nv">%rd1</span><span class="p">];</span><span class="w">   </span><span class="c">// Don&#39;t cache</span>
+</code></pre></div>
+<p>These modifiers help optimize memory access patterns for different use cases. For example, <code>.cs</code> is good for data that won't be reused, while <code>.ca</code> is good for data with temporal locality.</p>
+<h2 id="warp-level-operations">Warp-Level Operations</h2>
+<p>PTX exposes warp-level primitives for efficient thread cooperation:</p>
+<h3 id="warp-shuffle">Warp Shuffle</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="k">shfl</span><span class="nv">.sync.bfly.b32</span><span class="w">  </span><span class="nv">%r1</span><span class="err">|</span><span class="nv">%p1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r2</span><span class="o">,</span><span class="w"> </span><span class="nv">%r3</span><span class="o">,</span><span class="w"> </span><span class="nv">%r4</span><span class="o">,</span><span class="w"> </span><span class="nv">%r5</span><span class="p">;</span>
+</code></pre></div>
+<p>Shuffle allows threads in a warp to exchange data without using shared memory. This is incredibly fast and useful for reductions and other collective operations.</p>
+<p>In CUDA C++, you'd use:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="n">__shfl_sync</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="n">mask</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">var</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">srcLane</span><span class="p">);</span>
+</code></pre></div></p>
+<p>But in PTX, you have more fine-grained control over the shuffle patterns (butterfly, up, down, indexed).</p>
+<h3 id="warp-vote">Warp Vote</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="k">vote</span><span class="nv">.sync.all.pred</span><span class="w">  </span><span class="nv">%p1</span><span class="o">,</span><span class="w"> </span><span class="nv">%p2</span><span class="o">,</span><span class="w"> </span><span class="nv">%r1</span><span class="p">;</span>
+</code></pre></div>
+<p>Vote instructions test conditions across all threads in a warp. Useful for early exit conditions and divergence detection.</p>
+<h2 id="debugging-ptx-code">Debugging PTX Code</h2>
+<p>When your inline PTX doesn't work as expected:</p>
+<p><strong>Check Register Constraints:</strong>
+Make sure you're using the correct register types (r, f, d, p, l).</p>
+<p><strong>Verify Instruction Syntax:</strong>
+Consult the <a href="https://docs.nvidia.com/cuda/parallel-thread-execution/">PTX ISA documentation</a> for exact syntax.</p>
+<p><strong>Use cuobjdump:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>cuobjdump<span class="w"> </span>-ptx<span class="w"> </span>executable
+</code></pre></div>
+This extracts the PTX from a compiled executable, useful for seeing what actually got compiled.</p>
+<p><strong>Inspect SASS:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>cuobjdump<span class="w"> </span>-sass<span class="w"> </span>executable
+</code></pre></div>
+See the actual machine code generated from your PTX. This helps understand if PTX is being optimized as expected.</p>
+<p><strong>Use Nsight Compute:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>ncu<span class="w"> </span>--set<span class="w"> </span>full<span class="w"> </span>./02-ptx-assembly
+</code></pre></div>
+Profile at the instruction level to see execution efficiency.</p>
 <h2 id="performance-considerations">Performance Considerations</h2>
+<h3 id="when-to-use-inline-ptx">When to Use Inline PTX</h3>
+<p>Only use inline PTX when:</p>
+<p><strong>Profiling Shows a Hotspot:</strong> Don't optimize prematurely. Profile first, identify bottlenecks, then consider PTX.</p>
+<p><strong>Compiler Misses Optimization:</strong> Sometimes the compiler doesn't recognize patterns you can hand-optimize.</p>
+<p><strong>Need Special Instructions:</strong> Some hardware features are only accessible via PTX.</p>
+<p><strong>Require Specific Instruction Ordering:</strong> Control exact execution order for numerical accuracy or memory ordering.</p>
+<h3 id="when-not-to-use-inline-ptx">When Not to Use Inline PTX</h3>
+<p>Avoid inline PTX when:</p>
+<p><strong>Compiler Does It Better:</strong> Modern CUDA compilers are excellent. Test first before hand-coding.</p>
+<p><strong>Portability Matters:</strong> PTX can vary between architectures. High-level CUDA is more portable.</p>
+<p><strong>Maintainability Concerns:</strong> Assembly is harder to read and maintain than high-level code.</p>
+<p><strong>Rapid Development:</strong> Write correct code first, optimize later if needed.</p>
+<h2 id="architecture-specific-optimizations">Architecture-Specific Optimizations</h2>
+<p>PTX can target specific GPU architectures using <code>.target</code> directives:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="kr">.target</span><span class="w"> </span><span class="nv">sm_75</span><span class="w">              </span><span class="c">// Turing architecture</span>
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="kr">.target</span><span class="w"> </span><span class="nv">sm_80</span><span class="w">              </span><span class="c">// Ampere architecture</span>
+<a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="kr">.target</span><span class="w"> </span><span class="nv">sm_90</span><span class="w">              </span><span class="c">// Hopper architecture</span>
+</code></pre></div>
+<p>Different architectures support different instructions. For example, Tensor Core operations are only available on sm_70+, and FP8 support requires sm_89+.</p>
+<p>Check your GPU's compute capability:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>nvidia-smi<span class="w"> </span>--query-gpu<span class="o">=</span>compute_cap<span class="w"> </span>--format<span class="o">=</span>csv
+</code></pre></div></p>
+<p>Then target that architecture in your Makefile:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="nv">NVCC_FLAGS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>-arch<span class="o">=</span>sm_89
+</code></pre></div></p>
+<h2 id="real-world-use-cases">Real-World Use Cases</h2>
+<h3 id="case-study-1-custom-atomic-operations">Case Study 1: Custom Atomic Operations</h3>
+<p>Sometimes you need atomic operations not provided by CUDA:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="kt">__device__</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">atomicMinFloat</span><span class="p">(</span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a><span class="w">    </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">addr_as_int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">addr</span><span class="p">;</span>
+<a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">old</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">addr_as_int</span><span class="p">,</span><span class="w"> </span><span class="n">assumed</span><span class="p">;</span>
+<a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a><span class="w">    </span><span class="k">do</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a><span class="w">        </span><span class="n">assumed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">old</span><span class="p">;</span>
+<a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a><span class="w">        </span><span class="n">old</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">atomicCAS</span><span class="p">(</span><span class="n">addr_as_int</span><span class="p">,</span><span class="w"> </span><span class="n">assumed</span><span class="p">,</span>
+<a id="__codelineno-36-7" name="__codelineno-36-7" href="#__codelineno-36-7"></a><span class="w">                       </span><span class="n">__float_as_int</span><span class="p">(</span><span class="n">fminf</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">__int_as_float</span><span class="p">(</span><span class="n">assumed</span><span class="p">))));</span>
+<a id="__codelineno-36-8" name="__codelineno-36-8" href="#__codelineno-36-8"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">assumed</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">old</span><span class="p">);</span>
+<a id="__codelineno-36-9" name="__codelineno-36-9" href="#__codelineno-36-9"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">__int_as_float</span><span class="p">(</span><span class="n">old</span><span class="p">);</span>
+<a id="__codelineno-36-10" name="__codelineno-36-10" href="#__codelineno-36-10"></a><span class="p">}</span>
+</code></pre></div>
+<p>This requires PTX-level understanding of atomic operations and type punning.</p>
+<h3 id="case-study-2-warp-level-reduction">Case Study 2: Warp-Level Reduction</h3>
+<p>Using warp shuffle for fast reduction:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="kt">__device__</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">warpReduceSum</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">val</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">;</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a><span class="w">        </span><span class="n">val</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">__shfl_down_sync</span><span class="p">(</span><span class="mh">0xffffffff</span><span class="p">,</span><span class="w"> </span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="n">offset</span><span class="p">);</span>
+<a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">val</span><span class="p">;</span>
+<a id="__codelineno-37-6" name="__codelineno-37-6" href="#__codelineno-37-6"></a><span class="p">}</span>
+</code></pre></div>
+<p>Understanding the PTX shuffle instructions helps you use these primitives effectively.</p>
+<h3 id="case-study-3-memory-fence-control">Case Study 3: Memory Fence Control</h3>
+<p>Precise control over memory ordering:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="kt">__device__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">writeWithFence</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="w">    </span><span class="o">*</span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
+<a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a><span class="w">    </span><span class="k">asm</span><span class="w"> </span><span class="k">volatile</span><span class="p">(</span><span class="s">&quot;membar.gl;&quot;</span><span class="w"> </span><span class="o">:::</span><span class="w"> </span><span class="s">&quot;memory&quot;</span><span class="p">);</span>
+<a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a><span class="p">}</span>
+</code></pre></div>
+<p>The <code>membar.gl</code> instruction ensures memory operations complete before continuing, critical for concurrent access patterns.</p>
+<h2 id="advanced-topics-preview">Advanced Topics Preview</h2>
+<p>Future exploration areas:</p>
+<p><strong>Dynamic Parallelism:</strong> How kernel launches from device code work in PTX</p>
+<p><strong>Cooperative Groups:</strong> PTX primitives for grid-wide synchronization</p>
+<p><strong>Tensor Cores:</strong> PTX instructions for matrix multiplication acceleration</p>
+<p><strong>Async Copy:</strong> PTX async memory copy for improved pipelining</p>
+<h2 id="challenge-exercises">Challenge Exercises</h2>
 <ol>
-<li>PTX inline assembly should be used judiciously, typically only for performance-critical sections</li>
-<li>Modern CUDA compilers often generate highly optimized code, so PTX may not always be necessary</li>
-<li>PTX code is architecture-specific and may need adjustment for different GPU generations</li>
+<li>
+<p><strong>Inspect Generated PTX:</strong> Take your vector addition code and generate PTX. Identify the instructions corresponding to memory loads, the addition operation, and the memory store.</p>
+</li>
+<li>
+<p><strong>Write a Custom Op:</strong> Implement <code>__device__ int roundUpDiv(int a, int b)</code> using inline PTX that computes <code>(a + b - 1) / b</code>. Compare performance against the C++ version.</p>
+</li>
+<li>
+<p><strong>Optimize Memory Access:</strong> Write a kernel that loads float4 values using vectorized PTX instructions. Measure bandwidth improvement over scalar loads.</p>
+</li>
+<li>
+<p><strong>Implement Warp Reduction:</strong> Write a complete block-level sum reduction using warp shuffle instructions. Compare against a shared memory implementation.</p>
+</li>
+<li>
+<p><strong>Architecture Comparison:</strong> Generate PTX for compute capabilities 7.0, 8.0, and 9.0. Identify differences in available instructions.</p>
+</li>
 </ol>
+<h2 id="summary">Summary</h2>
+<p>PTX is NVIDIA's intermediate assembly language that sits between CUDA C++ and machine code. Understanding PTX helps you understand what the compiler does with your code and enables hand-optimization when necessary.</p>
+<p>Key PTX concepts include virtual registers, memory space qualifiers, predicated execution, and special GPU instructions. Inline PTX allows embedding assembly directly in CUDA code for fine-grained control.</p>
+<p>Modern CUDA compilers generate excellent code, so inline PTX should be used sparingly and only after profiling. When used appropriately, PTX enables optimizations impossible to express in high-level code.</p>
+<p>The PTX ISA evolves with each GPU architecture, exposing new hardware capabilities. Understanding PTX provides insight into GPU architecture and helps you write better high-level CUDA code.</p>
+<h2 id="next-steps">Next Steps</h2>
+<p>Continue to <strong>Tutorial 03: GPU Programming Methods</strong> to explore different approaches to GPU programming including Thrust, Unified Memory, and Dynamic Parallelism. You'll learn when to use each technique and how to combine them effectively.</p>
 <h2 id="further-reading">Further Reading</h2>
 <ul>
-<li><a href="https://docs.nvidia.com/cuda/parallel-thread-execution/index.html">NVIDIA PTX ISA Documentation</a></li>
-<li><a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html">CUDA C++ Programming Guide</a></li>
-<li><a href="https://docs.nvidia.com/cuda/inline-ptx-assembly/index.html">CUDA Inline PTX Assembly</a> </li>
+<li><a href="https://docs.nvidia.com/cuda/parallel-thread-execution/">PTX ISA Reference</a> - Complete PTX instruction set</li>
+<li><a href="https://docs.nvidia.com/cuda/inline-ptx-assembly/">Inline PTX Assembly</a> - Official guide to inline PTX</li>
+<li><a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#compute-capabilities">GPU Architecture Documentation</a> - Hardware capabilities by generation</li>
+<li><a href="https://docs.nvidia.com/cuda/cuda-binary-utilities/">CUDA Binary Utilities</a> - Tools for inspecting compiled code</li>
 </ul>
-<p><a class="md-button" href="https://x.com/intent/tweet?text=CUDA%20PTX%20Example%3A%20Vector%20Multiplication%20Using%20Inline%20PTX%20Assembly%0A&amp;url=https://eunomia.dev/others/cuda-tutorial/02-ptx-assembly/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=Tutorial%3A%20Understanding%20GPU%20Assembly%20with%20PTX%0A&amp;url=https://eunomia.dev/others/cuda-tutorial/02-ptx-assembly/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/others/cuda-tutorial/02-ptx-assembly/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
@@ -8599,7 +9427,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 25, 2025 01:28:13 UTC">May 25, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 13, 2025 13:23:26 UTC">October 13, 2025</span>
   </span>
 
     
@@ -8619,12 +9447,13 @@
   <span class="md-source-file__fact">
     <span class="md-icon" title="Contributors">
       
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
       
     </span>
     <nav>
       
-        <a href="mailto:yt.xyxx@gmail.com">officeyutong</a>
+        <a href="mailto:yt.xyxx@gmail.com">officeyutong</a>, 
+        <a href="mailto:yunwei356@gmail.com">yunwei37</a>
     </nav>
   </span>
 
@@ -8729,7 +9558,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../01-vector-addition/" class="md-footer__link md-footer__link--prev" aria-label="Previous: CUDA Basic Example - Vector Addition Explanation">
+          <a href="../01-vector-addition/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Tutorial: Your First CUDA Program - Vector Addition">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -8739,7 +9568,7 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                CUDA Basic Example - Vector Addition Explanation
+                Tutorial: Your First CUDA Program - Vector Addition
               </div>
             </div>
           </a>

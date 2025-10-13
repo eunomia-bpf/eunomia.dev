@@ -24,7 +24,7 @@
     
     
       
-        <title>CUDA GPU Organization Hierarchy - eunomia</title>
+        <title>Tutorial: Understanding GPU Architecture and Execution Model - eunomia</title>
       
     
     
@@ -69,7 +69,7 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="CUDA GPU Organization Hierarchy - eunomia" >
+        <meta  property="og:title"  content="Tutorial: Understanding GPU Architecture and Execution Model - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
@@ -85,7 +85,7 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="CUDA GPU Organization Hierarchy - eunomia" >
+        <meta  name="twitter:title"  content="Tutorial: Understanding GPU Architecture and Execution Model - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
@@ -112,7 +112,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#cuda-gpu-organization-hierarchy" class="md-skip">
+        <a href="#tutorial-understanding-gpu-architecture-and-execution-model" class="md-skip">
           Skip to content
         </a>
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              CUDA GPU Organization Hierarchy
+              Tutorial: Understanding GPU Architecture and Execution Model
             
           </span>
         </div>
@@ -4542,7 +4542,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA Basic Example - Vector Addition Explanation
+    Tutorial: Your First CUDA Program - Vector Addition
     
   </span>
   
@@ -4565,7 +4565,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA PTX Example: Vector Multiplication Using Inline PTX Assembly
+    Tutorial: Understanding GPU Assembly with PTX
     
   </span>
   
@@ -4620,7 +4620,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA GPU Organization Hierarchy
+    Tutorial: Understanding GPU Architecture and Execution Model
     
   </span>
   
@@ -4633,7 +4633,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA GPU Organization Hierarchy
+    Tutorial: Understanding GPU Architecture and Execution Model
     
   </span>
   
@@ -4656,46 +4656,55 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#table-of-contents" class="md-nav__link">
+  <a href="#why-gpu-architecture-matters" class="md-nav__link">
     <span class="md-ellipsis">
-      Table of Contents
+      Why GPU Architecture Matters
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#hardware-organization" class="md-nav__link">
+  <a href="#the-gpu-hardware-hierarchy" class="md-nav__link">
     <span class="md-ellipsis">
-      Hardware Organization
+      The GPU Hardware Hierarchy
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Hardware Organization">
+    <nav class="md-nav" aria-label="The GPU Hardware Hierarchy">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#gpu-architecture-evolution" class="md-nav__link">
+  <a href="#streaming-multiprocessors-the-core-building-blocks" class="md-nav__link">
     <span class="md-ellipsis">
-      GPU Architecture Evolution
+      Streaming Multiprocessors: The Core Building Blocks
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#hardware-components" class="md-nav__link">
+  <a href="#the-thread-execution-model" class="md-nav__link">
     <span class="md-ellipsis">
-      Hardware Components
+      The Thread Execution Model
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#streaming-multiprocessor-sm-architecture" class="md-nav__link">
+  <a href="#understanding-warps-the-fundamental-execution-unit" class="md-nav__link">
     <span class="md-ellipsis">
-      Streaming Multiprocessor (SM) Architecture
+      Understanding Warps: The Fundamental Execution Unit
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#warp-divergence-when-threads-take-different-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      Warp Divergence: When Threads Take Different Paths
     </span>
   </a>
   
@@ -4707,46 +4716,46 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#software-programming-model" class="md-nav__link">
+  <a href="#memory-hierarchy-the-key-to-performance" class="md-nav__link">
     <span class="md-ellipsis">
-      Software Programming Model
+      Memory Hierarchy: The Key to Performance
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Software Programming Model">
+    <nav class="md-nav" aria-label="Memory Hierarchy: The Key to Performance">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#thread-hierarchy" class="md-nav__link">
+  <a href="#global-memory-large-but-slow" class="md-nav__link">
     <span class="md-ellipsis">
-      Thread Hierarchy
+      Global Memory: Large but Slow
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#thread-indexing" class="md-nav__link">
+  <a href="#memory-coalescing-why-access-patterns-matter" class="md-nav__link">
     <span class="md-ellipsis">
-      Thread Indexing
+      Memory Coalescing: Why Access Patterns Matter
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#kernel-execution-configuration" class="md-nav__link">
+  <a href="#shared-memory-fast-on-chip-storage" class="md-nav__link">
     <span class="md-ellipsis">
-      Kernel Execution Configuration
+      Shared Memory: Fast On-Chip Storage
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#synchronization" class="md-nav__link">
+  <a href="#l2-cache-and-register-file" class="md-nav__link">
     <span class="md-ellipsis">
-      Synchronization
+      L2 Cache and Register File
     </span>
   </a>
   
@@ -4758,152 +4767,56 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#memory-hierarchy" class="md-nav__link">
+  <a href="#occupancy-keeping-the-gpu-busy" class="md-nav__link">
     <span class="md-ellipsis">
-      Memory Hierarchy
+      Occupancy: Keeping the GPU Busy
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Memory Hierarchy">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#device-memory-types" class="md-nav__link">
-    <span class="md-ellipsis">
-      Device Memory Types
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#memory-management-models" class="md-nav__link">
-    <span class="md-ellipsis">
-      Memory Management Models
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#memory-access-patterns" class="md-nav__link">
-    <span class="md-ellipsis">
-      Memory Access Patterns
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#execution-model" class="md-nav__link">
+  <a href="#practical-example-optimized-matrix-multiplication" class="md-nav__link">
     <span class="md-ellipsis">
-      Execution Model
+      Practical Example: Optimized Matrix Multiplication
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Execution Model">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#simt-execution" class="md-nav__link">
-    <span class="md-ellipsis">
-      SIMT Execution
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#scheduling" class="md-nav__link">
-    <span class="md-ellipsis">
-      Scheduling
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#occupancy" class="md-nav__link">
-    <span class="md-ellipsis">
-      Occupancy
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#performance-considerations" class="md-nav__link">
+  <a href="#common-architecture-related-pitfalls" class="md-nav__link">
     <span class="md-ellipsis">
-      Performance Considerations
+      Common Architecture-Related Pitfalls
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Performance Considerations">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#memory-optimization" class="md-nav__link">
-    <span class="md-ellipsis">
-      Memory Optimization
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#execution-optimization" class="md-nav__link">
-    <span class="md-ellipsis">
-      Execution Optimization
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#common-optimization-techniques" class="md-nav__link">
-    <span class="md-ellipsis">
-      Common Optimization Techniques
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#example-application" class="md-nav__link">
+  <a href="#challenge-exercises" class="md-nav__link">
     <span class="md-ellipsis">
-      Example Application
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Example Application">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#key-code-sections" class="md-nav__link">
-    <span class="md-ellipsis">
-      Key Code Sections
+      Challenge Exercises
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
   
 </li>
       
@@ -4937,7 +4850,7 @@
   
   
   <span class="md-ellipsis">
-    Neural Network Forward Pass on GPU with CUDA
+    Tutorial: Neural Network Forward Pass on GPU
     
   </span>
   
@@ -4960,7 +4873,7 @@
   
   
   <span class="md-ellipsis">
-    GPU-Accelerated Convolution Operations with Shared Memory Optimization
+    Tutorial: CNN Convolution with Shared Memory Optimization
     
   </span>
   
@@ -8227,29 +8140,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../miscellaneous/iaprof-analysis/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Understanding iaprof: A Deep Dive into AI/GPU Flame Graph Profiling
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../miscellaneous/ideas/" class="md-nav__link">
         
   
@@ -8551,46 +8441,55 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#table-of-contents" class="md-nav__link">
+  <a href="#why-gpu-architecture-matters" class="md-nav__link">
     <span class="md-ellipsis">
-      Table of Contents
+      Why GPU Architecture Matters
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#hardware-organization" class="md-nav__link">
+  <a href="#the-gpu-hardware-hierarchy" class="md-nav__link">
     <span class="md-ellipsis">
-      Hardware Organization
+      The GPU Hardware Hierarchy
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Hardware Organization">
+    <nav class="md-nav" aria-label="The GPU Hardware Hierarchy">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#gpu-architecture-evolution" class="md-nav__link">
+  <a href="#streaming-multiprocessors-the-core-building-blocks" class="md-nav__link">
     <span class="md-ellipsis">
-      GPU Architecture Evolution
+      Streaming Multiprocessors: The Core Building Blocks
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#hardware-components" class="md-nav__link">
+  <a href="#the-thread-execution-model" class="md-nav__link">
     <span class="md-ellipsis">
-      Hardware Components
+      The Thread Execution Model
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#streaming-multiprocessor-sm-architecture" class="md-nav__link">
+  <a href="#understanding-warps-the-fundamental-execution-unit" class="md-nav__link">
     <span class="md-ellipsis">
-      Streaming Multiprocessor (SM) Architecture
+      Understanding Warps: The Fundamental Execution Unit
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#warp-divergence-when-threads-take-different-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      Warp Divergence: When Threads Take Different Paths
     </span>
   </a>
   
@@ -8602,46 +8501,46 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#software-programming-model" class="md-nav__link">
+  <a href="#memory-hierarchy-the-key-to-performance" class="md-nav__link">
     <span class="md-ellipsis">
-      Software Programming Model
+      Memory Hierarchy: The Key to Performance
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Software Programming Model">
+    <nav class="md-nav" aria-label="Memory Hierarchy: The Key to Performance">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#thread-hierarchy" class="md-nav__link">
+  <a href="#global-memory-large-but-slow" class="md-nav__link">
     <span class="md-ellipsis">
-      Thread Hierarchy
+      Global Memory: Large but Slow
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#thread-indexing" class="md-nav__link">
+  <a href="#memory-coalescing-why-access-patterns-matter" class="md-nav__link">
     <span class="md-ellipsis">
-      Thread Indexing
+      Memory Coalescing: Why Access Patterns Matter
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#kernel-execution-configuration" class="md-nav__link">
+  <a href="#shared-memory-fast-on-chip-storage" class="md-nav__link">
     <span class="md-ellipsis">
-      Kernel Execution Configuration
+      Shared Memory: Fast On-Chip Storage
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#synchronization" class="md-nav__link">
+  <a href="#l2-cache-and-register-file" class="md-nav__link">
     <span class="md-ellipsis">
-      Synchronization
+      L2 Cache and Register File
     </span>
   </a>
   
@@ -8653,152 +8552,56 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#memory-hierarchy" class="md-nav__link">
+  <a href="#occupancy-keeping-the-gpu-busy" class="md-nav__link">
     <span class="md-ellipsis">
-      Memory Hierarchy
+      Occupancy: Keeping the GPU Busy
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Memory Hierarchy">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#device-memory-types" class="md-nav__link">
-    <span class="md-ellipsis">
-      Device Memory Types
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#memory-management-models" class="md-nav__link">
-    <span class="md-ellipsis">
-      Memory Management Models
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#memory-access-patterns" class="md-nav__link">
-    <span class="md-ellipsis">
-      Memory Access Patterns
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#execution-model" class="md-nav__link">
+  <a href="#practical-example-optimized-matrix-multiplication" class="md-nav__link">
     <span class="md-ellipsis">
-      Execution Model
+      Practical Example: Optimized Matrix Multiplication
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Execution Model">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#simt-execution" class="md-nav__link">
-    <span class="md-ellipsis">
-      SIMT Execution
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#scheduling" class="md-nav__link">
-    <span class="md-ellipsis">
-      Scheduling
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#occupancy" class="md-nav__link">
-    <span class="md-ellipsis">
-      Occupancy
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#performance-considerations" class="md-nav__link">
+  <a href="#common-architecture-related-pitfalls" class="md-nav__link">
     <span class="md-ellipsis">
-      Performance Considerations
+      Common Architecture-Related Pitfalls
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Performance Considerations">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#memory-optimization" class="md-nav__link">
-    <span class="md-ellipsis">
-      Memory Optimization
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#execution-optimization" class="md-nav__link">
-    <span class="md-ellipsis">
-      Execution Optimization
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#common-optimization-techniques" class="md-nav__link">
-    <span class="md-ellipsis">
-      Common Optimization Techniques
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#example-application" class="md-nav__link">
+  <a href="#challenge-exercises" class="md-nav__link">
     <span class="md-ellipsis">
-      Example Application
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Example Application">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#key-code-sections" class="md-nav__link">
-    <span class="md-ellipsis">
-      Key Code Sections
+      Challenge Exercises
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
   
 </li>
       
@@ -8835,399 +8638,194 @@
   
 
 
-<h1 id="cuda-gpu-organization-hierarchy">CUDA GPU Organization Hierarchy</h1>
-<p>This document provides a comprehensive overview of the NVIDIA GPU architecture and programming model hierarchy, from both hardware and software perspectives.</p>
-<p>You can find the code in <a href="https://github.com/eunomia-bpf/basic-cuda-tutorial">https://github.com/eunomia-bpf/basic-cuda-tutorial</a></p>
-<h2 id="table-of-contents">Table of Contents</h2>
-<ol>
-<li><a href="#hardware-organization">Hardware Organization</a></li>
-<li><a href="#software-programming-model">Software Programming Model</a></li>
-<li><a href="#memory-hierarchy">Memory Hierarchy</a></li>
-<li><a href="#execution-model">Execution Model</a></li>
-<li><a href="#performance-considerations">Performance Considerations</a></li>
-<li><a href="#example-application">Example Application</a></li>
-</ol>
-<h2 id="hardware-organization">Hardware Organization</h2>
-<h3 id="gpu-architecture-evolution">GPU Architecture Evolution</h3>
-<p>NVIDIA GPUs have evolved through multiple architecture generations:</p>
-<table>
-<thead>
-<tr>
-<th>Architecture</th>
-<th>Example GPUs</th>
-<th>Key Features</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Tesla</td>
-<td>GeForce 8/9/200 series</td>
-<td>First CUDA-capable GPUs</td>
-</tr>
-<tr>
-<td>Fermi</td>
-<td>GeForce 400/500 series</td>
-<td>L1/L2 cache, improved double precision</td>
-</tr>
-<tr>
-<td>Kepler</td>
-<td>GeForce 600/700 series</td>
-<td>Dynamic parallelism, Hyper-Q</td>
-</tr>
-<tr>
-<td>Maxwell</td>
-<td>GeForce 900 series</td>
-<td>Improved power efficiency</td>
-</tr>
-<tr>
-<td>Pascal</td>
-<td>GeForce 10 series, Tesla P100</td>
-<td>Unified memory improvements, NVLink</td>
-</tr>
-<tr>
-<td>Volta</td>
-<td>Tesla V100</td>
-<td>Tensor Cores, independent thread scheduling</td>
-</tr>
-<tr>
-<td>Turing</td>
-<td>GeForce RTX 20 series</td>
-<td>RT Cores, improved Tensor Cores</td>
-</tr>
-<tr>
-<td>Ampere</td>
-<td>GeForce RTX 30 series, A100</td>
-<td>3rd gen Tensor Cores, sparsity acceleration</td>
-</tr>
-<tr>
-<td>Hopper</td>
-<td>H100</td>
-<td>4th gen Tensor Cores, Transformer Engine</td>
-</tr>
-<tr>
-<td>Ada Lovelace</td>
-<td>GeForce RTX 40 series</td>
-<td>RT improvements, DLSS 3</td>
-</tr>
-</tbody>
-</table>
-<h3 id="hardware-components">Hardware Components</h3>
-<p>A modern NVIDIA GPU consists of:</p>
-<ol>
-<li><strong>Streaming Multiprocessors (SMs)</strong>: The basic computational units</li>
-<li><strong>Tensor Cores</strong>: Specialized for matrix operations (newer GPUs)</li>
-<li><strong>RT Cores</strong>: Specialized for ray tracing (RTX GPUs)</li>
-<li><strong>Memory Controllers</strong>: Interface with device memory</li>
-<li><strong>L2 Cache</strong>: Shared among all SMs</li>
-<li><strong>Scheduler</strong>: Manages execution of thread blocks</li>
-</ol>
-<h3 id="streaming-multiprocessor-sm-architecture">Streaming Multiprocessor (SM) Architecture</h3>
-<p>Each SM contains:</p>
-<ul>
-<li><strong>CUDA Cores</strong>: Integer and floating-point arithmetic units</li>
-<li><strong>Tensor Cores</strong>: Matrix multiply-accumulate units</li>
-<li><strong>Warp Schedulers</strong>: Manage thread execution</li>
-<li><strong>Register File</strong>: Ultra-fast storage for thread variables</li>
-<li><strong>Shared Memory/L1 Cache</strong>: Fast memory shared by threads in a block</li>
-<li><strong>Load/Store Units</strong>: Handle memory operations</li>
-<li><strong>Special Function Units (SFUs)</strong>: Calculate transcendentals (sin, cos, etc.)</li>
-<li><strong>Texture Units</strong>: Specialized for texture operations</li>
-</ul>
-<p><img alt="SM Architecture" src="https://developer.nvidia.com/blog/wp-content/uploads/2018/04/volta-architecture-768x756.png" />
-<em>Example SM architecture (diagram not included, reference only)</em></p>
-<h2 id="software-programming-model">Software Programming Model</h2>
-<p>CUDA programs are organized in a hierarchical structure:</p>
-<h3 id="thread-hierarchy">Thread Hierarchy</h3>
-<ol>
-<li><strong>Thread</strong>: The smallest execution unit, runs a program instance</li>
-<li><strong>Warp</strong>: Group of 32 threads that execute in lockstep (SIMT)</li>
-<li><strong>Block</strong>: Group of threads that can cooperate via shared memory</li>
-<li><strong>Grid</strong>: Collection of blocks that execute the same kernel</li>
-</ol>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Grid
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── Block (0,0)  Block (1,0)  Block (2,0)
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├── Block (0,1)  Block (1,1)  Block (2,1)
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>└── Block (0,2)  Block (1,2)  Block (2,2)
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>Block (1,1)
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>├── Thread (0,0)  Thread (1,0)  Thread (2,0)
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>├── Thread (0,1)  Thread (1,1)  Thread (2,1)
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>└── Thread (0,2)  Thread (1,2)  Thread (2,2)
+<h1 id="tutorial-understanding-gpu-architecture-and-execution-model">Tutorial: Understanding GPU Architecture and Execution Model</h1>
+<p><strong>Time Required:</strong> 60-75 minutes
+<strong>Difficulty:</strong> Intermediate
+<strong>Prerequisites:</strong> Completed Tutorials 01 and 02, basic understanding of computer architecture</p>
+<p>By the end of this tutorial, you will understand how GPUs are physically organized, how threads are scheduled and executed, how the memory hierarchy works, and why certain coding patterns perform better than others. This knowledge is essential for writing high-performance CUDA code.</p>
+<p>You can find the code at <a href="https://github.com/eunomia-bpf/basic-cuda-tutorial">https://github.com/eunomia-bpf/basic-cuda-tutorial</a></p>
+<h2 id="why-gpu-architecture-matters">Why GPU Architecture Matters</h2>
+<p>You might wonder why you need to understand the hardware when writing CUDA code. After all, compilers are supposed to handle optimization for you. The reality is that GPU architecture is fundamentally different from CPU architecture, and writing efficient GPU code requires understanding these differences.</p>
+<p>Consider this: on a CPU, you might write a loop that processes one element at a time, and the processor tries to speed it up through pipelining, branch prediction, and out-of-order execution. On a GPU, you have thousands of threads running simultaneously, and performance depends on how well these threads cooperate and access memory. Writing code that ignores the GPU's architecture is like trying to drive a motorcycle the same way you drive a car - technically possible, but you're missing the point entirely.</p>
+<h2 id="the-gpu-hardware-hierarchy">The GPU Hardware Hierarchy</h2>
+<p>Let's start by examining what a modern GPU actually looks like. When you run the example, you'll see detailed information about your GPU:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>make<span class="w"> </span><span class="m">04</span>-gpu-architecture
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>./04-gpu-architecture
 </code></pre></div>
-<h3 id="thread-indexing">Thread Indexing</h3>
-<p>Threads can be organized in 1D, 2D, or 3D arrangements. Each thread can be uniquely identified by:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">// 1D grid of 1D blocks</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kt">int</span><span class="w"> </span><span class="n">tid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1">// 2D grid of 2D blocks</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="kt">int</span><span class="w"> </span><span class="n">tid_x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="kt">int</span><span class="w"> </span><span class="n">tid_y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="kt">int</span><span class="w"> </span><span class="n">tid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tid_y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">gridDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">tid_x</span><span class="p">;</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="c1">// 3D grid of 3D blocks</span>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="kt">int</span><span class="w"> </span><span class="n">tid_x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="kt">int</span><span class="w"> </span><span class="n">tid_y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="kt">int</span><span class="w"> </span><span class="n">tid_z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">z</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">z</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">z</span><span class="p">;</span>
+<p>On an NVIDIA GeForce RTX 5090, you'll see output like this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Device 0: NVIDIA GeForce RTX 5090
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  Compute Capability: 12.0
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  SMs (Multiprocessors): 170
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  Warp Size: 32 threads
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>  Max Threads per SM: 1536
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  Max Threads per Block: 1024
 </code></pre></div>
-<h3 id="kernel-execution-configuration">Kernel Execution Configuration</h3>
-<p>A kernel is launched with a specific grid and block configuration:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kt">dim3</span><span class="w"> </span><span class="nf">block</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w">   </span><span class="c1">// 16×16 threads per block</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kt">dim3</span><span class="w"> </span><span class="nf">grid</span><span class="p">(</span><span class="n">N</span><span class="o">/</span><span class="mi">16</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="o">/</span><span class="mi">16</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"> </span><span class="c1">// Grid dimensions adjusted to data size</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">myKernel</span><span class="o">&lt;&lt;&lt;</span><span class="n">grid</span><span class="p">,</span><span class="w"> </span><span class="n">block</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">params</span><span class="p">...);</span>
+<p>Let's break down what these numbers mean and why they matter.</p>
+<h3 id="streaming-multiprocessors-the-core-building-blocks">Streaming Multiprocessors: The Core Building Blocks</h3>
+<p>A GPU consists of many Streaming Multiprocessors (SMs). Each SM is like a small processor that can execute many threads simultaneously. The RTX 5090 has 170 SMs, meaning it can run 170 different groups of threads in parallel at any given moment.</p>
+<p>Think of an SM as a factory floor with multiple assembly lines. Each assembly line (called a warp) has 32 workers (threads) who all perform the same operation at the same time. The SM schedules which assembly lines are active and feeds them work.</p>
+<p>When you launch a kernel, the CUDA runtime distributes your thread blocks across the available SMs. If you launch 340 blocks and have 170 SMs, initially two blocks will be assigned to each SM. As blocks complete, new ones get scheduled. This is why having more blocks than SMs is generally good - it keeps all the hardware busy.</p>
+<h3 id="the-thread-execution-model">The Thread Execution Model</h3>
+<p>Every thread in CUDA has a unique identity determined by its position in a three-dimensional grid:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kt">int</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
 </code></pre></div>
-<h3 id="synchronization">Synchronization</h3>
-<ul>
-<li><strong>Block-level</strong>: <code>__syncthreads()</code> synchronizes all threads in a block</li>
-<li><strong>System-level</strong>: <code>cudaDeviceSynchronize()</code> waits for all kernels to complete</li>
-<li><strong>Stream-level</strong>: <code>cudaStreamSynchronize(stream)</code> waits for operations in a stream</li>
-<li><strong>Cooperative Groups</strong>: More flexible synchronization patterns (newer CUDA versions)</li>
-</ul>
-<h2 id="memory-hierarchy">Memory Hierarchy</h2>
-<p>GPUs have a complex memory hierarchy with different performance characteristics:</p>
-<h3 id="device-memory-types">Device Memory Types</h3>
-<ol>
-<li><strong>Global Memory</strong></li>
-<li>Largest capacity (several GB)</li>
-<li>Accessible by all threads</li>
-<li>High latency (hundreds of cycles)</li>
-<li>Used for main data storage</li>
-<li>
-<p>Bandwidth: ~500-2000 GB/s depending on GPU</p>
-</li>
-<li>
-<p><strong>Shared Memory</strong></p>
-</li>
-<li>Small capacity (up to 164KB per SM in newer GPUs)</li>
-<li>Accessible by threads within a block</li>
-<li>Low latency (similar to L1 cache)</li>
-<li>Used for inter-thread communication and data reuse</li>
-<li>
-<p>Organized in banks for parallel access</p>
-</li>
-<li>
-<p><strong>Constant Memory</strong></p>
-</li>
-<li>Small (64KB per device)</li>
-<li>Read-only for kernels</li>
-<li>Cached and optimized for broadcast</li>
-<li>
-<p>Used for unchanging parameters</p>
-</li>
-<li>
-<p><strong>Texture Memory</strong></p>
-</li>
-<li>Cached read-only memory</li>
-<li>Optimized for 2D/3D spatial locality</li>
-<li>Hardware interpolation</li>
-<li>
-<p>Used for image processing</p>
-</li>
-<li>
-<p><strong>Local Memory</strong></p>
-</li>
-<li>Per-thread private storage</li>
-<li>Used for register spills</li>
-<li>Actually resides in global memory</li>
-<li>
-<p>Automatic variable arrays often stored here</p>
-</li>
-<li>
-<p><strong>Registers</strong></p>
-</li>
-<li>Fastest memory type</li>
-<li>Per-thread private storage</li>
-<li>Limited number per thread</li>
-<li>Used for thread-local variables</li>
-</ol>
-<h3 id="memory-management-models">Memory Management Models</h3>
-<ol>
-<li>
-<p><strong>Explicit Memory Management</strong>
-   <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">// Allocate device memory</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">d_data</span><span class="p">;</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">cudaMalloc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">d_data</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">);</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="c1">// Transfer data to device</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="n">cudaMemcpy</span><span class="p">(</span><span class="n">d_data</span><span class="p">,</span><span class="w"> </span><span class="n">h_data</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">cudaMemcpyHostToDevice</span><span class="p">);</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="c1">// Launch kernel</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="n">kernel</span><span class="o">&lt;&lt;&lt;</span><span class="n">grid</span><span class="p">,</span><span class="w"> </span><span class="n">block</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">d_data</span><span class="p">);</span>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="c1">// Transfer results back</span>
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="n">cudaMemcpy</span><span class="p">(</span><span class="n">h_result</span><span class="p">,</span><span class="w"> </span><span class="n">d_data</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">cudaMemcpyDeviceToHost</span><span class="p">);</span>
-<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
-<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="c1">// Free device memory</span>
-<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="n">cudaFree</span><span class="p">(</span><span class="n">d_data</span><span class="p">);</span>
+<p>This hierarchy exists for a reason. Threads are organized into blocks, and blocks are organized into grids. This structure maps directly to how the hardware schedules and executes code.</p>
+<p>Run the thread hierarchy demonstration. You'll see output like:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Thread ID: 0, Position: (0,0,0) in Block (0,0,0) of Grid (4,4,4)
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>Thread ID: 800, Position: (0,0,2) in Block (0,3,0) of Grid (4,4,4)
+</code></pre></div>
+<p>Each thread knows exactly where it is in this hierarchy. This is crucial because it allows threads to compute which data they should process without any centralized coordination. Thread 0 in block (0,0,0) processes different data than thread 0 in block (1,0,0).</p>
+<h3 id="understanding-warps-the-fundamental-execution-unit">Understanding Warps: The Fundamental Execution Unit</h3>
+<p>Here's something that might surprise you: even though you program individual threads, the GPU doesn't execute them one at a time. Instead, it executes them in groups of 32 called warps.</p>
+<p>All 32 threads in a warp execute the same instruction at the same time. This is called SIMT (Single Instruction, Multiple Threads). It's similar to SIMD (Single Instruction, Multiple Data) from CPUs, but more flexible because threads can diverge when necessary.</p>
+<p>Look at the warp execution output:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Thread   0: Warp 10000, Lane  0
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>Thread  32: Warp 10001, Lane  0
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>Thread  64: Warp 10002, Lane  0
+</code></pre></div>
+<p>Threads 0-31 are in warp 10000, threads 32-63 are in warp 10001, and so on. Within each warp, threads have lane IDs from 0 to 31. This organization has profound implications for performance.</p>
+<h3 id="warp-divergence-when-threads-take-different-paths">Warp Divergence: When Threads Take Different Paths</h3>
+<p>What happens when threads in a warp need to execute different code? Consider this kernel:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">16</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="c1">// First half of warp does this</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">expensive_operation_a</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="c1">// Second half of warp does this</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">expensive_operation_b</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="p">}</span>
+</code></pre></div>
+<p>Since all threads in a warp must execute the same instruction, the hardware does something clever but inefficient: it executes both paths. First, threads 0-15 execute operation_a while threads 16-31 are masked off (inactive). Then threads 16-31 execute operation_b while threads 0-15 are masked off.</p>
+<p>This means divergent code takes the time of both paths combined. The demonstration shows this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Note on warp divergence:
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  When threads within a warp take different paths (diverge),
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>  the warp executes both paths, masking threads as appropriate.
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>  This reduces efficiency.
+</code></pre></div>
+<p>To avoid warp divergence, try to keep threads in a warp executing the same code path. If you must have conditionals, group threads so that all 32 threads in a warp take the same branch.</p>
+<h2 id="memory-hierarchy-the-key-to-performance">Memory Hierarchy: The Key to Performance</h2>
+<p>GPU performance is often limited not by computation but by memory access. Understanding the memory hierarchy is crucial for writing fast code.</p>
+<h3 id="global-memory-large-but-slow">Global Memory: Large but Slow</h3>
+<p>When you use <code>cudaMalloc</code>, you're allocating global memory. This is the main GPU memory - large (32 GB on the RTX 5090) but with high latency (hundreds of clock cycles).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Total Global Memory: 31.36 GB
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>Memory Clock Rate: 14001 MHz
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>Memory Bus Width: 512 bits
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>Peak Memory Bandwidth: 1792.13 GB/s
+</code></pre></div>
+<p>That bandwidth number is theoretical peak. In practice, you'll achieve a fraction of it depending on your memory access patterns. This brings us to a critical concept: memory coalescing.</p>
+<h3 id="memory-coalescing-why-access-patterns-matter">Memory Coalescing: Why Access Patterns Matter</h3>
+<p>Modern GPUs load memory in large chunks (typically 128 bytes). When threads in a warp access adjacent memory locations, the hardware can combine (coalesce) these accesses into a single transaction.</p>
+<p>Consider these two patterns:</p>
+<p><strong>Coalesced access:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1">// Thread 0 accesses data[0], thread 1 accesses data[1], etc.</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">output</span><span class="p">[</span><span class="n">tid</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="n">tid</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2.0f</span><span class="p">;</span>
 </code></pre></div></p>
-</li>
-<li>
-<p><strong>Unified Memory</strong>
-   <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1">// Allocate unified memory</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">;</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">cudaMallocManaged</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">);</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1">// Initialize data (on host)</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="c1">// Launch kernel (data automatically migrated)</span>
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="n">kernel</span><span class="o">&lt;&lt;&lt;</span><span class="n">grid</span><span class="p">,</span><span class="w"> </span><span class="n">block</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="c1">// Wait for kernel to finish</span>
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="n">cudaDeviceSynchronize</span><span class="p">();</span>
-<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>
-<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="c1">// Access results (data automatically migrated back)</span>
-<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="kt">float</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>
-<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="c1">// Free unified memory</span>
-<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="n">cudaFree</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+<p><strong>Non-coalesced access:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1">// Thread 0 accesses data[0], thread 1 accesses data[8], etc.</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">output</span><span class="p">[</span><span class="n">tid</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="n">tid</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2.0f</span><span class="p">;</span>
 </code></pre></div></p>
-</li>
-<li>
-<p><strong>Zero-Copy Memory</strong>
-   <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">;</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">cudaHostAlloc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">cudaHostAllocMapped</span><span class="p">);</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">d_data</span><span class="p">;</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="n">cudaHostGetDevicePointer</span><span class="p">(</span><span class="o">&amp;</span><span class="n">d_data</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="n">kernel</span><span class="o">&lt;&lt;&lt;</span><span class="n">grid</span><span class="p">,</span><span class="w"> </span><span class="n">block</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">d_data</span><span class="p">);</span>
-</code></pre></div></p>
-</li>
-</ol>
-<h3 id="memory-access-patterns">Memory Access Patterns</h3>
+<p>The first pattern can be satisfied with one 128-byte memory transaction for the entire warp. The second pattern might require 32 separate transactions. The performance difference is dramatic.</p>
+<p>Run the memory coalescing demonstration:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Memory access timing:
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>  Elapsed time: 0.024 ms
+</code></pre></div>
+<p>While this simple example may not show huge differences, in real applications, proper coalescing can improve performance by 5-10x.</p>
+<h3 id="shared-memory-fast-on-chip-storage">Shared Memory: Fast On-Chip Storage</h3>
+<p>Shared memory is a small (48 KB per block) but extremely fast memory space that all threads in a block can access. It's located on the SM itself, so access latency is much lower than global memory.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>Shared Memory per Block: 48 KB
+</code></pre></div>
+<p>Shared memory is perfect for situations where threads need to cooperate. Here's the classic pattern:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kt">__shared__</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">sharedData</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="c1">// Load from global to shared memory</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="n">sharedData</span><span class="p">[</span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">globalData</span><span class="p">[</span><span class="n">globalIdx</span><span class="p">];</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="c1">// Synchronize to ensure all threads have loaded their data</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="nf">__syncthreads</span><span class="p">();</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="c1">// Now all threads can read from shared memory quickly</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sharedData</span><span class="p">[</span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">sharedData</span><span class="p">[</span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span>
+</code></pre></div>
+<p>The <code>__syncthreads()</code> is crucial. It's a barrier that ensures all threads in the block reach this point before any continue. Without it, some threads might try to read data that hasn't been loaded yet.</p>
+<p>The demonstration shows a simple stencil operation using shared memory:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>First few output values (should be sums of adjacent input values):
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>  output[0] = 1.0
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>  output[1] = 3.0
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>  output[2] = 5.0
+</code></pre></div>
+<p>Each output is the sum of two adjacent inputs, computed efficiently using shared memory.</p>
+<h3 id="l2-cache-and-register-file">L2 Cache and Register File</h3>
+<p>Between shared and global memory sits the L2 cache:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>L2 Cache Size: 98304 KB
+</code></pre></div>
+<p>The L2 cache is automatic - you don't explicitly manage it. It caches frequently accessed global memory, helping to hide latency. Recent GPU architectures allow you to influence caching behavior through PTX instructions, as we saw in Tutorial 02.</p>
+<p>The fastest memory of all is registers:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>Registers per Block: 65536
+</code></pre></div>
+<p>Each thread has its own private registers. Variables you declare in kernel code typically go in registers. Register access has essentially zero latency, but each SM has a limited number of registers to share among all active threads.</p>
+<p>This creates a tradeoff: using more registers per thread allows more complex computations but limits how many threads can be active simultaneously (occupancy).</p>
+<h2 id="occupancy-keeping-the-gpu-busy">Occupancy: Keeping the GPU Busy</h2>
+<p>Occupancy refers to the ratio of active warps to the maximum number of warps an SM can support. Higher occupancy generally means better performance because it helps hide memory latency.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>Max Threads per SM: 1536
+</code></pre></div>
+<p>With a warp size of 32, this means each SM can handle up to 48 warps (1536 / 32). If your kernel uses so many registers or shared memory that each SM can only run 24 warps, your occupancy is 50%.</p>
+<p>The occupancy calculation considers three factors:</p>
+<p><strong>Threads per block:</strong> More threads per block generally better, but don't exceed hardware limits.</p>
+<p><strong>Registers per thread:</strong> Fewer is better for occupancy, but might hurt performance if you spill to local memory.</p>
+<p><strong>Shared memory per block:</strong> Less is better for occupancy, but shared memory enables important optimizations.</p>
+<p>You can check occupancy with:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>nvcc<span class="w"> </span>--ptxas-options<span class="o">=</span>-v<span class="w"> </span><span class="m">04</span>-gpu-architecture.cu
+</code></pre></div>
+<p>This shows register and shared memory usage. Use the CUDA Occupancy Calculator to find the sweet spot for your kernel.</p>
+<h2 id="practical-example-optimized-matrix-multiplication">Practical Example: Optimized Matrix Multiplication</h2>
+<p>Let's see how understanding architecture improves real code. Here's a naive matrix multiplication:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">matmul_naive</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">row</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a><span class="w">            </span><span class="n">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">A</span><span class="p">[</span><span class="n">row</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">col</span><span class="p">];</span>
+<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a><span class="w">        </span><span class="n">C</span><span class="p">[</span><span class="n">row</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">col</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sum</span><span class="p">;</span>
+<a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a><span class="p">}</span>
+</code></pre></div>
+<p>This works, but has terrible performance. Each thread reads an entire row of A and an entire column of B from global memory. For a 1024x1024 matrix, that's 1024 global memory accesses per thread.</p>
+<p>Now consider a shared memory version that tiles the computation. By loading data into shared memory and reusing it across threads, we dramatically reduce global memory traffic. The kernel in <code>04-gpu-architecture.cu</code> at line 126 demonstrates this optimization.</p>
+<h2 id="common-architecture-related-pitfalls">Common Architecture-Related Pitfalls</h2>
+<p><strong>Launching too few blocks:</strong> If you only launch as many blocks as you have SMs, you can't hide latency. Launch 2-4x more blocks than SMs.</p>
+<p><strong>Ignoring alignment:</strong> Memory accesses should be aligned to 128 bytes when possible. Unaligned accesses waste bandwidth.</p>
+<p><strong>Thread block size not a multiple of 32:</strong> If you launch 100 threads per block, you're wasting 28 thread slots in the last warp of each block. Use 96 or 128 instead.</p>
+<p><strong>Excessive register usage:</strong> Check with <code>nvcc --ptxas-options=-v</code> and reduce if occupancy is low.</p>
+<p><strong>Unnecessary synchronization:</strong> <code>__syncthreads()</code> is expensive. Only use it when threads actually need to coordinate.</p>
+<h2 id="challenge-exercises">Challenge Exercises</h2>
 <ol>
 <li>
-<p><strong>Coalesced Access</strong>: Threads in a warp access contiguous memory
-   <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1">// Coalesced (efficient)</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">data</span><span class="p">[</span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
-</code></pre></div></p>
+<p><strong>Measure coalescing impact:</strong> Write two versions of a simple kernel - one with perfect coalescing and one with terrible coalescing. Measure the performance difference on your GPU.</p>
 </li>
 <li>
-<p><strong>Strided Access</strong>: Threads in a warp access memory with stride
-   <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1">// Strided (inefficient)</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">data</span><span class="p">[</span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">stride</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
-</code></pre></div></p>
+<p><strong>Optimize occupancy:</strong> Take a kernel that uses many registers. Use shared memory or restructure the computation to reduce register pressure. Measure the impact on performance.</p>
 </li>
 <li>
-<p><strong>Bank Conflicts</strong>: Multiple threads access the same shared memory bank
-   <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1">// Potential bank conflict if threadIdx.x % 32 is the same for multiple threads</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">shared</span><span class="p">[</span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">];</span>
-</code></pre></div></p>
+<p><strong>Test warp divergence:</strong> Write a kernel with varying amounts of divergence (none, 50%, 100%). Measure the performance impact and verify it matches the theory.</p>
 </li>
 </ol>
-<h2 id="execution-model">Execution Model</h2>
-<h3 id="simt-execution">SIMT Execution</h3>
-<p>GPU executes threads in groups of 32 (warps) using Single Instruction, Multiple Thread (SIMT) execution:</p>
-<ul>
-<li>All threads in a warp execute the same instruction</li>
-<li>Divergent paths are serialized (warp divergence)</li>
-<li>Predication is used for short conditional sections</li>
-</ul>
-<h3 id="scheduling">Scheduling</h3>
-<ol>
-<li><strong>Block Scheduling</strong>:</li>
-<li>Blocks are assigned to SMs based on resources</li>
-<li>Once assigned, a block runs to completion on that SM</li>
-<li>
-<p>Blocks cannot communicate with each other</p>
-</li>
-<li>
-<p><strong>Warp Scheduling</strong>:</p>
-</li>
-<li>Warps are the basic scheduling unit</li>
-<li>Hardware warp schedulers select ready warps for execution</li>
-<li>
-<p>Latency hiding through warp interleaving</p>
-</li>
-<li>
-<p><strong>Instruction-Level Scheduling</strong>:</p>
-</li>
-<li>Instructions from different warps can be interleaved</li>
-<li>Helps hide memory and instruction latency</li>
-</ol>
-<h3 id="occupancy">Occupancy</h3>
-<p>Occupancy is the ratio of active warps to maximum possible warps on an SM:</p>
-<ul>
-<li>Limited by resources: registers, shared memory, block size</li>
-<li>Higher occupancy generally improves latency hiding</li>
-<li>Not always linearly correlated with performance</li>
-</ul>
-<p>Factors affecting occupancy:
-- <strong>Register usage per thread</strong>: More registers = fewer warps
-- <strong>Shared memory per block</strong>: More shared memory = fewer blocks
-- <strong>Block size</strong>: Very small blocks reduce occupancy</p>
-<h2 id="performance-considerations">Performance Considerations</h2>
-<h3 id="memory-optimization">Memory Optimization</h3>
-<ol>
-<li><strong>Coalesced Access</strong>: Ensure threads in a warp access contiguous memory</li>
-<li><strong>Shared Memory</strong>: Use for data reused within a block</li>
-<li><strong>L1/Texture Cache</strong>: Leverage for read-only data with spatial locality</li>
-<li><strong>Memory Bandwidth</strong>: Often the limiting factor; minimize transfers</li>
-</ol>
-<h3 id="execution-optimization">Execution Optimization</h3>
-<ol>
-<li><strong>Occupancy</strong>: Balance resource usage to maximize active warps</li>
-<li><strong>Warp Divergence</strong>: Minimize divergent paths within warps</li>
-<li><strong>Instruction Mix</strong>: Balance arithmetic operations and memory accesses</li>
-<li><strong>Kernel Fusion</strong>: Combine multiple operations into one kernel to reduce launch overhead</li>
-</ol>
-<h3 id="common-optimization-techniques">Common Optimization Techniques</h3>
-<ol>
-<li><strong>Tiling</strong>: Divide data into tiles that fit in shared memory</li>
-<li><strong>Loop Unrolling</strong>: Reduce loop overhead</li>
-<li><strong>Prefetching</strong>: Load data before it's needed</li>
-<li><strong>Warp Shuffle</strong>: Exchange data between threads in a warp without shared memory</li>
-<li><strong>Persistent Threads</strong>: Keep threads active for multiple work items</li>
-</ol>
-<h2 id="example-application">Example Application</h2>
-<p>The accompanying <code>basic04.cu</code> demonstrates:</p>
-<ol>
-<li><strong>Hardware inspection</strong>: Querying and displaying device properties</li>
-<li><strong>Thread hierarchy</strong>: Visualizing the grid/block/thread structure</li>
-<li><strong>Memory types</strong>: Using global, shared, constant, local, and register memory</li>
-<li><strong>Memory access patterns</strong>: Demonstrating coalesced vs. non-coalesced access</li>
-<li><strong>Warp execution</strong>: Showing warp ID, lane ID, and divergence effects</li>
-</ol>
-<h3 id="key-code-sections">Key Code Sections</h3>
-<p>Thread identification and hierarchy:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">threadHierarchyKernel</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">tx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">tz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">z</span><span class="p">;</span>
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">bx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
-<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
-<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">bz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">z</span><span class="p">;</span>
-<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>
-<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">    </span><span class="c1">// Print thread position</span>
-<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Thread (%d,%d,%d) in Block (%d,%d,%d)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">tx</span><span class="p">,</span><span class="w"> </span><span class="n">ty</span><span class="p">,</span><span class="w"> </span><span class="n">tz</span><span class="p">,</span><span class="w"> </span><span class="n">bx</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="p">,</span><span class="w"> </span><span class="n">bz</span><span class="p">);</span>
-<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="p">}</span>
-</code></pre></div></p>
-<p>Shared memory usage:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">sharedMemoryKernel</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">output</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="kt">__shared__</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">sharedData</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span>
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">tid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
-<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">localId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
-<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
-<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">    </span><span class="c1">// Load data to shared memory</span>
-<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">    </span><span class="n">sharedData</span><span class="p">[</span><span class="n">localId</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">[</span><span class="n">tid</span><span class="p">];</span>
-<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>
-<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">    </span><span class="c1">// Synchronize</span>
-<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">    </span><span class="nf">__syncthreads</span><span class="p">();</span>
-<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>
-<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="w">    </span><span class="c1">// Use shared data</span>
-<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="w">    </span><span class="n">output</span><span class="p">[</span><span class="n">tid</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sharedData</span><span class="p">[</span><span class="n">localId</span><span class="p">];</span>
-<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="p">}</span>
-</code></pre></div></p>
+<h2 id="summary">Summary</h2>
+<p>GPU architecture is fundamentally different from CPU architecture. Understanding the hierarchy of SMs, warps, and threads is essential for writing efficient code. Memory access patterns often matter more than computation. Coalesced accesses use memory bandwidth efficiently, while scattered accesses waste it.</p>
+<p>Shared memory enables cooperation between threads in a block, dramatically reducing global memory traffic. Warps execute in lockstep, so divergent code paths hurt performance. Occupancy affects how well the GPU can hide memory latency.</p>
+<p>The key to GPU performance is keeping all the hardware busy. Launch enough blocks to saturate the SMs. Use memory access patterns that enable coalescing. Leverage shared memory for data reuse. Avoid warp divergence when possible.</p>
+<h2 id="next-steps">Next Steps</h2>
+<p>Continue to <strong>Tutorial 05: Neural Network Forward Pass</strong> to see how architectural understanding applies to deep learning. You'll implement a simple neural network on the GPU and learn how matrix multiplication, activation functions, and memory layouts affect performance in real ML workloads.</p>
 <h2 id="further-reading">Further Reading</h2>
 <ul>
-<li><a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html">CUDA C++ Programming Guide</a></li>
-<li><a href="https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/index.html">CUDA Best Practices Guide</a></li>
-<li><a href="https://www.amazon.com/Professional-CUDA-Programming-John-Cheng/dp/1118739329">Professional CUDA C Programming</a></li>
-<li><a href="https://www.amazon.com/Programming-Massively-Parallel-Processors-Hands/dp/0124159923">Programming Massively Parallel Processors</a> </li>
+<li><a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#hardware-implementation">CUDA C++ Programming Guide - Hardware Implementation</a></li>
+<li><a href="https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/">CUDA C++ Best Practices Guide</a></li>
+<li><a href="https://www.nvidia.com/en-us/data-center/resources/gpu-architecture/">GPU Architecture Whitepapers</a></li>
+<li><a href="https://docs.nvidia.com/cuda/cuda-occupancy-calculator/index.html">CUDA Occupancy Calculator</a></li>
 </ul>
-<p><a class="md-button" href="https://x.com/intent/tweet?text=CUDA%20GPU%20Organization%20Hierarchy%0A&amp;url=https://eunomia.dev/others/cuda-tutorial/04-gpu-architecture/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=Tutorial%3A%20Understanding%20GPU%20Architecture%20and%20Execution%20Model%0A&amp;url=https://eunomia.dev/others/cuda-tutorial/04-gpu-architecture/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/others/cuda-tutorial/04-gpu-architecture/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
@@ -9251,7 +8849,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 25, 2025 01:28:13 UTC">May 25, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 13, 2025 13:23:26 UTC">October 13, 2025</span>
   </span>
 
     
@@ -9271,12 +8869,13 @@
   <span class="md-source-file__fact">
     <span class="md-icon" title="Contributors">
       
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
       
     </span>
     <nav>
       
-        <a href="mailto:yt.xyxx@gmail.com">officeyutong</a>
+        <a href="mailto:yt.xyxx@gmail.com">officeyutong</a>, 
+        <a href="mailto:yunwei356@gmail.com">yunwei37</a>
     </nav>
   </span>
 
@@ -9398,13 +8997,13 @@
         
         
           
-          <a href="../05-neural-network/" class="md-footer__link md-footer__link--next" aria-label="Next: Neural Network Forward Pass on GPU with CUDA">
+          <a href="../05-neural-network/" class="md-footer__link md-footer__link--next" aria-label="Next: Tutorial: Neural Network Forward Pass on GPU">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Neural Network Forward Pass on GPU with CUDA
+                Tutorial: Neural Network Forward Pass on GPU
               </div>
             </div>
             <div class="md-footer__button md-icon">

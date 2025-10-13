@@ -24,7 +24,7 @@
     
     
       
-        <title>CUDA PTX示例：使用内联PTX汇编进行向量乘法 - eunomia</title>
+        <title>教程：使用PTX理解GPU汇编 - eunomia</title>
       
     
     
@@ -69,7 +69,7 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="CUDA PTX示例：使用内联PTX汇编进行向量乘法 - eunomia" >
+        <meta  property="og:title"  content="教程：使用PTX理解GPU汇编 - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
@@ -85,7 +85,7 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="CUDA PTX示例：使用内联PTX汇编进行向量乘法 - eunomia" >
+        <meta  name="twitter:title"  content="教程：使用PTX理解GPU汇编 - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
@@ -112,7 +112,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#cuda-ptxptx" class="md-skip">
+        <a href="#ptxgpu" class="md-skip">
           Skip to content
         </a>
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              CUDA PTX示例：使用内联PTX汇编进行向量乘法
+              教程：使用PTX理解GPU汇编
             
           </span>
         </div>
@@ -4542,7 +4542,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA 基础示例 - 向量加法解释
+    教程：你的第一个CUDA程序 - 向量加法
     
   </span>
   
@@ -4574,7 +4574,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA PTX示例：使用内联PTX汇编进行向量乘法
+    教程：使用PTX理解GPU汇编
     
   </span>
   
@@ -4587,7 +4587,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA PTX示例：使用内联PTX汇编进行向量乘法
+    教程：使用PTX理解GPU汇编
     
   </span>
   
@@ -4612,7 +4612,7 @@
         <li class="md-nav__item">
   <a href="#ptx" class="md-nav__link">
     <span class="md-ellipsis">
-      什么是PTX？
+      什么是PTX，为什么要关心它？
     </span>
   </a>
   
@@ -4621,35 +4621,62 @@
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      示例概述
+      编译管道
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#ptx_1" class="md-nav__link">
     <span class="md-ellipsis">
-      代码解释
+      生成和检查PTX
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="代码解释">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ptx_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      PTX结构和语法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PTX结构和语法">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#ptx_1" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      PTX内联汇编函数
+      寄存器声明
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#cuda" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      CUDA内核
+      线程索引计算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      内存操作
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      控制流
     </span>
   </a>
   
@@ -4661,34 +4688,298 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ptx_2" class="md-nav__link">
+  <a href="#ptx_3" class="md-nav__link">
     <span class="md-ellipsis">
-      常用PTX指令
+      编写内联PTX汇编
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="编写内联PTX汇编">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ptx_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本内联PTX语法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      更复杂的示例：乘加
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ptx_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      使用PTX优化内存访问
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      动手练习：比较编译器输出
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#ptx_6" class="md-nav__link">
     <span class="md-ellipsis">
-      构建和运行
+      构建并运行PTX示例
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#ptx_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      理解PTX指令类型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="理解PTX指令类型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      算术指令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      比较和选择
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      位操作
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      特殊函数
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      内存空间和限定符
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      缓存控制和内存修饰符
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Warp级操作
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Warp级操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#warp_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Warp洗牌
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#warp_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Warp投票
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ptx_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      调试PTX代码
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
     <span class="md-ellipsis">
       性能考虑
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="性能考虑">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ptx_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      何时使用内联PTX
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ptx_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      何时不使用内联PTX
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      架构特定优化
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      实际用例
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="实际用例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      案例研究1：自定义原子操作
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2warp" class="md-nav__link">
+    <span class="md-ellipsis">
+      案例研究2：Warp级归约
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      案例研究3：内存栅栏控制
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      高级主题预览
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      挑战练习
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      总结
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      下一步
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
     <span class="md-ellipsis">
       进一步阅读
     </span>
@@ -4740,7 +5031,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA GPU组织层次结构
+    教程：理解 GPU 架构与执行模型
     
   </span>
   
@@ -4763,7 +5054,7 @@
   
   
   <span class="md-ellipsis">
-    使用CUDA在GPU上实现神经网络前向传播
+    教程：GPU 上的神经网络前向传播
     
   </span>
   
@@ -4786,7 +5077,7 @@
   
   
   <span class="md-ellipsis">
-    使用共享内存优化的GPU加速卷积操作
+    教程：共享内存优化的 CNN 卷积
     
   </span>
   
@@ -8053,29 +8344,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../miscellaneous/iaprof-analysis/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Understanding iaprof: A Deep Dive into AI/GPU Flame Graph Profiling
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../miscellaneous/ideas/" class="md-nav__link">
         
   
@@ -8379,7 +8647,7 @@
         <li class="md-nav__item">
   <a href="#ptx" class="md-nav__link">
     <span class="md-ellipsis">
-      什么是PTX？
+      什么是PTX，为什么要关心它？
     </span>
   </a>
   
@@ -8388,35 +8656,62 @@
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      示例概述
+      编译管道
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#ptx_1" class="md-nav__link">
     <span class="md-ellipsis">
-      代码解释
+      生成和检查PTX
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="代码解释">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ptx_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      PTX结构和语法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PTX结构和语法">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#ptx_1" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      PTX内联汇编函数
+      寄存器声明
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#cuda" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      CUDA内核
+      线程索引计算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      内存操作
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      控制流
     </span>
   </a>
   
@@ -8428,34 +8723,298 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ptx_2" class="md-nav__link">
+  <a href="#ptx_3" class="md-nav__link">
     <span class="md-ellipsis">
-      常用PTX指令
+      编写内联PTX汇编
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="编写内联PTX汇编">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ptx_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本内联PTX语法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      更复杂的示例：乘加
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ptx_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      使用PTX优化内存访问
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      动手练习：比较编译器输出
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#ptx_6" class="md-nav__link">
     <span class="md-ellipsis">
-      构建和运行
+      构建并运行PTX示例
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#ptx_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      理解PTX指令类型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="理解PTX指令类型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      算术指令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      比较和选择
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      位操作
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      特殊函数
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      内存空间和限定符
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      缓存控制和内存修饰符
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Warp级操作
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Warp级操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#warp_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Warp洗牌
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#warp_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Warp投票
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ptx_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      调试PTX代码
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
     <span class="md-ellipsis">
       性能考虑
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="性能考虑">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ptx_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      何时使用内联PTX
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ptx_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      何时不使用内联PTX
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      架构特定优化
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      实际用例
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="实际用例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      案例研究1：自定义原子操作
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2warp" class="md-nav__link">
+    <span class="md-ellipsis">
+      案例研究2：Warp级归约
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      案例研究3：内存栅栏控制
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      高级主题预览
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      挑战练习
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      总结
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      下一步
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
     <span class="md-ellipsis">
       进一步阅读
     </span>
@@ -8487,95 +9046,364 @@
   
 
 
-<h1 id="cuda-ptxptx">CUDA PTX示例：使用内联PTX汇编进行向量乘法</h1>
-<p>本示例演示了如何在CUDA程序中使用CUDA PTX（并行线程执行）内联汇编。PTX是NVIDIA的低级并行线程执行虚拟机和指令集架构（ISA）。</p>
-<p>您可以在 <a href="https://github.com/eunomia-bpf/basic-cuda-tutorial">https://github.com/eunomia-bpf/basic-cuda-tutorial</a> 找到代码</p>
-<h2 id="ptx">什么是PTX？</h2>
-<p>PTX是一种中间汇编语言，为CUDA程序提供了稳定的编程模型和指令集。它有几个用途：</p>
-<ol>
-<li>为并行计算提供机器无关的ISA</li>
-<li>可以针对特定GPU架构手动调优代码</li>
-<li>允许直接控制GPU指令</li>
-<li>便于优化性能关键的代码部分</li>
-</ol>
-<h2 id="_1">示例概述</h2>
-<p><code>basic02.cu</code>中的示例展示了如何：
-1. 在CUDA C++中编写内联PTX汇编
-2. 使用PTX进行简单的算术运算（乘以2）
-3. 将PTX代码与常规CUDA内核集成</p>
-<h2 id="_2">代码解释</h2>
-<h3 id="ptx_1">PTX内联汇编函数</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kt">__device__</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">multiplyByTwo</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="k">asm</span><span class="p">(</span><span class="s">&quot;mul.lo.s32 %0, %1, 2;&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;=r&quot;</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;r&quot;</span><span class="p">(</span><span class="n">x</span><span class="p">));</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">}</span>
+<h1 id="ptxgpu">教程：使用PTX理解GPU汇编</h1>
+<p><strong>所需时间：</strong> 45-60分钟
+<strong>难度：</strong> 中级
+<strong>前置要求：</strong> 完成教程01（向量加法），了解汇编语言概念会有帮助但不是必需的</p>
+<p>完成本教程后，你将理解PTX（并行线程执行），这是NVIDIA的GPU虚拟汇编语言。你将学习如何阅读编译器生成的PTX，编写内联PTX汇编以优化性能，以及理解高级CUDA代码与实际在GPU上执行的代码之间的关系。</p>
+<h2 id="ptx">什么是PTX，为什么要关心它？</h2>
+<p>当你编写CUDA代码时，它不会直接变成在GPU上运行的机器指令。相反，它会经过几个编译阶段。理解PTX处于高级CUDA C++和低级GPU机器代码（SASS）之间的最佳位置。</p>
+<p>可以把PTX看作是一种中间语言，类似于Java字节码或LLVM IR。它提供了几个优势：</p>
+<p><strong>架构独立性：</strong> PTX代码可以在不同的GPU架构上运行。驱动程序在运行时将PTX编译为你特定GPU的实际机器代码。这意味着多年前编译的代码仍然可以利用更新的GPU。</p>
+<p><strong>性能调优：</strong> 有时CUDA编译器会做出保守的选择。通过编写内联PTX，你可以在性能分析显示瓶颈时手动优化关键部分。</p>
+<p><strong>理解编译器输出：</strong> 阅读PTX帮助你理解编译器对你的代码做了什么。你可以发现低效之处并编写更好的高级代码。</p>
+<p><strong>低级控制：</strong> PTX让你访问CUDA C++中未公开的特殊指令和硬件功能。</p>
+<h2 id="_1">编译管道</h2>
+<p>在深入PTX之前，理解它在编译过程中的位置：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>CUDA C++ (.cu)
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    ↓ [nvcc前端]
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>PTX汇编 (.ptx)
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    ↓ [ptxas汇编器]
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>SASS机器代码 (.cubin)
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    ↓ [运行时驱动程序]
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>GPU执行
 </code></pre></div>
-<p>此函数使用内联PTX汇编将数字乘以2。让我们分解PTX指令：</p>
-<ul>
-<li><code>mul.lo.s32</code>：32位有符号整数的乘法操作</li>
-<li><code>%0</code>：第一个输出操作数（result）</li>
-<li><code>%1</code>：第一个输入操作数（x）</li>
-<li><code>2</code>：要乘的立即数</li>
-<li><code>:</code>：将指令与操作数映射分隔开</li>
-<li><code>"=r"(result)</code>：输出操作数映射</li>
-<li><code>"r"(x)</code>：输入操作数映射</li>
-</ul>
-<h3 id="cuda">CUDA内核</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">vectorMultiplyByTwoPTX</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">output</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">multiplyByTwo</span><span class="p">(</span><span class="n">input</span><span class="p">[</span><span class="n">idx</span><span class="p">]);</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="p">}</span>
+<p><code>nvcc</code>编译器首先将你的CUDA代码转换为PTX。然后<code>ptxas</code>（PTX汇编器）将PTX转换为SASS（着色器汇编），这是你的GPU架构的实际机器代码。CUDA驱动程序也可以在运行时执行这最后一步，实现向前兼容性。</p>
+<h2 id="ptx_1">生成和检查PTX</h2>
+<p>让我们首先看看从向量加法示例生成的PTX。使用PTX输出标志编译：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>nvcc<span class="w"> </span>-ptx<span class="w"> </span><span class="m">01</span>-vector-addition.cu<span class="w"> </span>-o<span class="w"> </span><span class="m">01</span>-vector-addition.ptx
 </code></pre></div>
-<p>该内核并行地将我们的PTX函数应用于输入数组的每个元素。</p>
-<h2 id="ptx_2">常用PTX指令</h2>
-<p>以下是一些常用的PTX指令：</p>
-<ol>
-<li>算术操作：</li>
-<li><code>add.s32</code>：32位整数加法</li>
-<li><code>sub.s32</code>：32位整数减法</li>
-<li><code>mul.lo.s32</code>：32位整数乘法（低32位）</li>
-<li>
-<p><code>div.s32</code>：32位整数除法</p>
-</li>
-<li>
-<p>内存操作：</p>
-</li>
-<li><code>ld.global</code>：从全局内存加载</li>
-<li><code>st.global</code>：存储到全局内存</li>
-<li><code>ld.shared</code>：从共享内存加载</li>
-<li>
-<p><code>st.shared</code>：存储到共享内存</p>
-</li>
-<li>
-<p>控制流：</p>
-</li>
-<li><code>bra</code>：分支</li>
-<li><code>setp</code>：设置谓词</li>
-<li><code>@p</code>：谓词执行</li>
-</ol>
-<h2 id="_3">构建和运行</h2>
-<p>编译示例：
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>nvcc<span class="w"> </span>-o<span class="w"> </span>basic02<span class="w"> </span>basic02.cu
+<p>在文本编辑器中打开<code>01-vector-addition.ptx</code>。你会看到类似这样的内容：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kr">.visible</span><span class="w"> </span><span class="kr">.entry</span><span class="w"> </span><span class="nv">vectorAdd</span><span class="p">(</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="kp">.param</span><span class="w"> </span><span class="kt">.u64</span><span class="w"> </span><span class="nv">vectorAdd_param_0</span><span class="o">,</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="kp">.param</span><span class="w"> </span><span class="kt">.u64</span><span class="w"> </span><span class="nv">vectorAdd_param_1</span><span class="o">,</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="kp">.param</span><span class="w"> </span><span class="kt">.u64</span><span class="w"> </span><span class="nv">vectorAdd_param_2</span><span class="o">,</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="kp">.param</span><span class="w"> </span><span class="kt">.u32</span><span class="w"> </span><span class="nv">vectorAdd_param_3</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="p">)</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">{</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="kr">.reg</span><span class="w"> </span><span class="kt">.pred</span><span class="w">  </span><span class="nv">%p</span><span class="p">&lt;</span><span class="m">2</span><span class="p">&gt;;</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="kr">.reg</span><span class="w"> </span><span class="kt">.b32</span><span class="w">   </span><span class="nv">%r</span><span class="p">&lt;</span><span class="m">5</span><span class="p">&gt;;</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="kr">.reg</span><span class="w"> </span><span class="kt">.b64</span><span class="w">   </span><span class="nv">%rd</span><span class="p">&lt;</span><span class="m">11</span><span class="p">&gt;;</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="k">ld</span><span class="kp">.param</span><span class="kt">.u64</span><span class="w">    </span><span class="nv">%rd1</span><span class="o">,</span><span class="w"> </span><span class="p">[</span><span class="nv">vectorAdd_param_0</span><span class="p">];</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">    </span><span class="k">ld</span><span class="kp">.param</span><span class="kt">.u64</span><span class="w">    </span><span class="nv">%rd2</span><span class="o">,</span><span class="w"> </span><span class="p">[</span><span class="nv">vectorAdd_param_1</span><span class="p">];</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">    </span><span class="k">ld</span><span class="kp">.param</span><span class="kt">.u64</span><span class="w">    </span><span class="nv">%rd3</span><span class="o">,</span><span class="w"> </span><span class="p">[</span><span class="nv">vectorAdd_param_2</span><span class="p">];</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">    </span><span class="k">ld</span><span class="kp">.param</span><span class="kt">.u32</span><span class="w">    </span><span class="nv">%r1</span><span class="o">,</span><span class="w"> </span><span class="p">[</span><span class="nv">vectorAdd_param_3</span><span class="p">];</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">    </span><span class="k">mov</span><span class="kt">.u32</span><span class="w">         </span><span class="nv">%r2</span><span class="o">,</span><span class="w"> </span><span class="nv">%ctaid.x</span><span class="p">;</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">    </span><span class="k">mov</span><span class="kt">.u32</span><span class="w">         </span><span class="nv">%r3</span><span class="o">,</span><span class="w"> </span><span class="nv">%ntid.x</span><span class="p">;</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="w">    </span><span class="k">mov</span><span class="kt">.u32</span><span class="w">         </span><span class="nv">%r4</span><span class="o">,</span><span class="w"> </span><span class="nv">%tid.x</span><span class="p">;</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">    </span><span class="k">mad</span><span class="nv">.lo.s32</span><span class="w">      </span><span class="nv">%r1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r3</span><span class="o">,</span><span class="w"> </span><span class="nv">%r2</span><span class="o">,</span><span class="w"> </span><span class="nv">%r4</span><span class="p">;</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="w">    </span><span class="k">setp</span><span class="nv">.ge.s32</span><span class="w">     </span><span class="nv">%p1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r2</span><span class="p">;</span>
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="w">    </span><span class="err">@</span><span class="nv">%p1</span><span class="w"> </span><span class="k">bra</span><span class="w">        </span><span class="nv">BB0_2</span><span class="p">;</span>
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="w">    </span><span class="c">// ... 向量加法代码 ...</span>
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="p">}</span>
+</code></pre></div>
+<p>让我们解码这意味着什么。</p>
+<h2 id="ptx_2">PTX结构和语法</h2>
+<h3 id="_2">寄存器声明</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kr">.reg</span><span class="w"> </span><span class="kt">.pred</span><span class="w">  </span><span class="nv">%p</span><span class="p">&lt;</span><span class="m">2</span><span class="p">&gt;;</span><span class="w">      </span><span class="c">// 谓词寄存器（用于条件判断）</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kr">.reg</span><span class="w"> </span><span class="kt">.b32</span><span class="w">   </span><span class="nv">%r</span><span class="p">&lt;</span><span class="m">5</span><span class="p">&gt;;</span><span class="w">      </span><span class="c">// 32位整数寄存器</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="kr">.reg</span><span class="w"> </span><span class="kt">.b64</span><span class="w">   </span><span class="nv">%rd</span><span class="p">&lt;</span><span class="m">11</span><span class="p">&gt;;</span><span class="w">    </span><span class="c">// 64位整数寄存器</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="kr">.reg</span><span class="w"> </span><span class="kt">.f32</span><span class="w">   </span><span class="nv">%f</span><span class="p">&lt;</span><span class="m">8</span><span class="p">&gt;;</span><span class="w">      </span><span class="c">// 32位浮点寄存器</span>
+</code></pre></div>
+<p>PTX使用虚拟寄存器，供应无限。实际硬件每个线程的寄存器数量有限，所以<code>ptxas</code>将这些虚拟寄存器映射到物理寄存器。这就是为什么高寄存器使用量会限制占用率。</p>
+<h3 id="_3">线程索引计算</h3>
+<p>记住我们的CUDA代码：
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
 </code></pre></div></p>
-<p>运行：
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>./basic02
+<p>在PTX中，这变成：
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">mov</span><span class="kt">.u32</span><span class="w">  </span><span class="nv">%r2</span><span class="o">,</span><span class="w"> </span><span class="nv">%ctaid.x</span><span class="p">;</span><span class="w">      </span><span class="c">// blockIdx.x → r2</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">mov</span><span class="kt">.u32</span><span class="w">  </span><span class="nv">%r3</span><span class="o">,</span><span class="w"> </span><span class="nv">%ntid.x</span><span class="p">;</span><span class="w">       </span><span class="c">// blockDim.x → r3</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="k">mov</span><span class="kt">.u32</span><span class="w">  </span><span class="nv">%r4</span><span class="o">,</span><span class="w"> </span><span class="nv">%tid.x</span><span class="p">;</span><span class="w">        </span><span class="c">// threadIdx.x → r4</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="k">mad</span><span class="nv">.lo.s32</span><span class="w">  </span><span class="nv">%r1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r3</span><span class="o">,</span><span class="w"> </span><span class="nv">%r2</span><span class="o">,</span><span class="w"> </span><span class="nv">%r4</span><span class="p">;</span><span class="w">  </span><span class="c">// r1 = r3 * r2 + r4</span>
 </code></pre></div></p>
-<h2 id="_4">性能考虑</h2>
+<p><code>mad.lo.s32</code>指令在单个操作中执行乘加。这是一个融合乘加（FMA），它既更快又比分离的乘法和加法更精确。</p>
+<p>特殊寄存器<code>%ctaid</code>、<code>%ntid</code>和<code>%tid</code>对应于CUDA内置变量：
+- <code>%ctaid</code>：块索引（ctaid = 计算任务ID）
+- <code>%ntid</code>：块维度（ntid = 线程数）
+- <code>%tid</code>：块内的线程索引</p>
+<h3 id="_4">内存操作</h3>
+<p>从全局内存加载：
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">ld</span><span class="kp">.global</span><span class="kt">.f32</span><span class="w">  </span><span class="nv">%f1</span><span class="o">,</span><span class="w"> </span><span class="p">[</span><span class="nv">%rd1</span><span class="p">];</span><span class="w">     </span><span class="c">// 从rd1中的地址加载32位浮点数</span>
+</code></pre></div></p>
+<p>存储到全局内存：
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">st</span><span class="kp">.global</span><span class="kt">.f32</span><span class="w">  </span><span class="p">[</span><span class="nv">%rd2</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="nv">%f1</span><span class="p">;</span><span class="w">     </span><span class="c">// 将f1存储到rd2中的地址</span>
+</code></pre></div></p>
+<p><code>.global</code>限定符指定内存空间。其他选项包括<code>.shared</code>、<code>.local</code>、<code>.const</code>和<code>.param</code>。</p>
+<h3 id="_5">控制流</h3>
+<p>PTX使用谓词和条件分支：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">setp</span><span class="nv">.ge.s32</span><span class="w">  </span><span class="nv">%p1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r2</span><span class="p">;</span><span class="w">     </span><span class="c">// p1 = (r1 &gt;= r2)</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="err">@</span><span class="nv">%p1</span><span class="w"> </span><span class="k">bra</span><span class="w">  </span><span class="nv">BB0_2</span><span class="p">;</span><span class="w">                </span><span class="c">// 如果p1为真，分支到BB0_2</span>
+</code></pre></div>
+<p><code>setp</code>指令基于比较设置谓词寄存器。<code>@%p1</code>前缀使分支条件依赖于该谓词。这比传统的if-else分支更高效，因为GPU可以谓词指令而不是分歧执行。</p>
+<h2 id="ptx_3">编写内联PTX汇编</h2>
+<p>现在让我们在CUDA代码中编写一些内联PTX。打开<code>02-ptx-assembly.cu</code>查看实际示例。</p>
+<h3 id="ptx_4">基本内联PTX语法</h3>
+<p>CUDA中内联PTX的语法是：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">asm</span><span class="p">(</span><span class="s">&quot;指令&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">输出操作数</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">输入操作数</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">破坏的寄存器</span><span class="p">);</span>
+</code></pre></div>
+<p>这是一个添加两个整数的简单示例：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kt">__device__</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">addTwoNumbers</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="k">asm</span><span class="p">(</span><span class="s">&quot;add.s32 %0, %1, %2;&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;=r&quot;</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;r&quot;</span><span class="p">(</span><span class="n">a</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;r&quot;</span><span class="p">(</span><span class="n">b</span><span class="p">));</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="p">}</span>
+</code></pre></div>
+<p>分解这个：
+- <code>"add.s32 %0, %1, %2;"</code>：带有占位符的PTX指令
+- <code>"=r"(result)</code>：输出操作数（=表示写入，r表示寄存器）
+- <code>"r"(a), "r"(b)</code>：输入操作数（都在寄存器中）
+- <code>%0, %1, %2</code>：按列出的顺序引用操作数</p>
+<h3 id="_6">更复杂的示例：乘加</h3>
+<p>让我们实现一个融合乘加操作：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kt">__device__</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">fma_custom</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">c</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="k">asm</span><span class="p">(</span><span class="s">&quot;fma.rn.f32 %0, %1, %2, %3;&quot;</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;=f&quot;</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;f&quot;</span><span class="p">(</span><span class="n">a</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;f&quot;</span><span class="p">(</span><span class="n">b</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;f&quot;</span><span class="p">(</span><span class="n">c</span><span class="p">));</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="p">}</span>
+</code></pre></div>
+<p><code>fma.rn.f32</code>指令：
+- <code>fma</code>：融合乘加
+- <code>rn</code>：舍入模式（舍入到最近偶数）
+- <code>f32</code>：32位浮点
+- 计算：result = a * b + c</p>
+<p>这个单一指令既更快又比分离的乘法和加法更精确，因为它只执行一次舍入。</p>
+<h3 id="ptx_5">使用PTX优化内存访问</h3>
+<p>这是一个使用向量内存操作的示例：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kt">__device__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">load_vector4</span><span class="p">(</span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="kt">float4</span><span class="o">&amp;</span><span class="w"> </span><span class="n">vec</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span><span class="k">asm</span><span class="p">(</span><span class="s">&quot;ld.global.v4.f32 {%0, %1, %2, %3}, [%4];&quot;</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;=f&quot;</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">x</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;=f&quot;</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">y</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;=f&quot;</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">z</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;=f&quot;</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">w</span><span class="p">)</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;l&quot;</span><span class="p">(</span><span class="n">ptr</span><span class="p">));</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="p">}</span>
+</code></pre></div>
+<p><code>.v4</code>限定符在单个事务中加载四个浮点数，当访问连续内存时，这比四个单独的加载效率高得多。</p>
+<h2 id="_7">动手练习：比较编译器输出</h2>
+<p>让我们编写一个简单内核的两个版本并比较它们的PTX：</p>
+<p>版本1（常规CUDA）：
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">saxpy_simple</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">        </span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="p">}</span>
+</code></pre></div></p>
+<p>版本2（使用内联PTX）：
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">saxpy_ptx</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">xi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">yi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="w">        </span><span class="k">asm</span><span class="p">(</span><span class="s">&quot;fma.rn.f32 %0, %1, %2, %3;&quot;</span>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="w">            </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;=f&quot;</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;f&quot;</span><span class="p">(</span><span class="n">a</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;f&quot;</span><span class="p">(</span><span class="n">xi</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;f&quot;</span><span class="p">(</span><span class="n">yi</span><span class="p">));</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="w">        </span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="p">}</span>
+</code></pre></div></p>
+<p>用PTX输出编译两者并比较：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>nvcc<span class="w"> </span>-ptx<span class="w"> </span>-o<span class="w"> </span>saxpy_simple.ptx<span class="w"> </span>saxpy.cu
+</code></pre></div>
+<p>你可能会发现编译器已经为第一个版本使用了<code>fma</code>指令。现代CUDA编译器在优化方面相当出色，所以内联PTX仅在非常特定的情况下才有益。</p>
+<h2 id="ptx_6">构建并运行PTX示例</h2>
+<p>让我们编译并运行完整示例：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>make<span class="w"> </span><span class="m">02</span>-ptx-assembly
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>./02-ptx-assembly
+</code></pre></div>
+<p>该程序演示了不同的PTX技术，包括内联汇编、设备函数指针和协作组。研究输出以理解每种方法的工作原理。</p>
+<h2 id="ptx_7">理解PTX指令类型</h2>
+<h3 id="_8">算术指令</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="k">add</span><span class="kt">.s32</span><span class="w">  </span><span class="nv">%r1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r2</span><span class="o">,</span><span class="w"> </span><span class="nv">%r3</span><span class="p">;</span><span class="w">         </span><span class="c">// 整数加法</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="k">sub</span><span class="kt">.f32</span><span class="w">  </span><span class="nv">%f1</span><span class="o">,</span><span class="w"> </span><span class="nv">%f2</span><span class="o">,</span><span class="w"> </span><span class="nv">%f3</span><span class="p">;</span><span class="w">         </span><span class="c">// 浮点减法</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="k">mul</span><span class="nv">.lo.s32</span><span class="w">  </span><span class="nv">%r1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r2</span><span class="o">,</span><span class="w"> </span><span class="nv">%r3</span><span class="p">;</span><span class="w">      </span><span class="c">// 整数乘法（低32位）</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="k">div</span><span class="nv">.rn.f32</span><span class="w">  </span><span class="nv">%f1</span><span class="o">,</span><span class="w"> </span><span class="nv">%f2</span><span class="o">,</span><span class="w"> </span><span class="nv">%f3</span><span class="p">;</span><span class="w">      </span><span class="c">// 浮点除法（舍入到最近）</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="k">mad</span><span class="nv">.lo.s32</span><span class="w">  </span><span class="nv">%r1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r2</span><span class="o">,</span><span class="w"> </span><span class="nv">%r3</span><span class="o">,</span><span class="w"> </span><span class="nv">%r4</span><span class="p">;</span><span class="w"> </span><span class="c">// 乘加</span>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="k">fma</span><span class="nv">.rn.f32</span><span class="w">  </span><span class="nv">%f1</span><span class="o">,</span><span class="w"> </span><span class="nv">%f2</span><span class="o">,</span><span class="w"> </span><span class="nv">%f3</span><span class="o">,</span><span class="w"> </span><span class="nv">%f4</span><span class="p">;</span><span class="w"> </span><span class="c">// 融合乘加</span>
+</code></pre></div>
+<h3 id="_9">比较和选择</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="k">setp</span><span class="nv">.eq.s32</span><span class="w">  </span><span class="nv">%p1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r2</span><span class="p">;</span><span class="w">     </span><span class="c">// p1 = (r1 == r2)</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="k">setp</span><span class="nv">.lt.f32</span><span class="w">  </span><span class="nv">%p1</span><span class="o">,</span><span class="w"> </span><span class="nv">%f1</span><span class="o">,</span><span class="w"> </span><span class="nv">%f2</span><span class="p">;</span><span class="w">     </span><span class="c">// p1 = (f1 &lt; f2)</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="k">selp</span><span class="kt">.s32</span><span class="w">  </span><span class="nv">%r1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r2</span><span class="o">,</span><span class="w"> </span><span class="nv">%r3</span><span class="o">,</span><span class="w"> </span><span class="nv">%p1</span><span class="p">;</span><span class="w">   </span><span class="c">// r1 = p1 ? r2 : r3</span>
+</code></pre></div>
+<h3 id="_10">位操作</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">and</span><span class="kt">.b32</span><span class="w">  </span><span class="nv">%r1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r2</span><span class="o">,</span><span class="w"> </span><span class="nv">%r3</span><span class="p">;</span><span class="w">         </span><span class="c">// 按位与</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="k">or</span><span class="kt">.b32</span><span class="w">  </span><span class="nv">%r1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r2</span><span class="o">,</span><span class="w"> </span><span class="nv">%r3</span><span class="p">;</span><span class="w">          </span><span class="c">// 按位或</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="k">xor</span><span class="kt">.b32</span><span class="w">  </span><span class="nv">%r1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r2</span><span class="o">,</span><span class="w"> </span><span class="nv">%r3</span><span class="p">;</span><span class="w">         </span><span class="c">// 按位异或</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="k">shl</span><span class="kt">.b32</span><span class="w">  </span><span class="nv">%r1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r2</span><span class="o">,</span><span class="w"> </span><span class="m">3</span><span class="p">;</span><span class="w">           </span><span class="c">// 左移3位</span>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="k">shr</span><span class="kt">.u32</span><span class="w">  </span><span class="nv">%r1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r2</span><span class="o">,</span><span class="w"> </span><span class="m">3</span><span class="p">;</span><span class="w">           </span><span class="c">// 无符号右移</span>
+</code></pre></div>
+<h3 id="_11">特殊函数</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="k">sin</span><span class="nv">.approx.f32</span><span class="w">  </span><span class="nv">%f1</span><span class="o">,</span><span class="w"> </span><span class="nv">%f2</span><span class="p">;</span><span class="w">       </span><span class="c">// 快速正弦近似</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="k">cos</span><span class="nv">.approx.f32</span><span class="w">  </span><span class="nv">%f1</span><span class="o">,</span><span class="w"> </span><span class="nv">%f2</span><span class="p">;</span><span class="w">       </span><span class="c">// 快速余弦近似</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="k">rsqrt</span><span class="nv">.approx.f32</span><span class="w">  </span><span class="nv">%f1</span><span class="o">,</span><span class="w"> </span><span class="nv">%f2</span><span class="p">;</span><span class="w">     </span><span class="c">// 快速平方根倒数</span>
+</code></pre></div>
+<h2 id="_12">内存空间和限定符</h2>
+<p>PTX区分不同的内存空间：</p>
+<p><strong>全局内存（.global）：</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="k">ld</span><span class="kp">.global</span><span class="kt">.f32</span><span class="w">  </span><span class="nv">%f1</span><span class="o">,</span><span class="w"> </span><span class="p">[</span><span class="nv">%rd1</span><span class="p">];</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="k">st</span><span class="kp">.global</span><span class="kt">.f32</span><span class="w">  </span><span class="p">[</span><span class="nv">%rd1</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="nv">%f1</span><span class="p">;</span>
+</code></pre></div>
+最大容量，最高延迟。所有线程都可以访问。</p>
+<p><strong>共享内存（.shared）：</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="k">ld</span><span class="kp">.shared</span><span class="kt">.f32</span><span class="w">  </span><span class="nv">%f1</span><span class="o">,</span><span class="w"> </span><span class="p">[</span><span class="nv">%rd1</span><span class="p">];</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="k">st</span><span class="kp">.shared</span><span class="kt">.f32</span><span class="w">  </span><span class="p">[</span><span class="nv">%rd1</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="nv">%f1</span><span class="p">;</span>
+</code></pre></div>
+低延迟，容量有限。在线程块内共享。</p>
+<p><strong>常量内存（.const）：</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="k">ld</span><span class="kp">.const</span><span class="kt">.f32</span><span class="w">  </span><span class="nv">%f1</span><span class="o">,</span><span class="w"> </span><span class="p">[</span><span class="nv">%rd1</span><span class="p">];</span>
+</code></pre></div>
+只读，缓存。适合广播模式。</p>
+<p><strong>局部内存（.local）：</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="k">ld</span><span class="kp">.local</span><span class="kt">.f32</span><span class="w">  </span><span class="nv">%f1</span><span class="o">,</span><span class="w"> </span><span class="p">[</span><span class="nv">%rd1</span><span class="p">];</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="k">st</span><span class="kp">.local</span><span class="kt">.f32</span><span class="w">  </span><span class="p">[</span><span class="nv">%rd1</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="nv">%f1</span><span class="p">;</span>
+</code></pre></div>
+每线程私有内存。实际存储在全局内存中但被缓存。</p>
+<p><strong>寄存器：</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="k">mov</span><span class="kt">.f32</span><span class="w">  </span><span class="nv">%f1</span><span class="o">,</span><span class="w"> </span><span class="nv">%f2</span><span class="p">;</span>
+</code></pre></div>
+最快的内存，最受限。每个线程都有自己的寄存器。</p>
+<h2 id="_13">缓存控制和内存修饰符</h2>
+<p>PTX允许控制缓存行为：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="k">ld</span><span class="kp">.global</span><span class="nv">.ca.f32</span><span class="w">  </span><span class="nv">%f1</span><span class="o">,</span><span class="w"> </span><span class="p">[</span><span class="nv">%rd1</span><span class="p">];</span><span class="w">   </span><span class="c">// 在所有级别缓存</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="k">ld</span><span class="kp">.global</span><span class="nv">.cg.f32</span><span class="w">  </span><span class="nv">%f1</span><span class="o">,</span><span class="w"> </span><span class="p">[</span><span class="nv">%rd1</span><span class="p">];</span><span class="w">   </span><span class="c">// 全局缓存</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="k">ld</span><span class="kp">.global</span><span class="nv">.cs.f32</span><span class="w">  </span><span class="nv">%f1</span><span class="o">,</span><span class="w"> </span><span class="p">[</span><span class="nv">%rd1</span><span class="p">];</span><span class="w">   </span><span class="c">// 流式缓存</span>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="k">ld</span><span class="kp">.global</span><span class="nv">.cv.f32</span><span class="w">  </span><span class="nv">%f1</span><span class="o">,</span><span class="w"> </span><span class="p">[</span><span class="nv">%rd1</span><span class="p">];</span><span class="w">   </span><span class="c">// 不缓存</span>
+</code></pre></div>
+<p>这些修饰符帮助优化不同用例的内存访问模式。例如，<code>.cs</code>适合不会重用的数据，而<code>.ca</code>适合具有时间局部性的数据。</p>
+<h2 id="warp">Warp级操作</h2>
+<p>PTX公开了warp级原语以实现高效的线程协作：</p>
+<h3 id="warp_1">Warp洗牌</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="k">shfl</span><span class="nv">.sync.bfly.b32</span><span class="w">  </span><span class="nv">%r1</span><span class="err">|</span><span class="nv">%p1</span><span class="o">,</span><span class="w"> </span><span class="nv">%r2</span><span class="o">,</span><span class="w"> </span><span class="nv">%r3</span><span class="o">,</span><span class="w"> </span><span class="nv">%r4</span><span class="o">,</span><span class="w"> </span><span class="nv">%r5</span><span class="p">;</span>
+</code></pre></div>
+<p>洗牌允许warp中的线程交换数据而不使用共享内存。这非常快，对归约和其他集体操作很有用。</p>
+<p>在CUDA C++中，你会使用：
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="n">__shfl_sync</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="n">mask</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">var</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">srcLane</span><span class="p">);</span>
+</code></pre></div></p>
+<p>但在PTX中，你可以更精细地控制洗牌模式（蝶式、向上、向下、索引）。</p>
+<h3 id="warp_2">Warp投票</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="k">vote</span><span class="nv">.sync.all.pred</span><span class="w">  </span><span class="nv">%p1</span><span class="o">,</span><span class="w"> </span><span class="nv">%p2</span><span class="o">,</span><span class="w"> </span><span class="nv">%r1</span><span class="p">;</span>
+</code></pre></div>
+<p>投票指令测试warp中所有线程的条件。对早期退出条件和分歧检测很有用。</p>
+<h2 id="ptx_8">调试PTX代码</h2>
+<p>当你的内联PTX不按预期工作时：</p>
+<p><strong>检查寄存器约束：</strong>
+确保你使用了正确的寄存器类型（r、f、d、p、l）。</p>
+<p><strong>验证指令语法：</strong>
+查阅<a href="https://docs.nvidia.com/cuda/parallel-thread-execution/">PTX ISA文档</a>以获取确切的语法。</p>
+<p><strong>使用cuobjdump：</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>cuobjdump<span class="w"> </span>-ptx<span class="w"> </span>executable
+</code></pre></div>
+这从编译的可执行文件中提取PTX，对于查看实际编译的内容很有用。</p>
+<p><strong>检查SASS：</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>cuobjdump<span class="w"> </span>-sass<span class="w"> </span>executable
+</code></pre></div>
+查看从你的PTX生成的实际机器代码。这有助于理解PTX是否按预期优化。</p>
+<p><strong>使用Nsight Compute：</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>ncu<span class="w"> </span>--set<span class="w"> </span>full<span class="w"> </span>./02-ptx-assembly
+</code></pre></div>
+在指令级别进行性能分析以查看执行效率。</p>
+<h2 id="_14">性能考虑</h2>
+<h3 id="ptx_9">何时使用内联PTX</h3>
+<p>仅在以下情况下使用内联PTX：</p>
+<p><strong>性能分析显示热点：</strong> 不要过早优化。先进行性能分析，识别瓶颈，然后考虑PTX。</p>
+<p><strong>编译器错过优化：</strong> 有时编译器不识别你可以手动优化的模式。</p>
+<p><strong>需要特殊指令：</strong> 某些硬件功能只能通过PTX访问。</p>
+<p><strong>需要特定指令顺序：</strong> 控制确切的执行顺序以获得数值精度或内存排序。</p>
+<h3 id="ptx_10">何时不使用内联PTX</h3>
+<p>在以下情况下避免使用内联PTX：</p>
+<p><strong>编译器做得更好：</strong> 现代CUDA编译器非常出色。在手工编码之前先测试。</p>
+<p><strong>可移植性很重要：</strong> PTX在不同架构之间可能有所不同。高级CUDA更具可移植性。</p>
+<p><strong>可维护性问题：</strong> 汇编比高级代码更难阅读和维护。</p>
+<p><strong>快速开发：</strong> 先编写正确的代码，如果需要再优化。</p>
+<h2 id="_15">架构特定优化</h2>
+<p>PTX可以使用<code>.target</code>指令针对特定的GPU架构：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="kr">.target</span><span class="w"> </span><span class="nv">sm_75</span><span class="w">              </span><span class="c">// Turing架构</span>
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="kr">.target</span><span class="w"> </span><span class="nv">sm_80</span><span class="w">              </span><span class="c">// Ampere架构</span>
+<a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="kr">.target</span><span class="w"> </span><span class="nv">sm_90</span><span class="w">              </span><span class="c">// Hopper架构</span>
+</code></pre></div>
+<p>不同的架构支持不同的指令。例如，Tensor Core操作仅在sm_70+上可用，FP8支持需要sm_89+。</p>
+<p>检查你的GPU的计算能力：
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>nvidia-smi<span class="w"> </span>--query-gpu<span class="o">=</span>compute_cap<span class="w"> </span>--format<span class="o">=</span>csv
+</code></pre></div></p>
+<p>然后在Makefile中针对该架构：
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="nv">NVCC_FLAGS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>-arch<span class="o">=</span>sm_89
+</code></pre></div></p>
+<h2 id="_16">实际用例</h2>
+<h3 id="1">案例研究1：自定义原子操作</h3>
+<p>有时你需要CUDA未提供的原子操作：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="kt">__device__</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">atomicMinFloat</span><span class="p">(</span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a><span class="w">    </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">addr_as_int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">addr</span><span class="p">;</span>
+<a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">old</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">addr_as_int</span><span class="p">,</span><span class="w"> </span><span class="n">assumed</span><span class="p">;</span>
+<a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a><span class="w">    </span><span class="k">do</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a><span class="w">        </span><span class="n">assumed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">old</span><span class="p">;</span>
+<a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a><span class="w">        </span><span class="n">old</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">atomicCAS</span><span class="p">(</span><span class="n">addr_as_int</span><span class="p">,</span><span class="w"> </span><span class="n">assumed</span><span class="p">,</span>
+<a id="__codelineno-36-7" name="__codelineno-36-7" href="#__codelineno-36-7"></a><span class="w">                       </span><span class="n">__float_as_int</span><span class="p">(</span><span class="n">fminf</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">__int_as_float</span><span class="p">(</span><span class="n">assumed</span><span class="p">))));</span>
+<a id="__codelineno-36-8" name="__codelineno-36-8" href="#__codelineno-36-8"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">assumed</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">old</span><span class="p">);</span>
+<a id="__codelineno-36-9" name="__codelineno-36-9" href="#__codelineno-36-9"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">__int_as_float</span><span class="p">(</span><span class="n">old</span><span class="p">);</span>
+<a id="__codelineno-36-10" name="__codelineno-36-10" href="#__codelineno-36-10"></a><span class="p">}</span>
+</code></pre></div>
+<p>这需要对原子操作和类型双关的PTX级理解。</p>
+<h3 id="2warp">案例研究2：Warp级归约</h3>
+<p>使用warp洗牌进行快速归约：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="kt">__device__</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">warpReduceSum</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">val</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">;</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a><span class="w">        </span><span class="n">val</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">__shfl_down_sync</span><span class="p">(</span><span class="mh">0xffffffff</span><span class="p">,</span><span class="w"> </span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="n">offset</span><span class="p">);</span>
+<a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">val</span><span class="p">;</span>
+<a id="__codelineno-37-6" name="__codelineno-37-6" href="#__codelineno-37-6"></a><span class="p">}</span>
+</code></pre></div>
+<p>理解PTX洗牌指令帮助你有效地使用这些原语。</p>
+<h3 id="3">案例研究3：内存栅栏控制</h3>
+<p>对内存排序的精确控制：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="kt">__device__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">writeWithFence</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="w">    </span><span class="o">*</span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
+<a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a><span class="w">    </span><span class="k">asm</span><span class="w"> </span><span class="k">volatile</span><span class="p">(</span><span class="s">&quot;membar.gl;&quot;</span><span class="w"> </span><span class="o">:::</span><span class="w"> </span><span class="s">&quot;memory&quot;</span><span class="p">);</span>
+<a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a><span class="p">}</span>
+</code></pre></div>
+<p><code>membar.gl</code>指令确保内存操作在继续之前完成，对并发访问模式至关重要。</p>
+<h2 id="_17">高级主题预览</h2>
+<p>未来探索领域：</p>
+<p><strong>动态并行：</strong> 设备代码中的内核启动在PTX中如何工作</p>
+<p><strong>协作组：</strong> 用于网格范围同步的PTX原语</p>
+<p><strong>Tensor Core：</strong> 用于矩阵乘法加速的PTX指令</p>
+<p><strong>异步复制：</strong> 用于改进流水线的PTX异步内存复制</p>
+<h2 id="_18">挑战练习</h2>
 <ol>
-<li>PTX内联汇编应谨慎使用，通常仅用于性能关键部分</li>
-<li>现代CUDA编译器通常生成高度优化的代码，因此可能并不总是需要PTX</li>
-<li>PTX代码是特定于架构的，可能需要针对不同的GPU代进行调整</li>
+<li>
+<p><strong>检查生成的PTX：</strong> 获取你的向量加法代码并生成PTX。识别对应于内存加载、加法操作和内存存储的指令。</p>
+</li>
+<li>
+<p><strong>编写自定义操作：</strong> 使用内联PTX实现<code>__device__ int roundUpDiv(int a, int b)</code>，计算<code>(a + b - 1) / b</code>。与C++版本比较性能。</p>
+</li>
+<li>
+<p><strong>优化内存访问：</strong> 编写一个使用向量化PTX指令加载float4值的内核。测量相对于标量加载的带宽改进。</p>
+</li>
+<li>
+<p><strong>实现Warp归约：</strong> 使用warp洗牌指令编写完整的块级求和归约。与共享内存实现进行比较。</p>
+</li>
+<li>
+<p><strong>架构比较：</strong> 为计算能力7.0、8.0和9.0生成PTX。识别可用指令的差异。</p>
+</li>
 </ol>
-<h2 id="_5">进一步阅读</h2>
+<h2 id="_19">总结</h2>
+<p>PTX是NVIDIA的中间汇编语言，位于CUDA C++和机器代码之间。理解PTX帮助你理解编译器对你的代码做了什么，并在必要时实现手动优化。</p>
+<p>关键的PTX概念包括虚拟寄存器、内存空间限定符、谓词执行和特殊GPU指令。内联PTX允许在CUDA代码中直接嵌入汇编以实现精细控制。</p>
+<p>现代CUDA编译器生成出色的代码，所以应该谨慎使用内联PTX，并且只在性能分析后使用。当适当使用时，PTX能够实现在高级代码中无法表达的优化。</p>
+<p>PTX ISA随每个GPU架构演进，公开新的硬件能力。理解PTX提供了对GPU架构的洞察，并帮助你编写更好的高级CUDA代码。</p>
+<h2 id="_20">下一步</h2>
+<p>继续学习<strong>教程03：GPU编程方法</strong>，探索不同的GPU编程方法，包括Thrust、统一内存和动态并行。你将学习何时使用每种技术以及如何有效地组合它们。</p>
+<h2 id="_21">进一步阅读</h2>
 <ul>
-<li><a href="https://docs.nvidia.com/cuda/parallel-thread-execution/index.html">NVIDIA PTX ISA文档</a></li>
-<li><a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html">CUDA C++编程指南</a></li>
-<li><a href="https://docs.nvidia.com/cuda/inline-ptx-assembly/index.html">CUDA内联PTX汇编</a> </li>
+<li><a href="https://docs.nvidia.com/cuda/parallel-thread-execution/">PTX ISA参考</a> - 完整的PTX指令集</li>
+<li><a href="https://docs.nvidia.com/cuda/inline-ptx-assembly/">内联PTX汇编</a> - 内联PTX的官方指南</li>
+<li><a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#compute-capabilities">GPU架构文档</a> - 各代硬件能力</li>
+<li><a href="https://docs.nvidia.com/cuda/cuda-binary-utilities/">CUDA二进制工具</a> - 检查编译代码的工具</li>
 </ul>
-<p><a class="md-button" href="https://x.com/intent/tweet?text=CUDA%20PTX%E7%A4%BA%E4%BE%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E5%86%85%E8%81%94PTX%E6%B1%87%E7%BC%96%E8%BF%9B%E8%A1%8C%E5%90%91%E9%87%8F%E4%B9%98%E6%B3%95%0A&amp;url=https://eunomia.dev/zh/others/cuda-tutorial/02-ptx-assembly/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=%E6%95%99%E7%A8%8B%EF%BC%9A%E4%BD%BF%E7%94%A8PTX%E7%90%86%E8%A7%A3GPU%E6%B1%87%E7%BC%96%0A&amp;url=https://eunomia.dev/zh/others/cuda-tutorial/02-ptx-assembly/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/zh/others/cuda-tutorial/02-ptx-assembly/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
@@ -8599,7 +9427,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 7, 2025 20:04:19 UTC">June 7, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 13, 2025 13:23:26 UTC">October 13, 2025</span>
   </span>
 
     
@@ -8619,12 +9447,13 @@
   <span class="md-source-file__fact">
     <span class="md-icon" title="Contributors">
       
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
       
     </span>
     <nav>
       
-        <a href="mailto:41898282+github-actions[bot]@users.noreply.github.com">github-actions[bot]</a>
+        <a href="mailto:41898282+github-actions[bot]@users.noreply.github.com">github-actions[bot]</a>, 
+        <a href="mailto:yunwei356@gmail.com">yunwei37</a>
     </nav>
   </span>
 
@@ -8729,7 +9558,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../01-vector-addition/" class="md-footer__link md-footer__link--prev" aria-label="Previous: CUDA 基础示例 - 向量加法解释">
+          <a href="../01-vector-addition/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 教程：你的第一个CUDA程序 - 向量加法">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -8739,7 +9568,7 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                CUDA 基础示例 - 向量加法解释
+                教程：你的第一个CUDA程序 - 向量加法
               </div>
             </div>
           </a>

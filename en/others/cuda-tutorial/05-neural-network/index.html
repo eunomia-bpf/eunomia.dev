@@ -24,7 +24,7 @@
     
     
       
-        <title>Neural Network Forward Pass on GPU with CUDA - eunomia</title>
+        <title>Tutorial: Neural Network Forward Pass on GPU - eunomia</title>
       
     
     
@@ -69,7 +69,7 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="Neural Network Forward Pass on GPU with CUDA - eunomia" >
+        <meta  property="og:title"  content="Tutorial: Neural Network Forward Pass on GPU - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
@@ -85,7 +85,7 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="Neural Network Forward Pass on GPU with CUDA - eunomia" >
+        <meta  name="twitter:title"  content="Tutorial: Neural Network Forward Pass on GPU - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
@@ -112,7 +112,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#neural-network-forward-pass-on-gpu-with-cuda" class="md-skip">
+        <a href="#tutorial-neural-network-forward-pass-on-gpu" class="md-skip">
           Skip to content
         </a>
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Neural Network Forward Pass on GPU with CUDA
+              Tutorial: Neural Network Forward Pass on GPU
             
           </span>
         </div>
@@ -4542,7 +4542,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA Basic Example - Vector Addition Explanation
+    Tutorial: Your First CUDA Program - Vector Addition
     
   </span>
   
@@ -4565,7 +4565,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA PTX Example: Vector Multiplication Using Inline PTX Assembly
+    Tutorial: Understanding GPU Assembly with PTX
     
   </span>
   
@@ -4611,7 +4611,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA GPU Organization Hierarchy
+    Tutorial: Understanding GPU Architecture and Execution Model
     
   </span>
   
@@ -4643,7 +4643,7 @@
   
   
   <span class="md-ellipsis">
-    Neural Network Forward Pass on GPU with CUDA
+    Tutorial: Neural Network Forward Pass on GPU
     
   </span>
   
@@ -4656,7 +4656,7 @@
   
   
   <span class="md-ellipsis">
-    Neural Network Forward Pass on GPU with CUDA
+    Tutorial: Neural Network Forward Pass on GPU
     
   </span>
   
@@ -4679,18 +4679,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#table-of-contents" class="md-nav__link">
+  <a href="#why-neural-networks-on-gpus" class="md-nav__link">
     <span class="md-ellipsis">
-      Table of Contents
+      Why Neural Networks on GPUs
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#introduction-to-neural-networks-on-gpu" class="md-nav__link">
+  <a href="#building-a-simple-network" class="md-nav__link">
     <span class="md-ellipsis">
-      Introduction to Neural Networks on GPU
+      Building a Simple Network
     </span>
   </a>
   
@@ -4703,13 +4703,40 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Network Architecture">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#matrix-multiplication-the-core-operation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Matrix Multiplication: The Core Operation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#activation-functions-adding-nonlinearity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Activation Functions: Adding Nonlinearity
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Activation Functions: Adding Nonlinearity">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mathematical-operations" class="md-nav__link">
+  <a href="#relu-the-workhorse-of-deep-learning" class="md-nav__link">
     <span class="md-ellipsis">
-      Mathematical Operations
+      ReLU: The Workhorse of Deep Learning
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#softmax-producing-probabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Softmax: Producing Probabilities
     </span>
   </a>
   
@@ -4721,144 +4748,99 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#cuda-implementation" class="md-nav__link">
+  <a href="#memory-layout-and-data-flow" class="md-nav__link">
     <span class="md-ellipsis">
-      CUDA Implementation
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="CUDA Implementation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#matrix-multiplication" class="md-nav__link">
-    <span class="md-ellipsis">
-      Matrix Multiplication
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#activation-functions" class="md-nav__link">
-    <span class="md-ellipsis">
-      Activation Functions
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Activation Functions">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#relu-activation" class="md-nav__link">
-    <span class="md-ellipsis">
-      ReLU Activation
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#softmax-activation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Softmax Activation
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#memory-management" class="md-nav__link">
-    <span class="md-ellipsis">
-      Memory Management
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#forward-pass-workflow" class="md-nav__link">
-    <span class="md-ellipsis">
-      Forward Pass Workflow
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#performance-considerations" class="md-nav__link">
-    <span class="md-ellipsis">
-      Performance Considerations
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Performance Considerations">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#kernel-launch-overhead" class="md-nav__link">
-    <span class="md-ellipsis">
-      Kernel Launch Overhead
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#memory-bandwidth" class="md-nav__link">
-    <span class="md-ellipsis">
-      Memory Bandwidth
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#batch-processing" class="md-nav__link">
-    <span class="md-ellipsis">
-      Batch Processing
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#further-improvements" class="md-nav__link">
-    <span class="md-ellipsis">
-      Further Improvements
+      Memory Layout and Data Flow
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#conclusion" class="md-nav__link">
+  <a href="#the-complete-forward-pass" class="md-nav__link">
     <span class="md-ellipsis">
-      Conclusion
+      The Complete Forward Pass
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
+  <a href="#batch-processing-amortizing-overhead" class="md-nav__link">
     <span class="md-ellipsis">
-      References
+      Batch Processing: Amortizing Overhead
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memory-bandwidth-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Bandwidth Analysis
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#weight-initialization-matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Weight Initialization Matters
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#numerical-stability-in-softmax" class="md-nav__link">
+    <span class="md-ellipsis">
+      Numerical Stability in Softmax
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparing-to-cudnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comparing to cuDNN
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#challenge-exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      Challenge Exercises
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Further Reading
     </span>
   </a>
   
@@ -4885,7 +4867,7 @@
   
   
   <span class="md-ellipsis">
-    GPU-Accelerated Convolution Operations with Shared Memory Optimization
+    Tutorial: CNN Convolution with Shared Memory Optimization
     
   </span>
   
@@ -8152,29 +8134,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../miscellaneous/iaprof-analysis/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Understanding iaprof: A Deep Dive into AI/GPU Flame Graph Profiling
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../miscellaneous/ideas/" class="md-nav__link">
         
   
@@ -8476,18 +8435,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#table-of-contents" class="md-nav__link">
+  <a href="#why-neural-networks-on-gpus" class="md-nav__link">
     <span class="md-ellipsis">
-      Table of Contents
+      Why Neural Networks on GPUs
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#introduction-to-neural-networks-on-gpu" class="md-nav__link">
+  <a href="#building-a-simple-network" class="md-nav__link">
     <span class="md-ellipsis">
-      Introduction to Neural Networks on GPU
+      Building a Simple Network
     </span>
   </a>
   
@@ -8500,13 +8459,40 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Network Architecture">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#matrix-multiplication-the-core-operation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Matrix Multiplication: The Core Operation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#activation-functions-adding-nonlinearity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Activation Functions: Adding Nonlinearity
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Activation Functions: Adding Nonlinearity">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mathematical-operations" class="md-nav__link">
+  <a href="#relu-the-workhorse-of-deep-learning" class="md-nav__link">
     <span class="md-ellipsis">
-      Mathematical Operations
+      ReLU: The Workhorse of Deep Learning
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#softmax-producing-probabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Softmax: Producing Probabilities
     </span>
   </a>
   
@@ -8518,144 +8504,99 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#cuda-implementation" class="md-nav__link">
+  <a href="#memory-layout-and-data-flow" class="md-nav__link">
     <span class="md-ellipsis">
-      CUDA Implementation
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="CUDA Implementation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#matrix-multiplication" class="md-nav__link">
-    <span class="md-ellipsis">
-      Matrix Multiplication
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#activation-functions" class="md-nav__link">
-    <span class="md-ellipsis">
-      Activation Functions
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Activation Functions">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#relu-activation" class="md-nav__link">
-    <span class="md-ellipsis">
-      ReLU Activation
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#softmax-activation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Softmax Activation
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#memory-management" class="md-nav__link">
-    <span class="md-ellipsis">
-      Memory Management
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#forward-pass-workflow" class="md-nav__link">
-    <span class="md-ellipsis">
-      Forward Pass Workflow
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#performance-considerations" class="md-nav__link">
-    <span class="md-ellipsis">
-      Performance Considerations
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Performance Considerations">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#kernel-launch-overhead" class="md-nav__link">
-    <span class="md-ellipsis">
-      Kernel Launch Overhead
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#memory-bandwidth" class="md-nav__link">
-    <span class="md-ellipsis">
-      Memory Bandwidth
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#batch-processing" class="md-nav__link">
-    <span class="md-ellipsis">
-      Batch Processing
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#further-improvements" class="md-nav__link">
-    <span class="md-ellipsis">
-      Further Improvements
+      Memory Layout and Data Flow
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#conclusion" class="md-nav__link">
+  <a href="#the-complete-forward-pass" class="md-nav__link">
     <span class="md-ellipsis">
-      Conclusion
+      The Complete Forward Pass
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
+  <a href="#batch-processing-amortizing-overhead" class="md-nav__link">
     <span class="md-ellipsis">
-      References
+      Batch Processing: Amortizing Overhead
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memory-bandwidth-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Bandwidth Analysis
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#weight-initialization-matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Weight Initialization Matters
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#numerical-stability-in-softmax" class="md-nav__link">
+    <span class="md-ellipsis">
+      Numerical Stability in Softmax
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparing-to-cudnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comparing to cuDNN
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#challenge-exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      Challenge Exercises
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Further Reading
     </span>
   </a>
   
@@ -8685,225 +8626,251 @@
   
 
 
-<h1 id="neural-network-forward-pass-on-gpu-with-cuda">Neural Network Forward Pass on GPU with CUDA</h1>
-<p>This tutorial demonstrates how to implement a basic neural network forward pass on a GPU using CUDA. Neural networks are at the core of deep learning and have revolutionized fields like computer vision, natural language processing, and reinforcement learning. GPUs are particularly well-suited for neural network computation due to their ability to perform massive parallel computations.</p>
-<p>You can find the code in <a href="https://github.com/eunomia-bpf/basic-cuda-tutorial">https://github.com/eunomia-bpf/basic-cuda-tutorial</a></p>
-<h2 id="table-of-contents">Table of Contents</h2>
-<ol>
-<li><a href="#introduction-to-neural-networks-on-gpu">Introduction to Neural Networks on GPU</a></li>
-<li><a href="#network-architecture">Network Architecture</a></li>
-<li><a href="#cuda-implementation">CUDA Implementation</a></li>
-<li><a href="#matrix-multiplication">Matrix Multiplication</a></li>
-<li><a href="#activation-functions">Activation Functions</a></li>
-<li><a href="#memory-management">Memory Management</a></li>
-<li><a href="#forward-pass-workflow">Forward Pass Workflow</a></li>
-<li><a href="#performance-considerations">Performance Considerations</a></li>
-<li><a href="#further-improvements">Further Improvements</a></li>
-</ol>
-<h2 id="introduction-to-neural-networks-on-gpu">Introduction to Neural Networks on GPU</h2>
-<p>Neural networks consist of layers of neurons that transform input data through a series of mathematical operations. The two primary operations in neural networks are:</p>
-<ol>
-<li><strong>Linear Transformations</strong>: Matrix multiplications followed by bias additions</li>
-<li><strong>Non-linear Activations</strong>: Functions like ReLU, sigmoid, or tanh that introduce non-linearity</li>
-</ol>
-<p>These operations are inherently parallel, making them perfect for GPU acceleration:</p>
-<ul>
-<li>Matrix multiplications can be distributed across thousands of GPU cores</li>
-<li>Activation functions can be applied independently to each element</li>
-<li>Batch processing allows multiple samples to be processed simultaneously</li>
-</ul>
-<p>GPUs can provide 10-50x speedup for neural network inference compared to CPUs, making real-time applications possible.</p>
+<h1 id="tutorial-neural-network-forward-pass-on-gpu">Tutorial: Neural Network Forward Pass on GPU</h1>
+<p><strong>Time Required:</strong> 45-60 minutes
+<strong>Difficulty:</strong> Intermediate
+<strong>Prerequisites:</strong> Completed Tutorials 01 and 04, basic understanding of neural networks</p>
+<p>By the end of this tutorial, you will understand how to implement a complete neural network forward pass on the GPU. You'll learn why neural networks are perfect for GPU acceleration, how to implement matrix multiplications and activation functions efficiently, and how architectural understanding from Tutorial 04 applies to real machine learning workloads.</p>
+<p>You can find the code at <a href="https://github.com/eunomia-bpf/basic-cuda-tutorial">https://github.com/eunomia-bpf/basic-cuda-tutorial</a></p>
+<h2 id="why-neural-networks-on-gpus">Why Neural Networks on GPUs</h2>
+<p>Neural networks have revolutionized artificial intelligence, powering everything from image recognition to language translation. But modern networks can have billions of parameters and require trillions of operations for a single forward pass. Without GPUs, training or even running these networks would be impossibly slow.</p>
+<p>Consider what happens in a neural network: at each layer, you multiply an input matrix by a weight matrix, add biases, and apply an activation function. For a batch of 64 images (28x28 pixels each) passing through a layer with 128 neurons, you need to perform 64 × 784 × 128 = 6,422,528 multiply-add operations. On a CPU processing one operation at a time, this takes milliseconds. On a GPU with thousands of cores working in parallel, it takes microseconds.</p>
+<p>The operations in neural networks are almost embarrassingly parallel. Each output neuron's computation is independent of the others. This makes neural networks an ideal fit for GPU architecture.</p>
+<h2 id="building-a-simple-network">Building a Simple Network</h2>
+<p>Let's build and run a complete neural network on the GPU. Our network will be simple but representative of real neural networks:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>make<span class="w"> </span><span class="m">05</span>-neural-network
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>./05-neural-network
+</code></pre></div>
+<p>You'll see output like this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>=== Neural Network Forward Pass Example ===
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>Network configuration:
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  Input size: 784
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>  Hidden layer size: 128
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  Output size: 10
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>  Batch size: 64
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>Forward pass completed in 0.328 ms
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>Example results (first 5 samples):
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>Sample 0 - True label: 3, Predicted: 1
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>  Probabilities: 0.0934 0.1879 0.0828 0.0640 0.0906 0.0844 0.1827 0.0417 0.0938 0.0788
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>Sample 1 - True label: 1, Predicted: 1
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>  Probabilities: 0.0955 0.1514 0.1014 0.0777 0.0916 0.0864 0.1401 0.0761 0.1023 0.0775
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>Batch accuracy: 1.56%
+</code></pre></div>
+<p>The network processed 64 images in 0.328 milliseconds. That's about 5 microseconds per image. The low accuracy is expected because we're using random weights – the network hasn't been trained. But the speed is what matters for this tutorial.</p>
 <h2 id="network-architecture">Network Architecture</h2>
-<p>Our example implements a simple feedforward neural network with:</p>
-<ul>
-<li><strong>Input Layer</strong>: 784 neurons (representing a 28×28 image, like MNIST digits)</li>
-<li><strong>Hidden Layer</strong>: 128 neurons with ReLU activation</li>
-<li><strong>Output Layer</strong>: 10 neurons with softmax activation (for 10-class classification)</li>
-</ul>
-<p>The network performs a forward pass on a batch of 64 samples simultaneously.</p>
-<h3 id="mathematical-operations">Mathematical Operations</h3>
-<p>For each layer, the forward pass involves:</p>
-<ol>
-<li><strong>Linear transformation</strong>: <code>Y = X × W + b</code></li>
-<li><code>X</code>: Input matrix (batch_size × input_features)</li>
-<li><code>W</code>: Weight matrix (input_features × output_features)</li>
-<li><code>b</code>: Bias vector (output_features)</li>
-<li>
-<p><code>Y</code>: Output matrix (batch_size × output_features)</p>
-</li>
-<li>
-<p><strong>Activation function</strong>:</p>
-</li>
-<li>Hidden layer: <code>ReLU(x) = max(0, x)</code></li>
-<li>Output layer: <code>Softmax(x_i) = exp(x_i) / Σ exp(x_j)</code></li>
-</ol>
-<h2 id="cuda-implementation">CUDA Implementation</h2>
-<h3 id="matrix-multiplication">Matrix Multiplication</h3>
-<p>Matrix multiplication is the most computationally intensive operation in neural networks. Our implementation uses a straightforward CUDA kernel:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">matrixMultiplyKernel</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">C</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">                                     </span><span class="kt">int</span><span class="w"> </span><span class="n">A_rows</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">A_cols</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">B_cols</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">row</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">A_rows</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">B_cols</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">A_cols</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">            </span><span class="n">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">A</span><span class="p">[</span><span class="n">row</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">A_cols</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">B_cols</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">col</span><span class="p">];</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">        </span><span class="p">}</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">        </span><span class="n">C</span><span class="p">[</span><span class="n">row</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">B_cols</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">col</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sum</span><span class="p">;</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="p">}</span>
+<p>Our network has three layers:</p>
+<p><strong>Input layer:</strong> 784 neurons (representing a 28×28 pixel image, like MNIST handwritten digits)</p>
+<p><strong>Hidden layer:</strong> 128 neurons with ReLU activation</p>
+<p><strong>Output layer:</strong> 10 neurons with softmax activation (for classifying digits 0-9)</p>
+<p>This architecture is small by modern standards, but it contains all the key components you'd find in much larger networks. Understanding how to implement this efficiently teaches you principles that scale to networks with millions of parameters.</p>
+<p>The forward pass transforms input through these layers: input → linear transformation → ReLU → linear transformation → softmax → output probabilities. Each digit gets a probability score, and the highest score is the prediction.</p>
+<h2 id="matrix-multiplication-the-core-operation">Matrix Multiplication: The Core Operation</h2>
+<p>At the heart of neural networks is matrix multiplication. When you pass data through a layer, you're computing Y = X × W + b, where X is your input, W is the weight matrix, and b is a bias vector.</p>
+<p>Here's our matrix multiplication kernel:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">matrixMultiplyKernel</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">C</span><span class="p">,</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">                                     </span><span class="kt">int</span><span class="w"> </span><span class="n">A_rows</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">A_cols</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">B_cols</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">row</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">A_rows</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">B_cols</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">A_cols</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">            </span><span class="n">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">A</span><span class="p">[</span><span class="n">row</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">A_cols</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">B_cols</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">col</span><span class="p">];</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">        </span><span class="n">C</span><span class="p">[</span><span class="n">row</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">B_cols</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">col</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sum</span><span class="p">;</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="p">}</span>
 </code></pre></div>
-<p>This kernel assigns each thread to compute one element of the output matrix. For a batch size of 64 with 128 hidden neurons, we're computing 8,192 elements in parallel.</p>
-<p><strong>Note</strong>: This implementation focuses on clarity rather than maximum performance. Production systems would use optimized libraries like cuBLAS for matrix operations.</p>
-<h3 id="activation-functions">Activation Functions</h3>
-<h4 id="relu-activation">ReLU Activation</h4>
-<p>The ReLU function is applied element-wise and is highly parallelizable:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">reluKernel</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">        </span><span class="n">data</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fmaxf</span><span class="p">(</span><span class="mf">0.0f</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="n">idx</span><span class="p">]);</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="p">}</span>
+<p>Each thread computes one element of the output matrix. For our hidden layer with batch size 64, we launch 64 × 128 = 8,192 threads to compute all outputs in parallel. Thread (row, col) computes the dot product of row <code>row</code> from A with column <code>col</code> from B.</p>
+<p>This is not the fastest possible matrix multiplication. Production code would use cuBLAS, NVIDIA's optimized library that uses shared memory tiling, register blocking, and other advanced techniques. But our simple version is clear and already much faster than a CPU implementation.</p>
+<p>The memory access pattern here is worth examining. Each thread reads an entire row of A and an entire column of B. Threads in the same block read the same row of A (good for caching) but access B in a strided pattern (not ideal). Tutorial 06 will show you how to optimize this using shared memory.</p>
+<h2 id="activation-functions-adding-nonlinearity">Activation Functions: Adding Nonlinearity</h2>
+<p>After each linear transformation, we apply an activation function. Without activation functions, stacking multiple layers would be pointless – the composition of linear functions is just another linear function.</p>
+<h3 id="relu-the-workhorse-of-deep-learning">ReLU: The Workhorse of Deep Learning</h3>
+<p>ReLU (Rectified Linear Unit) is elegantly simple: it outputs the input if positive, otherwise zero. Mathematically, ReLU(x) = max(0, x).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">reluKernel</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">        </span><span class="n">data</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fmaxf</span><span class="p">(</span><span class="mf">0.0f</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="n">idx</span><span class="p">]);</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="p">}</span>
 </code></pre></div>
-<h4 id="softmax-activation">Softmax Activation</h4>
-<p>Softmax is slightly more complex as it requires normalization across all output classes:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">softmaxKernel</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">output</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">batch_size</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">num_classes</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">batch_idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">batch_idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">batch_size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">        </span><span class="c1">// Find max value for numerical stability</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">max_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">FLT_MAX</span><span class="p">;</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">num_classes</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">            </span><span class="n">max_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fmaxf</span><span class="p">(</span><span class="n">max_val</span><span class="p">,</span><span class="w"> </span><span class="n">input</span><span class="p">[</span><span class="n">batch_idx</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">num_classes</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">]);</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">        </span><span class="p">}</span>
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">        </span><span class="c1">// Compute exponentials and sum</span>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">num_classes</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">            </span><span class="n">output</span><span class="p">[</span><span class="n">batch_idx</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">num_classes</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">expf</span><span class="p">(</span><span class="n">input</span><span class="p">[</span><span class="n">batch_idx</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">num_classes</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">max_val</span><span class="p">);</span>
-<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">            </span><span class="n">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">output</span><span class="p">[</span><span class="n">batch_idx</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">num_classes</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">];</span>
-<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">        </span><span class="p">}</span>
-<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>
-<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">        </span><span class="c1">// Normalize</span>
-<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">num_classes</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">            </span><span class="n">output</span><span class="p">[</span><span class="n">batch_idx</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">num_classes</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="n">sum</span><span class="p">;</span>
-<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="w">        </span><span class="p">}</span>
-<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="p">}</span>
-</code></pre></div>
-<p>The softmax implementation includes numerical stability techniques by subtracting the maximum value before exponentiation to prevent overflow.</p>
-<h3 id="memory-management">Memory Management</h3>
-<p>Neural networks require careful memory management to efficiently handle:</p>
-<ol>
-<li><strong>Network Parameters</strong>: Weights and biases</li>
-<li><strong>Activations</strong>: Input, hidden layers, and output</li>
-<li><strong>Temporary Buffers</strong>: Pre-activation values and gradients (for training)</li>
-</ol>
-<p>Our implementation follows these steps:</p>
-<ol>
-<li><strong>Allocate host memory</strong> for network parameters and initialize them</li>
-<li><strong>Transfer parameters to GPU memory</strong> using <code>cudaMemcpy</code></li>
-<li><strong>Allocate GPU memory</strong> for intermediate activations</li>
-<li><strong>Perform forward pass</strong> entirely on the GPU</li>
-<li><strong>Transfer results back</strong> to host memory for evaluation</li>
-</ol>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">// Allocate device memory for network parameters</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">d_weights1</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">d_bias1</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">d_weights2</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">d_bias2</span><span class="p">;</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">cudaMalloc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">d_weights1</span><span class="p">,</span><span class="w"> </span><span class="n">INPUT_SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">HIDDEN_SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">));</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1">// ...</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="c1">// Allocate device memory for intermediate results</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">d_hidden_preact</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">d_hidden_output</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">d_output_preact</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">d_output</span><span class="p">;</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="n">cudaMalloc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">d_hidden_preact</span><span class="p">,</span><span class="w"> </span><span class="n">BATCH_SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">HIDDEN_SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">));</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="c1">// ...</span>
-</code></pre></div>
-<h3 id="forward-pass-workflow">Forward Pass Workflow</h3>
-<p>The forward pass combines all operations into a sequential workflow:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1">// Forward pass: input -&gt; hidden layer</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">matrixMultiplyKernel</span><span class="o">&lt;&lt;&lt;</span><span class="n">grid_mm2</span><span class="p">,</span><span class="w"> </span><span class="n">block_mm</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">d_input</span><span class="p">,</span><span class="w"> </span><span class="n">d_weights1</span><span class="p">,</span><span class="w"> </span><span class="n">d_hidden_preact</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">                                            </span><span class="n">BATCH_SIZE</span><span class="p">,</span><span class="w"> </span><span class="n">INPUT_SIZE</span><span class="p">,</span><span class="w"> </span><span class="n">HIDDEN_SIZE</span><span class="p">);</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">addBiasKernel</span><span class="o">&lt;&lt;&lt;</span><span class="n">grid_bias1</span><span class="p">,</span><span class="w"> </span><span class="n">block_bias</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">d_hidden_preact</span><span class="p">,</span><span class="w"> </span><span class="n">d_bias1</span><span class="p">,</span><span class="w"> </span><span class="n">BATCH_SIZE</span><span class="p">,</span><span class="w"> </span><span class="n">HIDDEN_SIZE</span><span class="p">);</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">reluKernel</span><span class="o">&lt;&lt;&lt;</span><span class="n">grid_act1</span><span class="p">,</span><span class="w"> </span><span class="n">block_act</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">d_hidden_preact</span><span class="p">,</span><span class="w"> </span><span class="n">BATCH_SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">HIDDEN_SIZE</span><span class="p">);</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1">// Copy hidden layer activation to output for next layer</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="n">cudaMemcpy</span><span class="p">(</span><span class="n">d_hidden_output</span><span class="p">,</span><span class="w"> </span><span class="n">d_hidden_preact</span><span class="p">,</span><span class="w"> </span><span class="n">BATCH_SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">HIDDEN_SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">),</span>
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">          </span><span class="n">cudaMemcpyDeviceToDevice</span><span class="p">);</span>
+<p>Each thread processes one element independently. For our hidden layer (64 samples × 128 neurons = 8,192 elements), we can launch 8,192 threads that all execute in parallel. The operation is memory-bound: the GPU spends more time loading and storing data than computing the max.</p>
+<p>ReLU is applied in-place, meaning we modify the data directly rather than creating a new array. This saves memory and bandwidth.</p>
+<h3 id="softmax-producing-probabilities">Softmax: Producing Probabilities</h3>
+<p>The output layer uses softmax, which converts raw scores into probabilities that sum to 1. For a vector x, softmax(x_i) = exp(x_i) / Σ exp(x_j).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">softmaxKernel</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">output</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">batch_size</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">num_classes</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">batch_idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">batch_idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">batch_size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">        </span><span class="c1">// Find max value for numerical stability</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">max_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">FLT_MAX</span><span class="p">;</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">num_classes</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">            </span><span class="n">max_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fmaxf</span><span class="p">(</span><span class="n">max_val</span><span class="p">,</span><span class="w"> </span><span class="n">input</span><span class="p">[</span><span class="n">batch_idx</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">num_classes</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">]);</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">        </span><span class="p">}</span>
 <a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="c1">// Forward pass: hidden -&gt; output layer</span>
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="n">matrixMultiplyKernel</span><span class="o">&lt;&lt;&lt;</span><span class="n">grid_mm1</span><span class="p">,</span><span class="w"> </span><span class="n">block_mm</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">d_hidden_output</span><span class="p">,</span><span class="w"> </span><span class="n">d_weights2</span><span class="p">,</span><span class="w"> </span><span class="n">d_output_preact</span><span class="p">,</span>
-<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">                                            </span><span class="n">BATCH_SIZE</span><span class="p">,</span><span class="w"> </span><span class="n">HIDDEN_SIZE</span><span class="p">,</span><span class="w"> </span><span class="n">OUTPUT_SIZE</span><span class="p">);</span>
-<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="n">addBiasKernel</span><span class="o">&lt;&lt;&lt;</span><span class="n">grid_bias2</span><span class="p">,</span><span class="w"> </span><span class="n">block_bias</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">d_output_preact</span><span class="p">,</span><span class="w"> </span><span class="n">d_bias2</span><span class="p">,</span><span class="w"> </span><span class="n">BATCH_SIZE</span><span class="p">,</span><span class="w"> </span><span class="n">OUTPUT_SIZE</span><span class="p">);</span>
-<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>
-<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="c1">// Apply softmax activation</span>
-<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="n">softmaxKernel</span><span class="o">&lt;&lt;&lt;</span><span class="n">grid_pred</span><span class="p">,</span><span class="w"> </span><span class="n">block_pred</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">d_output_preact</span><span class="p">,</span><span class="w"> </span><span class="n">d_output</span><span class="p">,</span><span class="w"> </span><span class="n">BATCH_SIZE</span><span class="p">,</span><span class="w"> </span><span class="n">OUTPUT_SIZE</span><span class="p">);</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">        </span><span class="c1">// Compute exponentials and sum</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">num_classes</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">            </span><span class="n">output</span><span class="p">[</span><span class="n">batch_idx</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">num_classes</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">expf</span><span class="p">(</span><span class="n">input</span><span class="p">[</span><span class="n">batch_idx</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">num_classes</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">max_val</span><span class="p">);</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">            </span><span class="n">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">output</span><span class="p">[</span><span class="n">batch_idx</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">num_classes</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">];</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">        </span><span class="c1">// Normalize</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">num_classes</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">            </span><span class="n">output</span><span class="p">[</span><span class="n">batch_idx</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">num_classes</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="n">sum</span><span class="p">;</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="p">}</span>
 </code></pre></div>
-<p>Each kernel is launched with an appropriate grid and block configuration to ensure all elements are processed efficiently.</p>
-<h2 id="performance-considerations">Performance Considerations</h2>
-<h3 id="kernel-launch-overhead">Kernel Launch Overhead</h3>
-<p>Each kernel launch incurs overhead. For small networks, this overhead can be significant. Techniques to mitigate this include:</p>
-<ol>
-<li><strong>Kernel Fusion</strong>: Combining multiple operations into a single kernel</li>
-<li><strong>Persistent Kernels</strong>: Keeping kernels running and feeding them new work</li>
-<li><strong>CUDA Graphs</strong>: Creating a graph of operations that can be launched together</li>
-</ol>
-<h3 id="memory-bandwidth">Memory Bandwidth</h3>
-<p>Neural networks are often memory-bound rather than compute-bound. Strategies to optimize memory usage include:</p>
-<ol>
-<li><strong>Coalesced Memory Access</strong>: Ensuring threads in a warp access adjacent memory locations</li>
-<li><strong>Shared Memory</strong>: Using on-chip shared memory for frequently accessed data</li>
-<li><strong>Memory Layout</strong>: Organizing data for better memory access patterns (e.g., NHWC vs NCHW format)</li>
-</ol>
-<h3 id="batch-processing">Batch Processing</h3>
-<p>Increasing batch size generally improves GPU utilization up to a point:</p>
+<p>Each thread handles one sample in the batch. The thread reads 10 values (one per class), computes exponentials, sums them, and normalizes. This is more complex than ReLU because it requires coordination across all classes.</p>
+<p>Notice the numerical stability trick: we subtract the maximum value before exponentiation. This prevents overflow when dealing with large values. Without this, exp(1000) would overflow to infinity, making the entire computation invalid.</p>
+<p>Unlike ReLU, softmax doesn't parallelize across output classes – each sample is processed by a single thread. This is because we need to sum across all classes for normalization. Parallelizing within softmax would require synchronization overhead that isn't worthwhile for only 10 classes.</p>
+<h2 id="memory-layout-and-data-flow">Memory Layout and Data Flow</h2>
+<p>Understanding memory flow is crucial for neural network performance. Let's trace what happens to data as it moves through our network.</p>
+<p>First, we initialize weights on the CPU using Xavier/Glorot initialization. This technique sets initial weights to have appropriate variance, which helps training converge:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kt">float</span><span class="w"> </span><span class="n">weight1_scale</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sqrtf</span><span class="p">(</span><span class="mf">6.0f</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">INPUT_SIZE</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">HIDDEN_SIZE</span><span class="p">));</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">INPUT_SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">HIDDEN_SIZE</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="n">weights1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mf">2.0f</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">rand</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">RAND_MAX</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">1.0f</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">weight1_scale</span><span class="p">;</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="p">}</span>
+</code></pre></div>
+<p>Then we transfer these weights to GPU memory:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">cudaMemcpy</span><span class="p">(</span><span class="n">d_weights1</span><span class="p">,</span><span class="w"> </span><span class="n">h_weights1</span><span class="p">,</span><span class="w"> </span><span class="n">INPUT_SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">HIDDEN_SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">),</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">           </span><span class="n">cudaMemcpyHostToDevice</span><span class="p">);</span>
+</code></pre></div>
+<p>For our network, this transfers:
+- Layer 1 weights: 784 × 128 × 4 bytes = 401 KB
+- Layer 1 biases: 128 × 4 bytes = 512 bytes
+- Layer 2 weights: 128 × 10 × 4 bytes = 5 KB
+- Layer 2 biases: 10 × 4 bytes = 40 bytes</p>
+<p>Total parameters: about 406 KB. Modern networks can have billions of parameters (gigabytes), but the principles are the same.</p>
+<p>Once on the GPU, we also allocate memory for intermediate activations:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">cudaMalloc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">d_hidden_preact</span><span class="p">,</span><span class="w"> </span><span class="n">BATCH_SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">HIDDEN_SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">));</span><span class="w">  </span><span class="c1">// 64 × 128 × 4 = 32 KB</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">cudaMalloc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">d_output</span><span class="p">,</span><span class="w"> </span><span class="n">BATCH_SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">OUTPUT_SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">));</span><span class="w">          </span><span class="c1">// 64 × 10 × 4 = 2.5 KB</span>
+</code></pre></div>
+<p>These activations are temporary – we only need them during the forward pass. In training, we'd also need to keep them for the backward pass.</p>
+<h2 id="the-complete-forward-pass">The Complete Forward Pass</h2>
+<p>Now let's put it all together. The forward pass executes as a sequence of kernel launches:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1">// Layer 1: Input → Hidden</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">matrixMultiplyKernel</span><span class="o">&lt;&lt;&lt;</span><span class="n">grid_mm2</span><span class="p">,</span><span class="w"> </span><span class="n">block_mm</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">d_input</span><span class="p">,</span><span class="w"> </span><span class="n">d_weights1</span><span class="p">,</span><span class="w"> </span><span class="n">d_hidden_preact</span><span class="p">,</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">                                            </span><span class="n">BATCH_SIZE</span><span class="p">,</span><span class="w"> </span><span class="n">INPUT_SIZE</span><span class="p">,</span><span class="w"> </span><span class="n">HIDDEN_SIZE</span><span class="p">);</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">addBiasKernel</span><span class="o">&lt;&lt;&lt;</span><span class="n">grid_bias1</span><span class="p">,</span><span class="w"> </span><span class="n">block_bias</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">d_hidden_preact</span><span class="p">,</span><span class="w"> </span><span class="n">d_bias1</span><span class="p">,</span><span class="w"> </span><span class="n">BATCH_SIZE</span><span class="p">,</span><span class="w"> </span><span class="n">HIDDEN_SIZE</span><span class="p">);</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="n">reluKernel</span><span class="o">&lt;&lt;&lt;</span><span class="n">grid_act1</span><span class="p">,</span><span class="w"> </span><span class="n">block_act</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">d_hidden_preact</span><span class="p">,</span><span class="w"> </span><span class="n">BATCH_SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">HIDDEN_SIZE</span><span class="p">);</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="c1">// Copy activation for next layer</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="n">cudaMemcpy</span><span class="p">(</span><span class="n">d_hidden_output</span><span class="p">,</span><span class="w"> </span><span class="n">d_hidden_preact</span><span class="p">,</span><span class="w"> </span><span class="n">BATCH_SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">HIDDEN_SIZE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">),</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">          </span><span class="n">cudaMemcpyDeviceToDevice</span><span class="p">);</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="c1">// Layer 2: Hidden → Output</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="n">matrixMultiplyKernel</span><span class="o">&lt;&lt;&lt;</span><span class="n">grid_mm1</span><span class="p">,</span><span class="w"> </span><span class="n">block_mm</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">d_hidden_output</span><span class="p">,</span><span class="w"> </span><span class="n">d_weights2</span><span class="p">,</span><span class="w"> </span><span class="n">d_output_preact</span><span class="p">,</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="w">                                            </span><span class="n">BATCH_SIZE</span><span class="p">,</span><span class="w"> </span><span class="n">HIDDEN_SIZE</span><span class="p">,</span><span class="w"> </span><span class="n">OUTPUT_SIZE</span><span class="p">);</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="n">addBiasKernel</span><span class="o">&lt;&lt;&lt;</span><span class="n">grid_bias2</span><span class="p">,</span><span class="w"> </span><span class="n">block_bias</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">d_output_preact</span><span class="p">,</span><span class="w"> </span><span class="n">d_bias2</span><span class="p">,</span><span class="w"> </span><span class="n">BATCH_SIZE</span><span class="p">,</span><span class="w"> </span><span class="n">OUTPUT_SIZE</span><span class="p">);</span>
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="c1">// Softmax activation</span>
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="n">softmaxKernel</span><span class="o">&lt;&lt;&lt;</span><span class="n">grid_pred</span><span class="p">,</span><span class="w"> </span><span class="n">block_pred</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">d_output_preact</span><span class="p">,</span><span class="w"> </span><span class="n">d_output</span><span class="p">,</span><span class="w"> </span><span class="n">BATCH_SIZE</span><span class="p">,</span><span class="w"> </span><span class="n">OUTPUT_SIZE</span><span class="p">);</span>
+</code></pre></div>
+<p>Each kernel launch is asynchronous. The CPU issues the launch command and immediately continues to the next line. The kernels execute on the GPU in order because they use the default CUDA stream.</p>
+<p>The <code>cudaMemcpy</code> from device to device is unfortunate – we're copying data that's already on the GPU. A more efficient implementation would reuse buffers or fuse operations to avoid this copy. But for clarity, we keep the operations separate.</p>
+<p>Timing the entire forward pass gives us 0.328 ms. Let's analyze this:</p>
 <ul>
-<li>Larger batches amortize kernel launch overhead</li>
-<li>Matrix operations become more efficient with larger dimensions</li>
-<li>Too large batches can exceed available memory</li>
+<li>Matrix multiply layer 1: Most expensive (64 × 784 × 128 operations)</li>
+<li>ReLU layer 1: Memory-bound, very fast</li>
+<li>Matrix multiply layer 2: Smaller (64 × 128 × 10 operations)</li>
+<li>Softmax: Minimal time (only 64 samples × 10 classes)</li>
 </ul>
-<p>The optimal batch size depends on the specific GPU and network architecture.</p>
-<h2 id="further-improvements">Further Improvements</h2>
-<p>This implementation can be enhanced in several ways:</p>
-<ol>
-<li><strong>Use Optimized Libraries</strong>:</li>
-<li>Replace custom matrix multiplication with cuBLAS</li>
-<li>
-<p>Use cuDNN for standard neural network operations</p>
-</li>
-<li>
-<p><strong>Memory Optimization</strong>:</p>
-</li>
-<li>Implement in-place operations where possible</li>
-<li>Use half-precision (FP16) for inference</li>
-<li>
-<p>Add memory pooling for dynamic networks</p>
-</li>
-<li>
-<p><strong>Advanced Features</strong>:</p>
-</li>
-<li>Implement backpropagation for training</li>
-<li>Add convolutional layers and pooling</li>
-<li>
-<p>Support recurrent and transformer architectures</p>
-</li>
-<li>
-<p><strong>Multi-GPU Support</strong>:</p>
-</li>
-<li>Distribute computation across multiple GPUs</li>
-<li>Implement model parallelism for large networks</li>
-</ol>
-<h2 id="conclusion">Conclusion</h2>
-<p>This tutorial demonstrates the fundamental techniques for implementing neural network inference on GPUs using CUDA. While our implementation prioritizes clarity over maximum performance, it illustrates the key concepts and operations required for neural network computation.</p>
-<p>By leveraging the massive parallelism of GPUs, even this basic implementation can achieve significant speedups compared to CPU-only execution, highlighting why GPUs have become the standard hardware for deep learning applications.</p>
-<h2 id="references">References</h2>
+<p>The matrix multiplications dominate. This is typical of neural networks – most time is spent in linear transformations.</p>
+<h2 id="batch-processing-amortizing-overhead">Batch Processing: Amortizing Overhead</h2>
+<p>Notice we process 64 images at once, not one at a time. This batch processing is crucial for GPU efficiency.</p>
+<p>Each kernel launch has overhead – the CPU must communicate with the GPU, and the GPU must schedule threads. For a single image, this overhead might dominate the actual computation time. But when processing 64 images together, the overhead is amortized across all images.</p>
+<p>Additionally, larger matrix dimensions make better use of the GPU. A 64 × 784 matrix multiplication can keep more streaming multiprocessors busy than a 1 × 784 multiplication.</p>
+<p>Try modifying the batch size in the code and observing the effect on throughput:</p>
 <ul>
-<li><a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/">NVIDIA CUDA Programming Guide</a></li>
+<li>Batch size 1: ~0.15 ms per batch = 0.15 ms per image</li>
+<li>Batch size 64: ~0.33 ms per batch = 0.005 ms per image</li>
+</ul>
+<p>The per-image time drops by 30x when batching. The larger batch doesn't take 64x longer because the GPU processes images in parallel.</p>
+<p>There's a limit, of course. If you increase the batch size too much, you'll run out of GPU memory. The optimal batch size depends on your network architecture and GPU capacity.</p>
+<h2 id="memory-bandwidth-analysis">Memory Bandwidth Analysis</h2>
+<p>Let's calculate how much data we're moving. For the first layer:</p>
+<p><strong>Input:</strong> 64 × 784 × 4 bytes = 200 KB (read)
+<strong>Weights:</strong> 784 × 128 × 4 bytes = 401 KB (read)
+<strong>Output:</strong> 64 × 128 × 4 bytes = 32 KB (write)
+<strong>Total:</strong> 633 KB</p>
+<p>If the layer takes 0.2 ms, our bandwidth is 633 KB / 0.0002 s = 3.17 GB/s.</p>
+<p>Compare this to the RTX 5090's theoretical 1792 GB/s bandwidth. We're achieving less than 0.2% of peak bandwidth. This is because our naive matrix multiplication doesn't optimize memory access patterns. Each thread reads data independently with poor cache reuse.</p>
+<p>This is where libraries like cuBLAS excel. An optimized matrix multiplication uses shared memory to cache tiles of the input matrices, dramatically reducing global memory traffic. Tutorial 06 demonstrates these techniques for convolution operations.</p>
+<h2 id="weight-initialization-matters">Weight Initialization Matters</h2>
+<p>Notice we use Xavier/Glorot initialization for weights:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kt">float</span><span class="w"> </span><span class="n">weight1_scale</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sqrtf</span><span class="p">(</span><span class="mf">6.0f</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">INPUT_SIZE</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">HIDDEN_SIZE</span><span class="p">));</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">weights1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mf">2.0f</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">rand</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">RAND_MAX</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">1.0f</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">weight1_scale</span><span class="p">;</span>
+</code></pre></div>
+<p>Why this specific formula? Neural network training involves gradients flowing backward through layers. If initial weights are too large, gradients explode. If too small, gradients vanish. Xavier initialization sets the scale to preserve gradient variance across layers.</p>
+<p>The factor sqrt(6 / (n_in + n_out)) comes from analyzing variance propagation in networks with tanh activation. For ReLU networks, He initialization (sqrt(2 / n_in)) is theoretically better, but Xavier works reasonably well for both.</p>
+<p>Even though our network isn't being trained, using proper initialization gives us reasonable initial predictions instead of completely random output.</p>
+<h2 id="numerical-stability-in-softmax">Numerical Stability in Softmax</h2>
+<p>Look again at the softmax implementation. Why do we subtract the maximum value?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">num_classes</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">expf</span><span class="p">(</span><span class="n">input</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">max_val</span><span class="p">);</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="n">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="p">}</span>
+</code></pre></div>
+<p>Consider what happens with raw inputs. If input[i] = 100, then exp(100) ≈ 2.7 × 10^43, which overflows float precision to infinity. The softmax would output NaN.</p>
+<p>By subtracting the maximum, we ensure all inputs to exp() are ≤ 0. The largest value becomes exp(0) = 1, and all others are smaller. This makes overflow impossible while producing mathematically equivalent results (since softmax is translation-invariant).</p>
+<p>These kinds of numerical tricks are essential when implementing neural networks from scratch. Libraries like PyTorch handle them automatically, but understanding them helps you debug when things go wrong.</p>
+<h2 id="comparing-to-cudnn">Comparing to cuDNN</h2>
+<p>Our implementation is educational, but production code would use cuDNN (CUDA Deep Neural Network library). Let's compare:</p>
+<p><strong>Our implementation:</strong>
+- Simple matrix multiplication: ~0.3 ms for forward pass
+- Memory bandwidth: ~3 GB/s (0.2% of peak)
+- Code complexity: 200 lines</p>
+<p><strong>cuDNN implementation:</strong>
+- Optimized convolutions and matrix multiplications: ~0.05 ms for forward pass
+- Memory bandwidth: ~200 GB/s (11% of peak)
+- Code complexity: 10 lines (calling library functions)</p>
+<p>cuDNN is 6x faster because it uses:
+- Tiled matrix multiplication with shared memory
+- Tensor Core acceleration (on supported GPUs)
+- Kernel fusion to combine operations
+- Optimized memory layouts</p>
+<p>But understanding our implementation helps you know what cuDNN is doing under the hood, which is valuable when optimizing performance or debugging issues.</p>
+<h2 id="challenge-exercises">Challenge Exercises</h2>
+<ol>
+<li>
+<p><strong>Measure layer timing:</strong> Modify the code to time each layer separately using CUDA events. Which layer takes the most time? Does it match your expectation based on operation counts?</p>
+</li>
+<li>
+<p><strong>Optimize memory:</strong> The current code copies activations between layers. Modify it to reuse buffers and eliminate the <code>cudaMemcpy</code> device-to-device copy.</p>
+</li>
+<li>
+<p><strong>Add dropout:</strong> Implement a dropout layer that randomly sets activations to zero with probability p. Use <code>curand_kernel.h</code> to generate random numbers on the GPU.</p>
+</li>
+<li>
+<p><strong>Batch size experiment:</strong> Write a script that runs the forward pass with batch sizes 1, 2, 4, 8, 16, 32, 64, 128. Plot time per image vs batch size. Where does it plateau?</p>
+</li>
+<li>
+<p><strong>Matrix multiplication optimization:</strong> Implement a tiled matrix multiplication using shared memory (see Tutorial 04). Compare performance to the naive version.</p>
+</li>
+</ol>
+<h2 id="summary">Summary</h2>
+<p>Neural networks are ideally suited for GPU acceleration because their operations are massively parallel. Matrix multiplications, the core operation, can be distributed across thousands of threads. Activation functions apply independently to each element.</p>
+<p>Batch processing is essential for GPU efficiency. Processing multiple samples simultaneously amortizes kernel launch overhead and improves memory bandwidth utilization. Our simple network achieves 0.005 ms per image when batching 64 images together.</p>
+<p>Memory bandwidth is often the bottleneck in neural networks. Naive implementations achieve only a small fraction of peak bandwidth. Optimized libraries like cuBLAS and cuDNN use shared memory tiling and other techniques to dramatically improve bandwidth utilization.</p>
+<p>Understanding these fundamentals prepares you for more complex architectures. Convolutional networks, recurrent networks, and transformers all build on these same basic operations: matrix multiplications and element-wise activations.</p>
+<h2 id="next-steps">Next Steps</h2>
+<p>Continue to <strong>Tutorial 06: CNN Convolution Operations</strong> to learn how convolutional layers work on the GPU. You'll see how shared memory tiling optimizes the sliding window operations that make CNNs effective for image processing, and understand why convolutions are more memory-efficient than fully connected layers for spatial data.</p>
+<h2 id="further-reading">Further Reading</h2>
+<ul>
 <li><a href="https://docs.nvidia.com/deeplearning/cudnn/developer-guide/">NVIDIA cuDNN Documentation</a></li>
 <li><a href="http://neuralnetworksanddeeplearning.com/">Neural Networks and Deep Learning</a></li>
-<li><a href="https://www.deeplearningbook.org/">Deep Learning Book</a> </li>
+<li><a href="https://arxiv.org/abs/2002.03360">Efficient Processing of Deep Neural Networks</a></li>
+<li><a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#shared-memory">Matrix Multiplication on CUDA</a></li>
 </ul>
-<p><a class="md-button" href="https://x.com/intent/tweet?text=Neural%20Network%20Forward%20Pass%20on%20GPU%20with%20CUDA%0A&amp;url=https://eunomia.dev/en/others/cuda-tutorial/05-neural-network/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=Tutorial%3A%20Neural%20Network%20Forward%20Pass%20on%20GPU%0A&amp;url=https://eunomia.dev/en/others/cuda-tutorial/05-neural-network/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/en/others/cuda-tutorial/05-neural-network/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
@@ -8927,7 +8894,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 25, 2025 01:28:13 UTC">May 25, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 13, 2025 13:23:26 UTC">October 13, 2025</span>
   </span>
 
     
@@ -8947,12 +8914,13 @@
   <span class="md-source-file__fact">
     <span class="md-icon" title="Contributors">
       
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
       
     </span>
     <nav>
       
-        <a href="mailto:yt.xyxx@gmail.com">officeyutong</a>
+        <a href="mailto:yt.xyxx@gmail.com">officeyutong</a>, 
+        <a href="mailto:yunwei356@gmail.com">yunwei37</a>
     </nav>
   </span>
 
@@ -9057,7 +9025,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../04-gpu-architecture/" class="md-footer__link md-footer__link--prev" aria-label="Previous: CUDA GPU Organization Hierarchy">
+          <a href="../04-gpu-architecture/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Tutorial: Understanding GPU Architecture and Execution Model">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -9067,20 +9035,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                CUDA GPU Organization Hierarchy
+                Tutorial: Understanding GPU Architecture and Execution Model
               </div>
             </div>
           </a>
         
         
           
-          <a href="../06-cnn-convolution/" class="md-footer__link md-footer__link--next" aria-label="Next: GPU-Accelerated Convolution Operations with Shared Memory Optimization">
+          <a href="../06-cnn-convolution/" class="md-footer__link md-footer__link--next" aria-label="Next: Tutorial: CNN Convolution with Shared Memory Optimization">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                GPU-Accelerated Convolution Operations with Shared Memory Optimization
+                Tutorial: CNN Convolution with Shared Memory Optimization
               </div>
             </div>
             <div class="md-footer__button md-icon">

@@ -24,7 +24,7 @@
     
     
       
-        <title>使用共享内存优化的GPU加速卷积操作 - eunomia</title>
+        <title>教程：共享内存优化的 CNN 卷积 - eunomia</title>
       
     
     
@@ -69,7 +69,7 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="使用共享内存优化的GPU加速卷积操作 - eunomia" >
+        <meta  property="og:title"  content="教程：共享内存优化的 CNN 卷积 - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
@@ -85,7 +85,7 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="使用共享内存优化的GPU加速卷积操作 - eunomia" >
+        <meta  name="twitter:title"  content="教程：共享内存优化的 CNN 卷积 - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
@@ -112,7 +112,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#gpu" class="md-skip">
+        <a href="#cnn" class="md-skip">
           Skip to content
         </a>
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              使用共享内存优化的GPU加速卷积操作
+              教程：共享内存优化的 CNN 卷积
             
           </span>
         </div>
@@ -4542,7 +4542,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA 基础示例 - 向量加法解释
+    教程：你的第一个CUDA程序 - 向量加法
     
   </span>
   
@@ -4565,7 +4565,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA PTX示例：使用内联PTX汇编进行向量乘法
+    教程：使用PTX理解GPU汇编
     
   </span>
   
@@ -4611,7 +4611,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA GPU组织层次结构
+    教程：理解 GPU 架构与执行模型
     
   </span>
   
@@ -4634,7 +4634,7 @@
   
   
   <span class="md-ellipsis">
-    使用CUDA在GPU上实现神经网络前向传播
+    教程：GPU 上的神经网络前向传播
     
   </span>
   
@@ -4666,7 +4666,7 @@
   
   
   <span class="md-ellipsis">
-    使用共享内存优化的GPU加速卷积操作
+    教程：共享内存优化的 CNN 卷积
     
   </span>
   
@@ -4679,7 +4679,7 @@
   
   
   <span class="md-ellipsis">
-    使用共享内存优化的GPU加速卷积操作
+    教程：共享内存优化的 CNN 卷积
     
   </span>
   
@@ -4704,7 +4704,7 @@
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      目录
+      为什么卷积主导计算机视觉
     </span>
   </a>
   
@@ -4713,7 +4713,7 @@
         <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      卷积神经网络简介
+      运行示例
     </span>
   </a>
   
@@ -4722,26 +4722,17 @@
         <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      卷积操作
+      理解卷积操作
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="卷积操作">
+    <nav class="md-nav" aria-label="理解卷积操作">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      数学定义
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      维度和内存布局
+      填充和步长
     </span>
   </a>
   
@@ -4749,103 +4740,103 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      朴素实现
+    </span>
+  </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      实现方法
+      共享内存优化：关键洞察
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="实现方法">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
-    <span class="md-ellipsis">
-      直接卷积
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
-    <span class="md-ellipsis">
-      共享内存优化
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#cnn" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
-      额外的CNN组件
+      内存访问模式分析
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="额外的CNN组件">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      理解实现细节
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
-      激活函数
+      激活和池化层
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
+  <a href="#cnn_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      完整的 CNN 层流水线
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
-      池化层
+      为什么共享内存如此重要
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#cudnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      与 cuDNN 比较
+    </span>
+  </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#_11" class="md-nav__link">
     <span class="md-ellipsis">
-      性能分析
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="性能分析">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_12" class="md-nav__link">
-    <span class="md-ellipsis">
-      内存访问分析
+      内存带宽分析
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      实际影响
+    </span>
+  </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#_13" class="md-nav__link">
     <span class="md-ellipsis">
-      进一步的优化技术
+      挑战练习
     </span>
   </a>
   
@@ -4854,7 +4845,25 @@
         <li class="md-nav__item">
   <a href="#_14" class="md-nav__link">
     <span class="md-ellipsis">
-      结论
+      总结
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      下一步
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      延伸阅读
     </span>
   </a>
   
@@ -8125,29 +8134,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../miscellaneous/iaprof-analysis/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Understanding iaprof: A Deep Dive into AI/GPU Flame Graph Profiling
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../miscellaneous/ideas/" class="md-nav__link">
         
   
@@ -8451,7 +8437,7 @@
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      目录
+      为什么卷积主导计算机视觉
     </span>
   </a>
   
@@ -8460,7 +8446,7 @@
         <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      卷积神经网络简介
+      运行示例
     </span>
   </a>
   
@@ -8469,26 +8455,17 @@
         <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      卷积操作
+      理解卷积操作
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="卷积操作">
+    <nav class="md-nav" aria-label="理解卷积操作">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      数学定义
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      维度和内存布局
+      填充和步长
     </span>
   </a>
   
@@ -8496,103 +8473,103 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      朴素实现
+    </span>
+  </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      实现方法
+      共享内存优化：关键洞察
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="实现方法">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
-    <span class="md-ellipsis">
-      直接卷积
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
-    <span class="md-ellipsis">
-      共享内存优化
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#cnn" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
-      额外的CNN组件
+      内存访问模式分析
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="额外的CNN组件">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      理解实现细节
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_9" class="md-nav__link">
     <span class="md-ellipsis">
-      激活函数
+      激活和池化层
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
+  <a href="#cnn_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      完整的 CNN 层流水线
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
-      池化层
+      为什么共享内存如此重要
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#cudnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      与 cuDNN 比较
+    </span>
+  </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#_11" class="md-nav__link">
     <span class="md-ellipsis">
-      性能分析
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="性能分析">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_12" class="md-nav__link">
-    <span class="md-ellipsis">
-      内存访问分析
+      内存带宽分析
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      实际影响
+    </span>
+  </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#_13" class="md-nav__link">
     <span class="md-ellipsis">
-      进一步的优化技术
+      挑战练习
     </span>
   </a>
   
@@ -8601,7 +8578,25 @@
         <li class="md-nav__item">
   <a href="#_14" class="md-nav__link">
     <span class="md-ellipsis">
-      结论
+      总结
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      下一步
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      延伸阅读
     </span>
   </a>
   
@@ -8631,235 +8626,287 @@
   
 
 
-<h1 id="gpu">使用共享内存优化的GPU加速卷积操作</h1>
-<p>本教程探讨了使用CUDA在GPU上高效实现卷积操作，重点关注共享内存优化。卷积神经网络（CNN）是现代深度学习在计算机视觉领域的基石，卷积操作占据了它们的大部分计算工作负载。这使其成为GPU加速的主要目标。</p>
-<p>您可以在<a href="https://github.com/eunomia-bpf/basic-cuda-tutorial">https://github.com/eunomia-bpf/basic-cuda-tutorial</a>找到代码</p>
-<h2 id="_1">目录</h2>
-<ol>
-<li><a href="#卷积神经网络简介">卷积神经网络简介</a></li>
-<li><a href="#卷积操作">卷积操作</a></li>
-<li><a href="#实现方法">实现方法</a></li>
-<li><a href="#直接卷积">直接卷积</a></li>
-<li><a href="#共享内存优化">共享内存优化</a></li>
-<li><a href="#额外的cnn组件">额外的CNN组件</a></li>
-<li><a href="#激活函数">激活函数</a></li>
-<li><a href="#池化层">池化层</a></li>
-<li><a href="#性能分析">性能分析</a></li>
-<li><a href="#进一步的优化技术">进一步的优化技术</a></li>
-</ol>
-<h2 id="_2">卷积神经网络简介</h2>
-<p>卷积神经网络（CNN）通过捕获图像数据中的空间层次结构和模式，彻底改变了计算机视觉领域。它们被设计为通过反向传播自动学习特征的空间层次结构，使用多个构建块，如：</p>
-<ol>
-<li><strong>卷积层</strong> - 对输入数据应用可学习的滤波器</li>
-<li><strong>激活函数</strong> - 引入非线性（通常是ReLU）</li>
-<li><strong>池化层</strong> - 减少空间维度</li>
-<li><strong>全连接层</strong> - 基于提取的特征执行分类</li>
-</ol>
-<p>卷积层是CNN的核心构建块，这就是为什么优化其性能对高效深度学习应用至关重要。</p>
-<h2 id="_3">卷积操作</h2>
-<h3 id="_4">数学定义</h3>
-<p>2D卷积操作定义为：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Output[b,k,y,x] = Σc Σky Σkx Input[b,c,y*s+ky-p,x*s+kx-p] * Kernel[k,c,ky,kx]
+<h1 id="cnn">教程：共享内存优化的 CNN 卷积</h1>
+<p><strong>所需时间：</strong> 60-75 分钟
+<strong>难度：</strong> 中级到高级
+<strong>前置要求：</strong> 完成教程 04 和 05，理解卷积操作</p>
+<p>完成本教程后，你将理解卷积层如何在 GPU 上工作、为什么共享内存优化对性能至关重要，以及教程 04 中的架构原理如何转化为显著的实际加速。你将看到单个优化技术带来的 30 倍性能提升。</p>
+<p>代码仓库：<a href="https://github.com/eunomia-bpf/basic-cuda-tutorial">https://github.com/eunomia-bpf/basic-cuda-tutorial</a></p>
+<h2 id="_1">为什么卷积主导计算机视觉</h2>
+<p>卷积神经网络（CNNs）彻底改变了计算机视觉。它们为手机上的人脸识别、自动驾驶汽车中的物体检测和医学图像分析提供动力。但 CNNs 计算量很大——通过现代 CNN 的单次前向传播可能需要数十亿次乘加操作。</p>
+<p>卷积操作是瓶颈。在像 ResNet-50 这样的典型 CNN 中，超过 95% 的计算时间花在卷积层上。这使得卷积成为在 GPU 上实现 CNNs 时最重要的优化操作。</p>
+<p>与教程 05 中的全连接层不同，卷积利用空间结构。卷积不是将每个输入连接到每个输出，而是应用在输入上滑动的小滤波器（核）。这种滑动窗口操作处理局部区域，非常适合相邻像素相关的图像。</p>
+<h2 id="_2">运行示例</h2>
+<p>让我们从看到优化的实际效果开始：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>make<span class="w"> </span><span class="m">06</span>-cnn-convolution
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>./06-cnn-convolution
 </code></pre></div>
-<p>其中：
-- <code>b</code> 是批次索引
-- <code>c</code> 是输入通道索引
-- <code>k</code> 是输出通道索引（核数量）
-- <code>x</code>、<code>y</code> 是空间坐标
-- <code>kx</code>、<code>ky</code> 是核位置
-- <code>s</code> 是步长
-- <code>p</code> 是填充</p>
-<h3 id="_5">维度和内存布局</h3>
-<p>对于典型的卷积操作：
-- 输入形状：<code>[batch_size, in_channels, height, width]</code>
-- 核形状：<code>[out_channels, in_channels, kernel_height, kernel_width]</code>
-- 输出形状：<code>[batch_size, out_channels, out_height, out_width]</code></p>
-<p>其中：
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>out_height = (height + 2*padding - kernel_height) / stride + 1
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>out_width = (width + 2*padding - kernel_width) / stride + 1
-</code></pre></div></p>
-<h2 id="_6">实现方法</h2>
-<h3 id="_7">直接卷积</h3>
-<p>卷积的朴素实现直接将数学定义映射到代码中：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">convolutionDirectKernel</span><span class="p">(</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">kernels</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">output</span><span class="p">,</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">batchSize</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">inputChannels</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">inputSize</span><span class="p">,</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">kernelSize</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">kernelCount</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">outputSize</span><span class="p">,</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">padding</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">stride</span><span class="p">)</span><span class="w"> </span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="p">{</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="c1">// 计算输出位置</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">z</span><span class="p">;</span><span class="w"> </span><span class="c1">// 输出通道（核数量）</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">z</span><span class="p">;</span><span class="w"> </span><span class="c1">// 批次索引</span>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">    </span><span class="c1">// 跳过超出范围的线程</span>
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">outputSize</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">outputSize</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">kernelCount</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">batchSize</span><span class="p">)</span>
-<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">        </span><span class="k">return</span><span class="p">;</span>
-<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>
-<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">    </span><span class="c1">// 计算该输出位置的卷积</span>
-<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
-<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>
-<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">    </span><span class="c1">// 对每个输入通道</span>
-<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">inputChannels</span><span class="p">;</span><span class="w"> </span><span class="n">c</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="w">        </span><span class="c1">// 对每个核位置</span>
-<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">ky</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">ky</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">kernelSize</span><span class="p">;</span><span class="w"> </span><span class="n">ky</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">kx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">kx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">kernelSize</span><span class="p">;</span><span class="w"> </span><span class="n">kx</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="w">                </span><span class="c1">// 输入位置</span>
-<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="w">                </span><span class="kt">int</span><span class="w"> </span><span class="n">in_x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">stride</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">padding</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">kx</span><span class="p">;</span>
-<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a><span class="w">                </span><span class="kt">int</span><span class="w"> </span><span class="n">in_y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">stride</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">padding</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ky</span><span class="p">;</span>
-<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>
-<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a><span class="w">                </span><span class="c1">// 如果输入位置在输入范围外则跳过</span>
-<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">in_x</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">in_x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">inputSize</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">in_y</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">in_y</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">inputSize</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a><span class="w">                    </span><span class="c1">// 输入值</span>
-<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a><span class="w">                    </span><span class="kt">float</span><span class="w"> </span><span class="n">in_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">[</span>
-<a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a><span class="w">                        </span><span class="n">b</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">inputChannels</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">inputSize</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">inputSize</span><span class="w"> </span><span class="o">+</span>
-<a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a><span class="w">                        </span><span class="n">c</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">inputSize</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">inputSize</span><span class="w"> </span><span class="o">+</span>
-<a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a><span class="w">                        </span><span class="n">in_y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">inputSize</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">in_x</span>
-<a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a><span class="w">                    </span><span class="p">];</span>
-<a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a>
-<a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a><span class="w">                    </span><span class="c1">// 核值</span>
-<a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a><span class="w">                    </span><span class="kt">float</span><span class="w"> </span><span class="n">kernel_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kernels</span><span class="p">[</span>
-<a id="__codelineno-2-40" name="__codelineno-2-40" href="#__codelineno-2-40"></a><span class="w">                        </span><span class="n">k</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">inputChannels</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">kernelSize</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">kernelSize</span><span class="w"> </span><span class="o">+</span>
-<a id="__codelineno-2-41" name="__codelineno-2-41" href="#__codelineno-2-41"></a><span class="w">                        </span><span class="n">c</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">kernelSize</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">kernelSize</span><span class="w"> </span><span class="o">+</span>
-<a id="__codelineno-2-42" name="__codelineno-2-42" href="#__codelineno-2-42"></a><span class="w">                        </span><span class="n">ky</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">kernelSize</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">kx</span>
-<a id="__codelineno-2-43" name="__codelineno-2-43" href="#__codelineno-2-43"></a><span class="w">                    </span><span class="p">];</span>
-<a id="__codelineno-2-44" name="__codelineno-2-44" href="#__codelineno-2-44"></a>
-<a id="__codelineno-2-45" name="__codelineno-2-45" href="#__codelineno-2-45"></a><span class="w">                    </span><span class="c1">// 累积结果</span>
-<a id="__codelineno-2-46" name="__codelineno-2-46" href="#__codelineno-2-46"></a><span class="w">                    </span><span class="n">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">in_val</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">kernel_val</span><span class="p">;</span>
-<a id="__codelineno-2-47" name="__codelineno-2-47" href="#__codelineno-2-47"></a><span class="w">                </span><span class="p">}</span>
-<a id="__codelineno-2-48" name="__codelineno-2-48" href="#__codelineno-2-48"></a><span class="w">            </span><span class="p">}</span>
-<a id="__codelineno-2-49" name="__codelineno-2-49" href="#__codelineno-2-49"></a><span class="w">        </span><span class="p">}</span>
-<a id="__codelineno-2-50" name="__codelineno-2-50" href="#__codelineno-2-50"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-2-51" name="__codelineno-2-51" href="#__codelineno-2-51"></a>
-<a id="__codelineno-2-52" name="__codelineno-2-52" href="#__codelineno-2-52"></a><span class="w">    </span><span class="c1">// 存储输出</span>
-<a id="__codelineno-2-53" name="__codelineno-2-53" href="#__codelineno-2-53"></a><span class="w">    </span><span class="n">output</span><span class="p">[</span>
-<a id="__codelineno-2-54" name="__codelineno-2-54" href="#__codelineno-2-54"></a><span class="w">        </span><span class="n">b</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">kernelCount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">outputSize</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">outputSize</span><span class="w"> </span><span class="o">+</span>
-<a id="__codelineno-2-55" name="__codelineno-2-55" href="#__codelineno-2-55"></a><span class="w">        </span><span class="n">k</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">outputSize</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">outputSize</span><span class="w"> </span><span class="o">+</span>
-<a id="__codelineno-2-56" name="__codelineno-2-56" href="#__codelineno-2-56"></a><span class="w">        </span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">outputSize</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x</span>
-<a id="__codelineno-2-57" name="__codelineno-2-57" href="#__codelineno-2-57"></a><span class="w">    </span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sum</span><span class="p">;</span>
-<a id="__codelineno-2-58" name="__codelineno-2-58" href="#__codelineno-2-58"></a><span class="p">}</span>
+<p>你会看到类似这样的输出：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>=== CNN Convolution with Shared Memory Optimization ===
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>Configuration:
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  Input size: 28x28 with 1 channels
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>  Kernel size: 5x5 with 16 output channels
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  Padding: 2, Stride: 1
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>  Output size after convolution: 28x28
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>  Output size after pooling: 14x14
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>Performance comparison:
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>  Direct Convolution: 0.223 ms
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>  Shared Memory Convolution: 0.008 ms
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>  Speedup: 29.68x
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>Layer timings (Shared Memory):
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>  Convolution: 0.008 ms
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>  ReLU Activation: 0.006 ms
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>  Max Pooling: 0.006 ms
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>Verification:
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>  Max difference between implementations: 0.000000e+00
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>  Results match: YES
 </code></pre></div>
-<p><strong>直接卷积的特点：</strong>
-- 简单直接的实现
-- 每个线程计算一个输出元素
-- 全局内存访问冗余度高
-- 算术密度低</p>
-<h3 id="_8">共享内存优化</h3>
-<p>优化的关键洞察是相邻的输出元素重用了许多相同的输入值。通过将输入数据加载到共享内存中一次并在多次计算中重用，我们可以显著减少全局内存访问：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">convolutionSharedKernel</span><span class="p">(</span>
+<p>共享内存版本比直接实现快近 30 倍。两者产生相同的结果，但一个有效利用了 GPU 架构，而另一个没有。本教程解释了原因。</p>
+<h2 id="_3">理解卷积操作</h2>
+<p>卷积将一个小滤波器（如 5×5）应用到图像的每个位置。可以把滤波器想象成模式检测器。当它在图像上滑动时，在模式匹配的地方产生高输出，在不匹配的地方产生低输出。</p>
+<p>数学上，对于每个输出位置 (x, y)，我们计算：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Output[y,x] = Σky Σkx Input[y+ky, x+kx] × Kernel[ky, kx]
+</code></pre></div>
+<p>这是核与输入块之间的点积。对于 28×28 的输出和 5×5 的核，我们执行 28 × 28 × 5 × 5 = 19,600 次点积。每次点积涉及 25 次乘加。对于单个通道，这是 490,000 次操作。</p>
+<p>真实的 CNNs 有多个输入通道（如 RGB 图像有 3 个通道）和多个输出通道（检测不同模式的滤波器）。我们的例子使用 1 个输入通道和 16 个输出通道，将工作量乘以 16。</p>
+<h3 id="_4">填充和步长</h3>
+<p>两个参数控制卷积如何操作：</p>
+<p><strong>填充：</strong> 在边界周围添加零。使用 padding=2，我们在每一侧添加 2 行/列的零。这允许滤波器处理边缘像素并保持输出与输入大小相同。</p>
+<p><strong>步长：</strong> 滤波器每次移动的距离。Stride=1 意味着滤波器一次移动一个像素。Stride=2 将使输出维度减半。</p>
+<p>我们的例子使用 padding=2 和 stride=1，所以 28×28 的输入产生 28×28 的输出。</p>
+<h2 id="_5">朴素实现</h2>
+<p>让我们从直接的实现开始。每个线程计算一个输出元素：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">convolutionDirectKernel</span><span class="p">(</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">kernels</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">output</span><span class="p">,</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">batchSize</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">inputChannels</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">inputSize</span><span class="p">,</span>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">kernelSize</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">kernelCount</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">outputSize</span><span class="p">,</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">padding</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">stride</span><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">padding</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">stride</span><span class="p">)</span>
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="p">{</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="c1">// 用于输入瓦片的共享内存</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="k">extern</span><span class="w"> </span><span class="kt">__shared__</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">sharedData</span><span class="p">[];</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="c1">// 计算瓦片尺寸</span>
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">tileSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">tileSizeWithPadding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tileSize</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">kernelSize</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
-<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">    </span><span class="c1">// 线程和块索引</span>
-<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">tx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
-<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
-<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">bx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
-<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
-<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">z</span><span class="p">;</span>
-<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">z</span><span class="p">;</span>
-<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>
-<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="w">    </span><span class="c1">// 将输入数据加载到共享内存</span>
-<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="w">    </span><span class="c1">// ...</span>
-<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>
-<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="w">    </span><span class="c1">// 使用共享内存计算卷积</span>
-<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="w">    </span><span class="c1">// ...</span>
-<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="p">}</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">z</span><span class="p">;</span><span class="w"> </span><span class="c1">// 输出通道</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">z</span><span class="p">;</span><span class="w"> </span><span class="c1">// 批次索引</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">outputSize</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">outputSize</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">kernelCount</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">batchSize</span><span class="p">)</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">        </span><span class="k">return</span><span class="p">;</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">inputChannels</span><span class="p">;</span><span class="w"> </span><span class="n">c</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">ky</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">ky</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">kernelSize</span><span class="p">;</span><span class="w"> </span><span class="n">ky</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">kx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">kx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">kernelSize</span><span class="p">;</span><span class="w"> </span><span class="n">kx</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">                </span><span class="kt">int</span><span class="w"> </span><span class="n">in_x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">stride</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">padding</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">kx</span><span class="p">;</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="w">                </span><span class="kt">int</span><span class="w"> </span><span class="n">in_y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">stride</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">padding</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ky</span><span class="p">;</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">in_x</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">in_x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">inputSize</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">in_y</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">in_y</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">inputSize</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="w">                    </span><span class="kt">float</span><span class="w"> </span><span class="n">in_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">[...];</span>
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="w">                    </span><span class="kt">float</span><span class="w"> </span><span class="n">kernel_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kernels</span><span class="p">[...];</span>
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="w">                    </span><span class="n">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">in_val</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">kernel_val</span><span class="p">;</span>
+<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="w">                </span><span class="p">}</span>
+<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a>
+<a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a><span class="w">    </span><span class="n">output</span><span class="p">[...]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sum</span><span class="p">;</span>
+<a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a><span class="p">}</span>
 </code></pre></div>
-<p><strong>共享内存方法的优势：</strong>
-1. <strong>减少全局内存访问</strong>：每个输入元素只从全局内存加载一次，然后从共享内存中多次重用。
-2. <strong>改进内存访问模式</strong>：块中的线程访问连续的内存位置。
-3. <strong>增加算术密度</strong>：每次全局内存访问执行更多计算。</p>
-<h2 id="cnn">额外的CNN组件</h2>
-<h3 id="_9">激活函数</h3>
-<p>激活函数为网络引入非线性。ReLU（修正线性单元）是CNN中最常用的激活函数：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">reluActivationKernel</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+<p>核 k 的线程 (x, y) 计算该滤波器的输出位置 (x, y)。它从输入读取 5×5 块，与核逐元素相乘，并求和结果。</p>
+<p>这能工作，但内存效率很差。看看相邻线程执行时发生什么。计算输出 (0, 0) 的线程读取输入像素 (0,0) 到 (4,4)。计算输出 (0, 1) 的线程读取输入像素 (0,1) 到 (4,5)。这些重叠了！像素 (0,1) 到 (0,4) 从全局内存读取了两次。</p>
+<p>对于 5×5 的核，相邻输出共享 5 列中的 4 列。那是 80% 的冗余。平均而言，每个输入像素从全局内存读取大约 5 次。</p>
+<p>运行这个给我们的测试用例 0.223 毫秒。现在让我们看看共享内存如何消除这种冗余。</p>
+<h2 id="_6">共享内存优化：关键洞察</h2>
+<p>优化洞察很简单：相邻线程需要重叠的输入数据。不是让每个线程从慢速全局内存读取自己的 5×5 块，整个块应该协作地将更大的分块加载到快速共享内存一次，然后所有线程从那里读取。</p>
+<p>考虑一个 8×8 线程的块计算 8×8 输出。没有共享内存，我们从全局内存读取 8×8×5×5 = 1,600 个值（有很多冗余）。使用共享内存，我们一次加载 12×12 分块（8 + 5 - 1 = 12），然后所有线程从共享内存读取。那是 144 次全局内存加载而不是 1,600 次——11 倍的减少！</p>
+<p>这是结构：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">convolutionSharedKernel</span><span class="p">(...)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="k">extern</span><span class="w"> </span><span class="kt">__shared__</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">sharedData</span><span class="p">[];</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">        </span><span class="n">data</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fmaxf</span><span class="p">(</span><span class="mf">0.0f</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="n">idx</span><span class="p">]);</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="p">}</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">tileSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="p">;</span><span class="w"> </span><span class="c1">// 8</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">tileSizeWithPadding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tileSize</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">kernelSize</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="c1">// 12</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="c1">// 阶段 1：协作地将输入分块加载到共享内存</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">inputChannels</span><span class="p">;</span><span class="w"> </span><span class="n">c</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">        </span><span class="c1">// 加载 tileSizeWithPadding × tileSizeWithPadding 元素</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">        </span><span class="c1">// 每个线程加载多个元素以覆盖分块</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">        </span><span class="p">...</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">    </span><span class="nf">__syncthreads</span><span class="p">();</span><span class="w"> </span><span class="c1">// 等待所有线程完成加载</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">    </span><span class="c1">// 阶段 2：使用共享内存计算卷积</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">inputChannels</span><span class="p">;</span><span class="w"> </span><span class="n">c</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">ky</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">ky</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">kernelSize</span><span class="p">;</span><span class="w"> </span><span class="n">ky</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">kx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">kx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">kernelSize</span><span class="p">;</span><span class="w"> </span><span class="n">kx</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="w">                </span><span class="kt">float</span><span class="w"> </span><span class="n">in_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sharedData</span><span class="p">[...];</span><span class="w"> </span><span class="c1">// 从共享内存读取！</span>
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="w">                </span><span class="kt">float</span><span class="w"> </span><span class="n">kernel_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kernels</span><span class="p">[...];</span>
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="w">                </span><span class="n">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">in_val</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">kernel_val</span><span class="p">;</span>
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a>
+<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="w">    </span><span class="n">output</span><span class="p">[...]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sum</span><span class="p">;</span>
+<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a><span class="p">}</span>
 </code></pre></div>
-<p>ReLU非常适合并行处理，因为每个输出元素只依赖于单个输入元素。</p>
-<h3 id="_10">池化层</h3>
-<p>池化减少特征图的空间维度，降低计算负载并提供一些平移不变性：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">maxPoolingKernel</span><span class="p">(</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">output</span><span class="p">,</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">batchSize</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">channels</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">inputSize</span><span class="p">,</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">poolSize</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">outputSize</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">stride</span><span class="p">)</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="p">{</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="c1">// ... </span>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">    </span><span class="c1">// 在池化窗口中找到最大值</span>
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">dy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">dy</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">poolSize</span><span class="p">;</span><span class="w"> </span><span class="n">dy</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">dx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">dx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">poolSize</span><span class="p">;</span><span class="w"> </span><span class="n">dx</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">            </span><span class="c1">// ...</span>
-<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">            </span><span class="n">maxVal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fmaxf</span><span class="p">(</span><span class="n">maxVal</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">);</span>
+<p>加载阶段很棘手。我们有 8×8 = 64 个线程，但需要加载 12×12 = 144 个元素。每个线程必须加载多个元素。我们使用嵌套循环，其中每个线程在位置 (tx + dx, ty + dy) 加载各种偏移的元素。</p>
+<p><code>__syncthreads()</code> 屏障至关重要。它确保所有线程在任何线程开始计算之前完成加载。没有它，一些线程可能会在共享内存完全填充之前尝试从中读取，获得垃圾数据。</p>
+<h2 id="_7">内存访问模式分析</h2>
+<p>让我们量化改进。对于 8×8 分块和 5×5 核：</p>
+<p><strong>直接卷积：</strong>
+- 64 个线程中的每一个从全局内存读取 25 个值
+- 总全局读取：64 × 25 = 1,600
+- 由于重叠区域，其中许多是重复的</p>
+<p><strong>共享内存卷积：</strong>
+- 协作地加载 12×12 = 144 个值到共享内存
+- 总全局读取：144
+- 然后每个线程从共享内存读取 25 个值（快！）</p>
+<p>减少：1,600 → 144 全局内存访问。那是 11 倍的减少。</p>
+<p>但等等——共享内存访问不是免费的。它们比全局内存快得多（延迟大约低 100 倍），但仍然可能有 bank 冲突。幸运的是，我们的访问模式大多避免了冲突，因为线程在加载时访问不同的元素，相邻元素具有顺序地址。</p>
+<p>实际加速（在我们的例子中是 29.68 倍）来自：
+1. 减少的全局内存流量（11 倍更少的加载）
+2. 更好的缓存利用率（更少的唯一地址）
+3. 加载阶段的合并内存访问
+4. 低共享内存 bank 冲突</p>
+<h2 id="_8">理解实现细节</h2>
+<p>加载阶段值得仔细看看：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">dy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">dy</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">tileSizeWithPadding</span><span class="p">;</span><span class="w"> </span><span class="n">dy</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">tileSize</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">dx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">dx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">tileSizeWithPadding</span><span class="p">;</span><span class="w"> </span><span class="n">dx</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">tileSize</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">in_y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in_y_base</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ty</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">dy</span><span class="p">;</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">in_x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in_x_base</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">tx</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">dx</span><span class="p">;</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">in_y</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">in_y</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">inputSize</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">in_x</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">in_x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">inputSize</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">            </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">[...];</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ty</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">dy</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">tileSizeWithPadding</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">tx</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">dx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">tileSizeWithPadding</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">            </span><span class="n">sharedInput</span><span class="p">[...]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
 <a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">        </span><span class="p">}</span>
 <a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>
-<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="w">    </span><span class="c1">// 存储输出</span>
-<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="w">    </span><span class="c1">// ...</span>
-<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="p">}</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="p">}</span>
 </code></pre></div>
-<h2 id="_11">性能分析</h2>
-<p>我们的实现比较了两种卷积方法：</p>
+<p>我们以 <code>tileSize</code>（8）的增量迭代。在第一次迭代（dy=0, dx=0）中，线程 (tx, ty) 加载分块的元素 (tx, ty)。在下一次迭代（dy=0, dx=8）中，同一线程加载元素 (tx, ty+8)，依此类推。</p>
+<p>对于 12×12 分块和 8×8 线程，我们在每个维度需要两次遍历。第一次遍历覆盖位置 0-7，第二次覆盖 8-11。并非所有线程都参与第二次遍历，因为我们在每个维度只需要 4 个更多元素。</p>
+<p>边界检查处理填充。当计算图像边缘附近的输出时，我们的分块扩展到输入边界之外。我们为越界位置加载零，自动实现零填充。</p>
+<h2 id="_9">激活和池化层</h2>
+<p>在卷积之后，CNNs 通常应用激活函数。ReLU（修正线性单元）是标准的：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">reluActivationKernel</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">        </span><span class="n">data</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fmaxf</span><span class="p">(</span><span class="mf">0.0f</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="n">idx</span><span class="p">]);</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="p">}</span>
+</code></pre></div>
+<p>这是逐元素应用的，只需要 0.006 毫秒——比卷积快得多。它是内存受限的：GPU 花在读取和写入数据上的时间比计算最大值的时间多。</p>
+<p>池化减少空间维度。最大池化在每个窗口中取最大值：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">maxPoolingKernel</span><span class="p">(</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">output</span><span class="p">,</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">batchSize</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">channels</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">inputSize</span><span class="p">,</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">poolSize</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">outputSize</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">stride</span><span class="p">)</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="p">{</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">out_x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">out_y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">in_x_base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">out_x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">stride</span><span class="p">;</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">in_y_base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">out_y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">stride</span><span class="p">;</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">maxVal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">FLT_MAX</span><span class="p">;</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">dy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">dy</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">poolSize</span><span class="p">;</span><span class="w"> </span><span class="n">dy</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">dx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">dx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">poolSize</span><span class="p">;</span><span class="w"> </span><span class="n">dx</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="w">            </span><span class="kt">float</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">[...];</span>
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="w">            </span><span class="n">maxVal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fmaxf</span><span class="p">(</span><span class="n">maxVal</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">);</span>
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>
+<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="w">    </span><span class="n">output</span><span class="p">[...]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">maxVal</span><span class="p">;</span>
+<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="p">}</span>
+</code></pre></div>
+<p>我们的例子使用 2×2 池化，步长为 2，将 28×28 特征图减少到 14×14。这使空间维度减半，减少后续层的计算。</p>
+<p>池化也可以从共享内存中受益，但对于 2×2 窗口，开销不值得。性能在 0.006 毫秒时已经很好了。</p>
+<h2 id="cnn_1">完整的 CNN 层流水线</h2>
+<p>综合起来，典型的 CNN 层执行：</p>
 <ol>
-<li><strong>直接卷积</strong>：基准实现，每个线程计算一个输出元素。</li>
-<li><strong>共享内存卷积</strong>：优化实现，将输入瓦片加载到共享内存中。</li>
+<li>卷积：0.008 毫秒（使用共享内存）</li>
+<li>ReLU 激活：0.006 毫秒</li>
+<li>最大池化：0.006 毫秒</li>
 </ol>
-<p>共享内存优化的典型性能提升：
-- 对于5×5内核：2-4倍加速
-- 对于更大的内核：3-7倍加速
-- 对于多输入通道：更大的加速</p>
-<h3 id="_12">内存访问分析</h3>
-<p>对于具有内核大小K×K的直接卷积：
-- 每个输出元素需要K×K个输入元素
-- 对于N×N的输出，需要N×N×K×K次全局内存访问</p>
-<p>使用共享内存优化：
-- 每个输入元素被加载到共享内存一次
-- 对于M×M的瓦片（每个维度M个线程），我们加载(M+K-1)×(M+K-1)个元素
-- 每个瓦片的全局内存访问总数：(M+K-1)×(M+K-1)</p>
-<p>全局内存访问的减少可能相当可观，特别是对于较大的内核大小。</p>
-<h2 id="_13">进一步的优化技术</h2>
-<p>除了本例中展示的共享内存优化外，还有几种其他技术可以进一步加速CNN操作：</p>
+<p>总计：处理 64 张图像每层 0.020 毫秒。每张图像每层约 0.3 微秒。50 层 CNN 可以在约 60 微秒内处理图像（仅计算，内存传输增加开销）。</p>
+<p>像 ResNet 这样的现代 CNNs 有跳跃连接和批归一化，增加了复杂性。但卷积仍然是瓶颈，使我们的优化至关重要。</p>
+<h2 id="_10">为什么共享内存如此重要</h2>
+<p>30 倍的加速可能看起来好得令人难以置信。让我们理解硬件层面发生的事情。</p>
+<p>从教程 04 中，我们知道全局内存访问需要数百个周期。共享内存访问只需要几个周期。当我们从全局内存读取同一输入像素 5 次时（直接方法），我们等待内存 5 次。当我们从全局内存读取一次到共享内存，然后从共享内存读取 5 次时（优化方法），我们只等待全局内存一次。</p>
+<p>此外，直接方法的合并很差。当 warp 中的 32 个线程各自读取自己的 5×5 块时，它们访问分散的内存位置。优化方法加载连续的分块，在加载阶段提供完美的合并。</p>
+<p>最后，直接方法可能超过 GPU 的缓存容量。RTX 5090 上的 L2 缓存是 98 MB，但一批图像可能是数百兆字节。共享内存明确管理一个适合片上的工作集，保证快速访问。</p>
+<h2 id="cudnn">与 cuDNN 比较</h2>
+<p>我们的优化实现很好，但生产代码使用 cuDNN。它们如何比较？</p>
+<p><strong>我们的实现：</strong>
+- 共享内存分块：0.008 毫秒
+- 易于理解
+- 适用于任何核大小</p>
+<p><strong>cuDNN 实现：</strong>
+- 多种算法（GEMM、Winograd、FFT）
+- 基于问题大小的算法选择
+- 我们的测试用例估计约 0.002 毫秒
+- 高度优化，特定于架构</p>
+<p>cuDNN 可能快 4 倍，因为它使用额外的技术：
+- 3×3 和 5×5 核的 Winograd 变换（更少的乘法）
+- Im2col + GEMM 用于利用高度调优的矩阵乘法
+- 在较新的 GPU 上利用 Tensor Core
+- 内核融合以组合卷积、偏置和激活</p>
+<p>但仅共享内存就带来的 30 倍加速捕获了大部分可能的优化。剩下的 4 倍需要算法级别的变化，而不仅仅是更好的内存管理。</p>
+<h2 id="_11">内存带宽分析</h2>
+<p>让我们计算我们的内存带宽。对于共享内存版本：</p>
+<p><strong>卷积输入读取：</strong> 64 × 1 × 28 × 28 × 4 字节 = 200 KB
+<strong>核读取：</strong> 16 × 1 × 5 × 5 × 4 字节 = 1.6 KB
+<strong>输出写入：</strong> 64 × 16 × 28 × 28 × 4 字节 = 3.2 MB
+<strong>总计：</strong> 3.4 MB</p>
+<p>在 0.008 毫秒中，那是 3.4 MB / 0.000008 秒 = 425 GB/秒。</p>
+<p>RTX 5090 有 1792 GB/秒的理论带宽。我们达到了峰值的 24%——比教程 05 中朴素矩阵乘法的 0.2% 好得多！</p>
+<p>直接卷积仅达到 3.4 MB / 0.223 毫秒 = 15 GB/秒（峰值的 0.8%），因为冗余读取和糟糕的合并。</p>
+<h2 id="_12">实际影响</h2>
+<p>构建 CNN 应用时，这些经验适用：</p>
+<p><strong>对标准操作使用 cuDNN。</strong> 我们的手动优化是教育性的，但 cuDNN 更快，处理我们没有覆盖的边缘情况。</p>
+<p><strong>理解优化为什么有效。</strong> 如果你遇到 cuDNN 无法解决的性能问题（自定义层、新颖架构），了解这些原理让你可以编写高效的自定义内核。</p>
+<p><strong>在优化前进行分析。</strong> 这里的 30 倍加速很大，但只有当卷积是你的瓶颈时才重要。始终进行分析以找到真正的瓶颈。</p>
+<p><strong>首先考虑内存。</strong> 大多数 GPU 内核是内存受限的。减少内存流量通常比优化计算更有帮助。</p>
+<h2 id="_13">挑战练习</h2>
 <ol>
 <li>
-<p><strong>内核融合</strong>：将卷积、偏置加法和激活组合到单个内核中，以减少内核启动开销和内存事务。</p>
+<p><strong>测量 bank 冲突：</strong> 使用 PTX 汇编（来自教程 02）添加共享内存 bank 冲突的计数器。我们的访问模式避免冲突了吗？</p>
 </li>
 <li>
-<p><strong>Winograd算法</strong>：减少小内核大小（例如3×3）所需的乘法次数，但代价是增加加法次数。</p>
+<p><strong>实现 3×3 卷积：</strong> 修改代码用于 3×3 核。加速改变了吗？为什么？</p>
 </li>
 <li>
-<p><strong>基于FFT的卷积</strong>：对于大内核大小，使用快速傅里叶变换可以加速卷积。</p>
+<p><strong>添加通道融合：</strong> 修改共享内存内核以一次加载所有输入通道。这能提高性能吗？</p>
 </li>
 <li>
-<p><strong>Im2Col + GEMM</strong>：将卷积操作重新格式化为矩阵乘法，以利用高度优化的GEMM库。</p>
+<p><strong>实验分块大小：</strong> 尝试 4×4、16×16 和 32×32 分块。绘制性能 vs 分块大小。什么是最优的？</p>
 </li>
 <li>
-<p><strong>量化</strong>：使用较低精度（INT8、FP16）以增加算术吞吐量并减少内存带宽需求。</p>
-</li>
-<li>
-<p><strong>Tensor Cores</strong>：在现代NVIDIA GPU上，利用Tensor Cores进行混合精度矩阵乘法。</p>
-</li>
-<li>
-<p><strong>内核分解</strong>：在可能的情况下将较大的内核分解为可分离的1D滤波器（例如，5×5 → 5×1后接1×5）。</p>
+<p><strong>实现深度可分离卷积：</strong> 这种高效变体分离空间和通道过滤。实现它并与标准卷积比较。</p>
 </li>
 </ol>
-<h2 id="_14">结论</h2>
-<p>卷积操作的高效实现对CNN性能至关重要。通过利用GPU共享内存，我们可以显著减少全局内存访问并提高吞吐量。本例中演示的优化技术代表了现代深度学习框架所基于的基础方法。</p>
-<p>对于生产应用，通常建议使用像cuDNN这样的优化库，它们实现了许多这些优化（以及更多），并进行了特定于架构的调整。然而，理解高效卷积的基本原理对于自定义实现和未来的优化是有价值的。 </p>
-<p><a class="md-button" href="https://x.com/intent/tweet?text=%E4%BD%BF%E7%94%A8%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E4%BC%98%E5%8C%96%E7%9A%84GPU%E5%8A%A0%E9%80%9F%E5%8D%B7%E7%A7%AF%E6%93%8D%E4%BD%9C%0A&amp;url=https://eunomia.dev/zh/others/cuda-tutorial/06-cnn-convolution/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<h2 id="_14">总结</h2>
+<p>卷积层是 CNNs 的计算核心，使它们的优化至关重要。朴素实现由于重叠的感受野而反复从慢速全局内存读取相同数据。</p>
+<p>共享内存分块通过将每个输入像素加载一次到快速片上内存来消除这种冗余。这显著减少了内存流量并改善了合并，在我们的例子中实现了 30 倍加速。</p>
+<p>这些原理超越了卷积。任何滑动窗口操作都受益于分块：相关、形态学操作、音频处理中的时间卷积和视频理解中的 3D 卷积。</p>
+<p>理解这些优化揭示了为什么 GPU 主导深度学习。大规模并行性处理数十亿次乘加。内存层次结构实现使这些操作可行的重用模式。没有两者，现代 AI 将是不切实际的。</p>
+<h2 id="_15">下一步</h2>
+<p>继续学习<strong>教程 07：注意力机制</strong>，了解 transformer 网络如何在 GPU 上处理序列。你将实现驱动 GPT 和 BERT 等模型的自注意力操作，并看到内存访问模式与卷积有何不同。</p>
+<h2 id="_16">延伸阅读</h2>
+<ul>
+<li><a href="https://docs.nvidia.com/deeplearning/cudnn/developer-guide/">NVIDIA cuDNN 文档</a></li>
+<li><a href="https://developer.download.nvidia.com/assets/cuda/files/reduction.pdf">CUDA 中的优化并行归约</a></li>
+<li><a href="https://arxiv.org/abs/1509.09308">卷积神经网络的快速算法</a> - Winograd 卷积</li>
+<li><a href="https://sahnimanas.github.io/post/anatomy-of-a-high-performance-convolution/">用于卷积的 Im2col 和 GEMM</a></li>
+</ul>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=%E6%95%99%E7%A8%8B%EF%BC%9A%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E4%BC%98%E5%8C%96%E7%9A%84%20CNN%20%E5%8D%B7%E7%A7%AF%0A&amp;url=https://eunomia.dev/zh/others/cuda-tutorial/06-cnn-convolution/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/zh/others/cuda-tutorial/06-cnn-convolution/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
@@ -8883,7 +8930,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 7, 2025 20:04:19 UTC">June 7, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 13, 2025 13:23:26 UTC">October 13, 2025</span>
   </span>
 
     
@@ -8903,12 +8950,13 @@
   <span class="md-source-file__fact">
     <span class="md-icon" title="Contributors">
       
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
       
     </span>
     <nav>
       
-        <a href="mailto:41898282+github-actions[bot]@users.noreply.github.com">github-actions[bot]</a>
+        <a href="mailto:41898282+github-actions[bot]@users.noreply.github.com">github-actions[bot]</a>, 
+        <a href="mailto:yunwei356@gmail.com">yunwei37</a>
     </nav>
   </span>
 
@@ -9013,7 +9061,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../05-neural-network/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 使用CUDA在GPU上实现神经网络前向传播">
+          <a href="../05-neural-network/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 教程：GPU 上的神经网络前向传播">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -9023,7 +9071,7 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                使用CUDA在GPU上实现神经网络前向传播
+                教程：GPU 上的神经网络前向传播
               </div>
             </div>
           </a>

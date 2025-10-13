@@ -24,7 +24,7 @@
     
     
       
-        <title>GPU-Accelerated Convolution Operations with Shared Memory Optimization - eunomia</title>
+        <title>Tutorial: CNN Convolution with Shared Memory Optimization - eunomia</title>
       
     
     
@@ -69,7 +69,7 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="GPU-Accelerated Convolution Operations with Shared Memory Optimization - eunomia" >
+        <meta  property="og:title"  content="Tutorial: CNN Convolution with Shared Memory Optimization - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
@@ -85,7 +85,7 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="GPU-Accelerated Convolution Operations with Shared Memory Optimization - eunomia" >
+        <meta  name="twitter:title"  content="Tutorial: CNN Convolution with Shared Memory Optimization - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
@@ -112,7 +112,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#gpu-accelerated-convolution-operations-with-shared-memory-optimization" class="md-skip">
+        <a href="#tutorial-cnn-convolution-with-shared-memory-optimization" class="md-skip">
           Skip to content
         </a>
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              GPU-Accelerated Convolution Operations with Shared Memory Optimization
+              Tutorial: CNN Convolution with Shared Memory Optimization
             
           </span>
         </div>
@@ -4542,7 +4542,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA Basic Example - Vector Addition Explanation
+    Tutorial: Your First CUDA Program - Vector Addition
     
   </span>
   
@@ -4565,7 +4565,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA PTX Example: Vector Multiplication Using Inline PTX Assembly
+    Tutorial: Understanding GPU Assembly with PTX
     
   </span>
   
@@ -4611,7 +4611,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA GPU Organization Hierarchy
+    Tutorial: Understanding GPU Architecture and Execution Model
     
   </span>
   
@@ -4634,7 +4634,7 @@
   
   
   <span class="md-ellipsis">
-    Neural Network Forward Pass on GPU with CUDA
+    Tutorial: Neural Network Forward Pass on GPU
     
   </span>
   
@@ -4666,7 +4666,7 @@
   
   
   <span class="md-ellipsis">
-    GPU-Accelerated Convolution Operations with Shared Memory Optimization
+    Tutorial: CNN Convolution with Shared Memory Optimization
     
   </span>
   
@@ -4679,7 +4679,7 @@
   
   
   <span class="md-ellipsis">
-    GPU-Accelerated Convolution Operations with Shared Memory Optimization
+    Tutorial: CNN Convolution with Shared Memory Optimization
     
   </span>
   
@@ -4702,46 +4702,37 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#table-of-contents" class="md-nav__link">
+  <a href="#why-convolutions-dominate-computer-vision" class="md-nav__link">
     <span class="md-ellipsis">
-      Table of Contents
+      Why Convolutions Dominate Computer Vision
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#introduction-to-convolutional-neural-networks" class="md-nav__link">
+  <a href="#running-the-example" class="md-nav__link">
     <span class="md-ellipsis">
-      Introduction to Convolutional Neural Networks
+      Running the Example
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#convolution-operation" class="md-nav__link">
+  <a href="#understanding-the-convolution-operation" class="md-nav__link">
     <span class="md-ellipsis">
-      Convolution Operation
+      Understanding the Convolution Operation
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Convolution Operation">
+    <nav class="md-nav" aria-label="Understanding the Convolution Operation">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mathematical-definition" class="md-nav__link">
+  <a href="#padding-and-stride" class="md-nav__link">
     <span class="md-ellipsis">
-      Mathematical Definition
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#dimensions-and-memory-layout" class="md-nav__link">
-    <span class="md-ellipsis">
-      Dimensions and Memory Layout
+      Padding and Stride
     </span>
   </a>
   
@@ -4753,108 +4744,126 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#implementation-approaches" class="md-nav__link">
+  <a href="#the-naive-implementation" class="md-nav__link">
     <span class="md-ellipsis">
-      Implementation Approaches
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Implementation Approaches">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#direct-convolution" class="md-nav__link">
-    <span class="md-ellipsis">
-      Direct Convolution
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#shared-memory-optimization" class="md-nav__link">
-    <span class="md-ellipsis">
-      Shared Memory Optimization
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#additional-cnn-components" class="md-nav__link">
-    <span class="md-ellipsis">
-      Additional CNN Components
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Additional CNN Components">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#activation-functions" class="md-nav__link">
-    <span class="md-ellipsis">
-      Activation Functions
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pooling-layers" class="md-nav__link">
-    <span class="md-ellipsis">
-      Pooling Layers
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#performance-analysis" class="md-nav__link">
-    <span class="md-ellipsis">
-      Performance Analysis
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Performance Analysis">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#memory-access-analysis" class="md-nav__link">
-    <span class="md-ellipsis">
-      Memory Access Analysis
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#further-optimization-techniques" class="md-nav__link">
-    <span class="md-ellipsis">
-      Further Optimization Techniques
+      The Naive Implementation
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#conclusion" class="md-nav__link">
+  <a href="#shared-memory-optimization-the-key-insight" class="md-nav__link">
     <span class="md-ellipsis">
-      Conclusion
+      Shared Memory Optimization: The Key Insight
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memory-access-pattern-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Access Pattern Analysis
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-the-implementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding the Implementation Details
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#activation-and-pooling-layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Activation and Pooling Layers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-cnn-layer-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete CNN Layer Pipeline
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-shared-memory-matters-so-much" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Shared Memory Matters So Much
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparing-to-cudnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comparing to cuDNN
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memory-bandwidth-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Bandwidth Analysis
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practical-implications" class="md-nav__link">
+    <span class="md-ellipsis">
+      Practical Implications
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#challenge-exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      Challenge Exercises
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Further Reading
     </span>
   </a>
   
@@ -8125,29 +8134,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../miscellaneous/iaprof-analysis/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Understanding iaprof: A Deep Dive into AI/GPU Flame Graph Profiling
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../miscellaneous/ideas/" class="md-nav__link">
         
   
@@ -8449,46 +8435,37 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#table-of-contents" class="md-nav__link">
+  <a href="#why-convolutions-dominate-computer-vision" class="md-nav__link">
     <span class="md-ellipsis">
-      Table of Contents
+      Why Convolutions Dominate Computer Vision
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#introduction-to-convolutional-neural-networks" class="md-nav__link">
+  <a href="#running-the-example" class="md-nav__link">
     <span class="md-ellipsis">
-      Introduction to Convolutional Neural Networks
+      Running the Example
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#convolution-operation" class="md-nav__link">
+  <a href="#understanding-the-convolution-operation" class="md-nav__link">
     <span class="md-ellipsis">
-      Convolution Operation
+      Understanding the Convolution Operation
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Convolution Operation">
+    <nav class="md-nav" aria-label="Understanding the Convolution Operation">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mathematical-definition" class="md-nav__link">
+  <a href="#padding-and-stride" class="md-nav__link">
     <span class="md-ellipsis">
-      Mathematical Definition
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#dimensions-and-memory-layout" class="md-nav__link">
-    <span class="md-ellipsis">
-      Dimensions and Memory Layout
+      Padding and Stride
     </span>
   </a>
   
@@ -8500,108 +8477,126 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#implementation-approaches" class="md-nav__link">
+  <a href="#the-naive-implementation" class="md-nav__link">
     <span class="md-ellipsis">
-      Implementation Approaches
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Implementation Approaches">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#direct-convolution" class="md-nav__link">
-    <span class="md-ellipsis">
-      Direct Convolution
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#shared-memory-optimization" class="md-nav__link">
-    <span class="md-ellipsis">
-      Shared Memory Optimization
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#additional-cnn-components" class="md-nav__link">
-    <span class="md-ellipsis">
-      Additional CNN Components
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Additional CNN Components">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#activation-functions" class="md-nav__link">
-    <span class="md-ellipsis">
-      Activation Functions
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pooling-layers" class="md-nav__link">
-    <span class="md-ellipsis">
-      Pooling Layers
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#performance-analysis" class="md-nav__link">
-    <span class="md-ellipsis">
-      Performance Analysis
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Performance Analysis">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#memory-access-analysis" class="md-nav__link">
-    <span class="md-ellipsis">
-      Memory Access Analysis
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#further-optimization-techniques" class="md-nav__link">
-    <span class="md-ellipsis">
-      Further Optimization Techniques
+      The Naive Implementation
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#conclusion" class="md-nav__link">
+  <a href="#shared-memory-optimization-the-key-insight" class="md-nav__link">
     <span class="md-ellipsis">
-      Conclusion
+      Shared Memory Optimization: The Key Insight
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memory-access-pattern-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Access Pattern Analysis
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-the-implementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding the Implementation Details
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#activation-and-pooling-layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Activation and Pooling Layers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-cnn-layer-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete CNN Layer Pipeline
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-shared-memory-matters-so-much" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Shared Memory Matters So Much
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparing-to-cudnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comparing to cuDNN
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memory-bandwidth-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Bandwidth Analysis
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practical-implications" class="md-nav__link">
+    <span class="md-ellipsis">
+      Practical Implications
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#challenge-exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      Challenge Exercises
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Further Reading
     </span>
   </a>
   
@@ -8631,235 +8626,287 @@
   
 
 
-<h1 id="gpu-accelerated-convolution-operations-with-shared-memory-optimization">GPU-Accelerated Convolution Operations with Shared Memory Optimization</h1>
-<p>This tutorial explores efficient implementation of convolutional operations on GPUs using CUDA with a focus on shared memory optimization. Convolutional Neural Networks (CNNs) are a cornerstone of modern deep learning for computer vision, and the convolution operation accounts for the majority of their computational workload. This makes it a prime target for GPU acceleration.</p>
-<p>You can find the code in <a href="https://github.com/eunomia-bpf/basic-cuda-tutorial">https://github.com/eunomia-bpf/basic-cuda-tutorial</a></p>
-<h2 id="table-of-contents">Table of Contents</h2>
-<ol>
-<li><a href="#introduction-to-convolutional-neural-networks">Introduction to Convolutional Neural Networks</a></li>
-<li><a href="#convolution-operation">Convolution Operation</a></li>
-<li><a href="#implementation-approaches">Implementation Approaches</a></li>
-<li><a href="#direct-convolution">Direct Convolution</a></li>
-<li><a href="#shared-memory-optimization">Shared Memory Optimization</a></li>
-<li><a href="#additional-cnn-components">Additional CNN Components</a></li>
-<li><a href="#activation-functions">Activation Functions</a></li>
-<li><a href="#pooling-layers">Pooling Layers</a></li>
-<li><a href="#performance-analysis">Performance Analysis</a></li>
-<li><a href="#further-optimization-techniques">Further Optimization Techniques</a></li>
-</ol>
-<h2 id="introduction-to-convolutional-neural-networks">Introduction to Convolutional Neural Networks</h2>
-<p>Convolutional Neural Networks (CNNs) have revolutionized computer vision by capturing spatial hierarchies and patterns in image data. They're engineered to automatically learn spatial hierarchies of features through backpropagation by using multiple building blocks such as:</p>
-<ol>
-<li><strong>Convolutional layers</strong> - apply learnable filters to input data</li>
-<li><strong>Activation functions</strong> - introduce non-linearity (typically ReLU)</li>
-<li><strong>Pooling layers</strong> - reduce spatial dimensions</li>
-<li><strong>Fully-connected layers</strong> - perform classification based on extracted features</li>
-</ol>
-<p>The convolutional layer is the core building block of a CNN, which is why optimizing its performance is critical for efficient deep learning applications.</p>
-<h2 id="convolution-operation">Convolution Operation</h2>
-<h3 id="mathematical-definition">Mathematical Definition</h3>
-<p>The 2D convolution operation is defined as:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Output[b,k,y,x] = Σc Σky Σkx Input[b,c,y*s+ky-p,x*s+kx-p] * Kernel[k,c,ky,kx]
+<h1 id="tutorial-cnn-convolution-with-shared-memory-optimization">Tutorial: CNN Convolution with Shared Memory Optimization</h1>
+<p><strong>Time Required:</strong> 60-75 minutes
+<strong>Difficulty:</strong> Intermediate to Advanced
+<strong>Prerequisites:</strong> Completed Tutorials 04 and 05, understanding of convolutions</p>
+<p>By the end of this tutorial, you will understand how convolutional layers work on the GPU, why shared memory optimization is crucial for performance, and how the architectural principles from Tutorial 04 translate to dramatic real-world speedups. You'll see a 30x performance improvement from a single optimization technique.</p>
+<p>You can find the code at <a href="https://github.com/eunomia-bpf/basic-cuda-tutorial">https://github.com/eunomia-bpf/basic-cuda-tutorial</a></p>
+<h2 id="why-convolutions-dominate-computer-vision">Why Convolutions Dominate Computer Vision</h2>
+<p>Convolutional Neural Networks (CNNs) have revolutionized computer vision. They power face recognition on your phone, object detection in self-driving cars, and medical image analysis. But CNNs are computationally expensive – a single forward pass through a modern CNN can require billions of multiply-add operations.</p>
+<p>The convolution operation is the bottleneck. In a typical CNN like ResNet-50, over 95% of computation time is spent in convolutional layers. This makes convolution the most important operation to optimize when implementing CNNs on GPUs.</p>
+<p>Unlike the fully connected layers from Tutorial 05, convolutions exploit spatial structure. Instead of connecting every input to every output, a convolution applies a small filter (kernel) that slides across the input. This sliding window operation processes local regions, which is perfect for images where nearby pixels are related.</p>
+<h2 id="running-the-example">Running the Example</h2>
+<p>Let's start by seeing the optimization in action:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>make<span class="w"> </span><span class="m">06</span>-cnn-convolution
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>./06-cnn-convolution
 </code></pre></div>
-<p>Where:
-- <code>b</code> is the batch index
-- <code>c</code> is the input channel index
-- <code>k</code> is the output channel index (kernel number)
-- <code>x</code>, <code>y</code> are spatial coordinates
-- <code>kx</code>, <code>ky</code> are kernel positions
-- <code>s</code> is the stride
-- <code>p</code> is the padding</p>
-<h3 id="dimensions-and-memory-layout">Dimensions and Memory Layout</h3>
-<p>For a typical convolution operation:
-- Input shape: <code>[batch_size, in_channels, height, width]</code>
-- Kernels shape: <code>[out_channels, in_channels, kernel_height, kernel_width]</code>
-- Output shape: <code>[batch_size, out_channels, out_height, out_width]</code></p>
-<p>Where:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>out_height = (height + 2*padding - kernel_height) / stride + 1
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>out_width = (width + 2*padding - kernel_width) / stride + 1
-</code></pre></div></p>
-<h2 id="implementation-approaches">Implementation Approaches</h2>
-<h3 id="direct-convolution">Direct Convolution</h3>
-<p>The naive implementation of convolution directly maps the mathematical definition to code:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">convolutionDirectKernel</span><span class="p">(</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">kernels</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">output</span><span class="p">,</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">batchSize</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">inputChannels</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">inputSize</span><span class="p">,</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">kernelSize</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">kernelCount</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">outputSize</span><span class="p">,</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">padding</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">stride</span><span class="p">)</span><span class="w"> </span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="p">{</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="c1">// Calculate output position</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">z</span><span class="p">;</span><span class="w"> </span><span class="c1">// Output channel (kernel number)</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">z</span><span class="p">;</span><span class="w"> </span><span class="c1">// Batch index</span>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">    </span><span class="c1">// Skip out-of-bounds threads</span>
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">outputSize</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">outputSize</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">kernelCount</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">batchSize</span><span class="p">)</span>
-<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">        </span><span class="k">return</span><span class="p">;</span>
-<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>
-<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">    </span><span class="c1">// Compute convolution for this output position</span>
-<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
-<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>
-<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">    </span><span class="c1">// For each input channel</span>
-<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">inputChannels</span><span class="p">;</span><span class="w"> </span><span class="n">c</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="w">        </span><span class="c1">// For each kernel position</span>
-<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">ky</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">ky</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">kernelSize</span><span class="p">;</span><span class="w"> </span><span class="n">ky</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">kx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">kx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">kernelSize</span><span class="p">;</span><span class="w"> </span><span class="n">kx</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="w">                </span><span class="c1">// Input position</span>
-<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="w">                </span><span class="kt">int</span><span class="w"> </span><span class="n">in_x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">stride</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">padding</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">kx</span><span class="p">;</span>
-<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a><span class="w">                </span><span class="kt">int</span><span class="w"> </span><span class="n">in_y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">stride</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">padding</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ky</span><span class="p">;</span>
-<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>
-<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a><span class="w">                </span><span class="c1">// Skip if input position is outside the input</span>
-<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">in_x</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">in_x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">inputSize</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">in_y</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">in_y</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">inputSize</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a><span class="w">                    </span><span class="c1">// Input value</span>
-<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a><span class="w">                    </span><span class="kt">float</span><span class="w"> </span><span class="n">in_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">[</span>
-<a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a><span class="w">                        </span><span class="n">b</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">inputChannels</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">inputSize</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">inputSize</span><span class="w"> </span><span class="o">+</span>
-<a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a><span class="w">                        </span><span class="n">c</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">inputSize</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">inputSize</span><span class="w"> </span><span class="o">+</span>
-<a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a><span class="w">                        </span><span class="n">in_y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">inputSize</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">in_x</span>
-<a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a><span class="w">                    </span><span class="p">];</span>
-<a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a>
-<a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a><span class="w">                    </span><span class="c1">// Kernel value</span>
-<a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a><span class="w">                    </span><span class="kt">float</span><span class="w"> </span><span class="n">kernel_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kernels</span><span class="p">[</span>
-<a id="__codelineno-2-40" name="__codelineno-2-40" href="#__codelineno-2-40"></a><span class="w">                        </span><span class="n">k</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">inputChannels</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">kernelSize</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">kernelSize</span><span class="w"> </span><span class="o">+</span>
-<a id="__codelineno-2-41" name="__codelineno-2-41" href="#__codelineno-2-41"></a><span class="w">                        </span><span class="n">c</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">kernelSize</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">kernelSize</span><span class="w"> </span><span class="o">+</span>
-<a id="__codelineno-2-42" name="__codelineno-2-42" href="#__codelineno-2-42"></a><span class="w">                        </span><span class="n">ky</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">kernelSize</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">kx</span>
-<a id="__codelineno-2-43" name="__codelineno-2-43" href="#__codelineno-2-43"></a><span class="w">                    </span><span class="p">];</span>
-<a id="__codelineno-2-44" name="__codelineno-2-44" href="#__codelineno-2-44"></a>
-<a id="__codelineno-2-45" name="__codelineno-2-45" href="#__codelineno-2-45"></a><span class="w">                    </span><span class="c1">// Accumulate result</span>
-<a id="__codelineno-2-46" name="__codelineno-2-46" href="#__codelineno-2-46"></a><span class="w">                    </span><span class="n">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">in_val</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">kernel_val</span><span class="p">;</span>
-<a id="__codelineno-2-47" name="__codelineno-2-47" href="#__codelineno-2-47"></a><span class="w">                </span><span class="p">}</span>
-<a id="__codelineno-2-48" name="__codelineno-2-48" href="#__codelineno-2-48"></a><span class="w">            </span><span class="p">}</span>
-<a id="__codelineno-2-49" name="__codelineno-2-49" href="#__codelineno-2-49"></a><span class="w">        </span><span class="p">}</span>
-<a id="__codelineno-2-50" name="__codelineno-2-50" href="#__codelineno-2-50"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-2-51" name="__codelineno-2-51" href="#__codelineno-2-51"></a>
-<a id="__codelineno-2-52" name="__codelineno-2-52" href="#__codelineno-2-52"></a><span class="w">    </span><span class="c1">// Store output</span>
-<a id="__codelineno-2-53" name="__codelineno-2-53" href="#__codelineno-2-53"></a><span class="w">    </span><span class="n">output</span><span class="p">[</span>
-<a id="__codelineno-2-54" name="__codelineno-2-54" href="#__codelineno-2-54"></a><span class="w">        </span><span class="n">b</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">kernelCount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">outputSize</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">outputSize</span><span class="w"> </span><span class="o">+</span>
-<a id="__codelineno-2-55" name="__codelineno-2-55" href="#__codelineno-2-55"></a><span class="w">        </span><span class="n">k</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">outputSize</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">outputSize</span><span class="w"> </span><span class="o">+</span>
-<a id="__codelineno-2-56" name="__codelineno-2-56" href="#__codelineno-2-56"></a><span class="w">        </span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">outputSize</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x</span>
-<a id="__codelineno-2-57" name="__codelineno-2-57" href="#__codelineno-2-57"></a><span class="w">    </span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sum</span><span class="p">;</span>
-<a id="__codelineno-2-58" name="__codelineno-2-58" href="#__codelineno-2-58"></a><span class="p">}</span>
+<p>You'll see output like this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>=== CNN Convolution with Shared Memory Optimization ===
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>Configuration:
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  Input size: 28x28 with 1 channels
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>  Kernel size: 5x5 with 16 output channels
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  Padding: 2, Stride: 1
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>  Output size after convolution: 28x28
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>  Output size after pooling: 14x14
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>Performance comparison:
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>  Direct Convolution: 0.223 ms
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>  Shared Memory Convolution: 0.008 ms
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>  Speedup: 29.68x
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>Layer timings (Shared Memory):
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>  Convolution: 0.008 ms
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>  ReLU Activation: 0.006 ms
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>  Max Pooling: 0.006 ms
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>Verification:
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>  Max difference between implementations: 0.000000e+00
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>  Results match: YES
 </code></pre></div>
-<p><strong>Characteristics of Direct Convolution:</strong>
-- Simple and straightforward implementation
-- Each thread computes a single output element
-- High global memory access redundancy
-- Low arithmetic intensity</p>
-<h3 id="shared-memory-optimization">Shared Memory Optimization</h3>
-<p>The key insight for optimization is that adjacent output elements reuse many of the same input values. By loading input data into shared memory once and reusing it for multiple computations, we can significantly reduce global memory accesses:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">convolutionSharedKernel</span><span class="p">(</span>
+<p>The shared memory version is nearly 30 times faster than the direct implementation. Both produce identical results, but one leverages GPU architecture effectively while the other doesn't. This tutorial explains why.</p>
+<h2 id="understanding-the-convolution-operation">Understanding the Convolution Operation</h2>
+<p>A convolution applies a small filter (like 5×5) to every location in an image. Think of the filter as a pattern detector. As it slides across the image, it produces high outputs where the pattern matches and low outputs where it doesn't.</p>
+<p>Mathematically, for each output position (x, y), we compute:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Output[y,x] = Σky Σkx Input[y+ky, x+kx] × Kernel[ky, kx]
+</code></pre></div>
+<p>This is a dot product between the kernel and a patch of the input. For a 28×28 output with a 5×5 kernel, we perform 28 × 28 × 5 × 5 = 19,600 dot products. Each dot product involves 25 multiply-adds. That's 490,000 operations for a single channel.</p>
+<p>Real CNNs have multiple input channels (like RGB images with 3 channels) and multiple output channels (filters that detect different patterns). Our example uses 1 input channel and 16 output channels, multiplying the work by 16.</p>
+<h3 id="padding-and-stride">Padding and Stride</h3>
+<p>Two parameters control how the convolution operates:</p>
+<p><strong>Padding:</strong> Adding zeros around the border. With padding=2, we add 2 rows/columns of zeros on each side. This allows the filter to process edge pixels and keeps the output the same size as the input.</p>
+<p><strong>Stride:</strong> How far the filter moves each step. Stride=1 means the filter moves one pixel at a time. Stride=2 would halve the output dimensions.</p>
+<p>Our example uses padding=2 and stride=1, so the 28×28 input produces a 28×28 output.</p>
+<h2 id="the-naive-implementation">The Naive Implementation</h2>
+<p>Let's start with the straightforward implementation. Each thread computes one output element:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">convolutionDirectKernel</span><span class="p">(</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">kernels</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">output</span><span class="p">,</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">batchSize</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">inputChannels</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">inputSize</span><span class="p">,</span>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">kernelSize</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">kernelCount</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">outputSize</span><span class="p">,</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">padding</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">stride</span><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">padding</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">stride</span><span class="p">)</span>
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="p">{</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="c1">// Shared memory for input tile</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="k">extern</span><span class="w"> </span><span class="kt">__shared__</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">sharedData</span><span class="p">[];</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="c1">// Calculate tile dimensions</span>
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">tileSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">tileSizeWithPadding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tileSize</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">kernelSize</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
-<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">    </span><span class="c1">// Thread and block indices</span>
-<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">tx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
-<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
-<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">bx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
-<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
-<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">z</span><span class="p">;</span>
-<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">z</span><span class="p">;</span>
-<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>
-<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="w">    </span><span class="c1">// Load input data to shared memory</span>
-<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="w">    </span><span class="c1">// ...</span>
-<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>
-<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="w">    </span><span class="c1">// Compute convolution using shared memory</span>
-<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="w">    </span><span class="c1">// ...</span>
-<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="p">}</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">z</span><span class="p">;</span><span class="w"> </span><span class="c1">// Output channel</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">z</span><span class="p">;</span><span class="w"> </span><span class="c1">// Batch index</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">outputSize</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">outputSize</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">kernelCount</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">batchSize</span><span class="p">)</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">        </span><span class="k">return</span><span class="p">;</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">inputChannels</span><span class="p">;</span><span class="w"> </span><span class="n">c</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">ky</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">ky</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">kernelSize</span><span class="p">;</span><span class="w"> </span><span class="n">ky</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">kx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">kx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">kernelSize</span><span class="p">;</span><span class="w"> </span><span class="n">kx</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">                </span><span class="kt">int</span><span class="w"> </span><span class="n">in_x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">stride</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">padding</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">kx</span><span class="p">;</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="w">                </span><span class="kt">int</span><span class="w"> </span><span class="n">in_y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">stride</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">padding</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ky</span><span class="p">;</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">in_x</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">in_x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">inputSize</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">in_y</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">in_y</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">inputSize</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="w">                    </span><span class="kt">float</span><span class="w"> </span><span class="n">in_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">[...];</span>
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="w">                    </span><span class="kt">float</span><span class="w"> </span><span class="n">kernel_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kernels</span><span class="p">[...];</span>
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="w">                    </span><span class="n">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">in_val</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">kernel_val</span><span class="p">;</span>
+<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="w">                </span><span class="p">}</span>
+<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a>
+<a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a><span class="w">    </span><span class="n">output</span><span class="p">[...]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sum</span><span class="p">;</span>
+<a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a><span class="p">}</span>
 </code></pre></div>
-<p><strong>Advantages of Shared Memory Approach:</strong>
-1. <strong>Reduced Global Memory Access</strong>: Each input element is loaded from global memory only once, then reused multiple times from shared memory.
-2. <strong>Improved Memory Access Patterns</strong>: Threads in a block access contiguous memory locations.
-3. <strong>Increased Arithmetic Intensity</strong>: More computation per global memory access.</p>
-<h2 id="additional-cnn-components">Additional CNN Components</h2>
-<h3 id="activation-functions">Activation Functions</h3>
-<p>Activation functions introduce non-linearity into the network. The ReLU (Rectified Linear Unit) is the most common activation function in CNNs:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">reluActivationKernel</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+<p>Thread (x, y) for kernel k computes output position (x, y) for that filter. It reads a 5×5 patch from the input, multiplies element-wise with the kernel, and sums the results.</p>
+<p>This works, but has terrible memory efficiency. Look at what happens when adjacent threads execute. Thread computing output (0, 0) reads input pixels (0,0) through (4,4). Thread computing output (0, 1) reads input pixels (0,1) through (4,5). These overlap! Pixels (0,1) through (0,4) are read twice from global memory.</p>
+<p>For a 5×5 kernel, adjacent outputs share 4 out of 5 input columns. That's 80% redundancy. Every input pixel gets read from global memory approximately 5 times on average.</p>
+<p>Running this gives 0.223 ms for our test case. Now let's see how shared memory eliminates this redundancy.</p>
+<h2 id="shared-memory-optimization-the-key-insight">Shared Memory Optimization: The Key Insight</h2>
+<p>The optimization insight is simple: adjacent threads need overlapping input data. Instead of each thread reading its own 5×5 patch from slow global memory, the entire block should cooperatively load a larger tile into fast shared memory once, then all threads read from there.</p>
+<p>Consider a block of 8×8 threads computing 8×8 outputs. Without shared memory, we read 8×8×5×5 = 1,600 values from global memory (with lots of redundancy). With shared memory, we load a 12×12 tile once (8 + 5 - 1 = 12), then all threads read from shared memory. That's 144 global memory loads instead of 1,600 – an 11x reduction!</p>
+<p>Here's the structure:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">convolutionSharedKernel</span><span class="p">(...)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="k">extern</span><span class="w"> </span><span class="kt">__shared__</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">sharedData</span><span class="p">[];</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">        </span><span class="n">data</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fmaxf</span><span class="p">(</span><span class="mf">0.0f</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="n">idx</span><span class="p">]);</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="p">}</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">tileSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="p">;</span><span class="w"> </span><span class="c1">// 8</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">tileSizeWithPadding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tileSize</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">kernelSize</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="c1">// 12</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="c1">// Phase 1: Cooperatively load input tile to shared memory</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">inputChannels</span><span class="p">;</span><span class="w"> </span><span class="n">c</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">        </span><span class="c1">// Load tileSizeWithPadding × tileSizeWithPadding elements</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">        </span><span class="c1">// Each thread loads multiple elements to cover the tile</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">        </span><span class="p">...</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">    </span><span class="nf">__syncthreads</span><span class="p">();</span><span class="w"> </span><span class="c1">// Wait for all threads to finish loading</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">    </span><span class="c1">// Phase 2: Compute convolution using shared memory</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">inputChannels</span><span class="p">;</span><span class="w"> </span><span class="n">c</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">ky</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">ky</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">kernelSize</span><span class="p">;</span><span class="w"> </span><span class="n">ky</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">kx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">kx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">kernelSize</span><span class="p">;</span><span class="w"> </span><span class="n">kx</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="w">                </span><span class="kt">float</span><span class="w"> </span><span class="n">in_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sharedData</span><span class="p">[...];</span><span class="w"> </span><span class="c1">// Read from shared memory!</span>
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="w">                </span><span class="kt">float</span><span class="w"> </span><span class="n">kernel_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kernels</span><span class="p">[...];</span>
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="w">                </span><span class="n">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">in_val</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">kernel_val</span><span class="p">;</span>
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a>
+<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="w">    </span><span class="n">output</span><span class="p">[...]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sum</span><span class="p">;</span>
+<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a><span class="p">}</span>
 </code></pre></div>
-<p>ReLU is extremely parallel-friendly as each output element depends only on a single input element.</p>
-<h3 id="pooling-layers">Pooling Layers</h3>
-<p>Pooling reduces the spatial dimensions of the feature maps, decreasing computational load and providing some translation invariance:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">maxPoolingKernel</span><span class="p">(</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">output</span><span class="p">,</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">batchSize</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">channels</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">inputSize</span><span class="p">,</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">poolSize</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">outputSize</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">stride</span><span class="p">)</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="p">{</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="c1">// ... </span>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">    </span><span class="c1">// Find maximum value in pooling window</span>
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">dy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">dy</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">poolSize</span><span class="p">;</span><span class="w"> </span><span class="n">dy</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">dx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">dx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">poolSize</span><span class="p">;</span><span class="w"> </span><span class="n">dx</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">            </span><span class="c1">// ...</span>
-<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">            </span><span class="n">maxVal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fmaxf</span><span class="p">(</span><span class="n">maxVal</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">);</span>
+<p>The loading phase is tricky. We have 8×8 = 64 threads but need to load 12×12 = 144 elements. Each thread must load multiple elements. We use nested loops where each thread loads elements at positions (tx + dx, ty + dy) for various offsets.</p>
+<p>The <code>__syncthreads()</code> barrier is crucial. It ensures all threads have finished loading before any start computing. Without it, some threads might try to read from shared memory before it's fully populated, getting garbage data.</p>
+<h2 id="memory-access-pattern-analysis">Memory Access Pattern Analysis</h2>
+<p>Let's quantify the improvement. For an 8×8 tile with a 5×5 kernel:</p>
+<p><strong>Direct convolution:</strong>
+- Each of 64 threads reads 25 values from global memory
+- Total global reads: 64 × 25 = 1,600
+- Many of these are duplicates due to overlapping regions</p>
+<p><strong>Shared memory convolution:</strong>
+- Cooperatively load 12×12 = 144 values to shared memory
+- Total global reads: 144
+- Each thread then reads 25 values from shared memory (fast!)</p>
+<p>The reduction: 1,600 → 144 global memory accesses. That's an 11x reduction in memory traffic.</p>
+<p>But wait – shared memory accesses aren't free. They're much faster than global memory (roughly 100x lower latency), but they can still have bank conflicts. Fortunately, our access pattern mostly avoids conflicts because threads access different elements when loading and nearby elements have sequential addresses.</p>
+<p>The actual speedup (29.68x in our example) comes from:
+1. Reduced global memory traffic (11x fewer loads)
+2. Better cache utilization (fewer unique addresses)
+3. Coalesced memory access during loading phase
+4. Low shared memory bank conflicts</p>
+<h2 id="understanding-the-implementation-details">Understanding the Implementation Details</h2>
+<p>The loading phase deserves a closer look:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">dy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">dy</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">tileSizeWithPadding</span><span class="p">;</span><span class="w"> </span><span class="n">dy</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">tileSize</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">dx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">dx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">tileSizeWithPadding</span><span class="p">;</span><span class="w"> </span><span class="n">dx</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">tileSize</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">in_y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in_y_base</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ty</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">dy</span><span class="p">;</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">in_x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in_x_base</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">tx</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">dx</span><span class="p">;</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">in_y</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">in_y</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">inputSize</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">in_x</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">in_x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">inputSize</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">            </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">[...];</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ty</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">dy</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">tileSizeWithPadding</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">tx</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">dx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">tileSizeWithPadding</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">            </span><span class="n">sharedInput</span><span class="p">[...]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
 <a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">        </span><span class="p">}</span>
 <a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>
-<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="w">    </span><span class="c1">// Store output</span>
-<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="w">    </span><span class="c1">// ...</span>
-<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="p">}</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="p">}</span>
 </code></pre></div>
-<h2 id="performance-analysis">Performance Analysis</h2>
-<p>Our implementation compares two convolution approaches:</p>
+<p>We iterate in increments of <code>tileSize</code> (8). In the first iteration (dy=0, dx=0), thread (tx, ty) loads element (tx, ty) of the tile. In the next iteration (dy=0, dx=8), the same thread loads element (tx, ty+8), and so on.</p>
+<p>For a 12×12 tile with 8×8 threads, we need two passes in each dimension. The first pass covers positions 0-7, the second covers 8-11. Not all threads participate in the second pass since we only need 4 more elements in each dimension.</p>
+<p>The bounds checking handles padding. When computing output near the image edge, our tile extends beyond the input boundaries. We load zeros for out-of-bounds positions, implementing zero-padding automatically.</p>
+<h2 id="activation-and-pooling-layers">Activation and Pooling Layers</h2>
+<p>After convolution, CNNs typically apply an activation function. ReLU (Rectified Linear Unit) is standard:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">reluActivationKernel</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">        </span><span class="n">data</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fmaxf</span><span class="p">(</span><span class="mf">0.0f</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="n">idx</span><span class="p">]);</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="p">}</span>
+</code></pre></div>
+<p>This is applied element-wise and takes only 0.006 ms – much faster than convolution. It's memory-bound: the GPU spends more time reading and writing data than computing the max.</p>
+<p>Pooling reduces spatial dimensions. Max pooling takes the maximum value in each window:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">maxPoolingKernel</span><span class="p">(</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">output</span><span class="p">,</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">batchSize</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">channels</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">inputSize</span><span class="p">,</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">poolSize</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">outputSize</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">stride</span><span class="p">)</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="p">{</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">out_x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">out_y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">in_x_base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">out_x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">stride</span><span class="p">;</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">in_y_base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">out_y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">stride</span><span class="p">;</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">maxVal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">FLT_MAX</span><span class="p">;</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">dy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">dy</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">poolSize</span><span class="p">;</span><span class="w"> </span><span class="n">dy</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">dx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">dx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">poolSize</span><span class="p">;</span><span class="w"> </span><span class="n">dx</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="w">            </span><span class="kt">float</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">[...];</span>
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="w">            </span><span class="n">maxVal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fmaxf</span><span class="p">(</span><span class="n">maxVal</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">);</span>
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>
+<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="w">    </span><span class="n">output</span><span class="p">[...]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">maxVal</span><span class="p">;</span>
+<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="p">}</span>
+</code></pre></div>
+<p>Our example uses 2×2 pooling with stride 2, reducing the 28×28 feature maps to 14×14. This halves the spatial dimensions, reducing computation in subsequent layers.</p>
+<p>Pooling could also benefit from shared memory, but for 2×2 windows, the overhead isn't worthwhile. The performance is already good at 0.006 ms.</p>
+<h2 id="complete-cnn-layer-pipeline">Complete CNN Layer Pipeline</h2>
+<p>Putting it together, a typical CNN layer executes:</p>
 <ol>
-<li><strong>Direct Convolution</strong>: Baseline implementation with each thread computing one output element.</li>
-<li><strong>Shared Memory Convolution</strong>: Optimized implementation that loads input tiles to shared memory.</li>
+<li>Convolution: 0.008 ms (with shared memory)</li>
+<li>ReLU activation: 0.006 ms</li>
+<li>Max pooling: 0.006 ms</li>
 </ol>
-<p>Typical performance improvements from shared memory optimization:
-- For 5×5 kernels: 2-4× speedup
-- For larger kernels: 3-7× speedup
-- For multiple input channels: Even greater speedup</p>
-<h3 id="memory-access-analysis">Memory Access Analysis</h3>
-<p>For a direct convolution with kernel size K×K:
-- Each output element requires K×K input elements
-- For an N×N output, that's N×N×K×K global memory accesses</p>
-<p>With shared memory optimization:
-- Each input element is loaded to shared memory once
-- For an M×M tile (with M threads per dimension), we load (M+K-1)×(M+K-1) elements
-- Total global memory accesses: (M+K-1)×(M+K-1) per tile</p>
-<p>The reduction in global memory accesses can be substantial, especially for larger kernel sizes.</p>
-<h2 id="further-optimization-techniques">Further Optimization Techniques</h2>
-<p>Beyond the shared memory optimization shown in this example, several other techniques can further accelerate CNN operations:</p>
+<p>Total: 0.020 ms per layer for processing 64 images. That's about 0.3 microseconds per image per layer. A 50-layer CNN could process images at ~60 microseconds per image on computation alone (memory transfer adds overhead).</p>
+<p>Modern CNNs like ResNet have skip connections and batch normalization, adding complexity. But the convolution remains the bottleneck, making our optimization critical.</p>
+<h2 id="why-shared-memory-matters-so-much">Why Shared Memory Matters So Much</h2>
+<p>The 30x speedup might seem too good to be true. Let's understand what's happening at the hardware level.</p>
+<p>From Tutorial 04, we know that global memory access takes hundreds of cycles. Shared memory access takes just a few cycles. When we read the same input pixel 5 times from global memory (direct method), we wait for memory 5 times. When we read it once from global memory into shared memory, then 5 times from shared memory (optimized method), we only wait for global memory once.</p>
+<p>Additionally, the direct method has poor coalescing. When 32 threads in a warp each read their own 5×5 patch, they access scattered memory locations. The optimized method loads a contiguous tile, giving perfect coalescing during the load phase.</p>
+<p>Finally, the direct method may exceed the GPU's cache capacity. The L2 cache on the RTX 5090 is 98 MB, but a batch of images can be hundreds of megabytes. The shared memory explicitly manages a working set that fits on-chip, guaranteeing fast access.</p>
+<h2 id="comparing-to-cudnn">Comparing to cuDNN</h2>
+<p>Our optimized implementation is good, but production code uses cuDNN. How do they compare?</p>
+<p><strong>Our implementation:</strong>
+- Shared memory tiling: 0.008 ms
+- Simple to understand
+- Works for any kernel size</p>
+<p><strong>cuDNN implementation:</strong>
+- Multiple algorithms (GEMM, Winograd, FFT)
+- Algorithm selection based on problem size
+- Estimated ~0.002 ms for our test case
+- Highly optimized, architecture-specific</p>
+<p>cuDNN might be 4x faster because it uses additional techniques:
+- Winograd transformation for 3×3 and 5×5 kernels (fewer multiplications)
+- Im2col + GEMM for leveraging highly tuned matrix multiplication
+- Tensor Core utilization on newer GPUs
+- Kernel fusion to combine convolution, bias, and activation</p>
+<p>But our 30x speedup from shared memory alone captures most of the possible optimization. The remaining 4x requires algorithm-level changes, not just better memory management.</p>
+<h2 id="memory-bandwidth-analysis">Memory Bandwidth Analysis</h2>
+<p>Let's calculate our memory bandwidth. For the shared memory version:</p>
+<p><strong>Convolution input read:</strong> 64 × 1 × 28 × 28 × 4 bytes = 200 KB
+<strong>Kernel read:</strong> 16 × 1 × 5 × 5 × 4 bytes = 1.6 KB
+<strong>Output write:</strong> 64 × 16 × 28 × 28 × 4 bytes = 3.2 MB
+<strong>Total:</strong> 3.4 MB</p>
+<p>In 0.008 ms, that's 3.4 MB / 0.000008 s = 425 GB/s.</p>
+<p>The RTX 5090 has 1792 GB/s theoretical bandwidth. We're achieving 24% of peak – much better than the 0.2% we saw in Tutorial 05's naive matrix multiplication!</p>
+<p>The direct convolution achieves only 3.4 MB / 0.223 ms = 15 GB/s (0.8% of peak) because of redundant reads and poor coalescing.</p>
+<h2 id="practical-implications">Practical Implications</h2>
+<p>When building CNN applications, these lessons apply:</p>
+<p><strong>Use cuDNN for standard operations.</strong> Our manual optimization is educational, but cuDNN is faster and handles edge cases we haven't covered.</p>
+<p><strong>Understand why optimizations work.</strong> If you hit a performance problem cuDNN can't solve (custom layers, novel architectures), knowing these principles lets you write efficient custom kernels.</p>
+<p><strong>Profile before optimizing.</strong> The 30x speedup here is huge, but it only matters if convolution is your bottleneck. Always profile to find the real bottleneck.</p>
+<p><strong>Consider memory first.</strong> Most GPU kernels are memory-bound. Reducing memory traffic usually helps more than optimizing computation.</p>
+<h2 id="challenge-exercises">Challenge Exercises</h2>
 <ol>
 <li>
-<p><strong>Kernel Fusion</strong>: Combining convolution, bias addition, and activation into a single kernel to reduce kernel launch overhead and memory transactions.</p>
+<p><strong>Measure bank conflicts:</strong> Add a counter for shared memory bank conflicts using PTX assembly (from Tutorial 02). Does our access pattern avoid conflicts?</p>
 </li>
 <li>
-<p><strong>Winograd Algorithm</strong>: Reduces the number of multiplications needed for small kernel sizes (e.g., 3×3) at the cost of additional additions.</p>
+<p><strong>Implement 3×3 convolution:</strong> Modify the code for a 3×3 kernel. Does the speedup change? Why?</p>
 </li>
 <li>
-<p><strong>FFT-based Convolution</strong>: For large kernel sizes, using Fast Fourier Transform can accelerate convolution.</p>
+<p><strong>Add channel fusion:</strong> Modify the shared memory kernel to load all input channels at once. Does this improve performance?</p>
 </li>
 <li>
-<p><strong>Im2Col + GEMM</strong>: Reformatting the convolution operation as a matrix multiplication to leverage highly optimized GEMM libraries.</p>
+<p><strong>Experiment with tile sizes:</strong> Try 4×4, 16×16, and 32×32 tiles. Plot performance vs tile size. What's optimal?</p>
 </li>
 <li>
-<p><strong>Quantization</strong>: Using lower precision (INT8, FP16) to increase arithmetic throughput and reduce memory bandwidth requirements.</p>
-</li>
-<li>
-<p><strong>Tensor Cores</strong>: On modern NVIDIA GPUs, utilizing Tensor Cores for mixed-precision matrix multiplications.</p>
-</li>
-<li>
-<p><strong>Kernel Decomposition</strong>: Decomposing larger kernels into separable 1D filters when possible (e.g., 5×5 → 5×1 followed by 1×5).</p>
+<p><strong>Implement depthwise separable convolution:</strong> This efficient variant separates spatial and channel-wise filtering. Implement it and compare to standard convolution.</p>
 </li>
 </ol>
-<h2 id="conclusion">Conclusion</h2>
-<p>Efficient implementation of convolution operations is crucial for CNN performance. By leveraging GPU shared memory, we can significantly reduce global memory accesses and improve throughput. The optimization techniques demonstrated in this example represent foundational approaches that modern deep learning frameworks build upon.</p>
-<p>For production applications, it's generally recommended to use optimized libraries like cuDNN, which implement many of these optimizations (and more) with architecture-specific tuning. However, understanding the underlying principles of efficient convolution is valuable for custom implementations and future optimizations. </p>
-<p><a class="md-button" href="https://x.com/intent/tweet?text=GPU-Accelerated%20Convolution%20Operations%20with%20Shared%20Memory%20Optimization%0A&amp;url=https://eunomia.dev/en/others/cuda-tutorial/06-cnn-convolution/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<h2 id="summary">Summary</h2>
+<p>Convolutional layers are the computational heart of CNNs, making their optimization critical. The naive implementation repeatedly reads the same data from slow global memory due to overlapping receptive fields.</p>
+<p>Shared memory tiling eliminates this redundancy by loading each input pixel once into fast on-chip memory. This dramatically reduces memory traffic and improves coalescing, achieving 30x speedup in our example.</p>
+<p>The principles apply beyond convolution. Any sliding window operation benefits from tiling: correlation, morphological operations, temporal convolution in audio processing, and 3D convolution in video understanding.</p>
+<p>Understanding these optimizations reveals why GPUs dominate deep learning. The massive parallelism handles billions of multiply-adds. The memory hierarchy enables reuse patterns that make these operations feasible. Without both, modern AI would be impractical.</p>
+<h2 id="next-steps">Next Steps</h2>
+<p>Continue to <strong>Tutorial 07: Attention Mechanism</strong> to learn how transformer networks process sequences on the GPU. You'll implement the self-attention operation that powers models like GPT and BERT, and see how memory access patterns differ from convolution.</p>
+<h2 id="further-reading">Further Reading</h2>
+<ul>
+<li><a href="https://docs.nvidia.com/deeplearning/cudnn/developer-guide/">NVIDIA cuDNN Documentation</a></li>
+<li><a href="https://developer.download.nvidia.com/assets/cuda/files/reduction.pdf">Optimizing Parallel Reduction in CUDA</a></li>
+<li><a href="https://arxiv.org/abs/1509.09308">Fast Algorithms for Convolutional Neural Networks</a> - Winograd convolution</li>
+<li><a href="https://sahnimanas.github.io/post/anatomy-of-a-high-performance-convolution/">Im2col and GEMM for Convolution</a></li>
+</ul>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=Tutorial%3A%20CNN%20Convolution%20with%20Shared%20Memory%20Optimization%0A&amp;url=https://eunomia.dev/en/others/cuda-tutorial/06-cnn-convolution/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/en/others/cuda-tutorial/06-cnn-convolution/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
@@ -8883,7 +8930,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 25, 2025 01:28:13 UTC">May 25, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 13, 2025 13:23:26 UTC">October 13, 2025</span>
   </span>
 
     
@@ -8903,12 +8950,13 @@
   <span class="md-source-file__fact">
     <span class="md-icon" title="Contributors">
       
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
       
     </span>
     <nav>
       
-        <a href="mailto:yt.xyxx@gmail.com">officeyutong</a>
+        <a href="mailto:yt.xyxx@gmail.com">officeyutong</a>, 
+        <a href="mailto:yunwei356@gmail.com">yunwei37</a>
     </nav>
   </span>
 
@@ -9013,7 +9061,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../05-neural-network/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Neural Network Forward Pass on GPU with CUDA">
+          <a href="../05-neural-network/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Tutorial: Neural Network Forward Pass on GPU">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -9023,7 +9071,7 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Neural Network Forward Pass on GPU with CUDA
+                Tutorial: Neural Network Forward Pass on GPU
               </div>
             </div>
           </a>

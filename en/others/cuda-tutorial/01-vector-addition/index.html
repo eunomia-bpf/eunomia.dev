@@ -24,7 +24,7 @@
     
     
       
-        <title>CUDA Basic Example - Vector Addition Explanation - eunomia</title>
+        <title>Tutorial: Your First CUDA Program - Vector Addition - eunomia</title>
       
     
     
@@ -69,7 +69,7 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="CUDA Basic Example - Vector Addition Explanation - eunomia" >
+        <meta  property="og:title"  content="Tutorial: Your First CUDA Program - Vector Addition - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
@@ -85,7 +85,7 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="CUDA Basic Example - Vector Addition Explanation - eunomia" >
+        <meta  name="twitter:title"  content="Tutorial: Your First CUDA Program - Vector Addition - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
@@ -112,7 +112,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#cuda-basic-example-vector-addition-explanation" class="md-skip">
+        <a href="#tutorial-your-first-cuda-program-vector-addition" class="md-skip">
           Skip to content
         </a>
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              CUDA Basic Example - Vector Addition Explanation
+              Tutorial: Your First CUDA Program - Vector Addition
             
           </span>
         </div>
@@ -4551,7 +4551,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA Basic Example - Vector Addition Explanation
+    Tutorial: Your First CUDA Program - Vector Addition
     
   </span>
   
@@ -4564,7 +4564,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA Basic Example - Vector Addition Explanation
+    Tutorial: Your First CUDA Program - Vector Addition
     
   </span>
   
@@ -4587,110 +4587,55 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
+  <a href="#understanding-the-challenge" class="md-nav__link">
     <span class="md-ellipsis">
-      Prerequisites
+      Understanding the Challenge
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#building-and-running" class="md-nav__link">
+  <a href="#getting-started" class="md-nav__link">
     <span class="md-ellipsis">
-      Building and Running
+      Getting Started
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#code-structure-and-explanation" class="md-nav__link">
+  <a href="#building-and-running-your-first-cuda-program" class="md-nav__link">
     <span class="md-ellipsis">
-      Code Structure and Explanation
+      Building and Running Your First CUDA Program
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Code Structure and Explanation">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-cuda-programming-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      The CUDA Programming Model
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dissecting-the-kernel-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dissecting the Kernel Function
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dissecting the Kernel Function">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-header-files-and-includes" class="md-nav__link">
+  <a href="#understanding-thread-indexing" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Header Files and Includes
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-cuda-kernel-function" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. CUDA Kernel Function
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-main-function-components" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. Main Function Components
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. Main Function Components">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#31-memory-allocation" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.1 Memory Allocation
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#32-data-transfer" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.2 Data Transfer
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#33-kernel-launch-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.3 Kernel Launch Configuration
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#34-error-checking" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.4 Error Checking
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#35-result-verification" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.5 Result Verification
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#36-cleanup" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.6 Cleanup
+      Understanding Thread Indexing
     </span>
   </a>
   
@@ -4700,43 +4645,155 @@
     </nav>
   
 </li>
-        
-      </ul>
-    </nav>
-  
-</li>
       
         <li class="md-nav__item">
-  <a href="#performance-considerations" class="md-nav__link">
+  <a href="#memory-management-in-cuda" class="md-nav__link">
     <span class="md-ellipsis">
-      Performance Considerations
+      Memory Management in CUDA
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#common-issues-and-debugging" class="md-nav__link">
+  <a href="#data-transfer-between-host-and-device" class="md-nav__link">
     <span class="md-ellipsis">
-      Common Issues and Debugging
+      Data Transfer Between Host and Device
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#expected-output" class="md-nav__link">
+  <a href="#launching-the-kernel" class="md-nav__link">
     <span class="md-ellipsis">
-      Expected Output
+      Launching the Kernel
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#modifying-the-example" class="md-nav__link">
+  <a href="#error-checking" class="md-nav__link">
     <span class="md-ellipsis">
-      Modifying the Example
+      Error Checking
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verification-and-cleanup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verification and Cleanup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hands-on-exercise-measuring-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hands-On Exercise: Measuring Performance
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-occupancy-and-block-size" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding Occupancy and Block Size
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memory-bandwidth-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Bandwidth Analysis
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memory-coalescing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Coalescing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debugging-your-cuda-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debugging Your CUDA Code
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#profiling-your-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Profiling Your Code
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-issues-and-solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Issues and Solutions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-topics-preview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Topics Preview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#challenge-exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      Challenge Exercises
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Further Reading
     </span>
   </a>
   
@@ -4763,7 +4820,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA PTX Example: Vector Multiplication Using Inline PTX Assembly
+    Tutorial: Understanding GPU Assembly with PTX
     
   </span>
   
@@ -4809,7 +4866,7 @@
   
   
   <span class="md-ellipsis">
-    CUDA GPU Organization Hierarchy
+    Tutorial: Understanding GPU Architecture and Execution Model
     
   </span>
   
@@ -4832,7 +4889,7 @@
   
   
   <span class="md-ellipsis">
-    Neural Network Forward Pass on GPU with CUDA
+    Tutorial: Neural Network Forward Pass on GPU
     
   </span>
   
@@ -4855,7 +4912,7 @@
   
   
   <span class="md-ellipsis">
-    GPU-Accelerated Convolution Operations with Shared Memory Optimization
+    Tutorial: CNN Convolution with Shared Memory Optimization
     
   </span>
   
@@ -8122,29 +8179,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../miscellaneous/iaprof-analysis/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Understanding iaprof: A Deep Dive into AI/GPU Flame Graph Profiling
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../miscellaneous/ideas/" class="md-nav__link">
         
   
@@ -8446,110 +8480,55 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
+  <a href="#understanding-the-challenge" class="md-nav__link">
     <span class="md-ellipsis">
-      Prerequisites
+      Understanding the Challenge
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#building-and-running" class="md-nav__link">
+  <a href="#getting-started" class="md-nav__link">
     <span class="md-ellipsis">
-      Building and Running
+      Getting Started
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#code-structure-and-explanation" class="md-nav__link">
+  <a href="#building-and-running-your-first-cuda-program" class="md-nav__link">
     <span class="md-ellipsis">
-      Code Structure and Explanation
+      Building and Running Your First CUDA Program
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Code Structure and Explanation">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-cuda-programming-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      The CUDA Programming Model
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dissecting-the-kernel-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dissecting the Kernel Function
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dissecting the Kernel Function">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-header-files-and-includes" class="md-nav__link">
+  <a href="#understanding-thread-indexing" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Header Files and Includes
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-cuda-kernel-function" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. CUDA Kernel Function
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-main-function-components" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. Main Function Components
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. Main Function Components">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#31-memory-allocation" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.1 Memory Allocation
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#32-data-transfer" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.2 Data Transfer
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#33-kernel-launch-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.3 Kernel Launch Configuration
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#34-error-checking" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.4 Error Checking
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#35-result-verification" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.5 Result Verification
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#36-cleanup" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.6 Cleanup
+      Understanding Thread Indexing
     </span>
   </a>
   
@@ -8559,43 +8538,155 @@
     </nav>
   
 </li>
-        
-      </ul>
-    </nav>
-  
-</li>
       
         <li class="md-nav__item">
-  <a href="#performance-considerations" class="md-nav__link">
+  <a href="#memory-management-in-cuda" class="md-nav__link">
     <span class="md-ellipsis">
-      Performance Considerations
+      Memory Management in CUDA
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#common-issues-and-debugging" class="md-nav__link">
+  <a href="#data-transfer-between-host-and-device" class="md-nav__link">
     <span class="md-ellipsis">
-      Common Issues and Debugging
+      Data Transfer Between Host and Device
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#expected-output" class="md-nav__link">
+  <a href="#launching-the-kernel" class="md-nav__link">
     <span class="md-ellipsis">
-      Expected Output
+      Launching the Kernel
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#modifying-the-example" class="md-nav__link">
+  <a href="#error-checking" class="md-nav__link">
     <span class="md-ellipsis">
-      Modifying the Example
+      Error Checking
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verification-and-cleanup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verification and Cleanup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hands-on-exercise-measuring-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hands-On Exercise: Measuring Performance
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-occupancy-and-block-size" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding Occupancy and Block Size
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memory-bandwidth-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Bandwidth Analysis
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memory-coalescing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Coalescing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debugging-your-cuda-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debugging Your CUDA Code
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#profiling-your-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Profiling Your Code
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-issues-and-solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Issues and Solutions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-topics-preview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Topics Preview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#challenge-exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      Challenge Exercises
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Further Reading
     </span>
   </a>
   
@@ -8625,101 +8716,105 @@
   
 
 
-<h1 id="cuda-basic-example-vector-addition-explanation">CUDA Basic Example - Vector Addition Explanation</h1>
-<p>This document provides a detailed explanation of the vector addition CUDA example in <code>basic01.cu</code>.</p>
-<p>You can find the code in <a href="https://github.com/eunomia-bpf/basic-cuda-tutorial">https://github.com/eunomia-bpf/basic-cuda-tutorial</a></p>
-<h2 id="prerequisites">Prerequisites</h2>
-<p>To run this example, you need:
-- NVIDIA GPU with CUDA support
-- NVIDIA CUDA Toolkit installed
-- A C++ compiler compatible with your CUDA version
-- GNU Make (for building with the provided Makefile)</p>
-<h2 id="building-and-running">Building and Running</h2>
+<h1 id="tutorial-your-first-cuda-program-vector-addition">Tutorial: Your First CUDA Program - Vector Addition</h1>
+<p><strong>Time Required:</strong> 30-45 minutes
+<strong>Difficulty:</strong> Beginner
+<strong>Prerequisites:</strong> Basic C/C++ knowledge, NVIDIA GPU with CUDA support</p>
+<p>By the end of this tutorial, you will understand how to write, compile, and run a complete CUDA program that performs parallel vector addition on the GPU. You'll learn the fundamental workflow of GPU programming and see real performance improvements over CPU-only code.</p>
+<h2 id="understanding-the-challenge">Understanding the Challenge</h2>
+<p>Imagine you need to add two arrays of 50,000 numbers together. On a CPU, you would write a loop that processes one element at a time. This sequential approach works, but it's slow when dealing with large datasets. GPUs excel at this type of problem because they can process thousands of elements simultaneously.</p>
+<p>Think of it like this: a CPU is like having one very fast worker, while a GPU is like having thousands of workers who can each handle a small piece of the problem at the same time. For simple, repetitive tasks like adding numbers, the GPU's massive parallelism wins.</p>
+<h2 id="getting-started">Getting Started</h2>
+<p>First, make sure you have the CUDA toolkit installed. Verify your installation by running:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>nvcc<span class="w"> </span>--version
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>nvidia-smi
+</code></pre></div>
+<p>The first command shows your CUDA compiler version, and the second displays your GPU information. If both commands work, you're ready to begin.</p>
+<p>Clone the tutorial repository and navigate to the first example:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/eunomia-bpf/basic-cuda-tutorial
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">cd</span><span class="w"> </span>basic-cuda-tutorial
+</code></pre></div>
+<h2 id="building-and-running-your-first-cuda-program">Building and Running Your First CUDA Program</h2>
+<p>Let's start by building and running the example to see it in action:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>make<span class="w"> </span><span class="m">01</span>-vector-addition
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>./01-vector-addition
+</code></pre></div>
+<p>You should see output similar to:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Vector addition of 50000 elements
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>CUDA kernel launch with 196 blocks of 256 threads
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>Test PASSED
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>Done
+</code></pre></div>
+<p>Now that it works, let's understand what's happening under the hood.</p>
+<h2 id="the-cuda-programming-model">The CUDA Programming Model</h2>
+<p>Open <code>01-vector-addition.cu</code> in your editor. Every CUDA program follows a similar pattern:</p>
 <ol>
-<li>
-<p>Build the example:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>make
-</code></pre></div></p>
-</li>
-<li>
-<p>Run the program:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>./basic01
-</code></pre></div></p>
-</li>
+<li>Allocate memory on both CPU (host) and GPU (device)</li>
+<li>Copy input data from CPU to GPU</li>
+<li>Launch a kernel (function) that runs on the GPU</li>
+<li>Copy results back from GPU to CPU</li>
+<li>Clean up all allocated memory</li>
 </ol>
-<h2 id="code-structure-and-explanation">Code Structure and Explanation</h2>
-<h3 id="1-header-files-and-includes">1. Header Files and Includes</h3>
-<p><div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
+<p>This workflow might seem verbose compared to regular C programming, but it's necessary because the CPU and GPU have separate memory spaces. Data must be explicitly moved between them.</p>
+<h2 id="dissecting-the-kernel-function">Dissecting the Kernel Function</h2>
+<p>The heart of any CUDA program is the kernel function. Here's our vector addition kernel:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">vectorAdd</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">numElements</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">numElements</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">        </span><span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="p">}</span>
 </code></pre></div>
-These standard C headers provide:
-- <code>stdio.h</code>: Input/output functions like <code>printf</code>
-- <code>stdlib.h</code>: Memory management functions like <code>malloc</code> and <code>free</code></p>
-<h3 id="2-cuda-kernel-function">2. CUDA Kernel Function</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kr">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">vectorAdd</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">numElements</span><span class="p">)</span>
-</code></pre></div>
+<p>The <code>__global__</code> keyword tells the CUDA compiler that this function runs on the GPU but can be called from CPU code. Notice how simple the actual computation is: just one addition. The magic is in how we calculate the index <code>i</code>.</p>
+<h3 id="understanding-thread-indexing">Understanding Thread Indexing</h3>
+<p>Every GPU thread needs to know which element of the array it should process. The formula <code>blockDim.x * blockIdx.x + threadIdx.x</code> computes a unique global index for each thread.</p>
+<p>To visualize this, imagine we have 50,000 elements and we organize our GPU threads into blocks of 256 threads each. We would need 196 blocks (rounding up from 50000/256). Here's how the indexing works:</p>
 <ul>
-<li><code>__global__</code>: Specifies this is a CUDA kernel function that:</li>
-<li>Runs on the GPU</li>
-<li>Can be called from CPU code</li>
-<li>Must return void</li>
-<li>Parameters:</li>
-<li><code>float *A, *B</code>: Input vectors in GPU memory</li>
-<li><code>float *C</code>: Output vector in GPU memory</li>
-<li><code>numElements</code>: Size of the vectors</li>
+<li>Thread 0 in Block 0: index = 256 * 0 + 0 = 0</li>
+<li>Thread 5 in Block 0: index = 256 * 0 + 5 = 5</li>
+<li>Thread 0 in Block 1: index = 256 * 1 + 0 = 256</li>
+<li>Thread 100 in Block 2: index = 256 * 2 + 100 = 612</li>
 </ul>
-<p>Inside the kernel:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
-</code></pre></div>
-This calculates a unique index for each thread where:
-- <code>threadIdx.x</code>: Thread index within the block (0 to blockDim.x-1)
-- <code>blockIdx.x</code>: Block index within the grid
-- <code>blockDim.x</code>: Number of threads per block</p>
-<h3 id="3-main-function-components">3. Main Function Components</h3>
-<h4 id="31-memory-allocation">3.1 Memory Allocation</h4>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">// Host memory allocation</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">h_A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">size</span><span class="p">);</span><span class="w">  </span><span class="c1">// CPU memory</span>
+<p>The boundary check <code>if (i &lt; numElements)</code> is crucial because our last block might have threads that extend beyond the array size. Without this check, those threads would access invalid memory.</p>
+<h2 id="memory-management-in-cuda">Memory Management in CUDA</h2>
+<p>Look at how we allocate memory in the main function:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">// Host (CPU) memory</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">h_A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1">// Device memory allocation</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1">// Device (GPU) memory</span>
 <a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">d_A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="n">cudaMalloc</span><span class="p">((</span><span class="kt">void</span><span class="w"> </span><span class="o">**</span><span class="p">)</span><span class="o">&amp;</span><span class="n">d_A</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">);</span><span class="w">     </span><span class="c1">// GPU memory</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="n">cudaMalloc</span><span class="p">((</span><span class="kt">void</span><span class="w"> </span><span class="o">**</span><span class="p">)</span><span class="o">&amp;</span><span class="n">d_A</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">);</span>
 </code></pre></div>
-<ul>
-<li>Host (CPU) memory uses standard C <code>malloc</code></li>
-<li>Device (GPU) memory uses CUDA's <code>cudaMalloc</code></li>
-<li>The 'h_' prefix denotes host memory</li>
-<li>The 'd_' prefix denotes device memory</li>
-</ul>
-<h4 id="32-data-transfer">3.2 Data Transfer</h4>
+<p>We use a naming convention where <code>h_</code> prefix indicates host memory and <code>d_</code> prefix indicates device memory. This helps prevent common mistakes like passing GPU pointers to CPU functions.</p>
+<p>The <code>cudaMalloc</code> function works similarly to <code>malloc</code>, but it allocates memory in the GPU's global memory. This memory is accessible by all GPU threads but has higher latency than shared memory or registers.</p>
+<h2 id="data-transfer-between-host-and-device">Data Transfer Between Host and Device</h2>
+<p>After allocating memory on both sides, we need to copy our input data to the GPU:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">cudaMemcpy</span><span class="p">(</span><span class="n">d_A</span><span class="p">,</span><span class="w"> </span><span class="n">h_A</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">cudaMemcpyHostToDevice</span><span class="p">);</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">cudaMemcpy</span><span class="p">(</span><span class="n">d_B</span><span class="p">,</span><span class="w"> </span><span class="n">h_B</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">cudaMemcpyHostToDevice</span><span class="p">);</span>
 </code></pre></div>
-<p><code>cudaMemcpy</code> parameters:
-1. Destination pointer
-2. Source pointer
-3. Size in bytes
-4. Direction of transfer:
-   - <code>cudaMemcpyHostToDevice</code>: CPU to GPU
-   - <code>cudaMemcpyDeviceToHost</code>: GPU to CPU</p>
-<h4 id="33-kernel-launch-configuration">3.3 Kernel Launch Configuration</h4>
+<p>The <code>cudaMemcpy</code> function is synchronous, meaning the CPU waits until the transfer completes before continuing. The fourth parameter specifies the direction: <code>cudaMemcpyHostToDevice</code> for CPU to GPU, and <code>cudaMemcpyDeviceToHost</code> for GPU to CPU.</p>
+<p>These memory transfers can be a performance bottleneck. As a rule of thumb, you want to minimize the number of transfers and maximize the amount of computation performed on the GPU between transfers.</p>
+<h2 id="launching-the-kernel">Launching the Kernel</h2>
+<p>The kernel launch is where the parallel magic happens:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">threadsPerBlock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">256</span><span class="p">;</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="kt">int</span><span class="w"> </span><span class="n">blocksPerGrid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">numElements</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">threadsPerBlock</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">threadsPerBlock</span><span class="p">;</span>
 <a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">vectorAdd</span><span class="o">&lt;&lt;&lt;</span><span class="n">blocksPerGrid</span><span class="p">,</span><span class="w"> </span><span class="n">threadsPerBlock</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">d_A</span><span class="p">,</span><span class="w"> </span><span class="n">d_B</span><span class="p">,</span><span class="w"> </span><span class="n">d_C</span><span class="p">,</span><span class="w"> </span><span class="n">numElements</span><span class="p">);</span>
 </code></pre></div>
-<ul>
-<li><code>threadsPerBlock = 256</code>: Common size for good performance</li>
-<li><code>blocksPerGrid</code>: Calculated to ensure enough threads for all elements</li>
-<li>The formula <code>(numElements + threadsPerBlock - 1) / threadsPerBlock</code> rounds up the division</li>
-<li>Launch syntax <code>&lt;&lt;&lt;blocks, threads&gt;&gt;&gt;</code> specifies the execution configuration</li>
-</ul>
-<h4 id="34-error-checking">3.4 Error Checking</h4>
+<p>The triple angle bracket syntax <code>&lt;&lt;&lt;blocksPerGrid, threadsPerBlock&gt;&gt;&gt;</code> is CUDA's way of specifying the execution configuration. We're telling the GPU to launch 196 blocks with 256 threads each, giving us 50,176 total threads (slightly more than our 50,000 elements).</p>
+<p>Why 256 threads per block? This is a carefully chosen default that works well on most NVIDIA GPUs. Thread blocks are scheduled on streaming multiprocessors (SMs), and 256 threads per block typically provides good occupancy without using too many resources.</p>
+<p>The ceiling division formula <code>(numElements + threadsPerBlock - 1) / threadsPerBlock</code> ensures we always have enough threads to cover all elements. For 50,000 elements and 256 threads per block, this gives us 196 blocks.</p>
+<h2 id="error-checking">Error Checking</h2>
+<p>CUDA kernel launches are asynchronous, meaning the CPU doesn't wait for the kernel to complete. Errors in the kernel don't show up immediately. That's why we check for launch errors:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">cudaError_t</span><span class="w"> </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cudaGetLastError</span><span class="p">();</span>
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">cudaSuccess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Failed to launch kernel: %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">cudaGetErrorString</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
 <a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="n">exit</span><span class="p">(</span><span class="n">EXIT_FAILURE</span><span class="p">);</span>
 <a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="p">}</span>
 </code></pre></div>
-<p>Always check for CUDA errors after kernel launches and CUDA API calls.</p>
-<h4 id="35-result-verification">3.5 Result Verification</h4>
+<p>This catches configuration errors like requesting too many threads per block or running out of GPU memory. Always check for errors after kernel launches and CUDA API calls during development.</p>
+<h2 id="verification-and-cleanup">Verification and Cleanup</h2>
+<p>After copying results back to the host, we verify the computation:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">numElements</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fabs</span><span class="p">(</span><span class="n">h_A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">h_B</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">h_C</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">1e-5</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">        </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Result verification failed at element %d!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">);</span>
@@ -8727,80 +8822,162 @@ This calculates a unique index for each thread where:
 <a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="p">}</span>
 </code></pre></div>
-<p>Verifies the GPU computation by comparing with CPU results.</p>
-<h4 id="36-cleanup">3.6 Cleanup</h4>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1">// Free GPU memory</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">cudaFree</span><span class="p">(</span><span class="n">d_A</span><span class="p">);</span>
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="n">cudaFree</span><span class="p">(</span><span class="n">d_B</span><span class="p">);</span>
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="n">cudaFree</span><span class="p">(</span><span class="n">d_C</span><span class="p">);</span>
-<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>
-<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="c1">// Free CPU memory</span>
-<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="n">free</span><span class="p">(</span><span class="n">h_A</span><span class="p">);</span>
-<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="n">free</span><span class="p">(</span><span class="n">h_B</span><span class="p">);</span>
-<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="n">free</span><span class="p">(</span><span class="n">h_C</span><span class="p">);</span>
+<p>We use floating-point comparison with a small epsilon (1e-5) because floating-point arithmetic on GPUs might produce slightly different results than on CPUs due to different rounding modes and instruction execution order.</p>
+<p>Finally, we free all allocated memory:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">cudaFree</span><span class="p">(</span><span class="n">d_A</span><span class="p">);</span><span class="w">  </span><span class="c1">// Free GPU memory</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">free</span><span class="p">(</span><span class="n">h_A</span><span class="p">);</span><span class="w">      </span><span class="c1">// Free CPU memory</span>
 </code></pre></div>
-<p>Always free allocated memory to prevent memory leaks.</p>
-<h2 id="performance-considerations">Performance Considerations</h2>
-<ol>
-<li><strong>Thread Block Size</strong></li>
-<li>We use 256 threads per block</li>
-<li>This is a common choice that works well on most GPUs</li>
-<li>
-<p>Powers of 2 are typically efficient</p>
-</li>
-<li>
-<p><strong>Memory Coalescing</strong></p>
-</li>
-<li>Adjacent threads access adjacent memory locations</li>
-<li>
-<p>This pattern enables efficient memory access</p>
-</li>
-<li>
-<p><strong>Error Checking</strong></p>
-</li>
-<li>The code includes robust error checking</li>
-<li>Important for debugging and reliability</li>
-</ol>
-<h2 id="common-issues-and-debugging">Common Issues and Debugging</h2>
-<ol>
-<li><strong>CUDA Installation</strong></li>
-<li>Ensure CUDA toolkit is properly installed</li>
-<li>Check <code>nvcc --version</code> works</li>
-<li>
-<p>Verify GPU compatibility with <code>nvidia-smi</code></p>
-</li>
-<li>
-<p><strong>Compilation Errors</strong></p>
-</li>
-<li>Check CUDA path is in system PATH</li>
-<li>
-<p>Verify GPU compute capability matches <code>-arch</code> flag in Makefile</p>
-</li>
-<li>
-<p><strong>Runtime Errors</strong></p>
-</li>
-<li>Out of memory: Reduce vector size</li>
-<li>Kernel launch failure: Check GPU availability</li>
-<li>Incorrect results: Verify index calculations</li>
-</ol>
-<h2 id="expected-output">Expected Output</h2>
-<p>When running successfully, you should see:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>Vector addition of 50000 elements
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>CUDA kernel launch with 196 blocks of 256 threads
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>Test PASSED
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>Done
+<p>Forgetting to free memory causes leaks. GPU memory is often more limited than system RAM, so leaks can cause problems quickly.</p>
+<h2 id="hands-on-exercise-measuring-performance">Hands-On Exercise: Measuring Performance</h2>
+<p>Now let's add timing to see the actual speedup. We'll use CUDA events for precise GPU timing. Add this code before the kernel launch:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">cudaEvent_t</span><span class="w"> </span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="n">stop</span><span class="p">;</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="n">cudaEventCreate</span><span class="p">(</span><span class="o">&amp;</span><span class="n">start</span><span class="p">);</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="n">cudaEventCreate</span><span class="p">(</span><span class="o">&amp;</span><span class="n">stop</span><span class="p">);</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="n">cudaEventRecord</span><span class="p">(</span><span class="n">start</span><span class="p">);</span>
+</code></pre></div>
+<p>And after the kernel launch:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">cudaEventRecord</span><span class="p">(</span><span class="n">stop</span><span class="p">);</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="n">cudaEventSynchronize</span><span class="p">(</span><span class="n">stop</span><span class="p">);</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="kt">float</span><span class="w"> </span><span class="n">milliseconds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="n">cudaEventElapsedTime</span><span class="p">(</span><span class="o">&amp;</span><span class="n">milliseconds</span><span class="p">,</span><span class="w"> </span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="n">stop</span><span class="p">);</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Kernel execution time: %.3f ms</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">milliseconds</span><span class="p">);</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="n">cudaEventDestroy</span><span class="p">(</span><span class="n">start</span><span class="p">);</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="n">cudaEventDestroy</span><span class="p">(</span><span class="n">stop</span><span class="p">);</span>
+</code></pre></div>
+<p>Recompile and run. You should see the kernel completes in less than a millisecond. Now compare this to a CPU implementation by adding this function:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">vectorAddCPU</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">numElements</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">numElements</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">        </span><span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="p">}</span>
+</code></pre></div>
+<p>Time it using standard C timing functions. On most systems, the GPU version will be significantly faster, even including the memory transfer overhead.</p>
+<h2 id="understanding-occupancy-and-block-size">Understanding Occupancy and Block Size</h2>
+<p>Let's experiment with the block size. The current code uses 256 threads per block. Try modifying it to use different values:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">threadsPerBlock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">128</span><span class="p">;</span><span class="w">  </span><span class="c1">// or 512, or 1024</span>
+</code></pre></div>
+<p>Recompile and run each version with timing enabled. You'll notice that 128 threads per block is slower, while 512 or 1024 might be similar to 256. This is because of GPU occupancy.</p>
+<p>Occupancy refers to how well you're utilizing the GPU's streaming multiprocessors. Each SM has a limited number of registers, shared memory, and warp slots. Using 256 threads per block (8 warps) typically achieves good occupancy on most GPUs without exhausting these resources.</p>
+<p>To check your kernel's occupancy, compile with:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>nvcc<span class="w"> </span>--ptxas-options<span class="o">=</span>-v<span class="w"> </span><span class="m">01</span>-vector-addition.cu<span class="w"> </span>-o<span class="w"> </span><span class="m">01</span>-vector-addition
+</code></pre></div>
+<p>Look for the "registers" and "shared memory" usage in the output. You can use the CUDA Occupancy Calculator to determine optimal block sizes for your specific GPU and kernel.</p>
+<h2 id="memory-bandwidth-analysis">Memory Bandwidth Analysis</h2>
+<p>Vector addition is a memory-bound operation, meaning performance is limited by how fast we can read and write data, not by computation speed. Let's calculate the achieved memory bandwidth:</p>
+<p>For 50,000 elements:
+- We read two float arrays: 50,000 * 4 bytes * 2 = 400 KB
+- We write one float array: 50,000 * 4 bytes = 200 KB
+- Total memory traffic: 600 KB</p>
+<p>If your kernel runs in 0.1 ms, the bandwidth is:
+- 600 KB / 0.0001 s = 6 GB/s</p>
+<p>Compare this to your GPU's theoretical bandwidth (check <code>nvidia-smi</code> or GPU specifications). For example, the RTX 5090 has about 1792 GB/s theoretical bandwidth. If you're achieving 100-200 GB/s, you're doing well for a simple kernel.</p>
+<p>The gap between theoretical and achieved bandwidth comes from several factors: memory access patterns, cache behavior, and PCIe transfer overhead. We'll explore optimizations in later tutorials.</p>
+<h2 id="memory-coalescing">Memory Coalescing</h2>
+<p>Our kernel has excellent memory access patterns. Adjacent threads (within a warp) access adjacent memory locations. This allows the GPU to coalesce multiple memory requests into a single wide transaction.</p>
+<p>Try this experiment: modify the kernel to access memory in a strided pattern:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nb">blockDim</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">blockIdx</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w">  </span><span class="c1">// Skip every other element</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">numElements</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">    </span><span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="p">}</span>
+</code></pre></div>
+<p>You'll need to launch twice as many threads and adjust the bounds check. Time this version and compare. The non-coalesced access pattern will be significantly slower because each memory request requires a separate transaction.</p>
+<h2 id="debugging-your-cuda-code">Debugging Your CUDA Code</h2>
+<p>When things go wrong, CUDA provides several debugging tools:</p>
+<p><strong>cuda-memcheck:</strong> Detects memory errors like out-of-bounds access
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>cuda-memcheck<span class="w"> </span>./01-vector-addition
 </code></pre></div></p>
-<h2 id="modifying-the-example">Modifying the Example</h2>
-<p>To experiment with the code:</p>
+<p><strong>cuda-gdb:</strong> GPU debugger for step-through debugging
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>cuda-gdb<span class="w"> </span>./01-vector-addition
+</code></pre></div></p>
+<p><strong>Compute Sanitizer:</strong> Modern replacement for cuda-memcheck
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>compute-sanitizer<span class="w"> </span>./01-vector-addition
+</code></pre></div></p>
+<p>Common mistakes to watch for:
+- Passing host pointers to kernels (will cause segfault)
+- Forgetting to copy data back from device
+- Not checking CUDA error codes
+- Accessing memory beyond array bounds
+- Mismatched memory allocation and free calls</p>
+<h2 id="profiling-your-code">Profiling Your Code</h2>
+<p>To understand what's happening on the GPU in detail, use NVIDIA's profiling tools:</p>
+<p><strong>Nsight Systems</strong> for timeline analysis:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>nsys<span class="w"> </span>profile<span class="w"> </span>--stats<span class="o">=</span><span class="nb">true</span><span class="w"> </span>./01-vector-addition
+</code></pre></div></p>
+<p>This shows you exactly where time is spent: memory transfers, kernel execution, and CPU code.</p>
+<p><strong>Nsight Compute</strong> for kernel analysis:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>ncu<span class="w"> </span>--set<span class="w"> </span>full<span class="w"> </span>./01-vector-addition
+</code></pre></div></p>
+<p>This provides detailed metrics about memory bandwidth, SM utilization, and performance bottlenecks.</p>
+<h2 id="common-issues-and-solutions">Common Issues and Solutions</h2>
+<p><strong>Error: "CUDA driver version is insufficient"</strong>
+Your driver is too old for your CUDA toolkit version. Update your NVIDIA driver.</p>
+<p><strong>Error: "out of memory"</strong>
+The GPU doesn't have enough memory. Reduce <code>numElements</code> or process data in batches.</p>
+<p><strong>Error: "invalid device function"</strong>
+The kernel was compiled for a different GPU architecture. Check your Makefile's <code>-arch</code> flag matches your GPU's compute capability.</p>
+<p><strong>Segmentation fault:</strong>
+Likely passing host pointers to kernel or accessing unallocated memory. Run with <code>cuda-memcheck</code> to diagnose.</p>
+<p><strong>Results incorrect:</strong>
+Check your index calculation. Add bounds checking and verify with a smaller dataset first.</p>
+<h2 id="advanced-topics-preview">Advanced Topics Preview</h2>
+<p>Now that you understand basic CUDA programming, future tutorials will cover:</p>
+<p><strong>Unified Memory:</strong> Simplifies memory management by using a single pointer for CPU and GPU
+<strong>Streams:</strong> Overlap computation and data transfer for better performance
+<strong>Shared Memory:</strong> Use fast on-chip memory for thread collaboration
+<strong>Atomic Operations:</strong> Handle race conditions when multiple threads write to the same location
+<strong>Texture Memory:</strong> Optimize for spatial locality in image processing</p>
+<h2 id="challenge-exercises">Challenge Exercises</h2>
 <ol>
-<li>Change vector size (<code>numElements</code>)</li>
-<li>Modify threads per block</li>
-<li>Add timing measurements</li>
-<li>Try different data types</li>
-<li>Implement other vector operations</li>
+<li>
+<p><strong>Modify the kernel</strong> to compute C[i] = A[i] * B[i] + C[i] (multiply-add operation)</p>
+</li>
+<li>
+<p><strong>Implement error checking</strong> for all CUDA API calls using a macro:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="cp">#define CUDA_CHECK(call) \</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="cp">    do { \</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="cp">        cudaError_t err = call; \</span>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="cp">        if (err != cudaSuccess) { \</span>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="cp">            fprintf(stderr, &quot;CUDA error at %s:%d: %s\n&quot;, __FILE__, __LINE__, \</span>
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="cp">                    cudaGetErrorString(err)); \</span>
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="cp">            exit(EXIT_FAILURE); \</span>
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="cp">        } \</span>
+<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="cp">    } while(0)</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Add comprehensive timing</strong> that separately measures:</p>
+</li>
+<li>Host to Device transfer time</li>
+<li>Kernel execution time</li>
+<li>Device to Host transfer time</li>
+<li>
+<p>Total GPU time vs CPU implementation time</p>
+</li>
+<li>
+<p><strong>Experiment with vector sizes:</strong> Try 1K, 10K, 100K, 1M, 10M elements. Plot execution time vs size. At what point does GPU become faster than CPU?</p>
+</li>
+<li>
+<p><strong>Implement unified memory version:</strong> Replace explicit cudaMalloc/cudaMemcpy with cudaMallocManaged. Does performance change?</p>
+</li>
 </ol>
-<p>Remember to handle errors and verify results after modifications.</p>
-<p><a class="md-button" href="https://x.com/intent/tweet?text=CUDA%20Basic%20Example%20-%20Vector%20Addition%20Explanation%0A&amp;url=https://eunomia.dev/en/others/cuda-tutorial/01-vector-addition/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<h2 id="summary">Summary</h2>
+<p>You've now written your first CUDA program and understand the fundamental concepts:</p>
+<p>The CPU and GPU have separate memory spaces requiring explicit data movement. Kernels execute in parallel across thousands of threads organized into blocks. Each thread computes a unique index to determine which data element to process. Proper error checking and verification are essential for reliable GPU code.</p>
+<p>Vector addition is memory-bound, so performance depends on memory bandwidth rather than computation speed. Good memory access patterns (coalescing) are crucial for performance. The typical workflow is: allocate, copy to device, compute, copy to host, free.</p>
+<p>These foundations will serve you throughout GPU programming. The same patterns apply whether you're adding vectors, training neural networks, or simulating physics.</p>
+<h2 id="next-steps">Next Steps</h2>
+<p>Continue to <strong>Tutorial 02: PTX Assembly</strong> to learn how to write low-level GPU code and understand what the compiler generates. You'll see the actual assembly instructions that execute on the GPU and learn when to use inline PTX for performance-critical code.</p>
+<h2 id="further-reading">Further Reading</h2>
+<ul>
+<li><a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/">CUDA C++ Programming Guide</a> - Official comprehensive guide</li>
+<li><a href="https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/">CUDA C++ Best Practices Guide</a> - Performance optimization techniques</li>
+<li><a href="https://www.nvidia.com/en-us/data-center/resources/gpu-architecture/">GPU Architecture Whitepaper</a> - Understanding the hardware</li>
+<li><a href="https://github.com/NVIDIA/cuda-samples">CUDA Samples</a> - More example code</li>
+</ul>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=Tutorial%3A%20Your%20First%20CUDA%20Program%20-%20Vector%20Addition%0A&amp;url=https://eunomia.dev/en/others/cuda-tutorial/01-vector-addition/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/en/others/cuda-tutorial/01-vector-addition/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
@@ -8824,7 +9001,7 @@ This calculates a unique index for each thread where:
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 25, 2025 01:28:13 UTC">May 25, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 13, 2025 13:23:26 UTC">October 13, 2025</span>
   </span>
 
     
@@ -8844,12 +9021,13 @@ This calculates a unique index for each thread where:
   <span class="md-source-file__fact">
     <span class="md-icon" title="Contributors">
       
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
       
     </span>
     <nav>
       
-        <a href="mailto:yt.xyxx@gmail.com">officeyutong</a>
+        <a href="mailto:yt.xyxx@gmail.com">officeyutong</a>, 
+        <a href="mailto:yunwei356@gmail.com">yunwei37</a>
     </nav>
   </span>
 
@@ -8971,13 +9149,13 @@ This calculates a unique index for each thread where:
         
         
           
-          <a href="../02-ptx-assembly/" class="md-footer__link md-footer__link--next" aria-label="Next: CUDA PTX Example: Vector Multiplication Using Inline PTX Assembly">
+          <a href="../02-ptx-assembly/" class="md-footer__link md-footer__link--next" aria-label="Next: Tutorial: Understanding GPU Assembly with PTX">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                CUDA PTX Example: Vector Multiplication Using Inline PTX Assembly
+                Tutorial: Understanding GPU Assembly with PTX
               </div>
             </div>
             <div class="md-footer__button md-icon">
