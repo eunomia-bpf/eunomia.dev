@@ -1,3 +1,7 @@
+---
+date: 2025-10-11
+---
+
 # Understanding iaprof: A Deep Dive into AI/GPU Flame Graph Profiling
 
 *An exploration of Intel's innovative profiling tool that bridges the gap between CPU and GPU execution*
