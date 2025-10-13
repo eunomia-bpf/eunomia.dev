@@ -10,7 +10,9 @@ date: 2025-10-11
 
 If you've ever tried to optimize a GPU-accelerated machine learning workload, you've likely encountered a frustrating problem: your code runs on the CPU, but the performance bottlenecks live on the GPU. Traditional profiling tools show you one world or the other, but never both together. This disconnect makes it nearly impossible to understand which lines of your Python or C++ code are responsible for expensive GPU operations.
 
-Enter **iaprof**, Intel's solution to this observability challenge. At its core, iaprof is a profiling tool that generates what Intel calls "AI Flame Graphs" - interactive visualizations that seamlessly connect your application code to the GPU instructions it triggers, all while showing where performance is actually being lost.
+Enter **iaprof**, Intel's solution to this observability challenge. At its core, iaprof is a profiling tool that generates what Intel calls "AI Flame Graphs" - interactive visualizations that seamlessly connect your application code to the GPU instructions it triggers, all while showing where performance is actually being lost. This blog post will take you on a deep dive into how iaprof works, the technologies it leverages, and the architecture that makes it possible.
+
+<!-- more -->
 
 ## The Visibility Gap in GPU Computing
 
