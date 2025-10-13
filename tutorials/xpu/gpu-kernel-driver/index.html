@@ -2070,6 +2070,57 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#nvidia-proprietary-driver-different-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      NVIDIA Proprietary Driver: Different Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NVIDIA Proprietary Driver: Different Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nvidia-driver-monitoring-nvidia_driverbt" class="md-nav__link">
+    <span class="md-ellipsis">
+      NVIDIA Driver Monitoring: nvidia_driver.bt
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-bpftrace-script-scriptsnvidia_driverbt" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete Bpftrace Script: scripts/nvidia_driver.bt
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#understanding-nvidia-driver-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding NVIDIA Driver Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-nvidia-driver-monitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running NVIDIA Driver Monitor
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#running-the-monitor-scripts" class="md-nav__link">
     <span class="md-ellipsis">
       Running the Monitor Scripts
@@ -8441,6 +8492,57 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#nvidia-proprietary-driver-different-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      NVIDIA Proprietary Driver: Different Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NVIDIA Proprietary Driver: Different Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nvidia-driver-monitoring-nvidia_driverbt" class="md-nav__link">
+    <span class="md-ellipsis">
+      NVIDIA Driver Monitoring: nvidia_driver.bt
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-bpftrace-script-scriptsnvidia_driverbt" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete Bpftrace Script: scripts/nvidia_driver.bt
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#understanding-nvidia-driver-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding NVIDIA Driver Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-nvidia-driver-monitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running NVIDIA Driver Monitor
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#running-the-monitor-scripts" class="md-nav__link">
     <span class="md-ellipsis">
       Running the Monitor Scripts
@@ -8509,7 +8611,7 @@
 <h2 id="gpu-kernel-tracepoints-zero-overhead-observability">GPU Kernel Tracepoints: Zero-Overhead Observability</h2>
 <p>GPU tracepoints are instrumentation points built into the kernel's Direct Rendering Manager (DRM) subsystem. When your GPU schedules a job, allocates memory, or signals a fence, these tracepoints fire with precise timing and driver state.</p>
 <p>The key insight: kernel tracepoints activate only when events occur, adding nanoseconds of overhead per event. They capture 100% of activity including microsecond-duration jobs. Polling-based monitoring checks GPU state every 100ms and misses short-lived operations entirely.</p>
-<p>GPU tracepoints span three layers. <strong>DRM scheduler tracepoints</strong> (<code>gpu_scheduler</code> event group) are stable uAPI - their format never changes. They work identically across Intel, AMD, and Nouveau drivers for vendor-neutral monitoring. <strong>Vendor-specific tracepoints</strong> expose driver internals - Intel i915 tracks GEM object creation and VMA binding, AMD AMDGPU monitors buffer objects and command submission. <strong>Generic DRM tracepoints</strong> handle display synchronization through vblank events for diagnosing frame drops.</p>
+<p>GPU tracepoints span three layers. DRM scheduler tracepoints (<code>gpu_scheduler</code> event group) are stable uAPI; their format never changes. They work identically across Intel, AMD, and Nouveau drivers for vendor-neutral monitoring. Vendor-specific tracepoints expose driver internals. Intel i915 tracks GEM object creation and VMA binding, while AMD AMDGPU monitors buffer objects and command submission. Generic DRM tracepoints handle display synchronization through vblank events for diagnosing frame drops.</p>
 <h2 id="drm-scheduler-monitor-universal-gpu-tracking">DRM Scheduler Monitor: Universal GPU Tracking</h2>
 <p>The <code>drm_scheduler.bt</code> script works on <strong>all GPU drivers</strong> because it uses stable uAPI tracepoints. It tracks job submission (<code>drm_run_job</code>), completion (<code>drm_sched_process_job</code>), and dependency waits (<code>drm_sched_job_wait_dep</code>) across all rings.</p>
 <h3 id="complete-bpftrace-script-drm_schedulerbt">Complete Bpftrace Script: drm_scheduler.bt</h3>
@@ -8599,7 +8701,7 @@
 <a id="__codelineno-0-84" name="__codelineno-0-84" href="#__codelineno-0-84"></a><span class="p">}</span>
 </code></pre></div>
 <h3 id="understanding-the-script">Understanding the Script</h3>
-<p>The script attaches to three stable DRM scheduler tracepoints. When <code>drm_run_job</code> fires, a job transitions from "queued in software" to "running on silicon." The tracepoint captures <code>args-&gt;id</code> (job ID for correlation), <code>args-&gt;name</code> (ring name - which execution engine like graphics, compute, or video decode), <code>args-&gt;job_count</code> (queue depth - how many jobs are waiting), and <code>args-&gt;hw_job_count</code> (jobs currently executing on GPU hardware).</p>
+<p>The script attaches to three stable DRM scheduler tracepoints. When <code>drm_run_job</code> fires, a job transitions from "queued in software" to "running on silicon." The tracepoint captures <code>args-&gt;id</code> (job ID for correlation), <code>args-&gt;name</code> (ring name indicating which execution engine like graphics, compute, or video decode), <code>args-&gt;job_count</code> (queue depth indicating how many jobs are waiting), and <code>args-&gt;hw_job_count</code> (jobs currently executing on GPU hardware).</p>
 <p>The format <code>entity=0xffff888... id=12345 fence=0xffff888... ring=gfx job count:5 hw job count:2</code> tells you job 12345 on the graphics ring started executing with 5 jobs queued behind it and 2 jobs currently running on hardware. Multi-engine GPUs can run jobs in parallel across different rings.</p>
 <p>We record <code>@start[$job_id] = nsecs</code> to enable latency calculation. The script stores the timestamp keyed by job ID. Later, when tracking completion or measuring end-to-end latency, you can compute <code>nsecs - @start[$job_id]</code> to get execution time. The <code>@jobs_per_ring[$ring] = count()</code> line increments per-ring counters, showing workload distribution across engines.</p>
 <p>When <code>drm_sched_process_job</code> fires, GPU hardware completed a job and signaled its fence. The fence pointer <code>args-&gt;fence</code> identifies the completed job. Correlating fence pointers between <code>drm_run_job</code> and this tracepoint lets you calculate GPU execution time: <code>completion_time - run_time = GPU_execution_duration</code>. If jobs that should take 5ms are taking 50ms, you've found a GPU performance problem.</p>
@@ -8607,46 +8709,211 @@
 <p>This reveals pipeline stalls. If compute jobs constantly wait for graphics jobs, you're not exploiting parallelism. Long wait times suggest dependency chains are too deep - consider batching independent work. Excessive dependencies indicate CPU-side scheduling inefficiency. The <code>@waits_per_ring[$ring] = count()</code> metric tracks which rings experience the most dependency stalls.</p>
 <p>At program end, the <code>END</code> block prints statistics. <code>@jobs_per_ring</code> shows job counts per execution engine - revealing if specific rings (video encode, compute) are saturated. <code>@waits_per_ring</code> exposes dependency bottlenecks. This data reveals overall GPU utilization patterns and whether jobs are blocked by dependencies.</p>
 <h2 id="intel-i915-tracepoints-memory-management-deep-dive">Intel i915 Tracepoints: Memory Management Deep Dive</h2>
-<p>Intel's i915 driver exposes detailed tracepoints for memory operations. These require <code>CONFIG_DRM_I915_LOW_LEVEL_TRACEPOINTS=y</code> in your kernel config - check with <code>grep CONFIG_DRM_I915_LOW_LEVEL_TRACEPOINTS /boot/config-$(uname -r)</code>.</p>
-<p><strong>i915_gem_object_create</strong> fires when the driver allocates a GEM (Graphics Execution Manager) object - the fundamental unit of GPU-accessible memory. Format: <code>obj=0xffff888... size=0x100000</code> indicates allocating a 1MB object. Track total allocated memory over time to detect leaks. Sudden allocation spikes before performance drops suggest memory pressure. Correlate object pointers with subsequent bind/fault events to understand object lifecycle.</p>
-<p><strong>i915_vma_bind</strong> tracks mapping memory into GPU address space. Allocating memory isn't enough - it must be bound into GPU virtual address space. Format: <code>obj=0xffff888... offset=0x0000100000 size=0x10000 mappable vm=0xffff888...</code> shows 64KB bound at GPU virtual address 0x100000. Frequent rebinding indicates memory thrashing - the driver evicting and rebinding objects under pressure. GPU page faults often correlate with bind operations.</p>
-<p><strong>i915_gem_shrink</strong> captures memory pressure response. Under memory pressure, the driver reclaims GPU memory. Format: <code>dev=0 target=0x1000000 flags=0x3</code> means the driver tries to reclaim 16MB. High shrink activity indicates undersized GPU memory for the workload. Correlate with performance drops - if shrinking happens during frame rendering, it causes stutters.</p>
-<p><strong>i915_gem_object_fault</strong> tracks page faults when CPU or GPU accesses unmapped memory. Format: <code>obj=0xffff888... GTT index=128 writable</code> indicates a write fault on Graphics Translation Table page 128. Faults are expensive - they stall execution while the kernel resolves the missing mapping. Write faults are more expensive than reads (require invalidating caches). GTT faults indicate incomplete resource binding before job submission.</p>
+<p>Intel's i915 driver exposes detailed tracepoints for memory operations. These require <code>CONFIG_DRM_I915_LOW_LEVEL_TRACEPOINTS=y</code> in your kernel config; check with <code>grep CONFIG_DRM_I915_LOW_LEVEL_TRACEPOINTS /boot/config-$(uname -r)</code>.</p>
+<p>i915_gem_object_create fires when the driver allocates a GEM (Graphics Execution Manager) object, the fundamental unit of GPU-accessible memory. Format: <code>obj=0xffff888... size=0x100000</code> indicates allocating a 1MB object. Track total allocated memory over time to detect leaks. Sudden allocation spikes before performance drops suggest memory pressure. Correlate object pointers with subsequent bind/fault events to understand object lifecycle.</p>
+<p>i915_vma_bind tracks mapping memory into GPU address space. Allocating memory isn't enough; it must be bound into GPU virtual address space. Format: <code>obj=0xffff888... offset=0x0000100000 size=0x10000 mappable vm=0xffff888...</code> shows 64KB bound at GPU virtual address 0x100000. Frequent rebinding indicates memory thrashing, where the driver evicts and rebinds objects under pressure. GPU page faults often correlate with bind operations.</p>
+<p>i915_gem_shrink captures memory pressure response. Under memory pressure, the driver reclaims GPU memory. Format: <code>dev=0 target=0x1000000 flags=0x3</code> means the driver tries to reclaim 16MB. High shrink activity indicates undersized GPU memory for the workload. Correlate with performance drops; if shrinking happens during frame rendering, it causes stutters.</p>
+<p>i915_gem_object_fault tracks page faults when CPU or GPU accesses unmapped memory. Format: <code>obj=0xffff888... GTT index=128 writable</code> indicates a write fault on Graphics Translation Table page 128. Faults are expensive because they stall execution while the kernel resolves the missing mapping. Write faults are more expensive than reads since they require invalidating caches. GTT faults indicate incomplete resource binding before job submission.</p>
 <h2 id="amd-amdgpu-tracepoints-command-submission-pipeline">AMD AMDGPU Tracepoints: Command Submission Pipeline</h2>
 <p>AMD's AMDGPU driver provides comprehensive tracing of command submission and hardware interrupts.</p>
-<p><strong>amdgpu_cs_ioctl</strong> captures userspace command submission. When an application submits GPU work via ioctl, this tracepoint fires. Format: <code>sched_job=12345 timeline=gfx context=1000 seqno=567 ring_name=gfx_0.0.0 num_ibs=2</code> shows job 12345 submitted to graphics ring with 2 indirect buffers. This marks when userspace hands off work to kernel. Record timestamp to measure submission-to-execution latency when combined with <code>amdgpu_sched_run_job</code>. High frequency indicates small batches - potential for better batching.</p>
-<p><strong>amdgpu_sched_run_job</strong> fires when the kernel scheduler starts executing a previously submitted job. Comparing timestamps with <code>amdgpu_cs_ioctl</code> reveals submission latency. Submission latencies over 100μs indicate kernel scheduling delays. Per-ring latencies show if specific engines are scheduling-bound.</p>
-<p><strong>amdgpu_bo_create</strong> tracks buffer object allocation - AMD's equivalent to i915 GEM objects. Format: <code>bo=0xffff888... pages=256 type=2 preferred=4 allowed=7 visible=1</code> allocates 1MB (256 pages). Type indicates VRAM vs GTT (system memory accessible by GPU). Preferred/allowed domains show placement policy. Type mismatches (requesting VRAM but falling back to GTT) indicate VRAM exhaustion. Visible flag indicates CPU-accessible memory - expensive, use sparingly.</p>
-<p><strong>amdgpu_bo_move</strong> fires when buffer objects migrate between VRAM and GTT. Migrations are expensive (require copying data over PCIe). Excessive moves indicate memory thrashing - working set exceeds VRAM capacity. Measure move frequency and size to quantify PCIe bandwidth consumption. Correlate with performance drops - migrations stall GPU execution.</p>
-<p><strong>amdgpu_iv</strong> captures GPU interrupts. The GPU signals interrupts for completed work, errors, and events. Format: <code>ih:0 client_id:1 src_id:42 ring:0 vmid:5 timestamp:1234567890 pasid:100 src_data: 00000001...</code> captures interrupt details. Source ID indicates interrupt type (completion, fault, thermal). High interrupt rates impact CPU performance. VMID and PASID identify which process/VM triggered the interrupt - critical for multi-tenant debugging.</p>
+<p>amdgpu_cs_ioctl captures userspace command submission. When an application submits GPU work via ioctl, this tracepoint fires. Format: <code>sched_job=12345 timeline=gfx context=1000 seqno=567 ring_name=gfx_0.0.0 num_ibs=2</code> shows job 12345 submitted to graphics ring with 2 indirect buffers. This marks when userspace hands off work to kernel. Record timestamp to measure submission to execution latency when combined with <code>amdgpu_sched_run_job</code>. High frequency indicates small batches and potential for better batching.</p>
+<p>amdgpu_sched_run_job fires when the kernel scheduler starts executing a previously submitted job. Comparing timestamps with <code>amdgpu_cs_ioctl</code> reveals submission latency. Submission latencies over 100μs indicate kernel scheduling delays. Per-ring latencies show if specific engines are scheduling-bound.</p>
+<p>amdgpu_bo_create tracks buffer object allocation, AMD's equivalent to i915 GEM objects. Format: <code>bo=0xffff888... pages=256 type=2 preferred=4 allowed=7 visible=1</code> allocates 1MB (256 pages). Type indicates VRAM vs GTT (system memory accessible by GPU). Preferred/allowed domains show placement policy. Type mismatches where VRAM is requested but GTT is used indicate VRAM exhaustion. Visible flag indicates CPU-accessible memory, which is expensive and should be used sparingly.</p>
+<p>amdgpu_bo_move fires when buffer objects migrate between VRAM and GTT. Migrations are expensive because they require copying data over PCIe. Excessive moves indicate memory thrashing where the working set exceeds VRAM capacity. Measure move frequency and size to quantify PCIe bandwidth consumption. Correlate with performance drops since migrations stall GPU execution.</p>
+<p>amdgpu_iv captures GPU interrupts. The GPU signals interrupts for completed work, errors, and events. Format: <code>ih:0 client_id:1 src_id:42 ring:0 vmid:5 timestamp:1234567890 pasid:100 src_data: 00000001...</code> captures interrupt details. Source ID indicates interrupt type (completion, fault, thermal). High interrupt rates impact CPU performance. VMID and PASID identify which process/VM triggered the interrupt, which is critical for multi-tenant debugging.</p>
 <h2 id="drm-vblank-tracepoints-display-synchronization">DRM Vblank Tracepoints: Display Synchronization</h2>
 <p>Vblank (vertical blanking) events synchronize rendering with display refresh. Missing vblanks causes dropped frames and stutter.</p>
-<p><strong>drm_vblank_event</strong> fires when the display enters vertical blanking period. Format: <code>crtc=0 seq=12345 time=1234567890 high-prec=true</code> indicates vblank on display controller 0, sequence number 12345. Track vblank frequency to verify refresh rate (60Hz = 60 vblanks/second). Missed sequences indicate frame drops. High-precision timestamps enable sub-millisecond frame timing analysis.</p>
-<p><strong>drm_vblank_event_queued</strong> and <strong>drm_vblank_event_delivered</strong> track vblank event delivery to userspace. Queuing latency (queue to delivery) measures kernel scheduling delay. Total latency (vblank to delivery) includes both kernel and driver processing. Latencies over 1ms indicate compositor problems. Correlate with frame drops visible to users - events delivered late mean missed frames.</p>
+<p>drm_vblank_event fires when the display enters vertical blanking period. Format: <code>crtc=0 seq=12345 time=1234567890 high-prec=true</code> indicates vblank on display controller 0, sequence number 12345. Track vblank frequency to verify refresh rate (60Hz = 60 vblanks/second). Missed sequences indicate frame drops. High-precision timestamps enable sub-millisecond frame timing analysis.</p>
+<p>drm_vblank_event_queued and drm_vblank_event_delivered track vblank event delivery to userspace. Queuing latency (queue to delivery) measures kernel scheduling delay. Total latency (vblank to delivery) includes both kernel and driver processing. Latencies over 1ms indicate compositor problems. Correlate with frame drops visible to users since events delivered late mean missed frames.</p>
+<h2 id="nvidia-proprietary-driver-different-architecture">NVIDIA Proprietary Driver: Different Architecture</h2>
+<p>Unlike Intel, AMD, and Nouveau which use the kernel's Direct Rendering Manager (DRM) subsystem, NVIDIA's proprietary driver (nvidia.ko) operates outside DRM. It implements its own kernel module interface with vendor-specific functions and a single tracepoint. This architectural difference means NVIDIA GPUs require different monitoring approaches; we attach to kernel probes on nvidia.ko functions instead of DRM tracepoints.</p>
+<p>The key distinction: DRM drivers expose standardized <code>gpu_scheduler</code> tracepoints that work identically across vendors. NVIDIA's closed-source driver provides only one tracepoint (<code>nvidia:nvidia_dev_xid</code> for hardware errors) and requires monitoring internal kernel functions like <code>nvidia_open</code>, <code>nvidia_unlocked_ioctl</code>, and <code>nvidia_isr</code>. This makes NVIDIA monitoring more fragile since function names can change between driver versions, but it still provides valuable insights into GPU activity.</p>
+<h3 id="nvidia-driver-monitoring-nvidia_driverbt">NVIDIA Driver Monitoring: nvidia_driver.bt</h3>
+<p>The <code>nvidia_driver.bt</code> script tracks NVIDIA GPU operations through kernel probes on the proprietary driver. Unlike DRM scheduler monitoring which is vendor-neutral, this script is NVIDIA-specific and requires the proprietary nvidia.ko module loaded.</p>
+<p>The script monitors six key areas:
+- <strong>Device operations</strong>: Tracks when processes open/close GPU devices and issue ioctl commands
+- <strong>Memory management</strong>: Records mmap operations, page faults, and VMA lifecycle
+- <strong>Interrupt handling</strong>: Measures ISR latency from hardware interrupt to processing
+- <strong>P2P communication</strong>: Captures GPU-to-GPU page requests and DMA mapping
+- <strong>Power management</strong>: Times suspend/resume cycles
+- <strong>Error reporting</strong>: Reports Xid hardware/driver errors immediately</p>
+<h3 id="complete-bpftrace-script-scriptsnvidia_driverbt">Complete Bpftrace Script: scripts/nvidia_driver.bt</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">#!/usr/bin/env bpftrace</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="cm">/* nvidia_driver.bt - Monitor NVIDIA proprietary GPU driver activity */</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">BEGIN</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="p">{</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Tracing NVIDIA GPU driver activity... Hit Ctrl-C to end.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%-12s %-18s %-16s %-8s %-8s %-20s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">           </span><span class="s">&quot;TIME(ms)&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;EVENT&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;COMM&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;PID&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;GPU_ID&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;DETAILS&quot;</span><span class="p">);</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="p">}</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="nl">kprobe</span><span class="p">:</span><span class="n">nvidia_open</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="p">{</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%-12llu %-18s %-16s %-8d %-8s %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">           </span><span class="n">elapsed</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000000</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;OPEN&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="n">pid</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;-&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;GPU device opened&quot;</span><span class="p">);</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">    </span><span class="err">@</span><span class="n">opens</span><span class="p">[</span><span class="n">comm</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">count</span><span class="p">();</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">    </span><span class="err">@</span><span class="n">open_pids</span><span class="p">[</span><span class="n">pid</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="p">}</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="nl">kprobe</span><span class="p">:</span><span class="n">nvidia_unlocked_ioctl</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="p">{</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">    </span><span class="err">@</span><span class="n">ioctl_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">count</span><span class="p">();</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">    </span><span class="err">@</span><span class="n">ioctls_per_process</span><span class="p">[</span><span class="n">comm</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">count</span><span class="p">();</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rand</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="cm">/* Sample 1% */</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%-12llu %-18s %-16s %-8d %-8s cmd=0x%lx</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="w">               </span><span class="n">elapsed</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000000</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;IOCTL&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="n">pid</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;-&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">arg1</span><span class="p">);</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="p">}</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a><span class="nl">kprobe</span><span class="p">:</span><span class="n">nvidia_mmap</span>
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a><span class="p">{</span>
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a><span class="w">    </span><span class="err">@</span><span class="n">mmap_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">count</span><span class="p">();</span>
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a><span class="w">    </span><span class="err">@</span><span class="n">total_mmap_bytes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sum</span><span class="p">(</span><span class="n">arg2</span><span class="p">);</span>
+<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%-12llu %-18s %-16s %-8d %-8s offset=0x%lx size=%lu</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a><span class="w">           </span><span class="n">elapsed</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000000</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;MMAP&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="n">pid</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;-&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">arg1</span><span class="p">,</span><span class="w"> </span><span class="n">arg2</span><span class="p">);</span>
+<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a><span class="p">}</span>
+<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>
+<a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a><span class="nl">kprobe</span><span class="p">:</span><span class="n">nvidia_isr</span>
+<a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a><span class="p">{</span>
+<a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a><span class="w">    </span><span class="err">@</span><span class="n">isr_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">count</span><span class="p">();</span>
+<a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a><span class="w">    </span><span class="err">@</span><span class="n">last_isr_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nsecs</span><span class="p">;</span>
+<a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a><span class="p">}</span>
+<a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a>
+<a id="__codelineno-1-43" name="__codelineno-1-43" href="#__codelineno-1-43"></a><span class="nl">kprobe</span><span class="p">:</span><span class="n">nvidia_isr_kthread_bh</span>
+<a id="__codelineno-1-44" name="__codelineno-1-44" href="#__codelineno-1-44"></a><span class="p">{</span>
+<a id="__codelineno-1-45" name="__codelineno-1-45" href="#__codelineno-1-45"></a><span class="w">    </span><span class="err">@</span><span class="n">isr_bh_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">count</span><span class="p">();</span>
+<a id="__codelineno-1-46" name="__codelineno-1-46" href="#__codelineno-1-46"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="err">@</span><span class="n">last_isr_time</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-47" name="__codelineno-1-47" href="#__codelineno-1-47"></a><span class="w">        </span><span class="err">@</span><span class="n">isr_latency_us</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hist</span><span class="p">((</span><span class="n">nsecs</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="err">@</span><span class="n">last_isr_time</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000</span><span class="p">);</span>
+<a id="__codelineno-1-48" name="__codelineno-1-48" href="#__codelineno-1-48"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-49" name="__codelineno-1-49" href="#__codelineno-1-49"></a><span class="p">}</span>
+<a id="__codelineno-1-50" name="__codelineno-1-50" href="#__codelineno-1-50"></a>
+<a id="__codelineno-1-51" name="__codelineno-1-51" href="#__codelineno-1-51"></a><span class="nl">tracepoint</span><span class="p">:</span><span class="n">nvidia</span><span class="o">:</span><span class="n">nvidia_dev_xid</span>
+<a id="__codelineno-1-52" name="__codelineno-1-52" href="#__codelineno-1-52"></a><span class="p">{</span>
+<a id="__codelineno-1-53" name="__codelineno-1-53" href="#__codelineno-1-53"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">!!! GPU ERROR !!!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-1-54" name="__codelineno-1-54" href="#__codelineno-1-54"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;  └─ Xid: %u - %s</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">args</span><span class="o">-&gt;</span><span class="n">error_code</span><span class="p">,</span><span class="w"> </span><span class="n">str</span><span class="p">(</span><span class="n">args</span><span class="o">-&gt;</span><span class="n">msg</span><span class="p">));</span>
+<a id="__codelineno-1-55" name="__codelineno-1-55" href="#__codelineno-1-55"></a><span class="w">    </span><span class="err">@</span><span class="n">xid_errors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">count</span><span class="p">();</span>
+<a id="__codelineno-1-56" name="__codelineno-1-56" href="#__codelineno-1-56"></a><span class="w">    </span><span class="err">@</span><span class="n">xid_codes</span><span class="p">[</span><span class="n">args</span><span class="o">-&gt;</span><span class="n">error_code</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">count</span><span class="p">();</span>
+<a id="__codelineno-1-57" name="__codelineno-1-57" href="#__codelineno-1-57"></a><span class="p">}</span>
+<a id="__codelineno-1-58" name="__codelineno-1-58" href="#__codelineno-1-58"></a>
+<a id="__codelineno-1-59" name="__codelineno-1-59" href="#__codelineno-1-59"></a><span class="n">END</span>
+<a id="__codelineno-1-60" name="__codelineno-1-60" href="#__codelineno-1-60"></a><span class="p">{</span>
+<a id="__codelineno-1-61" name="__codelineno-1-61" href="#__codelineno-1-61"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">=== NVIDIA GPU Driver Statistics ===</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-1-62" name="__codelineno-1-62" href="#__codelineno-1-62"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Opens by process:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"> </span><span class="n">print</span><span class="p">(</span><span class="err">@</span><span class="n">opens</span><span class="p">);</span>
+<a id="__codelineno-1-63" name="__codelineno-1-63" href="#__codelineno-1-63"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Total ioctls:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"> </span><span class="n">print</span><span class="p">(</span><span class="err">@</span><span class="n">ioctl_count</span><span class="p">);</span>
+<a id="__codelineno-1-64" name="__codelineno-1-64" href="#__codelineno-1-64"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Top ioctl callers:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"> </span><span class="n">print</span><span class="p">(</span><span class="err">@</span><span class="n">ioctls_per_process</span><span class="p">);</span>
+<a id="__codelineno-1-65" name="__codelineno-1-65" href="#__codelineno-1-65"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Total mmaps:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"> </span><span class="n">print</span><span class="p">(</span><span class="err">@</span><span class="n">mmap_count</span><span class="p">);</span>
+<a id="__codelineno-1-66" name="__codelineno-1-66" href="#__codelineno-1-66"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Poll calls:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"> </span><span class="n">print</span><span class="p">(</span><span class="err">@</span><span class="n">poll_count</span><span class="p">);</span>
+<a id="__codelineno-1-67" name="__codelineno-1-67" href="#__codelineno-1-67"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="understanding-nvidia-driver-operations">Understanding NVIDIA Driver Operations</h3>
+<p>Device Operations: <code>nvidia_open</code> fires when a process opens <code>/dev/nvidia0</code> (or other GPU device nodes). This is the entry point for GPU access. CUDA applications, OpenGL contexts, and compute workloads all start here. Track <code>@opens[comm]</code> to see which applications use the GPU. Each open usually corresponds to a CUDA context or graphics context creation.</p>
+<p>IOCTL Commands: <code>nvidia_unlocked_ioctl</code> is the highest-frequency operation. Every GPU command submission, memory allocation, synchronization, and query goes through ioctls. A single frame of graphics rendering may issue hundreds of ioctls. The script samples 1% of ioctls to reduce overhead while maintaining visibility. High ioctl rates (&gt;100k/sec) indicate fine-grained GPU interactions and potential for better batching. The <code>arg1</code> parameter contains the ioctl command code identifying the operation type.</p>
+<p>Memory Mapping: <code>nvidia_mmap</code> maps GPU memory into process virtual address space, enabling CPU access to GPU buffers. Format <code>offset=0x100000 size=1048576</code> maps 1MB of GPU memory. Track <code>@total_mmap_bytes</code> to understand GPU memory usage. Frequent large mmaps may indicate CPU-GPU data transfer patterns. Unified memory (CUDA managed memory) triggers extensive mmap activity as the driver migrates pages between CPU and GPU.</p>
+<p>Page Faults: <code>nvidia_fault</code> captures expensive events when CPU or GPU accesses unmapped memory. Page faults stall execution while the driver resolves the mapping. High fault counts indicate unified memory page migration under memory pressure, incomplete memory binding before kernel launch, or CPU accessing GPU memory without proper mapping. Correlate faults with performance drops. Faults during critical sections (kernel execution) directly impact throughput.</p>
+<p>Interrupt Handling: <code>nvidia_isr</code> fires when the GPU signals an interrupt, typically for completed work, errors, or synchronization events. Modern GPUs use MSI-X interrupts for lower latency. The bottom-half handler (<code>nvidia_isr_kthread_bh</code>) performs the actual work processing. ISR latency (time from hardware interrupt to bottom-half processing) indicates kernel scheduling efficiency. High ISR rates (&gt;10k/sec) may impact CPU performance since each interrupt costs CPU cycles.</p>
+<p>P2P Transfers: <code>nvidia_p2p_get_pages</code> and <code>nvidia_p2p_dma_map_pages</code> enable direct GPU-to-GPU transfers over NVLink or PCIe without CPU involvement. Multi-GPU workloads (distributed training, GPU clusters) rely on P2P for high bandwidth. Track P2P operations to verify GPU-GPU communication is working. Missing P2P support (older PCIe configurations) forces slower CPU-mediated transfers.</p>
+<p>Xid Errors: The <code>nvidia:nvidia_dev_xid</code> tracepoint is NVIDIA's only exposed tracepoint. Xid errors indicate hardware problems (GPU faults, memory errors, thermal issues) or driver bugs. Common Xids include Xid 31 (GPU memory page fault), Xid 43 (GPU stopped responding/hang), Xid 45 (GPU memory ECC error), and Xid 79 (GPU fell off the bus/PCIe error). Any Xid error requires investigation since they often precede crashes or data corruption.</p>
+<h3 id="running-nvidia-driver-monitor">Running NVIDIA Driver Monitor</h3>
+<p>Verify NVIDIA driver is loaded and check available probes:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Check NVIDIA driver module</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>lsmod<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>nvidia
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># List available NVIDIA probes</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>sudo<span class="w"> </span>bpftrace<span class="w"> </span>-l<span class="w"> </span><span class="s1">&#39;kprobe:nvidia_*&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-20
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>sudo<span class="w"> </span>bpftrace<span class="w"> </span>-l<span class="w"> </span><span class="s1">&#39;tracepoint:nvidia:*&#39;</span>
+</code></pre></div>
+<p>Run the monitor during GPU workloads:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">cd</span><span class="w"> </span>bpf-developer-tutorial/src/xpu/gpu-kernel-driver
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>sudo<span class="w"> </span>bpftrace<span class="w"> </span>scripts/nvidia_driver.bt
+</code></pre></div>
+<p><strong>Real execution output</strong> capturing llama-server (LLM inference), nvtop (GPU monitoring), and CUDA application cleanup:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Attaching 18 probes...
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>Tracing NVIDIA GPU driver activity... Hit Ctrl-C to end.
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>TIME(ms)     EVENT              COMM             PID      GPU_ID   DETAILS
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>2627         IOCTL              nvtop            759434   -        cmd=0xc020462a
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>38984        CLOSE              python           783815   -        GPU device closed
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>70693        CLOSE              cuda00001400006  781802   -        GPU device closed
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>72427        OPEN               llama-server     800150   -        GPU device opened
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>72427        CLOSE              llama-server     800150   -        GPU device closed
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>72427        OPEN               llama-server     800150   -        GPU device opened
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>72428        OPEN               llama-server     800150   -        GPU device opened
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>72431        MMAP               llama-server     800150   -        offset=0xffff968357d37140 size=...
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>72448        OPEN               llama-server     800150   -        GPU device opened
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>72458        OPEN               llama-server     800150   -        GPU device opened
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>... (39 opens, 26 mmaps from llama-server during initialization)
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>========================================
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>  NVIDIA GPU Driver Statistics
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>========================================
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>--- Device Operations ---
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>Opens by process:
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>@opens[llama-server]: 39
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a>Closes by process:
+<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a>@closes[llama-server]: 1
+<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a>@closes[python]: 8
+<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a>@closes[cuda00001400006]: 38
+<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a>
+<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a>Total ioctls:
+<a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a>@ioctl_count: 2779
+<a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a>Top ioctl callers:
+<a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a>@ioctls_per_process[llama-server]: 422
+<a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a>@ioctls_per_process[nvtop]: 2357
+<a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a>
+<a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a>Total mmaps:
+<a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a>@mmap_count: 26
+<a id="__codelineno-4-37" name="__codelineno-4-37" href="#__codelineno-4-37"></a>Total mmap bytes:
+<a id="__codelineno-4-38" name="__codelineno-4-38" href="#__codelineno-4-38"></a>@total_mmap_bytes: 18446744046197555104
+<a id="__codelineno-4-39" name="__codelineno-4-39" href="#__codelineno-4-39"></a>
+<a id="__codelineno-4-40" name="__codelineno-4-40" href="#__codelineno-4-40"></a>--- Memory Management ---
+<a id="__codelineno-4-41" name="__codelineno-4-41" href="#__codelineno-4-41"></a>Total page faults:
+<a id="__codelineno-4-42" name="__codelineno-4-42" href="#__codelineno-4-42"></a>@fault_count: 0
+<a id="__codelineno-4-43" name="__codelineno-4-43" href="#__codelineno-4-43"></a>VMA releases:
+<a id="__codelineno-4-44" name="__codelineno-4-44" href="#__codelineno-4-44"></a>@vma_release_count: 29
+<a id="__codelineno-4-45" name="__codelineno-4-45" href="#__codelineno-4-45"></a>
+<a id="__codelineno-4-46" name="__codelineno-4-46" href="#__codelineno-4-46"></a>--- Interrupt Handling ---
+<a id="__codelineno-4-47" name="__codelineno-4-47" href="#__codelineno-4-47"></a>Total ISR calls:
+<a id="__codelineno-4-48" name="__codelineno-4-48" href="#__codelineno-4-48"></a>@isr_count: 0
+<a id="__codelineno-4-49" name="__codelineno-4-49" href="#__codelineno-4-49"></a>
+<a id="__codelineno-4-50" name="__codelineno-4-50" href="#__codelineno-4-50"></a>--- Async Operations ---
+<a id="__codelineno-4-51" name="__codelineno-4-51" href="#__codelineno-4-51"></a>Poll calls:
+<a id="__codelineno-4-52" name="__codelineno-4-52" href="#__codelineno-4-52"></a>@poll_count: 24254
+<a id="__codelineno-4-53" name="__codelineno-4-53" href="#__codelineno-4-53"></a>
+<a id="__codelineno-4-54" name="__codelineno-4-54" href="#__codelineno-4-54"></a>Currently open PIDs:
+<a id="__codelineno-4-55" name="__codelineno-4-55" href="#__codelineno-4-55"></a>@open_pids[800150]: 1
+</code></pre></div>
+<p><strong>Analysis</strong>: This real-world trace reveals several patterns. The llama-server process opened the GPU device 39 times during initialization - typical for LLM inference engines that initialize multiple CUDA contexts for different model layers or batching strategies. The 422 ioctls from llama-server indicate active inference work. The nvtop monitoring tool issued 2,357 ioctls polling GPU state. The script captured 38 device closes from a terminating CUDA application (cuda00001400006) and 8 from a Python process - showing cleanup patterns. The 24,254 poll calls indicate high async I/O activity from monitoring tools. Zero page faults suggests all memory was properly pre-allocated. Zero ISR events during this capture window indicates the GPU was between computation batches - ISRs fire when GPU work completes. No Xid errors means healthy hardware operation. The currently-open PID 800150 (llama-server) remained active after the trace ended.</p>
 <h2 id="running-the-monitor-scripts">Running the Monitor Scripts</h2>
-<p>Navigate to the scripts directory and run the DRM scheduler monitor. It works on all GPUs:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">cd</span><span class="w"> </span>bpf-developer-tutorial/src/xpu/gpu-kernel-driver/scripts
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>sudo<span class="w"> </span>bpftrace<span class="w"> </span>drm_scheduler.bt
+<p>Navigate to the tutorial directory and run the appropriate monitor for your GPU.</p>
+<p><strong>For DRM-based GPUs (Intel, AMD, Nouveau)</strong> - Universal monitoring:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">cd</span><span class="w"> </span>bpf-developer-tutorial/src/xpu/gpu-kernel-driver
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>sudo<span class="w"> </span>bpftrace<span class="w"> </span>scripts/drm_scheduler.bt
+</code></pre></div>
+<p><strong>For NVIDIA Proprietary Driver</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">cd</span><span class="w"> </span>bpf-developer-tutorial/src/xpu/gpu-kernel-driver
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>sudo<span class="w"> </span>bpftrace<span class="w"> </span>scripts/nvidia_driver.bt
 </code></pre></div>
 <p>Expected output:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Tracing DRM GPU scheduler... Hit Ctrl-C to end.
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>TIME(ms)           EVENT        JOB_ID           RING         QUEUED   DETAILS
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>296119090          RUN          12345            gfx          5        hw=2
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>296120190          COMPLETE     0xffff888...
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>=== DRM Scheduler Statistics ===
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>Jobs per ring:
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>@jobs_per_ring[gfx]: 1523
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>@jobs_per_ring[compute]: 89
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>Waits per ring:
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>@waits_per_ring[gfx]: 12
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Tracing DRM GPU scheduler... Hit Ctrl-C to end.
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>TIME(ms)           EVENT        JOB_ID           RING         QUEUED   DETAILS
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>296119090          RUN          12345            gfx          5        hw=2
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>296120190          COMPLETE     0xffff888...
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>=== DRM Scheduler Statistics ===
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>Jobs per ring:
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>@jobs_per_ring[gfx]: 1523
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>@jobs_per_ring[compute]: 89
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>Waits per ring:
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>@waits_per_ring[gfx]: 12
 </code></pre></div>
 <p>Graphics jobs dominate (1523 vs 89 compute jobs). Few dependency waits (12) indicate good pipeline parallelism. For Intel GPUs, use <code>intel_i915.bt</code>. For AMD GPUs, use <code>amd_amdgpu.bt</code>. For display timing, use <code>drm_vblank.bt</code>. Run these during GPU workloads (gaming, ML training, video encoding) to capture activity patterns.</p>
 <p>Verify tracepoints exist on your system before running scripts:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># All GPU tracepoints</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>sudo<span class="w"> </span>cat<span class="w"> </span>/sys/kernel/debug/tracing/available_events<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;(gpu_scheduler|i915|amdgpu|^drm:)&#39;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># All GPU tracepoints</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>sudo<span class="w"> </span>cat<span class="w"> </span>/sys/kernel/debug/tracing/available_events<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;(gpu_scheduler|i915|amdgpu|^drm:)&#39;</span>
 </code></pre></div>
 <h2 id="limitations-kernel-tracing-vs-gpu-side-observability">Limitations: Kernel Tracing vs GPU-Side Observability</h2>
 <p>This tutorial focuses on kernel-side GPU driver tracing, which provides visibility into job scheduling, memory management, and driver-firmware communication. However, kernel tracepoints have fundamental limitations. When <code>drm_run_job</code> fires, we know a job started executing on GPU hardware, but we cannot observe what happens inside the GPU itself. The execution of thousands of parallel threads, their memory access patterns, branch divergence, warp occupancy, and instruction-level behavior remain invisible. These details are critical for understanding performance bottlenecks - whether memory coalescing is failing, whether thread divergence is killing efficiency, or whether shared memory bank conflicts are stalling execution.</p>
@@ -8691,7 +8958,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 6, 2025 05:45:55 UTC">October 6, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 13, 2025 14:23:44 UTC">October 13, 2025</span>
   </span>
 
     
