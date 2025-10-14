@@ -1,5 +1,5 @@
 ---
-date: '2025-10-14'
+date: 2025-10-14
 ---
 
 # The GPU Observability Gap: Why We Need eBPF on GPUs
@@ -9,6 +9,8 @@ date: '2025-10-14'
 bpftime provides GPU support through its CUDA/ROCm attachment implementation, enabling eBPF programs to execute **within GPU kernels** on NVIDIA and AMD GPUs. This brings eBPF's programmability, observability, and customization capabilities to GPU computing workloads. By doing so, it enables real-time profiling, debugging, and runtime extension of GPU applications without source code modification, addressing a gap in the current observability landscape.
 
 > **Note:** GPU support is still experimental. For questions or suggestions, [open an issue](https://github.com/eunomia-bpf/bpftime/issues) or [contact us](mailto:team@eunomia.dev).
+
+<!-- more -->
 
 ## The Problem: GPU Observability Challenges
 
