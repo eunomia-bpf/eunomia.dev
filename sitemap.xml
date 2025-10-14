@@ -225,6 +225,14 @@
          
     </url>
     <url>
+         <loc>https://eunomia.dev/blog/2025/10/14/the-gpu-observability-gap-why-we-need-ebpf-on-gpus/</loc>
+         <lastmod>2025-10-14</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blog/posts/gpu-observability-challenges/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/posts/gpu-observability-challenges/"/>
+         
+    </url>
+    <url>
          <loc>https://eunomia.dev/blog/2025/04/21/gpu-profiling-under-the-hood-an-implementation-focused-survey-of-modern-accelerator-tracing-tools/</loc>
          <lastmod>2025-10-14</lastmod>
          <changefreq>daily</changefreq>
