@@ -1,10 +1,8 @@
 ---
-title: 'The GPU Observability Gap: Why We Need eBPF on GPUs'
 date: '2025-10-14'
-tags: ['eBPF', 'GPU', 'CUDA', 'Observability', 'Profiling', 'bpftime']
-draft: false
-summary: 'An in-depth look at the challenges of GPU observability, the limitations of current tools, and how extending eBPF to GPUs can provide a unified, programmable solution for profiling and debugging.'
 ---
+
+# The GPU Observability Gap: Why We Need eBPF on GPUs
 
 > Yusheng Zheng=, Tong Yu=, Yiwei Yang=
 
