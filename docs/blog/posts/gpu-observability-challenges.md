@@ -51,14 +51,14 @@ Even with perfect timing of synchronous API calls, CPU-side tools cannot disting
 
 Modern CUDA applications use asynchronous APIs (`cudaMemcpyAsync()`, `cudaLaunchKernel()` with streams) to maximize hardware utilization by overlapping CPU work with GPU execution. This introduces temporal decoupling where API calls return immediately after enqueuing work to a stream, allowing the CPU to continue executing while the GPU processes operations sequentially in the background. This breaks the observability that CPU-side tools had in synchronous mode.
 
-Consider the same workflow now executed asynchronously. The developer enqueues a host-to-device transfer (200μs), kernel launch (100μs execution), and device-to-host transfer (150μs), then continues CPU work before eventually calling `cudaStreamSynchronize()` to wait for all GPU operations to complete. From the CPU's perspective, all enqueue operations return in microseconds, and only the final sync point blocks, reporting a total of 455μs (200 + 5 + 100 + 150 μs of sequential GPU work).
+Consider the same workflow now executed asynchronously. The developer enqueues a host-to-device transfer (200μs), kernel execution (100μs), and device-to-host transfer (150μs), then continues CPU work before eventually calling `cudaStreamSynchronize()` to wait for all GPU operations to complete. From the CPU's perspective, all enqueue operations return in microseconds, and only the final sync point blocks, reporting a total of 456μs (1 + 200 + 5 + 100 + 150 μs of sequential GPU work).
 
 ```
 CPU Timeline (what traditional tools see):
 ─────────────────────────────────────────────────────────────────────────────────
 cudaMallocAsync() cudaMemcpyAsync() cudaLaunchKernel() cudaMemcpyAsync()      cudaStreamSync()
 ●─────●─────●─────●─────────────────────────────────────────────────────────────────●────
-1μs  1μs  1μs  1μs         CPU continues doing other work...               455μs wait
+1μs  1μs  1μs  1μs         CPU continues doing other work...               456μs wait
 (alloc)(H→D)(kernel)(D→H)                                                       (all done)
 
 GPU Timeline (actual execution - sequential in stream):
@@ -70,7 +70,7 @@ GPU Timeline (actual execution - sequential in stream):
     CPU already moved on              GPU still working                    Sync returns
 ```
 
-In synchronous execution, measuring individual API call durations allowed developers to identify whether transfers or compute dominated. In asynchronous mode, this capability disappears entirely as all timing information is collapsed into a single 455μs aggregate at the sync point. The question "Is my bottleneck memory transfer or kernel execution?" becomes unanswerable from the CPU side. If the first transfer takes twice as long due to unpinned memory (400μs instead of 200μs), delaying all subsequent operations by 200μs, the developer only sees the total time increase from 455μs to 655μs with zero indication of which operation caused the delay, when it occurred, or whether it propagated to downstream operations.
+In synchronous execution, measuring individual API call durations allowed developers to identify whether transfers or compute dominated. In asynchronous mode, this capability disappears entirely as all timing information is collapsed into a single 456μs aggregate at the sync point. The question "Is my bottleneck memory transfer or kernel execution?" becomes unanswerable from the CPU side. If the first transfer takes twice as long due to unpinned memory (400μs instead of 200μs), delaying all subsequent operations by 200μs, the developer only sees the total time increase from 456μs to 656μs with zero indication of which operation caused the delay, when it occurred, or whether it propagated to downstream operations.
 
 Asynchronous execution not only hides the GPU-internal details that were already invisible in synchronous mode (warp divergence, memory stalls, SM utilization), but also eliminates the coarse-grained phase timing that CPU tools could previously provide. Developers lose the ability to even perform basic triage. They cannot determine whether to focus optimization efforts on memory transfers, kernel logic, or API usage patterns without either (1) reverting to slow synchronous execution for debugging (defeating the purpose of async), or (2) adding manual instrumentation that requires recompilation and provides only static measurement points.
 
@@ -92,7 +92,7 @@ However, Nsight and similar vendor tools suffer from fundamental limitations com
 
 To understand why eBPF is the right tool for this challenge, it's helpful to look at its impact on the CPU world. eBPF (extended Berkeley Packet Filter) is a revolutionary technology in the Linux kernel that allows sandboxed programs to be dynamically loaded to extend kernel capabilities safely. On the CPU side, eBPF has become a cornerstone of modern observability, networking, and security due to its unique combination of programmability, safety, and performance. It enables developers to attach custom logic to thousands of hook points, collecting deep, customized telemetry with minimal overhead. The core idea behind `bpftime` is to bring this same transformative power to the traditionally opaque world of GPU computing.
 
-By running eBPF programs natively inside GPU kernels, bpftime provides safe, programmable, unified observability and extensibility across the entire stack. Unlike session-based profilers, it enables always-on production monitoring with dynamic load/unload of probes and device-side predicate filtering to reduce overhead. It recovers async-mode visibility with per-phase timestamps (H→D at T+200μs, kernel at T+205μs, D→H at T+455μs), exposes GPU-internal details with nanosecond-granularity telemetry for warp execution and memory patterns, and correlates CPU and GPU events without the heavyweight overhead of traditional separate profilers.
+By running eBPF programs natively inside GPU kernels, bpftime provides safe, programmable, unified observability and extensibility across the entire stack. Unlike session-based profilers, it enables always-on production monitoring with dynamic load/unload of probes and device-side predicate filtering to reduce overhead. It recovers async-mode visibility with per-phase timestamps (H→D at T+200μs, kernel at T+206μs, D→H at T+456μs), exposes GPU-internal details with nanosecond-granularity telemetry for warp execution and memory patterns, and correlates CPU and GPU events without the heavyweight overhead of traditional separate profilers.
 
 The architecture treats CPU and GPU probes as peers in a unified control plane: shared BPF maps and ring buffers enable direct data exchange, dynamic instrumentation works without recompilation or restart, and integration with existing eBPF infrastructure (perf, bpftrace, custom agents) requires no mode-switching. Developers can simultaneously trace CPU-side CUDA API calls via uprobes, kernel driver interactions via kprobes, and GPU-side kernel execution via CUDA probes, all using the same eBPF toolchain and correlating events across the host-device boundary. Example questions now become answerable: "Did the CPU syscall delay at T+50μs cause the GPU kernel to stall at T+150μs?" or "Which CPU threads are launching the kernels that exhibit high warp divergence?" This cross-layer visibility enables root-cause analysis that spans the entire heterogeneous execution stack, from userspace application logic through kernel drivers to GPU hardware behavior, without leaving the production observability workflow.
 
@@ -233,4 +233,4 @@ int kprobe_exec() {
 3. [PTX ISA](https://docs.nvidia.com/cuda/parallel-thread-execution/)
 4. [eBPF Documentation](https://ebpf.io/)
 5. [eGPU: Extending eBPF Programmability and Observability to GPUs](https://dl.acm.org/doi/10.1145/3723851.3726984)
-7. [NVBit: A Dynamic Binary Instrumentation Framework for NVIDIA GPUs](https://research.nvidia.com/publication/2016-08_nvbit)
+6. [NVBit: A Dynamic Binary Instrumentation Framework for NVIDIA GPUs](https://research.nvidia.com/publication/2016-08_nvbit)

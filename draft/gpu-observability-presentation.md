@@ -119,7 +119,7 @@ This breaks the observability that CPU-side tools had in synchronous mode.
 CPU perspective:
 - All async calls return in ~1μs (enqueued)
 - CPU continues other work
-- cudaStreamSynchronize() blocks 455μs
+- cudaStreamSynchronize() blocks 456μs
 
 GPU execution (sequential in stream):
 Alloc 1μs → H→D DMA 200μs → Launch 5μs → Kernel 100μs → D→H DMA 150μs
@@ -128,7 +128,7 @@ Alloc 1μs → H→D DMA 200μs → Launch 5μs → Kernel 100μs → D→H DMA 
 
 # Async Visibility Problem
 
-All timing information collapses into a single 455μs aggregate at the sync point.
+All timing information collapses into a single 456μs aggregate at the sync point.
 
 "Is my bottleneck memory transfer or kernel execution?"
 
@@ -249,7 +249,7 @@ By running eBPF programs natively inside GPU kernels, bpftime provides:
 # Recovering Visibility
 
 Async-mode visibility:
-- Per-phase timestamps (H→D at T+200μs, kernel at T+205μs, D→H at T+455μs)
+- Per-phase timestamps (H→D at T+200μs, kernel at T+206μs, D→H at T+456μs)
 
 GPU-internal details:
 - Nanosecond-granularity telemetry for warp execution and memory patterns
