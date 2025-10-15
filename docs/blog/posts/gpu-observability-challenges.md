@@ -1,7 +1,7 @@
 ---
 date: 2025-10-14
 ---
-
+ 
 # The GPU Observability Gap: Why We Need eBPF on GPUs
 
 > Yusheng Zheng=, Tong Yu=, Yiwei Yang=
