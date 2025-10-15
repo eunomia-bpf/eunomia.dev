@@ -24,7 +24,7 @@
     
     
       
-        <title>GPU可观测性差距:为什么我们需要GPU上的eBPF - eunomia</title>
+        <title>GPU可观测性差距：为什么我们需要GPU上的eBPF - eunomia</title>
       
     
     
@@ -69,7 +69,7 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="GPU可观测性差距:为什么我们需要GPU上的eBPF - eunomia" >
+        <meta  property="og:title"  content="GPU可观测性差距：为什么我们需要GPU上的eBPF - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
@@ -85,7 +85,7 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="GPU可观测性差距:为什么我们需要GPU上的eBPF - eunomia" >
+        <meta  name="twitter:title"  content="GPU可观测性差距：为什么我们需要GPU上的eBPF - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              GPU可观测性差距:为什么我们需要GPU上的eBPF
+              GPU可观测性差距：为什么我们需要GPU上的eBPF
             
           </span>
         </div>
@@ -8222,27 +8222,27 @@
         <li class="md-nav__item">
   <a href="#gpu" class="md-nav__link">
     <span class="md-ellipsis">
-      问题:GPU 可观测性挑战
+      问题：GPU 可观测性挑战
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="问题:GPU 可观测性挑战">
+    <nav class="md-nav" aria-label="问题：GPU 可观测性挑战">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      时间线可见性差距:什么可以观察,什么不可以
+      时间线可见性差距：什么可以观察，什么不可以
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="时间线可见性差距:什么可以观察,什么不可以">
+    <nav class="md-nav" aria-label="时间线可见性差距：什么可以观察，什么不可以">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#cpu" class="md-nav__link">
     <span class="md-ellipsis">
-      同步执行:CPU 端工具可以和不可以看到什么
+      同步执行：CPU 端工具能看到什么和不能看到什么
     </span>
   </a>
   
@@ -8251,7 +8251,7 @@
           <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      异步执行:时间解耦如何消除可见性
+      异步执行：时间解耦如何消除可见性
     </span>
   </a>
   
@@ -8260,7 +8260,7 @@
           <li class="md-nav__item">
   <a href="#nsight-systemscompute" class="md-nav__link">
     <span class="md-ellipsis">
-      当前工具:Nsight Systems/Compute 及其局限性
+      当前工具：Nsight Systems/Compute 及其局限性
     </span>
   </a>
   
@@ -8269,7 +8269,7 @@
           <li class="md-nav__item">
   <a href="#ebpf-ebpf-cpu-gpu" class="md-nav__link">
     <span class="md-ellipsis">
-      为什么选择 eBPF?使用 eBPF 统一 CPU 和 GPU 可观测性和可扩展性
+      为什么选择 eBPF？使用 eBPF 统一 CPU 和 GPU 可观测性和扩展性
     </span>
   </a>
   
@@ -8286,9 +8286,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#bpftime-gpu-ebpf" class="md-nav__link">
+  <a href="#gpu-bpftime-ebpf" class="md-nav__link">
     <span class="md-ellipsis">
-      解决方案:使用 bpftime 在 GPU 上使用 eBPF
+      解决方案：在 GPU 上使用 bpftime 运行 eBPF
     </span>
   </a>
   
@@ -8411,23 +8411,23 @@
   
 
 
-<h1 id="gpugpuebpf">GPU可观测性差距:为什么我们需要GPU上的eBPF</h1>
+<h1 id="gpugpuebpf">GPU可观测性差距：为什么我们需要GPU上的eBPF</h1>
 <blockquote>
 <p>Yusheng Zheng=, Tong Yu=, Yiwei Yang=</p>
 </blockquote>
-<p>bpftime 通过其 CUDA/ROCm 附加实现提供 GPU 支持,使 eBPF 程序能够在 NVIDIA 和 AMD GPU 上的 <strong>GPU 内核内部</strong>执行。这将 eBPF 的可编程性、可观测性和定制能力带到 GPU 计算工作负载中。通过这种方式,它实现了对 GPU 应用程序的实时性能分析、调试和运行时扩展,无需修改源代码,填补了当前可观测性领域的空白。</p>
+<p>bpftime 通过其 CUDA/ROCm 附加实现提供 GPU 支持，使 eBPF 程序能够在 NVIDIA 和 AMD GPU 上的 <strong>GPU 内核内部</strong>执行。这将 eBPF 的可编程性、可观测性和定制能力带到 GPU 计算工作负载中。通过这种方式，它实现了对 GPU 应用程序的实时性能分析、调试和运行时扩展，无需修改源代码，填补了当前可观测性领域的空白。</p>
 <blockquote>
-<p><strong>注意:</strong> GPU 支持仍处于实验阶段。如有问题或建议,<a href="https://github.com/eunomia-bpf/bpftime/issues">提交问题</a>或<a href="mailto:team@eunomia.dev">联系我们</a>。</p>
+<p><strong>注意：</strong> GPU 支持仍处于实验阶段。如有问题或建议，<a href="https://github.com/eunomia-bpf/bpftime/issues">提交问题</a>或<a href="mailto:team@eunomia.dev">联系我们</a>。</p>
 </blockquote>
 <!-- more -->
 
-<h2 id="gpu">问题:GPU 可观测性挑战</h2>
-<p>GPU 已成为机器学习、科学计算和高性能计算工作负载的主流加速器,但其 SIMT(单指令多线程)执行模型带来了重大的可观测性和可扩展性挑战。现代 GPU 将数千个线程组织成线程束(通常 32 个线程),这些线程束在流式多处理器(SM)上同步执行,内核从主机异步启动。这些线程在复杂的多级内存层次结构中导航,从快速但有限的每线程寄存器,到线程块内的共享内存/LDS,通过 L1/L2 缓存,再到较慢但丰富的设备内存,同时面临有限的抢占能力,这使得内核执行难以中断、检查或扩展。这种架构复杂性创造了丰富的性能特征,包括线程束分化、内存合并模式、存储体冲突和占用率变化,这些都直接影响吞吐量,但传统可观测性工具很难看清这些行为。理解和优化内核停滞、内存瓶颈、低效同步或次优 SM 利用率等问题,需要对 GPU 深处发生的执行流、内存访问模式和线程束间协调进行细粒度的可见性,以及动态注入自定义逻辑的能力。而这些正是现有工具难以以灵活、可编程的方式提供的能力。</p>
-<p>现有的 GPU 跟踪和性能分析工具分为两类,每类都有重大局限性。首先,许多跟踪工具仅在 CPU-GPU 边界运行,通过拦截 CUDA/ROCm 用户空间库调用(例如,通过对 libcuda.so 的 LD_PRELOAD 钩子)或在系统调用层检测内核驱动程序。虽然这种方法可以捕获主机端事件,如内核启动、内存传输和 API 时序,但它从根本上将 GPU 视为黑盒,无法看到内核执行期间发生的事情,无法与特定的线程束行为或内存停滞相关联,也无法根据设备内部的运行时条件自适应地修改行为。其次,GPU 供应商特定的性能分析器(NVIDIA 的 CUPTI、Nsight Compute、Intel 的 GTPin、AMD 的 ROCProfiler、NVBit 或 Neutrino 等研究工具)确实提供设备端检测,可以收集硬件性能计数器、线程束级跟踪或指令级指标。然而,这些工具在与 Linux 内核可观测性和扩展堆栈断开的孤立生态系统中运行。它们无法将 GPU 事件与 CPU 端的 eBPF 探针(kprobes、uprobes、tracepoints)关联,需要单独的数据收集管道和分析工作流,其中一些可能会带来大量开销(细粒度检测可能有 10-100 倍的速度降低),并且缺乏控制平面的动态可编程性和控制,而这正是 eBPF 在生产环境中定制收集什么数据以及如何处理数据的强大之处,无需重新编译或服务中断。</p>
-<h3 id="_1">时间线可见性差距:什么可以观察,什么不可以</h3>
-<p>考虑一个常见的调试场景。"我的 CUDA 应用程序需要 500ms 完成,但我不知道时间花在哪里。是内存传输、内核执行还是 API 开销?"答案关键取决于应用程序是使用同步还是异步 CUDA API,并揭示了 CPU 端可观测性的基本限制。</p>
-<h4 id="cpu">同步执行:CPU 端工具可以和不可以看到什么</h4>
-<p>在同步模式下,CUDA API 调用会阻塞,直到 GPU 完成每个操作,在 CPU 和 GPU 时间线之间创建紧密耦合。考虑一个典型的工作流:分配设备内存、将数据传输到 GPU(主机到设备)、执行内核并等待完成。CPU 端性能分析器可以测量每个阻塞 API 调用的挂钟时间,提供有用的高级见解。例如,如果 <code>cudaMemcpy()</code> 需要 200μs 而 <code>cudaDeviceSynchronize()</code>(等待内核完成)只需要 115μs,开发人员可以快速识别数据传输占主导地位而非计算,表明 PCIe 瓶颈可能通过使用固定内存、更大的批量大小或异步传输来解决。</p>
+<h2 id="gpu">问题：GPU 可观测性挑战</h2>
+<p>GPU 已成为机器学习、科学计算和高性能计算工作负载的主流加速器，但其 SIMT(单指令多线程)执行模型带来了重大的可观测性和扩展性挑战。现代 GPU 将数千个线程组织成线程束(通常 32 个线程)，这些线程束在流式多处理器(SM)上同步执行，内核从主机异步启动。这些线程在复杂的多级内存层次结构中导航，从快速但有限的每线程寄存器，到线程块内的共享内存/LDS,通过 L1/L2 缓存，再到较慢但丰富的设备内存，同时面临有限的抢占能力，这使得内核执行难以中断、检查或扩展。这种架构复杂性创造了丰富的性能特征，包括线程束分化、内存合并模式、存储体冲突和占用率变化，这些都直接影响吞吐量，但传统可观测性工具很难看清这些行为。理解和优化内核停滞、内存瓶颈、低效同步或次优 SM 利用率等问题，需要对 GPU 深处发生的执行流、内存访问模式和线程束间协调进行细粒度的可见性，以及动态注入自定义逻辑的能力。而这些正是现有工具难以以灵活、可编程的方式提供的能力。</p>
+<p>现有的 GPU 跟踪和性能分析工具分为两类，每类都有重大局限性。首先，许多跟踪工具仅在 CPU-GPU 边界运行，通过拦截 CUDA/ROCm 用户空间库调用(例如，通过对 libcuda.so 的 LD_PRELOAD 钩子)或在系统调用层检测内核驱动程序。虽然这种方法可以捕获主机端事件，如内核启动、内存传输和 API 时序，但它从根本上将 GPU 视为黑盒，无法看到内核执行期间发生的事情，无法与特定的线程束行为或内存停滞相关联，也无法根据设备内部的运行时条件自适应地修改行为。其次，GPU 供应商特定的性能分析器(NVIDIA 的 CUPTI、Nsight Compute、Intel 的 GTPin、AMD 的 ROCProfiler、NVBit 或 Neutrino 等研究工具)确实提供设备端检测，可以收集硬件性能计数器、线程束级跟踪或指令级指标。然而，这些工具在与 Linux 内核可观测性和扩展堆栈断开的孤立生态系统中运行。它们无法将 GPU 事件与 CPU 端的 eBPF 探针(kprobes、uprobes、tracepoints)关联，需要单独的数据收集管道和分析工作流，其中一些可能会带来大量开销(细粒度检测可能有 10-100 倍的速度降低)，并且缺乏控制平面的动态可编程性和控制，而这正是 eBPF 在生产环境中定制收集什么数据以及如何处理数据的强大之处，无需重新编译或服务中断。</p>
+<h3 id="_1">时间线可见性差距：什么可以观察，什么不可以</h3>
+<p>考虑一个常见的调试场景。"我的 CUDA 应用程序需要 500ms 完成，但我不知道时间花在哪里。是内存传输、内核执行还是 API 开销？"答案关键取决于应用程序是使用同步还是异步 CUDA API,并揭示了 CPU 端可观测性的基本限制。</p>
+<h4 id="cpu">同步执行：CPU 端工具能看到什么和不能看到什么</h4>
+<p>在同步模式下，CUDA API 调用会阻塞，直到 GPU 完成每个操作，在 CPU 和 GPU 时间线之间创建紧密耦合。考虑一个典型的工作流：分配设备内存、将数据传输到 GPU(主机到设备)、执行内核并等待完成。CPU 端性能分析器可以测量每个阻塞 API 调用的挂钟时间，提供有用的高级见解。例如，如果 <code>cudaMemcpy()</code> 需要 200μs 而 <code>cudaDeviceSynchronize()</code>(等待内核完成)只需要 115μs，开发人员可以快速识别数据传输占主导地位而非计算，表明 PCIe 瓶颈可能通过使用固定内存、更大的批量大小或异步传输来解决。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>CPU 时间线(传统工具看到的):
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>───────────────────────────────────────────────────────────────────────────
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a> cudaMalloc()  cudaMemcpy()       cudaLaunchKernel()  cudaDeviceSync()
@@ -8442,16 +8442,16 @@
 <a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>──────┴───────┴──────────────────┴──────────┴─────────────────┴─────────┴──
 <a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>                                           (SM 忙碌)                (SM 空闲)
 </code></pre></div>
-<p>然而,当开发人员问"内核同步需要 115μs,但为什么我的内核这么慢?是启动开销、内存停滞、线程束分化还是低 SM 利用率?"时,CPU 端工具遇到了根本性的障碍。115μs 的同步时间是一个不透明的聚合,混合了多个隐藏的 GPU 端阶段,包括内核启动开销(约 5μs 在 SM 上调度工作)、实际内核执行(约 100μs 在流式多处理器上计算)和清理(约 10μs 排空管道和释放资源),如上面的 GPU 时间线所示。</p>
-<p>即使完美计时同步 API 调用,CPU 端工具也无法区分内核性能差是由于(1)过度的启动开销(例如,太多小内核启动),(2)100μs 执行窗口内的计算低效(例如,由于分化只有 30% 的线程束处于活动状态),(3)导致停滞的内存访问模式(例如,未合并的全局内存加载),还是(4)SM 利用不足(例如,只有 50% 的可用 SM 处于忙碌状态)。这些需要从内核执行期间的 GPU 内部获得线程束级执行、内存事务统计和每线程行为的可见性。我们需要更细粒度、可编程的 GPU 内部视角来理解内核执行期间发生的事情,而不仅仅是它何时开始和结束。</p>
-<h4 id="_2">异步执行:时间解耦如何消除可见性</h4>
-<p>现代 CUDA 应用程序使用异步 API(<code>cudaMemcpyAsync()</code>、带流的 <code>cudaLaunchKernel()</code>)来通过重叠 CPU 工作和 GPU 执行来最大化硬件利用率。这引入了时间解耦,其中 API 调用在将工作排入流后立即返回,允许 CPU 继续执行,而 GPU 在后台按顺序处理操作。这打破了 CPU 端工具在同步模式下的可观测性。</p>
-<p>考虑现在异步执行的相同工作流。开发人员将主机到设备传输(200μs)、内核启动(100μs 执行)和设备到主机传输(150μs)排队,然后继续 CPU 工作,最后调用 <code>cudaStreamSynchronize()</code> 等待所有 GPU 操作完成。从 CPU 的角度来看,所有排队操作都在几微秒内返回,只有最后的同步点阻塞,报告总共 455μs(200 + 5 + 100 + 150 μs 的顺序 GPU 工作)。</p>
+<p>然而，当开发人员问"内核同步需要 115μs，但为什么我的内核这么慢？是启动开销、内存停滞、线程束分化还是低 SM 利用率？"时，CPU 端工具遇到了根本性的障碍。115μs 的同步时间是一个不透明的聚合，混合了多个隐藏的 GPU 端阶段，包括内核启动开销(约 5μs 在 SM 上调度工作)、实际内核执行(约 100μs 在流式多处理器上计算)和清理(约 10μs 排空管道和释放资源)，如上面的 GPU 时间线所示。</p>
+<p>即使完美计时同步 API 调用，CPU 端工具也无法区分内核性能差是由于(1)过度的启动开销(例如，太多小内核启动),(2)100μs 执行窗口内的计算低效(例如，由于分化只有 30% 的线程束处于活动状态),(3)导致停滞的内存访问模式(例如，未合并的全局内存加载)，还是(4)SM 利用不足(例如，只有 50% 的可用 SM 处于忙碌状态)。这些需要从内核执行期间的 GPU 内部获得线程束级执行、内存事务统计和每线程行为的可见性。我们需要更细粒度、可编程的 GPU 内部视角来理解内核执行期间发生的事情，而不仅仅是它何时开始和结束。</p>
+<h4 id="_2">异步执行：时间解耦如何消除可见性</h4>
+<p>现代 CUDA 应用程序使用异步 API(<code>cudaMemcpyAsync()</code>、带流的 <code>cudaLaunchKernel()</code>)来通过重叠 CPU 工作和 GPU 执行来最大化硬件利用率。这引入了时间解耦，其中 API 调用在将工作排入流后立即返回，允许 CPU 继续执行，而 GPU 在后台按顺序处理操作。这打破了 CPU 端工具在同步模式下的可观测性。</p>
+<p>考虑现在异步执行的相同工作流。开发人员将主机到设备传输(200μs)、内核执行(100μs)和设备到主机传输(150μs)排队，然后继续 CPU 工作，最后调用 <code>cudaStreamSynchronize()</code> 等待所有 GPU 操作完成。从 CPU 的角度来看，所有排队操作都在几微秒内返回，只有最后的同步点阻塞，报告总共 456μs(1 + 200 + 5 + 100 + 150 μs 的顺序 GPU 工作)。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>CPU 时间线(传统工具看到的):
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>─────────────────────────────────────────────────────────────────────────────────
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>cudaMallocAsync() cudaMemcpyAsync() cudaLaunchKernel() cudaMemcpyAsync()      cudaStreamSync()
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>●─────●─────●─────●─────────────────────────────────────────────────────────────────●────
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>1μs  1μs  1μs  1μs         CPU 继续做其他工作...               455μs 等待
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>1μs  1μs  1μs  1μs         CPU 继续做其他工作...               456μs 等待
 <a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>(分配)(H→D)(内核)(D→H)                                                       (全部完成)
 <a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
 <a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>GPU 时间线(实际执行 - 流中顺序):
@@ -8462,42 +8462,42 @@
 <a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>         ↑                                  ↑                                     ↑
 <a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>    CPU 已继续                          GPU 仍在工作                    同步返回
 </code></pre></div>
-<p>在同步执行中,测量各个 API 调用持续时间允许开发人员识别传输或计算是否占主导地位。在异步模式下,这种能力完全消失,因为所有时间信息都折叠到同步点的单个 455μs 聚合中。问题"我的瓶颈是内存传输还是内核执行?"从 CPU 端变得无法回答。如果第一次传输由于未固定内存而需要两倍时间(400μs 而不是 200μs),将所有后续操作延迟 200μs,开发人员只会看到总时间从 455μs 增加到 655μs,完全不知道是哪个操作导致了延迟、何时发生或是否传播到下游操作。</p>
-<p>异步执行不仅隐藏了在同步模式下已经不可见的 GPU 内部细节(线程束分化、内存停滞、SM 利用率),还消除了 CPU 工具以前可以提供的粗粒度阶段时序。开发人员失去了进行基本分类的能力。他们无法确定是将优化工作集中在内存传输、内核逻辑还是 API 使用模式上,除非(1)恢复到缓慢的同步执行进行调试(违背异步的目的),或(2)添加需要重新编译的手动检测,只提供静态测量点。</p>
-<p>像 LLM 服务这样的现代 GPU 应用程序通过高级优化技术进一步复杂化了这种情况。批处理策略组合多个操作以最大化吞吐量,就像管道一样,但使得更难识别哪些单个操作速度慢。持久内核驻留在 GPU 上处理多个工作批次,消除启动开销但模糊了阶段边界。具有流间复杂依赖关系的多流执行创建了复杂的执行图,其中来自不同流的操作不可预测地交错。每个线程块的共享内存使用限制了占用率并限制了并发线程束执行,创建了根据内核配置变化的微妙资源争用。这些优化显著提高了吞吐量,但使已经不透明的异步执行模型从 CPU 端观察和调试变得更加困难。</p>
-<p>然而,即使我们有完美的 GPU 内部可见性显示高内存停滞周期,我们仍然无法确定根本原因:是线程束分化导致未合并访问?主机线程取消调度延迟异步内存复制?并发 RDMA 操作的 PCIe 拥塞?还是来自内核的按需页面迁移延迟?同样,当观察 SM 利用不足时,仅设备指标无法区分是网格太小、启动被用户空间互斥锁序列化,还是驱动程序在 ECC 错误或电源事件后进行了限流。</p>
-<p>这个挑战在生产环境中变得严峻,那里尾延迟峰值间歇性发生。它们是由 GPU 缓存效应、主机生产者线程上的 cgroup 限流,还是另一个容器发出大型 DMA 传输的干扰引起的?仅设备工具报告"GPU 上发生了什么",但不报告"为什么现在在这个异构系统中发生"。如果没有与用户空间行为(线程、系统调用、分配)、内核事件(页面错误、调度器上下文切换、块 I/O)和驱动程序决策(流依赖解析、内存注册、电源状态转换)的时间对齐关联,工程师必须缓慢迭代:观察 GPU 症状 → 猜测主机原因 → 使用临时检测重建 → 重复。这个反馈循环代价高昂,在延迟敏感的部署中通常不可行。</p>
+<p>在同步执行中，测量各个 API 调用持续时间允许开发人员识别传输或计算是否占主导地位。在异步模式下，这种能力完全消失，因为所有时间信息都折叠到同步点的单个 456μs 聚合中。问题"我的瓶颈是内存传输还是内核执行？"从 CPU 端变得无法回答。如果第一次传输由于未固定内存而需要两倍时间(400μs 而不是 200μs)，将所有后续操作延迟 200μs，开发人员只会看到总时间从 456μs 增加到 656μs，完全不知道是哪个操作导致了延迟、何时发生或是否传播到下游操作。</p>
+<p>异步执行不仅隐藏了在同步模式下已经不可见的 GPU 内部细节(线程束分化、内存停滞、SM 利用率)，还消除了 CPU 工具以前可以提供的粗粒度阶段时序。开发人员失去了进行基本分类的能力。他们无法确定是将优化工作集中在内存传输、内核逻辑还是 API 使用模式上，除非(1)恢复到缓慢的同步执行进行调试(违背异步的目的)，或(2)添加需要重新编译的手动检测，只提供静态测量点。</p>
+<p>像 LLM 服务这样的现代 GPU 应用程序通过高级优化技术进一步复杂化了这种情况。批处理策略组合多个操作以最大化吞吐量，就像管道一样，但使得更难识别哪些单个操作速度慢。持久内核驻留在 GPU 上处理多个工作批次，消除启动开销但模糊了阶段边界。具有流间复杂依赖关系的多流执行创建了复杂的执行图，其中来自不同流的操作不可预测地交错。每个线程块的共享内存使用限制了占用率并限制了并发线程束执行，创建了根据内核配置变化的微妙资源争用。这些优化显著提高了吞吐量，但使已经不透明的异步执行模型从 CPU 端观察和调试变得更加困难。</p>
+<p>然而，即使我们有完美的 GPU 内部可见性显示高内存停滞周期，我们仍然无法确定根本原因：是线程束分化导致未合并访问？主机线程取消调度延迟异步内存复制？并发 RDMA 操作的 PCIe 拥塞？还是来自内核的按需页面迁移延迟？同样，当观察 SM 利用不足时，仅设备指标无法区分是网格太小、启动被用户空间互斥锁序列化，还是驱动程序在 ECC 错误或电源事件后进行了限流。</p>
+<p>这个挑战在生产环境中变得严峻，那里尾延迟峰值间歇性发生。它们是由 GPU 缓存效应、主机生产者线程上的 cgroup 限流，还是另一个容器发出大型 DMA 传输的干扰引起的？仅设备工具报告"GPU 上发生了什么"，但不报告"为什么现在在这个异构系统中发生"。如果没有与用户空间行为(线程、系统调用、分配)、内核事件(页面错误、调度器上下文切换、块 I/O)和驱动程序决策(流依赖解析、内存注册、电源状态转换)的时间对齐关联，工程师必须缓慢迭代：观察 GPU 症状 → 猜测主机原因 → 使用临时检测重建 → 重复。这个反馈循环代价高昂，在延迟敏感的部署中通常不可行。</p>
 <blockquote>
-<p><strong>关键见解:</strong>有效的 GPU 可观测性和可扩展性需要一个跨越异构计算堆栈多个层次的统一解决方案:从进行 CUDA API 调用的用户空间应用程序,通过管理设备资源的操作系统内核驱动程序,到在 GPU 硬件上执行的设备代码。传统工具在这些层之间是分散的,仅在 CPU-GPU 边界或单独在 GPU 内核内提供隔离的可见性,但缺乏理解一个级别的决策和事件如何影响另一个级别的性能和行为所需的跨层关联。</p>
+<p><strong>关键见解：</strong>有效的 GPU 可观测性和扩展性需要一个跨越异构计算堆栈多个层次的统一解决方案：从进行 CUDA API 调用的用户空间应用程序，通过管理设备资源的操作系统内核驱动程序，到在 GPU 硬件上执行的设备代码。传统工具在这些层之间是分散的，仅在 CPU-GPU 边界或单独在 GPU 内核内提供隔离的可见性，但缺乏理解一个层级的决策和事件如何影响另一个层级的性能和行为所需的跨层关联。</p>
 </blockquote>
-<h4 id="nsight-systemscompute">当前工具:Nsight Systems/Compute 及其局限性</h4>
-<p>NVIDIA 的 Nsight 套件试图解决一些跨域可见性挑战。<strong>Nsight Systems</strong> 提供系统范围的时间线,在统一视图中显示 CPU 线程、CUDA API 调用、内核启动和内存传输。<strong>Nsight Compute</strong> 通过 CUPTI 计数器和基于重放的分析提供深度内核级微架构指标,具有引导式优化规则。这些工具可以将启动与 CPU 线程调度关联,并提供丰富的每内核停滞原因和内存指标。</p>
-<p>然而,与统一的 eBPF 方法相比,Nsight 和类似的供应商工具存在基本限制。首先,Nsight 提供具有固定事件集的封闭事件模型,在附加点没有任意可编程逻辑——您无法动态添加自定义检测,无需重新编译应用程序或编写过滤谓词,如"仅在内核执行超过 100ms 时收集数据"。其次,这些工具需要特殊的性能分析会话,通过计数器复用和重放机制扰乱工作负载行为,使它们不适合生产中的始终在线连续遥测,并且基于重放的收集会错过瞬态异常和罕见事件。第三,Nsight 缺乏原地过滤和聚合,强制导出所有原始数据然后进行后处理,这从具有大量异步管道的大型应用程序创建多 GB 跟踪,没有可编程的自适应响应来根据观察到的状态动态更改采样逻辑。第四,系统集成严重受限:Nsight 无法在不重启的情况下将动态探针附加到持久内核,缺乏与 Linux eBPF 基础设施(kprobes/uprobes/tracepoints)的集成,并且无法跨 CPU 和 GPU 检测共享数据结构(映射),这使得非常难以拼接因果链,如页面错误(主机)→ 延迟启动排队 → 线程束停滞峰值。最后,这些是 NVIDIA 专用工具,在异构系统中跨 AMD、Intel 或其他加速器的供应商中立部署没有明确路径。在实践中,开发人员面临大型跟踪的迭代根本原因分析速度变慢,错过在性能分析开销下不重现的生产问题,并且无法将 GPU 事件与现有生产可观测性堆栈(perf、bpftrace、自定义 eBPF 代理)关联,而无需复杂的模式切换到特殊的"性能分析会话"。</p>
-<h4 id="ebpf-ebpf-cpu-gpu">为什么选择 eBPF?使用 eBPF 统一 CPU 和 GPU 可观测性和可扩展性</h4>
-<p>要理解为什么 eBPF 是应对这一挑战的正确工具,查看它在 CPU 世界的影响是有帮助的。eBPF(扩展的伯克利包过滤器)是 Linux 内核中的一项革命性技术,允许沙箱程序动态加载以安全地扩展内核能力。在 CPU 端,eBPF 已成为现代可观测性、网络和安全的基石,因为它独特地结合了可编程性、安全性和性能。它使开发人员能够将自定义逻辑附加到数千个钩子点,以最小的开销收集深度、定制的遥测。<code>bpftime</code> 背后的核心思想是将这种相同的变革力量带到传统上不透明的 GPU 计算世界。</p>
-<p>通过在 GPU 内核内原生运行 eBPF 程序,bpftime 在整个堆栈中提供安全、可编程、统一的可观测性和可扩展性。与基于会话的性能分析器不同,它通过探针的动态加载/卸载和设备端谓词过滤来实现始终在线的生产监控,以减少开销。它通过每阶段时间戳(H→D 在 T+200μs,内核在 T+205μs,D→H 在 T+455μs)恢复异步模式可见性,通过纳秒粒度的线程束执行和内存模式遥测暴露 GPU 内部细节,并关联 CPU 和 GPU 事件,而无需传统单独性能分析器的重量级开销。</p>
-<p>该架构将 CPU 和 GPU 探针视为统一控制平面中的对等体:共享的 BPF 映射和环形缓冲区实现直接数据交换,动态检测无需重新编译或重启即可工作,并且与现有 eBPF 基础设施(perf、bpftrace、自定义代理)的集成不需要模式切换。开发人员可以同时通过 uprobes 跟踪 CPU 端 CUDA API 调用、通过 kprobes 跟踪内核驱动程序交互、通过 CUDA 探针跟踪 GPU 端内核执行,所有这些都使用相同的 eBPF 工具链,并关联跨主机-设备边界的事件。示例问题现在变得可以回答:"T+50μs 的 CPU 系统调用延迟是否导致 T+150μs 的 GPU 内核停滞?"或"哪些 CPU 线程正在启动表现出高线程束分化的内核?"这种跨层可见性实现了跨越整个异构执行堆栈的根本原因分析,从用户空间应用程序逻辑通过内核驱动程序到 GPU 硬件行为,而无需离开生产可观测性工作流。</p>
-<h2 id="bpftime-gpu-ebpf">解决方案:使用 bpftime 在 GPU 上使用 eBPF</h2>
-<p><strong>bpftime 的方法</strong>通过将 eBPF 的可编程性和定制模型直接扩展到 GPU 执行上下文来弥合这一差距,使 eBPF 程序能够在 GPU 内核内与应用程序工作负载一起原生运行。该系统定义了一套全面的 GPU 端附加点,反映了 CPU 端 kprobes/uprobes 的灵活性。开发人员可以检测 CUDA/ROCm 设备函数入口和出口点(类似于函数探针)、线程块生命周期事件(块开始/结束)、同步原语(屏障、原子操作)、内存操作(加载、存储、传输)和流/事件操作。用受限 C 编写的 eBPF 程序通过 LLVM 编译成设备原生字节码(用于 NVIDIA GPU 的 PTX(并行线程执行)汇编或用于 AMD/Intel 的 SPIR-V),并通过二进制检测在运行时动态注入到目标内核中,无需修改源代码或重新编译。运行时在 GPU 上提供完整的 eBPF 执行环境,包括(1)安全验证器,以确保在 SIMT 上下文中的有界执行和内存安全,(2)一组丰富的 GPU 感知辅助函数,用于访问线程/块/网格上下文、计时、同步和格式化输出,(3)专用的 BPF 映射类型,位于 GPU 内存中,用于高吞吐量每线程数据收集(GPU 数组映射)和事件流(GPU 环形缓冲区映射),以及(4)主机-GPU 通信协议,使用共享内存和自旋锁,在需要时安全地调用主机端辅助函数。这种架构不仅可以以纳秒粒度收集细粒度遥测(每线程束时序、内存访问模式、控制流分化),还可以根据运行时条件自适应地修改内核行为,构建自定义扩展和优化,并将 GPU 可观测性与现有 CPU 端 eBPF 程序统一到单个分析管道中,同时保持生产就绪的开销特性。这使得:</p>
+<h4 id="nsight-systemscompute">当前工具：Nsight Systems/Compute 及其局限性</h4>
+<p>NVIDIA 的 Nsight 套件试图解决一些跨域可见性挑战。<strong>Nsight Systems</strong> 提供系统范围的时间线，在统一视图中显示 CPU 线程、CUDA API 调用、内核启动和内存传输。<strong>Nsight Compute</strong> 通过 CUPTI 计数器和基于重放的分析提供深度内核级微架构指标，具有引导式优化规则。这些工具可以将启动与 CPU 线程调度关联，并提供丰富的每内核停滞原因和内存指标。</p>
+<p>然而，与统一的 eBPF 方法相比，Nsight 和类似的供应商工具存在基本限制。首先，Nsight 提供具有固定事件集的封闭事件模型，在附加点没有任意可编程逻辑——您无法在不重新编译应用程序的情况下动态添加自定义检测，也无法编写过滤谓词，如"仅在内核执行超过 100ms 时收集数据"。其次，这些工具需要特殊的性能分析会话，通过计数器复用和重放机制扰乱工作负载行为，使它们不适合生产中的始终在线连续遥测，并且基于重放的收集会错过瞬态异常和罕见事件。第三，Nsight 缺乏原地过滤和聚合，强制导出所有原始数据然后进行后处理，这从具有大量异步管道的大型应用程序创建多 GB 跟踪，没有可编程的自适应响应来根据观察到的状态动态更改采样逻辑。第四，系统集成严重受限：Nsight 无法在不重启的情况下将动态探针附加到持久内核，缺乏与 Linux eBPF 基础设施(kprobes/uprobes/tracepoints)的集成，并且无法跨 CPU 和 GPU 检测共享数据结构(映射)，这使得非常难以拼接因果链，如页面错误(主机)→ 延迟启动排队 → 线程束停滞峰值。最后，这些是 NVIDIA 专用工具，在异构系统中跨 AMD、Intel 或其他加速器的供应商中立部署没有明确路径。在实践中，开发人员面临大型跟踪的迭代根本原因分析速度变慢，错过在性能分析开销下不重现的生产问题，并且无法将 GPU 事件与现有生产可观测性堆栈(perf、bpftrace、自定义 eBPF 代理)关联，而无需复杂的模式切换到特殊的"性能分析会话"。</p>
+<h4 id="ebpf-ebpf-cpu-gpu">为什么选择 eBPF？使用 eBPF 统一 CPU 和 GPU 可观测性和扩展性</h4>
+<p>要理解为什么 eBPF 是应对这一挑战的正确工具，查看它在 CPU 世界的影响是有帮助的。eBPF(扩展的伯克利包过滤器)是 Linux 内核中的一项革命性技术，允许沙箱程序动态加载以安全地扩展内核能力。在 CPU 端，eBPF 已成为现代可观测性、网络和安全的基石，因为它独特地结合了可编程性、安全性和性能。它使开发人员能够将自定义逻辑附加到数千个钩子点，以最小的开销收集深度、定制的遥测。<code>bpftime</code> 背后的核心思想是将这种相同的变革力量带到传统上不透明的 GPU 计算世界。</p>
+<p>通过在 GPU 内核内原生运行 eBPF 程序，bpftime 在整个堆栈中提供安全、可编程、统一的可观测性和扩展性。与基于会话的性能分析器不同，它通过动态加载/卸载探针和设备端谓词过滤来实现始终在线的生产监控，以减少开销。它通过每阶段时间戳(H→D 在 T+200μs，内核在 T+206μs，D→H 在 T+456μs)恢复异步模式可见性，通过纳秒粒度的线程束执行和内存模式遥测暴露 GPU 内部细节，并关联 CPU 和 GPU 事件，而无需传统单独性能分析器的重量级开销。</p>
+<p>该架构将 CPU 和 GPU 探针视为统一控制平面中的对等体：共享的 BPF 映射和环形缓冲区实现直接数据交换，动态检测无需重新编译或重启即可工作，并且与现有 eBPF 基础设施(perf、bpftrace、自定义代理)的集成不需要模式切换。开发人员可以同时通过 uprobes 跟踪 CPU 端 CUDA API 调用、通过 kprobes 跟踪内核驱动程序交互、通过 CUDA 探针跟踪 GPU 端内核执行，所有这些都使用相同的 eBPF 工具链，并关联跨主机-设备边界的事件。示例问题现在变得可以回答："T+50μs 的 CPU 系统调用延迟是否导致 T+150μs 的 GPU 内核停滞？"或"哪些 CPU 线程正在启动表现出高线程束分化的内核？"这种跨层可见性实现了跨越整个异构执行堆栈的根本原因分析，从用户空间应用程序逻辑通过内核驱动程序到 GPU 硬件行为，而无需离开生产可观测性工作流。</p>
+<h2 id="gpu-bpftime-ebpf">解决方案：在 GPU 上使用 bpftime 运行 eBPF</h2>
+<p><strong>bpftime 的方法</strong>通过将 eBPF 的可编程性和定制模型直接扩展到 GPU 执行上下文来弥合这一差距，使 eBPF 程序能够在 GPU 内核内与应用程序工作负载一起原生运行。该系统定义了一套全面的 GPU 端附加点，反映了 CPU 端 kprobes/uprobes 的灵活性。开发人员可以检测 CUDA/ROCm 设备函数入口和出口点(类似于函数探针)、线程块生命周期事件(块开始/结束)、同步原语(屏障、原子操作)、内存操作(加载、存储、传输)和流/事件操作。用受限 C 编写的 eBPF 程序通过 LLVM 编译成设备原生字节码(用于 NVIDIA GPU 的 PTX(并行线程执行)汇编或用于 AMD/Intel 的 SPIR-V)，并通过二进制检测在运行时动态注入到目标内核中，无需修改源代码或重新编译。运行时在 GPU 上提供完整的 eBPF 执行环境，包括(1)安全验证器，以确保在 SIMT 上下文中的有界执行和内存安全，(2)一组丰富的 GPU 感知辅助函数，用于访问线程/块/网格上下文、计时、同步和格式化输出，(3)专用的 BPF 映射类型，位于 GPU 内存中，用于高吞吐量每线程数据收集(GPU 数组映射)和事件流(GPU 环形缓冲区映射)，以及(4)主机-GPU 通信协议，使用共享内存和自旋锁，在需要时安全地调用主机端辅助函数。这种架构不仅可以以纳秒粒度收集细粒度遥测(每线程束时序、内存访问模式、控制流分化)，还可以根据运行时条件自适应地修改内核行为，构建自定义扩展和优化，并将 GPU 可观测性与现有 CPU 端 eBPF 程序统一到单个分析管道中，同时保持生产就绪的开销特性。这使得：</p>
 <ul>
 <li><strong>比 NVBit 等工具快 3-10 倍</strong>的检测性能</li>
-<li><strong>供应商中立设计</strong>,适用于 NVIDIA、AMD 和 Intel GPU</li>
-<li><strong>统一可观测性和控制</strong>,与 Linux 内核 eBPF 程序(kprobes、uprobes)一起</li>
-<li><strong>细粒度性能分析和运行时定制</strong>,在线程束或指令级别</li>
+<li><strong>供应商中立设计</strong>，适用于 NVIDIA、AMD 和 Intel GPU</li>
+<li><strong>统一可观测性和控制</strong>，与 Linux 内核 eBPF 程序(kprobes、uprobes)一起</li>
+<li><strong>细粒度性能分析和运行时定制</strong>，在线程束或指令级别</li>
 <li><strong>自适应 GPU 内核内存优化</strong>和跨 SM 的可编程调度</li>
-<li><strong>动态扩展</strong>,用于 GPU 工作负载,无需重新编译</li>
+<li><strong>动态扩展</strong>，用于 GPU 工作负载，无需重新编译</li>
 <li><strong>通过利用 GPU 计算能力加速 eBPF 应用程序</strong></li>
 </ul>
-<p>该架构旨在实现四个核心目标:(1)提供统一的基于 eBPF 的接口,可无缝跨用户空间、内核、来自不同供应商的多个 CPU 和 GPU 上下文工作,(2)实现动态、运行时检测,无需修改源代码或重新编译,(3)在 GPU 硬件和 SIMT 执行模型的约束内保持安全高效的执行。(4)更少的依赖性和易于部署,建立在现有 CUDA/ROCm/OpenGL 运行时之上,无需自定义内核驱动程序、固件修改或像记录和重放系统这样的重量级运行时。</p>
+<p>该架构旨在实现四个核心目标：(1)提供统一的基于 eBPF 的接口，可无缝跨用户空间、内核、来自不同供应商的多个 CPU 和 GPU 上下文工作，(2)实现动态、运行时检测，无需修改源代码或重新编译，(3)在 GPU 硬件和 SIMT 执行模型的约束内保持安全高效的执行。(4)依赖更少且易于部署，建立在现有 CUDA/ROCm/OpenGL 运行时之上，无需自定义内核驱动程序、固件修改或像记录和重放系统这样的重量级运行时。</p>
 <h2 id="_3">架构</h2>
 <h3 id="cuda">CUDA 附加管道</h3>
-<p>GPU 支持构建为动态将 eBPF 程序注入 GPU 内核的检测管道。关键组件是:</p>
+<p>GPU 支持构建为动态将 eBPF 程序注入 GPU 内核的检测管道。关键组件是：</p>
 <ol>
-<li><strong>CUDA/Opencl 运行时钩子</strong>:使用 <code>LD_PRELOAD</code>,<code>bpftime</code> 拦截对 CUDA/ROCm 运行时库的调用。这允许它控制内核启动和其他 GPU 相关操作。</li>
-<li><strong>eBPF 到 PTX/SPIR-V JIT 编译</strong>:当内核启动时,<code>bpftime</code> 获取用于 GPU 探针的 eBPF 字节码,并即时(JIT)编译成目标 GPU 的指令集架构——用于 NVIDIA 的 PTX 或用于 AMD/Intel 的 SPIR-V。</li>
-<li><strong>二进制检测和注入</strong>:编译后的 eBPF 代码在加载到 GPU 之前注入到目标内核的二进制文件(例如 PTX 代码)中。这种运行时修改允许 eBPF 程序在内核上下文中原生执行。</li>
-<li><strong>辅助函数蹦床</strong>:<code>bpftime</code> 提供一组可从 GPU 访问的 eBPF 辅助函数。这些辅助函数实现为蹦床,执行诸如访问映射、获取时间戳或通过环形缓冲区提交数据等任务。</li>
-<li><strong>共享数据结构</strong>:BPF 映射和环形缓冲区通过共享内存(固定主机内存)或 CPU 和 GPU 都可以访问的设备内存实现,实现主机和设备之间的高效数据交换。</li>
+<li><strong>CUDA/OpenCL 运行时钩子</strong>：使用 <code>LD_PRELOAD</code>,<code>bpftime</code> 拦截对 CUDA/ROCm 运行时库的调用。这允许它控制内核启动和其他 GPU 相关操作。</li>
+<li><strong>eBPF 到 PTX/SPIR-V JIT 编译</strong>：当内核启动时，<code>bpftime</code> 获取用于 GPU 探针的 eBPF 字节码，并即时(JIT)编译成目标 GPU 的指令集架构——用于 NVIDIA 的 PTX 或用于 AMD/Intel 的 SPIR-V。</li>
+<li><strong>二进制检测和注入</strong>：编译后的 eBPF 代码在加载到 GPU 之前注入到目标内核的二进制文件(例如 PTX 代码)中。这种运行时修改允许 eBPF 程序在内核上下文中原生执行。</li>
+<li><strong>辅助函数蹦床</strong>:<code>bpftime</code> 提供一组可从 GPU 访问的 eBPF 辅助函数。这些辅助函数实现为蹦床，执行诸如访问映射、获取时间戳或通过环形缓冲区提交数据等任务。</li>
+<li><strong>共享数据结构</strong>:BPF 映射和环形缓冲区通过共享内存(固定主机内存)或 CPU 和 GPU 都可以访问的设备内存实现，实现主机和设备之间的高效数据交换。</li>
 </ol>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>┌─────────────────────────────────────────────────────────────────┐
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>│                      应用程序进程                                │
@@ -8515,13 +8515,13 @@
 <a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>└─────────────────────────────────────────────────────────────────┘
 </code></pre></div>
 <h2 id="_4">示例</h2>
-<p>我们通过几个示例演示 GPU eBPF 能力,bcc 风格工具:</p>
+<p>我们通过几个 bcc 风格的工具演示 GPU eBPF 能力：</p>
 <h3 id="kernelretsnoop-"><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu/kernelretsnoop">kernelretsnoop</a> - 每线程退出时间戳跟踪器</h3>
 <p>附加到 CUDA 内核退出并记录每个 GPU 线程完成执行时的精确纳秒时间戳。这揭示了传统性能分析器看不到的线程分化、内存访问模式和线程束调度问题。</p>
 <blockquote>
-<p><strong>注意:</strong>这些示例中使用的 <code>kprobe</code>/<code>kretprobe</code> 命名约定是一个占位符,用于保持与 Linux 内核 eBPF 的概念相似性。在 <code>bpftime</code> 中,这些探针附加到设备端 GPU 内核函数,而不是 Linux 内核。这个命名可能会在未来修订,以更好地反映它们的范围。</p>
+<p><strong>注意：</strong>这些示例中使用的 <code>kprobe</code>/<code>kretprobe</code> 命名约定是一个占位符，用于保持与 Linux 内核 eBPF 的概念相似性。在 <code>bpftime</code> 中，这些探针附加到设备端 GPU 内核函数，而不是 Linux 内核。这个命名可能会在未来修订，以更好地反映它们的范围。</p>
 </blockquote>
-<p><strong>用例</strong>:您注意到内核比预期慢。<code>kernelretsnoop</code> 显示每个线程束中的线程 31 比线程 0-30 晚完成 750ns,暴露了导致分化的边界条件。您重构以消除分支,现在所有线程在几纳秒内完成。</p>
+<p><strong>用例</strong>：您发现内核比预期慢。<code>kernelretsnoop</code> 显示每个线程束中的线程 31 比线程 0-30 晚完成 750ns，暴露了导致分化的边界条件。您重构以消除分支，现在所有线程在几纳秒内完成。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">// eBPF 程序在 GPU 内核退出时运行</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;kretprobe/_Z9vectorAddPKfS0_Pf&quot;</span><span class="p">)</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="kt">int</span><span class="w"> </span><span class="n">ret__cuda</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
@@ -8534,8 +8534,8 @@
 <a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="p">}</span>
 </code></pre></div>
 <h3 id="threadhist-"><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu/threadhist">threadhist</a> - 线程执行计数直方图</h3>
-<p>使用 GPU 数组映射来计算每个线程执行多少次。检测工作负载不平衡,其中一些线程做的工作远多于其他线程,浪费 GPU 计算能力。</p>
-<p><strong>用例</strong>:您的网格步进循环使用 5 个线程处理 100 万个元素。您期望平衡的工作,但 <code>threadhist</code> 显示线程 4 的执行次数只有线程 0-3 的 75%。边界元素划分不均匀,线程 4 空闲而其他线程工作。您调整分布并实现平衡执行。</p>
+<p>使用 GPU 数组映射来计算每个线程执行多少次。检测工作负载不平衡，其中一些线程做的工作远多于其他线程，浪费 GPU 计算能力。</p>
+<p><strong>用例</strong>：您的网格步进循环使用 5 个线程处理 100 万个元素。您期望工作负载平衡，但 <code>threadhist</code> 显示线程 4 的执行次数只有线程 0-3 的 75%。边界元素划分不均匀，线程 4 空闲而其他线程工作。您调整分布并实现平衡执行。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1">// eBPF 程序在 GPU 内核退出时运行</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;kretprobe/_Z9vectorAddPKfS0_Pf&quot;</span><span class="p">)</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="kt">int</span><span class="w"> </span><span class="n">ret__cuda</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
@@ -8550,8 +8550,8 @@
 <a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="p">}</span>
 </code></pre></div>
 <h3 id="launchlate-"><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu/launchlate">launchlate</a> - 内核启动延迟分析器</h3>
-<p>测量 CPU 上的 <code>cudaLaunchKernel()</code> 和 GPU 上实际内核执行之间的时间。揭示隐藏的队列延迟、流依赖关系和调度开销,这些使快速内核在生产中变慢。</p>
-<p><strong>用例</strong>:您的内核每个执行 100μs,但用户报告 50ms 延迟。<code>launchlate</code> 显示每个内核有 200-500μs 的启动延迟,因为每个都等待前一个和内存传输完成。总时间是 5ms,而不是 1ms。您切换到 CUDA 图,批处理所有启动,延迟降至 1.2ms。</p>
+<p>测量 CPU 上的 <code>cudaLaunchKernel()</code> 和 GPU 上实际内核执行之间的时间。揭示隐藏的队列延迟、流依赖关系和调度开销，这些使快速内核在生产中变慢。</p>
+<p><strong>用例</strong>：您的每个内核执行 100μs，但用户报告 50ms 延迟。<code>launchlate</code> 显示每个内核有 200-500μs 的启动延迟，因为每个都等待前一个和内存传输完成。总时间是 5ms，而不是 1ms。您切换到 CUDA 图，批处理所有启动，延迟降至 1.2ms。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">BPF_MAP_DEF</span><span class="p">(</span><span class="n">BPF_MAP_TYPE_ARRAY</span><span class="p">,</span><span class="w"> </span><span class="n">launch_time</span><span class="p">);</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="c1">// CPU 端 uprobe 捕获启动时间</span>
@@ -8574,16 +8574,16 @@
 </code></pre></div>
 <h3 id="_5">其他示例</h3>
 <ul>
-<li><strong><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu/cuda-counter">cuda-counter</a></strong>:带时序测量的基本探针/返回探针</li>
-<li><strong><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu/mem_trace">mem_trace</a></strong>:内存访问模式跟踪和分析</li>
-<li><strong><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu/directly_run_on_gpu">directly_run_on_gpu</a></strong>:直接在 GPU 上运行 eBPF 程序,无需附加到内核</li>
+<li><strong><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu/cuda-counter">cuda-counter</a></strong>：带时序测量的基本探针/返回探针</li>
+<li><strong><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu/mem_trace">mem_trace</a></strong>：内存访问模式跟踪和分析</li>
+<li><strong><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu/directly_run_on_gpu">directly_run_on_gpu</a></strong>：直接在 GPU 上运行 eBPF 程序，无需附加到内核</li>
 </ul>
 <h3 id="_6">关键组件</h3>
 <ol>
-<li><strong>CUDA 运行时钩子</strong>:使用基于 Frida 的动态检测拦截 CUDA API 调用</li>
-<li><strong>PTX 修改</strong>:将 eBPF 字节码转换为 PTX(并行线程执行)汇编并注入 GPU 内核</li>
-<li><strong>辅助蹦床</strong>:为映射操作、计时和上下文访问提供 GPU 可访问的辅助函数</li>
-<li><strong>主机-GPU 通信</strong>:通过固定共享内存实现从 GPU 到主机的同步调用</li>
+<li><strong>CUDA 运行时钩子</strong>：使用基于 Frida 的动态检测拦截 CUDA API 调用</li>
+<li><strong>PTX 修改</strong>：将 eBPF 字节码转换为 PTX(并行线程执行)汇编并注入 GPU 内核</li>
+<li><strong>辅助蹦床</strong>：为映射操作、计时和上下文访问提供 GPU 可访问的辅助函数</li>
+<li><strong>主机-GPU 通信</strong>：通过固定共享内存实现从 GPU 到主机的同步调用</li>
 </ol>
 <h2 id="_7">参考资料</h2>
 <ol>
@@ -8592,9 +8592,9 @@
 <li><a href="https://docs.nvidia.com/cuda/parallel-thread-execution/">PTX ISA</a></li>
 <li><a href="https://ebpf.io/">eBPF 文档</a></li>
 <li><a href="https://dl.acm.org/doi/10.1145/3723851.3726984">eGPU: 将 eBPF 可编程性和可观测性扩展到 GPU</a></li>
-<li><a href="https://research.nvidia.com/publication/2016-08_nvbit">NVBit: NVIDIA GPU 的动态二进制检测框架</a></li>
+<li><a href="https://github.com/NVlabs/NVBit">NVBit: NVIDIA GPU 的动态二进制检测框架</a></li>
 </ol>
-<p><a class="md-button" href="https://x.com/intent/tweet?text=GPU%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E5%B7%AE%E8%B7%9D%3A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E9%9C%80%E8%A6%81GPU%E4%B8%8A%E7%9A%84eBPF%0A&amp;url=https://eunomia.dev/zh/blog/posts/gpu-observability-challenges/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=GPU%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E5%B7%AE%E8%B7%9D%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E9%9C%80%E8%A6%81GPU%E4%B8%8A%E7%9A%84eBPF%0A&amp;url=https://eunomia.dev/zh/blog/posts/gpu-observability-challenges/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/zh/blog/posts/gpu-observability-challenges/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
@@ -8618,7 +8618,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 15, 2025 03:24:32 UTC">October 15, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 15, 2025 05:56:15 UTC">October 15, 2025</span>
   </span>
 
     
