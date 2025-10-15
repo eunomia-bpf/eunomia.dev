@@ -24,7 +24,7 @@
     
     
       
-        <title>The GPU Observability Gap: Why We Need eBPF on GPUs - eunomia</title>
+        <title>GPU可观测性差距:为什么我们需要GPU上的eBPF - eunomia</title>
       
     
     
@@ -69,11 +69,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="The GPU Observability Gap: Why We Need eBPF on GPUs - eunomia" >
+        <meta  property="og:title"  content="GPU可观测性差距:为什么我们需要GPU上的eBPF - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
-        <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/blog/posts/gpu-observability-challenges.png" >
+        <meta  property="og:image"  content="https://eunomia.dev/assets/images/social/blog/posts/gpu-observability-challenges.zh.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -85,11 +85,11 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="The GPU Observability Gap: Why We Need eBPF on GPUs - eunomia" >
+        <meta  name="twitter:title"  content="GPU可观测性差距:为什么我们需要GPU上的eBPF - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
-        <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/blog/posts/gpu-observability-challenges.png" >
+        <meta  name="twitter:image"  content="https://eunomia.dev/assets/images/social/blog/posts/gpu-observability-challenges.zh.png" >
       
     
     
@@ -112,7 +112,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#the-gpu-observability-gap-why-we-need-ebpf-on-gpus" class="md-skip">
+        <a href="#gpugpuebpf" class="md-skip">
           Skip to content
         </a>
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              The GPU Observability Gap: Why We Need eBPF on GPUs
+              GPU可观测性差距:为什么我们需要GPU上的eBPF
             
           </span>
         </div>
@@ -8220,56 +8220,56 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-problem-gpu-observability-challenges" class="md-nav__link">
+  <a href="#gpu" class="md-nav__link">
     <span class="md-ellipsis">
-      The Problem: GPU Observability Challenges
+      问题:GPU 可观测性挑战
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="The Problem: GPU Observability Challenges">
+    <nav class="md-nav" aria-label="问题:GPU 可观测性挑战">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-timeline-visibility-gap-what-can-and-cannot-be-observed" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      The Timeline Visibility Gap: What Can and Cannot Be Observed
+      时间线可见性差距:什么可以观察,什么不可以
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="The Timeline Visibility Gap: What Can and Cannot Be Observed">
+    <nav class="md-nav" aria-label="时间线可见性差距:什么可以观察,什么不可以">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#synchronous-execution-what-cpu-side-tools-can-and-cannot-see" class="md-nav__link">
+  <a href="#cpu" class="md-nav__link">
     <span class="md-ellipsis">
-      Synchronous Execution: What CPU-Side Tools Can and Cannot See
+      同步执行:CPU 端工具可以和不可以看到什么
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#asynchronous-execution-how-temporal-decoupling-eliminates-visibility" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      Asynchronous Execution: How Temporal Decoupling Eliminates Visibility
+      异步执行:时间解耦如何消除可见性
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#current-tools-nsight-systemscompute-and-their-limitations" class="md-nav__link">
+  <a href="#nsight-systemscompute" class="md-nav__link">
     <span class="md-ellipsis">
-      Current Tools: Nsight Systems/Compute and Their Limitations
+      当前工具:Nsight Systems/Compute 及其局限性
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#why-ebpf-unified-cpu-and-gpu-observability-and-extensibility-with-ebpf" class="md-nav__link">
+  <a href="#ebpf-ebpf-cpu-gpu" class="md-nav__link">
     <span class="md-ellipsis">
-      Why eBPF? Unified CPU and GPU Observability and Extensibility with eBPF
+      为什么选择 eBPF?使用 eBPF 统一 CPU 和 GPU 可观测性和可扩展性
     </span>
   </a>
   
@@ -8286,28 +8286,28 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-solution-ebpf-on-gpu-with-bpftime" class="md-nav__link">
+  <a href="#bpftime-gpu-ebpf" class="md-nav__link">
     <span class="md-ellipsis">
-      The Solution: eBPF on GPU with bpftime
+      解决方案:使用 bpftime 在 GPU 上使用 eBPF
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#architecture" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      Architecture
+      架构
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Architecture">
+    <nav class="md-nav" aria-label="架构">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#cuda-attachment-pipeline" class="md-nav__link">
+  <a href="#cuda" class="md-nav__link">
     <span class="md-ellipsis">
-      CUDA Attachment Pipeline
+      CUDA 附加管道
     </span>
   </a>
   
@@ -8319,55 +8319,55 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      Examples
+      示例
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Examples">
+    <nav class="md-nav" aria-label="示例">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#kernelretsnoop-per-thread-exit-timestamp-tracer" class="md-nav__link">
+  <a href="#kernelretsnoop-" class="md-nav__link">
     <span class="md-ellipsis">
-      kernelretsnoop - Per-Thread Exit Timestamp Tracer
+      kernelretsnoop - 每线程退出时间戳跟踪器
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#threadhist-thread-execution-count-histogram" class="md-nav__link">
+  <a href="#threadhist-" class="md-nav__link">
     <span class="md-ellipsis">
-      threadhist - Thread Execution Count Histogram
+      threadhist - 线程执行计数直方图
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#launchlate-kernel-launch-latency-profiler" class="md-nav__link">
+  <a href="#launchlate-" class="md-nav__link">
     <span class="md-ellipsis">
-      launchlate - Kernel Launch Latency Profiler
+      launchlate - 内核启动延迟分析器
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#other-examples" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      Other Examples
+      其他示例
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#key-components" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      Key Components
+      关键组件
     </span>
   </a>
   
@@ -8379,9 +8379,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
-      References
+      参考资料
     </span>
   </a>
   
@@ -8403,7 +8403,7 @@
 
 
   
-    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/blog/posts/gpu-observability-challenges.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/blog/posts/gpu-observability-challenges.zh.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -8411,190 +8411,190 @@
   
 
 
-<h1 id="the-gpu-observability-gap-why-we-need-ebpf-on-gpus">The GPU Observability Gap: Why We Need eBPF on GPUs</h1>
+<h1 id="gpugpuebpf">GPU可观测性差距:为什么我们需要GPU上的eBPF</h1>
 <blockquote>
 <p>Yusheng Zheng=, Tong Yu=, Yiwei Yang=</p>
 </blockquote>
-<p>bpftime provides GPU support through its CUDA/ROCm attachment implementation, enabling eBPF programs to execute <strong>within GPU kernels</strong> on NVIDIA and AMD GPUs. This brings eBPF's programmability, observability, and customization capabilities to GPU computing workloads. By doing so, it enables real-time profiling, debugging, and runtime extension of GPU applications without source code modification, addressing a gap in the current observability landscape.</p>
+<p>bpftime 通过其 CUDA/ROCm 附加实现提供 GPU 支持,使 eBPF 程序能够在 NVIDIA 和 AMD GPU 上的 <strong>GPU 内核内部</strong>执行。这将 eBPF 的可编程性、可观测性和定制能力带到 GPU 计算工作负载中。通过这种方式,它实现了对 GPU 应用程序的实时性能分析、调试和运行时扩展,无需修改源代码,填补了当前可观测性领域的空白。</p>
 <blockquote>
-<p><strong>Note:</strong> GPU support is still experimental. For questions or suggestions, <a href="https://github.com/eunomia-bpf/bpftime/issues">open an issue</a> or <a href="mailto:team@eunomia.dev">contact us</a>.</p>
+<p><strong>注意:</strong> GPU 支持仍处于实验阶段。如有问题或建议,<a href="https://github.com/eunomia-bpf/bpftime/issues">提交问题</a>或<a href="mailto:team@eunomia.dev">联系我们</a>。</p>
 </blockquote>
 <!-- more -->
 
-<h2 id="the-problem-gpu-observability-challenges">The Problem: GPU Observability Challenges</h2>
-<p>GPUs have become the dominant accelerators for machine learning, scientific computing, and high-performance computing workloads, but their SIMT (Single Instruction, Multiple Thread) execution model introduces significant observability and extensibility challenges. Modern GPUs organize thousands of threads into warps (typically 32 threads) that execute in lockstep on streaming multiprocessors (SMs), with kernels launched asynchronously from the host. These threads navigate complex multi-level memory hierarchies ranging from fast but limited per-thread registers, to shared memory/LDS within thread blocks, through L1/L2 caches, to slower but abundant device memory, while contending with limited preemption capabilities that make kernel execution difficult to interrupt, inspect, or extend. This architectural complexity creates rich performance characteristics including warp divergence, memory coalescing patterns, bank conflicts, and occupancy variations that directly impact throughput, yet these behaviors remain largely opaque to traditional observability tools. Understanding and optimizing issues like kernel stalls, memory bottlenecks, inefficient synchronization, or suboptimal SM utilization requires fine-grained visibility into the execution flow, memory access patterns, and inter-warp coordination happening deep inside the GPU, along with the ability to dynamically inject custom logic. These capabilities are what existing tooling struggles to provide in a flexible, programmable manner.</p>
-<p>Existing GPU tracing and profiling tools fall into two categories, each with significant limitations. First, many tracing tools operate exclusively at the CPU-GPU boundary by intercepting CUDA/ROCm userspace library calls (e.g., via LD_PRELOAD hooks on libcuda.so) or instrumenting kernel drivers at the system call layer. While this approach captures host-side events like kernel launches, memory transfers, and API timing, it fundamentally treats the GPU as a black box, providing no visibility into what happens during kernel execution, no correlation with specific warp behaviors or memory stalls, and no ability to adaptively modify behavior based on runtime conditions inside the device. Second, GPU vendor-specific profilers (NVIDIA's CUPTI, Nsight Compute, Intel's GTPin, AMD's ROCProfiler, research tools like NVBit or Neutrino) do provide device-side instrumentation and can collect hardware performance counters, warp-level traces, or instruction-level metrics. However, these tools operate in isolated ecosystems disconnected from Linux kernel observability and extension stacks. They cannot correlate GPU events with CPU-side eBPF probes (kprobes, uprobes, tracepoints), require separate data collection pipelines and analysis workflows, some of them may impose substantial overhead (10-100x slowdowns for fine-grained instrumentation), and lack the dynamic programmability and control from the control plane that makes eBPF powerful for customizing what data to collect and how to process it in production environments, without recompilation or service interruption.</p>
-<h3 id="the-timeline-visibility-gap-what-can-and-cannot-be-observed">The Timeline Visibility Gap: What Can and Cannot Be Observed</h3>
-<p>Consider a common debugging scenario. "My CUDA application takes 500ms to complete, but I don't know where the time is spent. Is it memory transfers, kernel execution, or API overhead?" The answer depends critically on whether the application uses synchronous or asynchronous CUDA APIs, and reveals fundamental limitations in CPU-side observability.</p>
-<h4 id="synchronous-execution-what-cpu-side-tools-can-and-cannot-see">Synchronous Execution: What CPU-Side Tools Can and Cannot See</h4>
-<p>In synchronous mode, CUDA API calls block until the GPU completes each operation, creating a tight coupling between CPU and GPU timelines. Consider a typical workflow of allocate device memory, transfer data to GPU (host-to-device), execute kernel, and wait for completion. CPU-side profilers can measure the wall-clock time of each blocking API call, providing useful high-level insights. For example, if <code>cudaMemcpy()</code> takes 200μs while <code>cudaDeviceSynchronize()</code> (which waits for kernel completion) takes only 115μs, a developer can quickly identify that data transfer dominates over computation, suggesting a PCIe bottleneck that might be addressed by using pinned memory, larger batch sizes, or asynchronous transfers.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>CPU Timeline (what traditional tools see):
+<h2 id="gpu">问题:GPU 可观测性挑战</h2>
+<p>GPU 已成为机器学习、科学计算和高性能计算工作负载的主流加速器,但其 SIMT(单指令多线程)执行模型带来了重大的可观测性和可扩展性挑战。现代 GPU 将数千个线程组织成线程束(通常 32 个线程),这些线程束在流式多处理器(SM)上同步执行,内核从主机异步启动。这些线程在复杂的多级内存层次结构中导航,从快速但有限的每线程寄存器,到线程块内的共享内存/LDS,通过 L1/L2 缓存,再到较慢但丰富的设备内存,同时面临有限的抢占能力,这使得内核执行难以中断、检查或扩展。这种架构复杂性创造了丰富的性能特征,包括线程束分化、内存合并模式、存储体冲突和占用率变化,这些都直接影响吞吐量,但传统可观测性工具很难看清这些行为。理解和优化内核停滞、内存瓶颈、低效同步或次优 SM 利用率等问题,需要对 GPU 深处发生的执行流、内存访问模式和线程束间协调进行细粒度的可见性,以及动态注入自定义逻辑的能力。而这些正是现有工具难以以灵活、可编程的方式提供的能力。</p>
+<p>现有的 GPU 跟踪和性能分析工具分为两类,每类都有重大局限性。首先,许多跟踪工具仅在 CPU-GPU 边界运行,通过拦截 CUDA/ROCm 用户空间库调用(例如,通过对 libcuda.so 的 LD_PRELOAD 钩子)或在系统调用层检测内核驱动程序。虽然这种方法可以捕获主机端事件,如内核启动、内存传输和 API 时序,但它从根本上将 GPU 视为黑盒,无法看到内核执行期间发生的事情,无法与特定的线程束行为或内存停滞相关联,也无法根据设备内部的运行时条件自适应地修改行为。其次,GPU 供应商特定的性能分析器(NVIDIA 的 CUPTI、Nsight Compute、Intel 的 GTPin、AMD 的 ROCProfiler、NVBit 或 Neutrino 等研究工具)确实提供设备端检测,可以收集硬件性能计数器、线程束级跟踪或指令级指标。然而,这些工具在与 Linux 内核可观测性和扩展堆栈断开的孤立生态系统中运行。它们无法将 GPU 事件与 CPU 端的 eBPF 探针(kprobes、uprobes、tracepoints)关联,需要单独的数据收集管道和分析工作流,其中一些可能会带来大量开销(细粒度检测可能有 10-100 倍的速度降低),并且缺乏控制平面的动态可编程性和控制,而这正是 eBPF 在生产环境中定制收集什么数据以及如何处理数据的强大之处,无需重新编译或服务中断。</p>
+<h3 id="_1">时间线可见性差距:什么可以观察,什么不可以</h3>
+<p>考虑一个常见的调试场景。"我的 CUDA 应用程序需要 500ms 完成,但我不知道时间花在哪里。是内存传输、内核执行还是 API 开销?"答案关键取决于应用程序是使用同步还是异步 CUDA API,并揭示了 CPU 端可观测性的基本限制。</p>
+<h4 id="cpu">同步执行:CPU 端工具可以和不可以看到什么</h4>
+<p>在同步模式下,CUDA API 调用会阻塞,直到 GPU 完成每个操作,在 CPU 和 GPU 时间线之间创建紧密耦合。考虑一个典型的工作流:分配设备内存、将数据传输到 GPU(主机到设备)、执行内核并等待完成。CPU 端性能分析器可以测量每个阻塞 API 调用的挂钟时间,提供有用的高级见解。例如,如果 <code>cudaMemcpy()</code> 需要 200μs 而 <code>cudaDeviceSynchronize()</code>(等待内核完成)只需要 115μs,开发人员可以快速识别数据传输占主导地位而非计算,表明 PCIe 瓶颈可能通过使用固定内存、更大的批量大小或异步传输来解决。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>CPU 时间线(传统工具看到的):
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>───────────────────────────────────────────────────────────────────────────
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a> cudaMalloc()  cudaMemcpy()       cudaLaunchKernel()  cudaDeviceSync()
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>──────●─────────●──────────────────●──────────────────●────────────────────
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>   ~1μs wait     200μs wait        returns           115μs wait
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>   (blocked)     (H→D transfer)    immediately       (kernel done)
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>   ~1μs 等待     200μs 等待        立即返回           115μs 等待
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>   (阻塞)     (H→D 传输)                           (内核完成)
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>GPU Timeline (actual execution with hidden phases):
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>GPU 时间线(实际执行,包含隐藏阶段):
 <a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>───────────────────────────────────────────────────────────────────────────
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>      ◄─Alloc─►◄────H→D DMA────►◄──Launch──►◄──Kernel Exec──►◄─Cleanup─►
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>      ◄─分配─►◄────H→D DMA────►◄──启动──►◄──内核执行──►◄─清理─►
 <a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>      │ ~1μs  │     200μs        │   5μs    │     100μs       │  ~10μs  │
 <a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>──────┴───────┴──────────────────┴──────────┴─────────────────┴─────────┴──
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>                                           (SM busy)                (SM idle)
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>                                           (SM 忙碌)                (SM 空闲)
 </code></pre></div>
-<p>However, when the developer asks "The kernel sync takes 115μs, but why is my kernel slow? Is it launch overhead, memory stalls, warp divergence, or low SM utilization?", CPU-side tools hit a fundamental wall. The 115μs sync time is an opaque aggregate that conflates multiple hidden GPU-side phases including kernel launch overhead (~5μs to schedule work on SMs), actual kernel execution (~100μs of computation on streaming multiprocessors), and cleanup (~10μs to drain pipelines and release resources), as shown in the GPU timeline above.</p>
-<p>Even with perfect timing of synchronous API calls, CPU-side tools cannot distinguish whether poor kernel performance stems from (1) excessive launch overhead (e.g., too many small kernel launches), (2) compute inefficiency within the 100μs execution window (e.g., only 30% of warps are active due to divergence), (3) memory access patterns causing stalls (e.g., uncoalesced global memory loads), or (4) SM underutilization (e.g., only 50% of available SMs are busy). These require visibility into warp-level execution, memory transaction statistics, and per-thread behavior that is only accessible from inside the GPU during kernel execution. We need a finer-grained, programable, GPU-internal perspective to understand what is happening during kernel execution, not just when it starts and ends.</p>
-<h4 id="asynchronous-execution-how-temporal-decoupling-eliminates-visibility">Asynchronous Execution: How Temporal Decoupling Eliminates Visibility</h4>
-<p>Modern CUDA applications use asynchronous APIs (<code>cudaMemcpyAsync()</code>, <code>cudaLaunchKernel()</code> with streams) to maximize hardware utilization by overlapping CPU work with GPU execution. This introduces temporal decoupling where API calls return immediately after enqueuing work to a stream, allowing the CPU to continue executing while the GPU processes operations sequentially in the background. This breaks the observability that CPU-side tools had in synchronous mode.</p>
-<p>Consider the same workflow now executed asynchronously. The developer enqueues a host-to-device transfer (200μs), kernel launch (100μs execution), and device-to-host transfer (150μs), then continues CPU work before eventually calling <code>cudaStreamSynchronize()</code> to wait for all GPU operations to complete. From the CPU's perspective, all enqueue operations return in microseconds, and only the final sync point blocks, reporting a total of 455μs (200 + 5 + 100 + 150 μs of sequential GPU work).</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>CPU Timeline (what traditional tools see):
+<p>然而,当开发人员问"内核同步需要 115μs,但为什么我的内核这么慢?是启动开销、内存停滞、线程束分化还是低 SM 利用率?"时,CPU 端工具遇到了根本性的障碍。115μs 的同步时间是一个不透明的聚合,混合了多个隐藏的 GPU 端阶段,包括内核启动开销(约 5μs 在 SM 上调度工作)、实际内核执行(约 100μs 在流式多处理器上计算)和清理(约 10μs 排空管道和释放资源),如上面的 GPU 时间线所示。</p>
+<p>即使完美计时同步 API 调用,CPU 端工具也无法区分内核性能差是由于(1)过度的启动开销(例如,太多小内核启动),(2)100μs 执行窗口内的计算低效(例如,由于分化只有 30% 的线程束处于活动状态),(3)导致停滞的内存访问模式(例如,未合并的全局内存加载),还是(4)SM 利用不足(例如,只有 50% 的可用 SM 处于忙碌状态)。这些需要从内核执行期间的 GPU 内部获得线程束级执行、内存事务统计和每线程行为的可见性。我们需要更细粒度、可编程的 GPU 内部视角来理解内核执行期间发生的事情,而不仅仅是它何时开始和结束。</p>
+<h4 id="_2">异步执行:时间解耦如何消除可见性</h4>
+<p>现代 CUDA 应用程序使用异步 API(<code>cudaMemcpyAsync()</code>、带流的 <code>cudaLaunchKernel()</code>)来通过重叠 CPU 工作和 GPU 执行来最大化硬件利用率。这引入了时间解耦,其中 API 调用在将工作排入流后立即返回,允许 CPU 继续执行,而 GPU 在后台按顺序处理操作。这打破了 CPU 端工具在同步模式下的可观测性。</p>
+<p>考虑现在异步执行的相同工作流。开发人员将主机到设备传输(200μs)、内核启动(100μs 执行)和设备到主机传输(150μs)排队,然后继续 CPU 工作,最后调用 <code>cudaStreamSynchronize()</code> 等待所有 GPU 操作完成。从 CPU 的角度来看,所有排队操作都在几微秒内返回,只有最后的同步点阻塞,报告总共 455μs(200 + 5 + 100 + 150 μs 的顺序 GPU 工作)。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>CPU 时间线(传统工具看到的):
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>─────────────────────────────────────────────────────────────────────────────────
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>cudaMallocAsync() cudaMemcpyAsync() cudaLaunchKernel() cudaMemcpyAsync()      cudaStreamSync()
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>●─────●─────●─────●─────────────────────────────────────────────────────────────────●────
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>1μs  1μs  1μs  1μs         CPU continues doing other work...               455μs wait
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>(alloc)(H→D)(kernel)(D→H)                                                       (all done)
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>1μs  1μs  1μs  1μs         CPU 继续做其他工作...               455μs 等待
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>(分配)(H→D)(内核)(D→H)                                                       (全部完成)
 <a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>GPU Timeline (actual execution - sequential in stream):
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>GPU 时间线(实际执行 - 流中顺序):
 <a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>─────────────────────────────────────────────────────────────────────────────────
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>◄─Alloc─►◄───────H→D DMA────────►◄─Launch─►◄────Kernel Exec────►◄────D→H DMA────►
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>◄─分配─►◄───────H→D DMA────────►◄─启动─►◄────内核执行────►◄────D→H DMA────►
 <a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>│ ~1μs  │       200μs            │   5μs   │       100μs        │      150μs     │
 <a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>┴────────┴────────────────────────┴─────────┴────────────────────┴────────────────┴─────
 <a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>         ↑                                  ↑                                     ↑
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>    CPU already moved on              GPU still working                    Sync returns
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>    CPU 已继续                          GPU 仍在工作                    同步返回
 </code></pre></div>
-<p>In synchronous execution, measuring individual API call durations allowed developers to identify whether transfers or compute dominated. In asynchronous mode, this capability disappears entirely as all timing information is collapsed into a single 455μs aggregate at the sync point. The question "Is my bottleneck memory transfer or kernel execution?" becomes unanswerable from the CPU side. If the first transfer takes twice as long due to unpinned memory (400μs instead of 200μs), delaying all subsequent operations by 200μs, the developer only sees the total time increase from 455μs to 655μs with zero indication of which operation caused the delay, when it occurred, or whether it propagated to downstream operations.</p>
-<p>Asynchronous execution not only hides the GPU-internal details that were already invisible in synchronous mode (warp divergence, memory stalls, SM utilization), but also eliminates the coarse-grained phase timing that CPU tools could previously provide. Developers lose the ability to even perform basic triage. They cannot determine whether to focus optimization efforts on memory transfers, kernel logic, or API usage patterns without either (1) reverting to slow synchronous execution for debugging (defeating the purpose of async), or (2) adding manual instrumentation that requires recompilation and provides only static measurement points.</p>
-<p>Modern GPU applications like LLM serving further complicate this picture with advanced optimization techniques. Batching strategies combine multiple operations to maximize throughput like a pipeline, but make it harder to identify which individual operations are slow. Persistent kernels stay resident on the GPU processing multiple work batches, eliminating launch overhead but obscuring phase boundaries. Multi-stream execution with complex dependencies between streams creates intricate execution graphs where operations from different streams interleave unpredictably. Shared memory usage per thread block constrains occupancy and limits concurrent warp execution, creating subtle resource contention that varies based on kernel configuration. These optimizations significantly improve throughput but make the already-opaque async execution model even more difficult to observe and debug from the CPU side.</p>
-<p>However, even if we had perfect GPU-internal visibility showing high memory stall cycles, we still couldn't determine the root cause: Is it warp divergence causing uncoalesced access? Host thread descheduling delaying async memory copies? PCIe congestion from concurrent RDMA operations? Or on-demand page migration latency from the kernel? Similarly, when observing SM underutilization, device-only metrics cannot distinguish whether the grid is too small, launches are serialized by a userspace mutex, or the driver throttled after an ECC error or power event.</p>
-<p>The challenge becomes acute in production environments where tail latency spikes occur intermittently. Are they caused by GPU cache effects, cgroup throttling on the host producer thread, or interference from another container issuing large DMA transfers? Device-only tooling reports "what happened on the GPU," but not "why it happened now in this heterogeneous system." Without time-aligned correlation to userspace behavior (threads, syscalls, allocations), kernel events (page faults, scheduler context switches, block I/O), and driver decisions (stream dependency resolution, memory registration, power state transitions), engineers must iterate slowly: observe a GPU symptom → guess a host cause → rebuild with ad-hoc instrumentation → repeat. This feedback loop is expensive and often infeasible in latency-sensitive deployments.</p>
+<p>在同步执行中,测量各个 API 调用持续时间允许开发人员识别传输或计算是否占主导地位。在异步模式下,这种能力完全消失,因为所有时间信息都折叠到同步点的单个 455μs 聚合中。问题"我的瓶颈是内存传输还是内核执行?"从 CPU 端变得无法回答。如果第一次传输由于未固定内存而需要两倍时间(400μs 而不是 200μs),将所有后续操作延迟 200μs,开发人员只会看到总时间从 455μs 增加到 655μs,完全不知道是哪个操作导致了延迟、何时发生或是否传播到下游操作。</p>
+<p>异步执行不仅隐藏了在同步模式下已经不可见的 GPU 内部细节(线程束分化、内存停滞、SM 利用率),还消除了 CPU 工具以前可以提供的粗粒度阶段时序。开发人员失去了进行基本分类的能力。他们无法确定是将优化工作集中在内存传输、内核逻辑还是 API 使用模式上,除非(1)恢复到缓慢的同步执行进行调试(违背异步的目的),或(2)添加需要重新编译的手动检测,只提供静态测量点。</p>
+<p>像 LLM 服务这样的现代 GPU 应用程序通过高级优化技术进一步复杂化了这种情况。批处理策略组合多个操作以最大化吞吐量,就像管道一样,但使得更难识别哪些单个操作速度慢。持久内核驻留在 GPU 上处理多个工作批次,消除启动开销但模糊了阶段边界。具有流间复杂依赖关系的多流执行创建了复杂的执行图,其中来自不同流的操作不可预测地交错。每个线程块的共享内存使用限制了占用率并限制了并发线程束执行,创建了根据内核配置变化的微妙资源争用。这些优化显著提高了吞吐量,但使已经不透明的异步执行模型从 CPU 端观察和调试变得更加困难。</p>
+<p>然而,即使我们有完美的 GPU 内部可见性显示高内存停滞周期,我们仍然无法确定根本原因:是线程束分化导致未合并访问?主机线程取消调度延迟异步内存复制?并发 RDMA 操作的 PCIe 拥塞?还是来自内核的按需页面迁移延迟?同样,当观察 SM 利用不足时,仅设备指标无法区分是网格太小、启动被用户空间互斥锁序列化,还是驱动程序在 ECC 错误或电源事件后进行了限流。</p>
+<p>这个挑战在生产环境中变得严峻,那里尾延迟峰值间歇性发生。它们是由 GPU 缓存效应、主机生产者线程上的 cgroup 限流,还是另一个容器发出大型 DMA 传输的干扰引起的?仅设备工具报告"GPU 上发生了什么",但不报告"为什么现在在这个异构系统中发生"。如果没有与用户空间行为(线程、系统调用、分配)、内核事件(页面错误、调度器上下文切换、块 I/O)和驱动程序决策(流依赖解析、内存注册、电源状态转换)的时间对齐关联,工程师必须缓慢迭代:观察 GPU 症状 → 猜测主机原因 → 使用临时检测重建 → 重复。这个反馈循环代价高昂,在延迟敏感的部署中通常不可行。</p>
 <blockquote>
-<p><strong>The key insight:</strong> Effective GPU observability and extensibility requires a unified solution that spans multiple layers of the heterogeneous computing stack: from userspace applications making CUDA API calls, through OS kernel drivers managing device resources, down to device code executing on GPU hardware. Traditional tools are fragmented across these layers, providing isolated visibility at the CPU-GPU boundary or within GPU kernels alone, but lacking the cross-layer correlation needed to understand how decisions and events at one level impact performance and behavior at another.</p>
+<p><strong>关键见解:</strong>有效的 GPU 可观测性和可扩展性需要一个跨越异构计算堆栈多个层次的统一解决方案:从进行 CUDA API 调用的用户空间应用程序,通过管理设备资源的操作系统内核驱动程序,到在 GPU 硬件上执行的设备代码。传统工具在这些层之间是分散的,仅在 CPU-GPU 边界或单独在 GPU 内核内提供隔离的可见性,但缺乏理解一个级别的决策和事件如何影响另一个级别的性能和行为所需的跨层关联。</p>
 </blockquote>
-<h4 id="current-tools-nsight-systemscompute-and-their-limitations">Current Tools: Nsight Systems/Compute and Their Limitations</h4>
-<p>NVIDIA's Nsight suite attempts to address some cross-domain visibility challenges. <strong>Nsight Systems</strong> provides system-wide timelines showing CPU threads, CUDA API calls, kernel launches, and memory transfers in a unified view. <strong>Nsight Compute</strong> offers deep kernel-level microarchitectural metrics via CUPTI counters and replay-based analysis, with guided optimization rules. These tools can correlate launches with CPU thread scheduling and provide rich per-kernel stall reasons and memory metrics.</p>
-<p>However, Nsight and similar vendor tools suffer from fundamental limitations compared to a unified eBPF approach. First, Nsight offers a closed event model with a fixed set of events and no arbitrary programmable logic at attach points—you cannot dynamically add custom instrumentation without recompiling applications or write filtering predicates like "only collect data when kernel execution exceeds 100ms." Second, these tools require special profiling sessions that perturb workload behavior through counter multiplexing and replay mechanisms, making them unsuitable for always-on continuous telemetry in production, and causing replay-based collection to miss transient anomalies and rare events. Third, Nsight lacks in-situ filtering and aggregation, forcing all raw data to be exported then post-processed, which creates multi-GB traces from large async pipelines with no programmable adaptive response to change sampling logic on-the-fly based on observed state. Fourth, system integration is severely limited: Nsight cannot attach dynamic probes to persistent kernels without restart, lacks integration with Linux eBPF infrastructure (kprobes/uprobes/tracepoints), and cannot share data structures (maps) across CPU and GPU instrumentation, making it extremely difficult to stitch causality chains like page fault (host) → delayed launch enqueue → warp stall spike. Finally, these are NVIDIA-only tools with no clear path to vendor-neutral deployment across AMD, Intel, or other accelerators in heterogeneous systems. In practice, developers face iterative root cause analysis slowdowns with large traces, miss production issues that don't reproduce under profiling overhead, and cannot correlate GPU events with existing production observability stacks (perf, bpftrace, custom eBPF agents) without complex mode-switching to special "profiling sessions."</p>
-<h4 id="why-ebpf-unified-cpu-and-gpu-observability-and-extensibility-with-ebpf">Why eBPF? Unified CPU and GPU Observability and Extensibility with eBPF</h4>
-<p>To understand why eBPF is the right tool for this challenge, it's helpful to look at its impact on the CPU world. eBPF (extended Berkeley Packet Filter) is a revolutionary technology in the Linux kernel that allows sandboxed programs to be dynamically loaded to extend kernel capabilities safely. On the CPU side, eBPF has become a cornerstone of modern observability, networking, and security due to its unique combination of programmability, safety, and performance. It enables developers to attach custom logic to thousands of hook points, collecting deep, customized telemetry with minimal overhead. The core idea behind <code>bpftime</code> is to bring this same transformative power to the traditionally opaque world of GPU computing.</p>
-<p>By running eBPF programs natively inside GPU kernels, bpftime provides safe, programmable, unified observability and extensibility across the entire stack. Unlike session-based profilers, it enables always-on production monitoring with dynamic load/unload of probes and device-side predicate filtering to reduce overhead. It recovers async-mode visibility with per-phase timestamps (H→D at T+200μs, kernel at T+205μs, D→H at T+455μs), exposes GPU-internal details with nanosecond-granularity telemetry for warp execution and memory patterns, and correlates CPU and GPU events without the heavyweight overhead of traditional separate profilers.</p>
-<p>The architecture treats CPU and GPU probes as peers in a unified control plane: shared BPF maps and ring buffers enable direct data exchange, dynamic instrumentation works without recompilation or restart, and integration with existing eBPF infrastructure (perf, bpftrace, custom agents) requires no mode-switching. Developers can simultaneously trace CPU-side CUDA API calls via uprobes, kernel driver interactions via kprobes, and GPU-side kernel execution via CUDA probes, all using the same eBPF toolchain and correlating events across the host-device boundary. Example questions now become answerable: "Did the CPU syscall delay at T+50μs cause the GPU kernel to stall at T+150μs?" or "Which CPU threads are launching the kernels that exhibit high warp divergence?" This cross-layer visibility enables root-cause analysis that spans the entire heterogeneous execution stack, from userspace application logic through kernel drivers to GPU hardware behavior, without leaving the production observability workflow.</p>
-<h2 id="the-solution-ebpf-on-gpu-with-bpftime">The Solution: eBPF on GPU with bpftime</h2>
-<p><strong>bpftime's approach</strong> bridges this gap by extending eBPF's programmability and customization model directly into GPU execution contexts, enabling eBPF programs to run natively inside GPU kernels alongside application workloads. The system defines a comprehensive set of GPU-side attach points that mirror the flexibility of CPU-side kprobes/uprobes. Developers can instrument CUDA/ROCm device function entry and exit points (analogous to function probes), thread block lifecycle events (block begin/end), synchronization primitives (barriers, atomics), memory operations (loads, stores, transfers), and stream/event operations. eBPF programs written in restricted C are compiled through LLVM into device-native bytecode (PTX (Parallel Thread Execution) assembly for NVIDIA GPUs or SPIR-V for AMD/Intel) and dynamically injected into target kernels at runtime through binary instrumentation, without requiring source code modification or recompilation. The runtime provides a full eBPF execution environment on the GPU including (1) a safety verifier to ensure bounded execution and memory safety in the SIMT context, (2) a rich set of GPU-aware helper functions for accessing thread/block/grid context, timing, synchronization, and formatted output, (3) specialized BPF map types that live in GPU memory for high-throughput per-thread data collection (GPU array maps) and event streaming (GPU ringbuf maps), and (4) a host-GPU communication protocol using shared memory and spinlocks for safely calling host-side helpers when needed. This architecture enables not only collecting fine-grained telemetry (per-warp timing, memory access patterns, control flow divergence) at nanosecond granularity, but also adaptively modifying kernel behavior based on runtime conditions, building custom extensions and optimizations, and unifying GPU observability with existing CPU-side eBPF programs into a single analysis pipeline, all while maintaining production-ready overhead characteristics. This enables:</p>
+<h4 id="nsight-systemscompute">当前工具:Nsight Systems/Compute 及其局限性</h4>
+<p>NVIDIA 的 Nsight 套件试图解决一些跨域可见性挑战。<strong>Nsight Systems</strong> 提供系统范围的时间线,在统一视图中显示 CPU 线程、CUDA API 调用、内核启动和内存传输。<strong>Nsight Compute</strong> 通过 CUPTI 计数器和基于重放的分析提供深度内核级微架构指标,具有引导式优化规则。这些工具可以将启动与 CPU 线程调度关联,并提供丰富的每内核停滞原因和内存指标。</p>
+<p>然而,与统一的 eBPF 方法相比,Nsight 和类似的供应商工具存在基本限制。首先,Nsight 提供具有固定事件集的封闭事件模型,在附加点没有任意可编程逻辑——您无法动态添加自定义检测,无需重新编译应用程序或编写过滤谓词,如"仅在内核执行超过 100ms 时收集数据"。其次,这些工具需要特殊的性能分析会话,通过计数器复用和重放机制扰乱工作负载行为,使它们不适合生产中的始终在线连续遥测,并且基于重放的收集会错过瞬态异常和罕见事件。第三,Nsight 缺乏原地过滤和聚合,强制导出所有原始数据然后进行后处理,这从具有大量异步管道的大型应用程序创建多 GB 跟踪,没有可编程的自适应响应来根据观察到的状态动态更改采样逻辑。第四,系统集成严重受限:Nsight 无法在不重启的情况下将动态探针附加到持久内核,缺乏与 Linux eBPF 基础设施(kprobes/uprobes/tracepoints)的集成,并且无法跨 CPU 和 GPU 检测共享数据结构(映射),这使得非常难以拼接因果链,如页面错误(主机)→ 延迟启动排队 → 线程束停滞峰值。最后,这些是 NVIDIA 专用工具,在异构系统中跨 AMD、Intel 或其他加速器的供应商中立部署没有明确路径。在实践中,开发人员面临大型跟踪的迭代根本原因分析速度变慢,错过在性能分析开销下不重现的生产问题,并且无法将 GPU 事件与现有生产可观测性堆栈(perf、bpftrace、自定义 eBPF 代理)关联,而无需复杂的模式切换到特殊的"性能分析会话"。</p>
+<h4 id="ebpf-ebpf-cpu-gpu">为什么选择 eBPF?使用 eBPF 统一 CPU 和 GPU 可观测性和可扩展性</h4>
+<p>要理解为什么 eBPF 是应对这一挑战的正确工具,查看它在 CPU 世界的影响是有帮助的。eBPF(扩展的伯克利包过滤器)是 Linux 内核中的一项革命性技术,允许沙箱程序动态加载以安全地扩展内核能力。在 CPU 端,eBPF 已成为现代可观测性、网络和安全的基石,因为它独特地结合了可编程性、安全性和性能。它使开发人员能够将自定义逻辑附加到数千个钩子点,以最小的开销收集深度、定制的遥测。<code>bpftime</code> 背后的核心思想是将这种相同的变革力量带到传统上不透明的 GPU 计算世界。</p>
+<p>通过在 GPU 内核内原生运行 eBPF 程序,bpftime 在整个堆栈中提供安全、可编程、统一的可观测性和可扩展性。与基于会话的性能分析器不同,它通过探针的动态加载/卸载和设备端谓词过滤来实现始终在线的生产监控,以减少开销。它通过每阶段时间戳(H→D 在 T+200μs,内核在 T+205μs,D→H 在 T+455μs)恢复异步模式可见性,通过纳秒粒度的线程束执行和内存模式遥测暴露 GPU 内部细节,并关联 CPU 和 GPU 事件,而无需传统单独性能分析器的重量级开销。</p>
+<p>该架构将 CPU 和 GPU 探针视为统一控制平面中的对等体:共享的 BPF 映射和环形缓冲区实现直接数据交换,动态检测无需重新编译或重启即可工作,并且与现有 eBPF 基础设施(perf、bpftrace、自定义代理)的集成不需要模式切换。开发人员可以同时通过 uprobes 跟踪 CPU 端 CUDA API 调用、通过 kprobes 跟踪内核驱动程序交互、通过 CUDA 探针跟踪 GPU 端内核执行,所有这些都使用相同的 eBPF 工具链,并关联跨主机-设备边界的事件。示例问题现在变得可以回答:"T+50μs 的 CPU 系统调用延迟是否导致 T+150μs 的 GPU 内核停滞?"或"哪些 CPU 线程正在启动表现出高线程束分化的内核?"这种跨层可见性实现了跨越整个异构执行堆栈的根本原因分析,从用户空间应用程序逻辑通过内核驱动程序到 GPU 硬件行为,而无需离开生产可观测性工作流。</p>
+<h2 id="bpftime-gpu-ebpf">解决方案:使用 bpftime 在 GPU 上使用 eBPF</h2>
+<p><strong>bpftime 的方法</strong>通过将 eBPF 的可编程性和定制模型直接扩展到 GPU 执行上下文来弥合这一差距,使 eBPF 程序能够在 GPU 内核内与应用程序工作负载一起原生运行。该系统定义了一套全面的 GPU 端附加点,反映了 CPU 端 kprobes/uprobes 的灵活性。开发人员可以检测 CUDA/ROCm 设备函数入口和出口点(类似于函数探针)、线程块生命周期事件(块开始/结束)、同步原语(屏障、原子操作)、内存操作(加载、存储、传输)和流/事件操作。用受限 C 编写的 eBPF 程序通过 LLVM 编译成设备原生字节码(用于 NVIDIA GPU 的 PTX(并行线程执行)汇编或用于 AMD/Intel 的 SPIR-V),并通过二进制检测在运行时动态注入到目标内核中,无需修改源代码或重新编译。运行时在 GPU 上提供完整的 eBPF 执行环境,包括(1)安全验证器,以确保在 SIMT 上下文中的有界执行和内存安全,(2)一组丰富的 GPU 感知辅助函数,用于访问线程/块/网格上下文、计时、同步和格式化输出,(3)专用的 BPF 映射类型,位于 GPU 内存中,用于高吞吐量每线程数据收集(GPU 数组映射)和事件流(GPU 环形缓冲区映射),以及(4)主机-GPU 通信协议,使用共享内存和自旋锁,在需要时安全地调用主机端辅助函数。这种架构不仅可以以纳秒粒度收集细粒度遥测(每线程束时序、内存访问模式、控制流分化),还可以根据运行时条件自适应地修改内核行为,构建自定义扩展和优化,并将 GPU 可观测性与现有 CPU 端 eBPF 程序统一到单个分析管道中,同时保持生产就绪的开销特性。这使得:</p>
 <ul>
-<li><strong>3-10x faster performance</strong> than tools like NVBit for instrumentation</li>
-<li><strong>Vendor-neutral design</strong> that works across NVIDIA, AMD and Intel GPUs</li>
-<li><strong>Unified observability and control</strong> with Linux kernel eBPF programs (kprobes, uprobes)</li>
-<li><strong>Fine-grained profiling and runtime customization</strong> at the warp or instruction level</li>
-<li><strong>Adaptive GPU kernel memory optimization</strong> and programmable scheduling across SMs</li>
-<li><strong>Dynamic extensions</strong> for GPU workloads without recompilation</li>
-<li><strong>Accelerated eBPF applications</strong> by leveraging GPU compute power</li>
+<li><strong>比 NVBit 等工具快 3-10 倍</strong>的检测性能</li>
+<li><strong>供应商中立设计</strong>,适用于 NVIDIA、AMD 和 Intel GPU</li>
+<li><strong>统一可观测性和控制</strong>,与 Linux 内核 eBPF 程序(kprobes、uprobes)一起</li>
+<li><strong>细粒度性能分析和运行时定制</strong>,在线程束或指令级别</li>
+<li><strong>自适应 GPU 内核内存优化</strong>和跨 SM 的可编程调度</li>
+<li><strong>动态扩展</strong>,用于 GPU 工作负载,无需重新编译</li>
+<li><strong>通过利用 GPU 计算能力加速 eBPF 应用程序</strong></li>
 </ul>
-<p>The architecture is designed to achieve four core goals: (1) provide a unified eBPF-based interface that works seamlessly across userspace, kernel, multiple CPU and GPU contexts from different vendors, (2) enable dynamic, runtime instrumentation without requiring source code modification or recompilation, and (3) maintain safe and efficient execution within the constraints of GPU hardware and SIMT execution models. (4) Less dependency and easy to deploy, built on top of existing CUDA/ROCm/OpenGL runtimes without requiring custom kernel drivers, firmware modifications, or heavy-weight runtimes like record-and-replay systems.</p>
-<h2 id="architecture">Architecture</h2>
-<h3 id="cuda-attachment-pipeline">CUDA Attachment Pipeline</h3>
-<p>The GPU support is built as an instrumentation pipeline that dynamically injects eBPF programs into GPU kernels. The key components are:</p>
+<p>该架构旨在实现四个核心目标:(1)提供统一的基于 eBPF 的接口,可无缝跨用户空间、内核、来自不同供应商的多个 CPU 和 GPU 上下文工作,(2)实现动态、运行时检测,无需修改源代码或重新编译,(3)在 GPU 硬件和 SIMT 执行模型的约束内保持安全高效的执行。(4)更少的依赖性和易于部署,建立在现有 CUDA/ROCm/OpenGL 运行时之上,无需自定义内核驱动程序、固件修改或像记录和重放系统这样的重量级运行时。</p>
+<h2 id="_3">架构</h2>
+<h3 id="cuda">CUDA 附加管道</h3>
+<p>GPU 支持构建为动态将 eBPF 程序注入 GPU 内核的检测管道。关键组件是:</p>
 <ol>
-<li><strong>CUDA/Opencl Runtime Hooking</strong>: Using <code>LD_PRELOAD</code>, <code>bpftime</code> intercepts calls to the CUDA/ROCm runtime library. This allows it to gain control over kernel launches and other GPU-related operations.</li>
-<li><strong>eBPF to PTX/SPIR-V JIT Compilation</strong>: When a kernel is launched, <code>bpftime</code> takes the eBPF bytecode intended for a GPU probe and Just-In-Time (JIT) compiles it into the target GPU's instruction set architecture—PTX for NVIDIA or SPIR-V for AMD/Intel.</li>
-<li><strong>Binary Instrumentation and Injection</strong>: The compiled eBPF code is injected into the target kernel's binary (e.g., PTX code) before it is loaded onto the GPU. This runtime modification allows eBPF programs to execute natively within the kernel's context.</li>
-<li><strong>Helper Function Trampoline</strong>: <code>bpftime</code> provides a set of eBPF helper functions accessible from the GPU. These helpers are implemented as a trampoline to perform tasks like accessing maps, getting timestamps, or submitting data through ring buffers.</li>
-<li><strong>Shared Data Structures</strong>: BPF maps and ring buffers are implemented over shared memory (pinned host memory) or device memory accessible by both the CPU and GPU, enabling efficient data exchange between the host and the device.</li>
+<li><strong>CUDA/Opencl 运行时钩子</strong>:使用 <code>LD_PRELOAD</code>,<code>bpftime</code> 拦截对 CUDA/ROCm 运行时库的调用。这允许它控制内核启动和其他 GPU 相关操作。</li>
+<li><strong>eBPF 到 PTX/SPIR-V JIT 编译</strong>:当内核启动时,<code>bpftime</code> 获取用于 GPU 探针的 eBPF 字节码,并即时(JIT)编译成目标 GPU 的指令集架构——用于 NVIDIA 的 PTX 或用于 AMD/Intel 的 SPIR-V。</li>
+<li><strong>二进制检测和注入</strong>:编译后的 eBPF 代码在加载到 GPU 之前注入到目标内核的二进制文件(例如 PTX 代码)中。这种运行时修改允许 eBPF 程序在内核上下文中原生执行。</li>
+<li><strong>辅助函数蹦床</strong>:<code>bpftime</code> 提供一组可从 GPU 访问的 eBPF 辅助函数。这些辅助函数实现为蹦床,执行诸如访问映射、获取时间戳或通过环形缓冲区提交数据等任务。</li>
+<li><strong>共享数据结构</strong>:BPF 映射和环形缓冲区通过共享内存(固定主机内存)或 CPU 和 GPU 都可以访问的设备内存实现,实现主机和设备之间的高效数据交换。</li>
 </ol>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>┌─────────────────────────────────────────────────────────────────┐
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>│                      Application Process                        │
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>│              (LD_PRELOAD)              JIT compile              │
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>│                      应用程序进程                                │
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>│              (LD_PRELOAD)              JIT 编译                 │
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>│  ┌──────────────┐     ┌──────────────┐     ┌──────────────┐     │
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>│  │     PTX/     │───▶│  bpftime     │────▶│  GPU Kernel  │     │
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>│  │    SPIR-V    │     │  runtime     │     │  with eBPF   │     │
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>│  │     PTX/     │───▶│  bpftime     │────▶│  GPU 内核    │     │
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>│  │    SPIR-V    │     │  运行时       │     │  带 eBPF     │     │
 <a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>│  └──────────────┘     └──────────────┘     └──────────────┘     │
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>│                     manage   │                      │           │
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>│                     管理     │                      │           │
 <a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>│                              ▼                      ▼           │
 <a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>│                       ┌────────────────────────────────────┐    │
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>│                       │ Shared Maps                        │    │
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>│                       │  (Host-GPU)                        │    │
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>│                       │ 共享映射                            │    │
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>│                       │  (主机-GPU)                        │    │
 <a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>│                       └────────────────────────────────────┘    │
 <a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>└─────────────────────────────────────────────────────────────────┘
 </code></pre></div>
-<h2 id="examples">Examples</h2>
-<p>We demostarate GPU eBPF capabilities through several example, bcc style tools:</p>
-<h3 id="kernelretsnoop-per-thread-exit-timestamp-tracer"><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu/kernelretsnoop">kernelretsnoop</a> - Per-Thread Exit Timestamp Tracer</h3>
-<p>Attaches to CUDA kernel exits and records the exact nanosecond timestamp when each GPU thread completes execution. This reveals thread divergence, memory access patterns, and warp scheduling issues that are invisible to traditional profilers.</p>
+<h2 id="_4">示例</h2>
+<p>我们通过几个示例演示 GPU eBPF 能力,bcc 风格工具:</p>
+<h3 id="kernelretsnoop-"><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu/kernelretsnoop">kernelretsnoop</a> - 每线程退出时间戳跟踪器</h3>
+<p>附加到 CUDA 内核退出并记录每个 GPU 线程完成执行时的精确纳秒时间戳。这揭示了传统性能分析器看不到的线程分化、内存访问模式和线程束调度问题。</p>
 <blockquote>
-<p><strong>Note</strong>: The <code>kprobe</code>/<code>kretprobe</code> naming convention used in these examples is a placeholder to maintain conceptual similarity with Linux kernel eBPF. In <code>bpftime</code>, these probes attach to device-side GPU kernel functions, not Linux kernel. This naming may be revised in the future to better reflect their scope.</p>
+<p><strong>注意:</strong>这些示例中使用的 <code>kprobe</code>/<code>kretprobe</code> 命名约定是一个占位符,用于保持与 Linux 内核 eBPF 的概念相似性。在 <code>bpftime</code> 中,这些探针附加到设备端 GPU 内核函数,而不是 Linux 内核。这个命名可能会在未来修订,以更好地反映它们的范围。</p>
 </blockquote>
-<p><strong>Use case</strong>: You notice your kernel is slower than expected. <code>kernelretsnoop</code> reveals that thread 31 in each warp finishes 750ns later than threads 0-30, exposing a boundary condition causing divergence. You refactor to eliminate the branch, and all threads now complete within nanoseconds of each other.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">// eBPF program runs on GPU at kernel exit</span>
+<p><strong>用例</strong>:您注意到内核比预期慢。<code>kernelretsnoop</code> 显示每个线程束中的线程 31 比线程 0-30 晚完成 750ns,暴露了导致分化的边界条件。您重构以消除分支,现在所有线程在几纳秒内完成。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">// eBPF 程序在 GPU 内核退出时运行</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;kretprobe/_Z9vectorAddPKfS0_Pf&quot;</span><span class="p">)</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="kt">int</span><span class="w"> </span><span class="n">ret__cuda</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="n">u64</span><span class="w"> </span><span class="n">tid_x</span><span class="p">,</span><span class="w"> </span><span class="n">tid_y</span><span class="p">,</span><span class="w"> </span><span class="n">tid_z</span><span class="p">;</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="n">bpf_get_thread_idx</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tid_x</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">tid_y</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">tid_z</span><span class="p">);</span><span class="w">  </span><span class="c1">// Which thread am I?</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="n">u64</span><span class="w"> </span><span class="n">ts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_get_globaltimer</span><span class="p">();</span><span class="w">               </span><span class="c1">// When did I finish?</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="n">bpf_get_thread_idx</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tid_x</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">tid_y</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">tid_z</span><span class="p">);</span><span class="w">  </span><span class="c1">// 我是哪个线程?</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="n">u64</span><span class="w"> </span><span class="n">ts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_get_globaltimer</span><span class="p">();</span><span class="w">               </span><span class="c1">// 我何时完成?</span>
 <a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="c1">// Write to ringbuffer for userspace analysis</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="c1">// 写入环形缓冲区供用户空间分析</span>
 <a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="n">bpf_perf_event_output</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">events</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">data</span><span class="p">));</span>
 <a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="p">}</span>
 </code></pre></div>
-<h3 id="threadhist-thread-execution-count-histogram"><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu/threadhist">threadhist</a> - Thread Execution Count Histogram</h3>
-<p>Uses GPU array maps to count how many times each thread executes. Detects workload imbalance where some threads do far more work than others, wasting GPU compute capacity.</p>
-<p><strong>Use case</strong>: Your grid-stride loop processes 1M elements with 5 threads. You expect balanced work, but <code>threadhist</code> shows thread 4 executes only 75% as often as threads 0-3. The boundary elements divide unevenly, leaving thread 4 idle while others work. You adjust the distribution and achieve balanced execution.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1">// eBPF program runs on GPU at kernel exit</span>
+<h3 id="threadhist-"><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu/threadhist">threadhist</a> - 线程执行计数直方图</h3>
+<p>使用 GPU 数组映射来计算每个线程执行多少次。检测工作负载不平衡,其中一些线程做的工作远多于其他线程,浪费 GPU 计算能力。</p>
+<p><strong>用例</strong>:您的网格步进循环使用 5 个线程处理 100 万个元素。您期望平衡的工作,但 <code>threadhist</code> 显示线程 4 的执行次数只有线程 0-3 的 75%。边界元素划分不均匀,线程 4 空闲而其他线程工作。您调整分布并实现平衡执行。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1">// eBPF 程序在 GPU 内核退出时运行</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;kretprobe/_Z9vectorAddPKfS0_Pf&quot;</span><span class="p">)</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="kt">int</span><span class="w"> </span><span class="n">ret__cuda</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="n">u64</span><span class="w"> </span><span class="n">tid_x</span><span class="p">,</span><span class="w"> </span><span class="n">tid_y</span><span class="p">,</span><span class="w"> </span><span class="n">tid_z</span><span class="p">;</span>
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="n">bpf_get_thread_idx</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tid_x</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">tid_y</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">tid_z</span><span class="p">);</span>
 <a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="c1">// Per-thread counter in GPU array map</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="c1">// GPU 数组映射中的每线程计数器</span>
 <a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="n">u64</span><span class="w"> </span><span class="o">*</span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_map_lookup_elem</span><span class="p">(</span><span class="o">&amp;</span><span class="n">thread_counts</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">tid_x</span><span class="p">);</span>
 <a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">count</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">        </span><span class="n">__atomic_add_fetch</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">__ATOMIC_SEQ_CST</span><span class="p">);</span><span class="w">  </span><span class="c1">// Thread N executed once more</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">        </span><span class="n">__atomic_add_fetch</span><span class="p">(</span><span class="n">count</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">__ATOMIC_SEQ_CST</span><span class="p">);</span><span class="w">  </span><span class="c1">// 线程 N 又执行了一次</span>
 <a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="p">}</span>
 </code></pre></div>
-<h3 id="launchlate-kernel-launch-latency-profiler"><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu/launchlate">launchlate</a> - Kernel Launch Latency Profiler</h3>
-<p>Measures the time between <code>cudaLaunchKernel()</code> on CPU and actual kernel execution on GPU. Reveals hidden queue delays, stream dependencies, and scheduling overhead that make fast kernels slow in production.</p>
-<p><strong>Use case</strong>: Your kernels execute in 100μs each, but users report 50ms latency. <code>launchlate</code> shows 200-500μs launch latency per kernel because each waits for the previous one and memory transfers to complete. Total time is 5ms, not 1ms. You switch to CUDA graphs, batching all launches, and latency drops to 1.2ms.</p>
+<h3 id="launchlate-"><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu/launchlate">launchlate</a> - 内核启动延迟分析器</h3>
+<p>测量 CPU 上的 <code>cudaLaunchKernel()</code> 和 GPU 上实际内核执行之间的时间。揭示隐藏的队列延迟、流依赖关系和调度开销,这些使快速内核在生产中变慢。</p>
+<p><strong>用例</strong>:您的内核每个执行 100μs,但用户报告 50ms 延迟。<code>launchlate</code> 显示每个内核有 200-500μs 的启动延迟,因为每个都等待前一个和内存传输完成。总时间是 5ms,而不是 1ms。您切换到 CUDA 图,批处理所有启动,延迟降至 1.2ms。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">BPF_MAP_DEF</span><span class="p">(</span><span class="n">BPF_MAP_TYPE_ARRAY</span><span class="p">,</span><span class="w"> </span><span class="n">launch_time</span><span class="p">);</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="c1">// CPU-side uprobe captures launch time</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="c1">// CPU 端 uprobe 捕获启动时间</span>
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;uprobe/app:cudaLaunchKernel&quot;</span><span class="p">)</span>
 <a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="kt">int</span><span class="w"> </span><span class="n">uprobe_launch</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">pt_regs</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="n">u64</span><span class="w"> </span><span class="n">ts_cpu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_ktime_get_ns</span><span class="p">();</span><span class="w">  </span><span class="c1">// When did CPU request launch?</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="n">u64</span><span class="w"> </span><span class="n">ts_cpu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_ktime_get_ns</span><span class="p">();</span><span class="w">  </span><span class="c1">// CPU 何时请求启动?</span>
 <a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="n">bpf_map_update_elem</span><span class="p">(</span><span class="o">&amp;</span><span class="n">launch_time</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ts_cpu</span><span class="p">,</span><span class="w"> </span><span class="n">BPF_ANY</span><span class="p">);</span>
 <a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="p">}</span>
 <a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
-<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="c1">// GPU-side kprobe captures execution start</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="c1">// GPU 端 kprobe 捕获执行开始</span>
 <a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;kprobe/_Z9vectorAddPKfS0_Pf&quot;</span><span class="p">)</span>
 <a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="kt">int</span><span class="w"> </span><span class="n">kprobe_exec</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">    </span><span class="n">u64</span><span class="w"> </span><span class="n">ts_gpu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_get_globaltimer</span><span class="p">();</span><span class="w">  </span><span class="c1">// When did GPU actually start?</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">    </span><span class="n">u64</span><span class="w"> </span><span class="n">ts_gpu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_get_globaltimer</span><span class="p">();</span><span class="w">  </span><span class="c1">// GPU 实际何时开始?</span>
 <a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">    </span><span class="n">u64</span><span class="w"> </span><span class="o">*</span><span class="n">ts_cpu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_map_lookup_elem</span><span class="p">(</span><span class="o">&amp;</span><span class="n">launch_time</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">key</span><span class="p">);</span>
 <a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>
-<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="w">    </span><span class="n">u64</span><span class="w"> </span><span class="n">latency</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ts_gpu</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">*</span><span class="n">ts_cpu</span><span class="p">;</span><span class="w">  </span><span class="c1">// How long did kernel wait in queue?</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="w">    </span><span class="n">u64</span><span class="w"> </span><span class="n">latency</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ts_gpu</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">*</span><span class="n">ts_cpu</span><span class="p">;</span><span class="w">  </span><span class="c1">// 内核在队列中等待多长时间?</span>
 <a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="w">    </span><span class="n">u32</span><span class="w"> </span><span class="n">bin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_hist_bin</span><span class="p">(</span><span class="n">latency</span><span class="p">);</span>
-<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="w">    </span><span class="c1">// Update histogram...</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="w">    </span><span class="c1">// 更新直方图...</span>
 <a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="p">}</span>
 </code></pre></div>
-<h3 id="other-examples">Other Examples</h3>
+<h3 id="_5">其他示例</h3>
 <ul>
-<li><strong><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu/cuda-counter">cuda-counter</a></strong>: Basic probe/retprobe with timing measurements</li>
-<li><strong><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu/mem_trace">mem_trace</a></strong>: Memory access pattern tracing and analysis</li>
-<li><strong><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu/directly_run_on_gpu">directly_run_on_gpu</a></strong>: Run eBPF programs directly on GPU without attaching to kernels</li>
+<li><strong><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu/cuda-counter">cuda-counter</a></strong>:带时序测量的基本探针/返回探针</li>
+<li><strong><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu/mem_trace">mem_trace</a></strong>:内存访问模式跟踪和分析</li>
+<li><strong><a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu/directly_run_on_gpu">directly_run_on_gpu</a></strong>:直接在 GPU 上运行 eBPF 程序,无需附加到内核</li>
 </ul>
-<h3 id="key-components">Key Components</h3>
+<h3 id="_6">关键组件</h3>
 <ol>
-<li><strong>CUDA Runtime Hooking</strong>: Intercepts CUDA API calls using Frida-based dynamic instrumentation</li>
-<li><strong>PTX Modification</strong>: Converts eBPF bytecode to PTX (Parallel Thread Execution) assembly and injects it into GPU kernels</li>
-<li><strong>Helper Trampoline</strong>: Provides GPU-accessible helper functions for map operations, timing, and context access</li>
-<li><strong>Host-GPU Communication</strong>: Enables synchronous calls from GPU to host via pinned shared memory</li>
+<li><strong>CUDA 运行时钩子</strong>:使用基于 Frida 的动态检测拦截 CUDA API 调用</li>
+<li><strong>PTX 修改</strong>:将 eBPF 字节码转换为 PTX(并行线程执行)汇编并注入 GPU 内核</li>
+<li><strong>辅助蹦床</strong>:为映射操作、计时和上下文访问提供 GPU 可访问的辅助函数</li>
+<li><strong>主机-GPU 通信</strong>:通过固定共享内存实现从 GPU 到主机的同步调用</li>
 </ol>
-<h2 id="references">References</h2>
+<h2 id="_7">参考资料</h2>
 <ol>
-<li><a href="https://www.usenix.org/conference/osdi25/presentation/zheng-yusheng">bpftime OSDI '25 Paper</a></li>
-<li><a href="https://docs.nvidia.com/cuda/cuda-runtime-api/">CUDA Runtime API</a></li>
+<li><a href="https://www.usenix.org/conference/osdi25/presentation/zheng-yusheng">bpftime OSDI '25 论文</a></li>
+<li><a href="https://docs.nvidia.com/cuda/cuda-runtime-api/">CUDA 运行时 API</a></li>
 <li><a href="https://docs.nvidia.com/cuda/parallel-thread-execution/">PTX ISA</a></li>
-<li><a href="https://ebpf.io/">eBPF Documentation</a></li>
-<li><a href="https://dl.acm.org/doi/10.1145/3723851.3726984">eGPU: Extending eBPF Programmability and Observability to GPUs</a></li>
-<li><a href="https://research.nvidia.com/publication/2016-08_nvbit">NVBit: A Dynamic Binary Instrumentation Framework for NVIDIA GPUs</a></li>
+<li><a href="https://ebpf.io/">eBPF 文档</a></li>
+<li><a href="https://dl.acm.org/doi/10.1145/3723851.3726984">eGPU: 将 eBPF 可编程性和可观测性扩展到 GPU</a></li>
+<li><a href="https://research.nvidia.com/publication/2016-08_nvbit">NVBit: NVIDIA GPU 的动态二进制检测框架</a></li>
 </ol>
-<p><a class="md-button" href="https://x.com/intent/tweet?text=The%20GPU%20Observability%20Gap%3A%20Why%20We%20Need%20eBPF%20on%20GPUs%0A&amp;url=https://eunomia.dev/zh/blog/posts/gpu-observability-challenges/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=GPU%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E5%B7%AE%E8%B7%9D%3A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E9%9C%80%E8%A6%81GPU%E4%B8%8A%E7%9A%84eBPF%0A&amp;url=https://eunomia.dev/zh/blog/posts/gpu-observability-challenges/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/zh/blog/posts/gpu-observability-challenges/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
@@ -8618,7 +8618,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 14, 2025 22:31:04 UTC">October 14, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 15, 2025 03:24:32 UTC">October 15, 2025</span>
   </span>
 
     
@@ -8628,7 +8628,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 30, 2025 07:42:21 UTC">September 30, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 15, 2025 03:24:32 UTC">October 15, 2025</span>
   </span>
 
     
