@@ -23,8 +23,11 @@ cuda-exp:
 cupti-exp:
 	git clone https://github.com/eunomia-bpf/cupti-tutorial cupti-exp --depth=1
 
-docs/CNAME: tutorial cuda-exp cupti-exp bpftime
+nvbit-tutorial:
+	git clone https://github.com/eunomia-bpf/nvbit-tutorial --depth=1
+
+docs/CNAME: tutorial cuda-exp cupti-exp nvbit-tutorial bpftime
 	./rename.sh
 
 clean:
-	rm -rf tutorial site docs/tutorials
+	rm -rf tutorial site docs/tutorials bpftime cuda-exp cupti-exp nvbit-tutorial

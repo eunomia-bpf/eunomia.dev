@@ -4,6 +4,7 @@ mkdir -p docs/setup && \
 mkdir -p docs/tutorials && \
 mkdir -p docs/others/cuda-tutorial && \
 mkdir -p docs/others/cupti-tutorial && \
+mkdir -p docs/others/nvbit-tutorial && \
 cp -rf tutorial/src/* docs/tutorials/ && \
 mv tutorial/src/SUMMARY.zh.md docs/tutorials/index.zh.md && \
 mv tutorial/src/SUMMARY.md docs/tutorials/index.md && \
@@ -11,6 +12,7 @@ mkdir -p docs/tutorials/imgs && \
 cp tutorial/imgs/* docs/tutorials/imgs/ && \
 cp -rf cuda-exp/* docs/others/cuda-tutorial/ && \
 cp -rf cupti-exp/* docs/others/cupti-tutorial/ && \
+cp -rf nvbit-tutorial/* docs/others/nvbit-tutorial/ && \
 cp bpftime/usage.md docs/bpftime/documents/usage.md && \
 cp bpftime/installation.md docs/bpftime/documents/build-and-test.md && \
 cp bpftime/example/README.md docs/bpftime/documents/examples.md  && \

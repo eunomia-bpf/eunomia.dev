@@ -9,4 +9,5 @@ __pycache__
 /bpftime-evaluation
 /cuda-exp
 /cupti-exp
+/nvbit-tutorial
 /venv
