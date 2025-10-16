@@ -1609,6 +1609,86 @@
          
     </url>
     <url>
+         <loc>https://eunomia.dev/others/nvbit-tutorial/</loc>
+         <lastmod>2025-10-16</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/nvbit-tutorial/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/nvbit-tutorial/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/nvbit-tutorial/tools/</loc>
+         <lastmod>2025-10-16</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/nvbit-tutorial/tools/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/nvbit-tutorial/tools/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/nvbit-tutorial/tools/instr_count/</loc>
+         <lastmod>2025-10-16</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/nvbit-tutorial/tools/instr_count/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/nvbit-tutorial/tools/instr_count/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/nvbit-tutorial/tools/instr_count_bb/</loc>
+         <lastmod>2025-10-16</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/nvbit-tutorial/tools/instr_count_bb/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/nvbit-tutorial/tools/instr_count_bb/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/nvbit-tutorial/tools/instr_count_cuda_graph/</loc>
+         <lastmod>2025-10-16</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/nvbit-tutorial/tools/instr_count_cuda_graph/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/nvbit-tutorial/tools/instr_count_cuda_graph/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/nvbit-tutorial/tools/mem_printf2/</loc>
+         <lastmod>2025-10-16</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/nvbit-tutorial/tools/mem_printf2/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/nvbit-tutorial/tools/mem_printf2/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/nvbit-tutorial/tools/mem_trace/</loc>
+         <lastmod>2025-10-16</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/nvbit-tutorial/tools/mem_trace/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/nvbit-tutorial/tools/mem_trace/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/nvbit-tutorial/tools/mov_replace/</loc>
+         <lastmod>2025-10-16</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/nvbit-tutorial/tools/mov_replace/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/nvbit-tutorial/tools/mov_replace/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/nvbit-tutorial/tools/opcode_hist/</loc>
+         <lastmod>2025-10-16</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/nvbit-tutorial/tools/opcode_hist/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/nvbit-tutorial/tools/opcode_hist/"/>
+         
+    </url>
+    <url>
+         <loc>https://eunomia.dev/others/nvbit-tutorial/tools/record_reg_vals/</loc>
+         <lastmod>2025-10-16</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/others/nvbit-tutorial/tools/record_reg_vals/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/nvbit-tutorial/tools/record_reg_vals/"/>
+         
+    </url>
+    <url>
          <loc>https://eunomia.dev/others/papers/</loc>
          <lastmod>2025-10-16</lastmod>
          <changefreq>daily</changefreq>
