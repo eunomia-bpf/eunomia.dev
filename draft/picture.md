@@ -2,8 +2,7 @@
 
 Bg: we see many paper providing scheduling/memory management policy/other OS policies, like SOSP 25 LithOS
 
-https://arxiv.org/html/2504.15465v1
-
+《
 Are actually working as an intercept layer between OS kernel driver and usersapce library,
 
 So we are thinking, can bpftime be something like “An extensible *GPU OS”?* 
@@ -43,7 +42,6 @@ https://eunomia.dev/tutorials/44-scx-simple/
 5. Ship a **baseline policy** (like CFS): fair-share with SLA priorities; let sites replace it.
     
     (SCX shows this is socially and technically feasible in Linux.)
-    
 
 https://chatgpt.com/share/68f67566-de48-8009-8296-a99e52bc1e35
 
@@ -55,16 +53,16 @@ Per your request, I only add a **minimal** “OUR INSERTION POINT” note and ke
 
 ```
                                ┌─────────────────────────────────────────────────────────────────────┐
-                               │                    CLUSTER / CONTROL PLANE                         │
-                               │ Orchestrators: Kubernetes, Slurm                                   │
-                               │ DL schedulers (cluster-level): [Gandiva], [Themis]                 │
+                               │                    CLUSTER / CONTROL PLANE                          │
+                               │ Orchestrators: Kubernetes, Slurm                                    │
+                               │ DL schedulers (cluster-level): [Gandiva], [Themis]                  │
                                └─────────────────────────────────────────────────────────────────────┘
                                                      │ submits jobs / allocates GPUs
                                                      ▼
 ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │                                         ML/DATA/GRAPH FRAMEWORKS & SERVICES                                          │
-│  PyTorch / TensorFlow / JAX / Triton / Inference servers (Triton-IS, TorchServe, etc.)                              │
-│  Framework-level sharing: [Salus]                                                                                    │
+│  PyTorch / TensorFlow / JAX / Triton / Inference servers (Triton-IS, TorchServe, etc.)                               │
+│  Framework-level sharing: [Salus] vllm, Pie， ktransformer                                                           │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
                                                      │ CUDA/ROCm/NCCL API calls (kernels, graphs, copies, collectives)
                                                      ▼
@@ -86,7 +84,7 @@ Per your request, I only add a **minimal** “OUR INSERTION POINT” note and ke
                                                      │ ioctl / UAPI / perf streams / telemetry
                                                      ▼
 ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│                                       HOST OS & VENDOR DRIVER INFRASTRUCTURE                                        │
+│                                       HOST OS & VENDOR DRIVER INFRASTRUCTURE                                         │
 │  Linux kernel + vendor GPU kernel driver                                                                             │
 │    - Production sharing/partitioning:  MIG (spatial), MPS (temporal), vGPU/SR‑IOV (virtualization)                   │
 │    - Remote/virt stacks: [rCUDA], [GVirtuS]                                                                          │
@@ -96,34 +94,34 @@ Per your request, I only add a **minimal** “OUR INSERTION POINT” note and ke
                                                      │ control messages / doorbells / perf counters
                                                      ▼
 ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│                                            ON-DEVICE FIRMWARE / CONTROLLERS                                         │
-│  GPU system processors (e.g., NVIDIA GSP), power/thermal mgmt, micro-schedulers                                     │
+│                                            ON-DEVICE FIRMWARE / CONTROLLERS                                          │
+│  GPU system processors (e.g., NVIDIA GSP), power/thermal mgmt, micro-schedulers                                      │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
                                                      │ config registers / queues / memory mappings
                                                      ▼
 ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │                                                     GPU HARDWARE                                                     │
-│  Compute Complex                                                                                                    │
+│  Compute Complex                                                                                                     │
 │   ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────┐   │
-│   │  SMs / TPCs / GPCs; warp schedulers; CTAs                                                                       │
-│   │  Research here: [Kernelet] (kernel slicing), [NEEF], [XSched], CLC api/gpu-graph-scheduler api                │
+│   │  SMs / TPCs / GPCs; warp schedulers; CTAs,  CLC api/gpu-graph-scheduler api                                  │   │                               │
+│   │  Research here: [Kernelet] (kernel slicing), [NEEF], [XSched],                                               │   │
 │   └──────────────────────────────────────────────────────────────────────────────────────────────────────────────┘   │
 │                                                                                                                      │
 │  Memory Complex                                                                                                      │
 │   ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────┐   │
-│   │  HBM stacks, L2, MMU/TLBs, compression                                                                          │
-│   │  Research here: [Mosaic] (multi page sizes), [MASK] (translation-aware), [Zorua] (virt),                         │
-│   │                 [ETC] (oversubscription), [Buddy Compression] (capacity via compression)                         │
+│   │  HBM stacks, L2, MMU/TLBs, compression                                                                       │   │
+│   │  Research here: [Mosaic] (multi page sizes), [MASK] (translation-aware), [Zorua] (virt),                     │   │
+│   │                 [ETC] (oversubscription), [Buddy Compression] (capacity via compression)                     │   │
 │   └──────────────────────────────────────────────────────────────────────────────────────────────────────────────┘   │
 │                                                                                                                      │
 │  I/O & Interconnect                                                                                                  │
 │   ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────┐   │
-│   │  Copy/DMA engines, PCIe, NVLink/NVSwitch, GPUDirectIO; NCCL uses this                                        │
+│   │  Copy/DMA engines, PCIe, NVLink/NVSwitch, GPUDirectIO; NCCL uses this                                        │   │
 │   └──────────────────────────────────────────────────────────────────────────────────────────────────────────────┘   │
 │                                                                                                                      │
 │  Cross-cutting Security                                                                                              │
 │   ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────┐   │
-│   │  TEEs / attestation / isolation: [Graviton]                                                                      │
+│   │  TEEs / attestation / isolation: [Graviton]                                                                  │   │
 │   └──────────────────────────────────────────────────────────────────────────────────────────────────────────────┘   │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 
@@ -161,36 +159,36 @@ prior work:
 ┌─────────────────────────────────────────────────────────────────────────────────────────────┐
 │     HOST / CPU DOMAIN — gBPF‑H  (Extensible GPU Control‑Plane inside a small Device OS)     │
 │  ┌───────────────────────────────────────────────────────────────────────────────────────┐  │
-│  │  Hooks: on_submit, on_admit, on_dispatch, on_preempt, on_retire                        │  │
-│  │         on_mem_fault, on_reclaim, on_copy_enqueue, on_collective_phase, on_thermal     │  │
-│  │  Policies (verified, hot‑swappable):                                                   │  │
+│  │  Hooks: on_submit, on_admit, on_dispatch, on_preempt, on_retire                       │  │
+│  │         on_mem_fault, on_reclaim, on_copy_enqueue, on_collective_phase, on_thermal    │  │
+│  │  Policies (verified, hot‑swappable):                                                  │  │
 │  │    • Admission / queueing / vSlice partitioning (per‑tenant weights, SLAs)            │  │
 │  │    • MemPool quotas, oversub, page‑size policy, compression gating                    │  │
-│  │    • IO budgets for DMA/NVLink, collective‑phase QoS                                   │  │
-│  │    • Observability policy: sampling, flight recorders, reason codes                    │  │
-│  │  Enforcement (trusted microkernel):                                                    │  │
-│  │    • Can admit/deny/dispatch/atomize; set MIG/MPS configs; program MMU; set IO caps    │  │
-│  │  State:                                                                                │  │
-│  │    • Maps: TENANT_CREDITS, JOB_META, VSLICE_SET, MEMPOOL_SET, IO_BUDGETS, OBS_*        │  │
-│  └─────────────▲──────────────────────────────────────────────────────────────────────────┘  │
+│  │    • IO budgets for DMA/NVLink, collective‑phase QoS                                  │  │
+│  │    • Observability policy: sampling, flight recorders, reason codes                   │  │
+│  │  Enforcement (trusted microkernel):                                                   │  │
+│  │    • Can admit/deny/dispatch/atomize; set MIG/MPS configs; program MMU; set IO caps   │  │
+│  │  State:                                                                               │  │
+│  │    • Maps: TENANT_CREDITS, JOB_META, VSLICE_SET, MEMPOOL_SET, IO_BUDGETS, OBS_*       │  │
+│  └─────────────▲─────────────────────────────────────────────────────────────────────────┘  │
 │                │        Control/telemetry rings (BAR1/pinned)  •  Epoched quota updates     │
 └────────────────┼────────────────────────────────────────────────────────────────────────────┘
                  │
                  ▼
 ┌─────────────────────────────────────────────────────────────────────────────────────────────┐
-│   DEVICE DOMAIN — gBPF‑D  (Fine‑grain policy in eBPF, e.g. persistent control CTA) │
+│   DEVICE DOMAIN — gBPF‑D  (Fine‑grain policy in eBPF, e.g. persistent control CTA)          │
 │  ┌───────────────────────────────────────────────────────────────────────────────────────┐  │
-│  │  Hooks (device‑local):                                                                 │  │
-│  │    • sm_tick, cta_admit, warp_throttle_tick, dma_tick, mem_event, therm_tick           │  │
-│  │  Policy (verified, tiny ISA):                                                          │  │
-│  │    • Within host quotas: choose next CTA, assign SM, gate warps, reschedule threads    │  │
-│  │    • React to local stall/pressure (L1/L2/TLB/occupancy) in sub‑µs                     │  │
-│  │  Enforcement:                                                                           │  │
-│  │    • Control CTA issuance tokens; local engine pacing; cooperative preemption markers   │  │
-│  │  State (cache of host):                                                                 │  │
-│  │    • READ‑ONLY snapshots of quotas/weights; hot counters that roll up to host          │  │
-│  └────────────────────────────────────────────────────────────────────────────────────────┘  │
-│      │
+│  │  Hooks (device‑local):                                                                │  │
+│  │    • sm_tick, cta_admit, warp_throttle_tick, dma_tick, mem_event, therm_tick          │  │
+│  │  Policy (verified, tiny ISA):                                                         │  │
+│  │    • Within host quotas: choose next CTA, assign SM, gate warps, reschedule threads   │  │
+│  │    • React to local stall/pressure (L1/L2/TLB/occupancy) in sub‑µs                    │  │
+│  │  Enforcement:                                                                         │  │
+│  │    • Control CTA issuance tokens; local engine pacing; cooperative preemption markers │  │
+│  │  State (cache of host):                                                               │  │
+│  │    • READ‑ONLY snapshots of quotas/weights; hot counters that roll up to host         │  │
+│  └───────────────────────────────────────────────────────────────────────────────────────┘  │
+│                                                                                             │
 └─────────────────────────────────────────────────────────────────────────────────────────────┘
                  
                  
