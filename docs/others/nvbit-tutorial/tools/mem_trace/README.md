@@ -7,14 +7,14 @@
 **Quick Start:**
 ```bash
 # Warning: High overhead! Instrument only first kernel
-START_GRID_NUM=0 END_GRID_NUM=1 \
-  LD_PRELOAD=./tools/mem_trace/mem_trace.so ./app > trace.txt
+env START_GRID_NUM=0 END_GRID_NUM=1 \
+  CUDA_INJECTION64_PATH=./tools/mem_trace/mem_trace.so ./test-apps/vectoradd/vectoradd > trace.txt
 ```
 
 **Typical Output:**
 ```
-MEMTRACE: CTX 0x... - grid_launch_id 0 - CTA 0,0,0 - warp 0 - LDG.E -
-  0x7f8a01800000 0x7f8a01800008 0x7f8a01800010 ... (32 addresses)
+MEMTRACE: CTX 0x... - grid_launch_id 0 - CTA 0,0,0 - warp 0 - LDG.E.64 -
+  0x710c9b06ba00 0x710c9b06ba08 0x710c9b06ba10 ... (32 addresses, 8-byte stride)
 ```
 
 ## Overview
@@ -247,10 +247,10 @@ The build process follows the same pattern as other NVBit tools:
 
 ## Running the Tool
 
-Launch your CUDA application with the tool preloaded:
+Launch your CUDA application with the tool injected:
 
 ```bash
-LD_PRELOAD=./tools/mem_trace/mem_trace.so ./your_cuda_application
+env CUDA_INJECTION64_PATH=./tools/mem_trace/mem_trace.so ./your_cuda_application
 ```
 
 ### Environment Variables
@@ -265,7 +265,7 @@ The tool supports these environment variables:
 Here's an example of what the output looks like:
 
 ```
-MEMTRACE: CTX 0x00007f8a0040a000 - grid_launch_id 0 - CTA 0,0,0 - warp 0 - LDG.E - 0x00007f8a01800000 0x00007f8a01800008 0x00007f8a01800010 0x00007f8a01800018 0x00007f8a01800020 0x00007f8a01800028 0x00007f8a01800030 0x00007f8a01800038 0x00007f8a01800040 0x00007f8a01800048 0x00007f8a01800050 0x00007f8a01800058 0x00007f8a01800060 0x00007f8a01800068 0x00007f8a01800070 0x00007f8a01800078 0x00007f8a01800080 0x00007f8a01800088 0x00007f8a01800090 0x00007f8a01800098 0x00007f8a018000a0 0x00007f8a018000a8 0x00007f8a018000b0 0x00007f8a018000b8 0x00007f8a018000c0 0x00007f8a018000c8 0x00007f8a018000d0 0x00007f8a018000d8 0x00007f8a018000e0 0x00007f8a018000e8 0x00007f8a018000f0 0x00007f8a018000f8
+MEMTRACE: CTX 0x00006403c12bdf10 - grid_launch_id 0 - CTA 53,0,0 - warp 26 - LDG.E.64 - 0x0000710c9b06ba00 0x0000710c9b06ba08 0x0000710c9b06ba10 0x0000710c9b06ba18 0x0000710c9b06ba20 0x0000710c9b06ba28 0x0000710c9b06ba30 0x0000710c9b06ba38 0x0000710c9b06ba40 0x0000710c9b06ba48 0x0000710c9b06ba50 0x0000710c9b06ba58 0x0000710c9b06ba60 0x0000710c9b06ba68 0x0000710c9b06ba70 0x0000710c9b06ba78 0x0000710c9b06ba80 0x0000710c9b06ba88 0x0000710c9b06ba90 0x0000710c9b06ba98 0x0000710c9b06baa0 0x0000710c9b06baa8 0x0000710c9b06bab0 0x0000710c9b06bab8 0x0000710c9b06bac0 0x0000710c9b06bac8 0x0000710c9b06bad0 0x0000710c9b06bad8 0x0000710c9b06bae0 0x0000710c9b06bae8 0x0000710c9b06baf0 0x0000710c9b06baf8
 ```
 
 Each line represents one memory instruction executed by one warp and contains:

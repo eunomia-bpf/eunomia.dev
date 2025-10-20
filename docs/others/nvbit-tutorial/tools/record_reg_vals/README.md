@@ -8,7 +8,7 @@
 ```bash
 # Instrument specific instruction range
 START_GRID_NUM=0 END_GRID_NUM=1 INSTR_BEGIN=10 INSTR_END=15 \
-  LD_PRELOAD=./tools/record_reg_vals/record_reg_vals.so ./app
+  env CUDA_INJECTION64_PATH=./tools/record_reg_vals/record_reg_vals.so ./test-apps/vectoradd/vectoradd
 ```
 
 **Use Cases:**
@@ -230,7 +230,7 @@ The build process follows the standard pattern for NVBit tools:
 Launch your CUDA application with the tool preloaded:
 
 ```bash
-LD_PRELOAD=./tools/record_reg_vals/record_reg_vals.so ./your_cuda_application
+env CUDA_INJECTION64_PATH=./tools/record_reg_vals/record_reg_vals.so ./test-apps/vectoradd/vectoradd
 ```
 
 ### Environment Variables

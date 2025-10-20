@@ -6,8 +6,8 @@
 
 **Quick Start:**
 ```bash
-LD_PRELOAD=./tools/instr_count_bb/instr_count_bb.so ./your_app
-# Same output as instr_count, but much faster!
+env CUDA_INJECTION64_PATH=./tools/instr_count_bb/instr_count_bb.so ./test-apps/vectoradd/vectoradd
+# Output: kernel 0 - _Z6vecAddPdS_S_i - #thread-blocks 98,  kernel instructions 62588, total instructions 62588
 ```
 
 ## Overview
@@ -176,10 +176,10 @@ The build process follows the same pattern as other NVBit tools:
 
 ## Running the Tool
 
-Launch your CUDA application with the tool preloaded:
+Launch your CUDA application with the tool injected:
 
 ```bash
-LD_PRELOAD=./tools/instr_count_bb/instr_count_bb.so ./your_cuda_application
+env CUDA_INJECTION64_PATH=./tools/instr_count_bb/instr_count_bb.so ./your_cuda_application
 ```
 
 ### Environment Variables
@@ -198,11 +198,12 @@ The tool supports the same environment variables as `instr_count`:
 The output format is the same as `instr_count`:
 
 ```
-------------- NVBit (NVidia Binary Instrumentation Tool) Loaded --------------
+------------- NVBit (NVidia Binary Instrumentation Tool v1.7.6) Loaded --------------
 [Environment variables and settings shown here]
 ----------------------------------------------------------------------------------------------------
-kernel 0 - vecAdd(double*, double*, double*, int) - #thread-blocks 98, kernel instructions 50077, total instructions 50077
+kernel 0 - _Z6vecAddPdS_S_i - #thread-blocks 98,  kernel instructions 62588, total instructions 62588
 Final sum = 100000.000000; sum/n = 1.000000 (should be ~1)
+Total app instructions: 62588
 ```
 
 ## What is a Basic Block?

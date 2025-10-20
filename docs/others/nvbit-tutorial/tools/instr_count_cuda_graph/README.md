@@ -6,7 +6,7 @@
 
 **Quick Start:**
 ```bash
-LD_PRELOAD=./tools/instr_count_cuda_graph/instr_count_cuda_graph.so ./graph_app
+env CUDA_INJECTION64_PATH=./tools/instr_count_cuda_graph/instr_count_cuda_graph.so ./test-apps/vectoradd/vectoradd
 # Works with both traditional and graph-based launches
 ```
 
@@ -292,7 +292,7 @@ The build process follows the standard pattern for NVBit tools:
 Launch your CUDA application with the tool preloaded:
 
 ```bash
-LD_PRELOAD=./tools/instr_count_cuda_graph/instr_count_cuda_graph.so ./your_cuda_application
+env CUDA_INJECTION64_PATH=./tools/instr_count_cuda_graph/instr_count_cuda_graph.so ./test-apps/vectoradd/vectoradd
 ```
 
 ### Environment Variables

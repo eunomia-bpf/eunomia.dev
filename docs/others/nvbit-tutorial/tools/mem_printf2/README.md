@@ -209,7 +209,7 @@ The build process follows the standard pattern for NVBit tools:
 Launch your CUDA application with the tool preloaded:
 
 ```bash
-LD_PRELOAD=./tools/mem_printf2/mem_printf2.so ./your_cuda_application
+env CUDA_INJECTION64_PATH=./tools/mem_printf2/mem_printf2.so ./test-apps/vectoradd/vectoradd
 ```
 
 ## Sample Output

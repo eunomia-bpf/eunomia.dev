@@ -6,8 +6,8 @@
 
 **Quick Start:**
 ```bash
-LD_PRELOAD=./tools/instr_count/instr_count.so ./test-apps/vectoradd/vectoradd
-# Output: kernel 0 - vecAdd(...) - kernel instructions 50077
+env CUDA_INJECTION64_PATH=./tools/instr_count/instr_count.so ./test-apps/vectoradd/vectoradd
+# Output: kernel 0 - _Z6vecAddPdS_S_i - #thread-blocks 98,  kernel instructions 62588, total instructions 62588
 ```
 
 ## Table of Contents
@@ -298,10 +298,10 @@ The `--keep-device-functions` flag is crucial as it prevents optimization from r
 
 ## Running the Tool
 
-Use LD_PRELOAD to inject the tool into any CUDA application:
+Use CUDA_INJECTION64_PATH to inject the tool into any CUDA application:
 
 ```bash
-LD_PRELOAD=./tools/instr_count/instr_count.so ./your_cuda_application
+env CUDA_INJECTION64_PATH=./tools/instr_count/instr_count.so ./your_cuda_application
 ```
 
 ### Environment Variables
@@ -318,23 +318,24 @@ Examples:
 
 ```bash
 # Count only the first 100 instructions in each function
-INSTR_END=100 LD_PRELOAD=./tools/instr_count/instr_count.so ./vectoradd
+env INSTR_END=100 CUDA_INJECTION64_PATH=./tools/instr_count/instr_count.so ./test-apps/vectoradd/vectoradd
 
 # Count only the second kernel launch
-START_GRID_NUM=1 END_GRID_NUM=2 LD_PRELOAD=./tools/instr_count/instr_count.so ./vectoradd
+env START_GRID_NUM=1 END_GRID_NUM=2 CUDA_INJECTION64_PATH=./tools/instr_count/instr_count.so ./test-apps/vectoradd/vectoradd
 
 # Count thread-level instructions instead of warp-level
-COUNT_WARP_LEVEL=0 LD_PRELOAD=./tools/instr_count/instr_count.so ./vectoradd
+env COUNT_WARP_LEVEL=0 CUDA_INJECTION64_PATH=./tools/instr_count/instr_count.so ./test-apps/vectoradd/vectoradd
 ```
 
 ## Sample Output
 
 ```
-------------- NVBit (NVidia Binary Instrumentation Tool) Loaded --------------
+------------- NVBit (NVidia Binary Instrumentation Tool v1.7.6) Loaded --------------
 [Environment variables and settings shown here]
 ----------------------------------------------------------------------------------------------------
-kernel 0 - vecAdd(double*, double*, double*, int) - #thread-blocks 98, kernel instructions 50077, total instructions 50077
+kernel 0 - _Z6vecAddPdS_S_i - #thread-blocks 98,  kernel instructions 62588, total instructions 62588
 Final sum = 100000.000000; sum/n = 1.000000 (should be ~1)
+Total app instructions: 62588
 ```
 
 The output shows:
@@ -361,7 +362,7 @@ Check if `nvdisasm` is in PATH (`which nvdisasm`), if instrumentation is enabled
 
 Likely counting at warp-level (default). For thread-level count:
 ```bash
-COUNT_WARP_LEVEL=0 LD_PRELOAD=./tools/instr_count/instr_count.so ./app
+env COUNT_WARP_LEVEL=0 CUDA_INJECTION64_PATH=./tools/instr_count/instr_count.so ./app
 ```
 
 Thread count should be ~32x higher (32 threads per warp).

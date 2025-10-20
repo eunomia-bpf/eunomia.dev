@@ -193,7 +193,7 @@ The build process follows the same pattern as other NVBit tools:
 Launch your CUDA application with the tool preloaded:
 
 ```bash
-LD_PRELOAD=./tools/mov_replace/mov_replace.so ./your_cuda_application
+env CUDA_INJECTION64_PATH=./tools/mov_replace/mov_replace.so ./test-apps/vectoradd/vectoradd
 ```
 
 ### Environment Variables

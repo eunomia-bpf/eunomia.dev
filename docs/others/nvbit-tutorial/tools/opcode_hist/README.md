@@ -6,8 +6,13 @@
 
 **Quick Start:**
 ```bash
-LD_PRELOAD=./tools/opcode_hist/opcode_hist.so ./test-apps/vectoradd/vectoradd
-# Shows: LDG.E = 19600, DMUL = 9800, STG.E = 9800, etc.
+env CUDA_INJECTION64_PATH=./tools/opcode_hist/opcode_hist.so ./test-apps/vectoradd/vectoradd
+# Output shows instruction histogram:
+#   DADD = 3125
+#   EXIT = 6261
+#   IMAD = 3136
+#   LDG.E.64 = 6250
+#   STG.E.64 = 3125
 ```
 
 ## Overview
@@ -154,10 +159,10 @@ The build process is identical to the instruction counter tool:
 
 ## Running the Tool
 
-Preload the shared library with your CUDA application:
+Inject the tool into your CUDA application:
 
 ```bash
-LD_PRELOAD=./tools/opcode_hist/opcode_hist.so ./your_cuda_application
+env CUDA_INJECTION64_PATH=./tools/opcode_hist/opcode_hist.so ./your_cuda_application
 ```
 
 ### Environment Variables
