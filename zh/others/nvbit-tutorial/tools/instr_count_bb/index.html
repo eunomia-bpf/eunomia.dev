@@ -9462,8 +9462,8 @@
 </blockquote>
 <p><strong>TL;DR:</strong> Like <code>instr_count</code> but 10-50x faster. Use this for production profiling.</p>
 <p><strong>Quick Start:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nv">LD_PRELOAD</span><span class="o">=</span>./tools/instr_count_bb/instr_count_bb.so<span class="w"> </span>./your_app
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1"># Same output as instr_count, but much faster!</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>env<span class="w"> </span><span class="nv">CUDA_INJECTION64_PATH</span><span class="o">=</span>./tools/instr_count_bb/instr_count_bb.so<span class="w"> </span>./test-apps/vectoradd/vectoradd
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1"># Output: kernel 0 - _Z6vecAddPdS_S_i - #thread-blocks 98,  kernel instructions 62588, total instructions 62588</span>
 </code></pre></div></p>
 <h2 id="overview">Overview</h2>
 <p>A basic block is a sequence of instructions with a single entry point (the first instruction) and a single exit point (the last instruction). No branches exist in the middle of a basic block, and no branches target the middle of a basic block. This property makes basic blocks ideal for efficient instrumentation.</p>
@@ -9607,8 +9607,8 @@
 </li>
 </ol>
 <h2 id="running-the-tool">Running the Tool</h2>
-<p>Launch your CUDA application with the tool preloaded:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nv">LD_PRELOAD</span><span class="o">=</span>./tools/instr_count_bb/instr_count_bb.so<span class="w"> </span>./your_cuda_application
+<p>Launch your CUDA application with the tool injected:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>env<span class="w"> </span><span class="nv">CUDA_INJECTION64_PATH</span><span class="o">=</span>./tools/instr_count_bb/instr_count_bb.so<span class="w"> </span>./your_cuda_application
 </code></pre></div>
 <h3 id="environment-variables">Environment Variables</h3>
 <p>The tool supports the same environment variables as <code>instr_count</code>:</p>
@@ -9622,11 +9622,12 @@
 </ul>
 <h2 id="sample-output">Sample Output</h2>
 <p>The output format is the same as <code>instr_count</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>------------- NVBit (NVidia Binary Instrumentation Tool) Loaded --------------
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>------------- NVBit (NVidia Binary Instrumentation Tool v1.7.6) Loaded --------------
 <a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>[Environment variables and settings shown here]
 <a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>----------------------------------------------------------------------------------------------------
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>kernel 0 - vecAdd(double*, double*, double*, int) - #thread-blocks 98, kernel instructions 50077, total instructions 50077
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>kernel 0 - _Z6vecAddPdS_S_i - #thread-blocks 98,  kernel instructions 62588, total instructions 62588
 <a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>Final sum = 100000.000000; sum/n = 1.000000 (should be ~1)
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>Total app instructions: 62588
 </code></pre></div>
 <h2 id="what-is-a-basic-block">What is a Basic Block?</h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>┌──────────────────────────────────────────────────────────────────┐
@@ -9749,7 +9750,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 16, 2025 07:20:24 UTC">October 16, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 20, 2025 18:02:07 UTC">October 20, 2025</span>
   </span>
 
     

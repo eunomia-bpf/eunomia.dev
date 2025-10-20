@@ -35,6 +35,31 @@
 #include "utils/utils.h"
 #include "utils/channel.hpp"
 
+#define SIGN_EXTEND64(x) ((((int64_t)(x)) << 32) >> 32)
+
+/* Generic address generation code - needed by NVBit for nvbit_add_call_arg_mref_addr64 */
+extern "C" __device__ __noinline__ uint64_t
+gen_mref_addr(uint32_t ra_high, int is_ra64, uint32_t ra_low, int ra_stride,
+              uint32_t ru_high, int is_ru64, uint32_t ru_low, int32_t imm,
+              uint32_t mref_idx /* unused */) {
+    int64_t base_addr = 0;
+
+    if (is_ra64) {
+        base_addr +=
+            (((uint64_t)ra_high) << 32) | ((uint64_t)ra_low * ra_stride);
+    } else {
+        base_addr += SIGN_EXTEND64(ra_low * ra_stride);
+    }
+
+    if (is_ru64) {
+        base_addr += (((uint64_t)ru_high) << 32) | ((uint64_t)ru_low);
+    } else {
+        base_addr += SIGN_EXTEND64(ru_low);
+    }
+
+    return base_addr + imm;
+}
+
 extern "C" __device__ __noinline__ void instrument_mem(int pred, int opcode_id,
                                                        uint64_t addr,
                                                        uint64_t grid_launch_id,

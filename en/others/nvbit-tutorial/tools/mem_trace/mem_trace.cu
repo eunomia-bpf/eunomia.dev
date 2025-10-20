@@ -40,11 +40,12 @@
 #include <unordered_map>
 #include <unordered_set>
 
-/* every tool needs to include this once */
-#include "nvbit_tool.h"
-
 /* nvbit interface file */
 #include "nvbit.h"
+
+/* NOTE: nvbit_tool.h is NOT included here to avoid duplicate gen_mref_addr symbol.
+ * gen_mref_addr is defined in inject_funcs.cu which is compiled with -Xptxas -astoolspatch.
+ * The load_module_nvbit_kernel from nvbit_tool.h is not needed for this tool. */
 
 /* for channel */
 #include "utils/channel.hpp"

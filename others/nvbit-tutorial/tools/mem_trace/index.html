@@ -9487,12 +9487,12 @@
 <p><strong>TL;DR:</strong> Captures every memory access (addresses, warp, CTA). Essential for finding coalescing issues and memory patterns. Very high overhead - use selectively!</p>
 <p><strong>Quick Start:</strong>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Warning: High overhead! Instrument only first kernel</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nv">START_GRID_NUM</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="nv">END_GRID_NUM</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nv">LD_PRELOAD</span><span class="o">=</span>./tools/mem_trace/mem_trace.so<span class="w"> </span>./app<span class="w"> </span>&gt;<span class="w"> </span>trace.txt
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>env<span class="w"> </span><span class="nv">START_GRID_NUM</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="nv">END_GRID_NUM</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nv">CUDA_INJECTION64_PATH</span><span class="o">=</span>./tools/mem_trace/mem_trace.so<span class="w"> </span>./test-apps/vectoradd/vectoradd<span class="w"> </span>&gt;<span class="w"> </span>trace.txt
 </code></pre></div></p>
 <p><strong>Typical Output:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>MEMTRACE: CTX 0x... - grid_launch_id 0 - CTA 0,0,0 - warp 0 - LDG.E -
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  0x7f8a01800000 0x7f8a01800008 0x7f8a01800010 ... (32 addresses)
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>MEMTRACE: CTX 0x... - grid_launch_id 0 - CTA 0,0,0 - warp 0 - LDG.E.64 -
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  0x710c9b06ba00 0x710c9b06ba08 0x710c9b06ba10 ... (32 addresses, 8-byte stride)
 </code></pre></div></p>
 <h2 id="overview">Overview</h2>
 <p>Understanding memory access patterns is crucial for optimizing GPU code. The <code>mem_trace</code> tool instruments all memory instructions in a CUDA kernel, captures the addresses accessed by each warp, collects contextual information (grid, block, warp IDs), sends this data efficiently from the GPU to the CPU, and prints or analyzes the memory trace. This enables developers to identify access patterns, detect coalescing issues, find memory divergence, and optimize data layouts.</p>
@@ -9694,8 +9694,8 @@
 </li>
 </ol>
 <h2 id="running-the-tool">Running the Tool</h2>
-<p>Launch your CUDA application with the tool preloaded:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nv">LD_PRELOAD</span><span class="o">=</span>./tools/mem_trace/mem_trace.so<span class="w"> </span>./your_cuda_application
+<p>Launch your CUDA application with the tool injected:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>env<span class="w"> </span><span class="nv">CUDA_INJECTION64_PATH</span><span class="o">=</span>./tools/mem_trace/mem_trace.so<span class="w"> </span>./your_cuda_application
 </code></pre></div>
 <h3 id="environment-variables">Environment Variables</h3>
 <p>The tool supports these environment variables:</p>
@@ -9705,7 +9705,7 @@
 </ul>
 <h2 id="sample-output">Sample Output</h2>
 <p>Here's an example of what the output looks like:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>MEMTRACE: CTX 0x00007f8a0040a000 - grid_launch_id 0 - CTA 0,0,0 - warp 0 - LDG.E - 0x00007f8a01800000 0x00007f8a01800008 0x00007f8a01800010 0x00007f8a01800018 0x00007f8a01800020 0x00007f8a01800028 0x00007f8a01800030 0x00007f8a01800038 0x00007f8a01800040 0x00007f8a01800048 0x00007f8a01800050 0x00007f8a01800058 0x00007f8a01800060 0x00007f8a01800068 0x00007f8a01800070 0x00007f8a01800078 0x00007f8a01800080 0x00007f8a01800088 0x00007f8a01800090 0x00007f8a01800098 0x00007f8a018000a0 0x00007f8a018000a8 0x00007f8a018000b0 0x00007f8a018000b8 0x00007f8a018000c0 0x00007f8a018000c8 0x00007f8a018000d0 0x00007f8a018000d8 0x00007f8a018000e0 0x00007f8a018000e8 0x00007f8a018000f0 0x00007f8a018000f8
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>MEMTRACE: CTX 0x00006403c12bdf10 - grid_launch_id 0 - CTA 53,0,0 - warp 26 - LDG.E.64 - 0x0000710c9b06ba00 0x0000710c9b06ba08 0x0000710c9b06ba10 0x0000710c9b06ba18 0x0000710c9b06ba20 0x0000710c9b06ba28 0x0000710c9b06ba30 0x0000710c9b06ba38 0x0000710c9b06ba40 0x0000710c9b06ba48 0x0000710c9b06ba50 0x0000710c9b06ba58 0x0000710c9b06ba60 0x0000710c9b06ba68 0x0000710c9b06ba70 0x0000710c9b06ba78 0x0000710c9b06ba80 0x0000710c9b06ba88 0x0000710c9b06ba90 0x0000710c9b06ba98 0x0000710c9b06baa0 0x0000710c9b06baa8 0x0000710c9b06bab0 0x0000710c9b06bab8 0x0000710c9b06bac0 0x0000710c9b06bac8 0x0000710c9b06bad0 0x0000710c9b06bad8 0x0000710c9b06bae0 0x0000710c9b06bae8 0x0000710c9b06baf0 0x0000710c9b06baf8
 </code></pre></div>
 <p>Each line represents one memory instruction executed by one warp and contains:
 - Context information (CTX, grid_launch_id, CTA coordinates, warp_id)
@@ -9755,7 +9755,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 16, 2025 07:20:24 UTC">October 16, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 20, 2025 18:02:07 UTC">October 20, 2025</span>
   </span>
 
     
