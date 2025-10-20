@@ -218,8 +218,41 @@ prior work:
 
 What we are:
 
-1. An extensible *GPU  policy runtime?*
-2. An extensible *GPU  OS?*
+1. An extensible *GPU policy runtime?*
+2. An extensible *GPU OS?*
+
+## Are CUDA/ROCm + driver some kinds of OS?
+
+- **NVIDIA and AMD don’t call CUDA/ROCm a “library OS.”** They call them *runtimes/toolkits/platforms*.
+- **However**, by the **OS literature’s definition** of a *library operating system* (libOS)—“the OS personality runs in the application’s address space as a library” (Drawbridge), with a minimal kernel beneath (Exokernel)—**CUDA/ROCm *behave like*** a libOS **for the GPU domain**: they implement application‑visible services (contexts, module loading/JIT, virtual memory, streams/priorities, sync) in user space on top of a kernel driver. That’s why the analogy is useful for our positioning. [Microsoft+1](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/asplos2011-drawbridge.pdf?utm_source=chatgpt.com)
+
+Below I (1) show evidence that CUDA/ROCm provide OS‑like services as *library* code, (2) spell out the key differences from a “classical” libOS, and (3) summarize how different communities actually talk about them.
+
+---
+
+## 1) Evidence that CUDA/ROCm act like a *library OS* for the GPU “micro‑world”
+
+**A. Process/Context management (naming, protection domain)**
+
+CUDA’s **Driver API** owns **contexts** and explains how the **Runtime API** implicitly creates/uses *primary contexts* per device—exactly the kind of process/environment management a libOS would do on behalf of an app. [NVIDIA Docs+1](https://docs.nvidia.com/cuda/cuda-driver-api/driver-vs-runtime-api.html)
+
+**B. Program loading and JIT linking (like an OS program loader)**
+
+The Driver API exposes **Module Management**: `cuModuleLoad*`, `cuLink*` for JIT linking of PTX/CUBIN, function lookup, and lazy loading—again, the “loader” role a libOS would play. [NVIDIA Docs](https://docs.nvidia.com/cuda/cuda-driver-api/group__CUDA__MODULE.html)
+
+**C. Virtual memory and unified memory (VM services)**
+
+CUDA provides **virtual memory management** (`cuMemAddressReserve`, `cuMemMap`, shareable handles) and **Unified Memory** semantics (fault‑driven migration, HMM integration)—application‑visible memory policies implemented in the runtime/driver layer. [NVIDIA Docs+1](https://docs.nvidia.com/cuda/cuda-driver-api/group__CUDA__VA.html)
+
+**D. Scheduling interface to applications (policy *hints*)**
+
+CUDA and HIP expose **stream priorities** and concurrency control—users set priorities, the GPU scheduler treats them as **hints** (not hard guarantees). That’s the tell: the runtime exports scheduling semantics to apps, even if they’re not strict. [NVIDIA Docs+2NVIDIA Docs+2](https://docs.nvidia.com/cuda/cuda-c-programming-guide/)
+
+**E. Discovery, initialization, sync, interop, graphs**
+
+The Driver API’s table of contents makes it plain: **device management, stream/event management, execution control, graphs**, interop, and profiling control—all user‑space library services atop the kernel driver. That’s a libOS‑like surface for the GPU. [NVIDIA Docs](https://docs.nvidia.com/cuda/cuda-driver-api/index.html)
+
+**Why this matches the libOS idea:** In exokernel/libOS designs, a **small kernel** securely multiplexes hardware, while **library OSes** implement higher‑level abstractions *in user space*; Drawbridge’s definition is the standard citation. Functionally, CUDA/ROCm implement the **GPU personality**—the app‑visible API and semantics—while the Linux kernel + vendor driver provide protection and low‑level multiplexing.
 
 ---
 
