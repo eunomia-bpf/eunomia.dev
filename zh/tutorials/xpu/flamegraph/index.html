@@ -24,7 +24,7 @@
     
     
       
-        <title>eBPF Tutorial by Example: GPU Flamegraph Profiling with CUPTI and eBPF - eunomia</title>
+        <title>eBPF by Example: Building a GPU Flamegraph Profiler with CUPTI - eunomia</title>
       
     
     
@@ -69,7 +69,7 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="eBPF Tutorial by Example: GPU Flamegraph Profiling with CUPTI and eBPF - eunomia" >
+        <meta  property="og:title"  content="eBPF by Example: Building a GPU Flamegraph Profiler with CUPTI - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
@@ -85,7 +85,7 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="eBPF Tutorial by Example: GPU Flamegraph Profiling with CUPTI and eBPF - eunomia" >
+        <meta  name="twitter:title"  content="eBPF by Example: Building a GPU Flamegraph Profiler with CUPTI - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
@@ -112,7 +112,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ebpf-tutorial-by-example-gpu-flamegraph-profiling-with-cupti-and-ebpf" class="md-skip">
+        <a href="#ebpf-by-example-building-a-gpu-flamegraph-profiler-with-cupti" class="md-skip">
           Skip to content
         </a>
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              eBPF Tutorial by Example: GPU Flamegraph Profiling with CUPTI and eBPF
+              eBPF by Example: Building a GPU Flamegraph Profiler with CUPTI
             
           </span>
         </div>
@@ -1965,7 +1965,7 @@
   
   
   <span class="md-ellipsis">
-    eBPF Tutorial by Example: GPU Flamegraph Profiling with CUPTI and eBPF
+    eBPF by Example: Building a GPU Flamegraph Profiler with CUPTI
     
   </span>
   
@@ -1978,7 +1978,7 @@
   
   
   <span class="md-ellipsis">
-    eBPF Tutorial by Example: GPU Flamegraph Profiling with CUPTI and eBPF
+    eBPF by Example: Building a GPU Flamegraph Profiler with CUPTI
     
   </span>
   
@@ -2001,55 +2001,82 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-we-inject-correlate" class="md-nav__link">
+  <a href="#a-real-world-example-profiling-a-qwen3-llm-inference" class="md-nav__link">
     <span class="md-ellipsis">
-      How we inject &amp; correlate
+      A Real-World Example: Profiling a Qwen3 LLM Inference
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-challenge-correlating-cpu-and-gpu-activity" class="md-nav__link">
+  <a href="#the-magic-behind-the-scenes-injection-and-correlation" class="md-nav__link">
     <span class="md-ellipsis">
-      The Challenge: Correlating CPU and GPU Activity
+      The Magic Behind the Scenes: Injection and Correlation
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#architecture-ebpf-profiler-cupti-injection" class="md-nav__link">
+  <a href="#the-core-problem-why-is-correlating-cpu-and-gpu-so-hard" class="md-nav__link">
     <span class="md-ellipsis">
-      Architecture: eBPF Profiler + CUPTI Injection
+      The Core Problem: Why Is Correlating CPU and GPU So Hard?
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#component-overview" class="md-nav__link">
+  <a href="#our-profilers-architecture-ebpf-cupti-injection" class="md-nav__link">
     <span class="md-ellipsis">
-      Component Overview
+      Our Profiler's Architecture: eBPF + CUPTI Injection
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#high-level-code-analysis-the-complete-profiling-pipeline" class="md-nav__link">
+  <a href="#meet-the-team-the-components-of-our-profiler" class="md-nav__link">
     <span class="md-ellipsis">
-      High-Level Code Analysis: The Complete Profiling Pipeline
+      Meet the Team: The Components of Our Profiler
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="High-Level Code Analysis: The Complete Profiling Pipeline">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-deeper-look-how-the-profiling-pipeline-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      A Deeper Look: How the Profiling Pipeline Works
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A Deeper Look: How the Profiling Pipeline Works">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#key-implementation-three-component-architecture" class="md-nav__link">
+  <a href="#the-three-pillars-of-our-profiler" class="md-nav__link">
     <span class="md-ellipsis">
-      Key Implementation: Three-Component Architecture
+      The Three Pillars of Our Profiler
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-importance-of-duration-weighting" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Importance of Duration Weighting
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#putting-it-all-together-orchestration-in-gpuperfpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Putting It All Together: Orchestration in gpuperf.py
     </span>
   </a>
   
@@ -2061,28 +2088,28 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#example-applications" class="md-nav__link">
+  <a href="#putting-it-to-the-test-example-applications" class="md-nav__link">
     <span class="md-ellipsis">
-      Example Applications
+      Putting It to the Test: Example Applications
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Example Applications">
+    <nav class="md-nav" aria-label="Putting It to the Test: Example Applications">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#real-llm-inference-qwen3cu-recommended" class="md-nav__link">
+  <a href="#the-main-event-a-real-llm-inference-engine-qwen3cu" class="md-nav__link">
     <span class="md-ellipsis">
-      Real LLM Inference: Qwen3.cu (Recommended)
+      The Main Event: A Real LLM Inference Engine (qwen3.cu)
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#alternative-mock-transformer-simulator" class="md-nav__link">
+  <a href="#a-simpler-starting-point-the-mock-transformer-simulator-mock-testllm-inferencecu" class="md-nav__link">
     <span class="md-ellipsis">
-      Alternative: Mock Transformer Simulator
+      A Simpler Starting Point: The Mock Transformer Simulator (mock-test/llm-inference.cu)
     </span>
   </a>
   
@@ -2094,73 +2121,163 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#compilation-and-execution" class="md-nav__link">
+  <a href="#lets-get-building-compilation-and-execution" class="md-nav__link">
     <span class="md-ellipsis">
-      Compilation and Execution
+      Let's Get Building: Compilation and Execution
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Compilation and Execution">
+    <nav class="md-nav" aria-label="Let&#39;s Get Building: Compilation and Execution">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#build-cupti-injection-library" class="md-nav__link">
+  <a href="#step-1-build-the-cupti-injection-library" class="md-nav__link">
     <span class="md-ellipsis">
-      Build CUPTI Injection Library
+      Step 1: Build the CUPTI Injection Library
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#build-rust-ebpf-profiler" class="md-nav__link">
+  <a href="#step-2-build-the-rust-ebpf-profiler" class="md-nav__link">
     <span class="md-ellipsis">
-      Build Rust eBPF Profiler
+      Step 2: Build the Rust eBPF Profiler
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#build-mock-llm-application" class="md-nav__link">
+  <a href="#step-3-build-the-mock-llm-application" class="md-nav__link">
     <span class="md-ellipsis">
-      Build Mock LLM Application
+      Step 3: Build the Mock LLM Application
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#build-real-llm-inference-application-qwen3cu" class="md-nav__link">
+  <a href="#step-4-build-the-real-llm-inference-application" class="md-nav__link">
     <span class="md-ellipsis">
-      Build Real LLM Inference Application (Qwen3.cu)
+      Step 4: Build the Real LLM Inference Application
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#running-the-profiler" class="md-nav__link">
+  <a href="#time-to-shine-running-the-profiler" class="md-nav__link">
     <span class="md-ellipsis">
-      Running the Profiler
+      Time to Shine: Running the Profiler
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#generate-flamegraph" class="md-nav__link">
+  <a href="#step-5-generate-the-flamegraph" class="md-nav__link">
     <span class="md-ellipsis">
-      Generate Flamegraph
+      Step 5: Generate the Flamegraph
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 5: Generate the Flamegraph">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#navigating-your-interactive-flamegraph" class="md-nav__link">
+    <span class="md-ellipsis">
+      Navigating Your Interactive Flamegraph
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#inspecting-individual-traces" class="md-nav__link">
+  <a href="#analyzing-the-qwen3-llm-flamegraph" class="md-nav__link">
     <span class="md-ellipsis">
-      Inspecting Individual Traces
+      Analyzing the Qwen3 LLM Flamegraph
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#going-deeper-inspecting-the-raw-trace-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Going Deeper: Inspecting the Raw Trace Files
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Going Deeper: Inspecting the Raw Trace Files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-cpu-side-story-qwen3_cputxt" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. The CPU-Side Story: qwen3_cpu.txt
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-the-gpu-side-story-qwen3_gpujson" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. The GPU-Side Story: qwen3_gpu.json
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-the-unified-story-qwen3_mergedfolded" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. The Unified Story: qwen3_merged.folded
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-road-ahead-limitations-and-future-directions" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Road Ahead: Limitations and Future Directions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Road Ahead: Limitations and Future Directions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-our-profiler-doesnt-tell-you-inside-the-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      What Our Profiler Doesn't Tell You: Inside the Kernel
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-next-frontier-building-a-unified-system-wide-profiler" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Next Frontier: Building a Unified, System-Wide Profiler
     </span>
   </a>
   
@@ -2172,18 +2289,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#limitations-and-future-directions" class="md-nav__link">
+  <a href="#tying-it-all-together-your-journey-in-review" class="md-nav__link">
     <span class="md-ellipsis">
-      Limitations and Future Directions
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      Summary
+      Tying It All Together: Your Journey in Review
     </span>
   </a>
   
@@ -9261,55 +9369,82 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-we-inject-correlate" class="md-nav__link">
+  <a href="#a-real-world-example-profiling-a-qwen3-llm-inference" class="md-nav__link">
     <span class="md-ellipsis">
-      How we inject &amp; correlate
+      A Real-World Example: Profiling a Qwen3 LLM Inference
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-challenge-correlating-cpu-and-gpu-activity" class="md-nav__link">
+  <a href="#the-magic-behind-the-scenes-injection-and-correlation" class="md-nav__link">
     <span class="md-ellipsis">
-      The Challenge: Correlating CPU and GPU Activity
+      The Magic Behind the Scenes: Injection and Correlation
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#architecture-ebpf-profiler-cupti-injection" class="md-nav__link">
+  <a href="#the-core-problem-why-is-correlating-cpu-and-gpu-so-hard" class="md-nav__link">
     <span class="md-ellipsis">
-      Architecture: eBPF Profiler + CUPTI Injection
+      The Core Problem: Why Is Correlating CPU and GPU So Hard?
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#component-overview" class="md-nav__link">
+  <a href="#our-profilers-architecture-ebpf-cupti-injection" class="md-nav__link">
     <span class="md-ellipsis">
-      Component Overview
+      Our Profiler's Architecture: eBPF + CUPTI Injection
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#high-level-code-analysis-the-complete-profiling-pipeline" class="md-nav__link">
+  <a href="#meet-the-team-the-components-of-our-profiler" class="md-nav__link">
     <span class="md-ellipsis">
-      High-Level Code Analysis: The Complete Profiling Pipeline
+      Meet the Team: The Components of Our Profiler
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="High-Level Code Analysis: The Complete Profiling Pipeline">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-deeper-look-how-the-profiling-pipeline-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      A Deeper Look: How the Profiling Pipeline Works
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A Deeper Look: How the Profiling Pipeline Works">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#key-implementation-three-component-architecture" class="md-nav__link">
+  <a href="#the-three-pillars-of-our-profiler" class="md-nav__link">
     <span class="md-ellipsis">
-      Key Implementation: Three-Component Architecture
+      The Three Pillars of Our Profiler
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-importance-of-duration-weighting" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Importance of Duration Weighting
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#putting-it-all-together-orchestration-in-gpuperfpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Putting It All Together: Orchestration in gpuperf.py
     </span>
   </a>
   
@@ -9321,28 +9456,28 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#example-applications" class="md-nav__link">
+  <a href="#putting-it-to-the-test-example-applications" class="md-nav__link">
     <span class="md-ellipsis">
-      Example Applications
+      Putting It to the Test: Example Applications
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Example Applications">
+    <nav class="md-nav" aria-label="Putting It to the Test: Example Applications">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#real-llm-inference-qwen3cu-recommended" class="md-nav__link">
+  <a href="#the-main-event-a-real-llm-inference-engine-qwen3cu" class="md-nav__link">
     <span class="md-ellipsis">
-      Real LLM Inference: Qwen3.cu (Recommended)
+      The Main Event: A Real LLM Inference Engine (qwen3.cu)
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#alternative-mock-transformer-simulator" class="md-nav__link">
+  <a href="#a-simpler-starting-point-the-mock-transformer-simulator-mock-testllm-inferencecu" class="md-nav__link">
     <span class="md-ellipsis">
-      Alternative: Mock Transformer Simulator
+      A Simpler Starting Point: The Mock Transformer Simulator (mock-test/llm-inference.cu)
     </span>
   </a>
   
@@ -9354,73 +9489,163 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#compilation-and-execution" class="md-nav__link">
+  <a href="#lets-get-building-compilation-and-execution" class="md-nav__link">
     <span class="md-ellipsis">
-      Compilation and Execution
+      Let's Get Building: Compilation and Execution
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Compilation and Execution">
+    <nav class="md-nav" aria-label="Let&#39;s Get Building: Compilation and Execution">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#build-cupti-injection-library" class="md-nav__link">
+  <a href="#step-1-build-the-cupti-injection-library" class="md-nav__link">
     <span class="md-ellipsis">
-      Build CUPTI Injection Library
+      Step 1: Build the CUPTI Injection Library
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#build-rust-ebpf-profiler" class="md-nav__link">
+  <a href="#step-2-build-the-rust-ebpf-profiler" class="md-nav__link">
     <span class="md-ellipsis">
-      Build Rust eBPF Profiler
+      Step 2: Build the Rust eBPF Profiler
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#build-mock-llm-application" class="md-nav__link">
+  <a href="#step-3-build-the-mock-llm-application" class="md-nav__link">
     <span class="md-ellipsis">
-      Build Mock LLM Application
+      Step 3: Build the Mock LLM Application
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#build-real-llm-inference-application-qwen3cu" class="md-nav__link">
+  <a href="#step-4-build-the-real-llm-inference-application" class="md-nav__link">
     <span class="md-ellipsis">
-      Build Real LLM Inference Application (Qwen3.cu)
+      Step 4: Build the Real LLM Inference Application
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#running-the-profiler" class="md-nav__link">
+  <a href="#time-to-shine-running-the-profiler" class="md-nav__link">
     <span class="md-ellipsis">
-      Running the Profiler
+      Time to Shine: Running the Profiler
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#generate-flamegraph" class="md-nav__link">
+  <a href="#step-5-generate-the-flamegraph" class="md-nav__link">
     <span class="md-ellipsis">
-      Generate Flamegraph
+      Step 5: Generate the Flamegraph
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 5: Generate the Flamegraph">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#navigating-your-interactive-flamegraph" class="md-nav__link">
+    <span class="md-ellipsis">
+      Navigating Your Interactive Flamegraph
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#inspecting-individual-traces" class="md-nav__link">
+  <a href="#analyzing-the-qwen3-llm-flamegraph" class="md-nav__link">
     <span class="md-ellipsis">
-      Inspecting Individual Traces
+      Analyzing the Qwen3 LLM Flamegraph
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#going-deeper-inspecting-the-raw-trace-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Going Deeper: Inspecting the Raw Trace Files
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Going Deeper: Inspecting the Raw Trace Files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-cpu-side-story-qwen3_cputxt" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. The CPU-Side Story: qwen3_cpu.txt
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-the-gpu-side-story-qwen3_gpujson" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. The GPU-Side Story: qwen3_gpu.json
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-the-unified-story-qwen3_mergedfolded" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. The Unified Story: qwen3_merged.folded
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-road-ahead-limitations-and-future-directions" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Road Ahead: Limitations and Future Directions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Road Ahead: Limitations and Future Directions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-our-profiler-doesnt-tell-you-inside-the-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      What Our Profiler Doesn't Tell You: Inside the Kernel
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-next-frontier-building-a-unified-system-wide-profiler" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Next Frontier: Building a Unified, System-Wide Profiler
     </span>
   </a>
   
@@ -9432,18 +9657,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#limitations-and-future-directions" class="md-nav__link">
+  <a href="#tying-it-all-together-your-journey-in-review" class="md-nav__link">
     <span class="md-ellipsis">
-      Limitations and Future Directions
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      Summary
+      Tying It All Together: Your Journey in Review
     </span>
   </a>
   
@@ -9515,38 +9731,87 @@
   
 
 
-<h1 id="ebpf-tutorial-by-example-gpu-flamegraph-profiling-with-cupti-and-ebpf">eBPF Tutorial by Example: GPU Flamegraph Profiling with CUPTI and eBPF</h1>
-<p>CPU profilers show host stacks but not which GPU kernel they launch; GPU profilers show device kernels but not the host code path that triggered them. What you usually need is the handoff: "Which CPU function called <code>cudaLaunchKernel()</code> and what kernel did that produce?"</p>
-<p>In this tutorial you'll build a CPU to GPU kernel launch flamegraph using eBPF plus CUPTI. This is a flamegraph where CPU stacks captured at <code>cudaLaunchKernel()</code> are extended with the GPU kernel name using CUPTI correlation IDs. The result makes kernel hotspots discoverable in the context of your host code, without rebuilding the application. CUPTI activity records for runtime API and concurrent kernels carry matching <code>correlationId</code> fields. <a href="https://docs.nvidia.com/cupti/api/structCUpti__ActivityKernel8.html">NVIDIA Docs</a></p>
-<h2 id="how-we-inject-correlate">How we inject &amp; correlate</h2>
-<p>We load a small CUPTI library via <code>CUDA_INJECTION64_PATH</code> so the CUDA runtime records runtime API and kernel activity with timestamps and correlation IDs. In parallel, an eBPF uprobe on <code>cudaLaunchKernel()</code> collects the CPU call stack and kernel time. After the run, a merger uses the CUPTI <code>correlationId</code> to connect the runtime API call to the kernel event, and appends <code>[GPU Kernel] &lt;name&gt;</code> to the CPU stack before generating a standard folded file for <code>flamegraph.pl</code>. <a href="https://docs.nvidia.com/drive/drive-os-5.2.6.0L/nsight-systems/pdf/UserGuide.pdf">NVIDIA Docs</a></p>
-<blockquote>
-<p>The complete source code: <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/xpu/flamegraph">https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/xpu/flamegraph</a></p>
-</blockquote>
-<h2 id="the-challenge-correlating-cpu-and-gpu-activity">The Challenge: Correlating CPU and GPU Activity</h2>
-<p>GPU profiling requires understanding two separate execution domains. On the CPU side, your application calls CUDA runtime APIs like <code>cudaLaunchKernel</code>, <code>cudaMemcpy</code>, and <code>cudaDeviceSynchronize</code>. These functions prepare work, validate parameters, and submit commands to the GPU driver. On the GPU side, kernels execute thousands of parallel threads, access memory, and signal completion through interrupts. The gap between these domains is where performance problems hide.</p>
-<p>This challenge is universal across GPU vendors. NVIDIA GPUs use CUDA runtime and CUPTI, AMD GPUs use ROCm and rocProfiler, and Intel GPUs use Level Zero and GPU Observability Architecture. Each vendor provides different APIs, but the fundamental problem remains the same: correlating CPU code paths with GPU kernel execution. Tools like iaprof for Intel GPUs demonstrate similar architectures - using eBPF to capture CPU stacks, vendor-specific APIs to trace GPU activity, and correlation logic to merge them into unified flamegraphs. The techniques in this tutorial apply to NVIDIA GPUs but the principles transfer to any GPU platform.</p>
-<p>The key insight: CUDA runtime assigns a unique correlation ID to every API call. When your CPU calls <code>cudaLaunchKernel</code>, the runtime creates a correlation ID linking that specific call to the eventual GPU kernel execution. NVIDIA's CUPTI (CUDA Profiling Tools Interface) library records both runtime API calls and GPU kernel executions, embedding these correlation IDs in activity records. By matching correlation IDs between CPU-side eBPF stack traces and GPU-side CUPTI events, we reconstruct the complete execution flow.</p>
-<p>Traditional profiling approaches fall short. CPU profilers like perf or eBPF-based profilers capture application and runtime stack traces but have no visibility into GPU execution. They can show you spent 100ms in <code>cudaLaunchKernel</code>, but not which kernel ran or how long it actually executed on the GPU. GPU profilers like NVIDIA Nsight or nvprof capture detailed kernel metrics but only show the kernel name, losing context about which CPU code path triggered it. You see a kernel took 50ms, but not why your application called it or what happened before and after.</p>
-<p>CUPTI provides the bridge. It's a callback and activity-based API that instruments the CUDA runtime and driver. When you enable CUPTI activity tracing, it records timestamped events for runtime API calls (entry and exit), kernel executions (launch and completion), memory transfers, and synchronization operations. Each event contains a correlation ID linking GPU work back to the CPU API call that submitted it. By injecting CUPTI into CUDA applications via <code>LD_PRELOAD</code>, we capture this data without recompiling.</p>
-<h2 id="architecture-ebpf-profiler-cupti-injection">Architecture: eBPF Profiler + CUPTI Injection</h2>
-<p>The profiling system has three components working in concert. The eBPF profiler monitors the CPU side using uprobes on <code>cudaLaunchKernel</code> in the CUDA runtime library. Every time any process calls this function to launch a GPU kernel, the eBPF program captures the complete CPU stack trace with nanosecond timestamps. This stack shows the application call chain leading to the kernel launch - revealing which functions, which loops, which code paths triggered GPU work.</p>
-<p>CUPTI activity tracing runs inside the target process through library injection. We set <code>CUDA_INJECTION64_PATH</code> to point to our injection library, which CUDA runtime automatically loads. This library enables CUPTI activity callbacks for runtime APIs and concurrent kernel execution. As the application runs, CUPTI accumulates activity records in internal buffers. When buffers fill or the application exits, CUPTI calls our buffer completion callback, where we serialize events to a trace file. Each event contains start/end timestamps in nanoseconds and correlation IDs.</p>
-<p>The trace merger combines these two data sources. It parses CPU stack traces in extended folded format (timestamp, command name, PID, TID, CPU, semicolon-separated stack) and GPU traces in Chrome JSON format (CUPTI events converted to Chrome trace format for visualization). Correlation happens through timestamp proximity - since CPU uprobe fires at <code>cudaLaunchKernel</code> entry and CUPTI records the runtime API with the same correlation ID, we match them within a small time window. The merger then matches GPU kernel events to their corresponding runtime API calls via correlation ID. The output is folded stack format suitable for flamegraph generation: <code>cpu_func1;cpu_func2;cudaLaunchKernel;[GPU_Kernel]kernel_name count</code>.</p>
-<h2 id="component-overview">Component Overview</h2>
-<p>The system consists of four key tools that work together to provide end-to-end visibility.</p>
-<p>The gpuperf.py script is the main orchestration component that launches the target application with both eBPF CPU profiling and CUPTI GPU tracing enabled. It manages environment variables for CUPTI injection (including <code>CUDA_INJECTION64_PATH</code> and <code>CUPTI_TRACE_OUTPUT_FILE</code>). The script starts the Rust eBPF profiler with cudaLaunchKernel uprobes before the target process to catch all kernel launches. Then it runs the target application with CUPTI injection enabled, collects traces from both sources, and automatically merges them into a unified flamegraph-ready format. The script handles cleanup, error cases, and provides multiple output modes including CPU-only, GPU-only, or merged.</p>
-<p>The Rust eBPF Profiler in the <code>profiler/</code> directory is a stack trace collector built with libbpf. It attaches uprobes to <code>cudaLaunchKernel</code> in the CUDA runtime library. The profiler captures full stack traces using eBPF's <code>bpf_get_stackid()</code> helper, records timestamps with nanosecond precision, and outputs extended folded format directly without post-processing. The <code>-E</code> flag enables extended output with timestamps, which is critical for correlation with GPU events.</p>
-<p>CUPTI Trace Injection in the <code>cupti_trace/</code> directory is a shared library loaded into CUDA applications via injection. It initializes CUPTI activity tracing for runtime API and kernel events. The library registers buffer management callbacks for asynchronous event collection, captures correlation IDs linking CPU API calls to GPU kernels, and records nanosecond-precision timestamps from GPU hardware counters. It serializes events to a text format for parsing, and properly handles cleanup on application exit or crashes. The injection approach works without modifying or recompiling applications, as it intercepts CUDA runtime initialization.</p>
-<p>The Trace Merger in <code>merge_gpu_cpu_trace.py</code> performs the correlation logic. It parses CPU traces in extended folded format extracting timestamps, process info, and stack traces. The merger also parses GPU traces from CUPTI (via Chrome JSON format) identifying kernel executions and runtime API calls. It matches CPU stacks to GPU events using correlation logic where the CPU uprobe timestamp matches the CUPTI runtime API timestamp, and the runtime API correlation ID matches the GPU kernel correlation ID. Finally, it generates folded output where GPU kernel names extend CPU stacks. For example, <code>app_func;cudaLaunchKernel;[GPU_Kernel]matmul_kernel 1000</code> means the matmul kernel was sampled 1000 times from that code path.</p>
-<h2 id="high-level-code-analysis-the-complete-profiling-pipeline">High-Level Code Analysis: The Complete Profiling Pipeline</h2>
-<p>The complete profiling flow starts when you run <code>gpuperf.py</code> to launch your CUDA application. Let's walk through what happens from process startup to final flamegraph generation, following the actual code paths.</p>
-<h3 id="key-implementation-three-component-architecture">Key Implementation: Three-Component Architecture</h3>
-<p>The profiling pipeline consists of three key components working together. Here's the essential logic from each:</p>
+<h1 id="ebpf-by-example-building-a-gpu-flamegraph-profiler-with-cupti">eBPF by Example: Building a GPU Flamegraph Profiler with CUPTI</h1>
+<p>Have you ever wondered which part of your CPU code is responsible for launching a specific GPU kernel? CPU profilers can show you the host-side call stacks, but they lose visibility once the work is handed off to the GPU. On the other hand, GPU profilers detail what's happening on the device but often don't link it back to the specific CPU function that initiated it. This creates a blind spot, making it difficult to answer a critical question: "Which line of my code is causing this slow GPU kernel to run?"</p>
+<p>This tutorial will guide you through building a profiler that bridges this gap. You will create a unified CPU-to-GPU flamegraph using the power of eBPF and NVIDIA's CUPTI (CUDA Profiling Tools Interface). By the end, you'll have a tool that captures CPU stack traces at the moment of a <code>cudaLaunchKernel()</code> call and intelligently stitches them together with the corresponding GPU kernel's execution data. The result is a powerful visualization that reveals exactly which host code paths are triggering which GPU kernels, allowing you to pinpoint performance bottlenecks without recompiling your application. We'll achieve this by using CUPTI's correlation IDs, which act as a bridge connecting CPU-side API calls with their GPU-side kernel executions.</p>
+<h2 id="a-real-world-example-profiling-a-qwen3-llm-inference">A Real-World Example: Profiling a Qwen3 LLM Inference</h2>
+<p>To see our profiler in action, let's look at a real-world example: profiling a Qwen3 0.6B Large Language Model during inference. The resulting flamegraph, shown below, visualizes the entire operation, merging CPU call stacks with the GPU kernels they launch. It immediately becomes clear that the <code>matmul_kernel</code> (matrix multiplication) is the most time-consuming part, accounting for 95% of the total GPU execution time.</p>
+<p><img alt="Qwen3 LLM Inference Flamegraph" src="qwen3_flamegraph.svg" /></p>
+<p><strong>Key Insights from this Flamegraph:</strong></p>
+<p>This visualization gives us a clear breakdown of where the GPU is spending its time:
+- <strong><code>matmul_kernel</code></strong>: 3.1 seconds (95% of GPU time). This tells us that matrix multiplication is, by far, the biggest performance bottleneck.
+- <strong><code>multi_head_attention_kernel</code></strong>: 105ms (3.2%). The attention mechanism adds a small amount of overhead.
+- <strong><code>rmsnorm_kernel</code></strong>: 44ms (1.3%). Normalization is a relatively inexpensive operation.
+- <strong>End-to-End Visibility</strong>: The flamegraph shows the complete call chain, from the <code>main</code> function on the CPU all the way to the specific <code>[GPU_Kernel]</code> executing on the device.</p>
+<h2 id="the-magic-behind-the-scenes-injection-and-correlation">The Magic Behind the Scenes: Injection and Correlation</h2>
+<p>So, how do we create this unified view? The process involves two key technologies working in tandem: eBPF for the CPU side and CUPTI for the GPU side.</p>
 <ol>
-<li>eBPF Profiler in <code>profiler/src/bpf/profile.bpf.c</code> for kernel-space stack capture:</li>
+<li>
+<p><strong>GPU Tracing with CUPTI Injection</strong>: We start by creating a small, custom CUPTI library. By setting the <code>CUDA_INJECTION64_PATH</code> environment variable, we tell the CUDA runtime to load our library alongside the application. Once loaded, this library uses the CUPTI API to record all GPU activities, such as kernel launches and memory transfers. Crucially, it captures timestamps and special <strong>correlation IDs</strong> for each event.</p>
+</li>
+<li>
+<p><strong>CPU Profiling with eBPF</strong>: At the same time, we use an eBPF "uprobe" to monitor the application from the outside. This probe is attached to the <code>cudaLaunchKernel()</code> function within the CUDA runtime library. Whenever the application calls this function to launch a kernel, our eBPF program springs into action, capturing the complete CPU call stack at that exact moment.</p>
+</li>
+<li>
+<p><strong>Connecting the Dots</strong>: After the application finishes running, we are left with two sets of data: a trace of GPU events from CUPTI and a collection of CPU stack traces from eBPF. A final script then merges them. It uses the <strong>correlation IDs</strong> from CUPTI to link a specific <code>cudaLaunchKernel</code> API call to the actual kernel that ran on the GPU. It then finds the corresponding CPU stack trace captured by eBPF (usually by matching timestamps) and appends the GPU kernel's name to it.</p>
+</li>
 </ol>
-<p>The Rust profiler in <code>profiler/</code> is a libbpf-based eBPF application. Unlike bpftrace or BCC which interpret scripts at runtime, this profiler compiles to native code for minimal overhead. It attaches uprobes dynamically to any function in any library, making it perfect for instrumenting CUDA runtime without modifying NVIDIA's binaries.</p>
+<p>The result is a "folded" stack file, ready to be turned into a flamegraph, where each line represents a complete CPU-to-GPU call chain.</p>
+<blockquote>
+<p>You can find the complete source code for this tutorial here: <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/xpu/flamegraph">https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/xpu/flamegraph</a></p>
+</blockquote>
+<h2 id="the-core-problem-why-is-correlating-cpu-and-gpu-so-hard">The Core Problem: Why Is Correlating CPU and GPU So Hard?</h2>
+<p>To understand why we need a special tool, it's important to grasp the fundamental challenge of GPU profiling. When you run a CUDA application, you're dealing with two distinct worlds operating in parallel: the <strong>CPU</strong> and the <strong>GPU</strong>.</p>
+<ul>
+<li><strong>On the CPU side</strong>, your application code makes calls to the CUDA runtime library (e.g., <code>cudaLaunchKernel</code>, <code>cudaMemcpy</code>). These calls don't execute the work directly; instead, they package up commands and send them to the GPU driver.</li>
+<li><strong>On the GPU side</strong>, the hardware picks up these commands and executes them. This involves launching kernels with thousands of threads, moving data, and performing computations.</li>
+</ul>
+<p>The performance bottlenecks you want to find often live in the handoff between these two worlds. Traditional profilers struggle here. A CPU profiler (<code>perf</code>, for example) can tell you that your program spent a lot of time inside <code>cudaLaunchKernel</code>, but it can't tell you <em>which</em> kernel was launched or how long it actually ran on the GPU. Conversely, a GPU profiler (like NVIDIA's Nsight) will give you detailed metrics about a kernel's execution but won't show you the specific line of CPU code that caused it to run.</p>
+<p>This disconnect is the problem we're solving. And it's not unique to NVIDIA. Whether you're using AMD's ROCm or Intel's Level Zero, the challenge of linking CPU-side causes to GPU-side effects is universal. The solution, regardless of the platform, is to find a way to "tag" a request on the CPU and find that same tag on the GPU.</p>
+<p>Fortunately, NVIDIA's CUDA runtime provides exactly what we need: <strong>correlation IDs</strong>. Every time an API call like <code>cudaLaunchKernel</code> is made, the runtime assigns it a unique ID. This ID is passed along with the work to the GPU. Later, when the kernel executes, it carries the same ID. By capturing this ID on both sides, we can definitively link a CPU call stack to a GPU kernel execution. This is where CUPTI becomes essential, as it gives us access to these activity records. By injecting a CUPTI-based tracer into our application, we can harvest these events without having to recompile anything.</p>
+<h2 id="our-profilers-architecture-ebpf-cupti-injection">Our Profiler's Architecture: eBPF + CUPTI Injection</h2>
+<p>Our profiler is built on a three-part architecture that combines eBPF, CUPTI, and a final merging step. Here’s how the pieces fit together:</p>
+<ol>
+<li>
+<p><strong>The eBPF Profiler (CPU-Side Monitoring)</strong>: This component acts as our CPU-side watchdog. It uses an eBPF <strong>uprobe</strong> to attach to the <code>cudaLaunchKernel</code> function inside the CUDA runtime library. Whenever any process on the system calls this function, our eBPF program triggers, instantly capturing the full CPU call stack with nanosecond precision. This gives us a snapshot of the exact code path—from the main function down to the specific loop or method—that initiated the GPU work.</p>
+</li>
+<li>
+<p><strong>The CUPTI Injection Library (GPU-Side Tracing)</strong>: To see what the GPU is doing, we use a clever trick called library injection. We compile a small shared library that uses the CUPTI API. By setting the <code>CUDA_INJECTION64_PATH</code> environment variable, we instruct the CUDA runtime to load our library into the target application automatically. Once inside, it activates CUPTI's activity tracing, which records detailed events for kernel executions and runtime API calls. These records include high-precision timestamps and, most importantly, the <strong>correlation IDs</strong> that link everything together.</p>
+</li>
+<li>
+<p><strong>The Trace Merger (Connecting the Traces)</strong>: After the profiling session ends, we have two raw data streams: CPU stack traces from eBPF and GPU activity records from CUPTI. The final step is to merge them. A script parses both traces and begins the correlation process. It first finds matching <code>cudaLaunchKernel</code> events between the two traces (using timestamps as a guide) and then uses the correlation ID from those events to link the CPU-side call to the correct GPU kernel execution. The output is a unified "folded stack" file, where each line looks something like this: <code>cpu_func1;cpu_func2;cudaLaunchKernel;[GPU_Kernel]kernel_name count</code>. This format is exactly what the standard <code>flamegraph.pl</code> script needs to generate the final visualization.</p>
+</li>
+</ol>
+<h2 id="meet-the-team-the-components-of-our-profiler">Meet the Team: The Components of Our Profiler</h2>
+<p>Our profiling system is made up of four key components that work together to give us a complete picture of our application's performance. Let's get to know the role each one plays.</p>
+<ul>
+<li>
+<p><strong>The Conductor: <code>gpuperf.py</code></strong>
+    This Python script is the main entry point and orchestrator of the entire profiling process. It's responsible for launching the target application with both the eBPF profiler and CUPTI tracer active. It sets up the necessary environment variables, starts and stops the tracers at the right time, and kicks off the final merge step to produce the unified flamegraph data. It also gracefully handles cleanup and offers different modes, allowing you to run a CPU-only, GPU-only, or a combined profile.</p>
+</li>
+<li>
+<p><strong>The CPU Spy: The Rust eBPF Profiler (<code>profiler/</code>)</strong>
+    This is a high-performance stack trace collector built in Rust using the <code>libbpf</code> library. Its job is to spy on the CPU. It attaches an eBPF uprobe to the <code>cudaLaunchKernel</code> function in the CUDA runtime library. Every time this function is called, the profiler captures the full user-space stack trace, records a high-precision timestamp, and saves it in a special "extended folded format." This extended format is crucial because the timestamps are what allow us to later correlate these CPU events with GPU activity.</p>
+</li>
+<li>
+<p><strong>The GPU Informant: The CUPTI Trace Injection Library (<code>cupti_trace/</code>)</strong>
+    This is a C++ shared library that acts as our informant on the inside. Loaded into the target application via <code>CUDA_INJECTION64_PATH</code>, it uses the CUPTI API to subscribe to GPU activities. It records detailed information about runtime API calls and kernel executions, including their start and end timestamps and their all-important <strong>correlation IDs</strong>. This library is designed to be non-intrusive; it collects data asynchronously and writes it to a trace file, all without requiring any changes to the original application.</p>
+</li>
+<li>
+<p><strong>The Detective: The Trace Merger (<code>merge_gpu_cpu_trace.py</code>)</strong>
+    This Python script plays the role of the detective. After the profiling run is complete, it takes the CPU trace from our eBPF spy and the GPU trace from our CUPTI informant and pieces the story together. It intelligently matches the CPU stack traces to their corresponding GPU kernel executions using a two-step process: first by finding events that are close in time, and then by confirming the match using the correlation ID. Once a match is found, it appends the GPU kernel's name to the CPU stack trace and generates the final folded stack file, ready for visualization.</p>
+</li>
+</ul>
+<h2 id="a-deeper-look-how-the-profiling-pipeline-works">A Deeper Look: How the Profiling Pipeline Works</h2>
+<p>To truly understand how our profiler works, let's follow the journey of a single <code>cudaLaunchKernel</code> call as it travels through our entire pipeline. From the moment you execute the <code>gpuperf.py</code> script to the final generation of the flamegraph, we'll trace the data flow and see how each component plays its part.</p>
+<h3 id="the-three-pillars-of-our-profiler">The Three Pillars of Our Profiler</h3>
+<p>Our pipeline is built on three core technical implementations. Let's examine the key code snippets from each to understand how they function.</p>
+<ol>
+<li>
+<p><strong>Capturing CPU Stacks with the eBPF Profiler (<code>profiler/src/bpf/profile.bpf.c</code>)</strong></p>
+<p>At the heart of our CPU-side monitoring is a lightweight eBPF program written in C. This program is compiled into highly efficient, native bytecode that runs directly in the kernel, ensuring minimal performance overhead. Unlike tools that interpret scripts at runtime, this <code>libbpf</code>-based approach is fast and safe. We use it to dynamically attach a uprobe to the <code>cudaLaunchKernel</code> function without having to modify any of NVIDIA's own binaries.</p>
+</li>
+</ol>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">// eBPF program that captures stack traces when cudaLaunchKernel is called</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;uprobe&quot;</span><span class="p">)</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kt">int</span><span class="w"> </span><span class="n">uprobe_handler</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">pt_regs</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span>
@@ -9572,14 +9837,17 @@
 <a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="p">}</span>
 </code></pre></div>
-<p>When the uprobe fires at <code>cudaLaunchKernel</code> entry, the eBPF program reads the current stack using kernel helpers. It stores stack traces in a BPF stack map, which is a hash table mapping stack IDs to stack traces to deduplicate identical stacks. The program records a sample event containing timestamp, process info, and stack ID, then sends the event to userspace via a BPF ring buffer.</p>
-<p>The Rust userspace code polls for events, looks up stack traces using stack IDs, and resolves addresses to symbol names using DWARF debug info via the blazesym library. It outputs extended folded format: <code>timestamp_ns comm pid tid cpu stack1;stack2;...;stackN</code>. This format is critical because the timestamp enables correlation with GPU events, and the folded stack format feeds directly into flamegraph generation.</p>
-<p>The <code>-E</code> extended output flag is what differentiates this from standard flamegraph profiling. Traditional folded format is just <code>stack1;stack2;stack3 count</code>, showing aggregate call graphs. Extended format adds temporal information: <code>1234567890 myapp 1000 1000 0 stack1;stack2;stack3</code>, telling you exactly when each sample occurred. This timestamp precision is what allows matching CPU stacks to GPU kernel launches that happen milliseconds or microseconds later.</p>
+<p>When the <code>uprobe_handler</code> is triggered, it captures all the necessary information about the CPU-side call. It records the process and thread ID, grabs a nanosecond-precision timestamp, and, most importantly, uses the <code>bpf_get_stack()</code> helper to walk the user-space stack and capture the full call chain. This data is then efficiently sent from the kernel to our user-space Rust application via a BPF ring buffer.</p>
+<p>Once in user space, the Rust profiler performs several key tasks. It receives the raw stack data, resolves the memory addresses to human-readable function names (a process called symbolization, done here with the <code>blazesym</code> library), and formats it all into our special "extended folded format."</p>
+<p>A standard folded stack for a flamegraph looks like this: <code>stack1;stack2;stack3 1</code>. The <code>1</code> at the end is simply a count. Our extended format, enabled with the <code>-E</code> flag, adds crucial temporal and contextual information: <code>timestamp_ns comm pid tid cpu stack1;stack2;...;stackN</code>. This timestamp is the key that will unlock the correlation with the GPU trace data. It tells us <em>exactly when</em> the <code>cudaLaunchKernel</code> call happened, allowing us to match it with GPU events that occur microseconds or milliseconds later.</p>
 <ol>
-<li>CUPTI Injection in <code>cupti_trace/cupti_trace_injection.cpp</code> for GPU activity tracking:</li>
+<li>
+<p><strong>Spying on the GPU with the CUPTI Injection Library (<code>cupti_trace/cupti_trace_injection.cpp</code>)</strong></p>
+<p>Now for the GPU side. How do we see what the GPU is doing without modifying the application? We use a powerful feature of the CUDA driver called <strong>library injection</strong>. We create a small C++ shared library that acts as our GPU informant. By setting the <code>CUDA_INJECTION64_PATH</code> environment variable to point to our library, we tell the CUDA runtime to load it into the application's process space automatically.</p>
+<p>The magic happens because our library is loaded <em>before</em> the main CUDA runtime is fully initialized. This gives us the perfect opportunity to set up our spy gear. We use a <code>__attribute__((constructor))</code> function, which the Linux dynamic loader runs automatically when our library is loaded. Inside this constructor, we activate CUPTI and tell it which events we're interested in.</p>
+</li>
 </ol>
-<p>The CUPTI injection library in <code>cupti_trace/</code> implements the GPU-side instrumentation. When CUDA runtime loads this library (via <code>CUDA_INJECTION64_PATH</code>), the library's initialization function runs before any CUDA API is available. This is the perfect time to set up CUPTI callbacks.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">// Initialize CUPTI tracing when library is loaded</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">// This function is automatically called when our library is loaded.</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">__attribute__</span><span class="p">((</span><span class="n">constructor</span><span class="p">))</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="kt">void</span><span class="w"> </span><span class="n">InitializeInjection</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="p">{</span>
@@ -9590,287 +9858,442 @@
 <a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="n">cuptiActivityEnable</span><span class="p">(</span><span class="n">CUPTI_ACTIVITY_KIND_CONCURRENT_KERNEL</span><span class="p">);</span>
 <a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="n">cuptiActivityEnable</span><span class="p">(</span><span class="n">CUPTI_ACTIVITY_KIND_RUNTIME</span><span class="p">);</span>
 <a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="c1">// Register buffer management callbacks</span>
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="n">cuptiActivityRegisterCallbacks</span><span class="p">(</span><span class="n">BufferRequested</span><span class="p">,</span><span class="w"> </span><span class="n">BufferCompleted</span><span class="p">);</span>
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="p">}</span>
-<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>
-<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="c1">// Callback when CUPTI fills an activity buffer</span>
-<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="kt">void</span><span class="w"> </span><span class="n">CUPTIAPI</span><span class="w"> </span><span class="n">BufferCompleted</span><span class="p">(</span><span class="n">CUcontext</span><span class="w"> </span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">streamId</span><span class="p">,</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="p">,</span>
-<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">                               </span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">validSize</span><span class="p">)</span>
-<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="p">{</span>
-<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">    </span><span class="n">CUpti_Activity</span><span class="w"> </span><span class="o">*</span><span class="n">record</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
-<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>
-<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">    </span><span class="c1">// Iterate through all activity records in the buffer</span>
-<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">CUPTI_SUCCESS</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">cuptiActivityGetNextRecord</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="n">validSize</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">record</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">record</span><span class="o">-&gt;</span><span class="n">kind</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="no">CUPTI_ACTIVITY_KIND_CONCURRENT_KERNEL</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="w">                </span><span class="n">CUpti_ActivityKernel4</span><span class="w"> </span><span class="o">*</span><span class="n">kernel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">CUpti_ActivityKernel4</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">record</span><span class="p">;</span>
-<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>
-<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="w">                </span><span class="c1">// Extract kernel execution details</span>
-<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a><span class="w">                </span><span class="n">fprintf</span><span class="p">(</span><span class="n">outputFile</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;CONCURRENT_KERNEL [ %llu, %llu ] duration %llu, </span><span class="se">\&quot;</span><span class="s">%s</span><span class="se">\&quot;</span><span class="s">, correlationId %u</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
-<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a><span class="w">                        </span><span class="n">kernel</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">,</span><span class="w">           </span><span class="c1">// GPU timestamp (ns)</span>
-<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a><span class="w">                        </span><span class="n">kernel</span><span class="o">-&gt;</span><span class="n">end</span><span class="p">,</span><span class="w">             </span><span class="c1">// GPU timestamp (ns)</span>
-<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a><span class="w">                        </span><span class="n">kernel</span><span class="o">-&gt;</span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">kernel</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">,</span>
-<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a><span class="w">                        </span><span class="n">kernel</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">,</span><span class="w">            </span><span class="c1">// Kernel function name</span>
-<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a><span class="w">                        </span><span class="n">kernel</span><span class="o">-&gt;</span><span class="n">correlationId</span><span class="p">);</span><span class="w">  </span><span class="c1">// Links to CPU API call</span>
-<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a><span class="w">                </span><span class="k">break</span><span class="p">;</span>
-<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a><span class="w">            </span><span class="p">}</span>
-<a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a><span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="no">CUPTI_ACTIVITY_KIND_RUNTIME</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a><span class="w">                </span><span class="n">CUpti_ActivityAPI</span><span class="w"> </span><span class="o">*</span><span class="n">api</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">CUpti_ActivityAPI</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">record</span><span class="p">;</span>
-<a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a>
-<a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a><span class="w">                </span><span class="c1">// Track cudaLaunchKernel API calls</span>
-<a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">api</span><span class="o">-&gt;</span><span class="n">cbid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">CUPTI_RUNTIME_TRACE_CBID_cudaLaunchKernel_v7000</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a><span class="w">                    </span><span class="n">fprintf</span><span class="p">(</span><span class="n">outputFile</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;RUNTIME [ %llu, %llu ] </span><span class="se">\&quot;</span><span class="s">cudaLaunchKernel</span><span class="se">\&quot;</span><span class="s">, correlationId %u</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
-<a id="__codelineno-1-43" name="__codelineno-1-43" href="#__codelineno-1-43"></a><span class="w">                            </span><span class="n">api</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">,</span><span class="w">          </span><span class="c1">// API entry timestamp</span>
-<a id="__codelineno-1-44" name="__codelineno-1-44" href="#__codelineno-1-44"></a><span class="w">                            </span><span class="n">api</span><span class="o">-&gt;</span><span class="n">end</span><span class="p">,</span><span class="w">            </span><span class="c1">// API exit timestamp</span>
-<a id="__codelineno-1-45" name="__codelineno-1-45" href="#__codelineno-1-45"></a><span class="w">                            </span><span class="n">api</span><span class="o">-&gt;</span><span class="n">correlationId</span><span class="p">);</span><span class="w"> </span><span class="c1">// Same ID as kernel</span>
-<a id="__codelineno-1-46" name="__codelineno-1-46" href="#__codelineno-1-46"></a><span class="w">                </span><span class="p">}</span>
-<a id="__codelineno-1-47" name="__codelineno-1-47" href="#__codelineno-1-47"></a><span class="w">                </span><span class="k">break</span><span class="p">;</span>
-<a id="__codelineno-1-48" name="__codelineno-1-48" href="#__codelineno-1-48"></a><span class="w">            </span><span class="p">}</span>
-<a id="__codelineno-1-49" name="__codelineno-1-49" href="#__codelineno-1-49"></a><span class="w">        </span><span class="p">}</span>
-<a id="__codelineno-1-50" name="__codelineno-1-50" href="#__codelineno-1-50"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-1-51" name="__codelineno-1-51" href="#__codelineno-1-51"></a><span class="p">}</span>
-<a id="__codelineno-1-52" name="__codelineno-1-52" href="#__codelineno-1-52"></a>
-<a id="__codelineno-1-53" name="__codelineno-1-53" href="#__codelineno-1-53"></a><span class="c1">// Initialize CUPTI tracing when library is loaded</span>
-<a id="__codelineno-1-54" name="__codelineno-1-54" href="#__codelineno-1-54"></a><span class="n">__attribute__</span><span class="p">((</span><span class="n">constructor</span><span class="p">))</span>
-<a id="__codelineno-1-55" name="__codelineno-1-55" href="#__codelineno-1-55"></a><span class="kt">void</span><span class="w"> </span><span class="n">InitializeInjection</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<a id="__codelineno-1-56" name="__codelineno-1-56" href="#__codelineno-1-56"></a><span class="p">{</span>
-<a id="__codelineno-1-57" name="__codelineno-1-57" href="#__codelineno-1-57"></a><span class="w">    </span><span class="c1">// Subscribe to CUPTI callbacks</span>
-<a id="__codelineno-1-58" name="__codelineno-1-58" href="#__codelineno-1-58"></a><span class="w">    </span><span class="n">cuptiSubscribe</span><span class="p">(</span><span class="o">&amp;</span><span class="n">subscriberHandle</span><span class="p">,</span><span class="w"> </span><span class="n">CallbackHandler</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
-<a id="__codelineno-1-59" name="__codelineno-1-59" href="#__codelineno-1-59"></a>
-<a id="__codelineno-1-60" name="__codelineno-1-60" href="#__codelineno-1-60"></a><span class="w">    </span><span class="c1">// Enable activity tracing for kernels and runtime APIs</span>
-<a id="__codelineno-1-61" name="__codelineno-1-61" href="#__codelineno-1-61"></a><span class="w">    </span><span class="n">cuptiActivityEnable</span><span class="p">(</span><span class="n">CUPTI_ACTIVITY_KIND_CONCURRENT_KERNEL</span><span class="p">);</span>
-<a id="__codelineno-1-62" name="__codelineno-1-62" href="#__codelineno-1-62"></a><span class="w">    </span><span class="n">cuptiActivityEnable</span><span class="p">(</span><span class="n">CUPTI_ACTIVITY_KIND_RUNTIME</span><span class="p">);</span>
-<a id="__codelineno-1-63" name="__codelineno-1-63" href="#__codelineno-1-63"></a>
-<a id="__codelineno-1-64" name="__codelineno-1-64" href="#__codelineno-1-64"></a><span class="w">    </span><span class="c1">// Register buffer management callbacks</span>
-<a id="__codelineno-1-65" name="__codelineno-1-65" href="#__codelineno-1-65"></a><span class="w">    </span><span class="n">cuptiActivityRegisterCallbacks</span><span class="p">(</span><span class="n">BufferRequested</span><span class="p">,</span><span class="w"> </span><span class="n">BufferCompleted</span><span class="p">);</span>
-<a id="__codelineno-1-66" name="__codelineno-1-66" href="#__codelineno-1-66"></a><span class="p">}</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="c1">// Register our callback functions to handle the data buffers.</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="c1">// CUPTI will call `BufferRequested` when it needs memory to store data,</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span><span class="c1">// and `BufferCompleted` when a buffer is full and ready for processing.</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">    </span><span class="n">cuptiActivityRegisterCallbacks</span><span class="p">(</span><span class="n">BufferRequested</span><span class="p">,</span><span class="w"> </span><span class="n">BufferCompleted</span><span class="p">);</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="p">}</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="c1">// This callback is triggered by CUPTI whenever a buffer of activity records is full.</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="kt">void</span><span class="w"> </span><span class="n">CUPTIAPI</span><span class="w"> </span><span class="n">BufferCompleted</span><span class="p">(</span><span class="n">CUcontext</span><span class="w"> </span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">streamId</span><span class="p">,</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="p">,</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">                               </span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">validSize</span><span class="p">)</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="p">{</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">    </span><span class="n">CUpti_Activity</span><span class="w"> </span><span class="o">*</span><span class="n">record</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">    </span><span class="c1">// Iterate through all the activity records in the completed buffer.</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">CUPTI_SUCCESS</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">cuptiActivityGetNextRecord</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="n">validSize</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">record</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">record</span><span class="o">-&gt;</span><span class="n">kind</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="w">            </span><span class="c1">// This record type contains details about a GPU kernel&#39;s execution.</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="no">CUPTI_ACTIVITY_KIND_CONCURRENT_KERNEL</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a><span class="w">                </span><span class="n">CUpti_ActivityKernel4</span><span class="w"> </span><span class="o">*</span><span class="n">kernel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">CUpti_ActivityKernel4</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">record</span><span class="p">;</span>
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a><span class="w">                </span><span class="c1">// We extract the most important details: the kernel&#39;s name, its start and</span>
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a><span class="w">                </span><span class="c1">// end timestamps (from the GPU&#39;s own high-precision clock), and the</span>
+<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a><span class="w">                </span><span class="c1">// all-important correlation ID that links it back to a CPU-side API call.</span>
+<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a><span class="w">                </span><span class="n">fprintf</span><span class="p">(</span><span class="n">outputFile</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;CONCURRENT_KERNEL [ %llu, %llu ] duration %llu, </span><span class="se">\&quot;</span><span class="s">%s</span><span class="se">\&quot;</span><span class="s">, correlationId %u</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a><span class="w">                        </span><span class="n">kernel</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">,</span><span class="w">           </span><span class="c1">// GPU timestamp (ns)</span>
+<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a><span class="w">                        </span><span class="n">kernel</span><span class="o">-&gt;</span><span class="n">end</span><span class="p">,</span><span class="w">             </span><span class="c1">// GPU timestamp (ns)</span>
+<a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a><span class="w">                        </span><span class="n">kernel</span><span class="o">-&gt;</span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">kernel</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">,</span>
+<a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a><span class="w">                        </span><span class="n">kernel</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">,</span><span class="w">            </span><span class="c1">// Kernel function name</span>
+<a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a><span class="w">                        </span><span class="n">kernel</span><span class="o">-&gt;</span><span class="n">correlationId</span><span class="p">);</span><span class="w">  </span><span class="c1">// The link to the CPU API call!</span>
+<a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a><span class="w">                </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a><span class="w">            </span><span class="c1">// This record type contains details about a CUDA runtime API call.</span>
+<a id="__codelineno-1-43" name="__codelineno-1-43" href="#__codelineno-1-43"></a><span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="no">CUPTI_ACTIVITY_KIND_RUNTIME</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-44" name="__codelineno-1-44" href="#__codelineno-1-44"></a><span class="w">                </span><span class="n">CUpti_ActivityAPI</span><span class="w"> </span><span class="o">*</span><span class="n">api</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">CUpti_ActivityAPI</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">record</span><span class="p">;</span>
+<a id="__codelineno-1-45" name="__codelineno-1-45" href="#__codelineno-1-45"></a>
+<a id="__codelineno-1-46" name="__codelineno-1-46" href="#__codelineno-1-46"></a><span class="w">                </span><span class="c1">// We only care about `cudaLaunchKernel` calls, as they are the ones</span>
+<a id="__codelineno-1-47" name="__codelineno-1-47" href="#__codelineno-1-47"></a><span class="w">                </span><span class="c1">// that launch the kernels we&#39;re tracking.</span>
+<a id="__codelineno-1-48" name="__codelineno-1-48" href="#__codelineno-1-48"></a><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">api</span><span class="o">-&gt;</span><span class="n">cbid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">CUPTI_RUNTIME_TRACE_CBID_cudaLaunchKernel_v7000</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-49" name="__codelineno-1-49" href="#__codelineno-1-49"></a><span class="w">                    </span><span class="n">fprintf</span><span class="p">(</span><span class="n">outputFile</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;RUNTIME [ %llu, %llu ] </span><span class="se">\&quot;</span><span class="s">cudaLaunchKernel</span><span class="se">\&quot;</span><span class="s">, correlationId %u</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-50" name="__codelineno-1-50" href="#__codelineno-1-50"></a><span class="w">                            </span><span class="n">api</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">,</span><span class="w">          </span><span class="c1">// API entry timestamp</span>
+<a id="__codelineno-1-51" name="__codelineno-1-51" href="#__codelineno-1-51"></a><span class="w">                            </span><span class="n">api</span><span class="o">-&gt;</span><span class="n">end</span><span class="p">,</span><span class="w">            </span><span class="c1">// API exit timestamp</span>
+<a id="__codelineno-1-52" name="__codelineno-1-52" href="#__codelineno-1-52"></a><span class="w">                            </span><span class="n">api</span><span class="o">-&gt;</span><span class="n">correlationId</span><span class="p">);</span><span class="w"> </span><span class="c1">// The same ID as the corresponding kernel.</span>
+<a id="__codelineno-1-53" name="__codelineno-1-53" href="#__codelineno-1-53"></a><span class="w">                </span><span class="p">}</span>
+<a id="__codelineno-1-54" name="__codelineno-1-54" href="#__codelineno-1-54"></a><span class="w">                </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-1-55" name="__codelineno-1-55" href="#__codelineno-1-55"></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-1-56" name="__codelineno-1-56" href="#__codelineno-1-56"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-1-57" name="__codelineno-1-57" href="#__codelineno-1-57"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-58" name="__codelineno-1-58" href="#__codelineno-1-58"></a><span class="p">}</span>
 </code></pre></div>
-<p>As the application runs, CUPTI accumulates activity records in internal buffers. Buffer management is asynchronous, as CUPTI requires the application to provide memory buffers. The buffer request callback allocates an 8MB buffer. When the buffer fills or the application exits, CUPTI calls <code>BufferCompleted</code> with activity records.</p>
-<p>The buffer completion callback iterates through records. For <code>CUPTI_ACTIVITY_KIND_CONCURRENT_KERNEL</code>, the record contains kernel name, start and end timestamps (nanoseconds from GPU hardware timer), correlation ID linking to the runtime API call, grid and block dimensions, device, context, and stream IDs, as well as memory and register usage. For <code>CUPTI_ACTIVITY_KIND_RUNTIME</code>, it captures API entry and exit timestamps, function names like "cudaLaunchKernel", and the correlation ID that will appear in kernel records.</p>
-<p>The injection library serializes events to text format: <code>CONCURRENT_KERNEL [ start, end ] duration us, "kernel_name", correlationId</code>. This format is parsed by <code>cupti_trace_parser.py</code> which converts to Chrome Trace JSON format for timeline visualization.</p>
-<p>The critical piece is correlation IDs. When your application calls <code>cudaLaunchKernel</code>, CUDA runtime assigns a unique correlation ID to that call. It records this ID in the runtime API activity record and passes it to the GPU driver. When the GPU executes the kernel, the driver records the same correlation ID in the kernel activity record. CUPTI exposes both records, allowing us to match <code>RUNTIME cudaLaunchKernel correlationId=12345</code> to <code>CONCURRENT_KERNEL matmul_kernel correlationId=12345</code>.</p>
+<p>As the target application runs, CUPTI works silently in the background, filling up memory buffers with detailed activity records. This process is highly efficient and asynchronous. When a buffer is full, CUPTI invokes our <code>BufferCompleted</code> callback, delivering a batch of events for us to process.</p>
+<p>Inside this callback, we iterate through two important types of records:</p>
 <ol>
-<li>Trace Merger in <code>merge_gpu_cpu_trace.py</code> for correlation logic:</li>
+<li>
+<p><strong><code>CUPTI_ACTIVITY_KIND_RUNTIME</code></strong>: This tells us whenever a CUDA runtime function was called, such as <code>cudaLaunchKernel</code>. We record its timestamp and, most importantly, the <strong>correlation ID</strong> that the CUDA runtime assigned to this specific call.</p>
+</li>
+<li>
+<p><strong><code>CUPTI_ACTIVITY_KIND_CONCURRENT_KERNEL</code></strong>: This record is generated after a GPU kernel finishes executing. It contains a wealth of information, including the kernel's name, its precise start and end timestamps (measured by the GPU's own hardware clock), and the exact same <strong>correlation ID</strong> that we saw in the runtime API record.</p>
+</li>
 </ol>
-<p>The <code>TraceMerger</code> class performs the critical correlation logic. It loads CPU stacks from extended folded format and GPU events from Chrome JSON format, then matches them using timestamps and correlation IDs.</p>
-<p>The CPU trace format is: <code>timestamp_ns comm pid tid cpu stack1;stack2;...;stackN</code>. Example: <code>1761616920733362025 llm-inference 3577790 3577790 1 _start;main;runRequest;forward;cudaLaunchKernel</code>. The timestamp is absolute nanoseconds since boot (from <code>bpf_ktime_get_ns()</code>), and the stack is bottom-to-top.</p>
-<p>The GPU trace contains two event types. Runtime API events: <code>{"name": "cudaLaunchKernel", "ph": "X", "ts": 1761616920733, "dur": 45, "args": {"correlation": 12345}}</code> (timestamp in microseconds). Kernel events: <code>{"name": "matmul_kernel", "cat": "CONCURRENT_KERNEL", "ph": "X", "ts": 1761616920800, "dur": 5000, "args": {"correlation": 12345}}</code>. The same correlation ID links runtime to kernel.</p>
+<p>This shared correlation ID is the entire key to our profiler. It's the "tag" that allows us to definitively prove that the <code>cudaLaunchKernel</code> call with ID <code>12345</code> on the CPU is directly responsible for the <code>matmul_kernel</code> execution with ID <code>12345</code> on the GPU. Our injection library simply writes these events out to a text file, creating a log of all GPU activity, ready for the final merging step.</p>
+<ol>
+<li>
+<p><strong>The Detective Work: Merging Traces in <code>merge_gpu_cpu_trace.py</code></strong></p>
+<p>After the profiling run is complete, we have two crucial pieces of evidence: a file of CPU stack traces from our eBPF profiler and a file of GPU activity from our CUPTI library. The final step is to bring them together to tell a single, coherent story. This is the job of our Python-based detective, the <code>TraceMerger</code>.</p>
+<p>The <code>TraceMerger</code> class is where the core correlation logic lives. It starts by parsing both trace files. The CPU trace is in our "extended folded format," with each line containing a nanosecond timestamp and a full call stack. The GPU trace contains all the <code>RUNTIME</code> and <code>CONCURRENT_KERNEL</code> events we logged.</p>
+<p>The script then performs a two-step matching process for every CPU stack trace it captured:</p>
+<ol>
+<li>
+<p><strong>Timestamp Matching</strong>: For a given CPU stack captured at a specific nanosecond, it searches for a <code>cudaLaunchKernel</code> <em>runtime event</em> from the GPU trace that occurred at roughly the same time. We have to allow for a small time window (e.g., 10 milliseconds) because the CPU and GPU clocks aren't perfectly synchronized, and there can be small delays.</p>
+</li>
+<li>
+<p><strong>Correlation ID Confirmation</strong>: Once it finds a potential match based on time, it takes the correlation ID from that <code>cudaLaunchKernel</code> runtime event. It then searches for a <em>kernel execution event</em> that has the exact same correlation ID.</p>
+</li>
+</ol>
+<p>If both steps succeed, we have a confirmed match! We now know that the CPU stack trace is directly responsible for that specific GPU kernel execution. The script then appends the GPU kernel's name to the CPU call stack, creating a unified view.</p>
+</li>
+</ol>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">class</span> <span class="nc">TraceMerger</span><span class="p">:</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="k">def</span> <span class="nf">find_matching_kernel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cpu_stack</span><span class="p">:</span> <span class="n">CPUStack</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">GPUKernelEvent</span><span class="p">]:</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="sd">        Correlate CPU stack with GPU kernel using two-step matching:</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="sd">        1. Match CPU timestamp to cudaLaunchKernel runtime API call</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="sd">        2. Match runtime API correlation ID to GPU kernel execution</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="sd">        &quot;&quot;&quot;</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>        <span class="c1"># Step 1: Find cudaLaunchKernel runtime call closest to CPU timestamp</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>        <span class="n">best_launch</span> <span class="o">=</span> <span class="kc">None</span>
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>        <span class="n">min_time_diff</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestamp_tolerance_ns</span>  <span class="c1"># 10ms window</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>        <span class="k">for</span> <span class="n">launch</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cuda_launches</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>            <span class="n">time_diff</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">cpu_stack</span><span class="o">.</span><span class="n">timestamp_ns</span> <span class="o">-</span> <span class="n">launch</span><span class="o">.</span><span class="n">start_ns</span><span class="p">)</span>
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>            <span class="k">if</span> <span class="n">time_diff</span> <span class="o">&lt;</span> <span class="n">min_time_diff</span><span class="p">:</span>
-<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>                <span class="n">min_time_diff</span> <span class="o">=</span> <span class="n">time_diff</span>
-<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>                <span class="n">best_launch</span> <span class="o">=</span> <span class="n">launch</span>
-<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>
-<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">best_launch</span><span class="p">:</span>
-<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>            <span class="k">return</span> <span class="kc">None</span>
-<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>
-<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>        <span class="c1"># Step 2: Find GPU kernel with matching correlation ID</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="sd">        Correlates a CPU stack with a GPU kernel using our two-step matching process.</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="sd">        &quot;&quot;&quot;</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>        <span class="c1"># Step 1: Find the cudaLaunchKernel runtime call that happened</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        <span class="c1"># closest in time to our CPU stack capture.</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>        <span class="n">best_launch</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>        <span class="n">min_time_diff</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestamp_tolerance_ns</span>  <span class="c1"># 10ms search window</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>        <span class="k">for</span> <span class="n">launch</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cuda_launches</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>            <span class="n">time_diff</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">cpu_stack</span><span class="o">.</span><span class="n">timestamp_ns</span> <span class="o">-</span> <span class="n">launch</span><span class="o">.</span><span class="n">start_ns</span><span class="p">)</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>            <span class="k">if</span> <span class="n">time_diff</span> <span class="o">&lt;</span> <span class="n">min_time_diff</span><span class="p">:</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>                <span class="n">min_time_diff</span> <span class="o">=</span> <span class="n">time_diff</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>                <span class="n">best_launch</span> <span class="o">=</span> <span class="n">launch</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">best_launch</span><span class="p">:</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>            <span class="k">return</span> <span class="kc">None</span> <span class="c1"># No launch found within our time window.</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>        <span class="c1"># Step 2: Use the correlation ID from the launch event to find the</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>        <span class="c1"># exact GPU kernel that was executed.</span>
 <a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>        <span class="k">for</span> <span class="n">kernel</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">gpu_kernels</span><span class="p">:</span>
 <a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>            <span class="k">if</span> <span class="n">kernel</span><span class="o">.</span><span class="n">correlation_id</span> <span class="o">==</span> <span class="n">best_launch</span><span class="o">.</span><span class="n">correlation_id</span><span class="p">:</span>
-<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>                <span class="k">return</span> <span class="n">kernel</span>  <span class="c1"># Found the GPU kernel triggered by this CPU call</span>
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>                <span class="k">return</span> <span class="n">kernel</span>  <span class="c1"># Success! We found the matching kernel.</span>
 <a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>
 <a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>        <span class="k">return</span> <span class="kc">None</span>
 <a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>
 <a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>    <span class="k">def</span> <span class="nf">merge_traces</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Build merged stacks: cpu_func1;cpu_func2;cudaLaunchKernel;[GPU_Kernel]kernel_name&quot;&quot;&quot;</span>
-<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>        <span class="k">for</span> <span class="n">cpu_stack</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpu_stacks</span><span class="p">:</span>
-<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>            <span class="n">merged_stack</span> <span class="o">=</span> <span class="n">cpu_stack</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>  <span class="c1"># Start with CPU stack</span>
-<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a>
-<a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a>            <span class="n">gpu_kernel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_matching_kernel</span><span class="p">(</span><span class="n">cpu_stack</span><span class="p">)</span>
-<a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a>            <span class="k">if</span> <span class="n">gpu_kernel</span><span class="p">:</span>
-<a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a>                <span class="n">merged_stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[GPU_Kernel]</span><span class="si">{</span><span class="n">gpu_kernel</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a>            <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a>                <span class="n">merged_stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;[GPU_Launch_Pending]&quot;</span><span class="p">)</span>
-<a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a>
-<a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a>            <span class="c1"># Output folded format weighted by GPU kernel duration</span>
-<a id="__codelineno-2-40" name="__codelineno-2-40" href="#__codelineno-2-40"></a>            <span class="n">stack_str</span> <span class="o">=</span> <span class="s1">&#39;;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">merged_stack</span><span class="p">)</span>
-<a id="__codelineno-2-41" name="__codelineno-2-41" href="#__codelineno-2-41"></a>            <span class="c1"># Weight by GPU kernel duration in microseconds (not just count=1)</span>
-<a id="__codelineno-2-42" name="__codelineno-2-42" href="#__codelineno-2-42"></a>            <span class="n">kernel_duration_us</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">gpu_kernel</span><span class="o">.</span><span class="n">end_us</span> <span class="o">-</span> <span class="n">gpu_kernel</span><span class="o">.</span><span class="n">start_us</span><span class="p">)</span>
-<a id="__codelineno-2-43" name="__codelineno-2-43" href="#__codelineno-2-43"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">merged_stacks</span><span class="p">[</span><span class="n">stack_str</span><span class="p">]</span> <span class="o">+=</span> <span class="n">kernel_duration_us</span>
+<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a><span class="sd">        Builds the final merged stacks, ready for the flamegraph script.</span>
+<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a><span class="sd">        Example: cpu_func1;cpu_func2;cudaLaunchKernel;[GPU_Kernel]kernel_name</span>
+<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a><span class="sd">        &quot;&quot;&quot;</span>
+<a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a>        <span class="k">for</span> <span class="n">cpu_stack</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpu_stacks</span><span class="p">:</span>
+<a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a>            <span class="n">merged_stack</span> <span class="o">=</span> <span class="n">cpu_stack</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a>
+<a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a>            <span class="n">gpu_kernel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_matching_kernel</span><span class="p">(</span><span class="n">cpu_stack</span><span class="p">)</span>
+<a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a>            <span class="k">if</span> <span class="n">gpu_kernel</span><span class="p">:</span>
+<a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a>                <span class="c1"># If a match is found, append the GPU kernel&#39;s name.</span>
+<a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a>                <span class="n">merged_stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[GPU_Kernel]</span><span class="si">{</span><span class="n">gpu_kernel</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-40" name="__codelineno-2-40" href="#__codelineno-2-40"></a>            <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-2-41" name="__codelineno-2-41" href="#__codelineno-2-41"></a>                <span class="c1"># If no match is found, we still note that a launch was attempted.</span>
+<a id="__codelineno-2-42" name="__codelineno-2-42" href="#__codelineno-2-42"></a>                <span class="n">merged_stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;[GPU_Launch_Pending]&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-43" name="__codelineno-2-43" href="#__codelineno-2-43"></a>
+<a id="__codelineno-2-44" name="__codelineno-2-44" href="#__codelineno-2-44"></a>            <span class="c1"># Convert the final, merged stack into a string.</span>
+<a id="__codelineno-2-45" name="__codelineno-2-45" href="#__codelineno-2-45"></a>            <span class="n">stack_str</span> <span class="o">=</span> <span class="s1">&#39;;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">merged_stack</span><span class="p">)</span>
+<a id="__codelineno-2-46" name="__codelineno-2-46" href="#__codelineno-2-46"></a>
+<a id="__codelineno-2-47" name="__codelineno-2-47" href="#__codelineno-2-47"></a>            <span class="c1"># This is the crucial step: weight the stack by the GPU kernel&#39;s</span>
+<a id="__codelineno-2-48" name="__codelineno-2-48" href="#__codelineno-2-48"></a>            <span class="c1"># actual execution time in microseconds, not just a simple count.</span>
+<a id="__codelineno-2-49" name="__codelineno-2-49" href="#__codelineno-2-49"></a>            <span class="n">kernel_duration_us</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">gpu_kernel</span><span class="o">.</span><span class="n">end_us</span> <span class="o">-</span> <span class="n">gpu_kernel</span><span class="o">.</span><span class="n">start_us</span><span class="p">)</span> <span class="k">if</span> <span class="n">gpu_kernel</span> <span class="k">else</span> <span class="mi">0</span>
+<a id="__codelineno-2-50" name="__codelineno-2-50" href="#__codelineno-2-50"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">merged_stacks</span><span class="p">[</span><span class="n">stack_str</span><span class="p">]</span> <span class="o">+=</span> <span class="n">kernel_duration_us</span>
 </code></pre></div>
-<p>Critical Implementation Detail: Duration Weighting</p>
-<p>The flamegraph is weighted by GPU kernel execution time, not by kernel launch count. Each matched stack is weighted by the kernel's actual duration in microseconds (<code>end_us - start_us</code>). This means a kernel that runs for 1000μs contributes 1000x more to the flamegraph width than a kernel that runs for 1μs. This accurately reflects where GPU time is actually spent, as longer-running kernels appear wider in the flamegraph, making performance bottlenecks immediately visible.</p>
-<p>Without duration weighting, a frequently-called but fast kernel would appear as a hotspot even if it consumes minimal total GPU time. With duration weighting, the flamegraph correctly shows that a single slow kernel consuming 100ms is more important than 1000 fast kernels consuming 1ms total.</p>
-<p>The algorithm builds mappings: <code>gpu_kernels[12345] = GPUKernelEvent(...)</code> and <code>cuda_launches[12345] = CudaLaunchEvent(...)</code>. For each CPU stack with timestamp T, it searches for <code>cuda_launches</code> where <code>|runtime.start_ns - T| &lt; 10ms</code>. Why a time window? Clock sources differ (eBPF uses <code>CLOCK_MONOTONIC</code>, CUPTI uses GPU hardware counters), and there's jitter from eBPF overhead and context switches.</p>
-<p>Once matched, we have: CPU stack to runtime API to GPU kernel. The merger outputs: <code>cpu_stack_frames;cudaLaunchKernel;[GPU_Kernel]kernel_name duration_us</code> where <code>duration_us</code> is the actual GPU execution time. Unmatched events appear as <code>[GPU_Launch_Pending]</code> (kernel launch without observed execution) or standalone <code>[GPU_Kernel]kernel_name</code> (kernel without CPU context).</p>
-<p>Orchestration in gpuperf.py:</p>
+<h3 id="the-importance-of-duration-weighting">The Importance of Duration Weighting</h3>
+<p>One of the most critical details in this entire process is how we generate the final data for the flamegraph. A standard flamegraph just counts how many times each unique stack trace appears. This is fine for CPU-only profiling, where every sample represents a roughly equal slice of time. But for our use case, it would be misleading.</p>
+<p>A <code>cudaLaunchKernel</code> call might launch a kernel that runs for 2 microseconds or one that runs for 200 milliseconds. If we just counted them as "1" each, the flamegraph would incorrectly show them as having equal importance.</p>
+<p>To solve this, we use <strong>duration weighting</strong>. Instead of adding <code>1</code> to the count for a matched stack, we add the GPU kernel's <em>actual execution duration in microseconds</em>.</p>
+<ul>
+<li><code>cpu_stack;...;[GPU_Kernel]fast_kernel 2</code> (ran for 2 µs)</li>
+<li><code>cpu_stack;...;[GPU_Kernel]slow_kernel 200000</code> (ran for 200,000 µs)</li>
+</ul>
+<p>This ensures the width of the bars in the final flamegraph is proportional to the <em>actual time spent on the GPU</em>. A kernel that runs 1000x longer will appear 1000x wider, immediately and accurately drawing your eye to the real performance hotspots. Without this, you'd be flying blind, unable to distinguish truly expensive operations from trivial ones.</p>
+<h3 id="putting-it-all-together-orchestration-in-gpuperfpy">Putting It All Together: Orchestration in <code>gpuperf.py</code></h3>
+<p>The final piece of the puzzle is the <code>gpuperf.py</code> script, which acts as the conductor for our profiling orchestra. It's responsible for starting the tracers, running the target application, stopping the tracers, and kicking off the final merge and analysis. The order of operations is critical for everything to work correctly.</p>
+<p>Let's look at the core logic in the <code>run_with_trace</code> function:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span> <span class="nf">run_with_trace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="n">cpu_profile</span><span class="p">,</span> <span class="n">chrome_trace</span><span class="p">,</span> <span class="n">merged_trace</span><span class="p">):</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="c1"># 1. Set environment for CUPTI injection</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">env</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">env</span><span class="p">[</span><span class="s1">&#39;CUDA_INJECTION64_PATH&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">injection_lib</span><span class="p">)</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">env</span><span class="p">[</span><span class="s1">&#39;CUPTI_TRACE_OUTPUT_FILE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">trace_file</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="c1"># 2. Start eBPF profiler BEFORE target (must attach uprobe first)</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">start_cpu_profiler</span><span class="p">(</span><span class="n">cpu_output_file</span><span class="o">=</span><span class="n">cpu_profile</span><span class="p">)</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>  <span class="c1"># Ensure uprobe is attached</span>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>    <span class="c1"># 3. Launch target application (CUPTI loads automatically via injection)</span>
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    <span class="n">target_proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">)</span>
-<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>    <span class="n">target_proc</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
-<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>
-<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>    <span class="c1"># 4. Stop profiler and merge traces</span>
-<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">stop_cpu_profiler</span><span class="p">()</span>
-<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">generate_merged_trace</span><span class="p">(</span><span class="n">cpu_trace</span><span class="o">=</span><span class="n">cpu_profile</span><span class="p">,</span> <span class="n">gpu_trace</span><span class="o">=</span><span class="n">chrome_trace</span><span class="p">,</span>
-<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>                                <span class="n">output_file</span><span class="o">=</span><span class="n">merged_trace</span><span class="p">)</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="c1"># 1. Set up the environment for CUPTI injection. This tells the CUDA</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="c1">#    runtime where to find our custom tracer library.</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">env</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">env</span><span class="p">[</span><span class="s1">&#39;CUDA_INJECTION64_PATH&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">injection_lib</span><span class="p">)</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">env</span><span class="p">[</span><span class="s1">&#39;CUPTI_TRACE_OUTPUT_FILE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">trace_file</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="c1"># 2. Start the eBPF CPU profiler *before* the target application.</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="c1">#    This is crucial because the uprobe must be attached and ready</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    <span class="c1">#    before the application makes its first CUDA call.</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">start_cpu_profiler</span><span class="p">(</span><span class="n">cpu_output_file</span><span class="o">=</span><span class="n">cpu_profile</span><span class="p">)</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>  <span class="c1"># Give it a moment to ensure the uprobe is active.</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    <span class="c1"># 3. Launch the target application. The CUDA runtime will automatically</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>    <span class="c1">#    load our injection library because of the environment variable we set.</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>    <span class="n">target_proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">)</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>    <span class="n">target_proc</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>    <span class="c1"># 4. Once the application finishes, stop the CPU profiler and</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>    <span class="c1">#    begin the final trace merging process.</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">stop_cpu_profiler</span><span class="p">()</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">generate_merged_trace</span><span class="p">(</span><span class="n">cpu_trace</span><span class="o">=</span><span class="n">cpu_profile</span><span class="p">,</span> <span class="n">gpu_trace</span><span class="o">=</span><span class="n">chrome_trace</span><span class="p">,</span>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>                                <span class="n">output_file</span><span class="o">=</span><span class="n">merged_trace</span><span class="p">)</span>
 </code></pre></div>
-<p>The orchestration starts in <code>GPUPerf.__init__()</code>, which locates required components. It finds the CUPTI injection library at <code>cupti_trace/libcupti_trace_injection.so</code> and verifies the Rust eBPF profiler exists at <code>profiler/target/release/profile</code>. The function searches common CUDA installation paths for the CUPTI library needed for NVTX annotations. If any component is missing, it prints warnings but continues, as you can run CPU-only or GPU-only profiling.</p>
-<p>When you run <code>gpuperf.py -c gpu.json -p cpu.txt -m merged.folded ./my_cuda_app</code>, the script calls <code>run_with_trace()</code>. This function orchestrates the entire profiling session. First, it sets up environment variables that CUDA runtime will check during initialization. The <code>CUDA_INJECTION64_PATH</code> variable points to our CUPTI injection library so CUDA loads it automatically. The <code>CUPTI_TRACE_OUTPUT_FILE</code> variable tells the injection library where to write GPU events. The injection approach works without modifying applications because CUDA runtime explicitly supports injection libraries for profiling.</p>
-<p>The critical ordering happens next. The script calls <code>start_cpu_profiler()</code> before launching the target process. This is essential because the eBPF profiler must attach its uprobe to <code>cudaLaunchKernel</code> before any CUDA initialization occurs. The Rust profiler runs <code>sudo ./profile --uprobe /usr/local/cuda-12.9/lib64/libcudart.so.12:cudaLaunchKernel -E</code>, where <code>--uprobe</code> specifies the library and function to instrument, and <code>-E</code> enables extended folded output with timestamps. The script waits 1 second after starting the profiler to ensure uprobes are fully attached before the target process loads the CUDA runtime.</p>
-<p>Only after the profiler is ready does the script start the target process with <code>subprocess.Popen(command, env=env)</code>. As soon as this process calls any CUDA API, the runtime initializes, loads our injection library via <code>CUDA_INJECTION64_PATH</code>, and CUPTI starts recording. The uprobe is already attached, so every <code>cudaLaunchKernel</code> call triggers a stack trace capture. The script then waits for the target to exit, handles signals gracefully (including SIGTERM and SIGINT), and ensures both profilers shut down cleanly.</p>
-<p>After the target exits, <code>generate_merged_trace()</code> performs correlation. It instantiates <code>TraceMerger</code> and parses the CPU trace file (extended folded format). It also parses the GPU trace (Chrome JSON format from CUPTI), then calls <code>merger.merge_traces()</code> which matches events via correlation IDs and timestamps. The output is folded format combining CPU and GPU stacks, ready for flamegraph generation.</p>
-<h2 id="example-applications">Example Applications</h2>
-<p>The tutorial provides two CUDA applications for profiling demonstration.</p>
-<h3 id="real-llm-inference-qwen3cu-recommended">Real LLM Inference: Qwen3.cu (Recommended)</h3>
-<p>The primary example is <code>qwen3.cu</code>, a single-file CUDA implementation of the Qwen3 0.6B transformer model. This is a real, working language model that runs inference on GPU, making it perfect for profiling actual AI workloads. The implementation includes tokenization, multi-head attention, feedforward layers, and RMS normalization - all the components of modern transformer architectures.</p>
-<h3 id="alternative-mock-transformer-simulator">Alternative: Mock Transformer Simulator</h3>
-<p>The <code>mock-test/llm-inference.cu</code> application provides a simpler test case simulating transformer patterns without requiring model weights.</p>
-<h2 id="compilation-and-execution">Compilation and Execution</h2>
-<p>Build the complete profiling stack by first compiling the CUPTI injection library, then the Rust eBPF profiler, and finally the mock application.</p>
-<h3 id="build-cupti-injection-library">Build CUPTI Injection Library</h3>
-<p>Navigate to the CUPTI trace directory and compile:</p>
+<p>Here’s a step-by-step breakdown of the timeline:</p>
+<ol>
+<li>
+<p><strong>Environment Setup</strong>: The script first sets the <code>CUDA_INJECTION64_PATH</code> environment variable. This is an official feature of the CUDA driver that tells it to load a specific shared library into any application that initializes the CUDA runtime. This is the hook that lets our CUPTI tracer get inside the target process.</p>
+</li>
+<li>
+<p><strong>Start CPU Profiler First</strong>: The script calls <code>start_cpu_profiler()</code> <em>before</em> launching the user's command. This is the most critical step in the orchestration. The eBPF profiler needs to attach its uprobe to the <code>cudaLaunchKernel</code> function in the <code>libcudart.so</code> library. If the application starts first, it might load the CUDA library and make calls before our probe is in place, causing us to miss events. By starting the profiler first (and adding a small sleep), we ensure our CPU spy is in position and ready to record from the very beginning.</p>
+</li>
+<li>
+<p><strong>Launch the Target</strong>: With the environment set and the eBPF probe active, the script launches the target application using <code>subprocess.Popen</code>. As soon as the application makes its first CUDA call, the CUDA runtime initializes and, thanks to our environment variable, loads our <code>libcupti_trace_injection.so</code> library. At this point, both our CPU and GPU tracers are active and recording data.</p>
+</li>
+<li>
+<p><strong>Stop and Merge</strong>: The script waits for the target application to complete. Once it's finished, it cleanly shuts down the eBPF profiler and then calls <code>generate_merged_trace()</code>. This function is the trigger for the <code>TraceMerger</code> detective, which begins the work of parsing, correlating, and weighting the data to produce the final, unified folded stack file.</p>
+</li>
+</ol>
+<h2 id="putting-it-to-the-test-example-applications">Putting It to the Test: Example Applications</h2>
+<p>Theory is great, but the best way to learn is by doing. To help you see the profiler in action and experiment with it yourself, this tutorial includes two different CUDA applications that you can build and profile.</p>
+<h3 id="the-main-event-a-real-llm-inference-engine-qwen3cu">The Main Event: A Real LLM Inference Engine (<code>qwen3.cu</code>)</h3>
+<p>This is the recommended example and the one we used to generate the flamegraph at the beginning of this tutorial. <code>qwen3.cu</code> is a complete, self-contained CUDA implementation of the Qwen3 0.6B transformer model. It's not a simplified mock-up; it's a real Large Language Model that performs inference on the GPU.</p>
+<p>Profiling this application gives you a realistic view of the workloads you'll encounter in modern AI. You'll see the interplay between the core components of a transformer architecture, including:
+- Tokenization
+- Multi-head attention layers
+- Feedforward networks
+- RMS normalization</p>
+<p>This example is perfect for understanding how high-level concepts in a neural network translate into specific GPU kernels and where the true performance bottlenecks lie in a real-world AI application.</p>
+<h3 id="a-simpler-starting-point-the-mock-transformer-simulator-mock-testllm-inferencecu">A Simpler Starting Point: The Mock Transformer Simulator (<code>mock-test/llm-inference.cu</code>)</h3>
+<p>If you want a simpler, lightweight test case, the <code>mock-test/llm-inference.cu</code> application is a great alternative. It simulates the computational patterns of a transformer model (like matrix multiplications and other typical operations) but does so without the overhead of loading a large model's weights. This makes it quick to compile and run, providing a straightforward way to verify that all the components of your profiling stack are working correctly before moving on to more complex workloads.</p>
+<h2 id="lets-get-building-compilation-and-execution">Let's Get Building: Compilation and Execution</h2>
+<p>Now that you understand the architecture, it's time to get your hands dirty. This section will walk you through compiling all the necessary components of our profiling stack: the CUPTI injection library, the Rust eBPF profiler, and the example applications. We'll then run the full profiler to generate our first unified flamegraph.</p>
+<h3 id="step-1-build-the-cupti-injection-library">Step 1: Build the CUPTI Injection Library</h3>
+<p>First, we need to compile our GPU informant—the C++ shared library that uses CUPTI to trace GPU activities. This library will be injected into our target application to report back on what the GPU is doing.</p>
+<p>Navigate to the <code>cupti_trace</code> directory and use the provided <code>Makefile</code> to build the library:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">cd</span><span class="w"> </span>cupti_trace
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>make
 </code></pre></div>
-<p>This compiles <code>cupti_trace.cpp</code> into <code>libcupti_trace_injection.so</code>, linking against CUPTI and CUDA runtime libraries. The Makefile searches common CUDA installation paths (<code>/usr/local/cuda-12.9</code>, <code>/usr/local/cuda-13.0</code>, etc.) and uses the appropriate include paths and library paths. Verify the library exists:</p>
+<p>This command compiles <code>cupti_trace_injection.cpp</code> into a shared library file named <code>libcupti_trace_injection.so</code>. The <code>Makefile</code> is designed to automatically locate your CUDA installation (it checks common paths like <code>/usr/local/cuda-12.x</code> and <code>/usr/local/cuda-13.x</code>) and links against the necessary CUPTI and CUDA runtime libraries.</p>
+<p>Once the compilation is finished, verify that the shared library has been created:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>ls<span class="w"> </span>-lh<span class="w"> </span>libcupti_trace_injection.so
 </code></pre></div>
-<p>You should see a shared library around 100-120KB. If compilation fails, check that CUDA toolkit is installed and <code>nvcc</code> is in your PATH. CUPTI comes with the CUDA toolkit in <code>extras/CUPTI/</code>.</p>
-<h3 id="build-rust-ebpf-profiler">Build Rust eBPF Profiler</h3>
-<p>Navigate to the profiler directory and compile in release mode for minimal overhead:</p>
+<p>You should see a new file, typically around 100-120KB in size. If the compilation fails, the most common reasons are:
+- The CUDA Toolkit is not installed on your system.
+- The <code>nvcc</code> compiler is not in your system's <code>PATH</code>.
+- The <code>CUPTI</code> development files are missing (they are usually included with the CUDA Toolkit under <code>extras/CUPTI/</code>).</p>
+<h3 id="step-2-build-the-rust-ebpf-profiler">Step 2: Build the Rust eBPF Profiler</h3>
+<p>Next, we'll build the CPU spy—our high-performance eBPF profiler written in Rust. This tool is responsible for capturing the CPU-side stack traces whenever <code>cudaLaunchKernel</code> is called.</p>
+<p>Navigate to the <code>profiler</code> directory and use <code>cargo</code> to compile the application. We'll build it in <code>--release</code> mode to ensure it runs with maximum performance and minimal overhead.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">cd</span><span class="w"> </span>profiler
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>cargo<span class="w"> </span>build<span class="w"> </span>--release
 </code></pre></div>
-<p>This compiles the Rust profiler with full optimizations. The eBPF program is compiled to BPF bytecode and embedded in the Rust binary. Verify the profiler:</p>
+<p>This command does two important things:
+1.  It compiles the Rust user-space application, which manages the eBPF probes and processes the data.
+2.  It also compiles the C-based eBPF program (<code>profile.bpf.c</code>) into BPF bytecode and embeds it directly into the final Rust executable. This creates a self-contained binary that's easy to distribute and run.</p>
+<p>After the build completes, verify that the profiler executable is ready:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ls<span class="w"> </span>-lh<span class="w"> </span>target/release/profile
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>./target/release/profile<span class="w"> </span>--help
 </code></pre></div>
-<p>The profiler should show options for <code>--uprobe</code> (specify function to trace) and <code>-E</code> (extended folded output). The binary should be around 2-3MB including embedded eBPF code and symbol resolution libraries.</p>
-<h3 id="build-mock-llm-application">Build Mock LLM Application</h3>
-<p>Navigate to the mock test directory and compile the CUDA application:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">cd</span><span class="w"> </span>mock-test
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>make
+<p>You can also run it with the <code>--help</code> flag to see the available command-line options:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>./target/release/profile<span class="w"> </span>--help
 </code></pre></div>
-<p>This uses <code>nvcc</code> to compile <code>llm-inference.cu</code> into an executable. The Makefile uses <code>-std=c++17</code> for modern C++ features, <code>--no-device-link</code> to produce a single binary without separate device linking, and <code>-Wno-deprecated-gpu-targets</code> to suppress warnings on older GPUs. Verify compilation:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ls<span class="w"> </span>-lh<span class="w"> </span>llm-inference
+<p>You should see a list of options, including <code>--uprobe</code> (which we'll use to specify the <code>cudaLaunchKernel</code> function) and <code>-E</code> (which enables the "extended folded output" format with nanosecond timestamps). The final binary will be around 2-3MB, as it includes not only our code but also the powerful <code>blazesym</code> library for fast, offline stack symbolization.</p>
+<h3 id="step-3-build-the-mock-llm-application">Step 3: Build the Mock LLM Application</h3>
+<p>With our profiling tools compiled, we now need a target application to profile. We'll start with the simpler of the two examples: the mock LLM simulator. This lightweight CUDA application is perfect for a quick test to ensure all parts of our profiler are working together correctly.</p>
+<p>Navigate to the <code>mock-test</code> directory and compile the application using its <code>Makefile</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nb">cd</span><span class="w"> </span>mock-test
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>make
 </code></pre></div>
-<p>The binary should be around 200KB. You can test it runs (though it will execute for 10 seconds by default):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>./llm-inference
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="c1"># Press Ctrl+C after a few seconds to stop early</span>
+<p>This command uses <code>nvcc</code>, the NVIDIA CUDA compiler, to build the <code>llm-inference.cu</code> source file into an executable named <code>llm-inference</code>. The <code>Makefile</code> includes a few useful flags:
+- <code>-std=c++17</code>: Enables modern C++ features.
+- <code>--no-device-link</code>: Creates a single, self-contained executable, which simplifies compilation.
+- <code>-Wno-deprecated-gpu-targets</code>: Suppresses warnings you might see if you're using a newer CUDA toolkit with a slightly older GPU.</p>
+<p>Verify that the compilation was successful by listing the file:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>ls<span class="w"> </span>-lh<span class="w"> </span>llm-inference
 </code></pre></div>
-<h3 id="build-real-llm-inference-application-qwen3cu">Build Real LLM Inference Application (Qwen3.cu)</h3>
-<p>The tutorial includes a real LLM inference engine - qwen3.cu, a single-file CUDA implementation of the Qwen3 0.6B model:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nb">cd</span><span class="w"> </span>qwen3.cu
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="c1"># Download the FP32 model (3GB)</span>
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>make<span class="w"> </span>download-model
-<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>
-<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="c1"># Compile with dynamic CUDA runtime for uprobe support</span>
-<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>make<span class="w"> </span>runcu
+<p>The resulting binary should be small, around 200KB. You can run it directly to see it in action. By default, it runs a continuous simulation for 10 seconds, so you can stop it early with <code>Ctrl+C</code> after a few moments.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>./llm-inference
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="c1"># The application will start printing output...</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="c1"># Press Ctrl+C after a few seconds to stop it.</span>
 </code></pre></div>
-<p>Verify dynamic linking (required for eBPF uprobes):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>ldd<span class="w"> </span>runcu<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>cudart
-<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="c1"># Should show: libcudart.so.12 =&gt; /usr/local/cuda-12.9/lib64/libcudart.so.12</span>
+<h3 id="step-4-build-the-real-llm-inference-application">Step 4: Build the Real LLM Inference Application</h3>
+<p>Now for the main event: compiling the <code>qwen3.cu</code> application. This is a real, self-contained LLM inference engine that runs the Qwen3 0.6B model. Profiling this will give you a fantastic, real-world view of a modern AI workload.</p>
+<p>First, navigate to the <code>qwen3.cu</code> directory.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nb">cd</span><span class="w"> </span>qwen3.cu
 </code></pre></div>
-<h3 id="running-the-profiler">Running the Profiler</h3>
-<p>With all components built, run the complete profiling stack. The <code>gpuperf.py</code> script orchestrates everything:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Profile real LLM inference (Qwen3 model)</span>
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>sudo<span class="w"> </span>timeout<span class="w"> </span>-s<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">10</span><span class="w"> </span>python3<span class="w"> </span>gpuperf.py<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span>-c<span class="w"> </span>qwen3_gpu.json<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span>-p<span class="w"> </span>qwen3_cpu.txt<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">    </span>-m<span class="w"> </span>qwen3_merged.folded<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;cd qwen3.cu &amp;&amp; ./runcu Qwen3-0.6B-FP32.gguf -q &quot;Explain eBPF&quot; -r 1&#39;</span>
+<p>Before you can compile the code, you need to download the model weights. The <code>Makefile</code> provides a convenient target for this.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># This will download the 3GB FP32 model file</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>make<span class="w"> </span>download-model
 </code></pre></div>
-<p>The script output shows the profiling session:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>Starting CPU profiler with cudaLaunchKernel hook
-<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>  CUDA library: /usr/local/cuda-12.9/lib64/libcudart.so.12
-<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>  Output: qwen3_cpu.txt
-<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>Running command with GPU profiling: bash -c cd qwen3.cu &amp;&amp; ./runcu...
-<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>Trace output: qwen3_gpu.json
-<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>Started target process with PID: 3593972
-<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>A: E BPF (Extended Binux File) is a system call that allows users to program the Linux kernel&#39;s file system...
-<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>tok/s: 55.710306
-<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>
-<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>Stopping CPU profiler...
-<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>CPU profile saved to: qwen3_cpu.txt
-<a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>
-<a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>Converting trace to Chrome format: qwen3_gpu.json
-<a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a>Parsed 2452 events
-<a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>
-<a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>Chrome trace file written to: qwen3_gpu.json
-<a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a>
-<a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a>Generating merged CPU+GPU trace: qwen3_merged.folded
-<a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a>Parsed 8794 CPU stack traces from cudaLaunchKernel hooks
-<a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a>Parsed 1036 GPU kernel events
-<a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a>Parsed 1036 cudaLaunchKernel runtime events
-<a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a>Correlating CPU stacks with GPU kernels...
-<a id="__codelineno-14-23" name="__codelineno-14-23" href="#__codelineno-14-23"></a>Matched 0 CPU stacks with GPU kernels
-<a id="__codelineno-14-24" name="__codelineno-14-24" href="#__codelineno-14-24"></a>Unmatched: 8794
-<a id="__codelineno-14-25" name="__codelineno-14-25" href="#__codelineno-14-25"></a>Total unique stacks: 3
-<a id="__codelineno-14-26" name="__codelineno-14-26" href="#__codelineno-14-26"></a>Wrote 3 unique stacks (8794 total samples)
-<a id="__codelineno-14-27" name="__codelineno-14-27" href="#__codelineno-14-27"></a>✓ Merged trace generated: qwen3_merged.folded
+<p>Next, compile the application. There's a critical detail here: for our eBPF uprobe to work, the application must dynamically link against the CUDA runtime library (<code>libcudart.so</code>). If it's statically linked, the <code>cudaLaunchKernel</code> symbol won't be available in a shared library for our probe to find. The <code>Makefile</code> has a specific target, <code>runcu</code>, that handles this for you.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># Compile the application with dynamic linking</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>make<span class="w"> </span>runcu
 </code></pre></div>
-<p>The key statistics show that 8,794 CPU stack traces were captured (one per <code>cudaLaunchKernel</code> call during inference). The profiler recorded 2,452 total GPU events including kernels, memcpy, and runtime API calls. There were 3 unique stack patterns representing the main code paths. The <code>forward()</code> function for transformer layer execution had 5,176 samples. The <code>matmul()</code> function for matrix multiplication had 3,614 samples. The <code>rmsnorm()</code> function for RMS normalization had 4 samples. This real-world LLM inference trace reveals the actual computation patterns of transformer models.</p>
-<h3 id="generate-flamegraph">Generate Flamegraph</h3>
-<p>Convert the merged folded trace to a flamegraph SVG:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>./combined_flamegraph.pl<span class="w"> </span>qwen3_merged.folded<span class="w"> </span>&gt;<span class="w"> </span>qwen3_flamegraph.svg
+<p>To be absolutely sure it's linked correctly, you can use the <code>ldd</code> command to inspect the executable's dependencies.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>ldd<span class="w"> </span>runcu<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>cudart
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="c1"># The output should look something like this:</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="c1"># libcudart.so.12 =&gt; /usr/local/cuda-12.9/lib64/libcudart.so.12</span>
 </code></pre></div>
-<p>Open the SVG in a web browser:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>firefox<span class="w"> </span>qwen3_flamegraph.svg
-<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="c1"># or</span>
-<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>google-chrome<span class="w"> </span>qwen3_flamegraph.svg
+<p>If you see a line showing that <code>runcu</code> is linked to <code>libcudart.so</code>, you're all set! All the components are now built and ready for action.</p>
+<h3 id="time-to-shine-running-the-profiler">Time to Shine: Running the Profiler</h3>
+<p>With all the components built, you're now ready to run the full profiling stack and see it in action! The <code>gpuperf.py</code> script is your central command hub. It seamlessly orchestrates the eBPF profiler, the CUPTI injection, and the final trace merging, giving you a complete, end-to-end view of your application's performance.</p>
+<p>Let's profile the real LLM inference workload using the Qwen3 model. The following command tells <code>gpuperf.py</code> to run the <code>runcu</code> executable and trace its execution:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Profile real LLM inference (Qwen3 model)</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>sudo<span class="w"> </span>timeout<span class="w"> </span>-s<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">10</span><span class="w"> </span>python3<span class="w"> </span>gpuperf.py<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">    </span>-c<span class="w"> </span>qwen3_gpu.json<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">    </span>-p<span class="w"> </span>qwen3_cpu.txt<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">    </span>-m<span class="w"> </span>qwen3_merged.folded<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="w">    </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;cd qwen3.cu &amp;&amp; ./runcu Qwen3-0.6B-FP32.gguf -q &quot;Explain eBPF&quot; -r 1&#39;</span>
 </code></pre></div>
-<p>The flamegraph is interactive. Click on a stack frame to zoom in, showing only that subtree. Hover over frames to see function names and sample counts. The width of each frame represents time consumption, as wider frames are hotspots. The color is random and doesn't mean anything (it's just for visual distinction).</p>
-<p>In the Qwen3 LLM inference flamegraph, you'll see the actual transformer inference code paths. The <code>forward(Transformer*, int, int)</code> function dominates with 5,176 samples (59% of execution), showing this is where the model spends most time executing transformer layers. The <code>matmul(float*, float*, float*, int, int)</code> function appears with 3,614 samples (41%), revealing matrix multiplication kernels for attention and feedforward computation. The <code>rmsnorm(float*, float*, float*, int)</code> function shows only 4 samples, indicating normalization is fast compared to matrix operations. Each stack ends with <code>cudaLaunchKernel</code>, marking where CPU code transitions to GPU execution. This reveals the computational hotspots in real LLM inference, where matrix multiplication dominates, followed by layer-wise forward passes.</p>
-<h3 id="inspecting-individual-traces">Inspecting Individual Traces</h3>
-<p>The profiler generates three trace files that can be inspected independently.</p>
-<p>The CPU trace (qwen3_cpu.txt) contains raw uprobe samples in extended folded format:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>head<span class="w"> </span>-5<span class="w"> </span>qwen3_cpu.txt
+<p>Let's break down this command to understand what each part does:
+- <code>sudo</code>: Required because the eBPF profiler needs elevated privileges to attach probes to the kernel and other processes.
+- <code>timeout -s 2 10</code>: A useful utility that runs the command for a maximum of 10 seconds. It sends an interrupt signal (<code>-s 2</code>, which is <code>SIGINT</code> or <code>Ctrl+C</code>) to gracefully stop the process. This is perfect for capturing a short, representative sample of a long-running application.
+- <code>python3 gpuperf.py</code>: Our main orchestration script.
+- <code>-c qwen3_gpu.json</code>: Specifies the output file for the GPU trace data, which will be saved in the Chrome Trace JSON format.
+- <code>-p qwen3_cpu.txt</code>: Specifies the output file for the CPU stack traces, saved in our extended folded format.
+- <code>-m qwen3_merged.folded</code>: The grand prize! This is the output file for the final, merged, and duration-weighted folded stacks.
+- <code>bash -c '...'</code>: The command to be profiled. We use <code>bash -c</code> to ensure that we first change into the <code>qwen3.cu</code> directory before executing the <code>runcu</code> application.</p>
+<p>As the script runs, you'll see a detailed log of its progress:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>CUPTI trace output will be written to: /home/yunwei37/workspace/bpf-developer-tutorial/src/xpu/flamegraph/gpu_results.txt
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>Starting CPU profiler with cudaLaunchKernel hook
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>  CUDA library: /usr/local/cuda-12.9/lib64/libcudart.so.12
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>  Output: /home/yunwei37/workspace/bpf-developer-tutorial/src/xpu/flamegraph/qwen3_cpu.txt
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>Running command with GPU profiling: bash -c cd qwen3.cu &amp;&amp; ./runcu Qwen3-0.6B-FP32.gguf -q &quot;What is eBPF?&quot; -r 1
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>Trace output: /home/yunwei37/workspace/bpf-developer-tutorial/src/xpu/flamegraph/gpu_results.txt
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>Started target process with PID: 3861826
+<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>A: E BPF stands for &quot;Extended Bounded Performance&quot; and is a system designed to allow users to create custom user-space programs...
+<a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>tok/s: 54.489164
+<a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a>
+<a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a>Stopping CPU profiler...
+<a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a>CPU profile saved to: /home/yunwei37/workspace/bpf-developer-tutorial/src/xpu/flamegraph/qwen3_cpu.txt
+<a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a>
+<a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a>Converting trace to Chrome format: qwen3_gpu.json
+<a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a>Parsed 185867 events
+<a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a>
+<a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a>Chrome trace file written to: qwen3_gpu.json
+<a id="__codelineno-17-18" name="__codelineno-17-18" href="#__codelineno-17-18"></a>
+<a id="__codelineno-17-19" name="__codelineno-17-19" href="#__codelineno-17-19"></a>Generating merged CPU+GPU trace: qwen3_merged.folded
+<a id="__codelineno-17-20" name="__codelineno-17-20" href="#__codelineno-17-20"></a>Parsing CPU uprobe trace (extended folded format): qwen3_cpu.txt
+<a id="__codelineno-17-21" name="__codelineno-17-21" href="#__codelineno-17-21"></a>Parsed 92732 CPU stack traces from cudaLaunchKernel hooks
+<a id="__codelineno-17-22" name="__codelineno-17-22" href="#__codelineno-17-22"></a>Found 1 unique threads
+<a id="__codelineno-17-23" name="__codelineno-17-23" href="#__codelineno-17-23"></a>Parsing GPU CUPTI trace: qwen3_gpu.json
+<a id="__codelineno-17-24" name="__codelineno-17-24" href="#__codelineno-17-24"></a>Parsed 92732 GPU kernel events
+<a id="__codelineno-17-25" name="__codelineno-17-25" href="#__codelineno-17-25"></a>Parsed 92732 cudaLaunchKernel runtime events
+<a id="__codelineno-17-26" name="__codelineno-17-26" href="#__codelineno-17-26"></a>Correlating CPU stacks with GPU kernels...
+<a id="__codelineno-17-27" name="__codelineno-17-27" href="#__codelineno-17-27"></a>  Thread (3861826, 3861826): Using sequential matching (92732 events)
+<a id="__codelineno-17-28" name="__codelineno-17-28" href="#__codelineno-17-28"></a>Matched 92732 CPU stacks with GPU kernels
+<a id="__codelineno-17-29" name="__codelineno-17-29" href="#__codelineno-17-29"></a>Total unique stacks: 7
+<a id="__codelineno-17-30" name="__codelineno-17-30" href="#__codelineno-17-30"></a>Wrote 7 unique stacks (3265164 total samples)
+<a id="__codelineno-17-31" name="__codelineno-17-31" href="#__codelineno-17-31"></a>✓ Merged trace generated: qwen3_merged.folded
 </code></pre></div>
-<p>Example output:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>1761618697756454073 runcu 3593972 3593972 1 forward(Transformer*, int, int);cudaLaunchKernel
-<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>1761618697756957027 runcu 3593972 3593972 1 matmul(float*, float*, float*, int, int);cudaLaunchKernel
-<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>1761618697756968813 runcu 3593972 3593972 1 matmul(float*, float*, float*, int, int);cudaLaunchKernel
-<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>...
+<p>The output is a goldmine of information. Let's analyze the key statistics:
+- <strong>92,732 CPU stack traces captured</strong>: This means that during the 10-second run, the <code>cudaLaunchKernel</code> function was called over 92,000 times. Our eBPF profiler caught every single one.
+- <strong>185,867 total GPU events</strong>: The CUPTI tracer recorded a huge amount of activity, including kernel launches, memory copies, and other runtime events.
+- <strong>100% Correlation Rate</strong>: The line <code>Matched 92732 CPU stacks with GPU kernels</code> is the most important one. It confirms that our correlation logic worked perfectly, successfully linking every single CPU-side launch event to its corresponding GPU-side kernel execution.
+- <strong>7 unique stacks</strong>: Although there were over 92,000 calls, they all originated from just 7 unique code paths in the application.
+- <strong>3,265,164 total samples</strong>: This is the sum of all GPU kernel durations in microseconds. It tells us that the total time spent executing kernels on the GPU during this run was approximately 3.27 seconds.</p>
+<p>This successful run leaves us with three valuable trace files (<code>qwen3_cpu.txt</code>, <code>qwen3_gpu.json</code>, and <code>qwen3_merged.folded</code>), which we'll use in the next steps to visualize and inspect the performance data.</p>
+<h3 id="step-5-generate-the-flamegraph">Step 5: Generate the Flamegraph</h3>
+<p>After a successful profiling run, you're left with the <code>qwen3_merged.folded</code> file. This is the culmination of our data collection and correlation efforts, containing all the information needed to build our unified CPU+GPU flamegraph. To turn this data into a beautiful and interactive visualization, we use the classic <code>flamegraph.pl</code> script, a powerful Perl program created by Brendan Gregg, the performance engineering expert who pioneered the use of flamegraphs.</p>
+<p>This repository includes a convenient wrapper script, <code>combined_flamegraph.pl</code>, which is based on the original and tailored for our needs. Let's use it to generate our SVG file:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>./combined_flamegraph.pl<span class="w"> </span>qwen3_merged.folded<span class="w"> </span>&gt;<span class="w"> </span>qwen3_flamegraph.svg
 </code></pre></div>
-<p>Each line is a stack trace captured when <code>cudaLaunchKernel</code> was called. You can process this independently with <code>flamegraph.pl</code> to see just CPU-side behavior. The traces show the actual Qwen3 model code, including <code>forward()</code> for transformer layers and <code>matmul()</code> for matrix multiplication.</p>
-<p>The GPU trace (qwen3_gpu.json) is in Chrome Trace Format for timeline visualization:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>head<span class="w"> </span>-20<span class="w"> </span>qwen3_gpu.json
+<p>This command reads the duration-weighted folded stacks from <code>qwen3_merged.folded</code> and outputs a scalable vector graphics (SVG) file named <code>qwen3_flamegraph.svg</code>.</p>
+<p>Now, open the newly created SVG file in any modern web browser to explore it:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>firefox<span class="w"> </span>qwen3_flamegraph.svg
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="c1"># or</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>google-chrome<span class="w"> </span>qwen3_flamegraph.svg
 </code></pre></div>
-<p>This is JSON containing an array of trace events. Load it in Chrome at <code>chrome://tracing</code> to see a timeline of GPU kernel executions, memory transfers, and runtime API calls. The timeline shows parallelism (overlapping kernels), bubbles (idle time), and memory transfer costs.</p>
-<p>The merged trace (qwen3_merged.folded) combines both:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>cat<span class="w"> </span>qwen3_merged.folded
-</code></pre></div>
-<p>Example output:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>forward(Transformer*, int, int);cudaLaunchKernel;[GPU_Kernel]matmul_kernel 850432
-<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>matmul(float*, float*, float*, int, int);cudaLaunchKernel;[GPU_Kernel]attention_kernel 621847
-<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>rmsnorm(float*, float*, float*, int);cudaLaunchKernel;[GPU_Kernel]rmsnorm_kernel 3215
-</code></pre></div>
-<p>This is folded stack format with GPU kernel names appended. The numbers on the right are GPU kernel execution times in microseconds, not sample counts. For example, <code>850432</code> means 850.432 milliseconds of total GPU execution time for the <code>matmul_kernel</code> when called from the <code>forward()</code> function. This duration weighting ensures the flamegraph accurately reflects where GPU time is actually spent, as longer-running kernels appear wider, making performance bottlenecks immediately visible. Feed this directly to <code>combined_flamegraph.pl</code> to generate the unified visualization.</p>
-<h2 id="limitations-and-future-directions">Limitations and Future Directions</h2>
-<p>This profiler captures kernel launches but not kernel internals. When the flamegraph shows a GPU kernel consumed 50ms, it doesn't tell you why, whether threads are memory-bound, compute-bound, or stalled on divergence. For kernel-internal profiling, use NVIDIA Nsight Compute or Nsight Systems which instrument GPU execution at the warp level.</p>
-<p>Advanced profilers like iaprof for Intel GPUs demonstrate the next evolution in GPU observability. iaprof combines eBPF kernel tracing with hardware performance sampling using Intel GPU Observability Architecture (OA) and Debug API. Instead of just showing "kernel X ran for 50ms", iaprof captures execution unit stall reasons (memory latency, ALU bottlenecks, instruction fetch stalls) and attributes them back to specific shader instructions. This requires deeper integration with GPU hardware, including reading performance counters during kernel execution, sampling execution unit state, and deferred attribution to handle out-of-order hardware execution. The correlation challenge becomes even harder because hardware samples arrive asynchronously and must be matched to kernel contexts after execution completes.</p>
-<p>The profiler assumes single-stream execution in its current correlation logic. Multi-stream applications launch kernels on multiple CUDA streams, which can execute concurrently on the GPU. The merger should track stream IDs from CUPTI events and handle concurrent executions properly. Currently it may attribute concurrent kernels to whichever CPU launch happened closest in time. iaprof handles this with deferred attribution where hardware samples are buffered, then matched to shader contexts using timestamps and context IDs after all executions complete. This approach could be adapted for CUDA streams by buffering correlation matches and resolving them based on stream timelines.</p>
-<p>Correlation ID overflow can occur in very long-running applications. CUDA's correlation IDs are 32-bit integers that may wrap around after billions of API calls. The merger doesn't currently handle wraparound, which could cause mismatches in applications running for days or weeks. Production profilers use epoch-based correlation where IDs reset at defined intervals and events include epoch markers.</p>
-<p>Multi-GPU applications launch work on multiple devices. The profiler tracks device IDs in CUPTI events but doesn't distinguish them in the merged output. A proper multi-GPU flamegraph should separate stacks by device, showing which GPUs execute which kernels and whether load is balanced. The folded stack format could be extended with device tags: <code>cpu_stack;cudaLaunchKernel;[GPU0_Kernel]kernel_name</code> vs <code>cpu_stack;cudaLaunchKernel;[GPU1_Kernel]kernel_name</code>.</p>
-<p>Integration with higher-level profilers would be valuable. Combining this tool with NVIDIA Nsight Systems would provide both high-level code flow (from flamegraphs) and detailed kernel metrics (from Nsight). Similarly, integrating with perf or BPF-based full-system profilers would show GPU work in the context of system-wide resource usage (CPU scheduling, interrupts, memory pressure). The folded stack format is designed for this, as you can merge CPU perf samples with GPU samples by concatenating stacks.</p>
-<p>For fine-grained GPU observability, explore eBPF programs running on the GPU itself. The <a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu">bpftime GPU project</a> compiles eBPF bytecode to PTX instructions, enabling instrumentation inside GPU kernels. This exposes thread-level metrics like memory coalescing efficiency, warp occupancy, and bank conflicts, which are data impossible to obtain from kernel-side tracing. Future directions could combine kernel-side CUPTI tracing with GPU-side eBPF instrumentation for complete visibility from application code to individual warp execution.</p>
-<h2 id="summary">Summary</h2>
-<p>GPU profiling requires bridging two execution domains: CPU code submitting work and GPU hardware executing it. This tutorial demonstrated a complete profiling stack combining eBPF for CPU stack traces, CUPTI for GPU activity tracing, and correlation logic to merge them into unified flamegraphs. The eBPF profiler captures CPU stacks at every <code>cudaLaunchKernel</code> call with nanosecond timestamps. CUPTI injection records GPU kernel executions with correlation IDs linking them back to CPU API calls. The trace merger matches events via timestamps and correlation IDs, producing folded stacks showing complete execution paths from application code through CUDA runtime to GPU kernels. The resulting flamegraphs visualize end-to-end execution, revealing hotspots across both CPU and GPU.</p>
-<p>This approach works without recompiling applications, supports any CUDA framework (PyTorch, TensorFlow, JAX, raw CUDA), and provides low overhead suitable for production profiling. The tools are modular. You can use eBPF profiling alone for CPU analysis, CUPTI injection alone for GPU timelines, or combine them for unified visibility. Apply these techniques to diagnose performance bottlenecks in ML training, GPU-accelerated applications, or any CUDA workload where understanding CPU-GPU interaction is critical.</p>
+<h4 id="navigating-your-interactive-flamegraph">Navigating Your Interactive Flamegraph</h4>
+<p>Welcome to your unified performance profile! The flamegraph you see is a powerful tool for understanding your application's behavior. Here’s how to interpret it:
+- <strong>The Y-Axis is the Call Stack</strong>: Each vertical level represents a function in the call stack. The function at the bottom (<code>main</code>) calls the one above it, and so on, all the way up to the final functions that launch the GPU kernels.
+- <strong>The X-Axis is Time</strong>: The width of each rectangle (or "frame") is directly proportional to the total time it spent on the GPU. Because we used duration weighting, a kernel that ran for 200ms will have a frame that is 100 times wider than a kernel that ran for 2ms. This immediately draws your attention to the most expensive parts of your code.
+- <strong>Interactivity is Key</strong>:
+    - <strong>Hover</strong>: Move your mouse over any frame to see its full function name, the total time it consumed (in microseconds), and what percentage of the total execution time it represents.
+    - <strong>Click to Zoom</strong>: Click on any frame to "zoom in" on it. The flamegraph will redraw to show only the call stacks that pass through that function, making it easy to analyze specific parts of your application.
+- <strong>Color is Random</strong>: The colors are chosen randomly to help distinguish adjacent frames. They don't have any specific meaning.</p>
+<h4 id="analyzing-the-qwen3-llm-flamegraph">Analyzing the Qwen3 LLM Flamegraph</h4>
+<p>When you explore the <code>qwen3_flamegraph.svg</code>, you're looking at the real computational fingerprint of a transformer model. You'll be able to trace the execution from the <code>main</code> function, through the <code>chat()</code> and <code>forward()</code> loops, all the way to the specific GPU kernels.</p>
+<p>You will likely notice a few dominant kernels that make up the vast majority of the graph's width:
+- <strong><code>_Z13matmul_kernel...</code> (Matrix Multiplication)</strong>: This will be the widest block by a large margin, consuming around 3.1 seconds (95%) of the GPU time. This is the heart of a transformer's feed-forward networks and is the primary computational bottleneck.
+- <strong><code>_Z27multi_head_attention_kernel...</code> (Multi-Head Attention)</strong>: This kernel, responsible for the attention mechanism, will be the next largest, but significantly smaller than matrix multiplication (around 105ms, or 3.2%).
+- <strong><code>_Z14rmsnorm_kernel...</code> (RMS Normalization)</strong>: These kernels are even smaller, showing that normalization is a relatively cheap operation in this model.</p>
+<p>This visualization provides an immediate, intuitive understanding of where your program's time is going. It proves that for this LLM, optimizing the matrix multiplication operations would yield the biggest performance gains.</p>
+<h3 id="going-deeper-inspecting-the-raw-trace-files">Going Deeper: Inspecting the Raw Trace Files</h3>
+<p>While the flamegraph gives you a fantastic high-level overview, sometimes you need to get your hands on the raw data to answer specific questions. Our profiler generates three distinct trace files, each offering a different lens through which to view your application's performance. Let's explore what each one contains and how you can use it.</p>
+<h4 id="1-the-cpu-side-story-qwen3_cputxt">1. The CPU-Side Story: <code>qwen3_cpu.txt</code></h4>
+<p>This file contains the raw output from our Rust eBPF profiler. It's a log of every single time the <code>cudaLaunchKernel</code> function was called, captured in our special "extended folded format."</p>
+<p>You can peek at the first few lines using <code>head</code>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>head<span class="w"> </span>-5<span class="w"> </span>qwen3_cpu.txt
+</code></pre></div></p>
+<p>The output will look something like this:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>1761680628903821454 runcu 3861826 3861826 1 _start;__libc_start_main;0x70c45902a1ca;main;chat(...);forward(Transformer*, int, int);__device_stub__Z12accum_kernelPfS_i(...);cudaLaunchKernel
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>1761680628903827398 runcu 3861826 3861826 1 _start;__libc_start_main;0x70c45902a1ca;main;chat(...);forward(Transformer*, int, int);__device_stub__Z13matmul_kernelPfS_S_ii(...);cudaLaunchKernel
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>1761680628903830126 runcu 3861826 3861826 1 _start;__libc_start_main;0x70c45902a1ca;main;chat(...);forward(Transformer*, int, int);__device_stub__Z13matmul_kernelPfS_S_ii(...);cudaLaunchKernel
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>...
+</code></pre></div></p>
+<p>Each line is a complete snapshot of a single event, broken down as follows:
+- <code>1761680628903821454</code>: The nanosecond timestamp when the event occurred.
+- <code>runcu</code>: The command name of the process.
+- <code>3861826</code>: The process ID (PID).
+- <code>3861826</code>: The thread ID (TID).
+- <code>1</code>: The CPU core where the event was captured.
+- <code>_start;__libc_start_main;...;cudaLaunchKernel</code>: The full, semicolon-delimited user-space call stack.</p>
+<p>This file is a treasure trove of information on its own. You can see the exact sequence of kernel launches and the CPU code paths that led to them. You could even generate a CPU-only flamegraph from this file to see which parts of your host code are responsible for calling the CUDA API most frequently.</p>
+<h4 id="2-the-gpu-side-story-qwen3_gpujson">2. The GPU-Side Story: <code>qwen3_gpu.json</code></h4>
+<p>This file contains the detailed GPU activity trace from our CUPTI injection library, conveniently formatted as a JSON file that can be loaded into the Chrome Trace Viewer. This gives you a powerful timeline visualization of everything that happened on the GPU.</p>
+<p>Take a look at the beginning of the file:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>head<span class="w"> </span>-20<span class="w"> </span>qwen3_gpu.json
+</code></pre></div></p>
+<p>You'll see a standard JSON structure. To make sense of it, open Google Chrome and navigate to <code>chrome://tracing</code>. Click the "Load" button and select your <code>qwen3_gpu.json</code> file.</p>
+<p>The timeline view you'll see is invaluable for understanding the dynamics of GPU execution. You can:
+- <strong>See Parallelism</strong>: Visually identify when multiple kernels are running concurrently on different CUDA streams.
+- <strong>Spot Bubbles</strong>: Find gaps in the timeline where the GPU was idle, which might indicate CPU-side bottlenecks or inefficient data loading.
+- <strong>Analyze Memory Transfers</strong>: See how long <code>cudaMemcpy</code> operations are taking and whether they are blocking kernel execution.</p>
+<h4 id="3-the-unified-story-qwen3_mergedfolded">3. The Unified Story: <code>qwen3_merged.folded</code></h4>
+<p>This is the final, merged output that we used to generate our flamegraph. It represents the successful correlation of our CPU and GPU traces.</p>
+<p>Let's examine its contents:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>cat<span class="w"> </span>qwen3_merged.folded
+</code></pre></div></p>
+<p>The output shows the unique, combined call stacks and their total weighted durations:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>0x70c45902a1ca;main;chat(Transformer*, Tokenizer*, Sampler*, char*, char*, int, int, int, TokenBuffer*, int);forward(Transformer*, int, int);__device_stub__Z12accum_kernelPfS_i(float*, float*, int);cudaLaunchKernel;[GPU_Kernel]_Z12accum_kernelPfS_i 29
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>0x70c45902a1ca;main;chat(...);forward(Transformer*, int, int);__device_stub__Z13matmul_kernelPfS_S_ii(float*, float*, float*, int, int);cudaLaunchKernel;[GPU_Kernel]_Z13matmul_kernelPfS_S_ii 3099632
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>0x70c45902a1ca;main;chat(...);forward(Transformer*, int, int);__device_stub__Z14rmsnorm_kernelPfS_S_ii(float*, float*, float*, int, int);cudaLaunchKernel;[GPU_Kernel]_Z14rmsnorm_kernelPfS_S_ii 22119
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>0x70c45902a1ca;main;chat(...);forward(Transformer*, int, int);multi_head_attention(...);__device_stub__Z27multi_head_attention_kerneliiPfS_S_S_S_iiii(...);cudaLaunchKernel;[GPU_Kernel]_Z27multi_head_attention_kerneliiPfS_S_S_S_iiii 105359
+</code></pre></div></p>
+<p>This format is simple but powerful. Each line consists of two parts:
+1.  A semicolon-delimited string representing a full call stack, starting from the CPU, going through <code>cudaLaunchKernel</code>, and ending with the name of the GPU kernel that was executed (e.g., <code>[GPU_Kernel]_Z13matmul_kernel...</code>).
+2.  A number at the end representing the total time in <strong>microseconds</strong> that this specific call stack spent executing on the GPU.</p>
+<p>For example, the line ending in <code>3099632</code> tells us that the call stack leading to the <code>matmul_kernel</code> was responsible for a total of 3,099,632 microseconds (or 3.1 seconds) of GPU compute time. This duration weighting is the key to creating a flamegraph that accurately reflects where time is truly being spent, making it an indispensable tool for performance analysis.</p>
+<h2 id="the-road-ahead-limitations-and-future-directions">The Road Ahead: Limitations and Future Directions</h2>
+<p>You've successfully built a powerful profiler that provides incredible insight into CPU-GPU interactions. However, like any tool, it has its limitations. Understanding these boundaries is key to using the profiler effectively and seeing the exciting possibilities for future development.</p>
+<h3 id="what-our-profiler-doesnt-tell-you-inside-the-kernel">What Our Profiler Doesn't Tell You: Inside the Kernel</h3>
+<p>Our profiler excels at showing you <em>which</em> CPU code launches <em>which</em> GPU kernel and for <em>how long</em> that kernel runs. If your flamegraph shows a kernel consuming 50ms, you've found a hotspot. But it doesn't tell you <em>why</em> it's slow. Is the kernel memory-bound, waiting on data from VRAM? Is it compute-bound, with all its math units saturated? Or is it suffering from thread divergence, where threads within the same warp take different code paths?</p>
+<p>To answer these questions, you need to go a level deeper with <strong>kernel-internal profiling</strong>. This is the domain of specialized tools like <strong>NVIDIA Nsight Compute</strong> or <strong>Nsight Systems</strong>. These profilers can instrument the GPU at the hardware level, collecting metrics on warp occupancy, instruction throughput, and memory latency. The typical workflow is to use our flamegraph profiler first to identify the most time-consuming kernels, and then use Nsight Compute to perform a deep-dive analysis on those specific kernels to optimize their internal performance.</p>
+<p>An alternative approach to achieve fine-grained GPU observability is to run eBPF programs directly on the GPU. This is the direction explored by the eGPU paper and <a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu">bpftime GPU examples</a>. <code>bpftime</code> converts eBPF bytecode to PTX instructions that GPUs can execute, then dynamically patches CUDA binaries at runtime to inject these eBPF programs at kernel entry/exit points. This enables observing GPU-specific information like block indices, thread indices, global timers, and warp-level metrics. Developers can instrument critical paths inside GPU kernels to measure execution behavior and diagnose complex performance issues that kernel-side tracing cannot reach. This GPU-internal observability complements kernel tracepoints - together they provide end-to-end visibility from API calls through kernel drivers to GPU execution.</p>
+<h3 id="the-next-frontier-building-a-unified-system-wide-profiler">The Next Frontier: Building a Unified, System-Wide Profiler</h3>
+<p>This tutorial provides a powerful foundation, but the journey doesn't end here. The next evolution is to build a production-grade, continuous profiler that offers a truly holistic view of system performance. This involves moving beyond just correlating CPU calls and GPU kernels to understanding the "why" behind performance bottlenecks and scaling to complex, real-world workloads.</p>
+<p>The future of this work is being developed at <strong><a href="https://github.com/eunomia-bpf/xpu-perf">eunomia-bpf/xpu-perf</a></strong>, an open-source project aimed at creating an online, continuous profiler for both CPU and GPU. Here are the key directions being explored:</p>
+<ul>
+<li>
+<p><strong>From "What" to "Why": Deep Kernel and Instruction-Level Analysis</strong>
+    Our current profiler tells you <em>what</em> kernel ran and for <em>how long</em>. The next step is to understand <em>why</em> it was slow. This requires diving into the GPU hardware itself.</p>
+<ul>
+<li><strong>Instruction-Level Stalls</strong>: Using advanced features in vendor libraries like <strong>NVIDIA CUPTI</strong> or technologies like the Intel GPU Observability Architecture (OA) found in tools like <strong>iaprof</strong>, we can capture the specific reasons for stalls within the GPU's execution units. This means identifying bottlenecks caused by memory latency (waiting for data), ALU contention, or other hardware limitations and attributing them back to the exact shader instructions responsible.</li>
+<li><strong>Hardware Performance Counters</strong>: By sampling hardware performance counters on the GPU, we can collect detailed metrics on cache hit rates, memory bandwidth, and warp occupancy, providing a rich, data-driven picture of in-kernel performance.</li>
+</ul>
+</li>
+<li>
+<p><strong>A Holistic System View: Combining On-CPU, Off-CPU, and GPU Data</strong>
+    A process has many states, and a complete profiler must capture all of them.</p>
+<ul>
+<li><strong>On-CPU vs. Off-CPU</strong>: Our current eBPF profiler focuses on "on-CPU" activity. A complete solution would also trace "off-CPU" time, showing you not just what the CPU was doing, but why it was <em>waiting</em>. Was it blocked on I/O, a lock, or, most relevantly, waiting for a GPU kernel to complete?</li>
+<li><strong>Unified Flamegraphs</strong>: By merging on-CPU, off-CPU, and GPU traces, we can create a single, system-wide flamegraph. This would visualize the entire lifecycle of a request, showing time spent in active CPU computation, time spent waiting for the GPU, and time spent executing on the GPU, all in one seamless view.</li>
+</ul>
+</li>
+<li>
+<p><strong>Scaling to Production Workloads: Multi-GPU and Multi-Stream Support</strong>
+    Modern AI and HPC workloads are rarely confined to a single GPU or a single stream. A production-ready profiler must handle this complexity.</p>
+<ul>
+<li><strong>Multi-GPU Awareness</strong>: The profiler should be able to distinguish between different GPUs, tagging events with a device ID (e.g., <code>[GPU0_Kernel]name</code> vs. <code>[GPU1_Kernel]name</code>). This enables the analysis of load balancing and helps identify issues specific to one device in a multi-GPU setup.</li>
+<li><strong>Multi-Stream Correlation</strong>: For applications using multiple CUDA streams for concurrent execution, the correlation logic must be enhanced. This involves tracking stream IDs for both CPU launch calls and GPU kernel executions to correctly attribute work in complex, out-of-order scenarios.</li>
+</ul>
+</li>
+</ul>
+<p>By integrating these advanced capabilities, we can build a next-generation observability tool that provides unparalleled, end-to-end insight into the performance of accelerated applications. The work on <code>xpu-perf</code> aims to make this vision a reality.</p>
+<h2 id="tying-it-all-together-your-journey-in-review">Tying It All Together: Your Journey in Review</h2>
+<p>Congratulations! You've successfully navigated the complex world of CPU-GPU performance analysis. The fundamental challenge in profiling modern accelerated applications is bridging two distinct domains: the CPU, which submits work, and the GPU, which executes it. In this tutorial, you built a complete, end-to-end profiling solution that does exactly that.</p>
+<p>Let's recap the powerful stack you've assembled:
+-   An <strong>eBPF Profiler</strong>, built in Rust, that uses uprobes to capture CPU stack traces with nanosecond precision at the exact moment <code>cudaLaunchKernel</code> is called.
+-   A <strong>CUPTI Injection Library</strong>, which seamlessly loads into any CUDA application to record detailed GPU activity, complete with the crucial correlation IDs that link GPU work back to its CPU origin.
+-   A <strong>Python-based Trace Merger</strong>, which acts as a detective, intelligently stitching the CPU and GPU traces together using timestamps and correlation IDs. It produces a duration-weighted folded stack file, ensuring the final visualization accurately reflects real-world execution time.</p>
+<p>The result is a unified flamegraph that provides an intuitive, end-to-end view of your application's execution, from the highest-level CPU functions down to the specific kernels running on the GPU.</p>
+<p>The beauty of this approach is its power and flexibility. It works without recompiling your target application, supports any framework built on CUDA (including PyTorch, TensorFlow, and JAX), and has a low enough overhead to be used in production environments. The tools are modular, allowing you to use the eBPF profiler for CPU-only analysis, the CUPTI tracer for a GPU timeline, or combine them for unparalleled insight.</p>
+<p>You are now equipped with the techniques and tools to diagnose performance bottlenecks in complex machine learning workloads, scientific simulations, or any GPU-accelerated application where understanding the intricate dance between the CPU and GPU is the key to unlocking performance.</p>
 <blockquote>
-<p>If you'd like to dive deeper into eBPF, check out our tutorial repository at <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">https://github.com/eunomia-bpf/bpf-developer-tutorial</a> or visit our website at <a href="https://eunomia.dev/tutorials/">https://eunomia.dev/tutorials/</a>.</p>
+<p>We hope this tutorial has been an empowering step in your developer journey. To continue learning and exploring the world of eBPF, check out our full collection of tutorials at <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">https://github.com/eunomia-bpf/bpf-developer-tutorial</a> or visit our website at <a href="https://eunomia.dev/tutorials/">https://eunomia.dev/tutorials/</a>. Happy profiling!</p>
 </blockquote>
 <h2 id="references">References</h2>
 <h3 id="related-gpu-profiling-tools">Related GPU Profiling Tools</h3>
@@ -9915,7 +10338,7 @@
 <li>Tutorial Repository: <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/xpu/flamegraph">https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/xpu/flamegraph</a></li>
 </ol>
 <p>Complete source code including the eBPF profiler, CUPTI injection library, trace merger, and test applications is available in the tutorial repository. Contributions and issue reports welcome!</p>
-<p><a class="md-button" href="https://x.com/intent/tweet?text=eBPF%20Tutorial%20by%20Example%3A%20GPU%20Flamegraph%20Profiling%20with%20CUPTI%20and%20eBPF%0A&amp;url=https://eunomia.dev/zh/tutorials/xpu/flamegraph/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"/></svg></span></a>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=eBPF%20by%20Example%3A%20Building%20a%20GPU%20Flamegraph%20Profiler%20with%20CUPTI%0A&amp;url=https://eunomia.dev/zh/tutorials/xpu/flamegraph/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/zh/tutorials/xpu/flamegraph/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
@@ -9939,7 +10362,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 28, 2025 06:04:12 UTC">October 28, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 28, 2025 20:28:47 UTC">October 28, 2025</span>
   </span>
 
     
