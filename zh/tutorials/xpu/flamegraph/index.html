@@ -24,7 +24,7 @@
     
     
       
-        <title>eBPF Tutorial by Example: GPU+CPU Unified Flamegraph Profiling with CUPTI and eBPF - eunomia</title>
+        <title>eBPF Tutorial by Example: GPU Flamegraph Profiling with CUPTI and eBPF - eunomia</title>
       
     
     
@@ -69,7 +69,7 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="eBPF Tutorial by Example: GPU+CPU Unified Flamegraph Profiling with CUPTI and eBPF - eunomia" >
+        <meta  property="og:title"  content="eBPF Tutorial by Example: GPU Flamegraph Profiling with CUPTI and eBPF - eunomia" >
       
         <meta  property="og:description"  content="Unlock the potential of eBPF" >
       
@@ -85,7 +85,7 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="eBPF Tutorial by Example: GPU+CPU Unified Flamegraph Profiling with CUPTI and eBPF - eunomia" >
+        <meta  name="twitter:title"  content="eBPF Tutorial by Example: GPU Flamegraph Profiling with CUPTI and eBPF - eunomia" >
       
         <meta  name="twitter:description"  content="Unlock the potential of eBPF" >
       
@@ -112,7 +112,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ebpf-tutorial-by-example-gpucpu-unified-flamegraph-profiling-with-cupti-and-ebpf" class="md-skip">
+        <a href="#ebpf-tutorial-by-example-gpu-flamegraph-profiling-with-cupti-and-ebpf" class="md-skip">
           Skip to content
         </a>
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              eBPF Tutorial by Example: GPU+CPU Unified Flamegraph Profiling with CUPTI and eBPF
+              eBPF Tutorial by Example: GPU Flamegraph Profiling with CUPTI and eBPF
             
           </span>
         </div>
@@ -1965,7 +1965,7 @@
   
   
   <span class="md-ellipsis">
-    eBPF Tutorial by Example: GPU+CPU Unified Flamegraph Profiling with CUPTI and eBPF
+    eBPF Tutorial by Example: GPU Flamegraph Profiling with CUPTI and eBPF
     
   </span>
   
@@ -1978,7 +1978,7 @@
   
   
   <span class="md-ellipsis">
-    eBPF Tutorial by Example: GPU+CPU Unified Flamegraph Profiling with CUPTI and eBPF
+    eBPF Tutorial by Example: GPU Flamegraph Profiling with CUPTI and eBPF
     
   </span>
   
@@ -1999,6 +1999,15 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-we-inject-correlate" class="md-nav__link">
+    <span class="md-ellipsis">
+      How we inject &amp; correlate
+    </span>
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#the-challenge-correlating-cpu-and-gpu-activity" class="md-nav__link">
@@ -2046,53 +2055,8 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#ebpf-profiler-capturing-cpu-stacks-at-kernel-launch" class="md-nav__link">
-    <span class="md-ellipsis">
-      eBPF Profiler: Capturing CPU Stacks at Kernel Launch
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cupti-trace-injection-capturing-gpu-activity" class="md-nav__link">
-    <span class="md-ellipsis">
-      CUPTI Trace Injection: Capturing GPU Activity
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#trace-merger-correlating-cpu-and-gpu" class="md-nav__link">
-    <span class="md-ellipsis">
-      Trace Merger: Correlating CPU and GPU
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#understanding-the-correlation-algorithm" class="md-nav__link">
-    <span class="md-ellipsis">
-      Understanding the Correlation Algorithm
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#cupti-activity-tracing-implementation" class="md-nav__link">
-    <span class="md-ellipsis">
-      CUPTI Activity Tracing Implementation
-    </span>
-  </a>
   
 </li>
       
@@ -2208,66 +2172,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#advanced-usage-profiling-real-applications" class="md-nav__link">
-    <span class="md-ellipsis">
-      Advanced Usage: Profiling Real Applications
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Advanced Usage: Profiling Real Applications">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#profile-pytorch-training-script" class="md-nav__link">
-    <span class="md-ellipsis">
-      Profile PyTorch Training Script
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#profile-tensorflow-or-jax" class="md-nav__link">
-    <span class="md-ellipsis">
-      Profile TensorFlow or JAX
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cpu-only-profiling" class="md-nav__link">
-    <span class="md-ellipsis">
-      CPU-Only Profiling
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#gpu-only-profiling" class="md-nav__link">
-    <span class="md-ellipsis">
-      GPU-Only Profiling
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting-common-issues" class="md-nav__link">
-    <span class="md-ellipsis">
-      Troubleshooting Common Issues
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#limitations-and-future-directions" class="md-nav__link">
     <span class="md-ellipsis">
       Limitations and Future Directions
@@ -2286,20 +2190,44 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#cross-vendor-gpu-profiling-comparison" class="md-nav__link">
-    <span class="md-ellipsis">
-      Cross-Vendor GPU Profiling Comparison
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#references" class="md-nav__link">
     <span class="md-ellipsis">
       References
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="References">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#related-gpu-profiling-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related GPU Profiling Tools
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#technical-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Technical Documentation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Topics
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -9333,6 +9261,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#how-we-inject-correlate" class="md-nav__link">
+    <span class="md-ellipsis">
+      How we inject &amp; correlate
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#the-challenge-correlating-cpu-and-gpu-activity" class="md-nav__link">
     <span class="md-ellipsis">
       The Challenge: Correlating CPU and GPU Activity
@@ -9378,53 +9315,8 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#ebpf-profiler-capturing-cpu-stacks-at-kernel-launch" class="md-nav__link">
-    <span class="md-ellipsis">
-      eBPF Profiler: Capturing CPU Stacks at Kernel Launch
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cupti-trace-injection-capturing-gpu-activity" class="md-nav__link">
-    <span class="md-ellipsis">
-      CUPTI Trace Injection: Capturing GPU Activity
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#trace-merger-correlating-cpu-and-gpu" class="md-nav__link">
-    <span class="md-ellipsis">
-      Trace Merger: Correlating CPU and GPU
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#understanding-the-correlation-algorithm" class="md-nav__link">
-    <span class="md-ellipsis">
-      Understanding the Correlation Algorithm
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#cupti-activity-tracing-implementation" class="md-nav__link">
-    <span class="md-ellipsis">
-      CUPTI Activity Tracing Implementation
-    </span>
-  </a>
   
 </li>
       
@@ -9540,66 +9432,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#advanced-usage-profiling-real-applications" class="md-nav__link">
-    <span class="md-ellipsis">
-      Advanced Usage: Profiling Real Applications
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Advanced Usage: Profiling Real Applications">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#profile-pytorch-training-script" class="md-nav__link">
-    <span class="md-ellipsis">
-      Profile PyTorch Training Script
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#profile-tensorflow-or-jax" class="md-nav__link">
-    <span class="md-ellipsis">
-      Profile TensorFlow or JAX
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cpu-only-profiling" class="md-nav__link">
-    <span class="md-ellipsis">
-      CPU-Only Profiling
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#gpu-only-profiling" class="md-nav__link">
-    <span class="md-ellipsis">
-      GPU-Only Profiling
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting-common-issues" class="md-nav__link">
-    <span class="md-ellipsis">
-      Troubleshooting Common Issues
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#limitations-and-future-directions" class="md-nav__link">
     <span class="md-ellipsis">
       Limitations and Future Directions
@@ -9618,20 +9450,44 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#cross-vendor-gpu-profiling-comparison" class="md-nav__link">
-    <span class="md-ellipsis">
-      Cross-Vendor GPU Profiling Comparison
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#references" class="md-nav__link">
     <span class="md-ellipsis">
       References
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="References">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#related-gpu-profiling-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related GPU Profiling Tools
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#technical-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Technical Documentation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Topics
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -9659,9 +9515,11 @@
   
 
 
-<h1 id="ebpf-tutorial-by-example-gpucpu-unified-flamegraph-profiling-with-cupti-and-ebpf">eBPF Tutorial by Example: GPU+CPU Unified Flamegraph Profiling with CUPTI and eBPF</h1>
-<p>When GPU applications run slower than expected, the bottleneck could be anywhere - CPU preprocessing, GPU kernel execution, memory transfers, or CPU-GPU synchronization. Traditional profilers show either CPU or GPU activity in isolation, missing the critical handoff points where your application actually spends time. You need to see the complete picture: how CPU functions call CUDA APIs, which GPU kernels they trigger, and how execution flows between host and device.</p>
-<p>This tutorial shows how to build a unified CPU+GPU profiler using eBPF and NVIDIA's CUPTI library. We'll trace CPU stack traces at the exact moment <code>cudaLaunchKernel</code> fires, capture GPU kernel execution through CUPTI activity tracing, correlate them using CUDA's correlation IDs, and generate a single flamegraph showing the complete execution path from application code through CUDA runtime to GPU hardware.</p>
+<h1 id="ebpf-tutorial-by-example-gpu-flamegraph-profiling-with-cupti-and-ebpf">eBPF Tutorial by Example: GPU Flamegraph Profiling with CUPTI and eBPF</h1>
+<p>CPU profilers show host stacks but not which GPU kernel they launch; GPU profilers show device kernels but not the host code path that triggered them. What you usually need is the handoff: "Which CPU function called <code>cudaLaunchKernel()</code> and what kernel did that produce?"</p>
+<p>In this tutorial you'll build a CPU to GPU kernel launch flamegraph using eBPF plus CUPTI. This is a flamegraph where CPU stacks captured at <code>cudaLaunchKernel()</code> are extended with the GPU kernel name using CUPTI correlation IDs. The result makes kernel hotspots discoverable in the context of your host code, without rebuilding the application. CUPTI activity records for runtime API and concurrent kernels carry matching <code>correlationId</code> fields. <a href="https://docs.nvidia.com/cupti/api/structCUpti__ActivityKernel8.html">NVIDIA Docs</a></p>
+<h2 id="how-we-inject-correlate">How we inject &amp; correlate</h2>
+<p>We load a small CUPTI library via <code>CUDA_INJECTION64_PATH</code> so the CUDA runtime records runtime API and kernel activity with timestamps and correlation IDs. In parallel, an eBPF uprobe on <code>cudaLaunchKernel()</code> collects the CPU call stack and kernel time. After the run, a merger uses the CUPTI <code>correlationId</code> to connect the runtime API call to the kernel event, and appends <code>[GPU Kernel] &lt;name&gt;</code> to the CPU stack before generating a standard folded file for <code>flamegraph.pl</code>. <a href="https://docs.nvidia.com/drive/drive-os-5.2.6.0L/nsight-systems/pdf/UserGuide.pdf">NVIDIA Docs</a></p>
 <blockquote>
 <p>The complete source code: <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/xpu/flamegraph">https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/xpu/flamegraph</a></p>
 </blockquote>
@@ -9677,15 +9535,18 @@
 <p>The trace merger combines these two data sources. It parses CPU stack traces in extended folded format (timestamp, command name, PID, TID, CPU, semicolon-separated stack) and GPU traces in Chrome JSON format (CUPTI events converted to Chrome trace format for visualization). Correlation happens through timestamp proximity - since CPU uprobe fires at <code>cudaLaunchKernel</code> entry and CUPTI records the runtime API with the same correlation ID, we match them within a small time window. The merger then matches GPU kernel events to their corresponding runtime API calls via correlation ID. The output is folded stack format suitable for flamegraph generation: <code>cpu_func1;cpu_func2;cudaLaunchKernel;[GPU_Kernel]kernel_name count</code>.</p>
 <h2 id="component-overview">Component Overview</h2>
 <p>The system consists of four key tools that work together to provide end-to-end visibility.</p>
-<p><strong>gpuperf.py</strong> is the main orchestration script that launches the target application with both eBPF CPU profiling and CUPTI GPU tracing enabled. It manages environment variables for CUPTI injection (<code>CUDA_INJECTION64_PATH</code>, <code>CUPTI_TRACE_OUTPUT_FILE</code>), starts the Rust eBPF profiler with cudaLaunchKernel uprobes before the target process to catch all kernel launches, runs the target application with CUPTI injection enabled, collects traces from both sources, and automatically merges them into a unified flamegraph-ready format. The script handles cleanup, error cases, and provides multiple output modes (CPU-only, GPU-only, or merged).</p>
-<p><strong>Rust eBPF Profiler</strong> (in <code>profiler/</code>) is a high-performance stack trace collector built with libbpf. Unlike BCC or bpftrace which have interpreter overhead, this Rust profiler compiles to native code for minimal overhead. It attaches uprobes to <code>cudaLaunchKernel</code> in the CUDA runtime library, captures full stack traces using eBPF's <code>bpf_get_stackid()</code> helper, records timestamps with nanosecond precision, and outputs extended folded format directly without post-processing. The <code>-E</code> flag enables extended output with timestamps, which is critical for correlation with GPU events.</p>
-<p><strong>CUPTI Trace Injection</strong> (in <code>cupti_trace/</code>) is a shared library loaded into CUDA applications via injection. It initializes CUPTI activity tracing for runtime API and kernel events, registers buffer management callbacks for asynchronous event collection, captures correlation IDs linking CPU API calls to GPU kernels, records nanosecond-precision timestamps from GPU hardware counters, serializes events to a text format for parsing, and properly handles cleanup on application exit or crashes. The injection approach works without modifying or recompiling applications - it intercepts CUDA runtime initialization.</p>
-<p><strong>Trace Merger</strong> (<code>merge_gpu_cpu_trace.py</code>) performs the correlation logic. It parses CPU traces in extended folded format extracting timestamps, process info, and stack traces. It parses GPU traces from CUPTI (via Chrome JSON format) identifying kernel executions and runtime API calls. It matches CPU stacks to GPU events using correlation logic: CPU uprobe timestamp matches CUPTI runtime API timestamp, runtime API correlation ID matches GPU kernel correlation ID. Finally, it generates folded output where GPU kernel names extend CPU stacks: <code>app_func;cudaLaunchKernel;[GPU_Kernel]matmul_kernel 1000</code> means the matmul kernel was sampled 1000 times from that code path.</p>
+<p>The gpuperf.py script is the main orchestration component that launches the target application with both eBPF CPU profiling and CUPTI GPU tracing enabled. It manages environment variables for CUPTI injection (including <code>CUDA_INJECTION64_PATH</code> and <code>CUPTI_TRACE_OUTPUT_FILE</code>). The script starts the Rust eBPF profiler with cudaLaunchKernel uprobes before the target process to catch all kernel launches. Then it runs the target application with CUPTI injection enabled, collects traces from both sources, and automatically merges them into a unified flamegraph-ready format. The script handles cleanup, error cases, and provides multiple output modes including CPU-only, GPU-only, or merged.</p>
+<p>The Rust eBPF Profiler in the <code>profiler/</code> directory is a stack trace collector built with libbpf. It attaches uprobes to <code>cudaLaunchKernel</code> in the CUDA runtime library. The profiler captures full stack traces using eBPF's <code>bpf_get_stackid()</code> helper, records timestamps with nanosecond precision, and outputs extended folded format directly without post-processing. The <code>-E</code> flag enables extended output with timestamps, which is critical for correlation with GPU events.</p>
+<p>CUPTI Trace Injection in the <code>cupti_trace/</code> directory is a shared library loaded into CUDA applications via injection. It initializes CUPTI activity tracing for runtime API and kernel events. The library registers buffer management callbacks for asynchronous event collection, captures correlation IDs linking CPU API calls to GPU kernels, and records nanosecond-precision timestamps from GPU hardware counters. It serializes events to a text format for parsing, and properly handles cleanup on application exit or crashes. The injection approach works without modifying or recompiling applications, as it intercepts CUDA runtime initialization.</p>
+<p>The Trace Merger in <code>merge_gpu_cpu_trace.py</code> performs the correlation logic. It parses CPU traces in extended folded format extracting timestamps, process info, and stack traces. The merger also parses GPU traces from CUPTI (via Chrome JSON format) identifying kernel executions and runtime API calls. It matches CPU stacks to GPU events using correlation logic where the CPU uprobe timestamp matches the CUPTI runtime API timestamp, and the runtime API correlation ID matches the GPU kernel correlation ID. Finally, it generates folded output where GPU kernel names extend CPU stacks. For example, <code>app_func;cudaLaunchKernel;[GPU_Kernel]matmul_kernel 1000</code> means the matmul kernel was sampled 1000 times from that code path.</p>
 <h2 id="high-level-code-analysis-the-complete-profiling-pipeline">High-Level Code Analysis: The Complete Profiling Pipeline</h2>
 <p>The complete profiling flow starts when you run <code>gpuperf.py</code> to launch your CUDA application. Let's walk through what happens from process startup to final flamegraph generation, following the actual code paths.</p>
 <h3 id="key-implementation-three-component-architecture">Key Implementation: Three-Component Architecture</h3>
 <p>The profiling pipeline consists of three key components working together. Here's the essential logic from each:</p>
-<p><strong>1. eBPF Profiler (<code>profiler/src/bpf/profile.bpf.c</code>) - Kernel-Space Stack Capture:</strong></p>
+<ol>
+<li>eBPF Profiler in <code>profiler/src/bpf/profile.bpf.c</code> for kernel-space stack capture:</li>
+</ol>
+<p>The Rust profiler in <code>profiler/</code> is a libbpf-based eBPF application. Unlike bpftrace or BCC which interpret scripts at runtime, this profiler compiles to native code for minimal overhead. It attaches uprobes dynamically to any function in any library, making it perfect for instrumenting CUDA runtime without modifying NVIDIA's binaries.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">// eBPF program that captures stack traces when cudaLaunchKernel is called</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;uprobe&quot;</span><span class="p">)</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kt">int</span><span class="w"> </span><span class="n">uprobe_handler</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">pt_regs</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span>
@@ -9711,60 +9572,90 @@
 <a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="p">}</span>
 </code></pre></div>
-<p><strong>2. CUPTI Injection (<code>cupti_trace/cupti_trace_injection.cpp</code>) - GPU Activity Tracking:</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">// Callback when CUPTI fills an activity buffer</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kt">void</span><span class="w"> </span><span class="n">CUPTIAPI</span><span class="w"> </span><span class="nf">BufferCompleted</span><span class="p">(</span><span class="n">CUcontext</span><span class="w"> </span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">streamId</span><span class="p">,</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="p">,</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">                               </span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">validSize</span><span class="p">)</span>
+<p>When the uprobe fires at <code>cudaLaunchKernel</code> entry, the eBPF program reads the current stack using kernel helpers. It stores stack traces in a BPF stack map, which is a hash table mapping stack IDs to stack traces to deduplicate identical stacks. The program records a sample event containing timestamp, process info, and stack ID, then sends the event to userspace via a BPF ring buffer.</p>
+<p>The Rust userspace code polls for events, looks up stack traces using stack IDs, and resolves addresses to symbol names using DWARF debug info via the blazesym library. It outputs extended folded format: <code>timestamp_ns comm pid tid cpu stack1;stack2;...;stackN</code>. This format is critical because the timestamp enables correlation with GPU events, and the folded stack format feeds directly into flamegraph generation.</p>
+<p>The <code>-E</code> extended output flag is what differentiates this from standard flamegraph profiling. Traditional folded format is just <code>stack1;stack2;stack3 count</code>, showing aggregate call graphs. Extended format adds temporal information: <code>1234567890 myapp 1000 1000 0 stack1;stack2;stack3</code>, telling you exactly when each sample occurred. This timestamp precision is what allows matching CPU stacks to GPU kernel launches that happen milliseconds or microseconds later.</p>
+<ol>
+<li>CUPTI Injection in <code>cupti_trace/cupti_trace_injection.cpp</code> for GPU activity tracking:</li>
+</ol>
+<p>The CUPTI injection library in <code>cupti_trace/</code> implements the GPU-side instrumentation. When CUDA runtime loads this library (via <code>CUDA_INJECTION64_PATH</code>), the library's initialization function runs before any CUDA API is available. This is the perfect time to set up CUPTI callbacks.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">// Initialize CUPTI tracing when library is loaded</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">__attribute__</span><span class="p">((</span><span class="n">constructor</span><span class="p">))</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="kt">void</span><span class="w"> </span><span class="n">InitializeInjection</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="p">{</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="n">CUpti_Activity</span><span class="w"> </span><span class="o">*</span><span class="n">record</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="c1">// Iterate through all activity records in the buffer</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">CUPTI_SUCCESS</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">cuptiActivityGetNextRecord</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="n">validSize</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">record</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">record</span><span class="o">-&gt;</span><span class="n">kind</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="no">CUPTI_ACTIVITY_KIND_CONCURRENT_KERNEL</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">                </span><span class="n">CUpti_ActivityKernel4</span><span class="w"> </span><span class="o">*</span><span class="n">kernel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">CUpti_ActivityKernel4</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">record</span><span class="p">;</span>
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">                </span><span class="c1">// Extract kernel execution details</span>
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">                </span><span class="n">fprintf</span><span class="p">(</span><span class="n">outputFile</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;CONCURRENT_KERNEL [ %llu, %llu ] duration %llu, </span><span class="se">\&quot;</span><span class="s">%s</span><span class="se">\&quot;</span><span class="s">, correlationId %u</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
-<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">                        </span><span class="n">kernel</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">,</span><span class="w">           </span><span class="c1">// GPU timestamp (ns)</span>
-<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">                        </span><span class="n">kernel</span><span class="o">-&gt;</span><span class="n">end</span><span class="p">,</span><span class="w">             </span><span class="c1">// GPU timestamp (ns)</span>
-<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">                        </span><span class="n">kernel</span><span class="o">-&gt;</span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">kernel</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">,</span>
-<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">                        </span><span class="n">kernel</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">,</span><span class="w">            </span><span class="c1">// Kernel function name</span>
-<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">                        </span><span class="n">kernel</span><span class="o">-&gt;</span><span class="n">correlationId</span><span class="p">);</span><span class="w">  </span><span class="c1">// Links to CPU API call</span>
-<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">                </span><span class="k">break</span><span class="p">;</span>
-<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">            </span><span class="p">}</span>
-<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="no">CUPTI_ACTIVITY_KIND_RUNTIME</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="w">                </span><span class="n">CUpti_ActivityAPI</span><span class="w"> </span><span class="o">*</span><span class="n">api</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">CUpti_ActivityAPI</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">record</span><span class="p">;</span>
-<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>
-<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="w">                </span><span class="c1">// Track cudaLaunchKernel API calls</span>
-<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">api</span><span class="o">-&gt;</span><span class="n">cbid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">CUPTI_RUNTIME_TRACE_CBID_cudaLaunchKernel_v7000</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="w">                    </span><span class="n">fprintf</span><span class="p">(</span><span class="n">outputFile</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;RUNTIME [ %llu, %llu ] </span><span class="se">\&quot;</span><span class="s">cudaLaunchKernel</span><span class="se">\&quot;</span><span class="s">, correlationId %u</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
-<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="w">                            </span><span class="n">api</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">,</span><span class="w">          </span><span class="c1">// API entry timestamp</span>
-<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a><span class="w">                            </span><span class="n">api</span><span class="o">-&gt;</span><span class="n">end</span><span class="p">,</span><span class="w">            </span><span class="c1">// API exit timestamp</span>
-<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a><span class="w">                            </span><span class="n">api</span><span class="o">-&gt;</span><span class="n">correlationId</span><span class="p">);</span><span class="w"> </span><span class="c1">// Same ID as kernel</span>
-<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a><span class="w">                </span><span class="p">}</span>
-<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a><span class="w">                </span><span class="k">break</span><span class="p">;</span>
-<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a><span class="w">            </span><span class="p">}</span>
-<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a><span class="w">        </span><span class="p">}</span>
-<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a><span class="p">}</span>
-<a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>
-<a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a><span class="c1">// Initialize CUPTI tracing when library is loaded</span>
-<a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a><span class="n">__attribute__</span><span class="p">((</span><span class="n">constructor</span><span class="p">))</span>
-<a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a><span class="kt">void</span><span class="w"> </span><span class="n">InitializeInjection</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a><span class="p">{</span>
-<a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a><span class="w">    </span><span class="c1">// Subscribe to CUPTI callbacks</span>
-<a id="__codelineno-1-43" name="__codelineno-1-43" href="#__codelineno-1-43"></a><span class="w">    </span><span class="n">cuptiSubscribe</span><span class="p">(</span><span class="o">&amp;</span><span class="n">subscriberHandle</span><span class="p">,</span><span class="w"> </span><span class="n">CallbackHandler</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
-<a id="__codelineno-1-44" name="__codelineno-1-44" href="#__codelineno-1-44"></a>
-<a id="__codelineno-1-45" name="__codelineno-1-45" href="#__codelineno-1-45"></a><span class="w">    </span><span class="c1">// Enable activity tracing for kernels and runtime APIs</span>
-<a id="__codelineno-1-46" name="__codelineno-1-46" href="#__codelineno-1-46"></a><span class="w">    </span><span class="n">cuptiActivityEnable</span><span class="p">(</span><span class="n">CUPTI_ACTIVITY_KIND_CONCURRENT_KERNEL</span><span class="p">);</span>
-<a id="__codelineno-1-47" name="__codelineno-1-47" href="#__codelineno-1-47"></a><span class="w">    </span><span class="n">cuptiActivityEnable</span><span class="p">(</span><span class="n">CUPTI_ACTIVITY_KIND_RUNTIME</span><span class="p">);</span>
-<a id="__codelineno-1-48" name="__codelineno-1-48" href="#__codelineno-1-48"></a>
-<a id="__codelineno-1-49" name="__codelineno-1-49" href="#__codelineno-1-49"></a><span class="w">    </span><span class="c1">// Register buffer management callbacks</span>
-<a id="__codelineno-1-50" name="__codelineno-1-50" href="#__codelineno-1-50"></a><span class="w">    </span><span class="n">cuptiActivityRegisterCallbacks</span><span class="p">(</span><span class="n">BufferRequested</span><span class="p">,</span><span class="w"> </span><span class="n">BufferCompleted</span><span class="p">);</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="c1">// Subscribe to CUPTI callbacks</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="n">cuptiSubscribe</span><span class="p">(</span><span class="o">&amp;</span><span class="n">subscriberHandle</span><span class="p">,</span><span class="w"> </span><span class="n">CallbackHandler</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="c1">// Enable activity tracing for kernels and runtime APIs</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="n">cuptiActivityEnable</span><span class="p">(</span><span class="n">CUPTI_ACTIVITY_KIND_CONCURRENT_KERNEL</span><span class="p">);</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="n">cuptiActivityEnable</span><span class="p">(</span><span class="n">CUPTI_ACTIVITY_KIND_RUNTIME</span><span class="p">);</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="c1">// Register buffer management callbacks</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="n">cuptiActivityRegisterCallbacks</span><span class="p">(</span><span class="n">BufferRequested</span><span class="p">,</span><span class="w"> </span><span class="n">BufferCompleted</span><span class="p">);</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="p">}</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="c1">// Callback when CUPTI fills an activity buffer</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="kt">void</span><span class="w"> </span><span class="n">CUPTIAPI</span><span class="w"> </span><span class="n">BufferCompleted</span><span class="p">(</span><span class="n">CUcontext</span><span class="w"> </span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">streamId</span><span class="p">,</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="p">,</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">                               </span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">validSize</span><span class="p">)</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="p">{</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">    </span><span class="n">CUpti_Activity</span><span class="w"> </span><span class="o">*</span><span class="n">record</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">    </span><span class="c1">// Iterate through all activity records in the buffer</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">CUPTI_SUCCESS</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">cuptiActivityGetNextRecord</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="n">validSize</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">record</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">record</span><span class="o">-&gt;</span><span class="n">kind</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="no">CUPTI_ACTIVITY_KIND_CONCURRENT_KERNEL</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="w">                </span><span class="n">CUpti_ActivityKernel4</span><span class="w"> </span><span class="o">*</span><span class="n">kernel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">CUpti_ActivityKernel4</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">record</span><span class="p">;</span>
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="w">                </span><span class="c1">// Extract kernel execution details</span>
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a><span class="w">                </span><span class="n">fprintf</span><span class="p">(</span><span class="n">outputFile</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;CONCURRENT_KERNEL [ %llu, %llu ] duration %llu, </span><span class="se">\&quot;</span><span class="s">%s</span><span class="se">\&quot;</span><span class="s">, correlationId %u</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a><span class="w">                        </span><span class="n">kernel</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">,</span><span class="w">           </span><span class="c1">// GPU timestamp (ns)</span>
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a><span class="w">                        </span><span class="n">kernel</span><span class="o">-&gt;</span><span class="n">end</span><span class="p">,</span><span class="w">             </span><span class="c1">// GPU timestamp (ns)</span>
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a><span class="w">                        </span><span class="n">kernel</span><span class="o">-&gt;</span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">kernel</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">,</span>
+<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a><span class="w">                        </span><span class="n">kernel</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">,</span><span class="w">            </span><span class="c1">// Kernel function name</span>
+<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a><span class="w">                        </span><span class="n">kernel</span><span class="o">-&gt;</span><span class="n">correlationId</span><span class="p">);</span><span class="w">  </span><span class="c1">// Links to CPU API call</span>
+<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a><span class="w">                </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a><span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="no">CUPTI_ACTIVITY_KIND_RUNTIME</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a><span class="w">                </span><span class="n">CUpti_ActivityAPI</span><span class="w"> </span><span class="o">*</span><span class="n">api</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">CUpti_ActivityAPI</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">record</span><span class="p">;</span>
+<a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a>
+<a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a><span class="w">                </span><span class="c1">// Track cudaLaunchKernel API calls</span>
+<a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">api</span><span class="o">-&gt;</span><span class="n">cbid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">CUPTI_RUNTIME_TRACE_CBID_cudaLaunchKernel_v7000</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a><span class="w">                    </span><span class="n">fprintf</span><span class="p">(</span><span class="n">outputFile</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;RUNTIME [ %llu, %llu ] </span><span class="se">\&quot;</span><span class="s">cudaLaunchKernel</span><span class="se">\&quot;</span><span class="s">, correlationId %u</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-43" name="__codelineno-1-43" href="#__codelineno-1-43"></a><span class="w">                            </span><span class="n">api</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">,</span><span class="w">          </span><span class="c1">// API entry timestamp</span>
+<a id="__codelineno-1-44" name="__codelineno-1-44" href="#__codelineno-1-44"></a><span class="w">                            </span><span class="n">api</span><span class="o">-&gt;</span><span class="n">end</span><span class="p">,</span><span class="w">            </span><span class="c1">// API exit timestamp</span>
+<a id="__codelineno-1-45" name="__codelineno-1-45" href="#__codelineno-1-45"></a><span class="w">                            </span><span class="n">api</span><span class="o">-&gt;</span><span class="n">correlationId</span><span class="p">);</span><span class="w"> </span><span class="c1">// Same ID as kernel</span>
+<a id="__codelineno-1-46" name="__codelineno-1-46" href="#__codelineno-1-46"></a><span class="w">                </span><span class="p">}</span>
+<a id="__codelineno-1-47" name="__codelineno-1-47" href="#__codelineno-1-47"></a><span class="w">                </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-1-48" name="__codelineno-1-48" href="#__codelineno-1-48"></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-1-49" name="__codelineno-1-49" href="#__codelineno-1-49"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-1-50" name="__codelineno-1-50" href="#__codelineno-1-50"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-1-51" name="__codelineno-1-51" href="#__codelineno-1-51"></a><span class="p">}</span>
+<a id="__codelineno-1-52" name="__codelineno-1-52" href="#__codelineno-1-52"></a>
+<a id="__codelineno-1-53" name="__codelineno-1-53" href="#__codelineno-1-53"></a><span class="c1">// Initialize CUPTI tracing when library is loaded</span>
+<a id="__codelineno-1-54" name="__codelineno-1-54" href="#__codelineno-1-54"></a><span class="n">__attribute__</span><span class="p">((</span><span class="n">constructor</span><span class="p">))</span>
+<a id="__codelineno-1-55" name="__codelineno-1-55" href="#__codelineno-1-55"></a><span class="kt">void</span><span class="w"> </span><span class="n">InitializeInjection</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<a id="__codelineno-1-56" name="__codelineno-1-56" href="#__codelineno-1-56"></a><span class="p">{</span>
+<a id="__codelineno-1-57" name="__codelineno-1-57" href="#__codelineno-1-57"></a><span class="w">    </span><span class="c1">// Subscribe to CUPTI callbacks</span>
+<a id="__codelineno-1-58" name="__codelineno-1-58" href="#__codelineno-1-58"></a><span class="w">    </span><span class="n">cuptiSubscribe</span><span class="p">(</span><span class="o">&amp;</span><span class="n">subscriberHandle</span><span class="p">,</span><span class="w"> </span><span class="n">CallbackHandler</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+<a id="__codelineno-1-59" name="__codelineno-1-59" href="#__codelineno-1-59"></a>
+<a id="__codelineno-1-60" name="__codelineno-1-60" href="#__codelineno-1-60"></a><span class="w">    </span><span class="c1">// Enable activity tracing for kernels and runtime APIs</span>
+<a id="__codelineno-1-61" name="__codelineno-1-61" href="#__codelineno-1-61"></a><span class="w">    </span><span class="n">cuptiActivityEnable</span><span class="p">(</span><span class="n">CUPTI_ACTIVITY_KIND_CONCURRENT_KERNEL</span><span class="p">);</span>
+<a id="__codelineno-1-62" name="__codelineno-1-62" href="#__codelineno-1-62"></a><span class="w">    </span><span class="n">cuptiActivityEnable</span><span class="p">(</span><span class="n">CUPTI_ACTIVITY_KIND_RUNTIME</span><span class="p">);</span>
+<a id="__codelineno-1-63" name="__codelineno-1-63" href="#__codelineno-1-63"></a>
+<a id="__codelineno-1-64" name="__codelineno-1-64" href="#__codelineno-1-64"></a><span class="w">    </span><span class="c1">// Register buffer management callbacks</span>
+<a id="__codelineno-1-65" name="__codelineno-1-65" href="#__codelineno-1-65"></a><span class="w">    </span><span class="n">cuptiActivityRegisterCallbacks</span><span class="p">(</span><span class="n">BufferRequested</span><span class="p">,</span><span class="w"> </span><span class="n">BufferCompleted</span><span class="p">);</span>
+<a id="__codelineno-1-66" name="__codelineno-1-66" href="#__codelineno-1-66"></a><span class="p">}</span>
 </code></pre></div>
-<p><strong>3. Trace Merger (<code>merge_gpu_cpu_trace.py</code>) - Correlation Logic:</strong></p>
+<p>As the application runs, CUPTI accumulates activity records in internal buffers. Buffer management is asynchronous, as CUPTI requires the application to provide memory buffers. The buffer request callback allocates an 8MB buffer. When the buffer fills or the application exits, CUPTI calls <code>BufferCompleted</code> with activity records.</p>
+<p>The buffer completion callback iterates through records. For <code>CUPTI_ACTIVITY_KIND_CONCURRENT_KERNEL</code>, the record contains kernel name, start and end timestamps (nanoseconds from GPU hardware timer), correlation ID linking to the runtime API call, grid and block dimensions, device, context, and stream IDs, as well as memory and register usage. For <code>CUPTI_ACTIVITY_KIND_RUNTIME</code>, it captures API entry and exit timestamps, function names like "cudaLaunchKernel", and the correlation ID that will appear in kernel records.</p>
+<p>The injection library serializes events to text format: <code>CONCURRENT_KERNEL [ start, end ] duration us, "kernel_name", correlationId</code>. This format is parsed by <code>cupti_trace_parser.py</code> which converts to Chrome Trace JSON format for timeline visualization.</p>
+<p>The critical piece is correlation IDs. When your application calls <code>cudaLaunchKernel</code>, CUDA runtime assigns a unique correlation ID to that call. It records this ID in the runtime API activity record and passes it to the GPU driver. When the GPU executes the kernel, the driver records the same correlation ID in the kernel activity record. CUPTI exposes both records, allowing us to match <code>RUNTIME cudaLaunchKernel correlationId=12345</code> to <code>CONCURRENT_KERNEL matmul_kernel correlationId=12345</code>.</p>
+<ol>
+<li>Trace Merger in <code>merge_gpu_cpu_trace.py</code> for correlation logic:</li>
+</ol>
+<p>The <code>TraceMerger</code> class performs the critical correlation logic. It loads CPU stacks from extended folded format and GPU events from Chrome JSON format, then matches them using timestamps and correlation IDs.</p>
+<p>The CPU trace format is: <code>timestamp_ns comm pid tid cpu stack1;stack2;...;stackN</code>. Example: <code>1761616920733362025 llm-inference 3577790 3577790 1 _start;main;runRequest;forward;cudaLaunchKernel</code>. The timestamp is absolute nanoseconds since boot (from <code>bpf_ktime_get_ns()</code>), and the stack is bottom-to-top.</p>
+<p>The GPU trace contains two event types. Runtime API events: <code>{"name": "cudaLaunchKernel", "ph": "X", "ts": 1761616920733, "dur": 45, "args": {"correlation": 12345}}</code> (timestamp in microseconds). Kernel events: <code>{"name": "matmul_kernel", "cat": "CONCURRENT_KERNEL", "ph": "X", "ts": 1761616920800, "dur": 5000, "args": {"correlation": 12345}}</code>. The same correlation ID links runtime to kernel.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">class</span> <span class="nc">TraceMerger</span><span class="p">:</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="k">def</span> <span class="nf">find_matching_kernel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cpu_stack</span><span class="p">:</span> <span class="n">CPUStack</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">GPUKernelEvent</span><span class="p">]:</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -9803,11 +9694,18 @@
 <a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a>            <span class="k">else</span><span class="p">:</span>
 <a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a>                <span class="n">merged_stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;[GPU_Launch_Pending]&quot;</span><span class="p">)</span>
 <a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a>
-<a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a>            <span class="c1"># Output folded format: stack1;stack2;...;stackN count</span>
+<a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a>            <span class="c1"># Output folded format weighted by GPU kernel duration</span>
 <a id="__codelineno-2-40" name="__codelineno-2-40" href="#__codelineno-2-40"></a>            <span class="n">stack_str</span> <span class="o">=</span> <span class="s1">&#39;;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">merged_stack</span><span class="p">)</span>
-<a id="__codelineno-2-41" name="__codelineno-2-41" href="#__codelineno-2-41"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">merged_stacks</span><span class="p">[</span><span class="n">stack_str</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+<a id="__codelineno-2-41" name="__codelineno-2-41" href="#__codelineno-2-41"></a>            <span class="c1"># Weight by GPU kernel duration in microseconds (not just count=1)</span>
+<a id="__codelineno-2-42" name="__codelineno-2-42" href="#__codelineno-2-42"></a>            <span class="n">kernel_duration_us</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">gpu_kernel</span><span class="o">.</span><span class="n">end_us</span> <span class="o">-</span> <span class="n">gpu_kernel</span><span class="o">.</span><span class="n">start_us</span><span class="p">)</span>
+<a id="__codelineno-2-43" name="__codelineno-2-43" href="#__codelineno-2-43"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">merged_stacks</span><span class="p">[</span><span class="n">stack_str</span><span class="p">]</span> <span class="o">+=</span> <span class="n">kernel_duration_us</span>
 </code></pre></div>
-<p><strong>Orchestration in gpuperf.py:</strong></p>
+<p>Critical Implementation Detail: Duration Weighting</p>
+<p>The flamegraph is weighted by GPU kernel execution time, not by kernel launch count. Each matched stack is weighted by the kernel's actual duration in microseconds (<code>end_us - start_us</code>). This means a kernel that runs for 1000μs contributes 1000x more to the flamegraph width than a kernel that runs for 1μs. This accurately reflects where GPU time is actually spent, as longer-running kernels appear wider in the flamegraph, making performance bottlenecks immediately visible.</p>
+<p>Without duration weighting, a frequently-called but fast kernel would appear as a hotspot even if it consumes minimal total GPU time. With duration weighting, the flamegraph correctly shows that a single slow kernel consuming 100ms is more important than 1000 fast kernels consuming 1ms total.</p>
+<p>The algorithm builds mappings: <code>gpu_kernels[12345] = GPUKernelEvent(...)</code> and <code>cuda_launches[12345] = CudaLaunchEvent(...)</code>. For each CPU stack with timestamp T, it searches for <code>cuda_launches</code> where <code>|runtime.start_ns - T| &lt; 10ms</code>. Why a time window? Clock sources differ (eBPF uses <code>CLOCK_MONOTONIC</code>, CUPTI uses GPU hardware counters), and there's jitter from eBPF overhead and context switches.</p>
+<p>Once matched, we have: CPU stack to runtime API to GPU kernel. The merger outputs: <code>cpu_stack_frames;cudaLaunchKernel;[GPU_Kernel]kernel_name duration_us</code> where <code>duration_us</code> is the actual GPU execution time. Unmatched events appear as <code>[GPU_Launch_Pending]</code> (kernel launch without observed execution) or standalone <code>[GPU_Kernel]kernel_name</code> (kernel without CPU context).</p>
+<p>Orchestration in gpuperf.py:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span> <span class="nf">run_with_trace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="n">cpu_profile</span><span class="p">,</span> <span class="n">chrome_trace</span><span class="p">,</span> <span class="n">merged_trace</span><span class="p">):</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="c1"># 1. Set environment for CUPTI injection</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">env</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -9827,64 +9725,22 @@
 <a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">generate_merged_trace</span><span class="p">(</span><span class="n">cpu_trace</span><span class="o">=</span><span class="n">cpu_profile</span><span class="p">,</span> <span class="n">gpu_trace</span><span class="o">=</span><span class="n">chrome_trace</span><span class="p">,</span>
 <a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>                                <span class="n">output_file</span><span class="o">=</span><span class="n">merged_trace</span><span class="p">)</span>
 </code></pre></div>
-<p>The orchestration starts in <code>GPUPerf.__init__()</code>, which locates required components. It finds the CUPTI injection library at <code>cupti_trace/libcupti_trace_injection.so</code>, verifies the Rust eBPF profiler exists at <code>profiler/target/release/profile</code>, and searches common CUDA installation paths for the CUPTI library needed for NVTX annotations. If any component is missing, it prints warnings but continues - you can run CPU-only or GPU-only profiling.</p>
-<p>When you run <code>gpuperf.py -c gpu.json -p cpu.txt -m merged.folded ./my_cuda_app</code>, the script calls <code>run_with_trace()</code>. This function orchestrates the entire profiling session. First, it sets up environment variables that CUDA runtime will check during initialization: <code>CUDA_INJECTION64_PATH</code> points to our CUPTI injection library so CUDA loads it automatically, and <code>CUPTI_TRACE_OUTPUT_FILE</code> tells the injection library where to write GPU events. The injection approach works without modifying applications because CUDA runtime explicitly supports injection libraries for profiling.</p>
-<p>The critical ordering happens next. The script calls <code>start_cpu_profiler()</code> BEFORE launching the target process. This is essential - the eBPF profiler must attach its uprobe to <code>cudaLaunchKernel</code> before any CUDA initialization occurs. The Rust profiler runs <code>sudo ./profile --uprobe /usr/local/cuda-12.9/lib64/libcudart.so.12:cudaLaunchKernel -E</code>, where <code>--uprobe</code> specifies the library and function to instrument, and <code>-E</code> enables extended folded output with timestamps. The script waits 1 second after starting the profiler to ensure uprobes are fully attached before the target process loads the CUDA runtime.</p>
-<p>Only after the profiler is ready does the script start the target process with <code>subprocess.Popen(command, env=env)</code>. As soon as this process calls any CUDA API, the runtime initializes, loads our injection library via <code>CUDA_INJECTION64_PATH</code>, and CUPTI starts recording. The uprobe is already attached, so every <code>cudaLaunchKernel</code> call triggers a stack trace capture. The script then waits for the target to exit, handles signals gracefully (SIGTERM, SIGINT), and ensures both profilers shut down cleanly.</p>
-<p>After the target exits, <code>generate_merged_trace()</code> performs correlation. It instantiates <code>TraceMerger</code>, parses the CPU trace file (extended folded format), parses the GPU trace (Chrome JSON format from CUPTI), and calls <code>merger.merge_traces()</code> which matches events via correlation IDs and timestamps. The output is folded format combining CPU and GPU stacks, ready for flamegraph generation.</p>
-<h3 id="ebpf-profiler-capturing-cpu-stacks-at-kernel-launch">eBPF Profiler: Capturing CPU Stacks at Kernel Launch</h3>
-<p>The Rust profiler in <code>profiler/</code> is a libbpf-based eBPF application. Unlike bpftrace or BCC which interpret scripts at runtime, this profiler compiles to native code for minimal overhead. It attaches uprobes dynamically to any function in any library, making it perfect for instrumenting CUDA runtime without modifying NVIDIA's binaries.</p>
-<p>The eBPF program itself (loaded by the Rust code) uses <code>bpf_get_stackid()</code> to capture stack traces. When the uprobe fires at <code>cudaLaunchKernel</code> entry, the eBPF program reads the current stack using kernel helpers, stores stack traces in a BPF stack map (a hash table mapping stack IDs to stack traces to deduplicate identical stacks), records a sample event containing timestamp, process info, and stack ID, and sends the event to userspace via a BPF ring buffer or perf buffer.</p>
-<p>The Rust userspace code polls for events, looks up stack traces using stack IDs, resolves addresses to symbol names using DWARF debug info (via blazesym library), and outputs extended folded format: <code>timestamp_ns comm pid tid cpu stack1;stack2;...;stackN</code>. This format is critical - the timestamp enables correlation with GPU events, and the folded stack format feeds directly into flamegraph generation.</p>
-<p>The <code>-E</code> extended output flag is what differentiates this from standard flamegraph profiling. Traditional folded format is just <code>stack1;stack2;stack3 count</code>, showing aggregate call graphs. Extended format adds temporal information: <code>1234567890 myapp 1000 1000 0 stack1;stack2;stack3</code>, telling you exactly when each sample occurred. This timestamp precision is what allows matching CPU stacks to GPU kernel launches that happen milliseconds or microseconds later.</p>
-<h3 id="cupti-trace-injection-capturing-gpu-activity">CUPTI Trace Injection: Capturing GPU Activity</h3>
-<p>The CUPTI injection library in <code>cupti_trace/</code> implements the GPU-side instrumentation. When CUDA runtime loads this library (via <code>CUDA_INJECTION64_PATH</code>), the library's initialization function runs before any CUDA API is available. This is the perfect time to set up CUPTI callbacks.</p>
-<p>The initialization flow calls <code>cuptiSubscribe()</code> to register a subscriber handle, enables activity tracing with <code>cuptiActivityEnable()</code> for <code>CUPTI_ACTIVITY_KIND_CONCURRENT_KERNEL</code> (kernel executions), <code>CUPTI_ACTIVITY_KIND_RUNTIME</code> (runtime API calls like cudaLaunchKernel), <code>CUPTI_ACTIVITY_KIND_MEMCPY</code> (memory transfers), and <code>CUPTI_ACTIVITY_KIND_OVERHEAD</code> (profiling overhead for accuracy). It registers buffer callbacks with <code>cuptiActivityRegisterCallbacks()</code> providing functions for buffer allocation and completion, and enables domain callbacks for runtime and driver APIs to track entry/exit with correlation IDs.</p>
-<p>As the application runs, CUPTI accumulates activity records in internal buffers. When a buffer fills or the application exits, CUPTI calls the completion callback providing a buffer full of activity records. The injection library iterates through records, parsing different activity kinds: <code>CUPTI_ACTIVITY_KIND_CONCURRENT_KERNEL</code> provides kernel name, start timestamp, end timestamp, correlation ID linking to the runtime API call, grid and block dimensions, device/context/stream IDs, and registers/shared memory usage. <code>CUPTI_ACTIVITY_KIND_RUNTIME</code> captures runtime API entry/exit timestamps, function names like "cudaLaunchKernel", "cudaMemcpy", and the correlation ID that will appear in kernel records.</p>
-<p>The injection library serializes these events to a text format for parsing. Each line contains all fields needed for reconstruction: <code>CONCURRENT_KERNEL [ start, end ] duration us, "kernel_name", correlationId</code>. This format is parsed by <code>cupti_trace_parser.py</code> which converts to Chrome Trace JSON format. Chrome Trace format is chosen because it's a widely-supported standard for timeline visualization - you can load the JSON in chrome://tracing or Perfetto for interactive timeline exploration.</p>
-<p>The critical piece is correlation IDs. When your application calls <code>cudaLaunchKernel</code>, CUDA runtime assigns a unique correlation ID to that call, records it in the runtime API activity record, and passes it to the GPU driver. When the GPU executes the kernel, the driver records the same correlation ID in the kernel activity record. CUPTI exposes both records, allowing us to match <code>RUNTIME cudaLaunchKernel correlationId=12345</code> to <code>CONCURRENT_KERNEL matmul_kernel correlationId=12345</code>. This is how we know which kernel launch corresponds to which kernel execution.</p>
-<h3 id="trace-merger-correlating-cpu-and-gpu">Trace Merger: Correlating CPU and GPU</h3>
-<p>The <code>TraceMerger</code> class in <code>merge_gpu_cpu_trace.py</code> performs the critical correlation logic. It loads CPU stacks from extended folded format and GPU events from Chrome JSON format, then matches them using timestamps and correlation IDs.</p>
-<p>Parsing CPU traces splits each line into timestamp, command name, PID, TID, CPU number, and stack (semicolon-separated function names). The timestamp is the key - it's captured by the eBPF uprobe at the exact moment <code>cudaLaunchKernel</code> was called. The stack shows the application call chain leading to that launch. For example: <code>_start;__libc_start_main;main;InferencePipeline::runRequest;TransformerLayer::forward;softmaxKernel;cudaLaunchKernel</code> shows the softmaxKernel function called cudaLaunchKernel during the forward pass of a transformer layer.</p>
-<p>Parsing GPU traces loads the Chrome JSON format produced by the CUPTI parser. The merger extracts two types of events: <code>CUPTI_ACTIVITY_KIND_CONCURRENT_KERNEL</code> events representing actual GPU kernel executions, and <code>CUPTI_ACTIVITY_KIND_RUNTIME</code> events for "cudaLaunchKernel" API calls. Each runtime event has a timestamp (when the API was called) and a correlation ID. Each kernel event has start/end timestamps and the same correlation ID.</p>
-<p>Correlation happens in two stages. First, match CPU stack traces to CUPTI runtime API events by timestamp. The CPU uprobe fires when entering <code>cudaLaunchKernel</code>, and CUPTI records the entry timestamp of the same call. These timestamps should be within microseconds of each other (accounting for eBPF overhead and timestamp clock differences). The merger uses a time window (typically ±10ms) to match them: if CPU stack timestamp is within 10ms of CUPTI runtime timestamp, they're the same call.</p>
-<p>Second, match CUPTI runtime API events to GPU kernel events by correlation ID. Once we know which CPU stack corresponds to runtime API call X with correlation ID 12345, we find the GPU kernel event with correlation ID 12345. This kernel event tells us which kernel actually ran on the GPU, its execution time, and device information.</p>
-<p>The merged output combines all three pieces: <code>cpu_stack;cudaLaunchKernel;[GPU_Kernel]kernel_name duration_samples</code>. The stack shows the CPU code path, <code>cudaLaunchKernel</code> marks the transition point, and <code>[GPU_Kernel]kernel_name</code> shows what executed on the GPU. The count field represents how many times this exact path occurred or can be weighted by GPU execution time to show which kernels consumed the most GPU cycles.</p>
-<p>This merged folded format feeds directly into flamegraph generation. The <code>combined_flamegraph.pl</code> script processes folded output, building a tree structure of stack frames weighted by sample counts. GPU kernel names appear as children of <code>cudaLaunchKernel</code>, showing which CPU code paths trigger which GPU work. Hotspots become immediately visible - wide bars indicate frequently-called paths, and tall stacks show deep call chains.</p>
-<h2 id="understanding-the-correlation-algorithm">Understanding the Correlation Algorithm</h2>
-<p>The correlation algorithm is the heart of the profiler. Let's examine the logic in detail, as implemented in <code>merge_gpu_cpu_trace.py</code>.</p>
-<p>The CPU trace format is: <code>timestamp_ns comm pid tid cpu stack1;stack2;...;stackN</code>. Example: <code>1761616920733362025 llm-inference 3577790 3577790 1 _start;main;runRequest;forward;cudaLaunchKernel</code>. The timestamp is absolute nanoseconds since boot (from <code>bpf_ktime_get_ns()</code>), and the stack is bottom-to-top (main calls runRequest calls forward calls cudaLaunchKernel).</p>
-<p>The GPU trace contains two relevant event types. Runtime API events look like: <code>{"name": "cudaLaunchKernel", "ph": "X", "ts": 1761616920733, "dur": 45, "pid": 3577790, "tid": 3577790, "args": {"correlation": 12345}}</code>. The <code>ts</code> field is timestamp in microseconds (note the unit difference from CPU nanoseconds), <code>dur</code> is duration in microseconds, and <code>correlation</code> is the key linking field. Kernel events look like: <code>{"name": "matmul_kernel", "cat": "CONCURRENT_KERNEL", "ph": "X", "ts": 1761616920800, "dur": 5000, "pid": 3577790, "args": {"correlation": 12345}}</code>. The same correlation ID links runtime to kernel.</p>
-<p>The matching algorithm first builds a mapping from correlation IDs to GPU kernel events: <code>gpu_kernels[12345] = GPUKernelEvent("matmul_kernel", start_ns, end_ns, 12345)</code>. It also maps correlation IDs to runtime API calls: <code>cuda_launches[12345] = CudaLaunchEvent(start_ns, end_ns, 12345)</code>.</p>
-<p>For each CPU stack trace with timestamp T, it searches for a matching runtime API call. The search looks for <code>cuda_launches</code> where <code>|runtime.start_ns - T| &lt; TIME_WINDOW</code> (typically 10ms). Why a time window? Clock sources may differ slightly - eBPF uses <code>CLOCK_MONOTONIC</code>, while CUPTI timestamps come from GPU hardware counters. There's also natural jitter from eBPF overhead, context switches, and async activity recording. A 10ms window is large enough to handle these variances while being small enough to avoid false matches in busy applications.</p>
-<p>Once a CPU stack matches a runtime API call, we have the correlation ID. We then look up <code>gpu_kernels[correlation_id]</code> to get the actual kernel that executed. Now we have the complete chain: CPU stack → runtime API → GPU kernel. The merger constructs a folded stack: <code>cpu_stack_frames;cudaLaunchKernel;[GPU_Kernel]kernel_name</code>.</p>
-<p>The merger can weight stacks in two ways. Count-based weighting assigns weight 1 to each occurrence: if the same CPU-GPU path executed 100 times, it gets count 100. Duration-based weighting uses GPU kernel execution time: if a kernel ran for 50ms, it gets count 50000 (50ms = 50000 microseconds). Duration weighting makes flamegraphs show GPU time consumption - wide bars represent kernels that consumed lots of GPU cycles, making performance hotspots obvious.</p>
-<p>Special handling for unmatched events occurs when CPU stacks don't match any GPU kernels (application called <code>cudaLaunchKernel</code> but CUPTI didn't capture the kernel, possibly due to buffer overflow or tracing disabled). These appear as <code>cpu_stack;cudaLaunchKernel;[GPU_Launch_Pending]</code> indicating submission without observed execution. GPU kernels without matching CPU stacks (kernel executed but no CPU stack captured) appear as standalone <code>[GPU_Kernel]kernel_name</code> with no CPU context. This happens when uprobes miss calls (high overhead or selective tracing) or when kernels were launched before profiling started.</p>
-<h2 id="cupti-activity-tracing-implementation">CUPTI Activity Tracing Implementation</h2>
-<p>The CUPTI injection library in <code>cupti_trace/cupti_trace.cpp</code> deserves deeper examination. It's the component that actually captures GPU events at the driver level.</p>
-<p>The initialization sequence starts in the library constructor (runs when <code>LD_PRELOAD</code> loads the library). It reads the <code>CUPTI_TRACE_OUTPUT_FILE</code> environment variable to determine where to write events, calls <code>cuptiSubscribe(&amp;subscriberHandle, callbackHandler, NULL)</code> to register for callbacks, enables specific activity kinds with <code>cuptiActivityEnable()</code>, registers buffer allocation/completion callbacks, and enables runtime and driver API callbacks for entry/exit tracking.</p>
-<p>Buffer management is asynchronous. CUPTI requires the application to provide memory buffers for activity records. The buffer request callback (<code>BufferRequested</code>) allocates an 8MB buffer and returns it to CUPTI. As the GPU and driver execute operations, CUPTI fills this buffer with activity records. When the buffer fills or the application exits, CUPTI calls the buffer completion callback (<code>BufferCompleted</code>) with a buffer full of records.</p>
-<p>The buffer completion callback iterates through activity records using <code>cuptiActivityGetNextRecord()</code>. Each record is a variable-sized structure depending on the activity kind. For <code>CUPTI_ACTIVITY_KIND_CONCURRENT_KERNEL</code>, the record contains: <code>start</code> and <code>end</code> timestamps (nanoseconds from GPU hardware timer), <code>correlationId</code> linking to the runtime API call, <code>name</code> (kernel function name), <code>gridX/Y/Z</code> and <code>blockX/Y/Z</code> (launch configuration), <code>deviceId</code>, <code>contextId</code>, <code>streamId</code> (execution context), <code>staticSharedMemory</code> and <code>dynamicSharedMemory</code> (memory usage), <code>registersPerThread</code> and <code>partitionedGlobalCacheRequested</code> (resource usage), and <code>computeApiKind</code> (CUDA vs OpenCL).</p>
-<p>For <code>CUPTI_ACTIVITY_KIND_RUNTIME</code>, the record contains: <code>start</code> and <code>end</code> timestamps, <code>correlationId</code> matching kernel records, <code>cbid</code> (callback ID identifying which API: cudaLaunchKernel, cudaMemcpy, etc.), <code>processId</code> and <code>threadId</code> of the calling process/thread. The <code>cbid</code> field is compared against constants like <code>CUPTI_RUNTIME_TRACE_CBID_cudaLaunchKernel_v7000</code> to identify the API function.</p>
-<p>The injection library serializes these records to a text format for robustness. Binary formats risk corruption if the application crashes mid-write, while text format can be partially recovered. The format is: <code>CONCURRENT_KERNEL [ start, end ] duration us, "kernel_name", correlationId</code>. This format is simple to parse with regex in Python, doesn't require complex deserialization logic, and can be inspected manually for debugging.</p>
-<p>Cleanup happens in two paths. Normal exit triggers the library destructor, which calls <code>cuptiActivityFlushAll(0)</code> to force CUPTI to flush all pending activity records, waits for the buffer completion callback to process them, disables all activity kinds, and unsubscribes from CUPTI. Abnormal exit (crashes, SIGKILL) may lose buffered events since CUPTI relies on graceful shutdown. The injection library tries to handle SIGTERM and SIGINT by calling <code>cuptiActivityFlushAll()</code> but can't handle SIGKILL.</p>
+<p>The orchestration starts in <code>GPUPerf.__init__()</code>, which locates required components. It finds the CUPTI injection library at <code>cupti_trace/libcupti_trace_injection.so</code> and verifies the Rust eBPF profiler exists at <code>profiler/target/release/profile</code>. The function searches common CUDA installation paths for the CUPTI library needed for NVTX annotations. If any component is missing, it prints warnings but continues, as you can run CPU-only or GPU-only profiling.</p>
+<p>When you run <code>gpuperf.py -c gpu.json -p cpu.txt -m merged.folded ./my_cuda_app</code>, the script calls <code>run_with_trace()</code>. This function orchestrates the entire profiling session. First, it sets up environment variables that CUDA runtime will check during initialization. The <code>CUDA_INJECTION64_PATH</code> variable points to our CUPTI injection library so CUDA loads it automatically. The <code>CUPTI_TRACE_OUTPUT_FILE</code> variable tells the injection library where to write GPU events. The injection approach works without modifying applications because CUDA runtime explicitly supports injection libraries for profiling.</p>
+<p>The critical ordering happens next. The script calls <code>start_cpu_profiler()</code> before launching the target process. This is essential because the eBPF profiler must attach its uprobe to <code>cudaLaunchKernel</code> before any CUDA initialization occurs. The Rust profiler runs <code>sudo ./profile --uprobe /usr/local/cuda-12.9/lib64/libcudart.so.12:cudaLaunchKernel -E</code>, where <code>--uprobe</code> specifies the library and function to instrument, and <code>-E</code> enables extended folded output with timestamps. The script waits 1 second after starting the profiler to ensure uprobes are fully attached before the target process loads the CUDA runtime.</p>
+<p>Only after the profiler is ready does the script start the target process with <code>subprocess.Popen(command, env=env)</code>. As soon as this process calls any CUDA API, the runtime initializes, loads our injection library via <code>CUDA_INJECTION64_PATH</code>, and CUPTI starts recording. The uprobe is already attached, so every <code>cudaLaunchKernel</code> call triggers a stack trace capture. The script then waits for the target to exit, handles signals gracefully (including SIGTERM and SIGINT), and ensures both profilers shut down cleanly.</p>
+<p>After the target exits, <code>generate_merged_trace()</code> performs correlation. It instantiates <code>TraceMerger</code> and parses the CPU trace file (extended folded format). It also parses the GPU trace (Chrome JSON format from CUPTI), then calls <code>merger.merge_traces()</code> which matches events via correlation IDs and timestamps. The output is folded format combining CPU and GPU stacks, ready for flamegraph generation.</p>
 <h2 id="example-applications">Example Applications</h2>
 <p>The tutorial provides two CUDA applications for profiling demonstration.</p>
 <h3 id="real-llm-inference-qwen3cu-recommended">Real LLM Inference: Qwen3.cu (Recommended)</h3>
 <p>The primary example is <code>qwen3.cu</code>, a single-file CUDA implementation of the Qwen3 0.6B transformer model. This is a real, working language model that runs inference on GPU, making it perfect for profiling actual AI workloads. The implementation includes tokenization, multi-head attention, feedforward layers, and RMS normalization - all the components of modern transformer architectures.</p>
 <h3 id="alternative-mock-transformer-simulator">Alternative: Mock Transformer Simulator</h3>
 <p>The <code>mock-test/llm-inference.cu</code> application provides a simpler test case simulating transformer patterns without requiring model weights.</p>
-<p>The application structure consists of a token embedding layer that converts input tokens to vectors, four transformer layers each running multiple CUDA kernels (layer norm, softmax with 22 iterations to increase GPU load, residual add), CPU-side preprocessing doing trigonometric calculations and sorting to create CPU load, I/O simulation including file caching and network delays to represent realistic application behavior, and performance tracking reporting CPU compute time, GPU compute time, and I/O time separately.</p>
-<p>Each transformer layer's <code>forward()</code> method launches CUDA kernels: <code>layerNormKernel&lt;&lt;&lt;grid, block, 0, stream&gt;&gt;&gt;()</code> for normalizing activations, <code>softmaxKernel&lt;&lt;&lt;grid, block, 0, stream&gt;&gt;&gt;()</code> called 22 times in a loop to simulate intensive compute, and <code>residualAddKernel&lt;&lt;&lt;grid, block, 0, stream&gt;&gt;&gt;()</code> for skip connections. These kernel launches go through <code>cudaLaunchKernel</code>, triggering our uprobe and CUPTI tracing.</p>
-<p>The CPU preprocessing code deliberately creates CPU load to make the flamegraph more interesting. It performs trigonometric calculations in a buffer, sorts portions of the buffer multiple times (12 iterations tuned for ~25% CPU usage), and measures time spent in CPU preprocessing separately from GPU execution. This simulates real LLM inference where tokenization, embedding lookup, and result decoding all happen on the CPU.</p>
-<p>Performance tuning was done to achieve realistic resource utilization. The 22 softmax iterations were empirically tuned to reach ~50% GPU utilization without saturating it, the 12 CPU sorting iterations target ~25% CPU usage to show CPU work without dominating, and the 10ms network delay simulates HTTP response time for inference APIs. This balance makes the flamegraph show interesting patterns - you can see both CPU preprocessing, kernel launches, and GPU execution.</p>
-<p>Running <code>gpuperf.py -c test.json -p cpu.txt -m merged.folded mock-test/llm-inference</code> for 3 seconds captures enough samples to generate a meaningful flamegraph. The resulting trace shows the <code>InferencePipeline::runRequest()</code> function calling <code>TransformerLayer::forward()</code> four times (four layers), each layer launching layer norm, softmax, and residual add kernels, CPU preprocessing time in trigonometric and sorting functions, and I/O time in file writes and sleep calls.</p>
-<p>The merged flamegraph visualizes this hierarchy. The bottom of the stack shows <code>_start</code> and <code>main</code> (program entry), above that is <code>InferencePipeline::runRequest</code> handling a single inference request, then <code>TransformerLayer::forward</code> executing a layer, then CPU functions like <code>layerNormKernel</code> (host function), then <code>cudaLaunchKernel</code> (the transition point), and at the top <code>[GPU_Kernel]_Z15layerNormKernelPKfPfS0_S0_mmm</code> (the actual GPU kernel, with C++ name mangling). Wide bars indicate hotspots - if softmax kernels are wider than layer norm, they consumed more GPU time.</p>
 <h2 id="compilation-and-execution">Compilation and Execution</h2>
 <p>Build the complete profiling stack by first compiling the CUPTI injection library, then the Rust eBPF profiler, and finally the mock application.</p>
 <h3 id="build-cupti-injection-library">Build CUPTI Injection Library</h3>
 <p>Navigate to the CUPTI trace directory and compile:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">cd</span><span class="w"> </span>bpf-developer-tutorial/src/xpu/flamegraph/cupti_trace
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">cd</span><span class="w"> </span>cupti_trace
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>make
 </code></pre></div>
 <p>This compiles <code>cupti_trace.cpp</code> into <code>libcupti_trace_injection.so</code>, linking against CUPTI and CUDA runtime libraries. The Makefile searches common CUDA installation paths (<code>/usr/local/cuda-12.9</code>, <code>/usr/local/cuda-13.0</code>, etc.) and uses the appropriate include paths and library paths. Verify the library exists:</p>
@@ -9893,7 +9749,7 @@
 <p>You should see a shared library around 100-120KB. If compilation fails, check that CUDA toolkit is installed and <code>nvcc</code> is in your PATH. CUPTI comes with the CUDA toolkit in <code>extras/CUPTI/</code>.</p>
 <h3 id="build-rust-ebpf-profiler">Build Rust eBPF Profiler</h3>
 <p>Navigate to the profiler directory and compile in release mode for minimal overhead:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">cd</span><span class="w"> </span>bpf-developer-tutorial/src/xpu/flamegraph/profiler
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">cd</span><span class="w"> </span>profiler
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>cargo<span class="w"> </span>build<span class="w"> </span>--release
 </code></pre></div>
 <p>This compiles the Rust profiler with full optimizations. The eBPF program is compiled to BPF bytecode and embedded in the Rust binary. Verify the profiler:</p>
@@ -9903,7 +9759,7 @@
 <p>The profiler should show options for <code>--uprobe</code> (specify function to trace) and <code>-E</code> (extended folded output). The binary should be around 2-3MB including embedded eBPF code and symbol resolution libraries.</p>
 <h3 id="build-mock-llm-application">Build Mock LLM Application</h3>
 <p>Navigate to the mock test directory and compile the CUDA application:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">cd</span><span class="w"> </span>bpf-developer-tutorial/src/xpu/flamegraph/mock-test
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">cd</span><span class="w"> </span>mock-test
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>make
 </code></pre></div>
 <p>This uses <code>nvcc</code> to compile <code>llm-inference.cu</code> into an executable. The Makefile uses <code>-std=c++17</code> for modern C++ features, <code>--no-device-link</code> to produce a single binary without separate device linking, and <code>-Wno-deprecated-gpu-targets</code> to suppress warnings on older GPUs. Verify compilation:</p>
@@ -9915,7 +9771,7 @@
 </code></pre></div>
 <h3 id="build-real-llm-inference-application-qwen3cu">Build Real LLM Inference Application (Qwen3.cu)</h3>
 <p>The tutorial includes a real LLM inference engine - qwen3.cu, a single-file CUDA implementation of the Qwen3 0.6B model:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nb">cd</span><span class="w"> </span>bpf-developer-tutorial/src/xpu/flamegraph/qwen3.cu
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nb">cd</span><span class="w"> </span>qwen3.cu
 <a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
 <a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="c1"># Download the FP32 model (3GB)</span>
 <a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>make<span class="w"> </span>download-model
@@ -9929,14 +9785,12 @@
 </code></pre></div>
 <h3 id="running-the-profiler">Running the Profiler</h3>
 <p>With all components built, run the complete profiling stack. The <code>gpuperf.py</code> script orchestrates everything:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nb">cd</span><span class="w"> </span>bpf-developer-tutorial/src/xpu/flamegraph
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
-<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="c1"># Profile real LLM inference (Qwen3 model)</span>
-<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>sudo<span class="w"> </span>timeout<span class="w"> </span>-s<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">10</span><span class="w"> </span>python3<span class="w"> </span>gpuperf.py<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">    </span>-c<span class="w"> </span>qwen3_gpu.json<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span>-p<span class="w"> </span>qwen3_cpu.txt<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">    </span>-m<span class="w"> </span>qwen3_merged.folded<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="w">    </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;cd qwen3.cu &amp;&amp; ./runcu Qwen3-0.6B-FP32.gguf -q &quot;Explain eBPF&quot; -r 1&#39;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Profile real LLM inference (Qwen3 model)</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>sudo<span class="w"> </span>timeout<span class="w"> </span>-s<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">10</span><span class="w"> </span>python3<span class="w"> </span>gpuperf.py<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span>-c<span class="w"> </span>qwen3_gpu.json<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span>-p<span class="w"> </span>qwen3_cpu.txt<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">    </span>-m<span class="w"> </span>qwen3_merged.folded<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;cd qwen3.cu &amp;&amp; ./runcu Qwen3-0.6B-FP32.gguf -q &quot;Explain eBPF&quot; -r 1&#39;</span>
 </code></pre></div>
 <p>The script output shows the profiling session:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>Starting CPU profiler with cudaLaunchKernel hook
@@ -9967,7 +9821,7 @@
 <a id="__codelineno-14-26" name="__codelineno-14-26" href="#__codelineno-14-26"></a>Wrote 3 unique stacks (8794 total samples)
 <a id="__codelineno-14-27" name="__codelineno-14-27" href="#__codelineno-14-27"></a>✓ Merged trace generated: qwen3_merged.folded
 </code></pre></div>
-<p>The key statistics show that 8,794 CPU stack traces were captured (one per <code>cudaLaunchKernel</code> call during inference), 2,452 total GPU events including kernels, memcpy, and runtime API calls, and 3 unique stack patterns representing the main code paths: <code>forward()</code> (transformer layer execution - 5,176 samples), <code>matmul()</code> (matrix multiplication - 3,614 samples), and <code>rmsnorm()</code> (RMS normalization - 4 samples). This real-world LLM inference trace reveals the actual computation patterns of transformer models.</p>
+<p>The key statistics show that 8,794 CPU stack traces were captured (one per <code>cudaLaunchKernel</code> call during inference). The profiler recorded 2,452 total GPU events including kernels, memcpy, and runtime API calls. There were 3 unique stack patterns representing the main code paths. The <code>forward()</code> function for transformer layer execution had 5,176 samples. The <code>matmul()</code> function for matrix multiplication had 3,614 samples. The <code>rmsnorm()</code> function for RMS normalization had 4 samples. This real-world LLM inference trace reveals the actual computation patterns of transformer models.</p>
 <h3 id="generate-flamegraph">Generate Flamegraph</h3>
 <p>Convert the merged folded trace to a flamegraph SVG:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>./combined_flamegraph.pl<span class="w"> </span>qwen3_merged.folded<span class="w"> </span>&gt;<span class="w"> </span>qwen3_flamegraph.svg
@@ -9977,11 +9831,11 @@
 <a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="c1"># or</span>
 <a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>google-chrome<span class="w"> </span>qwen3_flamegraph.svg
 </code></pre></div>
-<p>The flamegraph is interactive. Click on a stack frame to zoom in, showing only that subtree. Hover over frames to see function names and sample counts. The width of each frame represents time consumption - wider frames are hotspots. The color is random and doesn't mean anything (it's just for visual distinction).</p>
-<p>In the Qwen3 LLM inference flamegraph, you'll see the actual transformer inference code paths. The <code>forward(Transformer*, int, int)</code> function dominates with 5,176 samples (59% of execution), showing this is where the model spends most time executing transformer layers. The <code>matmul(float*, float*, float*, int, int)</code> function appears with 3,614 samples (41%), revealing matrix multiplication kernels for attention and feedforward computation. The <code>rmsnorm(float*, float*, float*, int)</code> function shows only 4 samples, indicating normalization is fast compared to matrix ops. Each stack ends with <code>cudaLaunchKernel</code>, marking where CPU code transitions to GPU execution. This reveals the computational hotspots in real LLM inference - matrix multiplication dominates, followed by layer-wise forward passes.</p>
+<p>The flamegraph is interactive. Click on a stack frame to zoom in, showing only that subtree. Hover over frames to see function names and sample counts. The width of each frame represents time consumption, as wider frames are hotspots. The color is random and doesn't mean anything (it's just for visual distinction).</p>
+<p>In the Qwen3 LLM inference flamegraph, you'll see the actual transformer inference code paths. The <code>forward(Transformer*, int, int)</code> function dominates with 5,176 samples (59% of execution), showing this is where the model spends most time executing transformer layers. The <code>matmul(float*, float*, float*, int, int)</code> function appears with 3,614 samples (41%), revealing matrix multiplication kernels for attention and feedforward computation. The <code>rmsnorm(float*, float*, float*, int)</code> function shows only 4 samples, indicating normalization is fast compared to matrix operations. Each stack ends with <code>cudaLaunchKernel</code>, marking where CPU code transitions to GPU execution. This reveals the computational hotspots in real LLM inference, where matrix multiplication dominates, followed by layer-wise forward passes.</p>
 <h3 id="inspecting-individual-traces">Inspecting Individual Traces</h3>
 <p>The profiler generates three trace files that can be inspected independently.</p>
-<p><strong>CPU trace (qwen3_cpu.txt)</strong> contains raw uprobe samples in extended folded format:</p>
+<p>The CPU trace (qwen3_cpu.txt) contains raw uprobe samples in extended folded format:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>head<span class="w"> </span>-5<span class="w"> </span>qwen3_cpu.txt
 </code></pre></div>
 <p>Example output:</p>
@@ -9990,99 +9844,78 @@
 <a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>1761618697756968813 runcu 3593972 3593972 1 matmul(float*, float*, float*, int, int);cudaLaunchKernel
 <a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>...
 </code></pre></div>
-<p>Each line is a stack trace captured when <code>cudaLaunchKernel</code> was called. You can process this independently with <code>flamegraph.pl</code> to see just CPU-side behavior. The traces show the actual Qwen3 model code - <code>forward()</code> for transformer layers and <code>matmul()</code> for matrix multiplication.</p>
-<p><strong>GPU trace (qwen3_gpu.json)</strong> is in Chrome Trace Format for timeline visualization:</p>
+<p>Each line is a stack trace captured when <code>cudaLaunchKernel</code> was called. You can process this independently with <code>flamegraph.pl</code> to see just CPU-side behavior. The traces show the actual Qwen3 model code, including <code>forward()</code> for transformer layers and <code>matmul()</code> for matrix multiplication.</p>
+<p>The GPU trace (qwen3_gpu.json) is in Chrome Trace Format for timeline visualization:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>head<span class="w"> </span>-20<span class="w"> </span>qwen3_gpu.json
 </code></pre></div>
 <p>This is JSON containing an array of trace events. Load it in Chrome at <code>chrome://tracing</code> to see a timeline of GPU kernel executions, memory transfers, and runtime API calls. The timeline shows parallelism (overlapping kernels), bubbles (idle time), and memory transfer costs.</p>
-<p><strong>Merged trace (qwen3_merged.folded)</strong> combines both:</p>
+<p>The merged trace (qwen3_merged.folded) combines both:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>cat<span class="w"> </span>qwen3_merged.folded
 </code></pre></div>
 <p>Example output:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>forward(Transformer*, int, int);cudaLaunchKernel;[GPU_Launch_Pending] 5176
-<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>matmul(float*, float*, float*, int, int);cudaLaunchKernel;[GPU_Launch_Pending] 3614
-<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>rmsnorm(float*, float*, float*, int);cudaLaunchKernel;[GPU_Launch_Pending] 4
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>forward(Transformer*, int, int);cudaLaunchKernel;[GPU_Kernel]matmul_kernel 850432
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>matmul(float*, float*, float*, int, int);cudaLaunchKernel;[GPU_Kernel]attention_kernel 621847
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>rmsnorm(float*, float*, float*, int);cudaLaunchKernel;[GPU_Kernel]rmsnorm_kernel 3215
 </code></pre></div>
-<p>This is folded stack format with GPU kernel names appended. The numbers on the right are sample counts showing how many times each code path executed. Feed this directly to <code>combined_flamegraph.pl</code> to generate the unified visualization. The <code>[GPU_Launch_Pending]</code> tag indicates CPU-side kernel launches that haven't been correlated with GPU execution events yet.</p>
-<h2 id="advanced-usage-profiling-real-applications">Advanced Usage: Profiling Real Applications</h2>
-<p>The profiler works with any CUDA application without recompilation. Let's profile PyTorch model training as an example.</p>
-<h3 id="profile-pytorch-training-script">Profile PyTorch Training Script</h3>
-<p>Suppose you have a PyTorch training script <code>train.py</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nb">cd</span><span class="w"> </span>bpf-developer-tutorial/src/xpu/flamegraph
-<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>
-<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>sudo<span class="w"> </span>python3<span class="w"> </span>gpuperf.py<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="w">    </span>-c<span class="w"> </span>pytorch_gpu.json<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="w">    </span>-p<span class="w"> </span>pytorch_cpu.txt<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="w">    </span>-m<span class="w"> </span>pytorch_merged.folded<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="w">    </span>python<span class="w"> </span>train.py<span class="w"> </span>--epochs<span class="w"> </span><span class="m">1</span>
-</code></pre></div>
-<p>This captures all GPU kernel launches during one training epoch. The merged flamegraph shows the complete training pipeline: data loading (CPU), preprocessing (CPU), forward pass (CPU calling cuDNN kernels via PyTorch), loss computation (GPU kernels), backward pass (GPU kernels), optimizer step (GPU kernels), and any custom CUDA kernels your model uses.</p>
-<p>Common patterns you'll see include <code>torch::native::cudnn_convolution_backward_weight</code> for convolution gradient computation, <code>at::native::vectorized_elementwise_kernel</code> for element-wise ops like ReLU, and <code>void at::native::reduce_kernel</code> for operations like sum or mean. Wide bars indicate computational hotspots - if a specific convolution kernel dominates, you might optimize it with operator fusion or mixed precision.</p>
-<h3 id="profile-tensorflow-or-jax">Profile TensorFlow or JAX</h3>
-<p>The profiler works with any framework using CUDA:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="c1"># TensorFlow</span>
-<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>sudo<span class="w"> </span>python3<span class="w"> </span>gpuperf.py<span class="w"> </span>-m<span class="w"> </span>tensorflow_merged.folded<span class="w"> </span>python<span class="w"> </span>train_tf.py
-<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>
-<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="c1"># JAX</span>
-<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>sudo<span class="w"> </span>python3<span class="w"> </span>gpuperf.py<span class="w"> </span>-m<span class="w"> </span>jax_merged.folded<span class="w"> </span>python<span class="w"> </span>train_jax.py
-</code></pre></div>
-<p>JAX uses XLA for kernel fusion, so you'll see XLA-compiled kernels with names like <code>__xla_compiled_kernel_123</code>. TensorFlow shows both TF op kernels and cuDNN calls. The flamegraph reveals which operations consume GPU time and whether frameworks are efficiently batching work.</p>
-<h3 id="cpu-only-profiling">CPU-Only Profiling</h3>
-<p>If you only care about CPU-side behavior (finding CPU bottlenecks in data loading or preprocessing):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>sudo<span class="w"> </span>python3<span class="w"> </span>gpuperf.py<span class="w"> </span>--no-gpu<span class="w"> </span>-p<span class="w"> </span>cpu_only.txt<span class="w"> </span>python<span class="w"> </span>train.py
-</code></pre></div>
-<p>This runs only the eBPF profiler, capturing CPU stacks without GPU tracing overhead. Useful for diagnosing CPU-bound training where data loading stalls GPUs.</p>
-<h3 id="gpu-only-profiling">GPU-Only Profiling</h3>
-<p>To trace only GPU activity without CPU stack traces:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>python3<span class="w"> </span>gpuperf.py<span class="w"> </span>--no-cpu<span class="w"> </span>-c<span class="w"> </span>gpu_only.json<span class="w"> </span>./my_cuda_app
-</code></pre></div>
-<p>This uses only CUPTI injection without eBPF uprobes. Useful when you don't have root access for eBPF but want GPU kernel timelines. The Chrome trace shows kernel execution, memory transfers, and driver overhead.</p>
-<h2 id="troubleshooting-common-issues">Troubleshooting Common Issues</h2>
-<p><strong>No CPU stacks captured</strong>: The eBPF profiler requires root privileges for uprobes. Run with <code>sudo</code>. Also verify the CUDA runtime library path is correct - if CUDA is installed in a non-standard location, use the profiler's <code>--cuda-lib</code> option (would require modifying gpuperf.py to expose it).</p>
-<p><strong>No GPU events captured</strong>: Check that <code>libcupti_trace_injection.so</code> exists and <code>CUDA_INJECTION64_PATH</code> points to it. Verify CUPTI library is found in <code>/usr/local/cuda/extras/CUPTI/lib64/</code>. If CUDA initialization fails silently, run the application directly to see CUDA errors: <code>CUDA_INJECTION64_PATH=/path/to/libcupti_trace_injection.so ./my_app</code>.</p>
-<p><strong>Mismatched CPU and GPU events</strong>: Correlation relies on synchronized clocks. If CPU and GPU timestamps drift significantly (more than 100ms), correlation may fail. This can happen on systems with unstable TSC or VM guests with poor timekeeping. Try reducing the correlation time window in <code>merge_gpu_cpu_trace.py</code> or check system clock with <code>clocksource</code> settings.</p>
-<p><strong>Profiler overhead</strong>: The eBPF profiler captures every <code>cudaLaunchKernel</code> call. Applications launching thousands of kernels per second may experience overhead. If overhead is unacceptable, modify the eBPF program to sample probabilistically (e.g., trace 1 out of every 10 calls). CUPTI overhead is typically under 5% but activity buffer overflow can lose events in extremely high-throughput applications - increase buffer size in <code>cupti_trace.cpp</code>.</p>
-<p><strong>Kernel names mangled</strong>: GPU kernel names appear mangled like <code>_Z15layerNormKernelPKfPfS0_S0_mmm</code>. This is C++ name mangling. To demangle, pipe the folded output through <code>c++filt</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>cat<span class="w"> </span>merged.folded<span class="w"> </span><span class="p">|</span><span class="w"> </span>c++filt<span class="w"> </span>&gt;<span class="w"> </span>merged_demangled.folded
-<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>./combined_flamegraph.pl<span class="w"> </span>merged_demangled.folded<span class="w"> </span>&gt;<span class="w"> </span>flamegraph.svg
-</code></pre></div>
-<p><strong>Missing symbols in CPU stacks</strong>: If CPU stacks show only addresses like <code>0x7af80f22a1ca</code> without function names, the profiler lacks debug symbols. Ensure your application and libraries are compiled with <code>-g</code> (debug info). For system libraries, install debug symbol packages (e.g., <code>debuginfo</code> packages on RHEL/CentOS or <code>dbgsym</code> on Debian/Ubuntu).</p>
+<p>This is folded stack format with GPU kernel names appended. The numbers on the right are GPU kernel execution times in microseconds, not sample counts. For example, <code>850432</code> means 850.432 milliseconds of total GPU execution time for the <code>matmul_kernel</code> when called from the <code>forward()</code> function. This duration weighting ensures the flamegraph accurately reflects where GPU time is actually spent, as longer-running kernels appear wider, making performance bottlenecks immediately visible. Feed this directly to <code>combined_flamegraph.pl</code> to generate the unified visualization.</p>
 <h2 id="limitations-and-future-directions">Limitations and Future Directions</h2>
-<p>This profiler captures kernel launches but not kernel internals. When the flamegraph shows a GPU kernel consumed 50ms, it doesn't tell you why - whether threads are memory-bound, compute-bound, or stalled on divergence. For kernel-internal profiling, use NVIDIA Nsight Compute or Nsight Systems which instrument GPU execution at the warp level.</p>
-<p>Advanced profilers like iaprof for Intel GPUs demonstrate the next evolution in GPU observability. iaprof combines eBPF kernel tracing with hardware performance sampling using Intel GPU Observability Architecture (OA) and Debug API. Instead of just showing "kernel X ran for 50ms", iaprof captures execution unit stall reasons (memory latency, ALU bottlenecks, instruction fetch stalls) and attributes them back to specific shader instructions. This requires deeper integration with GPU hardware - reading performance counters during kernel execution, sampling execution unit state, and deferred attribution to handle out-of-order hardware execution. The correlation challenge becomes even harder because hardware samples arrive asynchronously and must be matched to kernel contexts after execution completes.</p>
-<p>The profiler assumes single-stream execution in its current correlation logic. Multi-stream applications launch kernels on multiple CUDA streams, which can execute concurrently on the GPU. The merger should track stream IDs from CUPTI events and handle concurrent executions properly. Currently it may attribute concurrent kernels to whichever CPU launch happened closest in time. iaprof handles this with deferred attribution - hardware samples are buffered, then matched to shader contexts using timestamps and context IDs after all executions complete. This approach could be adapted for CUDA streams by buffering correlation matches and resolving them based on stream timelines.</p>
+<p>This profiler captures kernel launches but not kernel internals. When the flamegraph shows a GPU kernel consumed 50ms, it doesn't tell you why, whether threads are memory-bound, compute-bound, or stalled on divergence. For kernel-internal profiling, use NVIDIA Nsight Compute or Nsight Systems which instrument GPU execution at the warp level.</p>
+<p>Advanced profilers like iaprof for Intel GPUs demonstrate the next evolution in GPU observability. iaprof combines eBPF kernel tracing with hardware performance sampling using Intel GPU Observability Architecture (OA) and Debug API. Instead of just showing "kernel X ran for 50ms", iaprof captures execution unit stall reasons (memory latency, ALU bottlenecks, instruction fetch stalls) and attributes them back to specific shader instructions. This requires deeper integration with GPU hardware, including reading performance counters during kernel execution, sampling execution unit state, and deferred attribution to handle out-of-order hardware execution. The correlation challenge becomes even harder because hardware samples arrive asynchronously and must be matched to kernel contexts after execution completes.</p>
+<p>The profiler assumes single-stream execution in its current correlation logic. Multi-stream applications launch kernels on multiple CUDA streams, which can execute concurrently on the GPU. The merger should track stream IDs from CUPTI events and handle concurrent executions properly. Currently it may attribute concurrent kernels to whichever CPU launch happened closest in time. iaprof handles this with deferred attribution where hardware samples are buffered, then matched to shader contexts using timestamps and context IDs after all executions complete. This approach could be adapted for CUDA streams by buffering correlation matches and resolving them based on stream timelines.</p>
 <p>Correlation ID overflow can occur in very long-running applications. CUDA's correlation IDs are 32-bit integers that may wrap around after billions of API calls. The merger doesn't currently handle wraparound, which could cause mismatches in applications running for days or weeks. Production profilers use epoch-based correlation where IDs reset at defined intervals and events include epoch markers.</p>
 <p>Multi-GPU applications launch work on multiple devices. The profiler tracks device IDs in CUPTI events but doesn't distinguish them in the merged output. A proper multi-GPU flamegraph should separate stacks by device, showing which GPUs execute which kernels and whether load is balanced. The folded stack format could be extended with device tags: <code>cpu_stack;cudaLaunchKernel;[GPU0_Kernel]kernel_name</code> vs <code>cpu_stack;cudaLaunchKernel;[GPU1_Kernel]kernel_name</code>.</p>
-<p>Integration with higher-level profilers would be valuable. Combining this tool with NVIDIA Nsight Systems would provide both high-level code flow (from flamegraphs) and detailed kernel metrics (from Nsight). Similarly, integrating with perf or BPF-based full-system profilers would show GPU work in the context of system-wide resource usage (CPU scheduling, interrupts, memory pressure). The folded stack format is designed for this - you can merge CPU perf samples with GPU samples by concatenating stacks.</p>
-<p>For truly unified CPU+GPU observability, explore eBPF programs running on the GPU itself. The <a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu">bpftime GPU project</a> compiles eBPF bytecode to PTX instructions, enabling instrumentation inside GPU kernels. This exposes thread-level metrics like memory coalescing efficiency, warp occupancy, and bank conflicts - data impossible to obtain from kernel-side tracing. Future directions could combine kernel-side CUPTI tracing with GPU-side eBPF instrumentation for complete visibility from application code to individual warp execution.</p>
+<p>Integration with higher-level profilers would be valuable. Combining this tool with NVIDIA Nsight Systems would provide both high-level code flow (from flamegraphs) and detailed kernel metrics (from Nsight). Similarly, integrating with perf or BPF-based full-system profilers would show GPU work in the context of system-wide resource usage (CPU scheduling, interrupts, memory pressure). The folded stack format is designed for this, as you can merge CPU perf samples with GPU samples by concatenating stacks.</p>
+<p>For fine-grained GPU observability, explore eBPF programs running on the GPU itself. The <a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu">bpftime GPU project</a> compiles eBPF bytecode to PTX instructions, enabling instrumentation inside GPU kernels. This exposes thread-level metrics like memory coalescing efficiency, warp occupancy, and bank conflicts, which are data impossible to obtain from kernel-side tracing. Future directions could combine kernel-side CUPTI tracing with GPU-side eBPF instrumentation for complete visibility from application code to individual warp execution.</p>
 <h2 id="summary">Summary</h2>
 <p>GPU profiling requires bridging two execution domains: CPU code submitting work and GPU hardware executing it. This tutorial demonstrated a complete profiling stack combining eBPF for CPU stack traces, CUPTI for GPU activity tracing, and correlation logic to merge them into unified flamegraphs. The eBPF profiler captures CPU stacks at every <code>cudaLaunchKernel</code> call with nanosecond timestamps. CUPTI injection records GPU kernel executions with correlation IDs linking them back to CPU API calls. The trace merger matches events via timestamps and correlation IDs, producing folded stacks showing complete execution paths from application code through CUDA runtime to GPU kernels. The resulting flamegraphs visualize end-to-end execution, revealing hotspots across both CPU and GPU.</p>
-<p>This approach works without recompiling applications, supports any CUDA framework (PyTorch, TensorFlow, JAX, raw CUDA), and provides low overhead suitable for production profiling. The tools are modular - you can use eBPF profiling alone for CPU analysis, CUPTI injection alone for GPU timelines, or combine them for unified visibility. Apply these techniques to diagnose performance bottlenecks in ML training, GPU-accelerated applications, or any CUDA workload where understanding CPU-GPU interaction is critical.</p>
+<p>This approach works without recompiling applications, supports any CUDA framework (PyTorch, TensorFlow, JAX, raw CUDA), and provides low overhead suitable for production profiling. The tools are modular. You can use eBPF profiling alone for CPU analysis, CUPTI injection alone for GPU timelines, or combine them for unified visibility. Apply these techniques to diagnose performance bottlenecks in ML training, GPU-accelerated applications, or any CUDA workload where understanding CPU-GPU interaction is critical.</p>
 <blockquote>
 <p>If you'd like to dive deeper into eBPF, check out our tutorial repository at <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial">https://github.com/eunomia-bpf/bpf-developer-tutorial</a> or visit our website at <a href="https://eunomia.dev/tutorials/">https://eunomia.dev/tutorials/</a>.</p>
 </blockquote>
-<h2 id="cross-vendor-gpu-profiling-comparison">Cross-Vendor GPU Profiling Comparison</h2>
-<p>This tutorial focuses on NVIDIA GPUs using CUPTI, but the architecture applies across GPU vendors with vendor-specific APIs replacing CUPTI. Understanding these alternatives helps you apply similar techniques to other GPU platforms.</p>
-<p><strong>Intel GPUs (iaprof approach)</strong>: Intel's profiling architecture uses Level Zero API for GPU tracing and Intel GPU Observability Architecture (OA) for hardware performance monitoring. Instead of CUPTI injection, iaprof uses eBPF tracepoints on the i915/Xe kernel drivers to intercept GPU command submission. The EU Stall Collector samples execution unit performance counters during kernel execution, capturing memory stalls, ALU bottlenecks, and instruction fetch delays. The Debug Collector retrieves shader binaries and context metadata through Intel Debug API. Correlation happens through batch buffer parsing - iaprof extracts kernel contexts from GPU command buffers and matches them to eBPF CPU stack traces via timestamp proximity. The deferred attribution model handles out-of-order hardware samples by buffering them until kernel execution completes, then matching samples to shader contexts using context IDs and timestamps. This is more complex than CUPTI correlation because GPU hardware doesn't provide correlation IDs directly.</p>
-<p><strong>AMD GPUs (ROCm approach)</strong>: AMD's ROCm stack provides rocProfiler for GPU tracing, similar to CUPTI's role in CUDA. The rocProfiler API enables activity callbacks for kernel dispatches, memory transfers, and hardware performance counters. eBPF profiling on AMD GPUs can attach uprobes to <code>hipLaunchKernel</code> or <code>hsa_queue_create</code> in the ROCm runtime. The HSA (Heterogeneous System Architecture) runtime assigns correlation IDs to kernel dispatches, analogous to CUDA correlation IDs. AMD GPUs expose hardware counters through rocProfiler that reveal memory bandwidth utilization, wavefront occupancy, and cache hit rates. The correlation mechanism is similar to CUPTI - match eBPF CPU stacks to rocProfiler runtime API events by timestamp, then match runtime events to kernel executions via correlation IDs.</p>
-<p><strong>Vendor-Neutral Approaches</strong>: For applications using portable GPU APIs like OpenCL or SYCL, profiling must work across vendors. OpenCL provides <code>clSetEventCallback()</code> for event notification and <code>clGetEventProfilingInfo()</code> for kernel timing. eBPF uprobes can attach to <code>clEnqueueNDRangeKernel</code> to capture CPU stacks at kernel submission. SYCL queue profiling captures kernel execution times through <code>info::event::command_start</code> and <code>command_end</code> queries. The challenge is that vendor-neutral APIs don't expose hardware performance counters uniformly - each vendor requires platform-specific extensions.</p>
-<p>The key insight: all GPU profiling follows the same pattern - capture CPU context at API submission (eBPF uprobes), trace GPU execution with vendor APIs (CUPTI/OA/rocProfiler), and correlate via timestamps and IDs. The iaprof architecture demonstrates advanced techniques like deferred attribution and batch buffer parsing that can enhance CUDA profiling for complex multi-stream workloads. Studying cross-vendor approaches reveals common challenges (asynchronous hardware samples, out-of-order execution, clock synchronization) and solutions (buffered correlation, epoch-based ID tracking, timestamp windows).</p>
 <h2 id="references">References</h2>
-<ul>
-<li><strong>NVIDIA CUPTI Documentation</strong>: <a href="https://docs.nvidia.com/cupti/Cupti/index.html">https://docs.nvidia.com/cupti/Cupti/index.html</a></li>
-<li><strong>CUPTI Activity API</strong>: <a href="https://docs.nvidia.com/cupti/Cupti/r_main.html#r_activity_api">https://docs.nvidia.com/cupti/Cupti/r_main.html#r_activity_api</a></li>
-<li><strong>CUDA Profiling Guide</strong>: <a href="https://docs.nvidia.com/cuda/profiler-users-guide/">https://docs.nvidia.com/cuda/profiler-users-guide/</a></li>
-<li><strong>eBPF Stack Trace Helpers</strong>: <a href="https://github.com/iovisor/bcc/blob/master/docs/reference_guide.md#4-bpf_get_stackid">https://github.com/iovisor/bcc/blob/master/docs/reference_guide.md#4-bpf_get_stackid</a></li>
-<li><strong>Chrome Trace Format</strong>: <a href="https://docs.google.com/document/d/1CvAClvFfyA5R-PhYUmn5OOQtYMH4h6I0nSsKchNAySU">https://docs.google.com/document/d/1CvAClvFfyA5R-PhYUmn5OOQtYMH4h6I0nSsKchNAySU</a></li>
-<li><strong>Flamegraph Visualization</strong>: <a href="https://www.brendangregg.com/flamegraphs.html">https://www.brendangregg.com/flamegraphs.html</a></li>
-<li><strong>bpftime GPU eBPF</strong>: <a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu">https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu</a></li>
-<li><strong>iaprof Intel GPU Profiling</strong>: <a href="https://eunomia.dev/blog/2025/10/11/understanding-iaprof-a-deep-dive-into-aigpu-flame-graph-profiling/">https://eunomia.dev/blog/2025/10/11/understanding-iaprof-a-deep-dive-into-aigpu-flame-graph-profiling/</a></li>
-<li><strong>Intel GPU Observability Architecture</strong>: Intel Graphics documentation</li>
-<li><strong>AMD ROCm Profiler</strong>: <a href="https://rocm.docs.amd.com/projects/rocprofiler/en/latest/">https://rocm.docs.amd.com/projects/rocprofiler/en/latest/</a></li>
-<li><strong>Tutorial Repository</strong>: <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/xpu/flamegraph">https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/xpu/flamegraph</a></li>
-</ul>
+<h3 id="related-gpu-profiling-tools">Related GPU Profiling Tools</h3>
+<ol>
+<li>
+<p>AI Flame Graphs / iaprof (Intel) provides hardware-sampling driven GPU and software stack flamegraphs (EU stalls, kernels, and CPU stacks), open-sourced in 2025. This is deeper than our tutorial: it samples inside GPU kernels and attributes stall reasons back to code context. Use this when you need hardware stall analysis and an end-to-end view. <a href="https://www.brendangregg.com/blog/2024-10-29/ai-flame-graphs.html">Brendan Gregg</a> | <a href="https://github.com/intel/iaprof">GitHub</a></p>
+</li>
+<li>
+<p>Nsight Systems and Nsight Compute (NVIDIA) are official tools. Systems gives CPU to GPU timelines and API/kernels; Compute gives in-kernel metrics and roofline-style analyses. Ideal for deep tuning, not always for low-overhead continuous profiling. <a href="https://docs.nvidia.com/nsight-systems/UserGuide/index.html">NVIDIA Docs</a></p>
+</li>
+<li>
+<p>PyTorch Profiler / Kineto (NVIDIA/Meta, also AMD/Intel backends) records CPU ops and GPU kernels via CUPTI and shows them in TensorBoard/Chrome Trace. It supports CPU to accelerator flow links ("ac2g"). Great when you're already in PyTorch. <a href="https://pytorch.org/blog/automated-trace-collection/">PyTorch Blog</a> | <a href="https://pytorch.org/docs/stable/profiler.html">PyTorch Docs</a></p>
+</li>
+<li>
+<p>HPCToolkit (Rice) provides low-overhead call-path profiling that can attribute GPU kernel time to CPU calling context, and on NVIDIA can use PC sampling to examine instruction-level behavior. Powerful for production runs and cross-vendor GPUs. <a href="https://www.alcf.anl.gov/sites/default/files/2024-11/HPCToolkit-ALCF-2024-10.pdf">Argonne Leadership Computing Facility</a></p>
+</li>
+<li>
+<p>AMD ROCm (rocprofiler-SDK) offers HIP/HSA tracing with Correlation_Id to connect async calls and kernels. If you want an AMD version of this tutorial, integrate with rocprofiler events. <a href="https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/docs-6.3.1/how-to/using-rocprofv3.html">ROCm Documentation</a></p>
+</li>
+<li>
+<p>Level Zero tracer (Intel) allows you to intercept Level Zero API calls (loader tracing) and build a similar correlator with L0 callbacks for Intel GPUs. <a href="https://www.intel.com/content/www/us/en/docs/oneapi/optimization-guide-gpu/2023-1/level-zero-tracer.html">Intel Docs</a></p>
+</li>
+<li>
+<p>Perfetto / Chrome Trace viewer is your choice for viewing <code>.json</code> timelines. Perfetto is the modern web UI that reads Chromium JSON traces (what your CUPTI converter emits). <a href="https://perfetto.dev/">Perfetto</a></p>
+</li>
+</ol>
+<h3 id="technical-documentation">Technical Documentation</h3>
+<ol>
+<li>NVIDIA CUPTI Documentation: <a href="https://docs.nvidia.com/cupti/Cupti/index.html">https://docs.nvidia.com/cupti/Cupti/index.html</a></li>
+<li>CUPTI Activity API: <a href="https://docs.nvidia.com/cupti/Cupti/r_main.html#r_activity_api">https://docs.nvidia.com/cupti/Cupti/r_main.html#r_activity_api</a></li>
+<li>CUPTI ActivityKernel8 Structure: <a href="https://docs.nvidia.com/cupti/api/structCUpti__ActivityKernel8.html">https://docs.nvidia.com/cupti/api/structCUpti__ActivityKernel8.html</a></li>
+<li>CUDA Profiling Guide: <a href="https://docs.nvidia.com/cuda/profiler-users-guide/">https://docs.nvidia.com/cuda/profiler-users-guide/</a></li>
+<li>Nsight Systems User Guide: <a href="https://docs.nvidia.com/drive/drive-os-5.2.6.0L/nsight-systems/pdf/UserGuide.pdf">https://docs.nvidia.com/drive/drive-os-5.2.6.0L/nsight-systems/pdf/UserGuide.pdf</a></li>
+<li>eBPF Stack Trace Helpers: <a href="https://github.com/iovisor/bcc/blob/master/docs/reference_guide.md#4-bpf_get_stackid">https://github.com/iovisor/bcc/blob/master/docs/reference_guide.md#4-bpf_get_stackid</a></li>
+<li>Chrome Trace Format: <a href="https://docs.google.com/document/d/1CvAClvFfyA5R-PhYUmn5OOQtYMH4h6I0nSsKchNAySU">https://docs.google.com/document/d/1CvAClvFfyA5R-PhYUmn5OOQtYMH4h6I0nSsKchNAySU</a></li>
+<li>Flamegraph Visualization: <a href="https://www.brendangregg.com/flamegraphs.html">https://www.brendangregg.com/flamegraphs.html</a></li>
+</ol>
+<h3 id="advanced-topics">Advanced Topics</h3>
+<ol>
+<li>bpftime GPU eBPF: <a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu">https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu</a></li>
+<li>iaprof Intel GPU Profiling Analysis: <a href="https://eunomia.dev/blog/2025/10/11/understanding-iaprof-a-deep-dive-into-aigpu-flame-graph-profiling/">https://eunomia.dev/blog/2025/10/11/understanding-iaprof-a-deep-dive-into-aigpu-flame-graph-profiling/</a></li>
+<li>Tutorial Repository: <a href="https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/xpu/flamegraph">https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/xpu/flamegraph</a></li>
+</ol>
 <p>Complete source code including the eBPF profiler, CUPTI injection library, trace merger, and test applications is available in the tutorial repository. Contributions and issue reports welcome!</p>
-<p><a class="md-button" href="https://x.com/intent/tweet?text=eBPF%20Tutorial%20by%20Example%3A%20GPU%2BCPU%20Unified%20Flamegraph%20Profiling%20with%20CUPTI%20and%20eBPF%0A&amp;url=https://eunomia.dev/zh/tutorials/xpu/flamegraph/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"/></svg></span></a>
+<p><a class="md-button" href="https://x.com/intent/tweet?text=eBPF%20Tutorial%20by%20Example%3A%20GPU%20Flamegraph%20Profiling%20with%20CUPTI%20and%20eBPF%0A&amp;url=https://eunomia.dev/zh/tutorials/xpu/flamegraph/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/zh/tutorials/xpu/flamegraph/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
 
@@ -10106,7 +9939,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 28, 2025 02:46:58 UTC">October 28, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 28, 2025 06:04:12 UTC">October 28, 2025</span>
   </span>
 
     
