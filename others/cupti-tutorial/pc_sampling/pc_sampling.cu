@@ -151,18 +151,18 @@ main(
            "on Volta+ GPU architectures.\n\n");
 
 
-    SetupCupti();
-
     RUNTIME_API_CALL(cudaGetDevice(&deviceNum));
     RUNTIME_API_CALL(cudaGetDeviceProperties(&prop, deviceNum));
     printf("Device Name: %s\n", prop.name);
     printf("Device compute capability: %d.%d\n", prop.major, prop.minor);
 
-    if (!((prop.major > 5) || ((prop.major == 5) && (prop.minor == 2)) || prop.minor <= 9))
+    if (!( ((prop.major >= 6) && (prop.major <= 9)) || ((prop.major == 5) && (prop.minor == 2))))
     {
-        printf("Warning: Sample is waived on this device.\nPC Sampling Activity API is supported on devices with compute capability 5.2 and from 6.0 to 9.0.\n");
+        printf("Warning: Sample is waived on this device.\nThe PC Sampling Activity API from the header cupti_activity.h is supported on devices with compute capability 5.2 and from 6.0 to 9.0.\n");
         exit(EXIT_WAIVED);
     }
+
+    SetupCupti();
 
     DoPass(0);
 

@@ -25,10 +25,6 @@
 // CUPTI headers
 #include <cupti.h>
 #include <helper_cupti.h>
-#include <unordered_map>
-#include <unordered_set>
-#include <list>
-
 
 // Macros
 #define LINE_SIZE 2048
@@ -40,8 +36,6 @@
 #define ALIGN_SIZE (8)
 #define ALIGN_BUFFER(buffer, align)                                                 \
   (((uintptr_t) (buffer) & ((align)-1)) ? ((buffer) + (align) - ((uintptr_t) (buffer) & ((align)-1))) : (buffer))
-
-typedef uint64_t HashMapKey;
 
 // Data structures
 
@@ -91,6 +85,10 @@ GetActivityKindString(
             return "DRIVER";
         case CUPTI_ACTIVITY_KIND_RUNTIME:
             return "RUNTIME";
+        case CUPTI_ACTIVITY_KIND_EVENT:
+            return "EVENT";
+        case CUPTI_ACTIVITY_KIND_METRIC:
+            return "METRIC";
         case CUPTI_ACTIVITY_KIND_DEVICE:
             return "DEVICE";
         case CUPTI_ACTIVITY_KIND_CONTEXT:
@@ -117,8 +115,12 @@ GetActivityKindString(
             return "PREEMPTION";
         case CUPTI_ACTIVITY_KIND_ENVIRONMENT:
             return "ENVIRONMENT";
+        case CUPTI_ACTIVITY_KIND_EVENT_INSTANCE:
+            return "EVENT_INSTANCE";
         case CUPTI_ACTIVITY_KIND_MEMCPY2:
             return "MEMCPY2";
+        case CUPTI_ACTIVITY_KIND_METRIC_INSTANCE:
+            return "METRIC INSTANCE";
         case CUPTI_ACTIVITY_KIND_INSTRUCTION_EXECUTION:
             return "INSTRUCTION_EXECUTION";
         case CUPTI_ACTIVITY_KIND_UNIFIED_MEMORY_COUNTER:
@@ -153,6 +155,14 @@ GetActivityKindString(
             return "EXTERNAL_CORRELATION";
         case CUPTI_ACTIVITY_KIND_NVLINK:
             return "NVLINK";
+        case CUPTI_ACTIVITY_KIND_INSTANTANEOUS_EVENT:
+            return "INSTANTANEOUS_EVENT";
+        case CUPTI_ACTIVITY_KIND_INSTANTANEOUS_EVENT_INSTANCE:
+            return "INSTANTANEOUS_EVENT_INSTANCE";
+        case CUPTI_ACTIVITY_KIND_INSTANTANEOUS_METRIC:
+            return "INSTANTANEOUS_METRIC";
+        case CUPTI_ACTIVITY_KIND_INSTANTANEOUS_METRIC_INSTANCE:
+            return "INSTANTANEOUS_METRIC_INSTANCE";
         case CUPTI_ACTIVITY_KIND_MEMORY:
             return "MEMORY";
         case CUPTI_ACTIVITY_KIND_PCIE:
@@ -206,6 +216,14 @@ GetActivityKindFromString(
     {
         return CUPTI_ACTIVITY_KIND_RUNTIME;
     }
+    else if (!stricmp(pActivityKindString, "EVENT"))
+    {
+        return CUPTI_ACTIVITY_KIND_EVENT;
+    }
+    else if (!stricmp(pActivityKindString, "METRIC"))
+    {
+        return CUPTI_ACTIVITY_KIND_METRIC;
+    }
     else if (!stricmp(pActivityKindString, "DEVICE"))
     {
         return CUPTI_ACTIVITY_KIND_DEVICE;
@@ -258,9 +276,17 @@ GetActivityKindFromString(
     {
         return CUPTI_ACTIVITY_KIND_ENVIRONMENT;
     }
+    else if (!stricmp(pActivityKindString, "EVENT_INSTANCE"))
+    {
+        return CUPTI_ACTIVITY_KIND_EVENT_INSTANCE;
+    }
     else if (!stricmp(pActivityKindString, "MEMCPY2"))
     {
         return CUPTI_ACTIVITY_KIND_MEMCPY2;
+    }
+    else if (!stricmp(pActivityKindString, "METRIC_INSTANCE"))
+    {
+        return CUPTI_ACTIVITY_KIND_METRIC_INSTANCE;
     }
     else if (!stricmp(pActivityKindString, "INSTRUCTION_EXECUTION"))
     {
@@ -329,6 +355,22 @@ GetActivityKindFromString(
     else if (!stricmp(pActivityKindString, "NVLINK"))
     {
         return CUPTI_ACTIVITY_KIND_NVLINK;
+    }
+    else if (!stricmp(pActivityKindString, "INSTANTANEOUS_EVENT"))
+    {
+        return CUPTI_ACTIVITY_KIND_INSTANTANEOUS_EVENT;
+    }
+    else if (!stricmp(pActivityKindString, "INSTANTANEOUS_EVENT_INSTANCE"))
+    {
+        return CUPTI_ACTIVITY_KIND_INSTANTANEOUS_EVENT_INSTANCE;
+    }
+    else if (!stricmp(pActivityKindString, "INSTANTANEOUS_METRIC"))
+    {
+        return CUPTI_ACTIVITY_KIND_INSTANTANEOUS_METRIC;
+    }
+    else if (!stricmp(pActivityKindString, "INSTANTANEOUS_METRIC_INSTANCE"))
+    {
+        return CUPTI_ACTIVITY_KIND_INSTANTANEOUS_METRIC_INSTANCE;
     }
     else if (!stricmp(pActivityKindString, "MEMORY"))
     {
@@ -919,14 +961,22 @@ GetCorrelationId(
             return ((CUpti_ActivityMemset4 *)pRecord)->correlationId;
         case CUPTI_ACTIVITY_KIND_KERNEL:
         case CUPTI_ACTIVITY_KIND_CONCURRENT_KERNEL:
-            return ((CUpti_ActivityKernel10 *)pRecord)->correlationId;
+            return ((CUpti_ActivityKernel9 *)pRecord)->correlationId;
         case CUPTI_ACTIVITY_KIND_DRIVER:
         case CUPTI_ACTIVITY_KIND_RUNTIME:
             return ((CUpti_ActivityAPI *)pRecord)->correlationId;
+        case CUPTI_ACTIVITY_KIND_EVENT:
+            return ((CUpti_ActivityEvent *)pRecord)->correlationId;
+        case CUPTI_ACTIVITY_KIND_METRIC:
+            return ((CUpti_ActivityMetric *)pRecord)->correlationId;
         case CUPTI_ACTIVITY_KIND_CDP_KERNEL:
             return ((CUpti_ActivityCdpKernel *)pRecord)->correlationId;
+        case CUPTI_ACTIVITY_KIND_EVENT_INSTANCE:
+            return ((CUpti_ActivityEventInstance *)pRecord)->correlationId;
         case CUPTI_ACTIVITY_KIND_MEMCPY2:
             return ((CUpti_ActivityMemcpyPtoP4 *)pRecord)->correlationId;
+        case CUPTI_ACTIVITY_KIND_METRIC_INSTANCE:
+            return ((CUpti_ActivityMetricInstance *)pRecord)->correlationId;
         default:
             return 0;
     }
@@ -1030,7 +1080,7 @@ PrintActivity(
         case CUPTI_ACTIVITY_KIND_KERNEL:
         case CUPTI_ACTIVITY_KIND_CONCURRENT_KERNEL:
         {
-            CUpti_ActivityKernel10 *pKernelRecord = (CUpti_ActivityKernel10 *)pRecord;
+            CUpti_ActivityKernel9 *pKernelRecord = (CUpti_ActivityKernel9 *)pRecord;
 
             fprintf(pFileHandle, "%s [ %llu, %llu ] duration %llu, \"%s\", correlationId %u, cacheConfigRequested %d, cacheConfigExecuted %d\n"
                     "\tgrid [ %u, %u, %u ], block [ %u, %u, %u ], cluster [ %u, %u, %u ], sharedMemory (static %u, dynamic %u)\n"
@@ -1090,6 +1140,111 @@ PrintActivity(
                     pApiRecord->processId,
                     pApiRecord->threadId,
                     pApiRecord->correlationId);
+
+            break;
+        }
+        case CUPTI_ACTIVITY_KIND_EVENT:
+        {
+            CUpti_ActivityEvent *pEventRecord = (CUpti_ActivityEvent *)pRecord;
+
+            fprintf(pFileHandle, "%s [ %u/%u ], value %llu, correlationId %u\n",
+                    GetActivityKindString(pEventRecord->kind),
+                    pEventRecord->domain,
+                    pEventRecord->id,
+                    (unsigned long long)pEventRecord->value,
+                    pEventRecord->correlationId);
+
+            break;
+        }
+        case CUPTI_ACTIVITY_KIND_METRIC:
+        {
+            CUpti_ActivityMetric *pMetricRecord = (CUpti_ActivityMetric *)pRecord;
+
+            CUpti_MetricValueKind metricKind;
+            size_t kindSize = sizeof(metricKind);
+            char name[256];
+            size_t nameSize = 256;
+
+            CUPTI_API_CALL(cuptiMetricGetAttribute(pMetricRecord->id, CUPTI_METRIC_ATTR_VALUE_KIND, &kindSize, &metricKind));
+            CUPTI_API_CALL(cuptiMetricGetAttribute(pMetricRecord->id, CUPTI_METRIC_ATTR_NAME, &nameSize, name));
+
+            switch (metricKind)
+            {
+                case CUPTI_METRIC_VALUE_KIND_DOUBLE:
+                {
+                    fprintf(pFileHandle, "%s [ %u ] %s\n  %s, value %f, correlationId %u\n",
+                            GetActivityKindString(pMetricRecord->kind),
+                            pMetricRecord->id,
+                            name,
+                            "double",
+                            pMetricRecord->value.metricValueDouble,
+                            pMetricRecord->correlationId);
+
+                    break;
+                }
+                case CUPTI_METRIC_VALUE_KIND_UINT64:
+                {
+                    fprintf(pFileHandle, "%s [ %u ] %s\n  %s, value %llu, correlationId %u\n",
+                            GetActivityKindString(pMetricRecord->kind),
+                            pMetricRecord->id,
+                            name,
+                            "uint64",
+                            (long long unsigned)pMetricRecord->value.metricValueUint64,
+                            pMetricRecord->correlationId);
+
+                    break;
+                }
+                case CUPTI_METRIC_VALUE_KIND_PERCENT:
+                {
+                    fprintf(pFileHandle, "%s [ %u ] %s\n  %s, value %f%%, correlationId %u\n",
+                            GetActivityKindString(pMetricRecord->kind),
+                            pMetricRecord->id,
+                            name,
+                            "percent",
+                            pMetricRecord->value.metricValuePercent,
+                            pMetricRecord->correlationId);
+
+                    break;
+                }
+                case CUPTI_METRIC_VALUE_KIND_THROUGHPUT:
+                {
+                    fprintf(pFileHandle, "%s [ %u ] %s\n  %s, value %lld, correlationId %u\n",
+                            GetActivityKindString(pMetricRecord->kind),
+                            pMetricRecord->id,
+                            name,
+                            "throughput",
+                            (long long int)pMetricRecord->value.metricValueThroughput,
+                            pMetricRecord->correlationId);
+
+                    break;
+                }
+                case CUPTI_METRIC_VALUE_KIND_INT64:
+                {
+                    fprintf(pFileHandle, "%s [ %u ] %s\n  %s, value %lld, correlationId %u\n",
+                            GetActivityKindString(pMetricRecord->kind),
+                            pMetricRecord->id,
+                            name,
+                            "int64",
+                            (long long int)pMetricRecord->value.metricValueInt64,
+                            pMetricRecord->correlationId);
+
+                    break;
+                }
+                case CUPTI_METRIC_VALUE_KIND_UTILIZATION_LEVEL:
+                {
+                    fprintf(pFileHandle, "%s [ %u ] %s\n  %s, value %u, correlationId %u\n",
+                            GetActivityKindString(pMetricRecord->kind),
+                            pMetricRecord->id,
+                            name,
+                            "util",
+                            (unsigned int)pMetricRecord->value.metricValueUtilizationLevel,
+                            pMetricRecord->correlationId);
+
+                    break;
+                }
+                default:
+                    break;
+            }
 
             break;
         }
@@ -1400,6 +1555,20 @@ PrintActivity(
 
             break;
         }
+        case CUPTI_ACTIVITY_KIND_EVENT_INSTANCE:
+        {
+            CUpti_ActivityEventInstance *pEventInstanceRecord = (CUpti_ActivityEventInstance *)pRecord;
+
+            fprintf(pFileHandle, "%s [ %u/%u, instance %u ], value %llu, correlationId %u\n",
+                    GetActivityKindString(pEventInstanceRecord->kind),
+                    pEventInstanceRecord->domain,
+                    pEventInstanceRecord->id,
+                    pEventInstanceRecord->instance,
+                    (unsigned long long)pEventInstanceRecord->value,
+                    pEventInstanceRecord->correlationId);
+
+            break;
+        }
         case CUPTI_ACTIVITY_KIND_MEMCPY2:
         {
             CUpti_ActivityMemcpyPtoP4 *pMemcpyPtoPRecord = (CUpti_ActivityMemcpyPtoP4 *)pRecord;
@@ -1427,6 +1596,91 @@ PrintActivity(
                     pMemcpyPtoPRecord->srcContextId,
                     pMemcpyPtoPRecord->dstDeviceId,
                     pMemcpyPtoPRecord->dstContextId);
+
+            break;
+        }
+        case CUPTI_ACTIVITY_KIND_METRIC_INSTANCE:
+        {
+            CUpti_ActivityMetricInstance *pMetricInstanceRecord = (CUpti_ActivityMetricInstance *)pRecord;
+
+            CUpti_MetricValueKind metricValueKind;
+            size_t kindSize = sizeof(metricValueKind);
+            char name[256];
+            size_t nameSize = 256;
+
+            CUPTI_API_CALL(cuptiMetricGetAttribute(pMetricInstanceRecord->id, CUPTI_METRIC_ATTR_VALUE_KIND, &kindSize, &metricValueKind));
+            CUPTI_API_CALL(cuptiMetricGetAttribute(pMetricInstanceRecord->id, CUPTI_METRIC_ATTR_NAME, &nameSize, name));
+
+            switch (metricValueKind)
+            {
+                case CUPTI_METRIC_VALUE_KIND_DOUBLE:
+                {
+                    fprintf(pFileHandle, "%s [ %u, instance %u ], name %s, %s, value %f, corr %u\n",
+                            GetActivityKindString(pMetricInstanceRecord->kind),
+                            pMetricInstanceRecord->id,
+                            pMetricInstanceRecord->instance,
+                            name,
+                            "double",
+                            pMetricInstanceRecord->value.metricValueDouble,
+                            pMetricInstanceRecord->correlationId);
+
+                    break;
+                }
+                case CUPTI_METRIC_VALUE_KIND_UINT64:
+                {
+                    fprintf(pFileHandle, "%s [ %u, instance %u ], name %s, %s, value %llu, corr %u\n",
+                            GetActivityKindString(pMetricInstanceRecord->kind),
+                            pMetricInstanceRecord->id,
+                            pMetricInstanceRecord->instance,
+                            name,
+                            "uint64",
+                            (long long unsigned)pMetricInstanceRecord->value.metricValueUint64,
+                            pMetricInstanceRecord->correlationId);
+
+                    break;
+                }
+                case CUPTI_METRIC_VALUE_KIND_PERCENT:
+                {
+                    fprintf(pFileHandle, "%s [ %u, instance %u ], name %s, %s, value %f%%, corr %u\n",
+                            GetActivityKindString(pMetricInstanceRecord->kind),
+                            pMetricInstanceRecord->id,
+                            pMetricInstanceRecord->instance,
+                            name,
+                            "percent",
+                            pMetricInstanceRecord->value.metricValuePercent,
+                            pMetricInstanceRecord->correlationId);
+
+                    break;
+                }
+                case CUPTI_METRIC_VALUE_KIND_THROUGHPUT:
+                {
+                    fprintf(pFileHandle, "%s [ %u, instance %u ], name %s, %s, value %lld B/s, corr %u\n",
+                            GetActivityKindString(pMetricInstanceRecord->kind),
+                            pMetricInstanceRecord->id,
+                            pMetricInstanceRecord->instance,
+                            name,
+                            "throughput",
+                            (long long int)pMetricInstanceRecord->value.metricValueThroughput,
+                            pMetricInstanceRecord->correlationId);
+
+                    break;
+                }
+                case CUPTI_METRIC_VALUE_KIND_INT64:
+                {
+                    fprintf(pFileHandle, "%s [ %u, instance %u ], name %s, %s, value %lld, corr %u\n",
+                            GetActivityKindString(pMetricInstanceRecord->kind),
+                            pMetricInstanceRecord->id,
+                            pMetricInstanceRecord->instance,
+                            name,
+                            "int64",
+                            (long long int)pMetricInstanceRecord->value.metricValueInt64,
+                            pMetricInstanceRecord->correlationId);
+
+                    break;
+                }
+                default:
+                    break;
+            }
 
             break;
         }
@@ -1688,6 +1942,208 @@ PrintActivity(
 
             break;
         }
+        case CUPTI_ACTIVITY_KIND_INSTANTANEOUS_EVENT:
+        {
+            CUpti_ActivityInstantaneousEvent *pInstantaneousEventRecord = (CUpti_ActivityInstantaneousEvent *)pRecord;
+
+            fprintf(pFileHandle, "%s [ %u/%u ], value %llu, timestamp %llu\n",
+                    GetActivityKindString(pInstantaneousEventRecord->kind),
+                    pInstantaneousEventRecord->deviceId,
+                    pInstantaneousEventRecord->id,
+                    (unsigned long long)pInstantaneousEventRecord->value,
+                    (unsigned long long)pInstantaneousEventRecord->timestamp);
+
+            break;
+        }
+        case CUPTI_ACTIVITY_KIND_INSTANTANEOUS_EVENT_INSTANCE:
+        {
+            CUpti_ActivityInstantaneousEventInstance *pInstantaneousEventInstanceRecord = (CUpti_ActivityInstantaneousEventInstance *)pRecord;
+
+            fprintf(pFileHandle, "%s [ %u/%u ], instance %u, value %llu, timestamp %llu\n",
+                    GetActivityKindString(pInstantaneousEventInstanceRecord->kind),
+                    pInstantaneousEventInstanceRecord->deviceId,
+                    pInstantaneousEventInstanceRecord->id,
+                    pInstantaneousEventInstanceRecord->instance,
+                    (unsigned long long)pInstantaneousEventInstanceRecord->value,
+                    (unsigned long long)pInstantaneousEventInstanceRecord->timestamp);
+
+            break;
+        }
+        case CUPTI_ACTIVITY_KIND_INSTANTANEOUS_METRIC:
+        {
+            CUpti_ActivityInstantaneousMetric *pInstantaneousMetricRecord = (CUpti_ActivityInstantaneousMetric *)pRecord;
+
+            CUpti_MetricValueKind metricValueKind;
+            size_t kindSize = sizeof(metricValueKind);
+            char name[256];
+            size_t nameSize = 256;
+
+            CUPTI_API_CALL(cuptiMetricGetAttribute(pInstantaneousMetricRecord->id, CUPTI_METRIC_ATTR_VALUE_KIND, &kindSize, &metricValueKind));
+            CUPTI_API_CALL(cuptiMetricGetAttribute(pInstantaneousMetricRecord->id, CUPTI_METRIC_ATTR_NAME, &nameSize, name));
+
+            switch (metricValueKind)
+            {
+                case CUPTI_METRIC_VALUE_KIND_DOUBLE:
+                {
+                    fprintf(pFileHandle, "%s [ %u/%u ], name %s, %s, value %f, timestamp %llu\n",
+                            GetActivityKindString(pInstantaneousMetricRecord->kind),
+                            pInstantaneousMetricRecord->deviceId,
+                            pInstantaneousMetricRecord->id,
+                            name,
+                            "double",
+                            pInstantaneousMetricRecord->value.metricValueDouble,
+                            (long long unsigned)pInstantaneousMetricRecord->timestamp);
+
+                    break;
+                }
+                case CUPTI_METRIC_VALUE_KIND_UINT64:
+                {
+                    fprintf(pFileHandle, "%s [ %u/%u ], name %s, %s, value %llu, timestamp %llu\n",
+                            GetActivityKindString(pInstantaneousMetricRecord->kind),
+                            pInstantaneousMetricRecord->deviceId,
+                            pInstantaneousMetricRecord->id,
+                            name,
+                            "uint64",
+                            (long long unsigned)pInstantaneousMetricRecord->value.metricValueUint64,
+                            (long long unsigned)pInstantaneousMetricRecord->timestamp);
+
+                    break;
+                }
+                case CUPTI_METRIC_VALUE_KIND_PERCENT:
+                {
+                    fprintf(pFileHandle, "%s [ %u/%u ], name %s, %s, value %f%%, timestamp %llu\n",
+                            GetActivityKindString(pInstantaneousMetricRecord->kind),
+                            pInstantaneousMetricRecord->deviceId,
+                            pInstantaneousMetricRecord->id,
+                            name,
+                            "percent",
+                            pInstantaneousMetricRecord->value.metricValuePercent,
+                            (long long unsigned)pInstantaneousMetricRecord->timestamp);
+
+                    break;
+                }
+                case CUPTI_METRIC_VALUE_KIND_THROUGHPUT:
+                {
+                    fprintf(pFileHandle, "%s [ %u/%u ], name %s, %s, value %lld B/s, timestamp %llu\n",
+                            GetActivityKindString(pInstantaneousMetricRecord->kind),
+                            pInstantaneousMetricRecord->deviceId,
+                            pInstantaneousMetricRecord->id,
+                            name,
+                            "throughput",
+                            (long long int)pInstantaneousMetricRecord->value.metricValueThroughput,
+                            (long long unsigned)pInstantaneousMetricRecord->timestamp);
+
+                    break;
+                }
+                case CUPTI_METRIC_VALUE_KIND_INT64:
+                {
+                    fprintf(pFileHandle, "%s [ %u/%u ], name %s, %s, value %lld, timestamp %llu\n",
+                            GetActivityKindString(pInstantaneousMetricRecord->kind),
+                            pInstantaneousMetricRecord->deviceId,
+                            pInstantaneousMetricRecord->id,
+                            name,
+                            "int64",
+                            (long long int)pInstantaneousMetricRecord->value.metricValueInt64,
+                            (long long unsigned)pInstantaneousMetricRecord->timestamp);
+
+                    break;
+                }
+                default:
+                    break;
+            }
+
+            break;
+        }
+        case CUPTI_ACTIVITY_KIND_INSTANTANEOUS_METRIC_INSTANCE:
+        {
+            CUpti_ActivityInstantaneousMetricInstance *pInstantaneousMetricInstanceRecord = (CUpti_ActivityInstantaneousMetricInstance *)pRecord;
+
+            CUpti_MetricValueKind metricValueKind;
+            size_t kindSize = sizeof(metricValueKind);
+            char name[256];
+            size_t nameSize = 256;
+
+            CUPTI_API_CALL(cuptiMetricGetAttribute(pInstantaneousMetricInstanceRecord->id, CUPTI_METRIC_ATTR_VALUE_KIND, &kindSize, &metricValueKind));
+            CUPTI_API_CALL(cuptiMetricGetAttribute(pInstantaneousMetricInstanceRecord->id, CUPTI_METRIC_ATTR_NAME, &nameSize, name));
+
+            switch (metricValueKind)
+            {
+                case CUPTI_METRIC_VALUE_KIND_DOUBLE:
+                {
+                    fprintf(pFileHandle, "%s [ %u/%u ], name %s, %s, instance %u, value %f, timestamp %llu\n",
+                            GetActivityKindString(pInstantaneousMetricInstanceRecord->kind),
+                            pInstantaneousMetricInstanceRecord->deviceId,
+                            pInstantaneousMetricInstanceRecord->id,
+                            name,
+                            "double",
+                            pInstantaneousMetricInstanceRecord->instance,
+                            pInstantaneousMetricInstanceRecord->value.metricValueDouble,
+                            (long long unsigned)pInstantaneousMetricInstanceRecord->timestamp);
+
+                    break;
+                }
+                case CUPTI_METRIC_VALUE_KIND_UINT64:
+                {
+                    fprintf(pFileHandle, "%s [ %u/%u ], name %s, %s, instance %u, value %llu, timestamp %llu\n",
+                            GetActivityKindString(pInstantaneousMetricInstanceRecord->kind),
+                            pInstantaneousMetricInstanceRecord->deviceId,
+                            pInstantaneousMetricInstanceRecord->id,
+                            name,
+                            "uint64",
+                            pInstantaneousMetricInstanceRecord->instance,
+                            (long long unsigned)pInstantaneousMetricInstanceRecord->value.metricValueUint64,
+                            (long long unsigned)pInstantaneousMetricInstanceRecord->timestamp);
+
+                    break;
+                }
+                case CUPTI_METRIC_VALUE_KIND_PERCENT:
+                {
+                    fprintf(pFileHandle, "%s [ %u/%u ], name %s, %s, instance %u, value %f%%, timestamp %llu\n",
+                            GetActivityKindString(pInstantaneousMetricInstanceRecord->kind),
+                            pInstantaneousMetricInstanceRecord->deviceId,
+                            pInstantaneousMetricInstanceRecord->id,
+                            name,
+                            "percent",
+                            pInstantaneousMetricInstanceRecord->instance,
+                            pInstantaneousMetricInstanceRecord->value.metricValuePercent,
+                            (long long unsigned)pInstantaneousMetricInstanceRecord->timestamp);
+
+                    break;
+                }
+                case CUPTI_METRIC_VALUE_KIND_THROUGHPUT:
+                {
+                    fprintf(pFileHandle, "%s [ %u/%u ], name %s, %s, instance %u, value %lld B/s, timestamp %llu\n",
+                            GetActivityKindString(pInstantaneousMetricInstanceRecord->kind),
+                            pInstantaneousMetricInstanceRecord->deviceId,
+                            pInstantaneousMetricInstanceRecord->id,
+                            name,
+                            "throughput",
+                            pInstantaneousMetricInstanceRecord->instance,
+                            (long long int)pInstantaneousMetricInstanceRecord->value.metricValueThroughput,
+                            (long long unsigned)pInstantaneousMetricInstanceRecord->timestamp);
+
+                    break;
+                }
+                case CUPTI_METRIC_VALUE_KIND_INT64:
+                {
+                    fprintf(pFileHandle, "%s [ %u/%u ], name %s, %s, instance %u, value %lld, timestamp %llu\n",
+                            GetActivityKindString(pInstantaneousMetricInstanceRecord->kind),
+                            pInstantaneousMetricInstanceRecord->deviceId,
+                            pInstantaneousMetricInstanceRecord->id,
+                            name,
+                            "int64",
+                            pInstantaneousMetricInstanceRecord->instance,
+                            (long long int)pInstantaneousMetricInstanceRecord->value.metricValueInt64,
+                            (long long unsigned)pInstantaneousMetricInstanceRecord->timestamp);
+
+                    break;
+                }
+                default:
+                    break;
+            }
+
+            break;
+        }
         case CUPTI_ACTIVITY_KIND_MEMORY:
         {
             CUpti_ActivityMemory *pMemoryRecord = (CUpti_ActivityMemory *)(void *)pRecord;
@@ -1795,9 +2251,9 @@ PrintActivity(
         }
         case CUPTI_ACTIVITY_KIND_MEMORY_POOL:
         {
-            CUpti_ActivityMemoryPool3 *pMemoryPoolRecord = (CUpti_ActivityMemoryPool3 *)(void *)pRecord;
+            CUpti_ActivityMemoryPool2 *pMemoryPoolRecord = (CUpti_ActivityMemoryPool2 *)(void *)pRecord;
 
-            fprintf(pFileHandle, "%s [ %llu ] memoryPoolOperation %s, memoryPool %s, address %llu, size %llu, utilizedSize %llu, %d isManagedPool, releaseThreshold %llu,\n"
+            fprintf(pFileHandle, "%s [ %llu ] memoryPoolOperation %s, memoryPool %s, address %llu, size %llu, utilizedSize %llu, releaseThreshold %llu,\n"
                     "  deviceId %u, processId %u, correlationId %u\n",
                     GetActivityKindString(pMemoryPoolRecord->kind),
                     (unsigned long long)pMemoryPoolRecord->timestamp,
@@ -1806,7 +2262,6 @@ PrintActivity(
                     (unsigned long long)pMemoryPoolRecord->address,
                     (unsigned long long)pMemoryPoolRecord->size,
                     (unsigned long long)pMemoryPoolRecord->utilizedSize,
-                    pMemoryPoolRecord->isManagedPool,
                     (unsigned long long)pMemoryPoolRecord->releaseThreshold,
                     pMemoryPoolRecord->deviceId,
                     pMemoryPoolRecord->processId,

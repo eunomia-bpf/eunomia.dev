@@ -6,10 +6,9 @@ ifndef OS
  HOST_ARCH := $(shell uname -m)
 endif
 
-CUDA_INSTALL_PATH ?= /usr/local/cuda-13.0/
+CUDA_INSTALL_PATH ?= /usr/local/cuda-12.9
 NVCC := "$(CUDA_INSTALL_PATH)/bin/nvcc"
-CUPTI_INSTALL_PATH ?= $(CUDA_INSTALL_PATH)/extras/CUPTI
-INCLUDES := -I"$(CUDA_INSTALL_PATH)/include" -I$(CUPTI_INSTALL_PATH)/include -I$(CUPTI_INSTALL_PATH)/samples/common
+INCLUDES := -I"$(CUDA_INSTALL_PATH)/include" -I../../include -I../common
 
 TARGET_ARCH ?= $(HOST_ARCH)
 TARGET_OS ?= $(shell uname | tr A-Z a-z)

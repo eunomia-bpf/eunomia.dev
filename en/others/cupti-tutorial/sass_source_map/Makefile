@@ -6,9 +6,9 @@ ifndef OS
  HOST_ARCH := $(shell uname -m)
 endif
 
-CUDA_INSTALL_PATH ?= /usr/local/cuda-13.0/
+CUDA_INSTALL_PATH ?= /usr/local/cuda-12.9
 NVCC := "$(CUDA_INSTALL_PATH)/bin/nvcc"
-INCLUDES := -I"$(CUDA_INSTALL_PATH)/include" -I$(CUPTI_INCLUDE_PATH) -I../../include -I ../common
+INCLUDES := -I"$(CUDA_INSTALL_PATH)/include" -I../../include -I ../common
 
 TARGET_ARCH ?= $(HOST_ARCH)
 TARGET_OS ?= $(shell uname | tr A-Z a-z)
@@ -78,7 +78,7 @@ endif
 # Gencode arguments
 SMS ?= 50 52 53 60 61 62 70 72 75 80 86 87 89 90
 # Generate SASS code for each SM architecture listed in $(SMS)
-# $(foreach sm,$(SMS),$(eval GENCODE_FLAGS += -gencode arch=compute_$(sm),code=sm_$(sm)))
+$(foreach sm,$(SMS),$(eval GENCODE_FLAGS += -gencode arch=compute_$(sm),code=sm_$(sm)))
 
 sass_source_map: sass_source_map.$(OBJ)
 	$(NVCC) $(NVCC_COMPILER) $(NVCCFLAGS) -o $@ sass_source_map.$(OBJ) $(LIBS) $(INCLUDES)

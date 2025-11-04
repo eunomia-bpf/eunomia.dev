@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../../../assets/icon.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.23">
     
     
       
@@ -9110,8 +9110,8 @@
 <!-- more -->
 
 <h2 id="background">Background</h2>
-<p>As of now (2023-04), Android has not provided good support for dynamic loading of eBPF programs. Whether it is the compiler distribution scheme represented by bcc or the CO-RE scheme based on btf and libbpf, they are largely dependent on the support of the Linux environment and cannot run well on the Android system <sup id="fnref:WeiShu"><a class="footnote-ref" href="#fn:WeiShu">1</a></sup>.</p>
-<p>However, there have been some successful cases of trying eBPF on the Android platform. In addition to the scheme provided by Google, which modifies <code>Android.bp</code> to build and mount eBPF programs with the entire system <sup id="fnref:Google"><a class="footnote-ref" href="#fn:Google">2</a></sup>, some people have proposed the idea of ​​building a Linux environment based on the Android kernel to run eBPF toolchains and have developed related tools.</p>
+<p>As of now (2023-04), Android has not provided good support for dynamic loading of eBPF programs. Whether it is the compiler distribution scheme represented by bcc or the CO-RE scheme based on btf and libbpf, they are largely dependent on the support of the Linux environment and cannot run well on the Android system <sup id="fnref:WeiShu"><a class="footnote-ref" href="#fn:WeiShu">2</a></sup>.</p>
+<p>However, there have been some successful cases of trying eBPF on the Android platform. In addition to the scheme provided by Google, which modifies <code>Android.bp</code> to build and mount eBPF programs with the entire system <sup id="fnref:Google"><a class="footnote-ref" href="#fn:Google">1</a></sup>, some people have proposed the idea of ​​building a Linux environment based on the Android kernel to run eBPF toolchains and have developed related tools.</p>
 <p>Currently existing materials mostly rely on adeb/eadb to build Linux sandboxes based on the Android kernel and test bcc and bpftrace toolchains, but there is less testing work on the CO-RE scheme. There are more reference materials for using the bcc tool on Android, such as:</p>
 <ul>
 <li>SeeFlowerX: <a href="https://blog.seeflower.dev/category/eBPF/">https://blog.seeflower.dev/category/eBPF/</a></li>
@@ -9280,11 +9280,11 @@
 <div class="footnote">
 <hr />
 <ol>
-<li id="fn:WeiShu">
-<p><a href="https://mp.weixin.qq.com/s/mul4n5D3nXThjxuHV7GpMA">https://mp.weixin.qq.com/s/mul4n5D3nXThjxuHV7GpMA</a>&#160;<a class="footnote-backref" href="#fnref:WeiShu" title="Jump back to footnote 1 in the text">&#8617;</a></p>
-</li>
 <li id="fn:Google">
-<p><a href="https://source.android.google.cn/docs/core/architecture/kernel/bpf">https://source.android.google.cn/docs/core/architecture/kernel/bpf</a>&#160;<a class="footnote-backref" href="#fnref:Google" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+<p><a href="https://source.android.google.cn/docs/core/architecture/kernel/bpf">https://source.android.google.cn/docs/core/architecture/kernel/bpf</a>&#160;<a class="footnote-backref" href="#fnref:Google" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:WeiShu">
+<p><a href="https://mp.weixin.qq.com/s/mul4n5D3nXThjxuHV7GpMA">https://mp.weixin.qq.com/s/mul4n5D3nXThjxuHV7GpMA</a>&#160;<a class="footnote-backref" href="#fnref:WeiShu" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 <li id="fn:SeeFlowerX">
 <p><a href="https://blog.seeflower.dev/archives/138/">https://blog.seeflower.dev/archives/138/</a>&#160;<a class="footnote-backref" href="#fnref:SeeFlowerX" title="Jump back to footnote 3 in the text">&#8617;</a></p>

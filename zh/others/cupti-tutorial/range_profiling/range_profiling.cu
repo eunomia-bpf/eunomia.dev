@@ -144,9 +144,9 @@ int main(int argc, char *argv[])
     DRIVER_API_CALL(cuDeviceGetAttribute(&computeCapabilityMinor, CU_DEVICE_ATTRIBUTE_COMPUTE_CAPABILITY_MINOR, cuDevice));
     printf("Compute Capability of Device: %d.%d\n", computeCapabilityMajor, computeCapabilityMinor);
 
-    if (computeCapabilityMajor < 7 || (computeCapabilityMajor == 7 && computeCapabilityMinor < 5))
+    if (computeCapabilityMajor < 7)
     {
-        std::cerr << "Range Profiling is supported only on devices with compute capability 7.5 and above" << std::endl;
+        std::cerr << "Range Profiling is supported only on devices with compute capability 7.0 and above" << std::endl;
         exit(EXIT_FAILURE);
     }
 
@@ -159,7 +159,7 @@ int main(int argc, char *argv[])
 
     // Create a context
     CUcontext cuContext;
-    DRIVER_API_CALL(cuCtxCreate(&cuContext, (CUctxCreateParams*)0, 0, cuDevice));
+    DRIVER_API_CALL(cuCtxCreate(&cuContext, 0, cuDevice));
     RangeProfilerTargetPtr pRangeProfilerTarget = std::make_shared<RangeProfilerTarget>(cuContext, config);
 
     // Get chip name

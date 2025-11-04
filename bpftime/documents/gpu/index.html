@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../../assets/icon.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.23">
     
     
       
@@ -2498,9 +2498,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bpf_map_type_pergputd_array_map-1502" class="md-nav__link">
+  <a href="#bpf_map_type_pergputd_array_map-and-bpf_map_type_gpu_array_map" class="md-nav__link">
     <span class="md-ellipsis">
-      BPF_MAP_TYPE_PERGPUTD_ARRAY_MAP (1502)
+      BPF_MAP_TYPE_PERGPUTD_ARRAY_MAP and BPF_MAP_TYPE_GPU_ARRAY_MAP
     </span>
   </a>
   
@@ -3785,9 +3785,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bpf_map_type_pergputd_array_map-1502" class="md-nav__link">
+  <a href="#bpf_map_type_pergputd_array_map-and-bpf_map_type_gpu_array_map" class="md-nav__link">
     <span class="md-ellipsis">
-      BPF_MAP_TYPE_PERGPUTD_ARRAY_MAP (1502)
+      BPF_MAP_TYPE_PERGPUTD_ARRAY_MAP and BPF_MAP_TYPE_GPU_ARRAY_MAP
     </span>
   </a>
   
@@ -9820,9 +9820,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bpf_map_type_pergputd_array_map-1502" class="md-nav__link">
+  <a href="#bpf_map_type_pergputd_array_map-and-bpf_map_type_gpu_array_map" class="md-nav__link">
     <span class="md-ellipsis">
-      BPF_MAP_TYPE_PERGPUTD_ARRAY_MAP (1502)
+      BPF_MAP_TYPE_PERGPUTD_ARRAY_MAP and BPF_MAP_TYPE_GPU_ARRAY_MAP
     </span>
   </a>
   
@@ -10124,8 +10124,9 @@
 </ul>
 <p>All types support specifying target kernel functions by name (e.g., <code>_Z9vectorAddPKfS0_Pf</code> for mangled C++ names).</p>
 <h2 id="gpu-specific-bpf-maps">GPU-Specific BPF Maps</h2>
-<p>bpftime includes specialized map types optimized for GPU operations:</p>
-<h3 id="bpf_map_type_pergputd_array_map-1502"><code>BPF_MAP_TYPE_PERGPUTD_ARRAY_MAP</code> (1502)</h3>
+<p><strong>bpftime supports ALL maps on CPU, however, directly using CPU eBPF maps will significantly downgrade the performance.</strong></p>
+<p>bpftime includes specialized map types optimized for GPU operations, that does not have much performance impact:</p>
+<h3 id="bpf_map_type_pergputd_array_map-and-bpf_map_type_gpu_array_map"><code>BPF_MAP_TYPE_PERGPUTD_ARRAY_MAP</code> and <code>BPF_MAP_TYPE_GPU_ARRAY_MAP</code></h3>
 <p>GPU-resident array maps with <strong>per-thread storage</strong> for high-performance data collection.</p>
 <p>Key features:
 - Data stored directly in GPU memory (CUDA IPC shared memory)
@@ -10263,7 +10264,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 14, 2025 22:34:01 UTC">October 14, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 4, 2025 05:44:46 UTC">November 4, 2025</span>
   </span>
 
     

@@ -18,7 +18,6 @@
 
 // CUPTI headers
 #include "helper_cupti_activity.h"
-#include "helper_cupti.h"
 
 // Kernels
 __global__ void
@@ -39,10 +38,10 @@ VectorAdd(
 static void
 DoMemoryAllocations()
 {
-    int managedMemory;
-    RUNTIME_API_CALL(cudaDeviceGetAttribute(&managedMemory, cudaDevAttrManagedMemory, 0));
+    cudaDeviceProp deviceProperties;
+    RUNTIME_API_CALL(cudaGetDeviceProperties(&deviceProperties, 0));
 
-    if (!managedMemory)
+    if (!deviceProperties.managedMemory)
     {
         // This samples requires being run on a device that supports Unified Memory.
         printf("Warning: Unified Memory not supported on this device. Waiving sample.\n");
@@ -172,10 +171,10 @@ main(
     // Intialize CUDA.
     DRIVER_API_CALL(cuInit(0));
 
-    char deviceName[DEV_NAME_LEN];
+    char deviceName[256];
     CUdevice device;
     DRIVER_API_CALL(cuDeviceGet(&device, 0));
-    DRIVER_API_CALL(cuDeviceGetName(deviceName, DEV_NAME_LEN, device));
+    DRIVER_API_CALL(cuDeviceGetName(deviceName, 256, device));
     printf("Device Name: %s\n", deviceName);
     RUNTIME_API_CALL(cudaSetDevice(0));
 

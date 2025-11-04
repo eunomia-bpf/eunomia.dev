@@ -236,7 +236,7 @@ MetricCallbackHandler(
                 exit(EXIT_FAILURE);
             }
 
-            pSum = (uint64_t *)calloc(sizeof(uint64_t), numEvents);
+            pSum = (uint64_t *)calloc(numEvents, sizeof(uint64_t));
             // Sum collected of event values from all instances.
             for (k = 0; k < numInstances; k++)
             {

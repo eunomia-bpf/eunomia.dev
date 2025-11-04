@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../../../assets/icon.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.23">
     
     
       
@@ -9007,8 +9007,8 @@
 <!-- more -->
 
 <h1 id="_2">背景</h1>
-<p>截至目前（2023-04），Android 还未对 eBPF 程序的动态加载做出较好的支持，无论是以 bcc 为代表的带编译器分发方案，还是基于 btf 和 libbpf 的 CO-RE 方案，都在较大程度上离不开 Linux 环境的支持，无法在 Android 系统上很好地运行<sup id="fnref:WeiShu"><a class="footnote-ref" href="#fn:WeiShu">1</a></sup>。</p>
-<p>虽然如此，在 Android 平台上尝试 eBPF 也已经有了一些成功案例，除谷歌官方提供的修改 <code>Android.bp</code> 以将 eBPF 程序随整个系统一同构建并挂载的方案<sup id="fnref:Google"><a class="footnote-ref" href="#fn:Google">2</a></sup>，也有人提出基于 Android 内核构建 Linux 环境进而运行 eBPF 工具链的思路，并开发了相关工具。</p>
+<p>截至目前（2023-04），Android 还未对 eBPF 程序的动态加载做出较好的支持，无论是以 bcc 为代表的带编译器分发方案，还是基于 btf 和 libbpf 的 CO-RE 方案，都在较大程度上离不开 Linux 环境的支持，无法在 Android 系统上很好地运行<sup id="fnref:WeiShu"><a class="footnote-ref" href="#fn:WeiShu">2</a></sup>。</p>
+<p>虽然如此，在 Android 平台上尝试 eBPF 也已经有了一些成功案例，除谷歌官方提供的修改 <code>Android.bp</code> 以将 eBPF 程序随整个系统一同构建并挂载的方案<sup id="fnref:Google"><a class="footnote-ref" href="#fn:Google">1</a></sup>，也有人提出基于 Android 内核构建 Linux 环境进而运行 eBPF 工具链的思路，并开发了相关工具。</p>
 <p>目前已有的资料，大多基于 adeb/eadb 在 Android 内核基础上构建 Linux 沙箱，并对 bcc 和 bpftrace 相关工具链进行测试，而对 CO-RE 方案的测试工作较少。在 Android 上使用 bcc 工具目前有较多参考资料，如：</p>
 <ul>
 <li>SeeFlowerX：<a href="https://blog.seeflower.dev/category/eBPF/">https://blog.seeflower.dev/category/eBPF/</a></li>
@@ -9172,11 +9172,11 @@
 <div class="footnote">
 <hr />
 <ol>
-<li id="fn:WeiShu">
-<p><a href="https://mp.weixin.qq.com/s/mul4n5D3nXThjxuHV7GpMA">https://mp.weixin.qq.com/s/mul4n5D3nXThjxuHV7GpMA</a>&#160;<a class="footnote-backref" href="#fnref:WeiShu" title="Jump back to footnote 1 in the text">&#8617;</a></p>
-</li>
 <li id="fn:Google">
-<p><a href="https://source.android.google.cn/docs/core/architecture/kernel/bpf">https://source.android.google.cn/docs/core/architecture/kernel/bpf</a>&#160;<a class="footnote-backref" href="#fnref:Google" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+<p><a href="https://source.android.google.cn/docs/core/architecture/kernel/bpf">https://source.android.google.cn/docs/core/architecture/kernel/bpf</a>&#160;<a class="footnote-backref" href="#fnref:Google" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:WeiShu">
+<p><a href="https://mp.weixin.qq.com/s/mul4n5D3nXThjxuHV7GpMA">https://mp.weixin.qq.com/s/mul4n5D3nXThjxuHV7GpMA</a>&#160;<a class="footnote-backref" href="#fnref:WeiShu" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 <li id="fn:SeeFlowerX">
 <p><a href="https://blog.seeflower.dev/archives/138/">https://blog.seeflower.dev/archives/138/</a>&#160;<a class="footnote-backref" href="#fnref:SeeFlowerX" title="Jump back to footnote 3 in the text">&#8617;</a></p>
