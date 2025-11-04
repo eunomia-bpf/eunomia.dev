@@ -344,7 +344,7 @@ For Windows, you need to build the Microsoft Detours library first:
    ```
 
    ```bash
-   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-13.0/extras/CUPTI/lib64:/usr/local/cuda-13.0/extras/CUPTI/samples/pc_sampling_continuous:/usr/local/cuda-13.0/extras/CUPTI/samples/pc_sampling_utility
+   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-12.9/extras/CUPTI/lib64:/usr/local/cuda-12.9/extras/CUPTI/samples/pc_sampling_continuous:/usr/local/cuda-12.9/extras/CUPTI/samples/pc_sampling_utility
    ```
 
 2. **Use the helper script**:

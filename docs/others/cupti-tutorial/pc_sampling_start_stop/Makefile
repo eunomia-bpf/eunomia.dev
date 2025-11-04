@@ -6,10 +6,9 @@ ifndef OS
  HOST_ARCH := $(shell uname -m)
 endif
 
-CUDA_INSTALL_PATH ?= /usr/local/cuda-13.0
+CUDA_INSTALL_PATH ?= /usr/local/cuda-12.9
 NVCC := "$(CUDA_INSTALL_PATH)/bin/nvcc"
-CUPTI_INSTALL_PATH ?= $(CUDA_INSTALL_PATH)/extras/CUPTI
-INCLUDES := -I"$(CUDA_INSTALL_PATH)/include" -I$(CUPTI_INSTALL_PATH)/include -I$(CUPTI_INSTALL_PATH)/samples/common
+INCLUDES := -I"$(CUDA_INSTALL_PATH)/include" -I../../include -I../common
 
 ifeq ($(OS),Windows_NT)
     LIB_PATH ?= ..\..\lib64
@@ -59,7 +58,7 @@ ifneq ($(TARGET_ARCH), $(HOST_ARCH))
 endif
 
 # Gencode arguments
-SMS ?= 75 80 86 87 89 90 100 103 110 120 121
+SMS ?= 70 72 75 80 86 87 89 90 100 101 120
 # Generate SASS code for each SM architecture listed in $(SMS)
 $(foreach sm,$(SMS),$(eval GENCODE_FLAGS += -gencode arch=compute_$(sm),code=sm_$(sm)))
 

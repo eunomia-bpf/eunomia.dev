@@ -8,7 +8,7 @@ OS   := $(shell uname)
 HOST_ARCH := $(shell uname -m)
 endif
 
-CUDA_INSTALL_PATH ?= /usr/local/cuda-13.0
+CUDA_INSTALL_PATH ?= /usr/local/cuda-12.9
 NVCC := "$(CUDA_INSTALL_PATH)/bin/nvcc"
 
 TARGET_ARCH ?= $(HOST_ARCH)

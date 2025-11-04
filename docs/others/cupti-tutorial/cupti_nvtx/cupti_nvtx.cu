@@ -114,7 +114,7 @@ DoVectorAddition()
     InitializeVector(pHostB, N);
     memset(pHostC, 0, size);
 
-    DRIVER_API_CALL(cuCtxCreate(&context, (CUctxCreateParams*)0, 0, device));
+    DRIVER_API_CALL(cuCtxCreate(&context, 0, device));
     nvtxNameCuContextA(context, "CUDA Context");
 
     // Push range "Allocate device memory" on domain "Vector Addition".

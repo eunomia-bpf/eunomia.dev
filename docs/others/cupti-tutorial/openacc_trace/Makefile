@@ -7,7 +7,7 @@
 # This sample requires PGI compiler version HPC SDK 20.5 or later.
 # Point to your PGI OpenACC installation's include directory.
 # PGI compiler must be in PATH.
-CUDA_INSTALL_PATH ?= /usr/local/cuda-13.0
+CUDA_INSTALL_PATH ?= /usr/local/cuda-12.9
 
 EXTRAS_LIB_PATH := ../../lib64
 LIB_PATH ?= "$(CUDA_INSTALL_PATH)/lib64"
