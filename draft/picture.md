@@ -64,7 +64,7 @@ Per your request, I only add a **minimal** “OUR INSERTION POINT” note and ke
 │  PyTorch / TensorFlow / JAX / Triton / Inference servers (Triton-IS, TorchServe, etc.)                               │
 │  Framework-level sharing: [Salus] vllm, Pie， ktransformer                                                           │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-                                                     │ CUDA/ROCm/NCCL API calls (kernels, graphs, copies, collectives)
+                                                     │ CUDA/SYCL/NCCL API calls (kernels, graphs, copies, collectives)
                                                      ▼
 ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │                                             GPU RUNTIMES & LIBRARIES                                                 │
@@ -143,7 +143,7 @@ prior work:
 
 - **gBPF‑H (host policy plane)**
     
-    Lives in a small **GPU OS** between CUDA/ROCm and the vendor driver. Implements **admission**, **vSlice partitioning**, **MemPool quotas**, **I/O budgets**, **SLA logic**, and **observability governance**. Exposes verified, hot‑swappable policies (classic eBPF model).
+    Lives in a small **GPU OS** between CUDA/SYCL and the vendor driver. Implements **admission**, **vSlice partitioning**, **MemPool quotas**, **I/O budgets**, **SLA logic**, and **observability governance**. Exposes verified, hot‑swappable policies (classic eBPF model).
     
 - **gBPF‑D (device policy plane)**
     
@@ -154,7 +154,7 @@ prior work:
 
 ```c
                                    Applications (PyTorch/TF/JAX, services)
-                                              │   CUDA/ROCm/NCCL API
+                                              │   CUDA/SYCL/NCCL API
                                               ▼
 ┌─────────────────────────────────────────────────────────────────────────────────────────────┐
 │     HOST / CPU DOMAIN — gBPF‑H  (Extensible GPU Control‑Plane inside a small Device OS)     │
@@ -219,16 +219,16 @@ What we are:
 1. An extensible *GPU policy runtime?*
 2. An extensible *GPU OS?*
 
-## Are CUDA/ROCm + driver some kinds of OS?
+## Are CUDA/SYCL + driver some kinds of OS?
 
-- **NVIDIA and AMD don’t call CUDA/ROCm a “library OS.”** They call them *runtimes/toolkits/platforms*.
-- **However**, by the **OS literature’s definition** of a *library operating system* (libOS)—“the OS personality runs in the application’s address space as a library” (Drawbridge), with a minimal kernel beneath (Exokernel)—**CUDA/ROCm *behave like*** a libOS **for the GPU domain**: they implement application‑visible services (contexts, module loading/JIT, virtual memory, streams/priorities, sync) in user space on top of a kernel driver. That’s why the analogy is useful for our positioning. [Microsoft+1](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/asplos2011-drawbridge.pdf?utm_source=chatgpt.com)
+- **NVIDIA and AMD don’t call CUDA/SYCL a “library OS.”** They call them *runtimes/toolkits/platforms*.
+- **However**, by the **OS literature’s definition** of a *library operating system* (libOS)—“the OS personality runs in the application’s address space as a library” (Drawbridge), with a minimal kernel beneath (Exokernel)—**CUDA/SYCL *behave like*** a libOS **for the GPU domain**: they implement application‑visible services (contexts, module loading/JIT, virtual memory, streams/priorities, sync) in user space on top of a kernel driver. That’s why the analogy is useful for our positioning. [Microsoft+1](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/asplos2011-drawbridge.pdf?utm_source=chatgpt.com)
 
-Below I (1) show evidence that CUDA/ROCm provide OS‑like services as *library* code, (2) spell out the key differences from a “classical” libOS, and (3) summarize how different communities actually talk about them.
+Below I (1) show evidence that CUDA/SYCL provide OS‑like services as *library* code, (2) spell out the key differences from a “classical” libOS, and (3) summarize how different communities actually talk about them.
 
 ---
 
-## 1) Evidence that CUDA/ROCm act like a *library OS* for the GPU “micro‑world”
+## 1) Evidence that CUDA/SYCL act like a *library OS* for the GPU “micro‑world”
 
 **A. Process/Context management (naming, protection domain)**
 
@@ -250,7 +250,7 @@ CUDA and HIP expose **stream priorities** and concurrency control—users set pr
 
 The Driver API’s table of contents makes it plain: **device management, stream/event management, execution control, graphs**, interop, and profiling control—all user‑space library services atop the kernel driver. That’s a libOS‑like surface for the GPU. [NVIDIA Docs](https://docs.nvidia.com/cuda/cuda-driver-api/index.html)
 
-**Why this matches the libOS idea:** In exokernel/libOS designs, a **small kernel** securely multiplexes hardware, while **library OSes** implement higher‑level abstractions *in user space*; Drawbridge’s definition is the standard citation. Functionally, CUDA/ROCm implement the **GPU personality**—the app‑visible API and semantics—while the Linux kernel + vendor driver provide protection and low‑level multiplexing.
+**Why this matches the libOS idea:** In exokernel/libOS designs, a **small kernel** securely multiplexes hardware, while **library OSes** implement higher‑level abstractions *in user space*; Drawbridge’s definition is the standard citation. Functionally, CUDA/SYCL implement the **GPU personality**—the app‑visible API and semantics—while the Linux kernel + vendor driver provide protection and low‑level multiplexing.
 
 ---
 
@@ -325,7 +325,7 @@ Execution model where multiple threads execute the same instruction on different
 **Kernel (GPU context)**
 A function that runs on the GPU, not to be confused with OS kernel.
 
-**Stream (CUDA/ROCm)**
+**Stream (CUDA/SYCL)**
 A sequence of operations that execute in order on the GPU.
 
 **Graph (CUDA)**

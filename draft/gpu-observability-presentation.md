@@ -47,7 +47,7 @@ These behaviors remain largely opaque to traditional observability tools.
 # Existing Tools: Two Categories
 
 1. CPU-GPU Boundary Tracing
-- Intercepts CUDA/ROCm library calls (LD_PRELOAD) or kernel drivers
+- Intercepts CUDA/SYCL library calls (LD_PRELOAD) or kernel drivers
 - Captures kernel launches, memory transfers, API timing
 - Limitation: Treats GPU as a black box—no visibility into kernel execution
 
@@ -301,7 +301,7 @@ Defines comprehensive GPU-side attach points mirroring CPU-side kprobes/uprobes 
 # GPU Attach Points
 
 Developers can instrument:
-- CUDA/ROCm device function entry and exit points
+- CUDA/SYCL device function entry and exit points
 - Thread block lifecycle events (begin/end)
 - Synchronization primitives (barriers, atomics)
 - Memory operations (loads, stores, transfers)
@@ -357,7 +357,7 @@ Production-ready overhead characteristics maintained
 1. Unified interface: Across userspace, kernel, multiple CPU/GPU contexts, vendor-neutral
 2. Dynamic instrumentation: Runtime attachment without source modification or recompilation
 3. Safe execution: Within GPU hardware and SIMT model constraints
-4. Easy deployment: Built on existing CUDA/ROCm/OpenGL runtimes, no custom drivers
+4. Easy deployment: Built on existing CUDA/SYCL/OpenGL runtimes, no custom drivers
 
 ---
 
@@ -365,7 +365,7 @@ Production-ready overhead characteristics maintained
 
 Key components:
 
-1. CUDA Runtime Hooking: Using LD_PRELOAD, intercepts calls to CUDA/ROCm runtime
+1. CUDA Runtime Hooking: Using LD_PRELOAD, intercepts calls to CUDA/SYCL runtime
 2. eBPF to PTX/SPIR-V JIT: Compiles eBPF bytecode into target GPU's instruction set
 3. Binary Instrumentation: Injects compiled eBPF code into target kernel's binary at runtime
 
