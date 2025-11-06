@@ -148,6 +148,8 @@ This architecture enables not only collecting fine-grained telemetry (per-warp t
 
 The architecture is designed to achieve four core goals: (1) provide a unified eBPF-based interface that works seamlessly across userspace, kernel, multiple CPU and GPU contexts from different vendors, (2) enable dynamic, runtime instrumentation without requiring source code modification or recompilation, and (3) maintain safe and efficient execution within the constraints of GPU hardware and SIMT execution models. (4) Less dependency and easy to deploy, built on top of existing CUDA/SYCL/OpenGL runtimes without requiring custom kernel drivers, firmware modifications, or heavy-weight runtimes like record-and-replay systems.
 
+But talking about architecture is one thing; seeing it in action is another. Just how fast is it? We'll dive deep into the performance benchmarks in our next blog post. Stay tuned!
+
 ## Architecture
 
 ### CUDA Attachment Pipeline
