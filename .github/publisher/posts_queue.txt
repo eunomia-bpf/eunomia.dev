@@ -1,4 +1,3 @@
-{"path": "docs/tutorials/46-xdp-test/README.md", "tags": ["eBPF", "XDP", "network"]}
 {"path": "docs/tutorials/45-scx-nest/README.md", "tags": ["eBPF", "scheduler", "kernel"]}
 {"path": "docs/tutorials/44-scx-simple/README.md", "tags": ["eBPF", "scheduler", "kernel"]}
 {"path": "docs/tutorials/43-kfuncs/README.md", "tags": ["eBPF", "kernel", "kfunc"]}
