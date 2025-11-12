@@ -69,7 +69,7 @@ This comprehensive analysis examines the complete driver stack in unprecedented 
 
 ### Architecture Highlights
 
-The driver architecture exhibits several distinguishing characteristics that define its design philosophy and capabilities. The **hybrid design** employs an open-source kernel interface layer that wraps a proprietary Resource Manager (RM) core, strategically balancing transparency in OS integration with protection of hardware-specific intellectual property. This architecture enables **multi-generation support** where a single driver binary seamlessly handles nine distinct GPU architectures through an extensive Hardware Abstraction Layer (HAL) that dispatches operations to generation-specific implementations at runtime.
+The driver architecture exhibits several distinguishing characteristics that define its design philosophy and capabilities. The **modular design** separates OS-specific kernel interface code from OS-agnostic Resource Manager (RM) functionality, enabling the entire driver to be built from open source while maintaining a single codebase across multiple operating systems. This architecture enables **multi-generation support** where a single driver binary seamlessly handles nine distinct GPU architectures through an extensive Hardware Abstraction Layer (HAL) that dispatches operations to generation-specific implementations at runtime.
 
 The system comprises **five kernel modules** that partition functionality into specialized components:
    - `nvidia.ko` - Core GPU driver (38,762 LOC interface)
@@ -124,16 +124,16 @@ The architecture exhibits a clear philosophy: separate concerns through well-def
 │  │  └────────────────────────────────────────────────────────┘     │   │
 │  │                           ↕                                     │   │
 │  │  ┌────────────────────────────────────────────────────────┐     │   │
-│  │  │  nv-kernel.o_binary (Proprietary Core)                 │     │   │
+│  │  │  nv-kernel.o_binary (OS-Agnostic Core)                 │     │   │
 │  │  │  • Resource Manager (RM)  • GPU Initialization         │     │   │
 │  │  │  • Hardware Abstraction   • Scheduling Algorithms      │     │   │
+│  │  │  Pre-compiled from src/ for faster installation        │     │   │
 │  │  └────────────────────────────────────────────────────────┘     │   │
 │  └─────────────────────────────────────────────────────────────────┘   │
 │                                                                         │
 │  ┌──────────────────────────────────────────────────────────────────┐   │
 │  │                    nvidia-uvm.ko                                 │   │
 │  │              Unified Virtual Memory (103,318 LOC)                │   │
-│  │              **Fully Open Source** - No binary blobs             │   │
 │  │  • Virtual address space management  • Page fault handling       │   │
 │  │  • CPU ↔ GPU migration              • Multi-GPU coherence        │   │
 │  │  • HMM integration                  • ATS/SVA support            │   │
@@ -270,7 +270,6 @@ We'll proceed from the outside in: starting with the kernel interface layer that
 
 **Key Statistics:**
 - 127 C files (~103,318 LOC)
-- **Fully open source** - no proprietary components
 - Largest and most complex module
 
 **Architecture:**
@@ -341,7 +340,7 @@ The UVM fault handling subsystem implements sophisticated batched processing str
 
 **Physical Memory Allocator** (`uvm_pmm_gpu.c` - 37,758 lines)
 
-The Physical Memory Allocator (PMA) implements a chunk-based allocation strategy operating on root chunks sized at either 2MB or 512MB, depending on GPU generation and memory configuration. This allocator maintains strict separation between user-accessible and kernel-reserved memory regions, preventing user code from corrupting driver data structures. When GPU memory becomes oversubscribed (a common scenario in virtualized environments or when running multiple workloads), the eviction subsystem selectively migrates less-frequently-used pages back to system memory, maintaining the illusion of abundant GPU memory. A critical component is the reverse map tracking system, which maintains bidirectional mappings between GPU physical addresses and CPU virtual addresses, enabling efficient page migration and coherency operations.
+The Physical Memory Allocator (PMA) manages GPU memory allocation with support for chunk-based allocation, eviction policies, and reverse mapping for efficient page migration (detailed in Section 4.2).
 
 **Access Counters** (Volta+) - Hardware-Assisted Migration Intelligence
 
@@ -381,48 +380,7 @@ A specialized single-file module (22,891 lines) implementing GPU Direct RDMA sup
 
 **Configuration Testing (conftest.sh):**
 
-The configuration testing infrastructure centers on a massive 195,621-byte shell script that executes over 300 distinct kernel feature tests during every build, systematically probing the kernel's capabilities and API surface. This script automatically generates compatibility headers that abstract kernel API differences accumulated across more than six years of kernel development, allowing a single driver codebase to adapt to API changes without requiring manual per-kernel maintenance. The testing methodology spans four fundamental categories: function tests verify that specific kernel functions exist and are exported for module use, type tests check for structure member existence and layout, symbol tests confirm the availability of constants and enumerations, and generic tests compile small test programs to validate feature availability and behavioral semantics.
-
-**conftest.sh - The Compatibility Engine:**
-
-This massive 195KB shell script represents the cornerstone of the driver's remarkable cross-kernel compatibility, enabling a single codebase to support Linux kernels from 4.15 through the latest releases—spanning over six years of kernel development with its attendant API evolution and breakage. The script's sophistication lies in its comprehensive testing methodology across four distinct categories.
-
-**Test Categories:**
-1. **Function tests** - Tests if kernel exports specific functions
-   - Example: `drm_atomic_helper_check_plane_state`, `pci_enable_atomic_ops_to_root`
-2. **Type tests** - Checks structure member existence
-   - Example: `drm_crtc_state→vrr_enabled`, `pci_dev→sriov`
-3. **Symbol tests** - Verifies symbol availability
-   - Example: `IOMMU_DEV_FEAT_AUX`, `DMA_ATTR_SKIP_CPU_SYNC`
-4. **Generic tests** - Compiles test programs to check feature availability
-   - Example: SELinux support, timer API changes
-
-**Output:** `conftest.h` with ~300 `#define NV_*_PRESENT` macros
-
-**Example Generated Code:**
-```c
-#ifdef NV_DRM_ATOMIC_HELPER_CHECK_PLANE_STATE_PRESENT
-  drm_atomic_helper_check_plane_state(new_state, crtc_state, ...)
-#else
-  // Fallback implementation for older kernels
-#endif
-```
-
-**Key Tested Subsystems:**
-- DRM/KMS API (100+ tests for display)
-- MM API (30+ tests for memory management)
-- PCI/IOMMU (20+ tests)
-- Timer API (10+ tests)
-- SELinux/security (5+ tests)
-- ACPI (5+ tests)
-
-**Compilation Flags:**
-```
--D__KERNEL__ -DMODULE -DNVRM
--DNV_KERNEL_INTERFACE_LAYER
--DNV_VERSION_STRING="580.95.05"
--Wall -Wno-cast-qual -fno-strict-aliasing
-```
+The build system centers on a comprehensive configuration testing infrastructure that ensures cross-kernel compatibility through automated feature detection. The 195KB conftest.sh script executes 300+ kernel feature tests at build time, generating compatibility headers that enable a single driver to support kernels 4.15+. Detailed build system architecture is covered in Section 5.2.
 
 ---
 
@@ -750,7 +708,7 @@ The Memory System (`KernelMemorySystem`) layer concerns itself with the physical
 
 The Graphics MMU (`GMMU`) implements the virtual-to-physical address translation that enables process isolation and memory overcommitment. NVIDIA GPUs employ a multi-level page table structure similar to x86_64 CPUs, with four levels of indirection supporting virtual address spaces up to 64 bits in size. The page table walker hardware reads these structures from GPU memory during address translation, with a Translation Lookaside Buffer (TLB) caching recent translations for performance. Supporting multiple page sizes (4KB for fine-grained mappings, 64KB for balanced performance, 2MB for large buffers, and even 512MB for massive allocations) proves critical for TLB efficiency—a large CUDA kernel working on a 4GB buffer can be mapped with just eight 512MB entries, consuming only eight TLB slots instead of millions. The GMMU implementation carefully batches TLB invalidations: rather than flushing after each page table modification, the driver accumulates changes and performs a single targeted invalidation, reducing the performance impact of virtual memory operations by orders of magnitude.
 
-Finally, the Physical Memory Allocator (`PMA`) operates at the lowest level, managing the raw frame buffer as a collection of allocable pages. The PMA must handle numerous constraints: certain memory regions may be blacklisted due to ECC errors discovered during POST; NUMA considerations on Grace-Hopper systems require preferential allocation from memory near the accessing processor; carveout regions reserve memory for firmware or display scanout; and scrubbing on free ensures that deallocated memory contains no remnants of the previous owner's data (a critical security property for cloud deployments). The PMA also implements eviction policies: when GPU memory becomes exhausted, the system must decide which allocations to migrate to system memory. Access tracking hardware provides hints about which pages are "cold" (rarely accessed), enabling intelligent eviction decisions that minimize performance impact.
+Finally, the Physical Memory Allocator (`PMA`) operates at the lowest level, managing the raw frame buffer. It handles memory blacklisting, NUMA-aware allocation, carveout regions, and security scrubbing (see Section 3.1.2 for detailed PMA architecture).
 
 **3. GSP (GPU System Processor) Architecture**
 
@@ -1320,7 +1278,7 @@ Traditional GPU memory allocation follows an explicit management model inherited
 
 UVM's managed memory inverts this model, implementing a demand-paging approach where memory appears unified across CPU and GPU address spaces. When an application calls `cudaMallocManaged()`, the UVM driver establishes a virtual address range but allocates no physical backing initially—the allocation exists purely in the virtual address space, with no actual memory consumption. Only when the CPU or GPU first accesses a page within this range does the system allocate physical memory, and critically, the allocation occurs on the processor performing the access. If the CPU touches the page first, system memory is allocated and the page table is updated to map the virtual address to this physical page. If the GPU subsequently accesses the same page, the UVM fault handler detects that the data resides in system memory, migrates the page to GPU memory via a Copy Engine transfer, updates both CPU and GPU page tables to reflect the new physical location, and replays the GPU's memory access so it completes successfully. This migration proves entirely transparent to the application—the virtual address remains unchanged, but the physical backing silently moves to optimize performance.
 
-The sophistication of UVM's fault handling becomes apparent when considering the optimizations required for acceptable performance. Naively servicing faults one at a time would impose catastrophic overhead, as GPU workloads routinely access millions of pages. UVM therefore implements batched fault servicing: when the GPU generates faults, up to 32 faults are collected before servicing begins, enabling the handler to analyze access patterns, identify sequential accesses that suggest streaming behavior, and make intelligent prefetching decisions. The thrashing detection mechanism identifies pathological scenarios where a page ping-pongs between CPU and GPU repeatedly, and responds by establishing duplicate mappings that allow both processors to access the page concurrently, eliminating migration overhead at the cost of some memory duplication. Hardware access counters on Volta and later GPUs enable proactive migration: rather than waiting for faults, the system can migrate pages to the GPU before the fault occurs, based on hardware-provided hints about which pages are being heavily accessed.
+UVM's fault handling implements sophisticated optimizations including batched processing, thrashing detection, and hardware-assisted migration (detailed in Section 3.1.2).
 
 ### 4.3 Display Output Flow
 
@@ -1585,23 +1543,23 @@ conftest.sh runs
 Kbuild compiles:
     ├── nvidia.ko:
     │   ├── kernel-open/nvidia/*.c (interface layer)
-    │   ├── Link: nv-kernel.o_binary (proprietary)
+    │   ├── Link: nv-kernel.o_binary (pre-compiled from src/)
     │   └── src/common/* (protocol libraries)
     │
     ├── nvidia-uvm.ko:
-    │   └── kernel-open/nvidia-uvm/*.c (fully open)
+    │   └── kernel-open/nvidia-uvm/*.c
     │
     ├── nvidia-drm.ko:
     │   ├── kernel-open/nvidia-drm/*.c
-    │   └── Link: nvidia-drm-kernel.o_binary (proprietary)
+    │   └── Link: nvidia-drm-kernel.o_binary (pre-compiled)
     │
     ├── nvidia-modeset.ko:
     │   ├── kernel-open/nvidia-modeset/*.c
     │   ├── src/nvidia-modeset/src/*.c
-    │   └── Link: nvidia-modeset-kernel.o_binary (proprietary)
+    │   └── Link: nvidia-modeset-kernel.o_binary (pre-compiled)
     │
     └── nvidia-peermem.ko:
-        └── kernel-open/nvidia-peermem/*.c (fully open)
+        └── kernel-open/nvidia-peermem/*.c
 ```
 
 **Phase 3: Linking and Module Creation**
@@ -1912,11 +1870,9 @@ These findings matter because they represent transferable knowledge: patterns an
 
 ### 7.1 Architectural Strengths
 
-**1. Hybrid Open/Proprietary Model**
+**1. Fully Open-Source Architecture with OS Abstraction**
 
-The driver achieves a careful balance between openness and intellectual property protection through its hybrid architecture. The open-source interface layer encompasses all OS interaction code—over 200,000 lines covering PCI device management, memory mapping, interrupt handling, and kernel API integration—enabling the community to audit, improve, and adapt the driver to new kernel versions. Meanwhile, the proprietary Resource Manager core retains GPU initialization sequences, scheduling algorithms, and hardware-specific optimizations that represent competitive advantages developed over decades of engineering investment. This division delivers multiple benefits: the sophisticated conftest.sh system can rapidly adapt the interface layer to new kernel versions without requiring proprietary code changes; the open-source community can audit OS integration for security and correctness without accessing trade secrets; and NVIDIA maintains protection for hardware-specific optimizations that differentiate their products in the marketplace.
-
-**UVM stands out as 103,318 LOC of fully open-source code**, the largest and most complex component without binary dependencies. This demonstrates NVIDIA's commitment to opening core GPU features.
+The driver demonstrates a sophisticated architecture that separates OS-specific code from OS-agnostic functionality, with all components available as open source. The kernel interface layer (over 200,000 lines in `kernel-open/`) handles OS integration—PCI device management, memory mapping, interrupt handling, and kernel API integration—enabling the community to audit, improve, and adapt the driver to new kernel versions. The OS-agnostic core (in `src/`) contains GPU initialization, scheduling, and hardware-specific implementations that work across multiple operating systems. This architecture delivers multiple benefits: the sophisticated conftest.sh system enables rapid adaptation to new kernel versions; the entire driver stack can be built from source for complete auditability; and NVIDIA maintains a single codebase across Linux, Windows, FreeBSD, and VMware ESXi. While pre-compiled binaries (`o_binary` files) are provided in installation packages for convenience, these are compiled from the same open-source code available in the repository, allowing users to verify and build everything from source.
 
 **2. Hardware Abstraction Layer (HAL) Excellence**
 
@@ -1960,7 +1916,7 @@ Hardware Page Tables
 
 **5. GSP-RM Offload Architecture**
 
-The modern approach introduced with Turing offloads Resource Manager execution to the GPU itself, delivering transformative benefits across multiple dimensions. Security improves through a smaller kernel Trusted Computing Base (TCB)—the CPU driver becomes a thin RPC layer that cannot directly access GPU internals, making exploitation significantly more difficult and enabling confidential computing scenarios where even a compromised host OS cannot extract secrets from GPU memory. Consistency across operating systems improves dramatically as the same GSP-RM firmware code runs on Linux, Windows, FreeBSD, and VMware ESXi, with only the thin RPC wrapper requiring platform-specific implementation, reducing the surface area for platform-specific bugs. Power efficiency benefits from the GPU's ability to self-manage power states without CPU involvement, as the GPU can enter and exit low-power modes autonomously based on workload demands, avoiding the power cost of waking the CPU package. Finally, the architecture simplifies the kernel driver dramatically, as complex resource management logic moves into the GPU firmware, leaving the kernel driver to focus solely on interfacing with OS services and marshaling RPC messages.
+The modern approach introduced with Turing offloads Resource Manager execution to the GPU itself, delivering benefits in security, power efficiency, OS consistency, and driver simplification (detailed rationale in Section 7.3).
 
 **Message Queue (msgq) represents a masterpiece of lock-free design** that enables efficient communication between CPU driver and GSP firmware without synchronization primitives. Zero-copy buffer access allows messages to be constructed directly in shared memory regions visible to both processors, eliminating expensive copy operations that would multiply PCIe traffic. Atomic read/write pointers managed through compare-and-swap operations coordinate producer and consumer without locks, providing wait-free progress guarantees that prevent one side from blocking the other. Cache-coherent operations ensure that updates to the queue structure and message contents become visible across the CPU-GPU coherency domain with appropriate memory barriers, maintaining consistency without requiring explicit cache flushing. The entire design proves suitable for real-time use cases like display timing control, where deterministic latency bounds are essential and priority inversion from lock contention would be unacceptable.
 
@@ -1988,11 +1944,11 @@ Supporting nine GPU architectures simultaneously imposes substantial costs acros
 
 However, these costs enable a critical trade-off: a single driver binary supports GPUs from Maxwell through Blackwell, dramatically simplifying deployment for end users and system administrators who would otherwise need to track which driver version matches which GPU generation, making the complexity investment worthwhile despite its challenges.
 
-**3. Binary Dependencies**
+**3. Pre-compiled OS-Agnostic Components**
 
-Three substantial binary blobs limit community contribution possibilities and create trust concerns for users who prefer fully auditable open-source software. The `nv-kernel.o_binary` file, approaching 50MB in size, contains the core Resource Manager implementing GPU initialization, scheduling, and power management. The `nvidia-modeset-kernel.o_binary` encapsulates display mode-setting algorithms and hardware programming sequences, while `nvidia-drm-kernel.o_binary` provides DRM integration logic. These closed components prevent community developers from fixing bugs or adding features in these subsystems, concentrating development power with NVIDIA engineers.
+The driver includes pre-compiled binary components (`nv-kernel.o_binary`, `nvidia-modeset-kernel.o_binary`) that are often mistaken for proprietary blobs. However, these are actually pre-compiled versions of the open-source OS-agnostic code from the `src/` directory, provided to reduce compilation time during installation. As stated in the NVIDIA repository: "it is large and time-consuming to compile, so pre-built versions are provided so that the user does not have to compile it during every driver installation." Users can compile these components from source using the open-gpu-kernel-modules repository, generating the `o_binary` files during the build process.
 
-However, significant portions of the driver remain fully open: nvidia-uvm.ko represents 103,318 lines of sophisticated memory management code without any binary dependencies, nvidia-peermem.ko provides RDMA support as fully open source, and all kernel interface layers expose their implementation for community review. This partial openness enables security auditing of OS integration code while protecting hardware-specific intellectual property. NVIDIA's trajectory suggests gradual opening of additional components—UVM's full open-sourcing establishes precedent for releasing production-quality GPU subsystems as open source when strategic considerations allow.
+While NVIDIA does use proprietary components in some product lines (such as vGPU), the consumer and datacenter GPU drivers available through open-gpu-kernel-modules are fully buildable from source. This means the entire driver stack—including nvidia.ko, nvidia-modeset.ko, nvidia-drm.ko, nvidia-uvm.ko, and nvidia-peermem.ko—can be compiled and audited by the community. The availability of full source code enables security auditing, custom modifications, and community contributions across the entire driver stack, not just the kernel interface layers.
 
 **4. Build System Complexity**
 
@@ -2008,13 +1964,15 @@ Despite generally well-commented code, several documentation gaps complicate dri
 
 ### 7.3 Notable Design Decisions
 
-**1. Why Hybrid Open/Proprietary?**
+**1. Why Pre-compiled OS-Agnostic Components?**
 
-**Decision:** Open interface layer + proprietary core
+**Decision:** Provide pre-compiled binaries (`o_binary` files) from open-source code
 
-**Rationale:** Multiple factors influenced the hybrid architecture decision, each reflecting practical engineering and business considerations. The Linux kernel's frequent API changes demand an adaptable interface layer that can be updated quickly without disturbing core functionality—keeping this layer open-source enables rapid community-assisted adaptation to new kernel versions. Hardware initialization encompasses decades of accumulated GPU-specific tuning that represents substantial engineering investment, from subtle timing parameters that ensure stability across manufacturing variations to complex power sequencing that prevents hardware damage. Competitive advantages in scheduling algorithms and power management differentiate NVIDIA products from competitors, providing measurable performance and efficiency improvements that justify keeping these implementations proprietary. Finally, security concerns arise from side-channel attack mitigations embedded in some algorithms, where disclosing implementation details could enable attackers to circumvent protections.
+**Rationale:** The driver architecture separates OS-specific interface code (in `kernel-open/`) from OS-agnostic core functionality (in `src/`). The OS-agnostic portion is large and time-consuming to compile—approaching 50MB of compiled code. To improve the installation experience, NVIDIA provides pre-compiled versions of these components in their .run installation packages, significantly reducing build time and complexity for end users.
 
-The alternative of full open-sourcing (as the nouveau project attempts) would require documenting all hardware programming sequences in detail, effectively providing competitors with decades of accumulated GPU engineering knowledge and eliminating the competitive advantages that justify NVIDIA's substantial R&D investments.
+Users can verify this is not proprietary code by building the entire driver from source using the open-gpu-kernel-modules repository, which compiles the same `src/` code and generates identical `o_binary` files. This architecture enables NVIDIA to maintain a single codebase across operating systems (Linux, Windows, FreeBSD, VMware ESXi) while allowing the open-source community to audit, modify, and contribute to the entire driver stack.
+
+Note that some NVIDIA product lines (such as vGPU) still use proprietary components, but the consumer and datacenter GPU drivers available through open-gpu-kernel-modules are fully buildable from source.
 
 **2. Why UVM Fully Open?**
 
@@ -2241,7 +2199,7 @@ open-gpu-kernel-modules/
 
 **Key Terms:**
 
-- **RM (Resource Manager):** Proprietary GPU management core
+- **RM (Resource Manager):** OS-agnostic GPU management core (open source in src/)
 - **GSP (GPU System Processor):** RISC-V processor on GPU running GSP-RM
 - **UVM (Unified Virtual Memory):** System for CPU-GPU unified addressing
 - **HAL (Hardware Abstraction Layer):** Multi-generation GPU support framework
@@ -2271,62 +2229,13 @@ open-gpu-kernel-modules/
 
 ---
 
-## Enhanced Implementation Details
-
-This master document has been augmented with critical implementation details extracted from the component-specific analysis files:
-
-**nvidia.ko Core Implementation:**
-- Two-stage interrupt handling: `nvidia_isr()` (top half) → `nvidia_isr_kthread()` (bottom half)
-- SPDM cryptographic attestation: 15 files implementing RSA/ECDSA/AES-GCM for Confidential Computing
-- Tegra SoC deep integration: BPMP IPC, Host1x, GPIO, DSI panel parsing (32,501 lines)
-- NVSwitch fabric management: 61,971 lines managing 200-port non-blocking switches
-- Power management: Full D0/D3hot/D3cold state transitions with context save/restore
-
-**nvidia-uvm.ko Advanced Features:**
-
-The Unified Virtual Memory subsystem demonstrates remarkable sophistication through its batched fault processing architecture, which services up to 32 GPU page faults in a single operation, amortizing expensive lock acquisition and page table manipulation costs across multiple requests. The Physical Memory Allocator (PMA) operates on large root chunks sized at 2MB or 512MB granularity depending on GPU generation, reducing metadata overhead while providing efficient allocation for workloads with diverse memory requirements. Starting with the Volta architecture, hardware access counter support provides migration hints by tracking which memory regions experience heavy GPU access, enabling proactive placement decisions that prevent faults rather than merely reacting to them. The multi-GPU coherence machinery automatically establishes peer-to-peer mappings between GPUs while incorporating NVLink topology awareness to preferentially place data on GPUs with high-bandwidth interconnect paths. A carefully designed 5-level lock hierarchy spanning from global state through VA space, GPU instance, VA block, down to individual memory chunks prevents deadlocks while enabling high concurrency across the system's numerous parallel operations.
-
-**conftest.sh Build System:**
-- 300+ kernel compatibility tests generating conditional compilation macros
-- Categories: 100+ DRM/KMS, 30+ MM, 20+ PCI/IOMMU, 10+ timer, 5+ security tests
-- Enables single codebase for kernels 4.15+ (covering 6+ years of API changes)
-- Generates `conftest.h` with `NV_*_PRESENT` defines for feature detection
-
-**SDK Headers (sdk/nvidia/inc/):**
-- 700+ headers defining complete GPU driver API contract
-- 100+ allocation classes (e.g., `NV01_MEMORY_LOCAL_USER`, `NVA06F_GPFIFO`)
-- 400+ control commands (e.g., `NV2080_CTRL_CMD_GPU_GET_INFO`)
-- Core headers: `nvos.h` (IOCTL interface), `nvstatus.h` (1000+ error codes)
-
-**NVSwitch Integration:**
-- Manages high-radix fabric switches (200 ports, non-blocking)
-- InfoROM configuration storage, Falcon microcontrollers for link management
-- CCI (Chip-to-Chip Interface) for optical/copper cable management
-- Enables massive GPU clusters: DGX-B200 with 144 GPUs via 72 NVSwitches
-
-**EVO Display Engine Details:**
-- Push buffer architecture: DMA command buffers with (address, value) method encoding
-- GOB tiling: 64 bytes × 8 rows (512B) blocks for optimal memory bandwidth
-- 5 channel types: Core, Base, Overlay, Window, Cursor
-- Atomic UPDATE method for tear-free flipping at VBLANK
-- Surface constraints: 4KB base address alignment, 1KB offset alignment
-
-**Performance-Critical Paths:**
-- Zero-copy doorbell writes (USERD) bypassing kernel in steady-state
-- Hardware page table walks (GMMU) with TLB caching
-- Large page support (2MB pages) reducing TLB miss rates
-- Batched TLB invalidations and page table updates
-- Lock-free UVM fault handling paths
-
----
-
 ## Summary
 
 The NVIDIA Open GPU Kernel Modules represent **over 935,000 lines of sophisticated driver code** supporting nine GPU architectures (Maxwell through Blackwell) through a carefully layered architecture:
 
 **Five Kernel Modules:**
 1. **nvidia.ko** - Core GPU driver with hybrid open/proprietary design
-2. **nvidia-uvm.ko** - 103,318 LOC of **fully open-source** unified memory management
+2. **nvidia-uvm.ko** - Unified memory management (103,318 LOC)
 3. **nvidia-drm.ko** - DRM/KMS integration for modern Linux graphics
 4. **nvidia-modeset.ko** - Display mode-setting and output management
 5. **nvidia-peermem.ko** - GPU Direct RDMA for HPC workloads
