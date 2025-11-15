@@ -2435,6 +2435,256 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#detailed-troubleshooting-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detailed Troubleshooting Guide
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Detailed Troubleshooting Guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#issue-1-missing-btf-in-kernel-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue 1: Missing BTF in Kernel Module
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Issue 1: Missing BTF in Kernel Module">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-extract-vmlinux-with-btf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Extract vmlinux with BTF
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-upgrade-pahole-if-needed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Upgrade pahole (if needed)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-rebuild-the-module-with-btf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Rebuild the module with BTF
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-2-kernel-panic-on-module-load" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue 2: Kernel Panic on Module Load
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-3-bpf-program-load-failure-invalid-helper" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue 3: BPF Program Load Failure - Invalid Helper
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification Checklist
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Takeaways
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kernel-source-code-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kernel Source Code Analysis
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Kernel Source Code Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#root-cause-of-kernel-panic-confirmed-from-kernel-618-rc4-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Root Cause of Kernel Panic (Confirmed from Kernel 6.18-rc4 Source)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Root Cause of Kernel Panic (Confirmed from Kernel 6.18-rc4 Source)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-missing-null-check-for-st_ops-init-callback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Missing NULL check for st_ops-&gt;init callback
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-missing-null-check-for-st_ops-init_member-callback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Missing NULL check for st_ops-&gt;init_member callback
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-missing-null-check-for-st_ops-verifier_ops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Missing NULL check for st_ops-&gt;verifier_ops
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-these-callbacks-are-mandatory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why These Callbacks Are Mandatory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is-this-fixed-in-current-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Is This Fixed in Current Kernel?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommendation-for-kernel-upstream" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommendation for Kernel Upstream
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional Resources
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contributing
+      
+    </span>
+  </a>
+  
 </li>
       
     </ul>
@@ -10984,6 +11234,256 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#detailed-troubleshooting-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detailed Troubleshooting Guide
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Detailed Troubleshooting Guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#issue-1-missing-btf-in-kernel-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue 1: Missing BTF in Kernel Module
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Issue 1: Missing BTF in Kernel Module">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-extract-vmlinux-with-btf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Extract vmlinux with BTF
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-upgrade-pahole-if-needed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Upgrade pahole (if needed)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-rebuild-the-module-with-btf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Rebuild the module with BTF
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-2-kernel-panic-on-module-load" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue 2: Kernel Panic on Module Load
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-3-bpf-program-load-failure-invalid-helper" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue 3: BPF Program Load Failure - Invalid Helper
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification Checklist
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Takeaways
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kernel-source-code-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kernel Source Code Analysis
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Kernel Source Code Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#root-cause-of-kernel-panic-confirmed-from-kernel-618-rc4-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Root Cause of Kernel Panic (Confirmed from Kernel 6.18-rc4 Source)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Root Cause of Kernel Panic (Confirmed from Kernel 6.18-rc4 Source)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-missing-null-check-for-st_ops-init-callback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Missing NULL check for st_ops-&gt;init callback
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-missing-null-check-for-st_ops-init_member-callback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Missing NULL check for st_ops-&gt;init_member callback
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-missing-null-check-for-st_ops-verifier_ops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Missing NULL check for st_ops-&gt;verifier_ops
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-these-callbacks-are-mandatory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why These Callbacks Are Mandatory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is-this-fixed-in-current-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Is This Fixed in Current Kernel?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommendation-for-kernel-upstream" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommendation for Kernel Upstream
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional Resources
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contributing
+      
+    </span>
+  </a>
+  
 </li>
       
     </ul>
@@ -11057,9 +11557,24 @@
 <a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>test_3() called with buffer
 </code></pre></div></p>
 <h3 id="6-clean-up">6. Clean up:</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>sudo<span class="w"> </span>rmmod<span class="w"> </span>hello
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>make<span class="w"> </span>clean
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># First, stop the BPF program gracefully (Ctrl-C if running in foreground)</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="c1"># This ensures the BPF link is properly destroyed</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># Then unload the kernel module</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>sudo<span class="w"> </span>rmmod<span class="w"> </span>hello
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="c1"># If you get &quot;Module hello is in use&quot;, there may still be a BPF struct_ops attached</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="c1"># This can happen if the userspace process was killed (-9) instead of stopped gracefully</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="c1"># Solutions:</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="c1">#   1. Wait ~30 seconds for kernel to garbage collect the BPF link</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="c1">#   2. Force unload: sudo rmmod -f hello (may be unstable)</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="c1">#   3. Reboot the system</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="c1"># Clean build artifacts</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>make<span class="w"> </span>clean
 </code></pre></div>
+<p><strong>Note on Module Unloading:</strong>
+The kernel module maintains a reference count while BPF struct_ops programs are attached. When you stop the userspace loader program gracefully (Ctrl-C), it calls <code>bpf_link__destroy()</code> which properly detaches the struct_ops and decrements the module reference count. If the process is killed abruptly (kill -9), the kernel should eventually garbage collect the BPF link, but this may take some time.</p>
 <h2 id="how-it-works">How It Works</h2>
 <ol>
 <li>The kernel module registers a custom struct_ops type <code>bpf_testmod_ops</code></li>
@@ -11069,11 +11584,286 @@
 <li>Each write triggers all registered callbacks, demonstrating BPF struct_ops in action</li>
 </ol>
 <h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="common-issues">Common Issues</h3>
 <ul>
 <li>If you get "Failed to attach struct_ops", make sure the kernel module is loaded</li>
 <li>Check <code>dmesg</code> for any error messages from the kernel module or BPF verifier</li>
 <li>Ensure your kernel has CONFIG_BPF_SYSCALL=y and supports struct_ops</li>
 </ul>
+<h2 id="detailed-troubleshooting-guide">Detailed Troubleshooting Guide</h2>
+<p>This section documents the complete process of resolving BTF and struct_ops issues encountered during development.</p>
+<h3 id="issue-1-missing-btf-in-kernel-module">Issue 1: Missing BTF in Kernel Module</h3>
+<p><strong>Problem:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>libbpf: failed to find BTF info for struct_ops/bpf_testmod_ops
+</code></pre></div></p>
+<p><strong>Root Cause:</strong>
+The kernel module was not compiled with BTF (BPF Type Format) information, which is required for struct_ops to work. BTF provides type information that BPF programs need to interact with kernel structures.</p>
+<p><strong>Solution:</strong></p>
+<h4 id="step-1-extract-vmlinux-with-btf">Step 1: Extract vmlinux with BTF</h4>
+<p>The kernel build system needs the <code>vmlinux</code> ELF binary (not just headers) to generate BTF for modules.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Extract vmlinux from compressed kernel image</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>sudo<span class="w"> </span>/usr/src/linux-headers-<span class="k">$(</span>uname<span class="w"> </span>-r<span class="k">)</span>/scripts/extract-vmlinux<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span>/boot/vmlinuz-<span class="k">$(</span>uname<span class="w"> </span>-r<span class="k">)</span><span class="w"> </span>&gt;<span class="w"> </span>/tmp/vmlinux
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="c1"># Copy to kernel build directory</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>sudo<span class="w"> </span>cp<span class="w"> </span>/tmp/vmlinux<span class="w"> </span>/usr/src/linux-headers-<span class="k">$(</span>uname<span class="w"> </span>-r<span class="k">)</span>/vmlinux
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="c1"># Verify it&#39;s an ELF binary</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>file<span class="w"> </span>/tmp/vmlinux
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="c1"># Output: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically linked</span>
+</code></pre></div>
+<h4 id="step-2-upgrade-pahole-if-needed">Step 2: Upgrade pahole (if needed)</h4>
+<p>The BTF generation requires <code>pahole</code> (from dwarves package) version 1.16+. Older versions don't support the <code>--btf_features</code> flag.</p>
+<p>Check your version:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>pahole<span class="w"> </span>--version
+</code></pre></div></p>
+<p>If version is &lt; 1.25, compile from source:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Install dependencies</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>libelf-dev<span class="w"> </span>cmake<span class="w"> </span>zlib1g-dev
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1"># Downgrade elfutils packages to matching versions</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>--allow-downgrades<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">    </span><span class="nv">libelf1t64</span><span class="o">=</span><span class="m">0</span>.190-1.1ubuntu0.1<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">    </span><span class="nv">libdw1t64</span><span class="o">=</span><span class="m">0</span>.190-1.1ubuntu0.1<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">    </span>libdw-dev<span class="o">=</span><span class="m">0</span>.190-1.1ubuntu0.1<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">    </span>libelf-dev<span class="o">=</span><span class="m">0</span>.190-1.1ubuntu0.1
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="c1"># Clone and build pahole</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>git<span class="w"> </span>clone<span class="w"> </span>https://git.kernel.org/pub/scm/devel/pahole/pahole.git<span class="w"> </span>/tmp/pahole
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="nb">cd</span><span class="w"> </span>/tmp/pahole
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
+<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>cmake<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span>/usr<span class="w"> </span>..
+<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</span>
+<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>sudo<span class="w"> </span>make<span class="w"> </span>install
+<a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>
+<a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a><span class="c1"># Verify new version</span>
+<a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>pahole<span class="w"> </span>--version<span class="w">  </span><span class="c1"># Should show v1.30 or higher</span>
+</code></pre></div>
+<h4 id="step-3-rebuild-the-module-with-btf">Step 3: Rebuild the module with BTF</h4>
+<p>The module Makefile already has BTF enabled with <code>-g -O2</code> flags. Simply rebuild:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nb">cd</span><span class="w"> </span>module
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>make<span class="w"> </span>clean
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>make
+</code></pre></div>
+<p>Verify BTF was generated:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>readelf<span class="w"> </span>-S<span class="w"> </span>hello.ko<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>BTF
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="c1"># Should show:</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="c1">#   [60] .BTF              PROGBITS         ...</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1">#   [61] .BTF.base         PROGBITS         ...</span>
+</code></pre></div></p>
+<h3 id="issue-2-kernel-panic-on-module-load">Issue 2: Kernel Panic on Module Load</h3>
+<p><strong>Problem:</strong>
+Loading the module causes a kernel panic or NULL pointer dereference.</p>
+<p><strong>Root Cause:</strong>
+The <code>bpf_struct_ops</code> structure was missing required callback functions that the kernel tries to access during registration:
+- <code>.verifier_ops</code> - BPF verifier operations (NULL pointer dereference)
+- <code>.init</code> - BTF initialization callback
+- <code>.init_member</code> - Member initialization callback</p>
+<p><strong>Error Pattern in dmesg:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>BUG: kernel NULL pointer dereference
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>Call Trace:
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>  register_bpf_struct_ops
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>  ...
+</code></pre></div></p>
+<p><strong>Solution:</strong>
+Add the required callbacks to the module (<code>module/hello.c</code>):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="cm">/* BTF initialization callback */</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">bpf_testmod_ops_init</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">btf</span><span class="w"> </span><span class="o">*</span><span class="n">btf</span><span class="p">)</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="p">{</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">    </span><span class="cm">/* Initialize BTF if needed */</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="p">}</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="cm">/* Verifier access control */</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="k">static</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nf">bpf_testmod_ops_is_valid_access</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">off</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">,</span>
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="w">                                            </span><span class="k">enum</span><span class="w"> </span><span class="n">bpf_access_type</span><span class="w"> </span><span class="n">type</span><span class="p">,</span>
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="w">                                            </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">bpf_prog</span><span class="w"> </span><span class="o">*</span><span class="n">prog</span><span class="p">,</span>
+<a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="w">                                            </span><span class="k">struct</span><span class="w"> </span><span class="nc">bpf_insn_access_aux</span><span class="w"> </span><span class="o">*</span><span class="n">info</span><span class="p">)</span>
+<a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a><span class="p">{</span>
+<a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a><span class="w">    </span><span class="cm">/* Allow all accesses for this example */</span>
+<a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a><span class="p">}</span>
+<a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a>
+<a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a><span class="cm">/* Verifier operations structure */</span>
+<a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">bpf_verifier_ops</span><span class="w"> </span><span class="n">bpf_testmod_verifier_ops</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a><span class="w">    </span><span class="p">.</span><span class="n">is_valid_access</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_testmod_ops_is_valid_access</span><span class="p">,</span>
+<a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a><span class="p">};</span>
+<a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a>
+<a id="__codelineno-14-23" name="__codelineno-14-23" href="#__codelineno-14-23"></a><span class="cm">/* Member initialization callback */</span>
+<a id="__codelineno-14-24" name="__codelineno-14-24" href="#__codelineno-14-24"></a><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">bpf_testmod_ops_init_member</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">btf_type</span><span class="w"> </span><span class="o">*</span><span class="n">t</span><span class="p">,</span>
+<a id="__codelineno-14-25" name="__codelineno-14-25" href="#__codelineno-14-25"></a><span class="w">                                       </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">btf_member</span><span class="w"> </span><span class="o">*</span><span class="n">member</span><span class="p">,</span>
+<a id="__codelineno-14-26" name="__codelineno-14-26" href="#__codelineno-14-26"></a><span class="w">                                       </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">kdata</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">udata</span><span class="p">)</span>
+<a id="__codelineno-14-27" name="__codelineno-14-27" href="#__codelineno-14-27"></a><span class="p">{</span>
+<a id="__codelineno-14-28" name="__codelineno-14-28" href="#__codelineno-14-28"></a><span class="w">    </span><span class="cm">/* No special member initialization needed */</span>
+<a id="__codelineno-14-29" name="__codelineno-14-29" href="#__codelineno-14-29"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-14-30" name="__codelineno-14-30" href="#__codelineno-14-30"></a><span class="p">}</span>
+<a id="__codelineno-14-31" name="__codelineno-14-31" href="#__codelineno-14-31"></a>
+<a id="__codelineno-14-32" name="__codelineno-14-32" href="#__codelineno-14-32"></a><span class="cm">/* Updated struct_ops definition with ALL required callbacks */</span>
+<a id="__codelineno-14-33" name="__codelineno-14-33" href="#__codelineno-14-33"></a><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">bpf_struct_ops</span><span class="w"> </span><span class="n">bpf_testmod_ops_struct_ops</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-14-34" name="__codelineno-14-34" href="#__codelineno-14-34"></a><span class="w">    </span><span class="p">.</span><span class="n">verifier_ops</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">bpf_testmod_verifier_ops</span><span class="p">,</span><span class="w">  </span><span class="c1">// REQUIRED</span>
+<a id="__codelineno-14-35" name="__codelineno-14-35" href="#__codelineno-14-35"></a><span class="w">    </span><span class="p">.</span><span class="n">init</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_testmod_ops_init</span><span class="p">,</span><span class="w">              </span><span class="c1">// REQUIRED</span>
+<a id="__codelineno-14-36" name="__codelineno-14-36" href="#__codelineno-14-36"></a><span class="w">    </span><span class="p">.</span><span class="n">init_member</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_testmod_ops_init_member</span><span class="p">,</span><span class="w"> </span><span class="c1">// REQUIRED</span>
+<a id="__codelineno-14-37" name="__codelineno-14-37" href="#__codelineno-14-37"></a><span class="w">    </span><span class="p">.</span><span class="n">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_testmod_ops_reg</span><span class="p">,</span>
+<a id="__codelineno-14-38" name="__codelineno-14-38" href="#__codelineno-14-38"></a><span class="w">    </span><span class="p">.</span><span class="n">unreg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bpf_testmod_ops_unreg</span><span class="p">,</span>
+<a id="__codelineno-14-39" name="__codelineno-14-39" href="#__codelineno-14-39"></a><span class="w">    </span><span class="p">.</span><span class="n">cfi_stubs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">__bpf_ops_bpf_testmod_ops</span><span class="p">,</span>
+<a id="__codelineno-14-40" name="__codelineno-14-40" href="#__codelineno-14-40"></a><span class="w">    </span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;bpf_testmod_ops&quot;</span><span class="p">,</span>
+<a id="__codelineno-14-41" name="__codelineno-14-41" href="#__codelineno-14-41"></a><span class="w">    </span><span class="p">.</span><span class="n">owner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">THIS_MODULE</span><span class="p">,</span>
+<a id="__codelineno-14-42" name="__codelineno-14-42" href="#__codelineno-14-42"></a><span class="p">};</span>
+</code></pre></div>
+<p><strong>Why This Matters:</strong>
+The kernel's <code>register_bpf_struct_ops()</code> function expects these callbacks to be present. When it tries to call them and finds NULL pointers, it causes a kernel panic. These callbacks are essential for:
+- <strong>verifier_ops</strong>: Validates BPF program access to struct_ops members
+- <strong>init</strong>: Initializes BTF type information for the struct_ops
+- <strong>init_member</strong>: Handles special initialization for data members</p>
+<p>After adding these callbacks, rebuild and reload:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nb">cd</span><span class="w"> </span>module
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>make<span class="w"> </span>clean
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>make
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>sudo<span class="w"> </span>insmod<span class="w"> </span>hello.ko
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>dmesg<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="c1"># Should see: &quot;bpf_testmod loaded with struct_ops support&quot;</span>
+</code></pre></div></p>
+<h3 id="issue-3-bpf-program-load-failure-invalid-helper">Issue 3: BPF Program Load Failure - Invalid Helper</h3>
+<p><strong>Problem:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>libbpf: prog &#39;bpf_testmod_test_1&#39;: BPF program load failed: Invalid argument
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>program of this type cannot use helper bpf_trace_printk#6
+</code></pre></div></p>
+<p><strong>Root Cause:</strong>
+struct_ops BPF programs have restricted helper function access. <code>bpf_trace_printk</code> (bpf_printk) is not allowed in struct_ops context because these programs run in a different context than tracing programs.</p>
+<p><strong>Solution:</strong>
+Remove all <code>bpf_printk()</code> calls from struct_ops BPF programs:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1">// BEFORE (fails to load):</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;struct_ops/test_1&quot;</span><span class="p">)</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="kt">int</span><span class="w"> </span><span class="n">BPF_PROG</span><span class="p">(</span><span class="n">bpf_testmod_test_1</span><span class="p">)</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="p">{</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="w">    </span><span class="n">bpf_printk</span><span class="p">(</span><span class="s">&quot;BPF test_1 called!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w">  </span><span class="c1">// NOT ALLOWED</span>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span>
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="p">}</span>
+<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>
+<a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a><span class="c1">// AFTER (works):</span>
+<a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a><span class="n">SEC</span><span class="p">(</span><span class="s">&quot;struct_ops/test_1&quot;</span><span class="p">)</span>
+<a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a><span class="kt">int</span><span class="w"> </span><span class="n">BPF_PROG</span><span class="p">(</span><span class="n">bpf_testmod_test_1</span><span class="p">)</span>
+<a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a><span class="p">{</span>
+<a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a><span class="w">    </span><span class="cm">/* Return a special value to indicate BPF implementation */</span>
+<a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span>
+<a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>Alternative Debugging Approaches:</strong>
+1. Use BPF maps to export counters/statistics to userspace
+2. Use the kernel module's <code>printk()</code> to log struct_ops invocations
+3. Use <code>bpftool prog tracelog</code> to see what programs are being called</p>
+<h3 id="verification-checklist">Verification Checklist</h3>
+<p>After resolving all issues, verify everything works:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># 1. Check module BTF</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>readelf<span class="w"> </span>-S<span class="w"> </span>module/hello.ko<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>BTF
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="c1"># 2. Load module successfully</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>sudo<span class="w"> </span>insmod<span class="w"> </span>module/hello.ko
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>dmesg<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-5
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="c1"># Should see: &quot;bpf_testmod loaded with struct_ops support&quot;</span>
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>
+<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a><span class="c1"># 3. Verify proc file created</span>
+<a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a>ls<span class="w"> </span>-l<span class="w"> </span>/proc/bpf_testmod_trigger
+<a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a><span class="c1"># Should exist with write permissions</span>
+<a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a>
+<a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a><span class="c1"># 4. Build and load BPF program</span>
+<a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a>make
+<a id="__codelineno-18-15" name="__codelineno-18-15" href="#__codelineno-18-15"></a>sudo<span class="w"> </span>./struct_ops
+<a id="__codelineno-18-16" name="__codelineno-18-16" href="#__codelineno-18-16"></a><span class="c1"># Should see: &quot;Successfully loaded and attached BPF struct_ops!&quot;</span>
+<a id="__codelineno-18-17" name="__codelineno-18-17" href="#__codelineno-18-17"></a>
+<a id="__codelineno-18-18" name="__codelineno-18-18" href="#__codelineno-18-18"></a><span class="c1"># 5. Verify callbacks are being invoked</span>
+<a id="__codelineno-18-19" name="__codelineno-18-19" href="#__codelineno-18-19"></a>sudo<span class="w"> </span>dmesg<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-20
+<a id="__codelineno-18-20" name="__codelineno-18-20" href="#__codelineno-18-20"></a><span class="c1"># Should see periodic output:</span>
+<a id="__codelineno-18-21" name="__codelineno-18-21" href="#__codelineno-18-21"></a><span class="c1">#   Calling struct_ops callbacks:</span>
+<a id="__codelineno-18-22" name="__codelineno-18-22" href="#__codelineno-18-22"></a><span class="c1">#   test_1() returned: 42</span>
+<a id="__codelineno-18-23" name="__codelineno-18-23" href="#__codelineno-18-23"></a><span class="c1">#   test_2(10, 20) returned: 30</span>
+<a id="__codelineno-18-24" name="__codelineno-18-24" href="#__codelineno-18-24"></a><span class="c1">#   test_3() called with buffer</span>
+<a id="__codelineno-18-25" name="__codelineno-18-25" href="#__codelineno-18-25"></a>
+<a id="__codelineno-18-26" name="__codelineno-18-26" href="#__codelineno-18-26"></a><span class="c1"># 6. Clean up</span>
+<a id="__codelineno-18-27" name="__codelineno-18-27" href="#__codelineno-18-27"></a>sudo<span class="w"> </span>rmmod<span class="w"> </span>hello
+</code></pre></div>
+<h3 id="key-takeaways">Key Takeaways</h3>
+<ol>
+<li><strong>BTF is mandatory</strong> for struct_ops - ensure <code>vmlinux</code> is available and <code>pahole</code> is recent enough</li>
+<li><strong>All required callbacks must be present</strong> in the <code>bpf_struct_ops</code> structure (verifier_ops, init, init_member)</li>
+<li><strong>Helper restrictions apply</strong> - struct_ops programs cannot use tracing helpers like <code>bpf_printk</code></li>
+<li><strong>Test incrementally</strong> - load module first, then BPF program, to isolate issues</li>
+</ol>
+<h2 id="kernel-source-code-analysis">Kernel Source Code Analysis</h2>
+<h3 id="root-cause-of-kernel-panic-confirmed-from-kernel-618-rc4-source">Root Cause of Kernel Panic (Confirmed from Kernel 6.18-rc4 Source)</h3>
+<p>The kernel panic was caused by <strong>missing NULL pointer checks</strong> in the kernel's struct_ops registration code. Analysis of the Linux kernel source code (version 6.18-rc4) reveals three critical locations where callback pointers are dereferenced without validation:</p>
+<h4 id="1-missing-null-check-for-st_ops-init-callback">1. Missing NULL check for <code>st_ops-&gt;init</code> callback</h4>
+<p><strong>Location</strong>: <code>kernel/bpf/bpf_struct_ops.c:381</code></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">st_ops</span><span class="o">-&gt;</span><span class="n">init</span><span class="p">(</span><span class="n">btf</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">          </span><span class="c1">// ← NULL pointer dereference if init is NULL</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">    </span><span class="n">pr_warn</span><span class="p">(</span><span class="s">&quot;Error in init bpf_struct_ops %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">        </span><span class="n">st_ops</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">);</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="w">    </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">EINVAL</span><span class="p">;</span>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="w">    </span><span class="k">goto</span><span class="w"> </span><span class="n">errout</span><span class="p">;</span>
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="p">}</span>
+</code></pre></div>
+<p>The code calls <code>st_ops-&gt;init(btf)</code> directly in the <code>bpf_struct_ops_desc_init()</code> function without checking if the callback exists. If a module registers struct_ops with <code>init = NULL</code>, this causes an immediate kernel panic.</p>
+<h4 id="2-missing-null-check-for-st_ops-init_member-callback">2. Missing NULL check for <code>st_ops-&gt;init_member</code> callback</h4>
+<p><strong>Location</strong>: <code>kernel/bpf/bpf_struct_ops.c:753</code></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">st_ops</span><span class="o">-&gt;</span><span class="n">init_member</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">member</span><span class="p">,</span><span class="w"> </span><span class="n">kdata</span><span class="p">,</span><span class="w"> </span><span class="n">udata</span><span class="p">);</span><span class="w">  </span><span class="c1">// ← NULL pointer dereference</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">    </span><span class="k">goto</span><span class="w"> </span><span class="n">reset_unlock</span><span class="p">;</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="cm">/* The -&gt;init_member() has handled this member */</span>
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="w">    </span><span class="k">continue</span><span class="p">;</span>
+</code></pre></div>
+<p>During map update operations, the kernel calls <code>st_ops-&gt;init_member()</code> for each struct member without verifying the callback pointer is non-NULL.</p>
+<h4 id="3-missing-null-check-for-st_ops-verifier_ops">3. Missing NULL check for <code>st_ops-&gt;verifier_ops</code></h4>
+<p><strong>Location</strong>: <code>kernel/bpf/verifier.c:23486</code></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="n">env</span><span class="o">-&gt;</span><span class="n">ops</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">st_ops</span><span class="o">-&gt;</span><span class="n">verifier_ops</span><span class="p">;</span><span class="w">  </span><span class="c1">// ← Assigns potentially NULL pointer</span>
+</code></pre></div>
+<p>The BPF verifier assigns <code>verifier_ops</code> directly and later dereferences it through <code>env-&gt;ops-&gt;*</code> calls. If <code>verifier_ops</code> is NULL, subsequent verifier operations will cause a kernel panic.</p>
+<h3 id="why-these-callbacks-are-mandatory">Why These Callbacks Are Mandatory</h3>
+<p>The kernel code <strong>assumes</strong> these callbacks exist and does not provide fallback behavior:</p>
+<ol>
+<li><strong><code>init</code></strong>: Called during struct_ops registration to initialize BTF type information. No default implementation exists.</li>
+<li><strong><code>init_member</code></strong>: Called for each struct member during map updates to handle special initialization. Return value of 0 means "not handled", &gt;0 means "handled", &lt;0 is error.</li>
+<li><strong><code>verifier_ops</code></strong>: Provides verification operations (e.g., <code>is_valid_access</code>) that control BPF program access to struct_ops context.</li>
+</ol>
+<h3 id="is-this-fixed-in-current-kernel">Is This Fixed in Current Kernel?</h3>
+<p><strong>No.</strong> As of Linux kernel 6.18-rc4 (checked 2025-11-10), these NULL pointer dereferences still exist. The kernel code has not added defensive NULL checks for these callbacks.</p>
+<p>This means:
+- ✅ <strong>Our fix is correct</strong> - providing all three callbacks prevents the kernel panic
+- ❌ <strong>Kernel could be more defensive</strong> - ideally it should validate callbacks before dereferencing
+- ⚠️ <strong>All struct_ops modules MUST provide these callbacks</strong> - this is an undocumented requirement</p>
+<h3 id="recommendation-for-kernel-upstream">Recommendation for Kernel Upstream</h3>
+<p>The kernel should add validation before dereferencing these pointers:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="c1">// Suggested fix for kernel/bpf/bpf_struct_ops.c:381</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">st_ops</span><span class="o">-&gt;</span><span class="n">init</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">st_ops</span><span class="o">-&gt;</span><span class="n">init</span><span class="p">(</span><span class="n">btf</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="w">    </span><span class="n">pr_warn</span><span class="p">(</span><span class="s">&quot;Error in init bpf_struct_ops %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">st_ops</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">);</span>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="w">    </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">EINVAL</span><span class="p">;</span>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="w">    </span><span class="k">goto</span><span class="w"> </span><span class="n">errout</span><span class="p">;</span>
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="p">}</span>
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="c1">// Suggested fix for kernel/bpf/bpf_struct_ops.c:753</span>
+<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">st_ops</span><span class="o">-&gt;</span><span class="n">init_member</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a><span class="w">    </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">st_ops</span><span class="o">-&gt;</span><span class="n">init_member</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">member</span><span class="p">,</span><span class="w"> </span><span class="n">kdata</span><span class="p">,</span><span class="w"> </span><span class="n">udata</span><span class="p">);</span>
+<a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a><span class="w">        </span><span class="k">goto</span><span class="w"> </span><span class="n">reset_unlock</span><span class="p">;</span>
+<a id="__codelineno-22-13" name="__codelineno-22-13" href="#__codelineno-22-13"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-22-14" name="__codelineno-22-14" href="#__codelineno-22-14"></a><span class="w">        </span><span class="k">continue</span><span class="p">;</span>
+<a id="__codelineno-22-15" name="__codelineno-22-15" href="#__codelineno-22-15"></a><span class="p">}</span>
+<a id="__codelineno-22-16" name="__codelineno-22-16" href="#__codelineno-22-16"></a>
+<a id="__codelineno-22-17" name="__codelineno-22-17" href="#__codelineno-22-17"></a><span class="c1">// Suggested fix for registration</span>
+<a id="__codelineno-22-18" name="__codelineno-22-18" href="#__codelineno-22-18"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">st_ops</span><span class="o">-&gt;</span><span class="n">verifier_ops</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-22-19" name="__codelineno-22-19" href="#__codelineno-22-19"></a><span class="w">    </span><span class="n">pr_warn</span><span class="p">(</span><span class="s">&quot;struct_ops %s missing verifier_ops</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">st_ops</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">);</span>
+<a id="__codelineno-22-20" name="__codelineno-22-20" href="#__codelineno-22-20"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">EINVAL</span><span class="p">;</span>
+<a id="__codelineno-22-21" name="__codelineno-22-21" href="#__codelineno-22-21"></a><span class="p">}</span>
+</code></pre></div>
+<p>However, until such changes are merged, <strong>all struct_ops implementations must provide these callbacks</strong> to avoid kernel panics.</p>
+<hr />
+<h2 id="additional-resources">Additional Resources</h2>
+<ul>
+<li><strong>Kernel Test Module</strong>: <code>/home/yunwei37/linux/tools/testing/selftests/bpf/test_kmods/bpf_testmod.c</code> - Official kernel reference implementation</li>
+<li><strong>BPF Documentation</strong>: https://www.kernel.org/doc/html/latest/bpf/</li>
+</ul>
+<h2 id="contributing">Contributing</h2>
+<p>If you encounter similar issues or have improvements, please document them and contribute back to the tutorial.</p>
 <p><a class="md-button" href="https://x.com/intent/tweet?text=BPF%20struct_ops%20Example%20with%20Custom%20Kernel%20Module%0A&amp;url=https://eunomia.dev/tutorials/features/struct_ops/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/tutorials/features/struct_ops/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
 
@@ -11098,7 +11888,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 10, 2025 18:36:07 UTC">November 10, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 15, 2025 22:30:14 UTC">November 15, 2025</span>
   </span>
 
     
