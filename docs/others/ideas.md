@@ -62,6 +62,7 @@ It's also part of our project roadmap, if you don't participate in these events,
     - [Expected Outcomes](#expected-outcomes-8)
     - [Prerequisites and Skills](#prerequisites-and-skills-7)
     - [Reference and Issue](#reference-and-issue-6)
+  - [APX-aware JIT backend for legacy x86 and bpftime](#apx-aware-jit-backend-for-legacy-x86-and-bpftime)
   - [Porting bpftime to Windows, FreeBSD, or other platforms](#porting-bpftime-to-windows-freebsd-or-other-platforms)
 
 For more details, see:
@@ -427,6 +428,87 @@ BPFTime is able to provide multiple source of metrics in the userspace from the 
 - Conceptual attach types discussion and in bpftime: [GitHub Discussion](https://github.com/eunomia-bpf/bpftime/issues/202)
 - Papers about GPU metrics collection: [GPU metrics collection](https://itu-dasyalab.github.io/RAD/publication/papers/euromlsys2023.pdf) and [GPU static compilation and runtime API hooks](https://github.com/vosen/ZLUDA/blob/master/ARCHITECTURE.md#zluda-dumper)
 - GDB's rwatch: [GDB rwatch](https://sourceware.org/gdb/onlinedocs/gdb/Set-Watchpoints.html) implemented on [X86](https://en.wikipedia.org/wiki/X86_debug_register) and [Arm](https://developer.arm.com/documentation/ka001494/latest/)
+
+## APX-aware JIT backend for legacy x86 and bpftime
+
+Modern Intel CPUs with APX (Advanced Performance Extensions) expose 32 general-purpose registers and richer 3-operand encodings, offering significant potential for reducing spills and memory traffic in hot code paths. Many existing binaries, JITs, and runtimes, however, still emit “legacy” x86-64 code that cannot automatically take advantage of APX. This project aims to build an APX-aware JIT / dynamic binary translation backend that can “rehydrate” legacy x86-64 code into an intermediate representation (IR) and re-emit it using APX features for maximum performance when running on APX-capable CPUs.
+
+This JIT can be integrated with bpftime’s userspace runtime (e.g., for helpers, ufuncs, and host-side instrumentation code), or used as a standalone component for accelerating hot regions of existing x86-64 applications.
+
+- Time Cost: ~350 hours  
+- Difficulty Level: Hard  
+- Mentors: Yiwei Yang (<yyang363@ucsc.edu>), Yusheng Zheng (<mailto:yunwei356@gmail.com>)
+
+### Project Overview
+
+The goal of this project is to design and implement an APX-aware JIT backend that:
+
+- Detects APX support on the host CPU.
+- Lifts legacy x86-64 code (or bpftime-generated code) into an SSA-like IR.
+- Performs APX-specific optimizations (extra registers, 3-operand forms, flag suppression).
+- Emits APX machine code into a code cache and transparently routes hot paths through the APX-optimized version.
+
+For bpftime, this enables a next-generation userspace runtime where both eBPF programs and their surrounding helper logic can benefit from APX when available, while still falling back to standard x86-64 on older hardware.
+
+### Objectives
+
+1. **APX-capable CPU Detection and Dispatch**
+   - Implement runtime feature detection for APX-capable processors.
+   - Provide a clean CPU dispatch layer that selects APX or legacy code paths at startup or JIT time.
+
+2. **IR Lifting from Legacy x86-64**
+   - Decode legacy x86-64 basic blocks or traces into an intermediate representation (SSA-like).
+   - Model registers, flags, and memory accesses so that APX-specific optimizations can be applied cleanly.
+   - Integrate this IR with bpftime’s existing VM / LLVM JIT infrastructure where appropriate.
+
+3. **APX-specific Optimization Passes**
+   - Use APX’s extra general-purpose registers (R16–R31) to eliminate spills and stack traffic in hot blocks.
+   - Convert classic 2-operand arithmetic into 3-operand APX forms to shorten dependency chains.
+   - Use flag-suppression forms (where available) when flags are not needed, reducing EFLAGS pressure.
+   - Explore small patterns where conditional loads/stores can replace short branches.
+
+4. **Code Generation and Code Cache Management**
+   - Implement an APX-aware register allocator that prefers EGPRs (R16–R31) for short-lived temporaries.
+   - Emit APX-encoded instructions into a code cache and manage patching/jump trampolines from original code.
+   - Provide safe fallbacks for unsupported or self-modifying code (e.g., interpretation or legacy re-emission).
+
+5. **Integration with bpftime and Tooling**
+   - Expose the APX JIT backend as an optional path for bpftime’s userspace runtime (e.g., for helpers, ufuncs, and hot loops in host code).
+   - Add configuration switches and environment variables to enable/disable APX optimizations.
+   - Provide benchmarks showing improvements for representative bpftime workloads (profiling, networking, file-system helpers, etc.).
+
+6. **Documentation and Evaluation**
+   - Document the design of the IR, the APX-specific passes, and integration points with bpftime.
+   - Provide microbenchmarks (e.g., arithmetic kernels, memcopy-like loops) and macrobenchmarks (bpftime-based tools) comparing:
+     - Legacy x86-64 code,
+     - APX-aware JIT code.
+   - Summarize trade-offs in code size, JIT overhead, and runtime performance.
+
+### Expected Outcomes
+
+- A working APX-aware JIT backend capable of:
+  - Lifting legacy x86-64 code into an IR.
+  - Re-emitting it using APX extensions on supported CPUs.
+- Integration hooks for bpftime so that bpftime’s userspace runtime can optionally use APX-optimized code for hot paths.
+- Benchmarks and evaluation showing tangible performance benefits (e.g., reduced spills, better throughput) on APX hardware.
+- Clear documentation and examples demonstrating how to enable APX JIT, how it behaves on non-APX CPUs, and how contributors can extend or customize the optimization passes.
+
+### Prerequisites and Skills
+
+- Strong C/C++ and systems programming skills.
+- Familiarity with x86-64 architecture, instruction encoding, and CPU microarchitecture concepts.
+- Experience with JIT compilation, dynamic binary translation, or compiler IR (e.g., LLVM IR, custom SSA).
+- Basic understanding of eBPF, bpftime’s goals, and userspace runtime design is highly desirable.
+- Experience with performance profiling and benchmarking on modern CPUs.
+
+### Reference and Issue
+
+- Intel APX and extended GPRs / instruction encodings (official whitepapers and manuals).
+- Existing JIT/DBT frameworks and code caches (e.g., LLVM ORC JIT, QEMU TCG, DynamoRIO, etc.).
+- bpftime runtime and VM code:
+  - <https://eunomia.dev/bpftime>  
+  - <https://github.com/eunomia-bpf/bpftime>
+- A future GitHub issue in `eunomia-bpf/bpftime` can be created to track design, discussion, and implementation progress for the APX JIT backend.
 
 ## Porting bpftime to Windows, FreeBSD, or other platforms
 
