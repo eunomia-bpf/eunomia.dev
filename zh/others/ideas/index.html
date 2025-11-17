@@ -6012,6 +6012,78 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#apx-aware-jit-backend-for-legacy-x86-and-bpftime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        APX-aware JIT backend for legacy x86 and bpftime
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="APX-aware JIT backend for legacy x86 and bpftime">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#project-overview_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#objectives_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objectives
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-outcomes_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Outcomes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites-and-skills_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites and Skills
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reference-and-issue_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference and Issue
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#porting-bpftime-to-windows-freebsd-or-other-platforms" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -12084,6 +12156,78 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#apx-aware-jit-backend-for-legacy-x86-and-bpftime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        APX-aware JIT backend for legacy x86 and bpftime
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="APX-aware JIT backend for legacy x86 and bpftime">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#project-overview_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#objectives_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objectives
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-outcomes_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Outcomes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites-and-skills_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites and Skills
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reference-and-issue_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference and Issue
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#porting-bpftime-to-windows-freebsd-or-other-platforms" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -12264,6 +12408,7 @@
 <li><a href="#reference-and-issue-6">Reference and Issue</a></li>
 </ul>
 </li>
+<li><a href="#apx-aware-jit-backend-for-legacy-x86-and-bpftime">APX-aware JIT backend for legacy x86 and bpftime</a></li>
 <li><a href="#porting-bpftime-to-windows-freebsd-or-other-platforms">Porting bpftime to Windows, FreeBSD, or other platforms</a></li>
 </ul>
 <p>For more details, see:</p>
@@ -12602,6 +12747,100 @@
 <li>Papers about GPU metrics collection: <a href="https://itu-dasyalab.github.io/RAD/publication/papers/euromlsys2023.pdf">GPU metrics collection</a> and <a href="https://github.com/vosen/ZLUDA/blob/master/ARCHITECTURE.md#zluda-dumper">GPU static compilation and runtime API hooks</a></li>
 <li>GDB's rwatch: <a href="https://sourceware.org/gdb/onlinedocs/gdb/Set-Watchpoints.html">GDB rwatch</a> implemented on <a href="https://en.wikipedia.org/wiki/X86_debug_register">X86</a> and <a href="https://developer.arm.com/documentation/ka001494/latest/">Arm</a></li>
 </ul>
+<h2 id="apx-aware-jit-backend-for-legacy-x86-and-bpftime">APX-aware JIT backend for legacy x86 and bpftime</h2>
+<p>Modern Intel CPUs with APX (Advanced Performance Extensions) expose 32 general-purpose registers and richer 3-operand encodings, offering significant potential for reducing spills and memory traffic in hot code paths. Many existing binaries, JITs, and runtimes, however, still emit “legacy” x86-64 code that cannot automatically take advantage of APX. This project aims to build an APX-aware JIT / dynamic binary translation backend that can “rehydrate” legacy x86-64 code into an intermediate representation (IR) and re-emit it using APX features for maximum performance when running on APX-capable CPUs.</p>
+<p>This JIT can be integrated with bpftime’s userspace runtime (e.g., for helpers, ufuncs, and host-side instrumentation code), or used as a standalone component for accelerating hot regions of existing x86-64 applications.</p>
+<ul>
+<li>Time Cost: ~350 hours  </li>
+<li>Difficulty Level: Hard  </li>
+<li>Mentors: Yiwei Yang (<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#121;&#121;&#97;&#110;&#103;&#51;&#54;&#51;&#64;&#117;&#99;&#115;&#99;&#46;&#101;&#100;&#117;">&#121;&#121;&#97;&#110;&#103;&#51;&#54;&#51;&#64;&#117;&#99;&#115;&#99;&#46;&#101;&#100;&#117;</a>), Yusheng Zheng (<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#121;&#117;&#110;&#119;&#101;&#105;&#51;&#53;&#54;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#121;&#117;&#110;&#119;&#101;&#105;&#51;&#53;&#54;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a>)</li>
+</ul>
+<h3 id="project-overview_6">Project Overview</h3>
+<p>The goal of this project is to design and implement an APX-aware JIT backend that:</p>
+<ul>
+<li>Detects APX support on the host CPU.</li>
+<li>Lifts legacy x86-64 code (or bpftime-generated code) into an SSA-like IR.</li>
+<li>Performs APX-specific optimizations (extra registers, 3-operand forms, flag suppression).</li>
+<li>Emits APX machine code into a code cache and transparently routes hot paths through the APX-optimized version.</li>
+</ul>
+<p>For bpftime, this enables a next-generation userspace runtime where both eBPF programs and their surrounding helper logic can benefit from APX when available, while still falling back to standard x86-64 on older hardware.</p>
+<h3 id="objectives_7">Objectives</h3>
+<ol>
+<li><strong>APX-capable CPU Detection and Dispatch</strong></li>
+<li>Implement runtime feature detection for APX-capable processors.</li>
+<li>
+<p>Provide a clean CPU dispatch layer that selects APX or legacy code paths at startup or JIT time.</p>
+</li>
+<li>
+<p><strong>IR Lifting from Legacy x86-64</strong></p>
+</li>
+<li>Decode legacy x86-64 basic blocks or traces into an intermediate representation (SSA-like).</li>
+<li>Model registers, flags, and memory accesses so that APX-specific optimizations can be applied cleanly.</li>
+<li>
+<p>Integrate this IR with bpftime’s existing VM / LLVM JIT infrastructure where appropriate.</p>
+</li>
+<li>
+<p><strong>APX-specific Optimization Passes</strong></p>
+</li>
+<li>Use APX’s extra general-purpose registers (R16–R31) to eliminate spills and stack traffic in hot blocks.</li>
+<li>Convert classic 2-operand arithmetic into 3-operand APX forms to shorten dependency chains.</li>
+<li>Use flag-suppression forms (where available) when flags are not needed, reducing EFLAGS pressure.</li>
+<li>
+<p>Explore small patterns where conditional loads/stores can replace short branches.</p>
+</li>
+<li>
+<p><strong>Code Generation and Code Cache Management</strong></p>
+</li>
+<li>Implement an APX-aware register allocator that prefers EGPRs (R16–R31) for short-lived temporaries.</li>
+<li>Emit APX-encoded instructions into a code cache and manage patching/jump trampolines from original code.</li>
+<li>
+<p>Provide safe fallbacks for unsupported or self-modifying code (e.g., interpretation or legacy re-emission).</p>
+</li>
+<li>
+<p><strong>Integration with bpftime and Tooling</strong></p>
+</li>
+<li>Expose the APX JIT backend as an optional path for bpftime’s userspace runtime (e.g., for helpers, ufuncs, and hot loops in host code).</li>
+<li>Add configuration switches and environment variables to enable/disable APX optimizations.</li>
+<li>
+<p>Provide benchmarks showing improvements for representative bpftime workloads (profiling, networking, file-system helpers, etc.).</p>
+</li>
+<li>
+<p><strong>Documentation and Evaluation</strong></p>
+</li>
+<li>Document the design of the IR, the APX-specific passes, and integration points with bpftime.</li>
+<li>Provide microbenchmarks (e.g., arithmetic kernels, memcopy-like loops) and macrobenchmarks (bpftime-based tools) comparing:<ul>
+<li>Legacy x86-64 code,</li>
+<li>APX-aware JIT code.</li>
+</ul>
+</li>
+<li>Summarize trade-offs in code size, JIT overhead, and runtime performance.</li>
+</ol>
+<h3 id="expected-outcomes_9">Expected Outcomes</h3>
+<ul>
+<li>A working APX-aware JIT backend capable of:</li>
+<li>Lifting legacy x86-64 code into an IR.</li>
+<li>Re-emitting it using APX extensions on supported CPUs.</li>
+<li>Integration hooks for bpftime so that bpftime’s userspace runtime can optionally use APX-optimized code for hot paths.</li>
+<li>Benchmarks and evaluation showing tangible performance benefits (e.g., reduced spills, better throughput) on APX hardware.</li>
+<li>Clear documentation and examples demonstrating how to enable APX JIT, how it behaves on non-APX CPUs, and how contributors can extend or customize the optimization passes.</li>
+</ul>
+<h3 id="prerequisites-and-skills_8">Prerequisites and Skills</h3>
+<ul>
+<li>Strong C/C++ and systems programming skills.</li>
+<li>Familiarity with x86-64 architecture, instruction encoding, and CPU microarchitecture concepts.</li>
+<li>Experience with JIT compilation, dynamic binary translation, or compiler IR (e.g., LLVM IR, custom SSA).</li>
+<li>Basic understanding of eBPF, bpftime’s goals, and userspace runtime design is highly desirable.</li>
+<li>Experience with performance profiling and benchmarking on modern CPUs.</li>
+</ul>
+<h3 id="reference-and-issue_7">Reference and Issue</h3>
+<ul>
+<li>Intel APX and extended GPRs / instruction encodings (official whitepapers and manuals).</li>
+<li>Existing JIT/DBT frameworks and code caches (e.g., LLVM ORC JIT, QEMU TCG, DynamoRIO, etc.).</li>
+<li>bpftime runtime and VM code:</li>
+<li><a href="https://eunomia.dev/bpftime">https://eunomia.dev/bpftime</a>  </li>
+<li><a href="https://github.com/eunomia-bpf/bpftime">https://github.com/eunomia-bpf/bpftime</a></li>
+<li>A future GitHub issue in <code>eunomia-bpf/bpftime</code> can be created to track design, discussion, and implementation progress for the APX JIT backend.</li>
+</ul>
 <h2 id="porting-bpftime-to-windows-freebsd-or-other-platforms">Porting bpftime to Windows, FreeBSD, or other platforms</h2>
 <p>It would be similar to the porting to macOS.</p>
 <p><a class="md-button" href="https://x.com/intent/tweet?text=Possible%20ideas%20for%20the%20future%0A&amp;url=https://eunomia.dev/zh/others/ideas/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"/></svg></span></a>
@@ -12628,7 +12867,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 10, 2025 23:05:09 UTC">February 10, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 17, 2025 17:46:32 UTC">November 17, 2025</span>
   </span>
 
     
@@ -12653,6 +12892,7 @@
     </span>
     <nav>
       
+        <a href="mailto:40686366+vickiegpt@users.noreply.github.com">Yiwei Yang</a>, 
         <a href="mailto:yangyiwei2000@gmail.com">victoryang00</a>, 
         <a href="mailto:yunwei356@gmail.com">yunwei37</a>, 
         <a href="mailto:1067852565@qq.com">云微</a>
