@@ -4,73 +4,77 @@ This is some possible ideas for open source events, like GSOC(Google Summer of C
 
 It's also part of our project roadmap, if you don't participate in these events, you can also help or colaborate with these ideas! Need help? Please contact in the [email list](mailto:team@eunomia.dev) or in the [Discord channel](https://discord.gg/jvM73AFdB8).
 
-## Table of contents
-
-- [Possible ideas for the future](#possible-ideas-for-the-future)
-  - [Table of contents](#table-of-contents)
-  - [Porting bpftime to macOS and other platforms](#porting-bpftime-to-macos-and-other-platforms)
-    - [Objectives for enable eBPF on macOS](#objectives-for-enable-ebpf-on-macos)
-    - [Expected Outcomes](#expected-outcomes)
-    - [Prerequisites and Skills](#prerequisites-and-skills)
-    - [Reference and issue](#reference-and-issue)
-  - [VirtIO devices memory address translation fastpath](#virtio-devices-memory-address-translation-fastpath)
-    - [Project Overview](#project-overview)
-    - [Objectives](#objectives)
-    - [Expected Outcomes](#expected-outcomes-1)
-    - [Prerequisites and Skills](#prerequisites-and-skills-1)
-    - [Reference and Issue](#reference-and-issue-1)
-  - [User-Space eBPF Security Modules for Comprehensive Security Policies](#user-space-ebpf-security-modules-for-comprehensive-security-policies)
-    - [Project Overview](#project-overview-1)
-    - [Objectives](#objectives-1)
-    - [Expected Outcomes](#expected-outcomes-2)
-    - [Prerequisites and Skills](#prerequisites-and-skills-2)
-    - [Reference and Issue](#reference-and-issue-2)
-  - [Add Fuzzer and kernel eBPF test for bpftime to improve compatibility](#add-fuzzer-and-kernel-ebpf-test-for-bpftime-to-improve-compatibility)
-    - [Project Overview](#project-overview-2)
-    - [Timeframe and Difficulty](#timeframe-and-difficulty)
-    - [Mentors](#mentors)
-    - [Objectives](#objectives-2)
-    - [Expected Outcomes](#expected-outcomes-3)
-    - [Prerequisites and Skills](#prerequisites-and-skills-3)
-    - [Reference and Issue](#reference-and-issue-3)
-  - [Living patching distributed RocksDB with shared IO and Network Interface over io\_uring](#living-patching-distributed-rocksdb-with-shared-io-and-network-interface-over-io_uring)
-    - [Project Overview](#project-overview-3)
-    - [Objectives](#objectives-3)
-    - [Expected Outcomes](#expected-outcomes-4)
-    - [Prerequisites and Skills](#prerequisites-and-skills-4)
-    - [Reference and Issue](#reference-and-issue-4)
-  - [Userspace AOT Compilation of eBPF for Lightweight Containers](#userspace-aot-compilation-of-ebpf-for-lightweight-containers)
-    - [Overview](#overview)
-    - [Goals and Objectives](#goals-and-objectives)
-    - [Prerequisites and Skills Required](#prerequisites-and-skills-required)
-    - [Expected Outcomes](#expected-outcomes-5)
-    - [Additional Resources](#additional-resources)
-  - [Userspace eBPF for Userspace File System](#userspace-ebpf-for-userspace-file-system)
-    - [Objectives](#objectives-4)
-    - [Expected Outcomes](#expected-outcomes-6)
-    - [Prerequisites and Skills](#prerequisites-and-skills-5)
-    - [Resources](#resources)
-  - [BPFTime Profiling and Machine Learning Prediction for far memory or distributed shared memory management](#bpftime-profiling-and-machine-learning-prediction-for-far-memory-or-distributed-shared-memory-management)
-    - [Project Overview](#project-overview-4)
-    - [Objectives](#objectives-5)
-    - [Expected Outcomes](#expected-outcomes-7)
-    - [Prerequisites and Skills](#prerequisites-and-skills-6)
-    - [Reference and Issue](#reference-and-issue-5)
-  - [Large Language Model specific metrics observability in BPFTime](#large-language-model-specific-metrics-observability-in-bpftime)
-    - [Project Overview](#project-overview-5)
-    - [Objectives](#objectives-6)
-    - [Expected Outcomes](#expected-outcomes-8)
-    - [Prerequisites and Skills](#prerequisites-and-skills-7)
-    - [Reference and Issue](#reference-and-issue-6)
-  - [APX-aware JIT backend for legacy x86 and bpftime](#apx-aware-jit-backend-for-legacy-x86-and-bpftime)
-  - [Porting bpftime to Windows, FreeBSD, or other platforms](#porting-bpftime-to-windows-freebsd-or-other-platforms)
-
-For more details, see:
-
 - <https://eunomia.dev/bpftime>
 - [https://github.com/eunomia-bpf/bpftime](https://github.com/eunomia-bpf/bpftime)
 
-## Porting bpftime to macOS and other platforms
+## Persistent eBPF Maps with Crash‑Consistent Semantics
+
+### Project Overview
+
+Kernel eBPF maps are frequently treated as small in‑kernel KV stores, but today they provide **no persistence or crash‑consistency semantics**. Pinned maps survive loader exit but not reboots; updates have no durability guarantees; and applications build fragile ad‑hoc recovery logic.
+This project aims to design and prototype **persistent eBPF maps** with explicit, documented semantics for **durability, crash recovery, and versioning**—suitable for production observability, policy modules, and long‑running agents.
+
+* Time Cost: ~200 hours
+* Difficulty Level: Hard
+* Mentors: Yusheng Zheng yunwei356@gmail.com
+
+### Objectives
+
+* Define a persistence model for kernel maps, including durability levels, epoch barriers, permitted partial states after crashes, and expected reconstruction rules.
+* Build a persistence backend (privileged user‑space daemon + kernel API usage) that mirrors map mutations into an append‑only log and periodic snapshots, with recovery logic that reconstructs kernel maps on reboot.
+* Integrate persistence without modifying verifier or map types initially; persistence is additive through metadata and a daemon, with an optional future “persistent map” flag.
+* Implement automatic recovery at boot: detect persistent maps, rebuild state, repopulate kernel maps before programs attach, and require no application‑specific handlers.
+
+### Expected Outcomes
+
+* A documented durability and crash‑consistency model for eBPF maps.
+* A daemon and on‑disk format for logging and snapshotting kernel map state.
+* A crash‑injection test suite validating correctness of recovery.
+* Example cases such as persistent counters, node‑local policies, and replicated state.
+
+May have a chance to publish papers on top conference.
+
+### Useful References
+
+* [Running BPF After Application Exits (eunomia blog)](https://eunomia.dev/tutorials/bpf-application-exits/)
+* [kernel.org – eBPF Map Documentation](https://docs.kernel.org/bpf/map_data.html)
+
+## sched_ext‑Based Coz‑Style Causal Profiler (“SchedCoz”)
+
+### Project Overview
+
+Coz ([paper](https://web.mit.edu/PLV/papers/coz-sosp15.pdf)) introduced **causal profiling** via *virtual speedups*: when a target line executes, other threads are artificially slowed to approximate the effect of optimizing that line. Coz implements this in user space with `LD_PRELOAD` and injected sleeps.
+This project re‑implements causal profiling **inside the kernel scheduler** using **sched_ext**, producing a cleaner, zero‑injection mechanism suitable for real multi‑process services and container environments.
+
+* Time Cost: ~150 hours
+* Difficulty Level: Hard
+* Mentors: Yusheng Zheng yunwei356@gmail.com
+
+### Objectives
+
+* Use eBPF perf‑event sampling and uprobes/USDT to collect user stacks and progress points; a user‑space controller selects regions and coordinates experiments.
+* Implement a sched_ext scheduler that maintains a global “debt” incremented when the target region executes, and reduces CPU service to tasks with unpaid debt, reproducing Coz’s virtual‑speedup semantics.
+* Establish correctness by mapping Coz’s delay‑insertion model to scheduler‑level service‑reduction, handling multi‑core behavior, preemption boundaries, and wakeup dependencies.
+* Provide scoped deployment by confining experiments to specific cgroups and ensuring clean fallback to CFS.
+
+### Expected Outcomes
+
+* A functioning **SchedCoz** profiler that integrates eBPF sampling and sched_ext scheduling to perform causal experiments.
+* Experimental fidelity comparable to Coz, with potentially lower variance and no user‑space sleeps or preload libraries.
+* Demonstrations on multi‑process workloads (Memcached, Redis, SQLite, NGINX) and containerized environments.
+* Documentation and runnable examples for building sched_ext‑based profilers.
+
+May have a chance to publish papers on top conference.
+
+
+### Useful References
+
+* [Coz: Finding Code that Counts (SOSP’15)](https://web.mit.edu/PLV/papers/coz-sosp15.pdf)
+* [sched_ext Kernel Documentation](https://docs.kernel.org/scheduler/sched-ext.html)
+* [BPF perf_event Programs](https://docs.kernel.org/bpf/bpf_perf_event.html)
+
+
+## Porting bpftime to macOS and Windows, FreeBSD, or other platforms
 
 Since bpftime can run in userspace and does not require kernel eBPF, why not enable eBPF on MacOS/FreeBSD/Other Platforms?
 
@@ -80,7 +84,7 @@ The goal of this project is to port `bpftime` to macOS and other platforms, expa
 - Difficulty Level: medium
 - mentor: Tong Yu (<yt.xyxx@gmail.com>) and Yuxi Huang (<Yuxi4096@gmail.com>)
 
-### Objectives for enable eBPF on macOS
+### Objectives for enable eBPF on macOS and Windows, FreeBSD
 
 1. **Compatibility and Integration**: Achieve compatibility of `bpftime` with macOS and/or other OSs, ensuring that core features and capabilities are functional on this platform.
 2. **Performance Optimization**: Fine-tune the performance of `bpftime` on macOS and/or other OSs, focusing on optimizing the LLVM JIT and the lightweight JIT for x86 specifically for macOS architecture.
@@ -89,7 +93,7 @@ The goal of this project is to port `bpftime` to macOS and other platforms, expa
 
 ### Expected Outcomes
 
-- A functional port of `bpftime` for macOS and/or other OSs, with core features operational.
+- A functional port of `bpftime` for macOS  and Windows, FreeBSD, with core features operational.
 - You should be able to run `bpftrace` and `bcc` tools on them, and get expected output.
 - documentation and guides for using `bpftime` on macOS and/or other OSs.
 
@@ -103,40 +107,6 @@ The goal of this project is to port `bpftime` to macOS and other platforms, expa
 
 - Issue and some initial discussion: <https://github.com/eunomia-bpf/bpftime/issues>
 - Some previous efforts: [Enable bpftime on arm](https://github.com/eunomia-bpf/bpftime/pull/151)
-
-
-## VirtIO devices memory address translation fastpath
-
-The triple address translation from physical VirtIO to the userspace memory is a performance bottleneck. It requires the DPA to HPA to physical memory translation. The VirtIO devices memory address translation fastpath project aims to develop a fastpath for VirtIO devices memory address translation, reducing the overhead of the triple address translation and improving the performance of VirtIO devices. Also, the side channel attack increases the threats for core isolation for the Cloud Vendors. Leveraging BPFTime to design a safe fastpath primitive message passing for dedicated application access to VirtIO devices memory address translation enables safe, efficient and low-latency memory access for VirtIO devices.
-
-### Project Overview
-
-- Time Cost: ~350 hours
-- Difficulty Level: Hard
-- Mentors: Yiwei Yang (<yyang363@ucsc.edu>) Yusheng Zheng (<mailto:yunwei356@gmail.com>)
-
-### Objectives
-
-- Develop a fastpath for VirtIO devices memory address translation, reducing the overhead of the triple address translation and improving the performance of VirtIO devices.
-- Design a safe fastpath primitive message passing for dedicated application access to VirtIO devices memory address translation.
-
-### Expected Outcomes
-
-- A fastpath for VirtIO devices memory address translation, reducing the overhead of the triple address translation and improving the performance of VirtIO devices.
-- A safe fastpath primitive message passing for dedicated application access to VirtIO devices memory address translation.
-
-### Prerequisites and Skills
-
-- Proficiency in C/C++ and system programming.
-- Understanding of VirtIO devices, micro kernel and memory address translation.
-- Familiarity with user-space and kernel-space programming paradigms.
-- Experience with developing and testing eBPF programs is highly advantageous.
-
-### Reference and Issue
-
-- Recent paper about offloading userspace program to kernel NVMe device [XRP](https://www.usenix.org/system/files/osdi22-zhong_1.pdf)
-- Paper about the fastpath and offloading for DPU [DPFS](https://github.com/IBM/DPFS), [M3](https://os.inf.tu-dresden.de/papers_ps/asmussen-m3-asplos16.pdf)
-- Youtube video about the fastpath for VirtIO [VirtIO](https://www.youtube.com/watch?v=nTMls33dG8Q)
 
 ## User-Space eBPF Security Modules for Comprehensive Security Policies
 
@@ -189,178 +159,6 @@ You can explore more possibilities with us:
 - Conceptual foundation for USM in bpftime: [GitHub Discussion](https://github.com/eunomia-bpf/bpftime/issues/148)
 - Initial exploration of eBPF security mechanisms: <https://docs.kernel.org/bpf/prog_lsm.html>, and kernel Runtime Verification <https://docs.kernel.org/trace/rv/runtime-verification.html#runtime-monitors-and-reactors>
 - Engaging with existing eBPF and LSM communities for insights and collaboration opportunities.
-
-## Add Fuzzer and kernel eBPF test for bpftime to improve compatibility
-
-### Project Overview
-
-The `bpftime` project, known for its innovative userspace eBPF runtime, is seeking to enhance its robustness and reliability by integrating a fuzzer. This project aims to develop or integrate a fuzzer for `bpftime`, using tools like [Google's Buzzer](https://github.com/google/buzzer) or `syzkaller`. The fuzzer will systematically test `bpftime` to uncover any potential bugs, memory leaks, or vulnerabilities, ensuring a more secure and stable runtime environment. Besides, we also need to add kernel eBPF test for bpftime to improve compatibility.
-
-You also needs to enable the fuzzer and eBPF tests in CI.
-
-### Timeframe and Difficulty
-
-- **Time Commitment**: ~90 hours
-- **Difficulty Level**: Easy
-
-### Mentors
-
-- Tong Yu ([yt.xyxx@gmail.com](mailto:yt.xyxx@gmail.com))
-- Yusheng Zheng ([yunwei356@gmail.com](mailto:yunwei356@gmail.com))
-
-### Objectives
-
-1. **Fuzzer Development and Integration**: Design or develop a fuzzer that can be seamlessly integrated with `bpftime`. Or you can use existing fuzzers for eBPF.
-2. **Testing and Debugging**: Use the fuzzer to identify and report bugs, memory leaks, or vulnerabilities in `bpftime` userspace eBPF runtime.
-3. **Continuous Integration**: Integrate the fuzzer and kernel eBPF test into the `bpftime` CI pipeline, ensuring that it is run regularly to identify and resolve any issues.
-4. **Documentation**: Create documentation detailing the fuzzer’s implementation or usage within the `bpftime` environment.
-5. **Feedback Implementation**: Actively incorporate feedback from the `bpftime` community to refine and enhance the fuzzer.
-
-### Expected Outcomes
-
-- A fully integrated fuzzer within the `bpftime` environment.
-- An integration of the fuzzer and kernel eBPF test into the `bpftime` CI pipeline.
-- An increase in the identified and resolved bugs and vulnerabilities in `bpftime`.
-- Documentation and guidelines for future contributors to utilize and improve the fuzzer.
-
-### Prerequisites and Skills
-
-- Skills in C/C++ and system programming.
-- Familiarity with software testing methodologies, particularly fuzz testing.
-- Experience with fuzzers like Google's Buzzer is highly beneficial.
-- Basic knowledge of eBPF and its ecosystem.
-
-### Reference and Issue
-
-- Initial discussion on the need for a fuzzer in `bpftime`: [GitHub Issue](https://github.com/eunomia-bpf/bpftime/issues/163)
-- Google buzzer: <https://github.com/google/buzzer>
-- [FEATURE] Test with kernel eBPF test: <https://github.com/eunomia-bpf/bpftime/issues/210>
-
-## Living patching distributed RocksDB with shared IO and Network Interface over io_uring
-
-RocksDB is a high-performance, embedded key-value store for fast storage. It is widely used in distributed systems, such as databases, storage systems, and other applications. However, the performance of RocksDB is highly dependent on the underlying storage and network interfaces. The performance of RocksDB can be further improved by using shared IO and network interfaces over io_uring. This project aims to develop a living patching mechanism for distributed RocksDB with shared IO and network interfaces over io_uring, enabling dynamic and efficient performance optimization. This project will empower RocksDB with remote I/O and network interfaces, allowing it to leverage the performance benefits of io_uring and shared interfaces.
-
-### Project Overview
-
-- Time Cost: ~350 hours
-- Difficulty Level: Hard
-- Mentors: Yiwei Yang (<yyang363@ucsc.edu>) and Yusheng Zheng (<mailto:yunwei356@gmail.com>)
-
-### Objectives
-
-- Develop a living patching mechanism for distributed RocksDB with shared IO and network interfaces over io_uring.
-- Implement a dynamic performance optimization system for distributed RocksDB, leveraging the performance benefits of io_uring MMAP interface.
-
-### Expected Outcomes
-
-- A living patching mechanism for distributed RocksDB with shared IO and network interfaces over io_uring.
-- A dynamic performance optimization system for distributed RocksDB, leveraging the performance benefits of io_uring MMAP interface.
-
-### Prerequisites and Skills
-
-- Proficiency in C/C++ and system programming.
-- Understanding of RocksDB and io_uring implementation.
-- Familiarity with user-space and kernel-space programming paradigms.
-- Experience with developing and testing eBPF programs is highly advantageous.
-
-### Reference and Issue
-
-- Recent paper about BPF function offloading to remote [BPF oF](https://arxiv.org/abs/2312.06808)
-- eBPF meets io_uring [io_uring](https://lwn.net/Articles/847951/)
-
-## Userspace AOT Compilation of eBPF for Lightweight Containers
-
-### Overview
-
-In the evolving world of cloud-native applications, IoT, and embedded systems, there's an increasing demand for efficient, secure, and resource-conscious computing solutions. Our project addresses these needs by focusing on the development of a userspace eBPF (Extended Berkeley Packet Filter) with Ahead-of-Time (AOT) compilation. This initiative aims to create a lightweight, event-driven computing model that caters to the unique demands of embedded and resource-constrained environments.
-
-The main difference eBPF AOT can bring is that it can help build a verifiable and secure runtime for applications, and it can be lightweight and efficient enough, with a low startup time to run on embedded devices.
-
-Duration and Difficulty Level
-
-- Estimated Time: ~175 hours
-- Difficulty Level: Medium
-- Mentors: Tong Yu (<yt.xyxx@gmail.com>) Yusheng Zheng (<mailto:yunwei356@gmail.com>)
-
-bpftime already have a AOT compiler, we need more work to enable it run on embedded devices or as plugins. If you want to add map support for microcontrollers with AOT compiler, maybe you can write a c implementation, compile it and link it with bpftime AOT products.
-
-### Goals and Objectives
-
-1. **Develop Userspace eBPF AOT Compilation**: The AOT compiler should be able to work well with helpers, ufuncs maps and other features of eBPF. Currently there is a POC for AOT compiler, but it's not complete and need more work.
-
-You can choose one or two of these goals to work on:
-
-1. **Integration into FaaS Containers**: Seamlessly integrate this technology into Function-as-a-Service (FaaS) lightweight containers, enhancing startup speed and operational efficiency.
-2. **Plugin System Implementation**: Design a system allowing eBPF programs to be embedded as plugins in other applications, offering dynamic, optimized functionality.
-3. **Run AOT eBPF on embedded devices**: Enable AOT eBPF to run on embedded devices, such as Raspberry Pi, and other IoT devices.
-
-### Prerequisites and Skills Required
-
-- Skills in C/C++ and system-level programming.
-- Basic understanding of container technologies and FaaS architectures.
-- Familiarity with eBPF concepts and applications.
-- Interest in IoT, cloud-native, and embedded systems.
-
-### Expected Outcomes
-
-- A functional userspace eBPF runtime with AOT compilation capabilities.
-- Demonstrated integration in FaaS lightweight containers.
-- A plugin system enabling the embedding of eBPF programs in various applications.
-- Run AOT eBPF on embedded devices.
-
-### Additional Resources
-
-1. The AOT example of bpftime
-<https://github.com/eunomia-bpf/bpftime/blob/master/.github/workflows/test-aot-cli.yml>
-2. The API for vm. <https://github.com/eunomia-bpf/bpftime/tree/master/vm/include>
-3. Compile it as a standalone lib
-<https://github.com/eunomia-bpf/bpftime/tree/master/vm/llvm-jit>
-4. Femto-containers: lightweight virtualization and fault isolation for small software functions on low-power IoT microcontrollers <https://dl.acm.org/doi/abs/10.1145/3528535.3565242>
-
-If you want to add map support for microcontrollers,  I think you can write a c implementation, compile it and link it with bpftime AOT products. We will provide an example later.
-
-## Userspace eBPF for Userspace File System
-
-In modern operating systems, `fuse` (Filesystem in Userspace) has become a popular choice, allowing developers to create file systems in user space without modifying kernel code. However, the cost of system calls still exists. This is where `bpftime` can play a role.
-
-bpftime may help:
-
-- reducing the overhead of system calls and enhancing performance
-- enable cache for fuse without modifying the kernel
-- dynamic adjustment of file system strategies based on performance data
-- Add more policy and strategy for fuse
-
-You can explore more possibilities with us:
-
-- Time Cost: ~350 hours
-- Difficulty Level: Hard
-- Mentors: Yiwei Yang (<yyang363@ucsc.edu>) Yusheng Zheng (<mailto:yunwei356@gmail.com>)
-
-### Objectives
-
-1. **Synergistic Optimization Between User and Kernel Space**: Utilize `bpftime` to pre-process file system operations like caching and metadata queries in user space, thereby minimizing system call overhead.
-2. **Kernel Bypass Mechanism in User Space**: Develop a kernel bypass mechanism for file systems in user space using eBPF, potentially eliminating the need for invasive changes to user applications.
-3. **Dynamic Strategy Adjustment**: Implement a system within `bpftime` to dynamically collect performance data and adjust operational strategies in real-time.
-4. **Customization for Specific Workloads**: Enable developers to tailor eBPF programs for diverse application scenarios, optimizing for various workloads.
-
-### Expected Outcomes
-
-- A proof-of-concept implementation demonstrating the synergy between `bpftime` and userspace file systems.
-- A reduction in system call overhead for file operations in user space.
-- A framework allowing dynamic adjustment of file system strategies based on performance data.
-- Documentation or papers
-
-### Prerequisites and Skills
-
-- Proficiency in C/C++ and system-level programming.
-- Familiarity with file system concepts and user space-kernel space interactions.
-- Basic understanding of eBPF and its applications in modern operating systems.
-- Experience with `fuse` or similar technologies is a plus.
-
-### Resources
-
-- Extfuse paper and GitHub repo: <https://github.com/extfuse/extfuse>
-- <https://lwn.net/Articles/915717/>
 
 ## BPFTime Profiling and Machine Learning Prediction for far memory or distributed shared memory management
 
@@ -509,7 +307,3 @@ For bpftime, this enables a next-generation userspace runtime where both eBPF pr
   - <https://eunomia.dev/bpftime>  
   - <https://github.com/eunomia-bpf/bpftime>
 - A future GitHub issue in `eunomia-bpf/bpftime` can be created to track design, discussion, and implementation progress for the APX JIT backend.
-
-## Porting bpftime to Windows, FreeBSD, or other platforms
-
-It would be similar to the porting to macOS.
