@@ -1,4 +1,3 @@
-{"path": "docs/tutorials/43-kfuncs/README.md", "tags": ["eBPF", "kernel", "kfunc"]}
 {"path": "docs/tutorials/xpu/npu-kernel-driver/README.md", "tags": ["eBPF", "NPU", "kernel"]}
 {"path": "docs/tutorials/32-wallclock-profiler/README.md", "tags": ["eBPF", "profiler", "tracing"]}
 {"path": "docs/tutorials/27-replace/README.md", "tags": ["eBPF", "kernel", "tracing"]}
