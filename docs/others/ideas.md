@@ -168,7 +168,7 @@ The upcoming world for CXL.mem provides a new way of memory fabric, it can seemi
 
 - Time Cost: ~350 hours
 - Difficulty Level: Hard
-- Mentors: Yiwei Yang (<yyang363@ucsc.edu>) Yusheng Zheng (<mailto:yunwei356@gmail.com>)
+- Mentors:  Tong Yu (<yt.xyxx@gmail.com>) and Yusheng Zheng (<mailto:yunwei356@gmail.com>)
 
 ### Objectives
 
@@ -201,7 +201,7 @@ BPFTime is able to provide multiple source of metrics in the userspace from the 
 
 - Time Cost: ~350 hours
 - Difficulty Level: Hard
-- Mentors: Yiwei Yang (<yyang363@ucsc.edu>) Yusheng Zheng (<mailto:yunwei356@gmail.com>)
+- Mentors:  Tong Yu (<yt.xyxx@gmail.com>) and Yusheng Zheng (<mailto:yunwei356@gmail.com>)
 
 ### Objectives
 
@@ -226,8 +226,7 @@ BPFTime is able to provide multiple source of metrics in the userspace from the 
 - Conceptual attach types discussion and in bpftime: [GitHub Discussion](https://github.com/eunomia-bpf/bpftime/issues/202)
 - Papers about GPU metrics collection: [GPU metrics collection](https://itu-dasyalab.github.io/RAD/publication/papers/euromlsys2023.pdf) and [GPU static compilation and runtime API hooks](https://github.com/vosen/ZLUDA/blob/master/ARCHITECTURE.md#zluda-dumper)
 - GDB's rwatch: [GDB rwatch](https://sourceware.org/gdb/onlinedocs/gdb/Set-Watchpoints.html) implemented on [X86](https://en.wikipedia.org/wiki/X86_debug_register) and [Arm](https://developer.arm.com/documentation/ka001494/latest/)
-
-## APX-aware JIT backend for legacy x86 and bpftime
+<!-- ## APX-aware JIT backend for legacy x86 and bpftime
 
 Modern Intel CPUs with APX (Advanced Performance Extensions) expose 32 general-purpose registers and richer 3-operand encodings, offering significant potential for reducing spills and memory traffic in hot code paths. Many existing binaries, JITs, and runtimes, however, still emit “legacy” x86-64 code that cannot automatically take advantage of APX. This project aims to build an APX-aware JIT / dynamic binary translation backend that can “rehydrate” legacy x86-64 code into an intermediate representation (IR) and re-emit it using APX features for maximum performance when running on APX-capable CPUs.
 
@@ -306,4 +305,4 @@ For bpftime, this enables a next-generation userspace runtime where both eBPF pr
 - bpftime runtime and VM code:
   - <https://eunomia.dev/bpftime>  
   - <https://github.com/eunomia-bpf/bpftime>
-- A future GitHub issue in `eunomia-bpf/bpftime` can be created to track design, discussion, and implementation progress for the APX JIT backend.
+- A future GitHub issue in `eunomia-bpf/bpftime` can be created to track design, discussion, and implementation progress for the APX JIT backend. -->
