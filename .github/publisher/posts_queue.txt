@@ -1,4 +1,3 @@
-{"path": "docs/tutorials/27-replace/README.md", "tags": ["eBPF", "kernel", "tracing"]}
 {"path": "docs/tutorials/47-cuda-events/README.md", "tags": ["eBPF", "CUDA", "GPU"]}
 {"path": "docs/tutorials/features/bpf_arena/README.md", "tags": ["eBPF", "arena", "memory"]}
 {"path": "docs/tutorials/features/bpf_iters/README.md", "tags": ["eBPF", "iterator", "kernel"]}
