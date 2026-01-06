@@ -1,3 +1,2 @@
-{"path": "docs/tutorials/features/bpf_arena/README.md", "tags": ["eBPF", "arena", "memory"]}
 {"path": "docs/tutorials/features/bpf_iters/README.md", "tags": ["eBPF", "iterator", "kernel"]}
 {"path": "docs/tutorials/features/bpf_wq/README.md", "tags": ["eBPF", "workqueue", "kernel"]}
