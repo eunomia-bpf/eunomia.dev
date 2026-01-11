@@ -1,2 +1,3 @@
 {"path": "docs/tutorials/features/bpf_iters/README.md", "tags": ["eBPF", "iterator", "kernel"]}
 {"path": "docs/tutorials/features/bpf_wq/README.md", "tags": ["eBPF", "workqueue", "kernel"]}
+{"path": "docs/tutorials/features/struct_ops/README.md", "tags": ["eBPF", "structops", "kernel"]}
