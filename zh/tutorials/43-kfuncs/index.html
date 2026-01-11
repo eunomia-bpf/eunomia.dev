@@ -11412,7 +11412,7 @@
 </ul>
 <p><strong>在本教程中，我们将特别添加一个 <code>strstr</code> kfunc。</strong> 由于 eBPF 的验证器限制，直接在 eBPF 中实现字符串搜索是具有挑战性的，而将其定义为 kfunc 则允许我们安全高效地绕过这些限制，执行更复杂的操作。</p>
 <p>最棒的是，你可以在不修改核心内核的情况下实现这一目标，保持系统的稳定性和代码的安全性。</p>
-<p>在本教程中，我们将展示如何定义自定义 kfunc 以填补 eBPF 功能的任何空白。我们将逐步讲解如何创建一个引入新 kfunc 的内核模块，并演示如何在 eBPF 程序中使用它们。无论你是希望克服性能瓶颈，还是需要 eBPF 运行时未提供的功能，自定义 kfunc 都能为你的项目解锁新的可能性。</p>
+<p>在本教程中，我们将展示如何定义自定义 kfunc 以填补 eBPF 功能的任何空白。我们将逐步讲解如何创建一个引入新 kfunc 的内核模块，并演示如何在 eBPF 程序中使用它们。无论你是希望克服性能瓶颈，还是需要 eBPF 运行时未提供的功能，自定义 kfuncs 都能为你的项目解锁新的可能性。例如，kfuncs 也被用于在 GPU 驱动中通过 eBPF 实现 GPU 调度和内存卸载扩展（请参阅 <a href="https://lpc.events/event/19/contributions/2168/">LPC 2024 演讲</a> 和 <a href="https://github.com/eunomia-bpf/gpu_ext">gpu_ext 项目</a>）。</p>
 <h2 id="kfunc-ebpf">理解 kfunc：扩展 eBPF 超越辅助函数</h2>
 <h3 id="kfunc">什么是 kfunc？</h3>
 <p><strong>BPF 内核函数（kfuncs）</strong> 是 Linux 内核中的专用函数，供 eBPF 程序使用。与标准的 eBPF 辅助函数不同，kfuncs 没有稳定的接口，并且在不同的内核版本之间可能有所变化。这种可变性意味着使用 kfuncs 的 BPF 程序需要与内核更新同步更新，以保持兼容性和稳定性。</p>
@@ -11777,7 +11777,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 10, 2025 23:07:43 UTC">February 10, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 11, 2026 10:46:49 UTC">January 11, 2026</span>
   </span>
 
     
@@ -11797,11 +11797,12 @@
   <span class="md-source-file__fact">
     <span class="md-icon" title="Contributors">
       
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
       
     </span>
     <nav>
       
+        <a href="mailto:yunwei356@gmail.com">yunwei37</a>, 
         <a href="mailto:1067852565@qq.com">云微</a>
     </nav>
   </span>
