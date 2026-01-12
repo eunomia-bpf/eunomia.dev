@@ -89,6 +89,14 @@
          
     </url>
     <url>
+         <loc>https://eunomia.dev/blog/2026/01/11/architectures-for-agent-systems-a-survey-of-isolation-integration-and-governance/</loc>
+         <lastmod>2026-01-12</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blog/posts/agent_sandbox/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/posts/agent_sandbox/"/>
+         
+    </url>
+    <url>
          <loc>https://eunomia.dev/blog/2025/08/26/agentsight-keeping-your-ai-agents-under-control-with-ebpf-powered-system-observability/</loc>
          <lastmod>2026-01-12</lastmod>
          <changefreq>daily</changefreq>
