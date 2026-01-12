@@ -11430,26 +11430,30 @@
 <h1 id="ebpf-bpf-struct_ops">eBPF 教程：使用 BPF struct_ops 扩展内核子系统</h1>
 <p>你是否曾经想过实现一项内核功能，比如一个新的网络协议或一个自定义的安全策略，但却因为编写和维护一个完整内核模块的复杂性而望而却步？设想一下，如果你可以直接在 eBPF 中定义一个内核子系统的操作逻辑，从而实现动态更新、安全执行和可编程控制，而这一切都无需重新编译内核或冒着系统稳定的风险，那会是怎样一种体验？</p>
 <p>这就是 <strong>BPF struct_ops</strong> 的强大之处。这个先进的 eBPF 功能允许 BPF 程序实现内核操作结构的回调函数，实际上是让你能够“插入”BPF 代码来充当一个内核子系统。这已经超越了简单的跟踪或过滤；这是关于在 BPF 中实现核心的内核逻辑。例如，我们还使用它在 GPU 驱动中通过 eBPF 实现 GPU 调度和内存卸载扩展（请参阅 <a href="https://lpc.events/event/19/contributions/2168/">LPC 2024 演讲</a> 和 <a href="https://github.com/eunomia-bpf/gpu_ext">gpu_ext 项目</a>）。</p>
-<p>在本教程中，我们将探讨如何使用 <code>struct_ops</code> 来动态地实现一个内核子系统的功能。我们不会使用常见的 TCP 拥塞控制示例。相反，我们将采用一种更基础的方法，这种方法反映了与 kfuncs 相似的可扩展性。我们将创建一个自定义的内核模块，该模块定义了一组新的、简单的操作。这个模块将充当一个占位符，为我们的 BPF 程序创建新的附加点。然后，我们将编写一个 BPF 程序来实现这些操作的逻辑。这演示了一种强大的模式：使用一个最小化的内核模块来暴露一个 <code>struct_ops</code> 接口，然后使用 BPF 来提供完整、复杂的实现。</p>
+<p>在本教程中，我们将探讨如何使用 <code>struct_ops</code> 来动态地扩展内核子系统的行为。我们不会使用常见的 TCP 拥塞控制示例。相反，我们将采用一种更基础的方法，这种方法反映了与 kfuncs 相似的可扩展性。我们将创建一个自定义的内核模块，该模块定义了一组新的、简单的操作。这个模块将充当一个占位符，为我们的 BPF 程序创建新的附加点。然后，我们将编写一个 BPF 程序来实现这些操作的逻辑。这演示了一种强大的模式：使用一个最小化的内核模块来暴露一个 <code>struct_ops</code> 接口，然后使用 BPF 来提供完整、复杂的实现。</p>
 <blockquote>
 <p>本教程的完整源代码可以在这里找到：<a href="https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/features/struct_ops">https://github.com/eunomia-bpf/bpf-developer-tutorial/tree/main/src/features/struct_ops</a></p>
 </blockquote>
 <h2 id="bpf-struct_ops">BPF struct_ops 简介：可编程的内核子系统</h2>
 <h3 id="_1">挑战：安全、动态地扩展内核行为</h3>
-<p>传统上，向 Linux 内核添加新功能，例如新的文件系统、网络协议或调度器算法，都需要编写内核模块。虽然功能强大，但内核模块也带来了重大的挑战：
-- <strong>复杂性：</strong> 内核开发具有陡峭的学习曲线，需要对内核内部有深入的了解。
-- <strong>安全性：</strong> 内核模块中的一个错误很容易导致整个系统崩溃。没有沙箱保障。
-- <strong>维护性：</strong> 内核模块必须针对不同的内核版本进行维护和重新编译，这与内核的内部 API 产生了紧密的耦合。</p>
+<p>传统上，向 Linux 内核添加新功能，例如新的文件系统、网络协议或调度器算法，都需要编写内核模块。虽然功能强大，但内核模块也带来了重大的挑战：</p>
+<ul>
+<li><strong>复杂性：</strong> 内核开发具有陡峭的学习曲线，需要对内核内部有深入的了解。</li>
+<li><strong>安全性：</strong> 内核模块中的一个错误很容易导致整个系统崩溃。没有沙箱保障。</li>
+<li><strong>维护性：</strong> 内核模块必须针对不同的内核版本进行维护和重新编译，这与内核的内部 API 产生了紧密的耦合。</li>
+</ul>
 <p>eBPF 通过提供一个安全的沙箱环境，传统上在跟踪、网络和安全领域解决了这些问题。然而，大多数 eBPF 程序都附加到现有的钩子（如 tracepoints、kprobes 或 XDP）上并对事件做出反应。它们通常不<em>实现</em>内核子系统的核心逻辑。</p>
 <h3 id="bpf">解决方案：用 BPF 实现内核操作</h3>
 <p>BPF <code>struct_ops</code> 填补了这一空白。它允许 BPF 程序实现 <code>struct_ops</code> 中的函数——这是内核中一种常见的模式，即一个结构体包含一组操作的函数指针。这些指针不再指向编译到内核或模块中的函数，而是可以指向 BPF 程序。</p>
 <p>这是一种范式转变。它不再仅仅是关于观察或过滤；它是关于<em>实现</em>。想象一个内核子系统，它定义了一组像 <code>open</code>、<code>read</code>、<code>write</code> 这样的操作。通过 <code>struct_ops</code>，你可以编写 BPF 程序来作为这些函数的实现。</p>
 <p>这种方法的精神与 <strong>kfuncs</strong> 允许开发者扩展 BPF 功能的方式相似。通过 kfuncs，我们可以在内核模块中定义它们，从而向 BPF 运行时添加自定义的辅助函数。通过 <code>struct_ops</code>，我们更进一步：我们为 BPF 程序定义了一整套全新的<em>附加点</em>，有效地在内核中创建了一个自定义的、可通过 BPF 编程的子系统。</p>
-<p>其好处是巨大的：
-- <strong>动态实现</strong>：你可以在不重启内核或应用程序的情况下，动态加载、更新和卸载实现子系统逻辑的 BPF 程序。
-- <strong>安全性</strong>：BPF 验证器确保 BPF 程序的运行是安全的，防止了诸如无限循环、越界内存访问和系统崩溃等常见陷阱。
-- <strong>灵活性</strong>：逻辑位于 BPF 程序中，可以独立于定义 <code>struct_ops</code> 接口的内核模块进行开发和更新。
-- <strong>可编程性</strong>：用户空间应用程序可以与 BPF 程序交互并控制它们，从而实现对内核子系统行为的动态配置和控制。</p>
+<p>其好处是巨大的：</p>
+<ul>
+<li><strong>动态实现</strong>：你可以在不重启内核或应用程序的情况下，动态加载、更新和卸载实现子系统逻辑的 BPF 程序。</li>
+<li><strong>安全性</strong>：BPF 验证器确保 BPF 程序的运行是安全的，防止了诸如无限循环、越界内存访问和系统崩溃等常见陷阱。</li>
+<li><strong>灵活性</strong>：逻辑位于 BPF 程序中，可以独立于定义 <code>struct_ops</code> 接口的内核模块进行开发和更新。</li>
+<li><strong>可编程性</strong>：用户空间应用程序可以与 BPF 程序交互并控制它们，从而实现对内核子系统行为的动态配置和控制。</li>
+</ul>
 <p>在本教程中，我们将通过一个实际的例子来演示这种模式。我们将从一个定义了新的 <code>struct_ops</code> 类型的内核模块开始，然后我们将编写一个 BPF 程序来实现它的功能。</p>
 <h2 id="_2">内核模块：定义子系统接口</h2>
 <p>第一步是创建一个内核模块，用以定义我们新的、可通过 BPF 编程的子系统。这个模块本身不需要包含太多逻辑。它的主要作用是定义一个 <code>struct_ops</code> 类型并将其注册到内核，从而为 BPF 程序创建一个新的附加点。它还提供了一种触发这些操作的机制，在我们的例子中，这将是一个简单的 proc 文件。</p>
@@ -12053,7 +12057,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 11, 2026 10:46:49 UTC">January 11, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 12, 2026 07:32:52 UTC">January 12, 2026</span>
   </span>
 
     

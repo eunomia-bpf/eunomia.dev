@@ -11361,6 +11361,7 @@
 <h2 id="vs-gpu">局限性：内核追踪 vs GPU 侧可观测性</h2>
 <p>本教程主要关注内核侧的 GPU 驱动追踪，这为我们提供了作业调度、内存管理和驱动-固件通信的可见性。然而，内核跟踪点存在根本性的局限。当 <code>drm_run_job</code> 触发时，我们知道作业开始在 GPU 硬件上执行，但无法观察到 GPU 内部实际发生了什么。成千上万个并行线程的执行、它们的内存访问模式、分支分化、warp 占用率和指令级行为都是不可见的。这些细节对于理解性能瓶颈至关重要 - 内存合并是否失败、线程分化是否降低了效率，或者共享内存 bank 冲突是否导致执行停顿。</p>
 <p>要实现细粒度的 GPU 可观测性，eBPF 程序必须直接在 GPU 上运行。这正是 eGPU 论文和 <a href="https://github.com/eunomia-bpf/bpftime/tree/master/example/gpu">bpftime GPU 示例</a>所探索的方向。bpftime 将 eBPF 字节码转换为 GPU 可以执行的 PTX 指令，然后在运行时动态修补 CUDA 二进制文件，将这些 eBPF 程序注入到内核入口/出口点。这使得开发者可以观察 GPU 特有的信息，如块索引、线程索引、全局计时器和 warp 级指标。开发者可以在 GPU 内核的关键路径上进行插桩，测量执行行为并诊断内核侧追踪无法触及的复杂性能问题。这种 GPU 内部的可观测性与内核跟踪点互补 - 它们一起提供了从 API 调用通过内核驱动到 GPU 执行的端到端可见性。</p>
+<p>除了追踪，eBPF 还可以扩展 GPU 驱动行为——参见我们的 <a href="https://github.com/eunomia-bpf/gpu_ext">gpu_ext 项目</a>，通过 BPF struct_ops 实现 GPU 调度和内存卸载（<a href="https://lpc.events/event/19/contributions/2168/">LPC 2024 演讲</a>）。</p>
 <h2 id="_3">总结</h2>
 <p>GPU 内核跟踪点提供零开销的驱动内部可见性。DRM 调度器的稳定 uAPI 跟踪点跨所有供应商工作，适合生产监控。供应商特定跟踪点暴露详细的内存管理和命令提交管道。bpftrace 脚本演示了跟踪作业调度、测量延迟和识别依赖停顿 - 所有这些对于诊断游戏、ML 训练和云 GPU 工作负载中的性能问题都至关重要。对于超越内核追踪的 GPU 内部可观测性，请探索 bpftime 的 GPU eBPF 能力。</p>
 <blockquote>
@@ -11401,7 +11402,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 13, 2025 14:23:44 UTC">October 13, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 12, 2026 07:32:52 UTC">January 12, 2026</span>
   </span>
 
     
