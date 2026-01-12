@@ -25,7 +25,7 @@ Summary: The architecture of modern agent systems is coalescing around a modular
 Running untrusted or machine-generated code has always been risky – the difference now is that with LLM agents the code is being generated and executed on the fly, without a human vetting each command. This opens the door to accidental failures or even malicious exploits if the agent is tricked or if its outputs are unsafe. As a result, sandboxing has become a foundational requirement for agent systems. Sandboxing in this context means confining the agent's actions (code execution, file system writes, network calls, etc.) to an environment where it can't harm other processes or breach data it shouldn't access.
 
 
-## Table 1: Research / OSS Projects (Papers, Benchmarks, Open-Source Runtimes)
+### Table 1: Research / OSS Projects (Papers, Benchmarks, Open-Source Runtimes)
 
 | Name | Category | Sandbox/Isolation Boundary | Key Capabilities | Reference |
 | ---- | -------- | -------------------------- | ---------------- | --------- |
@@ -51,9 +51,7 @@ Running untrusted or machine-generated code has always been risky – the differ
 
 > Note: Achieving exhaustive coverage is impractical (especially given the long tail of the MCP ecosystem), so this table covers mainstream/representative projects plus ecosystem indexes. The `awesome-sandbox` list serves as an entry point for additional coverage.
 
----
-
-## Table 2: Commercial / Cloud Service Projects (Agent Sandbox / Code Sandbox / Runtime)
+### Table 2: Commercial / Cloud Service Projects (Agent Sandbox / Code Sandbox / Runtime)
 
 | Product/Service | Vendor | Isolation/Execution Model | Key Capabilities | Reference |
 | --------------- | ------ | ------------------------- | ---------------- | --------- |
