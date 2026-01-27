@@ -1,2 +1,1 @@
-{"path": "docs/tutorials/features/struct_ops/README.md", "tags": ["eBPF", "structops", "kernel"]}
 {"path": "docs/blog/posts/agent_sandbox.md", "tags": ["agent", "sandbox", "AI"]}
