@@ -233,6 +233,14 @@
          
     </url>
     <url>
+         <loc>https://eunomia.dev/blog/2026/01/29/a-taxonomy-of-gpu-bugs-19-defect-classes-for-cuda-verification/</loc>
+         <lastmod>2026-01-30</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blog/posts/gpu-bug-taxonomy/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/posts/gpu-bug-taxonomy/"/>
+         
+    </url>
+    <url>
          <loc>https://eunomia.dev/blog/2025/10/14/the-gpu-observability-gap-why-we-need-ebpf-on-gpu-devices/</loc>
          <lastmod>2026-01-30</lastmod>
          <changefreq>daily</changefreq>
@@ -342,14 +350,6 @@
          <changefreq>daily</changefreq>
          <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blog/posts/profile-tools-limitation/"/>
          <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/posts/profile-tools-limitation/"/>
-         
-    </url>
-    <url>
-         <loc>https://eunomia.dev/blog/2026/01/29/a-taxonomy-of-gpu-bugs-19-defect-classes-for-cuda-verification/</loc>
-         <lastmod>2026-01-30</lastmod>
-         <changefreq>daily</changefreq>
-         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blog/posts/related/"/>
-         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/posts/related/"/>
          
     </url>
     <url>
