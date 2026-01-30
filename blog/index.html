@@ -10715,6 +10715,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#a-taxonomy-of-gpu-bugs-19-defect-classes-for-cuda-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A Taxonomy of GPU Bugs: 19 Defect Classes for CUDA Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#architectures-for-agent-systems-a-survey-of-isolation-integration-and-governance" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -11186,6 +11197,45 @@
 <p><a class="md-button" href="https://x.com/intent/tweet?text=Blog%0A&amp;url=https://eunomia.dev/blog/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/blog/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
       </header>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2026-01-29 00:00:00+00:00">January 29, 2026</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              20 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="a-taxonomy-of-gpu-bugs-19-defect-classes-for-cuda-verification"><a class="toclink" href="2026/01/29/a-taxonomy-of-gpu-bugs-19-defect-classes-for-cuda-verification/">A Taxonomy of GPU Bugs: 19 Defect Classes for CUDA Verification</a></h2>
+<h3 id="introduction"><a class="toclink" href="2026/01/29/a-taxonomy-of-gpu-bugs-19-defect-classes-for-cuda-verification/#introduction">Introduction</a></h3>
+<p>GPU programming introduces a distinct class of correctness and performance challenges that differ fundamentally from traditional CPU-based systems. The SIMT (Single Instruction, Multiple Threads) execution model, hierarchical memory architecture, and massive parallelism create unique bug patterns that require specialized verification and detection techniques.</p>
+<p>Just as eBPF enables safe, verified extension code to run inside the Linux kernel, <a href="https://github.com/eunomia-bpf/bpftime">bpftime gpu_ext</a> (The <a href="https://arxiv.org/abs/2512.12615">arxiv</a>, formally name <a href="https://dl.acm.org/doi/10.1145/3723851.3726984">eGPU</a>) bring eBPF to GPUs—allowing user-defined policy code (for observability, scheduling, or resource control) to be injected into GPU drivers and kernels with <strong>static verification guarantees</strong>. Such a GPU extension framework must ensure that policy code cannot introduce crashes, hangs, data races, or unbounded overhead. A critical concern in modern GPU deployments is <strong>performance interference in multi-tenant environments</strong>: contention for shared resources makes execution time unpredictable. "Making Powerful Enemies on NVIDIA GPUs" studies how adversarial kernels can amplify slowdowns, arguing that performance interference is a <em>system-level safety</em> property when GPUs are shared. This motivates treating bounded overhead as a correctness property—not merely an optimization goal.</p>
+<p>To build a sound GPU extension verifier, we must first understand what can go wrong. This taxonomy identifies the defect classes a verifier must address, drawing lessons from eBPF's success: restrict the programming model, enforce bounded execution, and verify memory safety before loading. We synthesize findings from static verifiers (GPUVerify, GKLEE, ESBMC-GPU), dynamic detectors (Compute Sanitizer, Simulee, CuSan), and empirical bug studies (Wu et al., ScoRD, iGUARD) into 19 defect classes organized along two dimensions: impact type (Safety, Correctness, Performance) and GPU specificity (GPU-specific, GPU-amplified, CPU-shared). Each entry provides concrete examples, documents detection tools, and offers actionable verification strategies.</p>
+
+    
+      <nav class="md-post__action">
+        <a href="2026/01/29/a-taxonomy-of-gpu-bugs-19-defect-classes-for-cuda-verification/">
+          Continue reading
+        </a>
+      </nav>
+    
+    
+  </div>
+</article>
       
         <article class="md-post md-post--excerpt">
   <header class="md-post__header">
