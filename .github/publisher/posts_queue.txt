@@ -1,1 +1,2 @@
 {"path": "docs/blog/posts/agent_sandbox.md", "tags": ["agent", "sandbox", "AI"]}
+{"path": "docs/blog/posts/gpu-bug-taxonomy.md", "tags": ["ebpf", "GPU", "verifier"]}
