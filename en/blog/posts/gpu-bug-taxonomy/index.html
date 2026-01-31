@@ -10725,15 +10725,26 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#1-canonical-bug-list-dedup-filled-from-oss-scan" class="md-nav__link">
+  <a href="#insights-from-a-taxonomy-of-gpu-defects" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Canonical bug list (dedup + filled from OSS scan)
+        Insights from a Taxonomy of GPU Defects
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="1. Canonical bug list (dedup + filled from OSS scan)">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#canonical-bug-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Canonical bug list
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Canonical bug list">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -12422,7 +12433,15 @@
 </tbody>
 </table>
 <hr />
-<h2 id="1-canonical-bug-list-dedup-filled-from-oss-scan">1. Canonical bug list (dedup + filled from OSS scan)</h2>
+<h2 id="insights-from-a-taxonomy-of-gpu-defects">Insights from a Taxonomy of GPU Defects</h2>
+<p>We conducted a comprehensive study of GPU correctness defects by synthesizing findings from empirical bug analyses (<a href="https://arxiv.org/pdf/1905.01833" title="https://arxiv.org/pdf/1905.01833">Wu et al.</a>, <a href="https://akkamath.github.io/files/SOSP21_iGUARD.pdf" title="https://akkamath.github.io/files/SOSP21_iGUARD.pdf">iGUARD</a>), static verifiers (<a href="https://nchong.github.io/papers/oopsla12.pdf" title="https://nchong.github.io/papers/oopsla12.pdf">GPUVerify</a>, <a href="https://lingming.cs.illinois.edu/publications/icse2020b.pdf" title="https://lingming.cs.illinois.edu/publications/icse2020b.pdf">GKLEE</a>, <a href="https://github.com/ssvlab/esbmc-gpu" title="https://github.com/ssvlab/esbmc-gpu">ESBMC-GPU</a>), and runtime detectors (<a href="https://docs.nvidia.com/compute-sanitizer/ComputeSanitizer/index.html" title="https://docs.nvidia.com/compute-sanitizer/ComputeSanitizer/index.html">Compute Sanitizer</a>, <a href="https://zhangyuqun.github.io/publications/ase2019.pdf" title="https://zhangyuqun.github.io/publications/ase2019.pdf">Simulee</a>, <a href="https://www.csa.iisc.ac.in/~arkapravab/papers/isca20_ScoRD.pdf" title="https://www.csa.iisc.ac.in/~arkapravab/papers/isca20_ScoRD.pdf">ScoRD</a>). Our taxonomy identifies 19 distinct classes of GPU programming defects, uncovering fundamental insights into the unique correctness challenges posed by GPU architectures:</p>
+<p><strong>First</strong>, we observe that <em>control-flow uniformity</em> is a foundational correctness requirement for GPU kernels. Non-uniform execution across threads—caused by GPU's SIMT execution model—breaks implicit synchronization assumptions and triggers GPU-specific correctness violations, such as barrier divergence, warp synchronization errors, and subtle warp-divergence races. This insight elevates uniformity from a performance concern to a correctness property that GPU verification frameworks must explicitly enforce.</p>
+<p><strong>Second</strong>, GPU's scoped memory synchronization semantics (e.g., block-scoped atomics, missing fences, volatile misuse) create unique correctness hazards rarely encountered on CPU platforms. Our analysis emphasizes that synchronization primitives' scopes must be explicit, conservative, and verifiable at the kernel level. This requirement is critical for correctness given GPU memory model subtleties.</p>
+<p><strong>Third</strong>, performance interference in GPUs—manifested as uncoalesced accesses, atomic contention, redundant barriers, and bank conflicts—must be viewed as a <em>safety and isolation</em> concern rather than mere inefficiency. Our taxonomy reveals how adversarial workloads exploit GPU parallelism to amplify performance issues into denial-of-service attacks in multi-tenant environments. Consequently, bounded overhead must be explicitly enforced as a correctness property in GPU extension frameworks.</p>
+<p><strong>Finally</strong>, our study highlights that liveness (deadlocks, infinite loops) and memory safety (out-of-bounds accesses, temporal violations) are system-level concerns uniquely amplified by GPU parallelism. Unlike traditional CPU environments, GPU kernel hangs or memory violations can trigger hardware-level recovery affecting all tenants. Thus, GPU liveness and memory safety must be explicitly recognized as first-class system-level correctness properties in verifier designs.</p>
+<p>Together, these insights not only characterize GPU correctness issues more precisely but also inform principled design requirements for GPU kernel extensibility and verification frameworks—moving beyond traditional CPU-centric correctness towards a GPU-aware system correctness definition. We are applying these principles in <a href="https://github.com/eunomia-bpf/bpftime">bpftime</a>, you can find more detail in <a href="https://arxiv.org/abs/2512.12615">arXiv</a>.</p>
+<hr />
+<h2 id="canonical-bug-list">Canonical bug list</h2>
 <h3 id="1-barrier-divergence-at-block-barriers-__syncthreads-safety-gpu-specific">1) Barrier Divergence at Block Barriers (<code>__syncthreads</code>) — Safety, GPU-specific</h3>
 <h4 id="what-it-is-why-it-matters">What it is / why it matters</h4>
 <p>A block-wide barrier requires <em>all</em> threads in the block to reach it. If the barrier is placed under a condition that evaluates differently across threads, some threads wait forever → deadlock / kernel hang. This is treated as a first-class defect in GPU kernel verification (e.g., "barrier divergence" in GPUVerify), and is also one of the main CUDA synchronization bug types characterized/targeted by AuCS/Wu. Note that general control-flow divergence is a performance issue, but barrier divergence is the <em>specific, critical case</em> where divergent control flow causes threads to reach a barrier non-uniformly, turning a performance issue into a <strong>liveness/correctness failure</strong> (deadlock).</p>
@@ -12961,7 +12980,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 30, 2026 05:56:55 UTC">January 30, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 31, 2026 01:44:53 UTC">January 31, 2026</span>
   </span>
 
     
