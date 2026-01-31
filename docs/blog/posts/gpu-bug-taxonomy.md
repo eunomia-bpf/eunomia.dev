@@ -55,7 +55,23 @@ Each bug class is categorized along two dimensions:
 
 ---
 
-## 1. Canonical bug list (dedup + filled from OSS scan)
+## Insights from a Taxonomy of GPU Defects
+
+We conducted a comprehensive study of GPU correctness defects by synthesizing findings from empirical bug analyses ([Wu et al.][21], [iGUARD][7]), static verifiers ([GPUVerify][1], [GKLEE][18], [ESBMC-GPU][10]), and runtime detectors ([Compute Sanitizer][3], [Simulee][19], [ScoRD][4]). Our taxonomy identifies 19 distinct classes of GPU programming defects, uncovering fundamental insights into the unique correctness challenges posed by GPU architectures:
+
+**First**, we observe that *control-flow uniformity* is a foundational correctness requirement for GPU kernels. Non-uniform execution across threads—caused by GPU's SIMT execution model—breaks implicit synchronization assumptions and triggers GPU-specific correctness violations, such as barrier divergence, warp synchronization errors, and subtle warp-divergence races. This insight elevates uniformity from a performance concern to a correctness property that GPU verification frameworks must explicitly enforce.
+
+**Second**, GPU's scoped memory synchronization semantics (e.g., block-scoped atomics, missing fences, volatile misuse) create unique correctness hazards rarely encountered on CPU platforms. Our analysis emphasizes that synchronization primitives' scopes must be explicit, conservative, and verifiable at the kernel level. This requirement is critical for correctness given GPU memory model subtleties.
+
+**Third**, performance interference in GPUs—manifested as uncoalesced accesses, atomic contention, redundant barriers, and bank conflicts—must be viewed as a *safety and isolation* concern rather than mere inefficiency. Our taxonomy reveals how adversarial workloads exploit GPU parallelism to amplify performance issues into denial-of-service attacks in multi-tenant environments. Consequently, bounded overhead must be explicitly enforced as a correctness property in GPU extension frameworks.
+
+**Finally**, our study highlights that liveness (deadlocks, infinite loops) and memory safety (out-of-bounds accesses, temporal violations) are system-level concerns uniquely amplified by GPU parallelism. Unlike traditional CPU environments, GPU kernel hangs or memory violations can trigger hardware-level recovery affecting all tenants. Thus, GPU liveness and memory safety must be explicitly recognized as first-class system-level correctness properties in verifier designs.
+
+Together, these insights not only characterize GPU correctness issues more precisely but also inform principled design requirements for GPU kernel extensibility and verification frameworks—moving beyond traditional CPU-centric correctness towards a GPU-aware system correctness definition.
+
+---
+
+## Canonical bug list
 
 ### 1) Barrier Divergence at Block Barriers (`__syncthreads`) — Safety, GPU-specific
 
