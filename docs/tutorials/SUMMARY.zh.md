@@ -80,6 +80,7 @@ GPU:
 特性:
 
 - [lesson 49-hid](49-hid/README.zh.md) eBPF 教程：无需内核补丁修复故障的 HID 设备
+- [cgroup](cgroup/README.zh.md) eBPF 实例教程：基于 cgroup 的策略控制
 Android:
 
 - [lesson 22-android](22-android/README.zh.md) 在 Android 上使用 eBPF 程序

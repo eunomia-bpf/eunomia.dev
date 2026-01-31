@@ -102,6 +102,7 @@ Features:
 Other:
 
 - [lesson 49-hid](49-hid/README.md) Fixing Broken HID Devices Without Kernel Patches
+- [cgroup](cgroup/README.md) cgroup-based Policy Control
 
 
 Android:
