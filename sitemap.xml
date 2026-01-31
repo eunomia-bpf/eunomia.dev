@@ -2169,6 +2169,14 @@
          
     </url>
     <url>
+         <loc>https://eunomia.dev/tutorials/cgroup/</loc>
+         <lastmod>2026-01-31</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/tutorials/cgroup/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/cgroup/"/>
+         
+    </url>
+    <url>
          <loc>https://eunomia.dev/tutorials/features/bpf_arena/</loc>
          <lastmod>2026-01-31</lastmod>
          <changefreq>daily</changefreq>
