@@ -28,6 +28,8 @@
 We provide a docker image for building and testing bpftime.
 
 ```bash
+# clone the bpftime repository
+git clone https://github.com/eunomia-bpf/bpftime
 # run the container
 docker run -it --rm --name test_bpftime -v "$(pwd)":/workdir -w /workdir ghcr.io/eunomia-bpf/bpftime:latest /bin/bash
 # start another shell in the container (If needed)
