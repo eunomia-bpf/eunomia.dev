@@ -67,7 +67,7 @@ We conducted a comprehensive study of GPU correctness defects by synthesizing fi
 
 **Finally**, our study highlights that liveness (deadlocks, infinite loops) and memory safety (out-of-bounds accesses, temporal violations) are system-level concerns uniquely amplified by GPU parallelism. Unlike traditional CPU environments, GPU kernel hangs or memory violations can trigger hardware-level recovery affecting all tenants. Thus, GPU liveness and memory safety must be explicitly recognized as first-class system-level correctness properties in verifier designs.
 
-Together, these insights not only characterize GPU correctness issues more precisely but also inform principled design requirements for GPU kernel extensibility and verification frameworks—moving beyond traditional CPU-centric correctness towards a GPU-aware system correctness definition.
+Together, these insights not only characterize GPU correctness issues more precisely but also inform principled design requirements for GPU kernel extensibility and verification frameworks—moving beyond traditional CPU-centric correctness towards a GPU-aware system correctness definition. We are applying these principles in [bpftime](https://github.com/eunomia-bpf/bpftime), you can find more detail in [arXiv](https://arxiv.org/abs/2512.12615).
 
 ---
 
