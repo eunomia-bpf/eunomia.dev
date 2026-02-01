@@ -97,6 +97,7 @@ Features:
 - [features bpf_wq](features/bpf_wq/README.md) BPF Workqueues for Asynchronous Sleepable Tasks
 - [features bpf_iters](features/bpf_iters/README.md) BPF Iterators for Kernel Data Export
 - [features struct_ops](features/struct_ops/README.md) Extending Kernel Subsystems with BPF struct_ops
+- [features dynptr](features/dynptr/README.md) BPF Dynamic Pointers for Variable-Length Data
 - [features bpf_arena](features/bpf_arena/README.md) BPF Arena for Zero-Copy Shared Memory
 
 Other:
