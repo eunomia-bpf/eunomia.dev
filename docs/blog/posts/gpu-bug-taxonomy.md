@@ -8,7 +8,7 @@ date: 2026-01-29
 
 GPU programming introduces a distinct class of correctness and performance challenges that differ fundamentally from traditional CPU-based systems. The SIMT (Single Instruction, Multiple Threads) execution model, hierarchical memory architecture, and massive parallelism create unique bug patterns that require specialized verification and detection techniques.
 
-Just as eBPF enables safe, verified extension code to run inside the Linux kernel, [bpftime gpu_ext](https://github.com/eunomia-bpf/bpftime) (The [arxiv](https://arxiv.org/abs/2512.12615), formally name [eGPU](https://dl.acm.org/doi/10.1145/3723851.3726984)) bring eBPF to GPUs—allowing user-defined policy code (for observability, scheduling, or resource control) to be injected into GPU drivers and kernels with **static verification guarantees**. Such a GPU extension framework must ensure that policy code cannot introduce crashes, hangs, data races, or unbounded overhead. A critical concern in modern GPU deployments is **performance interference in multi-tenant environments**: contention for shared resources makes execution time unpredictable. "Making Powerful Enemies on NVIDIA GPUs" studies how adversarial kernels can amplify slowdowns, arguing that performance interference is a *system-level safety* property when GPUs are shared. This motivates treating bounded overhead as a correctness property—not merely an optimization goal.
+Just as eBPF enables safe, verified extension code to run inside the Linux kernel, [bpftime gpu_ext](https://github.com/eunomia-bpf/bpftime) (The [arxiv](https://arxiv.org/abs/2512.12615), formally name [eGPU](https://dl.acm.org/doi/10.1145/3723851.3726984)) bring eBPF to GPUs, allowing user-defined policy code (for observability, scheduling, or resource control) to be injected into GPU drivers and kernels with **static verification guarantees**. Such a GPU extension framework must ensure that policy code cannot introduce crashes, hangs, data races, or unbounded overhead. A critical concern in modern GPU deployments is **performance interference in multi-tenant environments**: contention for shared resources makes execution time unpredictable. "Making Powerful Enemies on NVIDIA GPUs" studies how adversarial kernels can amplify slowdowns, arguing that performance interference is a *system-level safety* property when GPUs are shared. This motivates treating bounded overhead as a correctness property, not merely an optimization goal.
 
 To build a sound GPU extension verifier, we must first understand what can go wrong. This taxonomy identifies the defect classes a verifier must address, drawing lessons from eBPF's success: restrict the programming model, enforce bounded execution, and verify memory safety before loading. We synthesize findings from static verifiers (GPUVerify, GKLEE, ESBMC-GPU), dynamic detectors (Compute Sanitizer, Simulee, CuSan), and empirical bug studies (Wu et al., ScoRD, iGUARD) into 19 defect classes organized along two dimensions: impact type (Safety, Correctness, Performance) and GPU specificity (GPU-specific, GPU-amplified, CPU-shared). Each entry provides concrete examples, documents detection tools, and offers actionable verification strategies.
 
@@ -22,27 +22,27 @@ To build a sound GPU extension verifier, we must first understand what can go wr
 Each bug class is categorized along four dimensions:
 
 **Impact Type:**
-- **Safety** — Program fails to complete safely (crash, hang, isolation failure, deadlock)
-- **Correctness** — Program completes but produces wrong results
-- **Performance** — Program works correctly but inefficiently
+- **Safety**: Program fails to complete safely (crash, hang, isolation failure, deadlock)
+- **Correctness**: Program completes but produces wrong results
+- **Performance**: Program works correctly but inefficiently
 
 **GPU Specificity:**
-- **GPU-specific** — Unique to GPU/SIMT execution model
-- **GPU-amplified** — Exists on CPUs but much more severe on GPUs
-- **CPU-shared** — Similar on both platforms
+- **GPU-specific**: Unique to GPU/SIMT execution model
+- **GPU-amplified**: Exists on CPUs but much more severe on GPUs
+- **CPU-shared**: Similar on both platforms
 
 **Verification Scope (for GPU extension frameworks):**
-- **E (Extension-local)** — Can be verified by examining only the extension/policy code, without inspecting the host kernel. This is the ideal case: like eBPF, the verifier can provide strong safety guarantees for *any* kernel the extension attaches to.
-- **C (Combined)** — Requires joint analysis of extension + kernel, or a contract between them. These bugs arise from interactions between policy code and kernel state/behavior.
-- **H (Host+Device/System)** — Involves host-side API ordering, driver state, or cross-boundary interactions that cannot be verified by device-side analysis alone.
+- **E (Extension-local)**: Can be verified by examining only the extension/policy code, without inspecting the host kernel. This is the ideal case: like eBPF, the verifier can provide strong safety guarantees for *any* kernel the extension attaches to.
+- **C (Combined)**: Requires joint analysis of extension + kernel, or a contract between them. These bugs arise from interactions between policy code and kernel state/behavior.
+- **H (Host+Device/System)**: Involves host-side API ordering, driver state, or cross-boundary interactions that cannot be verified by device-side analysis alone.
 
 **Assurance Type (Soundness/Completeness guarantees):**
-- **By-construction** — Bug class is structurally impossible due to language/feature restrictions. *Soundness*: perfect (the bug cannot exist). *Completeness*: high for policy use cases (restrictions rarely limit legitimate policies).
-- **Static-sound** — If verifier accepts, property holds; but some safe programs rejected. *Soundness*: strong. *Completeness*: low (conservative).
-- **Contract-based** — Requires declared preconditions validated at attach/launch time. *Soundness*: conditional on contract correctness. *Completeness*: depends on contract expressiveness.
-- **Bounded-sound** — Sound within specified bounds (loop unrolling, context switches). *Soundness*: within bounds. *Completeness*: limited by bound coverage.
-- **Dynamic-only** — Detected at runtime; no static guarantee. *Soundness*: for executed paths only. *Completeness*: coverage-dependent.
-- **Runtime-enforced** — Property enforced via instrumentation/interception. *Soundness*: if enforcement is complete. *Completeness*: N/A (enforcement, not verification).
+- **By-construction**: Bug class is structurally impossible due to language/feature restrictions. *Soundness*: perfect (the bug cannot exist). *Completeness*: high for policy use cases (restrictions rarely limit legitimate policies).
+- **Static-sound**: If verifier accepts, property holds; but some safe programs rejected. *Soundness*: strong. *Completeness*: low (conservative).
+- **Contract-based**: Requires declared preconditions validated at attach/launch time. *Soundness*: conditional on contract correctness. *Completeness*: depends on contract expressiveness.
+- **Bounded-sound**: Sound within specified bounds (loop unrolling, context switches). *Soundness*: within bounds. *Completeness*: limited by bound coverage.
+- **Dynamic-only**: Detected at runtime; no static guarantee. *Soundness*: for executed paths only. *Completeness*: coverage-dependent.
+- **Runtime-enforced**: Property enforced via instrumentation/interception. *Soundness*: if enforcement is complete. *Completeness*: N/A (enforcement, not verification).
 
 ### Why These Dimensions Matter for GPU Extension Verifiers
 
@@ -91,15 +91,15 @@ For safety-critical GPU extensions, we prioritize **soundness over completeness*
 
 We conducted a comprehensive study of GPU correctness defects by synthesizing findings from empirical bug analyses ([Wu et al.][21], [iGUARD][7]), static verifiers ([GPUVerify][1], [GKLEE][18], [ESBMC-GPU][10]), and runtime detectors ([Compute Sanitizer][3], [Simulee][19], [ScoRD][4]). Our taxonomy identifies 19 distinct classes of GPU programming defects, uncovering fundamental insights into the unique correctness challenges posed by GPU architectures:
 
-**First**, we observe that *control-flow uniformity* is a foundational correctness requirement for GPU kernels. Non-uniform execution across threads—caused by GPU's SIMT execution model—breaks implicit synchronization assumptions and triggers GPU-specific correctness violations, such as barrier divergence, warp synchronization errors, and subtle warp-divergence races. This insight elevates uniformity from a performance concern to a correctness property that GPU verification frameworks must explicitly enforce.
+**First**, we observe that *control-flow uniformity* is a foundational correctness requirement for GPU kernels. Non-uniform execution across threads, caused by GPU's SIMT execution model, breaks implicit synchronization assumptions and triggers GPU-specific correctness violations, such as barrier divergence, warp synchronization errors, and subtle warp-divergence races. This insight elevates uniformity from a performance concern to a correctness property that GPU verification frameworks must explicitly enforce.
 
 **Second**, GPU's scoped memory synchronization semantics (e.g., block-scoped atomics, missing fences, volatile misuse) create unique correctness hazards rarely encountered on CPU platforms. Our analysis emphasizes that synchronization primitives' scopes must be explicit, conservative, and verifiable at the kernel level. This requirement is critical for correctness given GPU memory model subtleties.
 
-**Third**, performance interference in GPUs—manifested as uncoalesced accesses, atomic contention, redundant barriers, and bank conflicts—must be viewed as a *safety and isolation* concern rather than mere inefficiency. Our taxonomy reveals how adversarial workloads exploit GPU parallelism to amplify performance issues into denial-of-service attacks in multi-tenant environments. Consequently, bounded overhead must be explicitly enforced as a correctness property in GPU extension frameworks.
+**Third**, performance interference in GPUs, manifested as uncoalesced accesses, atomic contention, redundant barriers, and bank conflicts, must be viewed as a *safety and isolation* concern rather than mere inefficiency. Our taxonomy reveals how adversarial workloads exploit GPU parallelism to amplify performance issues into denial-of-service attacks in multi-tenant environments. Consequently, bounded overhead must be explicitly enforced as a correctness property in GPU extension frameworks.
 
 **Finally**, our study highlights that liveness (deadlocks, infinite loops) and memory safety (out-of-bounds accesses, temporal violations) are system-level concerns uniquely amplified by GPU parallelism. Unlike traditional CPU environments, GPU kernel hangs or memory violations can trigger hardware-level recovery affecting all tenants. Thus, GPU liveness and memory safety must be explicitly recognized as first-class system-level correctness properties in verifier designs.
 
-Together, these insights not only characterize GPU correctness issues more precisely but also inform principled design requirements for GPU kernel extensibility and verification frameworks—moving beyond traditional CPU-centric correctness towards a GPU-aware system correctness definition. We are applying these principles in [bpftime](https://github.com/eunomia-bpf/bpftime), you can find more detail in [arXiv](https://arxiv.org/abs/2512.12615).
+Together, these insights not only characterize GPU correctness issues more precisely but also inform principled design requirements for GPU kernel extensibility and verification frameworks, moving beyond traditional CPU-centric correctness towards a GPU-aware system correctness definition. We are applying these principles in [bpftime](https://github.com/eunomia-bpf/bpftime), you can find more detail in [arXiv](https://arxiv.org/abs/2512.12615).
 
 ---
 
@@ -107,23 +107,23 @@ Together, these insights not only characterize GPU correctness issues more preci
 
 Beyond characterizing *what* can go wrong, we analyze *whether and how* each bug class can be addressed by a GPU extension verifier. By examining each defect through the lens of verification scope (Extension-local vs. Combined vs. Host+Device) and assurance type (soundness and completeness guarantees), we arrive at several key conclusions for GPU extension framework design.
 
-**Extension-local verification is sufficient for the majority of GPU bug classes.** Of the 19 defect classes identified, 14 can be fully addressed through Extension-local verification—examining only the policy code without inspecting the host kernel. Six of these (#1, #2, #7, #10, #12, #15) can be eliminated *by construction* through language restrictions: banning barriers, warp sync primitives, shared memory access, spin-wait patterns, and blocking constructs makes entire bug classes structurally impossible. Four additional classes (#3, #5, #14, #17) that initially appear to require Combined analysis can be *reduced to Extension-local* through state isolation—restricting policies to write only policy-owned objects (maps, ringbuffers) rather than kernel data structures. This finding validates the eBPF design philosophy: by appropriately restricting extension capabilities, a verifier can provide strong safety guarantees for *any* kernel, including closed-source ones.
+**Extension-local verification is sufficient for the majority of GPU bug classes.** Of the 19 defect classes identified, 14 can be fully addressed through Extension-local verification, examining only the policy code without inspecting the host kernel. Six of these (#1, #2, #7, #10, #12, #15) can be eliminated *by construction* through language restrictions: banning barriers, warp sync primitives, shared memory access, spin-wait patterns, and blocking constructs makes entire bug classes structurally impossible. Four additional classes (#3, #5, #14, #17) that initially appear to require Combined analysis can be *reduced to Extension-local* through state isolation, restricting policies to write only policy-owned objects (maps, ringbuffers) rather than kernel data structures. This finding validates the eBPF design philosophy: by appropriately restricting extension capabilities, a verifier can provide strong safety guarantees for *any* kernel, including closed-source ones.
 
 **Only three bug classes fundamentally resist Extension-local verification.** Block-size dependence (#8) and launch configuration assumptions (#9) depend on host-determined launch parameters invisible to the policy verifier; these require a contract-based approach where policies declare preconditions validated at attach time. Host↔device async races (#13) span the host API boundary entirely outside device-side verification scope; these can only be addressed through dynamic detection tools like CuSan. Importantly, these three classes represent a small, well-defined subset that can be handled through complementary mechanisms rather than requiring full Combined verification of kernel+extension.
 
-**Soundness and completeness trade-offs are explicit and favorable for safety-critical extensions.** By-construction approaches (banning dangerous features) achieve perfect soundness with high completeness for policy use cases—the restricted features are rarely needed for observability or policy enforcement. Static-sound approaches (uniformity analysis, bounds checking, range analysis) provide strong soundness but sacrifice completeness, rejecting some safe programs. For safety-critical GPU extensions, this trade-off is appropriate: it is better to reject a safe policy than to accept an unsafe one. The verifier's job is to guarantee safety for any kernel, not to accept every possible safe program.
+**Soundness and completeness trade-offs are explicit and favorable for safety-critical extensions.** By-construction approaches (banning dangerous features) achieve perfect soundness with high completeness for policy use cases, as the restricted features are rarely needed for observability or policy enforcement. Static-sound approaches (uniformity analysis, bounds checking, range analysis) provide strong soundness but sacrifice completeness, rejecting some safe programs. For safety-critical GPU extensions, this trade-off is appropriate: it is better to reject a safe policy than to accept an unsafe one. The verifier's job is to guarantee safety for any kernel, not to accept every possible safe program.
 
 **A two-track verification pipeline emerges as the principled design.** The *production track* provides hard guarantees for any kernel through Extension-local verification at load time, contract validation at attach time, and optional runtime enforcement for multi-tenant isolation. The *CI/offline track* enhances coverage through Combined analysis tools (GPUVerify, ESBMC-GPU) when kernel source is available, dynamic sanitizers (Compute Sanitizer, iGUARD, Simulee) for regression testing, and host-side race detection (CuSan) for API ordering bugs. This separation acknowledges that Combined verification, while valuable for development and testing, cannot be a production requirement for systems targeting arbitrary kernels.
 
 **Performance interference can be bounded but not eliminated.** While adversarial workloads can systematically amplify interference through shared GPU resources (as demonstrated by "Making Powerful Enemies on NVIDIA GPUs"), the verifier can still provide meaningful guarantees: bounding policy overhead per invocation through instruction/helper budgets, limiting atomic contention through warp-aggregation requirements, and enforcing coalesced access patterns. These guarantees bound the *policy's contribution* to interference, even if system-wide slowdown bounds remain impossible to guarantee statically.
 
-In summary, the verification scope analysis reveals that the eBPF success pattern—restricting extension capabilities to what can be verified without inspecting the host—transfers effectively to GPUs. Through language restrictions, state isolation, and budgetization, a GPU extension verifier can provide strong, universal safety guarantees while relegating the few irreducibly Combined or Host+Device properties to contracts and dynamic detection.
+In summary, the verification scope analysis reveals that the eBPF success pattern (restricting extension capabilities to what can be verified without inspecting the host) transfers effectively to GPUs. Through language restrictions, state isolation, and budgetization, a GPU extension verifier can provide strong, universal safety guarantees while relegating the few irreducibly Combined or Host+Device properties to contracts and dynamic detection.
 
 ---
 
 ## Canonical bug list
 
-### 1) Barrier Divergence at Block Barriers (`__syncthreads`) — Safety, GPU-specific
+### 1) Barrier Divergence at Block Barriers (`__syncthreads`) [Safety, GPU-specific]
 
 #### What it is / why it matters
 A block-wide barrier requires *all* threads in the block to reach it. If the barrier is placed under a condition that evaluates differently across threads, some threads wait forever → deadlock / kernel hang. This is treated as a first-class defect in GPU kernel verification (e.g., "barrier divergence" in GPUVerify), and is also one of the main CUDA synchronization bug types characterized/targeted by AuCS/Wu. Note that general control-flow divergence is a performance issue, but barrier divergence is the *specific, critical case* where divergent control flow causes threads to reach a barrier non-uniformly, turning a performance issue into a **liveness/correctness failure** (deadlock).
@@ -148,21 +148,21 @@ __global__ void k(float* a) {
 * **Dynamic check:** synccheck-style runtime validation, and Simulee-style bug finding.([zhangyuqun.github.io][19])
 
 #### Verification strategy
-Make this a *hard* verifier rule: policy code must not contain any block-wide barrier primitive (or any helper that can implicitly behave like a block-wide barrier). If you ever allow barriers in policy code, require **warp-/block-uniform control flow** for any path reaching a barrier (uniform predicate analysis), otherwise reject. Simplest and strongest: **forbid `__syncthreads()` inside policies** — this directly eliminates an entire class of GPU hangs.
+Make this a *hard* verifier rule: policy code must not contain any block-wide barrier primitive (or any helper that can implicitly behave like a block-wide barrier). If you ever allow barriers in policy code, require **warp-/block-uniform control flow** for any path reaching a barrier (uniform predicate analysis), otherwise reject. Simplest and strongest: **forbid `__syncthreads()` inside policies**, which directly eliminates an entire class of GPU hangs.
 
 #### Verification scope analysis
 
-**Scope & Assurance**: Extension-local (E), By-construction. Banning `__syncthreads()` makes barrier divergence structurally impossible—this provides perfect soundness with high completeness for policy use cases (barriers are rarely needed in observability/policy code).
+**Scope & Assurance**: Extension-local (E), By-construction. Banning `__syncthreads()` makes barrier divergence structurally impossible, providing perfect soundness with high completeness for policy use cases (barriers are rarely needed in observability/policy code).
 
 **Production guarantee**: Policy code cannot introduce barrier divergence because the verifier rejects any policy containing block-wide barrier primitives. This is the ideal verification pattern: a structural restriction on the policy language eliminates an entire bug class without analyzing the host kernel.
 
 **Offline/CI tools**: For kernel-level analysis, GPUVerify proves divergence freedom via static verification; Compute Sanitizer `synccheck` detects divergent barriers at runtime; Simulee finds barrier divergence bugs through evolutionary simulation.
 
-**Residual gap**: The verifier guarantees *policy* cannot introduce barrier divergence, but cannot guarantee the *kernel* itself is free of this bug—kernel-level bugs require kernel-level tools.
+**Residual gap**: The verifier guarantees *policy* cannot introduce barrier divergence, but cannot guarantee the *kernel* itself is free of this bug; kernel-level bugs require kernel-level tools.
 
 ---
 
-### 2) Invalid Warp Synchronization (`__syncwarp` mask, warp-level barriers) — Safety, GPU-specific
+### 2) Invalid Warp Synchronization (`__syncwarp` mask, warp-level barriers) [Safety, GPU-specific]
 
 #### What it is / why it matters
 Warp-level sync requires correct participation masks. A common failure is calling `__syncwarp(mask)` where not all lanes that reach the barrier are included in `mask`, or where divergence causes only a subset to arrive.
@@ -192,17 +192,17 @@ If policies can ever emit warp-level sync or cooperative-groups barriers, requir
 
 #### Verification scope analysis
 
-**Scope & Assurance**: Extension-local (E), By-construction. Banning `__syncwarp`/CG barriers entirely (or requiring only full-mask sync at provably uniform points) makes invalid warp sync structurally impossible—perfect soundness with high completeness for policy use cases where warp-level sync is rarely needed.
+**Scope & Assurance**: Extension-local (E), By-construction. Banning `__syncwarp`/CG barriers entirely (or requiring only full-mask sync at provably uniform points) makes invalid warp sync structurally impossible, providing perfect soundness with high completeness for policy use cases where warp-level sync is rarely needed.
 
 **Production guarantee**: Policy code cannot introduce invalid warp synchronization because the verifier bans warp-level sync primitives. If allowed, only full-mask `__syncwarp(0xffffffff)` at provably uniform points is permitted.
 
 **Offline/CI tools**: Compute Sanitizer `synccheck` reports invalid sync arguments and divergent warps at runtime; iGUARD provides NVBit-based instrumentation for detecting sync hazards from modern CUDA features.
 
-**Residual gap**: iGUARD notes that ITS (Independent Thread Scheduling) and CG create new hazards that even experienced developers misuse. This justifies conservative restrictions—banning these primitives in policy code is the only sound approach without complex ITS-aware analysis.
+**Residual gap**: iGUARD notes that ITS (Independent Thread Scheduling) and CG create new hazards that even experienced developers misuse. This justifies conservative restrictions; banning these primitives in policy code is the only sound approach without complex ITS-aware analysis.
 
 ---
 
-### 3) Insufficient Atomic/Sync Scope — Correctness, GPU-specific
+### 3) Insufficient Atomic/Sync Scope [Correctness, GPU-specific]
 
 #### What it is / why it matters
 GPU adds *scope* and memory-model subtleties that don't exist on CPUs. **Scoped races** occur when synchronization/atomics are done at an insufficient scope (e.g., using `atomicAdd_block` when `atomicAdd` with device scope is needed). This is a distinct GPU bug class because scope semantics are unique to CUDA's memory model.
@@ -229,20 +229,20 @@ Treat scope as part of the verifier contract: if policies do atomic/synchronizin
 
 #### Verification scope analysis
 
-**Scope & Assurance**: Combined → Extension-local (C→E) via state isolation, Static-sound. If policies can touch kernel-shared global objects, scope correctness depends on kernel access patterns (Combined). However, this reduces to Extension-local by restricting policies to write only policy-owned state or requiring all atomics to use device-scope by default—strong soundness with medium completeness (policies needing block-scope atomics must use conservative device-scope).
+**Scope & Assurance**: Combined → Extension-local (C→E) via state isolation, Static-sound. If policies can touch kernel-shared global objects, scope correctness depends on kernel access patterns (Combined). However, this reduces to Extension-local by restricting policies to write only policy-owned state or requiring all atomics to use device-scope by default, providing strong soundness with medium completeness (policies needing block-scope atomics must use conservative device-scope).
 
-**Production guarantee**: Two design choices enable Extension-local verification: (A) Policy only writes policy-owned state (maps, ringbuffers), never kernel globals—scope becomes irrelevant; (B) All policy atomics use device-scope by default—sufficient for any access pattern. Both approaches eliminate scope bugs without kernel inspection.
+**Production guarantee**: Two design choices enable Extension-local verification: (A) Policy only writes policy-owned state (maps, ringbuffers), never kernel globals: scope becomes irrelevant; (B) All policy atomics use device-scope by default: sufficient for any access pattern. Both approaches eliminate scope bugs without kernel inspection.
 
 **Offline/CI tools**: ScoRD introduces "scoped races" as a distinct bug class and provides detection (research prototype requiring hardware support); iGUARD targets races from scoped synchronization and advanced CUDA features via NVBit GPU-side runtime instrumentation.
 
-**Residual gap**: If policies must write kernel-shared objects with fine-grained scope optimization, Combined analysis or contracts are required. ScoRD and iGUARD emphasize scope bugs are subtle and underdetected—defaulting to device-scope is a sound engineering choice.
+**Residual gap**: If policies must write kernel-shared objects with fine-grained scope optimization, Combined analysis or contracts are required. ScoRD and iGUARD emphasize scope bugs are subtle and underdetected: defaulting to device-scope is a sound engineering choice.
 
 ---
 
-### 4) Warp-divergence Race — Correctness, GPU-specific
+### 4) Warp-divergence Race [Correctness, GPU-specific]
 
 #### What it is / why it matters
-A **warp-divergence race** is a GPU-specific phenomenon where **divergence changes which threads are effectively concurrent**, producing racy outcomes that don't map cleanly to CPU assumptions. SIMT execution order + reconvergence can create subtle concurrency patterns. This is one reason "CPU-style race reasoning" doesn't port directly to GPUs. While control-flow divergence is generally a performance issue (serialized execution paths), warp-divergence race is a **correctness** issue where divergence creates unexpected concurrency patterns leading to data races—same root cause, but different failure modes: perf degradation vs. racy/undefined behavior.
+A **warp-divergence race** is a GPU-specific phenomenon where **divergence changes which threads are effectively concurrent**, producing racy outcomes that don't map cleanly to CPU assumptions. SIMT execution order + reconvergence can create subtle concurrency patterns. This is one reason "CPU-style race reasoning" doesn't port directly to GPUs. While control-flow divergence is generally a performance issue (serialized execution paths), warp-divergence race is a **correctness** issue where divergence creates unexpected concurrency patterns leading to data races: same root cause, but different failure modes: perf degradation vs. racy/undefined behavior.
 
 #### Bug example
 
@@ -268,17 +268,17 @@ Enforce warp-uniform control flow for policy side effects. If divergence is unav
 
 #### Verification scope analysis
 
-**Scope & Assurance**: Extension-local (E), Static-sound. Warp-divergence races arise from SIMT execution semantics, but can be prevented by structural restrictions on policy code—strong soundness with medium completeness (legitimately safe lane-divergent writes are rejected).
+**Scope & Assurance**: Extension-local (E), Static-sound. Warp-divergence races arise from SIMT execution semantics, but can be prevented by structural restrictions on policy code, providing strong soundness with medium completeness (legitimately safe lane-divergent writes are rejected).
 
 **Production guarantee**: The verifier enforces that all side-effecting operations are either (1) under warp-uniform predicates, or (2) executed only by lane0 (single-lane execution pattern). This eliminates warp-divergence races without analyzing the kernel. The verifier proves uniformity or single-lane execution statically.
 
 **Offline/CI tools**: GKLEE explicitly lists "warp-divergence race" among discovered bug classes and explores divergent execution paths via concolic/symbolic testing; Simulee uses CUDA-aware race definitions that account for warp lockstep behavior to avoid false positives.
 
-**Residual gap**: Policies with legitimately safe lane-divergent writes will be rejected. This trade-off is favorable: warp-divergence races are notoriously subtle—GKLEE found them in real SDK code—eliminating by construction is safer than complex SIMT interleaving analysis.
+**Residual gap**: Policies with legitimately safe lane-divergent writes will be rejected. This trade-off is favorable: warp-divergence races are notoriously subtle: GKLEE found them in real SDK code: eliminating by construction is safer than complex SIMT interleaving analysis.
 
 ---
 
-### 5) Uncoalesced / Non‑Coalesceable Global Memory Access Patterns — Performance, GPU-specific
+### 5) Uncoalesced / Non-Coalesceable Global Memory Access Patterns [Performance, GPU-specific]
 
 #### What it is / why it matters
 Warp memory coalescing is a GPU-specific performance contract. "Uncoalesced" accesses can cause large slowdowns (memory transactions split into many).
@@ -306,17 +306,17 @@ If you want "performance as correctness," this is a flagship rule: restrict poli
 
 #### Verification scope analysis
 
-**Scope & Assurance**: Extension-local (E) for policy-owned memory; Combined (C) for kernel arrays. Static-sound for policy memory—affine/lane-linear indexing guarantees coalescing with strong soundness but low completeness (random-access patterns rejected; kernel-array reads require Combined analysis).
+**Scope & Assurance**: Extension-local (E) for policy-owned memory; Combined (C) for kernel arrays. Static-sound for policy memory: affine/lane-linear indexing guarantees coalescing with strong soundness but low completeness (random-access patterns rejected; kernel-array reads require Combined analysis).
 
 **Production guarantee**: For policy-owned memory (maps, ringbuffers), restricting index expressions to affine/lane-linear forms (`base + lane_id`) or lane0-only access provides bounded overhead guarantees. Warp-level aggregation (only lane0 performs global updates) amortizes uncoalesced behavior to 1 lane/warp. The verifier cannot guarantee coalescing for kernel-array reads without kernel knowledge.
 
 **Offline/CI tools**: GPUDrano statically detects uncoalesced global memory accesses and treats them as performance bugs; GPUCheck identifies non-coalesceable access patterns via thread-divergent expression analysis; GKLEE reports "non-coalesced memory accesses" as performance bugs via symbolic exploration.
 
-**Residual gap**: True coalescing depends on hardware cache behavior and concurrent workloads—static analysis provides structural guarantees, not tight performance bounds. "Is it really slow / how slow" is architecture-dependent; static tools provide sound-ish structural warnings rather than tight performance proofs.
+**Residual gap**: True coalescing depends on hardware cache behavior and concurrent workloads: static analysis provides structural guarantees, not tight performance bounds. "Is it really slow / how slow" is architecture-dependent; static tools provide sound-ish structural warnings rather than tight performance proofs.
 
 ---
 
-### 6) Control-Flow Divergence (warp branch divergence) — Performance, GPU-specific
+### 6) Control-Flow Divergence (warp branch divergence) [Performance, GPU-specific]
 
 #### What it is / why it matters
 SIMT divergence serializes paths within a warp, lowering "branch efficiency" and increasing worst-case overhead. This entry focuses on divergence as a **performance** issue. However, divergence is also the root cause of more severe correctness bugs: barrier divergence (deadlock when barriers are in conditional code) and warp-divergence races (unexpected concurrency patterns leading to data races).
@@ -344,17 +344,17 @@ Divergence is the *core reason* you can treat performance as correctness. Enforc
 
 #### Verification scope analysis
 
-**Scope & Assurance**: Extension-local (E), Static-sound. Control-flow divergence is determined entirely by the policy's branch conditions and their dependence on thread IDs—strong soundness via taint analysis but low completeness (data-dependent branches that happen to be uniform at runtime are rejected).
+**Scope & Assurance**: Extension-local (E), Static-sound. Control-flow divergence is determined entirely by the policy's branch conditions and their dependence on thread IDs, providing strong soundness via taint analysis but low completeness (data-dependent branches that happen to be uniform at runtime are rejected).
 
 **Production guarantee**: The verifier tracks which values depend on `threadIdx`/`laneId` (taint analysis). Branches on tainted values are either forbidden or force single-lane execution for side effects (others become no-ops). This bounds the "warp amplification factor" and prevents SIMT-amplified performance degradation.
 
 **Offline/CI tools**: GPUCheck explicitly targets "branch divergence" as a performance problem via thread-divergent expression analysis; GKLEE reports "divergent warps" as performance bugs via symbolic exploration.
 
-**Residual gap**: Some safe data-dependent branches will be rejected. The gpu_ext design principle lists warp-uniform control flow as a load-time verification requirement—treating divergence as a correctness property (bounded overhead), not just optimization. For kernel-level divergence analysis, use GPUCheck or GKLEE.
+**Residual gap**: Some safe data-dependent branches will be rejected. The gpu_ext design principle lists warp-uniform control flow as a load-time verification requirement: treating divergence as a correctness property (bounded overhead), not just optimization. For kernel-level divergence analysis, use GPUCheck or GKLEE.
 
 ---
 
-### 7) Shared-Memory Bank Conflicts — Performance, GPU-specific
+### 7) Shared-Memory Bank Conflicts [Performance, GPU-specific]
 
 #### What it is / why it matters
 Bank conflicts are a shared-memory–specific performance pathology: accesses serialize when multiple lanes hit the same bank.
@@ -382,9 +382,9 @@ If policies use shared scratchpads (e.g., per-block staging), either forbid it o
 
 #### Verification scope analysis
 
-**Scope & Assurance**: Extension-local (E), By-construction. Banning shared memory access in policies eliminates bank conflicts entirely—perfect soundness with high completeness for policy use cases (shared memory is rarely needed for observability).
+**Scope & Assurance**: Extension-local (E), By-construction. Banning shared memory access in policies eliminates bank conflicts entirely, providing perfect soundness with high completeness for policy use cases (shared memory is rarely needed for observability).
 
-**Production guarantee**: Policies are forbidden from accessing shared memory, or restricted to conflict-free index patterns (`base + threadIdx.x` for contiguous access). This also eliminates shared-memory races (#11) as a side benefit. Most observability policies can avoid shared memory entirely—data flows directly to ringbuffers.
+**Production guarantee**: Policies are forbidden from accessing shared memory, or restricted to conflict-free index patterns (`base + threadIdx.x` for contiguous access). This also eliminates shared-memory races (#11) as a side benefit. Most observability policies can avoid shared memory entirely: data flows directly to ringbuffers.
 
 **Offline/CI tools**: GKLEE explicitly lists "memory bank conflicts" among detected performance bugs via symbolic exploration.
 
@@ -392,7 +392,7 @@ If policies use shared scratchpads (e.g., per-block staging), either forbid it o
 
 ---
 
-### 8) Block-Size Dependence — Correctness, GPU-specific
+### 8) Block-Size Dependence [Correctness, GPU-specific]
 
 #### What it is / why it matters
 Block-size independence is essential for safe block-size tuning. Kernels that implicitly depend on specific `blockDim` values can produce incorrect results or races when launched with different configurations. This is critical for auto-tuning and portability across GPU generations. This entry focuses on **compile-time hardcoded assumptions** within the kernel code itself (e.g., fixed shared memory sizes, hardcoded reduction strides), distinct from runtime launch configuration assumptions about grid dimensions.
@@ -427,9 +427,9 @@ Policies should not implicitly assume block shapes unless the verifier can guara
 
 #### Verification scope analysis
 
-**Scope & Assurance**: Extension-local (E) if block-agnostic; Combined (C) if assumes blockDim. Contract-based for blockDim-dependent policies—conditional soundness (sound if declared requirements match actual launch config) with high completeness (policies can declare requirements; undeclared policies assumed block-agnostic).
+**Scope & Assurance**: Extension-local (E) if block-agnostic; Combined (C) if assumes blockDim. Contract-based for blockDim-dependent policies: conditional soundness (sound if declared requirements match actual launch config) with high completeness (policies can declare requirements; undeclared policies assumed block-agnostic).
 
-**Production guarantee**: Two approaches enable verification: (A) Block-agnostic design—policies use only lane-local or warp-level logic, avoiding `blockDim` dependencies entirely, making them safe for any launch config; (B) Contract-based—policies declare block-size requirements in metadata, and the runtime validates at attach time. The verifier rejects policies with hardcoded block-size constants unless explicitly declared.
+**Production guarantee**: Two approaches enable verification: (A) Block-agnostic design: policies use only lane-local or warp-level logic, avoiding `blockDim` dependencies entirely, making them safe for any launch config; (B) Contract-based: policies declare block-size requirements in metadata, and the runtime validates at attach time. The verifier rejects policies with hardcoded block-size constants unless explicitly declared.
 
 **Offline/CI tools**: GPUDrano explicitly includes "block-size independence" analysis for detecting implicit blockDim dependencies in kernel code.
 
@@ -437,7 +437,7 @@ Policies should not implicitly assume block shapes unless the verifier can guara
 
 ---
 
-### 9) Launch Config Assumptions — Correctness, GPU-specific
+### 9) Launch Config Assumptions [Correctness, GPU-specific]
 
 #### What it is / why it matters
 Many CUDA kernels assume certain launch configurations (e.g., single block, specific grid dimensions). Violating these assumptions leads to incorrect results or races that are hard to diagnose. This entry focuses on **runtime launch configuration assumptions** (gridDim, number of blocks), distinct from compile-time hardcoded block-size dependencies within the kernel code.
@@ -474,17 +474,17 @@ If policy code assumes a particular block/warp mapping (e.g., keys use `threadId
 
 #### Verification scope analysis
 
-**Scope & Assurance**: Combined (C)—launch configuration is host-determined, not visible to policy verifier. Contract-based assurance—conditional soundness (sound only if contracts are correctly specified and validated) with completeness depending on contract expressiveness.
+**Scope & Assurance**: Combined (C): launch configuration is host-determined, not visible to policy verifier. Contract-based assurance: conditional soundness (sound only if contracts are correctly specified and validated) with completeness depending on contract expressiveness.
 
-**Production guarantee**: This bug class fundamentally requires contracts—Extension-local verification cannot see launch parameters. The policy declares preconditions (e.g., "requires gridDim.x == 1" or "requires blockDim.x >= 128"), and the runtime validates at attach/launch time. Policies without explicit requirements are assumed to work with any config.
+**Production guarantee**: This bug class fundamentally requires contracts: Extension-local verification cannot see launch parameters. The policy declares preconditions (e.g., "requires gridDim.x == 1" or "requires blockDim.x >= 128"), and the runtime validates at attach/launch time. Policies without explicit requirements are assumed to work with any config.
 
-**Offline/CI tools**: Wu et al.'s empirical study found real bugs where developers noted kernels "should not be called with more than one block"—they suggest adding runtime assertions like `assert(gridDim.x == 1)`. Convert such requirements into contract metadata for policy verification.
+**Offline/CI tools**: Wu et al.'s empirical study found real bugs where developers noted kernels "should not be called with more than one block": they suggest adding runtime assertions like `assert(gridDim.x == 1)`. Convert such requirements into contract metadata for policy verification.
 
 **Residual gap**: Contract-based verification shifts responsibility to policy authors to declare requirements correctly. This is one of the few bug classes where Combined verification is unavoidable, but contracts provide a clean interface without requiring complex joint analysis of kernel + policy.
 
 ---
 
-### 10) Missing Volatile/Fence — Correctness, GPU-specific
+### 10) Missing Volatile/Fence [Correctness, GPU-specific]
 
 #### What it is / why it matters
 GPU code often relies on compiler and memory-model subtleties. GKLEE reports a real-world category: forgetting to mark a shared memory variable as `volatile`, producing stale reads/writes due to compiler optimization or caching behavior. This is a GPU-flavored instance of memory visibility/ordering bugs that can be hard to reproduce.([Lingming Zhang][18])
@@ -511,17 +511,17 @@ Avoid exposing raw shared/global memory communication to policies; instead provi
 
 #### Verification scope analysis
 
-**Scope & Assurance**: Extension-local (E), By-construction. Banning spin-wait loops and raw shared/global memory communication eliminates volatile/fence bugs entirely—perfect soundness with high completeness (legitimate polling patterns are rare in policy code).
+**Scope & Assurance**: Extension-local (E), By-construction. Banning spin-wait loops and raw shared/global memory communication eliminates volatile/fence bugs entirely, providing perfect soundness with high completeness (legitimate polling patterns are rare in policy code).
 
 **Production guarantee**: The verifier bans spin-wait loops (`while(flag == 0)`), flag polling patterns, and raw shared/global memory communication. All inter-thread communication must go through atomic helpers with explicit semantics (e.g., "atomic increment" or "write once" patterns). This eliminates volatile/fence bugs by forbidding the patterns that cause them.
 
 **Offline/CI tools**: GKLEE explicitly lists "forgot volatile" as a discovered bug type via symbolic exploration. Simulee and other race detectors can surface these issues when they manifest as data races.
 
-**Residual gap**: ITS (Independent Thread Scheduling) changes assumptions about warp-lockstep execution, making traditional volatile assumptions unreliable—code that worked on pre-Volta architectures may race on newer GPUs. The safest approach is to ban ad-hoc synchronization entirely rather than trying to verify memory model subtleties.
+**Residual gap**: ITS (Independent Thread Scheduling) changes assumptions about warp-lockstep execution, making traditional volatile assumptions unreliable: code that worked on pre-Volta architectures may race on newer GPUs. The safest approach is to ban ad-hoc synchronization entirely rather than trying to verify memory model subtleties.
 
 ---
 
-### 11) Shared-Memory Data Races (`__shared__`) — Correctness, GPU-specific
+### 11) Shared-Memory Data Races (`__shared__`) [Correctness, GPU-specific]
 
 #### What it is / why it matters
 Threads in a block access on-chip shared memory concurrently; missing/incorrect synchronization causes races. This is a classic CUDA bug class (AuCS/Wu).
@@ -559,9 +559,9 @@ If policies have any shared state, require **warp-uniform side effects** or **si
 
 #### Verification scope analysis
 
-**Scope & Assurance**: Extension-local (E), Static-sound. Shared-memory races depend only on the policy's access patterns and synchronization—strong soundness via structural restrictions (per-lane sharding or lane0-only writes eliminate races by construction) with medium completeness (complex shared-memory algorithms rejected).
+**Scope & Assurance**: Extension-local (E), Static-sound. Shared-memory races depend only on the policy's access patterns and synchronization, providing strong soundness via structural restrictions (per-lane sharding or lane0-only writes eliminate races by construction) with medium completeness (complex shared-memory algorithms rejected).
 
-**Production guarantee**: Three options, all Extension-local: (A) Ban shared-memory writes entirely; (B) Require per-lane sharding—each lane writes its own slot, no conflicts possible; (C) Require lane0-only writes with atomic helpers. All three approaches make races impossible by construction without requiring complex GPUVerify-style interleaving proofs.
+**Production guarantee**: Three options, all Extension-local: (A) Ban shared-memory writes entirely; (B) Require per-lane sharding: each lane writes its own slot, no conflicts possible; (C) Require lane0-only writes with atomic helpers. All three approaches make races impossible by construction without requiring complex GPUVerify-style interleaving proofs.
 
 **Offline/CI tools**: GPUVerify explicitly targets data-race freedom as a core verification goal and defines intra-group/inter-group races; ESBMC-GPU checks data races via bounded model checking; Compute Sanitizer `racecheck` is a runtime shared-memory hazard detector; Simulee detects data race bugs using CUDA-aware race definitions; Wu et al. classify data race under "improper synchronization" as a CUDA-specific root cause.
 
@@ -569,7 +569,7 @@ If policies have any shared state, require **warp-uniform side effects** or **si
 
 ---
 
-### 12) Redundant Barriers (unnecessary `__syncthreads`) — Performance, GPU-specific
+### 12) Redundant Barriers (unnecessary `__syncthreads`) [Performance, GPU-specific]
 
 #### What it is / why it matters
 A redundant barrier is a performance-pathology class: removing the barrier **does not introduce a race**, so the barrier was unnecessary overhead.
@@ -600,7 +600,7 @@ This supports the "performance = safety" story: even "correct" policies can be u
 
 #### Verification scope analysis
 
-**Scope & Assurance**: Extension-local (E), By-construction. Since policies ban barriers entirely (#1, #2), redundant barriers cannot exist in policy code—perfect soundness, completeness is N/A (the question doesn't arise).
+**Scope & Assurance**: Extension-local (E), By-construction. Since policies ban barriers entirely (#1, #2), redundant barriers cannot exist in policy code, providing perfect soundness; completeness is N/A as the question doesn't arise.
 
 **Production guarantee**: This is a corollary of the barrier-divergence prevention strategy. Since policies forbid `__syncthreads()` and warp-level barriers, redundant barriers are impossible by construction. If helpers include barriers internally, their cost must be accounted for in the policy's overhead budget.
 
@@ -610,7 +610,7 @@ This supports the "performance = safety" story: even "correct" policies can be u
 
 ---
 
-### 13) Host ↔ Device Asynchronous Data Races (API ordering bugs) — Correctness, GPU-specific
+### 13) Host-Device Asynchronous Data Races (API ordering bugs) [Correctness, GPU-specific]
 
 #### What it is / why it matters
 CUDA exposes async kernel launches/memcpy/events; host code can race with device work if synchronization is missing. This is a major real-world bug source in heterogeneous programs and is *not* covered by pure kernel-only verifiers.
@@ -637,17 +637,17 @@ If policies interact with host-visible buffers or involve asynchronous map copie
 
 #### Verification scope analysis
 
-**Scope & Assurance**: Host+Device/System (H), Dynamic-only. These races involve host-side API calls (cudaMemcpy, kernel launch, synchronization) interacting with device execution—the policy verifier provides no soundness guarantees for this bug class (host API ordering is out of scope); completeness is N/A as this is fundamentally a host-side problem.
+**Scope & Assurance**: Host+Device/System (H), Dynamic-only. These races involve host-side API calls (cudaMemcpy, kernel launch, synchronization) interacting with device execution: the policy verifier provides no soundness guarantees for this bug class (host API ordering is out of scope); completeness is N/A as this is fundamentally a host-side problem.
 
 **Production guarantee**: The policy verifier cannot provide guarantees for this bug class. It can only ensure policy code doesn't introduce *additional* async semantics (e.g., policy writes are only visible after guaranteed sync points). Define strict lifetime & ordering contracts for policy-accessible buffers.
 
-**Offline/CI tools**: CuSan is the primary tool—an open-source detector for "data races between (asynchronous) CUDA calls and the host," using Clang/LLVM instrumentation plus ThreadSanitizer. Integrate CuSan into CI for host-side integration tests of the runtime/loader.
+**Offline/CI tools**: CuSan is the primary tool: an open-source detector for "data races between (asynchronous) CUDA calls and the host," using Clang/LLVM instrumentation plus ThreadSanitizer. Integrate CuSan into CI for host-side integration tests of the runtime/loader.
 
-**Residual gap**: Dynamic detection depends on test coverage—executed paths only. For production, implement runtime checks in the loader/driver for obvious violations (e.g., policy accessing freed memory, missing sync before host read). This is the H-track core tool requirement.
+**Residual gap**: Dynamic detection depends on test coverage: executed paths only. For production, implement runtime checks in the loader/driver for obvious violations (e.g., policy accessing freed memory, missing sync before host read). This is the H-track core tool requirement.
 
 ---
 
-### 14) Atomic Contention — Performance, GPU-amplified
+### 14) Atomic Contention [Performance, GPU-amplified]
 
 #### What it is / why it matters
 Heavy atomic contention is a classic "performance bug that behaves like a DoS" under massive parallelism. Even when correctness is preserved, contention on a single address can cause extreme slowdowns (orders of magnitude). With millions of threads, a single hot atomic can serialize execution and cause tail latency explosion.
@@ -675,17 +675,17 @@ Treat "atomic frequency + contention risk" as a verifier-enforced budget: e.g., 
 
 #### Verification scope analysis
 
-**Scope & Assurance**: Combined → Extension-local (C→E) via budgetization, Static-sound. Contention severity depends on both policy behavior (atomic frequency) and kernel behavior (concurrent atomics to same address), but this reduces to Extension-local by treating atomics as a budget—strong soundness for policy's contribution with medium completeness (high-throughput atomic patterns hit budget limits).
+**Scope & Assurance**: Combined → Extension-local (C→E) via budgetization, Static-sound. Contention severity depends on both policy behavior (atomic frequency) and kernel behavior (concurrent atomics to same address), but this reduces to Extension-local by treating atomics as a budget, providing strong soundness for policy's contribution with medium completeness (high-throughput atomic patterns hit budget limits).
 
 **Production guarantee**: The verifier treats "atomic frequency + contention risk" as a budget: (1) limit to N global atomics per warp per invocation; (2) require warp-aggregation (one atomic per warp instead of per-lane) for 32x contention reduction by construction; (3) forbid unbounded atomic loops. The budget provides bounded-overhead guarantees for policy's contribution regardless of kernel behavior.
 
-**Offline/CI tools**: GPUAtomicContention is an open-source benchmark suite (2025) explicitly measuring atomic performance under contention across different memory scopes (block/device/system) and access patterns—use it to calibrate "safe budgets" per GPU generation.
+**Offline/CI tools**: GPUAtomicContention is an open-source benchmark suite (2025) explicitly measuring atomic performance under contention across different memory scopes (block/device/system) and access patterns: use it to calibrate "safe budgets" per GPU generation.
 
-**Residual gap**: Total system contention depends on concurrent workloads—the verifier bounds *policy's contribution*, not system-wide slowdown. "Making Powerful Enemies on NVIDIA GPUs" demonstrates adversarial kernels can systematically amplify interference through shared resource contention, making tight system-wide bounds impossible to guarantee statically.
+**Residual gap**: Total system contention depends on concurrent workloads: the verifier bounds *policy's contribution*, not system-wide slowdown. "Making Powerful Enemies on NVIDIA GPUs" demonstrates adversarial kernels can systematically amplify interference through shared resource contention, making tight system-wide bounds impossible to guarantee statically.
 
 ---
 
-### 15) Non-Barrier Deadlocks — Safety, GPU-amplified
+### 15) Non-Barrier Deadlocks [Safety, GPU-amplified]
 
 #### What it is / why it matters
 Besides barrier divergence (which is specifically about `__syncthreads` under divergent control flow), SIMT lockstep can create deadlocks in other patterns that are unusual on CPUs: spin-waiting, lock contention within a warp, and named-barrier misuse. Warp-specialized kernels often use **named barriers** or structured synchronization patterns between warps/roles (producer/consumer). Bugs include: (a) spin deadlock due to missing signals, (b) unsafe barrier reuse ("recycling") across iterations, (c) races between producers/consumers.
@@ -723,17 +723,17 @@ Ban blocking primitives in policy code (locks, spin loops, waiting on global con
 
 #### Verification scope analysis
 
-**Scope & Assurance**: Extension-local (E), By-construction. Deadlock patterns (spin-wait, lock contention, named-barrier misuse) are structural properties of policy code—banning blocking primitives makes deadlocks structurally impossible with perfect soundness and high completeness (blocking patterns are rarely needed in policy code).
+**Scope & Assurance**: Extension-local (E), By-construction. Deadlock patterns (spin-wait, lock contention, named-barrier misuse) are structural properties of policy code; banning blocking primitives makes deadlocks structurally impossible with perfect soundness and high completeness (blocking patterns are rarely needed in policy code).
 
 **Production guarantee**: The verifier bans: (1) `while(condition)` loops that could spin indefinitely; (2) lock primitives and mutex-like patterns; (3) named-barrier operations (waits, signals); (4) waiting on global conditions; (5) any construct that could block warp/block execution. If synchronization is needed, force "single-lane, nonblocking" patterns with bounded retries.
 
 **Offline/CI tools**: ESBMC-GPU models and checks deadlock via bounded model checking; WEFT verifies deadlock freedom, safe barrier recycling, and race freedom for producer-consumer synchronization with named barriers; GKLEE reports finding deadlocks via symbolic exploration. iGUARD notes that lockstep execution can deadlock if threads within a warp use distinct locks.
 
-**Residual gap**: Policies with legitimate bounded-retry patterns must be structured with explicit iteration counts to prove termination. iGUARD notes that ITS breaks warp-lockstep assumptions—threads in the same warp can now deadlock on locks if they take different branches. Banning blocking primitives is the only sound approach without complex ITS-aware analysis.
+**Residual gap**: Policies with legitimate bounded-retry patterns must be structured with explicit iteration counts to prove termination. iGUARD notes that ITS breaks warp-lockstep assumptions: threads in the same warp can now deadlock on locks if they take different branches. Banning blocking primitives is the only sound approach without complex ITS-aware analysis.
 
 ---
 
-### 16) Kernel Non-Termination / Infinite Loops — Safety, GPU-amplified
+### 16) Kernel Non-Termination / Infinite Loops [Safety, GPU-amplified]
 
 #### What it is / why it matters
 Infinite loops can hang GPU execution. In practice, non-termination is especially dangerous because GPU preemption/recovery can be coarse.
@@ -759,17 +759,17 @@ This is where "bounded overhead = correctness" is easiest to justify: enforce a 
 
 #### Verification scope analysis
 
-**Scope & Assurance**: Extension-local (E) for policy; kernel non-termination is out of scope. Static-sound—bounded loops or instruction budget guarantees policy termination with strong soundness but low completeness (data-dependent loop bounds rejected even if always terminating).
+**Scope & Assurance**: Extension-local (E) for policy; kernel non-termination is out of scope. Static-sound, where bounded loops or instruction budget guarantees policy termination with strong soundness but low completeness (data-dependent loop bounds rejected even if always terminating).
 
 **Production guarantee**: The eBPF approach works: (1) all loops must have compile-time bounded iteration counts; OR (2) ban loops entirely; OR (3) enforce a total instruction budget. The verifier proves termination by construction without analyzing the kernel. Policies may contain loops only if bounds can be statically determined.
 
 **Offline/CI tools**: ESBMC-GPU can find non-termination paths within context bounds; CL-Vis explicitly calls out infinite loops (together with barrier divergence) as GPU-specific bug types to detect; runtime watchdogs provide coarse timeout-based detection (engineering stopgap, not completeness).
 
-**Residual gap**: The verifier guarantees *policy* termination, not *kernel* termination. If the kernel itself has infinite loops, the policy verifier cannot and should not try to detect this—that's a kernel bug requiring kernel-level tools. This is "bounded overhead = correctness" at its most justified.
+**Residual gap**: The verifier guarantees *policy* termination, not *kernel* termination. If the kernel itself has infinite loops, the policy verifier cannot and should not try to detect this; that's a kernel bug requiring kernel-level tools. This is "bounded overhead = correctness" at its most justified.
 
 ---
 
-### 17) Global-Memory Data Races — Correctness, CPU-shared
+### 17) Global-Memory Data Races [Correctness, CPU-shared]
 
 #### What it is / why it matters
 Races on global memory are a fundamental correctness issue. Unlike shared memory (block-local), global memory is accessible by all threads across all blocks, making races harder to reason about. Many GPU race detectors historically focused on shared memory and ignored global-memory races.
@@ -798,17 +798,17 @@ If policies can write to global memory (maps, counters, logs), require either: (
 
 #### Verification scope analysis
 
-**Scope & Assurance**: Combined → Extension-local (C→E) via state isolation, Static-sound. If policies can write arbitrary kernel global memory, race analysis requires knowing kernel access patterns (Combined). However, restricting policies to write only policy-owned objects reduces this to Extension-local—strong soundness with isolation, low completeness for kernel-modifying policies (direct kernel writes require Combined analysis).
+**Scope & Assurance**: Combined → Extension-local (C→E) via state isolation, Static-sound. If policies can write arbitrary kernel global memory, race analysis requires knowing kernel access patterns (Combined). However, restricting policies to write only policy-owned objects reduces this to Extension-local, providing strong soundness with isolation, low completeness for kernel-modifying policies (direct kernel writes require Combined analysis).
 
 **Production guarantee**: Restricting policies to write only policy-owned objects (maps, ringbuffers) enables Extension-local verification: (1) policy-owned objects use known-safe access patterns (atomics, per-warp sharding); (2) the verifier guarantees race-freedom for policy state without inspecting the kernel; (3) ban unprotected global writes from policies. Three safe patterns: warp-uniform single-writer rules, atomic-only helpers, or per-thread/per-warp sharding.
 
-**Offline/CI tools**: ScoRD explicitly argues that many GPU race detectors focus on shared memory and ignore global-memory races, and provides detection with scope awareness; iGUARD targets races in global memory introduced by advanced CUDA features via NVBit instrumentation; GKLEE reports global memory races via symbolic exploration. Note: Compute Sanitizer `racecheck` is primarily a shared-memory hazard detector—do not expect it to fully cover global races.
+**Offline/CI tools**: ScoRD explicitly argues that many GPU race detectors focus on shared memory and ignore global-memory races, and provides detection with scope awareness; iGUARD targets races in global memory introduced by advanced CUDA features via NVBit instrumentation; GKLEE reports global memory races via symbolic exploration. Note: Compute Sanitizer `racecheck` is primarily a shared-memory hazard detector; do not expect it to fully cover global races.
 
-**Residual gap**: Policies needing to modify kernel data structures directly cannot be verified locally—this capability should be restricted or require explicit kernel-side contracts. ScoRD/iGUARD emphasize global-memory races are underdetected by existing tools; state isolation sidesteps this entirely for policy code.
+**Residual gap**: Policies needing to modify kernel data structures directly cannot be verified locally; this capability should be restricted or require explicit kernel-side contracts. ScoRD/iGUARD emphasize global-memory races are underdetected by existing tools; state isolation sidesteps this entirely for policy code.
 
 ---
 
-### 18) Memory Safety: Out-of-Bounds / Misaligned / Use-After-Free / Use-After-Scope / Uninitialized — Safety, CPU-shared
+### 18) Memory Safety (Out-of-Bounds / Misaligned / Use-After-Free / Use-After-Scope / Uninitialized) [Safety, CPU-shared]
 
 #### What it is / why it matters
 Classic memory safety includes both **spatial** (OOB, misaligned) and **temporal** (UAF, UAS) violations. Temporal bugs exist on GPUs too: pointers can outlive allocations (host frees while kernel still uses, device-side stack frame returns, etc.).
@@ -858,11 +858,11 @@ This is the "classic verifier" portion: keep eBPF-like pointer tracking, bounds 
 
 **Scope & Assurance**: Extension-local (E) for policy memory. Static-sound for spatial safety (helper-only access with tracked bounds); By-construction for temporal safety (runtime-managed objects, no policy malloc/free). Strong soundness with low completeness (raw pointer arithmetic rejected).
 
-**Production guarantee**: The eBPF approach: (1) ban arbitrary pointer dereferencing; (2) all memory access through verified helpers (map lookup, ringbuffer write); (3) verifier tracks pointer provenance and bounds; (4) policy-visible objects are runtime-managed (no policy malloc/free)—UAF/UAS impossible by construction because objects remain valid for the policy's lifetime. This provides strong memory safety for policy code without analyzing the kernel.
+**Production guarantee**: The eBPF approach: (1) ban arbitrary pointer dereferencing; (2) all memory access through verified helpers (map lookup, ringbuffer write); (3) verifier tracks pointer provenance and bounds; (4) policy-visible objects are runtime-managed (no policy malloc/free): UAF/UAS impossible by construction because objects remain valid for the policy's lifetime. This provides strong memory safety for policy code without analyzing the kernel.
 
 **Offline/CI tools**: Compute Sanitizer `memcheck` precisely detects OOB/misaligned accesses and memory leaks; cuCatch explicitly targets temporal violations using tagged base&bounds mechanisms and discusses UAF/UAS detection (some deterministic, some probabilistic); ESBMC-GPU checks pointer safety and array bounds via bounded model checking; GKLEE's evaluation includes out-of-bounds global memory accesses as error cases; Wu et al. characterize "unauthorized memory access" in their root-cause analysis; Guardian provides PTX-level instrumentation + interception for multi-tenant memory isolation.
 
-**Residual gap**: Policy memory safety doesn't protect against *kernel* bugs. For multi-tenant fault isolation in spatial sharing (streams/MPS), Guardian-style PTX instrumentation or hardware isolation is needed to prevent one tenant's OOB from crashing others—policy verification alone is insufficient for system-wide isolation.
+**Residual gap**: Policy memory safety doesn't protect against *kernel* bugs. For multi-tenant fault isolation in spatial sharing (streams/MPS), Guardian-style PTX instrumentation or hardware isolation is needed to prevent one tenant's OOB from crashing others: policy verification alone is insufficient for system-wide isolation.
 
 #### Multi-tenant implications
 In spatial sharing (streams/MPS), kernels share a GPU address space. An OOB access by one application can crash other co-running applications (fault isolation issue). Guardian's motivation explicitly calls out this problem and designs PTX-level fencing + interception as a fix.([arXiv][22]) This directly supports the "availability is correctness" story: if policies run in privileged/shared contexts, you must prevent policy code from generating OOB accesses. Either: (a) only allow map helpers (no raw memory), or (b) instrument policy memory ops with bounds checks (Guardian-style PTX rewriting).
@@ -883,12 +883,12 @@ __global__ void k(float* out, float* in, int n) {
 }
 ```
 
-#### Uninitialized Memory — additional notes
+#### Uninitialized Memory: additional notes
 Accessing device global memory without initialization leads to nondeterministic behavior. This is a frequent source of heisenbugs because GPU concurrency amplifies nondeterminism. Compute Sanitizer `initcheck` reports cases where device global memory is accessed without being initialized.([NVIDIA Docs][3]) For policies, require explicit initialization semantics (e.g., map lookup returns "not found" unless initialized; forbid reading uninitialized slots).
 
 ---
 
-### 19) Arithmetic Errors (overflow, division by zero) — Correctness/Safety, CPU-shared
+### 19) Arithmetic Errors (overflow, division by zero) [Correctness/Safety, CPU-shared]
 
 #### What it is / why it matters
 Arithmetic errors can corrupt keys/indices and cascade into memory safety/perf disasters.
@@ -917,9 +917,9 @@ Optional but reviewer-friendly: add lightweight verifier checks for div-by-zero 
 
 #### Verification scope analysis
 
-**Scope & Assurance**: Extension-local (E), Static-sound. Arithmetic errors depend only on the policy's operations and input value ranges—strong soundness via range analysis with medium completeness (complex arithmetic may require explicit assertions).
+**Scope & Assurance**: Extension-local (E), Static-sound. Arithmetic errors depend only on the policy's operations and input value ranges, providing strong soundness via range analysis with medium completeness (complex arithmetic may require explicit assertions).
 
-**Production guarantee**: The verifier performs lightweight static checks: (1) division—require static proof that divisor ≠ 0, or insert runtime guards; (2) overflow—use saturating arithmetic, or prove bounds on operands; (3) dangerous shifts—validate shift amounts; (4) index arithmetic—track value ranges to catch OOB before memory access. This is already typical in eBPF verifiers and adds minimal overhead to policy verification.
+**Production guarantee**: The verifier performs lightweight static checks: (1) division: require static proof that divisor ≠ 0, or insert runtime guards; (2) overflow: use saturating arithmetic, or prove bounds on operands; (3) dangerous shifts: validate shift amounts; (4) index arithmetic: track value ranges to catch OOB before memory access. This is already typical in eBPF verifiers and adds minimal overhead to policy verification.
 
 **Offline/CI tools**: ESBMC-GPU explicitly lists arithmetic overflow and division-by-zero among the properties it checks for CUDA programs (alongside races/deadlocks/bounds) via bounded model checking.
 
@@ -945,13 +945,13 @@ The verification scope and assurance type dimensions reveal crucial insights for
 
 #### By Verification Scope
 
-**Extension-local (E) — 14 of 19 classes:**
+**Extension-local (E): 14 of 19 classes:**
 Bugs #1, #2, #4, #6, #7, #10, #11, #12, #15, #16, #18, #19 can be eliminated purely by restricting policy code, without inspecting the host kernel. Additionally, bugs #3, #5, #14, #17 can be **reduced from Combined to Extension-local** through state isolation.
 
-**Combined (C) — 2 classes requiring contracts:**
+**Combined (C): 2 classes requiring contracts:**
 Bugs #8 (block-size dependence) and #9 (launch config assumptions) fundamentally depend on kernel launch parameters. These require contract-based validation at attach time.
 
-**Host+Device (H) — 1 class requiring host-side tools:**
+**Host+Device (H): 1 class requiring host-side tools:**
 Bug #13 (host↔device async races) cannot be addressed by device-side verification. Requires CuSan/TSan and careful API design.
 
 #### By Assurance Type
