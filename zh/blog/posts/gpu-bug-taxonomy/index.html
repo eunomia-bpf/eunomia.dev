@@ -12656,7 +12656,7 @@
 <h1 id="a-taxonomy-of-gpu-bugs-19-defect-classes-for-cuda-verification">A Taxonomy of GPU Bugs: 19 Defect Classes for CUDA Verification</h1>
 <h2 id="introduction">Introduction</h2>
 <p>GPU programming introduces a distinct class of correctness and performance challenges that differ fundamentally from traditional CPU-based systems. The SIMT (Single Instruction, Multiple Threads) execution model, hierarchical memory architecture, and massive parallelism create unique bug patterns that require specialized verification and detection techniques.</p>
-<p>Just as eBPF enables safe, verified extension code to run inside the Linux kernel, <a href="https://github.com/eunomia-bpf/bpftime">bpftime gpu_ext</a> (The <a href="https://arxiv.org/abs/2512.12615">arxiv</a>, formally name <a href="https://dl.acm.org/doi/10.1145/3723851.3726984">eGPU</a>) bring eBPF to GPUs, allowing user-defined policy code (for observability, scheduling, or resource control) to be injected into GPU drivers and kernels with <strong>static verification guarantees</strong>. Such a GPU extension framework must ensure that policy code cannot introduce crashes, hangs, data races, or unbounded overhead. A critical concern in modern GPU deployments is <strong>performance interference in multi-tenant environments</strong>: contention for shared resources makes execution time unpredictable. "Making Powerful Enemies on NVIDIA GPUs" studies how adversarial kernels can amplify slowdowns, arguing that performance interference is a <em>system-level safety</em> property when GPUs are shared. This motivates treating bounded overhead as a correctness property, not merely an optimization goal.</p>
+<p>Just as eBPF enables safe, verified extension code to run inside the Linux kernel, <a href="https://github.com/eunomia-bpf/bpftime">bpftime gpu_ext</a> (The <a href="https://arxiv.org/abs/2512.12615">arxiv</a>, previous name <a href="https://dl.acm.org/doi/10.1145/3723851.3726984">eGPU</a>) bring eBPF to GPUs, allowing user-defined policy code (for observability, scheduling, or resource control) to be injected into GPU drivers and kernels with <strong>static verification guarantees</strong>. Such a GPU extension framework must ensure that policy code cannot introduce crashes, hangs, data races, or unbounded overhead. A critical concern in modern GPU deployments is <strong>performance interference in multi-tenant environments</strong>: contention for shared resources makes execution time unpredictable. "Making Powerful Enemies on NVIDIA GPUs" studies how adversarial kernels can amplify slowdowns, arguing that performance interference is a <em>system-level safety</em> property when GPUs are shared. This motivates treating bounded overhead as a correctness property, not merely an optimization goal.</p>
 <p>To build a sound GPU extension verifier, we must first understand what can go wrong. This taxonomy identifies the defect classes a verifier must address, drawing lessons from eBPF's success: restrict the programming model, enforce bounded execution, and verify memory safety before loading. We synthesize findings from static verifiers (GPUVerify, GKLEE, ESBMC-GPU), dynamic detectors (Compute Sanitizer, Simulee, CuSan), and empirical bug studies (Wu et al., ScoRD, iGUARD) into 19 defect classes organized along two dimensions: impact type (Safety, Correctness, Performance) and GPU specificity (GPU-specific, GPU-amplified, CPU-shared). Each entry provides concrete examples, documents detection tools, and offers actionable verification strategies.</p>
 <!-- more -->
 
@@ -13581,7 +13581,7 @@ Bug #13 (host↔device async races) cannot be addressed by device-side verificat
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 3, 2026 21:14:15 UTC">February 3, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 3, 2026 21:34:52 UTC">February 3, 2026</span>
   </span>
 
     
@@ -13601,12 +13601,13 @@ Bug #13 (host↔device async races) cannot be addressed by device-side verificat
   <span class="md-source-file__fact">
     <span class="md-icon" title="Contributors">
       
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
       
     </span>
     <nav>
       
-        <a href="mailto:linuxdev8883@example.com">LinuxDev9002</a>
+        <a href="mailto:linuxdev8883@example.com">LinuxDev9002</a>, 
+        <a href="mailto:1067852565@qq.com">云微</a>
     </nav>
   </span>
 
