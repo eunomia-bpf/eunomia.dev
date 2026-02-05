@@ -41,7 +41,7 @@ The recommended compiler is gcc9 or later.
 
 ## build ecli
 
-After compile the bpf-loader, you can build the cli tool in C++:
+After compiling the bpf-loader, you can build the cli tool in C++:
 
 ```shell
 make ecli
