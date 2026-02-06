@@ -964,30 +964,61 @@ Bug #13 (host↔device async races) cannot be addressed by device-side verificat
 | **Contract-based** | #8, #9 | Conditional | Depends on contracts |
 | **Dynamic-only** | #13 | Executed paths only | Coverage-dependent |
 
-#### The Two-Track Verification Pipeline
+#### The Three-Stage Verification Pipeline
 
-**Production track (hard guarantees for any kernel):**
-- Load-time policy verifier with E-local checks
-- Attach-time contract validation for C-scope properties
-- Runtime enforcement for multi-tenant isolation (Guardian-style)
+**Stage 1: Load-time static verifier (core, analogous to eBPF verifier)**
 
-**CI/Offline track (enhanced coverage):**
-- GPUVerify/ESBMC-GPU for kernel+extension combined analysis
+The load-time verifier employs three tiers of analysis, ranging from outright bans on genuinely dangerous constructs to static analysis that preserves useful functionality:
+
+*Tier A — By-construction bans (3 classes, no legitimate policy use):*
+
+- Ban warp sync primitives (#2) — mask correctness is unverifiable without ITS-aware analysis
+- Ban spin-wait / polling loops (#10) — causes stale reads and ad-hoc synchronization
+- Ban blocking primitives: locks, mutexes, named barriers (#15) — prevents non-barrier deadlocks
+
+*Tier B — Static-sound analysis (11 classes, allow but verify safe usage):*
+
+| Verification capability | Bug classes covered | What it does |
+|------------------------|--------------------|----|
+| Uniform control-flow analysis | #1 barrier divergence, #4 warp-divergence race, #6 control-flow divergence | Prove barriers are at uniform points; side-effects on uniform paths |
+| Memory access pattern analysis | #5 uncoalesced access, #7 bank conflicts | Check stride patterns; reject non-conforming index expressions |
+| Race-freedom structural rules | #11 shared-mem races, #17 global-mem races | Per-lane sharding / lane0-only / atomic helpers + state isolation |
+| Scope enforcement | #3 atomic scope | Force device-scope for policy atomics + state isolation |
+| Pointer/memory safety | #18 memory safety | Restrict pointer operations, analogous to eBPF pointer verification |
+| Loop termination | #16 non-termination | Enforce bounded iteration counts |
+| Range analysis | #19 arithmetic errors | Track value ranges to prevent overflow cascading into OOB |
+| Resource budgets | #14 atomic contention | Limit atomic counts / enforce warp-aggregation |
+
+*Tier C — Static-heuristic detection (2 classes, performance warnings/rejections):*
+
+- #7 bank conflicts → check shared-memory index stride against bank mapping
+- #12 redundant barriers → dependence analysis to determine if a barrier protects actual cross-thread dependencies
+
+**Stage 2: Attach-time contract validation (2 classes)**
+
+- #8 block-size dependence → policy declares preconditions (e.g., `requires: blockDim.x >= 128`), validated when attaching to a specific kernel
+- #9 launch config assumptions → validate grid/block dimensions satisfy policy preconditions
+
+**Stage 3: CI/Offline + Runtime (complementary coverage)**
+
+- #13 host↔device async races → CuSan/TSan dynamic detection, beyond device-side verification scope
+- GPUVerify/ESBMC-GPU for kernel+extension combined analysis (when source is available)
 - Compute Sanitizer suite for dynamic regression testing
 - iGUARD/Simulee for advanced race detection
-- CuSan for host↔device async race detection
+- Runtime overhead enforcement for multi-tenant isolation (Guardian-style)
 
 #### The eBPF Lesson Applied to GPUs
 
 Just as eBPF succeeds by restricting extension capabilities to what can be verified without inspecting the kernel, a GPU extension verifier should:
 
-1. **Restrict the policy language** to achieve safety (ban locks, unbounded loops, raw pointers; enforce uniform barrier placement)
-2. **Isolate policy state** to reduce Combined bugs to Extension-local
-3. **Enforce warp-uniformity** for side effects, bounding SIMT-amplified overhead
-4. **Use budgets** for performance-affecting resources (atomics, memory ops)
-5. **Require contracts** only for unavoidably Combined properties (#8, #9)
+1. **Ban only what is genuinely dangerous and unnecessary** — warp sync, spin-wait, and blocking primitives have no legitimate use in policy code
+2. **Use static analysis to allow useful features safely** — barriers, shared memory, and atomics are valuable; verify their safe usage rather than banning them
+3. **Isolate policy state** to reduce Combined bugs to Extension-local
+4. **Enforce warp-uniformity** for side effects, bounding SIMT-amplified overhead
+5. **Use budgets** for performance-affecting resources (atomics, memory ops)
+6. **Require contracts** only for unavoidably Combined properties (#8, #9)
 
-This approach prioritizes **soundness over completeness**: it's acceptable to reject some safe policies if it means never accepting unsafe ones. The verifier's job is to guarantee safety for *any* kernel, not to accept every possible safe program.
+The key design principle is *not* to ban everything that could go wrong, but to apply the right level of restriction for each risk: outright bans for constructs with no legitimate policy use, static verification for useful but dangerous features, and heuristic detection for performance concerns. This preserves policy expressiveness while maintaining soundness for safety-critical GPU extensions.
 
 ---
 
