@@ -65,18 +65,18 @@ For safety-critical GPU extensions, we prioritize **soundness over completeness*
 
 | # | Bug Class | Impact | GPU Spec. | Scope | Assurance Type |
 |---|-----------|--------|-----------|-------|----------------|
-| 1 | Barrier Divergence | Safety | GPU-specific | E | By-construction (ban barriers) |
+| 1 | Barrier Divergence | Safety | GPU-specific | E | Static-sound (enforce uniform barrier placement) |
 | 2 | Invalid Warp Sync | Safety | GPU-specific | E | By-construction (ban warp sync) |
 | 3 | Insufficient Atomic/Sync Scope | Correctness | GPU-specific | C→E | Static-sound (isolate state + device-scope) |
 | 4 | Warp-divergence Race | Correctness | GPU-specific | E | Static-sound (uniform side-effects) |
 | 5 | Uncoalesced Memory Access | Performance | GPU-specific | E/C | Static-sound (restrict patterns) |
 | 6 | Control-Flow Divergence | Performance | GPU-specific | E | Static-sound (enforce uniformity) |
-| 7 | Bank Conflicts | Performance | GPU-specific | E | By-construction (ban shared mem) |
+| 7 | Bank Conflicts | Performance | GPU-specific | E | Static-heuristic (enforce conflict-free patterns) |
 | 8 | Block-Size Dependence | Correctness | GPU-specific | E/C | Contract-based (declare requirements) |
 | 9 | Launch Config Assumptions | Correctness | GPU-specific | C | Contract-based (validate at attach) |
 | 10 | Missing Volatile/Fence | Correctness | GPU-specific | E | By-construction (ban spin-wait) |
 | 11 | Shared-Memory Data Races | Correctness | GPU-specific | E | Static-sound (restrict writes) |
-| 12 | Redundant Barriers | Performance | GPU-specific | E | By-construction (ban barriers) |
+| 12 | Redundant Barriers | Performance | GPU-specific | E | Static-heuristic (detect unnecessary barriers) |
 | 13 | Host ↔ Device Async Races | Correctness | GPU-specific | H | Dynamic-only (CuSan/TSan) |
 | 14 | Atomic Contention | Performance | GPU-amplified | C→E | Static-sound (budgetize atomics) |
 | 15 | Non-Barrier Deadlocks | Safety | GPU-amplified | E | By-construction (ban blocking) |
@@ -107,11 +107,11 @@ Together, these insights not only characterize GPU correctness issues more preci
 
 Beyond characterizing *what* can go wrong, we analyze *whether and how* each bug class can be addressed by a GPU extension verifier. By examining each defect through the lens of verification scope (Extension-local vs. Combined vs. Host+Device) and assurance type (soundness and completeness guarantees), we arrive at several key conclusions for GPU extension framework design.
 
-**Extension-local verification is sufficient for the majority of GPU bug classes.** Of the 19 defect classes identified, 14 can be fully addressed through Extension-local verification, examining only the policy code without inspecting the host kernel. Six of these (#1, #2, #7, #10, #12, #15) can be eliminated *by construction* through language restrictions: banning barriers, warp sync primitives, shared memory access, spin-wait patterns, and blocking constructs makes entire bug classes structurally impossible. Four additional classes (#3, #5, #14, #17) that initially appear to require Combined analysis can be *reduced to Extension-local* through state isolation, restricting policies to write only policy-owned objects (maps, ringbuffers) rather than kernel data structures. This finding validates the eBPF design philosophy: by appropriately restricting extension capabilities, a verifier can provide strong safety guarantees for *any* kernel, including closed-source ones.
+**Extension-local verification is sufficient for the majority of GPU bug classes.** Of the 19 defect classes identified, 14 can be fully addressed through Extension-local verification, examining only the policy code without inspecting the host kernel. Some of these (#2, #10, #15) can be eliminated *by construction* through language restrictions: banning warp sync primitives, spin-wait patterns, and blocking constructs makes entire bug classes structurally impossible. Others (#1, #7, #12) use *static analysis* to enforce safe usage patterns (uniform barrier placement, conflict-free shared-memory access, redundant barrier detection) rather than outright bans, preserving useful functionality while maintaining safety. Four additional classes (#3, #5, #14, #17) that initially appear to require Combined analysis can be *reduced to Extension-local* through state isolation, restricting policies to write only policy-owned objects (maps, ringbuffers) rather than kernel data structures. This finding validates the eBPF design philosophy: by appropriately restricting extension capabilities, a verifier can provide strong safety guarantees for *any* kernel, including closed-source ones.
 
 **Only three bug classes fundamentally resist Extension-local verification.** Block-size dependence (#8) and launch configuration assumptions (#9) depend on host-determined launch parameters invisible to the policy verifier; these require a contract-based approach where policies declare preconditions validated at attach time. Host↔device async races (#13) span the host API boundary entirely outside device-side verification scope; these can only be addressed through dynamic detection tools like CuSan. Importantly, these three classes represent a small, well-defined subset that can be handled through complementary mechanisms rather than requiring full Combined verification of kernel+extension.
 
-**Soundness and completeness trade-offs are explicit and favorable for safety-critical extensions.** By-construction approaches (banning dangerous features) achieve perfect soundness with high completeness for policy use cases, as the restricted features are rarely needed for observability or policy enforcement. Static-sound approaches (uniformity analysis, bounds checking, range analysis) provide strong soundness but sacrifice completeness, rejecting some safe programs. For safety-critical GPU extensions, this trade-off is appropriate: it is better to reject a safe policy than to accept an unsafe one. The verifier's job is to guarantee safety for any kernel, not to accept every possible safe program.
+**Soundness and completeness trade-offs are explicit and favorable for safety-critical extensions.** By-construction approaches (banning genuinely dangerous features like spin-wait and blocking primitives) achieve perfect soundness with high completeness for policy use cases. Static-sound approaches (uniform barrier placement, conflict-free access pattern enforcement, uniformity analysis, bounds checking, range analysis) provide strong soundness while preserving useful functionality, at the cost of conservatively rejecting some safe programs. For safety-critical GPU extensions, this trade-off is appropriate: it is better to reject a safe policy than to accept an unsafe one. The verifier's job is to guarantee safety for any kernel, not to accept every possible safe program.
 
 **A two-track verification pipeline emerges as the principled design.** The *production track* provides hard guarantees for any kernel through Extension-local verification at load time, contract validation at attach time, and optional runtime enforcement for multi-tenant isolation. The *CI/offline track* enhances coverage through Combined analysis tools (GPUVerify, ESBMC-GPU) when kernel source is available, dynamic sanitizers (Compute Sanitizer, iGUARD, Simulee) for regression testing, and host-side race detection (CuSan) for API ordering bugs. This separation acknowledges that Combined verification, while valuable for development and testing, cannot be a production requirement for systems targeting arbitrary kernels.
 
@@ -148,17 +148,17 @@ __global__ void k(float* a) {
 * **Dynamic check:** synccheck-style runtime validation, and Simulee-style bug finding.([zhangyuqun.github.io][19])
 
 #### Verification strategy
-Make this a *hard* verifier rule: policy code must not contain any block-wide barrier primitive (or any helper that can implicitly behave like a block-wide barrier). If you ever allow barriers in policy code, require **warp-/block-uniform control flow** for any path reaching a barrier (uniform predicate analysis), otherwise reject. Simplest and strongest: **forbid `__syncthreads()` inside policies**, which directly eliminates an entire class of GPU hangs.
+Require **warp-/block-uniform control flow** for any path reaching a barrier (GPUVerify-style uniform predicate analysis): the verifier statically proves that every `__syncthreads()` is reached by all threads in the block, otherwise reject. This allows policies to use barriers for legitimate shared-memory coordination while preventing divergent barriers that cause deadlocks.
 
 #### Verification scope analysis
 
-**Scope & Assurance**: Extension-local (E), By-construction. Banning `__syncthreads()` makes barrier divergence structurally impossible, providing perfect soundness with high completeness for policy use cases (barriers are rarely needed in observability/policy code).
+**Scope & Assurance**: Extension-local (E), Static-sound. Enforcing uniform barrier placement via static analysis prevents barrier divergence with strong soundness. Policies can use `__syncthreads()` when the verifier can prove all threads in the block reach the barrier uniformly.
 
-**Production guarantee**: Policy code cannot introduce barrier divergence because the verifier rejects any policy containing block-wide barrier primitives. This is the ideal verification pattern: a structural restriction on the policy language eliminates an entire bug class without analyzing the host kernel.
+**Production guarantee**: The verifier statically analyzes control flow to ensure every `__syncthreads()` call is reached by all threads in the block. Barriers under divergent conditions (e.g., `if (threadIdx.x < 16) __syncthreads()`) are rejected. This allows safe barrier usage for shared-memory coordination while preventing GPU hangs.
 
 **Offline/CI tools**: For kernel-level analysis, GPUVerify proves divergence freedom via static verification; Compute Sanitizer `synccheck` detects divergent barriers at runtime; Simulee finds barrier divergence bugs through evolutionary simulation.
 
-**Residual gap**: The verifier guarantees *policy* cannot introduce barrier divergence, but cannot guarantee the *kernel* itself is free of this bug; kernel-level bugs require kernel-level tools.
+**Residual gap**: Some safe barrier placements under complex but provably uniform conditions may be conservatively rejected. The verifier guarantees *policy* cannot introduce barrier divergence, but cannot guarantee the *kernel* itself is free of this bug; kernel-level bugs require kernel-level tools.
 
 ---
 
@@ -378,17 +378,17 @@ __global__ void k(int* out) {
 * **Static heuristic:** classify shared-memory index expressions by lane stride and bank mapping; warn if likely conflict.
 
 #### Verification strategy
-If policies use shared scratchpads (e.g., per-block staging), either forbid it or enforce a **conflict-free access pattern** (e.g., contiguous per-lane indexing). Most observability policies can avoid shared memory entirely, turning this into a rule: "no shared-memory accesses in policy." Or simply ban shared-memory indexing by untrusted lane-dependent expressions.
+If policies use shared scratchpads (e.g., per-block staging), enforce a **conflict-free access pattern** (e.g., contiguous per-lane indexing such as `base + threadIdx.x`). A static heuristic can classify shared-memory index expressions by lane stride and bank mapping, rejecting or warning on patterns likely to cause conflicts. Shared memory should not be banned entirely for this performance issue—it remains useful for legitimate policy scratchpads.
 
 #### Verification scope analysis
 
-**Scope & Assurance**: Extension-local (E), By-construction. Banning shared memory access in policies eliminates bank conflicts entirely, providing perfect soundness with high completeness for policy use cases (shared memory is rarely needed for observability).
+**Scope & Assurance**: Extension-local (E), Static-heuristic. Enforcing conflict-free access patterns on shared memory eliminates most bank conflicts while still allowing policies to use shared scratchpads for legitimate purposes.
 
-**Production guarantee**: Policies are forbidden from accessing shared memory, or restricted to conflict-free index patterns (`base + threadIdx.x` for contiguous access). This also eliminates shared-memory races (#11) as a side benefit. Most observability policies can avoid shared memory entirely: data flows directly to ringbuffers.
+**Production guarantee**: Policies using shared memory are restricted to conflict-free index patterns (`base + threadIdx.x` for contiguous access). The verifier statically checks shared-memory index expressions and rejects patterns with likely bank conflicts (e.g., stride-32 access). This preserves shared memory availability for per-block staging and aggregation.
 
 **Offline/CI tools**: GKLEE explicitly lists "memory bank conflicts" among detected performance bugs via symbolic exploration.
 
-**Residual gap**: Policies needing complex shared-memory algorithms will be rejected. For observability/policy code, "ban shared memory" is a practical, sound rule. Kernel-level bank conflict analysis requires GPUDrano-style static tools or profiling.
+**Residual gap**: Some safe but complex index patterns may be conservatively rejected. Kernel-level bank conflict analysis requires GPUDrano-style static tools or profiling. Policies needing non-trivial shared-memory access patterns may need to demonstrate conflict-freedom through annotations or simplified indexing.
 
 ---
 
@@ -596,17 +596,17 @@ __global__ void k(int* out) {
 * **Static/dynamic dependence analysis:** determine whether any read-after-write / write-after-read across threads is protected by the barrier; if not, barrier is removable (Simulee/AuCS angle).([zhangyuqun.github.io][19])
 
 #### Verification strategy
-This supports the "performance = safety" story: even "correct" policies can be unacceptable if they introduce barrier overhead. Since policies should avoid barriers entirely, you can convert this into a simpler rule: **"no barriers in policy,"** and separately "policy overhead must be bounded," eliminating this issue by construction. If helpers include barriers internally, you need cost models or architectural restrictions.
+Since barriers are allowed in policy code (with uniform placement enforced by #1), redundant barriers become a performance concern. Use static dependence analysis to detect barriers where no cross-thread data dependence exists between the preceding writes and subsequent reads. The verifier can warn about or reject redundant barriers to enforce **bounded overhead** as a correctness property, ensuring policies do not introduce unnecessary synchronization cost.
 
 #### Verification scope analysis
 
-**Scope & Assurance**: Extension-local (E), By-construction. Since policies ban barriers entirely (#1, #2), redundant barriers cannot exist in policy code, providing perfect soundness; completeness is N/A as the question doesn't arise.
+**Scope & Assurance**: Extension-local (E), Static-heuristic. Static dependence analysis can identify barriers that protect no cross-thread memory dependence, flagging them as redundant. This provides good detection coverage for common patterns.
 
-**Production guarantee**: This is a corollary of the barrier-divergence prevention strategy. Since policies forbid `__syncthreads()` and warp-level barriers, redundant barriers are impossible by construction. If helpers include barriers internally, their cost must be accounted for in the policy's overhead budget.
+**Production guarantee**: The verifier performs dependence analysis on barrier sites: if no read-after-write or write-after-read across threads is protected by a barrier, the barrier is flagged as redundant and rejected. Combined with the policy overhead budget, this ensures barriers are only used when structurally necessary for shared-memory coordination.
 
 **Offline/CI tools**: Simulee detects redundant barriers through evolutionary simulation; Wu et al. define "redundant barrier function" as a key synchronization bug type; GPURepair uses GPUVerify as an oracle to repair data races/barrier divergence and can remove unnecessary barriers.
 
-**Residual gap**: For kernel-level analysis, redundant barrier detection requires dependence analysis (Simulee/AuCS angle). For policy code, "bounded overhead" as a correctness requirement means banning barriers is both simpler and provides stronger guarantees than trying to optimize barrier placement.
+**Residual gap**: Some barriers may appear redundant in isolation but are necessary for correctness under specific scheduling scenarios. Conservative analysis may retain some unnecessary barriers; profiling tools can identify remaining optimization opportunities at the kernel level.
 
 ---
 
@@ -932,7 +932,7 @@ Optional but reviewer-friendly: add lightweight verifier checks for div-by-zero 
 Wu et al.'s empirical study explicitly groups CUDA-specific synchronization issues into three concrete bug types: **data race**, **barrier divergence**, and **redundant barrier functions**. They also highlight that these often manifest as inferior performance and flaky tests. Simulee is used to find these categories in real projects.([arXiv][21])
 
 This is exactly the "verification story" hook: a GPU extension verifier can claim that policy code cannot introduce these synchronization root causes because:
-* no barriers allowed,
+* barriers are only allowed at provably uniform control flow points,
 * warp-uniform side effects enforced,
 * bounded helper calls,
 * and a restricted memory model for policies.
@@ -958,8 +958,9 @@ Bug #13 (host↔device async races) cannot be addressed by device-side verificat
 
 | Assurance Type | Bug Classes | Soundness | Completeness |
 |----------------|-------------|-----------|--------------|
-| **By-construction** | #1, #2, #7, #10, #12, #15 | Perfect | High |
-| **Static-sound** | #3, #4, #5, #6, #11, #14, #16, #17, #18, #19 | Strong | Low-Medium |
+| **By-construction** | #2, #10, #15 | Perfect | High |
+| **Static-sound** | #1, #3, #4, #5, #6, #11, #14, #16, #17, #18, #19 | Strong | Low-Medium |
+| **Static-heuristic** | #7, #12 | Good | Medium |
 | **Contract-based** | #8, #9 | Conditional | Depends on contracts |
 | **Dynamic-only** | #13 | Executed paths only | Coverage-dependent |
 
@@ -980,7 +981,7 @@ Bug #13 (host↔device async races) cannot be addressed by device-side verificat
 
 Just as eBPF succeeds by restricting extension capabilities to what can be verified without inspecting the kernel, a GPU extension verifier should:
 
-1. **Restrict the policy language** to achieve by-construction safety (ban barriers, locks, unbounded loops, raw pointers)
+1. **Restrict the policy language** to achieve safety (ban locks, unbounded loops, raw pointers; enforce uniform barrier placement)
 2. **Isolate policy state** to reduce Combined bugs to Extension-local
 3. **Enforce warp-uniformity** for side effects, bounding SIMT-amplified overhead
 4. **Use budgets** for performance-affecting resources (atomics, memory ops)
