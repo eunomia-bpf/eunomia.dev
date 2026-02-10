@@ -793,6 +793,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#error-failed-to-attach-error-strerror_r-52422" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error: "failed to attach: ERROR: strerror_r(-524)=22"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -10844,6 +10872,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#error-failed-to-attach-error-strerror_r-52422" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error: "failed to attach: ERROR: strerror_r(-524)=22"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -10985,6 +11041,45 @@
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="go">              rm-9290    [004] d..2  4637.798698: bpf_trace_printk: fentry: pid = 9290, filename = test_file2</span>
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="go">              rm-9290    [004] d..2  4637.798843: bpf_trace_printk: fexit: pid = 9290, filename = test_file2, ret = 0</span>
 </code></pre></div>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p>If you encounter errors when running this example, here are some common issues and solutions:</p>
+<h3 id="error-failed-to-attach-error-strerror_r-52422">Error: "failed to attach: ERROR: strerror_r(-524)=22"</h3>
+<p>This error (error code -524 = ENOTSUPP) typically means your kernel doesn't support fentry/fexit. Here's how to troubleshoot:</p>
+<p><strong>1. Check your kernel version:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="gp">$ </span>uname<span class="w"> </span>-r
+</code></pre></div>
+<p>You need:
+- Kernel 5.5 or newer for x86/x86_64 processors
+- Kernel 6.0 or newer for ARM/ARM64 processors</p>
+<p>If your kernel is too old, you have two options:
+- Upgrade your kernel to a supported version
+- Use the kprobe example instead (see <a href="../2-kprobe-unlink/">example 2-kprobe-unlink</a>)</p>
+<p><strong>2. Verify BTF (BPF Type Format) support:</strong></p>
+<p>BTF is required for fentry/fexit to work. Check if it's enabled:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="gp">$ </span>cat<span class="w"> </span>/boot/config-<span class="k">$(</span>uname<span class="w"> </span>-r<span class="k">)</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>CONFIG_DEBUG_INFO_BTF
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="go">CONFIG_DEBUG_INFO_BTF=y</span>
+</code></pre></div>
+<p>If BTF is not enabled, you'll need to either:
+- Use a kernel with BTF support enabled
+- Use the kprobe example as an alternative</p>
+<p><strong>3. Check if the kernel function exists:</strong></p>
+<p>The function <code>do_unlinkat</code> may have a different name or may not be exported in some kernel versions. You can check available functions:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="gp">$ </span>sudo<span class="w"> </span>cat<span class="w"> </span>/sys/kernel/debug/tracing/available_filter_functions<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>unlink
+</code></pre></div>
+<p>If <code>do_unlinkat</code> is not listed, the function may not be available for tracing on your kernel.</p>
+<p><strong>4. Verify your kernel configuration:</strong></p>
+<p>Ensure your kernel was compiled with the necessary eBPF features:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="gp">$ </span>cat<span class="w"> </span>/boot/config-<span class="k">$(</span>uname<span class="w"> </span>-r<span class="k">)</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>BPF
+</code></pre></div>
+<p>Look for these important settings:
+- <code>CONFIG_BPF=y</code>
+- <code>CONFIG_BPF_SYSCALL=y</code>
+- <code>CONFIG_DEBUG_INFO_BTF=y</code>
+- <code>CONFIG_BPF_JIT=y</code></p>
+<p>If you're still experiencing issues after checking these items, please report your kernel version and OS distribution by running:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="gp">$ </span>uname<span class="w"> </span>-a
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="gp">$ </span>cat<span class="w"> </span>/etc/os-release
+</code></pre></div>
 <h2 id="summary">Summary</h2>
 <p>This program is an eBPF program that captures the <code>do_unlinkat</code> and <code>do_unlinkat_exit</code> functions using fentry and fexit, and uses <code>bpf_get_current_pid_tgid</code> and <code>bpf_printk</code> functions to obtain the ID, filename, and return value of the process calling do_unlinkat, and print them in the kernel log.</p>
 <p>To compile this program, you can use the ecc tool, and to run it, you can use the ecli command, and view the output of the eBPF program by checking the <code>/sys/kernel/debug/tracing/trace_pipe</code> file.</p>
@@ -11013,7 +11108,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 4, 2025 00:04:48 UTC">October 4, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 10, 2026 23:57:12 UTC">February 10, 2026</span>
   </span>
 
     
