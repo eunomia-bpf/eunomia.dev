@@ -1,3 +1,2 @@
-{"path": "docs/blog/posts/gpu-bug-taxonomy.md", "tags": ["ebpf", "GPU", "verifier"]}
 {"path": "docs/tutorials/features/dynptr/README.md", "tags": ["ebpf", "verifier", "tutorial"]}
 {"path": "docs/tutorials/cgroup/README.md", "tags": ["ebpf", "cgroup", "tutorial"]}
