@@ -1770,7 +1770,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        一个奇怪的现象：多次调用、获取参数
+        追踪多次调用的函数并获取返回值
       
     </span>
   </a>
@@ -10902,7 +10902,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        一个奇怪的现象：多次调用、获取参数
+        追踪多次调用的函数并获取返回值
       
     </span>
   </a>
@@ -11039,8 +11039,8 @@
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="go">Attaching 1 probe...</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="go">Function hello-world called</span>
 </code></pre></div>
-<h2 id="_1">一个奇怪的现象：多次调用、获取参数</h2>
-<p>对于一个更复杂的例子，包含多次调用和获取参数：</p>
+<h2 id="_1">追踪多次调用的函数并获取返回值</h2>
+<p>对于一个更复杂的例子，包含多次调用并演示如何获取返回值：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">env</span><span class="p">;</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">hello</span><span class="p">(</span><span class="n">i</span>: <span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="n">len</span>: <span class="kt">usize</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">i32</span> <span class="p">{</span>
@@ -11065,38 +11065,42 @@
 <a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="p">}</span>
 </code></pre></div>
-<p>我们再次进行类似的操作，会发现一个奇怪的现象：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="gp">$ </span>sudo<span class="w"> </span>bpftrace<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;uprobe:args/target/release/helloworld:_ZN10helloworld4main17h2dce92cb81426b91E { printf(&quot;Function hello-world called\n&quot;); }&#39;</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="go">Attaching 1 probe...</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="go">Function hello-world called</span>
+<p>首先，我们需要使用 debug 模式构建，因为 <code>hello</code> 函数在 release 模式下会被内联，不会有自己的符号：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span>args
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="gp">$ </span>cargo<span class="w"> </span>build
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="gp">$ </span>nm<span class="w"> </span>target/debug/helloworld<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>hello
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="go">0000000000016250 t _ZN10helloworld4main17ha3594bca2af541f6E</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="go">0000000000016540 t _ZN10helloworld5hello17h5f3a03dda56661e1E</span>
 </code></pre></div>
-<p>这时候我们希望 hello 函数运行多次，但 bpftrace 中只输出了一次调用：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="gp">$ </span>args/target/release/helloworld<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="go">Hello, world! 1 in 5</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="go">return value: 6</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="go">Hello, world! 2 in 5</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="go">return value: 7</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="go">Hello, world! 3 in 5</span>
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="go">return value: 8</span>
-<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="go">Hello, world! 4 in 5</span>
-<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="go">return value: 9</span>
+<p>注意，在 release 模式（<code>cargo build --release</code>）下，只会出现 <code>main</code> 函数符号，因为 <code>hello</code> 在优化过程中被内联了。</p>
+<p>现在我们可以使用符号来追踪 <code>hello</code> 函数。由于 Rust 会对符号名称进行混淆并加入每次编译都会变化的哈希值，我们使用通配符模式来匹配任何版本的 <code>hello</code> 函数：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="gp">$ </span>sudo<span class="w"> </span>bpftrace<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;uprobe:target/debug/helloworld:_ZN10helloworld5hello* { printf(&quot;Function hello called\n&quot;); }&#39;</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="go">Attaching 1 probe...</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="go">Function hello called</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="go">Function hello called</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="go">Function hello called</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="go">Function hello called</span>
 </code></pre></div>
-<p>而且看起来 bpftrace 并不能正确获取参数：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="gp">$ </span>sudo<span class="w"> </span>bpftrace<span class="w"> </span>-e<span class="w"> </span><span class="err">&#39;</span>uprobe:args/target/release/helloworld:_ZN10helloworld4main17h2dce92cb81426b91E<span class="w"> </span><span class="o">{</span><span class="w"> </span>printf<span class="o">(</span><span class="s2">&quot;Function hello-world called %d\n&quot;</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="go">, arg0); }&#39;</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="go">Attaching 1 probe...</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="go">Function hello-world called 63642464</span>
+<p>当我们使用多个参数运行程序时，bpftrace 正确地捕获了所有对 <code>hello</code> 函数的调用：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="gp">$ </span>./target/debug/helloworld<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="go">Hello, world! 1 in 5</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="go">return value: 6</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="go">Hello, world! 2 in 5</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="go">return value: 7</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="go">Hello, world! 3 in 5</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="go">return value: 8</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="go">Hello, world! 4 in 5</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="go">return value: 9</span>
 </code></pre></div>
-<p>Uretprobe 捕捉到了第一次调用的返回值：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="gp">$ </span>sudo<span class="w"> </span>bpftrace<span class="w"> </span>-e<span class="w"> </span><span class="err">&#39;</span>uretprobe:args/tar
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="go">get/release/helloworld:_ZN10helloworld4main17h2dce92</span>
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="go">cb81426b91E { printf(&quot;Function hello-world called %d</span>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="go">\n&quot;, retval); }&#39;</span>
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="go">Attaching 1 probe...</span>
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="go">Function hello-world called 6</span>
+<p>我们也可以使用 Uretprobe 来获取返回值。同样，我们使用通配符来匹配符号：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="gp">$ </span>sudo<span class="w"> </span>bpftrace<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;uretprobe:target/debug/helloworld:_ZN10helloworld5hello* { printf(&quot;Function hello returned: %d\n&quot;, retval); }&#39;</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="go">Attaching 1 probe...</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="go">Function hello returned: 6</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="go">Function hello returned: 7</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="go">Function hello returned: 8</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="go">Function hello returned: 9</span>
 </code></pre></div>
-<p>这可能是由于 Rust 没有稳定的 ABI。 Rust，正如它迄今为止所存在的那样，保留了以任何它想要的方式对这些结构成员进行排序的权利。 因此，被调用者的编译版本可能会完全按照上面的方式对成员进行排序，而调用库的编程的编译版本可能会认为它实际上是这样布局的：</p>
-<p>TODO: 进一步分析（未完待续）</p>
+<p>注意：通配符模式 <code>_ZN10helloworld5hello*</code> 可以匹配 <code>hello</code> 函数符号，无论 Rust 在编译时添加了什么哈希后缀。如果需要，你可以使用 <code>nm target/debug/helloworld | grep hello</code> 来查看确切的符号名称。</p>
 <h2 id="_2">参考资料</h2>
 <ul>
 <li><a href="https://doc.rust-lang.org/rustc/symbol-mangling/index.html">https://doc.rust-lang.org/rustc/symbol-mangling/index.html</a></li>
@@ -11125,7 +11129,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 24, 2025 04:39:03 UTC">August 24, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 10, 2026 21:02:40 UTC">February 10, 2026</span>
   </span>
 
     
