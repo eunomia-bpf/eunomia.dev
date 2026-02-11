@@ -226,6 +226,143 @@ BPFTime is able to provide multiple source of metrics in the userspace from the 
 - Conceptual attach types discussion and in bpftime: [GitHub Discussion](https://github.com/eunomia-bpf/bpftime/issues/202)
 - Papers about GPU metrics collection: [GPU metrics collection](https://itu-dasyalab.github.io/RAD/publication/papers/euromlsys2023.pdf) and [GPU static compilation and runtime API hooks](https://github.com/vosen/ZLUDA/blob/master/ARCHITECTURE.md#zluda-dumper)
 - GDB's rwatch: [GDB rwatch](https://sourceware.org/gdb/onlinedocs/gdb/Set-Watchpoints.html) implemented on [X86](https://en.wikipedia.org/wiki/X86_debug_register) and [Arm](https://developer.arm.com/documentation/ka001494/latest/)
+
+## Full-Stack Intelligent OS Performance Adaptive Optimization Using LLM Agents and eBPF
+
+### Project Overview
+
+Modern computing workloads—AI inference/training, large-scale databases, real-time streaming, and cloud-native services—demand dynamic, cross-subsystem optimization that static kernel tuning and manual per-subsystem knobs cannot deliver. eBPF already enables non-intrusive fine-grained system instrumentation and optimization, but existing solutions are typically confined to a single resource dimension or a narrow scenario, lacking a unified cross-resource, cross-layer optimization framework. Meanwhile, traditional ML approaches (e.g., reinforcement learning) generalize poorly and carry prohibitive training costs.
+
+Large Language Model (LLM) Agents bring unique capabilities to this problem: (1) natural-language understanding of workload semantics and performance ceilings; (2) broad cross-domain knowledge and code-generation ability to synthesize executable optimization strategies; (3) tool-use and composition skills to drive eBPF instrumentation for real-time data collection and online strategy validation; (4) continuous adaptive learning to adjust strategies at runtime as workloads shift.
+
+This project asks participants to combine eBPF and LLM Agents to build a complete, automated, intelligent full-stack OS performance analysis and adaptive optimization system covering CPU scheduling, memory management, networking, disk I/O, and GPU resources, automatically generating cross-subsystem optimization strategies and iterating through a closed-loop feedback cycle.
+
+- Time Cost: ~350 hours
+- Difficulty Level: Hard
+- Mentors: Yusheng Zheng (<mailto:yunwei356@gmail.com>)
+
+### Objectives
+
+1. **Full-Stack Workload Intelligent Analysis**: Use LLM Agents combined with eBPF tracing to automatically perform fine-grained analysis of CPU scheduling characteristics, memory usage patterns, I/O patterns, network communication features, and GPU execution behavior, leveraging LLM reasoning to accurately identify actual performance requirements.
+2. **Multi-Resource Optimization Strategy Auto-Generation**: Leverage the LLM Agent's code generation and cross-domain knowledge to automatically produce cross-resource combined optimization strategy code—covering sched_ext CPU scheduling, custom memory reclamation, network stack parameter tuning, I/O scheduler selection, and gpu_ext GPU resource scheduling—with ≥98% strategy generation and auto-verification accuracy within 10 minutes.
+3. **LLM-Assisted Strategy Verification and Safe Deployment**: Build a verification pipeline using the kernel eBPF verifier, static analysis, dynamic micro-sandbox testing, and LLM-driven risk assessment (resource exhaustion risk, performance regression risk) to ensure strategies are safe and effective before automatic, zero-manual-intervention deployment.
+4. **Closed-Loop Adaptive Optimization**: Implement real-time performance monitoring and feedback after strategy deployment, using LLM Agent online reasoning to adaptively adjust or regenerate strategies, achieving at least two consecutive automatic optimization iterations.
+
+### Expected Outcomes
+
+- A working end-to-end system that autonomously analyzes workloads, generates cross-subsystem eBPF optimization strategies via LLM Agents, verifies them safely, and iterates in a closed loop.
+- Demonstrable performance improvement (latency, throughput, resource efficiency) over default kernel policies across at least 5 workload types: CPU-intensive, GPU-intensive, network-intensive, I/O-intensive, and memory-intensive.
+- No manual intervention required during the optimization cycle.
+
+### Useful References
+
+- [ADRS Blog Series (AI-Driven Research Systems)](https://ucbskyadrs.github.io/)
+- [Barbarians at the Gate: How AI is Disrupting Systems Research](https://arxiv.org/abs/2510.06189)
+- [Let the Barbarians In: How AI Accelerates Systems Performance Research](https://arxiv.org/abs/2512.14806)
+- [Towards Intelligent OS: An LLM Agent Framework for Linux Scheduler](https://arxiv.org/abs/2509.01245)
+- [gpu_ext: Extensible OS Policies for GPUs via eBPF](https://arxiv.org/abs/2512.12615)
+
+## Non-Intrusive Observability and Security Analysis for AI Agent System Behaviors Using eBPF
+
+### Project Overview
+
+AI Agents—autonomous systems that reason, interact, and invoke tools—are rapidly becoming critical infrastructure for automated programming, system operations, data analysis, and intelligent customer service. However, their highly dynamic and non-deterministic runtime behavior creates new challenges for traditional monitoring and security auditing: (1) Agent decisions execute as natural language or dynamically generated code, making intent opaque to conventional log/static-analysis tools; (2) existing tools like perf and strace lack semantic understanding of Agent execution, creating a severe "semantic gap" between intent and behavior; (3) AI Agents face novel threats such as prompt injection, resource exhaustion attacks, sensitive information leakage, and privilege escalation that existing tools cannot quickly identify; (4) most current solutions are intrusive and impractical for production deployment.
+
+eBPF, as a dynamic tracing technology in the Linux kernel, can efficiently perform real-time tracing and analysis without modifying target program source code or binaries—making it ideal for cross-layer, non-intrusive behavior monitoring and security analysis in AI Agent environments. This project asks participants to design and implement a complete real-time observability and security analysis system based on eBPF, automatically correlating Agent high-level intent to low-level system behavior and identifying anomalous behaviors and potential security risks.
+
+- Time Cost: ~200 hours
+- Difficulty Level: Medium
+- Mentors: Yusheng Zheng (<mailto:yunwei356@gmail.com>)
+
+### Objectives
+
+1. **Non-Intrusive Signal Capture at System Boundaries**: Using eBPF, capture Agent communication flows (HTTP/TLS traffic including plaintext content) and low-level system call events (network, file operations) in real time without modifying or recompiling the Agent program or framework, achieving ≥95% coverage of critical system interaction events.
+2. **Real-Time Agent Behavior Causal Correlation**: Design a real-time multi-dimensional correlation engine that uses process/thread inheritance relationships and semantic matching to precisely align high-level Agent communication intent (prompts, request content) with low-level system behavior (syscalls, network interactions) on a unified timeline, with correlation error ≤3%.
+3. **Automatic AI Agent Anomaly Detection**: Develop an intelligent anomaly detection module that automatically identifies at least four typical anomaly patterns from correlated trace data—including prompt injection attacks, resource exhaustion attacks, sensitive information exfiltration, and unauthorized/privilege-escalation system access—with ≥95% detection accuracy.
+4. **Interactive Visualization and Security Diagnostics Tool**: Implement a complete end-to-end interactive visualization tool enabling security analysts to quickly locate and trace AI Agent anomaly root causes, with interactive response latency under 500ms, supporting historical event replay and real-time alerting.
+
+### Expected Outcomes
+
+- A complete, deployable AI Agent behavior observability and security analysis system based on eBPF.
+- Runtime overhead ≤3% in latency and resource consumption (CPU/memory) with full-stack tracing enabled.
+- Accurate detection of at least four categories of typical Agent anomaly behaviors with clear diagnostic output.
+- An intuitive, interactive visualization tool for rapid anomaly investigation and root-cause analysis.
+
+### Useful References
+
+- [AgentSight: System-Level Observability for AI Agents Using eBPF](https://arxiv.org/abs/2508.02736)
+- [AgentOps: Observability for AI Agents](https://arxiv.org/abs/2411.05285)
+- [Next-Generation Observability with eBPF](https://isovalent.com/blog/post/next-generation-observability-with-ebpf/)
+- [eBPF Official Documentation and Resources](https://ebpf.io/)
+
+## Full-Stack Cross-Layer Observability and Tail Latency Analysis for LLM Inference Services
+
+### Project Overview
+
+Large language model inference services have become core infrastructure in production, powering search, chatbots, and content generation. However, their performance is affected by cross-layer factors that make optimization difficult: at the application layer, improper HTTP request scheduling and load balancing cause load skew and tail latency degradation; within the inference framework, KV Cache paging/eviction issues cause frequent GPU page faults; at the OS kernel layer, thread scheduling context switches, network I/O interrupt delays, and kernel lock contention significantly increase per-request latency under high concurrency; at the hardware layer, GPU kernel scheduling queue delays, PCIe bus bottlenecks, and CUDA Stream load imbalance reduce throughput and response stability.
+
+Existing profiling tools (PyTorch Profiler, perf, Nsight) either provide isolated single-layer views without correlating upper-layer business logic to lower-layer resource usage, or require intrusive source code modifications unsuitable for production deployment. eBPF, as a kernel-space dynamic tracing technology, enables non-intrusive tracing of both kernel and user-space program execution with efficient in-kernel data aggregation—making it an ideal solution. This project asks participants to leverage eBPF to design a low-overhead, high-precision full-stack tracing and analysis system for LLM inference services.
+
+- Time Cost: ~350 hours
+- Difficulty Level: Hard
+- Mentors: Tong Yu (<yt.xyxx@gmail.com>) and Yusheng Zheng (<mailto:yunwei356@gmail.com>)
+
+### Objectives
+
+1. **Full-Stack Non-Intrusive Tracing Probes**: Develop eBPF-based probes for mainstream inference frameworks (vLLM, sglang, or Llama.cpp) covering the complete execution path from network request reception, HTTP parsing, inference scheduling, batch assembly, KV Cache allocation, GPU kernel submission/execution, to result return. Probes must support dynamic loading/unloading without modifying source code or restarting the service.
+2. **Cross-Layer Data Correlation Algorithm**: Design an efficient, scalable method to align application-layer request metadata (request ID, prompt length, generated tokens, batch size) with kernel events (thread scheduling, context switches, network interrupts, memory reclamation) and GPU events (kernel launch, completion, VRAM access, page faults) on a unified timeline, supporting end-to-end causal tracing per request.
+3. **Multi-Type Performance Anomaly Auto-Identification**: Automatically identify and analyze anomaly patterns including GPU kernel launch queue time anomalies, CPU scheduling contention causing GPU stalls, KV Cache memory fragmentation, GPU page faults halting computation, Python GC/runtime lock contention, and network jitter/retransmission delays—outputting clear root-cause analysis rather than raw time-series data.
+4. **Performance Visualization and Interactive Analysis Tool**: Provide an interactive visualization tool supporting drill-down from high-level metrics (latency distribution, throughput trends) to specific requests or GPU kernels, with historical data replay and comparative analysis.
+
+### Expected Outcomes
+
+- End-to-end average latency increase ≤5% and throughput decrease ≤3% with full-stack tracing enabled, stable under high concurrency.
+- Millisecond-precision tracing of CPU, kernel, and GPU events per token generation stage, with precise anomaly localization.
+- Dynamic probe deployment/unloading without source modification or service restart.
+- Stable identification of ≥5 common inference performance anomaly patterns with explainable root-cause conclusions.
+
+### Useful References
+
+- [ProfInfer: An eBPF-based Fine-Grained LLM Inference Profiler](https://arxiv.org/pdf/2601.20755)
+- [eInfer: Unlocking Fine-Grained Tracing for Distributed LLM Inference with eBPF](https://doi.org/10.1145/3748355.3748372)
+- [Write and Run eBPF on GPU with bpftime](https://eunomia.dev/bpftime/documents/gpu/)
+- [gpu_ext: Extensible OS Policies for GPUs via eBPF](https://arxiv.org/abs/2512.12615)
+- [Debugging Memory Leak in vLLM (Mistral AI)](https://mistral.ai/news/debugging-memory-leak-in-vllm)
+
+## Non-Intrusive Performance Bottleneck Diagnosis for Distributed LLM Training Clusters
+
+### Project Overview
+
+Distributed large language model training relies on multi-node, multi-GPU parallel execution. Despite significant GPU compute improvements, actual training efficiency in production remains far from ideal—not due to insufficient compute, but due to pervasive system-level bottlenecks. Frequent collective communication operations (NCCL AllReduce/AllGather) suffer from network congestion and RDMA channel contention, causing inter-node communication delays and GPU idle waiting. Data loading I/O bottlenecks and insufficient memory caching cause GPU compute starvation. Node-level performance imbalances (straggler nodes, network jitter, disk anomalies) are amplified at scale, further degrading cluster performance and stability.
+
+Current diagnosis approaches rely on offline GPU Trace analysis producing massive data volumes with slow analysis turnaround, making real-time monitoring impractical for long-running training jobs. eBPF, as a kernel-level dynamic tracing mechanism, can efficiently capture and analyze OS-internal and GPU communication events without modifying application source code. This project asks participants to develop eBPF-based real-time performance diagnosis tools for distributed training environments, clearly identifying system bottlenecks and providing real-time compute-communication overlap analysis.
+
+- Time Cost: ~350 hours
+- Difficulty Level: Hard
+- Mentors: Tong Yu (<yt.xyxx@gmail.com>) and Yusheng Zheng (<mailto:yunwei356@gmail.com>)
+
+### Objectives
+
+1. **Real-Time Distributed Communication Capture and Analysis**: Use eBPF to hook NCCL library calls and underlying network stack events (TCP congestion state changes, RDMA queue utilization, retransmissions, latency jitter) to capture collective communication operation timing and blocking in real time. Identify communication-phase performance anomalies, locate nodes/links with significantly increased communication latency, and analyze their impact on overall training step time.
+2. **Precise Compute-Communication Overlap Measurement**: Capture GPU kernel launch, completion, and data transfer events via GPU driver interfaces and tools (e.g., bpftime) to build compute-communication temporal relationships and precisely quantify overlap degree. Identify GPU idle-waiting intervals caused by communication blocking and analyze overlap efficiency differences across training phases and nodes.
+3. **Heterogeneous Resource Bottleneck Correlation Analysis**: Collect CPU-side data loading, memory allocation, and I/O metrics in real time and correlate with GPU-side compute and communication state to identify GPU compute starvation caused by insufficient data loading, memory contention, or I/O jitter—providing clear causal explanations for GPU utilization drops.
+4. **Real-Time Performance Visualization and Bottleneck Localization Tool**: Provide a clear, extensible visualization tool showing real-time trends of key metrics across training nodes (communication time, compute ratio, GPU utilization, inter-node differences), supporting rapid straggler/anomaly node identification and performance fluctuation propagation analysis.
+
+### Expected Outcomes
+
+- Per-step training time overhead ≤2% and overall throughput decrease ≤1% with monitoring enabled.
+- ≥90% data volume reduction via in-kernel aggregation and filtering while preserving critical performance information completeness.
+- Parallel monitoring and analysis of multiple training nodes with anomaly identification within seconds.
+- Stable identification of ≥5 typical training performance bottleneck types: communication blocking, data loading bottleneck, straggler node effects, GPU idle waiting, and resource contention.
+
+### Useful References
+
+- [eACGM: Non-instrumented Tracing & Monitoring for Deep Learning](https://arxiv.org/abs/2506.02007)
+- [Next-Generation Observability with eBPF](https://isovalent.com/blog/post/next-generation-observability-with-ebpf/)
+- [Perftracker](https://arxiv.org/abs/2506.08528)
+- [Write and Run eBPF on GPU with bpftime](https://eunomia.dev/bpftime/documents/gpu/)
+- [gpu_ext: Extensible OS Policies for GPUs via eBPF](https://arxiv.org/abs/2512.12615)
+
 <!-- ## APX-aware JIT backend for legacy x86 and bpftime
 
 Modern Intel CPUs with APX (Advanced Performance Extensions) expose 32 general-purpose registers and richer 3-operand encodings, offering significant potential for reducing spills and memory traffic in hot code paths. Many existing binaries, JITs, and runtimes, however, still emit “legacy” x86-64 code that cannot automatically take advantage of APX. This project aims to build an APX-aware JIT / dynamic binary translation backend that can “rehydrate” legacy x86-64 code into an intermediate representation (IR) and re-emit it using APX features for maximum performance when running on APX-capable CPUs.
