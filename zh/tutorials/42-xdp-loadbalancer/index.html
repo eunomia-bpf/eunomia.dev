@@ -2126,6 +2126,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="调试问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#curl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Curl 请求挂起
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xdp_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XDP 数据包转发问题
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -11345,6 +11373,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="调试问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#curl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Curl 请求挂起
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xdp_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XDP 数据包转发问题
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -11839,36 +11895,56 @@
 <a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="go">Press Ctrl+C to exit...</span>
 </code></pre></div>
 <h3 id="_6">测试设置</h3>
-<p>您可以通过在两个后端命名空间（<code>h2</code> 和 <code>h3</code>）启动 HTTP 服务器，并从本地机器向负载均衡器发送请求来测试设置：</p>
+<p>您可以通过在两个后端命名空间（<code>h2</code> 和 <code>h3</code>）启动 HTTP 服务器, 并从本地机器向负载均衡器发送请求来测试设置：</p>
 <p>在 <code>h2</code> 和 <code>h3</code> 上启动服务器：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>sudo<span class="w"> </span>ip<span class="w"> </span>netns<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>h2<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>http.server
-<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>sudo<span class="w"> </span>ip<span class="w"> </span>netns<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>h3<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>http.server
+<p><strong>重要提示（监听地址）</strong>：在本实验环境中，HTTP 服务器应绑定到 <code>0.0.0.0</code>，这样它会在该网络命名空间中的所有本地地址上监听，从而能够接受通过后端 IP 转发过来的连接。</p>
+<p><strong>重要提示（Host 头）</strong>：负载均衡器对外暴露的虚拟 IP 地址是 <code>10.0.0.10</code>，并以该地址作为目标 IP 转发 HTTP 请求，因此请求中的 Host 头将类似于 <code>Host: 10.0.0.10:8000</code>，这与后端命名空间内实际分配给服务器进程的本地 IP 不同。是否接受这样的 Host 头由具体的 HTTP 服务器实现决定，与是否绑定到 <code>0.0.0.0</code> 无关；本教程中使用的 <code>simple_http_server.py</code> 和 <code>python -m http.server</code> 默认都会接受这种 Host 头，无需额外配置。
+<strong>选项 1</strong>：使用提供的简单 HTTP 服务器（推荐）：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>sudo<span class="w"> </span>ip<span class="w"> </span>netns<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>h2<span class="w"> </span>python3<span class="w"> </span>simple_http_server.py<span class="w"> </span><span class="p">&amp;</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>sudo<span class="w"> </span>ip<span class="w"> </span>netns<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>h3<span class="w"> </span>python3<span class="w"> </span>simple_http_server.py<span class="w"> </span><span class="p">&amp;</span>
+</code></pre></div>
+<p><strong>选项 2</strong>：使用 Python 内置的 http.server 并显式绑定：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>sudo<span class="w"> </span>ip<span class="w"> </span>netns<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>h2<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>http.server<span class="w"> </span>--bind<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span><span class="p">&amp;</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>sudo<span class="w"> </span>ip<span class="w"> </span>netns<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>h3<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>http.server<span class="w"> </span>--bind<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span><span class="p">&amp;</span>
 </code></pre></div>
 <p>然后，向负载均衡器 IP 发送请求：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>curl<span class="w"> </span><span class="m">10</span>.0.0.10:8000
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>curl<span class="w"> </span><span class="m">10</span>.0.0.10:8000
 </code></pre></div>
 <p>负载均衡器将根据哈希函数将流量分配到后端服务器（<code>h2</code> 和 <code>h3</code>）。</p>
+<blockquote>
+<p><strong>注意</strong>：如果您使用 <code>curl</code> 时遇到请求挂起的问题，请确保后端 HTTP 服务器绑定到 <code>0.0.0.0</code> 并接受任何 Host 头的请求。XDP 负载均衡器在第 3/4 层（IP/TCP）运行，不会修改 HTTP 头，因此请求中的 Host 头仍将显示 <code>10.0.0.10:8000</code>，即使数据包被转发到后端 IP（10.0.0.2 或 10.0.0.3）。</p>
+</blockquote>
 <h3 id="bpf_printk">使用 <code>bpf_printk</code> 进行监控</h3>
 <p>您可以通过查看 <code>bpf_printk</code> 日志来监控负载均衡器的活动。BPF 程序在处理每个数据包时会打印诊断消息。您可以使用以下命令查看这些日志：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="go">sudo cat /sys/kernel/debug/tracing/trace_pipe</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="go">sudo cat /sys/kernel/debug/tracing/trace_pipe</span>
 </code></pre></div>
 <p>日志示例：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="go">&lt;idle&gt;-0       [004] ..s2. 24174.812722: bpf_trace_printk: xdp_load_balancer received packet</span>
-<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="go">&lt;idle&gt;-0       [004] .Ns2. 24174.812729: bpf_trace_printk: Received Source IP: 0xa000001</span>
-<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="go">&lt;idle&gt;-0       [004] .Ns2. 24174.812729: Received Destination IP: 0xa00000a</span>
-<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="go">&lt;idle&gt;-0       [004] .Ns2. 24174.812731: Received Source MAC: de:ad:be:ef:0:1</span>
-<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="go">&lt;idle&gt;-0       [004] .Ns2. 24174.812732: Received Destination MAC: de:ad:be:ef:0:10</span>
-<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="go">&lt;idle&gt;-0       [004] .Ns2. 24174.812732: Packet from client</span>
-<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="go">&lt;idle&gt;-0       [004] .Ns2. 24174.812734: bpf_trace_printk: Redirecting packet to new IP 0xa000002 from IP 0xa00000a</span>
-<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="go">&lt;idle&gt;-0       [004] .Ns2. 24174.812735: New Dest MAC: de:ad:be:ef:0:2</span>
-<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a><span class="go">&lt;idle&gt;-0       [004] .Ns2. 24174.812735: New Source MAC: de:ad:be:ef:0:10</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="go">&lt;idle&gt;-0       [004] ..s2. 24174.812722: bpf_trace_printk: xdp_load_balancer received packet</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="go">&lt;idle&gt;-0       [004] .Ns2. 24174.812729: bpf_trace_printk: Received Source IP: 0xa000001</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="go">&lt;idle&gt;-0       [004] .Ns2. 24174.812729: Received Destination IP: 0xa00000a</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="go">&lt;idle&gt;-0       [004] .Ns2. 24174.812731: Received Source MAC: de:ad:be:ef:0:1</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="go">&lt;idle&gt;-0       [004] .Ns2. 24174.812732: Received Destination MAC: de:ad:be:ef:0:10</span>
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="go">&lt;idle&gt;-0       [004] .Ns2. 24174.812732: Packet from client</span>
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a><span class="go">&lt;idle&gt;-0       [004] .Ns2. 24174.812734: bpf_trace_printk: Redirecting packet to new IP 0xa000002 from IP 0xa00000a</span>
+<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a><span class="go">&lt;idle&gt;-0       [004] .Ns2. 24174.812735: New Dest MAC: de:ad:be:ef:0:2</span>
+<a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a><span class="go">&lt;idle&gt;-0       [004] .Ns2. 24174.812735: New Source MAC: de:ad:be:ef:0:10</span>
 </code></pre></div>
 <h3 id="_7">调试问题</h3>
+<h4 id="curl">Curl 请求挂起</h4>
+<p>如果对负载均衡器的 <code>curl</code> 请求挂起且永不完成，最可能的原因是后端 HTTP 服务器拒绝了具有不匹配 Host 头的请求。</p>
+<p><strong>问题</strong>：当您运行 <code>curl 10.0.0.10:8000</code> 时，HTTP 请求包含设置为 <code>10.0.0.10:8000</code> 的 Host 头。XDP 负载均衡器在第 3/4 层（IP/TCP）将数据包转发到后端服务器（10.0.0.2 或 10.0.0.3），但 HTTP 头保持不变。如果后端 HTTP 服务器验证 Host 头并期望它与自己的 IP 地址匹配，它可能会拒绝或丢弃该请求。</p>
+<p><strong>解决方案</strong>：确保后端 HTTP 服务器绑定到 <code>0.0.0.0</code> 并接受任何 Host 头的请求：
+- 使用 <code>python3 simple_http_server.py</code>（在此目录中提供），或
+- 使用 <code>python3 -m http.server --bind 0.0.0.0</code></p>
+<p><strong>验证</strong>：检查后端服务器日志以查看是否收到请求。您还可以在后端命名空间中使用 <code>tcpdump</code> 验证数据包是否到达：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>sudo<span class="w"> </span>ip<span class="w"> </span>netns<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>h2<span class="w"> </span>tcpdump<span class="w"> </span>-i<span class="w"> </span>veth2<span class="w"> </span>-n<span class="w"> </span>port<span class="w"> </span><span class="m">8000</span>
+</code></pre></div>
+<h4 id="xdp_3">XDP 数据包转发问题</h4>
 <p>某些系统可能会因为类似于此<a href="https://fedepaol.github.io/blog/2023/09/11/xdp-ate-my-packets-and-how-i-debugged-it/">博客文章</a>中描述的问题而导致数据包丢失或转发失败。您可以使用 <code>bpftrace</code> 跟踪 XDP 错误进行调试：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>sudo<span class="w"> </span>bpftrace<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;tracepoint:xdp:xdp_bulk_tx{@redir_errno[-args-&gt;err] = count();}&#39;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>sudo<span class="w"> </span>bpftrace<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;tracepoint:xdp:xdp_bulk_tx{@redir_errno[-args-&gt;err] = count();}&#39;</span>
 </code></pre></div>
 <p>如果输出如下所示：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>@redir_errno<span class="o">[</span><span class="m">6</span><span class="o">]</span>:<span class="w"> </span><span class="m">3</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>@redir_errno<span class="o">[</span><span class="m">6</span><span class="o">]</span>:<span class="w"> </span><span class="m">3</span>
 </code></pre></div>
 <p>这表明与 XDP 数据包转发相关的错误。错误代码 <code>6</code> 通常指向可以进一步调查的特定转发问题。</p>
 <h3 id="_8">结论</h3>
@@ -11901,7 +11977,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 10, 2025 23:07:43 UTC">February 10, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 12, 2026 14:25:43 UTC">February 12, 2026</span>
   </span>
 
     
@@ -11921,11 +11997,12 @@
   <span class="md-source-file__fact">
     <span class="md-icon" title="Contributors">
       
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
       
     </span>
     <nav>
       
+        <a href="mailto:yunwei356@gmail.com">yunwei37</a>, 
         <a href="mailto:1067852565@qq.com">云微</a>
     </nav>
   </span>

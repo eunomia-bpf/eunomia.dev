@@ -2099,6 +2099,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Debugging Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#curl-requests-hanging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Curl Requests Hanging
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xdp-packet-forwarding-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XDP Packet Forwarding Issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -11291,6 +11319,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Debugging Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#curl-requests-hanging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Curl Requests Hanging
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xdp-packet-forwarding-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XDP Packet Forwarding Issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -11792,34 +11848,53 @@ To make XDP work with veth interfaces we need to add a stub eBPF program to the 
 <h3 id="testing-the-setup">Testing the Setup</h3>
 <p>You can test the setup by starting HTTP servers on the two backend namespaces (<code>h2</code> and <code>h3</code>) and sending requests from the local machine to the load balancer:</p>
 <p>Start servers on <code>h2</code> and <code>h3</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>sudo<span class="w"> </span>ip<span class="w"> </span>netns<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>h2<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>http.server
-<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>sudo<span class="w"> </span>ip<span class="w"> </span>netns<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>h3<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>http.server
+<p><strong>Important</strong>: The HTTP servers must bind to <code>0.0.0.0</code> so they listen on all local addresses in the namespace and can accept connections arriving via the load balancer. The forwarded HTTP requests will use the load balancer's virtual IP and port in the <code>Host</code> header (for example, <code>Host: 10.0.0.10:8000</code>), which may differ from the backend's own IP address; for this tutorial we use simple HTTP servers that accept such requests without enforcing strict <code>Host</code> header checks.</p>
+<p><strong>Option 1</strong>: Using the provided simple HTTP server (recommended):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>sudo<span class="w"> </span>ip<span class="w"> </span>netns<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>h2<span class="w"> </span>python3<span class="w"> </span>simple_http_server.py<span class="w"> </span><span class="p">&amp;</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>sudo<span class="w"> </span>ip<span class="w"> </span>netns<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>h3<span class="w"> </span>python3<span class="w"> </span>simple_http_server.py<span class="w"> </span><span class="p">&amp;</span>
+</code></pre></div>
+<p><strong>Option 2</strong>: Using Python's built-in http.server with explicit binding:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>sudo<span class="w"> </span>ip<span class="w"> </span>netns<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>h2<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>http.server<span class="w"> </span>--bind<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span><span class="p">&amp;</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>sudo<span class="w"> </span>ip<span class="w"> </span>netns<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>h3<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>http.server<span class="w"> </span>--bind<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span><span class="p">&amp;</span>
 </code></pre></div>
 <p>Then, send a request to the load balancer IP:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>curl<span class="w"> </span><span class="m">10</span>.0.0.10:8000
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>curl<span class="w"> </span><span class="m">10</span>.0.0.10:8000
 </code></pre></div>
 <p>The load balancer will distribute traffic to the backends (<code>h2</code> and <code>h3</code>) based on the hashing function.</p>
+<blockquote>
+<p><strong>Note</strong>: If you experience hanging requests with <code>curl</code>, ensure the backend HTTP servers are bound to <code>0.0.0.0</code> and accept requests with any Host header. The XDP load balancer operates at Layer 3/4 (IP/TCP) and does not modify HTTP headers, so the Host header in requests will still show <code>10.0.0.10:8000</code> even though packets are forwarded to the backend IPs (10.0.0.2 or 10.0.0.3).</p>
+</blockquote>
 <h3 id="monitoring-with-bpf_printk">Monitoring with <code>bpf_printk</code></h3>
 <p>You can monitor the load balancer's activity by checking the <code>bpf_printk</code> logs. The BPF program prints diagnostic messages whenever a packet is processed. You can view these logs using:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="go">sudo cat /sys/kernel/debug/tracing/trace_pipe</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="go">sudo cat /sys/kernel/debug/tracing/trace_pipe</span>
 </code></pre></div>
 <p>Example output:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="go">&lt;idle&gt;-0       [004] ..s2. 24174.812722: bpf_trace_printk: xdp_load_balancer received packet</span>
-<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="go">&lt;idle&gt;-0       [004] .Ns2. 24174.812729: bpf_trace_printk: Received Source IP: 0xa000001</span>
-<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="go">&lt;idle&gt;-0       [004] .Ns2. 24174.812729: bpf_trace_printk: Received Destination IP: 0xa00000a</span>
-<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="go">&lt;idle&gt;-0       [004] .Ns2. 24174.812731: bpf_trace_printk: Received Source MAC: de:ad:be:ef:0:1</span>
-<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="go">&lt;idle&gt;-0       [004] .Ns2. 24174.812732: bpf_trace_printk: Received Destination MAC: de:ad:be:ef:0:10</span>
-<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="go">&lt;idle&gt;-0       [004] .Ns2. 24174.812732: bpf_trace_printk: Packet from client</span>
-<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="go">&lt;idle&gt;-0       [004] .Ns2. 24174.812734: bpf_trace_printk: Redirecting packet to new IP 0xa000002 from IP 0xa00000a</span>
-<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="go">&lt;idle&gt;-0       [004] .Ns2. 24174.812735: bpf_trace_printk: New Dest MAC: de:ad:be:ef:0:2</span>
-<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a><span class="go">&lt;idle&gt;-0       [004] .Ns2. 24174.812735: bpf_trace_printk: New Source MAC: de:ad:be:ef:0:10</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="go">&lt;idle&gt;-0       [004] ..s2. 24174.812722: bpf_trace_printk: xdp_load_balancer received packet</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="go">&lt;idle&gt;-0       [004] .Ns2. 24174.812729: bpf_trace_printk: Received Source IP: 0xa000001</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="go">&lt;idle&gt;-0       [004] .Ns2. 24174.812729: bpf_trace_printk: Received Destination IP: 0xa00000a</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="go">&lt;idle&gt;-0       [004] .Ns2. 24174.812731: bpf_trace_printk: Received Source MAC: de:ad:be:ef:0:1</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="go">&lt;idle&gt;-0       [004] .Ns2. 24174.812732: bpf_trace_printk: Received Destination MAC: de:ad:be:ef:0:10</span>
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="go">&lt;idle&gt;-0       [004] .Ns2. 24174.812732: bpf_trace_printk: Packet from client</span>
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a><span class="go">&lt;idle&gt;-0       [004] .Ns2. 24174.812734: bpf_trace_printk: Redirecting packet to new IP 0xa000002 from IP 0xa00000a</span>
+<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a><span class="go">&lt;idle&gt;-0       [004] .Ns2. 24174.812735: bpf_trace_printk: New Dest MAC: de:ad:be:ef:0:2</span>
+<a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a><span class="go">&lt;idle&gt;-0       [004] .Ns2. 24174.812735: bpf_trace_printk: New Source MAC: de:ad:be:ef:0:10</span>
 </code></pre></div>
 <h3 id="debugging-issues">Debugging Issues</h3>
+<h4 id="curl-requests-hanging">Curl Requests Hanging</h4>
+<p>If <code>curl</code> requests to the load balancer hang and never complete, the most likely cause is that the backend HTTP servers are rejecting requests with mismatched Host headers. </p>
+<p><strong>Problem</strong>: When you run <code>curl 10.0.0.10:8000</code>, the HTTP request includes a Host header set to <code>10.0.0.10:8000</code>. The XDP load balancer forwards the packet at Layer 3/4 (IP/TCP) to a backend server (10.0.0.2 or 10.0.0.3), but the HTTP headers remain unchanged. If the backend HTTP server validates the Host header and expects it to match its own IP address, it may reject or drop the request.</p>
+<p><strong>Solution</strong>: Ensure backend HTTP servers bind to <code>0.0.0.0</code> and accept requests with any Host header:
+- Use <code>python3 simple_http_server.py</code> (provided in this directory), or
+- Use <code>python3 -m http.server --bind 0.0.0.0</code></p>
+<p><strong>Verification</strong>: Check the backend server logs to see if requests are being received. You can also use <code>tcpdump</code> in the backend namespace to verify packets are arriving:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>sudo<span class="w"> </span>ip<span class="w"> </span>netns<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>h2<span class="w"> </span>tcpdump<span class="w"> </span>-i<span class="w"> </span>veth2<span class="w"> </span>-n<span class="w"> </span>port<span class="w"> </span><span class="m">8000</span>
+</code></pre></div>
+<h4 id="xdp-packet-forwarding-issues">XDP Packet Forwarding Issues</h4>
 <p>Some systems may experience packet loss or failure to forward packets due to issues similar to those described in this <a href="https://fedepaol.github.io/blog/2023/09/11/xdp-ate-my-packets-and-how-i-debugged-it/">blog post</a>. You can debug these issues using <code>bpftrace</code> to trace XDP errors:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>sudo<span class="w"> </span>bpftrace<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;tracepoint:xdp:xdp_bulk_tx{@redir_errno[-args-&gt;err] = count();}&#39;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>sudo<span class="w"> </span>bpftrace<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;tracepoint:xdp:xdp_bulk_tx{@redir_errno[-args-&gt;err] = count();}&#39;</span>
 </code></pre></div>
 <p>If you see an output like this:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>@redir_errno<span class="o">[</span><span class="m">6</span><span class="o">]</span>:<span class="w"> </span><span class="m">3</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>@redir_errno<span class="o">[</span><span class="m">6</span><span class="o">]</span>:<span class="w"> </span><span class="m">3</span>
 </code></pre></div>
 <p>It indicates errors related to XDP packet forwarding. The error code <code>6</code> typically points to a particular forwarding issue that can be further investigated.</p>
 <h3 id="conclusion">Conclusion</h3>
@@ -11854,7 +11929,7 @@ To make XDP work with veth interfaces we need to add a stub eBPF program to the 
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 6, 2025 05:45:55 UTC">October 6, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 12, 2026 14:25:43 UTC">February 12, 2026</span>
   </span>
 
     
