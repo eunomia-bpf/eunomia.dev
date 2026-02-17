@@ -1,1 +1,2 @@
 {"path": "docs/tutorials/cgroup/README.md", "tags": ["ebpf", "cgroup", "tutorial"]}
+{"path": "docs/blog/posts/claude-code-analysis.md", "tags": ["ebpf", "claude-code", "reverse-engineering"]}
