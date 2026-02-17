@@ -10771,6 +10771,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#reverse-engineering-claude-codes-ssl-traffic-with-ebpf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reverse Engineering Claude Code's SSL Traffic with eBPF
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#a-taxonomy-of-gpu-bugs-19-defect-classes-for-cuda-verification" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -11253,6 +11264,45 @@
 <p><a class="md-button" href="https://x.com/intent/tweet?text=Blog%0A&amp;url=https://eunomia.dev/blog/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/blog/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
       </header>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2026-02-13 00:00:00+00:00">February 13, 2026</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              20 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="reverse-engineering-claude-codes-ssl-traffic-with-ebpf"><a class="toclink" href="2026/02/13/reverse-engineering-claude-codes-ssl-traffic-with-ebpf/">Reverse Engineering Claude Code's SSL Traffic with eBPF</a></h2>
+<p>Ever wondered what your AI coding agent is actually sending over the network? As part of our work on <a href="https://github.com/agent-sight/agentsight">AgentSight</a> — an eBPF-powered observability tool that monitors AI agents at system boundaries without modifying their code — we needed to intercept Claude Code's encrypted API traffic to understand its communication patterns. AgentSight can capture both what an AI agent <em>intends</em> to do (by intercepting LLM API traffic) and what it <em>actually</em> does (by monitoring kernel events), then correlate the two into a complete causal chain. To make this work, we first need to crack open the agent's encrypted network traffic. Sounds straightforward, right? Just hook into Node.js's OpenSSL with <code>sslsniff</code>, like we did with older versions of Claude Code. Back then, Claude Code ran on Node.js with dynamically linked <code>libssl.so</code>, and standard eBPF-based SSL hooking worked out of the box.</p>
+<p>But everything changed. The new Claude Code is a <strong>213 MB stripped Bun binary</strong> with BoringSSL statically linked and all symbols removed. No <code>libssl.so</code>, no <code>SSL_write</code> symbol to hook — standard tools are completely blind to it. So we did what any self-respecting systems researcher would do: <strong>we asked Claude Code to reverse engineer itself.</strong> Yes, the very AI agent we were trying to monitor became our reverse engineering assistant, analyzing its own binary, searching for byte patterns, and helping us locate the stripped SSL functions inside itself.</p>
+<p>This post chronicles that complete journey: from discovering why standard tools fail, to matching byte patterns against Bun's open-source profile builds, to finally capturing every single API call — including the full <code>/v1/messages</code> conversation stream with prompts, responses, and SSE events. Along the way, we chased a fascinating red herring about Bun's "dual TLS paths" that turned out to be a simple timing issue. The techniques here apply to any stripped binary with statically-linked SSL, not just Claude Code.</p>
+<p>AgentSight is open source at <a href="https://github.com/agent-sight/agentsight">https://github.com/agent-sight/agentsight</a>, and the arxiv paper describing the full system is available at <a href="https://arxiv.org/abs/2508.02736">https://arxiv.org/abs/2508.02736</a>.</p>
+
+    
+      <nav class="md-post__action">
+        <a href="2026/02/13/reverse-engineering-claude-codes-ssl-traffic-with-ebpf/">
+          Continue reading
+        </a>
+      </nav>
+    
+    
+  </div>
+</article>
       
         <article class="md-post md-post--excerpt">
   <header class="md-post__header">
