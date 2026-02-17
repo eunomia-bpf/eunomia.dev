@@ -97,6 +97,14 @@
          
     </url>
     <url>
+         <loc>https://eunomia.dev/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/</loc>
+         <lastmod>2026-02-17</lastmod>
+         <changefreq>daily</changefreq>
+         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/en/blog/posts/agentcgroup-characterization/"/>
+         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/posts/agentcgroup-characterization/"/>
+         
+    </url>
+    <url>
          <loc>https://eunomia.dev/blog/2025/08/26/agentsight-keeping-your-ai-agents-under-control-with-ebpf-powered-system-observability/</loc>
          <lastmod>2026-02-17</lastmod>
          <changefreq>daily</changefreq>

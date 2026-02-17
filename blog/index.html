@@ -10771,6 +10771,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AgentCgroup: What Happens When AI Coding Agents Meet OS Resources?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#reverse-engineering-claude-codes-ssl-traffic-with-ebpf" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -11264,6 +11275,43 @@
 <p><a class="md-button" href="https://x.com/intent/tweet?text=Blog%0A&amp;url=https://eunomia.dev/blog/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"/></svg></span></a>
 <a class="md-button" href="https://www.facebook.com/sharer/sharer.php?u=https://eunomia.dev/blog/">Share on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg></span></a></p>
       </header>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2026-02-17 00:00:00+00:00">February 17, 2026</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              13 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources"><a class="toclink" href="2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/">AgentCgroup: What Happens When AI Coding Agents Meet OS Resources?</a></h2>
+<p>AI coding agents such as Claude Code, OpenHands, and SWE-agent are increasingly deployed in multi-tenant cloud environments, where they execute diverse tool calls inside sandboxed containers. Despite growing adoption, the OS-level resource dynamics of these workloads remain poorly understood. We present the first systematic characterization, analyzing 144 software engineering tasks from the SWE-rebench benchmark across two LLM backends. Our measurements reveal that OS-level overhead, including container initialization and tool execution, accounts for 56–74% of end-to-end latency, while LLM reasoning contributes only 26–44%. Memory exhibits a 15.4x peak-to-average ratio (compared to ~1.5x for serverless and 2–3x for microservices), with change rates reaching 3 GB/s in sub-second bursts. The same tool type (Bash) varies 13.7x in memory consumption depending on command semantics, and repeated runs of the same task produce 1.8x execution time variance with near-zero correlation (r = −0.14) between token output and peak memory.</p>
+<p>These characteristics expose mismatches with existing resource management mechanisms, from kernel cgroup limits and systemd-oomd to Kubernetes VPA, where static allocation either wastes 93% of provisioned capacity or triggers OOM kills that destroy minutes of accumulated, non-reproducible agent state. In this post, we summarize the characterization findings from our <a href="https://github.com/yunwei37/agentcgroup-paper">AgentCgroup paper</a> and describe how eBPF-based in-kernel enforcement can bridge the gap between agent workload dynamics and OS-level resource control.</p>
+
+    
+      <nav class="md-post__action">
+        <a href="2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/">
+          Continue reading
+        </a>
+      </nav>
+    
+    
+  </div>
+</article>
       
         <article class="md-post md-post--excerpt">
   <header class="md-post__header">
