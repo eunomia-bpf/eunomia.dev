@@ -1,2 +1,1 @@
-{"path": "docs/blog/posts/claude-code-analysis.md", "tags": ["ebpf", "claude-code", "reverse-engineering"]}
 {"path": "docs/blog/posts/agentcgroup-characterization.md", "tags": ["ai-agents", "cgroup", "resource-management", "characterization"]}
