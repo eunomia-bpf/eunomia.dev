@@ -21,9 +21,9 @@
 - 使用 `Wasm`[^2] 构建eBPF程序：参见 [`Wasm-bpf`](https://github.com/eunomia-bpf/wasm-bpf) 项目
   - 运行时，库和工具链可以用 C/C++、Rust、Go 等[以 Wasm 编写 eBPF](https://github.com/eunomia-bpf/wasm-bpf)，涵盖从`跟踪`、`网络`、`安全`的使用场景。
 - 简化eBPF程序的`分发`：
-  - 一个[工具](ecli/)用于推送、拉取和运行预编译的eBPF程序作为Wasm模块的`OCI`镜像。
+- 一个[工具](ecli/index.md)用于推送、拉取和运行预编译的eBPF程序作为Wasm模块的`OCI`镜像。
   - 以[`1`行 bash](introduction.md#dynamic-load-and-run-co-re-ebpf-kernel-code-from-the-cloud-with-url-or-oci-image)从 `云端` 或 `URL` 运行eBPF程序，无需重新编译，独立于内核版本和架构。
-  - 使用 `JSON` 配置文件或 `Wasm` 模块[动态加载](bpf-loader-rs) eBPF 程序。
+- 使用 `JSON` 配置文件或 `Wasm` 模块[动态加载](https://github.com/eunomia-bpf/eunomia-bpf/tree/master/bpf-loader-rs) eBPF 程序。
 
 更多信息，请参见[documents/introduction.md](introduction.md)。
 
@@ -33,7 +33,7 @@
 ## 开始使用
 
 - Github模板：[eunomia-bpf/ebpm-template](https://github.com/eunomia-bpf/ebpm-template)
-- 示例bpf程序：[examples/bpftools](examples/bpftools/)
+- 示例bpf程序：[examples/bpftools](https://github.com/eunomia-bpf/eunomia-bpf/tree/master/examples/bpftools/)
 - 教程：[eunomia-bpf/bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial)
 
 ### 作为 CLI 工具或服务运行

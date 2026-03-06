@@ -12,7 +12,7 @@ author: eunomia-bpf community
 `bpftime` is a High-Performance userspace eBPF runtime and General Extension Framework designed for userspace. It enables faster Uprobe, USDT, Syscall hooks, XDP, and more event sources by bypassing the kernel and utilizing an optimized compiler like `LLVM`.
 
 📦 [Key Features](#key-features) \
-🔨 [Quick Start](#quick-start) \
+🔨 [Quick Start](#quick-start-uprobe) \
 🔌 [Examples & Use Cases](#examples--use-cases) \
 ⌨️ [Linux Plumbers 23 talk](https://lpc.events/event/17/contributions/1639/) \
 📖 [Slides](https://eunomia.dev/bpftime/documents/userspace-ebpf-bpftime-lpc.pdf) \
@@ -22,7 +22,7 @@ author: eunomia-bpf community
 
 bpftime is not `userspace eBPF VM`, it's a userspace runtime framework includes everything to run eBPF in userspace: `loader`, `verifier`, `helpers`, `maps`, `ufunc` and multiple `events` such as Observability, Network, Policy or Access Control. It has multiple VM backend options support. For eBPF VM only, please see [llvmbpf](https://github.com/eunomia-bpf/llvmbpf).
 
-> ⚠️ **Note**: `bpftime` is currently under active development and refactoring towards v2. It may contain bugs or unstable API. Please use it with caution. For more details, check our [roadmap](#roadmap). We'd love to hear your feedback and suggestions! Feel free to open an issue or [Contact us](#contact-and-citations).
+> ⚠️ **Note**: `bpftime` is currently under active development and refactoring towards v2. It may contain bugs or unstable API. Please use it with caution. For more details, check the [bpftime issue tracker](https://github.com/eunomia-bpf/bpftime/issues). We'd love to hear your feedback and suggestions! Feel free to open an issue or [Contact us](#contact-and-citations).
 
 ## Why bpftime? What's the design Goal?
 
@@ -115,7 +115,7 @@ $ sudo example/malloc/malloc
 
 See [eunomia.dev/bpftime/documents/usage](https://eunomia.dev/bpftime/documents/usage) for more details.
 
-## Examples & Use Cases
+## Examples & Use Cases { #examples--use-cases }
 
 For more examples and details, please refer to [eunomia.dev/bpftime/documents/examples/](https://eunomia.dev/bpftime/documents/examples/) webpage and [example](https://github.com/eunomia-bpf/bpftime/tree/master/example/) dir.
 

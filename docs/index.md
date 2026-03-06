@@ -92,7 +92,6 @@ hide:
   .hero h1 { font-size: 2.35rem; }
   .hero p { font-size: 1.05rem; }
 }
-}
 </style>
 
 ## About Eunomia

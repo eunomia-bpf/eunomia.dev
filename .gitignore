@@ -11,3 +11,4 @@ __pycache__
 /cupti-exp
 /nvbit-tutorial
 /venv
+/.venv

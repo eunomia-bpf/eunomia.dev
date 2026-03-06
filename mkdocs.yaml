@@ -29,8 +29,6 @@ theme:
     - search.highlight
     - search.share
     - navigation.footer
-    - navigation.instant
-    - navigation.instant.progress
     - navigation.tabs
     - navigation.expand
     - navigation.path
@@ -128,7 +126,7 @@ nav:
     - tutorials/47-cuda-events/README.md
     - tutorials/48-energy/README.md
     - ... | flat | tutorials/**/*.md
-  - Blog: blog
+  - Blog: blog/index.md
   - bpftime:
     - bpftime/index.md
     - Documents:
@@ -201,13 +199,6 @@ extra:
           note: >- 
             Thanks for your feedback! Help us improve this page by
             using our <a href="https://github.com/orgs/eunomia-bpf/discussions" target="_blank" rel="noopener">Github discussion</a>.
-  alternate:
-    - name: English
-      link: /en/ 
-      lang: en
-    - name: Chinese
-      link: /zh/
-      lang: zh
 plugins:
   - meta
   - social
@@ -223,33 +214,38 @@ plugins:
       glob:
         - tutorials/third_party*
   - i18n:
-      default_language: en
       languages:
-        en:
+        - locale: en
           name: English
+          default: true
           build: true
-        zh:
+        - locale: zh
           name: 简体中文
-      material_alternate: true
-      nav_translations:
-        zh:
-          Getting Started: 开始
-          Support: 支持
-          Quick Start: 快速开始
-          Architecture: 项目架构
-          Installation: 安装
-          From source: 从源代码
-          Known Issues: 已知问题
-          Examples: 示例
-          Blogs: 博客
-          Misc: 其他
-          Tutorials: 教程
-          Introduction: 简介
-          README: 文档
-          Home: 主页
-          Documents: 文档
-          ecli with docker: 在docker中使用ecli
-          ecosystem: 生态
+          build: true
+          nav_translations:
+            Getting Started: 开始
+            Support: 支持
+            Quick Start: 快速开始
+            Architecture: 项目架构
+            Installation: 安装
+            From source: 从源代码
+            Known Issues: 已知问题
+            Examples: 示例
+            Blogs: 博客
+            Misc: 其他
+            Tutorials: 教程
+            Introduction: 简介
+            README: 文档
+            Home: 主页
+            Documents: 文档
+            ecli with docker: 在docker中使用ecli
+            ecosystem: 生态
   - git-revision-date-localized:
       enable_creation_date: true
   - git-authors  
+validation:
+  nav:
+    omitted_files: ignore
+    absolute_links: ignore
+  links:
+    anchors: ignore

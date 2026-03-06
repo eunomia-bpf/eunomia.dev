@@ -26,15 +26,11 @@ My name is Yusheng Zheng, currently maintaining a small community called eunomia
   - [Closing (1 minute)](#closing-1-minute)
 
 <!-- /TOC -->
-  - [Slide 23-26: How eBPF Enhances Wasm Developer Experience (3 minutes)](#slide-23-26-how-ebpf-enhances-wasm-developer-experience-3-minutes)
-  - [Closing (1 minute)](#closing-1-minute)
-
-<!-- /TOC -->
-## Slide 15-17: Faster, easier & safer eBPF deployment and Trade-offs (4 minutes)
+## Slide 15-17: Faster, easier & safer eBPF deployment and Trade-offs (4 minutes) { #slide-15-17-faster-easier--safer-ebpf-deployment-and-trade-offs-4-minutes }
 
 However, there are trade-offs. The migration of libraries and toolchains to this new model is not trivial, with considerations around limited eBPF features in Wasm environments. But the familiar development experience, akin to that provided by libbpf-bootstrap, is a testament to our progress.
 
-## Slice 16: Use container tools to run Wasm + eBPF (1 min)
+## Slice 16: Use container tools to run Wasm + eBPF (1 min) { #slice-16-use-container-tools-to-run-wasm--ebpf-1-min }
 
 This is a demo of how to use container tools, like the podman to run Wasm and eBPF. As the GIF shows, we can using a podman container to start and run a eBPF program in WebAssembly, which can trace the run queue (scheduler) latency as a histogram for the linux system. This program is ported from the bcc tool, and compiled into WebAssembly with the eunomia-bpf toolchain. It will fetch data from bpf hash maps in the kernel, do some post-processing in userspace, and then print the result to the console. The eBPF program is integrated into the userspace WebAssembly application, which can be packed into a OCI image and started as a container with the WasmEdge runtime.
 

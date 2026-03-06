@@ -4,7 +4,7 @@
 
 <!-- TOC -->
 
-- [Building and Test](#building-and-test)
+- [Installation and Test](#installation-and-test)
   - [Table of Contents](#table-of-contents)
   - [Use docker image](#use-docker-image)
   - [Install Dependencies](#install-dependencies)
@@ -217,4 +217,3 @@ make build-llvm # build the vm with llvm jit
 ## More compile options
 
 See <https://github.com/eunomia-bpf/bpftime/blob/master/cmake/StandardSettings.cmake> for all cmake build options.
-
