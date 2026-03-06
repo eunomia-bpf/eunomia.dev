@@ -1,4 +1,4 @@
-# Examples & Use Cases { #examples--use-cases }
+# Examples & Use Cases
 
 ## Table of Contents
 
