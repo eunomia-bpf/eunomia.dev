@@ -118,7 +118,7 @@ bpftime is a high-performance userspace eBPF runtime and General Extension Frame
 
 ### Learn eBPF by examples
 
-![tutorial](ebpf_arch.png){ align=right width="400" }
+![tutorial](/ebpf_arch.png){ align=right width="400" }
 
 Too much Concepts? Let's master eBPF through practical, step-by-step tutorials that focus on real, executable examples to help you learn by doing.
 
@@ -129,7 +129,7 @@ Too much Concepts? Let's master eBPF through practical, step-by-step tutorials t
 
 ### llvmbpf
 
-![llvmbpf](llvmbpf.png){ align=left width="400" }
+![llvmbpf](/llvmbpf.png){ align=left width="400" }
 
 Userspace eBPF VM with LLVM JIT/AOT compiler. It serves as the core component for bpftime without application, event, or map support.
 
