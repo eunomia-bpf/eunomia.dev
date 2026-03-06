@@ -1,0 +1,77 @@
+// Hand-written PTX for NVBit instrumentation - replaces inject_funcs.cu
+// This demonstrates that NVBit device functions can be written in raw PTX
+// instead of CUDA C, opening the door for LLVM IR, eBPF, Rust, etc.
+//
+// Equivalent to instr_count_bb/inject_funcs.cu::count_instrs()
+// Compiled with: ptxas -astoolspatch -arch=sm_XX
+
+.version 8.8
+.target sm_70
+.address_size 64
+
+// ============================================================================
+// count_instrs - Count instructions at basic-block granularity
+//
+// Parameters:
+//   num_instrs      (int32)  - number of instructions in this basic block
+//   count_warp_level (int32) - 1 = count per-warp, 0 = count per-thread
+//   pcounter         (uint64) - pointer to global atomic counter
+//
+// Algorithm:
+//   1. Get active lane mask via activemask + ballot_sync
+//   2. Find first active lane (ffs)
+//   3. Only first lane performs the atomic add
+//   4. If warp-level: add num_instrs
+//      If thread-level: add (active_threads * num_instrs)
+// ============================================================================
+
+.visible .func count_instrs(
+	.param .b32 count_instrs_param_0,
+	.param .b32 count_instrs_param_1,
+	.param .b64 count_instrs_param_2
+)
+{
+	.reg .pred 	%p<5>;
+	.reg .b32 	%r<10>;
+	.reg .b64 	%rd<6>;
+
+	// Load parameters
+	ld.param.u32 	%r2, [count_instrs_param_0];   // num_instrs
+	ld.param.u32 	%r3, [count_instrs_param_1];   // count_warp_level
+	ld.param.u64 	%rd1, [count_instrs_param_2];  // pcounter
+
+	// Get active lane mask: active_mask = __ballot_sync(__activemask(), 1)
+	activemask.b32 %r4;
+	mov.pred 	%p1, -1;
+	vote.sync.ballot.b32 	%r1, %p1, %r4;
+
+	// Get lane ID: laneid = get_laneid()
+	mov.u32 %r5, %laneid;
+
+	// Find first active lane: first_laneid = __ffs(active_mask) - 1
+	brev.b32 	%r6, %r1;
+	bfind.shiftamt.u32 	%r7, %r6;
+
+	// if (first_laneid != laneid) goto done
+	setp.ne.s32 	%p3, %r7, %r5;
+	@%p3 bra 	$L_done;
+
+	// if (count_warp_level == 0) goto thread_level
+	setp.eq.s32 	%p4, %r3, 0;
+	@%p4 bra 	$L_thread_level;
+
+	// Warp-level: atomicAdd(pcounter, num_instrs)
+	cvt.s64.s32 	%rd2, %r2;
+	atom.add.u64 	%rd3, [%rd1], %rd2;
+	bra.uni 	$L_done;
+
+$L_thread_level:
+	// Thread-level: atomicAdd(pcounter, popc(active_mask) * num_instrs)
+	popc.b32 	%r8, %r1;
+	mul.lo.s32 	%r9, %r8, %r2;
+	cvt.s64.s32 	%rd4, %r9;
+	atom.add.u64 	%rd5, [%rd1], %rd4;
+
+$L_done:
+	ret;
+}

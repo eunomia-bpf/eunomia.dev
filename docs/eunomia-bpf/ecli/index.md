@@ -5,6 +5,8 @@ catagories: ['ecli']
 
 # ecli: run ebpf programs as json or wasm
 
+`ecli` is the eunomia-bpf CLI for loading, running, publishing, and remotely managing eBPF programs.
+
 ## Usage
 
 ```sh
@@ -42,3 +44,13 @@ For details, see [ecc-btfgen](../ecc/usage.md#options)
     env when you login to ghcr.io, either one can be logged into ghcr without entering a token.
 - logout - Logout from an OCI registry.
     `ecli logout xxx` will remove identity certificates stored under `~/.eunomia`.
+
+## Remote execution
+
+`ecli` also supports a client-server mode:
+
+- Run `ecli-server` on the target machine
+- Use `ecli client --endpoint ...` to start, stop, list, and inspect tasks remotely
+- Build an `http`-only client when you only need remote control
+
+For the full remote workflow, see [ecli server](server.md).
