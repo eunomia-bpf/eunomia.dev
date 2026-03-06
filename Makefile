@@ -1,15 +1,18 @@
 .PHONY: build clean install
 
-build: install
-	mkdocs build
+VENV := .venv
+PYTHON := $(VENV)/bin/python
+MKDOCS := $(VENV)/bin/mkdocs
 
-install: docs/CNAME
-	pip install mkdocs-material=="9.*" mkdocs-static-i18n=="0.53"
-	pip install "mkdocs-material[imaging]"
-	pip install mkdocs-git-revision-date-localized-plugin
-	pip install mkdocs-git-authors-plugin mkdocs-awesome-pages-plugin
-	pip3 install mkdocs-exclude
-	pip install mkdocs-rss-plugin
+build: install
+	$(MKDOCS) build
+
+install: $(VENV)/bin/activate docs/CNAME requirements.txt
+	$(PYTHON) -m pip install --upgrade pip
+	$(PYTHON) -m pip install -r requirements.txt
+
+$(VENV)/bin/activate:
+	python3 -m venv $(VENV)
 
 tutorial:
 	git clone https://github.com/eunomia-bpf/bpf-developer-tutorial tutorial --depth=1
