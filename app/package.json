@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test:content": "tsx --test tests/content.test.ts"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
@@ -27,6 +28,7 @@
     "autoprefixer": "^10.4.20",
     "postcss": "^8.5.3",
     "tailwindcss": "^3.4.17",
+    "tsx": "^4.20.5",
     "typescript": "^5.8.2"
   }
 }
