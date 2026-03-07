@@ -5,26 +5,58 @@ import type { SearchResult } from "../lib/content/types";
 
 type SearchBoxProps = {
   locale: Locale;
+  containerClassName?: string;
+  inputClassName?: string;
+  panelClassName?: string;
+  onNavigate?: () => void;
 };
 
 type SearchResponse = {
   results: SearchResult[];
 };
 
-export function SearchBox({ locale }: SearchBoxProps) {
+export function SearchBox({
+  locale,
+  containerClassName = "",
+  inputClassName = "",
+  panelClassName = "",
+  onNavigate
+}: SearchBoxProps) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(-1);
   const deferredQuery = useDeferredValue(query);
   const requestRef = useRef<AbortController | null>(null);
   const listboxId = useId();
+  const labels =
+    locale === "zh"
+      ? {
+          aria: "搜索",
+          placeholder: "搜索文档",
+          loading: "搜索中",
+          results: "搜索结果",
+          empty: "没有找到匹配结果。",
+          viewAll: "查看全部结果"
+        }
+      : {
+          aria: "Search",
+          placeholder: "Search docs",
+          loading: "Searching",
+          results: "Results",
+          empty: "No matching results.",
+          viewAll: "View all results"
+        };
+  const normalizedQuery = deferredQuery.trim();
+  const hasQuery = normalizedQuery.length >= 2;
+  const searchHref = `${locale === "zh" ? "/zh/search/" : "/search/"}?q=${encodeURIComponent(query.trim())}`;
 
   useEffect(() => {
-    const normalized = deferredQuery.trim();
     requestRef.current?.abort();
+    setActiveIndex(-1);
 
-    if (normalized.length < 2) {
+    if (!hasQuery) {
       startTransition(() => setResults([]));
       setLoading(false);
       return;
@@ -34,7 +66,7 @@ export function SearchBox({ locale }: SearchBoxProps) {
     requestRef.current = controller;
     setLoading(true);
 
-    fetch(`/api/search?q=${encodeURIComponent(normalized)}&locale=${locale}`, {
+    fetch(`/api/search?q=${encodeURIComponent(normalizedQuery)}&locale=${locale}&limit=8`, {
       signal: controller.signal
     })
       .then(async (response) => {
@@ -59,26 +91,69 @@ export function SearchBox({ locale }: SearchBoxProps) {
     return () => {
       controller.abort();
     };
-  }, [deferredQuery, locale]);
+  }, [hasQuery, normalizedQuery, locale]);
 
-  const hasQuery = deferredQuery.trim().length >= 2;
   const showResults = open && (hasQuery || loading);
 
+  function navigateTo(href: string) {
+    onNavigate?.();
+    window.location.assign(href);
+  }
+
   return (
-    <div className="relative hidden md:block">
+    <div className={`relative ${containerClassName}`.trim()}>
       <label>
-        <span className="sr-only">{locale === "zh" ? "搜索" : "Search"}</span>
+        <span className="sr-only">{labels.aria}</span>
         <input
-          aria-label={locale === "zh" ? "Search" : "Search"}
+          aria-label={labels.aria}
           aria-expanded={showResults}
           aria-controls={listboxId}
+          aria-activedescendant={activeIndex >= 0 ? `${listboxId}-option-${activeIndex}` : undefined}
+          aria-autocomplete="list"
+          aria-haspopup="listbox"
+          role="combobox"
           type="text"
           value={query}
-          placeholder={locale === "zh" ? "搜索文档" : "Search docs"}
-          className="w-52 rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm outline-none transition focus:border-azure"
+          placeholder={labels.placeholder}
+          className={`rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm outline-none transition focus:border-azure ${inputClassName}`.trim()}
           onFocus={() => setOpen(true)}
           onBlur={() => {
             window.setTimeout(() => setOpen(false), 120);
+          }}
+          onKeyDown={(event) => {
+            if (event.key === "ArrowDown") {
+              event.preventDefault();
+              setOpen(true);
+              if (results.length) {
+                setActiveIndex((index) => (index + 1 + results.length) % results.length);
+              }
+              return;
+            }
+
+            if (event.key === "ArrowUp") {
+              event.preventDefault();
+              setOpen(true);
+              if (results.length) {
+                setActiveIndex((index) => (index <= 0 ? results.length - 1 : index - 1));
+              }
+              return;
+            }
+
+            if (event.key === "Enter" && hasQuery) {
+              event.preventDefault();
+              if (activeIndex >= 0 && results[activeIndex]) {
+                navigateTo(results[activeIndex].href);
+                return;
+              }
+
+              navigateTo(searchHref);
+              return;
+            }
+
+            if (event.key === "Escape") {
+              setOpen(false);
+              setActiveIndex(-1);
+            }
           }}
           onChange={(event) => {
             setQuery(event.target.value);
@@ -89,24 +164,25 @@ export function SearchBox({ locale }: SearchBoxProps) {
       {showResults ? (
         <div
           id={listboxId}
-          className="absolute right-0 top-[calc(100%+0.75rem)] z-50 w-[28rem] overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-2xl"
+          className={`absolute right-0 top-[calc(100%+0.75rem)] z-50 w-[28rem] overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-2xl ${panelClassName}`.trim()}
         >
           <div className="border-b border-slate-100 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-            {loading
-              ? locale === "zh"
-                ? "搜索中"
-                : "Searching"
-              : locale === "zh"
-                ? "搜索结果"
-                : "Results"}
+            {loading ? labels.loading : labels.results}
           </div>
           {results.length ? (
-            <ul className="max-h-[28rem] overflow-y-auto">
-              {results.map((result) => (
+            <ul role="listbox" className="max-h-[28rem] overflow-y-auto">
+              {results.map((result, index) => (
                 <li key={`${result.locale}:${result.href}`} className="border-t border-slate-100 first:border-t-0">
                   <a
                     href={result.href}
-                    className="block px-4 py-3 transition hover:bg-slate-50"
+                    id={`${listboxId}-option-${index}`}
+                    role="option"
+                    aria-selected={activeIndex === index}
+                    className={`block px-4 py-3 transition hover:bg-slate-50 ${
+                      activeIndex === index ? "bg-slate-50" : ""
+                    }`}
+                    onMouseEnter={() => setActiveIndex(index)}
+                    onClick={() => onNavigate?.()}
                   >
                     <p className="text-sm font-semibold text-ink">{result.title}</p>
                     <p className="mt-1 line-clamp-2 text-sm text-slate-600">{result.description}</p>
@@ -118,8 +194,17 @@ export function SearchBox({ locale }: SearchBoxProps) {
               ))}
             </ul>
           ) : hasQuery && !loading ? (
-            <div className="px-4 py-5 text-sm text-slate-500">
-              {locale === "zh" ? "没有找到匹配结果。" : "No matching results."}
+            <div className="px-4 py-5 text-sm text-slate-500">{labels.empty}</div>
+          ) : null}
+          {hasQuery ? (
+            <div className="border-t border-slate-100 px-4 py-3">
+              <a
+                href={searchHref}
+                className="text-sm font-semibold text-azure transition hover:text-ink"
+                onClick={() => onNavigate?.()}
+              >
+                {labels.viewAll}
+              </a>
             </div>
           ) : null}
         </div>

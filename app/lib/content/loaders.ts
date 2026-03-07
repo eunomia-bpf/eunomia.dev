@@ -6,6 +6,7 @@ import {
 } from "./collections";
 import { getGitMetadata } from "./git";
 import { parseMarkdown } from "./markdown";
+import { buildCollectionContinuation, buildIndexLink } from "./navigation";
 import { renderMarkdownBody, renderMarkdownDocumentBody } from "./render";
 import {
   formatGithubSourcePath,
@@ -30,6 +31,17 @@ async function loadMarkdownPage(relativePath: string, publicPath: string, locale
     metadata: getGitMetadata(sourceRelative),
     path: publicPath,
     alternates: makeAlternates(publicPath)
+  };
+}
+
+function withContinuation(page: MarkdownPage, continuation: MarkdownPage["continuation"]): MarkdownPage {
+  if (!continuation) {
+    return page;
+  }
+
+  return {
+    ...page,
+    continuation
   };
 }
 
@@ -177,7 +189,16 @@ export async function loadTutorialPage(
   }
 
   const publicPath = locale === "zh" ? `/zh/tutorials/${slugSegments.join("/")}/` : `/tutorials/${slugSegments.join("/")}/`;
-  return loadMarkdownPage(sourceRelative, publicPath, locale);
+  const page = await loadMarkdownPage(sourceRelative, publicPath, locale);
+  const indexSource = resolveLocalizedSource("tutorials/index.md", locale) ?? "tutorials/index.md";
+  const continuation = buildCollectionContinuation({
+    kind: "tutorial-page",
+    locale,
+    currentPath: publicPath,
+    index: buildIndexLink(indexSource, locale === "zh" ? "/zh/tutorials/" : "/tutorials/")
+  });
+
+  return withContinuation(page, continuation);
 }
 
 export async function loadBlogIndex(locale: Locale): Promise<LandingPageData> {
@@ -239,7 +260,16 @@ export async function loadBlogPage(
       ? `/zh/blog/${entry.year}/${entry.month}/${entry.day}/${entry.slug}/`
       : `/blog/${entry.year}/${entry.month}/${entry.day}/${entry.slug}/`;
 
-  return loadMarkdownPage(sourceRelative, publicPath, locale);
+  const page = await loadMarkdownPage(sourceRelative, publicPath, locale);
+  const indexSource = resolveLocalizedSource("blog/index.md", locale) ?? "blog/index.md";
+  const continuation = buildCollectionContinuation({
+    kind: "blog-page",
+    locale,
+    currentPath: publicPath,
+    index: buildIndexLink(indexSource, locale === "zh" ? "/zh/blog/" : "/blog/")
+  });
+
+  return withContinuation(page, continuation);
 }
 
 export async function loadLegacyBlogIndex(locale: Locale): Promise<LandingPageData> {
@@ -287,7 +317,16 @@ export async function loadLegacyBlogPage(
   }
 
   const publicPath = locale === "zh" ? `/zh/blogs/${slug}/` : `/blogs/${slug}/`;
-  return loadMarkdownPage(sourceRelative, publicPath, locale);
+  const page = await loadMarkdownPage(sourceRelative, publicPath, locale);
+  const indexSource = resolveLocalizedSource("blogs/index.md", locale) ?? "blogs/index.md";
+  const continuation = buildCollectionContinuation({
+    kind: "legacy-blog-page",
+    locale,
+    currentPath: publicPath,
+    index: buildIndexLink(indexSource, locale === "zh" ? "/zh/blogs/" : "/blogs/")
+  });
+
+  return withContinuation(page, continuation);
 }
 
 export async function loadSectionPage(
@@ -308,5 +347,17 @@ export async function loadSectionPage(
 
   const suffix = joined ? `/${joined}/` : "/";
   const publicPath = locale === "zh" ? `/zh/${section}${suffix}` : `/${section}${suffix}`;
-  return loadMarkdownPage(sourceRelative, publicPath, locale);
+  const page = await loadMarkdownPage(sourceRelative, publicPath, locale);
+  const sectionIndexSource =
+    resolveLocalizedSource(`${section}/index.md`, locale) ?? resolveLocalizedSource(`${section}/README.md`, locale);
+  const sectionIndexHref = locale === "zh" ? `/zh/${section}/` : `/${section}/`;
+  const continuation = buildCollectionContinuation({
+    kind: "section-page",
+    locale,
+    currentPath: publicPath,
+    section,
+    index: buildIndexLink(sectionIndexSource, sectionIndexHref)
+  });
+
+  return withContinuation(page, continuation);
 }

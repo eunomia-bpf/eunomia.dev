@@ -1,4 +1,4 @@
-import type { GitMetadata } from "../lib/content/types";
+import type { GitMetadata, PageContinuation } from "../lib/content/types";
 import { siteConfig, type Locale } from "../lib/site-data";
 import { FeedbackWidget } from "./FeedbackWidget";
 
@@ -8,6 +8,7 @@ type PageFooterProps = {
   path: string;
   sourceHref: string;
   metadata?: GitMetadata | null;
+  continuation?: PageContinuation;
 };
 
 function formatDate(value: string | undefined, locale: Locale) {
@@ -28,27 +29,37 @@ function joinAuthors(metadata?: GitMetadata | null) {
   return metadata.authors.map((author) => author.name).join(", ");
 }
 
-export function PageFooter({ locale, title, path, sourceHref, metadata }: PageFooterProps) {
+export function PageFooter({ locale, title, path, sourceHref, metadata, continuation }: PageFooterProps) {
   const labels =
     locale === "zh"
       ? {
           updated: "最后更新",
           created: "首次发布",
           authors: "贡献者",
+          continue: "继续阅读",
+          backToIndex: "返回索引",
+          previous: "上一篇 / 上一页",
+          next: "下一篇 / 下一页",
           edit: "编辑此页",
           shareX: "分享到 X",
           shareFacebook: "分享到 Facebook",
           discuss: "参与讨论",
+          feed: "RSS 订阅",
           overflow: "更多"
         }
       : {
           updated: "Last updated",
           created: "First published",
           authors: "Contributors",
+          continue: "Continue exploring",
+          backToIndex: "Back to index",
+          previous: "Previous",
+          next: "Next",
           edit: "Edit this page",
           shareX: "Share on X",
           shareFacebook: "Share on Facebook",
           discuss: "Join discussion",
+          feed: "RSS feed",
           overflow: "more"
         };
 
@@ -64,9 +75,42 @@ export function PageFooter({ locale, title, path, sourceHref, metadata }: PageFo
           .map((author) => author.name)
           .join(", ")}, +${metadata.authors.length - 4} ${labels.overflow}`
       : joinAuthors(metadata);
+  const feedHref = locale === "zh" ? "/zh/feed.xml" : "/feed.xml";
+  const navigationCards = [
+    continuation?.index
+      ? { label: labels.backToIndex, ...continuation.index }
+      : null,
+    continuation?.previous
+      ? { label: labels.previous, ...continuation.previous }
+      : null,
+    continuation?.next
+      ? { label: labels.next, ...continuation.next }
+      : null
+  ].filter(Boolean) as Array<{ label: string; title: string; description: string; href: string }>;
 
   return (
     <div className="mt-10 space-y-5 border-t border-slate-200 pt-6">
+      {navigationCards.length ? (
+        <section className="space-y-3">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">{labels.continue}</p>
+          </div>
+          <div className="grid gap-3 md:grid-cols-3">
+            {navigationCards.map((card) => (
+              <a
+                key={`${card.label}:${card.href}`}
+                href={card.href}
+                className="rounded-[1.5rem] border border-slate-200 bg-white px-5 py-4 transition hover:border-azure hover:shadow-sm"
+              >
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">{card.label}</p>
+                <p className="mt-2 text-base font-semibold text-ink">{card.title}</p>
+                <p className="mt-2 text-sm leading-6 text-slate-600">{card.description}</p>
+              </a>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
       {metadata ? (
         <dl className="grid gap-4 rounded-[1.5rem] border border-slate-200 bg-slate-50/80 p-5 text-sm text-slate-600 md:grid-cols-3">
           <div>
@@ -114,6 +158,12 @@ export function PageFooter({ locale, title, path, sourceHref, metadata }: PageFo
           className="inline-flex rounded-full border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-azure hover:text-azure"
         >
           {labels.discuss}
+        </a>
+        <a
+          href={feedHref}
+          className="inline-flex rounded-full border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-azure hover:text-azure"
+        >
+          {labels.feed}
         </a>
       </div>
 

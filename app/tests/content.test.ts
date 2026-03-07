@@ -3,7 +3,9 @@ import test from "node:test";
 
 import { serveRawAsset } from "../lib/content/assets";
 import { getBlogEntries } from "../lib/content/collections";
+import { renderFeed } from "../lib/content/feed";
 import { getGitMetadata } from "../lib/content/git";
+import { loadBlogPage, loadSectionPage, loadTutorialPage } from "../lib/content/loaders";
 import { parseMarkdown } from "../lib/content/markdown";
 import { getContentManifest } from "../lib/content/manifest";
 import { renderMarkdown, renderMarkdownBody, renderMarkdownDocument } from "../lib/content/render";
@@ -130,6 +132,37 @@ test("searchContent returns locale-aware tutorial results", () => {
 
   assert.ok(enResults.some((result) => result.href === "/tutorials/1-helloworld/"));
   assert.ok(zhResults.some((result) => result.href === "/zh/tutorials/1-helloworld/"));
+});
+
+test("article loaders expose continuation links for collection discovery", async () => {
+  const tutorialPage = await loadTutorialPage(["1-helloworld"], "en");
+  const blogPage = await loadBlogPage(["2026", "02", "17", "agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources"], "en");
+
+  assert.ok(tutorialPage?.continuation?.index);
+  assert.equal(tutorialPage?.continuation?.index?.href, "/tutorials/");
+  assert.ok(tutorialPage?.continuation?.next);
+  assert.ok(blogPage?.continuation?.index);
+  assert.equal(blogPage?.continuation?.index?.href, "/blog/");
+});
+
+test("english section continuation does not leak zh-only routes", async () => {
+  const page = await loadSectionPage("eunomia-bpf", ["setup", "build"], "en");
+  const links = [page?.continuation?.index, page?.continuation?.previous, page?.continuation?.next].filter(Boolean);
+
+  assert.ok(links.length > 0);
+  for (const link of links) {
+    assert.ok(link);
+    assert.doesNotMatch(link.href, /^\/zh\//);
+  }
+});
+
+test("renderFeed emits a stable RSS document", () => {
+  const xml = renderFeed("en");
+
+  assert.match(xml, /<rss version="2.0">/);
+  assert.match(xml, /<channel>/);
+  assert.match(xml, /<item>/);
+  assert.match(xml, /https:\/\/eunomia\.dev\/blog\//);
 });
 
 test("getGitMetadata exposes stable authors and timestamps for docs pages", () => {

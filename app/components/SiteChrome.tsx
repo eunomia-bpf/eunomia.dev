@@ -30,7 +30,7 @@ export function SiteChrome({ children, locale, eyebrow, title, intro, hero }: Si
         )}
         {children}
       </main>
-      <SiteFooter />
+      <SiteFooter locale={locale} />
     </div>
   );
 }

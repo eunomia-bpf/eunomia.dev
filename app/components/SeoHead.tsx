@@ -12,6 +12,7 @@ type SeoHeadProps = {
   article?: boolean;
   metadata?: GitMetadata | null;
   eyebrow?: string;
+  robots?: string;
 };
 
 export function SeoHead({
@@ -21,16 +22,19 @@ export function SeoHead({
   alternates,
   article = false,
   metadata,
-  eyebrow
+  eyebrow,
+  robots
 }: SeoHeadProps) {
   const canonical = absoluteUrl(path);
   const fullTitle = `${title} | ${siteConfig.name}`;
   const ogImage = ogImageUrl(title, eyebrow);
+  const feedHref = path.startsWith("/zh") ? absoluteUrl("/zh/feed.xml") : absoluteUrl("/feed.xml");
 
   return (
     <Head>
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
+      {robots ? <meta name="robots" content={robots} /> : null}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
@@ -46,6 +50,7 @@ export function SeoHead({
         <meta key={author.name} property="article:author" content={author.name} />
       ))}
       <link rel="canonical" href={canonical} />
+      <link rel="alternate" type="application/rss+xml" title={`${siteConfig.name} feed`} href={feedHref} />
       {alternates.map((alternate) => (
         <link
           key={`${alternate.hrefLang}-${alternate.href}`}

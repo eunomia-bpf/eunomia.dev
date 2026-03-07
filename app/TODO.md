@@ -12,7 +12,7 @@ Status markers:
 ## Phase 0: Architecture Lock
 
 - `[done]` Split `lib/content.ts` into `content/*` modules as the first structural refactor.
-- `[doing]` Introduce a `ContentManifest` as the route/source registry and migrate remaining loaders onto it.
+- `[done]` Introduce a `ContentManifest` as the route/source registry and migrate remaining loaders onto it.
 - `[done]` Define the Markdown allowlist/sanitization policy in docs.
 - `[done]` Define parity cut-lines for `shadow`, `cutover`, and `growth`.
 - `[done]` Define Pages Router exit criteria and ban new duplicated locale route code.
@@ -50,9 +50,9 @@ Status markers:
 
 ## Phase 4: Metadata and SEO Parity
 
-- `[todo]` Keep title/description/canonical/hreflang generation centralized.
-- `[todo]` Improve Open Graph strategy beyond the current shared default.
-- `[todo]` Add article metadata rules for blog pages.
+- `[done]` Keep title/description/canonical/hreflang generation centralized.
+- `[done]` Improve Open Graph strategy beyond the current shared default.
+- `[done]` Add article metadata rules for blog pages.
 - `[done]` Add build-time git metadata for `last updated`.
 - `[done]` Add build-time git metadata for `authors`.
 - `[todo]` Add sitemap readiness gating by parity stage.
@@ -60,10 +60,13 @@ Status markers:
 ## Phase 5: Product Features
 
 - `[done]` Replace the placeholder search input with a real search system.
-- `[todo]` Add edit/source link support to all article-capable routes.
+- `[done]` Add full search results pages and keyboard navigation on top of quick search.
+- `[done]` Add mobile navigation that preserves search and section discovery.
+- `[done]` Add edit/source link support to all article-capable routes.
+- `[done]` Add article continuation links for collection navigation.
 - `[done]` Add feedback CTA component.
 - `[done]` Add share buttons component.
-- `[todo]` Add RSS/feed generation if still needed after cutover planning.
+- `[done]` Add RSS/feed generation and autodiscovery links.
 
 ## Phase 6: Testing
 
@@ -92,7 +95,7 @@ Status markers:
 ## Current Working Order
 
 1. `[done]` Design the full system and backlog.
-2. `[done]` Review the design iteratively with `claude`.
+2. `[done]` Review the design iteratively with codex reviewers/subagents.
 3. `[done]` Implement the content subsystem split.
 4. `[doing]` Add content-layer tests and finish migrating route/source lookups onto the manifest.
 5. `[done]` Harden the Markdown pipeline.
@@ -101,4 +104,4 @@ Status markers:
 8. `[done]` Restore search, git metadata, feedback CTA, and share actions.
 9. `[todo]` Implement remaining Markdown cutover blockers: admonitions and tabs.
 10. `[todo]` Collapse duplicated locale route logic.
-11. `[todo]` Verify build and audits still pass.
+11. `[done]` Verify build and audits still pass.

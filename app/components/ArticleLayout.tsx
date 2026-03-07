@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from "react";
 
-import type { GitMetadata, HeadingEntry } from "../lib/content/types";
+import type { GitMetadata, HeadingEntry, PageContinuation } from "../lib/content/types";
 import type { Locale } from "../lib/site-data";
 import { PageFooter } from "./PageFooter";
 import { TableOfContents } from "./TableOfContents";
@@ -13,6 +13,7 @@ type ArticleLayoutProps = PropsWithChildren<{
   sourceHref: string;
   metadata?: GitMetadata | null;
   headings?: HeadingEntry[];
+  continuation?: PageContinuation;
   tocTitle?: string;
 }>;
 
@@ -25,6 +26,7 @@ export function ArticleLayout({
   sourceHref,
   metadata,
   headings = [],
+  continuation,
   tocTitle = "On this page"
 }: ArticleLayoutProps) {
   const hasToc = headings.length > 0;
@@ -49,6 +51,7 @@ export function ArticleLayout({
             path={path}
             sourceHref={sourceHref}
             metadata={metadata}
+            continuation={continuation}
           />
         </article>
         <TableOfContents headings={headings} className="hidden xl:block" title={tocTitle} />

@@ -1,3 +1,4 @@
+import { MobileNav } from "../components/MobileNav";
 import { SearchBox } from "../components/SearchBox";
 import { navByLocale, type Locale } from "../lib/site-data";
 
@@ -23,13 +24,14 @@ export function SiteHeader({ locale }: SiteHeaderProps) {
           ))}
         </nav>
         <div className="flex items-center gap-3">
-          <SearchBox locale={locale} />
+          <SearchBox locale={locale} containerClassName="hidden md:block" inputClassName="w-52" />
           <a
             href={languageToggle}
             className="rounded-full border border-slate-200 px-3 py-2 text-sm text-slate-700 transition hover:border-azure hover:text-azure"
           >
             {locale === "en" ? "中文" : "EN"}
           </a>
+          <MobileNav locale={locale} />
         </div>
       </div>
     </header>

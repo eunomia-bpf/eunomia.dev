@@ -19,6 +19,7 @@ export type MarkdownPage = {
   sourcePath: string;
   path: string;
   metadata?: GitMetadata | null;
+  continuation?: PageContinuation;
   alternates: {
     en: string;
     zh: string;
@@ -63,6 +64,18 @@ export type HeadingEntry = {
 export type RenderedMarkdown = {
   html: string;
   headings: HeadingEntry[];
+};
+
+export type PageLink = {
+  title: string;
+  description: string;
+  href: string;
+};
+
+export type PageContinuation = {
+  index?: PageLink;
+  previous?: PageLink;
+  next?: PageLink;
 };
 
 export type BlogEntry = {

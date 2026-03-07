@@ -107,6 +107,7 @@ function renderCollectionContent<IndexPage extends LandingPageData, ArticlePage 
       sourceHref={articlePage.sourcePath}
       metadata={articlePage.metadata}
       headings={articlePage.headings}
+      continuation={articlePage.continuation}
       tocTitle={getTocTitle(locale)}
     >
       <MarkdownContent html={articlePage.html} />
@@ -234,6 +235,7 @@ export function SectionPageView({ page, section, locale }: SectionPageViewProps)
           sourceHref={page.sourcePath}
           metadata={page.metadata}
           headings={page.headings}
+          continuation={page.continuation}
           tocTitle={getTocTitle(locale)}
         >
           <MarkdownContent html={page.html} />

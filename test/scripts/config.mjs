@@ -24,6 +24,7 @@ export const crawlSeeds = [
 
 export const smokeRoutes = {
   home: "/",
+  search: "/search/?q=hello%20world",
   tutorials: "/tutorials/",
   tutorialArticle: "/tutorials/1-helloworld/",
   tutorialNestedArticle: "/tutorials/38-btf-uprobe/test-verify/",
@@ -33,6 +34,7 @@ export const smokeRoutes = {
   legacyBlogArticle: "/blogs/bpftime/",
   sectionArticle: "/bpftime/llvmbpf/",
   zhHome: "/zh/",
+  zhSearch: "/zh/search/?q=hello%20world",
   zhTutorials: "/zh/tutorials/",
   zhLegacyBlogArticle: "/zh/blogs/bpftime/"
 };

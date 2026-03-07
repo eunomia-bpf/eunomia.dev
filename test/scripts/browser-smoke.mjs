@@ -45,7 +45,9 @@ async function main() {
 
   const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+  const mobilePage = await browser.newPage({ viewport: { width: 390, height: 844 } });
   page.setDefaultTimeout(15000);
+  mobilePage.setDefaultTimeout(15000);
 
   try {
     await page.goto(absolute(smokeRoutes.home), { waitUntil: "networkidle" });
@@ -90,7 +92,12 @@ async function main() {
         .first();
       await searchResult.waitFor({ state: "visible" });
       check(await searchResult.count(), "search shows matching results");
+      const searchMore = page.locator(`a[href='${smokeRoutes.search}'], a[href='${absolute(smokeRoutes.search)}']`).first();
+      check(await searchMore.count(), "search exposes a full results page");
     }
+
+    await page.goto(absolute(smokeRoutes.search), { waitUntil: "networkidle" });
+    check(/result|搜索/.test(await page.textContent("main")), "search page renders result content");
 
     await page.goto(absolute(smokeRoutes.tutorials), { waitUntil: "networkidle" });
     check(/tutorial/i.test(await page.textContent("main")), "tutorials page renders tutorial content");
@@ -146,6 +153,10 @@ async function main() {
       await page.locator("a[href*='x.com/intent/tweet']").first().count(),
       "blog article exposes share actions"
     );
+    check(
+      await page.locator("text=/Continue exploring|继续阅读/").first().count(),
+      "blog article exposes continuation links"
+    );
 
     await page.goto(absolute(smokeRoutes.legacyBlogArticle), { waitUntil: "networkidle" });
     check(await page.locator("main h1").first().count(), "legacy blog article has h1");
@@ -179,6 +190,29 @@ async function main() {
       await page.locator("main h1").first().count(),
       "Chinese legacy blog article has h1"
     );
+
+    await mobilePage.goto(absolute(smokeRoutes.home), { waitUntil: "networkidle" });
+    const menuButton = mobilePage.getByRole("button", { name: /open navigation|打开导航/i });
+    check(await menuButton.count(), "mobile navigation button is visible");
+    await menuButton.click();
+    const mobileSearchInput = await firstVisible(mobilePage, [
+      "#mobile-nav-panel input[aria-label*='Search']",
+      "#mobile-nav-panel input[aria-label*='搜索']"
+    ]);
+    check(Boolean(mobileSearchInput), "mobile navigation exposes search");
+    if (!mobileSearchInput) {
+      throw new Error("Mobile navigation search input did not become visible");
+    }
+    await mobileSearchInput.fill("hello world");
+    const mobileSearchResult = mobilePage
+      .locator(`a[href='${smokeRoutes.tutorialArticle}'], a[href='${absolute(smokeRoutes.tutorialArticle)}']`)
+      .first();
+    await mobileSearchResult.waitFor({ state: "visible" });
+    check(await mobileSearchResult.count(), "mobile search returns matching results");
+    const mobileTutorialLink = mobilePage
+      .locator(`a[href='${smokeRoutes.tutorials}'], a[href='${absolute(smokeRoutes.tutorials)}']`)
+      .first();
+    check(await mobileTutorialLink.count(), "mobile navigation exposes section links");
   } finally {
     await browser.close();
   }

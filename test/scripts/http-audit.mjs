@@ -28,6 +28,18 @@ async function auditRobots() {
   check(text.includes("Sitemap:"), "robots.txt advertises sitemap");
 }
 
+async function auditFeed(pathname) {
+  const url = pageUrl(pathname);
+  const { response, text } = await fetchText(url);
+  check(response.ok, `${pathname}: feed is reachable`);
+  check(
+    (response.headers.get("content-type") ?? "").includes("application/rss+xml"),
+    `${pathname}: feed content type is rss+xml`
+  );
+  check(text.includes("<rss"), `${pathname}: feed contains RSS markup`);
+  check(text.includes("<item>"), `${pathname}: feed contains items`);
+}
+
 async function auditSitemap() {
   const { response, paths } = await fetchSitemapPaths();
   check(response.ok, "sitemap.xml is reachable");
@@ -48,6 +60,8 @@ function validateSeoDocument(url, text) {
       hreflang: $(element).attr("hreflang") ?? ""
     }))
     .get();
+  const rssFeed = $("link[rel='alternate'][type='application/rss+xml']").attr("href") ?? "";
+  const expectedFeed = pathname.startsWith("/zh") ? pageUrl("/zh/feed.xml") : pageUrl("/feed.xml");
 
   check(Boolean(($("title").text() ?? "").trim()), `${pathname}: title exists`);
   check(
@@ -61,6 +75,7 @@ function validateSeoDocument(url, text) {
     `${pathname}: og:description exists`
   );
   check(Boolean(extractMeta($, "meta[property='og:image']")), `${pathname}: og:image exists`);
+  check(rssFeed === expectedFeed, `${pathname}: rss alternate matches locale feed`);
   check(
     alternates.some((alternate) => alternate.hreflang === "en"),
     `${pathname}: hreflang en exists`
@@ -100,6 +115,8 @@ async function auditSitemapPages(paths) {
 async function main() {
   console.log(`Auditing SEO and infrastructure for ${baseUrl.toString()}`);
   await auditRobots();
+  await auditFeed("/feed.xml");
+  await auditFeed("/zh/feed.xml");
   const paths = await auditSitemap();
   await auditSitemapPages(paths);
 
