@@ -1,0 +1,15 @@
+{
+  "name": "eunomia-site-audit",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "audit:http": "node scripts/http-audit.mjs",
+    "audit:browser": "node scripts/browser-smoke.mjs",
+    "audit:links": "node scripts/link-crawl.mjs",
+    "audit": "npm run audit:http && npm run audit:browser && npm run audit:links"
+  },
+  "dependencies": {
+    "cheerio": "^1.1.2",
+    "playwright": "^1.52.0"
+  }
+}
