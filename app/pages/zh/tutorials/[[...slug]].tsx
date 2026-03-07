@@ -23,7 +23,7 @@ type TutorialsPageProps =
     };
 
 export const getStaticPaths: GetStaticPaths = async () => ({
-  paths: getTutorialRoutes().map((slug) => ({
+  paths: getTutorialRoutes("zh").map((slug) => ({
     params: {
       slug
     }

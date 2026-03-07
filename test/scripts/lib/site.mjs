@@ -1,3 +1,5 @@
+import fs from "node:fs";
+
 import { load } from "cheerio";
 
 import {
@@ -89,4 +91,34 @@ export function printFailures(failures) {
   for (const failure of failures) {
     console.error(`- ${failure}`);
   }
+}
+
+export function parseSitemapPaths(xmlText) {
+  const $ = load(xmlText, { xmlMode: true });
+  return $("url > loc")
+    .map((_, element) => {
+      try {
+        return normalizeUrl($(element).text().trim());
+      } catch {
+        return null;
+      }
+    })
+    .get()
+    .filter(Boolean);
+}
+
+export async function fetchSitemapPaths(pathname = "/sitemap.xml") {
+  const { response, text } = await fetchText(pageUrl(pathname));
+  return {
+    response,
+    paths: parseSitemapPaths(text)
+  };
+}
+
+export function readLocalSitemapPaths(filePath) {
+  return parseSitemapPaths(fs.readFileSync(filePath, "utf8"));
+}
+
+export function expectedLangForPath(pathname) {
+  return pathname.startsWith("/zh/") || pathname === "/zh" ? "zh" : "en";
 }

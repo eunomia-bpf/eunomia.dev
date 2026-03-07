@@ -156,15 +156,23 @@ function isLocalizedMarkdown(relativePath: string): boolean {
   return relativePath.endsWith(".zh.md");
 }
 
+function isEnglishMarkdown(relativePath: string): boolean {
+  return relativePath.endsWith(".en.md");
+}
+
 function baseMarkdownPath(relativePath: string): string {
-  return relativePath.replace(/\.zh\.md$/, ".md");
+  return relativePath.replace(/\.(zh|en)\.md$/, ".md");
+}
+
+function englishVariant(relativePath: string): string {
+  return baseMarkdownPath(relativePath).replace(/\.md$/, ".en.md");
 }
 
 function localizedVariant(relativePath: string, locale: Locale): string {
-  if (locale === "en") {
-    return baseMarkdownPath(relativePath);
-  }
   const basePath = baseMarkdownPath(relativePath);
+  if (locale === "en") {
+    return englishVariant(basePath);
+  }
   return basePath.replace(/\.md$/, ".zh.md");
 }
 
@@ -172,8 +180,8 @@ function resolveLocalizedSource(relativePath: string, locale: Locale): string | 
   const docsFiles = getDocsFileSet();
   const candidates =
     locale === "zh"
-      ? [localizedVariant(relativePath, "zh"), baseMarkdownPath(relativePath)]
-      : [baseMarkdownPath(relativePath)];
+      ? [localizedVariant(relativePath, "zh"), englishVariant(relativePath), baseMarkdownPath(relativePath)]
+      : [englishVariant(relativePath), baseMarkdownPath(relativePath)];
 
   for (const candidate of candidates) {
     if (docsFiles.has(candidate)) {
@@ -270,9 +278,11 @@ function parseMarkdown(relativePath: string): ParsedMarkdown {
     : body;
   const excerpt = makeExcerpt(excerptSource);
   const description =
-    (typeof parsed.data.description === "string"
+    ((typeof parsed.data.description === "string"
       ? collapseWhitespace(stripInlineMarkdown(parsed.data.description))
-      : undefined) ?? excerpt;
+      : undefined) ??
+      excerpt) ||
+    title;
 
   const value: ParsedMarkdown = {
     title,
@@ -310,7 +320,7 @@ function sortNaturally(values: string[]): string[] {
   );
 }
 
-function getTutorialSources(): string[] {
+function getTutorialReadmeSources(): string[] {
   if (!tutorialSourcesCache) {
     tutorialSourcesCache = sortNaturally(
       [...getDocsFileSet()].filter(
@@ -323,6 +333,21 @@ function getTutorialSources(): string[] {
   }
 
   return tutorialSourcesCache;
+}
+
+function getTutorialDocSources(): string[] {
+  return sortNaturally(
+    [...new Set(
+      [...getDocsFileSet()]
+        .filter(
+          (relativePath) =>
+            relativePath.startsWith("tutorials/") &&
+            relativePath.endsWith(".md")
+        )
+        .map((relativePath) => baseMarkdownPath(relativePath))
+        .filter((relativePath) => relativePath !== "tutorials/index.md")
+    )]
+  );
 }
 
 function buildBlogEntries(relativePrefix: "blog/posts" | "blogs"): Array<BlogEntry | LegacyBlogEntry> {
@@ -515,13 +540,17 @@ function resolveDocLinkCandidate(relativePath: string): string | null {
 
   if (normalized.endsWith(".md")) {
     candidates.add(baseMarkdownPath(normalized));
+    candidates.add(englishVariant(normalized));
     candidates.add(localizedVariant(normalized, "zh"));
   } else {
     candidates.add(`${normalized}.md`);
+    candidates.add(`${normalized}.en.md`);
     candidates.add(`${normalized}.zh.md`);
     candidates.add(path.posix.join(normalized, "README.md"));
+    candidates.add(path.posix.join(normalized, "README.en.md"));
     candidates.add(path.posix.join(normalized, "README.zh.md"));
     candidates.add(path.posix.join(normalized, "index.md"));
+    candidates.add(path.posix.join(normalized, "index.en.md"));
     candidates.add(path.posix.join(normalized, "index.zh.md"));
   }
 
@@ -681,7 +710,12 @@ async function loadMarkdownPage(relativePath: string, publicPath: string, locale
 }
 
 function tutorialSourceToSlugSegments(sourceRelative: string): string[] {
-  return sourceRelative.replace(/^tutorials\//, "").replace(/\/README\.md$/, "").split("/");
+  const normalized = baseMarkdownPath(sourceRelative)
+    .replace(/^tutorials\//, "")
+    .replace(/\.md$/, "");
+  const pieces = normalized.split("/");
+  const trailing = pieces.at(-1);
+  return trailing === "README" || trailing === "index" ? pieces.slice(0, -1) : pieces;
 }
 
 function sectionSourceToSlugSegments(sourceRelative: string, section: string): string[] {
@@ -694,14 +728,15 @@ function sectionSourceToSlugSegments(sourceRelative: string, section: string): s
 function getGenericSectionRouteBases(): string[] {
   if (!genericSectionRouteCache) {
     genericSectionRouteCache = sortNaturally(
-      [...getDocsFileSet()].filter((relativePath) => {
-        if (isLocalizedMarkdown(relativePath) || !relativePath.endsWith(".md")) {
-          return false;
-        }
-
-        const [topLevel] = relativePath.split("/");
-        return Boolean(topLevel && isSupportedSection(topLevel));
-      })
+      [...new Set(
+        [...getDocsFileSet()]
+          .filter((relativePath) => relativePath.endsWith(".md"))
+          .map((relativePath) => baseMarkdownPath(relativePath))
+          .filter((relativePath) => {
+            const [topLevel] = relativePath.split("/");
+            return Boolean(topLevel && isSupportedSection(topLevel));
+          })
+      )]
     );
   }
 
@@ -720,9 +755,13 @@ export function listSitemapRoutes(): string[] {
     "/zh/blogs/"
   ]);
 
-  for (const sourceRelative of getTutorialSources()) {
-    routes.add(docPathToRoute(sourceRelative, "en") ?? "");
-    routes.add(docPathToRoute(sourceRelative, "zh") ?? "");
+  for (const sourceRelative of getTutorialDocSources()) {
+    if (resolveLocalizedSource(sourceRelative, "en")) {
+      routes.add(docPathToRoute(sourceRelative, "en") ?? "");
+    }
+    if (resolveLocalizedSource(sourceRelative, "zh")) {
+      routes.add(docPathToRoute(sourceRelative, "zh") ?? "");
+    }
   }
 
   for (const entry of getBlogEntries()) {
@@ -736,8 +775,12 @@ export function listSitemapRoutes(): string[] {
   }
 
   for (const sourceRelative of getGenericSectionRouteBases()) {
-    routes.add(docPathToRoute(sourceRelative, "en") ?? "");
-    routes.add(docPathToRoute(sourceRelative, "zh") ?? "");
+    if (resolveLocalizedSource(sourceRelative, "en")) {
+      routes.add(docPathToRoute(sourceRelative, "en") ?? "");
+    }
+    if (resolveLocalizedSource(sourceRelative, "zh")) {
+      routes.add(docPathToRoute(sourceRelative, "zh") ?? "");
+    }
   }
 
   return [...routes].filter(Boolean).sort();
@@ -766,7 +809,7 @@ export async function loadHomePage(locale: Locale): Promise<{
       title: tutorials.title,
       description: tutorials.description,
       href: locale === "zh" ? "/zh/tutorials/" : "/tutorials/",
-      badge: `${getTutorialSources().length} walkthroughs`
+      badge: `${getTutorialReadmeSources().length} walkthroughs`
     },
     {
       title: bpftime.title,
@@ -797,7 +840,7 @@ export async function loadTutorialIndex(locale: Locale): Promise<LandingPageData
   const parsed = parseMarkdown(sourceRelative);
   const introHtml = await renderMarkdown(sourceRelative, locale);
 
-  const cards = getTutorialSources().map((source) => {
+  const cards = getTutorialReadmeSources().map((source) => {
     const localizedSource = resolveLocalizedSource(source, locale) ?? source;
     const tutorial = parseMarkdown(localizedSource);
     const slugSegments = tutorialSourceToSlugSegments(source);
@@ -960,7 +1003,8 @@ export async function loadSectionPage(
   const joined = slugSegments?.join("/");
   const sourceRelative = joined
     ? resolveLocalizedSource(`${section}/${joined}.md`, locale) ??
-      resolveLocalizedSource(`${section}/${joined}/README.md`, locale)
+      resolveLocalizedSource(`${section}/${joined}/README.md`, locale) ??
+      resolveLocalizedSource(`${section}/${joined}/index.md`, locale)
     : resolveLocalizedSource(`${section}/index.md`, locale) ?? resolveLocalizedSource(`${section}/README.md`, locale);
 
   if (!sourceRelative) {
@@ -1035,16 +1079,20 @@ export function getBlogRoutes(): string[][] {
   return getBlogEntries().map((entry) => [entry.year, entry.month, entry.day, entry.slug]);
 }
 
-export function getTutorialRoutes(): string[][] {
-  return getTutorialSources().map((source) => tutorialSourceToSlugSegments(source));
+export function getTutorialRoutes(locale: Locale): string[][] {
+  return getTutorialDocSources()
+    .filter((source) => Boolean(resolveLocalizedSource(source, locale)))
+    .map((source) => tutorialSourceToSlugSegments(source));
 }
 
-export function getGenericSectionRoutes(): Array<{ section: string; slug: string[] }> {
-  return getGenericSectionRouteBases().map((sourceRelative) => {
-    const [section] = sourceRelative.split("/");
-    return {
-      section,
-      slug: sectionSourceToSlugSegments(sourceRelative, section)
-    };
-  });
+export function getGenericSectionRoutes(locale: Locale): Array<{ section: string; slug: string[] }> {
+  return getGenericSectionRouteBases()
+    .filter((sourceRelative) => Boolean(resolveLocalizedSource(sourceRelative, locale)))
+    .map((sourceRelative) => {
+      const [section] = sourceRelative.split("/");
+      return {
+        section,
+        slug: sectionSourceToSlugSegments(sourceRelative, section)
+      };
+    });
 }

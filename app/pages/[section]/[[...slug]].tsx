@@ -11,7 +11,7 @@ import {
 import { canonicalAlternates } from "../../lib/seo";
 
 export const getStaticPaths: GetStaticPaths = async () => ({
-  paths: getGenericSectionRoutes().map((route) => ({
+  paths: getGenericSectionRoutes("en").map((route) => ({
     params: {
       section: route.section,
       slug: route.slug

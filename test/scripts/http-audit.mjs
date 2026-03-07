@@ -1,8 +1,10 @@
 import { load } from "cheerio";
 
-import { baseUrl, seoPages } from "./config.mjs";
+import { baseUrl } from "./config.mjs";
 import {
+  expectedLangForPath,
   extractMeta,
+  fetchSitemapPaths,
   fetchText,
   pageUrl,
   printFailures
@@ -14,9 +16,9 @@ function check(condition, message) {
   if (!condition) {
     failures.push(message);
     console.error(`FAIL ${message}`);
-    return;
+    return false;
   }
-  console.log(`PASS ${message}`);
+  return true;
 }
 
 async function auditRobots() {
@@ -27,25 +29,18 @@ async function auditRobots() {
 }
 
 async function auditSitemap() {
-  const url = pageUrl("/sitemap.xml");
-  const { response, text } = await fetchText(url);
+  const { response, paths } = await fetchSitemapPaths();
   check(response.ok, "sitemap.xml is reachable");
-  const $ = load(text, { xmlMode: true });
-  const urls = $("url > loc");
-  check(urls.length > 0, "sitemap contains at least one URL");
-  const homeLoc = urls
-    .map((_, element) => $(element).text().trim())
-    .get()
-    .includes(pageUrl("/"));
-  check(homeLoc, "sitemap includes home page");
+  check(paths.length > 0, "sitemap contains at least one URL");
+  check(paths.includes(pageUrl("/")), "sitemap includes home page");
+  console.log(`Loaded ${paths.length} sitemap routes.`);
+  return paths;
 }
 
-async function auditSeoPage({ label, path, expectedLang }) {
-  const url = pageUrl(path);
-  const { response, text } = await fetchText(url);
-  check(response.ok, `${label}: page is reachable`);
-
+function validateSeoDocument(url, text) {
   const $ = load(text);
+  const pathname = new URL(url).pathname;
+  const expectedLang = expectedLangForPath(pathname);
   const canonical = $("link[rel='canonical']").attr("href") ?? "";
   const alternates = $("link[rel='alternate'][hreflang]")
     .map((_, element) => ({
@@ -54,45 +49,59 @@ async function auditSeoPage({ label, path, expectedLang }) {
     }))
     .get();
 
-  check(Boolean(($("title").text() ?? "").trim()), `${label}: title exists`);
+  check(Boolean(($("title").text() ?? "").trim()), `${pathname}: title exists`);
   check(
     extractMeta($, "meta[name='description']").length > 20,
-    `${label}: meta description exists`
+    `${pathname}: meta description exists`
   );
-  check(canonical === url, `${label}: canonical matches public URL`);
-  check(Boolean(extractMeta($, "meta[property='og:title']")), `${label}: og:title exists`);
+  check(canonical === url, `${pathname}: canonical matches public URL`);
+  check(Boolean(extractMeta($, "meta[property='og:title']")), `${pathname}: og:title exists`);
   check(
     Boolean(extractMeta($, "meta[property='og:description']")),
-    `${label}: og:description exists`
+    `${pathname}: og:description exists`
   );
-  check(Boolean(extractMeta($, "meta[property='og:image']")), `${label}: og:image exists`);
+  check(Boolean(extractMeta($, "meta[property='og:image']")), `${pathname}: og:image exists`);
   check(
     alternates.some((alternate) => alternate.hreflang === "en"),
-    `${label}: hreflang en exists`
+    `${pathname}: hreflang en exists`
   );
   check(
     alternates.some((alternate) => alternate.hreflang === "zh"),
-    `${label}: hreflang zh exists`
+    `${pathname}: hreflang zh exists`
   );
   check(
     ($("html").attr("lang") ?? "").toLowerCase() === expectedLang,
-    `${label}: html lang is ${expectedLang}`
+    `${pathname}: html lang is ${expectedLang}`
   );
 
   const html = text.toLowerCase();
   check(
     html.includes("googletagmanager.com/gtag/js") || html.includes("google-analytics.com"),
-    `${label}: analytics script is present`
+    `${pathname}: analytics script is present`
   );
+}
+
+async function auditSitemapPages(paths) {
+  let audited = 0;
+  for (const url of paths) {
+    const pathname = new URL(url).pathname;
+    const { response, text } = await fetchText(url);
+    check(response.ok, `${pathname}: page is reachable`);
+    if (response.ok) {
+      validateSeoDocument(url, text);
+    }
+    audited += 1;
+    if (audited % 50 === 0 || audited === paths.length) {
+      console.log(`Audited ${audited}/${paths.length} sitemap pages.`);
+    }
+  }
 }
 
 async function main() {
   console.log(`Auditing SEO and infrastructure for ${baseUrl.toString()}`);
   await auditRobots();
-  await auditSitemap();
-  for (const page of seoPages) {
-    await auditSeoPage(page);
-  }
+  const paths = await auditSitemap();
+  await auditSitemapPages(paths);
 
   if (failures.length) {
     printFailures(failures);
