@@ -7,6 +7,7 @@ import {
 import { getGitMetadata } from "./git";
 import { parseMarkdown } from "./markdown";
 import { buildCollectionContinuation, buildIndexLink } from "./navigation";
+import { resolveAlternatesFromDocSource } from "./manifest";
 import { renderMarkdownBody, renderMarkdownDocumentBody } from "./render";
 import {
   formatGithubSourcePath,
@@ -30,7 +31,7 @@ async function loadMarkdownPage(relativePath: string, publicPath: string, locale
     sourcePath: formatGithubSourcePath(sourceRelative),
     metadata: getGitMetadata(sourceRelative),
     path: publicPath,
-    alternates: makeAlternates(publicPath)
+    alternates: resolveAlternatesFromDocSource(sourceRelative, locale, publicPath)
   };
 }
 

@@ -1,7 +1,11 @@
 import type { Locale } from "../site-data";
+import { useContentCache } from "./cache";
 import { getContentManifest } from "./manifest";
 import { parseMarkdown } from "./markdown";
 import type { ContentManifestKind, ContentManifestRecord, PageContinuation, PageLink } from "./types";
+
+const pageLinkCache = new Map<string, PageLink>();
+const collectionLinkCache = new Map<string, PageLink[]>();
 
 function resolveRecordSource(record: ContentManifestRecord, locale: Locale): string | null {
   return record.sourceByLocale[locale] ?? record.sourceByLocale.en ?? record.sourceByLocale.zh ?? null;
@@ -18,12 +22,26 @@ function recordToPageLink(record: ContentManifestRecord, locale: Locale): PageLi
     return null;
   }
 
+  const cacheKey = `${locale}:${record.key}:${href}`;
+  if (useContentCache) {
+    const cached = pageLinkCache.get(cacheKey);
+    if (cached) {
+      return cached;
+    }
+  }
+
   const parsed = parseMarkdown(sourceRelative);
-  return {
+  const link = {
     title: parsed.title,
     description: parsed.description,
     href
   };
+
+  if (useContentCache) {
+    pageLinkCache.set(cacheKey, link);
+  }
+
+  return link;
 }
 
 export function buildIndexLink(sourceRelative: string | null, href: string | null): PageLink | undefined {
@@ -52,12 +70,25 @@ export function buildCollectionContinuation({
   section?: string;
   index?: PageLink;
 }): PageContinuation | undefined {
-  const links = getContentManifest()
-    .filter((record) => record.kind === kind)
-    .filter((record) => (section ? record.section === section : true))
-    .filter((record) => Boolean(resolveRecordHref(record, locale)))
-    .map((record) => recordToPageLink(record, locale))
-    .filter((record): record is PageLink => Boolean(record));
+  const collectionCacheKey = `${locale}:${kind}:${section ?? ""}`;
+  let links: PageLink[] | undefined;
+
+  if (useContentCache) {
+    links = collectionLinkCache.get(collectionCacheKey);
+  }
+
+  if (!links) {
+    links = getContentManifest()
+      .filter((record) => record.kind === kind)
+      .filter((record) => (section ? record.section === section : true))
+      .filter((record) => Boolean(resolveRecordHref(record, locale)))
+      .map((record) => recordToPageLink(record, locale))
+      .filter((record): record is PageLink => Boolean(record));
+
+    if (useContentCache) {
+      collectionLinkCache.set(collectionCacheKey, links);
+    }
+  }
 
   const currentIndex = links.findIndex((record) => record.href === currentPath);
   const continuation: PageContinuation = {};

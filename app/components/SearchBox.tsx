@@ -165,6 +165,9 @@ export function SearchBox({
         <div
           id={listboxId}
           className={`absolute right-0 top-[calc(100%+0.75rem)] z-50 w-[28rem] overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-2xl ${panelClassName}`.trim()}
+          onMouseDown={(event) => {
+            event.preventDefault();
+          }}
         >
           <div className="border-b border-slate-100 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
             {loading ? labels.loading : labels.results}

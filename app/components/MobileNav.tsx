@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { SearchBox } from "../components/SearchBox";
 import { navByLocale, type Locale } from "../lib/site-data";
@@ -11,6 +11,7 @@ type MobileNavProps = {
 
 export function MobileNav({ locale }: MobileNavProps) {
   const [open, setOpen] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
   const nav = navByLocale[locale];
   const copy =
     locale === "zh"
@@ -23,9 +24,30 @@ export function MobileNav({ locale }: MobileNavProps) {
           close: "Close navigation"
         };
 
+  useEffect(() => {
+    if (!open) {
+      return undefined;
+    }
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key !== "Escape") {
+        return;
+      }
+
+      setOpen(false);
+      buttonRef.current?.focus();
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [open]);
+
   return (
     <div className="relative md:hidden">
       <button
+        ref={buttonRef}
         type="button"
         aria-expanded={open}
         aria-controls="mobile-nav-panel"

@@ -1,5 +1,7 @@
 import type { Locale } from "../site-data";
 
+export type LocaleAlternates = Partial<Record<Locale, string>>;
+
 export type GitAuthor = {
   name: string;
   email?: string;
@@ -20,10 +22,7 @@ export type MarkdownPage = {
   path: string;
   metadata?: GitMetadata | null;
   continuation?: PageContinuation;
-  alternates: {
-    en: string;
-    zh: string;
-  };
+  alternates: LocaleAlternates;
 };
 
 export type LandingCard = {
@@ -40,10 +39,7 @@ export type LandingPageData = {
   sourcePath: string;
   metadata?: GitMetadata | null;
   path: string;
-  alternates: {
-    en: string;
-    zh: string;
-  };
+  alternates: LocaleAlternates;
   cards: LandingCard[];
 };
 
@@ -81,6 +77,7 @@ export type PageContinuation = {
 export type BlogEntry = {
   key: string;
   slug: string;
+  date?: string;
   year: string;
   month: string;
   day: string;

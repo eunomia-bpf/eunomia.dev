@@ -2,6 +2,7 @@ import type { PropsWithChildren } from "react";
 
 import type { GitMetadata, HeadingEntry, PageContinuation } from "../lib/content/types";
 import type { Locale } from "../lib/site-data";
+import { Breadcrumbs } from "./Breadcrumbs";
 import { PageFooter } from "./PageFooter";
 import { TableOfContents } from "./TableOfContents";
 
@@ -35,6 +36,7 @@ export function ArticleLayout({
     <section className={`mx-auto px-5 pb-16 ${hasToc ? "max-w-6xl" : "max-w-4xl"}`}>
       <div className={hasToc ? "grid gap-8 xl:grid-cols-[minmax(0,1fr)_18rem]" : ""}>
         <article className="rounded-[2rem] border border-white/70 bg-white/90 p-8 shadow-panel md:p-10">
+          <Breadcrumbs locale={locale} currentTitle={title} sectionLink={continuation?.index} />
           <h1 className="text-3xl font-semibold tracking-tight text-ink md:text-5xl">{title}</h1>
           <p className="mt-5 text-lg leading-8 text-slate-600">{description}</p>
           <TableOfContents

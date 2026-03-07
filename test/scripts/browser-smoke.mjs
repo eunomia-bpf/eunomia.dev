@@ -94,6 +94,9 @@ async function main() {
       check(await searchResult.count(), "search shows matching results");
       const searchMore = page.locator(`a[href='${smokeRoutes.search}'], a[href='${absolute(smokeRoutes.search)}']`).first();
       check(await searchMore.count(), "search exposes a full results page");
+      await searchResult.click();
+      await page.waitForURL(/\/tutorials\/1-helloworld\/?$/);
+      check(true, "search result click preserves navigation from the live panel");
     }
 
     await page.goto(absolute(smokeRoutes.search), { waitUntil: "networkidle" });
@@ -102,18 +105,25 @@ async function main() {
     await page.goto(absolute(smokeRoutes.tutorials), { waitUntil: "networkidle" });
     check(/tutorial/i.test(await page.textContent("main")), "tutorials page renders tutorial content");
 
-    const tutorialLink = page.locator(`a[href='${smokeRoutes.tutorialArticle}'], a[href='${absolute(smokeRoutes.tutorialArticle)}']`).first();
-    if (await tutorialLink.count()) {
-      await tutorialLink.click();
-      await page.waitForURL(/\/tutorials\/1-helloworld\/?$/);
-    } else {
-      await page.goto(absolute(smokeRoutes.tutorialArticle), { waitUntil: "networkidle" });
-    }
+    await page.goto(absolute(smokeRoutes.tutorialArticle), { waitUntil: "networkidle" });
     check(await page.locator("main h1").first().count(), "tutorial article has h1");
     check(
       await page.locator("pre[data-language] span[style*='color:']").first().count(),
       "tutorial article renders highlighted code"
     );
+    check(
+      await page.locator("nav[aria-label='Breadcrumb'] a[href='/tutorials/']").first().count(),
+      "tutorial article exposes breadcrumb navigation"
+    );
+    const tutorialLanguageToggle = page.getByRole("link", { name: "中文" }).first();
+    check(await tutorialLanguageToggle.count(), "tutorial article exposes a sibling language switch");
+    await tutorialLanguageToggle.click();
+    await page.waitForURL(/\/zh\/tutorials\/1-helloworld\/?$/);
+    check(true, "language switch preserves tutorial article context");
+    const tutorialLanguageBack = page.getByRole("link", { name: "EN" }).first();
+    check(await tutorialLanguageBack.count(), "localized tutorial exposes a sibling EN switch");
+    await tutorialLanguageBack.click();
+    await page.waitForURL(/\/tutorials\/1-helloworld\/?$/);
 
     await page.goto(absolute(smokeRoutes.tutorialNestedArticle), { waitUntil: "networkidle" });
     check(
@@ -191,6 +201,17 @@ async function main() {
       "Chinese legacy blog article has h1"
     );
 
+    await page.goto(absolute(smokeRoutes.zhOnlySectionArticle), { waitUntil: "networkidle" });
+    const disabledLanguageToggle = page.locator("span[aria-disabled='true']").filter({ hasText: "EN" }).first();
+    check(await disabledLanguageToggle.count(), "zh-only section pages do not expose a broken EN switch");
+
+    await page.goto(absolute(smokeRoutes.search), { waitUntil: "networkidle" });
+    check(await page.locator("mark").first().count(), "search page highlights matched query terms");
+    check(
+      await page.locator("a[href*='x.com/intent/tweet']").filter({ hasText: /share search/i }).first().count(),
+      "search page exposes a share action"
+    );
+
     await mobilePage.goto(absolute(smokeRoutes.home), { waitUntil: "networkidle" });
     const menuButton = mobilePage.getByRole("button", { name: /open navigation|打开导航/i });
     check(await menuButton.count(), "mobile navigation button is visible");
@@ -209,6 +230,9 @@ async function main() {
       .first();
     await mobileSearchResult.waitFor({ state: "visible" });
     check(await mobileSearchResult.count(), "mobile search returns matching results");
+    await mobilePage.keyboard.press("Escape");
+    check(await mobilePage.locator("#mobile-nav-panel").count() === 0, "mobile navigation closes on Escape");
+    await menuButton.click();
     const mobileTutorialLink = mobilePage
       .locator(`a[href='${smokeRoutes.tutorials}'], a[href='${absolute(smokeRoutes.tutorials)}']`)
       .first();

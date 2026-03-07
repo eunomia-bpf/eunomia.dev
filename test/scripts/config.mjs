@@ -33,11 +33,12 @@ export const smokeRoutes = {
     "/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/",
   legacyBlogArticle: "/blogs/bpftime/",
   sectionArticle: "/bpftime/llvmbpf/",
+  zhOnlySectionArticle: "/zh/eunomia-bpf/ecli/ecli-dockerfile-usage/",
   zhHome: "/zh/",
   zhSearch: "/zh/search/?q=hello%20world",
   zhTutorials: "/zh/tutorials/",
   zhLegacyBlogArticle: "/zh/blogs/bpftime/"
 };
 
-export const expectedNavLabels = ["Tutorials", "Blog", "bpftime", "eunomia-bpf", "Ecosystem"];
+export const expectedNavLabels = ["Tutorials", "Blog", "bpftime", "eBPF×AI/LLMs", "eunomia-bpf", "Ecosystem"];
 export const zhMarkers = ["教程", "主页", "文档", "博客"];

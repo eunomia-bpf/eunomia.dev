@@ -14,6 +14,7 @@ function escapeXml(value: string): string {
 
 export function renderFeed(locale: Locale): string {
   const items = getBlogEntries()
+    .filter((entry) => entry.date)
     .slice(0, 30)
     .map((entry) => {
       const sourceRelative = entry.sourceByLocale[locale] ?? entry.sourceByLocale.en ?? entry.sourceByLocale.zh;
@@ -27,12 +28,16 @@ export function renderFeed(locale: Locale): string {
           ? `/zh/blog/${entry.year}/${entry.month}/${entry.day}/${entry.slug}/`
           : `/blog/${entry.year}/${entry.month}/${entry.day}/${entry.slug}/`;
       const url = absoluteUrl(path);
+      const publishedAt = new Date(`${entry.date}T00:00:00Z`);
+      if (Number.isNaN(publishedAt.valueOf())) {
+        return null;
+      }
 
       return `<item>
   <title>${escapeXml(metadata.title)}</title>
   <link>${url}</link>
   <guid>${url}</guid>
-  <pubDate>${new Date(`${entry.year}-${entry.month}-${entry.day}T00:00:00Z`).toUTCString()}</pubDate>
+  <pubDate>${publishedAt.toUTCString()}</pubDate>
   <description>${escapeXml(metadata.excerpt || metadata.description)}</description>
 </item>`;
     })

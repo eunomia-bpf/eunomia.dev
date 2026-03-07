@@ -3,7 +3,9 @@ import path from "node:path";
 
 import matter from "gray-matter";
 
+import { useContentCache } from "./cache";
 import { docsRoot } from "./fs-index";
+import { slugifyTitle } from "./source";
 import type { ParsedMarkdown } from "./types";
 
 const markdownCache = new Map<string, ParsedMarkdown>();
@@ -13,13 +15,26 @@ function readFile(relativePath: string, root: string = docsRoot): string {
 }
 
 function removeLeadingHeading(markdown: string): { titleFromHeading?: string; body: string } {
-  const headingMatch = markdown.match(/^\s*#\s+(.+?)\s*$/m);
+  const lines = markdown.replace(/^\uFEFF/, "").split("\n");
+  let index = 0;
+
+  while (index < lines.length && !lines[index]?.trim()) {
+    index += 1;
+  }
+
+  const firstContentLine = lines[index];
+  const headingMatch = firstContentLine?.match(/^#\s+(.+?)\s*$/);
   if (!headingMatch) {
     return { body: markdown.trim() };
   }
 
   const titleFromHeading = stripInlineMarkdown(headingMatch[1]);
-  const body = markdown.replace(/^\s*#\s+(.+?)\s*$(?:\n+)?/m, "").trim();
+  lines.splice(index, 1);
+  while (index < lines.length && !lines[index]?.trim()) {
+    lines.splice(index, 1);
+  }
+
+  const body = lines.join("\n").trim();
   return { titleFromHeading, body };
 }
 
@@ -45,6 +60,48 @@ function normalizeMarkdown(markdown: string): string {
 
 function collapseWhitespace(value: string): string {
   return value.replace(/\s+/g, " ").trim();
+}
+
+export type MarkdownHeading = {
+  id: string;
+  text: string;
+  depth: number;
+};
+
+export function extractMarkdownHeadings(markdown: string): MarkdownHeading[] {
+  const headings: MarkdownHeading[] = [];
+  let inFence = false;
+
+  for (const line of markdown.split("\n")) {
+    const trimmed = line.trim();
+    if (/^(```|~~~)/.test(trimmed)) {
+      inFence = !inFence;
+      continue;
+    }
+
+    if (inFence) {
+      continue;
+    }
+
+    const match = trimmed.match(/^(#{2,6})\s+(.+?)\s*$/);
+    if (!match) {
+      continue;
+    }
+
+    const explicitId = match[2].match(/\{#([^}\n]+)\}\s*$/)?.[1];
+    const text = stripInlineMarkdown(match[2].replace(/\s*\{#[^}\n]+\}\s*$/, ""));
+    if (!text) {
+      continue;
+    }
+
+    headings.push({
+      id: explicitId ?? slugifyTitle(text),
+      text,
+      depth: match[1].length
+    });
+  }
+
+  return headings;
 }
 
 export function markdownToSearchText(markdown: string): string {
@@ -89,9 +146,11 @@ function parseDate(rawValue: unknown): string | undefined {
 }
 
 export function parseMarkdown(relativePath: string): ParsedMarkdown {
-  const cached = markdownCache.get(relativePath);
-  if (cached) {
-    return cached;
+  if (useContentCache) {
+    const cached = markdownCache.get(relativePath);
+    if (cached) {
+      return cached;
+    }
   }
 
   const source = readFile(relativePath);
@@ -124,6 +183,8 @@ export function parseMarkdown(relativePath: string): ParsedMarkdown {
     date: parseDate(parsed.data.date)
   };
 
-  markdownCache.set(relativePath, value);
+  if (useContentCache) {
+    markdownCache.set(relativePath, value);
+  }
   return value;
 }

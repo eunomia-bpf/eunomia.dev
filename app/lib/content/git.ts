@@ -2,6 +2,7 @@ import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 
+import { useContentCache } from "./cache";
 import type { GitAuthor, GitMetadata } from "./types";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../..");
@@ -21,9 +22,11 @@ function normalizeDate(value: string | undefined): string | undefined {
 }
 
 export function getGitMetadata(relativePath: string): GitMetadata | null {
-  const cached = gitMetadataCache.get(relativePath);
-  if (cached !== undefined) {
-    return cached;
+  if (useContentCache) {
+    const cached = gitMetadataCache.get(relativePath);
+    if (cached !== undefined) {
+      return cached;
+    }
   }
 
   try {
@@ -38,7 +41,9 @@ export function getGitMetadata(relativePath: string): GitMetadata | null {
     ).trim();
 
     if (!output) {
-      gitMetadataCache.set(relativePath, null);
+      if (useContentCache) {
+        gitMetadataCache.set(relativePath, null);
+      }
       return null;
     }
 
@@ -48,7 +53,9 @@ export function getGitMetadata(relativePath: string): GitMetadata | null {
       .filter(Boolean);
 
     if (!lines.length) {
-      gitMetadataCache.set(relativePath, null);
+      if (useContentCache) {
+        gitMetadataCache.set(relativePath, null);
+      }
       return null;
     }
 
@@ -79,10 +86,14 @@ export function getGitMetadata(relativePath: string): GitMetadata | null {
       authors
     };
 
-    gitMetadataCache.set(relativePath, metadata);
+    if (useContentCache) {
+      gitMetadataCache.set(relativePath, metadata);
+    }
     return metadata;
   } catch {
-    gitMetadataCache.set(relativePath, null);
+    if (useContentCache) {
+      gitMetadataCache.set(relativePath, null);
+    }
     return null;
   }
 }

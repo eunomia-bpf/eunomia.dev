@@ -1,8 +1,10 @@
 import path from "node:path";
 
 import type { Locale } from "../site-data";
+import { useContentCache } from "./cache";
 import { getDocsFileSet } from "./fs-index";
 import { parseMarkdown } from "./markdown";
+import { orderSourcesByMkdocsNav } from "./nav-order";
 import {
   baseMarkdownPath,
   isLocalizedMarkdown,
@@ -19,7 +21,7 @@ let legacyBlogEntriesCache: LegacyBlogEntry[] | null = null;
 let genericSectionRouteCache: string[] | null = null;
 
 export function getTutorialReadmeSources(): string[] {
-  if (!tutorialSourcesCache) {
+  if (!useContentCache || !tutorialSourcesCache) {
     tutorialSourcesCache = sortNaturally(
       [...getDocsFileSet()].filter(
         (relativePath) =>
@@ -87,6 +89,7 @@ function buildBlogEntries(relativePrefix: "blog/posts" | "blogs"): Array<BlogEnt
     return {
       key,
       slug: slugifyTitle(metadata.title),
+      date: metadata.date,
       year,
       month,
       day,
@@ -101,18 +104,16 @@ function buildBlogEntries(relativePrefix: "blog/posts" | "blogs"): Array<BlogEnt
 }
 
 export function getBlogEntries(): BlogEntry[] {
-  if (!blogEntriesCache) {
+  if (!useContentCache || !blogEntriesCache) {
     blogEntriesCache = buildBlogEntries("blog/posts") as BlogEntry[];
-    blogEntriesCache.sort((left, right) =>
-      `${right.year}-${right.month}-${right.day}`.localeCompare(`${left.year}-${left.month}-${left.day}`)
-    );
+    blogEntriesCache.sort((left, right) => (right.date ?? "").localeCompare(left.date ?? ""));
   }
 
   return blogEntriesCache;
 }
 
 export function getLegacyBlogEntries(): LegacyBlogEntry[] {
-  if (!legacyBlogEntriesCache) {
+  if (!useContentCache || !legacyBlogEntriesCache) {
     legacyBlogEntriesCache = buildBlogEntries("blogs") as LegacyBlogEntry[];
     legacyBlogEntriesCache.sort((left, right) =>
       left.key.localeCompare(right.key, "en", {
@@ -126,8 +127,8 @@ export function getLegacyBlogEntries(): LegacyBlogEntry[] {
 }
 
 export function getGenericSectionRouteBases(): string[] {
-  if (!genericSectionRouteCache) {
-    genericSectionRouteCache = sortNaturally(
+  if (!useContentCache || !genericSectionRouteCache) {
+    genericSectionRouteCache = orderSourcesByMkdocsNav(
       [...new Set(
         [...getDocsFileSet()]
           .filter((relativePath) => relativePath.endsWith(".md"))

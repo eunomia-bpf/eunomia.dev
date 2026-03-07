@@ -1,6 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
 
+import { useContentCache } from "./cache";
+
 const repoRoot = path.resolve(process.cwd(), "..");
 export const docsRoot = path.join(repoRoot, "docs");
 export const siteRoot = path.join(repoRoot, "site");
@@ -39,7 +41,7 @@ function walkFiles(root: string): string[] {
 }
 
 export function getDocsFileSet(): Set<string> {
-  if (!docsFileSetCache) {
+  if (!useContentCache || !docsFileSetCache) {
     docsFileSetCache = new Set(
       walkFiles(docsRoot).map((filePath) => toPosix(path.relative(docsRoot, filePath)))
     );
@@ -48,7 +50,7 @@ export function getDocsFileSet(): Set<string> {
 }
 
 export function getSiteFileSet(): Set<string> {
-  if (!siteFileSetCache) {
+  if (!useContentCache || !siteFileSetCache) {
     siteFileSetCache = new Set(
       walkFiles(siteRoot).map((filePath) => toPosix(path.relative(siteRoot, filePath)))
     );
@@ -57,7 +59,7 @@ export function getSiteFileSet(): Set<string> {
 }
 
 export function getTopLevelSections(): string[] {
-  if (!topLevelSectionsCache) {
+  if (!useContentCache || !topLevelSectionsCache) {
     topLevelSectionsCache = fs
       .readdirSync(docsRoot, { withFileTypes: true })
       .filter((entry) => entry.isDirectory())

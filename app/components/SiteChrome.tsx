@@ -1,5 +1,6 @@
 import type { PropsWithChildren, ReactNode } from "react";
 
+import type { LocaleAlternates } from "../lib/content/types";
 import type { Locale } from "../lib/site-data";
 import { SiteFooter } from "./SiteFooter";
 import { SiteHeader } from "./SiteHeader";
@@ -10,12 +11,13 @@ type SiteChromeProps = PropsWithChildren<{
   title: string;
   intro: string;
   hero?: ReactNode;
+  alternates?: LocaleAlternates;
 }>;
 
-export function SiteChrome({ children, locale, eyebrow, title, intro, hero }: SiteChromeProps) {
+export function SiteChrome({ children, locale, eyebrow, title, intro, hero, alternates }: SiteChromeProps) {
   return (
     <div className="min-h-screen">
-      <SiteHeader locale={locale} />
+      <SiteHeader locale={locale} alternates={alternates} />
       <main>
         {hero ?? (
           <section className="mx-auto max-w-6xl px-5 pb-8 pt-14">

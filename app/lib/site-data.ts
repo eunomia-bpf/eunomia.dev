@@ -18,6 +18,7 @@ export const navByLocale: Record<Locale, NavItem[]> = {
     { label: "Tutorials", href: "/tutorials/" },
     { label: "Blog", href: "/blog/" },
     { label: "bpftime", href: "/bpftime/" },
+    { label: "eBPF×AI/LLMs", href: "/GPTtrace/" },
     { label: "eunomia-bpf", href: "/eunomia-bpf/" },
     { label: "Ecosystem", href: "/others/" }
   ],
@@ -25,6 +26,7 @@ export const navByLocale: Record<Locale, NavItem[]> = {
     { label: "教程", href: "/zh/tutorials/" },
     { label: "博客", href: "/zh/blog/" },
     { label: "bpftime", href: "/zh/bpftime/" },
+    { label: "eBPF×AI/LLMs", href: "/zh/GPTtrace/" },
     { label: "eunomia-bpf", href: "/zh/eunomia-bpf/" },
     { label: "生态", href: "/zh/others/" }
   ]

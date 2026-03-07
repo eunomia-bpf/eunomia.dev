@@ -7,7 +7,8 @@ import {
   fetchSitemapPaths,
   fetchText,
   pageUrl,
-  printFailures
+  printFailures,
+  siblingLocalePath
 } from "./lib/site.mjs";
 
 const failures = [];
@@ -49,10 +50,12 @@ async function auditSitemap() {
   return paths;
 }
 
-function validateSeoDocument(url, text) {
+function validateSeoDocument(url, text, sitemapPathSet) {
   const $ = load(text);
   const pathname = new URL(url).pathname;
   const expectedLang = expectedLangForPath(pathname);
+  const siblingLang = expectedLang === "zh" ? "en" : "zh";
+  const siblingPath = siblingLocalePath(pathname);
   const canonical = $("link[rel='canonical']").attr("href") ?? "";
   const alternates = $("link[rel='alternate'][hreflang]")
     .map((_, element) => ({
@@ -60,6 +63,7 @@ function validateSeoDocument(url, text) {
       hreflang: $(element).attr("hreflang") ?? ""
     }))
     .get();
+  const alternatesByLang = new Map(alternates.map((alternate) => [alternate.hreflang, alternate.href]));
   const rssFeed = $("link[rel='alternate'][type='application/rss+xml']").attr("href") ?? "";
   const expectedFeed = pathname.startsWith("/zh") ? pageUrl("/zh/feed.xml") : pageUrl("/feed.xml");
 
@@ -77,13 +81,21 @@ function validateSeoDocument(url, text) {
   check(Boolean(extractMeta($, "meta[property='og:image']")), `${pathname}: og:image exists`);
   check(rssFeed === expectedFeed, `${pathname}: rss alternate matches locale feed`);
   check(
-    alternates.some((alternate) => alternate.hreflang === "en"),
-    `${pathname}: hreflang en exists`
+    alternatesByLang.get(expectedLang) === url,
+    `${pathname}: hreflang ${expectedLang} matches current URL`
   );
-  check(
-    alternates.some((alternate) => alternate.hreflang === "zh"),
-    `${pathname}: hreflang zh exists`
-  );
+  const siblingHref = alternatesByLang.get(siblingLang);
+  if (sitemapPathSet.has(siblingPath)) {
+    check(
+      siblingHref === pageUrl(siblingPath),
+      `${pathname}: hreflang ${siblingLang} points to reachable sibling`
+    );
+  } else {
+    check(
+      !siblingHref,
+      `${pathname}: omits missing hreflang ${siblingLang} sibling`
+    );
+  }
   check(
     ($("html").attr("lang") ?? "").toLowerCase() === expectedLang,
     `${pathname}: html lang is ${expectedLang}`
@@ -97,13 +109,14 @@ function validateSeoDocument(url, text) {
 }
 
 async function auditSitemapPages(paths) {
+  const sitemapPathSet = new Set(paths.map((url) => new URL(url).pathname));
   let audited = 0;
   for (const url of paths) {
     const pathname = new URL(url).pathname;
     const { response, text } = await fetchText(url);
     check(response.ok, `${pathname}: page is reachable`);
     if (response.ok) {
-      validateSeoDocument(url, text);
+      validateSeoDocument(url, text, sitemapPathSet);
     }
     audited += 1;
     if (audited % 50 === 0 || audited === paths.length) {

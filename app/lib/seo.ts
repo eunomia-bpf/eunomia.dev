@@ -1,3 +1,4 @@
+import type { LocaleAlternates } from "./content/types";
 import { siteConfig } from "./site-data";
 
 export type AlternateLink = {
@@ -21,9 +22,11 @@ export function ogImageUrl(title: string, eyebrow?: string): string {
   return absoluteUrl(`/api/og?${params.toString()}`);
 }
 
-export function canonicalAlternates(enPath: string, zhPath: string): AlternateLink[] {
-  return [
-    { hrefLang: "en", href: absoluteUrl(enPath) },
-    { hrefLang: "zh", href: absoluteUrl(zhPath) }
-  ];
+export function canonicalAlternates(alternates: LocaleAlternates): AlternateLink[] {
+  return Object.entries(alternates)
+    .filter((entry): entry is [string, string] => typeof entry[1] === "string" && Boolean(entry[1]))
+    .map(([hrefLang, path]) => ({
+      hrefLang,
+      href: absoluteUrl(path)
+    }));
 }

@@ -122,3 +122,19 @@ export function readLocalSitemapPaths(filePath) {
 export function expectedLangForPath(pathname) {
   return pathname.startsWith("/zh/") || pathname === "/zh" ? "zh" : "en";
 }
+
+export function siblingLocalePath(pathname) {
+  if (pathname === "/") {
+    return "/zh/";
+  }
+
+  if (pathname === "/zh/" || pathname === "/zh") {
+    return "/";
+  }
+
+  if (pathname.startsWith("/zh/")) {
+    return pathname.replace(/^\/zh/, "") || "/";
+  }
+
+  return `/zh${pathname}`;
+}

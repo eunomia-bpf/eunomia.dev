@@ -8,16 +8,24 @@ export async function serveRawAsset(source: "docs" | "site", pathSegments: strin
   contentType: string;
 } | null> {
   const root = source === "docs" ? docsRoot : siteRoot;
+  const realRoot = fs.realpathSync(root);
   const relativePath = path.posix.normalize(pathSegments.join("/")).replace(/^(\.\.(\/|\\|$))+/, "");
   const absolutePath = path.join(root, relativePath);
+  const stats = fs.existsSync(absolutePath) ? fs.statSync(absolutePath) : null;
 
-  if (!absolutePath.startsWith(root) || !fs.existsSync(absolutePath) || fs.statSync(absolutePath).isDirectory()) {
+  if (!absolutePath.startsWith(root) || !stats || stats.isDirectory()) {
+    return null;
+  }
+
+  const realPath = fs.realpathSync(absolutePath);
+  const relativeToRoot = path.relative(realRoot, realPath);
+  if (relativeToRoot.startsWith("..") || path.isAbsolute(relativeToRoot)) {
     return null;
   }
 
   return {
-    filePath: absolutePath,
-    contentType: mimeTypeFor(absolutePath)
+    filePath: realPath,
+    contentType: mimeTypeFor(realPath)
   };
 }
 

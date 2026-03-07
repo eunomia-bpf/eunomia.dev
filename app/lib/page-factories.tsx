@@ -8,7 +8,7 @@ import { PageFooter } from "../components/PageFooter";
 import { SeoHead } from "../components/SeoHead";
 import { SiteChrome } from "../components/SiteChrome";
 import { canonicalAlternates } from "./seo";
-import type { GitMetadata, LandingCard, LandingPageData, MarkdownPage } from "./content/types";
+import type { GitMetadata, LandingCard, LandingPageData, LocaleAlternates, MarkdownPage } from "./content/types";
 import type { Locale } from "./site-data";
 
 export type HomeStat = {
@@ -34,10 +34,7 @@ export type HomePageData = {
   sourcePath: string;
   metadata?: GitMetadata | null;
   path: string;
-  alternates: {
-    en: string;
-    zh: string;
-  };
+  alternates: LocaleAlternates;
 };
 
 export type CollectionPageProps<IndexPage extends LandingPageData, ArticlePage extends MarkdownPage> =
@@ -202,12 +199,18 @@ export function CollectionPageView<IndexPage extends LandingPageData, ArticlePag
         title={page.title}
         description={page.description}
         path={page.path}
-        alternates={canonicalAlternates(page.alternates.en, page.alternates.zh)}
+        alternates={canonicalAlternates(page.alternates)}
         article={kind === "article"}
         metadata={page.metadata}
         eyebrow={eyebrow}
       />
-      <SiteChrome locale={locale} eyebrow={eyebrow} title={page.title} intro={page.description}>
+      <SiteChrome
+        locale={locale}
+        eyebrow={eyebrow}
+        title={page.title}
+        intro={page.description}
+        alternates={page.alternates}
+      >
         {renderCollectionContent(kind, page, locale)}
       </SiteChrome>
     </>
@@ -221,12 +224,18 @@ export function SectionPageView({ page, section, locale }: SectionPageViewProps)
         title={page.title}
         description={page.description}
         path={page.path}
-        alternates={canonicalAlternates(page.alternates.en, page.alternates.zh)}
+        alternates={canonicalAlternates(page.alternates)}
         article
         metadata={page.metadata}
         eyebrow={section}
       />
-      <SiteChrome locale={locale} eyebrow={section} title={page.title} intro={page.description}>
+      <SiteChrome
+        locale={locale}
+        eyebrow={section}
+        title={page.title}
+        intro={page.description}
+        alternates={page.alternates}
+      >
         <ArticleLayout
           locale={locale}
           path={page.path}
@@ -260,7 +269,7 @@ export function HomePageView({
         title={page.title}
         description={page.description}
         path={page.path}
-        alternates={canonicalAlternates(page.alternates.en, page.alternates.zh)}
+        alternates={canonicalAlternates(page.alternates)}
         metadata={page.metadata}
         eyebrow={eyebrow}
       />
@@ -269,6 +278,7 @@ export function HomePageView({
         eyebrow={eyebrow}
         title={page.title}
         intro={page.intro}
+        alternates={page.alternates}
         hero={<HomeLanding locale={locale} page={page} />}
       />
     </>

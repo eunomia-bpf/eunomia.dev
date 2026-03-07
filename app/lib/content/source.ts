@@ -92,7 +92,9 @@ export function tutorialSourceToSlugSegments(sourceRelative: string): string[] {
 }
 
 export function sectionSourceToSlugSegments(sourceRelative: string, section: string): string[] {
-  const withoutExt = sourceRelative.replace(new RegExp(`^${section}/`), "").replace(/\.md$/, "");
+  const prefix = `${section}/`;
+  const withoutSection = sourceRelative.startsWith(prefix) ? sourceRelative.slice(prefix.length) : sourceRelative;
+  const withoutExt = withoutSection.replace(/\.md$/, "");
   const pieces = withoutExt.split("/");
   const trailing = pieces.at(-1);
   return trailing === "README" || trailing === "index" ? pieces.slice(0, -1) : pieces;

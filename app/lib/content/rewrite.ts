@@ -110,28 +110,25 @@ function resolveDocLinkCandidate(relativePath: string): string | null {
 function rewriteAbsolutePath(value: string): string {
   const { pathname, search, hash } = splitSuffix(value);
   const normalized = pathname.replace(/^\/+/, "");
+  const docsFiles = getDocsFileSet();
+  const siteFiles = getSiteFileSet();
 
   if (!normalized) {
     return `${pathname}${search}${hash}`;
   }
 
-  if (getDocsFileSet().has(normalized)) {
+  if (docsFiles.has(normalized)) {
     const route = resolveRouteFromDocSource(normalized, normalized.endsWith(".zh.md") ? "zh" : "en");
     if (route) {
       return `${route}${search}${hash}`;
     }
   }
 
-  if (getDocsFileSet().has(normalized) || looksLikeAsset(normalized)) {
-    if (getDocsFileSet().has(normalized) && looksLikeAsset(normalized)) {
-      return `${toRawAssetPath("docs", normalized)}${search}${hash}`;
-    }
-    if (getSiteFileSet().has(normalized)) {
-      return `${toRawAssetPath("site", normalized)}${search}${hash}`;
-    }
+  if (docsFiles.has(normalized)) {
+    return `${toRawAssetPath("docs", normalized)}${search}${hash}`;
   }
 
-  if (getSiteFileSet().has(normalized)) {
+  if (siteFiles.has(normalized)) {
     return `${toRawAssetPath("site", normalized)}${search}${hash}`;
   }
 

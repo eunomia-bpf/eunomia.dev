@@ -21,5 +21,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   res.setHeader("Content-Type", asset.contentType);
   res.setHeader("Cache-Control", "public, max-age=3600");
-  res.status(200).send(fs.readFileSync(asset.filePath));
+
+  try {
+    res.status(200).send(fs.readFileSync(asset.filePath));
+  } catch {
+    res.status(404).end("Not Found");
+  }
 }

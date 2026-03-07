@@ -25,16 +25,21 @@ export default class MyDocument extends Document<Props> {
   }
 
   render() {
+    const analyticsId = JSON.stringify(siteConfig.analyticsId);
+
     return (
       <Html lang={this.props.localeLang}>
         <Head>
-          <script async src={`https://www.googletagmanager.com/gtag/js?id=${siteConfig.analyticsId}`} />
+          <script
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(siteConfig.analyticsId)}`}
+          />
           <script
             dangerouslySetInnerHTML={{
               __html: `window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', '${siteConfig.analyticsId}');`
+gtag('config', ${analyticsId});`
             }}
           />
         </Head>

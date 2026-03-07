@@ -23,7 +23,8 @@ function normalizeQuery(value: string | string[] | undefined): string {
 export default function handler(req: NextApiRequest, res: NextApiResponse<SearchResponse>) {
   const locale = normalizeLocale(req.query.locale);
   const query = normalizeQuery(req.query.q);
-  const limit = Math.min(Number.parseInt(normalizeQuery(req.query.limit), 10) || 8, 24);
+  const parsedLimit = Number.parseInt(normalizeQuery(req.query.limit), 10);
+  const limit = Number.isFinite(parsedLimit) ? Math.max(1, Math.min(parsedLimit, 24)) : 8;
 
   res.setHeader("Cache-Control", "public, s-maxage=300, stale-while-revalidate=3600");
   res.status(200).json({

@@ -1,4 +1,5 @@
 import type { Locale } from "../site-data";
+import { useContentCache } from "./cache";
 import {
   getBlogEntries,
   getGenericSectionRouteBases,
@@ -11,9 +12,11 @@ import {
   sectionSourceToSlugSegments,
   tutorialSourceToSlugSegments
 } from "./source";
-import type { ContentManifestRecord } from "./types";
+import type { ContentManifestRecord, LocaleAlternates } from "./types";
 
 let contentManifestCache: ContentManifestRecord[] | null = null;
+let manifestBySourceCache: Map<string, ContentManifestRecord> | null = null;
+let manifestByRouteCache: Map<string, LocaleAlternates> | null = null;
 
 function buildTutorialPath(slugSegments: string[], locale: Locale): string {
   const prefix = locale === "zh" ? "/zh" : "";
@@ -36,7 +39,7 @@ function buildSectionPath(section: string, slugSegments: string[], locale: Local
 }
 
 export function getContentManifest(): ContentManifestRecord[] {
-  if (contentManifestCache) {
+  if (useContentCache && contentManifestCache) {
     return contentManifestCache;
   }
 
@@ -153,8 +156,69 @@ export function getContentManifest(): ContentManifestRecord[] {
     });
   }
 
-  contentManifestCache = manifest;
-  return contentManifestCache;
+  if (useContentCache) {
+    contentManifestCache = manifest;
+  }
+
+  return manifest;
+}
+
+function buildManifestIndexes() {
+  if (useContentCache && manifestBySourceCache && manifestByRouteCache) {
+    return {
+      bySource: manifestBySourceCache,
+      byRoute: manifestByRouteCache
+    };
+  }
+
+  const bySource = new Map<string, ContentManifestRecord>();
+  const byRoute = new Map<string, LocaleAlternates>();
+
+  for (const record of getContentManifest()) {
+    for (const source of Object.values(record.sourceByLocale)) {
+      if (source) {
+        bySource.set(baseMarkdownPath(source), record);
+      }
+    }
+
+    const alternates: LocaleAlternates = {};
+    if (record.routeByLocale.en) {
+      alternates.en = record.routeByLocale.en;
+      byRoute.set(record.routeByLocale.en, alternates);
+    }
+    if (record.routeByLocale.zh) {
+      alternates.zh = record.routeByLocale.zh;
+      byRoute.set(record.routeByLocale.zh, alternates);
+    }
+  }
+
+  if (useContentCache) {
+    manifestBySourceCache = bySource;
+    manifestByRouteCache = byRoute;
+  }
+
+  return {
+    bySource,
+    byRoute
+  };
+}
+
+function normalizeAlternates(
+  alternates: LocaleAlternates | undefined,
+  locale?: Locale,
+  currentPath?: string
+): LocaleAlternates {
+  const normalized: LocaleAlternates = {};
+  if (alternates?.en) {
+    normalized.en = alternates.en;
+  }
+  if (alternates?.zh) {
+    normalized.zh = alternates.zh;
+  }
+  if (locale && currentPath) {
+    normalized[locale] ??= currentPath;
+  }
+  return normalized;
 }
 
 export function listSitemapRoutes(): string[] {
@@ -174,6 +238,11 @@ export function listSitemapRoutes(): string[] {
 
 export function resolveRouteFromDocSource(relativePath: string, locale: Locale): string | null {
   const normalized = baseMarkdownPath(relativePath);
+  const { bySource } = buildManifestIndexes();
+  const exactRecord = bySource.get(normalized);
+  if (exactRecord) {
+    return exactRecord.routeByLocale[locale] ?? exactRecord.routeByLocale.en ?? exactRecord.routeByLocale.zh ?? null;
+  }
 
   for (const record of getContentManifest()) {
     const exactSource = record.sourceByLocale[locale];
@@ -188,4 +257,18 @@ export function resolveRouteFromDocSource(relativePath: string, locale: Locale):
   }
 
   return null;
+}
+
+export function resolveAlternatesFromDocSource(
+  relativePath: string,
+  locale: Locale,
+  currentPath?: string
+): LocaleAlternates {
+  const { bySource } = buildManifestIndexes();
+  return normalizeAlternates(bySource.get(baseMarkdownPath(relativePath))?.routeByLocale, locale, currentPath);
+}
+
+export function resolveAlternatesFromRoute(path: string): LocaleAlternates {
+  const { byRoute } = buildManifestIndexes();
+  return normalizeAlternates(byRoute.get(path));
 }
