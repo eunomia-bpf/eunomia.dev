@@ -41,6 +41,59 @@ a {
   @apply mb-4 leading-7 text-slate-700;
 }
 
+.content-copy h1,
+.content-copy h2,
+.content-copy h3,
+.content-copy h4 {
+  @apply mt-10 text-ink;
+}
+
+.content-copy h2 {
+  @apply mb-4 text-2xl font-semibold;
+}
+
+.content-copy h3 {
+  @apply mb-3 text-xl font-semibold;
+}
+
+.content-copy ul,
+.content-copy ol {
+  @apply mb-5 pl-6 text-slate-700;
+}
+
+.content-copy li {
+  @apply mb-2 leading-7;
+}
+
+.content-copy a {
+  @apply text-azure underline decoration-slate-300 underline-offset-4 transition hover:decoration-azure;
+}
+
+.content-copy img {
+  @apply my-6 rounded-2xl border border-slate-200 shadow-sm;
+}
+
+.content-copy pre {
+  @apply mb-6 overflow-x-auto rounded-2xl bg-slate-950 p-4 text-sm text-slate-100;
+}
+
 .content-copy code {
   @apply rounded bg-slate-100 px-1.5 py-0.5 text-sm text-slate-800;
+}
+
+.content-copy pre code {
+  @apply bg-transparent p-0 text-inherit;
+}
+
+.content-copy blockquote {
+  @apply mb-6 border-l-4 border-azure/60 bg-azure/5 px-4 py-3 text-slate-700;
+}
+
+.content-copy table {
+  @apply mb-6 w-full border-collapse overflow-hidden rounded-2xl text-left text-sm;
+}
+
+.content-copy th,
+.content-copy td {
+  @apply border border-slate-200 px-3 py-2 align-top;
 }

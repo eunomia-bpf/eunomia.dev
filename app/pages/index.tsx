@@ -1,25 +1,28 @@
+import type { GetStaticProps, InferGetStaticPropsType } from "next";
+
 import { CardGrid } from "../components/CardGrid";
 import { SeoHead } from "../components/SeoHead";
 import { SiteChrome } from "../components/SiteChrome";
+import { loadHomePage } from "../lib/content";
 import { canonicalAlternates } from "../lib/seo";
-import { homeSections } from "../lib/site-data";
 
-export default function HomePage() {
+export const getStaticProps: GetStaticProps = async () => ({
+  props: {
+    page: await loadHomePage("en")
+  }
+});
+
+export default function HomePage({ page }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
       <SeoHead
-        title="Unlock the potential of eBPF"
-        description="A custom frontend prototype for eunomia.dev focused on preserving stable routes, SEO, and content entry points."
-        path="/"
-        alternates={canonicalAlternates("/", "/zh/")}
+        title={page.title}
+        description={page.description}
+        path={page.path}
+        alternates={canonicalAlternates(page.alternates.en, page.alternates.zh)}
       />
-      <SiteChrome
-        locale="en"
-        eyebrow="Custom Frontend"
-        title="A React + Tailwind migration slice that keeps eunomia.dev crawlable."
-        intro="This first implementation keeps the public route structure, metadata, and primary content entry points intact while moving toward a custom frontend stack."
-      >
-        <CardGrid cards={homeSections} />
+      <SiteChrome locale="en" eyebrow="Home" title={page.title} intro={page.intro}>
+        <CardGrid cards={page.cards} />
       </SiteChrome>
     </>
   );

@@ -1,25 +1,10 @@
 import type { GetServerSideProps } from "next";
 
+import { listSitemapRoutes } from "../lib/content";
 import { absoluteUrl } from "../lib/seo";
-import { blogPath, blogPosts, tutorialArticles, tutorialPath } from "../lib/site-data";
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
-  const routes = [
-    "/",
-    "/zh/",
-    "/tutorials/",
-    "/zh/tutorials/",
-    "/blog/",
-    "/zh/blog/",
-    "/bpftime/",
-    "/zh/bpftime/",
-    "/eunomia-bpf/",
-    "/zh/eunomia-bpf/",
-    "/others/",
-    "/zh/others/",
-    ...tutorialArticles.map((article) => tutorialPath(article.slug)),
-    ...blogPosts.map((post) => blogPath(post))
-  ];
+  const routes = listSitemapRoutes();
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">

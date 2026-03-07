@@ -99,6 +99,12 @@ async function main() {
     }
     check(await page.locator("main h1").first().count(), "tutorial article has h1");
 
+    await page.goto(absolute(smokeRoutes.tutorialNestedArticle), { waitUntil: "networkidle" });
+    check(
+      await page.locator("main h1").first().count(),
+      "nested tutorial article has h1"
+    );
+
     await page.goto(absolute(smokeRoutes.blogIndex), { waitUntil: "networkidle" });
     const blogLink = page.locator("main a[href*='/blog/']").filter({
       hasNot: page.locator("img")
@@ -112,6 +118,12 @@ async function main() {
     check(await page.locator("main h1").first().count(), "blog article has h1");
     const editLink = page.locator("a[href*='github.com'][href*='/tree/main/docs']").first();
     check(await editLink.count(), "blog article exposes edit link");
+
+    await page.goto(absolute(smokeRoutes.legacyBlogArticle), { waitUntil: "networkidle" });
+    check(await page.locator("main h1").first().count(), "legacy blog article has h1");
+
+    await page.goto(absolute(smokeRoutes.sectionArticle), { waitUntil: "networkidle" });
+    check(await page.locator("main h1").first().count(), "section article has h1");
 
     await page.goto(absolute(smokeRoutes.zhHome), { waitUntil: "networkidle" });
     const bodyText = await page.textContent("body");
@@ -132,6 +144,12 @@ async function main() {
     check(
       /(教程|tutorial)/i.test(await page.textContent("main")),
       "Chinese tutorials page is reachable"
+    );
+
+    await page.goto(absolute(smokeRoutes.zhLegacyBlogArticle), { waitUntil: "networkidle" });
+    check(
+      await page.locator("main h1").first().count(),
+      "Chinese legacy blog article has h1"
     );
   } finally {
     await browser.close();
