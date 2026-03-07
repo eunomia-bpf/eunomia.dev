@@ -1,18 +1,9 @@
-import type { GetStaticProps } from "next";
+import { createHomePage } from "../lib/page-builders";
+import { createHomePageRoute } from "../lib/route-builders";
 
-import { loadHomePage } from "../lib/content";
-import { HomePageView } from "../lib/page-factories";
+const homePageRoute = createHomePageRoute("en");
+const homePage = createHomePage("en", "Home");
 
-type HomePageProps = {
-  page: Awaited<ReturnType<typeof loadHomePage>>;
-};
+export const getStaticProps = homePageRoute.getStaticProps;
 
-export const getStaticProps: GetStaticProps<HomePageProps> = async () => ({
-  props: {
-    page: await loadHomePage("en")
-  }
-});
-
-export default function HomePage({ page }: HomePageProps) {
-  return <HomePageView page={page} locale="en" eyebrow="Home" />;
-}
+export default homePage;

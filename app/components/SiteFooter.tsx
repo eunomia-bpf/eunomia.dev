@@ -1,25 +1,13 @@
 import { navByLocale, siteConfig, type Locale } from "../lib/site-data";
+import { siteFooterCopyByLocale } from "../lib/ui-copy";
 
 type SiteFooterProps = {
   locale: Locale;
 };
 
 export function SiteFooter({ locale }: SiteFooterProps) {
-  const copy =
-    locale === "zh"
-      ? {
-          explore: "浏览",
-          projects: "项目",
-          community: "社区",
-          copyright: "eunomia.dev 站点前端，保留文档、教程和旧链接兼容。"
-        }
-      : {
-          explore: "Explore",
-          projects: "Projects",
-          community: "Community",
-          copyright: "eunomia.dev frontend preserving docs, tutorials, and legacy link compatibility."
-        };
-  const exploreLinks = [...navByLocale[locale], { label: locale === "zh" ? "旧博客" : "Legacy blog", href: locale === "zh" ? "/zh/blogs/" : "/blogs/" }];
+  const copy = siteFooterCopyByLocale[locale];
+  const exploreLinks = [...navByLocale[locale], { label: copy.legacyBlog, href: locale === "zh" ? "/zh/blogs/" : "/blogs/" }];
   const projectLinks = [
     { label: "GPTtrace", href: locale === "zh" ? "/zh/GPTtrace/" : "/GPTtrace/" },
     { label: "wasm-bpf", href: locale === "zh" ? "/zh/wasm-bpf/" : "/wasm-bpf/" },

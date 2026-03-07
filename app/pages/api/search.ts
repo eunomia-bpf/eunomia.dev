@@ -27,7 +27,14 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Search
   const limit = Number.isFinite(parsedLimit) ? Math.max(1, Math.min(parsedLimit, 24)) : 8;
 
   res.setHeader("Cache-Control", "public, s-maxage=300, stale-while-revalidate=3600");
-  res.status(200).json({
-    results: searchContent(query, locale, limit)
-  });
+  try {
+    res.status(200).json({
+      results: searchContent(query, locale, limit)
+    });
+  } catch (error) {
+    console.error("Search API failed.", error);
+    res.status(500).json({
+      results: []
+    });
+  }
 }

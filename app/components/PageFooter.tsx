@@ -1,5 +1,6 @@
 import type { GitMetadata, PageContinuation } from "../lib/content/types";
 import { siteConfig, type Locale } from "../lib/site-data";
+import { pageFooterCopyByLocale } from "../lib/ui-copy";
 import { FeedbackWidget } from "./FeedbackWidget";
 
 type PageFooterProps = {
@@ -30,38 +31,7 @@ function joinAuthors(metadata?: GitMetadata | null) {
 }
 
 export function PageFooter({ locale, title, path, sourceHref, metadata, continuation }: PageFooterProps) {
-  const labels =
-    locale === "zh"
-      ? {
-          updated: "最后更新",
-          created: "首次发布",
-          authors: "贡献者",
-          continue: "继续阅读",
-          backToIndex: "返回索引",
-          previous: "上一篇 / 上一页",
-          next: "下一篇 / 下一页",
-          edit: "编辑此页",
-          shareX: "分享到 X",
-          shareFacebook: "分享到 Facebook",
-          discuss: "参与讨论",
-          feed: "RSS 订阅",
-          overflow: "更多"
-        }
-      : {
-          updated: "Last updated",
-          created: "First published",
-          authors: "Contributors",
-          continue: "Continue exploring",
-          backToIndex: "Back to index",
-          previous: "Previous",
-          next: "Next",
-          edit: "Edit this page",
-          shareX: "Share on X",
-          shareFacebook: "Share on Facebook",
-          discuss: "Join discussion",
-          feed: "RSS feed",
-          overflow: "more"
-        };
+  const labels = pageFooterCopyByLocale[locale];
 
   const absolutePath = new URL(path, siteConfig.siteUrl).toString();
   const shareTitle = encodeURIComponent(`${title}\n`);

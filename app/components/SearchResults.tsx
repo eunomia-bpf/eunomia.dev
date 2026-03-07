@@ -1,8 +1,10 @@
+import Link from "next/link";
 import { Fragment } from "react";
 
 import type { SearchResult } from "../lib/content/types";
 import { absoluteUrl, canonicalAlternates } from "../lib/seo";
 import type { Locale } from "../lib/site-data";
+import { getSearchResultsCopy } from "../lib/ui-copy";
 import { SeoHead } from "./SeoHead";
 import { SiteChrome } from "./SiteChrome";
 
@@ -36,30 +38,7 @@ function highlightMatches(value: string, query: string) {
 }
 
 export function SearchResults({ locale, query, results }: SearchResultsProps) {
-  const copy =
-    locale === "zh"
-      ? {
-          eyebrow: "搜索",
-          title: query ? `“${query}” 的搜索结果` : "搜索站点内容",
-          intro: query
-            ? `找到 ${results.length} 条匹配结果。`
-            : "输入至少 2 个字符，通过 header 搜索框检索教程、博客和文档页面。",
-          empty: "没有找到匹配结果，可以换个关键词再试。",
-          prompt: "输入至少 2 个字符后，再从 header 的搜索框发起搜索。",
-          open: "打开结果",
-          share: "分享搜索"
-        }
-      : {
-          eyebrow: "Search",
-          title: query ? `Results for “${query}”` : "Search the site",
-          intro: query
-            ? `Found ${results.length} matching results.`
-            : "Use at least 2 characters from the header search box to search tutorials, blog posts, and docs.",
-          empty: "No matching results yet. Try a broader or more specific query.",
-          prompt: "Use at least 2 characters, then search from the header search box.",
-          open: "Open result",
-          share: "Share search"
-        };
+  const copy = getSearchResultsCopy(locale, query, results.length);
   const path = locale === "zh" ? "/zh/search/" : "/search/";
   const shareHref = `https://x.com/intent/tweet?text=${encodeURIComponent(copy.title)}&url=${encodeURIComponent(
     absoluteUrl(`${path}?q=${encodeURIComponent(query.trim())}`)
@@ -100,7 +79,7 @@ export function SearchResults({ locale, query, results }: SearchResultsProps) {
                 </a>
               </div>
               {results.map((result) => (
-                <a
+                <Link
                   key={`${result.locale}:${result.href}`}
                   href={result.href}
                   className="rounded-[1.75rem] border border-slate-200 bg-white/90 p-6 shadow-panel transition hover:border-azure hover:-translate-y-0.5"
@@ -119,7 +98,7 @@ export function SearchResults({ locale, query, results }: SearchResultsProps) {
                     </span>
                   </div>
                   <span className="mt-5 inline-flex text-sm font-semibold text-azure">{copy.open}</span>
-                </a>
+                </Link>
               ))}
             </div>
           ) : (

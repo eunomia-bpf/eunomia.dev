@@ -1,5 +1,6 @@
 import type { PageLink } from "../lib/content/types";
 import type { Locale } from "../lib/site-data";
+import { breadcrumbCopyByLocale } from "../lib/ui-copy";
 
 type BreadcrumbsProps = {
   locale: Locale;
@@ -8,13 +9,12 @@ type BreadcrumbsProps = {
 };
 
 export function Breadcrumbs({ locale, currentTitle, sectionLink }: BreadcrumbsProps) {
-  const home = locale === "zh" ? { label: "主页", href: "/zh/" } : { label: "Home", href: "/" };
-  const ariaLabel = locale === "zh" ? "面包屑" : "Breadcrumb";
+  const copy = breadcrumbCopyByLocale[locale];
 
   return (
-    <nav aria-label={ariaLabel} className="mb-5 flex flex-wrap items-center gap-2 text-sm text-slate-500">
-      <a href={home.href} className="transition hover:text-azure">
-        {home.label}
+    <nav aria-label={copy.ariaLabel} className="mb-5 flex flex-wrap items-center gap-2 text-sm text-slate-500">
+      <a href={copy.homeHref} className="transition hover:text-azure">
+        {copy.homeLabel}
       </a>
       {sectionLink ? (
         <>

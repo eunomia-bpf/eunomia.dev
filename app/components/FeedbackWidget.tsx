@@ -3,6 +3,7 @@
 import { startTransition, useState } from "react";
 
 import type { Locale } from "../lib/site-data";
+import { feedbackCopyByLocale } from "../lib/ui-copy";
 
 declare global {
   interface Window {
@@ -17,25 +18,6 @@ type FeedbackWidgetProps = {
 };
 
 type FeedbackState = "helpful" | "improve" | null;
-
-const copyByLocale = {
-  en: {
-    title: "Was this page helpful?",
-    helpful: "This page was helpful",
-    improve: "This page could be improved",
-    thanks: "Thanks for your feedback!",
-    improvePrefix: "Thanks for your feedback! Help us improve this page by using our",
-    discussion: "GitHub discussion"
-  },
-  zh: {
-    title: "这个页面有帮助吗？",
-    helpful: "这个页面有帮助",
-    improve: "这个页面还可以改进",
-    thanks: "感谢你的反馈！",
-    improvePrefix: "感谢你的反馈！欢迎通过我们的",
-    discussion: "GitHub 讨论区"
-  }
-} as const;
 
 function recordFeedback(state: Exclude<FeedbackState, null>, path: string, title: string) {
   if (typeof window === "undefined" || typeof window.gtag !== "function") {
@@ -54,7 +36,7 @@ function recordFeedback(state: Exclude<FeedbackState, null>, path: string, title
 
 export function FeedbackWidget({ locale, path, title }: FeedbackWidgetProps) {
   const [selected, setSelected] = useState<FeedbackState>(null);
-  const copy = copyByLocale[locale];
+  const copy = feedbackCopyByLocale[locale];
 
   function submitFeedback(nextState: Exclude<FeedbackState, null>) {
     recordFeedback(nextState, path, title);

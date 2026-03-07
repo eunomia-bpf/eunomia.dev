@@ -1,25 +1,14 @@
-import type { GetStaticPaths, GetStaticProps } from "next";
+import { createCollectionPage } from "../../lib/page-builders";
+import { createTutorialPageRoute } from "../../lib/route-builders";
+import { loadTutorialIndex, loadTutorialPage } from "../../lib/content";
 
-import {
-  getTutorialRoutes,
-  loadTutorialIndex,
-  loadTutorialPage
-} from "../../lib/content";
-import { buildSlugStaticPaths, CollectionPageView, loadCollectionStaticProps, type CollectionPageProps } from "../../lib/page-factories";
-
-type TutorialsPageProps = CollectionPageProps<
+const tutorialsPageRoute = createTutorialPageRoute("en");
+const tutorialsPage = createCollectionPage<
   Awaited<ReturnType<typeof loadTutorialIndex>>,
   NonNullable<Awaited<ReturnType<typeof loadTutorialPage>>>
->;
+>("en", "Tutorials");
 
-export const getStaticPaths: GetStaticPaths = async () => buildSlugStaticPaths(getTutorialRoutes("en"));
+export const getStaticPaths = tutorialsPageRoute.getStaticPaths;
+export const getStaticProps = tutorialsPageRoute.getStaticProps;
 
-export const getStaticProps: GetStaticProps<TutorialsPageProps> = async ({ params }) =>
-  loadCollectionStaticProps(params, {
-    loadIndex: () => loadTutorialIndex("en"),
-    loadArticle: (slug) => loadTutorialPage(slug, "en")
-  });
-
-export default function TutorialsPage(props: TutorialsPageProps) {
-  return <CollectionPageView {...props} locale="en" eyebrow="Tutorials" />;
-}
+export default tutorialsPage;

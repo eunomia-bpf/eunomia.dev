@@ -1,18 +1,9 @@
-import type { GetStaticProps } from "next";
+import { createHomePage } from "../../lib/page-builders";
+import { createHomePageRoute } from "../../lib/route-builders";
 
-import { loadHomePage } from "../../lib/content";
-import { HomePageView } from "../../lib/page-factories";
+const homePageRoute = createHomePageRoute("zh");
+const homePage = createHomePage("zh", "主页");
 
-type HomePageProps = {
-  page: Awaited<ReturnType<typeof loadHomePage>>;
-};
+export const getStaticProps = homePageRoute.getStaticProps;
 
-export const getStaticProps: GetStaticProps<HomePageProps> = async () => ({
-  props: {
-    page: await loadHomePage("zh")
-  }
-});
-
-export default function ZhHomePage({ page }: HomePageProps) {
-  return <HomePageView page={page} locale="zh" eyebrow="主页" />;
-}
+export default homePage;

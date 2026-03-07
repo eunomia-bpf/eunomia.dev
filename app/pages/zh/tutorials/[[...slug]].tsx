@@ -1,25 +1,14 @@
-import type { GetStaticPaths, GetStaticProps } from "next";
+import { createCollectionPage } from "../../../lib/page-builders";
+import { createTutorialPageRoute } from "../../../lib/route-builders";
+import { loadTutorialIndex, loadTutorialPage } from "../../../lib/content";
 
-import {
-  getTutorialRoutes,
-  loadTutorialIndex,
-  loadTutorialPage
-} from "../../../lib/content";
-import { buildSlugStaticPaths, CollectionPageView, loadCollectionStaticProps, type CollectionPageProps } from "../../../lib/page-factories";
-
-type TutorialsPageProps = CollectionPageProps<
+const tutorialsPageRoute = createTutorialPageRoute("zh");
+const tutorialsPage = createCollectionPage<
   Awaited<ReturnType<typeof loadTutorialIndex>>,
   NonNullable<Awaited<ReturnType<typeof loadTutorialPage>>>
->;
+>("zh", "教程");
 
-export const getStaticPaths: GetStaticPaths = async () => buildSlugStaticPaths(getTutorialRoutes("zh"));
+export const getStaticPaths = tutorialsPageRoute.getStaticPaths;
+export const getStaticProps = tutorialsPageRoute.getStaticProps;
 
-export const getStaticProps: GetStaticProps<TutorialsPageProps> = async ({ params }) =>
-  loadCollectionStaticProps(params, {
-    loadIndex: () => loadTutorialIndex("zh"),
-    loadArticle: (slug) => loadTutorialPage(slug, "zh")
-  });
-
-export default function ZhTutorialsPage(props: TutorialsPageProps) {
-  return <CollectionPageView {...props} locale="zh" eyebrow="教程" />;
-}
+export default tutorialsPage;

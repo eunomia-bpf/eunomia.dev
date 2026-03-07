@@ -1,12 +1,25 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-function escapeHtml(value: string) {
+const MAX_TITLE_LENGTH = 160;
+const MAX_EYEBROW_LENGTH = 48;
+
+function escapeXml(value: string) {
   return value
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#39;");
+}
+
+function normalizeParam(value: string | string[] | undefined, fallback: string, limit: number): string {
+  const candidate = Array.isArray(value) ? value[0] : value;
+  const normalized = (candidate ?? fallback).replace(/\s+/g, " ").trim();
+  if (!normalized) {
+    return fallback;
+  }
+
+  return normalized.length > limit ? `${normalized.slice(0, Math.max(1, limit - 1)).trimEnd()}…` : normalized;
 }
 
 function wrapText(value: string, limit: number) {
@@ -31,12 +44,17 @@ function wrapText(value: string, limit: number) {
     lines.push(current);
   }
 
-  return lines.slice(0, 3);
+  const visibleLines = lines.slice(0, 3);
+  if (lines.length > visibleLines.length && visibleLines.length) {
+    visibleLines[visibleLines.length - 1] = `${visibleLines[visibleLines.length - 1].replace(/[.…]+$/, "")}…`;
+  }
+
+  return visibleLines;
 }
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<string>) {
-  const title = String(req.query.title ?? "eunomia");
-  const eyebrow = String(req.query.eyebrow ?? "eunomia.dev");
+  const title = normalizeParam(req.query.title, "eunomia", MAX_TITLE_LENGTH);
+  const eyebrow = normalizeParam(req.query.eyebrow, "eunomia.dev", MAX_EYEBROW_LENGTH);
   const lines = wrapText(title, 28);
 
   const svg = `<?xml version="1.0" encoding="UTF-8"?>
@@ -61,14 +79,14 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<string
   <ellipse cx="980" cy="120" rx="320" ry="260" fill="url(#glowA)"/>
   <ellipse cx="220" cy="520" rx="280" ry="180" fill="url(#glowB)"/>
   <rect x="88" y="86" width="180" height="44" rx="22" fill="rgba(255,255,255,0.12)"/>
-  <text x="118" y="114" fill="#E0F2FE" font-size="22" font-family="ui-sans-serif, system-ui, sans-serif" letter-spacing="3">${escapeHtml(
+  <text x="118" y="114" fill="#E0F2FE" font-size="22" font-family="ui-sans-serif, system-ui, sans-serif" letter-spacing="3">${escapeXml(
     eyebrow.toUpperCase()
   )}</text>
   <text x="88" y="196" fill="#FFFFFF" font-size="64" font-weight="700" font-family="ui-serif, Georgia, serif">
     ${lines
       .map(
         (line, index) =>
-          `<tspan x="88" y="${196 + index * 76}">${escapeHtml(line)}</tspan>`
+          `<tspan x="88" y="${196 + index * 76}">${escapeXml(line)}</tspan>`
       )
       .join("")}
   </text>

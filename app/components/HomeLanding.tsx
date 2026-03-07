@@ -1,5 +1,6 @@
 import type { HomePageData } from "../lib/page-factories";
 import { type Locale, siteConfig } from "../lib/site-data";
+import { homeLandingCopyByLocale } from "../lib/ui-copy";
 import { PageFooter } from "./PageFooter";
 
 type HomeLandingProps = {
@@ -8,60 +9,7 @@ type HomeLandingProps = {
 };
 
 export function HomeLanding({ locale, page }: HomeLandingProps) {
-  const copy =
-    locale === "zh"
-      ? {
-          badge: "eunomia.dev",
-          headline: "让 eBPF、userspace runtime 和 AI-native tracing 的入口更清晰。",
-          body:
-            "保留文档与教程路径的稳定性，同时把教程、bpftime、eunomia-bpf 和研究型内容收口成一个更像产品入口的首页。",
-          primaryCta: "浏览教程",
-          secondaryCta: "查看最新文章",
-          tertiaryCta: "查看 GitHub",
-          spotlightLabel: "最新文章",
-          tracksLabel: "核心方向",
-          signalLabel: "站点信号",
-          signalTitle: "这个首页现在扮演入口，而不是文档目录。",
-          exploreLabel: "更多入口",
-          signals: [
-            "中英文文档和旧链接都保留",
-            "搜索、SEO、canonical、hreflang 继续可用",
-            "文档页继续直接渲染真实 Markdown"
-          ]
-        }
-      : {
-          badge: "eunomia.dev",
-          headline: "A clearer front door for eBPF tooling, userspace runtimes, and AI-native tracing.",
-          body:
-            "The docs and tutorial routes stay stable, while the homepage turns into a stronger product entry for tutorials, bpftime, eunomia-bpf, and research-heavy content.",
-          primaryCta: "Explore tutorials",
-          secondaryCta: "Read latest post",
-          tertiaryCta: "Open GitHub",
-          spotlightLabel: "Latest note",
-          tracksLabel: "Core tracks",
-          signalLabel: "Site signals",
-          signalTitle: "The homepage now behaves like an entry point instead of a docs directory.",
-          exploreLabel: "More to explore",
-          signals: [
-            "English, Chinese, and legacy links stay intact",
-            "Search, SEO, canonical tags, and hreflang still work",
-            "Docs pages keep rendering straight from the Markdown source"
-          ]
-        };
-  const moreLinks =
-    locale === "zh"
-      ? [
-          { title: "博客归档", description: "保留旧 /blogs/* 内容和链接。", href: "/zh/blogs/" },
-          { title: "生态系统", description: "查看更多 talks、misc、项目资料。", href: "/zh/others/" },
-          { title: "GPTtrace", description: "AI-native tracing 与 agent observability 相关文档。", href: "/zh/GPTtrace/" },
-          { title: "wasm-bpf", description: "运行时、Wasm 和 eBPF 交叉方向。", href: "/zh/wasm-bpf/" }
-        ]
-      : [
-          { title: "Legacy blog", description: "Keep the older /blogs/* archive reachable.", href: "/blogs/" },
-          { title: "Ecosystem", description: "Talks, misc notes, and broader project context.", href: "/others/" },
-          { title: "GPTtrace", description: "AI-native tracing and agent observability docs.", href: "/GPTtrace/" },
-          { title: "wasm-bpf", description: "Runtime, Wasm, and eBPF crossover work.", href: "/wasm-bpf/" }
-        ];
+  const copy = homeLandingCopyByLocale[locale];
 
   return (
     <section className="pb-16">
@@ -153,7 +101,7 @@ export function HomeLanding({ locale, page }: HomeLandingProps) {
               <h3 className="mt-5 text-2xl font-semibold tracking-tight text-ink">{card.title}</h3>
               <p className="mt-4 leading-7 text-slate-600">{card.description}</p>
               <span className="mt-6 inline-flex text-sm font-semibold text-azure transition group-hover:translate-x-1">
-                Open
+                {copy.openCard}
               </span>
             </a>
           ))}
@@ -165,7 +113,7 @@ export function HomeLanding({ locale, page }: HomeLandingProps) {
           <p className="text-sm font-semibold uppercase tracking-[0.22em] text-slate-500">{copy.exploreLabel}</p>
         </div>
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          {moreLinks.map((card) => (
+          {copy.moreLinks.map((card) => (
             <a
               key={card.href}
               href={card.href}

@@ -1,25 +1,14 @@
-import type { GetStaticPaths, GetStaticProps } from "next";
+import { createCollectionPage } from "../../lib/page-builders";
+import { createBlogPageRoute } from "../../lib/route-builders";
+import { loadBlogIndex, loadBlogPage } from "../../lib/content";
 
-import {
-  getBlogRoutes,
-  loadBlogIndex,
-  loadBlogPage
-} from "../../lib/content";
-import { buildSlugStaticPaths, CollectionPageView, loadCollectionStaticProps, type CollectionPageProps } from "../../lib/page-factories";
-
-type BlogPageProps = CollectionPageProps<
+const blogPageRoute = createBlogPageRoute("en");
+const blogPage = createCollectionPage<
   Awaited<ReturnType<typeof loadBlogIndex>>,
   NonNullable<Awaited<ReturnType<typeof loadBlogPage>>>
->;
+>("en", "Blog");
 
-export const getStaticPaths: GetStaticPaths = async () => buildSlugStaticPaths(getBlogRoutes());
+export const getStaticPaths = blogPageRoute.getStaticPaths;
+export const getStaticProps = blogPageRoute.getStaticProps;
 
-export const getStaticProps: GetStaticProps<BlogPageProps> = async ({ params }) =>
-  loadCollectionStaticProps(params, {
-    loadIndex: () => loadBlogIndex("en"),
-    loadArticle: (slug) => loadBlogPage(slug, "en")
-  });
-
-export default function BlogPage(props: BlogPageProps) {
-  return <CollectionPageView {...props} locale="en" eyebrow="Blog" />;
-}
+export default blogPage;

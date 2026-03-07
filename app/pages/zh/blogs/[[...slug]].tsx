@@ -1,25 +1,14 @@
-import type { GetStaticPaths, GetStaticProps } from "next";
+import { createCollectionPage } from "../../../lib/page-builders";
+import { createLegacyBlogPageRoute } from "../../../lib/route-builders";
+import { loadLegacyBlogIndex, loadLegacyBlogPage } from "../../../lib/content";
 
-import {
-  getLegacyBlogRoutes,
-  loadLegacyBlogIndex,
-  loadLegacyBlogPage
-} from "../../../lib/content";
-import { buildSlugStaticPaths, CollectionPageView, loadCollectionStaticProps, type CollectionPageProps } from "../../../lib/page-factories";
-
-type LegacyBlogPageProps = CollectionPageProps<
+const legacyBlogPageRoute = createLegacyBlogPageRoute("zh");
+const legacyBlogPage = createCollectionPage<
   Awaited<ReturnType<typeof loadLegacyBlogIndex>>,
   NonNullable<Awaited<ReturnType<typeof loadLegacyBlogPage>>>
->;
+>("zh", "旧博客");
 
-export const getStaticPaths: GetStaticPaths = async () => buildSlugStaticPaths(getLegacyBlogRoutes());
+export const getStaticPaths = legacyBlogPageRoute.getStaticPaths;
+export const getStaticProps = legacyBlogPageRoute.getStaticProps;
 
-export const getStaticProps: GetStaticProps<LegacyBlogPageProps> = async ({ params }) =>
-  loadCollectionStaticProps(params, {
-    loadIndex: () => loadLegacyBlogIndex("zh"),
-    loadArticle: (slug) => loadLegacyBlogPage(slug, "zh")
-  });
-
-export default function ZhLegacyBlogPage(props: LegacyBlogPageProps) {
-  return <CollectionPageView {...props} locale="zh" eyebrow="旧博客" />;
-}
+export default legacyBlogPage;

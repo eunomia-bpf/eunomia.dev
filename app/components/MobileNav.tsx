@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { SearchBox } from "../components/SearchBox";
 import { navByLocale, type Locale } from "../lib/site-data";
+import { mobileNavCopyByLocale } from "../lib/ui-copy";
 
 type MobileNavProps = {
   locale: Locale;
@@ -13,16 +14,7 @@ export function MobileNav({ locale }: MobileNavProps) {
   const [open, setOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const nav = navByLocale[locale];
-  const copy =
-    locale === "zh"
-      ? {
-          open: "打开导航",
-          close: "关闭导航"
-        }
-      : {
-          open: "Open navigation",
-          close: "Close navigation"
-        };
+  const copy = mobileNavCopyByLocale[locale];
 
   useEffect(() => {
     if (!open) {

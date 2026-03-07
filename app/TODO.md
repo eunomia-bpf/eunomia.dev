@@ -32,7 +32,7 @@ Status markers:
 
 ## Phase 2: Route and Locale Cleanup
 
-- `[doing]` Replace duplicated route logic with shared page factories or render helpers.
+- `[done]` Replace duplicated route logic with shared route builders and render helpers.
 - `[todo]` Collapse locale expansion onto one locale-aware URL builder.
 - `[todo]` Keep one canonical route manifest for both English and Chinese.
 - `[todo]` Stop adding framework logic to content helpers.
@@ -67,6 +67,7 @@ Status markers:
 - `[done]` Add feedback CTA component.
 - `[done]` Add share buttons component.
 - `[done]` Add RSS/feed generation and autodiscovery links.
+- `[done]` Add client and server fallback pages for render-time failures.
 
 ## Phase 6: Testing
 
@@ -103,5 +104,5 @@ Status markers:
 7. `[done]` Implement syntax highlighting parity for fenced code blocks.
 8. `[done]` Restore search, git metadata, feedback CTA, and share actions.
 9. `[todo]` Implement remaining Markdown cutover blockers: admonitions and tabs.
-10. `[todo]` Collapse duplicated locale route logic.
+10. `[done]` Collapse duplicated locale route logic.
 11. `[done]` Verify build and audits still pass.

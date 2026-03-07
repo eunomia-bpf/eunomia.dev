@@ -1,21 +1,10 @@
-import type { GetStaticPaths, GetStaticProps } from "next";
+import { createSectionPage } from "../../../lib/page-builders";
+import { createSectionPageRoute } from "../../../lib/route-builders";
 
-import {
-  getGenericSectionRoutes,
-  loadSectionPage
-} from "../../../lib/content";
-import { buildSectionStaticPaths, loadSectionStaticProps, SectionPageView } from "../../../lib/page-factories";
+const sectionPageRoute = createSectionPageRoute("zh");
+const sectionPage = createSectionPage("zh");
 
-type SectionPageProps = {
-  page: NonNullable<Awaited<ReturnType<typeof loadSectionPage>>>;
-  section: string;
-};
+export const getStaticPaths = sectionPageRoute.getStaticPaths;
+export const getStaticProps = sectionPageRoute.getStaticProps;
 
-export const getStaticPaths: GetStaticPaths = async () => buildSectionStaticPaths(getGenericSectionRoutes("zh"));
-
-export const getStaticProps: GetStaticProps<SectionPageProps> = async ({ params }) =>
-  loadSectionStaticProps(params, (section, slug) => loadSectionPage(section, slug, "zh"));
-
-export default function ZhGenericSectionPage({ page, section }: SectionPageProps) {
-  return <SectionPageView page={page} section={section} locale="zh" />;
-}
+export default sectionPage;

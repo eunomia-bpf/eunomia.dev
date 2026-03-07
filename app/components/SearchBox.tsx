@@ -1,7 +1,12 @@
+"use client";
+
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { startTransition, useDeferredValue, useEffect, useId, useRef, useState } from "react";
 
 import type { Locale } from "../lib/site-data";
 import type { SearchResult } from "../lib/content/types";
+import { searchBoxCopyByLocale } from "../lib/ui-copy";
 
 type SearchBoxProps = {
   locale: Locale;
@@ -22,32 +27,17 @@ export function SearchBox({
   panelClassName = "",
   onNavigate
 }: SearchBoxProps) {
+  const router = useRouter();
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [requestFailed, setRequestFailed] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
   const deferredQuery = useDeferredValue(query);
   const requestRef = useRef<AbortController | null>(null);
   const listboxId = useId();
-  const labels =
-    locale === "zh"
-      ? {
-          aria: "搜索",
-          placeholder: "搜索文档",
-          loading: "搜索中",
-          results: "搜索结果",
-          empty: "没有找到匹配结果。",
-          viewAll: "查看全部结果"
-        }
-      : {
-          aria: "Search",
-          placeholder: "Search docs",
-          loading: "Searching",
-          results: "Results",
-          empty: "No matching results.",
-          viewAll: "View all results"
-        };
+  const labels = searchBoxCopyByLocale[locale];
   const normalizedQuery = deferredQuery.trim();
   const hasQuery = normalizedQuery.length >= 2;
   const searchHref = `${locale === "zh" ? "/zh/search/" : "/search/"}?q=${encodeURIComponent(query.trim())}`;
@@ -58,12 +48,14 @@ export function SearchBox({
 
     if (!hasQuery) {
       startTransition(() => setResults([]));
+      setRequestFailed(false);
       setLoading(false);
       return;
     }
 
     const controller = new AbortController();
     requestRef.current = controller;
+    setRequestFailed(false);
     setLoading(true);
 
     fetch(`/api/search?q=${encodeURIComponent(normalizedQuery)}&locale=${locale}&limit=8`, {
@@ -80,6 +72,7 @@ export function SearchBox({
       .catch((error: unknown) => {
         if ((error as { name?: string })?.name !== "AbortError") {
           startTransition(() => setResults([]));
+          setRequestFailed(true);
         }
       })
       .finally(() => {
@@ -97,7 +90,8 @@ export function SearchBox({
 
   function navigateTo(href: string) {
     onNavigate?.();
-    window.location.assign(href);
+    setOpen(false);
+    void router.push(href);
   }
 
   return (
@@ -170,13 +164,13 @@ export function SearchBox({
           }}
         >
           <div className="border-b border-slate-100 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-            {loading ? labels.loading : labels.results}
+            {loading ? labels.loading : requestFailed ? labels.error : labels.results}
           </div>
           {results.length ? (
             <ul role="listbox" className="max-h-[28rem] overflow-y-auto">
               {results.map((result, index) => (
                 <li key={`${result.locale}:${result.href}`} className="border-t border-slate-100 first:border-t-0">
-                  <a
+                  <Link
                     href={result.href}
                     id={`${listboxId}-option-${index}`}
                     role="option"
@@ -192,22 +186,22 @@ export function SearchBox({
                     <p className="mt-2 text-xs uppercase tracking-[0.16em] text-slate-400">
                       {result.section ?? result.kind}
                     </p>
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
           ) : hasQuery && !loading ? (
-            <div className="px-4 py-5 text-sm text-slate-500">{labels.empty}</div>
+            <div className="px-4 py-5 text-sm text-slate-500">{requestFailed ? labels.error : labels.empty}</div>
           ) : null}
           {hasQuery ? (
             <div className="border-t border-slate-100 px-4 py-3">
-              <a
+              <Link
                 href={searchHref}
                 className="text-sm font-semibold text-azure transition hover:text-ink"
                 onClick={() => onNavigate?.()}
               >
                 {labels.viewAll}
-              </a>
+              </Link>
             </div>
           ) : null}
         </div>

@@ -1,17 +1,9 @@
-import type { GetServerSideProps } from "next";
+import { createFeedPage } from "../lib/page-builders";
+import { createFeedPageRoute } from "../lib/route-builders";
 
-import { renderFeed } from "../lib/content/feed";
+const feedPageRoute = createFeedPageRoute("en");
+const feedPage = createFeedPage();
 
-export const getServerSideProps: GetServerSideProps = async ({ res }) => {
-  res.setHeader("Content-Type", "application/rss+xml; charset=utf-8");
-  res.write(renderFeed("en"));
-  res.end();
+export const getServerSideProps = feedPageRoute.getServerSideProps;
 
-  return {
-    props: {}
-  };
-};
-
-export default function Feed() {
-  return null;
-}
+export default feedPage;
