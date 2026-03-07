@@ -155,6 +155,13 @@ Recommended decision:
 - feature syntax such as tabs and admonitions should become typed Markdown extensions or MDX components, not free-form HTML fragments
 - if a construct is unsupported, the build should fail instead of silently degrading
 
+Current inventory:
+
+- the current docs tree does not use MkDocs admonition or tab syntax yet
+- current raw HTML usage on parity-bound routes is concentrated in a few places: centered image wrappers in docs/blog posts, inline `<p><em>` captions, and a small number of inline `<br>` usages
+- homepage hero markup is not a parity blocker because the homepage is allowed to become a bespoke Tailwind page
+- the first hardening step should preserve `div`, `img`, inline text tags, and anchor/image attributes used by those pages while stripping scripts, event handlers, and dangerous URL schemes
+
 ### 4. Parity scope and rollout cut-lines
 
 The design needs explicit milestones, otherwise "finish parity" stays too vague.

@@ -55,6 +55,24 @@ function looksLikeAsset(relativePath: string): boolean {
   return assetExtensions.has(path.posix.extname(relativePath).toLowerCase());
 }
 
+function hasExplicitProtocol(value: string): boolean {
+  return /^[a-z][a-z0-9+.-]*:/i.test(value);
+}
+
+function isSafeExternalUrl(value: string): boolean {
+  const normalized = value.trim().toLowerCase();
+
+  if (normalized.startsWith("http:") || normalized.startsWith("https:")) {
+    return true;
+  }
+
+  if (normalized.startsWith("mailto:") || normalized.startsWith("tel:")) {
+    return true;
+  }
+
+  return false;
+}
+
 export function toRawAssetPath(source: "docs" | "site", relativePath: string): string {
   return `/api/raw-assets/${source}/${relativePath}`;
 }
@@ -150,17 +168,12 @@ function rewriteUrl(value: unknown, sourceRelativePath: string, locale: Locale):
     return null;
   }
 
-  if (
-    value.startsWith("#") ||
-    value.startsWith("mailto:") ||
-    value.startsWith("tel:") ||
-    value.startsWith("javascript:")
-  ) {
+  if (value.startsWith("#")) {
     return value;
   }
 
-  if (/^[a-z]+:/i.test(value)) {
-    return value;
+  if (hasExplicitProtocol(value)) {
+    return isSafeExternalUrl(value) ? value : null;
   }
 
   if (value.startsWith("/")) {
@@ -189,15 +202,30 @@ export function createRehypeRewriter(sourceRelativePath: string, locale: Locale)
         }
 
         if (typeof node.properties.href === "string") {
-          node.properties.href = rewriteUrl(node.properties.href, sourceRelativePath, locale);
+          const rewritten = rewriteUrl(node.properties.href, sourceRelativePath, locale);
+          if (rewritten) {
+            node.properties.href = rewritten;
+          } else {
+            delete node.properties.href;
+          }
         }
 
         if (typeof node.properties.src === "string") {
-          node.properties.src = rewriteUrl(node.properties.src, sourceRelativePath, locale);
+          const rewritten = rewriteUrl(node.properties.src, sourceRelativePath, locale);
+          if (rewritten) {
+            node.properties.src = rewritten;
+          } else {
+            delete node.properties.src;
+          }
         }
 
         if (typeof node.properties.poster === "string") {
-          node.properties.poster = rewriteUrl(node.properties.poster, sourceRelativePath, locale);
+          const rewritten = rewriteUrl(node.properties.poster, sourceRelativePath, locale);
+          if (rewritten) {
+            node.properties.poster = rewritten;
+          } else {
+            delete node.properties.poster;
+          }
         }
       });
     };

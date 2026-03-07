@@ -5,6 +5,7 @@ import { serveRawAsset } from "../lib/content/assets";
 import { getBlogEntries } from "../lib/content/collections";
 import { parseMarkdown } from "../lib/content/markdown";
 import { getContentManifest } from "../lib/content/manifest";
+import { renderMarkdown, renderMarkdownBody } from "../lib/content/render";
 import { docPathToRoute, getGenericSectionRoutes, listSitemapRoutes } from "../lib/content/routes";
 import { rewriteContentUrl } from "../lib/content/rewrite";
 import { resolveLocalizedSource, slugifyTitle } from "../lib/content/source";
@@ -119,4 +120,41 @@ test("listSitemapRoutes keeps key legacy and section routes", () => {
   assert.ok(routes.has("/tutorials/38-btf-uprobe/test-verify/"));
   assert.ok(routes.has("/zh/eunomia-bpf/ecli/ecli-dockerfile-usage/"));
   assert.ok(!routes.has("/eunomia-bpf/ecli/ecli-dockerfile-usage/"));
+});
+
+test("renderMarkdown preserves allowed raw HTML used by current docs", async () => {
+  const html = await renderMarkdown("GPTtrace/agentsight.md", "en");
+
+  assert.match(html, /<div align="center">/);
+  assert.match(html, /<img[^>]+src="https:\/\/github\.com\/eunomia-bpf\/agentsight\/raw\/master\/docs\/demo-tree\.png"/);
+  assert.match(html, /<p><em>Real-time process tree visualization/);
+});
+
+test("renderMarkdownBody rewrites local asset URLs inside allowed raw HTML", async () => {
+  const html = await renderMarkdownBody(
+    '<div align="center"><img src="./tcpconnlat1.png" alt="demo" width="800"></div>',
+    "tutorials/13-tcpconnlat/README.md",
+    "en"
+  );
+
+  assert.match(html, /\/api\/raw-assets\/docs\/tutorials\/13-tcpconnlat\/tcpconnlat1\.png/);
+});
+
+test("renderMarkdownBody strips unsafe raw HTML and dangerous URLs", async () => {
+  const html = await renderMarkdownBody(
+    '<script>alert(1)</script><a href="javascript:alert(1)">bad</a><img src="javascript:alert(2)" alt="x">',
+    "blog/posts/fake.md",
+    "en"
+  );
+
+  assert.doesNotMatch(html, /<script/i);
+  assert.doesNotMatch(html, /javascript:/i);
+  assert.match(html, />bad<\/a>/);
+});
+
+test("renderMarkdownBody keeps fenced HTML samples escaped", async () => {
+  const html = await renderMarkdownBody("```html\n<script>alert(1)</script>\n```", "blog/posts/fake.md", "en");
+
+  assert.match(html, /&#x3C;script>alert\(1\)&#x3C;\/script>/);
+  assert.doesNotMatch(html, /<script>alert\(1\)<\/script>/);
 });

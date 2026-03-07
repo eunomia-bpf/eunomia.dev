@@ -33,6 +33,11 @@ This document is the target architecture for the migration, not a description of
 - changing the authoring model away from Markdown
 - redesigning every landing page before parity is reached
 
+Homepage exception:
+
+- the homepage may diverge into a bespoke Tailwind landing page before full docs parity
+- all other docs, tutorials, blog, and legacy blog routes remain parity-bound to Markdown content
+
 ## Core Principles
 
 ### 1. Content is the source of truth
@@ -247,6 +252,13 @@ Do not add new `en` and `zh` route implementations once the shared route manifes
 - repository-authored Markdown is treated as trusted input
 - raw HTML is still constrained to an allowlist-based sanitization policy
 - unsupported HTML or unsupported Markdown extensions should fail validation
+
+Current syntax inventory:
+
+- current docs do not rely on MkDocs admonition or tabs syntax yet
+- raw HTML on parity-bound content routes is narrow: centered image wrappers, inline caption blocks, and a small number of inline `<br>` usages
+- homepage hero/container markup is explicitly outside parity scope and can be replaced by native React/Tailwind markup
+- literal `<script>` and full HTML document samples currently appear inside fenced code blocks and must stay escaped, not become executable DOM
 
 ### Rendering strategy
 
