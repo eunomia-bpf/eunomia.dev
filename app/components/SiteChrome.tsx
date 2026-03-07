@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Script from "next/script";
 import type { PropsWithChildren } from "react";
 
 import { navByLocale, siteConfig, type Locale } from "../lib/site-data";
@@ -18,19 +19,21 @@ export function SiteChrome({ children, locale, eyebrow, title, intro }: SiteChro
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <script
-          async
-          src={`https://www.googletagmanager.com/gtag/js?id=${siteConfig.analyticsId}`}
-        />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.dataLayer = window.dataLayer || [];
+      </Head>
+      <Script
+        src={`https://www.googletagmanager.com/gtag/js?id=${siteConfig.analyticsId}`}
+        strategy="beforeInteractive"
+      />
+      <Script
+        id="ga-init"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', '${siteConfig.analyticsId}');`
-          }}
-        />
-      </Head>
+        }}
+      />
       <div className="min-h-screen">
         <header className="sticky top-0 z-40 border-b border-white/50 bg-white/85 backdrop-blur">
           <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-5 py-4">
