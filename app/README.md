@@ -90,11 +90,11 @@ What is still missing:
 
 The current design needs those tests because the logic is concentrated in the content layer.
 
-### 5. The build still shows a performance smell on very large blog pages
+### 5. Large article payloads are still a deliberate operational constraint
 
-`next build` still warns about large page data for the longest blog posts. The site works, but the current SSG payload shape is not ideal for very large documents.
+The longest docs and blog pages no longer emit `large page data` warnings during `next build` or `next start`, but the Pages Router implementation still serializes full article HTML through page props.
 
-That is not a release blocker for the migration slice, but it is real technical debt.
+That is acceptable for the current migration slice because the app now uses an explicit `largePageDataBytes` budget and a runtime audit that hits the heaviest routes, but it is still real technical debt until article rendering stops depending on large serialized props.
 
 ### 6. Some UI features are placeholders, not finished systems
 
@@ -490,4 +490,4 @@ Expected current result:
 - `audit:parity` passes with zero missing legacy sitemap paths
 - `audit:browser` passes
 - `audit:links` passes
-- `next build` still emits a non-blocking `large page data` warning for the largest blog pages
+- `audit:runtime` passes after probing the heaviest tutorial, blog, and section routes

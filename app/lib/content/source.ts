@@ -99,3 +99,21 @@ export function sectionSourceToSlugSegments(sourceRelative: string, section: str
   const trailing = pieces.at(-1);
   return trailing === "README" || trailing === "index" ? pieces.slice(0, -1) : pieces;
 }
+
+export function resolveSectionPageSource(
+  section: string,
+  slugSegments: string[] | undefined,
+  locale: Locale
+): string | null {
+  const joined = slugSegments?.join("/");
+
+  if (joined) {
+    return (
+      resolveLocalizedSource(`${section}/${joined}.md`, locale) ??
+      resolveLocalizedSource(`${section}/${joined}/README.md`, locale) ??
+      resolveLocalizedSource(`${section}/${joined}/index.md`, locale)
+    );
+  }
+
+  return resolveLocalizedSource(`${section}/index.md`, locale) ?? resolveLocalizedSource(`${section}/README.md`, locale);
+}

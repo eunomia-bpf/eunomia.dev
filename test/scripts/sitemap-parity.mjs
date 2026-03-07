@@ -25,6 +25,7 @@ async function main() {
   );
   const { response, paths } = await fetchSitemapPaths();
   check(response.ok, "target sitemap is reachable");
+  check(new Set(paths).size === paths.length, "app sitemap does not contain duplicate URLs");
 
   const appPaths = new Set(paths.map((url) => new URL(url).pathname));
   const missing = [...legacyPaths].filter((pathname) => !appPaths.has(pathname)).sort();

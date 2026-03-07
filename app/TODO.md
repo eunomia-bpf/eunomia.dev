@@ -81,7 +81,7 @@ Status markers:
   - `[todo]` `.en.md` and `.zh.md` variants
   - `[done]` inline HTML allowed by policy
   - `[todo]` unsupported syntax failures
-- `[todo]` Add a regression check that article routes stay on-demand and avoid large static page payloads.
+- `[done]` Add a regression check that article routes stay on-demand and avoid large static page payloads.
 
 ## Phase 7: Rollout
 

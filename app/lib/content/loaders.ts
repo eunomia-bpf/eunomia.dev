@@ -13,6 +13,7 @@ import {
   formatGithubSourcePath,
   makeAlternates,
   resolveLocalizedSource,
+  resolveSectionPageSource,
   tutorialSourceToSlugSegments
 } from "./source";
 import type { LandingCard, LandingPageData, MarkdownPage } from "./types";
@@ -336,11 +337,7 @@ export async function loadSectionPage(
   locale: Locale
 ): Promise<MarkdownPage | null> {
   const joined = slugSegments?.join("/");
-  const sourceRelative = joined
-    ? resolveLocalizedSource(`${section}/${joined}.md`, locale) ??
-      resolveLocalizedSource(`${section}/${joined}/README.md`, locale) ??
-      resolveLocalizedSource(`${section}/${joined}/index.md`, locale)
-    : resolveLocalizedSource(`${section}/index.md`, locale) ?? resolveLocalizedSource(`${section}/README.md`, locale);
+  const sourceRelative = resolveSectionPageSource(section, slugSegments, locale);
 
   if (!sourceRelative) {
     return null;

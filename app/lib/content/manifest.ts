@@ -2,12 +2,14 @@ import type { Locale } from "../site-data";
 import { useContentCache } from "./cache";
 import {
   getBlogEntries,
-  getGenericSectionRouteBases,
+  getGenericSectionRouteEntries,
   getLegacyBlogEntries,
   getTutorialDocSources
 } from "./collections";
 import {
   baseMarkdownPath,
+  isSupportedSection,
+  resolveSectionPageSource,
   resolveLocalizedSource,
   sectionSourceToSlugSegments,
   tutorialSourceToSlugSegments
@@ -137,21 +139,20 @@ export function getContentManifest(): ContentManifestRecord[] {
     });
   }
 
-  for (const sourceRelative of getGenericSectionRouteBases()) {
-    const [section] = sourceRelative.split("/");
-    const slug = sectionSourceToSlugSegments(sourceRelative, section);
+  for (const route of getGenericSectionRouteEntries()) {
+    const { section, slug } = route;
     manifest.push({
       kind: "section-page",
       key: `section:${section}:${slug.join("/")}`,
       section,
       slug,
       sourceByLocale: {
-        en: resolveLocalizedSource(sourceRelative, "en") ?? undefined,
-        zh: resolveLocalizedSource(sourceRelative, "zh") ?? undefined
+        en: resolveSectionPageSource(section, slug, "en") ?? undefined,
+        zh: resolveSectionPageSource(section, slug, "zh") ?? undefined
       },
       routeByLocale: {
-        en: resolveLocalizedSource(sourceRelative, "en") ? buildSectionPath(section, slug, "en") : undefined,
-        zh: resolveLocalizedSource(sourceRelative, "zh") ? buildSectionPath(section, slug, "zh") : undefined
+        en: resolveSectionPageSource(section, slug, "en") ? buildSectionPath(section, slug, "en") : undefined,
+        zh: resolveSectionPageSource(section, slug, "zh") ? buildSectionPath(section, slug, "zh") : undefined
       }
     });
   }
@@ -252,6 +253,18 @@ export function resolveRouteFromDocSource(relativePath: string, locale: Locale):
 
     const fallbackSources = Object.values(record.sourceByLocale).filter(Boolean) as string[];
     if (fallbackSources.some((candidate) => baseMarkdownPath(candidate) === normalized)) {
+      return record.routeByLocale[locale] ?? record.routeByLocale.en ?? record.routeByLocale.zh ?? null;
+    }
+  }
+
+  const [section] = normalized.split("/");
+  if (section && isSupportedSection(section)) {
+    const normalizedSlug = sectionSourceToSlugSegments(normalized, section);
+    const key = `section:${section}:${normalizedSlug.join("/")}`;
+    const record = getContentManifest().find(
+      (candidate) => candidate.kind === "section-page" && candidate.key === key
+    );
+    if (record) {
       return record.routeByLocale[locale] ?? record.routeByLocale.en ?? record.routeByLocale.zh ?? null;
     }
   }

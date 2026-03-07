@@ -46,6 +46,7 @@ async function auditSitemap() {
   check(response.ok, "sitemap.xml is reachable");
   check(paths.length > 0, "sitemap contains at least one URL");
   check(paths.includes(pageUrl("/")), "sitemap includes home page");
+  check(new Set(paths).size === paths.length, "sitemap does not contain duplicate URLs");
   console.log(`Loaded ${paths.length} sitemap routes.`);
   return paths;
 }

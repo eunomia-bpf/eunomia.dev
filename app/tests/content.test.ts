@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { serveRawAsset } from "../lib/content/assets";
-import { getBlogEntries } from "../lib/content/collections";
+import { getBlogEntries, getGenericSectionRouteEntries } from "../lib/content/collections";
 import { renderFeed } from "../lib/content/feed";
 import { getGitMetadata } from "../lib/content/git";
 import { resolveAlternatesFromDocSource } from "../lib/content/manifest";
@@ -97,6 +97,24 @@ test("content manifest keeps localized routes for english-only section pages", (
   assert.equal(record.routeByLocale.zh, "/zh/eunomia-bpf/setup/build/");
 });
 
+test("generic section route entries collapse README and index aliases into one public route", () => {
+  const setupRoutes = getGenericSectionRouteEntries().filter(
+    (candidate) => candidate.section === "eunomia-bpf" && candidate.slug.join("/") === "setup"
+  );
+
+  assert.equal(setupRoutes.length, 1);
+});
+
+test("content manifest keeps one setup page record and prefers the richer README source", () => {
+  const setupRecords = getContentManifest().filter((candidate) => candidate.key === "section:eunomia-bpf:setup");
+
+  assert.equal(setupRecords.length, 1);
+  assert.equal(setupRecords[0]?.sourceByLocale.en, "eunomia-bpf/setup/README.en.md");
+  assert.equal(setupRecords[0]?.sourceByLocale.zh, "eunomia-bpf/setup/README.en.md");
+  assert.equal(setupRecords[0]?.routeByLocale.en, "/eunomia-bpf/setup/");
+  assert.equal(setupRecords[0]?.routeByLocale.zh, "/zh/eunomia-bpf/setup/");
+});
+
 test("generic section routes preserve zh-only pages without inventing english routes", () => {
   const zhRoute = getGenericSectionRoutes("zh").find(
     (candidate) =>
@@ -114,6 +132,12 @@ test("generic section routes preserve zh-only pages without inventing english ro
   assert.equal(enRoute, undefined);
 });
 
+test("docPathToRoute maps alias section docs onto the same public route", () => {
+  assert.equal(docPathToRoute("eunomia-bpf/setup/index.md", "en"), "/eunomia-bpf/setup/");
+  assert.equal(docPathToRoute("eunomia-bpf/setup/index.md", "zh"), "/zh/eunomia-bpf/setup/");
+  assert.equal(docPathToRoute("eunomia-bpf/setup/README.en.md", "en"), "/eunomia-bpf/setup/");
+});
+
 test("docPathToRoute preserves the only surviving localized route for zh-only section docs", () => {
   assert.equal(
     docPathToRoute("eunomia-bpf/ecli/ecli-dockerfile-usage.zh.md", "zh"),
@@ -126,12 +150,15 @@ test("docPathToRoute preserves the only surviving localized route for zh-only se
 });
 
 test("listSitemapRoutes keeps key legacy and section routes", () => {
-  const routes = new Set(listSitemapRoutes());
+  const rawRoutes = listSitemapRoutes();
+  const routes = new Set(rawRoutes);
   assert.ok(routes.has("/zh/blogs/bpftime/"));
   assert.ok(routes.has("/eunomia-bpf/setup/build/"));
+  assert.ok(routes.has("/eunomia-bpf/setup/"));
   assert.ok(routes.has("/tutorials/38-btf-uprobe/test-verify/"));
   assert.ok(routes.has("/zh/eunomia-bpf/ecli/ecli-dockerfile-usage/"));
   assert.ok(!routes.has("/eunomia-bpf/ecli/ecli-dockerfile-usage/"));
+  assert.equal(routes.size, rawRoutes.length);
 });
 
 test("searchContent returns locale-aware tutorial results", () => {

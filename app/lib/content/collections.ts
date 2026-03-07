@@ -9,6 +9,7 @@ import {
   baseMarkdownPath,
   isLocalizedMarkdown,
   isSupportedSection,
+  sectionSourceToSlugSegments,
   resolveLocalizedSource,
   slugifyTitle,
   sortNaturally
@@ -18,7 +19,7 @@ import type { BlogEntry, LegacyBlogEntry } from "./types";
 let tutorialSourcesCache: string[] | null = null;
 let blogEntriesCache: BlogEntry[] | null = null;
 let legacyBlogEntriesCache: LegacyBlogEntry[] | null = null;
-let genericSectionRouteCache: string[] | null = null;
+let genericSectionRouteCache: Array<{ section: string; slug: string[] }> | null = null;
 
 export function getTutorialReadmeSources(): string[] {
   if (!useContentCache || !tutorialSourcesCache) {
@@ -126,9 +127,9 @@ export function getLegacyBlogEntries(): LegacyBlogEntry[] {
   return legacyBlogEntriesCache;
 }
 
-export function getGenericSectionRouteBases(): string[] {
+export function getGenericSectionRouteEntries(): Array<{ section: string; slug: string[] }> {
   if (!useContentCache || !genericSectionRouteCache) {
-    genericSectionRouteCache = orderSourcesByMkdocsNav(
+    const orderedSources = orderSourcesByMkdocsNav(
       [...new Set(
         [...getDocsFileSet()]
           .filter((relativePath) => relativePath.endsWith(".md"))
@@ -139,6 +140,28 @@ export function getGenericSectionRouteBases(): string[] {
           })
       )]
     );
+
+    const seen = new Set<string>();
+    genericSectionRouteCache = [];
+
+    for (const sourceRelative of orderedSources) {
+      const [section] = sourceRelative.split("/");
+      if (!section) {
+        continue;
+      }
+
+      const slug = sectionSourceToSlugSegments(sourceRelative, section);
+      const key = `${section}:${slug.join("/")}`;
+      if (seen.has(key)) {
+        continue;
+      }
+
+      seen.add(key);
+      genericSectionRouteCache.push({
+        section,
+        slug
+      });
+    }
   }
 
   return genericSectionRouteCache;

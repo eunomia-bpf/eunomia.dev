@@ -34,7 +34,7 @@ This is the minimum parity target for a MkDocs-to-Next.js migration.
 - `docs/blog` and `docs/blogs` currently overlap, so compatibility checks explicitly allow the dated `/blog/YYYY/MM/DD/...` family without removing legacy `/blogs/*`
 - search is currently server-backed rather than a static index, so payload size is controlled but future cutover may still prefer a static index
 - production verification now uses an isolated `distDir` so `next dev` and `next start` can run side-by-side without corrupting `.next`
-- long article routes now render on demand while keeping the same public URLs, which removes `large page data` build warnings without changing SEO behavior
+- long article routes now render on demand while keeping the same public URLs; the app enforces a `largePageDataBytes` budget and runtime audit for the heaviest routes, but the Pages Router payload shape is still larger than an eventual App Router/server-component design
 - full-text search result pages exist, but they are intentionally `noindex`
 - feed support is an app enhancement, not a strict MkDocs parity requirement
 - tutorial content is synced from a separate source repository
