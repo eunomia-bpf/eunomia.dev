@@ -27,7 +27,7 @@ $ sudo ./ecli run package.json
 to start it you can download `ecli` tool from [eunomia-bpf/releases](https://github.com/eunomia-bpf/eunomia-bpf/releases), we have pre-build binaries for linux x86. Small and No dependencies, besides glibc and glibcxx. Or just run this:
 
 ```shell
-$ wget https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli -O ecli && chmod +x ecli
+$ wget https://aka.pw/bpf-ecli -O ecli && chmod +x ecli
 ```
 
 The eBPF compiled code can run on different kernel versions(CO-RE).

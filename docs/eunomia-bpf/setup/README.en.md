@@ -8,7 +8,7 @@ catagories: ['installation']
 - Install the `ecli` tool for running eBPF program from the cloud:
 
     ```console
-    $ wget https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli -O ecli && chmod +x ./ecli
+    $ wget https://aka.pw/bpf-ecli -O ecli && chmod +x ./ecli
     $ ./ecli -h
     ecli subcommands, including run, push, pull
 

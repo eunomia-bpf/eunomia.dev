@@ -162,8 +162,9 @@ Just Write libbpf eBPF kernel code only, auto config the userspace part!
 - Get pre-compiled eBPF programs running from the cloud to the kernel in `1` line of bash, kernel version and architecture independent:
 
     ```bash
-    # 从 GitHub Releases 下载最新 ecli 版本
-    $ wget https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli -O ecli && chmod +x ./ecli
+    # 下载最新发布版本（`aka.pw/bpf-ecli` 会重定向到当前 GitHub Release 资产）
+    $ wget https://aka.pw/bpf-ecli -O ecli && chmod +x ./ecli
+    $ sudo ./ecli https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/package.json # 历史上的 GitHub Pages 用法，继续保留兼容
     $ sudo ./ecli run ghcr.io/eunomia-bpf/execve:latest # 从 OCI 仓库运行当前维护中的预编译 ebpf 工具
     ```
 
@@ -209,9 +210,11 @@ You can have multiple `eBPF` program in a single `WASM` module.
 
 See [wasm-runtime](https://github.com/eunomia-bpf/wasm-bpf) for details. In fact, `ewasm` library only exports a few functions from `bpf-loader` library to the `VM`, so you can replace the `WASM` runtime with your own easily.
 
-例如，你可以使用 `ecli` 运行本地构建好的 Wasm 模块：
+例如，你可以使用 `ecli` 运行来自 GitHub Pages 或本地构建好的 Wasm 模块：
 
 ```bash
+sudo ./ecli run https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/app.wasm
+# 或者
 sudo ./ecli run ./app.wasm
 ```
 
@@ -231,7 +234,7 @@ The toolchain can be used as a docker to generate pre-compiled eBPF data in one 
 
 see the compile toolchains [compiler](https://github.com/eunomia-bpf/eunomia-bpf/tree/master/compiler) for details.
 
-你也可以直接使用 [eunomia-template](https://github.com/eunomia-bpf/eunomia-template) 作为 GitHub 模板仓库。它的 `publish.yml` 会在向 `main` push 时编译 `src/package.json`，并将其发布为 GitHub Release 资产。
+你也可以直接使用 [eunomia-template](https://github.com/eunomia-bpf/eunomia-template) 作为 GitHub 模板仓库。历史上的 `ebpm-template` 仓库现在会重定向到这里；它的 `publish.yml` 会在向 `main` push 时编译 `src/package.json`，并将其发布为 GitHub Release 资产。
 
 ## other related projects
 

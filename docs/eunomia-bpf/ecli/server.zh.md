@@ -21,11 +21,14 @@ catagories: ['ecli']
 - 用 `ecli pull` 先把 OCI 镜像拉到本地再检查或执行
 - 用 `ecli push` 将 Wasm 模块发布到 OCI 仓库
 
+`https://eunomia-bpf.github.io/eunomia-bpf/...` 下面的历史 GitHub Pages URL 仍然保留给本地 `ecli run` 兼容使用；这里移除的只是旧的远程 HTTP 控制面。
+
 示例：
 
 ```bash
-wget https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli -O ecli
+wget https://aka.pw/bpf-ecli -O ecli
 chmod +x ./ecli
+sudo ./ecli https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/package.json
 sudo ./ecli run ghcr.io/eunomia-bpf/execve:latest
 ```
 

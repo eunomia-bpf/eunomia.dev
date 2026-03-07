@@ -21,11 +21,14 @@ For maintained workflows, use:
 - `ecli pull` to fetch OCI images locally before inspection or execution
 - `ecli push` to publish Wasm modules to an OCI registry
 
+The historical GitHub Pages URLs under `https://eunomia-bpf.github.io/eunomia-bpf/...` are still supported for local `ecli run` compatibility. What was removed here is only the old remote HTTP control plane.
+
 Example:
 
 ```bash
-wget https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli -O ecli
+wget https://aka.pw/bpf-ecli -O ecli
 chmod +x ./ecli
+sudo ./ecli https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/package.json
 sudo ./ecli run ghcr.io/eunomia-bpf/execve:latest
 ```
 

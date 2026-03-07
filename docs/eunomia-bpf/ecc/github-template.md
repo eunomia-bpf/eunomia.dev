@@ -5,7 +5,7 @@ catagories: ['ecc']
 
 # Github Action 模板
 
-`eunomia-template`：使用 GitHub Actions 编译 eBPF 程序，并将生成的 `package.json` 发布为 Release 资产。
+`eunomia-template`：使用 GitHub Actions 编译 eBPF 程序，并将生成的 `package.json` 发布为 Release 资产。历史上的 `ebpm-template` 仓库现在会重定向到这里。
 
 请参考：https://github.com/eunomia-bpf/eunomia-template
 
@@ -20,7 +20,7 @@ Download the pre-compiled `ecli` binary from here: [eunomia-bpf/eunomia-bpf](htt
 To install, just download and use the `ecli` binary from here: [eunomia-bpf/eunomia-bpf](https://github.com/eunomia-bpf/eunomia-bpf/releases):
 
 ```console
-wget https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli -O ecli && chmod +x ecli
+wget https://aka.pw/bpf-ecli -O ecli && chmod +x ecli
 ```
 
 ## use this repo as a GitHub template for online compilation

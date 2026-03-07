@@ -45,8 +45,17 @@ For details, see [ecc-btfgen](../ecc/usage.md#options)
 ## Install
 
 ```bash
-wget https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli -O ecli
+wget https://aka.pw/bpf-ecli -O ecli
 chmod +x ./ecli
+```
+
+## GitHub Pages and URL examples
+
+The historical GitHub Pages workflow is still kept for compatibility:
+
+```bash
+sudo ./ecli https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/package.json
+sudo ./ecli run https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/app.wasm
 ```
 
 ## OCI examples

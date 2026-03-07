@@ -38,11 +38,12 @@
 
 ### 作为 CLI 工具运行
 
-您可以通过以下方式从 OCI 仓库运行预编译的 eBPF 程序到内核，只需`1`行 bash 命令：
+您可以通过以下方式从 GitHub Pages URL 或 OCI 仓库运行预编译的 eBPF 程序到内核，只需`1`行 bash 命令：
 
 ```bash
-# 从 GitHub Releases 下载最新发布版本
-$ wget https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli -O ecli && chmod +x ./ecli
+# 下载最新发布版本（`aka.pw/bpf-ecli` 会重定向到当前 GitHub Release 资产）
+$ wget https://aka.pw/bpf-ecli -O ecli && chmod +x ./ecli
+$ sudo ./ecli https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/package.json # 历史上的 GitHub Pages 用法，继续保留兼容
 $ sudo ./ecli run ghcr.io/eunomia-bpf/execve:latest # 从 OCI 仓库运行一个预编译的 ebpf 工具
 [79130] node -> /bin/sh -c which ps
 [79131] sh -> which ps
@@ -60,7 +61,7 @@ $ sudo ./ecli run ghcr.io/eunomia-bpf/execve:latest # 从 OCI 仓库运行一个
 - 安装`ecli`工具以从云端运行eBPF程序：
 
     ```console
-    $ wget https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli -O ecli && chmod +x ./ecli
+    $ wget https://aka.pw/bpf-ecli -O ecli && chmod +x ./ecli
     $ ./ecli -h
     ecli 子命令，包括 run、push、pull
 

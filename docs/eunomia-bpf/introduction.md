@@ -162,8 +162,9 @@ Just Write libbpf eBPF kernel code only, auto config the userspace part!
 - Get pre-compiled eBPF programs running from the cloud to the kernel in `1` line of bash, kernel version and architecture independent:
 
     ```bash
-    # download the latest ecli release from GitHub Releases
-    $ wget https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli -O ecli && chmod +x ./ecli
+    # download the latest release (aka.pw/bpf-ecli redirects to the current GitHub release asset)
+    $ wget https://aka.pw/bpf-ecli -O ecli && chmod +x ./ecli
+    $ sudo ./ecli https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/package.json # historical GitHub Pages workflow, kept for compatibility
     $ sudo ./ecli run ghcr.io/eunomia-bpf/execve:latest # run a maintained pre-compiled ebpf tool from OCI registry
     ```
 
@@ -209,9 +210,11 @@ You can have multiple `eBPF` program in a single `WASM` module.
 
 See [wasm-runtime](https://github.com/eunomia-bpf/wasm-bpf) for details. In fact, `ewasm` library only exports a few functions from `bpf-loader` library to the `VM`, so you can replace the `WASM` runtime with your own easily.
 
-For example, you can run a locally built eBPF Wasm module with `ecli`:
+For example, you can run an eBPF Wasm module from GitHub Pages or a locally built file with `ecli`:
 
 ```bash
+sudo ./ecli run https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/app.wasm
+# or
 sudo ./ecli run ./app.wasm
 ```
 
@@ -231,7 +234,7 @@ The toolchain can be used as a docker to generate pre-compiled eBPF data in one 
 
 see the compile toolchains [compiler](https://github.com/eunomia-bpf/eunomia-bpf/tree/master/compiler) for details.
 
-you can also use the [eunomia-template](https://github.com/eunomia-bpf/eunomia-template) repo as a GitHub template. Its `publish.yml` workflow compiles `src/package.json` and publishes it as a GitHub release asset on pushes to `main`.
+you can also use the [eunomia-template](https://github.com/eunomia-bpf/eunomia-template) repo as a GitHub template. The historical `ebpm-template` repo now redirects there, and its `publish.yml` workflow compiles `src/package.json` and publishes it as a GitHub release asset on pushes to `main`.
 
 ## other related projects
 

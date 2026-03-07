@@ -40,7 +40,7 @@ catagories: ['misc']
 
 ```shell
 # 下载安装 ecli 二进制
-wget https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli -O ./ecli && chmod +x ./ecli
+wget https://aka.pw/bpf-ecli -O ./ecli && chmod +x ./ecli
 # 运行 eBPF 程序（root shell）
 sudo ./ecli run package.json
 ```

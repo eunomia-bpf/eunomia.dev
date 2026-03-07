@@ -45,11 +45,12 @@ For more information, see [documents/introduction.md](introduction.md).
 
 ### run as a CLI tool
 
-You can get pre-compiled eBPF programs running from an OCI registry to the kernel in `1` line of bash:
+You can get pre-compiled eBPF programs running from GitHub Pages URLs or an OCI registry in `1` line of bash:
 
 ```bash
-# download the latest release from GitHub Releases
-$ wget https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli -O ecli && chmod +x ./ecli
+# download the latest release (aka.pw/bpf-ecli redirects to the current GitHub release asset)
+$ wget https://aka.pw/bpf-ecli -O ecli && chmod +x ./ecli
+$ sudo ./ecli https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/package.json # historical GitHub Pages workflow, kept for compatibility
 $ sudo ./ecli run ghcr.io/eunomia-bpf/execve:latest # run a pre-compiled ebpf tool from OCI registry
 [79130] node -> /bin/sh -c which ps
 [79131] sh -> which ps
@@ -67,7 +68,7 @@ The legacy remote HTTP mode (`ecli client` / `ecli-server`) has been removed fro
 - Install the `ecli` tool for running eBPF program from the cloud:
 
     ```console
-    $ wget https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli -O ecli && chmod +x ./ecli
+    $ wget https://aka.pw/bpf-ecli -O ecli && chmod +x ./ecli
     $ ./ecli -h
     ecli subcommands, including run, push, pull
 
