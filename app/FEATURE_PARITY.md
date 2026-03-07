@@ -13,7 +13,7 @@ This is the minimum parity target for a MkDocs-to-Next.js migration.
 | `robots.txt` | generated today | Implemented | Yes | route handler | `test/scripts/http-audit.mjs` |
 | `sitemap.xml` | generated today | Implemented | Yes | route handler | `test/scripts/http-audit.mjs` |
 | RSS feed autodiscovery | none today | Implemented | Growth | locale-aware feed routes and `<link rel="alternate" type="application/rss+xml">` | `test/scripts/http-audit.mjs` |
-| Blog index and post pages | MkDocs blog plugin | Implemented | Yes | content collection + dated slugs | `test/scripts/browser-smoke.mjs` |
+| Blog index and post pages | MkDocs blog plugin | Implemented | Yes | content collection + dated slugs while keeping legacy `/blogs/*` live for compatibility | `test/scripts/browser-smoke.mjs`, `test/scripts/sitemap-parity.mjs` |
 | Docs search | MkDocs search | Implemented | Yes | server-backed content index with locale-aware ranking, keyboard support, and full results page | `app/tests/content.test.ts`, `test/scripts/browser-smoke.mjs` |
 | Heading anchors and TOC | Markdown extensions | Implemented | Yes | rehype slug + TOC extraction | `test/scripts/browser-smoke.mjs` |
 | Code blocks and highlighting | Markdown extensions | Implemented | Yes | `rehype-pretty-code` + language normalization | `app/tests/content.test.ts`, `test/scripts/browser-smoke.mjs` |
@@ -31,7 +31,7 @@ This is the minimum parity target for a MkDocs-to-Next.js migration.
 
 ## Known Risk Areas
 
-- `docs/blog` and `docs/blogs` currently overlap
+- `docs/blog` and `docs/blogs` currently overlap, so compatibility checks explicitly allow the dated `/blog/YYYY/MM/DD/...` family without removing legacy `/blogs/*`
 - search is currently server-backed rather than a static index, so payload size is controlled but future cutover may still prefer a static index
 - production verification now uses an isolated `distDir` so `next dev` and `next start` can run side-by-side without corrupting `.next`
 - advanced Markdown extensions still need parity work
