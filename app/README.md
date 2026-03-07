@@ -34,32 +34,29 @@ What is already solid:
 - the app builds successfully with static output for the current route set
 - sitemap-driven audits pass against the current implementation
 - the app serves real Markdown instead of demo-only placeholder data
+- route identity is derived from one canonical manifest for both locales
+- search now runs against prebuilt static indexes under `.generated/search`
+- Mermaid diagrams now render on real docs pages instead of silently degrading to code blocks
+- rollout stages, sitemap gating, and rollback rules are documented and tested
 
 What is not solid enough yet:
 
-- the content pipeline is too centralized in `lib/content.ts`
-- route files are duplicated across locale and content type
-- the rendering pipeline trusts raw HTML too broadly
-- tests are strong at the black-box level but weak at the unit and fixture level
-- some large blog pages still generate oversized static page payloads
+- Pages Router wrapper files still exist for each public route
+- `docs/blog` and `docs/blogs` still overlap semantically
+- the rendering pipeline still allows a documented raw-HTML subset
+- the Pages Router payload shape is still larger than an eventual App Router/server-component design
+
+Operational discipline now lives in [ROLLOUT.md](./ROLLOUT.md). That file is the source of truth for:
+
+- which route classes are allowed into the sitemap in `shadow`, `cutover`, and `growth`
+- what must pass before cutover
+- what should trigger rollback to `shadow`
 
 ## Main Problems
 
-### 1. `lib/content.ts` is carrying too many responsibilities
+### 1. Pages Router wrappers are still duplicated and will drift if they keep growing
 
-`lib/content.ts` is currently the routing layer, file indexer, Markdown parser, blog registry, locale resolver, URL rewriter, sitemap source, and raw asset helper in one file.
-
-That makes changes risky because unrelated concerns are coupled together. A small fix to localized routing or asset rewriting can accidentally affect blog lookup, sitemap generation, or Markdown rendering.
-
-Current risk signal:
-
-- `lib/content.ts` is over `1000` lines
-- it mixes build-time concerns and request-time helpers
-- it owns both data access and presentation-oriented transformations
-
-### 2. Route implementation is duplicated and will drift
-
-The English and Chinese page files under `pages/` are almost identical for:
+The English and Chinese page files under `pages/` are still almost identical for:
 
 - home
 - tutorials
@@ -67,9 +64,9 @@ The English and Chinese page files under `pages/` are almost identical for:
 - legacy blogs
 - generic sections
 
-This is manageable for the first slice, but it is a bad steady-state design. Every new feature now has to be wired twice, and every SEO or layout fix has two chances to drift.
+This is manageable for the current compatibility slice, but it is not the final steady state. Every new route class still has two physical file trees because Pages Router requires file-based routes.
 
-### 3. Markdown rendering has an explicit trust boundary but no safety layer
+### 2. Markdown rendering has an explicit trust boundary that still needs careful maintenance
 
 The current pipeline allows raw HTML and then injects the rendered result into the page:
 
@@ -77,33 +74,21 @@ The current pipeline allows raw HTML and then injects the rendered result into t
 - `rehypeRaw`
 - `dangerouslySetInnerHTML`
 
-That may be acceptable for trusted repository content, but it should be treated as a deliberate security policy, not an accidental default. Right now the policy is implicit and undocumented.
+That is acceptable for trusted repository content, but it remains a deliberate policy surface that needs continued allowlist maintenance and fixture coverage.
 
-### 4. Tests do not protect the transformation logic well enough
-
-The current `test/` directory is useful and already catches routing, SEO, and link regressions, but it mostly validates the app from the outside.
-
-What is still missing:
-
-- fixture tests for Markdown edge cases
-- explicit checks for unsupported syntax that should fail loudly
-
-The current design needs those tests because the logic is concentrated in the content layer.
-
-### 5. Large article payloads are still a deliberate operational constraint
+### 3. Large article payloads are still a deliberate operational constraint
 
 The longest docs and blog pages no longer emit `large page data` warnings during `next build` or `next start`, but the Pages Router implementation still serializes full article HTML through page props.
 
 That is acceptable for the current migration slice because the app now uses an explicit `largePageDataBytes` budget and a runtime audit that hits the heaviest routes, but it is still real technical debt until article rendering stops depending on large serialized props.
 
-### 6. Some UI features are placeholders, not finished systems
+### 4. Some UI features are still transitional rather than final systems
 
 Examples:
 
-- the search box is now backed by a locale-aware content index, but richer ranking and a static index are still future improvements
-- TOC and heading anchors are now implemented for article pages, but other Markdown feature gaps remain
-- Open Graph support is only partial
-- the page footer now restores git metadata, feedback CTA, and share actions, but the visual system is still transitional
+- the search box is now backed by a prebuilt locale-aware content index, but ranking remains intentionally simple
+- Open Graph support is route-aware, but the visual system is still transitional
+- the page footer now restores git metadata, feedback CTA, and share actions, but the long-term chrome system is still transitional
 
 These are feature gaps, but they also affect engineering quality because they leave temporary structure in the codebase.
 

@@ -8,6 +8,7 @@ import { getGitMetadata } from "./git";
 import { parseMarkdown } from "./markdown";
 import { buildCollectionContinuation, buildIndexLink } from "./navigation";
 import { resolveAlternatesFromDocSource } from "./manifest";
+import { localizePath } from "../paths";
 import { renderMarkdownBody, renderMarkdownDocumentBody } from "./render";
 import {
   formatGithubSourcePath,
@@ -18,6 +19,25 @@ import {
 } from "./source";
 import type { LandingCard, LandingPageData, MarkdownPage } from "./types";
 import type { HomePageData } from "../page-factories";
+
+function buildTutorialPath(slugSegments: string[], locale: Locale): string {
+  return localizePath(`/tutorials/${slugSegments.join("/")}/`, locale);
+}
+
+function buildBlogPath(year: string, month: string, day: string, slug: string, locale: Locale): string {
+  return localizePath(`/blog/${year}/${month}/${day}/${slug}/`, locale);
+}
+
+function buildLegacyBlogPath(slug: string, locale: Locale): string {
+  return localizePath(`/blogs/${slug}/`, locale);
+}
+
+function buildSectionPath(section: string, slugSegments: string[], locale: Locale): string {
+  return localizePath(
+    slugSegments.length ? `/${section}/${slugSegments.join("/")}/` : `/${section}/`,
+    locale
+  );
+}
 
 async function loadMarkdownPage(relativePath: string, publicPath: string, locale: Locale): Promise<MarkdownPage> {
   const sourceRelative = resolveLocalizedSource(relativePath, locale) ?? relativePath;
@@ -59,19 +79,19 @@ export async function loadHomePage(locale: Locale): Promise<HomePageData> {
     {
       title: tutorials.title,
       description: tutorials.description,
-      href: locale === "zh" ? "/zh/tutorials/" : "/tutorials/",
+      href: localizePath("/tutorials/", locale),
       badge: `${getTutorialReadmeSources().length} walkthroughs`
     },
     {
       title: bpftime.title,
       description: bpftime.description,
-      href: locale === "zh" ? "/zh/bpftime/" : "/bpftime/",
+      href: localizePath("/bpftime/", locale),
       badge: "Userspace eBPF"
     },
     {
       title: eunomiaBpf.title,
       description: eunomiaBpf.description,
-      href: locale === "zh" ? "/zh/eunomia-bpf/" : "/eunomia-bpf/",
+      href: localizePath("/eunomia-bpf/", locale),
       badge: "Toolchain"
     }
   ];
@@ -123,22 +143,19 @@ export async function loadHomePage(locale: Locale): Promise<HomePageData> {
       ? {
           title: latestBlog.title,
           description: latestBlog.excerpt || latestBlog.description,
-          href:
-            locale === "zh"
-              ? `/zh/blog/${latestBlog.year}/${latestBlog.month}/${latestBlog.day}/${latestBlog.slug}/`
-              : `/blog/${latestBlog.year}/${latestBlog.month}/${latestBlog.day}/${latestBlog.slug}/`,
+          href: buildBlogPath(latestBlog.year, latestBlog.month, latestBlog.day, latestBlog.slug, locale),
           badge: `${latestBlog.year}-${latestBlog.month}-${latestBlog.day}`
         }
       : {
           title: locale === "zh" ? "查看 Blog" : "Visit the blog",
           description: home.description,
-          href: locale === "zh" ? "/zh/blog/" : "/blog/",
+          href: localizePath("/blog/", locale),
           badge: locale === "zh" ? "博客" : "Blog"
         },
     sourcePath: formatGithubSourcePath("index.md"),
     metadata: getGitMetadata("index.md"),
-    path: locale === "zh" ? "/zh/" : "/",
-    alternates: makeAlternates(locale === "zh" ? "/zh/" : "/")
+    path: localizePath("/", locale),
+    alternates: makeAlternates(localizePath("/", locale))
   };
 }
 
@@ -151,7 +168,7 @@ export async function loadTutorialIndex(locale: Locale): Promise<LandingPageData
     const localizedSource = resolveLocalizedSource(source, locale) ?? source;
     const tutorial = parseMarkdown(localizedSource);
     const slugSegments = tutorialSourceToSlugSegments(source);
-    const href = locale === "zh" ? `/zh/tutorials/${slugSegments.join("/")}/` : `/tutorials/${slugSegments.join("/")}/`;
+    const href = buildTutorialPath(slugSegments, locale);
 
     return {
       title: tutorial.title,
@@ -167,8 +184,8 @@ export async function loadTutorialIndex(locale: Locale): Promise<LandingPageData
     introHtml,
     sourcePath: formatGithubSourcePath(sourceRelative),
     metadata: getGitMetadata(sourceRelative),
-    path: locale === "zh" ? "/zh/tutorials/" : "/tutorials/",
-    alternates: makeAlternates(locale === "zh" ? "/zh/tutorials/" : "/tutorials/"),
+    path: localizePath("/tutorials/", locale),
+    alternates: makeAlternates(localizePath("/tutorials/", locale)),
     cards
   };
 }
@@ -190,14 +207,14 @@ export async function loadTutorialPage(
     return null;
   }
 
-  const publicPath = locale === "zh" ? `/zh/tutorials/${slugSegments.join("/")}/` : `/tutorials/${slugSegments.join("/")}/`;
+  const publicPath = buildTutorialPath(slugSegments, locale);
   const page = await loadMarkdownPage(sourceRelative, publicPath, locale);
   const indexSource = resolveLocalizedSource("tutorials/index.md", locale) ?? "tutorials/index.md";
   const continuation = buildCollectionContinuation({
     kind: "tutorial-page",
     locale,
     currentPath: publicPath,
-    index: buildIndexLink(indexSource, locale === "zh" ? "/zh/tutorials/" : "/tutorials/")
+    index: buildIndexLink(indexSource, localizePath("/tutorials/", locale))
   });
 
   return withContinuation(page, continuation);
@@ -211,10 +228,7 @@ export async function loadBlogIndex(locale: Locale): Promise<LandingPageData> {
   const cards = getBlogEntries().map((entry) => ({
     title: entry.title,
     description: entry.description,
-    href:
-      locale === "zh"
-        ? `/zh/blog/${entry.year}/${entry.month}/${entry.day}/${entry.slug}/`
-        : `/blog/${entry.year}/${entry.month}/${entry.day}/${entry.slug}/`,
+    href: buildBlogPath(entry.year, entry.month, entry.day, entry.slug, locale),
     badge: `${entry.year}-${entry.month}-${entry.day}`
   }));
 
@@ -224,8 +238,8 @@ export async function loadBlogIndex(locale: Locale): Promise<LandingPageData> {
     introHtml,
     sourcePath: formatGithubSourcePath(sourceRelative),
     metadata: getGitMetadata(sourceRelative),
-    path: locale === "zh" ? "/zh/blog/" : "/blog/",
-    alternates: makeAlternates(locale === "zh" ? "/zh/blog/" : "/blog/"),
+    path: localizePath("/blog/", locale),
+    alternates: makeAlternates(localizePath("/blog/", locale)),
     cards
   };
 }
@@ -257,10 +271,7 @@ export async function loadBlogPage(
     return null;
   }
 
-  const publicPath =
-    locale === "zh"
-      ? `/zh/blog/${entry.year}/${entry.month}/${entry.day}/${entry.slug}/`
-      : `/blog/${entry.year}/${entry.month}/${entry.day}/${entry.slug}/`;
+  const publicPath = buildBlogPath(entry.year, entry.month, entry.day, entry.slug, locale);
 
   const page = await loadMarkdownPage(sourceRelative, publicPath, locale);
   const indexSource = resolveLocalizedSource("blog/index.md", locale) ?? "blog/index.md";
@@ -268,7 +279,7 @@ export async function loadBlogPage(
     kind: "blog-page",
     locale,
     currentPath: publicPath,
-    index: buildIndexLink(indexSource, locale === "zh" ? "/zh/blog/" : "/blog/")
+    index: buildIndexLink(indexSource, localizePath("/blog/", locale))
   });
 
   return withContinuation(page, continuation);
@@ -282,7 +293,7 @@ export async function loadLegacyBlogIndex(locale: Locale): Promise<LandingPageDa
   const cards = getLegacyBlogEntries().map((entry) => ({
     title: entry.title,
     description: entry.description,
-    href: locale === "zh" ? `/zh/blogs/${entry.key}/` : `/blogs/${entry.key}/`,
+    href: buildLegacyBlogPath(entry.key, locale),
     badge: "Legacy"
   }));
 
@@ -292,8 +303,8 @@ export async function loadLegacyBlogIndex(locale: Locale): Promise<LandingPageDa
     introHtml,
     sourcePath: formatGithubSourcePath(sourceRelative),
     metadata: getGitMetadata(sourceRelative),
-    path: locale === "zh" ? "/zh/blogs/" : "/blogs/",
-    alternates: makeAlternates(locale === "zh" ? "/zh/blogs/" : "/blogs/"),
+    path: localizePath("/blogs/", locale),
+    alternates: makeAlternates(localizePath("/blogs/", locale)),
     cards
   };
 }
@@ -318,14 +329,14 @@ export async function loadLegacyBlogPage(
     return null;
   }
 
-  const publicPath = locale === "zh" ? `/zh/blogs/${slug}/` : `/blogs/${slug}/`;
+  const publicPath = buildLegacyBlogPath(slug, locale);
   const page = await loadMarkdownPage(sourceRelative, publicPath, locale);
   const indexSource = resolveLocalizedSource("blogs/index.md", locale) ?? "blogs/index.md";
   const continuation = buildCollectionContinuation({
     kind: "legacy-blog-page",
     locale,
     currentPath: publicPath,
-    index: buildIndexLink(indexSource, locale === "zh" ? "/zh/blogs/" : "/blogs/")
+    index: buildIndexLink(indexSource, localizePath("/blogs/", locale))
   });
 
   return withContinuation(page, continuation);
@@ -343,12 +354,11 @@ export async function loadSectionPage(
     return null;
   }
 
-  const suffix = joined ? `/${joined}/` : "/";
-  const publicPath = locale === "zh" ? `/zh/${section}${suffix}` : `/${section}${suffix}`;
+  const publicPath = buildSectionPath(section, slugSegments ?? [], locale);
   const page = await loadMarkdownPage(sourceRelative, publicPath, locale);
   const sectionIndexSource =
     resolveLocalizedSource(`${section}/index.md`, locale) ?? resolveLocalizedSource(`${section}/README.md`, locale);
-  const sectionIndexHref = locale === "zh" ? `/zh/${section}/` : `/${section}/`;
+  const sectionIndexHref = buildSectionPath(section, [], locale);
   const continuation = buildCollectionContinuation({
     kind: "section-page",
     locale,

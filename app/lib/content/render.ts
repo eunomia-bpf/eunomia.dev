@@ -21,9 +21,7 @@ type HastNode = {
   type?: string;
   value?: unknown;
   tagName?: string;
-  properties?: {
-    id?: unknown;
-  };
+  properties?: Record<string, unknown>;
   children?: HastNode[];
 };
 
@@ -37,6 +35,18 @@ function extractNodeText(node: HastNode): string {
   }
 
   return (node.children ?? []).map(extractNodeText).join("");
+}
+
+function normalizeClassNames(value: unknown): string[] {
+  if (Array.isArray(value)) {
+    return value.filter((item): item is string => typeof item === "string");
+  }
+
+  if (typeof value === "string") {
+    return value.split(/\s+/).filter(Boolean);
+  }
+
+  return [];
 }
 
 function createHeadingCollector(headings: HeadingEntry[]) {
@@ -61,6 +71,53 @@ function createHeadingCollector(headings: HeadingEntry[]) {
           depth
         });
       });
+    };
+  };
+}
+
+function createMermaidFenceTransformer() {
+  return function mermaidFenceTransformer() {
+    return function transform(tree: unknown) {
+      visit(
+        tree as Parameters<typeof visit>[0],
+        "element",
+        (node: HastNode, index: number | undefined, parent: HastNode | undefined) => {
+          if (node.tagName !== "pre" || !parent || index === undefined) {
+            return;
+          }
+
+          const codeNode = (node.children ?? []).find((child) => child.tagName === "code");
+          if (!codeNode) {
+            return;
+          }
+
+          const classNames = normalizeClassNames(codeNode.properties?.className);
+          if (!classNames.includes("language-mermaid")) {
+            return;
+          }
+
+          const source = extractNodeText(codeNode).replace(/\n+$/, "");
+          if (!source.trim()) {
+            return;
+          }
+
+          parent.children ??= [];
+          parent.children[index] = {
+            type: "element",
+            tagName: "pre",
+            properties: {
+              className: ["mermaid-diagram"],
+              "data-mermaid-diagram": ""
+            },
+            children: [
+              {
+                type: "text",
+                value: source
+              }
+            ]
+          };
+        }
+      );
     };
   };
 }
@@ -91,6 +148,7 @@ async function renderMarkdownChunk(
     .use(rehypeSlug)
     .use(createHeadingCollector(headings))
     .use(createCodeLanguageNormalizer())
+    .use(createMermaidFenceTransformer())
     .use(rehypePrettyCode, prettyCodeOptions)
     .use(createRehypeRewriter(relativePath, locale))
     .use(rehypeStringify)

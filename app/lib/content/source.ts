@@ -1,7 +1,10 @@
 import path from "node:path";
 
 import type { Locale } from "../site-data";
+import { localizePath } from "../paths";
 import { getDocsFileSet, getTopLevelSections } from "./fs-index";
+
+export const supportedLocales: Locale[] = ["en", "zh"];
 
 export function isLocalizedMarkdown(relativePath: string): boolean {
   return relativePath.endsWith(".zh.md");
@@ -73,8 +76,8 @@ export function isSupportedSection(section: string): boolean {
 }
 
 export function makeAlternates(pathname: string): { en: string; zh: string } {
-  const englishPath = pathname.startsWith("/zh/") ? pathname.replace(/^\/zh/, "") || "/" : pathname;
-  const zhPath = pathname.startsWith("/zh/") ? pathname : pathname === "/" ? "/zh/" : `/zh${pathname}`;
+  const englishPath = localizePath(pathname, "en");
+  const zhPath = localizePath(pathname, "zh");
 
   return {
     en: englishPath,

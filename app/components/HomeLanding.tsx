@@ -1,4 +1,5 @@
 import type { HomePageData } from "../lib/page-factories";
+import { localizePath } from "../lib/paths";
 import { type Locale, siteConfig } from "../lib/site-data";
 import { homeLandingCopyByLocale } from "../lib/ui-copy";
 import { PageFooter } from "./PageFooter";
@@ -24,7 +25,7 @@ export function HomeLanding({ locale, page }: HomeLandingProps) {
           <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600">{copy.body}</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a
-              href={page.cards[0]?.href ?? (locale === "zh" ? "/zh/tutorials/" : "/tutorials/")}
+              href={page.cards[0]?.href ?? localizePath("/tutorials/", locale)}
               className="inline-flex rounded-full bg-ink px-5 py-3 text-sm font-semibold text-white transition hover:bg-azure"
             >
               {copy.primaryCta}

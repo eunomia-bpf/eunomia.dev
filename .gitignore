@@ -12,8 +12,8 @@ __pycache__
 /nvbit-tutorial
 /venv
 /.venv
-/app/.next
-/app/.next-prod*
+/app/.next*
+/app/.generated
 /app/node_modules
 /test/node_modules
 /test/playwright-report

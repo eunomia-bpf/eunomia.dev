@@ -14,9 +14,10 @@ This is the minimum parity target for a MkDocs-to-Next.js migration.
 | `sitemap.xml` | generated today | Implemented | Yes | route handler | `test/scripts/http-audit.mjs` |
 | RSS feed autodiscovery | none today | Implemented | Growth | locale-aware feed routes and `<link rel="alternate" type="application/rss+xml">` | `test/scripts/http-audit.mjs` |
 | Blog index and post pages | MkDocs blog plugin | Implemented | Yes | content collection + dated slugs while keeping legacy `/blogs/*` live for compatibility | `test/scripts/browser-smoke.mjs`, `test/scripts/sitemap-parity.mjs` |
-| Docs search | MkDocs search | Implemented | Yes | server-backed content index with locale-aware ranking, keyboard support, and full results page | `app/tests/content.test.ts`, `test/scripts/browser-smoke.mjs` |
+| Docs search | MkDocs search | Implemented | Yes | prebuilt static content index with locale-aware ranking, keyboard support, and full results page | `app/tests/content.test.ts`, `test/scripts/browser-smoke.mjs` |
 | Heading anchors and TOC | Markdown extensions | Implemented | Yes | rehype slug + TOC extraction | `test/scripts/browser-smoke.mjs` |
 | Code blocks and highlighting | Markdown extensions | Implemented | Yes | `rehype-pretty-code` + language normalization | `app/tests/content.test.ts`, `test/scripts/browser-smoke.mjs` |
+| Mermaid diagrams | MkDocs Markdown extensions | Implemented | Yes | mermaid fence preservation + client-side SVG hydration | `app/tests/content.test.ts`, `test/scripts/browser-smoke.mjs` |
 | Callouts/admonitions | Markdown extensions | Implemented | Yes | custom block parser + styled admonition rendering | `app/tests/content.test.ts` |
 | Tabs | Markdown extensions | Implemented | Yes | custom block parser + CSS tab groups | `app/tests/content.test.ts` |
 | Edit links | `edit_uri` | Implemented | Yes | page metadata to GitHub source URL | `test/scripts/browser-smoke.mjs` |
@@ -32,10 +33,11 @@ This is the minimum parity target for a MkDocs-to-Next.js migration.
 ## Known Risk Areas
 
 - `docs/blog` and `docs/blogs` currently overlap, so compatibility checks explicitly allow the dated `/blog/YYYY/MM/DD/...` family without removing legacy `/blogs/*`
-- search is currently server-backed rather than a static index, so payload size is controlled but future cutover may still prefer a static index
+- search uses prebuilt `.generated/search/*.json` indexes, but search ranking is still intentionally simple and query evaluation still happens in the Pages Router layer
 - production verification now uses an isolated `distDir` so `next dev` and `next start` can run side-by-side without corrupting `.next`
 - long article routes now render on demand while keeping the same public URLs; the app enforces a `largePageDataBytes` budget and runtime audit for the heaviest routes, but the Pages Router payload shape is still larger than an eventual App Router/server-component design
 - full-text search result pages exist, but they are intentionally `noindex`
 - feed support is an app enhancement, not a strict MkDocs parity requirement
 - tutorial content is synced from a separate source repository
 - local asset resolution must remain stable for deep tutorial paths
+- rollout discipline is now codified in `app/ROLLOUT.md` and enforced by `test/scripts/rollout-audit.mjs`

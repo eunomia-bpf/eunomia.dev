@@ -6,6 +6,7 @@ import { startTransition, useDeferredValue, useEffect, useId, useRef, useState }
 
 import type { Locale } from "../lib/site-data";
 import type { SearchResult } from "../lib/content/types";
+import { localizePath } from "../lib/paths";
 import { searchBoxCopyByLocale } from "../lib/ui-copy";
 
 type SearchBoxProps = {
@@ -40,7 +41,7 @@ export function SearchBox({
   const labels = searchBoxCopyByLocale[locale];
   const normalizedQuery = deferredQuery.trim();
   const hasQuery = normalizedQuery.length >= 2;
-  const searchHref = `${locale === "zh" ? "/zh/search/" : "/search/"}?q=${encodeURIComponent(query.trim())}`;
+  const searchHref = `${localizePath("/search/", locale)}?q=${encodeURIComponent(query.trim())}`;
 
   useEffect(() => {
     requestRef.current?.abort();

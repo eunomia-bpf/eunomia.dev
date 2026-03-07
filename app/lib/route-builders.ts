@@ -17,6 +17,8 @@ import type { LandingPageData, MarkdownPage, SearchResult } from "./content/type
 import { buildSectionStaticPaths, loadSectionStaticProps, type CollectionPageProps, type HomePageData } from "./page-factories";
 import type { Locale } from "./site-data";
 
+type CollectionKind = "tutorial" | "blog" | "legacy-blog";
+
 type SearchPageProps = {
   query: string;
   results: SearchResult[];
@@ -63,6 +65,33 @@ type CollectionRouteConfig<IndexPage extends LandingPageData, ArticlePage extend
   loadIndex: () => Promise<IndexPage>;
   loadArticle: (slug: string[]) => Promise<ArticlePage | null>;
 };
+
+function getCollectionRouteConfig(
+  kind: CollectionKind,
+  locale: Locale
+): CollectionRouteConfig<LandingPageData, MarkdownPage> {
+  switch (kind) {
+    case "tutorial":
+      return {
+        loadIndex: () => loadTutorialIndex(locale),
+        loadArticle: (slug) => loadTutorialPage(slug, locale)
+      };
+    case "blog":
+      return {
+        loadIndex: () => loadBlogIndex(locale),
+        loadArticle: (slug) => loadBlogPage(slug, locale)
+      };
+    case "legacy-blog":
+      return {
+        loadIndex: () => loadLegacyBlogIndex(locale),
+        loadArticle: (slug) => loadLegacyBlogPage(slug, locale)
+      };
+    default: {
+      const unreachable: never = kind;
+      throw new Error(`unsupported collection route kind: ${unreachable}`);
+    }
+  }
+}
 
 function createCollectionIndexRoute<IndexPage extends LandingPageData, ArticlePage extends MarkdownPage>({
   loadIndex,
@@ -127,45 +156,27 @@ export function createHomePageRoute(locale: Locale) {
 }
 
 export function createTutorialPageRoute(locale: Locale) {
-  return createCollectionIndexRoute({
-    loadIndex: () => loadTutorialIndex(locale),
-    loadArticle: (slug) => loadTutorialPage(slug, locale)
-  });
+  return createCollectionIndexRoute(getCollectionRouteConfig("tutorial", locale));
 }
 
 export function createTutorialArticleRoute(locale: Locale) {
-  return createCollectionArticleRoute({
-    loadIndex: () => loadTutorialIndex(locale),
-    loadArticle: (slug) => loadTutorialPage(slug, locale)
-  });
+  return createCollectionArticleRoute(getCollectionRouteConfig("tutorial", locale));
 }
 
 export function createBlogPageRoute(locale: Locale) {
-  return createCollectionIndexRoute({
-    loadIndex: () => loadBlogIndex(locale),
-    loadArticle: (slug) => loadBlogPage(slug, locale)
-  });
+  return createCollectionIndexRoute(getCollectionRouteConfig("blog", locale));
 }
 
 export function createBlogArticleRoute(locale: Locale) {
-  return createCollectionArticleRoute({
-    loadIndex: () => loadBlogIndex(locale),
-    loadArticle: (slug) => loadBlogPage(slug, locale)
-  });
+  return createCollectionArticleRoute(getCollectionRouteConfig("blog", locale));
 }
 
 export function createLegacyBlogPageRoute(locale: Locale) {
-  return createCollectionIndexRoute({
-    loadIndex: () => loadLegacyBlogIndex(locale),
-    loadArticle: (slug) => loadLegacyBlogPage(slug, locale)
-  });
+  return createCollectionIndexRoute(getCollectionRouteConfig("legacy-blog", locale));
 }
 
 export function createLegacyBlogArticleRoute(locale: Locale) {
-  return createCollectionArticleRoute({
-    loadIndex: () => loadLegacyBlogIndex(locale),
-    loadArticle: (slug) => loadLegacyBlogPage(slug, locale)
-  });
+  return createCollectionArticleRoute(getCollectionRouteConfig("legacy-blog", locale));
 }
 
 export function createSectionPageRoute(locale: Locale) {

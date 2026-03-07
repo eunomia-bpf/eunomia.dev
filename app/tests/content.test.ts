@@ -7,8 +7,8 @@ import { renderFeed } from "../lib/content/feed";
 import { getGitMetadata } from "../lib/content/git";
 import { resolveAlternatesFromDocSource } from "../lib/content/manifest";
 import { splitMaterialBlocks } from "../lib/content/material-blocks";
-import { loadBlogPage, loadSectionPage, loadTutorialPage } from "../lib/content/loaders";
-import { parseMarkdown } from "../lib/content/markdown";
+import { loadBlogPage, loadLegacyBlogPage, loadSectionPage, loadTutorialPage } from "../lib/content/loaders";
+import { assertSupportedMarkdown, parseMarkdown } from "../lib/content/markdown";
 import { getContentManifest } from "../lib/content/manifest";
 import { renderMarkdown, renderMarkdownBody, renderMarkdownDocument } from "../lib/content/render";
 import { docPathToRoute, getGenericSectionRoutes, listSitemapRoutes } from "../lib/content/routes";
@@ -71,6 +71,17 @@ test("rewriteContentUrl rewrites nested relative asset paths to the raw asset en
   assert.equal(
     rewriteContentUrl("./tcpconnlat1.png", "tutorials/13-tcpconnlat/README.md", "en"),
     "/api/raw-assets/docs/tutorials/13-tcpconnlat/tcpconnlat1.png"
+  );
+});
+
+test("rewriteContentUrl resolves nested tutorial doc links to public routes", () => {
+  assert.equal(
+    rewriteContentUrl("../README.md", "tutorials/38-btf-uprobe/test-verify/README.md", "en"),
+    "/tutorials/38-btf-uprobe/"
+  );
+  assert.equal(
+    rewriteContentUrl("../README.zh.md", "tutorials/38-btf-uprobe/test-verify/README.zh.md", "zh"),
+    "/zh/tutorials/38-btf-uprobe/"
   );
 });
 
@@ -149,6 +160,11 @@ test("docPathToRoute preserves the only surviving localized route for zh-only se
   );
 });
 
+test("docPathToRoute keeps legacy blog routes stable across locales", () => {
+  assert.equal(docPathToRoute("blogs/bpftime.md", "en"), "/blogs/bpftime/");
+  assert.equal(docPathToRoute("blogs/bpftime.zh.md", "zh"), "/zh/blogs/bpftime/");
+});
+
 test("listSitemapRoutes keeps key legacy and section routes", () => {
   const rawRoutes = listSitemapRoutes();
   const routes = new Set(rawRoutes);
@@ -159,6 +175,17 @@ test("listSitemapRoutes keeps key legacy and section routes", () => {
   assert.ok(routes.has("/zh/eunomia-bpf/ecli/ecli-dockerfile-usage/"));
   assert.ok(!routes.has("/eunomia-bpf/ecli/ecli-dockerfile-usage/"));
   assert.equal(routes.size, rawRoutes.length);
+});
+
+test("listSitemapRoutes respects rollout stages for dated blog cutover routes", () => {
+  const shadowRoutes = new Set(listSitemapRoutes("shadow"));
+  const cutoverRoutes = new Set(listSitemapRoutes("cutover"));
+  const datedBlogRoute =
+    "/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/";
+
+  assert.ok(shadowRoutes.has("/blog/"));
+  assert.ok(!shadowRoutes.has(datedBlogRoute));
+  assert.ok(cutoverRoutes.has(datedBlogRoute));
 });
 
 test("searchContent returns locale-aware tutorial results", () => {
@@ -188,6 +215,34 @@ test("article loaders expose continuation links for collection discovery", async
   assert.ok(tutorialPage?.continuation?.next);
   assert.ok(blogPage?.continuation?.index);
   assert.equal(blogPage?.continuation?.index?.href, "/blog/");
+});
+
+test("nested tutorial pages preserve deep relative links", async () => {
+  const page = await loadTutorialPage(["38-btf-uprobe", "test-verify"], "en");
+
+  assert.ok(page);
+  assert.match(page.html, /href="\/tutorials\/38-btf-uprobe\/"/);
+});
+
+test("legacy blog pages still render from the legacy blogs tree", async () => {
+  const page = await loadLegacyBlogPage(["bpftime"], "en");
+
+  assert.ok(page);
+  assert.match(page.html, /bpftime: Extending eBPF from Kernel to User Space/);
+});
+
+test("section loaders render english fallback content from .en.md sources", async () => {
+  const page = await loadSectionPage("eunomia-bpf", ["setup", "build"], "zh");
+
+  assert.ok(page);
+  assert.match(page.html, /Install Dependencies/);
+});
+
+test("tutorial loaders render localized .zh.md content when it exists", async () => {
+  const page = await loadTutorialPage(["1-helloworld"], "zh");
+
+  assert.ok(page);
+  assert.match(page.html, /下载安装 eunomia-bpf 开发工具/);
 });
 
 test("bpftime continuation follows mkdocs nav order instead of file sort order", async () => {
@@ -257,6 +312,21 @@ test("renderMarkdown preserves allowed raw HTML used by current docs", async () 
   assert.match(html, /<p><em>Real-time process tree visualization/);
 });
 
+test("renderMarkdown keeps legacy blog markdown constructs compatible", async () => {
+  const html = await renderMarkdown("blogs/bpftime.md", "en");
+
+  assert.match(html, /<table>/);
+  assert.match(html, /Userspace \(ns\)/);
+});
+
+test("renderMarkdown renders footnotes used in current docs", async () => {
+  const html = await renderMarkdown("eunomia-bpf/index.md", "en");
+
+  assert.match(html, /data-footnotes/);
+  assert.match(html, /data-footnote-ref/);
+  assert.match(html, /data-footnote-backref/);
+});
+
 test("renderMarkdownDocument extracts TOC headings from article content", async () => {
   const rendered = await renderMarkdownDocument("tutorials/38-btf-uprobe/test-verify/README.md", "en");
 
@@ -291,6 +361,14 @@ test("renderMarkdownBody normalizes shell and plaintext-ish aliases for highligh
   assert.match(cudaHtml, /data-language="cpp"/);
 });
 
+test("renderMarkdownBody preserves mermaid fences for client-side diagram hydration", async () => {
+  const html = await renderMarkdownBody("```mermaid\ngraph TD\n  A-->B\n```", "eunomia-bpf/manual.md", "en");
+
+  assert.match(html, /<pre class="mermaid-diagram" data-mermaid-diagram="">/);
+  assert.match(html, /graph TD/);
+  assert.doesNotMatch(html, /data-rehype-pretty-code-figure/);
+});
+
 test("renderMarkdownBody rewrites local asset URLs inside allowed raw HTML", async () => {
   const html = await renderMarkdownBody(
     '<div align="center"><img src="./tcpconnlat1.png" alt="demo" width="800"></div>',
@@ -320,6 +398,40 @@ test("renderMarkdownBody keeps fenced HTML samples escaped", async () => {
   assert.match(html, /&#x3C;/);
   assert.match(html, /script/);
   assert.doesNotMatch(html, /<script>alert\(1\)<\/script>/);
+});
+
+test("renderMarkdownBody supports GFM tables with inline HTML line breaks", async () => {
+  const html = await renderMarkdownBody(
+    "| Column | Notes |\n| --- | --- |\n| Alpha | First<br>Second |",
+    "blog/posts/fake.md",
+    "en"
+  );
+
+  assert.match(html, /<table>/);
+  assert.match(html, /<td>First<br>Second<\/td>/);
+});
+
+test("renderMarkdownBody preserves current raw HTML patterns with unquoted attributes", async () => {
+  const html = await renderMarkdownBody(
+    "<div align=center><img src=https://example.com/demo.png width=60% alt=demo></div>",
+    "index.md",
+    "en"
+  );
+
+  assert.match(html, /<div align="center">/);
+  assert.match(html, /<img[^>]+src="https:\/\/example\.com\/demo\.png"/);
+  assert.match(html, /width="60%"/);
+});
+
+test("assertSupportedMarkdown fails loudly for unsupported MkDocs-only directives", () => {
+  assert.throws(
+    () => assertSupportedMarkdown("--8<-- \"includes/snippet.md\"", "blog/posts/fake.md"),
+    /Unsupported Markdown construct/
+  );
+  assert.throws(
+    () => assertSupportedMarkdown("::: note\nbody", "blog/posts/fake.md"),
+    /Unsupported Markdown construct/
+  );
 });
 
 test("splitMaterialBlocks recognizes admonitions and tab groups", () => {

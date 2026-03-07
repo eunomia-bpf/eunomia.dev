@@ -1,6 +1,7 @@
 import { MobileNav } from "../components/MobileNav";
 import { SearchBox } from "../components/SearchBox";
 import type { LocaleAlternates } from "../lib/content/types";
+import { localizePath } from "../lib/paths";
 import { navByLocale, type Locale } from "../lib/site-data";
 
 type SiteHeaderProps = {
@@ -16,7 +17,7 @@ export function SiteHeader({ locale, alternates }: SiteHeaderProps) {
   return (
     <header className="sticky top-0 z-40 border-b border-white/50 bg-white/85 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-5 py-4">
-        <a href={locale === "en" ? "/" : "/zh/"} className="text-lg font-semibold tracking-tight">
+        <a href={localizePath("/", locale)} className="text-lg font-semibold tracking-tight">
           eunomia
         </a>
         <nav className="hidden items-center gap-5 text-sm font-medium text-slate-700 md:flex">

@@ -6,6 +6,7 @@ export const appDir = process.env.APP_DIR ?? "/home/yunwei37/workspace/eunomia.d
 export const legacySitemapPath =
   process.env.LEGACY_SITEMAP_PATH ?? "/home/yunwei37/workspace/eunomia.dev/site/sitemap.xml";
 export const runtimeAuditDistDir = process.env.RUNTIME_AUDIT_DIST_DIR ?? ".next-runtime-audit";
+export const rolloutAuditDistDir = process.env.ROLLOUT_AUDIT_DIST_DIR ?? ".next-rollout-audit";
 
 export const crawlSeeds = [
   "/",
@@ -35,6 +36,7 @@ export const smokeRoutes = {
     "/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/",
   legacyBlogArticle: "/blogs/bpftime/",
   sectionArticle: "/bpftime/llvmbpf/",
+  mermaidArticle: "/eunomia-bpf/manual/",
   zhOnlySectionArticle: "/zh/eunomia-bpf/ecli/ecli-dockerfile-usage/",
   zhHome: "/zh/",
   zhSearch: "/zh/search/?q=hello%20world",
@@ -50,6 +52,9 @@ export const runtimeAuditRoutes = [
   "/others/nvbit-tutorial/nvbit-internals/",
   "/zh/others/nvbit-tutorial/nvbit-internals/"
 ];
+
+export const rolloutAuditSampleBlogRoute =
+  "/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/";
 
 export const expectedNavLabels = ["Tutorials", "Blog", "bpftime", "eBPF×AI/LLMs", "eunomia-bpf", "Ecosystem"];
 export const zhMarkers = ["教程", "主页", "文档", "博客"];

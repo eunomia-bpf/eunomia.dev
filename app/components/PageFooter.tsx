@@ -1,4 +1,5 @@
 import type { GitMetadata, PageContinuation } from "../lib/content/types";
+import { localizePath } from "../lib/paths";
 import { siteConfig, type Locale } from "../lib/site-data";
 import { pageFooterCopyByLocale } from "../lib/ui-copy";
 import { FeedbackWidget } from "./FeedbackWidget";
@@ -45,7 +46,7 @@ export function PageFooter({ locale, title, path, sourceHref, metadata, continua
           .map((author) => author.name)
           .join(", ")}, +${metadata.authors.length - 4} ${labels.overflow}`
       : joinAuthors(metadata);
-  const feedHref = locale === "zh" ? "/zh/feed.xml" : "/feed.xml";
+  const feedHref = localizePath("/feed.xml", locale);
   const navigationCards = [
     continuation?.index
       ? { label: labels.backToIndex, ...continuation.index }

@@ -1,3 +1,4 @@
+import { localizePath } from "../lib/paths";
 import { navByLocale, siteConfig, type Locale } from "../lib/site-data";
 import { siteFooterCopyByLocale } from "../lib/ui-copy";
 
@@ -7,11 +8,11 @@ type SiteFooterProps = {
 
 export function SiteFooter({ locale }: SiteFooterProps) {
   const copy = siteFooterCopyByLocale[locale];
-  const exploreLinks = [...navByLocale[locale], { label: copy.legacyBlog, href: locale === "zh" ? "/zh/blogs/" : "/blogs/" }];
+  const exploreLinks = [...navByLocale[locale], { label: copy.legacyBlog, href: localizePath("/blogs/", locale) }];
   const projectLinks = [
-    { label: "GPTtrace", href: locale === "zh" ? "/zh/GPTtrace/" : "/GPTtrace/" },
-    { label: "wasm-bpf", href: locale === "zh" ? "/zh/wasm-bpf/" : "/wasm-bpf/" },
-    { label: "RSS", href: locale === "zh" ? "/zh/feed.xml" : "/feed.xml" }
+    { label: "GPTtrace", href: localizePath("/GPTtrace/", locale) },
+    { label: "wasm-bpf", href: localizePath("/wasm-bpf/", locale) },
+    { label: "RSS", href: localizePath("/feed.xml", locale) }
   ];
   const communityLinks = [
     { label: "GitHub", href: siteConfig.repoUrl },

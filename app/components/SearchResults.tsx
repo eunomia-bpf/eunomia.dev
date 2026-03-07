@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Fragment } from "react";
 
 import type { SearchResult } from "../lib/content/types";
+import { localizePath } from "../lib/paths";
 import { absoluteUrl, canonicalAlternates } from "../lib/seo";
 import type { Locale } from "../lib/site-data";
 import { getSearchResultsCopy } from "../lib/ui-copy";
@@ -39,7 +40,7 @@ function highlightMatches(value: string, query: string) {
 
 export function SearchResults({ locale, query, results }: SearchResultsProps) {
   const copy = getSearchResultsCopy(locale, query, results.length);
-  const path = locale === "zh" ? "/zh/search/" : "/search/";
+  const path = localizePath("/search/", locale);
   const shareHref = `https://x.com/intent/tweet?text=${encodeURIComponent(copy.title)}&url=${encodeURIComponent(
     absoluteUrl(`${path}?q=${encodeURIComponent(query.trim())}`)
   )}`;
@@ -50,7 +51,7 @@ export function SearchResults({ locale, query, results }: SearchResultsProps) {
         title={copy.title}
         description={copy.intro}
         path={path}
-        alternates={canonicalAlternates({ en: "/search/", zh: "/zh/search/" })}
+        alternates={canonicalAlternates({ en: localizePath("/search/", "en"), zh: localizePath("/search/", "zh") })}
         eyebrow={copy.eyebrow}
         robots="noindex,follow"
       />
@@ -59,7 +60,7 @@ export function SearchResults({ locale, query, results }: SearchResultsProps) {
         eyebrow={copy.eyebrow}
         title={copy.title}
         intro={copy.intro}
-        alternates={{ en: "/search/", zh: "/zh/search/" }}
+        alternates={{ en: localizePath("/search/", "en"), zh: localizePath("/search/", "zh") }}
       >
         <section className="mx-auto max-w-5xl px-5 pb-16">
           {!query.trim() || query.trim().length < 2 ? (

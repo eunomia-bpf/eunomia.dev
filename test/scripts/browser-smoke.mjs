@@ -174,6 +174,10 @@ async function main() {
     await page.goto(absolute(smokeRoutes.sectionArticle), { waitUntil: "networkidle" });
     check(await page.locator("main h1").first().count(), "section article has h1");
 
+    await page.goto(absolute(smokeRoutes.mermaidArticle), { waitUntil: "networkidle" });
+    await page.locator(".mermaid-rendered svg").first().waitFor({ state: "visible" });
+    check(await page.locator(".mermaid-rendered svg").first().count(), "mermaid diagrams render as SVG");
+
     await page.goto(absolute(smokeRoutes.zhHome), { waitUntil: "networkidle" });
     const bodyText = await page.textContent("body");
     check(

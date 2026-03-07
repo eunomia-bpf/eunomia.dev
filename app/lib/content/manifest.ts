@@ -1,4 +1,5 @@
 import type { Locale } from "../site-data";
+import { getActiveRolloutStage, stageAllowsRoute, routeRolloutPolicies, type RolloutStage } from "../rollout";
 import { useContentCache } from "./cache";
 import {
   getBlogEntries,
@@ -6,38 +7,225 @@ import {
   getLegacyBlogEntries,
   getTutorialDocSources
 } from "./collections";
+import { getDocsFileSet } from "./fs-index";
 import {
   baseMarkdownPath,
-  isSupportedSection,
-  resolveSectionPageSource,
+  englishVariant,
+  localizedVariant,
   resolveLocalizedSource,
-  sectionSourceToSlugSegments,
+  resolveSectionPageSource,
+  supportedLocales,
   tutorialSourceToSlugSegments
 } from "./source";
+import { localizePath } from "../paths";
 import type { ContentManifestRecord, LocaleAlternates } from "./types";
 
+type CanonicalRouteDescriptor = {
+  kind: ContentManifestRecord["kind"];
+  key: string;
+  routeClass: ContentManifestRecord["routeClass"];
+  sitemapStage: RolloutStage;
+  slug?: string[];
+  section?: string;
+  resolveSource: (locale: Locale) => string | null;
+  buildPath: (locale: Locale) => string;
+  getSourceAliases?: () => string[];
+};
+
 let contentManifestCache: ContentManifestRecord[] | null = null;
+let canonicalDescriptorCache: CanonicalRouteDescriptor[] | null = null;
 let manifestBySourceCache: Map<string, ContentManifestRecord> | null = null;
 let manifestByRouteCache: Map<string, LocaleAlternates> | null = null;
 
 function buildTutorialPath(slugSegments: string[], locale: Locale): string {
-  const prefix = locale === "zh" ? "/zh" : "";
-  return slugSegments.length ? `${prefix}/tutorials/${slugSegments.join("/")}/` : `${prefix}/tutorials/`;
+  return localizePath(
+    slugSegments.length ? `/tutorials/${slugSegments.join("/")}/` : "/tutorials/",
+    locale
+  );
 }
 
 function buildBlogPath(year: string, month: string, day: string, slug: string, locale: Locale): string {
-  const prefix = locale === "zh" ? "/zh" : "";
-  return `${prefix}/blog/${year}/${month}/${day}/${slug}/`;
+  return localizePath(`/blog/${year}/${month}/${day}/${slug}/`, locale);
 }
 
 function buildLegacyBlogPath(key: string, locale: Locale): string {
-  const prefix = locale === "zh" ? "/zh" : "";
-  return `${prefix}/blogs/${key}/`;
+  return localizePath(`/blogs/${key}/`, locale);
 }
 
 function buildSectionPath(section: string, slugSegments: string[], locale: Locale): string {
-  const prefix = locale === "zh" ? "/zh" : "";
-  return slugSegments.length ? `${prefix}/${section}/${slugSegments.join("/")}/` : `${prefix}/${section}/`;
+  return localizePath(
+    slugSegments.length ? `/${section}/${slugSegments.join("/")}/` : `/${section}/`,
+    locale
+  );
+}
+
+function collectExistingMarkdownAliases(paths: string[]): string[] {
+  const docsFiles = getDocsFileSet();
+  const aliases = new Set<string>();
+
+  for (const relativePath of paths) {
+    const basePath = baseMarkdownPath(relativePath);
+    for (const candidate of [basePath, englishVariant(basePath), localizedVariant(basePath, "zh")]) {
+      if (docsFiles.has(candidate)) {
+        aliases.add(baseMarkdownPath(candidate));
+      }
+    }
+  }
+
+  return [...aliases];
+}
+
+function buildCanonicalDescriptors(): CanonicalRouteDescriptor[] {
+  const descriptors: CanonicalRouteDescriptor[] = [
+    {
+      kind: "home",
+      key: "home",
+      routeClass: routeRolloutPolicies.home.routeClass,
+      sitemapStage: routeRolloutPolicies.home.sitemapStage,
+      resolveSource: () => "index.md",
+      buildPath: (locale) => localizePath("/", locale),
+      getSourceAliases: () => ["index.md"]
+    },
+    {
+      kind: "tutorial-index",
+      key: "tutorials/index",
+      routeClass: routeRolloutPolicies.tutorial.routeClass,
+      sitemapStage: routeRolloutPolicies.tutorial.sitemapStage,
+      resolveSource: (locale) => resolveLocalizedSource("tutorials/index.md", locale),
+      buildPath: (locale) => localizePath("/tutorials/", locale),
+      getSourceAliases: () => collectExistingMarkdownAliases(["tutorials/index.md"])
+    },
+    {
+      kind: "blog-index",
+      key: "blog/index",
+      routeClass: routeRolloutPolicies["blog-index"].routeClass,
+      sitemapStage: routeRolloutPolicies["blog-index"].sitemapStage,
+      resolveSource: (locale) => resolveLocalizedSource("blog/index.md", locale),
+      buildPath: (locale) => localizePath("/blog/", locale),
+      getSourceAliases: () => collectExistingMarkdownAliases(["blog/index.md"])
+    },
+    {
+      kind: "legacy-blog-index",
+      key: "blogs/index",
+      routeClass: routeRolloutPolicies["legacy-blog"].routeClass,
+      sitemapStage: routeRolloutPolicies["legacy-blog"].sitemapStage,
+      resolveSource: (locale) => resolveLocalizedSource("blogs/index.md", locale),
+      buildPath: (locale) => localizePath("/blogs/", locale),
+      getSourceAliases: () => collectExistingMarkdownAliases(["blogs/index.md"])
+    }
+  ];
+
+  for (const sourceRelative of getTutorialDocSources()) {
+    const slug = tutorialSourceToSlugSegments(sourceRelative);
+    const tutorialBase = `tutorials/${slug.join("/")}`;
+    descriptors.push({
+      kind: "tutorial-page",
+      key: `tutorial:${slug.join("/")}`,
+      routeClass: routeRolloutPolicies.tutorial.routeClass,
+      sitemapStage: routeRolloutPolicies.tutorial.sitemapStage,
+      slug,
+      resolveSource: (locale) => resolveLocalizedSource(sourceRelative, locale),
+      buildPath: (locale) => buildTutorialPath(slug, locale),
+      getSourceAliases: () =>
+        collectExistingMarkdownAliases([
+          `${tutorialBase}.md`,
+          `${tutorialBase}/README.md`,
+          `${tutorialBase}/index.md`
+        ])
+    });
+  }
+
+  for (const entry of getBlogEntries()) {
+    descriptors.push({
+      kind: "blog-page",
+      key: `blog:${entry.year}-${entry.month}-${entry.day}:${entry.slug}`,
+      routeClass: routeRolloutPolicies.blog.routeClass,
+      sitemapStage: routeRolloutPolicies.blog.sitemapStage,
+      slug: [entry.year, entry.month, entry.day, entry.slug],
+      resolveSource: (locale) => entry.sourceByLocale[locale] ?? entry.sourceByLocale.en ?? entry.sourceByLocale.zh ?? null,
+      buildPath: (locale) => buildBlogPath(entry.year, entry.month, entry.day, entry.slug, locale),
+      getSourceAliases: () => collectExistingMarkdownAliases(Object.values(entry.sourceByLocale).filter(Boolean))
+    });
+  }
+
+  for (const entry of getLegacyBlogEntries()) {
+    descriptors.push({
+      kind: "legacy-blog-page",
+      key: `legacy-blog:${entry.key}`,
+      routeClass: routeRolloutPolicies["legacy-blog"].routeClass,
+      sitemapStage: routeRolloutPolicies["legacy-blog"].sitemapStage,
+      slug: [entry.key],
+      resolveSource: (locale) => entry.sourceByLocale[locale] ?? entry.sourceByLocale.en ?? entry.sourceByLocale.zh ?? null,
+      buildPath: (locale) => buildLegacyBlogPath(entry.key, locale),
+      getSourceAliases: () => collectExistingMarkdownAliases(Object.values(entry.sourceByLocale).filter(Boolean))
+    });
+  }
+
+  for (const route of getGenericSectionRouteEntries()) {
+    const { section, slug } = route;
+    const joined = slug.join("/");
+    descriptors.push({
+      kind: "section-page",
+      key: `section:${section}:${joined}`,
+      routeClass: routeRolloutPolicies.section.routeClass,
+      sitemapStage: routeRolloutPolicies.section.sitemapStage,
+      section,
+      slug,
+      resolveSource: (locale) => resolveSectionPageSource(section, slug, locale),
+      buildPath: (locale) => buildSectionPath(section, slug, locale),
+      getSourceAliases: () =>
+        collectExistingMarkdownAliases(
+          joined
+            ? [
+                `${section}/${joined}.md`,
+                `${section}/${joined}/README.md`,
+                `${section}/${joined}/index.md`
+              ]
+            : [`${section}/index.md`, `${section}/README.md`]
+        )
+    });
+  }
+
+  return descriptors;
+}
+
+function getCanonicalDescriptors(): CanonicalRouteDescriptor[] {
+  if (useContentCache && canonicalDescriptorCache) {
+    return canonicalDescriptorCache;
+  }
+
+  const descriptors = buildCanonicalDescriptors();
+  if (useContentCache) {
+    canonicalDescriptorCache = descriptors;
+  }
+
+  return descriptors;
+}
+
+function expandDescriptor(descriptor: CanonicalRouteDescriptor): ContentManifestRecord {
+  const sourceByLocale: ContentManifestRecord["sourceByLocale"] = {};
+  const routeByLocale: ContentManifestRecord["routeByLocale"] = {};
+
+  for (const locale of supportedLocales) {
+    const source = descriptor.resolveSource(locale);
+    if (!source) {
+      continue;
+    }
+
+    sourceByLocale[locale] = source;
+    routeByLocale[locale] = descriptor.buildPath(locale);
+  }
+
+  return {
+    kind: descriptor.kind,
+    key: descriptor.key,
+    routeClass: descriptor.routeClass,
+    sitemapStage: descriptor.sitemapStage,
+    slug: descriptor.slug,
+    section: descriptor.section,
+    sourceByLocale,
+    routeByLocale
+  };
 }
 
 export function getContentManifest(): ContentManifestRecord[] {
@@ -45,123 +233,40 @@ export function getContentManifest(): ContentManifestRecord[] {
     return contentManifestCache;
   }
 
-  const manifest: ContentManifestRecord[] = [
-    {
-      kind: "home",
-      key: "home",
-      sourceByLocale: {
-        en: "index.md",
-        zh: "index.md"
-      },
-      routeByLocale: {
-        en: "/",
-        zh: "/zh/"
-      }
-    },
-    {
-      kind: "tutorial-index",
-      key: "tutorials/index",
-      sourceByLocale: {
-        en: resolveLocalizedSource("tutorials/index.md", "en") ?? undefined,
-        zh: resolveLocalizedSource("tutorials/index.md", "zh") ?? undefined
-      },
-      routeByLocale: {
-        en: "/tutorials/",
-        zh: "/zh/tutorials/"
-      }
-    },
-    {
-      kind: "blog-index",
-      key: "blog/index",
-      sourceByLocale: {
-        en: resolveLocalizedSource("blog/index.md", "en") ?? undefined,
-        zh: resolveLocalizedSource("blog/index.md", "zh") ?? undefined
-      },
-      routeByLocale: {
-        en: "/blog/",
-        zh: "/zh/blog/"
-      }
-    },
-    {
-      kind: "legacy-blog-index",
-      key: "blogs/index",
-      sourceByLocale: {
-        en: resolveLocalizedSource("blogs/index.md", "en") ?? undefined,
-        zh: resolveLocalizedSource("blogs/index.md", "zh") ?? undefined
-      },
-      routeByLocale: {
-        en: "/blogs/",
-        zh: "/zh/blogs/"
-      }
-    }
-  ];
-
-  for (const sourceRelative of getTutorialDocSources()) {
-    const slug = tutorialSourceToSlugSegments(sourceRelative);
-    manifest.push({
-      kind: "tutorial-page",
-      key: `tutorial:${slug.join("/")}`,
-      slug,
-      sourceByLocale: {
-        en: resolveLocalizedSource(sourceRelative, "en") ?? undefined,
-        zh: resolveLocalizedSource(sourceRelative, "zh") ?? undefined
-      },
-      routeByLocale: {
-        en: resolveLocalizedSource(sourceRelative, "en") ? buildTutorialPath(slug, "en") : undefined,
-        zh: resolveLocalizedSource(sourceRelative, "zh") ? buildTutorialPath(slug, "zh") : undefined
-      }
-    });
-  }
-
-  for (const entry of getBlogEntries()) {
-    manifest.push({
-      kind: "blog-page",
-      key: `blog:${entry.year}-${entry.month}-${entry.day}:${entry.slug}`,
-      slug: [entry.year, entry.month, entry.day, entry.slug],
-      sourceByLocale: entry.sourceByLocale,
-      routeByLocale: {
-        en: buildBlogPath(entry.year, entry.month, entry.day, entry.slug, "en"),
-        zh: buildBlogPath(entry.year, entry.month, entry.day, entry.slug, "zh")
-      }
-    });
-  }
-
-  for (const entry of getLegacyBlogEntries()) {
-    manifest.push({
-      kind: "legacy-blog-page",
-      key: `legacy-blog:${entry.key}`,
-      slug: [entry.key],
-      sourceByLocale: entry.sourceByLocale,
-      routeByLocale: {
-        en: buildLegacyBlogPath(entry.key, "en"),
-        zh: buildLegacyBlogPath(entry.key, "zh")
-      }
-    });
-  }
-
-  for (const route of getGenericSectionRouteEntries()) {
-    const { section, slug } = route;
-    manifest.push({
-      kind: "section-page",
-      key: `section:${section}:${slug.join("/")}`,
-      section,
-      slug,
-      sourceByLocale: {
-        en: resolveSectionPageSource(section, slug, "en") ?? undefined,
-        zh: resolveSectionPageSource(section, slug, "zh") ?? undefined
-      },
-      routeByLocale: {
-        en: resolveSectionPageSource(section, slug, "en") ? buildSectionPath(section, slug, "en") : undefined,
-        zh: resolveSectionPageSource(section, slug, "zh") ? buildSectionPath(section, slug, "zh") : undefined
-      }
-    });
-  }
+  const manifest = getCanonicalDescriptors().map(expandDescriptor);
 
   if (useContentCache) {
     contentManifestCache = manifest;
   }
 
   return manifest;
+}
+
+function setUniqueSourceAlias(
+  bySource: Map<string, ContentManifestRecord>,
+  key: string,
+  record: ContentManifestRecord
+) {
+  const existing = bySource.get(key);
+  if (existing && existing.key !== record.key) {
+    throw new Error(`source alias collision: ${key} -> ${existing.key}, ${record.key}`);
+  }
+  bySource.set(key, record);
+}
+
+function setUniqueRouteAlternates(
+  byRoute: Map<string, LocaleAlternates>,
+  routeOwners: Map<string, string>,
+  key: string,
+  ownerKey: string,
+  alternates: LocaleAlternates
+) {
+  const existingOwner = routeOwners.get(key);
+  if (existingOwner && existingOwner !== ownerKey) {
+    throw new Error(`route collision: ${key} -> ${existingOwner}, ${ownerKey}`);
+  }
+  routeOwners.set(key, ownerKey);
+  byRoute.set(key, alternates);
 }
 
 function buildManifestIndexes() {
@@ -174,22 +279,29 @@ function buildManifestIndexes() {
 
   const bySource = new Map<string, ContentManifestRecord>();
   const byRoute = new Map<string, LocaleAlternates>();
+  const routeOwners = new Map<string, string>();
+  const descriptors = getCanonicalDescriptors();
+  const manifest = getContentManifest();
 
-  for (const record of getContentManifest()) {
-    for (const source of Object.values(record.sourceByLocale)) {
-      if (source) {
-        bySource.set(baseMarkdownPath(source), record);
-      }
+  for (const [index, record] of manifest.entries()) {
+    const aliases = descriptors[index]?.getSourceAliases?.() ?? [];
+    for (const source of aliases.length ? aliases : Object.values(record.sourceByLocale).filter(Boolean)) {
+      setUniqueSourceAlias(bySource, baseMarkdownPath(source), record);
     }
 
     const alternates: LocaleAlternates = {};
     if (record.routeByLocale.en) {
       alternates.en = record.routeByLocale.en;
-      byRoute.set(record.routeByLocale.en, alternates);
     }
     if (record.routeByLocale.zh) {
       alternates.zh = record.routeByLocale.zh;
-      byRoute.set(record.routeByLocale.zh, alternates);
+    }
+
+    if (alternates.en) {
+      setUniqueRouteAlternates(byRoute, routeOwners, alternates.en, record.key, alternates);
+    }
+    if (alternates.zh) {
+      setUniqueRouteAlternates(byRoute, routeOwners, alternates.zh, record.key, alternates);
     }
   }
 
@@ -222,10 +334,13 @@ function normalizeAlternates(
   return normalized;
 }
 
-export function listSitemapRoutes(): string[] {
+export function listSitemapRoutes(stage: RolloutStage = getActiveRolloutStage()): string[] {
   const routes = new Set<string>();
 
   for (const record of getContentManifest()) {
+    if (!stageAllowsRoute(record.sitemapStage, stage)) {
+      continue;
+    }
     if (record.routeByLocale.en) {
       routes.add(record.routeByLocale.en);
     }
@@ -240,36 +355,12 @@ export function listSitemapRoutes(): string[] {
 export function resolveRouteFromDocSource(relativePath: string, locale: Locale): string | null {
   const normalized = baseMarkdownPath(relativePath);
   const { bySource } = buildManifestIndexes();
-  const exactRecord = bySource.get(normalized);
-  if (exactRecord) {
-    return exactRecord.routeByLocale[locale] ?? exactRecord.routeByLocale.en ?? exactRecord.routeByLocale.zh ?? null;
+  const record = bySource.get(normalized);
+  if (!record) {
+    return null;
   }
 
-  for (const record of getContentManifest()) {
-    const exactSource = record.sourceByLocale[locale];
-    if (exactSource && baseMarkdownPath(exactSource) === normalized) {
-      return record.routeByLocale[locale] ?? null;
-    }
-
-    const fallbackSources = Object.values(record.sourceByLocale).filter(Boolean) as string[];
-    if (fallbackSources.some((candidate) => baseMarkdownPath(candidate) === normalized)) {
-      return record.routeByLocale[locale] ?? record.routeByLocale.en ?? record.routeByLocale.zh ?? null;
-    }
-  }
-
-  const [section] = normalized.split("/");
-  if (section && isSupportedSection(section)) {
-    const normalizedSlug = sectionSourceToSlugSegments(normalized, section);
-    const key = `section:${section}:${normalizedSlug.join("/")}`;
-    const record = getContentManifest().find(
-      (candidate) => candidate.kind === "section-page" && candidate.key === key
-    );
-    if (record) {
-      return record.routeByLocale[locale] ?? record.routeByLocale.en ?? record.routeByLocale.zh ?? null;
-    }
-  }
-
-  return null;
+  return record.routeByLocale[locale] ?? record.routeByLocale.en ?? record.routeByLocale.zh ?? null;
 }
 
 export function resolveAlternatesFromDocSource(

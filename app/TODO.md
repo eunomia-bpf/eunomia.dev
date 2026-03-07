@@ -33,20 +33,21 @@ Status markers:
 ## Phase 2: Route and Locale Cleanup
 
 - `[done]` Replace duplicated route logic with shared route builders and render helpers.
-- `[todo]` Collapse locale expansion onto one locale-aware URL builder.
-- `[todo]` Keep one canonical route manifest for both English and Chinese.
-- `[todo]` Stop adding framework logic to content helpers.
+- `[done]` Collapse locale expansion onto one locale-aware URL builder.
+- `[done]` Keep one canonical route manifest for both English and Chinese.
+- `[done]` Stop adding framework logic to content helpers.
 
 ## Phase 3: Markdown and Docs Parity
 
-- `[doing]` Enforce a raw-HTML sanitize allowlist after `rehype-raw`.
-- `[doing]` Keep homepage rendering outside Markdown parity so docs hardening can stay strict.
+- `[done]` Enforce a raw-HTML sanitize allowlist after `rehype-raw`.
+- `[done]` Keep homepage rendering outside Markdown parity so docs hardening can stay strict.
 - `[done]` Implement heading extraction and article TOC data.
 - `[done]` Implement syntax highlighting parity for code blocks.
+- `[done]` Implement Mermaid diagram parity for existing docs.
 - `[done]` Implement admonitions.
 - `[done]` Implement tabs.
-- `[todo]` Validate unsupported constructs fail loudly in tests.
-- `[todo]` Keep local asset resolution stable for nested tutorial paths.
+- `[done]` Validate unsupported constructs fail loudly in tests.
+- `[done]` Keep local asset resolution stable for nested tutorial paths.
 
 ## Phase 4: Metadata and SEO Parity
 
@@ -55,7 +56,7 @@ Status markers:
 - `[done]` Add article metadata rules for blog pages.
 - `[done]` Add build-time git metadata for `last updated`.
 - `[done]` Add build-time git metadata for `authors`.
-- `[todo]` Add sitemap readiness gating by parity stage.
+- `[done]` Add sitemap readiness gating by parity stage.
 
 ## Phase 5: Product Features
 
@@ -75,19 +76,21 @@ Status markers:
 - `[done]` Add unit tests for locale fallback resolution.
 - `[done]` Add unit tests for route mapping.
 - `[done]` Add unit tests for local path and asset rewriting.
-- `[todo]` Add Markdown fixture tests for:
-  - `[todo]` nested tutorial docs
-  - `[todo]` legacy `/blogs/*`
-  - `[todo]` `.en.md` and `.zh.md` variants
+- `[done]` Add Markdown fixture tests for:
+  - `[done]` nested tutorial docs
+  - `[done]` legacy `/blogs/*`
+  - `[done]` `.en.md` and `.zh.md` variants
   - `[done]` inline HTML allowed by policy
-  - `[todo]` unsupported syntax failures
+  - `[done]` unsupported syntax failures
 - `[done]` Add a regression check that article routes stay on-demand and avoid large static page payloads.
+- `[done]` Add browser coverage for Mermaid hydration on real docs pages.
+- `[done]` Add rollout stage audit coverage for `shadow`, `cutover`, and `growth`.
 
 ## Phase 7: Rollout
 
-- `[todo]` Define which routes are allowed into sitemap during shadow mode.
-- `[todo]` Define the cutover checklist for route classes.
-- `[todo]` Define the fallback/rollback path while MkDocs still exists.
+- `[done]` Define which routes are allowed into sitemap during shadow mode.
+- `[done]` Define the cutover checklist for route classes.
+- `[done]` Define the fallback/rollback path while MkDocs still exists.
 - `[done]` Define observability signals for route-class and locale health.
 - `[done]` Define which audit failures or metrics should block rollout or trigger rollback.
 - `[done]` Verify production parity against indexed and legacy routes.
@@ -98,7 +101,7 @@ Status markers:
 1. `[done]` Design the full system and backlog.
 2. `[done]` Review the design iteratively with codex reviewers/subagents.
 3. `[done]` Implement the content subsystem split.
-4. `[doing]` Add content-layer tests and finish migrating route/source lookups onto the manifest.
+4. `[done]` Add content-layer tests and finish migrating route/source lookups onto the manifest.
 5. `[done]` Harden the Markdown pipeline.
 6. `[done]` Implement heading extraction and article TOC data.
 7. `[done]` Implement syntax highlighting parity for fenced code blocks.
@@ -107,3 +110,6 @@ Status markers:
 10. `[done]` Collapse duplicated locale route logic.
 11. `[done]` Move oversized article routes off static payload generation while preserving URLs.
 12. `[done]` Verify build and audits still pass.
+13. `[done]` Prebuild static search indexes and keep the search UX/API compatible.
+14. `[done]` Codify sitemap rollout stages and rollback discipline.
+15. `[done]` Restore Mermaid parity and add real-doc fixture coverage.

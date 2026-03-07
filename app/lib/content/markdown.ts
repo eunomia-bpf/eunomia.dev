@@ -10,6 +10,12 @@ import type { ParsedMarkdown } from "./types";
 
 const markdownCache = new Map<string, ParsedMarkdown>();
 
+export type UnsupportedMarkdownConstruct = {
+  kind: string;
+  line: number;
+  snippet: string;
+};
+
 function readFile(relativePath: string, root: string = docsRoot): string {
   return fs.readFileSync(path.join(root, relativePath), "utf8");
 }
@@ -60,6 +66,64 @@ function normalizeMarkdown(markdown: string): string {
 
 function collapseWhitespace(value: string): string {
   return value.replace(/\s+/g, " ").trim();
+}
+
+const unsupportedConstructMatchers: Array<{
+  kind: string;
+  pattern: RegExp;
+}> = [
+  {
+    kind: "mkdocs-snippet-include",
+    pattern: /^--8<--/
+  },
+  {
+    kind: "generic-directive-block",
+    pattern: /^:::\s+\S+/
+  }
+];
+
+export function findUnsupportedMarkdownConstructs(markdown: string): UnsupportedMarkdownConstruct[] {
+  const constructs: UnsupportedMarkdownConstruct[] = [];
+  let inFence = false;
+
+  for (const [index, line] of markdown.replace(/\r\n?/g, "\n").split("\n").entries()) {
+    const trimmed = line.trim();
+    if (/^(```|~~~)/.test(trimmed)) {
+      inFence = !inFence;
+      continue;
+    }
+
+    if (inFence || !trimmed) {
+      continue;
+    }
+
+    for (const matcher of unsupportedConstructMatchers) {
+      if (!matcher.pattern.test(trimmed)) {
+        continue;
+      }
+
+      constructs.push({
+        kind: matcher.kind,
+        line: index + 1,
+        snippet: trimmed
+      });
+    }
+  }
+
+  return constructs;
+}
+
+export function assertSupportedMarkdown(markdown: string, relativePath: string) {
+  const unsupported = findUnsupportedMarkdownConstructs(markdown);
+  if (!unsupported.length) {
+    return;
+  }
+
+  const summary = unsupported
+    .map((construct) => `${construct.kind} at line ${construct.line}: ${construct.snippet}`)
+    .join("; ");
+
+  throw new Error(`Unsupported Markdown construct in ${relativePath}: ${summary}`);
 }
 
 export type MarkdownHeading = {
@@ -156,6 +220,7 @@ export function parseMarkdown(relativePath: string): ParsedMarkdown {
   const source = readFile(relativePath);
   const parsed = matter(source);
   const rawContent = parsed.content.replace(/\r\n?/g, "\n");
+  assertSupportedMarkdown(rawContent, relativePath);
   const normalized = normalizeMarkdown(parsed.content);
   const { titleFromHeading, body } = removeLeadingHeading(normalized);
 

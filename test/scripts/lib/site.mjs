@@ -15,6 +15,10 @@ export function pageUrl(pathname) {
   return new URL(pathname, baseUrl).toString();
 }
 
+export function pageUrlAt(siteUrl, pathname) {
+  return new URL(pathname, siteUrl).toString();
+}
+
 export function normalizeUrl(target) {
   const url = new URL(target);
   url.hash = "";
@@ -109,6 +113,15 @@ export function parseSitemapPaths(xmlText) {
 
 export async function fetchSitemapPaths(pathname = "/sitemap.xml") {
   const { response, text } = await fetchText(pageUrl(pathname));
+  return {
+    response,
+    paths: parseSitemapPaths(text)
+  };
+}
+
+export async function fetchSitemapPathsAt(origin, pathname = "/sitemap.xml") {
+  const target = new URL(pathname, origin).toString();
+  const { response, text } = await fetchText(target);
   return {
     response,
     paths: parseSitemapPaths(text)

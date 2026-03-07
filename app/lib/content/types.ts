@@ -1,4 +1,5 @@
 import type { Locale } from "../site-data";
+import type { RolloutStage, RouteClass } from "../rollout";
 
 export type LocaleAlternates = Partial<Record<Locale, string>>;
 
@@ -108,6 +109,8 @@ export type ContentManifestKind =
 export type ContentManifestRecord = {
   kind: ContentManifestKind;
   key: string;
+  routeClass: RouteClass;
+  sitemapStage: RolloutStage;
   sourceByLocale: Partial<Record<Locale, string>>;
   routeByLocale: Partial<Record<Locale, string>>;
   slug?: string[];
