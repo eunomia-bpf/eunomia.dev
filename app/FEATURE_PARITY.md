@@ -14,7 +14,7 @@ This is the minimum parity target for a MkDocs-to-Next.js migration.
 | `sitemap.xml` | generated today | Implemented | Yes | route handler | `test/scripts/http-audit.mjs` |
 | Blog index and post pages | MkDocs blog plugin | Implemented | Yes | content collection + dated slugs | `test/scripts/browser-smoke.mjs` |
 | Docs search | MkDocs search | Partial | Yes | `Pagefind` or equivalent | `test/scripts/browser-smoke.mjs` |
-| Heading anchors and TOC | Markdown extensions | Partial | Yes | rehype slug + TOC extraction | page render review |
+| Heading anchors and TOC | Markdown extensions | Implemented | Yes | rehype slug + TOC extraction | `test/scripts/browser-smoke.mjs` |
 | Code blocks and highlighting | Markdown extensions | Partial | Yes | rehype/Prism or Shiki | page render review |
 | Callouts/admonitions | Markdown extensions | Missing | Yes | custom remark plugin + components | page render review |
 | Tabs | Markdown extensions | Missing | Yes | custom remark plugin + components | page render review |

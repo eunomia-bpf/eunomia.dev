@@ -104,7 +104,7 @@ That is not a release blocker for the migration slice, but it is real technical 
 Examples:
 
 - the search box is present, but full search parity is not implemented yet
-- TOC and heading-anchor behavior are only partial
+- TOC and heading anchors are now implemented for article pages, but other Markdown feature gaps remain
 - Open Graph support is only partial
 - feedback and share surfaces are still missing
 
