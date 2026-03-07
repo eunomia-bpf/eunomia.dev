@@ -1,7 +1,7 @@
 import Head from "next/head";
 
 import type { GitMetadata } from "../lib/content/types";
-import { AlternateLink, absoluteUrl } from "../lib/seo";
+import { AlternateLink, absoluteUrl, ogImageUrl } from "../lib/seo";
 import { siteConfig } from "../lib/site-data";
 
 type SeoHeadProps = {
@@ -11,11 +11,21 @@ type SeoHeadProps = {
   alternates: AlternateLink[];
   article?: boolean;
   metadata?: GitMetadata | null;
+  eyebrow?: string;
 };
 
-export function SeoHead({ title, description, path, alternates, article = false, metadata }: SeoHeadProps) {
+export function SeoHead({
+  title,
+  description,
+  path,
+  alternates,
+  article = false,
+  metadata,
+  eyebrow
+}: SeoHeadProps) {
   const canonical = absoluteUrl(path);
   const fullTitle = `${title} | ${siteConfig.name}`;
+  const ogImage = ogImageUrl(title, eyebrow);
 
   return (
     <Head>
@@ -24,12 +34,12 @@ export function SeoHead({ title, description, path, alternates, article = false,
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={siteConfig.ogImage} />
+      <meta name="twitter:image" content={ogImage} />
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:type" content={article ? "article" : "website"} />
       <meta property="og:url" content={canonical} />
-      <meta property="og:image" content={siteConfig.ogImage} />
+      <meta property="og:image" content={ogImage} />
       {metadata?.createdAt ? <meta property="article:published_time" content={metadata.createdAt} /> : null}
       {metadata?.updatedAt ? <meta property="article:modified_time" content={metadata.updatedAt} /> : null}
       {metadata?.authors.map((author) => (

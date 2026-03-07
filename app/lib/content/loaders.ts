@@ -61,12 +61,66 @@ export async function loadHomePage(locale: Locale): Promise<HomePageData> {
       badge: "Toolchain"
     }
   ];
+  const latestBlog = getBlogEntries()[0];
+  const stats =
+    locale === "zh"
+      ? [
+          {
+            label: "教程",
+            value: String(getTutorialReadmeSources().length),
+            detail: "从基础 trace 到更深的 kernel/runtime 主题。"
+          },
+          {
+            label: "研究文章",
+            value: String(getBlogEntries().length),
+            detail: "持续整理 eBPF、GPU、AI agent 和系统研究。"
+          },
+          {
+            label: "旧博客",
+            value: String(getLegacyBlogEntries().length),
+            detail: "旧 `/blogs/*` 路径仍然保留并可访问。"
+          }
+        ]
+      : [
+          {
+            label: "Tutorials",
+            value: String(getTutorialReadmeSources().length),
+            detail: "Hands-on walkthroughs from basic tracing to deeper kernel and runtime topics."
+          },
+          {
+            label: "Research posts",
+            value: String(getBlogEntries().length),
+            detail: "Ongoing writing on eBPF, GPU tooling, AI agents, and systems research."
+          },
+          {
+            label: "Legacy posts",
+            value: String(getLegacyBlogEntries().length),
+            detail: "The old `/blogs/*` paths remain live while the app cuts over."
+          }
+        ];
 
   return {
     title: home.title,
     description: home.description,
     intro: home.excerpt || home.description,
     cards,
+    stats,
+    spotlight: latestBlog
+      ? {
+          title: latestBlog.title,
+          description: latestBlog.excerpt || latestBlog.description,
+          href:
+            locale === "zh"
+              ? `/zh/blog/${latestBlog.year}/${latestBlog.month}/${latestBlog.day}/${latestBlog.slug}/`
+              : `/blog/${latestBlog.year}/${latestBlog.month}/${latestBlog.day}/${latestBlog.slug}/`,
+          badge: `${latestBlog.year}-${latestBlog.month}-${latestBlog.day}`
+        }
+      : {
+          title: locale === "zh" ? "查看 Blog" : "Visit the blog",
+          description: home.description,
+          href: locale === "zh" ? "/zh/blog/" : "/blog/",
+          badge: locale === "zh" ? "博客" : "Blog"
+        },
     sourcePath: formatGithubSourcePath("index.md"),
     metadata: getGitMetadata("index.md"),
     path: locale === "zh" ? "/zh/" : "/",

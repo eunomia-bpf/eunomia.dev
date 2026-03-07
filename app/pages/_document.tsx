@@ -7,6 +7,8 @@ import Document, {
   type DocumentInitialProps
 } from "next/document";
 
+import { siteConfig } from "../lib/site-data";
+
 type Props = DocumentInitialProps & {
   localeLang: "en" | "zh";
 };
@@ -25,7 +27,17 @@ export default class MyDocument extends Document<Props> {
   render() {
     return (
       <Html lang={this.props.localeLang}>
-        <Head />
+        <Head>
+          <script async src={`https://www.googletagmanager.com/gtag/js?id=${siteConfig.analyticsId}`} />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${siteConfig.analyticsId}');`
+            }}
+          />
+        </Head>
         <body>
           <Main />
           <NextScript />

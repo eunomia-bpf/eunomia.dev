@@ -2,6 +2,7 @@ import type { GetStaticPropsContext, GetStaticPropsResult } from "next";
 
 import { ArticleLayout } from "../components/ArticleLayout";
 import { CardGrid } from "../components/CardGrid";
+import { HomeLanding } from "../components/HomeLanding";
 import { MarkdownContent } from "../components/MarkdownContent";
 import { PageFooter } from "../components/PageFooter";
 import { SeoHead } from "../components/SeoHead";
@@ -10,11 +11,26 @@ import { canonicalAlternates } from "./seo";
 import type { GitMetadata, LandingCard, LandingPageData, MarkdownPage } from "./content/types";
 import type { Locale } from "./site-data";
 
+export type HomeStat = {
+  label: string;
+  value: string;
+  detail: string;
+};
+
+export type HomeSpotlight = {
+  title: string;
+  description: string;
+  href: string;
+  badge: string;
+};
+
 export type HomePageData = {
   title: string;
   description: string;
   intro: string;
   cards: LandingCard[];
+  stats: HomeStat[];
+  spotlight: HomeSpotlight;
   sourcePath: string;
   metadata?: GitMetadata | null;
   path: string;
@@ -188,6 +204,7 @@ export function CollectionPageView<IndexPage extends LandingPageData, ArticlePag
         alternates={canonicalAlternates(page.alternates.en, page.alternates.zh)}
         article={kind === "article"}
         metadata={page.metadata}
+        eyebrow={eyebrow}
       />
       <SiteChrome locale={locale} eyebrow={eyebrow} title={page.title} intro={page.description}>
         {renderCollectionContent(kind, page, locale)}
@@ -206,6 +223,7 @@ export function SectionPageView({ page, section, locale }: SectionPageViewProps)
         alternates={canonicalAlternates(page.alternates.en, page.alternates.zh)}
         article
         metadata={page.metadata}
+        eyebrow={section}
       />
       <SiteChrome locale={locale} eyebrow={section} title={page.title} intro={page.description}>
         <ArticleLayout
@@ -242,21 +260,15 @@ export function HomePageView({
         path={page.path}
         alternates={canonicalAlternates(page.alternates.en, page.alternates.zh)}
         metadata={page.metadata}
+        eyebrow={eyebrow}
       />
-      <SiteChrome locale={locale} eyebrow={eyebrow} title={page.title} intro={page.intro}>
-        <section className="mx-auto max-w-4xl px-5 pb-10">
-          <article className="rounded-[2rem] border border-white/70 bg-white/90 p-8 shadow-panel md:p-10">
-            <PageFooter
-              locale={locale}
-              title={page.title}
-              path={page.path}
-              sourceHref={page.sourcePath}
-              metadata={page.metadata}
-            />
-          </article>
-        </section>
-        <CardGrid cards={page.cards} />
-      </SiteChrome>
+      <SiteChrome
+        locale={locale}
+        eyebrow={eyebrow}
+        title={page.title}
+        intro={page.intro}
+        hero={<HomeLanding locale={locale} page={page} />}
+      />
     </>
   );
 }
