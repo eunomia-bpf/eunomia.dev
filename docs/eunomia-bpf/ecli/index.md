@@ -3,9 +3,11 @@ title: ecli
 catagories: ['ecli']
 ---
 
-# ecli: run ebpf programs as json or wasm
+# ecli: run, pull, and publish eunomia-bpf programs
 
-`ecli` is the eunomia-bpf CLI for loading, running, publishing, and remotely managing eBPF programs.
+`ecli` is the local eunomia-bpf CLI for loading, running, pulling, and pushing precompiled programs.
+
+The legacy remote HTTP mode (`ecli client` / `ecli-server`) has been removed from the main branch to reduce maintenance overhead. The last implementation is preserved on the `archive/ecli-remote-http` branch.
 
 ## Usage
 
@@ -13,9 +15,9 @@ catagories: ['ecli']
 sudo ecli <COMMAND>
 ```
 
-## example
+## Examples
 
-Run the ebpf program as wasm or json.
+Run the eBPF program as wasm or json.
 
 ```sh
 # run with wasm bpf modules
@@ -24,13 +26,13 @@ sudo ecli run runqlat.wasm
 sudo ecli run package.json
 ```
 
-Or run the ebpf program as a tar file contains minimal BTF info and bpf object.
+Or run the eBPF program as a tar file that contains minimal BTF info and a BPF object.
 
 ```sh
 sudo ecli run client.tar
 ```
 
-The ecc packaged tar contains custom btf files and `package.json`, which can be run on older kernels.
+The `ecc` packaged tar contains custom BTF files and `package.json`, which can be run on older kernels.
 
 For details, see [ecc-btfgen](../ecc/usage.md#options)
 
@@ -39,18 +41,32 @@ For details, see [ecc-btfgen](../ecc/usage.md#options)
 - run - Run the ebpf program as tar or json.
 - push - Push a container to an OCI registry.
 - pull - Pull a container from an OCI registry.
-- login - Login to an OCI registry.
-    `ecli` will check [gh](https://cli.github.com/) cache and `GITHUB_TOKEN`
-    env when you login to ghcr.io, either one can be logged into ghcr without entering a token.
-- logout - Logout from an OCI registry.
-    `ecli logout xxx` will remove identity certificates stored under `~/.eunomia`.
 
-## Remote execution
+## Install
 
-`ecli` also supports a client-server mode:
+```bash
+wget https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli -O ecli
+chmod +x ./ecli
+```
 
-- Run `ecli-server` on the target machine
-- Use `ecli client --endpoint ...` to start, stop, list, and inspect tasks remotely
-- Build an `http`-only client when you only need remote control
+## OCI examples
 
-For the full remote workflow, see [ecli server](server.md).
+Pull an image locally:
+
+```bash
+./ecli pull ghcr.io/eunomia-bpf/execve:latest
+```
+
+Run directly from the registry:
+
+```bash
+sudo ./ecli run ghcr.io/eunomia-bpf/execve:latest
+```
+
+Push a Wasm module:
+
+```bash
+./ecli push --module app.wasm ghcr.io/yourorg/mytool:v1.0
+```
+
+For historical notes about the removed remote mode, see [ecli server](server.md).

@@ -5,13 +5,13 @@ catagories: ['ecc']
 
 # Github Action 模板
 
-ebpm-template：使用 Github Action 进行远程编译，本地一键运行；
+`eunomia-template`：使用 GitHub Actions 编译 eBPF 程序，并将生成的 `package.json` 发布为 Release 资产。
 
-请参考：https://github.com/eunomia-bpf/ebpm-template
+请参考：https://github.com/eunomia-bpf/eunomia-template
 
 # A template for eunomia-bpf programs
 
-This is a template for eunomia-bpf eBPF programs. You can use t as a template, compile it online with `Github Actions` or offline.
+This is a template for eunomia-bpf eBPF programs. You can use it as a template, compile it online with `GitHub Actions`, or build it offline.
 
 ### Compile and run the eBPF code as simple as possible!
 
@@ -20,17 +20,17 @@ Download the pre-compiled `ecli` binary from here: [eunomia-bpf/eunomia-bpf](htt
 To install, just download and use the `ecli` binary from here: [eunomia-bpf/eunomia-bpf](https://github.com/eunomia-bpf/eunomia-bpf/releases):
 
 ```console
-wget https://aka.pw/bpf-ecli -O ecli && chmod +x ecli
+wget https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli -O ecli && chmod +x ecli
 ```
 
-## use this repo as a github action to compile online
+## use this repo as a GitHub template for online compilation
 
 1. use this repo as a github template: see [creating-a-repository-from-a-template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)
-2. modify the `bootstrap.bpf.c`, commit it and wait for the workflow to stop
-3. Run the `ecli` with remote url:
+2. modify `src/template.bpf.c`, commit it, and wait for the `publish.yml` workflow to finish
+3. download the generated `src/package.json` asset from the latest release of your fork and run it locally:
 
 ```console
-$ sudo ./ecli run https://eunomia-bpf.github.io/ebpm-template/package.json
+$ sudo ./ecli run package.json
 ```
 
 ## quick start
@@ -52,7 +52,7 @@ see: [github.com/eunomia-bpf/eunomia-bpf](https://github.com/eunomia-bpf/eunomia
 
 ## The code here
 
-This is an example of ebpf code, we copied the bootstrap.bpf.c from [libbpf-bootstrap](https://github.com/libbpf/libbpf-bootstrap/tree/master/examples/c), without any modification. You can read their `README` for details: https://github.com/libbpf/libbpf-bootstrap
+This is an example of eBPF code. The template currently ships `src/template.bpf.c` and `src/template.h`; adjust those files for your own program and let the workflow publish the resulting `package.json`.
 
 ## more examples
 

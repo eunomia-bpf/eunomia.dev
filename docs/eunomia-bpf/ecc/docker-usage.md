@@ -27,7 +27,7 @@ $ sudo ./ecli run package.json
 to start it you can download `ecli` tool from [eunomia-bpf/releases](https://github.com/eunomia-bpf/eunomia-bpf/releases), we have pre-build binaries for linux x86. Small and No dependencies, besides glibc and glibcxx. Or just run this:
 
 ```shell
-$ wget https://aka.pw/bpf-ecli -O ecli && chmod +x ecli
+$ wget https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli -O ecli && chmod +x ecli
 ```
 
 The eBPF compiled code can run on different kernel versions(CO-RE).
@@ -45,14 +45,14 @@ Or you can do that without a container, which is listed below:
 
 ## Github actions
 
-Use this as a github action, to compile online: see [eunomia-bpf/ebpm-template)](https://github.com/eunomia-bpf/ebpm-template). Only three steps
+Use [eunomia-bpf/eunomia-template](https://github.com/eunomia-bpf/eunomia-template) as a GitHub template to compile online. The template's `publish.yml` workflow compiles `src/package.json` and publishes it as a GitHub release asset. Only three steps:
 
 1. use this repo as a github template: see [creating-a-repository-from-a-template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)
-2. modify the `bootstrap.bpf.c`, commit it and wait for the workflow to stop
-3. Run the `ecli` with remote url:
+2. modify `src/template.bpf.c`, commit it and wait for the workflow to stop
+3. download the generated `package.json` from the latest release of your fork, then run:
 
 ```shell
-$ sudo ./ecli run https://eunomia-bpf.github.io/ebpm-template/package.json
+$ sudo ./ecli run package.json
 ```
 
 ## Notifications

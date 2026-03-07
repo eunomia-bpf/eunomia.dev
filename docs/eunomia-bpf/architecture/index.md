@@ -32,10 +32,10 @@ You can have multiple `eBPF` program in a single `WASM` module.
 
 See [wasm-runtime](https://github.com/eunomia-bpf/wasm-bpf) for details. In fact, `wasm-bpf` library only exports a few functions from `bpf-loader` library to the `VM`, so you can replace the `WASM` runtime with your own easily.
 
-For example, you can run an eBPF program with a WASM module for an URL:
+For example, you can run a locally built eBPF Wasm module with `ecli`:
 
 ```bash
-sudo ./ecli run https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/app.wasm
+sudo ./ecli run ./app.wasm
 ```
 
 You can also generate a WASM program template for eBPF or build WASM module with `compiler` container:
@@ -54,7 +54,7 @@ The toolchain can be used as a docker to generate pre-compiled eBPF data in one 
 
 see the compile toolchains [compiler](https://github.com/eunomia-bpf/eunomia-bpf/tree/master/compiler) for details.
 
-you can also simply use the [ebpm-template](https://github.com/eunomia-bpf/ebpm-template) repo as a template in github, just push to it and github action can help you compile CO-RE ebpf code!
+you can also use the [eunomia-template](https://github.com/eunomia-bpf/eunomia-template) repo as a GitHub template. Its publish workflow compiles `src/package.json` and publishes it as a GitHub release asset.
 
 ## other related projects
 

@@ -2,6 +2,8 @@
 
 In today's cloud-native world, eBPF and WebAssembly are two of the hottest lightweight code execution sandboxes/virtual machines. Both of them run high-performance bytecode programs compiled from languages such as C, C++, and Rust, and both are cross-platform and portable. The biggest difference between them is that eBPF runs in the Linux kernel, while WebAssembly runs in user space. We want to make an attempt to integrate them: using Wasm to write universal eBPF programs that can be distributed to different versions and architectures of Linux kernels without the need for recompiling.
 
+> Update (March 2026): The hosted `eunomia-bpf.github.io` Wasm example URLs referenced in this historical post are no longer maintained. For current quickstarts, install `ecli` from GitHub Releases and use maintained examples from `wasm-bpf` or OCI images such as `ghcr.io/eunomia-bpf/execve:latest`.
+
 ## WebAssembly vs. eBPF
 
 WebAssembly (abbreviated as Wasm) is a binary instruction format based on a stack-based virtual machine. Wasm is designed for a portable target and can be used as a compilation target for high-level languages such as C/C++/Rust to enable the deployment of client-side and server-side applications on the Web. Wasm has multiple runtime implementations, including browsers and standalone systems, and it can be used in applications such as video and audio codecs, graphics and 3D, multimedia and gaming, cryptographic calculations, or portable language implementations.
@@ -44,9 +46,8 @@ The eunomia-bpf library includes a simple command-line tool (ecli) that contains
 
 ```console
 # download the release from https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli
-$ wget https://aka.pw/bpf-ecli -O ecli && chmod +x ./ecli
-$ sudo ./ecli run https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/app.wasm
-2022-10-11 14:05:50 URL:https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/app.wasm [70076/70076] -> "/tmp/ebpm/app.wasm" [1]
+$ wget https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli -O ecli && chmod +x ./ecli
+$ sudo ./ecli run ./app.wasm
 running and waiting for the ebpf events from perf event...
 {"pid":1709490,"tpid":1709077,"sig":0,"ret":0,"comm":"node","sig_name":"N/A"}
 {"pid":1712603,"tpid":1717412,"sig":2,"ret":0,"comm":"kworker/u4:3","sig_name":"SIGINT"}
@@ -59,7 +60,7 @@ running and waiting for the ebpf events from perf event...
 `{"ts":0,"pid":2344,"uid":0,"ret":26,"flags":0,"comm":"YDService","fname":"/proc/self/stat"}`
 ```
 
-opensnoop tracks the `open()` system call of a process, which means all file opening operations in the kernel. Here we can see process information such as PID, UID, return value, flags, process name, and file name. The eBPF program in kernel space is distributed within a Wasm module and is relocated using BTF information and libbpf during loading to adapt to different kernel versions. Additionally, because the user-space related processing code is entirely written in Wasm and the kernel-space is written in eBPF instructions, it is not restricted by specific instruction sets (e.g., x86, ARM) and can run on different platforms.
+opensnoop tracks the `open()` system call of a process, which means all file opening operations in the kernel. Here we can see process information such as PID, UID, return value, flags, process name, and file name. The eBPF program in kernel space is distributed within a Wasm module and is relocated using BTF information and libbpf during loading to adapt to different kernel versions. Additionally, because the user-space related processing code is entirely written in Wasm and the kernel-space is written in eBPF instructions, it is not restricted by specific instruction sets (e.g., x86, ARM) and can run on different platforms. In current workflows, build or obtain the Wasm example locally before running it with `ecli`.
 
 ### Developing and Packaging eBPF Programs with Wasm
 

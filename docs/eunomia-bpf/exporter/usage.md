@@ -7,9 +7,7 @@ catagories: ['exporter']
 
 This is an adapted version of opensnoop from [bcc/libbpf-tools](https://github.com/iovisor/bcc/blob/master/libbpf-tools/opensnoop.bpf.c), you can check our source code here: [examples/bpftools/opensnoop](https://github.com/eunomia-bpf/eunomia-bpf/tree/master/examples/bpftools/opensnoop)
 
-You can just download the pre-compiled [opensnoop package.json](https://eunomia-bpf.github.io/eunomia-bpf/opensnoop/package.json).
-
-Or you can compile the [opensnoop](https://github.com/eunomia-bpf/eunomia-bpf/tree/master/examples/bpftools/opensnoop) like this:
+Compile the [opensnoop](https://github.com/eunomia-bpf/eunomia-bpf/tree/master/examples/bpftools/opensnoop) example locally like this:
 
 ```sh
 $ cd examples/bpftools/opensnoop

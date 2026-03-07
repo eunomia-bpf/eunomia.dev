@@ -7,6 +7,8 @@ date: 2024-02-11
 The world of eBPF (Extended Berkeley Packet Filter) has been rapidly evolving, offering developers powerful tools to monitor and modify the behavior of systems at the kernel level. Today, we're thrilled to introduce the latest milestone in this journey - **eunomia-bpf v1.0**. This release is a testament to our commitment to simplifying and enhancing the eBPF development experience with CO-RE (Compile Once, Run Everywhere) and WebAssembly.
 <!-- more -->
 
+> Update (March 2026): This post describes the historical `ecli-server` / `ecli client` remote HTTP mode introduced in v1.0. That mode has since been removed from the main branch and archived on `archive/ecli-remote-http`. Current releases keep the local `ecli run`, `ecli push`, and `ecli pull` workflow.
+
 ## Introduction
 
 **eunomia-bpf** is not just another tool in the eBPF ecosystem. It's a dynamic loading library/runtime and a compile toolchain framework designed with a singular vision - to make building and distributing eBPF programs easier and more efficient.
@@ -54,7 +56,7 @@ eunomia-bpf v1.0 is more than just a set of new features. It's a culmination of 
 
 Ready to dive in? Here are some resources to kickstart your journey with eunomia-bpf:
 
-- **Github Template**: Explore our template at [eunomia-bpf/ebpf-template](https://github.com/eunomia-bpf/ebpm-template) for a hands-on introduction.
+- **Github Template**: Explore our template at [eunomia-bpf/eunomia-template](https://github.com/eunomia-bpf/eunomia-template) for a hands-on introduction.
 
 - **Example BPF Programs**: Delve into real-world applications with our [example programs](https://github.com/eunomia-bpf/eunomia-bpf/blob/master/examples/bpftools).
 

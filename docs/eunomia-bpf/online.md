@@ -11,7 +11,7 @@ catagories: ['misc']
 
 ## 通过在线编译运行快速体验 eBPF 和可视化
 
-本在线编译平台由 `eunomia-bpf` 工具链提供支持，详细文档请参考 [eunomia-bpf.github.io/](https://eunomia-bpf.github.io/)
+本在线编译平台由 `eunomia-bpf` 工具链提供支持，详细文档请参考 [eunomia.dev/eunomia-bpf](https://eunomia.dev/eunomia-bpf/)
 
 ### 在线编译
 
@@ -26,7 +26,7 @@ catagories: ['misc']
 
 ![imgb](../img/compile-output.png)
 
-更多信息请参考：[eunomia-bpf.github.io/mannual.html](https://eunomia-bpf.github.io/mannual.html)
+更多信息请参考：[eunomia-bpf 手册](https://eunomia.dev/eunomia-bpf/manual/)
 
 更多例子请参考：[https://github.com/eunomia-bpf/eunomia-bpf/tree/master/examples/bpftools](https://github.com/eunomia-bpf/eunomia-bpf/tree/master/examples/bpftools)
 
@@ -40,7 +40,7 @@ catagories: ['misc']
 
 ```shell
 # 下载安装 ecli 二进制
-wget https://aka.pw/bpf-ecli -O ./ecli && chmod +x ./ecli
+wget https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli -O ./ecli && chmod +x ./ecli
 # 运行 eBPF 程序（root shell）
 sudo ./ecli run package.json
 ```
