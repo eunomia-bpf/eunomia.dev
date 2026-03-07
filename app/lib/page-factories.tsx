@@ -3,10 +3,11 @@ import type { GetStaticPropsContext, GetStaticPropsResult } from "next";
 import { ArticleLayout } from "../components/ArticleLayout";
 import { CardGrid } from "../components/CardGrid";
 import { MarkdownContent } from "../components/MarkdownContent";
+import { PageFooter } from "../components/PageFooter";
 import { SeoHead } from "../components/SeoHead";
 import { SiteChrome } from "../components/SiteChrome";
 import { canonicalAlternates } from "./seo";
-import type { LandingCard, LandingPageData, MarkdownPage } from "./content/types";
+import type { GitMetadata, LandingCard, LandingPageData, MarkdownPage } from "./content/types";
 import type { Locale } from "./site-data";
 
 export type HomePageData = {
@@ -14,6 +15,8 @@ export type HomePageData = {
   description: string;
   intro: string;
   cards: LandingCard[];
+  sourcePath: string;
+  metadata?: GitMetadata | null;
   path: string;
   alternates: {
     en: string;
@@ -64,6 +67,13 @@ function renderCollectionContent<IndexPage extends LandingPageData, ArticlePage 
         <section className="mx-auto max-w-4xl px-5 pb-10">
           <article className="rounded-[2rem] border border-white/70 bg-white/90 p-8 shadow-panel md:p-10">
             <MarkdownContent html={indexPage.introHtml} />
+            <PageFooter
+              locale={locale}
+              title={indexPage.title}
+              path={indexPage.path}
+              sourceHref={indexPage.sourcePath}
+              metadata={indexPage.metadata}
+            />
           </article>
         </section>
         <CardGrid cards={indexPage.cards} />
@@ -74,9 +84,12 @@ function renderCollectionContent<IndexPage extends LandingPageData, ArticlePage 
   const articlePage = page as ArticlePage;
   return (
     <ArticleLayout
+      locale={locale}
+      path={articlePage.path}
       title={articlePage.title}
       description={articlePage.description}
       sourceHref={articlePage.sourcePath}
+      metadata={articlePage.metadata}
       headings={articlePage.headings}
       tocTitle={getTocTitle(locale)}
     >
@@ -173,6 +186,8 @@ export function CollectionPageView<IndexPage extends LandingPageData, ArticlePag
         description={page.description}
         path={page.path}
         alternates={canonicalAlternates(page.alternates.en, page.alternates.zh)}
+        article={kind === "article"}
+        metadata={page.metadata}
       />
       <SiteChrome locale={locale} eyebrow={eyebrow} title={page.title} intro={page.description}>
         {renderCollectionContent(kind, page, locale)}
@@ -189,12 +204,17 @@ export function SectionPageView({ page, section, locale }: SectionPageViewProps)
         description={page.description}
         path={page.path}
         alternates={canonicalAlternates(page.alternates.en, page.alternates.zh)}
+        article
+        metadata={page.metadata}
       />
       <SiteChrome locale={locale} eyebrow={section} title={page.title} intro={page.description}>
         <ArticleLayout
+          locale={locale}
+          path={page.path}
           title={page.title}
           description={page.description}
           sourceHref={page.sourcePath}
+          metadata={page.metadata}
           headings={page.headings}
           tocTitle={getTocTitle(locale)}
         >
@@ -221,8 +241,20 @@ export function HomePageView({
         description={page.description}
         path={page.path}
         alternates={canonicalAlternates(page.alternates.en, page.alternates.zh)}
+        metadata={page.metadata}
       />
       <SiteChrome locale={locale} eyebrow={eyebrow} title={page.title} intro={page.intro}>
+        <section className="mx-auto max-w-4xl px-5 pb-10">
+          <article className="rounded-[2rem] border border-white/70 bg-white/90 p-8 shadow-panel md:p-10">
+            <PageFooter
+              locale={locale}
+              title={page.title}
+              path={page.path}
+              sourceHref={page.sourcePath}
+              metadata={page.metadata}
+            />
+          </article>
+        </section>
         <CardGrid cards={page.cards} />
       </SiteChrome>
     </>

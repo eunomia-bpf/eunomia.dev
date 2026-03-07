@@ -13,6 +13,7 @@ __pycache__
 /venv
 /.venv
 /app/.next
+/app/.next-prod
 /app/node_modules
 /test/node_modules
 /test/playwright-report

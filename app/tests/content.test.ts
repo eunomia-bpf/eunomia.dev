@@ -3,6 +3,7 @@ import test from "node:test";
 
 import { serveRawAsset } from "../lib/content/assets";
 import { getBlogEntries } from "../lib/content/collections";
+import { getGitMetadata } from "../lib/content/git";
 import { parseMarkdown } from "../lib/content/markdown";
 import { getContentManifest } from "../lib/content/manifest";
 import { renderMarkdown, renderMarkdownBody, renderMarkdownDocument } from "../lib/content/render";
@@ -129,6 +130,15 @@ test("searchContent returns locale-aware tutorial results", () => {
 
   assert.ok(enResults.some((result) => result.href === "/tutorials/1-helloworld/"));
   assert.ok(zhResults.some((result) => result.href === "/zh/tutorials/1-helloworld/"));
+});
+
+test("getGitMetadata exposes stable authors and timestamps for docs pages", () => {
+  const metadata = getGitMetadata("tutorials/1-helloworld/README.md");
+
+  assert.ok(metadata);
+  assert.ok(metadata.authors.length > 0);
+  assert.equal(typeof metadata.updatedAt, "string");
+  assert.equal(typeof metadata.createdAt, "string");
 });
 
 test("renderMarkdown preserves allowed raw HTML used by current docs", async () => {

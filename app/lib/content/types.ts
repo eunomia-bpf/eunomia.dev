@@ -1,5 +1,16 @@
 import type { Locale } from "../site-data";
 
+export type GitAuthor = {
+  name: string;
+  email?: string;
+};
+
+export type GitMetadata = {
+  updatedAt?: string;
+  createdAt?: string;
+  authors: GitAuthor[];
+};
+
 export type MarkdownPage = {
   title: string;
   description: string;
@@ -7,6 +18,7 @@ export type MarkdownPage = {
   headings: HeadingEntry[];
   sourcePath: string;
   path: string;
+  metadata?: GitMetadata | null;
   alternates: {
     en: string;
     zh: string;
@@ -24,6 +36,8 @@ export type LandingPageData = {
   title: string;
   description: string;
   introHtml: string;
+  sourcePath: string;
+  metadata?: GitMetadata | null;
   path: string;
   alternates: {
     en: string;

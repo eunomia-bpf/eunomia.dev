@@ -85,9 +85,6 @@ The current `test/` directory is useful and already catches routing, SEO, and li
 
 What is still missing:
 
-- unit tests for slug generation
-- unit tests for locale fallback resolution
-- unit tests for relative link rewriting
 - fixture tests for Markdown edge cases
 - explicit checks for unsupported syntax that should fail loudly
 
@@ -106,7 +103,7 @@ Examples:
 - the search box is now backed by a locale-aware content index, but richer ranking and a static index are still future improvements
 - TOC and heading anchors are now implemented for article pages, but other Markdown feature gaps remain
 - Open Graph support is only partial
-- feedback and share surfaces are still missing
+- the page footer now restores git metadata, feedback CTA, and share actions, but the visual system is still transitional
 
 These are feature gaps, but they also affect engineering quality because they leave temporary structure in the codebase.
 
@@ -320,8 +317,8 @@ web/
 
 - restore analytics
 - restore Open Graph and social image generation
-- restore feedback CTA
-- restore share buttons
+- keep feedback CTA parity in the shared page footer
+- keep share buttons parity in the shared page footer
 - restore RSS/feed generation if needed
 
 ## Phase 4: Restore Search and Navigation
@@ -454,7 +451,7 @@ Design:
 
 - `Shadow mode` blockers: route parity, SEO parity, raw asset parity, analytics, sitemap parity
 - `Cutover ready` blockers: search, TOC, heading anchors, admonitions, tabs, edit links, authors, last updated
-- `Growth parity` features: feedback CTA, share buttons, RSS/social image polish, homepage CTA polish
+- `Growth parity` features: RSS/social image polish and homepage CTA polish
 
 Deliverables:
 
@@ -473,15 +470,18 @@ Deliverables:
 
 ## Verification Snapshot
 
-Last locally verified on `2026-03-06`:
+Last locally verified on `2026-03-07`:
 
 ```bash
 cd app
-NEXT_PUBLIC_SITE_URL=http://127.0.0.1:3000 npm run build
-NEXT_PUBLIC_SITE_URL=http://127.0.0.1:3000 npm run start -- --hostname 127.0.0.1 --port 3000
+npm run dev -- --hostname 0.0.0.0 --port 3000
+npm run test:content
+NEXT_DIST_DIR=.next-prod NEXT_PUBLIC_SITE_URL=http://127.0.0.1:3001 npm run build
+NEXT_DIST_DIR=.next-prod NEXT_PUBLIC_SITE_URL=http://127.0.0.1:3001 npm run start -- --hostname 127.0.0.1 --port 3001
 
 cd ../test
-BASE_URL=http://127.0.0.1:3000 npm run audit
+BASE_URL=http://127.0.0.1:3000 npm run audit:browser
+BASE_URL=http://127.0.0.1:3001 npm run audit
 ```
 
 Expected current result:

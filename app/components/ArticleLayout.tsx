@@ -1,21 +1,29 @@
 import type { PropsWithChildren } from "react";
 
-import type { HeadingEntry } from "../lib/content/types";
+import type { GitMetadata, HeadingEntry } from "../lib/content/types";
+import type { Locale } from "../lib/site-data";
+import { PageFooter } from "./PageFooter";
 import { TableOfContents } from "./TableOfContents";
 
 type ArticleLayoutProps = PropsWithChildren<{
+  locale: Locale;
+  path: string;
   title: string;
   description: string;
   sourceHref: string;
+  metadata?: GitMetadata | null;
   headings?: HeadingEntry[];
   tocTitle?: string;
 }>;
 
 export function ArticleLayout({
   children,
+  locale,
+  path,
   title,
   description,
   sourceHref,
+  metadata,
   headings = [],
   tocTitle = "On this page"
 }: ArticleLayoutProps) {
@@ -35,14 +43,13 @@ export function ArticleLayout({
             ariaLabel={`${tocTitle} mobile`}
           />
           <div className="mt-8 content-copy text-base">{children}</div>
-          <div className="mt-10 border-t border-slate-200 pt-6">
-            <a
-              href={sourceHref}
-              className="inline-flex rounded-full border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-azure hover:text-azure"
-            >
-              Edit this page
-            </a>
-          </div>
+          <PageFooter
+            locale={locale}
+            title={title}
+            path={path}
+            sourceHref={sourceHref}
+            metadata={metadata}
+          />
         </article>
         <TableOfContents headings={headings} className="hidden xl:block" title={tocTitle} />
       </div>

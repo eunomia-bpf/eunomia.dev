@@ -4,6 +4,7 @@ import {
   getLegacyBlogEntries,
   getTutorialReadmeSources
 } from "./collections";
+import { getGitMetadata } from "./git";
 import { parseMarkdown } from "./markdown";
 import { renderMarkdownBody, renderMarkdownDocumentBody } from "./render";
 import {
@@ -13,6 +14,7 @@ import {
   tutorialSourceToSlugSegments
 } from "./source";
 import type { LandingCard, LandingPageData, MarkdownPage } from "./types";
+import type { HomePageData } from "../page-factories";
 
 async function loadMarkdownPage(relativePath: string, publicPath: string, locale: Locale): Promise<MarkdownPage> {
   const sourceRelative = resolveLocalizedSource(relativePath, locale) ?? relativePath;
@@ -25,22 +27,13 @@ async function loadMarkdownPage(relativePath: string, publicPath: string, locale
     html: rendered.html,
     headings: rendered.headings,
     sourcePath: formatGithubSourcePath(sourceRelative),
+    metadata: getGitMetadata(sourceRelative),
     path: publicPath,
     alternates: makeAlternates(publicPath)
   };
 }
 
-export async function loadHomePage(locale: Locale): Promise<{
-  title: string;
-  description: string;
-  intro: string;
-  cards: LandingCard[];
-  path: string;
-  alternates: {
-    en: string;
-    zh: string;
-  };
-}> {
+export async function loadHomePage(locale: Locale): Promise<HomePageData> {
   const home = parseMarkdown("index.md");
   const tutorials = parseMarkdown(resolveLocalizedSource("tutorials/index.md", locale) ?? "tutorials/index.md");
   const bpftime = parseMarkdown(resolveLocalizedSource("bpftime/index.md", locale) ?? "bpftime/index.md");
@@ -74,6 +67,8 @@ export async function loadHomePage(locale: Locale): Promise<{
     description: home.description,
     intro: home.excerpt || home.description,
     cards,
+    sourcePath: formatGithubSourcePath("index.md"),
+    metadata: getGitMetadata("index.md"),
     path: locale === "zh" ? "/zh/" : "/",
     alternates: makeAlternates(locale === "zh" ? "/zh/" : "/")
   };
@@ -102,6 +97,8 @@ export async function loadTutorialIndex(locale: Locale): Promise<LandingPageData
     title: parsed.title,
     description: parsed.description,
     introHtml,
+    sourcePath: formatGithubSourcePath(sourceRelative),
+    metadata: getGitMetadata(sourceRelative),
     path: locale === "zh" ? "/zh/tutorials/" : "/tutorials/",
     alternates: makeAlternates(locale === "zh" ? "/zh/tutorials/" : "/tutorials/"),
     cards
@@ -148,6 +145,8 @@ export async function loadBlogIndex(locale: Locale): Promise<LandingPageData> {
     title: parsed.title,
     description: parsed.description,
     introHtml,
+    sourcePath: formatGithubSourcePath(sourceRelative),
+    metadata: getGitMetadata(sourceRelative),
     path: locale === "zh" ? "/zh/blog/" : "/blog/",
     alternates: makeAlternates(locale === "zh" ? "/zh/blog/" : "/blog/"),
     cards
@@ -205,6 +204,8 @@ export async function loadLegacyBlogIndex(locale: Locale): Promise<LandingPageDa
     title: parsed.title,
     description: parsed.description,
     introHtml,
+    sourcePath: formatGithubSourcePath(sourceRelative),
+    metadata: getGitMetadata(sourceRelative),
     path: locale === "zh" ? "/zh/blogs/" : "/blogs/",
     alternates: makeAlternates(locale === "zh" ? "/zh/blogs/" : "/blogs/"),
     cards

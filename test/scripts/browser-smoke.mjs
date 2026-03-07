@@ -129,19 +129,23 @@ async function main() {
       check(await tocAnchor.count(), "TOC exposes heading anchors");
     }
 
-    await page.goto(absolute(smokeRoutes.blogIndex), { waitUntil: "networkidle" });
-    const blogLink = page.locator("main a[href*='/blog/']").filter({
-      hasNot: page.locator("img")
-    }).first();
-    if (await blogLink.count()) {
-      await blogLink.click();
-      await page.waitForLoadState("networkidle");
-    } else {
-      await page.goto(absolute(smokeRoutes.blogArticle), { waitUntil: "networkidle" });
-    }
+    await page.goto(absolute(smokeRoutes.blogArticle), { waitUntil: "networkidle" });
     check(await page.locator("main h1").first().count(), "blog article has h1");
     const editLink = page.locator("a[href*='github.com'][href*='/tree/main/docs']").first();
     check(await editLink.count(), "blog article exposes edit link");
+    const blogMainText = (await page.textContent("main")) ?? "";
+    check(
+      /(Last updated|Updated|最近更新)/.test(blogMainText),
+      "blog article exposes git metadata"
+    );
+    check(
+      /(Was this page helpful\?|这个页面有帮助吗？)/.test(blogMainText),
+      "blog article exposes feedback CTA"
+    );
+    check(
+      await page.locator("a[href*='x.com/intent/tweet']").first().count(),
+      "blog article exposes share actions"
+    );
 
     await page.goto(absolute(smokeRoutes.legacyBlogArticle), { waitUntil: "networkidle" });
     check(await page.locator("main h1").first().count(), "legacy blog article has h1");

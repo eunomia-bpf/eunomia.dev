@@ -53,16 +53,16 @@ Status markers:
 - `[todo]` Keep title/description/canonical/hreflang generation centralized.
 - `[todo]` Improve Open Graph strategy beyond the current shared default.
 - `[todo]` Add article metadata rules for blog pages.
-- `[todo]` Add build-time git metadata for `last updated`.
-- `[todo]` Add build-time git metadata for `authors`.
+- `[done]` Add build-time git metadata for `last updated`.
+- `[done]` Add build-time git metadata for `authors`.
 - `[todo]` Add sitemap readiness gating by parity stage.
 
 ## Phase 5: Product Features
 
 - `[done]` Replace the placeholder search input with a real search system.
 - `[todo]` Add edit/source link support to all article-capable routes.
-- `[todo]` Add feedback CTA component.
-- `[todo]` Add share buttons component.
+- `[done]` Add feedback CTA component.
+- `[done]` Add share buttons component.
 - `[todo]` Add RSS/feed generation if still needed after cutover planning.
 
 ## Phase 6: Testing
@@ -86,7 +86,8 @@ Status markers:
 - `[todo]` Define the fallback/rollback path while MkDocs still exists.
 - `[done]` Define observability signals for route-class and locale health.
 - `[done]` Define which audit failures or metrics should block rollout or trigger rollback.
-- `[todo]` Verify production parity against indexed and legacy routes.
+- `[done]` Verify production parity against indexed and legacy routes.
+- `[done]` Isolate production build output from `.next` so `next dev` and `next start` can be validated side-by-side.
 
 ## Current Working Order
 
@@ -97,6 +98,7 @@ Status markers:
 5. `[done]` Harden the Markdown pipeline.
 6. `[done]` Implement heading extraction and article TOC data.
 7. `[done]` Implement syntax highlighting parity for fenced code blocks.
-8. `[todo]` Implement remaining Markdown cutover blockers: admonitions and tabs.
-9. `[todo]` Collapse duplicated locale route logic.
-10. `[todo]` Verify build and audits still pass.
+8. `[done]` Restore search, git metadata, feedback CTA, and share actions.
+9. `[todo]` Implement remaining Markdown cutover blockers: admonitions and tabs.
+10. `[todo]` Collapse duplicated locale route logic.
+11. `[todo]` Verify build and audits still pass.
