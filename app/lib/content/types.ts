@@ -59,9 +59,21 @@ export type LegacyBlogEntry = {
   sourceByLocale: Partial<Record<Locale, string>>;
 };
 
+export type ContentManifestKind =
+  | "home"
+  | "tutorial-index"
+  | "tutorial-page"
+  | "blog-index"
+  | "blog-page"
+  | "legacy-blog-index"
+  | "legacy-blog-page"
+  | "section-page";
+
 export type ContentManifestRecord = {
-  kind: "home" | "tutorial" | "blog" | "legacy-blog" | "section";
+  kind: ContentManifestKind;
   key: string;
   sourceByLocale: Partial<Record<Locale, string>>;
   routeByLocale: Partial<Record<Locale, string>>;
+  slug?: string[];
+  section?: string;
 };

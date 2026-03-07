@@ -4,7 +4,7 @@ import { visit } from "unist-util-visit";
 
 import type { Locale } from "../site-data";
 import { getDocsFileSet, getSiteFileSet } from "./fs-index";
-import { docPathToRoute } from "./routes";
+import { resolveRouteFromDocSource } from "./manifest";
 import {
   baseMarkdownPath,
   englishVariant,
@@ -98,7 +98,7 @@ function rewriteAbsolutePath(value: string): string {
   }
 
   if (getDocsFileSet().has(normalized)) {
-    const route = docPathToRoute(normalized, normalized.endsWith(".zh.md") ? "zh" : "en");
+    const route = resolveRouteFromDocSource(normalized, normalized.endsWith(".zh.md") ? "zh" : "en");
     if (route) {
       return `${route}${search}${hash}`;
     }
@@ -128,7 +128,7 @@ function rewriteRelativePath(value: string, sourceRelativePath: string, locale: 
 
   const docCandidate = resolveDocLinkCandidate(resolved);
   if (docCandidate) {
-    const route = docPathToRoute(docCandidate, explicitLocale);
+    const route = resolveRouteFromDocSource(docCandidate, explicitLocale);
     if (route) {
       return `${route}${search}${hash}`;
     }

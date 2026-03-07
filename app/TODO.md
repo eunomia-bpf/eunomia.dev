@@ -12,7 +12,7 @@ Status markers:
 ## Phase 0: Architecture Lock
 
 - `[done]` Split `lib/content.ts` into `content/*` modules as the first structural refactor.
-- `[todo]` Introduce a `ContentManifest` as the only route/source registry.
+- `[doing]` Introduce a `ContentManifest` as the route/source registry and migrate remaining loaders onto it.
 - `[done]` Define the Markdown allowlist/sanitization policy in docs.
 - `[done]` Define parity cut-lines for `shadow`, `cutover`, and `growth`.
 - `[done]` Define Pages Router exit criteria and ban new duplicated locale route code.
@@ -24,7 +24,7 @@ Status markers:
 
 - `[done]` Build `fs-index.ts` for repo file inventories.
 - `[done]` Build `types.ts` for parsed markdown, manifest, and page payload types.
-- `[todo]` Build `manifest.ts` for route identities, alternates, and sitemap candidates.
+- `[done]` Build `manifest.ts` for route identities, alternates, and sitemap candidates.
 - `[done]` Build `collections.ts` for tutorials, blog, legacy blog, and section views.
 - `[done]` Build `rewrite.ts` for local link and asset rewriting.
 - `[done]` Build `assets.ts` for raw asset resolution and content type lookup.
@@ -91,7 +91,7 @@ Status markers:
 1. `[done]` Design the full system and backlog.
 2. `[done]` Review the design iteratively with `claude`.
 3. `[done]` Implement the content subsystem split.
-4. `[doing]` Add content-layer tests for the split before broader refactors.
+4. `[doing]` Add content-layer tests and finish migrating route/source lookups onto the manifest.
 5. `[todo]` Harden the Markdown pipeline.
 6. `[todo]` Collapse duplicated locale route logic.
 7. `[todo]` Verify build and audits still pass.
