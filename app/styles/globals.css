@@ -80,6 +80,27 @@ a {
   @apply mb-6 overflow-x-auto rounded-2xl bg-slate-950 p-4 text-sm text-slate-100;
 }
 
+.content-copy figure[data-rehype-pretty-code-figure] {
+  @apply mb-6 overflow-hidden rounded-2xl border border-slate-800/80 bg-slate-950 shadow-sm;
+}
+
+.content-copy figure[data-rehype-pretty-code-figure] pre {
+  @apply mb-0 rounded-none border-0 bg-transparent p-0 shadow-none;
+}
+
+.content-copy pre[data-language] code {
+  @apply block min-w-full;
+}
+
+.content-copy pre[data-language] [data-line] {
+  @apply block px-4 py-0.5;
+}
+
+.content-copy pre[data-language] [data-line]::selection,
+.content-copy pre[data-language] [data-line] span::selection {
+  @apply bg-azure/30;
+}
+
 .content-copy code {
   @apply rounded bg-slate-100 px-1.5 py-0.5 text-sm text-slate-800;
 }

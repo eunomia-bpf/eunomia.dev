@@ -15,7 +15,7 @@ This is the minimum parity target for a MkDocs-to-Next.js migration.
 | Blog index and post pages | MkDocs blog plugin | Implemented | Yes | content collection + dated slugs | `test/scripts/browser-smoke.mjs` |
 | Docs search | MkDocs search | Partial | Yes | `Pagefind` or equivalent | `test/scripts/browser-smoke.mjs` |
 | Heading anchors and TOC | Markdown extensions | Implemented | Yes | rehype slug + TOC extraction | `test/scripts/browser-smoke.mjs` |
-| Code blocks and highlighting | Markdown extensions | Partial | Yes | rehype/Prism or Shiki | page render review |
+| Code blocks and highlighting | Markdown extensions | Implemented | Yes | `rehype-pretty-code` + language normalization | `app/tests/content.test.ts`, `test/scripts/browser-smoke.mjs` |
 | Callouts/admonitions | Markdown extensions | Missing | Yes | custom remark plugin + components | page render review |
 | Tabs | Markdown extensions | Missing | Yes | custom remark plugin + components | page render review |
 | Edit links | `edit_uri` | Implemented | Yes | page metadata to GitHub source URL | `test/scripts/browser-smoke.mjs` |

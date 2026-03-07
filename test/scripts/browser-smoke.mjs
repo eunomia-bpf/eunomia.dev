@@ -98,6 +98,10 @@ async function main() {
       await page.goto(absolute(smokeRoutes.tutorialArticle), { waitUntil: "networkidle" });
     }
     check(await page.locator("main h1").first().count(), "tutorial article has h1");
+    check(
+      await page.locator("pre[data-language] span[style*='color:']").first().count(),
+      "tutorial article renders highlighted code"
+    );
 
     await page.goto(absolute(smokeRoutes.tutorialNestedArticle), { waitUntil: "networkidle" });
     check(
@@ -107,6 +111,10 @@ async function main() {
     check(
       await page.locator("nav[aria-label='On this page'] a[href='#usage']").first().count(),
       "nested tutorial article exposes TOC links"
+    );
+    check(
+      await page.locator("figure[data-rehype-pretty-code-figure], pre[data-language]").first().count(),
+      "nested tutorial article renders highlighted code blocks"
     );
     const toc = page.locator("nav[aria-label='On this page'], nav[aria-label='Table of contents']").first();
     check(await toc.count(), "nested tutorial article exposes TOC");

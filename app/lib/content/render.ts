@@ -1,3 +1,4 @@
+import rehypePrettyCode from "rehype-pretty-code";
 import rehypeRaw from "rehype-raw";
 import rehypeSanitize from "rehype-sanitize";
 import rehypeSlug from "rehype-slug";
@@ -9,6 +10,7 @@ import { unified } from "unified";
 import { visit } from "unist-util-visit";
 
 import type { Locale } from "../site-data";
+import { createCodeLanguageNormalizer, prettyCodeOptions } from "./highlight";
 import { createRehypeRewriter } from "./rewrite";
 import { parseMarkdown } from "./markdown";
 import { markdownSanitizeSchema } from "./sanitize";
@@ -78,6 +80,8 @@ export async function renderMarkdownDocumentBody(
     .use(rehypeSanitize, markdownSanitizeSchema)
     .use(rehypeSlug)
     .use(createHeadingCollector(headings))
+    .use(createCodeLanguageNormalizer())
+    .use(rehypePrettyCode, prettyCodeOptions)
     .use(createRehypeRewriter(relativePath, locale))
     .use(rehypeStringify)
     .process(markdown);

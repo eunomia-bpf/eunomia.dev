@@ -169,7 +169,7 @@ The design needs explicit milestones, otherwise "finish parity" stays too vague.
 Recommended decision:
 
 - `Shadow mode`: routes, SEO metadata, raw assets, docs/blog rendering, sitemap parity, analytics
-- `Cutover ready`: search, TOC, heading anchors, code highlighting, admonitions, tabs, edit links, authors, last updated
+- `Cutover ready`: search, TOC, heading anchors, admonitions, tabs, edit links, authors, last updated
 - `Growth parity`: feedback CTA, share buttons, RSS/social image polish, homepage/product polish
 
 The sitemap should only contain routes that satisfy the current cut-line for the environment being tested.
@@ -453,7 +453,7 @@ Goal:
 Design:
 
 - `Shadow mode` blockers: route parity, SEO parity, raw asset parity, analytics, sitemap parity
-- `Cutover ready` blockers: search, TOC, heading anchors, code highlighting, admonitions, tabs, edit links, authors, last updated
+- `Cutover ready` blockers: search, TOC, heading anchors, admonitions, tabs, edit links, authors, last updated
 - `Growth parity` features: feedback CTA, share buttons, RSS/social image polish, homepage CTA polish
 
 Deliverables:

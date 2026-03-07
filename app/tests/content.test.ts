@@ -146,6 +146,24 @@ test("renderMarkdownDocument extracts TOC headings from article content", async 
   );
 });
 
+test("renderMarkdownBody applies syntax highlighting to fenced code blocks", async () => {
+  const html = await renderMarkdownBody("```c\nint main() { return 0; }\n```", "tutorials/fake.md", "en");
+
+  assert.match(html, /<figure data-rehype-pretty-code-figure="">/);
+  assert.match(html, /data-language="c"/);
+  assert.match(html, /<span style="color:/);
+});
+
+test("renderMarkdownBody normalizes shell and plaintext-ish aliases for highlighting", async () => {
+  const shellHtml = await renderMarkdownBody("```console\nsudo ./ecli run package.json\n```", "tutorials/fake.md", "en");
+  const textHtml = await renderMarkdownBody("```conf\nALLOW=true\n```", "tutorials/fake.md", "en");
+  const cudaHtml = await renderMarkdownBody("```cuda\n__global__ void add() {}\n```", "tutorials/fake.md", "en");
+
+  assert.match(shellHtml, /data-language="shellsession"/);
+  assert.match(textHtml, /data-language="plaintext"/);
+  assert.match(cudaHtml, /data-language="cpp"/);
+});
+
 test("renderMarkdownBody rewrites local asset URLs inside allowed raw HTML", async () => {
   const html = await renderMarkdownBody(
     '<div align="center"><img src="./tcpconnlat1.png" alt="demo" width="800"></div>',
@@ -171,6 +189,8 @@ test("renderMarkdownBody strips unsafe raw HTML and dangerous URLs", async () =>
 test("renderMarkdownBody keeps fenced HTML samples escaped", async () => {
   const html = await renderMarkdownBody("```html\n<script>alert(1)</script>\n```", "blog/posts/fake.md", "en");
 
-  assert.match(html, /&#x3C;script>alert\(1\)&#x3C;\/script>/);
+  assert.match(html, /data-language="html"/);
+  assert.match(html, /&#x3C;/);
+  assert.match(html, /script/);
   assert.doesNotMatch(html, /<script>alert\(1\)<\/script>/);
 });
