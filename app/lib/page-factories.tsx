@@ -48,9 +48,14 @@ type SectionPageViewProps = {
   locale: Locale;
 };
 
+function getTocTitle(locale: Locale): string {
+  return locale === "zh" ? "本页目录" : "On this page";
+}
+
 function renderCollectionContent<IndexPage extends LandingPageData, ArticlePage extends MarkdownPage>(
   kind: CollectionPageProps<IndexPage, ArticlePage>["kind"],
-  page: IndexPage | ArticlePage
+  page: IndexPage | ArticlePage,
+  locale: Locale
 ) {
   if (kind === "index") {
     const indexPage = page as IndexPage;
@@ -72,6 +77,8 @@ function renderCollectionContent<IndexPage extends LandingPageData, ArticlePage 
       title={articlePage.title}
       description={articlePage.description}
       sourceHref={articlePage.sourcePath}
+      headings={articlePage.headings}
+      tocTitle={getTocTitle(locale)}
     >
       <MarkdownContent html={articlePage.html} />
     </ArticleLayout>
@@ -168,7 +175,7 @@ export function CollectionPageView<IndexPage extends LandingPageData, ArticlePag
         alternates={canonicalAlternates(page.alternates.en, page.alternates.zh)}
       />
       <SiteChrome locale={locale} eyebrow={eyebrow} title={page.title} intro={page.description}>
-        {renderCollectionContent(kind, page)}
+        {renderCollectionContent(kind, page, locale)}
       </SiteChrome>
     </>
   );
@@ -184,7 +191,13 @@ export function SectionPageView({ page, section, locale }: SectionPageViewProps)
         alternates={canonicalAlternates(page.alternates.en, page.alternates.zh)}
       />
       <SiteChrome locale={locale} eyebrow={section} title={page.title} intro={page.description}>
-        <ArticleLayout title={page.title} description={page.description} sourceHref={page.sourcePath}>
+        <ArticleLayout
+          title={page.title}
+          description={page.description}
+          sourceHref={page.sourcePath}
+          headings={page.headings}
+          tocTitle={getTocTitle(locale)}
+        >
           <MarkdownContent html={page.html} />
         </ArticleLayout>
       </SiteChrome>

@@ -5,7 +5,7 @@ import { serveRawAsset } from "../lib/content/assets";
 import { getBlogEntries } from "../lib/content/collections";
 import { parseMarkdown } from "../lib/content/markdown";
 import { getContentManifest } from "../lib/content/manifest";
-import { renderMarkdown, renderMarkdownBody } from "../lib/content/render";
+import { renderMarkdown, renderMarkdownBody, renderMarkdownDocument } from "../lib/content/render";
 import { docPathToRoute, getGenericSectionRoutes, listSitemapRoutes } from "../lib/content/routes";
 import { rewriteContentUrl } from "../lib/content/rewrite";
 import { resolveLocalizedSource, slugifyTitle } from "../lib/content/source";
@@ -128,6 +128,22 @@ test("renderMarkdown preserves allowed raw HTML used by current docs", async () 
   assert.match(html, /<div align="center">/);
   assert.match(html, /<img[^>]+src="https:\/\/github\.com\/eunomia-bpf\/agentsight\/raw\/master\/docs\/demo-tree\.png"/);
   assert.match(html, /<p><em>Real-time process tree visualization/);
+});
+
+test("renderMarkdownDocument extracts TOC headings from article content", async () => {
+  const rendered = await renderMarkdownDocument("tutorials/38-btf-uprobe/test-verify/README.md", "en");
+
+  assert.ok(rendered.headings.length > 0);
+  assert.deepEqual(rendered.headings[0], {
+    id: "usage",
+    text: "Usage",
+    depth: 2
+  });
+  assert.ok(
+    rendered.headings.some(
+      (heading) => heading.id === "verify-struct-data-access" && heading.text === "Verify struct data access"
+    )
+  );
 });
 
 test("renderMarkdownBody rewrites local asset URLs inside allowed raw HTML", async () => {

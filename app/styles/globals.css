@@ -44,8 +44,11 @@ a {
 .content-copy h1,
 .content-copy h2,
 .content-copy h3,
-.content-copy h4 {
+.content-copy h4,
+.content-copy h5,
+.content-copy h6 {
   @apply mt-10 text-ink;
+  scroll-margin-top: 7rem;
 }
 
 .content-copy h2 {

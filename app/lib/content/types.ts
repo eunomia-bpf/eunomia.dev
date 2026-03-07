@@ -4,6 +4,7 @@ export type MarkdownPage = {
   title: string;
   description: string;
   html: string;
+  headings: HeadingEntry[];
   sourcePath: string;
   path: string;
   alternates: {
@@ -37,6 +38,17 @@ export type ParsedMarkdown = {
   excerpt: string;
   body: string;
   date?: string;
+};
+
+export type HeadingEntry = {
+  id: string;
+  text: string;
+  depth: number;
+};
+
+export type RenderedMarkdown = {
+  html: string;
+  headings: HeadingEntry[];
 };
 
 export type BlogEntry = {

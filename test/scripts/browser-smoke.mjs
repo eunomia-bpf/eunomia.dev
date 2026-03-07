@@ -44,7 +44,7 @@ async function main() {
   console.log(`Running browser smoke tests for ${baseUrl.toString()}`);
 
   const browser = await chromium.launch({ headless: true });
-  const page = await browser.newPage();
+  const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
   page.setDefaultTimeout(15000);
 
   try {
@@ -104,6 +104,17 @@ async function main() {
       await page.locator("main h1").first().count(),
       "nested tutorial article has h1"
     );
+    check(
+      await page.locator("nav[aria-label='On this page'] a[href='#usage']").first().count(),
+      "nested tutorial article exposes TOC links"
+    );
+    const toc = page.locator("nav[aria-label='On this page'], nav[aria-label='Table of contents']").first();
+    check(await toc.count(), "nested tutorial article exposes TOC");
+    if (await toc.count()) {
+      check(await toc.isVisible(), "nested tutorial article shows TOC on desktop");
+      const tocAnchor = toc.locator("a[href^='#']").first();
+      check(await tocAnchor.count(), "TOC exposes heading anchors");
+    }
 
     await page.goto(absolute(smokeRoutes.blogIndex), { waitUntil: "networkidle" });
     const blogLink = page.locator("main a[href*='/blog/']").filter({

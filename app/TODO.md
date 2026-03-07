@@ -41,7 +41,7 @@ Status markers:
 
 - `[doing]` Enforce a raw-HTML sanitize allowlist after `rehype-raw`.
 - `[doing]` Keep homepage rendering outside Markdown parity so docs hardening can stay strict.
-- `[todo]` Implement heading extraction and article TOC data.
+- `[done]` Implement heading extraction and article TOC data.
 - `[todo]` Implement syntax highlighting parity for code blocks.
 - `[todo]` Implement admonitions.
 - `[todo]` Implement tabs.
@@ -94,7 +94,8 @@ Status markers:
 2. `[done]` Review the design iteratively with `claude`.
 3. `[done]` Implement the content subsystem split.
 4. `[doing]` Add content-layer tests and finish migrating route/source lookups onto the manifest.
-5. `[doing]` Harden the Markdown pipeline.
-6. `[todo]` Collapse duplicated locale route logic.
-7. `[todo]` Verify build and audits still pass.
-8. `[todo]` Continue through cutover-blocking parity items.
+5. `[done]` Harden the Markdown pipeline.
+6. `[done]` Implement heading extraction and article TOC data.
+7. `[todo]` Implement syntax highlighting parity and remaining Markdown cutover blockers.
+8. `[todo]` Collapse duplicated locale route logic.
+9. `[todo]` Verify build and audits still pass.

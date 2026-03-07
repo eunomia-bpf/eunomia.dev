@@ -5,7 +5,7 @@ import {
   getTutorialReadmeSources
 } from "./collections";
 import { parseMarkdown } from "./markdown";
-import { renderMarkdown } from "./render";
+import { renderMarkdownBody, renderMarkdownDocumentBody } from "./render";
 import {
   formatGithubSourcePath,
   makeAlternates,
@@ -17,11 +17,13 @@ import type { LandingCard, LandingPageData, MarkdownPage } from "./types";
 async function loadMarkdownPage(relativePath: string, publicPath: string, locale: Locale): Promise<MarkdownPage> {
   const sourceRelative = resolveLocalizedSource(relativePath, locale) ?? relativePath;
   const parsed = parseMarkdown(sourceRelative);
+  const rendered = await renderMarkdownDocumentBody(parsed.body, sourceRelative, locale);
 
   return {
     title: parsed.title,
     description: parsed.description,
-    html: await renderMarkdown(sourceRelative, locale),
+    html: rendered.html,
+    headings: rendered.headings,
     sourcePath: formatGithubSourcePath(sourceRelative),
     path: publicPath,
     alternates: makeAlternates(publicPath)
@@ -80,7 +82,7 @@ export async function loadHomePage(locale: Locale): Promise<{
 export async function loadTutorialIndex(locale: Locale): Promise<LandingPageData> {
   const sourceRelative = resolveLocalizedSource("tutorials/index.md", locale) ?? "tutorials/index.md";
   const parsed = parseMarkdown(sourceRelative);
-  const introHtml = await renderMarkdown(sourceRelative, locale);
+  const introHtml = await renderMarkdownBody(parsed.body, sourceRelative, locale);
 
   const cards = getTutorialReadmeSources().map((source) => {
     const localizedSource = resolveLocalizedSource(source, locale) ?? source;
@@ -130,7 +132,7 @@ export async function loadTutorialPage(
 export async function loadBlogIndex(locale: Locale): Promise<LandingPageData> {
   const sourceRelative = resolveLocalizedSource("blog/index.md", locale) ?? "blog/index.md";
   const parsed = parseMarkdown(sourceRelative);
-  const introHtml = await renderMarkdown(sourceRelative, locale);
+  const introHtml = await renderMarkdownBody(parsed.body, sourceRelative, locale);
 
   const cards = getBlogEntries().map((entry) => ({
     title: entry.title,
@@ -190,7 +192,7 @@ export async function loadBlogPage(
 export async function loadLegacyBlogIndex(locale: Locale): Promise<LandingPageData> {
   const sourceRelative = resolveLocalizedSource("blogs/index.md", locale) ?? "blogs/index.md";
   const parsed = parseMarkdown(sourceRelative);
-  const introHtml = await renderMarkdown(sourceRelative, locale);
+  const introHtml = await renderMarkdownBody(parsed.body, sourceRelative, locale);
 
   const cards = getLegacyBlogEntries().map((entry) => ({
     title: entry.title,
