@@ -59,7 +59,7 @@ Status markers:
 
 ## Phase 5: Product Features
 
-- `[todo]` Replace the placeholder search input with a real search system.
+- `[done]` Replace the placeholder search input with a real search system.
 - `[todo]` Add edit/source link support to all article-capable routes.
 - `[todo]` Add feedback CTA component.
 - `[todo]` Add share buttons component.

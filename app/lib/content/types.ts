@@ -89,3 +89,12 @@ export type ContentManifestRecord = {
   slug?: string[];
   section?: string;
 };
+
+export type SearchResult = {
+  title: string;
+  description: string;
+  href: string;
+  locale: Locale;
+  kind: ContentManifestKind;
+  section?: string;
+};

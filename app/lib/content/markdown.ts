@@ -47,6 +47,18 @@ function collapseWhitespace(value: string): string {
   return value.replace(/\s+/g, " ").trim();
 }
 
+export function markdownToSearchText(markdown: string): string {
+  return collapseWhitespace(
+    normalizeMarkdown(markdown)
+      .replace(/```[\s\S]*?```/g, (block) => block.replace(/```[^\n]*\n?/g, " "))
+      .replace(/`([^`]+)`/g, "$1")
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+      .replace(/!\[([^\]]*)\]\([^)]+\)/g, "$1")
+      .replace(/<\/?[^>]+>/g, " ")
+      .replace(/[*_~>#-]/g, " ")
+  );
+}
+
 function makeExcerpt(markdown: string): string {
   const blocks = markdown
     .split(/\n{2,}/)

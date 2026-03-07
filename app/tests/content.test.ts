@@ -7,6 +7,7 @@ import { parseMarkdown } from "../lib/content/markdown";
 import { getContentManifest } from "../lib/content/manifest";
 import { renderMarkdown, renderMarkdownBody, renderMarkdownDocument } from "../lib/content/render";
 import { docPathToRoute, getGenericSectionRoutes, listSitemapRoutes } from "../lib/content/routes";
+import { searchContent } from "../lib/content/search";
 import { rewriteContentUrl } from "../lib/content/rewrite";
 import { resolveLocalizedSource, slugifyTitle } from "../lib/content/source";
 
@@ -120,6 +121,14 @@ test("listSitemapRoutes keeps key legacy and section routes", () => {
   assert.ok(routes.has("/tutorials/38-btf-uprobe/test-verify/"));
   assert.ok(routes.has("/zh/eunomia-bpf/ecli/ecli-dockerfile-usage/"));
   assert.ok(!routes.has("/eunomia-bpf/ecli/ecli-dockerfile-usage/"));
+});
+
+test("searchContent returns locale-aware tutorial results", () => {
+  const enResults = searchContent("hello world", "en");
+  const zhResults = searchContent("hello world", "zh");
+
+  assert.ok(enResults.some((result) => result.href === "/tutorials/1-helloworld/"));
+  assert.ok(zhResults.some((result) => result.href === "/zh/tutorials/1-helloworld/"));
 });
 
 test("renderMarkdown preserves allowed raw HTML used by current docs", async () => {

@@ -103,7 +103,7 @@ That is not a release blocker for the migration slice, but it is real technical 
 
 Examples:
 
-- the search box is present, but full search parity is not implemented yet
+- the search box is now backed by a locale-aware content index, but richer ranking and a static index are still future improvements
 - TOC and heading anchors are now implemented for article pages, but other Markdown feature gaps remain
 - Open Graph support is only partial
 - feedback and share surfaces are still missing

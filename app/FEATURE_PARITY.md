@@ -13,7 +13,7 @@ This is the minimum parity target for a MkDocs-to-Next.js migration.
 | `robots.txt` | generated today | Implemented | Yes | route handler | `test/scripts/http-audit.mjs` |
 | `sitemap.xml` | generated today | Implemented | Yes | route handler | `test/scripts/http-audit.mjs` |
 | Blog index and post pages | MkDocs blog plugin | Implemented | Yes | content collection + dated slugs | `test/scripts/browser-smoke.mjs` |
-| Docs search | MkDocs search | Partial | Yes | `Pagefind` or equivalent | `test/scripts/browser-smoke.mjs` |
+| Docs search | MkDocs search | Implemented | Yes | server-backed content index with locale-aware ranking | `app/tests/content.test.ts`, `test/scripts/browser-smoke.mjs` |
 | Heading anchors and TOC | Markdown extensions | Implemented | Yes | rehype slug + TOC extraction | `test/scripts/browser-smoke.mjs` |
 | Code blocks and highlighting | Markdown extensions | Implemented | Yes | `rehype-pretty-code` + language normalization | `app/tests/content.test.ts`, `test/scripts/browser-smoke.mjs` |
 | Callouts/admonitions | Markdown extensions | Missing | Yes | custom remark plugin + components | page render review |
@@ -29,7 +29,7 @@ This is the minimum parity target for a MkDocs-to-Next.js migration.
 ## Known Risk Areas
 
 - `docs/blog` and `docs/blogs` currently overlap
-- full-text search index is not wired yet
+- search is currently server-backed rather than a static index, so payload size is controlled but future cutover may still prefer a static index
 - advanced Markdown extensions still need parity work
 - tutorial content is synced from a separate source repository
 - local asset resolution must remain stable for deep tutorial paths

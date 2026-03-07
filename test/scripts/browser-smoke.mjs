@@ -83,8 +83,13 @@ async function main() {
     }
     check(Boolean(searchInput), "search input opens");
     if (searchInput) {
-      await searchInput.fill("bpftime");
+      await searchInput.fill("hello world");
       check(true, "search input accepts typing");
+      const searchResult = page
+        .locator(`a[href='${smokeRoutes.tutorialArticle}'], a[href='${absolute(smokeRoutes.tutorialArticle)}']`)
+        .first();
+      await searchResult.waitFor({ state: "visible" });
+      check(await searchResult.count(), "search shows matching results");
     }
 
     await page.goto(absolute(smokeRoutes.tutorials), { waitUntil: "networkidle" });
