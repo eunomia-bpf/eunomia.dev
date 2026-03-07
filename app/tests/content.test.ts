@@ -6,6 +6,7 @@ import { getBlogEntries } from "../lib/content/collections";
 import { renderFeed } from "../lib/content/feed";
 import { getGitMetadata } from "../lib/content/git";
 import { resolveAlternatesFromDocSource } from "../lib/content/manifest";
+import { splitMaterialBlocks } from "../lib/content/material-blocks";
 import { loadBlogPage, loadSectionPage, loadTutorialPage } from "../lib/content/loaders";
 import { parseMarkdown } from "../lib/content/markdown";
 import { getContentManifest } from "../lib/content/manifest";
@@ -292,4 +293,63 @@ test("renderMarkdownBody keeps fenced HTML samples escaped", async () => {
   assert.match(html, /&#x3C;/);
   assert.match(html, /script/);
   assert.doesNotMatch(html, /<script>alert\(1\)<\/script>/);
+});
+
+test("splitMaterialBlocks recognizes admonitions and tab groups", () => {
+  const blocks = splitMaterialBlocks(`Intro paragraph.
+
+!!! warning "Watch out"
+    Danger zone.
+
+=== "Linux"
+    \`\`\`bash
+    uname -a
+    \`\`\`
+
+=== "macOS"
+    \`\`\`bash
+    sw_vers
+    \`\`\`
+`);
+
+  assert.equal(blocks.length, 3);
+  assert.deepEqual(blocks[1], {
+    type: "admonition",
+    kind: "warning",
+    title: "Watch out",
+    collapsible: false,
+    open: false,
+    content: "Danger zone."
+  });
+  assert.equal(blocks[2]?.type, "tabs");
+  assert.equal(blocks[2]?.items.length, 2);
+  assert.equal(blocks[2]?.items[0]?.label, "Linux");
+});
+
+test("renderMarkdownBody renders admonitions and tabs into styled HTML", async () => {
+  const html = await renderMarkdownBody(
+    `???+ note "Why this matters"
+    The docs renderer should support nested markdown.
+
+=== "Shell"
+    \`\`\`bash
+    echo hello
+    \`\`\`
+
+=== "JSON"
+    \`\`\`json
+    {"ok":true}
+    \`\`\`
+`,
+    "tutorials/fake.md",
+    "en"
+  );
+
+  assert.match(html, /<details class="content-admonition content-admonition-note" open>/);
+  assert.match(html, /<summary>Why this matters<\/summary>/);
+  assert.match(html, /<div class="content-tabs">/);
+  assert.match(html, /class="content-tab-label"[^>]*>Shell<\/label>/);
+  assert.match(html, /class="content-tab-label"[^>]*>JSON<\/label>/);
+  assert.match(html, /data-language="bash"/);
+  assert.match(html, /data-language="json"/);
 });

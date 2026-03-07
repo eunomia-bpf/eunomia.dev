@@ -17,8 +17,8 @@ This is the minimum parity target for a MkDocs-to-Next.js migration.
 | Docs search | MkDocs search | Implemented | Yes | server-backed content index with locale-aware ranking, keyboard support, and full results page | `app/tests/content.test.ts`, `test/scripts/browser-smoke.mjs` |
 | Heading anchors and TOC | Markdown extensions | Implemented | Yes | rehype slug + TOC extraction | `test/scripts/browser-smoke.mjs` |
 | Code blocks and highlighting | Markdown extensions | Implemented | Yes | `rehype-pretty-code` + language normalization | `app/tests/content.test.ts`, `test/scripts/browser-smoke.mjs` |
-| Callouts/admonitions | Markdown extensions | Missing | Yes | custom remark plugin + components | page render review |
-| Tabs | Markdown extensions | Missing | Yes | custom remark plugin + components | page render review |
+| Callouts/admonitions | Markdown extensions | Implemented | Yes | custom block parser + styled admonition rendering | `app/tests/content.test.ts` |
+| Tabs | Markdown extensions | Implemented | Yes | custom block parser + CSS tab groups | `app/tests/content.test.ts` |
 | Edit links | `edit_uri` | Implemented | Yes | page metadata to GitHub source URL | `test/scripts/browser-smoke.mjs` |
 | Last updated | git revision plugin | Implemented | Yes | git metadata during build | `app/tests/content.test.ts`, `test/scripts/browser-smoke.mjs` |
 | Authors | git authors plugin | Implemented | Yes | git metadata during build | `app/tests/content.test.ts`, `test/scripts/browser-smoke.mjs` |
@@ -34,7 +34,7 @@ This is the minimum parity target for a MkDocs-to-Next.js migration.
 - `docs/blog` and `docs/blogs` currently overlap, so compatibility checks explicitly allow the dated `/blog/YYYY/MM/DD/...` family without removing legacy `/blogs/*`
 - search is currently server-backed rather than a static index, so payload size is controlled but future cutover may still prefer a static index
 - production verification now uses an isolated `distDir` so `next dev` and `next start` can run side-by-side without corrupting `.next`
-- advanced Markdown extensions still need parity work
+- long article routes now render on demand while keeping the same public URLs, which removes `large page data` build warnings without changing SEO behavior
 - full-text search result pages exist, but they are intentionally `noindex`
 - feed support is an app enhancement, not a strict MkDocs parity requirement
 - tutorial content is synced from a separate source repository

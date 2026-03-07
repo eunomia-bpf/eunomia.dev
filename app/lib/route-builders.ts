@@ -1,10 +1,7 @@
 import type { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
 
 import {
-  getBlogRoutes,
   getGenericSectionRoutes,
-  getLegacyBlogRoutes,
-  getTutorialRoutes,
   loadBlogIndex,
   loadBlogPage,
   loadHomePage,
@@ -17,13 +14,23 @@ import {
 import { renderFeed } from "./content/feed";
 import { searchContent } from "./content/search";
 import type { LandingPageData, MarkdownPage, SearchResult } from "./content/types";
-import { buildSectionStaticPaths, buildSlugStaticPaths, loadCollectionStaticProps, loadSectionStaticProps, type CollectionPageProps, type HomePageData } from "./page-factories";
+import { buildSectionStaticPaths, loadSectionStaticProps, type CollectionPageProps, type HomePageData } from "./page-factories";
 import type { Locale } from "./site-data";
 
 type SearchPageProps = {
   query: string;
   results: SearchResult[];
 };
+
+type CollectionIndexProps<IndexPage extends LandingPageData, ArticlePage extends MarkdownPage> = Extract<
+  CollectionPageProps<IndexPage, ArticlePage>,
+  { kind: "index" }
+>;
+
+type CollectionArticleProps<IndexPage extends LandingPageData, ArticlePage extends MarkdownPage> = Extract<
+  CollectionPageProps<IndexPage, ArticlePage>,
+  { kind: "article" }
+>;
 
 type SectionPageProps = {
   page: MarkdownPage;
@@ -53,29 +60,57 @@ function serializeResults(results: SearchResult[]): SearchResult[] {
 }
 
 type CollectionRouteConfig<IndexPage extends LandingPageData, ArticlePage extends MarkdownPage> = {
-  getRoutes: () => string[][];
   loadIndex: () => Promise<IndexPage>;
   loadArticle: (slug: string[]) => Promise<ArticlePage | null>;
 };
 
-function createCollectionRoute<IndexPage extends LandingPageData, ArticlePage extends MarkdownPage>({
-  getRoutes,
+function createCollectionIndexRoute<IndexPage extends LandingPageData, ArticlePage extends MarkdownPage>({
   loadIndex,
-  loadArticle
 }: CollectionRouteConfig<IndexPage, ArticlePage>) {
-  type Props = CollectionPageProps<IndexPage, ArticlePage>;
+  type Props = CollectionIndexProps<IndexPage, ArticlePage>;
 
-  const getStaticPaths: GetStaticPaths = async () => buildSlugStaticPaths(getRoutes());
-
-  const getStaticProps: GetStaticProps<Props> = async ({ params }) =>
-    loadCollectionStaticProps(params, {
-      loadIndex,
-      loadArticle
-    });
+  const getStaticProps: GetStaticProps<Props> = async () => ({
+    props: {
+      kind: "index",
+      page: await loadIndex()
+    }
+  });
 
   return {
-    getStaticPaths,
     getStaticProps
+  };
+}
+
+function createCollectionArticleRoute<IndexPage extends LandingPageData, ArticlePage extends MarkdownPage>({
+  loadArticle
+}: CollectionRouteConfig<IndexPage, ArticlePage>) {
+  type Props = CollectionArticleProps<IndexPage, ArticlePage>;
+
+  const getServerSideProps: GetServerSideProps<Props> = async ({ params }) => {
+    const slug = Array.isArray(params?.slug) ? params.slug : [];
+    if (!slug.length) {
+      return {
+        notFound: true
+      };
+    }
+
+    const page = await loadArticle(slug);
+    if (!page) {
+      return {
+        notFound: true
+      };
+    }
+
+    return {
+      props: {
+        kind: "article",
+        page
+      }
+    };
+  };
+
+  return {
+    getServerSideProps
   };
 }
 
@@ -92,38 +127,88 @@ export function createHomePageRoute(locale: Locale) {
 }
 
 export function createTutorialPageRoute(locale: Locale) {
-  return createCollectionRoute({
-    getRoutes: () => getTutorialRoutes(locale),
+  return createCollectionIndexRoute({
+    loadIndex: () => loadTutorialIndex(locale),
+    loadArticle: (slug) => loadTutorialPage(slug, locale)
+  });
+}
+
+export function createTutorialArticleRoute(locale: Locale) {
+  return createCollectionArticleRoute({
     loadIndex: () => loadTutorialIndex(locale),
     loadArticle: (slug) => loadTutorialPage(slug, locale)
   });
 }
 
 export function createBlogPageRoute(locale: Locale) {
-  return createCollectionRoute({
-    getRoutes: () => getBlogRoutes(),
+  return createCollectionIndexRoute({
+    loadIndex: () => loadBlogIndex(locale),
+    loadArticle: (slug) => loadBlogPage(slug, locale)
+  });
+}
+
+export function createBlogArticleRoute(locale: Locale) {
+  return createCollectionArticleRoute({
     loadIndex: () => loadBlogIndex(locale),
     loadArticle: (slug) => loadBlogPage(slug, locale)
   });
 }
 
 export function createLegacyBlogPageRoute(locale: Locale) {
-  return createCollectionRoute({
-    getRoutes: () => getLegacyBlogRoutes(),
+  return createCollectionIndexRoute({
+    loadIndex: () => loadLegacyBlogIndex(locale),
+    loadArticle: (slug) => loadLegacyBlogPage(slug, locale)
+  });
+}
+
+export function createLegacyBlogArticleRoute(locale: Locale) {
+  return createCollectionArticleRoute({
     loadIndex: () => loadLegacyBlogIndex(locale),
     loadArticle: (slug) => loadLegacyBlogPage(slug, locale)
   });
 }
 
 export function createSectionPageRoute(locale: Locale) {
-  const getStaticPaths: GetStaticPaths = async () => buildSectionStaticPaths(getGenericSectionRoutes(locale));
+  const rootRoutes = getGenericSectionRoutes(locale).filter((route) => route.slug.length === 0);
+  const getStaticPaths: GetStaticPaths = async () =>
+    buildSectionStaticPaths(rootRoutes.map((route) => ({ section: route.section, slug: [] })));
 
   const getStaticProps: GetStaticProps<SectionPageProps> = async ({ params }) =>
-    loadSectionStaticProps(params, (section, slug) => loadSectionPage(section, slug, locale));
+    loadSectionStaticProps(params, (section) => loadSectionPage(section, [], locale));
 
   return {
     getStaticPaths,
     getStaticProps
+  };
+}
+
+export function createSectionArticleRoute(locale: Locale) {
+  const getServerSideProps: GetServerSideProps<SectionPageProps> = async ({ params }) => {
+    const section = typeof params?.section === "string" ? params.section : "";
+    const slug = Array.isArray(params?.slug) ? params.slug : [];
+    if (!section || !slug.length) {
+      return {
+        notFound: true
+      };
+    }
+
+    const page = await loadSectionPage(section, slug, locale);
+    if (!page) {
+      return {
+        notFound: true
+      };
+    }
+
+    return {
+      props: {
+        page,
+        section
+      }
+    };
+  };
+
+  return {
+    getServerSideProps
   };
 }
 

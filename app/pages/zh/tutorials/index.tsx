@@ -8,7 +8,6 @@ const tutorialsPage = createCollectionPage<
   NonNullable<Awaited<ReturnType<typeof loadTutorialPage>>>
 >("zh", "教程");
 
-export const getStaticPaths = tutorialsPageRoute.getStaticPaths;
 export const getStaticProps = tutorialsPageRoute.getStaticProps;
 
 export default tutorialsPage;

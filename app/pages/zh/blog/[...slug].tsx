@@ -1,14 +1,13 @@
 import { createCollectionPage } from "../../../lib/page-builders";
-import { createBlogPageRoute } from "../../../lib/route-builders";
+import { createBlogArticleRoute } from "../../../lib/route-builders";
 import { loadBlogIndex, loadBlogPage } from "../../../lib/content";
 
-const blogPageRoute = createBlogPageRoute("zh");
+const blogPageRoute = createBlogArticleRoute("zh");
 const blogPage = createCollectionPage<
   Awaited<ReturnType<typeof loadBlogIndex>>,
   NonNullable<Awaited<ReturnType<typeof loadBlogPage>>>
 >("zh", "博客");
 
-export const getStaticPaths = blogPageRoute.getStaticPaths;
-export const getStaticProps = blogPageRoute.getStaticProps;
+export const getServerSideProps = blogPageRoute.getServerSideProps;
 
 export default blogPage;

@@ -121,3 +121,80 @@ a {
 .content-copy td {
   @apply border border-slate-200 px-3 py-2 align-top;
 }
+
+.content-copy .content-admonition {
+  @apply mb-6 rounded-[1.5rem] border border-slate-200 bg-white/90 p-5 shadow-sm;
+}
+
+.content-copy .content-admonition-title,
+.content-copy .content-admonition summary {
+  @apply m-0 text-sm font-semibold uppercase tracking-[0.18em] text-ink;
+}
+
+.content-copy .content-admonition summary {
+  @apply cursor-pointer list-none;
+}
+
+.content-copy .content-admonition summary::-webkit-details-marker {
+  display: none;
+}
+
+.content-copy .content-admonition-body {
+  @apply mt-4;
+}
+
+.content-copy .content-admonition-body > :first-child {
+  margin-top: 0;
+}
+
+.content-copy .content-admonition-note,
+.content-copy .content-admonition-info {
+  @apply border-sky-200 bg-sky-50/80;
+}
+
+.content-copy .content-admonition-tip {
+  @apply border-emerald-200 bg-emerald-50/80;
+}
+
+.content-copy .content-admonition-warning,
+.content-copy .content-admonition-caution {
+  @apply border-amber-200 bg-amber-50/80;
+}
+
+.content-copy .content-admonition-danger,
+.content-copy .content-admonition-failure,
+.content-copy .content-admonition-bug {
+  @apply border-rose-200 bg-rose-50/80;
+}
+
+.content-copy .content-tabs {
+  @apply mb-6 flex flex-wrap gap-2 rounded-[1.5rem] border border-slate-200 bg-white/90 p-3 shadow-sm;
+}
+
+.content-copy .content-tab {
+  display: contents;
+}
+
+.content-copy .content-tab-input {
+  display: none;
+}
+
+.content-copy .content-tab-label {
+  @apply cursor-pointer rounded-full px-4 py-2 text-sm font-semibold text-slate-600 transition;
+}
+
+.content-copy .content-tab-input:checked + .content-tab-label {
+  @apply bg-ink text-white;
+}
+
+.content-copy .content-tab-panel {
+  @apply hidden basis-full rounded-[1.25rem] border border-slate-200 bg-white p-5;
+}
+
+.content-copy .content-tab-input:checked + .content-tab-label + .content-tab-panel {
+  display: block;
+}
+
+.content-copy .content-tab-panel > :first-child {
+  margin-top: 0;
+}

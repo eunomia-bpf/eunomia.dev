@@ -43,8 +43,8 @@ Status markers:
 - `[doing]` Keep homepage rendering outside Markdown parity so docs hardening can stay strict.
 - `[done]` Implement heading extraction and article TOC data.
 - `[done]` Implement syntax highlighting parity for code blocks.
-- `[todo]` Implement admonitions.
-- `[todo]` Implement tabs.
+- `[done]` Implement admonitions.
+- `[done]` Implement tabs.
 - `[todo]` Validate unsupported constructs fail loudly in tests.
 - `[todo]` Keep local asset resolution stable for nested tutorial paths.
 
@@ -79,9 +79,9 @@ Status markers:
   - `[todo]` nested tutorial docs
   - `[todo]` legacy `/blogs/*`
   - `[todo]` `.en.md` and `.zh.md` variants
-  - `[todo]` inline HTML allowed by policy
+  - `[done]` inline HTML allowed by policy
   - `[todo]` unsupported syntax failures
-- `[todo]` Add a payload-size regression check for very large blog pages.
+- `[todo]` Add a regression check that article routes stay on-demand and avoid large static page payloads.
 
 ## Phase 7: Rollout
 
@@ -103,6 +103,7 @@ Status markers:
 6. `[done]` Implement heading extraction and article TOC data.
 7. `[done]` Implement syntax highlighting parity for fenced code blocks.
 8. `[done]` Restore search, git metadata, feedback CTA, and share actions.
-9. `[todo]` Implement remaining Markdown cutover blockers: admonitions and tabs.
+9. `[done]` Implement remaining Markdown cutover blockers: admonitions and tabs.
 10. `[done]` Collapse duplicated locale route logic.
-11. `[done]` Verify build and audits still pass.
+11. `[done]` Move oversized article routes off static payload generation while preserving URLs.
+12. `[done]` Verify build and audits still pass.

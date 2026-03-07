@@ -11,6 +11,7 @@ import { visit } from "unist-util-visit";
 
 import type { Locale } from "../site-data";
 import { createCodeLanguageNormalizer, prettyCodeOptions } from "./highlight";
+import { splitMaterialBlocks } from "./material-blocks";
 import { createRehypeRewriter } from "./rewrite";
 import { parseMarkdown } from "./markdown";
 import { markdownSanitizeSchema } from "./sanitize";
@@ -64,7 +65,16 @@ function createHeadingCollector(headings: HeadingEntry[]) {
   };
 }
 
-export async function renderMarkdownDocumentBody(
+function escapeHtml(value: string): string {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+async function renderMarkdownChunk(
   markdown: string,
   relativePath: string,
   locale: Locale
@@ -90,6 +100,86 @@ export async function renderMarkdownDocumentBody(
     html: String(processed),
     headings
   };
+}
+
+type RenderState = {
+  tabGroupIndex: number;
+};
+
+async function renderCompositeMarkdown(
+  markdown: string,
+  relativePath: string,
+  locale: Locale,
+  state: RenderState
+): Promise<RenderedMarkdown> {
+  const blocks = splitMaterialBlocks(markdown);
+  if (blocks.length === 1 && blocks[0]?.type === "markdown") {
+    return renderMarkdownChunk(blocks[0].content, relativePath, locale);
+  }
+
+  const htmlParts: string[] = [];
+  const headings: HeadingEntry[] = [];
+
+  for (const block of blocks) {
+    if (block.type === "markdown") {
+      if (!block.content.trim()) {
+        continue;
+      }
+
+      const rendered = await renderMarkdownChunk(block.content, relativePath, locale);
+      htmlParts.push(rendered.html);
+      headings.push(...rendered.headings);
+      continue;
+    }
+
+    if (block.type === "admonition") {
+      const rendered = await renderCompositeMarkdown(block.content, relativePath, locale, state);
+      headings.push(...rendered.headings);
+      const kindClass = escapeHtml(block.kind.toLowerCase());
+      const title = escapeHtml(block.title);
+      const bodyHtml = `<div class="content-admonition-body">${rendered.html}</div>`;
+
+      if (block.collapsible) {
+        htmlParts.push(
+          `<details class="content-admonition content-admonition-${kindClass}"${block.open ? " open" : ""}><summary>${title}</summary>${bodyHtml}</details>`
+        );
+      } else {
+        htmlParts.push(
+          `<section class="content-admonition content-admonition-${kindClass}"><p class="content-admonition-title">${title}</p>${bodyHtml}</section>`
+        );
+      }
+      continue;
+    }
+
+    const tabGroupId = `content-tabs-${state.tabGroupIndex++}`;
+    const tabHtml = await Promise.all(
+      block.items.map(async (item, index) => {
+        const rendered = await renderCompositeMarkdown(item.content, relativePath, locale, state);
+        headings.push(...rendered.headings);
+        const inputId = `${tabGroupId}-${index}`;
+        return `<div class="content-tab"><input class="content-tab-input" type="radio" name="${tabGroupId}" id="${inputId}"${
+          index === 0 ? " checked" : ""
+        }><label class="content-tab-label" for="${inputId}">${escapeHtml(item.label)}</label><div class="content-tab-panel">${rendered.html}</div></div>`;
+      })
+    );
+
+    htmlParts.push(`<div class="content-tabs">${tabHtml.join("")}</div>`);
+  }
+
+  return {
+    html: htmlParts.join("\n"),
+    headings
+  };
+}
+
+export async function renderMarkdownDocumentBody(
+  markdown: string,
+  relativePath: string,
+  locale: Locale
+): Promise<RenderedMarkdown> {
+  return renderCompositeMarkdown(markdown, relativePath, locale, {
+    tabGroupIndex: 0
+  });
 }
 
 export async function renderMarkdownBody(markdown: string, relativePath: string, locale: Locale): Promise<string> {

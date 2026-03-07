@@ -8,7 +8,6 @@ const blogPage = createCollectionPage<
   NonNullable<Awaited<ReturnType<typeof loadBlogPage>>>
 >("en", "Blog");
 
-export const getStaticPaths = blogPageRoute.getStaticPaths;
 export const getStaticProps = blogPageRoute.getStaticProps;
 
 export default blogPage;
