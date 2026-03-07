@@ -1,91 +1,25 @@
-import type { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
+import type { GetStaticPaths, GetStaticProps } from "next";
 
-import { ArticleLayout } from "../../../components/ArticleLayout";
-import { CardGrid } from "../../../components/CardGrid";
-import { MarkdownContent } from "../../../components/MarkdownContent";
-import { SeoHead } from "../../../components/SeoHead";
-import { SiteChrome } from "../../../components/SiteChrome";
 import {
   getLegacyBlogRoutes,
   loadLegacyBlogIndex,
   loadLegacyBlogPage
 } from "../../../lib/content";
-import { canonicalAlternates } from "../../../lib/seo";
+import { buildSlugStaticPaths, CollectionPageView, loadCollectionStaticProps, type CollectionPageProps } from "../../../lib/page-factories";
 
-type LegacyBlogPageProps =
-  | {
-      kind: "index";
-      page: Awaited<ReturnType<typeof loadLegacyBlogIndex>>;
-    }
-  | {
-      kind: "article";
-      page: NonNullable<Awaited<ReturnType<typeof loadLegacyBlogPage>>>;
-    };
+type LegacyBlogPageProps = CollectionPageProps<
+  Awaited<ReturnType<typeof loadLegacyBlogIndex>>,
+  NonNullable<Awaited<ReturnType<typeof loadLegacyBlogPage>>>
+>;
 
-export const getStaticPaths: GetStaticPaths = async () => ({
-  paths: getLegacyBlogRoutes().map((slug) => ({
-    params: {
-      slug
-    }
-  })),
-  fallback: "blocking"
-});
+export const getStaticPaths: GetStaticPaths = async () => buildSlugStaticPaths(getLegacyBlogRoutes());
 
-export const getStaticProps: GetStaticProps<LegacyBlogPageProps> = async ({ params }) => {
-  const slug = Array.isArray(params?.slug) ? params.slug : [];
+export const getStaticProps: GetStaticProps<LegacyBlogPageProps> = async ({ params }) =>
+  loadCollectionStaticProps(params, {
+    loadIndex: () => loadLegacyBlogIndex("zh"),
+    loadArticle: (slug) => loadLegacyBlogPage(slug, "zh")
+  });
 
-  if (!slug.length) {
-    return {
-      props: {
-        kind: "index",
-        page: await loadLegacyBlogIndex("zh")
-      }
-    };
-  }
-
-  const page = await loadLegacyBlogPage(slug, "zh");
-  if (!page) {
-    return {
-      notFound: true
-    };
-  }
-
-  return {
-    props: {
-      kind: "article",
-      page
-    }
-  };
-};
-
-export default function ZhLegacyBlogPage({
-  kind,
-  page
-}: InferGetStaticPropsType<typeof getStaticProps>) {
-  return (
-    <>
-      <SeoHead
-        title={page.title}
-        description={page.description}
-        path={page.path}
-        alternates={canonicalAlternates(page.alternates.en, page.alternates.zh)}
-      />
-      <SiteChrome locale="zh" eyebrow="旧博客" title={page.title} intro={page.description}>
-        {kind === "index" ? (
-          <>
-            <section className="mx-auto max-w-4xl px-5 pb-10">
-              <article className="rounded-[2rem] border border-white/70 bg-white/90 p-8 shadow-panel md:p-10">
-                <MarkdownContent html={page.introHtml} />
-              </article>
-            </section>
-            <CardGrid cards={page.cards} />
-          </>
-        ) : (
-          <ArticleLayout title={page.title} description={page.description} sourceHref={page.sourcePath}>
-            <MarkdownContent html={page.html} />
-          </ArticleLayout>
-        )}
-      </SiteChrome>
-    </>
-  );
+export default function ZhLegacyBlogPage(props: LegacyBlogPageProps) {
+  return <CollectionPageView {...props} locale="zh" eyebrow="旧博客" />;
 }

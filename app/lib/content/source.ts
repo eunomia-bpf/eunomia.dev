@@ -51,6 +51,7 @@ export function slugifyTitle(value: string): string {
   const slug = value
     .toLowerCase()
     .normalize("NFKD")
+    .replace(/\p{Mark}+/gu, "")
     .replace(/[^\p{Letter}\p{Number}]+/gu, "-")
     .replace(/^-+|-+$/g, "")
     .replace(/-{2,}/g, "-");

@@ -1,29 +1,18 @@
-import type { GetStaticProps, InferGetStaticPropsType } from "next";
+import type { GetStaticProps } from "next";
 
-import { CardGrid } from "../../components/CardGrid";
-import { SeoHead } from "../../components/SeoHead";
-import { SiteChrome } from "../../components/SiteChrome";
 import { loadHomePage } from "../../lib/content";
-import { canonicalAlternates } from "../../lib/seo";
+import { HomePageView } from "../../lib/page-factories";
 
-export const getStaticProps: GetStaticProps = async () => ({
+type HomePageProps = {
+  page: Awaited<ReturnType<typeof loadHomePage>>;
+};
+
+export const getStaticProps: GetStaticProps<HomePageProps> = async () => ({
   props: {
     page: await loadHomePage("zh")
   }
 });
 
-export default function ZhHomePage({ page }: InferGetStaticPropsType<typeof getStaticProps>) {
-  return (
-    <>
-      <SeoHead
-        title={page.title}
-        description={page.description}
-        path={page.path}
-        alternates={canonicalAlternates(page.alternates.en, page.alternates.zh)}
-      />
-      <SiteChrome locale="zh" eyebrow="主页" title={page.title} intro={page.intro}>
-        <CardGrid cards={page.cards} />
-      </SiteChrome>
-    </>
-  );
+export default function ZhHomePage({ page }: HomePageProps) {
+  return <HomePageView page={page} locale="zh" eyebrow="主页" />;
 }

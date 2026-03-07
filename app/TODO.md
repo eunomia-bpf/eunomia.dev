@@ -32,7 +32,7 @@ Status markers:
 
 ## Phase 2: Route and Locale Cleanup
 
-- `[todo]` Replace duplicated route logic with shared page factories or render helpers.
+- `[doing]` Replace duplicated route logic with shared page factories or render helpers.
 - `[todo]` Collapse locale expansion onto one locale-aware URL builder.
 - `[todo]` Keep one canonical route manifest for both English and Chinese.
 - `[todo]` Stop adding framework logic to content helpers.
@@ -65,7 +65,7 @@ Status markers:
 
 ## Phase 6: Testing
 
-- `[todo]` Add unit tests for slug generation.
+- `[done]` Add unit tests for slug generation.
 - `[done]` Add unit tests for locale fallback resolution.
 - `[done]` Add unit tests for route mapping.
 - `[done]` Add unit tests for local path and asset rewriting.

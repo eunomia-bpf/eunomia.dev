@@ -1,88 +1,25 @@
-import type { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
+import type { GetStaticPaths, GetStaticProps } from "next";
 
-import { ArticleLayout } from "../../components/ArticleLayout";
-import { CardGrid } from "../../components/CardGrid";
-import { MarkdownContent } from "../../components/MarkdownContent";
-import { SeoHead } from "../../components/SeoHead";
-import { SiteChrome } from "../../components/SiteChrome";
 import {
   getBlogRoutes,
   loadBlogIndex,
   loadBlogPage
 } from "../../lib/content";
-import { canonicalAlternates } from "../../lib/seo";
+import { buildSlugStaticPaths, CollectionPageView, loadCollectionStaticProps, type CollectionPageProps } from "../../lib/page-factories";
 
-type BlogPageProps =
-  | {
-      kind: "index";
-      page: Awaited<ReturnType<typeof loadBlogIndex>>;
-    }
-  | {
-      kind: "article";
-      page: NonNullable<Awaited<ReturnType<typeof loadBlogPage>>>;
-    };
+type BlogPageProps = CollectionPageProps<
+  Awaited<ReturnType<typeof loadBlogIndex>>,
+  NonNullable<Awaited<ReturnType<typeof loadBlogPage>>>
+>;
 
-export const getStaticPaths: GetStaticPaths = async () => ({
-  paths: getBlogRoutes().map((slug) => ({
-    params: {
-      slug
-    }
-  })),
-  fallback: "blocking"
-});
+export const getStaticPaths: GetStaticPaths = async () => buildSlugStaticPaths(getBlogRoutes());
 
-export const getStaticProps: GetStaticProps<BlogPageProps> = async ({ params }) => {
-  const slug = Array.isArray(params?.slug) ? params.slug : [];
+export const getStaticProps: GetStaticProps<BlogPageProps> = async ({ params }) =>
+  loadCollectionStaticProps(params, {
+    loadIndex: () => loadBlogIndex("en"),
+    loadArticle: (slug) => loadBlogPage(slug, "en")
+  });
 
-  if (!slug.length) {
-    return {
-      props: {
-        kind: "index",
-        page: await loadBlogIndex("en")
-      }
-    };
-  }
-
-  const page = await loadBlogPage(slug, "en");
-  if (!page) {
-    return {
-      notFound: true
-    };
-  }
-
-  return {
-    props: {
-      kind: "article",
-      page
-    }
-  };
-};
-
-export default function BlogPage({ kind, page }: InferGetStaticPropsType<typeof getStaticProps>) {
-  return (
-    <>
-      <SeoHead
-        title={page.title}
-        description={page.description}
-        path={page.path}
-        alternates={canonicalAlternates(page.alternates.en, page.alternates.zh)}
-      />
-      <SiteChrome locale="en" eyebrow="Blog" title={page.title} intro={page.description}>
-        {kind === "index" ? (
-          <>
-            <section className="mx-auto max-w-4xl px-5 pb-10">
-              <article className="rounded-[2rem] border border-white/70 bg-white/90 p-8 shadow-panel md:p-10">
-                <MarkdownContent html={page.introHtml} />
-              </article>
-            </section>
-            <CardGrid cards={page.cards} />
-          </>
-        ) : (
-          <ArticleLayout title={page.title} description={page.description} sourceHref={page.sourcePath}>
-            <MarkdownContent html={page.html} />
-          </ArticleLayout>
-        )}
-      </SiteChrome>
-    </>
-  );
+export default function BlogPage(props: BlogPageProps) {
+  return <CollectionPageView {...props} locale="en" eyebrow="Blog" />;
 }

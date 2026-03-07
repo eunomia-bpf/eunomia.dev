@@ -1,61 +1,21 @@
-import type { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
+import type { GetStaticPaths, GetStaticProps } from "next";
 
-import { ArticleLayout } from "../../../components/ArticleLayout";
-import { MarkdownContent } from "../../../components/MarkdownContent";
-import { SeoHead } from "../../../components/SeoHead";
-import { SiteChrome } from "../../../components/SiteChrome";
 import {
   getGenericSectionRoutes,
   loadSectionPage
 } from "../../../lib/content";
-import { canonicalAlternates } from "../../../lib/seo";
+import { buildSectionStaticPaths, loadSectionStaticProps, SectionPageView } from "../../../lib/page-factories";
 
-export const getStaticPaths: GetStaticPaths = async () => ({
-  paths: getGenericSectionRoutes("zh").map((route) => ({
-    params: {
-      section: route.section,
-      slug: route.slug
-    }
-  })),
-  fallback: "blocking"
-});
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const section = typeof params?.section === "string" ? params.section : "";
-  const slug = Array.isArray(params?.slug) ? params.slug : [];
-  const page = await loadSectionPage(section, slug, "zh");
-
-  if (!page) {
-    return {
-      notFound: true
-    };
-  }
-
-  return {
-    props: {
-      page,
-      section
-    }
-  };
+type SectionPageProps = {
+  page: NonNullable<Awaited<ReturnType<typeof loadSectionPage>>>;
+  section: string;
 };
 
-export default function ZhGenericSectionPage({
-  page,
-  section
-}: InferGetStaticPropsType<typeof getStaticProps>) {
-  return (
-    <>
-      <SeoHead
-        title={page.title}
-        description={page.description}
-        path={page.path}
-        alternates={canonicalAlternates(page.alternates.en, page.alternates.zh)}
-      />
-      <SiteChrome locale="zh" eyebrow={section} title={page.title} intro={page.description}>
-        <ArticleLayout title={page.title} description={page.description} sourceHref={page.sourcePath}>
-          <MarkdownContent html={page.html} />
-        </ArticleLayout>
-      </SiteChrome>
-    </>
-  );
+export const getStaticPaths: GetStaticPaths = async () => buildSectionStaticPaths(getGenericSectionRoutes("zh"));
+
+export const getStaticProps: GetStaticProps<SectionPageProps> = async ({ params }) =>
+  loadSectionStaticProps(params, (section, slug) => loadSectionPage(section, slug, "zh"));
+
+export default function ZhGenericSectionPage({ page, section }: SectionPageProps) {
+  return <SectionPageView page={page} section={section} locale="zh" />;
 }

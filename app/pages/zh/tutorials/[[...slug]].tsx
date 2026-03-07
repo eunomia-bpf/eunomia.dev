@@ -1,91 +1,25 @@
-import type { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
+import type { GetStaticPaths, GetStaticProps } from "next";
 
-import { ArticleLayout } from "../../../components/ArticleLayout";
-import { CardGrid } from "../../../components/CardGrid";
-import { MarkdownContent } from "../../../components/MarkdownContent";
-import { SeoHead } from "../../../components/SeoHead";
-import { SiteChrome } from "../../../components/SiteChrome";
 import {
   getTutorialRoutes,
   loadTutorialIndex,
   loadTutorialPage
 } from "../../../lib/content";
-import { canonicalAlternates } from "../../../lib/seo";
+import { buildSlugStaticPaths, CollectionPageView, loadCollectionStaticProps, type CollectionPageProps } from "../../../lib/page-factories";
 
-type TutorialsPageProps =
-  | {
-      kind: "index";
-      page: Awaited<ReturnType<typeof loadTutorialIndex>>;
-    }
-  | {
-      kind: "article";
-      page: NonNullable<Awaited<ReturnType<typeof loadTutorialPage>>>;
-    };
+type TutorialsPageProps = CollectionPageProps<
+  Awaited<ReturnType<typeof loadTutorialIndex>>,
+  NonNullable<Awaited<ReturnType<typeof loadTutorialPage>>>
+>;
 
-export const getStaticPaths: GetStaticPaths = async () => ({
-  paths: getTutorialRoutes("zh").map((slug) => ({
-    params: {
-      slug
-    }
-  })),
-  fallback: "blocking"
-});
+export const getStaticPaths: GetStaticPaths = async () => buildSlugStaticPaths(getTutorialRoutes("zh"));
 
-export const getStaticProps: GetStaticProps<TutorialsPageProps> = async ({ params }) => {
-  const slug = Array.isArray(params?.slug) ? params.slug : [];
+export const getStaticProps: GetStaticProps<TutorialsPageProps> = async ({ params }) =>
+  loadCollectionStaticProps(params, {
+    loadIndex: () => loadTutorialIndex("zh"),
+    loadArticle: (slug) => loadTutorialPage(slug, "zh")
+  });
 
-  if (!slug.length) {
-    return {
-      props: {
-        kind: "index",
-        page: await loadTutorialIndex("zh")
-      }
-    };
-  }
-
-  const page = await loadTutorialPage(slug, "zh");
-  if (!page) {
-    return {
-      notFound: true
-    };
-  }
-
-  return {
-    props: {
-      kind: "article",
-      page
-    }
-  };
-};
-
-export default function ZhTutorialsPage({
-  kind,
-  page
-}: InferGetStaticPropsType<typeof getStaticProps>) {
-  return (
-    <>
-      <SeoHead
-        title={page.title}
-        description={page.description}
-        path={page.path}
-        alternates={canonicalAlternates(page.alternates.en, page.alternates.zh)}
-      />
-      <SiteChrome locale="zh" eyebrow="教程" title={page.title} intro={page.description}>
-        {kind === "index" ? (
-          <>
-            <section className="mx-auto max-w-4xl px-5 pb-10">
-              <article className="rounded-[2rem] border border-white/70 bg-white/90 p-8 shadow-panel md:p-10">
-                <MarkdownContent html={page.introHtml} />
-              </article>
-            </section>
-            <CardGrid cards={page.cards} />
-          </>
-        ) : (
-          <ArticleLayout title={page.title} description={page.description} sourceHref={page.sourcePath}>
-            <MarkdownContent html={page.html} />
-          </ArticleLayout>
-        )}
-      </SiteChrome>
-    </>
-  );
+export default function ZhTutorialsPage(props: TutorialsPageProps) {
+  return <CollectionPageView {...props} locale="zh" eyebrow="教程" />;
 }
