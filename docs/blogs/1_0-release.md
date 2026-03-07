@@ -51,7 +51,7 @@ eunomia-bpf v1.0 is more than just a set of new features. It's a culmination of 
 
 Ready to dive in? Here are some resources to kickstart your journey with eunomia-bpf:
 
-- **Github Template**: Explore our template at [eunomia-bpf/eunomia-template](https://github.com/eunomia-bpf/eunomia-template) for a hands-on introduction.
+- **Github Template**: Explore our template at [eunomia-bpf/ebpf-template](https://github.com/eunomia-bpf/ebpm-template) for a hands-on introduction.
 
 - **Example BPF Programs**: Delve into real-world applications with our [example programs](https://github.com/eunomia-bpf/eunomia-bpf/blob/master/examples/bpftools).
 

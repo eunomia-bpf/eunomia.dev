@@ -235,8 +235,8 @@ eunomia-bpf 由一个编译工具链和一个运行时库组成, 对比传统的
     编译发布后, 也可以轻松从云端一行命令启动任意 eBPF 程序, 例如:
 
     ```bash
-    wget https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli -O ecli && chmod +x ./ecli     # download the release from https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli
-    sudo ./ecli run ghcr.io/eunomia-bpf/execve:latest # 运行当前维护中的 OCI 预编译 ebpf 工具
+    wget https://aka.pw/bpf-ecli -O ecli && chmod +x ./ecli     # download the release from https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli
+    sudo ./ecli https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/package.json # simply run a pre-compiled ebpf code from a url
     sudo ./ecli sigsnoop:latest # run with a name and download the latest version bpf tool from our repo
     ```
 
@@ -445,7 +445,7 @@ export_types:
 - Install the `ecli` tool for running eBPF program from the cloud:
 
     ```console
-    $ wget https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli -O ecli && chmod +x ./ecli
+    $ wget https://aka.pw/bpf-ecli -O ecli && chmod +x ./ecli
     $ ./ecli -h
     Usage: ecli [--help] [--version] [--json] [--no-cache] url-and-args
     ....
@@ -477,10 +477,10 @@ export_types:
 
 ## 参考资料
 
-1. [当 Wasm 遇见 eBPF ：使用 WebAssembly 编写、分发、加载运行 eBPF 程序](https://eunomia.dev/blog/ebpf-wasm/)
-2. [如何在 Linux 显微镜（LMP）项目中开启 eBPF 之旅？](https://eunomia.dev/blog/lmp-eunomia/)
+1. [当 Wasm 遇见 eBPF ：使用 WebAssembly 编写、分发、加载运行 eBPF 程序](https://eunomia-bpf.github.io/blog/ebpf-wasm.html)
+2. [如何在 Linux 显微镜（LMP）项目中开启 eBPF 之旅？](https://eunomia-bpf.github.io/blog/lmp-eunomia.html)
 3. [龙蜥社区 eunomia-bpf 项目主页](https://openanolis.cn/sig/ebpfresearch/doc/640013458629853191)
-4. [eunomia-bpf 项目文档](https://eunomia.dev/eunomia-bpf/)
+4. [eunomia-bpf 项目文档](https://eunomia-bpf.github.io/)
 5. [LMP 项目](https://github.com/linuxkerneltravel/lmp)
 
 ## 我们的微信群

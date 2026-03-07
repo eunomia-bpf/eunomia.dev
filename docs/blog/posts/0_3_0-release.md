@@ -237,8 +237,8 @@ docker run -it -v `pwd`/:/src/ ghcr.io/eunomia-bpf/ecc-`uname -m`:latest
 After compiling and publishing, you can easily start any eBPF program from the cloud with a single command, for example:
 
 ```bash
-wget https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli -O ecli && chmod +x ./ecli     # download the release from https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli
-sudo ./ecli run ghcr.io/eunomia-bpf/execve:latest # run a maintained pre-compiled ebpf tool from OCI registry
+wget https://aka.pw/bpf-ecli -O ecli && chmod +x ./ecli     # download the release from https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli
+sudo ./ecli https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/package.json # simply run a pre-compiled ebpf code from a url
 sudo ./ecli sigsnoop:latest # run with a name and download the latest version bpf tool from our repo
 ```
 
@@ -446,7 +446,7 @@ export_types:
 - Install the `ecli` tool for running eBPF programs from the cloud:
 
     ```console
-    $ wget https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli -O ecli && chmod +x ./ecli
+    $ wget https://aka.pw/bpf-ecli -O ecli && chmod +x ./ecli
     $ ./ecli -h
     Usage: ecli [--help] [--version] [--json] [--no-cache] url-and-args
     ....
@@ -477,10 +477,10 @@ docker run -it -v `pwd`/:/src/ ghcr.io/eunomia-bpf/ecc-`uname -m`:latest # compi
 
 ## References
 
-1. [Writing, Distributing, Loading, and Running eBPF Programs using WebAssembly](https://eunomia.dev/blog/ebpf-wasm/)
-2. [How to start eBPF journey in the Linux Microscope (LMP) project?](https://eunomia.dev/blog/lmp-eunomia/)
+1. [Writing, Distributing, Loading, and Running eBPF Programs using WebAssembly](https://eunomia-bpf.github.io/blog/ebpf-wasm.html)
+2. [How to start eBPF journey in the Linux Microscope (LMP) project?](https://eunomia-bpf.github.io/blog/lmp-eunomia.html)
 3. [Eunomia-BPF Project Homepage on Longgui Community](https://openanolis.cn/sig/ebpfresearch/doc/640013458629853191)
-4. [Eunomia-BPF Project Documentation](https://eunomia.dev/eunomia-bpf/)
+4. [Eunomia-BPF Project Documentation](https://eunomia-bpf.github.io/)
 5. [LMP Project](https://github.com/linuxkerneltravel/lmp)
 
 ## Our WeChat Group.

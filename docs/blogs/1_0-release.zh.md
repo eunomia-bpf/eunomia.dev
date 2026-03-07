@@ -58,7 +58,7 @@ eunomia-bpf的目标是简化和增强eBPF的使用体验。它结合了CO-RE技
 
 ### 资源与示例
 
-- **GitHub模板**：我们为您提供了一个模板，您可以在此基础上开始您的eBPF项目。请访问[eunomia-bpf/eunomia-template](https://github.com/eunomia-bpf/eunomia-template)。
+- **GitHub模板**：我们为您提供了一个模板，您可以在此基础上开始您的eBPF项目。请访问[eunomia-bpf/ebpm-template](https://github.com/eunomia-bpf/ebpm-template)。
   
 - **eBPF程序示例**：为了帮助您更好地理解如何使用eunomia-bpf，我们提供了一些示例程序。您可以在此查看：[examples/bpftools](https://github.com/eunomia-bpf/eunomia-bpf/tree/main/examples/bpftools/)。
 
@@ -70,8 +70,8 @@ eunomia-bpf提供了一个命令行工具，使您能够轻松地从云端运行
 
 ```bash
 # 从以下链接下载最新版本：https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli
-$ wget https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli -O ecli && chmod +x ./ecli
-$ sudo ./ecli run ghcr.io/eunomia-bpf/execve:latest
+$ wget https://aka.pw/bpf-ecli -O ecli && chmod +x ./ecli
+$ sudo ./ecli run https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/package.json
 ```
 
 此外，您还可以使用服务器模式来管理和动态安装eBPF程序。启动服务器后，您可以使用ecli来控制远程服务器并管理多个eBPF程序：
@@ -97,7 +97,7 @@ TIME     PID    TPID   SIG    RET    COMM
 02:05:59  79731 79730  17     0      which
 ```
 
-更多关于这个历史模式的说明，请查看当前站点中的归档说明页面：<https://eunomia.dev/eunomia-bpf/ecli/server/>
+更多关于服务器模式的信息，请查看[documents/src/ecli/server.md](https://github.com/eunomia-bpf/eunomia-bpf/blob/master/documents/src/ecli/server.md)。
 
 
 ## 总结
