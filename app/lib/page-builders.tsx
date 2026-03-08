@@ -9,10 +9,17 @@ type SearchPageProps = {
   sidebar: SidebarGroup[];
 };
 
-type SectionPageProps = {
-  page: MarkdownPage;
-  section: string;
-};
+export type ContentPageProps =
+  | {
+      routeKind: "collection";
+      eyebrow: string;
+      content: CollectionPageProps<LandingPageData, MarkdownPage>;
+    }
+  | {
+      routeKind: "section";
+      section: string;
+      page: MarkdownPage;
+    };
 
 export function createHomePage(locale: Locale, eyebrow: string) {
   return function HomePage({ page }: { page: HomePageData }) {
@@ -20,24 +27,19 @@ export function createHomePage(locale: Locale, eyebrow: string) {
   };
 }
 
-export function createCollectionPage<IndexPage extends LandingPageData, ArticlePage extends MarkdownPage>(
-  locale: Locale,
-  eyebrow: string
-) {
-  return function CollectionPage(props: CollectionPageProps<IndexPage, ArticlePage>) {
-    return <CollectionPageView {...props} locale={locale} eyebrow={eyebrow} />;
-  };
-}
-
-export function createSectionPage(locale: Locale) {
-  return function SectionPage({ page, section }: SectionPageProps) {
-    return <SectionPageView page={page} section={section} locale={locale} />;
-  };
-}
-
 export function createSearchPage(locale: Locale) {
   return function SearchPage({ query, results, sidebar }: SearchPageProps) {
     return <SearchResults locale={locale} query={query} results={results} sidebar={sidebar} />;
+  };
+}
+
+export function createContentPage(locale: Locale) {
+  return function ContentPage(props: ContentPageProps) {
+    if (props.routeKind === "collection") {
+      return <CollectionPageView {...props.content} locale={locale} eyebrow={props.eyebrow} />;
+    }
+
+    return <SectionPageView page={props.page} section={props.section} locale={locale} />;
   };
 }
 

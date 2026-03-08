@@ -5,7 +5,7 @@ import { serveRawAsset } from "../lib/content/assets";
 import { getBlogEntries, getGenericSectionRouteEntries } from "../lib/content/collections";
 import { renderFeed } from "../lib/content/feed";
 import { getGitMetadata } from "../lib/content/git";
-import { resolveAlternatesFromDocSource } from "../lib/content/manifest";
+import { resolveAlternatesFromDocSource, resolveManifestRecordFromRoute } from "../lib/content/manifest";
 import { splitMaterialBlocks } from "../lib/content/material-blocks";
 import { loadBlogPage, loadLegacyBlogPage, loadSectionPage, loadTutorialPage } from "../lib/content/loaders";
 import { assertSupportedMarkdown, parseMarkdown } from "../lib/content/markdown";
@@ -106,6 +106,22 @@ test("content manifest keeps localized routes for english-only section pages", (
   assert.equal(record.sourceByLocale.zh, "eunomia-bpf/setup/build.en.md");
   assert.equal(record.routeByLocale.en, "/eunomia-bpf/setup/build/");
   assert.equal(record.routeByLocale.zh, "/zh/eunomia-bpf/setup/build/");
+});
+
+test("manifest resolves tutorial routes back to the canonical tutorial record", () => {
+  const record = resolveManifestRecordFromRoute("/tutorials/1-helloworld/");
+
+  assert.ok(record);
+  assert.equal(record.kind, "tutorial-page");
+  assert.equal(record.key, "tutorial:1-helloworld");
+});
+
+test("manifest resolves section index routes back to the canonical section record", () => {
+  const record = resolveManifestRecordFromRoute("/bpftime/");
+
+  assert.ok(record);
+  assert.equal(record.kind, "section-page");
+  assert.equal(record.key, "section:bpftime:");
 });
 
 test("generic section route entries collapse README and index aliases into one public route", () => {

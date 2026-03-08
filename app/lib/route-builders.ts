@@ -1,7 +1,6 @@
-import type { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
+import type { GetServerSideProps, GetStaticProps } from "next";
 
 import {
-  getGenericSectionRoutes,
   loadBlogIndex,
   loadBlogPage,
   loadHomePage,
@@ -9,13 +8,16 @@ import {
   loadLegacyBlogPage,
   loadSectionPage,
   loadTutorialIndex,
-  loadTutorialPage
+  loadTutorialPage,
+  resolveManifestRecordFromRoute
 } from "./content";
 import { renderFeed } from "./content/feed";
 import { buildSearchSidebar } from "./content/sidebar";
 import { searchContent } from "./content/search";
-import type { LandingPageData, MarkdownPage, SearchResult, SidebarGroup } from "./content/types";
-import { buildSectionStaticPaths, loadSectionStaticProps, type CollectionPageProps, type HomePageData } from "./page-factories";
+import type { SearchResult, SidebarGroup } from "./content/types";
+import type { HomePageData } from "./page-factories";
+import type { ContentPageProps } from "./page-builders";
+import { localizePath } from "./paths";
 import type { Locale } from "./site-data";
 
 type CollectionKind = "tutorial" | "blog" | "legacy-blog";
@@ -26,20 +28,35 @@ type SearchPageProps = {
   sidebar: SidebarGroup[];
 };
 
-type CollectionIndexProps<IndexPage extends LandingPageData, ArticlePage extends MarkdownPage> = Extract<
-  CollectionPageProps<IndexPage, ArticlePage>,
-  { kind: "index" }
->;
+function collectionEyebrow(kind: CollectionKind, locale: Locale): string {
+  if (locale === "zh") {
+    switch (kind) {
+      case "tutorial":
+        return "教程";
+      case "blog":
+        return "博客";
+      case "legacy-blog":
+        return "旧博客";
+      default: {
+        const unreachable: never = kind;
+        throw new Error(`unsupported collection kind: ${unreachable}`);
+      }
+    }
+  }
 
-type CollectionArticleProps<IndexPage extends LandingPageData, ArticlePage extends MarkdownPage> = Extract<
-  CollectionPageProps<IndexPage, ArticlePage>,
-  { kind: "article" }
->;
-
-type SectionPageProps = {
-  page: MarkdownPage;
-  section: string;
-};
+  switch (kind) {
+    case "tutorial":
+      return "Tutorials";
+    case "blog":
+      return "Blog";
+    case "legacy-blog":
+      return "Legacy Blog";
+    default: {
+      const unreachable: never = kind;
+      throw new Error(`unsupported collection kind: ${unreachable}`);
+    }
+  }
+}
 
 function normalizeQuery(value: string | string[] | undefined): string {
   if (Array.isArray(value)) {
@@ -59,90 +76,13 @@ function serializeResults(results: SearchResult[]): SearchResult[] {
           href: result.href,
           locale: result.locale,
           kind: result.kind
-        }
+      }
   );
 }
 
-type CollectionRouteConfig<IndexPage extends LandingPageData, ArticlePage extends MarkdownPage> = {
-  loadIndex: () => Promise<IndexPage>;
-  loadArticle: (slug: string[]) => Promise<ArticlePage | null>;
-};
-
-function getCollectionRouteConfig(
-  kind: CollectionKind,
-  locale: Locale
-): CollectionRouteConfig<LandingPageData, MarkdownPage> {
-  switch (kind) {
-    case "tutorial":
-      return {
-        loadIndex: () => loadTutorialIndex(locale),
-        loadArticle: (slug) => loadTutorialPage(slug, locale)
-      };
-    case "blog":
-      return {
-        loadIndex: () => loadBlogIndex(locale),
-        loadArticle: (slug) => loadBlogPage(slug, locale)
-      };
-    case "legacy-blog":
-      return {
-        loadIndex: () => loadLegacyBlogIndex(locale),
-        loadArticle: (slug) => loadLegacyBlogPage(slug, locale)
-      };
-    default: {
-      const unreachable: never = kind;
-      throw new Error(`unsupported collection route kind: ${unreachable}`);
-    }
-  }
-}
-
-function createCollectionIndexRoute<IndexPage extends LandingPageData, ArticlePage extends MarkdownPage>({
-  loadIndex,
-}: CollectionRouteConfig<IndexPage, ArticlePage>) {
-  type Props = CollectionIndexProps<IndexPage, ArticlePage>;
-
-  const getStaticProps: GetStaticProps<Props> = async () => ({
-    props: {
-      kind: "index",
-      page: await loadIndex()
-    }
-  });
-
-  return {
-    getStaticProps
-  };
-}
-
-function createCollectionArticleRoute<IndexPage extends LandingPageData, ArticlePage extends MarkdownPage>({
-  loadArticle
-}: CollectionRouteConfig<IndexPage, ArticlePage>) {
-  type Props = CollectionArticleProps<IndexPage, ArticlePage>;
-
-  const getServerSideProps: GetServerSideProps<Props> = async ({ params }) => {
-    const slug = Array.isArray(params?.slug) ? params.slug : [];
-    if (!slug.length) {
-      return {
-        notFound: true
-      };
-    }
-
-    const page = await loadArticle(slug);
-    if (!page) {
-      return {
-        notFound: true
-      };
-    }
-
-    return {
-      props: {
-        kind: "article",
-        page
-      }
-    };
-  };
-
-  return {
-    getServerSideProps
-  };
+function pathnameFromSlug(locale: Locale, slug: string[] | undefined): string {
+  const pathname = slug?.length ? `/${slug.join("/")}/` : "/";
+  return localizePath(pathname, locale);
 }
 
 export function createHomePageRoute(locale: Locale) {
@@ -157,67 +97,129 @@ export function createHomePageRoute(locale: Locale) {
   };
 }
 
-export function createTutorialPageRoute(locale: Locale) {
-  return createCollectionIndexRoute(getCollectionRouteConfig("tutorial", locale));
-}
-
-export function createTutorialArticleRoute(locale: Locale) {
-  return createCollectionArticleRoute(getCollectionRouteConfig("tutorial", locale));
-}
-
-export function createBlogPageRoute(locale: Locale) {
-  return createCollectionIndexRoute(getCollectionRouteConfig("blog", locale));
-}
-
-export function createBlogArticleRoute(locale: Locale) {
-  return createCollectionArticleRoute(getCollectionRouteConfig("blog", locale));
-}
-
-export function createLegacyBlogPageRoute(locale: Locale) {
-  return createCollectionIndexRoute(getCollectionRouteConfig("legacy-blog", locale));
-}
-
-export function createLegacyBlogArticleRoute(locale: Locale) {
-  return createCollectionArticleRoute(getCollectionRouteConfig("legacy-blog", locale));
-}
-
-export function createSectionPageRoute(locale: Locale) {
-  const rootRoutes = getGenericSectionRoutes(locale).filter((route) => route.slug.length === 0);
-  const getStaticPaths: GetStaticPaths = async () =>
-    buildSectionStaticPaths(rootRoutes.map((route) => ({ section: route.section, slug: [] })));
-
-  const getStaticProps: GetStaticProps<SectionPageProps> = async ({ params }) =>
-    loadSectionStaticProps(params, (section) => loadSectionPage(section, [], locale));
-
-  return {
-    getStaticPaths,
-    getStaticProps
-  };
-}
-
-export function createSectionArticleRoute(locale: Locale) {
-  const getServerSideProps: GetServerSideProps<SectionPageProps> = async ({ params }) => {
-    const section = typeof params?.section === "string" ? params.section : "";
+export function createContentPageRoute(locale: Locale) {
+  const getServerSideProps: GetServerSideProps<ContentPageProps> = async ({ params }) => {
     const slug = Array.isArray(params?.slug) ? params.slug : [];
-    if (!section || !slug.length) {
+    if (!slug.length) {
       return {
         notFound: true
       };
     }
 
-    const page = await loadSectionPage(section, slug, locale);
-    if (!page) {
+    const path = pathnameFromSlug(locale, slug);
+    const record = resolveManifestRecordFromRoute(path);
+    if (!record) {
       return {
         notFound: true
       };
     }
 
-    return {
-      props: {
-        page,
-        section
+    switch (record.kind) {
+      case "tutorial-index":
+        return {
+          props: {
+            routeKind: "collection",
+            eyebrow: collectionEyebrow("tutorial", locale),
+            content: {
+              kind: "index",
+              page: await loadTutorialIndex(locale)
+            }
+          }
+        };
+      case "tutorial-page": {
+        const page = await loadTutorialPage(record.slug, locale);
+        if (!page) {
+          return { notFound: true };
+        }
+        return {
+          props: {
+            routeKind: "collection",
+            eyebrow: collectionEyebrow("tutorial", locale),
+            content: {
+              kind: "article",
+              page
+            }
+          }
+        };
       }
-    };
+      case "blog-index":
+        return {
+          props: {
+            routeKind: "collection",
+            eyebrow: collectionEyebrow("blog", locale),
+            content: {
+              kind: "index",
+              page: await loadBlogIndex(locale)
+            }
+          }
+        };
+      case "blog-page": {
+        const page = await loadBlogPage(record.slug, locale);
+        if (!page) {
+          return { notFound: true };
+        }
+        return {
+          props: {
+            routeKind: "collection",
+            eyebrow: collectionEyebrow("blog", locale),
+            content: {
+              kind: "article",
+              page
+            }
+          }
+        };
+      }
+      case "legacy-blog-index":
+        return {
+          props: {
+            routeKind: "collection",
+            eyebrow: collectionEyebrow("legacy-blog", locale),
+            content: {
+              kind: "index",
+              page: await loadLegacyBlogIndex(locale)
+            }
+          }
+        };
+      case "legacy-blog-page": {
+        const page = await loadLegacyBlogPage(record.slug, locale);
+        if (!page) {
+          return { notFound: true };
+        }
+        return {
+          props: {
+            routeKind: "collection",
+            eyebrow: collectionEyebrow("legacy-blog", locale),
+            content: {
+              kind: "article",
+              page
+            }
+          }
+        };
+      }
+      case "section-page": {
+        const section = record.section ?? "";
+        if (!section) {
+          return { notFound: true };
+        }
+
+        const page = await loadSectionPage(section, record.slug ?? [], locale);
+        if (!page) {
+          return { notFound: true };
+        }
+
+        return {
+          props: {
+            routeKind: "section",
+            section,
+            page
+          }
+        };
+      }
+      default:
+        return {
+          notFound: true
+        };
+    }
   };
 
   return {

@@ -36,6 +36,7 @@ let contentManifestCache: ContentManifestRecord[] | null = null;
 let canonicalDescriptorCache: CanonicalRouteDescriptor[] | null = null;
 let manifestBySourceCache: Map<string, ContentManifestRecord> | null = null;
 let manifestByRouteCache: Map<string, LocaleAlternates> | null = null;
+let manifestRecordByRouteCache: Map<string, ContentManifestRecord> | null = null;
 
 function buildTutorialPath(slugSegments: string[], locale: Locale): string {
   return localizePath(
@@ -270,15 +271,17 @@ function setUniqueRouteAlternates(
 }
 
 function buildManifestIndexes() {
-  if (useContentCache && manifestBySourceCache && manifestByRouteCache) {
+  if (useContentCache && manifestBySourceCache && manifestByRouteCache && manifestRecordByRouteCache) {
     return {
       bySource: manifestBySourceCache,
-      byRoute: manifestByRouteCache
+      byRoute: manifestByRouteCache,
+      recordByRoute: manifestRecordByRouteCache
     };
   }
 
   const bySource = new Map<string, ContentManifestRecord>();
   const byRoute = new Map<string, LocaleAlternates>();
+  const recordByRoute = new Map<string, ContentManifestRecord>();
   const routeOwners = new Map<string, string>();
   const descriptors = getCanonicalDescriptors();
   const manifest = getContentManifest();
@@ -299,20 +302,24 @@ function buildManifestIndexes() {
 
     if (alternates.en) {
       setUniqueRouteAlternates(byRoute, routeOwners, alternates.en, record.key, alternates);
+      recordByRoute.set(alternates.en, record);
     }
     if (alternates.zh) {
       setUniqueRouteAlternates(byRoute, routeOwners, alternates.zh, record.key, alternates);
+      recordByRoute.set(alternates.zh, record);
     }
   }
 
   if (useContentCache) {
     manifestBySourceCache = bySource;
     manifestByRouteCache = byRoute;
+    manifestRecordByRouteCache = recordByRoute;
   }
 
   return {
     bySource,
-    byRoute
+    byRoute,
+    recordByRoute
   };
 }
 
@@ -375,4 +382,9 @@ export function resolveAlternatesFromDocSource(
 export function resolveAlternatesFromRoute(path: string): LocaleAlternates {
   const { byRoute } = buildManifestIndexes();
   return normalizeAlternates(byRoute.get(path));
+}
+
+export function resolveManifestRecordFromRoute(path: string): ContentManifestRecord | null {
+  const { recordByRoute } = buildManifestIndexes();
+  return recordByRoute.get(path) ?? null;
 }

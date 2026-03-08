@@ -13,3 +13,4 @@ export {
   loadTutorialIndex,
   loadTutorialPage
 } from "./content/loaders";
+export { resolveManifestRecordFromRoute } from "./content/manifest";
