@@ -10,25 +10,41 @@ const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const appDir = path.resolve(scriptDir, "..");
 const testDir = path.resolve(appDir, "..", "test");
 
+function quoteShellArg(value) {
+  if (process.platform === "win32") {
+    return `"${String(value).replace(/(["^%])/g, "^$1")}"`;
+  }
+
+  return `'${String(value).replace(/'/g, `'\\''`)}'`;
+}
+
+function getShellLauncher(cmd, args) {
+  const commandLine = [cmd, ...args].map(quoteShellArg).join(" ");
+
+  if (process.platform === "win32") {
+    return {
+      cmd: process.env.ComSpec ?? "cmd.exe",
+      args: ["/d", "/s", "/c", commandLine]
+    };
+  }
+
+  return {
+    cmd: "/bin/sh",
+    args: ["-lc", commandLine]
+  };
+}
+
 function runCommand(cmd, args, options = {}) {
-  const resolvedCmd = cmd === "npm"
-    ? process.platform === "win32"
-      ? "npm.cmd"
-      : "npm"
-    : cmd === "node"
-      ? process.platform === "win32"
-        ? "node.exe"
-        : "node"
-      : cmd;
   const pathValue =
     options.env?.PATH ??
     options.env?.Path ??
     process.env.PATH ??
     process.env.Path ??
     "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin";
+  const launcher = getShellLauncher(cmd, args);
 
   return new Promise((resolve, reject) => {
-    const child = spawn(resolvedCmd, args, {
+    const child = spawn(launcher.cmd, launcher.args, {
       cwd: options.cwd ?? appDir,
       env: {
         ...process.env,
@@ -45,7 +61,7 @@ function runCommand(cmd, args, options = {}) {
         return;
       }
 
-      reject(new Error(`${resolvedCmd} ${args.join(" ")} exited with code ${code}`));
+      reject(new Error(`${cmd} ${args.join(" ")} exited with code ${code}`));
     });
   });
 }

@@ -12,6 +12,30 @@ function delay(ms) {
   });
 }
 
+function quoteShellArg(value) {
+  if (process.platform === "win32") {
+    return `"${String(value).replace(/(["^%])/g, "^$1")}"`;
+  }
+
+  return `'${String(value).replace(/'/g, `'\\''`)}'`;
+}
+
+function getShellLauncher(cmd, args) {
+  const commandLine = [cmd, ...args].map(quoteShellArg).join(" ");
+
+  if (process.platform === "win32") {
+    return {
+      cmd: process.env.ComSpec ?? "cmd.exe",
+      args: ["/d", "/s", "/c", commandLine]
+    };
+  }
+
+  return {
+    cmd: "/bin/sh",
+    args: ["-lc", commandLine]
+  };
+}
+
 export async function getAvailablePort() {
   const server = net.createServer();
   await new Promise((resolve, reject) => {
@@ -36,7 +60,6 @@ export async function getAvailablePort() {
 }
 
 function spawnAppScript(scriptName, { env, echoOutput = false } = {}) {
-  const fallbackNpmCommand = process.platform === "win32" ? "npm.cmd" : "npm";
   const childEnv = {
     ...process.env,
     ...(env ?? {})
@@ -48,8 +71,9 @@ function spawnAppScript(scriptName, { env, echoOutput = false } = {}) {
     process.env.PATH ??
     process.env.Path ??
     "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin";
+  const launcher = getShellLauncher("npm", ["run", scriptName]);
 
-  const child = spawn(fallbackNpmCommand, ["run", scriptName], {
+  const child = spawn(launcher.cmd, launcher.args, {
     cwd: appDir,
     env: childEnv,
     stdio: ["ignore", "pipe", "pipe"]
