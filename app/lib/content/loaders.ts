@@ -8,6 +8,12 @@ import { getGitMetadata } from "./git";
 import { parseMarkdown } from "./markdown";
 import { buildCollectionContinuation, buildIndexLink } from "./navigation";
 import { resolveAlternatesFromDocSource } from "./manifest";
+import {
+  buildBlogSidebar,
+  buildLegacyBlogSidebar,
+  buildSectionSidebar,
+  buildTutorialSidebar
+} from "./sidebar";
 import { localizePath } from "../paths";
 import { renderMarkdownBody, renderMarkdownDocumentBody } from "./render";
 import {
@@ -186,7 +192,8 @@ export async function loadTutorialIndex(locale: Locale): Promise<LandingPageData
     metadata: getGitMetadata(sourceRelative),
     path: localizePath("/tutorials/", locale),
     alternates: makeAlternates(localizePath("/tutorials/", locale)),
-    cards
+    cards,
+    sidebar: buildTutorialSidebar(locale)
   };
 }
 
@@ -217,7 +224,10 @@ export async function loadTutorialPage(
     index: buildIndexLink(indexSource, localizePath("/tutorials/", locale))
   });
 
-  return withContinuation(page, continuation);
+  return {
+    ...withContinuation(page, continuation),
+    sidebar: buildTutorialSidebar(locale)
+  };
 }
 
 export async function loadBlogIndex(locale: Locale): Promise<LandingPageData> {
@@ -240,7 +250,8 @@ export async function loadBlogIndex(locale: Locale): Promise<LandingPageData> {
     metadata: getGitMetadata(sourceRelative),
     path: localizePath("/blog/", locale),
     alternates: makeAlternates(localizePath("/blog/", locale)),
-    cards
+    cards,
+    sidebar: buildBlogSidebar(locale)
   };
 }
 
@@ -282,7 +293,10 @@ export async function loadBlogPage(
     index: buildIndexLink(indexSource, localizePath("/blog/", locale))
   });
 
-  return withContinuation(page, continuation);
+  return {
+    ...withContinuation(page, continuation),
+    sidebar: buildBlogSidebar(locale)
+  };
 }
 
 export async function loadLegacyBlogIndex(locale: Locale): Promise<LandingPageData> {
@@ -305,7 +319,8 @@ export async function loadLegacyBlogIndex(locale: Locale): Promise<LandingPageDa
     metadata: getGitMetadata(sourceRelative),
     path: localizePath("/blogs/", locale),
     alternates: makeAlternates(localizePath("/blogs/", locale)),
-    cards
+    cards,
+    sidebar: buildLegacyBlogSidebar(locale)
   };
 }
 
@@ -339,7 +354,10 @@ export async function loadLegacyBlogPage(
     index: buildIndexLink(indexSource, localizePath("/blogs/", locale))
   });
 
-  return withContinuation(page, continuation);
+  return {
+    ...withContinuation(page, continuation),
+    sidebar: buildLegacyBlogSidebar(locale)
+  };
 }
 
 export async function loadSectionPage(
@@ -367,5 +385,8 @@ export async function loadSectionPage(
     index: buildIndexLink(sectionIndexSource, sectionIndexHref)
   });
 
-  return withContinuation(page, continuation);
+  return {
+    ...withContinuation(page, continuation),
+    sidebar: buildSectionSidebar(section, locale)
+  };
 }

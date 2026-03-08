@@ -151,16 +151,16 @@ export function getSearchResultsCopy(locale: Locale, query: string, resultsCount
 export const homeLandingCopyByLocale = {
   en: {
     badge: "eunomia.dev",
-    headline: "A clearer front door for eBPF tooling, userspace runtimes, and AI-native tracing.",
+    headline: "Documentation, tutorials, and research for eunomia-bpf projects.",
     body:
-      "The docs and tutorial routes stay stable, while the homepage turns into a stronger product entry for tutorials, bpftime, eunomia-bpf, and research-heavy content.",
+      "Start from tutorials, product docs, and research posts without changing the existing routes, language paths, or legacy links that readers already use.",
     primaryCta: "Explore tutorials",
     secondaryCta: "Read latest post",
     tertiaryCta: "Open GitHub",
     spotlightLabel: "Latest note",
     tracksLabel: "Core tracks",
     signalLabel: "Site signals",
-    signalTitle: "The homepage now behaves like an entry point instead of a docs directory.",
+    signalTitle: "Use the homepage as a docs portal, then stay inside the familiar doc routes.",
     exploreLabel: "More to explore",
     openCard: "Open",
     signals: [
@@ -177,16 +177,16 @@ export const homeLandingCopyByLocale = {
   },
   zh: {
     badge: "eunomia.dev",
-    headline: "让 eBPF、userspace runtime 和 AI-native tracing 的入口更清晰。",
+    headline: "eunomia-bpf 项目的文档、教程与研究内容入口。",
     body:
-      "保留文档与教程路径的稳定性，同时把教程、bpftime、eunomia-bpf 和研究型内容收口成一个更像产品入口的首页。",
+      "从教程、产品文档和研究文章进入站点，同时继续保留现有路径、语言切换和旧链接习惯。",
     primaryCta: "浏览教程",
     secondaryCta: "查看最新文章",
     tertiaryCta: "查看 GitHub",
     spotlightLabel: "最新文章",
     tracksLabel: "核心方向",
     signalLabel: "站点信号",
-    signalTitle: "这个首页现在扮演入口，而不是文档目录。",
+    signalTitle: "把首页当成文档入口页，然后继续沿用熟悉的文档路径。",
     exploreLabel: "更多入口",
     openCard: "打开",
     signals: [

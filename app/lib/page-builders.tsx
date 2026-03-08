@@ -1,11 +1,12 @@
 import { SearchResults } from "../components/SearchResults";
-import type { LandingPageData, MarkdownPage, SearchResult } from "./content/types";
+import type { LandingPageData, MarkdownPage, SearchResult, SidebarGroup } from "./content/types";
 import { CollectionPageView, HomePageView, type CollectionPageProps, type HomePageData, SectionPageView } from "./page-factories";
 import type { Locale } from "./site-data";
 
 type SearchPageProps = {
   query: string;
   results: SearchResult[];
+  sidebar: SidebarGroup[];
 };
 
 type SectionPageProps = {
@@ -35,8 +36,8 @@ export function createSectionPage(locale: Locale) {
 }
 
 export function createSearchPage(locale: Locale) {
-  return function SearchPage({ query, results }: SearchPageProps) {
-    return <SearchResults locale={locale} query={query} results={results} />;
+  return function SearchPage({ query, results, sidebar }: SearchPageProps) {
+    return <SearchResults locale={locale} query={query} results={results} sidebar={sidebar} />;
   };
 }
 

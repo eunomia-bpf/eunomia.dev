@@ -27,8 +27,10 @@ function walkFiles(root: string): string[] {
       continue;
     }
 
-    for (const entry of fs.readdirSync(current, { withFileTypes: true })) {
-      const fullPath = path.join(current, entry.name);
+    const currentPath = String(current);
+
+    for (const entry of fs.readdirSync(currentPath, { withFileTypes: true })) {
+      const fullPath = path.normalize(`${currentPath}${path.sep}${String(entry.name)}`);
       if (entry.isDirectory()) {
         queue.push(fullPath);
         continue;

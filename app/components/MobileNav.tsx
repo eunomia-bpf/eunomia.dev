@@ -8,13 +8,24 @@ import { mobileNavCopyByLocale } from "../lib/ui-copy";
 
 type MobileNavProps = {
   locale: Locale;
+  currentPath?: string;
 };
 
-export function MobileNav({ locale }: MobileNavProps) {
+function normalizePath(pathname: string | undefined): string {
+  if (!pathname) {
+    return "/";
+  }
+
+  const normalized = pathname.endsWith("/") && pathname !== "/" ? pathname.slice(0, -1) : pathname;
+  return normalized || "/";
+}
+
+export function MobileNav({ locale, currentPath }: MobileNavProps) {
   const [open, setOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const nav = navByLocale[locale];
   const copy = mobileNavCopyByLocale[locale];
+  const normalizedCurrentPath = normalizePath(currentPath);
 
   useEffect(() => {
     if (!open) {
@@ -37,14 +48,14 @@ export function MobileNav({ locale }: MobileNavProps) {
   }, [open]);
 
   return (
-    <div className="relative md:hidden">
+    <div className="relative lg:hidden">
       <button
         ref={buttonRef}
         type="button"
         aria-expanded={open}
         aria-controls="mobile-nav-panel"
         aria-label={open ? copy.close : copy.open}
-        className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 text-slate-700 transition hover:border-azure hover:text-azure"
+        className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 text-slate-700 transition hover:border-slate-300 hover:text-ink"
         onClick={() => setOpen((value) => !value)}
       >
         <span className="text-lg leading-none">{open ? "\u00d7" : "\u2261"}</span>
@@ -52,7 +63,7 @@ export function MobileNav({ locale }: MobileNavProps) {
       {open ? (
         <div
           id="mobile-nav-panel"
-          className="absolute right-0 top-[calc(100%+0.75rem)] z-50 w-[min(22rem,calc(100vw-2.5rem))] rounded-[1.75rem] border border-slate-200 bg-white/95 p-5 shadow-lg backdrop-blur"
+          className="absolute right-0 top-[calc(100%+0.75rem)] z-50 w-[min(22rem,calc(100vw-2.5rem))] rounded-2xl border border-slate-200 bg-white/95 p-5 shadow-lg backdrop-blur"
         >
           <SearchBox
             locale={locale}
@@ -66,7 +77,18 @@ export function MobileNav({ locale }: MobileNavProps) {
               <a
                 key={item.href}
                 href={item.href}
-                className="rounded-2xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-700 transition hover:border-azure hover:text-azure"
+                aria-current={
+                  normalizedCurrentPath === normalizePath(item.href) ||
+                  normalizedCurrentPath.startsWith(`${normalizePath(item.href)}/`)
+                    ? "page"
+                    : undefined
+                }
+                className={`rounded-2xl border px-4 py-3 text-sm font-medium transition ${
+                  normalizedCurrentPath === normalizePath(item.href) ||
+                  normalizedCurrentPath.startsWith(`${normalizePath(item.href)}/`)
+                    ? "border-slate-900 bg-slate-900 text-white"
+                    : "border-slate-200 text-slate-700 hover:border-slate-300 hover:text-ink"
+                }`}
                 onClick={() => setOpen(false)}
               >
                 {item.label}

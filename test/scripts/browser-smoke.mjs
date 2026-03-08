@@ -101,16 +101,33 @@ async function main() {
 
     await page.goto(absolute(smokeRoutes.search), { waitUntil: "networkidle" });
     check(/result|搜索/.test(await page.textContent("main")), "search page renders result content");
+    check(
+      await page.locator("aside nav[aria-label='Section navigation']").first().count(),
+      "search page exposes a browse sidebar"
+    );
 
     await page.goto(absolute(smokeRoutes.tutorials), { waitUntil: "networkidle" });
     check(/tutorial/i.test(await page.textContent("main")), "tutorials page renders tutorial content");
+    check(
+      await page.locator("aside nav[aria-label='Section navigation']").first().count(),
+      "tutorial index exposes a docs sidebar"
+    );
 
     await page.goto(absolute(smokeRoutes.tutorialArticle), { waitUntil: "networkidle" });
-    check(await page.locator("main h1").first().count(), "tutorial article has h1");
+    check((await page.locator("main h1").count()) === 1, "tutorial article renders a single h1");
     check(
       await page.locator("pre[data-language] span[style*='color:']").first().count(),
       "tutorial article renders highlighted code"
     );
+    const tutorialSidebar = page.locator("aside nav[aria-label='Section navigation']").first();
+    check(await tutorialSidebar.count(), "tutorial article exposes a docs sidebar");
+    if (await tutorialSidebar.count()) {
+      check(await tutorialSidebar.isVisible(), "tutorial article shows the docs sidebar on desktop");
+      check(
+        await tutorialSidebar.locator(`a[href='${smokeRoutes.tutorialArticle}'][aria-current='page']`).count(),
+        "tutorial article highlights the current sidebar item"
+      );
+    }
     check(
       await page.locator("nav[aria-label='Breadcrumb'] a[href='/tutorials/']").first().count(),
       "tutorial article exposes breadcrumb navigation"
@@ -127,8 +144,8 @@ async function main() {
 
     await page.goto(absolute(smokeRoutes.tutorialNestedArticle), { waitUntil: "networkidle" });
     check(
-      await page.locator("main h1").first().count(),
-      "nested tutorial article has h1"
+      (await page.locator("main h1").count()) === 1,
+      "nested tutorial article renders a single h1"
     );
     check(
       await page.locator("nav[aria-label='On this page'] a[href='#usage']").first().count(),
@@ -147,7 +164,7 @@ async function main() {
     }
 
     await page.goto(absolute(smokeRoutes.blogArticle), { waitUntil: "networkidle" });
-    check(await page.locator("main h1").first().count(), "blog article has h1");
+    check((await page.locator("main h1").count()) === 1, "blog article renders a single h1");
     const editLink = page.locator("a[href*='github.com'][href*='/tree/main/docs']").first();
     check(await editLink.count(), "blog article exposes edit link");
     const blogMainText = (await page.textContent("main")) ?? "";
@@ -169,10 +186,15 @@ async function main() {
     );
 
     await page.goto(absolute(smokeRoutes.legacyBlogArticle), { waitUntil: "networkidle" });
-    check(await page.locator("main h1").first().count(), "legacy blog article has h1");
+    check((await page.locator("main h1").count()) === 1, "legacy blog article renders a single h1");
 
     await page.goto(absolute(smokeRoutes.sectionArticle), { waitUntil: "networkidle" });
-    check(await page.locator("main h1").first().count(), "section article has h1");
+    check((await page.locator("main h1").count()) === 1, "section article renders a single h1");
+    const sectionSidebar = page.locator("aside nav[aria-label='Section navigation']").first();
+    check(await sectionSidebar.count(), "section article exposes a docs sidebar");
+    if (await sectionSidebar.count()) {
+      check(await sectionSidebar.isVisible(), "section article shows the docs sidebar on desktop");
+    }
 
     await page.goto(absolute(smokeRoutes.mermaidArticle), { waitUntil: "networkidle" });
     await page.locator(".mermaid-rendered svg").first().waitFor({ state: "visible" });
@@ -201,8 +223,8 @@ async function main() {
 
     await page.goto(absolute(smokeRoutes.zhLegacyBlogArticle), { waitUntil: "networkidle" });
     check(
-      await page.locator("main h1").first().count(),
-      "Chinese legacy blog article has h1"
+      (await page.locator("main h1").count()) === 1,
+      "Chinese legacy blog article renders a single h1"
     );
 
     await page.goto(absolute(smokeRoutes.zhOnlySectionArticle), { waitUntil: "networkidle" });

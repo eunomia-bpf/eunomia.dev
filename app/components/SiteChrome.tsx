@@ -1,7 +1,8 @@
 import type { PropsWithChildren, ReactNode } from "react";
 
-import type { LocaleAlternates } from "../lib/content/types";
+import type { LocaleAlternates, SidebarGroup } from "../lib/content/types";
 import type { Locale } from "../lib/site-data";
+import { DocsSidebar } from "./DocsSidebar";
 import { SiteFooter } from "./SiteFooter";
 import { SiteHeader } from "./SiteHeader";
 
@@ -11,26 +12,49 @@ type SiteChromeProps = PropsWithChildren<{
   title: string;
   intro: string;
   hero?: ReactNode;
+  leadMode?: "compact" | "none";
+  currentPath?: string;
+  sidebar?: SidebarGroup[];
   alternates?: LocaleAlternates;
 }>;
 
-export function SiteChrome({ children, locale, eyebrow, title, intro, hero, alternates }: SiteChromeProps) {
+export function SiteChrome({
+  children,
+  locale,
+  eyebrow,
+  title,
+  intro,
+  hero,
+  leadMode = "compact",
+  currentPath,
+  sidebar,
+  alternates
+}: SiteChromeProps) {
   return (
-    <div className="min-h-screen">
-      <SiteHeader locale={locale} alternates={alternates} />
-      <main>
+    <div className="min-h-screen bg-slate-50/80">
+      <SiteHeader locale={locale} currentPath={currentPath} alternates={alternates} />
+      <main className="pb-16">
         {hero ?? (
-          <section className="mx-auto max-w-6xl px-5 pb-8 pt-14">
-            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.24em] text-azure">{eyebrow}</p>
-            <div className="rounded-[2rem] border border-white/60 bg-white/85 p-8 shadow-panel md:p-12">
-              <h1 className="max-w-4xl text-4xl font-semibold tracking-tight text-ink md:text-6xl">
-                {title}
-              </h1>
-              <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600">{intro}</p>
-            </div>
-          </section>
+          leadMode === "compact" ? (
+            <section className="border-b border-slate-200/80 bg-white/70">
+              <div className="mx-auto max-w-[94rem] px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">{eyebrow}</p>
+                <h1 className="mt-3 max-w-4xl text-3xl font-semibold tracking-tight text-ink md:text-4xl">
+                  {title}
+                </h1>
+                <p className="mt-4 max-w-3xl text-base leading-7 text-slate-600 md:text-lg">{intro}</p>
+              </div>
+            </section>
+          ) : null
         )}
-        {children}
+        <div className="mx-auto max-w-[94rem] px-4 sm:px-6 lg:px-8">
+          <div className={sidebar?.length ? "lg:grid lg:grid-cols-[17rem_minmax(0,1fr)] lg:gap-10" : ""}>
+            {sidebar?.length ? (
+              <DocsSidebar groups={sidebar} currentPath={currentPath ?? "/"} className="hidden lg:block lg:mt-8" />
+            ) : null}
+            <div className="min-w-0 pt-8">{children}</div>
+          </div>
+        </div>
       </main>
       <SiteFooter locale={locale} />
     </div>

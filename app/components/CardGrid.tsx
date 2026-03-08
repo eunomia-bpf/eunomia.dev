@@ -11,21 +11,21 @@ type CardGridProps = {
 
 export function CardGrid({ cards }: CardGridProps) {
   return (
-    <section className="mx-auto grid max-w-6xl gap-6 px-5 md:grid-cols-3">
+    <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
       {cards.map((card) => (
         <a
           key={card.href}
           href={card.href}
-          className="group rounded-[1.75rem] border border-white/70 bg-white/90 p-7 shadow-panel transition duration-300 hover:-translate-y-1 hover:border-azure/30"
+          className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:border-slate-300"
         >
           {card.badge ? (
-            <span className="inline-flex rounded-full bg-mist px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-azure">
+            <span className="inline-flex rounded-full bg-slate-100 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600">
               {card.badge}
             </span>
           ) : null}
-          <h2 className="mt-5 text-2xl font-semibold tracking-tight text-ink">{card.title}</h2>
-          <p className="mt-4 leading-7 text-slate-600">{card.description}</p>
-          <span className="mt-6 inline-flex text-sm font-semibold text-azure transition group-hover:translate-x-1">
+          <h2 className="mt-4 text-xl font-semibold tracking-tight text-ink">{card.title}</h2>
+          <p className="mt-3 leading-7 text-slate-600">{card.description}</p>
+          <span className="mt-5 inline-flex text-sm font-semibold text-slate-900">
             Open
           </span>
         </a>

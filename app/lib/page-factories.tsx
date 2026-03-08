@@ -77,8 +77,8 @@ function renderCollectionContent<IndexPage extends LandingPageData, ArticlePage 
     const indexPage = page as IndexPage;
     return (
       <>
-        <section className="mx-auto max-w-4xl px-5 pb-10">
-          <article className="rounded-[2rem] border border-white/70 bg-white/90 p-8 shadow-panel md:p-10">
+        <section className="pb-8">
+          <article className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm md:p-9">
             <MarkdownContent html={indexPage.introHtml} />
             <PageFooter
               locale={locale}
@@ -209,6 +209,9 @@ export function CollectionPageView<IndexPage extends LandingPageData, ArticlePag
         eyebrow={eyebrow}
         title={page.title}
         intro={page.description}
+        leadMode={kind === "index" ? "compact" : "none"}
+        currentPath={page.path}
+        sidebar={page.sidebar}
         alternates={page.alternates}
       >
         {renderCollectionContent(kind, page, locale)}
@@ -234,6 +237,9 @@ export function SectionPageView({ page, section, locale }: SectionPageViewProps)
         eyebrow={section}
         title={page.title}
         intro={page.description}
+        leadMode="none"
+        currentPath={page.path}
+        sidebar={page.sidebar}
         alternates={page.alternates}
       >
         <ArticleLayout

@@ -24,6 +24,7 @@ export type MarkdownPage = {
   metadata?: GitMetadata | null;
   continuation?: PageContinuation;
   alternates: LocaleAlternates;
+  sidebar?: SidebarGroup[];
 };
 
 export type LandingCard = {
@@ -42,6 +43,7 @@ export type LandingPageData = {
   path: string;
   alternates: LocaleAlternates;
   cards: LandingCard[];
+  sidebar?: SidebarGroup[];
 };
 
 export type ParsedMarkdown = {
@@ -56,6 +58,17 @@ export type HeadingEntry = {
   id: string;
   text: string;
   depth: number;
+};
+
+export type SidebarItem = {
+  title: string;
+  href: string;
+  depth?: number;
+};
+
+export type SidebarGroup = {
+  title: string;
+  items: SidebarItem[];
 };
 
 export type RenderedMarkdown = {

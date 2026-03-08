@@ -35,19 +35,19 @@ export function TableOfContents({
     <aside
       className={joinClassNames(
         compact
-          ? "rounded-[1.5rem] border border-slate-200 bg-slate-50/90 p-5"
-          : "sticky top-24 self-start rounded-[1.5rem] border border-white/70 bg-white/90 p-5 shadow-panel",
+          ? "rounded-2xl border border-slate-200 bg-slate-50/90 p-5"
+          : "sticky top-24 self-start rounded-2xl border border-slate-200 bg-white/95 p-5 shadow-sm",
         className
       )}
     >
-      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-azure">{title}</p>
+      <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">{title}</p>
       <nav aria-label={ariaLabel ?? title} className="mt-4">
         <ol className="space-y-2 text-sm text-slate-600">
           {headings.map((heading) => (
             <li key={heading.id} className={indentByDepth[heading.depth] ?? indentByDepth[6]}>
               <a
                 href={`#${heading.id}`}
-                className="block rounded-lg px-2 py-1.5 transition hover:bg-slate-50 hover:text-azure"
+                className="block rounded-lg px-2 py-1.5 transition hover:bg-slate-50 hover:text-ink"
               >
                 {heading.text}
               </a>

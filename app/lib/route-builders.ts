@@ -12,8 +12,9 @@ import {
   loadTutorialPage
 } from "./content";
 import { renderFeed } from "./content/feed";
+import { buildSearchSidebar } from "./content/sidebar";
 import { searchContent } from "./content/search";
-import type { LandingPageData, MarkdownPage, SearchResult } from "./content/types";
+import type { LandingPageData, MarkdownPage, SearchResult, SidebarGroup } from "./content/types";
 import { buildSectionStaticPaths, loadSectionStaticProps, type CollectionPageProps, type HomePageData } from "./page-factories";
 import type { Locale } from "./site-data";
 
@@ -22,6 +23,7 @@ type CollectionKind = "tutorial" | "blog" | "legacy-blog";
 type SearchPageProps = {
   query: string;
   results: SearchResult[];
+  sidebar: SidebarGroup[];
 };
 
 type CollectionIndexProps<IndexPage extends LandingPageData, ArticlePage extends MarkdownPage> = Extract<
@@ -230,7 +232,8 @@ export function createSearchPageRoute(locale: Locale) {
     return {
       props: {
         query: q,
-        results: serializeResults(searchContent(q, locale, 24))
+        results: serializeResults(searchContent(q, locale, 24)),
+        sidebar: buildSearchSidebar(locale)
       }
     };
   };

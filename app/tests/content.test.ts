@@ -228,7 +228,7 @@ test("legacy blog pages still render from the legacy blogs tree", async () => {
   const page = await loadLegacyBlogPage(["bpftime"], "en");
 
   assert.ok(page);
-  assert.match(page.html, /bpftime: Extending eBPF from Kernel to User Space/);
+  assert.match(page.title, /bpftime: Extending eBPF from Kernel to User Space/);
 });
 
 test("section loaders render english fallback content from .en.md sources", async () => {
