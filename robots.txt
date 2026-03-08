@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: http://127.0.0.1:40961/sitemap.xml
