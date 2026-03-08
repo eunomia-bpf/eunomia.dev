@@ -11,12 +11,29 @@ const appDir = path.resolve(scriptDir, "..");
 const testDir = path.resolve(appDir, "..", "test");
 
 function runCommand(cmd, args, options = {}) {
+  const resolvedCmd = cmd === "npm"
+    ? process.platform === "win32"
+      ? "npm.cmd"
+      : "npm"
+    : cmd === "node"
+      ? process.platform === "win32"
+        ? "node.exe"
+        : "node"
+      : cmd;
+  const pathValue =
+    options.env?.PATH ??
+    options.env?.Path ??
+    process.env.PATH ??
+    process.env.Path ??
+    "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin";
+
   return new Promise((resolve, reject) => {
-    const child = spawn(cmd, args, {
+    const child = spawn(resolvedCmd, args, {
       cwd: options.cwd ?? appDir,
       env: {
         ...process.env,
-        ...(options.env ?? {})
+        ...(options.env ?? {}),
+        PATH: pathValue
       },
       stdio: "inherit"
     });
@@ -28,7 +45,7 @@ function runCommand(cmd, args, options = {}) {
         return;
       }
 
-      reject(new Error(`${cmd} ${args.join(" ")} exited with code ${code}`));
+      reject(new Error(`${resolvedCmd} ${args.join(" ")} exited with code ${code}`));
     });
   });
 }
@@ -44,7 +61,7 @@ async function ensureNodeModules(workingDir) {
 async function main() {
   const port = await getAvailablePort();
   const baseUrl = `http://127.0.0.1:${port}`;
-  const distDir = process.env.NEXT_DIST_DIR ?? ".next";
+  const distDir = process.env.NEXT_DIST_DIR ?? ".static-builds/export";
   const distPath = path.resolve(appDir, distDir);
 
   await runCommand("npm", ["run", "typecheck"]);
