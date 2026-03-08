@@ -110,7 +110,7 @@ export function SearchBox({
           type="text"
           value={query}
           placeholder={labels.placeholder}
-          className={`rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm outline-none transition focus:border-azure ${inputClassName}`.trim()}
+          className={`rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm outline-none transition focus:border-slate-400 ${inputClassName}`.trim()}
           onFocus={() => setOpen(true)}
           onBlur={() => {
             window.setTimeout(() => setOpen(false), 120);
@@ -159,7 +159,7 @@ export function SearchBox({
       {showResults ? (
         <div
           id={listboxId}
-          className={`absolute right-0 top-[calc(100%+0.75rem)] z-50 w-[28rem] overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-2xl ${panelClassName}`.trim()}
+          className={`absolute right-0 top-[calc(100%+0.75rem)] z-50 w-[28rem] overflow-hidden rounded-xl border border-slate-200 bg-white ${panelClassName}`.trim()}
           onMouseDown={(event) => {
             event.preventDefault();
           }}
@@ -198,7 +198,7 @@ export function SearchBox({
             <div className="border-t border-slate-100 px-4 py-3">
               <Link
                 href={searchHref}
-                className="text-sm font-semibold text-azure transition hover:text-ink"
+                className="text-sm font-semibold text-ink underline decoration-slate-300 underline-offset-4 transition hover:decoration-slate-500"
                 onClick={() => onNavigate?.()}
               >
                 {labels.viewAll}

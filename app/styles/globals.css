@@ -14,7 +14,7 @@ body,
 
 body {
   margin: 0;
-  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 14%, #f8fafc 100%);
+  background: #ffffff;
   color: #091627;
   font-family:
     ui-sans-serif,
@@ -66,19 +66,19 @@ a {
 }
 
 .content-copy a {
-  @apply text-azure underline decoration-slate-300 underline-offset-4 transition hover:decoration-azure;
+  @apply text-slate-900 underline decoration-slate-300 underline-offset-4 transition hover:text-slate-700 hover:decoration-slate-500;
 }
 
 .content-copy img {
-  @apply my-6 rounded-2xl border border-slate-200 shadow-sm;
+  @apply my-6 max-w-full;
 }
 
 .content-copy pre {
-  @apply mb-6 overflow-x-auto rounded-2xl bg-slate-950 p-4 text-sm text-slate-100;
+  @apply mb-6 overflow-x-auto rounded-lg bg-slate-950 p-4 text-sm text-slate-100;
 }
 
 .content-copy figure[data-rehype-pretty-code-figure] {
-  @apply mb-6 overflow-hidden rounded-2xl border border-slate-800/80 bg-slate-950 shadow-sm;
+  @apply mb-6 overflow-hidden rounded-lg border border-slate-800/80 bg-slate-950;
 }
 
 .content-copy figure[data-rehype-pretty-code-figure] pre {
@@ -90,7 +90,7 @@ a {
 }
 
 .content-copy .mermaid-rendered {
-  @apply mb-6 overflow-x-auto rounded-2xl border border-slate-200 bg-white p-4 shadow-sm;
+  @apply mb-6 overflow-x-auto rounded-lg border border-slate-200 bg-white p-4;
 }
 
 .content-copy .mermaid-rendered svg {
@@ -107,7 +107,7 @@ a {
 
 .content-copy pre[data-language] [data-line]::selection,
 .content-copy pre[data-language] [data-line] span::selection {
-  @apply bg-azure/30;
+  @apply bg-slate-500/30;
 }
 
 .content-copy code {
@@ -119,7 +119,7 @@ a {
 }
 
 .content-copy blockquote {
-  @apply mb-6 border-l-4 border-azure/60 bg-azure/5 px-4 py-3 text-slate-700;
+  @apply mb-6 border-l-4 border-slate-300 bg-slate-50 px-4 py-3 text-slate-700;
 }
 
 .content-copy table {
@@ -136,7 +136,7 @@ a {
 }
 
 .content-copy input[type="checkbox"][disabled] {
-  @apply mr-2 rounded border-slate-300 text-azure;
+  @apply mr-2 rounded border-slate-300 text-slate-700;
 }
 
 .content-copy .footnotes {
@@ -156,7 +156,7 @@ a {
 }
 
 .content-copy .content-admonition {
-  @apply mb-6 rounded-[1.5rem] border border-slate-200 bg-white/90 p-5 shadow-sm;
+  @apply mb-6 rounded-lg border border-slate-200 bg-white p-5;
 }
 
 .content-copy .content-admonition-title,
@@ -201,7 +201,7 @@ a {
 }
 
 .content-copy .content-tabs {
-  @apply mb-6 flex flex-wrap gap-2 rounded-[1.5rem] border border-slate-200 bg-white/90 p-3 shadow-sm;
+  @apply mb-6 flex flex-wrap gap-2 rounded-lg border border-slate-200 bg-white p-3;
 }
 
 .content-copy .content-tab {
@@ -221,7 +221,7 @@ a {
 }
 
 .content-copy .content-tab-panel {
-  @apply hidden basis-full rounded-[1.25rem] border border-slate-200 bg-white p-5;
+  @apply hidden basis-full rounded-lg border border-slate-200 bg-white p-5;
 }
 
 .content-copy .content-tab-input:checked + .content-tab-label + .content-tab-panel {

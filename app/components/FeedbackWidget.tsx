@@ -46,7 +46,7 @@ export function FeedbackWidget({ locale, path, title }: FeedbackWidgetProps) {
   }
 
   return (
-    <div className="rounded-[1.5rem] border border-slate-200 bg-white p-5">
+    <div className="rounded-lg border border-slate-200 bg-white p-5">
       <p className="text-sm font-semibold text-ink">{copy.title}</p>
       <div className="mt-3 flex flex-wrap gap-3">
         <button
@@ -54,8 +54,8 @@ export function FeedbackWidget({ locale, path, title }: FeedbackWidgetProps) {
           onClick={() => submitFeedback("helpful")}
           className={`inline-flex rounded-full border px-4 py-2 text-sm font-medium transition ${
             selected === "helpful"
-              ? "border-emerald-500 bg-emerald-500 text-white"
-              : "border-slate-200 text-slate-700 hover:border-emerald-500 hover:text-emerald-600"
+              ? "border-slate-900 bg-slate-900 text-white"
+              : "border-slate-200 text-slate-700 hover:bg-slate-50 hover:text-ink"
           }`}
         >
           {copy.helpful}
@@ -65,8 +65,8 @@ export function FeedbackWidget({ locale, path, title }: FeedbackWidgetProps) {
           onClick={() => submitFeedback("improve")}
           className={`inline-flex rounded-full border px-4 py-2 text-sm font-medium transition ${
             selected === "improve"
-              ? "border-amber-500 bg-amber-500 text-white"
-              : "border-slate-200 text-slate-700 hover:border-amber-500 hover:text-amber-600"
+              ? "border-slate-900 bg-slate-900 text-white"
+              : "border-slate-200 text-slate-700 hover:bg-slate-50 hover:text-ink"
           }`}
         >
           {copy.improve}
@@ -81,7 +81,7 @@ export function FeedbackWidget({ locale, path, title }: FeedbackWidgetProps) {
               href="https://github.com/orgs/eunomia-bpf/discussions"
               target="_blank"
               rel="noreferrer"
-              className="font-medium text-azure underline-offset-4 hover:underline"
+              className="font-medium text-ink underline decoration-slate-300 underline-offset-4 hover:decoration-slate-500"
             >
               {copy.discussion}
             </a>

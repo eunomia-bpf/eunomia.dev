@@ -35,23 +35,21 @@ function AppErrorFallback({ pathname }: { pathname: string }) {
 
   return (
     <main className="min-h-screen bg-paper px-5 py-16 text-ink">
-      <section className="mx-auto max-w-3xl rounded-[2.5rem] border border-white/70 bg-white/90 p-8 shadow-panel md:p-12">
-        <span className="inline-flex rounded-full bg-ink px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-white">
-          {copy.badge}
-        </span>
-        <h1 className="mt-6 font-serif text-4xl leading-tight tracking-tight md:text-5xl">{copy.title}</h1>
+      <section className="mx-auto max-w-3xl rounded-xl border border-slate-200 bg-white p-8 md:p-12">
+        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">{copy.badge}</p>
+        <h1 className="mt-4 text-4xl font-semibold leading-tight tracking-tight md:text-5xl">{copy.title}</h1>
         <p className="mt-5 max-w-2xl text-base leading-8 text-slate-600 md:text-lg">{copy.body}</p>
         <div className="mt-8 flex flex-wrap gap-3">
           <button
             type="button"
             onClick={() => window.location.reload()}
-            className="inline-flex rounded-full bg-ink px-5 py-3 text-sm font-semibold text-white transition hover:bg-azure"
+            className="inline-flex rounded-lg bg-ink px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
           >
             {copy.reload}
           </button>
           <a
             href={locale === "zh" ? "/zh/" : "/"}
-            className="inline-flex rounded-full border border-slate-200 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-azure hover:text-azure"
+            className="inline-flex rounded-lg border border-slate-200 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 hover:text-ink"
           >
             {copy.home}
           </a>

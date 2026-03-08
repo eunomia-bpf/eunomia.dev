@@ -63,7 +63,7 @@ export function MobileNav({ locale, currentPath }: MobileNavProps) {
       {open ? (
         <div
           id="mobile-nav-panel"
-          className="absolute right-0 top-[calc(100%+0.75rem)] z-50 w-[min(22rem,calc(100vw-2.5rem))] rounded-2xl border border-slate-200 bg-white/95 p-5 shadow-lg backdrop-blur"
+          className="absolute right-0 top-[calc(100%+0.75rem)] z-50 w-[min(22rem,calc(100vw-2.5rem))] rounded-xl border border-slate-200 bg-white p-5"
         >
           <SearchBox
             locale={locale}
@@ -83,7 +83,7 @@ export function MobileNav({ locale, currentPath }: MobileNavProps) {
                     ? "page"
                     : undefined
                 }
-                className={`rounded-2xl border px-4 py-3 text-sm font-medium transition ${
+                className={`rounded-lg border px-4 py-3 text-sm font-medium transition ${
                   normalizedCurrentPath === normalizePath(item.href) ||
                   normalizedCurrentPath.startsWith(`${normalizePath(item.href)}/`)
                     ? "border-slate-900 bg-slate-900 text-white"

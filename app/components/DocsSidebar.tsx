@@ -49,12 +49,12 @@ export function DocsSidebar({ groups, currentPath, className }: DocsSidebarProps
                       href={item.href}
                       aria-current={isExact ? "page" : undefined}
                       className={joinClassNames(
-                        "block rounded-xl px-3 py-2 text-sm leading-6 transition",
+                        "block border-l-2 px-3 py-1.5 text-sm leading-6 transition",
                         isExact
-                          ? "bg-ink text-white shadow-sm"
+                          ? "border-slate-900 bg-slate-50 text-ink"
                           : isAncestor
-                            ? "bg-slate-100 text-ink"
-                            : "text-slate-600 hover:bg-slate-100 hover:text-ink"
+                            ? "border-slate-300 text-ink"
+                            : "border-transparent text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink"
                       )}
                       style={{ marginLeft: `${Math.max((item.depth ?? 0) - 1, 0) * 12}px` }}
                     >

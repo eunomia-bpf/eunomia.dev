@@ -20,7 +20,7 @@ export function SiteFooter({ locale }: SiteFooterProps) {
   ];
 
   return (
-    <footer className="mt-16 border-t border-slate-200 bg-white/80">
+    <footer className="mt-16 border-t border-slate-200 bg-white">
       <div className="mx-auto grid max-w-6xl gap-8 px-5 py-10 text-sm text-slate-600 md:grid-cols-[minmax(0,1.3fr)_repeat(3,minmax(0,1fr))]">
         <div>
           <p className="text-lg font-semibold tracking-tight text-ink">eunomia</p>
@@ -47,7 +47,7 @@ function FooterColumn({
       <ul className="mt-4 space-y-3">
         {links.map((link) => (
           <li key={`${title}:${link.href}`}>
-            <a href={link.href} className="transition hover:text-azure">
+            <a href={link.href} className="transition hover:text-ink">
               {link.label}
             </a>
           </li>

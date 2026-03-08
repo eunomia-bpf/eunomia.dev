@@ -35,8 +35,8 @@ export function TableOfContents({
     <aside
       className={joinClassNames(
         compact
-          ? "rounded-2xl border border-slate-200 bg-slate-50/90 p-5"
-          : "sticky top-24 self-start rounded-2xl border border-slate-200 bg-white/95 p-5 shadow-sm",
+          ? "rounded-lg border border-slate-200 bg-slate-50 p-5"
+          : "sticky top-24 self-start rounded-lg border border-slate-200 bg-white p-5",
         className
       )}
     >

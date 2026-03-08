@@ -31,12 +31,12 @@ export function SiteChrome({
   alternates
 }: SiteChromeProps) {
   return (
-    <div className="min-h-screen bg-slate-50/80">
+    <div className="min-h-screen bg-white">
       <SiteHeader locale={locale} currentPath={currentPath} alternates={alternates} />
       <main className="pb-16">
         {hero ?? (
           leadMode === "compact" ? (
-            <section className="border-b border-slate-200/80 bg-white/70">
+            <section className="border-b border-slate-200 bg-white">
               <div className="mx-auto max-w-[94rem] px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">{eyebrow}</p>
                 <h1 className="mt-3 max-w-4xl text-3xl font-semibold tracking-tight text-ink md:text-4xl">

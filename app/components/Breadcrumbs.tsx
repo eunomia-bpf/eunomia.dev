@@ -13,13 +13,13 @@ export function Breadcrumbs({ locale, currentTitle, sectionLink }: BreadcrumbsPr
 
   return (
     <nav aria-label={copy.ariaLabel} className="mb-5 flex flex-wrap items-center gap-2 text-sm text-slate-500">
-      <a href={copy.homeHref} className="transition hover:text-azure">
+      <a href={copy.homeHref} className="transition hover:text-ink">
         {copy.homeLabel}
       </a>
       {sectionLink ? (
         <>
           <span>/</span>
-          <a href={sectionLink.href} className="transition hover:text-azure">
+          <a href={sectionLink.href} className="transition hover:text-ink">
             {sectionLink.title}
           </a>
         </>

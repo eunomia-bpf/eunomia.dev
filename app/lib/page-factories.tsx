@@ -78,7 +78,7 @@ function renderCollectionContent<IndexPage extends LandingPageData, ArticlePage 
     return (
       <>
         <section className="pb-8">
-          <article className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm md:p-9">
+          <article>
             <MarkdownContent html={indexPage.introHtml} />
             <PageFooter
               locale={locale}

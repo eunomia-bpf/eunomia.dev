@@ -11,23 +11,25 @@ type CardGridProps = {
 
 export function CardGrid({ cards }: CardGridProps) {
   return (
-    <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-      {cards.map((card) => (
+    <section className="overflow-hidden rounded-xl border border-slate-200 bg-white">
+      {cards.map((card, index) => (
         <a
           key={card.href}
           href={card.href}
-          className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:border-slate-300"
+          className={`block px-6 py-5 transition hover:bg-slate-50 ${index > 0 ? "border-t border-slate-200" : ""}`}
         >
-          {card.badge ? (
-            <span className="inline-flex rounded-full bg-slate-100 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600">
-              {card.badge}
-            </span>
-          ) : null}
-          <h2 className="mt-4 text-xl font-semibold tracking-tight text-ink">{card.title}</h2>
-          <p className="mt-3 leading-7 text-slate-600">{card.description}</p>
-          <span className="mt-5 inline-flex text-sm font-semibold text-slate-900">
-            Open
-          </span>
+          <div className="flex items-start justify-between gap-4">
+            <div className="min-w-0">
+              <h2 className="text-lg font-semibold tracking-tight text-ink">{card.title}</h2>
+              <p className="mt-2 leading-7 text-slate-600">{card.description}</p>
+              <span className="mt-4 inline-flex text-sm font-semibold text-slate-900">Open</span>
+            </div>
+            {card.badge ? (
+              <span className="rounded-md bg-slate-100 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600">
+                {card.badge}
+              </span>
+            ) : null}
+          </div>
         </a>
       ))}
     </section>
