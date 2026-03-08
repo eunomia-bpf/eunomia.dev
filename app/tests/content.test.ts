@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
@@ -154,6 +155,43 @@ test("writeStaticAssets copies docs and site assets into the static asset tree",
   } finally {
     fs.rmSync(outputRoot, { recursive: true, force: true });
     fs.rmSync(indexPath, { force: true });
+  }
+});
+
+test("generate-static-assets succeeds when the repository site/ directory is absent", () => {
+  const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "eunomia-static-assets-missing-site-"));
+  const outputRoot = path.join(tempDir, "public-assets");
+  const indexPath = path.join(tempDir, "static-assets.json");
+  const missingSiteRoot = path.join(tempDir, "missing-site");
+
+  try {
+    execFileSync(
+      "node",
+      [
+        "--import",
+        "tsx",
+        "-e",
+        [
+          "import * as assetModule from './lib/content/assets.ts';",
+          `assetModule.default.writeStaticAssets(${JSON.stringify(outputRoot)}, ${JSON.stringify(indexPath)});`
+        ].join(" ")
+      ],
+      {
+        cwd: process.cwd(),
+        env: {
+          ...process.env,
+          EUNOMIA_SITE_ROOT: missingSiteRoot
+        },
+        stdio: "pipe"
+      }
+    );
+
+    assert.ok(fs.existsSync(path.join(outputRoot, "docs")));
+    const payload = JSON.parse(fs.readFileSync(indexPath, "utf8")) as { assets?: Array<{ source: string }> };
+    assert.ok(Array.isArray(payload.assets));
+    assert.ok(!payload.assets?.some((asset) => asset.source === "site"));
+  } finally {
+    fs.rmSync(tempDir, { recursive: true, force: true });
   }
 });
 

@@ -14,7 +14,23 @@ function toPosix(value: string): string {
   return value.split(path.sep).join("/");
 }
 
-function walkFiles(root: string): string[] {
+function walkFiles(root: string, { allowMissing = false }: { allowMissing?: boolean } = {}): string[] {
+  if (!fs.existsSync(root)) {
+    if (allowMissing) {
+      return [];
+    }
+
+    throw new Error(`Content root does not exist: ${root}`);
+  }
+
+  if (!fs.statSync(root).isDirectory()) {
+    if (allowMissing) {
+      return [];
+    }
+
+    throw new Error(`Content root is not a directory: ${root}`);
+  }
+
   const queue = [root];
   const files: string[] = [];
 
@@ -51,7 +67,9 @@ export function getDocsFileSet(): Set<string> {
 export function getSiteFileSet(): Set<string> {
   if (!useContentCache || !siteFileSetCache) {
     siteFileSetCache = new Set(
-      walkFiles(siteRoot).map((filePath) => toPosix(path.relative(siteRoot, filePath)))
+      walkFiles(siteRoot, { allowMissing: true }).map((filePath) =>
+        toPosix(path.relative(siteRoot, filePath))
+      )
     );
   }
   return siteFileSetCache;
