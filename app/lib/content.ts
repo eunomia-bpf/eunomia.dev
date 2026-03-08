@@ -9,6 +9,7 @@ export {
   loadHomePage,
   loadLegacyBlogIndex,
   loadLegacyBlogPage,
+  resolveContentPage,
   loadSectionPage,
   loadTutorialIndex,
   loadTutorialPage

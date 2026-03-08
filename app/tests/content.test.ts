@@ -7,7 +7,7 @@ import { renderFeed } from "../lib/content/feed";
 import { getGitMetadata } from "../lib/content/git";
 import { resolveAlternatesFromDocSource, resolveManifestRecordFromRoute } from "../lib/content/manifest";
 import { splitMaterialBlocks } from "../lib/content/material-blocks";
-import { loadBlogPage, loadLegacyBlogPage, loadSectionPage, loadTutorialPage } from "../lib/content/loaders";
+import { loadBlogPage, loadLegacyBlogPage, loadSectionPage, loadTutorialPage, resolveContentPage } from "../lib/content/loaders";
 import { assertSupportedMarkdown, parseMarkdown } from "../lib/content/markdown";
 import { getContentManifest } from "../lib/content/manifest";
 import { renderMarkdown, renderMarkdownBody, renderMarkdownDocument } from "../lib/content/render";
@@ -15,6 +15,7 @@ import { docPathToRoute, getGenericSectionRoutes, listSitemapRoutes } from "../l
 import { searchContent } from "../lib/content/search";
 import { rewriteContentUrl } from "../lib/content/rewrite";
 import { resolveLocalizedSource, slugifyTitle } from "../lib/content/source";
+import { getPrimaryNav, getSiteSections } from "../lib/site-ia";
 
 test("resolveLocalizedSource prefers zh variant when present", () => {
   assert.equal(
@@ -106,6 +107,22 @@ test("content manifest keeps localized routes for english-only section pages", (
   assert.equal(record.sourceByLocale.zh, "eunomia-bpf/setup/build.en.md");
   assert.equal(record.routeByLocale.en, "/eunomia-bpf/setup/build/");
   assert.equal(record.routeByLocale.zh, "/zh/eunomia-bpf/setup/build/");
+});
+
+test("site IA derives sections from discovered content and keeps stable overrides", () => {
+  const sections = getSiteSections();
+
+  assert.ok(sections.some((section) => section.key === "tutorials" && section.indexSource === "tutorials/index.md"));
+  assert.ok(sections.some((section) => section.key === "bpftime" && section.indexSource === "bpftime/index.md"));
+  assert.ok(sections.some((section) => section.key === "wasm-bpf" && section.indexSource === "wasm-bpf/index.md"));
+  assert.ok(sections.some((section) => section.key === "legacy-blog" && section.indexSource === "blogs/index.md"));
+});
+
+test("primary nav is generated from the site IA registry", () => {
+  assert.deepEqual(
+    getPrimaryNav("en").map((item) => item.href),
+    ["/tutorials/", "/blog/", "/bpftime/", "/GPTtrace/", "/eunomia-bpf/", "/others/"]
+  );
 });
 
 test("manifest resolves tutorial routes back to the canonical tutorial record", () => {
@@ -231,6 +248,19 @@ test("article loaders expose continuation links for collection discovery", async
   assert.ok(tutorialPage?.continuation?.next);
   assert.ok(blogPage?.continuation?.index);
   assert.equal(blogPage?.continuation?.index?.href, "/blog/");
+});
+
+test("resolveContentPage resolves manifest-backed routes without route-layer switches", async () => {
+  const tutorial = await resolveContentPage("/tutorials/1-helloworld/", "en");
+  const section = await resolveContentPage("/eunomia-bpf/setup/build/", "zh");
+
+  assert.ok(tutorial);
+  assert.equal(tutorial?.eyebrow, "Tutorials");
+  assert.match(tutorial?.page.title ?? "", /Hello World/i);
+
+  assert.ok(section);
+  assert.equal(section?.eyebrow, "eunomia-bpf");
+  assert.match(section?.page.bodyHtml ?? "", /Install Dependencies/);
 });
 
 test("nested tutorial pages preserve deep relative links", async () => {

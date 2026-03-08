@@ -1,21 +1,10 @@
 import type { GetServerSideProps, GetStaticProps } from "next";
 
-import {
-  loadBlogIndex,
-  loadBlogPage,
-  loadHomePage,
-  loadLegacyBlogIndex,
-  loadLegacyBlogPage,
-  loadSectionPage,
-  loadTutorialIndex,
-  loadTutorialPage,
-  resolveManifestRecordFromRoute
-} from "./content";
+import { loadHomePage, resolveContentPage } from "./content";
 import { renderFeed } from "./content/feed";
-import { getCollectionFamilyByKind, getContentEyebrow, type CollectionFamilyId } from "./content/registry";
 import { buildSearchSidebar } from "./content/sidebar";
 import { searchContent } from "./content/search";
-import type { DocsPage, SearchResult, SidebarGroup } from "./content/types";
+import type { SearchResult, SidebarGroup } from "./content/types";
 import type { HomePageData } from "./page-factories";
 import type { ContentPageProps } from "./page-builders";
 import { localizePath } from "./paths";
@@ -25,27 +14,6 @@ type SearchPageProps = {
   query: string;
   results: SearchResult[];
   sidebar: SidebarGroup[];
-};
-
-const collectionLoaders: Record<
-  CollectionFamilyId,
-  {
-    loadIndex: (locale: Locale) => Promise<DocsPage>;
-    loadPage: (slug: string[] | undefined, locale: Locale) => Promise<DocsPage | null>;
-  }
-> = {
-  tutorial: {
-    loadIndex: loadTutorialIndex,
-    loadPage: loadTutorialPage
-  },
-  blog: {
-    loadIndex: loadBlogIndex,
-    loadPage: loadBlogPage
-  },
-  "legacy-blog": {
-    loadIndex: loadLegacyBlogIndex,
-    loadPage: loadLegacyBlogPage
-  }
 };
 
 function normalizeQuery(value: string | string[] | undefined): string {
@@ -96,52 +64,15 @@ export function createContentPageRoute(locale: Locale) {
       };
     }
 
-    const path = pathnameFromSlug(locale, slug);
-    const record = resolveManifestRecordFromRoute(path);
-    if (!record) {
-      return {
-        notFound: true
-      };
-    }
-
-    const family = getCollectionFamilyByKind(record.kind);
-    if (family) {
-      const loader = collectionLoaders[family.id];
-      const page =
-        record.kind === family.indexKind ? await loader.loadIndex(locale) : await loader.loadPage(record.slug, locale);
-
-      if (!page) {
-        return { notFound: true };
-      }
-
-      return {
-        props: {
-          eyebrow: family.eyebrow(locale),
-          page
-        }
-      };
-    }
-
-    if (record.kind !== "section-page") {
-      return {
-        notFound: true
-      };
-    }
-
-    const section = record.section ?? "";
-    if (!section) {
-      return { notFound: true };
-    }
-
-    const page = await loadSectionPage(section, record.slug ?? [], locale);
-    if (!page) {
+    const resolved = await resolveContentPage(pathnameFromSlug(locale, slug), locale);
+    if (!resolved) {
       return { notFound: true };
     }
 
     return {
       props: {
-        eyebrow: getContentEyebrow(record, locale),
-        page
+        eyebrow: resolved.eyebrow,
+        page: resolved.page
       }
     };
   };

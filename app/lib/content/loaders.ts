@@ -3,15 +3,16 @@ import {
   getHomeBadge,
   getHomeExploreSections,
   getHomePath,
-  getHomeStats,
-  type SiteSectionKey
+  getHomeStats
 } from "../site-ia";
 import type { Locale } from "../site-data";
 import { getBlogEntries, getLegacyBlogEntries, getTutorialReadmeSources } from "./collections";
 import { getDocumentBySource, resolveDocument } from "./documents";
 import { getGitMetadata } from "./git";
+import { resolveManifestRecordFromRoute } from "./manifest";
 import { buildCollectionContinuation, buildIndexLink } from "./navigation";
 import { resolveAlternatesFromDocSource } from "./manifest";
+import { getCollectionFamilyByKind, getContentEyebrow, type CollectionFamilyId } from "./registry";
 import {
   buildBlogIndexPath,
   buildBlogPath,
@@ -36,6 +37,32 @@ import {
 } from "./source";
 import type { DocsPage, LandingCard } from "./types";
 import type { HomePageData } from "../page-factories";
+
+export type ResolvedContentPage = {
+  page: DocsPage;
+  eyebrow: string;
+};
+
+const collectionLoaders: Record<
+  CollectionFamilyId,
+  {
+    loadIndex: (locale: Locale) => Promise<DocsPage>;
+    loadPage: (slug: string[] | undefined, locale: Locale) => Promise<DocsPage | null>;
+  }
+> = {
+  tutorial: {
+    loadIndex: loadTutorialIndex,
+    loadPage: loadTutorialPage
+  },
+  blog: {
+    loadIndex: loadBlogIndex,
+    loadPage: loadBlogPage
+  },
+  "legacy-blog": {
+    loadIndex: loadLegacyBlogIndex,
+    loadPage: loadLegacyBlogPage
+  }
+};
 
 function requireDocument(relativePath: string, locale: Locale) {
   const document = resolveDocument(relativePath, locale);
@@ -355,6 +382,48 @@ export async function loadSectionPage(
 
   return {
     ...withContinuation(page, continuation),
-    sidebar: buildSectionSidebar(section as SiteSectionKey, locale)
+    sidebar: buildSectionSidebar(section, locale)
+  };
+}
+
+export async function resolveContentPage(path: string, locale: Locale): Promise<ResolvedContentPage | null> {
+  const record = resolveManifestRecordFromRoute(path);
+  if (!record) {
+    return null;
+  }
+
+  const family = getCollectionFamilyByKind(record.kind);
+  if (family) {
+    const loader = collectionLoaders[family.id];
+    const page =
+      record.kind === family.indexKind ? await loader.loadIndex(locale) : await loader.loadPage(record.slug, locale);
+
+    if (!page) {
+      return null;
+    }
+
+    return {
+      eyebrow: family.eyebrow(locale),
+      page
+    };
+  }
+
+  if (record.kind !== "section-page") {
+    return null;
+  }
+
+  const section = record.section ?? "";
+  if (!section) {
+    return null;
+  }
+
+  const page = await loadSectionPage(section, record.slug ?? [], locale);
+  if (!page) {
+    return null;
+  }
+
+  return {
+    eyebrow: getContentEyebrow(record, locale),
+    page
   };
 }
