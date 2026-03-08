@@ -2,9 +2,13 @@ import siteSectionPayload from "../.generated/content/site-sections.json";
 
 import { localizePath } from "./paths";
 import type { Locale } from "./site-data";
-import type { SerializedSiteSectionDefinition, SiteSectionKey } from "./site-ia-source";
+import type {
+  SerializedPublishedSiteSection,
+  SerializedSiteSectionDefinition,
+  SiteSectionKey
+} from "./site-ia-source";
 
-export type SiteSectionDefinition = SerializedSiteSectionDefinition & {
+export type SiteSectionDefinition = SerializedSiteSectionDefinition & SerializedPublishedSiteSection & {
   href: (locale: Locale) => string;
 };
 
@@ -16,6 +20,7 @@ type HomeCounts = {
 
 const sectionDefinitions: SiteSectionDefinition[] = siteSectionPayload.sections.map((section) => ({
   ...section,
+  ...section.published,
   href: (locale) => section.hrefByLocale[locale]
 }));
 

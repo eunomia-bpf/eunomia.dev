@@ -196,7 +196,7 @@ async function main() {
       check(await sectionSidebar.isVisible(), "section article shows the docs sidebar on desktop");
     }
 
-    await page.goto(absolute(smokeRoutes.mermaidArticle), { waitUntil: "networkidle" });
+    await page.goto(absolute(smokeRoutes.mermaidArticle), { waitUntil: "domcontentloaded" });
     await page.locator(".mermaid-rendered svg").first().waitFor({ state: "visible" });
     check(await page.locator(".mermaid-rendered svg").first().count(), "mermaid diagrams render as SVG");
 

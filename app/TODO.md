@@ -100,10 +100,14 @@ Status markers:
 
 - `[done]` Move primary navigation, home tracks, home explore links, and footer IA into one site registry.
 - `[done]` Generate the site IA registry as a build artifact so client components never import filesystem helpers.
+- `[done]` Split discovered sections from published sections so new content trees do not auto-enter nav/home/footer.
+- `[done]` Make site IA collection seeds consume the content family registry instead of duplicating taxonomy.
 - `[done]` Replace the route-kind `switch` with a collection family registry shared by manifest expansion and route builders.
 - `[done]` Move route-to-page resolution behind one content-layer resolver so Next route builders stay thin.
 - `[done]` Prebuild a document index and migrate metadata consumers off repeated ad-hoc `parseMarkdown` calls.
 - `[done]` Collapse non-home content rendering onto one `DocsPage` model and one docs shell.
+- `[done]` Split the monolithic content loader into home, collection, section, and resolver modules.
+- `[done]` Restrict search artifact fallback to development so production and verify stay fail-fast.
 - `[done]` Remove implicit `process.cwd()` assumptions from content roots and make generated artifact paths explicit.
 - `[done]` Add a single `npm run verify` entry that covers typecheck, content tests, build, and audits.
 - `[done]` Make isolated `distDir` verification resilient by cleaning stale build artifacts before building.
@@ -130,3 +134,7 @@ Status markers:
 18. `[done]` Prebuild document metadata and reuse it across collections, navigation, sidebars, feeds, and search.
 19. `[done]` Collapse content pages onto one docs shell while keeping the homepage custom.
 20. `[done]` Add a single verification entry point and clean isolated `distDir` builds.
+21. `[done]` Separate section discovery from section publication in the generated site IA.
+22. `[done]` Make collection families the seed source for site IA taxonomy.
+23. `[done]` Split the monolithic loader file into focused loader modules.
+24. `[done]` Tighten search artifacts so only development can rebuild them on the fly.

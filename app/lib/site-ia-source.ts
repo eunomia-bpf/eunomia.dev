@@ -3,49 +3,41 @@ import path from "node:path";
 
 import { useContentCache } from "./content/cache";
 import { getDocsFileSet, getTopLevelSections } from "./content/fs-index";
+import { getCollectionFamilies, type PublishedSiteSectionFlags } from "./content/registry";
 import { generatedContentDir } from "./content/roots";
 import {
-  buildBlogIndexPath,
   buildHomePath,
-  buildLegacyBlogIndexPath,
-  buildSectionPath,
-  buildTutorialIndexPath
+  buildSectionPath
 } from "./content/route-paths";
 import type { Locale } from "./site-data";
 
 export type SiteSectionKey = string;
+
+export type SerializedPublishedSiteSection = PublishedSiteSectionFlags;
 
 export type SerializedSiteSectionDefinition = {
   key: SiteSectionKey;
   labels: Record<Locale, string>;
   indexSource: string;
   hrefByLocale: Record<Locale, string>;
-  nav: boolean;
-  homeTrack: boolean;
-  homeExplore: boolean;
-  footerExplore: boolean;
-  footerProject: boolean;
+  discovered: boolean;
+  published: SerializedPublishedSiteSection;
   order: number;
 };
 
 type SiteSectionOverride = {
   labels?: Partial<Record<Locale, string>>;
-  nav?: boolean;
-  homeTrack?: boolean;
-  homeExplore?: boolean;
-  footerExplore?: boolean;
-  footerProject?: boolean;
+  published?: Partial<SerializedPublishedSiteSection>;
   order?: number;
 };
 
 type SectionSeed = {
   key: SiteSectionKey;
+  topLevelDir: string;
   indexSource: string;
   href: (locale: Locale) => string;
-  defaults: Pick<
-    SerializedSiteSectionDefinition,
-    "nav" | "homeTrack" | "homeExplore" | "footerExplore" | "footerProject" | "order"
-  >;
+  defaults: SerializedPublishedSiteSection;
+  defaultOrder: number;
 };
 
 type SerializedSiteSectionIndex = {
@@ -61,9 +53,13 @@ const sectionOverrides = new Map<SiteSectionKey, SiteSectionOverride>([
     "legacy-blog",
     {
       labels: { en: "Legacy blog", zh: "旧博客" },
-      nav: false,
-      homeExplore: true,
-      footerExplore: true,
+      published: {
+        nav: false,
+        homeTrack: false,
+        homeExplore: true,
+        footerExplore: true,
+        footerProject: false
+      },
       order: 70
     }
   ],
@@ -71,9 +67,13 @@ const sectionOverrides = new Map<SiteSectionKey, SiteSectionOverride>([
     "bpftime",
     {
       labels: { en: "bpftime", zh: "bpftime" },
-      homeTrack: true,
-      homeExplore: false,
-      footerProject: false,
+      published: {
+        nav: true,
+        homeTrack: true,
+        homeExplore: false,
+        footerExplore: true,
+        footerProject: false
+      },
       order: 30
     }
   ],
@@ -81,9 +81,13 @@ const sectionOverrides = new Map<SiteSectionKey, SiteSectionOverride>([
     "GPTtrace",
     {
       labels: { en: "eBPF×AI/LLMs", zh: "eBPF×AI/LLMs" },
-      homeTrack: false,
-      homeExplore: true,
-      footerProject: true,
+      published: {
+        nav: true,
+        homeTrack: false,
+        homeExplore: true,
+        footerExplore: true,
+        footerProject: true
+      },
       order: 40
     }
   ],
@@ -91,9 +95,13 @@ const sectionOverrides = new Map<SiteSectionKey, SiteSectionOverride>([
     "eunomia-bpf",
     {
       labels: { en: "eunomia-bpf", zh: "eunomia-bpf" },
-      homeTrack: true,
-      homeExplore: false,
-      footerProject: false,
+      published: {
+        nav: true,
+        homeTrack: true,
+        homeExplore: false,
+        footerExplore: true,
+        footerProject: false
+      },
       order: 50
     }
   ],
@@ -101,9 +109,13 @@ const sectionOverrides = new Map<SiteSectionKey, SiteSectionOverride>([
     "others",
     {
       labels: { en: "Ecosystem", zh: "生态" },
-      homeTrack: false,
-      homeExplore: true,
-      footerProject: false,
+      published: {
+        nav: true,
+        homeTrack: false,
+        homeExplore: true,
+        footerExplore: true,
+        footerProject: false
+      },
       order: 60
     }
   ],
@@ -111,8 +123,13 @@ const sectionOverrides = new Map<SiteSectionKey, SiteSectionOverride>([
     "wasm-bpf",
     {
       labels: { en: "wasm-bpf", zh: "wasm-bpf" },
-      nav: false,
-      footerProject: true,
+      published: {
+        nav: false,
+        homeTrack: false,
+        homeExplore: true,
+        footerExplore: true,
+        footerProject: true
+      },
       order: 80
     }
   ]
@@ -159,50 +176,26 @@ function defaultLabels(key: SiteSectionKey): Record<Locale, string> {
   };
 }
 
-function buildSectionSeeds(): SectionSeed[] {
-  const seeds: SectionSeed[] = [
-    {
-      key: "tutorials",
-      indexSource: "tutorials/index.md",
-      href: buildTutorialIndexPath,
-      defaults: {
-        nav: true,
-        homeTrack: true,
-        homeExplore: false,
-        footerExplore: true,
-        footerProject: false,
-        order: 10
-      }
-    },
-    {
-      key: "blog",
-      indexSource: "blog/index.md",
-      href: buildBlogIndexPath,
-      defaults: {
-        nav: true,
-        homeTrack: false,
-        homeExplore: false,
-        footerExplore: true,
-        footerProject: false,
-        order: 20
-      }
-    },
-    {
-      key: "legacy-blog",
-      indexSource: "blogs/index.md",
-      href: buildLegacyBlogIndexPath,
-      defaults: {
-        nav: false,
-        homeTrack: false,
-        homeExplore: true,
-        footerExplore: true,
-        footerProject: false,
-        order: 70
-      }
-    }
-  ];
+function buildCollectionSectionSeeds(): SectionSeed[] {
+  return getCollectionFamilies().map((family, index) => ({
+    key: family.siteSection.key,
+    topLevelDir: family.siteSection.topLevelDir,
+    indexSource: family.indexSource,
+    href: family.buildIndexPath,
+    defaults: family.siteSection.defaults,
+    defaultOrder: 10 + index * 10
+  }));
+}
+
+function buildDiscoveredSectionSeeds(): SectionSeed[] {
+  const seeds = [...buildCollectionSectionSeeds()];
+  const reservedTopLevelDirs = new Set(seeds.map((seed) => seed.topLevelDir));
 
   for (const section of getTopLevelSections()) {
+    if (reservedTopLevelDirs.has(section)) {
+      continue;
+    }
+
     const indexSource = resolveSectionIndexSource(section);
     if (!indexSource) {
       continue;
@@ -210,16 +203,17 @@ function buildSectionSeeds(): SectionSeed[] {
 
     seeds.push({
       key: section,
+      topLevelDir: section,
       indexSource,
       href: (locale) => buildSectionPath(section, [], locale),
       defaults: {
-        nav: true,
+        nav: false,
         homeTrack: false,
-        homeExplore: true,
-        footerExplore: true,
+        homeExplore: false,
+        footerExplore: false,
         footerProject: false,
-        order: 1000
-      }
+      },
+      defaultOrder: 1000
     });
   }
 
@@ -233,8 +227,18 @@ function mergeLabels(key: SiteSectionKey, override?: SiteSectionOverride): Recor
   };
 }
 
+function mergePublished(
+  seed: SectionSeed,
+  override?: SiteSectionOverride
+): SerializedPublishedSiteSection {
+  return {
+    ...seed.defaults,
+    ...(override?.published ?? {})
+  };
+}
+
 function buildSiteSectionDefinitions(): SerializedSiteSectionDefinition[] {
-  const definitions = buildSectionSeeds().map((seed, index) => {
+  const definitions = buildDiscoveredSectionSeeds().map((seed, index) => {
     const override = sectionOverrides.get(seed.key);
 
     return {
@@ -245,12 +249,9 @@ function buildSiteSectionDefinitions(): SerializedSiteSectionDefinition[] {
         en: seed.href("en"),
         zh: seed.href("zh")
       },
-      nav: override?.nav ?? seed.defaults.nav,
-      homeTrack: override?.homeTrack ?? seed.defaults.homeTrack,
-      homeExplore: override?.homeExplore ?? seed.defaults.homeExplore,
-      footerExplore: override?.footerExplore ?? seed.defaults.footerExplore,
-      footerProject: override?.footerProject ?? seed.defaults.footerProject,
-      order: override?.order ?? seed.defaults.order + index
+      discovered: true as const,
+      published: mergePublished(seed, override),
+      order: override?.order ?? seed.defaultOrder + index
     };
   });
 

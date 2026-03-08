@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import path from "node:path";
 import test from "node:test";
 
 import { serveRawAsset } from "../lib/content/assets";
@@ -12,7 +13,7 @@ import { assertSupportedMarkdown, parseMarkdown } from "../lib/content/markdown"
 import { getContentManifest } from "../lib/content/manifest";
 import { renderMarkdown, renderMarkdownBody, renderMarkdownDocument } from "../lib/content/render";
 import { docPathToRoute, getGenericSectionRoutes, listSitemapRoutes } from "../lib/content/routes";
-import { searchContent } from "../lib/content/search";
+import { loadSearchDocuments, searchContent } from "../lib/content/search";
 import { rewriteContentUrl } from "../lib/content/rewrite";
 import { resolveLocalizedSource, slugifyTitle } from "../lib/content/source";
 import { getPrimaryNav, getSiteSections } from "../lib/site-ia";
@@ -116,6 +117,7 @@ test("site IA derives sections from discovered content and keeps stable override
   assert.ok(sections.some((section) => section.key === "bpftime" && section.indexSource === "bpftime/index.md"));
   assert.ok(sections.some((section) => section.key === "wasm-bpf" && section.indexSource === "wasm-bpf/index.md"));
   assert.ok(sections.some((section) => section.key === "legacy-blog" && section.indexSource === "blogs/index.md"));
+  assert.ok(sections.every((section) => section.discovered));
 });
 
 test("primary nav is generated from the site IA registry", () => {
@@ -123,6 +125,13 @@ test("primary nav is generated from the site IA registry", () => {
     getPrimaryNav("en").map((item) => item.href),
     ["/tutorials/", "/blog/", "/bpftime/", "/GPTtrace/", "/eunomia-bpf/", "/others/"]
   );
+});
+
+test("site IA keeps non-primary published sections out of the primary nav", () => {
+  const navItems = getPrimaryNav("en");
+
+  assert.ok(!navItems.some((item) => item.href === "/blogs/"));
+  assert.ok(!navItems.some((item) => item.href === "/wasm-bpf/"));
 });
 
 test("manifest resolves tutorial routes back to the canonical tutorial record", () => {
@@ -237,6 +246,34 @@ test("searchContent indexes fallback blog content for the zh locale", () => {
       (result) => result.href === "/zh/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/"
     )
   );
+});
+
+test("loadSearchDocuments fails fast outside development when artifacts are missing", () => {
+  const env = process.env as Record<string, string | undefined>;
+  const previousNodeEnv = env.NODE_ENV;
+  env.NODE_ENV = "production";
+
+  try {
+    assert.throws(
+      () => loadSearchDocuments("en", { outputDir: path.join(process.cwd(), ".generated", "missing-search"), allowFallback: false }),
+      /Missing prebuilt search index/
+    );
+  } finally {
+    env.NODE_ENV = previousNodeEnv;
+  }
+});
+
+test("loadSearchDocuments can rebuild from content in development", () => {
+  const env = process.env as Record<string, string | undefined>;
+  const previousNodeEnv = env.NODE_ENV;
+  env.NODE_ENV = "development";
+
+  try {
+    const documents = loadSearchDocuments("en", { outputDir: path.join(process.cwd(), ".generated", "missing-search-dev") });
+    assert.ok(documents.length > 0);
+  } finally {
+    env.NODE_ENV = previousNodeEnv;
+  }
 });
 
 test("article loaders expose continuation links for collection discovery", async () => {

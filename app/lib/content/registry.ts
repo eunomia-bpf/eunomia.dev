@@ -1,5 +1,4 @@
 import { routeRolloutPolicies } from "../rollout";
-import { getSectionLabel } from "../site-ia";
 import type { Locale } from "../site-data";
 import { getBlogEntries, getLegacyBlogEntries, getTutorialDocSources } from "./collections";
 import {
@@ -17,6 +16,14 @@ import {
 import type { ContentManifestKind, ContentManifestRecord } from "./types";
 
 export type CollectionFamilyId = "tutorial" | "blog" | "legacy-blog";
+
+export type PublishedSiteSectionFlags = {
+  nav: boolean;
+  homeTrack: boolean;
+  homeExplore: boolean;
+  footerExplore: boolean;
+  footerProject: boolean;
+};
 
 type CollectionPageDescriptor = {
   kind: ContentManifestKind;
@@ -39,6 +46,11 @@ export type CollectionFamilyDefinition = {
   indexSource: string;
   buildIndexPath: (locale: Locale) => string;
   eyebrow: (locale: Locale) => string;
+  siteSection: {
+    key: string;
+    topLevelDir: string;
+    defaults: PublishedSiteSectionFlags;
+  };
   getPages: () => CollectionPageDescriptor[];
 };
 
@@ -55,6 +67,17 @@ const collectionFamilies: CollectionFamilyDefinition[] = [
     indexSource: "tutorials/index.md",
     buildIndexPath: buildTutorialIndexPath,
     eyebrow: (locale) => (locale === "zh" ? "教程" : "Tutorials"),
+    siteSection: {
+      key: "tutorials",
+      topLevelDir: "tutorials",
+      defaults: {
+        nav: true,
+        homeTrack: true,
+        homeExplore: false,
+        footerExplore: true,
+        footerProject: false
+      }
+    },
     getPages: () =>
       getTutorialDocSources().map((sourceRelative) => {
         const slug = tutorialSourceToSlugSegments(sourceRelative);
@@ -82,6 +105,17 @@ const collectionFamilies: CollectionFamilyDefinition[] = [
     indexSource: "blog/index.md",
     buildIndexPath: buildBlogIndexPath,
     eyebrow: (locale) => (locale === "zh" ? "博客" : "Blog"),
+    siteSection: {
+      key: "blog",
+      topLevelDir: "blog",
+      defaults: {
+        nav: true,
+        homeTrack: false,
+        homeExplore: false,
+        footerExplore: true,
+        footerProject: false
+      }
+    },
     getPages: () =>
       getBlogEntries().map((entry) => ({
         kind: "blog-page",
@@ -104,6 +138,17 @@ const collectionFamilies: CollectionFamilyDefinition[] = [
     indexSource: "blogs/index.md",
     buildIndexPath: buildLegacyBlogIndexPath,
     eyebrow: (locale) => (locale === "zh" ? "旧博客" : "Legacy Blog"),
+    siteSection: {
+      key: "legacy-blog",
+      topLevelDir: "blogs",
+      defaults: {
+        nav: false,
+        homeTrack: false,
+        homeExplore: true,
+        footerExplore: true,
+        footerProject: false
+      }
+    },
     getPages: () =>
       getLegacyBlogEntries().map((entry) => ({
         kind: "legacy-blog-page",
@@ -120,20 +165,12 @@ export function getCollectionFamilies(): CollectionFamilyDefinition[] {
   return collectionFamilies;
 }
 
+export function getCollectionFamilyById(id: CollectionFamilyId): CollectionFamilyDefinition | null {
+  return collectionFamilies.find((family) => family.id === id) ?? null;
+}
+
 export function getCollectionFamilyByKind(kind: ContentManifestKind): CollectionFamilyDefinition | null {
   return (
     collectionFamilies.find((family) => family.indexKind === kind || family.pageKind === kind) ?? null
   );
-}
-
-export function getContentEyebrow(record: ContentManifestRecord, locale: Locale): string {
-  if (record.kind === "home") {
-    return locale === "zh" ? "主页" : "Home";
-  }
-
-  if (record.kind === "section-page") {
-    return getSectionLabel(record.section ?? "", locale);
-  }
-
-  return getCollectionFamilyByKind(record.kind)?.eyebrow(locale) ?? "";
 }

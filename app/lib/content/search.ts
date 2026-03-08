@@ -73,8 +73,53 @@ function buildSearchDocumentsFromContent(locale: Locale): SearchDocument[] {
   return documents;
 }
 
-function readPrebuiltSearchDocuments(locale: Locale): SearchDocument[] | null {
-  const filePath = searchIndexPath(locale);
+function allowSearchArtifactFallback(): boolean {
+  return process.env.NODE_ENV === "development";
+}
+
+export function loadSearchDocuments(
+  locale: Locale,
+  options: {
+    allowFallback?: boolean;
+    outputDir?: string;
+  } = {}
+): SearchDocument[] {
+  const outputDir = options.outputDir ?? generatedSearchDir;
+  const fallbackAllowed = options.allowFallback ?? allowSearchArtifactFallback();
+
+  if (useContentCache && outputDir === generatedSearchDir) {
+    const cached = searchIndexCache.get(locale);
+    if (cached) {
+      return cached;
+    }
+  }
+
+  const documents = readPrebuiltSearchDocumentsFrom(locale, outputDir);
+  if (documents) {
+    if (useContentCache && outputDir === generatedSearchDir) {
+      searchIndexCache.set(locale, documents);
+    }
+    return documents;
+  }
+
+  if (!fallbackAllowed) {
+    throw new Error(
+      `Missing prebuilt search index for ${locale} at ${searchIndexPath(locale, outputDir)}. Run generate:search-index first.`
+    );
+  }
+
+  const rebuilt = buildSearchDocumentsFromContent(locale);
+  if (useContentCache && outputDir === generatedSearchDir) {
+    searchIndexCache.set(locale, rebuilt);
+  }
+  return rebuilt;
+}
+
+function readPrebuiltSearchDocumentsFrom(
+  locale: Locale,
+  outputDir: string
+): SearchDocument[] | null {
+  const filePath = searchIndexPath(locale, outputDir);
   if (!fs.existsSync(filePath)) {
     return null;
   }
@@ -87,24 +132,13 @@ function readPrebuiltSearchDocuments(locale: Locale): SearchDocument[] | null {
 
     return payload.documents;
   } catch (error) {
+    if (!allowSearchArtifactFallback() && outputDir === generatedSearchDir) {
+      throw new Error(`Failed to read prebuilt search index for ${locale}: ${String(error)}`);
+    }
+
     console.warn(`Failed to read prebuilt search index for ${locale}. Falling back to content scan.`, error);
     return null;
   }
-}
-
-function getSearchDocuments(locale: Locale): SearchDocument[] {
-  if (useContentCache) {
-    const cached = searchIndexCache.get(locale);
-    if (cached) {
-      return cached;
-    }
-  }
-
-  const documents = readPrebuiltSearchDocuments(locale) ?? buildSearchDocumentsFromContent(locale);
-  if (useContentCache) {
-    searchIndexCache.set(locale, documents);
-  }
-  return documents;
 }
 
 function scoreDocument(document: SearchDocument, query: string, tokens: string[]): number {
@@ -208,4 +242,8 @@ export function searchContent(query: string, locale: Locale, limit: number = 8):
       kind: document.kind,
       section: document.section
     }));
+}
+
+function getSearchDocuments(locale: Locale): SearchDocument[] {
+  return loadSearchDocuments(locale);
 }
