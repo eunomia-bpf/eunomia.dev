@@ -10,7 +10,9 @@ catagories: ['installation']
     ```console
     $ wget https://aka.pw/bpf-ecli -O ecli && chmod +x ./ecli
     $ ./ecli -h
-    Usage: ecli [--help] [--version] [--json] [--no-cache] url-and-args
+    ecli subcommands, including run, push, pull
+
+    Usage: ecli [COMMAND_LINE]... [COMMAND]
     ....
     ```
 
@@ -33,4 +35,4 @@ catagories: ['installation']
 
 - build the compiler, runtime library and tools:
 
-  see [build](https://github.com/eunomia-bpf/eunomia-bpf/tree/master/documents/build.md) for building details.
+  see [build](https://eunomia.dev/eunomia-bpf/setup/build) for building details.

@@ -3,152 +3,44 @@ title: ecli server
 catagories: ['ecli']
 ---
 
-# ecli server
+# 旧版 ecli server 模式
 
-`ecli-server` 是 eunomia-bpf 的远程执行控制面，用来通过 HTTP 启动、停止、查看和管理远程主机上的 eBPF 程序。
+`ecli-server` 和 `ecli client` 子命令已在 2026 年 3 月从主分支移除，以降低维护复杂度。
 
-## 功能
+当前发布版本已经不再提供：
 
-- 通过 HTTP 启动和停止 eBPF 程序
-- 按游标拉取日志，或使用 `--follow` 持续跟踪
-- 列出服务器上的运行任务
-- 配合 `ecli client` 实现远程控制
+- `ecli-server` 二进制
+- `ecli client` 子命令
+- `http` only 客户端构建模式
 
-## 安装
+## 现在应该怎么用
 
-以 Ubuntu 为例：
+当前维护中的工作流是：
 
-```sh
-# 下载独立的 server 二进制
-wget https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli-server-ubuntu-latest.tar.gz
-tar -xzf ecli-server-ubuntu-latest.tar.gz
-chmod +x ./ecli-server
+- 用 `ecli run` 在本机运行本地包、URL、OCI 镜像或 Wasm 模块
+- 用 `ecli pull` 先把 OCI 镜像拉到本地再检查或执行
+- 用 `ecli push` 将 Wasm 模块发布到 OCI 仓库
 
-# 下载 ecli 客户端
+`https://eunomia-bpf.github.io/eunomia-bpf/...` 下面的历史 GitHub Pages URL 仍然保留给本地 `ecli run` 兼容使用；这里移除的只是旧的远程 HTTP 控制面。
+
+示例：
+
+```bash
 wget https://aka.pw/bpf-ecli -O ecli
 chmod +x ./ecli
+sudo ./ecli https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/package.json
+sudo ./ecli run ghcr.io/eunomia-bpf/execve:latest
 ```
 
-## 启动服务
+## 归档实现
 
-```console
-$ sudo ./ecli-server
-[2026-03-06T00:00:00Z] INFO Serving at 127.0.0.1:8527
-```
+远程 HTTP 模式最后一版实现保存在主仓库的 `archive/ecli-remote-http` 分支中：
 
-默认监听地址是 `127.0.0.1:8527`。
+- https://github.com/eunomia-bpf/eunomia-bpf/tree/archive/ecli-remote-http/ecli
 
-## 远程执行流程
+如果你需要查找历史上的 `ecli-server`、旧版 OpenAPI 接口或 `http` only 客户端，请直接看这条归档分支。
 
-最常见的使用方式如下：
+## 给现有用户的说明
 
-1. 在目标主机上启动 `ecli-server`
-2. 在另一台机器或另一个 shell 中使用 `ecli client`
-3. 启动任务、查看日志、停止任务
-
-```console
-$ ./ecli client --endpoint http://127.0.0.1:8527 start ./program.json
-1
-
-$ ./ecli client --endpoint http://127.0.0.1:8527 log 1
-TIME     EVENT COMM             PID     PPID    FILENAME/EXIT CODE
-16:03:16 EXEC  sh               51857   1711    /bin/sh
-16:03:16 EXIT  sh               51857   1711    [0] (1ms)
-
-$ ./ecli client --endpoint http://127.0.0.1:8527 log 1 --follow
-
-$ ./ecli client --endpoint http://127.0.0.1:8527 list
-
-$ ./ecli client --endpoint http://127.0.0.1:8527 stop 1
-```
-
-可以先看客户端子命令：
-
-```console
-$ ./ecli client --help
-Client operations
-
-Usage: ecli client [OPTIONS] <COMMAND>
-
-Commands:
-  start   Start an ebpf program on the specified endpoint
-  stop    Stop running a task on the specified endpoint
-  log     Fetch logs of the given task
-  pause   Pause the task
-  resume  Resume the task
-  list    List tasks on the server
-  help    Print this message or the help of the given subcommand(s)
-
-Options:
-  -e, --endpoint <ENDPOINT>  API endpoint [default: http://127.0.0.1:8527]
-  -h, --help                 Print help
-```
-
-## 构建模式
-
-如果你只需要远程控制，不需要本地运行 eBPF，可以构建一个更小的 `http` only 客户端：
-
-```sh
-cd ecli/client
-cargo build --release --no-default-features --features http
-```
-
-这种模式适合 Windows 或其他只需要远程调用 `ecli-server` 的环境。
-
-## 日志机制
-
-服务端会为每个任务维护一份日志缓冲区：
-
-- 每条日志都有时间戳游标
-- `ecli client log <id>` 会拉取当前缓冲区日志
-- `ecli client log <id> --follow` 会持续轮询新日志
-- 客户端推进游标后，旧日志可以被清理
-
-## HTTP API
-
-OpenAPI 定义在 [`ecli/apis.yaml`](https://github.com/eunomia-bpf/eunomia-bpf/blob/master/ecli/apis.yaml)。
-
-示例接口：
-
-```http
-POST /api/v1/ebpf/start
-Content-Type: application/json
-
-{
-  "program_data": "<base64_or_json>",
-  "args": ["--arg1", "value1"]
-}
-```
-
-```http
-GET /api/v1/ebpf/log/{id}?cursor={timestamp}
-```
-
-```http
-GET /api/v1/ebpf/list
-```
-
-```http
-POST /api/v1/ebpf/stop/{id}
-```
-
-也可以直接用 `curl` 调用：
-
-```console
-$ curl http://127.0.0.1:8527/task
-{"tasks":[{"status":"running","id":3,"name":"bpf-program-1691432359"}]}
-
-$ curl -X POST \
-  -H "Content-Type: application/json" \
-  -d '{
-    "id": 3,
-    "log_cursor": 0,
-    "maximum_count": 100
-  }' \
-  http://127.0.0.1:8527/log
-```
-
-## 安全说明
-
-`ecli-server` 本身不提供内建认证或鉴权。
-如果要暴露到 localhost 之外，请放在带认证能力的反向代理或网关之后。
+- 仍然提到 `ecli-server` 的文档或博客，描述的都是历史行为。
+- 如果你今天仍然需要远程编排，建议把 `ecli` 放在目标主机上，再在外层使用你自己的 SSH、容器或作业调度方案包装 `ecli run`。

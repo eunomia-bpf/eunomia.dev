@@ -32,66 +32,29 @@
 
 ## 开始使用
 
-- Github模板：[eunomia-bpf/ebpm-template](https://github.com/eunomia-bpf/ebpm-template)
+- Github模板：[eunomia-bpf/eunomia-template](https://github.com/eunomia-bpf/eunomia-template)
 - 示例bpf程序：[examples/bpftools](https://github.com/eunomia-bpf/eunomia-bpf/tree/master/examples/bpftools/)
 - 教程：[eunomia-bpf/bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial)
 
-### 作为 CLI 工具或服务运行
+### 作为 CLI 工具运行
 
-您可以通过以下方式从云中运行预编译的eBPF程序到内核，只需`1`行bash命令：
+您可以通过以下方式从 GitHub Pages URL 或 OCI 仓库运行预编译的 eBPF 程序到内核，只需`1`行 bash 命令：
 
 ```bash
-# 从https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli 下载发布版本
+# 下载最新发布版本（`aka.pw/bpf-ecli` 会重定向到当前 GitHub Release 资产）
 $ wget https://aka.pw/bpf-ecli -O ecli && chmod +x ./ecli
-$ sudo ./ecli run https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/package.json # 从URL简单地运行一个预编译的ebpf代码
-INFO [bpf_loader_lib::skeleton] Running ebpf program...
-TIME     PID    TPID   SIG    RET    COMM   
-01:54:49  77297 8042   0      0      node
-01:54:50  77297 8042   0      0      node
-01:54:50  78788 78787  17     0      which
-01:54:50  78787 8084   17     0      sh
-01:54:50  78790 78789  17     0      ps
-01:54:50  78789 8084   17     0      sh
-01:54:50  78793 78792  17     0      sed
-01:54:50  78794 78792  17     0      cat
-01:54:50  78795 78792  17     0      cat
-
-$ sudo ./ecli run ghcr.io/eunomia-bpf/execve:latest # 使用一个名称运行并从我们的仓库下载最新版本的bpf工具
-[79130] node -> /bin/sh -c which ps 
-[79131] sh -> which ps 
-[79132] node -> /bin/sh -c /usr/bin/ps -ax -o pid=,ppid=,pcpu=,pmem=,c 
-[79133] sh -> /usr/bin/ps -ax -o pid=,ppid=,pcpu=,pmem=,command= 
-[79134] node -> /bin/sh -c "/home/yunwei/.vscode-server/bin/2ccd690cbf 
-[79135] sh -> /home/yunwei/.vscode-server/bin/2ccd690cbff 78132 79119 79120 79121 
-[79136] cpuUsage.sh -> sed -n s/^cpu\s//p /proc/stat
+$ sudo ./ecli https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/package.json # 历史上的 GitHub Pages 用法，继续保留兼容
+$ sudo ./ecli run ghcr.io/eunomia-bpf/execve:latest # 从 OCI 仓库运行一个预编译的 ebpf 工具
+[79130] node -> /bin/sh -c which ps
+[79131] sh -> which ps
+[79132] node -> /bin/sh -c /usr/bin/ps -ax -o pid=,ppid=,pcpu=,pmem=,c
+[79133] sh -> /usr/bin/ps -ax -o pid=,ppid=,pcpu=,pmem=,command=
+[79134] node -> /bin/sh -c "/home/yunwei/.vscode-server/bin/2ccd690cbf
+[79135] sh -> /home/yunwei/.vscode-server/bin/2ccd690cbff 78132 79119 79120 79121
+[79136] cpuUsage.sh -> sed -n s/^cpu\\s//p /proc/stat
 ```
 
-您还可以使用服务器来管理和动态安装eBPF程序。
-
-启动服务器：
-
-```console
-$ sudo ./ecli-server
-[2023-08-08 02:02:03.864009 +08:00] INFO [server/src/main.rs:95] Serving at 127.0.0.1:8527
-```
-
-使用ecli来控制远程服务器并管理多个eBPF程序：
-
-```console
-$ ./ecli client start sigsnoop.json # 开始程序
-1
-$ ./ecli client log 1 # 获取程序日志
-TIME     PID    TPID   SIG    RET    COMM   
-02:05:58  79725 78132  17     0      bash
-02:05:59  77325 77297  0      0      node
-02:05:59  77297 8042   0      0      node
-02:05:59  77297 8042   0      0      node
-02:05:59  79727 79726  17     0      which
-02:05:59  79726 8084   17     0      sh
-02:05:59  79731 79730  17     0      which
-```
-
-有关更多信息，请参见[documents/src/ecli/server.md](ecli/server.md)。
+为了降低维护复杂度，主分支已经移除了旧的远程 HTTP 模式（`ecli client` / `ecli-server`）。最后一版实现保留在 `archive/ecli-remote-http` 分支中；参见[旧模式说明](ecli/server.md)。
 
 ## 安装项目
 
@@ -100,22 +63,18 @@ TIME     PID    TPID   SIG    RET    COMM
     ```console
     $ wget https://aka.pw/bpf-ecli -O ecli && chmod +x ./ecli
     $ ./ecli -h
-    ecli子命令，包括run、push、pull、login、logout
+    ecli 子命令，包括 run、push、pull
 
-    用法: ecli-rs [PROG] [EXTRA_ARGS]... [COMMAND]
+    用法: ecli [COMMAND_LINE]... [COMMAND]
 
     命令:
       run     运行ebpf程序
-      client  客户端操作
-      push    
-      pull    从注册表中提取oci图像
-      login   登录到oci注册表
-      logout  从注册表登出
+      push    将镜像推送到注册表
+      pull    从注册表拉取镜像
       help    打印此消息或给定子命令的帮助
 
     参数:
-      [PROG]           不推荐使用。只为了与旧版本兼容。Ebpf程序URL或本地路径，设置为`-`可以从stdin读取程序
-      [EXTRA_ARGS]...  不推荐使用。只为了与旧版本兼容。额外的程序参数；对于wasm程序，将直接传递给它；对于JSON程序，将传递给生成的参数解析器
+      [COMMAND_LINE]...  不推荐使用。仅用于兼容旧版本。要运行的命令行；可执行对象可以是本地路径、URL 或 `-`（从 stdin 读取）。后续参数会原样传递给程序
 
     选项:
       -h, --help  打印帮助

@@ -178,19 +178,27 @@ struct {
 
 由于 eunomia-bpf 的编译和运行阶段完全分离，可以实现在 github 网页上编辑之后，通过 github actions 来完成编译，之后在本地一行命令即可启动：
 
-1. 将此 [github.com/eunomia-bpf/ebpm-template](https://github.com/eunomia-bpf/ebpm-template) 用作 github 模板：请参阅 [creating-a-repository-from-a-template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)
-2. 修改 bootstrap.bpf.c， commit 并等待工作流停止
-3. 我们配置了 github pages 来完成编译好的 json 的导出，之后就可以实现 ecli 使用远程 url 一行命令即可运行：
+1. 将此 [github.com/eunomia-bpf/eunomia-template](https://github.com/eunomia-bpf/eunomia-template) 用作 github 模板（历史上的 `ebpm-template` 会重定向到这里）：请参阅 [creating-a-repository-from-a-template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)
+2. 修改 `src/template.bpf.c`，commit 并等待 `publish.yml` 工作流完成
+3. 从你自己仓库的最新 release 下载生成的 `src/package.json`，随后本地直接运行：
 
 ```console
-sudo ./ecli run https://eunomia-bpf.github.io/ebpm-template/package.json
+sudo ./ecli run package.json
 ```
 
 ## 通过 API 进行热插拔和分发
 
-由于 eunomia-cc 编译出来的 ebpf 程序代码和附加信息很小（约数十 kb），且不需要同时传递任何的额外依赖，因此我们可以非常方便地通过网络 API 直接进行分发，也可以在很短的时间（大约 100ms）内实现热插拔和热更新。我们提供了一个简单的 client 和 server，请参考;
+由于 eunomia-cc 编译出来的 ebpf 程序代码和附加信息很小（约数十 kb），且不需要同时传递任何的额外依赖，因此我们可以非常方便地通过 OCI 或 URL 进行分发，也可以在很短的时间（大约 100ms）内实现热插拔和热更新。
 
-[ecli-dockerfile-usage.md](ecli/server.md)
+如果你只是想直接验证历史上的 GitHub Pages 分发方式，主仓库示例仍然保留，例如：
+
+```console
+sudo ./ecli https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/package.json
+```
+
+历史上的 HTTP client/server 模式已从主分支移除，请参考：
+
+[旧模式说明](ecli/server.md)
 
 之前也有一篇比赛项目的可行性验证的文章：
 

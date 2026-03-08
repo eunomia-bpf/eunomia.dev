@@ -39,66 +39,29 @@ For more information, see [documents/introduction.md](introduction.md).
 
 ### Getting Started
 
-- Github Template：[eunomia-bpf/ebpm-template](https://github.com/eunomia-bpf/ebpm-template)
+- Github Template: [eunomia-bpf/eunomia-template](https://github.com/eunomia-bpf/eunomia-template)
 - example bpf programs: [examples/bpftools](https://github.com/eunomia-bpf/eunomia-bpf/tree/master/examples/bpftools/)
 - tutorial: [eunomia-bpf/bpf-developer-tutorial](https://github.com/eunomia-bpf/bpf-developer-tutorial)
 
-### run as cli tool or server
+### run as a CLI tool
 
-You can get pre-compiled eBPF programs running from the cloud to the kernel in `1` line of bash:
+You can get pre-compiled eBPF programs running from GitHub Pages URLs or an OCI registry in `1` line of bash:
 
 ```bash
-# download the release from https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli
+# download the latest release (aka.pw/bpf-ecli redirects to the current GitHub release asset)
 $ wget https://aka.pw/bpf-ecli -O ecli && chmod +x ./ecli
-$ sudo ./ecli run https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/package.json # simply run a pre-compiled ebpf code from a url
-INFO [bpf_loader_lib::skeleton] Running ebpf program...
-TIME     PID    TPID   SIG    RET    COMM   
-01:54:49  77297 8042   0      0      node
-01:54:50  77297 8042   0      0      node
-01:54:50  78788 78787  17     0      which
-01:54:50  78787 8084   17     0      sh
-01:54:50  78790 78789  17     0      ps
-01:54:50  78789 8084   17     0      sh
-01:54:50  78793 78792  17     0      sed
-01:54:50  78794 78792  17     0      cat
-01:54:50  78795 78792  17     0      cat
-
-$ sudo ./ecli run ghcr.io/eunomia-bpf/execve:latest # run with a name and download the latest version bpf tool from our repo
-[79130] node -> /bin/sh -c which ps 
-[79131] sh -> which ps 
-[79132] node -> /bin/sh -c /usr/bin/ps -ax -o pid=,ppid=,pcpu=,pmem=,c 
-[79133] sh -> /usr/bin/ps -ax -o pid=,ppid=,pcpu=,pmem=,command= 
-[79134] node -> /bin/sh -c "/home/yunwei/.vscode-server/bin/2ccd690cbf 
-[79135] sh -> /home/yunwei/.vscode-server/bin/2ccd690cbff 78132 79119 79120 79121 
-[79136] cpuUsage.sh -> sed -n s/^cpu\s//p /proc/stat
+$ sudo ./ecli https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/package.json # historical GitHub Pages workflow, kept for compatibility
+$ sudo ./ecli run ghcr.io/eunomia-bpf/execve:latest # run a pre-compiled ebpf tool from OCI registry
+[79130] node -> /bin/sh -c which ps
+[79131] sh -> which ps
+[79132] node -> /bin/sh -c /usr/bin/ps -ax -o pid=,ppid=,pcpu=,pmem=,c
+[79133] sh -> /usr/bin/ps -ax -o pid=,ppid=,pcpu=,pmem=,command=
+[79134] node -> /bin/sh -c "/home/yunwei/.vscode-server/bin/2ccd690cbf
+[79135] sh -> /home/yunwei/.vscode-server/bin/2ccd690cbff 78132 79119 79120 79121
+[79136] cpuUsage.sh -> sed -n s/^cpu\\s//p /proc/stat
 ```
 
-You can also use a server to manage and dynamically install eBPF programs.
-
-Start the server:
-
-```console
-$ sudo ./ecli-server
-[2023-08-08 02:02:03.864009 +08:00] INFO [server/src/main.rs:95] Serving at 127.0.0.1:8527
-```
-
-Use the ecli to control the remote server and manage multiple eBPF programs:
-
-```console
-$ ./ecli client start sigsnoop.json # start the program
-1
-$ ./ecli client log 1 # get the log of the program
-TIME     PID    TPID   SIG    RET    COMM   
-02:05:58  79725 78132  17     0      bash
-02:05:59  77325 77297  0      0      node
-02:05:59  77297 8042   0      0      node
-02:05:59  77297 8042   0      0      node
-02:05:59  79727 79726  17     0      which
-02:05:59  79726 8084   17     0      sh
-02:05:59  79731 79730  17     0      which
-```
-
-For more information, see [documents/src/ecli/server.md](ecli/server.md).
+The legacy remote HTTP mode (`ecli client` / `ecli-server`) has been removed from the main branch to reduce maintenance overhead. The last implementation is preserved on the `archive/ecli-remote-http` branch; see [the legacy mode note](ecli/server.md).
 
 ## Install the project
 
@@ -107,22 +70,18 @@ For more information, see [documents/src/ecli/server.md](ecli/server.md).
     ```console
     $ wget https://aka.pw/bpf-ecli -O ecli && chmod +x ./ecli
     $ ./ecli -h
-    ecli subcommands, including run, push, pull, login, logout
+    ecli subcommands, including run, push, pull
 
-    Usage: ecli-rs [PROG] [EXTRA_ARGS]... [COMMAND]
+    Usage: ecli [COMMAND_LINE]... [COMMAND]
 
     Commands:
       run     run ebpf program
-      client  Client operations
-      push    
-      pull    pull oci image from registry
-      login   login to oci registry
-      logout  logout from registry
+      push    Operations about pushing image to registry
+      pull    Operations about pulling image from registry
       help    Print this message or the help of the given subcommand(s)
 
     Arguments:
-      [PROG]           Not preferred. Only for compatibility to older versions. Ebpf program URL or local path, set it `-` to read the program from stdin
-      [EXTRA_ARGS]...  Not preferred. Only for compatibility to older versions. Extra args to the program; For wasm program, it will be passed directly to it; For JSON program, it will be passed to the generated argument parser
+      [COMMAND_LINE]...  Not preferred. Only for compatibility to older versions. Command line to run. The executable could either be a local path or URL or `-` (read from stdin). The following arguments will be passed to the program
 
     Options:
       -h, --help  Print help

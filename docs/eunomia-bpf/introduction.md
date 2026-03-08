@@ -162,10 +162,10 @@ Just Write libbpf eBPF kernel code only, auto config the userspace part!
 - Get pre-compiled eBPF programs running from the cloud to the kernel in `1` line of bash, kernel version and architecture independent:
 
     ```bash
-    # download the release from https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli
+    # download the latest release (aka.pw/bpf-ecli redirects to the current GitHub release asset)
     $ wget https://aka.pw/bpf-ecli -O ecli && chmod +x ./ecli
-    $ sudo ./ecli https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/package.json # simply run a pre-compiled ebpf code from a url
-    $ sudo ./ecli sigsnoop:latest # run with a name and download the latest version bpf tool from our repo
+    $ sudo ./ecli https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/package.json # historical GitHub Pages workflow, kept for compatibility
+    $ sudo ./ecli run ghcr.io/eunomia-bpf/execve:latest # run a maintained pre-compiled ebpf tool from OCI registry
     ```
 
 - very small and simple! The library itself `<1MB` and no `LLVM/Clang` dependence, can be embedded easily in you project
@@ -210,10 +210,12 @@ You can have multiple `eBPF` program in a single `WASM` module.
 
 See [wasm-runtime](https://github.com/eunomia-bpf/wasm-bpf) for details. In fact, `ewasm` library only exports a few functions from `bpf-loader` library to the `VM`, so you can replace the `WASM` runtime with your own easily.
 
-For example, you can run an eBPF program with a WASM module for an URL:
+For example, you can run an eBPF Wasm module from GitHub Pages or a locally built file with `ecli`:
 
 ```bash
 sudo ./ecli run https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/app.wasm
+# or
+sudo ./ecli run ./app.wasm
 ```
 
 You can also generate a WASM program template for eBPF or build WASM module with `compiler` container:
@@ -232,7 +234,7 @@ The toolchain can be used as a docker to generate pre-compiled eBPF data in one 
 
 see the compile toolchains [compiler](https://github.com/eunomia-bpf/eunomia-bpf/tree/master/compiler) for details.
 
-you can also simply use the [ebpm-template](https://github.com/eunomia-bpf/ebpm-template) repo as a template in github, just push to it and github action can help you compile CO-RE ebpf code!
+you can also use the [eunomia-template](https://github.com/eunomia-bpf/eunomia-template) repo as a GitHub template. The historical `ebpm-template` repo now redirects there, and its `publish.yml` workflow compiles `src/package.json` and publishes it as a GitHub release asset on pushes to `main`.
 
 ## other related projects
 

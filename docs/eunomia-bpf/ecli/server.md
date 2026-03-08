@@ -3,153 +3,44 @@ title: ecli server
 catagories: ['ecli']
 ---
 
-# ecli server
+# Legacy ecli server mode
 
-`ecli-server` is the HTTP control plane for remote eBPF execution with eunomia-bpf.
-It lets you start, stop, inspect, and stream logs from eBPF programs running on another machine.
+`ecli-server` and the `ecli client` subcommand were removed from the main branch in March 2026 to reduce maintenance overhead.
 
-## What it provides
+Current releases no longer ship:
 
-- Start and stop eBPF programs over HTTP
-- Stream task logs with cursor-based polling or `--follow`
-- List active tasks on the server
-- Run a lightweight remote-only `ecli client` from platforms without local eBPF support
+- `ecli-server` binaries
+- the `ecli client` subcommand
+- the `http`-only client build mode
 
-## Install
+## What to use now
 
-For example, on Ubuntu:
+For maintained workflows, use:
 
-```sh
-# download the latest standalone server binary
-wget https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecli-server-ubuntu-latest.tar.gz
-tar -xzf ecli-server-ubuntu-latest.tar.gz
-chmod +x ./ecli-server
+- `ecli run` to execute a local package, URL, OCI image, or Wasm module on the same machine
+- `ecli pull` to fetch OCI images locally before inspection or execution
+- `ecli push` to publish Wasm modules to an OCI registry
 
-# download the ecli client
+The historical GitHub Pages URLs under `https://eunomia-bpf.github.io/eunomia-bpf/...` are still supported for local `ecli run` compatibility. What was removed here is only the old remote HTTP control plane.
+
+Example:
+
+```bash
 wget https://aka.pw/bpf-ecli -O ecli
 chmod +x ./ecli
+sudo ./ecli https://eunomia-bpf.github.io/eunomia-bpf/sigsnoop/package.json
+sudo ./ecli run ghcr.io/eunomia-bpf/execve:latest
 ```
 
-## Start the server
+## Archived implementation
 
-```console
-$ sudo ./ecli-server
-[2026-03-06T00:00:00Z] INFO Serving at 127.0.0.1:8527
-```
+The last implementation of the remote HTTP mode is preserved on the `archive/ecli-remote-http` branch of the main repository:
 
-By default, the server listens on `127.0.0.1:8527`.
+- https://github.com/eunomia-bpf/eunomia-bpf/tree/archive/ecli-remote-http/ecli
 
-## Remote execution flow
+That archived branch is the right place to look if you need the historical `ecli-server`, the old OpenAPI surface, or the `http`-only client build.
 
-The simplest workflow is:
+## Notes for existing users
 
-1. Start `ecli-server` on the host that should run the eBPF program.
-2. Use `ecli client` from another shell or machine.
-3. Start a program, watch logs, then stop it when finished.
-
-```console
-$ ./ecli client --endpoint http://127.0.0.1:8527 start ./program.json
-1
-
-$ ./ecli client --endpoint http://127.0.0.1:8527 log 1
-TIME     EVENT COMM             PID     PPID    FILENAME/EXIT CODE
-16:03:16 EXEC  sh               51857   1711    /bin/sh
-16:03:16 EXIT  sh               51857   1711    [0] (1ms)
-
-$ ./ecli client --endpoint http://127.0.0.1:8527 log 1 --follow
-
-$ ./ecli client --endpoint http://127.0.0.1:8527 list
-
-$ ./ecli client --endpoint http://127.0.0.1:8527 stop 1
-```
-
-You can inspect the client subcommands directly:
-
-```console
-$ ./ecli client --help
-Client operations
-
-Usage: ecli client [OPTIONS] <COMMAND>
-
-Commands:
-  start   Start an ebpf program on the specified endpoint
-  stop    Stop running a task on the specified endpoint
-  log     Fetch logs of the given task
-  pause   Pause the task
-  resume  Resume the task
-  list    List tasks on the server
-  help    Print this message or the help of the given subcommand(s)
-
-Options:
-  -e, --endpoint <ENDPOINT>  API endpoint [default: http://127.0.0.1:8527]
-  -h, --help                 Print help
-```
-
-## Build modes
-
-If you only need remote execution, you can build a smaller `ecli` client without native eBPF support:
-
-```sh
-cd ecli/client
-cargo build --release --no-default-features --features http
-```
-
-This `http`-only mode is useful on Windows or other systems where you only need to talk to an existing `ecli-server`.
-
-## Log handling
-
-The server keeps a log buffer per task:
-
-- Each entry gets a timestamp-based cursor
-- `ecli client log <id>` fetches the latest buffered logs
-- `ecli client log <id> --follow` keeps polling for new output
-- Older log entries can be dropped after the client advances the cursor
-
-## HTTP API
-
-The OpenAPI definition lives in [`ecli/apis.yaml`](https://github.com/eunomia-bpf/eunomia-bpf/blob/master/ecli/apis.yaml).
-
-Example API calls:
-
-```http
-POST /api/v1/ebpf/start
-Content-Type: application/json
-
-{
-  "program_data": "<base64_or_json>",
-  "args": ["--arg1", "value1"]
-}
-```
-
-```http
-GET /api/v1/ebpf/log/{id}?cursor={timestamp}
-```
-
-```http
-GET /api/v1/ebpf/list
-```
-
-```http
-POST /api/v1/ebpf/stop/{id}
-```
-
-You can also interact with the server directly using `curl`:
-
-```console
-$ curl http://127.0.0.1:8527/task
-{"tasks":[{"status":"running","id":3,"name":"bpf-program-1691432359"}]}
-
-$ curl -X POST \
-  -H "Content-Type: application/json" \
-  -d '{
-    "id": 3,
-    "log_cursor": 0,
-    "maximum_count": 100
-  }' \
-  http://127.0.0.1:8527/log
-```
-
-## Security note
-
-`ecli-server` does not implement built-in authentication or authorization.
-If you expose it beyond localhost, put it behind an authenticated reverse proxy or another authorization layer.
+- Existing documentation or blog posts that mention `ecli-server` describe historical behavior.
+- If you need remote orchestration today, keep `ecli` on the target host and use your own SSH, container, or job-control layer around `ecli run`.
