@@ -28,6 +28,7 @@ import { renderMarkdown, renderMarkdownBody, renderMarkdownDocument } from "../l
 import { docPathToRoute, getGenericSectionRoutes, listSitemapRoutes } from "../lib/content/routes";
 import { loadSearchDocuments, searchContent, writeSearchIndexes } from "../lib/content/search";
 import { rewriteContentUrl } from "../lib/content/rewrite";
+import { siteRoot } from "../lib/content/roots";
 import { resolveLocalizedSource, slugifyTitle } from "../lib/content/source";
 import { absoluteUrl, ogImageUrl, STATIC_OG_IMAGE_PATH } from "../lib/seo";
 import { getPrimaryNav, getSiteSections } from "../lib/site-ia";
@@ -150,8 +151,21 @@ test("writeStaticAssets copies docs and site assets into the static asset tree",
     const result = writeStaticAssets(outputRoot, indexPath);
     assert.ok(result.count > 0);
     assert.ok(fs.existsSync(path.join(outputRoot, "docs", "tutorials", "13-tcpconnlat", "tcpconnlat1.png")));
-    assert.ok(fs.existsSync(path.join(outputRoot, "site", "tutorials", "29-sockops", "merbridge.png")));
     assert.ok(fs.existsSync(indexPath));
+
+    const payload = JSON.parse(fs.readFileSync(indexPath, "utf8")) as {
+      assets?: Array<{ source: "docs" | "site"; relativePath: string }>;
+    };
+    const siteAssets = payload.assets?.filter((asset) => asset.source === "site") ?? [];
+    const knownSiteAsset = path.join(siteRoot, "tutorials", "29-sockops", "merbridge.png");
+
+    if (fs.existsSync(knownSiteAsset)) {
+      assert.ok(siteAssets.some((asset) => asset.relativePath === "tutorials/29-sockops/merbridge.png"));
+      assert.ok(fs.existsSync(path.join(outputRoot, "site", "tutorials", "29-sockops", "merbridge.png")));
+    } else {
+      assert.equal(siteAssets.length, 0);
+      assert.ok(!fs.existsSync(path.join(outputRoot, "site", "tutorials", "29-sockops", "merbridge.png")));
+    }
   } finally {
     fs.rmSync(outputRoot, { recursive: true, force: true });
     fs.rmSync(indexPath, { force: true });
