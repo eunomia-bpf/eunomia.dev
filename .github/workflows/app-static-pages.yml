@@ -1,0 +1,43 @@
+name: Deploy Static App Branch
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+concurrency:
+  group: app-static-pages-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy-static-app:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      - name: Build static export
+        working-directory: app
+        run: |
+          npm ci
+          npm run build
+
+      - name: Publish app/out to app-static-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: app-static-pages
+          publish_dir: app/out
+          force_orphan: true
+          commit_message: deploy static app for ${{ github.sha }}
