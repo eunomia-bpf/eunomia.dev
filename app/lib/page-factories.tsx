@@ -54,7 +54,11 @@ function renderDocsBody(page: DocsPage, locale: Locale) {
       showBreadcrumbs={page.layout === "document"}
     >
       <MarkdownContent html={page.bodyHtml} />
-      {page.cards?.length ? <div className="mt-10"><CardGrid cards={page.cards} /></div> : null}
+      {page.cards?.length ? (
+        <section className="mt-12">
+          <CardGrid cards={page.cards} />
+        </section>
+      ) : null}
     </ArticleLayout>
   );
 }

@@ -137,6 +137,12 @@ const sectionOverrides = new Map<SiteSectionKey, SiteSectionOverride>([
 
 let sectionDefinitionsCache: SerializedSiteSectionDefinition[] | null = null;
 
+function assertNonEmptyLabel(key: SiteSectionKey, locale: Locale, value: string | undefined) {
+  if (!value?.trim()) {
+    throw new Error(`Missing site IA label for section "${key}" (${locale})`);
+  }
+}
+
 function humanizeKey(key: string): string {
   return key
     .split(/[-_/]/)
@@ -187,6 +193,14 @@ function buildCollectionSectionSeeds(): SectionSeed[] {
   }));
 }
 
+function validateSectionOverrides(seeds: SectionSeed[]) {
+  const discoveredKeys = new Set(seeds.map((seed) => seed.key));
+  const unknownKeys = [...sectionOverrides.keys()].filter((key) => !discoveredKeys.has(key));
+  if (unknownKeys.length) {
+    throw new Error(`Unknown site IA overrides: ${unknownKeys.join(", ")}`);
+  }
+}
+
 function buildDiscoveredSectionSeeds(): SectionSeed[] {
   const seeds = [...buildCollectionSectionSeeds()];
   const reservedTopLevelDirs = new Set(seeds.map((seed) => seed.topLevelDir));
@@ -217,6 +231,7 @@ function buildDiscoveredSectionSeeds(): SectionSeed[] {
     });
   }
 
+  validateSectionOverrides(seeds);
   return seeds;
 }
 
@@ -240,10 +255,13 @@ function mergePublished(
 function buildSiteSectionDefinitions(): SerializedSiteSectionDefinition[] {
   const definitions = buildDiscoveredSectionSeeds().map((seed, index) => {
     const override = sectionOverrides.get(seed.key);
+    const labels = mergeLabels(seed.key, override);
+    assertNonEmptyLabel(seed.key, "en", labels.en);
+    assertNonEmptyLabel(seed.key, "zh", labels.zh);
 
     return {
       key: seed.key,
-      labels: mergeLabels(seed.key, override),
+      labels,
       indexSource: seed.indexSource,
       hrefByLocale: {
         en: seed.href("en"),
@@ -254,6 +272,23 @@ function buildSiteSectionDefinitions(): SerializedSiteSectionDefinition[] {
       order: override?.order ?? seed.defaultOrder + index
     };
   });
+
+  const seenKeys = new Set<SiteSectionKey>();
+  const seenOrders = new Map<number, SiteSectionKey>();
+  for (const definition of definitions) {
+    if (seenKeys.has(definition.key)) {
+      throw new Error(`Duplicate site IA section key: ${definition.key}`);
+    }
+    seenKeys.add(definition.key);
+
+    const existingOrder = seenOrders.get(definition.order);
+    if (existingOrder && existingOrder !== definition.key) {
+      throw new Error(
+        `Duplicate site IA order ${definition.order} for sections "${existingOrder}" and "${definition.key}"`
+      );
+    }
+    seenOrders.set(definition.order, definition.key);
+  }
 
   definitions.sort((left, right) => {
     if (left.order !== right.order) {

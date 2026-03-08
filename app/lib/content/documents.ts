@@ -122,7 +122,7 @@ export function writeDocumentIndex(outputPath: string = generatedDocumentIndexPa
 
   fs.mkdirSync(path.dirname(outputPath), { recursive: true });
   const tempPath = `${outputPath}.tmp`;
-  fs.writeFileSync(tempPath, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
+  fs.writeFileSync(tempPath, `${JSON.stringify(payload)}\n`, "utf8");
   fs.renameSync(tempPath, outputPath);
   hydrateDocumentCache(documents);
 

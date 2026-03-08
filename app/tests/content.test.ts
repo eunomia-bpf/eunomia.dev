@@ -4,6 +4,7 @@ import test from "node:test";
 
 import { serveRawAsset } from "../lib/content/assets";
 import { getBlogEntries, getGenericSectionRouteEntries } from "../lib/content/collections";
+import { getContentModel } from "../lib/content/model";
 import { renderFeed } from "../lib/content/feed";
 import { getGitMetadata } from "../lib/content/git";
 import { resolveAlternatesFromDocSource, resolveManifestRecordFromRoute } from "../lib/content/manifest";
@@ -11,6 +12,7 @@ import { splitMaterialBlocks } from "../lib/content/material-blocks";
 import { loadBlogPage, loadLegacyBlogPage, loadSectionPage, loadTutorialPage, resolveContentPage } from "../lib/content/loaders";
 import { assertSupportedMarkdown, parseMarkdown } from "../lib/content/markdown";
 import { getContentManifest } from "../lib/content/manifest";
+import { resolveCollectionPageSource } from "../lib/content/registry";
 import { renderMarkdown, renderMarkdownBody, renderMarkdownDocument } from "../lib/content/render";
 import { docPathToRoute, getGenericSectionRoutes, listSitemapRoutes } from "../lib/content/routes";
 import { loadSearchDocuments, searchContent } from "../lib/content/search";
@@ -63,10 +65,26 @@ test("blog entries derive dated slugs from parsed metadata", () => {
   assert.equal(entry.sourceByLocale.zh, undefined);
 });
 
+test("collection page sources resolve through the family registry", () => {
+  assert.equal(
+    resolveCollectionPageSource("tutorial", ["1-helloworld"], "en"),
+    "tutorials/1-helloworld/README.md"
+  );
+  assert.equal(
+    resolveCollectionPageSource(
+      "blog",
+      ["2026", "02", "17", "agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources"],
+      "en"
+    ),
+    "blog/posts/agentcgroup-characterization.md"
+  );
+  assert.equal(resolveCollectionPageSource("legacy-blog", ["bpftime"], "en"), "blogs/bpftime.md");
+});
+
 test("parseMarkdown only strips a leading document H1", () => {
   const page = parseMarkdown("eunomia-bpf/index.md");
 
-  assert.match(page.body, /# download the release from https:\/\/github\.com\/eunomia-bpf\/eunomia-bpf\/releases/);
+  assert.match(page.body, /# download the latest release \(aka\.pw\/bpf-ecli redirects to the current GitHub release asset\)/);
 });
 
 test("rewriteContentUrl rewrites nested relative asset paths to the raw asset endpoint", () => {
@@ -156,6 +174,8 @@ test("generic section route entries collapse README and index aliases into one p
   );
 
   assert.equal(setupRoutes.length, 1);
+  assert.ok(setupRoutes[0]?.sourceAliases.includes("eunomia-bpf/setup/index.md"));
+  assert.ok(setupRoutes[0]?.sourceAliases.includes("eunomia-bpf/setup/README.md"));
 });
 
 test("content manifest keeps one setup page record and prefers the richer README source", () => {
@@ -257,6 +277,21 @@ test("loadSearchDocuments fails fast outside development when artifacts are miss
     assert.throws(
       () => loadSearchDocuments("en", { outputDir: path.join(process.cwd(), ".generated", "missing-search"), allowFallback: false }),
       /Missing prebuilt search index/
+    );
+  } finally {
+    env.NODE_ENV = previousNodeEnv;
+  }
+});
+
+test("getContentModel fails fast outside development when artifacts are missing", () => {
+  const env = process.env as Record<string, string | undefined>;
+  const previousNodeEnv = env.NODE_ENV;
+  env.NODE_ENV = "production";
+
+  try {
+    assert.throws(
+      () => getContentModel({ outputPath: path.join(process.cwd(), ".generated", "missing-content", "content-model.json"), allowFallback: false }),
+      /Missing prebuilt content model/
     );
   } finally {
     env.NODE_ENV = previousNodeEnv;

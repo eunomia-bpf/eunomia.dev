@@ -1,7 +1,7 @@
 import { localizePath } from "../paths";
 import { getPrimaryNav } from "../site-ia";
 import type { Locale } from "../site-data";
-import { getBlogEntries, getLegacyBlogEntries, getTutorialDocSources } from "./collections";
+import { getTutorialDocSources } from "./collections";
 import { getDocument, resolveDocument } from "./documents";
 import { getContentManifest } from "./manifest";
 import { resolveLocalizedSource } from "./source";
@@ -63,71 +63,6 @@ function recordToSidebarItem(record: ContentManifestRecord, locale: Locale): Sid
     href,
     depth: record.slug?.length ?? 0
   };
-}
-
-export function buildTutorialSidebar(locale: Locale): SidebarGroup[] {
-  const copy = getSidebarCopy(locale);
-  const tutorialItems = getContentManifest()
-    .filter((record) => record.kind === "tutorial-page")
-    .map((record) => recordToSidebarItem(record, locale))
-    .filter((item): item is SidebarItem => Boolean(item));
-
-  return [
-    buildPrimaryGroup(locale),
-    {
-      title: copy.tutorials,
-      items: [
-        {
-          title: resolveDocument("tutorials/index.md", locale)?.title ?? "Tutorials",
-          href: localizePath("/tutorials/", locale),
-          depth: 0
-        },
-        ...tutorialItems
-      ]
-    }
-  ];
-}
-
-export function buildBlogSidebar(locale: Locale): SidebarGroup[] {
-  const copy = getSidebarCopy(locale);
-
-  return [
-    buildPrimaryGroup(locale),
-    {
-      title: copy.blog,
-      items: [
-        {
-          title: resolveDocument("blog/index.md", locale)?.title ?? "Blog",
-          href: localizePath("/blog/", locale)
-        },
-        ...getBlogEntries().map((entry) => ({
-          title: entry.title,
-          href: localizePath(`/blog/${entry.year}/${entry.month}/${entry.day}/${entry.slug}/`, locale)
-        }))
-      ]
-    }
-  ];
-}
-
-export function buildLegacyBlogSidebar(locale: Locale): SidebarGroup[] {
-  const copy = getSidebarCopy(locale);
-
-  return [
-    buildPrimaryGroup(locale),
-    {
-      title: copy.legacyBlog,
-      items: [
-        {
-          title: resolveDocument("blogs/index.md", locale)?.title ?? "Legacy Blog",
-          href: localizePath("/blogs/", locale)
-        },
-        ...getLegacyBlogEntries().map((entry) => ({
-          title: entry.title,
-          href: localizePath(`/blogs/${entry.key}/`, locale)
-        }))
-      ]
-    }
-  ];
 }
 
 export function buildSectionSidebar(section: string, locale: Locale): SidebarGroup[] {

@@ -71,7 +71,7 @@ export function PageFooter({ locale, title, path, sourceHref, metadata, continua
               <a
                 key={`${card.label}:${card.href}`}
                 href={card.href}
-                className="rounded-lg border border-slate-200 bg-white px-5 py-4 transition hover:bg-slate-50"
+                className="border border-slate-200 px-4 py-4 transition hover:bg-slate-50/60 hover:border-slate-300"
               >
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">{card.label}</p>
                 <p className="mt-2 text-base font-semibold text-ink">{card.title}</p>
@@ -83,7 +83,7 @@ export function PageFooter({ locale, title, path, sourceHref, metadata, continua
       ) : null}
 
       {metadata ? (
-        <dl className="grid gap-4 rounded-lg border border-slate-200 bg-slate-50 p-5 text-sm text-slate-600 md:grid-cols-3">
+        <dl className="grid gap-4 border border-slate-200 p-5 text-sm text-slate-600 md:grid-cols-3">
           <div>
             <dt className="font-semibold text-ink">{labels.updated}</dt>
             <dd className="mt-1">{updated ?? "—"}</dd>
@@ -102,7 +102,7 @@ export function PageFooter({ locale, title, path, sourceHref, metadata, continua
       <div className="flex flex-wrap gap-3">
         <a
           href={sourceHref}
-          className="inline-flex rounded-lg border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 hover:text-ink"
+          className="inline-flex rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-400 hover:text-ink"
         >
           {labels.edit}
         </a>
@@ -110,7 +110,7 @@ export function PageFooter({ locale, title, path, sourceHref, metadata, continua
           href={`https://x.com/intent/tweet?text=${shareTitle}&url=${shareUrl}`}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex rounded-lg border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 hover:text-ink"
+          className="inline-flex rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-400 hover:text-ink"
         >
           {labels.shareX}
         </a>
@@ -118,7 +118,7 @@ export function PageFooter({ locale, title, path, sourceHref, metadata, continua
           href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex rounded-lg border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 hover:text-ink"
+          className="inline-flex rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-400 hover:text-ink"
         >
           {labels.shareFacebook}
         </a>
@@ -126,13 +126,13 @@ export function PageFooter({ locale, title, path, sourceHref, metadata, continua
           href="https://github.com/orgs/eunomia-bpf/discussions"
           target="_blank"
           rel="noreferrer"
-          className="inline-flex rounded-lg border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 hover:text-ink"
+          className="inline-flex rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-400 hover:text-ink"
         >
           {labels.discuss}
         </a>
         <a
           href={feedHref}
-          className="inline-flex rounded-lg border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 hover:text-ink"
+          className="inline-flex rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-400 hover:text-ink"
         >
           {labels.feed}
         </a>

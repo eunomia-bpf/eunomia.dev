@@ -35,8 +35,8 @@ export function TableOfContents({
     <aside
       className={joinClassNames(
         compact
-          ? "rounded-lg border border-slate-200 bg-slate-50 p-5"
-          : "sticky top-24 self-start rounded-lg border border-slate-200 bg-white p-5",
+          ? "border border-slate-200 bg-slate-50/70 p-4"
+          : "sticky top-24 self-start border-l border-slate-200 pl-5",
         className
       )}
     >
@@ -47,7 +47,7 @@ export function TableOfContents({
             <li key={heading.id} className={indentByDepth[heading.depth] ?? indentByDepth[6]}>
               <a
                 href={`#${heading.id}`}
-                className="block rounded-lg px-2 py-1.5 transition hover:bg-slate-50 hover:text-ink"
+                className="block py-0.5 transition hover:text-ink"
               >
                 {heading.text}
               </a>

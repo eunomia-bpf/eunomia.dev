@@ -13,6 +13,11 @@ Replace the current MkDocs rendering layer with a Next.js frontend while keeping
 
 This document is the target architecture for the migration, not a description of the current stopgap code.
 
+The design goal is to imitate mature docs sites, not invent a new product shell. The main behavioral references are:
+
+- `MkDocs Material` for structure, navigation habits, and Markdown-first information density
+- `Nextra` and `Fumadocs` for the Next.js docs-shell model
+
 ## System Boundaries
 
 ### In scope
@@ -31,12 +36,13 @@ This document is the target architecture for the migration, not a description of
 
 - rewriting docs content into React pages
 - changing the authoring model away from Markdown
-- redesigning every landing page before parity is reached
+- inventing a separate docs/blog product shell before parity is reached
 
 Homepage exception:
 
-- the homepage may diverge into a bespoke Tailwind landing page before full docs parity
-- all other docs, tutorials, blog, and legacy blog routes remain parity-bound to Markdown content
+- the homepage may diverge modestly, but should still stay structurally close to the original `docs/index.md`
+- the blog index should stay structurally close to the original MkDocs blog index
+- all other docs, tutorials, blog articles, and legacy blog routes remain parity-bound to Markdown content and one generic docs shell
 
 ## Core Principles
 
@@ -60,6 +66,18 @@ If a Markdown construct cannot be rendered correctly, the build should fail or t
 
 Routes should only be emitted to the sitemap once they meet the current parity bar for the active rollout stage.
 
+### 6. Docs-site imitation beats novelty
+
+The UI should optimize for familiar docs-site behavior:
+
+- stable header
+- left sidebar
+- main Markdown column
+- right TOC when headings exist
+- restrained article footer
+
+Novelty is not a goal for parity-bound routes.
+
 ## Target Module Layout
 
 ```text
@@ -72,6 +90,9 @@ app/
   lib/
     content/
       fs-index.ts
+      discovery.ts
+      model.ts
+      registry.ts
       types.ts
       manifest.ts
       markdown.ts
@@ -92,6 +113,7 @@ app/
 ### Responsibilities
 
 - index repository files once
+- generate content artifacts once per build snapshot
 - normalize Markdown source identity
 - resolve locale variants
 - derive canonical route identities
@@ -105,6 +127,18 @@ app/
 - rendering full page chrome
 - emitting framework route files
 - injecting analytics or other runtime scripts
+
+### Generated artifacts
+
+The runtime should consume generated artifacts rather than reconstructing the content model ad hoc.
+
+Required artifacts:
+
+- `documents.json`
+- `content-model.json`
+- `manifest.json`
+- `site-sections.json`
+- `search/*.json`
 
 ### Planned modules
 
@@ -131,13 +165,51 @@ Owns:
 - page loader result types
 - collection entry types
 
+#### `content/discovery.ts`
+
+Owns:
+
+- source discovery for tutorial docs
+- source discovery for blog and legacy blog entries
+- section-route discovery
+
+Design notes:
+
+- this is the source-discovery boundary
+- it should not leak framework or page concerns
+
+#### `content/model.ts`
+
+Owns:
+
+- generated collection views over discovered content
+- artifact read/write helpers for the content model
+
+Design notes:
+
+- collections should read from the generated model
+- production should consume the artifact, not rescan docs live
+
+#### `content/registry.ts`
+
+Owns:
+
+- collection family definitions
+- collection family extension points
+- collection-family-driven site IA seeds
+
+Design notes:
+
+- adding a new collection family should be a registry change first
+- do not keep a second runtime switch table for collection behavior
+
 #### `content/manifest.ts`
 
 Owns:
 
 - source-to-route identity normalization
 - locale variant resolution
-- canonical route manifest generation
+- canonical route manifest artifact generation
 - sitemap candidate list
 
 Exports:
@@ -181,7 +253,7 @@ Owns:
 
 Design notes:
 
-- collections are views over the manifest, not separate scanners
+- collections are views over the generated content model, not separate scanners
 
 #### `content/assets.ts`
 
@@ -198,6 +270,11 @@ Owns:
 - page-facing loader APIs
 - composition of manifest + collections + markdown rendering
 - homepage/blog/tutorial/section data assembly
+
+Design notes:
+
+- loaders consume artifacts plus registry definitions
+- loaders do not rediscover content families on their own
 
 ## Routing Model
 
@@ -230,6 +307,25 @@ The route manifest must preserve:
 ### Exit criteria for duplicated route files
 
 Do not add new `en` and `zh` route implementations once the shared route manifest exists. Shared page helpers should become the only allowed path for new page logic.
+
+## Site IA Model
+
+### Discovery versus publication
+
+New content trees can be discovered without being published.
+
+Rules:
+
+- collection families seed the IA automatically
+- generic top-level sections may be discovered automatically
+- nothing newly discovered is implicitly published into the header, homepage, or footer
+- publication overrides are explicit and validated
+
+Validation requirements:
+
+- unknown override keys are errors
+- duplicate orders are errors
+- missing labels are errors
 
 ## Markdown Pipeline
 
@@ -325,14 +421,15 @@ Manifest-based rendering needs an explicit freshness model, otherwise content up
 
 ### Target
 
-- static search index with multilingual support
+- static generated search artifact with multilingual support
 - docs and blog content searchable from one UI
 
 ### Design
 
-- `Pagefind` remains the preferred path unless a stronger static alternative is required
-- search indexing should run from the generated content manifest, not by scraping rendered pages
-- the UI should not ship as a dead input before the index exists
+- search indexing runs from generated content artifacts, not from live page scraping
+- production and verification should fail fast when search artifacts are missing
+- development may fall back to rebuild only where explicitly documented
+- search artifacts should stay compact; keep normalized terms, not unbounded full-text bodies
 
 ## Git-backed Metadata
 
@@ -356,6 +453,7 @@ Manifest-based rendering needs an explicit freshness model, otherwise content up
 - shared header/footer
 - locale switcher
 - navigation derived from config, not hardcoded per page file
+- one generic docs shell for all non-home Markdown routes
 
 ### Article layout
 
@@ -371,6 +469,15 @@ Manifest-based rendering needs an explicit freshness model, otherwise content up
 - blog index
 - legacy blog index
 - section landing pages
+
+Design rule:
+
+- these are still docs pages, not product landing pages
+
+### Home and blog structure
+
+- homepage may have a stronger hero treatment, but should still mirror the original MkDocs homepage information architecture
+- blog index should remain a docs/blog index, not a magazine or marketing page
 
 ## Verification Model
 

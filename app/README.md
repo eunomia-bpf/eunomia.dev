@@ -24,6 +24,25 @@ That is a deliberate compatibility choice for the initial implementation:
 
 The long-term target can still move to a more modern App Router structure once parity is locked down.
 
+## Design Lock
+
+This app should imitate mature docs sites, not invent a new product shell.
+
+The practical reference set is:
+
+- `MkDocs Material` for information density, navigation habits, and Markdown-first behavior
+- `Nextra` and `Fumadocs` for the Next.js docs-shell model, not for bespoke landing-page styling
+
+That means the design rules are:
+
+- the homepage may be bespoke, but it should stay structurally close to the original `docs/index.md` homepage instead of becoming a marketing landing page
+- the blog index should behave like a docs/blog index page, not a separate media product
+- every non-home Markdown route should render through one generic docs shell
+- collection-specific behavior should live in the collection family registry, not in scattered page or loader switches
+- runtime should consume generated content artifacts rather than reconstructing the content model ad hoc
+- discovered content and published navigation are different states; new content trees do not auto-enter nav, home, or footer
+- production, `start`, and verification should fail fast when required artifacts are missing; only explicitly documented development flows may rebuild on the fly
+
 ## Engineering Status
 
 This code is good enough as a working migration slice, but not yet good enough as the long-term production architecture.
@@ -36,15 +55,39 @@ What is already solid:
 - the app serves real Markdown instead of demo-only placeholder data
 - route identity is derived from one canonical manifest for both locales
 - search now runs against prebuilt static indexes under `.generated/search`
+- content discovery and route modeling now have a generated-artifact direction: `documents`, `content-model`, `manifest`, `site-sections`, `search`
 - Mermaid diagrams now render on real docs pages instead of silently degrading to code blocks
 - rollout stages, sitemap gating, and rollback rules are documented and tested
 
 What is not solid enough yet:
 
-- Pages Router wrapper files still exist for each public route
+- the homepage and blog index still need to converge further toward the original MkDocs structure
 - `docs/blog` and `docs/blogs` still overlap semantically
 - the rendering pipeline still allows a documented raw-HTML subset
 - the Pages Router payload shape is still larger than an eventual App Router/server-component design
+
+## Docs-Site Emulation Rules
+
+The UI target is a conservative docs shell:
+
+- sticky header
+- left sidebar
+- main Markdown column
+- right TOC when the page has headings
+- article footer with edit/share/feedback metadata
+
+What should not happen:
+
+- tutorials, docs, and blog pages drifting into separate visual systems
+- collection pages becoming card-heavy product pages
+- homepage and blog index becoming detached from the original MkDocs information architecture
+
+The one allowed exception is the homepage hero treatment, but even there the structure should still map back to the original MkDocs homepage content:
+
+- primary intro
+- primary actions
+- project sections
+- tutorial/docs/blog entry points
 
 Operational discipline now lives in [ROLLOUT.md](./ROLLOUT.md). That file is the source of truth for:
 
@@ -103,17 +146,28 @@ The repo needs a defined split for the current content monolith.
 Recommended decision:
 
 - `content/fs-index.ts`: walk the repo once and build the file inventory
-- `content/manifest.ts`: derive normalized route/content records from the file inventory
+- `content/discovery.ts`: perform source discovery from the file inventory
+- `content/model.ts`: emit generated collection views over the discovered content
+- `content/registry.ts`: define collection families and the single extension point for collection behavior
+- `content/manifest.ts`: derive normalized route/content records from the generated content model
 - `content/markdown.ts`: parse frontmatter and Markdown into typed render inputs
-- `content/collections.ts`: expose blog/tutorial/section collections from the manifest
+- `content/collections.ts`: expose blog/tutorial/section collections from the generated content model
 - `content/assets.ts`: resolve static asset paths and public URLs
-- `content/loaders.ts`: assemble page props from manifest records
+- `content/loaders.ts`: assemble page props from manifest records and the generic docs shell
 
 The dependency direction should stay one-way:
 
-- file inventory -> manifest -> collections/loaders -> pages/components
+- file inventory -> discovery -> content-model -> manifest/site-ia/search -> loaders -> pages/components
 
 Pages should not scan the filesystem directly.
+
+Artifact boundary:
+
+- `documents.json`
+- `content-model.json`
+- `manifest.json`
+- `site-sections.json`
+- `search/*.json`
 
 ### 2. Locale routing architecture
 
@@ -181,6 +235,28 @@ Recommended decision:
 
 This prevents the migration from paying the routing rewrite cost twice.
 
+### 7. Site IA publication model
+
+Discovery and publication are separate concerns.
+
+Recommended decision:
+
+- discovered sections come from content and collection-family seeds
+- published sections are the subset explicitly allowed into header, homepage, and footer surfaces
+- overrides must be validated, not silently accepted
+- duplicate ordering, unknown keys, and missing labels are build-time failures
+
+### 8. Search artifact strategy
+
+Search should be treated as a generated artifact, not an always-live content scan.
+
+Recommended decision:
+
+- search indexes are generated from the content manifest and document index
+- production, `start`, and verification consume prebuilt search artifacts
+- development may rebuild on demand only where explicitly allowed
+- search artifacts should store compact search terms, not unbounded full-page bodies
+
 ## Non-Negotiables
 
 The new frontend must preserve:
@@ -227,14 +303,17 @@ This means the migration problem is mostly about rendering, routing, and parity,
 
 ## Search
 
-- use `Pagefind` or another static search index
+- static generated search indexes under `.generated/search`
+- one search surface across docs, tutorials, blog, and legacy blog
+- fail-fast artifact loading in non-development environments
 - preserve on-page search behavior for docs and blog content
 
 ## Styling
 
 - `Tailwind CSS` for layout and components
-- custom design system for the homepage, project landing pages, and media/follow pages
-- keep docs rendering readable and conservative even if the landing pages become more custom
+- keep the visual target close to mature docs sites rather than inventing a separate product design language
+- homepage may be mildly customized, but blog/home structure should stay close to the original MkDocs site
+- all non-home Markdown routes use one generic docs shell
 
 ## Git and Content Metadata
 
@@ -288,7 +367,7 @@ web/
 
 ## Phase 1: Build the Shell
 
-- implement homepage, global header, footer, docs layout, and blog layout in Next.js
+- implement one shared docs shell plus a homepage that still follows the original MkDocs structure
 - wire path-based i18n and a shared metadata generator
 - add route handlers for `robots.txt` and `sitemap.xml`
 
@@ -308,7 +387,7 @@ web/
 
 ## Phase 4: Restore Search and Navigation
 
-- build static search index
+- build static generated search artifacts
 - create grouped navigation for tutorials and docs
 - keep all current stable paths working
 
@@ -347,6 +426,9 @@ Design:
 Deliverables:
 
 - `content/fs-index.ts`
+- `content/discovery.ts`
+- `content/model.ts`
+- `content/registry.ts`
 - `content/manifest.ts`
 - `content/markdown.ts`
 - `content/collections.ts`
@@ -370,6 +452,22 @@ Deliverables:
 - shared page factories or route render helpers
 - one canonical route manifest
 - one locale URL builder
+
+### 2a. Keep collection families as the single extension point
+
+Goal:
+
+- adding a new collection family should not require touching multiple unrelated runtime modules
+
+Design:
+
+- collection family discovery, routing, landing-card behavior, and sidebar behavior should be defined from the registry
+- page resolution should consume manifest records and family descriptors rather than a second runtime switch table
+
+Deliverables:
+
+- registry-owned family definitions
+- collection loaders without family-specific runtime duplication
 
 ### 3. Harden the Markdown pipeline
 
@@ -443,6 +541,24 @@ Deliverables:
 - milestone checklist
 - route readiness matrix
 - clear cutover gate for sitemap inclusion
+
+### 7. Keep the UI aligned with mature docs sites
+
+Goal:
+
+- prevent the migration from recreating a separate product-shell design system
+
+Design:
+
+- homepage and blog index stay structurally close to the original MkDocs site
+- all non-home Markdown pages use one conservative docs shell
+- visual changes should favor clarity and familiarity over novelty
+
+Deliverables:
+
+- one generic docs shell
+- MkDocs-like home/blog structure
+- no collection-specific visual systems outside the homepage exception
 
 ## Suggested Implementation Order
 

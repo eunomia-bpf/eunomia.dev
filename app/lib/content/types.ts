@@ -91,6 +91,12 @@ export type LegacyBlogEntry = {
   sourceByLocale: Partial<Record<Locale, string>>;
 };
 
+export type GenericSectionRouteEntry = {
+  section: string;
+  slug: string[];
+  sourceAliases: string[];
+};
+
 export type ContentManifestKind =
   | "home"
   | "tutorial-index"
@@ -110,6 +116,10 @@ export type ContentManifestRecord = {
   routeByLocale: Partial<Record<Locale, string>>;
   slug?: string[];
   section?: string;
+};
+
+export type ContentManifestArtifactRecord = ContentManifestRecord & {
+  sourceAliases: string[];
 };
 
 export type SearchResult = {

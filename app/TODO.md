@@ -112,6 +112,19 @@ Status markers:
 - `[done]` Add a single `npm run verify` entry that covers typecheck, content tests, build, and audits.
 - `[done]` Make isolated `distDir` verification resilient by cleaning stale build artifacts before building.
 
+## Phase 9: Docs-Site Convergence
+
+- `[doing]` Keep the migration visually aligned with mature docs sites instead of inventing a separate product shell.
+- `[doing]` Keep the homepage structurally close to the original MkDocs homepage even when using React/Tailwind.
+- `[doing]` Keep the blog index structurally close to the original MkDocs blog index rather than a media landing page.
+- `[doing]` Keep every non-home Markdown page on one generic docs shell.
+- `[doing]` Finish moving collection-family behavior behind the registry so new families are single-point extensions.
+- `[doing]` Finish consuming generated `content-model` and `manifest` artifacts at runtime instead of rebuilding live views ad hoc.
+- `[doing]` Validate discovered-versus-published site IA overrides with fail-fast generation rules.
+- `[doing]` Keep search on compact generated artifacts and document the dev-versus-prod fallback rules.
+- `[todo]` Add a development watch flow so docs, IA, and search artifacts stay fresh without manual restart.
+- `[todo]` Revisit App Router only after docs-shell convergence and content artifact boundaries are stable.
+
 ## Current Working Order
 
 1. `[done]` Design the full system and backlog.
@@ -138,3 +151,7 @@ Status markers:
 22. `[done]` Make collection families the seed source for site IA taxonomy.
 23. `[done]` Split the monolithic loader file into focused loader modules.
 24. `[done]` Tighten search artifacts so only development can rebuild them on the fly.
+25. `[doing]` Collapse collection-family runtime behavior behind the registry.
+26. `[doing]` Shift collections and manifest toward generated artifacts.
+27. `[doing]` Converge the docs shell, homepage, and blog index toward mature docs-site patterns.
+28. `[todo]` Add docs-artifact watch mode for development.

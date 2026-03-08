@@ -12,7 +12,7 @@ import type { SearchResult } from "./types";
 type SearchDocument = SearchResult & {
   titleText: string;
   descriptionText: string;
-  bodyText: string;
+  bodyTerms: string;
 };
 
 type SerializedSearchIndex = {
@@ -30,6 +30,35 @@ function normalizeSearchValue(value: string): string {
 
 function searchIndexPath(locale: Locale, outputDir: string = generatedSearchDir): string {
   return path.join(outputDir, `${locale}.json`);
+}
+
+function buildBodyTerms(body: string, headings: Array<{ text: string }>): string {
+  const text = normalizeSearchValue(`${markdownToSearchText(body)} ${headings.map((heading) => heading.text).join(" ")}`);
+  if (!text) {
+    return "";
+  }
+
+  const tokens = text
+    .split(" ")
+    .filter((token) => token.length >= 3 || /\d/.test(token));
+
+  const unique = new Set<string>();
+  const limited: string[] = [];
+
+  for (const token of tokens) {
+    if (unique.has(token)) {
+      continue;
+    }
+
+    unique.add(token);
+    limited.push(token);
+
+    if (limited.length >= 192) {
+      break;
+    }
+  }
+
+  return limited.join(" ");
 }
 
 function buildSearchDocumentsFromContent(locale: Locale): SearchDocument[] {
@@ -52,7 +81,7 @@ function buildSearchDocumentsFromContent(locale: Locale): SearchDocument[] {
       section: record.section,
       titleText: normalizeSearchValue(document.title),
       descriptionText: normalizeSearchValue(`${document.description} ${document.excerpt}`),
-      bodyText: normalizeSearchValue(markdownToSearchText(document.body))
+      bodyTerms: buildBodyTerms(document.body, document.headings)
     });
 
     for (const heading of document.headings) {
@@ -65,7 +94,7 @@ function buildSearchDocumentsFromContent(locale: Locale): SearchDocument[] {
         section: record.section,
         titleText: normalizeSearchValue(`${heading.text} ${document.title}`),
         descriptionText: normalizeSearchValue(`${document.description} ${heading.text}`),
-        bodyText: ""
+        bodyTerms: ""
       });
     }
   }
@@ -174,7 +203,7 @@ function scoreDocument(document: SearchDocument, query: string, tokens: string[]
       continue;
     }
 
-    if (document.bodyText.includes(token)) {
+    if (document.bodyTerms.includes(token)) {
       score += 10;
       matchedTokens += 1;
     }
@@ -200,7 +229,7 @@ export function writeSearchIndexes(outputDir: string = generatedSearchDir) {
 
     const filePath = searchIndexPath(locale, outputDir);
     const tempPath = `${filePath}.tmp`;
-    fs.writeFileSync(tempPath, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
+    fs.writeFileSync(tempPath, `${JSON.stringify(payload)}\n`, "utf8");
     fs.renameSync(tempPath, filePath);
     searchIndexCache.set(locale, documents);
 

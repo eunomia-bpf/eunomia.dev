@@ -37,18 +37,18 @@ export function SiteChrome({
         {hero ?? (
           leadMode === "compact" ? (
             <section className="border-b border-slate-200 bg-white">
-              <div className="mx-auto max-w-[94rem] px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
-                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">{eyebrow}</p>
-                <h1 className="mt-3 max-w-4xl text-3xl font-semibold tracking-tight text-ink md:text-4xl">
+              <div className="mx-auto max-w-[82rem] px-4 py-8 sm:px-6 lg:px-8 lg:py-9">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-500">{eyebrow}</p>
+                <h1 className="mt-3 max-w-3xl text-3xl font-semibold tracking-tight text-ink md:text-[2.3rem]">
                   {title}
                 </h1>
-                <p className="mt-4 max-w-3xl text-base leading-7 text-slate-600 md:text-lg">{intro}</p>
+                <p className="mt-4 max-w-3xl text-base leading-7 text-slate-600">{intro}</p>
               </div>
             </section>
           ) : null
         )}
-        <div className="mx-auto max-w-[94rem] px-4 sm:px-6 lg:px-8">
-          <div className={sidebar?.length ? "lg:grid lg:grid-cols-[17rem_minmax(0,1fr)] lg:gap-10" : ""}>
+        <div className="mx-auto max-w-[82rem] px-4 sm:px-6 lg:px-8">
+          <div className={sidebar?.length ? "lg:grid lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-12" : ""}>
             {sidebar?.length ? (
               <DocsSidebar groups={sidebar} currentPath={currentPath ?? "/"} className="hidden lg:block lg:mt-8" />
             ) : null}

@@ -1,177 +1,233 @@
+import fs from "node:fs";
+import path from "node:path";
+
 import type { Locale } from "../site-data";
 import { getActiveRolloutStage, stageAllowsRoute, routeRolloutPolicies, type RolloutStage } from "../rollout";
 import { useContentCache } from "./cache";
 import { getGenericSectionRouteEntries } from "./collections";
-import { getDocsFileSet } from "./fs-index";
+import { generatedContentDir } from "./roots";
 import { buildHomePath, buildSectionPath } from "./route-paths";
 import { getCollectionFamilies } from "./registry";
 import {
   baseMarkdownPath,
-  englishVariant,
-  localizedVariant,
   resolveLocalizedSource,
   resolveSectionPageSource,
   supportedLocales
 } from "./source";
 import type { ContentManifestRecord, LocaleAlternates } from "./types";
 
-type CanonicalRouteDescriptor = {
-  kind: ContentManifestRecord["kind"];
-  key: string;
-  routeClass: ContentManifestRecord["routeClass"];
-  sitemapStage: RolloutStage;
-  slug?: string[];
-  section?: string;
-  resolveSource: (locale: Locale) => string | null;
-  buildPath: (locale: Locale) => string;
-  getSourceAliases?: () => string[];
+type SerializedContentManifestRecord = ContentManifestRecord & {
+  sourceAliases: string[];
 };
 
-let contentManifestCache: ContentManifestRecord[] | null = null;
-let canonicalDescriptorCache: CanonicalRouteDescriptor[] | null = null;
-let manifestBySourceCache: Map<string, ContentManifestRecord> | null = null;
+const generatedContentManifestPath = path.join(generatedContentDir, "manifest.json");
+
+let contentManifestCache: SerializedContentManifestRecord[] | null = null;
+let manifestBySourceCache: Map<string, SerializedContentManifestRecord> | null = null;
 let manifestByRouteCache: Map<string, LocaleAlternates> | null = null;
-let manifestRecordByRouteCache: Map<string, ContentManifestRecord> | null = null;
+let manifestRecordByRouteCache: Map<string, SerializedContentManifestRecord> | null = null;
 
-function collectExistingMarkdownAliases(paths: string[]): string[] {
-  const docsFiles = getDocsFileSet();
-  const aliases = new Set<string>();
-
-  for (const relativePath of paths) {
-    const basePath = baseMarkdownPath(relativePath);
-    for (const candidate of [basePath, englishVariant(basePath), localizedVariant(basePath, "zh")]) {
-      if (docsFiles.has(candidate)) {
-        aliases.add(baseMarkdownPath(candidate));
-      }
-    }
-  }
-
-  return [...aliases];
+function allowManifestFallback(): boolean {
+  return process.env.NODE_ENV === "development";
 }
 
-function buildCanonicalDescriptors(): CanonicalRouteDescriptor[] {
-  const descriptors: CanonicalRouteDescriptor[] = [
+function resolvePageSource(
+  sourceByLocale: Partial<Record<Locale, string>>,
+  locale: Locale
+): string | null {
+  return sourceByLocale[locale] ?? sourceByLocale.en ?? sourceByLocale.zh ?? null;
+}
+
+function buildManifestFromSource(): SerializedContentManifestRecord[] {
+  const manifest: SerializedContentManifestRecord[] = [
     {
       kind: "home",
       key: "home",
       routeClass: routeRolloutPolicies.home.routeClass,
       sitemapStage: routeRolloutPolicies.home.sitemapStage,
-      resolveSource: () => "index.md",
-      buildPath: (locale) => buildHomePath(locale),
-      getSourceAliases: () => ["index.md"]
+      sourceByLocale: {
+        en: resolveLocalizedSource("index.md", "en") ?? "index.md",
+        zh: resolveLocalizedSource("index.md", "zh") ?? "index.md"
+      },
+      routeByLocale: {
+        en: buildHomePath("en"),
+        zh: buildHomePath("zh")
+      },
+      sourceAliases: ["index.md"]
     }
   ];
 
   for (const family of getCollectionFamilies()) {
-    descriptors.push({
+    const indexSourceByLocale: Partial<Record<Locale, string>> = {};
+    const indexRouteByLocale: Partial<Record<Locale, string>> = {};
+
+    for (const locale of supportedLocales) {
+      const source = resolveLocalizedSource(family.indexSource, locale);
+      if (!source) {
+        continue;
+      }
+
+      indexSourceByLocale[locale] = source;
+      indexRouteByLocale[locale] = family.buildIndexPath(locale);
+    }
+
+    manifest.push({
       kind: family.indexKind,
       key: family.indexKey,
       routeClass: family.indexRouteClass,
       sitemapStage: family.indexSitemapStage,
-      resolveSource: (locale) => resolveLocalizedSource(family.indexSource, locale),
-      buildPath: family.buildIndexPath,
-      getSourceAliases: () => collectExistingMarkdownAliases([family.indexSource])
+      sourceByLocale: indexSourceByLocale,
+      routeByLocale: indexRouteByLocale,
+      sourceAliases: [baseMarkdownPath(family.indexSource)]
     });
 
-    for (const page of family.getPages()) {
-      descriptors.push({
+    for (const page of family.getPageDescriptorsFromSource()) {
+      const sourceByLocale: Partial<Record<Locale, string>> = {};
+      const routeByLocale: Partial<Record<Locale, string>> = {};
+
+      for (const locale of supportedLocales) {
+        const source = resolvePageSource(page.sourceByLocale, locale);
+        if (!source) {
+          continue;
+        }
+
+        sourceByLocale[locale] = source;
+        routeByLocale[locale] = page.buildPath(locale);
+      }
+
+      manifest.push({
         kind: page.kind,
         key: page.key,
         routeClass: family.pageRouteClass,
         sitemapStage: family.pageSitemapStage,
         slug: page.slug,
-        resolveSource: page.resolveSource,
-        buildPath: page.buildPath,
-        getSourceAliases: () => collectExistingMarkdownAliases(page.getSourceAliases())
+        sourceByLocale,
+        routeByLocale,
+        sourceAliases: [...new Set(page.sourceAliases.map(baseMarkdownPath))]
       });
     }
   }
 
   for (const route of getGenericSectionRouteEntries()) {
-    const { section, slug } = route;
-    const joined = slug.join("/");
-    descriptors.push({
-      kind: "section-page",
-      key: `section:${section}:${joined}`,
-      routeClass: routeRolloutPolicies.section.routeClass,
-      sitemapStage: routeRolloutPolicies.section.sitemapStage,
-      section,
-      slug,
-      resolveSource: (locale) => resolveSectionPageSource(section, slug, locale),
-      buildPath: (locale) => buildSectionPath(section, slug, locale),
-      getSourceAliases: () =>
-        collectExistingMarkdownAliases(
-          joined
-            ? [
-                `${section}/${joined}.md`,
-                `${section}/${joined}/README.md`,
-                `${section}/${joined}/index.md`
-              ]
-            : [`${section}/index.md`, `${section}/README.md`]
-        )
-    });
-  }
+    const routeSourceByLocale: Partial<Record<Locale, string>> = {};
+    const routeByLocale: Partial<Record<Locale, string>> = {};
 
-  return descriptors;
-}
+    for (const locale of supportedLocales) {
+      const source = resolveSectionPageSource(route.section, route.slug, locale);
+      if (!source) {
+        continue;
+      }
 
-function getCanonicalDescriptors(): CanonicalRouteDescriptor[] {
-  if (useContentCache && canonicalDescriptorCache) {
-    return canonicalDescriptorCache;
-  }
-
-  const descriptors = buildCanonicalDescriptors();
-  if (useContentCache) {
-    canonicalDescriptorCache = descriptors;
-  }
-
-  return descriptors;
-}
-
-function expandDescriptor(descriptor: CanonicalRouteDescriptor): ContentManifestRecord {
-  const sourceByLocale: ContentManifestRecord["sourceByLocale"] = {};
-  const routeByLocale: ContentManifestRecord["routeByLocale"] = {};
-
-  for (const locale of supportedLocales) {
-    const source = descriptor.resolveSource(locale);
-    if (!source) {
-      continue;
+      routeSourceByLocale[locale] = source;
+      routeByLocale[locale] = buildSectionPath(route.section, route.slug, locale);
     }
 
-    sourceByLocale[locale] = source;
-    routeByLocale[locale] = descriptor.buildPath(locale);
-  }
-
-  return {
-    kind: descriptor.kind,
-    key: descriptor.key,
-    routeClass: descriptor.routeClass,
-    sitemapStage: descriptor.sitemapStage,
-    slug: descriptor.slug,
-    section: descriptor.section,
-    sourceByLocale,
-    routeByLocale
-  };
-}
-
-export function getContentManifest(): ContentManifestRecord[] {
-  if (useContentCache && contentManifestCache) {
-    return contentManifestCache;
-  }
-
-  const manifest = getCanonicalDescriptors().map(expandDescriptor);
-
-  if (useContentCache) {
-    contentManifestCache = manifest;
+    manifest.push({
+      kind: "section-page",
+      key: `section:${route.section}:${route.slug.join("/")}`,
+      routeClass: routeRolloutPolicies.section.routeClass,
+      sitemapStage: routeRolloutPolicies.section.sitemapStage,
+      slug: route.slug,
+      section: route.section,
+      sourceByLocale: routeSourceByLocale,
+      routeByLocale,
+      sourceAliases: [...new Set(route.sourceAliases.map(baseMarkdownPath))]
+    });
   }
 
   return manifest;
 }
 
+function readPrebuiltContentManifest(
+  filePath: string = generatedContentManifestPath
+): SerializedContentManifestRecord[] | null {
+  if (!fs.existsSync(filePath)) {
+    return null;
+  }
+
+  try {
+    const payload = JSON.parse(fs.readFileSync(filePath, "utf8")) as {
+      generatedAt?: string;
+      manifest?: SerializedContentManifestRecord[];
+    };
+
+    if (!Array.isArray(payload.manifest)) {
+      return null;
+    }
+
+    return payload.manifest;
+  } catch (error) {
+    if (!allowManifestFallback() && filePath === generatedContentManifestPath) {
+      throw new Error(`Failed to read prebuilt content manifest: ${String(error)}`);
+    }
+
+    console.warn("Failed to read prebuilt content manifest. Falling back to source build.", error);
+    return null;
+  }
+}
+
+function getSerializedContentManifest(
+  options: {
+    allowFallback?: boolean;
+    outputPath?: string;
+  } = {}
+): SerializedContentManifestRecord[] {
+  const outputPath = options.outputPath ?? generatedContentManifestPath;
+  const fallbackAllowed = options.allowFallback ?? allowManifestFallback();
+
+  if (useContentCache && outputPath === generatedContentManifestPath && contentManifestCache) {
+    return contentManifestCache;
+  }
+
+  const prebuilt = readPrebuiltContentManifest(outputPath);
+  if (prebuilt) {
+    if (useContentCache && outputPath === generatedContentManifestPath) {
+      contentManifestCache = prebuilt;
+    }
+    return prebuilt;
+  }
+
+  if (!fallbackAllowed) {
+    throw new Error(`Missing prebuilt content manifest at ${outputPath}. Run generate:content-index first.`);
+  }
+
+  const rebuilt = buildManifestFromSource();
+  if (useContentCache && outputPath === generatedContentManifestPath) {
+    contentManifestCache = rebuilt;
+  }
+  return rebuilt;
+}
+
+export function writeContentManifest(outputPath: string = generatedContentManifestPath) {
+  const manifest = buildManifestFromSource();
+  const payload = {
+    generatedAt: new Date().toISOString(),
+    manifest
+  };
+
+  fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+  const tempPath = `${outputPath}.tmp`;
+  fs.writeFileSync(tempPath, `${JSON.stringify(payload)}\n`, "utf8");
+  fs.renameSync(tempPath, outputPath);
+
+  if (useContentCache && outputPath === generatedContentManifestPath) {
+    contentManifestCache = manifest;
+  }
+
+  return {
+    count: manifest.length,
+    filePath: outputPath
+  };
+}
+
+export function getContentManifest(): ContentManifestRecord[] {
+  return getSerializedContentManifest();
+}
+
 function setUniqueSourceAlias(
-  bySource: Map<string, ContentManifestRecord>,
+  bySource: Map<string, SerializedContentManifestRecord>,
   key: string,
-  record: ContentManifestRecord
+  record: SerializedContentManifestRecord
 ) {
   const existing = bySource.get(key);
   if (existing && existing.key !== record.key) {
@@ -204,16 +260,17 @@ function buildManifestIndexes() {
     };
   }
 
-  const bySource = new Map<string, ContentManifestRecord>();
+  const bySource = new Map<string, SerializedContentManifestRecord>();
   const byRoute = new Map<string, LocaleAlternates>();
-  const recordByRoute = new Map<string, ContentManifestRecord>();
+  const recordByRoute = new Map<string, SerializedContentManifestRecord>();
   const routeOwners = new Map<string, string>();
-  const descriptors = getCanonicalDescriptors();
-  const manifest = getContentManifest();
+  const manifest = getSerializedContentManifest();
 
-  for (const [index, record] of manifest.entries()) {
-    const aliases = descriptors[index]?.getSourceAliases?.() ?? [];
-    for (const source of aliases.length ? aliases : Object.values(record.sourceByLocale).filter(Boolean)) {
+  for (const record of manifest) {
+    for (const source of record.sourceAliases.length ? record.sourceAliases : Object.values(record.sourceByLocale)) {
+      if (!source) {
+        continue;
+      }
       setUniqueSourceAlias(bySource, baseMarkdownPath(source), record);
     }
 
@@ -269,7 +326,7 @@ function normalizeAlternates(
 export function listSitemapRoutes(stage: RolloutStage = getActiveRolloutStage()): string[] {
   const routes = new Set<string>();
 
-  for (const record of getContentManifest()) {
+  for (const record of getSerializedContentManifest()) {
     if (!stageAllowsRoute(record.sitemapStage, stage)) {
       continue;
     }

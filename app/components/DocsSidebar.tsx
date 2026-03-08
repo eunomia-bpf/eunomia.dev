@@ -24,7 +24,7 @@ export function DocsSidebar({ groups, currentPath, className }: DocsSidebarProps
   return (
     <aside
       className={joinClassNames(
-        "sticky top-20 hidden max-h-[calc(100vh-6rem)] overflow-y-auto border-r border-slate-200/80 pr-6 lg:block",
+        "sticky top-20 hidden max-h-[calc(100vh-6rem)] overflow-y-auto pr-8 lg:block",
         className
       )}
     >
@@ -49,12 +49,12 @@ export function DocsSidebar({ groups, currentPath, className }: DocsSidebarProps
                       href={item.href}
                       aria-current={isExact ? "page" : undefined}
                       className={joinClassNames(
-                        "block border-l-2 px-3 py-1.5 text-sm leading-6 transition",
+                        "block border-l px-3 py-1 text-sm leading-6 transition",
                         isExact
-                          ? "border-slate-900 bg-slate-50 text-ink"
+                          ? "border-slate-900 font-medium text-ink"
                           : isAncestor
                             ? "border-slate-300 text-ink"
-                            : "border-transparent text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink"
+                            : "border-slate-200 text-slate-600 hover:border-slate-300 hover:text-ink"
                       )}
                       style={{ marginLeft: `${Math.max((item.depth ?? 0) - 1, 0) * 12}px` }}
                     >
