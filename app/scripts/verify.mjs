@@ -70,7 +70,13 @@ async function main() {
     await stopNextServer(server);
   }
 
-  await runCommand("npm", ["run", "audit:runtime"], { cwd: testDir });
+  await runCommand("npm", ["run", "audit:runtime"], {
+    cwd: testDir,
+    env: {
+      APP_DIR: appDir,
+      RUNTIME_AUDIT_SKIP_BUILD: "1"
+    }
+  });
 }
 
 await main();

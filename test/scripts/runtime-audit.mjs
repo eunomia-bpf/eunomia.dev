@@ -36,6 +36,7 @@ function delay(ms) {
 async function main() {
   const port = await getAvailablePort();
   const runtimeBaseUrl = `http://127.0.0.1:${port}`;
+  const skipBuild = process.env.RUNTIME_AUDIT_SKIP_BUILD === "1";
 
   console.log(`Auditing static export delivery with ${runtimeBaseUrl}/`);
 
@@ -47,21 +48,28 @@ async function main() {
     console.error(`DETAIL ${failure}`);
   }
 
-  const buildOutput = await runNextBuild({
-    distDir: runtimeAuditDistDir,
-    siteUrl: runtimeBaseUrl,
-    echoOutput: true
-  });
-  const buildSucceeded = check(buildOutput.exitCode === 0, "runtime audit build completes successfully");
-  if (!buildSucceeded) {
-    throw new Error("runtime audit build failed");
-  }
+  if (skipBuild) {
+    const exportDir = path.join(appDir, "out");
+    check(fs.existsSync(exportDir), "runtime audit can reuse the existing static export");
+    check(fs.existsSync(path.join(exportDir, "index.html")), "static export writes the home page");
+    check(fs.existsSync(path.join(exportDir, "sitemap.xml")), "static export writes sitemap.xml");
+  } else {
+    const buildOutput = await runNextBuild({
+      distDir: runtimeAuditDistDir,
+      siteUrl: runtimeBaseUrl,
+      echoOutput: true
+    });
+    const buildSucceeded = check(buildOutput.exitCode === 0, "runtime audit build completes successfully");
+    if (!buildSucceeded) {
+      throw new Error("runtime audit build failed");
+    }
 
-  const buildWarnings = extractLargePageWarnings(buildOutput.combined);
-  check(buildWarnings.length === 0, "build output does not emit large page data warnings");
-  check(Boolean(buildOutput.exportDir), "static export directory is recorded");
-  check(fs.existsSync(path.join(buildOutput.exportDir, "index.html")), "static export writes the home page");
-  check(fs.existsSync(path.join(buildOutput.exportDir, "sitemap.xml")), "static export writes sitemap.xml");
+    const buildWarnings = extractLargePageWarnings(buildOutput.combined);
+    check(buildWarnings.length === 0, "build output does not emit large page data warnings");
+    check(Boolean(buildOutput.exportDir), "static export directory is recorded");
+    check(fs.existsSync(path.join(buildOutput.exportDir, "index.html")), "static export writes the home page");
+    check(fs.existsSync(path.join(buildOutput.exportDir, "sitemap.xml")), "static export writes sitemap.xml");
+  }
 
   const server = await startNextServer({
     distDir: runtimeAuditDistDir,

@@ -17,22 +17,22 @@ A pure client-only SPA would still lose too much by default: HTML-first SEO, sta
 
 ## Current implementation
 
-The current repository still reflects a compatibility-first `Next.js` slice under this `app/` directory.
+The `app/` directory is now the static-export replacement for the old MkDocs site.
 
-That compatibility slice was useful for parity work, but it is no longer the target architecture.
+The important architectural shift is already complete:
 
-The current implementation still has server assumptions that must be removed:
+- content routes are enumerated at build time from the generated manifest
+- public pages compile to static files only
+- `npm start` serves the exported `out/` directory through a dumb static server
+- search, raw content assets, feed, sitemap, robots, and shared OG assets are generated at build time
+- there are no `pages/api/*` routes in the app
+- there is no production runtime server dependency
 
-- `getServerSideProps`-backed content and search routes
-- `pages/api/*` endpoints for search, raw assets, and OG generation
-- runtime generation of feed, sitemap, and robots responses
-- verification flows that assume `next start`
+The remaining work is no longer “remove API and SSR”. It is maintenance work on top of a static-export base:
 
-The migration target is now stricter:
-
-- build a static artifact
-- serve only static files
-- deploy that artifact to `Cloudflare Pages static`
+- keep docs and rollout rules aligned with the static-only contract
+- keep runtime behavior consuming generated artifacts instead of rebuilding content ad hoc
+- keep the docs shell conservative and close to established documentation-site patterns
 
 ## Design Lock
 
@@ -74,10 +74,11 @@ What is already solid:
 
 What is not solid enough yet:
 
-- the app still needs a full static-export refactor
 - `docs/blog` and `docs/blogs` still overlap semantically
 - the rendering pipeline still allows a documented raw-HTML subset
-- production delivery still has to remove all API and SSR assumptions
+- development still lacks a watch flow for generated content artifacts
+- search artifacts still favor simplicity over compactness
+- the current Pages Router shell is acceptable for static export, but it is still a compatibility layer rather than the ideal long-term framework boundary
 
 ## Docs-Site Emulation Rules
 
@@ -108,18 +109,17 @@ Operational discipline now lives in [ROLLOUT.md](./ROLLOUT.md). That file remain
 - what must pass before cutover
 - what should trigger rollback to `shadow`
 
-## Main Problems
+## Main Remaining Concerns
 
-### 1. The app is still not a true static export
+### 1. Development artifact freshness still needs improvement
 
-The current site still assumes runtime delivery in several places:
+Production, preview, and verification are now static-only, but development still depends on prebuilt artifacts under `.generated/` and `public/`.
 
-- `getServerSideProps` content and search routes
-- `pages/api/*` endpoints
-- response-writer pages for feed, sitemap, and robots
-- runtime raw-asset proxying
+That means:
 
-Until those are removed, the app cannot be deployed as `Cloudflare Pages static`.
+- docs, IA, and search artifacts are generated before `next dev`
+- local development can drift if content changes are made without regenerating those artifacts
+- the next maintainability win should be a documented watch flow, not more runtime fallback logic
 
 ### 2. Markdown rendering has an explicit trust boundary that still needs careful maintenance
 
@@ -131,21 +131,23 @@ The current pipeline allows raw HTML and then injects the rendered result into t
 
 That is acceptable for trusted repository content, but it remains a deliberate policy surface that needs continued allowlist maintenance and fixture coverage.
 
-### 3. Search and assets still need to move fully to build time
+### 3. Search and static artifacts now rely on build outputs and must stay disciplined
 
-The content model already has generated `search` and `manifest` artifacts, but the delivery layer still needs to finish the transition:
+Search, raw assets, sitemap, feed, robots, and shared OG assets are now generated at build time.
 
-- search must stop calling a live endpoint
-- raw assets must stop resolving through an API proxy
-- metadata files and OG strategy must become static outputs
+That improves deployment safety, but it also means:
+
+- production and verification must fail fast when artifacts are missing
+- development-only fallback behavior must stay narrow and explicit
+- artifact size and generation time now matter as part of engineering quality
 
 ### 4. Some UI features are still transitional rather than final systems
 
 Examples:
 
 - the search box is now backed by a prebuilt locale-aware content index, but ranking remains intentionally simple
-- Open Graph support is route-aware, but the visual system is still transitional
-- the page footer now restores git metadata, feedback CTA, and share actions, but the long-term chrome system is still transitional
+- Open Graph support is static and route-aware, but the visual system is still transitional
+- the page footer now restores git metadata, feedback CTA, and share actions, but the long-term chrome system is still intentionally conservative
 
 These are feature gaps, but they also affect engineering quality because they leave temporary structure in the codebase.
 
@@ -337,41 +339,42 @@ This means the migration problem is mostly about rendering, routing, and parity,
 - preserve `Edit this page`
 - preserve publish dates for blog posts
 
-## Migration Phases
+## Static Export Delivery Track
 
-## Phase 0: Lock the Static Constraint
+Completed work:
 
-- write `static export only / no API / Cloudflare Pages static` into design docs
-- inventory every current runtime dependency
-- make `legacy /blogs/*` and other public URLs explicit before delivery changes
+### Phase 0: Lock the Static Constraint
 
-## Phase 1: Remove Runtime Endpoints
+- wrote `static export only / no API / Cloudflare Pages static` into design docs
+- inventoried runtime dependencies
+- made `legacy /blogs/*` and other public URLs explicit before delivery changes
 
-- replace `/api/search` with static search artifact consumption
-- replace `/api/raw-assets` with build-time asset copying and static URL rewriting
-- replace `/api/og` with static OG assets or a bounded build-time generation strategy
+### Phase 1: Remove Runtime Endpoints
 
-## Phase 2: Emit Static Machine-Readable Files
+- replaced `/api/search` with static search artifact consumption
+- replaced `/api/raw-assets` with build-time asset copying and static URL rewriting
+- replaced `/api/og` with static OG assets
+
+### Phase 2: Emit Static Machine-Readable Files
 
 - build `robots.txt`
 - build `sitemap.xml`
 - build `feed.xml` and `zh/feed.xml`
-- ensure these files ship as static outputs, not response-writer pages
+- ship those files as static outputs, not response-writer pages
 
-## Phase 3: Replace SSR Page Delivery
+### Phase 3: Replace SSR Page Delivery
 
-- remove `getServerSideProps`
+- removed `getServerSideProps`
 - enumerate content paths from the manifest at build time
 - keep search as a static shell with client-side querying over generated artifacts
 - preserve all existing public URLs inside the static export
 
-## Phase 4: Make Verification Static-First
+### Phase 4: Make Verification Static-First
 
-- replace `next start`-based verification with “build/export + serve static dir”
-- remove server-only runtime audits
-- add explicit checks that no `pages/api/*` and no `getServerSideProps` remain
+- replaced `next start`-based verification with “build/export + serve static dir”
+- added explicit checks that no `pages/api/*` and no `getServerSideProps` remain
 
-## Phase 5: Cloudflare Pages Static Handoff
+### Phase 5: Cloudflare Pages Static Handoff
 
 - deploy only the exported static directory
 - keep the deployment contract strict so regressions back to API/SSR fail early
@@ -549,28 +552,22 @@ Deliverables:
 3. Add sanitization and typed Markdown extension handling
 4. Collapse locale routing onto shared page abstractions
 5. Fill cutover-blocking parity features
-6. Remove runtime assumptions route class by route class until the site is a true static export
+6. Keep the content pipeline and docs shell simple now that static export is locked
 
 ## Verification Snapshot
 
-Last locally verified on `2026-03-07`:
+Last locally verified on `2026-03-08`:
 
 ```bash
 cd app
-npm run dev -- --hostname 0.0.0.0 --port 3000
-npm run test:content
-NEXT_DIST_DIR=.next-prod NEXT_PUBLIC_SITE_URL=http://127.0.0.1:3001 npm run build
-NEXT_DIST_DIR=.next-prod NEXT_PUBLIC_SITE_URL=http://127.0.0.1:3001 npm run start -- --hostname 127.0.0.1 --port 3001
-
-cd ../test
-BASE_URL=http://127.0.0.1:3000 npm run audit:browser
-BASE_URL=http://127.0.0.1:3001 npm run audit
+npm run verify
 ```
 
 Expected current result:
 
+- exported static output is written to `app/out`
 - `audit:http` passes on all sitemap routes
 - `audit:parity` passes with zero missing legacy sitemap paths
 - `audit:browser` passes
 - `audit:links` passes
-- `audit:runtime` passes after probing the heaviest tutorial, blog, and section routes
+- `audit:runtime` passes after checking that the exported site contains no API routes and no `getServerSideProps`

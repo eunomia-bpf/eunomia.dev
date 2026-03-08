@@ -135,30 +135,27 @@ All remaining work is ordered around removing API, SSR, and runtime assumptions 
 - `[doing]` Validate discovered-versus-published site IA overrides with fail-fast generation rules.
 - `[doing]` Keep search on compact generated artifacts and document the dev-versus-prod fallback rules.
 - `[todo]` Add a development watch flow so docs, IA, and search artifacts stay fresh without manual restart.
-- `[todo]` Remove the remaining runtime delivery assumptions so docs-shell convergence sits on a true static-export base.
+- `[done]` Remove the remaining runtime delivery assumptions so docs-shell convergence sits on a true static-export base.
 
 ## Phase 10: Static Export and Cloudflare Pages
 
-- `[doing]` Lock `static export only / no API / Cloudflare Pages static` into `README`, `ARCHITECTURE`, and `TODO`.
-- `[todo]` Remove `/api/search` and make quick search plus `/search` consume generated static search artifacts.
-- `[todo]` Remove `/api/raw-assets` and replace runtime proxying with build-time asset copying plus static URLs.
-- `[todo]` Remove `/api/og` and decide the static OG strategy.
-- `[todo]` Replace runtime `feed.xml`, `zh/feed.xml`, `sitemap.xml`, and `robots.txt` pages with build-time emitted static files.
-- `[todo]` Replace `getServerSideProps` content/search delivery with build-time path enumeration from the manifest.
-- `[todo]` Configure the app for true static export and add an export-oriented build contract.
-- `[todo]` Rewrite verification around exported files served from a dumb static server instead of `next start`.
-- `[todo]` Add explicit checks that no `pages/api/*` and no `getServerSideProps` remain.
-- `[todo]` Validate the exported artifact against Cloudflare Pages static assumptions before deployment handoff.
+- `[done]` Lock `static export only / no API / Cloudflare Pages static` into `README`, `ARCHITECTURE`, and `TODO`.
+- `[done]` Remove `/api/search` and make quick search plus `/search` consume generated static search artifacts.
+- `[done]` Remove `/api/raw-assets` and replace runtime proxying with build-time asset copying plus static URLs.
+- `[done]` Remove `/api/og` and decide the static OG strategy.
+- `[done]` Replace runtime `feed.xml`, `zh/feed.xml`, `sitemap.xml`, and `robots.txt` pages with build-time emitted static files.
+- `[done]` Replace `getServerSideProps` content/search delivery with build-time path enumeration from the manifest.
+- `[done]` Configure the app for true static export and add an export-oriented build contract.
+- `[done]` Rewrite verification around exported files served from a dumb static server instead of `next start`.
+- `[done]` Add explicit checks that no `pages/api/*` and no `getServerSideProps` remain.
+- `[done]` Validate the exported artifact against Cloudflare Pages static assumptions before deployment handoff.
 
 ## Current Working Order
 
-1. `[doing]` Lock the deployment constraint into docs and tooling: true static export, no API routes, no runtime server, Cloudflare Pages static target.
-2. `[todo]` Remove `/api/search` and make quick search plus `/search` consume generated static search artifacts.
-3. `[todo]` Remove `/api/raw-assets` and replace runtime proxying with build-time asset export.
-4. `[todo]` Remove `/api/og` and decide the static OG strategy.
-5. `[todo]` Emit `feed.xml`, `zh/feed.xml`, `sitemap.xml`, and `robots.txt` as build-time static files.
-6. `[todo]` Replace `getServerSideProps` content/search delivery with manifest-backed static path generation.
-7. `[todo]` Add a true static export build contract and stop treating `next start` as the release path.
-8. `[todo]` Rewrite verifier/browser/link audits around exported files served from a dumb static server.
-9. `[todo]` Add explicit regression checks that no `pages/api/*` and no `getServerSideProps` remain.
-10. `[todo]` Validate the exported artifact against Cloudflare Pages static deployment assumptions.
+1. `[doing]` Keep docs, rollout rules, and parity status aligned with the static-only deployment contract.
+2. `[doing]` Keep the homepage and blog index structurally close to the original MkDocs site while preserving the static-only build.
+3. `[doing]` Finish moving collection-family behavior behind the registry so new families are single-point extensions.
+4. `[doing]` Finish consuming generated `content-model` and `manifest` artifacts at runtime instead of rebuilding live views ad hoc.
+5. `[doing]` Validate discovered-versus-published site IA overrides with fail-fast generation rules.
+6. `[doing]` Keep search on compact generated artifacts and document the dev-versus-prod fallback rules.
+7. `[todo]` Add a development watch flow so docs, IA, and search artifacts stay fresh without manual restart.
