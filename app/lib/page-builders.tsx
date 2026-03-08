@@ -1,6 +1,6 @@
 import { SearchResults } from "../components/SearchResults";
-import type { LandingPageData, MarkdownPage, SearchResult, SidebarGroup } from "./content/types";
-import { CollectionPageView, HomePageView, type CollectionPageProps, type HomePageData, SectionPageView } from "./page-factories";
+import type { DocsPage, SearchResult, SidebarGroup } from "./content/types";
+import { DocsPageView, HomePageView, type HomePageData } from "./page-factories";
 import type { Locale } from "./site-data";
 
 type SearchPageProps = {
@@ -9,17 +9,10 @@ type SearchPageProps = {
   sidebar: SidebarGroup[];
 };
 
-export type ContentPageProps =
-  | {
-      routeKind: "collection";
-      eyebrow: string;
-      content: CollectionPageProps<LandingPageData, MarkdownPage>;
-    }
-  | {
-      routeKind: "section";
-      section: string;
-      page: MarkdownPage;
-    };
+export type ContentPageProps = {
+  page: DocsPage;
+  eyebrow: string;
+};
 
 export function createHomePage(locale: Locale, eyebrow: string) {
   return function HomePage({ page }: { page: HomePageData }) {
@@ -34,12 +27,8 @@ export function createSearchPage(locale: Locale) {
 }
 
 export function createContentPage(locale: Locale) {
-  return function ContentPage(props: ContentPageProps) {
-    if (props.routeKind === "collection") {
-      return <CollectionPageView {...props.content} locale={locale} eyebrow={props.eyebrow} />;
-    }
-
-    return <SectionPageView page={props.page} section={props.section} locale={locale} />;
+  return function ContentPage({ page, eyebrow }: ContentPageProps) {
+    return <DocsPageView page={page} locale={locale} eyebrow={eyebrow} />;
   };
 }
 

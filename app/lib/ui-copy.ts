@@ -167,12 +167,6 @@ export const homeLandingCopyByLocale = {
       "English, Chinese, and legacy links stay intact",
       "Search, SEO, canonical tags, and hreflang still work",
       "Docs pages keep rendering straight from the Markdown source"
-    ],
-    moreLinks: [
-      { title: "Legacy blog", description: "Keep the older /blogs/* archive reachable.", href: "/blogs/" },
-      { title: "Ecosystem", description: "Talks, misc notes, and broader project context.", href: "/others/" },
-      { title: "GPTtrace", description: "AI-native tracing and agent observability docs.", href: "/GPTtrace/" },
-      { title: "wasm-bpf", description: "Runtime, Wasm, and eBPF crossover work.", href: "/wasm-bpf/" }
     ]
   },
   zh: {
@@ -193,12 +187,6 @@ export const homeLandingCopyByLocale = {
       "中英文文档和旧链接都保留",
       "搜索、SEO、canonical、hreflang 继续可用",
       "文档页继续直接渲染真实 Markdown"
-    ],
-    moreLinks: [
-      { title: "博客归档", description: "保留旧 /blogs/* 内容和链接。", href: "/zh/blogs/" },
-      { title: "生态系统", description: "查看更多 talks、misc、项目资料。", href: "/zh/others/" },
-      { title: "GPTtrace", description: "AI-native tracing 与 agent observability 相关文档。", href: "/zh/GPTtrace/" },
-      { title: "wasm-bpf", description: "运行时、Wasm 和 eBPF 交叉方向。", href: "/zh/wasm-bpf/" }
     ]
   }
 } as const;

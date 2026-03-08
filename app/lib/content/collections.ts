@@ -2,15 +2,14 @@ import path from "node:path";
 
 import type { Locale } from "../site-data";
 import { useContentCache } from "./cache";
+import { listDocuments } from "./documents";
 import { getDocsFileSet } from "./fs-index";
-import { parseMarkdown } from "./markdown";
 import { orderSourcesByMkdocsNav } from "./nav-order";
 import {
   baseMarkdownPath,
   isLocalizedMarkdown,
   isSupportedSection,
   sectionSourceToSlugSegments,
-  resolveLocalizedSource,
   slugifyTitle,
   sortNaturally
 } from "./source";
@@ -53,11 +52,13 @@ export function getTutorialDocSources(): string[] {
 
 function buildBlogEntries(relativePrefix: "blog/posts" | "blogs"): Array<BlogEntry | LegacyBlogEntry> {
   const entriesByKey = new Map<string, Partial<Record<Locale, string>>>();
+  const metadataBySource = new Map(
+    listDocuments()
+      .filter((document) => document.sourceRelative.startsWith(`${relativePrefix}/`))
+      .map((document) => [document.sourceRelative, document] as const)
+  );
 
-  for (const relativePath of getDocsFileSet()) {
-    if (!relativePath.startsWith(`${relativePrefix}/`) || !relativePath.endsWith(".md")) {
-      continue;
-    }
+  for (const relativePath of metadataBySource.keys()) {
     if (relativePath.endsWith("/index.md") || relativePath.endsWith("/index.zh.md")) {
       continue;
     }
@@ -75,7 +76,10 @@ function buildBlogEntries(relativePrefix: "blog/posts" | "blogs"): Array<BlogEnt
       return null;
     }
 
-    const metadata = parseMarkdown(preferredSource);
+    const metadata = metadataBySource.get(preferredSource);
+    if (!metadata) {
+      return null;
+    }
     if (relativePrefix === "blogs") {
       return {
         key,

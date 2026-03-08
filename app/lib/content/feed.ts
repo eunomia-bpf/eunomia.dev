@@ -1,7 +1,7 @@
 import type { Locale } from "../site-data";
-import { localizePath } from "../paths";
 import { getBlogEntries } from "./collections";
-import { parseMarkdown } from "./markdown";
+import { getDocument } from "./documents";
+import { buildBlogIndexPath, buildBlogPath } from "./route-paths";
 import { absoluteUrl } from "../seo";
 
 function escapeXml(value: string): string {
@@ -23,8 +23,8 @@ export function renderFeed(locale: Locale): string {
         return null;
       }
 
-      const metadata = parseMarkdown(sourceRelative);
-      const path = localizePath(`/blog/${entry.year}/${entry.month}/${entry.day}/${entry.slug}/`, locale);
+      const metadata = getDocument(sourceRelative);
+      const path = buildBlogPath(entry.year, entry.month, entry.day, entry.slug, locale);
       const url = absoluteUrl(path);
       const publishedAt = new Date(`${entry.date}T00:00:00Z`);
       if (Number.isNaN(publishedAt.valueOf())) {
@@ -47,7 +47,7 @@ export function renderFeed(locale: Locale): string {
     locale === "zh"
       ? "eunomia.dev 上关于 eBPF、bpftime、AI tracing 和系统研究的最新文章。"
       : "Latest writing from eunomia.dev on eBPF, bpftime, AI tracing, and systems research.";
-  const link = absoluteUrl(localizePath("/blog/", locale));
+  const link = absoluteUrl(buildBlogIndexPath(locale));
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">

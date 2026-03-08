@@ -1,11 +1,12 @@
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 
 import type { Locale } from "../site-data";
 import { useContentCache } from "./cache";
+import { getDocument } from "./documents";
 import { getContentManifest } from "./manifest";
-import { extractMarkdownHeadings, markdownToSearchText, parseMarkdown } from "./markdown";
+import { markdownToSearchText } from "./markdown";
+import { generatedSearchDir } from "./roots";
 import type { SearchResult } from "./types";
 
 type SearchDocument = SearchResult & {
@@ -20,8 +21,6 @@ type SerializedSearchIndex = {
   documents: SearchDocument[];
 };
 
-const appRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
-const generatedSearchDir = path.join(appRoot, ".generated", "search");
 const supportedLocales: Locale[] = ["en", "zh"];
 const searchIndexCache = new Map<Locale, SearchDocument[]>();
 
@@ -43,29 +42,29 @@ function buildSearchDocumentsFromContent(locale: Locale): SearchDocument[] {
       continue;
     }
 
-    const parsed = parseMarkdown(source);
+    const document = getDocument(source);
     documents.push({
-      title: parsed.title,
-      description: parsed.description,
+      title: document.title,
+      description: document.description,
       href,
       locale,
       kind: record.kind,
       section: record.section,
-      titleText: normalizeSearchValue(parsed.title),
-      descriptionText: normalizeSearchValue(`${parsed.description} ${parsed.excerpt}`),
-      bodyText: normalizeSearchValue(markdownToSearchText(parsed.body))
+      titleText: normalizeSearchValue(document.title),
+      descriptionText: normalizeSearchValue(`${document.description} ${document.excerpt}`),
+      bodyText: normalizeSearchValue(markdownToSearchText(document.body))
     });
 
-    for (const heading of extractMarkdownHeadings(parsed.body)) {
+    for (const heading of document.headings) {
       documents.push({
-        title: `${parsed.title} / ${heading.text}`,
-        description: parsed.description || heading.text,
+        title: `${document.title} / ${heading.text}`,
+        description: document.description || heading.text,
         href: `${href}#${heading.id}`,
         locale,
         kind: record.kind,
         section: record.section,
-        titleText: normalizeSearchValue(`${heading.text} ${parsed.title}`),
-        descriptionText: normalizeSearchValue(`${parsed.description} ${heading.text}`),
+        titleText: normalizeSearchValue(`${heading.text} ${document.title}`),
+        descriptionText: normalizeSearchValue(`${document.description} ${heading.text}`),
         bodyText: ""
       });
     }
@@ -165,13 +164,16 @@ export function writeSearchIndexes(outputDir: string = generatedSearchDir) {
       documents
     };
 
-    fs.writeFileSync(searchIndexPath(locale, outputDir), `${JSON.stringify(payload, null, 2)}\n`, "utf8");
+    const filePath = searchIndexPath(locale, outputDir);
+    const tempPath = `${filePath}.tmp`;
+    fs.writeFileSync(tempPath, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
+    fs.renameSync(tempPath, filePath);
     searchIndexCache.set(locale, documents);
 
     return {
       locale,
       count: documents.length,
-      filePath: searchIndexPath(locale, outputDir)
+      filePath
     };
   });
 }

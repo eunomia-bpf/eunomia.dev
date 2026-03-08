@@ -1,11 +1,8 @@
 import fs from "node:fs";
-import path from "node:path";
 
 import { useContentCache } from "./cache";
-import { docsRoot } from "./fs-index";
+import { mkdocsConfigPath } from "./roots";
 import { baseMarkdownPath, sortNaturally } from "./source";
-
-const mkdocsConfigPath = path.resolve(docsRoot, "..", "mkdocs.yaml");
 const navSourcePattern = /^\s*-\s+(?:[^:]+:\s+)?(.+?\.md)\s*$/;
 
 let mkdocsNavSourcesCache: string[] | null = null;

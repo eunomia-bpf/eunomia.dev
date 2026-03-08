@@ -2,7 +2,8 @@ import { MobileNav } from "../components/MobileNav";
 import { SearchBox } from "../components/SearchBox";
 import type { LocaleAlternates } from "../lib/content/types";
 import { localizePath } from "../lib/paths";
-import { navByLocale, type Locale } from "../lib/site-data";
+import { getPrimaryNav } from "../lib/site-ia";
+import type { Locale } from "../lib/site-data";
 
 type SiteHeaderProps = {
   locale: Locale;
@@ -31,7 +32,7 @@ function isActivePath(currentPath: string, href: string): boolean {
 }
 
 export function SiteHeader({ locale, currentPath, alternates }: SiteHeaderProps) {
-  const nav = navByLocale[locale];
+  const nav = getPrimaryNav(locale);
   const alternateLocale: Locale = locale === "en" ? "zh" : "en";
   const languageToggle = alternates?.[alternateLocale] ?? null;
   const normalizedCurrentPath = normalizePath(currentPath);

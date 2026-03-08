@@ -1,8 +1,9 @@
 import { localizePath } from "../paths";
-import { navByLocale, type Locale } from "../site-data";
+import { getPrimaryNav } from "../site-ia";
+import type { Locale } from "../site-data";
 import { getBlogEntries, getLegacyBlogEntries, getTutorialDocSources } from "./collections";
+import { getDocument, resolveDocument } from "./documents";
 import { getContentManifest } from "./manifest";
-import { parseMarkdown } from "./markdown";
 import { resolveLocalizedSource } from "./source";
 import type { ContentManifestRecord, SidebarGroup, SidebarItem } from "./types";
 
@@ -30,7 +31,7 @@ function buildPrimaryGroup(locale: Locale): SidebarGroup {
   return {
     title: copy.browse,
     items: [
-      ...navByLocale[locale].map((item) => ({
+      ...getPrimaryNav(locale).map((item) => ({
         title: item.label,
         href: item.href
       })),
@@ -58,7 +59,7 @@ function recordToSidebarItem(record: ContentManifestRecord, locale: Locale): Sid
   }
 
   return {
-    title: parseMarkdown(source).title,
+    title: getDocument(source).title,
     href,
     depth: record.slug?.length ?? 0
   };
@@ -77,7 +78,7 @@ export function buildTutorialSidebar(locale: Locale): SidebarGroup[] {
       title: copy.tutorials,
       items: [
         {
-          title: parseMarkdown(resolveLocalizedSource("tutorials/index.md", locale) ?? "tutorials/index.md").title,
+          title: resolveDocument("tutorials/index.md", locale)?.title ?? "Tutorials",
           href: localizePath("/tutorials/", locale),
           depth: 0
         },
@@ -96,7 +97,7 @@ export function buildBlogSidebar(locale: Locale): SidebarGroup[] {
       title: copy.blog,
       items: [
         {
-          title: parseMarkdown(resolveLocalizedSource("blog/index.md", locale) ?? "blog/index.md").title,
+          title: resolveDocument("blog/index.md", locale)?.title ?? "Blog",
           href: localizePath("/blog/", locale)
         },
         ...getBlogEntries().map((entry) => ({
@@ -117,7 +118,7 @@ export function buildLegacyBlogSidebar(locale: Locale): SidebarGroup[] {
       title: copy.legacyBlog,
       items: [
         {
-          title: parseMarkdown(resolveLocalizedSource("blogs/index.md", locale) ?? "blogs/index.md").title,
+          title: resolveDocument("blogs/index.md", locale)?.title ?? "Legacy Blog",
           href: localizePath("/blogs/", locale)
         },
         ...getLegacyBlogEntries().map((entry) => ({
@@ -135,7 +136,7 @@ export function buildSectionSidebar(section: string, locale: Locale): SidebarGro
   const sectionIndexSource =
     resolveLocalizedSource(`${section}/index.md`, locale) ?? resolveLocalizedSource(`${section}/README.md`, locale);
   const sectionTitle = sectionIndexSource
-    ? parseMarkdown(sectionIndexSource).title
+    ? getDocument(sectionIndexSource).title
     : `${copy.sectionPrefix}: ${section}`;
 
   return [

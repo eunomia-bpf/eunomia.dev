@@ -1,11 +1,8 @@
 import { execFileSync } from "node:child_process";
-import { fileURLToPath } from "node:url";
-import path from "node:path";
 
 import { useContentCache } from "./cache";
+import { repoRoot } from "./roots";
 import type { GitAuthor, GitMetadata } from "./types";
-
-const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../..");
 const gitMetadataCache = new Map<string, GitMetadata | null>();
 
 function normalizeDate(value: string | undefined): string | undefined {

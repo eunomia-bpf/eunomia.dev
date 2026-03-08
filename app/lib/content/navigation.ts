@@ -1,7 +1,7 @@
 import type { Locale } from "../site-data";
 import { useContentCache } from "./cache";
+import { getDocumentBySource } from "./documents";
 import { getContentManifest } from "./manifest";
-import { parseMarkdown } from "./markdown";
 import type { ContentManifestKind, ContentManifestRecord, PageContinuation, PageLink } from "./types";
 
 const pageLinkCache = new Map<string, PageLink>();
@@ -22,6 +22,11 @@ function recordToPageLink(record: ContentManifestRecord, locale: Locale): PageLi
     return null;
   }
 
+  const document = getDocumentBySource(sourceRelative);
+  if (!document) {
+    return null;
+  }
+
   const cacheKey = `${locale}:${record.key}:${href}`;
   if (useContentCache) {
     const cached = pageLinkCache.get(cacheKey);
@@ -30,10 +35,9 @@ function recordToPageLink(record: ContentManifestRecord, locale: Locale): PageLi
     }
   }
 
-  const parsed = parseMarkdown(sourceRelative);
   const link = {
-    title: parsed.title,
-    description: parsed.description,
+    title: document.title,
+    description: document.description,
     href
   };
 
@@ -49,7 +53,11 @@ export function buildIndexLink(sourceRelative: string | null, href: string | nul
     return undefined;
   }
 
-  const parsed = parseMarkdown(sourceRelative);
+  const parsed = getDocumentBySource(sourceRelative);
+  if (!parsed) {
+    return undefined;
+  }
+
   return {
     title: parsed.title,
     description: parsed.description,

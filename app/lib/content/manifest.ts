@@ -1,23 +1,18 @@
 import type { Locale } from "../site-data";
 import { getActiveRolloutStage, stageAllowsRoute, routeRolloutPolicies, type RolloutStage } from "../rollout";
 import { useContentCache } from "./cache";
-import {
-  getBlogEntries,
-  getGenericSectionRouteEntries,
-  getLegacyBlogEntries,
-  getTutorialDocSources
-} from "./collections";
+import { getGenericSectionRouteEntries } from "./collections";
 import { getDocsFileSet } from "./fs-index";
+import { buildHomePath, buildSectionPath } from "./route-paths";
+import { getCollectionFamilies } from "./registry";
 import {
   baseMarkdownPath,
   englishVariant,
   localizedVariant,
   resolveLocalizedSource,
   resolveSectionPageSource,
-  supportedLocales,
-  tutorialSourceToSlugSegments
+  supportedLocales
 } from "./source";
-import { localizePath } from "../paths";
 import type { ContentManifestRecord, LocaleAlternates } from "./types";
 
 type CanonicalRouteDescriptor = {
@@ -37,28 +32,6 @@ let canonicalDescriptorCache: CanonicalRouteDescriptor[] | null = null;
 let manifestBySourceCache: Map<string, ContentManifestRecord> | null = null;
 let manifestByRouteCache: Map<string, LocaleAlternates> | null = null;
 let manifestRecordByRouteCache: Map<string, ContentManifestRecord> | null = null;
-
-function buildTutorialPath(slugSegments: string[], locale: Locale): string {
-  return localizePath(
-    slugSegments.length ? `/tutorials/${slugSegments.join("/")}/` : "/tutorials/",
-    locale
-  );
-}
-
-function buildBlogPath(year: string, month: string, day: string, slug: string, locale: Locale): string {
-  return localizePath(`/blog/${year}/${month}/${day}/${slug}/`, locale);
-}
-
-function buildLegacyBlogPath(key: string, locale: Locale): string {
-  return localizePath(`/blogs/${key}/`, locale);
-}
-
-function buildSectionPath(section: string, slugSegments: string[], locale: Locale): string {
-  return localizePath(
-    slugSegments.length ? `/${section}/${slugSegments.join("/")}/` : `/${section}/`,
-    locale
-  );
-}
 
 function collectExistingMarkdownAliases(paths: string[]): string[] {
   const docsFiles = getDocsFileSet();
@@ -84,82 +57,34 @@ function buildCanonicalDescriptors(): CanonicalRouteDescriptor[] {
       routeClass: routeRolloutPolicies.home.routeClass,
       sitemapStage: routeRolloutPolicies.home.sitemapStage,
       resolveSource: () => "index.md",
-      buildPath: (locale) => localizePath("/", locale),
+      buildPath: (locale) => buildHomePath(locale),
       getSourceAliases: () => ["index.md"]
-    },
-    {
-      kind: "tutorial-index",
-      key: "tutorials/index",
-      routeClass: routeRolloutPolicies.tutorial.routeClass,
-      sitemapStage: routeRolloutPolicies.tutorial.sitemapStage,
-      resolveSource: (locale) => resolveLocalizedSource("tutorials/index.md", locale),
-      buildPath: (locale) => localizePath("/tutorials/", locale),
-      getSourceAliases: () => collectExistingMarkdownAliases(["tutorials/index.md"])
-    },
-    {
-      kind: "blog-index",
-      key: "blog/index",
-      routeClass: routeRolloutPolicies["blog-index"].routeClass,
-      sitemapStage: routeRolloutPolicies["blog-index"].sitemapStage,
-      resolveSource: (locale) => resolveLocalizedSource("blog/index.md", locale),
-      buildPath: (locale) => localizePath("/blog/", locale),
-      getSourceAliases: () => collectExistingMarkdownAliases(["blog/index.md"])
-    },
-    {
-      kind: "legacy-blog-index",
-      key: "blogs/index",
-      routeClass: routeRolloutPolicies["legacy-blog"].routeClass,
-      sitemapStage: routeRolloutPolicies["legacy-blog"].sitemapStage,
-      resolveSource: (locale) => resolveLocalizedSource("blogs/index.md", locale),
-      buildPath: (locale) => localizePath("/blogs/", locale),
-      getSourceAliases: () => collectExistingMarkdownAliases(["blogs/index.md"])
     }
   ];
 
-  for (const sourceRelative of getTutorialDocSources()) {
-    const slug = tutorialSourceToSlugSegments(sourceRelative);
-    const tutorialBase = `tutorials/${slug.join("/")}`;
+  for (const family of getCollectionFamilies()) {
     descriptors.push({
-      kind: "tutorial-page",
-      key: `tutorial:${slug.join("/")}`,
-      routeClass: routeRolloutPolicies.tutorial.routeClass,
-      sitemapStage: routeRolloutPolicies.tutorial.sitemapStage,
-      slug,
-      resolveSource: (locale) => resolveLocalizedSource(sourceRelative, locale),
-      buildPath: (locale) => buildTutorialPath(slug, locale),
-      getSourceAliases: () =>
-        collectExistingMarkdownAliases([
-          `${tutorialBase}.md`,
-          `${tutorialBase}/README.md`,
-          `${tutorialBase}/index.md`
-        ])
+      kind: family.indexKind,
+      key: family.indexKey,
+      routeClass: family.indexRouteClass,
+      sitemapStage: family.indexSitemapStage,
+      resolveSource: (locale) => resolveLocalizedSource(family.indexSource, locale),
+      buildPath: family.buildIndexPath,
+      getSourceAliases: () => collectExistingMarkdownAliases([family.indexSource])
     });
-  }
 
-  for (const entry of getBlogEntries()) {
-    descriptors.push({
-      kind: "blog-page",
-      key: `blog:${entry.year}-${entry.month}-${entry.day}:${entry.slug}`,
-      routeClass: routeRolloutPolicies.blog.routeClass,
-      sitemapStage: routeRolloutPolicies.blog.sitemapStage,
-      slug: [entry.year, entry.month, entry.day, entry.slug],
-      resolveSource: (locale) => entry.sourceByLocale[locale] ?? entry.sourceByLocale.en ?? entry.sourceByLocale.zh ?? null,
-      buildPath: (locale) => buildBlogPath(entry.year, entry.month, entry.day, entry.slug, locale),
-      getSourceAliases: () => collectExistingMarkdownAliases(Object.values(entry.sourceByLocale).filter(Boolean))
-    });
-  }
-
-  for (const entry of getLegacyBlogEntries()) {
-    descriptors.push({
-      kind: "legacy-blog-page",
-      key: `legacy-blog:${entry.key}`,
-      routeClass: routeRolloutPolicies["legacy-blog"].routeClass,
-      sitemapStage: routeRolloutPolicies["legacy-blog"].sitemapStage,
-      slug: [entry.key],
-      resolveSource: (locale) => entry.sourceByLocale[locale] ?? entry.sourceByLocale.en ?? entry.sourceByLocale.zh ?? null,
-      buildPath: (locale) => buildLegacyBlogPath(entry.key, locale),
-      getSourceAliases: () => collectExistingMarkdownAliases(Object.values(entry.sourceByLocale).filter(Boolean))
-    });
+    for (const page of family.getPages()) {
+      descriptors.push({
+        kind: page.kind,
+        key: page.key,
+        routeClass: family.pageRouteClass,
+        sitemapStage: family.pageSitemapStage,
+        slug: page.slug,
+        resolveSource: page.resolveSource,
+        buildPath: page.buildPath,
+        getSourceAliases: () => collectExistingMarkdownAliases(page.getSourceAliases())
+      });
+    }
   }
 
   for (const route of getGenericSectionRouteEntries()) {

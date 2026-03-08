@@ -14,36 +14,11 @@ export type GitMetadata = {
   authors: GitAuthor[];
 };
 
-export type MarkdownPage = {
-  title: string;
-  description: string;
-  html: string;
-  headings: HeadingEntry[];
-  sourcePath: string;
-  path: string;
-  metadata?: GitMetadata | null;
-  continuation?: PageContinuation;
-  alternates: LocaleAlternates;
-  sidebar?: SidebarGroup[];
-};
-
 export type LandingCard = {
   title: string;
   description: string;
   href: string;
   badge?: string;
-};
-
-export type LandingPageData = {
-  title: string;
-  description: string;
-  introHtml: string;
-  sourcePath: string;
-  metadata?: GitMetadata | null;
-  path: string;
-  alternates: LocaleAlternates;
-  cards: LandingCard[];
-  sidebar?: SidebarGroup[];
 };
 
 export type ParsedMarkdown = {
@@ -52,6 +27,13 @@ export type ParsedMarkdown = {
   excerpt: string;
   body: string;
   date?: string;
+};
+
+export type DocumentRecord = ParsedMarkdown & {
+  sourcePath: string;
+  baseSourcePath: string;
+  locale: Locale;
+  section: string;
 };
 
 export type HeadingEntry = {
@@ -137,4 +119,19 @@ export type SearchResult = {
   locale: Locale;
   kind: ContentManifestKind;
   section?: string;
+};
+
+export type DocsPage = {
+  layout: "directory" | "document";
+  title: string;
+  description: string;
+  bodyHtml: string;
+  sourcePath: string;
+  path: string;
+  metadata?: GitMetadata | null;
+  alternates: LocaleAlternates;
+  sidebar?: SidebarGroup[];
+  cards?: LandingCard[];
+  headings?: HeadingEntry[];
+  continuation?: PageContinuation;
 };

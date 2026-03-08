@@ -109,7 +109,7 @@ export function HomeLanding({ locale, page }: HomeLandingProps) {
           <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">{copy.exploreLabel}</p>
         </div>
         <div className="overflow-hidden border border-slate-200 bg-white">
-          {copy.moreLinks.map((card, index) => (
+          {page.moreLinks.map((card, index) => (
             <a
               key={card.href}
               href={card.href}

@@ -1,5 +1,6 @@
 import { localizePath } from "../lib/paths";
-import { navByLocale, siteConfig, type Locale } from "../lib/site-data";
+import { getFooterExploreSections, getFooterProjectSections } from "../lib/site-ia";
+import { siteConfig, type Locale } from "../lib/site-data";
 import { siteFooterCopyByLocale } from "../lib/ui-copy";
 
 type SiteFooterProps = {
@@ -8,10 +9,15 @@ type SiteFooterProps = {
 
 export function SiteFooter({ locale }: SiteFooterProps) {
   const copy = siteFooterCopyByLocale[locale];
-  const exploreLinks = [...navByLocale[locale], { label: copy.legacyBlog, href: localizePath("/blogs/", locale) }];
+  const exploreLinks = getFooterExploreSections().map((section) => ({
+    label: section.labels[locale],
+    href: section.href(locale)
+  }));
   const projectLinks = [
-    { label: "GPTtrace", href: localizePath("/GPTtrace/", locale) },
-    { label: "wasm-bpf", href: localizePath("/wasm-bpf/", locale) },
+    ...getFooterProjectSections().map((section) => ({
+      label: section.labels[locale],
+      href: section.href(locale)
+    })),
     { label: "RSS", href: localizePath("/feed.xml", locale) }
   ];
   const communityLinks = [

@@ -1,59 +1,61 @@
-import type { Locale } from "../site-data";
 import {
-  getBlogEntries,
-  getLegacyBlogEntries,
-  getTutorialReadmeSources
-} from "./collections";
+  getFeaturedHomeSections,
+  getHomeBadge,
+  getHomeExploreSections,
+  getHomePath,
+  getHomeStats,
+  type SiteSectionKey
+} from "../site-ia";
+import type { Locale } from "../site-data";
+import { getBlogEntries, getLegacyBlogEntries, getTutorialReadmeSources } from "./collections";
+import { getDocumentBySource, resolveDocument } from "./documents";
 import { getGitMetadata } from "./git";
-import { parseMarkdown } from "./markdown";
 import { buildCollectionContinuation, buildIndexLink } from "./navigation";
 import { resolveAlternatesFromDocSource } from "./manifest";
+import {
+  buildBlogIndexPath,
+  buildBlogPath,
+  buildLegacyBlogIndexPath,
+  buildLegacyBlogPath,
+  buildSectionPath,
+  buildTutorialIndexPath,
+  buildTutorialPath
+} from "./route-paths";
 import {
   buildBlogSidebar,
   buildLegacyBlogSidebar,
   buildSectionSidebar,
   buildTutorialSidebar
 } from "./sidebar";
-import { localizePath } from "../paths";
 import { renderMarkdownBody, renderMarkdownDocumentBody } from "./render";
 import {
   formatGithubSourcePath,
   makeAlternates,
-  resolveLocalizedSource,
   resolveSectionPageSource,
   tutorialSourceToSlugSegments
 } from "./source";
-import type { LandingCard, LandingPageData, MarkdownPage } from "./types";
+import type { DocsPage, LandingCard } from "./types";
 import type { HomePageData } from "../page-factories";
 
-function buildTutorialPath(slugSegments: string[], locale: Locale): string {
-  return localizePath(`/tutorials/${slugSegments.join("/")}/`, locale);
+function requireDocument(relativePath: string, locale: Locale) {
+  const document = resolveDocument(relativePath, locale);
+  if (!document) {
+    throw new Error(`missing document for ${relativePath} (${locale})`);
+  }
+
+  return document;
 }
 
-function buildBlogPath(year: string, month: string, day: string, slug: string, locale: Locale): string {
-  return localizePath(`/blog/${year}/${month}/${day}/${slug}/`, locale);
-}
-
-function buildLegacyBlogPath(slug: string, locale: Locale): string {
-  return localizePath(`/blogs/${slug}/`, locale);
-}
-
-function buildSectionPath(section: string, slugSegments: string[], locale: Locale): string {
-  return localizePath(
-    slugSegments.length ? `/${section}/${slugSegments.join("/")}/` : `/${section}/`,
-    locale
-  );
-}
-
-async function loadMarkdownPage(relativePath: string, publicPath: string, locale: Locale): Promise<MarkdownPage> {
-  const sourceRelative = resolveLocalizedSource(relativePath, locale) ?? relativePath;
-  const parsed = parseMarkdown(sourceRelative);
-  const rendered = await renderMarkdownDocumentBody(parsed.body, sourceRelative, locale);
+async function loadDocumentPage(relativePath: string, publicPath: string, locale: Locale): Promise<DocsPage> {
+  const document = requireDocument(relativePath, locale);
+  const sourceRelative = document.sourceRelative;
+  const rendered = await renderMarkdownDocumentBody(document.body, sourceRelative, locale);
 
   return {
-    title: parsed.title,
-    description: parsed.description,
-    html: rendered.html,
+    layout: "document",
+    title: document.title,
+    description: document.description,
+    bodyHtml: rendered.html,
     headings: rendered.headings,
     sourcePath: formatGithubSourcePath(sourceRelative),
     metadata: getGitMetadata(sourceRelative),
@@ -62,7 +64,37 @@ async function loadMarkdownPage(relativePath: string, publicPath: string, locale
   };
 }
 
-function withContinuation(page: MarkdownPage, continuation: MarkdownPage["continuation"]): MarkdownPage {
+async function loadDirectoryPage({
+  sourceRelative,
+  publicPath,
+  locale,
+  cards,
+  sidebar
+}: {
+  sourceRelative: string;
+  publicPath: string;
+  locale: Locale;
+  cards: LandingCard[];
+  sidebar?: DocsPage["sidebar"];
+}): Promise<DocsPage> {
+  const document = getDocumentBySource(sourceRelative) ?? requireDocument(sourceRelative, locale);
+  const bodyHtml = await renderMarkdownBody(document.body, sourceRelative, locale);
+
+  return {
+    layout: "directory",
+    title: document.title,
+    description: document.description,
+    bodyHtml,
+    sourcePath: formatGithubSourcePath(sourceRelative),
+    metadata: getGitMetadata(sourceRelative),
+    path: publicPath,
+    alternates: resolveAlternatesFromDocSource(sourceRelative, locale, publicPath),
+    cards,
+    sidebar
+  };
+}
+
+function withContinuation(page: DocsPage, continuation: DocsPage["continuation"]): DocsPage {
   if (!continuation) {
     return page;
   }
@@ -74,77 +106,39 @@ function withContinuation(page: MarkdownPage, continuation: MarkdownPage["contin
 }
 
 export async function loadHomePage(locale: Locale): Promise<HomePageData> {
-  const home = parseMarkdown("index.md");
-  const tutorials = parseMarkdown(resolveLocalizedSource("tutorials/index.md", locale) ?? "tutorials/index.md");
-  const bpftime = parseMarkdown(resolveLocalizedSource("bpftime/index.md", locale) ?? "bpftime/index.md");
-  const eunomiaBpf = parseMarkdown(
-    resolveLocalizedSource("eunomia-bpf/index.md", locale) ?? "eunomia-bpf/index.md"
-  );
+  const home = requireDocument("index.md", locale);
+  const counts = {
+    tutorials: getTutorialReadmeSources().length,
+    blogs: getBlogEntries().length,
+    legacyBlogs: getLegacyBlogEntries().length
+  };
+  const cards: LandingCard[] = getFeaturedHomeSections().map((section) => {
+    const document = requireDocument(section.source, locale);
+    return {
+      title: document.title,
+      description: document.description,
+      href: section.href(locale),
+      badge: getHomeBadge(section.key, counts, locale)
+    };
+  });
+  const moreLinks: LandingCard[] = getHomeExploreSections().map((section) => {
+    const document = requireDocument(section.indexSource, locale);
+    return {
+      title: document.title,
+      description: document.description,
+      href: section.href(locale)
+    };
+  });
 
-  const cards: LandingCard[] = [
-    {
-      title: tutorials.title,
-      description: tutorials.description,
-      href: localizePath("/tutorials/", locale),
-      badge: `${getTutorialReadmeSources().length} walkthroughs`
-    },
-    {
-      title: bpftime.title,
-      description: bpftime.description,
-      href: localizePath("/bpftime/", locale),
-      badge: "Userspace eBPF"
-    },
-    {
-      title: eunomiaBpf.title,
-      description: eunomiaBpf.description,
-      href: localizePath("/eunomia-bpf/", locale),
-      badge: "Toolchain"
-    }
-  ];
   const latestBlog = getBlogEntries()[0];
-  const stats =
-    locale === "zh"
-      ? [
-          {
-            label: "教程",
-            value: String(getTutorialReadmeSources().length),
-            detail: "从基础 trace 到更深的 kernel/runtime 主题。"
-          },
-          {
-            label: "研究文章",
-            value: String(getBlogEntries().length),
-            detail: "持续整理 eBPF、GPU、AI agent 和系统研究。"
-          },
-          {
-            label: "旧博客",
-            value: String(getLegacyBlogEntries().length),
-            detail: "旧 `/blogs/*` 路径仍然保留并可访问。"
-          }
-        ]
-      : [
-          {
-            label: "Tutorials",
-            value: String(getTutorialReadmeSources().length),
-            detail: "Hands-on walkthroughs from basic tracing to deeper kernel and runtime topics."
-          },
-          {
-            label: "Research posts",
-            value: String(getBlogEntries().length),
-            detail: "Ongoing writing on eBPF, GPU tooling, AI agents, and systems research."
-          },
-          {
-            label: "Legacy posts",
-            value: String(getLegacyBlogEntries().length),
-            detail: "The old `/blogs/*` paths remain live while the app cuts over."
-          }
-        ];
 
   return {
     title: home.title,
     description: home.description,
     intro: home.excerpt || home.description,
     cards,
-    stats,
+    moreLinks,
+    stats: getHomeStats(locale, counts),
     spotlight: latestBlog
       ? {
           title: latestBlog.title,
@@ -155,73 +149,63 @@ export async function loadHomePage(locale: Locale): Promise<HomePageData> {
       : {
           title: locale === "zh" ? "查看 Blog" : "Visit the blog",
           description: home.description,
-          href: localizePath("/blog/", locale),
+          href: buildBlogIndexPath(locale),
           badge: locale === "zh" ? "博客" : "Blog"
         },
     sourcePath: formatGithubSourcePath("index.md"),
     metadata: getGitMetadata("index.md"),
-    path: localizePath("/", locale),
-    alternates: makeAlternates(localizePath("/", locale))
+    path: getHomePath(locale),
+    alternates: makeAlternates(getHomePath(locale))
   };
 }
 
-export async function loadTutorialIndex(locale: Locale): Promise<LandingPageData> {
-  const sourceRelative = resolveLocalizedSource("tutorials/index.md", locale) ?? "tutorials/index.md";
-  const parsed = parseMarkdown(sourceRelative);
-  const introHtml = await renderMarkdownBody(parsed.body, sourceRelative, locale);
-
+export async function loadTutorialIndex(locale: Locale): Promise<DocsPage> {
+  const sourceRelative = requireDocument("tutorials/index.md", locale).sourceRelative;
   const cards = getTutorialReadmeSources().map((source) => {
-    const localizedSource = resolveLocalizedSource(source, locale) ?? source;
-    const tutorial = parseMarkdown(localizedSource);
+    const tutorial = requireDocument(source, locale);
     const slugSegments = tutorialSourceToSlugSegments(source);
-    const href = buildTutorialPath(slugSegments, locale);
 
     return {
       title: tutorial.title,
       description: tutorial.description,
-      href,
+      href: buildTutorialPath(slugSegments, locale),
       badge: slugSegments.join("/")
     };
   });
 
-  return {
-    title: parsed.title,
-    description: parsed.description,
-    introHtml,
-    sourcePath: formatGithubSourcePath(sourceRelative),
-    metadata: getGitMetadata(sourceRelative),
-    path: localizePath("/tutorials/", locale),
-    alternates: makeAlternates(localizePath("/tutorials/", locale)),
+  return loadDirectoryPage({
+    sourceRelative,
+    publicPath: buildTutorialIndexPath(locale),
+    locale,
     cards,
     sidebar: buildTutorialSidebar(locale)
-  };
+  });
 }
 
 export async function loadTutorialPage(
   slugSegments: string[] | undefined,
   locale: Locale
-): Promise<MarkdownPage | null> {
+): Promise<DocsPage | null> {
   if (!slugSegments?.length) {
     return null;
   }
 
   const baseCandidate = `tutorials/${slugSegments.join("/")}`;
   const sourceRelative =
-    resolveLocalizedSource(`${baseCandidate}.md`, locale) ??
-    resolveLocalizedSource(`${baseCandidate}/README.md`, locale);
+    resolveDocument(`${baseCandidate}.md`, locale)?.sourceRelative ??
+    resolveDocument(`${baseCandidate}/README.md`, locale)?.sourceRelative;
 
   if (!sourceRelative) {
     return null;
   }
 
   const publicPath = buildTutorialPath(slugSegments, locale);
-  const page = await loadMarkdownPage(sourceRelative, publicPath, locale);
-  const indexSource = resolveLocalizedSource("tutorials/index.md", locale) ?? "tutorials/index.md";
+  const page = await loadDocumentPage(sourceRelative, publicPath, locale);
   const continuation = buildCollectionContinuation({
     kind: "tutorial-page",
     locale,
     currentPath: publicPath,
-    index: buildIndexLink(indexSource, localizePath("/tutorials/", locale))
+    index: buildIndexLink(requireDocument("tutorials/index.md", locale).sourceRelative, buildTutorialIndexPath(locale))
   });
 
   return {
@@ -230,11 +214,8 @@ export async function loadTutorialPage(
   };
 }
 
-export async function loadBlogIndex(locale: Locale): Promise<LandingPageData> {
-  const sourceRelative = resolveLocalizedSource("blog/index.md", locale) ?? "blog/index.md";
-  const parsed = parseMarkdown(sourceRelative);
-  const introHtml = await renderMarkdownBody(parsed.body, sourceRelative, locale);
-
+export async function loadBlogIndex(locale: Locale): Promise<DocsPage> {
+  const sourceRelative = requireDocument("blog/index.md", locale).sourceRelative;
   const cards = getBlogEntries().map((entry) => ({
     title: entry.title,
     description: entry.description,
@@ -242,23 +223,19 @@ export async function loadBlogIndex(locale: Locale): Promise<LandingPageData> {
     badge: `${entry.year}-${entry.month}-${entry.day}`
   }));
 
-  return {
-    title: parsed.title,
-    description: parsed.description,
-    introHtml,
-    sourcePath: formatGithubSourcePath(sourceRelative),
-    metadata: getGitMetadata(sourceRelative),
-    path: localizePath("/blog/", locale),
-    alternates: makeAlternates(localizePath("/blog/", locale)),
+  return loadDirectoryPage({
+    sourceRelative,
+    publicPath: buildBlogIndexPath(locale),
+    locale,
     cards,
     sidebar: buildBlogSidebar(locale)
-  };
+  });
 }
 
 export async function loadBlogPage(
   slugSegments: string[] | undefined,
   locale: Locale
-): Promise<MarkdownPage | null> {
+): Promise<DocsPage | null> {
   if (!slugSegments || slugSegments.length !== 4) {
     return null;
   }
@@ -276,21 +253,18 @@ export async function loadBlogPage(
     return null;
   }
 
-  const sourceRelative =
-    entry.sourceByLocale[locale] ?? entry.sourceByLocale.en ?? entry.sourceByLocale.zh;
+  const sourceRelative = entry.sourceByLocale[locale] ?? entry.sourceByLocale.en ?? entry.sourceByLocale.zh;
   if (!sourceRelative) {
     return null;
   }
 
   const publicPath = buildBlogPath(entry.year, entry.month, entry.day, entry.slug, locale);
-
-  const page = await loadMarkdownPage(sourceRelative, publicPath, locale);
-  const indexSource = resolveLocalizedSource("blog/index.md", locale) ?? "blog/index.md";
+  const page = await loadDocumentPage(sourceRelative, publicPath, locale);
   const continuation = buildCollectionContinuation({
     kind: "blog-page",
     locale,
     currentPath: publicPath,
-    index: buildIndexLink(indexSource, localizePath("/blog/", locale))
+    index: buildIndexLink(requireDocument("blog/index.md", locale).sourceRelative, buildBlogIndexPath(locale))
   });
 
   return {
@@ -299,11 +273,8 @@ export async function loadBlogPage(
   };
 }
 
-export async function loadLegacyBlogIndex(locale: Locale): Promise<LandingPageData> {
-  const sourceRelative = resolveLocalizedSource("blogs/index.md", locale) ?? "blogs/index.md";
-  const parsed = parseMarkdown(sourceRelative);
-  const introHtml = await renderMarkdownBody(parsed.body, sourceRelative, locale);
-
+export async function loadLegacyBlogIndex(locale: Locale): Promise<DocsPage> {
+  const sourceRelative = requireDocument("blogs/index.md", locale).sourceRelative;
   const cards = getLegacyBlogEntries().map((entry) => ({
     title: entry.title,
     description: entry.description,
@@ -311,23 +282,19 @@ export async function loadLegacyBlogIndex(locale: Locale): Promise<LandingPageDa
     badge: "Legacy"
   }));
 
-  return {
-    title: parsed.title,
-    description: parsed.description,
-    introHtml,
-    sourcePath: formatGithubSourcePath(sourceRelative),
-    metadata: getGitMetadata(sourceRelative),
-    path: localizePath("/blogs/", locale),
-    alternates: makeAlternates(localizePath("/blogs/", locale)),
+  return loadDirectoryPage({
+    sourceRelative,
+    publicPath: buildLegacyBlogIndexPath(locale),
+    locale,
     cards,
     sidebar: buildLegacyBlogSidebar(locale)
-  };
+  });
 }
 
 export async function loadLegacyBlogPage(
   slugSegments: string[] | undefined,
   locale: Locale
-): Promise<MarkdownPage | null> {
+): Promise<DocsPage | null> {
   if (!slugSegments || slugSegments.length !== 1) {
     return null;
   }
@@ -338,20 +305,21 @@ export async function loadLegacyBlogPage(
     return null;
   }
 
-  const sourceRelative =
-    entry.sourceByLocale[locale] ?? entry.sourceByLocale.en ?? entry.sourceByLocale.zh;
+  const sourceRelative = entry.sourceByLocale[locale] ?? entry.sourceByLocale.en ?? entry.sourceByLocale.zh;
   if (!sourceRelative) {
     return null;
   }
 
   const publicPath = buildLegacyBlogPath(slug, locale);
-  const page = await loadMarkdownPage(sourceRelative, publicPath, locale);
-  const indexSource = resolveLocalizedSource("blogs/index.md", locale) ?? "blogs/index.md";
+  const page = await loadDocumentPage(sourceRelative, publicPath, locale);
   const continuation = buildCollectionContinuation({
     kind: "legacy-blog-page",
     locale,
     currentPath: publicPath,
-    index: buildIndexLink(indexSource, localizePath("/blogs/", locale))
+    index: buildIndexLink(
+      requireDocument("blogs/index.md", locale).sourceRelative,
+      buildLegacyBlogIndexPath(locale)
+    )
   });
 
   return {
@@ -364,8 +332,7 @@ export async function loadSectionPage(
   section: string,
   slugSegments: string[] | undefined,
   locale: Locale
-): Promise<MarkdownPage | null> {
-  const joined = slugSegments?.join("/");
+): Promise<DocsPage | null> {
   const sourceRelative = resolveSectionPageSource(section, slugSegments, locale);
 
   if (!sourceRelative) {
@@ -373,20 +340,21 @@ export async function loadSectionPage(
   }
 
   const publicPath = buildSectionPath(section, slugSegments ?? [], locale);
-  const page = await loadMarkdownPage(sourceRelative, publicPath, locale);
+  const page = await loadDocumentPage(sourceRelative, publicPath, locale);
   const sectionIndexSource =
-    resolveLocalizedSource(`${section}/index.md`, locale) ?? resolveLocalizedSource(`${section}/README.md`, locale);
+    resolveDocument(`${section}/index.md`, locale)?.sourceRelative ??
+    resolveDocument(`${section}/README.md`, locale)?.sourceRelative;
   const sectionIndexHref = buildSectionPath(section, [], locale);
   const continuation = buildCollectionContinuation({
     kind: "section-page",
     locale,
     currentPath: publicPath,
     section,
-    index: buildIndexLink(sectionIndexSource, sectionIndexHref)
+    index: buildIndexLink(sectionIndexSource ?? null, sectionIndexHref)
   });
 
   return {
     ...withContinuation(page, continuation),
-    sidebar: buildSectionSidebar(section, locale)
+    sidebar: buildSectionSidebar(section as SiteSectionKey, locale)
   };
 }

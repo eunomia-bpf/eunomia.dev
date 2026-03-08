@@ -237,7 +237,7 @@ test("nested tutorial pages preserve deep relative links", async () => {
   const page = await loadTutorialPage(["38-btf-uprobe", "test-verify"], "en");
 
   assert.ok(page);
-  assert.match(page.html, /href="\/tutorials\/38-btf-uprobe\/"/);
+  assert.match(page.bodyHtml, /href="\/tutorials\/38-btf-uprobe\/"/);
 });
 
 test("legacy blog pages still render from the legacy blogs tree", async () => {
@@ -251,14 +251,14 @@ test("section loaders render english fallback content from .en.md sources", asyn
   const page = await loadSectionPage("eunomia-bpf", ["setup", "build"], "zh");
 
   assert.ok(page);
-  assert.match(page.html, /Install Dependencies/);
+  assert.match(page.bodyHtml, /Install Dependencies/);
 });
 
 test("tutorial loaders render localized .zh.md content when it exists", async () => {
   const page = await loadTutorialPage(["1-helloworld"], "zh");
 
   assert.ok(page);
-  assert.match(page.html, /下载安装 eunomia-bpf 开发工具/);
+  assert.match(page.bodyHtml, /下载安装 eunomia-bpf 开发工具/);
 });
 
 test("bpftime continuation follows mkdocs nav order instead of file sort order", async () => {

@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 
 import { SearchBox } from "../components/SearchBox";
-import { navByLocale, type Locale } from "../lib/site-data";
+import { getPrimaryNav } from "../lib/site-ia";
+import type { Locale } from "../lib/site-data";
 import { mobileNavCopyByLocale } from "../lib/ui-copy";
 
 type MobileNavProps = {
@@ -23,7 +24,7 @@ function normalizePath(pathname: string | undefined): string {
 export function MobileNav({ locale, currentPath }: MobileNavProps) {
   const [open, setOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
-  const nav = navByLocale[locale];
+  const nav = getPrimaryNav(locale);
   const copy = mobileNavCopyByLocale[locale];
   const normalizedCurrentPath = normalizePath(currentPath);
 

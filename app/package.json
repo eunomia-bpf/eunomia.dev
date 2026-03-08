@@ -2,11 +2,15 @@
   "name": "eunomia-custom-web",
   "private": true,
   "scripts": {
+    "generate:content-index": "tsx scripts/generate-content-index.ts",
     "generate:search-index": "tsx scripts/generate-search-index.ts",
-    "dev": "npm run generate:search-index && next dev",
-    "build": "npm run generate:search-index && next build",
-    "start": "next start",
-    "test:content": "npm run generate:search-index && node --import tsx --test tests/content.test.ts"
+    "generate:content-artifacts": "npm run generate:content-index && npm run generate:search-index",
+    "dev": "npm run generate:content-artifacts && next dev",
+    "build": "npm run generate:content-artifacts && next build",
+    "start": "node scripts/assert-content-artifacts.mjs && next start",
+    "typecheck": "tsc --noEmit",
+    "test:content": "npm run generate:content-artifacts && node --import tsx --test tests/content.test.ts",
+    "verify": "node scripts/verify.mjs"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

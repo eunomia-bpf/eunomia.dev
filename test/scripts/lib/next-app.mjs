@@ -1,3 +1,4 @@
+import fs from "node:fs";
 import net from "node:net";
 import path from "node:path";
 import { spawn } from "node:child_process";
@@ -76,6 +77,47 @@ function spawnNextCommand(args, { env, echoOutput = false } = {}) {
   };
 }
 
+function spawnAppScript(scriptName, { env, echoOutput = false } = {}) {
+  const child = spawn(process.env.npm_execpath ?? "npm", ["run", scriptName], {
+    cwd: appDir,
+    env: {
+      ...process.env,
+      ...(env ?? {})
+    },
+    stdio: ["ignore", "pipe", "pipe"]
+  });
+
+  let stdout = "";
+  let stderr = "";
+
+  child.stdout?.on("data", (chunk) => {
+    const text = chunk.toString();
+    stdout += text;
+    if (echoOutput) {
+      process.stdout.write(text);
+    }
+  });
+
+  child.stderr?.on("data", (chunk) => {
+    const text = chunk.toString();
+    stderr += text;
+    if (echoOutput) {
+      process.stderr.write(text);
+    }
+  });
+
+  return {
+    child,
+    getOutput() {
+      return {
+        stdout,
+        stderr,
+        combined: `${stdout}\n${stderr}`
+      };
+    }
+  };
+}
+
 async function waitForProcessExit(child, timeoutMs) {
   if (child.exitCode !== null) {
     return true;
@@ -108,6 +150,28 @@ async function waitForServerReady(processHandle) {
 }
 
 export async function runNextBuild({ distDir, siteUrl, extraEnv = {}, echoOutput = false }) {
+  fs.rmSync(path.join(appDir, distDir), { recursive: true, force: true });
+
+  const artifacts = spawnAppScript("generate:content-artifacts", {
+    env: {
+      NEXT_PUBLIC_SITE_URL: siteUrl,
+      ...extraEnv
+    },
+    echoOutput
+  });
+
+  const artifactsExitCode = await new Promise((resolve, reject) => {
+    artifacts.child.once("error", reject);
+    artifacts.child.once("close", resolve);
+  });
+
+  if (artifactsExitCode !== 0) {
+    return {
+      exitCode: artifactsExitCode,
+      ...artifacts.getOutput()
+    };
+  }
+
   const build = spawnNextCommand(["build"], {
     env: {
       NEXT_DIST_DIR: distDir,

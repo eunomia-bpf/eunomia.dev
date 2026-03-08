@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-import { docsRoot, siteRoot } from "./fs-index";
+import { docsRoot, siteRoot } from "./roots";
 
 export async function serveRawAsset(source: "docs" | "site", pathSegments: string[]): Promise<{
   filePath: string;

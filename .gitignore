@@ -14,6 +14,7 @@ __pycache__
 /.venv
 /app/.next*
 /app/.generated
+/app/*.tsbuildinfo
 /app/node_modules
 /test/node_modules
 /test/playwright-report

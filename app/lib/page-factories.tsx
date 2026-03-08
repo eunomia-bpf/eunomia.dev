@@ -1,14 +1,11 @@
-import type { GetStaticPropsContext, GetStaticPropsResult } from "next";
-
 import { ArticleLayout } from "../components/ArticleLayout";
 import { CardGrid } from "../components/CardGrid";
 import { HomeLanding } from "../components/HomeLanding";
 import { MarkdownContent } from "../components/MarkdownContent";
-import { PageFooter } from "../components/PageFooter";
 import { SeoHead } from "../components/SeoHead";
 import { SiteChrome } from "../components/SiteChrome";
 import { canonicalAlternates } from "./seo";
-import type { GitMetadata, LandingCard, LandingPageData, LocaleAlternates, MarkdownPage } from "./content/types";
+import type { DocsPage, GitMetadata, LandingCard, LocaleAlternates } from "./content/types";
 import type { Locale } from "./site-data";
 
 export type HomeStat = {
@@ -29,6 +26,7 @@ export type HomePageData = {
   description: string;
   intro: string;
   cards: LandingCard[];
+  moreLinks: LandingCard[];
   stats: HomeStat[];
   spotlight: HomeSpotlight;
   sourcePath: string;
@@ -37,162 +35,39 @@ export type HomePageData = {
   alternates: LocaleAlternates;
 };
 
-export type CollectionPageProps<IndexPage extends LandingPageData, ArticlePage extends MarkdownPage> =
-  | {
-      kind: "index";
-      page: IndexPage;
-    }
-  | {
-      kind: "article";
-      page: ArticlePage;
-    };
-
-type CollectionStaticPropsConfig<IndexPage extends LandingPageData, ArticlePage extends MarkdownPage> = {
-  loadIndex: () => Promise<IndexPage>;
-  loadArticle: (slug: string[]) => Promise<ArticlePage | null>;
-};
-
-type CollectionPageViewProps<IndexPage extends LandingPageData, ArticlePage extends MarkdownPage> =
-  CollectionPageProps<IndexPage, ArticlePage> & {
-    locale: Locale;
-    eyebrow: string;
-  };
-
-type SectionPageViewProps = {
-  page: MarkdownPage;
-  section: string;
-  locale: Locale;
-};
-
 function getTocTitle(locale: Locale): string {
   return locale === "zh" ? "本页目录" : "On this page";
 }
 
-function renderCollectionContent<IndexPage extends LandingPageData, ArticlePage extends MarkdownPage>(
-  kind: CollectionPageProps<IndexPage, ArticlePage>["kind"],
-  page: IndexPage | ArticlePage,
-  locale: Locale
-) {
-  if (kind === "index") {
-    const indexPage = page as IndexPage;
-    return (
-      <>
-        <section className="pb-8">
-          <article>
-            <MarkdownContent html={indexPage.introHtml} />
-            <PageFooter
-              locale={locale}
-              title={indexPage.title}
-              path={indexPage.path}
-              sourceHref={indexPage.sourcePath}
-              metadata={indexPage.metadata}
-            />
-          </article>
-        </section>
-        <CardGrid cards={indexPage.cards} />
-      </>
-    );
-  }
-
-  const articlePage = page as ArticlePage;
+function renderDocsBody(page: DocsPage, locale: Locale) {
   return (
     <ArticleLayout
       locale={locale}
-      path={articlePage.path}
-      title={articlePage.title}
-      description={articlePage.description}
-      sourceHref={articlePage.sourcePath}
-      metadata={articlePage.metadata}
-      headings={articlePage.headings}
-      continuation={articlePage.continuation}
+      path={page.path}
+      title={page.title}
+      description={page.description}
+      sourceHref={page.sourcePath}
+      metadata={page.metadata}
+      headings={page.layout === "document" ? page.headings : []}
+      continuation={page.layout === "document" ? page.continuation : undefined}
       tocTitle={getTocTitle(locale)}
+      showBreadcrumbs={page.layout === "document"}
     >
-      <MarkdownContent html={articlePage.html} />
+      <MarkdownContent html={page.bodyHtml} />
+      {page.cards?.length ? <div className="mt-10"><CardGrid cards={page.cards} /></div> : null}
     </ArticleLayout>
   );
 }
 
-export function buildSlugStaticPaths(slugs: string[][]) {
-  return {
-    paths: slugs.map((slug) => ({
-      params: {
-        slug
-      }
-    })),
-    fallback: "blocking" as const
-  };
-}
-
-export function buildSectionStaticPaths(routes: Array<{ section: string; slug: string[] }>) {
-  return {
-    paths: routes.map((route) => ({
-      params: {
-        section: route.section,
-        slug: route.slug
-      }
-    })),
-    fallback: "blocking" as const
-  };
-}
-
-export async function loadCollectionStaticProps<IndexPage extends LandingPageData, ArticlePage extends MarkdownPage>(
-  params: GetStaticPropsContext["params"],
-  config: CollectionStaticPropsConfig<IndexPage, ArticlePage>
-): Promise<GetStaticPropsResult<CollectionPageProps<IndexPage, ArticlePage>>> {
-  const slug = Array.isArray(params?.slug) ? params.slug : [];
-
-  if (!slug.length) {
-    return {
-      props: {
-        kind: "index",
-        page: await config.loadIndex()
-      }
-    };
-  }
-
-  const page = await config.loadArticle(slug);
-  if (!page) {
-    return {
-      notFound: true
-    };
-  }
-
-  return {
-    props: {
-      kind: "article",
-      page
-    }
-  };
-}
-
-export async function loadSectionStaticProps(
-  params: GetStaticPropsContext["params"],
-  loadPage: (section: string, slug: string[]) => Promise<MarkdownPage | null>
-): Promise<GetStaticPropsResult<{ page: MarkdownPage; section: string }>> {
-  const section = typeof params?.section === "string" ? params.section : "";
-  const slug = Array.isArray(params?.slug) ? params.slug : [];
-  const page = await loadPage(section, slug);
-
-  if (!page) {
-    return {
-      notFound: true
-    };
-  }
-
-  return {
-    props: {
-      page,
-      section
-    }
-  };
-}
-
-export function CollectionPageView<IndexPage extends LandingPageData, ArticlePage extends MarkdownPage>({
-  kind,
+export function DocsPageView({
   page,
   locale,
   eyebrow
-}: CollectionPageViewProps<IndexPage, ArticlePage>) {
+}: {
+  page: DocsPage;
+  locale: Locale;
+  eyebrow: string;
+}) {
   return (
     <>
       <SeoHead
@@ -200,41 +75,13 @@ export function CollectionPageView<IndexPage extends LandingPageData, ArticlePag
         description={page.description}
         path={page.path}
         alternates={canonicalAlternates(page.alternates)}
-        article={kind === "article"}
+        article={page.layout === "document"}
         metadata={page.metadata}
         eyebrow={eyebrow}
       />
       <SiteChrome
         locale={locale}
         eyebrow={eyebrow}
-        title={page.title}
-        intro={page.description}
-        leadMode={kind === "index" ? "compact" : "none"}
-        currentPath={page.path}
-        sidebar={page.sidebar}
-        alternates={page.alternates}
-      >
-        {renderCollectionContent(kind, page, locale)}
-      </SiteChrome>
-    </>
-  );
-}
-
-export function SectionPageView({ page, section, locale }: SectionPageViewProps) {
-  return (
-    <>
-      <SeoHead
-        title={page.title}
-        description={page.description}
-        path={page.path}
-        alternates={canonicalAlternates(page.alternates)}
-        article
-        metadata={page.metadata}
-        eyebrow={section}
-      />
-      <SiteChrome
-        locale={locale}
-        eyebrow={section}
         title={page.title}
         intro={page.description}
         leadMode="none"
@@ -242,19 +89,7 @@ export function SectionPageView({ page, section, locale }: SectionPageViewProps)
         sidebar={page.sidebar}
         alternates={page.alternates}
       >
-        <ArticleLayout
-          locale={locale}
-          path={page.path}
-          title={page.title}
-          description={page.description}
-          sourceHref={page.sourcePath}
-          metadata={page.metadata}
-          headings={page.headings}
-          continuation={page.continuation}
-          tocTitle={getTocTitle(locale)}
-        >
-          <MarkdownContent html={page.html} />
-        </ArticleLayout>
+        {renderDocsBody(page, locale)}
       </SiteChrome>
     </>
   );

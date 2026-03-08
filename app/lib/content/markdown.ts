@@ -4,7 +4,7 @@ import path from "node:path";
 import matter from "gray-matter";
 
 import { useContentCache } from "./cache";
-import { docsRoot } from "./fs-index";
+import { docsRoot } from "./roots";
 import { slugifyTitle } from "./source";
 import type { ParsedMarkdown } from "./types";
 

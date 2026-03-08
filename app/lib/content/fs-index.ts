@@ -1,11 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
 
+import { docsRoot, siteRoot } from "./roots";
 import { useContentCache } from "./cache";
-
-const repoRoot = path.resolve(process.cwd(), "..");
-export const docsRoot = path.join(repoRoot, "docs");
-export const siteRoot = path.join(repoRoot, "site");
 
 const excludedGenericSections = new Set(["assets", "img", "blog", "blogs", "tutorials"]);
 

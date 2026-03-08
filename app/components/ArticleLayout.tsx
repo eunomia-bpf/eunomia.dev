@@ -16,6 +16,7 @@ type ArticleLayoutProps = PropsWithChildren<{
   headings?: HeadingEntry[];
   continuation?: PageContinuation;
   tocTitle?: string;
+  showBreadcrumbs?: boolean;
 }>;
 
 export function ArticleLayout({
@@ -28,7 +29,8 @@ export function ArticleLayout({
   metadata,
   headings = [],
   continuation,
-  tocTitle = "On this page"
+  tocTitle = "On this page",
+  showBreadcrumbs = true
 }: ArticleLayoutProps) {
   const hasToc = headings.length > 0;
 
@@ -36,7 +38,9 @@ export function ArticleLayout({
     <section className="pb-16">
       <div className={hasToc ? "grid gap-8 xl:grid-cols-[minmax(0,1fr)_16rem]" : ""}>
         <article className="min-w-0">
-          <Breadcrumbs locale={locale} currentTitle={title} sectionLink={continuation?.index} />
+          {showBreadcrumbs ? (
+            <Breadcrumbs locale={locale} currentTitle={title} sectionLink={continuation?.index} />
+          ) : null}
           <h1 className="text-3xl font-semibold tracking-tight text-ink md:text-[2.6rem]">{title}</h1>
           <p className="mt-4 max-w-3xl text-base leading-7 text-slate-600 md:text-lg">{description}</p>
           <TableOfContents

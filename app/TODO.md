@@ -96,6 +96,16 @@ Status markers:
 - `[done]` Verify production parity against indexed and legacy routes.
 - `[done]` Isolate production build output from `.next` so `next dev` and `next start` can be validated side-by-side.
 
+## Phase 8: Maintainability Simplification
+
+- `[done]` Move primary navigation, home tracks, home explore links, and footer IA into one site registry.
+- `[done]` Replace the route-kind `switch` with a collection family registry shared by manifest expansion and route builders.
+- `[done]` Prebuild a document index and migrate metadata consumers off repeated ad-hoc `parseMarkdown` calls.
+- `[done]` Collapse non-home content rendering onto one `DocsPage` model and one docs shell.
+- `[done]` Remove implicit `process.cwd()` assumptions from content roots and make generated artifact paths explicit.
+- `[done]` Add a single `npm run verify` entry that covers typecheck, content tests, build, and audits.
+- `[done]` Make isolated `distDir` verification resilient by cleaning stale build artifacts before building.
+
 ## Current Working Order
 
 1. `[done]` Design the full system and backlog.
@@ -113,3 +123,8 @@ Status markers:
 13. `[done]` Prebuild static search indexes and keep the search UX/API compatible.
 14. `[done]` Codify sitemap rollout stages and rollback discipline.
 15. `[done]` Restore Mermaid parity and add real-doc fixture coverage.
+16. `[done]` Centralize site IA and footer/header discovery rules.
+17. `[done]` Introduce a collection family registry for manifest + route loader reuse.
+18. `[done]` Prebuild document metadata and reuse it across collections, navigation, sidebars, feeds, and search.
+19. `[done]` Collapse content pages onto one docs shell while keeping the homepage custom.
+20. `[done]` Add a single verification entry point and clean isolated `distDir` builds.

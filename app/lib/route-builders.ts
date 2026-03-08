@@ -12,15 +12,14 @@ import {
   resolveManifestRecordFromRoute
 } from "./content";
 import { renderFeed } from "./content/feed";
+import { getCollectionFamilyByKind, getContentEyebrow, type CollectionFamilyId } from "./content/registry";
 import { buildSearchSidebar } from "./content/sidebar";
 import { searchContent } from "./content/search";
-import type { SearchResult, SidebarGroup } from "./content/types";
+import type { DocsPage, SearchResult, SidebarGroup } from "./content/types";
 import type { HomePageData } from "./page-factories";
 import type { ContentPageProps } from "./page-builders";
 import { localizePath } from "./paths";
 import type { Locale } from "./site-data";
-
-type CollectionKind = "tutorial" | "blog" | "legacy-blog";
 
 type SearchPageProps = {
   query: string;
@@ -28,35 +27,26 @@ type SearchPageProps = {
   sidebar: SidebarGroup[];
 };
 
-function collectionEyebrow(kind: CollectionKind, locale: Locale): string {
-  if (locale === "zh") {
-    switch (kind) {
-      case "tutorial":
-        return "教程";
-      case "blog":
-        return "博客";
-      case "legacy-blog":
-        return "旧博客";
-      default: {
-        const unreachable: never = kind;
-        throw new Error(`unsupported collection kind: ${unreachable}`);
-      }
-    }
+const collectionLoaders: Record<
+  CollectionFamilyId,
+  {
+    loadIndex: (locale: Locale) => Promise<DocsPage>;
+    loadPage: (slug: string[] | undefined, locale: Locale) => Promise<DocsPage | null>;
   }
-
-  switch (kind) {
-    case "tutorial":
-      return "Tutorials";
-    case "blog":
-      return "Blog";
-    case "legacy-blog":
-      return "Legacy Blog";
-    default: {
-      const unreachable: never = kind;
-      throw new Error(`unsupported collection kind: ${unreachable}`);
-    }
+> = {
+  tutorial: {
+    loadIndex: loadTutorialIndex,
+    loadPage: loadTutorialPage
+  },
+  blog: {
+    loadIndex: loadBlogIndex,
+    loadPage: loadBlogPage
+  },
+  "legacy-blog": {
+    loadIndex: loadLegacyBlogIndex,
+    loadPage: loadLegacyBlogPage
   }
-}
+};
 
 function normalizeQuery(value: string | string[] | undefined): string {
   if (Array.isArray(value)) {
@@ -114,112 +104,46 @@ export function createContentPageRoute(locale: Locale) {
       };
     }
 
-    switch (record.kind) {
-      case "tutorial-index":
-        return {
-          props: {
-            routeKind: "collection",
-            eyebrow: collectionEyebrow("tutorial", locale),
-            content: {
-              kind: "index",
-              page: await loadTutorialIndex(locale)
-            }
-          }
-        };
-      case "tutorial-page": {
-        const page = await loadTutorialPage(record.slug, locale);
-        if (!page) {
-          return { notFound: true };
-        }
-        return {
-          props: {
-            routeKind: "collection",
-            eyebrow: collectionEyebrow("tutorial", locale),
-            content: {
-              kind: "article",
-              page
-            }
-          }
-        };
-      }
-      case "blog-index":
-        return {
-          props: {
-            routeKind: "collection",
-            eyebrow: collectionEyebrow("blog", locale),
-            content: {
-              kind: "index",
-              page: await loadBlogIndex(locale)
-            }
-          }
-        };
-      case "blog-page": {
-        const page = await loadBlogPage(record.slug, locale);
-        if (!page) {
-          return { notFound: true };
-        }
-        return {
-          props: {
-            routeKind: "collection",
-            eyebrow: collectionEyebrow("blog", locale),
-            content: {
-              kind: "article",
-              page
-            }
-          }
-        };
-      }
-      case "legacy-blog-index":
-        return {
-          props: {
-            routeKind: "collection",
-            eyebrow: collectionEyebrow("legacy-blog", locale),
-            content: {
-              kind: "index",
-              page: await loadLegacyBlogIndex(locale)
-            }
-          }
-        };
-      case "legacy-blog-page": {
-        const page = await loadLegacyBlogPage(record.slug, locale);
-        if (!page) {
-          return { notFound: true };
-        }
-        return {
-          props: {
-            routeKind: "collection",
-            eyebrow: collectionEyebrow("legacy-blog", locale),
-            content: {
-              kind: "article",
-              page
-            }
-          }
-        };
-      }
-      case "section-page": {
-        const section = record.section ?? "";
-        if (!section) {
-          return { notFound: true };
-        }
+    const family = getCollectionFamilyByKind(record.kind);
+    if (family) {
+      const loader = collectionLoaders[family.id];
+      const page =
+        record.kind === family.indexKind ? await loader.loadIndex(locale) : await loader.loadPage(record.slug, locale);
 
-        const page = await loadSectionPage(section, record.slug ?? [], locale);
-        if (!page) {
-          return { notFound: true };
-        }
-
-        return {
-          props: {
-            routeKind: "section",
-            section,
-            page
-          }
-        };
+      if (!page) {
+        return { notFound: true };
       }
-      default:
-        return {
-          notFound: true
-        };
+
+      return {
+        props: {
+          eyebrow: family.eyebrow(locale),
+          page
+        }
+      };
     }
+
+    if (record.kind !== "section-page") {
+      return {
+        notFound: true
+      };
+    }
+
+    const section = record.section ?? "";
+    if (!section) {
+      return { notFound: true };
+    }
+
+    const page = await loadSectionPage(section, record.slug ?? [], locale);
+    if (!page) {
+      return { notFound: true };
+    }
+
+    return {
+      props: {
+        eyebrow: getContentEyebrow(record, locale),
+        page
+      }
+    };
   };
 
   return {
