@@ -379,7 +379,7 @@ Completed work:
 - deploy only the exported static directory
 - keep the deployment contract strict so regressions back to API/SSR fail early
 - ship only after static-export parity checks pass
-- GitHub Actions runs `cd app && npm ci && npm run verify` before publishing
+- GitHub Actions installs the `test/` audit dependencies and Playwright Chromium, then runs `cd app && npm ci && npm run verify` before publishing
 - GitHub Actions publishes `app/out` to the dedicated `app-static-pages` branch so this handoff stays isolated from the legacy MkDocs deploy flow
 
 ## Definition of Done
