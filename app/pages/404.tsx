@@ -30,7 +30,7 @@ export default function NotFoundPage() {
   return (
     <>
       <Head>
-        <title>{copy.title} | eunomia</title>
+        <title>{`${copy.title} | eunomia`}</title>
         <meta name="robots" content="noindex,follow" />
       </Head>
       <SiteChrome locale={locale} eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro}>

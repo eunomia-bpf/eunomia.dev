@@ -19,7 +19,12 @@ const generatedPaths = [
 
 function removeIfPresent(relativePath) {
   const absolutePath = path.join(appDir, relativePath);
-  fs.rmSync(absolutePath, { recursive: true, force: true });
+  fs.rmSync(absolutePath, {
+    recursive: true,
+    force: true,
+    maxRetries: 5,
+    retryDelay: 100
+  });
 }
 
 for (const relativePath of generatedPaths) {

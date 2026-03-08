@@ -36,7 +36,19 @@ export async function getAvailablePort() {
 }
 
 function spawnAppScript(scriptName, { env, echoOutput = false } = {}) {
-  const child = spawn(process.env.npm_execpath ?? "npm", ["run", scriptName], {
+  const npmExecPath = process.env.npm_execpath;
+  const hasUsableNpmExecPath = npmExecPath && fs.existsSync(npmExecPath);
+  const fallbackNpmCommand = process.platform === "win32" ? "npm.cmd" : "npm";
+  const npmCommand =
+    hasUsableNpmExecPath && npmExecPath.endsWith(".js")
+      ? process.execPath
+      : hasUsableNpmExecPath
+        ? npmExecPath
+        : fallbackNpmCommand;
+  const npmArgs =
+    hasUsableNpmExecPath && npmExecPath.endsWith(".js") ? [npmExecPath] : [];
+
+  const child = spawn(npmCommand, [...npmArgs, "run", scriptName], {
     cwd: appDir,
     env: {
       ...process.env,

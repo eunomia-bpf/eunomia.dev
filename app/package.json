@@ -9,10 +9,10 @@
     "generate:static-metadata": "tsx scripts/generate-static-metadata.ts",
     "generate:content-artifacts": "npm run clean:generated && npm run generate:content-index && npm run generate:search-index && npm run generate:static-assets && npm run generate:static-metadata",
     "dev": "npm run generate:content-artifacts && next dev",
-    "build": "npm run generate:content-artifacts && next build && node -e \"const fs=require('fs'); const path=require('path'); const dist=path.resolve(process.cwd(), process.env.NEXT_DIST_DIR ?? '.next'); const out=path.resolve(process.cwd(), 'out'); fs.rmSync(out,{recursive:true,force:true}); fs.cpSync(dist,out,{recursive:true});\"",
+    "build": "npm run generate:content-artifacts && NEXT_DIST_DIR=${NEXT_DIST_DIR:-.static-builds/export} next build && NEXT_DIST_DIR=${NEXT_DIST_DIR:-.static-builds/export} node scripts/finalize-static-export.mjs",
     "start": "node scripts/assert-content-artifacts.mjs && node ../test/scripts/lib/static-server.mjs",
     "typecheck": "npm run generate:content-index && tsc --noEmit",
-    "test:content": "npm run generate:content-artifacts && node --import tsx --test tests/content.test.ts",
+    "test:content": "npm run generate:content-artifacts && node --import tsx --test --test-concurrency=1 tests/content.test.ts",
     "verify": "node scripts/verify.mjs"
   },
   "dependencies": {

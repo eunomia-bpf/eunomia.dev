@@ -36,7 +36,7 @@ function runCommand(cmd, args, options = {}) {
 async function main() {
   const port = await getAvailablePort();
   const baseUrl = `http://127.0.0.1:${port}`;
-  const distDir = process.env.NEXT_DIST_DIR ?? ".next-verify";
+  const distDir = process.env.NEXT_DIST_DIR ?? ".next";
   const distPath = path.resolve(appDir, distDir);
 
   await runCommand("npm", ["run", "typecheck"]);

@@ -365,6 +365,14 @@ test("writeSearchIndexes emits public static search assets", () => {
     const outputs = writeSearchIndexes(tempDir);
 
     assert.equal(outputs.length, 2);
+    assert.ok(fs.existsSync(path.join(tempDir, "en.json")));
+    assert.ok(fs.existsSync(path.join(tempDir, "zh.json")));
+
+    execFileSync(process.env.npm_execpath ?? "npm", ["run", "generate:search-index"], {
+      cwd: process.cwd(),
+      stdio: "ignore"
+    });
+
     assert.ok(fs.existsSync(path.join(process.cwd(), "public", "search-index", "en.json")));
     assert.ok(fs.existsSync(path.join(process.cwd(), "public", "search-index", "zh.json")));
 
