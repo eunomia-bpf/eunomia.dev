@@ -1,34 +1,18 @@
 import { ArticleLayout } from "../components/ArticleLayout";
 import { CardGrid } from "../components/CardGrid";
 import { HomeLanding } from "../components/HomeLanding";
-import { MarkdownContent } from "../components/MarkdownContent";
 import { SeoHead } from "../components/SeoHead";
 import { SiteChrome } from "../components/SiteChrome";
 import { canonicalAlternates } from "./seo";
-import type { DocsPage, GitMetadata, LandingCard, LocaleAlternates } from "./content/types";
+import { MarkdownContent } from "../components/MarkdownContent";
+import type { DocsPage, GitMetadata, LocaleAlternates } from "./content/types";
 import type { Locale } from "./site-data";
-
-export type HomeStat = {
-  label: string;
-  value: string;
-  detail: string;
-};
-
-export type HomeSpotlight = {
-  title: string;
-  description: string;
-  href: string;
-  badge: string;
-};
 
 export type HomePageData = {
   title: string;
   description: string;
   intro: string;
-  cards: LandingCard[];
-  moreLinks: LandingCard[];
-  stats: HomeStat[];
-  spotlight: HomeSpotlight;
+  bodyHtml: string;
   sourcePath: string;
   metadata?: GitMetadata | null;
   path: string;
@@ -37,6 +21,10 @@ export type HomePageData = {
 
 function getTocTitle(locale: Locale): string {
   return locale === "zh" ? "本页目录" : "On this page";
+}
+
+function isThinBlogIndex(path: string): boolean {
+  return path === "/blog/" || path === "/zh/blog/";
 }
 
 function renderDocsBody(page: DocsPage, locale: Locale) {
@@ -54,9 +42,9 @@ function renderDocsBody(page: DocsPage, locale: Locale) {
       showBreadcrumbs={page.layout === "document"}
     >
       <MarkdownContent html={page.bodyHtml} />
-      {page.cards?.length ? (
+      {page.cards?.length && !isThinBlogIndex(page.path) ? (
         <section className="mt-12">
-          <CardGrid cards={page.cards} />
+          <CardGrid cards={page.cards} compact />
         </section>
       ) : null}
     </ArticleLayout>
@@ -123,9 +111,12 @@ export function HomePageView({
         eyebrow={eyebrow}
         title={page.title}
         intro={page.intro}
+        currentPath={page.path}
+        leadMode="none"
         alternates={page.alternates}
-        hero={<HomeLanding locale={locale} page={page} />}
-      />
+      >
+        <HomeLanding page={page} />
+      </SiteChrome>
     </>
   );
 }

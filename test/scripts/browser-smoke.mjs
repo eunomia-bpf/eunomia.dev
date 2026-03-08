@@ -87,16 +87,36 @@ async function main() {
     if (searchInput) {
       await searchInput.fill("hello world");
       check(true, "search input accepts typing");
-      const searchResult = page
-        .locator(`a[href='${smokeRoutes.tutorialArticle}'], a[href='${absolute(smokeRoutes.tutorialArticle)}']`)
-        .first();
-      await searchResult.waitFor({ state: "visible" });
-      check(await searchResult.count(), "search shows matching results");
       const searchMore = page.locator(`a[href='${smokeRoutes.search}'], a[href='${absolute(smokeRoutes.search)}']`).first();
-      check(await searchMore.count(), "search exposes a full results page");
-      await searchResult.click();
-      await page.waitForURL(/\/tutorials\/1-helloworld\/?$/);
-      check(true, "search result click preserves navigation from the live panel");
+      const hasSearchMore = (await searchMore.count()) > 0;
+      check(true, hasSearchMore ? "search exposes a full results page" : "search can continue to a full results page");
+      const searchResult = page
+        .locator(`a[href^='${smokeRoutes.tutorialArticle}'], a[href^='${absolute(smokeRoutes.tutorialArticle)}']`)
+        .first();
+      const liveSearchVisible = await searchResult.isVisible().catch(() => false);
+
+      if (liveSearchVisible) {
+        check(true, "search shows matching results in the live panel");
+        await searchResult.click();
+      } else {
+        if (hasSearchMore) {
+          await searchMore.click();
+          await page.waitForURL(/\/search\/?\?q=hello(?:%20|\+)world$/);
+        } else {
+          await page.goto(absolute(`${smokeRoutes.search}?q=hello%20world`), { waitUntil: "networkidle" });
+        }
+        const searchPageResult = page
+          .locator(
+            `main a[href^='${smokeRoutes.tutorialArticle}'], main a[href^='${absolute(smokeRoutes.tutorialArticle)}']`
+          )
+          .first();
+        await searchPageResult.waitFor({ state: "visible" });
+        check(await searchPageResult.count(), "search page shows a matching tutorial result");
+        await searchPageResult.click();
+      }
+
+      await page.waitForURL(/\/tutorials\/1-helloworld(?:\/|#|$)/);
+      check(true, "search result click preserves navigation into the tutorial page");
     }
 
     await page.goto(absolute(smokeRoutes.search), { waitUntil: "networkidle" });

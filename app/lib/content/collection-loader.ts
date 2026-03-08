@@ -2,12 +2,34 @@ import type { Locale } from "../site-data";
 import { buildCollectionContinuation, buildIndexLink } from "./navigation";
 import {
   getCollectionFamilyById,
+  getCollectionPageDescriptors,
   resolveCollectionPageSource,
   type CollectionFamilyDefinition,
   type CollectionFamilyId
 } from "./registry";
-import type { DocsPage } from "./types";
+import { buildCollectionSidebar } from "./sidebar";
+import type { DocsPage, LandingCard } from "./types";
+import { getDocument } from "./documents";
 import { loadDirectoryPage, loadDocumentPage, requireDocument, withContinuation } from "./page-loader-utils";
+
+function buildCollectionIndexCards(familyId: CollectionFamilyId, locale: Locale): LandingCard[] {
+  return getCollectionPageDescriptors(familyId)
+    .map((descriptor) => {
+      const source =
+        descriptor.sourceByLocale[locale] ?? descriptor.sourceByLocale.en ?? descriptor.sourceByLocale.zh ?? null;
+      if (!source) {
+        return null;
+      }
+
+      const document = getDocument(source);
+      return {
+        title: document.title,
+        description: document.description,
+        href: descriptor.buildPath(locale)
+      } satisfies LandingCard;
+    })
+    .filter((card): card is LandingCard => Boolean(card));
+}
 
 async function loadCollectionIndexPage(
   family: CollectionFamilyDefinition,
@@ -22,8 +44,8 @@ async function loadCollectionIndexPage(
     sourceRelative: document.sourceRelative,
     publicPath: family.buildIndexPath(locale),
     locale,
-    cards: family.buildIndexCards(locale),
-    sidebar: family.buildSidebar(locale)
+    cards: buildCollectionIndexCards(family.id, locale),
+    sidebar: buildCollectionSidebar(family.id, locale)
   });
 }
 
@@ -52,7 +74,7 @@ async function loadCollectionArticlePage(
 
   return {
     ...withContinuation(page, continuation),
-    sidebar: family.buildSidebar(locale)
+    sidebar: buildCollectionSidebar(family.id, locale)
   };
 }
 

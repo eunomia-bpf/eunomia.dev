@@ -4,12 +4,20 @@ import test from "node:test";
 
 import { serveRawAsset } from "../lib/content/assets";
 import { getBlogEntries, getGenericSectionRouteEntries } from "../lib/content/collections";
+import { loadHomePage } from "../lib/content/home-loader";
 import { getContentModel } from "../lib/content/model";
 import { renderFeed } from "../lib/content/feed";
 import { getGitMetadata } from "../lib/content/git";
 import { resolveAlternatesFromDocSource, resolveManifestRecordFromRoute } from "../lib/content/manifest";
 import { splitMaterialBlocks } from "../lib/content/material-blocks";
-import { loadBlogPage, loadLegacyBlogPage, loadSectionPage, loadTutorialPage, resolveContentPage } from "../lib/content/loaders";
+import {
+  loadBlogIndex,
+  loadBlogPage,
+  loadLegacyBlogPage,
+  loadSectionPage,
+  loadTutorialPage,
+  resolveContentPage
+} from "../lib/content/loaders";
 import { assertSupportedMarkdown, parseMarkdown } from "../lib/content/markdown";
 import { getContentManifest } from "../lib/content/manifest";
 import { resolveCollectionPageSource } from "../lib/content/registry";
@@ -63,6 +71,14 @@ test("blog entries derive dated slugs from parsed metadata", () => {
   assert.deepEqual([entry.year, entry.month, entry.day], ["2026", "02", "17"]);
   assert.equal(entry.sourceByLocale.en, "blog/posts/agentcgroup-characterization.md");
   assert.equal(entry.sourceByLocale.zh, undefined);
+});
+
+test("home page data is markdown-first and contains rendered home content", async () => {
+  const home = await loadHomePage("en");
+
+  assert.match(home.bodyHtml, /Unlock the Power of eBPF/);
+  assert.ok(!("cards" in home));
+  assert.ok(!("moreLinks" in home));
 });
 
 test("collection page sources resolve through the family registry", () => {
@@ -320,6 +336,15 @@ test("article loaders expose continuation links for collection discovery", async
   assert.ok(tutorialPage?.continuation?.next);
   assert.ok(blogPage?.continuation?.index);
   assert.equal(blogPage?.continuation?.index?.href, "/blog/");
+});
+
+test("collection index pages still expose generic cards and sidebars after registry cleanup", async () => {
+  const page = await loadBlogIndex("en");
+
+  assert.ok(page.cards && page.cards.length > 0);
+  assert.ok(page.cards?.every((card) => !card.badge));
+  assert.equal(page.sidebar?.[1]?.items[0]?.href, "/blog/");
+  assert.ok(page.sidebar?.[1]?.items.some((item) => item.href.includes("/blog/2026/")));
 });
 
 test("resolveContentPage resolves manifest-backed routes without route-layer switches", async () => {

@@ -1,9 +1,6 @@
-import { localizePath } from "../paths";
 import { routeRolloutPolicies } from "../rollout";
-import { getPrimaryNav } from "../site-ia";
 import type { Locale } from "../site-data";
-import { getBlogEntries, getLegacyBlogEntries, getTutorialDocSources, getTutorialReadmeSources } from "./collections";
-import { resolveDocument } from "./documents";
+import { getBlogEntries, getLegacyBlogEntries, getTutorialDocSources } from "./collections";
 import {
   buildBlogIndexPath,
   buildBlogPath,
@@ -17,7 +14,7 @@ import {
   resolveLocalizedSource,
   tutorialSourceToSlugSegments
 } from "./source";
-import type { ContentManifestKind, ContentManifestRecord, LandingCard, SidebarGroup, SidebarItem } from "./types";
+import type { ContentManifestKind, ContentManifestRecord } from "./types";
 
 export type CollectionFamilyId = "tutorial" | "blog" | "legacy-blog";
 
@@ -51,8 +48,6 @@ export type CollectionFamilyDefinition = {
   buildIndexPath: (locale: Locale) => string;
   buildPagePath: (slug: string[], locale: Locale) => string;
   eyebrow: (locale: Locale) => string;
-  buildSidebar: (locale: Locale) => SidebarGroup[];
-  buildIndexCards: (locale: Locale) => LandingCard[];
   siteSection: {
     key: string;
     topLevelDir: string;
@@ -60,87 +55,6 @@ export type CollectionFamilyDefinition = {
   };
   getPageDescriptorsFromSource: () => CollectionPageDescriptor[];
 };
-
-function getSidebarCopy(locale: Locale) {
-  return locale === "zh"
-    ? {
-        browse: "导航",
-        tutorials: "教程",
-        blog: "博客",
-        legacyBlog: "旧博客"
-      }
-    : {
-        browse: "Browse",
-        tutorials: "Tutorials",
-        blog: "Blog",
-        legacyBlog: "Legacy Blog"
-      };
-}
-
-function buildPrimaryGroup(locale: Locale): SidebarGroup {
-  const copy = getSidebarCopy(locale);
-
-  return {
-    title: copy.browse,
-    items: [
-      ...getPrimaryNav(locale).map((item) => ({
-        title: item.label,
-        href: item.href
-      })),
-      {
-        title: copy.legacyBlog,
-        href: localizePath("/blogs/", locale)
-      }
-    ]
-  };
-}
-
-function descriptorToSidebarItem(descriptor: CollectionPageDescriptor, locale: Locale): SidebarItem | null {
-  const source =
-    descriptor.sourceByLocale[locale] ?? descriptor.sourceByLocale.en ?? descriptor.sourceByLocale.zh ?? null;
-  if (!source) {
-    return null;
-  }
-
-  const document = resolveDocument(source, locale);
-  if (!document) {
-    return null;
-  }
-
-  return {
-    title: document.title,
-    href: descriptor.buildPath(locale),
-    depth: descriptor.slug.length
-  };
-}
-
-function buildCollectionSidebar(
-  familyId: CollectionFamilyId,
-  locale: Locale,
-  title: string,
-  indexSource: string,
-  indexHref: string
-): SidebarGroup[] {
-  const indexTitle = resolveDocument(indexSource, locale)?.title ?? title;
-  const items = getCollectionPageDescriptors(familyId)
-    .map((descriptor) => descriptorToSidebarItem(descriptor, locale))
-    .filter((item): item is SidebarItem => Boolean(item));
-
-  return [
-    buildPrimaryGroup(locale),
-    {
-      title,
-      items: [
-        {
-          title: indexTitle,
-          href: indexHref,
-          depth: 0
-        },
-        ...items
-      ]
-    }
-  ];
-}
 
 const collectionFamilies: CollectionFamilyDefinition[] = [
   {
@@ -156,23 +70,6 @@ const collectionFamilies: CollectionFamilyDefinition[] = [
     buildIndexPath: buildTutorialIndexPath,
     buildPagePath: buildTutorialPath,
     eyebrow: (locale) => (locale === "zh" ? "教程" : "Tutorials"),
-    buildSidebar: (locale) =>
-      buildCollectionSidebar("tutorial", locale, getSidebarCopy(locale).tutorials, "tutorials/index.md", buildTutorialIndexPath(locale)),
-    buildIndexCards: (locale) =>
-      getTutorialReadmeSources().map((sourceRelative) => {
-        const tutorial = resolveDocument(sourceRelative, locale);
-        if (!tutorial) {
-          throw new Error(`Missing tutorial index card source for ${sourceRelative} (${locale})`);
-        }
-        const slug = tutorialSourceToSlugSegments(sourceRelative);
-
-        return {
-          title: tutorial.title,
-          description: tutorial.description,
-          href: buildTutorialPath(slug, locale),
-          badge: slug.join("/")
-        };
-      }),
     siteSection: {
       key: "tutorials",
       topLevelDir: "tutorials",
@@ -218,15 +115,6 @@ const collectionFamilies: CollectionFamilyDefinition[] = [
       return buildBlogPath(year ?? "", month ?? "", day ?? "", key ?? "", locale);
     },
     eyebrow: (locale) => (locale === "zh" ? "博客" : "Blog"),
-    buildSidebar: (locale) =>
-      buildCollectionSidebar("blog", locale, getSidebarCopy(locale).blog, "blog/index.md", buildBlogIndexPath(locale)),
-    buildIndexCards: (locale) =>
-      getBlogEntries().map((entry) => ({
-        title: entry.title,
-        description: entry.description,
-        href: buildBlogPath(entry.year, entry.month, entry.day, entry.slug, locale),
-        badge: `${entry.year}-${entry.month}-${entry.day}`
-      })),
     siteSection: {
       key: "blog",
       topLevelDir: "blog",
@@ -261,21 +149,6 @@ const collectionFamilies: CollectionFamilyDefinition[] = [
     buildIndexPath: buildLegacyBlogIndexPath,
     buildPagePath: (slug, locale) => buildLegacyBlogPath(slug[0] ?? "", locale),
     eyebrow: (locale) => (locale === "zh" ? "旧博客" : "Legacy Blog"),
-    buildSidebar: (locale) =>
-      buildCollectionSidebar(
-        "legacy-blog",
-        locale,
-        getSidebarCopy(locale).legacyBlog,
-        "blogs/index.md",
-        buildLegacyBlogIndexPath(locale)
-      ),
-    buildIndexCards: (locale) =>
-      getLegacyBlogEntries().map((entry) => ({
-        title: entry.title,
-        description: entry.description,
-        href: buildLegacyBlogPath(entry.key, locale),
-        badge: "Legacy"
-      })),
     siteSection: {
       key: "legacy-blog",
       topLevelDir: "blogs",

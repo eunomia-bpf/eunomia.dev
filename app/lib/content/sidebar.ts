@@ -4,6 +4,7 @@ import type { Locale } from "../site-data";
 import { getTutorialDocSources } from "./collections";
 import { getDocument, resolveDocument } from "./documents";
 import { getContentManifest } from "./manifest";
+import { getCollectionFamilyById, getCollectionPageDescriptors, type CollectionFamilyId } from "./registry";
 import { resolveLocalizedSource } from "./source";
 import type { ContentManifestRecord, SidebarGroup, SidebarItem } from "./types";
 
@@ -63,6 +64,61 @@ function recordToSidebarItem(record: ContentManifestRecord, locale: Locale): Sid
     href,
     depth: record.slug?.length ?? 0
   };
+}
+
+function descriptorToSidebarItem(
+  familyId: CollectionFamilyId,
+  locale: Locale
+) {
+  return function toSidebarItem(descriptor: ReturnType<typeof getCollectionPageDescriptors>[number]): SidebarItem | null {
+    const source =
+      descriptor.sourceByLocale[locale] ?? descriptor.sourceByLocale.en ?? descriptor.sourceByLocale.zh ?? null;
+    if (!source) {
+      return null;
+    }
+
+    const document = resolveDocument(source, locale);
+    if (!document) {
+      return null;
+    }
+
+    return {
+      title: document.title,
+      href: descriptor.buildPath(locale),
+      depth: familyId === "tutorial" ? descriptor.slug.length : 0
+    };
+  };
+}
+
+export function buildCollectionSidebar(
+  familyId: CollectionFamilyId,
+  locale: Locale
+): SidebarGroup[] {
+  const family = getCollectionFamilyById(familyId);
+  if (!family) {
+    throw new Error(`Unknown collection family: ${familyId}`);
+  }
+
+  const items = getCollectionPageDescriptors(familyId)
+    .map(descriptorToSidebarItem(familyId, locale))
+    .filter((item): item is SidebarItem => Boolean(item));
+
+  const indexTitle = resolveDocument(family.indexSource, locale)?.title ?? family.eyebrow(locale);
+
+  return [
+    buildPrimaryGroup(locale),
+    {
+      title: family.eyebrow(locale),
+      items: [
+        {
+          title: indexTitle,
+          href: family.buildIndexPath(locale),
+          depth: 0
+        },
+        ...items
+      ]
+    }
+  ];
 }
 
 export function buildSectionSidebar(section: string, locale: Locale): SidebarGroup[] {
