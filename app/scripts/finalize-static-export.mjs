@@ -7,6 +7,7 @@ const outDir = path.resolve(appDir, "out");
 const publicDir = path.resolve(appDir, "public");
 
 const distIndexPath = path.join(distDir, "index.html");
+const outIndexPath = path.join(outDir, "index.html");
 
 function syncPublicDir() {
   if (!fs.existsSync(publicDir)) {
@@ -16,12 +17,12 @@ function syncPublicDir() {
   fs.cpSync(publicDir, outDir, { recursive: true });
 }
 
-if (!fs.existsSync(distIndexPath)) {
+if (!fs.existsSync(outIndexPath) && !fs.existsSync(distIndexPath)) {
   console.error(`No static export detected in ${outDir} or ${distDir}`);
   process.exit(1);
 }
 
-if (outDir !== distDir) {
+if (!fs.existsSync(outIndexPath) && outDir !== distDir) {
   fs.rmSync(outDir, { recursive: true, force: true });
   fs.cpSync(distDir, outDir, { recursive: true });
 }

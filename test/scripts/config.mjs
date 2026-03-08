@@ -1,10 +1,17 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const scriptDir = path.dirname(fileURLToPath(import.meta.url));
+const testDir = path.resolve(scriptDir, "..");
+const repoRoot = path.resolve(testDir, "..");
+
 export const baseUrl = new URL(process.env.BASE_URL ?? "https://eunomia.dev");
 export const requestTimeoutMs = Number(process.env.REQUEST_TIMEOUT_MS ?? "15000");
 export const maxPages = Number(process.env.MAX_PAGES ?? "50");
 export const maxAssets = Number(process.env.MAX_ASSETS ?? "140");
-export const appDir = process.env.APP_DIR ?? "/home/yunwei37/workspace/eunomia.dev/app";
+export const appDir = process.env.APP_DIR ?? path.join(repoRoot, "app");
 export const legacySitemapPath =
-  process.env.LEGACY_SITEMAP_PATH ?? "/home/yunwei37/workspace/eunomia.dev/site/sitemap.xml";
+  process.env.LEGACY_SITEMAP_PATH ?? path.join(testDir, "fixtures", "legacy-sitemap.xml");
 export const runtimeAuditDistDir = process.env.RUNTIME_AUDIT_DIST_DIR ?? ".next-runtime-audit";
 export const rolloutAuditDistDir = process.env.ROLLOUT_AUDIT_DIST_DIR ?? ".next-rollout-audit";
 

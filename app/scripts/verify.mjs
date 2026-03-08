@@ -33,6 +33,14 @@ function runCommand(cmd, args, options = {}) {
   });
 }
 
+async function ensureNodeModules(workingDir) {
+  if (fs.existsSync(path.join(workingDir, "node_modules"))) {
+    return;
+  }
+
+  await runCommand("npm", ["ci"], { cwd: workingDir });
+}
+
 async function main() {
   const port = await getAvailablePort();
   const baseUrl = `http://127.0.0.1:${port}`;
@@ -62,6 +70,7 @@ async function main() {
   });
 
   try {
+    await ensureNodeModules(testDir);
     await runCommand("npm", ["run", "audit:http"], { cwd: testDir, env: { BASE_URL: baseUrl } });
     await runCommand("npm", ["run", "audit:parity"], { cwd: testDir, env: { BASE_URL: baseUrl } });
     await runCommand("npm", ["run", "audit:browser"], { cwd: testDir, env: { BASE_URL: baseUrl } });

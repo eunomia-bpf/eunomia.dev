@@ -368,7 +368,9 @@ test("writeSearchIndexes emits public static search assets", () => {
     assert.ok(fs.existsSync(path.join(tempDir, "en.json")));
     assert.ok(fs.existsSync(path.join(tempDir, "zh.json")));
 
-    execFileSync(process.env.npm_execpath ?? "npm", ["run", "generate:search-index"], {
+    const npmCommand = process.platform === "win32" ? "npm.cmd" : "npm";
+
+    execFileSync(npmCommand, ["run", "generate:search-index"], {
       cwd: process.cwd(),
       stdio: "ignore"
     });
