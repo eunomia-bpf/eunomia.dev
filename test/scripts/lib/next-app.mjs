@@ -37,13 +37,21 @@ export async function getAvailablePort() {
 
 function spawnAppScript(scriptName, { env, echoOutput = false } = {}) {
   const fallbackNpmCommand = process.platform === "win32" ? "npm.cmd" : "npm";
+  const childEnv = {
+    ...process.env,
+    ...(env ?? {})
+  };
+
+  childEnv.PATH =
+    childEnv.PATH ??
+    childEnv.Path ??
+    process.env.PATH ??
+    process.env.Path ??
+    "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin";
 
   const child = spawn(fallbackNpmCommand, ["run", scriptName], {
     cwd: appDir,
-    env: {
-      ...process.env,
-      ...(env ?? {})
-    },
+    env: childEnv,
     stdio: ["ignore", "pipe", "pipe"]
   });
 
