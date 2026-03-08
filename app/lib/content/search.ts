@@ -6,10 +6,10 @@ import { useContentCache } from "./cache";
 import { getDocument } from "./documents";
 import { getContentManifest } from "./manifest";
 import { markdownToSearchText } from "./markdown";
-import { generatedSearchDir } from "./roots";
+import { appRoot, generatedSearchDir } from "./roots";
 import type { SearchResult } from "./types";
 
-type SearchDocument = SearchResult & {
+export type SearchDocument = SearchResult & {
   titleText: string;
   descriptionText: string;
   bodyTerms: string;
@@ -23,6 +23,7 @@ type SerializedSearchIndex = {
 
 const supportedLocales: Locale[] = ["en", "zh"];
 const searchIndexCache = new Map<Locale, SearchDocument[]>();
+const publicSearchDir = path.join(appRoot, "public", "search-index");
 
 function normalizeSearchValue(value: string): string {
   return value.toLowerCase().replace(/\s+/g, " ").trim();
@@ -216,32 +217,11 @@ function scoreDocument(document: SearchDocument, query: string, tokens: string[]
   return score;
 }
 
-export function writeSearchIndexes(outputDir: string = generatedSearchDir) {
-  fs.mkdirSync(outputDir, { recursive: true });
-
-  return supportedLocales.map((locale) => {
-    const documents = buildSearchDocumentsFromContent(locale);
-    const payload: SerializedSearchIndex = {
-      locale,
-      generatedAt: new Date().toISOString(),
-      documents
-    };
-
-    const filePath = searchIndexPath(locale, outputDir);
-    const tempPath = `${filePath}.tmp`;
-    fs.writeFileSync(tempPath, `${JSON.stringify(payload)}\n`, "utf8");
-    fs.renameSync(tempPath, filePath);
-    searchIndexCache.set(locale, documents);
-
-    return {
-      locale,
-      count: documents.length,
-      filePath
-    };
-  });
-}
-
-export function searchContent(query: string, locale: Locale, limit: number = 8): SearchResult[] {
+export function searchDocuments(
+  documents: SearchDocument[],
+  query: string,
+  limit: number = 8
+): SearchResult[] {
   const normalizedQuery = normalizeSearchValue(query);
   if (normalizedQuery.length < 2) {
     return [];
@@ -249,7 +229,7 @@ export function searchContent(query: string, locale: Locale, limit: number = 8):
 
   const tokens = normalizedQuery.split(" ").filter(Boolean);
 
-  return getSearchDocuments(locale)
+  return documents
     .map((document) => ({
       document,
       score: scoreDocument(document, normalizedQuery, tokens)
@@ -271,6 +251,48 @@ export function searchContent(query: string, locale: Locale, limit: number = 8):
       kind: document.kind,
       section: document.section
     }));
+}
+
+function writeSearchIndexPayload(
+  locale: Locale,
+  documents: SearchDocument[],
+  outputDir: string
+) {
+  fs.mkdirSync(outputDir, { recursive: true });
+  const filePath = searchIndexPath(locale, outputDir);
+  const tempPath = `${filePath}.tmp`;
+  const payload: SerializedSearchIndex = {
+    locale,
+    generatedAt: new Date().toISOString(),
+    documents
+  };
+
+  fs.writeFileSync(tempPath, `${JSON.stringify(payload)}\n`, "utf8");
+  fs.renameSync(tempPath, filePath);
+
+  return filePath;
+}
+
+export function writeSearchIndexes(outputDir: string = generatedSearchDir) {
+  fs.mkdirSync(outputDir, { recursive: true });
+  fs.mkdirSync(publicSearchDir, { recursive: true });
+
+  return supportedLocales.map((locale) => {
+    const documents = buildSearchDocumentsFromContent(locale);
+    const filePath = writeSearchIndexPayload(locale, documents, outputDir);
+    writeSearchIndexPayload(locale, documents, publicSearchDir);
+    searchIndexCache.set(locale, documents);
+
+    return {
+      locale,
+      count: documents.length,
+      filePath
+    };
+  });
+}
+
+export function searchContent(query: string, locale: Locale, limit: number = 8): SearchResult[] {
+  return searchDocuments(getSearchDocuments(locale), query, limit);
 }
 
 function getSearchDocuments(locale: Locale): SearchDocument[] {

@@ -2,7 +2,7 @@
 
 ## Goal
 
-Replace the current MkDocs rendering layer with a Next.js frontend while keeping:
+Replace the current MkDocs rendering layer with a static-export frontend while keeping:
 
 - stable URLs
 - static-first SEO behavior
@@ -12,6 +12,13 @@ Replace the current MkDocs rendering layer with a Next.js frontend while keeping
 - current analytics and sharing surfaces
 
 This document is the target architecture for the migration, not a description of the current stopgap code.
+
+Deployment is now locked:
+
+- `Cloudflare Pages static`
+- true static export only
+- no `API route`
+- no production server runtime
 
 The design goal is to imitate mature docs sites, not invent a new product shell. The main behavioral references are:
 
@@ -37,6 +44,7 @@ The design goal is to imitate mature docs sites, not invent a new product shell.
 - rewriting docs content into React pages
 - changing the authoring model away from Markdown
 - inventing a separate docs/blog product shell before parity is reached
+- depending on `next start`, response-writer pages, or any server runtime in production
 
 Homepage exception:
 
@@ -56,7 +64,13 @@ Route identity should be locale-agnostic first. Public URLs are derived from one
 
 ### 3. Framework-specific code stays thin
 
-The content pipeline should not depend on `getStaticProps`, `getStaticPaths`, or App Router APIs. Next.js should consume the content subsystem, not define it.
+The content pipeline should not depend on request-time Next.js APIs. Next.js should consume the content subsystem, not define it.
+
+That means:
+
+- no new `getServerSideProps`
+- no new `pages/api/*`
+- no feature whose delivery depends on a live application server after build completes
 
 ### 4. Unsupported syntax must fail loudly
 
@@ -77,6 +91,17 @@ The UI should optimize for familiar docs-site behavior:
 - restrained article footer
 
 Novelty is not a goal for parity-bound routes.
+
+### 7. Static export is the delivery model
+
+The site must be emitted as static files.
+
+That means:
+
+- page paths are enumerated at build time from the manifest
+- search consumes generated static artifacts
+- raw assets resolve to copied static files, not a proxy API
+- `robots.txt`, `sitemap.xml`, RSS/feed, and shared OG assets are emitted during build
 
 ## Target Module Layout
 
@@ -139,6 +164,11 @@ Required artifacts:
 - `manifest.json`
 - `site-sections.json`
 - `search/*.json`
+- static output files for:
+  - `robots.txt`
+  - `sitemap.xml`
+  - `feed.xml`
+  - `zh/feed.xml`
 
 ### Planned modules
 
@@ -259,7 +289,7 @@ Design notes:
 
 Owns:
 
-- raw asset serving resolution
+- raw asset export mapping
 - public asset URL building
 - MIME type mapping
 
@@ -307,6 +337,16 @@ The route manifest must preserve:
 ### Exit criteria for duplicated route files
 
 Do not add new `en` and `zh` route implementations once the shared route manifest exists. Shared page helpers should become the only allowed path for new page logic.
+
+### Build-time materialization
+
+Public routes must be materialized at build time from the manifest.
+
+Rules:
+
+- request-time slug resolution is not allowed in the target state
+- every exported page must have a manifest-backed static path
+- verification must fail if a manifest-backed path is missing from the export
 
 ## Site IA Model
 
@@ -384,7 +424,7 @@ Longer term:
 
 - metadata comes from the content subsystem, not from page components inventing their own rules
 - sitemap generation should be backed by a readiness gate
-- Open Graph images can start with a shared default but need a route-class-specific strategy later
+- Open Graph images must be static assets or bounded build-time generated outputs
 
 ## Redirect and Rewrite Strategy
 
@@ -408,14 +448,13 @@ Longer term:
 
 ### Requirement
 
-Manifest-based rendering needs an explicit freshness model, otherwise content updates can drift by locale or route class.
+Manifest-based export needs an explicit freshness model, otherwise content updates can drift by locale or route class.
 
 ### Design
 
-- default mode is full rebuild for static content until a more granular path is justified
-- if route-level revalidation is added later, it must be driven by manifest records and not ad hoc page logic
+- default mode is full rebuild for static content
 - authors, last-updated, and search index generation must use the same content snapshot as the page build
-- cache invalidation policy must be documented per route class before ISR or on-demand revalidation is introduced
+- no runtime revalidation policy is assumed in the target design
 
 ## Search
 
@@ -430,6 +469,7 @@ Manifest-based rendering needs an explicit freshness model, otherwise content up
 - production and verification should fail fast when search artifacts are missing
 - development may fall back to rebuild only where explicitly documented
 - search artifacts should stay compact; keep normalized terms, not unbounded full-text bodies
+- the search UI must not call a local API in the target state
 
 ## Git-backed Metadata
 
@@ -492,9 +532,19 @@ Design rule:
 
 - content-layer unit tests
 - Markdown fixture tests
-- payload-size regression check for large pages
+- export completeness checks
 - parity-stage gating for sitemap inclusion
 - rollout health signals by route class and locale
+- assertions that no `pages/api/*` and no `getServerSideProps` remain
+
+### Delivery checks
+
+Final verification must be static-first:
+
+- build/export the app
+- serve the exported directory from a dumb static server
+- run browser/link/SEO checks against that static server
+- do not treat `next start` as the release path
 
 ## Rollout Stages
 
@@ -570,5 +620,5 @@ If a route class regresses after cutover, the site needs a route-level fallback 
 3. Add content-layer tests against real fixtures.
 4. Lock down the Markdown trust/sanitization policy.
 5. Collapse duplicated locale route implementations onto shared helpers.
-6. Fill cutover-blocking parity features and fold payload-size work into that stage.
-7. Move to App Router only after the shared abstractions hold.
+6. Remove API and runtime delivery assumptions route class by route class.
+7. Finish the static export path and make the verifier/static preview path the only release contract.

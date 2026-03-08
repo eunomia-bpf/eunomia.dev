@@ -9,7 +9,7 @@
     "audit:links": "node scripts/link-crawl.mjs",
     "audit:runtime": "node scripts/runtime-audit.mjs",
     "audit:rollout": "node scripts/rollout-audit.mjs",
-    "audit": "npm run audit:http && npm run audit:parity && npm run audit:browser && npm run audit:links && npm run audit:runtime && npm run audit:rollout",
+    "audit": "npm run audit:http && npm run audit:parity && npm run audit:browser && npm run audit:links && npm run audit:runtime",
     "verify": "npm run audit"
   },
   "dependencies": {

@@ -4,6 +4,7 @@ import { createContentPageRoute } from "../../lib/route-builders";
 const contentPageRoute = createContentPageRoute("zh");
 const contentPage = createContentPage("zh");
 
-export const getServerSideProps = contentPageRoute.getServerSideProps;
+export const getStaticPaths = contentPageRoute.getStaticPaths;
+export const getStaticProps = contentPageRoute.getStaticProps;
 
 export default contentPage;

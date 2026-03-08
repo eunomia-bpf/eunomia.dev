@@ -2,12 +2,15 @@
   "name": "eunomia-custom-web",
   "private": true,
   "scripts": {
+    "clean:generated": "node scripts/clean-generated-output.mjs",
     "generate:content-index": "tsx scripts/generate-content-index.ts",
     "generate:search-index": "tsx scripts/generate-search-index.ts",
-    "generate:content-artifacts": "npm run generate:content-index && npm run generate:search-index",
+    "generate:static-assets": "tsx scripts/generate-static-assets.ts",
+    "generate:static-metadata": "tsx scripts/generate-static-metadata.ts",
+    "generate:content-artifacts": "npm run clean:generated && npm run generate:content-index && npm run generate:search-index && npm run generate:static-assets && npm run generate:static-metadata",
     "dev": "npm run generate:content-artifacts && next dev",
-    "build": "npm run generate:content-artifacts && next build",
-    "start": "node scripts/assert-content-artifacts.mjs && next start",
+    "build": "npm run generate:content-artifacts && next build && node -e \"const fs=require('fs'); const path=require('path'); const dist=path.resolve(process.cwd(), process.env.NEXT_DIST_DIR ?? '.next'); const out=path.resolve(process.cwd(), 'out'); fs.rmSync(out,{recursive:true,force:true}); fs.cpSync(dist,out,{recursive:true});\"",
+    "start": "node scripts/assert-content-artifacts.mjs && node ../test/scripts/lib/static-server.mjs",
     "typecheck": "npm run generate:content-index && tsc --noEmit",
     "test:content": "npm run generate:content-artifacts && node --import tsx --test tests/content.test.ts",
     "verify": "node scripts/verify.mjs"

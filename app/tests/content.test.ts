@@ -1,8 +1,10 @@
 import assert from "node:assert/strict";
+import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 
-import { serveRawAsset } from "../lib/content/assets";
+import { getStaticAssetPublicPath, writeStaticAssets } from "../lib/content/assets";
 import { getBlogEntries, getGenericSectionRouteEntries } from "../lib/content/collections";
 import { loadHomePage } from "../lib/content/home-loader";
 import { getContentModel } from "../lib/content/model";
@@ -23,10 +25,13 @@ import { getContentManifest } from "../lib/content/manifest";
 import { resolveCollectionPageSource } from "../lib/content/registry";
 import { renderMarkdown, renderMarkdownBody, renderMarkdownDocument } from "../lib/content/render";
 import { docPathToRoute, getGenericSectionRoutes, listSitemapRoutes } from "../lib/content/routes";
-import { loadSearchDocuments, searchContent } from "../lib/content/search";
+import { loadSearchDocuments, searchContent, writeSearchIndexes } from "../lib/content/search";
 import { rewriteContentUrl } from "../lib/content/rewrite";
 import { resolveLocalizedSource, slugifyTitle } from "../lib/content/source";
+import { absoluteUrl, ogImageUrl, STATIC_OG_IMAGE_PATH } from "../lib/seo";
 import { getPrimaryNav, getSiteSections } from "../lib/site-ia";
+import { createContentPageRoute } from "../lib/route-builders";
+import { writeStaticMetadata } from "../scripts/generate-static-metadata";
 
 test("resolveLocalizedSource prefers zh variant when present", () => {
   assert.equal(
@@ -103,10 +108,10 @@ test("parseMarkdown only strips a leading document H1", () => {
   assert.match(page.body, /# download the latest release \(aka\.pw\/bpf-ecli redirects to the current GitHub release asset\)/);
 });
 
-test("rewriteContentUrl rewrites nested relative asset paths to the raw asset endpoint", () => {
+test("rewriteContentUrl rewrites nested relative asset paths to the static asset path", () => {
   assert.equal(
     rewriteContentUrl("./tcpconnlat1.png", "tutorials/13-tcpconnlat/README.md", "en"),
-    "/api/raw-assets/docs/tutorials/13-tcpconnlat/tcpconnlat1.png"
+    "/_content-assets/docs/tutorials/13-tcpconnlat/tcpconnlat1.png"
   );
 });
 
@@ -129,10 +134,27 @@ test("parseMarkdown extracts stable metadata from docs content", () => {
   assert.notEqual(page.description.length, 0);
 });
 
-test("serveRawAsset resolves docs assets with the right mime type", async () => {
-  const asset = await serveRawAsset("docs", ["tutorials", "13-tcpconnlat", "tcpconnlat1.png"]);
-  assert.ok(asset);
-  assert.equal(asset.contentType, "image/png");
+test("getStaticAssetPublicPath generates stable public URLs", () => {
+  assert.equal(
+    getStaticAssetPublicPath("docs", "tutorials/13-tcpconnlat/tcpconnlat1.png"),
+    "/_content-assets/docs/tutorials/13-tcpconnlat/tcpconnlat1.png"
+  );
+});
+
+test("writeStaticAssets copies docs and site assets into the static asset tree", () => {
+  const outputRoot = fs.mkdtempSync(path.join(os.tmpdir(), "eunomia-static-assets-"));
+  const indexPath = path.join(path.dirname(outputRoot), "static-assets.json");
+
+  try {
+    const result = writeStaticAssets(outputRoot, indexPath);
+    assert.ok(result.count > 0);
+    assert.ok(fs.existsSync(path.join(outputRoot, "docs", "tutorials", "13-tcpconnlat", "tcpconnlat1.png")));
+    assert.ok(fs.existsSync(path.join(outputRoot, "site", "tutorials", "29-sockops", "merbridge.png")));
+    assert.ok(fs.existsSync(indexPath));
+  } finally {
+    fs.rmSync(outputRoot, { recursive: true, force: true });
+    fs.rmSync(indexPath, { force: true });
+  }
 });
 
 test("content manifest keeps localized routes for english-only section pages", () => {
@@ -284,6 +306,26 @@ test("searchContent indexes fallback blog content for the zh locale", () => {
   );
 });
 
+test("writeSearchIndexes emits public static search assets", () => {
+  const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "eunomia-static-search-"));
+
+  try {
+    const outputs = writeSearchIndexes(tempDir);
+
+    assert.equal(outputs.length, 2);
+    assert.ok(fs.existsSync(path.join(process.cwd(), "public", "search-index", "en.json")));
+    assert.ok(fs.existsSync(path.join(process.cwd(), "public", "search-index", "zh.json")));
+
+    const payload = JSON.parse(
+      fs.readFileSync(path.join(process.cwd(), "public", "search-index", "en.json"), "utf8")
+    ) as { documents?: unknown[] };
+    assert.ok(Array.isArray(payload.documents));
+    assert.ok(payload.documents.length > 0);
+  } finally {
+    fs.rmSync(tempDir, { recursive: true, force: true });
+  }
+});
+
 test("loadSearchDocuments fails fast outside development when artifacts are missing", () => {
   const env = process.env as Record<string, string | undefined>;
   const previousNodeEnv = env.NODE_ENV;
@@ -360,6 +402,32 @@ test("resolveContentPage resolves manifest-backed routes without route-layer swi
   assert.match(section?.page.bodyHtml ?? "", /Install Dependencies/);
 });
 
+test("createContentPageRoute enumerates manifest-backed static paths", async () => {
+  const enRoute = createContentPageRoute("en");
+  const zhRoute = createContentPageRoute("zh");
+
+  const enPaths = await enRoute.getStaticPaths({});
+  const zhPaths = await zhRoute.getStaticPaths({});
+
+  assert.equal(enPaths.fallback, false);
+  assert.equal(zhPaths.fallback, false);
+
+  const englishSlugs = new Set(
+    (enPaths.paths as Array<{ params?: { slug?: string[] } }>).map((entry) => `/${(entry.params?.slug ?? []).join("/")}/`)
+  );
+  const zhSlugs = new Set(
+    (zhPaths.paths as Array<{ params?: { slug?: string[] } }>).map((entry) => `/zh/${(entry.params?.slug ?? []).join("/")}/`)
+  );
+
+  assert.ok(!englishSlugs.has("//"));
+  assert.ok(!zhSlugs.has("/zh//"));
+  assert.ok(englishSlugs.has("/tutorials/1-helloworld/"));
+  assert.ok(englishSlugs.has("/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/"));
+  assert.ok(englishSlugs.has("/eunomia-bpf/setup/build/"));
+  assert.ok(zhSlugs.has("/zh/tutorials/1-helloworld/"));
+  assert.ok(zhSlugs.has("/zh/eunomia-bpf/setup/build/"));
+});
+
 test("nested tutorial pages preserve deep relative links", async () => {
   const page = await loadTutorialPage(["38-btf-uprobe", "test-verify"], "en");
 
@@ -430,6 +498,36 @@ test("renderFeed emits a stable RSS document", () => {
   assert.match(xml, /<channel>/);
   assert.match(xml, /<item>/);
   assert.match(xml, /https:\/\/eunomia\.dev\/blog\//);
+});
+
+test("static metadata generation emits feed, sitemap, robots, and shared OG assets", () => {
+  const publicDir = fs.mkdtempSync(path.join(os.tmpdir(), "eunomia-static-metadata-public-"));
+  const indexPath = path.join(os.tmpdir(), `eunomia-static-metadata-${Date.now()}.json`);
+
+  try {
+    const result = writeStaticMetadata({
+      publicDir,
+      indexPath
+    });
+
+    assert.deepEqual(result.files, ["feed.xml", path.join("zh", "feed.xml"), "sitemap.xml", "robots.txt", path.join("og", "default.svg")]);
+    assert.ok(fs.existsSync(indexPath));
+    assert.match(fs.readFileSync(path.join(publicDir, "feed.xml"), "utf8"), /<rss version="2.0">/);
+    assert.match(fs.readFileSync(path.join(publicDir, "zh", "feed.xml"), "utf8"), /<language>zh-CN<\/language>/);
+    assert.match(fs.readFileSync(path.join(publicDir, "sitemap.xml"), "utf8"), /<loc>https:\/\/eunomia\.dev\//);
+    assert.match(fs.readFileSync(path.join(publicDir, "robots.txt"), "utf8"), /Sitemap: https:\/\/eunomia\.dev\/sitemap\.xml/);
+    assert.match(fs.readFileSync(path.join(publicDir, "og", "default.svg"), "utf8"), /Static OG image shared by all pages/);
+  } finally {
+    fs.rmSync(publicDir, { recursive: true, force: true });
+    fs.rmSync(indexPath, { force: true });
+  }
+});
+
+test("ogImageUrl resolves to the shared static OG asset instead of a runtime API", () => {
+  const ogImage = ogImageUrl("Anything", "Ignored");
+
+  assert.equal(ogImage, absoluteUrl(STATIC_OG_IMAGE_PATH));
+  assert.doesNotMatch(ogImage, /\/api\/og/);
 });
 
 test("searchContent includes heading-level anchor results", () => {
@@ -519,7 +617,7 @@ test("renderMarkdownBody rewrites local asset URLs inside allowed raw HTML", asy
     "en"
   );
 
-  assert.match(html, /\/api\/raw-assets\/docs\/tutorials\/13-tcpconnlat\/tcpconnlat1\.png/);
+  assert.match(html, /\/_content-assets\/docs\/tutorials\/13-tcpconnlat\/tcpconnlat1\.png/);
 });
 
 test("renderMarkdownBody strips unsafe raw HTML and dangerous URLs", async () => {

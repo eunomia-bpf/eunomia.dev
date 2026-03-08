@@ -1,31 +1,154 @@
 import fs from "node:fs";
 import path from "node:path";
 
-import { docsRoot, siteRoot } from "./roots";
+import { getDocsFileSet, getSiteFileSet } from "./fs-index";
+import { appRoot, docsRoot, generatedContentDir, siteRoot } from "./roots";
 
-export async function serveRawAsset(source: "docs" | "site", pathSegments: string[]): Promise<{
+export type StaticAssetSource = "docs" | "site";
+
+export type StaticAssetEntry = {
+  source: StaticAssetSource;
+  relativePath: string;
+  sourcePath: string;
+  publicPath: string;
+  outputPath: string;
+};
+
+type SerializedStaticAssetIndex = {
+  generatedAt: string;
+  assetBasePath: string;
+  outputRoot: string;
+  assets: Array<{
+    source: StaticAssetSource;
+    relativePath: string;
+    publicPath: string;
+  }>;
+};
+
+const assetExtensions = new Set([
+  ".avif",
+  ".gif",
+  ".jpeg",
+  ".jpg",
+  ".json",
+  ".pdf",
+  ".png",
+  ".svg",
+  ".txt",
+  ".webm",
+  ".webp",
+  ".xml",
+  ".yml",
+  ".yaml"
+]);
+
+export const staticAssetBasePath = "/_content-assets";
+export const staticAssetOutputRoot = path.join(appRoot, "public", staticAssetBasePath.replace(/^\/+/, ""));
+export const staticAssetIndexPath = path.join(generatedContentDir, "static-assets.json");
+
+function normalizeRelativePath(relativePath: string): string {
+  return path.posix.normalize(relativePath).replace(/^(\.\.(\/|\\|$))+/, "");
+}
+
+function rootFor(source: StaticAssetSource): string {
+  return source === "docs" ? docsRoot : siteRoot;
+}
+
+export function isStaticAssetPath(relativePath: string): boolean {
+  return assetExtensions.has(path.posix.extname(relativePath).toLowerCase());
+}
+
+export function getStaticAssetPublicPath(source: StaticAssetSource, relativePath: string): string {
+  return `${staticAssetBasePath}/${source}/${normalizeRelativePath(relativePath)}`;
+}
+
+function buildStaticAssetEntries(
+  source: StaticAssetSource,
+  relativePaths: Iterable<string>,
+  outputRoot: string
+): StaticAssetEntry[] {
+  const root = rootFor(source);
+
+  return [...relativePaths]
+    .filter((relativePath) => isStaticAssetPath(relativePath))
+    .sort((left, right) =>
+      left.localeCompare(right, "en", {
+        numeric: true,
+        sensitivity: "base"
+      })
+    )
+    .map((relativePath) => {
+      const normalized = normalizeRelativePath(relativePath);
+
+      return {
+        source,
+        relativePath: normalized,
+        sourcePath: path.join(root, normalized),
+        publicPath: getStaticAssetPublicPath(source, normalized),
+        outputPath: path.join(outputRoot, source, normalized)
+      };
+    });
+}
+
+export function getStaticAssetEntries(outputRoot: string = staticAssetOutputRoot): StaticAssetEntry[] {
+  return [
+    ...buildStaticAssetEntries("docs", getDocsFileSet(), outputRoot),
+    ...buildStaticAssetEntries("site", getSiteFileSet(), outputRoot)
+  ];
+}
+
+export function writeStaticAssets(
+  outputRoot: string = staticAssetOutputRoot,
+  indexPath: string = staticAssetIndexPath
+) {
+  const entries = getStaticAssetEntries(outputRoot);
+
+  fs.rmSync(outputRoot, { recursive: true, force: true });
+  fs.mkdirSync(outputRoot, { recursive: true });
+
+  for (const entry of entries) {
+    fs.mkdirSync(path.dirname(entry.outputPath), { recursive: true });
+    fs.copyFileSync(entry.sourcePath, entry.outputPath);
+  }
+
+  fs.mkdirSync(path.dirname(indexPath), { recursive: true });
+  const payload: SerializedStaticAssetIndex = {
+    generatedAt: new Date().toISOString(),
+    assetBasePath: staticAssetBasePath,
+    outputRoot,
+    assets: entries.map((entry) => ({
+      source: entry.source,
+      relativePath: entry.relativePath,
+      publicPath: entry.publicPath
+    }))
+  };
+  const tempPath = `${indexPath}.tmp`;
+  fs.writeFileSync(tempPath, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
+  fs.renameSync(tempPath, indexPath);
+
+  return {
+    count: entries.length,
+    outputRoot,
+    indexPath
+  };
+}
+
+export async function serveRawAsset(source: StaticAssetSource, pathSegments: string[]): Promise<{
   filePath: string;
   contentType: string;
 } | null> {
-  const root = source === "docs" ? docsRoot : siteRoot;
-  const realRoot = fs.realpathSync(root);
-  const relativePath = path.posix.normalize(pathSegments.join("/")).replace(/^(\.\.(\/|\\|$))+/, "");
+  const relativePath = normalizeRelativePath(pathSegments.join("/"));
+  const root = rootFor(source);
   const absolutePath = path.join(root, relativePath);
   const stats = fs.existsSync(absolutePath) ? fs.statSync(absolutePath) : null;
 
-  if (!absolutePath.startsWith(root) || !stats || stats.isDirectory()) {
-    return null;
-  }
-
-  const realPath = fs.realpathSync(absolutePath);
-  const relativeToRoot = path.relative(realRoot, realPath);
-  if (relativeToRoot.startsWith("..") || path.isAbsolute(relativeToRoot)) {
+  if (!stats || stats.isDirectory()) {
     return null;
   }
 
   return {
-    filePath: realPath,
-    contentType: mimeTypeFor(realPath)
+    filePath: absolutePath,
+    contentType: mimeTypeFor(absolutePath)
   };
 }
 

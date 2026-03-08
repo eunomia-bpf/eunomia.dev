@@ -4,6 +4,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { getAvailablePort, runNextBuild, startNextServer, stopNextServer } from "../../test/scripts/lib/next-app.mjs";
+import { assertStaticConstraintViolations } from "../../test/scripts/lib/static-constraints.mjs";
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const appDir = path.resolve(scriptDir, "..");
@@ -40,6 +41,7 @@ async function main() {
 
   await runCommand("npm", ["run", "typecheck"]);
   await runCommand("npm", ["run", "test:content"]);
+  assertStaticConstraintViolations(appDir);
   fs.rmSync(distPath, { recursive: true, force: true });
   const build = await runNextBuild({
     distDir,
@@ -49,6 +51,8 @@ async function main() {
   if (build.exitCode !== 0) {
     throw new Error(`next build exited with code ${build.exitCode}`);
   }
+  assertStaticConstraintViolations(appDir);
+  await runCommand("node", ["scripts/assert-content-artifacts.mjs"], { cwd: appDir });
 
   const server = await startNextServer({
     distDir,
@@ -67,7 +71,6 @@ async function main() {
   }
 
   await runCommand("npm", ["run", "audit:runtime"], { cwd: testDir });
-  await runCommand("npm", ["run", "audit:rollout"], { cwd: testDir });
 }
 
 await main();

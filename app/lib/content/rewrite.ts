@@ -3,6 +3,7 @@ import path from "node:path";
 import { visit } from "unist-util-visit";
 
 import type { Locale } from "../site-data";
+import { getStaticAssetPublicPath } from "./assets";
 import { getDocsFileSet, getSiteFileSet } from "./fs-index";
 import { resolveRouteFromDocSource } from "./manifest";
 import {
@@ -10,23 +11,6 @@ import {
   englishVariant,
   localizedVariant
 } from "./source";
-
-const assetExtensions = new Set([
-  ".avif",
-  ".gif",
-  ".jpeg",
-  ".jpg",
-  ".json",
-  ".pdf",
-  ".png",
-  ".svg",
-  ".txt",
-  ".webm",
-  ".webp",
-  ".xml",
-  ".yml",
-  ".yaml"
-]);
 
 function splitSuffix(value: string): { pathname: string; search: string; hash: string } {
   const hashIndex = value.indexOf("#");
@@ -51,10 +35,6 @@ function splitSuffix(value: string): { pathname: string; search: string; hash: s
   };
 }
 
-function looksLikeAsset(relativePath: string): boolean {
-  return assetExtensions.has(path.posix.extname(relativePath).toLowerCase());
-}
-
 function hasExplicitProtocol(value: string): boolean {
   return /^[a-z][a-z0-9+.-]*:/i.test(value);
 }
@@ -71,10 +51,6 @@ function isSafeExternalUrl(value: string): boolean {
   }
 
   return false;
-}
-
-export function toRawAssetPath(source: "docs" | "site", relativePath: string): string {
-  return `/api/raw-assets/${source}/${relativePath}`;
 }
 
 function resolveDocLinkCandidate(relativePath: string): string | null {
@@ -125,11 +101,11 @@ function rewriteAbsolutePath(value: string): string {
   }
 
   if (docsFiles.has(normalized)) {
-    return `${toRawAssetPath("docs", normalized)}${search}${hash}`;
+    return `${getStaticAssetPublicPath("docs", normalized)}${search}${hash}`;
   }
 
   if (siteFiles.has(normalized)) {
-    return `${toRawAssetPath("site", normalized)}${search}${hash}`;
+    return `${getStaticAssetPublicPath("site", normalized)}${search}${hash}`;
   }
 
   return `${pathname}${search}${hash}`;
@@ -150,11 +126,11 @@ function rewriteRelativePath(value: string, sourceRelativePath: string, locale: 
   }
 
   if (getDocsFileSet().has(resolved)) {
-    return `${toRawAssetPath("docs", resolved)}${search}${hash}`;
+    return `${getStaticAssetPublicPath("docs", resolved)}${search}${hash}`;
   }
 
   if (getSiteFileSet().has(resolved)) {
-    return `${toRawAssetPath("site", resolved)}${search}${hash}`;
+    return `${getStaticAssetPublicPath("site", resolved)}${search}${hash}`;
   }
 
   return `${pathname}${search}${hash}`;

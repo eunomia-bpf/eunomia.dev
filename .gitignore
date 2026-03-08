@@ -14,6 +14,15 @@ __pycache__
 /.venv
 /app/.next*
 /app/.generated
+/app/.static-builds
+/app/out
+/app/public/_content-assets
+/app/public/search-index
+/app/public/feed.xml
+/app/public/sitemap.xml
+/app/public/robots.txt
+/app/public/zh/feed.xml
+/app/public/og/default.svg
 /app/*.tsbuildinfo
 /app/node_modules
 /test/node_modules

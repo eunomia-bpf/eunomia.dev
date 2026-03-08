@@ -46,8 +46,15 @@ async function main() {
   const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
   const mobilePage = await browser.newPage({ viewport: { width: 390, height: 844 } });
+  const searchRequests = [];
   page.setDefaultTimeout(15000);
   mobilePage.setDefaultTimeout(15000);
+  page.on("request", (request) => {
+    const pathname = new URL(request.url()).pathname;
+    if (pathname.includes("/api/search") || pathname.includes("/search-index/")) {
+      searchRequests.push(pathname);
+    }
+  });
 
   try {
     await page.goto(absolute(smokeRoutes.home), { waitUntil: "networkidle" });
@@ -117,6 +124,14 @@ async function main() {
 
       await page.waitForURL(/\/tutorials\/1-helloworld(?:\/|#|$)/);
       check(true, "search result click preserves navigation into the tutorial page");
+      check(
+        !searchRequests.some((pathname) => pathname.includes("/api/search")),
+        "search does not call the runtime /api/search endpoint"
+      );
+      check(
+        searchRequests.some((pathname) => pathname.endsWith("/search-index/en.json")),
+        "search loads the prebuilt static search index"
+      );
     }
 
     await page.goto(absolute(smokeRoutes.search), { waitUntil: "networkidle" });

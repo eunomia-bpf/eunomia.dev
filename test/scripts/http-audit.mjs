@@ -34,11 +34,22 @@ async function auditFeed(pathname) {
   const { response, text } = await fetchText(url);
   check(response.ok, `${pathname}: feed is reachable`);
   check(
-    (response.headers.get("content-type") ?? "").includes("application/rss+xml"),
-    `${pathname}: feed content type is rss+xml`
+    /(application\/rss\+xml|application\/xml|text\/xml)/.test(response.headers.get("content-type") ?? ""),
+    `${pathname}: feed content type is XML-compatible`
   );
   check(text.includes("<rss"), `${pathname}: feed contains RSS markup`);
   check(text.includes("<item>"), `${pathname}: feed contains items`);
+}
+
+async function auditStaticOg() {
+  const url = pageUrl("/og/default.svg");
+  const { response, text } = await fetchText(url);
+  check(response.ok, "static OG image is reachable");
+  check(
+    (response.headers.get("content-type") ?? "").includes("image/svg+xml"),
+    "static OG image is served as SVG"
+  );
+  check(text.includes("<svg"), "static OG image contains SVG markup");
 }
 
 async function auditSitemap() {
@@ -67,6 +78,7 @@ function validateSeoDocument(url, text, sitemapPathSet) {
   const alternatesByLang = new Map(alternates.map((alternate) => [alternate.hreflang, alternate.href]));
   const rssFeed = $("link[rel='alternate'][type='application/rss+xml']").attr("href") ?? "";
   const expectedFeed = pathname.startsWith("/zh") ? pageUrl("/zh/feed.xml") : pageUrl("/feed.xml");
+  const ogImage = extractMeta($, "meta[property='og:image']");
 
   check(Boolean(($("title").text() ?? "").trim()), `${pathname}: title exists`);
   check(
@@ -79,7 +91,9 @@ function validateSeoDocument(url, text, sitemapPathSet) {
     Boolean(extractMeta($, "meta[property='og:description']")),
     `${pathname}: og:description exists`
   );
-  check(Boolean(extractMeta($, "meta[property='og:image']")), `${pathname}: og:image exists`);
+  check(Boolean(ogImage), `${pathname}: og:image exists`);
+  check(ogImage === pageUrl("/og/default.svg"), `${pathname}: og:image uses the shared static asset`);
+  check(!ogImage.includes("/api/og"), `${pathname}: og:image does not use a runtime API`);
   check(rssFeed === expectedFeed, `${pathname}: rss alternate matches locale feed`);
   check(
     alternatesByLang.get(expectedLang) === url,
@@ -131,6 +145,7 @@ async function main() {
   await auditRobots();
   await auditFeed("/feed.xml");
   await auditFeed("/zh/feed.xml");
+  await auditStaticOg();
   const paths = await auditSitemap();
   await auditSitemapPages(paths);
 

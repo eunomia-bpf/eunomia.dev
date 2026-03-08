@@ -9,6 +9,18 @@ Status markers:
 - `[done]` implemented and verified
 - `[blocked]` waiting on a prerequisite or decision
 
+## Static Export Lock
+
+Hard target:
+
+- `Cloudflare Pages static`
+- true static export only
+- no `pages/api/*`
+- no `getServerSideProps`
+- no production runtime server dependency
+
+All remaining work is ordered around removing API, SSR, and runtime assumptions until the app can be exported and served as static files only.
+
 ## Phase 0: Architecture Lock
 
 - `[done]` Split `lib/content.ts` into `content/*` modules as the first structural refactor.
@@ -123,35 +135,30 @@ Status markers:
 - `[doing]` Validate discovered-versus-published site IA overrides with fail-fast generation rules.
 - `[doing]` Keep search on compact generated artifacts and document the dev-versus-prod fallback rules.
 - `[todo]` Add a development watch flow so docs, IA, and search artifacts stay fresh without manual restart.
-- `[todo]` Revisit App Router only after docs-shell convergence and content artifact boundaries are stable.
+- `[todo]` Remove the remaining runtime delivery assumptions so docs-shell convergence sits on a true static-export base.
+
+## Phase 10: Static Export and Cloudflare Pages
+
+- `[doing]` Lock `static export only / no API / Cloudflare Pages static` into `README`, `ARCHITECTURE`, and `TODO`.
+- `[todo]` Remove `/api/search` and make quick search plus `/search` consume generated static search artifacts.
+- `[todo]` Remove `/api/raw-assets` and replace runtime proxying with build-time asset copying plus static URLs.
+- `[todo]` Remove `/api/og` and decide the static OG strategy.
+- `[todo]` Replace runtime `feed.xml`, `zh/feed.xml`, `sitemap.xml`, and `robots.txt` pages with build-time emitted static files.
+- `[todo]` Replace `getServerSideProps` content/search delivery with build-time path enumeration from the manifest.
+- `[todo]` Configure the app for true static export and add an export-oriented build contract.
+- `[todo]` Rewrite verification around exported files served from a dumb static server instead of `next start`.
+- `[todo]` Add explicit checks that no `pages/api/*` and no `getServerSideProps` remain.
+- `[todo]` Validate the exported artifact against Cloudflare Pages static assumptions before deployment handoff.
 
 ## Current Working Order
 
-1. `[done]` Design the full system and backlog.
-2. `[done]` Review the design iteratively with codex reviewers/subagents.
-3. `[done]` Implement the content subsystem split.
-4. `[done]` Add content-layer tests and finish migrating route/source lookups onto the manifest.
-5. `[done]` Harden the Markdown pipeline.
-6. `[done]` Implement heading extraction and article TOC data.
-7. `[done]` Implement syntax highlighting parity for fenced code blocks.
-8. `[done]` Restore search, git metadata, feedback CTA, and share actions.
-9. `[done]` Implement remaining Markdown cutover blockers: admonitions and tabs.
-10. `[done]` Collapse duplicated locale route logic.
-11. `[done]` Move oversized article routes off static payload generation while preserving URLs.
-12. `[done]` Verify build and audits still pass.
-13. `[done]` Prebuild static search indexes and keep the search UX/API compatible.
-14. `[done]` Codify sitemap rollout stages and rollback discipline.
-15. `[done]` Restore Mermaid parity and add real-doc fixture coverage.
-16. `[done]` Centralize site IA and footer/header discovery rules.
-17. `[done]` Introduce a collection family registry for manifest + route loader reuse.
-18. `[done]` Prebuild document metadata and reuse it across collections, navigation, sidebars, feeds, and search.
-19. `[done]` Collapse content pages onto one docs shell while keeping the homepage custom.
-20. `[done]` Add a single verification entry point and clean isolated `distDir` builds.
-21. `[done]` Separate section discovery from section publication in the generated site IA.
-22. `[done]` Make collection families the seed source for site IA taxonomy.
-23. `[done]` Split the monolithic loader file into focused loader modules.
-24. `[done]` Tighten search artifacts so only development can rebuild them on the fly.
-25. `[doing]` Collapse collection-family runtime behavior behind the registry.
-26. `[doing]` Shift collections and manifest toward generated artifacts.
-27. `[doing]` Converge the docs shell, homepage, and blog index toward mature docs-site patterns.
-28. `[todo]` Add docs-artifact watch mode for development.
+1. `[doing]` Lock the deployment constraint into docs and tooling: true static export, no API routes, no runtime server, Cloudflare Pages static target.
+2. `[todo]` Remove `/api/search` and make quick search plus `/search` consume generated static search artifacts.
+3. `[todo]` Remove `/api/raw-assets` and replace runtime proxying with build-time asset export.
+4. `[todo]` Remove `/api/og` and decide the static OG strategy.
+5. `[todo]` Emit `feed.xml`, `zh/feed.xml`, `sitemap.xml`, and `robots.txt` as build-time static files.
+6. `[todo]` Replace `getServerSideProps` content/search delivery with manifest-backed static path generation.
+7. `[todo]` Add a true static export build contract and stop treating `next start` as the release path.
+8. `[todo]` Rewrite verifier/browser/link audits around exported files served from a dumb static server.
+9. `[todo]` Add explicit regression checks that no `pages/api/*` and no `getServerSideProps` remain.
+10. `[todo]` Validate the exported artifact against Cloudflare Pages static deployment assumptions.

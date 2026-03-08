@@ -1,4 +1,7 @@
-import { requestTimeoutMs, runtimeAuditDistDir, runtimeAuditRoutes } from "./config.mjs";
+import fs from "node:fs";
+import path from "node:path";
+
+import { appDir, requestTimeoutMs, runtimeAuditDistDir, runtimeAuditRoutes } from "./config.mjs";
 import {
   extractLargePageWarnings,
   fetchStatus,
@@ -7,6 +10,10 @@ import {
   startNextServer,
   stopNextServer
 } from "./lib/next-app.mjs";
+import {
+  formatStaticConstraintFailures,
+  getStaticConstraintViolations
+} from "./lib/static-constraints.mjs";
 
 const failures = [];
 
@@ -30,7 +37,15 @@ async function main() {
   const port = await getAvailablePort();
   const runtimeBaseUrl = `http://127.0.0.1:${port}`;
 
-  console.log(`Auditing runtime warnings with ${runtimeBaseUrl}/`);
+  console.log(`Auditing static export delivery with ${runtimeBaseUrl}/`);
+
+  const staticConstraintViolations = getStaticConstraintViolations(appDir);
+  const staticConstraintFailures = formatStaticConstraintFailures(staticConstraintViolations);
+  check(staticConstraintViolations.apiRouteFiles.length === 0, "no pages/api route files remain");
+  check(staticConstraintViolations.getServerSidePropsFiles.length === 0, "no getServerSideProps usages remain");
+  for (const failure of staticConstraintFailures) {
+    console.error(`DETAIL ${failure}`);
+  }
 
   const buildOutput = await runNextBuild({
     distDir: runtimeAuditDistDir,
@@ -44,6 +59,9 @@ async function main() {
 
   const buildWarnings = extractLargePageWarnings(buildOutput.combined);
   check(buildWarnings.length === 0, "build output does not emit large page data warnings");
+  check(Boolean(buildOutput.exportDir), "static export directory is recorded");
+  check(fs.existsSync(path.join(buildOutput.exportDir, "index.html")), "static export writes the home page");
+  check(fs.existsSync(path.join(buildOutput.exportDir, "sitemap.xml")), "static export writes sitemap.xml");
 
   const server = await startNextServer({
     distDir: runtimeAuditDistDir,
@@ -53,18 +71,22 @@ async function main() {
   });
 
   try {
-    check(true, "runtime audit server becomes ready");
+    check(true, "static export server becomes ready");
 
     for (const pathname of runtimeAuditRoutes) {
       const response = await fetchStatus(new URL(pathname, runtimeBaseUrl));
-      check(response.ok, `runtime audit route reachable ${pathname}`);
+      check(response.ok, `static export route reachable ${pathname}`);
+    }
+
+    const forbiddenApiRoutes = ["/api/search", "/api/og", "/api/raw-assets/docs/README.md"];
+    for (const pathname of forbiddenApiRoutes) {
+      const response = await fetchStatus(new URL(pathname, runtimeBaseUrl));
+      check(!response.ok, `forbidden runtime endpoint stays unavailable ${pathname}`);
     }
 
     await delay(Math.min(requestTimeoutMs, 500));
   } finally {
-    const serverOutput = await stopNextServer(server);
-    const runtimeWarnings = extractLargePageWarnings(serverOutput.combined);
-    check(runtimeWarnings.length === 0, "runtime server output stays free of large page data warnings");
+    await stopNextServer(server);
   }
 
   if (failures.length) {
