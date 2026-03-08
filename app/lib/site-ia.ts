@@ -1,26 +1,11 @@
+import siteSectionPayload from "../.generated/content/site-sections.json";
+
+import { localizePath } from "./paths";
 import type { Locale } from "./site-data";
-import { buildBlogIndexPath, buildHomePath, buildLegacyBlogIndexPath, buildSectionPath, buildTutorialIndexPath } from "./content/route-paths";
+import type { SerializedSiteSectionDefinition, SiteSectionKey } from "./site-ia-source";
 
-export type SiteSectionKey =
-  | "tutorials"
-  | "blog"
-  | "legacy-blog"
-  | "bpftime"
-  | "GPTtrace"
-  | "eunomia-bpf"
-  | "others"
-  | "wasm-bpf";
-
-export type SiteSectionDefinition = {
-  key: SiteSectionKey;
-  labels: Record<Locale, string>;
-  indexSource: string;
+export type SiteSectionDefinition = SerializedSiteSectionDefinition & {
   href: (locale: Locale) => string;
-  nav?: boolean;
-  homeTrack?: boolean;
-  homeExplore?: boolean;
-  footerExplore?: boolean;
-  footerProject?: boolean;
 };
 
 type HomeCounts = {
@@ -29,77 +14,10 @@ type HomeCounts = {
   legacyBlogs: number;
 };
 
-const sectionDefinitions: SiteSectionDefinition[] = [
-  {
-    key: "tutorials",
-    labels: { en: "Tutorials", zh: "教程" },
-    indexSource: "tutorials/index.md",
-    href: buildTutorialIndexPath,
-    nav: true,
-    homeTrack: true,
-    footerExplore: true
-  },
-  {
-    key: "blog",
-    labels: { en: "Blog", zh: "博客" },
-    indexSource: "blog/index.md",
-    href: buildBlogIndexPath,
-    nav: true,
-    footerExplore: true
-  },
-  {
-    key: "legacy-blog",
-    labels: { en: "Legacy blog", zh: "旧博客" },
-    indexSource: "blogs/index.md",
-    href: buildLegacyBlogIndexPath,
-    homeExplore: true,
-    footerExplore: true
-  },
-  {
-    key: "bpftime",
-    labels: { en: "bpftime", zh: "bpftime" },
-    indexSource: "bpftime/index.md",
-    href: (locale) => buildSectionPath("bpftime", [], locale),
-    nav: true,
-    homeTrack: true,
-    footerExplore: true
-  },
-  {
-    key: "GPTtrace",
-    labels: { en: "eBPF×AI/LLMs", zh: "eBPF×AI/LLMs" },
-    indexSource: "GPTtrace/index.md",
-    href: (locale) => buildSectionPath("GPTtrace", [], locale),
-    nav: true,
-    homeExplore: true,
-    footerProject: true
-  },
-  {
-    key: "eunomia-bpf",
-    labels: { en: "eunomia-bpf", zh: "eunomia-bpf" },
-    indexSource: "eunomia-bpf/index.md",
-    href: (locale) => buildSectionPath("eunomia-bpf", [], locale),
-    nav: true,
-    homeTrack: true,
-    footerExplore: true
-  },
-  {
-    key: "others",
-    labels: { en: "Ecosystem", zh: "生态" },
-    indexSource: "others/index.md",
-    href: (locale) => buildSectionPath("others", [], locale),
-    nav: true,
-    homeExplore: true,
-    footerExplore: true
-  },
-  {
-    key: "wasm-bpf",
-    labels: { en: "wasm-bpf", zh: "wasm-bpf" },
-    indexSource: "wasm-bpf/index.md",
-    href: (locale) => buildSectionPath("wasm-bpf", [], locale),
-    homeExplore: true,
-    footerProject: true
-  }
-];
+const sectionDefinitions: SiteSectionDefinition[] = siteSectionPayload.sections.map((section) => ({
+  ...section,
+  href: (locale) => section.hrefByLocale[locale]
+}));
 
 function getSectionDefinition(key: SiteSectionKey): SiteSectionDefinition {
   const section = sectionDefinitions.find((candidate) => candidate.key === key);
@@ -148,7 +66,7 @@ export function getSectionLabel(section: string, locale: Locale): string {
 }
 
 export function getHomePath(locale: Locale): string {
-  return buildHomePath(locale);
+  return localizePath("/", locale);
 }
 
 export function getFeaturedHomeSections(): Array<{
@@ -222,3 +140,5 @@ export function getHomeStats(locale: Locale, counts: HomeCounts) {
     }
   ];
 }
+
+export type { SiteSectionKey } from "./site-ia-source";

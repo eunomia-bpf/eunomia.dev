@@ -99,7 +99,9 @@ Status markers:
 ## Phase 8: Maintainability Simplification
 
 - `[done]` Move primary navigation, home tracks, home explore links, and footer IA into one site registry.
+- `[done]` Generate the site IA registry as a build artifact so client components never import filesystem helpers.
 - `[done]` Replace the route-kind `switch` with a collection family registry shared by manifest expansion and route builders.
+- `[done]` Move route-to-page resolution behind one content-layer resolver so Next route builders stay thin.
 - `[done]` Prebuild a document index and migrate metadata consumers off repeated ad-hoc `parseMarkdown` calls.
 - `[done]` Collapse non-home content rendering onto one `DocsPage` model and one docs shell.
 - `[done]` Remove implicit `process.cwd()` assumptions from content roots and make generated artifact paths explicit.

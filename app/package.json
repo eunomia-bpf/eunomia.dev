@@ -8,7 +8,7 @@
     "dev": "npm run generate:content-artifacts && next dev",
     "build": "npm run generate:content-artifacts && next build",
     "start": "node scripts/assert-content-artifacts.mjs && next start",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "npm run generate:content-index && tsc --noEmit",
     "test:content": "npm run generate:content-artifacts && node --import tsx --test tests/content.test.ts",
     "verify": "node scripts/verify.mjs"
   },

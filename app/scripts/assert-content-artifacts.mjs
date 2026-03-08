@@ -8,6 +8,7 @@ const generatedRoot = path.join(appDir, ".generated");
 
 const requiredFiles = [
   path.join(generatedRoot, "content", "documents.json"),
+  path.join(generatedRoot, "content", "site-sections.json"),
   path.join(generatedRoot, "search", "en.json"),
   path.join(generatedRoot, "search", "zh.json")
 ];
