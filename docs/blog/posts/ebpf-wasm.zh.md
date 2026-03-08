@@ -7,8 +7,6 @@ date: 2023-06-11
 当今云原生世界中两个最热门的轻量级代码执行沙箱/虚拟机是 eBPF 和 WebAssembly。它们都运行从 C、C++ 和 Rust 等语言编译的高性能字节码程序，并且都是跨平台、可移植的。二者最大的区别在于： eBPF 在 Linux 内核中运行，而 WebAssembly 在用户空间中运行。我们希望能做一些将二者相互融合的尝试：使用 Wasm 来编写通用的 eBPF 程序，然后可以将其分发到任意不同版本、不同架构的 Linux 内核中，无需重新编译即可运行。
 <!-- more -->
 
-> 更新（2026 年 3 月）：本文中引用的 `eunomia-bpf.github.io` Wasm 示例 URL 已不再维护。当前如果只是快速体验，请从 GitHub Releases 安装 `ecli`，并优先使用 `wasm-bpf` 仓库中的维护中示例，或直接运行 `ghcr.io/eunomia-bpf/execve:latest` 这样的 OCI 示例。
-
 ## WebAssembly vs. eBPF
 
 WebAssembly(缩写 Wasm)是基于堆栈虚拟机的二进制指令格式。Wasm 是为了一个可移植的目标而设计的，可作为 C/C+/RUST 等高级语言的编译目标，使客户端和服务器应用程序能够在 Web 上部署。Wasm 的运行时有多种实现，包括浏览器和独立的系统，它可以用于视频和音频编解码器、图形和 3D、多媒体和游戏、密码计算或便携式语言实现等应用。

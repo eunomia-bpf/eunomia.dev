@@ -7,8 +7,6 @@ date: 2024-02-11
 随着技术的不断发展，eBPF已经成为了现代Linux内核中的一个核心组件，为开发者提供了强大的性能监控和网络跟踪功能。eunomia-bpf 作为一个新的 eBPF 开源开发框架，旨在简化 eBPF 程序的构建和分发，同时引入了 Wasm技术，为开发者提供了更多的可能性。在过去的半年中，从最初的PoC版本到如今的1.0版本，它已经经历了巨大的变革，成为了一个功能丰富的成熟产品。
 <!-- more -->
 
-> 更新（2026 年 3 月）：本文提到的 `ecli-server` / `ecli client` 远程 HTTP 模式属于 v1.0 时期的历史能力，现已从主分支移除，并归档在 `archive/ecli-remote-http` 分支中。当前发布版本保留的是本地 `ecli run`、`ecli push`、`ecli pull` 工作流。
-
 ## eunomia-bpf简介
 
 eunomia-bpf的目标是简化和增强eBPF的使用体验。它结合了CO-RE技术和WebAssembly技术，为开发者提供了一系列强大的工具和功能：

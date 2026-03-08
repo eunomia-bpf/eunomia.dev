@@ -2,8 +2,6 @@
 
 In today's cloud-native world, eBPF and WebAssembly are two of the hottest lightweight code execution sandboxes/virtual machines. Both of them run high-performance bytecode programs compiled from languages such as C, C++, and Rust, and both are cross-platform and portable. The biggest difference between them is that eBPF runs in the Linux kernel, while WebAssembly runs in user space. We want to make an attempt to integrate them: using Wasm to write universal eBPF programs that can be distributed to different versions and architectures of Linux kernels without the need for recompiling.
 
-> Update (March 2026): The hosted `eunomia-bpf.github.io` Wasm example URLs referenced in this historical post are no longer maintained. For current quickstarts, install `ecli` from GitHub Releases and use maintained examples from `wasm-bpf` or OCI images such as `ghcr.io/eunomia-bpf/execve:latest`.
-
 ## WebAssembly vs. eBPF
 
 WebAssembly (abbreviated as Wasm) is a binary instruction format based on a stack-based virtual machine. Wasm is designed for a portable target and can be used as a compilation target for high-level languages such as C/C++/Rust to enable the deployment of client-side and server-side applications on the Web. Wasm has multiple runtime implementations, including browsers and standalone systems, and it can be used in applications such as video and audio codecs, graphics and 3D, multimedia and gaming, cryptographic calculations, or portable language implementations.

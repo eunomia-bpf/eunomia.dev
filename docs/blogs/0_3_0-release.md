@@ -17,8 +17,6 @@ eBPF, derived from BPF, is an efficient and flexible virtual machine component w
 
 [eunomia-bpf](https://github.com/eunomia-bpf/eunomia-bpf) is an open-source eBPF dynamic loading runtime and development toolchain designed to simplify the development, building, distribution, and execution of eBPF programs. It is based on the CO-RE lightweight development framework of libbpf.
 
-> Update (March 2026): Some hosted example URLs referenced in this historical release post are no longer maintained. For a current quickstart, install `ecli` from GitHub Releases and use `sudo ./ecli run ghcr.io/eunomia-bpf/execve:latest`.
-
 With eunomia-bpf, you can:
 
 - Write only kernel-mode code when developing eBPF programs or tools, and automatically obtain kernel-mode export information.
