@@ -27,11 +27,11 @@ jobs:
           cache: npm
           cache-dependency-path: app/package-lock.json
 
-      - name: Build static export
+      - name: Verify static export
         working-directory: app
         run: |
           npm ci
-          npm run build
+          npm run verify
 
       - name: Publish app/out to app-static-pages
         uses: peaceiris/actions-gh-pages@v4
