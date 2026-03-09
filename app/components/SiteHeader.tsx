@@ -1,6 +1,6 @@
 import { MobileNav } from "../components/MobileNav";
 import { SearchBox } from "../components/SearchBox";
-import type { LocaleAlternates } from "../lib/content/types";
+import type { LocaleAlternates, SidebarGroup } from "../lib/content/types";
 import { localizePath } from "../lib/paths";
 import { getPrimaryNav } from "../lib/site-ia";
 import type { Locale } from "../lib/site-data";
@@ -8,6 +8,7 @@ import type { Locale } from "../lib/site-data";
 type SiteHeaderProps = {
   locale: Locale;
   currentPath?: string;
+  sidebar?: SidebarGroup[];
   alternates?: LocaleAlternates;
 };
 
@@ -31,7 +32,7 @@ function isActivePath(currentPath: string, href: string): boolean {
   return normalizedCurrentPath === normalizedHref || normalizedCurrentPath.startsWith(`${normalizedHref}/`);
 }
 
-export function SiteHeader({ locale, currentPath, alternates }: SiteHeaderProps) {
+export function SiteHeader({ locale, currentPath, sidebar, alternates }: SiteHeaderProps) {
   const nav = getPrimaryNav(locale);
   const alternateLocale: Locale = locale === "en" ? "zh" : "en";
   const languageToggle = alternates?.[alternateLocale] ?? null;
@@ -76,7 +77,7 @@ export function SiteHeader({ locale, currentPath, alternates }: SiteHeaderProps)
               {locale === "en" ? "中文" : "EN"}
             </span>
           )}
-          <MobileNav locale={locale} currentPath={normalizedCurrentPath} />
+          <MobileNav locale={locale} currentPath={normalizedCurrentPath} sidebar={sidebar} />
         </div>
       </div>
     </header>

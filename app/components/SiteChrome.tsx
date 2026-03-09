@@ -32,7 +32,7 @@ export function SiteChrome({
 }: SiteChromeProps) {
   return (
     <div className="min-h-screen bg-white">
-      <SiteHeader locale={locale} currentPath={currentPath} alternates={alternates} />
+      <SiteHeader locale={locale} currentPath={currentPath} sidebar={sidebar} alternates={alternates} />
       <main className="pb-16">
         {hero ?? (
           leadMode === "compact" ? (

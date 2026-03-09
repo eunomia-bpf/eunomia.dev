@@ -319,6 +319,14 @@ async function main() {
     const menuButton = mobilePage.getByRole("button", { name: /open navigation|打开导航/i });
     check(await menuButton.count(), "mobile navigation button is visible");
     await menuButton.click();
+    const mobilePanel = mobilePage.locator("#mobile-nav-panel").first();
+    await mobilePanel.waitFor({ state: "visible" });
+    check(await mobilePanel.count(), "mobile navigation opens a drawer");
+    const mobilePanelBox = await mobilePanel.boundingBox();
+    check(
+      Boolean(mobilePanelBox) && mobilePanelBox.x < 24 && mobilePanelBox.height > 700,
+      "mobile navigation opens as a left full-height drawer"
+    );
     const mobileSearchInput = await firstVisible(mobilePage, [
       "#mobile-nav-panel input[aria-label*='Search']",
       "#mobile-nav-panel input[aria-label*='搜索']"
@@ -337,13 +345,43 @@ async function main() {
     check(await mobilePage.locator("#mobile-nav-panel").count() === 0, "mobile navigation closes on Escape");
     await menuButton.click();
     const mobileTutorialLink = mobilePage
-      .locator(`a[href='${smokeRoutes.tutorials}'], a[href='${absolute(smokeRoutes.tutorials)}']`)
+      .locator(`#mobile-nav-panel a[href='${smokeRoutes.tutorials}'], #mobile-nav-panel a[href='${absolute(smokeRoutes.tutorials)}']`)
       .first();
     check(await mobileTutorialLink.count(), "mobile navigation exposes section links");
     const mobileBlogLink = mobilePage
-      .locator(`a[href='${smokeRoutes.blogIndex}'], a[href='${absolute(smokeRoutes.blogIndex)}']`)
+      .locator(`#mobile-nav-panel a[href='${smokeRoutes.blogIndex}'], #mobile-nav-panel a[href='${absolute(smokeRoutes.blogIndex)}']`)
       .first();
     check(await mobileBlogLink.count(), "mobile navigation keeps a usable top-level blog path");
+    await mobileBlogLink.click();
+    await mobilePage.waitForURL(/\/blog\/?$/);
+
+    await mobilePage.goto(absolute(smokeRoutes.tutorialArticle), { waitUntil: "networkidle" });
+    const articleMenuButton = mobilePage.getByRole("button", { name: /open navigation|打开导航/i });
+    await articleMenuButton.click();
+    const mobileArticlePanel = mobilePage.locator("#mobile-nav-panel").first();
+    await mobileArticlePanel.waitFor({ state: "visible" });
+    check(
+      await mobileArticlePanel.locator("nav[aria-label='Mobile navigation'], nav[aria-label='移动端导航']").count(),
+      "mobile drawer exposes a unified navigation tree"
+    );
+    const mobileCurrentArticleLink = mobileArticlePanel
+      .locator(
+        `a[href='${smokeRoutes.tutorialArticle}'][aria-current='page'], a[href='${absolute(
+          smokeRoutes.tutorialArticle
+        )}'][aria-current='page']`
+      )
+      .first();
+    check(
+      await mobileCurrentArticleLink.count(),
+      "mobile drawer includes the contextual sidebar entry for the current page"
+    );
+    const mobileDrawerBlogLink = mobileArticlePanel
+      .locator(`a[href='${smokeRoutes.blogIndex}'], a[href='${absolute(smokeRoutes.blogIndex)}']`)
+      .first();
+    check(
+      await mobileDrawerBlogLink.count(),
+      "mobile drawer also includes the top-level site sections"
+    );
   } finally {
     await browser.close();
   }

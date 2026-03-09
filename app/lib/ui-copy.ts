@@ -35,11 +35,15 @@ export const feedbackCopyByLocale = {
 export const mobileNavCopyByLocale = {
   en: {
     open: "Open navigation",
-    close: "Close navigation"
+    close: "Close navigation",
+    navigation: "Mobile navigation",
+    sections: "Sections"
   },
   zh: {
     open: "打开导航",
-    close: "关闭导航"
+    close: "关闭导航",
+    navigation: "移动端导航",
+    sections: "栏目"
   }
 } as const;
 
