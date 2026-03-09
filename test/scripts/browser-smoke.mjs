@@ -52,6 +52,18 @@ async function firstVisible(page, selectors) {
   return null;
 }
 
+async function gotoContentPage(page, pathname, { requireSidebar = false } = {}) {
+  await page.goto(absolute(pathname), { waitUntil: "domcontentloaded" });
+  await page.locator("main").first().waitFor({ state: "visible" });
+  await page.locator("main h1").first().waitFor({ state: "visible" });
+  if (requireSidebar) {
+    await page
+      .locator("aside nav[aria-label='Section navigation']")
+      .first()
+      .waitFor({ state: "visible" });
+  }
+}
+
 async function main() {
   console.log(`Running browser smoke tests for ${baseUrl.toString()}`);
 
@@ -253,7 +265,8 @@ async function main() {
     await page.goto(absolute(smokeRoutes.legacyBlogArticle), { waitUntil: "networkidle" });
     check((await page.locator("main h1").count()) === 1, "legacy blog article renders a single h1");
 
-    await page.goto(absolute(smokeRoutes.sectionIndex), { waitUntil: "networkidle" });
+    await gotoContentPage(page, smokeRoutes.sectionIndex, { requireSidebar: true });
+    check((await page.locator("main h1").count()) === 1, "section landing page renders a single h1");
     const sectionIndexSidebar = page.locator("aside nav[aria-label='Section navigation']").first();
     check(await sectionIndexSidebar.count(), "section landing page exposes a contextual docs sidebar");
     check(
@@ -261,7 +274,7 @@ async function main() {
       "section landing page does not repeat the top navigation in the desktop sidebar"
     );
 
-    await page.goto(absolute(smokeRoutes.sectionArticle), { waitUntil: "networkidle" });
+    await gotoContentPage(page, smokeRoutes.sectionArticle, { requireSidebar: true });
     check((await page.locator("main h1").count()) === 1, "section article renders a single h1");
     const sectionSidebar = page.locator("aside nav[aria-label='Section navigation']").first();
     check(await sectionSidebar.count(), "section article exposes a docs sidebar");
