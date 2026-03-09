@@ -24,10 +24,6 @@ function getTocTitle(locale: Locale): string {
   return locale === "zh" ? "本页目录" : "On this page";
 }
 
-function isThinBlogIndex(path: string): boolean {
-  return path === "/blog/" || path === "/zh/blog/";
-}
-
 function renderDocsBody(page: DocsPage, locale: Locale) {
   return (
     <ArticleLayout
@@ -43,7 +39,7 @@ function renderDocsBody(page: DocsPage, locale: Locale) {
       showBreadcrumbs={page.layout === "document"}
     >
       <MarkdownContent html={page.bodyHtml} />
-      {page.cards?.length && !isThinBlogIndex(page.path) ? (
+      {page.cards?.length ? (
         <section className="mt-12">
           <CardGrid cards={page.cards} compact />
         </section>
