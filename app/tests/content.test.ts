@@ -445,13 +445,28 @@ test("article loaders expose continuation links for collection discovery", async
   assert.equal(blogPage?.continuation?.index?.href, "/blog/");
 });
 
-test("collection index pages still expose generic cards and sidebars after registry cleanup", async () => {
+test("collection index pages expose contextual sidebars without duplicating the global top nav", async () => {
   const page = await loadBlogIndex("en");
 
   assert.ok(page.cards && page.cards.length > 0);
   assert.ok(page.cards?.every((card) => !card.badge));
-  assert.equal(page.sidebar?.[1]?.items[0]?.href, "/blog/");
-  assert.ok(page.sidebar?.[1]?.items.some((item) => item.href.includes("/blog/2026/")));
+  assert.equal(page.sidebar?.length, 1);
+  assert.equal(page.sidebar?.[0]?.items[0]?.href, "/blog/");
+  assert.ok(page.sidebar?.[0]?.items.some((item) => item.href.includes("/blog/2026/")));
+  assert.ok(!page.sidebar?.some((group) => group.items.some((item) => item.href === "/tutorials/")));
+});
+
+test("article sidebars stay contextual without reintroducing the global browse group", async () => {
+  const tutorialPage = await loadTutorialPage(["1-helloworld"], "en");
+  const sectionPage = await loadSectionPage("bpftime", ["llvmbpf"], "en");
+
+  assert.ok(tutorialPage?.sidebar?.length);
+  assert.ok(tutorialPage?.sidebar?.[0]?.items.some((item) => item.href === "/tutorials/1-helloworld/"));
+  assert.ok(!tutorialPage?.sidebar?.some((group) => group.items.some((item) => item.href === "/blog/")));
+
+  assert.ok(sectionPage?.sidebar?.length);
+  assert.ok(sectionPage?.sidebar?.[0]?.items.some((item) => item.href === "/bpftime/llvmbpf/"));
+  assert.ok(!sectionPage?.sidebar?.some((group) => group.items.some((item) => item.href === "/tutorials/")));
 });
 
 test("resolveContentPage resolves manifest-backed routes without route-layer switches", async () => {

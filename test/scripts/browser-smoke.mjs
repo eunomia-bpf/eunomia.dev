@@ -22,6 +22,18 @@ function absolute(pathname) {
   return new URL(pathname, baseUrl).toString();
 }
 
+async function hasSidebarHeading(page, pattern) {
+  const headings = page.locator("aside nav[aria-label='Section navigation'] section p");
+  const count = await headings.count();
+  for (let index = 0; index < count; index += 1) {
+    const text = (await headings.nth(index).textContent())?.trim() ?? "";
+    if (pattern.test(text)) {
+      return true;
+    }
+  }
+  return false;
+}
+
 async function firstVisible(page, selectors) {
   for (const selector of selectors) {
     const locator = page.locator(selector);
@@ -61,6 +73,10 @@ async function main() {
     check(
       /eunomia/i.test(await page.title()),
       "home page title is readable"
+    );
+    check(
+      (await page.locator("aside nav[aria-label='Section navigation']").count()) === 0,
+      "home page does not render a duplicate desktop browse sidebar"
     );
 
     for (const label of expectedNavLabels) {
@@ -143,9 +159,11 @@ async function main() {
 
     await page.goto(absolute(smokeRoutes.tutorials), { waitUntil: "networkidle" });
     check(/tutorial/i.test(await page.textContent("main")), "tutorials page renders tutorial content");
+    const tutorialIndexSidebar = page.locator("aside nav[aria-label='Section navigation']").first();
+    check(await tutorialIndexSidebar.count(), "tutorial index exposes a docs sidebar");
     check(
-      await page.locator("aside nav[aria-label='Section navigation']").first().count(),
-      "tutorial index exposes a docs sidebar"
+      !(await hasSidebarHeading(page, /^(Browse|导航)$/i)),
+      "tutorial index sidebar stays contextual instead of duplicating the top navigation"
     );
 
     await page.goto(absolute(smokeRoutes.tutorialArticle), { waitUntil: "networkidle" });
@@ -161,6 +179,10 @@ async function main() {
       check(
         await tutorialSidebar.locator(`a[href='${smokeRoutes.tutorialArticle}'][aria-current='page']`).count(),
         "tutorial article highlights the current sidebar item"
+      );
+      check(
+        !(await hasSidebarHeading(page, /^(Browse|导航)$/i)),
+        "tutorial article sidebar stays contextual instead of duplicating the top navigation"
       );
     }
     check(
@@ -220,8 +242,24 @@ async function main() {
       "blog article exposes continuation links"
     );
 
+    await page.goto(absolute(smokeRoutes.blogIndex), { waitUntil: "networkidle" });
+    const blogSidebar = page.locator("aside nav[aria-label='Section navigation']").first();
+    check(await blogSidebar.count(), "blog index exposes a contextual blog sidebar");
+    check(
+      !(await hasSidebarHeading(page, /^(Browse|导航)$/i)),
+      "blog index does not repeat the top navigation in the desktop sidebar"
+    );
+
     await page.goto(absolute(smokeRoutes.legacyBlogArticle), { waitUntil: "networkidle" });
     check((await page.locator("main h1").count()) === 1, "legacy blog article renders a single h1");
+
+    await page.goto(absolute(smokeRoutes.sectionIndex), { waitUntil: "networkidle" });
+    const sectionIndexSidebar = page.locator("aside nav[aria-label='Section navigation']").first();
+    check(await sectionIndexSidebar.count(), "section landing page exposes a contextual docs sidebar");
+    check(
+      !(await hasSidebarHeading(page, /^(Browse|导航)$/i)),
+      "section landing page does not repeat the top navigation in the desktop sidebar"
+    );
 
     await page.goto(absolute(smokeRoutes.sectionArticle), { waitUntil: "networkidle" });
     check((await page.locator("main h1").count()) === 1, "section article renders a single h1");
@@ -229,6 +267,10 @@ async function main() {
     check(await sectionSidebar.count(), "section article exposes a docs sidebar");
     if (await sectionSidebar.count()) {
       check(await sectionSidebar.isVisible(), "section article shows the docs sidebar on desktop");
+      check(
+        !(await hasSidebarHeading(page, /^(Browse|导航)$/i)),
+        "section article sidebar stays contextual instead of duplicating the top navigation"
+      );
     }
 
     await page.goto(absolute(smokeRoutes.mermaidArticle), { waitUntil: "domcontentloaded" });
@@ -298,6 +340,10 @@ async function main() {
       .locator(`a[href='${smokeRoutes.tutorials}'], a[href='${absolute(smokeRoutes.tutorials)}']`)
       .first();
     check(await mobileTutorialLink.count(), "mobile navigation exposes section links");
+    const mobileBlogLink = mobilePage
+      .locator(`a[href='${smokeRoutes.blogIndex}'], a[href='${absolute(smokeRoutes.blogIndex)}']`)
+      .first();
+    check(await mobileBlogLink.count(), "mobile navigation keeps a usable top-level blog path");
   } finally {
     await browser.close();
   }

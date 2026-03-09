@@ -42,6 +42,7 @@ export const smokeRoutes = {
   blogArticle:
     "/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/",
   legacyBlogArticle: "/blogs/bpftime/",
+  sectionIndex: "/bpftime/",
   sectionArticle: "/bpftime/llvmbpf/",
   mermaidArticle: "/eunomia-bpf/manual/",
   zhOnlySectionArticle: "/zh/eunomia-bpf/ecli/ecli-dockerfile-usage/",

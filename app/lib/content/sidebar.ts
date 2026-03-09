@@ -1,5 +1,4 @@
 import { localizePath } from "../paths";
-import { getPrimaryNav } from "../site-ia";
 import type { Locale } from "../site-data";
 import { getTutorialDocSources } from "./collections";
 import { getDocument, resolveDocument } from "./documents";
@@ -11,37 +10,15 @@ import type { ContentManifestRecord, SidebarGroup, SidebarItem } from "./types";
 function getSidebarCopy(locale: Locale) {
   return locale === "zh"
     ? {
-        browse: "导航",
-        tutorials: "教程",
         blog: "博客",
         legacyBlog: "旧博客",
         sectionPrefix: "文档"
       }
     : {
-        browse: "Browse",
-        tutorials: "Tutorials",
         blog: "Blog",
         legacyBlog: "Legacy Blog",
         sectionPrefix: "Docs"
       };
-}
-
-function buildPrimaryGroup(locale: Locale): SidebarGroup {
-  const copy = getSidebarCopy(locale);
-
-  return {
-    title: copy.browse,
-    items: [
-      ...getPrimaryNav(locale).map((item) => ({
-        title: item.label,
-        href: item.href
-      })),
-      {
-        title: copy.legacyBlog,
-        href: localizePath("/blogs/", locale)
-      }
-    ]
-  };
 }
 
 function resolveRecordSource(record: ContentManifestRecord, locale: Locale): string | null {
@@ -106,7 +83,6 @@ export function buildCollectionSidebar(
   const indexTitle = resolveDocument(family.indexSource, locale)?.title ?? family.eyebrow(locale);
 
   return [
-    buildPrimaryGroup(locale),
     {
       title: family.eyebrow(locale),
       items: [
@@ -131,7 +107,6 @@ export function buildSectionSidebar(section: string, locale: Locale): SidebarGro
     : `${copy.sectionPrefix}: ${section}`;
 
   return [
-    buildPrimaryGroup(locale),
     {
       title: sectionTitle,
       items: records
@@ -146,9 +121,8 @@ export function buildSearchSidebar(locale: Locale): SidebarGroup[] {
   const tutorialCount = getTutorialDocSources().length;
 
   return [
-    buildPrimaryGroup(locale),
     {
-      title: copy.browse,
+      title: locale === "zh" ? "浏览" : "Explore",
       items: [
         {
           title: locale === "zh" ? `教程 (${tutorialCount})` : `Tutorials (${tutorialCount})`,
