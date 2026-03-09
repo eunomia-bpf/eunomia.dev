@@ -82,12 +82,14 @@ test("blog entries derive dated slugs from parsed metadata", () => {
 
 test("home page data is markdown-first and contains rendered home content", async () => {
   const home = await loadHomePage("en");
+  const homeZh = await loadHomePage("zh");
 
-  assert.match(home.bodyHtml, /Unlock the Power of eBPF/);
-  assert.ok(Array.isArray(home.inlineStyles));
-  assert.doesNotMatch(home.bodyHtml, /\.hero\s*\{/);
+  assert.match(home.bodyHtml, /Build practical eBPF systems with eunomia/);
   assert.ok(!("cards" in home));
   assert.ok(!("moreLinks" in home));
+  assert.equal(home.sourcePath, "https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/index.md");
+  assert.equal(homeZh.sourcePath, "https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/index.zh.md");
+  assert.match(homeZh.bodyHtml, /用 eunomia 构建实用的 eBPF 系统/);
 });
 
 test("collection page sources resolve through the family registry", () => {

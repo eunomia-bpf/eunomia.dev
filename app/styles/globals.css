@@ -38,85 +38,6 @@ a {
   @apply mb-4 leading-7 text-slate-700;
 }
 
-.content-copy .hero {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  border-radius: 4px;
-  padding: 5rem 1rem 4.5rem;
-  text-align: center;
-  color: #fff;
-  background:
-    radial-gradient(circle at 78% 60%, rgba(255, 182, 41, 0.55), rgba(255, 182, 41, 0) 60%),
-    linear-gradient(140deg, rgba(8, 27, 52, 0.05) 0%, rgba(255, 182, 41, 0.08) 70%),
-    linear-gradient(130deg, #061a33 0%, #0d305d 38%, #154173 55%, #1b4d85 70%, #225b95 85%);
-  box-shadow:
-    0 4px 24px -4px rgba(0, 0, 0, 0.35),
-    0 2px 4px rgba(0, 0, 0, 0.15);
-}
-
-.content-copy .hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.55;
-  background:
-    repeating-linear-gradient(60deg, rgba(255, 255, 255, 0.06) 0 2px, transparent 2px 90px),
-    repeating-linear-gradient(-15deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 55px);
-  mix-blend-mode: overlay;
-}
-
-.content-copy .hero-text {
-  position: relative;
-  max-width: 600px;
-}
-
-.content-copy .hero h1 {
-  margin-bottom: 1rem;
-  font-size: 3rem;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  color: #fff;
-}
-
-.content-copy .hero p {
-  margin-bottom: 2rem;
-  font-size: 1.2rem;
-  line-height: 1.6;
-  color: #e2e8f0;
-}
-
-.content-copy .hero .md-button {
-  margin: 0.5rem;
-  font-weight: 600;
-  backdrop-filter: blur(4px);
-}
-
-.content-copy .hero .md-button--primary {
-  border: none;
-  background: linear-gradient(100deg, #4356d6 0%, #4a5fe6 60%, #5870f0 100%);
-  box-shadow:
-    0 4px 16px -2px rgba(40, 60, 160, 0.55),
-    0 2px 4px rgba(0, 0, 0, 0.25);
-}
-
-.content-copy .hero .md-button--primary:hover {
-  filter: brightness(1.08);
-}
-
-.content-copy .hero .md-button:not(.md-button--primary) {
-  border: 1.5px solid rgba(255, 255, 255, 0.45);
-  color: #fff;
-}
-
-.content-copy .hero .md-button:not(.md-button--primary):hover {
-  border-color: #ffb629;
-  color: #ffcf6b;
-}
-
 .content-copy h1,
 .content-copy h2,
 .content-copy h3,
@@ -257,6 +178,114 @@ a {
 
 .content-copy .content-admonition-body > :first-child {
   margin-top: 0;
+}
+
+.home-landing {
+  @apply pb-4;
+}
+
+.home-landing .home-cover {
+  @apply mb-12 border border-slate-200 bg-slate-50 px-6 py-8 sm:px-8 sm:py-10;
+}
+
+.home-landing .home-kicker {
+  @apply mb-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-500;
+}
+
+.home-landing .home-cover h1 {
+  @apply mt-0 mb-4 max-w-4xl text-[2.15rem] font-semibold tracking-tight text-ink sm:text-[2.6rem];
+}
+
+.home-landing .home-summary {
+  @apply mb-0 max-w-3xl text-base leading-7 text-slate-600 sm:text-[1.05rem];
+}
+
+.home-landing .home-actions {
+  @apply mt-6 flex flex-wrap items-center gap-3;
+}
+
+.home-landing .home-actions .md-button,
+.home-landing .home-panel a.md-button {
+  @apply inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-900 no-underline transition hover:border-slate-400 hover:bg-slate-100;
+}
+
+.home-landing .home-actions .md-button--primary {
+  @apply border-slate-900 bg-slate-900 text-white hover:border-slate-800 hover:bg-slate-800;
+}
+
+.home-landing .home-inline-link {
+  @apply text-sm font-medium text-slate-600 no-underline hover:text-slate-900;
+}
+
+.home-landing .home-panel-grid {
+  @apply mb-2 grid gap-4 md:grid-cols-3;
+}
+
+.home-landing .home-panel {
+  @apply border border-slate-200 bg-white px-5 py-5;
+}
+
+.home-landing .home-panel-label {
+  @apply mb-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-500;
+}
+
+.home-landing .home-panel h3 {
+  @apply mt-0 mb-2 text-lg font-semibold text-ink;
+}
+
+.home-landing .home-panel p:last-child {
+  @apply mb-0 text-[0.96rem];
+}
+
+.home-landing .home-panel h3 a,
+.home-landing .home-project-copy h3 a {
+  @apply no-underline;
+}
+
+.home-landing .home-project-stack {
+  @apply flex flex-col gap-4;
+}
+
+.home-landing .home-project {
+  @apply grid gap-5 border border-slate-200 bg-white p-5 md:grid-cols-[13rem_minmax(0,1fr)] md:items-center;
+}
+
+.home-landing .home-project img {
+  @apply my-0 h-auto w-full rounded-sm border border-slate-200 bg-slate-50 object-contain;
+}
+
+.home-landing .home-project-copy h3 {
+  @apply mt-0 mb-2 text-xl font-semibold text-ink;
+}
+
+.home-landing .home-project-copy p:last-child {
+  @apply mb-0;
+}
+
+.home-landing .home-project-links {
+  @apply text-sm text-slate-600;
+}
+
+.home-landing h2 {
+  @apply mt-12 border-b border-slate-200 pb-3 text-[1.65rem];
+}
+
+@media (max-width: 767px) {
+  .home-landing .home-cover {
+    @apply px-5 py-7;
+  }
+
+  .home-landing .home-cover h1 {
+    @apply text-[1.95rem];
+  }
+
+  .home-landing .home-actions {
+    @apply items-stretch;
+  }
+
+  .home-landing .home-actions .md-button {
+    @apply w-full;
+  }
 }
 
 .content-copy .content-admonition-note,
