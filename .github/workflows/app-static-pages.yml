@@ -10,7 +10,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: app-static-pages-deploy
+  group: new-branch-static-deploy
   cancel-in-progress: true
 
 jobs:
@@ -41,11 +41,11 @@ jobs:
           npm ci
           npm run verify
 
-      - name: Publish app/out to app-static-pages
+      - name: Publish app/out to new
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: app-static-pages
+          publish_branch: new
           publish_dir: app/out
           force_orphan: true
           commit_message: deploy static app for ${{ github.sha }}
