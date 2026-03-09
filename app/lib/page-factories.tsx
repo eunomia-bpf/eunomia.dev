@@ -13,6 +13,7 @@ export type HomePageData = {
   description: string;
   intro: string;
   bodyHtml: string;
+  inlineStyles: string[];
   sourcePath: string;
   metadata?: GitMetadata | null;
   path: string;

@@ -7,8 +7,17 @@ type HomeLandingProps = {
 
 export function HomeLanding({ page }: HomeLandingProps) {
   return (
-    <article className="content-copy max-w-none">
-      <MarkdownContent html={page.bodyHtml} />
-    </article>
+    <>
+      {page.inlineStyles.map((css, index) => (
+        <style
+          // Home page styles are repository-authored content extracted from docs/index.md.
+          dangerouslySetInnerHTML={{ __html: css }}
+          key={`home-inline-style-${index}`}
+        />
+      ))}
+      <article className="content-copy max-w-none">
+        <MarkdownContent html={page.bodyHtml} />
+      </article>
+    </>
   );
 }

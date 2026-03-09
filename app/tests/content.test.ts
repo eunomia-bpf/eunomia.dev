@@ -28,7 +28,7 @@ import { renderMarkdown, renderMarkdownBody, renderMarkdownDocument } from "../l
 import { docPathToRoute, getGenericSectionRoutes, listSitemapRoutes } from "../lib/content/routes";
 import { loadSearchDocuments, searchContent, writeSearchIndexes } from "../lib/content/search";
 import { rewriteContentUrl } from "../lib/content/rewrite";
-import { siteRoot } from "../lib/content/roots";
+import { appRoot, siteRoot } from "../lib/content/roots";
 import { resolveLocalizedSource, slugifyTitle } from "../lib/content/source";
 import { absoluteUrl, ogImageUrl, STATIC_OG_IMAGE_PATH } from "../lib/seo";
 import { getPrimaryNav, getSiteSections } from "../lib/site-ia";
@@ -84,6 +84,8 @@ test("home page data is markdown-first and contains rendered home content", asyn
   const home = await loadHomePage("en");
 
   assert.match(home.bodyHtml, /Unlock the Power of eBPF/);
+  assert.ok(home.inlineStyles.some((css) => css.includes(".hero")));
+  assert.doesNotMatch(home.bodyHtml, /\.hero\s*\{/);
   assert.ok(!("cards" in home));
   assert.ok(!("moreLinks" in home));
 });
@@ -360,6 +362,7 @@ test("searchContent indexes fallback blog content for the zh locale", () => {
 
 test("writeSearchIndexes emits public static search assets", () => {
   const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "eunomia-static-search-"));
+  const publicSearchDir = path.join(appRoot, "public", "search-index");
 
   try {
     const outputs = writeSearchIndexes(tempDir);
@@ -371,15 +374,15 @@ test("writeSearchIndexes emits public static search assets", () => {
     const npmCommand = process.platform === "win32" ? "npm.cmd" : "npm";
 
     execFileSync(npmCommand, ["run", "generate:search-index"], {
-      cwd: process.cwd(),
+      cwd: appRoot,
       stdio: "ignore"
     });
 
-    assert.ok(fs.existsSync(path.join(process.cwd(), "public", "search-index", "en.json")));
-    assert.ok(fs.existsSync(path.join(process.cwd(), "public", "search-index", "zh.json")));
+    assert.ok(fs.existsSync(path.join(publicSearchDir, "en.json")));
+    assert.ok(fs.existsSync(path.join(publicSearchDir, "zh.json")));
 
     const payload = JSON.parse(
-      fs.readFileSync(path.join(process.cwd(), "public", "search-index", "en.json"), "utf8")
+      fs.readFileSync(path.join(publicSearchDir, "en.json"), "utf8")
     ) as { documents?: unknown[] };
     assert.ok(Array.isArray(payload.documents));
     assert.ok(payload.documents.length > 0);
