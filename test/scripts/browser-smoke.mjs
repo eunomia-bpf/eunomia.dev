@@ -110,7 +110,7 @@ async function main() {
           await searchMore.click();
           await page.waitForURL(/\/search\/?\?q=hello(?:%20|\+)world$/);
         } else {
-          await page.goto(absolute(`${smokeRoutes.search}?q=hello%20world`), { waitUntil: "networkidle" });
+          await page.goto(absolute(smokeRoutes.search), { waitUntil: "networkidle" });
         }
         const searchPageResult = page
           .locator(

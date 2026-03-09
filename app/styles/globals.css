@@ -38,6 +38,85 @@ a {
   @apply mb-4 leading-7 text-slate-700;
 }
 
+.content-copy .hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 4px;
+  padding: 5rem 1rem 4.5rem;
+  text-align: center;
+  color: #fff;
+  background:
+    radial-gradient(circle at 78% 60%, rgba(255, 182, 41, 0.55), rgba(255, 182, 41, 0) 60%),
+    linear-gradient(140deg, rgba(8, 27, 52, 0.05) 0%, rgba(255, 182, 41, 0.08) 70%),
+    linear-gradient(130deg, #061a33 0%, #0d305d 38%, #154173 55%, #1b4d85 70%, #225b95 85%);
+  box-shadow:
+    0 4px 24px -4px rgba(0, 0, 0, 0.35),
+    0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.content-copy .hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.55;
+  background:
+    repeating-linear-gradient(60deg, rgba(255, 255, 255, 0.06) 0 2px, transparent 2px 90px),
+    repeating-linear-gradient(-15deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 55px);
+  mix-blend-mode: overlay;
+}
+
+.content-copy .hero-text {
+  position: relative;
+  max-width: 600px;
+}
+
+.content-copy .hero h1 {
+  margin-bottom: 1rem;
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #fff;
+}
+
+.content-copy .hero p {
+  margin-bottom: 2rem;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #e2e8f0;
+}
+
+.content-copy .hero .md-button {
+  margin: 0.5rem;
+  font-weight: 600;
+  backdrop-filter: blur(4px);
+}
+
+.content-copy .hero .md-button--primary {
+  border: none;
+  background: linear-gradient(100deg, #4356d6 0%, #4a5fe6 60%, #5870f0 100%);
+  box-shadow:
+    0 4px 16px -2px rgba(40, 60, 160, 0.55),
+    0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.content-copy .hero .md-button--primary:hover {
+  filter: brightness(1.08);
+}
+
+.content-copy .hero .md-button:not(.md-button--primary) {
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
+  color: #fff;
+}
+
+.content-copy .hero .md-button:not(.md-button--primary):hover {
+  border-color: #ffb629;
+  color: #ffcf6b;
+}
+
 .content-copy h1,
 .content-copy h2,
 .content-copy h3,
@@ -230,4 +309,18 @@ a {
 
 .content-copy .content-tab-panel > :first-child {
   margin-top: 0;
+}
+
+@media (max-width: 680px) {
+  .content-copy .hero {
+    padding: 4rem 1rem 3.5rem;
+  }
+
+  .content-copy .hero h1 {
+    font-size: 2.35rem;
+  }
+
+  .content-copy .hero p {
+    font-size: 1.05rem;
+  }
 }

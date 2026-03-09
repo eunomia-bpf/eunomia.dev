@@ -84,7 +84,7 @@ test("home page data is markdown-first and contains rendered home content", asyn
   const home = await loadHomePage("en");
 
   assert.match(home.bodyHtml, /Unlock the Power of eBPF/);
-  assert.ok(home.inlineStyles.some((css) => css.includes(".hero")));
+  assert.ok(Array.isArray(home.inlineStyles));
   assert.doesNotMatch(home.bodyHtml, /\.hero\s*\{/);
   assert.ok(!("cards" in home));
   assert.ok(!("moreLinks" in home));
