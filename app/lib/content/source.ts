@@ -1,5 +1,3 @@
-import path from "node:path";
-
 import type { Locale } from "../site-data";
 import { localizePath } from "../paths";
 import { getDocsFileSet, getTopLevelSections } from "./fs-index";

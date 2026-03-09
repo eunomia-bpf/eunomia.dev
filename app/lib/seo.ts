@@ -12,7 +12,7 @@ export function absoluteUrl(path: string): string {
   return new URL(path, siteConfig.siteUrl).toString();
 }
 
-export function ogImageUrl(_title: string, _eyebrow?: string): string {
+export function ogImageUrl(): string {
   // Pure static export cannot support per-page OG rendering at request time.
   // All pages intentionally share one build-time SVG card emitted into public/.
   return absoluteUrl(STATIC_OG_IMAGE_PATH);

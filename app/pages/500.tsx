@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function ServerErrorPage() {
   return (
     <main className="min-h-screen bg-paper px-5 py-16 text-ink">
@@ -13,18 +15,18 @@ export default function ServerErrorPage() {
           this page is fixed.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
-          <a
+          <Link
             href="/"
             className="inline-flex rounded-full bg-ink px-5 py-3 text-sm font-semibold text-white transition hover:bg-azure"
           >
             Back to home
-          </a>
-          <a
+          </Link>
+          <Link
             href="/zh/"
             className="inline-flex rounded-full border border-slate-200 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-azure hover:text-azure"
           >
             前往中文首页
-          </a>
+          </Link>
         </div>
       </section>
     </main>

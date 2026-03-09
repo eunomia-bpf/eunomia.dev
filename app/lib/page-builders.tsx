@@ -178,7 +178,7 @@ export function createSearchPage(locale: Locale) {
       return () => {
         cancelled = true;
       };
-    }, [deferredQuery, locale]);
+    }, [deferredQuery]);
 
     return <SearchResults locale={locale} query={rawQuery} results={results} sidebar={sidebar} />;
   };

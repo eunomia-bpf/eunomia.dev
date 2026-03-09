@@ -589,7 +589,7 @@ test("static metadata generation emits feed, sitemap, robots, and shared OG asse
 });
 
 test("ogImageUrl resolves to the shared static OG asset instead of a runtime API", () => {
-  const ogImage = ogImageUrl("Anything", "Ignored");
+  const ogImage = ogImageUrl();
 
   assert.equal(ogImage, absoluteUrl(STATIC_OG_IMAGE_PATH));
   assert.doesNotMatch(ogImage, /\/api\/og/);

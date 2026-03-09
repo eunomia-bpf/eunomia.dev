@@ -11,9 +11,12 @@
     "dev": "npm run generate:content-artifacts && next dev",
     "build": "npm run generate:content-artifacts && NEXT_DIST_DIR=${NEXT_DIST_DIR:-.static-builds/export} next build && NEXT_DIST_DIR=${NEXT_DIST_DIR:-.static-builds/export} node scripts/finalize-static-export.mjs",
     "start": "node scripts/assert-content-artifacts.mjs && node ../test/scripts/lib/static-server.mjs",
+    "lint:app": "eslint components lib pages scripts tests *.config.* --config ./eslint.config.mjs --max-warnings=0",
+    "lint:test": "cd ../test && ../app/node_modules/.bin/eslint scripts *.mjs --config ./eslint.config.mjs --max-warnings=0",
+    "lint": "npm run lint:app && npm run lint:test",
     "typecheck": "npm run generate:content-index && tsc --noEmit",
     "test:content": "npm run generate:content-artifacts && node --import tsx --test --test-concurrency=1 tests/content.test.ts",
-    "verify": "node scripts/verify.mjs"
+    "verify": "npm run lint && node scripts/verify.mjs"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
@@ -34,13 +37,19 @@
     "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
+    "@next/eslint-plugin-next": "^15.5.4",
+    "@eslint/js": "^9.22.0",
     "@types/node": "^22.13.10",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "autoprefixer": "^10.4.20",
+    "eslint": "^9.22.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "globals": "^16.0.0",
     "postcss": "^8.5.3",
     "tailwindcss": "^3.4.17",
     "tsx": "^4.20.5",
+    "typescript-eslint": "^8.26.1",
     "typescript": "^5.8.2"
   }
 }

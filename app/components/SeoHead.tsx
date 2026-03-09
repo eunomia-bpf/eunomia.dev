@@ -22,12 +22,11 @@ export function SeoHead({
   alternates,
   article = false,
   metadata,
-  eyebrow,
   robots
 }: SeoHeadProps) {
   const canonical = absoluteUrl(path);
   const fullTitle = `${title} | ${siteConfig.name}`;
-  const ogImage = ogImageUrl(title, eyebrow);
+  const ogImage = ogImageUrl();
   const feedHref = path.startsWith("/zh") ? absoluteUrl("/zh/feed.xml") : absoluteUrl("/feed.xml");
 
   return (

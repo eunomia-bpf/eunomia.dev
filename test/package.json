@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "lint": "npm --prefix ../app run lint:test",
     "audit:http": "node scripts/http-audit.mjs",
     "audit:parity": "node scripts/sitemap-parity.mjs",
     "audit:browser": "node scripts/browser-smoke.mjs",

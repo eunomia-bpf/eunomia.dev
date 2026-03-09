@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 import { renderFeed } from "../lib/content/feed";
 import { getContentManifest } from "../lib/content/manifest";
 import { getActiveRolloutStage, stageAllowsRoute } from "../lib/rollout";
-import { absoluteUrl, STATIC_OG_IMAGE_PATH } from "../lib/seo";
+import { absoluteUrl } from "../lib/seo";
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const appDir = path.resolve(scriptDir, "..");
