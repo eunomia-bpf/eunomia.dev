@@ -31,6 +31,8 @@ function joinAuthors(metadata?: GitMetadata | null) {
   return metadata.authors.map((author) => author.name).join(", ");
 }
 
+const MAX_DISPLAYED_AUTHORS = 4;
+
 export function PageFooter({ locale, title, path, sourceHref, metadata, continuation }: PageFooterProps) {
   const labels = pageFooterCopyByLocale[locale];
 
@@ -40,11 +42,11 @@ export function PageFooter({ locale, title, path, sourceHref, metadata, continua
   const updated = formatDate(metadata?.updatedAt, locale);
   const created = formatDate(metadata?.createdAt, locale);
   const authors =
-    metadata?.authors.length && metadata.authors.length > 4
+    metadata?.authors.length && metadata.authors.length > MAX_DISPLAYED_AUTHORS
       ? `${metadata.authors
-          .slice(0, 4)
+          .slice(0, MAX_DISPLAYED_AUTHORS)
           .map((author) => author.name)
-          .join(", ")}, +${metadata.authors.length - 4} ${labels.overflow}`
+          .join(", ")}, +${metadata.authors.length - MAX_DISPLAYED_AUTHORS} ${labels.overflow}`
       : joinAuthors(metadata);
   const feedHref = localizePath("/feed.xml", locale);
   const navigationCards = [

@@ -4,6 +4,7 @@ import { getTutorialDocSources } from "./collections";
 import { getDocument, resolveDocument } from "./documents";
 import { getContentManifest } from "./manifest";
 import { getCollectionFamilyById, getCollectionPageDescriptors, type CollectionFamilyId } from "./registry";
+import { resolveRecordHref, resolveRecordSource } from "./record-utils";
 import { resolveLocalizedSource } from "./source";
 import type { ContentManifestRecord, SidebarGroup, SidebarItem } from "./types";
 
@@ -19,14 +20,6 @@ function getSidebarCopy(locale: Locale) {
         legacyBlog: "Legacy Blog",
         sectionPrefix: "Docs"
       };
-}
-
-function resolveRecordSource(record: ContentManifestRecord, locale: Locale): string | null {
-  return record.sourceByLocale[locale] ?? record.sourceByLocale.en ?? record.sourceByLocale.zh ?? null;
-}
-
-function resolveRecordHref(record: ContentManifestRecord, locale: Locale): string | null {
-  return record.routeByLocale[locale] ?? record.routeByLocale.en ?? record.routeByLocale.zh ?? null;
 }
 
 function recordToSidebarItem(record: ContentManifestRecord, locale: Locale): SidebarItem | null {

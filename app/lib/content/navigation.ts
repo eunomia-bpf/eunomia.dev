@@ -2,18 +2,11 @@ import type { Locale } from "../site-data";
 import { useContentCache } from "./cache";
 import { getDocumentBySource } from "./documents";
 import { getContentManifest } from "./manifest";
+import { resolveRecordHref, resolveRecordSource } from "./record-utils";
 import type { ContentManifestKind, ContentManifestRecord, PageContinuation, PageLink } from "./types";
 
 const pageLinkCache = new Map<string, PageLink>();
 const collectionLinkCache = new Map<string, PageLink[]>();
-
-function resolveRecordSource(record: ContentManifestRecord, locale: Locale): string | null {
-  return record.sourceByLocale[locale] ?? record.sourceByLocale.en ?? record.sourceByLocale.zh ?? null;
-}
-
-function resolveRecordHref(record: ContentManifestRecord, locale: Locale): string | null {
-  return record.routeByLocale[locale] ?? record.routeByLocale.en ?? record.routeByLocale.zh ?? null;
-}
 
 function recordToPageLink(record: ContentManifestRecord, locale: Locale): PageLink | null {
   const sourceRelative = resolveRecordSource(record, locale);

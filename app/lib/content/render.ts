@@ -16,7 +16,7 @@ import { createRehypeRewriter } from "./rewrite";
 import { parseMarkdown } from "./markdown";
 import { markdownSanitizeSchema } from "./sanitize";
 import type { HeadingEntry, RenderedMarkdown } from "./types";
-import { escapeXml } from "../utils";
+import { escapeXml, normalizeClassNames } from "../utils";
 
 type HastNode = {
   type?: string;
@@ -36,18 +36,6 @@ function extractNodeText(node: HastNode): string {
   }
 
   return (node.children ?? []).map(extractNodeText).join("");
-}
-
-function normalizeClassNames(value: unknown): string[] {
-  if (Array.isArray(value)) {
-    return value.filter((item): item is string => typeof item === "string");
-  }
-
-  if (typeof value === "string") {
-    return value.split(/\s+/).filter(Boolean);
-  }
-
-  return [];
 }
 
 function createHeadingCollector(headings: HeadingEntry[]) {

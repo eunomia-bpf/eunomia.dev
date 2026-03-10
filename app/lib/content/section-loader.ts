@@ -4,7 +4,8 @@ import { buildSectionPath } from "./route-paths";
 import { buildSectionSidebar } from "./sidebar";
 import { resolveSectionPageSource } from "./source";
 import type { DocsPage } from "./types";
-import { loadDocumentPage, requireDocument, withContinuation } from "./page-loader-utils";
+import { resolveDocument } from "./documents";
+import { loadDocumentPage, withContinuation } from "./page-loader-utils";
 
 export async function loadSectionPage(
   section: string,
@@ -38,9 +39,5 @@ export async function loadSectionPage(
 }
 
 function tryResolveSource(relativePath: string, locale: Locale): string | null {
-  try {
-    return requireDocument(relativePath, locale).sourceRelative;
-  } catch {
-    return null;
-  }
+  return resolveDocument(relativePath, locale)?.sourceRelative ?? null;
 }

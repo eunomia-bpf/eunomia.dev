@@ -1,6 +1,8 @@
 import rehypePrettyCode from "rehype-pretty-code";
 import { visit } from "unist-util-visit";
 
+import { normalizeClassNames } from "../utils";
+
 const languageAliases: Record<string, string> = {
   bt: "plaintext",
   conf: "plaintext",
@@ -24,18 +26,6 @@ type HastElement = {
   };
   children?: HastElement[];
 };
-
-function normalizeClassNames(value: unknown): string[] {
-  if (Array.isArray(value)) {
-    return value.filter((item): item is string => typeof item === "string");
-  }
-
-  if (typeof value === "string") {
-    return value.split(/\s+/).filter(Boolean);
-  }
-
-  return [];
-}
 
 function normalizeLanguage(value: string): string {
   return languageAliases[value.toLowerCase()] ?? value.toLowerCase();

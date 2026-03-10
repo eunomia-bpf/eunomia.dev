@@ -36,6 +36,7 @@ export function SearchBox({
   const requestRef = useRef<AbortController | null>(null);
   const listboxId = useId();
   const labels = searchBoxCopyByLocale[locale];
+  const BLUR_DELAY_MS = 120; // Allow click events on dropdown items to register before closing
   const normalizedQuery = deferredQuery.trim();
   const hasQuery = normalizedQuery.length >= 2;
   const searchHref = `${localizePath("/search/", locale)}?q=${encodeURIComponent(query.trim())}`;
@@ -107,7 +108,7 @@ export function SearchBox({
           className={`rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm outline-none transition focus:border-slate-400 focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-1 ${inputClassName}`.trim()}
           onFocus={() => setOpen(true)}
           onBlur={() => {
-            window.setTimeout(() => setOpen(false), 120);
+            window.setTimeout(() => setOpen(false), BLUR_DELAY_MS);
           }}
           onKeyDown={(event) => {
             if (event.key === "ArrowDown") {
