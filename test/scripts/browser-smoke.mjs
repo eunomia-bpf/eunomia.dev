@@ -355,8 +355,10 @@ async function main() {
     await mobileSearchResult.waitFor({ state: "visible" });
     check(await mobileSearchResult.count(), "mobile search returns matching results");
     await mobilePage.keyboard.press("Escape");
+    await mobilePage.locator("#mobile-nav-panel").waitFor({ state: "detached", timeout: 2000 });
     check(await mobilePage.locator("#mobile-nav-panel").count() === 0, "mobile navigation closes on Escape");
     await menuButton.click();
+    await mobilePage.locator("#mobile-nav-panel").first().waitFor({ state: "visible" });
     const mobileTutorialLink = mobilePage
       .locator(`#mobile-nav-panel a[href='${smokeRoutes.tutorials}'], #mobile-nav-panel a[href='${absolute(smokeRoutes.tutorials)}']`)
       .first();
