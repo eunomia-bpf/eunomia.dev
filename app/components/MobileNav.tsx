@@ -5,10 +5,13 @@ import { useEffect, useRef, useState } from "react";
 import { SearchBox } from "../components/SearchBox";
 import { SidebarNav } from "../components/SidebarNav";
 import type { SidebarGroup } from "../lib/content/types";
-import { localizePath } from "../lib/paths";
+import { localizePath, normalizePath } from "../lib/paths";
 import { getPrimaryNav } from "../lib/site-ia";
 import type { Locale } from "../lib/site-data";
 import { mobileNavCopyByLocale } from "../lib/ui-copy";
+
+// Duration must match the Tailwind duration-300 class (300 ms).
+const ANIMATION_DURATION_MS = 300;
 
 type MobileNavProps = {
   locale: Locale;
@@ -16,18 +19,13 @@ type MobileNavProps = {
   sidebar?: SidebarGroup[];
 };
 
-function normalizePath(pathname: string | undefined): string {
-  if (!pathname) {
-    return "/";
-  }
-
-  const normalized = pathname.endsWith("/") && pathname !== "/" ? pathname.slice(0, -1) : pathname;
-  return normalized || "/";
-}
-
 export function MobileNav({ locale, currentPath, sidebar }: MobileNavProps) {
   const [open, setOpen] = useState(false);
+  // `mounted` keeps the overlay in the DOM long enough for the close animation
+  // to finish before the element is removed.
+  const [mounted, setMounted] = useState(false);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const nav = getPrimaryNav(locale);
   const copy = mobileNavCopyByLocale[locale];
   const normalizedCurrentPath = normalizePath(currentPath);
@@ -41,6 +39,29 @@ export function MobileNav({ locale, currentPath, sidebar }: MobileNavProps) {
     },
     ...(sidebar?.filter((group) => group.items.length) ?? [])
   ];
+
+  // Sync open → mounted with a delayed unmount so the close animation plays.
+  useEffect(() => {
+    if (open) {
+      // Clear any pending close timer and immediately mount.
+      if (closeTimerRef.current !== null) {
+        clearTimeout(closeTimerRef.current);
+        closeTimerRef.current = null;
+      }
+      setMounted(true);
+    } else {
+      // Keep mounted until the transition finishes, then unmount.
+      closeTimerRef.current = setTimeout(() => {
+        setMounted(false);
+        closeTimerRef.current = null;
+      }, ANIMATION_DURATION_MS);
+    }
+    return () => {
+      if (closeTimerRef.current !== null) {
+        clearTimeout(closeTimerRef.current);
+      }
+    };
+  }, [open]);
 
   useEffect(() => {
     if (!open) {
@@ -82,17 +103,27 @@ export function MobileNav({ locale, currentPath, sidebar }: MobileNavProps) {
       >
         <span className="text-lg leading-none">{open ? "\u00d7" : "\u2261"}</span>
       </button>
-      {open ? (
+      {mounted ? (
         <div id="mobile-nav-overlay" className="fixed inset-0 z-50 lg:hidden">
+          {/* Backdrop: fades in when open, fades out when closing */}
           <button
             type="button"
             aria-label={copy.close}
-            className="absolute inset-0 bg-slate-900/45"
+            className={[
+              "absolute inset-0 bg-slate-900/45",
+              "transition-opacity duration-300 ease-out",
+              open ? "opacity-100" : "opacity-0"
+            ].join(" ")}
             onClick={() => setOpen(false)}
           />
+          {/* Drawer panel: slides in from the left */}
           <div
             id="mobile-nav-panel"
-            className="absolute left-0 top-0 flex h-full w-[min(24rem,calc(100vw-1.5rem))] max-w-full flex-col border-r border-slate-200 bg-white shadow-2xl"
+            className={[
+              "absolute left-0 top-0 flex h-full w-[min(24rem,calc(100vw-1.5rem))] max-w-full flex-col border-r border-slate-200 bg-white shadow-2xl",
+              "transition-transform duration-300 ease-out",
+              open ? "translate-x-0" : "-translate-x-full"
+            ].join(" ")}
           >
             <div className="flex items-center justify-between border-b border-slate-200 px-4 py-4">
               <a

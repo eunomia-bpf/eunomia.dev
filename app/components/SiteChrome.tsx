@@ -30,10 +30,18 @@ export function SiteChrome({
   sidebar,
   alternates
 }: SiteChromeProps) {
+  const skipLabel = locale === "zh" ? "跳转到主要内容" : "Skip to content";
+
   return (
     <div className="min-h-screen bg-white">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-slate-900 focus:shadow-md"
+      >
+        {skipLabel}
+      </a>
       <SiteHeader locale={locale} currentPath={currentPath} sidebar={sidebar} alternates={alternates} />
-      <main className="pb-16">
+      <main id="main-content" className="pb-16">
         {hero ?? (
           leadMode === "compact" ? (
             <section className="border-b border-slate-200 bg-white">

@@ -11,7 +11,6 @@ type SeoHeadProps = {
   alternates: AlternateLink[];
   article?: boolean;
   metadata?: GitMetadata | null;
-  eyebrow?: string;
   robots?: string;
 };
 

@@ -1,7 +1,7 @@
 import { MobileNav } from "../components/MobileNav";
 import { SearchBox } from "../components/SearchBox";
 import type { LocaleAlternates, SidebarGroup } from "../lib/content/types";
-import { localizePath } from "../lib/paths";
+import { localizePath, normalizePath } from "../lib/paths";
 import { getPrimaryNav } from "../lib/site-ia";
 import type { Locale } from "../lib/site-data";
 
@@ -11,15 +11,6 @@ type SiteHeaderProps = {
   sidebar?: SidebarGroup[];
   alternates?: LocaleAlternates;
 };
-
-function normalizePath(pathname: string | undefined): string {
-  if (!pathname) {
-    return "/";
-  }
-
-  const normalized = pathname.endsWith("/") && pathname !== "/" ? pathname.slice(0, -1) : pathname;
-  return normalized || "/";
-}
 
 function isActivePath(currentPath: string, href: string): boolean {
   const normalizedCurrentPath = normalizePath(currentPath);

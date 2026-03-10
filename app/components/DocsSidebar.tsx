@@ -1,9 +1,6 @@
 import type { SidebarGroup } from "../lib/content/types";
+import { joinClassNames } from "../lib/utils";
 import { SidebarNav } from "./SidebarNav";
-
-function joinClassNames(...values: Array<string | false | null | undefined>): string {
-  return values.filter(Boolean).join(" ");
-}
 
 type DocsSidebarProps = {
   groups: SidebarGroup[];

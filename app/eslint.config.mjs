@@ -5,6 +5,7 @@ export default createLintConfig({
     "node_modules/**",
     ".next/**",
     ".next-*/**",
+    ".next.*/**",
     ".static-builds/**",
     ".generated/**",
     "out/**",

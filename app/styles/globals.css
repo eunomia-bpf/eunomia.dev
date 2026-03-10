@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid #64748b;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
 :root {
   color-scheme: light;
 }
@@ -83,6 +91,52 @@ a {
 
 .content-copy figure[data-rehype-pretty-code-figure] pre {
   @apply mb-0 rounded-none border-0 bg-transparent p-0 shadow-none;
+}
+
+/* Copy-to-clipboard button injected by MarkdownContent.tsx */
+.copy-code-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.7rem;
+  font-family: inherit;
+  line-height: 1.4;
+  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0;
+  transition:
+    opacity 0.15s ease,
+    color 0.15s ease,
+    background 0.15s ease;
+  z-index: 10;
+}
+
+.content-copy pre:hover .copy-code-btn,
+.copy-code-btn:focus-visible {
+  opacity: 1;
+}
+
+.copy-code-btn:hover {
+  color: #e2e8f0;
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(148, 163, 184, 0.45);
+}
+
+.copy-code-btn.copied {
+  opacity: 1;
+  color: #86efac;
+  border-color: rgba(134, 239, 172, 0.4);
+}
+
+.copy-code-btn svg {
+  flex-shrink: 0;
 }
 
 .content-copy pre.mermaid-diagram {

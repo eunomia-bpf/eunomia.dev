@@ -16,6 +16,7 @@ import { createRehypeRewriter } from "./rewrite";
 import { parseMarkdown } from "./markdown";
 import { markdownSanitizeSchema } from "./sanitize";
 import type { HeadingEntry, RenderedMarkdown } from "./types";
+import { escapeXml } from "../utils";
 
 type HastNode = {
   type?: string;
@@ -122,15 +123,6 @@ function createMermaidFenceTransformer() {
   };
 }
 
-function escapeHtml(value: string): string {
-  return value
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
-}
-
 async function renderMarkdownChunk(
   markdown: string,
   relativePath: string,
@@ -193,8 +185,8 @@ async function renderCompositeMarkdown(
     if (block.type === "admonition") {
       const rendered = await renderCompositeMarkdown(block.content, relativePath, locale, state);
       headings.push(...rendered.headings);
-      const kindClass = escapeHtml(block.kind.toLowerCase());
-      const title = escapeHtml(block.title);
+      const kindClass = escapeXml(block.kind.toLowerCase());
+      const title = escapeXml(block.title);
       const bodyHtml = `<div class="content-admonition-body">${rendered.html}</div>`;
 
       if (block.collapsible) {
@@ -217,7 +209,7 @@ async function renderCompositeMarkdown(
         const inputId = `${tabGroupId}-${index}`;
         return `<div class="content-tab"><input class="content-tab-input" type="radio" name="${tabGroupId}" id="${inputId}"${
           index === 0 ? " checked" : ""
-        }><label class="content-tab-label" for="${inputId}">${escapeHtml(item.label)}</label><div class="content-tab-panel">${rendered.html}</div></div>`;
+        }><label class="content-tab-label" for="${inputId}">${escapeXml(item.label)}</label><div class="content-tab-panel">${rendered.html}</div></div>`;
       })
     );
 

@@ -21,6 +21,19 @@ type SerializedSearchIndex = {
   documents: SearchDocument[];
 };
 
+const SEARCH_SCORING = {
+  TITLE_EXACT_MATCH: 500,
+  TITLE_PREFIX_MATCH: 300,
+  TITLE_CONTAINS: 180,
+  DESCRIPTION_CONTAINS: 90,
+  HREF_CONTAINS: 50,
+  TOKEN_IN_TITLE: 60,
+  TOKEN_IN_DESCRIPTION: 25,
+  TOKEN_IN_BODY: 10,
+} as const;
+
+const MAX_BODY_TERMS = 192;
+
 const supportedLocales: Locale[] = ["en", "zh"];
 const searchIndexCache = new Map<Locale, SearchDocument[]>();
 const publicSearchDir = path.join(appRoot, "public", "search-index");
@@ -54,7 +67,7 @@ function buildBodyTerms(body: string, headings: Array<{ text: string }>): string
     unique.add(token);
     limited.push(token);
 
-    if (limited.length >= 192) {
+    if (limited.length >= MAX_BODY_TERMS) {
       break;
     }
   }
@@ -175,37 +188,37 @@ function scoreDocument(document: SearchDocument, query: string, tokens: string[]
   let score = 0;
 
   if (document.titleText === query) {
-    score += 500;
+    score += SEARCH_SCORING.TITLE_EXACT_MATCH;
   } else if (document.titleText.startsWith(query)) {
-    score += 300;
+    score += SEARCH_SCORING.TITLE_PREFIX_MATCH;
   } else if (document.titleText.includes(query)) {
-    score += 180;
+    score += SEARCH_SCORING.TITLE_CONTAINS;
   }
 
   if (document.descriptionText.includes(query)) {
-    score += 90;
+    score += SEARCH_SCORING.DESCRIPTION_CONTAINS;
   }
 
   if (document.href.toLowerCase().includes(query)) {
-    score += 50;
+    score += SEARCH_SCORING.HREF_CONTAINS;
   }
 
   let matchedTokens = 0;
   for (const token of tokens) {
     if (document.titleText.includes(token)) {
-      score += 60;
+      score += SEARCH_SCORING.TOKEN_IN_TITLE;
       matchedTokens += 1;
       continue;
     }
 
     if (document.descriptionText.includes(token)) {
-      score += 25;
+      score += SEARCH_SCORING.TOKEN_IN_DESCRIPTION;
       matchedTokens += 1;
       continue;
     }
 
     if (document.bodyTerms.includes(token)) {
-      score += 10;
+      score += SEARCH_SCORING.TOKEN_IN_BODY;
       matchedTokens += 1;
     }
   }

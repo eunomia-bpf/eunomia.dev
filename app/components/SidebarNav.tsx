@@ -1,16 +1,6 @@
 import type { SidebarGroup } from "../lib/content/types";
-
-function normalizePath(pathname: string): string {
-  if (!pathname || pathname === "/") {
-    return "/";
-  }
-
-  return pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
-}
-
-function joinClassNames(...values: Array<string | false | null | undefined>): string {
-  return values.filter(Boolean).join(" ");
-}
+import { normalizePath } from "../lib/paths";
+import { joinClassNames } from "../lib/utils";
 
 type SidebarNavProps = {
   groups: SidebarGroup[];

@@ -3,15 +3,7 @@ import { getBlogEntries } from "./collections";
 import { getDocument } from "./documents";
 import { buildBlogIndexPath, buildBlogPath } from "./route-paths";
 import { absoluteUrl } from "../seo";
-
-function escapeXml(value: string): string {
-  return value
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&apos;");
-}
+import { escapeXml } from "../utils";
 
 export function renderFeed(locale: Locale): string {
   const items = getBlogEntries()

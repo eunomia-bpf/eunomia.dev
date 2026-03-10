@@ -65,7 +65,6 @@ export function DocsPageView({
         alternates={canonicalAlternates(page.alternates)}
         article={page.layout === "document"}
         metadata={page.metadata}
-        eyebrow={eyebrow}
       />
       <SiteChrome
         locale={locale}
@@ -100,7 +99,6 @@ export function HomePageView({
         path={page.path}
         alternates={canonicalAlternates(page.alternates)}
         metadata={page.metadata}
-        eyebrow={eyebrow}
       />
       <SiteChrome
         locale={locale}

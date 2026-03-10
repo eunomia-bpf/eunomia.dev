@@ -6,6 +6,7 @@ import { renderFeed } from "../lib/content/feed";
 import { getContentManifest } from "../lib/content/manifest";
 import { getActiveRolloutStage, stageAllowsRoute } from "../lib/rollout";
 import { absoluteUrl } from "../lib/seo";
+import { escapeXml } from "../lib/utils";
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const appDir = path.resolve(scriptDir, "..");
@@ -27,15 +28,6 @@ function writeFileAtomic(filePath: string, contents: string) {
   const tempPath = `${filePath}.tmp`;
   fs.writeFileSync(tempPath, contents, "utf8");
   fs.renameSync(tempPath, filePath);
-}
-
-function escapeXml(value: string) {
-  return value
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
 }
 
 function renderStaticOgSvg() {

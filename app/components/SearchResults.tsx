@@ -53,7 +53,6 @@ export function SearchResults({ locale, query, results, sidebar }: SearchResults
         description={copy.intro}
         path={path}
         alternates={canonicalAlternates({ en: localizePath("/search/", "en"), zh: localizePath("/search/", "zh") })}
-        eyebrow={copy.eyebrow}
         robots="noindex,follow"
       />
       <SiteChrome
