@@ -12,7 +12,7 @@ export function DocsSidebar({ groups, currentPath, className }: DocsSidebarProps
   return (
     <aside
       className={joinClassNames(
-        "sticky top-20 hidden max-h-[calc(100vh-6rem)] overflow-y-auto pr-8 lg:block",
+        "sidebar-scroll sticky top-20 hidden max-h-[calc(100vh-6rem)] overflow-y-auto pr-8 lg:block",
         className
       )}
     >
