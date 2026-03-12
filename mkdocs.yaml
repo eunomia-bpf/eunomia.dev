@@ -29,6 +29,8 @@ theme:
     - search.highlight
     - search.share
     - navigation.footer
+    - navigation.instant
+    - navigation.instant.progress
     - navigation.tabs
     - navigation.expand
     - navigation.path
@@ -127,7 +129,7 @@ nav:
     - tutorials/47-cuda-events/README.md
     - tutorials/48-energy/README.md
     - ... | flat | tutorials/**/*.md
-  - Blog: blog/index.md
+  - Blog: blog
   - bpftime:
     - bpftime/index.md
     - Documents:
@@ -200,6 +202,13 @@ extra:
           note: >- 
             Thanks for your feedback! Help us improve this page by
             using our <a href="https://github.com/orgs/eunomia-bpf/discussions" target="_blank" rel="noopener">Github discussion</a>.
+  alternate:
+    - name: English
+      link: /en/ 
+      lang: en
+    - name: Chinese
+      link: /zh/
+      lang: zh
 plugins:
   - meta
   - social
@@ -244,9 +253,3 @@ plugins:
   - git-revision-date-localized:
       enable_creation_date: true
   - git-authors  
-validation:
-  nav:
-    omitted_files: ignore
-    absolute_links: ignore
-  links:
-    anchors: ignore
