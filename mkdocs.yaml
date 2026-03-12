@@ -72,6 +72,7 @@ markdown_extensions:
 
 hooks:
   - hooks/blog_i18n_fix.py
+  - hooks/en_redirects.py
   - hooks/socialmedia.py
 
 nav:
