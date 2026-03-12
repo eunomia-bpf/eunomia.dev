@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { HomePageData } from "../lib/page-factories";
 import type { BlogEntry } from "../lib/content/types";
 
@@ -117,18 +118,18 @@ export function HomeLanding({ recentPosts = [] }: HomeLandingProps) {
               <GitHubIcon />
               GitHub
             </a>
-            <a
+            <Link
               href="/tutorials/"
               className="inline-flex items-center gap-2 rounded-lg border border-white/30 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/20"
             >
               View Tutorials
-            </a>
-            <a
+            </Link>
+            <Link
               href="/blog/"
               className="inline-flex items-center gap-2 rounded-lg border border-white/30 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/20"
             >
               Read the Blog
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -177,9 +178,9 @@ export function HomeLanding({ recentPosts = [] }: HomeLandingProps) {
         <section>
           <div className="mb-6 flex items-center justify-between">
             <h2 className="text-xl font-semibold tracking-tight text-ink">Recent Posts</h2>
-            <a href="/blog/" className="text-sm font-medium text-azure transition hover:underline">
+            <Link href="/blog/" className="text-sm font-medium text-azure transition hover:underline">
               All posts →
-            </a>
+            </Link>
           </div>
           <div className="divide-y divide-slate-200 rounded-xl border border-slate-200 bg-white">
             {recentPosts.map((post) => (
