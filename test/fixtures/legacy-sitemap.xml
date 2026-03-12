@@ -3366,4 +3366,32 @@
         <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/wasm-bpf/"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/wasm-bpf/"/>
     </url>
+    <url>
+        <loc>https://eunomia.dev/tutorials/50-tcx/</loc>
+        <lastmod>2026-03-12</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/tutorials/50-tcx/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/50-tcx/"/>
+    </url>
+    <url>
+        <loc>https://eunomia.dev/zh/tutorials/50-tcx/</loc>
+        <lastmod>2026-03-12</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/50-tcx/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/tutorials/50-tcx/"/>
+    </url>
+    <url>
+        <loc>https://eunomia.dev/tutorials/features/bpf_token/</loc>
+        <lastmod>2026-03-12</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/tutorials/features/bpf_token/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/features/bpf_token/"/>
+    </url>
+    <url>
+        <loc>https://eunomia.dev/zh/tutorials/features/bpf_token/</loc>
+        <lastmod>2026-03-12</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/features/bpf_token/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/tutorials/features/bpf_token/"/>
+    </url>
 </urlset>
