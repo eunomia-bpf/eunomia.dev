@@ -69,6 +69,7 @@ markdown_extensions:
       alternate_style: true
 
 hooks:
+  - hooks/blog_i18n_fix.py
   - hooks/socialmedia.py
 
 nav:
