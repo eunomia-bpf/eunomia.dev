@@ -144,4 +144,6 @@ export type DocsPage = {
   cards?: LandingCard[];
   headings?: HeadingEntry[];
   continuation?: PageContinuation;
+  /** Populated for blog-index pages to drive the React blog listing component. */
+  blogEntries?: BlogEntry[];
 };
