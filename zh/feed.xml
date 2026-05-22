@@ -2,216 +2,216 @@
 <rss version="2.0">
 <channel>
   <title>eunomia 博客</title>
-  <link>http://127.0.0.1:37187/zh/blog/</link>
+  <link>https://eunomia.dev/zh/blog/</link>
   <description>eunomia.dev 上关于 eBPF、bpftime、AI tracing 和系统研究的最新文章。</description>
   <language>zh-CN</language>
   <item>
   <title>ACRFence：防止 AI Agent 检查点恢复中的语义回滚攻击</title>
-  <link>http://127.0.0.1:37187/zh/blog/2026/05/21/acrfence-preventing-semantic-rollback-attacks-in-agent-checkpoint-restore/</link>
-  <guid>http://127.0.0.1:37187/zh/blog/2026/05/21/acrfence-preventing-semantic-rollback-attacks-in-agent-checkpoint-restore/</guid>
+  <link>https://eunomia.dev/zh/blog/2026/05/21/acrfence-preventing-semantic-rollback-attacks-in-agent-checkpoint-restore/</link>
+  <guid>https://eunomia.dev/zh/blog/2026/05/21/acrfence-preventing-semantic-rollback-attacks-in-agent-checkpoint-restore/</guid>
   <pubDate>Thu, 21 May 2026 00:00:00 GMT</pubDate>
   <description>AI Agent 框架正在把 checkpoint/restore、time travel、rewind 这类能力带进日常开发体验：Agent 做错了，可以回到某个检查点；用户想试另一条路径，可以从旧状态分叉继续跑。这对调试和人机协作非常有用，但当 Agent 已经调用过外部工具时，事情会变得危险。</description>
 </item>
 <item>
   <title>AgentCgroup: What Happens When AI Coding Agents Meet OS Resources?</title>
-  <link>http://127.0.0.1:37187/zh/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/</link>
-  <guid>http://127.0.0.1:37187/zh/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/</guid>
+  <link>https://eunomia.dev/zh/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/</link>
+  <guid>https://eunomia.dev/zh/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/</guid>
   <pubDate>Tue, 17 Feb 2026 00:00:00 GMT</pubDate>
-  <description>AgentCgroup: What Happens When AI Coding Agents Meet OS Resources?</description>
+  <description>AI coding agents such as Claude Code, OpenHands, and SWE-agent are increasingly deployed in multi-tenant cloud environments, where they execute diverse tool calls inside sandboxed containers. Despite growing adoption, th</description>
 </item>
 <item>
   <title>Reverse Engineering Claude Code&#39;s SSL Traffic with eBPF</title>
-  <link>http://127.0.0.1:37187/zh/blog/2026/02/13/reverse-engineering-claude-code-s-ssl-traffic-with-ebpf/</link>
-  <guid>http://127.0.0.1:37187/zh/blog/2026/02/13/reverse-engineering-claude-code-s-ssl-traffic-with-ebpf/</guid>
+  <link>https://eunomia.dev/zh/blog/2026/02/13/reverse-engineering-claude-code-s-ssl-traffic-with-ebpf/</link>
+  <guid>https://eunomia.dev/zh/blog/2026/02/13/reverse-engineering-claude-code-s-ssl-traffic-with-ebpf/</guid>
   <pubDate>Fri, 13 Feb 2026 00:00:00 GMT</pubDate>
-  <description>Reverse Engineering Claude Code&#39;s SSL Traffic with eBPF</description>
+  <description>Ever wondered what your AI coding agent is actually sending over the network? As part of our work on AgentSight — an eBPF-powered observability tool that monitors AI agents at system boundaries without modifying their co</description>
 </item>
 <item>
   <title>A Taxonomy of GPU Bugs: 19 Defect Classes for CUDA Verification</title>
-  <link>http://127.0.0.1:37187/zh/blog/2026/01/29/a-taxonomy-of-gpu-bugs-19-defect-classes-for-cuda-verification/</link>
-  <guid>http://127.0.0.1:37187/zh/blog/2026/01/29/a-taxonomy-of-gpu-bugs-19-defect-classes-for-cuda-verification/</guid>
+  <link>https://eunomia.dev/zh/blog/2026/01/29/a-taxonomy-of-gpu-bugs-19-defect-classes-for-cuda-verification/</link>
+  <guid>https://eunomia.dev/zh/blog/2026/01/29/a-taxonomy-of-gpu-bugs-19-defect-classes-for-cuda-verification/</guid>
   <pubDate>Thu, 29 Jan 2026 00:00:00 GMT</pubDate>
-  <description>A Taxonomy of GPU Bugs: 19 Defect Classes for CUDA Verification</description>
+  <description>GPU programming introduces a distinct class of correctness and performance challenges that differ fundamentally from traditional CPU-based systems. The SIMT (Single Instruction, Multiple Threads) execution model, hierarc</description>
 </item>
 <item>
   <title>智能体系统架构：隔离、集成与治理的综合调研</title>
-  <link>http://127.0.0.1:37187/zh/blog/2026/01/11/architectures-for-agent-systems-a-survey-of-isolation-integration-and-governance/</link>
-  <guid>http://127.0.0.1:37187/zh/blog/2026/01/11/architectures-for-agent-systems-a-survey-of-isolation-integration-and-governance/</guid>
+  <link>https://eunomia.dev/zh/blog/2026/01/11/architectures-for-agent-systems-a-survey-of-isolation-integration-and-governance/</link>
+  <guid>https://eunomia.dev/zh/blog/2026/01/11/architectures-for-agent-systems-a-survey-of-isolation-integration-and-governance/</guid>
   <pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate>
   <description>基于大语言模型（LLM）的智能体系统，即能够利用LLM自主规划并借助外部工具执行多步任务的软件，正迅速从概念验证阶段迈向企业级规模化部署。这些智能体有望将编码、IT运维、数据分析等工作自动化，然而，将其部署于生产环境也带来了在安全性、可靠性及系统集成方面的一系列新挑战。过去半年，业界社区已在几项关键策略上形成共识：为执行不可信操作提供强有力的隔离保障，为工具集成建立标准化协议，并构建能确保智能体行为符合企业策略的治理框架。本调研旨在系统</description>
 </item>
 <item>
   <title>GPU可观测性差距：为什么我们需要卸载到GPU设备上的eBPF</title>
-  <link>http://127.0.0.1:37187/zh/blog/2025/10/14/the-gpu-observability-gap-why-we-need-ebpf-on-gpu-devices/</link>
-  <guid>http://127.0.0.1:37187/zh/blog/2025/10/14/the-gpu-observability-gap-why-we-need-ebpf-on-gpu-devices/</guid>
+  <link>https://eunomia.dev/zh/blog/2025/10/14/the-gpu-observability-gap-why-we-need-ebpf-on-gpu-devices/</link>
+  <guid>https://eunomia.dev/zh/blog/2025/10/14/the-gpu-observability-gap-why-we-need-ebpf-on-gpu-devices/</guid>
   <pubDate>Tue, 14 Oct 2025 00:00:00 GMT</pubDate>
   <description>eBPF 作为一种在内核态提供可编程能力的革命性技术，已经在 CPU 的可观测性、网络和安全领域取得了巨大成功。然而，对于日益重要的 GPU 计算领域，我们同样需要一种灵活、高效的观测手段。目前，大多数 GPU 性能分析工具都局限于在 CPU 侧通过驱动/用户态 API 或厂商的性能分析接口（CUPTI）进行观测，难以深入了解 GPU 内部的执行细节。为了解决这一问题，bpftime 通过其 CUDA/SYCL 附加实现提供 GPU 支</description>
 </item>
 <item>
   <title>NVIDIA Open GPU Kernel Modules Comprehensive Source Code Analysis</title>
-  <link>http://127.0.0.1:37187/zh/blog/2025/10/14/nvidia-open-gpu-kernel-modules-comprehensive-source-code-analysis/</link>
-  <guid>http://127.0.0.1:37187/zh/blog/2025/10/14/nvidia-open-gpu-kernel-modules-comprehensive-source-code-analysis/</guid>
+  <link>https://eunomia.dev/zh/blog/2025/10/14/nvidia-open-gpu-kernel-modules-comprehensive-source-code-analysis/</link>
+  <guid>https://eunomia.dev/zh/blog/2025/10/14/nvidia-open-gpu-kernel-modules-comprehensive-source-code-analysis/</guid>
   <pubDate>Tue, 14 Oct 2025 00:00:00 GMT</pubDate>
-  <description>NVIDIA Open GPU Kernel Modules Comprehensive Source Code Analysis</description>
+  <description>In May 2022, NVIDIA made a decision that would fundamentally alter the landscape of GPU computing on Linux: they open-sourced the kernel-mode components of their GPU driver. This wasn&#39;t a simple code dump. Instead, it wa</description>
 </item>
 <item>
   <title>Understanding iaprof: A Deep Dive into AI/GPU Flame Graph Profiling</title>
-  <link>http://127.0.0.1:37187/zh/blog/2025/10/11/understanding-iaprof-a-deep-dive-into-ai-gpu-flame-graph-profiling/</link>
-  <guid>http://127.0.0.1:37187/zh/blog/2025/10/11/understanding-iaprof-a-deep-dive-into-ai-gpu-flame-graph-profiling/</guid>
+  <link>https://eunomia.dev/zh/blog/2025/10/11/understanding-iaprof-a-deep-dive-into-ai-gpu-flame-graph-profiling/</link>
+  <guid>https://eunomia.dev/zh/blog/2025/10/11/understanding-iaprof-a-deep-dive-into-ai-gpu-flame-graph-profiling/</guid>
   <pubDate>Sat, 11 Oct 2025 00:00:00 GMT</pubDate>
-  <description>Understanding iaprof: A Deep Dive into AI/GPU Flame Graph Profiling</description>
+  <description>An exploration of Intel&#39;s innovative profiling tool that bridges the gap between CPU and GPU execution</description>
 </item>
 <item>
   <title>AgentSight: 让 AI Agent 的一举一动都在掌控之中，基于 eBPF 的系统级可观测性方案</title>
-  <link>http://127.0.0.1:37187/zh/blog/2025/08/26/agentsight-keeping-your-ai-agents-under-control-with-ebpf-powered-system-observability/</link>
-  <guid>http://127.0.0.1:37187/zh/blog/2025/08/26/agentsight-keeping-your-ai-agents-under-control-with-ebpf-powered-system-observability/</guid>
+  <link>https://eunomia.dev/zh/blog/2025/08/26/agentsight-keeping-your-ai-agents-under-control-with-ebpf-powered-system-observability/</link>
+  <guid>https://eunomia.dev/zh/blog/2025/08/26/agentsight-keeping-your-ai-agents-under-control-with-ebpf-powered-system-observability/</guid>
   <pubDate>Tue, 26 Aug 2025 00:00:00 GMT</pubDate>
-  <description>AgentSight: 让 AI Agent 的一举一动都在掌控之中，基于 eBPF 的系统级可观测性方案</description>
+  <description>想象一下，当你的 AI Agent 正在自主编写代码、执行命令时，你却不知道它究竟在做什么，或许有点令人不安？随着 Claude Code、Gemini-cli 等 LLM 智能体工具的普及，我们正在将越来越多的控制权交给 AI。但这里有个棘手的问题：这些 AI 智能体与传统软件截然不同，现有的监控工具要么只能看到它们的&quot;想法&quot;（LLM 提示词），要么只能看到它们的&quot;行动&quot;（系统调用），却无法将两者联系起来。就像你只能听到一个人在说什么</description>
 </item>
 <item>
   <title>Profiling and Tracing Tools Across System Layers and Architectures</title>
-  <link>http://127.0.0.1:37187/zh/blog/2025/08/20/profiling-and-tracing-tools-across-system-layers-and-architectures/</link>
-  <guid>http://127.0.0.1:37187/zh/blog/2025/08/20/profiling-and-tracing-tools-across-system-layers-and-architectures/</guid>
+  <link>https://eunomia.dev/zh/blog/2025/08/20/profiling-and-tracing-tools-across-system-layers-and-architectures/</link>
+  <guid>https://eunomia.dev/zh/blog/2025/08/20/profiling-and-tracing-tools-across-system-layers-and-architectures/</guid>
   <pubDate>Wed, 20 Aug 2025 00:00:00 GMT</pubDate>
-  <description>Profiling and Tracing Tools Across System Layers and Architectures</description>
+  <description>Profiling and tracing are complementary techniques for analyzing software performance and behavior. Profiling typically measures where a program spends its time or resources, aggregating data (e.g. CPU time per function,</description>
 </item>
 <item>
   <title>The Modern Memory Testing Arsenal -- A Complete Guide to Benchmarking Tools for Next-Gen Memory Systems</title>
-  <link>http://127.0.0.1:37187/zh/blog/2025/06/21/the-modern-memory-testing-arsenal-a-complete-guide-to-benchmarking-tools-for-next-gen-memory-systems/</link>
-  <guid>http://127.0.0.1:37187/zh/blog/2025/06/21/the-modern-memory-testing-arsenal-a-complete-guide-to-benchmarking-tools-for-next-gen-memory-systems/</guid>
+  <link>https://eunomia.dev/zh/blog/2025/06/21/the-modern-memory-testing-arsenal-a-complete-guide-to-benchmarking-tools-for-next-gen-memory-systems/</link>
+  <guid>https://eunomia.dev/zh/blog/2025/06/21/the-modern-memory-testing-arsenal-a-complete-guide-to-benchmarking-tools-for-next-gen-memory-systems/</guid>
   <pubDate>Sat, 21 Jun 2025 00:00:00 GMT</pubDate>
-  <description>The Modern Memory Testing Arsenal -- A Complete Guide to Benchmarking Tools for Next-Gen Memory Systems</description>
+  <description>Memory systems are evolving rapidly. From traditional DDR DRAM to high-bandwidth memory (HBM), persistent memory (PMEM), and the emerging Compute Express Link (CXL) technology, today&#39;s systems feature complex heterogeneo</description>
 </item>
 <item>
   <title>系统会议中的可观测性、性能分析和调试（2015–2025）</title>
-  <link>http://127.0.0.1:37187/zh/blog/2025/06/21/observability-profiling-and-debugging-in-systems-conference-2015-2025/</link>
-  <guid>http://127.0.0.1:37187/zh/blog/2025/06/21/observability-profiling-and-debugging-in-systems-conference-2015-2025/</guid>
+  <link>https://eunomia.dev/zh/blog/2025/06/21/observability-profiling-and-debugging-in-systems-conference-2015-2025/</link>
+  <guid>https://eunomia.dev/zh/blog/2025/06/21/observability-profiling-and-debugging-in-systems-conference-2015-2025/</guid>
   <pubDate>Sat, 21 Jun 2025 00:00:00 GMT</pubDate>
   <description>本综述回顾了十多年来（2015–2025）计算机系统可观测性、性能分析和调试技术的研究，重点关注OSDI、SOSP和EuroSys的主会论文。我们涵盖了100多篇论文，涉及动态跟踪框架、日志记录和监控基础设施、性能异常检测、根因分析和系统可见性机制。我们识别了所解决的核心问题（从分布式请求跟踪到配置或并发错误检测）、采用的技术（动态插桩、静态分析、原位日志记录、分布式监控、ML辅助分析）、目标领域（操作系统内核、云和分布式系统、移动/物</description>
 </item>
 <item>
   <title>Checkpoint/Restore Systems: Evolution, Techniques, and Applications in AI Agents</title>
-  <link>http://127.0.0.1:37187/zh/blog/2025/05/11/checkpoint-restore-systems-evolution-techniques-and-applications-in-ai-agents/</link>
-  <guid>http://127.0.0.1:37187/zh/blog/2025/05/11/checkpoint-restore-systems-evolution-techniques-and-applications-in-ai-agents/</guid>
+  <link>https://eunomia.dev/zh/blog/2025/05/11/checkpoint-restore-systems-evolution-techniques-and-applications-in-ai-agents/</link>
+  <guid>https://eunomia.dev/zh/blog/2025/05/11/checkpoint-restore-systems-evolution-techniques-and-applications-in-ai-agents/</guid>
   <pubDate>Sun, 11 May 2025 00:00:00 GMT</pubDate>
-  <description>Checkpoint/Restore Systems: Evolution, Techniques, and Applications in AI Agents</description>
+  <description>Checkpoint/restore (C/R) technology – the ability to save a running program’s state to persistent storage and later resume execution from that point – has long been a cornerstone of fault tolerance and process management</description>
 </item>
 <item>
   <title>ASPLOS 2025: Paper Summaries and Insights</title>
-  <link>http://127.0.0.1:37187/zh/blog/2025/04/25/asplos-2025-paper-summaries-and-insights/</link>
-  <guid>http://127.0.0.1:37187/zh/blog/2025/04/25/asplos-2025-paper-summaries-and-insights/</guid>
+  <link>https://eunomia.dev/zh/blog/2025/04/25/asplos-2025-paper-summaries-and-insights/</link>
+  <guid>https://eunomia.dev/zh/blog/2025/04/25/asplos-2025-paper-summaries-and-insights/</guid>
   <pubDate>Fri, 25 Apr 2025 00:00:00 GMT</pubDate>
-  <description>ASPLOS 2025: Paper Summaries and Insights</description>
+  <description>The Association for Computing Machinery&#39;s Architectural Support for Programming Languages and Operating Systems (ASPLOS) conference is a premier venue where researchers present cutting-edge work spanning computer archite</description>
 </item>
 <item>
   <title>EuroSys 2025 Paper Summaries and Analysis</title>
-  <link>http://127.0.0.1:37187/zh/blog/2025/04/25/eurosys-2025-paper-summaries-and-analysis/</link>
-  <guid>http://127.0.0.1:37187/zh/blog/2025/04/25/eurosys-2025-paper-summaries-and-analysis/</guid>
+  <link>https://eunomia.dev/zh/blog/2025/04/25/eurosys-2025-paper-summaries-and-analysis/</link>
+  <guid>https://eunomia.dev/zh/blog/2025/04/25/eurosys-2025-paper-summaries-and-analysis/</guid>
   <pubDate>Fri, 25 Apr 2025 00:00:00 GMT</pubDate>
-  <description>EuroSys 2025 Paper Summaries and Analysis</description>
+  <description>This post offers a detailed examination of papers accepted at EuroSys 2025, one of the premier conferences in computer systems research. I&#39;ve analyzed over 40 papers spanning AI systems, cloud computing, networking, stor</description>
 </item>
 <item>
   <title>深入GPU性能分析工具：现代加速器追踪工具的实现详解</title>
-  <link>http://127.0.0.1:37187/zh/blog/2025/04/21/gpu-profiling-under-the-hood-an-implementation-focused-survey-of-modern-accelerator-tracing-tools/</link>
-  <guid>http://127.0.0.1:37187/zh/blog/2025/04/21/gpu-profiling-under-the-hood-an-implementation-focused-survey-of-modern-accelerator-tracing-tools/</guid>
+  <link>https://eunomia.dev/zh/blog/2025/04/21/gpu-profiling-under-the-hood-an-implementation-focused-survey-of-modern-accelerator-tracing-tools/</link>
+  <guid>https://eunomia.dev/zh/blog/2025/04/21/gpu-profiling-under-the-hood-an-implementation-focused-survey-of-modern-accelerator-tracing-tools/</guid>
   <pubDate>Mon, 21 Apr 2025 00:00:00 GMT</pubDate>
   <description>对异构加速器（GPU、DPU和APU）进行性能分析和追踪对于优化现代系统的性能至关重要。本调研提供了一个深入的实现导向的综述，介绍了当前最先进的工具如何捕获低级执行细节。我们面向两类受众：(1) 工具开发者，他们希望了解现有性能分析工具的构建方式——包括它们钩住的接口以及如何追踪CPU和加速器；(2) 系统工程师，他们需要根据功能和开销决定集成哪些工具。我们探讨了关键性能分析工具的内部架构、它们拦截的运行时库和驱动API、它们是否追踪C</description>
 </item>
 <item>
   <title>加速器工具箱：GPU和其他协处理器的性能分析和追踪详解</title>
-  <link>http://127.0.0.1:37187/zh/blog/2025/04/11/the-accelerator-toolkit-a-review-of-profiling-and-tracing-for-gpus-and-other-co-processor/</link>
-  <guid>http://127.0.0.1:37187/zh/blog/2025/04/11/the-accelerator-toolkit-a-review-of-profiling-and-tracing-for-gpus-and-other-co-processor/</guid>
+  <link>https://eunomia.dev/zh/blog/2025/04/11/the-accelerator-toolkit-a-review-of-profiling-and-tracing-for-gpus-and-other-co-processor/</link>
+  <guid>https://eunomia.dev/zh/blog/2025/04/11/the-accelerator-toolkit-a-review-of-profiling-and-tracing-for-gpus-and-other-co-processor/</guid>
   <pubDate>Fri, 11 Apr 2025 00:00:00 GMT</pubDate>
   <description>现代计算越来越依赖专用加速器——尤其是GPU、DPU和APU——来处理各种工作负载。图形处理单元(GPU)是一种大规模并行处理器，最初用于图形处理，现在在通用计算(HPC)和AI中必不可少。数据处理单元(DPU)是一种较新类型的可编程处理器，结合了CPU核心和高性能网络/存储引擎。DPU从CPU卸载网络、安全和存储任务，被认为是继CPU和GPU之后计算的&quot;第三支柱&quot;。同时，加速处理单元(APU)在一个芯片上集成了CPU和GPU组件——这</description>
 </item>
 <item>
   <title>OS-Level Challenges in LLM Inference and Optimizations</title>
-  <link>http://127.0.0.1:37187/zh/blog/2025/02/18/os-level-challenges-in-llm-inference-and-optimizations/</link>
-  <guid>http://127.0.0.1:37187/zh/blog/2025/02/18/os-level-challenges-in-llm-inference-and-optimizations/</guid>
+  <link>https://eunomia.dev/zh/blog/2025/02/18/os-level-challenges-in-llm-inference-and-optimizations/</link>
+  <guid>https://eunomia.dev/zh/blog/2025/02/18/os-level-challenges-in-llm-inference-and-optimizations/</guid>
   <pubDate>Tue, 18 Feb 2025 00:00:00 GMT</pubDate>
-  <description>OS-Level Challenges in LLM Inference and Optimizations</description>
+  <description>Large Language Model (LLM) inference pushes computing systems to their limits, not only in raw compute but also in how the operating system (OS) manages resources. This report examines OS-level challenges for LLM inferen</description>
 </item>
 <item>
   <title>WASI and the WebAssembly Component Model: Current Status</title>
-  <link>http://127.0.0.1:37187/zh/blog/2025/02/16/wasi-and-the-webassembly-component-model-current-status/</link>
-  <guid>http://127.0.0.1:37187/zh/blog/2025/02/16/wasi-and-the-webassembly-component-model-current-status/</guid>
+  <link>https://eunomia.dev/zh/blog/2025/02/16/wasi-and-the-webassembly-component-model-current-status/</link>
+  <guid>https://eunomia.dev/zh/blog/2025/02/16/wasi-and-the-webassembly-component-model-current-status/</guid>
   <pubDate>Sun, 16 Feb 2025 00:00:00 GMT</pubDate>
-  <description>WASI and the WebAssembly Component Model: Current Status</description>
+  <description>WebAssembly (WASM) has evolved from a browser-based technology into a promising runtime for server and embedded applications. Key to this evolution are the WebAssembly System Interface (WASI) – a standardized set of sysc</description>
 </item>
 <item>
   <title>eBPF Ecosystem Progress in 2024–2025: A Technical Deep Dive</title>
-  <link>http://127.0.0.1:37187/zh/blog/2025/02/12/ebpf-ecosystem-progress-in-2024-2025-a-technical-deep-dive/</link>
-  <guid>http://127.0.0.1:37187/zh/blog/2025/02/12/ebpf-ecosystem-progress-in-2024-2025-a-technical-deep-dive/</guid>
+  <link>https://eunomia.dev/zh/blog/2025/02/12/ebpf-ecosystem-progress-in-2024-2025-a-technical-deep-dive/</link>
+  <guid>https://eunomia.dev/zh/blog/2025/02/12/ebpf-ecosystem-progress-in-2024-2025-a-technical-deep-dive/</guid>
   <pubDate>Wed, 12 Feb 2025 00:00:00 GMT</pubDate>
-  <description>eBPF Ecosystem Progress in 2024–2025: A Technical Deep Dive</description>
+  <description>Extended Berkeley Packet Filter (eBPF) continues to rapidly evolve, cementing its role as a cornerstone for operating system extensibility. In 2024 and into early 2025, the eBPF ecosystem saw significant advancements acr</description>
 </item>
 <item>
   <title>Security Vulnerabilities Study in Software Extensions and Plugins</title>
-  <link>http://127.0.0.1:37187/zh/blog/2025/02/10/security-vulnerabilities-study-in-software-extensions-and-plugins/</link>
-  <guid>http://127.0.0.1:37187/zh/blog/2025/02/10/security-vulnerabilities-study-in-software-extensions-and-plugins/</guid>
+  <link>https://eunomia.dev/zh/blog/2025/02/10/security-vulnerabilities-study-in-software-extensions-and-plugins/</link>
+  <guid>https://eunomia.dev/zh/blog/2025/02/10/security-vulnerabilities-study-in-software-extensions-and-plugins/</guid>
   <pubDate>Mon, 10 Feb 2025 00:00:00 GMT</pubDate>
-  <description>Security Vulnerabilities Study in Software Extensions and Plugins</description>
+  <description>Software extensions and plugins allow customization and added features across many systems – from web servers and databases to browsers, IDEs, and CMS platforms. However, these extensibility mechanisms introduce security</description>
 </item>
 <item>
   <title>Can LLMs understand Linux kernel? A New AI-Powered Approach to Understanding Large Codebases</title>
-  <link>http://127.0.0.1:37187/zh/blog/2024/10/01/can-llms-understand-linux-kernel-a-new-ai-powered-approach-to-understanding-large-codebases/</link>
-  <guid>http://127.0.0.1:37187/zh/blog/2024/10/01/can-llms-understand-linux-kernel-a-new-ai-powered-approach-to-understanding-large-codebases/</guid>
+  <link>https://eunomia.dev/zh/blog/2024/10/01/can-llms-understand-linux-kernel-a-new-ai-powered-approach-to-understanding-large-codebases/</link>
+  <guid>https://eunomia.dev/zh/blog/2024/10/01/can-llms-understand-linux-kernel-a-new-ai-powered-approach-to-understanding-large-codebases/</guid>
   <pubDate>Tue, 01 Oct 2024 00:00:00 GMT</pubDate>
-  <description>Can LLMs understand Linux kernel? A New AI-Powered Approach to Understanding Large Codebases</description>
+  <description>Ever tried diving into a massive codebase like the Linux kernel and felt like you were swimming in an ocean of code with no land in sight? Trust me, you&#39;re not alone. Understanding large, complex, and constantly evolving</description>
 </item>
 <item>
   <title>构建高性能的用户态 eBPF 虚拟机：基于 LLVM 的 llvmbpf 项目</title>
-  <link>http://127.0.0.1:37187/zh/blog/2024/09/10/building-high-performance-userspace-ebpf-vms-with-llvm/</link>
-  <guid>http://127.0.0.1:37187/zh/blog/2024/09/10/building-high-performance-userspace-ebpf-vms-with-llvm/</guid>
+  <link>https://eunomia.dev/zh/blog/2024/09/10/building-high-performance-userspace-ebpf-vms-with-llvm/</link>
+  <guid>https://eunomia.dev/zh/blog/2024/09/10/building-high-performance-userspace-ebpf-vms-with-llvm/</guid>
   <pubDate>Tue, 10 Sep 2024 00:00:00 GMT</pubDate>
   <description>我们很高兴向大家介绍 llvmbpf，这是一个全新的项目，旨在为开发者提供一个高性能、支持多架构的 eBPF 虚拟机（VM）。llvmbpf 利用 LLVM 框架实现了即时编译（JIT）和提前编译（AOT），让你能够在用户态中高效运行 eBPF 程序。</description>
 </item>
 <item>
   <title>eBPF的过去、现在与未来及其革新系统的道路</title>
-  <link>http://127.0.0.1:37187/zh/blog/2024/08/11/the-past-present-and-future-of-ebpf-and-its-path-to-revolutionizing-systems/</link>
-  <guid>http://127.0.0.1:37187/zh/blog/2024/08/11/the-past-present-and-future-of-ebpf-and-its-path-to-revolutionizing-systems/</guid>
+  <link>https://eunomia.dev/zh/blog/2024/08/11/the-past-present-and-future-of-ebpf-and-its-path-to-revolutionizing-systems/</link>
+  <guid>https://eunomia.dev/zh/blog/2024/08/11/the-past-present-and-future-of-ebpf-and-its-path-to-revolutionizing-systems/</guid>
   <pubDate>Sun, 11 Aug 2024 00:00:00 GMT</pubDate>
   <description>这篇博客文章主要参考了 Alexei Starovoitov 在 BPFConf 2024 上的演讲“《为未来十年现代化BPF》”。</description>
 </item>
 <item>
   <title>简化内核编程：LLM驱动的eBPF工具</title>
-  <link>http://127.0.0.1:37187/zh/blog/2024/07/11/simplifying-kernel-programming-the-llm-powered-ebpf-tool/</link>
-  <guid>http://127.0.0.1:37187/zh/blog/2024/07/11/simplifying-kernel-programming-the-llm-powered-ebpf-tool/</guid>
+  <link>https://eunomia.dev/zh/blog/2024/07/11/simplifying-kernel-programming-the-llm-powered-ebpf-tool/</link>
+  <guid>https://eunomia.dev/zh/blog/2024/07/11/simplifying-kernel-programming-the-llm-powered-ebpf-tool/</guid>
   <pubDate>Thu, 11 Jul 2024 00:00:00 GMT</pubDate>
   <description>内核编程通常需要深入了解操作系统内部结构和编程约束，因而令人生畏。我们的新工具Kgent旨在简化这一过程，使创建扩展的Berkeley Packet Filter（eBPF）程序变得更加容易。Kgent利用大语言模型（LLM）的强大功能，将自然语言提示转换为eBPF代码，从而降低内核编程的门槛。</description>
 </item>
 <item>
   <title>The eBPF Evolution and Future: From Linux Origins to Cross-Platform Dominance</title>
-  <link>http://127.0.0.1:37187/zh/blog/2024/06/11/the-ebpf-evolution-and-future-from-linux-origins-to-cross-platform-dominance/</link>
-  <guid>http://127.0.0.1:37187/zh/blog/2024/06/11/the-ebpf-evolution-and-future-from-linux-origins-to-cross-platform-dominance/</guid>
+  <link>https://eunomia.dev/zh/blog/2024/06/11/the-ebpf-evolution-and-future-from-linux-origins-to-cross-platform-dominance/</link>
+  <guid>https://eunomia.dev/zh/blog/2024/06/11/the-ebpf-evolution-and-future-from-linux-origins-to-cross-platform-dominance/</guid>
   <pubDate>Tue, 11 Jun 2024 00:00:00 GMT</pubDate>
-  <description>The eBPF Evolution and Future: From Linux Origins to Cross-Platform Dominance</description>
+  <description>eBPF (Extended Berkeley Packet Filter) has become a revolutionary force in operating system kernel programming since its inception. Initially created for network packet filtering, eBPF has evolved into a versatile kernel</description>
 </item>
 <item>
   <title>五分钟带你手搓一个简易的 inline hook 实现控制流劫持</title>
-  <link>http://127.0.0.1:37187/zh/blog/2024/04/11/implementing-an-inline-hook-in-c-in-5-minutes/</link>
-  <guid>http://127.0.0.1:37187/zh/blog/2024/04/11/implementing-an-inline-hook-in-c-in-5-minutes/</guid>
+  <link>https://eunomia.dev/zh/blog/2024/04/11/implementing-an-inline-hook-in-c-in-5-minutes/</link>
+  <guid>https://eunomia.dev/zh/blog/2024/04/11/implementing-an-inline-hook-in-c-in-5-minutes/</guid>
   <pubDate>Thu, 11 Apr 2024 00:00:00 GMT</pubDate>
   <description>编程中令人着迷的一面在于我们尝试在程序运行时改变其行为。在本教程中，我们将揭示一种可以实现这一点的方法- inline hook 。只需要数十行代码，即可用 C 语言实现一个简单的 inline hook 示例，并将其应用于一个示例程序。</description>
 </item>
 <item>
   <title>eBPF 的演进与影响：近年的关键研究论文一览</title>
-  <link>http://127.0.0.1:37187/zh/blog/2024/03/11/the-evolution-and-impact-of-ebpf-a-list-of-key-research-papers-from-recent-years/</link>
-  <guid>http://127.0.0.1:37187/zh/blog/2024/03/11/the-evolution-and-impact-of-ebpf-a-list-of-key-research-papers-from-recent-years/</guid>
+  <link>https://eunomia.dev/zh/blog/2024/03/11/the-evolution-and-impact-of-ebpf-a-list-of-key-research-papers-from-recent-years/</link>
+  <guid>https://eunomia.dev/zh/blog/2024/03/11/the-evolution-and-impact-of-ebpf-a-list-of-key-research-papers-from-recent-years/</guid>
   <pubDate>Mon, 11 Mar 2024 00:00:00 GMT</pubDate>
   <description>这是我近年来读过的与 eBPF 相关的论文列表，可能对于对 eBPF 相关研究感兴趣的人有所帮助。</description>
 </item>
 <item>
   <title>eunomia-bpf v1.0：eBPF + Wasm 质的飞跃</title>
-  <link>http://127.0.0.1:37187/zh/blog/2024/02/11/introducing-eunomia-bpf-v1-0-simplifying-ebpf-with-co-re-and-webassembly/</link>
-  <guid>http://127.0.0.1:37187/zh/blog/2024/02/11/introducing-eunomia-bpf-v1-0-simplifying-ebpf-with-co-re-and-webassembly/</guid>
+  <link>https://eunomia.dev/zh/blog/2024/02/11/introducing-eunomia-bpf-v1-0-simplifying-ebpf-with-co-re-and-webassembly/</link>
+  <guid>https://eunomia.dev/zh/blog/2024/02/11/introducing-eunomia-bpf-v1-0-simplifying-ebpf-with-co-re-and-webassembly/</guid>
   <pubDate>Sun, 11 Feb 2024 00:00:00 GMT</pubDate>
   <description>随着技术的不断发展，eBPF已经成为了现代Linux内核中的一个核心组件，为开发者提供了强大的性能监控和网络跟踪功能。eunomia-bpf 作为一个新的 eBPF 开源开发框架，旨在简化 eBPF 程序的构建和分发，同时引入了 Wasm技术，为开发者提供了更多的可能性。在过去的半年中，从最初的PoC版本到如今的1.0版本，它已经经历了巨大的变革，成为了一个功能丰富的成熟产品。</description>
 </item>
 <item>
   <title>eBPF 运行时安全性：面临的挑战与前沿创新</title>
-  <link>http://127.0.0.1:37187/zh/blog/2024/02/11/the-secure-path-forward-for-ebpf-runtime-challenges-and-innovations/</link>
-  <guid>http://127.0.0.1:37187/zh/blog/2024/02/11/the-secure-path-forward-for-ebpf-runtime-challenges-and-innovations/</guid>
+  <link>https://eunomia.dev/zh/blog/2024/02/11/the-secure-path-forward-for-ebpf-runtime-challenges-and-innovations/</link>
+  <guid>https://eunomia.dev/zh/blog/2024/02/11/the-secure-path-forward-for-ebpf-runtime-challenges-and-innovations/</guid>
   <pubDate>Sun, 11 Feb 2024 00:00:00 GMT</pubDate>
   <description>扩展伯克利数据包过滤器（eBPF）代表了我们与现代操作系统交互和扩展其能力方式的重大演变。作为一种强大的技术，它使得Linux内核能够响应事件运行沙盒程序，eBPF已成为系统可观察性、网络和安全特性的基石。</description>
 </item>

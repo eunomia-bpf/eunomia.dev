@@ -1,1 +1,0 @@
-(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[6358],{3767:(_,e,u)=>{"use strict";u.r(e),u.d(e,{__N_SSG:()=>s,default:()=>t});let n=(0,u(1354).TF)("zh","主页");var s=!0;let t=n},4715:(_,e,u)=>{(window.__NEXT_P=window.__NEXT_P||[]).push(["/zh",function(){return u(3767)}])}},_=>{_.O(0,[5695,8351,1354,636,6593,8792],()=>_(_.s=4715)),_N_E=_.O()}]);
