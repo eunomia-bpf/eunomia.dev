@@ -3,7 +3,12 @@ import path from "node:path";
 
 import { useContentCache } from "./content/cache";
 import { getDocsFileSet, getTopLevelSections } from "./content/fs-index";
-import { readMkdocsTopLevelNavSections, type MkdocsTopLevelNavSection } from "./content/mkdocs-config";
+import {
+  readMkdocsSiteSections,
+  readMkdocsTopLevelNavSections,
+  type MkdocsSiteSectionConfig,
+  type MkdocsTopLevelNavSection
+} from "./content/mkdocs-config";
 import { getCollectionFamilies, type PublishedSiteSectionFlags } from "./content/registry";
 import { generatedContentDir } from "./content/roots";
 import {
@@ -26,11 +31,7 @@ export type SerializedSiteSectionDefinition = {
   order: number;
 };
 
-type SiteSectionOverride = {
-  labels?: Partial<Record<Locale, string>>;
-  published?: Partial<SerializedPublishedSiteSection>;
-  order?: number;
-};
+type SiteSectionOverride = MkdocsSiteSectionConfig;
 
 type SectionSeed = {
   key: SiteSectionKey;
@@ -47,94 +48,6 @@ type SerializedSiteSectionIndex = {
 };
 
 const generatedSiteSectionsPath = path.join(generatedContentDir, "site-sections.json");
-const sectionOverrides = new Map<SiteSectionKey, SiteSectionOverride>([
-  ["tutorials", { labels: { en: "Docs", zh: "文档" }, order: 10 }],
-  ["blog", { labels: { en: "Blog", zh: "博客" }, order: 20 }],
-  [
-    "legacy-blog",
-    {
-      labels: { en: "Legacy blog", zh: "旧博客" },
-      published: {
-        nav: false,
-        homeTrack: false,
-        homeExplore: true,
-        footerExplore: true,
-        footerProject: false
-      },
-      order: 70
-    }
-  ],
-  [
-    "bpftime",
-    {
-      labels: { en: "Runtime", zh: "Runtime" },
-      published: {
-        nav: true,
-        homeTrack: true,
-        homeExplore: false,
-        footerExplore: true,
-        footerProject: false
-      },
-      order: 30
-    }
-  ],
-  [
-    "GPTtrace",
-    {
-      labels: { en: "AI Tracing", zh: "AI Tracing" },
-      published: {
-        nav: true,
-        homeTrack: false,
-        homeExplore: true,
-        footerExplore: true,
-        footerProject: true
-      },
-      order: 40
-    }
-  ],
-  [
-    "eunomia-bpf",
-    {
-      labels: { en: "Toolchain", zh: "工具链" },
-      published: {
-        nav: true,
-        homeTrack: true,
-        homeExplore: false,
-        footerExplore: true,
-        footerProject: false
-      },
-      order: 50
-    }
-  ],
-  [
-    "others",
-    {
-      labels: { en: "Ecosystem", zh: "生态" },
-      published: {
-        nav: true,
-        homeTrack: false,
-        homeExplore: true,
-        footerExplore: true,
-        footerProject: false
-      },
-      order: 60
-    }
-  ],
-  [
-    "wasm-bpf",
-    {
-      labels: { en: "wasm-bpf", zh: "wasm-bpf" },
-      published: {
-        nav: false,
-        homeTrack: false,
-        homeExplore: true,
-        footerExplore: true,
-        footerProject: true
-      },
-      order: 80
-    }
-  ]
-]);
 
 let sectionDefinitionsCache: SerializedSiteSectionDefinition[] | null = null;
 
@@ -194,7 +107,10 @@ function buildCollectionSectionSeeds(): SectionSeed[] {
   }));
 }
 
-function validateSectionOverrides(seeds: SectionSeed[]) {
+function validateSectionOverrides(
+  seeds: SectionSeed[],
+  sectionOverrides: Map<SiteSectionKey, SiteSectionOverride>
+) {
   const discoveredKeys = new Set(seeds.map((seed) => seed.key));
   const unknownKeys = [...sectionOverrides.keys()].filter((key) => !discoveredKeys.has(key));
   if (unknownKeys.length) {
@@ -202,7 +118,7 @@ function validateSectionOverrides(seeds: SectionSeed[]) {
   }
 }
 
-function buildDiscoveredSectionSeeds(): SectionSeed[] {
+function buildDiscoveredSectionSeeds(sectionOverrides: Map<SiteSectionKey, SiteSectionOverride>): SectionSeed[] {
   const seeds = [...buildCollectionSectionSeeds()];
   const reservedTopLevelDirs = new Set(seeds.map((seed) => seed.topLevelDir));
 
@@ -232,7 +148,7 @@ function buildDiscoveredSectionSeeds(): SectionSeed[] {
     });
   }
 
-  validateSectionOverrides(seeds);
+  validateSectionOverrides(seeds, sectionOverrides);
   return seeds;
 }
 
@@ -262,7 +178,8 @@ function mergePublished(
 
 function buildSiteSectionDefinitions(): SerializedSiteSectionDefinition[] {
   const mkdocsNavSections = new Map(readMkdocsTopLevelNavSections().map((section) => [section.key, section]));
-  const definitions = buildDiscoveredSectionSeeds().map((seed, index) => {
+  const sectionOverrides = readMkdocsSiteSections();
+  const definitions = buildDiscoveredSectionSeeds(sectionOverrides).map((seed, index) => {
     const override = sectionOverrides.get(seed.key);
     const mkdocsNavSection = mkdocsNavSections.get(seed.key);
     const labels = mergeLabels(seed.key, override);

@@ -23,7 +23,7 @@ import {
 } from "../lib/content/loaders";
 import { assertSupportedMarkdown, parseMarkdown } from "../lib/content/markdown";
 import { getContentManifest } from "../lib/content/manifest";
-import { readMkdocsSiteMetadata, readMkdocsTopLevelNavSections } from "../lib/content/mkdocs-config";
+import { readMkdocsSiteMetadata, readMkdocsSiteSections, readMkdocsTopLevelNavSections } from "../lib/content/mkdocs-config";
 import { resolveCollectionPageSource } from "../lib/content/registry";
 import { renderMarkdown, renderMarkdownBody, renderMarkdownDocument } from "../lib/content/render";
 import { docPathToRoute, getGenericSectionRoutes, listSitemapRoutes } from "../lib/content/routes";
@@ -115,6 +115,20 @@ test("site metadata is sourced from mkdocs config", () => {
   assert.equal(siteConfig.copyright, mkdocsMetadata.copyright);
   assert.equal(siteConfig.remoteBranch, mkdocsMetadata.remoteBranch);
   assert.equal(siteConfig.editUri, mkdocsMetadata.editUri);
+});
+
+test("site IA labels and publication flags are sourced from mkdocs config", () => {
+  const sections = readMkdocsSiteSections();
+
+  assert.deepEqual(
+    ["tutorials", "blog", "bpftime", "GPTtrace", "eunomia-bpf", "others"].map(
+      (key) => sections.get(key)?.labels?.en
+    ),
+    ["Docs", "Blog", "Runtime", "AI Tracing", "Toolchain", "Ecosystem"]
+  );
+  assert.equal(sections.get("GPTtrace")?.published?.footerProject, true);
+  assert.equal(sections.get("wasm-bpf")?.published?.nav, false);
+  assert.equal(sections.get("legacy-blog")?.published?.homeExplore, true);
 });
 
 test("blog listings use explicit article descriptions instead of repeating titles", async () => {
@@ -293,6 +307,7 @@ test("site IA derives sections from discovered content and keeps stable override
 
 test("primary nav follows the mkdocs top-level nav order with site labels", () => {
   const mkdocsNavSections = readMkdocsTopLevelNavSections();
+  const siteSections = readMkdocsSiteSections();
 
   assert.deepEqual(
     mkdocsNavSections.map((section) => section.key),
@@ -300,7 +315,13 @@ test("primary nav follows the mkdocs top-level nav order with site labels", () =
   );
   assert.deepEqual(
     getPrimaryNav("en").map((item) => item.label),
-    ["Docs", "Blog", "Runtime", "AI Tracing", "Toolchain", "Ecosystem"]
+    mkdocsNavSections.map((section) => {
+      const label = siteSections.get(section.key)?.labels?.en;
+      if (!label) {
+        throw new Error(`Missing configured english nav label for ${section.key}`);
+      }
+      return label;
+    })
   );
   assert.deepEqual(
     getPrimaryNav("en").map((item) => item.href),

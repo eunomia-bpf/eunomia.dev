@@ -180,6 +180,95 @@ nav:
     - ... | others/**/*.md
 
 extra:
+  site_sections:
+    tutorials:
+      labels:
+        en: Docs
+        zh: 文档
+      published:
+        nav: true
+        home_track: true
+        home_explore: false
+        footer_explore: true
+        footer_project: false
+      order: 10
+    blog:
+      labels:
+        en: Blog
+        zh: 博客
+      published:
+        nav: true
+        home_track: false
+        home_explore: false
+        footer_explore: true
+        footer_project: false
+      order: 20
+    bpftime:
+      labels:
+        en: Runtime
+        zh: Runtime
+      published:
+        nav: true
+        home_track: true
+        home_explore: false
+        footer_explore: true
+        footer_project: false
+      order: 30
+    GPTtrace:
+      labels:
+        en: AI Tracing
+        zh: AI Tracing
+      published:
+        nav: true
+        home_track: false
+        home_explore: true
+        footer_explore: true
+        footer_project: true
+      order: 40
+    eunomia-bpf:
+      labels:
+        en: Toolchain
+        zh: 工具链
+      published:
+        nav: true
+        home_track: true
+        home_explore: false
+        footer_explore: true
+        footer_project: false
+      order: 50
+    others:
+      labels:
+        en: Ecosystem
+        zh: 生态
+      published:
+        nav: true
+        home_track: false
+        home_explore: true
+        footer_explore: true
+        footer_project: false
+      order: 60
+    legacy-blog:
+      labels:
+        en: Legacy blog
+        zh: 旧博客
+      published:
+        nav: false
+        home_track: false
+        home_explore: true
+        footer_explore: true
+        footer_project: false
+      order: 70
+    wasm-bpf:
+      labels:
+        en: wasm-bpf
+        zh: wasm-bpf
+      published:
+        nav: false
+        home_track: false
+        home_explore: true
+        footer_explore: true
+        footer_project: true
+      order: 80
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/eunomia-bpf
@@ -253,4 +342,4 @@ plugins:
             ecosystem: 生态
   - git-revision-date-localized:
       enable_creation_date: true
-  - git-authors  
+  - git-authors

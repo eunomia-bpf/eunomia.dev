@@ -21,6 +21,18 @@ export type MkdocsTopLevelNavSection = {
   source?: string;
 };
 
+export type MkdocsSiteSectionConfig = {
+  labels?: Partial<Record<"en" | "zh", string>>;
+  published?: Partial<{
+    nav: boolean;
+    homeTrack: boolean;
+    homeExplore: boolean;
+    footerExplore: boolean;
+    footerProject: boolean;
+  }>;
+  order?: number;
+};
+
 const fallbackMetadata: MkdocsSiteMetadata = {
   siteName: "eunomia",
   repoUrl: "https://github.com/eunomia-bpf/eunomia.dev",
@@ -44,10 +56,18 @@ const metadataKeyMap = {
 const navSourcePattern = /^\s*-\s+(?:[^:]+:\s+)?(.+?\.md)\s*$/;
 const topLevelNavPattern = /^\s{2}-\s+([^:]+):\s*(.*)$/;
 const nestedMarkdownPattern = /^\s{4}-\s+(?:[^:]+:\s+)?(.+?\.md)\s*$/;
+const siteSectionPublishedKeyMap = {
+  nav: "nav",
+  home_track: "homeTrack",
+  home_explore: "homeExplore",
+  footer_explore: "footerExplore",
+  footer_project: "footerProject"
+} as const;
 
 let metadataCache: MkdocsSiteMetadata | null = null;
 let navSourcesCache: string[] | null = null;
 let topLevelNavSectionsCache: MkdocsTopLevelNavSection[] | null = null;
+let siteSectionsCache: Map<string, MkdocsSiteSectionConfig> | null = null;
 
 export const generatedSiteConfigModulePath = path.join(appRoot, "lib", "site-config.generated.ts");
 
@@ -67,12 +87,33 @@ function parseScalar(value: string): string {
   return trimmed;
 }
 
+function parseBooleanScalar(value: string): boolean | null {
+  const normalized = parseScalar(value).toLowerCase();
+  if (normalized === "true") {
+    return true;
+  }
+  if (normalized === "false") {
+    return false;
+  }
+
+  return null;
+}
+
 function baseMarkdownPath(relativePath: string): string {
   return relativePath.replace(/\.(zh|en)\.md$/, ".md");
 }
 
+function indentation(line: string): number {
+  return line.match(/^\s*/)?.[0].length ?? 0;
+}
+
 function isTopLevelConfigLine(line: string): boolean {
   return /^[A-Za-z_][A-Za-z0-9_-]*:\s*/.test(line);
+}
+
+function matchIndentedKey(line: string, spaces: number): [string, string] | null {
+  const match = line.match(new RegExp(`^\\s{${spaces}}([A-Za-z0-9_-]+):\\s*(.*)$`));
+  return match ? [match[1], match[2] ?? ""] : null;
 }
 
 function readTopLevelMetadata(): MkdocsSiteMetadata {
@@ -108,6 +149,127 @@ export function readMkdocsSiteMetadata(): MkdocsSiteMetadata {
   }
 
   return metadataCache;
+}
+
+function ensureSiteSectionConfig(
+  sections: Map<string, MkdocsSiteSectionConfig>,
+  key: string
+): MkdocsSiteSectionConfig {
+  const existing = sections.get(key);
+  if (existing) {
+    return existing;
+  }
+
+  const config: MkdocsSiteSectionConfig = {};
+  sections.set(key, config);
+  return config;
+}
+
+function readSiteSections(): Map<string, MkdocsSiteSectionConfig> {
+  const sections = new Map<string, MkdocsSiteSectionConfig>();
+  let inSiteSections = false;
+  let baseIndent = 0;
+  let currentKey: string | null = null;
+  let currentNestedField: "labels" | "published" | null = null;
+
+  for (const line of readMkdocsConfigText().split(/\r?\n/)) {
+    if (!inSiteSections) {
+      const siteSectionsMatch = line.match(/^(\s*)site_sections:\s*$/);
+      if (siteSectionsMatch) {
+        inSiteSections = true;
+        baseIndent = siteSectionsMatch[1]?.length ?? 0;
+      }
+      continue;
+    }
+
+    if (line.trim() && indentation(line) <= baseIndent) {
+      break;
+    }
+
+    if (!line.trim() || line.trim().startsWith("#")) {
+      continue;
+    }
+
+    const sectionMatch = matchIndentedKey(line, baseIndent + 2);
+    if (sectionMatch) {
+      const [sectionKey, value] = sectionMatch;
+      if (value) {
+        throw new Error(`Inline site_sections.${sectionKey} values are not supported`);
+      }
+      currentKey = sectionKey;
+      currentNestedField = null;
+      ensureSiteSectionConfig(sections, currentKey);
+      continue;
+    }
+
+    if (!currentKey) {
+      throw new Error(`Invalid site_sections entry before a section key: ${line.trim()}`);
+    }
+
+    const config = ensureSiteSectionConfig(sections, currentKey);
+    const topLevelFieldMatch = matchIndentedKey(line, baseIndent + 4);
+    if (topLevelFieldMatch) {
+      const [field, rawValue] = topLevelFieldMatch;
+      const value = parseScalar(rawValue);
+      if (field !== "labels" && field !== "published" && field !== "order") {
+        throw new Error(`Unsupported site_sections key for "${currentKey}": ${field}`);
+      }
+
+      if (field === "order") {
+        const order = Number(value);
+        if (!Number.isInteger(order)) {
+          throw new Error(`Invalid site_sections order for "${currentKey}": ${value}`);
+        }
+        config.order = order;
+        currentNestedField = null;
+        continue;
+      }
+
+      if (value) {
+        throw new Error(`Inline site_sections.${currentKey}.${field} values are not supported`);
+      }
+      currentNestedField = field;
+      continue;
+    }
+
+    const nestedFieldMatch = matchIndentedKey(line, baseIndent + 6);
+    if (!nestedFieldMatch || !currentNestedField) {
+      throw new Error(`Invalid site_sections entry for "${currentKey}": ${line.trim()}`);
+    }
+
+    const [sourceKey, rawValue] = nestedFieldMatch;
+    const value = parseScalar(rawValue);
+    if (currentNestedField === "labels") {
+      if (sourceKey !== "en" && sourceKey !== "zh") {
+        throw new Error(`Unsupported site_sections label locale for "${currentKey}": ${sourceKey}`);
+      }
+      config.labels = config.labels ?? {};
+      config.labels[sourceKey] = value;
+      continue;
+    }
+
+    const targetKey = siteSectionPublishedKeyMap[sourceKey as keyof typeof siteSectionPublishedKeyMap];
+    if (!targetKey) {
+      throw new Error(`Unsupported site_sections published key for "${currentKey}": ${sourceKey}`);
+    }
+
+    const booleanValue = parseBooleanScalar(value);
+    if (booleanValue === null) {
+      throw new Error(`Invalid site_sections published value for "${currentKey}.${sourceKey}": ${value}`);
+    }
+    config.published = config.published ?? {};
+    config.published[targetKey] = booleanValue;
+  }
+
+  return sections;
+}
+
+export function readMkdocsSiteSections(): Map<string, MkdocsSiteSectionConfig> {
+  if (!useContentCache || !siteSectionsCache) {
+    siteSectionsCache = readSiteSections();
+  }
+
+  return siteSectionsCache;
 }
 
 function renderSiteConfigModule(metadata: MkdocsSiteMetadata): string {

@@ -1,3 +1,4 @@
+import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -64,5 +65,24 @@ export const runtimeAuditRoutes = [
 export const rolloutAuditSampleBlogRoute =
   "/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/";
 
-export const expectedNavLabels = ["Tutorials", "Blog", "bpftime", "eBPF×AI/LLMs", "eunomia-bpf", "Ecosystem"];
+const fallbackExpectedNavLabels = ["Docs", "Blog", "Runtime", "AI Tracing", "Toolchain", "Ecosystem"];
+
+function readExpectedNavLabels() {
+  const siteSectionsPath = path.join(appDir, ".generated", "content", "site-sections.json");
+
+  try {
+    const payload = JSON.parse(fs.readFileSync(siteSectionsPath, "utf8"));
+    const labels = payload.sections
+      ?.filter((section) => section?.published?.nav)
+      .sort((left, right) => left.order - right.order)
+      .map((section) => section?.labels?.en)
+      .filter(Boolean);
+
+    return labels?.length ? labels : fallbackExpectedNavLabels;
+  } catch {
+    return fallbackExpectedNavLabels;
+  }
+}
+
+export const expectedNavLabels = readExpectedNavLabels();
 export const zhMarkers = ["教程", "主页", "文档", "博客"];

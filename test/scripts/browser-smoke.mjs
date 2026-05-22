@@ -335,6 +335,11 @@ async function main() {
     const mobilePanel = mobilePage.locator("#mobile-nav-panel").first();
     await mobilePanel.waitFor({ state: "visible" });
     check(await mobilePanel.count(), "mobile navigation opens a drawer");
+    await mobilePage.waitForFunction(() => {
+      const panel = document.querySelector("#mobile-nav-panel");
+      const box = panel?.getBoundingClientRect();
+      return Boolean(box && box.x < 24 && box.height > 700);
+    });
     const mobilePanelBox = await mobilePanel.boundingBox();
     check(
       Boolean(mobilePanelBox) && mobilePanelBox.x < 24 && mobilePanelBox.height > 700,
