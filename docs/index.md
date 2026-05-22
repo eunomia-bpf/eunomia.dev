@@ -1,6 +1,6 @@
 ---
-title: Eunomia - Unlock the potential of eBPF
-description: Unlock the potential of eBPF
+title: Eunomia - Open eBPF systems research and tooling
+description: Open-source eBPF systems research, userspace runtime tooling, AI-assisted tracing, and runnable Linux observability documentation.
 keywords: eBPF, BPF, Linux kernel programming, eunomia-bpf, bpftime, eBPF tutorials, kernel tracing
 hide:
   - navigation

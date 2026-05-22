@@ -5,7 +5,7 @@ import { SearchBox } from "../components/SearchBox";
 import type { LocaleAlternates, SidebarGroup } from "../lib/content/types";
 import { localizePath, normalizePath } from "../lib/paths";
 import { getPrimaryNav } from "../lib/site-ia";
-import type { Locale } from "../lib/site-data";
+import { siteConfig, type Locale } from "../lib/site-data";
 
 const LOGO_SRC = "/_content-assets/docs/assets/icon.svg";
 
@@ -34,7 +34,7 @@ export function SiteHeader({ locale, currentPath, sidebar, alternates }: SiteHea
   const normalizedCurrentPath = normalizePath(currentPath);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-200 bg-white">
+    <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur">
       <div className="mx-auto flex max-w-[82rem] items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
         <a
           href={localizePath("/", locale)}
@@ -50,16 +50,16 @@ export function SiteHeader({ locale, currentPath, sidebar, alternates }: SiteHea
           />
           <span className="truncate">eunomia</span>
         </a>
-        <nav className="hidden items-center gap-5 text-sm font-medium text-slate-600 lg:flex">
+        <nav className="hidden items-center gap-1 text-sm font-medium text-slate-600 lg:flex">
           {nav.map((item) => (
             <a
               key={item.href}
               href={item.href}
               aria-current={isActivePath(normalizedCurrentPath, item.href) ? "page" : undefined}
-              className={`border-b-2 px-0.5 py-2 transition ${
+              className={`rounded-md px-3 py-2 transition ${
                 isActivePath(normalizedCurrentPath, item.href)
-                  ? "border-slate-900 text-ink"
-                  : "border-transparent hover:border-slate-300 hover:text-ink"
+                  ? "bg-slate-100 text-ink"
+                  : "hover:bg-slate-50 hover:text-ink"
               }`}
             >
               {item.label}
@@ -67,7 +67,13 @@ export function SiteHeader({ locale, currentPath, sidebar, alternates }: SiteHea
           ))}
         </nav>
         <div className="flex items-center gap-2 sm:gap-3">
-          <SearchBox locale={locale} containerClassName="hidden md:block" inputClassName="w-56 border-slate-300 bg-slate-50" />
+          <SearchBox locale={locale} containerClassName="hidden xl:block" inputClassName="w-56 border-slate-300 bg-slate-50" />
+          <a
+            href={siteConfig.repoUrl}
+            className="hidden rounded-md border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-400 hover:text-ink sm:inline-flex"
+          >
+            GitHub
+          </a>
           {languageToggle ? (
             <a
               href={languageToggle}

@@ -48,7 +48,7 @@ type SerializedSiteSectionIndex = {
 
 const generatedSiteSectionsPath = path.join(generatedContentDir, "site-sections.json");
 const sectionOverrides = new Map<SiteSectionKey, SiteSectionOverride>([
-  ["tutorials", { labels: { en: "Tutorials", zh: "教程" }, order: 10 }],
+  ["tutorials", { labels: { en: "Docs", zh: "文档" }, order: 10 }],
   ["blog", { labels: { en: "Blog", zh: "博客" }, order: 20 }],
   [
     "legacy-blog",
@@ -67,7 +67,7 @@ const sectionOverrides = new Map<SiteSectionKey, SiteSectionOverride>([
   [
     "bpftime",
     {
-      labels: { en: "bpftime", zh: "bpftime" },
+      labels: { en: "Runtime", zh: "Runtime" },
       published: {
         nav: true,
         homeTrack: true,
@@ -81,7 +81,7 @@ const sectionOverrides = new Map<SiteSectionKey, SiteSectionOverride>([
   [
     "GPTtrace",
     {
-      labels: { en: "eBPF×AI/LLMs", zh: "eBPF×AI/LLMs" },
+      labels: { en: "AI Tracing", zh: "AI Tracing" },
       published: {
         nav: true,
         homeTrack: false,
@@ -95,7 +95,7 @@ const sectionOverrides = new Map<SiteSectionKey, SiteSectionOverride>([
   [
     "eunomia-bpf",
     {
-      labels: { en: "eunomia-bpf", zh: "eunomia-bpf" },
+      labels: { en: "Toolchain", zh: "工具链" },
       published: {
         nav: true,
         homeTrack: true,
@@ -265,10 +265,7 @@ function buildSiteSectionDefinitions(): SerializedSiteSectionDefinition[] {
   const definitions = buildDiscoveredSectionSeeds().map((seed, index) => {
     const override = sectionOverrides.get(seed.key);
     const mkdocsNavSection = mkdocsNavSections.get(seed.key);
-    const labels = {
-      ...mergeLabels(seed.key, override),
-      ...(mkdocsNavSection ? { en: mkdocsNavSection.label } : {})
-    };
+    const labels = mergeLabels(seed.key, override);
     assertNonEmptyLabel(seed.key, "en", labels.en);
     assertNonEmptyLabel(seed.key, "zh", labels.zh);
 

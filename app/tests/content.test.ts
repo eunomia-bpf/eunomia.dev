@@ -87,8 +87,11 @@ test("home page data keeps markdown metadata but leaves layout to React", async 
   const homeZh = await loadHomePage("zh");
   const acrFenceDescription =
     "ACRFence explains semantic rollback attacks in AI agent checkpoint/restore workflows and shows how intent-aware fencing prevents duplicate irreversible actions and revived authority.";
+  const homeDescription =
+    "Open-source eBPF systems research, userspace runtime tooling, AI-assisted tracing, and runnable Linux observability documentation.";
 
-  assert.equal(home.description, "Unlock the potential of eBPF");
+  assert.equal(home.description, homeDescription);
+  assert.notEqual(home.description, home.title);
   assert.equal(Object.hasOwn(home, "bodyHtml"), false);
   assert.ok(!("cards" in home));
   assert.ok(!("moreLinks" in home));
@@ -125,6 +128,9 @@ test("blog listings use explicit article descriptions instead of repeating title
   const chineseIndex = await loadBlogIndex("zh");
   const englishIndexEntry = englishIndex.blogEntries?.find((entry) => entry.key === "agent-check-restore-safety");
   const chineseIndexEntry = chineseIndex.blogEntries?.find((entry) => entry.key === "agent-check-restore-safety");
+
+  assert.notEqual(englishIndex.description, englishIndex.title);
+  assert.notEqual(chineseIndex.description, chineseIndex.title);
 
   assert.ok(englishEntry);
   assert.equal(englishEntry.description, acrFenceDescription);
@@ -285,7 +291,7 @@ test("site IA derives sections from discovered content and keeps stable override
   assert.ok(sections.every((section) => section.discovered));
 });
 
-test("primary nav follows the mkdocs top-level nav order", () => {
+test("primary nav follows the mkdocs top-level nav order with site labels", () => {
   const mkdocsNavSections = readMkdocsTopLevelNavSections();
 
   assert.deepEqual(
@@ -294,7 +300,7 @@ test("primary nav follows the mkdocs top-level nav order", () => {
   );
   assert.deepEqual(
     getPrimaryNav("en").map((item) => item.label),
-    mkdocsNavSections.map((section) => section.label)
+    ["Docs", "Blog", "Runtime", "AI Tracing", "Toolchain", "Ecosystem"]
   );
   assert.deepEqual(
     getPrimaryNav("en").map((item) => item.href),
@@ -543,7 +549,7 @@ test("resolveContentPage resolves manifest-backed routes without route-layer swi
   assert.match(tutorial?.page.title ?? "", /Hello World/i);
 
   assert.ok(section);
-  assert.equal(section?.eyebrow, "eunomia-bpf");
+  assert.equal(section?.eyebrow, "工具链");
   assert.match(section?.page.bodyHtml ?? "", /Install Dependencies/);
 });
 

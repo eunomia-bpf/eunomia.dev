@@ -16,9 +16,6 @@ type HomeCopy = {
   summary: string;
   primaryCta: string;
   secondaryCta: string;
-  githubCta: string;
-  imageAlt: string;
-  sectionLabel: string;
   sectionTitle: string;
   sectionIntro: string;
   featured: Array<{ label: string; title: string; description: string; href: string }>;
@@ -31,18 +28,15 @@ type HomeCopy = {
 
 const copyByLocale: Record<Locale, HomeCopy> = {
   en: {
-    kicker: "Open systems research and tooling",
+    kicker: "Open systems research lab",
     title: "Eunomia",
     summary:
-      "An open-source lab for eBPF systems: runnable tutorials, userspace runtimes, LLM-assisted tracing, and security research for agent workflows.",
-    primaryCta: "Start tutorials",
-    secondaryCta: "Read research",
-    githubCta: "GitHub",
-    imageAlt: "eBPF architecture and runtime map",
-    sectionLabel: "Work",
-    sectionTitle: "Research ideas that keep shipping as tools.",
+      "Open-source systems work for eBPF: userspace runtimes, kernel observability, AI-assisted tracing, and agent security research packaged as runnable docs and tools.",
+    primaryCta: "Explore docs",
+    secondaryCta: "Read the blog",
+    sectionTitle: "Systems research with working artifacts.",
     sectionIntro:
-      "The site connects papers, project documentation, and executable examples without moving readers away from the stable docs URLs.",
+      "Eunomia publishes the papers, implementations, and examples behind each area in one stable site.",
     featured: [
       {
         label: "Runtime",
@@ -52,10 +46,10 @@ const copyByLocale: Record<Locale, HomeCopy> = {
         href: "/bpftime/"
       },
       {
-        label: "Research",
+        label: "Agent safety",
         title: "ACRFence",
         description:
-          "Published work on semantic rollback attacks in agent checkpoint/restore and intent-aware fencing.",
+          "Published arXiv work on semantic rollback attacks in agent checkpoint/restore and intent-aware fencing.",
         href: "https://arxiv.org/abs/2603.20625"
       },
       {
@@ -66,7 +60,7 @@ const copyByLocale: Record<Locale, HomeCopy> = {
         href: "/GPTtrace/"
       }
     ],
-    projectTitle: "Project paths",
+    projectTitle: "Open work areas",
     projectIntro: "Stable entry points for the documentation and research areas behind eunomia-bpf.",
     projects: [
       {
@@ -98,18 +92,14 @@ const copyByLocale: Record<Locale, HomeCopy> = {
     allPosts: "All posts"
   },
   zh: {
-    kicker: "开源系统研究与工具",
+    kicker: "开源系统研究实验室",
     title: "Eunomia",
     summary:
-      "Eunomia 是围绕 eBPF 系统的开源实验室：可运行教程、userspace runtime、LLM tracing，以及 AI agent 安全研究。",
-    primaryCta: "从教程开始",
-    secondaryCta: "阅读研究",
-    githubCta: "GitHub",
-    imageAlt: "eBPF 架构与运行时路线图",
-    sectionLabel: "方向",
-    sectionTitle: "研究想法会继续落到可用工具里。",
-    sectionIntro:
-      "这个站点把论文、项目文档和可执行示例连在一起，同时保留读者已经使用的稳定文档 URL。",
+      "Eunomia 围绕 eBPF 做开源系统工作：userspace runtime、内核可观测性、AI tracing，以及 agent security research，并把结果整理成可运行文档和工具。",
+    primaryCta: "浏览文档",
+    secondaryCta: "阅读博客",
+    sectionTitle: "系统研究，同时交付可用产物。",
+    sectionIntro: "Eunomia 把论文、实现和示例放在同一个稳定站点里，方便直接阅读、复现和继续构建。",
     featured: [
       {
         label: "Runtime",
@@ -119,10 +109,10 @@ const copyByLocale: Record<Locale, HomeCopy> = {
         href: "/bpftime/"
       },
       {
-        label: "Research",
+        label: "Agent safety",
         title: "ACRFence",
         description:
-          "已经发布的 agent checkpoint/restore 语义回滚攻击与 intent-aware fencing 研究。",
+          "已经发布在 arXiv 的 agent checkpoint/restore 语义回滚攻击与 intent-aware fencing 研究。",
         href: "https://arxiv.org/abs/2603.20625"
       },
       {
@@ -133,7 +123,7 @@ const copyByLocale: Record<Locale, HomeCopy> = {
         href: "/GPTtrace/"
       }
     ],
-    projectTitle: "项目入口",
+    projectTitle: "开放工作区",
     projectIntro: "eunomia-bpf 相关文档和研究方向的稳定入口。",
     projects: [
       {
@@ -174,7 +164,7 @@ export function HomePageHero({ locale }: { locale: Locale }) {
   const copy = copyByLocale[locale];
 
   return (
-    <section className="relative isolate overflow-hidden border-b border-slate-200 bg-slate-950 text-white">
+    <section className="relative isolate overflow-hidden border-b border-slate-200 bg-[#07111f] text-white">
       <Image
         src="/ebpf_arch.png"
         alt=""
@@ -185,10 +175,10 @@ export function HomePageHero({ locale }: { locale: Locale }) {
         className="object-cover opacity-20"
         unoptimized
       />
-      <div className="absolute inset-0 bg-slate-950/75" />
+      <div className="absolute inset-0 bg-[#07111f]/80" />
       <div className="relative mx-auto max-w-[82rem] px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
-        <div className="max-w-4xl">
-          <p className="text-xs font-semibold uppercase tracking-normal text-cyan-200">{copy.kicker}</p>
+        <div className="max-w-3xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-200">{copy.kicker}</p>
           <h1 className="mt-4 text-4xl font-semibold tracking-normal text-white sm:text-5xl lg:text-6xl">
             {copy.title}
           </h1>
@@ -206,15 +196,8 @@ export function HomePageHero({ locale }: { locale: Locale }) {
             >
               {copy.secondaryCta}
             </a>
-            <a
-              href="https://github.com/eunomia-bpf/"
-              className="inline-flex min-h-11 items-center rounded-lg border border-white/20 px-5 py-2.5 text-sm font-semibold text-slate-100 transition hover:border-white/60 hover:bg-white/10"
-            >
-              {copy.githubCta}
-            </a>
           </div>
         </div>
-        <span className="sr-only">{copy.imageAlt}</span>
       </div>
     </section>
   );
@@ -227,7 +210,6 @@ export function HomePageLanding({ locale, recentPosts }: HomePageLandingProps) {
     <div className="pb-16">
       <section className="grid gap-10 border-b border-slate-200 pb-12 lg:grid-cols-[minmax(0,0.95fr)_minmax(22rem,1.05fr)] lg:items-start">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-normal text-cyan-700">{copy.sectionLabel}</p>
           <h2 className="mt-3 max-w-2xl text-3xl font-semibold tracking-normal text-ink md:text-4xl">
             {copy.sectionTitle}
           </h2>
@@ -258,14 +240,6 @@ export function HomePageLanding({ locale, recentPosts }: HomePageLandingProps) {
             </h2>
             <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">{copy.projectIntro}</p>
           </div>
-          <Image
-            src="/llvmbpf.png"
-            alt="llvmbpf"
-            width={112}
-            height={64}
-            className="hidden h-16 w-28 rounded-lg border border-slate-200 bg-slate-50 object-contain p-2 sm:block"
-            unoptimized
-          />
         </div>
         <div className="grid gap-4 md:grid-cols-2">
           {copy.projects.map((project) => (

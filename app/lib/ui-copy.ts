@@ -106,14 +106,14 @@ export const siteFooterCopyByLocale = {
     explore: "Explore",
     projects: "Projects",
     community: "Community",
-    copyright: "eunomia.dev frontend preserving docs, tutorials, and legacy link compatibility.",
+    copyright: "Open-source systems research, eBPF tooling, and runnable documentation from the eunomia-bpf community.",
     legacyBlog: "Legacy blog"
   },
   zh: {
     explore: "浏览",
     projects: "项目",
     community: "社区",
-    copyright: "eunomia.dev 站点前端，保留文档、教程和旧链接兼容。",
+    copyright: "来自 eunomia-bpf 社区的开源系统研究、eBPF 工具和可运行文档。",
     legacyBlog: "旧博客"
   }
 } as const;
