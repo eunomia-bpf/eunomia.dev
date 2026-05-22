@@ -28,5 +28,6 @@ if (!fs.existsSync(outIndexPath) && outDir !== distDir) {
 }
 
 syncPublicDir();
+fs.closeSync(fs.openSync(path.join(outDir, ".nojekyll"), "w"));
 
 console.log(`Copied static export from ${distDir} to ${outDir}`);

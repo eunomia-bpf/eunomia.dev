@@ -12,7 +12,7 @@ on:
       - main
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -64,6 +64,26 @@ jobs:
           fi
           grep -q "https://eunomia.dev/sitemap.xml" app/out/robots.txt
           grep -q "https://eunomia.dev/" app/out/sitemap.xml
+
+      - name: Publish static export to new branch
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        run: |
+          set -euo pipefail
+          git fetch origin new
+          rm -rf ../static-branch
+          git worktree add --detach ../static-branch origin/new
+          find ../static-branch -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          cp -a app/out/. ../static-branch/
+          cd ../static-branch
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Static export is already up to date on new."
+            exit 0
+          fi
+          git commit -m "deploy static app for ${GITHUB_SHA}"
+          git push origin HEAD:new
 
       - name: Configure GitHub Pages
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
