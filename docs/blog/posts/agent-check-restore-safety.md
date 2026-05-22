@@ -1,5 +1,6 @@
 ---
 date: 2026-05-21
+description: ACRFence explains semantic rollback attacks in AI agent checkpoint/restore workflows and shows how intent-aware fencing prevents duplicate irreversible actions and revived authority.
 ---
 
 # ACRFence: Preventing Semantic Rollback Attacks in Agent Checkpoint-Restore

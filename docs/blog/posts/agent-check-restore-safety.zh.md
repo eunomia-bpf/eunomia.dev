@@ -1,5 +1,6 @@
 ---
 date: 2026-05-21
+description: ACRFence 介绍 AI Agent 检查点恢复中的语义回滚攻击，并说明如何用意图感知的 fencing 机制避免重复执行不可逆操作和复活已消耗授权。
 ---
 
 # ACRFence：防止 AI Agent 检查点恢复中的语义回滚攻击
