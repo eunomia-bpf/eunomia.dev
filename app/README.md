@@ -5,7 +5,7 @@
 If `eunomia.dev` moves away from MkDocs, the replacement must be:
 
 - `Next.js` used as a static site compiler, not as a server runtime
-- GitHub Pages branch publishing as the current deployment target, while keeping Cloudflare Pages static compatibility
+- GitHub Pages Actions artifact deployment as the current deployment target, while keeping Cloudflare Pages static compatibility
 - true static export output only
 - Markdown content kept in-repo
 - no `API route`
@@ -278,7 +278,7 @@ The new frontend must preserve:
 - current SEO infrastructure: `robots.txt`, `sitemap.xml`, canonical URLs, Open Graph tags, alternate language links, descriptive titles, and page descriptions
 - current site behavior: search, blog index, dated posts, docs pages, multilingual routing, edit links, analytics, feedback entry points, and share buttons
 - the existing Markdown content model instead of rewriting hundreds of documents as React pages
-- GitHub Pages static branch publishing and Cloudflare Pages static compatibility
+- GitHub Pages Actions artifact deployment and Cloudflare Pages static compatibility
 - no production API routes
 - no runtime server dependency after build/export
 
@@ -345,7 +345,7 @@ Completed work:
 
 ### Phase 0: Lock the Static Constraint
 
-- wrote `static export only / no API / static branch publishing` into design docs
+- wrote `static export only / no API / static artifact deployment` into design docs
 - inventoried runtime dependencies
 - made `legacy /blogs/*` and other public URLs explicit before delivery changes
 
@@ -380,7 +380,7 @@ Completed work:
 - keep the deployment contract strict so regressions back to API/SSR fail early
 - ship only after static-export parity checks pass
 - GitHub Actions installs the `test/` audit dependencies and Playwright Chromium, then runs `cd app && npm ci && npm run verify`
-- after verification, GitHub Actions rebuilds with `NEXT_PUBLIC_SITE_URL=https://eunomia.dev` and publishes `app/out` to the `docs` branch, which is the active GitHub Pages source
+- after verification, GitHub Actions rebuilds with `NEXT_PUBLIC_SITE_URL=https://eunomia.dev`, uploads `app/out` as a GitHub Pages artifact, and deploys it through `actions/deploy-pages`
 
 ## Definition of Done
 

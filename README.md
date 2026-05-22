@@ -34,4 +34,4 @@ cd app
 NEXT_PUBLIC_SITE_URL=https://eunomia.dev npm run build
 ```
 
-The exported site is written to `app/out`. GitHub Actions verifies the static app and publishes `app/out` to the remote `docs` branch, which is the GitHub Pages source for https://eunomia.dev.
+The exported site is written to `app/out`. GitHub Actions verifies the static app, rebuilds it with production URLs, uploads `app/out` as a GitHub Pages artifact, and deploys it to https://eunomia.dev.
