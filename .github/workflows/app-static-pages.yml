@@ -1,7 +1,12 @@
-name: Deploy Static App Branch
+name: Deploy Static App
 
 on:
   workflow_dispatch:
+  repository_dispatch:
+    types:
+      - trigger-tutorial-sync
+      - trigger-document-sync
+  pull_request:
   push:
     branches:
       - main
@@ -10,7 +15,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: new-branch-static-deploy
+  group: static-app-pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -41,11 +46,30 @@ jobs:
           npm ci
           npm run verify
 
-      - name: Publish app/out to new
+      - name: Build production static export
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        working-directory: app
+        env:
+          NEXT_PUBLIC_SITE_URL: https://eunomia.dev
+        run: npm run build
+
+      - name: Assert production URLs
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        run: |
+          if grep -R "127.0.0.1\|localhost" app/out/sitemap.xml app/out/robots.txt app/out/feed.xml app/out/index.html; then
+            echo "Production export contains local URLs" >&2
+            exit 1
+          fi
+          grep -q "https://eunomia.dev/sitemap.xml" app/out/robots.txt
+          grep -q "https://eunomia.dev/" app/out/sitemap.xml
+
+      - name: Publish app/out to GitHub Pages source
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: new
+          publish_branch: docs
           publish_dir: app/out
           force_orphan: true
+          cname: eunomia.dev
           commit_message: deploy static app for ${{ github.sha }}

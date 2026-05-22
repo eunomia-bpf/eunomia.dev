@@ -1,6 +1,6 @@
 # Rollout Discipline
 
-This file defines how the custom frontend should coexist with the current MkDocs deployment and when a route class is allowed into the public sitemap.
+This file defines how the custom frontend is deployed and when a route class is allowed into the public sitemap.
 
 ## Stages
 
@@ -35,7 +35,8 @@ Rules:
 
 Verification:
 
-- `npm run audit`
+- `cd app && npm run verify`
+- `cd app && NEXT_PUBLIC_SITE_URL=https://eunomia.dev npm run build`
 
 ### `growth`
 
@@ -65,7 +66,8 @@ Before moving from `shadow` to `cutover`:
 - all legacy sitemap paths are present
 - app sitemap has no duplicate URLs
 - dated blog additions are the only allowed extras
-- `test:content`, `build`, `audit:http`, `audit:browser`, `audit:links`, `audit:runtime`, and `audit:rollout` all pass
+- `cd app && npm run verify` passes
+- the production export is rebuilt with `NEXT_PUBLIC_SITE_URL=https://eunomia.dev` before publishing
 
 Before moving from `cutover` to `growth`:
 

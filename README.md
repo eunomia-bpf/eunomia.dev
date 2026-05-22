@@ -12,27 +12,26 @@ For the home page of each project, please edit the README of them.
 
 ## Requirements
 
-- [mkdocs](https://www.mkdocs.org/)
-- [mkdocs-i18n](https://pypi.org/project/mkdocs-i18n/)
-- [mkdocs-material](https://squidfunk.github.io/mkdocs-material/)
-- Python 3.10+
+- Node.js 22+
+- npm
 
 ## Local development
 
 Clone this repo and enter, then:
 
 ```bash
-python3 -m venv .venv
-. .venv/bin/activate
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-mkdocs build
+cd app
+npm ci
+npm run dev
 ```
 
-This will build `site` directory. Or:
+The website will now be accessible at http://localhost:3000.
+
+For a production-compatible static export:
 
 ```bash
-mkdocs serve
+cd app
+NEXT_PUBLIC_SITE_URL=https://eunomia.dev npm run build
 ```
 
-The website will now be accessible at http://localhost:8000 and reload on any changes.
+The exported site is written to `app/out`. GitHub Actions verifies the static app and publishes `app/out` to the remote `docs` branch, which is the GitHub Pages source for https://eunomia.dev.

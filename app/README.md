@@ -5,7 +5,7 @@
 If `eunomia.dev` moves away from MkDocs, the replacement must be:
 
 - `Next.js` used as a static site compiler, not as a server runtime
-- `Cloudflare Pages static` as the deployment target
+- GitHub Pages branch publishing as the current deployment target, while keeping Cloudflare Pages static compatibility
 - true static export output only
 - Markdown content kept in-repo
 - no `API route`
@@ -278,7 +278,7 @@ The new frontend must preserve:
 - current SEO infrastructure: `robots.txt`, `sitemap.xml`, canonical URLs, Open Graph tags, alternate language links, descriptive titles, and page descriptions
 - current site behavior: search, blog index, dated posts, docs pages, multilingual routing, edit links, analytics, feedback entry points, and share buttons
 - the existing Markdown content model instead of rewriting hundreds of documents as React pages
-- `Cloudflare Pages static` compatibility
+- GitHub Pages static branch publishing and Cloudflare Pages static compatibility
 - no production API routes
 - no runtime server dependency after build/export
 
@@ -345,7 +345,7 @@ Completed work:
 
 ### Phase 0: Lock the Static Constraint
 
-- wrote `static export only / no API / Cloudflare Pages static` into design docs
+- wrote `static export only / no API / static branch publishing` into design docs
 - inventoried runtime dependencies
 - made `legacy /blogs/*` and other public URLs explicit before delivery changes
 
@@ -374,13 +374,13 @@ Completed work:
 - replaced `next start`-based verification with “build/export + serve static dir”
 - added explicit checks that no `pages/api/*` and no `getServerSideProps` remain
 
-### Phase 5: Cloudflare Pages Static Handoff
+### Phase 5: GitHub Pages Static Handoff
 
 - deploy only the exported static directory
 - keep the deployment contract strict so regressions back to API/SSR fail early
 - ship only after static-export parity checks pass
-- GitHub Actions installs the `test/` audit dependencies and Playwright Chromium, then runs `cd app && npm ci && npm run verify` before publishing
-- GitHub Actions publishes `app/out` to the `new` branch so this handoff stays isolated from the legacy MkDocs deploy flow
+- GitHub Actions installs the `test/` audit dependencies and Playwright Chromium, then runs `cd app && npm ci && npm run verify`
+- after verification, GitHub Actions rebuilds with `NEXT_PUBLIC_SITE_URL=https://eunomia.dev` and publishes `app/out` to the `docs` branch, which is the active GitHub Pages source
 
 ## Definition of Done
 
@@ -394,7 +394,7 @@ The migration is only done when:
 - editors can still update content by modifying Markdown files in the repo
 - there are no `pages/api/*` routes
 - there are no `getServerSideProps` dependencies
-- the output can be deployed to `Cloudflare Pages static` without a server runtime
+- the output can be deployed as plain static files without a server runtime
 
 ## Design Backlog
 
