@@ -3,6 +3,7 @@ import path from "node:path";
 
 import { useContentCache } from "./content/cache";
 import { getDocsFileSet, getTopLevelSections } from "./content/fs-index";
+import { readMkdocsTopLevelNavSections, type MkdocsTopLevelNavSection } from "./content/mkdocs-config";
 import { getCollectionFamilies, type PublishedSiteSectionFlags } from "./content/registry";
 import { generatedContentDir } from "./content/roots";
 import {
@@ -244,18 +245,30 @@ function mergeLabels(key: SiteSectionKey, override?: SiteSectionOverride): Recor
 
 function mergePublished(
   seed: SectionSeed,
-  override?: SiteSectionOverride
+  override?: SiteSectionOverride,
+  mkdocsNavSection?: MkdocsTopLevelNavSection
 ): SerializedPublishedSiteSection {
-  return {
+  const published = {
     ...seed.defaults,
     ...(override?.published ?? {})
   };
+
+  if (mkdocsNavSection) {
+    published.nav = true;
+  }
+
+  return published;
 }
 
 function buildSiteSectionDefinitions(): SerializedSiteSectionDefinition[] {
+  const mkdocsNavSections = new Map(readMkdocsTopLevelNavSections().map((section) => [section.key, section]));
   const definitions = buildDiscoveredSectionSeeds().map((seed, index) => {
     const override = sectionOverrides.get(seed.key);
-    const labels = mergeLabels(seed.key, override);
+    const mkdocsNavSection = mkdocsNavSections.get(seed.key);
+    const labels = {
+      ...mergeLabels(seed.key, override),
+      ...(mkdocsNavSection ? { en: mkdocsNavSection.label } : {})
+    };
     assertNonEmptyLabel(seed.key, "en", labels.en);
     assertNonEmptyLabel(seed.key, "zh", labels.zh);
 
@@ -268,8 +281,8 @@ function buildSiteSectionDefinitions(): SerializedSiteSectionDefinition[] {
         zh: seed.href("zh")
       },
       discovered: true as const,
-      published: mergePublished(seed, override),
-      order: override?.order ?? seed.defaultOrder + index
+      published: mergePublished(seed, override, mkdocsNavSection),
+      order: mkdocsNavSection?.order ?? override?.order ?? seed.defaultOrder + index
     };
   });
 

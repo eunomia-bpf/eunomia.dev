@@ -11,6 +11,9 @@ export default function nextConfig(phase) {
     // Keep local development on the standard Next runtime; static export remains
     // enforced for production builds and deployment verification.
     output: isDev ? undefined : "export",
-    trailingSlash: true
+    trailingSlash: true,
+    images: {
+      unoptimized: true
+    }
   };
 }

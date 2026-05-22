@@ -1,20 +1,18 @@
 import { ArticleLayout } from "../components/ArticleLayout";
 import { BlogListing } from "../components/BlogListing";
-import { BlogPostList } from "../components/BlogPostList";
 import { CardGrid } from "../components/CardGrid";
+import { HomePageHero, HomePageLanding } from "../components/HomePageLanding";
 import { SeoHead } from "../components/SeoHead";
 import { SiteChrome } from "../components/SiteChrome";
 import { canonicalAlternates } from "./seo";
 import { MarkdownContent } from "../components/MarkdownContent";
 import type { BlogEntry, DocsPage, GitMetadata, LocaleAlternates } from "./content/types";
 import type { Locale } from "./site-data";
-import { homeLandingCopyByLocale } from "./ui-copy";
 
 export type HomePageData = {
   title: string;
   description: string;
   intro: string;
-  bodyHtml: string;
   sourcePath: string;
   metadata?: GitMetadata | null;
   path: string;
@@ -107,9 +105,6 @@ export function HomePageView({
   locale: Locale;
   eyebrow: string;
 }) {
-  const copy = homeLandingCopyByLocale[locale];
-  const blogHref = locale === "zh" ? "/zh/blog/" : "/blog/";
-
   return (
     <>
       <SeoHead
@@ -126,25 +121,10 @@ export function HomePageView({
         intro={page.intro}
         currentPath={page.path}
         leadMode="none"
+        hero={<HomePageHero locale={locale} />}
         alternates={page.alternates}
       >
-        <MarkdownContent html={page.bodyHtml} className="home-landing" />
-        {page.recentPosts.length > 0 && (
-          <section className="mt-14 pb-16" aria-labelledby="home-recent-posts">
-            <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
-              <h2 id="home-recent-posts" className="text-xl font-semibold tracking-tight text-ink">
-                {copy.spotlightLabel}
-              </h2>
-              <a
-                href={blogHref}
-                className="text-sm font-medium text-slate-600 underline decoration-slate-300 underline-offset-4 transition hover:text-ink hover:decoration-slate-500"
-              >
-                {locale === "zh" ? "全部文章" : "All posts"}
-              </a>
-            </div>
-            <BlogPostList entries={page.recentPosts} locale={locale} />
-          </section>
-        )}
+        <HomePageLanding locale={locale} recentPosts={page.recentPosts} />
       </SiteChrome>
     </>
   );

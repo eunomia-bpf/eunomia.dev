@@ -23,6 +23,7 @@ import {
 } from "../lib/content/loaders";
 import { assertSupportedMarkdown, parseMarkdown } from "../lib/content/markdown";
 import { getContentManifest } from "../lib/content/manifest";
+import { readMkdocsSiteMetadata, readMkdocsTopLevelNavSections } from "../lib/content/mkdocs-config";
 import { resolveCollectionPageSource } from "../lib/content/registry";
 import { renderMarkdown, renderMarkdownBody, renderMarkdownDocument } from "../lib/content/render";
 import { docPathToRoute, getGenericSectionRoutes, listSitemapRoutes } from "../lib/content/routes";
@@ -31,6 +32,7 @@ import { rewriteContentUrl } from "../lib/content/rewrite";
 import { appRoot, siteRoot } from "../lib/content/roots";
 import { resolveLocalizedSource, slugifyTitle } from "../lib/content/source";
 import { absoluteUrl, ogImageUrl, STATIC_OG_IMAGE_PATH } from "../lib/seo";
+import { siteConfig } from "../lib/site-data";
 import { getPrimaryNav, getSiteSections } from "../lib/site-ia";
 import { createContentPageRoute } from "../lib/route-builders";
 import { writeStaticMetadata } from "../scripts/generate-static-metadata";
@@ -80,13 +82,14 @@ test("blog entries derive dated slugs from parsed metadata", () => {
   assert.equal(entry.sourceByLocale.zh, undefined);
 });
 
-test("home page data is markdown-first and contains rendered home content", async () => {
+test("home page data keeps markdown metadata but leaves layout to React", async () => {
   const home = await loadHomePage("en");
   const homeZh = await loadHomePage("zh");
   const acrFenceDescription =
     "ACRFence explains semantic rollback attacks in AI agent checkpoint/restore workflows and shows how intent-aware fencing prevents duplicate irreversible actions and revived authority.";
 
-  assert.match(home.bodyHtml, /Build practical eBPF systems with eunomia/);
+  assert.equal(home.description, "Unlock the potential of eBPF");
+  assert.equal(Object.hasOwn(home, "bodyHtml"), false);
   assert.ok(!("cards" in home));
   assert.ok(!("moreLinks" in home));
   assert.equal(home.sourcePath, "https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/index.md");
@@ -94,9 +97,21 @@ test("home page data is markdown-first and contains rendered home content", asyn
   assert.equal(home.recentPosts[0]?.description, acrFenceDescription);
   assert.notEqual(home.recentPosts[0]?.description, home.recentPosts[0]?.title);
   assert.equal(homeZh.sourcePath, "https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/index.zh.md");
-  assert.match(homeZh.bodyHtml, /用 eunomia 构建实用的 eBPF 系统/);
+  assert.equal(Object.hasOwn(homeZh, "bodyHtml"), false);
   assert.equal(homeZh.recentPosts[0]?.key, "agent-check-restore-safety");
   assert.notEqual(homeZh.recentPosts[0]?.description, homeZh.recentPosts[0]?.title);
+});
+
+test("site metadata is sourced from mkdocs config", () => {
+  const mkdocsMetadata = readMkdocsSiteMetadata();
+
+  assert.equal(siteConfig.name, mkdocsMetadata.siteName);
+  assert.equal(siteConfig.description, mkdocsMetadata.siteDescription);
+  assert.equal(siteConfig.siteUrl, process.env.NEXT_PUBLIC_SITE_URL ?? mkdocsMetadata.siteUrl);
+  assert.equal(siteConfig.repoUrl, mkdocsMetadata.repoUrl);
+  assert.equal(siteConfig.copyright, mkdocsMetadata.copyright);
+  assert.equal(siteConfig.remoteBranch, mkdocsMetadata.remoteBranch);
+  assert.equal(siteConfig.editUri, mkdocsMetadata.editUri);
 });
 
 test("blog listings use explicit article descriptions instead of repeating titles", async () => {
@@ -270,7 +285,17 @@ test("site IA derives sections from discovered content and keeps stable override
   assert.ok(sections.every((section) => section.discovered));
 });
 
-test("primary nav is generated from the site IA registry", () => {
+test("primary nav follows the mkdocs top-level nav order", () => {
+  const mkdocsNavSections = readMkdocsTopLevelNavSections();
+
+  assert.deepEqual(
+    mkdocsNavSections.map((section) => section.key),
+    ["tutorials", "blog", "bpftime", "GPTtrace", "eunomia-bpf", "others"]
+  );
+  assert.deepEqual(
+    getPrimaryNav("en").map((item) => item.label),
+    mkdocsNavSections.map((section) => section.label)
+  );
   assert.deepEqual(
     getPrimaryNav("en").map((item) => item.href),
     ["/tutorials/", "/blog/", "/bpftime/", "/GPTtrace/", "/eunomia-bpf/", "/others/"]

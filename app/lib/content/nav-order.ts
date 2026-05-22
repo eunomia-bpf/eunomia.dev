@@ -1,40 +1,12 @@
-import fs from "node:fs";
-
 import { useContentCache } from "./cache";
-import { mkdocsConfigPath } from "./roots";
+import { readMkdocsNavSources } from "./mkdocs-config";
 import { baseMarkdownPath, sortNaturally } from "./source";
-const navSourcePattern = /^\s*-\s+(?:[^:]+:\s+)?(.+?\.md)\s*$/;
 
 let mkdocsNavSourcesCache: string[] | null = null;
 
-function extractMkdocsNavSources(): string[] {
-  const content = fs.readFileSync(mkdocsConfigPath, "utf8");
-  const orderedSources: string[] = [];
-
-  for (const line of content.split(/\r?\n/)) {
-    if (line.includes("... |")) {
-      continue;
-    }
-
-    const match = line.match(navSourcePattern);
-    if (!match) {
-      continue;
-    }
-
-    const candidate = match[1]?.trim();
-    if (!candidate) {
-      continue;
-    }
-
-    orderedSources.push(baseMarkdownPath(candidate));
-  }
-
-  return [...new Set(orderedSources)];
-}
-
 function getMkdocsNavSources(): string[] {
   if (!useContentCache || !mkdocsNavSourcesCache) {
-    mkdocsNavSourcesCache = extractMkdocsNavSources();
+    mkdocsNavSourcesCache = readMkdocsNavSources();
   }
 
   return mkdocsNavSourcesCache;

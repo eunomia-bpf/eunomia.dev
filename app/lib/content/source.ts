@@ -1,4 +1,4 @@
-import type { Locale } from "../site-data";
+import { siteConfig, type Locale } from "../site-data";
 import { localizePath } from "../paths";
 import { getDocsFileSet, getTopLevelSections } from "./fs-index";
 
@@ -45,7 +45,7 @@ export function resolveLocalizedSource(relativePath: string, locale: Locale): st
 }
 
 export function formatGithubSourcePath(relativePath: string): string {
-  return `https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/${relativePath}`;
+  return `${siteConfig.editUri.replace(/\/+$/, "")}/${relativePath.replace(/^\/+/, "")}`;
 }
 
 export function slugifyTitle(value: string): string {

@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "clean:generated": "node scripts/clean-generated-output.mjs",
-    "generate:content-index": "tsx scripts/generate-content-index.ts",
+    "generate:site-config": "tsx scripts/generate-site-config.ts",
+    "generate:content-index": "npm run generate:site-config && tsx scripts/generate-content-index.ts",
     "generate:search-index": "tsx scripts/generate-search-index.ts",
     "generate:static-assets": "tsx scripts/generate-static-assets.ts",
     "generate:static-metadata": "tsx scripts/generate-static-metadata.ts",

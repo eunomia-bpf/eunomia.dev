@@ -1,9 +1,18 @@
+import { generatedSiteConfig } from "./site-config.generated";
+
 export type Locale = "en" | "zh";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? generatedSiteConfig.siteUrl;
+const normalizedSiteUrl = siteUrl.replace(/\/+$/, "");
+
 export const siteConfig = {
-  name: "eunomia",
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "https://eunomia.dev",
+  name: generatedSiteConfig.name,
+  description: generatedSiteConfig.description,
+  siteUrl,
   analyticsId: "G-1YVMXGL0MY",
-  repoUrl: "https://github.com/eunomia-bpf/eunomia.dev",
-  ogImage: "https://eunomia.dev/assets/icon.svg"
+  repoUrl: generatedSiteConfig.repoUrl,
+  copyright: generatedSiteConfig.copyright,
+  remoteBranch: generatedSiteConfig.remoteBranch,
+  editUri: generatedSiteConfig.editUri,
+  ogImage: `${normalizedSiteUrl}/assets/icon.svg`
 };
