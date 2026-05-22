@@ -1,6 +1,7 @@
 import { getHomePath } from "../site-ia";
 import type { Locale } from "../site-data";
 import type { HomePageData } from "../page-factories";
+import { getRecentBlogEntriesForLocale } from "./collections";
 import { getGitMetadata } from "./git";
 import { renderMarkdownBody } from "./render";
 import { makeAlternates, formatGithubSourcePath } from "./source";
@@ -18,6 +19,7 @@ export async function loadHomePage(locale: Locale): Promise<HomePageData> {
     sourcePath: formatGithubSourcePath(home.sourceRelative),
     metadata: getGitMetadata(home.sourceRelative),
     path: getHomePath(locale),
-    alternates: makeAlternates(getHomePath(locale))
+    alternates: makeAlternates(getHomePath(locale)),
+    recentPosts: getRecentBlogEntriesForLocale(locale)
   };
 }

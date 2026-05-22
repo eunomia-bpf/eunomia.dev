@@ -6,7 +6,7 @@ import path from "node:path";
 import test from "node:test";
 
 import { getStaticAssetPublicPath, writeStaticAssets } from "../lib/content/assets";
-import { getBlogEntries, getGenericSectionRouteEntries } from "../lib/content/collections";
+import { getBlogEntries, getBlogEntriesForLocale, getGenericSectionRouteEntries } from "../lib/content/collections";
 import { loadHomePage } from "../lib/content/home-loader";
 import { getContentModel } from "../lib/content/model";
 import { renderFeed } from "../lib/content/feed";
@@ -83,13 +83,44 @@ test("blog entries derive dated slugs from parsed metadata", () => {
 test("home page data is markdown-first and contains rendered home content", async () => {
   const home = await loadHomePage("en");
   const homeZh = await loadHomePage("zh");
+  const acrFenceDescription =
+    "ACRFence explains semantic rollback attacks in AI agent checkpoint/restore workflows and shows how intent-aware fencing prevents duplicate irreversible actions and revived authority.";
 
   assert.match(home.bodyHtml, /Build practical eBPF systems with eunomia/);
   assert.ok(!("cards" in home));
   assert.ok(!("moreLinks" in home));
   assert.equal(home.sourcePath, "https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/index.md");
+  assert.equal(home.recentPosts[0]?.key, "agent-check-restore-safety");
+  assert.equal(home.recentPosts[0]?.description, acrFenceDescription);
+  assert.notEqual(home.recentPosts[0]?.description, home.recentPosts[0]?.title);
   assert.equal(homeZh.sourcePath, "https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/index.zh.md");
   assert.match(homeZh.bodyHtml, /用 eunomia 构建实用的 eBPF 系统/);
+  assert.equal(homeZh.recentPosts[0]?.key, "agent-check-restore-safety");
+  assert.notEqual(homeZh.recentPosts[0]?.description, homeZh.recentPosts[0]?.title);
+});
+
+test("blog listings use explicit article descriptions instead of repeating titles", async () => {
+  const acrFenceDescription =
+    "ACRFence explains semantic rollback attacks in AI agent checkpoint/restore workflows and shows how intent-aware fencing prevents duplicate irreversible actions and revived authority.";
+  const acrFenceZhDescription =
+    "ACRFence 介绍 AI Agent 检查点恢复中的语义回滚攻击，并说明如何用意图感知的 fencing 机制避免重复执行不可逆操作和复活已消耗授权。";
+  const englishEntry = getBlogEntriesForLocale("en").find((entry) => entry.key === "agent-check-restore-safety");
+  const chineseEntry = getBlogEntriesForLocale("zh").find((entry) => entry.key === "agent-check-restore-safety");
+  const englishIndex = await loadBlogIndex("en");
+  const chineseIndex = await loadBlogIndex("zh");
+  const englishIndexEntry = englishIndex.blogEntries?.find((entry) => entry.key === "agent-check-restore-safety");
+  const chineseIndexEntry = chineseIndex.blogEntries?.find((entry) => entry.key === "agent-check-restore-safety");
+
+  assert.ok(englishEntry);
+  assert.equal(englishEntry.description, acrFenceDescription);
+  assert.notEqual(englishEntry.description, englishEntry.title);
+
+  assert.ok(chineseEntry);
+  assert.equal(chineseEntry.description, acrFenceZhDescription);
+  assert.notEqual(chineseEntry.description, chineseEntry.title);
+
+  assert.equal(englishIndexEntry?.description, acrFenceDescription);
+  assert.equal(chineseIndexEntry?.description, acrFenceZhDescription);
 });
 
 test("collection page sources resolve through the family registry", () => {

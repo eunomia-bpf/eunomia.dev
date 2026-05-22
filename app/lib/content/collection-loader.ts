@@ -11,7 +11,7 @@ import { buildCollectionSidebar } from "./sidebar";
 import type { BlogEntry, DocsPage, LandingCard } from "./types";
 import { getDocument } from "./documents";
 import { loadDirectoryPage, loadDocumentPage, requireDocument, withContinuation } from "./page-loader-utils";
-import { getBlogEntries } from "./collections";
+import { getBlogEntriesForLocale } from "./collections";
 
 function buildCollectionIndexCards(familyId: CollectionFamilyId, locale: Locale): LandingCard[] {
   return getCollectionPageDescriptors(familyId)
@@ -52,9 +52,7 @@ async function loadCollectionIndexPage(
   // For the blog collection, attach the full sorted entry list so the
   // React blog listing component can render it without parsing markdown.
   if (family.id === "blog") {
-    const blogEntries: BlogEntry[] = getBlogEntries().filter(
-      (entry) => entry.sourceByLocale[locale] ?? entry.sourceByLocale.en
-    );
+    const blogEntries: BlogEntry[] = getBlogEntriesForLocale(locale);
     return { ...page, blogEntries };
   }
 
