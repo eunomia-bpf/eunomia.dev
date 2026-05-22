@@ -1,9 +1,13 @@
+import Image from "next/image";
+
 import { MobileNav } from "../components/MobileNav";
 import { SearchBox } from "../components/SearchBox";
 import type { LocaleAlternates, SidebarGroup } from "../lib/content/types";
 import { localizePath, normalizePath } from "../lib/paths";
 import { getPrimaryNav } from "../lib/site-ia";
 import type { Locale } from "../lib/site-data";
+
+const LOGO_SRC = "/_content-assets/docs/assets/icon.svg";
 
 type SiteHeaderProps = {
   locale: Locale;
@@ -32,8 +36,19 @@ export function SiteHeader({ locale, currentPath, sidebar, alternates }: SiteHea
   return (
     <header className="sticky top-0 z-40 border-b border-slate-200 bg-white">
       <div className="mx-auto flex max-w-[82rem] items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
-        <a href={localizePath("/", locale)} className="min-w-0 text-base font-semibold tracking-tight text-ink">
-          eunomia.dev
+        <a
+          href={localizePath("/", locale)}
+          className="flex min-w-0 items-center gap-2 text-base font-semibold tracking-normal text-ink"
+        >
+          <Image
+            src={LOGO_SRC}
+            alt=""
+            width={28}
+            height={28}
+            className="h-7 w-7 shrink-0 rounded-md"
+            unoptimized
+          />
+          <span className="truncate">eunomia</span>
         </a>
         <nav className="hidden items-center gap-5 text-sm font-medium text-slate-600 lg:flex">
           {nav.map((item) => (

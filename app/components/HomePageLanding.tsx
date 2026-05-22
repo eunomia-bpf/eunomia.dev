@@ -18,7 +18,6 @@ type HomeCopy = {
   secondaryCta: string;
   githubCta: string;
   imageAlt: string;
-  proof: Array<{ value: string; label: string }>;
   sectionLabel: string;
   sectionTitle: string;
   sectionIntro: string;
@@ -40,11 +39,6 @@ const copyByLocale: Record<Locale, HomeCopy> = {
     secondaryCta: "Read research",
     githubCta: "GitHub",
     imageAlt: "eBPF architecture and runtime map",
-    proof: [
-      { value: "OSDI 2025", label: "bpftime userspace eBPF runtime" },
-      { value: "eBPF 2024", label: "LLM-assisted kernel tracing" },
-      { value: "arXiv 2603.20625", label: "agent checkpoint/restore safety" }
-    ],
     sectionLabel: "Work",
     sectionTitle: "Research ideas that keep shipping as tools.",
     sectionIntro:
@@ -112,11 +106,6 @@ const copyByLocale: Record<Locale, HomeCopy> = {
     secondaryCta: "阅读研究",
     githubCta: "GitHub",
     imageAlt: "eBPF 架构与运行时路线图",
-    proof: [
-      { value: "OSDI 2025", label: "bpftime userspace eBPF runtime" },
-      { value: "eBPF 2024", label: "LLM 辅助内核追踪" },
-      { value: "arXiv 2603.20625", label: "Agent checkpoint/restore 安全" }
-    ],
     sectionLabel: "方向",
     sectionTitle: "研究想法会继续落到可用工具里。",
     sectionIntro:
@@ -225,14 +214,6 @@ export function HomePageHero({ locale }: { locale: Locale }) {
             </a>
           </div>
         </div>
-        <dl className="mt-12 grid gap-3 sm:grid-cols-3">
-          {copy.proof.map((item) => (
-            <div key={item.value} className="border-l border-cyan-300/60 pl-4">
-              <dt className="text-sm font-semibold text-white">{item.value}</dt>
-              <dd className="mt-1 text-sm leading-5 text-slate-300">{item.label}</dd>
-            </div>
-          ))}
-        </dl>
         <span className="sr-only">{copy.imageAlt}</span>
       </div>
     </section>
