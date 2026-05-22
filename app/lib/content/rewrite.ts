@@ -2,7 +2,7 @@ import path from "node:path";
 
 import { visit } from "unist-util-visit";
 
-import type { Locale } from "../site-data";
+import { siteConfig, type Locale } from "../site-data";
 import { getStaticAssetPublicPath } from "./assets";
 import { getDocsFileSet, getSiteFileSet } from "./fs-index";
 import { resolveRouteFromDocSource } from "./manifest";
@@ -51,6 +51,28 @@ function isSafeExternalUrl(value: string): boolean {
   }
 
   return false;
+}
+
+function isSameSiteAbsoluteUrl(value: string): boolean {
+  try {
+    const url = new URL(value);
+    const siteUrl = new URL(siteConfig.siteUrl);
+    return (
+      (url.protocol === "http:" || url.protocol === "https:") &&
+      (url.hostname === siteUrl.hostname || url.hostname === "eunomia.dev" || url.hostname === "www.eunomia.dev")
+    );
+  } catch {
+    return false;
+  }
+}
+
+function rewriteSameSiteAbsoluteUrl(value: string): string | null {
+  if (!isSameSiteAbsoluteUrl(value)) {
+    return null;
+  }
+
+  const url = new URL(value);
+  return rewriteAbsolutePath(`${url.pathname}${url.search}${url.hash}`);
 }
 
 function resolveDocLinkCandidate(relativePath: string): string | null {
@@ -146,6 +168,11 @@ function rewriteUrl(value: unknown, sourceRelativePath: string, locale: Locale):
   }
 
   if (hasExplicitProtocol(value)) {
+    const rewritten = rewriteSameSiteAbsoluteUrl(value);
+    if (rewritten) {
+      return rewritten;
+    }
+
     return isSafeExternalUrl(value) ? value : null;
   }
 

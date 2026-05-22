@@ -121,6 +121,13 @@ test("rewriteContentUrl rewrites nested relative asset paths to the static asset
   );
 });
 
+test("rewriteContentUrl rewrites same-site absolute asset paths to the static asset path", () => {
+  assert.equal(
+    rewriteContentUrl("https://eunomia.dev/bpftime/documents/bpftime.png", "bpftime/index.md", "en"),
+    "/_content-assets/docs/bpftime/documents/bpftime.png"
+  );
+});
+
 test("rewriteContentUrl resolves nested tutorial doc links to public routes", () => {
   assert.equal(
     rewriteContentUrl("../README.md", "tutorials/38-btf-uprobe/test-verify/README.md", "en"),
@@ -700,6 +707,17 @@ test("renderMarkdownBody rewrites local asset URLs inside allowed raw HTML", asy
   );
 
   assert.match(html, /\/_content-assets\/docs\/tutorials\/13-tcpconnlat\/tcpconnlat1\.png/);
+});
+
+test("renderMarkdownBody rewrites same-site absolute asset URLs inside allowed raw HTML", async () => {
+  const html = await renderMarkdownBody(
+    '<img src="https://eunomia.dev/bpftime/documents/bpftime-kernel.png" alt="kernel">',
+    "bpftime/index.md",
+    "en"
+  );
+
+  assert.match(html, /\/_content-assets\/docs\/bpftime\/documents\/bpftime-kernel\.png/);
+  assert.doesNotMatch(html, /https:\/\/eunomia\.dev\/bpftime\/documents\/bpftime-kernel\.png/);
 });
 
 test("renderMarkdownBody strips unsafe raw HTML and dangerous URLs", async () => {
