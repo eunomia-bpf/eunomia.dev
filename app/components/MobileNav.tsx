@@ -10,8 +10,15 @@ import { getPrimaryNav } from "../lib/site-ia";
 import type { Locale } from "../lib/site-data";
 import { mobileNavCopyByLocale } from "../lib/ui-copy";
 
-// Duration must match the Tailwind duration-300 class (300 ms).
 const ANIMATION_DURATION_MS = 300;
+const FOCUSABLE_SELECTOR = [
+  "a[href]",
+  "button:not([disabled])",
+  "input:not([disabled])",
+  "select:not([disabled])",
+  "textarea:not([disabled])",
+  '[tabindex]:not([tabindex="-1"])'
+].join(",");
 
 type MobileNavProps = {
   locale: Locale;
@@ -21,10 +28,9 @@ type MobileNavProps = {
 
 export function MobileNav({ locale, currentPath, sidebar }: MobileNavProps) {
   const [open, setOpen] = useState(false);
-  // `mounted` keeps the overlay in the DOM long enough for the close animation
-  // to finish before the element is removed.
   const [mounted, setMounted] = useState(false);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
+  const panelRef = useRef<HTMLDivElement | null>(null);
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const nav = getPrimaryNav(locale);
   const copy = mobileNavCopyByLocale[locale];
@@ -40,17 +46,14 @@ export function MobileNav({ locale, currentPath, sidebar }: MobileNavProps) {
     ...(sidebar?.filter((group) => group.items.length) ?? [])
   ];
 
-  // Sync open → mounted with a delayed unmount so the close animation plays.
   useEffect(() => {
     if (open) {
-      // Clear any pending close timer and immediately mount.
       if (closeTimerRef.current !== null) {
         clearTimeout(closeTimerRef.current);
         closeTimerRef.current = null;
       }
       setMounted(true);
     } else {
-      // Keep mounted until the transition finishes, then unmount.
       closeTimerRef.current = setTimeout(() => {
         setMounted(false);
         closeTimerRef.current = null;
@@ -68,14 +71,42 @@ export function MobileNav({ locale, currentPath, sidebar }: MobileNavProps) {
       return undefined;
     }
 
+    const getFocusableElements = () =>
+      [...(panelRef.current?.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR) ?? [])].filter(
+        (element) => element.getClientRects().length > 0
+      );
+
     function handleKeyDown(event: KeyboardEvent) {
-      if (event.key !== "Escape") {
+      if (event.key === "Escape") {
+        setOpen(false);
+        buttonRef.current?.focus();
         return;
       }
 
-      setOpen(false);
-      buttonRef.current?.focus();
+      if (event.key !== "Tab") {
+        return;
+      }
+
+      const focusable = getFocusableElements();
+      const first = focusable[0];
+      const last = focusable.at(-1);
+      if (!first || !last) {
+        event.preventDefault();
+        return;
+      }
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     }
+
+    const focusFrame = window.requestAnimationFrame(() => {
+      getFocusableElements()[0]?.focus();
+    });
 
     window.addEventListener("keydown", handleKeyDown);
     const previousDocumentOverflow = document.documentElement.style.overflow;
@@ -84,6 +115,7 @@ export function MobileNav({ locale, currentPath, sidebar }: MobileNavProps) {
     document.body.style.overflow = "hidden";
 
     return () => {
+      window.cancelAnimationFrame(focusFrame);
       window.removeEventListener("keydown", handleKeyDown);
       document.documentElement.style.overflow = previousDocumentOverflow;
       document.body.style.overflow = previousBodyOverflow;
@@ -105,7 +137,6 @@ export function MobileNav({ locale, currentPath, sidebar }: MobileNavProps) {
       </button>
       {mounted ? (
         <div id="mobile-nav-overlay" className="fixed inset-0 z-50 lg:hidden">
-          {/* Backdrop: fades in when open, fades out when closing */}
           <button
             type="button"
             aria-label={copy.close}
@@ -116,8 +147,8 @@ export function MobileNav({ locale, currentPath, sidebar }: MobileNavProps) {
             ].join(" ")}
             onClick={() => setOpen(false)}
           />
-          {/* Drawer panel: slides in from the left */}
           <div
+            ref={panelRef}
             id="mobile-nav-panel"
             className={[
               "absolute left-0 top-0 flex h-full w-[min(24rem,calc(100vw-1.5rem))] max-w-full flex-col border-r border-slate-200 bg-white shadow-2xl",

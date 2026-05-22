@@ -1,6 +1,7 @@
 import Head from "next/head";
 
 import type { GitMetadata } from "../lib/content/types";
+import { toArticleDateTime } from "../lib/dates";
 import { AlternateLink, absoluteUrl, ogImageUrl } from "../lib/seo";
 import { siteConfig } from "../lib/site-data";
 
@@ -10,6 +11,7 @@ type SeoHeadProps = {
   path: string;
   alternates: AlternateLink[];
   article?: boolean;
+  publishedAt?: string;
   metadata?: GitMetadata | null;
   robots?: string;
 };
@@ -20,6 +22,7 @@ export function SeoHead({
   path,
   alternates,
   article = false,
+  publishedAt,
   metadata,
   robots
 }: SeoHeadProps) {
@@ -27,6 +30,9 @@ export function SeoHead({
   const fullTitle = `${title} | ${siteConfig.name}`;
   const ogImage = ogImageUrl();
   const feedHref = path.startsWith("/zh") ? absoluteUrl("/zh/feed.xml") : absoluteUrl("/feed.xml");
+  const articlePublishedAt = article ? toArticleDateTime(publishedAt ?? metadata?.createdAt) : undefined;
+  const articleModifiedAt = article ? toArticleDateTime(metadata?.updatedAt) : undefined;
+  const articleAuthors = article ? metadata?.authors ?? [] : [];
 
   return (
     <Head>
@@ -42,9 +48,9 @@ export function SeoHead({
       <meta property="og:type" content={article ? "article" : "website"} />
       <meta property="og:url" content={canonical} />
       <meta property="og:image" content={ogImage} />
-      {metadata?.createdAt ? <meta property="article:published_time" content={metadata.createdAt} /> : null}
-      {metadata?.updatedAt ? <meta property="article:modified_time" content={metadata.updatedAt} /> : null}
-      {metadata?.authors.map((author) => (
+      {articlePublishedAt ? <meta property="article:published_time" content={articlePublishedAt} /> : null}
+      {articleModifiedAt ? <meta property="article:modified_time" content={articleModifiedAt} /> : null}
+      {articleAuthors.map((author) => (
         <meta key={author.name} property="article:author" content={author.name} />
       ))}
       <link rel="canonical" href={canonical} />

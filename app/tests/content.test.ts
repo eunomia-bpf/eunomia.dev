@@ -84,7 +84,7 @@ test("home page data is markdown-first and contains rendered home content", asyn
   const home = await loadHomePage("en");
   const homeZh = await loadHomePage("zh");
 
-  assert.match(home.bodyHtml, /Unlock the Power of eBPF/);
+  assert.match(home.bodyHtml, /Build practical eBPF systems with eunomia/);
   assert.ok(!("cards" in home));
   assert.ok(!("moreLinks" in home));
   assert.equal(home.sourcePath, "https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/index.md");

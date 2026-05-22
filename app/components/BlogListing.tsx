@@ -1,4 +1,5 @@
 import type { BlogEntry } from "../lib/content/types";
+import { formatDate as formatDisplayDate } from "../lib/dates";
 import type { Locale } from "../lib/site-data";
 
 type BlogListingProps = {
@@ -9,16 +10,11 @@ type BlogListingProps = {
 };
 
 function formatDate(dateStr: string | undefined, locale: Locale): string {
-  if (!dateStr) return "";
-  try {
-    return new Date(dateStr).toLocaleDateString(locale === "zh" ? "zh-CN" : "en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric"
-    });
-  } catch {
-    return dateStr;
-  }
+  return formatDisplayDate(dateStr, locale, {
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  }) ?? dateStr ?? "";
 }
 
 function buildBlogHref(entry: BlogEntry, locale: Locale): string {

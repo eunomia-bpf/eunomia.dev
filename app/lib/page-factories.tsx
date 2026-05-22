@@ -1,12 +1,11 @@
 import { ArticleLayout } from "../components/ArticleLayout";
 import { BlogListing } from "../components/BlogListing";
 import { CardGrid } from "../components/CardGrid";
-import { HomeLanding } from "../components/HomeLanding";
 import { SeoHead } from "../components/SeoHead";
 import { SiteChrome } from "../components/SiteChrome";
 import { canonicalAlternates } from "./seo";
 import { MarkdownContent } from "../components/MarkdownContent";
-import type { BlogEntry, DocsPage, GitMetadata, LocaleAlternates } from "./content/types";
+import type { DocsPage, GitMetadata, LocaleAlternates } from "./content/types";
 import type { Locale } from "./site-data";
 
 export type HomePageData = {
@@ -18,7 +17,6 @@ export type HomePageData = {
   metadata?: GitMetadata | null;
   path: string;
   alternates: LocaleAlternates;
-  recentPosts?: BlogEntry[];
 };
 
 function getTocTitle(locale: Locale): string {
@@ -78,6 +76,7 @@ export function DocsPageView({
         path={page.path}
         alternates={canonicalAlternates(page.alternates)}
         article={page.layout === "document"}
+        publishedAt={page.date}
         metadata={page.metadata}
       />
       <SiteChrome
@@ -123,7 +122,7 @@ export function HomePageView({
         leadMode="none"
         alternates={page.alternates}
       >
-        <HomeLanding page={page} recentPosts={page.recentPosts} />
+        <MarkdownContent html={page.bodyHtml} className="home-landing" />
       </SiteChrome>
     </>
   );

@@ -11,9 +11,6 @@ export default function nextConfig(phase) {
     // Keep local development on the standard Next runtime; static export remains
     // enforced for production builds and deployment verification.
     output: isDev ? undefined : "export",
-    experimental: {
-      largePageDataBytes: 256 * 1024
-    },
     trailingSlash: true
   };
 }

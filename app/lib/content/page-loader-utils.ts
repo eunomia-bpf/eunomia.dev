@@ -29,6 +29,7 @@ export async function loadDocumentPage(
     title: document.title,
     description: document.description,
     bodyHtml: rendered.html,
+    ...(document.date ? { date: document.date } : {}),
     headings: rendered.headings,
     sourcePath: formatGithubSourcePath(sourceRelative),
     metadata: getGitMetadata(sourceRelative),

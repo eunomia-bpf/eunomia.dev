@@ -229,10 +229,7 @@ export function parseMarkdown(relativePath: string): ParsedMarkdown {
     titleFromHeading ??
     path.posix.basename(relativePath, path.posix.extname(relativePath));
 
-  const excerptSource = rawContent.includes("<!-- more -->")
-    ? rawContent.split("<!-- more -->")[0]
-    : body;
-  const excerpt = makeExcerpt(excerptSource);
+  const excerpt = makeExcerpt(body);
   const description =
     ((typeof parsed.data.description === "string"
       ? collapseWhitespace(stripInlineMarkdown(parsed.data.description))

@@ -4,9 +4,10 @@ import { useEffect, useRef } from 'react';
 
 type MarkdownContentProps = {
   html: string;
+  className?: string;
 };
 
-export function MarkdownContent({ html }: MarkdownContentProps) {
+export function MarkdownContent({ html, className }: MarkdownContentProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -67,7 +68,7 @@ export function MarkdownContent({ html }: MarkdownContentProps) {
   return (
     <div
       ref={containerRef}
-      className="content-copy"
+      className={["content-copy", className].filter(Boolean).join(" ")}
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );

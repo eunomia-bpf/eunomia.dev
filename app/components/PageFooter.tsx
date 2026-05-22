@@ -1,4 +1,5 @@
 import type { GitMetadata, PageContinuation } from "../lib/content/types";
+import { formatDate } from "../lib/dates";
 import { localizePath } from "../lib/paths";
 import { siteConfig, type Locale } from "../lib/site-data";
 import { pageFooterCopyByLocale } from "../lib/ui-copy";
@@ -12,16 +13,6 @@ type PageFooterProps = {
   metadata?: GitMetadata | null;
   continuation?: PageContinuation;
 };
-
-function formatDate(value: string | undefined, locale: Locale) {
-  if (!value) {
-    return null;
-  }
-
-  return new Intl.DateTimeFormat(locale === "zh" ? "zh-CN" : "en-US", {
-    dateStyle: "medium"
-  }).format(new Date(value));
-}
 
 function joinAuthors(metadata?: GitMetadata | null) {
   if (!metadata?.authors.length) {
@@ -39,8 +30,8 @@ export function PageFooter({ locale, title, path, sourceHref, metadata, continua
   const absolutePath = new URL(path, siteConfig.siteUrl).toString();
   const shareTitle = encodeURIComponent(`${title}\n`);
   const shareUrl = encodeURIComponent(absolutePath);
-  const updated = formatDate(metadata?.updatedAt, locale);
-  const created = formatDate(metadata?.createdAt, locale);
+  const updated = formatDate(metadata?.updatedAt, locale, { dateStyle: "medium" });
+  const created = formatDate(metadata?.createdAt, locale, { dateStyle: "medium" });
   const authors =
     metadata?.authors.length && metadata.authors.length > MAX_DISPLAYED_AUTHORS
       ? `${metadata.authors

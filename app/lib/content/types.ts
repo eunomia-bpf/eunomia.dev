@@ -136,6 +136,7 @@ export type DocsPage = {
   title: string;
   description: string;
   bodyHtml: string;
+  date?: string;
   sourcePath: string;
   path: string;
   metadata?: GitMetadata | null;
