@@ -1721,6 +1721,16 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/wasm-bpf/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/about/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/about/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/about/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/about/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/about/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/about/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/bpftime/EIM/draft-spec/current-EIM-lack/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/bpftime/EIM/draft-spec/current-EIM-lack/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/bpftime/EIM/draft-spec/current-EIM-lack/" />
@@ -2863,5 +2873,15 @@
     <loc>https://eunomia.dev/zh/others/usecases/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/others/usecases/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/usecases/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/projects/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/projects/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/projects/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/projects/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/projects/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/projects/" />
   </url>
 </urlset>
