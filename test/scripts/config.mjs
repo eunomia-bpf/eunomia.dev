@@ -65,8 +65,114 @@ export const runtimeAuditRoutes = [
 export const rolloutAuditSampleBlogRoute =
   "/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/";
 
+function parseScalar(value) {
+  const trimmed = value.trim();
+  if (
+    (trimmed.startsWith("'") && trimmed.endsWith("'")) ||
+    (trimmed.startsWith("\"") && trimmed.endsWith("\""))
+  ) {
+    return trimmed.slice(1, -1);
+  }
+
+  return trimmed;
+}
+
+function indentation(line) {
+  return line.match(/^\s*/)?.[0].length ?? 0;
+}
+
+function readExpectedNavLabelsFromMkdocs() {
+  const mkdocsPath = path.join(repoRoot, "mkdocs.yaml");
+  const sections = [];
+  let inSiteSections = false;
+  let baseIndent = 0;
+  let current = null;
+  let nestedField = null;
+
+  for (const line of fs.readFileSync(mkdocsPath, "utf8").split(/\r?\n/)) {
+    if (!inSiteSections) {
+      const siteSectionsMatch = line.match(/^(\s*)site_sections:\s*$/);
+      if (siteSectionsMatch) {
+        inSiteSections = true;
+        baseIndent = siteSectionsMatch[1]?.length ?? 0;
+      }
+      continue;
+    }
+
+    if (line.trim() && indentation(line) <= baseIndent) {
+      break;
+    }
+
+    if (!line.trim() || line.trim().startsWith("#")) {
+      continue;
+    }
+
+    const sectionMatch = line.match(new RegExp(`^\\s{${baseIndent + 2}}(\\S[^:]*):\\s*$`));
+    if (sectionMatch) {
+      current = {
+        label: null,
+        nav: false,
+        order: Number.POSITIVE_INFINITY
+      };
+      sections.push(current);
+      nestedField = null;
+      continue;
+    }
+
+    if (!current) {
+      continue;
+    }
+
+    const fieldMatch = line.match(new RegExp(`^\\s{${baseIndent + 4}}([A-Za-z0-9_-]+):\\s*(.*)$`));
+    if (fieldMatch) {
+      const [, field, rawValue = ""] = fieldMatch;
+      const value = parseScalar(rawValue);
+      nestedField = null;
+
+      if (field === "order") {
+        current.order = Number(value);
+        continue;
+      }
+
+      if (field === "labels" || field === "published") {
+        nestedField = field;
+      }
+      continue;
+    }
+
+    const nestedMatch = line.match(new RegExp(`^\\s{${baseIndent + 6}}([A-Za-z0-9_-]+):\\s*(.*)$`));
+    if (!nestedMatch || !nestedField) {
+      continue;
+    }
+
+    const [, field, rawValue = ""] = nestedMatch;
+    const value = parseScalar(rawValue);
+    if (nestedField === "labels" && field === "en") {
+      current.label = value;
+    }
+    if (nestedField === "published" && field === "nav") {
+      current.nav = value.toLowerCase() === "true";
+    }
+  }
+
+  const labels = sections
+    .filter((section) => section.nav)
+    .sort((left, right) => left.order - right.order)
+    .map((section) => section.label)
+    .filter(Boolean);
+
+  if (!labels.length) {
+    throw new Error(`Missing mkdocs nav labels in ${mkdocsPath}`);
+  }
+
+  return labels;
+}
+
 function readExpectedNavLabels() {
   const siteSectionsPath = path.join(appDir, ".generated", "content", "site-sections.json");
+  if (!fs.existsSync(siteSectionsPath)) {
+    return readExpectedNavLabelsFromMkdocs();
+  }
 
   const payload = JSON.parse(fs.readFileSync(siteSectionsPath, "utf8"));
   const labels = payload.sections
