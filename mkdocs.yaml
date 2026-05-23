@@ -332,6 +332,44 @@ extra:
             href: https://github.com/eunomia-bpf/eunomia-bpf
           - label: Apsara 2022
             href: https://www.alibabacloud.com/blog/eunomia-bpf-the-lightweight-development-framework-for-ebpf-and-webassembly-is-now-available_599688
+      - key: GPTtrace
+        title: GPTtrace
+        tag:
+          en: AI tracing
+          zh: AI tracing
+        href: /GPTtrace/
+        image: /_content-assets/docs/GPTtrace/doc/trace.png
+        image_alt: GPTtrace
+        description:
+          en: Generate eBPF tracing programs with natural language and use LLMs to explore Linux kernel behavior.
+          zh: 用自然语言生成 eBPF tracing 程序，并借助 LLM 探索 Linux 内核行为。
+        links:
+          - label: Docs
+            label_zh: 文档
+            href: /GPTtrace/
+          - label: GitHub
+            href: https://github.com/eunomia-bpf/GPTtrace
+          - label: eBPF 2024
+            href: https://dl.acm.org/doi/10.1145/3672197.3673434
+      - key: agentsight
+        title: AgentSight
+        tag:
+          en: Agent observability
+          zh: Agent observability
+        href: /GPTtrace/agentsight/
+        image: /_content-assets/docs/blog/posts/imgs/arch.png
+        image_alt: AgentSight architecture
+        description:
+          en: Zero-instrumentation LLM and AI agent observability with eBPF, process monitoring, and TLS traffic correlation.
+          zh: 基于 eBPF、进程监控和 TLS traffic correlation 的零插桩 LLM 与 AI agent 可观测性。
+        links:
+          - label: Docs
+            label_zh: 文档
+            href: /GPTtrace/agentsight/
+          - label: GitHub
+            href: https://github.com/eunomia-bpf/agentsight
+          - label: arXiv 2508.02736
+            href: https://arxiv.org/abs/2508.02736
       - key: llvmbpf
         title: llvmbpf
         tag:
@@ -370,25 +408,6 @@ extra:
             href: https://github.com/eunomia-bpf/wasm-bpf
           - label: KubeCon NA 2023
             href: https://sched.co/1R2uf
-      - key: GPTtrace
-        title: GPTtrace
-        tag:
-          en: AI tracing
-          zh: AI tracing
-        href: /GPTtrace/
-        image: /_content-assets/docs/GPTtrace/doc/trace.png
-        image_alt: GPTtrace
-        description:
-          en: Generate eBPF tracing programs with natural language and use LLMs to explore Linux kernel behavior.
-          zh: 用自然语言生成 eBPF tracing 程序，并借助 LLM 探索 Linux 内核行为。
-        links:
-          - label: Docs
-            label_zh: 文档
-            href: /GPTtrace/
-          - label: GitHub
-            href: https://github.com/eunomia-bpf/GPTtrace
-          - label: eBPF 2024
-            href: https://dl.acm.org/doi/10.1145/3672197.3673434
       - key: ACRFence
         title: ACRFence
         tag:
@@ -406,26 +425,6 @@ extra:
             href: /blog/2026/05/21/acrfence-preventing-semantic-rollback-attacks-in-agent-checkpoint-restore/
           - label: arXiv 2603.20625
             href: https://arxiv.org/abs/2603.20625
-      - key: ecosystem
-        title: Ecosystem
-        tag:
-          en: Research
-          zh: 研究
-        href: /others/
-        image: /ebpf_arch.png
-        image_alt: eBPF ecosystem
-        description:
-          en: Papers, talks, references, and adjacent systems work across eBPF, observability, runtimes, and tooling.
-          zh: eBPF、可观测性、runtime 和工具链方向的论文、演讲、参考资料和相关系统工作。
-        links:
-          - label: References
-            label_zh: 参考资料
-            href: /others/
-          - label: Blog
-            label_zh: 博客
-            href: /blog/
-          - label: GitHub
-            href: https://github.com/eunomia-bpf
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/eunomia-bpf

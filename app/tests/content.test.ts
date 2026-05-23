@@ -150,11 +150,11 @@ test("home project cards are sourced from mkdocs config", () => {
       "bpftime",
       "bpf-developer-tutorial",
       "eunomia-bpf",
+      "GPTtrace",
+      "agentsight",
       "llvmbpf",
       "wasm-bpf",
-      "GPTtrace",
-      "ACRFence",
-      "ecosystem"
+      "ACRFence"
     ]
   );
   assert.ok(
@@ -166,6 +166,11 @@ test("home project cards are sourced from mkdocs config", () => {
     home.projects
       .find((project) => project.key === "GPTtrace")
       ?.links.some((link) => link.label.en === "eBPF 2024")
+  );
+  assert.ok(
+    home.projects
+      .find((project) => project.key === "agentsight")
+      ?.links.some((link) => link.label.en === "arXiv 2508.02736")
   );
   assert.ok(
     home.projects

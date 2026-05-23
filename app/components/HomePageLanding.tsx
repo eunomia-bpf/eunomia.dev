@@ -60,34 +60,34 @@ function ProjectCard({ project, locale }: { project: MkdocsHomeProject; locale: 
   const href = localizedHref(project.href, locale);
 
   return (
-    <article className="group overflow-hidden rounded-lg border border-slate-200 bg-white transition hover:border-cyan-700/40 hover:bg-slate-50">
-      <a href={href} className="block">
+    <article className="group flex h-[17.75rem] flex-col overflow-hidden rounded-lg border border-slate-200 bg-white transition hover:border-cyan-700/40 hover:bg-slate-50">
+      <a href={href} className="flex min-w-0 flex-1 flex-col">
         {project.image ? (
-          <div className="relative h-36 border-b border-slate-100 bg-slate-50">
+          <div className="relative h-20 shrink-0 border-b border-slate-100 bg-slate-50">
             <Image
               src={project.image}
               alt={project.imageAlt || project.title}
               fill
-              sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
-              className="object-contain p-4"
+              sizes="18rem"
+              className="object-contain p-3"
               unoptimized
             />
           </div>
         ) : null}
-        <div className="p-5">
+        <div className="min-h-0 flex-1 p-4">
           <p className="text-xs font-semibold uppercase tracking-normal text-cyan-700">
             {localizedText(project.tag, locale)}
           </p>
           <h3 className="mt-2 text-lg font-semibold tracking-normal text-ink group-hover:text-cyan-800">
             {project.title}
           </h3>
-          <p className="mt-3 text-sm leading-6 text-slate-600">
+          <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-600">
             {localizedText(project.description, locale)}
           </p>
         </div>
       </a>
       {project.links.length ? (
-        <div className="flex flex-wrap gap-2 border-t border-slate-100 px-5 pb-5 pt-4">
+        <div className="flex shrink-0 flex-wrap gap-2 border-t border-slate-100 px-4 pb-4 pt-3">
           {project.links.map((link) => (
             <a
               key={`${project.key}:${link.href}:${localizedText(link.label, locale)}`}
@@ -162,10 +162,12 @@ export function HomePageLanding({ locale, recentPosts, home }: HomePageLandingPr
             </p>
           </div>
         </div>
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          {home.projects.map((project) => (
-            <ProjectCard key={project.key} project={project} locale={locale} />
-          ))}
+        <div className="overflow-x-auto pb-3">
+          <div className="grid w-max grid-flow-col grid-rows-2 gap-4 pr-4 [grid-auto-columns:minmax(17rem,18.5rem)] sm:[grid-auto-columns:20rem] lg:[grid-auto-columns:21rem]">
+            {home.projects.map((project) => (
+              <ProjectCard key={project.key} project={project} locale={locale} />
+            ))}
+          </div>
         </div>
       </section>
 
