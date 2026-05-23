@@ -1,0 +1,265 @@
+variant: ai-ebpf
+title:
+  en: AI × eBPF
+  zh: AI 与 eBPF
+description:
+  en: eBPF-based tracing, observability, synthesis, and safety work for AI agents, LLM systems, and low-level runtime behavior.
+  zh: 面向 AI agent、LLM systems 和底层 runtime behavior 的 eBPF tracing、observability、程序合成与安全工作。
+summary:
+  en: "The page follows the original direction of the AI × eBPF document: eBPF gives AI systems high-fidelity runtime context, while AI helps generate, verify, and operate eBPF programs and OS policies."
+  zh: 这个页面保留原 AI × eBPF 文档的方向：eBPF 为 AI 系统提供高质量运行时上下文，同时 AI 帮助生成、验证和操作 eBPF 程序与 OS policies。
+hero_image: /_content-assets/docs/blog/posts/imgs/arch.png
+section_labels:
+  directions:
+    en: Two-way loop
+    zh: 双向循环
+  projects:
+    en: Agent and tracing projects
+    zh: Agent 与 tracing 项目
+  use_cases:
+    en: Use-case map
+    zh: 用例地图
+  references:
+    en: Research and references
+    zh: 研究与参考
+directions:
+  - key: ebpf-for-ai
+    eyebrow:
+      en: eBPF for AI
+      zh: eBPF for AI
+    title:
+      en: Runtime context for AI and ML systems
+      zh: 为 AI 和 ML 系统提供运行时上下文
+    description:
+      en: eBPF acts as a low-overhead sensor and enforcement layer for agents, inference services, GPU workflows, and network paths.
+      zh: eBPF 可作为低开销的传感与执行层，服务于 agent、推理服务、GPU 工作流和网络路径。
+    points:
+      - label:
+          en: Prompt-to-syscall correlation
+          zh: Prompt 到 syscall 的关联
+      - label:
+          en: Zero-instrumentation LLM and CUDA tracing
+          zh: 零插桩 LLM 与 CUDA tracing
+      - label:
+          en: Kernel-level policy and safety hooks
+          zh: 内核级 policy 与安全 hook
+  - key: ai-for-ebpf
+    eyebrow:
+      en: AI for eBPF
+      zh: AI for eBPF
+    title:
+      en: Synthesis and verification for kernel extensions
+      zh: 面向内核扩展的合成与验证
+    description:
+      en: LLMs can help generate tracing programs, search examples, check constraints, and lower the barrier to reliable eBPF development.
+      zh: LLM 可以帮助生成 tracing 程序、检索示例、检查约束，并降低可靠 eBPF 开发的门槛。
+    points:
+      - label:
+          en: Natural-language tracing workflows
+          zh: 自然语言 tracing 工作流
+      - label:
+          en: Symbolic checks and verifier-aware generation
+          zh: 符号检查与 verifier-aware 生成
+      - label:
+          en: Toward adaptive OS and runtime policies
+          zh: 面向自适应 OS 与 runtime policies
+featured_projects:
+  - key: agentsight
+    title: AgentSight
+    tag:
+      en: Agent observability
+      zh: Agent observability
+    href: /GPTtrace/agentsight/
+    image: /_content-assets/docs/blog/posts/imgs/arch.png
+    image_alt: AgentSight architecture
+    description:
+      en: Zero-instrumentation observability for LLM and AI agent behavior with eBPF TLS interception, process signals, and secondary LLM analysis.
+      zh: 通过 eBPF TLS interception、进程信号和二级 LLM 分析，为 LLM 与 AI agent 行为提供零插桩 observability。
+    links:
+      - label:
+          en: Docs
+          zh: 文档
+        href: /GPTtrace/agentsight/
+      - label:
+          en: GitHub
+          zh: GitHub
+        href: https://github.com/eunomia-bpf/agentsight
+      - label:
+          en: arXiv
+          zh: arXiv
+        href: https://arxiv.org/abs/2508.02736
+  - key: GPTtrace
+    title: GPTtrace
+    tag:
+      en: Natural-language tracing
+      zh: Natural-language tracing
+    href: /GPTtrace/gpttrace/
+    image: /_content-assets/docs/GPTtrace/doc/trace.png
+    image_alt: GPTtrace trace output
+    description:
+      en: Generate bpftrace-style eBPF programs from natural-language requests and use LLMs to explore kernel behavior.
+      zh: 从自然语言请求生成 bpftrace 风格的 eBPF 程序，并借助 LLM 探索内核行为。
+    links:
+      - label:
+          en: Docs
+          zh: 文档
+        href: /GPTtrace/gpttrace/
+      - label:
+          en: GitHub
+          zh: GitHub
+        href: https://github.com/eunomia-bpf/GPTtrace
+  - key: mcptrace
+    title: MCPtrace
+    tag:
+      en: MCP server
+      zh: MCP server
+    href: /GPTtrace/mcptrace/
+    image: /_content-assets/docs/GPTtrace/doc/how-it-works.png
+    image_alt: MCPtrace workflow
+    description:
+      en: MCP server tooling that lets AI assistants inspect and trace Linux systems through eBPF workflows.
+      zh: 让 AI assistant 通过 eBPF 工作流检查和追踪 Linux 系统的 MCP server 工具。
+    links:
+      - label:
+          en: Docs
+          zh: 文档
+        href: /GPTtrace/mcptrace/
+      - label:
+          en: GitHub
+          zh: GitHub
+        href: https://github.com/eunomia-bpf/MCPtrace
+  - key: ACRFence
+    title: ACRFence
+    tag:
+      en: Agent safety
+      zh: Agent safety
+    href: /blog/2026/05/21/acrfence-preventing-semantic-rollback-attacks-in-agent-checkpoint-restore/
+    image: /_content-assets/docs/blog/posts/imgs/acrfence/fig-sequence.png
+    image_alt: ACRFence checkpoint restore sequence
+    description:
+      en: Intent-aware fencing for semantic rollback attacks in AI agent checkpoint/restore workflows.
+      zh: 面向 AI agent checkpoint/restore 语义回滚攻击的 intent-aware fencing 机制。
+    links:
+      - label:
+          en: Blog
+          zh: 博客
+        href: /blog/2026/05/21/acrfence-preventing-semantic-rollback-attacks-in-agent-checkpoint-restore/
+      - label:
+          en: arXiv
+          zh: arXiv
+        href: https://arxiv.org/abs/2603.20625
+use_case_groups:
+  - key: llm-observability
+    eyebrow:
+      en: Observability and security
+      zh: Observability 与安全
+    title:
+      en: Trace LLM agents from prompts to system effects
+      zh: 从 prompt 到系统影响追踪 LLM agent
+    description:
+      en: Stitch high-level agent operations to syscall, process, TLS, and network behavior so incidents can be inspected and policies can be enforced close to the runtime.
+      zh: 将高层 agent 操作与 syscall、process、TLS 和 network behavior 关联起来，使事件可检查，并让 policy 更接近 runtime 执行。
+    items:
+      - title:
+          en: AgentSight for zero-instrumentation agent tracing
+          zh: AgentSight 用于零插桩 agent tracing
+        description:
+          en: Connects LLM calls, process trees, and kernel signals with low overhead.
+          zh: 低开销关联 LLM 调用、进程树和内核信号。
+        href: /GPTtrace/agentsight/
+      - title:
+          en: Kernel-enforced safety boundaries
+          zh: 内核执行的安全边界
+        description:
+          en: Uses eBPF and LSM-style hooks for policy decisions that should not rely only on post-hoc summaries.
+          zh: 对不能只依赖事后总结的 policy decision，使用 eBPF 和 LSM-style hook 执行。
+  - key: gpu-performance
+    eyebrow:
+      en: GPU and inference performance
+      zh: GPU 与推理性能
+    title:
+      en: Observe AI workloads without changing application code
+      zh: 不修改应用代码观测 AI workload
+    description:
+      en: Start with uprobes on CUDA and userspace libraries, combine them with device metrics, then evaluate deeper device-resident paths when needed.
+      zh: 从 CUDA 和 userspace library 的 uprobe 开始，结合设备指标，并在必要时评估更深的 device-resident 路径。
+    items:
+      - title:
+          en: CUDA and GPU tracing tutorials
+          zh: CUDA 与 GPU tracing 教程
+        description:
+          en: Practical eBPF tracing examples for CUDA operations and GPU-facing applications.
+          zh: 面向 CUDA 操作和 GPU-facing 应用的 eBPF tracing 示例。
+        href: /tutorials/47-cuda-events/
+      - title:
+          en: eGPU research path
+          zh: eGPU 研究路径
+        description:
+          en: Offloads eBPF bytecode onto GPUs through PTX/SPIR-V injection and feeds into bpftime runtime work.
+          zh: 通过 PTX/SPIR-V injection 将 eBPF bytecode 卸载到 GPU，并进入 bpftime runtime 工作线。
+        href: https://dl.acm.org/doi/10.1145/3723851.3726984
+  - key: data-path
+    eyebrow:
+      en: Kernel data paths
+      zh: Kernel data paths
+    title:
+      en: Use eBPF as the sensing and pre-filtering layer for ML services
+      zh: 用 eBPF 作为 ML service 的感知与预过滤层
+    description:
+      en: eBPF/XDP/TC can collect signals and filter traffic near the packet path while heavier inference remains in userspace or specialized hardware.
+      zh: eBPF/XDP/TC 可以在 packet path 附近收集信号并过滤流量，同时将更重的推理留在 userspace 或专用硬件。
+    items:
+      - title:
+          en: Intelligent traffic processing
+          zh: 智能流量处理
+        description:
+          en: Use XDP/TC for fast filtering, steering, and telemetry before ML models make higher-level decisions.
+          zh: 在 ML model 做高层决策前，用 XDP/TC 进行快速过滤、导流和 telemetry。
+      - title:
+          en: Tiny model and policy experiments
+          zh: Tiny model 与 policy 实验
+        description:
+          en: Evaluate where verifier-friendly in-kernel decision logic helps and where userspace remains the right boundary.
+          zh: 评估哪些 verifier-friendly 的内核决策逻辑有价值，哪些场景仍应留在 userspace。
+  - key: synthesis
+    eyebrow:
+      en: Synthesis and verification
+      zh: 合成与验证
+    title:
+      en: Generate useful eBPF programs without skipping correctness
+      zh: 生成有用的 eBPF 程序，但不跳过正确性
+    description:
+      en: LLM-based eBPF generation needs examples, semantic checks, verifier awareness, and tests before it can become dependable system tooling.
+      zh: 基于 LLM 的 eBPF 生成需要示例、语义检查、verifier awareness 和测试，才能成为可靠的系统工具。
+    items:
+      - title:
+          en: GPTtrace and MCPtrace
+          zh: GPTtrace 与 MCPtrace
+        description:
+          en: Turn natural-language tracing requests into inspectable eBPF workflows.
+          zh: 将自然语言 tracing request 转换为可检查的 eBPF workflow。
+        href: /GPTtrace/gpttrace/
+      - title:
+          en: Kgent / KEN
+          zh: Kgent / KEN
+        description:
+          en: LLM-powered eBPF synthesis with symbolic checks and tests for more reliable generated programs.
+          zh: 结合符号检查和测试的 LLM-powered eBPF synthesis，用于提升生成程序可靠性。
+        href: https://dl.acm.org/doi/10.1145/3672197.3673434
+references:
+  - label:
+      en: AI × eBPF overview
+      zh: AI × eBPF 总览
+    href: /GPTtrace/
+  - label:
+      en: AgentSight paper
+      zh: AgentSight 论文
+    href: https://arxiv.org/abs/2508.02736
+  - label:
+      en: Kgent paper
+      zh: Kgent 论文
+    href: https://dl.acm.org/doi/10.1145/3672197.3673434
+  - label:
+      en: bpftime OSDI paper
+      zh: bpftime OSDI 论文
+    href: https://www.usenix.org/conference/osdi25/presentation/zheng-yusheng

@@ -16,6 +16,7 @@ export const appRoot = resolveConfiguredPath("EUNOMIA_APP_ROOT", path.resolve(cu
 export const repoRoot = resolveConfiguredPath("EUNOMIA_REPO_ROOT", path.resolve(appRoot, ".."));
 export const docsRoot = resolveConfiguredPath("EUNOMIA_DOCS_ROOT", path.join(repoRoot, "docs"));
 export const siteRoot = resolveConfiguredPath("EUNOMIA_SITE_ROOT", path.join(repoRoot, "site"));
+export const contentRoot = resolveConfiguredPath("EUNOMIA_CONTENT_ROOT", path.join(appRoot, "content"));
 export const generatedRoot = resolveConfiguredPath("EUNOMIA_GENERATED_ROOT", path.join(appRoot, ".generated"));
 export const generatedContentDir = path.join(generatedRoot, "content");
 export const generatedSearchDir = path.join(generatedRoot, "search");

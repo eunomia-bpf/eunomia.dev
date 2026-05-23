@@ -1,4 +1,5 @@
 import type { BlogEntry } from "../lib/content/types";
+import type { BlogLandingConfig } from "../lib/content/page-config";
 import type { Locale } from "../lib/site-data";
 import { BlogPostList, BlogPostYearGroups } from "./BlogPostList";
 
@@ -6,26 +7,16 @@ type BlogListingProps = {
   title: string;
   description: string;
   entries: BlogEntry[];
+  landing?: BlogLandingConfig;
   locale: Locale;
 };
 
-export function BlogListing({ title, description, entries, locale }: BlogListingProps) {
+export function BlogListing({ title, description, entries, landing, locale }: BlogListingProps) {
   const cleanDescription = description.trim();
   const showDescription = cleanDescription.length > 0 && cleanDescription !== title.trim();
   const featuredEntries = entries.slice(0, 3);
   const archiveEntries = entries.slice(3);
-  const copy =
-    locale === "zh"
-      ? {
-          latest: "最新文章",
-          archive: "全部文章",
-          empty: "没有找到文章。"
-        }
-      : {
-          latest: "Latest writing",
-          archive: "All posts",
-          empty: "No posts found."
-        };
+  const copy = landing?.sectionLabels;
 
   return (
     <section className="pb-16">
@@ -39,7 +30,7 @@ export function BlogListing({ title, description, entries, locale }: BlogListing
       {featuredEntries.length ? (
         <section className="py-8" aria-labelledby="blog-featured">
           <h2 id="blog-featured" className="mb-4 text-2xl font-semibold tracking-normal text-ink">
-            {copy.latest}
+            {copy?.featured[locale] ?? title}
           </h2>
           <div className="grid gap-4 lg:grid-cols-3">
             {featuredEntries.map((entry) => (
@@ -52,13 +43,13 @@ export function BlogListing({ title, description, entries, locale }: BlogListing
       {archiveEntries.length ? (
         <section className="border-t border-slate-200 pt-8" aria-labelledby="blog-archive">
           <h2 id="blog-archive" className="mb-5 text-2xl font-semibold tracking-normal text-ink">
-            {copy.archive}
+            {copy?.archive[locale] ?? title}
           </h2>
           <BlogPostYearGroups entries={archiveEntries} locale={locale} />
         </section>
       ) : null}
 
-      {entries.length === 0 ? <p className="pt-8 text-slate-500">{copy.empty}</p> : null}
+      {entries.length === 0 ? <p className="pt-8 text-slate-500">{copy?.empty[locale] ?? ""}</p> : null}
     </section>
   );
 }

@@ -1,0 +1,314 @@
+variant: project-index
+title:
+  en: Projects
+  zh: 项目
+description:
+  en: Open-source eBPF infrastructure, developer tooling, AI agent systems, and public research resources from the Eunomia lab.
+  zh: Eunomia lab 的开源 eBPF 基础设施、开发工具链、AI agent systems 和公开研究资源。
+summary:
+  en: "The project family is organized around a simple path: extend runtimes safely, make eBPF easier to build and ship, observe AI systems at runtime, and publish the material needed to reproduce the work."
+  zh: 项目体系按一条清晰路径组织：安全扩展 runtime，降低 eBPF 构建和发布成本，观测 AI 系统运行时行为，并公开可复现的教程、文章与研究材料。
+section_labels:
+  featured:
+    en: Featured systems
+    zh: 重点系统
+  groups:
+    en: Project map
+    zh: 项目地图
+  group_count:
+    en: project groups
+    zh: 项目分组
+  entry_count:
+    en: entry points
+    zh: 入口
+featured_projects: [bpftime, agentsight, eunomia-bpf, wasm-bpf]
+project_groups:
+  - key: runtime
+    title:
+      en: Runtime infrastructure
+      zh: Runtime 基础设施
+    intro:
+      en: Execution engines and extension paths for running eBPF in userspace, across application boundaries, and in GPU-related workflows.
+      zh: 支持 eBPF 在 userspace、应用边界和 GPU 相关工作流中运行的执行引擎与扩展路径。
+    project_keys: [bpftime, llvmbpf]
+  - key: developer-tools
+    title:
+      en: Developer tooling
+      zh: 开发工具链
+    intro:
+      en: Tooling for building, packaging, distributing, and sandboxing eBPF programs in practical deployment environments.
+      zh: 面向实际部署环境，用于构建、打包、分发和沙箱化 eBPF 程序的工具链。
+    project_keys: [eunomia-bpf, wasm-bpf]
+  - key: ai-agents
+    title:
+      en: AI agent systems
+      zh: AI Agent 系统
+    intro:
+      en: Observability, tracing, synthesis, and safety work for LLM applications and autonomous coding agents.
+      zh: 面向 LLM 应用和自主编码 agent 的 observability、tracing、程序合成与安全研究。
+    project_keys: [agentsight, GPTtrace, mcptrace, ACRFence]
+  - key: resources
+    title:
+      en: Public resources
+      zh: 公开资源
+    intro:
+      en: Tutorials, documentation, writing, and research artifacts for engineers and researchers building with eBPF.
+      zh: 面向 eBPF 工程师和研究者的教程、文档、技术文章和研究材料。
+    project_keys: [tutorials, docs, blog, papers]
+projects:
+  - key: bpftime
+    title: bpftime
+    tag:
+      en: Runtime
+      zh: Runtime
+    href: /bpftime/
+    image: /_content-assets/docs/bpftime/documents/bpftime.png
+    image_alt: bpftime architecture
+    description:
+      en: A high-performance userspace eBPF runtime and extension framework for uprobes, USDT, syscall, XDP, GPU, and related workflows.
+      zh: 面向 userspace 的高性能 eBPF runtime 和扩展框架，覆盖 uprobe、USDT、syscall、XDP、GPU 等工作流。
+    links:
+      - label:
+          en: Docs
+          zh: 文档
+        href: /bpftime/
+      - label:
+          en: GitHub
+          zh: GitHub
+        href: https://github.com/eunomia-bpf/bpftime
+      - label:
+          en: OSDI 2025
+          zh: OSDI 2025
+        href: https://www.usenix.org/conference/osdi25/presentation/zheng-yusheng
+  - key: llvmbpf
+    title: llvmbpf
+    tag:
+      en: Runtime core
+      zh: Runtime core
+    href: /bpftime/llvmbpf/
+    image: /llvmbpf.png
+    image_alt: llvmbpf
+    description:
+      en: A userspace eBPF VM with LLVM JIT/AOT support, used as the compiler and execution core of bpftime.
+      zh: 支持 LLVM JIT/AOT 的 userspace eBPF VM，也是 bpftime 的编译和执行核心。
+    links:
+      - label:
+          en: Docs
+          zh: 文档
+        href: /bpftime/llvmbpf/
+      - label:
+          en: GitHub
+          zh: GitHub
+        href: https://github.com/eunomia-bpf/llvmbpf
+  - key: eunomia-bpf
+    title: eunomia-bpf
+    tag:
+      en: Toolchain
+      zh: 工具链
+    href: /eunomia-bpf/
+    image: /_content-assets/docs/assets/logo.png
+    image_alt: eunomia-bpf
+    description:
+      en: Build, package, distribute, and run eBPF programs with JSON metadata and WebAssembly OCI workflows.
+      zh: 使用 JSON metadata 和 WebAssembly OCI workflow 构建、打包、分发并运行 eBPF 程序。
+    links:
+      - label:
+          en: Docs
+          zh: 文档
+        href: /eunomia-bpf/
+      - label:
+          en: GitHub
+          zh: GitHub
+        href: https://github.com/eunomia-bpf/eunomia-bpf
+      - label:
+          en: Apsara 2022
+          zh: Apsara 2022
+        href: https://www.alibabacloud.com/blog/eunomia-bpf-the-lightweight-development-framework-for-ebpf-and-webassembly-is-now-available_599688
+  - key: wasm-bpf
+    title: wasm-bpf
+    tag:
+      en: WebAssembly
+      zh: WebAssembly
+    href: /wasm-bpf/
+    image: /_content-assets/docs/img/wasm-bpf-no-bcc.png
+    image_alt: wasm-bpf
+    description:
+      en: WebAssembly-based eBPF tooling and runtime support for lightweight sandboxing and cloud native deployment.
+      zh: 基于 WebAssembly 的 eBPF 工具链和运行时支持，适合轻量级沙箱和云原生部署场景。
+    links:
+      - label:
+          en: Docs
+          zh: 文档
+        href: /wasm-bpf/
+      - label:
+          en: GitHub
+          zh: GitHub
+        href: https://github.com/eunomia-bpf/wasm-bpf
+      - label:
+          en: KubeCon NA 2023
+          zh: KubeCon NA 2023
+        href: https://sched.co/1R2uf
+  - key: agentsight
+    title: AgentSight
+    tag:
+      en: Agent observability
+      zh: Agent observability
+    href: /GPTtrace/agentsight/
+    image: /_content-assets/docs/blog/posts/imgs/arch.png
+    image_alt: AgentSight architecture
+    description:
+      en: Zero-instrumentation LLM and AI agent observability with eBPF, process monitoring, and TLS traffic correlation.
+      zh: 基于 eBPF、进程监控和 TLS traffic correlation 的零插桩 LLM 与 AI agent 可观测性。
+    links:
+      - label:
+          en: Docs
+          zh: 文档
+        href: /GPTtrace/agentsight/
+      - label:
+          en: GitHub
+          zh: GitHub
+        href: https://github.com/eunomia-bpf/agentsight
+      - label:
+          en: arXiv 2508.02736
+          zh: arXiv 2508.02736
+        href: https://arxiv.org/abs/2508.02736
+  - key: GPTtrace
+    title: GPTtrace
+    tag:
+      en: AI tracing
+      zh: AI tracing
+    href: /GPTtrace/gpttrace/
+    image: /_content-assets/docs/GPTtrace/doc/trace.png
+    image_alt: GPTtrace trace output
+    description:
+      en: Generate eBPF tracing programs with natural language and use LLMs to explore Linux kernel behavior.
+      zh: 用自然语言生成 eBPF tracing 程序，并借助 LLM 探索 Linux 内核行为。
+    links:
+      - label:
+          en: Docs
+          zh: 文档
+        href: /GPTtrace/gpttrace/
+      - label:
+          en: GitHub
+          zh: GitHub
+        href: https://github.com/eunomia-bpf/GPTtrace
+      - label:
+          en: eBPF 2024
+          zh: eBPF 2024
+        href: https://dl.acm.org/doi/10.1145/3672197.3673434
+  - key: mcptrace
+    title: MCPtrace
+    tag:
+      en: Agent tooling
+      zh: Agent tooling
+    href: /GPTtrace/mcptrace/
+    image: /_content-assets/docs/GPTtrace/doc/how-it-works.png
+    image_alt: MCPtrace workflow
+    description:
+      en: MCP server tooling that connects AI assistants to bpftrace-style system tracing workflows.
+      zh: 将 AI assistant 接入 bpftrace 风格系统 tracing 工作流的 MCP server 工具。
+    links:
+      - label:
+          en: Docs
+          zh: 文档
+        href: /GPTtrace/mcptrace/
+      - label:
+          en: GitHub
+          zh: GitHub
+        href: https://github.com/eunomia-bpf/MCPtrace
+  - key: ACRFence
+    title: ACRFence
+    tag:
+      en: Agent safety
+      zh: Agent safety
+    href: /blog/2026/05/21/acrfence-preventing-semantic-rollback-attacks-in-agent-checkpoint-restore/
+    image: /_content-assets/docs/blog/posts/imgs/acrfence/fig-sequence.png
+    image_alt: ACRFence checkpoint restore sequence
+    description:
+      en: Research on semantic rollback attacks in agent checkpoint/restore workflows and intent-aware fencing.
+      zh: 关于 agent checkpoint/restore 工作流中语义回滚攻击和 intent-aware fencing 的研究。
+    links:
+      - label:
+          en: Blog
+          zh: 博客
+        href: /blog/2026/05/21/acrfence-preventing-semantic-rollback-attacks-in-agent-checkpoint-restore/
+      - label:
+          en: arXiv 2603.20625
+          zh: arXiv 2603.20625
+        href: https://arxiv.org/abs/2603.20625
+  - key: tutorials
+    title: Tutorials
+    tag:
+      en: Learn
+      zh: Learn
+    href: /tutorials/
+    image: /ebpf_arch.png
+    image_alt: eBPF tutorial structure
+    description:
+      en: Executable eBPF tutorials from hello world to sched-ext, networking, userspace tracing, and GPU scenarios.
+      zh: 从 hello world 到 sched-ext、网络、userspace tracing 和 GPU 场景的可执行 eBPF 教程。
+    links:
+      - label:
+          en: Tutorials
+          zh: 教程
+        href: /tutorials/
+      - label:
+          en: GitHub
+          zh: GitHub
+        href: https://github.com/eunomia-bpf/bpf-developer-tutorial
+  - key: docs
+    title: Documentation
+    tag:
+      en: Docs
+      zh: 文档
+    href: /projects/
+    image: /_content-assets/docs/assets/logo.png
+    image_alt: Eunomia documentation
+    description:
+      en: Curated entry points for runtime documentation, project references, and practical eBPF guides across the site.
+      zh: 汇总 runtime 文档、项目参考和站内实用 eBPF 指南的入口。
+    links:
+      - label:
+          en: Projects
+          zh: 项目
+        href: /projects/
+      - label:
+          en: bpftime docs
+          zh: bpftime 文档
+        href: /bpftime/
+  - key: blog
+    title: Blog
+    tag:
+      en: Writing
+      zh: Writing
+    href: /blog/
+    image: /_content-assets/docs/assets/logo.png
+    image_alt: Eunomia blog
+    description:
+      en: Technical posts on eBPF, userspace runtimes, AI tracing, systems research, and production engineering notes.
+      zh: 关于 eBPF、userspace runtime、AI tracing、系统研究和工程实践的技术文章。
+    links:
+      - label:
+          en: Latest posts
+          zh: 最新文章
+        href: /blog/
+  - key: papers
+    title: Papers & Research
+    tag:
+      en: Research
+      zh: 研究
+    href: /others/
+    image: /_content-assets/docs/assets/logo.png
+    image_alt: Eunomia research
+    description:
+      en: Research artifacts and paper links covering bpftime, LLM-assisted tracing, AI agent safety, and GPU systems work.
+      zh: 覆盖 bpftime、LLM-assisted tracing、AI agent safety 和 GPU systems 的研究产物与论文入口。
+    links:
+      - label:
+          en: Ecosystem
+          zh: Ecosystem
+        href: /others/
+      - label:
+          en: OSDI 2025
+          zh: OSDI 2025
+        href: https://www.usenix.org/conference/osdi25/presentation/zheng-yusheng
