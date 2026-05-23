@@ -20,6 +20,32 @@ const FOCUSABLE_SELECTOR = [
   '[tabindex]:not([tabindex="-1"])'
 ].join(",");
 
+function MenuIcon() {
+  return (
+    <svg aria-hidden="true" className="h-5 w-5" viewBox="0 0 24 24" fill="none">
+      <path
+        d="M4 7h16M4 12h16M4 17h16"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg aria-hidden="true" className="h-5 w-5" viewBox="0 0 24 24" fill="none">
+      <path
+        d="m6.5 6.5 11 11m0-11-11 11"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 type MobileNavProps = {
   locale: Locale;
   currentPath?: string;
@@ -143,7 +169,7 @@ export function MobileNav({ locale, currentPath, sidebar }: MobileNavProps) {
         className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 text-slate-700 transition hover:border-slate-300 hover:text-ink"
         onClick={() => setOpen((value) => !value)}
       >
-        <span className="text-lg leading-none">{open ? "\u00d7" : "\u2261"}</span>
+        {open ? <CloseIcon /> : <MenuIcon />}
       </button>
       {mounted ? (
         <div id="mobile-nav-overlay" className="fixed inset-0 z-50 lg:hidden">
@@ -180,7 +206,7 @@ export function MobileNav({ locale, currentPath, sidebar }: MobileNavProps) {
                 className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 text-slate-700 transition hover:border-slate-300 hover:text-ink"
                 onClick={() => setOpen(false)}
               >
-                <span className="text-lg leading-none">\u00d7</span>
+                <CloseIcon />
               </button>
             </div>
             <div className="flex-1 overflow-y-auto px-4 py-4">

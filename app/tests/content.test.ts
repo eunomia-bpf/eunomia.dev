@@ -146,6 +146,7 @@ test("site IA labels and publication flags are sourced from mkdocs config", () =
   assert.equal(sections.get("GPTtrace")?.published?.footerProject, true);
   assert.equal(sections.get("wasm-bpf")?.published?.nav, false);
   assert.equal(sections.get("legacy-blog")?.published?.homeExplore, true);
+  assert.equal(sections.get("legacy-blog")?.published?.footerExplore, false);
 });
 
 test("primary nav children and section sidebars are sourced from mkdocs config", () => {
@@ -164,6 +165,11 @@ test("primary nav children and section sidebars are sourced from mkdocs config",
   );
   assert.equal(sidebars.get("projects")?.[1]?.items[2]?.href, "/wasm-bpf/");
   assert.ok(!sidebars.get("projects")?.some((group) => group.items.some((item) => item.href === "/blogs/")));
+  assert.equal(sidebars.get("GPTtrace")?.[0]?.title.en, "AI and eBPF");
+  assert.deepEqual(
+    sidebars.get("GPTtrace")?.[0]?.items.map((item) => item.label.en),
+    ["Overview", "AgentSight", "MCPtrace", "GPTtrace", "SchedCP"]
+  );
   assert.equal(landingPages.get("projects")?.variant, "project-index");
   assert.equal(landingPages.has("GPTtrace"), false);
 });
@@ -234,6 +240,8 @@ test("configured section landing copy is sourced from mkdocs config", async () =
   const aiEbpf = await loadSectionPage("GPTtrace", [], "en");
   assert.match(aiEbpf?.sourcePath ?? "", /docs\/GPTtrace\/index\.md$/);
   assert.equal(aiEbpf?.title, "eBPF × AI/LLMs: The Convergence of System Observability and Artificial Intelligence");
+  assert.equal(aiEbpf?.sidebar?.[0]?.title, "AI and eBPF");
+  assert.equal(aiEbpf?.sidebar?.[0]?.items[0]?.title, "Overview");
   assert.equal(aiEbpf?.landingPage, undefined);
   assert.ok(aiEbpf?.bodyHtml.includes("This powerful relationship is a symbiotic loop"));
 });

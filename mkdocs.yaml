@@ -277,7 +277,7 @@ extra:
         nav: false
         home_track: false
         home_explore: true
-        footer_explore: true
+        footer_explore: false
         footer_project: false
       order: 90
     wasm-bpf:
@@ -306,6 +306,25 @@ extra:
         label_zh: AgentSight
         href: /GPTtrace/agentsight/
   section_sidebars:
+    GPTtrace:
+      - title: AI and eBPF
+        title_zh: AI 与 eBPF
+        items:
+          - label: Overview
+            label_zh: 总览
+            href: /GPTtrace/
+          - label: AgentSight
+            label_zh: AgentSight
+            href: /GPTtrace/agentsight/
+          - label: MCPtrace
+            label_zh: MCPtrace
+            href: /GPTtrace/mcptrace/
+          - label: GPTtrace
+            label_zh: GPTtrace
+            href: /GPTtrace/gpttrace/
+          - label: SchedCP
+            label_zh: SchedCP
+            href: /GPTtrace/schedcp/
     projects:
       - title: Project overview
         title_zh: 项目总览
