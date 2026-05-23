@@ -7,6 +7,7 @@ import { SiteChrome } from "../components/SiteChrome";
 import { canonicalAlternates } from "./seo";
 import { MarkdownContent } from "../components/MarkdownContent";
 import type { BlogEntry, DocsPage, GitMetadata, LocaleAlternates } from "./content/types";
+import type { MkdocsHomeConfig } from "./content/mkdocs-config";
 import type { Locale } from "./site-data";
 
 export type HomePageData = {
@@ -18,6 +19,7 @@ export type HomePageData = {
   path: string;
   alternates: LocaleAlternates;
   recentPosts: BlogEntry[];
+  home: MkdocsHomeConfig;
 };
 
 function getTocTitle(locale: Locale): string {
@@ -124,7 +126,7 @@ export function HomePageView({
         hero={<HomePageHero locale={locale} />}
         alternates={page.alternates}
       >
-        <HomePageLanding locale={locale} recentPosts={page.recentPosts} />
+        <HomePageLanding locale={locale} recentPosts={page.recentPosts} home={page.home} />
       </SiteChrome>
     </>
   );

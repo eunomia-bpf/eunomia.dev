@@ -33,6 +33,30 @@ export type MkdocsSiteSectionConfig = {
   order?: number;
 };
 
+export type MkdocsLocalizedText = Record<"en" | "zh", string>;
+
+export type MkdocsHomeProjectLink = {
+  label: MkdocsLocalizedText;
+  href: string;
+};
+
+export type MkdocsHomeProject = {
+  key: string;
+  title: string;
+  tag: MkdocsLocalizedText;
+  href: string;
+  image?: string;
+  imageAlt?: string;
+  description: MkdocsLocalizedText;
+  links: MkdocsHomeProjectLink[];
+};
+
+export type MkdocsHomeConfig = {
+  projectsTitle: MkdocsLocalizedText;
+  projectsIntro: MkdocsLocalizedText;
+  projects: MkdocsHomeProject[];
+};
+
 const fallbackMetadata: MkdocsSiteMetadata = {
   siteName: "eunomia",
   repoUrl: "https://github.com/eunomia-bpf/eunomia.dev",
@@ -68,6 +92,7 @@ let metadataCache: MkdocsSiteMetadata | null = null;
 let navSourcesCache: string[] | null = null;
 let topLevelNavSectionsCache: MkdocsTopLevelNavSection[] | null = null;
 let siteSectionsCache: Map<string, MkdocsSiteSectionConfig> | null = null;
+let homeConfigCache: MkdocsHomeConfig | null = null;
 
 export const generatedSiteConfigModulePath = path.join(appRoot, "lib", "site-config.generated.ts");
 
@@ -113,6 +138,11 @@ function isTopLevelConfigLine(line: string): boolean {
 
 function matchIndentedKey(line: string, spaces: number): [string, string] | null {
   const match = line.match(new RegExp(`^\\s{${spaces}}([A-Za-z0-9_-]+):\\s*(.*)$`));
+  return match ? [match[1], match[2] ?? ""] : null;
+}
+
+function matchIndentedListKey(line: string, spaces: number): [string, string] | null {
+  const match = line.match(new RegExp(`^\\s{${spaces}}-\\s+([A-Za-z0-9_-]+):\\s*(.*)$`));
   return match ? [match[1], match[2] ?? ""] : null;
 }
 
@@ -270,6 +300,298 @@ export function readMkdocsSiteSections(): Map<string, MkdocsSiteSectionConfig> {
   }
 
   return siteSectionsCache;
+}
+
+type PartialLocalizedText = Partial<MkdocsLocalizedText>;
+
+type PartialHomeProjectLink = {
+  label?: string;
+  labelZh?: string;
+  href?: string;
+};
+
+type PartialHomeProject = {
+  key?: string;
+  title?: string;
+  tag: PartialLocalizedText;
+  href?: string;
+  image?: string;
+  imageAlt?: string;
+  description: PartialLocalizedText;
+  links: PartialHomeProjectLink[];
+};
+
+type PartialHomeConfig = {
+  projectsTitle: PartialLocalizedText;
+  projectsIntro: PartialLocalizedText;
+  projects: PartialHomeProject[];
+};
+
+const fallbackHomeConfig: MkdocsHomeConfig = {
+  projectsTitle: { en: "Projects", zh: "项目" },
+  projectsIntro: {
+    en: "Open-source projects and documentation entry points maintained by eunomia-bpf.",
+    zh: "eunomia-bpf 维护的开源项目和文档入口。"
+  },
+  projects: []
+};
+
+function setLocalizedValue(target: PartialLocalizedText, key: string, value: string, context: string) {
+  if (key !== "en" && key !== "zh") {
+    throw new Error(`Unsupported locale for ${context}: ${key}`);
+  }
+
+  target[key] = value;
+}
+
+function requireScalar(value: string | undefined, context: string): string {
+  const trimmed = value?.trim();
+  if (!trimmed) {
+    throw new Error(`Missing mkdocs home config value: ${context}`);
+  }
+
+  return trimmed;
+}
+
+function requireLocalizedText(value: PartialLocalizedText, context: string): MkdocsLocalizedText {
+  const en = requireScalar(value.en, `${context}.en`);
+  return {
+    en,
+    zh: value.zh?.trim() || en
+  };
+}
+
+function normalizeHomeProject(project: PartialHomeProject, index: number): MkdocsHomeProject {
+  const key = requireScalar(project.key, `home.projects[${index}].key`);
+  return {
+    key,
+    title: requireScalar(project.title, `home.projects.${key}.title`),
+    tag: requireLocalizedText(project.tag, `home.projects.${key}.tag`),
+    href: requireScalar(project.href, `home.projects.${key}.href`),
+    image: project.image?.trim() || undefined,
+    imageAlt: project.imageAlt?.trim() || undefined,
+    description: requireLocalizedText(project.description, `home.projects.${key}.description`),
+    links: project.links.map((link, linkIndex) => {
+      const label = requireScalar(link.label, `home.projects.${key}.links[${linkIndex}].label`);
+      return {
+        label: {
+          en: label,
+          zh: link.labelZh?.trim() || label
+        },
+        href: requireScalar(link.href, `home.projects.${key}.links[${linkIndex}].href`)
+      };
+    })
+  };
+}
+
+function readHomeConfig(): MkdocsHomeConfig {
+  const config: PartialHomeConfig = {
+    projectsTitle: {},
+    projectsIntro: {},
+    projects: []
+  };
+  let inHome = false;
+  let baseIndent = 0;
+  let currentHomeLocalizedField: "projectsTitle" | "projectsIntro" | null = null;
+  let inProjects = false;
+  let currentProject: PartialHomeProject | null = null;
+  let currentProjectLocalizedField: "tag" | "description" | null = null;
+  let inLinks = false;
+  let currentLink: PartialHomeProjectLink | null = null;
+
+  for (const line of readMkdocsConfigText().split(/\r?\n/)) {
+    if (!inHome) {
+      const homeMatch = line.match(/^(\s*)home:\s*$/);
+      if (homeMatch) {
+        inHome = true;
+        baseIndent = homeMatch[1]?.length ?? 0;
+      }
+      continue;
+    }
+
+    if (line.trim() && indentation(line) <= baseIndent) {
+      break;
+    }
+
+    if (!line.trim() || line.trim().startsWith("#")) {
+      continue;
+    }
+
+    const topLevelMatch = matchIndentedKey(line, baseIndent + 2);
+    if (topLevelMatch) {
+      const [field, rawValue] = topLevelMatch;
+      const value = parseScalar(rawValue);
+      currentHomeLocalizedField = null;
+      inProjects = false;
+      currentProject = null;
+      currentProjectLocalizedField = null;
+      inLinks = false;
+      currentLink = null;
+
+      if (field === "projects_title" || field === "projects_intro") {
+        if (value) {
+          throw new Error(`Inline home.${field} values are not supported`);
+        }
+        currentHomeLocalizedField = field === "projects_title" ? "projectsTitle" : "projectsIntro";
+        continue;
+      }
+
+      if (field === "projects") {
+        if (value) {
+          throw new Error("Inline home.projects values are not supported");
+        }
+        inProjects = true;
+        continue;
+      }
+
+      throw new Error(`Unsupported home config key: ${field}`);
+    }
+
+    if (currentHomeLocalizedField) {
+      const localizedMatch = matchIndentedKey(line, baseIndent + 4);
+      if (!localizedMatch) {
+        throw new Error(`Invalid home.${currentHomeLocalizedField} entry: ${line.trim()}`);
+      }
+      setLocalizedValue(config[currentHomeLocalizedField], localizedMatch[0], parseScalar(localizedMatch[1]), currentHomeLocalizedField);
+      continue;
+    }
+
+    if (!inProjects) {
+      throw new Error(`Invalid home config entry: ${line.trim()}`);
+    }
+
+    const projectMatch = matchIndentedListKey(line, baseIndent + 4);
+    if (projectMatch) {
+      const [field, rawValue] = projectMatch;
+      if (field !== "key") {
+        throw new Error(`home.projects entries must start with key, found: ${field}`);
+      }
+
+      currentProject = {
+        key: parseScalar(rawValue),
+        tag: {},
+        description: {},
+        links: []
+      };
+      config.projects.push(currentProject);
+      currentProjectLocalizedField = null;
+      inLinks = false;
+      currentLink = null;
+      continue;
+    }
+
+    if (!currentProject) {
+      throw new Error(`Invalid home.projects entry before a project key: ${line.trim()}`);
+    }
+
+    const projectFieldMatch = matchIndentedKey(line, baseIndent + 6);
+    if (projectFieldMatch) {
+      const [field, rawValue] = projectFieldMatch;
+      const value = parseScalar(rawValue);
+      currentProjectLocalizedField = null;
+      inLinks = false;
+      currentLink = null;
+
+      if (field === "title" || field === "href" || field === "image") {
+        currentProject[field] = value;
+        continue;
+      }
+
+      if (field === "image_alt") {
+        currentProject.imageAlt = value;
+        continue;
+      }
+
+      if (field === "tag" || field === "description") {
+        if (value) {
+          throw new Error(`Inline home.projects.${field} values are not supported`);
+        }
+        currentProjectLocalizedField = field;
+        continue;
+      }
+
+      if (field === "links") {
+        if (value) {
+          throw new Error("Inline home.projects.links values are not supported");
+        }
+        inLinks = true;
+        continue;
+      }
+
+      throw new Error(`Unsupported home.projects key for "${currentProject.key ?? "unknown"}": ${field}`);
+    }
+
+    if (currentProjectLocalizedField) {
+      const localizedMatch = matchIndentedKey(line, baseIndent + 8);
+      if (!localizedMatch) {
+        throw new Error(`Invalid home.projects.${currentProjectLocalizedField} entry: ${line.trim()}`);
+      }
+      setLocalizedValue(
+        currentProject[currentProjectLocalizedField],
+        localizedMatch[0],
+        parseScalar(localizedMatch[1]),
+        `home.projects.${currentProject.key}.${currentProjectLocalizedField}`
+      );
+      continue;
+    }
+
+    if (!inLinks) {
+      throw new Error(`Invalid home.projects entry for "${currentProject.key ?? "unknown"}": ${line.trim()}`);
+    }
+
+    const linkMatch = matchIndentedListKey(line, baseIndent + 8);
+    if (linkMatch) {
+      const [field, rawValue] = linkMatch;
+      if (field !== "label") {
+        throw new Error(`home.projects links must start with label, found: ${field}`);
+      }
+      currentLink = {
+        label: parseScalar(rawValue)
+      };
+      currentProject.links.push(currentLink);
+      continue;
+    }
+
+    if (!currentLink) {
+      throw new Error(`Invalid home.projects.links entry before a link label: ${line.trim()}`);
+    }
+
+    const linkFieldMatch = matchIndentedKey(line, baseIndent + 10);
+    if (!linkFieldMatch) {
+      throw new Error(`Invalid home.projects.links entry: ${line.trim()}`);
+    }
+
+    const [field, rawValue] = linkFieldMatch;
+    const value = parseScalar(rawValue);
+    if (field === "href") {
+      currentLink.href = value;
+      continue;
+    }
+    if (field === "label_zh") {
+      currentLink.labelZh = value;
+      continue;
+    }
+
+    throw new Error(`Unsupported home.projects link key: ${field}`);
+  }
+
+  if (!inHome) {
+    return fallbackHomeConfig;
+  }
+
+  return {
+    projectsTitle: requireLocalizedText(config.projectsTitle, "home.projects_title"),
+    projectsIntro: requireLocalizedText(config.projectsIntro, "home.projects_intro"),
+    projects: config.projects.map(normalizeHomeProject)
+  };
+}
+
+export function readMkdocsHomeConfig(): MkdocsHomeConfig {
+  if (!useContentCache || !homeConfigCache) {
+    homeConfigCache = readHomeConfig();
+  }
+
+  return homeConfigCache;
 }
 
 function renderSiteConfigModule(metadata: MkdocsSiteMetadata): string {

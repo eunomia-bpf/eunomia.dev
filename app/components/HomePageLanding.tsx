@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import type { MkdocsHomeConfig, MkdocsHomeProject } from "../lib/content/mkdocs-config";
 import type { BlogEntry } from "../lib/content/types";
 import { localizePath } from "../lib/paths";
 import type { Locale } from "../lib/site-data";
@@ -8,6 +9,7 @@ import { BlogPostList } from "./BlogPostList";
 type HomePageLandingProps = {
   locale: Locale;
   recentPosts: BlogEntry[];
+  home: MkdocsHomeConfig;
 };
 
 type HomeCopy = {
@@ -16,12 +18,7 @@ type HomeCopy = {
   summary: string;
   primaryCta: string;
   secondaryCta: string;
-  sectionTitle: string;
-  sectionIntro: string;
-  featured: Array<{ label: string; title: string; description: string; href: string }>;
-  projectTitle: string;
-  projectIntro: string;
-  projects: Array<{ title: string; description: string; href: string; tag: string }>;
+  secondaryHref: string;
   latestTitle: string;
   allPosts: string;
 };
@@ -31,63 +28,10 @@ const copyByLocale: Record<Locale, HomeCopy> = {
     kicker: "Open systems research lab",
     title: "Eunomia",
     summary:
-      "Open-source systems work for eBPF: userspace runtimes, kernel observability, AI-assisted tracing, and agent security research packaged as runnable docs and tools.",
+      "Open-source eBPF systems infrastructure for runtime extension, tracing, packaging, and reproducible research artifacts.",
     primaryCta: "Explore docs",
-    secondaryCta: "Read the blog",
-    sectionTitle: "Systems research with working artifacts.",
-    sectionIntro:
-      "Eunomia publishes the papers, implementations, and examples behind each area in one stable site.",
-    featured: [
-      {
-        label: "Runtime",
-        title: "bpftime",
-        description:
-          "A high-performance userspace eBPF runtime for uprobes, USDT, syscall, XDP, GPU, and extension workflows.",
-        href: "/bpftime/"
-      },
-      {
-        label: "Agent safety",
-        title: "ACRFence",
-        description:
-          "Published arXiv work on semantic rollback attacks in agent checkpoint/restore and intent-aware fencing.",
-        href: "https://arxiv.org/abs/2603.20625"
-      },
-      {
-        label: "AI tracing",
-        title: "GPTtrace",
-        description:
-          "Generate eBPF tracing programs with natural language and use LLMs to explore Linux kernel behavior.",
-        href: "/GPTtrace/"
-      }
-    ],
-    projectTitle: "Open work areas",
-    projectIntro: "Stable entry points for the documentation and research areas behind eunomia-bpf.",
-    projects: [
-      {
-        title: "Tutorials",
-        description: "Executable eBPF walkthroughs from hello world to sched-ext, networking, GPU, and userspace topics.",
-        href: "/tutorials/",
-        tag: "Learn"
-      },
-      {
-        title: "eunomia-bpf",
-        description: "Build, package, distribute, and run eBPF programs with JSON metadata and OCI workflows.",
-        href: "/eunomia-bpf/",
-        tag: "Toolchain"
-      },
-      {
-        title: "llvmbpf",
-        description: "LLVM JIT/AOT support for userspace eBPF execution, used as the compiler and runtime core of bpftime.",
-        href: "/bpftime/llvmbpf/",
-        tag: "Runtime"
-      },
-      {
-        title: "Ecosystem",
-        description: "Papers, talks, references, and adjacent work across eBPF and systems tooling.",
-        href: "/others/",
-        tag: "Research"
-      }
-    ],
+    secondaryCta: "View GitHub",
+    secondaryHref: "https://github.com/eunomia-bpf",
     latestTitle: "Latest writing",
     allPosts: "All posts"
   },
@@ -95,62 +39,10 @@ const copyByLocale: Record<Locale, HomeCopy> = {
     kicker: "开源系统研究实验室",
     title: "Eunomia",
     summary:
-      "Eunomia 围绕 eBPF 做开源系统工作：userspace runtime、内核可观测性、AI tracing，以及 agent security research，并把结果整理成可运行文档和工具。",
+      "面向 eBPF 的开源系统基础设施，覆盖 runtime 扩展、tracing、程序打包和可复现研究产物。",
     primaryCta: "浏览文档",
-    secondaryCta: "阅读博客",
-    sectionTitle: "系统研究，同时交付可用产物。",
-    sectionIntro: "Eunomia 把论文、实现和示例放在同一个稳定站点里，方便直接阅读、复现和继续构建。",
-    featured: [
-      {
-        label: "Runtime",
-        title: "bpftime",
-        description:
-          "面向 userspace 的高性能 eBPF runtime，覆盖 uprobe、USDT、syscall、XDP、GPU 和扩展工作流。",
-        href: "/bpftime/"
-      },
-      {
-        label: "Agent safety",
-        title: "ACRFence",
-        description:
-          "已经发布在 arXiv 的 agent checkpoint/restore 语义回滚攻击与 intent-aware fencing 研究。",
-        href: "https://arxiv.org/abs/2603.20625"
-      },
-      {
-        label: "AI tracing",
-        title: "GPTtrace",
-        description:
-          "用自然语言生成 eBPF tracing 程序，并借助 LLM 探索 Linux 内核行为。",
-        href: "/GPTtrace/"
-      }
-    ],
-    projectTitle: "开放工作区",
-    projectIntro: "eunomia-bpf 相关文档和研究方向的稳定入口。",
-    projects: [
-      {
-        title: "教程",
-        description: "从 hello world 到 sched-ext、网络、GPU 和 userspace 主题的可执行 eBPF 示例。",
-        href: "/tutorials/",
-        tag: "Learn"
-      },
-      {
-        title: "eunomia-bpf",
-        description: "通过 JSON metadata 和 OCI workflow 构建、打包、分发并运行 eBPF 程序。",
-        href: "/eunomia-bpf/",
-        tag: "Toolchain"
-      },
-      {
-        title: "llvmbpf",
-        description: "支持 LLVM JIT/AOT 的 userspace eBPF 执行能力，也是 bpftime 的编译和运行核心。",
-        href: "/bpftime/llvmbpf/",
-        tag: "Runtime"
-      },
-      {
-        title: "生态",
-        description: "eBPF 与系统工具方向的论文、演讲、参考资料和相关工作。",
-        href: "/others/",
-        tag: "Research"
-      }
-    ],
+    secondaryCta: "查看 GitHub",
+    secondaryHref: "https://github.com/eunomia-bpf",
     latestTitle: "最新文章",
     allPosts: "全部文章"
   }
@@ -158,6 +50,57 @@ const copyByLocale: Record<Locale, HomeCopy> = {
 
 function localizedHref(href: string, locale: Locale): string {
   return href.startsWith("/") ? localizePath(href, locale) : href;
+}
+
+function localizedText(value: Record<Locale, string>, locale: Locale): string {
+  return value[locale] || value.en || value.zh;
+}
+
+function ProjectCard({ project, locale }: { project: MkdocsHomeProject; locale: Locale }) {
+  const href = localizedHref(project.href, locale);
+
+  return (
+    <article className="group overflow-hidden rounded-lg border border-slate-200 bg-white transition hover:border-cyan-700/40 hover:bg-slate-50">
+      <a href={href} className="block">
+        {project.image ? (
+          <div className="relative h-36 border-b border-slate-100 bg-slate-50">
+            <Image
+              src={project.image}
+              alt={project.imageAlt || project.title}
+              fill
+              sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
+              className="object-contain p-4"
+              unoptimized
+            />
+          </div>
+        ) : null}
+        <div className="p-5">
+          <p className="text-xs font-semibold uppercase tracking-normal text-cyan-700">
+            {localizedText(project.tag, locale)}
+          </p>
+          <h3 className="mt-2 text-lg font-semibold tracking-normal text-ink group-hover:text-cyan-800">
+            {project.title}
+          </h3>
+          <p className="mt-3 text-sm leading-6 text-slate-600">
+            {localizedText(project.description, locale)}
+          </p>
+        </div>
+      </a>
+      {project.links.length ? (
+        <div className="flex flex-wrap gap-2 border-t border-slate-100 px-5 pb-5 pt-4">
+          {project.links.map((link) => (
+            <a
+              key={`${project.key}:${link.href}:${localizedText(link.label, locale)}`}
+              href={localizedHref(link.href, locale)}
+              className="inline-flex min-h-8 items-center rounded-md border border-slate-200 px-2.5 text-xs font-semibold text-slate-600 transition hover:border-cyan-700/40 hover:text-cyan-800"
+            >
+              {localizedText(link.label, locale)}
+            </a>
+          ))}
+        </div>
+      ) : null}
+    </article>
+  );
 }
 
 export function HomePageHero({ locale }: { locale: Locale }) {
@@ -191,7 +134,7 @@ export function HomePageHero({ locale }: { locale: Locale }) {
               {copy.primaryCta}
             </a>
             <a
-              href={localizedHref("/blog/", locale)}
+              href={localizedHref(copy.secondaryHref, locale)}
               className="inline-flex min-h-11 items-center rounded-lg border border-white/35 px-5 py-2.5 text-sm font-semibold text-white transition hover:border-white hover:bg-white/10"
             >
               {copy.secondaryCta}
@@ -203,73 +146,31 @@ export function HomePageHero({ locale }: { locale: Locale }) {
   );
 }
 
-export function HomePageLanding({ locale, recentPosts }: HomePageLandingProps) {
+export function HomePageLanding({ locale, recentPosts, home }: HomePageLandingProps) {
   const copy = copyByLocale[locale];
 
   return (
     <div className="pb-16">
-      <section className="grid gap-10 border-b border-slate-200 pb-12 lg:grid-cols-[minmax(0,0.95fr)_minmax(22rem,1.05fr)] lg:items-start">
-        <div>
-          <h2 className="mt-3 max-w-2xl text-3xl font-semibold tracking-normal text-ink md:text-4xl">
-            {copy.sectionTitle}
-          </h2>
-          <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600">{copy.sectionIntro}</p>
-        </div>
-        <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
-          {copy.featured.map((item) => (
-            <a
-              key={item.title}
-              href={localizedHref(item.href, locale)}
-              className="group rounded-lg border border-slate-200 bg-white p-5 transition hover:border-cyan-700/40 hover:bg-slate-50"
-            >
-              <p className="text-xs font-semibold uppercase tracking-normal text-cyan-700">{item.label}</p>
-              <h3 className="mt-3 text-lg font-semibold tracking-normal text-ink group-hover:text-cyan-800">
-                {item.title}
-              </h3>
-              <p className="mt-2 text-sm leading-6 text-slate-600">{item.description}</p>
-            </a>
-          ))}
-        </div>
-      </section>
-
-      <section className="py-12" aria-labelledby="home-project-paths">
+      <section className="border-b border-slate-200 pb-12" aria-labelledby="home-projects">
         <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h2 id="home-project-paths" className="text-2xl font-semibold tracking-normal text-ink">
-              {copy.projectTitle}
+            <h2 id="home-projects" className="text-2xl font-semibold tracking-normal text-ink">
+              {localizedText(home.projectsTitle, locale)}
             </h2>
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">{copy.projectIntro}</p>
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">
+              {localizedText(home.projectsIntro, locale)}
+            </p>
           </div>
         </div>
-        <div className="grid gap-4 md:grid-cols-2">
-          {copy.projects.map((project) => (
-            <a
-              key={project.href}
-              href={localizedHref(project.href, locale)}
-              className="group rounded-lg border border-slate-200 bg-white p-5 transition hover:border-slate-300 hover:bg-slate-50"
-            >
-              <div className="flex items-start justify-between gap-4">
-                <div className="min-w-0">
-                  <p className="text-xs font-semibold uppercase tracking-normal text-slate-500">{project.tag}</p>
-                  <h3 className="mt-2 text-lg font-semibold tracking-normal text-ink group-hover:text-cyan-800">
-                    {project.title}
-                  </h3>
-                </div>
-                <span
-                  aria-hidden="true"
-                  className="mt-1 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-slate-200 text-lg text-slate-500 group-hover:border-cyan-700/30 group-hover:text-cyan-800"
-                >
-                  +
-                </span>
-              </div>
-              <p className="mt-3 text-sm leading-6 text-slate-600">{project.description}</p>
-            </a>
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {home.projects.map((project) => (
+            <ProjectCard key={project.key} project={project} locale={locale} />
           ))}
         </div>
       </section>
 
       {recentPosts.length > 0 ? (
-        <section className="border-t border-slate-200 pt-12" aria-labelledby="home-recent-posts">
+        <section className="pt-12" aria-labelledby="home-recent-posts">
           <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
             <h2 id="home-recent-posts" className="text-2xl font-semibold tracking-normal text-ink">
               {copy.latestTitle}

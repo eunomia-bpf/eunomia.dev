@@ -23,7 +23,12 @@ import {
 } from "../lib/content/loaders";
 import { assertSupportedMarkdown, parseMarkdown } from "../lib/content/markdown";
 import { getContentManifest } from "../lib/content/manifest";
-import { readMkdocsSiteMetadata, readMkdocsSiteSections, readMkdocsTopLevelNavSections } from "../lib/content/mkdocs-config";
+import {
+  readMkdocsHomeConfig,
+  readMkdocsSiteMetadata,
+  readMkdocsSiteSections,
+  readMkdocsTopLevelNavSections
+} from "../lib/content/mkdocs-config";
 import { resolveCollectionPageSource } from "../lib/content/registry";
 import { renderMarkdown, renderMarkdownBody, renderMarkdownDocument } from "../lib/content/render";
 import { docPathToRoute, getGenericSectionRoutes, listSitemapRoutes } from "../lib/content/routes";
@@ -103,6 +108,9 @@ test("home page data keeps markdown metadata but leaves layout to React", async 
   assert.equal(Object.hasOwn(homeZh, "bodyHtml"), false);
   assert.equal(homeZh.recentPosts[0]?.key, "agent-check-restore-safety");
   assert.notEqual(homeZh.recentPosts[0]?.description, homeZh.recentPosts[0]?.title);
+  assert.equal(home.home.projectsTitle.en, "Projects");
+  assert.equal(home.home.projects[0]?.key, "bpftime");
+  assert.equal(homeZh.home.projectsTitle.zh, "项目");
 });
 
 test("site metadata is sourced from mkdocs config", () => {
@@ -129,6 +137,41 @@ test("site IA labels and publication flags are sourced from mkdocs config", () =
   assert.equal(sections.get("GPTtrace")?.published?.footerProject, true);
   assert.equal(sections.get("wasm-bpf")?.published?.nav, false);
   assert.equal(sections.get("legacy-blog")?.published?.homeExplore, true);
+});
+
+test("home project cards are sourced from mkdocs config", () => {
+  const home = readMkdocsHomeConfig();
+
+  assert.equal(home.projectsTitle.en, "Projects");
+  assert.equal(home.projectsTitle.zh, "项目");
+  assert.deepEqual(
+    home.projects.map((project) => project.key),
+    [
+      "bpftime",
+      "bpf-developer-tutorial",
+      "eunomia-bpf",
+      "llvmbpf",
+      "wasm-bpf",
+      "GPTtrace",
+      "ACRFence",
+      "ecosystem"
+    ]
+  );
+  assert.ok(
+    home.projects
+      .find((project) => project.key === "bpftime")
+      ?.links.some((link) => link.label.en === "OSDI 2025")
+  );
+  assert.ok(
+    home.projects
+      .find((project) => project.key === "GPTtrace")
+      ?.links.some((link) => link.label.en === "eBPF 2024")
+  );
+  assert.ok(
+    home.projects
+      .find((project) => project.key === "ACRFence")
+      ?.links.some((link) => link.label.en === "arXiv 2603.20625")
+  );
 });
 
 test("blog listings use explicit article descriptions instead of repeating titles", async () => {

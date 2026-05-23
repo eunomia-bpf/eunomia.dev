@@ -96,6 +96,12 @@ async function main() {
       check(await link.count(), `nav contains ${label}`);
     }
 
+    check(await page.getByRole("heading", { name: /^Projects$/i }).count(), "home page exposes projects section");
+    for (const label of ["bpftime", "bpf-developer-tutorial", "OSDI 2025", "GPTtrace", "eBPF 2024", "arXiv 2603.20625"]) {
+      const link = page.getByRole("link", { name: new RegExp(label, "i") }).first();
+      check(await link.count(), `home projects include ${label}`);
+    }
+
     let searchInput = await firstVisible(page, [
       "input[aria-label*='Search']",
       ".md-search__input"
