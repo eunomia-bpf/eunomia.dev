@@ -125,7 +125,7 @@ export function HomePageHero({ home, locale }: { home: MkdocsHomeConfig; locale:
           <p className="inline-flex items-center rounded-full border border-slate-200 bg-white/80 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-cyan-800 shadow-sm backdrop-blur">
             {localizedText(home.hero.kicker, locale)}
           </p>
-          <h1 className="mt-6 font-serif text-5xl font-semibold tracking-normal text-slate-950 sm:text-6xl lg:text-7xl">
+          <h1 className="mt-6 font-serif text-5xl font-normal tracking-normal text-slate-950 sm:text-6xl lg:text-7xl">
             {localizedText(home.hero.title, locale)}
           </h1>
           <p className="mx-auto mt-5 max-w-3xl text-xl leading-8 text-slate-600 md:text-2xl md:leading-9">
