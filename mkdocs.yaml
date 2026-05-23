@@ -348,16 +348,6 @@ extra:
         zh: eunomia-bpf 项目体系地图，按 runtime infrastructure、开发工具链、AI agent systems 和公开资源组织。
       project_groups: [platform, resources, ai-agents]
       featured_projects: [bpftime, eunomia-bpf, wasm-bpf, agentsight]
-    GPTtrace:
-      variant: project-focus
-      title:
-        en: AI × eBPF
-        zh: AI 与 eBPF
-      description:
-        en: eBPF-based tracing, observability, and safety work for AI agents and LLM systems.
-        zh: 面向 AI agent 和 LLM systems 的 eBPF tracing、observability 与安全工作。
-      project_groups: [ai-agents]
-      featured_projects: [agentsight, GPTtrace, ACRFence]
     blog:
       variant: blog-index
       title:

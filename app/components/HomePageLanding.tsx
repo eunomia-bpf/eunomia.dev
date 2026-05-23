@@ -111,39 +111,36 @@ function CapabilitySection({ home, locale }: { home: MkdocsHomeConfig; locale: L
 
 export function HomePageHero({ home, locale }: { home: MkdocsHomeConfig; locale: Locale }) {
   return (
-    <section className="relative isolate overflow-hidden border-b border-slate-200 bg-[#07111f] text-white">
-      <Image
-        src="/ebpf_arch.png"
-        alt=""
+    <section className="relative isolate overflow-hidden border-b border-slate-200 bg-white text-ink">
+      <div
         aria-hidden="true"
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover opacity-20"
-        unoptimized
+        className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(15,23,42,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(15,23,42,0.06)_1px,transparent_1px)] bg-[size:24px_24px]"
       />
-      <div className="absolute inset-0 bg-[#07111f]/80" />
-      <div className="relative mx-auto max-w-[82rem] px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
-        <div className="max-w-3xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-200">
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 -z-10 h-72 bg-gradient-to-b from-cyan-100/70 via-cyan-50/40 to-white"
+      />
+      <div className="relative mx-auto max-w-[82rem] px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+        <div className="mx-auto max-w-4xl text-center">
+          <p className="inline-flex items-center rounded-full border border-slate-200 bg-white/80 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-cyan-800 shadow-sm backdrop-blur">
             {localizedText(home.hero.kicker, locale)}
           </p>
-          <h1 className="mt-4 text-4xl font-semibold tracking-normal text-white sm:text-5xl lg:text-6xl">
+          <h1 className="mt-6 font-serif text-5xl font-semibold tracking-normal text-slate-950 sm:text-6xl lg:text-7xl">
             {localizedText(home.hero.title, locale)}
           </h1>
-          <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-200">
+          <p className="mx-auto mt-5 max-w-3xl text-xl leading-8 text-slate-600 md:text-2xl md:leading-9">
             {localizedText(home.hero.summary, locale)}
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-9 flex flex-wrap justify-center gap-3">
             <a
               href={localizedHref(home.hero.primaryHref, locale)}
-              className="inline-flex min-h-11 items-center rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-100"
+              className="inline-flex min-h-11 items-center rounded-md bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
             >
               {localizedText(home.hero.primaryCta, locale)}
             </a>
             <a
               href={localizedHref(home.hero.secondaryHref, locale)}
-              className="inline-flex min-h-11 items-center rounded-lg border border-white/35 px-5 py-2.5 text-sm font-semibold text-white transition hover:border-white hover:bg-white/10"
+              className="inline-flex min-h-11 items-center rounded-md border border-slate-300 bg-white/80 px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-slate-400 hover:text-ink"
             >
               {localizedText(home.hero.secondaryCta, locale)}
             </a>

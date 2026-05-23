@@ -165,7 +165,7 @@ test("primary nav children and section sidebars are sourced from mkdocs config",
   assert.equal(sidebars.get("projects")?.[1]?.items[2]?.href, "/wasm-bpf/");
   assert.ok(!sidebars.get("projects")?.some((group) => group.items.some((item) => item.href === "/blogs/")));
   assert.equal(landingPages.get("projects")?.variant, "project-index");
-  assert.deepEqual(landingPages.get("GPTtrace")?.projectGroupKeys, ["ai-agents"]);
+  assert.equal(landingPages.has("GPTtrace"), false);
 });
 
 test("home project cards are sourced from mkdocs config", () => {
@@ -230,6 +230,12 @@ test("configured section landing copy is sourced from mkdocs config", async () =
   assert.equal(projectsZh?.title, "项目");
   assert.equal(projectsZh?.landingPage?.description.zh, "eunomia-bpf 项目体系地图，按 runtime infrastructure、开发工具链、AI agent systems 和公开资源组织。");
   assert.ok(projectsZh?.sidebar?.some((group) => group.title === "项目文档"));
+
+  const aiEbpf = await loadSectionPage("GPTtrace", [], "en");
+  assert.match(aiEbpf?.sourcePath ?? "", /docs\/GPTtrace\/index\.md$/);
+  assert.equal(aiEbpf?.title, "eBPF × AI/LLMs: The Convergence of System Observability and Artificial Intelligence");
+  assert.equal(aiEbpf?.landingPage, undefined);
+  assert.ok(aiEbpf?.bodyHtml.includes("This powerful relationship is a symbiotic loop"));
 });
 
 test("blog listings use explicit article descriptions instead of repeating titles", async () => {
