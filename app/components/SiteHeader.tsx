@@ -51,20 +51,56 @@ export function SiteHeader({ locale, currentPath, sidebar, alternates }: SiteHea
           <span className="truncate">eunomia</span>
         </a>
         <nav className="hidden items-center gap-1 text-sm font-medium text-slate-600 lg:flex">
-          {nav.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              aria-current={isActivePath(normalizedCurrentPath, item.href) ? "page" : undefined}
-              className={`rounded-md px-3 py-2 transition ${
-                isActivePath(normalizedCurrentPath, item.href)
-                  ? "bg-slate-100 text-ink"
-                  : "hover:bg-slate-50 hover:text-ink"
-              }`}
-            >
-              {item.label}
-            </a>
-          ))}
+          {nav.map((item) => {
+            const active = isActivePath(normalizedCurrentPath, item.href);
+            const itemClassName = `inline-flex items-center gap-1.5 rounded-md px-3 py-2 transition ${
+              active
+                ? "bg-slate-100 text-ink"
+                : "hover:bg-slate-50 hover:text-ink"
+            }`;
+
+            if (item.children?.length) {
+              return (
+                <div key={item.href} className="group relative">
+                  <a
+                    href={item.href}
+                    aria-current={active ? "page" : undefined}
+                    aria-haspopup="true"
+                    className={itemClassName}
+                  >
+                    <span>{item.label}</span>
+                    <span aria-hidden="true" className="text-xs text-slate-400 transition group-hover:text-slate-600">
+                      ▾
+                    </span>
+                  </a>
+                  <div className="invisible absolute left-0 top-full z-50 w-56 pt-2 opacity-0 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                    <div className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-lg">
+                      {item.children.map((child) => (
+                        <a
+                          key={child.href}
+                          href={child.href}
+                          className="block border-t border-slate-100 px-4 py-3 text-sm text-slate-600 transition first:border-t-0 hover:bg-slate-50 hover:text-ink"
+                        >
+                          {child.label}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+
+            return (
+              <a
+                key={item.href}
+                href={item.href}
+                aria-current={active ? "page" : undefined}
+                className={itemClassName}
+              >
+                {item.label}
+              </a>
+            );
+          })}
         </nav>
         <div className="flex items-center gap-2 sm:gap-3">
           <SearchBox locale={locale} containerClassName="hidden xl:block" inputClassName="w-56 border-slate-300 bg-slate-50" />

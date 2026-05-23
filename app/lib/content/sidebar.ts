@@ -1,4 +1,5 @@
 import { localizePath } from "../paths";
+import { getSectionSidebarOverride } from "../site-ia";
 import type { Locale } from "../site-data";
 import { getTutorialDocSources } from "./collections";
 import { getDocument, resolveDocument } from "./documents";
@@ -12,12 +13,10 @@ function getSidebarCopy(locale: Locale) {
   return locale === "zh"
     ? {
         blog: "博客",
-        legacyBlog: "旧博客",
         sectionPrefix: "文档"
       }
     : {
         blog: "Blog",
-        legacyBlog: "Legacy Blog",
         sectionPrefix: "Docs"
       };
 }
@@ -91,6 +90,11 @@ export function buildCollectionSidebar(
 }
 
 export function buildSectionSidebar(section: string, locale: Locale): SidebarGroup[] {
+  const configuredSidebar = getSectionSidebarOverride(section, locale);
+  if (configuredSidebar) {
+    return configuredSidebar;
+  }
+
   const copy = getSidebarCopy(locale);
   const records = getContentManifest().filter((record) => record.kind === "section-page" && record.section === section);
   const sectionIndexSource =
@@ -124,10 +128,6 @@ export function buildSearchSidebar(locale: Locale): SidebarGroup[] {
         {
           title: copy.blog,
           href: localizePath("/blog/", locale)
-        },
-        {
-          title: copy.legacyBlog,
-          href: localizePath("/blogs/", locale)
         }
       ]
     }

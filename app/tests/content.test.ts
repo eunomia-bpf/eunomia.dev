@@ -25,7 +25,10 @@ import { assertSupportedMarkdown, parseMarkdown } from "../lib/content/markdown"
 import { getContentManifest } from "../lib/content/manifest";
 import {
   readMkdocsHomeConfig,
+  readMkdocsPrimaryNavChildren,
+  readMkdocsSectionLandingPages,
   readMkdocsSectionPages,
+  readMkdocsSectionSidebars,
   readMkdocsSiteMetadata,
   readMkdocsSiteSections,
   readMkdocsTopLevelNavSections
@@ -39,8 +42,9 @@ import { appRoot, siteRoot } from "../lib/content/roots";
 import { resolveLocalizedSource, slugifyTitle } from "../lib/content/source";
 import { absoluteUrl, ogImageUrl, STATIC_OG_IMAGE_PATH } from "../lib/seo";
 import { siteConfig } from "../lib/site-data";
-import { getPrimaryNav, getSiteSections } from "../lib/site-ia";
+import { getPrimaryNav, getSectionSidebarOverride, getSiteSections } from "../lib/site-ia";
 import { createContentPageRoute } from "../lib/route-builders";
+import { buildSearchSidebar } from "../lib/content/sidebar";
 import { writeStaticMetadata } from "../scripts/generate-static-metadata";
 
 test("resolveLocalizedSource prefers zh variant when present", () => {
@@ -133,12 +137,35 @@ test("site IA labels and publication flags are sourced from mkdocs config", () =
     ["bpftime", "projects", "others", "tutorials", "blog", "about"].map(
       (key) => sections.get(key)?.labels?.en
     ),
-    ["Platform", "Projects", "Research", "Tutorial", "Blog", "About"]
+    ["bpftime", "Projects", "Ecosystem", "Tutorial", "Blog", "About"]
   );
-  assert.equal(sections.get("GPTtrace")?.published?.nav, false);
+  assert.equal(sections.get("GPTtrace")?.labels?.en, "AI × eBPF");
+  assert.equal(sections.get("GPTtrace")?.published?.nav, true);
+  assert.equal(sections.get("about")?.published?.nav, false);
+  assert.equal(sections.get("about")?.published?.footerExplore, false);
   assert.equal(sections.get("GPTtrace")?.published?.footerProject, true);
   assert.equal(sections.get("wasm-bpf")?.published?.nav, false);
   assert.equal(sections.get("legacy-blog")?.published?.homeExplore, true);
+});
+
+test("primary nav children and section sidebars are sourced from mkdocs config", () => {
+  const navChildren = readMkdocsPrimaryNavChildren();
+  const sidebars = readMkdocsSectionSidebars();
+  const landingPages = readMkdocsSectionLandingPages();
+
+  assert.deepEqual(
+    navChildren.get("projects")?.map((item) => item.href),
+    ["/bpftime/", "/eunomia-bpf/", "/wasm-bpf/", "/GPTtrace/agentsight/"]
+  );
+  assert.equal(navChildren.get("projects")?.[3]?.label.en, "AgentSight");
+  assert.deepEqual(
+    sidebars.get("projects")?.map((group) => group.title.en),
+    ["Project overview", "Project docs", "Learning and writing"]
+  );
+  assert.equal(sidebars.get("projects")?.[1]?.items[2]?.href, "/wasm-bpf/");
+  assert.ok(!sidebars.get("projects")?.some((group) => group.items.some((item) => item.href === "/blogs/")));
+  assert.equal(landingPages.get("projects")?.variant, "project-index");
+  assert.deepEqual(landingPages.get("GPTtrace")?.projectGroupKeys, ["ai-agents"]);
 });
 
 test("home project cards are sourced from mkdocs config", () => {
@@ -195,11 +222,14 @@ test("configured section landing copy is sourced from mkdocs config", async () =
   const projects = await loadSectionPage("projects", [], "en");
   const projectsZh = await loadSectionPage("projects", [], "zh");
 
-  assert.equal(sectionPages.get("projects/index.md")?.title.en, "Projects");
+  assert.equal(sectionPages.has("projects/index.md"), false);
   assert.equal(projects?.title, "Projects");
-  assert.match(projects?.bodyHtml ?? "", /runtime infrastructure/);
+  assert.equal(projects?.landingPage?.variant, "project-index");
+  assert.ok(projects?.projectCatalog?.projects.some((project) => project.key === "agentsight"));
+  assert.ok(projects?.sidebar?.some((group) => group.title === "Project docs"));
   assert.equal(projectsZh?.title, "项目");
-  assert.match(projectsZh?.bodyHtml ?? "", /runtime infrastructure/);
+  assert.equal(projectsZh?.landingPage?.description.zh, "eunomia-bpf 项目体系地图，按 runtime infrastructure、开发工具链、AI agent systems 和公开资源组织。");
+  assert.ok(projectsZh?.sidebar?.some((group) => group.title === "项目文档"));
 });
 
 test("blog listings use explicit article descriptions instead of repeating titles", async () => {
@@ -387,11 +417,19 @@ test("primary nav follows the configured external site order", () => {
   );
   assert.deepEqual(
     getPrimaryNav("en").map((item) => item.label),
-    ["Platform", "Projects", "Research", "Tutorial", "Blog", "About"]
+    ["bpftime", "Projects", "AI × eBPF", "Tutorial", "Blog", "Ecosystem"]
   );
   assert.deepEqual(
     getPrimaryNav("en").map((item) => item.href),
-    ["/bpftime/", "/projects/", "/others/", "/tutorials/", "/blog/", "/about/"]
+    ["/bpftime/", "/projects/", "/GPTtrace/", "/tutorials/", "/blog/", "/others/"]
+  );
+  assert.deepEqual(
+    getPrimaryNav("en").find((item) => item.href === "/projects/")?.children?.map((item) => item.href),
+    ["/bpftime/", "/eunomia-bpf/", "/wasm-bpf/", "/GPTtrace/agentsight/"]
+  );
+  assert.deepEqual(
+    getSectionSidebarOverride("projects", "zh")?.map((group) => group.title),
+    ["项目总览", "项目文档", "学习与文章"]
   );
 });
 
@@ -400,8 +438,8 @@ test("site IA keeps non-primary published sections out of the primary nav", () =
 
   assert.ok(!navItems.some((item) => item.href === "/blogs/"));
   assert.ok(!navItems.some((item) => item.href === "/wasm-bpf/"));
-  assert.ok(!navItems.some((item) => item.href === "/GPTtrace/"));
   assert.ok(!navItems.some((item) => item.href === "/eunomia-bpf/"));
+  assert.ok(!navItems.some((item) => item.href === "/about/"));
 });
 
 test("manifest resolves tutorial routes back to the canonical tutorial record", () => {
@@ -608,6 +646,8 @@ test("article loaders expose continuation links for collection discovery", async
 test("collection index pages expose contextual sidebars without duplicating the global top nav", async () => {
   const page = await loadBlogIndex("en");
 
+  assert.equal(page.title, "Blog");
+  assert.equal(page.landingPage?.variant, "blog-index");
   assert.ok(page.cards && page.cards.length > 0);
   assert.ok(page.cards?.every((card) => !card.badge));
   assert.equal(page.sidebar?.length, 1);
@@ -619,14 +659,19 @@ test("collection index pages expose contextual sidebars without duplicating the 
 test("article sidebars stay contextual without reintroducing the global browse group", async () => {
   const tutorialPage = await loadTutorialPage(["1-helloworld"], "en");
   const sectionPage = await loadSectionPage("bpftime", ["llvmbpf"], "en");
+  const projectsPage = await loadSectionPage("projects", [], "en");
+  const searchSidebar = buildSearchSidebar("en");
 
   assert.ok(tutorialPage?.sidebar?.length);
   assert.ok(tutorialPage?.sidebar?.[0]?.items.some((item) => item.href === "/tutorials/1-helloworld/"));
   assert.ok(!tutorialPage?.sidebar?.some((group) => group.items.some((item) => item.href === "/blog/")));
+  assert.ok(!tutorialPage?.sidebar?.some((group) => group.items.some((item) => item.href === "/blogs/")));
 
   assert.ok(sectionPage?.sidebar?.length);
   assert.ok(sectionPage?.sidebar?.[0]?.items.some((item) => item.href === "/bpftime/llvmbpf/"));
   assert.ok(!sectionPage?.sidebar?.some((group) => group.items.some((item) => item.href === "/tutorials/")));
+  assert.ok(!projectsPage?.sidebar?.some((group) => group.items.some((item) => item.href === "/blogs/")));
+  assert.ok(!searchSidebar.some((group) => group.items.some((item) => item.href === "/blogs/")));
 });
 
 test("resolveContentPage resolves manifest-backed routes without route-layer switches", async () => {

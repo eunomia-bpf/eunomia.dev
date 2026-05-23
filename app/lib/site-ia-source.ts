@@ -4,8 +4,12 @@ import path from "node:path";
 import { useContentCache } from "./content/cache";
 import { getDocsFileSet, getTopLevelSections } from "./content/fs-index";
 import {
+  readMkdocsPrimaryNavChildren,
+  readMkdocsSectionSidebars,
   readMkdocsSiteSections,
   readMkdocsTopLevelNavSections,
+  type MkdocsNavLinkConfig,
+  type MkdocsSectionSidebarGroupConfig,
   type MkdocsSiteSectionConfig,
   type MkdocsTopLevelNavSection
 } from "./content/mkdocs-config";
@@ -31,6 +35,16 @@ export type SerializedSiteSectionDefinition = {
   order: number;
 };
 
+export type SerializedSiteNavLink = {
+  labels: Record<Locale, string>;
+  href: string;
+};
+
+export type SerializedSiteSidebarGroup = {
+  titles: Record<Locale, string>;
+  items: SerializedSiteNavLink[];
+};
+
 type SiteSectionOverride = MkdocsSiteSectionConfig;
 
 type SectionSeed = {
@@ -45,6 +59,8 @@ type SectionSeed = {
 type SerializedSiteSectionIndex = {
   generatedAt: string;
   sections: SerializedSiteSectionDefinition[];
+  primaryNavChildrenBySection: Record<SiteSectionKey, SerializedSiteNavLink[]>;
+  sectionSidebarsBySection: Record<SiteSectionKey, SerializedSiteSidebarGroup[]>;
 };
 
 const generatedSiteSectionsPath = path.join(generatedContentDir, "site-sections.json");
@@ -231,6 +247,34 @@ function buildSiteSectionDefinitions(): SerializedSiteSectionDefinition[] {
   return definitions;
 }
 
+function serializeNavLink(link: MkdocsNavLinkConfig): SerializedSiteNavLink {
+  return {
+    labels: link.label,
+    href: link.href
+  };
+}
+
+function serializeNavChildrenBySection(): Record<SiteSectionKey, SerializedSiteNavLink[]> {
+  return Object.fromEntries(
+    [...readMkdocsPrimaryNavChildren()].map(([section, links]) => [
+      section,
+      links.map(serializeNavLink)
+    ])
+  );
+}
+
+function serializeSectionSidebarsBySection(): Record<SiteSectionKey, SerializedSiteSidebarGroup[]> {
+  return Object.fromEntries(
+    [...readMkdocsSectionSidebars()].map(([section, groups]) => [
+      section,
+      groups.map((group: MkdocsSectionSidebarGroupConfig) => ({
+        titles: group.title,
+        items: group.items.map(serializeNavLink)
+      }))
+    ])
+  );
+}
+
 export function getGeneratedSiteSections(): SerializedSiteSectionDefinition[] {
   if (useContentCache && sectionDefinitionsCache) {
     return sectionDefinitionsCache;
@@ -248,7 +292,9 @@ export function writeSiteSections(outputPath: string = generatedSiteSectionsPath
   const sections = buildSiteSectionDefinitions();
   const payload: SerializedSiteSectionIndex = {
     generatedAt: new Date().toISOString(),
-    sections
+    sections,
+    primaryNavChildrenBySection: serializeNavChildrenBySection(),
+    sectionSidebarsBySection: serializeSectionSidebarsBySection()
   };
 
   fs.mkdirSync(path.dirname(outputPath), { recursive: true });

@@ -35,6 +35,15 @@ export function MobileNav({ locale, currentPath, sidebar }: MobileNavProps) {
   const nav = getPrimaryNav(locale);
   const copy = mobileNavCopyByLocale[locale];
   const normalizedCurrentPath = normalizePath(currentPath);
+  const childNavGroups = nav
+    .filter((item) => item.children?.length)
+    .map((item) => ({
+      title: item.label,
+      items: item.children?.map((child) => ({
+        title: child.label,
+        href: child.href
+      })) ?? []
+    }));
   const drawerGroups: SidebarGroup[] = [
     {
       title: copy.sections,
@@ -43,6 +52,7 @@ export function MobileNav({ locale, currentPath, sidebar }: MobileNavProps) {
         href: item.href
       }))
     },
+    ...childNavGroups,
     ...(sidebar?.filter((group) => group.items.length) ?? [])
   ];
 

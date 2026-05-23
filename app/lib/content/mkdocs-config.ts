@@ -42,6 +42,26 @@ export type MkdocsSectionPageConfig = {
   body: MkdocsLocalizedText;
 };
 
+export type MkdocsNavLinkConfig = {
+  label: MkdocsLocalizedText;
+  href: string;
+};
+
+export type MkdocsSectionSidebarGroupConfig = {
+  title: MkdocsLocalizedText;
+  items: MkdocsNavLinkConfig[];
+};
+
+export type MkdocsSectionLandingVariant = "project-index" | "project-focus" | "blog-index";
+
+export type MkdocsSectionLandingPageConfig = {
+  variant: MkdocsSectionLandingVariant;
+  title: MkdocsLocalizedText;
+  description: MkdocsLocalizedText;
+  projectGroupKeys: string[];
+  featuredProjectKeys: string[];
+};
+
 export type MkdocsHomeProjectLink = {
   label: MkdocsLocalizedText;
   href: string;
@@ -120,6 +140,9 @@ let metadataCache: MkdocsSiteMetadata | null = null;
 let navSourcesCache: string[] | null = null;
 let topLevelNavSectionsCache: MkdocsTopLevelNavSection[] | null = null;
 let siteSectionsCache: Map<string, MkdocsSiteSectionConfig> | null = null;
+let primaryNavChildrenCache: Map<string, MkdocsNavLinkConfig[]> | null = null;
+let sectionSidebarsCache: Map<string, MkdocsSectionSidebarGroupConfig[]> | null = null;
+let sectionLandingPagesCache: Map<string, MkdocsSectionLandingPageConfig> | null = null;
 let sectionPagesCache: Map<string, MkdocsSectionPageConfig> | null = null;
 let homeConfigCache: MkdocsHomeConfig | null = null;
 
@@ -350,6 +373,26 @@ type PartialSectionPageConfig = {
   body: PartialLocalizedText;
 };
 
+type PartialNavLinkConfig = {
+  label?: string;
+  labelZh?: string;
+  href?: string;
+};
+
+type PartialSectionSidebarGroupConfig = {
+  title?: string;
+  titleZh?: string;
+  items: PartialNavLinkConfig[];
+};
+
+type PartialSectionLandingPageConfig = {
+  variant?: string;
+  title: PartialLocalizedText;
+  description: PartialLocalizedText;
+  projectGroupKeys: string[];
+  featuredProjectKeys: string[];
+};
+
 type PartialHomeProjectLink = {
   label?: string;
   labelZh?: string;
@@ -446,6 +489,416 @@ function requireStringList(value: string[], context: string): string[] {
     throw new Error(`Missing mkdocs home config list: ${context}`);
   }
   return value;
+}
+
+function setFlatNavLinkField(item: PartialNavLinkConfig, field: string, rawValue: string, context: string) {
+  const value = parseScalar(rawValue);
+  if (!value) {
+    throw new Error(`Missing ${context}.${field}`);
+  }
+
+  if (field === "label") {
+    item.label = value;
+    return;
+  }
+  if (field === "label_zh") {
+    item.labelZh = value;
+    return;
+  }
+  if (field === "href") {
+    item.href = value;
+    return;
+  }
+
+  throw new Error(`Unsupported nav link key for ${context}: ${field}`);
+}
+
+function normalizeFlatNavLink(item: PartialNavLinkConfig, context: string): MkdocsNavLinkConfig {
+  const label = requireScalar(item.label, `${context}.label`);
+
+  return {
+    label: {
+      en: label,
+      zh: requireScalar(item.labelZh, `${context}.label_zh`)
+    },
+    href: requireScalar(item.href, `${context}.href`)
+  };
+}
+
+function readPrimaryNavChildren(): Map<string, MkdocsNavLinkConfig[]> {
+  const children = new Map<string, PartialNavLinkConfig[]>();
+  let inPrimaryNavChildren = false;
+  let baseIndent = 0;
+  let currentSection: string | null = null;
+  let currentItem: PartialNavLinkConfig | null = null;
+
+  for (const line of readMkdocsConfigText().split(/\r?\n/)) {
+    if (!inPrimaryNavChildren) {
+      const match = line.match(/^(\s*)primary_nav_children:\s*$/);
+      if (match) {
+        inPrimaryNavChildren = true;
+        baseIndent = match[1]?.length ?? 0;
+      }
+      continue;
+    }
+
+    if (line.trim() && indentation(line) <= baseIndent) {
+      break;
+    }
+
+    if (!line.trim() || line.trim().startsWith("#")) {
+      continue;
+    }
+
+    const sectionMatch = matchIndentedKey(line, baseIndent + 2);
+    if (sectionMatch) {
+      const [sectionKey, rawValue] = sectionMatch;
+      if (rawValue) {
+        throw new Error(`Inline primary_nav_children.${sectionKey} values are not supported`);
+      }
+      currentSection = sectionKey;
+      currentItem = null;
+      children.set(currentSection, children.get(currentSection) ?? []);
+      continue;
+    }
+
+    if (!currentSection) {
+      throw new Error(`Invalid primary_nav_children entry before a section key: ${line.trim()}`);
+    }
+
+    const itemMatch = matchIndentedListKey(line, baseIndent + 4);
+    if (itemMatch) {
+      const [field, rawValue] = itemMatch;
+      if (field !== "label") {
+        throw new Error(`primary_nav_children.${currentSection} items must start with label`);
+      }
+      currentItem = {};
+      children.get(currentSection)?.push(currentItem);
+      setFlatNavLinkField(currentItem, field, rawValue, `primary_nav_children.${currentSection}`);
+      continue;
+    }
+
+    const itemFieldMatch = matchIndentedKey(line, baseIndent + 6);
+    if (!itemFieldMatch || !currentItem) {
+      throw new Error(`Invalid primary_nav_children entry for "${currentSection}": ${line.trim()}`);
+    }
+
+    setFlatNavLinkField(
+      currentItem,
+      itemFieldMatch[0],
+      itemFieldMatch[1],
+      `primary_nav_children.${currentSection}`
+    );
+  }
+
+  return new Map(
+    [...children].map(([section, items]) => [
+      section,
+      items.map((item, index) => normalizeFlatNavLink(item, `primary_nav_children.${section}[${index}]`))
+    ])
+  );
+}
+
+export function readMkdocsPrimaryNavChildren(): Map<string, MkdocsNavLinkConfig[]> {
+  if (!useContentCache || !primaryNavChildrenCache) {
+    primaryNavChildrenCache = readPrimaryNavChildren();
+  }
+
+  return primaryNavChildrenCache;
+}
+
+function setSidebarGroupField(
+  group: PartialSectionSidebarGroupConfig,
+  field: string,
+  rawValue: string,
+  context: string
+) {
+  if (field === "items") {
+    if (parseScalar(rawValue)) {
+      throw new Error(`Inline ${context}.items values are not supported`);
+    }
+    return;
+  }
+
+  const value = parseScalar(rawValue);
+  if (!value) {
+    throw new Error(`Missing ${context}.${field}`);
+  }
+
+  if (field === "title") {
+    group.title = value;
+    return;
+  }
+  if (field === "title_zh") {
+    group.titleZh = value;
+    return;
+  }
+
+  throw new Error(`Unsupported section sidebar group key for ${context}: ${field}`);
+}
+
+function normalizeSectionSidebarGroup(
+  group: PartialSectionSidebarGroupConfig,
+  context: string
+): MkdocsSectionSidebarGroupConfig {
+  const title = requireScalar(group.title, `${context}.title`);
+
+  return {
+    title: {
+      en: title,
+      zh: requireScalar(group.titleZh, `${context}.title_zh`)
+    },
+    items: group.items.map((item, index) => normalizeFlatNavLink(item, `${context}.items[${index}]`))
+  };
+}
+
+function readSectionSidebars(): Map<string, MkdocsSectionSidebarGroupConfig[]> {
+  const sidebars = new Map<string, PartialSectionSidebarGroupConfig[]>();
+  let inSectionSidebars = false;
+  let baseIndent = 0;
+  let currentSection: string | null = null;
+  let currentGroup: PartialSectionSidebarGroupConfig | null = null;
+  let currentItem: PartialNavLinkConfig | null = null;
+
+  for (const line of readMkdocsConfigText().split(/\r?\n/)) {
+    if (!inSectionSidebars) {
+      const match = line.match(/^(\s*)section_sidebars:\s*$/);
+      if (match) {
+        inSectionSidebars = true;
+        baseIndent = match[1]?.length ?? 0;
+      }
+      continue;
+    }
+
+    if (line.trim() && indentation(line) <= baseIndent) {
+      break;
+    }
+
+    if (!line.trim() || line.trim().startsWith("#")) {
+      continue;
+    }
+
+    const sectionMatch = matchIndentedKey(line, baseIndent + 2);
+    if (sectionMatch) {
+      const [sectionKey, rawValue] = sectionMatch;
+      if (rawValue) {
+        throw new Error(`Inline section_sidebars.${sectionKey} values are not supported`);
+      }
+      currentSection = sectionKey;
+      currentGroup = null;
+      currentItem = null;
+      sidebars.set(currentSection, sidebars.get(currentSection) ?? []);
+      continue;
+    }
+
+    if (!currentSection) {
+      throw new Error(`Invalid section_sidebars entry before a section key: ${line.trim()}`);
+    }
+
+    const groupMatch = matchIndentedListKey(line, baseIndent + 4);
+    if (groupMatch) {
+      const [field, rawValue] = groupMatch;
+      if (field !== "title") {
+        throw new Error(`section_sidebars.${currentSection} groups must start with title`);
+      }
+      currentGroup = { items: [] };
+      currentItem = null;
+      sidebars.get(currentSection)?.push(currentGroup);
+      setSidebarGroupField(currentGroup, field, rawValue, `section_sidebars.${currentSection}`);
+      continue;
+    }
+
+    if (!currentGroup) {
+      throw new Error(`Invalid section_sidebars entry before a group: ${line.trim()}`);
+    }
+
+    const itemMatch = matchIndentedListKey(line, baseIndent + 8);
+    if (itemMatch) {
+      const [field, rawValue] = itemMatch;
+      if (field !== "label") {
+        throw new Error(`section_sidebars.${currentSection} items must start with label`);
+      }
+      currentItem = {};
+      currentGroup.items.push(currentItem);
+      setFlatNavLinkField(currentItem, field, rawValue, `section_sidebars.${currentSection}`);
+      continue;
+    }
+
+    const itemFieldMatch = matchIndentedKey(line, baseIndent + 10);
+    if (itemFieldMatch && currentItem) {
+      setFlatNavLinkField(
+        currentItem,
+        itemFieldMatch[0],
+        itemFieldMatch[1],
+        `section_sidebars.${currentSection}`
+      );
+      continue;
+    }
+
+    const groupFieldMatch = matchIndentedKey(line, baseIndent + 6);
+    if (!groupFieldMatch) {
+      throw new Error(`Invalid section_sidebars entry for "${currentSection}": ${line.trim()}`);
+    }
+
+    currentItem = null;
+    setSidebarGroupField(
+      currentGroup,
+      groupFieldMatch[0],
+      groupFieldMatch[1],
+      `section_sidebars.${currentSection}`
+    );
+  }
+
+  return new Map(
+    [...sidebars].map(([section, groups]) => [
+      section,
+      groups.map((group, index) => normalizeSectionSidebarGroup(group, `section_sidebars.${section}[${index}]`))
+    ])
+  );
+}
+
+export function readMkdocsSectionSidebars(): Map<string, MkdocsSectionSidebarGroupConfig[]> {
+  if (!useContentCache || !sectionSidebarsCache) {
+    sectionSidebarsCache = readSectionSidebars();
+  }
+
+  return sectionSidebarsCache;
+}
+
+function normalizeSectionLandingVariant(value: string, context: string): MkdocsSectionLandingVariant {
+  if (value === "project-index" || value === "project-focus" || value === "blog-index") {
+    return value;
+  }
+
+  throw new Error(`Unsupported ${context}.variant: ${value}`);
+}
+
+function normalizeSectionLandingPage(
+  page: PartialSectionLandingPageConfig,
+  context: string
+): MkdocsSectionLandingPageConfig {
+  return {
+    variant: normalizeSectionLandingVariant(requireScalar(page.variant, `${context}.variant`), context),
+    title: requireLocalizedText(page.title, `${context}.title`),
+    description: requireLocalizedText(page.description, `${context}.description`),
+    projectGroupKeys: page.projectGroupKeys,
+    featuredProjectKeys: page.featuredProjectKeys
+  };
+}
+
+function readSectionLandingPages(): Map<string, MkdocsSectionLandingPageConfig> {
+  const pages = new Map<string, PartialSectionLandingPageConfig>();
+  let inSectionLandingPages = false;
+  let baseIndent = 0;
+  let currentSection: string | null = null;
+  let currentLocalizedField: "title" | "description" | null = null;
+
+  for (const line of readMkdocsConfigText().split(/\r?\n/)) {
+    if (!inSectionLandingPages) {
+      const match = line.match(/^(\s*)section_landing_pages:\s*$/);
+      if (match) {
+        inSectionLandingPages = true;
+        baseIndent = match[1]?.length ?? 0;
+      }
+      continue;
+    }
+
+    if (line.trim() && indentation(line) <= baseIndent) {
+      break;
+    }
+
+    if (!line.trim() || line.trim().startsWith("#")) {
+      continue;
+    }
+
+    const sectionMatch = matchIndentedKey(line, baseIndent + 2);
+    if (sectionMatch) {
+      const [sectionKey, rawValue] = sectionMatch;
+      if (rawValue) {
+        throw new Error(`Inline section_landing_pages.${sectionKey} values are not supported`);
+      }
+      currentSection = sectionKey;
+      currentLocalizedField = null;
+      pages.set(currentSection, {
+        title: {},
+        description: {},
+        projectGroupKeys: [],
+        featuredProjectKeys: []
+      });
+      continue;
+    }
+
+    if (!currentSection) {
+      throw new Error(`Invalid section_landing_pages entry before a section key: ${line.trim()}`);
+    }
+
+    const page = pages.get(currentSection);
+    if (!page) {
+      throw new Error(`Missing section_landing_pages config for "${currentSection}"`);
+    }
+
+    if (currentLocalizedField) {
+      const localizedMatch = matchIndentedKey(line, baseIndent + 6);
+      if (localizedMatch) {
+        setLocalizedValue(
+          page[currentLocalizedField],
+          localizedMatch[0],
+          parseScalar(localizedMatch[1]),
+          `section_landing_pages.${currentSection}.${currentLocalizedField}`
+        );
+        continue;
+      }
+    }
+
+    const fieldMatch = matchIndentedKey(line, baseIndent + 4);
+    if (!fieldMatch) {
+      throw new Error(`Invalid section_landing_pages entry for "${currentSection}": ${line.trim()}`);
+    }
+
+    const [field, rawValue] = fieldMatch;
+    const value = parseScalar(rawValue);
+    currentLocalizedField = null;
+
+    if (field === "variant") {
+      page.variant = value;
+      continue;
+    }
+
+    if (field === "title" || field === "description") {
+      if (value) {
+        throw new Error(`Inline section_landing_pages.${currentSection}.${field} values are not supported`);
+      }
+      currentLocalizedField = field;
+      continue;
+    }
+
+    if (field === "project_groups") {
+      page.projectGroupKeys = parseStringList(value);
+      continue;
+    }
+
+    if (field === "featured_projects") {
+      page.featuredProjectKeys = parseStringList(value);
+      continue;
+    }
+
+    throw new Error(`Unsupported section_landing_pages key for "${currentSection}": ${field}`);
+  }
+
+  return new Map(
+    [...pages].map(([section, page]) => [
+      section,
+      normalizeSectionLandingPage(page, `section_landing_pages.${section}`)
+    ])
+  );
+}
+
+export function readMkdocsSectionLandingPages(): Map<string, MkdocsSectionLandingPageConfig> {
+  if (!useContentCache || !sectionLandingPagesCache) {
+    sectionLandingPagesCache = readSectionLandingPages();
+  }
+
+  return sectionLandingPagesCache;
 }
 
 function normalizeSectionPageConfig(page: PartialSectionPageConfig): MkdocsSectionPageConfig {

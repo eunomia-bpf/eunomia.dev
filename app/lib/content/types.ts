@@ -1,4 +1,5 @@
 import type { Locale } from "../site-data";
+import type { MkdocsHomeConfig, MkdocsSectionLandingPageConfig } from "./mkdocs-config";
 import type { RolloutStage, RouteClass } from "../rollout";
 
 export type LocaleAlternates = Partial<Record<Locale, string>>;
@@ -147,4 +148,7 @@ export type DocsPage = {
   continuation?: PageContinuation;
   /** Populated for blog-index pages to drive the React blog listing component. */
   blogEntries?: BlogEntry[];
+  /** Populated for YAML-backed React landing pages. */
+  landingPage?: MkdocsSectionLandingPageConfig;
+  projectCatalog?: Pick<MkdocsHomeConfig, "projectGroups" | "projects">;
 };

@@ -2,6 +2,7 @@ import { ArticleLayout } from "../components/ArticleLayout";
 import { BlogListing } from "../components/BlogListing";
 import { CardGrid } from "../components/CardGrid";
 import { HomePageHero, HomePageLanding } from "../components/HomePageLanding";
+import { ProjectLandingPage } from "../components/ProjectLandingPage";
 import { SeoHead } from "../components/SeoHead";
 import { SiteChrome } from "../components/SiteChrome";
 import { canonicalAlternates } from "./seo";
@@ -27,6 +28,21 @@ function getTocTitle(locale: Locale): string {
 }
 
 function renderDocsBody(page: DocsPage, locale: Locale) {
+  if (
+    page.landingPage &&
+    page.projectCatalog &&
+    (page.landingPage.variant === "project-index" || page.landingPage.variant === "project-focus")
+  ) {
+    return (
+      <ProjectLandingPage
+        landing={page.landingPage}
+        projectGroups={page.projectCatalog.projectGroups}
+        projects={page.projectCatalog.projects}
+        locale={locale}
+      />
+    );
+  }
+
   // Blog index: render the React blog listing component instead of markdown.
   if (page.blogEntries) {
     return (
