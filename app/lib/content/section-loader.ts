@@ -6,7 +6,7 @@ import { resolveSectionPageSource } from "./source";
 import type { DocsPage } from "./types";
 import { resolveDocument } from "./documents";
 import { loadDocumentPage, withContinuation } from "./page-loader-utils";
-import { readSectionLandingPage } from "./page-config";
+import { readMkdocsHomeConfig, readMkdocsSectionLandingPages } from "./mkdocs-config";
 
 export async function loadSectionPage(
   section: string,
@@ -35,21 +35,26 @@ export async function loadSectionPage(
 
   return {
     ...withContinuation(page, continuation),
-    ...(slugSegments?.length ? {} : buildSectionLandingProps(section, locale)),
+    ...buildSectionLandingProps(section, locale),
     sidebar: buildSectionSidebar(section, locale)
   };
 }
 
 function buildSectionLandingProps(section: string, locale: Locale): Partial<DocsPage> {
-  const landingPage = readSectionLandingPage(section);
+  const landingPage = readMkdocsSectionLandingPages().get(section);
   if (!landingPage) {
     return {};
   }
 
+  const home = readMkdocsHomeConfig();
   return {
     title: landingPage.title[locale],
     description: landingPage.description[locale],
-    landingPage
+    landingPage,
+    projectCatalog: {
+      projectGroups: home.projectGroups,
+      projects: home.projects
+    }
   };
 }
 

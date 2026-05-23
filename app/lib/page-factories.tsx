@@ -1,5 +1,4 @@
 import { ArticleLayout } from "../components/ArticleLayout";
-import { AiEbpfLandingPage } from "../components/AiEbpfLandingPage";
 import { BlogListing } from "../components/BlogListing";
 import { CardGrid } from "../components/CardGrid";
 import { HomePageHero, HomePageLanding } from "../components/HomePageLanding";
@@ -9,7 +8,7 @@ import { SiteChrome } from "../components/SiteChrome";
 import { canonicalAlternates } from "./seo";
 import { MarkdownContent } from "../components/MarkdownContent";
 import type { BlogEntry, DocsPage, GitMetadata, LocaleAlternates } from "./content/types";
-import type { HomePageConfig, ProjectCatalogConfig } from "./content/page-config";
+import type { MkdocsHomeConfig } from "./content/mkdocs-config";
 import type { Locale } from "./site-data";
 
 export type HomePageData = {
@@ -21,8 +20,7 @@ export type HomePageData = {
   path: string;
   alternates: LocaleAlternates;
   recentPosts: BlogEntry[];
-  home: HomePageConfig;
-  projectCatalog: ProjectCatalogConfig;
+  home: MkdocsHomeConfig;
 };
 
 function getTocTitle(locale: Locale): string {
@@ -30,12 +28,19 @@ function getTocTitle(locale: Locale): string {
 }
 
 function renderDocsBody(page: DocsPage, locale: Locale) {
-  if (page.landingPage?.variant === "project-index") {
-    return <ProjectLandingPage landing={page.landingPage} locale={locale} />;
-  }
-
-  if (page.landingPage?.variant === "ai-ebpf") {
-    return <AiEbpfLandingPage landing={page.landingPage} locale={locale} />;
+  if (
+    page.landingPage &&
+    page.projectCatalog &&
+    (page.landingPage.variant === "project-index" || page.landingPage.variant === "project-focus")
+  ) {
+    return (
+      <ProjectLandingPage
+        landing={page.landingPage}
+        projectGroups={page.projectCatalog.projectGroups}
+        projects={page.projectCatalog.projects}
+        locale={locale}
+      />
+    );
   }
 
   // Blog index: render the React blog listing component instead of markdown.
@@ -45,7 +50,6 @@ function renderDocsBody(page: DocsPage, locale: Locale) {
         title={page.title}
         description={page.description}
         entries={page.blogEntries}
-        landing={page.landingPage?.variant === "blog-index" ? page.landingPage : undefined}
         locale={locale}
       />
     );
@@ -138,12 +142,7 @@ export function HomePageView({
         hero={<HomePageHero home={page.home} locale={locale} />}
         alternates={page.alternates}
       >
-        <HomePageLanding
-          locale={locale}
-          recentPosts={page.recentPosts}
-          home={page.home}
-          projectCatalog={page.projectCatalog}
-        />
+        <HomePageLanding locale={locale} recentPosts={page.recentPosts} home={page.home} />
       </SiteChrome>
     </>
   );

@@ -12,7 +12,7 @@ import type { BlogEntry, DocsPage, LandingCard } from "./types";
 import { getDocument } from "./documents";
 import { loadDirectoryPage, loadDocumentPage, requireDocument, withContinuation } from "./page-loader-utils";
 import { getBlogEntriesForLocale } from "./collections";
-import { readBlogLandingConfig } from "./page-config";
+import { readMkdocsSectionLandingPages } from "./mkdocs-config";
 
 function buildCollectionIndexCards(familyId: CollectionFamilyId, locale: Locale): LandingCard[] {
   return getCollectionPageDescriptors(familyId)
@@ -54,12 +54,16 @@ async function loadCollectionIndexPage(
   // React blog listing component can render it without parsing markdown.
   if (family.id === "blog") {
     const blogEntries: BlogEntry[] = getBlogEntriesForLocale(locale);
-    const landingPage = readBlogLandingConfig();
+    const landingPage = readMkdocsSectionLandingPages().get("blog");
     return {
       ...page,
-      title: landingPage.title[locale],
-      description: landingPage.description[locale],
-      landingPage,
+      ...(landingPage
+        ? {
+            title: landingPage.title[locale],
+            description: landingPage.description[locale],
+            landingPage
+          }
+        : {}),
       blogEntries
     };
   }

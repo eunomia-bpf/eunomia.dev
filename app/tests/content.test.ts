@@ -24,18 +24,15 @@ import {
 import { assertSupportedMarkdown, parseMarkdown } from "../lib/content/markdown";
 import { getContentManifest } from "../lib/content/manifest";
 import {
+  readMkdocsHomeConfig,
   readMkdocsPrimaryNavChildren,
+  readMkdocsSectionLandingPages,
   readMkdocsSectionPages,
   readMkdocsSectionSidebars,
   readMkdocsSiteMetadata,
   readMkdocsSiteSections,
   readMkdocsTopLevelNavSections
 } from "../lib/content/mkdocs-config";
-import {
-  readAiEbpfPageConfig,
-  readHomePageConfig,
-  readProjectsPageConfig
-} from "../lib/content/page-config";
 import { resolveCollectionPageSource } from "../lib/content/registry";
 import { renderMarkdown, renderMarkdownBody, renderMarkdownDocument } from "../lib/content/render";
 import { docPathToRoute, getGenericSectionRoutes, listSitemapRoutes } from "../lib/content/routes";
@@ -116,8 +113,8 @@ test("home page data keeps markdown metadata but leaves layout to React", async 
   assert.equal(Object.hasOwn(homeZh, "bodyHtml"), false);
   assert.equal(homeZh.recentPosts[0]?.key, "agent-check-restore-safety");
   assert.notEqual(homeZh.recentPosts[0]?.description, homeZh.recentPosts[0]?.title);
-  assert.equal(home.home.projectsTitle.en, "Project lines");
-  assert.equal(home.projectCatalog.projects[0]?.key, "bpftime");
+  assert.equal(home.home.projectsTitle.en, "Projects");
+  assert.equal(home.home.projects[0]?.key, "bpftime");
   assert.equal(homeZh.home.projectsTitle.zh, "项目");
 });
 
@@ -154,6 +151,7 @@ test("site IA labels and publication flags are sourced from mkdocs config", () =
 test("primary nav children and section sidebars are sourced from mkdocs config", () => {
   const navChildren = readMkdocsPrimaryNavChildren();
   const sidebars = readMkdocsSectionSidebars();
+  const landingPages = readMkdocsSectionLandingPages();
 
   assert.deepEqual(
     navChildren.get("projects")?.map((item) => item.href),
@@ -166,91 +164,72 @@ test("primary nav children and section sidebars are sourced from mkdocs config",
   );
   assert.equal(sidebars.get("projects")?.[1]?.items[2]?.href, "/wasm-bpf/");
   assert.ok(!sidebars.get("projects")?.some((group) => group.items.some((item) => item.href === "/blogs/")));
+  assert.equal(landingPages.get("projects")?.variant, "project-index");
+  assert.deepEqual(landingPages.get("GPTtrace")?.projectGroupKeys, ["ai-agents"]);
 });
 
-test("home and landing page content are sourced from standalone yaml", () => {
-  const home = readHomePageConfig();
-  const projects = readProjectsPageConfig();
-  const aiEbpf = readAiEbpfPageConfig();
+test("home project cards are sourced from mkdocs config", () => {
+  const home = readMkdocsHomeConfig();
 
-  assert.equal(home.projectsTitle.en, "Project lines");
+  assert.equal(home.projectsTitle.en, "Projects");
   assert.equal(home.projectsTitle.zh, "项目");
-  assert.equal(home.hero.kicker.en, "Open-source systems lab");
-  assert.deepEqual(home.projectGroupKeys, ["runtime", "developer-tools", "ai-agents"]);
+  assert.equal(home.hero.summary.en, "Open-source eBPF infrastructure for runtime extension and AI Agents.");
   assert.equal(home.capabilities.length, 3);
   assert.deepEqual(
-    projects.projectGroups.map((group) => group.key),
-    ["runtime", "developer-tools", "ai-agents", "resources"]
+    home.projectGroups.map((group) => group.key),
+    ["platform", "resources", "ai-agents"]
   );
   assert.deepEqual(
-    projects.projects.map((project) => project.key),
+    home.projects.map((project) => project.key),
     [
       "bpftime",
-      "llvmbpf",
-      "eunomia-bpf",
-      "wasm-bpf",
-      "agentsight",
-      "GPTtrace",
-      "mcptrace",
-      "ACRFence",
-      "tutorials",
+      "bpf-developer-tutorial",
       "docs",
       "blog",
-      "papers"
+      "papers",
+      "eunomia-bpf",
+      "GPTtrace",
+      "agentsight",
+      "llvmbpf",
+      "wasm-bpf",
+      "ACRFence"
     ]
   );
   assert.ok(
-    projects.projects
+    home.projects
       .find((project) => project.key === "bpftime")
       ?.links.some((link) => link.label.en === "OSDI 2025")
   );
   assert.ok(
-    projects.projects
+    home.projects
       .find((project) => project.key === "GPTtrace")
       ?.links.some((link) => link.label.en === "eBPF 2024")
   );
   assert.ok(
-    projects.projects
+    home.projects
       .find((project) => project.key === "agentsight")
       ?.links.some((link) => link.label.en === "arXiv 2508.02736")
   );
   assert.ok(
-    projects.projects
+    home.projects
       .find((project) => project.key === "ACRFence")
       ?.links.some((link) => link.label.en === "arXiv 2603.20625")
   );
-  assert.ok(!projects.projects.some((project) => project.links.some((link) => link.href.startsWith("/blogs/"))));
-  assert.equal(aiEbpf.variant, "ai-ebpf");
-  assert.deepEqual(
-    aiEbpf.directions.map((direction) => direction.key),
-    ["ebpf-for-ai", "ai-for-ebpf"]
-  );
 });
 
-test("configured section landing copy is sourced from standalone yaml", async () => {
+test("configured section landing copy is sourced from mkdocs config", async () => {
   const sectionPages = readMkdocsSectionPages();
   const projects = await loadSectionPage("projects", [], "en");
   const projectsZh = await loadSectionPage("projects", [], "zh");
-  const aiEbpf = await loadSectionPage("GPTtrace", [], "en");
-  const aiEbpfChild = await loadSectionPage("GPTtrace", ["schedcp"], "en");
 
   assert.equal(sectionPages.has("projects/index.md"), false);
   assert.equal(projects?.title, "Projects");
   assert.equal(projects?.landingPage?.variant, "project-index");
-  if (projects?.landingPage?.variant !== "project-index") {
-    throw new Error("Expected /projects/ to load the project-index landing page");
-  }
-  assert.ok(projects.landingPage.projects.some((project) => project.key === "agentsight"));
+  assert.ok(projects?.projectCatalog?.projects.some((project) => project.key === "agentsight"));
   assert.ok(projects?.sidebar?.some((group) => group.title === "Project docs"));
   assert.equal(projectsZh?.title, "项目");
-  assert.equal(projectsZh?.landingPage?.description.zh, "Eunomia lab 的开源 eBPF 基础设施、开发工具链、AI agent systems 和公开研究资源。");
+  assert.equal(projectsZh?.landingPage?.description.zh, "eunomia-bpf 项目体系地图，按 runtime infrastructure、开发工具链、AI agent systems 和公开资源组织。");
   assert.ok(projectsZh?.sidebar?.some((group) => group.title === "项目文档"));
-  assert.equal(aiEbpf?.landingPage?.variant, "ai-ebpf");
-  if (aiEbpf?.landingPage?.variant !== "ai-ebpf") {
-    throw new Error("Expected /GPTtrace/ to load the ai-ebpf landing page");
-  }
-  assert.ok(aiEbpf.landingPage.useCaseGroups.some((group) => group.key === "synthesis"));
-  assert.equal(aiEbpfChild?.landingPage, undefined);
 });
 
 test("blog listings use explicit article descriptions instead of repeating titles", async () => {

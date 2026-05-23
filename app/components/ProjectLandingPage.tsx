@@ -1,24 +1,26 @@
 import Image from "next/image";
 
 import type {
-  LocalizedText,
-  ProjectCardConfig,
-  ProjectGroupConfig,
-  ProjectsLandingConfig
-} from "../lib/content/page-config";
+  MkdocsHomeProject,
+  MkdocsHomeProjectGroup,
+  MkdocsLocalizedText,
+  MkdocsSectionLandingPageConfig
+} from "../lib/content/mkdocs-config";
 import type { Locale } from "../lib/site-data";
 import { localizePath } from "../lib/paths";
 
 type ProjectLandingPageProps = {
-  landing: ProjectsLandingConfig;
+  landing: MkdocsSectionLandingPageConfig;
+  projectGroups: MkdocsHomeProjectGroup[];
+  projects: MkdocsHomeProject[];
   locale: Locale;
 };
 
-type ProjectGroupWithProjects = ProjectGroupConfig & {
-  projects: ProjectCardConfig[];
+type ProjectGroupWithProjects = MkdocsHomeProjectGroup & {
+  projects: MkdocsHomeProject[];
 };
 
-function localizedText(value: LocalizedText, locale: Locale): string {
+function localizedText(value: MkdocsLocalizedText, locale: Locale): string {
   return value[locale];
 }
 
@@ -26,25 +28,35 @@ function localizedHref(href: string, locale: Locale): string {
   return href.startsWith("/") ? localizePath(href, locale) : href;
 }
 
-function resolveProjectGroups(landing: ProjectsLandingConfig): ProjectGroupWithProjects[] {
-  const projectByKey = new Map(landing.projects.map((project) => [project.key, project]));
+function resolveProjectGroups(
+  landing: MkdocsSectionLandingPageConfig,
+  projectGroups: MkdocsHomeProjectGroup[],
+  projects: MkdocsHomeProject[]
+): ProjectGroupWithProjects[] {
+  const projectByKey = new Map(projects.map((project) => [project.key, project]));
+  const groups = landing.projectGroupKeys.length
+    ? landing.projectGroupKeys
+        .map((key) => projectGroups.find((group) => group.key === key))
+        .filter((group): group is MkdocsHomeProjectGroup => Boolean(group))
+    : projectGroups;
 
-  return landing.projectGroups.map((group) => ({
+  return groups.map((group) => ({
     ...group,
     projects: group.projectKeys
       .map((key) => projectByKey.get(key))
-      .filter((project): project is ProjectCardConfig => Boolean(project))
+      .filter((project): project is MkdocsHomeProject => Boolean(project))
   }));
 }
 
 function resolveFeaturedProjects(
-  landing: ProjectsLandingConfig,
+  landing: MkdocsSectionLandingPageConfig,
+  projects: MkdocsHomeProject[],
   groups: ProjectGroupWithProjects[]
-): ProjectCardConfig[] {
-  const projectByKey = new Map(landing.projects.map((project) => [project.key, project]));
+): MkdocsHomeProject[] {
+  const projectByKey = new Map(projects.map((project) => [project.key, project]));
   const featured = landing.featuredProjectKeys
     .map((key) => projectByKey.get(key))
-    .filter((project): project is ProjectCardConfig => Boolean(project));
+    .filter((project): project is MkdocsHomeProject => Boolean(project));
 
   return featured.length ? featured : groups.flatMap((group) => group.projects).slice(0, 4);
 }
@@ -54,7 +66,7 @@ function ProjectCard({
   locale,
   featured = false
 }: {
-  project: ProjectCardConfig;
+  project: MkdocsHomeProject;
   locale: Locale;
   featured?: boolean;
 }) {
@@ -63,7 +75,7 @@ function ProjectCard({
   return (
     <article
       className={[
-        "group flex h-full flex-col rounded-lg border border-slate-200 bg-white transition hover:border-cyan-700/50 hover:bg-slate-50",
+        "group flex h-full flex-col border border-slate-200 bg-white transition hover:border-cyan-700/50 hover:bg-slate-50",
         featured ? "p-5" : "p-4"
       ].join(" ")}
     >
@@ -79,7 +91,7 @@ function ProjectCard({
           />
         </div>
         <div className="min-w-0">
-          <p className="text-xs font-semibold uppercase text-cyan-700">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-cyan-700">
             {localizedText(project.tag, locale)}
           </p>
           <h3 className="mt-1 text-lg font-semibold tracking-normal text-ink group-hover:text-cyan-800">
@@ -115,12 +127,10 @@ function ProjectGroupSection({
   locale: Locale;
 }) {
   return (
-    <section className="border-t border-slate-200 py-8 first:border-t-0 first:pt-0">
-      <div className="grid gap-5 lg:grid-cols-[14rem_minmax(0,1fr)]">
+    <section className="border-t border-slate-200 pt-8 first:border-t-0 first:pt-0">
+      <div className="grid gap-5 lg:grid-cols-[15rem_minmax(0,1fr)]">
         <div>
-          <h2 className="text-xl font-semibold tracking-normal text-ink">
-            {localizedText(group.title, locale)}
-          </h2>
+          <h2 className="text-xl font-semibold tracking-normal text-ink">{localizedText(group.title, locale)}</h2>
           <p className="mt-2 text-sm leading-6 text-slate-600">{localizedText(group.intro, locale)}</p>
         </div>
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -133,46 +143,42 @@ function ProjectGroupSection({
   );
 }
 
-export function ProjectLandingPage({ landing, locale }: ProjectLandingPageProps) {
-  const groups = resolveProjectGroups(landing);
-  const featuredProjects = resolveFeaturedProjects(landing, groups);
+export function ProjectLandingPage({
+  landing,
+  projectGroups,
+  projects,
+  locale
+}: ProjectLandingPageProps) {
+  const groups = resolveProjectGroups(landing, projectGroups, projects);
+  const featuredProjects = resolveFeaturedProjects(landing, projects, groups);
+  const copy =
+    locale === "zh"
+      ? {
+        featured: "重点入口",
+          groups: "项目分组"
+        }
+      : {
+          featured: "Featured entry points",
+          groups: "Project groups"
+        };
 
   return (
     <section className="pb-16">
       <div className="border-b border-slate-200 pb-8">
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
-          <div>
-            <h1 className="max-w-4xl text-4xl font-semibold tracking-normal text-ink md:text-5xl">
-              {localizedText(landing.title, locale)}
-            </h1>
-            <p className="mt-5 max-w-3xl text-base leading-7 text-slate-600">
-              {localizedText(landing.description, locale)}
-            </p>
-            <p className="mt-4 max-w-3xl text-sm leading-6 text-slate-500">
-              {localizedText(landing.summary, locale)}
-            </p>
-          </div>
-          <div className="grid grid-cols-2 gap-3 rounded-lg border border-slate-200 bg-slate-50 p-4">
-            <div>
-              <p className="text-2xl font-semibold text-ink">{landing.projectGroups.length}</p>
-              <p className="mt-1 text-xs font-medium text-slate-500">
-                {localizedText(landing.sectionLabels.groupCount, locale)}
-              </p>
-            </div>
-            <div>
-              <p className="text-2xl font-semibold text-ink">{landing.projects.length}</p>
-              <p className="mt-1 text-xs font-medium text-slate-500">
-                {localizedText(landing.sectionLabels.entryCount, locale)}
-              </p>
-            </div>
-          </div>
-        </div>
+        <h1 className="max-w-4xl text-4xl font-semibold tracking-normal text-ink md:text-5xl">
+          {localizedText(landing.title, locale)}
+        </h1>
+        <p className="mt-5 max-w-3xl text-base leading-7 text-slate-600">
+          {localizedText(landing.description, locale)}
+        </p>
       </div>
 
       <section className="py-8" aria-labelledby="landing-featured">
-        <h2 id="landing-featured" className="mb-4 text-2xl font-semibold tracking-normal text-ink">
-          {localizedText(landing.sectionLabels.featured, locale)}
-        </h2>
+        <div className="mb-4 flex items-end justify-between gap-4">
+          <h2 id="landing-featured" className="text-2xl font-semibold tracking-normal text-ink">
+            {copy.featured}
+          </h2>
+        </div>
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {featuredProjects.map((project) => (
             <ProjectCard key={project.key} project={project} locale={locale} featured />
@@ -180,9 +186,9 @@ export function ProjectLandingPage({ landing, locale }: ProjectLandingPageProps)
         </div>
       </section>
 
-      <section className="border-t border-slate-200 pt-8" aria-labelledby="landing-groups">
-        <h2 id="landing-groups" className="mb-1 text-2xl font-semibold tracking-normal text-ink">
-          {localizedText(landing.sectionLabels.groups, locale)}
+      <section className="space-y-9 border-t border-slate-200 pt-8" aria-labelledby="landing-groups">
+        <h2 id="landing-groups" className="text-2xl font-semibold tracking-normal text-ink">
+          {copy.groups}
         </h2>
         {groups.map((group) => (
           <ProjectGroupSection key={group.key} group={group} locale={locale} />
