@@ -25,6 +25,7 @@ import { assertSupportedMarkdown, parseMarkdown } from "../lib/content/markdown"
 import { getContentManifest } from "../lib/content/manifest";
 import {
   readMkdocsHomeConfig,
+  readMkdocsSectionPages,
   readMkdocsSiteMetadata,
   readMkdocsSiteSections,
   readMkdocsTopLevelNavSections
@@ -129,11 +130,12 @@ test("site IA labels and publication flags are sourced from mkdocs config", () =
   const sections = readMkdocsSiteSections();
 
   assert.deepEqual(
-    ["tutorials", "blog", "bpftime", "GPTtrace", "eunomia-bpf", "others"].map(
+    ["bpftime", "projects", "others", "tutorials", "blog", "about"].map(
       (key) => sections.get(key)?.labels?.en
     ),
-    ["Docs", "Blog", "Runtime", "AI Tracing", "Toolchain", "Ecosystem"]
+    ["Platform", "Projects", "Research", "Tutorial", "Blog", "About"]
   );
+  assert.equal(sections.get("GPTtrace")?.published?.nav, false);
   assert.equal(sections.get("GPTtrace")?.published?.footerProject, true);
   assert.equal(sections.get("wasm-bpf")?.published?.nav, false);
   assert.equal(sections.get("legacy-blog")?.published?.homeExplore, true);
@@ -144,11 +146,20 @@ test("home project cards are sourced from mkdocs config", () => {
 
   assert.equal(home.projectsTitle.en, "Projects");
   assert.equal(home.projectsTitle.zh, "项目");
+  assert.equal(home.hero.summary.en, "Open-source eBPF infrastructure for runtime extension and AI Agents.");
+  assert.equal(home.capabilities.length, 3);
+  assert.deepEqual(
+    home.projectGroups.map((group) => group.key),
+    ["platform", "resources", "ai-agents"]
+  );
   assert.deepEqual(
     home.projects.map((project) => project.key),
     [
       "bpftime",
       "bpf-developer-tutorial",
+      "docs",
+      "blog",
+      "papers",
       "eunomia-bpf",
       "GPTtrace",
       "agentsight",
@@ -177,6 +188,18 @@ test("home project cards are sourced from mkdocs config", () => {
       .find((project) => project.key === "ACRFence")
       ?.links.some((link) => link.label.en === "arXiv 2603.20625")
   );
+});
+
+test("configured section landing copy is sourced from mkdocs config", async () => {
+  const sectionPages = readMkdocsSectionPages();
+  const projects = await loadSectionPage("projects", [], "en");
+  const projectsZh = await loadSectionPage("projects", [], "zh");
+
+  assert.equal(sectionPages.get("projects/index.md")?.title.en, "Projects");
+  assert.equal(projects?.title, "Projects");
+  assert.match(projects?.bodyHtml ?? "", /runtime infrastructure/);
+  assert.equal(projectsZh?.title, "项目");
+  assert.match(projectsZh?.bodyHtml ?? "", /runtime infrastructure/);
 });
 
 test("blog listings use explicit article descriptions instead of repeating titles", async () => {
@@ -346,6 +369,8 @@ test("content manifest keeps localized routes for english-only section pages", (
 test("site IA derives sections from discovered content and keeps stable overrides", () => {
   const sections = getSiteSections();
 
+  assert.ok(sections.some((section) => section.key === "about" && section.indexSource === "about/index.md"));
+  assert.ok(sections.some((section) => section.key === "projects" && section.indexSource === "projects/index.md"));
   assert.ok(sections.some((section) => section.key === "tutorials" && section.indexSource === "tutorials/index.md"));
   assert.ok(sections.some((section) => section.key === "bpftime" && section.indexSource === "bpftime/index.md"));
   assert.ok(sections.some((section) => section.key === "wasm-bpf" && section.indexSource === "wasm-bpf/index.md"));
@@ -353,9 +378,8 @@ test("site IA derives sections from discovered content and keeps stable override
   assert.ok(sections.every((section) => section.discovered));
 });
 
-test("primary nav follows the mkdocs top-level nav order with site labels", () => {
+test("primary nav follows the configured external site order", () => {
   const mkdocsNavSections = readMkdocsTopLevelNavSections();
-  const siteSections = readMkdocsSiteSections();
 
   assert.deepEqual(
     mkdocsNavSections.map((section) => section.key),
@@ -363,17 +387,11 @@ test("primary nav follows the mkdocs top-level nav order with site labels", () =
   );
   assert.deepEqual(
     getPrimaryNav("en").map((item) => item.label),
-    mkdocsNavSections.map((section) => {
-      const label = siteSections.get(section.key)?.labels?.en;
-      if (!label) {
-        throw new Error(`Missing configured english nav label for ${section.key}`);
-      }
-      return label;
-    })
+    ["Platform", "Projects", "Research", "Tutorial", "Blog", "About"]
   );
   assert.deepEqual(
     getPrimaryNav("en").map((item) => item.href),
-    ["/tutorials/", "/blog/", "/bpftime/", "/GPTtrace/", "/eunomia-bpf/", "/others/"]
+    ["/bpftime/", "/projects/", "/others/", "/tutorials/", "/blog/", "/about/"]
   );
 });
 
@@ -382,6 +400,8 @@ test("site IA keeps non-primary published sections out of the primary nav", () =
 
   assert.ok(!navItems.some((item) => item.href === "/blogs/"));
   assert.ok(!navItems.some((item) => item.href === "/wasm-bpf/"));
+  assert.ok(!navItems.some((item) => item.href === "/GPTtrace/"));
+  assert.ok(!navItems.some((item) => item.href === "/eunomia-bpf/"));
 });
 
 test("manifest resolves tutorial routes back to the canonical tutorial record", () => {
@@ -618,7 +638,7 @@ test("resolveContentPage resolves manifest-backed routes without route-layer swi
   assert.match(tutorial?.page.title ?? "", /Hello World/i);
 
   assert.ok(section);
-  assert.equal(section?.eyebrow, "工具链");
+  assert.equal(section?.eyebrow, "eunomia-bpf");
   assert.match(section?.page.bodyHtml ?? "", /Install Dependencies/);
 });
 

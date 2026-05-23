@@ -35,6 +35,13 @@ export type MkdocsSiteSectionConfig = {
 
 export type MkdocsLocalizedText = Record<"en" | "zh", string>;
 
+export type MkdocsSectionPageConfig = {
+  source: string;
+  title: MkdocsLocalizedText;
+  description: MkdocsLocalizedText;
+  body: MkdocsLocalizedText;
+};
+
 export type MkdocsHomeProjectLink = {
   label: MkdocsLocalizedText;
   href: string;
@@ -45,26 +52,47 @@ export type MkdocsHomeProject = {
   title: string;
   tag: MkdocsLocalizedText;
   href: string;
-  image?: string;
-  imageAlt?: string;
+  image: string;
+  imageAlt: string;
   description: MkdocsLocalizedText;
   links: MkdocsHomeProjectLink[];
 };
 
+export type MkdocsHomeHeroConfig = {
+  kicker: MkdocsLocalizedText;
+  title: MkdocsLocalizedText;
+  summary: MkdocsLocalizedText;
+  primaryCta: MkdocsLocalizedText;
+  primaryHref: string;
+  secondaryCta: MkdocsLocalizedText;
+  secondaryHref: string;
+};
+
+export type MkdocsHomeCapability = {
+  key: string;
+  eyebrow: MkdocsLocalizedText;
+  title: MkdocsLocalizedText;
+  description: MkdocsLocalizedText;
+};
+
+export type MkdocsHomeProjectGroup = {
+  key: string;
+  title: MkdocsLocalizedText;
+  intro: MkdocsLocalizedText;
+  projectKeys: string[];
+};
+
 export type MkdocsHomeConfig = {
+  hero: MkdocsHomeHeroConfig;
+  capabilitiesTitle: MkdocsLocalizedText;
+  capabilitiesIntro: MkdocsLocalizedText;
+  capabilities: MkdocsHomeCapability[];
+  projectGroups: MkdocsHomeProjectGroup[];
   projectsTitle: MkdocsLocalizedText;
   projectsIntro: MkdocsLocalizedText;
   projects: MkdocsHomeProject[];
-};
-
-const fallbackMetadata: MkdocsSiteMetadata = {
-  siteName: "eunomia",
-  repoUrl: "https://github.com/eunomia-bpf/eunomia.dev",
-  siteUrl: "https://eunomia.dev",
-  copyright: "Copyright (c) 2025 eunomia-bpf org.",
-  siteDescription: "Unlock the potential of eBPF",
-  remoteBranch: "docs",
-  editUri: "https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs"
+  latestTitle: MkdocsLocalizedText;
+  allPostsLabel: MkdocsLocalizedText;
 };
 
 const metadataKeyMap = {
@@ -92,6 +120,7 @@ let metadataCache: MkdocsSiteMetadata | null = null;
 let navSourcesCache: string[] | null = null;
 let topLevelNavSectionsCache: MkdocsTopLevelNavSection[] | null = null;
 let siteSectionsCache: Map<string, MkdocsSiteSectionConfig> | null = null;
+let sectionPagesCache: Map<string, MkdocsSectionPageConfig> | null = null;
 let homeConfigCache: MkdocsHomeConfig | null = null;
 
 export const generatedSiteConfigModulePath = path.join(appRoot, "lib", "site-config.generated.ts");
@@ -141,6 +170,11 @@ function matchIndentedKey(line: string, spaces: number): [string, string] | null
   return match ? [match[1], match[2] ?? ""] : null;
 }
 
+function matchIndentedAnyKey(line: string, spaces: number): [string, string] | null {
+  const match = line.match(new RegExp(`^\\s{${spaces}}(\\S[^:]*):\\s*(.*)$`));
+  return match ? [parseScalar(match[1] ?? ""), match[2] ?? ""] : null;
+}
+
 function matchIndentedListKey(line: string, spaces: number): [string, string] | null {
   const match = line.match(new RegExp(`^\\s{${spaces}}-\\s+([A-Za-z0-9_-]+):\\s*(.*)$`));
   return match ? [match[1], match[2] ?? ""] : null;
@@ -168,8 +202,13 @@ function readTopLevelMetadata(): MkdocsSiteMetadata {
   }
 
   return {
-    ...fallbackMetadata,
-    ...values
+    siteName: requireScalar(values.siteName, "site_name"),
+    repoUrl: requireScalar(values.repoUrl, "repo_url"),
+    siteUrl: requireScalar(values.siteUrl, "site_url"),
+    copyright: requireScalar(values.copyright, "copyright"),
+    siteDescription: requireScalar(values.siteDescription, "site_description"),
+    remoteBranch: requireScalar(values.remoteBranch, "remote_branch"),
+    editUri: requireScalar(values.editUri, "edit_uri")
   };
 }
 
@@ -304,6 +343,13 @@ export function readMkdocsSiteSections(): Map<string, MkdocsSiteSectionConfig> {
 
 type PartialLocalizedText = Partial<MkdocsLocalizedText>;
 
+type PartialSectionPageConfig = {
+  source: string;
+  title: PartialLocalizedText;
+  description: PartialLocalizedText;
+  body: PartialLocalizedText;
+};
+
 type PartialHomeProjectLink = {
   label?: string;
   labelZh?: string;
@@ -321,19 +367,41 @@ type PartialHomeProject = {
   links: PartialHomeProjectLink[];
 };
 
+type PartialHomeHeroConfig = {
+  kicker: PartialLocalizedText;
+  title: PartialLocalizedText;
+  summary: PartialLocalizedText;
+  primaryCta: PartialLocalizedText;
+  primaryHref?: string;
+  secondaryCta: PartialLocalizedText;
+  secondaryHref?: string;
+};
+
+type PartialHomeCapability = {
+  key?: string;
+  eyebrow: PartialLocalizedText;
+  title: PartialLocalizedText;
+  description: PartialLocalizedText;
+};
+
+type PartialHomeProjectGroup = {
+  key?: string;
+  title: PartialLocalizedText;
+  intro: PartialLocalizedText;
+  projectKeys: string[];
+};
+
 type PartialHomeConfig = {
+  hero: PartialHomeHeroConfig;
+  capabilitiesTitle: PartialLocalizedText;
+  capabilitiesIntro: PartialLocalizedText;
+  capabilities: PartialHomeCapability[];
+  projectGroups: PartialHomeProjectGroup[];
   projectsTitle: PartialLocalizedText;
   projectsIntro: PartialLocalizedText;
   projects: PartialHomeProject[];
-};
-
-const fallbackHomeConfig: MkdocsHomeConfig = {
-  projectsTitle: { en: "Projects", zh: "项目" },
-  projectsIntro: {
-    en: "Open-source projects and documentation entry points maintained by eunomia-bpf.",
-    zh: "eunomia-bpf 维护的开源项目和文档入口。"
-  },
-  projects: []
+  latestTitle: PartialLocalizedText;
+  allPostsLabel: PartialLocalizedText;
 };
 
 function setLocalizedValue(target: PartialLocalizedText, key: string, value: string, context: string) {
@@ -347,7 +415,7 @@ function setLocalizedValue(target: PartialLocalizedText, key: string, value: str
 function requireScalar(value: string | undefined, context: string): string {
   const trimmed = value?.trim();
   if (!trimmed) {
-    throw new Error(`Missing mkdocs home config value: ${context}`);
+    throw new Error(`Missing mkdocs config value: ${context}`);
   }
 
   return trimmed;
@@ -357,7 +425,174 @@ function requireLocalizedText(value: PartialLocalizedText, context: string): Mkd
   const en = requireScalar(value.en, `${context}.en`);
   return {
     en,
-    zh: value.zh?.trim() || en
+    zh: requireScalar(value.zh, `${context}.zh`)
+  };
+}
+
+function parseStringList(value: string): string[] {
+  const normalized = parseScalar(value);
+  const content = normalized.startsWith("[") && normalized.endsWith("]")
+    ? normalized.slice(1, -1)
+    : normalized;
+
+  return content
+    .split(",")
+    .map((entry) => parseScalar(entry).trim())
+    .filter(Boolean);
+}
+
+function requireStringList(value: string[], context: string): string[] {
+  if (!value.length) {
+    throw new Error(`Missing mkdocs home config list: ${context}`);
+  }
+  return value;
+}
+
+function normalizeSectionPageConfig(page: PartialSectionPageConfig): MkdocsSectionPageConfig {
+  return {
+    source: page.source,
+    title: requireLocalizedText(page.title, `section_pages.${page.source}.title`),
+    description: requireLocalizedText(page.description, `section_pages.${page.source}.description`),
+    body: requireLocalizedText(page.body, `section_pages.${page.source}.body`)
+  };
+}
+
+function ensureSectionPageConfig(
+  pages: Map<string, PartialSectionPageConfig>,
+  source: string
+): PartialSectionPageConfig {
+  const existing = pages.get(source);
+  if (existing) {
+    return existing;
+  }
+
+  const page: PartialSectionPageConfig = {
+    source,
+    title: {},
+    description: {},
+    body: {}
+  };
+  pages.set(source, page);
+  return page;
+}
+
+function readSectionPages(): Map<string, MkdocsSectionPageConfig> {
+  const pages = new Map<string, PartialSectionPageConfig>();
+  let inSectionPages = false;
+  let baseIndent = 0;
+  let currentPage: PartialSectionPageConfig | null = null;
+  let currentLocalizedField: "title" | "description" | "body" | null = null;
+
+  for (const line of readMkdocsConfigText().split(/\r?\n/)) {
+    if (!inSectionPages) {
+      const sectionPagesMatch = line.match(/^(\s*)section_pages:\s*$/);
+      if (sectionPagesMatch) {
+        inSectionPages = true;
+        baseIndent = sectionPagesMatch[1]?.length ?? 0;
+      }
+      continue;
+    }
+
+    if (line.trim() && indentation(line) <= baseIndent) {
+      break;
+    }
+
+    if (!line.trim() || line.trim().startsWith("#")) {
+      continue;
+    }
+
+    const pageMatch = matchIndentedAnyKey(line, baseIndent + 2);
+    if (pageMatch) {
+      const [source, rawValue] = pageMatch;
+      if (rawValue) {
+        throw new Error(`Inline section_pages.${source} values are not supported`);
+      }
+      currentPage = ensureSectionPageConfig(pages, baseMarkdownPath(source));
+      currentLocalizedField = null;
+      continue;
+    }
+
+    if (!currentPage) {
+      throw new Error(`Invalid section_pages entry before a page key: ${line.trim()}`);
+    }
+
+    if (currentLocalizedField) {
+      const localizedMatch = matchIndentedKey(line, baseIndent + 6);
+      if (localizedMatch) {
+        setLocalizedValue(
+          currentPage[currentLocalizedField],
+          localizedMatch[0],
+          parseScalar(localizedMatch[1]),
+          `section_pages.${currentPage.source}.${currentLocalizedField}`
+        );
+        continue;
+      }
+    }
+
+    const fieldMatch = matchIndentedKey(line, baseIndent + 4);
+    if (!fieldMatch) {
+      throw new Error(`Invalid section_pages entry for "${currentPage.source}": ${line.trim()}`);
+    }
+
+    const [field, rawValue] = fieldMatch;
+    const value = parseScalar(rawValue);
+    currentLocalizedField = null;
+
+    if (field === "title" || field === "description" || field === "body") {
+      if (value) {
+        throw new Error(`Inline section_pages.${currentPage.source}.${field} values are not supported`);
+      }
+      currentLocalizedField = field;
+      continue;
+    }
+
+    throw new Error(`Unsupported section_pages key for "${currentPage.source}": ${field}`);
+  }
+
+  return new Map([...pages].map(([source, page]) => [source, normalizeSectionPageConfig(page)]));
+}
+
+export function readMkdocsSectionPages(): Map<string, MkdocsSectionPageConfig> {
+  if (!useContentCache || !sectionPagesCache) {
+    sectionPagesCache = readSectionPages();
+  }
+
+  return sectionPagesCache;
+}
+
+export function readMkdocsSectionPage(sourceRelative: string): MkdocsSectionPageConfig | null {
+  return readMkdocsSectionPages().get(baseMarkdownPath(sourceRelative)) ?? null;
+}
+
+function normalizeHomeHero(hero: PartialHomeHeroConfig): MkdocsHomeHeroConfig {
+  return {
+    kicker: requireLocalizedText(hero.kicker, "home.hero.kicker"),
+    title: requireLocalizedText(hero.title, "home.hero.title"),
+    summary: requireLocalizedText(hero.summary, "home.hero.summary"),
+    primaryCta: requireLocalizedText(hero.primaryCta, "home.hero.primary_cta"),
+    primaryHref: requireScalar(hero.primaryHref, "home.hero.primary_href"),
+    secondaryCta: requireLocalizedText(hero.secondaryCta, "home.hero.secondary_cta"),
+    secondaryHref: requireScalar(hero.secondaryHref, "home.hero.secondary_href")
+  };
+}
+
+function normalizeHomeCapability(capability: PartialHomeCapability, index: number): MkdocsHomeCapability {
+  const key = requireScalar(capability.key, `home.capabilities[${index}].key`);
+  return {
+    key,
+    eyebrow: requireLocalizedText(capability.eyebrow, `home.capabilities.${key}.eyebrow`),
+    title: requireLocalizedText(capability.title, `home.capabilities.${key}.title`),
+    description: requireLocalizedText(capability.description, `home.capabilities.${key}.description`)
+  };
+}
+
+function normalizeHomeProjectGroup(group: PartialHomeProjectGroup, index: number): MkdocsHomeProjectGroup {
+  const key = requireScalar(group.key, `home.project_groups[${index}].key`);
+  return {
+    key,
+    title: requireLocalizedText(group.title, `home.project_groups.${key}.title`),
+    intro: requireLocalizedText(group.intro, `home.project_groups.${key}.intro`),
+    projectKeys: requireStringList(group.projectKeys, `home.project_groups.${key}.project_keys`)
   };
 }
 
@@ -368,15 +603,15 @@ function normalizeHomeProject(project: PartialHomeProject, index: number): Mkdoc
     title: requireScalar(project.title, `home.projects.${key}.title`),
     tag: requireLocalizedText(project.tag, `home.projects.${key}.tag`),
     href: requireScalar(project.href, `home.projects.${key}.href`),
-    image: project.image?.trim() || undefined,
-    imageAlt: project.imageAlt?.trim() || undefined,
+    image: requireScalar(project.image, `home.projects.${key}.image`),
+    imageAlt: requireScalar(project.imageAlt, `home.projects.${key}.image_alt`),
     description: requireLocalizedText(project.description, `home.projects.${key}.description`),
     links: project.links.map((link, linkIndex) => {
       const label = requireScalar(link.label, `home.projects.${key}.links[${linkIndex}].label`);
       return {
         label: {
           en: label,
-          zh: link.labelZh?.trim() || label
+          zh: requireScalar(link.labelZh, `home.projects.${key}.links[${linkIndex}].label_zh`)
         },
         href: requireScalar(link.href, `home.projects.${key}.links[${linkIndex}].href`)
       };
@@ -386,18 +621,63 @@ function normalizeHomeProject(project: PartialHomeProject, index: number): Mkdoc
 
 function readHomeConfig(): MkdocsHomeConfig {
   const config: PartialHomeConfig = {
+    hero: {
+      kicker: {},
+      title: {},
+      summary: {},
+      primaryCta: {},
+      secondaryCta: {}
+    },
+    capabilitiesTitle: {},
+    capabilitiesIntro: {},
+    capabilities: [],
+    projectGroups: [],
     projectsTitle: {},
     projectsIntro: {},
-    projects: []
+    projects: [],
+    latestTitle: {},
+    allPostsLabel: {}
   };
   let inHome = false;
   let baseIndent = 0;
-  let currentHomeLocalizedField: "projectsTitle" | "projectsIntro" | null = null;
+  let currentHomeLocalizedField:
+    | "capabilitiesTitle"
+    | "capabilitiesIntro"
+    | "projectsTitle"
+    | "projectsIntro"
+    | "latestTitle"
+    | "allPostsLabel"
+    | null = null;
+  let inHero = false;
+  let currentHeroLocalizedField: "kicker" | "title" | "summary" | "primaryCta" | "secondaryCta" | null = null;
+  let inCapabilities = false;
+  let currentCapability: PartialHomeCapability | null = null;
+  let currentCapabilityLocalizedField: "eyebrow" | "title" | "description" | null = null;
+  let inProjectGroups = false;
+  let currentProjectGroup: PartialHomeProjectGroup | null = null;
+  let currentProjectGroupLocalizedField: "title" | "intro" | null = null;
   let inProjects = false;
   let currentProject: PartialHomeProject | null = null;
   let currentProjectLocalizedField: "tag" | "description" | null = null;
   let inLinks = false;
   let currentLink: PartialHomeProjectLink | null = null;
+
+  function resetHomeState() {
+    currentHomeLocalizedField = null;
+    inHero = false;
+    currentHeroLocalizedField = null;
+    inCapabilities = false;
+    currentCapability = null;
+    currentCapabilityLocalizedField = null;
+    inProjectGroups = false;
+    currentProjectGroup = null;
+    currentProjectGroupLocalizedField = null;
+    inProjects = false;
+    currentProject = null;
+    currentProjectLocalizedField = null;
+    inLinks = false;
+    currentLink = null;
+  }
 
   for (const line of readMkdocsConfigText().split(/\r?\n/)) {
     if (!inHome) {
@@ -421,18 +701,46 @@ function readHomeConfig(): MkdocsHomeConfig {
     if (topLevelMatch) {
       const [field, rawValue] = topLevelMatch;
       const value = parseScalar(rawValue);
-      currentHomeLocalizedField = null;
-      inProjects = false;
-      currentProject = null;
-      currentProjectLocalizedField = null;
-      inLinks = false;
-      currentLink = null;
+      resetHomeState();
 
-      if (field === "projects_title" || field === "projects_intro") {
+      if (field === "hero") {
+        if (value) {
+          throw new Error("Inline home.hero values are not supported");
+        }
+        inHero = true;
+        continue;
+      }
+
+      const localizedHomeFields = {
+        capabilities_title: "capabilitiesTitle",
+        capabilities_intro: "capabilitiesIntro",
+        projects_title: "projectsTitle",
+        projects_intro: "projectsIntro",
+        latest_title: "latestTitle",
+        all_posts_label: "allPostsLabel"
+      } as const;
+      const localizedHomeField = localizedHomeFields[field as keyof typeof localizedHomeFields];
+      if (localizedHomeField) {
         if (value) {
           throw new Error(`Inline home.${field} values are not supported`);
         }
-        currentHomeLocalizedField = field === "projects_title" ? "projectsTitle" : "projectsIntro";
+        currentHomeLocalizedField = localizedHomeField;
+        continue;
+      }
+
+      if (field === "capabilities") {
+        if (value) {
+          throw new Error("Inline home.capabilities values are not supported");
+        }
+        inCapabilities = true;
+        continue;
+      }
+
+      if (field === "project_groups") {
+        if (value) {
+          throw new Error("Inline home.project_groups values are not supported");
+        }
+        inProjectGroups = true;
         continue;
       }
 
@@ -454,6 +762,174 @@ function readHomeConfig(): MkdocsHomeConfig {
       }
       setLocalizedValue(config[currentHomeLocalizedField], localizedMatch[0], parseScalar(localizedMatch[1]), currentHomeLocalizedField);
       continue;
+    }
+
+    if (inHero) {
+      if (currentHeroLocalizedField) {
+        const localizedMatch = matchIndentedKey(line, baseIndent + 6);
+        if (localizedMatch) {
+          setLocalizedValue(
+            config.hero[currentHeroLocalizedField],
+            localizedMatch[0],
+            parseScalar(localizedMatch[1]),
+            `home.hero.${currentHeroLocalizedField}`
+          );
+          continue;
+        }
+      }
+
+      const heroFieldMatch = matchIndentedKey(line, baseIndent + 4);
+      if (!heroFieldMatch) {
+        throw new Error(`Invalid home.hero entry: ${line.trim()}`);
+      }
+
+      const [field, rawValue] = heroFieldMatch;
+      const value = parseScalar(rawValue);
+      currentHeroLocalizedField = null;
+
+      const localizedHeroFields = {
+        kicker: "kicker",
+        title: "title",
+        summary: "summary",
+        primary_cta: "primaryCta",
+        secondary_cta: "secondaryCta"
+      } as const;
+      const localizedHeroField = localizedHeroFields[field as keyof typeof localizedHeroFields];
+      if (localizedHeroField) {
+        if (value) {
+          throw new Error(`Inline home.hero.${field} values are not supported`);
+        }
+        currentHeroLocalizedField = localizedHeroField;
+        continue;
+      }
+
+      if (field === "primary_href") {
+        config.hero.primaryHref = value;
+        continue;
+      }
+      if (field === "secondary_href") {
+        config.hero.secondaryHref = value;
+        continue;
+      }
+
+      throw new Error(`Unsupported home.hero key: ${field}`);
+    }
+
+    if (inCapabilities) {
+      const capabilityMatch = matchIndentedListKey(line, baseIndent + 4);
+      if (capabilityMatch) {
+        const [field, rawValue] = capabilityMatch;
+        if (field !== "key") {
+          throw new Error(`home.capabilities entries must start with key, found: ${field}`);
+        }
+
+        currentCapability = {
+          key: parseScalar(rawValue),
+          eyebrow: {},
+          title: {},
+          description: {}
+        };
+        config.capabilities.push(currentCapability);
+        currentCapabilityLocalizedField = null;
+        continue;
+      }
+
+      if (!currentCapability) {
+        throw new Error(`Invalid home.capabilities entry before a capability key: ${line.trim()}`);
+      }
+
+      if (currentCapabilityLocalizedField) {
+        const localizedMatch = matchIndentedKey(line, baseIndent + 8);
+        if (localizedMatch) {
+          setLocalizedValue(
+            currentCapability[currentCapabilityLocalizedField],
+            localizedMatch[0],
+            parseScalar(localizedMatch[1]),
+            `home.capabilities.${currentCapability.key}.${currentCapabilityLocalizedField}`
+          );
+          continue;
+        }
+      }
+
+      const capabilityFieldMatch = matchIndentedKey(line, baseIndent + 6);
+      if (!capabilityFieldMatch) {
+        throw new Error(`Invalid home.capabilities entry for "${currentCapability.key ?? "unknown"}": ${line.trim()}`);
+      }
+
+      const [field, rawValue] = capabilityFieldMatch;
+      const value = parseScalar(rawValue);
+      currentCapabilityLocalizedField = null;
+
+      if (field === "eyebrow" || field === "title" || field === "description") {
+        if (value) {
+          throw new Error(`Inline home.capabilities.${field} values are not supported`);
+        }
+        currentCapabilityLocalizedField = field;
+        continue;
+      }
+
+      throw new Error(`Unsupported home.capabilities key for "${currentCapability.key ?? "unknown"}": ${field}`);
+    }
+
+    if (inProjectGroups) {
+      const groupMatch = matchIndentedListKey(line, baseIndent + 4);
+      if (groupMatch) {
+        const [field, rawValue] = groupMatch;
+        if (field !== "key") {
+          throw new Error(`home.project_groups entries must start with key, found: ${field}`);
+        }
+
+        currentProjectGroup = {
+          key: parseScalar(rawValue),
+          title: {},
+          intro: {},
+          projectKeys: []
+        };
+        config.projectGroups.push(currentProjectGroup);
+        currentProjectGroupLocalizedField = null;
+        continue;
+      }
+
+      if (!currentProjectGroup) {
+        throw new Error(`Invalid home.project_groups entry before a group key: ${line.trim()}`);
+      }
+
+      if (currentProjectGroupLocalizedField) {
+        const localizedMatch = matchIndentedKey(line, baseIndent + 8);
+        if (localizedMatch) {
+          setLocalizedValue(
+            currentProjectGroup[currentProjectGroupLocalizedField],
+            localizedMatch[0],
+            parseScalar(localizedMatch[1]),
+            `home.project_groups.${currentProjectGroup.key}.${currentProjectGroupLocalizedField}`
+          );
+          continue;
+        }
+      }
+
+      const groupFieldMatch = matchIndentedKey(line, baseIndent + 6);
+      if (!groupFieldMatch) {
+        throw new Error(`Invalid home.project_groups entry for "${currentProjectGroup.key ?? "unknown"}": ${line.trim()}`);
+      }
+
+      const [field, rawValue] = groupFieldMatch;
+      const value = parseScalar(rawValue);
+      currentProjectGroupLocalizedField = null;
+
+      if (field === "title" || field === "intro") {
+        if (value) {
+          throw new Error(`Inline home.project_groups.${field} values are not supported`);
+        }
+        currentProjectGroupLocalizedField = field;
+        continue;
+      }
+
+      if (field === "project_keys") {
+        currentProjectGroup.projectKeys = parseStringList(value);
+        continue;
+      }
+
+      throw new Error(`Unsupported home.project_groups key for "${currentProjectGroup.key ?? "unknown"}": ${field}`);
     }
 
     if (!inProjects) {
@@ -576,13 +1052,20 @@ function readHomeConfig(): MkdocsHomeConfig {
   }
 
   if (!inHome) {
-    return fallbackHomeConfig;
+    throw new Error("Missing required mkdocs config section: extra.home");
   }
 
   return {
+    hero: normalizeHomeHero(config.hero),
+    capabilitiesTitle: requireLocalizedText(config.capabilitiesTitle, "home.capabilities_title"),
+    capabilitiesIntro: requireLocalizedText(config.capabilitiesIntro, "home.capabilities_intro"),
+    capabilities: config.capabilities.map(normalizeHomeCapability),
+    projectGroups: config.projectGroups.map(normalizeHomeProjectGroup),
     projectsTitle: requireLocalizedText(config.projectsTitle, "home.projects_title"),
     projectsIntro: requireLocalizedText(config.projectsIntro, "home.projects_intro"),
-    projects: config.projects.map(normalizeHomeProject)
+    projects: config.projects.map(normalizeHomeProject),
+    latestTitle: requireLocalizedText(config.latestTitle, "home.latest_title"),
+    allPostsLabel: requireLocalizedText(config.allPostsLabel, "home.all_posts_label")
   };
 }
 

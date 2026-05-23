@@ -123,7 +123,7 @@ export function HomePageView({
         intro={page.intro}
         currentPath={page.path}
         leadMode="none"
-        hero={<HomePageHero locale={locale} />}
+        hero={<HomePageHero home={page.home} locale={locale} />}
         alternates={page.alternates}
       >
         <HomePageLanding locale={locale} recentPosts={page.recentPosts} home={page.home} />

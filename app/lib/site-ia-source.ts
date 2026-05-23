@@ -169,7 +169,7 @@ function mergePublished(
     ...(override?.published ?? {})
   };
 
-  if (mkdocsNavSection) {
+  if (mkdocsNavSection && override?.published?.nav === undefined) {
     published.nav = true;
   }
 
@@ -196,7 +196,7 @@ function buildSiteSectionDefinitions(): SerializedSiteSectionDefinition[] {
       },
       discovered: true as const,
       published: mergePublished(seed, override, mkdocsNavSection),
-      order: mkdocsNavSection?.order ?? override?.order ?? seed.defaultOrder + index
+      order: override?.order ?? mkdocsNavSection?.order ?? seed.defaultOrder + index
     };
   });
 

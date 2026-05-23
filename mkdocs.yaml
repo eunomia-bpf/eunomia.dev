@@ -181,10 +181,10 @@ nav:
 
 extra:
   site_sections:
-    tutorials:
+    bpftime:
       labels:
-        en: Docs
-        zh: 文档
+        en: Platform
+        zh: 平台
       published:
         nav: true
         home_track: true
@@ -192,6 +192,39 @@ extra:
         footer_explore: true
         footer_project: false
       order: 10
+    projects:
+      labels:
+        en: Projects
+        zh: 项目
+      published:
+        nav: true
+        home_track: false
+        home_explore: true
+        footer_explore: true
+        footer_project: false
+      order: 20
+    others:
+      labels:
+        en: Research
+        zh: 研究
+      published:
+        nav: true
+        home_track: false
+        home_explore: true
+        footer_explore: true
+        footer_project: false
+      order: 30
+    tutorials:
+      labels:
+        en: Tutorial
+        zh: 教程
+      published:
+        nav: true
+        home_track: true
+        home_explore: false
+        footer_explore: true
+        footer_project: false
+      order: 40
     blog:
       labels:
         en: Blog
@@ -202,51 +235,40 @@ extra:
         home_explore: false
         footer_explore: true
         footer_project: false
-      order: 20
-    bpftime:
+      order: 50
+    about:
       labels:
-        en: Runtime
-        zh: Runtime
+        en: About
+        zh: 关于
       published:
         nav: true
-        home_track: true
+        home_track: false
         home_explore: false
         footer_explore: true
         footer_project: false
-      order: 30
+      order: 60
     GPTtrace:
       labels:
-        en: AI Tracing
-        zh: AI Tracing
+        en: AI Agents
+        zh: AI Agents
       published:
-        nav: true
+        nav: false
         home_track: false
         home_explore: true
         footer_explore: true
         footer_project: true
-      order: 40
+      order: 70
     eunomia-bpf:
       labels:
-        en: Toolchain
-        zh: 工具链
+        en: eunomia-bpf
+        zh: eunomia-bpf
       published:
-        nav: true
+        nav: false
         home_track: true
         home_explore: false
         footer_explore: true
         footer_project: false
-      order: 50
-    others:
-      labels:
-        en: Ecosystem
-        zh: 生态
-      published:
-        nav: true
-        home_track: false
-        home_explore: true
-        footer_explore: true
-        footer_project: false
-      order: 60
+      order: 80
     legacy-blog:
       labels:
         en: Legacy blog
@@ -257,7 +279,7 @@ extra:
         home_explore: true
         footer_explore: true
         footer_project: false
-      order: 70
+      order: 90
     wasm-bpf:
       labels:
         en: wasm-bpf
@@ -268,14 +290,94 @@ extra:
         home_explore: true
         footer_explore: true
         footer_project: true
-      order: 80
+      order: 100
   home:
+    hero:
+      kicker:
+        en: Open-source infrastructure
+        zh: 开源基础设施
+      title:
+        en: Eunomia
+        zh: Eunomia
+      summary:
+        en: Open-source eBPF infrastructure for runtime extension and AI Agents.
+        zh: 面向 runtime extension 和 AI Agents 的开源 eBPF 基础设施。
+      primary_cta:
+        en: Explore tutorials
+        zh: 浏览教程
+      primary_href: /tutorials/
+      secondary_cta:
+        en: View GitHub
+        zh: 查看 GitHub
+      secondary_href: https://github.com/eunomia-bpf
+    capabilities_title:
+      en: What Eunomia Provides
+      zh: Eunomia 提供什么
+    capabilities_intro:
+      en: Runtime infrastructure, public resources, and AI agent systems define the work behind Eunomia.
+      zh: Eunomia 的工作集中在 runtime infrastructure、公开资源和 AI agent systems。
+    capabilities:
+      - key: runtime-extension
+        eyebrow:
+          en: Runtime extension
+          zh: Runtime extension
+        title:
+          en: Move eBPF beyond kernel-only workflows
+          zh: 让 eBPF 不只停留在内核工作流里
+        description:
+          en: Run, instrument, and extend systems with userspace execution paths, JIT/AOT support, and deployment models that fit production tooling.
+          zh: 通过 userspace execution、JIT/AOT 支持和部署模型，把 eBPF 扩展到生产工具链可以直接使用的系统路径。
+      - key: resources
+        eyebrow:
+          en: Resources
+          zh: Resources
+        title:
+          en: Publish reusable tutorials, docs, blogs, and papers
+          zh: 发布可复用的教程、文档、博客和论文
+        description:
+          en: Maintain executable tutorials, documentation entry points, technical writing, and research artifacts for eBPF builders.
+          zh: 面向 eBPF 开发者维护可执行教程、文档入口、技术文章和研究产物。
+      - key: ai-agents
+        eyebrow:
+          en: AI Agents
+          zh: AI Agents
+        title:
+          en: Make agent behavior observable and controllable
+          zh: 让 agent 行为可观测、可控制
+        description:
+          en: Monitor agents at system boundaries, correlate process and network behavior, and protect workflows that rely on checkpoint and restore.
+          zh: 在系统边界监控 agent，关联进程和网络行为，并保护依赖 checkpoint/restore 的工作流。
     projects_title:
       en: Projects
       zh: 项目
     projects_intro:
-      en: Open-source projects, research artifacts, and documentation entry points maintained by eunomia-bpf.
-      zh: eunomia-bpf 维护的开源项目、研究产物和文档入口。
+      en: Open-source platform projects and public resources grouped by how people use them.
+      zh: 按使用方式组织的开源平台项目和公开资源。
+    project_groups:
+      - key: platform
+        title:
+          en: Platform
+          zh: 平台
+        intro:
+          en: Execution engines, toolchains, runtime components, and low-level extension paths.
+          zh: 执行引擎、工具链、runtime 组件和底层扩展路径。
+        project_keys: [bpftime, llvmbpf, eunomia-bpf, wasm-bpf]
+      - key: resources
+        title:
+          en: Resources
+          zh: 资源
+        intro:
+          en: Tutorials, documentation, blog posts, and research papers for eBPF builders.
+          zh: 面向 eBPF 开发者的教程、文档、博客和研究论文。
+        project_keys: [bpf-developer-tutorial, docs, blog, papers]
+      - key: ai-agents
+        title:
+          en: AI Agents
+          zh: AI Agents
+        intro:
+          en: Tracing, observability, and safety work for AI agent systems.
+          zh: 面向 AI agent 系统的 tracing、observability 和安全研究。
+        project_keys: [GPTtrace, agentsight, ACRFence]
     projects:
       - key: bpftime
         title: bpftime
@@ -293,11 +395,13 @@ extra:
             label_zh: 文档
             href: /bpftime/
           - label: GitHub
+            label_zh: GitHub
             href: https://github.com/eunomia-bpf/bpftime
           - label: OSDI 2025
+            label_zh: OSDI 2025
             href: https://www.usenix.org/conference/osdi25/presentation/zheng-yusheng
       - key: bpf-developer-tutorial
-        title: bpf-developer-tutorial
+        title: Tutorials
         tag:
           en: Learn
           zh: Learn
@@ -312,7 +416,62 @@ extra:
             label_zh: 教程
             href: /tutorials/
           - label: GitHub
+            label_zh: GitHub
             href: https://github.com/eunomia-bpf/bpf-developer-tutorial
+      - key: docs
+        title: Documentation
+        tag:
+          en: Docs
+          zh: 文档
+        href: /projects/
+        image: /_content-assets/docs/assets/logo.png
+        image_alt: Eunomia documentation
+        description:
+          en: Curated entry points for runtime documentation, project references, and practical eBPF guides across the site.
+          zh: 汇总 runtime 文档、项目参考和站内实用 eBPF 指南的入口。
+        links:
+          - label: Projects
+            label_zh: 项目
+            href: /projects/
+          - label: Platform
+            label_zh: 平台
+            href: /bpftime/
+      - key: blog
+        title: Blog
+        tag:
+          en: Writing
+          zh: Writing
+        href: /blog/
+        image: /_content-assets/docs/assets/logo.png
+        image_alt: Eunomia blog
+        description:
+          en: Technical posts on eBPF, userspace runtimes, AI tracing, systems research, and production engineering notes.
+          zh: 关于 eBPF、userspace runtime、AI tracing、系统研究和工程实践的技术文章。
+        links:
+          - label: Latest posts
+            label_zh: 最新文章
+            href: /blog/
+          - label: Legacy blog
+            label_zh: 旧博客
+            href: /blogs/
+      - key: papers
+        title: Papers & Research
+        tag:
+          en: Research
+          zh: 研究
+        href: /others/
+        image: /_content-assets/docs/assets/logo.png
+        image_alt: Eunomia research
+        description:
+          en: Research artifacts and paper links covering bpftime, LLM-assisted tracing, AI agent safety, and GPU systems work.
+          zh: 覆盖 bpftime、LLM-assisted tracing、AI agent safety 和 GPU systems 的研究产物与论文入口。
+        links:
+          - label: Research
+            label_zh: 研究
+            href: /others/
+          - label: OSDI 2025
+            label_zh: OSDI 2025
+            href: https://www.usenix.org/conference/osdi25/presentation/zheng-yusheng
       - key: eunomia-bpf
         title: eunomia-bpf
         tag:
@@ -329,8 +488,10 @@ extra:
             label_zh: 文档
             href: /eunomia-bpf/
           - label: GitHub
+            label_zh: GitHub
             href: https://github.com/eunomia-bpf/eunomia-bpf
           - label: Apsara 2022
+            label_zh: Apsara 2022
             href: https://www.alibabacloud.com/blog/eunomia-bpf-the-lightweight-development-framework-for-ebpf-and-webassembly-is-now-available_599688
       - key: GPTtrace
         title: GPTtrace
@@ -348,8 +509,10 @@ extra:
             label_zh: 文档
             href: /GPTtrace/
           - label: GitHub
+            label_zh: GitHub
             href: https://github.com/eunomia-bpf/GPTtrace
           - label: eBPF 2024
+            label_zh: eBPF 2024
             href: https://dl.acm.org/doi/10.1145/3672197.3673434
       - key: agentsight
         title: AgentSight
@@ -367,8 +530,10 @@ extra:
             label_zh: 文档
             href: /GPTtrace/agentsight/
           - label: GitHub
+            label_zh: GitHub
             href: https://github.com/eunomia-bpf/agentsight
           - label: arXiv 2508.02736
+            label_zh: arXiv 2508.02736
             href: https://arxiv.org/abs/2508.02736
       - key: llvmbpf
         title: llvmbpf
@@ -386,8 +551,10 @@ extra:
             label_zh: 文档
             href: /bpftime/llvmbpf/
           - label: GitHub
+            label_zh: GitHub
             href: https://github.com/eunomia-bpf/llvmbpf
           - label: Blog
+            label_zh: 博客
             href: /blogs/llvmbpf/
       - key: wasm-bpf
         title: wasm-bpf
@@ -405,8 +572,10 @@ extra:
             label_zh: 文档
             href: /wasm-bpf/
           - label: GitHub
+            label_zh: GitHub
             href: https://github.com/eunomia-bpf/wasm-bpf
           - label: KubeCon NA 2023
+            label_zh: KubeCon NA 2023
             href: https://sched.co/1R2uf
       - key: ACRFence
         title: ACRFence
@@ -424,7 +593,35 @@ extra:
             label_zh: 博客
             href: /blog/2026/05/21/acrfence-preventing-semantic-rollback-attacks-in-agent-checkpoint-restore/
           - label: arXiv 2603.20625
+            label_zh: arXiv 2603.20625
             href: https://arxiv.org/abs/2603.20625
+    latest_title:
+      en: Latest writing
+      zh: 最新文章
+    all_posts_label:
+      en: All posts
+      zh: 全部文章
+  section_pages:
+    projects/index.md:
+      title:
+        en: Projects
+        zh: 项目
+      description:
+        en: Open-source eBPF infrastructure projects, research artifacts, and tutorials maintained by eunomia-bpf.
+        zh: eunomia-bpf 维护的开源 eBPF 基础设施项目、研究产物和教程。
+      body:
+        en: Eunomia organizes its open-source work across runtime infrastructure, developer tooling, and AI agent observability.
+        zh: Eunomia 按 runtime infrastructure、developer tooling 和 AI agent observability 组织开源工作。
+    about/index.md:
+      title:
+        en: About Eunomia
+        zh: 关于 Eunomia
+      description:
+        en: Eunomia builds open-source eBPF infrastructure for runtime extension, observability, and AI agent systems.
+        zh: Eunomia 构建面向 runtime extension、observability 和 AI agent systems 的开源 eBPF 基础设施。
+      body:
+        en: Eunomia is an open-source systems engineering effort focused on eBPF infrastructure, runtime extension, observability, and AI agent systems.
+        zh: Eunomia 是一个开源系统工程项目，聚焦 eBPF infrastructure、runtime extension、observability 和 AI agent systems。
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/eunomia-bpf

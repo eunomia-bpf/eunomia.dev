@@ -99,7 +99,9 @@ async function main() {
     check(await page.getByRole("heading", { name: /^Projects$/i }).count(), "home page exposes projects section");
     for (const label of [
       "bpftime",
-      "bpf-developer-tutorial",
+      "Tutorials",
+      "Documentation",
+      "Papers & Research",
       "OSDI 2025",
       "GPTtrace",
       "eBPF 2024",

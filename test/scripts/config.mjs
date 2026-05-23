@@ -65,23 +65,21 @@ export const runtimeAuditRoutes = [
 export const rolloutAuditSampleBlogRoute =
   "/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/";
 
-const fallbackExpectedNavLabels = ["Docs", "Blog", "Runtime", "AI Tracing", "Toolchain", "Ecosystem"];
-
 function readExpectedNavLabels() {
   const siteSectionsPath = path.join(appDir, ".generated", "content", "site-sections.json");
 
-  try {
-    const payload = JSON.parse(fs.readFileSync(siteSectionsPath, "utf8"));
-    const labels = payload.sections
-      ?.filter((section) => section?.published?.nav)
-      .sort((left, right) => left.order - right.order)
-      .map((section) => section?.labels?.en)
-      .filter(Boolean);
+  const payload = JSON.parse(fs.readFileSync(siteSectionsPath, "utf8"));
+  const labels = payload.sections
+    ?.filter((section) => section?.published?.nav)
+    .sort((left, right) => left.order - right.order)
+    .map((section) => section?.labels?.en)
+    .filter(Boolean);
 
-    return labels?.length ? labels : fallbackExpectedNavLabels;
-  } catch {
-    return fallbackExpectedNavLabels;
+  if (!labels?.length) {
+    throw new Error(`Missing generated nav labels in ${siteSectionsPath}`);
   }
+
+  return labels;
 }
 
 export const expectedNavLabels = readExpectedNavLabels();

@@ -4,6 +4,7 @@ import path from "node:path";
 import { useContentCache } from "./cache";
 import { getDocsFileSet } from "./fs-index";
 import { extractMarkdownHeadings, parseMarkdown, type MarkdownHeading } from "./markdown";
+import { readMkdocsSectionPage } from "./mkdocs-config";
 import { generatedContentDir } from "./roots";
 import { resolveLocalizedSource } from "./source";
 
@@ -25,17 +26,26 @@ type SerializedDocumentIndex = {
 const generatedDocumentIndexPath = path.join(generatedContentDir, "documents.json");
 const documentIndexCache = new Map<string, IndexedDocument>();
 
+function localeFromSourceRelative(sourceRelative: string): "en" | "zh" {
+  return sourceRelative.endsWith(".zh.md") ? "zh" : "en";
+}
+
 function buildDocument(sourceRelative: string): IndexedDocument {
   const parsed = parseMarkdown(sourceRelative);
+  const configuredPage = readMkdocsSectionPage(sourceRelative);
+  const locale = localeFromSourceRelative(sourceRelative);
+  const title = configuredPage?.title[locale] ?? parsed.title;
+  const description = configuredPage?.description[locale] ?? parsed.description;
+  const body = configuredPage?.body[locale] ?? parsed.body;
 
   return {
     sourceRelative,
-    title: parsed.title,
-    description: parsed.description,
-    excerpt: parsed.excerpt,
-    body: parsed.body,
+    title,
+    description,
+    excerpt: configuredPage ? description : parsed.excerpt,
+    body,
     date: parsed.date,
-    headings: extractMarkdownHeadings(parsed.body)
+    headings: extractMarkdownHeadings(body)
   };
 }
 
