@@ -5,6 +5,7 @@ import type { BlogEntry } from "../lib/content/types";
 import { localizePath } from "../lib/paths";
 import type { Locale } from "../lib/site-data";
 import { BlogPostList } from "./BlogPostList";
+import { CredibilityStrip, OrgStarTotal } from "./Credibility";
 
 type HomePageLandingProps = {
   locale: Locale;
@@ -153,6 +154,9 @@ export function HomePageHero({ home, locale }: { home: MkdocsHomeConfig; locale:
               </a>
             ) : null}
           </div>
+          <div className="mt-9 flex flex-wrap items-center justify-center gap-2">
+            <OrgStarTotal locale={locale} />
+          </div>
         </div>
       </div>
     </section>
@@ -165,6 +169,10 @@ export function HomePageLanding({ locale, recentPosts, home }: HomePageLandingPr
   return (
     <div className="pb-16">
       <CapabilitySection home={home} locale={locale} />
+
+      <div className="border-b border-slate-200 py-6">
+        <CredibilityStrip locale={locale} />
+      </div>
 
       <section className="border-b border-slate-200 py-12" aria-labelledby="home-projects">
         <div className="mb-6 flex flex-wrap items-end justify-between gap-4">

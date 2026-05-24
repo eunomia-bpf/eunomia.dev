@@ -1,9 +1,65 @@
+import { useEffect, useState } from "react";
+
 import type { ReactPageLink } from "../lib/content/types";
 import type { Locale } from "../lib/site-data";
 
 const ORG_URL = "https://github.com/eunomia-bpf";
+const ORG_API = "https://api.github.com/orgs/eunomia-bpf/repos";
 const SHIELD = "https://img.shields.io/github/stars/eunomia-bpf";
 const CONTACT_EMAIL = "yusheng@eunomia.dev";
+
+/** Fallback shown until the live count resolves, or if the GitHub API is rate-limited.
+ *  Set to the org-wide total as of 2026-05; the live fetch paginates all repos and
+ *  overrides this on success. */
+const FALLBACK_TOTAL_STARS = 9300;
+
+/**
+ * Live, org-wide GitHub star total. shields.io has no "sum across an org" badge,
+ * so we fetch the org's public repos in the browser and sum stargazers_count.
+ * Kept resilient: renders a rounded fallback immediately, upgrades to the live
+ * total on success, and never blocks or errors the page if the API is throttled.
+ */
+export function OrgStarTotal({ locale, className = "" }: { locale: Locale; className?: string }) {
+  const [total, setTotal] = useState<number | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        let sum = 0;
+        for (let page = 1; page <= 5; page += 1) {
+          const res = await fetch(`${ORG_API}?per_page=100&type=public&page=${page}`);
+          if (!res.ok) break;
+          const repos = (await res.json()) as Array<{ stargazers_count?: number }>;
+          if (!Array.isArray(repos) || repos.length === 0) break;
+          sum += repos.reduce((acc, repo) => acc + (repo.stargazers_count ?? 0), 0);
+          if (repos.length < 100) break;
+        }
+        if (!cancelled && sum > 0) setTotal(sum);
+      } catch {
+        /* keep the fallback */
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const value = total ?? FALLBACK_TOTAL_STARS;
+  const display = `${(Math.floor(value / 100) * 100).toLocaleString("en-US")}+`;
+
+  return (
+    <a
+      href={ORG_URL}
+      target="_blank"
+      rel="noopener"
+      className={`inline-flex items-center gap-1.5 rounded-full border border-cyan-700/40 bg-cyan-50 px-3 py-1 text-xs font-semibold text-cyan-800 transition hover:border-cyan-700/70 ${className}`.trim()}
+    >
+      <span aria-hidden="true">★</span>
+      {locale === "zh" ? `${display} GitHub 星标` : `${display} GitHub stars`}
+    </a>
+  );
+}
 
 export type StarRepo = { repo: string; label: string };
 
