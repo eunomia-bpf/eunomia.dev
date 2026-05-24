@@ -368,7 +368,7 @@ export function ProductsLandingPage({ locale, links, projects }: ProductPageProp
             },
             {
               label: "需要运行管控的团队",
-              title: "系统边界上的 agent guardrail",
+              title: "系统边界上的 agentharness",
               description: "在进程、文件、网络、exec 和 checkpoint/restore 边界建立可审计、可执行的策略点。"
             }
           ]
@@ -405,7 +405,7 @@ export function ProductsLandingPage({ locale, links, projects }: ProductPageProp
             },
             {
               label: "Teams that need runtime control",
-              title: "Agent guardrails at system boundaries",
+              title: "agentharness at system boundaries",
               description: "Create auditable, enforceable policy points across process, file, network, exec, and checkpoint/restore boundaries."
             }
           ]
