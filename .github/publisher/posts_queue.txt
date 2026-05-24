@@ -1,1 +1,2 @@
 {"path": "docs/tutorials/50-tcx", "tags": ["eBPF", "tutorial", "network"]}
+{"path": "docs/blog/posts/cpu-noise-gpu-inference.md", "tags": ["eBPF", "GPU", "LLM", "performance"]}
