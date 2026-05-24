@@ -114,7 +114,7 @@ async function main() {
 
     await page.goto(absolute(smokeRoutes.products), { waitUntil: "networkidle" });
     const productsText = (await page.textContent("main")) ?? "";
-    check(/Production infrastructure/i.test(productsText), "products page uses product-facing headline");
+    check(/AI agent observability/i.test(productsText), "products page uses product-facing headline");
     check(/GPU paths/i.test(productsText), "products page mentions GPU paths");
     check(
       await page.locator("main a[href='mailto:yusheng@eunomia.dev']").first().count(),
