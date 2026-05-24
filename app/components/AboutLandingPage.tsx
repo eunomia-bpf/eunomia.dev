@@ -3,6 +3,14 @@ import Image from "next/image";
 import type { ReactPageLink } from "../lib/content/types";
 import type { MkdocsHomeProject } from "../lib/content/mkdocs-config";
 import type { Locale } from "../lib/site-data";
+import { ContactCard, CredibilityStrip, StarBar, type StarRepo } from "./Credibility";
+
+const ABOUT_STARS: StarRepo[] = [
+  { repo: "bpf-developer-tutorial", label: "Tutorials" },
+  { repo: "bpftime", label: "bpftime" },
+  { repo: "eunomia-bpf", label: "eunomia-bpf" },
+  { repo: "wasm-bpf", label: "wasm-bpf" }
+];
 
 type AboutLandingPageProps = {
   locale: Locale;
@@ -82,6 +90,10 @@ export function AboutLandingPage({ locale, links, projects }: AboutLandingPagePr
             {copy.title}
           </h1>
           <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600">{copy.description}</p>
+          <CredibilityStrip locale={locale} className="mt-6" />
+          <div className="mt-5">
+            <StarBar repos={ABOUT_STARS} locale={locale} />
+          </div>
         </div>
         {logoImage ? (
           <div className="relative min-h-64 overflow-hidden border border-slate-200 bg-slate-50">
@@ -146,6 +158,8 @@ export function AboutLandingPage({ locale, links, projects }: AboutLandingPagePr
           </div>
         </article>
       </div>
+
+      <ContactCard locale={locale} />
     </section>
   );
 }

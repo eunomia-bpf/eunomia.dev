@@ -4,6 +4,13 @@ import type { ReactNode } from "react";
 import type { ReactPageLink } from "../lib/content/types";
 import type { MkdocsHomeProject } from "../lib/content/mkdocs-config";
 import type { Locale } from "../lib/site-data";
+import { ContactCard, CredibilityStrip, StarBar, type StarRepo } from "./Credibility";
+
+const ORG_STARS: StarRepo[] = [
+  { repo: "bpftime", label: "bpftime" },
+  { repo: "bpf-developer-tutorial", label: "Tutorials" },
+  { repo: "eunomia-bpf", label: "eunomia-bpf" }
+];
 
 type ProductPageProps = {
   locale: Locale;
@@ -297,6 +304,10 @@ export function ProductsLandingPage({ locale, links, projects }: ProductPageProp
             {copy.title}
           </h1>
           <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600">{copy.description}</p>
+          <CredibilityStrip locale={locale} className="mt-6" />
+          <div className="mt-5">
+            <StarBar repos={ORG_STARS} locale={locale} />
+          </div>
           <ActionRow links={[linkByKey.get("bpftime"), linkByKey.get("contact")]} />
         </div>
         <VisualPanel>
@@ -357,6 +368,8 @@ export function ProductsLandingPage({ locale, links, projects }: ProductPageProp
           <CapabilityGrid items={copy.buyers} />
         </div>
       </div>
+
+      <ContactCard locale={locale} contact={linkByKey.get("contact")} />
     </section>
   );
 }
@@ -454,8 +467,17 @@ export function BpftimeProductPage({ locale, links, projects }: ProductPageProps
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-700">{copy.eyebrow}</p>
           <h1 className="mt-4 text-5xl font-semibold tracking-normal text-ink md:text-6xl">{copy.title}</h1>
           <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600">{copy.description}</p>
+          <CredibilityStrip locale={locale} osdi={linkByKey.get("osdi")} className="mt-6" />
+          <div className="mt-5">
+            <StarBar repos={[{ repo: "bpftime", label: "bpftime" }]} locale={locale} />
+          </div>
           <ActionRow
-            links={[linkByKey.get("bpftime-docs"), linkByKey.get("bpftime-github"), linkByKey.get("support")]}
+            links={[
+              linkByKey.get("bpftime-docs"),
+              linkByKey.get("bpftime-github"),
+              linkByKey.get("osdi"),
+              linkByKey.get("support")
+            ]}
           />
         </div>
         <VisualPanel image={bpftimeImage} imageAlt="bpftime runtime architecture">
@@ -494,6 +516,8 @@ export function BpftimeProductPage({ locale, links, projects }: ProductPageProps
           <CapabilityGrid items={copy.capabilities} />
         </div>
       </div>
+
+      <ContactCard locale={locale} contact={linkByKey.get("support")} />
     </section>
   );
 }
@@ -572,6 +596,9 @@ export function AgentRuntimeInfrastructurePage({ locale, links, projects }: Prod
           {copy.title}
         </h1>
         <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600">{copy.description}</p>
+        <div className="mt-6">
+          <StarBar repos={[{ repo: "agentsight", label: "AgentSight" }]} locale={locale} />
+        </div>
         <ActionRow links={[linkByKey.get("pilot")]} />
       </div>
 
@@ -631,6 +658,10 @@ export function AgentRuntimeInfrastructurePage({ locale, links, projects }: Prod
           </p>
           <ActionRow links={[linkByKey.get("acrfence-article")]} />
         </article>
+      </div>
+
+      <div className="pt-12">
+        <ContactCard locale={locale} contact={linkByKey.get("pilot")} />
       </div>
     </section>
   );
@@ -755,6 +786,10 @@ export function ServicesProductPage({ locale, links }: ProductPageProps) {
           {copy.title}
         </h1>
         <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600">{copy.description}</p>
+        <CredibilityStrip locale={locale} className="mt-6" />
+        <div className="mt-5">
+          <StarBar repos={ORG_STARS} locale={locale} />
+        </div>
         <ActionRow links={[linkByKey.get("contact")]} />
       </div>
 
@@ -793,6 +828,8 @@ export function ServicesProductPage({ locale, links }: ProductPageProps) {
           </div>
         </VisualPanel>
       </div>
+
+      <ContactCard locale={locale} contact={linkByKey.get("contact")} />
     </section>
   );
 }

@@ -721,6 +721,10 @@ extra:
           label: GitHub
           label_zh: GitHub
           href: https://github.com/eunomia-bpf/bpftime
+        - key: osdi
+          label: OSDI 2025 paper
+          label_zh: OSDI 2025 论文
+          href: https://www.usenix.org/conference/osdi25/presentation/zheng-yusheng
         - key: support
           label: Enterprise support
           label_zh: 企业支持
