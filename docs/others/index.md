@@ -1,11 +1,25 @@
 ---
-title: Ecosystem & Other Projects
-description: Explore the eunomia-bpf ecosystem with additional tools for eBPF benchmarking, AI monitoring agents, and compatibility libraries.
-keywords: eBPF ecosystem, eBPF tools, bpf-benchmark, AI monitoring, eBPF compatible library, GPT function calls, eBPF knowledge base
+title: About Eunomia
+description: Explore the broader Eunomia project family, including GPU tutorials, research notes, experiments, and related open-source tools.
+keywords: Eunomia, CUDA tutorial, CUPTI tutorial, NVBit tutorial, eBPF tools, bpf-benchmark, AI monitoring
 author: eunomia-bpf community
 ---
 
-## Other projects
+## Tutorials beyond eBPF
+
+## [CUDA Tutorial](cuda-tutorial/README.md)
+
+GPU programming tutorials covering CUDA basics, PTX, architecture, profiling, and advanced customization.
+
+## [CUPTI Tutorial](cupti-tutorial/README.md)
+
+Examples for CUDA profiling, tracing, correlation, memory activity, sampling, and injection workflows with CUPTI.
+
+## [NVBit Tutorial](nvbit-tutorial/README.md)
+
+GPU binary instrumentation tutorials and examples built around NVBit.
+
+## Related projects
 
 ## [bpf-benchmark](bpf-benchmark.md)
 

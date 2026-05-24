@@ -1,7 +1,14 @@
 import { ArticleLayout } from "../components/ArticleLayout";
+import { AboutLandingPage } from "../components/AboutLandingPage";
 import { BlogListing } from "../components/BlogListing";
 import { CardGrid } from "../components/CardGrid";
 import { HomePageHero, HomePageLanding } from "../components/HomePageLanding";
+import {
+  AgentRuntimeInfrastructurePage,
+  BpftimeProductPage,
+  ProductsLandingPage,
+  ServicesProductPage
+} from "../components/ProductPages";
 import { ProjectLandingPage } from "../components/ProjectLandingPage";
 import { SeoHead } from "../components/SeoHead";
 import { SiteChrome } from "../components/SiteChrome";
@@ -27,7 +34,30 @@ function getTocTitle(locale: Locale): string {
   return locale === "zh" ? "本页目录" : "On this page";
 }
 
+function renderCustomReactPage(kind: NonNullable<DocsPage["reactPage"]>, locale: Locale, page: DocsPage) {
+  const links = page.reactLinks ?? [];
+  const projects = page.projectCatalog?.projects ?? [];
+
+  if (kind === "products") {
+    return <ProductsLandingPage locale={locale} links={links} projects={projects} />;
+  }
+  if (kind === "bpftime-product") {
+    return <BpftimeProductPage locale={locale} links={links} projects={projects} />;
+  }
+  if (kind === "agent-runtime-infrastructure") {
+    return <AgentRuntimeInfrastructurePage locale={locale} links={links} projects={projects} />;
+  }
+  if (kind === "services") {
+    return <ServicesProductPage locale={locale} links={links} projects={projects} />;
+  }
+  return <AboutLandingPage locale={locale} links={links} projects={projects} />;
+}
+
 function renderDocsBody(page: DocsPage, locale: Locale) {
+  if (page.reactPage) {
+    return renderCustomReactPage(page.reactPage, locale, page);
+  }
+
   if (
     page.landingPage &&
     page.projectCatalog &&
@@ -105,7 +135,7 @@ export function DocsPageView({
         intro={page.description}
         leadMode="none"
         currentPath={page.path}
-        sidebar={page.sidebar}
+        sidebar={page.reactPage ? undefined : page.sidebar}
         alternates={page.alternates}
       >
         {renderDocsBody(page, locale)}

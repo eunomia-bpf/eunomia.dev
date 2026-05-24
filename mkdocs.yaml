@@ -131,6 +131,10 @@ nav:
     - tutorials/48-energy/README.md
     - ... | flat | tutorials/**/*.md
   - Blog: blog
+  - Products:
+    - products/index.md
+    - Agent Runtime Infrastructure: products/agent-runtime-infrastructure.md
+    - Services / Enterprise Support: products/services.md
   - bpftime:
     - bpftime/index.md
     - Documents:
@@ -172,7 +176,7 @@ nav:
   - eunomia-bpf:
     - eunomia-bpf/index.md
     - ... | eunomia-bpf/**/*.md
-  - Ecosystem:
+  - About:
     - others/index.md
     - wasm-bpf:
       - wasm-bpf/index.md
@@ -181,17 +185,28 @@ nav:
 
 extra:
   site_sections:
+    products:
+      labels:
+        en: Products
+        zh: 产品
+      published:
+        nav: true
+        home_track: false
+        home_explore: true
+        footer_explore: true
+        footer_project: false
+      order: 10
     bpftime:
       labels:
         en: bpftime
         zh: bpftime
       published:
-        nav: true
+        nav: false
         home_track: true
         home_explore: false
         footer_explore: true
         footer_project: false
-      order: 10
+      order: 15
     projects:
       labels:
         en: Projects
@@ -205,8 +220,8 @@ extra:
       order: 20
     others:
       labels:
-        en: Ecosystem
-        zh: 生态
+        en: About
+        zh: 关于
       published:
         nav: true
         home_track: false
@@ -292,6 +307,32 @@ extra:
         footer_project: true
       order: 100
   primary_nav_children:
+    products:
+      - label: bpftime
+        label_zh: bpftime
+        href: /bpftime/
+      - label: Agent Runtime Infrastructure
+        label_zh: Agent 运行时基础设施
+        href: /products/agent-runtime-infrastructure/
+      - label: Services / Enterprise Support
+        label_zh: 服务 / 企业支持
+        href: /products/services/
+    tutorials:
+      - label: eBPF Tutorial
+        label_zh: eBPF 教程
+        href: /tutorials/
+      - label: CUDA Tutorial
+        label_zh: CUDA 教程
+        href: /others/cuda-tutorial/
+      - label: CUPTI Tutorial
+        label_zh: CUPTI 教程
+        href: /others/cupti-tutorial/
+      - label: NVBit Tutorial
+        label_zh: NVBit 教程
+        href: /others/nvbit-tutorial/
+      - label: GPU Tracing
+        label_zh: GPU 追踪
+        href: /tutorials/47-cuda-events/
     projects:
       - label: bpftime
         label_zh: bpftime
@@ -384,12 +425,12 @@ extra:
         en: Eunomia
         zh: Eunomia
       summary:
-        en: Open-source eBPF infrastructure for runtime extension and AI Agents.
-        zh: 面向 runtime extension 和 AI Agents 的开源 eBPF 基础设施。
+        en: Open-source eBPF infrastructure for runtime extension, GPU tracing, and AI Agents.
+        zh: 面向 runtime extension、GPU tracing 和 AI Agents 的开源 eBPF 基础设施。
       primary_cta:
-        en: Explore tutorials
-        zh: 浏览教程
-      primary_href: /tutorials/
+        en: Explore products
+        zh: 浏览产品
+      primary_href: /products/
       secondary_cta:
         en: View GitHub
         zh: 查看 GitHub
@@ -409,8 +450,8 @@ extra:
           en: Move eBPF beyond kernel-only workflows
           zh: 让 eBPF 不只停留在内核工作流里
         description:
-          en: Run, instrument, and extend systems with userspace execution paths, JIT/AOT support, and deployment models that fit production tooling.
-          zh: 通过 userspace execution、JIT/AOT 支持和部署模型，把 eBPF 扩展到生产工具链可以直接使用的系统路径。
+          en: Run, instrument, and extend systems with userspace execution paths, GPU paths, JIT/AOT support, and deployment models that fit production tooling.
+          zh: 通过 userspace execution、GPU paths、JIT/AOT 支持和部署模型，把 eBPF 扩展到生产工具链可以直接使用的系统路径。
       - key: resources
         eyebrow:
           en: Resources
@@ -461,7 +502,7 @@ extra:
         intro:
           en: Tracing, observability, and safety work for AI agent systems.
           zh: 面向 AI agent 系统的 tracing、observability 和安全研究。
-        project_keys: [GPTtrace, agentsight, ACRFence]
+        project_keys: [GPTtrace, agentsight]
     projects:
       - key: bpftime
         title: bpftime
@@ -661,24 +702,6 @@ extra:
           - label: KubeCon NA 2023
             label_zh: KubeCon NA 2023
             href: https://sched.co/1R2uf
-      - key: ACRFence
-        title: ACRFence
-        tag:
-          en: Agent safety
-          zh: Agent safety
-        href: /blog/2026/05/21/acrfence-preventing-semantic-rollback-attacks-in-agent-checkpoint-restore/
-        image: /_content-assets/docs/blog/posts/imgs/acrfence/fig-sequence.png
-        image_alt: ACRFence checkpoint restore sequence
-        description:
-          en: Research on semantic rollback attacks in agent checkpoint/restore workflows and intent-aware fencing.
-          zh: 关于 agent checkpoint/restore 工作流中语义回滚攻击和 intent-aware fencing 的研究。
-        links:
-          - label: Blog
-            label_zh: 博客
-            href: /blog/2026/05/21/acrfence-preventing-semantic-rollback-attacks-in-agent-checkpoint-restore/
-          - label: arXiv 2603.20625
-            label_zh: arXiv 2603.20625
-            href: https://arxiv.org/abs/2603.20625
     latest_title:
       en: Latest writing
       zh: 最新文章
@@ -686,6 +709,164 @@ extra:
       en: All posts
       zh: 全部文章
   section_pages:
+    bpftime/index.md:
+      react_page: bpftime-product
+      links:
+        - key: bpftime-docs
+          label: Read docs
+          label_zh: 阅读文档
+          href: /bpftime/documents/introduction/
+          variant: primary
+        - key: bpftime-github
+          label: GitHub
+          label_zh: GitHub
+          href: https://github.com/eunomia-bpf/bpftime
+        - key: support
+          label: Enterprise support
+          label_zh: 企业支持
+          href: mailto:yusheng@eunomia.dev
+      title:
+        en: bpftime
+        zh: bpftime
+      description:
+        en: High-performance userspace eBPF runtime and extension framework for production tracing, runtime extension, and low-overhead instrumentation.
+        zh: 面向生产 tracing、runtime extension 和低开销 instrumentation 的高性能 userspace eBPF runtime 与扩展框架。
+      body:
+        en: This page is rendered by the React product page component.
+        zh: 这个页面由 React 产品页组件渲染。
+    products/index.md:
+      react_page: products
+      links:
+        - key: bpftime
+          label: View bpftime
+          label_zh: 查看 bpftime
+          href: /bpftime/
+          variant: primary
+        - key: contact
+          label: Contact us
+          label_zh: 邮件联系
+          href: mailto:yusheng@eunomia.dev
+        - key: bpftime-github
+          label: GitHub
+          label_zh: GitHub
+          href: https://github.com/eunomia-bpf/bpftime
+        - key: agent-infra
+          label: Explore agent infra
+          label_zh: 查看 Agent infra
+          href: /products/agent-runtime-infrastructure/
+          variant: primary
+        - key: services
+          label: View services
+          label_zh: 查看服务
+          href: /products/services/
+          variant: primary
+      title:
+        en: Products
+        zh: 产品
+      description:
+        en: Enterprise support options for bpftime, agent runtime infrastructure, and production integration.
+        zh: bpftime、Agent 运行时基础设施和企业支持的企业采用入口。
+      body:
+        en: This page is rendered by the React products component.
+        zh: 这个页面由 React 产品组件渲染。
+    products/agent-runtime-infrastructure.md:
+      react_page: agent-runtime-infrastructure
+      links:
+        - key: pilot
+          label: Discuss a pilot
+          label_zh: 讨论 pilot
+          href: mailto:yusheng@eunomia.dev
+          variant: primary
+        - key: agentsight-docs
+          label: Docs
+          label_zh: 文档
+          href: /GPTtrace/agentsight/
+        - key: agentsight-github
+          label: GitHub
+          label_zh: GitHub
+          href: https://github.com/eunomia-bpf/agentsight
+        - key: actplane-github
+          label: GitHub
+          label_zh: GitHub
+          href: https://github.com/eunomia-bpf/ActPlane
+        - key: acrfence-article
+          label: Research article
+          label_zh: 研究文章
+          href: /blog/2026/05/21/acrfence-preventing-semantic-rollback-attacks-in-agent-checkpoint-restore/
+      title:
+        en: Agent Runtime Infrastructure
+        zh: Agent 运行时基础设施
+      description:
+        en: Infrastructure for observing, enforcing, and protecting AI agent workflows at system boundaries.
+        zh: 在系统边界观测、约束和保护 AI agent 工作流的基础设施。
+      body:
+        en: This page is rendered by the React agent runtime infrastructure component.
+        zh: 这个页面由 React Agent 运行时基础设施组件渲染。
+    products/services.md:
+      react_page: services
+      links:
+        - key: contact
+          label: Discuss a need
+          label_zh: 讨论需求
+          href: mailto:yusheng@eunomia.dev
+          variant: primary
+      title:
+        en: Services / Enterprise Support
+        zh: 服务 / 企业支持
+      description:
+        en: Fixed-scope consulting, POCs, integration, and production hardening for eBPF and agent infrastructure.
+        zh: 面向 eBPF 和 agent 基础设施的固定范围咨询、POC、集成和生产加固。
+      body:
+        en: This page is rendered by the React services component.
+        zh: 这个页面由 React 服务组件渲染。
+    others/index.md:
+      react_page: about
+      links:
+        - key: cuda-tutorial
+          label: Open
+          label_zh: 打开
+          href: /others/cuda-tutorial/
+        - key: cupti-tutorial
+          label: Open
+          label_zh: 打开
+          href: /others/cupti-tutorial/
+        - key: nvbit-tutorial
+          label: Open
+          label_zh: 打开
+          href: /others/nvbit-tutorial/
+        - key: papers
+          label: Papers
+          label_zh: 论文
+          href: /others/papers/
+        - key: ideas
+          label: Ideas
+          label_zh: Ideas
+          href: /others/ideas/
+        - key: usecases
+          label: Use cases
+          label_zh: Use cases
+          href: /others/usecases/
+        - key: github
+          label: GitHub
+          label_zh: GitHub
+          href: https://github.com/eunomia-bpf
+        - key: discussions
+          label: Discussions
+          label_zh: Discussions
+          href: https://github.com/orgs/eunomia-bpf/discussions
+        - key: products
+          label: Products
+          label_zh: 产品
+          href: /products/
+      title:
+        en: About Eunomia
+        zh: 关于 Eunomia
+      description:
+        en: The broader Eunomia project family, including GPU tutorials, research notes, experiments, and related open-source tools.
+        zh: Eunomia 的更广泛项目体系，包括 GPU 教程、研究笔记、实验项目和相关开源工具。
+      body:
+        en: This page is rendered by the React about component.
+        zh: 这个页面由 React About 组件渲染。
     about/index.md:
       title:
         en: About Eunomia
@@ -764,6 +945,7 @@ plugins:
             Introduction: 简介
             README: 文档
             Home: 主页
+            About: 关于
             Documents: 文档
             ecli with docker: 在docker中使用ecli
             ecosystem: 生态

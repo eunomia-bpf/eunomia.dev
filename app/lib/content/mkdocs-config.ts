@@ -35,11 +35,27 @@ export type MkdocsSiteSectionConfig = {
 
 export type MkdocsLocalizedText = Record<"en" | "zh", string>;
 
+export type MkdocsReactPageVariant =
+  | "products"
+  | "bpftime-product"
+  | "agent-runtime-infrastructure"
+  | "services"
+  | "about";
+
+export type MkdocsReactPageLinkConfig = {
+  key: string;
+  label: MkdocsLocalizedText;
+  href: string;
+  variant?: "primary" | "secondary";
+};
+
 export type MkdocsSectionPageConfig = {
   source: string;
   title: MkdocsLocalizedText;
   description: MkdocsLocalizedText;
   body: MkdocsLocalizedText;
+  reactPage?: MkdocsReactPageVariant;
+  links: MkdocsReactPageLinkConfig[];
 };
 
 export type MkdocsNavLinkConfig = {
@@ -371,6 +387,16 @@ type PartialSectionPageConfig = {
   title: PartialLocalizedText;
   description: PartialLocalizedText;
   body: PartialLocalizedText;
+  reactPage?: string;
+  links: PartialReactPageLinkConfig[];
+};
+
+type PartialReactPageLinkConfig = {
+  key?: string;
+  label?: string;
+  labelZh?: string;
+  href?: string;
+  variant?: string;
 };
 
 type PartialNavLinkConfig = {
@@ -902,12 +928,94 @@ export function readMkdocsSectionLandingPages(): Map<string, MkdocsSectionLandin
 }
 
 function normalizeSectionPageConfig(page: PartialSectionPageConfig): MkdocsSectionPageConfig {
+  const reactPage = normalizeReactPageVariant(page.reactPage, `section_pages.${page.source}.react_page`);
+
   return {
     source: page.source,
     title: requireLocalizedText(page.title, `section_pages.${page.source}.title`),
     description: requireLocalizedText(page.description, `section_pages.${page.source}.description`),
-    body: requireLocalizedText(page.body, `section_pages.${page.source}.body`)
+    body: requireLocalizedText(page.body, `section_pages.${page.source}.body`),
+    ...(reactPage ? { reactPage } : {}),
+    links: page.links.map((link, index) => normalizeReactPageLink(link, `section_pages.${page.source}.links[${index}]`))
   };
+}
+
+function normalizeReactPageVariant(value: string | undefined, context: string): MkdocsReactPageVariant | undefined {
+  if (!value) {
+    return undefined;
+  }
+
+  const allowed = new Set<MkdocsReactPageVariant>([
+    "products",
+    "bpftime-product",
+    "agent-runtime-infrastructure",
+    "services",
+    "about"
+  ]);
+
+  if (!allowed.has(value as MkdocsReactPageVariant)) {
+    throw new Error(`Unsupported ${context}: ${value}`);
+  }
+
+  return value as MkdocsReactPageVariant;
+}
+
+function normalizeReactPageLink(
+  link: PartialReactPageLinkConfig,
+  context: string
+): MkdocsReactPageLinkConfig {
+  const variant = link.variant ? normalizeLinkVariant(link.variant, `${context}.variant`) : undefined;
+
+  return {
+    key: requireScalar(link.key, `${context}.key`),
+    label: {
+      en: requireScalar(link.label, `${context}.label`),
+      zh: requireScalar(link.labelZh, `${context}.label_zh`)
+    },
+    href: requireScalar(link.href, `${context}.href`),
+    ...(variant ? { variant } : {})
+  };
+}
+
+function normalizeLinkVariant(value: string, context: string): "primary" | "secondary" {
+  const variant = parseScalar(value);
+  if (variant === "primary" || variant === "secondary") {
+    return variant;
+  }
+
+  throw new Error(`Unsupported ${context}: ${value}`);
+}
+
+function setReactPageLinkField(
+  link: PartialReactPageLinkConfig,
+  field: string,
+  rawValue: string,
+  context: string
+) {
+  const value = parseScalar(rawValue);
+
+  if (field === "key") {
+    link.key = value;
+    return;
+  }
+  if (field === "label") {
+    link.label = value;
+    return;
+  }
+  if (field === "label_zh") {
+    link.labelZh = value;
+    return;
+  }
+  if (field === "href") {
+    link.href = value;
+    return;
+  }
+  if (field === "variant") {
+    link.variant = value;
+    return;
+  }
+
+  throw new Error(`Unsupported react page link key for ${context}: ${field}`);
 }
 
 function ensureSectionPageConfig(
@@ -923,7 +1031,8 @@ function ensureSectionPageConfig(
     source,
     title: {},
     description: {},
-    body: {}
+    body: {},
+    links: []
   };
   pages.set(source, page);
   return page;
@@ -935,6 +1044,8 @@ function readSectionPages(): Map<string, MkdocsSectionPageConfig> {
   let baseIndent = 0;
   let currentPage: PartialSectionPageConfig | null = null;
   let currentLocalizedField: "title" | "description" | "body" | null = null;
+  let inLinks = false;
+  let currentLink: PartialReactPageLinkConfig | null = null;
 
   for (const line of readMkdocsConfigText().split(/\r?\n/)) {
     if (!inSectionPages) {
@@ -962,6 +1073,8 @@ function readSectionPages(): Map<string, MkdocsSectionPageConfig> {
       }
       currentPage = ensureSectionPageConfig(pages, baseMarkdownPath(source));
       currentLocalizedField = null;
+      inLinks = false;
+      currentLink = null;
       continue;
     }
 
@@ -982,6 +1095,31 @@ function readSectionPages(): Map<string, MkdocsSectionPageConfig> {
       }
     }
 
+    if (inLinks) {
+      const linkMatch = matchIndentedListKey(line, baseIndent + 6);
+      if (linkMatch) {
+        const [field, rawValue] = linkMatch;
+        currentLink = {};
+        currentPage.links.push(currentLink);
+        setReactPageLinkField(currentLink, field, rawValue, `section_pages.${currentPage.source}.links`);
+        continue;
+      }
+
+      const linkFieldMatch = matchIndentedKey(line, baseIndent + 8);
+      if (linkFieldMatch && currentLink) {
+        setReactPageLinkField(
+          currentLink,
+          linkFieldMatch[0],
+          linkFieldMatch[1],
+          `section_pages.${currentPage.source}.links`
+        );
+        continue;
+      }
+
+      inLinks = false;
+      currentLink = null;
+    }
+
     const fieldMatch = matchIndentedKey(line, baseIndent + 4);
     if (!fieldMatch) {
       throw new Error(`Invalid section_pages entry for "${currentPage.source}": ${line.trim()}`);
@@ -990,12 +1128,27 @@ function readSectionPages(): Map<string, MkdocsSectionPageConfig> {
     const [field, rawValue] = fieldMatch;
     const value = parseScalar(rawValue);
     currentLocalizedField = null;
+    inLinks = false;
+    currentLink = null;
 
     if (field === "title" || field === "description" || field === "body") {
       if (value) {
         throw new Error(`Inline section_pages.${currentPage.source}.${field} values are not supported`);
       }
       currentLocalizedField = field;
+      continue;
+    }
+
+    if (field === "react_page") {
+      currentPage.reactPage = value;
+      continue;
+    }
+
+    if (field === "links") {
+      if (value) {
+        throw new Error(`Inline section_pages.${currentPage.source}.links values are not supported`);
+      }
+      inLinks = true;
       continue;
     }
 

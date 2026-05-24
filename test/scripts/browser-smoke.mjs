@@ -106,12 +106,32 @@ async function main() {
       "GPTtrace",
       "eBPF 2024",
       "AgentSight",
-      "arXiv 2508.02736",
-      "arXiv 2603.20625"
+      "arXiv 2508.02736"
     ]) {
       const link = page.getByRole("link", { name: new RegExp(label, "i") }).first();
       check(await link.count(), `home projects include ${label}`);
     }
+
+    await page.goto(absolute(smokeRoutes.products), { waitUntil: "networkidle" });
+    const productsText = (await page.textContent("main")) ?? "";
+    check(/Production infrastructure/i.test(productsText), "products page uses product-facing headline");
+    check(/GPU paths/i.test(productsText), "products page mentions GPU paths");
+    check(
+      await page.locator("main a[href='mailto:yusheng@eunomia.dev']").first().count(),
+      "products page exposes email contact CTA"
+    );
+
+    await page.goto(absolute(smokeRoutes.bpftimeProduct), { waitUntil: "networkidle" });
+    const bpftimeProductText = (await page.textContent("main")) ?? "";
+    check(/GPU-aware instrumentation|GPU paths/i.test(bpftimeProductText), "bpftime product page mentions GPU support");
+    check(
+      (await page.locator("aside nav[aria-label='Section navigation']").count()) === 0,
+      "bpftime product page renders without docs sidebar"
+    );
+    check(
+      await page.locator("main a[href='/bpftime/documents/introduction/']").first().count(),
+      "bpftime product page links to documentation"
+    );
 
     let searchInput = await firstVisible(page, [
       "input[aria-label*='Search']",

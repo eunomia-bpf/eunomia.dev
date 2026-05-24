@@ -80,3 +80,5 @@ When working with eBPF examples in the tutorials:
 - Project home pages should be edited in their respective repository README files
 - The site automatically syncs content from external repositories during build
 - Always test changes locally with `mkdocs serve` before committing
+- Never change existing public paths, source paths, route slugs, or existing navigation target hrefs unless the user explicitly requests that exact path change. Adding a new page is acceptable only when it does not move, rename, or reparent existing content paths. In particular, keep project documentation URL ownership stable: `/bpftime/` and `/bpftime/**` must remain bpftime paths, not be moved under `/products/` or another section.
+- All site URL, route, navigation, nav-dropdown, sidebar, and page-link configuration belongs in `mkdocs.yaml`. React/TypeScript components may render configured links, but must not define route tables, navigation entries, or hard-coded internal hrefs for site pages. Use generated content/IA data from `mkdocs.yaml` instead.

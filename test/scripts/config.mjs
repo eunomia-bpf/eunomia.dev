@@ -35,6 +35,7 @@ export const crawlSeeds = [
 
 export const smokeRoutes = {
   home: "/",
+  products: "/products/",
   search: "/search/?q=hello%20world",
   tutorials: "/tutorials/",
   tutorialArticle: "/tutorials/1-helloworld/",
@@ -43,7 +44,8 @@ export const smokeRoutes = {
   blogArticle:
     "/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/",
   legacyBlogArticle: "/blogs/bpftime/",
-  sectionIndex: "/bpftime/",
+  bpftimeProduct: "/bpftime/",
+  sectionIndex: "/projects/",
   sectionArticle: "/bpftime/llvmbpf/",
   mermaidArticle: "/eunomia-bpf/manual/",
   zhOnlySectionArticle: "/zh/eunomia-bpf/ecli/ecli-dockerfile-usage/",

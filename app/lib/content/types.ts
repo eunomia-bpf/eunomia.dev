@@ -1,5 +1,5 @@
 import type { Locale } from "../site-data";
-import type { MkdocsHomeConfig, MkdocsSectionLandingPageConfig } from "./mkdocs-config";
+import type { MkdocsHomeConfig, MkdocsReactPageVariant, MkdocsSectionLandingPageConfig } from "./mkdocs-config";
 import type { RolloutStage, RouteClass } from "../rollout";
 
 export type LocaleAlternates = Partial<Record<Locale, string>>;
@@ -20,6 +20,13 @@ export type LandingCard = {
   description: string;
   href: string;
   badge?: string;
+};
+
+export type ReactPageLink = {
+  key: string;
+  label: string;
+  href: string;
+  variant?: "primary" | "secondary";
 };
 
 export type ParsedMarkdown = {
@@ -149,6 +156,9 @@ export type DocsPage = {
   continuation?: PageContinuation;
   /** Populated for blog-index pages to drive the React blog listing component. */
   blogEntries?: BlogEntry[];
+  /** Populated from section_pages.react_page when a route should render as a custom React page. */
+  reactPage?: MkdocsReactPageVariant;
+  reactLinks?: ReactPageLink[];
   /** Populated for YAML-backed React landing pages. */
   landingPage?: MkdocsSectionLandingPageConfig;
   projectCatalog?: Pick<MkdocsHomeConfig, "projectGroups" | "projects">;

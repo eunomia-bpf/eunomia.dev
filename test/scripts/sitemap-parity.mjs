@@ -7,10 +7,16 @@ import {
 
 const failures = [];
 const datedBlogRoutePattern = /^\/(?:zh\/)?blog\/\d{4}\/\d{2}\/\d{2}\/[^/]+\/$/;
-const configuredAppOnlyPaths = new Set([
+const expectedAppOnlyPaths = new Set([
   "/about/",
+  "/products/",
+  "/products/agent-runtime-infrastructure/",
+  "/products/services/",
   "/projects/",
   "/zh/about/",
+  "/zh/products/",
+  "/zh/products/agent-runtime-infrastructure/",
+  "/zh/products/services/",
   "/zh/projects/"
 ]);
 
@@ -37,23 +43,20 @@ async function main() {
   const missing = [...legacyPaths].filter((pathname) => !appPaths.has(pathname)).sort();
   const extra = [...appPaths].filter((pathname) => !legacyPaths.has(pathname)).sort();
   const compatibleGrowth = extra.filter((pathname) => datedBlogRoutePattern.test(pathname));
-  const configuredGrowth = extra.filter((pathname) => configuredAppOnlyPaths.has(pathname));
-  const unexpectedExtra = extra.filter(
-    (pathname) => !datedBlogRoutePattern.test(pathname) && !configuredAppOnlyPaths.has(pathname)
-  );
+  const expectedGrowth = extra.filter((pathname) => expectedAppOnlyPaths.has(pathname));
+  const missingExpectedGrowth = [...expectedAppOnlyPaths].filter((pathname) => !appPaths.has(pathname)).sort();
 
   check(missing.length === 0, `all legacy sitemap paths exist in app sitemap (${missing.length} missing)`);
   check(
-    unexpectedExtra.length === 0,
-    `all app-only sitemap paths follow the dated blog permalink pattern (${unexpectedExtra.length} unexpected)`
+    missingExpectedGrowth.length === 0,
+    `all expected app-only sitemap paths exist (${missingExpectedGrowth.length} missing)`
   );
 
   console.log(`Legacy sitemap paths: ${legacyPaths.size}`);
   console.log(`App sitemap paths: ${appPaths.size}`);
   console.log(`App-only sitemap paths: ${extra.length}`);
   console.log(`Compatible dated blog paths: ${compatibleGrowth.length}`);
-  console.log(`Configured app-only paths: ${configuredGrowth.length}`);
-  console.log(`Unexpected app-only paths: ${unexpectedExtra.length}`);
+  console.log(`Expected app-only paths: ${expectedGrowth.length}`);
 
   if (missing.length) {
     for (const pathname of missing.slice(0, 50)) {
@@ -67,9 +70,9 @@ async function main() {
     }
   }
 
-  if (unexpectedExtra.length) {
-    for (const pathname of unexpectedExtra.slice(0, 20)) {
-      console.error(`UNEXPECTED ${pathname}`);
+  if (missingExpectedGrowth.length) {
+    for (const pathname of missingExpectedGrowth.slice(0, 20)) {
+      console.error(`MISSING_EXPECTED ${pathname}`);
     }
   }
 

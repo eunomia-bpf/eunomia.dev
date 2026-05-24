@@ -36,6 +36,7 @@ export async function loadSectionPage(
   return {
     ...withContinuation(page, continuation),
     ...buildSectionLandingProps(section, locale),
+    ...(page.reactPage ? buildProjectCatalogProps() : {}),
     sidebar: buildSectionSidebar(section, locale)
   };
 }
@@ -46,11 +47,18 @@ function buildSectionLandingProps(section: string, locale: Locale): Partial<Docs
     return {};
   }
 
-  const home = readMkdocsHomeConfig();
   return {
     title: landingPage.title[locale],
     description: landingPage.description[locale],
     landingPage,
+    projectCatalog: buildProjectCatalogProps().projectCatalog
+  };
+}
+
+function buildProjectCatalogProps(): Partial<DocsPage> {
+  const home = readMkdocsHomeConfig();
+
+  return {
     projectCatalog: {
       projectGroups: home.projectGroups,
       projects: home.projects
