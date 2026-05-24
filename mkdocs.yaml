@@ -312,7 +312,7 @@ extra:
         label_zh: bpftime
         href: /bpftime/
       - label: AI Agent Observability & Harness
-        label_zh: AI Agent 可观测与运行管控
+        label_zh: AI Agent 可观测与 Harness
         href: /products/agent-runtime-infrastructure/
       - label: Services / Enterprise Support
         label_zh: 服务 / 企业支持
@@ -759,8 +759,8 @@ extra:
           label_zh: GitHub
           href: https://github.com/eunomia-bpf/bpftime
         - key: agent-infra
-          label: Explore agent infra
-          label_zh: 查看 Agent infra
+          label: Explore agent observability & harness
+          label_zh: 了解 AI Agent 可观测与 Harness
           href: /products/agent-runtime-infrastructure/
           variant: primary
         - key: services
@@ -773,7 +773,7 @@ extra:
         zh: 产品
       description:
         en: AI agent observability and runtime harness at the system layer, the bpftime runtime engine underneath, and enterprise support.
-        zh: 系统层的 AI agent 可观测与运行管控、底层 bpftime 运行时引擎，以及企业支持。
+        zh: 系统层的 AI agent 可观测与 Harness、底层 bpftime 运行时引擎，以及企业支持。
       body:
         en: This page is rendered by the React products component.
         zh: 这个页面由 React 产品组件渲染。
@@ -803,13 +803,13 @@ extra:
           href: /blog/2026/05/21/acrfence-preventing-semantic-rollback-attacks-in-agent-checkpoint-restore/
       title:
         en: AI Agent Observability & Harness
-        zh: AI Agent 可观测与运行管控
+        zh: AI Agent 可观测与 Harness
       description:
         en: Zero-instrumentation observability and a runtime harness for AI agents at the system/eBPF boundary.
         zh: 在系统/eBPF 边界，为 AI agent 提供零插桩可观测与运行时 harness。
       body:
-        en: This page is rendered by the React agent runtime infrastructure component.
-        zh: 这个页面由 React Agent 运行时基础设施组件渲染。
+        en: This page is rendered by the React AI Agent Observability & Harness component.
+        zh: 这个页面由 React 的 AI Agent 可观测与 Harness 组件渲染。
     products/services.md:
       react_page: services
       links:

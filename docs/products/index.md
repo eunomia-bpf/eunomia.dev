@@ -1,4 +1,4 @@
 ---
 title: Products
-description: Enterprise support options for bpftime, agent runtime infrastructure, and production integration.
+description: Open-source core plus enterprise support for bpftime, AI agent observability & harness, and production integration.
 ---
