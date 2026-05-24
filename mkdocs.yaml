@@ -133,7 +133,7 @@ nav:
   - Blog: blog
   - Products:
     - products/index.md
-    - Agent Runtime Infrastructure: products/agent-runtime-infrastructure.md
+    - AI Agent Observability & Harness: products/agent-runtime-infrastructure.md
     - Services / Enterprise Support: products/services.md
   - bpftime:
     - bpftime/index.md
@@ -311,8 +311,8 @@ extra:
       - label: bpftime
         label_zh: bpftime
         href: /bpftime/
-      - label: Agent Runtime Infrastructure
-        label_zh: Agent 运行时基础设施
+      - label: AI Agent Observability & Harness
+        label_zh: AI Agent 可观测与运行管控
         href: /products/agent-runtime-infrastructure/
       - label: Services / Enterprise Support
         label_zh: 服务 / 企业支持
@@ -471,11 +471,11 @@ extra:
           en: AI Agents
           zh: AI Agents
         title:
-          en: Make agent behavior observable and controllable
-          zh: 让 agent 行为可观测、可控制
+          en: Observe and harness AI agents at the system layer
+          zh: 在系统层观测并管控 AI agent
         description:
-          en: Monitor agents at system boundaries, correlate process and network behavior, and protect workflows that rely on checkpoint and restore.
-          zh: 在系统边界监控 agent，关联进程和网络行为，并保护依赖 checkpoint/restore 的工作流。
+          en: Zero-instrumentation, framework-agnostic visibility into what agents actually do — plus runtime guardrails on what they are allowed to do.
+          zh: 零插桩、框架无关地看清 agent 真正做了什么，并对它能做什么设定运行时 guardrail。
     projects_title:
       en: Projects
       zh: 项目
@@ -772,8 +772,8 @@ extra:
         en: Products
         zh: 产品
       description:
-        en: Enterprise support options for bpftime, agent runtime infrastructure, and production integration.
-        zh: bpftime、Agent 运行时基础设施和企业支持的企业采用入口。
+        en: AI agent observability and runtime harness at the system layer, the bpftime runtime engine underneath, and enterprise support.
+        zh: 系统层的 AI agent 可观测与运行管控、底层 bpftime 运行时引擎，以及企业支持。
       body:
         en: This page is rendered by the React products component.
         zh: 这个页面由 React 产品组件渲染。
@@ -802,11 +802,11 @@ extra:
           label_zh: 研究文章
           href: /blog/2026/05/21/acrfence-preventing-semantic-rollback-attacks-in-agent-checkpoint-restore/
       title:
-        en: Agent Runtime Infrastructure
-        zh: Agent 运行时基础设施
+        en: AI Agent Observability & Harness
+        zh: AI Agent 可观测与运行管控
       description:
-        en: Infrastructure for observing, enforcing, and protecting AI agent workflows at system boundaries.
-        zh: 在系统边界观测、约束和保护 AI agent 工作流的基础设施。
+        en: Zero-instrumentation observability and a runtime harness for AI agents at the system/eBPF boundary.
+        zh: 在系统/eBPF 边界，为 AI agent 提供零插桩可观测与运行时 harness。
       body:
         en: This page is rendered by the React agent runtime infrastructure component.
         zh: 这个页面由 React Agent 运行时基础设施组件渲染。
