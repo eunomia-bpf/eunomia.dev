@@ -10,6 +10,13 @@ For the home page of each project, please edit the README of them.
 
 [official website]: https://eunomia.dev
 
+## Tech stack
+
+The website is a custom **Next.js + React + Tailwind CSS** frontend (in `app/`) that
+statically exports to plain HTML/CSS/JS and deploys to GitHub Pages. Content is authored
+as Markdown under `docs/**` and compiled into the site at build time; `mkdocs.yaml` is kept
+as the navigation/IA configuration source. See `app/README.md` and `app/ARCHITECTURE.md`.
+
 ## Requirements
 
 - Node.js 22+

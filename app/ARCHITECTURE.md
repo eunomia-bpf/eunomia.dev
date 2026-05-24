@@ -15,7 +15,8 @@ This document is the target architecture for the migration, not a description of
 
 Deployment is now locked:
 
-- `Cloudflare Pages static`
+- **GitHub Pages** (static artifact deploy via `actions/deploy-pages`) is the deployment target
+- output is host-agnostic static files, so any static host works, but GitHub Pages is the one we ship to
 - true static export only
 - no `API route`
 - no production server runtime

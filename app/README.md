@@ -1,11 +1,16 @@
 # eunomia.dev Custom Frontend Plan
 
+> **Configuration rule:** `mkdocs.yaml` is the permanent single source of truth for site
+> IA — navigation, nav dropdowns, sidebar, route ownership, and internal page links. All such
+> config lives in `mkdocs.yaml`; never hard-code routes, nav entries, or internal hrefs in
+> React/TypeScript. Components only render the generated IA data derived from `mkdocs.yaml`.
+
 ## Decision
 
 If `eunomia.dev` moves away from MkDocs, the replacement must be:
 
 - `Next.js` used as a static site compiler, not as a server runtime
-- GitHub Pages Actions artifact deployment as the current deployment target, while keeping Cloudflare Pages static compatibility
+- GitHub Pages Actions artifact deployment is the deployment target (output is host-agnostic static files, but GitHub Pages is the one we ship to)
 - true static export output only
 - Markdown content kept in-repo
 - no `API route`
@@ -278,7 +283,7 @@ The new frontend must preserve:
 - current SEO infrastructure: `robots.txt`, `sitemap.xml`, canonical URLs, Open Graph tags, alternate language links, descriptive titles, and page descriptions
 - current site behavior: search, blog index, dated posts, docs pages, multilingual routing, edit links, analytics, feedback entry points, and share buttons
 - the existing Markdown content model instead of rewriting hundreds of documents as React pages
-- GitHub Pages Actions artifact deployment and Cloudflare Pages static compatibility
+- GitHub Pages Actions artifact deployment (host-agnostic static output)
 - no production API routes
 - no runtime server dependency after build/export
 
