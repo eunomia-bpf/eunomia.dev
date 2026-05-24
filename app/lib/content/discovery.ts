@@ -95,7 +95,7 @@ function buildBlogEntries(relativePrefix: "blog/posts" | "blogs"): Array<BlogEnt
     const [year, month, day] = (metadata.date ?? "1970-01-01").split("-");
     return {
       key,
-      slug: slugifyTitle(metadata.title),
+      slug: metadata.slug ?? slugifyTitle(metadata.title),
       date: metadata.date,
       year,
       month,

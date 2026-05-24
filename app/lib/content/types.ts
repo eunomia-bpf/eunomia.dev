@@ -28,6 +28,7 @@ export type ParsedMarkdown = {
   excerpt: string;
   body: string;
   date?: string;
+  slug?: string;
 };
 
 export type DocumentRecord = ParsedMarkdown & {

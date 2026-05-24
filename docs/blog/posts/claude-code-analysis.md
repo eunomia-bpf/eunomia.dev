@@ -1,5 +1,6 @@
 ---
 date: 2026-02-13
+slug: reverse-engineering-claude-codes-ssl-traffic-with-ebpf
 ---
 
 # Reverse Engineering Claude Code's SSL Traffic with eBPF

@@ -11,7 +11,11 @@ import { loadHomePage } from "../lib/content/home-loader";
 import { getContentModel } from "../lib/content/model";
 import { renderFeed } from "../lib/content/feed";
 import { getGitMetadata } from "../lib/content/git";
-import { resolveAlternatesFromDocSource, resolveManifestRecordFromRoute } from "../lib/content/manifest";
+import {
+  listRenderableRoutesForLocale,
+  resolveAlternatesFromDocSource,
+  resolveManifestRecordFromRoute
+} from "../lib/content/manifest";
 import { splitMaterialBlocks } from "../lib/content/material-blocks";
 import {
   loadBlogIndex,
@@ -92,11 +96,18 @@ test("blog entries derive dated slugs from parsed metadata", () => {
   assert.equal(entry.sourceByLocale.zh, undefined);
 });
 
+test("blog entries can pin historical slugs from front matter", () => {
+  const entry = getBlogEntries().find((candidate) => candidate.key === "claude-code-analysis");
+
+  assert.ok(entry);
+  assert.equal(entry.slug, "reverse-engineering-claude-codes-ssl-traffic-with-ebpf");
+});
+
 test("home page data keeps markdown metadata but leaves layout to React", async () => {
   const home = await loadHomePage("en");
   const homeZh = await loadHomePage("zh");
-  const acrFenceDescription =
-    "ACRFence explains semantic rollback attacks in AI agent checkpoint/restore workflows and shows how intent-aware fencing prevents duplicate irreversible actions and revived authority.";
+  const expectedRecentPosts = getBlogEntriesForLocale("en").slice(0, 3);
+  const expectedRecentPostsZh = getBlogEntriesForLocale("zh").slice(0, 3);
   const homeDescription =
     "Open-source eBPF systems research, userspace runtime tooling, AI-assisted tracing, and runnable Linux observability documentation.";
 
@@ -106,13 +117,17 @@ test("home page data keeps markdown metadata but leaves layout to React", async 
   assert.ok(!("cards" in home));
   assert.ok(!("moreLinks" in home));
   assert.equal(home.sourcePath, "https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/index.md");
-  assert.equal(home.recentPosts[0]?.key, "agent-check-restore-safety");
-  assert.equal(home.recentPosts[0]?.description, acrFenceDescription);
-  assert.notEqual(home.recentPosts[0]?.description, home.recentPosts[0]?.title);
+  assert.deepEqual(home.recentPosts.map((post) => post.key), expectedRecentPosts.map((post) => post.key));
+  assert.deepEqual(home.recentPosts.map((post) => post.description), expectedRecentPosts.map((post) => post.description));
+  assert.ok(home.recentPosts.every((post) => post.description !== post.title));
   assert.equal(homeZh.sourcePath, "https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/index.zh.md");
   assert.equal(Object.hasOwn(homeZh, "bodyHtml"), false);
-  assert.equal(homeZh.recentPosts[0]?.key, "agent-check-restore-safety");
-  assert.notEqual(homeZh.recentPosts[0]?.description, homeZh.recentPosts[0]?.title);
+  assert.deepEqual(homeZh.recentPosts.map((post) => post.key), expectedRecentPostsZh.map((post) => post.key));
+  assert.deepEqual(
+    homeZh.recentPosts.map((post) => post.description),
+    expectedRecentPostsZh.map((post) => post.description)
+  );
+  assert.ok(homeZh.recentPosts.every((post) => post.description !== post.title));
   assert.equal(home.home.projectsTitle.en, "Projects");
   assert.equal(home.home.projects[0]?.key, "bpftime");
   assert.equal(homeZh.home.projectsTitle.zh, "项目");
@@ -472,6 +487,19 @@ test("manifest resolves section index routes back to the canonical section recor
   assert.equal(record.key, "section:bpftime:");
 });
 
+test("manifest resolves historical Claude Code SSL blog route aliases", () => {
+  const canonicalRoute = "/blog/2026/02/13/reverse-engineering-claude-codes-ssl-traffic-with-ebpf/";
+  const aliasRoute = "/blog/2026/02/13/reverse-engineering-claude-code-s-ssl-traffic-with-ebpf/";
+  const canonicalRecord = resolveManifestRecordFromRoute(canonicalRoute);
+  const aliasRecord = resolveManifestRecordFromRoute(aliasRoute);
+
+  assert.ok(canonicalRecord);
+  assert.equal(canonicalRecord.kind, "blog-page");
+  assert.equal(canonicalRecord.slug?.at(-1), "reverse-engineering-claude-codes-ssl-traffic-with-ebpf");
+  assert.equal(aliasRecord?.key, canonicalRecord.key);
+  assert.ok(listRenderableRoutesForLocale("en").includes(aliasRoute));
+});
+
 test("generic section route entries collapse README and index aliases into one public route", () => {
   const setupRoutes = getGenericSectionRouteEntries().filter(
     (candidate) => candidate.section === "eunomia-bpf" && candidate.slug.join("/") === "setup"
@@ -546,8 +574,9 @@ test("listSitemapRoutes keeps key legacy and section routes", () => {
 test("listSitemapRoutes respects rollout stages for dated blog cutover routes", () => {
   const shadowRoutes = new Set(listSitemapRoutes("shadow"));
   const cutoverRoutes = new Set(listSitemapRoutes("cutover"));
-  const datedBlogRoute =
-    "/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/";
+  const datedBlog = getBlogEntries().find((entry) => entry.date);
+  assert.ok(datedBlog);
+  const datedBlogRoute = `/blog/${datedBlog.year}/${datedBlog.month}/${datedBlog.day}/${datedBlog.slug}/`;
 
   assert.ok(shadowRoutes.has("/blog/"));
   assert.ok(!shadowRoutes.has(datedBlogRoute));
@@ -563,13 +592,12 @@ test("searchContent returns locale-aware tutorial results", () => {
 });
 
 test("searchContent indexes fallback blog content for the zh locale", () => {
-  const zhResults = searchContent("agentcgroup", "zh");
+  const fallbackBlogEntry = getBlogEntries().find((entry) => entry.sourceByLocale.en && !entry.sourceByLocale.zh);
+  assert.ok(fallbackBlogEntry);
+  const zhResults = searchContent(fallbackBlogEntry.title, "zh");
+  const expectedHref = `/zh/blog/${fallbackBlogEntry.year}/${fallbackBlogEntry.month}/${fallbackBlogEntry.day}/${fallbackBlogEntry.slug}/`;
 
-  assert.ok(
-    zhResults.some(
-      (result) => result.href === "/zh/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/"
-    )
-  );
+  assert.ok(zhResults.some((result) => result.href === expectedHref));
 });
 
 test("writeSearchIndexes emits public static search assets", () => {
@@ -720,11 +748,14 @@ test("createContentPageRoute enumerates manifest-backed static paths", async () 
 
   assert.ok(!englishSlugs.has("//"));
   assert.ok(!zhSlugs.has("/zh//"));
-  assert.ok(englishSlugs.has("/tutorials/1-helloworld/"));
-  assert.ok(englishSlugs.has("/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/"));
-  assert.ok(englishSlugs.has("/eunomia-bpf/setup/build/"));
-  assert.ok(zhSlugs.has("/zh/tutorials/1-helloworld/"));
-  assert.ok(zhSlugs.has("/zh/eunomia-bpf/setup/build/"));
+  assert.deepEqual(
+    [...englishSlugs].sort(),
+    listRenderableRoutesForLocale("en").filter((route) => route !== "/").sort()
+  );
+  assert.deepEqual(
+    [...zhSlugs].sort(),
+    listRenderableRoutesForLocale("zh").filter((route) => route !== "/zh/").sort()
+  );
 });
 
 test("nested tutorial pages preserve deep relative links", async () => {

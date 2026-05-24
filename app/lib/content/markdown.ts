@@ -209,6 +209,15 @@ function parseDate(rawValue: unknown): string | undefined {
   return undefined;
 }
 
+function parseSlug(rawValue: unknown): string | undefined {
+  if (typeof rawValue !== "string") {
+    return undefined;
+  }
+
+  const slug = slugifyTitle(rawValue);
+  return slug || undefined;
+}
+
 export function parseMarkdown(relativePath: string): ParsedMarkdown {
   if (useContentCache) {
     const cached = markdownCache.get(relativePath);
@@ -242,7 +251,8 @@ export function parseMarkdown(relativePath: string): ParsedMarkdown {
     description,
     excerpt,
     body,
-    date: parseDate(parsed.data.date)
+    date: parseDate(parsed.data.date),
+    slug: parseSlug(parsed.data.slug)
   };
 
   if (useContentCache) {

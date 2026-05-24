@@ -27,8 +27,21 @@ let manifestBySourceCache: Map<string, SerializedContentManifestRecord> | null =
 let manifestByRouteCache: Map<string, LocaleAlternates> | null = null;
 let manifestRecordByRouteCache: Map<string, SerializedContentManifestRecord> | null = null;
 
+const routeAliasesByCanonicalPath: Record<string, string[]> = {
+  "/blog/2026/02/13/reverse-engineering-claude-codes-ssl-traffic-with-ebpf/": [
+    "/blog/2026/02/13/reverse-engineering-claude-code-s-ssl-traffic-with-ebpf/"
+  ],
+  "/zh/blog/2026/02/13/reverse-engineering-claude-codes-ssl-traffic-with-ebpf/": [
+    "/zh/blog/2026/02/13/reverse-engineering-claude-code-s-ssl-traffic-with-ebpf/"
+  ]
+};
+
 function allowManifestFallback(): boolean {
   return process.env.NODE_ENV === "development";
+}
+
+function getRouteAliases(canonicalPath: string | undefined): string[] {
+  return canonicalPath ? routeAliasesByCanonicalPath[canonicalPath] ?? [] : [];
 }
 
 function resolvePageSource(
@@ -285,10 +298,18 @@ function buildManifestIndexes() {
     if (alternates.en) {
       setUniqueRouteAlternates(byRoute, routeOwners, alternates.en, record.key, alternates);
       recordByRoute.set(alternates.en, record);
+      for (const alias of getRouteAliases(alternates.en)) {
+        setUniqueRouteAlternates(byRoute, routeOwners, alias, record.key, alternates);
+        recordByRoute.set(alias, record);
+      }
     }
     if (alternates.zh) {
       setUniqueRouteAlternates(byRoute, routeOwners, alternates.zh, record.key, alternates);
       recordByRoute.set(alternates.zh, record);
+      for (const alias of getRouteAliases(alternates.zh)) {
+        setUniqueRouteAlternates(byRoute, routeOwners, alias, record.key, alternates);
+        recordByRoute.set(alias, record);
+      }
     }
   }
 
@@ -335,6 +356,24 @@ export function listSitemapRoutes(stage: RolloutStage = getActiveRolloutStage())
     }
     if (record.routeByLocale.zh) {
       routes.add(record.routeByLocale.zh);
+    }
+  }
+
+  return [...routes].sort();
+}
+
+export function listRenderableRoutesForLocale(locale: Locale): string[] {
+  const routes = new Set<string>();
+
+  for (const record of getSerializedContentManifest()) {
+    const canonicalRoute = record.routeByLocale[locale];
+    if (!canonicalRoute) {
+      continue;
+    }
+
+    routes.add(canonicalRoute);
+    for (const alias of getRouteAliases(canonicalRoute)) {
+      routes.add(alias);
     }
   }
 

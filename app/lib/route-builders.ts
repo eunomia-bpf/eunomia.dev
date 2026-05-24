@@ -1,7 +1,7 @@
 import type { GetStaticPaths, GetStaticProps } from "next";
 
 import { loadHomePage, resolveContentPage } from "./content";
-import { getContentManifest } from "./content/manifest";
+import { listRenderableRoutesForLocale } from "./content/manifest";
 import { buildSearchSidebar } from "./content/sidebar";
 import type { SidebarGroup } from "./content/types";
 import type { HomePageData } from "./page-factories";
@@ -34,11 +34,8 @@ export function createContentPageRoute(locale: Locale) {
   const homeRoute = pathnameFromSlug(locale, []);
 
   const getStaticPaths: GetStaticPaths = async () => {
-    const paths = getContentManifest()
-      .map((record) => record.routeByLocale[locale])
-      .filter(
-        (route): route is string => Boolean(route) && route !== homeRoute
-      )
+    const paths = listRenderableRoutesForLocale(locale)
+      .filter((route) => route !== homeRoute)
       .map((route) => {
         const localizedRoute =
           locale === "zh" && route.startsWith("/zh/")
