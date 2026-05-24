@@ -1401,6 +1401,36 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blogs/wasm-bpf/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/products/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/products/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/products/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/products/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/products/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/products/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/products/agent-runtime-infrastructure/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/products/agent-runtime-infrastructure/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/products/agent-runtime-infrastructure/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/products/agent-runtime-infrastructure/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/products/agent-runtime-infrastructure/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/products/agent-runtime-infrastructure/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/products/services/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/products/services/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/products/services/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/products/services/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/products/services/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/products/services/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/bpftime/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/bpftime/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/bpftime/" />
