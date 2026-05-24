@@ -144,6 +144,14 @@ export function HomePageHero({ home, locale }: { home: MkdocsHomeConfig; locale:
             >
               {localizedText(home.hero.secondaryCta, locale)}
             </a>
+            {home.hero.tertiaryCta && home.hero.tertiaryHref ? (
+              <a
+                href={localizedHref(home.hero.tertiaryHref, locale)}
+                className="inline-flex min-h-11 items-center rounded-md border border-slate-300 bg-white/80 px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-slate-400 hover:text-ink"
+              >
+                {localizedText(home.hero.tertiaryCta, locale)}
+              </a>
+            ) : null}
           </div>
         </div>
       </div>

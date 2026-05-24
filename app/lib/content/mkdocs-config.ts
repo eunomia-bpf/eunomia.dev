@@ -102,6 +102,8 @@ export type MkdocsHomeHeroConfig = {
   primaryHref: string;
   secondaryCta: MkdocsLocalizedText;
   secondaryHref: string;
+  tertiaryCta?: MkdocsLocalizedText;
+  tertiaryHref?: string;
 };
 
 export type MkdocsHomeCapability = {
@@ -444,6 +446,8 @@ type PartialHomeHeroConfig = {
   primaryHref?: string;
   secondaryCta: PartialLocalizedText;
   secondaryHref?: string;
+  tertiaryCta: PartialLocalizedText;
+  tertiaryHref?: string;
 };
 
 type PartialHomeCapability = {
@@ -1178,7 +1182,13 @@ function normalizeHomeHero(hero: PartialHomeHeroConfig): MkdocsHomeHeroConfig {
     primaryCta: requireLocalizedText(hero.primaryCta, "home.hero.primary_cta"),
     primaryHref: requireScalar(hero.primaryHref, "home.hero.primary_href"),
     secondaryCta: requireLocalizedText(hero.secondaryCta, "home.hero.secondary_cta"),
-    secondaryHref: requireScalar(hero.secondaryHref, "home.hero.secondary_href")
+    secondaryHref: requireScalar(hero.secondaryHref, "home.hero.secondary_href"),
+    ...(hero.tertiaryHref !== undefined
+      ? {
+          tertiaryCta: requireLocalizedText(hero.tertiaryCta, "home.hero.tertiary_cta"),
+          tertiaryHref: requireScalar(hero.tertiaryHref, "home.hero.tertiary_href")
+        }
+      : {})
   };
 }
 
@@ -1232,7 +1242,8 @@ function readHomeConfig(): MkdocsHomeConfig {
       title: {},
       summary: {},
       primaryCta: {},
-      secondaryCta: {}
+      secondaryCta: {},
+      tertiaryCta: {}
     },
     capabilitiesTitle: {},
     capabilitiesIntro: {},
@@ -1255,7 +1266,14 @@ function readHomeConfig(): MkdocsHomeConfig {
     | "allPostsLabel"
     | null = null;
   let inHero = false;
-  let currentHeroLocalizedField: "kicker" | "title" | "summary" | "primaryCta" | "secondaryCta" | null = null;
+  let currentHeroLocalizedField:
+    | "kicker"
+    | "title"
+    | "summary"
+    | "primaryCta"
+    | "secondaryCta"
+    | "tertiaryCta"
+    | null = null;
   let inCapabilities = false;
   let currentCapability: PartialHomeCapability | null = null;
   let currentCapabilityLocalizedField: "eyebrow" | "title" | "description" | null = null;
@@ -1398,7 +1416,8 @@ function readHomeConfig(): MkdocsHomeConfig {
         title: "title",
         summary: "summary",
         primary_cta: "primaryCta",
-        secondary_cta: "secondaryCta"
+        secondary_cta: "secondaryCta",
+        tertiary_cta: "tertiaryCta"
       } as const;
       const localizedHeroField = localizedHeroFields[field as keyof typeof localizedHeroFields];
       if (localizedHeroField) {
@@ -1415,6 +1434,10 @@ function readHomeConfig(): MkdocsHomeConfig {
       }
       if (field === "secondary_href") {
         config.hero.secondaryHref = value;
+        continue;
+      }
+      if (field === "tertiary_href") {
+        config.hero.tertiaryHref = value;
         continue;
       }
 

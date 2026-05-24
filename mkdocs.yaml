@@ -428,13 +428,17 @@ extra:
         en: Open-source eBPF infrastructure for runtime extension, GPU tracing, and AI Agents.
         zh: 面向 runtime extension、GPU tracing 和 AI Agents 的开源 eBPF 基础设施。
       primary_cta:
-        en: Explore products
-        zh: 浏览产品
+        en: Products
+        zh: 产品
       primary_href: /products/
       secondary_cta:
-        en: View GitHub
-        zh: 查看 GitHub
+        en: GitHub
+        zh: GitHub
       secondary_href: https://github.com/eunomia-bpf
+      tertiary_cta:
+        en: Tutorials
+        zh: 教程
+      tertiary_href: /tutorials/
     capabilities_title:
       en: What Eunomia Provides
       zh: Eunomia 提供什么
