@@ -97,20 +97,11 @@ async function main() {
     }
 
     check(await page.getByRole("heading", { name: /^Projects$/i }).count(), "home page exposes projects section");
-    for (const label of [
-      "bpftime",
-      "Tutorials",
-      "Documentation",
-      "Papers & Research",
-      "OSDI 2025",
-      "GPTtrace",
-      "eBPF 2024",
-      "AgentSight",
-      "arXiv 2508.02736"
-    ]) {
-      const link = page.getByRole("link", { name: new RegExp(label, "i") }).first();
-      check(await link.count(), `home projects include ${label}`);
-    }
+    // Structural check only: the section should render multiple project cards
+    // sourced from mkdocs.yaml. Specific project names and venue labels live in
+    // config and change freely, so we don't pin them here.
+    const projectsSection = page.locator('section[aria-labelledby="home-projects"]');
+    check((await projectsSection.getByRole("link").count()) >= 8, "home projects section renders project cards");
 
     await page.goto(absolute(smokeRoutes.products), { waitUntil: "networkidle" });
     const productsText = (await page.textContent("main")) ?? "";

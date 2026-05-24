@@ -406,8 +406,8 @@ extra:
       description:
         en: A map of the eunomia-bpf project family, grouped by runtime infrastructure, developer tooling, AI agent systems, and public resources.
         zh: eunomia-bpf 项目体系地图，按 runtime infrastructure、开发工具链、AI agent systems 和公开资源组织。
-      project_groups: [platform, resources, ai-agents]
-      featured_projects: [bpftime, eunomia-bpf, wasm-bpf, agentsight]
+      project_groups: [platform, ai-agents, resources]
+      featured_projects: [bpftime, agentsight, eunomia-bpf, wasm-bpf]
     blog:
       variant: blog-index
       title:
@@ -490,7 +490,15 @@ extra:
         intro:
           en: Execution engines, toolchains, runtime components, and low-level extension paths.
           zh: 执行引擎、工具链、runtime 组件和底层扩展路径。
-        project_keys: [bpftime, llvmbpf, eunomia-bpf, wasm-bpf]
+        project_keys: [bpftime, gpu_ext, llvmbpf, eunomia-bpf, wasm-bpf]
+      - key: ai-agents
+        title:
+          en: AI Agents
+          zh: AI Agents
+        intro:
+          en: Tracing, observability, and safety work for AI agent systems.
+          zh: 面向 AI agent 系统的 tracing、observability 和安全研究。
+        project_keys: [agentsight, GPTtrace]
       - key: resources
         title:
           en: Resources
@@ -499,14 +507,6 @@ extra:
           en: Tutorials, documentation, blog posts, and research papers for eBPF builders.
           zh: 面向 eBPF 开发者的教程、文档、博客和研究论文。
         project_keys: [bpf-developer-tutorial, docs, blog, papers]
-      - key: ai-agents
-        title:
-          en: AI Agents
-          zh: AI Agents
-        intro:
-          en: Tracing, observability, and safety work for AI agent systems.
-          zh: 面向 AI agent 系统的 tracing、observability 和安全研究。
-        project_keys: [GPTtrace, agentsight]
     projects:
       - key: bpftime
         title: bpftime
@@ -529,6 +529,24 @@ extra:
           - label: OSDI 2025
             label_zh: OSDI 2025
             href: https://www.usenix.org/conference/osdi25/presentation/zheng-yusheng
+      - key: gpu_ext
+        title: gpu_ext
+        tag:
+          en: GPU
+          zh: GPU
+        href: /bpftime/documents/gpu/
+        image: /_content-assets/docs/assets/logo.png
+        image_alt: gpu_ext
+        description:
+          en: Extending eBPF programmability and observability to GPUs via dynamic PTX offload — part of bpftime.
+          zh: 通过动态 PTX 注入把 eBPF 的可编程性与可观测性扩展到 GPU，是 bpftime 的一部分。
+        links:
+          - label: GPU docs
+            label_zh: GPU 文档
+            href: /bpftime/documents/gpu/
+          - label: LPC 2025
+            label_zh: LPC 2025
+            href: https://lpc.events/event/19/contributions/2168/
       - key: bpf-developer-tutorial
         title: Tutorials
         tag:
@@ -661,9 +679,9 @@ extra:
           - label: GitHub
             label_zh: GitHub
             href: https://github.com/eunomia-bpf/agentsight
-          - label: arXiv 2508.02736
-            label_zh: arXiv 2508.02736
-            href: https://arxiv.org/abs/2508.02736
+          - label: PACMI 2025
+            label_zh: PACMI 2025
+            href: https://dl.acm.org/doi/10.1145/3766882.3767169
       - key: llvmbpf
         title: llvmbpf
         tag:

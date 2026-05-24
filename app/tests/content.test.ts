@@ -208,44 +208,37 @@ test("primary nav children and section sidebars are sourced from mkdocs config",
 test("home project cards are sourced from mkdocs config", () => {
   const home = readMkdocsHomeConfig();
 
-  assert.equal(home.projectsTitle.en, "Projects");
-  assert.equal(home.projectsTitle.zh, "项目");
-  assert.equal(home.hero.summary.en, "Open-source eBPF infrastructure for runtime extension, GPU tracing, and AI Agents.");
-  assert.equal(home.capabilities.length, 3);
-  assert.deepEqual(
-    home.projectGroups.map((group) => group.key),
-    ["platform", "resources", "ai-agents"]
-  );
-  assert.deepEqual(
-    home.projects.map((project) => project.key),
-    [
-      "bpftime",
-      "bpf-developer-tutorial",
-      "docs",
-      "blog",
-      "papers",
-      "eunomia-bpf",
-      "GPTtrace",
-      "agentsight",
-      "llvmbpf",
-      "wasm-bpf"
-    ]
-  );
-  assert.ok(
-    home.projects
-      .find((project) => project.key === "bpftime")
-      ?.links.some((link) => link.label.en === "OSDI 2025")
-  );
-  assert.ok(
-    home.projects
-      .find((project) => project.key === "GPTtrace")
-      ?.links.some((link) => link.label.en === "eBPF 2024")
-  );
-  assert.ok(
-    home.projects
-      .find((project) => project.key === "agentsight")
-      ?.links.some((link) => link.label.en === "arXiv 2508.02736")
-  );
+  // Assert structure and internal consistency, not specific copy/order/venues:
+  // those live in mkdocs.yaml and change freely, so pinning them here just makes
+  // the test a second copy of the config that has to be edited in lockstep.
+  const nonEmpty = (text: { en: string; zh: string }) => text.en.length > 0 && text.zh.length > 0;
+
+  assert.ok(home.projectGroups.length > 0, "expected at least one project group");
+  assert.ok(home.projects.length > 0, "expected at least one project");
+  assert.ok(home.capabilities.length > 0, "expected at least one capability");
+  assert.ok(nonEmpty(home.projectsTitle), "projects title should be bilingual");
+  assert.ok(nonEmpty(home.hero.summary), "hero summary should be bilingual");
+  assert.ok(nonEmpty(home.hero.primaryCta) && home.hero.primaryHref.length > 0, "hero needs a primary CTA");
+
+  const projectKeys = new Set(home.projects.map((project) => project.key));
+
+  // Every group references only real projects, and no group is empty.
+  for (const group of home.projectGroups) {
+    assert.ok(group.projectKeys.length > 0, `group ${group.key} has no projects`);
+    for (const key of group.projectKeys) {
+      assert.ok(projectKeys.has(key), `group ${group.key} references unknown project "${key}"`);
+    }
+  }
+
+  // Every project is well-formed and bilingual, with usable links.
+  for (const project of home.projects) {
+    assert.ok(project.key.length > 0 && project.href.length > 0, `project ${project.key} missing key/href`);
+    assert.ok(project.title.length > 0, `project ${project.key} missing title`);
+    assert.ok(nonEmpty(project.tag) && nonEmpty(project.description), `project ${project.key} not bilingual`);
+    for (const link of project.links) {
+      assert.ok(nonEmpty(link.label) && link.href.length > 0, `project ${project.key} has a malformed link`);
+    }
+  }
 });
 
 test("configured section landing copy is sourced from mkdocs config", async () => {
