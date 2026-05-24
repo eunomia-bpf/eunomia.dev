@@ -39,7 +39,7 @@ the longer notes later in this file are for preparation and demo planning.
 
 **Session Title**
 
-Beyond Agent Frameworks: eBPF Runtime Security for Third-Party AI Agents on Kubernetes
+When the Agent Framework Is Not Yours: eBPF Runtime Evidence for AI Agents on Kubernetes
 
 **Are you submitting for a Poster Session?**
 
@@ -59,34 +59,33 @@ Intermediate
 
 **Description - under 1000 characters**
 
-AI agents are entering Kubernetes through coding assistants, MCP clients, CI, and
-platform-ops tools. Their security boundary is often described at the agent framework layer:
-prompts, tool routing, approvals, memory, and logs. For platform teams running third-party
-or opaque agents, that layer cannot be the trusted computing base.
+AI agents are no longer simple scripts inside a pod. They are increasingly delivered as
+complex third-party frameworks that own prompts, tool routing, approvals, MCP access,
+memory, retries, logs, and sometimes sandbox policy. Meanwhile, the assets they act on -
+repos, CI runners, clusters, secrets, and networks - belong to the platform
+team. This ownership and trust split changes the security model: framework approvals,
+logs, and provider-managed sandbox settings cannot be the environment owner's source of
+truth.
 
-This session presents a runtime security model that separates the agent framework, the
-execution environment, and an independent evidence/policy plane. Using eBPF, Kubernetes
-metadata, and runtime policy, it shows how to observe behavior outside the framework:
-process lineage, commands, file and secret access, network connections, and
-subprocess side effects. A demo compares framework/tool logs, sandbox controls, and OS-level
-evidence when prompt injection drives credential access and unexpected egress.
-
-Attendees will leave with a practical model: authorize at the tool layer, isolate at the
-sandbox layer, and verify at the OS/runtime layer.
+This session uses a three-layer model: agent framework, execution environment/sandbox, and
+environment-owned evidence/policy plane. With eBPF, Kubernetes metadata, and runtime
+policy, we verify what happened below the framework: process lineage, commands,
+file/secret access, network egress, credential use, and subprocess behavior. A demo
+compares framework logs, sandbox controls, and OS evidence as prompt injection drives
+credential access and unexpected egress.
 
 **Benefits to the ecosystem**
 
-Cloud-native teams are beginning to run AI agents with repo, cluster, CI, and secret access,
-but many current patterns over-trust framework logs or tool approvals. This session gives
-platform and security engineers a concrete boundary model they can apply to third-party
-agents today: what belongs to the agent provider, what belongs to the environment owner,
-and what evidence must be collected below the harness.
+Cloud-native teams need to run agents they do not fully own: coding assistants, MCP
+clients, CI agents, and SaaS-managed runtimes with access to repos, clusters, secrets, and
+networks. Current patterns often over-trust tool approvals, framework logs, or sandbox
+settings supplied by the agent runtime.
 
-The talk helps the ecosystem move from ad hoc agent permissions toward auditable,
-policy-driven runtime controls built on familiar Kubernetes and eBPF primitives. The
-contribution is not another sandbox product; it is a reusable threat model, evidence
-architecture, and demo pattern for evaluating agent side effects in cloud native
-environments.
+This session gives platform and security engineers a reusable boundary model for deciding
+what can be authorized at the tool layer, what can be isolated at the sandbox layer, and
+what must be independently verified at the OS/runtime layer. It helps move agent operations
+toward auditable runtime controls built on Kubernetes and eBPF without claiming that eBPF
+replaces sandboxing or MCP authorization.
 
 **Case study?**
 
@@ -212,21 +211,22 @@ Sandlock, AgentCgroup, ActPlane, eunomia-bpf.
 ## Proposal 1 — Security
 
 ### Title
-**Beyond Agent Frameworks: eBPF Runtime Security for Third-Party AI Agents on Kubernetes**
+**When the Agent Framework Is Not Yours: eBPF Runtime Evidence for AI Agents on Kubernetes**
 
-(Alternatives — A: *Runtime Evidence Beyond Agent Frameworks: eBPF Security for AI Agents
-on Kubernetes*; B: *Securing Third-Party AI Agents in Your Cluster with eBPF Runtime
-Evidence*. The title above is the most balanced for CFP review.)
+(Alternatives — A: *Securing Third-Party AI Agents in Your Cluster with eBPF Runtime
+Evidence*; B: *Agent Frameworks Are Not Trust Boundaries: eBPF Runtime Security for
+Kubernetes*. The title above is the most accurate for the ownership-boundary argument.)
 
 ### One-line pitch
-As AI agents move into Kubernetes, platform teams cannot assume the agent harness is
-trustworthy or even modifiable. This talk shows how to build an **environment-owned
-evidence plane** using eBPF to verify agent behavior *below* the harness.
+As AI agents move into Kubernetes, platform teams cannot assume the agent framework,
+harness, or sandbox is trustworthy or modifiable. This talk shows how to build an
+**environment-owned evidence plane** using eBPF to verify agent behavior below that stack.
 
 ### Core claim
-MCP gateways and harness permissions **authorize intended actions**; eBPF/runtime evidence
-**verifies actual side effects**. The harness is part of the workload, **not part of the
-trusted computing base (TCB)**.
+MCP gateways and framework permissions **authorize intended actions**; sandboxing
+**isolates execution**; eBPF/runtime evidence **verifies actual side effects**. The
+agent framework/harness is part of the workload, **not automatically part of the trusted
+computing base (TCB)**.
 
 ### Why it's novel (not "another agent sandbox / MCP gateway / eBPF observability demo")
 **Security boundary realignment for third-party agents:**
