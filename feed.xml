@@ -6,6 +6,13 @@
   <description>Latest writing from eunomia.dev on eBPF, bpftime, AI tracing, and systems research.</description>
   <language>en-US</language>
   <item>
+  <title>When CPU Noise Slows Down GPU Inference: Measuring Scheduler and IRQ Impact with eBPF</title>
+  <link>https://eunomia.dev/blog/2026/05/24/measuring-cpu-noise-in-gpu-inference-with-ebpf/</link>
+  <guid>https://eunomia.dev/blog/2026/05/24/measuring-cpu-noise-in-gpu-inference-with-ebpf/</guid>
+  <pubDate>Sun, 24 May 2026 00:00:00 GMT</pubDate>
+  <description>GPU inference often looks like a GPU problem, but the CPU still sits on the critical path. It prepares inputs, launches CUDA kernels, manages synchronization, handles runtime calls, and shares cores with system work, int</description>
+</item>
+<item>
   <title>ACRFence: Preventing Semantic Rollback Attacks in Agent Checkpoint-Restore</title>
   <link>https://eunomia.dev/blog/2026/05/21/acrfence-preventing-semantic-rollback-attacks-in-agent-checkpoint-restore/</link>
   <guid>https://eunomia.dev/blog/2026/05/21/acrfence-preventing-semantic-rollback-attacks-in-agent-checkpoint-restore/</guid>
@@ -21,8 +28,8 @@
 </item>
 <item>
   <title>Reverse Engineering Claude Code&#39;s SSL Traffic with eBPF</title>
-  <link>https://eunomia.dev/blog/2026/02/13/reverse-engineering-claude-code-s-ssl-traffic-with-ebpf/</link>
-  <guid>https://eunomia.dev/blog/2026/02/13/reverse-engineering-claude-code-s-ssl-traffic-with-ebpf/</guid>
+  <link>https://eunomia.dev/blog/2026/02/13/reverse-engineering-claude-codes-ssl-traffic-with-ebpf/</link>
+  <guid>https://eunomia.dev/blog/2026/02/13/reverse-engineering-claude-codes-ssl-traffic-with-ebpf/</guid>
   <pubDate>Fri, 13 Feb 2026 00:00:00 GMT</pubDate>
   <description>Ever wondered what your AI coding agent is actually sending over the network? As part of our work on AgentSight — an eBPF-powered observability tool that monitors AI agents at system boundaries without modifying their co</description>
 </item>
@@ -207,13 +214,6 @@
   <guid>https://eunomia.dev/blog/2024/02/11/introducing-eunomia-bpf-v1-0-simplifying-ebpf-with-co-re-and-webassembly/</guid>
   <pubDate>Sun, 11 Feb 2024 00:00:00 GMT</pubDate>
   <description>The world of eBPF (Extended Berkeley Packet Filter) has been rapidly evolving, offering developers powerful tools to monitor and modify the behavior of systems at the kernel level. Today, we&#39;re thrilled to introduce the </description>
-</item>
-<item>
-  <title>The Secure Path Forward for eBPF runtime: Challenges and Innovations</title>
-  <link>https://eunomia.dev/blog/2024/02/11/the-secure-path-forward-for-ebpf-runtime-challenges-and-innovations/</link>
-  <guid>https://eunomia.dev/blog/2024/02/11/the-secure-path-forward-for-ebpf-runtime-challenges-and-innovations/</guid>
-  <pubDate>Sun, 11 Feb 2024 00:00:00 GMT</pubDate>
-  <description>Extended Berkeley Packet Filter (eBPF) represents a significant evolution in the way we interact with and extend the capabilities of modern operating systems. As a powerful technology that enables the Linux kernel to run</description>
 </item>
 </channel>
 </rss>

@@ -1,0 +1,845 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8" data-next-head=""/><meta name="viewport" content="width=device-width" data-next-head=""/><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-1YVMXGL0MY"></script><title data-next-head="">When CPU Noise Slows Down GPU Inference: Measuring Scheduler and IRQ Impact with eBPF | eunomia</title><meta name="description" content="Quantitative eBPF tracing of CUDA kernel launches, scheduler context switches, and IRQs shows when CPU noise matters for GPU LLM inference and how CPU pinning recovers throughput." data-next-head=""/><meta name="twitter:card" content="summary_large_image" data-next-head=""/><meta name="twitter:title" content="When CPU Noise Slows Down GPU Inference: Measuring Scheduler and IRQ Impact with eBPF | eunomia" data-next-head=""/><meta name="twitter:description" content="Quantitative eBPF tracing of CUDA kernel launches, scheduler context switches, and IRQs shows when CPU noise matters for GPU LLM inference and how CPU pinning recovers throughput." data-next-head=""/><meta name="twitter:image" content="https://eunomia.dev/og/default.svg" data-next-head=""/><meta property="og:title" content="When CPU Noise Slows Down GPU Inference: Measuring Scheduler and IRQ Impact with eBPF | eunomia" data-next-head=""/><meta property="og:description" content="Quantitative eBPF tracing of CUDA kernel launches, scheduler context switches, and IRQs shows when CPU noise matters for GPU LLM inference and how CPU pinning recovers throughput." data-next-head=""/><meta property="og:type" content="article" data-next-head=""/><meta property="og:url" content="https://eunomia.dev/blog/2026/05/24/measuring-cpu-noise-in-gpu-inference-with-ebpf/" data-next-head=""/><meta property="og:image" content="https://eunomia.dev/og/default.svg" data-next-head=""/><meta property="article:published_time" content="2026-05-24T00:00:00.000Z" data-next-head=""/><meta property="article:modified_time" content="2026-05-24T03:21:22.000Z" data-next-head=""/><meta property="article:author" content="LinuxDev9002" data-next-head=""/><link rel="canonical" href="https://eunomia.dev/blog/2026/05/24/measuring-cpu-noise-in-gpu-inference-with-ebpf/" data-next-head=""/><link rel="alternate" type="application/rss+xml" title="eunomia feed" href="https://eunomia.dev/feed.xml" data-next-head=""/><link rel="alternate" hrefLang="en" href="https://eunomia.dev/blog/2026/05/24/measuring-cpu-noise-in-gpu-inference-with-ebpf/" data-next-head=""/><link rel="alternate" hrefLang="zh" href="https://eunomia.dev/zh/blog/2026/05/24/measuring-cpu-noise-in-gpu-inference-with-ebpf/" data-next-head=""/><link rel="preload" href="/_next/static/chunks/2oo8hvn9npzta.css" as="style"/><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', "G-1YVMXGL0MY");</script><link rel="stylesheet" href="/_next/static/chunks/2oo8hvn9npzta.css" data-n-g=""/><noscript data-n-css=""></noscript><script src="/_next/static/chunks/092ldwci1a0-0.js" defer=""></script><script src="/_next/static/chunks/04c3odyztee3-.js" defer=""></script><script src="/_next/static/chunks/0vj1wy34kjh-f.js" defer=""></script><script src="/_next/static/chunks/turbopack-0acozfm9wue10.js" defer=""></script><script src="/_next/static/chunks/1woxabbpaojff.js" defer=""></script><script src="/_next/static/chunks/18tw1vhs-85ei.js" defer=""></script><script src="/_next/static/chunks/0iyiaui7bn6_l.js" defer=""></script><script src="/_next/static/chunks/turbopack-1y8wtn0-u5n56.js" defer=""></script><script src="/_next/static/NniphByZ0O2VaIDgapIND/_buildManifest.js" defer=""></script><script src="/_next/static/NniphByZ0O2VaIDgapIND/_ssgManifest.js" defer=""></script><script src="/_next/static/NniphByZ0O2VaIDgapIND/_clientMiddlewareManifest.js" defer=""></script></head><body><div id="__next"><div class="min-h-screen bg-white"><a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-slate-900 focus:shadow-md">Skip to content</a><header class="sticky top-0 z-40 border-b border-slate-200 bg-white/95"><div class="mx-auto flex max-w-[82rem] items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8"><a href="/" class="flex min-w-0 items-center gap-2 text-base font-semibold tracking-normal text-ink"><img alt="" loading="lazy" width="28" height="28" decoding="async" data-nimg="1" class="h-7 w-7 shrink-0 rounded-md" style="color:transparent" src="/_content-assets/docs/assets/icon.svg"/><span class="truncate">eunomia</span></a><nav class="hidden items-center gap-1 text-sm font-medium text-slate-600 lg:flex"><a href="/bpftime/" class="inline-flex items-center gap-1.5 rounded-md px-3 py-2 transition hover:bg-slate-50 hover:text-ink">bpftime</a><div class="group relative"><a href="/projects/" aria-haspopup="true" class="inline-flex items-center gap-1.5 rounded-md px-3 py-2 transition hover:bg-slate-50 hover:text-ink"><span>Projects</span><span aria-hidden="true" class="text-xs text-slate-400 transition group-hover:text-slate-600">▾</span></a><div class="invisible absolute left-0 top-full z-50 w-56 pt-2 opacity-0 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100"><div class="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-lg"><a href="/bpftime/" class="block border-t border-slate-100 px-4 py-3 text-sm text-slate-600 transition first:border-t-0 hover:bg-slate-50 hover:text-ink">bpftime</a><a href="/eunomia-bpf/" class="block border-t border-slate-100 px-4 py-3 text-sm text-slate-600 transition first:border-t-0 hover:bg-slate-50 hover:text-ink">eunomia-bpf</a><a href="/wasm-bpf/" class="block border-t border-slate-100 px-4 py-3 text-sm text-slate-600 transition first:border-t-0 hover:bg-slate-50 hover:text-ink">wasm-bpf</a><a href="/GPTtrace/agentsight/" class="block border-t border-slate-100 px-4 py-3 text-sm text-slate-600 transition first:border-t-0 hover:bg-slate-50 hover:text-ink">AgentSight</a></div></div></div><a href="/GPTtrace/" class="inline-flex items-center gap-1.5 rounded-md px-3 py-2 transition hover:bg-slate-50 hover:text-ink">AI × eBPF</a><a href="/tutorials/" class="inline-flex items-center gap-1.5 rounded-md px-3 py-2 transition hover:bg-slate-50 hover:text-ink">Tutorial</a><a href="/blog/" aria-current="page" class="inline-flex items-center gap-1.5 rounded-md px-3 py-2 transition bg-slate-100 text-ink">Blog</a><a href="/others/" class="inline-flex items-center gap-1.5 rounded-md px-3 py-2 transition hover:bg-slate-50 hover:text-ink">Ecosystem</a></nav><div class="flex items-center gap-2 sm:gap-3"><div class="relative hidden xl:block"><label><span class="sr-only">Search</span><input aria-label="Search" aria-expanded="false" aria-controls="_R_el6_" aria-autocomplete="list" aria-haspopup="listbox" role="combobox" type="text" placeholder="Search docs" class="rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm outline-none transition focus:border-slate-400 focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-1 w-56 border-slate-300 bg-slate-50" value=""/></label></div><a href="https://github.com/eunomia-bpf/eunomia.dev" class="hidden rounded-md border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-400 hover:text-ink sm:inline-flex">GitHub</a><a href="/zh/blog/2026/05/24/measuring-cpu-noise-in-gpu-inference-with-ebpf/" class="rounded-md border border-slate-300 px-3 py-2 text-sm text-slate-700 transition hover:border-slate-400 hover:text-ink">中文</a><div class="relative lg:hidden"><button type="button" aria-expanded="false" aria-controls="mobile-nav-panel" aria-label="Open navigation" class="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 text-slate-700 transition hover:border-slate-300 hover:text-ink"><svg aria-hidden="true" class="h-5 w-5" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></button></div></div></div></header><main id="main-content" class="pb-16"><div class="mx-auto max-w-[82rem] px-4 sm:px-6 lg:px-8"><div class="lg:grid lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-12"><aside class="sidebar-scroll sticky top-20 hidden max-h-[calc(100vh-6rem)] overflow-y-auto pr-8 lg:block hidden lg:block lg:mt-8"><nav aria-label="Section navigation" class="space-y-5 py-8"><section class=""><p class="mb-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-500">Blog</p><ul class="space-y-1.5"><li><a href="/blog/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-300 text-ink hover:bg-slate-50" style="margin-left:0px">Blog</a></li><li><a href="/blog/2026/05/24/measuring-cpu-noise-in-gpu-inference-with-ebpf/" aria-current="page" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-900 bg-slate-50 font-medium text-ink" style="margin-left:0px">When CPU Noise Slows Down GPU Inference: Measuring Scheduler and IRQ Impact with eBPF</a></li><li><a href="/blog/2026/05/21/acrfence-preventing-semantic-rollback-attacks-in-agent-checkpoint-restore/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">ACRFence: Preventing Semantic Rollback Attacks in Agent Checkpoint-Restore</a></li><li><a href="/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">AgentCgroup: What Happens When AI Coding Agents Meet OS Resources?</a></li><li><a href="/blog/2026/02/13/reverse-engineering-claude-codes-ssl-traffic-with-ebpf/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">Reverse Engineering Claude Code&#x27;s SSL Traffic with eBPF</a></li><li><a href="/blog/2026/01/29/a-taxonomy-of-gpu-bugs-19-defect-classes-for-cuda-verification/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">A Taxonomy of GPU Bugs: 19 Defect Classes for CUDA Verification</a></li><li><a href="/blog/2026/01/11/architectures-for-agent-systems-a-survey-of-isolation-integration-and-governance/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">Architectures for Agent Systems: A Survey of Isolation, Integration, and Governance</a></li><li><a href="/blog/2025/10/14/the-gpu-observability-gap-why-we-need-ebpf-on-gpu-devices/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">The GPU Observability Gap: Why We Need eBPF on GPU devices</a></li><li><a href="/blog/2025/10/14/nvidia-open-gpu-kernel-modules-comprehensive-source-code-analysis/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">NVIDIA Open GPU Kernel Modules Comprehensive Source Code Analysis</a></li><li><a href="/blog/2025/10/11/understanding-iaprof-a-deep-dive-into-ai-gpu-flame-graph-profiling/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">Understanding iaprof: A Deep Dive into AI/GPU Flame Graph Profiling</a></li><li><a href="/blog/2025/08/26/agentsight-keeping-your-ai-agents-under-control-with-ebpf-powered-system-observability/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">AgentSight: Keeping Your AI Agents Under Control with eBPF-Powered System Observability</a></li><li><a href="/blog/2025/08/20/profiling-and-tracing-tools-across-system-layers-and-architectures/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">Profiling and Tracing Tools Across System Layers and Architectures</a></li><li><a href="/blog/2025/06/21/the-modern-memory-testing-arsenal-a-complete-guide-to-benchmarking-tools-for-next-gen-memory-systems/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">The Modern Memory Testing Arsenal -- A Complete Guide to Benchmarking Tools for Next-Gen Memory Systems</a></li><li><a href="/blog/2025/06/21/observability-profiling-and-debugging-in-systems-conference-2015-2025/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">Observability, Profiling, and Debugging in Systems Conference (2015–2025)</a></li><li><a href="/blog/2025/05/11/checkpoint-restore-systems-evolution-techniques-and-applications-in-ai-agents/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">Checkpoint/Restore Systems: Evolution, Techniques, and Applications in AI Agents</a></li><li><a href="/blog/2025/04/25/asplos-2025-paper-summaries-and-insights/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">ASPLOS 2025: Paper Summaries and Insights</a></li><li><a href="/blog/2025/04/25/eurosys-2025-paper-summaries-and-analysis/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">EuroSys 2025 Paper Summaries and Analysis</a></li><li><a href="/blog/2025/04/21/gpu-profiling-under-the-hood-an-implementation-focused-survey-of-modern-accelerator-tracing-tools/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">GPU Profiling Under the Hood: An Implementation-Focused Survey of Modern Accelerator Tracing Tools</a></li><li><a href="/blog/2025/04/11/the-accelerator-toolkit-a-review-of-profiling-and-tracing-for-gpus-and-other-co-processor/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">The Accelerator Toolkit: A Review of Profiling and Tracing for GPUs and other co-processor</a></li><li><a href="/blog/2025/02/18/os-level-challenges-in-llm-inference-and-optimizations/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">OS-Level Challenges in LLM Inference and Optimizations</a></li><li><a href="/blog/2025/02/16/wasi-and-the-webassembly-component-model-current-status/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">WASI and the WebAssembly Component Model: Current Status</a></li><li><a href="/blog/2025/02/12/ebpf-ecosystem-progress-in-2024-2025-a-technical-deep-dive/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">eBPF Ecosystem Progress in 2024–2025: A Technical Deep Dive</a></li><li><a href="/blog/2025/02/10/security-vulnerabilities-study-in-software-extensions-and-plugins/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">Security Vulnerabilities Study in Software Extensions and Plugins</a></li><li><a href="/blog/2024/10/01/can-llms-understand-linux-kernel-a-new-ai-powered-approach-to-understanding-large-codebases/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">Can LLMs understand Linux kernel? A New AI-Powered Approach to Understanding Large Codebases</a></li><li><a href="/blog/2024/09/10/building-high-performance-userspace-ebpf-vms-with-llvm/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">Building High-Performance Userspace eBPF VMs with LLVM</a></li><li><a href="/blog/2024/08/11/the-past-present-and-future-of-ebpf-and-its-path-to-revolutionizing-systems/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">The Past, Present, and Future of eBPF and Its Path to Revolutionizing Systems</a></li><li><a href="/blog/2024/07/11/simplifying-kernel-programming-the-llm-powered-ebpf-tool/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">Simplifying Kernel Programming: The LLM-Powered eBPF Tool</a></li><li><a href="/blog/2024/06/11/the-ebpf-evolution-and-future-from-linux-origins-to-cross-platform-dominance/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">The eBPF Evolution and Future: From Linux Origins to Cross-Platform Dominance</a></li><li><a href="/blog/2024/04/11/implementing-an-inline-hook-in-c-in-5-minutes/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">Implementing an Inline Hook in C in 5 minutes</a></li><li><a href="/blog/2024/03/11/the-evolution-and-impact-of-ebpf-a-list-of-key-research-papers-from-recent-years/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">The Evolution and Impact of eBPF: A list of Key Research Papers from Recent Years</a></li><li><a href="/blog/2024/02/11/introducing-eunomia-bpf-v1-0-simplifying-ebpf-with-co-re-and-webassembly/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">Introducing eunomia-bpf v1.0: Simplifying eBPF with CO-RE and WebAssembly</a></li><li><a href="/blog/2024/02/11/the-secure-path-forward-for-ebpf-runtime-challenges-and-innovations/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">The Secure Path Forward for eBPF runtime: Challenges and Innovations</a></li><li><a href="/blog/2024/01/11/userspace-ebpf-runtimes-overview-and-applications/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">Userspace eBPF Runtimes: Overview and Applications</a></li><li><a href="/blog/2023/11/11/bpftime-extending-ebpf-from-kernel-to-user-space/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">bpftime: Extending eBPF from Kernel to User Space</a></li><li><a href="/blog/2023/09/11/use-chatgpt-to-write-ebpf-programs-and-trace-the-linux-kernel-with-natural-language/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">Use ChatGPT to write eBPF programs and trace the Linux kernel with natural language</a></li><li><a href="/blog/2023/07/11/simplifying-ebpf-development-github-templates-and-codespaces-for-online-compilation-and-execution/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">Simplifying eBPF Development: GitHub Templates and Codespaces for Online Compilation and Execution</a></li><li><a href="/blog/2023/06/11/when-wasm-meets-ebpf-writing-distributing-loading-and-running-ebpf-programs-with-webassembly/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">When Wasm Meets eBPF: Writing, Distributing, Loading, and Running eBPF Programs with WebAssembly</a></li><li><a href="/blog/2023/04/11/ebpf-advanced-overview-of-new-kernel-features/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">eBPF Advanced: Overview of New Kernel Features</a></li><li><a href="/blog/2023/03/11/progress-of-eunomia-bpf-in-march/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">Progress of eunomia-bpf in March</a></li><li><a href="/blog/2023/02/11/eunomia-bpf-0-3-0-release-easily-build-package-and-publish-full-ebpf-applications-by-writing-kernel-mode-code/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">eunomia-bpf 0.3.0 Release: Easily Build, Package, and Publish Full eBPF Applications by Writing Kernel-Mode Code</a></li><li><a href="/blog/2023/02/11/wasm-bpf-bridging-webassembly-and-ebpf-for-kernel-programmability/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">Wasm-bpf: Bridging WebAssembly and eBPF for Kernel Programmability</a></li><li><a href="/blog/2023/02/11/wasm-bpf-a-common-ebpf-kernel-programmability-for-cloud-native-webassembly/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">Wasm-bpf: A Common eBPF Kernel Programmability for Cloud-Native Webassembly</a></li><li><a href="/blog/2023/01/11/eunomia-bpf-looking-forward-to-2023-let-ebpf-sprout-wings-with-wasm/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">eunomia-bpf: Looking forward to 2023, let eBPF sprout wings with Wasm</a></li><li><a href="/blog/2022/10/11/如何在-linux-显微镜-lmp-项目中开启-ebpf-之旅/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">如何在 Linux 显微镜（LMP）项目中开启 eBPF 之旅？</a></li><li><a href="/blog/2022/09/11/running-the-ecli-on-android-13/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">Running the ecli on Android 13</a></li><li><a href="/blog/2022/02/11/在-webassembly-中编写-ebpf-程序和使用-libbpf/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">在 WebAssembly 中编写 eBPF 程序和使用 libbpf</a></li><li><a href="/blog/2022/02/11/在-webassembly-中使用-rust-编写-ebpf-程序并发布-oci-镜像/" class="block rounded-md border-l px-3 text-sm leading-6 transition py-1 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-ink" style="margin-left:0px">在 WebAssembly 中使用 Rust 编写 eBPF 程序并发布 OCI 镜像</a></li></ul></section></nav></aside><div class="min-w-0 pt-8"><section class="pb-16"><div class="grid gap-10 xl:grid-cols-[minmax(0,1fr)_14rem]"><article class="min-w-0 max-w-3xl"><nav aria-label="Breadcrumb" class="mb-6 flex flex-wrap items-center gap-2 text-sm text-slate-500"><a href="/" class="transition hover:text-ink">Home</a><span class="text-slate-300">/</span><a href="/blog/" class="transition hover:text-ink">Blog</a><span class="text-slate-300">/</span><span class="text-slate-700">When CPU Noise Slows Down GPU Inference: Measuring Scheduler and IRQ Impact with eBPF</span></nav><h1 class="text-3xl font-semibold tracking-tight text-ink md:text-[2.2rem]">When CPU Noise Slows Down GPU Inference: Measuring Scheduler and IRQ Impact with eBPF</h1><p class="mt-4 text-base leading-7 text-slate-600">Quantitative eBPF tracing of CUDA kernel launches, scheduler context switches, and IRQs shows when CPU noise matters for GPU LLM inference and how CPU pinning recovers throughput.</p><aside class="border border-slate-200 bg-slate-50/70 p-4 mt-8 xl:hidden"><p class="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">On this page</p><nav aria-label="On this page mobile" class="mt-4"><ol class="space-y-2 text-sm text-slate-600"><li class=""><a href="#why-cpu-scheduling-shows-up-in-gpu-inference" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">Why CPU Scheduling Shows Up in GPU Inference</a></li><li class=""><a href="#tracing-the-launch-path" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">Tracing the Launch Path</a></li><li class="pl-4"><a href="#cuda-api-tracing" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">CUDA API Tracing</a></li><li class="pl-4"><a href="#scheduler-event-tracing" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">Scheduler Event Tracing</a></li><li class="pl-4"><a href="#irq-tracing" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">IRQ Tracing</a></li><li class=""><a href="#benchmark-and-environment" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">Benchmark and Environment</a></li><li class=""><a href="#analysis-method" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">Analysis Method</a></li><li class=""><a href="#rq1-does-cpu-scheduler-significantly-impact-gpu-performance-in-clean-environments" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">RQ1: Does CPU Scheduler Significantly Impact GPU Performance in Clean Environments?</a></li><li class="pl-4"><a href="#results" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">Results</a></li><li class=""><a href="#rq2-what-is-the-impact-of-irq-interrupts-on-gpu-performance" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">RQ2: What Is the Impact of IRQ Interrupts on GPU Performance?</a></li><li class="pl-4"><a href="#results-1" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">Results</a></li><li class=""><a href="#rq3-how-do-noisy-neighbors-affect-gpu-performance" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">RQ3: How Do Noisy Neighbors Affect GPU Performance?</a></li><li class="pl-4"><a href="#results-2" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">Results</a></li><li class="pl-4"><a href="#scenario-analysis" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">Scenario Analysis</a></li><li class=""><a href="#rq4-can-cpu-pinning-effectively-mitigate-scheduler-impact" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">RQ4: Can CPU Pinning Effectively Mitigate Scheduler Impact?</a></li><li class="pl-4"><a href="#results-3" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">Results</a></li><li class=""><a href="#what-the-results-mean" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">What the Results Mean</a></li><li class=""><a href="#comparison-with-metas-sched_ext-findings" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">Comparison with Meta&#x27;s sched_ext Findings</a></li><li class=""><a href="#limitations" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">Limitations</a></li><li class=""><a href="#practical-recommendations" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">Practical Recommendations</a></li><li class=""><a href="#conclusion" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">Conclusion</a></li><li class=""><a href="#references" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">References</a></li></ol></nav></aside><div class="mt-8 content-copy text-base"><div class="content-copy"><p>GPU inference often looks like a GPU problem, but the CPU still sits on the critical path. It prepares inputs, launches CUDA kernels, manages synchronization, handles runtime calls, and shares cores with system work, interrupts, and other tenants. If that CPU-side launch path is delayed, the GPU can be left waiting even when the GPU kernels themselves are fast.</p>
+<p>This post asks a concrete question: when an LLM inference workload is running on a GPU, how much do Linux CPU scheduling decisions and IRQ handling actually matter?</p>
+<p>To answer it, we built an eBPF tracing tool, <code>cuda_sched_trace</code>, that records CUDA kernel launches, scheduler context switches, and hard/soft IRQ events with nanosecond timestamps. We then ran Qwen3 0.6B inference under clean and noisy-neighbor conditions: CPU load from <code>stress-ng</code>, network load from <code>iperf3</code>, disk load from <code>fio</code>, a combined heavy-load case, and a mitigation case using CPU pinning and priority adjustment.</p>
+<p>The short version: in a clean environment, scheduler and IRQ overhead are small. Under production-like noisy-neighbor conditions, they can become very real. Combined CPU, network, and disk interference reduced throughput by <strong>20.5%</strong>, while simple CPU pinning reduced context switches by <strong>96.3%</strong> and recovered most of the lost throughput.</p>
+<h2 id="why-cpu-scheduling-shows-up-in-gpu-inference">Why CPU Scheduling Shows Up in GPU Inference</h2>
+<p>Modern GPU workloads, particularly LLM inference and training, require tight coordination between CPU and GPU execution. The CPU is responsible for:</p>
+<ul>
+<li>preparing input data and kernel parameters</li>
+<li>launching GPU kernels through CUDA APIs</li>
+<li>managing memory transfers and synchronization</li>
+</ul>
+<p>An interruption to that CPU-side workflow can delay GPU kernel submission. In the worst case, the GPU has available compute capacity but no new work to execute.</p>
+<p>The motivation comes partly from Meta's work on <code>sched_ext</code> for AI training optimization, where production issues include "IRQs preempting our important tasks." Network interrupts (<code>NET_RX</code>/<code>NET_TX</code>) and block device interrupts can matter for large distributed training jobs, and custom scheduling policies can improve AI workload performance by 5-20%.</p>
+<p>But the impact is workload-dependent. A single-node LLM inference loop is not the same as distributed training with all-reduce traffic. Before investing in custom scheduling, we wanted measurements that separate scheduler problems from normal application behavior.</p>
+<p>The study has four goals:</p>
+<ol>
+<li>Measure the baseline impact of CPU scheduling on GPU kernel launches.</li>
+<li>Characterize IRQ interference patterns and their performance cost.</li>
+<li>Quantify noisy-neighbor impact under CPU, network, disk, and combined load.</li>
+<li>Evaluate how much CPU pinning and priority adjustment help.</li>
+</ol>
+<h2 id="tracing-the-launch-path">Tracing the Launch Path</h2>
+<p>We developed <code>cuda_sched_trace</code>, an eBPF-based tracing tool that combines CUDA API uprobes, Linux scheduler tracepoints, and IRQ tracepoints.</p>
+<h3 id="cuda-api-tracing">CUDA API Tracing</h3>
+<p>The tool attaches uprobes to CUDA Driver and Runtime APIs:</p>
+<figure data-rehype-pretty-code-figure=""><pre tabindex="0" data-language="c" data-theme="github-dark-dimmed"><code data-language="c" data-theme="github-dark-dimmed" style="display: grid;"><span data-line=""><span style="color:#768390">// Attach to CUDA Driver API</span></span>
+<span data-line=""><span style="color:#DCBDFB">SEC</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"uprobe/cuLaunchKernel"</span><span style="color:#ADBAC7">)</span></span>
+<span data-line=""><span style="color:#F47067">int</span><span style="color:#DCBDFB"> trace_cuLaunchKernel</span><span style="color:#ADBAC7">(</span><span style="color:#F47067">struct</span><span style="color:#ADBAC7"> pt_regs </span><span style="color:#F47067">*</span><span style="color:#F69D50">ctx</span><span style="color:#ADBAC7">) {</span></span>
+<span data-line=""><span style="color:#768390">    // Capture: timestamp, pid, tid, grid/block dimensions, shared memory, stream</span></span>
+<span data-line=""><span style="color:#768390">    // Mark process as GPU process for scheduler tracking</span></span>
+<span data-line=""><span style="color:#ADBAC7">}</span></span>
+<span data-line=""> </span>
+<span data-line=""><span style="color:#768390">// Attach to CUDA Runtime API</span></span>
+<span data-line=""><span style="color:#DCBDFB">SEC</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"uprobe/cudaLaunchKernel"</span><span style="color:#ADBAC7">)</span></span>
+<span data-line=""><span style="color:#F47067">int</span><span style="color:#DCBDFB"> trace_cudaLaunchKernel</span><span style="color:#ADBAC7">(</span><span style="color:#F47067">struct</span><span style="color:#ADBAC7"> pt_regs </span><span style="color:#F47067">*</span><span style="color:#F69D50">ctx</span><span style="color:#ADBAC7">) { ... }</span></span>
+<span data-line=""> </span>
+<span data-line=""><span style="color:#DCBDFB">SEC</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"uprobe/cudaDeviceSynchronize"</span><span style="color:#ADBAC7">)</span></span>
+<span data-line=""><span style="color:#F47067">int</span><span style="color:#DCBDFB"> trace_cudaDeviceSynchronize_enter</span><span style="color:#ADBAC7">(</span><span style="color:#F47067">struct</span><span style="color:#ADBAC7"> pt_regs </span><span style="color:#F47067">*</span><span style="color:#F69D50">ctx</span><span style="color:#ADBAC7">) { ... }</span></span>
+<span data-line=""> </span>
+<span data-line=""><span style="color:#DCBDFB">SEC</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"uretprobe/cudaDeviceSynchronize"</span><span style="color:#ADBAC7">)</span></span>
+<span data-line=""><span style="color:#F47067">int</span><span style="color:#DCBDFB"> trace_cudaDeviceSynchronize_exit</span><span style="color:#ADBAC7">(</span><span style="color:#F47067">struct</span><span style="color:#ADBAC7"> pt_regs </span><span style="color:#F47067">*</span><span style="color:#F69D50">ctx</span><span style="color:#ADBAC7">) { ... }</span></span></code></pre></figure>
+<h3 id="scheduler-event-tracing">Scheduler Event Tracing</h3>
+<p>Scheduler activity is captured through <code>sched_switch</code>, filtered to GPU-related processes:</p>
+<figure data-rehype-pretty-code-figure=""><pre tabindex="0" data-language="c" data-theme="github-dark-dimmed"><code data-language="c" data-theme="github-dark-dimmed" style="display: grid;"><span data-line=""><span style="color:#DCBDFB">SEC</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"tp_btf/sched_switch"</span><span style="color:#ADBAC7">)</span></span>
+<span data-line=""><span style="color:#F47067">int</span><span style="color:#DCBDFB"> BPF_PROG</span><span style="color:#ADBAC7">(sched_switch, </span><span style="color:#F47067">bool</span><span style="color:#F69D50"> preempt</span><span style="color:#ADBAC7">, </span><span style="color:#F47067">struct</span><span style="color:#ADBAC7"> task_struct </span><span style="color:#F47067">*</span><span style="color:#F69D50">prev</span><span style="color:#ADBAC7">, </span><span style="color:#F47067">struct</span><span style="color:#ADBAC7"> task_struct </span><span style="color:#F47067">*</span><span style="color:#F69D50">next</span><span style="color:#ADBAC7">) {</span></span>
+<span data-line=""><span style="color:#768390">    // Only track if prev or next is a GPU process</span></span>
+<span data-line=""><span style="color:#768390">    // Record: timestamp, prev/next pid, off-cpu/on-cpu duration</span></span>
+<span data-line=""><span style="color:#ADBAC7">}</span></span></code></pre></figure>
+<h3 id="irq-tracing">IRQ Tracing</h3>
+<p>Hard and soft IRQs are tracked through kernel tracepoints:</p>
+<figure data-rehype-pretty-code-figure=""><pre tabindex="0" data-language="c" data-theme="github-dark-dimmed"><code data-language="c" data-theme="github-dark-dimmed" style="display: grid;"><span data-line=""><span style="color:#DCBDFB">SEC</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"tp_btf/irq_handler_entry"</span><span style="color:#ADBAC7">)</span></span>
+<span data-line=""><span style="color:#F47067">int</span><span style="color:#DCBDFB"> BPF_PROG</span><span style="color:#ADBAC7">(irq_handler_entry, </span><span style="color:#F47067">int</span><span style="color:#F69D50"> irq</span><span style="color:#ADBAC7">, </span><span style="color:#F47067">struct</span><span style="color:#ADBAC7"> irqaction </span><span style="color:#F47067">*</span><span style="color:#F69D50">action</span><span style="color:#ADBAC7">) {</span></span>
+<span data-line=""><span style="color:#768390">    // Track hard IRQ entry, record IRQ number and handler name</span></span>
+<span data-line=""><span style="color:#ADBAC7">}</span></span>
+<span data-line=""> </span>
+<span data-line=""><span style="color:#DCBDFB">SEC</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"tp_btf/irq_handler_exit"</span><span style="color:#ADBAC7">)</span></span>
+<span data-line=""><span style="color:#F47067">int</span><span style="color:#DCBDFB"> BPF_PROG</span><span style="color:#ADBAC7">(irq_handler_exit, </span><span style="color:#F47067">int</span><span style="color:#F69D50"> irq</span><span style="color:#ADBAC7">, </span><span style="color:#F47067">struct</span><span style="color:#ADBAC7"> irqaction </span><span style="color:#F47067">*</span><span style="color:#F69D50">action</span><span style="color:#ADBAC7">) {</span></span>
+<span data-line=""><span style="color:#768390">    // Calculate IRQ duration</span></span>
+<span data-line=""><span style="color:#ADBAC7">}</span></span>
+<span data-line=""> </span>
+<span data-line=""><span style="color:#DCBDFB">SEC</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"tp_btf/softirq_entry"</span><span style="color:#ADBAC7">)</span></span>
+<span data-line=""><span style="color:#F47067">int</span><span style="color:#DCBDFB"> BPF_PROG</span><span style="color:#ADBAC7">(softirq_entry, </span><span style="color:#F47067">unsigned</span><span style="color:#F47067"> int</span><span style="color:#F69D50"> vec_nr</span><span style="color:#ADBAC7">) {</span></span>
+<span data-line=""><span style="color:#768390">    // Track soft IRQ: TIMER, NET_RX, NET_TX, BLOCK, SCHED, RCU, etc.</span></span>
+<span data-line=""><span style="color:#ADBAC7">}</span></span>
+<span data-line=""> </span>
+<span data-line=""><span style="color:#DCBDFB">SEC</span><span style="color:#ADBAC7">(</span><span style="color:#96D0FF">"tp_btf/softirq_exit"</span><span style="color:#ADBAC7">)</span></span>
+<span data-line=""><span style="color:#F47067">int</span><span style="color:#DCBDFB"> BPF_PROG</span><span style="color:#ADBAC7">(softirq_exit, </span><span style="color:#F47067">unsigned</span><span style="color:#F47067"> int</span><span style="color:#F69D50"> vec_nr</span><span style="color:#ADBAC7">) {</span></span>
+<span data-line=""><span style="color:#768390">    // Calculate soft IRQ duration</span></span>
+<span data-line=""><span style="color:#ADBAC7">}</span></span></code></pre></figure>
+<p>The data path is straightforward: the GPU application issues CUDA calls; eBPF programs observe CUDA, scheduler, and IRQ events in kernel space; events are sent through a BPF ring buffer; analysis scripts parse the resulting CSV.</p>
+<figure data-rehype-pretty-code-figure=""><pre tabindex="0" data-language="plaintext" data-theme="github-dark-dimmed"><code data-language="plaintext" data-theme="github-dark-dimmed" style="display: grid;"><span data-line=""><span>┌─────────────────────────────────────────────────────────────────┐</span></span>
+<span data-line=""><span>│                         User Space                               │</span></span>
+<span data-line=""><span>│  ┌─────────────┐    ┌─────────────┐    ┌─────────────────────┐  │</span></span>
+<span data-line=""><span>│  │ GPU App     │    │ cuda_sched  │    │ Analysis Scripts    │  │</span></span>
+<span data-line=""><span>│  │ (qwen3.cu)  │    │ _trace      │    │ (Python)            │  │</span></span>
+<span data-line=""><span>│  └──────┬──────┘    └──────┬──────┘    └──────────┬──────────┘  │</span></span>
+<span data-line=""><span>│         │                  │                       │             │</span></span>
+<span data-line=""><span>│         │ CUDA calls       │ perf_event            │ CSV parsing │</span></span>
+<span data-line=""><span>│         ▼                  ▼                       ▼             │</span></span>
+<span data-line=""><span>├─────────────────────────────────────────────────────────────────┤</span></span>
+<span data-line=""><span>│                         Kernel Space                             │</span></span>
+<span data-line=""><span>│  ┌─────────────┐    ┌─────────────┐    ┌─────────────────────┐  │</span></span>
+<span data-line=""><span>│  │ uprobes     │    │ tracepoints │    │ BPF Ring Buffer     │  │</span></span>
+<span data-line=""><span>│  │ (CUDA API)  │    │ (sched,irq) │    │ (Event Queue)       │  │</span></span>
+<span data-line=""><span>│  └─────────────┘    └─────────────┘    └─────────────────────┘  │</span></span>
+<span data-line=""><span>└─────────────────────────────────────────────────────────────────┘</span></span></code></pre></figure>
+<h2 id="benchmark-and-environment">Benchmark and Environment</h2>
+<p>The benchmark is Qwen3 0.6B LLM inference using <code>qwen3.cu</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Property</th><th>Value</th></tr></thead><tbody><tr><td>Model</td><td>Qwen3-0.6B-FP32</td></tr><tr><td>Task</td><td>Single-turn Q&#x26;A</td></tr><tr><td>Input</td><td>"What is eBPF?"</td></tr><tr><td>Output</td><td>~30-50 tokens</td></tr><tr><td>Kernel Pattern</td><td>Burst submission (~950 launches per token)</td></tr><tr><td>GPU Memory</td><td>~3 GB</td></tr></tbody></table>
+<p>This benchmark is useful because it resembles modern LLM inference, mixes compute-bound and memory-bound kernels, shows a clear burst submission pattern, and produces a measurable throughput metric in tokens per second.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Component</th><th>Specification</th></tr></thead><tbody><tr><td>CPU</td><td>24 cores (specific model TBD)</td></tr><tr><td>GPU</td><td>NVIDIA GPU with CUDA support</td></tr><tr><td>Memory</td><td>Sufficient for model + system</td></tr><tr><td>OS</td><td>Linux 6.15.11-061511-generic</td></tr><tr><td>Kernel</td><td>BTF-enabled for CO-RE eBPF</td></tr><tr><td>CUDA</td><td>Driver API + Runtime API</td></tr></tbody></table>
+<p>We used three interference tools:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Tool</th><th>Purpose</th><th>Configuration</th></tr></thead><tbody><tr><td>stress-ng</td><td>CPU load</td><td><code>--cpu 0 --cpu-method fft</code> (all cores)</td></tr><tr><td>iperf3</td><td>Network I/O</td><td>Server + Client, 10 parallel streams, 60s</td></tr><tr><td>fio</td><td>Disk I/O</td><td><code>randwrite, bs=4k, iodepth=32, 4 jobs</code></td></tr></tbody></table>
+<p>The full experiment has six scenarios:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Scenario</th><th>Description</th><th>Interference</th></tr></thead><tbody><tr><td>Baseline</td><td>Clean environment</td><td>None</td></tr><tr><td>Noisy CPU</td><td>CPU-intensive</td><td>stress-ng on all cores</td></tr><tr><td>Noisy Network</td><td>Network I/O</td><td>iperf3 localhost loopback</td></tr><tr><td>Noisy Disk</td><td>Disk I/O</td><td>fio random write</td></tr><tr><td>Heavy Load</td><td>Combined</td><td>CPU + Network + Disk simultaneously</td></tr><tr><td>Optimized</td><td>CPU pinning</td><td>stress-ng + taskset -c 0-3 + nice -n -10</td></tr></tbody></table>
+<p>Data collection follows the same pattern in every run:</p>
+<figure data-rehype-pretty-code-figure=""><pre tabindex="0" data-language="bash" data-theme="github-dark-dimmed"><code data-language="bash" data-theme="github-dark-dimmed" style="display: grid;"><span data-line=""><span style="color:#768390"># Start tracing</span></span>
+<span data-line=""><span style="color:#F69D50">sudo</span><span style="color:#96D0FF"> ./cuda_sched_trace</span><span style="color:#F47067"> ></span><span style="color:#96D0FF"> trace.csv</span><span style="color:#F47067"> 2></span><span style="color:#96D0FF"> trace.log</span><span style="color:#ADBAC7"> &#x26;</span></span>
+<span data-line=""><span style="color:#ADBAC7">TRACE_PID</span><span style="color:#F47067">=</span><span style="color:#6CB6FF">$!</span></span>
+<span data-line=""> </span>
+<span data-line=""><span style="color:#768390"># Run benchmark</span></span>
+<span data-line=""><span style="color:#6CB6FF">cd</span><span style="color:#96D0FF"> qwen3.cu</span></span>
+<span data-line=""><span style="color:#F69D50">/usr/bin/time</span><span style="color:#6CB6FF"> -v</span><span style="color:#96D0FF"> ./runcu</span><span style="color:#96D0FF"> Qwen3-0.6B-FP32.gguf</span><span style="color:#6CB6FF"> -q</span><span style="color:#96D0FF"> "What is eBPF?"</span><span style="color:#6CB6FF"> -r</span><span style="color:#6CB6FF"> 1</span></span>
+<span data-line=""> </span>
+<span data-line=""><span style="color:#768390"># Stop tracing</span></span>
+<span data-line=""><span style="color:#F69D50">sudo</span><span style="color:#96D0FF"> kill</span><span style="color:#6CB6FF"> -SIGINT</span><span style="color:#ADBAC7"> $TRACE_PID</span></span>
+<span data-line=""> </span>
+<span data-line=""><span style="color:#768390"># Analyze results</span></span>
+<span data-line=""><span style="color:#F69D50">python3</span><span style="color:#96D0FF"> analyze_scheduler_impact.py</span></span></code></pre></figure>
+<h2 id="analysis-method">Analysis Method</h2>
+<p>The central analysis compares consecutive CUDA kernel launches:</p>
+<figure data-rehype-pretty-code-figure=""><pre tabindex="0" data-language="plaintext" data-theme="github-dark-dimmed"><code data-language="plaintext" data-theme="github-dark-dimmed" style="display: grid;"><span data-line=""><span>Launch_i -> [interval] -> Launch_i+1</span></span>
+<span data-line=""> </span>
+<span data-line=""><span>Group A: Launches with NO context switch in interval (normal flow)</span></span>
+<span data-line=""><span>Group B: Launches with context switch in interval (preempted)</span></span>
+<span data-line=""> </span>
+<span data-line=""><span>Preemption Penalty = median(Group B interval) - median(Group A interval)</span></span></code></pre></figure>
+<p>To compare runs of different lengths, scheduler and IRQ counts are normalized per 1,000 kernel launches:</p>
+<figure data-rehype-pretty-code-figure=""><pre tabindex="0" data-language="plaintext" data-theme="github-dark-dimmed"><code data-language="plaintext" data-theme="github-dark-dimmed" style="display: grid;"><span data-line=""><span>Sched/1K = (Total Context Switches / Total Kernel Launches) x 1000</span></span>
+<span data-line=""><span>IRQ/1K = (Total IRQs / Total Kernel Launches) x 1000</span></span></code></pre></figure>
+<p>Performance impact is reported as:</p>
+<figure data-rehype-pretty-code-figure=""><pre tabindex="0" data-language="plaintext" data-theme="github-dark-dimmed"><code data-language="plaintext" data-theme="github-dark-dimmed" style="display: grid;"><span data-line=""><span>Slowdown % = (Baseline tok/s - Scenario tok/s) / Baseline tok/s x 100</span></span></code></pre></figure>
+<h2 id="rq1-does-cpu-scheduler-significantly-impact-gpu-performance-in-clean-environments">RQ1: Does CPU Scheduler Significantly Impact GPU Performance in Clean Environments?</h2>
+<p>The first question is whether scheduler preemption matters when the machine is otherwise clean.</p>
+<p><strong>Experiment design</strong></p>
+<ul>
+<li>Condition: clean system, no artificial interference</li>
+<li>Metrics: context switch frequency, preemption penalty, total runtime impact</li>
+<li>Analysis: launch-pair comparison with and without context switches</li>
+</ul>
+<h3 id="results">Results</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Metric</th><th>Value</th></tr></thead><tbody><tr><td>Total Runtime</td><td>79.5 seconds</td></tr><tr><td>Kernel Launches</td><td>51,464</td></tr><tr><td>Context Switches</td><td>592 (7.44 Hz)</td></tr><tr><td>OFF-CPU Time</td><td>7.88 ms (0.01%)</td></tr></tbody></table>
+<p>Launch-pair analysis shows that almost every consecutive launch pair is unaffected by context switches:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Group</th><th>Count</th><th>Percentage</th><th>P50 Interval</th><th>P90 Interval</th><th>P99 Interval</th></tr></thead><tbody><tr><td>No Context Switch</td><td>51,401</td><td>99.9%</td><td>2 us</td><td>4 us</td><td>4 us</td></tr><tr><td>With Context Switch</td><td>62</td><td>0.1%</td><td>15.3 ms</td><td>15.5 ms</td><td>5.0 s</td></tr></tbody></table>
+<p>The median preemption penalty is <strong>15.3 ms</strong>. That is large for the affected pairs, but only 62 pairs were affected.</p>
+<p>Tail-latency attribution confirms that most outliers are not caused by scheduler preemption:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Percentile</th><th>Total Outliers</th><th>With Context Switch</th><th>Attribution</th></tr></thead><tbody><tr><td>P95+</td><td>2,580</td><td>62 (2.4%)</td><td>97.6% application</td></tr><tr><td>P99+</td><td>515</td><td>62 (12.0%)</td><td>88.0% application</td></tr></tbody></table>
+<p>The total scheduler impact is:</p>
+<figure data-rehype-pretty-code-figure=""><pre tabindex="0" data-language="plaintext" data-theme="github-dark-dimmed"><code data-language="plaintext" data-theme="github-dark-dimmed" style="display: grid;"><span data-line=""><span>Impact = Affected Pairs x Penalty = 62 x 15ms = 0.93 seconds</span></span>
+<span data-line=""><span>Percentage = 0.93 / 79.5 = 1.2%</span></span></code></pre></figure>
+<p><strong>Finding:</strong> in clean environments, CPU scheduler impact is minimal at <strong>1.2%</strong>. The vast majority of kernel launch pairs, <strong>99.9%</strong>, are unaffected by context switches. Tail latency mostly comes from application behavior such as token-generation boundaries, not scheduler preemption.</p>
+<h2 id="rq2-what-is-the-impact-of-irq-interrupts-on-gpu-performance">RQ2: What Is the Impact of IRQ Interrupts on GPU Performance?</h2>
+<p>The second question is whether IRQs directly interfere with the CPU-side launch path.</p>
+<p><strong>Experiment design</strong></p>
+<ul>
+<li>Condition: clean system with IRQ tracing enabled</li>
+<li>Metrics: IRQ frequency, duration, type distribution</li>
+<li>Analysis: IRQ time as percentage of total runtime</li>
+</ul>
+<h3 id="results-1">Results</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Metric</th><th>Value</th></tr></thead><tbody><tr><td>Total Runtime</td><td>4.99 seconds</td></tr><tr><td>Kernel Launches</td><td>125,236</td></tr><tr><td>Soft IRQs</td><td>653 events</td></tr><tr><td>Hard IRQs</td><td>0 events</td></tr></tbody></table>
+<p>Soft IRQ type distribution:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Type</th><th>Count</th><th>Total Time</th><th>Avg Time</th><th>Max Time</th><th>Percentage</th></tr></thead><tbody><tr><td>TIMER</td><td>317</td><td>0.77 ms</td><td>2.4 us</td><td>30.1 us</td><td>49%</td></tr><tr><td>RCU</td><td>291</td><td>0.40 ms</td><td>1.4 us</td><td>17.2 us</td><td>45%</td></tr><tr><td>NET_RX</td><td>30</td><td>0.13 ms</td><td>4.5 us</td><td>14.0 us</td><td>4.6%</td></tr><tr><td>SCHED</td><td>15</td><td>0.07 ms</td><td>4.9 us</td><td>18.9 us</td><td>2.3%</td></tr></tbody></table>
+<p>Total IRQ impact:</p>
+<figure data-rehype-pretty-code-figure=""><pre tabindex="0" data-language="plaintext" data-theme="github-dark-dimmed"><code data-language="plaintext" data-theme="github-dark-dimmed" style="display: grid;"><span data-line=""><span>Total IRQ Time: 1.38 ms</span></span>
+<span data-line=""><span>Percentage of Runtime: 0.0276%</span></span></code></pre></figure>
+<p>There are real reasons to worry about IRQs: direct handler time, cache pollution, CPU pipeline disruption, and delay accumulation on critical paths. But for this local inference workload, actual IRQ impact is small.</p>
+<p>The reason is the workload shape. Qwen3 submits about 950 launches in a burst lasting less than 100 us, so IRQs rarely land inside the burst. Most IRQs happen between bursts during CPU compute. TIMER interrupts dominate and have a small cache footprint. There is little network I/O, so <code>NET_RX</code> appears only 30 times, and there are no hard IRQs from NVMe or SSD block-device interrupts.</p>
+<p><strong>Finding:</strong> IRQ impact is negligible for local LLM inference at <strong>0.0276%</strong>. This does not mean IRQs never matter. Distributed training with network communication or on-the-fly data loading can see much higher IRQ impact, estimated around <strong>5-20%</strong>.</p>
+<h2 id="rq3-how-do-noisy-neighbors-affect-gpu-performance">RQ3: How Do Noisy Neighbors Affect GPU Performance?</h2>
+<p>The third question is the most production-relevant one: what happens when the GPU workload shares a machine with other CPU, network, and disk activity?</p>
+<p><strong>Experiment design</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Scenario</th><th>Interference</th><th>Purpose</th></tr></thead><tbody><tr><td>Baseline</td><td>None</td><td>Reference point</td></tr><tr><td>Noisy CPU</td><td>stress-ng (all cores)</td><td>CPU contention</td></tr><tr><td>Noisy Network</td><td>iperf3 (10 streams)</td><td>Network IRQ</td></tr><tr><td>Noisy Disk</td><td>fio (4 jobs, randwrite)</td><td>Block IRQ</td></tr><tr><td>Heavy Load</td><td>All three combined</td><td>Production simulation</td></tr><tr><td>Optimized</td><td>CPU stress + taskset + nice</td><td>Mitigation test</td></tr></tbody></table>
+<h3 id="results-2">Results</h3>
+<p>Normalized metrics per 1,000 kernel launches:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Scenario</th><th>Launches</th><th>Sched/1K</th><th>Soft IRQ/1K</th><th>Hard IRQ/1K</th><th>IRQ Time (ms)</th></tr></thead><tbody><tr><td>Baseline</td><td>56,882</td><td>22.8</td><td>5.8</td><td>0.0</td><td>0.62</td></tr><tr><td>Noisy CPU</td><td>61,184</td><td><strong>11,932.8</strong></td><td>6.4</td><td>0.0</td><td>0.33</td></tr><tr><td>Noisy Network</td><td>154,394</td><td>6.0</td><td>2.7</td><td>0.0</td><td>0.92</td></tr><tr><td>Noisy Disk</td><td>126,670</td><td>29.3</td><td>3.9</td><td><strong>0.1</strong></td><td>1.03</td></tr><tr><td><strong>Heavy Load</strong></td><td><strong>99,424</strong></td><td><strong>6,044.6</strong></td><td>2.4</td><td>0.0</td><td>0.37</td></tr><tr><td>Optimized</td><td>108,984</td><td>445.2</td><td>2.8</td><td>0.0</td><td>0.71</td></tr></tbody></table>
+<p>Performance impact:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Scenario</th><th>tok/s</th><th>Runtime (s)</th><th>Slowdown</th><th>Context Switch Increase</th></tr></thead><tbody><tr><td>Baseline</td><td>54.77</td><td>3.00</td><td>-</td><td>1x</td></tr><tr><td>Noisy CPU</td><td>49.93</td><td>4.15</td><td><strong>8.8%</strong></td><td><strong>524x</strong></td></tr><tr><td>Noisy Network</td><td>53.23</td><td>7.22</td><td>2.8%</td><td>0.26x</td></tr><tr><td>Noisy Disk</td><td>54.95</td><td>5.60</td><td>-0.3%</td><td>1.3x</td></tr><tr><td><strong>Heavy Load</strong></td><td><strong>43.56</strong></td><td><strong>6.97</strong></td><td><strong>20.5%</strong></td><td><strong>265x</strong></td></tr><tr><td>Optimized</td><td>53.75</td><td>5.10</td><td>1.9%</td><td>19.5x</td></tr></tbody></table>
+<h3 id="scenario-analysis">Scenario Analysis</h3>
+<p><strong>Noisy CPU (<code>stress-ng</code>)</strong> causes the most direct scheduling pressure. Context switches increase <strong>524x</strong>, from 22.8 to 11,932.8 per 1,000 launches, and throughput drops by <strong>8.8%</strong>. The mechanism is simple: the CFS scheduler time-slices between the GPU process and <code>stress-ng</code> workers.</p>
+<p><strong>Noisy Network (<code>iperf3</code>)</strong> behaves differently. Context switches actually decrease, because the network load changes CPU competition patterns, while soft IRQs rise slightly. Throughput drops only <strong>2.8%</strong>. In this local setup, network I/O primarily shows up as IRQ overhead rather than scheduler pressure.</p>
+<p><strong>Noisy Disk (<code>fio</code>)</strong> introduces the first hard IRQs, corresponding to block-device interrupts, but context switches remain low and throughput is effectively unchanged at <strong>-0.3%</strong> slowdown. Disk I/O has little impact on this workload.</p>
+<p><strong>Heavy Load (CPU + Network + Disk)</strong> is the worst case. Throughput drops by <strong>20.5%</strong>, and scheduler events rise to 6,044.6 per 1,000 launches, a <strong>265x</strong> increase over baseline. Interestingly, that is only <strong>50.7%</strong> of the context-switch rate in the Noisy CPU case. The interference sources compete with each other, but their combined effect is still worst overall.</p>
+<p>Heavy-load soft IRQ breakdown:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Type</th><th>Count</th><th>Total Time</th><th>Avg Time</th></tr></thead><tbody><tr><td>RCU</td><td>213</td><td>217.4 us</td><td>1.0 us</td></tr><tr><td>TIMER</td><td>17</td><td>122.9 us</td><td>7.2 us</td></tr><tr><td>SCHED</td><td>5</td><td>33.3 us</td><td>6.7 us</td></tr></tbody></table>
+<p><strong>Finding:</strong> noisy neighbors significantly affect GPU performance. Combined CPU, network, and disk interference causes <strong>20.5%</strong> degradation. The signatures differ by source: CPU contention increases context switches, network I/O affects IRQ overhead, disk I/O introduces block interrupts with little throughput impact here, and combined load is worst due to cumulative effects.</p>
+<h2 id="rq4-can-cpu-pinning-effectively-mitigate-scheduler-impact">RQ4: Can CPU Pinning Effectively Mitigate Scheduler Impact?</h2>
+<p>The fourth question is whether a simple deployment-level mitigation helps before reaching for a custom scheduler.</p>
+<p><strong>Experiment design</strong></p>
+<ul>
+<li>Baseline: Noisy CPU scenario with <code>stress-ng</code> on all cores</li>
+<li>Optimized: same <code>stress-ng</code> load, but the GPU process runs with:
+<ul>
+<li><code>taskset -c 0-3</code> to pin it to cores 0-3</li>
+<li><code>nice -n -10</code> to give it higher priority</li>
+</ul>
+</li>
+</ul>
+<h3 id="results-3">Results</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Metric</th><th>Noisy CPU</th><th>Optimized</th><th>Improvement</th></tr></thead><tbody><tr><td>Sched/1K</td><td>11,932.8</td><td>445.2</td><td><strong>96.3% reduction</strong></td></tr><tr><td>tok/s</td><td>49.93</td><td>53.75</td><td><strong>7.6% improvement</strong></td></tr><tr><td>vs. Baseline</td><td>8.8% slower</td><td>1.9% slower</td><td>Significant recovery</td></tr></tbody></table>
+<p>CPU pinning and priority adjustment recover most of the lost throughput. But the optimized case still has 445.2 scheduler events per 1,000 launches, compared with 22.8 in the clean baseline. That is still <strong>19.5x</strong> higher than baseline.</p>
+<p>Complete elimination is hard because:</p>
+<ol>
+<li><code>stress-ng</code> workers may still be scheduled on cores 0-3.</li>
+<li>System daemons and kernel threads cannot be fully excluded by <code>taskset</code>.</li>
+<li>IRQ affinity may still route interrupts to pinned cores.</li>
+</ol>
+<p>For stronger isolation, the next steps are kernel-level isolation and IRQ placement:</p>
+<figure data-rehype-pretty-code-figure=""><pre tabindex="0" data-language="bash" data-theme="github-dark-dimmed"><code data-language="bash" data-theme="github-dark-dimmed" style="display: grid;"><span data-line=""><span style="color:#768390"># 1. Use isolcpus kernel parameter (boot time)</span></span>
+<span data-line=""><span style="color:#ADBAC7">isolcpus</span><span style="color:#F47067">=</span><span style="color:#96D0FF">4-7</span><span style="color:#ADBAC7"> nohz_full</span><span style="color:#F47067">=</span><span style="color:#96D0FF">4-7</span></span>
+<span data-line=""> </span>
+<span data-line=""><span style="color:#768390"># 2. Bind GPU process to isolated cores</span></span>
+<span data-line=""><span style="color:#F69D50">taskset</span><span style="color:#6CB6FF"> -c</span><span style="color:#96D0FF"> 4-7</span><span style="color:#96D0FF"> ./gpu_app</span></span>
+<span data-line=""> </span>
+<span data-line=""><span style="color:#768390"># 3. Bind IRQs away from GPU cores</span></span>
+<span data-line=""><span style="color:#6CB6FF">echo</span><span style="color:#96D0FF"> 0-3</span><span style="color:#F47067"> ></span><span style="color:#96D0FF"> /proc/irq/</span><span style="color:#6CB6FF">*</span><span style="color:#96D0FF">/smp_affinity_list</span></span>
+<span data-line=""> </span>
+<span data-line=""><span style="color:#768390"># 4. Use cgroups for CPU isolation</span></span>
+<span data-line=""><span style="color:#F69D50">cgcreate</span><span style="color:#6CB6FF"> -g</span><span style="color:#96D0FF"> cpu:gpu_workload</span></span>
+<span data-line=""><span style="color:#F69D50">cgset</span><span style="color:#6CB6FF"> -r</span><span style="color:#96D0FF"> cpuset.cpus=4-7</span><span style="color:#96D0FF"> gpu_workload</span></span>
+<span data-line=""><span style="color:#F69D50">cgexec</span><span style="color:#6CB6FF"> -g</span><span style="color:#96D0FF"> cpu:gpu_workload</span><span style="color:#96D0FF"> ./gpu_app</span></span></code></pre></figure>
+<p><strong>Finding:</strong> CPU pinning is highly effective. It reduces context switches by <strong>96.3%</strong> and recovers <strong>7.6%</strong> throughput. But full recovery under heavy load requires deeper isolation such as <code>isolcpus</code>, <code>nohz_full</code>, cpusets, and IRQ affinity management.</p>
+<h2 id="what-the-results-mean">What the Results Mean</h2>
+<p>The results point to four practical insights.</p>
+<p>First, environment matters. Scheduler impact ranges from <strong>1.2%</strong> in a clean environment to <strong>20.5%</strong> under combined heavy load. Optimizing the scheduler on a quiet dedicated server may not be worth the complexity. On a shared host, it can be the difference between stable and degraded inference.</p>
+<p>Second, workload shape matters. Qwen3 has bursty kernel submission, roughly 950 launches in less than 100 us per token burst. That shape makes it resilient to many IRQs because interrupts usually occur between bursts. A different workload with continuous network communication, streaming input, or tighter CPU-GPU handoff might behave differently.</p>
+<p>Third, interference sources have distinct signatures:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Interference</th><th>Primary Impact</th><th>Secondary Impact</th></tr></thead><tbody><tr><td>CPU</td><td>Context switches</td><td>None</td></tr><tr><td>Network</td><td>IRQ overhead</td><td>Slight scheduling</td></tr><tr><td>Disk</td><td>Hard IRQs</td><td>Minimal</td></tr><tr><td>Combined</td><td>All of above</td><td>Worst overall</td></tr></tbody></table>
+<p>Fourth, simple mitigations work, but only up to a point:</p>
+<ul>
+<li>CPU pinning: very effective, <strong>96%</strong> context-switch reduction</li>
+<li>Priority adjustment: helpful but limited</li>
+<li>Full isolation: requires kernel configuration and IRQ affinity management</li>
+</ul>
+<h2 id="comparison-with-metas-sched_ext-findings">Comparison with Meta's sched_ext Findings</h2>
+<p>Our results differ from Meta's AI training observations because the workload is different.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Aspect</th><th>Meta (AI Training)</th><th>Our Study (LLM Inference)</th></tr></thead><tbody><tr><td>Primary Issue</td><td>Network IRQ (NET_RX)</td><td>CPU scheduling</td></tr><tr><td>IRQ Impact</td><td>5-20%</td><td>0.03% (local inference)</td></tr><tr><td>Optimization</td><td>sched_ext layer</td><td>taskset + nice</td></tr><tr><td>Workload</td><td>Distributed training</td><td>Single-node inference</td></tr></tbody></table>
+<p>The key difference is communication. Distributed training constantly exchanges data through all-reduce, making <code>NET_RX</code> a major bottleneck. Local inference has minimal network I/O, so the dominant issue under noise is CPU scheduling rather than network interrupts.</p>
+<h2 id="limitations">Limitations</h2>
+<p>There are several limits to this study:</p>
+<ol>
+<li>eBPF tracing itself adds <strong>1-5%</strong> overhead.</li>
+<li>The tool only supports CUDA, not OpenCL or HIP.</li>
+<li>The trace does not include GPU-side execution timing, so it cannot directly measure actual kernel runtime.</li>
+<li>IRQ attribution is limited: the trace cannot always identify which process caused a given IRQ.</li>
+<li>The experiments use a single GPU and do not cover multi-GPU behavior.</li>
+</ol>
+<h2 id="practical-recommendations">Practical Recommendations</h2>
+<p>For production deployments:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Environment</th><th>Recommendation</th><th>Expected Benefit</th></tr></thead><tbody><tr><td>Dedicated Server</td><td>No optimization needed</td><td>-</td></tr><tr><td>Shared Server (light)</td><td>taskset + nice</td><td>5-10% improvement</td></tr><tr><td>Shared Server (heavy)</td><td>isolcpus + IRQ affinity</td><td>15-20% improvement</td></tr><tr><td>Kubernetes</td><td>CPU limits + nodeSelector</td><td>Varies</td></tr></tbody></table>
+<p>The decision tree is simple:</p>
+<figure data-rehype-pretty-code-figure=""><pre tabindex="0" data-language="plaintext" data-theme="github-dark-dimmed"><code data-language="plaintext" data-theme="github-dark-dimmed" style="display: grid;"><span data-line=""><span>Is GPU workload latency-sensitive?</span></span>
+<span data-line=""><span>├── No -> No optimization needed</span></span>
+<span data-line=""><span>└── Yes -> Is server shared?</span></span>
+<span data-line=""><span>    ├── No -> Monitor only, optimize if needed</span></span>
+<span data-line=""><span>    └── Yes -> How heavy is colocated load?</span></span>
+<span data-line=""><span>        ├── Light -> taskset + nice</span></span>
+<span data-line=""><span>        └── Heavy -> isolcpus + dedicated cores</span></span></code></pre></figure>
+<h2 id="conclusion">Conclusion</h2>
+<p>CPU scheduling and IRQ handling do not always matter for GPU inference, but they matter under the conditions where production systems often run: shared hosts, background load, and noisy neighbors.</p>
+<p>The clean baseline shows minimal overhead: <strong>1.2%</strong> scheduler impact and <strong>0.03%</strong> IRQ impact. But combined CPU, network, and disk interference causes <strong>20.5%</strong> throughput degradation. CPU pinning cuts context switches by <strong>96.3%</strong> and recovers most of the lost performance, but not all of it.</p>
+<p>The practical lesson is to measure first. Use tracing to identify whether your workload is scheduler-bound, IRQ-sensitive, or mostly application-limited. Then choose the mitigation that matches the signature: CPU pinning for CPU contention, IRQ affinity for interrupt interference, I/O tuning for block-device pressure, and full CPU isolation when the workload is latency-sensitive and colocated load is heavy.</p>
+<h2 id="references">References</h2>
+<ol>
+<li>Meta Platforms, Inc. "Accelerating AI Training with sched_ext." Linux Plumbers Conference 2025. <a href="https://lpc.events/event/19/contributions/2039/">https://lpc.events/event/19/contributions/2039/</a></li>
+<li>NVIDIA Corporation. "CUDA Driver API Reference." <a href="https://docs.nvidia.com/cuda/cuda-driver-api/">https://docs.nvidia.com/cuda/cuda-driver-api/</a></li>
+<li>Linux Kernel Documentation. "BPF Documentation." <a href="https://www.kernel.org/doc/html/latest/bpf/">https://www.kernel.org/doc/html/latest/bpf/</a></li>
+<li>stress-ng. "A tool to load and stress a computer system." <a href="https://github.com/ColinIanKing/stress-ng">https://github.com/ColinIanKing/stress-ng</a></li>
+<li>iperf3. "A TCP, UDP, and SCTP network bandwidth measurement tool." <a href="https://github.com/esnet/iperf">https://github.com/esnet/iperf</a></li>
+<li>fio. "Flexible I/O Tester." <a href="https://github.com/axboe/fio">https://github.com/axboe/fio</a></li>
+</ol></div></div><div class="mt-10 space-y-5 border-t border-slate-200 pt-6"><section class="space-y-3"><div><p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Continue exploring</p></div><div class="grid gap-3 md:grid-cols-3"><a href="/blog/" class="border border-slate-200 px-4 py-4 transition hover:bg-slate-50/60 hover:border-slate-300"><p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Back to index</p><p class="mt-2 text-base font-semibold text-ink">Blog</p><p class="mt-2 text-sm leading-6 text-slate-600">Latest articles and insights on eBPF, kernel programming, and system observability from the eunomia-bpf community.</p></a><a href="/blog/2026/05/21/acrfence-preventing-semantic-rollback-attacks-in-agent-checkpoint-restore/" class="border border-slate-200 px-4 py-4 transition hover:bg-slate-50/60 hover:border-slate-300"><p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Next</p><p class="mt-2 text-base font-semibold text-ink">ACRFence: Preventing Semantic Rollback Attacks in Agent Checkpoint-Restore</p><p class="mt-2 text-sm leading-6 text-slate-600">ACRFence explains semantic rollback attacks in AI agent checkpoint/restore workflows and shows how intent-aware fencing prevents duplicate irreversible actions and revived authority.</p></a></div></section><dl class="grid gap-4 border border-slate-200 p-5 text-sm text-slate-600 md:grid-cols-3"><div><dt class="font-semibold text-ink">Last updated</dt><dd class="mt-1">May 24, 2026</dd></div><div><dt class="font-semibold text-ink">First published</dt><dd class="mt-1">May 24, 2026</dd></div><div><dt class="font-semibold text-ink">Contributors</dt><dd class="mt-1">LinuxDev9002</dd></div></dl><div class="flex flex-wrap gap-3"><a href="https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/blog/posts/cpu-noise-gpu-inference.md" class="inline-flex rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-400 hover:text-ink">Edit this page</a><a href="https://x.com/intent/tweet?text=When%20CPU%20Noise%20Slows%20Down%20GPU%20Inference%3A%20Measuring%20Scheduler%20and%20IRQ%20Impact%20with%20eBPF%0A&amp;url=https%3A%2F%2Feunomia.dev%2Fblog%2F2026%2F05%2F24%2Fmeasuring-cpu-noise-in-gpu-inference-with-ebpf%2F" target="_blank" rel="noreferrer" class="inline-flex rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-400 hover:text-ink">Share on X</a><a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Feunomia.dev%2Fblog%2F2026%2F05%2F24%2Fmeasuring-cpu-noise-in-gpu-inference-with-ebpf%2F" target="_blank" rel="noreferrer" class="inline-flex rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-400 hover:text-ink">Share on Facebook</a><a href="https://github.com/orgs/eunomia-bpf/discussions" target="_blank" rel="noreferrer" class="inline-flex rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-400 hover:text-ink">Join discussion</a><a href="/feed.xml" class="inline-flex rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-400 hover:text-ink">RSS feed</a></div><div class="rounded-lg border border-slate-200 bg-white p-5"><p class="text-sm font-semibold text-ink">Was this page helpful?</p><div class="mt-3 flex flex-wrap gap-3"><button type="button" class="inline-flex rounded-full border px-4 py-2 text-sm font-medium transition border-slate-200 text-slate-700 hover:bg-slate-50 hover:text-ink">This page was helpful</button><button type="button" class="inline-flex rounded-full border px-4 py-2 text-sm font-medium transition border-slate-200 text-slate-700 hover:bg-slate-50 hover:text-ink">This page could be improved</button></div><div aria-live="polite" class="mt-3 min-h-6 text-sm text-slate-600"></div></div></div></article><aside class="sticky top-24 self-start border-l border-slate-200 pl-5 hidden xl:block"><p class="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">On this page</p><nav aria-label="On this page" class="mt-4"><ol class="space-y-2 text-sm text-slate-600"><li class=""><a href="#why-cpu-scheduling-shows-up-in-gpu-inference" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">Why CPU Scheduling Shows Up in GPU Inference</a></li><li class=""><a href="#tracing-the-launch-path" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">Tracing the Launch Path</a></li><li class="pl-4"><a href="#cuda-api-tracing" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">CUDA API Tracing</a></li><li class="pl-4"><a href="#scheduler-event-tracing" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">Scheduler Event Tracing</a></li><li class="pl-4"><a href="#irq-tracing" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">IRQ Tracing</a></li><li class=""><a href="#benchmark-and-environment" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">Benchmark and Environment</a></li><li class=""><a href="#analysis-method" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">Analysis Method</a></li><li class=""><a href="#rq1-does-cpu-scheduler-significantly-impact-gpu-performance-in-clean-environments" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">RQ1: Does CPU Scheduler Significantly Impact GPU Performance in Clean Environments?</a></li><li class="pl-4"><a href="#results" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">Results</a></li><li class=""><a href="#rq2-what-is-the-impact-of-irq-interrupts-on-gpu-performance" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">RQ2: What Is the Impact of IRQ Interrupts on GPU Performance?</a></li><li class="pl-4"><a href="#results-1" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">Results</a></li><li class=""><a href="#rq3-how-do-noisy-neighbors-affect-gpu-performance" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">RQ3: How Do Noisy Neighbors Affect GPU Performance?</a></li><li class="pl-4"><a href="#results-2" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">Results</a></li><li class="pl-4"><a href="#scenario-analysis" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">Scenario Analysis</a></li><li class=""><a href="#rq4-can-cpu-pinning-effectively-mitigate-scheduler-impact" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">RQ4: Can CPU Pinning Effectively Mitigate Scheduler Impact?</a></li><li class="pl-4"><a href="#results-3" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">Results</a></li><li class=""><a href="#what-the-results-mean" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">What the Results Mean</a></li><li class=""><a href="#comparison-with-metas-sched_ext-findings" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">Comparison with Meta&#x27;s sched_ext Findings</a></li><li class=""><a href="#limitations" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">Limitations</a></li><li class=""><a href="#practical-recommendations" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">Practical Recommendations</a></li><li class=""><a href="#conclusion" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">Conclusion</a></li><li class=""><a href="#references" class="block py-0.5 transition hover:text-ink text-slate-500 hover:text-ink">References</a></li></ol></nav></aside></div></section></div></div></div></main><footer class="mt-16 border-t border-slate-200 bg-white"><div class="mx-auto grid max-w-6xl gap-8 px-5 py-10 text-sm text-slate-600 md:grid-cols-[minmax(0,1.3fr)_repeat(3,minmax(0,1fr))]"><div><p class="text-lg font-semibold tracking-tight text-ink">eunomia</p><p class="mt-3 max-w-md leading-7">Open-source systems research, eBPF tooling, and runnable documentation from the eunomia-bpf community.</p></div><div><p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Explore</p><ul class="mt-4 space-y-3"><li><a href="/bpftime/" class="transition hover:text-ink">bpftime</a></li><li><a href="/projects/" class="transition hover:text-ink">Projects</a></li><li><a href="/GPTtrace/" class="transition hover:text-ink">AI × eBPF</a></li><li><a href="/tutorials/" class="transition hover:text-ink">Tutorial</a></li><li><a href="/blog/" class="transition hover:text-ink">Blog</a></li><li><a href="/others/" class="transition hover:text-ink">Ecosystem</a></li><li><a href="/eunomia-bpf/" class="transition hover:text-ink">eunomia-bpf</a></li><li><a href="/wasm-bpf/" class="transition hover:text-ink">wasm-bpf</a></li></ul></div><div><p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Projects</p><ul class="mt-4 space-y-3"><li><a href="/GPTtrace/" class="transition hover:text-ink">AI × eBPF</a></li><li><a href="/wasm-bpf/" class="transition hover:text-ink">wasm-bpf</a></li><li><a href="/feed.xml" class="transition hover:text-ink">RSS</a></li></ul></div><div><p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Community</p><ul class="mt-4 space-y-3"><li><a href="https://github.com/eunomia-bpf/eunomia.dev" class="transition hover:text-ink">GitHub</a></li><li><a href="https://github.com/orgs/eunomia-bpf/discussions" class="transition hover:text-ink">Discussions</a></li></ul></div></div></footer></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"eyebrow":"Blog","page":{"layout":"document","title":"When CPU Noise Slows Down GPU Inference: Measuring Scheduler and IRQ Impact with eBPF","description":"Quantitative eBPF tracing of CUDA kernel launches, scheduler context switches, and IRQs shows when CPU noise matters for GPU LLM inference and how CPU pinning recovers throughput.","bodyHtml":"\u003cp\u003eGPU inference often looks like a GPU problem, but the CPU still sits on the critical path. It prepares inputs, launches CUDA kernels, manages synchronization, handles runtime calls, and shares cores with system work, interrupts, and other tenants. If that CPU-side launch path is delayed, the GPU can be left waiting even when the GPU kernels themselves are fast.\u003c/p\u003e\n\u003cp\u003eThis post asks a concrete question: when an LLM inference workload is running on a GPU, how much do Linux CPU scheduling decisions and IRQ handling actually matter?\u003c/p\u003e\n\u003cp\u003eTo answer it, we built an eBPF tracing tool, \u003ccode\u003ecuda_sched_trace\u003c/code\u003e, that records CUDA kernel launches, scheduler context switches, and hard/soft IRQ events with nanosecond timestamps. We then ran Qwen3 0.6B inference under clean and noisy-neighbor conditions: CPU load from \u003ccode\u003estress-ng\u003c/code\u003e, network load from \u003ccode\u003eiperf3\u003c/code\u003e, disk load from \u003ccode\u003efio\u003c/code\u003e, a combined heavy-load case, and a mitigation case using CPU pinning and priority adjustment.\u003c/p\u003e\n\u003cp\u003eThe short version: in a clean environment, scheduler and IRQ overhead are small. Under production-like noisy-neighbor conditions, they can become very real. Combined CPU, network, and disk interference reduced throughput by \u003cstrong\u003e20.5%\u003c/strong\u003e, while simple CPU pinning reduced context switches by \u003cstrong\u003e96.3%\u003c/strong\u003e and recovered most of the lost throughput.\u003c/p\u003e\n\u003ch2 id=\"why-cpu-scheduling-shows-up-in-gpu-inference\"\u003eWhy CPU Scheduling Shows Up in GPU Inference\u003c/h2\u003e\n\u003cp\u003eModern GPU workloads, particularly LLM inference and training, require tight coordination between CPU and GPU execution. The CPU is responsible for:\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003epreparing input data and kernel parameters\u003c/li\u003e\n\u003cli\u003elaunching GPU kernels through CUDA APIs\u003c/li\u003e\n\u003cli\u003emanaging memory transfers and synchronization\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003eAn interruption to that CPU-side workflow can delay GPU kernel submission. In the worst case, the GPU has available compute capacity but no new work to execute.\u003c/p\u003e\n\u003cp\u003eThe motivation comes partly from Meta's work on \u003ccode\u003esched_ext\u003c/code\u003e for AI training optimization, where production issues include \"IRQs preempting our important tasks.\" Network interrupts (\u003ccode\u003eNET_RX\u003c/code\u003e/\u003ccode\u003eNET_TX\u003c/code\u003e) and block device interrupts can matter for large distributed training jobs, and custom scheduling policies can improve AI workload performance by 5-20%.\u003c/p\u003e\n\u003cp\u003eBut the impact is workload-dependent. A single-node LLM inference loop is not the same as distributed training with all-reduce traffic. Before investing in custom scheduling, we wanted measurements that separate scheduler problems from normal application behavior.\u003c/p\u003e\n\u003cp\u003eThe study has four goals:\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003eMeasure the baseline impact of CPU scheduling on GPU kernel launches.\u003c/li\u003e\n\u003cli\u003eCharacterize IRQ interference patterns and their performance cost.\u003c/li\u003e\n\u003cli\u003eQuantify noisy-neighbor impact under CPU, network, disk, and combined load.\u003c/li\u003e\n\u003cli\u003eEvaluate how much CPU pinning and priority adjustment help.\u003c/li\u003e\n\u003c/ol\u003e\n\u003ch2 id=\"tracing-the-launch-path\"\u003eTracing the Launch Path\u003c/h2\u003e\n\u003cp\u003eWe developed \u003ccode\u003ecuda_sched_trace\u003c/code\u003e, an eBPF-based tracing tool that combines CUDA API uprobes, Linux scheduler tracepoints, and IRQ tracepoints.\u003c/p\u003e\n\u003ch3 id=\"cuda-api-tracing\"\u003eCUDA API Tracing\u003c/h3\u003e\n\u003cp\u003eThe tool attaches uprobes to CUDA Driver and Runtime APIs:\u003c/p\u003e\n\u003cfigure data-rehype-pretty-code-figure=\"\"\u003e\u003cpre tabindex=\"0\" data-language=\"c\" data-theme=\"github-dark-dimmed\"\u003e\u003ccode data-language=\"c\" data-theme=\"github-dark-dimmed\" style=\"display: grid;\"\u003e\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#768390\"\u003e// Attach to CUDA Driver API\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#DCBDFB\"\u003eSEC\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e(\u003c/span\u003e\u003cspan style=\"color:#96D0FF\"\u003e\"uprobe/cuLaunchKernel\"\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e)\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#F47067\"\u003eint\u003c/span\u003e\u003cspan style=\"color:#DCBDFB\"\u003e trace_cuLaunchKernel\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e(\u003c/span\u003e\u003cspan style=\"color:#F47067\"\u003estruct\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e pt_regs \u003c/span\u003e\u003cspan style=\"color:#F47067\"\u003e*\u003c/span\u003e\u003cspan style=\"color:#F69D50\"\u003ectx\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e) {\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#768390\"\u003e    // Capture: timestamp, pid, tid, grid/block dimensions, shared memory, stream\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#768390\"\u003e    // Mark process as GPU process for scheduler tracking\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#ADBAC7\"\u003e}\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e \u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#768390\"\u003e// Attach to CUDA Runtime API\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#DCBDFB\"\u003eSEC\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e(\u003c/span\u003e\u003cspan style=\"color:#96D0FF\"\u003e\"uprobe/cudaLaunchKernel\"\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e)\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#F47067\"\u003eint\u003c/span\u003e\u003cspan style=\"color:#DCBDFB\"\u003e trace_cudaLaunchKernel\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e(\u003c/span\u003e\u003cspan style=\"color:#F47067\"\u003estruct\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e pt_regs \u003c/span\u003e\u003cspan style=\"color:#F47067\"\u003e*\u003c/span\u003e\u003cspan style=\"color:#F69D50\"\u003ectx\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e) { ... }\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e \u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#DCBDFB\"\u003eSEC\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e(\u003c/span\u003e\u003cspan style=\"color:#96D0FF\"\u003e\"uprobe/cudaDeviceSynchronize\"\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e)\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#F47067\"\u003eint\u003c/span\u003e\u003cspan style=\"color:#DCBDFB\"\u003e trace_cudaDeviceSynchronize_enter\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e(\u003c/span\u003e\u003cspan style=\"color:#F47067\"\u003estruct\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e pt_regs \u003c/span\u003e\u003cspan style=\"color:#F47067\"\u003e*\u003c/span\u003e\u003cspan style=\"color:#F69D50\"\u003ectx\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e) { ... }\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e \u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#DCBDFB\"\u003eSEC\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e(\u003c/span\u003e\u003cspan style=\"color:#96D0FF\"\u003e\"uretprobe/cudaDeviceSynchronize\"\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e)\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#F47067\"\u003eint\u003c/span\u003e\u003cspan style=\"color:#DCBDFB\"\u003e trace_cudaDeviceSynchronize_exit\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e(\u003c/span\u003e\u003cspan style=\"color:#F47067\"\u003estruct\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e pt_regs \u003c/span\u003e\u003cspan style=\"color:#F47067\"\u003e*\u003c/span\u003e\u003cspan style=\"color:#F69D50\"\u003ectx\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e) { ... }\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/figure\u003e\n\u003ch3 id=\"scheduler-event-tracing\"\u003eScheduler Event Tracing\u003c/h3\u003e\n\u003cp\u003eScheduler activity is captured through \u003ccode\u003esched_switch\u003c/code\u003e, filtered to GPU-related processes:\u003c/p\u003e\n\u003cfigure data-rehype-pretty-code-figure=\"\"\u003e\u003cpre tabindex=\"0\" data-language=\"c\" data-theme=\"github-dark-dimmed\"\u003e\u003ccode data-language=\"c\" data-theme=\"github-dark-dimmed\" style=\"display: grid;\"\u003e\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#DCBDFB\"\u003eSEC\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e(\u003c/span\u003e\u003cspan style=\"color:#96D0FF\"\u003e\"tp_btf/sched_switch\"\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e)\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#F47067\"\u003eint\u003c/span\u003e\u003cspan style=\"color:#DCBDFB\"\u003e BPF_PROG\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e(sched_switch, \u003c/span\u003e\u003cspan style=\"color:#F47067\"\u003ebool\u003c/span\u003e\u003cspan style=\"color:#F69D50\"\u003e preempt\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e, \u003c/span\u003e\u003cspan style=\"color:#F47067\"\u003estruct\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e task_struct \u003c/span\u003e\u003cspan style=\"color:#F47067\"\u003e*\u003c/span\u003e\u003cspan style=\"color:#F69D50\"\u003eprev\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e, \u003c/span\u003e\u003cspan style=\"color:#F47067\"\u003estruct\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e task_struct \u003c/span\u003e\u003cspan style=\"color:#F47067\"\u003e*\u003c/span\u003e\u003cspan style=\"color:#F69D50\"\u003enext\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e) {\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#768390\"\u003e    // Only track if prev or next is a GPU process\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#768390\"\u003e    // Record: timestamp, prev/next pid, off-cpu/on-cpu duration\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#ADBAC7\"\u003e}\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/figure\u003e\n\u003ch3 id=\"irq-tracing\"\u003eIRQ Tracing\u003c/h3\u003e\n\u003cp\u003eHard and soft IRQs are tracked through kernel tracepoints:\u003c/p\u003e\n\u003cfigure data-rehype-pretty-code-figure=\"\"\u003e\u003cpre tabindex=\"0\" data-language=\"c\" data-theme=\"github-dark-dimmed\"\u003e\u003ccode data-language=\"c\" data-theme=\"github-dark-dimmed\" style=\"display: grid;\"\u003e\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#DCBDFB\"\u003eSEC\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e(\u003c/span\u003e\u003cspan style=\"color:#96D0FF\"\u003e\"tp_btf/irq_handler_entry\"\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e)\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#F47067\"\u003eint\u003c/span\u003e\u003cspan style=\"color:#DCBDFB\"\u003e BPF_PROG\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e(irq_handler_entry, \u003c/span\u003e\u003cspan style=\"color:#F47067\"\u003eint\u003c/span\u003e\u003cspan style=\"color:#F69D50\"\u003e irq\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e, \u003c/span\u003e\u003cspan style=\"color:#F47067\"\u003estruct\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e irqaction \u003c/span\u003e\u003cspan style=\"color:#F47067\"\u003e*\u003c/span\u003e\u003cspan style=\"color:#F69D50\"\u003eaction\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e) {\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#768390\"\u003e    // Track hard IRQ entry, record IRQ number and handler name\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#ADBAC7\"\u003e}\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e \u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#DCBDFB\"\u003eSEC\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e(\u003c/span\u003e\u003cspan style=\"color:#96D0FF\"\u003e\"tp_btf/irq_handler_exit\"\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e)\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#F47067\"\u003eint\u003c/span\u003e\u003cspan style=\"color:#DCBDFB\"\u003e BPF_PROG\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e(irq_handler_exit, \u003c/span\u003e\u003cspan style=\"color:#F47067\"\u003eint\u003c/span\u003e\u003cspan style=\"color:#F69D50\"\u003e irq\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e, \u003c/span\u003e\u003cspan style=\"color:#F47067\"\u003estruct\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e irqaction \u003c/span\u003e\u003cspan style=\"color:#F47067\"\u003e*\u003c/span\u003e\u003cspan style=\"color:#F69D50\"\u003eaction\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e) {\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#768390\"\u003e    // Calculate IRQ duration\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#ADBAC7\"\u003e}\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e \u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#DCBDFB\"\u003eSEC\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e(\u003c/span\u003e\u003cspan style=\"color:#96D0FF\"\u003e\"tp_btf/softirq_entry\"\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e)\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#F47067\"\u003eint\u003c/span\u003e\u003cspan style=\"color:#DCBDFB\"\u003e BPF_PROG\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e(softirq_entry, \u003c/span\u003e\u003cspan style=\"color:#F47067\"\u003eunsigned\u003c/span\u003e\u003cspan style=\"color:#F47067\"\u003e int\u003c/span\u003e\u003cspan style=\"color:#F69D50\"\u003e vec_nr\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e) {\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#768390\"\u003e    // Track soft IRQ: TIMER, NET_RX, NET_TX, BLOCK, SCHED, RCU, etc.\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#ADBAC7\"\u003e}\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e \u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#DCBDFB\"\u003eSEC\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e(\u003c/span\u003e\u003cspan style=\"color:#96D0FF\"\u003e\"tp_btf/softirq_exit\"\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e)\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#F47067\"\u003eint\u003c/span\u003e\u003cspan style=\"color:#DCBDFB\"\u003e BPF_PROG\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e(softirq_exit, \u003c/span\u003e\u003cspan style=\"color:#F47067\"\u003eunsigned\u003c/span\u003e\u003cspan style=\"color:#F47067\"\u003e int\u003c/span\u003e\u003cspan style=\"color:#F69D50\"\u003e vec_nr\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e) {\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#768390\"\u003e    // Calculate soft IRQ duration\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#ADBAC7\"\u003e}\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/figure\u003e\n\u003cp\u003eThe data path is straightforward: the GPU application issues CUDA calls; eBPF programs observe CUDA, scheduler, and IRQ events in kernel space; events are sent through a BPF ring buffer; analysis scripts parse the resulting CSV.\u003c/p\u003e\n\u003cfigure data-rehype-pretty-code-figure=\"\"\u003e\u003cpre tabindex=\"0\" data-language=\"plaintext\" data-theme=\"github-dark-dimmed\"\u003e\u003ccode data-language=\"plaintext\" data-theme=\"github-dark-dimmed\" style=\"display: grid;\"\u003e\u003cspan data-line=\"\"\u003e\u003cspan\u003e┌─────────────────────────────────────────────────────────────────┐\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan\u003e│                         User Space                               │\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan\u003e│  ┌─────────────┐    ┌─────────────┐    ┌─────────────────────┐  │\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan\u003e│  │ GPU App     │    │ cuda_sched  │    │ Analysis Scripts    │  │\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan\u003e│  │ (qwen3.cu)  │    │ _trace      │    │ (Python)            │  │\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan\u003e│  └──────┬──────┘    └──────┬──────┘    └──────────┬──────────┘  │\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan\u003e│         │                  │                       │             │\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan\u003e│         │ CUDA calls       │ perf_event            │ CSV parsing │\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan\u003e│         ▼                  ▼                       ▼             │\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan\u003e├─────────────────────────────────────────────────────────────────┤\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan\u003e│                         Kernel Space                             │\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan\u003e│  ┌─────────────┐    ┌─────────────┐    ┌─────────────────────┐  │\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan\u003e│  │ uprobes     │    │ tracepoints │    │ BPF Ring Buffer     │  │\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan\u003e│  │ (CUDA API)  │    │ (sched,irq) │    │ (Event Queue)       │  │\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan\u003e│  └─────────────┘    └─────────────┘    └─────────────────────┘  │\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan\u003e└─────────────────────────────────────────────────────────────────┘\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/figure\u003e\n\u003ch2 id=\"benchmark-and-environment\"\u003eBenchmark and Environment\u003c/h2\u003e\n\u003cp\u003eThe benchmark is Qwen3 0.6B LLM inference using \u003ccode\u003eqwen3.cu\u003c/code\u003e.\u003c/p\u003e\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\u003ctable\u003e\u003cthead\u003e\u003ctr\u003e\u003cth\u003eProperty\u003c/th\u003e\u003cth\u003eValue\u003c/th\u003e\u003c/tr\u003e\u003c/thead\u003e\u003ctbody\u003e\u003ctr\u003e\u003ctd\u003eModel\u003c/td\u003e\u003ctd\u003eQwen3-0.6B-FP32\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eTask\u003c/td\u003e\u003ctd\u003eSingle-turn Q\u0026#x26;A\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eInput\u003c/td\u003e\u003ctd\u003e\"What is eBPF?\"\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eOutput\u003c/td\u003e\u003ctd\u003e~30-50 tokens\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eKernel Pattern\u003c/td\u003e\u003ctd\u003eBurst submission (~950 launches per token)\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eGPU Memory\u003c/td\u003e\u003ctd\u003e~3 GB\u003c/td\u003e\u003c/tr\u003e\u003c/tbody\u003e\u003c/table\u003e\n\u003cp\u003eThis benchmark is useful because it resembles modern LLM inference, mixes compute-bound and memory-bound kernels, shows a clear burst submission pattern, and produces a measurable throughput metric in tokens per second.\u003c/p\u003e\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\u003ctable\u003e\u003cthead\u003e\u003ctr\u003e\u003cth\u003eComponent\u003c/th\u003e\u003cth\u003eSpecification\u003c/th\u003e\u003c/tr\u003e\u003c/thead\u003e\u003ctbody\u003e\u003ctr\u003e\u003ctd\u003eCPU\u003c/td\u003e\u003ctd\u003e24 cores (specific model TBD)\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eGPU\u003c/td\u003e\u003ctd\u003eNVIDIA GPU with CUDA support\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eMemory\u003c/td\u003e\u003ctd\u003eSufficient for model + system\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eOS\u003c/td\u003e\u003ctd\u003eLinux 6.15.11-061511-generic\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eKernel\u003c/td\u003e\u003ctd\u003eBTF-enabled for CO-RE eBPF\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eCUDA\u003c/td\u003e\u003ctd\u003eDriver API + Runtime API\u003c/td\u003e\u003c/tr\u003e\u003c/tbody\u003e\u003c/table\u003e\n\u003cp\u003eWe used three interference tools:\u003c/p\u003e\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\u003ctable\u003e\u003cthead\u003e\u003ctr\u003e\u003cth\u003eTool\u003c/th\u003e\u003cth\u003ePurpose\u003c/th\u003e\u003cth\u003eConfiguration\u003c/th\u003e\u003c/tr\u003e\u003c/thead\u003e\u003ctbody\u003e\u003ctr\u003e\u003ctd\u003estress-ng\u003c/td\u003e\u003ctd\u003eCPU load\u003c/td\u003e\u003ctd\u003e\u003ccode\u003e--cpu 0 --cpu-method fft\u003c/code\u003e (all cores)\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eiperf3\u003c/td\u003e\u003ctd\u003eNetwork I/O\u003c/td\u003e\u003ctd\u003eServer + Client, 10 parallel streams, 60s\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003efio\u003c/td\u003e\u003ctd\u003eDisk I/O\u003c/td\u003e\u003ctd\u003e\u003ccode\u003erandwrite, bs=4k, iodepth=32, 4 jobs\u003c/code\u003e\u003c/td\u003e\u003c/tr\u003e\u003c/tbody\u003e\u003c/table\u003e\n\u003cp\u003eThe full experiment has six scenarios:\u003c/p\u003e\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\u003ctable\u003e\u003cthead\u003e\u003ctr\u003e\u003cth\u003eScenario\u003c/th\u003e\u003cth\u003eDescription\u003c/th\u003e\u003cth\u003eInterference\u003c/th\u003e\u003c/tr\u003e\u003c/thead\u003e\u003ctbody\u003e\u003ctr\u003e\u003ctd\u003eBaseline\u003c/td\u003e\u003ctd\u003eClean environment\u003c/td\u003e\u003ctd\u003eNone\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eNoisy CPU\u003c/td\u003e\u003ctd\u003eCPU-intensive\u003c/td\u003e\u003ctd\u003estress-ng on all cores\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eNoisy Network\u003c/td\u003e\u003ctd\u003eNetwork I/O\u003c/td\u003e\u003ctd\u003eiperf3 localhost loopback\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eNoisy Disk\u003c/td\u003e\u003ctd\u003eDisk I/O\u003c/td\u003e\u003ctd\u003efio random write\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eHeavy Load\u003c/td\u003e\u003ctd\u003eCombined\u003c/td\u003e\u003ctd\u003eCPU + Network + Disk simultaneously\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eOptimized\u003c/td\u003e\u003ctd\u003eCPU pinning\u003c/td\u003e\u003ctd\u003estress-ng + taskset -c 0-3 + nice -n -10\u003c/td\u003e\u003c/tr\u003e\u003c/tbody\u003e\u003c/table\u003e\n\u003cp\u003eData collection follows the same pattern in every run:\u003c/p\u003e\n\u003cfigure data-rehype-pretty-code-figure=\"\"\u003e\u003cpre tabindex=\"0\" data-language=\"bash\" data-theme=\"github-dark-dimmed\"\u003e\u003ccode data-language=\"bash\" data-theme=\"github-dark-dimmed\" style=\"display: grid;\"\u003e\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#768390\"\u003e# Start tracing\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#F69D50\"\u003esudo\u003c/span\u003e\u003cspan style=\"color:#96D0FF\"\u003e ./cuda_sched_trace\u003c/span\u003e\u003cspan style=\"color:#F47067\"\u003e \u003e\u003c/span\u003e\u003cspan style=\"color:#96D0FF\"\u003e trace.csv\u003c/span\u003e\u003cspan style=\"color:#F47067\"\u003e 2\u003e\u003c/span\u003e\u003cspan style=\"color:#96D0FF\"\u003e trace.log\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e \u0026#x26;\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#ADBAC7\"\u003eTRACE_PID\u003c/span\u003e\u003cspan style=\"color:#F47067\"\u003e=\u003c/span\u003e\u003cspan style=\"color:#6CB6FF\"\u003e$!\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e \u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#768390\"\u003e# Run benchmark\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#6CB6FF\"\u003ecd\u003c/span\u003e\u003cspan style=\"color:#96D0FF\"\u003e qwen3.cu\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#F69D50\"\u003e/usr/bin/time\u003c/span\u003e\u003cspan style=\"color:#6CB6FF\"\u003e -v\u003c/span\u003e\u003cspan style=\"color:#96D0FF\"\u003e ./runcu\u003c/span\u003e\u003cspan style=\"color:#96D0FF\"\u003e Qwen3-0.6B-FP32.gguf\u003c/span\u003e\u003cspan style=\"color:#6CB6FF\"\u003e -q\u003c/span\u003e\u003cspan style=\"color:#96D0FF\"\u003e \"What is eBPF?\"\u003c/span\u003e\u003cspan style=\"color:#6CB6FF\"\u003e -r\u003c/span\u003e\u003cspan style=\"color:#6CB6FF\"\u003e 1\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e \u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#768390\"\u003e# Stop tracing\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#F69D50\"\u003esudo\u003c/span\u003e\u003cspan style=\"color:#96D0FF\"\u003e kill\u003c/span\u003e\u003cspan style=\"color:#6CB6FF\"\u003e -SIGINT\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e $TRACE_PID\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e \u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#768390\"\u003e# Analyze results\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#F69D50\"\u003epython3\u003c/span\u003e\u003cspan style=\"color:#96D0FF\"\u003e analyze_scheduler_impact.py\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/figure\u003e\n\u003ch2 id=\"analysis-method\"\u003eAnalysis Method\u003c/h2\u003e\n\u003cp\u003eThe central analysis compares consecutive CUDA kernel launches:\u003c/p\u003e\n\u003cfigure data-rehype-pretty-code-figure=\"\"\u003e\u003cpre tabindex=\"0\" data-language=\"plaintext\" data-theme=\"github-dark-dimmed\"\u003e\u003ccode data-language=\"plaintext\" data-theme=\"github-dark-dimmed\" style=\"display: grid;\"\u003e\u003cspan data-line=\"\"\u003e\u003cspan\u003eLaunch_i -\u003e [interval] -\u003e Launch_i+1\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e \u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan\u003eGroup A: Launches with NO context switch in interval (normal flow)\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan\u003eGroup B: Launches with context switch in interval (preempted)\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e \u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan\u003ePreemption Penalty = median(Group B interval) - median(Group A interval)\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/figure\u003e\n\u003cp\u003eTo compare runs of different lengths, scheduler and IRQ counts are normalized per 1,000 kernel launches:\u003c/p\u003e\n\u003cfigure data-rehype-pretty-code-figure=\"\"\u003e\u003cpre tabindex=\"0\" data-language=\"plaintext\" data-theme=\"github-dark-dimmed\"\u003e\u003ccode data-language=\"plaintext\" data-theme=\"github-dark-dimmed\" style=\"display: grid;\"\u003e\u003cspan data-line=\"\"\u003e\u003cspan\u003eSched/1K = (Total Context Switches / Total Kernel Launches) x 1000\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan\u003eIRQ/1K = (Total IRQs / Total Kernel Launches) x 1000\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/figure\u003e\n\u003cp\u003ePerformance impact is reported as:\u003c/p\u003e\n\u003cfigure data-rehype-pretty-code-figure=\"\"\u003e\u003cpre tabindex=\"0\" data-language=\"plaintext\" data-theme=\"github-dark-dimmed\"\u003e\u003ccode data-language=\"plaintext\" data-theme=\"github-dark-dimmed\" style=\"display: grid;\"\u003e\u003cspan data-line=\"\"\u003e\u003cspan\u003eSlowdown % = (Baseline tok/s - Scenario tok/s) / Baseline tok/s x 100\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/figure\u003e\n\u003ch2 id=\"rq1-does-cpu-scheduler-significantly-impact-gpu-performance-in-clean-environments\"\u003eRQ1: Does CPU Scheduler Significantly Impact GPU Performance in Clean Environments?\u003c/h2\u003e\n\u003cp\u003eThe first question is whether scheduler preemption matters when the machine is otherwise clean.\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eExperiment design\u003c/strong\u003e\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eCondition: clean system, no artificial interference\u003c/li\u003e\n\u003cli\u003eMetrics: context switch frequency, preemption penalty, total runtime impact\u003c/li\u003e\n\u003cli\u003eAnalysis: launch-pair comparison with and without context switches\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch3 id=\"results\"\u003eResults\u003c/h3\u003e\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\u003ctable\u003e\u003cthead\u003e\u003ctr\u003e\u003cth\u003eMetric\u003c/th\u003e\u003cth\u003eValue\u003c/th\u003e\u003c/tr\u003e\u003c/thead\u003e\u003ctbody\u003e\u003ctr\u003e\u003ctd\u003eTotal Runtime\u003c/td\u003e\u003ctd\u003e79.5 seconds\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eKernel Launches\u003c/td\u003e\u003ctd\u003e51,464\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eContext Switches\u003c/td\u003e\u003ctd\u003e592 (7.44 Hz)\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eOFF-CPU Time\u003c/td\u003e\u003ctd\u003e7.88 ms (0.01%)\u003c/td\u003e\u003c/tr\u003e\u003c/tbody\u003e\u003c/table\u003e\n\u003cp\u003eLaunch-pair analysis shows that almost every consecutive launch pair is unaffected by context switches:\u003c/p\u003e\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\u003ctable\u003e\u003cthead\u003e\u003ctr\u003e\u003cth\u003eGroup\u003c/th\u003e\u003cth\u003eCount\u003c/th\u003e\u003cth\u003ePercentage\u003c/th\u003e\u003cth\u003eP50 Interval\u003c/th\u003e\u003cth\u003eP90 Interval\u003c/th\u003e\u003cth\u003eP99 Interval\u003c/th\u003e\u003c/tr\u003e\u003c/thead\u003e\u003ctbody\u003e\u003ctr\u003e\u003ctd\u003eNo Context Switch\u003c/td\u003e\u003ctd\u003e51,401\u003c/td\u003e\u003ctd\u003e99.9%\u003c/td\u003e\u003ctd\u003e2 us\u003c/td\u003e\u003ctd\u003e4 us\u003c/td\u003e\u003ctd\u003e4 us\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eWith Context Switch\u003c/td\u003e\u003ctd\u003e62\u003c/td\u003e\u003ctd\u003e0.1%\u003c/td\u003e\u003ctd\u003e15.3 ms\u003c/td\u003e\u003ctd\u003e15.5 ms\u003c/td\u003e\u003ctd\u003e5.0 s\u003c/td\u003e\u003c/tr\u003e\u003c/tbody\u003e\u003c/table\u003e\n\u003cp\u003eThe median preemption penalty is \u003cstrong\u003e15.3 ms\u003c/strong\u003e. That is large for the affected pairs, but only 62 pairs were affected.\u003c/p\u003e\n\u003cp\u003eTail-latency attribution confirms that most outliers are not caused by scheduler preemption:\u003c/p\u003e\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\u003ctable\u003e\u003cthead\u003e\u003ctr\u003e\u003cth\u003ePercentile\u003c/th\u003e\u003cth\u003eTotal Outliers\u003c/th\u003e\u003cth\u003eWith Context Switch\u003c/th\u003e\u003cth\u003eAttribution\u003c/th\u003e\u003c/tr\u003e\u003c/thead\u003e\u003ctbody\u003e\u003ctr\u003e\u003ctd\u003eP95+\u003c/td\u003e\u003ctd\u003e2,580\u003c/td\u003e\u003ctd\u003e62 (2.4%)\u003c/td\u003e\u003ctd\u003e97.6% application\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eP99+\u003c/td\u003e\u003ctd\u003e515\u003c/td\u003e\u003ctd\u003e62 (12.0%)\u003c/td\u003e\u003ctd\u003e88.0% application\u003c/td\u003e\u003c/tr\u003e\u003c/tbody\u003e\u003c/table\u003e\n\u003cp\u003eThe total scheduler impact is:\u003c/p\u003e\n\u003cfigure data-rehype-pretty-code-figure=\"\"\u003e\u003cpre tabindex=\"0\" data-language=\"plaintext\" data-theme=\"github-dark-dimmed\"\u003e\u003ccode data-language=\"plaintext\" data-theme=\"github-dark-dimmed\" style=\"display: grid;\"\u003e\u003cspan data-line=\"\"\u003e\u003cspan\u003eImpact = Affected Pairs x Penalty = 62 x 15ms = 0.93 seconds\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan\u003ePercentage = 0.93 / 79.5 = 1.2%\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/figure\u003e\n\u003cp\u003e\u003cstrong\u003eFinding:\u003c/strong\u003e in clean environments, CPU scheduler impact is minimal at \u003cstrong\u003e1.2%\u003c/strong\u003e. The vast majority of kernel launch pairs, \u003cstrong\u003e99.9%\u003c/strong\u003e, are unaffected by context switches. Tail latency mostly comes from application behavior such as token-generation boundaries, not scheduler preemption.\u003c/p\u003e\n\u003ch2 id=\"rq2-what-is-the-impact-of-irq-interrupts-on-gpu-performance\"\u003eRQ2: What Is the Impact of IRQ Interrupts on GPU Performance?\u003c/h2\u003e\n\u003cp\u003eThe second question is whether IRQs directly interfere with the CPU-side launch path.\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eExperiment design\u003c/strong\u003e\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eCondition: clean system with IRQ tracing enabled\u003c/li\u003e\n\u003cli\u003eMetrics: IRQ frequency, duration, type distribution\u003c/li\u003e\n\u003cli\u003eAnalysis: IRQ time as percentage of total runtime\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch3 id=\"results-1\"\u003eResults\u003c/h3\u003e\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\u003ctable\u003e\u003cthead\u003e\u003ctr\u003e\u003cth\u003eMetric\u003c/th\u003e\u003cth\u003eValue\u003c/th\u003e\u003c/tr\u003e\u003c/thead\u003e\u003ctbody\u003e\u003ctr\u003e\u003ctd\u003eTotal Runtime\u003c/td\u003e\u003ctd\u003e4.99 seconds\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eKernel Launches\u003c/td\u003e\u003ctd\u003e125,236\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eSoft IRQs\u003c/td\u003e\u003ctd\u003e653 events\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eHard IRQs\u003c/td\u003e\u003ctd\u003e0 events\u003c/td\u003e\u003c/tr\u003e\u003c/tbody\u003e\u003c/table\u003e\n\u003cp\u003eSoft IRQ type distribution:\u003c/p\u003e\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\u003ctable\u003e\u003cthead\u003e\u003ctr\u003e\u003cth\u003eType\u003c/th\u003e\u003cth\u003eCount\u003c/th\u003e\u003cth\u003eTotal Time\u003c/th\u003e\u003cth\u003eAvg Time\u003c/th\u003e\u003cth\u003eMax Time\u003c/th\u003e\u003cth\u003ePercentage\u003c/th\u003e\u003c/tr\u003e\u003c/thead\u003e\u003ctbody\u003e\u003ctr\u003e\u003ctd\u003eTIMER\u003c/td\u003e\u003ctd\u003e317\u003c/td\u003e\u003ctd\u003e0.77 ms\u003c/td\u003e\u003ctd\u003e2.4 us\u003c/td\u003e\u003ctd\u003e30.1 us\u003c/td\u003e\u003ctd\u003e49%\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eRCU\u003c/td\u003e\u003ctd\u003e291\u003c/td\u003e\u003ctd\u003e0.40 ms\u003c/td\u003e\u003ctd\u003e1.4 us\u003c/td\u003e\u003ctd\u003e17.2 us\u003c/td\u003e\u003ctd\u003e45%\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eNET_RX\u003c/td\u003e\u003ctd\u003e30\u003c/td\u003e\u003ctd\u003e0.13 ms\u003c/td\u003e\u003ctd\u003e4.5 us\u003c/td\u003e\u003ctd\u003e14.0 us\u003c/td\u003e\u003ctd\u003e4.6%\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eSCHED\u003c/td\u003e\u003ctd\u003e15\u003c/td\u003e\u003ctd\u003e0.07 ms\u003c/td\u003e\u003ctd\u003e4.9 us\u003c/td\u003e\u003ctd\u003e18.9 us\u003c/td\u003e\u003ctd\u003e2.3%\u003c/td\u003e\u003c/tr\u003e\u003c/tbody\u003e\u003c/table\u003e\n\u003cp\u003eTotal IRQ impact:\u003c/p\u003e\n\u003cfigure data-rehype-pretty-code-figure=\"\"\u003e\u003cpre tabindex=\"0\" data-language=\"plaintext\" data-theme=\"github-dark-dimmed\"\u003e\u003ccode data-language=\"plaintext\" data-theme=\"github-dark-dimmed\" style=\"display: grid;\"\u003e\u003cspan data-line=\"\"\u003e\u003cspan\u003eTotal IRQ Time: 1.38 ms\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan\u003ePercentage of Runtime: 0.0276%\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/figure\u003e\n\u003cp\u003eThere are real reasons to worry about IRQs: direct handler time, cache pollution, CPU pipeline disruption, and delay accumulation on critical paths. But for this local inference workload, actual IRQ impact is small.\u003c/p\u003e\n\u003cp\u003eThe reason is the workload shape. Qwen3 submits about 950 launches in a burst lasting less than 100 us, so IRQs rarely land inside the burst. Most IRQs happen between bursts during CPU compute. TIMER interrupts dominate and have a small cache footprint. There is little network I/O, so \u003ccode\u003eNET_RX\u003c/code\u003e appears only 30 times, and there are no hard IRQs from NVMe or SSD block-device interrupts.\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eFinding:\u003c/strong\u003e IRQ impact is negligible for local LLM inference at \u003cstrong\u003e0.0276%\u003c/strong\u003e. This does not mean IRQs never matter. Distributed training with network communication or on-the-fly data loading can see much higher IRQ impact, estimated around \u003cstrong\u003e5-20%\u003c/strong\u003e.\u003c/p\u003e\n\u003ch2 id=\"rq3-how-do-noisy-neighbors-affect-gpu-performance\"\u003eRQ3: How Do Noisy Neighbors Affect GPU Performance?\u003c/h2\u003e\n\u003cp\u003eThe third question is the most production-relevant one: what happens when the GPU workload shares a machine with other CPU, network, and disk activity?\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eExperiment design\u003c/strong\u003e\u003c/p\u003e\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\u003ctable\u003e\u003cthead\u003e\u003ctr\u003e\u003cth\u003eScenario\u003c/th\u003e\u003cth\u003eInterference\u003c/th\u003e\u003cth\u003ePurpose\u003c/th\u003e\u003c/tr\u003e\u003c/thead\u003e\u003ctbody\u003e\u003ctr\u003e\u003ctd\u003eBaseline\u003c/td\u003e\u003ctd\u003eNone\u003c/td\u003e\u003ctd\u003eReference point\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eNoisy CPU\u003c/td\u003e\u003ctd\u003estress-ng (all cores)\u003c/td\u003e\u003ctd\u003eCPU contention\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eNoisy Network\u003c/td\u003e\u003ctd\u003eiperf3 (10 streams)\u003c/td\u003e\u003ctd\u003eNetwork IRQ\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eNoisy Disk\u003c/td\u003e\u003ctd\u003efio (4 jobs, randwrite)\u003c/td\u003e\u003ctd\u003eBlock IRQ\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eHeavy Load\u003c/td\u003e\u003ctd\u003eAll three combined\u003c/td\u003e\u003ctd\u003eProduction simulation\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eOptimized\u003c/td\u003e\u003ctd\u003eCPU stress + taskset + nice\u003c/td\u003e\u003ctd\u003eMitigation test\u003c/td\u003e\u003c/tr\u003e\u003c/tbody\u003e\u003c/table\u003e\n\u003ch3 id=\"results-2\"\u003eResults\u003c/h3\u003e\n\u003cp\u003eNormalized metrics per 1,000 kernel launches:\u003c/p\u003e\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\u003ctable\u003e\u003cthead\u003e\u003ctr\u003e\u003cth\u003eScenario\u003c/th\u003e\u003cth\u003eLaunches\u003c/th\u003e\u003cth\u003eSched/1K\u003c/th\u003e\u003cth\u003eSoft IRQ/1K\u003c/th\u003e\u003cth\u003eHard IRQ/1K\u003c/th\u003e\u003cth\u003eIRQ Time (ms)\u003c/th\u003e\u003c/tr\u003e\u003c/thead\u003e\u003ctbody\u003e\u003ctr\u003e\u003ctd\u003eBaseline\u003c/td\u003e\u003ctd\u003e56,882\u003c/td\u003e\u003ctd\u003e22.8\u003c/td\u003e\u003ctd\u003e5.8\u003c/td\u003e\u003ctd\u003e0.0\u003c/td\u003e\u003ctd\u003e0.62\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eNoisy CPU\u003c/td\u003e\u003ctd\u003e61,184\u003c/td\u003e\u003ctd\u003e\u003cstrong\u003e11,932.8\u003c/strong\u003e\u003c/td\u003e\u003ctd\u003e6.4\u003c/td\u003e\u003ctd\u003e0.0\u003c/td\u003e\u003ctd\u003e0.33\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eNoisy Network\u003c/td\u003e\u003ctd\u003e154,394\u003c/td\u003e\u003ctd\u003e6.0\u003c/td\u003e\u003ctd\u003e2.7\u003c/td\u003e\u003ctd\u003e0.0\u003c/td\u003e\u003ctd\u003e0.92\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eNoisy Disk\u003c/td\u003e\u003ctd\u003e126,670\u003c/td\u003e\u003ctd\u003e29.3\u003c/td\u003e\u003ctd\u003e3.9\u003c/td\u003e\u003ctd\u003e\u003cstrong\u003e0.1\u003c/strong\u003e\u003c/td\u003e\u003ctd\u003e1.03\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003e\u003cstrong\u003eHeavy Load\u003c/strong\u003e\u003c/td\u003e\u003ctd\u003e\u003cstrong\u003e99,424\u003c/strong\u003e\u003c/td\u003e\u003ctd\u003e\u003cstrong\u003e6,044.6\u003c/strong\u003e\u003c/td\u003e\u003ctd\u003e2.4\u003c/td\u003e\u003ctd\u003e0.0\u003c/td\u003e\u003ctd\u003e0.37\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eOptimized\u003c/td\u003e\u003ctd\u003e108,984\u003c/td\u003e\u003ctd\u003e445.2\u003c/td\u003e\u003ctd\u003e2.8\u003c/td\u003e\u003ctd\u003e0.0\u003c/td\u003e\u003ctd\u003e0.71\u003c/td\u003e\u003c/tr\u003e\u003c/tbody\u003e\u003c/table\u003e\n\u003cp\u003ePerformance impact:\u003c/p\u003e\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\u003ctable\u003e\u003cthead\u003e\u003ctr\u003e\u003cth\u003eScenario\u003c/th\u003e\u003cth\u003etok/s\u003c/th\u003e\u003cth\u003eRuntime (s)\u003c/th\u003e\u003cth\u003eSlowdown\u003c/th\u003e\u003cth\u003eContext Switch Increase\u003c/th\u003e\u003c/tr\u003e\u003c/thead\u003e\u003ctbody\u003e\u003ctr\u003e\u003ctd\u003eBaseline\u003c/td\u003e\u003ctd\u003e54.77\u003c/td\u003e\u003ctd\u003e3.00\u003c/td\u003e\u003ctd\u003e-\u003c/td\u003e\u003ctd\u003e1x\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eNoisy CPU\u003c/td\u003e\u003ctd\u003e49.93\u003c/td\u003e\u003ctd\u003e4.15\u003c/td\u003e\u003ctd\u003e\u003cstrong\u003e8.8%\u003c/strong\u003e\u003c/td\u003e\u003ctd\u003e\u003cstrong\u003e524x\u003c/strong\u003e\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eNoisy Network\u003c/td\u003e\u003ctd\u003e53.23\u003c/td\u003e\u003ctd\u003e7.22\u003c/td\u003e\u003ctd\u003e2.8%\u003c/td\u003e\u003ctd\u003e0.26x\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eNoisy Disk\u003c/td\u003e\u003ctd\u003e54.95\u003c/td\u003e\u003ctd\u003e5.60\u003c/td\u003e\u003ctd\u003e-0.3%\u003c/td\u003e\u003ctd\u003e1.3x\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003e\u003cstrong\u003eHeavy Load\u003c/strong\u003e\u003c/td\u003e\u003ctd\u003e\u003cstrong\u003e43.56\u003c/strong\u003e\u003c/td\u003e\u003ctd\u003e\u003cstrong\u003e6.97\u003c/strong\u003e\u003c/td\u003e\u003ctd\u003e\u003cstrong\u003e20.5%\u003c/strong\u003e\u003c/td\u003e\u003ctd\u003e\u003cstrong\u003e265x\u003c/strong\u003e\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eOptimized\u003c/td\u003e\u003ctd\u003e53.75\u003c/td\u003e\u003ctd\u003e5.10\u003c/td\u003e\u003ctd\u003e1.9%\u003c/td\u003e\u003ctd\u003e19.5x\u003c/td\u003e\u003c/tr\u003e\u003c/tbody\u003e\u003c/table\u003e\n\u003ch3 id=\"scenario-analysis\"\u003eScenario Analysis\u003c/h3\u003e\n\u003cp\u003e\u003cstrong\u003eNoisy CPU (\u003ccode\u003estress-ng\u003c/code\u003e)\u003c/strong\u003e causes the most direct scheduling pressure. Context switches increase \u003cstrong\u003e524x\u003c/strong\u003e, from 22.8 to 11,932.8 per 1,000 launches, and throughput drops by \u003cstrong\u003e8.8%\u003c/strong\u003e. The mechanism is simple: the CFS scheduler time-slices between the GPU process and \u003ccode\u003estress-ng\u003c/code\u003e workers.\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eNoisy Network (\u003ccode\u003eiperf3\u003c/code\u003e)\u003c/strong\u003e behaves differently. Context switches actually decrease, because the network load changes CPU competition patterns, while soft IRQs rise slightly. Throughput drops only \u003cstrong\u003e2.8%\u003c/strong\u003e. In this local setup, network I/O primarily shows up as IRQ overhead rather than scheduler pressure.\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eNoisy Disk (\u003ccode\u003efio\u003c/code\u003e)\u003c/strong\u003e introduces the first hard IRQs, corresponding to block-device interrupts, but context switches remain low and throughput is effectively unchanged at \u003cstrong\u003e-0.3%\u003c/strong\u003e slowdown. Disk I/O has little impact on this workload.\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eHeavy Load (CPU + Network + Disk)\u003c/strong\u003e is the worst case. Throughput drops by \u003cstrong\u003e20.5%\u003c/strong\u003e, and scheduler events rise to 6,044.6 per 1,000 launches, a \u003cstrong\u003e265x\u003c/strong\u003e increase over baseline. Interestingly, that is only \u003cstrong\u003e50.7%\u003c/strong\u003e of the context-switch rate in the Noisy CPU case. The interference sources compete with each other, but their combined effect is still worst overall.\u003c/p\u003e\n\u003cp\u003eHeavy-load soft IRQ breakdown:\u003c/p\u003e\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\u003ctable\u003e\u003cthead\u003e\u003ctr\u003e\u003cth\u003eType\u003c/th\u003e\u003cth\u003eCount\u003c/th\u003e\u003cth\u003eTotal Time\u003c/th\u003e\u003cth\u003eAvg Time\u003c/th\u003e\u003c/tr\u003e\u003c/thead\u003e\u003ctbody\u003e\u003ctr\u003e\u003ctd\u003eRCU\u003c/td\u003e\u003ctd\u003e213\u003c/td\u003e\u003ctd\u003e217.4 us\u003c/td\u003e\u003ctd\u003e1.0 us\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eTIMER\u003c/td\u003e\u003ctd\u003e17\u003c/td\u003e\u003ctd\u003e122.9 us\u003c/td\u003e\u003ctd\u003e7.2 us\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eSCHED\u003c/td\u003e\u003ctd\u003e5\u003c/td\u003e\u003ctd\u003e33.3 us\u003c/td\u003e\u003ctd\u003e6.7 us\u003c/td\u003e\u003c/tr\u003e\u003c/tbody\u003e\u003c/table\u003e\n\u003cp\u003e\u003cstrong\u003eFinding:\u003c/strong\u003e noisy neighbors significantly affect GPU performance. Combined CPU, network, and disk interference causes \u003cstrong\u003e20.5%\u003c/strong\u003e degradation. The signatures differ by source: CPU contention increases context switches, network I/O affects IRQ overhead, disk I/O introduces block interrupts with little throughput impact here, and combined load is worst due to cumulative effects.\u003c/p\u003e\n\u003ch2 id=\"rq4-can-cpu-pinning-effectively-mitigate-scheduler-impact\"\u003eRQ4: Can CPU Pinning Effectively Mitigate Scheduler Impact?\u003c/h2\u003e\n\u003cp\u003eThe fourth question is whether a simple deployment-level mitigation helps before reaching for a custom scheduler.\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eExperiment design\u003c/strong\u003e\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eBaseline: Noisy CPU scenario with \u003ccode\u003estress-ng\u003c/code\u003e on all cores\u003c/li\u003e\n\u003cli\u003eOptimized: same \u003ccode\u003estress-ng\u003c/code\u003e load, but the GPU process runs with:\n\u003cul\u003e\n\u003cli\u003e\u003ccode\u003etaskset -c 0-3\u003c/code\u003e to pin it to cores 0-3\u003c/li\u003e\n\u003cli\u003e\u003ccode\u003enice -n -10\u003c/code\u003e to give it higher priority\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch3 id=\"results-3\"\u003eResults\u003c/h3\u003e\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\u003ctable\u003e\u003cthead\u003e\u003ctr\u003e\u003cth\u003eMetric\u003c/th\u003e\u003cth\u003eNoisy CPU\u003c/th\u003e\u003cth\u003eOptimized\u003c/th\u003e\u003cth\u003eImprovement\u003c/th\u003e\u003c/tr\u003e\u003c/thead\u003e\u003ctbody\u003e\u003ctr\u003e\u003ctd\u003eSched/1K\u003c/td\u003e\u003ctd\u003e11,932.8\u003c/td\u003e\u003ctd\u003e445.2\u003c/td\u003e\u003ctd\u003e\u003cstrong\u003e96.3% reduction\u003c/strong\u003e\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003etok/s\u003c/td\u003e\u003ctd\u003e49.93\u003c/td\u003e\u003ctd\u003e53.75\u003c/td\u003e\u003ctd\u003e\u003cstrong\u003e7.6% improvement\u003c/strong\u003e\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003evs. Baseline\u003c/td\u003e\u003ctd\u003e8.8% slower\u003c/td\u003e\u003ctd\u003e1.9% slower\u003c/td\u003e\u003ctd\u003eSignificant recovery\u003c/td\u003e\u003c/tr\u003e\u003c/tbody\u003e\u003c/table\u003e\n\u003cp\u003eCPU pinning and priority adjustment recover most of the lost throughput. But the optimized case still has 445.2 scheduler events per 1,000 launches, compared with 22.8 in the clean baseline. That is still \u003cstrong\u003e19.5x\u003c/strong\u003e higher than baseline.\u003c/p\u003e\n\u003cp\u003eComplete elimination is hard because:\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003e\u003ccode\u003estress-ng\u003c/code\u003e workers may still be scheduled on cores 0-3.\u003c/li\u003e\n\u003cli\u003eSystem daemons and kernel threads cannot be fully excluded by \u003ccode\u003etaskset\u003c/code\u003e.\u003c/li\u003e\n\u003cli\u003eIRQ affinity may still route interrupts to pinned cores.\u003c/li\u003e\n\u003c/ol\u003e\n\u003cp\u003eFor stronger isolation, the next steps are kernel-level isolation and IRQ placement:\u003c/p\u003e\n\u003cfigure data-rehype-pretty-code-figure=\"\"\u003e\u003cpre tabindex=\"0\" data-language=\"bash\" data-theme=\"github-dark-dimmed\"\u003e\u003ccode data-language=\"bash\" data-theme=\"github-dark-dimmed\" style=\"display: grid;\"\u003e\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#768390\"\u003e# 1. Use isolcpus kernel parameter (boot time)\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#ADBAC7\"\u003eisolcpus\u003c/span\u003e\u003cspan style=\"color:#F47067\"\u003e=\u003c/span\u003e\u003cspan style=\"color:#96D0FF\"\u003e4-7\u003c/span\u003e\u003cspan style=\"color:#ADBAC7\"\u003e nohz_full\u003c/span\u003e\u003cspan style=\"color:#F47067\"\u003e=\u003c/span\u003e\u003cspan style=\"color:#96D0FF\"\u003e4-7\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e \u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#768390\"\u003e# 2. Bind GPU process to isolated cores\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#F69D50\"\u003etaskset\u003c/span\u003e\u003cspan style=\"color:#6CB6FF\"\u003e -c\u003c/span\u003e\u003cspan style=\"color:#96D0FF\"\u003e 4-7\u003c/span\u003e\u003cspan style=\"color:#96D0FF\"\u003e ./gpu_app\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e \u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#768390\"\u003e# 3. Bind IRQs away from GPU cores\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#6CB6FF\"\u003eecho\u003c/span\u003e\u003cspan style=\"color:#96D0FF\"\u003e 0-3\u003c/span\u003e\u003cspan style=\"color:#F47067\"\u003e \u003e\u003c/span\u003e\u003cspan style=\"color:#96D0FF\"\u003e /proc/irq/\u003c/span\u003e\u003cspan style=\"color:#6CB6FF\"\u003e*\u003c/span\u003e\u003cspan style=\"color:#96D0FF\"\u003e/smp_affinity_list\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e \u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#768390\"\u003e# 4. Use cgroups for CPU isolation\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#F69D50\"\u003ecgcreate\u003c/span\u003e\u003cspan style=\"color:#6CB6FF\"\u003e -g\u003c/span\u003e\u003cspan style=\"color:#96D0FF\"\u003e cpu:gpu_workload\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#F69D50\"\u003ecgset\u003c/span\u003e\u003cspan style=\"color:#6CB6FF\"\u003e -r\u003c/span\u003e\u003cspan style=\"color:#96D0FF\"\u003e cpuset.cpus=4-7\u003c/span\u003e\u003cspan style=\"color:#96D0FF\"\u003e gpu_workload\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan style=\"color:#F69D50\"\u003ecgexec\u003c/span\u003e\u003cspan style=\"color:#6CB6FF\"\u003e -g\u003c/span\u003e\u003cspan style=\"color:#96D0FF\"\u003e cpu:gpu_workload\u003c/span\u003e\u003cspan style=\"color:#96D0FF\"\u003e ./gpu_app\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/figure\u003e\n\u003cp\u003e\u003cstrong\u003eFinding:\u003c/strong\u003e CPU pinning is highly effective. It reduces context switches by \u003cstrong\u003e96.3%\u003c/strong\u003e and recovers \u003cstrong\u003e7.6%\u003c/strong\u003e throughput. But full recovery under heavy load requires deeper isolation such as \u003ccode\u003eisolcpus\u003c/code\u003e, \u003ccode\u003enohz_full\u003c/code\u003e, cpusets, and IRQ affinity management.\u003c/p\u003e\n\u003ch2 id=\"what-the-results-mean\"\u003eWhat the Results Mean\u003c/h2\u003e\n\u003cp\u003eThe results point to four practical insights.\u003c/p\u003e\n\u003cp\u003eFirst, environment matters. Scheduler impact ranges from \u003cstrong\u003e1.2%\u003c/strong\u003e in a clean environment to \u003cstrong\u003e20.5%\u003c/strong\u003e under combined heavy load. Optimizing the scheduler on a quiet dedicated server may not be worth the complexity. On a shared host, it can be the difference between stable and degraded inference.\u003c/p\u003e\n\u003cp\u003eSecond, workload shape matters. Qwen3 has bursty kernel submission, roughly 950 launches in less than 100 us per token burst. That shape makes it resilient to many IRQs because interrupts usually occur between bursts. A different workload with continuous network communication, streaming input, or tighter CPU-GPU handoff might behave differently.\u003c/p\u003e\n\u003cp\u003eThird, interference sources have distinct signatures:\u003c/p\u003e\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\u003ctable\u003e\u003cthead\u003e\u003ctr\u003e\u003cth\u003eInterference\u003c/th\u003e\u003cth\u003ePrimary Impact\u003c/th\u003e\u003cth\u003eSecondary Impact\u003c/th\u003e\u003c/tr\u003e\u003c/thead\u003e\u003ctbody\u003e\u003ctr\u003e\u003ctd\u003eCPU\u003c/td\u003e\u003ctd\u003eContext switches\u003c/td\u003e\u003ctd\u003eNone\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eNetwork\u003c/td\u003e\u003ctd\u003eIRQ overhead\u003c/td\u003e\u003ctd\u003eSlight scheduling\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eDisk\u003c/td\u003e\u003ctd\u003eHard IRQs\u003c/td\u003e\u003ctd\u003eMinimal\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eCombined\u003c/td\u003e\u003ctd\u003eAll of above\u003c/td\u003e\u003ctd\u003eWorst overall\u003c/td\u003e\u003c/tr\u003e\u003c/tbody\u003e\u003c/table\u003e\n\u003cp\u003eFourth, simple mitigations work, but only up to a point:\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eCPU pinning: very effective, \u003cstrong\u003e96%\u003c/strong\u003e context-switch reduction\u003c/li\u003e\n\u003cli\u003ePriority adjustment: helpful but limited\u003c/li\u003e\n\u003cli\u003eFull isolation: requires kernel configuration and IRQ affinity management\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch2 id=\"comparison-with-metas-sched_ext-findings\"\u003eComparison with Meta's sched_ext Findings\u003c/h2\u003e\n\u003cp\u003eOur results differ from Meta's AI training observations because the workload is different.\u003c/p\u003e\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\u003ctable\u003e\u003cthead\u003e\u003ctr\u003e\u003cth\u003eAspect\u003c/th\u003e\u003cth\u003eMeta (AI Training)\u003c/th\u003e\u003cth\u003eOur Study (LLM Inference)\u003c/th\u003e\u003c/tr\u003e\u003c/thead\u003e\u003ctbody\u003e\u003ctr\u003e\u003ctd\u003ePrimary Issue\u003c/td\u003e\u003ctd\u003eNetwork IRQ (NET_RX)\u003c/td\u003e\u003ctd\u003eCPU scheduling\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eIRQ Impact\u003c/td\u003e\u003ctd\u003e5-20%\u003c/td\u003e\u003ctd\u003e0.03% (local inference)\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eOptimization\u003c/td\u003e\u003ctd\u003esched_ext layer\u003c/td\u003e\u003ctd\u003etaskset + nice\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eWorkload\u003c/td\u003e\u003ctd\u003eDistributed training\u003c/td\u003e\u003ctd\u003eSingle-node inference\u003c/td\u003e\u003c/tr\u003e\u003c/tbody\u003e\u003c/table\u003e\n\u003cp\u003eThe key difference is communication. Distributed training constantly exchanges data through all-reduce, making \u003ccode\u003eNET_RX\u003c/code\u003e a major bottleneck. Local inference has minimal network I/O, so the dominant issue under noise is CPU scheduling rather than network interrupts.\u003c/p\u003e\n\u003ch2 id=\"limitations\"\u003eLimitations\u003c/h2\u003e\n\u003cp\u003eThere are several limits to this study:\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003eeBPF tracing itself adds \u003cstrong\u003e1-5%\u003c/strong\u003e overhead.\u003c/li\u003e\n\u003cli\u003eThe tool only supports CUDA, not OpenCL or HIP.\u003c/li\u003e\n\u003cli\u003eThe trace does not include GPU-side execution timing, so it cannot directly measure actual kernel runtime.\u003c/li\u003e\n\u003cli\u003eIRQ attribution is limited: the trace cannot always identify which process caused a given IRQ.\u003c/li\u003e\n\u003cli\u003eThe experiments use a single GPU and do not cover multi-GPU behavior.\u003c/li\u003e\n\u003c/ol\u003e\n\u003ch2 id=\"practical-recommendations\"\u003ePractical Recommendations\u003c/h2\u003e\n\u003cp\u003eFor production deployments:\u003c/p\u003e\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\u003ctable\u003e\u003cthead\u003e\u003ctr\u003e\u003cth\u003eEnvironment\u003c/th\u003e\u003cth\u003eRecommendation\u003c/th\u003e\u003cth\u003eExpected Benefit\u003c/th\u003e\u003c/tr\u003e\u003c/thead\u003e\u003ctbody\u003e\u003ctr\u003e\u003ctd\u003eDedicated Server\u003c/td\u003e\u003ctd\u003eNo optimization needed\u003c/td\u003e\u003ctd\u003e-\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eShared Server (light)\u003c/td\u003e\u003ctd\u003etaskset + nice\u003c/td\u003e\u003ctd\u003e5-10% improvement\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eShared Server (heavy)\u003c/td\u003e\u003ctd\u003eisolcpus + IRQ affinity\u003c/td\u003e\u003ctd\u003e15-20% improvement\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eKubernetes\u003c/td\u003e\u003ctd\u003eCPU limits + nodeSelector\u003c/td\u003e\u003ctd\u003eVaries\u003c/td\u003e\u003c/tr\u003e\u003c/tbody\u003e\u003c/table\u003e\n\u003cp\u003eThe decision tree is simple:\u003c/p\u003e\n\u003cfigure data-rehype-pretty-code-figure=\"\"\u003e\u003cpre tabindex=\"0\" data-language=\"plaintext\" data-theme=\"github-dark-dimmed\"\u003e\u003ccode data-language=\"plaintext\" data-theme=\"github-dark-dimmed\" style=\"display: grid;\"\u003e\u003cspan data-line=\"\"\u003e\u003cspan\u003eIs GPU workload latency-sensitive?\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan\u003e├── No -\u003e No optimization needed\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan\u003e└── Yes -\u003e Is server shared?\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan\u003e    ├── No -\u003e Monitor only, optimize if needed\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan\u003e    └── Yes -\u003e How heavy is colocated load?\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan\u003e        ├── Light -\u003e taskset + nice\u003c/span\u003e\u003c/span\u003e\n\u003cspan data-line=\"\"\u003e\u003cspan\u003e        └── Heavy -\u003e isolcpus + dedicated cores\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003c/figure\u003e\n\u003ch2 id=\"conclusion\"\u003eConclusion\u003c/h2\u003e\n\u003cp\u003eCPU scheduling and IRQ handling do not always matter for GPU inference, but they matter under the conditions where production systems often run: shared hosts, background load, and noisy neighbors.\u003c/p\u003e\n\u003cp\u003eThe clean baseline shows minimal overhead: \u003cstrong\u003e1.2%\u003c/strong\u003e scheduler impact and \u003cstrong\u003e0.03%\u003c/strong\u003e IRQ impact. But combined CPU, network, and disk interference causes \u003cstrong\u003e20.5%\u003c/strong\u003e throughput degradation. CPU pinning cuts context switches by \u003cstrong\u003e96.3%\u003c/strong\u003e and recovers most of the lost performance, but not all of it.\u003c/p\u003e\n\u003cp\u003eThe practical lesson is to measure first. Use tracing to identify whether your workload is scheduler-bound, IRQ-sensitive, or mostly application-limited. Then choose the mitigation that matches the signature: CPU pinning for CPU contention, IRQ affinity for interrupt interference, I/O tuning for block-device pressure, and full CPU isolation when the workload is latency-sensitive and colocated load is heavy.\u003c/p\u003e\n\u003ch2 id=\"references\"\u003eReferences\u003c/h2\u003e\n\u003col\u003e\n\u003cli\u003eMeta Platforms, Inc. \"Accelerating AI Training with sched_ext.\" Linux Plumbers Conference 2025. \u003ca href=\"https://lpc.events/event/19/contributions/2039/\"\u003ehttps://lpc.events/event/19/contributions/2039/\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003eNVIDIA Corporation. \"CUDA Driver API Reference.\" \u003ca href=\"https://docs.nvidia.com/cuda/cuda-driver-api/\"\u003ehttps://docs.nvidia.com/cuda/cuda-driver-api/\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003eLinux Kernel Documentation. \"BPF Documentation.\" \u003ca href=\"https://www.kernel.org/doc/html/latest/bpf/\"\u003ehttps://www.kernel.org/doc/html/latest/bpf/\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003estress-ng. \"A tool to load and stress a computer system.\" \u003ca href=\"https://github.com/ColinIanKing/stress-ng\"\u003ehttps://github.com/ColinIanKing/stress-ng\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003eiperf3. \"A TCP, UDP, and SCTP network bandwidth measurement tool.\" \u003ca href=\"https://github.com/esnet/iperf\"\u003ehttps://github.com/esnet/iperf\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003efio. \"Flexible I/O Tester.\" \u003ca href=\"https://github.com/axboe/fio\"\u003ehttps://github.com/axboe/fio\u003c/a\u003e\u003c/li\u003e\n\u003c/ol\u003e","date":"2026-05-24","headings":[{"id":"why-cpu-scheduling-shows-up-in-gpu-inference","text":"Why CPU Scheduling Shows Up in GPU Inference","depth":2},{"id":"tracing-the-launch-path","text":"Tracing the Launch Path","depth":2},{"id":"cuda-api-tracing","text":"CUDA API Tracing","depth":3},{"id":"scheduler-event-tracing","text":"Scheduler Event Tracing","depth":3},{"id":"irq-tracing","text":"IRQ Tracing","depth":3},{"id":"benchmark-and-environment","text":"Benchmark and Environment","depth":2},{"id":"analysis-method","text":"Analysis Method","depth":2},{"id":"rq1-does-cpu-scheduler-significantly-impact-gpu-performance-in-clean-environments","text":"RQ1: Does CPU Scheduler Significantly Impact GPU Performance in Clean Environments?","depth":2},{"id":"results","text":"Results","depth":3},{"id":"rq2-what-is-the-impact-of-irq-interrupts-on-gpu-performance","text":"RQ2: What Is the Impact of IRQ Interrupts on GPU Performance?","depth":2},{"id":"results-1","text":"Results","depth":3},{"id":"rq3-how-do-noisy-neighbors-affect-gpu-performance","text":"RQ3: How Do Noisy Neighbors Affect GPU Performance?","depth":2},{"id":"results-2","text":"Results","depth":3},{"id":"scenario-analysis","text":"Scenario Analysis","depth":3},{"id":"rq4-can-cpu-pinning-effectively-mitigate-scheduler-impact","text":"RQ4: Can CPU Pinning Effectively Mitigate Scheduler Impact?","depth":2},{"id":"results-3","text":"Results","depth":3},{"id":"what-the-results-mean","text":"What the Results Mean","depth":2},{"id":"comparison-with-metas-sched_ext-findings","text":"Comparison with Meta's sched_ext Findings","depth":2},{"id":"limitations","text":"Limitations","depth":2},{"id":"practical-recommendations","text":"Practical Recommendations","depth":2},{"id":"conclusion","text":"Conclusion","depth":2},{"id":"references","text":"References","depth":2}],"sourcePath":"https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs/blog/posts/cpu-noise-gpu-inference.md","metadata":{"updatedAt":"2026-05-24T03:21:22.000Z","createdAt":"2026-05-24T03:21:22.000Z","authors":[{"name":"LinuxDev9002","email":"linuxdev8883@example.com"}]},"path":"/blog/2026/05/24/measuring-cpu-noise-in-gpu-inference-with-ebpf/","alternates":{"en":"/blog/2026/05/24/measuring-cpu-noise-in-gpu-inference-with-ebpf/","zh":"/zh/blog/2026/05/24/measuring-cpu-noise-in-gpu-inference-with-ebpf/"},"continuation":{"index":{"title":"Blog","description":"Latest articles and insights on eBPF, kernel programming, and system observability from the eunomia-bpf community.","href":"/blog/"},"next":{"title":"ACRFence: Preventing Semantic Rollback Attacks in Agent Checkpoint-Restore","description":"ACRFence explains semantic rollback attacks in AI agent checkpoint/restore workflows and shows how intent-aware fencing prevents duplicate irreversible actions and revived authority.","href":"/blog/2026/05/21/acrfence-preventing-semantic-rollback-attacks-in-agent-checkpoint-restore/"}},"sidebar":[{"title":"Blog","items":[{"title":"Blog","href":"/blog/","depth":0},{"title":"When CPU Noise Slows Down GPU Inference: Measuring Scheduler and IRQ Impact with eBPF","href":"/blog/2026/05/24/measuring-cpu-noise-in-gpu-inference-with-ebpf/","depth":0},{"title":"ACRFence: Preventing Semantic Rollback Attacks in Agent Checkpoint-Restore","href":"/blog/2026/05/21/acrfence-preventing-semantic-rollback-attacks-in-agent-checkpoint-restore/","depth":0},{"title":"AgentCgroup: What Happens When AI Coding Agents Meet OS Resources?","href":"/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/","depth":0},{"title":"Reverse Engineering Claude Code's SSL Traffic with eBPF","href":"/blog/2026/02/13/reverse-engineering-claude-codes-ssl-traffic-with-ebpf/","depth":0},{"title":"A Taxonomy of GPU Bugs: 19 Defect Classes for CUDA Verification","href":"/blog/2026/01/29/a-taxonomy-of-gpu-bugs-19-defect-classes-for-cuda-verification/","depth":0},{"title":"Architectures for Agent Systems: A Survey of Isolation, Integration, and Governance","href":"/blog/2026/01/11/architectures-for-agent-systems-a-survey-of-isolation-integration-and-governance/","depth":0},{"title":"The GPU Observability Gap: Why We Need eBPF on GPU devices","href":"/blog/2025/10/14/the-gpu-observability-gap-why-we-need-ebpf-on-gpu-devices/","depth":0},{"title":"NVIDIA Open GPU Kernel Modules Comprehensive Source Code Analysis","href":"/blog/2025/10/14/nvidia-open-gpu-kernel-modules-comprehensive-source-code-analysis/","depth":0},{"title":"Understanding iaprof: A Deep Dive into AI/GPU Flame Graph Profiling","href":"/blog/2025/10/11/understanding-iaprof-a-deep-dive-into-ai-gpu-flame-graph-profiling/","depth":0},{"title":"AgentSight: Keeping Your AI Agents Under Control with eBPF-Powered System Observability","href":"/blog/2025/08/26/agentsight-keeping-your-ai-agents-under-control-with-ebpf-powered-system-observability/","depth":0},{"title":"Profiling and Tracing Tools Across System Layers and Architectures","href":"/blog/2025/08/20/profiling-and-tracing-tools-across-system-layers-and-architectures/","depth":0},{"title":"The Modern Memory Testing Arsenal -- A Complete Guide to Benchmarking Tools for Next-Gen Memory Systems","href":"/blog/2025/06/21/the-modern-memory-testing-arsenal-a-complete-guide-to-benchmarking-tools-for-next-gen-memory-systems/","depth":0},{"title":"Observability, Profiling, and Debugging in Systems Conference (2015–2025)","href":"/blog/2025/06/21/observability-profiling-and-debugging-in-systems-conference-2015-2025/","depth":0},{"title":"Checkpoint/Restore Systems: Evolution, Techniques, and Applications in AI Agents","href":"/blog/2025/05/11/checkpoint-restore-systems-evolution-techniques-and-applications-in-ai-agents/","depth":0},{"title":"ASPLOS 2025: Paper Summaries and Insights","href":"/blog/2025/04/25/asplos-2025-paper-summaries-and-insights/","depth":0},{"title":"EuroSys 2025 Paper Summaries and Analysis","href":"/blog/2025/04/25/eurosys-2025-paper-summaries-and-analysis/","depth":0},{"title":"GPU Profiling Under the Hood: An Implementation-Focused Survey of Modern Accelerator Tracing Tools","href":"/blog/2025/04/21/gpu-profiling-under-the-hood-an-implementation-focused-survey-of-modern-accelerator-tracing-tools/","depth":0},{"title":"The Accelerator Toolkit: A Review of Profiling and Tracing for GPUs and other co-processor","href":"/blog/2025/04/11/the-accelerator-toolkit-a-review-of-profiling-and-tracing-for-gpus-and-other-co-processor/","depth":0},{"title":"OS-Level Challenges in LLM Inference and Optimizations","href":"/blog/2025/02/18/os-level-challenges-in-llm-inference-and-optimizations/","depth":0},{"title":"WASI and the WebAssembly Component Model: Current Status","href":"/blog/2025/02/16/wasi-and-the-webassembly-component-model-current-status/","depth":0},{"title":"eBPF Ecosystem Progress in 2024–2025: A Technical Deep Dive","href":"/blog/2025/02/12/ebpf-ecosystem-progress-in-2024-2025-a-technical-deep-dive/","depth":0},{"title":"Security Vulnerabilities Study in Software Extensions and Plugins","href":"/blog/2025/02/10/security-vulnerabilities-study-in-software-extensions-and-plugins/","depth":0},{"title":"Can LLMs understand Linux kernel? A New AI-Powered Approach to Understanding Large Codebases","href":"/blog/2024/10/01/can-llms-understand-linux-kernel-a-new-ai-powered-approach-to-understanding-large-codebases/","depth":0},{"title":"Building High-Performance Userspace eBPF VMs with LLVM","href":"/blog/2024/09/10/building-high-performance-userspace-ebpf-vms-with-llvm/","depth":0},{"title":"The Past, Present, and Future of eBPF and Its Path to Revolutionizing Systems","href":"/blog/2024/08/11/the-past-present-and-future-of-ebpf-and-its-path-to-revolutionizing-systems/","depth":0},{"title":"Simplifying Kernel Programming: The LLM-Powered eBPF Tool","href":"/blog/2024/07/11/simplifying-kernel-programming-the-llm-powered-ebpf-tool/","depth":0},{"title":"The eBPF Evolution and Future: From Linux Origins to Cross-Platform Dominance","href":"/blog/2024/06/11/the-ebpf-evolution-and-future-from-linux-origins-to-cross-platform-dominance/","depth":0},{"title":"Implementing an Inline Hook in C in 5 minutes","href":"/blog/2024/04/11/implementing-an-inline-hook-in-c-in-5-minutes/","depth":0},{"title":"The Evolution and Impact of eBPF: A list of Key Research Papers from Recent Years","href":"/blog/2024/03/11/the-evolution-and-impact-of-ebpf-a-list-of-key-research-papers-from-recent-years/","depth":0},{"title":"Introducing eunomia-bpf v1.0: Simplifying eBPF with CO-RE and WebAssembly","href":"/blog/2024/02/11/introducing-eunomia-bpf-v1-0-simplifying-ebpf-with-co-re-and-webassembly/","depth":0},{"title":"The Secure Path Forward for eBPF runtime: Challenges and Innovations","href":"/blog/2024/02/11/the-secure-path-forward-for-ebpf-runtime-challenges-and-innovations/","depth":0},{"title":"Userspace eBPF Runtimes: Overview and Applications","href":"/blog/2024/01/11/userspace-ebpf-runtimes-overview-and-applications/","depth":0},{"title":"bpftime: Extending eBPF from Kernel to User Space","href":"/blog/2023/11/11/bpftime-extending-ebpf-from-kernel-to-user-space/","depth":0},{"title":"Use ChatGPT to write eBPF programs and trace the Linux kernel with natural language","href":"/blog/2023/09/11/use-chatgpt-to-write-ebpf-programs-and-trace-the-linux-kernel-with-natural-language/","depth":0},{"title":"Simplifying eBPF Development: GitHub Templates and Codespaces for Online Compilation and Execution","href":"/blog/2023/07/11/simplifying-ebpf-development-github-templates-and-codespaces-for-online-compilation-and-execution/","depth":0},{"title":"When Wasm Meets eBPF: Writing, Distributing, Loading, and Running eBPF Programs with WebAssembly","href":"/blog/2023/06/11/when-wasm-meets-ebpf-writing-distributing-loading-and-running-ebpf-programs-with-webassembly/","depth":0},{"title":"eBPF Advanced: Overview of New Kernel Features","href":"/blog/2023/04/11/ebpf-advanced-overview-of-new-kernel-features/","depth":0},{"title":"Progress of eunomia-bpf in March","href":"/blog/2023/03/11/progress-of-eunomia-bpf-in-march/","depth":0},{"title":"eunomia-bpf 0.3.0 Release: Easily Build, Package, and Publish Full eBPF Applications by Writing Kernel-Mode Code","href":"/blog/2023/02/11/eunomia-bpf-0-3-0-release-easily-build-package-and-publish-full-ebpf-applications-by-writing-kernel-mode-code/","depth":0},{"title":"Wasm-bpf: Bridging WebAssembly and eBPF for Kernel Programmability","href":"/blog/2023/02/11/wasm-bpf-bridging-webassembly-and-ebpf-for-kernel-programmability/","depth":0},{"title":"Wasm-bpf: A Common eBPF Kernel Programmability for Cloud-Native Webassembly","href":"/blog/2023/02/11/wasm-bpf-a-common-ebpf-kernel-programmability-for-cloud-native-webassembly/","depth":0},{"title":"eunomia-bpf: Looking forward to 2023, let eBPF sprout wings with Wasm","href":"/blog/2023/01/11/eunomia-bpf-looking-forward-to-2023-let-ebpf-sprout-wings-with-wasm/","depth":0},{"title":"如何在 Linux 显微镜（LMP）项目中开启 eBPF 之旅？","href":"/blog/2022/10/11/如何在-linux-显微镜-lmp-项目中开启-ebpf-之旅/","depth":0},{"title":"Running the ecli on Android 13","href":"/blog/2022/09/11/running-the-ecli-on-android-13/","depth":0},{"title":"在 WebAssembly 中编写 eBPF 程序和使用 libbpf","href":"/blog/2022/02/11/在-webassembly-中编写-ebpf-程序和使用-libbpf/","depth":0},{"title":"在 WebAssembly 中使用 Rust 编写 eBPF 程序并发布 OCI 镜像","href":"/blog/2022/02/11/在-webassembly-中使用-rust-编写-ebpf-程序并发布-oci-镜像/","depth":0}]}]}},"__N_SSG":true},"page":"/[...slug]","query":{"slug":["blog","2026","05","24","measuring-cpu-noise-in-gpu-inference-with-ebpf"]},"buildId":"NniphByZ0O2VaIDgapIND","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>
