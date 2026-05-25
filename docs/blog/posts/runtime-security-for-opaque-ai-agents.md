@@ -3,17 +3,17 @@ date: 2026-05-25
 slug: runtime-security-for-ai-agents
 ---
 
-# Runtime Security for Opaque AI Agents: Beyond Sandboxes and Approvals
+# Runtime Observability and Enforcement for Opaque AI Agents: Beyond Sandboxes and Approvals
 
 AI coding agents now run for hours, complete entire features end-to-end,
 optimize production GPU kernels, and merge thousands of pull requests
 autonomously. Meanwhile, most agent security still relies on human-in-the-loop
-approval — and Anthropic's own data shows users approve 93% of prompts without
+approval, and Anthropic's own data shows users approve 93% of prompts without
 meaningful review. The result is predictable: products add bypass modes, users
 disable permission gates, and 65% of firms report agent security incidents.
 
-But the deeper problem is not approval fatigue. It is that the agent harness —
-the prompt loop, tool routing, permission logic, and sandbox defaults — is
+But the deeper problem is not approval fatigue. It is that the agent harness
+(the prompt loop, tool routing, permission logic, and sandbox defaults) is
 increasingly a third-party product the platform team did not write, running in a
 sandbox the platform team may not own. The harness is not a trusted security
 boundary. This post argues for separating agent security into three layers with
@@ -21,13 +21,17 @@ three different owners: intent authorization (harness-owned), execution
 isolation (ownership contested), and side-effect verification (must be
 platform-owned). When the layers agree, you have confidence. When they
 disagree, you need independent observability and enforcement at the OS level to
-detect it — and that is exactly the layer most agent platforms are missing.
+detect it, and that is exactly the layer most agent platforms are missing. We
+are exploring this direction with two open-source projects:
+[AgentSight][agentsight] for runtime observation and
+[ActPlane][actplane] for runtime enforcement and harness, both using eBPF to provide an
+independent evidence and policy plane below the agent harness.
 
 <!-- more -->
 
 ## Why Now: Complexity Up, Guardrails Behind
 
-The important change in 2026 is not that agents exist — it is the scale and
+The important change in 2026 is not that agents exist. It is the scale and
 duration of what they do.
 
 A year ago, the typical agent task was "fix this bug" or "write this function."
@@ -37,8 +41,8 @@ consuming 13 million tokens and producing 30,000 lines of code from a blank
 repository. Anthropic's agentic coding report cites a [12.5-million-line
 codebase change completed in a single 7-hour run][anthropic-trends]. Meta's
 [KernelEvolve][kernelevolve] uses multi-agent coordination to write and optimize
-production GPU kernels — work that previously required weeks of expert systems
-engineering — compressing it into hours. On SWE-bench Verified, [top agents now
+production GPU kernels, compressing work that previously required weeks of
+expert systems engineering into hours. On SWE-bench Verified, [top agents now
 resolve 60–70%][swebench] of real GitHub issues, up from under 30% in early
 2024. Devin has [merged hundreds of thousands of pull requests][devin-review]
 across enterprise customers with a 67% merge rate. Goldman Sachs [deployed
@@ -57,7 +61,7 @@ decisions over hours of autonomous operation.
 
 The evidence suggests that approval-based control is already failing in
 practice. Anthropic's own data shows that [Claude Code users approve 93% of
-permission prompts][anthropic-auto] — a rate consistent with rubber-stamping
+permission prompts][anthropic-auto], a rate consistent with rubber-stamping
 rather than meaningful review. An independent stress test of Claude Code's auto
 mode found an [81% false negative rate][permission-gate] on ambiguous
 state-changing actions, meaning the classifier allowed 4 out of 5 actions that
@@ -76,7 +80,7 @@ ran [16 parallel Claude agents with permissions bypassed][carlini], with the
 caveat: "Run this in a container, not your actual machine."
 
 This is the tension: **the more capable agents become, the more users want to
-let them run uninterrupted — and the less effective human-in-the-loop becomes as
+let them run uninterrupted, and the less effective human-in-the-loop becomes as
 the primary security boundary.**
 
 That tension is what creates the need for a different security model.
@@ -84,7 +88,7 @@ That tension is what creates the need for a different security model.
 ## The Accountability Gap
 
 The deeper issue is not just that agents are more capable. It is that the agent
-harness — the component that decides what the agent does — is increasingly a
+harness, the component that decides what the agent does, is increasingly a
 third-party product the platform team did not write.
 
 A modern agent harness is not a thin wrapper around a model. It includes a
@@ -106,10 +110,10 @@ repositories.
 
 The ownership split is now explicit in major platforms. Anthropic's shared
 responsibility framework [divides agent security into four
-layers][anthropic-shared-resp] — Model, Harness, Tools, Environment — and
+layers][anthropic-shared-resp] (Model, Harness, Tools, Environment) and
 states that the deploying organization owns three of the four. GitHub's agentic
 workflow architecture starts from the premise that ["agents cannot be trusted by
-default — especially in the presence of untrusted inputs"][github-agentic-sec],
+default, especially in the presence of untrusted inputs"][github-agentic-sec],
 using kernel-enforced communication boundaries that hold even if the agent
 container is compromised. OpenAI's Codex documentation [acknowledges][codex-security]
 that "devcontainers provide substantial protection, but they do not prevent
@@ -121,21 +125,21 @@ runtime acting on those assets may be opaque.
 
 There is also a second split that matters even more for platform teams: **the
 sandbox may not be controlled by the environment owner either.** If the agent
-runs in a provider-managed cloud — Claude Code on the web runs in
+runs in a provider-managed cloud (Claude Code on the web runs in
 [Anthropic-managed isolated VMs][claude-security] with scoped credential
-proxies; Codex runs in [OpenAI-managed containers][codex-sandbox] — the
+proxies; Codex runs in [OpenAI-managed containers][codex-sandbox]), the
 platform team cannot attach its own monitoring, modify isolation policy, or
 inspect the sandbox internals. Even Anthropic's own managed agent architecture
 explicitly [decouples the "brain" (Claude + harness) from the
 "hands" (sandboxes)][anthropic-managed], treating containers as disposable
 cattle and ensuring tokens are never reachable from the sandbox where generated
-code runs. This is good architecture — but it is the provider's architecture,
+code runs. This is good architecture, but it is the provider's architecture,
 not the platform team's.
 
-When agents run locally or on self-hosted infrastructure — GitHub now [supports
+When agents run locally or on self-hosted infrastructure (GitHub now [supports
 self-hosted runners][copilot-self-hosted] for its coding agent, and Kubernetes
 Agent Sandbox provides [gVisor/Kata-backed isolation][k8s-sandbox] under the
-platform operator's control — the environment owner can wrap the agent in its
+platform operator's control), the environment owner can wrap the agent in its
 own sandbox and evidence layer. When agents run in provider-managed
 environments, the independent evidence plane must move to the boundaries the
 platform team does control.
@@ -152,7 +156,7 @@ plane.
 ## Three Layers, Three Questions
 
 MCP, sandboxes, and OS-level evidence are all necessary for agent security.
-They are not interchangeable. Each answers a fundamentally different question —
+They are not interchangeable. Each answers a fundamentally different question,
 and each has a different owner.
 
 **Intent authorization** (MCP, tool gateways, approval prompts) answers: what
@@ -168,7 +172,7 @@ by the agent harness.
 what *can* the agent reach? Which files, network endpoints, credentials, and
 syscalls are available? This is the right place to limit blast radius. But a
 sandbox does not automatically record what the agent attempted within its
-constraints — which process read a secret, which subprocess opened a network
+constraints: which process read a secret, which subprocess opened a network
 connection, whether the sandbox policy matched the approved intent. This layer's
 ownership is contested: it may belong to the agent provider, the platform team,
 or both.
@@ -177,7 +181,7 @@ or both.
 happened*? Which processes ran, which files were read, which network connections
 were opened, which credentials were accessed? This layer provides facts about
 execution, independent of what the framework reported or the sandbox intended.
-This layer must be owned by the environment operator — otherwise there is no
+This layer must be owned by the environment operator. Otherwise there is no
 independent source of truth.
 
 The security model is the combination:
@@ -187,18 +191,19 @@ authorize intent  →  isolate execution  →  verify side effects
 (harness-owned)      (ownership contested)  (must be platform-owned)
 ```
 
-When all three layers agree, you have confidence. When they disagree, you have
-an incident to investigate.
+When all three layers agree, you have confidence. When they disagree, you need
+OS-level observability and controls, independent of the harness, to detect the
+mismatch, contain the damage, and reconstruct what happened.
 
 ## Why Independence Matters
 
-The reason to keep these layers independent follows from the trends above — but
+The reason to keep these layers independent follows from the trends above, but
 also from a deeper structural argument about ownership and trust.
 
 ### Approval fatigue
 
-When approvals are relaxed — and as we have seen, users approve 93% of prompts,
-and products actively offer bypass modes — the other two layers must compensate.
+As we have seen, users approve 93% of prompts and products actively offer bypass
+modes. When approvals are relaxed, the other two layers must compensate.
 If you auto-approve routine actions, you need an independent way to verify what
 those actions actually did. If you bypass permissions for speed, you need
 stronger containment and stronger evidence.
@@ -211,7 +216,7 @@ valuable when you own the framework. But opaque agent apps, closed-source
 runtimes, hosted execution, stripped binaries, and arbitrary subprocess trees
 can all break the assumption that the framework trace is complete. Security
 researchers have already found [30+ vulnerabilities across all major AI
-IDEs][idesaster] — Cursor, Copilot, Windsurf, Claude Code — enabling data theft
+IDEs][idesaster] (Cursor, Copilot, Windsurf, Claude Code), enabling data theft
 and remote code execution through prompt injection into agent tool chains.
 
 The MCP layer records intended tool calls. The OS layer records actual side
@@ -223,17 +228,17 @@ security incidents live.
 The deepest reason for independence is that the three layers serve different
 owners with different incentives.
 
-The harness provider's goal is to complete the user's task — maximize
+The harness provider's goal is to complete the user's task: maximize
 autonomous coding productivity, reduce permission friction, deliver results.
 The platform team's goal is to protect the repository, secrets, cluster,
 CI runner, internal network, and production APIs. These goals are not opposed,
-but they are not identical. When they conflict — when the fastest path to task
+but they are not identical. When they conflict, when the fastest path to task
 completion involves reading credentials, opening network connections, or
-modifying files outside the workspace — the harness will optimize for
+modifying files outside the workspace, the harness will optimize for
 completion unless an independent boundary stops it.
 
 This is why [Bhattarai and Vu argue][deterministic-boundaries] that
-"probabilistic compliance is not compliance" — training-based and
+"probabilistic compliance is not compliance": training-based and
 classifier-based defenses may reduce empirical attack rates, but cannot provide
 deterministic guarantees under adversarial conditions. Only architectural
 enforcement can. Red Hat's experience deploying multi-agent systems on Kagenti
@@ -244,7 +249,7 @@ apply to any untrusted workload.
 
 The [OWASP Top 10 for Agentic Applications][owasp-agentic] reinforces this
 framing. Its top risk (ASI01, Agent Goal Hijacking) is that "agents cannot
-reliably distinguish instructions from data" — a single malicious input from a
+reliably distinguish instructions from data," and a single malicious input from a
 repository, issue, MCP response, or web page can redirect the agent to perform
 harmful actions using its legitimate tools. This is not a hypothetical:
 [Bishop Fox demonstrated][bishopfox-deputy] confused deputy attacks where
@@ -258,7 +263,7 @@ The threat model for platform teams therefore has three adversary categories:
 
 | Threat | Which layer fails | Evidence plane detects |
 |--------|------------------|-----------------------|
-| **Compromised agent** (prompt injection, malicious repo/issue/MCP response) | Intent layer — agent is tricked into unintended actions | Actual side effects diverge from stated intent |
+| **Compromised agent** (prompt injection, malicious repo/issue/MCP response) | Intent layer: agent is tricked into unintended actions | Actual side effects diverge from stated intent |
 | **Untrusted harness** (opaque permission logic, incomplete logs, unauditable internal state) | Cannot verify harness completeness | OS-level facts independent of harness reporting |
 | **Sandbox escape or policy gap** (container breakout, mounted credentials, network bypass) | Isolation layer fails or is misconfigured | Detects behavior outside expected sandbox boundary |
 
@@ -270,7 +275,7 @@ Their recommendation: ["treat plain Docker isolation as insufficient by
 default."][sandbox-escape]
 
 In all three cases, the OS/runtime evidence layer is the independent control
-that lets the platform team detect the problem — regardless of which other layer
+that lets the platform team detect the problem, regardless of which other layer
 failed.
 
 ## What OS Evidence Looks Like
@@ -283,7 +288,7 @@ At the OS/runtime layer, evidence includes:
 - **Container metadata**: namespace, cgroup, pod identity, service account
 - **Subprocess behavior**: commands that bypass framework instrumentation
 
-This evidence is collected below the application layer — typically via eBPF,
+This evidence is collected below the application layer, typically via eBPF,
 audit subsystems, or kernel instrumentation. It does not require modifying the
 agent app. Its key property is independence: the evidence is owned and collected
 by the environment operator, not by the agent provider.
@@ -324,23 +329,6 @@ The design question for platform teams is:
 
 > Where is the lowest layer I actually control?
 > That is where the independent evidence plane should live.
-
-## Where AgentSight Fits
-
-AgentSight is our implementation of the OS/runtime evidence layer. It provides
-framework-agnostic, zero-instrumentation observation — process lineage, file
-access, network behavior — without modifying the agent app. It is most valuable
-when the agent is opaque, closed-source, or provider-managed.
-
-AgentSight does not replace MCP, sandboxing, or human approval. It fills the
-verification slot:
-
-```text
-MCP / tool gateway:      authorize tool access       (harness-owned)
-Sandbox / exec policy:   constrain execution          (ownership contested)
-AgentSight / OS layer:   verify actual side effects   (platform-owned)
-Guardrail / policy:      block, alert, preserve evidence, trigger review
-```
 
 ## Practical Checklist
 
@@ -383,7 +371,7 @@ each layer.
 ## Closing
 
 Agent runtimes are becoming more capable, more managed, and more opaque. The
-security model cannot depend on any single layer — especially when the layers
+security model cannot depend on any single layer, especially when the layers
 have different owners.
 
 The harness is not a trusted boundary. The sandbox ownership depends on the
@@ -399,8 +387,14 @@ authorize intent  →  isolate execution  →  verify side effects
 (harness-owned)      (ownership contested)  (must be platform-owned)
 ```
 
-The implementation details vary by deployment, but the separation — and the
-ownership question — is the part that should remain stable.
+The implementation details vary by deployment, but the separation, and the
+ownership question, is the part that should remain stable.
+
+We are building two open-source tools along these lines:
+[AgentSight][agentsight] for eBPF-based runtime observation and
+[ActPlane][actplane] for eBPF-based runtime enforcement of agent behavior.
+They are possible implementations of the verification layer described here,
+not the only ones.
 
 ## References
 
@@ -439,6 +433,8 @@ ownership question — is the part that should remain stable.
 [safeharness]: https://arxiv.org/abs/2604.13630 "SafeHarness: Lifecycle-Integrated Security Architecture for LLM-based Agents"
 [anthropic-nist]: https://www-cdn.anthropic.com/43ec7e770925deabc3f0bc1dbf0133769fd03812.pdf "Anthropic NIST RFI on Agentic Security"
 [infoq-k8s-agents]: https://www.infoq.com/articles/securing-autonomous-ai-agents-kubernetes/ "Securing Autonomous AI Agents on Kubernetes"
+[agentsight]: https://github.com/eunomia-bpf/agentsight/ "AgentSight repository"
+[actplane]: https://github.com/eunomia-bpf/ActPlane "ActPlane repository"
 
 - [GitHub Docs: About Copilot coding agent][copilot-agent]
 - [GitHub: Security Architecture of Agentic Workflows][github-agentic-sec]
@@ -471,11 +467,12 @@ ownership question — is the part that should remain stable.
 - [SafeHarness: Security Architecture for LLM-based Agents][safeharness]
 - [SandboxEscapeBench: Can AI Agents Escape Their Sandboxes?][sandbox-escape]
 - [OWASP Top 10 for Agentic Applications 2026][owasp-agentic]
-- [Bishop Fox: The Confused Deputy — MCP Attack][bishopfox-deputy]
-- [Docker: MCP Horror Stories — GitHub Prompt Injection][docker-mcp-horror]
+- [Bishop Fox: The Confused Deputy, MCP Attack][bishopfox-deputy]
+- [Docker: MCP Horror Stories, GitHub Prompt Injection][docker-mcp-horror]
 - [30+ Vulnerabilities in AI Coding Tools][idesaster]
 - [AI Agent Security Incidents Hit 65% of Firms][kiteworks]
 - [Bessemer: Securing AI agents in 2026][bessemer]
 - [InfoQ: Securing Autonomous AI Agents on Kubernetes][infoq-k8s-agents]
 - [AgentSight blog post](agentsight_paper.md)
-- [AgentSight repository](https://github.com/eunomia-bpf/agentsight/)
+- [AgentSight repository][agentsight]
+- [ActPlane repository][actplane]
