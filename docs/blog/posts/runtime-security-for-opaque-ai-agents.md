@@ -24,7 +24,7 @@ disagree, you need independent observability and enforcement at the OS level to
 detect it, and that is exactly the layer most agent platforms are missing. We
 are exploring this direction with two open-source projects:
 [AgentSight][agentsight] for runtime observation and
-[ActPlane][actplane] for runtime enforcement and harness, both using eBPF to provide an
+[ActPlane][actplane] for runtime harness enforcement, both using eBPF to provide an
 independent evidence and policy plane below the agent harness.
 
 <!-- more -->
