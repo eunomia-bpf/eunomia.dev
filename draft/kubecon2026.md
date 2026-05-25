@@ -20,7 +20,7 @@ claims and target different tracks, so they do not cannibalize each other.
 | One-line claim | **Verify agent side effects below the framework.** | **Don't treat the pod as the agent's execution unit.** |
 | Angle | Security boundary realignment | Execution substrate / "agent OS" |
 | Center sentence | The framework sees what the agent *asked* to do; the environment must verify what *actually happened*. | Kubernetes sees a pod; the OS sees what the agent really is — a dynamic process tree with tool-call-level behavior. |
-| Projects | AgentSight, ActPlane, eBPF evidence plane | Sandlock, AgentCgroup, ActPlane (light) |
+| Projects | eunomia-bpf, ActPlane, eBPF evidence plane | Sandlock, AgentCgroup, ActPlane (light) |
 | Recommended submission | Session Presentation, not poster | Poster Session |
 | Track / topic | Security | AI Inference + Agentic |
 | Level | Intermediate | Intermediate |
@@ -59,20 +59,20 @@ Intermediate
 
 **Description - under 1000 characters**
 
-AI agents are no longer simple scripts inside a pod. They are increasingly delivered as
-complex third-party frameworks that own prompts, tool routing, approvals, MCP access,
-memory, retries, logs, and sometimes sandbox policy. Meanwhile, the assets they act on -
-repos, CI runners, clusters, secrets, and networks - belong to the platform
-team. This ownership and trust split changes the security model: framework approvals,
-logs, and provider-managed sandbox settings cannot be the environment owner's source of
-truth.
+AI agents now operate on production assets: repos, CI runners, clusters, secrets, and
+internal networks. But the runtime deciding their actions is often controlled by someone
+else. Frameworks may own prompts, tool routing, MCP clients, approvals, retries, logs, and
+even sandbox policy, while platform teams are responsible when agents delete files, leak
+secrets, open shells, or reach the wrong host. The platform team owns the blast radius,
+but not always the runtime.
 
-This session uses a three-layer model: agent framework, execution environment/sandbox, and
-environment-owned evidence/policy plane. With eBPF, Kubernetes metadata, and runtime
-policy, we verify what happened below the framework: process lineage, commands,
-file/secret access, network egress, credential use, and subprocess behavior. A demo
-compares framework logs, sandbox controls, and OS evidence as prompt injection drives
-credential access and unexpected egress.
+This talk presents a runtime security layer for agentic infrastructure. MCP
+gateways and tool policies decide what the agent may ask for. Sandboxes restrict what it
+should reach. Below both, zero-instrumentation eBPF adds OS-level guardrails and produces
+tamper-resistant evidence: process lineage, commands, file/secret access, egress,
+credentials, and subprocesses, correlated with Kubernetes metadata and runtime policy. The
+model: authorize at the tool layer,
+isolate at the sandbox layer, and guard and verify at runtime.
 
 **Benefits to the ecosystem**
 
@@ -101,7 +101,7 @@ Kubernetes. Add Cilium, Tetragon, or OpenTelemetry only if the demo directly use
 
 **Open source projects**
 
-eunomia-bpf, AgentSight, ActPlane.
+eunomia-bpf, ActPlane.
 
 **Additional resources**
 
@@ -404,7 +404,7 @@ point). That's what separates an "agent OS" from ordinary OS resource control.
    different nets — don't weave the same mesh twice.
 
 ## Sources / claims to verify before submitting
-- Project repos: AgentSight, ActPlane (`github.com/eunomia-bpf/ActPlane`), Sandlock,
+- Project repos: eBPF evidence prototype, ActPlane (`github.com/eunomia-bpf/ActPlane`), Sandlock,
   AgentCgroup — confirm public status, exact metrics, and that each README backs the claim
   cited above.
 - AgentCgroup paper: confirm the 56–74% / 15.4× / memory-bottleneck numbers and the
