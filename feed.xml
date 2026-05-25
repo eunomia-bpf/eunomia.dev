@@ -6,6 +6,13 @@
   <description>Latest writing from eunomia.dev on eBPF, bpftime, AI tracing, and systems research.</description>
   <language>en-US</language>
   <item>
+  <title>Runtime Security for Opaque AI Agents: Beyond Sandboxes and Approvals</title>
+  <link>https://eunomia.dev/blog/2026/05/25/runtime-security-for-ai-agents/</link>
+  <guid>https://eunomia.dev/blog/2026/05/25/runtime-security-for-ai-agents/</guid>
+  <pubDate>Mon, 25 May 2026 00:00:00 GMT</pubDate>
+  <description>A coding agent receives the instruction &quot;fix the failing test.&quot; Its framework log reports: tool call, run tests, tests pass, commit. The sandbox policy allows workspace access and package registry egress. Everything look</description>
+</item>
+<item>
   <title>When CPU Noise Slows Down GPU Inference: Measuring Scheduler and IRQ Impact with eBPF</title>
   <link>https://eunomia.dev/blog/2026/05/24/measuring-cpu-noise-in-gpu-inference-with-ebpf/</link>
   <guid>https://eunomia.dev/blog/2026/05/24/measuring-cpu-noise-in-gpu-inference-with-ebpf/</guid>
@@ -207,13 +214,6 @@
   <guid>https://eunomia.dev/blog/2024/03/11/the-evolution-and-impact-of-ebpf-a-list-of-key-research-papers-from-recent-years/</guid>
   <pubDate>Mon, 11 Mar 2024 00:00:00 GMT</pubDate>
   <description>This is a list of eBPF related papers I read in recent years, might be helpful for people who are interested in eBPF related research.</description>
-</item>
-<item>
-  <title>Introducing eunomia-bpf v1.0: Simplifying eBPF with CO-RE and WebAssembly</title>
-  <link>https://eunomia.dev/blog/2024/02/11/introducing-eunomia-bpf-v1-0-simplifying-ebpf-with-co-re-and-webassembly/</link>
-  <guid>https://eunomia.dev/blog/2024/02/11/introducing-eunomia-bpf-v1-0-simplifying-ebpf-with-co-re-and-webassembly/</guid>
-  <pubDate>Sun, 11 Feb 2024 00:00:00 GMT</pubDate>
-  <description>The world of eBPF (Extended Berkeley Packet Filter) has been rapidly evolving, offering developers powerful tools to monitor and modify the behavior of systems at the kernel level. Today, we&#39;re thrilled to introduce the </description>
 </item>
 </channel>
 </rss>
