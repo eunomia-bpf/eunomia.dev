@@ -5,24 +5,23 @@ slug: runtime-security-for-ai-agents
 
 # Runtime Security for Opaque AI Agents: Beyond Sandboxes and Approvals
 
-A coding agent receives the instruction "fix the failing test." Its framework
-log reports: tool call, run tests, tests pass, commit. The sandbox policy
-allows workspace access and package registry egress. Everything looks correct.
+AI coding agents now run for hours, complete entire features end-to-end,
+optimize production GPU kernels, and merge thousands of pull requests
+autonomously. Meanwhile, most agent security still relies on human-in-the-loop
+approval — and Anthropic's own data shows users approve 93% of prompts without
+meaningful review. The result is predictable: products add bypass modes, users
+disable permission gates, and 65% of firms report agent security incidents.
 
-At the OS layer, the actual process tree tells a different story:
-
-```text
-agent → shell → python → curl
-  read: /var/run/secrets/kubernetes.io/serviceaccount/token
-  connect: 203.0.113.42:443
-```
-
-The framework reported a test run. The sandbox allowed the access. The operating
-system observed a credential read and an outbound connection to an unknown host.
-No single layer was wrong — each answered a different question, and nobody was
-asking all three.
-
-That gap is the subject of this post.
+But the deeper problem is not approval fatigue. It is that the agent harness —
+the prompt loop, tool routing, permission logic, and sandbox defaults — is
+increasingly a third-party product the platform team did not write, running in a
+sandbox the platform team may not own. The harness is not a trusted security
+boundary. This post argues for separating agent security into three layers with
+three different owners: intent authorization (harness-owned), execution
+isolation (ownership contested), and side-effect verification (must be
+platform-owned). When the layers agree, you have confidence. When they
+disagree, you need independent observability and enforcement at the OS level to
+detect it — and that is exactly the layer most agent platforms are missing.
 
 <!-- more -->
 
