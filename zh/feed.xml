@@ -6,11 +6,11 @@
   <description>eunomia.dev 上关于 eBPF、bpftime、AI tracing 和系统研究的最新文章。</description>
   <language>zh-CN</language>
   <item>
-  <title>Runtime Security for Opaque AI Agents: Beyond Sandboxes and Approvals</title>
+  <title>Runtime Observability and Enforcement for Opaque AI Agents: Beyond Sandboxes and Approvals</title>
   <link>https://eunomia.dev/zh/blog/2026/05/25/runtime-security-for-ai-agents/</link>
   <guid>https://eunomia.dev/zh/blog/2026/05/25/runtime-security-for-ai-agents/</guid>
   <pubDate>Mon, 25 May 2026 00:00:00 GMT</pubDate>
-  <description>A coding agent receives the instruction &quot;fix the failing test.&quot; Its framework log reports: tool call, run tests, tests pass, commit. The sandbox policy allows workspace access and package registry egress. Everything look</description>
+  <description>AI coding agents now run for hours, complete entire features end-to-end, optimize production GPU kernels, and merge thousands of pull requests autonomously. Meanwhile, most agent security still relies on human-in-the-loo</description>
 </item>
 <item>
   <title>CPU 噪声会拖慢 GPU 推理吗：用 eBPF 定量测量调度器与 IRQ 影响</title>
