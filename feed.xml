@@ -6,7 +6,7 @@
   <description>Latest writing from eunomia.dev on eBPF, bpftime, AI tracing, and systems research.</description>
   <language>en-US</language>
   <item>
-  <title>Runtime Observability and Enforcement for Opaque AI Agents: Beyond Sandboxes and Approvals</title>
+  <title>Runtime Observability and Enforcement for Opaque AI Agents with eBPF: Beyond Sandboxes and Approvals</title>
   <link>https://eunomia.dev/blog/2026/05/25/runtime-security-for-ai-agents/</link>
   <guid>https://eunomia.dev/blog/2026/05/25/runtime-security-for-ai-agents/</guid>
   <pubDate>Mon, 25 May 2026 00:00:00 GMT</pubDate>
