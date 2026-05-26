@@ -22,9 +22,9 @@ isolation (ownership contested), and side-effect verification (must be
 platform-owned). When the layers agree, you have confidence. When they
 disagree, you need independent observability and enforcement at the OS level to
 detect it, and that is exactly the layer most agent platforms are missing. We
-are exploring this direction with two open-source projects:
-[AgentSight][agentsight] for runtime observation and
-[ActPlane][actplane] for runtime harness enforcement, both using eBPF to provide an
+are building projects towards this direction:
+[AgentSight](https://github.com/eunomia-bpf/agentsight/) for runtime observation and
+[ActPlane](https://github.com/eunomia-bpf/ActPlane) for runtime harness enforcement, both using eBPF to provide an
 independent evidence and policy plane below the agent harness.
 
 <!-- more -->
@@ -36,17 +36,17 @@ duration of what they do.
 
 A year ago, the typical agent task was "fix this bug" or "write this function."
 In 2026, agents routinely run for hours on complex, multi-step work. OpenAI
-documented a Codex session that [ran for 25 hours uninterrupted][codex-long],
+documented a Codex session that [ran for 25 hours uninterrupted](https://developers.openai.com/blog/run-long-horizon-tasks-with-codex),
 consuming 13 million tokens and producing 30,000 lines of code from a blank
 repository. Anthropic's agentic coding report cites a [12.5-million-line
-codebase change completed in a single 7-hour run][anthropic-trends]. Meta's
-[KernelEvolve][kernelevolve] uses multi-agent coordination to write and optimize
+codebase change completed in a single 7-hour run](https://resources.anthropic.com/hubfs/2026%20Agentic%20Coding%20Trends%20Report.pdf). Meta's
+[KernelEvolve](https://engineering.fb.com/2026/04/02/developer-tools/kernelevolve-how-metas-ranking-engineer-agent-optimizes-ai-infrastructure/) uses multi-agent coordination to write and optimize
 production GPU kernels, compressing work that previously required weeks of
 expert systems engineering into hours. On SWE-bench Verified, [top agents now
-resolve 60–70%][swebench] of real GitHub issues, up from under 30% in early
-2024. Devin has [merged hundreds of thousands of pull requests][devin-review]
+resolve 60–70%](https://www.vals.ai/benchmarks/swebench) of real GitHub issues, up from under 30% in early
+2024. Devin has [merged hundreds of thousands of pull requests](https://cognition.ai/blog/devin-annual-performance-review-2025)
 across enterprise customers with a 67% merge rate. Goldman Sachs [deployed
-hundreds of Devin instances][goldman] across a 12,000-person engineering team.
+hundreds of Devin instances](https://www.cnbc.com/2025/07/11/goldman-sachs-autonomous-coder-pilot-marks-major-ai-milestone.html) across a 12,000-person engineering team.
 
 These are not research demos. They are production workflows: background tasks,
 parallel execution, multi-hour sessions, end-to-end feature development, kernel
@@ -61,22 +61,22 @@ decisions over hours of autonomous operation.
 
 The evidence suggests that approval-based control is already failing in
 practice. Anthropic's own data shows that [Claude Code users approve 93% of
-permission prompts][anthropic-auto], a rate consistent with rubber-stamping
+permission prompts](https://www.anthropic.com/engineering/claude-code-auto-mode), a rate consistent with rubber-stamping
 rather than meaningful review. An independent stress test of Claude Code's auto
-mode found an [81% false negative rate][permission-gate] on ambiguous
+mode found an [81% false negative rate](https://arxiv.org/abs/2604.04978) on ambiguous
 state-changing actions, meaning the classifier allowed 4 out of 5 actions that
 should have required human review. Real incidents have followed: in documented
 cases, users running agents without permission gates had their [home directories
-deleted][yolo-incidents] by `rm -rf` commands the agent generated. A 2026
+deleted](https://gist.github.com/hartphoenix/698eb8ef8b08ad2ce6a99cf7346cd7cc) by `rm -rf` commands the agent generated. A 2026
 industry survey found that [65% of firms reported AI agent security
-incidents][kiteworks], with most involving organizations lacking proper agent
+incidents](https://www.kiteworks.com/cybersecurity-risk-management/ai-agent-security-incidents-2026/), with most involving organizations lacking proper agent
 access controls.
 
 Products have responded by adding bypass mechanisms. Claude Code offers
 `--dangerously-skip-permissions`. Windsurf's Cascade agent [proceeds
-autonomously][windsurf-cursor] where Cursor stops to ask. Community guides now
+autonomously](https://stackbuilt.co/blog/windsurf-vs-cursor-2026) where Cursor stops to ask. Community guides now
 focus on "how to safely use YOLO mode." Anthropic researcher Nicholas Carlini
-ran [16 parallel Claude agents with permissions bypassed][carlini], with the
+ran [16 parallel Claude agents with permissions bypassed](https://x.com/nicholas_carlini), with the
 caveat: "Run this in a container, not your actual machine."
 
 This is the tension: **the more capable agents become, the more users want to
@@ -99,23 +99,23 @@ coding-agent service or an open-source framework the platform team does not
 control.
 
 This is already visible across the ecosystem. GitHub Copilot's [coding
-agent][copilot-agent] runs autonomously in GitHub Actions, researching
+agent](https://docs.github.com/en/copilot/concepts/about-copilot-coding-agent) runs autonomously in GitHub Actions, researching
 repositories, creating plans, making changes, and opening pull requests. OpenAI
-[Codex][codex] runs background tasks in sandboxed cloud environments with
+[Codex](https://developers.openai.com/codex/cloud) runs background tasks in sandboxed cloud environments with
 controlled network access. Claude Code runs cloud sessions in Anthropic-managed
 VMs with scoped credentials. Kubernetes SIG is defining [Agent
-Sandbox][k8s-sandbox] for isolated, stateful agent workloads. Recent research
-datasets show [agent-authored pull requests at scale][aidev] across real
+Sandbox](https://agent-sandbox.sigs.k8s.io/) for isolated, stateful agent workloads. Recent research
+datasets show [agent-authored pull requests at scale](https://arxiv.org/abs/2602.09185) across real
 repositories.
 
 The ownership split is now explicit in major platforms. Anthropic's shared
 responsibility framework [divides agent security into four
-layers][anthropic-shared-resp] (Model, Harness, Tools, Environment) and
+layers](https://www.anthropic.com/research/trustworthy-agents-in-practice) (Model, Harness, Tools, Environment) and
 states that the deploying organization owns three of the four. GitHub's agentic
 workflow architecture starts from the premise that ["agents cannot be trusted by
-default, especially in the presence of untrusted inputs"][github-agentic-sec],
+default, especially in the presence of untrusted inputs"](https://github.blog/ai-and-ml/generative-ai/under-the-hood-security-architecture-of-github-agentic-workflows/),
 using kernel-enforced communication boundaries that hold even if the agent
-container is compromised. OpenAI's Codex documentation [acknowledges][codex-security]
+container is compromised. OpenAI's Codex documentation [acknowledges](https://developers.openai.com/codex/agent-approvals-security)
 that "devcontainers provide substantial protection, but they do not prevent
 every attack."
 
@@ -126,19 +126,19 @@ runtime acting on those assets may be opaque.
 There is also a second split that matters even more for platform teams: **the
 sandbox may not be controlled by the environment owner either.** If the agent
 runs in a provider-managed cloud (Claude Code on the web runs in
-[Anthropic-managed isolated VMs][claude-security] with scoped credential
-proxies; Codex runs in [OpenAI-managed containers][codex-sandbox]), the
+[Anthropic-managed isolated VMs](https://docs.anthropic.com/en/docs/claude-code/security) with scoped credential
+proxies; Codex runs in [OpenAI-managed containers](https://developers.openai.com/codex/concepts/sandboxing)), the
 platform team cannot attach its own monitoring, modify isolation policy, or
 inspect the sandbox internals. Even Anthropic's own managed agent architecture
 explicitly [decouples the "brain" (Claude + harness) from the
-"hands" (sandboxes)][anthropic-managed], treating containers as disposable
+"hands" (sandboxes)](https://www.anthropic.com/engineering/managed-agents), treating containers as disposable
 cattle and ensuring tokens are never reachable from the sandbox where generated
 code runs. This is good architecture, but it is the provider's architecture,
 not the platform team's.
 
 When agents run locally or on self-hosted infrastructure (GitHub now [supports
-self-hosted runners][copilot-self-hosted] for its coding agent, and Kubernetes
-Agent Sandbox provides [gVisor/Kata-backed isolation][k8s-sandbox] under the
+self-hosted runners](https://github.blog/changelog/2025-10-28-copilot-coding-agent-now-supports-self-hosted-runners/) for its coding agent, and Kubernetes
+Agent Sandbox provides [gVisor/Kata-backed isolation](https://agent-sandbox.sigs.k8s.io/) under the
 platform operator's control), the environment owner can wrap the agent in its
 own sandbox and evidence layer. When agents run in provider-managed
 environments, the independent evidence plane must move to the boundaries the
@@ -216,7 +216,7 @@ valuable when you own the framework. But opaque agent apps, closed-source
 runtimes, hosted execution, stripped binaries, and arbitrary subprocess trees
 can all break the assumption that the framework trace is complete. Security
 researchers have already found [30+ vulnerabilities across all major AI
-IDEs][idesaster] (Cursor, Copilot, Windsurf, Claude Code), enabling data theft
+IDEs](https://thehackernews.com/2025/12/researchers-uncover-30-flaws-in-ai.html) (Cursor, Copilot, Windsurf, Claude Code), enabling data theft
 and remote code execution through prompt injection into agent tool chains.
 
 The MCP layer records intended tool calls. The OS layer records actual side
@@ -237,25 +237,25 @@ completion involves reading credentials, opening network connections, or
 modifying files outside the workspace, the harness will optimize for
 completion unless an independent boundary stops it.
 
-This is why [Bhattarai and Vu argue][deterministic-boundaries] that
+This is why [Bhattarai and Vu argue](https://arxiv.org/abs/2602.09947) that
 "probabilistic compliance is not compliance": training-based and
 classifier-based defenses may reduce empirical attack rates, but cannot provide
 deterministic guarantees under adversarial conditions. Only architectural
 enforcement can. Red Hat's experience deploying multi-agent systems on Kagenti
 frames the same insight differently: this is ["a multi-tenancy problem disguised
-as an AI problem"][redhat-kagenti]. The agent is an untrusted tenant. The
+as an AI problem"](https://next.redhat.com/2026/03/05/zero-trust-ai-agents-on-kubernetes-what-i-learned-deploying-multi-agent-systems-on-kagenti/). The agent is an untrusted tenant. The
 platform needs the same kind of isolation, identity, and audit controls it would
 apply to any untrusted workload.
 
-The [OWASP Top 10 for Agentic Applications][owasp-agentic] reinforces this
+The [OWASP Top 10 for Agentic Applications](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/) reinforces this
 framing. Its top risk (ASI01, Agent Goal Hijacking) is that "agents cannot
 reliably distinguish instructions from data," and a single malicious input from a
 repository, issue, MCP response, or web page can redirect the agent to perform
 harmful actions using its legitimate tools. This is not a hypothetical:
-[Bishop Fox demonstrated][bishopfox-deputy] confused deputy attacks where
+[Bishop Fox demonstrated](https://bishopfox.com/blog/otto-support-confused-deputy) confused deputy attacks where
 instructions embedded in support tickets caused agents to exfiltrate data using
 authorized tools, with "the user's name on every audit log entry." [Docker
-documented][docker-mcp-horror] a GitHub prompt injection chain where a
+documented](https://www.docker.com/blog/mcp-horror-stories-github-prompt-injection/) a GitHub prompt injection chain where a
 malicious issue hijacked an MCP-connected agent to steal confidential data from
 private repositories.
 
@@ -267,12 +267,12 @@ The threat model for platform teams therefore has three adversary categories:
 | **Untrusted harness** (opaque permission logic, incomplete logs, unauditable internal state) | Cannot verify harness completeness | OS-level facts independent of harness reporting |
 | **Sandbox escape or policy gap** (container breakout, mounted credentials, network bypass) | Isolation layer fails or is misconfigured | Detects behavior outside expected sandbox boundary |
 
-AISI's [SandboxEscapeBench][sandbox-escape] makes the third category concrete:
+AISI's [SandboxEscapeBench](https://arxiv.org/abs/2603.02277) makes the third category concrete:
 frontier models can reliably escape container sandboxes under
 misconfigurations that plausibly occur in real systems, and the researchers
 discovered four unintended escape paths the benchmark designers had missed.
 Their recommendation: ["treat plain Docker isolation as insufficient by
-default."][sandbox-escape]
+default."](https://arxiv.org/abs/2603.02277)
 
 In all three cases, the OS/runtime evidence layer is the independent control
 that lets the platform team detect the problem, regardless of which other layer
@@ -329,6 +329,46 @@ The design question for platform teams is:
 
 > Where is the lowest layer I actually control?
 > That is where the independent evidence plane should live.
+
+## AgentSight and ActPlane: Observe, Then Enforce
+
+We are building open-source tools that implement the verification layer
+described above, each addressing a different half of the problem.
+
+**[AgentSight](https://github.com/eunomia-bpf/agentsight/)** is a zero-instrumentation observability tool for
+AI agents. It uses eBPF to intercept SSL/TLS traffic and monitor process
+behavior at the system boundary, with no code changes, no SDKs, and no
+framework integration required. Point it at any agent process (Claude Code,
+Codex, a custom Python agent) and it captures the full picture: process
+lineage, LLM API calls (prompts and completions), file access, network
+connections, and tool invocations, all correlated into a live timeline. This is
+the "see what actually happened" layer. Because it operates below the
+application, it works even when the agent runtime is opaque, closed-source, or
+running arbitrary subprocesses that bypass framework-level tracing.
+
+**[ActPlane](https://github.com/eunomia-bpf/ActPlane)** is an OS-level harness for AI agents. Where AgentSight
+observes, ActPlane enforces. You write behavioral contracts in a YAML-based
+rule language (labeled information-flow control, not static allow-lists), and
+ActPlane compiles them into an eBPF program that enforces constraints at the
+kernel level: every `exec`, file open, and network connect in the agent's
+entire process tree is checked against the policy. When a rule is violated,
+ActPlane blocks the action and feeds a human-readable reason back to the agent
+through its hook system, so the agent self-corrects rather than failing
+silently. The rule language supports data-flow tracking across fork/exec
+chains, causal ordering ("run tests before committing"), and staleness
+invalidation, going well beyond what sandboxes or tool-layer guards can
+express.
+
+The two tools are complementary. AgentSight provides the evidence plane:
+independent, below-the-application facts about what the agent did. ActPlane
+provides the enforcement plane: deterministic, kernel-level guarantees about
+what the agent cannot do. Together they implement the "verify side effects"
+layer of the three-layer model, independent of the harness provider and
+independent of who owns the sandbox.
+
+Both are possible implementations of this architecture, not the only ones.
+The important point is the separation: observe and enforce at a layer the
+environment operator controls, regardless of which agent runtime sits above.
 
 ## Practical Checklist
 
@@ -390,89 +430,49 @@ authorize intent  →  isolate execution  →  verify side effects
 The implementation details vary by deployment, but the separation, and the
 ownership question, is the part that should remain stable.
 
-We are building two open-source tools along these lines:
-[AgentSight][agentsight] for eBPF-based runtime observation and
-[ActPlane][actplane] for eBPF-based runtime enforcement of agent behavior.
-They are possible implementations of the verification layer described here,
-not the only ones.
+If you are exploring this space, [AgentSight](https://github.com/eunomia-bpf/agentsight/) and
+[ActPlane](https://github.com/eunomia-bpf/ActPlane) are our open-source starting points for the observation
+and enforcement layers respectively.
 
 ## References
 
-[codex-long]: https://developers.openai.com/blog/run-long-horizon-tasks-with-codex "Run long horizon tasks with Codex"
-[anthropic-trends]: https://resources.anthropic.com/hubfs/2026%20Agentic%20Coding%20Trends%20Report.pdf "Anthropic 2026 Agentic Coding Trends Report"
-[kernelevolve]: https://engineering.fb.com/2026/04/02/developer-tools/kernelevolve-how-metas-ranking-engineer-agent-optimizes-ai-infrastructure/ "KernelEvolve: Meta's Ranking Engineer Agent"
-[swebench]: https://www.vals.ai/benchmarks/swebench "SWE-Bench Verified Leaderboard"
-[devin-review]: https://cognition.ai/blog/devin-annual-performance-review-2025 "Devin's 2025 Performance Review"
-[goldman]: https://www.cnbc.com/2025/07/11/goldman-sachs-autonomous-coder-pilot-marks-major-ai-milestone.html "Goldman Sachs autonomous coder pilot"
-[anthropic-auto]: https://www.anthropic.com/engineering/claude-code-auto-mode "Claude Code auto mode: a safer way to skip permissions"
-[permission-gate]: https://arxiv.org/abs/2604.04978 "Measuring the Permission Gate: Claude Code Auto Mode"
-[yolo-incidents]: https://gist.github.com/hartphoenix/698eb8ef8b08ad2ce6a99cf7346cd7cc "Claude Code YOLO Mode incidents"
-[kiteworks]: https://www.kiteworks.com/cybersecurity-risk-management/ai-agent-security-incidents-2026/ "AI Agent Security Incidents Hit 65% of Firms"
-[windsurf-cursor]: https://stackbuilt.co/blog/windsurf-vs-cursor-2026 "Windsurf vs Cursor: Agent Autonomy vs IDE Precision"
-[carlini]: https://x.com/nicholas_carlini "Nicholas Carlini on parallel agents"
-[idesaster]: https://thehackernews.com/2025/12/researchers-uncover-30-flaws-in-ai.html "30+ Flaws in AI Coding Tools"
-[copilot-agent]: https://docs.github.com/en/copilot/concepts/about-copilot-coding-agent "About Copilot coding agent"
-[codex]: https://developers.openai.com/codex/cloud "OpenAI Codex cloud"
-[k8s-sandbox]: https://agent-sandbox.sigs.k8s.io/ "Kubernetes SIGs Agent Sandbox"
-[aidev]: https://arxiv.org/abs/2602.09185 "AIDev: Studying AI Coding Agents on GitHub"
-[bessemer]: https://www.bvp.com/atlas/securing-ai-agents-the-defining-cybersecurity-challenge-of-2026 "Securing AI agents: the defining cybersecurity challenge of 2026"
-[anthropic-shared-resp]: https://www.anthropic.com/research/trustworthy-agents-in-practice "Trustworthy Agents in Practice"
-[github-agentic-sec]: https://github.blog/ai-and-ml/generative-ai/under-the-hood-security-architecture-of-github-agentic-workflows/ "Security Architecture of GitHub Agentic Workflows"
-[codex-security]: https://developers.openai.com/codex/agent-approvals-security "Codex Agent Approvals & Security"
-[codex-sandbox]: https://developers.openai.com/codex/concepts/sandboxing "Codex Sandbox Concepts"
-[claude-security]: https://docs.anthropic.com/en/docs/claude-code/security "Claude Code Security"
-[anthropic-managed]: https://www.anthropic.com/engineering/managed-agents "Scaling Managed Agents: Decoupling the Brain from the Hands"
-[copilot-self-hosted]: https://github.blog/changelog/2025-10-28-copilot-coding-agent-now-supports-self-hosted-runners/ "Copilot coding agent supports self-hosted runners"
-[anthropic-sandboxing]: https://www.anthropic.com/engineering/claude-code-sandboxing "Making Claude Code More Secure and Autonomous"
-[deterministic-boundaries]: https://arxiv.org/abs/2602.09947 "Trustworthy Agentic AI Requires Deterministic Architectural Boundaries"
-[redhat-kagenti]: https://next.redhat.com/2026/03/05/zero-trust-ai-agents-on-kubernetes-what-i-learned-deploying-multi-agent-systems-on-kagenti/ "Zero trust AI agents on Kubernetes with Kagenti"
-[owasp-agentic]: https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/ "OWASP Top 10 for Agentic Applications 2026"
-[bishopfox-deputy]: https://bishopfox.com/blog/otto-support-confused-deputy "The Confused Deputy: MCP Attack"
-[docker-mcp-horror]: https://www.docker.com/blog/mcp-horror-stories-github-prompt-injection/ "MCP Horror Stories: GitHub Prompt Injection Data Heist"
-[sandbox-escape]: https://arxiv.org/abs/2603.02277 "SandboxEscapeBench: Can AI Agents Escape Their Sandboxes?"
-[safeharness]: https://arxiv.org/abs/2604.13630 "SafeHarness: Lifecycle-Integrated Security Architecture for LLM-based Agents"
-[anthropic-nist]: https://www-cdn.anthropic.com/43ec7e770925deabc3f0bc1dbf0133769fd03812.pdf "Anthropic NIST RFI on Agentic Security"
-[infoq-k8s-agents]: https://www.infoq.com/articles/securing-autonomous-ai-agents-kubernetes/ "Securing Autonomous AI Agents on Kubernetes"
-[agentsight]: https://github.com/eunomia-bpf/agentsight/ "AgentSight repository"
-[actplane]: https://github.com/eunomia-bpf/ActPlane "ActPlane repository"
-
-- [GitHub Docs: About Copilot coding agent][copilot-agent]
-- [GitHub: Security Architecture of Agentic Workflows][github-agentic-sec]
-- [GitHub: Copilot coding agent supports self-hosted runners][copilot-self-hosted]
-- [OpenAI Codex cloud documentation][codex]
-- [OpenAI: Run long horizon tasks with Codex][codex-long]
-- [OpenAI: Codex Agent Approvals & Security][codex-security]
-- [Anthropic 2026 Agentic Coding Trends Report][anthropic-trends]
-- [Anthropic: Trustworthy Agents in Practice][anthropic-shared-resp]
-- [Anthropic Engineering: Claude Code auto mode][anthropic-auto]
-- [Anthropic Engineering: Making Claude Code More Secure][anthropic-sandboxing]
-- [Anthropic Engineering: Scaling Managed Agents][anthropic-managed]
-- [Anthropic NIST RFI on Agentic Security][anthropic-nist]
-- [Claude Code security documentation][claude-security]
+- [GitHub Docs: About Copilot coding agent](https://docs.github.com/en/copilot/concepts/about-copilot-coding-agent)
+- [GitHub: Security Architecture of Agentic Workflows](https://github.blog/ai-and-ml/generative-ai/under-the-hood-security-architecture-of-github-agentic-workflows/)
+- [GitHub: Copilot coding agent supports self-hosted runners](https://github.blog/changelog/2025-10-28-copilot-coding-agent-now-supports-self-hosted-runners/)
+- [OpenAI Codex cloud documentation](https://developers.openai.com/codex/cloud)
+- [OpenAI: Run long horizon tasks with Codex](https://developers.openai.com/blog/run-long-horizon-tasks-with-codex)
+- [OpenAI: Codex Agent Approvals & Security](https://developers.openai.com/codex/agent-approvals-security)
+- [Anthropic 2026 Agentic Coding Trends Report](https://resources.anthropic.com/hubfs/2026%20Agentic%20Coding%20Trends%20Report.pdf)
+- [Anthropic: Trustworthy Agents in Practice](https://www.anthropic.com/research/trustworthy-agents-in-practice)
+- [Anthropic Engineering: Claude Code auto mode](https://www.anthropic.com/engineering/claude-code-auto-mode)
+- [Anthropic Engineering: Making Claude Code More Secure](https://www.anthropic.com/engineering/claude-code-sandboxing)
+- [Anthropic Engineering: Scaling Managed Agents](https://www.anthropic.com/engineering/managed-agents)
+- [Anthropic NIST RFI on Agentic Security](https://www-cdn.anthropic.com/43ec7e770925deabc3f0bc1dbf0133769fd03812.pdf)
+- [Claude Code security documentation](https://docs.anthropic.com/en/docs/claude-code/security)
 - [Claude Code permission modes](https://code.claude.com/docs/en/permission-modes)
 - [MCP Security Best Practices](https://modelcontextprotocol.io/docs/tutorials/security/security_best_practices)
 - [MCP Authorization documentation](https://modelcontextprotocol.io/docs/tutorials/security/authorization)
-- [Kubernetes SIGs Agent Sandbox][k8s-sandbox]
+- [Kubernetes SIGs Agent Sandbox](https://agent-sandbox.sigs.k8s.io/)
 - [Google Cloud: Agent Sandbox on GKE](https://docs.cloud.google.com/kubernetes-engine/docs/how-to/agent-sandbox)
 - [OpenTelemetry GenAI semantic conventions](https://opentelemetry.io/docs/specs/semconv/gen-ai/)
-- [Meta KernelEvolve][kernelevolve]
-- [SWE-Bench Verified Leaderboard][swebench]
-- [Devin's 2025 Performance Review][devin-review]
-- [Goldman Sachs autonomous coder pilot][goldman]
-- [Red Hat: Zero trust AI agents on Kubernetes with Kagenti][redhat-kagenti]
-- [AIDev: Studying AI Coding Agents on GitHub][aidev]
+- [Meta KernelEvolve](https://engineering.fb.com/2026/04/02/developer-tools/kernelevolve-how-metas-ranking-engineer-agent-optimizes-ai-infrastructure/)
+- [SWE-Bench Verified Leaderboard](https://www.vals.ai/benchmarks/swebench)
+- [Devin's 2025 Performance Review](https://cognition.ai/blog/devin-annual-performance-review-2025)
+- [Goldman Sachs autonomous coder pilot](https://www.cnbc.com/2025/07/11/goldman-sachs-autonomous-coder-pilot-marks-major-ai-milestone.html)
+- [Red Hat: Zero trust AI agents on Kubernetes with Kagenti](https://next.redhat.com/2026/03/05/zero-trust-ai-agents-on-kubernetes-what-i-learned-deploying-multi-agent-systems-on-kagenti/)
+- [AIDev: Studying AI Coding Agents on GitHub](https://arxiv.org/abs/2602.09185)
 - [Agentic Workflow Injection in GitHub Actions](https://arxiv.org/abs/2605.07135)
-- [Measuring the Permission Gate: Claude Code Auto Mode][permission-gate]
-- [Trustworthy Agentic AI Requires Deterministic Architectural Boundaries][deterministic-boundaries]
-- [SafeHarness: Security Architecture for LLM-based Agents][safeharness]
-- [SandboxEscapeBench: Can AI Agents Escape Their Sandboxes?][sandbox-escape]
-- [OWASP Top 10 for Agentic Applications 2026][owasp-agentic]
-- [Bishop Fox: The Confused Deputy, MCP Attack][bishopfox-deputy]
-- [Docker: MCP Horror Stories, GitHub Prompt Injection][docker-mcp-horror]
-- [30+ Vulnerabilities in AI Coding Tools][idesaster]
-- [AI Agent Security Incidents Hit 65% of Firms][kiteworks]
-- [Bessemer: Securing AI agents in 2026][bessemer]
-- [InfoQ: Securing Autonomous AI Agents on Kubernetes][infoq-k8s-agents]
+- [Measuring the Permission Gate: Claude Code Auto Mode](https://arxiv.org/abs/2604.04978)
+- [Trustworthy Agentic AI Requires Deterministic Architectural Boundaries](https://arxiv.org/abs/2602.09947)
+- [SafeHarness: Security Architecture for LLM-based Agents](https://arxiv.org/abs/2604.13630)
+- [SandboxEscapeBench: Can AI Agents Escape Their Sandboxes?](https://arxiv.org/abs/2603.02277)
+- [OWASP Top 10 for Agentic Applications 2026](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/)
+- [Bishop Fox: The Confused Deputy, MCP Attack](https://bishopfox.com/blog/otto-support-confused-deputy)
+- [Docker: MCP Horror Stories, GitHub Prompt Injection](https://www.docker.com/blog/mcp-horror-stories-github-prompt-injection/)
+- [30+ Vulnerabilities in AI Coding Tools](https://thehackernews.com/2025/12/researchers-uncover-30-flaws-in-ai.html)
+- [AI Agent Security Incidents Hit 65% of Firms](https://www.kiteworks.com/cybersecurity-risk-management/ai-agent-security-incidents-2026/)
+- [Bessemer: Securing AI agents in 2026](https://www.bvp.com/atlas/securing-ai-agents-the-defining-cybersecurity-challenge-of-2026)
+- [InfoQ: Securing Autonomous AI Agents on Kubernetes](https://www.infoq.com/articles/securing-autonomous-ai-agents-kubernetes/)
 - [AgentSight blog post](agentsight_paper.md)
-- [AgentSight repository][agentsight]
-- [ActPlane repository][actplane]
+- [AgentSight repository](https://github.com/eunomia-bpf/agentsight/)
+- [ActPlane repository](https://github.com/eunomia-bpf/ActPlane)
