@@ -1,7 +1,7 @@
 ---
 date: 2026-05-25
 slug: runtime-security-for-ai-agents
-description: As AI coding agents run autonomously for hours inside harnesses and sandboxes the platform team may not own, approval-based control breaks down. This post argues for separating agent security into three layers (intent authorization, execution isolation, side-effect verification) and using eBPF-based observability (AgentSight) and enforcement (ActPlane) as an independent evidence and policy plane below the harness.
+description: As AI coding agents run autonomously for hours inside harnesses and sandboxes the platform team may not own, approval-based control breaks down. This post argues for separating agent security into three layers (intent authorization, execution isolation, side-effect verification) and using eBPF-based observability (AgentSight) and enforcement (ActPlane) as an independent runtime observability and enforcement below the harness.
 ---
 
 # Runtime Observability and Enforcement for Opaque AI Agents with eBPF: Beyond Sandboxes and Approvals
@@ -26,7 +26,7 @@ detect it, and that is exactly the layer most agent platforms are missing. We
 are building projects towards this direction:
 [AgentSight](https://github.com/eunomia-bpf/agentsight/) for runtime observation and
 [ActPlane](https://github.com/eunomia-bpf/ActPlane) for runtime harness enforcement, both using eBPF to provide an
-independent evidence and policy plane below the agent harness.
+independent runtime observability and enforcement below the agent harness.
 
 <!-- more -->
 
@@ -128,12 +128,12 @@ harness, tools, and environment, the layers shaped by the deploying party, are
 as decisive as the model itself. Anthropic itself notes that even together,
 these layered safeguards are not a guarantee. The question the framework
 leaves open is what happens when a failure crosses these layers, and whether
-the deployer has independent evidence to detect it. In cloud infrastructure,
-the analogous gap in shared responsibility led to independent evidence
-services (CloudTrail, Config, GuardDuty) controlled by the customer, not the
-provider. Agent infrastructure has no equivalent yet: the deployer is told it
-owns harness, tools, and environment, but often has no independent way to
-verify what those layers actually did at runtime.
+the deployer has independent observability to detect it. In cloud infrastructure,
+the analogous gap in shared responsibility led to independent observability
+and audit services (CloudTrail, Config, GuardDuty) controlled by the
+customer, not the provider. Agent infrastructure has no equivalent yet: the
+deployer is told it owns harness, tools, and environment, but often has no
+independent way to verify what those layers actually did at runtime.
 
 GitHub's agentic
 workflow architecture starts from the premise that ["agents cannot be trusted by
@@ -163,9 +163,9 @@ When agents run locally or on self-hosted infrastructure (GitHub now [supports
 self-hosted runners](https://github.blog/changelog/2025-10-28-copilot-coding-agent-now-supports-self-hosted-runners/) for its coding agent, and Kubernetes
 Agent Sandbox provides [gVisor/Kata-backed isolation](https://agent-sandbox.sigs.k8s.io/) under the
 platform operator's control), the environment owner can wrap the agent in its
-own sandbox and evidence layer. When agents run in provider-managed
-environments, the independent evidence plane must move to the boundaries the
-platform team does control.
+own sandbox and observability. When agents run in provider-managed
+environments, independent observability and enforcement must move to the
+boundaries the platform team does control.
 
 This creates the accountability gap: **the platform team is responsible for
 production impact from a workload it cannot fully inspect, running in a sandbox
@@ -173,12 +173,11 @@ it may not own.**
 
 The old mental model was simple: the agent is risky, so put it in a sandbox.
 The new reality has a different trust boundary: the agent and its harness are
-part of the workload, and the environment owner needs an independent evidence
-plane.
+part of the workload, and the environment owner needs independent runtime observability.
 
 ## Three Layers, Three Questions
 
-MCP, sandboxes, and OS-level evidence are all necessary for agent security.
+MCP, sandboxes, and OS-level observability are all necessary for agent security.
 They are not interchangeable. Each answers a fundamentally different question,
 and each has a different owner.
 
@@ -200,7 +199,7 @@ connection, whether the sandbox policy matched the approved intent. This layer's
 ownership is contested: it may belong to the agent provider, the platform team,
 or both.
 
-**Side-effect verification** (OS/runtime evidence) answers: what *actually
+**Side-effect verification** (OS/runtime observability) answers: what *actually
 happened*? Which processes ran, which files were read, which network connections
 were opened, which credentials were accessed? This layer provides facts about
 execution, independent of what the framework reported or the sandbox intended.
@@ -228,13 +227,12 @@ also from a deeper structural argument about ownership and trust.
 When approvals are relaxed (as the evidence above shows they routinely are),
 the other two layers must compensate. If you auto-approve routine actions, you
 need an independent way to verify what those actions actually did. If you
-bypass permissions for speed, you need stronger containment and stronger
-evidence.
+bypass permissions for speed, you need stronger containment and stronger observability.
 
 ### Harness opacity
 
 When the harness is opaque, application-level telemetry cannot be the sole
-evidence source. OpenTelemetry GenAI conventions and framework-level tracing are
+source of truth. OpenTelemetry GenAI conventions and framework-level tracing are
 valuable when you own the framework. But opaque agent apps, closed-source
 runtimes, hosted execution, stripped binaries, and arbitrary subprocess trees
 can all break the assumption that the framework trace is complete. OpenClaw
@@ -290,7 +288,7 @@ private repositories.
 
 The threat model for platform teams therefore has three adversary categories:
 
-| Threat | Which layer fails | Evidence plane detects |
+| Threat | Which layer fails | Runtime observability detects |
 |--------|------------------|-----------------------|
 | **Compromised agent** (prompt injection, malicious repo/issue/MCP response) | Intent layer: agent is tricked into unintended actions | Actual side effects diverge from stated intent |
 | **Untrusted harness** (opaque permission logic, incomplete logs, unauditable internal state) | Cannot verify harness completeness | OS-level facts independent of harness reporting |
@@ -303,13 +301,13 @@ discovered four unintended escape paths the benchmark designers had missed.
 Their recommendation: ["treat plain Docker isolation as insufficient by
 default."](https://arxiv.org/abs/2603.02277)
 
-In all three cases, the OS/runtime evidence layer is the independent control
+In all three cases, OS/runtime observability is the independent control
 that lets the platform team detect the problem, regardless of which other layer
 failed.
 
-## What OS Evidence Looks Like
+## What OS-Level Monitoring Captures
 
-At the OS/runtime layer, evidence includes:
+At the OS/runtime layer, observability captures:
 
 - **Process lineage**: the full tree from agent to subprocess to network call
 - **File access**: which paths were read or written, including credential paths
@@ -317,17 +315,17 @@ At the OS/runtime layer, evidence includes:
 - **Container metadata**: namespace, cgroup, pod identity, service account
 - **Subprocess behavior**: commands that bypass framework instrumentation
 
-This evidence is collected below the application layer, typically via eBPF,
+This data is collected below the application layer, typically via eBPF,
 audit subsystems, or kernel instrumentation. It does not require modifying the
-agent app. Its key property is independence: the evidence is owned and collected
-by the environment operator, not by the agent provider.
+agent app. Its key property is independence: the observability is owned and
+operated by the environment operator, not by the agent provider.
 
 This makes cross-layer comparison possible:
 
 ```text
 Framework report:    run tests
 Sandbox policy:      workspace mounted, registry allowed, SA token mounted
-OS evidence:         agent → shell → python → curl
+OS observability:       agent → shell → python → curl
                      read: /var/run/secrets/.../token
                      connect: unknown external host
 ```
@@ -335,17 +333,16 @@ OS evidence:         agent → shell → python → curl
 Each layer saw a different part of the event. Without the OS layer, this is an
 undetected credential theft: a service account token read and exfiltrated while
 the framework logged only "running tests." The platform team discovers the
-breach days later, if at all. The OS evidence layer is what turns an invisible
-data leak into a real-time detection.
+breach days later, if at all. OS-level observability is what turns an invisible data leak into a real-time
+detection.
 
 ## Deployment Reality
 
-OS-level evidence is strongest when you control the host, node, or VM where the
+OS-level observability is strongest when you control the host, node, or VM where the
 agent executes. If the agent runs entirely in a provider-managed environment,
 you may not be able to attach eBPF inside it.
 
-In that case, the same model applies, but evidence shifts to the boundaries you
-do control:
+In that case, the same model applies, but observability shifts to the boundaries you do control:
 
 - Repository permissions and branch protection
 - Scoped credentials with minimal lifetime
@@ -354,13 +351,13 @@ do control:
 - Artifact access logs
 - Provider-supplied session logs
 
-This evidence is weaker than owning the runtime boundary, but it is still better
+This observability is weaker than owning the runtime boundary, but it is still better
 than treating the agent transcript as the only source of truth.
 
 The design question for platform teams is:
 
 > Where is the lowest layer I actually control?
-> That is where the independent evidence plane should live.
+> That is where independent observability should live.
 
 ## AgentSight and ActPlane: Observe, Then Enforce
 
@@ -394,8 +391,8 @@ chains, causal ordering ("run tests before committing"), and staleness
 invalidation, going well beyond what sandboxes or tool-layer guards can
 express.
 
-The two tools are complementary. AgentSight provides the evidence plane:
-independent, below-the-application facts about what the agent did. ActPlane
+The two tools are complementary. AgentSight provides runtime observability:
+independent, below-the-application visibility into what the agent did. ActPlane
 provides the enforcement plane: deterministic, kernel-level guarantees about
 what the agent cannot do. Together they implement the "verify side effects"
 layer of the three-layer model, independent of the harness provider and
@@ -406,9 +403,10 @@ The important point is the separation: observe and enforce at a layer the
 environment operator controls, regardless of which agent runtime sits above.
 
 This also addresses ecosystem gaps Anthropic identifies: the need for
-cross-deployment evidence sharing and open standards for agent security.
-Independent runtime evidence that travels with the workload, rather than
-being locked to a specific harness or provider, is the foundation for both.
+cross-deployment security telemetry sharing and open standards for agent
+security. Independent runtime observability that travels with the workload,
+rather than being locked to a specific harness or provider, is the foundation
+for both.
 
 ## Practical Checklist
 
@@ -432,7 +430,7 @@ each layer.
 - Are process, memory, CPU, and runtime duration bounded?
 - Who owns the sandbox policy: the platform team or the agent provider?
 
-**Side-effect verification (runtime evidence):**
+**Side-effect verification (runtime observability):**
 
 - Can you reconstruct process lineage for an agent session?
 - Can you see file and credential access below the framework?
@@ -448,7 +446,7 @@ each layer.
 - Which should trigger alert or human review?
 - Which policies belong in MCP config, sandbox config, Kubernetes policy,
   eBPF/LSM, or network controls?
-- What happens when framework logs and OS evidence disagree?
+- What happens when framework logs and OS-level observability disagree?
 
 ## Closing
 
@@ -458,9 +456,9 @@ have different owners.
 
 The harness is not a trusted boundary. The sandbox ownership depends on the
 deployment model. The only layer the environment operator can guarantee it
-owns is the OS/runtime evidence plane.
+owns is OS/runtime observability.
 
-MCP authorizes intent. Sandboxes constrain execution. OS evidence verifies side
+MCP authorizes intent. Sandboxes constrain execution. OS-level observability verifies side
 effects. Each is necessary; none is sufficient. The practical model is their
 separation:
 
