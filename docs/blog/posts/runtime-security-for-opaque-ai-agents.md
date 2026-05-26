@@ -79,8 +79,10 @@ should have required human review. Real incidents have followed: in documented
 cases, users running agents without permission gates had their [home directories
 deleted](https://gist.github.com/hartphoenix/698eb8ef8b08ad2ce6a99cf7346cd7cc) by `rm -rf` commands the agent generated. A 2026
 industry survey found that [65% of firms reported AI agent security
-incidents](https://www.kiteworks.com/cybersecurity-risk-management/ai-agent-security-incidents-2026/), with most involving organizations lacking proper agent
-access controls.
+incidents](https://www.kiteworks.com/cybersecurity-risk-management/ai-agent-security-incidents-2026/), primarily
+unauthorized data access, credential exposure, and exfiltration to external
+endpoints, with most involving organizations lacking proper agent access
+controls.
 
 Products have responded by adding bypass mechanisms. Claude Code offers
 `--dangerously-skip-permissions`. Windsurf's Cascade agent [proceeds
@@ -123,7 +125,17 @@ responsibility framework [divides agent security into four
 layers](https://www.anthropic.com/research/trustworthy-agents) (Model, Harness, Tools, Environment) and
 stresses that an agent's behavior depends on all four working together, so the
 harness, tools, and environment, the layers shaped by the deploying party, are
-as decisive as the model itself. GitHub's agentic
+as decisive as the model itself. Anthropic itself notes that even together,
+these layered safeguards are not a guarantee. The question the framework
+leaves open is what happens when a failure crosses these layers, and whether
+the deployer has independent evidence to detect it. In cloud infrastructure,
+the analogous gap in shared responsibility led to independent evidence
+services (CloudTrail, Config, GuardDuty) controlled by the customer, not the
+provider. Agent infrastructure has no equivalent yet: the deployer is told it
+owns harness, tools, and environment, but often has no independent way to
+verify what those layers actually did at runtime.
+
+GitHub's agentic
 workflow architecture starts from the premise that ["agents cannot be trusted by
 default, especially in the presence of untrusted inputs"](https://github.blog/ai-and-ml/generative-ai/under-the-hood-security-architecture-of-github-agentic-workflows/),
 using kernel-enforced communication boundaries that hold even if the agent
@@ -143,9 +155,8 @@ proxies; Codex runs in [OpenAI-managed containers](https://developers.openai.com
 platform team cannot attach its own monitoring, modify isolation policy, or
 inspect the sandbox internals. Even Anthropic's own managed agent architecture
 explicitly [decouples the "brain" (Claude + harness) from the
-"hands" (sandboxes)](https://www.anthropic.com/engineering/managed-agents), treating containers as disposable
-cattle and ensuring tokens are never reachable from the sandbox where generated
-code runs. This is good architecture, but it is the provider's architecture,
+"hands" (sandboxes)](https://www.anthropic.com/engineering/managed-agents), treating containers as disposable and ensuring tokens are never reachable
+from the sandbox where generated code runs. This is good architecture, but it is the provider's architecture,
 not the platform team's.
 
 When agents run locally or on self-hosted infrastructure (GitHub now [supports
@@ -214,11 +225,11 @@ also from a deeper structural argument about ownership and trust.
 
 ### Approval fatigue
 
-As we have seen, users approve 93% of prompts and products actively offer bypass
-modes. When approvals are relaxed, the other two layers must compensate.
-If you auto-approve routine actions, you need an independent way to verify what
-those actions actually did. If you bypass permissions for speed, you need
-stronger containment and stronger evidence.
+When approvals are relaxed (as the evidence above shows they routinely are),
+the other two layers must compensate. If you auto-approve routine actions, you
+need an independent way to verify what those actions actually did. If you
+bypass permissions for speed, you need stronger containment and stronger
+evidence.
 
 ### Harness opacity
 
@@ -321,8 +332,11 @@ OS evidence:         agent → shell → python → curl
                      connect: unknown external host
 ```
 
-Each layer saw a different part of the event. The OS evidence layer is what lets
-the platform team detect the mismatch.
+Each layer saw a different part of the event. Without the OS layer, this is an
+undetected credential theft: a service account token read and exfiltrated while
+the framework logged only "running tests." The platform team discovers the
+breach days later, if at all. The OS evidence layer is what turns an invisible
+data leak into a real-time detection.
 
 ## Deployment Reality
 
@@ -362,7 +376,10 @@ lineage, LLM API calls (prompts and completions), file access, network
 connections, and tool invocations, all correlated into a live timeline. This is
 the "see what actually happened" layer. Because it operates below the
 application, it works even when the agent runtime is opaque, closed-source, or
-running arbitrary subprocesses that bypass framework-level tracing.
+running arbitrary subprocesses that bypass framework-level tracing. In
+practice, this means detecting credential access, data exfiltration attempts,
+and unauthorized network connections as they happen, not days later when an
+external party reports the breach.
 
 **[ActPlane](https://github.com/eunomia-bpf/ActPlane)** is an OS-level harness for AI agents. Where AgentSight
 observes, ActPlane enforces. You write behavioral contracts in a YAML-based
@@ -387,6 +404,11 @@ independent of who owns the sandbox.
 Both are possible implementations of this architecture, not the only ones.
 The important point is the separation: observe and enforce at a layer the
 environment operator controls, regardless of which agent runtime sits above.
+
+This also addresses ecosystem gaps Anthropic identifies: the need for
+cross-deployment evidence sharing and open standards for agent security.
+Independent runtime evidence that travels with the workload, rather than
+being locked to a specific harness or provider, is the foundation for both.
 
 ## Practical Checklist
 
@@ -417,6 +439,8 @@ each layer.
 - Can you correlate network egress with pod, service account, and command?
 - Can you detect mismatch between tool intent and OS side effects?
 - Can you replay an incident without trusting only framework logs?
+- Can you demonstrate to auditors (SOC 2, ISO 27001) how automated agent
+  access to production data and credentials is monitored and logged?
 
 **Guardrail integration:**
 
