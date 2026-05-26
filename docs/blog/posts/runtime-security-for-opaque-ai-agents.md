@@ -1,6 +1,7 @@
 ---
 date: 2026-05-25
 slug: runtime-security-for-ai-agents
+description: As AI coding agents run autonomously for hours inside harnesses and sandboxes the platform team may not own, approval-based control breaks down. This post argues for separating agent security into three layers (intent authorization, execution isolation, side-effect verification) and using eBPF-based observability (AgentSight) and enforcement (ActPlane) as an independent evidence and policy plane below the harness.
 ---
 
 # Runtime Observability and Enforcement for Opaque AI Agents with eBPF: Beyond Sandboxes and Approvals
@@ -119,8 +120,10 @@ repositories.
 
 The ownership split is now explicit in major platforms. Anthropic's shared
 responsibility framework [divides agent security into four
-layers](https://www.anthropic.com/research/trustworthy-agents-in-practice) (Model, Harness, Tools, Environment) and
-states that the deploying organization owns three of the four. GitHub's agentic
+layers](https://www.anthropic.com/research/trustworthy-agents) (Model, Harness, Tools, Environment) and
+stresses that an agent's behavior depends on all four working together, so the
+harness, tools, and environment, the layers shaped by the deploying party, are
+as decisive as the model itself. GitHub's agentic
 workflow architecture starts from the premise that ["agents cannot be trusted by
 default, especially in the presence of untrusted inputs"](https://github.blog/ai-and-ml/generative-ai/under-the-hood-security-architecture-of-github-agentic-workflows/),
 using kernel-enforced communication boundaries that hold even if the agent
@@ -458,7 +461,7 @@ and enforcement layers respectively.
 - [OpenAI: Run long horizon tasks with Codex](https://developers.openai.com/blog/run-long-horizon-tasks-with-codex)
 - [OpenAI: Codex Agent Approvals & Security](https://developers.openai.com/codex/agent-approvals-security)
 - [Anthropic 2026 Agentic Coding Trends Report](https://resources.anthropic.com/hubfs/2026%20Agentic%20Coding%20Trends%20Report.pdf)
-- [Anthropic: Trustworthy Agents in Practice](https://www.anthropic.com/research/trustworthy-agents-in-practice)
+- [Anthropic: Trustworthy Agents](https://www.anthropic.com/research/trustworthy-agents)
 - [Anthropic Engineering: Claude Code auto mode](https://www.anthropic.com/engineering/claude-code-auto-mode)
 - [Anthropic Engineering: Making Claude Code More Secure](https://www.anthropic.com/engineering/claude-code-sandboxing)
 - [Anthropic Engineering: Scaling Managed Agents](https://www.anthropic.com/engineering/managed-agents)
