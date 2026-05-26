@@ -19,7 +19,7 @@ Suppose a user asks an agent to transfer $500 to Bob. The agent calls a bank API
 
 After restore, the agent again executes the intent "transfer $500 to Bob." This time, however, it generates a different reference id, `f9a8b7c6`. The bank's duplicate detection logic only sees two different references, so it accepts the second transfer. Bob receives $1000, while the agent's local view remains "I transferred once."
 
-![Action Replay attack flow](imgs/acrfence/fig-sequence.png)
+![Action Replay attack flow](https://eunomia.dev/_content-assets/docs/blog/posts/imgs/acrfence/fig-sequence.png)
 *Figure 1: Action Replay. A malicious MCP service triggers a crash after a successful transfer. After restore, the agent reissues the transfer with a new reference id, so the bank treats it as a new transaction.*
 
 The key point is not that the transfer API lacks idempotency. The problem is that the precondition for idempotency is broken. Systems such as Stripe and AWS ECS rely on the caller retrying with the same idempotency key or the same critical parameters. An LLM agent rethinks after restore and may produce a different token sequence. Even at temperature 0, byte-identical tool calls are not guaranteed. As a result, traditional server-side deduplication cannot recognize a "semantically same" retry.
@@ -34,7 +34,7 @@ In the agent setting, three facts combine badly:
 - **The external state is not rolled back.** The bank ledger, approval system, or cloud control plane still records the previous successful action.
 - **The post-restore tool call may differ.** The LLM may regenerate UUIDs, nonces, timestamps, or even change the target object under user guidance.
 
-![Divergence between agent state and external state](imgs/acrfence/fig-divergence.png)
+![Divergence between agent state and external state](https://eunomia.dev/_content-assets/docs/blog/posts/imgs/acrfence/fig-divergence.png)
 *Figure 2: Restore only affects local agent state. External state keeps moving forward. This divergence is the core of semantic rollback attacks.*
 
 This resembles the classic output commit problem in distributed systems: once output has been committed to the outside world, rolling back the local process alone cannot take the whole system back in time. The new twist is that an LLM agent may synthesize a different request after restore, blurring the boundary between "retry" and "new request."
@@ -51,7 +51,7 @@ The attack path is direct:
 4. The agent returns to the old checkpoint and repeats the same task.
 5. The LLM generates a fresh request id, so the target service cannot recognize the repeated intent and commits again.
 
-![Normal execution compared with attack execution](imgs/acrfence/fig-comparison.png)
+![Normal execution compared with attack execution](https://eunomia.dev/_content-assets/docs/blog/posts/imgs/acrfence/fig-comparison.png)
 *Figure 3: Normal execution transfers once. In the attack path, crash-induced restore causes the same semantic action to execute twice.*
 
 In our experiments, we used Claude Code CLI backed by Qwen3-32B. External services were simulated as MCP tool servers: a bank service with UUID-based duplicate detection and a malicious payee service that crashes the agent after a successful transfer. Across 10 checkpoint/restore trials, all 10 produced duplicate commits. A no-checkpoint baseline produced none. This confirms that the vulnerability comes from the interaction between restore and external side effects, not from ordinary model randomness alone.
@@ -97,7 +97,7 @@ ACRFence can be deployed as an MCP proxy or a similar tool-call proxy between th
 - thread and branch identifiers, to distinguish execution branches in the same session;
 - tool name and arguments;
 - return value or error;
-- runtime context, such as process, network, and file-access context, which can be enriched by system-level monitors such as eBPF;
+- runtime context, such as process, network, and file-access context, which can be enriched by eBPF-based system-level monitors such as [AgentSight](https://github.com/eunomia-bpf/agentsight/);
 - consumed credentials or authorization objects, when applicable.
 
 When the agent restores from a checkpoint and issues another tool call, ACRFence does not immediately forward it. It first compares the new call with the historical effect log:
