@@ -3,7 +3,7 @@ date: 2026-05-25
 slug: runtime-security-for-ai-agents
 ---
 
-# 不透明 AI Agent 的运行时可观测与执行控制：超越沙箱与审批
+# 基于 eBPF 的不透明 AI Agent 运行时可观测与执行控制：超越沙箱与审批
 
 AI 编程 Agent 如今可以连续运行数小时，端到端地完成整个功能开发，优化生产级
 GPU 内核，并自主合并数千个 Pull Request。然而，大多数 Agent 安全仍然依赖

@@ -3,7 +3,7 @@ date: 2026-05-25
 slug: runtime-security-for-ai-agents
 ---
 
-# Runtime Observability and Enforcement for Opaque AI Agents: Beyond Sandboxes and Approvals
+# Runtime Observability and Enforcement for Opaque AI Agents with eBPF: Beyond Sandboxes and Approvals
 
 AI coding agents now run for hours, complete entire features end-to-end,
 optimize production GPU kernels, and merge thousands of pull requests
