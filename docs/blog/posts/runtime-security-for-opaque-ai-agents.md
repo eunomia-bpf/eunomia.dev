@@ -48,6 +48,15 @@ resolve 60–70%](https://www.vals.ai/benchmarks/swebench) of real GitHub issues
 across enterprise customers with a 67% merge rate. Goldman Sachs [deployed
 hundreds of Devin instances](https://www.cnbc.com/2025/07/11/goldman-sachs-autonomous-coder-pilot-marks-major-ai-milestone.html) across a 12,000-person engineering team.
 
+Beyond coding, general-purpose autonomous agents have gone mainstream.
+[OpenClaw](https://github.com/openclaw/openclaw), an open-source agent with
+over 300,000 GitHub stars, connects to LLMs and executes shell commands,
+browser automation, email, calendar, and file operations on the user's machine.
+CrowdStrike called it ["the AI Super Agent" security teams need to worry
+about](https://www.crowdstrike.com/en-us/blog/what-security-teams-need-to-know-about-openclaw-ai-super-agent/):
+between January and April 2026, [470 security advisories](https://www.reco.ai/blog/openclaw-the-ai-agent-security-crisis-unfolding-right-now)
+were filed against it across three disclosure waves.
+
 These are not research demos. They are production workflows: background tasks,
 parallel execution, multi-hour sessions, end-to-end feature development, kernel
 optimization, and enterprise-scale code changes.
@@ -214,8 +223,14 @@ When the harness is opaque, application-level telemetry cannot be the sole
 evidence source. OpenTelemetry GenAI conventions and framework-level tracing are
 valuable when you own the framework. But opaque agent apps, closed-source
 runtimes, hosted execution, stripped binaries, and arbitrary subprocess trees
-can all break the assumption that the framework trace is complete. Security
-researchers have already found [30+ vulnerabilities across all major AI
+can all break the assumption that the framework trace is complete. OpenClaw
+illustrates this directly: its behavior is [non-deterministic across
+runs](https://arxiv.org/html/2603.27517v2), producing different tool-calling
+sequences for the same input, which makes static code review inadequate and
+drove multiple teams to build dedicated runtime observability tools for it
+([OneClaw](https://www.sentinelone.com/blog/oneclaw-discovery-and-observability-for-the-agentic-era/),
+[ClawTrace](https://www.epsilla.com/blogs/clawtrace-launch-openclaw-agent-observability)).
+Security researchers have already found [30+ vulnerabilities across all major AI
 IDEs](https://thehackernews.com/2025/12/researchers-uncover-30-flaws-in-ai.html) (Cursor, Copilot, Windsurf, Claude Code), enabling data theft
 and remote code execution through prompt injection into agent tool chains.
 
@@ -473,6 +488,11 @@ and enforcement layers respectively.
 - [AI Agent Security Incidents Hit 65% of Firms](https://www.kiteworks.com/cybersecurity-risk-management/ai-agent-security-incidents-2026/)
 - [Bessemer: Securing AI agents in 2026](https://www.bvp.com/atlas/securing-ai-agents-the-defining-cybersecurity-challenge-of-2026)
 - [InfoQ: Securing Autonomous AI Agents on Kubernetes](https://www.infoq.com/articles/securing-autonomous-ai-agents-kubernetes/)
+- [CrowdStrike: What Security Teams Need to Know About OpenClaw](https://www.crowdstrike.com/en-us/blog/what-security-teams-need-to-know-about-openclaw-ai-super-agent/)
+- [Reco.ai: The OpenClaw Agent Security Crisis](https://www.reco.ai/blog/openclaw-the-ai-agent-security-crisis-unfolding-right-now)
+- [OpenClaw Security Analysis](https://arxiv.org/html/2603.27517v2)
+- [SentinelOne: OneClaw Discovery and Observability](https://www.sentinelone.com/blog/oneclaw-discovery-and-observability-for-the-agentic-era/)
+- [Epsilla: ClawTrace Agent Observability](https://www.epsilla.com/blogs/clawtrace-launch-openclaw-agent-observability)
 - [AgentSight blog post](agentsight_paper.md)
 - [AgentSight repository](https://github.com/eunomia-bpf/agentsight/)
 - [ActPlane repository](https://github.com/eunomia-bpf/ActPlane)
