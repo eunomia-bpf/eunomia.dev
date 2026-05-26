@@ -10,7 +10,7 @@
     "generate:static-metadata": "tsx scripts/generate-static-metadata.ts",
     "generate:content-artifacts": "npm run clean:generated && npm run generate:content-index && npm run generate:search-index && npm run generate:static-assets && npm run generate:static-metadata",
     "dev": "npm run generate:content-artifacts && next dev",
-    "build": "npm run generate:content-artifacts && NEXT_DIST_DIR=${NEXT_DIST_DIR:-.static-builds/export} next build && NEXT_DIST_DIR=${NEXT_DIST_DIR:-.static-builds/export} node scripts/finalize-static-export.mjs",
+    "build": "npm run generate:content-artifacts && NEXT_DIST_DIR=${NEXT_DIST_DIR:-.static-builds/export} next build && NEXT_DIST_DIR=${NEXT_DIST_DIR:-.static-builds/export} node scripts/finalize-static-export.mjs && node scripts/generate-legacy-redirects.mjs",
     "start": "node scripts/assert-content-artifacts.mjs && node ../test/scripts/lib/static-server.mjs",
     "lint:app": "eslint components lib pages scripts tests *.config.* --config ./eslint.config.mjs --max-warnings=0",
     "lint:test": "cd ../test && ../app/node_modules/.bin/eslint scripts *.mjs --config ./eslint.config.mjs --max-warnings=0",

@@ -2120,14 +2120,14 @@ Based on code structure and recent additions:
 
 ### 8.1 Detailed Analysis Documents
 
-- **Kernel Interface Layer:** [kernel-open-analysis.md](kernel-open-analysis.md)
+- **Kernel Interface Layer:** `kernel-open-analysis.md`
   - nvidia.ko core driver (38,762 LOC)
   - nvidia-uvm.ko unified memory (103,318 LOC)
   - nvidia-drm.ko DRM integration
   - nvidia-modeset.ko mode setting interface
   - nvidia-peermem.ko RDMA support
 
-- **Common Libraries:** [common-analysis.md](common-analysis.md)
+- **Common Libraries:** `common-analysis.md`
   - DisplayPort library (41 files, C++)
   - NVLink library (30+ files)
   - NVSwitch management (100+ files)
@@ -2135,7 +2135,7 @@ Based on code structure and recent additions:
   - Hardware reference (600+ files)
   - Supporting libraries (message queue, softfloat, uproc, etc.)
 
-- **Core GPU Driver:** [nvidia-analysis.md](nvidia-analysis.md)
+- **Core GPU Driver:** `nvidia-analysis.md`
   - OBJGPU and core architecture
   - RESSERV resource management
   - Memory management (MemoryManager, PMA, GMMU)
@@ -2143,7 +2143,7 @@ Based on code structure and recent additions:
   - Engine management (FIFO, CE, GR, etc.)
   - HAL and multi-generation support
 
-- **Display Mode-Setting:** [nvidia-modeset-analysis.md](nvidia-modeset-analysis.md)
+- **Display Mode-Setting:** `nvidia-modeset-analysis.md`
   - NVKMS architecture
   - EVO display engine (HAL versions 1-4)
   - Modesetting state machine
