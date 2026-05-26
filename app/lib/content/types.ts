@@ -144,6 +144,12 @@ export type DocsPage = {
   layout: "directory" | "document";
   title: string;
   description: string;
+  /**
+   * True when `description` is an auto-generated excerpt of the body rather than a
+   * curated frontmatter/config description. Used to suppress the truncated lead
+   * paragraph on the article page while still feeding the excerpt to SEO meta.
+   */
+  descriptionIsExcerpt?: boolean;
   bodyHtml: string;
   date?: string;
   sourcePath: string;

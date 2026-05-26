@@ -90,7 +90,7 @@ function renderDocsBody(page: DocsPage, locale: Locale) {
       locale={locale}
       path={page.path}
       title={page.title}
-      description={page.description}
+      description={page.descriptionIsExcerpt ? "" : page.description}
       sourceHref={page.sourcePath}
       metadata={page.metadata}
       headings={page.layout === "document" ? page.headings : []}
