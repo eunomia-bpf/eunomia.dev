@@ -348,7 +348,7 @@ export function ProductsLandingPage({ locale, links, projects }: ProductPageProp
           agent:
             "旗舰：在系统/eBPF 边界对 AI agent 做零插桩可观测（AgentSight）与运行时管控（ActPlane）——框架无关、约 3% 开销、内核级 ground truth。",
           bpftime:
-            "底层引擎与护城河：高性能 userspace eBPF runtime（OSDI 2025），同时支撑低开销 tracing、GPU paths 和定制 runtime extension。",
+            "底层引擎与护城河：高性能 userspace eBPF runtime，同时支撑低开销 tracing、GPU paths 和定制 runtime extension。",
           services:
             "过桥性质的 design-partner 合作：固定范围咨询、POC、生产加固、性能调优，以及 eBPF / agent infra 的定制集成。",
           buyersTitle: "适合的团队",
@@ -385,7 +385,7 @@ export function ProductsLandingPage({ locale, links, projects }: ProductPageProp
           agent:
             "Flagship: zero-instrumentation observability (AgentSight) and runtime harness (ActPlane) for AI agents at the system/eBPF boundary — framework-agnostic, ~3% overhead, kernel-level ground truth.",
           bpftime:
-            "The engine and moat: a high-performance userspace eBPF runtime (OSDI 2025) that also powers low-overhead tracing, GPU paths, and custom runtime extension.",
+            "The engine and moat: a high-performance userspace eBPF runtime that also powers low-overhead tracing, GPU paths, and custom runtime extension.",
           services:
             "Bridge-style design-partner work: fixed-scope consulting, POCs, production hardening, performance tuning, and custom eBPF / agent infra integration.",
           buyersTitle: "Who it helps",

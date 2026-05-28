@@ -97,8 +97,8 @@ export function StarBar({ repos, locale }: { repos: StarRepo[]; locale: Locale }
 }
 
 /**
- * Stable credibility facts (publication, license, research provenance). Unlike
- * star counts these do not change, so the copy is fixed.
+ * Stable credibility facts. Unlike star counts these do not change, so the
+ * copy is fixed and intentionally generic across product and project pages.
  */
 export function CredibilityStrip({
   locale,
@@ -174,7 +174,7 @@ export function ContactCard({
           eyebrow: "联系",
           title: "和维护团队直接对话",
           body:
-            "由 eunomia-bpf 开源团队维护，工作根植于已发表的系统研究（OSDI 2025）。企业评估、POC 和生产集成可直接邮件联系，我们通常在两个工作日内回复。",
+            "由 eunomia-bpf 开源团队维护，聚焦 eBPF、runtime extension 和 AI agent infrastructure 的系统工程。企业评估、POC 和生产集成可直接邮件联系，我们通常在两个工作日内回复。",
           cta: "邮件联系",
           response: "通常 2 个工作日内回复"
         }
@@ -182,7 +182,7 @@ export function ContactCard({
           eyebrow: "Contact",
           title: "Talk to the people who maintain it",
           body:
-            "Maintained by the eunomia-bpf open-source team, with work grounded in published systems research (OSDI 2025). Reach out directly for enterprise evaluation, POCs, and production integration.",
+            "Maintained by the eunomia-bpf open-source team, focused on systems engineering for eBPF, runtime extension, and AI agent infrastructure. Reach out directly for enterprise evaluation, POCs, and production integration.",
           cta: "Email us",
           response: "Typically replies within 2 business days"
         };
