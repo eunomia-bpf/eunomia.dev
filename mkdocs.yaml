@@ -251,6 +251,17 @@ extra:
         footer_explore: true
         footer_project: false
       order: 50
+    reports:
+      labels:
+        en: Activity
+        zh: 动态
+      published:
+        nav: false
+        home_track: false
+        home_explore: false
+        footer_explore: true
+        footer_project: false
+      order: 55
     about:
       labels:
         en: About
@@ -346,6 +357,16 @@ extra:
       - label: AgentSight
         label_zh: AgentSight
         href: /GPTtrace/agentsight/
+    others:
+      - label: About Eunomia
+        label_zh: 关于 Eunomia
+        href: /others/
+      - label: Activity Reports
+        label_zh: 活动报告
+        href: /reports/
+      - label: Research Notes
+        label_zh: 研究笔记
+        href: /others/papers/
   section_sidebars:
     GPTtrace:
       - title: AI and eBPF
@@ -397,6 +418,13 @@ extra:
           - label: Blog
             label_zh: 博客
             href: /blog/
+    reports:
+      - title: Activity reports
+        title_zh: 动态报告
+        items:
+          - label: Monthly org reports
+            label_zh: 每月组织报告
+            href: /reports/
   section_landing_pages:
     projects:
       variant: project-index
@@ -884,6 +912,10 @@ extra:
           label: Products
           label_zh: 产品
           href: /products/
+        - key: reports
+          label: Activity reports
+          label_zh: 活动报告
+          href: /reports/
       title:
         en: About Eunomia
         zh: 关于 Eunomia
@@ -901,8 +933,8 @@ extra:
         en: Eunomia builds open-source eBPF infrastructure for runtime extension, observability, and AI agent systems.
         zh: Eunomia 构建面向 runtime extension、observability 和 AI agent systems 的开源 eBPF 基础设施。
       body:
-        en: Eunomia is an open-source systems engineering effort focused on eBPF infrastructure, runtime extension, observability, and AI agent systems.
-        zh: Eunomia 是一个开源系统工程项目，聚焦 eBPF infrastructure、runtime extension、observability 和 AI agent systems。
+        en: Eunomia is an open-source systems engineering effort focused on eBPF infrastructure, runtime extension, observability, and AI agent systems. See the [activity reports](/reports/) for monthly public organization activity.
+        zh: Eunomia 是一个开源系统工程项目，聚焦 eBPF infrastructure、runtime extension、observability 和 AI agent systems。可以在[活动报告](/zh/reports/)查看每月公开组织动态。
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/eunomia-bpf

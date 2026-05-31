@@ -8,8 +8,11 @@ import json
 import os
 import subprocess
 import sys
-from datetime import datetime, timedelta
+from datetime import datetime
+from pathlib import Path
 from typing import List, Dict, Any
+
+DEFAULT_REPORT_ITEM_LIMIT = 100
 
 
 def run_gh_api(endpoint: str, params: Dict[str, str] = None, paginate: bool = False) -> List[Dict[str, Any]]:
@@ -73,6 +76,70 @@ def run_gh_api_with_header(endpoint: str, headers: List[str], params: Dict[str, 
         raise
 
     return json.loads(result.stdout)
+
+
+def parse_github_timestamp(value: str):
+    """Parse a GitHub timestamp, ignoring the sentinel used for open PRs."""
+    if not value or value.startswith("0001-01-01"):
+        return None
+    return datetime.fromisoformat(value.replace("Z", "+00:00"))
+
+
+def is_closed_item(item: Dict[str, Any]) -> bool:
+    """Return true when a search result has a usable closedAt timestamp."""
+    created = parse_github_timestamp(item.get("createdAt", ""))
+    closed = parse_github_timestamp(item.get("closedAt", ""))
+    return bool(created and closed and closed >= created)
+
+
+def report_label_from_path(report_path: Path) -> str:
+    """Build a display label for a report archive file."""
+    stem = report_path.stem
+    try:
+        return datetime.strptime(stem, "%Y-%m").strftime("%B %Y")
+    except ValueError:
+        return stem
+
+
+def refresh_reports_index(index_file: str, monthly_reports_dir: str):
+    """Refresh the website-facing reports index."""
+    index_path = Path(index_file)
+    monthly_dir = Path(monthly_reports_dir)
+    monthly_reports = sorted(monthly_dir.glob("*.md"), reverse=True) if monthly_dir.exists() else []
+
+    lines = [
+        "# Activity Reports",
+        "",
+        "Monthly public reports generated from GitHub organization activity.",
+        "",
+        "## Monthly Org Reports",
+        ""
+    ]
+
+    if monthly_reports:
+        for report_path in monthly_reports:
+            label = report_label_from_path(report_path)
+            href = f"/reports/org/monthly/{report_path.stem}/"
+            lines.append(f"- [{label}]({href})")
+    else:
+        lines.append("- No monthly reports have been committed yet.")
+
+    index_path.parent.mkdir(parents=True, exist_ok=True)
+    index_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def write_markdown_list(f, items: List[str], empty_text: str = "- (none)", limit: int = None):
+    """Write a capped markdown list and include the omitted count."""
+    if not items:
+        f.write(f"{empty_text}\n")
+        return
+
+    effective_limit = limit or DEFAULT_REPORT_ITEM_LIMIT
+    visible_items = items[:effective_limit]
+    f.write("\n".join(visible_items) + "\n")
+    omitted = len(items) - len(visible_items)
+    if omitted > 0:
+        f.write(f"- ... {omitted} more omitted from this website archive\n")
 
 
 def get_new_stars(org: str, start_z: str, end_z: str) -> tuple[int, List[str]]:
@@ -180,7 +247,7 @@ def get_prs_merged(org: str, start: str, end: str) -> List[str]:
         return []
 
 
-def get_commits(org: str, start: str, end: str) -> List[str]:
+def get_commits(org: str, start: str, end: str) -> List[Dict[str, str]]:
     """Get commits in the date range."""
     try:
         # Use gh search commits command with proper date range format
@@ -216,10 +283,10 @@ def get_commits(org: str, start: str, end: str) -> List[str]:
 
             # Get committer date from the committer object
             committer_date = item.get("committer", {}).get("date", item["commit"].get("committer", {}).get("date", ""))
-            commits.append(
-                f"- [{message}]({item['url']}) — {repo_name} "
-                f"@{sha_short} ({committer_date})"
-            )
+            commits.append({
+                "repo": repo_name,
+                "line": f"- [{message}]({item['url']}) — @{sha_short} ({committer_date})"
+            })
 
         return commits
     except subprocess.CalledProcessError as e:
@@ -234,42 +301,70 @@ def get_commits(org: str, start: str, end: str) -> List[str]:
         return []
 
 
-def get_issue_metrics(org: str, start: str, end: str) -> Dict[str, Any]:
+def write_commits_by_repo(f, commits: List[Dict[str, str]], per_repo_limit: int = 10):
+    """Write commits grouped by repository with a per-repository detail cap."""
+    if not commits:
+        f.write("- (none)\n")
+        return
+
+    commits_by_repo: Dict[str, List[str]] = {}
+    for commit in commits:
+        repo = commit.get("repo", "unknown")
+        commits_by_repo.setdefault(repo, []).append(commit.get("line", ""))
+
+    for repo in sorted(commits_by_repo):
+        repo_commits = commits_by_repo[repo]
+        f.write(f"\n#### {repo}\n")
+        f.write(f"- Total commits: **{len(repo_commits)}**\n\n")
+        for line in repo_commits[:per_repo_limit]:
+            if line:
+                f.write(f"{line}\n")
+        omitted = len(repo_commits) - per_repo_limit
+        if omitted > 0:
+            f.write(f"- ... {omitted} more commits merged into this repository summary\n")
+
+
+def get_issue_metrics(query: str, start: str, end: str) -> Dict[str, Any]:
     """Get issue metrics for the date range."""
     try:
         # Search for issues created in the date range
-        cmd = ["gh", "search", "issues", f"org:{org}", f"created:{start}..{end}",
-               "--json", "title,url,repository,number,createdAt,closedAt,commentsCount",
-               "--limit", "1000"]
+        cmd = [
+            "gh", "search", "issues",
+            query,
+            f"created:{start}..{end}",
+            "--include-prs",
+            "--json", "title,url,repository,number,createdAt,closedAt,commentsCount",
+            "--limit", "1000"
+        ]
         print(f"Running command: {' '.join(cmd)}", file=sys.stderr)
         result = subprocess.run(cmd, capture_output=True, text=True, check=True)
         items = json.loads(result.stdout)
-        print(f"Found {len(items)} issues", file=sys.stderr)
+        print(f"Found {len(items)} issues and PRs", file=sys.stderr)
 
         total_items = len(items)
-        closed_items = sum(1 for item in items if item.get("closedAt"))
+        closed_items = sum(1 for item in items if is_closed_item(item))
 
         # Calculate average time to first response and time to close
         # Note: This is a simplified version - full version would need to fetch comments
-        from datetime import datetime
-
         time_to_close_sum = 0
         closed_count = 0
 
         for item in items:
-            if item.get("closedAt"):
-                created = datetime.fromisoformat(item["createdAt"].replace("Z", "+00:00"))
-                closed = datetime.fromisoformat(item["closedAt"].replace("Z", "+00:00"))
+            created = parse_github_timestamp(item.get("createdAt", ""))
+            closed = parse_github_timestamp(item.get("closedAt", ""))
+            if created and closed and closed >= created:
                 time_to_close_sum += (closed - created).total_seconds()
                 closed_count += 1
 
-        avg_time_to_close = time_to_close_sum / closed_count if closed_count > 0 else 0
-
-        # Format average time
-        days = int(avg_time_to_close // 86400)
-        hours = int((avg_time_to_close % 86400) // 3600)
-        minutes = int((avg_time_to_close % 3600) // 60)
-        avg_time_str = f"{days} day{'s' if days != 1 else ''}, {hours:02d}:{minutes:02d}:{int(avg_time_to_close % 60):02d}"
+        if closed_count > 0:
+            avg_time_to_close = time_to_close_sum / closed_count
+            days = int(avg_time_to_close // 86400)
+            hours = int((avg_time_to_close % 86400) // 3600)
+            minutes = int((avg_time_to_close % 3600) // 60)
+            seconds = int(avg_time_to_close % 60)
+            avg_time_str = f"{days} day{'s' if days != 1 else ''}, {hours:02d}:{minutes:02d}:{seconds:02d}"
+        else:
+            avg_time_str = "N/A"
 
         return {
             "total_items": total_items,
@@ -289,17 +384,26 @@ def get_issue_metrics(org: str, start: str, end: str) -> Dict[str, Any]:
         return {"total_items": 0, "closed_items": 0, "avg_time_to_close": "N/A", "issues": []}
 
 
-def generate_complete_report(org: str, start: str, end: str, output_file: str = "issue_metrics.md"):
+def generate_complete_report(
+    org: str,
+    start: str,
+    end: str,
+    output_file: str = "issue_metrics.md",
+    query: str = None
+):
     """Generate complete report including issue metrics and org activity."""
-    start_z = f"{start}T00:00:00Z"
-    end_z = f"{end}T23:59:59Z"
+    issue_query = query or f"org:{org}"
 
     # Get issue metrics
-    metrics = get_issue_metrics(org, start, end)
+    metrics = get_issue_metrics(issue_query, start, end)
 
-    with open(output_file, "w") as f:
+    output_path = Path(output_file)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+
+    with open(output_path, "w") as f:
         # Write issue metrics section
-        f.write(f"# Issue Metrics ({start}..{end})\n\n")
+        f.write(f"# Org Activity Report ({start}..{end})\n\n")
+        f.write(f"- Search query: `{issue_query}`\n\n")
         f.write(f"## Summary\n\n")
         f.write(f"- Total issues/PRs: **{metrics['total_items']}**\n")
         f.write(f"- Closed issues/PRs: **{metrics['closed_items']}**\n")
@@ -309,7 +413,7 @@ def generate_complete_report(org: str, start: str, end: str, output_file: str = 
             f.write(f"## Issues and Pull Requests\n\n")
             for item in metrics['issues']:
                 repo_name = item.get('repository', {}).get('nameWithOwner', 'unknown')
-                status = "✅ Closed" if item.get("closedAt") else "🔄 Open"
+                status = "Closed" if is_closed_item(item) else "Open"
                 f.write(f"- [{item['title']}]({item['url']}) — {repo_name} #{item['number']} ({status})\n")
             f.write("\n")
 
@@ -337,34 +441,25 @@ def append_org_activity(org: str, start: str, end: str, output_file: str = "issu
         # New repositories
         f.write("\n### New Repositories\n")
         new_repos = get_new_repos(org, start_z, end_z)
-        if new_repos:
-            f.write("\n".join(new_repos) + "\n")
-        else:
-            f.write("- (none)\n")
+        write_markdown_list(f, new_repos)
 
         # PRs opened
         f.write("\n### Pull Requests Opened\n")
         prs_opened = get_prs_opened(org, start, end)
-        if prs_opened:
-            f.write("\n".join(prs_opened) + "\n")
-        else:
-            f.write("- (none)\n")
+        f.write(f"- Total: **{len(prs_opened)}**\n\n")
+        write_markdown_list(f, prs_opened)
 
         # PRs merged
         f.write("\n### Pull Requests Merged\n")
         prs_merged = get_prs_merged(org, start, end)
-        if prs_merged:
-            f.write("\n".join(prs_merged) + "\n")
-        else:
-            f.write("- (none)\n")
+        f.write(f"- Total: **{len(prs_merged)}**\n\n")
+        write_markdown_list(f, prs_merged)
 
         # Commits
         f.write("\n### Commits\n")
         commits = get_commits(org, start, end)
-        if commits:
-            f.write("\n".join(commits) + "\n")
-        else:
-            f.write("- (none)\n")
+        f.write(f"- Total: **{len(commits)}**\n\n")
+        write_commits_by_repo(f, commits)
 
 
 def main():
@@ -372,6 +467,10 @@ def main():
     # Get parameters from environment variables
     org = os.getenv("ORG")
     date_range = os.getenv("RANGE")
+    query = os.getenv("QUERY")
+    output_file = os.getenv("REPORT_OUTPUT_FILE", "issue_metrics.md")
+    reports_index_file = os.getenv("REPORT_INDEX_FILE")
+    monthly_reports_dir = os.getenv("MONTHLY_REPORTS_DIR", "docs/reports/org/monthly")
 
     if not org or not date_range:
         print("Error: ORG and RANGE environment variables must be set", file=sys.stderr)
@@ -385,8 +484,12 @@ def main():
         sys.exit(1)
 
     print(f"Generating complete org report for {org} from {start} to {end}")
-    generate_complete_report(org, start, end)
-    print("Report generated to issue_metrics.md")
+    generate_complete_report(org, start, end, output_file=output_file, query=query)
+    print(f"Report generated to {output_file}")
+
+    if reports_index_file:
+        refresh_reports_index(reports_index_file, monthly_reports_dir)
+        print(f"Reports index refreshed at {reports_index_file}")
 
 
 if __name__ == "__main__":

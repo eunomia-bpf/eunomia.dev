@@ -24,12 +24,13 @@ Edit `posts_queue.txt` and add posts in JSON format (one per line):
 
 ```json
 {"path": "posts/my-first-post.md", "tags": ["tutorial", "programming"]}
+{"path": "docs/tutorials/50-tcx/README.md", "tags": ["eBPF", "tutorial", "network"]}
 {"path": "posts/another-post.md", "tags": ["devops", "automation"]}
 {"path": "posts/third-post.md", "tags": ["python", "api"]}
 ```
 
 **Fields:**
-- `path` - Relative path to the markdown post file
+- `path` - Relative path to the exact markdown post file
 - `tags` - Array of tags for the post
 
 ### 3. Post Format
@@ -72,13 +73,15 @@ The workflow runs automatically every Monday at 9:00 AM UTC and publishes posts 
 - **Draft only enabled**: Publishes as drafts (not publicly visible)
 - **Draft only disabled**: Publishes live posts (publicly visible immediately)
 
+By default, one workflow run processes up to two queued posts. Set `PUBLISH_COUNT` to a positive integer to override this.
+
 ## How It Works
 
-1. Script reads the first post from `posts_queue.txt`
-2. Reads the markdown file and extracts the title
+1. Script reads up to two posts from the front of `posts_queue.txt`
+2. Reads each markdown file and extracts the title
 3. Removes title from content
-4. Publishes to Medium and Dev.to via API (as drafts)
-5. Removes the published post from the queue
+4. Publishes each post to Medium and Dev.to via API
+5. Removes each successfully published post from the queue
 6. Commits the updated queue file
 
 ## Example Post Entry

@@ -61,6 +61,9 @@ export function AboutLandingPage({ locale, links, projects }: AboutLandingPagePr
           research: "研究与实验",
           researchDescription:
             "论文、原型、roadmap 和 ideas 保留在 About 下，作为项目长期探索方向的公开记录。",
+          activity: "活动报告",
+          activityDescription:
+            "每月自动归档 GitHub org 的 issue、PR、star 和 commit 指标，让外部用户能看到项目持续活跃。",
           community: "社区入口",
           communityDescription:
             "GitHub、discussion 和公开文档仍然是主要协作渠道；商业支持放在 Products。"
@@ -76,6 +79,9 @@ export function AboutLandingPage({ locale, links, projects }: AboutLandingPagePr
           research: "Research and experiments",
           researchDescription:
             "Papers, prototypes, roadmaps, and ideas stay under About as public records of the project's longer-term exploration.",
+          activity: "Activity reports",
+          activityDescription:
+            "Monthly GitHub organization reports archive issues, PRs, stars, and commit activity so visitors can see sustained project momentum.",
           community: "Community",
           communityDescription:
             "GitHub, discussions, and public documentation remain the main collaboration paths. Commercial support lives under Products."
@@ -138,7 +144,7 @@ export function AboutLandingPage({ locale, links, projects }: AboutLandingPagePr
         </div>
       </div>
 
-      <div className="grid gap-8 border-t border-slate-200 py-12 lg:grid-cols-2">
+      <div className="grid gap-8 border-t border-slate-200 py-12 lg:grid-cols-3">
         <article>
           <h2 className="text-2xl font-semibold tracking-normal text-ink">{copy.research}</h2>
           <p className="mt-3 text-sm leading-6 text-slate-600">{copy.researchDescription}</p>
@@ -146,6 +152,13 @@ export function AboutLandingPage({ locale, links, projects }: AboutLandingPagePr
             <LocalLink link={linkByKey.get("papers")} />
             <LocalLink link={linkByKey.get("ideas")} />
             <LocalLink link={linkByKey.get("usecases")} />
+          </div>
+        </article>
+        <article>
+          <h2 className="text-2xl font-semibold tracking-normal text-ink">{copy.activity}</h2>
+          <p className="mt-3 text-sm leading-6 text-slate-600">{copy.activityDescription}</p>
+          <div className="mt-5 flex flex-wrap gap-3">
+            <LocalLink link={linkByKey.get("reports")} />
           </div>
         </article>
         <article>

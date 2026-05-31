@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Auto-publish posts to Medium and Dev.to using the media publisher API.
-Reads the first post from the queue, publishes it, and removes it from the queue.
+Reads posts from the queue, publishes them, and removes successful entries from the queue.
 """
 
 import json
@@ -13,6 +13,7 @@ import requests
 
 API_ENDPOINT = "https://media-publisher.vercel.app/api/publish-multi"
 QUEUE_FILE = ".github/publisher/posts_queue.txt"
+DEFAULT_PUBLISH_COUNT = 2
 
 
 def has_yaml_frontmatter(content):
@@ -127,6 +128,68 @@ def write_queue(posts):
             f.write(json.dumps(post) + '\n')
 
 
+def validate_post_path(post_path):
+    """Validate that a queue path points to a markdown file."""
+    if os.path.isfile(post_path):
+        if not post_path.endswith(".md"):
+            raise ValueError(f"Post path must point to a markdown file: {post_path}")
+        return post_path
+
+    if os.path.isdir(post_path):
+        raise ValueError(
+            f"Post path is a directory; set 'path' to the exact markdown file: {post_path}"
+        )
+
+    raise FileNotFoundError(f"Post file not found: {post_path}")
+
+
+def get_publish_count():
+    """Return how many queued posts this run should process."""
+    raw_value = os.environ.get('PUBLISH_COUNT', str(DEFAULT_PUBLISH_COUNT))
+    try:
+        publish_count = int(raw_value)
+    except ValueError:
+        raise ValueError(f"PUBLISH_COUNT must be an integer, got: {raw_value}")
+
+    if publish_count < 1:
+        raise ValueError(f"PUBLISH_COUNT must be at least 1, got: {publish_count}")
+
+    return publish_count
+
+
+def prepare_post(post, index):
+    """Read and validate a queued post."""
+    post_path = post.get('path')
+    tags = post.get('tags', [])
+
+    if not post_path:
+        raise ValueError(f"Post #{index} missing 'path' field")
+
+    validated_post_path = validate_post_path(post_path)
+
+    with open(validated_post_path, 'r', encoding='utf-8') as f:
+        original_content = f.read()
+
+    title, _title_line = extract_title_from_markdown(original_content)
+    cleaned_content = remove_title_from_content(original_content)
+
+    return {
+        "title": title,
+        "content": cleaned_content,
+        "path": validated_post_path,
+        "tags": tags
+    }
+
+
+def print_post_preview(prepared_post, index, total):
+    """Print the post summary used by dry runs and publish logs."""
+    print(f"\nPost {index}/{total}")
+    print(f"Title: {prepared_post['title']}")
+    print(f"Path: {prepared_post['path']}")
+    print(f"Tags: {', '.join(prepared_post['tags'])}")
+    print(f"Content preview: {prepared_post['content'][:200]}...")
+
+
 def publish_post(title, content, tags, password, is_draft=True):
     """
     Publish a post to Medium and Dev.to via the API.
@@ -160,6 +223,11 @@ def main():
     dry_run = os.environ.get('DRY_RUN', 'false').lower() == 'true'
     draft_only = os.environ.get('DRAFT_ONLY', 'false').lower() == 'true'
     password = os.environ.get('PUBLISH_PASSWORD')
+    try:
+        publish_count = get_publish_count()
+    except ValueError as e:
+        print(f"Error: {e}")
+        sys.exit(1)
 
     # In scheduled runs, always publish as live posts (not drafts)
     # In manual runs, respect the draft_only flag
@@ -184,58 +252,42 @@ def main():
         print("No posts in queue to publish")
         return
 
-    # Get the first post
-    post = posts[0]
-    post_path = post.get('path')
-    tags = post.get('tags', [])
-
-    if not post_path:
-        print("Error: Post missing 'path' field")
-        sys.exit(1)
-
-    # Read the post content
-    if not os.path.exists(post_path):
-        print(f"Error: Post file not found: {post_path}")
-        sys.exit(1)
-
-    with open(post_path, 'r', encoding='utf-8') as f:
-        original_content = f.read()
-
-    # Extract title
-    try:
-        title, title_line = extract_title_from_markdown(original_content)
-    except ValueError as e:
-        print(f"Error: {e}")
-        sys.exit(1)
-
-    # Remove title from content
-    cleaned_content = remove_title_from_content(original_content)
-
-    print(f"Title: {title}")
-    print(f"Path: {post_path}")
-    print(f"Tags: {', '.join(tags)}")
-    print(f"Content preview: {cleaned_content[:200]}...")
+    posts_to_publish = posts[:publish_count]
+    prepared_posts = []
+    for index, post in enumerate(posts_to_publish, start=1):
+        try:
+            prepared_post = prepare_post(post, index)
+        except (FileNotFoundError, ValueError) as e:
+            print(f"Error: {e}")
+            sys.exit(1)
+        prepared_posts.append(prepared_post)
+        print_post_preview(prepared_post, index, len(posts_to_publish))
 
     if dry_run:
-        print("\n✅ DRY RUN COMPLETE - Post validated successfully")
+        print(f"\n✅ DRY RUN COMPLETE - {len(prepared_posts)} posts validated successfully")
         print("❌ Not publishing (dry run mode)")
         print("❌ Not removing from queue (dry run mode)")
         return
 
-    # Publish the post
-    try:
-        result = publish_post(title, cleaned_content, tags, password, is_draft)
-        print(f"\n✅ Publish successful!")
-        print(json.dumps(result, indent=2))
+    for index, prepared_post in enumerate(prepared_posts, start=1):
+        try:
+            result = publish_post(
+                prepared_post["title"],
+                prepared_post["content"],
+                prepared_post["tags"],
+                password,
+                is_draft
+            )
+            print(f"\n✅ Publish {index}/{len(prepared_posts)} successful!")
+            print(json.dumps(result, indent=2))
 
-        # Remove the published post from the queue
-        posts.pop(0)
-        write_queue(posts)
-        print(f"\n✅ Removed post from queue. {len(posts)} posts remaining.")
+            posts.pop(0)
+            write_queue(posts)
+            print(f"\n✅ Removed post from queue. {len(posts)} posts remaining.")
 
-    except Exception as e:
-        print(f"\n❌ Publish failed: {e}")
-        sys.exit(1)
+        except Exception as e:
+            print(f"\n❌ Publish failed: {e}")
+            sys.exit(1)
 
 
 if __name__ == "__main__":

@@ -49,6 +49,7 @@ jobs:
     if: github.event_name == 'schedule' && startsWith(github.event.schedule, '7 3')
     runs-on: ubuntu-latest
     permissions:
+      contents: read
       issues: write
       pull-requests: read
     env:
@@ -75,6 +76,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ORG: ${{ env.ORG }}
           RANGE: ${{ env.RANGE }}
+          QUERY: ${{ env.QUERY }}
         run: python3 .github/generate_org_report.py
 
       - name: Create weekly report issue
@@ -87,6 +89,7 @@ jobs:
     if: github.event_name == 'schedule' && startsWith(github.event.schedule, '11 4')
     runs-on: ubuntu-latest
     permissions:
+      contents: write
       issues: write
       pull-requests: read
     env:
@@ -105,22 +108,38 @@ jobs:
         run: |
           first=$(date -u -d "last month" +%Y-%m-01)
           last=$(date -u -d "$first +1 month -1 day" +%Y-%m-%d)
+          month=$(date -u -d "$first" +%Y-%m)
           echo "RANGE=$first..$last" >> $GITHUB_ENV
           echo "TITLE=Monthly Org Report ($first..$last)" >> $GITHUB_ENV
           echo "QUERY=org:${{ env.ORG }}" >> $GITHUB_ENV
+          echo "REPORT_PATH=docs/reports/org/monthly/$month.md" >> $GITHUB_ENV
+          echo "REPORT_INDEX_FILE=docs/reports/index.md" >> $GITHUB_ENV
+          echo "MONTHLY_REPORTS_DIR=docs/reports/org/monthly" >> $GITHUB_ENV
 
       - name: Generate complete org report (issues/PRs/commits/stars)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ORG: ${{ env.ORG }}
           RANGE: ${{ env.RANGE }}
+          QUERY: ${{ env.QUERY }}
+          REPORT_OUTPUT_FILE: ${{ env.REPORT_PATH }}
+          REPORT_INDEX_FILE: ${{ env.REPORT_INDEX_FILE }}
+          MONTHLY_REPORTS_DIR: ${{ env.MONTHLY_REPORTS_DIR }}
         run: python3 .github/generate_org_report.py
+
+      - name: Commit monthly report archive
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add "$REPORT_PATH" "$REPORT_INDEX_FILE"
+          git diff --staged --quiet || git commit -m "Add monthly org report ${RANGE} [skip ci]"
+          git push origin HEAD:${GITHUB_REF_NAME}
 
       - name: Create monthly report issue
         uses: peter-evans/create-issue-from-file@v6
         with:
           title: "${{ env.TITLE }}"
-          content-filepath: ./issue_metrics.md
+          content-filepath: ${{ env.REPORT_PATH }}
 
   manual:
     if: github.event_name == 'workflow_dispatch'
@@ -128,7 +147,7 @@ jobs:
     permissions:
       issues: write
       pull-requests: read
-      contents: read
+      contents: write
       actions: read
     steps:
       - name: Checkout repository
@@ -167,24 +186,47 @@ jobs:
           echo "QUERY=$query" >> $GITHUB_ENV
           echo "ORG=$org" >> $GITHUB_ENV
           echo "TITLE=$prefix ($start..$end)" >> $GITHUB_ENV
+          if [[ "$mode" == "monthly" ]]; then
+            month=$(date -u -d "$start" +%Y-%m)
+            echo "REPORT_PATH=docs/reports/org/monthly/$month.md" >> $GITHUB_ENV
+            echo "REPORT_INDEX_FILE=docs/reports/index.md" >> $GITHUB_ENV
+            echo "MONTHLY_REPORTS_DIR=docs/reports/org/monthly" >> $GITHUB_ENV
+            echo "COMMIT_REPORT=true" >> $GITHUB_ENV
+          else
+            echo "REPORT_PATH=issue_metrics.md" >> $GITHUB_ENV
+            echo "COMMIT_REPORT=false" >> $GITHUB_ENV
+          fi
 
       - name: Generate complete org report (issues/PRs/commits/stars)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ORG: ${{ env.ORG }}
           RANGE: ${{ env.RANGE }}
+          QUERY: ${{ env.QUERY }}
+          REPORT_OUTPUT_FILE: ${{ env.REPORT_PATH }}
+          REPORT_INDEX_FILE: ${{ env.REPORT_INDEX_FILE }}
+          MONTHLY_REPORTS_DIR: ${{ env.MONTHLY_REPORTS_DIR }}
         run: python3 .github/generate_org_report.py
+
+      - name: Commit monthly report archive
+        if: ${{ env.COMMIT_REPORT == 'true' }}
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add "$REPORT_PATH" "$REPORT_INDEX_FILE"
+          git diff --staged --quiet || git commit -m "Add monthly org report ${RANGE} [skip ci]"
+          git push origin HEAD:${GITHUB_REF_NAME}
 
       - name: Maybe create an issue
         if: ${{ github.event.inputs.create_issue == 'true' }}
         uses: peter-evans/create-issue-from-file@v6
         with:
           title: "${{ env.TITLE }}"
-          content-filepath: ./issue_metrics.md
+          content-filepath: ${{ env.REPORT_PATH }}
 
       - name: Upload report artifact (if not creating issue)
         if: ${{ github.event.inputs.create_issue != 'true' }}
         uses: actions/upload-artifact@v7
         with:
           name: issue-metrics-${{ env.RANGE }}
-          path: ./issue_metrics.md
+          path: ${{ env.REPORT_PATH }}
