@@ -2934,4 +2934,24 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/projects/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/projects/" />
   </url>
+  <url>
+    <loc>https://eunomia.dev/reports/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/reports/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/reports/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/reports/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/reports/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/reports/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/reports/org/monthly/2026-05/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/reports/org/monthly/2026-05/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/reports/org/monthly/2026-05/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/reports/org/monthly/2026-05/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/reports/org/monthly/2026-05/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/reports/org/monthly/2026-05/" />
+  </url>
 </urlset>
