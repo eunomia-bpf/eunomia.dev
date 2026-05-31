@@ -1,4 +1,3 @@
-{"path": "docs/tutorials/50-tcx/README.md", "tags": ["eBPF", "tutorial", "network"]}
 {"path": "docs/blog/posts/cpu-noise-gpu-inference.md", "tags": ["eBPF", "GPU", "LLM", "performance"]}
 {"path": "docs/blog/posts/runtime-security-for-opaque-ai-agents.md", "tags": ["eBPF", "AI", "security", "observability"]}
 {"path": "docs/blog/posts/agent-check-restore-safety.md", "tags": ["AI", "agent", "security", "MCP"]}
