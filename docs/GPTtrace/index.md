@@ -40,6 +40,9 @@ To effectively manage and secure AI agents, it's crucial to **stitch high-level 
 * **ProfInfer**: An eBPF-based fine-grained LLM inference profiler that attaches probes across runtime layers without recompilation, with less than 4% overhead ([arXiv](https://arxiv.org/abs/2601.20755)).
 * **ARMO / Kubescape 4.0**: eBPF-based AI agent sandboxing and progressive enforcement for Kubernetes; monitors tool invocations, agent execution chains, and HTTP content at kernel level ([ARMO blog](https://www.armosec.io/blog/ebpf-based-ai-agent-enforcement/)).
 * **Backend.AI GPU Cluster Audit**: eBPF-based security auditing for GPU training clusters, solving auditd buffer overflow at high syscall rates ([backend.ai blog](https://www.backend.ai/blog/2026-05-ebpf-security-audit-for-GPU-clusters-with-backend-ai)).
+* **Busted**: A Rust+eBPF tool that intercepts decrypted LLM API traffic (OpenAI, Anthropic, Google, MCP JSON-RPC) via uprobes on OpenSSL, with in-kernel blocking via LSM hooks and Rego policies ([GitHub](https://github.com/barakber/busted)).
+* **Causely**: A causal reasoning platform using eBPF-based auto-instrumentation to build live service dependency models, augmenting LLMs with structural knowledge to address hallucination in observability AI ([causely.ai](https://www.causely.ai/blog/how-causal-reasoning-addresses-the-limitations-of-llms-in-observability)).
+* **Splunk + Isovalent Network Explorer**: Feeds Cilium Tetragon eBPF flow data (enriched with K8s metadata) into Splunk for AI-assisted Kubernetes attack simulation and detection ([splunk.com](https://www.splunk.com/en_us/blog/security/kubernetes-attack-simulations-ebpf-tetragon-splunk.html)).
 
 #### **B. Zero-Instrumentation GPU Performance Analysis**
 
@@ -52,6 +55,7 @@ A practical approach to GPU performance monitoring is to **start with eBPF uprob
 * **SysOM-AI (Alibaba)**: Cross-layer performance diagnosis for production AI training; deployed on 80,000+ GPUs, reduces diagnosis time from days to ~10 minutes using eBPF tracing ([arXiv](https://arxiv.org/html/2603.29235)).
 * **gpu_ext**: Extends eBPF into GPU drivers/devices as a programmable OS subsystem; up to 4.8x throughput improvement for inference/training/vector-search workloads ([arXiv](https://arxiv.org/abs/2512.12615)).
 * **Grafana Beyla GPU Support**: eBPF auto-instrumentation extended to capture CUDA calls (kernel launches, memory allocations) for AI/ML workload profiling; donated to OpenTelemetry ([FOSDEM 2025](https://archive.fosdem.org/2025/schedule/event/fosdem-2025-5162-auto-instrumentation-for-gpu-performance-using-ebpf/)).
+* **Ingero**: An open-source eBPF agent + MCP server for GPU causal observability; traces CUDA/ROCm APIs via uprobes, stores events in SQLite, and exposes them to AI agents through MCP tools ([GitHub](https://github.com/ingero-io/ingero)).
 
 ---
 
@@ -84,9 +88,10 @@ This section details how AI and LLMs are being used to automate the creation and
 
 * **Kgent(KEN)**: The first LLM-powered eBPF synthesis tool, that incorporates a Z3-based symbolic checks and tests to produce more reliable code, achieving ~80% semantic correctness on its test sets. ([eBPF'24](https://dl.acm.org/doi/10.1145/3672197.3673434/), [arXiv](https://arxiv.org/html/2312.05531v1)).
 * **SimpleBPF**: A framework that couples an eBPF DSL with an LLM generator, a semantic checker, and an LLM-based optimizer to consistently emit verifier-friendly programs ([ratul.org](https://ratul.org/papers/ebpf2025-simplebpf.pdf)).
-* **VEP**: A two-stage annotation-guided eBPF verification toolchain (VEP-C verifier + VEP-compiler + VEP-eBPF proof checker) enabling full programmability. NSDI 2025 ([USENIX](https://www.usenix.org/conference/nsdi25/presentation/wu-xiwei)).
-* **ePass (U. Michigan)**: An in-kernel LLVM-like compiler framework with SSA-based IR for eBPF; combines static verification with runtime enforcement. eBPF Foundation $50K grant ([GitHub](https://github.com/OrderLab/ePass), [eBPF Foundation](https://ebpf.foundation/epass-verifier-cooperative-runtime-enforcement-for-ebpf/)).
+* **DiffSpec**: An LLM-powered differential testing framework that generates tests for eBPF runtimes using natural language specifications; found 4 confirmed eBPF bugs including a kernel memory leak ([arXiv](https://arxiv.org/abs/2410.04249)).
 * **Agentic OS / LLM Scheduler Agents**: An LLM agent framework that synthesizes eBPF-based Linux schedulers via automatic workload characterization ([arXiv](https://arxiv.org/abs/2509.01245)).
+* **Inspektor Gadget MCP Server**: Official MCP server letting AI agents invoke eBPF-based Inspektor Gadget tools via natural language for Kubernetes debugging; the LLM autonomously selects which telemetry to collect ([GitHub](https://github.com/inspektor-gadget/ig-mcp-server)).
+* **ebpf-mcp**: A standalone MCP server exposing structured JSON Schema tools for loading, attaching, and streaming eBPF programs; designed for safe AI agent control without shell escapes ([lobehub.com](https://lobehub.com/mcp/sameehj-ebpf-mcp)).
 
 ---
 
