@@ -43,6 +43,15 @@ To effectively manage and secure AI agents, it's crucial to **stitch high-level 
 * **Busted**: A Rust+eBPF tool that intercepts decrypted LLM API traffic (OpenAI, Anthropic, Google, MCP JSON-RPC) via uprobes on OpenSSL, with in-kernel blocking via LSM hooks and Rego policies ([GitHub](https://github.com/barakber/busted)).
 * **Causely**: A causal reasoning platform using eBPF-based auto-instrumentation to build live service dependency models, augmenting LLMs with structural knowledge to address hallucination in observability AI ([causely.ai](https://www.causely.ai/blog/how-causal-reasoning-addresses-the-limitations-of-llms-in-observability)).
 * **Splunk + Isovalent Network Explorer**: Feeds Cilium Tetragon eBPF flow data (enriched with K8s metadata) into Splunk for AI-assisted Kubernetes attack simulation and detection ([splunk.com](https://www.splunk.com/en_us/blog/security/kubernetes-attack-simulations-ebpf-tetragon-splunk.html)).
+* **DeepFlow**: An eBPF-based zero-instrumentation observability platform for AI training/inference (GPU, RDMA, LLM serving) with an LLM-powered diagnostic agent; used by Tencent BlueKing ([deepflow.io](https://deepflow.io/), [GitHub](https://github.com/deepflowio/deepflow)).
+* **BpfJailer (Meta)**: eBPF-based mandatory access control used at Meta to jail untrusted AI training/inference workloads; presented at Linux Plumbers 2025, open-source planned for 2026 ([LPC](https://lpc.events/event/19/contributions/2159/)).
+* **OpenTelemetry eBPF Instrumentation (OBI)**: Successor to Grafana Beyla, includes GenAI instrumentation for OpenAI, Anthropic, Gemini, Bedrock, Qwen, and MCP tracing via eBPF ([Docs](https://opentelemetry.io/docs/zero-code/obi/)).
+* **Datadog GPU Monitoring**: Uses eBPF system-probe for per-pod GPU telemetry across AI training/inference workloads, integrated with LLM Observability product ([Blog](https://www.datadoghq.com/blog/datadog-gpu-monitoring/)).
+* **eBPF-PATROL**: An adaptive eBPF-LSM runtime security agent for containerized AI environments with Deny/Allow/Kill enforcement ([arXiv](https://arxiv.org/abs/2511.18155)).
+* **CryptoGuard**: Deep learning on syscall traces collected via eBPF to detect cryptojacking in Linux cloud environments; tested on 123 real-world malware samples ([arXiv](https://arxiv.org/abs/2510.18324), [GitHub](https://github.com/PGHOON/CryptoGuard)).
+* **ebpfangel**: Ransomware detection using ML (decision tree + MLP) implemented directly in eBPF kernel programs ([GitHub](https://github.com/TomasPhilippart/ebpfangel)).
+* **Tetragon + ML Cryptojacking Detection**: Framework using Cilium Tetragon eBPF traces as ML features to classify cryptomining containers with 99.75% accuracy ([MDPI Electronics 2025](https://www.mdpi.com/2079-9292/14/6/1208)).
+* **ByteDance Bytemap**: Million-host eBPF-based network observability system used internally at ByteDance for fine-grained kernel-level monitoring across AI infrastructure ([QCon](https://time.geekbang.org/course/detail/100822501-811414)).
 
 #### **B. Zero-Instrumentation GPU Performance Analysis**
 
@@ -80,6 +89,10 @@ Recent advances enable embedding pre-verified ML models directly in the kernel v
 * **eBPF^ML**: A proposal to attach pre-verified ML models via eBPF objects, including matrix-multiply helpers leveraging CPU matrix engines, for kernel-time decisions ([ACM Digital Library](https://dl.acm.org/doi/10.1145/3748355.3748363)).
 * **O2C**: Demonstrates embedding a decision-tree model inside eBPF to enforce kernel compartmentalization on-the-fly, showing what "tiny ML in eBPF" looks like when verifiable ([arXiv](https://arxiv.org/abs/2401.05641)).
 * **Flow-based IDS**: Baseline decision-tree-in-eBPF implementation for flow classification; useful foil for "sketch-in-kernel, model-in-user-space" approaches ([GitHub](https://github.com/CN-TU/machine-learning-in-ebpf)).
+* **In-Kernel CNN Inference**: eBPF-based CNN inference framework for edge devices achieving 86.8% latency reduction vs user-space; for IoT/edge classification (ICA3PP 2025) ([Springer](https://link.springer.com/chapter/10.1007/978-981-95-8417-8_34)).
+* **KerDqn**: Deep reinforcement learning congestion control running in-kernel via eBPF struct_ops (IEEE ICNP 2024) ([IEEE](https://ieeexplore.ieee.org/document/10622900/)).
+* **Dynamic Fixed-Point eBPF**: Enables ML algorithms in eBPF by introducing dynamic fixed-point arithmetic to overcome floating-point restrictions (AINTEC 2024) ([ACM](https://dl.acm.org/doi/10.1145/3674213.3674219)).
+* **Mixture-of-Schedulers (ASA)**: ML-trained adaptive scheduling agent on sched_ext/eBPF that routes workloads to optimal scheduler policies; outperforms default Linux scheduler in 86% of scenarios ([arXiv](https://arxiv.org/abs/2511.11628)).
 ---
 
 ### **Part 3: AI for eBPF — Synthesizing and Verifying Kernel Extensions**
