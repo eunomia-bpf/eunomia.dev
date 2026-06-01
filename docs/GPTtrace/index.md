@@ -51,7 +51,7 @@ To effectively manage and secure AI agents, it's crucial to **stitch high-level 
 * **CryptoGuard**: Deep learning on syscall traces collected via eBPF to detect cryptojacking in Linux cloud environments; tested on 123 real-world malware samples ([arXiv](https://arxiv.org/abs/2510.18324), [GitHub](https://github.com/PGHOON/CryptoGuard)).
 * **ebpfangel**: Ransomware detection using ML (decision tree + MLP) implemented directly in eBPF kernel programs ([GitHub](https://github.com/TomasPhilippart/ebpfangel)).
 * **Tetragon + ML Cryptojacking Detection**: Framework using Cilium Tetragon eBPF traces as ML features to classify cryptomining containers with 99.75% accuracy ([MDPI Electronics 2025](https://www.mdpi.com/2079-9292/14/6/1208)).
-* **ByteDance Bytemap**: Million-host eBPF-based network observability system used internally at ByteDance for fine-grained kernel-level monitoring across AI infrastructure ([QCon](https://time.geekbang.org/course/detail/100822501-811414)).
+
 
 #### **B. Zero-Instrumentation GPU Performance Analysis**
 
