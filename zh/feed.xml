@@ -27,11 +27,11 @@
   <description>AI Agent 框架正在把 checkpoint/restore、time travel、rewind 这类能力带进日常开发体验：Agent 做错了，可以回到某个检查点；用户想试另一条路径，可以从旧状态分叉继续跑。这对调试和人机协作非常有用，但当 Agent 已经调用过外部工具时，事情会变得危险。</description>
 </item>
 <item>
-  <title>AgentCgroup: What Happens When AI Coding Agents Meet OS Resources?</title>
+  <title>AgentCgroup：当 AI 编程 Agent 遇到操作系统资源</title>
   <link>https://eunomia.dev/zh/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/</link>
   <guid>https://eunomia.dev/zh/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/</guid>
   <pubDate>Tue, 17 Feb 2026 00:00:00 GMT</pubDate>
-  <description>AI coding agents such as Claude Code, OpenHands, and SWE-agent are increasingly deployed in multi-tenant cloud environments, where they execute diverse tool calls inside sandboxed containers. Despite growing adoption, th</description>
+  <description>想象一个 AI 编程 Agent 被丢进云上的沙箱容器：它先读代码，再改文件，接着运行测试；测试失败后继续修改、继续跑；中途还可能安装依赖、调用脚本、拉起子进程。对用户来说，这只是一次“帮我修 bug”的请求；对操作系统来说，它是一段持续数分钟、不断改变资源需求、并且很难提前预测的工作负载。</description>
 </item>
 <item>
   <title>Reverse Engineering Claude Code&#39;s SSL Traffic with eBPF</title>
