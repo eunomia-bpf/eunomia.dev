@@ -21,8 +21,9 @@ export function SiteFooter({ locale }: SiteFooterProps) {
     { label: "RSS", href: localizePath("/feed.xml", locale) }
   ];
   const communityLinks = [
-    { label: "GitHub", href: siteConfig.repoUrl },
-    { label: "Discussions", href: "https://github.com/orgs/eunomia-bpf/discussions" }
+    { label: "GitHub", href: "https://github.com/eunomia-bpf" },
+    { label: "Discussions", href: "https://github.com/orgs/eunomia-bpf/discussions" },
+    { label: copy.sourceCode, href: siteConfig.repoUrl }
   ];
 
   return (
