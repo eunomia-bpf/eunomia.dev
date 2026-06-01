@@ -53,7 +53,7 @@ The fundamental problem: prompt constraints constrain the agent's intent express
 
 ### Tool-Layer Guards
 
-MCP gateways, AgentSpec, tool-level permission controls operate closer to the actual operations. If the agent calls `file_write("/etc/passwd", ...)`, the tool layer can reject it at the API entry point. This is much more reliable than prompt constraints because it checks the operation itself rather than intent.
+MCP gateways, [AgentSpec](https://arxiv.org/abs/2503.18666), [Progent](https://arxiv.org/abs/2504.11703), and other tool-level permission controls operate closer to the actual operations. If the agent calls `file_write("/etc/passwd", ...)`, the tool layer can reject it at the API entry point. This is much more reliable than prompt constraints because it checks the operation itself rather than intent.
 
 But agents don't only operate the system through registered tools. The problem is the shell.
 
@@ -65,7 +65,7 @@ The fundamental problem is coverage. The tool layer can only see operations the 
 
 ### Sandboxes
 
-Containers, VMs, E2B, Daytona wrap isolation boundaries around the entire execution environment. This is currently the most reliable security boundary: processes inside the sandbox cannot access resources outside. For "preventing agent escape to the host," sandboxes are the right answer.
+Containers, VMs, [E2B](https://github.com/e2b-dev/E2B), [Daytona](https://github.com/daytonaio/daytona) wrap isolation boundaries around the entire execution environment. This is currently the most reliable security boundary: processes inside the sandbox cannot access resources outside. For "preventing agent escape to the host," sandboxes are the right answer.
 
 But the constraints agents need in real work go far beyond "can or can't access a resource."
 
@@ -77,7 +77,7 @@ The fundamental problem is expressiveness. Sandboxes answer "can this process ac
 
 ## Enforcing Policy at the Kernel Boundary
 
-The blind spots of all three layers point in the same direction: the enforcement mechanism needs to sit on the path that every operation must travel. No matter what tool the agent uses, what script it writes, or how many layers of subprocesses it spawns, all side effects eventually go through the OS kernel. Every exec, every file open, every network connect, every fork — the kernel is always there. ActPlane works at this layer: it installs lightweight eBPF programs in the kernel that hook every path an agent might produce side effects through, then makes decisions based on labeled information-flow policies.
+The blind spots of all three layers point in the same direction: the enforcement mechanism needs to sit on the path that every operation must travel. [AgentSight](https://arxiv.org/abs/2508.02736) (2025) used eBPF to capture both intent-level and action-level agent behavior, framing the "semantic gap" between what agents intend and what they actually do at the system level. ActPlane builds on that observability foundation and adds enforcement. No matter what tool the agent uses, what script it writes, or how many layers of subprocesses it spawns, all side effects eventually go through the OS kernel. Every exec, every file open, every network connect, every fork — the kernel is always there. ActPlane works at this layer: it installs lightweight eBPF programs in the kernel that hook every path an agent might produce side effects through, then makes decisions based on labeled information-flow policies.
 
 Specifically, ActPlane hooks the entire process lifecycle (`sched_process_fork`, `sched_process_exec`, `sched_process_exit`), file operations (`sys_enter_openat`, `sys_enter_unlinkat`, `sys_enter_renameat2`), and network connections (`sys_enter_connect`). These hooks cover four categories of side effects: process creation, binary execution, file access/deletion/rename, and network connections. No matter what path an agent takes to produce side effects, it will pass through these syscalls.
 
@@ -111,7 +111,7 @@ The agent receives the reason, understands the constraint, and takes a different
 
 ## Core Mechanism: Label Propagation
 
-ActPlane's policy is not a static allow/deny list. It uses labeled information-flow policies: processes and files get labels, labels propagate automatically along fork/exec edges and file read/write edges, and rules make decisions based on labels. This sounds abstract, but walking through one example makes it concrete.
+ActPlane's policy is not a static allow/deny list. It uses labeled information-flow policies: processes and files get labels, labels propagate automatically along fork/exec edges and file read/write edges, and rules make decisions based on labels. The academic roots of this model trace back to [CamQuery](https://dl.acm.org/doi/10.1145/3243734.3243776) (CCS 2018) and [CamFlow](https://dl.acm.org/doi/10.1145/3127479.3129249) (SoCC 2017), which implemented cross-channel taint propagation and enforcement on an in-kernel provenance graph. ActPlane brings the same idea to the modern eBPF/BPF-LSM substrate — no custom kernel module needed — and targets cooperative-but-forgetful AI agents rather than remote adversaries. This sounds abstract, but walking through one example makes it concrete.
 
 Say we want to constrain Claude Code's entire process tree. First, declare a label source: `source AGENT = exec "claude"`. This means whenever any process in the system executes a binary named `claude`, that process gets the `AGENT` label. Labels aren't generated by default — only behaviors you explicitly declare as sources produce labels. The system doesn't track all data flows, only the ones you care about. Similarly, `source SCHEMA_CHANGED = file "src/protocol/**/*.proto"` declares that when these files are written, the writer gets the `SCHEMA_CHANGED` label.
 
@@ -246,7 +246,7 @@ actplane.yaml ─▶ collector (Rust) ─▶ .rodata config ─▶ eBPF kernel e
 
 The kernel part (the `bpf/` directory) hooks fork, exec, exit, open, unlink, rename, and connect syscalls, maintaining a per-node label set (for processes, files, and network endpoints), executing label propagation, evaluating compiled rules, and emitting events to user-space via ring buffer only when rules match. Unmatched operations produce zero user-space overhead. This matters for performance: in our [AgentCgroup characterization](agentcgroup-characterization.md) we saw that an active agent can trigger hundreds of file operations and process creations per second. If every operation had to notify user-space for a decision, latency would become unacceptable. ActPlane completes label propagation and rule matching entirely in kernel space; user-space only participates when a rule fires.
 
-The user-space part is the `actplane` Rust binary. It discovers and parses `actplane.yaml`, compiles the DSL into kernel configuration (written into the eBPF program's `.rodata` section), loads the precompiled eBPF object in-process via [aya](https://github.com/aya-rs/aya) (no libbpf or clang dependency), seeds the target process's lineage (telling the kernel "start tracking from this process"), and listens on the ring buffer for rule matches and their policy reasons.
+The user-space part is the `actplane` Rust binary. It discovers and parses `actplane.yaml`, compiles the DSL into kernel configuration (written into the eBPF program's `.rodata` section), loads the precompiled eBPF object in-process via [aya](https://github.com/aya-rs/aya) (no libbpf or clang dependency), seeds the target process's lineage (telling the kernel "start tracking from this process"), and listens on the ring buffer for rule matches and their policy reasons. Compared with [Cilium Tetragon](https://tetragon.io/), which provides `matchBinaries` + `followChildren` to propagate a binary lineage flag along fork/exec — the closest OSS feature to ActPlane's lineage tracking — ActPlane additionally propagates labels across file and network edges and provides semantic feedback to the agent.
 
 On permissions: `actplane run` and `actplane watch` need root or `CAP_BPF` + `CAP_SYS_ADMIN` to load the eBPF engine. But once loaded, the target command is dropped back to the current user. The agent itself doesn't run as root. `actplane check` needs no privileges at all — it loads no eBPF programs, only performs static rule validation.
 
@@ -259,16 +259,6 @@ Cross-vendor multi-agent collaboration is the most typical. When Claude Code cal
 CI/CD agent governance is another strong scenario. Agents running in CI environments need stricter constraints: can't push code, can't modify CI config, must pass tests before building artifacts. These temporal constraints are exactly what `since` clauses do. Agents deployed in sensitive environments need data-flow-level policies like "data read from prod.db must not flow to the network." Sandboxes can't track at this granularity; label propagation can.
 
 But ActPlane isn't universal. It's built on eBPF, so it only runs on Linux and requires kernel 5.8+ with BTF support (`/sys/kernel/btf/vmlinux`). macOS and Windows agent development scenarios aren't covered, though most production deployments are on Linux. Loading eBPF programs requires root or `CAP_BPF` + `CAP_SYS_ADMIN` — some shared servers and cloud containers won't grant this. Kernel-level tracking only reaches syscall granularity; in-process memory operations and encryption/decryption are out of scope. Block mode requires BPF-LSM, which not all distributions enable by default.
-
-## Related Work
-
-ActPlane builds on a rich lineage of prior work in information-flow control and OS-level provenance. The in-kernel label propagation mechanism is not itself new — [CamQuery](https://dl.acm.org/doi/10.1145/3243734.3243776) (Pasquier et al., CCS 2018) already demonstrated cross-channel taint propagation and enforcement inside the kernel over the [CamFlow](https://dl.acm.org/doi/10.1145/3127479.3129249) provenance graph. What ActPlane contributes is bringing this mechanism to the modern eBPF/BPF-LSM substrate (no kernel module needed), targeting a cooperative-but-forgetful AI agent threat model rather than a remote adversary, and closing the loop with corrective semantic feedback to the agent.
-
-On the eBPF enforcement side, [Cilium Tetragon](https://tetragon.io/) provides `matchBinaries` + `followChildren` which propagates a binary lineage flag to descendants — the closest OSS feature to ActPlane's lineage tracking — but only along fork/exec, not across file/network edges, and without semantic feedback. [OAMAC](https://arxiv.org/abs/2601.14021) (2026) propagates execution-origin labels via BPF-LSM but only across process creation, not file I/O. Neither is agent-aware.
-
-In the agent guardrail space, [AgentSpec](https://arxiv.org/abs/2503.18666) (Wang et al., ICSE 2026) is the closest analog to ActPlane's corrective-feedback idea, with "corrective invocation" and "self-reflection" mechanisms. [Progent](https://arxiv.org/abs/2504.11703) (2026) provides deterministic per-tool-call privilege control via symbolic rules. Both enforce at the tool-call API layer inside the agent framework, making them bypassable by shell-out or direct SDK calls. [SAFEFLOW](https://arxiv.org/abs/2506.07564) (2025) brings information-flow control to the agent protocol layer with provenance tracking, but at the orchestration level rather than the OS kernel. ActPlane complements all of these by enforcing below the tool layer where bypass isn't possible.
-
-The observability foundation comes from [AgentSight](https://arxiv.org/abs/2508.02736) (2025), which uses eBPF to capture both intent-level and action-level agent behavior, framing the "semantic gap" between what agents intend and what they actually do at the system level. ActPlane turns that observability stream into an enforcing policy engine.
 
 ## Conclusion
 
