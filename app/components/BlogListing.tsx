@@ -54,7 +54,7 @@ export function BlogListing({ title, description, entries, locale }: BlogListing
           <h2 id="blog-archive" className="mb-5 text-2xl font-semibold tracking-normal text-ink">
             {copy.archive}
           </h2>
-          <BlogPostYearGroups entries={archiveEntries} locale={locale} />
+          <BlogPostYearGroups entries={entries} locale={locale} />
         </section>
       ) : null}
 
