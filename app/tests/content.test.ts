@@ -93,7 +93,7 @@ test("blog entries derive dated slugs from parsed metadata", () => {
   assert.equal(entry.slug, slugifyTitle(entry.title));
   assert.deepEqual([entry.year, entry.month, entry.day], ["2026", "02", "17"]);
   assert.equal(entry.sourceByLocale.en, "blog/posts/agentcgroup-characterization.md");
-  assert.equal(entry.sourceByLocale.zh, undefined);
+  assert.equal(entry.sourceByLocale.zh, "blog/posts/agentcgroup-characterization.zh.md");
 });
 
 test("blog entries can pin historical slugs from front matter", () => {
