@@ -6,6 +6,13 @@
   <description>Latest writing from eunomia.dev on eBPF, bpftime, AI tracing, and systems research.</description>
   <language>en-US</language>
   <item>
+  <title>Introducing ActPlane: AI Agent Harnesses Need a System-Level Policy Engine Based on eBPF Information Flow Control</title>
+  <link>https://eunomia.dev/blog/2026/05/31/introducing-actplane-ai-agent-harnesses-need-a-system-level-policy-engine-based-on-ebpf-information-flow-control/</link>
+  <guid>https://eunomia.dev/blog/2026/05/31/introducing-actplane-ai-agent-harnesses-need-a-system-level-policy-engine-based-on-ebpf-information-flow-control/</guid>
+  <pubDate>Sun, 31 May 2026 00:00:00 GMT</pubDate>
+  <description>You wrote a rule in CLAUDE.md: &quot;do not run git push.&quot; The agent obeyed. Then it wrote a Python script that called subprocess.run([&quot;git&quot;, &quot;push&quot;]). The prompt constraint was never violated, but the code was already pushed</description>
+</item>
+<item>
   <title>Runtime Observability and Enforcement for Opaque AI Agents with eBPF: Beyond Sandboxes and Approvals</title>
   <link>https://eunomia.dev/blog/2026/05/25/runtime-security-for-ai-agents/</link>
   <guid>https://eunomia.dev/blog/2026/05/25/runtime-security-for-ai-agents/</guid>
@@ -207,13 +214,6 @@
   <guid>https://eunomia.dev/blog/2024/04/11/implementing-an-inline-hook-in-c-in-5-minutes/</guid>
   <pubDate>Thu, 11 Apr 2024 00:00:00 GMT</pubDate>
   <description>One of the fascinating aspects of programming comes when we try to alter the behavior of a program while it is running.</description>
-</item>
-<item>
-  <title>The Evolution and Impact of eBPF: A list of Key Research Papers from Recent Years</title>
-  <link>https://eunomia.dev/blog/2024/03/11/the-evolution-and-impact-of-ebpf-a-list-of-key-research-papers-from-recent-years/</link>
-  <guid>https://eunomia.dev/blog/2024/03/11/the-evolution-and-impact-of-ebpf-a-list-of-key-research-papers-from-recent-years/</guid>
-  <pubDate>Mon, 11 Mar 2024 00:00:00 GMT</pubDate>
-  <description>This is a list of eBPF related papers I read in recent years, might be helpful for people who are interested in eBPF related research.</description>
 </item>
 </channel>
 </rss>

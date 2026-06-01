@@ -6,6 +6,13 @@
   <description>eunomia.dev 上关于 eBPF、bpftime、AI tracing 和系统研究的最新文章。</description>
   <language>zh-CN</language>
   <item>
+  <title>Introducing ActPlane: AI Agent Harness 需要基于 eBPF 信息流控制的系统级策略引擎</title>
+  <link>https://eunomia.dev/zh/blog/2026/05/31/introducing-actplane-ai-agent-harnesses-need-a-system-level-policy-engine-based-on-ebpf-information-flow-control/</link>
+  <guid>https://eunomia.dev/zh/blog/2026/05/31/introducing-actplane-ai-agent-harnesses-need-a-system-level-policy-engine-based-on-ebpf-information-flow-control/</guid>
+  <pubDate>Sun, 31 May 2026 00:00:00 GMT</pubDate>
+  <description>你在 CLAUDE.md 里写了一条规则：&quot;不要执行 git push&quot;。Agent 遵守了。然后它写了一个 Python 脚本，脚本里调用 subprocess.run([&quot;git&quot;, &quot;push&quot;])。Prompt 约束从未被违反，但代码已经推到了远端。</description>
+</item>
+<item>
   <title>基于 eBPF 的不透明 AI Agent 运行时可观测与执行控制：超越沙箱与审批</title>
   <link>https://eunomia.dev/zh/blog/2026/05/25/runtime-security-for-ai-agents/</link>
   <guid>https://eunomia.dev/zh/blog/2026/05/25/runtime-security-for-ai-agents/</guid>
@@ -207,13 +214,6 @@
   <guid>https://eunomia.dev/zh/blog/2024/04/11/implementing-an-inline-hook-in-c-in-5-minutes/</guid>
   <pubDate>Thu, 11 Apr 2024 00:00:00 GMT</pubDate>
   <description>编程中令人着迷的一面在于我们尝试在程序运行时改变其行为。在本教程中，我们将揭示一种可以实现这一点的方法- inline hook 。只需要数十行代码，即可用 C 语言实现一个简单的 inline hook 示例，并将其应用于一个示例程序。</description>
-</item>
-<item>
-  <title>eBPF 的演进与影响：近年的关键研究论文一览</title>
-  <link>https://eunomia.dev/zh/blog/2024/03/11/the-evolution-and-impact-of-ebpf-a-list-of-key-research-papers-from-recent-years/</link>
-  <guid>https://eunomia.dev/zh/blog/2024/03/11/the-evolution-and-impact-of-ebpf-a-list-of-key-research-papers-from-recent-years/</guid>
-  <pubDate>Mon, 11 Mar 2024 00:00:00 GMT</pubDate>
-  <description>这是我近年来读过的与 eBPF 相关的论文列表，可能对于对 eBPF 相关研究感兴趣的人有所帮助。</description>
 </item>
 </channel>
 </rss>
