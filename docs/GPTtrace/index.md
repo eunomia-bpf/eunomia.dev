@@ -36,6 +36,10 @@ To effectively manage and secure AI agents, it's crucial to **stitch high-level 
 * **Prompt Security**: Uses eBPF for real-time tracing of the model stack and vector database interactions to prevent threats ([Prompt Security](https://www.prompt.security/blog/ebpf-at-prompt-security-the-first-no-code-security-offering-for-llm-based-applications)).
 * **eInfer**: An eBPF-based, transparent tracer for distributed LLM inference that correlates per-request performance across CPU/GPU nodes with low overhead ([ACM Digital Library](https://dl.acm.org/doi/abs/10.1145/3748355.3748372)).
 * **Runtime Anomaly Detection**: Research demonstrates using eBPF to feed kernel-level signals into ML models for detecting anomalous behavior, such as in ransomware ([arXiv](https://arxiv.org/html/2406.14020v1)) and general process activity via autoencoders on syscall sequences ([evilsocket](https://www.evilsocket.net/2022/08/15/Process-behaviour-anomaly-detection-using-eBPF-and-unsupervised-learning-Autoencoders/)).
+* **ActPlane**: An eBPF-based policy engine that enforces labeled information-flow control rules across process, file, and network boundaries for AI agents, with corrective semantic feedback ([GitHub](https://github.com/eunomia-bpf/ActPlane)).
+* **ProfInfer**: An eBPF-based fine-grained LLM inference profiler that attaches probes across runtime layers without recompilation, with less than 4% overhead ([arXiv](https://arxiv.org/abs/2601.20755)).
+* **ARMO / Kubescape 4.0**: eBPF-based AI agent sandboxing and progressive enforcement for Kubernetes; monitors tool invocations, agent execution chains, and HTTP content at kernel level ([ARMO blog](https://www.armosec.io/blog/ebpf-based-ai-agent-enforcement/)).
+* **Backend.AI GPU Cluster Audit**: eBPF-based security auditing for GPU training clusters, solving auditd buffer overflow at high syscall rates ([backend.ai blog](https://www.backend.ai/blog/2026-05-ebpf-security-audit-for-GPU-clusters-with-backend-ai)).
 
 #### **B. Zero-Instrumentation GPU Performance Analysis**
 
@@ -45,7 +49,9 @@ A practical approach to GPU performance monitoring is to **start with eBPF uprob
 * **CUDA Events Tutorial**: A comprehensive guide for tracing specific CUDA GPU operations using eBPF ([eunomia.dev](https://eunomia.dev/tutorials/47-cuda-events/)).
 * **eACGM**: A system that merges eBPF kernel events with NVML device metrics to enable end-to-end performance analysis and fault diagnosis for GPU training ([arXiv](https://arxiv.org/html/2506.02007v1)).
 * **GPUprobe Tutorials**: A collection of guides on using eBPF uprobes for zero-instrumentation CUDA API tracing, memory tracking, and kernel launch profiling ([DEV Community](https://dev.to/ethgraham/snooping-on-your-gpu-using-ebpf-to-build-zero-instrumentation-cuda-monitoring-2hh1), [Medium](https://medium.com/%40kcl17/inside-cuda-building-ebpf-uprobes-for-gpu-monitoring-449519b236ed)).
-* **CUDA Events Tutorial**: A comprehensive guide for tracing specific CUDA GPU operations using eBPF ([eunomia.dev](https://eunomia.dev/tutorials/47-cuda-events/)).
+* **SysOM-AI (Alibaba)**: Cross-layer performance diagnosis for production AI training; deployed on 80,000+ GPUs, reduces diagnosis time from days to ~10 minutes using eBPF tracing ([arXiv](https://arxiv.org/html/2603.29235)).
+* **gpu_ext**: Extends eBPF into GPU drivers/devices as a programmable OS subsystem; up to 4.8x throughput improvement for inference/training/vector-search workloads ([arXiv](https://arxiv.org/abs/2512.12615)).
+* **Grafana Beyla GPU Support**: eBPF auto-instrumentation extended to capture CUDA calls (kernel launches, memory allocations) for AI/ML workload profiling; donated to OpenTelemetry ([FOSDEM 2025](https://archive.fosdem.org/2025/schedule/event/fosdem-2025-5162-auto-instrumentation-for-gpu-performance-using-ebpf/)).
 
 ---
 
@@ -78,3 +84,13 @@ This section details how AI and LLMs are being used to automate the creation and
 
 * **Kgent(KEN)**: The first LLM-powered eBPF synthesis tool, that incorporates a Z3-based symbolic checks and tests to produce more reliable code, achieving ~80% semantic correctness on its test sets. ([eBPF'24](https://dl.acm.org/doi/10.1145/3672197.3673434/), [arXiv](https://arxiv.org/html/2312.05531v1)).
 * **SimpleBPF**: A framework that couples an eBPF DSL with an LLM generator, a semantic checker, and an LLM-based optimizer to consistently emit verifier-friendly programs ([ratul.org](https://ratul.org/papers/ebpf2025-simplebpf.pdf)).
+* **VEP**: A two-stage annotation-guided eBPF verification toolchain (VEP-C verifier + VEP-compiler + VEP-eBPF proof checker) enabling full programmability. NSDI 2025 ([USENIX](https://www.usenix.org/conference/nsdi25/presentation/wu-xiwei)).
+* **ePass (U. Michigan)**: An in-kernel LLVM-like compiler framework with SSA-based IR for eBPF; combines static verification with runtime enforcement. eBPF Foundation $50K grant ([GitHub](https://github.com/OrderLab/ePass), [eBPF Foundation](https://ebpf.foundation/epass-verifier-cooperative-runtime-enforcement-for-ebpf/)).
+* **Agentic OS / LLM Scheduler Agents**: An LLM agent framework that synthesizes eBPF-based Linux schedulers via automatic workload characterization ([arXiv](https://arxiv.org/abs/2509.01245)).
+
+---
+
+### **Community & Venues**
+
+* **AgenticOS Workshop @ ASPLOS 2026**: First workshop on OS design for AI agents, covering isolation, scheduling, and observability via eBPF. March 2026, Pittsburgh ([os-for-agent.github.io](https://os-for-agent.github.io/asplos-2026.html)).
+* **3rd Workshop on eBPF and Kernel Extensions @ SIGCOMM 2025**: Featured eInfer and other AI+eBPF work ([SIGCOMM 2025](https://conferences.sigcomm.org/sigcomm/2025/workshop/ebpf/)).
