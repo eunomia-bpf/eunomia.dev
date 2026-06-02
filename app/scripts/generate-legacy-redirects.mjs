@@ -18,15 +18,15 @@ import { fileURLToPath } from "node:url";
  *     source filename stem as the slug; posts now live at dated URLs
  *     `/blog/YYYY/MM/DD/<slug>/`. Map stem -> dated route via the manifest.
  *
- *  3. `/GPTtrace/*` (+ `/zh/`, `/en/` variants) — the old AI/eBPF project
- *     docs now live under `/agentsight/`. These stubs intentionally
- *     overwrite the exported legacy pages so old URLs continue to work without
- *     being kept as active docs.
+ *  3. `/GPTtrace/agentsight/` (+ `/zh/`, `/en/` variants) — the old AgentSight
+ *     docs page now lives under `/agentsight/`. This stub intentionally
+ *     overwrites that exported legacy page, while the rest of `/GPTtrace/*`
+ *     remains active.
  *  4. `/projects/agentsight/*` (+ `/zh/`, `/en/` variants) — an intermediate
  *     local docs path now redirects to the root-level AgentSight section.
  *
- * Most redirect generation only ADDS URLs; the GPTtrace class overwrites
- * exported legacy pages by design.
+ * Most redirect generation only ADDS URLs; the GPTtrace AgentSight class
+ * overwrites that exported legacy page by design.
  */
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
@@ -138,13 +138,7 @@ function generateLegacyBlogRedirects() {
 }
 
 function generateLegacyGpttraceRedirects() {
-  const legacyPaths = [
-    "/GPTtrace/",
-    "/GPTtrace/agentsight/",
-    "/GPTtrace/mcptrace/",
-    "/GPTtrace/gpttrace/",
-    "/GPTtrace/schedcp/"
-  ];
+  const legacyPaths = ["/GPTtrace/agentsight/"];
   let count = 0;
 
   for (const legacyPath of legacyPaths) {
