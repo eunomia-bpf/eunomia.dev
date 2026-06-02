@@ -3,7 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { renderFeed } from "../lib/content/feed";
-import { getContentManifest } from "../lib/content/manifest";
+import { getContentManifest, isSitemapExcludedRoute } from "../lib/content/manifest";
 import { getActiveRolloutStage, stageAllowsRoute } from "../lib/rollout";
 import { absoluteUrl } from "../lib/seo";
 import { escapeXml } from "../lib/utils";
@@ -83,6 +83,10 @@ export function buildSitemapXml() {
     }
 
     for (const routePath of Object.values(record.routeByLocale).filter(Boolean) as string[]) {
+      if (isSitemapExcludedRoute(routePath)) {
+        continue;
+      }
+
       const url = absoluteUrl(routePath);
       if (seen.has(url)) {
         continue;
@@ -90,10 +94,10 @@ export function buildSitemapXml() {
 
       seen.add(url);
       const alternates = [
-        record.routeByLocale.en
+        record.routeByLocale.en && !isSitemapExcludedRoute(record.routeByLocale.en)
           ? `    <xhtml:link rel="alternate" hreflang="en" href="${absoluteUrl(record.routeByLocale.en)}" />`
           : null,
-        record.routeByLocale.zh
+        record.routeByLocale.zh && !isSitemapExcludedRoute(record.routeByLocale.zh)
           ? `    <xhtml:link rel="alternate" hreflang="zh" href="${absoluteUrl(record.routeByLocale.zh)}" />`
           : null
       ]

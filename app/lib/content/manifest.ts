@@ -36,6 +36,12 @@ const routeAliasesByCanonicalPath: Record<string, string[]> = {
   ]
 };
 
+const sitemapExcludedRoutes = new Set(["/GPTtrace/agentsight/", "/zh/GPTtrace/agentsight/"]);
+
+export function isSitemapExcludedRoute(routePath: string): boolean {
+  return sitemapExcludedRoutes.has(routePath);
+}
+
 function allowManifestFallback(): boolean {
   return process.env.NODE_ENV === "development";
 }
@@ -351,10 +357,10 @@ export function listSitemapRoutes(stage: RolloutStage = getActiveRolloutStage())
     if (!stageAllowsRoute(record.sitemapStage, stage)) {
       continue;
     }
-    if (record.routeByLocale.en) {
+    if (record.routeByLocale.en && !isSitemapExcludedRoute(record.routeByLocale.en)) {
       routes.add(record.routeByLocale.en);
     }
-    if (record.routeByLocale.zh) {
+    if (record.routeByLocale.zh && !isSitemapExcludedRoute(record.routeByLocale.zh)) {
       routes.add(record.routeByLocale.zh);
     }
   }

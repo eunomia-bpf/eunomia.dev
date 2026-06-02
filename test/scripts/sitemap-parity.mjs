@@ -7,6 +7,7 @@ import {
 
 const failures = [];
 const datedBlogRoutePattern = /^\/(?:zh\/)?blog\/\d{4}\/\d{2}\/\d{2}\/[^/]+\/$/;
+const retiredLegacySitemapPaths = new Set(["/GPTtrace/agentsight/", "/zh/GPTtrace/agentsight/"]);
 const expectedAppOnlyPaths = new Set([
   "/about/",
   "/products/",
@@ -33,7 +34,9 @@ async function main() {
   console.log(`Comparing sitemap parity for ${baseUrl.toString()}`);
 
   const legacyPaths = new Set(
-    readLocalSitemapPaths(legacySitemapPath).map((url) => new URL(url).pathname)
+    readLocalSitemapPaths(legacySitemapPath)
+      .map((url) => new URL(url).pathname)
+      .filter((pathname) => !retiredLegacySitemapPaths.has(pathname))
   );
   const { response, paths } = await fetchSitemapPaths();
   check(response.ok, "target sitemap is reachable");
@@ -45,18 +48,21 @@ async function main() {
   const compatibleGrowth = extra.filter((pathname) => datedBlogRoutePattern.test(pathname));
   const expectedGrowth = extra.filter((pathname) => expectedAppOnlyPaths.has(pathname));
   const missingExpectedGrowth = [...expectedAppOnlyPaths].filter((pathname) => !appPaths.has(pathname)).sort();
+  const retiredStillPublic = [...retiredLegacySitemapPaths].filter((pathname) => appPaths.has(pathname)).sort();
 
   check(missing.length === 0, `all legacy sitemap paths exist in app sitemap (${missing.length} missing)`);
   check(
     missingExpectedGrowth.length === 0,
     `all expected app-only sitemap paths exist (${missingExpectedGrowth.length} missing)`
   );
+  check(retiredStillPublic.length === 0, `retired legacy sitemap paths stay excluded (${retiredStillPublic.length} present)`);
 
   console.log(`Legacy sitemap paths: ${legacyPaths.size}`);
   console.log(`App sitemap paths: ${appPaths.size}`);
   console.log(`App-only sitemap paths: ${extra.length}`);
   console.log(`Compatible dated blog paths: ${compatibleGrowth.length}`);
   console.log(`Expected app-only paths: ${expectedGrowth.length}`);
+  console.log(`Retired legacy sitemap paths: ${retiredLegacySitemapPaths.size}`);
 
   if (missing.length) {
     for (const pathname of missing.slice(0, 50)) {
@@ -73,6 +79,12 @@ async function main() {
   if (missingExpectedGrowth.length) {
     for (const pathname of missingExpectedGrowth.slice(0, 20)) {
       console.error(`MISSING_EXPECTED ${pathname}`);
+    }
+  }
+
+  if (retiredStillPublic.length) {
+    for (const pathname of retiredStillPublic.slice(0, 20)) {
+      console.error(`RETIRED_PUBLIC ${pathname}`);
     }
   }
 

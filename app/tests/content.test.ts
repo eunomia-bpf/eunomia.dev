@@ -622,6 +622,10 @@ test("listSitemapRoutes keeps key legacy and section routes", () => {
   assert.ok(routes.has("/eunomia-bpf/setup/"));
   assert.ok(routes.has("/tutorials/38-btf-uprobe/test-verify/"));
   assert.ok(routes.has("/zh/eunomia-bpf/ecli/ecli-dockerfile-usage/"));
+  assert.ok(routes.has("/GPTtrace/"));
+  assert.ok(routes.has("/GPTtrace/gpttrace/"));
+  assert.ok(!routes.has("/GPTtrace/agentsight/"));
+  assert.ok(!routes.has("/zh/GPTtrace/agentsight/"));
   assert.ok(!routes.has("/eunomia-bpf/ecli/ecli-dockerfile-usage/"));
   assert.equal(routes.size, rawRoutes.length);
 });
@@ -899,7 +903,10 @@ test("static metadata generation emits feed, sitemap, robots, and shared OG asse
     assert.ok(fs.existsSync(indexPath));
     assert.match(fs.readFileSync(path.join(publicDir, "feed.xml"), "utf8"), /<rss version="2.0">/);
     assert.match(fs.readFileSync(path.join(publicDir, "zh", "feed.xml"), "utf8"), /<language>zh-CN<\/language>/);
-    assert.match(fs.readFileSync(path.join(publicDir, "sitemap.xml"), "utf8"), /<loc>https:\/\/eunomia\.dev\//);
+    const sitemap = fs.readFileSync(path.join(publicDir, "sitemap.xml"), "utf8");
+    assert.match(sitemap, /<loc>https:\/\/eunomia\.dev\//);
+    assert.doesNotMatch(sitemap, /https:\/\/eunomia\.dev\/GPTtrace\/agentsight\//);
+    assert.doesNotMatch(sitemap, /https:\/\/eunomia\.dev\/zh\/GPTtrace\/agentsight\//);
     assert.match(fs.readFileSync(path.join(publicDir, "robots.txt"), "utf8"), /Sitemap: https:\/\/eunomia\.dev\/sitemap\.xml/);
     assert.match(fs.readFileSync(path.join(publicDir, "og", "default.svg"), "utf8"), /Static OG image shared by all pages/);
   } finally {
