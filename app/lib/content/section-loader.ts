@@ -35,13 +35,17 @@ export async function loadSectionPage(
 
   return {
     ...withContinuation(page, continuation),
-    ...buildSectionLandingProps(section, locale),
+    ...buildSectionLandingProps(section, locale, slugSegments ?? []),
     ...(page.reactPage ? buildProjectCatalogProps() : {}),
     sidebar: buildSectionSidebar(section, locale)
   };
 }
 
-function buildSectionLandingProps(section: string, locale: Locale): Partial<DocsPage> {
+function buildSectionLandingProps(section: string, locale: Locale, slugSegments: string[]): Partial<DocsPage> {
+  if (slugSegments.length > 0) {
+    return {};
+  }
+
   const landingPage = readMkdocsSectionLandingPages().get(section);
   if (!landingPage) {
     return {};

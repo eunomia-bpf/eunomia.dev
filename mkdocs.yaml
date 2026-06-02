@@ -262,6 +262,17 @@ extra:
         footer_explore: true
         footer_project: false
       order: 55
+    agentsight:
+      labels:
+        en: AgentSight
+        zh: AgentSight
+      published:
+        nav: false
+        home_track: false
+        home_explore: false
+        footer_explore: false
+        footer_project: false
+      order: 56
     about:
       labels:
         en: About
@@ -356,7 +367,7 @@ extra:
         href: /wasm-bpf/
       - label: AgentSight
         label_zh: AgentSight
-        href: /GPTtrace/agentsight/
+        href: /agentsight/
     others:
       - label: About Eunomia
         label_zh: 关于 Eunomia
@@ -408,7 +419,7 @@ extra:
             href: /wasm-bpf/
           - label: AI agent projects
             label_zh: AI Agent 项目
-            href: /GPTtrace/
+            href: /agentsight/
       - title: Learning and writing
         title_zh: 学习与文章
         items:
@@ -418,6 +429,28 @@ extra:
           - label: Blog
             label_zh: 博客
             href: /blog/
+    agentsight:
+      - title: AgentSight
+        title_zh: AgentSight
+        items:
+          - label: Overview
+            label_zh: 总览
+            href: /agentsight/
+          - label: Quick start
+            label_zh: 快速开始
+            href: /agentsight/quickstart/
+          - label: Architecture
+            label_zh: 架构
+            href: /agentsight/architecture/
+          - label: Visualization
+            label_zh: 可视化
+            href: /agentsight/visualization/
+          - label: Operational notes
+            label_zh: 运行说明
+            href: /agentsight/operational-notes/
+          - label: Troubleshooting
+            label_zh: 故障排查
+            href: /agentsight/troubleshooting/
     reports:
       - title: Activity reports
         title_zh: 动态报告
@@ -694,7 +727,7 @@ extra:
         tag:
           en: Agent observability
           zh: Agent observability
-        href: /GPTtrace/agentsight/
+        href: /agentsight/
         image: /_content-assets/docs/blog/posts/imgs/arch.png
         image_alt: AgentSight architecture
         description:
@@ -703,7 +736,7 @@ extra:
         links:
           - label: Docs
             label_zh: 文档
-            href: /GPTtrace/agentsight/
+            href: /agentsight/
           - label: GitHub
             label_zh: GitHub
             href: https://github.com/eunomia-bpf/agentsight
@@ -834,7 +867,7 @@ extra:
         - key: agentsight-docs
           label: Docs
           label_zh: 文档
-          href: /GPTtrace/agentsight/
+          href: /agentsight/
         - key: agentsight-github
           label: GitHub
           label_zh: GitHub

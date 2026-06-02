@@ -156,6 +156,8 @@ test("site IA labels and publication flags are sourced from mkdocs config", () =
   );
   assert.equal(sections.get("products")?.published?.nav, true);
   assert.equal(sections.get("bpftime")?.published?.nav, false);
+  assert.equal(sections.get("agentsight")?.labels?.en, "AgentSight");
+  assert.equal(sections.get("agentsight")?.published?.nav, false);
   assert.equal(sections.get("GPTtrace")?.labels?.en, "AI × eBPF");
   assert.equal(sections.get("GPTtrace")?.published?.nav, true);
   assert.equal(sections.get("about")?.published?.nav, false);
@@ -187,7 +189,7 @@ test("primary nav children and section sidebars are sourced from mkdocs config",
   );
   assert.deepEqual(
     navChildren.get("projects")?.map((item) => item.href),
-    ["/bpftime/", "/eunomia-bpf/", "/wasm-bpf/", "/GPTtrace/agentsight/"]
+    ["/bpftime/", "/eunomia-bpf/", "/wasm-bpf/", "/agentsight/"]
   );
   assert.equal(navChildren.get("projects")?.[3]?.label.en, "AgentSight");
   assert.deepEqual(
@@ -195,6 +197,8 @@ test("primary nav children and section sidebars are sourced from mkdocs config",
     ["Project overview", "Project docs", "Learning and writing"]
   );
   assert.equal(sidebars.get("projects")?.[1]?.items[2]?.href, "/wasm-bpf/");
+  assert.equal(sidebars.get("projects")?.[1]?.items[3]?.href, "/agentsight/");
+  assert.equal(sidebars.get("agentsight")?.[0]?.items[1]?.href, "/agentsight/quickstart/");
   assert.ok(!sidebars.get("projects")?.some((group) => group.items.some((item) => item.href === "/blogs/")));
   assert.equal(sidebars.get("GPTtrace")?.[0]?.title.en, "AI and eBPF");
   assert.deepEqual(
@@ -245,6 +249,7 @@ test("configured section landing copy is sourced from mkdocs config", async () =
   const sectionPages = readMkdocsSectionPages();
   const projects = await loadSectionPage("projects", [], "en");
   const projectsZh = await loadSectionPage("projects", [], "zh");
+  const agentsight = await loadSectionPage("agentsight", [], "en");
   const products = await loadSectionPage("products", [], "en");
   const bpftime = await loadSectionPage("bpftime", [], "en");
   const agentInfra = await loadSectionPage("products", ["agent-runtime-infrastructure"], "en");
@@ -277,6 +282,10 @@ test("configured section landing copy is sourced from mkdocs config", async () =
   assert.equal(projects?.landingPage?.variant, "project-index");
   assert.ok(projects?.projectCatalog?.projects.some((project) => project.key === "agentsight"));
   assert.ok(projects?.sidebar?.some((group) => group.title === "Project docs"));
+  assert.equal(agentsight?.title, "AgentSight");
+  assert.equal(agentsight?.landingPage, undefined);
+  assert.ok(agentsight?.bodyHtml.includes("AgentSight observes LLM and AI agent activity"));
+  assert.ok(agentsight?.sidebar?.some((group) => group.title === "AgentSight"));
   assert.equal(projectsZh?.title, "项目");
   assert.equal(projectsZh?.landingPage?.description.zh, "eunomia-bpf 项目体系地图，按 runtime infrastructure、开发工具链、AI agent systems 和公开资源组织。");
   assert.ok(projectsZh?.sidebar?.some((group) => group.title === "项目文档"));
@@ -459,6 +468,7 @@ test("site IA derives sections from discovered content and keeps stable override
 
   assert.ok(sections.some((section) => section.key === "about" && section.indexSource === "about/index.md"));
   assert.ok(sections.some((section) => section.key === "projects" && section.indexSource === "projects/index.md"));
+  assert.ok(sections.some((section) => section.key === "agentsight" && section.indexSource === "agentsight/index.md"));
   assert.ok(sections.some((section) => section.key === "tutorials" && section.indexSource === "tutorials/index.md"));
   assert.ok(sections.some((section) => section.key === "bpftime" && section.indexSource === "bpftime/index.md"));
   assert.ok(sections.some((section) => section.key === "wasm-bpf" && section.indexSource === "wasm-bpf/index.md"));
@@ -497,7 +507,7 @@ test("primary nav follows the configured external site order", () => {
   );
   assert.deepEqual(
     getPrimaryNav("en").find((item) => item.href === "/projects/")?.children?.map((item) => item.href),
-    ["/bpftime/", "/eunomia-bpf/", "/wasm-bpf/", "/GPTtrace/agentsight/"]
+    ["/bpftime/", "/eunomia-bpf/", "/wasm-bpf/", "/agentsight/"]
   );
   assert.deepEqual(
     getSectionSidebarOverride("projects", "zh")?.map((group) => group.title),
@@ -511,6 +521,7 @@ test("site IA keeps non-primary published sections out of the primary nav", () =
   assert.ok(!navItems.some((item) => item.href === "/blogs/"));
   assert.ok(!navItems.some((item) => item.href === "/bpftime/"));
   assert.ok(!navItems.some((item) => item.href === "/wasm-bpf/"));
+  assert.ok(!navItems.some((item) => item.href === "/agentsight/"));
   assert.ok(!navItems.some((item) => item.href === "/eunomia-bpf/"));
   assert.ok(!navItems.some((item) => item.href === "/about/"));
 });

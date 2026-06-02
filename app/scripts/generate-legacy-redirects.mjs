@@ -8,8 +8,7 @@ import { fileURLToPath } from "node:url";
  * canonical URL instead of returning 404. GitHub Pages has no server-side
  * redirect support, so the redirect must be a real HTML file in the export.
  *
- * Two legacy classes, both derived from the generated manifest / the emitted
- * export (never a hand-written route table):
+ * Legacy classes:
  *
  *  1. `/en/<path>`  — the old i18n layout served English under `/en/`; English
  *     now lives at the site root. Mirror every emitted root page into `/en/`.
@@ -19,7 +18,15 @@ import { fileURLToPath } from "node:url";
  *     source filename stem as the slug; posts now live at dated URLs
  *     `/blog/YYYY/MM/DD/<slug>/`. Map stem -> dated route via the manifest.
  *
- * This only ADDS URLs; it never moves, renames, or removes an existing one.
+ *  3. `/GPTtrace/*` (+ `/zh/`, `/en/` variants) — the old AI/eBPF project
+ *     docs now live under `/agentsight/`. These stubs intentionally
+ *     overwrite the exported legacy pages so old URLs continue to work without
+ *     being kept as active docs.
+ *  4. `/projects/agentsight/*` (+ `/zh/`, `/en/` variants) — an intermediate
+ *     local docs path now redirects to the root-level AgentSight section.
+ *
+ * Most redirect generation only ADDS URLs; the GPTtrace class overwrites
+ * exported legacy pages by design.
  */
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
@@ -47,10 +54,10 @@ function redirectHtml(target) {
 }
 
 /** Write a redirect stub at out/<routePath>index.html unless it already exists. */
-function writeRedirect(routePath, target) {
+function writeRedirect(routePath, target, options = {}) {
   const relative = routePath.replace(/^\/+/, "");
   const dest = path.join(outDir, relative, "index.html");
-  if (fs.existsSync(dest)) {
+  if (fs.existsSync(dest) && !options.overwrite) {
     return false;
   }
   fs.mkdirSync(path.dirname(dest), { recursive: true });
@@ -130,15 +137,60 @@ function generateLegacyBlogRedirects() {
   return count;
 }
 
+function generateLegacyGpttraceRedirects() {
+  const legacyPaths = [
+    "/GPTtrace/",
+    "/GPTtrace/agentsight/",
+    "/GPTtrace/mcptrace/",
+    "/GPTtrace/gpttrace/",
+    "/GPTtrace/schedcp/"
+  ];
+  let count = 0;
+
+  for (const legacyPath of legacyPaths) {
+    if (writeRedirect(legacyPath, "/agentsight/", { overwrite: true })) count += 1;
+    if (writeRedirect(`/en${legacyPath}`, "/agentsight/", { overwrite: true })) count += 1;
+    if (writeRedirect(`/zh${legacyPath}`, "/zh/agentsight/", { overwrite: true })) count += 1;
+  }
+
+  return count;
+}
+
+function generateMovedAgentsightRedirects() {
+  const movedPaths = [
+    ["projects/agentsight", "agentsight"],
+    ["projects/agentsight/quickstart", "agentsight/quickstart"],
+    ["projects/agentsight/architecture", "agentsight/architecture"],
+    ["projects/agentsight/visualization", "agentsight/visualization"],
+    ["projects/agentsight/operational-notes", "agentsight/operational-notes"],
+    ["projects/agentsight/troubleshooting", "agentsight/troubleshooting"]
+  ];
+  let count = 0;
+
+  for (const [from, to] of movedPaths) {
+    if (writeRedirect(`/${from}/`, `/${to}/`)) count += 1;
+    if (writeRedirect(`/en/${from}/`, `/${to}/`)) count += 1;
+    if (writeRedirect(`/zh/${from}/`, `/zh/${to}/`)) count += 1;
+  }
+
+  return count;
+}
+
 if (!fs.existsSync(outDir)) {
   console.error(`No static export found at ${outDir}`);
   process.exit(1);
 }
 
 // Order matters: legacy blog stubs write the dated targets directly for all
-// locales first, then the /en/ mirror fills in every other page without
-// clobbering them (writeRedirect skips existing files), avoiding redirect chains.
+// locales first. GPTtrace stubs then overwrite old exported pages and install
+// explicit /en/ and /zh/ redirects. Moved AgentSight stubs add compatibility
+// for the intermediate /projects/agentsight/ path. Finally, the /en/ mirror
+// fills in every other page without clobbering existing stubs, avoiding chains.
 const blogCount = generateLegacyBlogRedirects();
+const gpttraceCount = generateLegacyGpttraceRedirects();
+const movedAgentsightCount = generateMovedAgentsightRedirects();
 const enCount = generateEnMirror();
 
-console.log(`Generated ${blogCount} legacy blog redirects and ${enCount} /en/ redirects in ${outDir}`);
+console.log(
+  `Generated ${blogCount} legacy blog redirects, ${gpttraceCount} GPTtrace redirects, ${movedAgentsightCount} moved AgentSight redirects, and ${enCount} /en/ redirects in ${outDir}`
+);
