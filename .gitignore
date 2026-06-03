@@ -10,6 +10,7 @@ __pycache__
 /cuda-exp
 /cupti-exp
 /nvbit-tutorial
+/agentsight
 /venv
 /.venv
 /app/.next*

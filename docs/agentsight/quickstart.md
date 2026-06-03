@@ -1,62 +1,66 @@
----
-title: AgentSight Quick Start
-description: Install AgentSight, record an agent process, and inspect the session in the local UI.
----
+# Usage
 
-This guide records one local agent process and opens the built-in web UI.
+**English** | [中文](https://github.com/eunomia-bpf/agentsight/blob/master/docs/usage.zh-CN.md)
 
-## Prerequisites
+## Building from Source
 
-- Linux with eBPF support. Kernel 5.x or newer is recommended.
-- Root privileges for loading eBPF programs.
-- A target process such as `claude`, `node`, or `python`.
-- If building from source: Rust, Node.js, clang/LLVM, and libelf development headers.
+### 1. Clone the repository and initialize submodules
 
-## Install a Release Binary
-
-```bash
-wget https://github.com/eunomia-bpf/agentsight/releases/download/v0.1.1/agentsight
-chmod +x agentsight
+```sh
+git clone https://github.com/eunomia-bpf/agentsight.git
+cd agentsight
+git submodule update --init --recursive
 ```
 
-## Record an Agent
+If you have already cloned the repository but the submodule directories (`libbpf/` and `bpftool/`) are empty, run:
 
-Choose the process command name used by the agent.
-
-```bash
-# Claude Code.
-sudo ./agentsight record -c claude
-
-# Gemini CLI often appears as node.
-sudo ./agentsight record -c node
-
-# Python-based agent applications.
-sudo ./agentsight record -c python
+```sh
+git submodule update --init --recursive
 ```
 
-When the agent uses a Node.js binary with statically bundled OpenSSL, pass the binary path explicitly:
+### 2. Install system dependencies
 
-```bash
-sudo ./agentsight record --binary-path /usr/bin/node -c node
+```sh
+make install
 ```
 
-## Open the UI
+This installs the required build dependencies: libelf, zlib, clang, llvm, Node.js, and the Rust toolchain.
 
-After recording starts, open:
+### 3. Build
 
-```text
-http://127.0.0.1:8080
+```sh
+make build
 ```
 
-The UI shows the process tree, event timeline, logs, and resource metrics for the captured session.
+After a successful build, the agentsight binary is located at `collector/target/release/agentsight`.
 
-## What to Check First
+You can also build individual components:
 
-1. Confirm the target process appears in the process tree.
-2. Inspect child processes and command execution under the agent.
-3. Open timeline events around each LLM request or tool invocation.
-4. Use the log view for raw event payloads when debugging parser behavior.
+```sh
+make build-bpf       # eBPF C programs only
+make build-rust      # Rust collector only
+make build-frontend  # Frontend only
+```
 
-## Stop Recording
+## Running from Source
 
-Use `Ctrl-C` in the terminal running AgentSight. If eBPF programs remain attached after an interrupted run, restart AgentSight cleanly or unload stale probes with the project cleanup scripts from the repository.
+Navigate to the repository root after `make build`. Commands that load eBPF
+probes should be run with `sudo`; AgentSight can request sudo if you forget, but
+explicit sudo is the recommended path.
+
+```sh
+# Live view of local agent sessions
+sudo ./collector/target/release/agentsight top
+
+# Launch and record a command
+sudo ./collector/target/release/agentsight record -- claude
+
+# Attach to an already-running process family
+sudo ./collector/target/release/agentsight record -c claude
+
+# Debug-level configurable tracing
+sudo ./collector/target/release/agentsight debug trace --server -c claude
+
+# Raw SSL debug capture with HTTP parsing
+sudo ./collector/target/release/agentsight debug ssl --http-parser
+```

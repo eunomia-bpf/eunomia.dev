@@ -439,18 +439,21 @@ extra:
           - label: Quick start
             label_zh: 快速开始
             href: /agentsight/quickstart/
-          - label: Architecture
-            label_zh: 架构
-            href: /agentsight/architecture/
-          - label: Visualization
-            label_zh: 可视化
-            href: /agentsight/visualization/
-          - label: Operational notes
-            label_zh: 运行说明
-            href: /agentsight/operational-notes/
-          - label: Troubleshooting
-            label_zh: 故障排查
-            href: /agentsight/troubleshooting/
+          - label: Supported agents
+            label_zh: 支持的智能体
+            href: /agentsight/agents/
+          - label: Build from source
+            label_zh: 从源码构建
+            href: /agentsight/build/
+          - label: Docker
+            label_zh: Docker 部署
+            href: /agentsight/docker/
+          - label: OpenTelemetry
+            label_zh: OpenTelemetry 集成
+            href: /agentsight/otel/
+          - label: Development
+            label_zh: 开发指南
+            href: /agentsight/development/
     reports:
       - title: Activity reports
         title_zh: 动态报告

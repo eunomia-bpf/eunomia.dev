@@ -29,8 +29,11 @@ cupti-exp:
 nvbit-tutorial:
 	git clone https://github.com/eunomia-bpf/nvbit-tutorial --depth=1
 
-docs/CNAME: tutorial cuda-exp cupti-exp nvbit-tutorial bpftime
+agentsight:
+	git clone https://github.com/eunomia-bpf/agentsight --depth=1
+
+docs/CNAME: tutorial cuda-exp cupti-exp nvbit-tutorial bpftime agentsight
 	./rename.sh
 
 clean:
-	rm -rf tutorial site docs/tutorials bpftime cuda-exp cupti-exp nvbit-tutorial
+	rm -rf tutorial site docs/tutorials bpftime cuda-exp cupti-exp nvbit-tutorial agentsight

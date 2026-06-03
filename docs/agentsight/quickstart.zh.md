@@ -1,62 +1,116 @@
----
-title: AgentSight 快速开始
-description: 安装 AgentSight，记录一个 agent 进程，并在本地 UI 中查看 session。
----
+# 使用说明
 
-这个指南展示如何记录一个本地 agent 进程，并打开内置 Web UI。
+[English](https://github.com/eunomia-bpf/agentsight/blob/master/docs/usage.md) | **中文**
 
-## 前置条件
+## 从源代码编译
 
-- 支持 eBPF 的 Linux。推荐 kernel 5.x 或更新版本。
-- 加载 eBPF 程序需要 root 权限。
-- 一个目标进程，例如 `claude`、`node` 或 `python`。
-- 如果从源码构建：需要 Rust、Node.js、clang/LLVM 和 libelf 开发头文件。
+### 1. 克隆仓库并初始化子模块
 
-## 安装 release 二进制
-
-```bash
-wget https://github.com/eunomia-bpf/agentsight/releases/download/v0.1.1/agentsight
-chmod +x agentsight
+```sh
+git clone https://github.com/eunomia-bpf/agentsight.git
+cd agentsight
+git submodule update --init --recursive
 ```
 
-## 记录 agent
+如果你已经克隆过仓库但尚未初始化子模块（`libbpf/` 和 `bpftool/` 目录为空），请执行：
 
-选择 agent 实际使用的进程 command name。
-
-```bash
-# Claude Code。
-sudo ./agentsight record -c claude
-
-# Gemini CLI 通常表现为 node 进程。
-sudo ./agentsight record -c node
-
-# Python-based agent 应用。
-sudo ./agentsight record -c python
+```sh
+git submodule update --init --recursive
 ```
 
-如果 agent 使用的 Node.js 二进制静态打包了 OpenSSL，可以显式传入 binary path：
+### 2. 安装系统依赖
 
-```bash
-sudo ./agentsight record --binary-path /usr/bin/node -c node
+```sh
+make install
 ```
 
-## 打开 UI
+这会安装编译所需的 libelf、zlib、clang、llvm、Node.js 和 Rust 工具链。
 
-record 启动后，打开：
+### 3. 编译
 
-```text
-http://127.0.0.1:8080
+```sh
+make build
 ```
 
-UI 会展示当前 session 的进程树、事件时间线、日志和资源指标。
+编译成功后，agentsight 二进制程序生成在 `collector/target/release/agentsight`。
 
-## 先检查什么
+也可以单独编译各组件：
 
-1. 确认目标进程出现在进程树里。
-2. 查看 agent 下面的子进程和命令执行。
-3. 在 LLM 请求或工具调用附近检查 timeline event。
-4. 调试 parser 行为时，用 log view 查看原始 event payload。
+```sh
+make build-bpf    # 仅编译 eBPF C 程序
+make build-rust   # 仅编译 Rust collector
+make build-frontend  # 仅编译前端
+```
 
-## 停止记录
+## 从源码运行
 
-在运行 AgentSight 的终端按 `Ctrl-C`。如果异常中断后仍有 eBPF 程序残留，可以重新启动 AgentSight 做清理，或使用仓库里的 cleanup script 卸载 stale probe。
+`make build` 完成后，在仓库根目录运行下面的命令。需要加载 eBPF probes
+的命令推荐显式使用 `sudo`；AgentSight 在你忘记 sudo 时可以自动请求提权，
+但那只是补救路径。
+
+```sh
+# 实时查看本机智能体 session
+sudo ./collector/target/release/agentsight top
+
+# 启动并记录一个命令
+sudo ./collector/target/release/agentsight record -- claude
+
+# 附加到已经运行的进程族
+sudo ./collector/target/release/agentsight record -c claude
+
+# 可配置的底层调试追踪
+sudo ./collector/target/release/agentsight debug trace --server -c claude
+
+# 原始 SSL 调试捕获，启用 HTTP 解析
+sudo ./collector/target/release/agentsight debug ssl --http-parser
+```
+
+## record 与 debug trace 子命令对比
+
+agentsight 提供 `record` 和 `debug trace` 两个主要追踪入口，它们共用底层执行逻辑，但面向不同的使用场景。
+
+### record — 开箱即用的智能体录制
+
+适用于快速录制 AI 智能体（Claude Code、Python AI 工具等）的行为，无需关心细节配置。
+
+- `record -- <command>` 用于启动并记录一个命令；`record -c/-p` 用于附加到已运行进程
+- **自动开启**：SSL 监控 + 进程监控 + 系统监控 + Web 服务器（端口 7395）
+- **内置过滤规则**：自动过滤掉注册请求（`/v1/rgstr`）、HEAD 请求、空响应体、202 状态码、二进制数据等噪音
+- 默认**静默模式**（不输出到控制台），数据写入 `record.log`
+- 默认开启**日志轮转**
+
+典型用法：
+
+```sh
+sudo ./agentsight record -- claude
+```
+
+### debug trace — 完全可控的灵活监控
+
+适用于需要自定义监控范围、过滤规则的调试和分析场景。
+
+- **无必填参数**，所有功能独立开关
+- SSL（`--ssl`）、进程（`--process`）默认开启，但可关闭
+- 系统监控（`--system`）、stdio 捕获（`--stdio`）、Web 服务器（`--server`）默认**关闭**，需手动开启
+- 过滤规则完全由用户通过 `--ssl-filter`、`--http-filter` 自定义
+- 默认输出到控制台，可用 `-q` 静默
+
+典型用法：
+
+```sh
+sudo ./agentsight debug trace --ssl true --process false --server true --http-filter "request.method=POST"
+```
+
+### 对比总结
+
+| 维度 | record | debug trace |
+|------|--------|-------|
+| 定位 | 一键录制，预设优化 | 灵活定制，精细控制 |
+| 必填参数 | 无；可用 `-- <command>`、`-c <comm>` 或 `-p <pid>` | 无 |
+| Web 服务器 | 始终开启 | 需 `--server true` |
+| 系统监控 | 始终开启 | 需 `--system true` |
+| 控制台输出 | 默认关闭 | 默认开启 |
+| 过滤规则 | 内置预设 | 用户自定义 |
+| 日志轮转 | 默认开启 | 需 `--rotate-logs` |
+
+简单来说：**日常录制用 `record`，深度调试用 `debug trace`**。
