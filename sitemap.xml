@@ -1781,14 +1781,44 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/about/" />
   </url>
   <url>
-    <loc>https://eunomia.dev/agentsight/architecture/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/architecture/" />
-    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/architecture/" />
+    <loc>https://eunomia.dev/agentsight/agents/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/agents/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/agents/" />
   </url>
   <url>
-    <loc>https://eunomia.dev/zh/agentsight/architecture/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/architecture/" />
-    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/architecture/" />
+    <loc>https://eunomia.dev/zh/agentsight/agents/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/agents/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/agents/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/agentsight/build/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/build/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/build/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/agentsight/build/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/build/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/build/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/agentsight/development/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/development/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/development/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/agentsight/development/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/development/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/development/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/agentsight/docker/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/docker/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/docker/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/agentsight/docker/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/docker/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/docker/" />
   </url>
   <url>
     <loc>https://eunomia.dev/agentsight/</loc>
@@ -1801,14 +1831,14 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/" />
   </url>
   <url>
-    <loc>https://eunomia.dev/agentsight/operational-notes/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/operational-notes/" />
-    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/operational-notes/" />
+    <loc>https://eunomia.dev/agentsight/otel/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/otel/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/otel/" />
   </url>
   <url>
-    <loc>https://eunomia.dev/zh/agentsight/operational-notes/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/operational-notes/" />
-    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/operational-notes/" />
+    <loc>https://eunomia.dev/zh/agentsight/otel/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/otel/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/otel/" />
   </url>
   <url>
     <loc>https://eunomia.dev/agentsight/quickstart/</loc>
@@ -1819,26 +1849,6 @@
     <loc>https://eunomia.dev/zh/agentsight/quickstart/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/quickstart/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/quickstart/" />
-  </url>
-  <url>
-    <loc>https://eunomia.dev/agentsight/troubleshooting/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/troubleshooting/" />
-    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/troubleshooting/" />
-  </url>
-  <url>
-    <loc>https://eunomia.dev/zh/agentsight/troubleshooting/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/troubleshooting/" />
-    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/troubleshooting/" />
-  </url>
-  <url>
-    <loc>https://eunomia.dev/agentsight/visualization/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/visualization/" />
-    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/visualization/" />
-  </url>
-  <url>
-    <loc>https://eunomia.dev/zh/agentsight/visualization/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/visualization/" />
-    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/visualization/" />
   </url>
   <url>
     <loc>https://eunomia.dev/bpftime/EIM/draft-spec/current-EIM-lack/</loc>
