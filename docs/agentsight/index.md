@@ -31,7 +31,7 @@ sudo agentsight top
 ```
 
 <div align="center">
-  <img src="docs/top-mode-demo.png" alt="AgentSight top live session view" width="1000">
+  <img src="https://github.com/eunomia-bpf/agentsight/raw/master/docs/top-mode-demo.png" alt="AgentSight top live session view" width="1000">
   <p><em>Live sessions ranked by model, session tokens, health, process family, tool calls, file activity, and network activity</em></p>
 </div>
 
@@ -132,231 +132,36 @@ During a session, visit [http://127.0.0.1:7395](http://127.0.0.1:7395) for live 
   <p><strong>Try the <a href="https://agentsight.us">live demo</a></strong> to explore a real recorded Claude Code session in the browser.</p>
 </div>
 
-### Agent Discovery and Adapters
+### Supported Agents
 
 > **Privileges:** eBPF probes need root. Use `sudo` for live capture commands.
-> AgentSight can auto-elevate if you forget, but that is a fallback. Your agent
-> still runs as your normal user.
 
-**Discover what agents are installed locally:**
+`record` auto-discovers binaries, SSL libraries, and container processes. Works out of the box for:
 
-```bash
-./agentsight discover
-```
+| Agent | Command |
+|-------|---------|
+| Claude Code | `sudo ./agentsight record -- claude` |
+| Gemini CLI | `sudo ./agentsight record -- gemini` |
+| Python (aider, open-interpreter, …) | `sudo ./agentsight record -c python` |
+| Docker containers (OpenClaw, …) | `sudo ./agentsight record -c node --binary-path docker://openclaw` |
+| Any command | `sudo ./agentsight record -- <command>` |
 
-**Attach to a running agent with `record`:**
+Discover what's installed locally with `./agentsight discover`.
 
-```bash
-sudo ./agentsight record -c claude
-sudo ./agentsight record -c python
-sudo ./agentsight record -c node --binary-path docker://openclaw
-```
+See [docs/agents.md](https://github.com/eunomia-bpf/agentsight/blob/master/docs/agents.md) for agent-specific setup, SSL quirks, browser capture, MCP stdio, and advanced flags.
 
-Built-in SQL adapters cover Anthropic, Claude Code, Gemini CLI, and OpenClaw sessions. Use `--no-adapters` to disable, or `agentsight db adapters list --json` to inspect.
-
-### Usage Examples
-
-#### Zero-Config: `record`
-
-`record` is the simplest way to trace an agent. Put the command you want to run
-after `record --`; AgentSight handles everything else:
-
-```bash
-# Launch and trace Claude Code — no --binary-path or --comm needed
-sudo ./agentsight record -- claude
-
-# Works for any agent: pass the command exactly as you'd normally run it
-sudo ./agentsight record -- claude -p "review my last commit"
-sudo ./agentsight record -- python my_agent.py
-sudo ./agentsight record -- node ./cli.js
-```
-
-What `record -- <command>` does automatically:
-
-1. **Discovers the SSL binary** — resolves the command via `$PATH`, follows
-   symlinks (e.g. `claude` → `~/.local/share/claude/versions/2.1.150`), and
-   chases shebang wrappers (e.g. a `#!/usr/bin/env node` script → the real
-   `node` ELF) so uprobes attach to the correct executable.
-2. **Derives the `--comm` process filter** from the command name.
-3. **Launches the agent** with your terminal attached (its TUI/REPL works
-   normally) while SSL + process + system monitoring runs quietly in the
-   background.
-4. **Stops automatically** when the agent process exits.
-
-> **`sudo` note**: under `sudo`, `record` still finds *your* user-local installs
-> (it reads `$SUDO_USER`'s home for `~/.local/bin`, `~/bin`, and `~/.nvm`), so
-> `sudo ./agentsight record -- claude` traces the claude in your home directory,
-> not a different one on root's `$PATH`.
-
-Useful flags: `--binary-path <path>` to override auto-discovery, `--no-server`
-to disable the web UI, `--server-port <port>`, `-o <log-file>`.
-
-#### Monitoring Claude Code
-
-Claude Code is a Bun-based application with BoringSSL statically linked and
-symbols stripped. AgentSight auto-detects BoringSSL functions via byte-pattern
-matching when `--binary-path` is provided:
-
-```bash
-# Find the Claude binary version
-CLAUDE_BIN=~/.local/share/claude/versions/$(claude --version | head -1)
-
-# Record all Claude activity with web UI
-sudo ./agentsight record -c claude --binary-path "$CLAUDE_BIN"
-# Open http://127.0.0.1:7395 to view timeline
-
-# Advanced: full trace with custom filters
-sudo ./agentsight debug trace --ssl true --process true --comm claude \
-  --binary-path "$CLAUDE_BIN" --server true --server-port 8080
-```
-
-This captures:
-- **Conversation API**: `POST /v1/messages` requests with full prompt/response SSE streaming
-- **Telemetry**: heartbeat, event logging, Datadog logs
-- **Process activity**: file operations, subprocess executions
-
-> **Note**: All SSL traffic in Claude flows through an internal "HTTP Client"
-> thread, not the main "claude" thread. When `--binary-path` is specified,
-> the `--comm` filter is automatically skipped for SSL monitoring (but still
-> applied for process monitoring) to ensure traffic is captured correctly.
-
-#### Monitoring Python AI Tools
-
-```bash
-# Monitor aider, open-interpreter, or any Python-based AI tool
-sudo ./agentsight record -c "python"
-
-# Custom port and log file
-sudo ./agentsight record -c "python" --server-port 8080 --log-file /tmp/agent.log
-```
-
-#### Monitoring Node.js AI Tools (Gemini CLI, etc.)
-
-> **Important**: Node.js (both NVM and system installs) **statically links
-> OpenSSL into the `node` binary** — there is no system `libssl.so` to hook.
-> SSL capture therefore requires pointing sslsniff at the `node` binary itself.
-
-The easiest way is `record -- <command>`, which discovers the `node` binary automatically:
-
-```bash
-# Gemini CLI runs on Node — record finds the right binary and traces it
-sudo ./agentsight record -- gemini
-```
-
-With `record`, AgentSight now auto-discovers the Node binary from `-c node`
-(it detects that Node embeds OpenSSL and attaches to the binary instead of a
-system library), so this just works without `--binary-path`:
-
-```bash
-# Monitor Gemini CLI or other Node.js AI tools — binary auto-discovered
-sudo ./agentsight record -c node
-
-# Pin the binary explicitly if auto-discovery picks the wrong Node install
-sudo ./agentsight record -c node --binary-path ~/.nvm/versions/node/v20.0.0/bin/node
-```
-
-> **Behind an HTTP/HTTPS proxy?** Traffic is still TLS-encrypted inside the
-> Node process (the proxy only tunnels it), so AgentSight captures it the same
-> way — at the `SSL_read`/`SSL_write` calls before encryption.
-
-#### Monitoring Agents in Docker Containers (OpenClaw, etc.)
-
-For an agent running inside a Docker container, pass the container to
-`--binary-path` with the `docker://` scheme. AgentSight resolves the container's
-process tree and attaches sslsniff to the right binary automatically:
-
-```bash
-# OpenClaw is a Node.js agent that runs in a container — works out of the box
-sudo ./agentsight record -c node --binary-path docker://openclaw
-
-# Accepts a container name or ID; supported by record / trace / ssl
-sudo ./agentsight debug trace --binary-path docker://openclaw --server
-```
-
-`docker inspect` reports the container's *init* process (often `tini`), which
-has no SSL code. AgentSight walks the descendant process tree and attaches to the
-first process whose binary actually embeds SSL (the `node` process). See
-[docs/openclaw.md](https://github.com/eunomia-bpf/agentsight/blob/master/docs/experiment/openclaw.md) for the full walkthrough.
-
-#### Advanced Monitoring
-
-```bash
-# Combined SSL and process monitoring with web interface
-sudo ./agentsight debug trace --ssl true --process true --server true
-
-# Custom port and log file
-sudo ./agentsight record -c "python" --server-port 8080 --log-file /tmp/agent.log
-```
-
-#### Export to OpenTelemetry (GenAI semantic conventions)
+### OpenTelemetry Export
 
 AgentSight can export captured LLM calls as OpenTelemetry **GenAI**
 (`gen_ai.*`) spans over OTLP/HTTP — standards-compliant agent telemetry for any
-agent, with zero in-process instrumentation. Send them to an OpenTelemetry
-Collector and on to Jaeger, Grafana Tempo, Datadog, Honeycomb, etc.
+agent, with zero in-process instrumentation.
 
 ```bash
-# Export gen_ai.* spans to a collector (defaults to http://localhost:4318)
 sudo ./agentsight debug trace --otel --otel-endpoint http://localhost:4318
-
-# Include prompt/completion content (opt-in; off by default for privacy)
-sudo ./agentsight debug trace --otel --otel-capture-content
 ```
 
-Each LLM request/response pair becomes a `chat {model}` span with
-`gen_ai.provider.name`, `gen_ai.request.model`, `gen_ai.usage.{input,output}_tokens`,
-`gen_ai.response.finish_reasons`, and more. See [docs/otel.md](https://github.com/eunomia-bpf/agentsight/blob/master/docs/otel.md) for
+See [docs/otel.md](https://github.com/eunomia-bpf/agentsight/blob/master/docs/otel.md) for
 collector setup and backend integration.
-
-#### Browser Plaintext Capture
-
-For browser-specific plaintext capture, use the standalone `browsertrace` BPF
-tool instead of `sslsniff`:
-
-```bash
-# Chrome / Chromium
-sudo ./bpf/browsertrace --binary-path /opt/google/chrome/chrome
-
-# Firefox on Ubuntu Snap
-sudo ./bpf/browsertrace --binary-path /snap/firefox/current/usr/lib/firefox/firefox
-```
-
-> **Note**: On Ubuntu, `/usr/bin/firefox` is often a wrapper script rather than
-> the real browser ELF. Point `browsertrace` at the actual Firefox binary.
-
-#### Local MCP over stdio
-
-For local MCP servers that communicate over `stdio` instead of HTTP/TLS, use
-the standalone `stdiocap` BPF tool:
-
-```bash
-# Capture stdin/stdout/stderr payloads for a local MCP server process
-sudo ./bpf/stdiocap -p <mcp_server_pid>
-```
-
-AgentSight also includes a minimal MCP fixture for local testing under
-[`docs/mcp-test/README.md`](https://github.com/eunomia-bpf/agentsight/blob/master/docs/experiment/mcp-test/README.md). It provides both `stdio`
-and HTTP test modes so you can generate predictable MCP traffic before wiring
-it into the Rust collector.
-
-#### Direct eBPF Program Usage
-
-```bash
-# Run sslsniff directly on Claude binary
-sudo ./bpf/sslsniff --binary-path ~/.local/share/claude/versions/2.1.39
-
-# Run sslsniff on NVM Node.js
-sudo ./bpf/sslsniff --binary-path ~/.nvm/versions/node/v20.0.0/bin/node --verbose
-
-# Run browsertrace directly on Chrome
-sudo ./bpf/browsertrace --binary-path /opt/google/chrome/chrome
-
-# Run stdiocap directly on a local MCP server PID
-sudo ./bpf/stdiocap -p 12345
-
-# Run process tracer
-sudo ./bpf/process -c python
-```
 
 ## ❓ Frequently Asked Questions
 

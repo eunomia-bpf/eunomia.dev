@@ -18,7 +18,7 @@ sudo agentsight top
 ```
 
 <div align="center">
-  <img src="docs/top-mode-demo.png" alt="AgentSight top 实时 session 视图" width="1000">
+  <img src="https://github.com/eunomia-bpf/agentsight/raw/master/docs/top-mode-demo.png" alt="AgentSight top 实时 session 视图" width="1000">
   <p><em>按 model、session token、health、进程族、工具调用、文件活动和网络活动排序的实时智能体视图</em></p>
 </div>
 
@@ -128,151 +128,34 @@ make build
   <p><em>指标视图，展示内存和 CPU 使用情况</em></p>
 </div>
 
-### 使用示例
+### 支持的智能体
 
-#### 零配置：`record`
+> **权限：** eBPF probe 需要 root。运行实时捕获命令时使用 `sudo`。
 
-`record` 是追踪智能体最简单的方式。把要运行的命令写在 `record --` 后面，其余的 AgentSight 全部自动处理：
+`record` 自动发现二进制、SSL 库和容器进程，开箱即用：
 
-```bash
-# 启动并追踪 Claude Code —— 无需 --binary-path 或 --comm
-sudo ./agentsight record -- claude
+| 智能体 | 命令 |
+|--------|------|
+| Claude Code | `sudo ./agentsight record -- claude` |
+| Gemini CLI | `sudo ./agentsight record -- gemini` |
+| Python（aider、open-interpreter 等） | `sudo ./agentsight record -c python` |
+| Docker 容器（OpenClaw 等） | `sudo ./agentsight record -c node --binary-path docker://openclaw` |
+| 任意命令 | `sudo ./agentsight record -- <command>` |
 
-# 适用于任何智能体：命令照常书写即可
-sudo ./agentsight record -- claude -p "审查我的最后一次提交"
-sudo ./agentsight record -- python my_agent.py
-sudo ./agentsight record -- node ./cli.js
-```
+使用 `./agentsight discover` 发现本地已安装的智能体。
 
-`record -- <command>` 自动完成的事情：
+详见 [docs/agents.md](https://github.com/eunomia-bpf/agentsight/blob/master/docs/agents.md)，了解各智能体的详细设置、SSL 注意事项、浏览器捕获、MCP stdio 和高级选项。
 
-1. **发现 SSL 二进制** —— 通过 `$PATH` 解析命令，跟随符号链接（如
-   `claude` → `~/.local/share/claude/versions/2.1.150`），并追踪 shebang 包装脚本
-   （如 `#!/usr/bin/env node` 脚本 → 真正的 `node` ELF），使 uprobe 附加到正确的可执行文件。
-2. **推导 `--comm` 进程过滤器**（来自命令名）。
-3. **启动智能体** 并保持终端连接（其 TUI/REPL 正常工作），SSL + 进程 + 系统监控在后台静默运行。
-4. **自动停止** —— 智能体进程退出时结束监控。
+### OpenTelemetry 导出
 
-> **`sudo` 提示**：在 `sudo` 下，`record` 仍会找到*你自己*的用户级安装
-> （它会读取 `$SUDO_USER` 的主目录下的 `~/.local/bin`、`~/bin` 和 `~/.nvm`），
-> 因此 `sudo ./agentsight record -- claude` 追踪的是你主目录里的 claude，而不是 root `$PATH` 上的其他版本。
-
-常用选项：`--binary-path <路径>` 覆盖自动发现，`--no-server` 关闭 web UI，
-`--server-port <端口>`，`-o <日志文件>`。
-
-#### 监控 Claude Code
-
-Claude Code 是基于 Bun 的应用，静态链接了 BoringSSL 且符号被剥离。提供 `--binary-path` 时，AgentSight 通过字节模式匹配自动检测 BoringSSL 函数：
+AgentSight 可以将捕获的 LLM 调用导出为 OpenTelemetry **GenAI**（`gen_ai.*`）span，
+通过 OTLP/HTTP 发送——无需任何进程内插桩即可获得符合标准的智能体遥测数据。
 
 ```bash
-# 找到 Claude 二进制版本
-CLAUDE_BIN=~/.local/share/claude/versions/$(claude --version | head -1)
-
-# 记录所有 Claude 活动并启用 Web UI
-sudo ./agentsight record -c claude --binary-path "$CLAUDE_BIN"
-# 打开 http://127.0.0.1:7395 查看时间线
-
-# 高级用法：使用自定义过滤器的完整追踪
-sudo ./agentsight debug trace --ssl true --process true --comm claude \
-  --binary-path "$CLAUDE_BIN" --server true --server-port 8080
+sudo ./agentsight debug trace --otel --otel-endpoint http://localhost:4318
 ```
 
-这将捕获：
-- **对话 API**：`POST /v1/messages` 请求，包含完整的提示词/响应 SSE 流
-- **遥测数据**：心跳、事件日志、Datadog 日志
-- **进程活动**：文件操作、子进程执行
-
-> **注意**：Claude 中所有 SSL 流量都通过内部 "HTTP Client" 线程传输，而非主 "claude" 线程。当指定 `--binary-path` 时，`--comm` 过滤器会自动跳过 SSL 监控（但仍应用于进程监控），以确保流量被正确捕获。
-
-#### 监控 Python AI 工具
-
-```bash
-# 监控 aider、open-interpreter 或任何基于 Python 的 AI 工具
-sudo ./agentsight record -c "python"
-
-# 自定义端口和日志文件
-sudo ./agentsight record -c "python" --server-port 8080 --log-file /tmp/agent.log
-```
-
-#### 监控 Node.js AI 工具（Gemini CLI 等）
-
-> **重要**：Node.js（NVM 和系统安装都一样）**将 OpenSSL 静态链接进了 `node` 二进制**——
-> 没有系统 `libssl.so` 可供 hook。因此 SSL 捕获需要让 sslsniff 指向 `node` 二进制本身。
-
-最简单的方式是 `record -- <command>`，它会自动发现 `node` 二进制：
-
-```bash
-# Gemini CLI 基于 Node 运行 —— record 会找到正确的二进制并追踪它
-sudo ./agentsight record -- gemini
-```
-
-使用 `record` 时，AgentSight 现在会从 `-c node` 自动发现 Node 二进制
-（检测到 Node 内嵌了 OpenSSL，于是附加到二进制而非系统库），因此无需 `--binary-path` 即可工作：
-
-```bash
-# 监控 Gemini CLI 或其他 Node.js AI 工具 —— 二进制自动发现
-sudo ./agentsight record -c node
-
-# 若自动发现选错了 Node 安装，可显式指定二进制
-sudo ./agentsight record -c node --binary-path ~/.nvm/versions/node/v20.0.0/bin/node
-```
-
-> **使用 HTTP/HTTPS 代理？** 流量在 Node 进程内仍是 TLS 加密的（代理只是隧道转发），
-> 因此 AgentSight 的捕获方式不变——在加密之前的 `SSL_read`/`SSL_write` 调用处捕获。
-
-#### 高级监控
-
-```bash
-# SSL 和进程组合监控，启用 Web 界面
-sudo ./agentsight debug trace --ssl true --process true --server true
-
-# 自定义端口和日志文件
-sudo ./agentsight record -c "python" --server-port 8080 --log-file /tmp/agent.log
-```
-
-#### 浏览器明文捕获
-
-要进行浏览器特定的明文捕获，请使用独立的 `browsertrace` BPF 工具代替 `sslsniff`：
-
-```bash
-# Chrome / Chromium
-sudo ./bpf/browsertrace --binary-path /opt/google/chrome/chrome
-
-# Ubuntu Snap 上的 Firefox
-sudo ./bpf/browsertrace --binary-path /snap/firefox/current/usr/lib/firefox/firefox
-```
-
-> **注意**：在 Ubuntu 上，`/usr/bin/firefox` 通常是一个包装脚本而非真正的浏览器 ELF 文件。请将 `browsertrace` 指向实际的 Firefox 二进制文件。
-
-#### 本地 MCP（stdio 模式）
-
-对于通过 `stdio` 而非 HTTP/TLS 通信的本地 MCP 服务器，请使用独立的 `stdiocap` BPF 工具：
-
-```bash
-# 捕获本地 MCP 服务器进程的 stdin/stdout/stderr 载荷
-sudo ./bpf/stdiocap -p <mcp_server_pid>
-```
-
-AgentSight 还在 [`docs/mcp-test/README.md`](https://github.com/eunomia-bpf/agentsight/blob/master/docs/experiment/mcp-test/README.md) 下包含了一个用于本地测试的最小 MCP 测试套件。它提供了 `stdio` 和 HTTP 两种测试模式，让你可以在接入 Rust collector 之前生成可预测的 MCP 流量。
-
-#### 直接使用 eBPF 程序
-
-```bash
-# 直接对 Claude 二进制运行 sslsniff
-sudo ./bpf/sslsniff --binary-path ~/.local/share/claude/versions/2.1.39
-
-# 对 NVM Node.js 运行 sslsniff
-sudo ./bpf/sslsniff --binary-path ~/.nvm/versions/node/v20.0.0/bin/node --verbose
-
-# 直接对 Chrome 运行 browsertrace
-sudo ./bpf/browsertrace --binary-path /opt/google/chrome/chrome
-
-# 直接对本地 MCP 服务器 PID 运行 stdiocap
-sudo ./bpf/stdiocap -p 12345
-
-# 运行进程追踪器
-sudo ./bpf/process -c python
-```
+详见 [docs/otel.md](https://github.com/eunomia-bpf/agentsight/blob/master/docs/otel.md)。
 
 ## 常见问题
 
