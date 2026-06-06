@@ -6,9 +6,9 @@
   <description>Latest writing from eunomia.dev on eBPF, bpftime, AI tracing, and systems research.</description>
   <language>en-US</language>
   <item>
-  <title>Introducing ActPlane: AI Agent Harnesses Need a System-Level Policy Engine Based on eBPF Information Flow Control</title>
-  <link>https://eunomia.dev/blog/2026/05/31/introducing-actplane-ai-agent-harnesses-need-a-system-level-policy-engine-based-on-ebpf-information-flow-control/</link>
-  <guid>https://eunomia.dev/blog/2026/05/31/introducing-actplane-ai-agent-harnesses-need-a-system-level-policy-engine-based-on-ebpf-information-flow-control/</guid>
+  <title>Introducing ActPlane: an IFC Policy Engine for AI Agent Harnesses in eBPF</title>
+  <link>https://eunomia.dev/blog/2026/05/31/introducing-actplane-an-ifc-policy-engine-for-ai-agent-harnesses-in-ebpf/</link>
+  <guid>https://eunomia.dev/blog/2026/05/31/introducing-actplane-an-ifc-policy-engine-for-ai-agent-harnesses-in-ebpf/</guid>
   <pubDate>Sun, 31 May 2026 00:00:00 GMT</pubDate>
   <description>You wrote a rule in CLAUDE.md: &quot;do not run git push.&quot; The agent obeyed. Then it wrote a Python script that called subprocess.run([&quot;git&quot;, &quot;push&quot;]). The prompt constraint was never violated, but the code was already pushed</description>
 </item>
