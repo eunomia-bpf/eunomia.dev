@@ -3,7 +3,7 @@ date: 2026-05-31
 description: ActPlane 是一个基于 eBPF 的 AI Agent 策略引擎，在操作系统内核层面对 Agent 行为做观测和强制执行。本文分析 prompt、工具层、沙箱三层约束各自的系统性盲区，说明 ActPlane 如何通过标签传播和时序谓词实现确定性的 Agent harness。
 ---
 
-# Introducing ActPlane: AI Agent Harness 需要基于 eBPF 信息流控制的系统级策略引擎
+# ActPlane: AI Agent Harness 需要基于 eBPF 信息流控制的系统级策略引擎
 
 你在 CLAUDE.md 里写了一条规则："不要执行 `git push`"。Agent 遵守了。然后它写了一个 Python 脚本，脚本里调用 `subprocess.run(["git", "push"])`。Prompt 约束从未被违反，但代码已经推到了远端。
 
@@ -14,6 +14,8 @@ description: ActPlane 是一个基于 eBPF 的 AI Agent 策略引擎，在操作
 [ActPlane](https://github.com/eunomia-bpf/ActPlane) 是一个基于 eBPF 的策略引擎，坐在所有工具层和沙箱的下面，直接在操作系统内核层面做观测和执行。Prompt 约束是概率性的，Agent 可能听也可能不听。ActPlane 是确定性的，规则匹配了就一定执行。但它不是另一种沙箱。沙箱给你的是一堵墙，撞上去只有 `Permission denied`。ActPlane 是一个 harness（约束框架）：Agent 碰到约束时收到的是一条人类可读的原因，告诉它为什么被拦、该怎么做。Agent 理解原因，换一条路，继续完成任务。
 
 每条规则选择自己的执行力度：**notify** 只提醒 Agent，不干预执行；**block** 在操作提交前拦住它；**kill** 直接终止进程。三种力度，同一个策略文件里可以混用。而在所有模式下，规则触发的原因都会反馈给 Agent，让它能自己纠正。
+
+> 链接: https://github.com/eunomia-bpf/ActPlane
 
 <!-- more -->
 
