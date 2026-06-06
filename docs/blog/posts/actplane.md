@@ -3,7 +3,7 @@ date: 2026-05-31
 description: ActPlane is an eBPF-based policy engine that observes and enforces AI agent behavior at the OS kernel level. This post analyzes the systemic blind spots of prompt constraints, tool-layer guards, and sandboxes, and explains how ActPlane uses label propagation and temporal predicates to implement a deterministic agent harness.
 ---
 
-# Introducing ActPlane: AI Agent Harnesses Need a System-Level Policy Engine Based on eBPF Information Flow Control
+# Introducing ActPlane: an IFC Policy Engine for AI Agent Harnesses in eBPF
 
 You wrote a rule in CLAUDE.md: "do not run `git push`." The agent obeyed. Then it wrote a Python script that called `subprocess.run(["git", "push"])`. The prompt constraint was never violated, but the code was already pushed to the remote.
 
