@@ -6,7 +6,7 @@
   <description>eunomia.dev 上关于 eBPF、bpftime、AI tracing 和系统研究的最新文章。</description>
   <language>zh-CN</language>
   <item>
-  <title>ActPlane: AI Agent Harness 需要基于 eBPF 信息流控制的系统级策略引擎</title>
+  <title>ActPlane: 为 AI Agent Harness 设计的系统级策略引擎</title>
   <link>https://eunomia.dev/zh/blog/2026/05/31/introducing-actplane-an-ifc-policy-engine-for-ai-agent-harnesses-in-ebpf/</link>
   <guid>https://eunomia.dev/zh/blog/2026/05/31/introducing-actplane-an-ifc-policy-engine-for-ai-agent-harnesses-in-ebpf/</guid>
   <pubDate>Sun, 31 May 2026 00:00:00 GMT</pubDate>
