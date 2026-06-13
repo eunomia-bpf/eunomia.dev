@@ -691,14 +691,14 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/" />
   </url>
   <url>
-    <loc>https://eunomia.dev/blog/2026/05/31/introducing-actplane-an-ifc-policy-engine-for-ai-agent-harnesses-in-ebpf/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/blog/2026/05/31/introducing-actplane-an-ifc-policy-engine-for-ai-agent-harnesses-in-ebpf/" />
-    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/2026/05/31/introducing-actplane-an-ifc-policy-engine-for-ai-agent-harnesses-in-ebpf/" />
+    <loc>https://eunomia.dev/blog/2026/05/31/actplane-an-ifc-policy-engine-for-ai-agent-harnesses-in-ebpf/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/blog/2026/05/31/actplane-an-ifc-policy-engine-for-ai-agent-harnesses-in-ebpf/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/2026/05/31/actplane-an-ifc-policy-engine-for-ai-agent-harnesses-in-ebpf/" />
   </url>
   <url>
-    <loc>https://eunomia.dev/zh/blog/2026/05/31/introducing-actplane-an-ifc-policy-engine-for-ai-agent-harnesses-in-ebpf/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/blog/2026/05/31/introducing-actplane-an-ifc-policy-engine-for-ai-agent-harnesses-in-ebpf/" />
-    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/2026/05/31/introducing-actplane-an-ifc-policy-engine-for-ai-agent-harnesses-in-ebpf/" />
+    <loc>https://eunomia.dev/zh/blog/2026/05/31/actplane-an-ifc-policy-engine-for-ai-agent-harnesses-in-ebpf/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/blog/2026/05/31/actplane-an-ifc-policy-engine-for-ai-agent-harnesses-in-ebpf/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/2026/05/31/actplane-an-ifc-policy-engine-for-ai-agent-harnesses-in-ebpf/" />
   </url>
   <url>
     <loc>https://eunomia.dev/blog/2026/05/25/runtime-security-for-ai-agents/</loc>
