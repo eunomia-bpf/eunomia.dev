@@ -24,6 +24,10 @@ import { fileURLToPath } from "node:url";
  *     remains active.
  *  4. `/projects/agentsight/*` (+ `/zh/`, `/en/` variants) — an intermediate
  *     local docs path now redirects to the root-level AgentSight section.
+ *  5. Explicit renamed blog URLs — a few public links were published with
+ *     title-derived slugs before the post title changed. Map those URLs to the
+ *     current canonical route by source file so future title edits do not leave
+ *     stale redirects behind.
  *
  * Most redirect generation only ADDS URLs; the GPTtrace AgentSight class
  * overwrites that exported legacy page by design.
@@ -35,6 +39,13 @@ const outDir = path.resolve(appDir, "out");
 const manifestPath = path.join(appDir, ".generated", "content", "manifest.json");
 
 const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://eunomia.dev").replace(/\/+$/, "");
+
+const renamedBlogRedirects = [
+  {
+    source: "blog/posts/actplane.md",
+    paths: ["/blog/2026/05/31/introducing-actplane-an-ifc-policy-engine-for-ai-agent-harnesses-in-ebpf/"]
+  }
+];
 
 function redirectHtml(target) {
   const absolute = `${siteUrl}${target}`;
@@ -137,6 +148,45 @@ function generateLegacyBlogRedirects() {
   return count;
 }
 
+function generateRenamedBlogRedirects() {
+  if (!fs.existsSync(manifestPath)) {
+    console.warn(`Manifest not found at ${manifestPath}; skipping renamed blog redirects`);
+    return 0;
+  }
+
+  const { manifest } = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
+  let count = 0;
+
+  for (const redirect of renamedBlogRedirects) {
+    const record = manifest.find(
+      (candidate) =>
+        candidate.sourceByLocale?.en === redirect.source ||
+        candidate.sourceByLocale?.zh === redirect.source ||
+        candidate.sourceAliases?.includes(redirect.source)
+    );
+
+    if (!record) {
+      console.warn(`No manifest record found for renamed blog source ${redirect.source}`);
+      continue;
+    }
+
+    const enTarget = record.routeByLocale?.en;
+    const zhTarget = record.routeByLocale?.zh;
+
+    for (const legacyPath of redirect.paths) {
+      if (enTarget) {
+        if (writeRedirect(legacyPath, enTarget, { overwrite: true })) count += 1;
+        if (writeRedirect(`/en${legacyPath}`, enTarget, { overwrite: true })) count += 1;
+      }
+      if (zhTarget) {
+        if (writeRedirect(`/zh${legacyPath}`, zhTarget, { overwrite: true })) count += 1;
+      }
+    }
+  }
+
+  return count;
+}
+
 function generateLegacyGpttraceRedirects() {
   const legacyPaths = ["/GPTtrace/agentsight/"];
   let count = 0;
@@ -178,13 +228,16 @@ if (!fs.existsSync(outDir)) {
 // Order matters: legacy blog stubs write the dated targets directly for all
 // locales first. GPTtrace stubs then overwrite old exported pages and install
 // explicit /en/ and /zh/ redirects. Moved AgentSight stubs add compatibility
-// for the intermediate /projects/agentsight/ path. Finally, the /en/ mirror
-// fills in every other page without clobbering existing stubs, avoiding chains.
+// for the intermediate /projects/agentsight/ path. Renamed blog stubs overwrite
+// stale title-derived URLs and install explicit locale variants. Finally, the
+// /en/ mirror fills in every other page without clobbering existing stubs,
+// avoiding chains.
 const blogCount = generateLegacyBlogRedirects();
 const gpttraceCount = generateLegacyGpttraceRedirects();
 const movedAgentsightCount = generateMovedAgentsightRedirects();
+const renamedBlogCount = generateRenamedBlogRedirects();
 const enCount = generateEnMirror();
 
 console.log(
-  `Generated ${blogCount} legacy blog redirects, ${gpttraceCount} GPTtrace redirects, ${movedAgentsightCount} moved AgentSight redirects, and ${enCount} /en/ redirects in ${outDir}`
+  `Generated ${blogCount} legacy blog redirects, ${gpttraceCount} GPTtrace redirects, ${movedAgentsightCount} moved AgentSight redirects, ${renamedBlogCount} renamed blog redirects, and ${enCount} /en/ redirects in ${outDir}`
 );
