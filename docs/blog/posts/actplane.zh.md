@@ -174,7 +174,7 @@ Codex 的集成通过 `.codex/hooks.json`：
 ActPlane 在架构上分为内核态和用户态两部分：
 
 ```
-actplane.yaml ─▶ collector (Rust) ─▶ .rodata config ─▶ eBPF kernel engine
+actplane.yaml ─▶ compiler (Rust) ─▶ .rodata config ─▶ eBPF kernel engine
  policy: |        parse + lower DSL    (set_global)      propagate labels,
                                                           match rules,
  matches ◀─────── ring buffer (in-process, via aya) ◀─── emit on match only

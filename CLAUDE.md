@@ -95,6 +95,38 @@ When working with eBPF examples in the tutorials:
 - Build with `make` in the tutorial directory
 - Clean with `make clean`
 
+## Blog Writing Style Guide
+
+When writing or editing blog posts in `docs/blog/posts/`, follow these rules strictly.
+
+### Formatting rules (both languages)
+
+- **No em dashes.** Never use "——"（中文）or " — "（English）in blog prose. Replace with commas, colons, semicolons, or conjunctions. The only exception is inside code blocks or CLI output examples.
+- **No short choppy sentences.** Don't stack two or three short sentences that read like bullet points or notes. Merge them with connective tissue into flowing prose.
+- **No "outline topic sentence" patterns.** Avoid structures like "X 有一个共同特征：Y", "X is another strong scenario", "根本问题是 X", "The fundamental problem is X". These are lazy structural crutches from note-taking. Rewrite as natural argumentative prose.
+- **No numbered scenario lists** ("First scenario: ...", "Second scenario: ..."). Use natural transitions between examples ("Now consider...", "再看一个...", "Then there's...").
+- **No trailing summaries** that just restate what the section already said.
+
+### Prose quality
+
+- Write blog prose, not notes. Every paragraph should read as a complete thought with a beginning, middle, and end.
+- Maintain argumentative flow: each section should build on the previous one with a clear "so what" connection. Use progressive argument structure ("那就往下沉一层", "Push down one layer, then...") rather than enumerating features.
+- Vary sentence structure. If three consecutive sentences start the same way or follow the same pattern, rewrite.
+- Merge redundant restatements. If the same point appears twice in adjacent sentences, combine or cut.
+- Keep technical depth but make it readable. Blog tone, not paper-abstract tone.
+
+### Editing approach
+
+- When fixing prose style, edit **one sentence at a time** using the Edit tool. Never overwrite entire sections or paragraphs at once.
+- Do not change technical content, code blocks, YAML examples, or architecture diagrams when doing prose edits.
+- After edits, verify no em dashes were introduced: `grep -c '——' file.zh.md` should return 0.
+
+### Bilingual consistency
+
+- English and Chinese versions of the same post should have matching structure: same sections, same argument flow, same examples in the same order.
+- Section headings should correspond (e.g., "三层约束，三种盲区" ↔ "Three Layers, Three Blind Spots").
+- When one version is rewritten, update the other to match structure (content can differ in natural expression).
+
 ## Important Notes
 - Do not edit tutorial content directly in this repo - edit in the bpf-developer-tutorial repository
 - Project home pages should be edited in their respective repository README files
