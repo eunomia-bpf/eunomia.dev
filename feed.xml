@@ -10,7 +10,7 @@
   <link>https://eunomia.dev/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/</link>
   <guid>https://eunomia.dev/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/</guid>
   <pubDate>Sun, 31 May 2026 00:00:00 GMT</pubDate>
-  <description>You wrote a rule in CLAUDE.md: &quot;do not run git push.&quot; The agent obeyed — it never called the git tool. But it wrote a Python script that called subprocess.run([&quot;git&quot;, &quot;push&quot;]), and the code was pushed to the remote. The </description>
+  <description>You wrote a rule in CLAUDE.md: &quot;do not run git push.&quot; The agent obeyed, and it never called the git tool. But it wrote a Python script that called subprocess.run([&quot;git&quot;, &quot;push&quot;]), and the code was pushed to the remote. T</description>
 </item>
 <item>
   <title>Runtime Observability and Enforcement for Opaque AI Agents with eBPF: Beyond Sandboxes and Approvals</title>
