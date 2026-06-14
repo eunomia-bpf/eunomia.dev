@@ -27,7 +27,7 @@ description: ActPlane 是一个基于 eBPF 的 AI Agent 策略引擎，在操作
 
 还有一类强制中介约束：生产数据库 `prod.db` 只能通过 migration 工具访问，Agent 不能直接打开。不管 Agent 怎么到达文件打开调用，只要它的进程祖先链里没有执行过 `migrate` 工具，操作就应该被阻止。它关心的不是 Agent 有没有某个权限，而是 Agent 走了哪条路径进来，经过了指定的 gate 程序才放行，绕过去就拦住。
 
-这四个约束涉及进程谱系追踪、操作时序、动态失效、强制中介，全都超越了静态 allow/deny 的范畴。要理解为什么解决它们需要内核级方案，先看看现有三层约束各自的盲区在哪里。
+这四个约束分别涉及进程谱系追踪、操作时序、动态失效和强制中介，全都超越了静态 allow/deny 的范畴。要理解为什么解决它们需要内核级方案，先看看现有三层约束各自的盲区在哪里。
 
 ## 三层约束，三种盲区
 
@@ -132,7 +132,7 @@ policy: |
              Run `./migrate` to access it."
 ```
 
-`no-git-branch` 最简单：Agent 进程树中任何尝试 `git branch` 或 `git worktree` 的进程被立即终止，不需要条件判断也不需要时序逻辑。Agent 收到 `because` 里的原因后知道应该用其他 git 命令或请用户管理分支。
+`no-git-branch` 是其中最简单的一条：Agent 进程树中任何尝试 `git branch` 或 `git worktree` 的进程被立即终止，不需要条件判断也不需要时序逻辑。Agent 收到 `because` 里的原因后，就知道应该用其他 git 命令或请用户管理分支。
 
 `regenerate-after-schema` 是跨事件的条件规则，用 notify 效果。解读 `unless` 子句：自上次有进程写入 protocol 目录以来，是否有进程执行过 `protoc`？执行过就放行 commit，没有就提醒 Agent。关键在于 `since` 子句的动态性：每当 protocol 目录再次被写入，"已跑过 protoc"的状态被重置，必须重新跑。这是一个在事件时间线上动态更新的谓词，不是一次性的静态查询。
 
