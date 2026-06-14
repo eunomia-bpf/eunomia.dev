@@ -6,11 +6,11 @@
   <description>eunomia.dev 上关于 eBPF、bpftime、AI tracing 和系统研究的最新文章。</description>
   <language>zh-CN</language>
   <item>
-  <title>ActPlane: 为 AI Agent Harness 设计的系统级策略引擎</title>
-  <link>https://eunomia.dev/zh/blog/2026/05/31/actplane-an-ifc-policy-engine-for-ai-agent-harnesses-in-ebpf/</link>
-  <guid>https://eunomia.dev/zh/blog/2026/05/31/actplane-an-ifc-policy-engine-for-ai-agent-harnesses-in-ebpf/</guid>
+  <title>ActPlane: 把 Agent Harness Enforcement 下沉到内核 eBPF</title>
+  <link>https://eunomia.dev/zh/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/</link>
+  <guid>https://eunomia.dev/zh/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/</guid>
   <pubDate>Sun, 31 May 2026 00:00:00 GMT</pubDate>
-  <description>你在 CLAUDE.md 里写了一条规则：&quot;不要执行 git push&quot;。Agent 遵守了。然后它写了一个 Python 脚本，脚本里调用 subprocess.run([&quot;git&quot;, &quot;push&quot;])。Prompt 约束从未被违反，但代码已经推到了远端。</description>
+  <description>你在 CLAUDE.md 里写了一条规则：&quot;不要执行 git push&quot;。Agent 遵守了，它确实没有调用 git 工具。但它写了一个 Python 脚本，脚本里调了 subprocess.run([&quot;git&quot;, &quot;push&quot;])，代码推到了远端，而 Prompt 约束从未被违反。</description>
 </item>
 <item>
   <title>基于 eBPF 的不透明 AI Agent 运行时可观测与执行控制：超越沙箱与审批</title>
