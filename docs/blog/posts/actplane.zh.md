@@ -3,7 +3,7 @@ date: 2026-05-31
 description: ActPlane 是一个基于 eBPF 的 AI Agent 策略引擎，在操作系统内核层面对 Agent 行为做观测和强制执行。本文分析 prompt、工具层、沙箱三层约束各自的系统性盲区，说明 ActPlane 如何通过标签传播和时序谓词实现确定性的 Agent harness。
 ---
 
-# ActPlane: 把 Agent Harness 下沉到内核
+# ActPlane: 把 Agent Harness Enforcement 下沉到内核 eBPF
 
 你在 CLAUDE.md 里写了一条规则："不要执行 `git push`"。Agent 遵守了，它确实没有调用 git 工具。但它写了一个 Python 脚本，脚本里调了 `subprocess.run(["git", "push"])`，代码推到了远端，而 Prompt 约束从未被违反。
 
