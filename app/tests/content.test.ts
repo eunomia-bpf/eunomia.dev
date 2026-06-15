@@ -883,10 +883,13 @@ test("zh-only section pages only advertise the existing locale alternate", async
 test("renderFeed emits a stable RSS document", () => {
   const xml = renderFeed("en");
 
-  assert.match(xml, /<rss version="2.0">/);
+  assert.match(xml, /<rss version="2.0"/);
   assert.match(xml, /<channel>/);
   assert.match(xml, /<item>/);
   assert.match(xml, /https:\/\/eunomia\.dev\/blog\//);
+  assert.match(xml, /<lastBuildDate>/);
+  assert.match(xml, /<atom:link/);
+  assert.match(xml, /<author>/);
 });
 
 test("static metadata generation emits feed, sitemap, robots, and shared OG assets", () => {
@@ -901,7 +904,7 @@ test("static metadata generation emits feed, sitemap, robots, and shared OG asse
 
     assert.deepEqual(result.files, ["feed.xml", path.join("zh", "feed.xml"), "sitemap.xml", "robots.txt", path.join("og", "default.svg")]);
     assert.ok(fs.existsSync(indexPath));
-    assert.match(fs.readFileSync(path.join(publicDir, "feed.xml"), "utf8"), /<rss version="2.0">/);
+    assert.match(fs.readFileSync(path.join(publicDir, "feed.xml"), "utf8"), /<rss version="2.0"/);
     assert.match(fs.readFileSync(path.join(publicDir, "zh", "feed.xml"), "utf8"), /<language>zh-CN<\/language>/);
     const sitemap = fs.readFileSync(path.join(publicDir, "sitemap.xml"), "utf8");
     assert.match(sitemap, /<loc>https:\/\/eunomia\.dev\//);

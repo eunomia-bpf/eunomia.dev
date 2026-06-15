@@ -127,6 +127,18 @@ export function DocsPageView({
         article={page.layout === "document"}
         publishedAt={page.date}
         metadata={page.metadata}
+        robots={/\/(blogs|zh\/blogs)\//.test(page.path) ? "noindex,follow" : undefined}
+        isTutorial={/\/(tutorials|zh\/tutorials)\//.test(page.path)}
+        isCodeProject={/\/(bpftime|eunomia-bpf|GPTtrace)\/?/.test(page.path)}
+        repoUrl={
+          page.path.includes("/bpftime")
+            ? "https://github.com/eunomia-bpf/bpftime"
+            : page.path.includes("/eunomia-bpf")
+              ? "https://github.com/eunomia-bpf/eunomia-bpf"
+              : page.path.includes("/GPTtrace")
+                ? "https://github.com/eunomia-bpf/GPTtrace"
+                : undefined
+        }
       />
       <SiteChrome
         locale={locale}

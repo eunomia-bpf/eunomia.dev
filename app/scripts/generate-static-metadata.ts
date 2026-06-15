@@ -3,6 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { renderFeed } from "../lib/content/feed";
+import { getGitMetadata } from "../lib/content/git";
 import { getContentManifest, isSitemapExcludedRoute } from "../lib/content/manifest";
 import { getActiveRolloutStage, stageAllowsRoute } from "../lib/rollout";
 import { absoluteUrl } from "../lib/seo";
@@ -82,6 +83,14 @@ export function buildSitemapXml() {
       continue;
     }
 
+    const enSource = record.sourceByLocale.en ?? record.sourceByLocale.zh;
+    const git = enSource ? getGitMetadata(enSource) : null;
+    const lastmod = git?.updatedAt ? git.updatedAt.slice(0, 10) : null;
+
+    const enRoute = record.routeByLocale.en && !isSitemapExcludedRoute(record.routeByLocale.en)
+      ? record.routeByLocale.en
+      : null;
+
     for (const routePath of Object.values(record.routeByLocale).filter(Boolean) as string[]) {
       if (isSitemapExcludedRoute(routePath)) {
         continue;
@@ -93,9 +102,13 @@ export function buildSitemapXml() {
       }
 
       seen.add(url);
+
+      const xDefaultHref = enRoute ? absoluteUrl(enRoute) : url;
+
       const alternates = [
-        record.routeByLocale.en && !isSitemapExcludedRoute(record.routeByLocale.en)
-          ? `    <xhtml:link rel="alternate" hreflang="en" href="${absoluteUrl(record.routeByLocale.en)}" />`
+        `    <xhtml:link rel="alternate" hreflang="x-default" href="${xDefaultHref}" />`,
+        enRoute
+          ? `    <xhtml:link rel="alternate" hreflang="en" href="${absoluteUrl(enRoute)}" />`
           : null,
         record.routeByLocale.zh && !isSitemapExcludedRoute(record.routeByLocale.zh)
           ? `    <xhtml:link rel="alternate" hreflang="zh" href="${absoluteUrl(record.routeByLocale.zh)}" />`
@@ -104,9 +117,11 @@ export function buildSitemapXml() {
         .filter(Boolean)
         .join("\n");
 
+      const lastmodTag = lastmod ? `    <lastmod>${lastmod}</lastmod>\n` : "";
+
       entries.push(`  <url>
     <loc>${url}</loc>
-${alternates}
+${lastmodTag}${alternates}
   </url>`);
     }
   }
@@ -122,6 +137,9 @@ export function buildRobotsTxt() {
 Allow: /
 
 Sitemap: ${absoluteUrl("/sitemap.xml")}
+
+# LLM / AI agent friendly: all crawlers welcome
+# See also /llms.txt for structured project metadata
 `;
 }
 

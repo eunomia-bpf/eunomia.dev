@@ -187,7 +187,16 @@ function makeExcerpt(markdown: string): string {
     .filter(Boolean);
 
   const preferredBlock = blocks.find((block) => block.length > 40) ?? blocks[0] ?? "";
-  return preferredBlock.slice(0, 220);
+  if (preferredBlock.length <= 220) {
+    return preferredBlock;
+  }
+  const truncated = preferredBlock.slice(0, 220);
+  const lastSentence = truncated.search(/[.!?。！？]\s+(?=[A-Z一-鿿])[^]*$/);
+  if (lastSentence > 80) {
+    return truncated.slice(0, lastSentence + 1);
+  }
+  const lastSpace = truncated.lastIndexOf(" ");
+  return lastSpace > 80 ? truncated.slice(0, lastSpace) : truncated;
 }
 
 function parseDate(rawValue: unknown): string | undefined {
