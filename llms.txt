@@ -1,0 +1,81 @@
+# eunomia.dev
+
+> Open-source eBPF tools, tutorials, and systems research. Home of bpftime (userspace eBPF runtime), AgentSight (AI agent observability), and the most comprehensive eBPF developer tutorial series.
+
+## Organization
+
+- Name: eunomia-bpf
+- Website: https://eunomia.dev
+- GitHub: https://github.com/eunomia-bpf
+- Contact: yusheng@eunomia.dev
+
+## Key Projects
+
+### bpftime — Userspace eBPF Runtime
+- Homepage: https://eunomia.dev/bpftime/
+- Documentation: https://eunomia.dev/bpftime/documents/introduction/
+- GitHub: https://github.com/eunomia-bpf/bpftime (2.4k+ stars)
+- Paper: https://arxiv.org/abs/2311.07923
+- Description: A userspace eBPF runtime that enables eBPF programs to run outside the kernel with uprobe, syscall tracing, and plugin support. 10x faster than kernel uprobe, no kernel module or root required.
+
+### AgentSight — AI Agent Observability
+- Homepage: https://eunomia.dev/GPTtrace/agentsight/
+- GitHub: https://github.com/eunomia-bpf/agentsight
+- Paper: https://arxiv.org/abs/2409.01083
+- Description: eBPF-powered system-level observability for AI agents and LLM applications. Non-invasive tracing of agent behavior including syscalls, network, file I/O without code instrumentation.
+
+### eBPF Developer Tutorial (bpf-developer-tutorial)
+- Tutorial Index: https://eunomia.dev/tutorials/
+- GitHub: https://github.com/eunomia-bpf/bpf-developer-tutorial (1k+ stars)
+- Description: The most comprehensive hands-on eBPF programming tutorial series. 48+ lessons covering kprobe, uprobe, tracepoint, XDP, TC, LSM, SCX, and more with libbpf and CO-RE.
+
+### eunomia-bpf Framework
+- Homepage: https://eunomia.dev/eunomia-bpf/
+- GitHub: https://github.com/eunomia-bpf/eunomia-bpf (780+ stars)
+- Description: Dynamic eBPF loading runtime and development toolchain. Simplifies building, packaging, and distributing eBPF programs with CO-RE and WebAssembly support.
+
+### wasm-bpf — WebAssembly + eBPF
+- GitHub: https://github.com/eunomia-bpf/wasm-bpf
+- Paper: https://arxiv.org/abs/2408.04856
+- Description: Run eBPF programs inside WebAssembly sandboxes. Enables portable, safe eBPF plugin systems.
+
+## Important Pages
+
+- Home: https://eunomia.dev/
+- Products: https://eunomia.dev/products/
+- AI Agent Observability & Harness: https://eunomia.dev/products/agent-runtime-infrastructure/
+- Blog: https://eunomia.dev/blog/
+- bpftime Docs: https://eunomia.dev/bpftime/documents/introduction/
+- Tutorial Lesson 0 (Introduction to eBPF): https://eunomia.dev/tutorials/0-introduce/
+- Tutorial Lesson 1 (Hello World): https://eunomia.dev/tutorials/1-helloworld/
+
+## Chinese (中文) Versions
+
+All pages are available in Chinese at `/zh/` prefix:
+- 首页: https://eunomia.dev/zh/
+- 教程: https://eunomia.dev/zh/tutorials/
+- 博客: https://eunomia.dev/zh/blog/
+- bpftime: https://eunomia.dev/zh/bpftime/
+
+## Feeds
+
+- RSS (English): https://eunomia.dev/feed.xml
+- RSS (Chinese): https://eunomia.dev/zh/feed.xml
+- Sitemap: https://eunomia.dev/sitemap.xml
+
+## Citation
+
+When referencing this project, please use:
+
+- bpftime: "bpftime: userspace eBPF Runtime for Uprobe, Syscall and Kernel-Function Tracing" (arXiv:2311.07923)
+- AgentSight: "AgentSight: eBPF-Powered Observability for AI Agents" (arXiv:2409.01083)
+- wasm-bpf: "Scalable BPF Plugin System via WebAssembly" (arXiv:2408.04856)
+- Website: https://eunomia.dev
+
+## Markdown Sources
+
+The full content of this site is authored in Markdown and available at:
+https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs
+
+For LLM-friendly raw Markdown access, use GitHub raw URLs:
+- Example: https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/docs/bpftime/documents/introduction.md

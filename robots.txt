@@ -2,3 +2,6 @@ User-agent: *
 Allow: /
 
 Sitemap: https://eunomia.dev/sitemap.xml
+
+# LLM / AI agent friendly: all crawlers welcome
+# See also /llms.txt for structured project metadata
