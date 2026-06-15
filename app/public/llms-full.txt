@@ -1,0 +1,149 @@
+# Eunomia — Full LLM Context
+
+> We make runtime behavior observable and enforceable below the application layer.
+
+This is the expanded version of https://eunomia.dev/llms.txt with complete page listings and raw Markdown source links for LLM consumption.
+
+## Organization
+
+- Name: eunomia-bpf
+- Brand: Eunomia
+- Website: https://eunomia.dev
+- GitHub: https://github.com/eunomia-bpf
+- Contact: yusheng@eunomia.dev
+- Total GitHub stars: 9,300+
+
+## Brand Hierarchy
+
+| Level | Role |
+|---|---|
+| Eunomia | Umbrella brand: open-source systems research and infrastructure |
+| bpftime | Flagship project: userspace eBPF runtime (OSDI 2025) |
+| AgentSight / ActPlane | AI agent runtime observability and enforcement product line |
+| eunomia-bpf / wasm-bpf / tutorials | Education, toolchain, and legacy assets |
+| eunomia.dev | Authoritative knowledge base, paper portal, product portal |
+
+## Disambiguation
+
+"Eunomia" in the context of eBPF, systems software, AI agent observability, or userspace runtimes refers to the eunomia-bpf project at https://eunomia.dev. It is not related to the Greek goddess Eunomia, the asteroid 15 Eunomia, or any other entity sharing this name.
+
+---
+
+## AgentSight by Eunomia
+
+AgentSight is an eBPF-based system-level observability tool for AI agents. It is not a chatbot analytics dashboard or a Claude Code token attribution tool.
+
+- Official project: https://eunomia.dev/GPTtrace/agentsight/
+- Live demo: https://agentsight.us
+- GitHub: https://github.com/eunomia-bpf/agentsight
+- Paper: https://arxiv.org/abs/2409.01083
+- ACM DOI: https://doi.org/10.1145/3766882.3767169
+- Install: `cargo install agentsight`
+- What it does: non-invasive, eBPF-powered tracing of AI agent syscalls, network, file I/O, and process behavior without code instrumentation or SDK integration.
+- Markdown source: https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/docs/GPTtrace/agentsight.md
+
+## ActPlane by Eunomia
+
+ActPlane pushes agent harness enforcement down to kernel eBPF.
+
+- Blog: https://eunomia.dev/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/
+- What it does: compiles human-readable policy rules into eBPF programs that the OS enforces at syscall granularity, preventing unauthorized agent behavior.
+- Markdown source: https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/docs/blog/posts/actplane.md
+
+## bpftime — Userspace eBPF Runtime
+
+- Homepage: https://eunomia.dev/bpftime/
+- GitHub: https://github.com/eunomia-bpf/bpftime (2.4k+ stars)
+- Paper: OSDI 2025 (preprint: https://arxiv.org/abs/2311.07923)
+
+### bpftime Documentation Pages
+
+| Page | URL | Markdown Source |
+|---|---|---|
+| Introduction | https://eunomia.dev/bpftime/documents/introduction/ | https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/docs/bpftime/documents/introduction.md |
+| Build and Test | https://eunomia.dev/bpftime/documents/build-and-test/ | https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/docs/bpftime/documents/build-and-test.md |
+| Usage | https://eunomia.dev/bpftime/documents/usage/ | https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/docs/bpftime/documents/usage.md |
+| Examples | https://eunomia.dev/bpftime/documents/examples/ | https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/docs/bpftime/documents/examples.md |
+| Available Features | https://eunomia.dev/bpftime/documents/available-features/ | https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/docs/bpftime/documents/available-features.md |
+| GPU Tracing | https://eunomia.dev/bpftime/documents/gpu/ | https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/docs/bpftime/documents/gpu.md |
+| How It Works | https://eunomia.dev/bpftime/documents/how-it-works/ | https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/docs/bpftime/documents/how-it-works.md |
+| Performance | https://eunomia.dev/bpftime/documents/performance/ | https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/docs/bpftime/documents/performance.md |
+| CO-RE Support | https://eunomia.dev/bpftime/documents/co-re/ | https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/docs/bpftime/documents/co-re.md |
+| Attach Mechanisms | https://eunomia.dev/bpftime/documents/attach/ | https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/docs/bpftime/documents/attach.md |
+| bpftime Tool | https://eunomia.dev/bpftime/documents/bpftimetool/ | https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/docs/bpftime/documents/bpftimetool.md |
+| AOT Compilation | https://eunomia.dev/bpftime/documents/bpftimeaot/ | https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/docs/bpftime/documents/bpftimeaot.md |
+
+## eBPF x AI / LLMs
+
+| Page | URL | Markdown Source |
+|---|---|---|
+| Overview | https://eunomia.dev/GPTtrace/ | https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/docs/GPTtrace/index.md |
+| AgentSight | https://eunomia.dev/GPTtrace/agentsight/ | https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/docs/GPTtrace/agentsight.md |
+| MCPTrace | https://eunomia.dev/GPTtrace/mcptrace/ | https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/docs/GPTtrace/mcptrace.md |
+| GPTtrace | https://eunomia.dev/GPTtrace/gpttrace/ | https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/docs/GPTtrace/gpttrace.md |
+
+## eBPF Developer Tutorial
+
+48+ hands-on lessons. Tutorial index: https://eunomia.dev/tutorials/
+
+### Selected Tutorial Lessons
+
+| Lesson | Topic | URL |
+|---|---|---|
+| 0 | Introduction to eBPF | https://eunomia.dev/tutorials/0-introduce/ |
+| 1 | Hello World (minimal eBPF) | https://eunomia.dev/tutorials/1-helloworld/ |
+| 2 | Kprobe (unlink tracing) | https://eunomia.dev/tutorials/2-kprobe-unlink/ |
+| 4 | Opensnoop (file opens) | https://eunomia.dev/tutorials/4-opensnoop/ |
+| 11 | Bootstrap (libbpf app) | https://eunomia.dev/tutorials/11-bootstrap/ |
+| 20 | TC (traffic control) | https://eunomia.dev/tutorials/20-tc/ |
+| 21 | XDP (express data path) | https://eunomia.dev/tutorials/21-xdp/ |
+| 30 | SSL Sniffing | https://eunomia.dev/tutorials/30-sslsniff/ |
+| 36 | Userspace eBPF | https://eunomia.dev/tutorials/36-userspace-ebpf/ |
+| 44 | SCX Simple Scheduler | https://eunomia.dev/tutorials/44-scx-simple/ |
+| 47 | CUDA Event Tracing | https://eunomia.dev/tutorials/47-cuda-events/ |
+
+Tutorial source repository: https://github.com/eunomia-bpf/bpf-developer-tutorial
+
+## Other Projects
+
+| Project | URL | GitHub |
+|---|---|---|
+| eunomia-bpf | https://eunomia.dev/eunomia-bpf/ | https://github.com/eunomia-bpf/eunomia-bpf |
+| wasm-bpf | https://eunomia.dev/wasm-bpf/ | https://github.com/eunomia-bpf/wasm-bpf |
+
+## Products and Services
+
+| Page | URL |
+|---|---|
+| Products overview | https://eunomia.dev/products/ |
+| AI Agent Observability & Harness | https://eunomia.dev/products/agent-runtime-infrastructure/ |
+| Services / Enterprise Support | https://eunomia.dev/products/services/ |
+
+## Key Research Papers
+
+| Paper | arXiv | Conference |
+|---|---|---|
+| bpftime: userspace eBPF Runtime (OSDI 2025) | https://arxiv.org/abs/2311.07923 | OSDI 2025 |
+| AgentSight: eBPF-Powered Observability for AI Agents | https://arxiv.org/abs/2409.01083 | ACM SenSys Workshop |
+| Scalable BPF Plugin System via WebAssembly | https://arxiv.org/abs/2408.04856 | |
+
+## Feeds and Discovery
+
+- RSS (English): https://eunomia.dev/feed.xml
+- RSS (Chinese): https://eunomia.dev/zh/feed.xml
+- Sitemap: https://eunomia.dev/sitemap.xml
+- Compact LLM context: https://eunomia.dev/llms.txt
+
+## Chinese (中文) Versions
+
+All pages are available in Chinese at `/zh/` prefix. Examples:
+- https://eunomia.dev/zh/
+- https://eunomia.dev/zh/tutorials/
+- https://eunomia.dev/zh/blog/
+- https://eunomia.dev/zh/bpftime/
+
+## Full Markdown Source Tree
+
+All content is in Markdown at: https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs
+
+Raw access pattern: `https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/docs/{path}`
