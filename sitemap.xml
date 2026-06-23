@@ -2493,6 +2493,20 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/about/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/agentsight/agent-session/</loc>
+    <lastmod>2026-06-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/agent-session/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/agent-session/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/agent-session/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/agentsight/agent-session/</loc>
+    <lastmod>2026-06-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/agent-session/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/agent-session/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/agent-session/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/agentsight/agentpprof/</loc>
     <lastmod>2026-06-23</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/agentpprof/" />
@@ -2591,18 +2605,18 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/otel/" />
   </url>
   <url>
-    <loc>https://eunomia.dev/agentsight/quickstart/</loc>
+    <loc>https://eunomia.dev/agentsight/usage/</loc>
     <lastmod>2026-06-23</lastmod>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/quickstart/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/quickstart/" />
-    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/quickstart/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/usage/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/usage/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/usage/" />
   </url>
   <url>
-    <loc>https://eunomia.dev/zh/agentsight/quickstart/</loc>
+    <loc>https://eunomia.dev/zh/agentsight/usage/</loc>
     <lastmod>2026-06-23</lastmod>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/quickstart/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/quickstart/" />
-    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/quickstart/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/usage/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/usage/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/usage/" />
   </url>
   <url>
     <loc>https://eunomia.dev/bpftime/EIM/draft-spec/current-EIM-lack/</loc>
