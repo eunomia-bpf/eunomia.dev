@@ -39,15 +39,13 @@ session:
 
 | View | Width means | Primary question |
 | --- | ---: | --- |
-| `tasks` | LLM-call plus tool-event count | What semantic work dominated the session? |
-| `system` | tool and system-effect count | Which tool, process, effect, path, or domain chains were heavy? |
-| `tools` | same projection as `system` | Compatibility alias for older examples. |
-| `tokens` | reported or bounded-estimated tokens | Which semantic regions consumed model budget? |
+| `tokens` | reported token count (input/output/cache) | Which prompts consumed the most model budget? |
+| `time` | duration in seconds | How long did each prompt/activity take? |
 | `files` | file/path effect count | Which prompts touched which parts of the repository? |
-| `network` | network/domain effect count | Which prompts contacted which domains, and through which process chain? |
+| `network` | network/domain effect count | Which prompts contacted which domains? |
 
-Start with `tasks`. When a wide prompt or session looks suspicious, switch to
-`system`, `files`, `network`, or `tokens` to explain the cause.
+Start with `tokens` to find cost hotspots. Use `time` to see where wall-clock
+time went. Use `files` and `network` for security audits.
 
 ## Install
 
@@ -70,39 +68,39 @@ cargo run --manifest-path agentpprof/Cargo.toml -- -o agent.pb.gz
 
 ## First profile
 
-Generate a task profile for the current repository:
+Generate a token profile for the current repository:
 
 ```bash
-agentpprof --project-root . --view tasks -o tasks.pb.gz
+agentpprof --project-root . --view tokens -o tokens.pb.gz
 ```
 
 Open the pprof profile with standard Go tooling:
 
 ```bash
-go tool pprof -top tasks.pb.gz
-go tool pprof -http=:0 tasks.pb.gz
+go tool pprof -top tokens.pb.gz
+go tool pprof -http=:0 tokens.pb.gz
 ```
 
 Generate a browser-openable flamegraph instead:
 
 ```bash
-agentpprof --project-root . --view tasks -o tasks.svg
+agentpprof --project-root . --view tokens -o tokens.svg
 ```
 
 The extension chooses the output format when `--format` is not provided:
 
 ```bash
-agentpprof -o tasks.pb.gz   --view tasks    # pprof protobuf, gzip-compressed
-agentpprof -o system.folded --view system   # folded stack text
+agentpprof -o tokens.pb.gz  --view tokens   # pprof protobuf, gzip-compressed
+agentpprof -o time.folded   --view time     # folded stack text
 agentpprof -o files.svg     --view files    # standalone SVG flamegraph
 agentpprof -o network.json  --view network  # redacted JSON summary and stacks
 ```
 
 The checked-in gallery under `docs/flamegraph/` was generated from real local
-AgentSight development sessions, not toy transcripts. It includes task, system,
-token, file, and network flamegraphs. A task flamegraph looks like this:
+bpf-benchmark development sessions, not toy transcripts. It includes tokens,
+time, files, and network flamegraphs. A token flamegraph looks like this:
 
-![agentpprof task flamegraph](https://github.com/eunomia-bpf/agentsight/raw/master/docs/flamegraph/examples/tasks.svg)
+![agentpprof token flamegraph](https://github.com/eunomia-bpf/agentsight/raw/master/docs/flamegraph/examples/bpf-benchmark-tokens.svg)
 
 ## What data does it read?
 
@@ -115,7 +113,7 @@ behavior, and use `agentpprof` to aggregate already-recorded agent sessions.
 By default, it scans recent local sessions that match `--project-root`:
 
 ```bash
-agentpprof --project-root /path/to/repo --view tasks -o tasks.svg
+agentpprof --project-root /path/to/repo --view tokens -o tokens.svg
 ```
 
 For repeatable analysis, pass explicit session files:
@@ -125,17 +123,17 @@ agentpprof \
   --project-root /path/to/repo \
   --session-file ~/.codex/sessions/.../session.jsonl \
   --session-file ~/.claude/projects/.../session.jsonl \
-  --view system \
-  -o system.folded
+  --view tokens \
+  -o tokens.folded
 ```
 
 Useful selectors:
 
 ```bash
-agentpprof -o tasks.svg --agent codex
-agentpprof -o tasks.svg --session-id 019ec5
-agentpprof -o tasks.svg --session-tag debug
-agentpprof -o tasks.svg --prompt-tag review
+agentpprof -o tokens.svg --agent codex
+agentpprof -o tokens.svg --session-id 019ec5
+agentpprof -o tokens.svg --session-tag debug
+agentpprof -o tokens.svg --prompt-tag review
 ```
 
 ## The stack model
@@ -144,18 +142,20 @@ A stack is a projection, not a literal call stack. The lower frames provide
 context, and the upper frames describe the activity being counted. The exact
 shape depends on the view.
 
-The `tasks` view emphasizes semantic work:
+The `tokens` view uses model budget as the width:
 
 ```text
-project:agentsight;agent:codex;session:release;prompt:debug;kind:tool;call:tool/shell;effect:test;status:ok 1
-project:agentsight;agent:codex;session:release;prompt:debug;kind:llm;call:llm/review;model:gpt-5 1
+project:agentsight;agent:claude;session:profile;prompt:debug;call:llm/debug;model:claude-opus-4-6;kind:input 4200
+project:agentsight;agent:claude;session:profile;prompt:debug;call:llm/debug;model:claude-opus-4-6;kind:output 980
+project:agentsight;agent:claude;session:profile;prompt:debug;call:llm/debug;model:claude-opus-4-6;kind:cache 150000
 ```
 
-The `system` view pushes below tool calls into process and effect structure:
+The `time` view uses wall-clock duration (seconds) as the width:
 
 ```text
-project:agentsight;agent:codex;session:release;prompt:debug;call:tool/shell;process:bash;process:cargo;effect:test;path:collector;status:ok 1
-project:agentsight;agent:codex;session:release;prompt:debug;call:tool/shell;process:bash;process:git;effect:repo;path:repo;status:ok 1
+project:agentsight;agent:claude;session:profile;prompt:debug;kind:llm 45
+project:agentsight;agent:claude;session:profile;prompt:debug;kind:tool 12
+project:agentsight;agent:claude;session:profile;prompt:debug;kind:prompt 2
 ```
 
 The `files` view makes repository areas the main branch:
@@ -170,16 +170,8 @@ The `network` view centers domains:
 project:agentsight;agent:codex;session:release;prompt:publish;domain:crates.io;process:cargo;status:ok 1
 ```
 
-The `tokens` view uses model budget as the width:
-
-```text
-project:agentsight;agent:codex;model:gpt-5;kind:input;session:release;prompt:debug;call:llm/review 4200
-project:agentsight;agent:codex;model:gpt-5;kind:output;session:release;prompt:debug;call:llm/review 980
-```
-
-This separation matters. A file flamegraph should not use token width, and a
-token flamegraph should not hide the model dimension. The right projection
-depends on the user's question.
+The right projection depends on your question: tokens for cost, time for
+performance, files for impact, network for security.
 
 ## Tagging
 
@@ -190,7 +182,7 @@ prompts are too long and too private to use as flamegraph labels, so
 The default tagger is deterministic and local:
 
 ```bash
-agentpprof -o tasks.svg --tagger regex
+agentpprof -o tokens.svg --tagger regex
 ```
 
 It uses built-in keyword rules and produces stable tags such as `debug`,
@@ -200,7 +192,7 @@ default for CI, public artifacts, and reproducible analysis.
 Project-specific rules can be layered on top:
 
 ```bash
-agentpprof -o tasks.svg \
+agentpprof -o tokens.svg \
   --tagger regex \
   --tag-rule prompt:review='(?i)review|diff|regression' \
   --tag-rule prompt:test='(?i)cargo test|pytest|unit test' \
@@ -222,7 +214,7 @@ tagger:
 
 ```bash
 llama-server -m /path/to/model.gguf --port 8080
-agentpprof -o tasks.svg --tagger llm --llama-url http://127.0.0.1:8080
+agentpprof -o tokens.svg --tagger llm --llama-url http://127.0.0.1:8080
 ```
 
 LLM tags are cached under the user cache directory by default, for example
@@ -259,17 +251,17 @@ at runtime. Use it when you need live visibility, process trees, file effects,
 network destinations, or saved SQLite traces.
 
 `agentpprof` is the semantic profiler for local agent history. Use it when you
-want aggregation: repeated prompts, wide system-effect branches, token-heavy
-semantic regions, or folded stacks that can be compared across sessions.
+want aggregation: token cost hotspots, time spent per prompt, or folded stacks
+that can be compared across sessions.
 
 A practical workflow is:
 
 ```bash
 sudo agentsight record -- claude
 agentsight report
-agentpprof --project-root . --view tasks -o tasks.svg
-agentpprof --project-root . --view system -o system.svg
-agentpprof --project-root . --view tokens -o tokens.pb.gz
+agentpprof --project-root . --view tokens -o tokens.svg
+agentpprof --project-root . --view time -o time.svg
+agentpprof --project-root . --view files -o files.svg
 ```
 
 ## CI and release contract

@@ -113,19 +113,19 @@ local Codex or Claude session history:
 ```bash
 cargo run --manifest-path agentpprof/Cargo.toml -- \
   --project-root . \
-  --view tasks \
+  --view tokens \
   -o agent.pb.gz
 
 go tool pprof -top agent.pb.gz
 ```
 
-The `tasks` view is the best first flamegraph: it aggregates real local
-Codex/Claude AgentSight development sessions by project, agent, session tag,
-prompt tag, and tool/LLM activity.
+The `tokens` view is the best first flamegraph for cost analysis: it aggregates
+real local Codex/Claude development sessions by project, agent, session tag,
+prompt tag, model, and token kind.
 
 <div align="center">
-  <img src="https://github.com/eunomia-bpf/agentsight/raw/master/docs/flamegraph/examples/tasks.svg" alt="agentpprof task flamegraph from real AgentSight development sessions" width="1000">
-  <p><em>Offline task profile generated from real local AgentSight coding-agent sessions</em></p>
+  <img src="https://github.com/eunomia-bpf/agentsight/raw/master/docs/flamegraph/examples/bpf-benchmark-tokens.svg" alt="agentpprof token flamegraph from real bpf-benchmark development sessions" width="1000">
+  <p><em>Offline token profile generated from real local bpf-benchmark coding-agent sessions</em></p>
 </div>
 
 See [agentpprof/README.md](agentpprof/README.md) for CLI details and
