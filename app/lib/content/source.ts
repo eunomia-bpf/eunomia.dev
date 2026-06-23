@@ -5,7 +5,7 @@ import { getDocsFileSet, getTopLevelSections } from "./fs-index";
 export const supportedLocales: Locale[] = ["en", "zh"];
 
 export function isLocalizedMarkdown(relativePath: string): boolean {
-  return relativePath.endsWith(".zh.md");
+  return /\.(zh|zh-CN)\.md$/.test(relativePath);
 }
 
 export function isEnglishMarkdown(relativePath: string): boolean {
@@ -13,7 +13,7 @@ export function isEnglishMarkdown(relativePath: string): boolean {
 }
 
 export function baseMarkdownPath(relativePath: string): string {
-  return relativePath.replace(/\.(zh|en)\.md$/, ".md");
+  return relativePath.replace(/\.(zh|zh-CN|en)\.md$/, ".md");
 }
 
 export function englishVariant(relativePath: string): string {
@@ -28,11 +28,15 @@ export function localizedVariant(relativePath: string, locale: Locale): string {
   return basePath.replace(/\.md$/, ".zh.md");
 }
 
+export function zhCnVariant(relativePath: string): string {
+  return baseMarkdownPath(relativePath).replace(/\.md$/, ".zh-CN.md");
+}
+
 export function resolveLocalizedSource(relativePath: string, locale: Locale): string | null {
   const docsFiles = getDocsFileSet();
   const candidates =
     locale === "zh"
-      ? [localizedVariant(relativePath, "zh"), englishVariant(relativePath), baseMarkdownPath(relativePath)]
+      ? [localizedVariant(relativePath, "zh"), zhCnVariant(relativePath), englishVariant(relativePath), baseMarkdownPath(relativePath)]
       : [englishVariant(relativePath), baseMarkdownPath(relativePath)];
 
   for (const candidate of candidates) {

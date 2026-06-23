@@ -438,7 +438,7 @@ extra:
             href: /agentsight/
           - label: Quick start
             label_zh: 快速开始
-            href: /agentsight/quickstart/
+            href: /agentsight/usage/
           - label: Supported agents
             label_zh: 支持的智能体
             href: /agentsight/agents/

@@ -22,17 +22,10 @@ cp bpftime/tools/aot/README.md docs/bpftime/documents/bpftimeaot.md && \
 cp bpftime/attach/README.md docs/bpftime/documents/attach.md && \
 cp bpftime/example/gpu/README.md docs/bpftime/documents/gpu.md && \
 mkdir -p docs/agentsight && \
+rm -f docs/agentsight/*.md && \
 cp agentsight/README.md docs/agentsight/index.md && \
 cp agentsight/README.zh-CN.md docs/agentsight/index.zh.md && \
-cp agentsight/docs/usage.md docs/agentsight/quickstart.md && \
-cp agentsight/docs/usage.zh-CN.md docs/agentsight/quickstart.zh.md && \
-cp agentsight/docs/build.md docs/agentsight/build.md && \
-cp agentsight/docs/docker.md docs/agentsight/docker.md && \
-cp agentsight/docs/agentpprof.md docs/agentsight/agentpprof.md && \
-cp agentsight/docs/agents.md docs/agentsight/agents.md && \
-cp agentsight/docs/otel.md docs/agentsight/otel.md && \
-cp agentsight/docs/development.md docs/agentsight/development.md && \
-cp agentsight/docs/development.zh-CN.md docs/agentsight/development.zh.md && \
+cp agentsight/docs/*.md docs/agentsight/ && \
 mkdir -p docs/agentsight/images && \
 cp agentsight/docs/demo-*.png agentsight/docs/top-mode-demo.png docs/agentsight/images/ && \
 echo "eunomia.dev" > docs/CNAME

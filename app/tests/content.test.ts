@@ -198,7 +198,7 @@ test("primary nav children and section sidebars are sourced from mkdocs config",
   );
   assert.equal(sidebars.get("projects")?.[1]?.items[2]?.href, "/wasm-bpf/");
   assert.equal(sidebars.get("projects")?.[1]?.items[3]?.href, "/agentsight/");
-  assert.equal(sidebars.get("agentsight")?.[0]?.items[1]?.href, "/agentsight/quickstart/");
+  assert.equal(sidebars.get("agentsight")?.[0]?.items[1]?.href, "/agentsight/usage/");
   assert.ok(!sidebars.get("projects")?.some((group) => group.items.some((item) => item.href === "/blogs/")));
   assert.equal(sidebars.get("GPTtrace")?.[0]?.title.en, "AI and eBPF");
   assert.deepEqual(
@@ -607,6 +607,11 @@ test("docPathToRoute preserves the only surviving localized route for zh-only se
     docPathToRoute("eunomia-bpf/ecli/ecli-dockerfile-usage.zh.md", "en"),
     "/zh/eunomia-bpf/ecli/ecli-dockerfile-usage/"
   );
+});
+
+test("docPathToRoute treats .zh-CN.md files as localized zh routes", () => {
+  assert.equal(docPathToRoute("agentsight/usage.zh-CN.md", "zh"), "/zh/agentsight/usage/");
+  assert.equal(docPathToRoute("agentsight/development.zh-CN.md", "zh"), "/zh/agentsight/development/");
 });
 
 test("docPathToRoute keeps legacy blog routes stable across locales", () => {

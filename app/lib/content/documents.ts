@@ -28,7 +28,7 @@ const generatedDocumentIndexPath = path.join(generatedContentDir, "documents.jso
 const documentIndexCache = new Map<string, IndexedDocument>();
 
 function localeFromSourceRelative(sourceRelative: string): "en" | "zh" {
-  return sourceRelative.endsWith(".zh.md") ? "zh" : "en";
+  return /\.(zh|zh-CN)\.md$/.test(sourceRelative) ? "zh" : "en";
 }
 
 function buildDocument(sourceRelative: string): IndexedDocument {

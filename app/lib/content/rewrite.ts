@@ -9,7 +9,9 @@ import { resolveRouteFromDocSource } from "./manifest";
 import {
   baseMarkdownPath,
   englishVariant,
-  localizedVariant
+  isLocalizedMarkdown,
+  localizedVariant,
+  zhCnVariant
 } from "./source";
 
 function splitSuffix(value: string): { pathname: string; search: string; hash: string } {
@@ -84,16 +86,20 @@ function resolveDocLinkCandidate(relativePath: string): string | null {
     candidates.add(baseMarkdownPath(normalized));
     candidates.add(englishVariant(normalized));
     candidates.add(localizedVariant(normalized, "zh"));
+    candidates.add(zhCnVariant(normalized));
   } else {
     candidates.add(`${normalized}.md`);
     candidates.add(`${normalized}.en.md`);
     candidates.add(`${normalized}.zh.md`);
+    candidates.add(`${normalized}.zh-CN.md`);
     candidates.add(path.posix.join(normalized, "README.md"));
     candidates.add(path.posix.join(normalized, "README.en.md"));
     candidates.add(path.posix.join(normalized, "README.zh.md"));
+    candidates.add(path.posix.join(normalized, "README.zh-CN.md"));
     candidates.add(path.posix.join(normalized, "index.md"));
     candidates.add(path.posix.join(normalized, "index.en.md"));
     candidates.add(path.posix.join(normalized, "index.zh.md"));
+    candidates.add(path.posix.join(normalized, "index.zh-CN.md"));
   }
 
   for (const candidate of candidates) {
@@ -116,7 +122,7 @@ function rewriteAbsolutePath(value: string): string {
   }
 
   if (docsFiles.has(normalized)) {
-    const route = resolveRouteFromDocSource(normalized, normalized.endsWith(".zh.md") ? "zh" : "en");
+    const route = resolveRouteFromDocSource(normalized, isLocalizedMarkdown(normalized) ? "zh" : "en");
     if (route) {
       return `${route}${search}${hash}`;
     }
@@ -137,7 +143,7 @@ function rewriteRelativePath(value: string, sourceRelativePath: string, locale: 
   const { pathname, search, hash } = splitSuffix(value);
   const sourceDirectory = path.posix.dirname(baseMarkdownPath(sourceRelativePath));
   const resolved = path.posix.normalize(path.posix.join(sourceDirectory, pathname));
-  const explicitLocale: Locale = pathname.endsWith(".zh.md") ? "zh" : locale;
+  const explicitLocale: Locale = isLocalizedMarkdown(pathname) ? "zh" : locale;
 
   const docCandidate = resolveDocLinkCandidate(resolved);
   if (docCandidate) {
