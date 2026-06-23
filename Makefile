@@ -1,4 +1,4 @@
-.PHONY: build clean install
+.PHONY: build clean install sync-external-docs
 
 VENV := .venv
 PYTHON := $(VENV)/bin/python
@@ -31,6 +31,10 @@ nvbit-tutorial:
 
 agentsight:
 	git clone https://github.com/eunomia-bpf/agentsight --depth=1
+
+sync-external-docs:
+	$(MAKE) clean
+	$(MAKE) docs/CNAME
 
 docs/CNAME: tutorial cuda-exp cupti-exp nvbit-tutorial bpftime agentsight
 	./rename.sh

@@ -451,6 +451,9 @@ extra:
           - label: OpenTelemetry
             label_zh: OpenTelemetry 集成
             href: /agentsight/otel/
+          - label: agentpprof
+            label_zh: agentpprof
+            href: /agentsight/agentpprof/
           - label: Development
             label_zh: 开发指南
             href: /agentsight/development/

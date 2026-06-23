@@ -1,4 +1,4 @@
-# AgentSight: System-wide AI agent tracing and monitoring with eBPF
+# AgentSight: System-wide AI agent profiling and monitoring with eBPF
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![CI](https://github.com/eunomia-bpf/agentsight/actions/workflows/ci.yml/badge.svg)](https://github.com/eunomia-bpf/agentsight/actions/workflows/ci.yml)
@@ -12,7 +12,7 @@ to your machine, and connect those actions back to the prompts, model calls, and
 tool decisions that triggered them.
 
 Run `agentsight` around Claude Code, Codex, Gemini CLI,
-OpenCode, OpenClaw, or any command. AgentSight records a local trace of:
+OpenCode, OpenClaw, or any command. AgentSight records:
 
 - processes and child processes, shell commands, cwd, argv, exit status, and duration
 - files created, written, truncated, renamed, or deleted
@@ -20,7 +20,7 @@ OpenCode, OpenClaw, or any command. AgentSight records a local trace of:
 - prompts, responses, tool intent, and LLM/model/token
 
 No SDK, no proxy, no vendor integration. AgentSight observes with eBPF and TLS traffic tracing, so it works even when the agent is a
-closed-source CLI. **✨ Zero Instrumentation Required**
+closed-source CLI. **✨ Zero SDK Required**
 
 ## Quick Start
 
@@ -34,11 +34,6 @@ sudo agentsight top
   <img src="https://github.com/eunomia-bpf/agentsight/raw/master/docs/top-mode-demo.png" alt="AgentSight top live session view" width="1000">
   <p><em>Live sessions ranked by model, session tokens, health, process family, tool calls, file activity, and network activity</em></p>
 </div>
-
-If you downloaded the binary into the current directory, run `sudo ./agentsight top`.
-`top` loads eBPF probes, discovers local agents, and connects system activity to
-agent behavior in real time. See the [Usage](#usage) section for more examples
-and details.
 
 ## 🚀 Why AgentSight?
 
@@ -91,27 +86,61 @@ Build requirements and source build commands live in [docs/build.md](https://git
 
 ### Querying Past Sessions
 
-Every `stat -- <command>` or `record` session is automatically saved to SQLite. Start with the perf-style commands, then use `agentsight db` for structured queries:
+Every `record` session is automatically saved to an `agentsight-*.db` SQLite
+file in the current directory. Start with the live and record commands, then
+use `agentsight report` for structured queries:
 
 ```bash
-agentsight stat                       # counters for the latest saved session
-sudo agentsight top                   # live ranked view of current agent sessions
-agentsight top --db run.db --once     # ranked view of a saved session
-sudo agentsight record -- claude      # record a command
-agentsight report                     # high-level run summary
-agentsight list                       # all recorded sessions
-agentsight prompts --json             # full LLM request/response JSON
-agentsight db token                   # token usage (auto-finds latest session)
-agentsight db audit --json            # process spawns, file opens, API calls
-agentsight db export -o snapshot.json # export for web dashboard
+sudo agentsight top                          # live ranked view of current agent sessions
+agentsight monitor install-service           # install/start the background monitor service
+agentsight top --db run.db --once            # ranked view of a saved session
+sudo agentsight record -- claude             # record a command
+agentsight report                            # high-level run summary (default)
+agentsight report list                       # recorded sessions in this directory
+agentsight report prompts --json             # full LLM request/response JSON
+agentsight report token                      # token usage from latest session in this directory
+agentsight report audit --json               # process spawns, file opens, API calls
+agentsight report serve                      # open the web UI for the latest session in this directory
+agentsight report export -o snapshot.json    # export for web dashboard
+agentsight report --local                    # summarize native Claude/Codex/Gemini sessions
 ```
+
+### Offline Agent pprof Profiles
+
+Use `agentpprof` when you want a no-sudo pprof/folded-stack/SVG summary of
+local Codex or Claude session history:
+
+```bash
+cargo run --manifest-path agentpprof/Cargo.toml -- \
+  --project-root . \
+  --view tasks \
+  -o agent.pb.gz
+
+go tool pprof -top agent.pb.gz
+```
+
+The `tasks` view is the best first flamegraph: it aggregates real local
+Codex/Claude AgentSight development sessions by project, agent, session tag,
+prompt tag, and tool/LLM activity.
+
+<div align="center">
+  <img src="https://github.com/eunomia-bpf/agentsight/raw/master/docs/flamegraph/examples/tasks.svg" alt="agentpprof task flamegraph from real AgentSight development sessions" width="1000">
+  <p><em>Offline task profile generated from real local AgentSight coding-agent sessions</em></p>
+</div>
+
+See [agentpprof/README.md](agentpprof/README.md) for CLI details and
+[docs/flamegraph](docs/flamegraph/README.md) for flamegraph examples, view
+selection, and deterministic tagging rules.
 
 ### Web Interface
 
 During a session, visit [http://127.0.0.1:7395](http://127.0.0.1:7395) for live traffic, process trees, and metrics:
 - **Timeline View**: http://127.0.0.1:7395/timeline
 - **Process Tree**: http://127.0.0.1:7395/tree
-- **Raw Logs**: http://127.0.0.1:7395/logs
+- **Event Log**: http://127.0.0.1:7395/logs
+- **Metrics View**: http://127.0.0.1:7395/metrics
+
+For a saved SQLite session, run `agentsight report serve --db run.db` and open the same routes.
 
 <div align="center">
   <img src="https://github.com/eunomia-bpf/agentsight/raw/master/docs/demo-tree.png" alt="AgentSight Demo - Process Tree Visualization" width="800">
@@ -146,8 +175,6 @@ During a session, visit [http://127.0.0.1:7395](http://127.0.0.1:7395) for live 
 | Docker containers (OpenClaw, …) | `sudo ./agentsight record -c node --binary-path docker://openclaw` |
 | Any command | `sudo ./agentsight record -- <command>` |
 
-Discover what's installed locally with `./agentsight discover`.
-
 See [docs/agents.md](https://github.com/eunomia-bpf/agentsight/blob/master/docs/agents.md) for agent-specific setup, SSL quirks, browser capture, MCP stdio, and advanced flags.
 
 ### OpenTelemetry Export
@@ -166,13 +193,13 @@ collector setup and backend integration.
 ## ❓ Frequently Asked Questions
 
 **Q: What permissions does AgentSight need?**
-A: eBPF probes need root privileges, so AgentSight may prompt for `sudo`. With `record -- <command>` or `stat -- <command>`, the monitored agent still runs as your normal user; only the probes are elevated.
+A: eBPF probes need root privileges, so AgentSight may prompt for `sudo`. With `record -- <command>`, the monitored agent still runs as your normal user; only the probes are elevated.
 
 **Q: What's the performance impact?**
 A: Our evaluation reports less than 3% CPU overhead for typical traced agent workloads.
 
 **Q: Where does captured data go?**
-A: `record` and `stat -- <command>` store sessions locally in SQLite by default. Use `agentsight stat`, `agentsight top`, `agentsight report`, `agentsight list`, `agentsight db audit --json`, and `agentsight db token` to inspect prior runs. Captured data can include prompts, responses, paths, headers, and network targets, so treat logs and DBs as sensitive.
+A: `record` stores sessions as `agentsight-*.db` files in the current directory by default, and `report` reads the latest matching file from that directory unless you pass `--db`. `monitor` stores its weekly background DBs under `~/.agentsight/monitor`, and `top` is read-only unless you explicitly pass `--db` to inspect a saved session. Use `agentsight report`, `agentsight report list`, `agentsight report audit --json`, and `agentsight report token` to inspect prior runs. Captured data can include prompts, responses, paths, headers, and network targets, so treat logs and DBs as sensitive.
 
 **Q: Why doesn't AgentSight capture traffic from Claude Code, Node.js, or Gemini CLI?**
 A: These applications statically link their SSL library (BoringSSL for Claude/Bun, OpenSSL for **all** Node.js — both NVM and system installs) into their own binary instead of using system `libssl.so`, so there's nothing for sslsniff to hook by default. AgentSight handles this for you: `record -- <command>` always discovers the binary, and `record -c node` now auto-discovers the Node binary too. For Claude attach mode, pass `--binary-path`. See the "Zero-Config: record" and "Monitoring Node.js AI Tools" sections.

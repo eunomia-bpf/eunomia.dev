@@ -28,6 +28,7 @@ cp agentsight/docs/usage.md docs/agentsight/quickstart.md && \
 cp agentsight/docs/usage.zh-CN.md docs/agentsight/quickstart.zh.md && \
 cp agentsight/docs/build.md docs/agentsight/build.md && \
 cp agentsight/docs/docker.md docs/agentsight/docker.md && \
+cp agentsight/docs/agentpprof.md docs/agentsight/agentpprof.md && \
 cp agentsight/docs/agents.md docs/agentsight/agents.md && \
 cp agentsight/docs/otel.md docs/agentsight/otel.md && \
 cp agentsight/docs/development.md docs/agentsight/development.md && \

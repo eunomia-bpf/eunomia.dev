@@ -19,9 +19,8 @@ For local day-to-day use, the release binary plus `sudo agentsight top` or
 ```bash
 docker run --privileged --pid=host --network=host \
   -v /sys:/sys:ro -v /usr:/usr:ro -v /lib:/lib:ro \
-  -v "$(pwd)/logs:/logs" \
   ghcr.io/eunomia-bpf/agentsight:latest \
-  record --comm python --log-file /logs/record.log
+  record --comm python
 ```
 
 ## Monitor Claude Code
@@ -32,9 +31,8 @@ Claude Code uses a user-local binary. Mount the Claude install directory and pas
 docker run --privileged --pid=host --network=host \
   -v /sys:/sys:ro -v /usr:/usr:ro -v /lib:/lib:ro \
   -v "$HOME/.local/share/claude:/claude:ro" \
-  -v "$(pwd)/logs:/logs" \
   ghcr.io/eunomia-bpf/agentsight:latest \
-  record --comm claude --binary-path /claude/versions/2.1.39 --log-file /logs/record.log
+  record --comm claude --binary-path /claude/versions/2.1.39
 ```
 
 Adjust `/claude/versions/2.1.39` to the version installed on the host.
@@ -43,4 +41,4 @@ Adjust `/claude/versions/2.1.39` to the version installed on the host.
 
 - A normal unprivileged Docker container cannot load eBPF probes or inspect host processes.
 - Docker's default seccomp profile can block eBPF-related syscalls; `--privileged` avoids that for local testing and CI runners where this is acceptable.
-- Captured logs can contain prompts, responses, file paths, headers, and network targets. Treat mounted log directories as sensitive.
+- Captured SQLite databases can contain prompts, responses, file paths, headers, and network targets. Treat saved session databases as sensitive.
