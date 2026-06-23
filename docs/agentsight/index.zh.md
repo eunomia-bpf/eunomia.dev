@@ -27,6 +27,19 @@ AgentSight 在你忘记 sudo 时可以自动请求提权，但推荐命令仍然
 `sudo`。`top` 会加载 eBPF probes，也会优先读取 Claude、Codex、Gemini、OpenCode
 和 OpenClaw 的本地 session 日志。
 
+如果希望长期后台观察本机智能体，而不是一直开着终端，可以安装 systemd user
+service：
+
+```bash
+agentsight monitor install-service
+```
+
+当 monitor service 正在运行时，`agentsight top` 会直接读取后台 monitor 已保存的窗口数据，
+不会再启动另一套 live probes。
+后台 monitor 是轻量模式：记录匹配到的本地 agent session，以及 `/proc` 中的 CPU、内存、
+I/O 和文件目标数量。它不会捕获 SSL/API payload 或其它 eBPF 事件；如果需要完整 live
+eBPF capture，仍然使用 `sudo agentsight top` 或 `sudo agentsight record -- <command>`。
+
 ## 为什么选择 AgentSight？
 
 ### 传统可观测性 vs. 系统级监控
@@ -64,7 +77,10 @@ AgentSight 能捕获应用级工具遗漏的关键交互：
 
 #### Cargo 或 Release Binary
 
-本地使用优先安装 CLI，然后运行 `sudo agentsight top`。需要记录某个具体命令或查看历史 session 时，再参考下面的使用示例。
+本地使用优先安装 CLI，然后运行 `sudo agentsight top`。需要记录某个具体命令时运行
+`sudo agentsight record -- <command>`；默认会在当前目录生成 `agentsight-*.db`，
+随后 `agentsight report` 和 `agentsight report list` 也默认查看当前目录里的记录。
+如果要查看 Claude/Codex/Gemini 的原生日志总览，显式运行 `agentsight report --local`。
 
 #### Docker
 
@@ -76,7 +92,7 @@ docker run --privileged --pid=host --network=host \
   -v /sys:/sys:ro -v /usr:/usr:ro -v /lib:/lib:ro \
   -v $(pwd)/logs:/logs \
   ghcr.io/eunomia-bpf/agentsight:latest \
-  record --comm python --log-file /logs/record.log
+  record --comm python
 
 # 监控 Claude Code（挂载 home 目录以访问二进制文件）
 docker run --privileged --pid=host --network=host \
@@ -84,7 +100,7 @@ docker run --privileged --pid=host --network=host \
   -v $HOME/.local/share/claude:/claude:ro \
   -v $(pwd)/logs:/logs \
   ghcr.io/eunomia-bpf/agentsight:latest \
-  record --comm claude --binary-path /claude/versions/2.1.39 --log-file /logs/record.log
+  record --comm claude --binary-path /claude/versions/2.1.39
 ```
 
 #### 从源码构建
@@ -108,10 +124,12 @@ make build
 
 ### Web 界面
 
-`stat -- <command>` 和 `record` 默认启动 Web UI。低层 `debug trace` 需要传入 `--server`：
+`record -- <command>` 默认启动 Web UI。低层 `debug trace` 需要传入 `--server`：
 - **时间线视图**：http://127.0.0.1:7395/timeline
 - **进程树**：http://127.0.0.1:7395/tree
 - **原始日志**：http://127.0.0.1:7395/logs
+
+查看已保存的 SQLite 会话可以运行 `agentsight report serve --db run.db`，然后打开同样的 Web 路由。
 
 <div align="center">
   <img src="https://github.com/eunomia-bpf/agentsight/raw/master/docs/demo-tree.png" alt="AgentSight 演示 - 进程树可视化" width="800">
@@ -141,8 +159,6 @@ make build
 | Python（aider、open-interpreter 等） | `sudo ./agentsight record -c python` |
 | Docker 容器（OpenClaw 等） | `sudo ./agentsight record -c node --binary-path docker://openclaw` |
 | 任意命令 | `sudo ./agentsight record -- <command>` |
-
-使用 `./agentsight discover` 发现本地已安装的智能体。
 
 详见 [docs/agents.md](https://github.com/eunomia-bpf/agentsight/blob/master/docs/agents.md)，了解各智能体的详细设置、SSL 注意事项、浏览器捕获、MCP stdio 和高级选项。
 

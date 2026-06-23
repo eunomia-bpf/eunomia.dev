@@ -1,10 +1,3 @@
----
-date: 2026-06-23
-description: agentpprof turns local Codex and Claude Code sessions into pprof-compatible semantic profiles, folded stacks, SVG flamegraphs, and redacted JSON for analyzing AI coding-agent work.
-keywords: AgentSight, agentpprof, AI agent profiling, AI agent flamegraph, pprof, Codex, Claude Code, observability
-author: eunomia-bpf community
----
-
 # agentpprof: pprof-style profiles for AI coding-agent sessions
 
 An AI coding agent can finish a task and leave behind hundreds of events: user
@@ -105,10 +98,9 @@ agentpprof -o files.svg     --view files    # standalone SVG flamegraph
 agentpprof -o network.json  --view network  # redacted JSON summary and stacks
 ```
 
-The checked-in gallery under the AgentSight repository's `docs/flamegraph/`
-directory was generated from real local AgentSight development sessions, not toy
-transcripts. It includes task, system, token, file, and network flamegraphs. A
-task flamegraph looks like this:
+The checked-in gallery under `docs/flamegraph/` was generated from real local
+AgentSight development sessions, not toy transcripts. It includes task, system,
+token, file, and network flamegraphs. A task flamegraph looks like this:
 
 ![agentpprof task flamegraph](https://github.com/eunomia-bpf/agentsight/raw/master/docs/flamegraph/examples/tasks.svg)
 

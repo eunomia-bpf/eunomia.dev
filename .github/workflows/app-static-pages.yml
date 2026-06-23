@@ -21,7 +21,56 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  sync-external-docs:
+    if: github.event_name == 'repository_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Sync external documentation
+        env:
+          DISPATCH_TYPE: ${{ github.event.action }}
+          SOURCE_REPO: ${{ github.event.client_payload.source_repo }}
+          SOURCE_SHA: ${{ github.event.client_payload.source_sha }}
+        run: |
+          set -euo pipefail
+          case "${DISPATCH_TYPE}" in
+            trigger-document-sync)
+              make sync-external-docs
+              ;;
+            trigger-tutorial-sync)
+              make sync-external-docs
+              ;;
+            *)
+              echo "Unsupported repository_dispatch type: ${DISPATCH_TYPE}" >&2
+              exit 1
+              ;;
+          esac
+
+      - name: Commit synced documentation
+        env:
+          SOURCE_REPO: ${{ github.event.client_payload.source_repo }}
+          SOURCE_SHA: ${{ github.event.client_payload.source_sha }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs
+          if git diff --cached --quiet; then
+            echo "External documentation is already up to date."
+            exit 0
+          fi
+          if [ -n "${SOURCE_SHA}" ]; then
+            git commit -m "sync external docs from ${SOURCE_REPO}@${SOURCE_SHA}"
+          else
+            git commit -m "sync external docs"
+          fi
+          git push origin HEAD:main
+
   deploy-static-app:
+    if: github.event_name != 'repository_dispatch'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6

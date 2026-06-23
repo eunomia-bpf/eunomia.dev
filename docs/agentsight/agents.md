@@ -4,14 +4,6 @@ AgentSight works with any process that makes TLS-encrypted API calls. This page 
 
 For general usage and the `record` command, see the [README](https://github.com/eunomia-bpf/agentsight#quick-start).
 
-## Agent Discovery
-
-```bash
-./agentsight discover
-```
-
-Lists agents installed on the local machine. Built-in SQL adapters cover Anthropic, Claude Code, Gemini CLI, and OpenClaw sessions. Use `--no-adapters` to disable, or `agentsight db adapters list --json` to inspect.
-
 ## Zero-Config: `record`
 
 `record` is the simplest way to trace an agent. Put the command you want to run
@@ -42,7 +34,7 @@ What `record -- <command>` does automatically:
 > not a different one on root's `$PATH`.
 
 Useful flags: `--binary-path <path>` to override auto-discovery, `--no-server`
-to disable the web UI, `--server-port <port>`, `-o <log-file>`.
+to disable the web UI, and `--server-port <port>`.
 
 ## Claude Code
 
@@ -59,8 +51,8 @@ sudo ./agentsight record -c claude --binary-path "$CLAUDE_BIN"
 # Open http://127.0.0.1:7395 to view timeline
 
 # Advanced: full trace with custom filters
-sudo ./agentsight debug trace --ssl true --process true --comm claude \
-  --binary-path "$CLAUDE_BIN" --server true --server-port 8080
+sudo ./agentsight debug trace --comm claude \
+  --binary-path "$CLAUDE_BIN" --server --server-port 8080
 ```
 
 This captures:
@@ -79,8 +71,8 @@ This captures:
 # Monitor aider, open-interpreter, or any Python-based AI tool
 sudo ./agentsight record -c "python"
 
-# Custom port and log file
-sudo ./agentsight record -c "python" --server-port 8080 --log-file /tmp/agent.log
+# Custom web UI port
+sudo ./agentsight record -c "python" --server-port 8080
 ```
 
 ## Node.js AI Tools (Gemini CLI, etc.)
@@ -122,7 +114,7 @@ process tree and attaches sslsniff to the right binary automatically:
 # OpenClaw is a Node.js agent that runs in a container — works out of the box
 sudo ./agentsight record -c node --binary-path docker://openclaw
 
-# Accepts a container name or ID; supported by record / trace / ssl
+# Accepts a container name or ID; supported by record, debug trace, and debug ssl
 sudo ./agentsight debug trace --binary-path docker://openclaw --server
 ```
 
@@ -166,10 +158,10 @@ it into the Rust collector.
 
 ```bash
 # Combined SSL and process monitoring with web interface
-sudo ./agentsight debug trace --ssl true --process true --server true
+sudo ./agentsight debug trace --server
 
-# Custom port and log file
-sudo ./agentsight record -c "python" --server-port 8080 --log-file /tmp/agent.log
+# Custom web UI port
+sudo ./agentsight record -c "python" --server-port 8080
 ```
 
 ## Direct eBPF Program Usage

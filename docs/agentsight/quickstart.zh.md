@@ -55,6 +55,9 @@ sudo ./collector/target/release/agentsight top
 # 启动并记录一个命令
 sudo ./collector/target/release/agentsight record -- claude
 
+# 查看最近保存的运行
+./collector/target/release/agentsight report
+
 # 附加到已经运行的进程族
 sudo ./collector/target/release/agentsight record -c claude
 
@@ -65,24 +68,36 @@ sudo ./collector/target/release/agentsight debug trace --server -c claude
 sudo ./collector/target/release/agentsight debug ssl --http-parser
 ```
 
-## record 与 debug trace 子命令对比
+## top、record 与 debug trace
 
-agentsight 提供 `record` 和 `debug trace` 两个主要追踪入口，它们共用底层执行逻辑，但面向不同的使用场景。
+日常使用先从 `top` 开始；需要保存一次运行用于复盘时使用 `record`；只有在需要
+精细控制采集源和过滤规则时才使用 `debug trace`。
+
+### top — 默认实时视图
+
+`top` 是最直接的入口，用于实时查看本机正在活动的智能体 session。它会发现本地
+智能体进程和 agent-native session 日志，并把系统活动关联到 session。
+
+典型用法：
+
+```sh
+sudo ./agentsight top
+```
 
 ### record — 开箱即用的智能体录制
 
-适用于快速录制 AI 智能体（Claude Code、Python AI 工具等）的行为，无需关心细节配置。
+适用于录制 AI 智能体（Claude Code、Python AI 工具等）的一次运行，生成可复盘的本地 session。
 
 - `record -- <command>` 用于启动并记录一个命令；`record -c/-p` 用于附加到已运行进程
 - **自动开启**：SSL 监控 + 进程监控 + 系统监控 + Web 服务器（端口 7395）
 - **内置过滤规则**：自动过滤掉注册请求（`/v1/rgstr`）、HEAD 请求、空响应体、202 状态码、二进制数据等噪音
-- 默认**静默模式**（不输出到控制台），数据写入 `record.log`
-- 默认开启**日志轮转**
+- 默认**静默模式**（不输出到底层事件流），数据写入实时 view 和本地 SQLite session
 
 典型用法：
 
 ```sh
 sudo ./agentsight record -- claude
+./agentsight report
 ```
 
 ### debug trace — 完全可控的灵活监控
@@ -98,7 +113,7 @@ sudo ./agentsight record -- claude
 典型用法：
 
 ```sh
-sudo ./agentsight debug trace --ssl true --process false --server true --http-filter "request.method=POST"
+sudo ./agentsight debug trace --ssl true --process false --server --http-filter "request.method=POST"
 ```
 
 ### 对比总结
@@ -107,10 +122,10 @@ sudo ./agentsight debug trace --ssl true --process false --server true --http-fi
 |------|--------|-------|
 | 定位 | 一键录制，预设优化 | 灵活定制，精细控制 |
 | 必填参数 | 无；可用 `-- <command>`、`-c <comm>` 或 `-p <pid>` | 无 |
-| Web 服务器 | 始终开启 | 需 `--server true` |
-| 系统监控 | 始终开启 | 需 `--system true` |
+| Web 服务器 | 默认开启，可用 `--no-server` 关闭 | 需 `--server` |
+| 系统监控 | 默认开启 | 需 `--system` |
 | 控制台输出 | 默认关闭 | 默认开启 |
 | 过滤规则 | 内置预设 | 用户自定义 |
-| 日志轮转 | 默认开启 | 需 `--rotate-logs` |
+| 持久化 | 默认 SQLite | 传 `--db` 时写 SQLite |
 
-简单来说：**日常录制用 `record`，深度调试用 `debug trace`**。
+简单来说：**实时查看用 `top`，保存复盘用 `record`，深度调试用 `debug trace`**。
