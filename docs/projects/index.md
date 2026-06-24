@@ -1,6 +1,6 @@
 ---
 title: Projects
-description: A YAML-backed React landing page for the eunomia-bpf project family.
+description: "Explore the Eunomia project family: bpftime, AgentSight, eunomia-bpf, wasm-bpf, tutorials, papers, and eBPF systems research."
 hide:
   - navigation
 ---

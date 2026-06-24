@@ -1,3 +1,10 @@
+---
+title: AgentSight - 基于 eBPF 的系统级 AI Agent 可观测性
+description: AgentSight 在系统边界追踪 AI agent，通过 eBPF 关联 prompt、模型调用、进程、文件、网络流量和 token 使用，无需 SDK 或代理。
+keywords: AgentSight, AI Agent 可观测性, eBPF, LLM tracing, Claude Code 监控, 系统级可观测性, AgentOps, OpenTelemetry GenAI
+author: eunomia-bpf community
+---
+
 # AgentSight：基于 eBPF 的零侵入 LLM 智能体可观测性工具
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)

@@ -30,7 +30,12 @@ function buildOrganizationJsonLd(): object {
     url: siteConfig.siteUrl,
     logo: absoluteUrl("/og/default.svg"),
     description: siteConfig.description,
-    sameAs: [siteConfig.repoUrl]
+    sameAs: [
+      "https://github.com/eunomia-bpf",
+      siteConfig.repoUrl,
+      "https://www.usenix.org/conference/osdi25/presentation/zheng-yusheng",
+      "https://dl.acm.org/doi/10.1145/3766882.3767169"
+    ]
   };
 }
 

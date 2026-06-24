@@ -1,3 +1,10 @@
+---
+title: AgentSight - System-level AI agent observability with eBPF
+description: AgentSight traces AI agents at the system boundary with eBPF, correlating prompts, model calls, processes, files, network traffic, and token usage without SDKs or proxies.
+keywords: AgentSight, AI agent observability, eBPF, LLM tracing, Claude Code monitoring, system-level observability, AgentOps, OpenTelemetry GenAI
+author: eunomia-bpf community
+---
+
 # AgentSight: System-wide AI agent profiling and monitoring with eBPF
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
