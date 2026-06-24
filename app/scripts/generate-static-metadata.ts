@@ -33,7 +33,7 @@ function writeFileAtomic(filePath: string, contents: string) {
 
 function renderStaticOgSvg() {
   const eyebrow = "eunomia.dev";
-  const lines = ["Open-source eBPF tools,", "tutorials, and", "systems research"];
+  const lines = ["eBPF runtime,", "AI agent observability,", "and systems research"];
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">

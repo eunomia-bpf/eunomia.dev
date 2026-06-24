@@ -42,6 +42,12 @@ const assetExtensions = new Set([
   ".yaml"
 ]);
 
+const excludedStaticAssetPaths = new Set([
+  // Large local AgentSight capture used during development. It is not linked
+  // from the docs and should not be published as an indexable public asset.
+  "docs:agentsight/sample-snapshot.json"
+]);
+
 export const staticAssetBasePath = "/_content-assets";
 export const staticAssetOutputRoot = path.join(appRoot, "public", staticAssetBasePath.replace(/^\/+/, ""));
 export const staticAssetIndexPath = path.join(generatedContentDir, "static-assets.json");
@@ -58,6 +64,10 @@ export function isStaticAssetPath(relativePath: string): boolean {
   return assetExtensions.has(path.posix.extname(relativePath).toLowerCase());
 }
 
+function isExcludedStaticAsset(source: StaticAssetSource, relativePath: string): boolean {
+  return excludedStaticAssetPaths.has(`${source}:${normalizeRelativePath(relativePath)}`);
+}
+
 export function getStaticAssetPublicPath(source: StaticAssetSource, relativePath: string): string {
   return `${staticAssetBasePath}/${source}/${normalizeRelativePath(relativePath)}`;
 }
@@ -71,6 +81,7 @@ function buildStaticAssetEntries(
 
   return [...relativePaths]
     .filter((relativePath) => isStaticAssetPath(relativePath))
+    .filter((relativePath) => !isExcludedStaticAsset(source, relativePath))
     .sort((left, right) =>
       left.localeCompare(right, "en", {
         numeric: true,

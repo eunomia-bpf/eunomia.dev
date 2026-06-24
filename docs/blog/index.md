@@ -1,7 +1,7 @@
 ---
 title: Blog
-description: Latest articles and insights on eBPF, kernel programming, and system observability from the eunomia-bpf community.
-keywords: eBPF blog, kernel programming blog, system observability, eBPF articles, Linux kernel insights, eunomia-bpf blog
+description: Technical articles on eBPF, bpftime, AI agent observability, GPU tracing, userspace runtimes, and systems research from Eunomia.
+keywords: eBPF blog, bpftime, AI agent observability, GPU tracing, userspace eBPF, Linux tracing, systems research, eunomia-bpf blog
 author: eunomia-bpf community
 ---
 

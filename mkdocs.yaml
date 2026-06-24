@@ -2,7 +2,7 @@ site_name: eunomia
 repo_url: https://github.com/eunomia-bpf/eunomia.dev
 site_url: https://eunomia.dev
 copyright: Copyright (c) 2025 eunomia-bpf org.
-site_description: 'Unlock the potential of eBPF'
+site_description: 'Open-source eBPF infrastructure for userspace runtime extension, GPU tracing, AI agent observability, and hands-on Linux systems tutorials.'
 remote_branch: docs
 edit_uri: https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs
 theme:
@@ -388,7 +388,7 @@ extra:
             href: /GPTtrace/
           - label: AgentSight
             label_zh: AgentSight
-            href: /GPTtrace/agentsight/
+            href: /agentsight/
           - label: MCPtrace
             label_zh: MCPtrace
             href: /GPTtrace/mcptrace/
