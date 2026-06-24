@@ -78,21 +78,76 @@ File access patterns show heavy activity in `collector/src/` (the Rust codebase)
 
 Network activity is sparse relative to file operations, confirming that most development work occurred locally. The contacted domains include `anthropic.com` for model inference, `crates.io` for Rust dependencies, `github.com` for version control, and various localhost ports for local development servers. Process chains visible in the upper frames show which tools initiated network requests, enabling attribution of network activity to specific agent actions.
 
-## The Tagging Challenge
+## The Tagging Problem: An Open Challenge
 
-Mapping natural language prompts to stable semantic tags is not trivial. Prompts in a single project may mix languages ("fix the 编译 error"), range from single characters ("嗯", "ok") to long paragraphs, and include many fragments that make no sense in isolation ("continue", "ok", system-generated context restoration messages).
+The core technical challenge in semantic flamegraphs is mapping natural language prompts to stable, meaningful tags. This is fundamentally harder than CPU profiling, where function names are deterministic symbols. We have working solutions but not solved solutions, and we are explicit about the limitations.
 
-agentpprof provides a pluggable tagger framework with multiple backends:
+### Why Tagging Is Hard
 
-| Backend | Approach | Best for |
-| --- | --- | --- |
-| Regex + Agent iteration | Pattern matching, rules iteratively refined by AI agent | Production, CI, reproducible analysis |
-| LLM tagger | Local LLM inference via llama.cpp | Complex prompts, initial rule discovery |
-| Python clustering | TF-IDF + K-Means unsupervised clustering | Exploratory analysis, finding natural groupings |
+Consider real prompts from a development session:
 
-The recommended workflow is to have an AI agent observe actual prompt samples and iteratively refine regex rules until the unmatched rate drops below 5%. This iteration typically takes 5-10 rounds, and the final rule set is deterministic and reproducible, suitable for version control and CI use.
+```
+"fix the 编译 error"          # Mixed language
+"嗯"                          # Single character confirmation
+"ok"                          # Ambiguous intent
+"继续"                        # Context-dependent
+"[Session continued...]"      # System-generated
+"看看 collector/src/main.rs"  # Inspection request
+"为啥 cargo test 失败了"       # Debug question
+```
 
-By default there are no built-in rules, and all prompts are marked `unmatched`. This is an intentional design choice: generic rules are unlikely to match your project's actual prompt distribution, and blindly applying them produces misleading aggregation.
+These prompts exhibit properties that break naive classification:
+
+1. **Multilingual mixing**: English and Chinese in the same prompt, sometimes in the same sentence
+2. **Extreme length variance**: From 1 character to multi-paragraph context restorations
+3. **Context dependence**: "继续" (continue) means nothing without knowing what preceded it
+4. **Implicit intent**: "嗯" could be confirmation, acknowledgment, or thinking pause
+5. **System noise**: Auto-generated session continuations, tool outputs, error messages
+
+No single approach handles all cases well. We currently provide three backends, each with different tradeoffs:
+
+### Current Approaches
+
+**Regex + Agent Iteration**: The production default. Rules like `prompt:debug='(?i)fix|error|bug|broken|为啥'` are pattern-matched against prompt text. The workflow is iterative: run agentpprof, observe unmatched samples, write rules, repeat until coverage exceeds 95%. This typically takes 5-10 rounds for a new project.
+
+Strengths: Deterministic, reproducible, fast, no external dependencies. Rules can be version-controlled and run in CI.
+
+Weaknesses: Requires manual effort per project. Rules are brittle to prompt style changes. Cannot handle semantic similarity (e.g., "fix the bug" vs "resolve the issue").
+
+**LLM Tagger**: Local inference via llama.cpp with grammar-constrained decoding to ensure valid one-word output. We use small models (0.6B-3B parameters) with aggressive caching.
+
+Strengths: Handles semantic similarity and multilingual prompts. No rule writing required.
+
+Weaknesses: Non-deterministic (same prompt may get different tags across runs). Requires local model setup. Tag quality depends on model capability. Our experiments show 285/300 exact-stable fragments with a 3B model, meaning 5% of prompts get different tags on repeated runs.
+
+**TF-IDF + K-Means Clustering**: Unsupervised clustering to discover natural groupings. Automatically selects cluster count (5-25) and generates tag names from cluster keywords.
+
+Strengths: No predefined categories needed. Discovers structure you did not anticipate.
+
+Weaknesses: Cluster boundaries are arbitrary. Tag names are keyword-derived, not semantic. Requires post-hoc interpretation.
+
+### What We Do Not Know
+
+Several fundamental questions remain open:
+
+**Tag adequacy**: We can verify that tags are syntactically valid and stable across runs (our R180 experiment shows 900/900 grammar-valid outputs from three model sizes). But we have no evidence that one-word tags capture enough semantic information for human understanding. "debug" might conflate bug fixing, error investigation, and performance debugging, each of which has different cost implications.
+
+**Cross-project transfer**: Rules developed for one project may not transfer to another. A Rust systems project has different prompt patterns than a React frontend project. We do not yet know how much rule overlap exists across project types.
+
+**Optimal granularity**: Should "code review" be one tag, or should it split into "review:style", "review:logic", "review:security"? Finer granularity preserves information but fragments the flamegraph. We have no principled way to choose.
+
+**Multilingual normalization**: "Fix the bug" and "修一下这个 bug" should probably get the same tag, but regex rules cannot express this. LLM taggers can, but with stability tradeoffs.
+
+### Why We Ship Anyway
+
+Despite these limitations, agentpprof is useful in practice. The key insight is that perfect tagging is not required for useful aggregation. Even with 20% unmatched prompts and imperfect tag boundaries, the flamegraph reveals structure that was previously invisible: which activity categories dominate, how token consumption distributes across intent types, which prompts trigger the most tool calls.
+
+The goal is not ground-truth classification but actionable visibility. If the flamegraph shows "review" consuming 40% of tokens, the exact boundary of what counts as "review" matters less than knowing that review-like activities are the dominant cost driver.
+
+We are actively working on:
+- LLM-assisted rule generation (model proposes rules from unmatched samples)
+- Embedding-based similarity for multilingual normalization
+- Human evaluation of tag adequacy (currently missing from our evidence base)
 
 ## Privacy by Default
 
@@ -116,11 +171,35 @@ A typical workflow combines both:
 
 For installation and detailed usage, see the [AgentSight repository](https://github.com/eunomia-bpf/agentsight) and the [agentpprof documentation](https://github.com/eunomia-bpf/agentsight/blob/master/docs/agentpprof.md).
 
-## Limitations and Future Work
+## From Visibility to Action: The Harder Problem
 
-agentpprof currently reads Codex and Claude Code local trace files. Other agents can be added via the `agent-session` parser. The semantic tagging approach requires project-specific rule development, and we are exploring ways to automate this through LLM-assisted rule generation and clustering-based discovery.
+Generating a flamegraph is the easy part. The harder question is: what do you do with it?
 
-The broader question is whether semantic flamegraphs lead to actionable insights. Knowing "code review consumed 40% of tokens" is interesting, but what do you do with that information? We are working on combining agentpprof with interaction analysis to produce reports that not only show where budget went, but also recommend specific workflow or CLAUDE.md changes to improve efficiency.
+CPU profilers lead to clear actions: find the hot function, optimize the algorithm, reduce allocations. But agent cost profiles are different:
+
+- You will not stop doing code review because it consumes 40% of tokens
+- You will not skip debugging because it is expensive
+- The flamegraph shows WHERE budget goes, not WHY it goes there or HOW to reduce it
+
+The actionable insights require drilling deeper:
+
+1. **Within-category analysis**: Review consumes 40% of tokens, but is that because of repeated reviews of the same file? Unnecessarily broad context windows? Verbose review prompts? The flamegraph shows the category; understanding the cause requires examining individual sessions.
+
+2. **Workflow pattern detection**: Continuation prompts (`prompt:continue`) appearing frequently may indicate tasks that should be structured differently upfront. High `prompt:unmatched` rates may indicate prompt styles that need standardization.
+
+3. **Cross-session comparison**: Is this month's token distribution different from last month's? Did a workflow change increase debugging costs? Trend analysis requires baseline comparison.
+
+We are working on combining agentpprof with interaction analysis to produce reports that recommend specific changes: CLAUDE.md rules to prevent repeated file reviews, prompt templates to reduce context overhead, workflow restructuring to minimize continuation churn.
+
+## Current Limitations
+
+**Agent coverage**: Currently reads Codex and Claude Code local traces only. Gemini, Cursor, and other agents require parser extensions via the `agent-session` crate.
+
+**Tagging**: As discussed above, semantic tagging remains an open challenge. Project-specific rules are required, and we do not yet have evidence that one-word tags are semantically adequate.
+
+**Validation**: We have mechanism evidence (the flamegraph correctly aggregates by tag) but not user evidence (developers make better decisions with this view). The latter requires user studies we have not yet conducted.
+
+**Cost attribution**: Token counts come from agent-reported usage, which may not reflect actual billing (cached tokens, batch discounts, model-specific pricing). The flamegraph shows relative distribution, not dollar amounts.
 
 ---
 
