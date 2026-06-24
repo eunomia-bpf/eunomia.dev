@@ -710,6 +710,10 @@ function tutorialTreePathVariants(relativePath, isDirectory) {
   return variants;
 }
 
+function hasHiddenPathSegment(relativePath) {
+  return relativePath.split("/").some((segment) => segment.startsWith("."));
+}
+
 function generateTutorialTreeRedirects() {
   const manifest = readManifest();
   if (!manifest) {
@@ -722,6 +726,10 @@ function generateTutorialTreeRedirects() {
 
   walkEntries(path.join(docsDir, "tutorials"), (absolute, entry) => {
     const relativePath = path.relative(docsDir, absolute).split(path.sep).join("/");
+    if (hasHiddenPathSegment(relativePath)) {
+      return;
+    }
+
     const isDirectory = entry.isDirectory();
 
     for (const locale of ["en", "zh"]) {
