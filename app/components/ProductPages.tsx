@@ -375,15 +375,15 @@ export function ProductsLandingPage({ locale, links, projects }: ProductPageProp
         }
       : {
           eyebrow: "Products",
-          title: "AI agent observability & harness — and the eBPF runtime underneath",
+          title: "AI agent observability & enforcement, and the eBPF runtime underneath",
           description:
-            "The flagship is system-boundary observability and runtime harness for AI agents; bpftime is the high-performance runtime engine that powers it. Open-source core is free to self-host, with enterprise features and support adopted as needed.",
+            "The flagship is system-boundary observability and runtime enforcement for AI agents; bpftime is the high-performance runtime engine that powers it. Open-source core is free to self-host, with enterprise features and support adopted as needed.",
           mapEyebrow: "Product map",
           mapTitle: "Clear engineering paths",
           mapDescription:
-            "From the flagship AI agent observability & harness, to the bpftime runtime engine underneath, to enterprise support.",
+            "From the flagship AI agent observability & enforcement, to the bpftime runtime engine underneath, to enterprise support.",
           agent:
-            "Flagship: zero-instrumentation observability (AgentSight) and runtime harness (ActPlane) for AI agents at the system/eBPF boundary — framework-agnostic, ~3% overhead, kernel-level ground truth.",
+            "Flagship: zero-instrumentation observability (AgentSight) and runtime enforcement (ActPlane) for AI agents at the system/eBPF boundary, framework-agnostic, ~3% overhead, kernel-level ground truth.",
           bpftime:
             "The engine and moat: a high-performance userspace eBPF runtime that also powers low-overhead tracing, GPU paths, and custom runtime extension.",
           services:
@@ -391,7 +391,7 @@ export function ProductsLandingPage({ locale, links, projects }: ProductPageProp
           buyersTitle: "Who it helps",
           buyersDescription:
             "Built for AI infrastructure and platform teams running AI agents in production that need open-source systems engineering to land.",
-          flowLabels: ["AI agent observability & harness", "bpftime engine", "Enterprise support"],
+          flowLabels: ["AI agent observability & enforcement", "bpftime engine", "Enterprise support"],
           buyers: [
             {
               label: "AI infra / AgentOps",
@@ -450,12 +450,12 @@ export function ProductsLandingPage({ locale, links, projects }: ProductPageProp
         <div className="mt-6">
           <ProductEntry
             eyebrow={locale === "zh" ? "旗舰 · Agent" : "Flagship · Agent"}
-            title="AI Agent Observability & Harness"
+            title="AI Agent Observability & Enforcement"
             description={copy.agent}
             href={linkByKey.get("agent-infra")}
             links={[linkByKey.get("agent-infra")]}
-            visualLabel="agent observe + harness"
-            visualLines={["observe.agent()", "harness.policy()", "audit.runtime()"]}
+            visualLabel="agent observe + enforce"
+            visualLines={["observe.agent()", "enforce.policy()", "audit.runtime()"]}
           />
           <ProductEntry
             eyebrow={locale === "zh" ? "引擎" : "Engine"}
@@ -646,10 +646,10 @@ export function AgentRuntimeInfrastructurePage({ locale, links, projects }: Prod
   const copy =
     locale === "zh"
       ? {
-          eyebrow: "旗舰 · AI Agent 可观测与运行管控",
-          title: "AI Agent 可观测与运行管控",
+          eyebrow: "旗舰 · AI Agent 可观测与执行控制",
+          title: "AI Agent 可观测与执行控制",
           description:
-            "看清 AI agent 真正做了什么，并约束它能做什么——在系统边界、零插桩完成。AgentSight 负责观测，ActPlane 是运行时 harness。同一个 eBPF 层，位于应用之下，框架无关。",
+            "看清 AI agent 真正做了什么，并约束它能做什么，在系统边界、零插桩完成。AgentSight 负责观测，ActPlane 负责运行时执行控制。同一个 eBPF 层，位于应用之下，框架无关。",
           metrics: ["零插桩", "约 3% 开销", "框架 / 语言无关", "来自内核的 ground truth"],
           whyTitle: "为什么在系统层做",
           whyDescription:
@@ -664,8 +664,8 @@ export function AgentRuntimeInfrastructurePage({ locale, links, projects }: Prod
               description: "AgentSight 从系统边界记录进程、TLS/网络和工具调用行为——无 SDK、无需改代码。"
             },
             {
-              title: "Harness 管控",
-              description: "ActPlane 在 OS/eBPF 层约束 agent 能做什么：syscall、exec、文件和网络层的 guardrail。"
+              title: "Enforce 执行控制",
+              description: "ActPlane 在 OS/eBPF 层执行 agent 运行时策略：syscall、exec、文件和网络层的 guardrail。"
             },
             {
               title: "Protect 保护",
@@ -700,10 +700,10 @@ export function AgentRuntimeInfrastructurePage({ locale, links, projects }: Prod
             "这些能力组成同一个层：看清发生了什么、管控允许做什么，并保护恢复后的状态是否仍可信。"
         }
       : {
-          eyebrow: "Flagship · AI Agent Observability & Harness",
-          title: "AI Agent Observability & Harness",
+          eyebrow: "Flagship · AI Agent Observability & Enforcement",
+          title: "AI Agent Observability & Enforcement",
           description:
-            "See what your AI agents actually do, and shape what they are allowed to do — at the system boundary, with zero instrumentation. AgentSight observes; ActPlane is the runtime harness. One eBPF layer, below the app, framework-agnostic.",
+            "See what your AI agents actually do, and enforce what they are allowed to do at the system boundary, with zero instrumentation. AgentSight observes; ActPlane enforces runtime policy. One eBPF layer, below the app, framework-agnostic.",
           metrics: ["Zero instrumentation", "~3% overhead", "Framework / language agnostic", "Kernel-level ground truth"],
           whyTitle: "Why the system layer",
           whyDescription:
@@ -718,8 +718,8 @@ export function AgentRuntimeInfrastructurePage({ locale, links, projects }: Prod
               description: "AgentSight records process, TLS/network, and tool behavior from the system boundary — no SDK, no code changes."
             },
             {
-              title: "Harness",
-              description: "ActPlane shapes what agents can do at the OS/eBPF layer: syscall, exec, file, and network guardrails."
+              title: "Enforce",
+              description: "ActPlane enforces what agents can do at the OS/eBPF layer: syscall, exec, file, and network guardrails."
             },
             {
               title: "Protect",

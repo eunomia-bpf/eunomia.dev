@@ -43,6 +43,10 @@ function walkFiles(root: string, { allowMissing = false }: { allowMissing?: bool
     const currentPath = String(current);
 
     for (const entry of fs.readdirSync(currentPath, { withFileTypes: true })) {
+      if (entry.name.startsWith(".")) {
+        continue;
+      }
+
       const fullPath = path.normalize(`${currentPath}${path.sep}${String(entry.name)}`);
       if (entry.isDirectory()) {
         queue.push(fullPath);

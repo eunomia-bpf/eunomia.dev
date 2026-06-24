@@ -22,10 +22,11 @@ cp bpftime/tools/aot/README.md docs/bpftime/documents/bpftimeaot.md && \
 cp bpftime/attach/README.md docs/bpftime/documents/attach.md && \
 cp bpftime/example/gpu/README.md docs/bpftime/documents/gpu.md && \
 mkdir -p docs/agentsight && \
-rm -f docs/agentsight/*.md && \
+rm -rf docs/agentsight && \
+mkdir -p docs/agentsight && \
+rsync -a --exclude '/design/' --exclude '/experiment/' agentsight/docs/ docs/agentsight/ && \
 cp agentsight/README.md docs/agentsight/index.md && \
 cp agentsight/README.zh-CN.md docs/agentsight/index.zh.md && \
-cp agentsight/docs/*.md docs/agentsight/ && \
 mkdir -p docs/agentsight/images && \
 cp agentsight/docs/demo-*.png agentsight/docs/top-mode-demo.png docs/agentsight/images/ && \
 echo "eunomia.dev" > docs/CNAME
