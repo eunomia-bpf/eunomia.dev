@@ -1,41 +1,80 @@
-# agentpprof: pprof-style profiles for AI coding-agent sessions
+# agentpprof: profiling AI agents with semantic flamegraphs
 
-An AI coding agent can finish a task and leave behind hundreds of events: user
-prompts, model calls, shell commands, file edits, package downloads, test runs,
-and retries. Traditional logs can answer "what happened next?" if you read them
-line by line. They are much weaker at answering the question developers usually
-ask after a long run: where did the agent spend its work, what repeated, and
-which prompts caused the expensive or risky system effects?
+End of month, the bill shows the agent spent $3000. What types of work consumed
+that budget? How much went to code review, how much to debugging, how much to
+documentation? This question seems simple, but none of the existing agent
+observability tools can answer it directly.
 
-`agentpprof` is a profiling tool for that question. It reads local Codex and
-Claude Code session history through the shared `agent-session` parser, projects
-the session into semantic stacks, and writes outputs that existing profiling
-tools already understand: Go pprof protobuf, folded stacks, SVG flamegraphs, and
-redacted JSON.
+`agentpprof` is a profiling tool built for exactly this question. It reads local
+agent trace history and aggregates prompts and tool calls by semantic intent
+into flamegraphs: width represents token consumption, execution time, or
+operation count. At a glance, you can see where the budget went by category.
+Currently supports Codex and Claude Code local trace files; other agents can be
+added via the `agent-session` parser.
 
-The profiles are not CPU profiles. A wide frame does not mean the agent used
-more CPU. Width means the chosen view's weight: activity count, system-effect
-count, file-effect count, network-effect count, or model token count. The goal
-is to make an agent session browsable like a performance profile, without
-pretending that every question has the same metric.
+## Limitations of existing tools
 
-## Why a profiler instead of another trace view?
+LLM observability platforms like LangSmith, Langfuse, and Phoenix can show token
+counts and latency for each call, but when you have 80000 calls, they can only
+arrange them by timestamp into a timeline. You can inspect each one and see
+"this call used 500 tokens," but you cannot answer "how much did review tasks
+cost in total." These tools are designed for single-trace debugging: timeline
+views help you locate the failing span at 14:03, span trees show call hierarchy,
+waterfall charts reveal parallelism. They excel at answering "what happened" but
+for the question "where did the budget go by category," inspecting 80000 spans
+one by one simply does not scale.
 
-Trace views are good when you already know where to look. If a single command
-failed at 14:03, a timeline can show the surrounding tool calls and model
-messages. Long agent sessions have a different failure mode: there is too much
-trace. The user wants to know whether the agent kept re-reading the same files,
-spent most of its model budget on review, retried tests in a loop, or contacted
-external services during one prompt.
+Datadog and Laminar are starting to move in the right direction with semantic
+classification. Datadog uses topic clustering to group user messages, Laminar
+uses Signals to extract structured events from traces. But their clustering
+primarily targets the distribution of user inputs, not "width represents budget
+share" aggregate views. You can see "30% of users asked about code," but not
+"code review consumed 40% of the token budget."
 
-A flamegraph is useful here because it compresses repeated work. The stack says
-which context the event belongs to, and the width says how much weight that
-context accumulated. When many prompts share the same pattern, they merge. When
-one prompt creates a distinct system effect, it remains visible as a branch.
+CPU profilers solved a similar aggregation problem long ago. Flamegraphs
+compress millions of function calls into one chart, width representing time
+share. The stack indicates context, and repeated calls to the same function
+merge into wider bars. This works because function names are **deterministic**:
+the same code path produces the same stack, and identical stacks can be directly
+merged.
 
-`agentpprof` keeps this model explicit. It does not try to produce one universal
-"agent flamegraph". Instead, it exposes several projections over the same
-session:
+Agent traces break this assumption. Prompts are natural language: non-
+deterministic, variable-length, multilingual, and often conversational. "Fix the
+bug" and "修一下这个 error" express the same intent but share no common string.
+If you use raw prompt text as frame labels, the flamegraph becomes too wide to
+read, with each prompt as an isolated bar, losing the point of aggregation. And
+raw prompts often contain sensitive information, making them unsuitable for
+sharing.
+
+## Semantic flamegraphs
+
+`agentpprof` restores aggregation by introducing **semantic tagging**: mapping
+free-form prompts to short, stable labels like `debug`, `review`, `paper`, or
+`misc`. Once tagged, prompts behave like function names, and repeated activities
+merge, and the flamegraph becomes readable.
+
+The value of flamegraphs is not just aggregation but also **stack-based causal
+linking**. Traditional CPU flamegraph stacks are function call chains:
+`main → parse → tokenize` means tokenize was called by parse, which was called
+by main. Semantic flamegraph stacks are agent behavior causal chains:
+`prompt:debug → call:llm/analysis → tool:bash → file:src/main.rs` means this
+file modification was triggered by bash, bash was decided by the LLM, and the
+LLM was responding to a debug-type prompt.
+
+| | Traditional CPU Flamegraph | Semantic Flamegraph |
+| --- | --- | --- |
+| **Stack meaning** | Function call chain | prompt → LLM → tool → effect causal chain |
+| **Aggregation** | Same function name merges | Same semantic tag merges |
+| **Width meaning** | CPU time share | token / time / operation count share |
+| **Question answered** | Where does the program spend CPU | Where does the agent spend budget by category |
+
+This causal linking lets you trace back or drill down from any layer: from a
+file being modified, trace back to which tool, which LLM decision, which user
+intent caused it; or from a prompt category, see what LLM calls, tool
+executions, and system effects it triggered.
+
+`agentpprof` exposes several projections over the same data, each answering a
+different question:
 
 | View | Width means | Primary question |
 | --- | ---: | --- |
@@ -44,20 +83,148 @@ session:
 | `files` | file/path effect count | Which prompts touched which parts of the repository? |
 | `network` | network/domain effect count | Which prompts contacted which domains? |
 
-Start with `tokens` to find cost hotspots. Use `time` to see where wall-clock
-time went. Use `files` and `network` for security audits.
+Start with `tokens` to find cost hotspots, use `time` to trace where wall-clock
+time went, and use `files` and `network` for security audits.
+
+## Example Flamegraphs
+
+The examples below were generated from AgentSight's own development traces (Claude Code). They demonstrate what insights each view provides.
+
+### Tokens View
+
+**Question:** Which activities consumed the most model budget?
+
+![Tokens flamegraph](https://github.com/eunomia-bpf/agentsight/raw/master/docs/flamegraph-example/agentsight-tokens.svg)
+
+The token distribution shows that code review (`prompt:review`) dominated the model budget, followed by discussion (`prompt:discuss`), queries (`prompt:query`), and documentation (`prompt:docs`). Through the stack, you can trace which LLM calls each prompt category triggered: `call:llm/usage` for token statistics events, `call:llm/tool` for tool calls, and `call:llm/edit`, `call:llm/test` etc. for specific response types.
+
+### Time View
+
+**Question:** Where did wall-clock time go?
+
+![Time flamegraph](https://github.com/eunomia-bpf/agentsight/raw/master/docs/flamegraph-example/agentsight-time.svg)
+
+Wall-clock time distribution is similar to token consumption, but discussion (`prompt:discuss`) and query (`prompt:query`) prompts occupy a larger share in the time view, indicating these interactive prompts involve more deliberation time. Continuation prompts (`prompt:continue`) appear frequently, reflecting a workflow pattern where complex tasks required multiple follow-up exchanges.
+
+### Files View
+
+**Question:** Which parts of the codebase were touched and how?
+
+![Files flamegraph](https://github.com/eunomia-bpf/agentsight/raw/master/docs/flamegraph-example/agentsight-files.svg)
+
+File access patterns show that most activity concentrated within the project (paths prefixed with `repo/`). The `collector/src/` and `docs/` subtrees appear frequently, consistent with development and documentation work. The flamegraph distinguishes between read and write effects, revealing the balance of inspection versus modification. External paths (`external/home`, `external/tmp`) are minimal, confirming that the agent operated within expected filesystem boundaries.
+
+### Network View
+
+**Question:** Which external services were contacted?
+
+![Network flamegraph](https://github.com/eunomia-bpf/agentsight/raw/master/docs/flamegraph-example/agentsight-network.svg)
+
+Network activity is sparse relative to file operations, confirming that most development work occurred locally. The contacted domains (`github.com` for version control and `api.anthropic.com` for model inference) are expected. No unexpected third-party services appear, which is reassuring from a supply-chain security perspective. Process chains visible in the upper frames show which tools initiated network requests, enabling attribution of network activity to specific agent actions.
+
+See `docs/flamegraph-example/agentsight.sh` for the generation script with tag rules.
+
+## Tagging
+
+Mapping natural language prompts to stable semantic tags is not trivial. Prompts
+in a single project may mix languages ("fix the 编译 error"), range from single
+characters ("嗯", "ok") to long paragraphs, and include many fragments that make
+no sense in isolation ("continue", "ok", system-generated context restoration
+messages). To address these challenges, `agentpprof` provides a pluggable tagger
+framework with multiple backends:
+
+| Backend | Approach | Best for |
+| --- | --- | --- |
+| Regex + Agent iteration | Pattern matching, rules iteratively refined by AI agent | Production, CI, reproducible analysis |
+| LLM tagger | Local LLM inference via llama.cpp | Complex prompts, initial rule discovery |
+| Python clustering | TF-IDF + K-Means unsupervised clustering | Exploratory analysis, finding natural groupings |
+
+### Regex Tagger and Agent Iteration Workflow
+
+The regex tagger is the production default, but the workflow differs from
+traditional regular expressions. **You don't need to hand-write all rules.**
+The correct workflow is to have an AI agent observe actual prompt samples and
+iteratively refine rules until the unmatched rate drops below 5%.
+
+AgentSight provides the `agentpprof-flamegraph` skill to guide agents through
+this iteration:
+
+1. Run `agentpprof`, observe the unmatched rate and sample prompts
+2. Propose new `--tag-rule` rules based on samples
+3. Re-run and measure coverage
+4. Repeat until unmatched < 5% and distribution is reasonable (10-20 categories,
+   no single category > 50%)
+
+This iteration typically takes 5-10 rounds, 1-2 minutes each. The final rule
+set is deterministic and reproducible, suitable for version control and CI use.
+
+By default there are no built-in rules, and all prompts are marked `unmatched`.
+This is an intentional design choice: generic rules are unlikely to match your
+project's actual prompt distribution, and blindly applying them produces
+misleading aggregation.
+
+Rule format is `KIND:TAG=REGEX`:
+
+```bash
+agentpprof -o tokens.svg \
+  --tagger regex \
+  --tag-rule prompt:review='(?i)review|diff|regression' \
+  --tag-rule prompt:test='(?i)cargo test|pytest|unit test' \
+  --tag-rule prompt:debug='(?i)fix|error|bug|broken'
+```
+
+`KIND` may be `prompt`, `llm`, or `all`. `TAG` must be a lowercase English word
+between 3 and 12 letters. Rules are evaluated in command-line order; first
+match wins.
+
+For quick testing, use `--preset` to enable built-in demo rules:
+
+```bash
+agentpprof -o tokens.svg --tagger regex --preset
+```
+
+### LLM Tagger
+
+For complex prompts or initial rule discovery, use a local LLM to generate tags.
+Run a llama.cpp-compatible server:
+
+```bash
+llama-server -m /path/to/model.gguf --port 8080
+agentpprof -o tokens.svg --tagger llm --llama-url http://127.0.0.1:8080
+```
+
+LLM tags are cached in `$XDG_CACHE_HOME/agentpprof/tags.json` by default. The
+LLM tagger output can serve as a reference for writing regex rules: observe
+what categories the LLM produces, then write a regex rule for each.
+
+### Python Clustering Backend (Experimental)
+
+For exploratory analysis, use the Python clustering backend to discover natural
+groupings in prompts. This backend uses TF-IDF vectorization and K-Means
+clustering, requiring no predefined rules:
+
+```bash
+# Export prompts
+agentpprof --project-root . --format json -o prompts.json
+
+# Cluster and generate tag cache
+python agentpprof/backend/python/cluster_tagger.py \
+  --input prompts.json --output tags.json --show-info
+
+# Use the tag cache
+agentpprof --project-root . --tag-cache tags.json -o flamegraph.svg
+```
+
+The clustering backend automatically selects the optimal cluster count (5-25)
+and generates tag names from each cluster's keywords. This is useful for
+understanding "what natural categories exist in my prompt distribution" and
+can serve as a starting point for writing regex rules.
 
 ## Install
 
-After release, install from crates.io:
-
-```bash
-cargo install agentpprof
-```
-
-You can also download the `agentpprof` binary from the AgentSight GitHub
-release artifacts. The AgentSight release pipeline builds and smoke-tests both
-`agentsight` and `agentpprof` from the same release tag.
+After release, install via `cargo install agentpprof`, or download prebuilt
+binaries from AgentSight GitHub release artifacts. The release pipeline builds
+and smoke-tests both `agentsight` and `agentpprof` from the same release tag.
 
 From a source checkout:
 
@@ -96,60 +263,21 @@ agentpprof -o files.svg     --view files    # standalone SVG flamegraph
 agentpprof -o network.json  --view network  # redacted JSON summary and stacks
 ```
 
-## Example Flamegraphs
-
-The examples below were generated from 2533 real local bpf-benchmark development
-sessions (Codex + Claude Code). They demonstrate what insights each view provides.
-
-### Tokens View
-
-**Question:** Which activities consumed the most model budget?
-
-![Tokens flamegraph](https://github.com/eunomia-bpf/agentsight/raw/master/docs/flamegraph-example/bpf-benchmark-tokens.svg)
-
-The token distribution reveals that paper writing (`prompt:paper`, 124 frames) dominated the model budget, consuming approximately 20% of total tokens across all sessions. Iterative editing (`prompt:edit`, 92 frames) and code review (`prompt:review`, 80 frames) follow as the next largest categories, indicating that refinement activities—not initial generation—drove most of the cost. At the session level, review-focused sessions (`session:review`, 251 frames) span the widest bar, suggesting that careful inspection workflows are more token-intensive than benchmarking or naming tasks. The presence of `prompt:unmatched` (100 frames, ~14%) indicates room for additional tagging rules to improve semantic coverage.
-
-### Time View
-
-**Question:** Where did wall-clock time go across 2533 sessions?
-
-![Time flamegraph](https://github.com/eunomia-bpf/agentsight/raw/master/docs/flamegraph-example/bpf-benchmark-time.svg)
-
-Wall-clock time largely mirrors token consumption, with paper writing (`prompt:paper`, 186 frames) taking the most time. However, review prompts (`prompt:review`, 130 frames) appear proportionally wider in the time view than in tokens, suggesting these prompts involve longer response latencies or more deliberation. Continuation prompts (`prompt:continue`, 66 frames) appear frequently throughout sessions, reflecting a workflow pattern where complex tasks required multiple follow-up exchanges. The overall similarity between time and token distributions indicates no single activity category suffers from unusually slow model responses or system bottlenecks.
-
-### Files View
-
-**Question:** Which parts of the codebase were touched and how?
-
-![Files flamegraph](https://github.com/eunomia-bpf/agentsight/raw/master/docs/flamegraph-example/bpf-benchmark-files.svg)
-
-File access patterns show that nearly all activity remained within project boundaries (paths prefixed with `repo/`), with no unexpected access to external directories. The `docs/` subtree appears frequently, consistent with the paper-writing activity identified in the tokens view. The flamegraph distinguishes between read and write effects, revealing the balance of inspection versus modification. External paths (`external/home`, `external/tmp`) are minimal, confirming that the agents operated within expected filesystem boundaries—a useful signal for security audits.
-
-### Network View
-
-**Question:** Which external services were contacted?
-
-![Network flamegraph](https://github.com/eunomia-bpf/agentsight/raw/master/docs/flamegraph-example/bpf-benchmark-network.svg)
-
-Network activity is sparse relative to file operations, confirming that most development work occurred locally without external dependencies. The contacted domains—`github.com` for version control and `api.anthropic.com` for model inference—are expected and benign. No unexpected third-party services appear, which is reassuring from a supply-chain security perspective. Process chains visible in the upper frames show which tools initiated network requests (e.g., `git push`, `curl`), enabling attribution of network activity to specific agent actions
-
-See `docs/flamegraph-example/bpf-benchmark.sh` for the generation script with tag rules
-
 ## What data does it read?
 
-`agentpprof` reads agent-native local session history. Today that means Codex
-and Claude Code JSONL session files parsed through the `agent-session` crate.
-It does not load eBPF probes, require root, or record a live process. It is the
-offline profiling side of AgentSight: use `agentsight` to observe live system
-behavior, and use `agentpprof` to aggregate already-recorded agent sessions.
+`agentpprof` reads agent-native local trace history. Today that means Codex
+and Claude Code JSONL files parsed through the `agent-session` crate. It does
+not load eBPF probes, require root, or record a live process. It is the offline
+profiling side of AgentSight: use `agentsight` to observe live system behavior,
+and use `agentpprof` to aggregate already-recorded agent traces.
 
-By default, it scans recent local sessions that match `--project-root`:
+By default, it scans recent local traces that match `--project-root`:
 
 ```bash
 agentpprof --project-root /path/to/repo --view tokens -o tokens.svg
 ```
 
-For repeatable analysis, pass explicit session files:
+For repeatable analysis, pass explicit trace files:
 
 ```bash
 agentpprof \
@@ -171,9 +299,9 @@ agentpprof -o tokens.svg --prompt-tag review
 
 ## The stack model
 
-A stack is a projection, not a literal call stack. The lower frames provide
-context, and the upper frames describe the activity being counted. The exact
-shape depends on the view.
+The semantic flamegraph stack is a projection, not a literal function call
+stack: lower frames provide context (project, agent, prompt type), upper frames
+describe the activity being counted, and the exact shape varies by view.
 
 The `tokens` view uses model budget as the width:
 
@@ -203,59 +331,8 @@ The `network` view centers domains:
 project:agentsight;agent:codex;session:release;prompt:publish;domain:crates.io;process:cargo;status:ok 1
 ```
 
-The right projection depends on your question: tokens for cost, time for
-performance, files for impact, network for security.
-
-## Tagging
-
-The most important frames are `session:*`, `prompt:*`, and `call:llm/*`. Raw
-prompts are too long and too private to use as flamegraph labels, so
-`agentpprof` maps them to short one-word tags.
-
-The default tagger is deterministic and local:
-
-```bash
-agentpprof -o tokens.svg --tagger regex
-```
-
-It uses built-in keyword rules and produces stable tags such as `debug`,
-`review`, `test`, `docs`, `release`, `profile`, or `design`. This is the safest
-default for CI, public artifacts, and reproducible analysis.
-
-Project-specific rules can be layered on top:
-
-```bash
-agentpprof -o tokens.svg \
-  --tagger regex \
-  --tag-rule prompt:review='(?i)review|diff|regression' \
-  --tag-rule prompt:test='(?i)cargo test|pytest|unit test' \
-  --tag-rule session:release='(?i)release|publish|crates\\.io'
-```
-
-Rules use:
-
-```text
-KIND:TAG=REGEX
-```
-
-`KIND` may be `session`, `prompt`, `llm`, or `all`. `TAG` must be one lowercase
-English word between 3 and 12 letters. Rules are evaluated in command-line
-order before the built-in rules.
-
-For model-produced tags, run a llama.cpp-compatible server and use the LLM
-tagger:
-
-```bash
-llama-server -m /path/to/model.gguf --port 8080
-agentpprof -o tokens.svg --tagger llm --llama-url http://127.0.0.1:8080
-```
-
-LLM tags are cached under the user cache directory by default, for example
-`$XDG_CACHE_HOME/agentpprof/tags.json`. Use `--cache` to choose another file,
-or `--no-cache` to avoid saving new tags.
-
-The model is not asked to validate whether the agent was correct. It only names
-short semantic regions. Correctness and safety still require separate evidence.
+Choose the view based on your question: tokens for cost analysis, time for
+performance analysis, files for impact assessment, network for security audits.
 
 ## Privacy and redaction
 
@@ -272,22 +349,14 @@ repository names, and model responses. `agentpprof` is conservative by default:
   hostnames.
 
 Use explicit `--session-file` inputs when you need repeatability. Use
-`--include-previews` only for private debugging or already-sanitized sessions.
+`--include-previews` only for private debugging or already-sanitized traces.
 
 ## Using agentpprof with AgentSight
 
-`agentpprof` and `agentsight` answer related but different questions.
-
-`agentsight` is the live and recorded system observer. It uses eBPF, TLS traffic
-capture, process monitoring, and materialized views to show what an agent does
-at runtime. Use it when you need live visibility, process trees, file effects,
-network destinations, or saved SQLite traces.
-
-`agentpprof` is the semantic profiler for local agent history. Use it when you
-want aggregation: token cost hotspots, time spent per prompt, or folded stacks
-that can be compared across sessions.
-
-A practical workflow is:
+`agentsight` provides live visibility (process trees, file effects, network
+destinations), while `agentpprof` provides aggregate analysis (cost hotspots,
+time distribution). A typical workflow is to record with `agentsight`, then
+analyze with `agentpprof`:
 
 ```bash
 sudo agentsight record -- claude
@@ -315,8 +384,8 @@ AgentSight repository artifact.
 
 ## Troubleshooting
 
-If no sessions are found, pass explicit `--session-file` paths and confirm the
-session `cwd` matches `--project-root`.
+If no traces are found, pass explicit `--session-file` paths and confirm the
+trace `cwd` matches `--project-root`.
 
 If labels are too generic, add a few `--tag-rule` entries for the project. Do
 not try to make every prompt unique. Good tags preserve useful semantic
