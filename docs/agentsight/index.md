@@ -124,12 +124,12 @@ real local Codex/Claude development sessions by project, agent, session tag,
 prompt tag, model, and token kind.
 
 <div align="center">
-  <img src="https://github.com/eunomia-bpf/agentsight/raw/master/docs/flamegraph/examples/bpf-benchmark-tokens.svg" alt="agentpprof token flamegraph from real bpf-benchmark development sessions" width="1000">
+  <img src="https://github.com/eunomia-bpf/agentsight/raw/master/docs/flamegraph-example/bpf-benchmark-tokens.svg" alt="agentpprof token flamegraph from real bpf-benchmark development sessions" width="1000">
   <p><em>Offline token profile generated from real local bpf-benchmark coding-agent sessions</em></p>
 </div>
 
 See [agentpprof/README.md](agentpprof/README.md) for CLI details and
-[docs/flamegraph](docs/flamegraph/README.md) for flamegraph examples, view
+[docs/flamegraph](docs/flamegraph-example/README.md) for flamegraph examples, view
 selection, and deterministic tagging rules.
 
 ### Web Interface

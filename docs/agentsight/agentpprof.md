@@ -96,11 +96,44 @@ agentpprof -o files.svg     --view files    # standalone SVG flamegraph
 agentpprof -o network.json  --view network  # redacted JSON summary and stacks
 ```
 
-The checked-in gallery under `docs/flamegraph/` was generated from real local
-bpf-benchmark development sessions, not toy transcripts. It includes tokens,
-time, files, and network flamegraphs. A token flamegraph looks like this:
+## Example Flamegraphs
 
-![agentpprof token flamegraph](https://github.com/eunomia-bpf/agentsight/raw/master/docs/flamegraph/examples/bpf-benchmark-tokens.svg)
+The examples below were generated from 2533 real local bpf-benchmark development
+sessions (Codex + Claude Code). They demonstrate what insights each view provides.
+
+### Tokens View
+
+**Question:** Which activities consumed the most model budget?
+
+![Tokens flamegraph](https://github.com/eunomia-bpf/agentsight/raw/master/docs/flamegraph-example/bpf-benchmark-tokens.svg)
+
+The token distribution reveals that paper writing (`prompt:paper`, 124 frames) dominated the model budget, consuming approximately 20% of total tokens across all sessions. Iterative editing (`prompt:edit`, 92 frames) and code review (`prompt:review`, 80 frames) follow as the next largest categories, indicating that refinement activities—not initial generation—drove most of the cost. At the session level, review-focused sessions (`session:review`, 251 frames) span the widest bar, suggesting that careful inspection workflows are more token-intensive than benchmarking or naming tasks. The presence of `prompt:unmatched` (100 frames, ~14%) indicates room for additional tagging rules to improve semantic coverage.
+
+### Time View
+
+**Question:** Where did wall-clock time go across 2533 sessions?
+
+![Time flamegraph](https://github.com/eunomia-bpf/agentsight/raw/master/docs/flamegraph-example/bpf-benchmark-time.svg)
+
+Wall-clock time largely mirrors token consumption, with paper writing (`prompt:paper`, 186 frames) taking the most time. However, review prompts (`prompt:review`, 130 frames) appear proportionally wider in the time view than in tokens, suggesting these prompts involve longer response latencies or more deliberation. Continuation prompts (`prompt:continue`, 66 frames) appear frequently throughout sessions, reflecting a workflow pattern where complex tasks required multiple follow-up exchanges. The overall similarity between time and token distributions indicates no single activity category suffers from unusually slow model responses or system bottlenecks.
+
+### Files View
+
+**Question:** Which parts of the codebase were touched and how?
+
+![Files flamegraph](https://github.com/eunomia-bpf/agentsight/raw/master/docs/flamegraph-example/bpf-benchmark-files.svg)
+
+File access patterns show that nearly all activity remained within project boundaries (paths prefixed with `repo/`), with no unexpected access to external directories. The `docs/` subtree appears frequently, consistent with the paper-writing activity identified in the tokens view. The flamegraph distinguishes between read and write effects, revealing the balance of inspection versus modification. External paths (`external/home`, `external/tmp`) are minimal, confirming that the agents operated within expected filesystem boundaries—a useful signal for security audits.
+
+### Network View
+
+**Question:** Which external services were contacted?
+
+![Network flamegraph](https://github.com/eunomia-bpf/agentsight/raw/master/docs/flamegraph-example/bpf-benchmark-network.svg)
+
+Network activity is sparse relative to file operations, confirming that most development work occurred locally without external dependencies. The contacted domains—`github.com` for version control and `api.anthropic.com` for model inference—are expected and benign. No unexpected third-party services appear, which is reassuring from a supply-chain security perspective. Process chains visible in the upper frames show which tools initiated network requests (e.g., `git push`, `curl`), enabling attribution of network activity to specific agent actions
+
+See `docs/flamegraph-example/bpf-benchmark.sh` for the generation script with tag rules
 
 ## What data does it read?
 
