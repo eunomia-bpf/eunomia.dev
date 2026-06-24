@@ -96,7 +96,7 @@ The examples below were generated from AgentSight's own development traces (Clau
 
 ![Tokens flamegraph](https://github.com/eunomia-bpf/agentsight/raw/master/docs/flamegraph-example/agentsight-tokens.svg)
 
-The token distribution shows that code review (`prompt:review`) dominated the model budget, followed by discussion (`prompt:discuss`), queries (`prompt:query`), and documentation (`prompt:docs`). Through the stack, you can trace which LLM calls each prompt category triggered: `call:llm/usage` for token statistics events, `call:llm/tool` for tool calls, and `call:llm/edit`, `call:llm/test` etc. for specific response types.
+The token distribution shows that code review (`prompt:review`) dominated the model budget, followed by git operations (`prompt:git`), code work (`prompt:code`), editing (`prompt:edit`), and debugging (`prompt:debug`). Through the stack, you can trace which LLM calls each prompt category triggered: `call:llm/usage` for token statistics events, `call:llm/code` and `call:llm/test` for code-related responses, `call:llm/tool` for tool calls, and `call:llm/edit` for modification responses.
 
 ### Time View
 
@@ -104,7 +104,7 @@ The token distribution shows that code review (`prompt:review`) dominated the mo
 
 ![Time flamegraph](https://github.com/eunomia-bpf/agentsight/raw/master/docs/flamegraph-example/agentsight-time.svg)
 
-Wall-clock time distribution is similar to token consumption, but discussion (`prompt:discuss`) and query (`prompt:query`) prompts occupy a larger share in the time view, indicating these interactive prompts involve more deliberation time. Continuation prompts (`prompt:continue`) appear frequently, reflecting a workflow pattern where complex tasks required multiple follow-up exchanges.
+Wall-clock time distribution follows a similar pattern to token consumption: review (`prompt:review`) leads, followed by git, edit, docs, and code prompts. Continuation prompts (`prompt:continue`) appear frequently, reflecting a workflow pattern where complex tasks required multiple follow-up exchanges. The `prompt:inspect` category captures quick look-at-this requests that are common in iterative development.
 
 ### Files View
 
@@ -112,7 +112,7 @@ Wall-clock time distribution is similar to token consumption, but discussion (`p
 
 ![Files flamegraph](https://github.com/eunomia-bpf/agentsight/raw/master/docs/flamegraph-example/agentsight-files.svg)
 
-File access patterns show that most activity concentrated within the project (paths prefixed with `repo/`). The `collector/src/` and `docs/` subtrees appear frequently, consistent with development and documentation work. The flamegraph distinguishes between read and write effects, revealing the balance of inspection versus modification. External paths (`external/home`, `external/tmp`) are minimal, confirming that the agent operated within expected filesystem boundaries.
+File access patterns show heavy activity in `collector/src/` (the Rust codebase) and `collector/Cargo.toml`, consistent with development work. External paths (`external/tmp`, `external/home`, `external/codex`) appear frequently, reflecting tool invocations that touch temporary files, home directory configs, and Codex session data. The flamegraph distinguishes between read and write effects, revealing the balance of inspection versus modification across both project and external paths.
 
 ### Network View
 
@@ -120,7 +120,7 @@ File access patterns show that most activity concentrated within the project (pa
 
 ![Network flamegraph](https://github.com/eunomia-bpf/agentsight/raw/master/docs/flamegraph-example/agentsight-network.svg)
 
-Network activity is sparse relative to file operations, confirming that most development work occurred locally. The contacted domains (`github.com` for version control and `api.anthropic.com` for model inference) are expected. No unexpected third-party services appear, which is reassuring from a supply-chain security perspective. Process chains visible in the upper frames show which tools initiated network requests, enabling attribution of network activity to specific agent actions.
+Network activity is sparse relative to file operations, confirming that most development work occurred locally. The contacted domains include `anthropic.com` for model inference, `crates.io` for Rust dependencies, `github.com` for version control, and various localhost ports for local development servers. Process chains visible in the upper frames show which tools initiated network requests, enabling attribution of network activity to specific agent actions.
 
 See `docs/flamegraph-example/agentsight.sh` for the generation script with tag rules.
 
@@ -365,22 +365,6 @@ agentpprof --project-root . --view tokens -o tokens.svg
 agentpprof --project-root . --view time -o time.svg
 agentpprof --project-root . --view files -o files.svg
 ```
-
-## CI and release contract
-
-`agentpprof` is part of the AgentSight release surface. The CI pipeline should:
-
-- build, clippy-check, and test `agentpprof` on pull requests;
-- assign `agentpprof` the same release version as `agentsight`;
-- update its `agent-session` dependency to the newly published
-  `agent-session` version;
-- build the release binary and upload it to the GitHub Release;
-- publish the `agentpprof` crate to crates.io;
-- smoke-test `agentpprof --version`, `agentpprof --help`, and
-  `cargo install agentpprof --version <release>`.
-
-This keeps the command usable as an independent tool, not only as an
-AgentSight repository artifact.
 
 ## Troubleshooting
 
