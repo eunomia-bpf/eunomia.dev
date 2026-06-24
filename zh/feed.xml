@@ -5,9 +5,18 @@
   <link>https://eunomia.dev/zh/blog/</link>
   <description>eunomia.dev 上关于 eBPF、bpftime、AI tracing 和系统研究的最新文章。</description>
   <language>zh-CN</language>
-  <lastBuildDate>Sun, 31 May 2026 00:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Wed, 24 Jun 2026 00:00:00 GMT</lastBuildDate>
   <atom:link href="https://eunomia.dev/zh/feed.xml" rel="self" type="application/rss+xml" />
   <item>
+  <title>用语义 Flamegraph 分析 AI Agent：预算花在哪了？</title>
+  <link>https://eunomia.dev/zh/blog/2026/06/24/agentpprof-semantic-flamegraph/</link>
+  <guid>https://eunomia.dev/zh/blog/2026/06/24/agentpprof-semantic-flamegraph/</guid>
+  <pubDate>Wed, 24 Jun 2026 00:00:00 GMT</pubDate>
+  <description>月底账单显示 agent 花了 $3000。哪些类型的工作消耗了这些预算？代码审查占多少、debug 占多少、文档生成占多少？这个问题看似简单，但现有的 agent 可观测性工具都无法直接回答。</description>
+  <author>i@littlefisher.me (LinuxDev9002)</author>
+  <category>AI agent observability</category>
+</item>
+<item>
   <title>ActPlane: 把 Agent Harness Enforcement 下沉到内核 eBPF</title>
   <link>https://eunomia.dev/zh/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/</link>
   <guid>https://eunomia.dev/zh/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/</guid>
@@ -279,17 +288,6 @@
   <pubDate>Tue, 11 Jun 2024 00:00:00 GMT</pubDate>
   <description>eBPF (Extended Berkeley Packet Filter) has become a revolutionary force in operating system kernel programming since its inception.</description>
   <author>yusen356@gmail.com (weekendfish)</author>
-  <author>yunwei356@gmail.com (yunwei37)</author>
-  <category>eBPF</category>
-</item>
-<item>
-  <title>五分钟带你手搓一个简易的 inline hook 实现控制流劫持</title>
-  <link>https://eunomia.dev/zh/blog/2024/04/11/implementing-an-inline-hook-in-c-in-5-minutes/</link>
-  <guid>https://eunomia.dev/zh/blog/2024/04/11/implementing-an-inline-hook-in-c-in-5-minutes/</guid>
-  <pubDate>Thu, 11 Apr 2024 00:00:00 GMT</pubDate>
-  <description>编程中令人着迷的一面在于我们尝试在程序运行时改变其行为。在本教程中，我们将揭示一种可以实现这一点的方法- inline hook 。只需要数十行代码，即可用 C 语言实现一个简单的 inline hook 示例，并将其应用于一个示例程序。</description>
-  <author>yusen356@gmail.com (weekendfish)</author>
-  <author>1067852565@qq.com (云微)</author>
   <author>yunwei356@gmail.com (yunwei37)</author>
   <category>eBPF</category>
 </item>

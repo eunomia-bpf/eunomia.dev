@@ -5,9 +5,18 @@
   <link>https://eunomia.dev/blog/</link>
   <description>Latest writing from eunomia.dev on eBPF, bpftime, AI tracing, and systems research.</description>
   <language>en-US</language>
-  <lastBuildDate>Sun, 31 May 2026 00:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Wed, 24 Jun 2026 00:00:00 GMT</lastBuildDate>
   <atom:link href="https://eunomia.dev/feed.xml" rel="self" type="application/rss+xml" />
   <item>
+  <title>Profiling AI Agents with Semantic Flamegraphs: Where Did the Budget Go?</title>
+  <link>https://eunomia.dev/blog/2026/06/24/agentpprof-semantic-flamegraph/</link>
+  <guid>https://eunomia.dev/blog/2026/06/24/agentpprof-semantic-flamegraph/</guid>
+  <pubDate>Wed, 24 Jun 2026 00:00:00 GMT</pubDate>
+  <description>End of month, the bill shows the agent spent $3000. What types of work consumed that budget? How much went to code review, how much to debugging, how much to documentation? This question seems simple, but none of the</description>
+  <author>i@littlefisher.me (LinuxDev9002)</author>
+  <category>AI agent observability</category>
+</item>
+<item>
   <title>ActPlane: Pushing Agent Harness Enforcement Down to Kernel eBPF</title>
   <link>https://eunomia.dev/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/</link>
   <guid>https://eunomia.dev/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/</guid>
@@ -279,16 +288,6 @@
   <guid>https://eunomia.dev/blog/2024/06/11/the-ebpf-evolution-and-future-from-linux-origins-to-cross-platform-dominance/</guid>
   <pubDate>Tue, 11 Jun 2024 00:00:00 GMT</pubDate>
   <description>eBPF (Extended Berkeley Packet Filter) has become a revolutionary force in operating system kernel programming since its inception.</description>
-  <author>yusen356@gmail.com (weekendfish)</author>
-  <author>yunwei356@gmail.com (yunwei37)</author>
-  <category>eBPF</category>
-</item>
-<item>
-  <title>Implementing an Inline Hook in C in 5 minutes</title>
-  <link>https://eunomia.dev/blog/2024/04/11/implementing-an-inline-hook-in-c-in-5-minutes/</link>
-  <guid>https://eunomia.dev/blog/2024/04/11/implementing-an-inline-hook-in-c-in-5-minutes/</guid>
-  <pubDate>Thu, 11 Apr 2024 00:00:00 GMT</pubDate>
-  <description>One of the fascinating aspects of programming comes when we try to alter the behavior of a program while it is running.</description>
   <author>yusen356@gmail.com (weekendfish)</author>
   <author>yunwei356@gmail.com (yunwei37)</author>
   <category>eBPF</category>
