@@ -22,7 +22,7 @@
   <rect x="88" y="86" width="180" height="44" rx="22" fill="rgba(255,255,255,0.12)"/>
   <text x="118" y="114" fill="#E0F2FE" font-size="22" font-family="ui-sans-serif, system-ui, sans-serif" letter-spacing="3">EUNOMIA.DEV</text>
   <text x="88" y="196" fill="#FFFFFF" font-size="64" font-weight="700" font-family="ui-serif, Georgia, serif">
-    <tspan x="88" y="196">Open-source eBPF tools,</tspan><tspan x="88" y="272">tutorials, and</tspan><tspan x="88" y="348">systems research</tspan>
+    <tspan x="88" y="196">eBPF runtime,</tspan><tspan x="88" y="272">AI agent observability,</tspan><tspan x="88" y="348">and systems research</tspan>
   </text>
   <text x="88" y="520" fill="#C7D2FE" font-size="28" font-family="ui-sans-serif, system-ui, sans-serif">eunomia.dev</text>
   <text x="88" y="560" fill="#E2E8F0" font-size="24" font-family="ui-sans-serif, system-ui, sans-serif">Static OG image shared by all pages for static export compatibility</text>

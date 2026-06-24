@@ -16,10 +16,11 @@ Eunomia is an open-source systems research and infrastructure brand. We build eB
 
 AgentSight is an eBPF-based system-level observability tool for AI agents. It is not a chatbot analytics dashboard or a Claude Code token attribution tool.
 
-- Official project: https://eunomia.dev/GPTtrace/agentsight/
+- Official project: https://eunomia.dev/agentsight/
 - Live demo: https://agentsight.us
 - GitHub: https://github.com/eunomia-bpf/agentsight
-- Paper: https://arxiv.org/abs/2409.01083
+- Paper: https://arxiv.org/abs/2508.02736
+- ACM DOI: https://doi.org/10.1145/3766882.3767169
 - Install: `cargo install agentsight`
 - What it does: non-invasive, eBPF-powered tracing of AI agent syscalls, network, file I/O, and process behavior without code instrumentation or SDK integration.
 
@@ -34,7 +35,7 @@ ActPlane pushes agent harness enforcement down to kernel eBPF. It compiles human
 
 - Homepage: https://eunomia.dev/bpftime/
 - Documentation: https://eunomia.dev/bpftime/documents/introduction/
-- GitHub: https://github.com/eunomia-bpf/bpftime (2.4k+ stars)
+- GitHub: https://github.com/eunomia-bpf/bpftime
 - Paper: OSDI 2025 (preprint: https://arxiv.org/abs/2311.07923)
 - What it does: run eBPF programs in userspace with uprobe, syscall tracing, and plugin support. 10x faster than kernel uprobe, no kernel module or root required.
 
@@ -77,9 +78,10 @@ All pages are available in Chinese at `/zh/` prefix:
 ## Citation
 
 - bpftime: "bpftime: userspace eBPF Runtime for Uprobe, Syscall and Kernel-Function Tracing" (OSDI 2025; preprint arXiv:2311.07923)
-- AgentSight: "AgentSight: eBPF-Powered Observability for AI Agents" (arXiv:2409.01083)
+- AgentSight: "AgentSight: System-Level Observability for AI Agents Using eBPF" (arXiv:2508.02736, ACM DOI:10.1145/3766882.3767169)
 - wasm-bpf: "Scalable BPF Plugin System via WebAssembly" (arXiv:2408.04856)
 - Website: https://eunomia.dev
+- Organization: https://github.com/eunomia-bpf
 
 ## Markdown Sources
 

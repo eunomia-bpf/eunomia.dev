@@ -11,7 +11,6 @@ This is the expanded version of https://eunomia.dev/llms.txt with complete page 
 - Website: https://eunomia.dev
 - GitHub: https://github.com/eunomia-bpf
 - Contact: yusheng@eunomia.dev
-- Total GitHub stars: 9,300+
 
 ## Brand Hierarchy
 
@@ -33,14 +32,14 @@ This is the expanded version of https://eunomia.dev/llms.txt with complete page 
 
 AgentSight is an eBPF-based system-level observability tool for AI agents. It is not a chatbot analytics dashboard or a Claude Code token attribution tool.
 
-- Official project: https://eunomia.dev/GPTtrace/agentsight/
+- Official project: https://eunomia.dev/agentsight/
 - Live demo: https://agentsight.us
 - GitHub: https://github.com/eunomia-bpf/agentsight
-- Paper: https://arxiv.org/abs/2409.01083
+- Paper: https://arxiv.org/abs/2508.02736
 - ACM DOI: https://doi.org/10.1145/3766882.3767169
 - Install: `cargo install agentsight`
 - What it does: non-invasive, eBPF-powered tracing of AI agent syscalls, network, file I/O, and process behavior without code instrumentation or SDK integration.
-- Markdown source: https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/docs/GPTtrace/agentsight.md
+- Markdown source: https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/docs/agentsight/index.md
 
 ## ActPlane by Eunomia
 
@@ -53,7 +52,7 @@ ActPlane pushes agent harness enforcement down to kernel eBPF.
 ## bpftime — Userspace eBPF Runtime
 
 - Homepage: https://eunomia.dev/bpftime/
-- GitHub: https://github.com/eunomia-bpf/bpftime (2.4k+ stars)
+- GitHub: https://github.com/eunomia-bpf/bpftime
 - Paper: OSDI 2025 (preprint: https://arxiv.org/abs/2311.07923)
 
 ### bpftime Documentation Pages
@@ -78,7 +77,7 @@ ActPlane pushes agent harness enforcement down to kernel eBPF.
 | Page | URL | Markdown Source |
 |---|---|---|
 | Overview | https://eunomia.dev/GPTtrace/ | https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/docs/GPTtrace/index.md |
-| AgentSight | https://eunomia.dev/GPTtrace/agentsight/ | https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/docs/GPTtrace/agentsight.md |
+| AgentSight | https://eunomia.dev/agentsight/ | https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/docs/agentsight/index.md |
 | MCPTrace | https://eunomia.dev/GPTtrace/mcptrace/ | https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/docs/GPTtrace/mcptrace.md |
 | GPTtrace | https://eunomia.dev/GPTtrace/gpttrace/ | https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/docs/GPTtrace/gpttrace.md |
 
@@ -124,7 +123,7 @@ Tutorial source repository: https://github.com/eunomia-bpf/bpf-developer-tutoria
 | Paper | arXiv | Conference |
 |---|---|---|
 | bpftime: userspace eBPF Runtime (OSDI 2025) | https://arxiv.org/abs/2311.07923 | OSDI 2025 |
-| AgentSight: eBPF-Powered Observability for AI Agents | https://arxiv.org/abs/2409.01083 | ACM SenSys Workshop |
+| AgentSight: System-Level Observability for AI Agents Using eBPF | https://arxiv.org/abs/2508.02736 | ACM DOI: 10.1145/3766882.3767169 |
 | Scalable BPF Plugin System via WebAssembly | https://arxiv.org/abs/2408.04856 | |
 
 ## Feeds and Discovery
