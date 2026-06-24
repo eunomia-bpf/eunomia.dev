@@ -231,21 +231,15 @@ function normalizeRoutePath(routePath) {
   return `/${routePath.replace(/^\/+/, "")}`;
 }
 
-function basename(routePath) {
-  return routePath.replace(/\/+$/, "").split("/").at(-1) ?? "";
-}
-
-function looksLikeFileRoute(routePath) {
-  return !routePath.endsWith("/") && /\.[A-Za-z0-9][A-Za-z0-9.-]*$/.test(basename(routePath));
-}
-
 /** Write a redirect stub at out/<routePath>index.html unless it already exists. */
 function writeRedirect(routePath, target, options = {}) {
   const normalizedRoutePath = normalizeRoutePath(routePath);
   const relative = normalizedRoutePath.replace(/^\/+/, "");
-  const dest = looksLikeFileRoute(normalizedRoutePath)
-    ? path.join(outDir, relative)
-    : path.join(outDir, relative, "index.html");
+  const existingRouteFile = path.join(outDir, relative);
+  if (fs.existsSync(existingRouteFile) && fs.statSync(existingRouteFile).isFile() && !options.overwrite) {
+    return false;
+  }
+  const dest = path.join(outDir, relative, "index.html");
   if (fs.existsSync(dest) && !options.overwrite) {
     return false;
   }
