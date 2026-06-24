@@ -1990,28 +1990,28 @@
   </url>
   <url>
     <loc>https://eunomia.dev/products/</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-06-24</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/products/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/products/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/products/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/products/</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-06-24</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/products/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/products/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/products/" />
   </url>
   <url>
     <loc>https://eunomia.dev/products/agent-runtime-infrastructure/</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-06-24</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/products/agent-runtime-infrastructure/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/products/agent-runtime-infrastructure/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/products/agent-runtime-infrastructure/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/products/agent-runtime-infrastructure/</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-06-24</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/products/agent-runtime-infrastructure/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/products/agent-runtime-infrastructure/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/products/agent-runtime-infrastructure/" />
@@ -2508,14 +2508,14 @@
   </url>
   <url>
     <loc>https://eunomia.dev/agentsight/agentpprof/</loc>
-    <lastmod>2026-06-23</lastmod>
+    <lastmod>2026-06-24</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/agentpprof/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/agentpprof/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/agentpprof/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/agentsight/agentpprof/</loc>
-    <lastmod>2026-06-23</lastmod>
+    <lastmod>2026-06-24</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/agentpprof/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/agentpprof/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/agentpprof/" />
@@ -2577,15 +2577,29 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/docker/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/agentsight/flamegraph/</loc>
+    <lastmod>2026-06-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/flamegraph/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/flamegraph/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/flamegraph/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/agentsight/flamegraph/</loc>
+    <lastmod>2026-06-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/flamegraph/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/flamegraph/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/flamegraph/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/agentsight/</loc>
-    <lastmod>2026-06-23</lastmod>
+    <lastmod>2026-06-24</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/agentsight/</loc>
-    <lastmod>2026-06-23</lastmod>
+    <lastmod>2026-06-24</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/" />
@@ -2605,6 +2619,20 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/otel/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/agentsight/skills/examples/</loc>
+    <lastmod>2026-06-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/skills/examples/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/skills/examples/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/skills/examples/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/agentsight/skills/examples/</loc>
+    <lastmod>2026-06-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/skills/examples/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/skills/examples/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/skills/examples/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/agentsight/usage/</loc>
     <lastmod>2026-06-23</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/usage/" />
@@ -2617,6 +2645,26 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/usage/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/usage/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/usage/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/agentsight/visexp/paper/evaluation-claims-setup/</loc>
+    <lastmod>2026-06-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/zh/agentsight/visexp/paper/evaluation-claims-setup/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/visexp/paper/evaluation-claims-setup/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/agentsight/visexp/</loc>
+    <lastmod>2026-06-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/visexp/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/visexp/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/visexp/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/agentsight/visexp/</loc>
+    <lastmod>2026-06-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/visexp/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/visexp/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/visexp/" />
   </url>
   <url>
     <loc>https://eunomia.dev/bpftime/EIM/draft-spec/current-EIM-lack/</loc>
