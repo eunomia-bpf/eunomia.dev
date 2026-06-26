@@ -347,9 +347,6 @@ extra:
       - label: AI Agent Observability & Enforcement
         label_zh: AI Agent 可观测与执行控制
         href: /products/agent-runtime-infrastructure/
-      - label: ActPlane
-        label_zh: ActPlane
-        href: /actplane/
       - label: Services / Enterprise Support
         label_zh: 服务 / 企业支持
         href: /products/services/
@@ -917,10 +914,6 @@ extra:
           label_zh: 了解 AI Agent 可观测与执行控制
           href: /products/agent-runtime-infrastructure/
           variant: primary
-        - key: actplane-docs
-          label: ActPlane docs
-          label_zh: ActPlane 文档
-          href: /actplane/
         - key: services
           label: View services
           label_zh: 查看服务
@@ -951,10 +944,6 @@ extra:
           label: GitHub
           label_zh: GitHub
           href: https://github.com/eunomia-bpf/agentsight
-        - key: actplane-docs
-          label: ActPlane docs
-          label_zh: ActPlane 文档
-          href: /actplane/
         - key: actplane-github
           label: GitHub
           label_zh: GitHub
