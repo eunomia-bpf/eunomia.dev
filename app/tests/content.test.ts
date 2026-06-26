@@ -182,7 +182,7 @@ test("primary nav children and section sidebars are sourced from mkdocs config",
 
   assert.deepEqual(
     navChildren.get("products")?.map((item) => item.href),
-    ["/bpftime/", "/products/agent-runtime-infrastructure/", "/actplane/", "/products/services/"]
+    ["/bpftime/", "/products/agent-runtime-infrastructure/", "/products/services/"]
   );
   assert.deepEqual(
     navChildren.get("tutorials")?.map((item) => item.href),
@@ -277,7 +277,6 @@ test("configured section landing copy is sourced from mkdocs config", async () =
       "mailto:yusheng@eunomia.dev",
       "https://github.com/eunomia-bpf/bpftime",
       "/products/agent-runtime-infrastructure/",
-      "/actplane/",
       "/products/services/"
     ]
   );
@@ -287,7 +286,7 @@ test("configured section landing copy is sourced from mkdocs config", async () =
   assert.equal(bpftime?.reactPage, "bpftime-product");
   assert.equal(bpftime?.reactLinks?.find((link) => link.key === "bpftime-docs")?.href, "/bpftime/documents/introduction/");
   assert.equal(agentInfra?.reactPage, "agent-runtime-infrastructure");
-  assert.equal(agentInfra?.reactLinks?.find((link) => link.key === "actplane-docs")?.href, "/actplane/");
+  assert.equal(agentInfra?.reactLinks?.find((link) => link.key === "actplane-docs"), undefined);
   assert.equal(services?.reactPage, "services");
   assert.equal(about?.reactPage, "about");
   assert.equal(about?.reactLinks?.find((link) => link.key === "cuda-tutorial")?.href, "/others/cuda-tutorial/");
@@ -511,7 +510,7 @@ test("primary nav follows the configured external site order", () => {
   );
   assert.deepEqual(
     getPrimaryNav("en").find((item) => item.href === "/products/")?.children?.map((item) => item.href),
-    ["/bpftime/", "/products/agent-runtime-infrastructure/", "/actplane/", "/products/services/"]
+    ["/bpftime/", "/products/agent-runtime-infrastructure/", "/products/services/"]
   );
   assert.deepEqual(
     getPrimaryNav("en").find((item) => item.href === "/tutorials/")?.children?.map((item) => item.href),
