@@ -7,7 +7,12 @@ import {
 
 const failures = [];
 const datedBlogRoutePattern = /^\/(?:zh\/)?blog\/\d{4}\/\d{2}\/\d{2}\/[^/]+\/$/;
-const retiredLegacySitemapPaths = new Set(["/GPTtrace/agentsight/", "/zh/GPTtrace/agentsight/"]);
+const retiredLegacySitemapPaths = new Set([
+  "/GPTtrace/agentsight/",
+  "/zh/GPTtrace/agentsight/",
+  "/tutorials/SUMMARY/",
+  "/zh/tutorials/SUMMARY/"
+]);
 const expectedAppOnlyPaths = new Set([
   "/about/",
   "/products/",
