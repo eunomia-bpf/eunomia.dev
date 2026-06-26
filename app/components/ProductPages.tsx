@@ -453,7 +453,7 @@ export function ProductsLandingPage({ locale, links, projects }: ProductPageProp
             title="AI Agent Observability & Enforcement"
             description={copy.agent}
             href={linkByKey.get("agent-infra")}
-            links={[linkByKey.get("agent-infra")]}
+            links={[linkByKey.get("agent-infra"), linkByKey.get("actplane-docs")]}
             visualLabel="agent observe + enforce"
             visualLines={["observe.agent()", "enforce.policy()", "audit.runtime()"]}
           />
@@ -846,7 +846,7 @@ export function AgentRuntimeInfrastructurePage({ locale, links, projects }: Prod
               ? "OS-level harness，在 syscall、exec、file 和 network 边界用系统级策略约束 agent 行为，并提供应用层日志之外的执行证据。"
               : "An OS-level harness that shapes agent behavior with system-boundary policy across syscall, exec, file, and network — plus execution evidence beyond application logs."}
           </p>
-          <ActionRow links={[linkByKey.get("actplane-github")]} />
+          <ActionRow links={[linkByKey.get("actplane-docs"), linkByKey.get("actplane-github")]} />
         </article>
       </div>
 

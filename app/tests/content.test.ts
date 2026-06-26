@@ -72,6 +72,13 @@ test("docPathToRoute maps nested tutorial docs to public tutorial routes", () =>
   );
 });
 
+test("tutorial SUMMARY files are not routable pages", () => {
+  assert.equal(docPathToRoute("tutorials/SUMMARY.md", "en"), null);
+  assert.equal(docPathToRoute("tutorials/SUMMARY.zh.md", "zh"), null);
+  assert.ok(!listRenderableRoutesForLocale("en").includes("/tutorials/SUMMARY/"));
+  assert.ok(!listRenderableRoutesForLocale("zh").includes("/zh/tutorials/SUMMARY/"));
+});
+
 test("docPathToRoute normalizes .en.md docs into stable public routes", () => {
   assert.equal(
     docPathToRoute("eunomia-bpf/setup/build.en.md", "en"),
@@ -175,7 +182,7 @@ test("primary nav children and section sidebars are sourced from mkdocs config",
 
   assert.deepEqual(
     navChildren.get("products")?.map((item) => item.href),
-    ["/bpftime/", "/products/agent-runtime-infrastructure/", "/products/services/"]
+    ["/bpftime/", "/products/agent-runtime-infrastructure/", "/actplane/", "/products/services/"]
   );
   assert.deepEqual(
     navChildren.get("tutorials")?.map((item) => item.href),
@@ -189,16 +196,19 @@ test("primary nav children and section sidebars are sourced from mkdocs config",
   );
   assert.deepEqual(
     navChildren.get("projects")?.map((item) => item.href),
-    ["/bpftime/", "/eunomia-bpf/", "/wasm-bpf/", "/agentsight/"]
+    ["/bpftime/", "/eunomia-bpf/", "/wasm-bpf/", "/agentsight/", "/actplane/"]
   );
   assert.equal(navChildren.get("projects")?.[3]?.label.en, "AgentSight");
+  assert.equal(navChildren.get("projects")?.[4]?.label.en, "ActPlane");
   assert.deepEqual(
     sidebars.get("projects")?.map((group) => group.title.en),
     ["Project overview", "Project docs", "Learning and writing"]
   );
   assert.equal(sidebars.get("projects")?.[1]?.items[2]?.href, "/wasm-bpf/");
   assert.equal(sidebars.get("projects")?.[1]?.items[3]?.href, "/agentsight/");
+  assert.equal(sidebars.get("projects")?.[1]?.items[4]?.href, "/actplane/");
   assert.equal(sidebars.get("agentsight")?.[0]?.items[1]?.href, "/agentsight/usage/");
+  assert.equal(sidebars.get("actplane")?.[0]?.items[1]?.href, "/actplane/cookbook/");
   assert.ok(!sidebars.get("projects")?.some((group) => group.items.some((item) => item.href === "/blogs/")));
   assert.equal(sidebars.get("GPTtrace")?.[0]?.title.en, "AI and eBPF");
   assert.deepEqual(
@@ -250,6 +260,7 @@ test("configured section landing copy is sourced from mkdocs config", async () =
   const projects = await loadSectionPage("projects", [], "en");
   const projectsZh = await loadSectionPage("projects", [], "zh");
   const agentsight = await loadSectionPage("agentsight", [], "en");
+  const actplane = await loadSectionPage("actplane", [], "en");
   const products = await loadSectionPage("products", [], "en");
   const bpftime = await loadSectionPage("bpftime", [], "en");
   const agentInfra = await loadSectionPage("products", ["agent-runtime-infrastructure"], "en");
@@ -266,6 +277,7 @@ test("configured section landing copy is sourced from mkdocs config", async () =
       "mailto:yusheng@eunomia.dev",
       "https://github.com/eunomia-bpf/bpftime",
       "/products/agent-runtime-infrastructure/",
+      "/actplane/",
       "/products/services/"
     ]
   );
@@ -275,17 +287,23 @@ test("configured section landing copy is sourced from mkdocs config", async () =
   assert.equal(bpftime?.reactPage, "bpftime-product");
   assert.equal(bpftime?.reactLinks?.find((link) => link.key === "bpftime-docs")?.href, "/bpftime/documents/introduction/");
   assert.equal(agentInfra?.reactPage, "agent-runtime-infrastructure");
+  assert.equal(agentInfra?.reactLinks?.find((link) => link.key === "actplane-docs")?.href, "/actplane/");
   assert.equal(services?.reactPage, "services");
   assert.equal(about?.reactPage, "about");
   assert.equal(about?.reactLinks?.find((link) => link.key === "cuda-tutorial")?.href, "/others/cuda-tutorial/");
   assert.equal(projects?.title, "Projects");
   assert.equal(projects?.landingPage?.variant, "project-index");
   assert.ok(projects?.projectCatalog?.projects.some((project) => project.key === "agentsight"));
+  assert.ok(projects?.projectCatalog?.projects.some((project) => project.key === "actplane"));
   assert.ok(projects?.sidebar?.some((group) => group.title === "Project docs"));
   assert.ok(agentsight?.title?.startsWith("AgentSight"));
   assert.equal(agentsight?.landingPage, undefined);
   assert.ok(agentsight?.bodyHtml.includes("AgentSight"));
   assert.ok(agentsight?.sidebar?.some((group) => group.title === "AgentSight"));
+  assert.ok(actplane?.title?.startsWith("ActPlane"));
+  assert.equal(actplane?.landingPage, undefined);
+  assert.ok(actplane?.bodyHtml.includes("ActPlane"));
+  assert.ok(actplane?.sidebar?.some((group) => group.title === "ActPlane"));
   assert.equal(projectsZh?.title, "项目");
   assert.equal(projectsZh?.landingPage?.description.zh, "eunomia-bpf 项目体系地图，按 runtime infrastructure、开发工具链、AI agent systems 和公开资源组织。");
   assert.ok(projectsZh?.sidebar?.some((group) => group.title === "项目文档"));
@@ -493,7 +511,7 @@ test("primary nav follows the configured external site order", () => {
   );
   assert.deepEqual(
     getPrimaryNav("en").find((item) => item.href === "/products/")?.children?.map((item) => item.href),
-    ["/bpftime/", "/products/agent-runtime-infrastructure/", "/products/services/"]
+    ["/bpftime/", "/products/agent-runtime-infrastructure/", "/actplane/", "/products/services/"]
   );
   assert.deepEqual(
     getPrimaryNav("en").find((item) => item.href === "/tutorials/")?.children?.map((item) => item.href),
@@ -507,7 +525,7 @@ test("primary nav follows the configured external site order", () => {
   );
   assert.deepEqual(
     getPrimaryNav("en").find((item) => item.href === "/projects/")?.children?.map((item) => item.href),
-    ["/bpftime/", "/eunomia-bpf/", "/wasm-bpf/", "/agentsight/"]
+    ["/bpftime/", "/eunomia-bpf/", "/wasm-bpf/", "/agentsight/", "/actplane/"]
   );
   assert.deepEqual(
     getSectionSidebarOverride("projects", "zh")?.map((group) => group.title),
@@ -522,6 +540,7 @@ test("site IA keeps non-primary published sections out of the primary nav", () =
   assert.ok(!navItems.some((item) => item.href === "/bpftime/"));
   assert.ok(!navItems.some((item) => item.href === "/wasm-bpf/"));
   assert.ok(!navItems.some((item) => item.href === "/agentsight/"));
+  assert.ok(!navItems.some((item) => item.href === "/actplane/"));
   assert.ok(!navItems.some((item) => item.href === "/eunomia-bpf/"));
   assert.ok(!navItems.some((item) => item.href === "/about/"));
 });
