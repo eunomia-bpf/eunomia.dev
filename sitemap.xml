@@ -897,20 +897,6 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/features/struct_ops/" />
   </url>
   <url>
-    <loc>https://eunomia.dev/tutorials/SUMMARY/</loc>
-    <lastmod>2026-03-11</lastmod>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/tutorials/SUMMARY/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/tutorials/SUMMARY/" />
-    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/SUMMARY/" />
-  </url>
-  <url>
-    <loc>https://eunomia.dev/zh/tutorials/SUMMARY/</loc>
-    <lastmod>2026-03-11</lastmod>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/tutorials/SUMMARY/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/tutorials/SUMMARY/" />
-    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/SUMMARY/" />
-  </url>
-  <url>
     <loc>https://eunomia.dev/tutorials/xpu/flamegraph/</loc>
     <lastmod>2025-10-28</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/tutorials/xpu/flamegraph/" />
@@ -2505,6 +2491,132 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/about/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/about/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/about/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/actplane/agent-integrations/</loc>
+    <lastmod>2026-06-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/actplane/agent-integrations/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/actplane/agent-integrations/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/actplane/agent-integrations/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/actplane/agent-integrations/</loc>
+    <lastmod>2026-06-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/actplane/agent-integrations/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/actplane/agent-integrations/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/actplane/agent-integrations/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/actplane/ARTIFACT/</loc>
+    <lastmod>2026-06-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/actplane/ARTIFACT/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/actplane/ARTIFACT/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/actplane/ARTIFACT/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/actplane/ARTIFACT/</loc>
+    <lastmod>2026-06-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/actplane/ARTIFACT/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/actplane/ARTIFACT/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/actplane/ARTIFACT/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/actplane/compare/</loc>
+    <lastmod>2026-06-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/actplane/compare/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/actplane/compare/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/actplane/compare/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/actplane/compare/</loc>
+    <lastmod>2026-06-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/actplane/compare/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/actplane/compare/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/actplane/compare/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/actplane/cookbook/</loc>
+    <lastmod>2026-06-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/actplane/cookbook/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/actplane/cookbook/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/actplane/cookbook/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/actplane/cookbook/</loc>
+    <lastmod>2026-06-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/actplane/cookbook/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/actplane/cookbook/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/actplane/cookbook/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/actplane/empirical-study/</loc>
+    <lastmod>2026-06-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/actplane/empirical-study/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/actplane/empirical-study/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/actplane/empirical-study/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/actplane/empirical-study/</loc>
+    <lastmod>2026-06-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/actplane/empirical-study/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/actplane/empirical-study/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/actplane/empirical-study/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/actplane/</loc>
+    <lastmod>2026-06-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/actplane/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/actplane/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/actplane/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/actplane/</loc>
+    <lastmod>2026-06-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/actplane/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/actplane/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/actplane/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/actplane/rule-language/</loc>
+    <lastmod>2026-06-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/actplane/rule-language/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/actplane/rule-language/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/actplane/rule-language/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/actplane/rule-language/</loc>
+    <lastmod>2026-06-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/actplane/rule-language/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/actplane/rule-language/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/actplane/rule-language/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/actplane/security_model/</loc>
+    <lastmod>2026-06-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/actplane/security_model/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/actplane/security_model/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/actplane/security_model/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/actplane/security_model/</loc>
+    <lastmod>2026-06-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/actplane/security_model/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/actplane/security_model/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/actplane/security_model/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/actplane/support-matrix/</loc>
+    <lastmod>2026-06-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/actplane/support-matrix/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/actplane/support-matrix/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/actplane/support-matrix/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/actplane/support-matrix/</loc>
+    <lastmod>2026-06-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/actplane/support-matrix/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/actplane/support-matrix/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/actplane/support-matrix/" />
   </url>
   <url>
     <loc>https://eunomia.dev/agentsight/agent-session/</loc>
