@@ -32,12 +32,15 @@ nvbit-tutorial:
 agentsight:
 	git clone https://github.com/eunomia-bpf/agentsight --depth=1
 
+actplane:
+	git clone https://github.com/eunomia-bpf/ActPlane actplane --depth=1
+
 sync-external-docs:
 	$(MAKE) clean
 	$(MAKE) docs/CNAME
 
-docs/CNAME: tutorial cuda-exp cupti-exp nvbit-tutorial bpftime agentsight
+docs/CNAME: tutorial cuda-exp cupti-exp nvbit-tutorial bpftime agentsight actplane
 	./rename.sh
 
 clean:
-	rm -rf tutorial site docs/tutorials bpftime cuda-exp cupti-exp nvbit-tutorial agentsight
+	rm -rf tutorial site docs/tutorials bpftime cuda-exp cupti-exp nvbit-tutorial agentsight actplane docs/actplane

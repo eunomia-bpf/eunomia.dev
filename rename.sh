@@ -6,8 +6,9 @@ mkdir -p docs/others/cuda-tutorial && \
 mkdir -p docs/others/cupti-tutorial && \
 mkdir -p docs/others/nvbit-tutorial && \
 cp -rf tutorial/src/* docs/tutorials/ && \
-mv tutorial/src/SUMMARY.zh.md docs/tutorials/index.zh.md && \
-mv tutorial/src/SUMMARY.md docs/tutorials/index.md && \
+if [ -f tutorial/src/SUMMARY.zh.md ]; then cp tutorial/src/SUMMARY.zh.md docs/tutorials/index.zh.md; fi && \
+if [ -f tutorial/src/SUMMARY.md ]; then cp tutorial/src/SUMMARY.md docs/tutorials/index.md; fi && \
+rm -f docs/tutorials/SUMMARY.md docs/tutorials/SUMMARY.zh.md && \
 mkdir -p docs/tutorials/imgs && \
 cp tutorial/imgs/* docs/tutorials/imgs/ && \
 cp -rf cuda-exp/* docs/others/cuda-tutorial/ && \
@@ -29,4 +30,11 @@ cp agentsight/README.md docs/agentsight/index.md && \
 cp agentsight/README.zh-CN.md docs/agentsight/index.zh.md && \
 mkdir -p docs/agentsight/images && \
 cp agentsight/docs/demo-*.png agentsight/docs/top-mode-demo.png docs/agentsight/images/ && \
+mkdir -p docs/actplane && \
+rm -rf docs/actplane && \
+mkdir -p docs/actplane && \
+rsync -a --exclude '/design/' --exclude '/papers/' actplane/docs/ docs/actplane/ && \
+cp actplane/README.md docs/actplane/index.md && \
+perl -0pi -e 's#\]\(docs/rule-language\.md\)#](rule-language.md)#g; s#\]\(script/CLAUDE\.snippet\.md\)#](https://github.com/eunomia-bpf/ActPlane/blob/master/script/CLAUDE.snippet.md)#g; s#\]\(bpf/\)#](https://github.com/eunomia-bpf/ActPlane/tree/master/bpf/)#g; s#\]\(LICENSE\)#](https://github.com/eunomia-bpf/ActPlane/blob/master/LICENSE)#g' docs/actplane/index.md && \
+perl -0pi -e 's#\]\(design/feedback-design\.md\)#](https://github.com/eunomia-bpf/ActPlane/blob/master/docs/design/feedback-design.md)#g; s#\]\(\.\./script/agent-feedback\.md\)#](https://github.com/eunomia-bpf/ActPlane/blob/master/script/agent-feedback.md)#g' docs/actplane/rule-language.md && \
 echo "eunomia.dev" > docs/CNAME

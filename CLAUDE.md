@@ -6,6 +6,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is the source code for the eunomia-bpf project website (https://eunomia.dev). The site provides comprehensive tutorials and documentation for eBPF programming, the eunomia-bpf framework, bpftime, and related projects.
 
+## Required Workflow
+
+For open-source code, documentation, synchronization, CI, release-readiness, or
+PR-bound changes in this repository, use the `oss-change-workflow` skill before
+editing. Follow its scope-control, validation, review, and CI guidance.
+
+Before publishing a PR, inspect the worktree, stage only the intended files, run
+the smallest relevant validation, and preserve unrelated user changes.
+
 ### Tech stack (current)
 
 The site is rendered by a **custom Next.js + React + Tailwind CSS frontend** living in `app/`, statically exported to plain HTML/CSS/JS. It is **not** a runtime MkDocs site anymore.

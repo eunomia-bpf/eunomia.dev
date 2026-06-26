@@ -273,6 +273,17 @@ extra:
         footer_explore: false
         footer_project: false
       order: 56
+    actplane:
+      labels:
+        en: ActPlane
+        zh: ActPlane
+      published:
+        nav: false
+        home_track: false
+        home_explore: false
+        footer_explore: false
+        footer_project: false
+      order: 57
     about:
       labels:
         en: About
@@ -336,6 +347,9 @@ extra:
       - label: AI Agent Observability & Enforcement
         label_zh: AI Agent 可观测与执行控制
         href: /products/agent-runtime-infrastructure/
+      - label: ActPlane
+        label_zh: ActPlane
+        href: /actplane/
       - label: Services / Enterprise Support
         label_zh: 服务 / 企业支持
         href: /products/services/
@@ -368,6 +382,9 @@ extra:
       - label: AgentSight
         label_zh: AgentSight
         href: /agentsight/
+      - label: ActPlane
+        label_zh: ActPlane
+        href: /actplane/
     others:
       - label: About Eunomia
         label_zh: 关于 Eunomia
@@ -420,6 +437,9 @@ extra:
           - label: AI agent projects
             label_zh: AI Agent 项目
             href: /agentsight/
+          - label: ActPlane
+            label_zh: ActPlane
+            href: /actplane/
       - title: Learning and writing
         title_zh: 学习与文章
         items:
@@ -457,6 +477,34 @@ extra:
           - label: Development
             label_zh: 开发指南
             href: /agentsight/development/
+    actplane:
+      - title: ActPlane
+        title_zh: ActPlane
+        items:
+          - label: Overview
+            label_zh: 总览
+            href: /actplane/
+          - label: Examples cookbook
+            label_zh: 示例手册
+            href: /actplane/cookbook/
+          - label: Agent integrations
+            label_zh: Agent 集成
+            href: /actplane/agent-integrations/
+          - label: Support matrix
+            label_zh: 支持矩阵
+            href: /actplane/support-matrix/
+          - label: Rule language
+            label_zh: 规则语言
+            href: /actplane/rule-language/
+          - label: Security model
+            label_zh: 安全模型
+            href: /actplane/security_model/
+          - label: Product comparison
+            label_zh: 产品对比
+            href: /actplane/compare/
+          - label: Artifact
+            label_zh: Artifact
+            href: /actplane/ARTIFACT/
     reports:
       - title: Activity reports
         title_zh: 动态报告
@@ -565,7 +613,7 @@ extra:
         intro:
           en: Tracing, observability, and safety work for AI agent systems.
           zh: 面向 AI agent 系统的 tracing、observability 和安全研究。
-        project_keys: [agentsight, GPTtrace]
+        project_keys: [agentsight, actplane, GPTtrace]
       - key: resources
         title:
           en: Resources
@@ -749,6 +797,27 @@ extra:
           - label: PACMI 2025
             label_zh: PACMI 2025
             href: https://dl.acm.org/doi/10.1145/3766882.3767169
+      - key: actplane
+        title: ActPlane
+        tag:
+          en: Agent policy
+          zh: Agent policy
+        href: /actplane/
+        image: /_content-assets/docs/assets/logo.png
+        image_alt: ActPlane
+        description:
+          en: OS-level safety, security, and governance controls for AI agents, with policy-as-code for process trees, files, network effects, data-flow labels, and workflow gates.
+          zh: 面向 AI agent 的 OS-level safety、security 和 governance 控制，用 policy-as-code 约束进程树、文件、网络影响、数据流标签和工作流门禁。
+        links:
+          - label: Docs
+            label_zh: 文档
+            href: /actplane/
+          - label: Examples
+            label_zh: 示例
+            href: /actplane/cookbook/
+          - label: GitHub
+            label_zh: GitHub
+            href: https://github.com/eunomia-bpf/ActPlane
       - key: llvmbpf
         title: llvmbpf
         tag:
@@ -848,6 +917,10 @@ extra:
           label_zh: 了解 AI Agent 可观测与执行控制
           href: /products/agent-runtime-infrastructure/
           variant: primary
+        - key: actplane-docs
+          label: ActPlane docs
+          label_zh: ActPlane 文档
+          href: /actplane/
         - key: services
           label: View services
           label_zh: 查看服务
@@ -878,6 +951,10 @@ extra:
           label: GitHub
           label_zh: GitHub
           href: https://github.com/eunomia-bpf/agentsight
+        - key: actplane-docs
+          label: ActPlane docs
+          label_zh: ActPlane 文档
+          href: /actplane/
         - key: actplane-github
           label: GitHub
           label_zh: GitHub
