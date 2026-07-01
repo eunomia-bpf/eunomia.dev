@@ -8,11 +8,12 @@
   <lastBuildDate>Wed, 24 Jun 2026 00:00:00 GMT</lastBuildDate>
   <atom:link href="https://eunomia.dev/feed.xml" rel="self" type="application/rss+xml" />
   <item>
-  <title>Profiling AI Agents with Semantic Flamegraphs: Where Did the Budget Go?</title>
+  <title>Profiling AI Agents with Semantic Flamegraphs</title>
   <link>https://eunomia.dev/blog/2026/06/24/agentpprof-semantic-flamegraph/</link>
   <guid>https://eunomia.dev/blog/2026/06/24/agentpprof-semantic-flamegraph/</guid>
   <pubDate>Wed, 24 Jun 2026 00:00:00 GMT</pubDate>
   <description>End of month, the bill shows the agent spent $3000. What types of work consumed that budget? How much went to code review, how much to debugging, how much to documentation? This question seems simple, but none of the</description>
+  <author>1067852565@qq.com (云微)</author>
   <author>i@littlefisher.me (LinuxDev9002)</author>
   <category>AI agent observability</category>
 </item>
