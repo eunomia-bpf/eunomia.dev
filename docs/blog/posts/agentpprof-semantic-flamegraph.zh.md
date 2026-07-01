@@ -4,7 +4,7 @@ slug: agentpprof-semantic-flamegraph
 description: 你的 AI agent 这个月花了 $3000。哪些活动消耗了这些预算？agentpprof 将 flamegraph 范式应用于 AI agent trace，把自然语言 prompt 映射为语义标签，像 CPU profiler 一样聚合。本文解释为什么现有可观测工具无法回答预算归因问题，以及语义 flamegraph 如何为 agent 工作负载恢复聚合能力。
 ---
 
-# 用语义 Flamegraph 分析 AI Agent：预算花在哪了？
+# 用语义 Flamegraph 分析 AI Agent
 
 月底账单显示 agent 花了 $3000。哪些类型的工作消耗了这些预算？代码审查占多少、debug 占多少、文档生成占多少？这个问题看似简单，但现有的 agent 可观测性工具都无法直接回答。
 
