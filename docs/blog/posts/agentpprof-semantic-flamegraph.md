@@ -4,7 +4,7 @@ slug: agentpprof-semantic-flamegraph
 description: Your AI agent spent $3000 this month. Which activities consumed that budget? agentpprof applies the flamegraph paradigm to AI agent traces, mapping natural language prompts to semantic tags and aggregating them like a CPU profiler. This post explains why existing observability tools fail at budget attribution and how semantic flamegraphs restore aggregation for agent workloads.
 ---
 
-# Profiling AI Agents with Semantic Flamegraphs: Where Did the Budget Go?
+# Profiling AI Agents with Semantic Flamegraphs
 
 End of month, the bill shows the agent spent $3000. What types of work consumed that budget? How much went to code review, how much to debugging, how much to documentation? This question seems simple, but none of the existing agent observability tools can answer it directly.
 
