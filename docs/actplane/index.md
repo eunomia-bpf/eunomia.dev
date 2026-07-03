@@ -1,6 +1,7 @@
 # ActPlane: eBPF-Based IFC Policy Engine for AI Agent Harnesses
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![arXiv](https://img.shields.io/badge/arXiv-2606.25189-b31b1b.svg)](https://arxiv.org/abs/2606.25189)
 
 **Runtime `enforcement` and `observability` for AI agent harnesses and sandboxing: declare information-flow policies for safety, security and compliance, and ActPlane enforces them in the kernel with eBPF.**
 
@@ -277,3 +278,19 @@ sudo bash script/e2e_examples.sh   # live E1–E12 enforcement
 ## LICENSE
 
 MIT License. See [LICENSE](https://github.com/eunomia-bpf/ActPlane/blob/master/LICENSE).
+
+## Cite the Project
+
+If ActPlane helps your research, please cite the arXiv preprint:
+
+```bibtex
+@misc{zheng2026actplane,
+  title = {ActPlane: Programmable OS-Level Policy Enforcement for Agent Harnesses},
+  author = {Yusheng Zheng and Tianyuan Wu and Quanzhi Fu and Tong Yu and Wenan Mao and Wei Wang and Dan Williams and Andi Quinn},
+  year = {2026},
+  eprint = {2606.25189},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.OS},
+  url = {https://arxiv.org/abs/2606.25189}
+}
+```
