@@ -26,6 +26,8 @@ jobs:
 
       - name: Audit paper publication state
         id: audit
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         shell: bash
         run: |
           set +e

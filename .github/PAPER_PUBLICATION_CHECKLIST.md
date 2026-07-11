@@ -9,6 +9,6 @@ Use this checklist when a preprint is submitted or revised, a venue decision arr
 5. Remove superseded personal-repository links and stale paper IDs.
 6. Run `cd app && npm run audit:papers -- --allow-warnings`, followed by the normal site validation.
 
-The `Weekly Paper Publication Audit` workflow runs at 16:17 UTC every Monday on a GitHub-hosted Ubuntu runner. It compares the bilingual index with recent arXiv records by the tracked author, verifies local and external links, scans for known stale references, and keeps one GitHub issue updated with new candidates and outstanding blog work.
+The `Weekly Paper Publication Audit` workflow runs at 16:17 UTC every Monday on a GitHub-hosted Ubuntu runner. It compares the bilingual index with recent arXiv records by the tracked author and paper links exposed by recently active eunomia-bpf repositories, verifies local and external links, scans for known stale references, and keeps one GitHub issue updated with new candidates and outstanding blog work.
 
 The workflow reports and tracks drift. It does not write or publish paper claims automatically; a maintainer reviews content changes before they enter the site.

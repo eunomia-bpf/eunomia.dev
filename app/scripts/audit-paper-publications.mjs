@@ -95,14 +95,17 @@ function parseArxivEntries(xml) {
   });
 }
 
-async function fetchWithTimeout(url, timeoutMs = 20_000) {
+async function fetchWithTimeout(url, timeoutMs = 20_000, headers = {}) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
   try {
     return await fetch(url, {
       redirect: "follow",
       signal: controller.signal,
-      headers: { "user-agent": "eunomia-paper-publication-audit/1.0" }
+      headers: {
+        "user-agent": "eunomia-paper-publication-audit/1.0",
+        ...headers
+      }
     });
   } finally {
     clearTimeout(timeout);
@@ -175,6 +178,75 @@ async function checkRecentArxivCandidates(indexedIds) {
     }
   }
   notes.push(`Compared the index with ${candidates.length} recent topic-matched arXiv records by ${trackedAuthor}.`);
+}
+
+async function checkOrganizationReadmes(indexedIds) {
+  const token = process.env.GITHUB_TOKEN ?? process.env.GH_TOKEN;
+  if (!token) {
+    notes.push("Skipped eunomia-bpf organization README scanning because no GitHub token was available.");
+    return;
+  }
+
+  const headers = {
+    accept: "application/vnd.github+json",
+    authorization: `Bearer ${token}`,
+    "x-github-api-version": "2022-11-28"
+  };
+  const repositories = [];
+  for (let page = 1; page <= 3; page += 1) {
+    const response = await fetchWithTimeout(
+      `https://api.github.com/orgs/eunomia-bpf/repos?type=public&sort=updated&per_page=100&page=${page}`,
+      20_000,
+      headers
+    );
+    if (!response.ok) {
+      errors.push(`GitHub organization repository query failed with HTTP ${response.status}`);
+      return;
+    }
+    const batch = await response.json();
+    repositories.push(...batch);
+    if (batch.length < 100) {
+      break;
+    }
+  }
+
+  const cutoff = Date.now() - candidateWindowDays * 24 * 60 * 60 * 1000;
+  const activeRepositories = repositories.filter((repository) =>
+    !repository.fork
+    && !repository.archived
+    && new Date(repository.pushed_at).valueOf() >= cutoff
+  );
+  const results = await mapWithConcurrency(activeRepositories, 8, async (repository) => {
+    const response = await fetchWithTimeout(
+      `https://api.github.com/repos/eunomia-bpf/${repository.name}/readme`,
+      20_000,
+      headers
+    );
+    if (response.status === 404) {
+      return { repository: repository.name, ids: [] };
+    }
+    if (!response.ok) {
+      return { repository: repository.name, error: `HTTP ${response.status}`, ids: [] };
+    }
+    const payload = await response.json();
+    const readme = Buffer.from(payload.content ?? "", "base64").toString("utf8");
+    const topOfReadme = readme.split("\n").slice(0, 100).join("\n");
+    return { repository: repository.name, ids: [...extractArxivIds(topOfReadme)] };
+  });
+
+  for (const result of results) {
+    if (result.error) {
+      warnings.push(`Could not inspect eunomia-bpf/${result.repository} README (${result.error})`);
+    }
+    for (const id of result.ids) {
+      if (!indexedIds.has(id)) {
+        warnings.push(
+          `Organization repository links a paper absent from the canonical index: [eunomia-bpf/${result.repository}](https://github.com/eunomia-bpf/${result.repository}) references [arXiv:${id}](https://arxiv.org/abs/${id})`
+        );
+      }
+    }
+  }
+  notes.push(`Scanned the first 100 README lines in ${activeRepositories.length} recently active eunomia-bpf repositories.`);
 }
 
 function buildReport() {
@@ -252,7 +324,8 @@ for (const match of englishIndex.matchAll(/\((\.\.\/\.\.\/blog\/posts\/[^)]+\.md
 if (!offline && englishIndex) {
   await Promise.all([
     checkExternalLinks(englishIndex),
-    checkRecentArxivCandidates(englishArxivIds)
+    checkRecentArxivCandidates(englishArxivIds),
+    checkOrganizationReadmes(englishArxivIds)
   ]);
 } else if (offline) {
   notes.push("Skipped network checks because --offline was requested.");
