@@ -5,9 +5,18 @@
   <link>https://eunomia.dev/zh/blog/</link>
   <description>eunomia.dev 上关于 eBPF、bpftime、AI tracing 和系统研究的最新文章。</description>
   <language>zh-CN</language>
-  <lastBuildDate>Wed, 24 Jun 2026 00:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Fri, 10 Jul 2026 00:00:00 GMT</lastBuildDate>
   <atom:link href="https://eunomia.dev/zh/feed.xml" rel="self" type="application/rss+xml" />
   <item>
+  <title>让 AI Agent 调优 Linux 调度器：SchedCP 如何接入 schedext</title>
+  <link>https://eunomia.dev/zh/blog/2026/07/10/schedcp-agentic-linux-scheduler/</link>
+  <guid>https://eunomia.dev/zh/blog/2026/07/10/schedcp-agentic-linux-scheduler/</guid>
+  <pubDate>Fri, 10 Jul 2026 00:00:00 GMT</pubDate>
+  <description>并行编译 Linux kernel 追求吞吐量，交互式服务关心稳定的唤醒延迟，混合工作负载则会随着关键路径变化而改变目标。Linux scheduler 能看到 runnable tasks、优先级和运行时统计，却不知道 operator 真正想优化什么。两个在内核看来十分相似的 workload，可能需要完全不同的调度策略。</description>
+  <author>i@littlefisher.me (LinuxDev9002)</author>
+  <category>AI agent observability</category>
+</item>
+<item>
   <title>用语义 Flamegraph 分析 AI Agent</title>
   <link>https://eunomia.dev/zh/blog/2026/06/24/agentpprof-semantic-flamegraph/</link>
   <guid>https://eunomia.dev/zh/blog/2026/06/24/agentpprof-semantic-flamegraph/</guid>
@@ -61,6 +70,7 @@
   <guid>https://eunomia.dev/zh/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/</guid>
   <pubDate>Tue, 17 Feb 2026 00:00:00 GMT</pubDate>
   <description>想象一个 AI 编程 Agent 被丢进云上的沙箱容器：它先读代码，再改文件，接着运行测试；测试失败后继续修改、继续跑；中途还可能安装依赖、调用脚本、拉起子进程。对用户来说，这只是一次“帮我修 bug”的请求；对操作系统来说，它是一段持续数分钟、不断改变资源需求、并且很难提前预测的工作负载。</description>
+  <author>i@littlefisher.me (LinuxDev9002)</author>
   <author>linuxdev8883@example.com (LinuxDev9002)</author>
   <category>AI agent observability</category>
 </item>
@@ -281,16 +291,6 @@
   <author>yusen356@gmail.com (weekendfish)</author>
   <author>yunwei356@gmail.com (yunwei37)</author>
   <category>AI agent observability</category>
-</item>
-<item>
-  <title>The eBPF Evolution and Future: From Linux Origins to Cross-Platform Dominance</title>
-  <link>https://eunomia.dev/zh/blog/2024/06/11/the-ebpf-evolution-and-future-from-linux-origins-to-cross-platform-dominance/</link>
-  <guid>https://eunomia.dev/zh/blog/2024/06/11/the-ebpf-evolution-and-future-from-linux-origins-to-cross-platform-dominance/</guid>
-  <pubDate>Tue, 11 Jun 2024 00:00:00 GMT</pubDate>
-  <description>eBPF (Extended Berkeley Packet Filter) has become a revolutionary force in operating system kernel programming since its inception.</description>
-  <author>yusen356@gmail.com (weekendfish)</author>
-  <author>yunwei356@gmail.com (yunwei37)</author>
-  <category>eBPF</category>
 </item>
 </channel>
 </rss>

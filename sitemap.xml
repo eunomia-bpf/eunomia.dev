@@ -953,6 +953,20 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/blog/2026/07/10/schedcp-agentic-linux-scheduler/</loc>
+    <lastmod>2026-07-11</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/blog/2026/07/10/schedcp-agentic-linux-scheduler/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/blog/2026/07/10/schedcp-agentic-linux-scheduler/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/2026/07/10/schedcp-agentic-linux-scheduler/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/blog/2026/07/10/schedcp-agentic-linux-scheduler/</loc>
+    <lastmod>2026-07-11</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/blog/2026/07/10/schedcp-agentic-linux-scheduler/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/blog/2026/07/10/schedcp-agentic-linux-scheduler/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/2026/07/10/schedcp-agentic-linux-scheduler/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/blog/2026/06/24/agentpprof-semantic-flamegraph/</loc>
     <lastmod>2026-07-01</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/blog/2026/06/24/agentpprof-semantic-flamegraph/" />
@@ -968,14 +982,14 @@
   </url>
   <url>
     <loc>https://eunomia.dev/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/</loc>
-    <lastmod>2026-06-14</lastmod>
+    <lastmod>2026-07-11</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/</loc>
-    <lastmod>2026-06-14</lastmod>
+    <lastmod>2026-07-11</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/" />
@@ -1024,14 +1038,14 @@
   </url>
   <url>
     <loc>https://eunomia.dev/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/</loc>
-    <lastmod>2026-02-17</lastmod>
+    <lastmod>2026-07-11</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/</loc>
-    <lastmod>2026-02-17</lastmod>
+    <lastmod>2026-07-11</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/" />
@@ -2564,14 +2578,14 @@
   </url>
   <url>
     <loc>https://eunomia.dev/actplane/</loc>
-    <lastmod>2026-06-26</lastmod>
+    <lastmod>2026-07-03</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/actplane/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/actplane/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/actplane/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/actplane/</loc>
-    <lastmod>2026-06-26</lastmod>
+    <lastmod>2026-07-03</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/actplane/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/actplane/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/actplane/" />
@@ -2634,14 +2648,14 @@
   </url>
   <url>
     <loc>https://eunomia.dev/agentsight/agentpprof-zh/</loc>
-    <lastmod>2026-06-24</lastmod>
+    <lastmod>2026-07-09</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/agentpprof-zh/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/agentpprof-zh/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/agentpprof-zh/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/agentsight/agentpprof-zh/</loc>
-    <lastmod>2026-06-24</lastmod>
+    <lastmod>2026-07-09</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/agentpprof-zh/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/agentpprof-zh/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/agentpprof-zh/" />
@@ -3102,14 +3116,14 @@
   </url>
   <url>
     <loc>https://eunomia.dev/GPTtrace/schedcp/</loc>
-    <lastmod>2025-10-05</lastmod>
+    <lastmod>2026-07-11</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/GPTtrace/schedcp/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/GPTtrace/schedcp/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/GPTtrace/schedcp/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/GPTtrace/schedcp/</loc>
-    <lastmod>2025-10-05</lastmod>
+    <lastmod>2026-07-11</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/GPTtrace/schedcp/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/GPTtrace/schedcp/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/GPTtrace/schedcp/" />
@@ -4348,14 +4362,14 @@
   </url>
   <url>
     <loc>https://eunomia.dev/others/papers/</loc>
-    <lastmod>2025-10-07</lastmod>
+    <lastmod>2026-07-11</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/others/papers/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/others/papers/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/papers/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/others/papers/</loc>
-    <lastmod>2025-10-07</lastmod>
+    <lastmod>2026-07-11</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/others/papers/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/others/papers/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/papers/" />
