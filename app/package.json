@@ -17,7 +17,6 @@
     "lint": "npm run lint:app && npm run lint:test",
     "typecheck": "npm run generate:content-index && tsc --noEmit",
     "test:content": "npm run generate:content-artifacts && node --import tsx --test --test-concurrency=1 tests/content.test.ts",
-    "audit:papers": "node scripts/audit-paper-publications.mjs",
     "verify": "npm run lint && node scripts/verify.mjs"
   },
   "dependencies": {
