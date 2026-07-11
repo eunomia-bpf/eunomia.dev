@@ -1,0 +1,62 @@
+name: Weekly Paper Publication Audit
+
+on:
+  schedule:
+    - cron: "17 16 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    env:
+      ISSUE_TITLE: "[paper-audit] Weekly paper publication audit"
+      REPORT_FILE: ${{ runner.temp }}/paper-publication-audit.md
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+
+      - name: Audit paper publication state
+        id: audit
+        shell: bash
+        run: |
+          set +e
+          node app/scripts/audit-paper-publications.mjs --report-file="$REPORT_FILE"
+          audit_exit=$?
+          echo "exit_code=$audit_exit" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Create, update, or close the audit issue
+        env:
+          AUDIT_EXIT_CODE: ${{ steps.audit.outputs.exit_code }}
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          issue_number=$(gh issue list \
+            --state open \
+            --search "$ISSUE_TITLE in:title" \
+            --json number \
+            --jq '.[0].number // empty')
+
+          if [[ "$AUDIT_EXIT_CODE" == "0" ]]; then
+            if [[ -n "$issue_number" ]]; then
+              gh issue comment "$issue_number" --body "The weekly paper publication audit is clean. Closing this tracking issue."
+              gh issue close "$issue_number"
+            fi
+          elif [[ -n "$issue_number" ]]; then
+            gh issue edit "$issue_number" --body-file "$REPORT_FILE"
+          else
+            gh issue create --title "$ISSUE_TITLE" --body-file "$REPORT_FILE"
+          fi
+
+      - name: Fail on integrity errors
+        if: ${{ steps.audit.outputs.exit_code == '1' }}
+        run: exit 1
