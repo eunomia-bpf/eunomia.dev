@@ -1,10 +1,12 @@
-# SchedCP - Automatically Optimize Linux Scheduler with MCP Server
+# SchedCP: Automatically Optimize the Linux Scheduler with an MCP Server
 
-> WIP: We are building a benchmark for evaluating the optimizations for OS!
+> The paper and reproducible artifact are public, while the project continues to evolve.
 
 SchedCP is an `experimental` project that enables AI optimization of Linux kernel schedulers using the sched-ext framework. It provides e2e automatic scheduler selection/synthesis, workload profiling, and performance optimization without any human intervention or guidance.
 
-Paper: [SchedCP: Towards Agentic OS](https://arxiv.org/abs/2509.18256)
+Paper: [Towards Agentic OS: An LLM Agent Framework for Linux Schedulers](https://arxiv.org/abs/2509.01245)
+
+Blog: [Can an AI Agent Tune the Linux Scheduler? Inside SchedCP](../blog/posts/schedcp-agentic-os.md)
 
 *The future is not just about letting AI write code for you; the AI agent should act as your system administrator, able to optimize anything for you automatically, without requiring any manual intervention!*
 
