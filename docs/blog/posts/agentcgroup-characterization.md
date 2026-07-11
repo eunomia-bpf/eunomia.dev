@@ -39,8 +39,6 @@ Both use the exact same agent framework (Claude Code, Node.js-based). The only d
 | Monitoring | 1-second interval CPU/memory sampling via `podman stats` |
 | Tracing | Tool call boundaries (type, start/end timestamps) from agent execution traces |
 
-No resource limits were imposed during characterization to capture the unconstrained, ground-truth resource behavior.
-
 The tasks cover CLI tools, build systems, scientific and medical code, data processing, and web projects at three difficulty levels. We imposed no resource limit during characterization because the trace must show the unconstrained peak before a controller can decide how to handle it.
 
 ## The Tool Call Owns the Spike
