@@ -11,6 +11,8 @@ This scenario exposes a structural problem: **agent constraints and agent side e
 
 [ActPlane](https://github.com/eunomia-bpf/ActPlane) is built on this insight. It installs a policy engine in the kernel via eBPF, observing and enforcing agent constraints at the syscall layer. When a rule matches, it fires with no dependency on the agent "remembering" anything. But ActPlane does more than block: when a constraint triggers, the agent receives human-readable feedback explaining why it was stopped and what to do instead. The agent understands the reason, takes a different path, and continues the task. This is the fundamental difference between a harness and a sandbox: a sandbox gives you a wall and a `Permission denied`; a harness gives you a rule and an alternative.
 
+This post accompanies our paper, [**ActPlane: Programmable OS-Level Policy Enforcement for Agent Harnesses**](https://arxiv.org/abs/2606.25189). The current arXiv version reports the policy study, coding-task and safety-benchmark evaluation, and the measured cost of moving enforcement below the tool layer. The implementation and reproducibility material live in the [eunomia-bpf/ActPlane](https://github.com/eunomia-bpf/ActPlane) repository.
+
 <!-- more -->
 
 ## What We Actually Want
@@ -194,6 +196,10 @@ CI/CD environments impose even stricter requirements: agents in build pipelines 
 
 ActPlane also has clear boundaries. Because it is built on eBPF, it only runs on Linux 5.8+ with BTF support (`/sys/kernel/btf/vmlinux`), leaving macOS and Windows agent development scenarios uncovered, though most production deployments are on Linux. Loading eBPF programs requires root or `CAP_BPF` + `CAP_SYS_ADMIN`, which some shared servers and cloud containers won't grant. Kernel-level tracking reaches only syscall granularity, so in-process memory operations and encryption/decryption are out of scope. Block mode depends on BPF-LSM, which not all distributions enable by default.
 
+## What the Paper Evaluates
+
+The paper evaluates policies drawn from an empirical study together with coding-task and safety benchmarks. The experiments include indirect execution paths that tool-call interception cannot observe, such as commands reached through generated scripts and nested subprocesses. Across the evaluated configurations, ActPlane improves policy compliance while adding 1.9% to 8.4% overhead. These results bound the cost of kernel-level coverage and test whether actionable feedback lets an agent recover after enforcement, instead of ending the task at an opaque denial.
+
 ## Conclusion
 
 Return to the opening scenario: the agent wrote a Python script that called `subprocess.run(["git", "push"])`. Under ActPlane, the `AGENT` label propagates along process lineage from Claude Code to bash to Python to that git three layers deep. The rule fires, the operation is intercepted, and the agent receives a reason and an alternative. What the prompt layer couldn't stop, the kernel layer did.
@@ -204,6 +210,8 @@ In complex systems every single-layer constraint has holes, and agents will natu
 
 ---
 
-> **GitHub**: [github.com/eunomia-bpf/ActPlane](https://github.com/eunomia-bpf/ActPlane) — MIT License
+> **Paper**: [arXiv:2606.25189](https://arxiv.org/abs/2606.25189)
+>
+> **GitHub**: [github.com/eunomia-bpf/ActPlane](https://github.com/eunomia-bpf/ActPlane), MIT License
 >
 > ActPlane is an open-source project from the [eunomia-bpf](https://github.com/eunomia-bpf) community. Built on [AgentSight](https://github.com/eunomia-bpf/agentsight/)'s eBPF observability foundation.

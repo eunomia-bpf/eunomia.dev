@@ -1,18 +1,19 @@
 ---
 date: 2026-02-17
+description: AgentCgroup characterizes resource bursts in AI coding agents and uses eBPF, sched_ext, and cgroup v2 to enforce tool-call-granularity CPU and memory control without discarding agent state.
 ---
 
 # AgentCgroup: What Happens When AI Coding Agents Meet OS Resources?
 
 AI coding agents such as Claude Code, OpenHands, and SWE-agent are increasingly deployed in multi-tenant cloud environments, where they execute diverse tool calls inside sandboxed containers. Despite growing adoption, the OS-level resource dynamics of these workloads remain poorly understood. We present the first systematic characterization, analyzing 144 software engineering tasks from the SWE-rebench benchmark across two LLM backends. Our measurements reveal that OS-level overhead, including container initialization and tool execution, accounts for 56–74% of end-to-end latency, while LLM reasoning contributes only 26–44%. Memory exhibits a 15.4x peak-to-average ratio (compared to ~1.5x for serverless and 2–3x for microservices), with change rates reaching 3 GB/s in sub-second bursts. The same tool type (Bash) varies 13.7x in memory consumption depending on command semantics, and repeated runs of the same task produce 1.8x execution time variance with near-zero correlation (r = −0.14) between token output and peak memory.
 
-These characteristics expose mismatches with existing resource management mechanisms, from kernel cgroup limits and systemd-oomd to Kubernetes VPA, where static allocation either wastes 93% of provisioned capacity or triggers OOM kills that destroy minutes of accumulated, non-reproducible agent state. In this post, we summarize the characterization findings from our [AgentCgroup paper](https://github.com/yunwei37/agentcgroup-paper) and describe how eBPF-based in-kernel enforcement can bridge the gap between agent workload dynamics and OS-level resource control.
+These characteristics expose mismatches with existing resource management mechanisms, from kernel cgroup limits and systemd-oomd to Kubernetes VPA, where static allocation either wastes 93% of provisioned capacity or triggers OOM kills that destroy minutes of accumulated, non-reproducible agent state. In this post, we summarize the characterization findings from our [AgentCgroup paper](https://arxiv.org/abs/2602.09345) and describe how eBPF-based in-kernel enforcement can bridge the gap between agent workload dynamics and OS-level resource control.
 
 <!-- more -->
 
-> Paper: *AgentCgroup: Understanding and Controlling OS Resources of AI Agents*
+> Paper: [*AgentCgroup: Understanding and Controlling OS Resources of AI Agents*](https://arxiv.org/abs/2602.09345)
 >
-> GitHub: [https://github.com/yunwei37/agentcgroup-paper](https://github.com/yunwei37/agentcgroup-paper)
+> GitHub: [github.com/eunomia-bpf/agentcgroup](https://github.com/eunomia-bpf/agentcgroup)
 
 ## What We Did
 
@@ -318,6 +319,12 @@ Moderate memory scenario (1300 MB total):
 
 Enforcement overhead is negligible, with BPF throttling precision within 2.3% relative error.
 
+## Reproducing the Results
+
+The public [AgentCgroup artifact](https://github.com/eunomia-bpf/agentcgroup) keeps the controller, experiments, and analysis in one repository. The `agentcg/` directory contains the daemon, process monitor, `sched_ext` scheduler, and memory controller. Separate `scripts/`, `experiments/`, and `analysis/` directories preserve the trace-collection pipeline, raw measurements, and figure generation used by the paper.
+
+The repository's [reproduction guide](https://github.com/eunomia-bpf/agentcgroup/blob/main/docs/REPRODUCING.md) maps commands to the paper's three evidence blocks: the Section 4 workload characterization, the Section 5 multi-tenant control experiments, and the Section 6 overhead measurements. CPU experiments require a Linux kernel with `sched_ext` support and cgroup v2. The memory-control evaluation additionally uses the `memcg_bpf_ops` path described by the artifact, so reproducing that result requires the matching kernel support rather than a stock older distribution kernel.
+
 ## Looking Forward
 
 Our current evaluation is based on trace replay with a proof-of-concept prototype, and the characterization covers one agent framework (Claude Code) and one benchmark (SWE-rebench). There is much more to explore:
@@ -327,4 +334,4 @@ Our current evaluation is based on trace replay with a proof-of-concept prototyp
 - Fine-grained resource control across diverse container runtimes (Docker, gVisor, microVMs)
 - Upstream kernel integration of the memcg_bpf_ops patches currently under review
 
-The code, data, and paper are available at [https://github.com/yunwei37/agentcgroup-paper](https://github.com/yunwei37/agentcgroup-paper).
+The [paper](https://arxiv.org/abs/2602.09345), code, raw experiments, analysis scripts, and reproduction instructions are available in the [eunomia-bpf/agentcgroup](https://github.com/eunomia-bpf/agentcgroup) repository.
