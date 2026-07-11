@@ -718,7 +718,7 @@ extra:
         tag:
           en: Research
           zh: 研究
-        href: /others/
+        href: /others/papers/
         image: /_content-assets/docs/assets/logo.png
         image_alt: Eunomia research
         description:
@@ -727,7 +727,7 @@ extra:
         links:
           - label: Research
             label_zh: 研究
-            href: /others/
+            href: /others/papers/
           - label: OSDI 2025
             label_zh: OSDI 2025
             href: https://www.usenix.org/conference/osdi25/presentation/zheng-yusheng
