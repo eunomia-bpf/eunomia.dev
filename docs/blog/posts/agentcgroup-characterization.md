@@ -5,9 +5,11 @@ description: AgentCgroup characterizes resource bursts in AI coding agents and u
 
 # AgentCgroup: What Happens When AI Coding Agents Meet OS Resources?
 
-AI coding agents such as Claude Code, OpenHands, and SWE-agent are increasingly deployed in multi-tenant cloud environments, where they execute diverse tool calls inside sandboxed containers. Despite growing adoption, the OS-level resource dynamics of these workloads remain poorly understood. We present the first systematic characterization, analyzing 144 software engineering tasks from the SWE-rebench benchmark across two LLM backends. Our measurements reveal that OS-level overhead, including container initialization and tool execution, accounts for 56–74% of end-to-end latency, while LLM reasoning contributes only 26–44%. Memory exhibits a 15.4x peak-to-average ratio (compared to ~1.5x for serverless and 2–3x for microservices), with change rates reaching 3 GB/s in sub-second bursts. The same tool type (Bash) varies 13.7x in memory consumption depending on command semantics, and repeated runs of the same task produce 1.8x execution time variance with near-zero correlation (r = −0.14) between token output and peak memory.
+An AI coding agent spends several quiet minutes reading and editing files, then launches `pytest`. Memory can rise by hundreds of megabytes in a second as the test process loads dependencies, only to fall again when the command exits. A container-level controller sees one workload cross a limit. It cannot tell that the burst belongs to a short-lived tool process while the long-lived agent runtime holds the conversation, partial diagnosis, and edits that make the task recoverable.
 
-These characteristics expose mismatches with existing resource management mechanisms, from kernel cgroup limits and systemd-oomd to Kubernetes VPA, where static allocation either wastes 93% of provisioned capacity or triggers OOM kills that destroy minutes of accumulated, non-reproducible agent state. In this post, we summarize the characterization findings from our [AgentCgroup paper](https://arxiv.org/abs/2602.09345) and describe how eBPF-based in-kernel enforcement can bridge the gap between agent workload dynamics and OS-level resource control.
+We measured how often that pattern occurs by running 144 SWE-rebench tasks with two LLM backends. OS work such as container setup and tool execution consumes 56% to 74% of end-to-end latency, and memory reaches 15.4 times its average level with sub-second changes up to 3 GB/s. Even two Bash calls can differ by 13.7 times in memory demand because one runs `git status` while another launches a test suite. Token count offers almost no warning of the next peak, with a correlation of only r = −0.14.
+
+Static allocation reacts badly to this combination. Reserving the observed peak wastes up to 93% of provisioned capacity during quiet phases, while killing the container at the peak discards minutes of accumulated, non-reproducible agent state. The [AgentCgroup paper](https://arxiv.org/abs/2602.09345) starts from these measurements and develops an eBPF-based controller that can respond at tool-call granularity.
 
 <!-- more -->
 
@@ -321,9 +323,18 @@ Enforcement overhead is negligible, with BPF throttling precision within 2.3% re
 
 ## Reproducing the Results
 
-The public [AgentCgroup artifact](https://github.com/eunomia-bpf/agentcgroup) keeps the controller, experiments, and analysis in one repository. The `agentcg/` directory contains the daemon, process monitor, `sched_ext` scheduler, and memory controller. Separate `scripts/`, `experiments/`, and `analysis/` directories preserve the trace-collection pipeline, raw measurements, and figure generation used by the paper.
+The fastest way to inspect the evidence does not require loading an eBPF program. The repository includes the collected traces, so the characterization figures can be regenerated in user space:
 
-The repository's [reproduction guide](https://github.com/eunomia-bpf/agentcgroup/blob/main/docs/REPRODUCING.md) maps commands to the paper's three evidence blocks: the Section 4 workload characterization, the Section 5 multi-tenant control experiments, and the Section 6 overhead measurements. CPU experiments require a Linux kernel with `sched_ext` support and cgroup v2. The memory-control evaluation additionally uses the `memcg_bpf_ops` path described by the artifact, so reproducing that result requires the matching kernel support rather than a stock older distribution kernel.
+```bash
+git clone --recurse-submodules https://github.com/eunomia-bpf/agentcgroup.git
+cd agentcgroup
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python analysis/characterization.py
+```
+
+The [reproduction guide](https://github.com/eunomia-bpf/agentcgroup/blob/main/docs/REPRODUCING.md) then maps commands to the CPU scheduling, memory isolation, and overhead experiments. CPU control requires Linux 6.12 or newer with `sched_ext` and cgroup v2. The memory experiments additionally use the `memcg_bpf_ops` kernel path described by the artifact, so that part requires the matching kernel support and root access.
 
 ## Looking Forward
 
