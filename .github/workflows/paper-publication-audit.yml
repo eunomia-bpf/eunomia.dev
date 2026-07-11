@@ -14,7 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ISSUE_TITLE: "[paper-audit] Weekly paper publication audit"
-      REPORT_FILE: ${{ runner.temp }}/paper-publication-audit.md
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -31,7 +30,7 @@ jobs:
         shell: bash
         run: |
           set +e
-          node app/scripts/audit-paper-publications.mjs --report-file="$REPORT_FILE"
+          node app/scripts/audit-paper-publications.mjs --report-file="$RUNNER_TEMP/paper-publication-audit.md"
           audit_exit=$?
           echo "exit_code=$audit_exit" >> "$GITHUB_OUTPUT"
           exit 0
@@ -54,9 +53,9 @@ jobs:
               gh issue close "$issue_number"
             fi
           elif [[ -n "$issue_number" ]]; then
-            gh issue edit "$issue_number" --body-file "$REPORT_FILE"
+            gh issue edit "$issue_number" --body-file "$RUNNER_TEMP/paper-publication-audit.md"
           else
-            gh issue create --title "$ISSUE_TITLE" --body-file "$REPORT_FILE"
+            gh issue create --title "$ISSUE_TITLE" --body-file "$RUNNER_TEMP/paper-publication-audit.md"
           fi
 
       - name: Fail on integrity errors
