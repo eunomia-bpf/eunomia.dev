@@ -3,7 +3,7 @@ export const generatedSiteConfig = {
   description: "Open-source eBPF infrastructure for userspace runtime extension, GPU tracing, AI agent observability, and hands-on Linux systems tutorials.",
   siteUrl: "https://eunomia.dev",
   repoUrl: "https://github.com/eunomia-bpf/eunomia.dev",
-  copyright: "Copyright (c) 2025 Eunomia Labs, Inc.",
+  copyright: "Copyright (c) 2026 Eunomia Labs, Inc.",
   remoteBranch: "docs",
   editUri: "https://github.com/eunomia-bpf/eunomia.dev/tree/main/docs"
 } as const;
