@@ -18,12 +18,15 @@ permissions:
 
 concurrency:
   group: static-app-pages-${{ github.ref }}
-  cancel-in-progress: true
+  queue: max
 
 jobs:
   sync-external-docs:
     if: github.event_name == 'repository_dispatch'
     runs-on: ubuntu-latest
+    outputs:
+      synced: ${{ steps.sync.outputs.synced }}
+      site_sha: ${{ steps.commit.outputs.site_sha }}
     steps:
       - uses: actions/checkout@v6
         with:
@@ -75,6 +78,7 @@ jobs:
           echo "synced=true" >> "$GITHUB_OUTPUT"
 
       - name: Commit synced documentation
+        id: commit
         if: steps.sync.outputs.synced == 'true'
         env:
           SOURCE_REPO: ${{ github.event.client_payload.source_repo }}
@@ -86,6 +90,7 @@ jobs:
           git add docs
           if git diff --cached --quiet; then
             echo "External documentation is already up to date."
+            echo "site_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           if [ -n "${SOURCE_SHA}" ]; then
@@ -94,16 +99,46 @@ jobs:
             git commit -m "sync external docs"
           fi
           git push origin HEAD:main
+          echo "site_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
   deploy-static-app:
-    if: github.event_name != 'repository_dispatch'
+    needs: sync-external-docs
+    if: >-
+      ${{
+        always() &&
+        (
+          github.event_name != 'repository_dispatch' ||
+          (
+            needs.sync-external-docs.result == 'success' &&
+            needs.sync-external-docs.outputs.synced == 'true'
+          )
+        )
+      }}
     runs-on: ubuntu-latest
+    env:
+      DEPLOY_SHA: ${{ github.event_name == 'repository_dispatch' && needs.sync-external-docs.outputs.site_sha || github.sha }}
     steps:
       - uses: actions/checkout@v6
         with:
           fetch-depth: 0
+          ref: ${{ env.DEPLOY_SHA }}
+
+      - name: Check current production revision
+        id: production_revision
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin +refs/heads/main:refs/remotes/origin/main
+          main_sha="$(git rev-parse refs/remotes/origin/main)"
+          if [ "${DEPLOY_SHA}" != "${main_sha}" ]; then
+            echo "Skipping stale site deploy ${DEPLOY_SHA}; main is ${main_sha}."
+            echo "current=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "current=true" >> "$GITHUB_OUTPUT"
 
       - uses: actions/setup-node@v6
+        if: github.event_name == 'pull_request' || github.ref != 'refs/heads/main' || steps.production_revision.outputs.current == 'true'
         with:
           node-version: "22"
           cache: npm
@@ -112,26 +147,28 @@ jobs:
             test/package-lock.json
 
       - name: Install browser audit dependencies
+        if: github.event_name == 'pull_request' || github.ref != 'refs/heads/main' || steps.production_revision.outputs.current == 'true'
         working-directory: test
         run: |
           npm ci
           npx playwright install --with-deps chromium
 
       - name: Verify static export
+        if: github.event_name == 'pull_request' || github.ref != 'refs/heads/main' || steps.production_revision.outputs.current == 'true'
         working-directory: app
         run: |
           npm ci
           npm run verify
 
       - name: Build production static export
-        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        if: steps.production_revision.outputs.current == 'true'
         working-directory: app
         env:
           NEXT_PUBLIC_SITE_URL: https://eunomia.dev
         run: npm run build
 
       - name: Assert production URLs
-        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        if: steps.production_revision.outputs.current == 'true'
         run: |
           if grep -R "127.0.0.1\|localhost" app/out/sitemap.xml app/out/robots.txt app/out/feed.xml app/out/index.html; then
             echo "Production export contains local URLs" >&2
@@ -141,7 +178,7 @@ jobs:
           grep -q "https://eunomia.dev/" app/out/sitemap.xml
 
       - name: Publish static export to new branch
-        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        if: steps.production_revision.outputs.current == 'true'
         run: |
           set -euo pipefail
           git fetch origin new
@@ -157,19 +194,19 @@ jobs:
             echo "Static export is already up to date on new."
             exit 0
           fi
-          git commit -m "deploy static app for ${GITHUB_SHA}"
+          git commit -m "deploy static app for ${DEPLOY_SHA}"
           git push origin HEAD:new
 
       - name: Configure GitHub Pages
-        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        if: steps.production_revision.outputs.current == 'true'
         uses: actions/configure-pages@v6
 
       - name: Upload GitHub Pages artifact
-        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        if: steps.production_revision.outputs.current == 'true'
         uses: actions/upload-pages-artifact@v5
         with:
           path: app/out
 
       - name: Deploy to GitHub Pages
-        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        if: steps.production_revision.outputs.current == 'true'
         uses: actions/deploy-pages@v5
