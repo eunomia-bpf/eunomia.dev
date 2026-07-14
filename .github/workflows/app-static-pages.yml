@@ -24,6 +24,9 @@ jobs:
   sync-external-docs:
     if: github.event_name == 'repository_dispatch'
     runs-on: ubuntu-latest
+    outputs:
+      synced: ${{ steps.sync.outputs.synced }}
+      site_sha: ${{ steps.commit.outputs.site_sha }}
     steps:
       - uses: actions/checkout@v6
         with:
@@ -75,6 +78,7 @@ jobs:
           echo "synced=true" >> "$GITHUB_OUTPUT"
 
       - name: Commit synced documentation
+        id: commit
         if: steps.sync.outputs.synced == 'true'
         env:
           SOURCE_REPO: ${{ github.event.client_payload.source_repo }}
@@ -86,6 +90,7 @@ jobs:
           git add docs
           if git diff --cached --quiet; then
             echo "External documentation is already up to date."
+            echo "site_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           if [ -n "${SOURCE_SHA}" ]; then
@@ -94,14 +99,29 @@ jobs:
             git commit -m "sync external docs"
           fi
           git push origin HEAD:main
+          echo "site_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
   deploy-static-app:
-    if: github.event_name != 'repository_dispatch'
+    needs: sync-external-docs
+    if: >-
+      ${{
+        always() &&
+        (
+          github.event_name != 'repository_dispatch' ||
+          (
+            needs.sync-external-docs.result == 'success' &&
+            needs.sync-external-docs.outputs.synced == 'true'
+          )
+        )
+      }}
     runs-on: ubuntu-latest
+    env:
+      DEPLOY_SHA: ${{ github.event_name == 'repository_dispatch' && needs.sync-external-docs.outputs.site_sha || github.sha }}
     steps:
       - uses: actions/checkout@v6
         with:
           fetch-depth: 0
+          ref: ${{ env.DEPLOY_SHA }}
 
       - uses: actions/setup-node@v6
         with:
@@ -157,7 +177,7 @@ jobs:
             echo "Static export is already up to date on new."
             exit 0
           fi
-          git commit -m "deploy static app for ${GITHUB_SHA}"
+          git commit -m "deploy static app for ${DEPLOY_SHA}"
           git push origin HEAD:new
 
       - name: Configure GitHub Pages
