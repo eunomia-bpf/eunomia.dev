@@ -16,14 +16,14 @@
   </url>
   <url>
     <loc>https://eunomia.dev/tutorials/</loc>
-    <lastmod>2026-03-12</lastmod>
+    <lastmod>2026-07-14</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/tutorials/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/tutorials/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/tutorials/</loc>
-    <lastmod>2026-03-12</lastmod>
+    <lastmod>2026-07-14</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/tutorials/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/tutorials/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/" />
@@ -562,14 +562,14 @@
   </url>
   <url>
     <loc>https://eunomia.dev/tutorials/37-uprobe-rust/</loc>
-    <lastmod>2026-03-06</lastmod>
+    <lastmod>2026-07-14</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/tutorials/37-uprobe-rust/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/tutorials/37-uprobe-rust/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/37-uprobe-rust/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/tutorials/37-uprobe-rust/</loc>
-    <lastmod>2026-03-06</lastmod>
+    <lastmod>2026-07-14</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/tutorials/37-uprobe-rust/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/tutorials/37-uprobe-rust/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/37-uprobe-rust/" />
@@ -744,14 +744,14 @@
   </url>
   <url>
     <loc>https://eunomia.dev/tutorials/48-energy/</loc>
-    <lastmod>2025-10-06</lastmod>
+    <lastmod>2026-07-14</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/tutorials/48-energy/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/tutorials/48-energy/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/48-energy/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/tutorials/48-energy/</loc>
-    <lastmod>2025-10-06</lastmod>
+    <lastmod>2026-07-14</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/tutorials/48-energy/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/tutorials/48-energy/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/48-energy/" />
@@ -800,28 +800,42 @@
   </url>
   <url>
     <loc>https://eunomia.dev/tutorials/cgroup/</loc>
-    <lastmod>2026-02-01</lastmod>
+    <lastmod>2026-07-14</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/tutorials/cgroup/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/tutorials/cgroup/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/cgroup/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/tutorials/cgroup/</loc>
-    <lastmod>2026-02-01</lastmod>
+    <lastmod>2026-07-14</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/tutorials/cgroup/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/tutorials/cgroup/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/cgroup/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/tutorials/compatibility/</loc>
+    <lastmod>2026-07-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/tutorials/compatibility/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/tutorials/compatibility/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/compatibility/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/tutorials/compatibility/</loc>
+    <lastmod>2026-07-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/tutorials/compatibility/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/tutorials/compatibility/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/compatibility/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/tutorials/features/bpf_arena/</loc>
-    <lastmod>2025-10-06</lastmod>
+    <lastmod>2026-07-14</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/tutorials/features/bpf_arena/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/tutorials/features/bpf_arena/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/features/bpf_arena/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/tutorials/features/bpf_arena/</loc>
-    <lastmod>2025-10-06</lastmod>
+    <lastmod>2026-07-14</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/tutorials/features/bpf_arena/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/tutorials/features/bpf_arena/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/tutorials/features/bpf_arena/" />
@@ -2676,14 +2690,14 @@
   </url>
   <url>
     <loc>https://eunomia.dev/agentsight/agents/</loc>
-    <lastmod>2026-06-23</lastmod>
+    <lastmod>2026-07-14</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/agents/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/agents/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/agents/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/agentsight/agents/</loc>
-    <lastmod>2026-06-23</lastmod>
+    <lastmod>2026-07-14</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/agents/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/agents/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/agents/" />
@@ -2718,28 +2732,28 @@
   </url>
   <url>
     <loc>https://eunomia.dev/agentsight/docker/</loc>
-    <lastmod>2026-06-23</lastmod>
+    <lastmod>2026-07-11</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/docker/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/docker/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/docker/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/agentsight/docker/</loc>
-    <lastmod>2026-06-23</lastmod>
+    <lastmod>2026-07-11</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/docker/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/docker/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/docker/" />
   </url>
   <url>
     <loc>https://eunomia.dev/agentsight/</loc>
-    <lastmod>2026-06-26</lastmod>
+    <lastmod>2026-07-11</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/agentsight/</loc>
-    <lastmod>2026-06-26</lastmod>
+    <lastmod>2026-07-11</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/" />
@@ -2760,14 +2774,14 @@
   </url>
   <url>
     <loc>https://eunomia.dev/agentsight/usage/</loc>
-    <lastmod>2026-06-23</lastmod>
+    <lastmod>2026-07-11</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/usage/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/usage/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/usage/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/agentsight/usage/</loc>
-    <lastmod>2026-06-23</lastmod>
+    <lastmod>2026-07-11</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/usage/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/usage/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/usage/" />
