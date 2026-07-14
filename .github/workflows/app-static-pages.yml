@@ -30,26 +30,52 @@ jobs:
           fetch-depth: 0
 
       - name: Sync external documentation
+        id: sync
         env:
           DISPATCH_TYPE: ${{ github.event.action }}
           SOURCE_REPO: ${{ github.event.client_payload.source_repo }}
           SOURCE_SHA: ${{ github.event.client_payload.source_sha }}
         run: |
           set -euo pipefail
+          echo "synced=false" >> "$GITHUB_OUTPUT"
           case "${DISPATCH_TYPE}" in
             trigger-document-sync)
               make sync-external-docs
               ;;
             trigger-tutorial-sync)
-              make sync-external-docs
+              if [ "${SOURCE_REPO}" != "eunomia-bpf/bpf-developer-tutorial" ]; then
+                echo "Invalid tutorial source repository: ${SOURCE_REPO}" >&2
+                exit 1
+              fi
+              if [[ ! "${SOURCE_SHA}" =~ ^[0-9a-f]{40}$ ]]; then
+                echo "Invalid tutorial source commit: ${SOURCE_SHA}" >&2
+                exit 1
+              fi
+
+              source_url="https://github.com/${SOURCE_REPO}.git"
+              git init --quiet tutorial-source
+              git -C tutorial-source remote add origin "${source_url}"
+              git -C tutorial-source fetch --quiet --depth=1 origin refs/heads/main
+              fetched_sha="$(git -C tutorial-source rev-parse FETCH_HEAD)"
+              if [ "${SOURCE_SHA}" != "${fetched_sha}" ]; then
+                echo "Skipping stale tutorial sync ${SOURCE_SHA}; main is ${fetched_sha}."
+                exit 0
+              fi
+
+              git -C tutorial-source checkout --quiet --detach FETCH_HEAD
+              make clean
+              mv tutorial-source tutorial
+              make docs/CNAME
               ;;
             *)
               echo "Unsupported repository_dispatch type: ${DISPATCH_TYPE}" >&2
               exit 1
               ;;
           esac
+          echo "synced=true" >> "$GITHUB_OUTPUT"
 
       - name: Commit synced documentation
+        if: steps.sync.outputs.synced == 'true'
         env:
           SOURCE_REPO: ${{ github.event.client_payload.source_repo }}
           SOURCE_SHA: ${{ github.event.client_payload.source_sha }}
