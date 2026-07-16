@@ -183,7 +183,13 @@ def derive_canonical_url(post_path, content, title):
         if not date_match:
             return None
         year, month, day = date_match.groups()
-        slug = frontmatter.get("slug") or slugify_title(frontmatter.get("title") or source_title)
+        # Mirror the site pipeline (app/lib/content/markdown.ts parseSlug), which
+        # slugifies the frontmatter slug too and falls back to the title when it
+        # normalizes to empty.
+        raw_slug = frontmatter.get("slug")
+        slug = (slugify_title(raw_slug) if raw_slug else "") or slugify_title(
+            frontmatter.get("title") or source_title
+        )
         locale_prefix = "/zh" if is_zh else ""
         return f"{SITE_URL}{locale_prefix}/blog/{year}/{month}/{day}/{slug}/"
 
