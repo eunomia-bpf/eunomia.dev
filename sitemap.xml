@@ -967,15 +967,29 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/</loc>
+    <lastmod>2026-07-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/</loc>
+    <lastmod>2026-07-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/blog/2026/07/10/schedcp-agentic-linux-scheduler/</loc>
-    <lastmod>2026-07-11</lastmod>
+    <lastmod>2026-07-16</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/blog/2026/07/10/schedcp-agentic-linux-scheduler/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/blog/2026/07/10/schedcp-agentic-linux-scheduler/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/2026/07/10/schedcp-agentic-linux-scheduler/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/blog/2026/07/10/schedcp-agentic-linux-scheduler/</loc>
-    <lastmod>2026-07-11</lastmod>
+    <lastmod>2026-07-16</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/blog/2026/07/10/schedcp-agentic-linux-scheduler/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/blog/2026/07/10/schedcp-agentic-linux-scheduler/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/2026/07/10/schedcp-agentic-linux-scheduler/" />
@@ -996,14 +1010,14 @@
   </url>
   <url>
     <loc>https://eunomia.dev/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/</loc>
-    <lastmod>2026-07-11</lastmod>
+    <lastmod>2026-07-16</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/</loc>
-    <lastmod>2026-07-11</lastmod>
+    <lastmod>2026-07-16</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/" />
@@ -1052,14 +1066,14 @@
   </url>
   <url>
     <loc>https://eunomia.dev/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/</loc>
-    <lastmod>2026-07-11</lastmod>
+    <lastmod>2026-07-16</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/</loc>
-    <lastmod>2026-07-11</lastmod>
+    <lastmod>2026-07-16</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/" />
@@ -2662,28 +2676,28 @@
   </url>
   <url>
     <loc>https://eunomia.dev/agentsight/agentpprof-zh/</loc>
-    <lastmod>2026-07-09</lastmod>
+    <lastmod>2026-07-16</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/agentpprof-zh/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/agentpprof-zh/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/agentpprof-zh/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/agentsight/agentpprof-zh/</loc>
-    <lastmod>2026-07-09</lastmod>
+    <lastmod>2026-07-16</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/agentpprof-zh/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/agentpprof-zh/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/agentpprof-zh/" />
   </url>
   <url>
     <loc>https://eunomia.dev/agentsight/agentpprof/</loc>
-    <lastmod>2026-06-24</lastmod>
+    <lastmod>2026-07-16</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/agentpprof/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/agentpprof/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/agentpprof/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/agentsight/agentpprof/</loc>
-    <lastmod>2026-06-24</lastmod>
+    <lastmod>2026-07-16</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/agentpprof/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/agentpprof/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/agentpprof/" />
@@ -2743,20 +2757,6 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/docker/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/docker/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/docker/" />
-  </url>
-  <url>
-    <loc>https://eunomia.dev/agentsight/flamegraph-example/</loc>
-    <lastmod>2026-07-15</lastmod>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/flamegraph-example/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/flamegraph-example/" />
-    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/flamegraph-example/" />
-  </url>
-  <url>
-    <loc>https://eunomia.dev/zh/agentsight/flamegraph-example/</loc>
-    <lastmod>2026-07-15</lastmod>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/flamegraph-example/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/flamegraph-example/" />
-    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/flamegraph-example/" />
   </url>
   <url>
     <loc>https://eunomia.dev/agentsight/</loc>

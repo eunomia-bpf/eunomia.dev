@@ -5,14 +5,24 @@
   <link>https://eunomia.dev/zh/blog/</link>
   <description>eunomia.dev 上关于 eBPF、bpftime、AI tracing 和系统研究的最新文章。</description>
   <language>zh-CN</language>
-  <lastBuildDate>Fri, 10 Jul 2026 00:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Wed, 15 Jul 2026 00:00:00 GMT</lastBuildDate>
   <atom:link href="https://eunomia.dev/zh/feed.xml" rel="self" type="application/rss+xml" />
   <item>
+  <title>用 eBPF 执行 AI Agent 策略，为什么还需要上下文 Policy Plane</title>
+  <link>https://eunomia.dev/zh/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/</link>
+  <guid>https://eunomia.dev/zh/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/</guid>
+  <pubDate>Wed, 15 Jul 2026 00:00:00 GMT</pubDate>
+  <description>ARMO 最近提出了一个很有价值的问题：面对 AI agent workload，内核级 eBPF enforcement 能抓住什么，又会遗漏什么？它的核心判断是正确的。 eBPF 可以观察和介入进程、文件与网络影响，但一条内核事件无法解释某个 动作背后的任务原因。</description>
+  <author>i@littlefisher.me (LinuxDev9002)</author>
+  <category>AI agent observability</category>
+</item>
+<item>
   <title>让 AI Agent 调优 Linux 调度器：SchedCP 如何接入 schedext</title>
   <link>https://eunomia.dev/zh/blog/2026/07/10/schedcp-agentic-linux-scheduler/</link>
   <guid>https://eunomia.dev/zh/blog/2026/07/10/schedcp-agentic-linux-scheduler/</guid>
   <pubDate>Fri, 10 Jul 2026 00:00:00 GMT</pubDate>
-  <description>并行编译 Linux kernel 追求吞吐量，交互式服务关心稳定的唤醒延迟，混合工作负载则会随着关键路径变化而改变目标。Linux scheduler 能看到 runnable tasks、优先级和运行时统计，却不知道 operator 真正想优化什么。两个在内核看来十分相似的 workload，可能需要完全不同的调度策略。</description>
+  <description>加载一个面向吞吐量的 scheduler，并行编译 Linux kernel 可能更快完成。把同一策略直接用于 schbench，wake-up latency 却可能朝相反方向变化。两次运行都让 CPU 保持繁忙，scheduler counters 无法说明 operator 更在意哪一个结果，缺失的输入是 workload goal。</description>
+  <author>1067852565@qq.com (云微)</author>
   <author>i@littlefisher.me (LinuxDev9002)</author>
   <category>AI agent observability</category>
 </item>
@@ -69,7 +79,8 @@
   <link>https://eunomia.dev/zh/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/</link>
   <guid>https://eunomia.dev/zh/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/</guid>
   <pubDate>Tue, 17 Feb 2026 00:00:00 GMT</pubDate>
-  <description>想象一个 AI 编程 Agent 被丢进云上的沙箱容器：它先读代码，再改文件，接着运行测试；测试失败后继续修改、继续跑；中途还可能安装依赖、调用脚本、拉起子进程。对用户来说，这只是一次“帮我修 bug”的请求；对操作系统来说，它是一段持续数分钟、不断改变资源需求、并且很难提前预测的工作负载。</description>
+  <description>一个 AI 编程 Agent 安静地读了几分钟代码，改完文件后启动 pytest。测试进程加载依赖时，内存可能在一秒内增加数百 MB，命令退出后又迅速回落。容器级 controller 只看到整个 workload 越过阈值，却分不清这次 burst 来自短命的工具进程，而长时间运行的 Agent runtime 还保存着对话、诊断过程和未完成的修改。</description>
+  <author>1067852565@qq.com (云微)</author>
   <author>i@littlefisher.me (LinuxDev9002)</author>
   <author>linuxdev8883@example.com (LinuxDev9002)</author>
   <category>AI agent observability</category>
@@ -281,16 +292,6 @@
   <author>yusen356@gmail.com (weekendfish)</author>
   <author>1067852565@qq.com (云微)</author>
   <category>eBPF</category>
-</item>
-<item>
-  <title>简化内核编程：LLM驱动的eBPF工具</title>
-  <link>https://eunomia.dev/zh/blog/2024/07/11/simplifying-kernel-programming-the-llm-powered-ebpf-tool/</link>
-  <guid>https://eunomia.dev/zh/blog/2024/07/11/simplifying-kernel-programming-the-llm-powered-ebpf-tool/</guid>
-  <pubDate>Thu, 11 Jul 2024 00:00:00 GMT</pubDate>
-  <description>内核编程通常需要深入了解操作系统内部结构和编程约束，因而令人生畏。我们的新工具Kgent旨在简化这一过程，使创建扩展的Berkeley Packet Filter（eBPF）程序变得更加容易。Kgent利用大语言模型（LLM）的强大功能，将自然语言提示转换为eBPF代码，从而降低内核编程的门槛。</description>
-  <author>yusen356@gmail.com (weekendfish)</author>
-  <author>yunwei356@gmail.com (yunwei37)</author>
-  <category>AI agent observability</category>
 </item>
 </channel>
 </rss>

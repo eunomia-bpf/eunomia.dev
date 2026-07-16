@@ -5,14 +5,24 @@
   <link>https://eunomia.dev/blog/</link>
   <description>Latest writing from eunomia.dev on eBPF, bpftime, AI tracing, and systems research.</description>
   <language>en-US</language>
-  <lastBuildDate>Fri, 10 Jul 2026 00:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Wed, 15 Jul 2026 00:00:00 GMT</lastBuildDate>
   <atom:link href="https://eunomia.dev/feed.xml" rel="self" type="application/rss+xml" />
   <item>
+  <title>eBPF AI Agent Enforcement Needs a Contextual Policy Plane</title>
+  <link>https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/</link>
+  <guid>https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/</guid>
+  <pubDate>Wed, 15 Jul 2026 00:00:00 GMT</pubDate>
+  <description>An AI coding agent runs git commit, and the kernel sees nothing unusual: a familiar process writing familiar files.</description>
+  <author>i@littlefisher.me (LinuxDev9002)</author>
+  <category>AI agent observability</category>
+</item>
+<item>
   <title>Can an AI Agent Tune the Linux Scheduler? Inside SchedCP</title>
   <link>https://eunomia.dev/blog/2026/07/10/schedcp-agentic-linux-scheduler/</link>
   <guid>https://eunomia.dev/blog/2026/07/10/schedcp-agentic-linux-scheduler/</guid>
   <pubDate>Fri, 10 Jul 2026 00:00:00 GMT</pubDate>
-  <description>A parallel Linux kernel build wants throughput. An interactive service wants predictable wake-up latency. A mixed workload may want both, depending on which process is on the critical path. The Linux scheduler sees</description>
+  <description>Load a throughput-oriented scheduler and a parallel Linux kernel build may finish sooner.</description>
+  <author>1067852565@qq.com (云微)</author>
   <author>i@littlefisher.me (LinuxDev9002)</author>
   <category>AI agent observability</category>
 </item>
@@ -69,7 +79,8 @@
   <link>https://eunomia.dev/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/</link>
   <guid>https://eunomia.dev/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/</guid>
   <pubDate>Tue, 17 Feb 2026 00:00:00 GMT</pubDate>
-  <description>AI coding agents such as Claude Code, OpenHands, and SWE-agent are increasingly deployed in multi-tenant cloud environments, where they execute diverse tool calls inside sandboxed containers.</description>
+  <description>An AI coding agent spends several quiet minutes reading and editing files, then launches pytest.</description>
+  <author>1067852565@qq.com (云微)</author>
   <author>i@littlefisher.me (LinuxDev9002)</author>
   <author>linuxdev8883@example.com (LinuxDev9002)</author>
   <category>AI agent observability</category>
@@ -282,16 +293,6 @@
   <author>1067852565@qq.com (云微)</author>
   <author>yunwei356@gmail.com (Yusheng Zheng)</author>
   <category>eBPF</category>
-</item>
-<item>
-  <title>Simplifying Kernel Programming: The LLM-Powered eBPF Tool</title>
-  <link>https://eunomia.dev/blog/2024/07/11/simplifying-kernel-programming-the-llm-powered-ebpf-tool/</link>
-  <guid>https://eunomia.dev/blog/2024/07/11/simplifying-kernel-programming-the-llm-powered-ebpf-tool/</guid>
-  <pubDate>Thu, 11 Jul 2024 00:00:00 GMT</pubDate>
-  <description>Kernel programming can be intimidating, requiring deep knowledge of operating system internals and programming constraints.</description>
-  <author>yusen356@gmail.com (weekendfish)</author>
-  <author>yunwei356@gmail.com (yunwei37)</author>
-  <category>AI agent observability</category>
 </item>
 </channel>
 </rss>
