@@ -37,6 +37,16 @@ AI 搜索的答案已经大量复述 AgentSight 的叙事（boundary tracing、s
 
 两个阵营：安全厂商（ARMO/Zenity/CrowdStrike/Sysdig/Palo Alto/Wiz/Noma）写 "runtime security / MCP security / OpenClaw"，观测厂商（Langfuse/LangSmith/Datadog/Arize/SigNoz）用 SDK/OTel 插桩做 "agent tracing"。**没有任何一家做免插桩的内核级 agent 观测，也没有任何一家做内核级 enforcement**。ARMO 的文章明确承认 semantic gap 存在但说 eBPF 解决不了，这正是我们论文正面回答的问题。独占位就三句话：管不了改不了的第三方 agent（Claude Code/OpenClaw/Gemini CLI）也能观测；intent 和 syscall 在内核边界关联；不止检测，还能执行（ActPlane in-kernel IFC）。
 
+### 1.5 品牌定位修正（基于资产盘点）
+
+对外定位是 **AI Agent Observability / Harness 平台**，不是"安全厂商"：安全（enforcement）是平台能力之一，叙事主轴是"看得见、管得住、跑得快"。资产盘点（repo 内 + workspace + 公开足迹三路扫描）显示品牌实际站在三根支柱上，网站叙事和首页应该按这个结构组织：
+
+1. **Agent Observability & Harness**（主叙事）：AgentSight（含 `top` live 模式、agent-session crate、agentpprof 语义火焰图）+ ActPlane + 一批论文（AgentCgroup、ACRFence、RewardGuard、Sandlock、AgentCap、Fork/Explore/Commit）。
+2. **eBPF 教育与基础设施**（流量基本盘）：bpf-developer-tutorial（4.2k star）、bpftime、llvmbpf、wasm-bpf。这是现在搜索排名最好的资产，负责把流量引向支柱 1。
+3. **GPU / 系统研究**（前沿差异化）：bpftime GPU offload、gpu_ext、gPerf、eInfer/ProfInfer、HetGPU/GPUOS、CUPTI/NVBit 教程。支撑 "eBPF 从内核延伸到 GPU" 的长线故事。
+
+当前网站问题：首页和 blog 把三根支柱平铺混排，访客看不出主叙事。改进方向：首页头部一句定位陈述 + 三支柱分区；blog 聚合页按支柱组织（对应第二节批次 B 的 tag 落地页，正好一柱一页）。
+
 ## 二、站内修复计划（分三批，每批一个 PR）
 
 **批次 A（本周，最高杠杆，不新增页面）**
@@ -54,13 +64,60 @@ AI 搜索的答案已经大量复述 AgentSight 的叙事（boundary tracing、s
 8. FAQPage JSON-LD（教程和带 FAQ 段的 blog）、HowTo（教程）。
 9. 图片 alt 校验进 CI、lazy loading、heading autolink、redirect 桩加 noindex。
 
-## 三、Blog 写作计划（12 篇，按需求 × 胜率排序）
+**批次 D（存量 blog 修复，来自 2026-07-16 全站审计）**
+10. ~~依附第三方的两篇 GPU 深度文（iaprof-analysis、nvidia-open-driver-analysis）加自家框架段 + "What This Means for eBPF-Based GPU Observability" 收尾节 + description~~（已完成，待进 PR）。
+11. 两篇近重复的 GPU profiling survey（gpu-profile-tool-impl ↔ gpu-profile-tools-analysis，相隔 10 天同关键词自蚕食）：一篇定位"全景综述"、一篇定位"实现内幕"，显式互链；顺带修 analysis 篇的 ZH 章节顺序倒置和 "other co-processor" 语病。
+12. runtime-security-for-opaque-ai-agents：H1 从 100 字符压到 ~70（如 "Runtime Security for AI Agents with eBPF: Beyond Sandboxes and Approvals"），description 429→155；与 actplane.md 的"三层约束"论证收敛为总览文独占、机制文回链。
+13. ACRFence 文标题去自造词前置（改 "Preventing Semantic Rollback Attacks in AI Agent Checkpoint/Restore" 类，代号进正文）；agentpprof/actplane 的超长 description（380c/326c）压到 150-160。
+14. legacy 卫生批：英文文件实为中文的两篇（how-to-write-rust-in-wasm、lmp-eunomia）、EN 文件中文 H1（how-to-write-c-in-wasm）、H1 带字面 `**` 的两篇（cxlmemtest、osdi-sosp-obser-debug）、coolbpf zh 缺 `<!-- more -->`；全部旧文系统性缺 description（除最近 8 篇），按流量优先级分批补。
+15. NVIDIA 篇正文存量 52 个无空格 em dash 清理（tie-back pass 按"不动正文"约束未处理）。
 
-写作规范：全部走 `tech-blog-writer`（新写）+ `blog-writing-style`（审校）两个 skill；写作一律用 claude-opus-4-6[1m]（Agent 工具钉不了版本，用 `.claude/agents/prose-writer.md` 或无头 CLI `claude -p --model 'claude-opus-4-6[1m]'`）；中英双语同结构；description 150-160 字符；title ≤60 字符关键词前置；每篇 2-3 条站内互链 + 指向 GitHub repo。
+## 三、Blog 写作计划（资产优先，双轨制）
+
+写作规范：全部走 `tech-blog-writer`（新写）+ `blog-writing-style`（审校）两个 skill；写作一律用 claude-opus-4-6[1m]（Agent 工具钉不了版本，用 `.claude/agents/prose-writer.md` 或无头 CLI `claude -p --model 'claude-opus-4-6[1m]'`）；中英双语同结构；description 150-160 字符；title ≤60 字符关键词前置；每篇 2-3 条站内互链 + 指向 GitHub repo。**草稿一律先落 `draft/blog/`，人工审核后再移入 `docs/blog/posts/` 走 PR 发布。**
+
+**体裁原则（2026-07-16 定）：blog 与产品用法解耦。** blog 只承载论点、数据、设计决策与战报；安装、命令、操作步骤类内容一律进产品 docs（AgentSight 教程写在 agentsight repo 的 docs 里，构建时同步到站内），blog 里只留一条"上手看这里"的链接。教程型选题（BTF/兼容性/TLS 抓包等 GitHub issue 高频主题）相应改道 docs/FAQ 页，不占 blog 位。数据文必须用真实测量数据，先出数再动笔。
+
+### 轨道 A：资产变现（优先——已经做完的工作，只差一篇 blog）
+
+资产盘点来自三路扫描：repo 内（agentsight/actplane/bpftime 同步文档、draft 存量）、workspace 项目、公开足迹（arXiv author 页、GitHub org、讲座记录、个人网站）。按价值排序：
+
+| # | 资产 | 来源 | 工作标题 | 状态 |
+|---|---|---|---|---|
+| A1 | AgentSight `top` live 模式 | agentsight/docs/usage.md | ~~blog 已砍（2026-07-16）~~ CLI 用法进 agentsight docs | 已砍 |
+| A2 | bpftime GPU offload | bpftime/example/gpu + draft/eBPF-for-GPU | ~~取消~~ 与已发布 gpu-observability-challenges（2025-10-14）重复；增量 benchmark 数字并入旧文更新 | 已取消 |
+| A3 | Claude Code 免插桩监控（AgentSight 核心场景 = SEO 需求 #1） | 真实 trace（ai-agent-trace-backups 或新采会话） | 改为数据文："追踪真实 Claude Code 会话，hooks 看不到的有多少"；教程部分迁 agentsight docs quickstart | 挂起，等真实测量 |
+| A4 | gpu_ext（GPU 驱动里的 eBPF struct_ops，arXiv 2512.12615 + LPC'25 talk，最高 4.8x） | ~/workspace/gpu/gpu_ext + arXiv | Making the GPU Driver Programmable with eBPF | 第二批 |
+| A5 | gPerf（on-/off-GPU 归因 profiler，1770 行论文稿） | draft/eBPF-for-GPU/gpuprofile.md | gPerf: Finding the Host-Side Stalls GPU Util Bars Hide | 第二批 |
+| A6 | eInfer/ProfInfer（分布式 LLM 推理逐请求追踪，eBPF'25） | 论文 | Tracing One LLM Request Across CPU, GPU and Nodes | 第二批 |
+| A7 | agent-session crate（Claude/Codex/Gemini 会话统一 IR） | agentsight/agent-session | One IR for Every Coding-Agent Log | 第二批 |
+| A8 | ActPlane rule language + cookbook（政策写法实操） | actplane/docs | Writing Information-Flow Policies for AI Agents | 第二批 |
+| A9 | multikernel 现成英文草稿 | ~/workspace/multikernel | Rethinking Multikernel Architecture | 移植即可，最低成本 |
+| A10 | bpf-benchmark / KOperation、MVVM+Wharf、wbpf+uXDP、tutorial 4.2k star 里程碑 | 各 repo | 打包成主题合集文 | 第三批 |
+
+**需要等的（疑似在审，发布前找作者确认 venue 状态）**：sysom-paper（80,000+ GPU 工业部署，强烈建议等 accept）、agentfs/Fork-Explore-Commit、sandlock、reward-guard、agentcap、agentskill、HetGPU、GPUOS。已挂 arXiv 的可以用"preprint"口径提前写，但不声称录用。
+
+### 轨道 B：SEO 需求缺口（原 12 篇清单，资产轨覆盖后剩余部分）
+
+按需求 × 胜率排序，前六：Securing OpenClaw（时效最强）、Falco vs Tetragon vs AgentSight、AI Agent Runtime Security 实践指南（FAQ 体）、Detect Prompt Injection at the Kernel、eBPF LSM→agent 教程桥接、MCP Security 内核监控。其后：sandbox 对比、无 SDK 观测对比、semantic flamegraph、bpftime 词权重回收。A3 已覆盖原清单 #1，第 12 篇（回应 ARMO）已发布在 main。
+
+### 选题来源补充：GitHub issues（2026-07-16 已扫描六个 repo）
+
+高频提问 = 已验证的搜索需求。首轮扫描结果，按频率 × 跨 repo 广度排序：
+
+| 主题 | 证据（示例 issue） | 建议文章 | 体裁 |
+|---|---|---|---|
+| vmlinux.h / BTF 找不到（最高频） | tutorial#88/#118/#81/#106、eunomia-bpf#361 | Fixing "vmlinux BTF not found": BTF, CO-RE and BPF Tokens Explained | FAQ |
+| 内核/发行版/架构兼容性（跨所有 repo，tutorial#94 是维护者认可的 docs gap） | tutorial#94/#86/#74、bpftime#357/#361/#396、ActPlane#20/#9 | eBPF Compatibility Guide: Kernels, Distros, Arch | 指南 |
+| HTTP/TLS 抓包示例跑不起来 | tutorial#154(10 评论)/#162/#126/#107、bpftime#187 | Capturing HTTP/TLS Traffic with eBPF: Making sslsniff Work | 教程+FAQ |
+| bpftime GPU/CUDA 使用（高评论簇，与 A2 呼应） | bpftime#496(14c)/#552(11c)/#543/#459 | 并入 A2 或独立 CUDA tracing 教程 | 教程 |
+| bpftime 作为库使用 + 非 root 运行 | bpftime#421/#348/#435、#353/#564/#406 | Embedding bpftime as a Library, Running Non-Root | 指南 |
+
+另有一批 issue 可以直接用现有文章回链解决（零成本宣传）：bpftime 原理类 → bpftime/userspace-ebpf/llvmbpf 文；ActPlane 政策类 → policy-plane 文；wasm-bpf 构建类 → wasm-bpf 文。回链动作可以随下一次 issue triage 顺手做。每月重扫一次。
 
 | # | 工作标题 | 目标搜索意图 | 体裁 | 凭什么赢 |
 |---|---|---|---|---|
-| 1 | Monitor Claude Code with eBPF: Full Runtime Visibility | how to monitor Claude Code | 教程 | 全网无免插桩方案，AgentSight 独占 |
+| 1 | ~~Monitor Claude Code 教程~~ 改道：教程进 agentsight docs quickstart，blog 位由 A3 数据文承接 | how to monitor Claude Code | docs + 数据文 | 全网无免插桩方案，AgentSight 独占；搜索词由 docs 页 + 数据文合力覆盖 |
 | 2 | Securing OpenClaw: eBPF Runtime Monitoring Guide | OpenClaw security | 教程+FAQ | 2026 最热 agent 安全话题，零 eBPF 角度竞品 |
 | 3 | Falco vs Tetragon vs AgentSight for AI Agents | Falco vs Tetragon | 对比 | 热对比词，无人从 agent 角度框 |
 | 4 | AI Agent Runtime Security with eBPF: A Practical Guide | AI agent runtime security | FAQ 指南 | 全是商业厂商，缺 OSS+论文背书 |
@@ -71,7 +128,7 @@ AI 搜索的答案已经大量复述 AgentSight 的叙事（boundary tracing、s
 | 9 | AI Agent Observability Without SDKs | AI agent observability tool | 对比 | Langfuse/LangSmith 做不了免插桩 |
 | 10 | Semantic Flamegraphs for AI Agents with eBPF | AI agent profiling | 教程 | agentpprof 独有 feature，无人竞争 |
 | 11 | bpftime: Userspace eBPF for AI Agent Observability | bpftime / userspace eBPF | 教程 | 把 bpftime 词的所有权从 GitHub/arXiv 拉回站内 |
-| 12 | （已在写）eBPF AI Agent Enforcement Needs a Contextual Policy Plane | eBPF AI agent enforcement | 反驳/解读 | 正面回应 ARMO，本分支已完成初稿 |
+| 12 | What 2,116 CLAUDE.md Rules Reveal About AI Agent Safety（slug 不变：ebpf-ai-agent-policy-enforcement） | AI agent safety / CLAUDE.md rules | 论文数据文 | 2026-07-16 重写：去 ARMO 依附、按 arXiv 版术语（policies 而非 directives）、以实证数据为主体、配论文图 |
 
 草稿统一放 `draft/blog/`，成稿移入 `docs/blog/posts/`（带 slug + date），再进转载队列。
 
@@ -79,9 +136,16 @@ AI 搜索的答案已经大量复述 AgentSight 的叙事（boundary tracing、s
 
 一次性上 10+ 篇的问题：Google 对突然的发布脉冲不会立刻给权重，新站点/低频站点的抓取配额有限；一次全上等于所有文章在同一个抓取周期里互相竞争，且后续几个月没有"持续活跃"信号。SEO 回报来自稳定节奏而不是总量。
 
+**发布管线（draft → 审核 → PR → 站内 → 转载）：**
+
+1. 草稿在 `draft/blog/` 生成（claude-opus-4-6[1m] + 两个写作 skill），双语一对。
+2. 人工审核草稿：技术事实、数字、口径（尤其论文是否在审）。
+3. 通过后移入 `docs/blog/posts/`（定 slug + date + description），从 main 拉分支走非 draft PR（CLAUDE.md 工作流），跑 `npm run verify`。
+4. PR 合并即站内发布；1-2 周后加入 `.github/publisher/posts_queue.txt` 转载（前提：canonical 改造已合并）。
+
 **节奏设计（每周 1 篇站内 + 滞后转载）：**
 
-- **站内发布**：每周固定发 1 篇（双语一对），按第三节的优先级顺序。第 1、2 篇（Claude Code 监控、OpenClaw）在批次 A 修复合并后立刻上，OpenClaw 这篇有时效性，最迟两周内。
+- **站内发布**：每周固定发 1 篇（双语一对），资产轨（A1-A3）先行，SEO 轨穿插。OpenClaw 这篇有时效性，最迟两周内排上。
 - **转载（dev.to/Medium）滞后 1-2 周**：等 Google 已经索引了 eunomia.dev 原文、且转载带 canonical 之后再进 `posts_queue.txt`。现有 CI（`.github/workflows/publish-posts.yml`，每周二 cron，每次 2 篇）刚好匹配这个节奏，不用改频率。**前置条件：批次 A 第 2 项 canonical 改造合并前，队列保持为空，一篇都不要转载。**
 - **队列用法**：每周站内发布后，把上上周的文章加进 `posts_queue.txt`（`{"path": "docs/blog/posts/xxx.md", "tags": [...]}`），保持队列里始终 1-2 篇。
 - **度量**：上线 Google Search Console（如果还没验证），每两周看一次目标词排名和抓取统计；每篇文章上线 4 周后复查目标词，不进前 20 的回炉改 title/description。

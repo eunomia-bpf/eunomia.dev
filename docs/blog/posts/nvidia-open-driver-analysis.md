@@ -1,5 +1,6 @@
 ---
 date: 2025-10-14
+description: "NVIDIA open GPU kernel modules expose 935K lines of driver architecture spanning nine GPU generations, from memory virtualization to NVLink interconnects."
 ---
 
 # NVIDIA Open GPU Kernel Modules Comprehensive Source Code Analysis
@@ -12,6 +13,8 @@ This document represents a comprehensive deep-dive into that codebase, providing
 **Analysis Date:** 2025-10-13
 **License:** Dual MIT/GPL
 **Repository:** [https://github.com/NVIDIA/open-gpu-kernel-modules](https://github.com/NVIDIA/open-gpu-kernel-modules)
+
+We undertook this analysis because we build eBPF-based GPU observability tools and need to understand the driver internals our instrumentation targets. Our project [bpftime](https://github.com/eunomia-bpf/bpftime) experimentally runs eBPF programs inside GPU kernels on NVIDIA hardware, and our gpu_ext work explores eBPF struct_ops as an extension mechanism within the GPU driver stack. Knowing how NVIDIA structures its kernel interface layer, its UVM page fault paths, and its ioctl dispatch helps us identify where programmable kernel-level instrumentation can attach without requiring vendor cooperation or proprietary debug APIs.
 
 <!-- more -->
 
@@ -2296,6 +2299,16 @@ The driver isn't perfect—we've documented the complexity challenges, binary de
 For those who've read this far, you now possess a deep understanding of one of the most sophisticated device drivers in existence. Whether you use this knowledge to contribute code, optimize GPU workloads, debug system issues, or inform your own architectural decisions, you're equipped with insights hard-won from analyzing nearly a million lines of production code. The engine room of modern GPUs is no longer a black box—it's an open book, revealing the engineering principles that make high-performance computing possible.
 
 Welcome to the community of those who understand not just what GPUs do, but how they work at the deepest level. The code awaits your contributions.
+
+## What This Means for eBPF-Based GPU Observability
+
+This analysis maps the concrete internal structures that kernel-level GPU instrumentation must navigate. Three areas stand out as particularly relevant to our work on eBPF-based GPU observability.
+
+First, the kernel interface layer in `kernel-open/` exposes the ioctl dispatch path (`nvidia_ioctl` handling 200+ commands), the two-stage interrupt flow (`nvidia_isr` to `nvidia_isr_kthread`), and the memory mapping entry points (`nvidia_mmap`). These are exactly the functions where eBPF fentry/fexit probes can attach to trace GPU command submission, memory allocation, and fault handling without modifying the driver source or loading a custom kernel module. The open interface code gives us the symbol names, argument structures, and call flow needed to write correct eBPF programs targeting these paths. Our gpu_ext work explores using eBPF struct_ops to hook these interfaces, potentially enabling user-defined tracing and policy enforcement within the driver's execution flow.
+
+Second, the fully open UVM subsystem (103,318 lines) reveals the page fault handling and migration machinery that governs data movement between CPU and GPU memory. The `uvm_va_block.c` fault handler, the migration path through Copy Engine transfers, and the thrashing detection heuristics are all visible and traceable. For GPU workloads where memory placement drives performance, attaching eBPF programs to UVM fault paths could provide the kind of fine-grained, programmable visibility that vendor profiling tools like CUPTI do not expose. Our [bpftime](https://github.com/eunomia-bpf/bpftime) project experimentally extends eBPF execution into GPU contexts on NVIDIA hardware, and the UVM internals documented here inform which fault and migration events are worth instrumenting.
+
+Third, the driver's HAL architecture, where a single codebase dispatches to generation-specific implementations at runtime, shows both the opportunity and the challenge for cross-generation GPU tracing. eBPF probes attached at the HAL interface level would work across Maxwell through Blackwell without modification, while probes targeting generation-specific paths would need per-architecture variants. Understanding this dispatch structure helps us design instrumentation that remains portable across GPU generations. For a broader discussion of why kernel-level GPU instrumentation matters and where vendor tooling falls short, see [The GPU Observability Gap: Why We Need eBPF on GPU Devices](https://eunomia.dev/blog/2025/10/14/the-gpu-observability-gap-why-we-need-ebpf-on-gpu-devices/).
 
 ---
 

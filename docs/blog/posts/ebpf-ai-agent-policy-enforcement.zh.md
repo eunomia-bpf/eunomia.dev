@@ -1,178 +1,116 @@
 ---
 date: 2026-07-15
 slug: ebpf-ai-agent-policy-enforcement
-description: eBPF 可以阻止 AI agent 的系统影响，但是否允许仍需上下文策略决定。ActPlane 把任务意图、事件历史和 authority 连接到内核执行控制。
+description: AI agent 安全规则已写在 CLAUDE.md 和 AGENTS.md 里，但无人执行。对 2,116 条声明的实证研究显示 64% 是 policy，大多数需要结合上下文的内核级 eBPF 执行控制。
 ---
 
-# 用 eBPF 执行 AI Agent 策略，为什么还需要上下文 Policy Plane
+# 2,116 条 CLAUDE.md / AGENTS.md 规则告诉我们：AI Agent 安全缺什么
 
-ARMO 最近提出了一个很有价值的问题：面对 AI agent workload，内核级
-eBPF enforcement 能抓住什么，又会遗漏什么？它的核心判断是正确的。
-eBPF 可以观察和介入进程、文件与网络影响，但一条内核事件无法解释某个
-动作背后的任务原因。
+一个 AI coding agent 执行 `git commit`，内核没有看到任何异常：一个熟悉的进程在写熟悉的文件。仓库的 CLAUDE.md 里写着 "Run the full test suite before committing"，而 agent 在上次测试之后又改了源码。这条规则来自论文数据集中的真实语句，今天没有任何一层在执行它。
 
-要弥合这一差距，AI agent security 需要一个 policy
-plane，把项目意图、事件历史和 authority 转化为内核可以执行的决策。
-内核在已覆盖的影响上提供完整中介，policy plane 提供含义。
-
-[ActPlane 论文](https://arxiv.org/abs/2606.25189)把这种分工变成了具体
-设计。论文结果解释了为什么静态 allowlist 和 behavioral baseline 都很
-有用，却无法独立表达“只有在最近一次源码修改之后正确测试已经通过，才
-允许提交”这样的规则。
+[ActPlane 论文](https://arxiv.org/abs/2606.25189)量化了这道裂缝。论文度量了开发者在 CLAUDE.md 和 AGENTS.md 里实际写下的 policy，分类了执行这些 policy 需要什么条件，并验证了 OS 级执行控制加上 semantic feedback 能否真正生效。论文在 intro 中的全景概括：64% of statements are policies, 83% involve system actions, and 74% depend on context that cannot be pre-defined statically.
 
 <!-- more -->
 
-## 观察、策略和执行控制是三项不同工作
+## 开发者在 CLAUDE.md 和 AGENTS.md 里到底写了什么
 
-讨论 AI agent runtime security 时，人们经常把三项工作混在一起：
+讨论 AI agent 安全时，大多数人从威胁模型或攻击面入手。ActPlane 换了一个出发点：开发者已经告诉 agent 该做什么、不该做什么了，那执行这些指令需要什么？
 
-| 工作 | 要回答的问题 | 系统角色 |
+论文调研了 64 个含 CLAUDE.md 和 AGENTS.md 的热门仓库（中位数 20K GitHub star，快照 2026-05-23），覆盖 84 份 instruction file 和 2,116 条独立 statement。与此前只在文件或章节标题粒度做分析的研究不同，ActPlane 对每一条 statement 独立分类。
+
+在这 2,116 条 statement 中，64% 是 policy：它们要求、禁止或约束某个具体 agent 行为。其余 36% 是 descriptive context，例如架构说明或项目背景。各仓库的 policy 密度差异很大，从 0% 到 97% 不等，70.1% 的仓库 policy 数量多于 description。按主题看，Development Process 和 Implementation Details 是 policy 重灾区，分别达到 87% 和 85%；Architecture 以描述性内容为主，policy 仅占 23%。
+
+![64 个含 CLAUDE.md 或 AGENTS.md 的仓库中每个仓库的 policy 比例](imgs/actplane-empirical_rq1_policy_fraction.png)
+
+数据集中的四条真实 statement 展示了执行需求的差异幅度：
+
+| Statement | Enforcement level | Context |
 |---|---|---|
-| 观察 | Agent 及其子进程实际上做了什么？ | 把 agent session 与进程、文件、网络和资源证据关联起来 |
-| 策略 | 结合任务、历史和规则 authority，这个影响现在是否允许？ | 解析上下文并维护决策所需状态 |
-| 执行控制 | 能否在操作生效前阻止它？ | 用 eBPF 和 BPF-LSM 介入已覆盖的 OS 操作 |
+| S4: "Never push to main directly." | per-event | self-contained |
+| S6: "Run the full test suite before committing." | cross-event | project |
+| S7: "Data read from .env must not reach the network." | cross-event | project |
+| S8: "Do not update dependencies without approval." | per-event | task |
 
-两条捷径都行不通：增加再多内核 telemetry 也无法独立弥合 semantic gap，
-单靠应用层上下文也覆盖不了 shell、生成脚本或编译 helper 最终产生的影响。
+## 大多数规则系统可观测，最难的是 cross-event
 
-完整设计需要连接这些层，同时准确区分各自的保证。
-[AgentSight](https://eunomia.dev/zh/blog/2025/08/26/agentsight-keeping-your-ai-agents-under-control-with-ebpf-powered-system-observability/)
-提供系统级 profiling 与 monitoring；ActPlane 接收具体且带有 authority
-scope 的规则，再沿真实进程树执行。
+论文把每条 policy 分类到 enforcement waterfall 的第一个匹配层级：semantic-only 涵盖推理、沟通或输出风格；content 涵盖文件内容上的谓词；per-event 涵盖单个命令、文件访问或网络连接；cross-event 涵盖依赖跨操作的时间顺序或数据来源的 policy。Content、per-event 和 cross-event 的并集叫做 system-observable。
 
-## 通用 eBPF Enforcement 会遗漏什么
+1,361 条 policy 中只有 17% 是 semantic-only，其余 83% 是 system-observable，即内核级 monitor 原则上可以评估：38% 需要 content inspection，29% 匹配单个 OS event，16% 需要 cross-event 状态。
 
-ARMO 的文章 [eBPF for AI Agent Enforcement: What Kernel-Level Security
-Catches and What It
-Misses](https://www.armosec.io/blog/ebpf-based-ai-agent-enforcement/)指出了把
-传统 runtime security 直接用于 agent 时的两个重要问题。
+![enforcement waterfall：semantic-only、content、per-event 和 cross-event 在 1,361 条 policy 上的分布](imgs/actplane-empirical_waterfall_enforcement.png)
 
-系统事件只携带很少的意图。eBPF program 可以看见 agent 正在连接
-一个陌生 endpoint，但事件不会说明 agent 是在部署到用户批准的服务，还是
-在 indirect prompt injection 之后外传凭据。
+这些 cross-event policy 遵循四种反复出现的模式：temporal ordering 约束排序（"提交前先跑测试"）；cross-file consistency 链接跨工件的变更（"行为变更时同步更新文档"）；multi-step workflow 执行带有验证门的发布 checklist；conditional trigger 耦合操作（"改了 spec 就必须同步 SDK"）。这些 policy 都无法从单个 event 判断：enforcement 必须记录运行了什么、以什么顺序、以及从那时起发生了什么变化。此类 policy 很普遍：81% 的仓库至少包含一条 cross-event policy，43% 的仓库横跨全部四个 enforcement 档位。
 
-此外，agent 行为会随任务变化。Server 通常有稳定的进程树和有限的网络
-peer。Coding agent 会创建脚本、发现工具，并在不同任务中接触不同文件与
-endpoint。静态 allowlist 容易变得过宽而失去保护作用，或者过窄而破坏
-agent 的有效自主性。
+Context 依赖使 enforcement 挑战叠加。1,127 条 system-observable policy 中，只有 26.4% 是 self-contained。多数（64.2%）需要 project context："the test suite"或"upstream source"必须对着具体仓库解析后才能变成可执行规则。另有 9.4% 需要 task context，例如"unless explicitly requested"或"without approval"。需要跨事件追踪状态的 policy 也是那些很少指定编写规则所需的具体命令和路径的 policy：cross-event policy 的 context 依赖高达 95%（77% project, 19% task），而 content policy 为 58%。
 
-Behavioral baseline 可以区分常见活动和异常活动，因此有助于 detection。
-Authorization 回答的是另一件事：当前任务和策略是否允许这次操作？一次
-常见的 `git commit` 仍可能违反仓库规则，因为 agent 在最后一次测试之后
-又修改了源文件。一个陌生的部署 endpoint 也可能完全合法，因为用户明确
-选择了它。出现频率和 anomaly score 都无法独立给出这两个答案。
+![context waterfall：self-contained、project context 和 task context 在 1,127 条 system-observable policy 上的分布](imgs/actplane-empirical_waterfall_context.png)
 
-## ActPlane 研究揭示了缺失的 Policy Input
+一组固定的静态规则只能覆盖 self-contained 的部分。实例化其余 policy 需要先读取仓库、解释当前任务，然后才能运行任何检查。
 
-ActPlane 研究了开发者已经写入 `CLAUDE.md` 和 `AGENTS.md` 的指令。论文
-覆盖 64 个热门仓库、84 份 instruction file 和 2,116 条 statement，并
-报告了以下结果：
+## 为什么现有层执行不了这些规则
 
-- 64.3% 的 statement 是行为 directive。
-- 83% 的行为 directive 涉及系统可观测行为。
-- 81% 的仓库至少包含一条跨事件 directive。
-- 74% 的系统可观测 directive 需要项目或任务上下文，才能变成具体规则。
+Prompt 指令依赖模型自身的遵从能力，但容易受 prompt injection 攻击，且在长上下文窗口中和用户的任务 prompt 争夺注意力。独立的 agent 或 LLM guard 可以在运行时检查 prompt、响应或行为轨迹，但这些检查本质上是概率性的。
 
-这些结果指出了通用 per-event rule 通常缺少的四种 policy input：
+Tool-call guardrail 和应用级 IFC 系统在 harness 边界确定性地拦截，但它们只能观察经过 harness 中介的请求，看不到工具开始执行之后的系统级效果。间接 subprocess、shell-out 或编译出来的二进制文件都能绕过 tool 边界。
 
-| Policy input | 示例问题 | 重要性 |
-|---|---|---|
-| 任务上下文 | 当前仓库里的“完整测试”具体是哪条命令？ | 自然语言指令需要解析为具体命令、路径和 endpoint |
-| 事件历史 | 最近一次相关写入之后，测试是否成功退出？ | 很多规则描述跨事件的新鲜度、顺序、lineage 或 information flow |
-| Authority | 规则由管理员、仓库 owner 还是 task agent 定义？ | 被攻陷的 task agent 不能削弱继承的约束 |
-| 恢复反馈 | 操作被拒绝后，agent 必须修复什么状态？ | 语义原因能帮助 agent 遵从策略，减少换路径盲目重试 |
+seccomp、AppArmor、Landlock、Tetragon 等 OS 机制控制的是 resource access 而非开发者所描述的 action。它们要求静态预写策略，报错也只有一句令 agent 困惑的不透明 EPERM，不解释违反了哪条规则，也不说明如何恢复。
 
-ActPlane 用紧凑 DSL 表达这些 input，沿进程树维护 label 和时序状态，再把
-执行状态编译到 eBPF。Higher-authority policy domain 在 task agent 启动
-之前加载；子 domain 可以增加或收紧约束，继承规则继续生效。
+论文把这些层串在一起的核心洞察是：大多数规则需要存在于 agent 处的项目或任务 context，因此 agent 自身必须能将 policy 转化为具体规则；然而许多 policy 定义事件顺序或数据流，对 tool-call guardrail 不可见，因此规则必须足够具体以进行确定性 OS 级 enforcement。弥合这个差距正是 ActPlane 要解决的问题。
 
-这是对 ARMO behavioral-baseline 框架的重要补充。Baseline 估计什么是
-常见行为，contextual policy 说明什么行为被允许、由谁授权、在任务的哪个
-阶段允许。生产系统可以同时使用两者，因为它们回答不同问题。
+## ActPlane 的设计：agent 写规则，内核来执行
 
-DSL、label propagation、temporal gate 和部署架构已经在旧文中完整展开，
-这里不再重复：[ActPlane：把 Agent Harness Enforcement 下沉到内核
-eBPF](https://eunomia.dev/zh/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/)。
+![ActPlane 总览：离任务最近的 agent 编写具体 policy DSL，由内核编译并执行](imgs/actplane-illustration.png)
 
-## 四种 Control Model 如何分工
+每条 ActPlane 规则由五个部分组成：标识治理对象的 source、target operation（如 exec、write、connect）、effect、可选的 temporal gate、以及用于 semantic feedback 的 reason 字符串。论文自己的贯穿示例可以让这些组件具体化：
 
-没有一种 control 能覆盖 agent system 的所有层。更有用的比较方式是看每种
-control 能可靠做出哪类决策。
-
-| Control | 任务含义 | 跨事件状态 | 间接 OS 影响 | 主要用途 |
-|---|---:|---:|---:|---|
-| Prompt 或 tool-call guard | 对拟执行动作较强 | 有限 | Shell-out 后有限 | 执行前引导与工具筛选 |
-| 静态 OS allowlist | 除非人工编码，否则没有 | 有限 | 对已覆盖 hook 较强 | 稳定资源边界 |
-| Behavioral baseline | 从历史行为推断 | 统计性 | 输入系统 telemetry 时较强 | Detection 与调查 |
-| Contextual OS policy | 显式任务和项目上下文 | 显式 | 对已覆盖 hook 较强 | 确定性执行已加载规则 |
-
-这张表不会让 Falco、Tetragon、seccomp、sandbox 或 anomaly detection 失去
-价值。它们在各自的决策边界内仍然重要。真正的架构错误，是要求内核事件流
-自行推断任务意图，或者要求 tool-call guard 介入它根本看不见的影响。
-
-## ActPlane 结果能支持什么结论
-
-论文评估了从自然语言 directive 到 policy translation、运行时介入、反馈
-和 agent 恢复的完整路径。
-
-- 在 190 条 direct、script、hidden 和 compliant trace 上，ActPlane 的 Decision Compliance Rate 为 75.8%，比被评估的 prompt-filter、tool-regex、tool-level IFC 和无反馈 kernel IFC 高 22 到 31 个百分点。
-- 使用相同 kernel rule 时，semantic feedback 得到 86 条正确 violation-trace outcome，无反馈时为 27 条。
-- 一轮 policy revision 把 violation detection 从 77.2% 提高到 94.7%，说明 policy translation quality 仍然是一等依赖。
-- 32 条 active rule 的 no-hit overhead 在 agent-trace replay 上为 1.9%，在 Linux kernel build 上为 6.5%；100 条 rule 时两种 workload 都低于 8.4%。
-- 在 361 个 OpenAgentSafety task 中，ActPlane 阻止了 106 个 baseline-unsafe effect 中的 78 个；policy 也在 16% 的 baseline-safe task 上触发，暴露了过宽规则的成本。
-
-对于系统可观测的 OS 影响，包括通过间接
-进程路径到达的影响，eBPF 是强 enforcement substrate。最终决策是否正确，
-仍然取决于已加载 policy 的质量和 authority。
-
-## 一套可审查的 Runtime Security 架构
-
-AgentSight 与 ActPlane 可以组成下面这条可审查的控制链：
-
-```text
-agent 与任务上下文
-        ↓
-AgentSight 运行时证据与审计
-        ↓
-operator 或可信 policy agent 审查
-        ↓
-具体且带有 authority scope 的 policy
-        ↓
-ActPlane eBPF enforcement
-        ↓
-返回 agent 的 semantic feedback
+```
+kill exec "git" "commit" unless after exec "go" "test" exits 0
 ```
 
-AgentSight 为 profiling、detection、调查和候选规则审查提供证据。它不会
-自动授权或阻止动作。ActPlane 沿已覆盖的进程、文件和网络事件执行已加载
-规则。它不会识别每一种恶意 prompt，也不理解任意生成内容。
+这条规则会终止任何 `git commit`，除非 `go test` 在最近一次相关源码编辑之后成功退出过。这里省略的 reason 字段会在规则触发时向 agent 提供结构化的解释。
 
-因此，系统级 runtime safety 仍然是更大架构中的一层。Isolation 限制
-blast radius，identity 和 authorization 约束可用能力，内容与协议检查覆盖
-syscall event 之外的语义，可信 exception path 处理高影响变更。更完整的
-三层模型见旧文：[基于 eBPF 的不透明 AI Agent 运行时可观测与执行控制](https://eunomia.dev/zh/blog/2026/05/25/runtime-security-for-ai-agents/)。
+三种 effect 对应了 instruction 与 constraint 的区分。Block 是 pre-operation 同步拒绝，没有 TOCTOU 窗口：内核在系统调用执行之前拦截它，agent 可以改道重试。Kill 在操作开始后终止进程，防止 agent 在被 block 后切换到其他通道。Notify 只传递引导信息而不阻止操作。Constraint 使用 block 或 kill，instruction 使用 notify。
+
+Temporal gate 让规则表达顺序关系而不仅是时间点谓词。`after ... since ...` 结构编码了一个事件必须发生在另一个事件之后：测试必须在最近一次编辑之后运行过，而不是在更早的某个时间点运行过即可。`exits N` 限定符区分成功退出和失败退出。Lineage gate 检查进程祖先关系，允许规则将操作限制在特定的进程树中。
+
+Information-flow label 沿 fork、exec、read、write、connect 传播，且是 monotonic 的：一旦进程读取了带标签的对象，标签就不可移除。当进程读取 `.env` 时，它获得该文件的 source label。如果它之后尝试 connect 到外部 endpoint，匹配该 label 的规则就会触发并阻断连接。研究中的 S7（"Data read from .env must not reach the network"）就是这样变成可执行的 cross-event 规则的。
+
+Policy authority 依靠 temporal trust boundary。Agent 启动前加载的规则是 higher-authority，对 agent 不可写。Agent 及其子 agent 可以在 child domain 中添加新规则或收窄现有规则，但不能削弱、移除或禁用继承的约束。运行时 delta 通过 ring buffer 到达内核，经完全在内核中的 authority checker 校验每一项变更是否符合 domain 层级，通过后才会激活。
+
+由于 label 是 monotonic 的，长时间运行的会话有 over-tainting 风险：经过大量读取后，进程可能累积过多 label，导致后续每个操作都触发规则。ActPlane 的缓解方式是在 spawn 新子进程时清除继承的 label，将 taint 累积限制在每个进程的生命周期内而非整个会话。
+
+实现规模紧凑。Userspace compiler 和 runner 约 3.2K 行 Rust 代码，eBPF enforcement engine 约 1.8K 行 BPF C 代码。BPF-LSM hook 处理 pre-operation 决策（block），tracepoint 处理观测和 post-operation 终止（kill）。Label 以 64-bit bitmask 存储在 per-object BPF map 中，传播归结为一次按位 OR。引擎支持最多 128 条并发规则，而数据集中观测到的最大仓库有 66 条 policy。关于部署架构和机制细节的更深入介绍，见[ActPlane：把 Agent Harness Enforcement 下沉到内核 eBPF](https://eunomia.dev/zh/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/)。
+
+## 这条路走得通吗：评估结果
+
+Policy 翻译不再是瓶颈。一个 Codex agent 在首次或二次尝试中为数据集中全部 607 条 OS-enforceable policy 编译了 ActPlane 规则，607 条里只有 2 条需要语法重试，成本约 $0.028/条，人工编写约 $11/条。
+
+上下文 enforcement 解决的 violation 远多于任何基线。在 decision-compliance benchmark（190 条 trace、38 条源自实证研究的规则）上，ActPlane 的 Decision Compliance Rate 为 75.8%。各基线远远落后：prompt-filter 48.4%，tool-regex 45.3%，FIDES（tool 级 IFC）48.9%，无反馈 kernel IFC 53.7%。差距集中在 violation trace 上：ActPlane 正确解决 114 条中的 86 条，基线为 27 到 44 条，即 2.0 到 3.2 倍的改进。优势主要来自 tool-call interception 看不到的间接执行路径。
+
+Semantic feedback 是合规与盲目重试的分水岭。完整 ActPlane 产生的正确 violation-trace outcome 是无反馈引擎的三倍，86 对 27。恢复率也讲了同样的故事：semantic feedback 下 97.7%，无反馈下 31.4%。当 agent 知道操作为何被拒、需要修复什么状态时，它会改道完成任务；只收到一句空洞的拒绝时，它会通过替代路径反复重试同一个被禁止的操作。
+
+开销可以放进日常开发工作流。Agent trace 上端到端 overhead 为 1.9%，32 条 active rule 的 Linux kernel build 增加 6.5%，100 条规则时仍低于 8.4%。
+
+外部安全基准验证了论文自身数据集之外的覆盖面。在 361 个 OpenAgentSafety 个人助理任务中，ActPlane 以 higher-authority 规则预加载 agent 生成的安全 policy，阻止了 74% 的 baseline-unsafe 行为（106 起 unsafe outcome 中拦截 78 起）。
+
+[ActPlane 源码](https://github.com/eunomia-bpf/ActPlane)已在 GitHub 开源。
 
 ## 常见问题
 
-### eBPF 足以解决 AI Agent Security 吗？
+### eBPF 足以解决 AI agent 安全问题吗？
 
-eBPF 对已覆盖 OS event 提供强观察与介入能力。任务意图、policy authority、
-内容语义、identity 和 isolation 仍需由内核执行层周围的输入与控制提供。
+eBPF 对 OS event（文件写入、进程启动、网络连接等）提供确定性执行控制，覆盖了 83% 的 system-observable policy。但剩余 17% 的 semantic-only policy（涵盖推理、沟通风格或输出质量）在内核之外，需要 harness 层和其他控制来处理。任务意图、policy authority、内容语义和 isolation 都是内核执行点周围的层需要承担的职责。
 
-### Behavioral Baseline 能替代 Policy 吗？
+### Behavioral baseline 能替代 policy 吗？
 
-Behavioral baseline 检测偏离历史行为的活动，policy 定义当前任务中的权限。
-成熟系统可以用 anomaly detection 提议或排序候选规则，再经过
-authority-aware review 后进入 enforcement。
+Behavioral baseline 回答的是"这是否异常"，通过标记偏离历史行为的操作来工作。Policy 回答的是"在当前任务下这是否被允许"。一次常规 `git commit` 按 baseline 标准可以完全正常，同时违反一条项目规则；一个陌生的部署 endpoint 可以触发异常告警，但如果用户明确要求了它，操作就是合法的。Detection 和 authorization 是两个不同的问题。成熟系统会同时使用两者：anomaly signal 可以提议候选规则，再经 authority-aware review 后变为 enforced policy。
 
-### AgentSight 会执行 ActPlane Policy 吗？
+### AgentSight 会执行 ActPlane policy 吗？
 
-不会。AgentSight 是系统级 profiler 和 monitor，ActPlane 是 policy
-enforcement component。运行时证据可以帮助 policy review，但两个项目明确
-区分观察与执行控制的职责。
+不会。[AgentSight](https://eunomia.dev/zh/blog/2025/08/26/agentsight-keeping-your-ai-agents-under-control-with-ebpf-powered-system-observability/) 是系统级 profiler 和 monitor，捕捉 agent 在运行时的行为。ActPlane 是 enforcement engine，拦截或重定向违反已加载 policy 的操作。两者是互补角色：AgentSight 的运行时证据可以为 policy review 和优化提供输入，但 observation 和 enforcement 的职责保持分离。
 
 ### ActPlane 仍然覆盖不了什么？
 
-纯聊天语义伤害、不安全生成内容、已覆盖 OS hook 之外的 service-side effect、
-缺失 hook、kernel compromise 和错误生成的 policy 都需要额外控制。ActPlane
-的保证适用于 enforcement engine 所介入的 OS event 上已经加载的规则。
+论文的 threat model 对边界做了明确声明。Semantically equivalent operation 可以绕过基于字符串的匹配：agent 可以使用自制 Git client 而非调用 `exec git`，但底层的 `connect` 和 `write` 系统调用仍然可见。文件内容语义、kernel compromise、CAP_BPF compromise 和 side channel 均不在覆盖范围内。17% 的 semantic-only policy（涵盖推理质量、沟通风格或输出格式）需要 harness 层而非内核 enforcement 来处理。
+
+数据集本身是这篇论文最独特的贡献。在 ActPlane 之前，没有人度量过开发者到底要求 agent 遵守什么规则，也没有人分析过这些规则在 enforcement 需求上的分布。这些规则大多数已经写在成千上万仓库的 CLAUDE.md 和 AGENTS.md 里，缺失的是一个能读懂项目 context、理解当前任务、把自然语言 policy 编译成具体 kernel 级规则的 enforcement 层。[ActPlane 仓库](https://github.com/eunomia-bpf/ActPlane)包含完整实现，将内核执行控制与隔离、身份和内容控制并置的三层安全模型见[基于 eBPF 的不透明 AI Agent 运行时可观测与执行控制](https://eunomia.dev/zh/blog/2026/05/25/runtime-security-for-ai-agents/)。

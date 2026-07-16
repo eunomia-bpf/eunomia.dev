@@ -1,5 +1,6 @@
 ---
 date: 2025-10-11
+description: "Intel iaprof uses eBPF kernel tracing and GPU hardware sampling to build AI Flame Graphs that map CPU call stacks to specific GPU shader instruction stalls."
 ---
 
 # Understanding iaprof: A Deep Dive into AI/GPU Flame Graph Profiling
@@ -11,6 +12,8 @@ date: 2025-10-11
 If you've ever tried to optimize a GPU-accelerated machine learning workload, you've likely encountered a frustrating problem: your code runs on the CPU, but the performance bottlenecks live on the GPU. Traditional profiling tools show you one world or the other, but never both together. This disconnect makes it nearly impossible to understand which lines of your Python or C++ code are responsible for expensive GPU operations.
 
 Enter **iaprof**, Intel's solution to this observability challenge. At its core, iaprof is a profiling tool that generates what Intel calls "AI Flame Graphs" - interactive visualizations that seamlessly connect your application code to the GPU instructions it triggers, all while showing where performance is actually being lost. This blog post will take you on a deep dive into how iaprof works, the technologies it leverages, and the architecture that makes it possible.
+
+We analyzed iaprof because it sits at the intersection of the two technologies we work on: eBPF and GPU observability. Our project [bpftime](https://github.com/eunomia-bpf/bpftime) experimentally runs eBPF programs inside GPU kernels on NVIDIA and AMD hardware, and our gpu_ext work explores using eBPF struct_ops to extend GPU driver behavior at the kernel level. Understanding how Intel's profiler attaches eBPF probes to the i915/Xe driver, collects hardware stall samples through the Observability Architecture, and correlates them with CPU call stacks helps us identify where a more general, programmable eBPF instrumentation layer could attach in GPU driver stacks across vendors.
 
 <!-- more -->
 
@@ -1001,3 +1004,13 @@ The final step produces the interactive SVG visualization. Each frame becomes an
   </script>
 </svg>
 ```
+
+## What This Means for eBPF-Based GPU Observability
+
+iaprof demonstrates that eBPF kernel tracing can capture GPU driver events with enough fidelity to build end-to-end execution profiles, from Python call stacks down to individual shader instructions. The tool hooks `i915_gem_do_execbuffer` and `xe_exec_ioctl` with fexit probes, parses GPU batch buffers inside the kernel to extract shader addresses, and correlates those addresses with hardware stall samples from Intel's Observability Architecture. The result is a profiling pipeline that requires no application changes, no recompilation, and no custom kernel modules.
+
+But iaprof is tightly bound to Intel's GPU stack. It depends on Intel-specific OA hardware counters, Intel-specific debug APIs for shader binary retrieval, and driver-specific ioctl entry points. Profiling an NVIDIA or AMD GPU workload with the same approach would require entirely different hooks, different hardware sampling interfaces, and different shader metadata sources. Each vendor's profiling story starts from scratch.
+
+This is exactly the gap that a programmable eBPF instrumentation layer can address. Rather than building separate profilers per vendor, a general-purpose eBPF framework running inside GPU driver paths could let users write portable tracing programs that attach at common abstraction points: DRM ioctl dispatch, command submission, page fault handling, and memory migration. Our [bpftime](https://github.com/eunomia-bpf/bpftime) project experimentally extends eBPF execution into GPU kernels on NVIDIA and AMD hardware, and our gpu_ext work explores eBPF struct_ops as an extension mechanism within GPU drivers. iaprof's architecture validates the core premise: the information needed for deep GPU profiling (submission stacks, shader metadata, hardware performance samples) is accessible from kernel-level attach points. A cross-vendor eBPF layer would make that information programmable and portable. For more on where GPU observability stands today and why kernel-level instrumentation matters, see our analysis in [The GPU Observability Gap: Why We Need eBPF on GPU Devices](https://eunomia.dev/blog/2025/10/14/the-gpu-observability-gap-why-we-need-ebpf-on-gpu-devices/).
+
+iaprof also highlights specific technical patterns worth replicating. The deferred attribution mechanism, where EU stall samples that arrive before shader metadata are queued and retried later, solves a timing problem that any asynchronous GPU tracing system will face. The two-level locking strategy (reader-writer lock on the shader tree, per-shader mutexes for stall accumulation) shows how to scale concurrent sample attribution without contention. These patterns are directly applicable to building eBPF-based GPU observability tools that must handle high-frequency hardware events alongside slower metadata streams.
