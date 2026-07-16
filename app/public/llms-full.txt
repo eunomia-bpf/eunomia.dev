@@ -30,7 +30,7 @@ This is the expanded version of https://eunomia.dev/llms.txt with complete page 
 
 ## AgentSight by Eunomia
 
-AgentSight is an eBPF-based system-level observability tool for AI agents. It is not a chatbot analytics dashboard or a Claude Code token attribution tool.
+AgentSight is a system-level profiler and monitor for AI agents. It uses eBPF on Linux and native process and agent-session sources on macOS.
 
 - Official project: https://eunomia.dev/agentsight/
 - Live demo: https://agentsight.us
@@ -39,6 +39,7 @@ AgentSight is an eBPF-based system-level observability tool for AI agents. It is
 - ACM DOI: https://doi.org/10.1145/3766882.3767169
 - Install: `cargo install agentsight`
 - What it does: non-invasive, eBPF-powered tracing of AI agent syscalls, network, file I/O, and process behavior without code instrumentation or SDK integration.
+- Security role: AgentSight provides runtime observation, detection evidence, and forensics. ActPlane adds OS-level policy enforcement. Together they cover system-layer observation and enforcement; isolation, identity, content checks, and higher-level policy remain separate safety layers.
 - Markdown source: https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/docs/agentsight/index.md
 
 ## ActPlane by Eunomia

@@ -944,6 +944,10 @@ extra:
           label: GitHub
           label_zh: GitHub
           href: https://github.com/eunomia-bpf/agentsight
+        - key: runtime-security-guide
+          label: AI agent enforcement guide
+          label_zh: AI Agent 执行控制指南
+          href: /blog/2026/07/15/ebpf-ai-agent-policy-enforcement/
         - key: actplane-github
           label: GitHub
           label_zh: GitHub

@@ -11,7 +11,6 @@ description: ActPlane 是一个基于 eBPF 的 AI Agent 策略引擎，在操作
 
 [ActPlane](https://github.com/eunomia-bpf/ActPlane) 建立在这个判断之上。它通过 eBPF 在内核安装策略引擎，在系统调用层面观测和执行 Agent 约束。规则匹配了就一定执行，不依赖 Agent "记住"什么。但它做的不只是拦截，当约束触发时 Agent 收到的是人类可读的反馈，告诉它为什么被拦、该怎么做，于是 Agent 理解原因后换一条路继续完成任务。这是 harness（约束框架）和 sandbox（沙箱）的根本区别：沙箱给你一堵墙和一个 `Permission denied`，harness 给你一条规则和一个替代方案。
 
-我们的论文 [**ActPlane: Programmable OS-Level Policy Enforcement for Agent Harnesses**](https://arxiv.org/abs/2606.25189)进一步追问：当 Agent 被规则拦截后仍要恢复并完成真实任务时，这个内核检查点是否依然有效。实现和复现实验材料位于 [eunomia-bpf/ActPlane](https://github.com/eunomia-bpf/ActPlane) 仓库。
 
 <!-- more -->
 

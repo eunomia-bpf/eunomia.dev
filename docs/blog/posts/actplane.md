@@ -11,7 +11,6 @@ This scenario exposes a structural problem: **agent constraints and agent side e
 
 [ActPlane](https://github.com/eunomia-bpf/ActPlane) is built on this insight. It installs a policy engine in the kernel via eBPF, observing and enforcing agent constraints at the syscall layer. When a rule matches, it fires with no dependency on the agent "remembering" anything. But ActPlane does more than block: when a constraint triggers, the agent receives human-readable feedback explaining why it was stopped and what to do instead. The agent understands the reason, takes a different path, and continues the task. This is the fundamental difference between a harness and a sandbox: a sandbox gives you a wall and a `Permission denied`; a harness gives you a rule and an alternative.
 
-Our paper, [**ActPlane: Programmable OS-Level Policy Enforcement for Agent Harnesses**](https://arxiv.org/abs/2606.25189), asks whether this kernel checkpoint still works when an agent must recover from enforcement and finish a real task. The [eunomia-bpf/ActPlane](https://github.com/eunomia-bpf/ActPlane) repository contains the implementation and reproducibility material.
 
 <!-- more -->
 
