@@ -8,6 +8,8 @@ allowed-tools: Read Edit Bash(grep *) Bash(wc *)
 
 Review the Markdown blog post at `$ARGUMENTS` sentence by sentence for prose quality and SEO metadata. If no argument is given, ask which post to review. Posts live in `docs/blog/posts/` as `post.md` (English) and `post.zh.md` (Chinese) pairs.
 
+Model note: the actual writing/editing pass is best run on `claude-opus-4-6[1m]` (Opus 4.6, 1M context); when the calling agent is a different model, delegate this skill's work to an Opus subagent.
+
 Do not perform any Git operation. Return the edited post and review findings to the caller.
 
 **Scope:** This skill reviews and fixes existing posts. For drafting a new post, structuring an argument, or writing hooks, use the `tech-blog-writer` skill; this skill is the editing pass that runs afterward.
