@@ -172,17 +172,17 @@ export function ContactCard({
     locale === "zh"
       ? {
           eyebrow: "联系",
-          title: "和维护团队直接对话",
+          title: "联系 Eunomia Labs",
           body:
-            "由 eunomia-bpf 开源团队维护，聚焦 eBPF、runtime extension 和 AI agent infrastructure 的系统工程。企业评估、POC 和生产集成可直接邮件联系，我们通常在两个工作日内回复。",
+            "Eunomia Labs, Inc. 负责运营和维护，聚焦 eBPF、runtime extension 和 AI agent infrastructure 的系统工程。企业评估、POC 和生产集成可直接邮件联系，我们通常在两个工作日内回复。",
           cta: "邮件联系",
           response: "通常 2 个工作日内回复"
         }
       : {
           eyebrow: "Contact",
-          title: "Talk to the people who maintain it",
+          title: "Talk to Eunomia Labs",
           body:
-            "Maintained by the eunomia-bpf open-source team, focused on systems engineering for eBPF, runtime extension, and AI agent infrastructure. Reach out directly for enterprise evaluation, POCs, and production integration.",
+            "Operated and maintained by Eunomia Labs, Inc., with a focus on systems engineering for eBPF, runtime extension, and AI agent infrastructure. Reach out directly for enterprise evaluation, POCs, and production integration.",
           cta: "Email us",
           response: "Typically replies within 2 business days"
         };

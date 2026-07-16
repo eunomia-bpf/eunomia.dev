@@ -33,7 +33,7 @@ export function SiteFooter({ locale }: SiteFooterProps) {
           <p className="text-lg font-semibold tracking-tight text-ink">eunomia</p>
           <p className="mt-3 max-w-md leading-7">{copy.copyright}</p>
           <p className="mt-3 text-xs text-slate-500">
-            © {new Date().getFullYear()} eunomia-bpf · MIT License
+            {siteConfig.copyright} · MIT License
           </p>
         </div>
         <FooterColumn title={copy.explore} links={exploreLinks} />
