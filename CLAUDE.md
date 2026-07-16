@@ -12,6 +12,13 @@ For open-source code, documentation, synchronization, CI, release-readiness, or
 PR-bound changes in this repository, use the `oss-change-workflow` skill before
 editing. Follow its scope-control, validation, review, and CI guidance.
 
+Treat this repository as a mature open-source project for every change. Never
+push changes directly to `main`. Start from the current `main` branch, create a
+feature or fix branch, and publish the change through a normal, non-draft pull
+request. Complete the independent review, Copilot-comment, validation, CI, and
+applicable live-acceptance gates from `oss-change-workflow`. Do not merge the PR
+unless the user explicitly asks.
+
 Before publishing a PR, inspect the worktree, stage only the intended files, run
 the smallest relevant validation, and preserve unrelated user changes.
 
