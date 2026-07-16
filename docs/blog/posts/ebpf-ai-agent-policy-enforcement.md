@@ -15,7 +15,7 @@ does it miss? Its answer is largely right, because eBPF can observe and mediate
 process, file, and network effects, yet a kernel event never explains the
 task-level reason behind an action.
 
-Closing that gap is the job of a policy plane: AI agent security needs one that
+To close that gap, AI agent security needs a policy plane that
 turns project intent, event history, and authority into a decision the kernel
 can enforce. The kernel supplies complete mediation for the effects it covers,
 and the policy plane supplies the meaning behind them.
@@ -37,8 +37,8 @@ Discussions of AI agent runtime security often combine three separate jobs:
 | Policy | Is this effect allowed now, given the task, history, and rule authority? | Resolve context and maintain the state needed for a decision |
 | Enforcement | Can the operation be stopped before it takes effect? | Mediate covered OS operations with eBPF and BPF-LSM |
 
-Separating the jobs shows why each shortcut fails. More kernel telemetry never
-closes the semantic gap on its own, and application-level context never reaches
+Neither shortcut works on its own: more kernel telemetry never closes the
+semantic gap, and application-level context never reaches
 the shell, generated script, or compiled helper that produces the eventual
 effect.
 
@@ -55,12 +55,12 @@ Misses](https://www.armosec.io/blog/ebpf-based-ai-agent-enforcement/), identifie
 two important problems with applying traditional runtime security directly to
 agents.
 
-One problem is that system events carry little intent. An eBPF program can watch
+System events carry little intent. An eBPF program can watch
 the agent open a connection to an unfamiliar endpoint, yet the event never says
 whether the agent is deploying to a service the user approved or exfiltrating
 credentials after an indirect prompt injection.
 
-The other problem is that agent behavior changes from task to task. A server
+Agent behavior also changes from task to task. A server
 usually has a stable process tree and a bounded set of peers. A coding agent creates scripts, discovers
 tools, and touches different files and endpoints across tasks. A static
 allowlist can become too broad to protect the system or too narrow to preserve
@@ -112,8 +112,8 @@ Down to Kernel eBPF](https://eunomia.dev/blog/2026/05/31/actplane-pushing-agent-
 
 ## How the Control Models Compare
 
-No single control covers every layer of an agent system, so the question worth
-asking is which decision each control can make reliably.
+No single control covers every layer of an agent system, so the useful comparison
+is which decision each control makes reliably.
 
 | Control | Task meaning | Cross-event state | Indirect OS effects | Primary use |
 |---|---:|---:|---:|---|
@@ -138,10 +138,9 @@ translation, runtime intervention, feedback, and agent recovery.
 - No-hit overhead is 1.9% on an agent-trace replay and 6.5% on a Linux kernel build at 32 active rules; both workloads remain below 8.4% at 100 rules.
 - On 361 OpenAgentSafety tasks, ActPlane prevents 78 of 106 baseline-unsafe effects. Policies also activate on 16% of baseline-safe tasks, exposing the cost of overly broad rules.
 
-These results support a bounded claim: eBPF is a strong enforcement substrate
-for observable OS effects, including effects reached through indirect process
-paths, but the quality and authority of the loaded policy still determine
-whether the enforced decision is correct.
+eBPF proves a strong enforcement substrate for observable OS effects, including
+effects reached through indirect process paths, but policy quality and authority
+still determine whether the enforced decision is correct.
 
 ## A Practical Runtime Security Architecture
 
