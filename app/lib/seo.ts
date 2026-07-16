@@ -1,7 +1,8 @@
 import type { LocaleAlternates } from "./content/types";
 import { siteConfig } from "./site-data";
 
-export const STATIC_OG_IMAGE_PATH = "/og/default.svg";
+// Emitted as a rasterized PNG (not SVG) so social platforms can render the card.
+export const STATIC_OG_IMAGE_PATH = "/og/default.png";
 
 export type AlternateLink = {
   hrefLang: string;

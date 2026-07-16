@@ -8,12 +8,14 @@ import json
 import os
 import sys
 import re
+import unicodedata
 import requests
 
 
 API_ENDPOINT = "https://media-publisher.vercel.app/api/publish-multi"
 QUEUE_FILE = ".github/publisher/posts_queue.txt"
 DEFAULT_PUBLISH_COUNT = 2
+SITE_URL = "https://eunomia.dev"
 
 
 def has_yaml_frontmatter(content):
@@ -98,6 +100,103 @@ def remove_title_from_content(content):
     return content
 
 
+def slugify_title(value):
+    """
+    Slugify a title using the same rules as the site content pipeline
+    (app/lib/content/source.ts slugifyTitle): lowercase, NFKD-normalize, drop
+    combining marks, collapse runs of non-alphanumeric characters into a single
+    hyphen, and trim leading/trailing hyphens.
+    """
+    text = unicodedata.normalize("NFKD", value.lower())
+    text = "".join(ch for ch in text if not unicodedata.category(ch).startswith("M"))
+    chars = []
+    prev_hyphen = False
+    for ch in text:
+        if ch.isalnum():
+            chars.append(ch)
+            prev_hyphen = False
+        elif not prev_hyphen:
+            chars.append("-")
+            prev_hyphen = True
+    slug = "".join(chars).strip("-")
+    if slug:
+        return slug
+    return re.sub(r"\s+", "-", value.strip())
+
+
+def parse_frontmatter(content):
+    """Parse top-level scalar fields from YAML frontmatter (no external deps)."""
+    lines = content.split("\n")
+    if not lines or lines[0].strip() != "---":
+        return {}
+
+    fields = {}
+    for line in lines[1:]:
+        if line.strip() == "---":
+            break
+        match = re.match(r"^([A-Za-z0-9_-]+):\s*(.*)$", line)
+        if match:
+            key = match.group(1)
+            raw = match.group(2).strip()
+            if len(raw) >= 2 and raw[0] == raw[-1] and raw[0] in ("'", '"'):
+                raw = raw[1:-1]
+            fields[key] = raw
+    return fields
+
+
+def derive_canonical_url(post_path, content, title):
+    """
+    Derive the canonical eunomia.dev URL for a source markdown path so
+    syndicated copies (dev.to, Medium) point back to the original.
+
+    Blog posts under docs/blog/posts/<name>.md map to
+    https://eunomia.dev/blog/YYYY/MM/DD/<slug>/ where YYYY-MM-DD comes from the
+    frontmatter `date` and <slug> is the frontmatter `slug` if present, otherwise
+    the slugified title (matching the site's content pipeline). Other docs paths
+    map to https://eunomia.dev/<path-without-docs-prefix-and-README.md>/.
+    Returns None when no canonical URL can be derived.
+    """
+    normalized = post_path.replace("\\", "/")
+    match = re.search(r"(?:^|/)docs/(.+)$", normalized)
+    if not match:
+        return None
+    rel = match.group(1)
+
+    blog_match = re.match(r"^blog/posts/(?:.+?)(\.zh)?\.md$", rel)
+    if blog_match:
+        is_zh = bool(blog_match.group(1))
+        # The site derives blog date/slug from the English source for both locales
+        # (app/lib/content/discovery.ts prefers sourceByLocale.en), so resolve the
+        # English sibling when the queued file is the Chinese translation.
+        source_content, source_title = content, title
+        if is_zh:
+            en_sibling = re.sub(r"\.zh\.md$", ".md", post_path)
+            if os.path.isfile(en_sibling):
+                with open(en_sibling, "r", encoding="utf-8") as sibling:
+                    source_content = sibling.read()
+                try:
+                    source_title, _ = extract_title_from_markdown(source_content)
+                except ValueError:
+                    source_title = title
+        frontmatter = parse_frontmatter(source_content)
+        date_match = re.match(r"(\d{4})-(\d{2})-(\d{2})", frontmatter.get("date", ""))
+        if not date_match:
+            return None
+        year, month, day = date_match.groups()
+        slug = frontmatter.get("slug") or slugify_title(frontmatter.get("title") or source_title)
+        locale_prefix = "/zh" if is_zh else ""
+        return f"{SITE_URL}{locale_prefix}/blog/{year}/{month}/{day}/{slug}/"
+
+    is_zh = rel.endswith(".zh.md")
+    rel = re.sub(r"(?:\.zh)?\.md$", "", rel)
+    rel = re.sub(r"/README$", "", rel)
+    rel = rel.strip("/")
+    if not rel:
+        return None
+    locale_prefix = "/zh" if is_zh else ""
+    return f"{SITE_URL}{locale_prefix}/{rel}/"
+
+
 def read_queue():
     """Read the posts queue file and return list of posts."""
     if not os.path.exists(QUEUE_FILE):
@@ -172,12 +271,14 @@ def prepare_post(post, index):
 
     title, _title_line = extract_title_from_markdown(original_content)
     cleaned_content = remove_title_from_content(original_content)
+    canonical_url = derive_canonical_url(validated_post_path, original_content, title)
 
     return {
         "title": title,
         "content": cleaned_content,
         "path": validated_post_path,
-        "tags": tags
+        "tags": tags,
+        "canonical_url": canonical_url
     }
 
 
@@ -187,10 +288,11 @@ def print_post_preview(prepared_post, index, total):
     print(f"Title: {prepared_post['title']}")
     print(f"Path: {prepared_post['path']}")
     print(f"Tags: {', '.join(prepared_post['tags'])}")
+    print(f"Canonical URL: {prepared_post.get('canonical_url') or '(none)'}")
     print(f"Content preview: {prepared_post['content'][:200]}...")
 
 
-def publish_post(title, content, tags, password, is_draft=True):
+def publish_post(title, content, tags, password, is_draft=True, canonical_url=None):
     """
     Publish a post to Medium and Dev.to via the API.
     """
@@ -201,6 +303,11 @@ def publish_post(title, content, tags, password, is_draft=True):
         "is_draft": is_draft,
         "platforms": ["devto", "medium"]
     }
+    # Canonical URL points syndicated copies back to the original on eunomia.dev.
+    # The media-publisher Vercel service is responsible for forwarding this to
+    # dev.to (canonical_url) and Medium (canonicalUrl).
+    if canonical_url:
+        payload["canonical_url"] = canonical_url
 
     headers = {
         "Content-Type": "application/json",
@@ -276,7 +383,8 @@ def main():
                 prepared_post["content"],
                 prepared_post["tags"],
                 password,
-                is_draft
+                is_draft,
+                prepared_post.get("canonical_url")
             )
             print(f"\n✅ Publish {index}/{len(prepared_posts)} successful!")
             print(json.dumps(result, indent=2))

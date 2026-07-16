@@ -25,6 +25,7 @@ __pycache__
 /app/public/robots.txt
 /app/public/zh/feed.xml
 /app/public/og/default.svg
+/app/public/og/default.png
 /app/*.tsbuildinfo
 /app/node_modules
 /test/node_modules
