@@ -9,6 +9,8 @@ import os
 import sys
 import re
 import unicodedata
+from collections import namedtuple
+
 import requests
 
 
@@ -124,8 +126,45 @@ def slugify_title(value):
     return re.sub(r"\s+", "-", value.strip())
 
 
+# Parsed frontmatter scalar: `text` is the value with quotes/comments removed,
+# `is_string` reflects whether js-yaml (used by gray-matter on the site) would
+# treat the value as a string. The site's parseSlug ignores non-string slugs.
+FrontmatterScalar = namedtuple("FrontmatterScalar", ["text", "is_string"])
+
+# YAML 1.1 (js-yaml) parses these unquoted scalars as non-strings (numbers,
+# booleans, null), which the site's parseSlug rejects.
+_YAML_NONSTRING_SCALAR = re.compile(
+    r"^(?:"
+    r"[+-]?\d+"                              # integer
+    r"|[+-]?(?:\d+\.\d*|\.\d+|\d+)(?:[eE][+-]?\d+)?"  # float / scientific
+    r"|0x[0-9a-fA-F]+|0o[0-7]+"              # hex / octal
+    r"|true|false|null|~"                    # bool / null
+    r"|yes|no|on|off"                        # YAML 1.1 booleans
+    r")$",
+    re.IGNORECASE,
+)
+
+
+def _parse_frontmatter_scalar(raw):
+    """Interpret one unparsed frontmatter scalar the way js-yaml would for the
+    fields we consume: a quoted value is a string; an unquoted value has any
+    inline `# comment` stripped and is flagged as a string only when YAML would
+    not parse it as a number, boolean, or null."""
+    raw = raw.strip()
+    if len(raw) >= 2 and raw[0] == raw[-1] and raw[0] in ("'", '"'):
+        return FrontmatterScalar(raw[1:-1], True)
+    raw = re.sub(r"\s+#.*$", "", raw).strip()
+    is_string = bool(raw) and not _YAML_NONSTRING_SCALAR.match(raw)
+    return FrontmatterScalar(raw, is_string)
+
+
 def parse_frontmatter(content):
-    """Parse top-level scalar fields from YAML frontmatter (no external deps)."""
+    """Parse top-level scalar fields from YAML frontmatter (no external deps).
+
+    Returns a mapping of field name to FrontmatterScalar. Only simple inline
+    scalars are recognized; block/flow values are out of scope for the canonical
+    URL derivation below.
+    """
     lines = content.split("\n")
     if not lines or lines[0].strip() != "---":
         return {}
@@ -136,11 +175,7 @@ def parse_frontmatter(content):
             break
         match = re.match(r"^([A-Za-z0-9_-]+):\s*(.*)$", line)
         if match:
-            key = match.group(1)
-            raw = match.group(2).strip()
-            if len(raw) >= 2 and raw[0] == raw[-1] and raw[0] in ("'", '"'):
-                raw = raw[1:-1]
-            fields[key] = raw
+            fields[match.group(1)] = _parse_frontmatter_scalar(match.group(2))
     return fields
 
 
@@ -179,23 +214,41 @@ def derive_canonical_url(post_path, content, title):
                 except ValueError:
                     source_title = title
         frontmatter = parse_frontmatter(source_content)
-        date_match = re.match(r"(\d{4})-(\d{2})-(\d{2})", frontmatter.get("date", ""))
+        # The site parses `date` with new Date(...).toISOString() (UTC). A bare,
+        # zero-padded YYYY-MM-DD maps unambiguously to that UTC day; a value with a
+        # time/zone component (or a non-padded one) can shift the UTC day, so omit
+        # the canonical rather than emit a wrong one.
+        date_field = frontmatter.get("date")
+        date_match = re.match(r"^(\d{4})-(\d{2})-(\d{2})$", date_field.text) if date_field else None
         if not date_match:
             return None
         year, month, day = date_match.groups()
-        # Mirror the site pipeline (app/lib/content/markdown.ts parseSlug), which
-        # slugifies the frontmatter slug too and falls back to the title when it
-        # normalizes to empty.
-        raw_slug = frontmatter.get("slug")
-        slug = (slugify_title(raw_slug) if raw_slug else "") or slugify_title(
-            frontmatter.get("title") or source_title
-        )
+        # Mirror app/lib/content/markdown.ts: a string frontmatter `title` wins,
+        # otherwise fall back to the H1 heading.
+        title_field = frontmatter.get("title")
+        fallback_title = title_field.text if title_field and title_field.is_string else source_title
+        # Mirror parseSlug: only a string frontmatter `slug` is used (slugified);
+        # non-string YAML scalars and empty slugs fall back to the slugified title.
+        slug_field = frontmatter.get("slug")
+        slug = slugify_title(slug_field.text) if slug_field and slug_field.is_string else ""
+        if not slug:
+            slug = slugify_title(fallback_title)
         locale_prefix = "/zh" if is_zh else ""
         return f"{SITE_URL}{locale_prefix}/blog/{year}/{month}/{day}/{slug}/"
 
-    is_zh = rel.endswith(".zh.md")
-    rel = re.sub(r"(?:\.zh)?\.md$", "", rel)
-    rel = re.sub(r"/README$", "", rel)
+    # Non-blog docs: strip the locale suffix (.zh.md/.zh-CN.md map to the /zh
+    # tree; .en.md/.md map to the default tree), then collapse a trailing README
+    # or index segment since the site serves those at the section root.
+    locale_match = re.search(r"\.(zh-CN|zh|en)\.md$", rel)
+    if locale_match:
+        is_zh = locale_match.group(1) in ("zh", "zh-CN")
+        rel = rel[: locale_match.start()]
+    elif rel.endswith(".md"):
+        is_zh = False
+        rel = rel[: -len(".md")]
+    else:
+        return None
+    rel = re.sub(r"(?:^|/)(README|index)$", "", rel)
     rel = rel.strip("/")
     if not rel:
         return None
