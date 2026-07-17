@@ -162,7 +162,9 @@ AI 搜索的答案已经大量复述 AgentSight 的叙事（boundary tracing、s
 
 ## 六、整体宣传计划
 
-**目标层级与指标体系**：见私有战略库（yunwei37/eunomia-strategy，business-plan.zh.md §指标）。渠道动作以品牌认知、产品采用、客户转化为准，不为流量本身做事。
+**双引擎目标（2026-07-16 定）**：教育/分享内容与产品叙事内容按 7:3 到 8:2 配比。教育是目标本身和复利资产（受众、信任、术语所有权、贡献者），不只是转化手段；产品叙事站在它上面做转化。指标体系与商业目标见私有战略库。
+
+**平台矩阵（分层进入，一源多发，正本永远在本站）**：已有（本站/GitHub/X/dev.to+Medium 队列）→ 第一扩展（知乎、LinkedIn，半自动）→ 场合性（HN/Reddit/lobste.rs，永远人工，只投旗舰）→ 观察（掘金、公众号）→ 暂缓（小红书、B站/YouTube，等图卡/视频产能）。每个新平台小样本试 4-6 周看数据定去留；转载状态记录在 `.github/publisher/ledger.md`。
 
 1. **先修 canonical 再谈一切**（历史转载手动补；publish 链路搁置期间新转载一律平台后台手动设 canonical），否则宣传做得越多，权重漏得越多。
 2. **每篇旗舰文的发布 checklist**：站内上线 → X/Twitter（@eaborai）+ 个人账号双发 → 有数据/有反直觉结论的投 Hacker News（美东工作日上午）和 lobste.rs → r/eBPF、r/netsec、r/LocalLLaMA 按主题选发 → 1-2 周后 dev.to/Medium 转载（带 canonical）→ 中文版同步发掘金/知乎专栏。
