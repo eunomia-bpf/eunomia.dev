@@ -1,0 +1,298 @@
+# Research paper registry
+#
+# Single source of truth for paper metadata across the site. Every public
+# claim about a paper (title, venue, version, key numbers) should be taken
+# from this file, and blog posts must cite paper numbers as recorded here,
+# with their measurement conditions.
+#
+# Policy: only published papers or public arXiv versions enter docs/papers/.
+# Papers under review must never appear in this repository in any form.
+#
+# `arxiv_version` pins the version the local pdf/text copies were taken from.
+# When the weekly audit detects a new arXiv version, refresh the pdf/text
+# pair, update the pin, and re-verify every key number cited on the site.
+
+papers:
+  - slug: bpfix
+    title: "Characterizing and Bridging the Diagnostic Gap in eBPF Verifier Rejections"
+    arxiv: "2607.02748"
+    arxiv_version: v1
+    arxiv_updated: 2026-07-02
+    status: arXiv preprint
+    artifact: https://github.com/eunomia-bpf/bpfix
+    pdf: bpfix.pdf
+    text: bpfix.txt
+    blog: {}
+
+  - slug: actplane
+    title: "ActPlane: Programmable OS-Level Policy Enforcement for Agent Harnesses"
+    arxiv: "2606.25189"
+    arxiv_version: v2
+    arxiv_updated: 2026-06-30
+    status: arXiv preprint
+    artifact: https://github.com/eunomia-bpf/ActPlane
+    pdf: actplane.pdf
+    text: actplane.txt
+    blog:
+      en: blog/posts/actplane.md
+      zh: blog/posts/actplane.zh.md
+    related_blog:
+      en: blog/posts/ebpf-ai-agent-policy-enforcement.md
+      zh: blog/posts/ebpf-ai-agent-policy-enforcement.zh.md
+    key_numbers:
+      - value: "2,116 policy-relevant statements"
+        condition: "empirical study corpus: 84 CLAUDE.md/AGENTS.md files from 64 repositories"
+      - value: "64% of statements are policies, 36% are descriptions"
+        condition: "manual classification of the 2,116-statement corpus"
+      - value: "70.1% of repositories are majority-policy"
+        condition: "per-repository share of policy statements in the corpus"
+      - value: "83% of policies are system-observable"
+        condition: "observability classification of policy statements"
+      - value: "context tiers: 26.4% self-contained, 64.2% project-level, 9.4% task-level"
+        condition: "context required to evaluate each policy"
+      - value: "75.8% dangerous-command refusal (DCR)"
+        condition: "vs 48.4% prompt filter, 45.3% tool regex, 48.9% FIDES-style, 53.7% kernel IFC without feedback; 190 traces, 38 rules"
+      - value: "task recovery 97.7% with semantic feedback vs 31.4% without"
+        condition: "feedback ablation: 86 vs 27 recovered tasks"
+      - value: "607 policies compiled by a Codex agent at $0.028 average"
+        condition: "vs roughly $11 estimated for manual authoring"
+      - value: "1.9% end-to-end overhead; 6.5% at 32 rules; 8.4% at 100 rules"
+        condition: "agent workload macrobenchmarks"
+      - value: "74% harm prevention (78 of 106 unsafe outcomes)"
+        condition: "OpenAgentSafety, 361 tasks"
+
+  - slug: kops
+    title: "Kops: Safely Extending the eBPF Compilation Pipeline with Native Operations"
+    arxiv: "2606.24213"
+    arxiv_version: v1
+    arxiv_updated: 2026-06-23
+    status: arXiv preprint
+    artifact: https://github.com/eunomia-bpf/bpf-benchmark
+    pdf: kops.pdf
+    text: kops.txt
+    blog: {}
+
+  - slug: acrfence
+    title: "ACRFence: Preventing Semantic Rollback Attacks in Agent Checkpoint-Restore"
+    arxiv: "2603.20625"
+    arxiv_version: v1
+    arxiv_updated: 2026-03-21
+    status: arXiv preprint
+    artifact: described in the paper
+    pdf: acrfence.pdf
+    text: acrfence.txt
+    blog:
+      en: blog/posts/agent-check-restore-safety.md
+      zh: blog/posts/agent-check-restore-safety.zh.md
+
+  - slug: ncclbpf
+    title: "NCCLbpf: Verified, Composable Policy Execution for GPU Collective Communication"
+    arxiv: "2603.11438"
+    arxiv_version: v2
+    arxiv_updated: 2026-05-04
+    status: arXiv preprint
+    artifact: https://github.com/eunomia-bpf/nccl-eBPF
+    pdf: ncclbpf.pdf
+    text: ncclbpf.txt
+    blog: {}
+
+  - slug: agentcgroup
+    title: "AgentCgroup: Understanding and Controlling OS Resources of AI Agents"
+    arxiv: "2602.09345"
+    arxiv_version: v2
+    arxiv_updated: 2026-02-21
+    status: arXiv preprint
+    artifact: https://github.com/eunomia-bpf/agentcgroup
+    pdf: agentcgroup.pdf
+    text: agentcgroup.txt
+    blog:
+      en: blog/posts/agentcgroup-characterization.md
+      zh: blog/posts/agentcgroup-characterization.zh.md
+
+  - slug: gpu-ext
+    title: "gpu_ext: Extensible OS Policies for GPUs via eBPF"
+    arxiv: "2512.12615"
+    arxiv_version: v2
+    arxiv_updated: 2025-12-20
+    status: arXiv preprint
+    artifact: https://github.com/eunomia-bpf/gpu_ext
+    pdf: gpu-ext.pdf
+    text: gpu-ext.txt
+    blog: {}
+
+  - slug: schedcp
+    title: "Towards Agentic OS: An LLM Agent Framework for Linux Schedulers"
+    arxiv: "2509.01245"
+    arxiv_version: v4
+    arxiv_updated: 2025-09-30
+    status: MLforSystem 2025
+    artifact: https://github.com/eunomia-bpf/schedcp
+    pdf: schedcp.pdf
+    text: schedcp.txt
+    blog:
+      en: blog/posts/schedcp-agentic-os.md
+      zh: blog/posts/schedcp-agentic-os.zh.md
+
+  - slug: agentsight
+    title: "AgentSight: System-Level Observability for AI Agents Using eBPF"
+    arxiv: "2508.02736"
+    arxiv_version: v2
+    arxiv_updated: 2025-08-15
+    status: PACMI 2025
+    artifact: https://github.com/eunomia-bpf/agentsight
+    pdf: agentsight.pdf
+    text: agentsight.txt
+    blog:
+      en: blog/posts/agentsight_paper.md
+      zh: blog/posts/agentsight_paper.zh.md
+
+  - slug: chainio
+    title: "ChainIO: Bridging Disk and Network Domains with eBPF"
+    doi: "10.1145/3748355.3748371"
+    status: eBPF@SIGCOMM 2025
+    artifact: https://github.com/eunomia-bpf/ChainIO
+    pdf: null  # ACM Digital Library copy; local mirror pending
+    text: null
+    blog: {}
+
+  - slug: bpftime-osdi25
+    title: "Extending Applications Safely and Efficiently"
+    url: https://www.usenix.org/conference/osdi25/presentation/zheng-yusheng
+    status: OSDI 2025
+    artifact: https://github.com/eunomia-bpf/bpftime
+    pdf: bpftime-osdi25.pdf
+    text: bpftime-osdi25.txt
+    blog:
+      en: blog/posts/bpftime.md
+      zh: blog/posts/bpftime.zh.md
+
+  - slug: code-survey
+    title: "Code-Survey: An LLM-Driven Methodology for Analyzing Large-Scale Codebases"
+    arxiv: "2410.01837"
+    arxiv_version: v1
+    arxiv_updated: 2024-09-24
+    status: arXiv preprint
+    artifact: https://github.com/eunomia-bpf/code-survey
+    pdf: code-survey.pdf
+    text: code-survey.txt
+    blog:
+      en: blog/posts/code-survey.md
+
+  - slug: wasm-bpf
+    title: "Wasm-bpf: Streamlining eBPF Deployment in Cloud Environments with WebAssembly"
+    arxiv: "2408.04856"
+    arxiv_version: v1
+    arxiv_updated: 2024-08-09
+    status: arXiv preprint
+    artifact: https://github.com/eunomia-bpf/wasm-bpf
+    pdf: wasm-bpf.pdf
+    text: wasm-bpf.txt
+    blog:
+      en: blog/posts/wasm-bpf.md
+      zh: blog/posts/wasm-bpf.zh.md
+
+  - slug: ken
+    title: "KEN: Kernel Extensions using Natural Language"
+    arxiv: "2312.05531"
+    arxiv_version: v1
+    arxiv_updated: 2023-12-09
+    status: "eBPF@SIGCOMM 2024"
+    artifact: https://github.com/eunomia-bpf/KEN
+    pdf: ken.pdf
+    text: ken.txt
+    blog:
+      en: blog/posts/kgent.md
+      zh: blog/posts/kgent.zh.md
+
+  - slug: wio
+    title: "WIO: Upload-Enabled Computational Storage on CXL SSDs"
+    arxiv: "2604.02442"
+    arxiv_version: v1
+    arxiv_updated: 2026-04-02
+    status: arXiv preprint
+    pdf: wio.pdf
+    text: wio.txt
+    blog: {}
+
+  - slug: daxfs
+    title: "DAXFS: A Lock-Free Shared Filesystem for CXL Disaggregated Memory"
+    arxiv: "2604.01620"
+    arxiv_version: v1
+    arxiv_updated: 2026-04-02
+    status: arXiv preprint
+    pdf: daxfs.pdf
+    text: daxfs.txt
+    blog: {}
+
+  - slug: cxlaimpod
+    title: "CXLAimPod: CXL Memory is all you need in AI era"
+    arxiv: "2508.15980"
+    arxiv_version: v1
+    arxiv_updated: 2025-08-21
+    status: arXiv preprint
+    pdf: cxlaimpod.pdf
+    text: cxlaimpod.txt
+    blog: {}
+
+  - slug: cet-disassembly
+    title: "Exploiting Control-flow Enforcement Technology for Sound and Precise Static Binary Disassembly"
+    arxiv: "2506.09426"
+    arxiv_version: v1
+    arxiv_updated: 2025-06-11
+    status: arXiv preprint
+    pdf: cet-disassembly.pdf
+    text: cet-disassembly.txt
+    blog: {}
+
+  - slug: mvvm
+    title: "MVVM: Deploy Your AI Agents Securely, Efficiently, Everywhere"
+    arxiv: "2410.15894"
+    arxiv_version: v2
+    arxiv_updated: 2025-09-23
+    status: arXiv preprint
+    artifact: https://github.com/Multi-V-VM/MVVM
+    pdf: mvvm.pdf
+    text: mvvm.txt
+    blog: {}
+
+  - slug: bpftime-arxiv
+    title: "bpftime: userspace eBPF Runtime for Uprobe, Syscall and Kernel-User Interactions"
+    arxiv: "2311.07923"
+    arxiv_version: v2
+    arxiv_updated: 2023-12-08
+    status: "arXiv preprint; superseded by the OSDI 2025 paper (bpftime-osdi25)"
+    artifact: https://github.com/eunomia-bpf/bpftime
+    pdf: bpftime-arxiv.pdf
+    text: bpftime-arxiv.txt
+    blog:
+      en: blog/posts/bpftime.md
+      zh: blog/posts/bpftime.zh.md
+
+  - slug: cxlmemuring
+    title: "CXLMemUring: A Hardware Software Co-design Paradigm for Asynchronous and Flexible Parallel CXL Memory Pool Access"
+    arxiv: "2309.04011"
+    arxiv_version: v2
+    arxiv_updated: 2026-06-22
+    status: arXiv preprint
+    pdf: cxlmemuring.pdf
+    text: cxlmemuring.txt
+    blog: {}
+
+  - slug: cxlmemsim
+    title: "CXLMemSim: A pure software simulated CXL.mem for performance characterization"
+    arxiv: "2303.06153"
+    arxiv_version: v2
+    arxiv_updated: 2025-06-17
+    status: arXiv preprint
+    artifact: https://github.com/SlugLab/CXLMemSim
+    pdf: cxlmemsim.pdf
+    text: cxlmemsim.txt
+    blog: {}
+
+# Reading notes and reference copies of external papers kept alongside the
+# library (not eunomia-bpf publications):
+external:
+  - slug: osdi20-brunella
+    title: "hXDP: Efficient Software Packet Processing on FPGA NICs"
+    note: osdi20-brunella.md
+    text: osdi20-brunella.txt

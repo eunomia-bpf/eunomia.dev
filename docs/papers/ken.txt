@@ -1,0 +1,1954 @@
+KEN: Kernel Extensions using Natural Language
+Yusheng Zheng
+
+Yiwei Yang
+
+eunomia-bpf Community
+Shanghai, Shanghai, China
+yunwei356@gmail.com
+
+UC Santa Cruz
+Santa Cruz, California, USA
+yyang363@ucsc.edu
+
+Maolin Chen
+
+Andrew Quinn
+
+arXiv:2312.05531v1 [cs.AI] 9 Dec 2023
+
+eunomia-bpf Community
+Shanghai, Shanghai, China
+agaaain.try@gmail.com
+
+Abstract
+
+UC Santa Cruz
+Santa Cruz, California, USA
+aquinn@ucsc.edu
+
+1
+
+Introduction
+
+The ability to modify and extend an operating system is an
+Developers are increasingly tasked with modifying and eximportant feature for improving a system’s security, reliabiltending operating system kernels to improve performance,
+ity, and performance. The extended Berkeley Packet Filters
+security, reliability, or introduce new features to their sys(eBPF) ecosystem has emerged as the standard mechanism
+tems. Extended Berkeley Packet Filters (eBPF) have emerged
+for extending the Linux kernel and has recently been ported
+as the de facto method for extending an operating system,
+to Windows. eBPF programs inject new logic into the kernel
+with recent support for both Linux and Windows [19]. eBPF
+that the system will execute before or after existing logic.
+programs inject new logic that is executed before or after exWhile the eBPF ecosystem provides a flexibility mechanism
+isting kernel logic to observe or modify the kernel’s behavior.
+for kernel extension, it is difficult for developers to write
+eBPF programs were originally used to trace network traffic,
+eBPF programs today. An eBPF developer must have deep
+but the ecosystem now provides sufficient power to impleknowledge of the internals of the operating system to dement a variety of features including performance monitoring
+termine where to place logic and cope with programming
+performance [25, 27], detecting intrusion detection [5, 35],
+limitations on the control flow and data accesses of their
+and application-specific logic [23, 37, 65, 66].
+eBPF program enforced by the eBPF verifier. In the end, the
+Unfortunately, eBPF programs are difficult to write corlimitations enforced by today’s eBPF framework ensure that
+rectly. Implementing an eBPF program requires intimate
+only expert kernel developers can extend their kernels.
+knowledge of kernel internals to identify where to inject
+This paper presents KEN, an alternative framework that
+logic [17]. Additionally, the eBPF verifier, intended to prealleviates the difficulty of writing an eBPF program by alvent unsafe eBPF programs from executing on a system,
+lowing Kernel Extensions to be written in Natural language.
+imposes a number of unfortunate programming constraints
+KEN uses recent advances in large language models (LLMs)
+on eBPF programmers: programs can only use limited conto synthesize an eBPF program given a user’s English lantrol flow (e.g., loops must have constant bounds) and limguage prompt. To ensure that LLM’s output is semantically
+ited data accesses (e.g., the program cannot access arbitrary
+equivalent to the user’s prompt, KEN employs a combinamemory). Consequently, eBPF is not even a Turing Complete
+tion of LLM-empowered program comprehension, symbolic
+language [41].
+execution, and a series of feedback loops. KEN’s key novelty
+In this paper, we present KEN, a system that alleviates
+is the combination of these techniques. In particular, the systhe difficulty of eBPF by allowing Kernel Extensions writtem uses symbolic execution in a novel structure that allows
+ten in Natural language. KEN uses recent advances in large
+it to combine the results of program synthesis and program
+language models (LLMs) (e.g., OpenAI’s InstructGPT[43],
+comprehension and build on the recent success that LLMs
+HumanEval[11], and ChatGPT [55]) to synthesis an eBPF
+have shown for each of these tasks individually.
+program given a user’s English language prompt. A user
+To evaluate KEN, we develop a new corpus of natural
+can then extend their kernel by injecting the eBPF program
+language prompts to eBPF programs. We show that KEN
+produced by KEN without having to understand eBPF or a
+produces correct eBPF programs on 80%—which is an imkernel’s internals.
+provement of a factor of 2.67 compared to a LLM-empowered
+Alas, naively extending a kernel using the output from
+program synthesis baseline. Moreover, we find that KEN very
+an LLM is dangerous. LLMs generate responses that can be
+rarely synthesizes “false positive” eBPF programs—i.e., eBPF
+unsafe or semantically incorrect. While the eBPF verifier
+programs that KEN verifies as correct but manual inspection
+prevents many unsafe eBPF programs from compromising
+reveals to be semantically incorrect for the input prompt. The
+the kernel, there are fundamental safety issues that remain
+code for KEN is publicly accessible at https://github.com/eunomia- unpatched [36]. Additionally, no existing tools provide assurbpf/KEN.
+ances that the semantics of KEN’s output eBPF program are
+
+Conference’17, July 2017, Washington, DC, USA
+
+equivalent to the semantics of the English language prompt
+input. Consequently, a naive LLM-based eBPF program synthesis tool only produces a correct program on 30% of programs for a representative set of kernel extension prompts.
+KEN addresses the semantic correctness challenge by combining three techniques: automated program comprehension,
+symbolic execution, and feedback-loops. In addition to using an LLM in its Synthesis Engine to synthesize an eBPF
+program for a user prompt, KEN also uses an LLM in its
+Comprehension Engine to identify Hoare-logic constraint
+that specifies the conditions that must hold before and after
+all kernel functions with which an eBPF candidate program
+interacts. KEN annotates its synthesized eBPF program with
+the constraints and passes the results to a symbolic execution
+engine to validate that the constraints are upheld by the eBPF
+program. If a candidate eBPF program passes the symbolic
+execution engine, KEN further validate its safety using the
+current eBPF verifier. KEN includes feedback loops to retry
+synthesis when the system fails to synthesize a verified eBPF
+program. It passes error messages back to reprompt itself on
+failure, which can happen because of a symbolic execution
+timeout, constraint failure during symbolic execution, or
+when the eBPF verifier fails.
+KEN adopts state-of-the-art techniques for eBPF program
+synthesis throughout each of its key components (LLMbased program synthesis, LLM-based program comprehension, symbolic execution, and feedback loops). The system’s
+key novelty lies in its synergistic combination of these techniques. In particular, KEN’s use of symbolic execution is a
+novel structure that allows it to combine the results of program synthesis and program comprehension and build on
+the success that LLMs have shown for each task individually.
+In addition to the system artifact, we produce two novel
+datasets as a part of this paper. These datasets are not only
+useful for building and evaluating KEN, but will also be
+useful for future work on eBPF program synthesis. First,
+eBPFNLDataset is a dataset of eBPF programs and natural
+language descriptions. eBPFNLDataset consists of 145 pairs
+of natural language prompts with eBPF programs. 65 of the
+paris are from a popular eBPF programming blog [24], while
+the remaining 80 are handwritten based upon examples from
+popular open-source eBPF repositories [4, 16, 48, 59]. Second,
+we created KernelCompDataset, a dataset of Hoare-logic contracts for all Linux functions that can be hooked by an eBPF
+program. We present a novel methodology for automatically
+generating such contracts by using the kernel’s source code,
+developer comments embedded in the source code, and an
+LLM.
+We validate KEN on eBPFNLDataset, using test programs
+from the blog as a training set and the new tests as the test
+set. We find that KEN produces semantically correct eBPF
+programs on 80%of the test cases, which is 2.67 times better
+than a naive strategy that only uses LLM-based program
+
+Yusheng Zheng, Yiwei Yang, Maolin Chen, and Andrew Quinn
+
+synthesis. Moreover, we find that KEN only produces a single “false positive”—an output program that passes KEN’s
+verification but is not semantically correct for the provided
+prompt. In addition to these high-level results, we show
+that each of KEN’s design principles—feedback-loops, LLMempowered program comprehension, symbolic execution,
+and training on the new eBPFNLDataset dataset—contributes
+to its strong results. Finally, we explore the performancecost-privacy tradeoffs between using large cloud-based LLMs
+(e.g., ChatGPT-4 [55]) and small locally-deployable LLMs
+(e.g., CodeLLama) and show that the large cloud-based LLMs
+outperform the small LLMs by a factor of 5.3.
+In summary, our contributions are:
+• We present KEN, the first tool for safely expressing
+operating system extensions in natural language using
+program synthesis, program comprehension, symbolic
+execution, and feedback loops.
+• We create two datasets: eBPFNLDataset, which provides a rich dataset of eBPF programs and natural language descriptions to aid with training and evaluating
+program synthesis for eBPF programs, and KernelCompDataset, which provides hoare-logic contracts
+for Linux helper functions to aid tune program comprehension.
+• We evaluate KEN on eBPFNLDataset and show that
+KEN accurately synthesizes eBPF programs on 80% of
+prompts in a representative test set while only verifying a semantically incorrect program in 2.5% of cases.
+The rest of this paper proceeds as follows: First, we describe background on each of the techniques employed by
+KEN (section 2); then, we discuss KEN’s design (section 3);
+next, we describe a case study as an example of how KEN
+works (section 4); we describe our evaluation (section 5),
+elaborate on related work (section 6), and concluding (section 7).
+
+2
+
+Background
+
+This section describes background on the key techniques
+that KEN employs and a discussion of common eBPF tasks.
+2.1
+
+Key KEN Techniques
+
+We describe background for each of the key techniques upon
+which KEN builds.
+2.1.1 Large Language Models. LLMs use machine learning to create sophisticated chat-like programs capable of creating useful responses to natural language prompts. Systems
+such as InstructGPT [43], HumanEval[11], and ChatGPT have
+employed LLMs for program synthesis, in which a developer
+prompts the systme with a natural language description of
+the program and the LLM responds with source code. Below
+we describe two standard techniques that have emerged for
+taking advantage of LLMs.
+
+KEN: Kernel Extensions using Natural Language
+
+In-Context Learning. Systems that employ in-context
+Learning [9, 30, 39] adapt an LLM to a new target area by
+adding minimal contextual data to an LLM (e.g., they prompt
+the LLM with a small corpus of particularly pertinent inputs)
+and carefully crafted prompts rather than training a custom
+LLM on a large dataset. In-context learning is more costeffective and can new data more quickly than traditional
+alternatives. The key challenges in employing in-context
+learning in a new synthesis domain involve identifying a
+corpus of critical examples and crafting a prompt strategy
+that guides the underlying LLM [9, 47].
+Feedback Loops. Many systems employ a feedback-driven
+approach to validate an LLM’s output against some specification and pass feedback to the model to refine the output. For
+example, HarmonyOS developers [62], Self-Debugging [12],
+and TPUv4 designers [51] use unit tests to evaluate whether
+an LLM’s output is correct. The fundamental challenge in
+developing such ground truth unit tests—manually crafting a set of unit tests that can sufficiently guide the LLM is
+likely as difficult as manually writing the ideal synthesized
+output. Developers in the aforementioned examples were
+able to use unit tests that were already created for their use
+cases. Additionally, Self-Debugging includes a mechanism
+to provide feedback by using an LLM to explain the behavior of synthesized programs. The system refines its output
+by iteratively synthesizing programs, explaining the synthesized program and checking its unit-test outputs, and then
+iteratively re-synthesizing.
+2.1.2 Automated Program Comprehension. Automated
+program comprehension determines properties of a program’s execution without requiring developer effort. Early
+work [44] uses a counter-example driven approach, which
+observe a program under test and derive invariants that hold
+over all executions. Recent works shows that LLMs are effective at program comprehension tasks [1, 20, 21, 45, 63, 67],
+but their output is typically an English description of the
+program.
+2.1.3 Symbolic Execution. Automated program verification has emerged to ensure that programs are correct without requiring a developer to write a copious amount of tests.
+There are a wide range of existing solutions including model
+checking [15, 49], fuzzing [22], and symbolic execution (symbex) [8, 29]. KEN uses symbex because symbolic execution
+has been shown to be highly effective in finding issues both
+in operating systems [14] and user-programs [8, 29].
+A symbolic execution engine reasons about the behavior
+of a function or program to determine whether the program
+upholds specific properties (e.g., memory safety). A symbex
+engine associates a symbolic value with each variable in
+the program. As the program executes, the engine gathers
+constraints on the symbolic values (e.g., variable x is less
+than 3). During execution, the engine uses an SMT solver
+
+Conference’17, July 2017, Washington, DC, USA
+
+Prompt 1: If a process tries to use ptrace, it should be
+killed with signal 2 and its PID should be displayed.
+Prompt 2: Capture and display all bash commands executed system-wide, along with their exit codes.
+Prompt 3: If the fan speed is within 90% of its maximum
+limit, modify the scheduling policy to optimize performance.
+Figure 1. Descriptions of typical eBPF management/observability programs.
+to determine if a given property (e.g., “can this pointer be
+equal to NULL?”) can be violated given the constraints that
+the engine gathered. Thus, symbolic execution can reason
+about large classes of inputs to a function or program without needing to execute each input individually. Symbolic
+Execution Engines face two fundamental challenges: Path
+Explosion and Verification Properties.
+Path Explosion. The number of control-flow paths through
+a program is exponential in the number of conditional operations in the program. To ensure full coverage of a program,
+a symbolic execution engines must consider each of these
+exponentially many paths; this challenge is known as “the
+path explosion problem”. One main consequence of the path
+explosion problem is that symbolic execution is traditionally limited to analyzing relatively small programs and/or
+individual functions within programs.
+Verification Properties. Most symbolic execution engines verify that programs satisfy high-level properties such
+as memory safety (e.g., the program does not dereference a
+NULL pointer) and safe arithmetic (e.g., the program does
+not divide by zero). Some systems have used symbex to ensure that each function satisfies Hoare-logic-style pre- and
+post-conditions of individual functions [13, 46].
+2.2
+
+eBPF: Extended Berkeley Packet Filter
+
+Operating system extension is a critical task for developers
+today. Numerous techniques have been developed to ensure
+safe kernel extensions [7, 42, 54], with extended Berkeley
+Packet Filters (eBPF) recently emerging as the de facto standard for today’s systems. eBPF permits custom user-defined
+program execution within the kernel space without the need
+to alter the kernel’s source or load additional modules. To
+preserve system security, the eBPF verifier[57] verifies security critical properties of eBPF code prior to its execution.
+Figure 1 includes three examples of management and observability programs that can be written using eBPF. In addition
+to such management tasks, eBPF has been used for scheduling [31, 56], security [34], and custom file system rules [66].
+For example, Google’s Pixel6 kernel [56] uses eBPF to implement a power-aware real-time scheduler that applies handwritten rules to optimize CPU performance based on user
+
+Conference’17, July 2017, Washington, DC, USA
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+
+#!/usr/bin/env bpftrace
+
+Yusheng Zheng, Yiwei Yang, Maolin Chen, and Andrew Quinn
+
+Kill Processes that
+Fork 20 times
+
+KEN
+Prompt
+
+Synthesis
+
+Prompter
+tracepoint:syscalls:sys_enter_kill
+Engine
+{
+eBPF Candidate
+@tpid[tid] = args.pid;
+@tsig[tid] = args.sig;
+Comprehension
+}
+Engine
+tracepoint:syscalls:sys_exit_kill
+Annotated
+eBPF Candidate
+/@tpid[tid]/
+{
+Invalid or
+Symbolic
+time("%H:%M:%S ");
+Timeout
+Verifier
+printf("%-6d %-16s %-4d %-6d %d\n", pid, comm, @tsig[tid], @tpid[tid],
+eBPF Candidate
+args.ret);
+delete(@tpid[tid]);
+Invalid
+eBPF Verifier
+delete(@tsig[tid]);
+eBPF Program Output
+}
+
+Figure 2. A bpftrace script that implements Prompt 2 from
+fig. 1.
+
+activity. In one case, the Pixel6 kernel includes an eBPF program that reduces the CPU frequency immediately after a
+user closes a game.
+The eBPF ecosystem includes multiple frameworks for
+building tools—the two dominate approaches being bpftrace
+and libbpf. libbpf is a C/C++ library that offers a numerous helper functions and structures to use when extending the kernel. In contrast, bpftrace provides a high-level
+scripting interface; fig. 2 provides an example bpftrace script
+for Prompt 2 in fig. 1 . can compile bpftrace programs
+into injectable eBPF bytecode by using the BCC library. Conventional wisdom is that libbpf implementations are more
+flexible than bpftrace implementations (i.e., a developer can
+implement more tasks), but also have more programming
+complexity [26]. Writing an eBPF program for either framework can be daunting, since a developer needs to understand
+operating system internals to determine where to inject logic,
+and is limited in the control flow and data accesses that they
+can issue.
+
+3
+
+System Design
+
+This section describes the design and implementation of
+KEN; Figure 3 depicts the system’s key components and
+how they interact. KEN consists of four main components: a
+Prompter (section 3.2), responsible for constructing prompts
+that generate eBPF programs; a Synthesis Engine (section 3.3),
+responsible for synthesizing a candidate eBPF program given
+a natural language prompt; a Comprehension Engine (section 3.4), responsible for annotating a candidate eBPF program with accurate Hoare-logic conditions for each of the
+kernel functions with which the candidate interacts; and the
+Symbolic Verifier (section 3.5), responsible for ensuring that
+
+Figure 3. The Workflow of KEN
+the candidate eBPF program upholds the Hoare-logic annotations. The system also uses the existing eBPF verifier to
+ensure that the eBPF candidate meets basic security criteria.
+KEN uses in-context learning (section 2.1.1) to augment
+existing LLMs without requiring training of an entirely new
+model. This design allows KEN to remain LLM agnostic—
+the system can use any LLM and thus supports a variety of
+cost-performance-privacy tradeoffs (section 5.3). Supporting in-context learning requires two technical contributions:
+prompting strategies that guide the LLMs to produce correct
+output and new datasets for the Synthesis and Comprehension Engines.
+KEN uses a feedback-driven approach to iteratively synthesize a correct eBPF program. KEN includes two such feedback loops. First, if the Symbolic Verifier determines that a
+candidate eBPF program from the Synthesis Engine does not
+uphold the Hoare-logic conditions from the Comprehension
+Engine or if the Symbolic Verifier times out, then the Verifier
+will pass the failure back to the Prompter. This feedback loop
+allows both Engines additional chances to synthesize correct
+output. The second feedback is from the eBPF verifier to the
+Prompter and is taken when the eBPF verifier does not verify
+that the synthesized eBPF program is safe.
+Each of KEN’s components is an adoption of state-of-theart techniques to the problem of eBPF program synthesis.
+KEN’s key novelty lies in its combination of these techniques
+which empowers a useful and efficient program synthesis
+tool. In particular, KEN’s use of symbolic execution to combine the results of program synthesis and program comprehension is a novel structure that allows KEN to build on the
+power that LLMs have shown on both tasks individually.
+The rest of this section proceeds as follows. We first describe the workflow of synthesizing an eBPF program for a
+user prompt (section 3.1). Then, we discuss each of KEN’s
+
+KEN: Kernel Extensions using Natural Language
+
+components (section 3.2–section 3.6). Finally, we describe
+KEN’s implementation details (section 3.7).
+3.1
+
+Workflow
+
+The high-level workflow for synthesizing an eBPF program
+in KEN is as follows. The user issues a prompt to the Prompter,
+which forwards the user’s prompt to KEN’s Synthesis Engine.
+The Synthesis Engine consults an LLM to synthesize a candidate eBPF program based upon the user’s input. KEN passes
+the candidate eBPF program to the Comprehension Engine,
+which consults an LLM to annotate the candidate eBPF program with Hoare-logic pre- and post-conditions for each of
+the Kernel functions that is referenced in the candidate eBPF
+program. KEN passes this annotated eBPF candidate to its
+Symbolic Verifier, which validates that the synthesized eBPF
+program satisfies the Hoare-logic properties. If the Symbolic
+Verifier determines that the eBPF program does not uphold
+the semantic properties, or if the Symbolic Verifier times out,
+then the Symbolic Verifier passes its output to the Prompter
+to begin another iteration of KEN. If the Symbolic Verifier
+succeeds, it passes the eBPF program to the eBPF verifier to
+validate the program’s safety properties. The eBPF verifier
+will pass its error message to the Prompter to begin another
+iteration of KEN if the eBPF program is deemed unsafe.
+If KEN fails to synthesize a verified eBPF program after a
+configured number of trials (3 is the default), the system will
+re-prompt the user to include additional information. Anecdotally, we observe that including small additional semantic
+hints (e.g., hinting at the expected size of some variables)
+can often resolve KEN’s synthesis issues.
+3.2
+
+Prompter
+
+The Prompter takes the input prompt from the user and
+specially formats it to pass to the synthesis engine. In particular, the Prompter adds boilerplate text instructing KEN to
+produce an eBPF program written for bpftrace framework 1 .
+Additionally, the Prompter appends all error messages that
+it has received for the current synthesis task by all feedback
+loops. For example, if the Symbolic Verifier failed in a first
+iteration with message failure1 and the eBPF verifier
+failed in a second iteration with message failure2, then
+the Prompter will append both failure1 and failure2
+to its message before sending it to the Synthesis Engine.
+3.3 Synthesis Engine
+The Synthesis Engine takes a natural language prompt and
+consults an LLM to generate a candidate eBPF program. The
+engine uses LangChain [32] as mechanism for interacting
+with an arbitrary LLM, which allows KEN to support a variety of privacy-cost-performance tradeoffs.
+1We experiment with generating eBPF programs written for libbpf in the
+
+evaluation (section 5.
+
+Conference’17, July 2017, Washington, DC, USA
+
+Like other systems [12], the Synthesis Engine uses a VectorDB (e.g., Milvus [60]) to enable in-context learning. The
+engine stores prompt-eBPF pairs from the eBPFNLDataset
+dataset (see below) in its vectorDB. On each query, the engine uses the VectorDB to identify the prompt-eBPF pairs
+that are most similar to the user prompt and includes these
+pairs as examples of correct input-output pairs in its query to
+the large language model. Thus, KEN is similar to few-shot
+learning [61]. KEN also updates its VectorDB after each synthesis, which allows the system to learn from its successful
+and failure eBPF syntheses.
+By specifying the desired syntax in the LLM prompt, we
+find that the Synthesis Engine almost always synthesizes
+correct syntax. Our results show that it also often synthesizes
+correct semantics (section 5).
+
+eBPFNLDataset—an eBPF synthesis Dataset. The Synthesis Engine is empowered by eBPFNLDataset, a novel
+dataset of 145 natural language prompts paired with corresponding eBPF programs, 79 of which are bpftrace programs
+and 66 of which are libbpf programs. eBPFNLDataset was
+gathered from two sources. First, 65 pairs (39 bpftrace, 26
+libbpf) come from a popular eBPF developer blog [24]. The
+other 80 pairs (40 bpftrace, 40 libbpf) are hardwritten based
+upon examples from well-known open-source eBPF project
+repositories, such as bcc[48], bpftrace[59], ebpf-exporter[16],
+or eunomia-bpf[4]. One example pair is Prompt 2 from fig. 1
+and the bpftrace script from fig. 2.
+
+3.4
+
+Comprehension Engine
+
+The Comprehension Engines takes an eBPF candidate program as input and annotates it with Hoare-logic pre- and
+post- conditions at the beginning and end of each of the
+synthesized eBPF functions. The engine first uses a regular
+expression to identify the kernel locations that the candidate
+program instruments. The Comprehension Engine obtains
+the pre- and post-conditions for each kernel location by consulting the KernelCompDataset, which includes pre- and
+post-conditions that hold for each function that can be instrumented by eBPF (see below).
+The Comprehension Engine prompts an LLM using LangChain.
+Its prompt asks the LLM to create assert or assume statements for the beginning and end of each function in the
+eBPF program, respectively. The prompt includes the eBPF
+function, the original developer prompt, and together with
+the pre- and post-conditions obtained from the KernelCompDataset. The engine produces output that annotates the
+candidate eBPF program with LLM-generated assert/assume
+statements. Note that KEN could directly use the pre-/postconditions from the KernelCompDataset to construct assume and assert statements. However, its output would not
+
+Conference’17, July 2017, Washington, DC, USA
+
+be able to use the developer’s prompt when generating assume/assert statements and would produce fewer semantically correct programs. Moreover, passing the pre-/postconditions through the LLM allows KEN to smooth out any
+inaccuracies in the KernelCompDataset—which arise because the KernelCompDataset is automatically generated
+and thus neither sound nor complete. Finally, using an LLM
+allows the Comprehension Engine to learn from its mistakes
+and successes, like the Synthesis Engine, by updating an
+internal VectorDB on every prompt.
+It is worth noting that the LLM in a Comprehension Engine could nefariously adjust its pre-/post-conditions so that
+all candidate eBPF programs are tautologically verified by
+the symbolic verifier. Our evaluation (section 5) shows empirically that this is not the case since KEN synthesizes few
+“false positives”—i.e., programs that the system verifies but
+that manual inspect reveals to not implement the same semantics as the natural language prompt. We hypothesize that
+one reason that we do not see the Comprehension Engine
+gaming the system towards tautology is that the engine’s
+VectorDB learns slowly and so we do not observe the VectorDB drastically impacting the LLM behavior. It is possible
+that a extremely long-running deployment would observe
+more such false positives. This issue could then be resolved
+by occasionally clearing the Comprehensive Engine’s VectorDB.
+KernelCompDataset—a dataset of Hoare-logic contracts for kernel functions. Manually creating a dataset of
+Hoare-logic contracts for every eBPF instrumentable kernel
+function would be infeasible. There are hundreds of such
+functions, and the functions themselves change with each
+new kernel release. Thus, we chose to generate KernelCompDataset using an automated approach that we can then
+adapt to new kernel versions. We use a regular expression
+to identify every function that has a symbol in the kernel.
+To approximate the function’s semantics, we use a regular
+expression to find any comments immediately before the
+function. We pass the function prototype, source code, and
+approximate semantics into an LLM using a prompt that asks
+for Z3 compatible conditions for each of the eBPF helpers. We
+store the approximate semantics, prototype, and the output
+from the LLM in a JSON format in the KernelCompDataset.
+If detected, developers could fix inaccuracies from the automated approach, although we have not needed to do so in
+KEN.
+3.5
+
+Symbolic Verifier
+
+The symbolic verifier uses symbolic execution to validate
+the annotated eBPF candidate program produced the Comprehension Engine. If the symbolic verifier determines that
+the program upholds the assert statements, it removes the
+assert/assume statements and passes the candidate eBPF program to the eBPF verifier. If the symbolic verifier finds an
+
+Yusheng Zheng, Yiwei Yang, Maolin Chen, and Andrew Quinn
+
+assertion statement that is not upheld or times out, then it
+passes its error message to the Prompter.
+3.6
+
+eBPF Verifier
+
+KEN uses the existing eBPF Verifier from the operating system. Namely, the eBPF Verifier validates that the eBPF candidate program produced by the Symbolic Verifier contains no
+unbounded loops or arbitrary memory accesses. If the eBPF
+verifier is unable to assure that the candidate program is safe,
+it passes its error message back to the Prompter. Otherwise,
+the eBPF verifier passes the eBPF candidate program to the
+user as its final synthesized eBPF program.
+3.7
+
+Implementation
+
+We implement KEN, eBPFNLDataset, and KernelCompDataset
+using 4244 LOC in Python and 490 LOC cumulatively acrosss
+HTML, CSS, and JS. In addition, we add 51 LOC to the bpftrace compiler to add support for assume and assert functions.
+KEN uses SeaHorn [29] as its Symbolic Verifier and Z3 [18]
+as its backend SMT solver. SeaHorn symbolically executes
+LLMV IR; KEN uses SeaHorn by compiling the output of the
+Comprehension Engine to LLVM IR.
+KEN supports a multitude of LLM, but employs ChatGPT4 by default. While eBPF is now supported in Windows,
+our current KEN prototype only works on Linux. KEN can
+synthesize eBPF programs for both libbpf and bpftrace, but
+it defaults to bpftrace because we found that KEN is more
+effective at synthesizing bpftrace programs (section 5).
+
+4
+
+Case Study
+
+This section describes a case study of using KEN to provide
+an example of how each of KEN’s steps work. We crafted
+this scenario specifically to illustrate KEN’s behavior; it is
+not a test from eBPFNLDataset.
+In this case study, a user wishes to display information to
+their terminal about all of the tcp connections that are made
+to their webserver so that they can detect denial of service
+attacks that are made against it. Kernel extensions offers
+a good mechanism for performing full system telemetry.
+However, since the developer is not a linux kernel expert,
+they turn to KEN to help them build their eBPF program.
+Figure 4 shows the developer’s prompt that the developer
+issues to KEN. They ask the system to trace all IPv4 and
+IPv6 tcp_connect events and specify their desired output
+including the proper order for each port.
+KEN Prompter passes the user’s prompt to the Synthesis Engine, which generates the output program shown in
+fig. 5. The program parses the relevant data from the sk parameter of the kernel probe tcp_connect. The Synthesis
+Engine passes the synthesized candidate eBPF program to
+the Comprehension Engine.
+
+KEN: Kernel Extensions using Natural Language
+
+Prompt: Write a bpftrace program to trace
+tcp_connect events for both IPv4 and IPv6 connection
+attempts, display the source and destination IP
+addresses and the source and destination ports in host
+byte order.
+
+Conference’17, July 2017, Washington, DC, USA
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+
+Figure 4. A prompt passed into KEN instructing it to print
+basic connection information for all tcp connect attempts.
+
+kprobe:tcp_connect {
+$saddr = ntop(2, $sk->__sk_common.skc_rcv_saddr);
+$daddr = ntop(2, $sk->__sk_common.skc_daddr);
+$sport = ($sk->__sk_common.skc_num);
+$dport = ($sk->__sk_common.skc_dport);
+printf("TCP connect: %s:%d -> %s:%d\n", $saddr, $sport,
+↩→ $daddr, $dport);
+}
+
+Figure 5. The output of the Synthesis Engine on the prompt
+from fig. 4.
+
+"kretprobe:tcp_connect_init": {
+"pre": {
+"sk": "!=null",
+}
+}
+
+Figure 6. JSOn for the matching element in KernelCompDataset for the kernel probe specified in fig. 5.
+The Comprehension Engine first uses a regular expression
+to lookup any pre- and post-conditions in its KernelCompDataset for the tcp_connect kprobe. Figure 6 shows the
+matching pre-condition. The Comprehension Engine then
+prompts its LLM to identify assert and assume statements for
+the candidate eBPF program, passing input as the matching
+pre-condition, the original user prompt, and the candidate
+eBPF program. Figure 7 shows the annotated eBPF candidate
+program generated by adding the LLM generated assume
+and assert statements. The LLM generates the assume in pink
+based upon the pre-condition from the KernelCompDataset
+element. The LLM generates the yellow assume statements
+based upon the user prompt. Finally, the LLM generates the
+assert statements in blue based upon the users prompt. Note
+that the final statement determines that bytes should be
+swapped because the user’s query asks for host byte order.
+Then, KEN passes the annotated eBPF candidate program
+to the symbolic verification engine. The engine translates the
+assume an assert statements into SMT formulas and passes
+them to Z3 to verify if the originally generated eBPF program
+satisfies both the safety requirements from the eBPF verifier
+and semantics requirements from the prompt. Specifically,
+
+10
+11
+12
+13
+14
+15
+16
+17
+
+kprobe:tcp_connect {
+$sk = (struct sock *) arg0;
+assume($sk != 0);
+assume($sk->__sk_common.skc_rcv_saddr != 0);
+assume($sk->__sk_common.skc_daddr != 0);
+assume($sk->__sk_common.skc_num >= 0);
+assume($sk->__sk_common.skc_dport >= 0);
+assume(sizeof($sk->__sk_common.skc_rcv_saddr) == 4 ||
+↩→ sizeof($sk->__sk_common.skc_rcv_saddr) == 16);
+assume(sizeof($sk->__sk_common.skc_daddr) == 4 ||
+↩→ sizeof($sk->__sk_common.skc_daddr) == 16);
+$saddr = ntop(2, $sk->__sk_common.skc_rcv_saddr);
+$daddr = ntop(2, $sk->__sk_common.skc_daddr);
+$sport = ($sk->__sk_common.skc_num);
+$dport = ($sk->__sk_common.skc_dport);
+printf("TCP connect: %s:%d -> %s:%d\n", $saddr, $sport,
+↩→ $daddr, $dport);
+assert($dport == bswap($sk->__sk_common.skc_dport));
+assert($sport == bswap($sk->__sk_common.skc_num));
+}
+
+Figure 7. Annotated candidate eBPF program produced by
+the Comprehension Engine for verification. The original
+synthesized eBPF program is shown in gray. Pre-conditions
+inferred from KernelCompDataset are shown in pink. Preconditions inferred from the user prompt are shown in yellow. Finally, post-conditions inferred from the user’s prompt
+are shown in blue.
+
+kprobe:tcp_connect {
+$saddr = ntop(2, $sk->__sk_common.skc_rcv_saddr);
+$daddr = ntop(2, $sk->__sk_common.skc_daddr);
+$sport = (bswap($sk->__sk_common.skc_num));
+$dport = (bswap($sk->__sk_common.skc_dport));
+printf("TCP connect: %s:%d -> %s:%d\n", $saddr, $sport,
+↩→ $daddr, $dport);
+}
+
+Figure 8. The output of the Synthesis Engine on the second
+iteration for the prompt of fig. 4 and the error message for
+the symbolic verification failure of fig. 7
+
+since line 13 contradicts line 15 in fig. 7, and line 12 contradicts line 16, the symbolic verification engine identifies the
+program as invalid.
+KEN’s feedback loops perform another iteration of synthesis, adding error messages indicating the failed assert
+statements to the prompt. This time, the Synthesis Engine
+creates the synthesized program in fig. 8, with sport and
+dport variables correctly assigned in host byte order. The
+Comprehension Engine identifies the same assume and assert statements as were identified in fig. 7. On this iteration,
+the new candidate program is passed to the symbolic verifier,
+the verifier determines that the candidate eBPF program is
+correct. Furthermore, the eBPF verifier confirms that the
+candidate contains no security issues, so the developer can
+safely extend their kernel with the new program.
+
+Conference’17, July 2017, Washington, DC, USA
+
+Yusheng Zheng, Yiwei Yang, Maolin Chen, and Andrew Quinn
+
+Table 1. End-to-End Effectiveness comparison of KEN with
+a ChatGPT-4 baseline
+System
+ChatGPT-4
+KEN
+
+5
+
+A
+30%
+80%
+
+FP
+2.5%
+2.5%
+
+FN
+67.5%
+17.5%
+
+Evaluation
+
+We implemented a prototype of KEN and used it to answer
+the following research questions:
+• RQ1 How effective is KEN at synthesizing eBPF programs for representative eBPF prompts?
+• RQ2 How does each aspect of KEN’s design contribute
+to the system’s accuracy?
+• RQ3 What are the performance, privacy, and cost tradeoffs from using different LLM implementations for
+KEN?
+KEN employs ChatGPT4 as its LLM unless otherwise specified. Additionally, unless otherwise specified, we train the
+system using KernelCompDataset and the set of prompteBPF program pairs from eBPFNLDataset that were scrapped
+from the popular web blog [24] and test the system using
+the set of prompt-eBPF program pairs from eBPFNLDataset
+that we created anew. We create a baseline that synthesizes
+eBPF programs using a single prompting of ChatGPT-4 and
+verifies the output eBPF program by using the built-in eBPF
+verifier.
+Since each prompt can be correctly implemented in multiple ways, we manually inspect KEN’s synthesized eBPF
+program for each prompt to determine if the output correctly implements the prompt. We calculate the Accuracy (A)
+of KEN for each experiment, which is the fraction of prompts
+for which KEN synthesized a correct eBPF program.
+To understand the consequence of KEN’s incorrect outputs, we split the prompts for which KEN fails to correctly
+synthesize an eBPF program into two categories: False Negative (FNs), which are the percentage of prompts for which
+KEN fails to synthesize a verified eBPF program, and False
+Positives (FPs), which are the percentage of prompts for which
+KEN synthesizes a verified eBPF program that does not correctly implement the prompt. Conceptually, FPs represent
+a safety violation since a developer using KEN may extend
+their kernel incorrectly when KEN produces a false positive. In contrast, FNs represent a liveness violation since a
+developer is effectively unable to use KEN for such prompts.
+5.1
+
+RQ1: KEN Effectiveness
+
+For each prompt in the eBPFNLDataset testing set, fig. 9
+shows a bar depicting the percentage of time that KEN and
+the ChatGPT-4 baseline are accurate, produce a false positive,
+and produce false negative across 10 iterations of the prompt.
+Table 1 shows the average number of prompts on which
+each system is accurate, has a false positive, and produces a
+
+Case 1
+
+100
+
+100
+
+Case 2
+
+100
+
+Case 3
+
+100
+
+Case 4
+
+100
+
+Case 5
+
+100
+
+Case 6
+
+100
+
+Case 7
+
+100
+
+80
+
+80
+
+80
+
+80
+
+80
+
+80
+
+80
+
+80
+
+60
+
+60
+
+60
+
+60
+
+60
+
+60
+
+60
+
+60
+
+40
+
+40
+
+40
+
+40
+
+40
+
+40
+
+40
+
+40
+
+20
+
+20
+
+20
+
+20
+
+20
+
+20
+
+20
+
+0
+100
+
+C
+K
+Case 9
+
+0
+100
+
+C
+K
+Case 10
+
+0
+100
+
+C
+K
+Case 11
+
+0
+100
+
+C
+K
+Case 12
+
+0
+100
+
+C
+K
+Case 13
+
+0
+100
+
+C
+K
+Case 14
+
+0
+100
+
+20
+
+C
+K
+Case 15
+
+0
+100
+
+80
+
+80
+
+80
+
+80
+
+80
+
+80
+
+80
+
+80
+
+60
+
+60
+
+60
+
+60
+
+60
+
+60
+
+60
+
+60
+
+40
+
+40
+
+40
+
+40
+
+40
+
+40
+
+40
+
+40
+
+20
+
+20
+
+20
+
+20
+
+20
+
+20
+
+20
+
+20
+
+0
+
+0
+
+0
+
+0
+
+0
+
+0
+
+0
+
+100
+
+C
+K
+Case 17
+
+100
+
+C
+K
+Case 18
+
+100
+
+C
+K
+Case 19
+
+100
+
+C
+K
+Case 20
+
+100
+
+C
+K
+Case 21
+
+100
+
+C
+K
+Case 22
+
+100
+
+C
+K
+Case 23
+
+0
+100
+
+80
+
+80
+
+80
+
+80
+
+80
+
+80
+
+80
+
+80
+
+60
+
+60
+
+60
+
+60
+
+60
+
+60
+
+60
+
+60
+
+40
+
+40
+
+40
+
+40
+
+40
+
+40
+
+40
+
+40
+
+20
+
+20
+
+20
+
+20
+
+20
+
+20
+
+20
+
+0
+100
+
+C
+K
+Case 25
+
+0
+100
+
+C
+K
+Case 26
+
+0
+100
+
+C
+K
+Case 27
+
+0
+100
+
+C
+K
+Case 28
+
+0
+100
+
+C
+K
+Case 29
+
+0
+100
+
+C
+K
+Case 30
+
+0
+100
+
+0
+100
+
+80
+
+80
+
+80
+
+80
+
+80
+
+80
+
+80
+
+60
+
+60
+
+60
+
+60
+
+60
+
+60
+
+60
+
+60
+
+40
+
+40
+
+40
+
+40
+
+40
+
+40
+
+40
+
+40
+
+20
+
+20
+
+20
+
+20
+
+20
+
+20
+
+20
+
+100
+
+C
+K
+Case 33
+
+0
+100
+
+C
+K
+Case 34
+
+0
+100
+
+C
+K
+Case 35
+
+0
+100
+
+C
+K
+Case 36
+
+0
+100
+
+C
+K
+Case 37
+
+0
+100
+
+C
+K
+Case 38
+
+0
+100
+
+0
+100
+
+80
+
+80
+
+80
+
+80
+
+80
+
+80
+
+80
+
+60
+
+60
+
+60
+
+60
+
+60
+
+60
+
+60
+
+60
+
+40
+
+40
+
+40
+
+40
+
+40
+
+40
+
+40
+
+40
+
+20
+
+20
+
+20
+
+20
+
+20
+
+20
+
+20
+
+20
+
+0
+
+0
+
+0
+
+0
+
+0
+
+0
+
+0
+
+K
+
+C
+
+K
+
+C
+
+K
+
+C
+
+K
+
+C
+
+K
+
+C
+
+K
+
+C
+K
+Case 24
+
+C
+K
+Case 32
+
+20
+
+C
+K
+Case 39
+
+80
+
+C
+
+C
+K
+Case 16
+
+20
+
+C
+K
+Case 31
+
+80
+
+0
+
+Case 8
+
+C
+
+K
+
+0
+
+C
+K
+Case 40
+
+C
+
+Figure 9. The per-prompt effectiveness of KEN (K) and a
+ChatGPT-4 (C). Each bar chart shows the percentage of time
+that KEN/ChatGPT-4 synthesizes an accurate(pink), false
+negative (yellow), or false positive(blue) eBPF program for
+each prompt over ten trials.
+
+false negative for each trial. On average, KEN achieves an
+accuracy of 80%, which is a factor of 2.67 better than the
+ChatGPT-4 accuracy of 30%. Moreover, KEN achieves the
+accuracy improvement without increasing the False Positive
+rate—both systems achieve an FP rate of only 2.5%.
+Inspecting the results for each individual test case, we
+observe that KEN generates a correct program more often
+than the baseline in 37 of the 40 test cases. In 11 of 40 test
+cases, KEN improves the accuracy rate by more than a factor
+of 9 (i.e., the accuracy rate improves from at most 10% in the
+baseline to at least 90% in KEN). In addition, KEN improves
+on the false positive rate in 6 of the 9 test cases in which
+either system observes a false positive.
+5.2
+
+RQ2: The Effectiveness of KEN’s Design
+Decisions
+
+We first evaluate the impact of each of KEN’s high-level
+design decisions, then describe an experiment showing the
+benefit of KEN’s comprehension and symbolic execution
+
+K
+
+KEN: Kernel Extensions using Natural Language
+
+Table 2. Comparison of effectiveness for each of KEN’s design decisions
+System
+A
+FP
+FN
+ChatGPT-4
+30% 2.5% 67.5%
+ChatGPT-4+Feedback
+60% 7.5% 32.5%
+ChatGPT-4+Feedback+Symbex 77.5% 5% 17.5%
+KEN
+80% 2.5% 17.5%
+Table 3. The Breakdown Accuracy Analysis of KEN
+
+engines, and finally describe the impact of synthesizing eBPF
+programs to use bpftrace instead of libbpf.
+
+Conference’17, July 2017, Washington, DC, USA
+
+Table 4. End-to-End Effectiveness comparison of KEN with
+a ChatGPT-4 baseline
+System
+Human Expertise
+KEN
+
+A
+72.5%
+80%
+
+FP
+2.5%
+2.5%
+
+FN
+25%
+17.5%
+
+to the human expertise baseline. KEN’s superiority is particularly surprising since KEN does not directly pass the output
+of the comprehension and symbolic execution engines into
+its synthesis engine. Our hypothesis is that KEN’s feedback
+loop, initiated on each symbolic execution failure, provides
+the synthesis engine with sufficient knowledge to replace the
+human expertise from the baseline. Thus, we find a powerful
+synergy between KEN’s feedback feature and its automated
+reasoning features.
+
+5.2.1 Effectiveness of KEN’s High-Level Design Decisions. Table table 3 shows how each high-level design
+decision impacts KEN’s effectiveness. Each row in the table represents a different configuration. We start from the
+ChatGPT-4 baseline and apply KEN’s design features in the
+the order of largest impact on accuracy. Namely, we first include KEN’s model-guided feedback (feedback), then KEN’s
+comprehension and symbolic execution components (symbex), and finally add training using the blog-gathered portion
+of the eBPFNLDataset dataset. We note that it is not meaningful to separate KEN’s comprehension engine from its
+symbolic execution components.
+The results indicate that model-guided feedback plays a
+large role in improving the accuracy of KEN, as it improves
+the accuracy by a factor of 2 (from 30%to 60%). However,
+this increase in accuracy comes with a factor of 3 increase
+in false positive rate (from 2.5% to 7.5%). Including the comprehension engine and symbolic execution component also
+improves KEN’s effectiveness substantially—accuracy improves to 77.5%, while the false positive rate moves to 5%.
+Including the eBPFNLDataset dataset in training comes with
+a relatively small impact on KEN’s accuracy—it only improves by 2.5%. However, training using the eBPFNLDataset
+dataset does bring KEN’s false positive rate back down to
+the baseline of 2.5%
+
+5.2.3 Effectiveness of using bpftrace instead of libbpf.
+We also evaluate the impact of synthesizing programs that
+use bpftrace compared to synthesizing programs using libbpf.
+Conventional wisdom is that libbpf implementations are
+more flexible than bpftrace implementations (i.e., a developer can implement more tasks), but also have more programming complexity [26]. We evaluate KEN’s ability to
+synthesize eBPF programs that use bpftrace and libbpf. However, we find that KEN’s symbolic execution engine rarely
+terminates on libbpf programs because of state explosion due
+to the frequently use of helper function in libbpf programs.
+Nonetheless, we calculate the accuracy of KEN when we do
+not use KEN’s comprehension and symbolic execution engines and determine that the accuracy of libbpf programs is
+37.5%, whereas the accuracy of bpftrace programs is 60%. Additionally, we calculate the latency of each KEN prompt and
+find that libbpf programs take an average of 2.16 seconds to
+synthesize, whereas KEN can synthesize bpftrace programs
+in an average of 1 second. We conclude that bpftrace is a
+better synthesis target for our eBPF use cases.
+
+5.2.2 Effectiveness of KEN’s Comprehension and Symbolic Execution Engine. We create a baseline that replaces
+KEN’s automated reasoning components (i.e., the comprehension and symbolic execution engines) with developer
+expertise to identify the power of KEN’s automated reasoning. In particular, we augment the eBPFNLDataset testset by
+adding the correct kprobe and kretprobe locations for each of
+the prompts in the eBPFNLDataset testset. Then, we produce
+a human expertise baseline by using the augmented dataset
+as input to the ChatGPT-4 + feedback + dataset baseline.
+table 4 shows the effectiveness of the human expertise
+baseline compared to KEN. We find that KEN has higher accuracy, without adding additional false positives, compared
+
+In this section, the performance of KEN is assessed across
+several recent Large Language Models (LLMs), each presenting distinct potentials for privacy leakage and execution time
+cost tradeoffs since we expect running locally won’t hurt
+the experience and lower the accuracy that much. We aim to
+deconstruct both CPU and GPU time to determine the extent
+of time savings achieved by offloading to remote, given that
+the CPU time is predominantly consumed by Z3 and the
+GPU time is primarily allocated for inference. The system
+is executed on a commercially available Intel 12900K with
+96GB DRAM installed and Nvidia Geforce 4090 with 24GB
+VRAM. We are utilizing the Python profiling tools SCALENE
+[6] for getting the Max VRAM occupation and CPU GPU
+
+5.3 RQ3: The Performance-Cost-Privacy tradeoffs of
+alternative LLM models
+
+Conference’17, July 2017, Washington, DC, USA
+
+time for different models, CodeLLama[50], WizardLM[40]
+with 7B and 13B parameter size in Fig. 5.
+
+Yusheng Zheng, Yiwei Yang, Maolin Chen, and Andrew Quinn
+
+by existing work (e.g., python), so our work necessitated
+developing new datasets.
+Recently, Self-Debugging integrated Large Language
+Table 5. Comparison with different locally deployed LLM
+Models with feedback loops to synthesize programs [12].
+The system has a synthesis and feedback structure to KEN.
+Inference
+Max
+However, the system uses unit tests and code explanation
+Type
+TP %
+time
+VRAM(GB)
+modules to validate synthesized programs instead of KEN’s
+CodeLLama-7B
+12.5%
+3m22.971s
+7.32
+symbolic execution. Additionally, Self-Debugging targets
+CodeLLama-13B 15%
+5m55.860s
+8.90
+python and SQL synthesis instead of KEN’s eBPF target.
+WizardLM-7B
+5%
+10m3.396s
+18.03
+Automated program comprehension determines properWizardLM-13B
+12.5%
+46m37.193s 17.96
+ties of a program’s execution without requiring developer
+effort. Early work [44] uses a counter-example driven apSince the Z3 CPU time is interleaved within other thread
+proach, which observe a program under test and derive inwaiting times in the Python profiler, we estimate the time
+variants that hold over all executions. Such systems require
+function-wise by running the overall Z3 function calling time
+a large corpus of test to ensure coverage of the invariants
+and Inference function time for one query. We found that
+in the program; KEN’s approach instead learns less accuZ3 running time corresponds to the assume and sassert
+rate invariants from the original source code. Recent works
+number and takes less than 10s for most of the queries. While
+shows that LLMs are effective at program comprehension
+the 13B model can be accommodated within the 4090 VRAM,
+tasks [1, 20, 21, 45, 63, 67]. However, the output of existing
+the 7B model proves to be more practical owing to its suLLM-based tools is typically an English description of the
+perior inference speed. The 4090 is deployed with fp8 inferprogram which cannot be passed to program verification
+ence quantization using transformers pipeline as a high-level
+tools such as symbolic execution.
+helper. For CodeLLama, we use model "TheBloke/CodeLlamaLike KEN, many systems have embraced machine learning
+Instruct-GPTQ"; for WizardLM, we use "WizardLM/WizardCoder- and large language models to enhance developer tools. For
+Python-V1.0". We observed that when WizardLM models are
+example, Neural Fuzzing [53] uses a neural network trained
+deployed locally, VRAM is almost completely utilized. The
+to identify bugs in operating systems more effectively and imtransformer pipeline alternates between memory and VRAM
+proves runtime coverage compared to traditional coverageto accommodate the model size for inference. We notice a
+guided fuzzing tools. As another example, Scalene [6] reperformance gain of 1.2× TP in CodeLLama but at the cost of
+cently began producing LLM-synthesized patches for perfor1.5× more time, and in WizardLM, a gain of 2.5× TP occurs
+mance bugs that are found by the profiler.
+but with a 4.6× increase in time cost. The suboptimal perforMany prior works have identified and tried to address
+mance observed with fewer parameters is due to the model
+verification issues in eBPF. Jia et al. identify challenges that
+easily losing context and generating incorrectly formatted
+arise in existing eBPF verification due to the large use of
+text. Compared with CodeLLama-34B’s 42.5%, which is 3x-6x
+helper functions in modern systems [36]. The authors advoof the locally deployed ones, we think offloading LLM to the
+cate for the use of safe languages (e.g., Rust) to build future
+remote servers is a better solution.
+kernel extensions. KEN takes an alternative approach to improve on safety by using symbolic execution and Hoare-logic
+6 Related Work
+contracts. K2 [64] uses synthesis techniques to optimize the
+KEN builds on related work in synthesis, verification, and
+performance of eBPF programs that are passed to the system
+large language models. This section focuses its discussion
+while ensuring that the optimized programs still pass eBPF’s
+on related work that has not been discussed elsewhere in
+verifier. Thus, whereas KEN’s semantic verification provides
+the paper; section 2 provides more context for the individual
+additional assurances over the eBPF verifier, K2 provides the
+techniques that KEN employs.
+same safety assurances as the eBPF verifier.
+KEN builds on decades of work into program synthesis [2, 28, 33, 52, 58], using large language models as advocated by many recent works [3, 10, 21, 38]. KEN’s key
+7 Conclusion
+differences from this prior work is its novel use of a program
+comprehension and symbolic execution to add assurance
+In conclusion, we presented KEN, a system that helps develthat synthesized programs are semantically correct. One
+opers extend their kernels using eBPF by allowing Kernel
+key reason for this differences is that KEN targets kernel
+Extensions written in Natural language. KEN uses recent
+extension, in which an incorrectly synthesized program can
+advances in large language models (LLMs) (e.g., OpenAI’s
+have extremely bad consequences. One additional difference
+InstructGPT[43], HumanEval[11], and ChatGPT [55]) to synbetween our work and these prior works is that eBPF is
+thesis an eBPF program given a user’s English language
+significantly less popular compared to the languages tested
+prompt. A user can then extend their kernel by injecting
+
+KEN: Kernel Extensions using Natural Language
+
+the eBPF program produced by KEN without having to understand eBPF or a kernel’s internals. We show that KEN
+can addresses the challenge of generating a semantically correct eBPF program for a given prompt by combining three
+techniques: LLM-based program comprehension, symbolic
+execution, and feedback-loops. In particular, KEN uses an
+LLM in its Comprehension Engine to identify Hoare-logic
+constraint that specifies the conditions that must hold before
+and after all kernel functions with which an eBPF candidate
+program interacts. It then uses a symbolic execution engine
+to validate that the constraints are upheld by the eBPF program and the eBPF verifier to further ensure the safety of
+the candidate program. In the event that a program cannot
+be verified, the system retires the synthesis task by passing
+error message to an additional round of synthesis.
+KEN’s key novelty lies in its synergistic combination of
+state-of-the-art techniques—LLM-based program synthesis,
+LLM-baesd program comprehension, symbolic execution,
+and feedback loops. In particular, KEN innovates with a new
+architecture that uses symbolic execution to combine the
+results of program synthesis and program comprehension.
+Thus, the system creates a synthesis approach that build on
+the success that LLMs have shown for each task individually.
+In addition to KEN, we produce two novel datasets that
+will be not only useful for building and evaluating KEN, but
+will also be useful for future work on eBPF program synthesis.
+First, eBPFNLDataset is a dataset of eBPF programs and
+natural language descriptions gathered from a popular blog
+and popular open-source repositories. Second, we created
+KernelCompDataset, a dataset of Hoare-logic contracts for all
+linux functions that can be hooked by an eBPF program. We
+presented a novel methodology for automatically generating
+such contracts by using the kernel’s source code, developer
+comments embedded in the source code, and an LLM.
+Lastly, we validated KEN on eBPFNLDataset. We conclude
+the following from our evaluation:
+1. KEN’s novel architecture produces semantically correct eBPF programs significnalty more often than LLMbased program synthesis alone. In particular, KEN synthesizes correct eBPF programs in 80%of the test cases,
+which is 2.67 times better than an LLM-based program
+synthesis baseline.
+2. KEN’s novel architecture prevents the tool from being
+overly confident. In particular, KEN only produces a
+single “false positive”—an output program that passes
+KEN’s verification but is not semantically correct for
+the provided prompt.
+3. We show that each of the aspects of KEN’s novel architecture contribute to its strong results.
+4. We show that the reduced cost and improved privacy
+of using a small locally-deployable LLM compared
+to a large cloud-based LLM is likely not worth the
+
+Conference’17, July 2017, Washington, DC, USA
+
+performance cost. In particular, we show that KEN deployed on ChatGPT-4 produces accurate results more
+frequently than KEN deployed on CodeLlama-13B by
+a factor of 5.3.
+
+8
+
+Acknowledgement
+
+We acknowledge the help of formal description for the guided
+example from Zhe Ye.
+
+References
+[1] W. Ahmad, S. Chakraborty, B. Ray, and K.-W. Chang. Unified pretraining for program understanding and generation. In Proceedings of
+the 2021 Conference of the North American Chapter of the Association for
+Computational Linguistics: Human Language Technologies, pages 2655–
+2668, Online, June 2021. Association for Computational Linguistics.
+doi: 10.18653/v1/2021.naacl-main.211. URL https://aclanthology.org/
+2021.naacl-main.211.
+[2] R. Alur, R. Singh, D. Fisman, and A. Solar-Lezama. Search-based
+program synthesis. Commun. ACM, 61(12):84–93, nov 2018. ISSN 00010782. doi: 10.1145/3208071. URL https://doi.org/10.1145/3208071.
+[3] J. Austin, A. Odena, M. Nye, M. Bosma, H. Michalewski, D. Dohan,
+E. Jiang, C. Cai, M. Terry, Q. Le, and C. Sutton. Program synthesis
+with large language models, 2021.
+[4] E. B. Authors. Eunomia bpf. GitHub repository, 2023. https://github.
+com/eunomia-bpf/eunomia-bpf.
+[5] M. Bachl, J. Fabini, and T. Zseby. A flow-based IDS using machine
+learning in ebpf. CoRR, abs/2102.09980, 2021. URL https://arxiv.org/
+abs/2102.09980.
+[6] E. D. Berger, S. Stern, and J. A. Pizzorno. Triangulating python performance issues with {SCALENE}. In 17th USENIX Symposium on
+Operating Systems Design and Implementation (OSDI 23), pages 51–64,
+2023.
+[7] B. N. Bershad, S. Savage, P. Pardyak, E. G. Sirer, M. E. Fiuczynski,
+D. Becker, C. Chambers, and S. Eggers. Extensibility safety and performance in the spin operating system. In Proceedings of the Fifteenth ACM Symposium on Operating Systems Principles, SOSP ’95,
+page 267–283, New York, NY, USA, 1995. Association for Computing Machinery. ISBN 0897917154. doi: 10.1145/224056.224077. URL
+https://doi.org/10.1145/224056.224077.
+[8] C. Cadar, D. Dunbar, D. R. Engler, et al. Klee: Unassisted and automatic
+generation of high-coverage tests for complex systems programs. In
+OSDI, volume 8, pages 209–224, 2008.
+[9] Y. Charalambous, N. Tihanyi, R. Jain, Y. Sun, M. A. Ferrag, and L. C.
+Cordeiro. A new era in software security: Towards self-healing software via large language models and formal verification. arXiv preprint
+arXiv:2305.14752, 2023.
+[10] M. Chen, J. Tworek, H. Jun, Q. Yuan, H. P. d. O. Pinto, J. Kaplan,
+H. Edwards, Y. Burda, N. Joseph, G. Brockman, et al. Evaluating large
+language models trained on code. arXiv preprint arXiv:2107.03374,
+2021.
+[11] M. Chen, J. Tworek, H. Jun, Q. Yuan, H. P. d. O. Pinto, J. Kaplan,
+H. Edwards, Y. Burda, N. Joseph, G. Brockman, et al. Evaluating large
+language models trained on code. arXiv preprint arXiv:2107.03374,
+2021.
+[12] X. Chen, M. Lin, N. Schärli, and D. Zhou. Teaching large language
+models to self-debug. arXiv preprint arXiv:2304.05128, 2023.
+[13] V. Chipounov, V. Georgescu, C. Zamfir, and G. Candea. Selective
+symbolic execution. In Proceedings of the 5th Workshop on Hot Topics
+in System Dependability (HotDep), number CONF, 2009.
+[14] V. Chipounov, V. Kuznetsov, and G. Candea. S2e: A platform for in-vivo
+multi-path analysis of software systems. In Proceedings of the Sixteenth
+International Conference on Architectural Support for Programming
+
+Conference’17, July 2017, Washington, DC, USA
+
+Languages and Operating Systems, ASPLOS XVI, page 265–278, New
+York, NY, USA, 2011. Association for Computing Machinery. ISBN
+9781450302661. doi: 10.1145/1950365.1950396. URL https://doi.org/10.
+1145/1950365.1950396.
+[15] E. M. Clarke and E. A. Emerson. Design and synthesis of synchronization skeletons using branching time temporal logic. In D. Kozen, editor,
+Logics of Programs, pages 52–71, Berlin, Heidelberg, 1982. Springer
+Berlin Heidelberg. ISBN 978-3-540-39047-3.
+[16] Cloudflare. ebpf_exporter: ebpf-based exporter for prometheus.
+GitHub repository, 2023. https://github.com/cloudflare/ebpf_exporter.
+[17] A. C. N. Community. Seven core issues about ebpf, 2023. https://www.
+alibabacloud.com/blog/seven-core-issues-about-ebpf_599668.
+[18] L. De Moura and N. Bjørner. Z3: An efficient smt solver. In International
+conference on Tools and Algorithms for the Construction and Analysis of
+Systems, pages 337–340. Springer, 2008.
+[19] eBPF for Windows Contributors. ebpf for windows, 2023. https:
+//github.com/microsoft/ebpf-for-windows.
+[20] A. Elnaggar, W. Ding, L. Jones, T. Gibbs, T. Feher, C. Angerer, S. Severini,
+F. Matthes, and B. Rost. Codetrans: Towards cracking the language of
+silicon’s code through self-supervised deep learning and high performance computing, 2021.
+[21] Z. Feng, D. Guo, D. Tang, N. Duan, X. Feng, M. Gong (YIMING), L. Shou, B. Qin, T. Liu, D. Jiang, and M. Zhou. Codebert: A pre-trained model for programming and natural languages. In Findings of EMNLP 2020, September 2020. URL
+https://www.microsoft.com/en-us/research/publication/codebert-apre-trained-model-for-programming-and-natural-languages/.
+[22] fuzzing book author. The fuzzing book: Concolic fuzzing. https:
+//www.fuzzingbook.org/beta/html/SymbolicFuzzer.html.
+[23] Y. Ghigoff, J. Sopena, K. Lazri, A. Blin, and G. Muller. {BMC}: Accelerating memcached using safe in-kernel caching and pre-stack
+processing. In 18th USENIX Symposium on Networked Systems Design
+and Implementation (NSDI 21), pages 487–501, 2021.
+Brenden gregg’s homepage, 2001.
+https://www.
+[24] B. Gregg.
+brendangregg.com/.
+[25] B. Gregg. Linux extended bpf (ebpf) tracing tools, 2016. https://www.
+brendangregg.com/ebpf.html.
+[26] B. Gregg. Bpf binaries: Btf, co-re, and the future of bpf perl tools,
+2020. https://www.brendangregg.com/blog/2020-11-04/bpf-co-rebtf-libbpf.html.
+[27] B. Gregg. Computing performance. 2021.
+[28] S. Gulwani, S. Jha, A. Tiwari, and R. Venkatesan. Synthesis of loop-free
+programs. In Proceedings of the 32nd ACM SIGPLAN Conference on
+Programming Language Design and Implementation, PLDI ’11, page
+62–73, New York, NY, USA, 2011. Association for Computing Machinery. ISBN 9781450306638. doi: 10.1145/1993498.1993506. URL
+https://doi.org/10.1145/1993498.1993506.
+[29] A. Gurfinkel, T. Kahsai, and J. A. Navas. Seahorn: A framework for
+verifying c programs (competition contribution). In International
+Conference on Tools and Algorithms for the Construction and Analysis
+of Systems, pages 447–450. Springer, 2015.
+[30] e. huangting4201, yingtongxiong. Internlm: Chat models tailored
+for practical scenarios and the training system. https://github.com/
+InternLM/InternLM/.
+[31] J. T. Humphries, N. Natu, A. Chaugule, O. Weisse, B. Rhoden, J. Don,
+L. Rizzo, O. Rombakh, P. Turner, and C. Kozyrakis. ghost: Fast &
+flexible user-space delegation of linux scheduling. In Proceedings of the
+ACM SIGOPS 28th Symposium on Operating Systems Principles, pages
+588–604, 2021.
+[32] R. Intellegence. Langchain. https://www.langchain.com/.
+[33] S. Jha, S. Gulwani, S. A. Seshia, and A. Tiwari. Oracle-guided
+component-based program synthesis. In Proceedings of the 32nd
+ACM/IEEE International Conference on Software Engineering - Volume 1,
+
+Yusheng Zheng, Yiwei Yang, Maolin Chen, and Andrew Quinn
+
+ICSE ’10, page 215–224, New York, NY, USA, 2010. Association for Computing Machinery. ISBN 9781605587196. doi: 10.1145/1806799.1806833.
+URL https://doi.org/10.1145/1806799.1806833.
+[34] J. Jia, M. V. Le, S. Ahmed, D. Williams, and H. Jamjoom. Practical and
+flexible kernel cfi enforcement using ebpf. In Proceedings of the 1st
+Workshop on EBPF and Kernel Extensions, eBPF ’23, page 84–85, New
+York, NY, USA, 2023. Association for Computing Machinery. ISBN
+9798400702938. doi: 10.1145/3609021.3609293. URL https://doi.org/10.
+1145/3609021.3609293.
+[35] J. Jia, M. V. Le, S. Ahmed, D. Williams, and H. Jamjoom. Practical and
+flexible kernel cfi enforcement using ebpf. In Proceedings of the 1st
+Workshop on eBPF and Kernel Extensions, pages 84–85, 2023.
+[36] J. Jia, R. Sahu, A. Oswald, D. Williams, M. V. Le, and T. Xu. f. In
+Proceedings of the 19th Workshop on Hot Topics in Operating Systems,
+pages 150–157, 2023.
+[37] J. Jia, Y. Zhu, D. Williams, A. Arcangeli, C. Canella, H. Franke,
+T. Feldman-Fitzthum, D. Skarlatos, D. Gruss, and T. Xu. Programmable
+system call security with ebpf. arXiv preprint arXiv:2302.10366, 2023.
+[38] Y. Li, D. Choi, J. Chung, N. Kushman, J. Schrittwieser, R. Leblond, T. Eccles, J. Keeling, F. Gimeno, A. D. Lago, T. Hubert, P. Choy, C. de Masson d’Autume, I. Babuschkin, X. Chen, P.-S. Huang, J. Welbl, S. Gowal,
+A. Cherepanov, J. Molloy, D. J. Mankowitz, E. S. Robson, P. Kohli,
+N. de Freitas, K. Kavukcuoglu, and O. Vinyals. Competition-level
+code generation with AlphaCode. Science, 378(6624):1092–1097, dec
+2022. doi: 10.1126/science.abq1158. URL https://doi.org/10.1126%
+2Fscience.abq1158.
+[39] J. Liu, C. S. Xia, Y. Wang, and L. Zhang. Is your code generated by
+chatgpt really correct? rigorous evaluation of large language models
+for code generation. arXiv preprint arXiv:2305.01210, 2023.
+[40] Z. Luo, C. Xu, P. Zhao, Q. Sun, X. Geng, W. Hu, C. Tao, J. Ma, Q. Lin,
+and D. Jiang. Wizardcoder: Empowering code large language models
+with evol-instruct. arXiv preprint arXiv:2306.08568, 2023.
+[41] A. Mayer, P. Loreti, L. Bracciale, P. Lungaroni, S. Salsano, and
+C. Filsfils. Performance monitoring with h2: Hybrid kernel/ebpf
+data plane for srv6 based hybrid sdn. Computer Networks, 185:
+107705, 2021. ISSN 1389-1286. doi: https://doi.org/10.1016/j.comnet.
+2020.107705. URL https://www.sciencedirect.com/science/article/pii/
+S1389128620313037.
+[42] G. C. Necula and P. Lee. Safe kernel extensions without run-time
+checking. In Proceedings of the Second USENIX Symposium on Operating
+Systems Design and Implementation, OSDI ’96, page 229–243, New
+York, NY, USA, 1996. Association for Computing Machinery. ISBN
+1880446820. doi: 10.1145/238721.238781. URL https://doi.org/10.1145/
+238721.238781.
+[43] OpenAI. Instructgpt: Aligning language models to follow instructions. https://openai.com/research/instruction-following#refASamir%20Rajadnya.
+[44] J. H. Perkins and M. D. Ernst. Efficient incremental algorithms for
+dynamic detection of likely invariants. In Proceedings of the 12th
+ACM SIGSOFT Twelfth International Symposium on Foundations of
+Software Engineering, SIGSOFT ’04/FSE-12, page 23–32, New York, NY,
+USA, 2004. Association for Computing Machinery. ISBN 1581138555.
+doi: 10.1145/1029894.1029901. URL https://doi.org/10.1145/1029894.
+1029901.
+[45] L. Phan, H. Tran, D. Le, H. Nguyen, J. Anibal, A. Peltekian, and Y. Ye.
+Cotext: Multi-task learning with code-text transformer. arXiv preprint
+arXiv:2105.08645, 2021.
+[46] S. Poeplau and A. Francillon. Symbolic execution with {SymCC}:
+Don’t interpret, compile! In 29th USENIX Security Symposium (USENIX
+Security 20), pages 181–198, 2020.
+[47] G. Poesia, K. Gandhi, E. Zelikman, and N. D. Goodman. Certified
+reasoning with language models. arXiv preprint arXiv:2306.04031,
+2023.
+
+KEN: Kernel Extensions using Natural Language
+
+[48] I. V. Project. Bpf compiler collection (bcc), 2023. Available: https:
+//github.com/iovisor/bcc.
+[49] J. P. Queille and J. Sifakis. Specification and verification of concurrent
+systems in cesar. In M. Dezani-Ciancaglini and U. Montanari, editors, International Symposium on Programming, pages 337–351, Berlin,
+Heidelberg, 1982. Springer Berlin Heidelberg. ISBN 978-3-540-39184-5.
+[50] B. Rozière, J. Gehring, F. Gloeckle, S. Sootla, I. Gat, X. E. Tan, Y. Adi,
+J. Liu, T. Remez, J. Rapin, et al. Code llama: Open foundation models
+for code. arXiv preprint arXiv:2308.12950, 2023.
+[51] A. Shah. Google tpu v5e ai chip debuts after controversial origins. https://www.enterpriseai.news/2023/08/31/google-tpu-v5e-aichip-debuts-after-controversial-origins/.
+[52] A. Solar-Lezama, L. Tancau, R. Bodik, S. Seshia, and V. Saraswat. Combinatorial sketching for finite programs. In Proceedings of the 12th
+International Conference on Architectural Support for Programming
+Languages and Operating Systems, ASPLOS XII, page 404–415, New
+York, NY, USA, 2006. Association for Computing Machinery. ISBN
+1595934510. doi: 10.1145/1168857.1168907. URL https://doi.org/10.
+1145/1168857.1168907.
+[53] H. Sun, Y. Shen, C. Wang, J. Liu, Y. Jiang, T. Chen, and A. Cui. Healer:
+Relation learning guided kernel fuzzing. In Proceedings of the ACM
+SIGOPS 28th Symposium on Operating Systems Principles, pages 344–
+358, 2021.
+[54] M. M. Swift, B. N. Bershad, and H. M. Levy. Improving the reliability of
+commodity operating systems. In Proceedings of the Nineteenth ACM
+Symposium on Operating Systems Principles, SOSP ’03, page 207–222,
+New York, NY, USA, 2003. Association for Computing Machinery. ISBN
+1581137575. doi: 10.1145/945445.945466. URL https://doi.org/10.1145/
+945445.945466.
+[55] O. team. Internlm: Chat models tailored for practical scenarios and
+the training system. https://chat.openai.com/.
+[56] T. G. P. Team. The source code of google pixel6 android kernel, .
+https://android.googlesource.com/device/google/raviole-kernel/.
+[57] T. L. Team. The ebpf verifier, . https://static.lwn.net/kerneldoc/bpf/
+verifier.html.
+[58] E. Torlak and R. Bodik. Growing solver-aided languages with rosette.
+In Proceedings of the 2013 ACM International Symposium on New Ideas,
+New Paradigms, and Reflections on Programming & Software, Onward!
+2013, page 135–152, New York, NY, USA, 2013. Association for Computing Machinery. ISBN 9781450324724. doi: 10.1145/2509578.2509586.
+URL https://doi.org/10.1145/2509578.2509586.
+[59] I. Visor. bpftrace: High-level tracing language for linux ebpf. GitHub
+repository, 2023. https://github.com/iovisor/bpftrace.
+[60] J. Wang, X. Yi, R. Guo, H. Jin, P. Xu, S. Li, X. Wang, X. Guo, C. Li,
+X. Xu, et al. Milvus: A purpose-built vector data management system.
+In Proceedings of the 2021 International Conference on Management of
+Data, pages 2614–2627, 2021.
+[61] Y. Wang, Q. Yao, J. T. Kwok, and L. M. Ni. Generalizing from a few
+examples: A survey on few-shot learning. ACM computing surveys
+(csur), 53(3):1–34, 2020.
+[62] Wikipedia. The wikipedia of harmonyos. https://en.wikipedia.org/
+wiki/HarmonyOS.
+[63] H. Wu, H. Zhao, and M. Zhang. Code summarization with structureinduced transformer. arXiv preprint arXiv:2012.14710, 2020.
+[64] Q. Xu, M. D. Wong, T. Wagle, S. Narayana, and A. Sivaraman. Synthesizing safe and efficient kernel extensions for packet processing. In
+Proceedings of the 2021 ACM SIGCOMM 2021 Conference, SIGCOMM
+’21, page 50–64, New York, NY, USA, 2021. Association for Computing
+Machinery. ISBN 9781450383837. doi: 10.1145/3452296.3472929. URL
+https://doi.org/10.1145/3452296.3472929.
+[65] Z. Yang, Y. Lu, X. Liao, Y. Chen, J. Li, S. He, and J. Shu. {𝜆-IO}: A unified
+{IO} stack for computational storage. In 21st USENIX Conference on
+File and Storage Technologies (FAST 23), pages 347–362, 2023.
+
+Conference’17, July 2017, Washington, DC, USA
+
+[66] Y. Zhong, H. Li, Y. J. Wu, I. Zarkadas, J. Tao, E. Mesterhazy, M. Makris,
+J. Yang, A. Tai, R. Stutsman, and A. Cidon. XRP: In-Kernel storage
+functions with eBPF. In 16th USENIX Symposium on Operating Systems
+Design and Implementation (OSDI 22), pages 375–393, Carlsbad, CA,
+July 2022. USENIX Association. ISBN 978-1-939133-28-1. URL https:
+//www.usenix.org/conference/osdi22/presentation/zhong.
+[67] D. Zügner, T. Kirschstein, M. Catasta, J. Leskovec, and S. Günnemann.
+Language-agnostic representation learning of source code from structure and context. arXiv preprint arXiv:2103.11318, 2021.
+
+

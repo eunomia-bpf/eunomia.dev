@@ -24,6 +24,8 @@ import { fileURLToPath } from "node:url";
  *     remains active.
  *  4. `/projects/agentsight/*` (+ `/zh/`, `/en/` variants) — an intermediate
  *     local docs path now redirects to the root-level AgentSight section.
+ *     `/others/papers/*` similarly redirects to the root-level `/papers/`
+ *     section after the papers library moved out of `/others/`.
  *  5. Explicit renamed blog URLs — a few public links were published with
  *     title-derived slugs before the post title changed. Map those URLs to the
  *     current canonical route by source file so future title edits do not leave
@@ -531,6 +533,22 @@ function generateLegacyGpttraceRedirects() {
   return count;
 }
 
+function generateMovedPapersRedirects() {
+  const movedPaths = [
+    ["others/papers", "papers"],
+    ["others/papers/osdi20-brunella", "papers/osdi20-brunella"]
+  ];
+  let count = 0;
+
+  for (const [from, to] of movedPaths) {
+    if (writeRedirect(`/${from}/`, `/${to}/`)) count += 1;
+    if (writeRedirect(`/en/${from}/`, `/${to}/`)) count += 1;
+    if (writeRedirect(`/zh/${from}/`, `/zh/${to}/`)) count += 1;
+  }
+
+  return count;
+}
+
 function generateMovedAgentsightRedirects() {
   const movedPaths = [
     ["projects/agentsight", "agentsight"],
@@ -793,6 +811,7 @@ const deprecatedTutorialCount = generateDeprecatedTutorialRedirects();
 const explicitPathCount = generateExplicitPathRedirects();
 const gpttraceCount = generateLegacyGpttraceRedirects();
 const movedAgentsightCount = generateMovedAgentsightRedirects();
+const movedPapersCount = generateMovedPapersRedirects();
 const renamedBlogCount = generateRenamedBlogRedirects();
 const enCount = generateEnMirror();
 
@@ -801,6 +820,7 @@ console.log(
     `${blogDescendantCount} blog descendant redirects, ${sourcePathCount} source path redirects, ` +
     `${tutorialTreeCount} tutorial tree redirects, ${deprecatedTutorialCount} deprecated tutorial redirects, ` +
     `${explicitPathCount} explicit path redirects, ${gpttraceCount} GPTtrace redirects, ` +
-    `${movedAgentsightCount} moved AgentSight redirects, ${renamedBlogCount} renamed blog redirects, ` +
+    `${movedAgentsightCount} moved AgentSight redirects, ${movedPapersCount} moved papers redirects, ` +
+    `${renamedBlogCount} renamed blog redirects, ` +
     `and ${enCount} /en/ redirects in ${outDir}`
 );

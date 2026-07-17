@@ -1,0 +1,1174 @@
+DAXFS: A Lock-Free Shared Filesystem
+for CXL Disaggregated Memory
+
+arXiv:2604.01620v1 [cs.OS] 2 Apr 2026
+
+Cong Wang
+Multikernel Technologies, Inc.
+cwang@multikernel.io
+
+Yiwei Yang
+UC Santa Cruz
+yyang363@ucsc.edu
+
+weights without per-host duplication), container rootfs
+sharing (N containers backed by a single copy), and
+CXL memory pooling across hosts.
+No existing filesystem fills this role (Table 1). Per-host
+DAX filesystems [8, 25] maintain redundant metadata
+and page caches on each host, negating CXL’s sharing
+benefit. Distributed filesystems (NFS, CephFS, Lustre) interpose network protocols that add µs-scale latency to what should be ns-scale load/store operations.
+FamFS [12] targets CXL shared memory but enforces a
+single-master model where clients cannot create, write,
+or delete files (§2). There is no lock-free, multi-host
+shared filesystem that exploits CXL hardware atomics.
+To bridge this gap, we introduce DaxFS, a lock-free
+Linux filesystem designed for multi-host concurrent access to CXL shared memory. DaxFS uses hardwaresupported cmpxchg for multi-host coordination, keeping
+the CPU data path lock-free without journaling or central coordinators. A CAS-based hash overlay enables
+concurrent file writes from independent hosts, and a
+Multi-Host CLOCK (MH-clock) algorithm decentralizes shared page cache eviction, both operating through
+cmpxchg on DAX memory (§3–§4). Because the core
+coordination path is built on cmpxchg, the design also
+admits a preliminary GPU path for accelerators that
+issue PCIe AtomicOps over the same fabric (§4.4).
+To summarize, this paper makes three contributions:
+
+Abstract
+CXL (Compute Express Link) enables multiple hosts
+to share byte-addressable memory with hardware cache
+coherence, but no existing filesystem exploits this for
+lock-free multi-host coordination. We present DaxFS,
+a Linux filesystem for CXL shared memory that uses
+cmpxchg atomic operations, which CXL makes coherent
+across host boundaries, as its sole coordination primitive.
+A CAS-based hash overlay enables lock-free concurrent
+writes from multiple hosts without any centralized coordinator. A cooperative shared page cache with a novel
+multi-host clock eviction algorithm (MH-clock) provides
+demand-paged caching in shared DAX memory, with
+fully decentralized victim selection via cmpxchg. We
+validate multi-host correctness using QEMU-emulated
+CXL 3.0, where two virtual hosts share a memory region with TCP-forwarded atomics. Under cross-host
+contention, DaxFS maintains >99% CAS accuracy
+with no lost updates. On single-host DRAM-backed
+DAX, DaxFS exceeds tmpfs throughput across all write
+workloads, achieving up to 2.68× higher random write
+throughput with 4 threads and 1.18× higher random
+read throughput at 64 KB. Preliminary GPU microbenchmarks show that the cmpxchg-based design extends
+to GPU threads performing page cache operations at
+PCIe 5.0 bandwidth limits.
+
+1
+
+Yusheng Zheng
+UC Santa Cruz
+yzhen165@ucsc.edu
+
+Introduction
+
+1. The design and implementation of DaxFS,
+the first filesystem that enables lock-free multi-host
+writes on CXL shared memory without a centralized
+coordinator.
+
+CXL 3.0 [6] enables multiple independent servers to
+share byte-addressable memory with hardware-coherent
+atomic operations, creating a new opportunity for building shared-memory system abstractions at near-local
+DRAM latency. The Linux DAX (Direct Access) subsystem [20] can map such memory into user address spaces
+without page-cache copies, but practical workloads require filesystem semantics: hierarchical naming, POSIX
+permissions, and kernel-managed lifecycle. Target scenarios include multi-host LLM inference (sharing model
+
+2. MH-clock, a decentralized cache eviction algorithm
+that adapts CLOCK for lock-free operation across
+CXL-connected hosts, with no centralized eviction
+daemon (§3.5).
+3. An evaluation showing that DaxFS exceeds tmpfs
+on most single-host workloads (up to 2.68× at
+1
+
+4 threads) and maintains >99% CAS accuracy under
+QEMU-emulated cross-host contention (§5).
+
+2
+
+model where one designated host pre-allocates files and
+clients replay its metadata log. Clients cannot create,
+append, truncate, or delete files, and there is no shared
+cache or CXL-atomic coordination. We provide a detailed architectural comparison in §6.
+
+Motivation
+
+CXL 3.0 shared memory model. CXL 3.0 [6] introduces Global Fabric Attached Memory (GFAM): a
+memory device attached to a CXL switch fabric that is
+directly accessible by multiple hosts via load/store operations. The device coherency engine (DCOH) maintains
+a snoop filter that provides hardware cache coherence
+(HDM-DB back-invalidation) for selected memory regions; DaxFS targets this hardware-coherent region for
+its metadata and coordination structures. For the first
+time over a commodity interconnect, independent servers
+can perform atomic read-modify-write operations on the
+same physical memory with cache-line granularity, with
+minimal software coherence overhead. A 64-bit cmpxchg
+issued by Host A on a CXL memory address is atomic
+with respect to a concurrent cmpxchg by Host B on
+the same address. This primitive is the foundation of
+DaxFS’s coordination model.
+This hardware capability creates a new design point
+for shared data access, analogous to the multikernel
+problem [3] where independent OS instances coordinate
+through shared memory rather than message passing.
+However, existing system software is not prepared for this
+model. We identify the following fundamental problems
+that collectively require a new filesystem design.
+
+Network Protocol Overhead. Distributed filesystems (NFS, CephFS, Lustre) could serve multi-host access, but they interpose a network protocol between
+applications and byte-addressable memory, adding µsscale latency to what should be ns-scale load/store operations. When the memory is already directly accessible
+via CXL, a network filesystem negates the entire benefit
+of disaggregated memory.
+GPU Data Path Overhead. GPU workloads are
+the largest consumers of bulk filesystem data. Loading
+a 70B-parameter LLM at FP16 requires reading 140 GB
+from the filesystem into GPU memory. The conventional
+path is: (1) read() copies file data from the kernel page
+cache to a user-space buffer; (2) cudaMemcpy() copies
+the buffer across PCIe to the GPU. Each gigabyte crosses
+the CPU twice and the PCIe bus once. GPUDirect Storage [10] bypasses the CPU by DMA-ing from an NVMe
+device directly to GPU memory, but it still requires a
+block device, cannot participate in filesystem coordination, and does not support shared multi-host access.
+CXL shared memory and GPUs already share the same
+PCIe fabric. PCIe 3.0+ supports AtomicOp Transaction Layer Packets (TLPs), including compare-and-swap,
+that are serialized at the memory controller alongside
+CPU LOCK CMPXCHG instructions. A filesystem whose
+coordination is built entirely on cmpxchg can therefore
+extend to GPU threads that issue atomicCAS over the
+same PCIe fabric, potentially enabling GPU-side filesystem coordination with reduced CPU involvement. We
+validate the feasibility of this path with microbenchmarks in §5.5; end-to-end integration remains future
+work.
+These observations lead to three design requirements:
+
+Per-Host Duplication. tmpfs, ext4-dax, and NOVA
+each maintain per-host metadata (superblock, inode
+cache, dentry cache) and per-host page caches. Even if
+two hosts map the same physical memory, each host instantiates independent VFS state. CXL shared memory
+makes the data directly accessible to all hosts, yet existing filesystems still create per-host page cache copies of
+that data, wasting the very memory capacity that disaggregation is meant to pool. For workloads sharing large
+read-only datasets (e.g. container base images, shared
+model weights, reference databases), N hosts produce N
+redundant copies of data that already resides in shared
+memory.
+
+1. Lock-free multi-host writes. Multiple hosts
+must create files, write data, and modify metadata
+concurrently without a central coordinator or distributed lock manager.
+
+No Multi-Host Coordination. Existing DAX filesystems assume a single-host, single-writer model. ext4-dax
+uses journaling with per-host transaction IDs; NOVA
+uses per-CPU log structures. Neither can handle concurrent writers on different hosts accessing the same
+metadata through shared memory. FamFS [12] is the
+closest existing system: it targets CXL shared memory
+and supports multiple hosts mounting the same DAX
+region. However, FamFS uses a single-master log-replay
+
+2. Shared caching. A single cache instance in shared
+memory must serve all hosts, with coherent state
+transitions that prevent duplicate fills.
+3. Zero-copy access. Applications should mmap file
+data directly from CXL memory without copying
+through a per-host page cache.
+2
+
+Table 1: Feature comparison of DaxFS with existing filesystems. “Partial” indicates DAX support exists but the
+filesystem still maintains significant metadata structures (NOVA, PMFS) or is read-only (EROFS).
+Property
+
+DaxFS NOVA PMFS FamFS ext4-dax EROFS OverlayFS
+
+Zero-copy DAX reads
+Multi-host concurrent writes
+Lock-free data path
+Shared cache across hosts
+CXL atomics for coordination
+GPU zero-copy data access
+GPU-side cache coordination
+Layered storage (base+overlay)
+Self-contained image
+Flat validatable format
+
+Superblock (4KB)
+
+Host A
+
+read
+cmp
+xch
+k g
+ac
+ll b
+a
+f
+cmpxchg
+
+Host B
+
+Partial
+
+Partial
+
+N/A
+
+3.2
+
+magic, version, offsets
+
+Base Image (opt.)
+Inode Table (64B × N)
+
+Hash Overlay (opt.)
+
+Bucket Array (16B × M)
+
+Page Cache (opt.)
+
+dma-buf
+atomicCAS
+4KB slots + metadata
+GPU
+
+3.2.1
+Figure 1: DaxFS memory layout on a CXL shared
+memory region. Multiple hosts and GPU accelerators
+access the same DAX-mapped region concurrently: reads
+resolve from the overlay down to the base image; writes
+insert via cmpxchg; the shared page cache serves all
+hosts and GPUs. GPUs map the region via dma-buf
+and coordinate using PCIe AtomicOp TLPs.
+
+3
+
+On-Disk Format
+
+Flat Directory Format
+
+Directories store fixed-size entries of 271 bytes each (the
+daxfs dirent structure), containing a name length, an
+inode number, a parent inode number, and a 254-byte
+inline name. Unlike pointer-based directory formats
+(htree in ext4, B-tree in Btrfs), flat arrays have no cycles
+or dangling pointers, support bounded iteration with
+a known upper bound, and can be fully validated in a
+single sequential pass at mount time.
+
+Design
+3.2.2
+
+DaxFS is designed around three principles: (1) memory
+is the storage, not a cache for a block device; (2) reads
+should be free, resolving to direct pointer dereferences;
+and (3) coordination uses only hardware atomics, with
+no locks on the data path.
+
+3.1
+
+N/A
+N/A
+
+DaxFS uses a deliberately simple flat format designed
+for safe handling of untrusted images and efficient direct
+access. The four regions (superblock, base image, hash
+overlay, page cache) are laid out sequentially; each region
+uses a 4 KB header with magic numbers and size fields
+for independent validation.
+
+Data Area (files + dirents)
+
+Pool (inodes, pages, dirents)
+
+shar
+ed
+
+Partial
+N/A
+N/A
+
+Overlay Pool Entries
+
+Pool entries are variable-size. Inode entries (32 B) store
+mode, uid, gid, size, and timestamps, identified by a
+type header at offset 0. Data pages (4 KB) are raw file
+data with no header; the entry type is inferred from
+the hash key encoding (§3.4). Removing the header
+makes consecutively allocated data pages contiguous in
+memory, enabling the read path to coalesce sequential
+pages into a single large copy (§3.3). Dirent entries
+(∼280 B) record the parent inode, name, target inode,
+mode, and a tombstone flag for deletions. Dirlist entries
+(16 B) serve as per-directory list heads linking overlay
+dirents.
+Each entry type has a per-type free list for recycling.
+The free list head is stored in the overlay header and
+updated via cmpxchg, making recycling lock-free across
+hosts. Free-list recycling reuses the first 8 bytes of the
+freed entry as the next-free pointer; for data pages, these
+bytes are simply overwritten with user data on reallocation.
+
+Architecture Overview
+
+DaxFS operates on a contiguous DAX-mapped memory
+region containing up to four areas laid out sequentially:
+Figure 1 illustrates the layout. The filesystem supports
+three operating modes depending on which regions are
+present. In static mode ([Super][Base Image]), the
+base image is self-contained and read-only. Split mode
+([Super][Base Image][Overlay][PCache]) adds a
+writable overlay and shared page cache, with bulk
+file data in a separate backing file. Empty mode
+([Super][Overlay][PCache]) has no base image; all
+content is written through the overlay.
+3
+
+3.3
+
+Zero-Copy Read Path
+
+3.4.3
+
+In DaxFS, file reads resolve to direct pointers into DAX
+memory without any intermediate copying. The read
+path first looks up the data page in the hash overlay for
+key (ino ≪ 20) | pgoff; if found, it returns a pointer
+directly into the pool. If absent, the path falls back to
+the base image’s data area using the inode’s stored data
+offset. For split mode with a backing file, the path
+consults the shared page cache as a final fallback. At no
+point is data copied. For mmap, the filesystem installs
+PFN (page frame number) mappings directly to the
+DAX memory, so user-space loads resolve to the physical
+memory in a single page table walk. Data pages are
+page-aligned in the pool, ensuring that PFN mappings
+are always valid.
+
+3.4
+
+To insert a new entry, a host:
+1. Computes hash = key % bucket count.
+2. Reads bucket[hash].state key.
+3. If
+FREE:
+attempts
+cmpxchg(&bucket[hash].state key, 0, key
+≪ 1 | 1). On success, allocates a pool entry and
+writes pool off with smp wmb ordering. On failure
+(another host won the race), retries from step 2.
+4. If USED with matching key: the entry already exists
+(update or conflict).
+5. If USED with different key: linear probe to hash+1
+and repeat.
+
+Hash Overlay: Lock-Free Writes via
+CAS
+
+This protocol is lock-free: no host can block another.
+Hash collisions are resolved by linear probing within the
+table.
+
+The hash overlay is the core mechanism that enables
+concurrent multi-host writes. It is an open-addressing
+hash table with linear probing, stored entirely in DAX
+memory, where all mutations use a single 64-bit cmpxchg.
+
+3.4.4
+3.4.1
+
+Bucket Structure
+
+Pool Allocator
+
+Pool entries are variable-size: inodes (32 B), data pages
+(4 KB), and dirents (∼280 B). Allocation uses an atomic
+bump pointer with type-dependent alignment:
+
+Each bucket is 16 bytes:
+struct daxfs_ovl_bucket {
+uint64_t state_key; /* bit 0: USED/FREE
+bits 63:1: key */
+uint64_t pool_off; /* offset into pool */
+};
+
+aligned = ALIGN(pool_alloc, align);
+off = atomic_cmpxchg(&hdr->pool_alloc,
+pool_alloc,
+aligned + size);
+
+Bit 0 of state key distinguishes FREE (0) from
+USED (1). The remaining 63 bits encode the lookup
+key.
+3.4.2
+
+Insert Protocol
+
+Metadata entries use 8-byte alignment; data pages use
+PAGE SIZE alignment. Page-aligning data allocations
+serves two purposes: (1) it enables DAX mmap to install
+PFN mappings directly to overlay pages, and (2) it
+ensures that consecutive data page allocations produce
+contiguous memory, enabling read-path coalescing (§3.3).
+The alignment gap between a metadata entry and the
+next data page is at most 4 KB of wasted pool space, a
+negligible fraction of typical pool sizes (64 MB+).
+Freed entries are recycled through per-type lock-free
+free lists (CAS on list head), avoiding pool exhaustion
+for long-running workloads.
+
+Key Encoding
+
+DaxFS encodes four entry types into the 63-bit key
+space:
+• Data page: (ino ≪ 20) | pgoff. Supports up
+to 220 pages (4 GB) per file.
+• Inode metadata: (ino ≪ 20) | 0xFFFFF. The
+sentinel page offset distinguishes inode entries from
+data.
+
+3.4.5
+
+• Directory list head: (ino ≪ 20) | 0xFFFFE.
+Points to the first overlay dirent for a directory.
+
+Directory Operations
+
+Each directory maintains a per-directory linked list of
+overlay dirents. The list head is stored at key (dir ino
+≪ 20) | 0xFFFFE. readdir iterates both the base image dirent array and the overlay list, with overlay entries
+taking precedence. Deletion uses tombstone entries.
+
+• Directory entry: FNV-1a(parent ino, name). A
+63-bit hash of the parent inode number and entry
+name.
+4
+
+3.5
+
+1. Cold victim. Scan the 8-slot probe window for
+a VALID slot with ref bit=0 and refcount=0. If
+found, CAS it to FREE and restart the fill.
+
+Shared Page Cache
+
+The shared page cache (pcache) provides cooperative
+demand-paged caching for backing store mode. It resides
+in DAX memory and is therefore directly accessible by
+all hosts sharing the CXL memory region.
+3.5.1
+
+2. Clear and yield. If all probed slots are hot
+(ref bit=1), clear their ref bit fields and yield the
+CPU briefly (cpu relax). This gives other hosts an
+opportunity to re-touch genuinely hot entries before
+the re-scan.
+
+Slot State Machine
+
+Each cache slot has a 16-byte metadata entry:
+
+3. Re-scan. Scan again for a cold, unpinned victim.
+If still none, force-evict the first VALID slot with
+refcount=0, ignoring ref bit.
+
+struct daxfs_pcache_slot {
+__le64 state_tag; /* bits[1:0]=state,
+bits[5:2]=refcount, bits[63:6]=tag */
+__le32 ref_bit; /* clock: recently used */
+__le32 reserved;
+};
+
+A separate background clock sweep periodically advances a shared atomic evict hand counter by 64 slots
+using cmpxchg; the host that wins the CAS clears
+ref bit on all VALID slots in that window. Hosts
+that lose the race skip the sweep, ensuring that only one
+host clears each window and ref bit values decay at a
+controlled rate even under contention.
+The refcount in state tag ensures that slots actively
+being read by any host are never evicted. Readers CASincrement the refcount before accessing slot data and
+CAS-decrement it afterward, providing safe pinning without locks.
+
+The state machine uses three states encoded in the
+low 2 bits:
+cmpxchg
+
+cmpxchg
+
+FREE (0) −−−−→ PENDING (1) −−−−→ VALID (2)
+Bits [5:2] hold a 4-bit refcount (0–15 concurrent readers), and the upper 58 bits encode the tag identifying
+which file page this slot caches (§3.4). Packing state,
+refcount, and tag into a single 64-bit word allows a single
+cmpxchg to atomically update all three fields, which is
+essential for lock-free multi-host coordination.
+Fill protocol. When a host needs a page not in the
+cache:
+
+3.5.3
+
+Multi-File Support
+
+1. Probe up to 8 slots starting at the hash position.
+If a matching VALID slot is found, pin it (CASincrement refcount) and return. If a FREE slot is
+found, record it.
+
+The tag encoding (ino ≪ 20) | pgoff supports up to
+220 pages (4 GB) per file. Multiple backing files share the
+same cache through a backing file array in the superblock,
+with inode numbers namespaced per file.
+
+2. cmpxchg the FREE slot from FREE to PENDING
+with the desired tag. If another host wins, retry.
+
+3.6
+
+Cross-host coherency follows from CXL hardware coherence. Two specific mechanisms warrant discussion:
+
+3. Read the backing file page into the slot’s data area
+via kernel read.
+
+i size coherency. When Host A appends data and
+updates the file size in the overlay inode entry, Host B
+must see the new size. DaxFS stores the authoritative
+i size in the overlay inode entry (DAX memory). On
+each read path entry, DaxFS performs a READ ONCE
+on the overlay’s size field and updates the in-kernel
+VFS inode, ensuring reads always see the latest file size
+without explicit invalidation messages.
+
+4. cmpxchg the slot from PENDING to VALID.
+Other hosts that need the same page during step 3
+see the PENDING state and busy-poll until VALID,
+avoiding duplicate reads from the backing file.
+3.5.2
+
+Cross-Host Coherency
+
+MH-Clock Eviction
+
+When all probe slots are occupied, DaxFS uses a novel
+multi-host clock (MH-clock) eviction algorithm, adapted
+from the classic CLOCK algorithm [5] for lock-free operation across CXL-connected hosts. Unlike the standard
+CLOCK algorithm, which assumes a single centralized
+hand managed by one OS instance, MH-clock is fully
+decentralized: each host independently selects victims
+within its local probe window using three escalating
+phases:
+
+Memory ordering. Insert operations use smp wmb
+between writing pool entry contents and writing the
+bucket’s pool off field. Lookup operations use smp rmb
+after reading pool off to ensure they see the complete
+pool entry. On x86, these compile to compiler barriers
+(x86 provides TSO ordering); on ARM64, they emit fence
+instructions.
+5
+
+4
+
+integrity, inode table bounds, directory entry references,
+and region overlap. The absence of pointer-based structures eliminates cycle injection, dangling pointer exploitation, and unbounded traversal, which is important for
+mounting untrusted images in container environments.
+
+Implementation
+
+DaxFS is implemented as a loadable Linux kernel module in approximately 2,500 lines of C. It registers a filesystem type (daxfs) and supports both the legacy mount(2)
+interface and the modern fsopen/fsconfig/fsmount interface introduced in Linux 5.6.
+
+4.1
+
+4.4
+
+Because DaxFS operates on DAX memory, it can export
+the filesystem region to GPU accelerators on the same
+PCIe fabric via dma-buf. The DAXFS IOC GET DMABUF
+ioctl returns a dma-buf file descriptor for the mount’s
+DAX region, which a GPU driver can then map for
+peer-to-peer reads without CPU-mediated copies.
+We prototype a P2PDMA integration using modified
+NVIDIA open GPU kernel modules [4] that register the
+dma-buf region as pinned GPU-accessible memory via
+custom ioctls. GPU threads can then issue Copy Engine transfers directly between VRAM and the DAX
+region. Because DaxFS’s coordination is built entirely
+on cmpxchg, GPU threads can also participate in page
+cache lookups by issuing PCIe AtomicOp TLPs, which
+the memory controller serializes alongside CPU atomics.
+We evaluate the feasibility of this path with microbenchmarks in §5.5.
+
+Memory Mapping
+
+DaxFS supports two memory backing modes. In the
+physical address path, the phys= and size= mount options cause DaxFS to call memremap() on the specified physical range; this is the primary path for Optane PMem and CXL memory devices. Alternatively,
+the DMA buffer path uses the fsopen API: a userspace process passes a dma-buf file descriptor via
+FSCONFIG SET FD, and DaxFS calls dma buf vmap() to
+obtain a kernel virtual mapping. Both modes bypass
+the kernel’s dax device abstraction entirely, mapping
+memory directly into the filesystem’s address space.
+
+4.2
+
+VFS Integration
+
+DaxFS registers standard VFS operations. Inode operations (lookup, create, mkdir, symlink, rename, unlink,
+setattr) all route writes through the hash overlay; the
+base image is never modified.
+The read iter file operation performs zero-copy reads
+by returning pointers into DAX memory. For overlay
+data, the read path detects physically contiguous pages
+and coalesces them into a single copy to iter call: because data pages are raw 4 KB allocations with no header,
+pages allocated by the same bump operation are adjacent in memory. After looking up the first page (via the
+per-inode xarray cache), the read path checks whether
+subsequent pages are physically adjacent and, if so, extends the copy region. For a 16 MB sequential read of
+sequentially written data, this reduces the operation
+from 4,096 individual copies to a single contiguous transfer. For pcache-backed data, the read path pins the
+cache slot (incrementing refcount) before returning data,
+preventing eviction during the read. Address space operations (readpage/readahead) provide integration with
+the kernel page cache on non-DAX access paths.
+Data resolution on every read path calls
+daxfs refresh isize(), which performs a READ ONCE
+on the overlay’s size field, ensuring cross-host coherency
+of file sizes without explicit invalidation.
+
+4.3
+
+GPU P2PDMA Integration
+
+5
+
+Evaluation
+
+We evaluate DaxFS’s filesystem throughput against
+tmpfs on a single host (§5.2–§5.3) and characterize GPU
+P2P access latency (§5.5). tmpfs represents the performance ceiling for in-memory filesystems: it runs entirely
+in DRAM with no persistence, no DAX layer, and no
+sharing overhead. Multi-host evaluation on CXL hardware is discussed in §5.7.
+
+5.1
+
+Experimental Setup
+
+We use two hardware configurations:
+Platform A (Table 2, GPU benchmarks). Dualsocket Intel Xeon (48 cores, 96 threads), 512 GB DDR5,
+NVIDIA RTX 5090 (PCIe 5.0 x16). DaxFS is backed
+by a 512 MB contiguous DRAM region allocated at
+runtime via a CMA-based allocator and mapped with
+memremap(MEMREMAP WB), exercising the same writeback-cached code path that CXL memory devices use.
+For GPU benchmarks, the DAX region is additionally
+exported to the GPU via dma-buf (§4.4).
+Platform B (Figures 2–5). Intel Xeon Gold 5418Y,
+DRAM-backed DAX. This platform compares DaxFS
+against ext4-dax and tmpfs on sequential read throughput, latency, and metadata operations.
+Software. Linux 7.0 on both platforms. Benchmarks
+use fio 3.x with the synchronous I/O engine. Each test
+
+Mount-Time Validation
+
+The flat format (§3.2) enables complete image validation
+in a single sequential scan at mount time. When the
+validate option is specified, DaxFS checks superblock
+6
+
+writes a 64 MB file, then reads it back. The filesystem
+is reformatted between write tests to ensure first-write
+measurements reflect cold overlay state. The DaxFS
+overlay is configured with a 400 MB pool and 65,536
+hash buckets.
+Baseline. tmpfs backed by system DRAM. Both
+DaxFS and tmpfs operate entirely in DRAM, isolating
+filesystem-layer overhead from media speed differences.
+
+5.2
+
+Table 2: fio throughput comparison: DaxFS vs. tmpfs
+on DRAM. 64 MB files, synchronous I/O engine. Higher
+is better for throughput; ratio > 1 means DaxFS wins.
+Benchmark
+
+Sequential Throughput
+
+Table 2 presents the full results. We highlight the key
+findings below.
+Writes. First-write throughput ranges from 1.16–
+1.27× tmpfs across block sizes. Batch pool allocation (a
+single cmpxchg reserves N entries) and the contiguous
+overlay layout amortise per-page allocation cost, allowing
+DaxFS to beat tmpfs even on cold writes. On rewrites
+(all pages cached in the per-inode xarray), DaxFS extends its lead: 1.18× at 4 KB and 1.09× at 1 MB. The
+advantage comes from DaxFS’s lock-free overlay: writes
+resolve to a direct DRAM pointer via xarray lookup with
+no page-cache lock acquisition.
+Reads. Sequential reads after a write hit the perinode xarray cache, which maps page offsets to overlay
+DRAM pointers in O(1). DaxFS achieves 0.87–1.08×
+tmpfs throughput. At 4 KB block size, DaxFS is 8%
+faster than tmpfs because it avoids the VFS page cache
+machinery: each read iter call resolves directly to a
+copy to iter from a DRAM pointer, whereas tmpfs
+traverses filemap read, filemap get pages, and folio
+reference counting.
+
+5.3
+
+DaxFS
+
+tmpfs
+
+Ratio
+
+Sequential Write (MiB/s)
+4K first
+1,730
+4K rewrite
+1,939
+64K first
+2,207
+64K rewrite
+2,667
+1M first
+2,000
+1M rewrite
+2,783
+
+1,362
+1,641
+1,778
+2,370
+1,730
+2,560
+
+1.27
+1.18
+1.24
+1.13
+1.16
+1.09
+
+Sequential Read (MiB/s)
+4K
+2,667
+64K
+3,048
+1M
+2,133
+
+2,462
+3,048
+2,462
+
+1.08
+1.00
+0.87
+
+Random Read (MiB/s)
+4K, 1 thread
+1,730
+4K, 4 threads
+8,000
+4K, 8 threads
+15,564
+64K, 4 threads
+15,052
+
+1,524
+7,111
+16,486
+12,800
+
+1.14
+1.13
+0.94
+1.18
+
+Random Write (MiB/s)
+4K, 1 thread
+1,255
+4K, 4 threads
+4,830
+
+1,333
+1,803
+
+0.94
+2.68
+
+Multi-host writes
+Shared cache
+Lock-free writes
+
+5.4
+
+—
+—
+—
+
+Performance Summary
+
+Table 2 summarizes the results. DaxFS exceeds tmpfs
+across all write workloads, including first writes. Under concurrency the gap widens: at 4 threads DaxFS
+exceeds tmpfs by up to 2.68× on random writes.
+
+Random I/O
+
+5.5
+
+Random reads. DaxFS outperforms tmpfs across all
+thread counts. At 4 KB with 1 thread, DaxFS achieves
+1.14× tmpfs. At 4 threads DaxFS maintains its lead
+(1.13×). At 8 threads the gap narrows as both saturate
+memory bandwidth (0.94×). At 64 KB with 4 threads,
+DaxFS reaches 14.7 GiB/s versus tmpfs’s 12.5 GiB/s
+(1.18×). The advantage comes from DaxFS’s lock-free
+read path: the xarray is read-only after population (no
+RCU grace periods or folio locks), allowing near-linear
+scaling.
+Random writes. DaxFS’s lock-free overlay provides
+dramatic write scaling. At 4 KB with 4 threads, DaxFS
+achieves 4,830 MiB/s versus tmpfs’s 1,803 MiB/s (2.68×).
+tmpfs serialises on per-page locks and the global i pages
+xarray lock during page fault handling; DaxFS writes
+resolve to a direct store into a pre-allocated overlay page
+with no locks on the data path.
+
+GPU PCIe AtomicOp Evaluation
+
+We evaluate the GPU coordination path on an NVIDIA
+RTX 5090 connected via PCIe 5.0, with the DAX region
+mapped into GPU address space via pinned host memory. Figure 6 presents the complete results across six
+microbenchmarks.
+Primitive latency (Figure 6, top-left). A volatile
+PCIe read of commit seq costs 529 ns (one PCIe 5.0
+round trip). A CAS inc/dec costs 1,811 ns (3.4× read),
+reflecting memory-controller serialization. Lock acquire+release costs 2,048 ns.
+Page cache lookup (Figure 6, top-center and bottomright). The fast path (a volatile read plus tag comparison) scales near-linearly to 8 threads (∼8 Mops/s), reaching 500+ Mops/s at 1,024 threads. Per-op latency drops
+from 910 ns (1 thread) to under 2 ns (1,024 threads) as
+the GPU’s warp scheduler amortizes PCIe latency across
+concurrent outstanding requests.
+7
+
+Figure 2: Sequential read throughput comparison across
+filesystems (Intel Xeon Gold 5418Y, DRAM-backed
+DAX). Left: 16 MB sequential read; right: 1 MB sequential read. DaxFS achieves 59.2 MB/s on the large
+sequential workload (6.2× ext4-dax) and matches tmpfs
+on the 1 MB file (100 MB/s each). The 16 MB gap versus tmpfs (228.6 MB/s) reflects the overhead of per-page
+overlay resolution on large sequential scans; at 1 MB the
+overhead is amortized.
+
+Figure 4: Metadata operation latency on 1,000 files
+(lower is better). DaxFS achieves the lowest stat latency (3,528 ms), 4.6% faster than ext4-dax (3,699 ms)
+and 6.3% faster than tmpfs (3,764 ms), due to flat overlay
+lookup. On readdir, DaxFS (33.8 ms) is slower than
+tmpfs (23.1 ms) and ext4-dax (23.9 ms) due to the cost
+of iterating both the base image dirent array and the
+overlay linked list.
+
+design hypothesis: a filesystem whose coordination is
+built entirely on cmpxchg extends naturally to GPU
+threads via PCIe AtomicOps. The fast-path (cache hits)
+requires zero atomics and scales to hundreds of millions
+of operations per second. The slow-path (cache misses)
+is intentionally serialized at the pending counter but
+occurs only once per file page. Slot-level CAS transitions are bounded by PCIe AtomicOp bandwidth rather
+than software overhead, confirming that DaxFS’s GPU
+coordination adds no unnecessary abstraction layers.
+
+Figure 3: Sequential read latency comparison (lower is
+better). DaxFS completes a 16 MB read in 274.2 ms,
+6.1× faster than ext4-dax (1,660.7 ms). On 1 MB files,
+DaxFS and tmpfs finish in 18.0 and 17.7 ms respectively.
+
+5.6
+
+Slot CAS throughput (Figure 6, top-right). 64-bit
+atomicCAS on independent slots scales to 11.7 Mops/s
+at 512 threads, saturating the PCIe 5.0 AtomicOp bandwidth limit of ∼11.5 Mops/s. GPU-side slot transitions
+are PCIe-bandwidth-limited, not software-limited.
+Lock contention (Figure 6, bottom-left). Peracquisition time decreases with more threads (2,350 ns at
+1 thread to 150 ns at 32) because the memory controller
+pipelines back-to-back AtomicOp TLPs. The lock is
+used only for rare global operations; the data path is
+lock-free.
+Page cache claim (Figure 6, bottom-center).
+The cold-miss path (FREE→PENDING + pending
+counter) achieves 0.23 Mops/s at 1 thread, dropping
+to 0.005 Mops/s at 1,024 threads due to contention on
+the global pending counter. This is by design: claims
+are rare cold-miss events that signal the CPU to fill a
+slot. In steady state, GPU threads hit the VALID fast
+path at 500+ Mops/s.
+Summary. The GPU evaluation validates DaxFS’s
+
+End-to-End GPU Data Path Projection
+
+To illustrate DaxFS’s GPU zero-copy path, we project
+the cost of loading a 70B-parameter LLM (140 GB at
+FP16). The conventional path (read() + cudaMemcpy)
+performs two copies: kernel page cache to user buffer
+(∼12 GB/s for large sequential reads) and user buffer
+to GPU via PCIe 5.0 (∼50 GB/s unidirectional). With
+DaxFS, the GPU would read directly from DAX memory
+over PCIe, a single copy at PCIe bandwidth. For 140 GB
+of VALID page cache data, the projected GPU path
+would require 140 GB / 50 GB/s ≈ 2.8 s, whereas the
+conventional two-copy path requires at least 140/12 +
+140/50 ≈ 14.5 s (assuming no overlap). GPU-initiated
+cache claims for cold pages add a one-time cost of at
+most 140 GB / 4 KB × 4.4 µs ≈ 154 s, but this is a
+worst-case serialized estimate; in practice, claims would
+be pipelined across GPU threads and amortized by the
+CPU’s backing-file fill rate.
+8
+
+6
+
+Related Work
+
+Persistent memory filesystems. PMFS [8],
+NOVA [25], Strata [18], and SplitFS [17] target singlehost persistent memory. All maintain complex metadata
+structures (B-trees, per-inode logs) that cannot be
+shared across hosts without distributed locking. DaxFS
+replaces these with a flat base image and lock-free hash
+overlay.
+CXL shared memory systems. Pond [19] and
+TPP [21] focus on CXL memory management, not filesystem semantics. FamFS [12] is architecturally the closest
+prior work to DaxFS. Both provide a filesystem interface to CXL shared memory, supporting multiple hosts
+mounting the same DAX region. However, FamFS uses
+a single-master log-replay model: one designated host
+pre-allocates files and clients replay its metadata log.
+Clients cannot create, append, truncate, or delete files,
+and there is no shared cache or CXL-atomic coordination
+(see Table 1 for a feature comparison).
+
+Figure 5: Normalised performance summary across all
+benchmarks (Intel Xeon Gold 5418Y, DRAM-backed
+DAX). Each group is normalised to the best-performing
+filesystem. DaxFS matches tmpfs on 1 MB sequential
+reads and achieves the lowest stat latency, while outperforming ext4-dax on data I/O. The 16 MB sequential
+read and readdir gaps versus tmpfs reflect per-page
+overlay lookup and dual-source directory iteration overhead.
+
+5.7
+
+Multi-Host Evaluation
+
+Distributed filesystems. GFS [11], CephFS [24],
+Lustre [23], Orion [26], and Assise [1] use message-passing
+or RPC, adding µs-scale latency that CXL shared memory makes unnecessary.
+
+We evaluate multi-host CXL 3.0 coordination using a
+modified QEMU 10.0 setup where two virtual hosts share
+a memory region and CXL atomic requests are forwarded
+between hosts via TCP. Figure 7 presents the results.
+
+GPU storage and other related work. GPUDirect
+Storage [10] and BaM [2] operate at the block layer;
+DaxFS instead exports DAX memory via dma-buf for
+P2P reads over PCIe. EROFS [9] and Slacker [13] focus
+on read-only image distribution; neither supports multihost writes. DaxFS’s overlay draws on lock-free hash
+table designs [14, 22] with lock-free free-list recycling via
+cmpxchg.
+
+CXL atomic throughput and latency. The singlethread throughput comparison (bottom-left, log scale)
+shows the emulation overhead clearly: DRAM achieves
+∼100 Mops/s while CXL atomics reach ∼1–3 Mops/s
+(∼30–100× slower), reflecting the TCP forwarding cost.
+With batching (batch 200), throughput improves by
+amortizing per-operation network cost.
+CAS accuracy. CAS success rate remains above 99%
+across all thread counts (bottom-center), confirming that
+DaxFS’s lock-free protocols function correctly under
+cross-host contention. The slight accuracy drop at higher
+thread counts reflects increased contention on shared
+buckets, which triggers retries as designed.
+
+7
+
+Discussion and Limitations
+
+Overlay insert scaling. Cross-host overlay insertions (bottom-right) achieve ∼20 inserts/s at 1 thread,
+scaling to 2 threads. Concurrent inserts from both hosts
+produce consistent overlay state with no lost updates.
+
+Flat directory scalability. DaxFS’s flat directory
+format performs a linear scan for lookup, which is O(n)
+in directory size. For directories with more than ∼10K
+entries, an overlay-indexed lookup would improve performance. For moderate directories (1K entries), the linear
+scan is competitive with indexed approaches.
+
+CXL/DRAM slowdown. The slowdown ratio (topright) ranges from ∼500× to ∼6,000× depending on
+thread count and access pattern. This overhead is dominated by TCP forwarding latency in the QEMU emulation; hardware CXL 3.0 switches are expected to reduce
+cross-host atomic latency to the µs range, which would
+narrow this gap significantly.
+
+Fixed overlay sizing. The overlay hash table size is
+fixed at creation time. Dynamic resizing would require
+a stop-the-world migration across all hosts. We recommend sizing the bucket count to maintain <70% load
+factor: at 75% load, average probe length is 2.5; at 90%,
+it is 5.5.
+9
+
+Figure 6: GPU PCIe AtomicOp coordination benchmarks on an RTX 5090 (PCIe 5.0, pinned host memory). Top
+row: (left) single-thread primitive latency, (center) page cache lookup throughput vs. thread count, (right) slot CAS
+throughput saturating the PCIe bandwidth limit. Bottom row: (left) coordination lock contention, (center) page
+cache claim throughput (cold-miss path), (right) per-op lookup latency.
+Persistence guarantees. DaxFS currently relies on
+ADR (Asynchronous DRAM Refresh) or eADR for persistence. It does not issue explicit clflush/clwb instructions. On platforms without ADR, a crash could
+lose recent overlay insertions. Adding explicit cache-line
+flushes is straightforward but adds latency.
+
+tributes. File names are limited to 255 characters. These
+restrictions reflect the target workloads (container rootfs,
+shared caching) where these features are rarely needed.
+
+8
+
+Conclusion
+
+CXL shared memory enables a new filesystem design
+point: multiple hosts sharing a single namespace and
+cache through coherent load/store operations, with no
+network protocol overhead. DaxFS exploits this by using cmpxchg as its sole coordination primitive, achieving
+lock-free concurrent writes, cooperative caching with
+decentralized MH-clock eviction, and zero-copy access
+in a unified design.
+We validate multi-host correctness using QEMUemulated CXL 3.0, confirming >99% CAS accuracy
+under cross-host contention with no lost updates. On
+single-host DRAM-backed DAX, DaxFS exceeds tmpfs
+throughput across all write workloads, achieving up to
+2.68× higher random write throughput with 4 threads
+and 1.18× higher random read throughput at 64 KB.
+Preliminary GPU microbenchmarks further confirm that
+
+Pool recycling. The overlay pool uses per-type lockfree free lists for recycling deleted entries, but the pool
+itself is not compacted. Long-running workloads with
+heavy churn may fragment the pool. Online compaction
+is possible future work.
+GPU access scope. The current GPU integration
+supports read-only access via dma-buf. GPU-initiated
+writes are architecturally possible but are not yet implemented, as the primary use case of model and dataset
+loading is read-dominated.
+POSIX compliance gaps. DaxFS does not support
+mknod (device nodes, FIFOs, sockets) or extended at10
+
+A. Singhania. The multikernel: A new OS architecture for scalable multicore systems. In ACM Symposium on Operating Systems Principles (SOSP),
+pages 29–44, 2009.
+[4] CXLMemUring.
+Modified NVIDIA open
+GPU kernel modules with CXL P2PDMA
+support.
+https://github.com/CXLMemUring/
+open-gpu-kernel-modules, 2026.
+[5] F. J. Corbató. A paging experiment with the Multics
+system. In MIT Project MAC Report MAC-M-384,
+1968.
+[6] CXL Consortium. Compute Express Link (CXL)
+specification, revision 3.0, 2022.
+
+Figure 7: Multi-host CXL 3.0 benchmark dashboard
+(QEMU emulation, two hosts, TCP-forwarded CXL
+atomics). Top row: CXL atomic throughput, latency,
+and CXL/DRAM slowdown ratio vs. thread count. Bottom row: single-thread throughput comparison (log
+scale), CAS accuracy under contention, and overlay insert throughput.
+
+[7] DAXFS. DAXFS: A lock-free shared filesystem
+for CXL disaggregated memory. https://github.
+com/multikernel/daxfs.
+[8] S. R. Dulloor, S. Kumar, A. Keshavamurthy,
+P. Lantz, D. Reddy, R. Sankaran, and J. Jackson. System software for persistent memory. In
+ACM European Conference on Computer Systems
+(EuroSys), pages 15:1–15:15, 2014.
+
+the cmpxchg-based design extends to GPU threads at
+PCIe 5.0 bandwidth limits. As CXL 3.0 hardware matures, DaxFS provides a ready filesystem layer for disaggregated memory pools shared across hosts.
+
+[9] X. Gao, M. Dong, S. Miao, W. Du, C. Yu, and
+H. Chen. EROFS: A compression-friendly readonly
+file system for resource-scarce devices. In USENIX
+Annual Technical Conference (ATC), pages 149–162,
+2019.
+
+Availability
+
+[10] NVIDIA Corporation. GPUDirect Storage: A direct data path between local or remote storage
+and GPU memory. NVIDIA Developer Documentation, 2023. https://developer.nvidia.com/
+gpudirect-storage.
+
+DaxFS is available as open-source software [7]. The implementation includes the Linux kernel module, mkdaxfs
+image creation tool, and daxfs-inspect debugging tool.
+
+References
+
+[11] S. Ghemawat, H. Gobioff, and S.-T. Leung. The
+Google file system. In ACM Symposium on Operating Systems Principles (SOSP), pages 29–43,
+2003.
+
+[1] T. E. Anderson, M. Canini, J. Kim, D. Kostic,
+Y. Kwon, S. Peter, W. Pugh, and E. Witchel. Assise:
+Performance and availability via client-local NVM
+in a distributed file system. In USENIX Symposium
+on Operating Systems Design and Implementation
+(OSDI), 2020.
+
+[12] J. Groves. Introduce the Famfs shared-memory file
+system. Linux kernel patch series (RFC v2), April
+2024. https://lwn.net/Articles/983105/.
+
+[2] Z. Qureshi, V. Mailthody, I. S. Gelado, S. Min,
+A. Masood, J. Park, J. Xiong, C. J. Newburn,
+D. Vetter, and W.-m. W. Hwu. GPU-initiated
+on-demand high-throughput storage access in the
+BaM system architecture. In ACM International
+Conference on Architectural Support for Programming Languages and Operating Systems (ASPLOS),
+2023.
+
+[13] T. Harter, B. Salmon, R. Liu, A. C. Arpaci-Dusseau,
+and R. H. Arpaci-Dusseau. Slacker: Fast distribution with lazy Docker containers. In USENIX Conference on File and Storage Technologies (FAST),
+pages 181–195, 2016.
+[14] M. Herlihy and N. Shavit. The Art of Multiprocessor
+Programming. Morgan Kaufmann, 2008.
+
+[3] A. Baumann, P. Barham, P.-E. Dagand, T. Harris,
+R. Isaacs, S. Peter, T. Roscoe, A. Schüpbach, and
+
+[15] Intel Corporation. Intel Optane DC persistent memory. Intel Technology Brief, 2019.
+11
+
+[16] J. Izraelevitz, J. Yang, L. Zhang, J. Kim, X. Liu,
+A. Memaripour, Y. J. Soh, Z. Wang, Y. Xu, S. R.
+Dulloor, J. Zhao, and S. Swanson. Basic performance measurements of the Intel Optane DC persistent memory module. arXiv:1903.05714, 2019.
+
+[26] J. Yang, J. Kim, M. Hoseinzadeh, J. Izraelevitz, and
+S. Swanson. Orion: A distributed file system for
+non-volatile main memory and RDMA-capable networks. In USENIX Conference on File and Storage
+Technologies (FAST), pages 221–234, 2019.
+
+[17] R. Kadekodi, S. K. Lee, S. Kashyap, T. Kim,
+A. Kolli, and V. Chidambaram. SplitFS: Reducing software overhead in file systems for persistent
+memory. In ACM Symposium on Operating Systems
+Principles (SOSP), pages 494–508, 2019.
+[18] Y. Kwon, H. Fingler, T. Hunt, S. Peter, E. Witchel,
+and T. Anderson. Strata: A cross media file system. In ACM Symposium on Operating Systems
+Principles (SOSP), pages 460–477, 2017.
+[19] H. Li, D. S. Berger, L. Hsu, D. Ernst, P. Zardoshti, S. Novakovic, M. Shah, S. Rajadnya, S. Lee,
+I. Agarwal, M. D. Hill, M. Fontoura, and R. Bianchini. Pond: CXL-based memory pooling systems
+for cloud platforms. In ACM International Conference on Architectural Support for Programming
+Languages and Operating Systems (ASPLOS), 2023.
+[20] Linux Kernel Documentation.
+Direct access
+for files (DAX). https://www.kernel.org/doc/
+Documentation/filesystems/dax.txt.
+[21] H. Al Maruf, H. Wang, A. Dhanotia, J. Weiner,
+N. Agarwal, P. Bhatt, J. Chow, and M. Russinovich. TPP: Transparent page placement for CXLenabled tiered-memory. In ACM International Conference on Architectural Support for Programming
+Languages and Operating Systems (ASPLOS), 2023.
+[22] M. M. Michael. High performance dynamic lock-free
+hash tables and list-based sets. In ACM Symposium on Parallelism in Algorithms and Architectures
+(SPAA), 2002.
+[23] P. Schwan. Lustre: Building a file system for 1000node clusters. In Proceedings of the Linux Symposium, 2003.
+[24] S. A. Weil, S. A. Brandt, E. L. Miller, D. D. E.
+Long, and C. Maltzahn. Ceph: A scalable, highperformance distributed file system. In USENIX
+Symposium on Operating Systems Design and Implementation (OSDI), 2006.
+[25] J. Xu and S. Swanson. NOVA: A log-structured
+file system for hybrid volatile/non-volatile main
+memories. In USENIX Conference on File and
+Storage Technologies (FAST), pages 323–338, 2016.
+12
+
+
