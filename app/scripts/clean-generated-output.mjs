@@ -14,7 +14,8 @@ const generatedPaths = [
   path.join("public", "sitemap.xml"),
   path.join("public", "robots.txt"),
   path.join("public", "zh", "feed.xml"),
-  path.join("public", "og", "default.svg")
+  path.join("public", "og", "default.svg"),
+  path.join("public", "og", "default.png")
 ];
 
 function removeIfPresent(relativePath) {

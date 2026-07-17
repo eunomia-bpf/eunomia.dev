@@ -212,7 +212,7 @@ export function SeoHead({
       <meta property="og:image" content={ogImage} />
       <meta property="og:image:width" content={String(OG_IMAGE_WIDTH)} />
       <meta property="og:image:height" content={String(OG_IMAGE_HEIGHT)} />
-      <meta property="og:image:type" content="image/svg+xml" />
+      <meta property="og:image:type" content="image/png" />
       <meta property="og:locale" content={locale} />
       <meta property="og:locale:alternate" content={altLocale} />
       {articlePublishedAt ? <meta property="article:published_time" content={articlePublishedAt} /> : null}

@@ -637,10 +637,13 @@ test("docPathToRoute keeps legacy blog routes stable across locales", () => {
   assert.equal(docPathToRoute("blogs/bpftime.zh.md", "zh"), "/zh/blogs/bpftime/");
 });
 
-test("listSitemapRoutes keeps key legacy and section routes", () => {
+test("listSitemapRoutes keeps section routes but excludes noindex'd legacy blog routes", () => {
   const rawRoutes = listSitemapRoutes();
   const routes = new Set(rawRoutes);
-  assert.ok(routes.has("/zh/blogs/bpftime/"));
+  // Legacy /blogs/** pages are served with robots: noindex, so they must not
+  // appear in the sitemap (see isSitemapExcludedRoute).
+  assert.ok(!routes.has("/blogs/bpftime/"));
+  assert.ok(!routes.has("/zh/blogs/bpftime/"));
   assert.ok(routes.has("/eunomia-bpf/setup/build/"));
   assert.ok(routes.has("/eunomia-bpf/setup/"));
   assert.ok(routes.has("/tutorials/38-btf-uprobe/test-verify/"));
@@ -925,7 +928,7 @@ test("static metadata generation emits feed, sitemap, robots, and shared OG asse
       indexPath
     });
 
-    assert.deepEqual(result.files, ["feed.xml", path.join("zh", "feed.xml"), "sitemap.xml", "robots.txt", path.join("og", "default.svg")]);
+    assert.deepEqual(result.files, ["feed.xml", path.join("zh", "feed.xml"), "sitemap.xml", "robots.txt", path.join("og", "default.svg"), path.join("og", "default.png")]);
     assert.ok(fs.existsSync(indexPath));
     assert.match(fs.readFileSync(path.join(publicDir, "feed.xml"), "utf8"), /<rss version="2.0"/);
     assert.match(fs.readFileSync(path.join(publicDir, "zh", "feed.xml"), "utf8"), /<language>zh-CN<\/language>/);
@@ -933,8 +936,13 @@ test("static metadata generation emits feed, sitemap, robots, and shared OG asse
     assert.match(sitemap, /<loc>https:\/\/eunomia\.dev\//);
     assert.doesNotMatch(sitemap, /https:\/\/eunomia\.dev\/GPTtrace\/agentsight\//);
     assert.doesNotMatch(sitemap, /https:\/\/eunomia\.dev\/zh\/GPTtrace\/agentsight\//);
+    // Legacy noindex'd /blogs/** URLs must be excluded from the sitemap.
+    assert.doesNotMatch(sitemap, /https:\/\/eunomia\.dev\/blogs\//);
+    assert.doesNotMatch(sitemap, /https:\/\/eunomia\.dev\/zh\/blogs\//);
     assert.match(fs.readFileSync(path.join(publicDir, "robots.txt"), "utf8"), /Sitemap: https:\/\/eunomia\.dev\/sitemap\.xml/);
     assert.match(fs.readFileSync(path.join(publicDir, "og", "default.svg"), "utf8"), /Static OG image shared by all pages/);
+    const ogPng = fs.readFileSync(path.join(publicDir, "og", "default.png"));
+    assert.equal(ogPng.subarray(0, 8).toString("hex"), "89504e470d0a1a0a");
   } finally {
     fs.rmSync(publicDir, { recursive: true, force: true });
     fs.rmSync(indexPath, { force: true });

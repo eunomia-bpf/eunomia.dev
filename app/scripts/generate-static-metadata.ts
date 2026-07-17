@@ -2,6 +2,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { Resvg } from "@resvg/resvg-js";
+
 import { renderFeed } from "../lib/content/feed";
 import { getGitMetadata } from "../lib/content/git";
 import { getContentManifest, isSitemapExcludedRoute } from "../lib/content/manifest";
@@ -21,13 +23,13 @@ type StaticMetadataPaths = {
 
 type StaticMetadataFile = {
   relativePath: string;
-  contents: string;
+  contents: string | Buffer;
 };
 
-function writeFileAtomic(filePath: string, contents: string) {
+function writeFileAtomic(filePath: string, contents: string | Buffer) {
   fs.mkdirSync(path.dirname(filePath), { recursive: true });
   const tempPath = `${filePath}.tmp`;
-  fs.writeFileSync(tempPath, contents, "utf8");
+  fs.writeFileSync(tempPath, contents);
   fs.renameSync(tempPath, filePath);
 }
 
@@ -71,6 +73,15 @@ function renderStaticOgSvg() {
   <text x="88" y="520" fill="#C7D2FE" font-size="28" font-family="ui-sans-serif, system-ui, sans-serif">eunomia.dev</text>
   <text x="88" y="560" fill="#E2E8F0" font-size="24" font-family="ui-sans-serif, system-ui, sans-serif">Static OG image shared by all pages for static export compatibility</text>
 </svg>`;
+}
+
+// Social platforms (Slack, Twitter/X, Facebook, LinkedIn, Discord) do not render
+// SVG og:image cards, so rasterize the shared SVG to a 1200x630 PNG at build time.
+function renderStaticOgPng(svg: string): Buffer {
+  const resvg = new Resvg(svg, {
+    fitTo: { mode: "width", value: 1200 }
+  });
+  return resvg.render().asPng();
 }
 
 export function buildSitemapXml() {
@@ -146,6 +157,7 @@ Sitemap: ${absoluteUrl("/sitemap.xml")}
 export function writeStaticMetadata(paths: StaticMetadataPaths = {}) {
   const publicDir = paths.publicDir ?? defaultPublicDir;
   const indexPath = paths.indexPath ?? defaultGeneratedIndexPath;
+  const ogSvg = renderStaticOgSvg();
   const files: StaticMetadataFile[] = [
     {
       relativePath: "feed.xml",
@@ -165,7 +177,11 @@ export function writeStaticMetadata(paths: StaticMetadataPaths = {}) {
     },
     {
       relativePath: path.join("og", "default.svg"),
-      contents: renderStaticOgSvg()
+      contents: ogSvg
+    },
+    {
+      relativePath: path.join("og", "default.png"),
+      contents: renderStaticOgPng(ogSvg)
     }
   ];
 

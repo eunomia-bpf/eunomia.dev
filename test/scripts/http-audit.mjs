@@ -42,14 +42,20 @@ async function auditFeed(pathname) {
 }
 
 async function auditStaticOg() {
-  const url = pageUrl("/og/default.svg");
-  const { response, text } = await fetchText(url);
-  check(response.ok, "static OG image is reachable");
+  // The og:image is a rasterized PNG so social platforms can render the card.
+  const pngUrl = pageUrl("/og/default.png");
+  const { response: pngResponse } = await fetchText(pngUrl);
+  check(pngResponse.ok, "static OG image (PNG) is reachable");
   check(
-    (response.headers.get("content-type") ?? "").includes("image/svg+xml"),
-    "static OG image is served as SVG"
+    (pngResponse.headers.get("content-type") ?? "").includes("image/png"),
+    "static OG image is served as PNG"
   );
-  check(text.includes("<svg"), "static OG image contains SVG markup");
+
+  // The SVG source is still emitted (used as the PNG source and JSON-LD logo).
+  const svgUrl = pageUrl("/og/default.svg");
+  const { response: svgResponse, text: svgText } = await fetchText(svgUrl);
+  check(svgResponse.ok, "static OG SVG source is reachable");
+  check(svgText.includes("<svg"), "static OG SVG source contains SVG markup");
 }
 
 async function auditSitemap() {
@@ -92,7 +98,7 @@ function validateSeoDocument(url, text, sitemapPathSet) {
     `${pathname}: og:description exists`
   );
   check(Boolean(ogImage), `${pathname}: og:image exists`);
-  check(ogImage === pageUrl("/og/default.svg"), `${pathname}: og:image uses the shared static asset`);
+  check(ogImage === pageUrl("/og/default.png"), `${pathname}: og:image uses the shared static asset`);
   check(!ogImage.includes("/api/og"), `${pathname}: og:image does not use a runtime API`);
   check(rssFeed === expectedFeed, `${pathname}: rss alternate matches locale feed`);
   check(

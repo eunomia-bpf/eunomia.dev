@@ -38,8 +38,13 @@ const routeAliasesByCanonicalPath: Record<string, string[]> = {
 
 const sitemapExcludedRoutes = new Set(["/GPTtrace/agentsight/", "/zh/GPTtrace/agentsight/"]);
 
+// Legacy /blogs/** (and /zh/blogs/**) pages are served with robots: noindex,follow
+// (see page-factories.tsx), so they must not appear in the sitemap. This pattern
+// mirrors the noindex regex used there to keep the two in sync.
+const noindexBlogRoutePattern = /\/(blogs|zh\/blogs)\//;
+
 export function isSitemapExcludedRoute(routePath: string): boolean {
-  return sitemapExcludedRoutes.has(routePath);
+  return sitemapExcludedRoutes.has(routePath) || noindexBlogRoutePattern.test(routePath);
 }
 
 function allowManifestFallback(): boolean {

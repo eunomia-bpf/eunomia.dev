@@ -21,6 +21,7 @@ const requiredFiles = [
   path.join(appDir, "public", "sitemap.xml"),
   path.join(appDir, "public", "robots.txt"),
   path.join(appDir, "public", "og", "default.svg"),
+  path.join(appDir, "public", "og", "default.png"),
   path.join(staticBuildRoot, "index.html"),
   path.join(staticBuildRoot, "feed.xml"),
   path.join(staticBuildRoot, "robots.txt"),

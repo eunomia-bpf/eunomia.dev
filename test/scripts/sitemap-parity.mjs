@@ -13,6 +13,9 @@ const retiredLegacySitemapPaths = new Set([
   "/tutorials/SUMMARY/",
   "/zh/tutorials/SUMMARY/"
 ]);
+// Legacy /blogs/** (and /zh/blogs/**) pages are served with robots: noindex, so
+// they are intentionally excluded from the app sitemap (see isSitemapExcludedRoute).
+const retiredLegacyBlogPattern = /^\/(?:zh\/)?blogs(?:\/|$)/;
 const expectedAppOnlyPaths = new Set([
   "/about/",
   "/products/",
@@ -38,10 +41,15 @@ function check(condition, message) {
 async function main() {
   console.log(`Comparing sitemap parity for ${baseUrl.toString()}`);
 
+  const legacySitemapPathnames = readLocalSitemapPaths(legacySitemapPath).map(
+    (url) => new URL(url).pathname
+  );
+  const retiredPaths = new Set([
+    ...retiredLegacySitemapPaths,
+    ...legacySitemapPathnames.filter((pathname) => retiredLegacyBlogPattern.test(pathname))
+  ]);
   const legacyPaths = new Set(
-    readLocalSitemapPaths(legacySitemapPath)
-      .map((url) => new URL(url).pathname)
-      .filter((pathname) => !retiredLegacySitemapPaths.has(pathname))
+    legacySitemapPathnames.filter((pathname) => !retiredPaths.has(pathname))
   );
   const { response, paths } = await fetchSitemapPaths();
   check(response.ok, "target sitemap is reachable");
@@ -53,7 +61,7 @@ async function main() {
   const compatibleGrowth = extra.filter((pathname) => datedBlogRoutePattern.test(pathname));
   const expectedGrowth = extra.filter((pathname) => expectedAppOnlyPaths.has(pathname));
   const missingExpectedGrowth = [...expectedAppOnlyPaths].filter((pathname) => !appPaths.has(pathname)).sort();
-  const retiredStillPublic = [...retiredLegacySitemapPaths].filter((pathname) => appPaths.has(pathname)).sort();
+  const retiredStillPublic = [...retiredPaths].filter((pathname) => appPaths.has(pathname)).sort();
 
   check(missing.length === 0, `all legacy sitemap paths exist in app sitemap (${missing.length} missing)`);
   check(
@@ -67,7 +75,7 @@ async function main() {
   console.log(`App-only sitemap paths: ${extra.length}`);
   console.log(`Compatible dated blog paths: ${compatibleGrowth.length}`);
   console.log(`Expected app-only paths: ${expectedGrowth.length}`);
-  console.log(`Retired legacy sitemap paths: ${retiredLegacySitemapPaths.size}`);
+  console.log(`Retired legacy sitemap paths: ${retiredPaths.size}`);
 
   if (missing.length) {
     for (const pathname of missing.slice(0, 50)) {
