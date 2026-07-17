@@ -8,16 +8,12 @@ import json
 import os
 import sys
 import re
-import unicodedata
-from collections import namedtuple
-
 import requests
 
 
 API_ENDPOINT = "https://media-publisher.vercel.app/api/publish-multi"
 QUEUE_FILE = ".github/publisher/posts_queue.txt"
 DEFAULT_PUBLISH_COUNT = 2
-SITE_URL = "https://eunomia.dev"
 
 
 def has_yaml_frontmatter(content):
@@ -102,160 +98,6 @@ def remove_title_from_content(content):
     return content
 
 
-def slugify_title(value):
-    """
-    Slugify a title using the same rules as the site content pipeline
-    (app/lib/content/source.ts slugifyTitle): lowercase, NFKD-normalize, drop
-    combining marks, collapse runs of non-alphanumeric characters into a single
-    hyphen, and trim leading/trailing hyphens.
-    """
-    text = unicodedata.normalize("NFKD", value.lower())
-    text = "".join(ch for ch in text if not unicodedata.category(ch).startswith("M"))
-    chars = []
-    prev_hyphen = False
-    for ch in text:
-        if ch.isalnum():
-            chars.append(ch)
-            prev_hyphen = False
-        elif not prev_hyphen:
-            chars.append("-")
-            prev_hyphen = True
-    slug = "".join(chars).strip("-")
-    if slug:
-        return slug
-    return re.sub(r"\s+", "-", value.strip())
-
-
-# Parsed frontmatter scalar: `text` is the value with quotes/comments removed,
-# `is_string` reflects whether js-yaml (used by gray-matter on the site) would
-# treat the value as a string. The site's parseSlug ignores non-string slugs.
-FrontmatterScalar = namedtuple("FrontmatterScalar", ["text", "is_string"])
-
-# YAML 1.1 (js-yaml) parses these unquoted scalars as non-strings (numbers,
-# booleans, null), which the site's parseSlug rejects.
-_YAML_NONSTRING_SCALAR = re.compile(
-    r"^(?:"
-    r"[+-]?\d+"                              # integer
-    r"|[+-]?(?:\d+\.\d*|\.\d+|\d+)(?:[eE][+-]?\d+)?"  # float / scientific
-    r"|0x[0-9a-fA-F]+|0o[0-7]+"              # hex / octal
-    r"|true|false|null|~"                    # bool / null
-    r"|yes|no|on|off"                        # YAML 1.1 booleans
-    r")$",
-    re.IGNORECASE,
-)
-
-
-def _parse_frontmatter_scalar(raw):
-    """Interpret one unparsed frontmatter scalar the way js-yaml would for the
-    fields we consume: a quoted value is a string; an unquoted value has any
-    inline `# comment` stripped and is flagged as a string only when YAML would
-    not parse it as a number, boolean, or null."""
-    raw = raw.strip()
-    if len(raw) >= 2 and raw[0] == raw[-1] and raw[0] in ("'", '"'):
-        return FrontmatterScalar(raw[1:-1], True)
-    raw = re.sub(r"\s+#.*$", "", raw).strip()
-    is_string = bool(raw) and not _YAML_NONSTRING_SCALAR.match(raw)
-    return FrontmatterScalar(raw, is_string)
-
-
-def parse_frontmatter(content):
-    """Parse top-level scalar fields from YAML frontmatter (no external deps).
-
-    Returns a mapping of field name to FrontmatterScalar. Only simple inline
-    scalars are recognized; block/flow values are out of scope for the canonical
-    URL derivation below.
-    """
-    lines = content.split("\n")
-    if not lines or lines[0].strip() != "---":
-        return {}
-
-    fields = {}
-    for line in lines[1:]:
-        if line.strip() == "---":
-            break
-        match = re.match(r"^([A-Za-z0-9_-]+):\s*(.*)$", line)
-        if match:
-            fields[match.group(1)] = _parse_frontmatter_scalar(match.group(2))
-    return fields
-
-
-def derive_canonical_url(post_path, content, title):
-    """
-    Derive the canonical eunomia.dev URL for a source markdown path so
-    syndicated copies (dev.to, Medium) point back to the original.
-
-    Blog posts under docs/blog/posts/<name>.md map to
-    https://eunomia.dev/blog/YYYY/MM/DD/<slug>/ where YYYY-MM-DD comes from the
-    frontmatter `date` and <slug> is the frontmatter `slug` if present, otherwise
-    the slugified title (matching the site's content pipeline). Other docs paths
-    map to https://eunomia.dev/<path-without-docs-prefix-and-README.md>/.
-    Returns None when no canonical URL can be derived.
-    """
-    normalized = post_path.replace("\\", "/")
-    match = re.search(r"(?:^|/)docs/(.+)$", normalized)
-    if not match:
-        return None
-    rel = match.group(1)
-
-    blog_match = re.match(r"^blog/posts/(?:.+?)(\.zh)?\.md$", rel)
-    if blog_match:
-        is_zh = bool(blog_match.group(1))
-        # The site derives blog date/slug from the English source for both locales
-        # (app/lib/content/discovery.ts prefers sourceByLocale.en), so resolve the
-        # English sibling when the queued file is the Chinese translation.
-        source_content, source_title = content, title
-        if is_zh:
-            en_sibling = re.sub(r"\.zh\.md$", ".md", post_path)
-            if os.path.isfile(en_sibling):
-                with open(en_sibling, "r", encoding="utf-8") as sibling:
-                    source_content = sibling.read()
-                try:
-                    source_title, _ = extract_title_from_markdown(source_content)
-                except ValueError:
-                    source_title = title
-        frontmatter = parse_frontmatter(source_content)
-        # The site parses `date` with new Date(...).toISOString() (UTC). A bare,
-        # zero-padded YYYY-MM-DD maps unambiguously to that UTC day; a value with a
-        # time/zone component (or a non-padded one) can shift the UTC day, so omit
-        # the canonical rather than emit a wrong one.
-        date_field = frontmatter.get("date")
-        date_match = re.match(r"^(\d{4})-(\d{2})-(\d{2})$", date_field.text) if date_field else None
-        if not date_match:
-            return None
-        year, month, day = date_match.groups()
-        # Mirror app/lib/content/markdown.ts: a string frontmatter `title` wins,
-        # otherwise fall back to the H1 heading.
-        title_field = frontmatter.get("title")
-        fallback_title = title_field.text if title_field and title_field.is_string else source_title
-        # Mirror parseSlug: only a string frontmatter `slug` is used (slugified);
-        # non-string YAML scalars and empty slugs fall back to the slugified title.
-        slug_field = frontmatter.get("slug")
-        slug = slugify_title(slug_field.text) if slug_field and slug_field.is_string else ""
-        if not slug:
-            slug = slugify_title(fallback_title)
-        locale_prefix = "/zh" if is_zh else ""
-        return f"{SITE_URL}{locale_prefix}/blog/{year}/{month}/{day}/{slug}/"
-
-    # Non-blog docs: strip the locale suffix (.zh.md/.zh-CN.md map to the /zh
-    # tree; .en.md/.md map to the default tree), then collapse a trailing README
-    # or index segment since the site serves those at the section root.
-    locale_match = re.search(r"\.(zh-CN|zh|en)\.md$", rel)
-    if locale_match:
-        is_zh = locale_match.group(1) in ("zh", "zh-CN")
-        rel = rel[: locale_match.start()]
-    elif rel.endswith(".md"):
-        is_zh = False
-        rel = rel[: -len(".md")]
-    else:
-        return None
-    rel = re.sub(r"(?:^|/)(README|index)$", "", rel)
-    rel = rel.strip("/")
-    if not rel:
-        return None
-    locale_prefix = "/zh" if is_zh else ""
-    return f"{SITE_URL}{locale_prefix}/{rel}/"
-
-
 def read_queue():
     """Read the posts queue file and return list of posts."""
     if not os.path.exists(QUEUE_FILE):
@@ -330,14 +172,12 @@ def prepare_post(post, index):
 
     title, _title_line = extract_title_from_markdown(original_content)
     cleaned_content = remove_title_from_content(original_content)
-    canonical_url = derive_canonical_url(validated_post_path, original_content, title)
 
     return {
         "title": title,
         "content": cleaned_content,
         "path": validated_post_path,
-        "tags": tags,
-        "canonical_url": canonical_url
+        "tags": tags
     }
 
 
@@ -347,11 +187,10 @@ def print_post_preview(prepared_post, index, total):
     print(f"Title: {prepared_post['title']}")
     print(f"Path: {prepared_post['path']}")
     print(f"Tags: {', '.join(prepared_post['tags'])}")
-    print(f"Canonical URL: {prepared_post.get('canonical_url') or '(none)'}")
     print(f"Content preview: {prepared_post['content'][:200]}...")
 
 
-def publish_post(title, content, tags, password, is_draft=True, canonical_url=None):
+def publish_post(title, content, tags, password, is_draft=True):
     """
     Publish a post to Medium and Dev.to via the API.
     """
@@ -362,11 +201,6 @@ def publish_post(title, content, tags, password, is_draft=True, canonical_url=No
         "is_draft": is_draft,
         "platforms": ["devto", "medium"]
     }
-    # Canonical URL points syndicated copies back to the original on eunomia.dev.
-    # The media-publisher Vercel service is responsible for forwarding this to
-    # dev.to (canonical_url) and Medium (canonicalUrl).
-    if canonical_url:
-        payload["canonical_url"] = canonical_url
 
     headers = {
         "Content-Type": "application/json",
@@ -442,8 +276,7 @@ def main():
                 prepared_post["content"],
                 prepared_post["tags"],
                 password,
-                is_draft,
-                prepared_post.get("canonical_url")
+                is_draft
             )
             print(f"\n✅ Publish {index}/{len(prepared_posts)} successful!")
             print(json.dumps(result, indent=2))
