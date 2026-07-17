@@ -51,7 +51,7 @@ AI 搜索的答案已经大量复述 AgentSight 的叙事（boundary tracing、s
 
 **批次 A（本周，最高杠杆，不新增页面）**
 1. og:image 换成构建期生成的 PNG（至少一张站级默认图；有余力按 section 出 3-4 张变体）。
-2. publish 链路加 canonical：`publish.py` payload 增加 `canonical_url` 字段（由 post 路径推导 eunomia.dev URL），media-publisher Vercel 服务把它转发为 dev.to 的 `canonical_url` 和 Medium 的 `canonicalUrl`。
+2. publish 链路加 canonical：**整条搁置**（2026-07-16 owner 决定 media-publisher 先不改）。核实结论备档：media-publisher 的 publish-multi 端点只接受 title/content/tags/is_draft/platforms，未知字段被静默丢弃，所以只改 publish.py 是死代码（首次尝试已从 PR #115 撤出）。将来重启时的正确顺序：先改 media-publisher 服务端转发 canonical，再给 publish.py 加最小传参（URL 推导读构建产物，不复刻 slug 逻辑）。在此之前 canonical 全靠第 3 条的手动补 + 新转载前先在后台设置。
 3. **手动补历史转载的 canonical**（不用等代码）：dev.to/Medium 后台把 AgentSight 等已转载文章逐篇设 canonical 指回 eunomia.dev。这是零成本、收益最大的单个动作。
 4. sitemap 剔除 noindex 的 `/blogs/*`。
 
@@ -95,7 +95,7 @@ AI 搜索的答案已经大量复述 AgentSight 的叙事（boundary tracing、s
 | A9 | multikernel 现成英文草稿 | ~/workspace/multikernel | Rethinking Multikernel Architecture | 移植即可，最低成本 |
 | A10 | bpf-benchmark / KOperation、MVVM+Wharf、wbpf+uXDP、tutorial 4.2k star 里程碑 | 各 repo | 打包成主题合集文 | 第三批 |
 
-**需要等的（疑似在审，发布前找作者确认 venue 状态）**：sysom-paper（80,000+ GPU 工业部署，强烈建议等 accept）、agentfs/Fork-Explore-Commit、sandlock、reward-guard、agentcap、agentskill、HetGPU、GPUOS。已挂 arXiv 的可以用"preprint"口径提前写，但不声称录用。
+**需要等外部时间点的资产**：清单与原因见私有战略库（research-pipeline）。
 
 ### 轨道 B：SEO 需求缺口（原 12 篇清单，资产轨覆盖后剩余部分）
 
@@ -162,12 +162,24 @@ AI 搜索的答案已经大量复述 AgentSight 的叙事（boundary tracing、s
 
 ## 六、整体宣传计划
 
-1. **先修 canonical 再谈一切**（历史转载手动补 + publish 链路改造），否则宣传做得越多，权重漏得越多。
+**目标层级与指标体系**：见私有战略库（yunwei37/eunomia-strategy，business-plan.zh.md §指标）。渠道动作以品牌认知、产品采用、客户转化为准，不为流量本身做事。
+
+1. **先修 canonical 再谈一切**（历史转载手动补；publish 链路搁置期间新转载一律平台后台手动设 canonical），否则宣传做得越多，权重漏得越多。
 2. **每篇旗舰文的发布 checklist**：站内上线 → X/Twitter（@eaborai）+ 个人账号双发 → 有数据/有反直觉结论的投 Hacker News（美东工作日上午）和 lobste.rs → r/eBPF、r/netsec、r/LocalLLaMA 按主题选发 → 1-2 周后 dev.to/Medium 转载（带 canonical）→ 中文版同步发掘金/知乎专栏。
 3. **借力节点**：论文 accept/camera-ready、KubeCon 2026（draft 里已有材料）、eBPF Summit 等 talk 是天然的流量脉冲，对应周的 blog 排期让位给配套文章（talk 的文字版是最容易的高质量内容）。
-4. **社区背书**：ARMO 文章已把 AgentSight 当研究引用，回应文（第 12 篇）发布后可以礼貌地 @ 他们；ebpf.io 的 landscape/newsletter、ISovalent/Cilium 社区 newsletter 都接受项目投稿。
+4. **社区背书**：ebpf.io 的 landscape/newsletter、ISovalent/Cilium 社区 newsletter 接受项目投稿；awesome-agent-runtime-security 已收录 AgentSight/ActPlane（eBPF 组），保持条目信息最新；学术侧 arXiv + Google Scholar 主页 + 论文致谢页统一指回 eunomia.dev。
 5. **GitHub 门面**：agentsight/ActPlane 两个 repo 的 README 首屏加 eunomia.dev 对应文章链接（GitHub 是现在排名最好的自有资产，把它的流量导回站内）。
 6. **一致性**：所有对外物料（论文、README、转载、talk slides）统一用 eunomia.dev 的 URL 作为规范链接，不要再让 arXiv/GitHub 当事实上的主页。
+7. **内容类型 × 渠道矩阵**（第 2 条 checklist 是旗舰文流程，其他类型按此分流）：
+
+| 内容类型 | 主渠道 | 次渠道 | 纪律 |
+|---|---|---|---|
+| 论文/数据文（旗舰） | HN + X 双账号 + 站内 | 1-2 周后 dev.to/Medium（手动 canonical）、知乎/掘金 | HN 每月最多 1-2 投，只投有反直觉结论的 |
+| 版本发布 | GitHub Release + X | ebpf.io newsletter 投稿、r/eBPF | Release notes 链接站内文 |
+| 教程/FAQ（docs） | 站内 docs + Google 自然流量 | 相关 issue 回链（零成本、精准） | 不投社交，靠搜索长尾 |
+| 客户音域（solution brief/白皮书） | 直发目标客户 + LinkedIn | 客户对话附件 | 不做公开推广，服务转化 |
+| talk 文字版 | 站内 + 会议官方渠道 | X 线程 | 会后一周内发 |
+| 中文内容 | 知乎专栏 + 公众号（待定） | 掘金 | 与英文同结构，独立排期 |
 
 ## 七、风险与边界
 

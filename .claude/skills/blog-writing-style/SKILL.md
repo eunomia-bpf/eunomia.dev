@@ -1,44 +1,35 @@
 ---
 name: blog-writing-style
-description: Review and fix sentence-level writing quality and SEO metadata in blog posts under docs/blog/posts/. Checks prose mechanics (punctuation, sentence structure, word choice), blog-specific antipatterns, frontmatter/SEO fields, and EN/ZH bilingual consistency. For writing a new post from scratch, use tech-blog-writer instead.
-allowed-tools: Read Edit Bash(grep *) Bash(wc *)
+description: Prose style and bilingual rule checklist for blog posts under docs/blog/posts/. Pure reference; contains no workflow. Use it as the rulebook when drafting or reviewing a post via blog-writer. Covers prose mechanics, blog antipatterns, content-farm bans, length and richness expectations, and Chinese-English mixing rules for ZH posts. SEO/GEO rules live in the separate seo-geo skill.
 ---
 
-# Blog Writing Review & Fix (Sentence-Level + SEO)
+# Blog Style Checklist (rules only)
 
-Review the Markdown blog post at `$ARGUMENTS` sentence by sentence for prose quality and SEO metadata. If no argument is given, ask which post to review. Posts live in `docs/blog/posts/` as `post.md` (English) and `post.zh.md` (Chinese) pairs.
+This file is the single source of truth for blog style rules. It contains no process: the review workflow lives in the `blog-review` skill, and drafting guidance lives in `tech-blog-writer`. Both reference this checklist.
 
-Model note: the actual writing/editing pass is best run on `claude-opus-4-6[1m]` (Opus 4.6, 1M context); when the calling agent is a different model, delegate this skill's work to an Opus subagent.
+## Critical rules
 
-Do not perform any Git operation. Return the edited post and review findings to the caller.
-
-**Scope:** This skill reviews and fixes existing posts. For drafting a new post, structuring an argument, or writing hooks, use the `tech-blog-writer` skill; this skill is the editing pass that runs afterward.
-
-## Review process
-
-1. Read the entire file (and its bilingual counterpart, if one exists)
-2. Check frontmatter and SEO metadata first (see SEO checklist below)
-3. For each paragraph, analyze every sentence against the checklist below
-4. Report issues grouped by severity: **Must fix** (clarity/logic/SEO-metadata errors), **Should fix** (antipatterns), **Consider** (style preferences)
-5. For each issue, give the line number, quote the problematic text, explain the problem, and suggest a concrete rewrite
-6. Apply the fixes directly with the Edit tool, Must fix first, then Should fix, then evaluate each Consider item and apply the ones that improve the text (note rejected ones with a one-line reason). Do not ask the user which fixes to apply, and do not silently discard anything below Must fix. Exception: when invoked read-only as a review subagent, report findings only and make no edits.
-
-## Editing discipline
-
-- **Minimal targeted edits, one sentence at a time.** Never overwrite entire sections or paragraphs at once.
-- **Do not change technical content, code blocks, YAML examples, CLI output, or architecture diagrams** when doing prose edits.
-- **Preserve the author's meaning.** Do not soften or strengthen claims; flag questionable claims instead of rewriting them.
-- **Deep pass on first attempt.** Do a thorough review, not just mechanical surface fixes.
-- **Always diff-check** after multiple edits to ensure no content was lost.
-- **Verify before claiming done:** `grep -c '——' file.zh.md` and `grep -cE ' — |—' file.md` must both return 0 (code blocks excepted).
-
-## Critical rules (for fixes)
-
-- **Never change an existing published post's `slug`, filename, or URL.** Slugs are set once at creation. A missing slug on an already-published post stays missing; note it as a finding but do not add one, because adding it moves the URL.
+- **Never change an existing published post's `slug`, filename, or URL.** Slugs are set once at creation. A missing slug on an already-published post stays missing; report it but do not add one, because adding it moves the URL.
 - **Write product and project names out in full** (AgentSight, ActPlane, eBPF, bpftime). Names in prose are keywords; never abbreviate them into pronouns across paragraphs.
 - **Never delete design decisions or technical content.** Compression means better prose, not less information.
 - **Never change the meaning** of a sentence. If unsure, flag it.
 - **Keep scope-bearing hedges** ("in our tests", "on covered hooks", "up to"): they keep claims honest. Only collapse stacked hedges down to one.
+- **Facts must be faithful to their source.** Posts about a paper use the paper's current published terminology and numbers, not an older draft's.
+
+---
+
+## Length and richness
+
+- A full post is expected to be **around 200 lines of Markdown** (roughly 1,800-2,500 English words), including code blocks, tables, and figures. A post under ~150 lines is a short piece; that is acceptable only when deliberately scoped (release note, erratum, single-finding update). When reviewing a full post that comes in thin, report it as **Must fix: thin content**.
+- Rich means substance, not padding. Grow a post by adding concrete examples, real measured data, code or rule snippets, figures, mechanism explanations, and FAQ entries; never by restating the same point in more words.
+- Every H2 section must contain at least one thing only we can write: a first-party number, a real code/config example, a figure, or first-hand experience. A section that only paraphrases common knowledge gets cut or merged.
+
+## Anti-content-farm rules
+
+- **Titles state the finding.** No tease questions or withheld conclusions ("...告诉我们什么", "...缺什么", "what you don't know about X"). If the post has a thesis, the title says it. Numbers in titles must be real measurements.
+- No listicle framing ("5 tips", "N 个技巧"), no hollow calls to action ("快来试试吧!", "give it a try today!"), no marketing self-praise ("powerful", "blazing fast" without numbers).
+- Open with a scenario, a measurement, or a problem, never with throat clearing or product promotion.
+- Every paragraph must add information the previous ones did not. Two adjacent paragraphs making the same point get merged.
 
 ---
 
@@ -138,25 +129,27 @@ Always state what was measured, how, and under what conditions. Link to papers, 
 
 ---
 
-## SEO checklist (check first, report as Must fix)
+## SEO / GEO
 
-- **`description` frontmatter is required** and must be 150-160 characters: one sentence, value proposition first, primary keyword phrase included. Longer descriptions get truncated in search results; if the current one is longer, compress it so the first ~155 characters carry the full point.
-- **Title (H1) at most ~60 characters** with the primary keyword phrase front-loaded. Longer titles get truncated in search results; flag but confirm before shortening a published title.
-- **`date` frontmatter required.** New posts also need a `slug` (short, kebab-case, keyword-bearing); never add or change a slug on an already-published post.
-- **Headings carry search phrasing.** Prefer H2s a reader would type ("What Generic eBPF Enforcement Misses") over generic labels ("Discussion", "Overview").
-- **Internal links:** every post should link 2-3 related eunomia.dev posts or docs in context, and link the project GitHub repo at least once.
-- **Images need descriptive `alt` text** containing the relevant term, not "image" or "figure 1".
-- **First paragraph before `<!-- more -->`** must stand alone as the excerpt: hook plus the primary keyword phrase, no dangling references.
+All search and AI-engine visibility rules (metadata, keyword strategy, citation-worthy writing, syndication canonical discipline, third-party framing hygiene) live in `.claude/skills/seo-geo/SKILL.md`. Read that rulebook alongside this one for every post.
 
 ---
 
+## Chinese-English mixing (ZH posts, key check)
+
+- **Terminology consistency.** One concept, one written form for the whole post: either "policy" throughout or "策略" throughout, never alternating. On first occurrence an English term may carry a Chinese gloss in parentheses.
+- **Established technical terms stay in English** (eBPF, agent harness, policy, uprobe, instruction file, semantic feedback). Do not invent Chinese translations for terms of art the community uses in English.
+- **Ordinary words stay in Chinese.** Never mix English verbs or common nouns into Chinese sentences ("我们 measure 了", "做了一个 comparison" are violations); English is reserved for terms of art, names, and code.
+- **Spacing:** half-width space between CJK and Latin/digits ("64 个仓库", "eBPF 程序", "支持 128 条规则").
+- **Punctuation:** Chinese prose uses full-width punctuation (，。：；？), including around embedded English terms; half-width punctuation appears only inside code, paths, and quoted English sentences.
+- **No English clause splicing.** Quote a full English sentence with quotation marks and attribution when needed; do not embed English clauses mid-sentence in Chinese prose.
+
 ## Bilingual consistency (EN/ZH pairs)
 
-- Same structure: sections, argument flow, and examples in the same order.
+- Same structure: sections, argument flow, examples, figures, and tables in the same order.
 - Section headings correspond (e.g., "Three Layers, Three Blind Spots" ↔ "三层约束，三种盲区").
 - Both files need the same `date`; `description` is localized, both within the length budget.
 - When one version is edited, update the other to match structure (natural expression can differ).
-- After edits: `grep -c '——' file.zh.md` returns 0.
 
 ---
 
@@ -169,22 +162,4 @@ Always state what was measured, how, and under what conditions. Link to papers, 
 5. Does "this/it/that" have a clear antecedent? If not, name the referent.
 6. Is an adverb doing the work a number should do?
 7. Does this sentence read like a paper abstract or meeting notes? Rewrite as blog prose.
-
-## Fix priority
-
-1. **SEO metadata:** missing/overlong description, missing date, truncation-length titles
-2. **Clarity:** dangling modifiers, vague referents, missing motivation
-3. **Structure:** note-like prose, weak openings, passive voice, blog antipatterns
-4. **Word choice:** verbose phrases from the antipattern table
-5. **Punctuation:** em dashes
-
-## Output format
-
-For each issue found:
-```
-L<line>: "<quoted text>"
-  Problem: <what's wrong>
-  Fix: "<suggested rewrite>"
-```
-
-End with a summary: total issues by severity, the top 3 most impactful changes, and the results of the em-dash grep checks. List any sentences flagged but NOT changed, with reasons.
+8. (ZH) Is every English fragment in this sentence a term of art, spaced and punctuated correctly?

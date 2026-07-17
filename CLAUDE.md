@@ -143,6 +143,10 @@ When writing or editing blog posts in `docs/blog/posts/`, follow these rules str
 - Section headings should correspond (e.g., "三层约束，三种盲区" ↔ "Three Layers, Three Blind Spots").
 - When one version is rewritten, update the other to match structure (content can differ in natural expression).
 
+## Confidentiality Boundary
+
+This is a PUBLIC repository. Business strategy, fundraising/incubator plans, pricing, customer lists or conversations, competitive analysis, personal constraints, and papers under review must NEVER be written into this repo (including `draft/`). That content belongs in the private strategy repo at `~/workspace/eunomia-strategy` (github.com/yunwei37/eunomia-strategy). Site operations, SEO/content plans, and brand style guidance are fine here.
+
 ## Important Notes
 - Do not edit tutorial content directly in this repo - edit in the bpf-developer-tutorial repository
 - Project home pages should be edited in their respective repository README files
