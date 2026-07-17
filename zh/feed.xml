@@ -8,11 +8,12 @@
   <lastBuildDate>Wed, 15 Jul 2026 00:00:00 GMT</lastBuildDate>
   <atom:link href="https://eunomia.dev/zh/feed.xml" rel="self" type="application/rss+xml" />
   <item>
-  <title>用 eBPF 执行 AI Agent 策略，为什么还需要上下文 Policy Plane</title>
+  <title>2116 条 CLAUDE.md 和 AGENTS.md 规则：AI Agent 安全策略写了却没人执行</title>
   <link>https://eunomia.dev/zh/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/</link>
   <guid>https://eunomia.dev/zh/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/</guid>
   <pubDate>Wed, 15 Jul 2026 00:00:00 GMT</pubDate>
-  <description>ARMO 最近提出了一个很有价值的问题：面对 AI agent workload，内核级 eBPF enforcement 能抓住什么，又会遗漏什么？它的核心判断是正确的。 eBPF 可以观察和介入进程、文件与网络影响，但一条内核事件无法解释某个 动作背后的任务原因。</description>
+  <description>一个 AI coding agent 执行 git commit，内核没有看到任何异常：一个熟悉的进程在写熟悉的文件。仓库的 CLAUDE.md 里写着 &quot;Run the full test suite before committing&quot;，而 agent 在上次测试之后又改了源码。这条规则来自论文数据集中的真实语句，今天没有任何一层在执行它。</description>
+  <author>1067852565@qq.com (云微)</author>
   <author>i@littlefisher.me (LinuxDev9002)</author>
   <category>AI agent observability</category>
 </item>
@@ -129,6 +130,7 @@
   <guid>https://eunomia.dev/zh/blog/2025/10/14/nvidia-open-gpu-kernel-modules-comprehensive-source-code-analysis/</guid>
   <pubDate>Tue, 14 Oct 2025 00:00:00 GMT</pubDate>
   <description>In May 2022, NVIDIA made a decision that would fundamentally alter the landscape of GPU computing on Linux: they open-sourced the kernel-mode components of their GPU driver.</description>
+  <author>1067852565@qq.com (云微)</author>
   <author>linuxdev8883@example.com (LinuxDev9002)</author>
   <author>i@littlefisher.me (Littlefisher)</author>
   <author>yunwei356@gmail.com (yunwei37)</author>
@@ -140,6 +142,7 @@
   <guid>https://eunomia.dev/zh/blog/2025/10/11/understanding-iaprof-a-deep-dive-into-ai-gpu-flame-graph-profiling/</guid>
   <pubDate>Sat, 11 Oct 2025 00:00:00 GMT</pubDate>
   <description>An exploration of Intel&#39;s innovative profiling tool that bridges the gap between CPU and GPU execution</description>
+  <author>1067852565@qq.com (云微)</author>
   <author>yunwei356@gmail.com (yunwei37)</author>
   <category>eBPF</category>
 </item>
