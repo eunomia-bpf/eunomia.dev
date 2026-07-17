@@ -31,3 +31,6 @@ __pycache__
 /test/node_modules
 /test/playwright-report
 /test/test-results
+
+# Claude Code agent worktrees
+.claude/worktrees/
