@@ -58,7 +58,7 @@ Do not perform any Git operation. Return the finished files and a report to the 
 3. **Clarity:** dangling modifiers, vague referents, missing motivation
 4. **Structure:** note-like prose, weak openings, passive voice, blog antipatterns
 5. **Word choice & ZH mixing:** verbose phrases, terminology inconsistency, spacing/punctuation
-6. **Punctuation:** em dashes
+6. **Punctuation:** em dashes, colons before non-lists (including the 名词短语＋冒号 lead-in pattern), semicolons joining independent clauses
 
 ## Output format
 

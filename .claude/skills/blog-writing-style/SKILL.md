@@ -35,11 +35,28 @@ This file is the single source of truth for blog style rules. It contains no pro
 
 ## Punctuation rules
 
-### No em dashes
-Never use "——" (Chinese) or " — " (English) in blog prose. Replace with commas, colons, semicolons, or conjunctions. The only exception is inside code blocks or CLI output examples.
+Adopted from the paper-writing-style rulebook; blogs follow the same discipline.
 
-### Colons, semicolons, parentheses
-All allowed in blog register. Colons may introduce examples, lists, or explanations. Semicolons may join related clauses. Use parentheses sparingly; if a parenthetical runs longer than a few words, promote it to its own sentence.
+### No em dashes
+Never use "——" (Chinese) or " — " (English) in blog prose. Use commas, parentheses, conjunctions, or restructure the sentence. The only exception is inside code blocks or CLI output examples.
+
+### No semicolons joining independent clauses
+Rewrite as two sentences (period), one sentence with a conjunction (", and", ", but", ", so"), or one sentence with a causal connector ("because", "since", "therefore"). Semicolons ARE acceptable inside parenthetical lists and numbered enumerations.
+
+**Bad:** `The engine propagates labels; rules fire at each event.`
+**Good:** `The engine propagates labels, and rules fire at each event.`
+
+### Colons (avoid unless introducing a list)
+Use colons only to introduce a numbered list with explicit markers like (1), (2), (3), or the Markdown structures that need them (a fenced code block, a bullet/numbered list, a table).
+
+Never use colons for `claim: evidence`, `setup: result`, `observation: explanation`, or noun-phrase lead-ins. The Chinese noun-phrase-colon pattern is explicitly banned: "论文的全景概括：…"、"核心洞察是：…"、"X 的价值在于：…" are violations in both languages. Fold the content into the sentence ("论文在引言里概括道，……") or split into two sentences.
+
+**Bad:** `Optimization spans three layers: source, LLVM, and JIT.` (unlabeled list)
+**Bad:** `论文在 intro 中的全景概括："64% ..."` (noun-phrase lead-in)
+**Good:** `The framework addresses three goals: (1) crash isolation, (2) bounded action spaces, and (3) multi-layer feedback.` (numbered list)
+
+### Parentheticals (avoid unless necessary)
+Use parentheses only for: (1) citations and figure/table references, (2) abbreviations and first-use bilingual glosses (策略（policy）, 危险命令拒绝率（DCR）), (3) short scope qualifiers. Never for lists or explanations; if a parenthetical runs longer than a few words, promote it to its own sentence.
 
 ---
 
