@@ -135,14 +135,25 @@ All search and AI-engine visibility rules (metadata, keyword strategy, citation-
 
 ---
 
-## Chinese-English mixing (ZH posts, key check)
+## Chinese terminology discipline (ZH posts, hardest check)
 
-- **Terminology consistency.** One concept, one written form for the whole post: either "policy" throughout or "策略" throughout, never alternating. On first occurrence an English term may carry a Chinese gloss in parentheses.
-- **Established technical terms stay in English** (eBPF, agent harness, policy, uprobe, instruction file, semantic feedback). Do not invent Chinese translations for terms of art the community uses in English.
-- **Ordinary words stay in Chinese.** Never mix English verbs or common nouns into Chinese sentences ("我们 measure 了", "做了一个 comparison" are violations); English is reserved for terms of art, names, and code.
+Chinese posts are written in Chinese. The reference for what good looks like is `docs/blog/posts/actplane.zh.md`; the failure mode to prevent is glossary-style semi-translation where every other noun stays English.
+
+- **Default is Chinese.** English is allowed in exactly four classes:
+  1. proper nouns and product names (eBPF, bpftime, Claude Code, CLAUDE.md, AGENTS.md, ActPlane, OSDI);
+  2. terms of art with no accepted Chinese rendering, where translation would hurt recognition (agent, harness, prompt, hook, uprobe, verifier, checkpoint-restore);
+  3. code, commands, file names, function names, always backticked;
+  4. metric acronyms (DCR), which must get a Chinese expansion at first use: 危险命令拒绝率（dangerous-command refusal, DCR）.
+- **Everything else translates**, one rendering per concept for the whole post, with the English original in parentheses at first occurrence when the post tracks a paper's terminology: 策略（policy）、语句（statement）、强制执行（enforcement）、跨事件（cross-event）、单事件（per-event）、自包含（self-contained）、上下文（context）、语义反馈（semantic feedback）、时序门（temporal gate）、违规轨迹（violation trace）、信息流标签（information-flow label）. Paper-terminology fidelity binds the EN post; the ZH post stays faithful through first-use glosses, not through raw English.
+- **No Chinese sentence starts with an English common noun.** "Statement 的提取经过…" is a violation; write "语句的提取…" or change the subject. Check: `grep -nE '^[A-Z][A-Za-z-]+ ' file.zh.md` on prose lines.
+- **Table headers in ZH posts are Chinese** (proper nouns and acronyms like DCR excepted).
+- **English quotations are rendered in Chinese**; keep the original in parentheses or a footnote only when exact wording matters.
+- **Ordinary words stay in Chinese.** Never mix English verbs or common nouns into Chinese sentences ("我们 measure 了", "做了一个 comparison" are violations).
+- **Read-aloud test.** Every paragraph must read as natural spoken Chinese. If reading it means switching to English every few words, the paragraph fails, whatever the individual rules say. As a density reference: in a good post, the English tokens in a body paragraph are mostly proper nouns and code; if more than half the concept nouns in a paragraph are English, that is a Must fix.
+- **No calque sentence structures.** "即 2.0 到 3.2 倍的改进"、"每系统调用开销" are English word order transliterated; rewrite in Chinese grammar ("提升了 2.0 到 3.2 倍"、"单次系统调用的开销").
 - **Spacing:** half-width space between CJK and Latin/digits ("64 个仓库", "eBPF 程序", "支持 128 条规则").
 - **Punctuation:** Chinese prose uses full-width punctuation (，。：；？), including around embedded English terms; half-width punctuation appears only inside code, paths, and quoted English sentences.
-- **No English clause splicing.** Quote a full English sentence with quotation marks and attribution when needed; do not embed English clauses mid-sentence in Chinese prose.
+- **No English clause splicing.** Do not embed English clauses mid-sentence in Chinese prose.
 
 ## Bilingual consistency (EN/ZH pairs)
 
