@@ -38,12 +38,21 @@ This file is the single source of truth for blog style rules. It contains no pro
 - Vary paragraph shape. Alternate explanation with an example, consequence, figure, quotation, or compact list. Do not make every paragraph a same-sized block of four or five declarative sentences.
 - Do not compress a long post by removing blank lines. If a 3,000-word article fits into about 150 Markdown lines, inspect it for overloaded paragraphs before calling it concise.
 
+### Controlled structural variety
+
+- A full post may use one or two editorial accents in total, such as a compact list, a source quotation, or a visually emphasized key takeaway. Technical code blocks, tables, and figures do not count toward this allowance. These accents are optional tools for rhythm, not a template or quota.
+- Use a list only when several parallel items become easier to compare or scan outside prose. Keep it compact, give every item the same grammatical role, and return to the argument immediately afterward. A numbered list is appropriate only when order, rank, or sequence matters. Numbered scenario tours, feature inventories, and expanded contribution lists remain banned.
+- A Markdown blockquote must contain either an exact, attributed source quotation or one complete, source-backed takeaway written in the author's voice. Never format paraphrase as somebody else's quotation, and never use a blockquote to manufacture drama.
+- An emphasized takeaway must be earned by the evidence immediately around it and add a useful synthesis rather than repeat the preceding paragraph. Emphasize one decisive sentence, not a paragraph of bold prose. Do not stack two editorial accents back to back.
+- EN and ZH should carry the same quoted evidence or takeaway in the corresponding place, expressed naturally in each language. Preserve exact source wording only when wording itself matters; otherwise translate the quotation and identify the source.
+
 ---
 
 ## Article architecture: build an argument, not a paper digest
 
 - Write a one-sentence thesis before the outline. Every H2 must advance that thesis, not merely cover another topic from the source material.
 - Give the reader a progression they can feel. A common systems-blog progression is scenario or measured problem -> why the obvious layers fail -> mechanism -> evidence -> boundary or practical consequence. Other progressions are valid, but adjacent sections must have an explicit "therefore" relationship.
+- Vary the macro structure to fit the material. A post may unfold as an investigation, a running case, a measurement-led argument, a mechanism walkthrough, a comparison, a failure analysis, or another coherent form. Do not reuse one standard H2 skeleton across posts, and do not add an FAQ, list, takeaway box, design section, or benchmark section merely because previous posts had one.
 - Treat an opening scenario as the article's backbone. Return to it when explaining the mechanism or evaluation, and resolve it before the ending. A vivid hook that disappears after `<!-- more -->` is decoration, not structure.
 - Do not mirror a paper's section order, RQ order, or contribution list. A sequence such as dataset -> taxonomy -> design requirements -> implementation -> evaluation is a warning that the writer expanded the paper outline instead of designing a blog argument.
 - Select evidence for the thesis. A blog about one empirical finding does not need to retell every mechanism and benchmark in the paper. Preserve omitted technical depth through a direct paper or sibling-post link.
@@ -70,9 +79,10 @@ This file is the single source of truth for blog style rules. It contains no pro
 
 ## Anti-content-farm rules
 
-- **Titles should be as compelling as accuracy allows.** Lead with the post's strongest true insight, consequential tension, surprising measurement, or practical stake. A title must give a qualified reader a concrete reason to click, not merely label the topic or announce that a study exists.
+- **Titles should be as compelling as accuracy allows.** Lead with the post's strongest true insight, consequential tension, surprising measurement, or practical stake. A title earns attention through intellectual substance and gives a qualified reader a concrete reason to read, rather than merely labeling the topic or announcing that a study exists.
 - **Reveal the thesis without exhausting it.** No tease questions or withheld conclusions ("...告诉我们什么", "...缺什么", "what you don't know about X"), but do not flatten an insight into a generic report title. Prefer a precise tension such as a gap between what instructions demand and what one enforcement layer can observe. Numbers in titles must be real measurements with the same scope as the article.
-- Reject clickbait, alarmism, vague superlatives, unsupported universals, and titles that are exciting only because they overstate the source. When attraction and fidelity conflict, fidelity wins; then find a sharper truthful angle.
+- Keep a professional research-and-engineering voice. Reject clickbait, alarmism, exclamation marks, vague superlatives, casual hot-take language, unsupported universals, and titles that are exciting only because they overstate the source. Do not use formulas such as "X is broken/dead", "you won't believe", "the truth about X", or "everything changes" unless the literal claim is rigorously established and still appropriate for a technical publication.
+- Attraction must come from specificity, credible stakes, and a non-obvious relationship between facts. When attraction and fidelity conflict, fidelity wins; then find a sharper truthful angle rather than retreating to a generic title.
 - No listicle framing ("5 tips", "N 个技巧"), no hollow calls to action ("快来试试吧!", "give it a try today!"), no marketing self-praise ("powerful", "blazing fast" without numbers).
 - Open with a scenario, a measurement, or a problem, never with throat clearing or product promotion.
 - Every paragraph must add information the previous ones did not. Two adjacent paragraphs making the same point get merged.
@@ -179,7 +189,7 @@ Use “we” for an author choice or measurement, and name the concrete mechanis
 | Unsupported absolute | “This can never fail”, “X is impossible” | State the proved boundary or use a source-bearing scope qualifier |
 | Self-attack or apology | “This is only a preliminary result”, “Unfortunately, our design is simple” | Delete empty apology; retain the factual limitation in a scope or limitation sentence |
 
-Bullet lists, comparison tables, question-style H2 headings, and FAQ sections are **encouraged**, not banned: they aid scanning and win featured snippets. The antipattern is prose that reads like notes, not structure that aids the reader.
+Compact lists, comparison tables, question-style headings, and FAQ sections are available when they genuinely aid the reader; none is a required template. Lists, quotations, and emphasized takeaways follow the one-or-two-accent limit above. The antipattern is prose that reads like notes or a structure assembled for snippets instead of the argument.
 
 ---
 
