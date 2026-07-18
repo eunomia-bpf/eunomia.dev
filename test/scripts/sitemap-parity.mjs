@@ -11,7 +11,13 @@ const retiredLegacySitemapPaths = new Set([
   "/GPTtrace/agentsight/",
   "/zh/GPTtrace/agentsight/",
   "/tutorials/SUMMARY/",
-  "/zh/tutorials/SUMMARY/"
+  "/zh/tutorials/SUMMARY/",
+  // Papers library moved from /others/papers/ to /papers/; the old URLs are
+  // served as redirect stubs (see generate-legacy-redirects.mjs).
+  "/others/papers/",
+  "/zh/others/papers/",
+  "/others/papers/osdi20-brunella/",
+  "/zh/others/papers/osdi20-brunella/"
 ]);
 // Legacy /blogs/** (and /zh/blogs/**) pages are served with robots: noindex, so
 // they are intentionally excluded from the app sitemap (see isSitemapExcludedRoute).
