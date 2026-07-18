@@ -4,7 +4,7 @@ slug: ebpf-ai-agent-policy-enforcement
 description: AI agent safety rules live in CLAUDE.md and AGENTS.md. A study of 2,116 statements shows 64% are policies, most needing OS-level enforcement with context.
 ---
 
-# What 2,116 CLAUDE.md and AGENTS.md Rules Reveal About AI Agent Safety
+# AI Agent Safety Rules Need Context and System-Level Enforcement: Evidence from 2,116 Rules
 
 An AI coding agent runs `git commit`, and the kernel sees nothing unusual: a familiar process writing familiar files. The repository's CLAUDE.md says "Run the full test suite before committing," and the agent edited source code after its last test run. That rule, drawn verbatim from the study's dataset, is not enforced by any layer in the stack.
 
