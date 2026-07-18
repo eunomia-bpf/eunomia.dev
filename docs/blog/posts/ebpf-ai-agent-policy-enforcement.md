@@ -1,18 +1,18 @@
 ---
 date: 2026-07-15
 slug: ebpf-ai-agent-policy-enforcement
-description: AI agent safety rules live in CLAUDE.md and AGENTS.md. A study of 2,116 statements shows 64% are policies, most needing OS-level enforcement with context.
+description: A study of 2,116 AI agent instruction statements finds 64% are policies, 83% are system-observable, but only 45% are directly enforceable at OS hooks.
 ---
 
-# AI Agent Safety Rules Need Context and System-Level Enforcement: Evidence from 2,116 Rules
+# AI Agent Rules Need Context and Layered Enforcement
 
-An AI coding agent runs `git commit`, and the kernel sees nothing unusual: a familiar process writing familiar files. The repository's CLAUDE.md says "Run the full test suite before committing," and the agent edited source code after its last test run. That rule, drawn verbatim from the study's dataset, is not enforced by any layer in the stack.
+An AI coding agent runs `git commit`, while the kernel sees a familiar process writing familiar files. The repository's CLAUDE.md says "Run the full test suite before committing," and the agent edited source code after its last test run. That rule, drawn verbatim from the study's dataset, is not enforced by any layer in the stack.
 
-The [ActPlane paper](https://arxiv.org/abs/2606.25189) quantifies this gap. It measures the policies developers actually write in CLAUDE.md and AGENTS.md files, classifies what enforcing them requires, and validates that OS-level enforcement combined with semantic feedback works. The paper's own summary of the landscape: 64% of statements are policies, 83% involve system actions, and 74% depend on context that cannot be pre-defined statically.
+The [ActPlane paper](https://arxiv.org/abs/2606.25189) quantifies a policy problem that starts before enforcement technology enters the picture. Developers have already written the rules, with 64% of instruction-file statements expressing behavioral policies. Although 83% describe system-observable behavior, only the 29% per-event and 16% cross-event classes map directly to OS hooks, and 74% still need project or task context. The missing layer must therefore resolve natural-language intent before deterministic enforcement can act.
 
 <!-- more -->
 
-## What Developers Actually Write in CLAUDE.md and AGENTS.md
+## Developers Have Already Written the Policies
 
 Most discussions of AI agent safety start from threat models or attack surfaces. ActPlane starts from a different question: what do developers already tell their agents to do and not do, and what would it take to enforce those instructions?
 
@@ -36,11 +36,11 @@ Five real statements from the dataset illustrate the range of enforcement requir
 | S7: "Data read from .env must not reach the network." | cross-event | project |
 | S8: "Do not update dependencies without approval." | per-event | task |
 
-## Most Rules Are System-Observable, and the Hard Ones Are Cross-Event
+## The Enforcement Gap Begins with Context
 
 The paper classifies each policy into the first matching tier of an enforcement waterfall: semantic-only covers reasoning, communication, or output style; content covers predicates over file contents; per-event covers a single command, file access, or network connection; and cross-event covers policies that depend on temporal ordering or data lineage across operations. The union of content, per-event, and cross-event tiers is called system-observable.
 
-Of the 1,361 policies in the dataset, only 17% are semantic-only. The remaining 83% are system-observable, meaning a kernel-level monitor could in principle evaluate them: 38% require content inspection, 29% match a single OS event, and 16% require cross-event state. Cross-event policies concentrate in Development Process, which accounts for 39.5% of all cross-event policies.
+Of the 1,361 policies in the dataset, only 17% are semantic-only. The remaining 83% are system-observable, comprising 38% that require content inspection, 29% that match one OS event, and 16% that require cross-event state. Only the per-event and cross-event classes, 45% together, form the OS-enforceable subset. Cross-event policies concentrate in Development Process, which accounts for 39.5% of all cross-event policies.
 
 ![Enforcement waterfall showing semantic-only, content, per-event, and cross-event distribution across 1,361 policies](imgs/actplane-empirical_waterfall_enforcement.png)
 
@@ -54,7 +54,9 @@ The two difficulties compound: the policies that require tracking state across e
 
 A fixed set of static rules can cover only the self-contained fraction. Instantiating the rest requires reading the repository and interpreting the current task before any check can run.
 
-## Why No Existing Layer Enforces These Rules
+> **Agent policy enforcement begins by compiling repository and task context into concrete state that deterministic checks can evaluate.**
+
+## One Rule Crosses Several Enforcement Layers
 
 Prompt instructions rely on the model's own compliance, but they are vulnerable to prompt injection and compete with the user's task prompt for attention in a long context window. Separate agents or LLM guards can check prompts, responses, or action trajectories at runtime, but these checks are inherently probabilistic.
 
@@ -66,14 +68,14 @@ The core insight from the paper ties these layers together: most rules need proj
 
 These findings establish two design requirements. First, the policy specification must be agent-writable yet OS-enforceable: the agent needs to produce concrete rules from natural-language policies with minimal expertise, and it needs semantic feedback to understand violations and recover. Second, enforcement must be safe, isolated, and efficient: agent-authored policy must not weaken constraints set by higher authority, must not affect other agents' policies, and must not slow the agent's normal workload.
 
-## Inside ActPlane: Rules Agents Write, the Kernel Enforces
+## Compiling Intent into Enforceable State
 
-![ActPlane overview: the agent closest to the task writes concrete policy DSL, compiled and enforced inside the OS kernel](imgs/actplane-illustration.png)
+![ActPlane overview: the agent resolves policy context, ActPlane compiles the DSL, and the kernel enforces it](imgs/actplane-illustration.png)
 
 Each ActPlane rule has five components: a source that identifies what is being governed, a target operation (such as exec, write, or connect), an effect, an optional temporal gate, and a reason string for semantic feedback. The paper's running example makes this concrete:
 
 ```
-kill exec "git" "commit" unless after exec "go" "test" exits 0
+kill exec "git" "commit" unless after exec "go" "test" exits 0 since write "**/*.go"
 ```
 
 This rule kills any `git commit` unless `go test` has exited successfully since the most recent relevant source edit. The reason field, omitted here for brevity, provides the agent with a structured explanation when the rule fires.
@@ -92,7 +94,7 @@ The 607-policy dataset exercises most DSL features and validates the language's 
 
 The implementation is compact. The userspace compiler and runner are roughly 3.2K lines of Rust. The eBPF enforcement engine is roughly 1.8K lines of BPF C. BPF-LSM hooks handle pre-operation decisions (block), while tracepoints handle observation and post-operation termination (kill). Labels are stored as 64-bit bitmasks in per-object BPF maps, and propagation reduces to a single bitwise OR. The engine supports up to 128 concurrent rules; the largest repository in the study had 66 policies. For deeper coverage of the deployment architecture and mechanism details, see [ActPlane: Pushing Agent Harness Enforcement Down to Kernel eBPF](https://eunomia.dev/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/).
 
-## Does It Work? What the Evaluation Shows
+## Recovery Reveals What Enforcement Alone Misses
 
 Policy translation scales to the full dataset. A Codex agent compiled all 607 OS-enforceable policies into ActPlane rules on the first or second attempt, with only 2 of 607 needing a syntax-error retry. The translation completed in 34 minutes using 7 subagents with 4 running in parallel, expanding 607 policies into 1,283 rule lines. The cost was roughly $0.028 per policy using 1.7M input tokens and 177K output, compared to approximately $11 per rule at typical software-engineer rates. Most policies are structurally simple: 74% have at most two enforcement clauses, and even the 95th percentile stays under 152 tokens.
 
@@ -114,7 +116,7 @@ Semantic feedback is the dividing line between compliance and retry loops. Full 
 
 Overhead fits comfortably in a development workflow. The paper measures end-to-end overhead on two workloads under no-hit configurations where policies are loaded but no rule fires. The first workload is an agent trace suite that replays 68 tool actions with 20 Bash subprocesses. The second is a Linux kernel build (`defconfig` + `vmlinux`, `make -j24`). At 32 active rules, ActPlane adds 1.9% on the agent trace and 6.5% on the kernel build. Even at 100 rules, overhead stays below 8.4%.
 
-Microbenchmarks isolate where per-syscall cost concentrates. Fork and exec carry the highest absolute additions at 3 to 69 microseconds across rule counts, but these stay modest relative to their native latency of 49 and 248 microseconds. File and network operations remain lightweight: open reaches 13.4 microseconds at 100 rules, while write and connect stay sub-microsecond. The cumulative ActPlane overhead of an entire tool-call's syscall sequence is five to six orders of magnitude smaller than a single LLM inference turn of 2 to 10 seconds. Policy updates propagate quickly: a one-rule hot reload submitted through the userspace ring buffer reaches the kernel drain path in 26.3 microseconds on average, and an immediate exec violation is detected at p50 176.4 microseconds including process launch and event delivery.
+Microbenchmarks isolate where per-syscall cost concentrates. Fork and exec carry the highest absolute additions at 3 to 69 microseconds across rule counts, but these stay modest relative to their native latency of 49 and 248 microseconds. At 100 rules, open reaches 13.4 microseconds, write remains below one microsecond at 0.84 microseconds, and connect reaches 3.17 microseconds. The cumulative ActPlane overhead of an entire tool-call's syscall sequence is five to six orders of magnitude smaller than a single LLM inference turn of 2 to 10 seconds. Policy updates propagate quickly: a one-rule hot reload submitted through the userspace ring buffer reaches the kernel drain path in 26.3 microseconds on average, and an immediate exec violation is detected at p50 176.4 microseconds including process launch and event delivery.
 
 ActPlane's advantage replicates under a second model. A DeepSeek-Pro V4 end-to-end replication preserves the system ranking with ActPlane highest at 77.4% DCR, and per-cell agreement between the two model settings yields a Cohen's kappa of 0.822.
 
@@ -126,11 +128,11 @@ External safety benchmarks confirm breadth beyond the paper's own dataset. On 36
 
 The [ActPlane source code](https://github.com/eunomia-bpf/ActPlane) is available on GitHub. The `policies/` directory contains the full set of 607 translated rules across all 64 repositories, ready to serve as starting points for your own instruction files.
 
-## Common Questions
+## Where Layered Enforcement Stops
 
 ### Is eBPF enough for AI agent safety?
 
-eBPF provides deterministic enforcement over OS events: file writes, process launches, network connections, and similar system actions. That covers the 83% of policies that are system-observable, but the remaining 17%, which cover reasoning, communication style, or output quality, require harness-level controls outside the kernel. Content policies, the 38% that require reading file contents, are better served by linters and static analyzers and fall outside eBPF's per-event and cross-event enforcement scope. Task intent, policy authority, content semantics, and isolation are all concerns that the layers around kernel enforcement must handle.
+eBPF provides deterministic enforcement over OS events such as file writes, process launches, and network connections. The per-event and cross-event classes form the directly OS-enforceable 45% of policies. The broader 83% system-observable set also includes 38% content policies, which need linters or static analyzers, while the remaining 17% cover reasoning, communication style, or output quality and require harness-level controls. Task intent, policy authority, content semantics, and isolation remain responsibilities of the layers around kernel enforcement.
 
 ### Can behavioral baselines replace policy?
 
@@ -144,4 +146,4 @@ No. [AgentSight](https://eunomia.dev/blog/2025/08/26/agentsight-keeping-your-ai-
 
 The paper's threat model is explicit about boundaries. Semantically equivalent operations can bypass string-based matching: an agent could use a custom Git client instead of calling `exec git`, though the underlying `connect` and `write` system calls remain visible. Service-side effects behind protocol boundaries, such as WebDAV uploads or database mutations inside service containers, also escape the current hook set. File-content semantics, kernel compromise, CAP_BPF compromise, and side channels are all out of scope. The 17% of policies that are semantic-only, covering reasoning quality, communication tone, or output formatting, require harness-layer handling rather than kernel enforcement.
 
-The dataset itself is this paper's most distinctive contribution. Before ActPlane, no one had measured what developers actually ask their agents to obey or how those rules distribute across enforcement requirements. Most of these rules are already written down in CLAUDE.md and AGENTS.md files across thousands of repositories; what has been missing is an enforcement layer that can read the project context, understand the current task, and turn those natural-language policies into concrete, kernel-level rules. The [ActPlane repository](https://github.com/eunomia-bpf/ActPlane) contains the implementation, and a broader three-layer security model placing kernel enforcement alongside isolation, identity, and content controls appears in [Runtime Observability and Enforcement for Opaque AI Agents with eBPF](https://eunomia.dev/blog/2026/05/25/runtime-security-for-ai-agents/).
+The dataset itself is this paper's most distinctive contribution. Prior instruction-file studies worked at file or section granularity, while ActPlane measures individual policy statements and maps them to enforcement and context requirements. Most of these rules are already written down in CLAUDE.md and AGENTS.md files across thousands of repositories; what has been missing is an enforcement layer that can read the project context, understand the current task, and turn those natural-language policies into concrete, kernel-level rules. The [ActPlane repository](https://github.com/eunomia-bpf/ActPlane) contains the implementation, and a broader three-layer security model placing kernel enforcement alongside isolation, identity, and content controls appears in [Runtime Observability and Enforcement for Opaque AI Agents with eBPF](https://eunomia.dev/blog/2026/05/25/runtime-security-for-ai-agents/).
