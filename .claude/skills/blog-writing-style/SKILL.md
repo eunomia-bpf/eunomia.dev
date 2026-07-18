@@ -1,11 +1,11 @@
 ---
 name: blog-writing-style
-description: Prose style and bilingual rule checklist for blog posts under docs/blog/posts/. Pure reference; contains no workflow. Use it as the rulebook when drafting or reviewing a post via blog-writer. Covers prose mechanics, blog antipatterns, content-farm bans, length and richness expectations, and Chinese-English mixing rules for ZH posts. SEO/GEO rules live in the separate seo-geo skill.
+description: Detailed prose and bilingual rule checklist for blog posts under docs/blog/posts/. Pure reference; contains no workflow. Use it when drafting or reviewing via blog-writer. Covers argument architecture, paper-to-blog transformation, paragraph load and rhythm, prose mechanics, blog antipatterns, length and richness, and Chinese-first bilingual writing. SEO/GEO rules live in the separate seo-geo skill.
 ---
 
 # Blog Style Checklist (rules only)
 
-This file is the single source of truth for blog style rules. It contains no process: the review workflow lives in the `blog-review` skill, and drafting guidance lives in `tech-blog-writer`. Both reference this checklist.
+This file is the single source of truth for blog style rules. It contains no process; the workflow lives in the `blog-writer` skill.
 
 ## Critical rules
 
@@ -20,9 +20,47 @@ This file is the single source of truth for blog style rules. It contains no pro
 
 ## Length and richness
 
-- A full post is expected to be **around 200 lines of Markdown** (roughly 1,800-2,500 English words), including code blocks, tables, and figures. A post under ~150 lines is a short piece; that is acceptable only when deliberately scoped (release note, erratum, single-finding update). When reviewing a full post that comes in thin, report it as **Must fix: thin content**.
+- A full post normally contains **1,800-2,500 English words** and roughly 180-240 lines of Markdown, including code blocks, tables, and figures. Word count measures scope; line count helps expose compressed walls of text. A full post below 1,500 words is thin unless it is deliberately scoped as a release note, erratum, or single-finding update. A post above 2,800 words needs an explicit reason and a reduction pass.
 - Rich means substance, not padding. Grow a post by adding concrete examples, real measured data, code or rule snippets, figures, mechanism explanations, and FAQ entries; never by restating the same point in more words.
 - Every H2 section must contain at least one thing only we can write: a first-party number, a real code/config example, a figure, or first-hand experience. A section that only paraphrases common knowledge gets cut or merged.
+
+### Paragraph load and rhythm
+
+- Give each paragraph one primary job: establish a scene, make a claim, explain a mechanism, present evidence, interpret evidence, state a limitation, or bridge to the next step. If a paragraph performs three or more jobs, split or restructure it.
+- English body paragraphs usually land between 40 and 90 words. Inspect every paragraph above 110 words. Three consecutive paragraphs above 90 words are a **Must fix** because the reader never gets a change of pace.
+- Chinese body paragraphs usually land between 120 and 260 Chinese characters. Inspect every paragraph above 320 characters. Three consecutive paragraphs above 260 characters are a **Must fix**.
+- These ranges are diagnostic tripwires, not quotas. A short transition can be one sentence, and a mechanism explanation can run longer when it cannot be split without losing logic.
+- Vary paragraph shape. Alternate explanation with an example, consequence, figure, quotation, or compact list. Do not make every paragraph a same-sized block of four or five declarative sentences.
+- Do not compress a long post by removing blank lines. If a 3,000-word article fits into about 150 Markdown lines, inspect it for overloaded paragraphs before calling it concise.
+
+---
+
+## Article architecture: build an argument, not a paper digest
+
+- Write a one-sentence thesis before the outline. Every H2 must advance that thesis, not merely cover another topic from the source material.
+- Give the reader a progression they can feel. A common systems-blog progression is scenario or measured problem -> why the obvious layers fail -> mechanism -> evidence -> boundary or practical consequence. Other progressions are valid, but adjacent sections must have an explicit "therefore" relationship.
+- Treat an opening scenario as the article's backbone. Return to it when explaining the mechanism or evaluation, and resolve it before the ending. A vivid hook that disappears after `<!-- more -->` is decoration, not structure.
+- Do not mirror a paper's section order, RQ order, or contribution list. A sequence such as dataset -> taxonomy -> design requirements -> implementation -> evaluation is a warning that the writer expanded the paper outline instead of designing a blog argument.
+- Select evidence for the thesis. A blog about one empirical finding does not need to retell every mechanism and benchmark in the paper. Preserve omitted technical depth through a direct paper or sibling-post link.
+- End with a new implication, decision, boundary, or next action. Do not repeat the title, abstract, or section takeaways in a trailing summary.
+
+### Transforming a paper into a blog post
+
+- The paper is the source of truth, not the source of structure or voice. Preserve terminology, numbers, scope, and caveats while rebuilding the exposition for a practitioner reader.
+- State the post's unique angle before drafting. Examples include an empirical finding, a mechanism walkthrough, an evaluation result, or a deployment lesson. If the angle needs an "and also" list of all paper contributions, it is still too broad.
+- Use an evidence sandwich for important results: state what the result means, give the number with method and conditions, then explain the consequence or limitation. Do not publish a ledger of percentages with no interpretation between them.
+- Avoid successive paragraph openings such as "The paper...", "The study...", "These findings...", "The evaluation...", and "The implementation...". Name the concrete actor, mechanism, or result, and write from the site's point of view.
+- Compare the outline with existing eunomia.dev posts before drafting. If a sibling already owns a mechanism, summarize only what the new argument needs and link to the deeper treatment. One post must not compete with or silently duplicate another post's core angle.
+- The author must add synthesis that the paper does not provide in the same form: a running example, operational implication, comparison across layers, deployment tradeoff, or explanation of why a number matters.
+
+### Figures from source papers
+
+- Build a numbered inventory of every main-body figure before outlining. Record what claim each figure supports and where the source asset comes from.
+- A full blog that retains a paper section also retains that section's figures. An empirical-study post includes every empirical-study figure, not only the easiest three plots to export. If design or evaluation results remain in the prose, their corresponding figures remain too.
+- Introduce a figure with the claim it supports, place it directly after that discussion, and interpret the visual instead of leaving it as decoration.
+- EN and ZH use the identical image payload and matching placement. Alt text and surrounding explanation are written naturally in each language.
+- Do not redraw a source plot merely to change its style. Prefer an exact repository-owned copy or a stable source asset, and preserve labels, scales, legends, and uncertainty information.
+- A figure may be omitted only when its entire source section is outside the declared topic or when it duplicates another visual exactly. Record the reason; article length alone is not a reason.
 
 ## Anti-content-farm rules
 
@@ -56,7 +94,7 @@ Never use colons for `claim: evidence`, `setup: result`, `observation: explanati
 **Good:** `The framework addresses three goals: (1) crash isolation, (2) bounded action spaces, and (3) multi-layer feedback.` (numbered list)
 
 ### Parentheticals (avoid unless necessary)
-Use parentheses only for: (1) citations and figure/table references, (2) abbreviations and first-use bilingual glosses (策略（policy）, 危险命令拒绝率（DCR）), (3) short scope qualifiers. Never for lists or explanations; if a parenthetical runs longer than a few words, promote it to its own sentence.
+Use parentheses only for: (1) citations and figure/table references, (2) abbreviations and first-use bilingual glosses (策略（policy）, 决策合规率（DCR）), (3) short scope qualifiers. Never for lists or explanations; if a parenthetical runs longer than a few words, promote it to its own sentence.
 
 ---
 
@@ -80,8 +118,14 @@ The modifier must attach to the grammatical subject.
 ### Passive voice (when the agent matters)
 Use active voice with a concrete actor. "The engine propagates labels at fork", not "Labels are propagated by the engine at fork events."
 
-### Note-like prose (3+ short declaratives in a row)
+### Note-like prose / 笔记体 (hard ban, both languages)
 Don't stack short sentences that read like bullet points. Merge with connective tissue into flowing prose. A pair of sentences from splitting an overlong one is fine; three or more in a row is the antipattern.
+
+The subtler form is the **spec-sheet paragraph**: every sentence is grammatical, but the paragraph is a list of facts wearing punctuation. Example of the violation (ZH):
+
+> 实现规模紧凑。用户态编译器和运行器约 3.2K 行 Rust 代码，eBPF 强制执行引擎约 1.8K 行 BPF C 代码。其中 BPF-LSM hook 处理操作前决策，tracepoint 处理观测。标签以 64 位掩码存储在逐对象的 BPF map 中。引擎支持最多 128 条并发规则。
+
+Each sentence just deposits a spec. Flowing prose weaves the same facts into an argument, saying what a number buys or why a choice was made ("用户态编译器和运行器合计约 3.2K 行 Rust，内核强制执行引擎只有约 1.8K 行 BPF C。标签被压成 64 位掩码后，传播只需一次按位 OR，所以这个小规模实现仍能支持 128 条并发规则。"). Every fact keeps its number; the paragraph must read as one connected thought, not an inventory. If three consecutive sentences could be reordered without harming the paragraph, it is a spec sheet, and it must be rewritten.
 
 ### Vague referents
 "This", "it", "they" must have an unambiguous antecedent. If unclear, name the referent explicitly.
@@ -105,6 +149,12 @@ Put known information at the sentence start (backward link) and the new, emphati
 | Double negative / "not X but Y" | "这不是X，而是Y", "not X but rather Y" | State what it **is**, positively |
 | Feature-list structure | "Feature 1: ... Feature 2: ..." | Restructure as progressive argument |
 | Paper-abstract tone | "This division explains why...", "The practical conclusion is more specific than..." | Concrete scenario or direct claim |
+| Expanded paper outline | H2s reproduce the paper's RQs, design, implementation, and evaluation in order | Choose one thesis and rebuild the section progression around it |
+| Abstract cascade | Paragraphs repeatedly begin "The study...", "The paper...", "The evaluation..." | Put the result, mechanism, or reader consequence in subject position |
+| Data ledger | Several dense paragraphs enumerate percentages and benchmark cells | Keep the decisive evidence and interpret each result before adding another |
+| Abandoned hook | Opening scenario never appears after `<!-- more -->` | Reuse it to explain the mechanism and resolve it near the end |
+| Duplicate sibling | A full section repeats a mechanism already explained in another post | Summarize the dependency and link to the canonical treatment |
+| Line-locked translation | EN and ZH have matching sentence and paragraph boundaries throughout | Preserve macro structure and facts, but compose each language naturally |
 | Vague claims | "significantly reduces latency" | The measured number: "reduces latency by 40%" |
 
 Bullet lists, comparison tables, question-style H2 headings, and FAQ sections are **encouraged**, not banned: they aid scanning and win featured snippets. The antipattern is prose that reads like notes, not structure that aids the reader.
@@ -139,7 +189,7 @@ Cut "very", "extremely", "basically", "actually", "really" unless they carry mea
 State what the numbers mean before giving the numbers.
 
 **Bad:** `Overhead is 1.9% on replay and 6.5% on a kernel build.` (data dump with no claim)
-**Good:** `Enforcement stays cheap enough for interactive use: 1.9% overhead on replay and 6.5% on a kernel build.`
+**Good:** `Enforcement stays cheap enough for interactive use, adding 1.9% overhead on replay and 6.5% on a kernel build.`
 
 ### Numbers are claims
 Always state what was measured, how, and under what conditions. Link to papers, repos, or prior art when making claims about related work.
@@ -156,11 +206,13 @@ All search and AI-engine visibility rules (metadata, keyword strategy, citation-
 
 Chinese posts are written in Chinese. The reference for what good looks like is `docs/blog/posts/actplane.zh.md`; the failure mode to prevent is glossary-style semi-translation where every other noun stays English.
 
+- **Compose from facts, not English sentences.** Read the English paragraph, close it, then write the Chinese paragraph from its claim, evidence, and function. Reordering clauses, splitting a sentence, or merging two sentences is expected when Chinese logic reads better that way.
+- **Do not preserve line-level symmetry.** EN and ZH must share the same H2/H3 progression, examples, figures, tables, claims, and caveats. Sentence count, paragraph count, and Markdown line count may differ. Near-perfect line-for-line correspondence across a full post is a review smell because it often signals translation instead of composition.
 - **Default is Chinese.** English is allowed in exactly four classes:
   1. proper nouns and product names (eBPF, bpftime, Claude Code, CLAUDE.md, AGENTS.md, ActPlane, OSDI);
   2. terms of art with no accepted Chinese rendering, where translation would hurt recognition (agent, harness, prompt, hook, uprobe, verifier, checkpoint-restore);
   3. code, commands, file names, function names, always backticked;
-  4. metric acronyms (DCR), which must get a Chinese expansion at first use: 危险命令拒绝率（dangerous-command refusal, DCR）.
+  4. metric acronyms (DCR), which must get a Chinese expansion at first use: 决策合规率（Decision Compliance Rate, DCR）. Expansions must be verified against the source paper, never guessed from the letters.
 - **Everything else translates**, one rendering per concept for the whole post, with the English original in parentheses at first occurrence when the post tracks a paper's terminology: 策略（policy）、语句（statement）、强制执行（enforcement）、跨事件（cross-event）、单事件（per-event）、自包含（self-contained）、上下文（context）、语义反馈（semantic feedback）、时序门（temporal gate）、违规轨迹（violation trace）、信息流标签（information-flow label）. Paper-terminology fidelity binds the EN post; the ZH post stays faithful through first-use glosses, not through raw English.
 - **No Chinese sentence starts with an English common noun.** "Statement 的提取经过…" is a violation; write "语句的提取…" or change the subject. Check: `grep -nE '^[A-Z][A-Za-z-]+ ' file.zh.md` on prose lines.
 - **Table headers in ZH posts are Chinese** (proper nouns and acronyms like DCR excepted).
@@ -168,16 +220,19 @@ Chinese posts are written in Chinese. The reference for what good looks like is 
 - **Ordinary words stay in Chinese.** Never mix English verbs or common nouns into Chinese sentences ("我们 measure 了", "做了一个 comparison" are violations).
 - **Read-aloud test.** Every paragraph must read as natural spoken Chinese. If reading it means switching to English every few words, the paragraph fails, whatever the individual rules say. As a density reference: in a good post, the English tokens in a body paragraph are mostly proper nouns and code; if more than half the concept nouns in a paragraph are English, that is a Must fix.
 - **No calque sentence structures.** "即 2.0 到 3.2 倍的改进"、"每系统调用开销" are English word order transliterated; rewrite in Chinese grammar ("提升了 2.0 到 3.2 倍"、"单次系统调用的开销").
+- **No translated abstract voice.** Repeated subjects such as "论文"、"研究"、"这些发现"、"该评测" and phrases such as "优势在……展开"、"恢复率讲了同样的故事"、"开销可以放进工作流" usually preserve English rhetoric. Name the concrete result or rewrite around what the reader can now conclude.
+- **Use glosses selectively.** A standard Chinese term gets its English original only on first use and only when the paper term will recur or readers may need it for search. Do not turn ordinary vocabulary into a parenthetical glossary.
 - **Spacing:** half-width space between CJK and Latin/digits ("64 个仓库", "eBPF 程序", "支持 128 条规则").
 - **Punctuation:** Chinese prose uses full-width punctuation (，。：；？), including around embedded English terms; half-width punctuation appears only inside code, paths, and quoted English sentences.
 - **No English clause splicing.** Do not embed English clauses mid-sentence in Chinese prose.
 
 ## Bilingual consistency (EN/ZH pairs)
 
-- Same structure: sections, argument flow, examples, figures, and tables in the same order.
+- Same macro structure: sections, argument flow, examples, figures, tables, claims, numbers, and caveats stay in the same order.
 - Section headings correspond (e.g., "Three Layers, Three Blind Spots" ↔ "三层约束，三种盲区").
 - Both files need the same `date`; `description` is localized, both within the length budget.
-- When one version is edited, update the other to match structure (natural expression can differ).
+- Sentence boundaries, paragraph boundaries, and line counts do not need to match. Natural expression is mandatory, not optional.
+- When one version changes an argument, example, fact, figure, or caveat, update the other. Purely local phrasing edits need not be mirrored mechanically.
 
 ---
 
