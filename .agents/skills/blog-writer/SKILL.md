@@ -25,18 +25,15 @@ When the caller asks for multiple model versions, give every model the same **to
 
 ## Sequential direct-edit workflow
 
-For a production post, Codex `gpt-5.6-sol` with `model_reasoning_effort=xhigh` writes the complete EN/ZH first draft. Then run the other pinned models in this fixed order:
+For a production post, Codex `gpt-5.6-sol` with `model_reasoning_effort=xhigh` writes the complete EN/ZH first draft. Before drafting, select and record exactly two different non-Codex model families from the pinned roster. Those two models edit the draft in sequence. Do not change the selected pair halfway through a post unless one model is unavailable and the user approves the replacement.
 
-1. `zai-coding-plan/glm-5.2`
-2. `grok-4.5`
-3. `kimi-code/k3`
-4. `claude-opus-4-6[1m]`
+When the user does not choose the pair, use `grok-4.5` followed by `kimi-code/k3` for bilingual technical blogs. The other pinned models remain approved alternatives, not mandatory passes.
 
 Do not assign specialized roles to these models. Give each model the same complete rulebooks, primary sources, relevant sibling posts, figure inventory, and the latest EN/ZH files. Each model reads the entire current draft, audits the previous model's commit, and then **edits only the necessary sentences, paragraphs, headings, metadata fields, or figure placements**. The next model always receives the previous model's committed and pushed files.
 
 Except for Codex creating the first draft when no draft exists, a model pass must not touch more than one third of the prose paragraphs in either language. It must also keep the changed-line footprint within one third of each baseline file, measured as unique original or newly inserted lines touched by the pass rather than double-counting a replacement as one deletion plus one addition. Headings, metadata fields, figures, tables, and code blocks count as touched blocks. Stay comfortably below the limit when the count is ambiguous.
 
-Each pass must preserve verified content and public identity. It may add source-backed evidence or figures that the current draft omitted, but it must not invent facts, silently delete technical content, change the slug, move the public path, reflow unaffected paragraphs, reorder the whole article, or replace either complete file. “Rewrite for consistency” is not sufficient justification for broad edits. After the four direct-edit passes, Codex integrates remaining consistency fixes under the same one-third limit and runs verification. Model passes return a concise change log after editing; they do not stop at a review report.
+Each pass must preserve verified content and public identity. It may add source-backed evidence or figures that the current draft omitted, but it must not invent facts, silently delete technical content, change the slug, move the public path, reflow unaffected paragraphs, reorder the whole article, or replace either complete file. “Rewrite for consistency” is not sufficient justification for broad edits. After the two direct-edit passes, Codex integrates remaining consistency fixes under the same one-third limit and runs verification. Model passes return a concise change log after editing; they do not stop at a review report.
 
 ### Per-model commit and push checkpoint
 
@@ -86,12 +83,12 @@ Git operations are allowed only through the checkpoint protocol above, on a feat
 
 ## Mandatory multi-model completion gate
 
-- A model-authored production post is unfinished until Codex has written and checkpointed the initial pair and all four other pinned models have directly edited, validated, committed, and pushed the latest pair in sequence.
+- A model-authored production post is unfinished until Codex has written and checkpointed the initial pair and the two selected non-Codex models have directly edited, validated, committed, and pushed the latest pair in sequence.
 - A second session, subagent, or temperature setting of the same family does not replace a missing pinned-model pass.
 - Every pass receives the whole EN/ZH pair, both rulebooks, primary sources, sibling posts, and figure inventory. Do not feed it a narrow defect list that prevents whole-post judgment.
 - Require each model to inspect the complete post and previous commit before editing, make only necessary sub-one-third improvements, preserve verified content, and report the touched-block budget, what changed, and what remains uncertain.
 - After all model passes, Codex checks the accumulated diff against the primary source, resolves contradictions or style drift, and verifies that no valid Must-fix issue remains.
-- If one pinned model is unavailable, stop before claiming completion and name the missing pass. Never silently substitute a different model or call a partial chain complete.
+- If one selected model is unavailable, stop before claiming completion and name the missing pass. Never silently substitute another pinned model or call a partial chain complete.
 
 ## Editing discipline (both flows)
 

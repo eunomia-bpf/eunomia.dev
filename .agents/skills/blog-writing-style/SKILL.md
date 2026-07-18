@@ -9,12 +9,17 @@ This file is the single source of truth for blog style rules. It contains no pro
 
 ## Critical rules
 
+- **High-quality insight is the blog's highest priority.** Facts, figures, and polished prose are inputs, not the finished value. Every full post must offer a source-grounded, non-obvious synthesis that changes how a practitioner understands the problem boundary, mechanism, tradeoff, or next decision. A faithful paper summary with no new reader-facing insight is still a failed blog.
 - **Never change an existing published post's `slug`, filename, or URL.** Slugs are set once at creation. A missing slug on an already-published post stays missing; report it but do not add one, because adding it moves the URL.
 - **Write product and project names out in full** (AgentSight, ActPlane, eBPF, bpftime). Names in prose are keywords; never abbreviate them into pronouns across paragraphs.
 - **Never delete design decisions or technical content.** Compression means better prose, not less information.
 - **Never change the meaning** of a sentence. If unsure, flag it.
 - **Keep scope-bearing hedges** ("in our tests", "on covered hooks", "up to"): they keep claims honest. Only collapse stacked hedges down to one.
 - **Facts must be faithful to their source.** Posts about a paper use the paper's current published terminology and numbers, not an older draft's.
+- **Never use absolute words without structural proof.** “Cannot,” “impossible,” “always,” and “never” are Must-fix unless the mechanism or source establishes the absolute claim.
+- **Never replace a complete paragraph or section during a review pass.** Fix only the necessary sentences and clauses. Splitting an overloaded paragraph is allowed only when every technical statement, qualifier, and relationship survives.
+- **Never combine a data correction with opportunistic prose churn.** When updating a number, denominator, label, or figure reference, change only the factual token and the minimum grammar needed to keep the sentence correct.
+- **Never silently remove a caveat, limitation, negative result, design rationale, or protected hedge.** Empty apology can be cut, but evidence-bearing boundaries are technical content.
 
 ---
 
@@ -136,6 +141,15 @@ Put known information at the sentence start (backward link) and the new, emphati
 **Bad:** `A 40% reduction in latency results from label caching.`
 **Good:** `Label caching reduces latency by 40%.`
 
+### Evidence needs a concrete subject
+Do not make a generated table, figure, or vague “result” perform the reasoning. Name the mechanism, workload, comparison, or measured object before the evidence.
+
+**Bad:** `The generated table shows that operation stacks reduce inspection work.`
+**Good:** `Operation stacks reduce inspection work, as the ranking experiment shows.`
+
+### Choose the actor explicitly
+Use “we” for an author choice or measurement, and name the concrete mechanism for system behavior. Do not hide responsibility behind passive voice or vague subjects such as “the approach,” “the result,” or “it.”
+
 ---
 
 ## Blog-specific antipatterns
@@ -156,6 +170,11 @@ Put known information at the sentence start (backward link) and the new, emphati
 | Duplicate sibling | A full section repeats a mechanism already explained in another post | Summarize the dependency and link to the canonical treatment |
 | Line-locked translation | EN and ZH have matching sentence and paragraph boundaries throughout | Preserve macro structure and facts, but compose each language naturally |
 | Vague claims | "significantly reduces latency" | The measured number: "reduces latency by 40%" |
+| Project-status prose | “We implemented X, then ran Y, then added Z” | Organize around the reader-facing claim and use implementation history only when causally relevant |
+| Experiment diary | Paragraphs enumerate scripts, run IDs, or checks in execution order | Consolidate evidence around the small number of claims it answers |
+| Evidence without an actor | “The table shows…”, “The results demonstrate…” | Put the measured mechanism, workload, or comparison in subject position |
+| Unsupported absolute | “This can never fail”, “X is impossible” | State the proved boundary or use a source-bearing scope qualifier |
+| Self-attack or apology | “This is only a preliminary result”, “Unfortunately, our design is simple” | Delete empty apology; retain the factual limitation in a scope or limitation sentence |
 
 Bullet lists, comparison tables, question-style H2 headings, and FAQ sections are **encouraged**, not banned: they aid scanning and win featured snippets. The antipattern is prose that reads like notes, not structure that aids the reader.
 
@@ -193,6 +212,12 @@ State what the numbers mean before giving the numbers.
 
 ### Numbers are claims
 Always state what was measured, how, and under what conditions. Link to papers, repos, or prior art when making claims about related work.
+
+### Hedging and limitations
+
+- One hedge per claim is enough. Remove stacked wording such as “may potentially suggest,” but keep the qualifier that carries evidence scope.
+- Do not hedge the existence of a measurement the source directly reports. Hedge its generalization when the workload, platform, selected subset, or confidence interval limits the claim.
+- Do not write self-attacking sentences that apologize for a design choice. If the sentence names a real limitation, preserve the substance and state the exact boundary without apology.
 
 ---
 
@@ -245,4 +270,6 @@ Chinese posts are written in Chinese. The reference for what good looks like is 
 5. Does "this/it/that" have a clear antecedent? If not, name the referent.
 6. Is an adverb doing the work a number should do?
 7. Does this sentence read like a paper abstract or meeting notes? Rewrite as blog prose.
-8. (ZH) Is every English fragment in this sentence a term of art, spaced and punctuated correctly?
+8. Does the sentence name the actor, mechanism, workload, or comparison that produced its evidence?
+9. Did an edit remove or broaden a scope-bearing hedge?
+10. (ZH) Is every English fragment in this sentence a term of art, spaced and punctuated correctly?
