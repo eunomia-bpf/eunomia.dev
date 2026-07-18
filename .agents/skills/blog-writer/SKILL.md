@@ -1,6 +1,6 @@
 ---
 name: blog-writer
-description: Pinned-model process control for producing eunomia.dev blog posts, covering both writing a new post and reviewing/fixing an existing one under docs/blog/posts/. Drives topic-only comparison briefs, architecture-first drafting, paper-to-blog transformation, EN/ZH pairing, severity-ranked review, paragraph-density checks, mandatory different-model-family review, editing discipline, and verification; all style/SEO rules come from the blog-writing-style checklist. Use for "write a blog", "draft a post", "review this post", or "fix the prose in X".
+description: Pinned-model process control for producing eunomia.dev blog posts, covering both writing a new post and reviewing/fixing an existing one under docs/blog/posts/. Drives topic-only comparison briefs, architecture-first drafting, paper-to-blog transformation, EN/ZH pairing, severity-ranked review, paragraph-density checks, mandatory different-model-family editing, independent reader-perspective review, editing discipline, and verification; all style/SEO rules come from the blog-writing-style checklist. Use for "write a blog", "draft a post", "review this post", or "fix the prose in X".
 ---
 
 # Blog Writer (process)
@@ -33,7 +33,7 @@ Do not assign specialized roles to these models. Give each model the same comple
 
 Except for Codex creating the first draft when no draft exists, a model pass must not touch more than one third of the prose paragraphs in either language. It must also keep the changed-line footprint within one third of each baseline file, measured as unique original or newly inserted lines touched by the pass rather than double-counting a replacement as one deletion plus one addition. Headings, metadata fields, figures, tables, and code blocks count as touched blocks. Stay comfortably below the limit when the count is ambiguous.
 
-Each pass must preserve verified content and public identity. It may add source-backed evidence or figures that the current draft omitted, but it must not invent facts, silently delete technical content, change the slug, move the public path, reflow unaffected paragraphs, reorder the whole article, or replace either complete file. “Rewrite for consistency” is not sufficient justification for broad edits. After the two direct-edit passes, Codex integrates remaining consistency fixes under the same one-third limit and runs verification. Model passes return a concise change log after editing; they do not stop at a review report.
+Each pass must preserve verified content and public identity. It may add source-backed evidence or figures that the current draft omitted, but it must not invent facts, silently delete technical content, change the slug, move the public path, reflow unaffected paragraphs, reorder the whole article, or replace either complete file. “Rewrite for consistency” is not sufficient justification for broad edits. After the two direct-edit passes, run the independent reader-review gate below before Codex integrates remaining consistency fixes under the same one-third limit and runs verification. Model passes return a concise change log after editing; they do not stop at a review report.
 
 ### Per-model commit and push checkpoint
 
@@ -48,6 +48,14 @@ For every model pass after the initial draft:
 7. Commit the pass separately with the model and exact version in the commit subject, then push the feature branch. Do not begin the next model until the push succeeds and the worktree is clean.
 
 The orchestrating agent, not a nested model process, owns staging, committing, and pushing. Stage only the intended post, image, and workflow files for that checkpoint.
+
+## Independent reader-review gate
+
+The production chain requires a separate read-only review by an agent or subagent that did not write the initial draft and did not perform either direct-edit pass. A new session of an authoring or editing agent does not count as independent review. The reviewer must inspect the complete pushed EN/ZH pair from the target reader's point of view, not edit files and not merely verify source facts.
+
+Give the reviewer the target audience, both rulebooks, primary sources, relevant sibling posts, and the complete current pair. Do not pre-fill the prompt with a narrow defect list that biases the review. Require the reviewer to walk through the post in reading order and report severity-ranked findings on: (1) title promise and professional appeal, (2) hook clarity, (3) unexplained assumptions or terminology, (4) section-to-section momentum, (5) evidence interpretation and trust, (6) fatigue, scanability, and structural variety, (7) sibling overlap, and (8) the insight, boundary, and practical decision retained at the end.
+
+Codex applies only supported findings with targeted patches, preserves the one-third budget, validates, commits, and pushes the final integration. If that integration materially changes the title, excerpt, H2 progression, core takeaway, or ending, the independent reviewer rechecks the final pushed state. Completion requires a no-blocker verdict on the final reader-visible version.
 
 ## Paper figure selection
 
@@ -84,6 +92,7 @@ Git operations are allowed only through the checkpoint protocol above, on a feat
 ## Mandatory multi-model completion gate
 
 - A model-authored production post is unfinished until Codex has written and checkpointed the initial pair and the two selected non-Codex models have directly edited, validated, committed, and pushed the latest pair in sequence.
+- The author and direct editors do not satisfy the independent reader-review gate. A separate non-authoring agent or subagent must review the complete pushed pair and return a no-blocker verdict on the final reader-visible state.
 - A second session, subagent, or temperature setting of the same family does not replace a missing pinned-model pass.
 - Every pass receives the whole EN/ZH pair, both rulebooks, primary sources, sibling posts, and figure inventory. Do not feed it a narrow defect list that prevents whole-post judgment.
 - Require each model to inspect the complete post and previous commit before editing, make only necessary sub-one-third improvements, preserve verified content, and report the touched-block budget, what changed, and what remains uncertain.
@@ -107,6 +116,7 @@ Git operations are allowed only through the checkpoint protocol above, on a feat
 - `wc -w` and `wc -l` recorded for both files; full posts outside the rulebook's word-count range are justified, reduced, or flagged.
 - Paragraph-load audit recorded: all paragraphs beyond the review tripwires and every run of three dense paragraphs are fixed or justified.
 - Architecture audit recorded: one-sentence thesis, chosen structural form and rationale, role of each H2, hook resolution, source-outline comparison, unique angle versus sibling posts, and confirmation that optional FAQ/list/callout devices were not added from a fixed template.
+- Independent reader review recorded: reviewer identity, target-reader definition, severity-ranked findings, reader-path verdict, fixes accepted or rejected with reasons, final commit reviewed, and no-blocker verdict.
 - Paper figure inventory and selection rationale recorded: each included figure advances a thesis-bearing claim, omitted figures leave no retained claim unsupported, and EN/ZH use the same selected images in matching positions.
 - Structural-variety audit recorded: the post uses no more than two optional editorial accents, each list, quotation, or emphasized takeaway has a clear argumentative purpose, none substitutes for reasoning, and EN/ZH carry the same evidence or synthesis in corresponding places.
 - Terminology check ran as its own pass on every ZH file: `grep -nE '^[A-Z][A-Za-z-]+ ' file.zh.md` empty on prose lines, table headers Chinese, no untranslated concept nouns outside the four allowed classes.

@@ -58,6 +58,16 @@ This file is the single source of truth for blog style rules. It contains no pro
 - Select evidence for the thesis. A blog about one empirical finding does not need to retell every mechanism and benchmark in the paper. Preserve omitted technical depth through a direct paper or sibling-post link.
 - End with a new implication, decision, boundary, or next action. Do not repeat the title, abstract, or section takeaways in a trailing summary.
 
+### Reader-perspective review
+
+- Name the target reader before review, including what they likely know, what decision brought them to the post, and which terminology they should not be expected to know. Review the published reading experience, not the author's outline or the paper's contribution checklist.
+- Test the title and opening as a promise. After the excerpt, the reader should know why the topic matters, what concrete question the post will answer, and why this article offers evidence or insight they cannot get from a generic overview.
+- Follow the article in order and mark every point where a qualified reader would ask “why does this follow?”, “what does this term mean?”, “compared with what?”, “under which conditions?”, or “why should I care?”. Later clarification does not excuse an avoidable stumble at first use.
+- Every important number must arrive with enough denominator, condition, comparison, and interpretation for the reader to understand its consequence. A technically correct result that forces the reader to reconstruct the argument from a paper figure still fails.
+- Check reading momentum. Each section should create a reason to continue, vary the mode of explanation, and pay off the question raised before it. Flag dense stretches, repeated setup, jargon clusters, decorative figures, and detours into mechanisms already covered by sibling posts.
+- At the end, the reader should be able to state the post's distinctive insight, its evidence, its boundary, and the practical decision it changes. If the reader remembers only the project name or a pile of percentages, the post needs revision.
+- Review trust as part of readability. Flag titles, transitions, takeaways, and claims that feel promotional, inflated, defensive, or content-farm-like even when no individual sentence is factually false.
+
 ### Transforming a paper into a blog post
 
 - The paper is the source of truth, not the source of structure or voice. Preserve terminology, numbers, scope, and caveats while rebuilding the exposition for a practitioner reader.
