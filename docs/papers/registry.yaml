@@ -204,36 +204,6 @@ papers:
       en: blog/posts/kgent.md
       zh: blog/posts/kgent.zh.md
 
-  - slug: wio
-    title: "WIO: Upload-Enabled Computational Storage on CXL SSDs"
-    arxiv: "2604.02442"
-    arxiv_version: v1
-    arxiv_updated: 2026-04-02
-    status: arXiv preprint
-    pdf: wio.pdf
-    text: wio.txt
-    blog: {}
-
-  - slug: daxfs
-    title: "DAXFS: A Lock-Free Shared Filesystem for CXL Disaggregated Memory"
-    arxiv: "2604.01620"
-    arxiv_version: v1
-    arxiv_updated: 2026-04-02
-    status: arXiv preprint
-    pdf: daxfs.pdf
-    text: daxfs.txt
-    blog: {}
-
-  - slug: cxlaimpod
-    title: "CXLAimPod: CXL Memory is all you need in AI era"
-    arxiv: "2508.15980"
-    arxiv_version: v1
-    arxiv_updated: 2025-08-21
-    status: arXiv preprint
-    pdf: cxlaimpod.pdf
-    text: cxlaimpod.txt
-    blog: {}
-
   - slug: cet-disassembly
     title: "Exploiting Control-flow Enforcement Technology for Sound and Precise Static Binary Disassembly"
     arxiv: "2506.09426"
@@ -267,27 +237,6 @@ papers:
     blog:
       en: blog/posts/bpftime.md
       zh: blog/posts/bpftime.zh.md
-
-  - slug: cxlmemuring
-    title: "CXLMemUring: A Hardware Software Co-design Paradigm for Asynchronous and Flexible Parallel CXL Memory Pool Access"
-    arxiv: "2309.04011"
-    arxiv_version: v2
-    arxiv_updated: 2026-06-22
-    status: arXiv preprint
-    pdf: cxlmemuring.pdf
-    text: cxlmemuring.txt
-    blog: {}
-
-  - slug: cxlmemsim
-    title: "CXLMemSim: A pure software simulated CXL.mem for performance characterization"
-    arxiv: "2303.06153"
-    arxiv_version: v2
-    arxiv_updated: 2025-06-17
-    status: arXiv preprint
-    artifact: https://github.com/SlugLab/CXLMemSim
-    pdf: cxlmemsim.pdf
-    text: cxlmemsim.txt
-    blog: {}
 
 # Reading notes and reference copies of external papers kept alongside the
 # library (not eunomia-bpf publications):
