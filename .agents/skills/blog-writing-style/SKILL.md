@@ -25,8 +25,12 @@ This file is the single source of truth for blog style rules. It contains no pro
 
 ## Length and richness
 
-- A full post normally contains **1,800-2,500 English words** and roughly 180-240 lines of Markdown, including code blocks, tables, and figures. Word count measures scope; line count helps expose compressed walls of text. A full post below 1,500 words is thin unless it is deliberately scoped as a release note, erratum, or single-finding update. A post above 2,800 words needs an explicit reason and a reduction pass.
-- Rich means substance, not padding. Grow a post by adding concrete examples, real measured data, code or rule snippets, figures, mechanism explanations, and FAQ entries; never by restating the same point in more words.
+- A full technical post should be long enough to carry its setup, evidence, mechanism, limitations, and reader-facing insight without forcing the reader back into the paper. Empirical-study and paper-based posts often benefit from substantial depth. They should not be shortened merely to hit a generic word or line target.
+- Word and line counts are diagnostics, not acceptance thresholds. A short post is thin when it skips evidence or interpretation. A long post is successful when each section contributes a distinct claim, example, mechanism, boundary, or decision and the reader can navigate it without fatigue. Total length alone is never a Must-fix issue.
+- The boundary between useful depth and excess is functional. Keep material when removing it would weaken the thesis, evidence chain, mechanism explanation, scope boundary, or practical decision. Merge or cut material when it only restates an adjacent point, catalogs secondary results without interpretation, duplicates a sibling post, or opens a detour the main argument never uses.
+- Let topic scope determine length. A release note or single-finding correction may be brief, while a professional empirical synthesis or mechanism analysis may be substantially longer. Neither form needs an apology or a fixed word target.
+- Rich means substance, not padding. Grow a post by adding concrete examples, real measured data, code or rule snippets, selected figures, mechanism explanations, limitations, and genuine reader questions; never by restating the same point in more words.
+- Reduce repetition, paper-digest detours, sibling overlap, and overloaded paragraphs. Do not remove source-backed technical depth, caveats, or useful evidence simply because the article is long.
 - Every H2 section must contain at least one thing only we can write: a first-party number, a real code/config example, a figure, or first-hand experience. A section that only paraphrases common knowledge gets cut or merged.
 
 ### Paragraph load and rhythm
@@ -36,7 +40,7 @@ This file is the single source of truth for blog style rules. It contains no pro
 - Chinese body paragraphs usually land between 120 and 260 Chinese characters. Inspect every paragraph above 320 characters. Three consecutive paragraphs above 260 characters are a **Must fix**.
 - These ranges are diagnostic tripwires, not quotas. A short transition can be one sentence, and a mechanism explanation can run longer when it cannot be split without losing logic.
 - Vary paragraph shape. Alternate explanation with an example, consequence, figure, quotation, or compact list. Do not make every paragraph a same-sized block of four or five declarative sentences.
-- Do not compress a long post by removing blank lines. If a 3,000-word article fits into about 150 Markdown lines, inspect it for overloaded paragraphs before calling it concise.
+- Do not compress a long post by removing blank lines. When substantial word count is packed into unusually few Markdown lines, inspect it for overloaded paragraphs before calling it concise.
 
 ### Controlled structural variety
 
