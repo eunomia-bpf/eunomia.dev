@@ -10,7 +10,7 @@ This file is the rulebook for search and AI-engine visibility. It contains no pr
 ## Metadata (check first on every page)
 
 - **`description` frontmatter is required** and must be 150-160 characters (ZH: roughly 75-85 CJK-width characters): one sentence, value proposition first, primary keyword phrase included. Longer descriptions get truncated in search results.
-- **Title (H1) at most ~60 characters** with the primary keyword phrase front-loaded. Going slightly over is acceptable only to include a second high-value keyword. Titles state the finding (see anti-content-farm rules in `blog-writing-style`); never tease.
+- **Title (H1) at most ~60 characters** with the primary keyword phrase front-loaded. Going slightly over is acceptable when a sharper, source-backed stake materially improves the title. Make the title as compelling as accuracy allows by leading with the strongest true insight, tension, consequence, or surprising measurement. It must reveal the thesis without clickbait or a withheld conclusion; see `blog-writing-style` for the full title rules.
 - **`date` frontmatter required.** New posts also need a `slug` (short, kebab-case, keyword-bearing); **never add or change a slug on an already-published post**, and never change published filenames or URLs.
 - **Headings carry search phrasing.** Prefer H2s a reader would type ("What Generic eBPF Enforcement Misses") over generic labels ("Discussion", "Overview").
 - **Images need descriptive `alt` text** containing the relevant term, not "image" or "figure 1". Important claims must exist in crawlable HTML text, never only inside images.

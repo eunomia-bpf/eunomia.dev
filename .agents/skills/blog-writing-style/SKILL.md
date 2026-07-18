@@ -60,16 +60,19 @@ This file is the single source of truth for blog style rules. It contains no pro
 
 ### Figures from source papers
 
-- Build a numbered inventory of every main-body figure before outlining. Record what claim each figure supports and where the source asset comes from.
-- A full blog that retains a paper section also retains that section's figures. An empirical-study post includes every empirical-study figure, not only the easiest three plots to export. If design or evaluation results remain in the prose, their corresponding figures remain too.
+- Build a numbered inventory of every main-body figure before outlining. Record what claim each figure supports and where the source asset comes from. The inventory is a source-fidelity aid and a selection pool, not a requirement to publish every figure.
+- Select figures by argumentative value. Include a figure only when it materially advances the post's thesis, makes an important comparison easier to grasp than prose, or supplies evidence the surrounding text cannot carry as clearly. Retaining a paper section, including an empirical-study section, does not make all of that section's figures mandatory.
+- Prefer a small set of high-signal figures over a paper-shaped gallery. Omit plots that are secondary to the post's topic, duplicate evidence already visible elsewhere, require disproportionate setup, or interrupt the argument. Preserve any important omitted result in prose and link to the paper for full detail.
 - Introduce a figure with the claim it supports, place it directly after that discussion, and interpret the visual instead of leaving it as decoration.
 - EN and ZH use the identical image payload and matching placement. Alt text and surrounding explanation are written naturally in each language.
 - Do not redraw a source plot merely to change its style. Prefer an exact repository-owned copy or a stable source asset, and preserve labels, scales, legends, and uncertainty information.
-- A figure may be omitted only when its entire source section is outside the declared topic or when it duplicates another visual exactly. Record the reason; article length alone is not a reason.
+- Never add a figure solely to satisfy completeness. Record the selection rationale for included figures and verify that omitting the rest does not leave a claim unsupported or misleading.
 
 ## Anti-content-farm rules
 
-- **Titles state the finding.** No tease questions or withheld conclusions ("...告诉我们什么", "...缺什么", "what you don't know about X"). If the post has a thesis, the title says it. Numbers in titles must be real measurements.
+- **Titles should be as compelling as accuracy allows.** Lead with the post's strongest true insight, consequential tension, surprising measurement, or practical stake. A title must give a qualified reader a concrete reason to click, not merely label the topic or announce that a study exists.
+- **Reveal the thesis without exhausting it.** No tease questions or withheld conclusions ("...告诉我们什么", "...缺什么", "what you don't know about X"), but do not flatten an insight into a generic report title. Prefer a precise tension such as a gap between what instructions demand and what one enforcement layer can observe. Numbers in titles must be real measurements with the same scope as the article.
+- Reject clickbait, alarmism, vague superlatives, unsupported universals, and titles that are exciting only because they overstate the source. When attraction and fidelity conflict, fidelity wins; then find a sharper truthful angle.
 - No listicle framing ("5 tips", "N 个技巧"), no hollow calls to action ("快来试试吧!", "give it a try today!"), no marketing self-praise ("powerful", "blazing fast" without numbers).
 - Open with a scenario, a measurement, or a problem, never with throat clearing or product promotion.
 - Every paragraph must add information the previous ones did not. Two adjacent paragraphs making the same point get merged.
