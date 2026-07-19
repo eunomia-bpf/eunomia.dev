@@ -54,6 +54,8 @@ grok -p "Reply with exactly: ok" --no-alt-screen
 
 Kimi may print extra session commentary after the model answer. Grok may print non-fatal telemetry warnings after a successful answer. Treat the model answer and exit code as the primary signal.
 
+For review or editing tasks, a tiny prompt is only an authentication smoke test. Do not count an agent run as a completed review unless it returns actionable findings, a concrete edit, or an exact no-change verdict for the artifact under review.
+
 ### Use Codex CLI
 
 If `codex` is installed, start it in the project directory:
@@ -118,6 +120,17 @@ agent --version
 ```
 
 `agent.exe` is an alias installed with Grok Build on this machine. This Grok version does not expose `grok auth status`; validate auth with `grok -p "Reply with exactly: ok" --no-alt-screen`.
+
+When Grok can answer tiny prompts but fails a real repository review, diagnose the failure before retrying the same shape:
+
+```powershell
+grok --version
+grok update --check --json
+grok --help
+grok -p "Read README.md and print the first heading only. Do not narrate." --no-alt-screen --max-turns 4
+```
+
+If the run logs `tool_output_error`, `read_file` failures, only planning narration, or `max turns reached` without findings, do not count it as a usable review. Retry once with a prompt file that embeds the relevant artifact text, because `-p/--single` expects the prompt as an argument and piping text into it does not supply the prompt. If the prompt-file run still fails to produce findings or an explicit no-change verdict, switch to another approved agent such as Claude or Kimi and report the Grok failure precisely.
 
 ## Authentication
 

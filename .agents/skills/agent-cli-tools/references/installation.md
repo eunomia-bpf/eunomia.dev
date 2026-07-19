@@ -94,9 +94,12 @@ Useful checks:
 
 ```powershell
 grok --version
+grok update --check --json
 grok login --device-code
 grok -p "Reply with exactly: ok" --no-alt-screen
 ```
+
+Observed on 2026-07-18 in `C:\Users\10678\OneDrive\文档\eunomia.dev`: Grok Build `0.2.103` was the latest stable version according to `grok update --check --json`, but a real review attempt emitted `tool_output_error` for `read_file` and prompt-file retries returned planning text without findings. Treat that as a tool failure, not a valid review, and switch to Claude or Kimi after one prompt-file retry.
 
 ### OpenAI Codex CLI
 

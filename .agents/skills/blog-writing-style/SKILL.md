@@ -12,6 +12,8 @@ Source accuracy, public-path stability, confidentiality, and edit-scope limits a
 ## Core recommendations
 
 - **High-quality insight is the blog's highest priority.** Facts, figures, and polished prose are inputs, not the finished value. Every full post must offer a source-grounded, non-obvious synthesis that changes how a practitioner understands the problem boundary, mechanism, tradeoff, or next decision. A faithful paper summary with no new reader-facing insight is still a failed blog.
+- **Every blog needs reader background before specialized claims.** Do not jump from the title into a tool, paper result, benchmark, release note, or implementation detail. First establish the domain object, the reader's likely situation, the prerequisite mechanism or term, and why the new claim matters. Background can be compact, but a post that gives the reader no ramp into the topic is incomplete.
+- **Descriptions and excerpts need background too.** The frontmatter `description` and the first paragraph before `<!-- more -->` should open with a compact background clause or sentence that names the domain problem or reader situation, then state the post's finding, tool, benchmark, or practical consequence. A description that starts cold with a project name or result often reads like a note instead of an introduction.
 - **Never change an existing published post's `slug`, filename, or URL.** Slugs are set once at creation. A missing slug on an already-published post stays missing; report it but do not add one, because adding it moves the URL.
 - **Write product and project names out in full** (AgentSight, ActPlane, eBPF, bpftime). Names in prose are keywords; never abbreviate them into pronouns across paragraphs.
 - **Preserve evidence-bearing design decisions and technical content.** Removing repetition should not erase information, but preserving information does not require packing every fact into the same paragraph; material can move to the point where the reader is ready for it.
@@ -42,6 +44,7 @@ Source accuracy, public-path stability, confidentiality, and edit-scope limits a
 - Chinese body paragraphs usually land between 120 and 260 Chinese characters. Inspect every paragraph above 320 characters. Three consecutive paragraphs above 260 characters are a **Must fix**.
 - These ranges are diagnostic tripwires, not quotas. A short transition can be one sentence, and a mechanism explanation can run longer when it cannot be split without losing logic.
 - Do not optimize for uniformly short sentences. When adjacent sentences share one subject or causal chain and the later sentence merely supplies the condition, cause, or consequence, consider joining them. A longer sentence is often clearer when it preserves one coherent thought; split where the reader benefits from a genuine conceptual pause.
+- Chinese technical blog prose should not drop a period after every short clause. When a setup, contrast, condition, mechanism, and consequence belong to one thought, prefer one sentence with three or four natural clauses joined by commas or connective words, then use the period at the real turn in the argument. Split earlier only when the reader needs a conceptual pause, not because the sentence has become longer than the English version.
 - Vary paragraph shape. Alternate explanation with an example, consequence, figure, quotation, or compact list. Do not make every paragraph a same-sized block of four or five declarative sentences.
 - Do not compress a long post by removing blank lines. When substantial word count is packed into unusually few Markdown lines, inspect it for overloaded paragraphs before calling it concise.
 
@@ -68,6 +71,8 @@ Source accuracy, public-path stability, confidentiality, and edit-scope limits a
 - Give the reader a progression they can feel. A common systems-blog progression is scenario or measured problem -> why the obvious layers fail -> mechanism -> evidence -> boundary or practical consequence. Other progressions are valid, but adjacent sections must have an explicit "therefore" relationship.
 - Vary the macro structure to fit the material. A post may unfold as an investigation, a running case, a measurement-led argument, a mechanism walkthrough, a comparison, a failure analysis, or another coherent form. Do not reuse one standard H2 skeleton across posts, and do not add an FAQ, list, takeaway box, design section, or benchmark section merely because previous posts had one.
 - Treat an opening scenario as the article's backbone. Return to it when explaining the mechanism or evaluation, and resolve it before the ending. A vivid hook that disappears after `<!-- more -->` is decoration, not structure.
+- Build a background ramp before the first deep claim. A reader should know what system object, workflow, failure mode, deployment setting, or paper question they are looking at before the post asks them to care about a number, figure, tool behavior, or design choice.
+- Carry that ramp into metadata and excerpt text. Search snippets, social previews, and the first paragraph should not require the title to supply all context; they need their own short background phrase before the article-specific claim.
 - Do not mirror a paper's section order, RQ order, or contribution list. A sequence such as dataset -> taxonomy -> design requirements -> implementation -> evaluation is a warning that the writer expanded the paper outline instead of designing a blog argument.
 - Select evidence for the thesis. A blog about one empirical finding does not need to retell every mechanism and benchmark in the paper. Preserve omitted technical depth through a direct paper or sibling-post link.
 - End with a new implication, decision, boundary, or next action. Do not repeat the title, abstract, or section takeaways in a trailing summary.
@@ -76,6 +81,8 @@ Source accuracy, public-path stability, confidentiality, and edit-scope limits a
 
 - Name the target reader before review, including what they likely know, what decision brought them to the post, and which terminology they should not be expected to know. Review the published reading experience, not the author's outline or the paper's contribution checklist.
 - Test the title and opening as a promise. After the excerpt, the reader should know why the topic matters, what concrete question the post will answer, and why this article offers evidence or insight they cannot get from a generic overview.
+- Test the description the same way. If the first words of the `description` do not tell a new reader what area, failure mode, workflow, or decision the post belongs to, rewrite it before tuning keywords.
+- Check whether the first specialized claim has enough background. If the article names a tool, paper result, benchmark, kernel subsystem, model behavior, or implementation choice before explaining the surrounding problem and prerequisite terms, the opening needs a background pass.
 - Follow the article in order and mark every point where a qualified reader would ask “why does this follow?”, “what does this term mean?”, “compared with what?”, “under which conditions?”, or “why should I care?”. Later clarification does not excuse an avoidable stumble at first use.
 - At the first mention of a study, result, problem, or mechanism, name the concrete relationship the reader needs: what was measured, compared, observed, or enforced; between which objects; and with what consequence. Do not make the next sentence retroactively supply an object that the current sentence omitted.
 - Trace each paragraph's information flow in reading order. Pronouns and abstractions such as “this problem,” “that layer,” “the gap,” or “enforcement technology” should have a concrete antecedent before they appear, and a causal claim should expose enough of its cause and effect to stand on first reading.
@@ -102,6 +109,7 @@ Source accuracy, public-path stability, confidentiality, and edit-scope limits a
 ### Figures from source papers
 
 - Build a numbered inventory of every main-body figure before outlining. Record what claim each figure supports and where the source asset comes from. The inventory is a source-fidelity aid and a selection pool, not a requirement to publish every figure.
+- Treat the inventory as evidence that the figure step happened. For each figure or table, record the supported claim, source page or file, include/omit decision, and how the claim remains supported when the item is omitted.
 - Select figures by argumentative value. Include a figure only when it materially advances the post's thesis, makes an important comparison easier to grasp than prose, or supplies evidence the surrounding text cannot carry as clearly. Retaining a paper section, including an empirical-study section, does not make all of that section's figures mandatory.
 - Prefer a small set of high-signal figures over a paper-shaped gallery. Omit plots that are secondary to the post's topic, duplicate evidence already visible elsewhere, require disproportionate setup, or interrupt the argument. Preserve any important omitted result in prose and link to the paper for full detail.
 - Introduce a figure with the claim it supports, place it directly after that discussion, and interpret the visual instead of leaving it as decoration.
@@ -165,6 +173,8 @@ An abstract noun does not tell the reader what happened. Name the measured or co
 
 ### Over-segmented causal chains
 Sentence boundaries should mark meaningful turns in thought, not enforce an artificial preference for brevity. When two or three short sentences describe one condition, action, and consequence, consider joining them with explicit connective tissue. Keep them separate when each sentence advances an independent idea; the goal is a complete causal unit, not a long sentence for its own sake.
+
+In Chinese posts, check whether two adjacent short sentences would be clearer as one sentence with three or four clauses. A pattern like "X 看起来很精确。Y 报告停止位置。Z 才是修复点。" often reads like notes; prefer "X 看起来很精确，但 Y 报告的只是停止位置，真正的修复经常要回到 Z。" when the three pieces form one claim.
 
 ### Subject-verb separation
 Keep the grammatical subject within 7 words of its verb. If a long modifier separates them, split the sentence.
@@ -305,6 +315,12 @@ Chinese posts are written in Chinese. The reference for what good looks like is 
 - **Spacing:** half-width space between CJK and Latin/digits ("64 个仓库", "eBPF 程序", "支持 128 条规则").
 - **Punctuation:** Chinese prose uses full-width punctuation (，。：；？), including around embedded English terms; half-width punctuation appears only inside code, paths, and quoted English sentences.
 - **No English clause splicing.** Do not embed English clauses mid-sentence in Chinese prose.
+
+### Chinese Style Anchor
+
+Use this kind of Chinese technical-blog rhythm as the positive anchor: "基于 Wasm，我们可以使用多种语言构建 eBPF 应用，并以统一、轻量级的方式管理和发布。以我们构建的示例应用 `bootstrap.wasm` 为例，大小仅为约 90K，很容易通过网络分发，并可以在不到 100ms 的时间内在另一台机器上动态部署、加载和运行，同时保留轻量级容器的隔离特性。运行时不需要内核头文件、LLVM、clang 等依赖，也不需要做任何消耗资源的重量级编译工作。"
+
+This example works because it starts from a concrete capability, gives one measured artifact, explains why the number matters, and then states the operational boundary. The sentences are not uniformly short, and each period lands after a complete claim rather than after every clause. Use the same pattern for paper blogs: concrete mechanism or scenario, first-party number, practical consequence, then boundary or next step.
 
 ## Bilingual consistency (EN/ZH pairs)
 
