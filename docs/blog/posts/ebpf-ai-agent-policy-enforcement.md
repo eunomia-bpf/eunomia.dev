@@ -4,7 +4,7 @@ slug: ebpf-ai-agent-policy-enforcement
 description: Across 2,116 AI agent instruction statements, 64% are policies; of those policies, 83% are system-observable and 45% directly enforceable at OS hooks.
 ---
 
-# AI Agent Rules Need Context and Layered Enforcement
+# An Empirical Study: AI Agent Rules Need Context and Layered Enforcement
 
 When an AI coding agent runs `git commit`, the kernel sees only a familiar process writing familiar files, with no knowledge that the repository's CLAUDE.md requires a full test suite before committing or that a later source edit has already made the last test result stale. A conventional prompt-and-sandbox stack also lacks shared state that connects the rule, the test result, and subsequent edits, so neither the current prompt nor a single file operation reveals whether the commit is compliant.
 
