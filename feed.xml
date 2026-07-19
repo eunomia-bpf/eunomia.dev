@@ -12,7 +12,8 @@
   <link>https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/</link>
   <guid>https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/</guid>
   <pubDate>Wed, 15 Jul 2026 00:00:00 GMT</pubDate>
-  <description>When an AI coding agent runs git commit, the kernel sees only a familiar process writing familiar files, with no knowledge that the repository&#39;s CLAUDE.md requires a full test suite before committing or that a later</description>
+  <description>A rule like &quot;run the full test suite before committing&quot; looks simple until an AI coding agent edits a source file after the last test run and then calls git commit.</description>
+  <author>yuxi4096@gmail.com (yuxi4096)</author>
   <author>i@littlefisher.me (LinuxDev9002)</author>
   <author>1067852565@qq.com (云微)</author>
   <category>AI agent observability</category>
@@ -22,17 +23,19 @@
   <link>https://eunomia.dev/blog/2026/07/10/schedcp-agentic-linux-scheduler/</link>
   <guid>https://eunomia.dev/blog/2026/07/10/schedcp-agentic-linux-scheduler/</guid>
   <pubDate>Fri, 10 Jul 2026 00:00:00 GMT</pubDate>
-  <description>Load a throughput-oriented scheduler and a parallel Linux kernel build may finish sooner.</description>
+  <description>A scheduler that makes a Linux kernel build faster can make schbench latency worse.</description>
+  <author>yuxi4096@gmail.com (yuxi4096)</author>
   <author>1067852565@qq.com (云微)</author>
   <author>i@littlefisher.me (LinuxDev9002)</author>
   <category>AI agent observability</category>
 </item>
 <item>
-  <title>Profiling AI Agents with Semantic Flamegraphs</title>
+  <title>Where AI Agent Budgets Go: Semantic Flamegraphs for Agent Traces</title>
   <link>https://eunomia.dev/blog/2026/06/24/agentpprof-semantic-flamegraph/</link>
   <guid>https://eunomia.dev/blog/2026/06/24/agentpprof-semantic-flamegraph/</guid>
   <pubDate>Wed, 24 Jun 2026 00:00:00 GMT</pubDate>
-  <description>End of month, the bill shows the agent spent $3000. What types of work consumed that budget? How much went to code review, how much to debugging, how much to documentation? This question seems simple, but none of the</description>
+  <description>A $3000 AI-agent bill is not a diagnosis. It does not tell you whether the money went to code review, debugging, documentation, tool retries, or continuation prompts that stretched one task across many turns. The</description>
+  <author>yuxi4096@gmail.com (yuxi4096)</author>
   <author>1067852565@qq.com (云微)</author>
   <author>i@littlefisher.me (LinuxDev9002)</author>
   <category>AI agent observability</category>
@@ -43,6 +46,7 @@
   <guid>https://eunomia.dev/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/</guid>
   <pubDate>Sun, 31 May 2026 00:00:00 GMT</pubDate>
   <description>You wrote a rule in CLAUDE.md: &quot;do not run git push.&quot; The agent obeyed, and it never called the git tool.</description>
+  <author>yuxi4096@gmail.com (yuxi4096)</author>
   <author>i@littlefisher.me (LinuxDev9002)</author>
   <author>1067852565@qq.com (云微)</author>
   <author>linuxdev8883@example.com (LinuxDev9002)</author>
@@ -54,6 +58,7 @@
   <guid>https://eunomia.dev/blog/2026/05/25/runtime-security-for-ai-agents/</guid>
   <pubDate>Mon, 25 May 2026 00:00:00 GMT</pubDate>
   <description>AI coding agents now run for hours, complete entire features end-to-end, optimize production GPU kernels, and merge thousands of pull requests autonomously.</description>
+  <author>yuxi4096@gmail.com (yuxi4096)</author>
   <author>linuxdev8883@example.com (LinuxDev9002)</author>
   <category>AI agent observability</category>
 </item>
@@ -142,6 +147,7 @@
   <guid>https://eunomia.dev/blog/2025/10/11/understanding-iaprof-a-deep-dive-into-ai-gpu-flame-graph-profiling/</guid>
   <pubDate>Sat, 11 Oct 2025 00:00:00 GMT</pubDate>
   <description>An exploration of Intel&#39;s innovative profiling tool that bridges the gap between CPU and GPU execution</description>
+  <author>yuxi4096@gmail.com (yuxi4096)</author>
   <author>1067852565@qq.com (云微)</author>
   <author>yunwei356@gmail.com (yunwei37)</author>
   <category>eBPF</category>

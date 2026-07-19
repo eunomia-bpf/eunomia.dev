@@ -12,7 +12,8 @@
   <link>https://eunomia.dev/zh/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/</link>
   <guid>https://eunomia.dev/zh/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/</guid>
   <pubDate>Wed, 15 Jul 2026 00:00:00 GMT</pubDate>
-  <description>一个 AI 编程 agent 执行 git commit 时，内核只看见一个熟悉的进程在写熟悉的文件，并不知道仓库的 CLAUDE.md 要求“提交前必须跑完整测试套件”，也不知道 agent 在上次测试后又修改了源码，已经让那次测试结果失效。常见的 prompt 与沙箱组合也缺少一份把规则、测试结果和后续源码修改串起来的共享状态，所以单看当前请求或这一次文件操作，无法判断这次提交是否合规。</description>
+  <description>“提交前必须跑完整测试”这种规则看起来很简单，直到 AI 编程 agent 在上次测试后又改了源码，然后继续执行 git commit。内核只看见普通进程在写提交对象，harness 也只看见又一次工具调用，但真正决定这次提交能不能放行的，是哪次测试结果仍然有效、哪次编辑让它失效，以及规则在当前任务里该如何实例化。</description>
+  <author>yuxi4096@gmail.com (yuxi4096)</author>
   <author>i@littlefisher.me (LinuxDev9002)</author>
   <author>1067852565@qq.com (云微)</author>
   <category>AI agent observability</category>
@@ -22,17 +23,19 @@
   <link>https://eunomia.dev/zh/blog/2026/07/10/schedcp-agentic-linux-scheduler/</link>
   <guid>https://eunomia.dev/zh/blog/2026/07/10/schedcp-agentic-linux-scheduler/</guid>
   <pubDate>Fri, 10 Jul 2026 00:00:00 GMT</pubDate>
-  <description>加载一个面向吞吐量的 scheduler，并行编译 Linux kernel 可能更快完成。把同一策略直接用于 schbench，wake-up latency 却可能朝相反方向变化。两次运行都让 CPU 保持繁忙，scheduler counters 无法说明 operator 更在意哪一个结果，缺失的输入是 workload goal。</description>
+  <description>一个让 Linux kernel build 更快的调度策略，换到 schbench 上可能反而拉高唤醒延迟。两次运行都能让 CPU 忙起来，但运维者在前者关心吞吐量，在后者关心唤醒时间，所以 AI agent 要安全调优调度器，必须先把工作负载目标放进控制闭环。</description>
+  <author>yuxi4096@gmail.com (yuxi4096)</author>
   <author>1067852565@qq.com (云微)</author>
   <author>i@littlefisher.me (LinuxDev9002)</author>
   <category>AI agent observability</category>
 </item>
 <item>
-  <title>用语义 Flamegraph 分析 AI Agent</title>
+  <title>AI Agent 预算花到哪了：用语义 Flamegraph 诊断 Trace</title>
   <link>https://eunomia.dev/zh/blog/2026/06/24/agentpprof-semantic-flamegraph/</link>
   <guid>https://eunomia.dev/zh/blog/2026/06/24/agentpprof-semantic-flamegraph/</guid>
   <pubDate>Wed, 24 Jun 2026 00:00:00 GMT</pubDate>
-  <description>月底账单显示 agent 花了 $3000。哪些类型的工作消耗了这些预算？代码审查占多少、debug 占多少、文档生成占多少？这个问题看似简单，但现有的 agent 可观测性工具都无法直接回答。</description>
+  <description>一张 $3000 的 AI agent 账单不是诊断报告，它不会告诉团队钱是花在代码审查、调试、文档生成、工具重试，还是把同一个任务拖成多轮的 continuation prompt 上。真正的运营问题不只是 agent 花了多少钱，而是哪几类重复工作已经贵到值得重写流程。</description>
+  <author>yuxi4096@gmail.com (yuxi4096)</author>
   <author>1067852565@qq.com (云微)</author>
   <author>i@littlefisher.me (LinuxDev9002)</author>
   <category>AI agent observability</category>
@@ -43,6 +46,7 @@
   <guid>https://eunomia.dev/zh/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/</guid>
   <pubDate>Sun, 31 May 2026 00:00:00 GMT</pubDate>
   <description>你在 CLAUDE.md 里写了一条规则：&quot;不要执行 git push&quot;。Agent 遵守了，它确实没有调用 git 工具。但它写了一个 Python 脚本，脚本里调了 subprocess.run([&quot;git&quot;, &quot;push&quot;])，代码推到了远端，而 Prompt 约束从未被违反。</description>
+  <author>yuxi4096@gmail.com (yuxi4096)</author>
   <author>i@littlefisher.me (LinuxDev9002)</author>
   <author>1067852565@qq.com (云微)</author>
   <author>linuxdev8883@example.com (LinuxDev9002)</author>
@@ -54,6 +58,7 @@
   <guid>https://eunomia.dev/zh/blog/2026/05/25/runtime-security-for-ai-agents/</guid>
   <pubDate>Mon, 25 May 2026 00:00:00 GMT</pubDate>
   <description>AI 编程 Agent 如今可以连续运行数小时，端到端地完成整个功能开发，优化生产级 GPU 内核，并自主合并数千个 Pull Request。然而，大多数 Agent 安全仍然依赖 人工审批（human-in-the-loop），而 Anthropic 自己的数据显示用户在 93% 的权限 提示上直接点了同意，缺乏实质性审查。结果可以预见：产品纷纷添加绕过模式， 用户关闭权限门控，65% 的企业报告了 Agent 安全事件。</description>
+  <author>yuxi4096@gmail.com (yuxi4096)</author>
   <author>linuxdev8883@example.com (LinuxDev9002)</author>
   <category>AI agent observability</category>
 </item>
@@ -142,6 +147,7 @@
   <guid>https://eunomia.dev/zh/blog/2025/10/11/understanding-iaprof-a-deep-dive-into-ai-gpu-flame-graph-profiling/</guid>
   <pubDate>Sat, 11 Oct 2025 00:00:00 GMT</pubDate>
   <description>An exploration of Intel&#39;s innovative profiling tool that bridges the gap between CPU and GPU execution</description>
+  <author>yuxi4096@gmail.com (yuxi4096)</author>
   <author>1067852565@qq.com (云微)</author>
   <author>yunwei356@gmail.com (yunwei37)</author>
   <category>eBPF</category>

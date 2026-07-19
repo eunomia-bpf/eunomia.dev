@@ -982,56 +982,56 @@
   </url>
   <url>
     <loc>https://eunomia.dev/blog/2026/07/10/schedcp-agentic-linux-scheduler/</loc>
-    <lastmod>2026-07-16</lastmod>
+    <lastmod>2026-07-19</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/blog/2026/07/10/schedcp-agentic-linux-scheduler/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/blog/2026/07/10/schedcp-agentic-linux-scheduler/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/2026/07/10/schedcp-agentic-linux-scheduler/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/blog/2026/07/10/schedcp-agentic-linux-scheduler/</loc>
-    <lastmod>2026-07-16</lastmod>
+    <lastmod>2026-07-19</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/blog/2026/07/10/schedcp-agentic-linux-scheduler/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/blog/2026/07/10/schedcp-agentic-linux-scheduler/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/2026/07/10/schedcp-agentic-linux-scheduler/" />
   </url>
   <url>
     <loc>https://eunomia.dev/blog/2026/06/24/agentpprof-semantic-flamegraph/</loc>
-    <lastmod>2026-07-01</lastmod>
+    <lastmod>2026-07-19</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/blog/2026/06/24/agentpprof-semantic-flamegraph/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/blog/2026/06/24/agentpprof-semantic-flamegraph/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/2026/06/24/agentpprof-semantic-flamegraph/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/blog/2026/06/24/agentpprof-semantic-flamegraph/</loc>
-    <lastmod>2026-07-01</lastmod>
+    <lastmod>2026-07-19</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/blog/2026/06/24/agentpprof-semantic-flamegraph/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/blog/2026/06/24/agentpprof-semantic-flamegraph/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/2026/06/24/agentpprof-semantic-flamegraph/" />
   </url>
   <url>
     <loc>https://eunomia.dev/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/</loc>
-    <lastmod>2026-07-16</lastmod>
+    <lastmod>2026-07-19</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/</loc>
-    <lastmod>2026-07-16</lastmod>
+    <lastmod>2026-07-19</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/" />
   </url>
   <url>
     <loc>https://eunomia.dev/blog/2026/05/25/runtime-security-for-ai-agents/</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-07-19</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/blog/2026/05/25/runtime-security-for-ai-agents/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/blog/2026/05/25/runtime-security-for-ai-agents/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/2026/05/25/runtime-security-for-ai-agents/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/blog/2026/05/25/runtime-security-for-ai-agents/</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-07-19</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/blog/2026/05/25/runtime-security-for-ai-agents/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/blog/2026/05/25/runtime-security-for-ai-agents/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/2026/05/25/runtime-security-for-ai-agents/" />
@@ -1150,14 +1150,14 @@
   </url>
   <url>
     <loc>https://eunomia.dev/blog/2025/10/11/understanding-iaprof-a-deep-dive-into-ai-gpu-flame-graph-profiling/</loc>
-    <lastmod>2026-07-17</lastmod>
+    <lastmod>2026-07-19</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/blog/2025/10/11/understanding-iaprof-a-deep-dive-into-ai-gpu-flame-graph-profiling/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/blog/2025/10/11/understanding-iaprof-a-deep-dive-into-ai-gpu-flame-graph-profiling/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/2025/10/11/understanding-iaprof-a-deep-dive-into-ai-gpu-flame-graph-profiling/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/blog/2025/10/11/understanding-iaprof-a-deep-dive-into-ai-gpu-flame-graph-profiling/</loc>
-    <lastmod>2026-07-17</lastmod>
+    <lastmod>2026-07-19</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/blog/2025/10/11/understanding-iaprof-a-deep-dive-into-ai-gpu-flame-graph-profiling/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/blog/2025/10/11/understanding-iaprof-a-deep-dive-into-ai-gpu-flame-graph-profiling/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/2025/10/11/understanding-iaprof-a-deep-dive-into-ai-gpu-flame-graph-profiling/" />
