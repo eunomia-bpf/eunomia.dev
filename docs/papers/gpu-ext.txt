@@ -1,0 +1,2068 @@
+gpu_ext: Extensible OS Policies for GPUs via eBPF
+Yusheng Zheng=,1,2 , Tong Yu=,1 , Yiwei Yang2 , Minghui Jiang1,3 , Xiangyu Gao4 , Jianchang Su5 ,
+Yanpeng Hu6 , Wenan Mao3 , Wei Zhang5 , Dan Williams7 , Andi Quinn2
+1 eunomia-bpf, 2 UC Santa Cruz, 3 Alibaba Group, 4 University of Washington,
+
+arXiv:2512.12615v2 [cs.OS] 20 Dec 2025
+
+5 University of Connecticut, 6 ShanghaiTech University, 7 Virginia Tech
+
+Abstract
+
+visualization [41], each imposing distinct and often conflicting
+resource requirements. GPU software stacks, spanning userspace frameworks, OS kernel drivers, vendor firmware, and
+device-side kernel code, necessitate coordination of memory
+placement and migration [50,55,58,59,69], kernel scheduling
+in multi-tenant environments [18, 24, 26, 33, 42, 57, 64], and
+dynamic observability for online adaptation [1]. These policies must evolve alongside changing hardware architectures,
+emerging workloads, and varying service-level agreements
+(SLAs) [15, 16, 32, 39, 51, 67].
+Given these diverse and evolving requirements, no single
+policy fits all scenarios. Recent work confirms that default
+Unified Virtual Memory (UVM) placement policies [5, 13, 29,
+34, 43] and scheduling policies [17, 30, 54, 63] can perform
+poorly across workloads and lack multi-tenant coordination
+on different deployments.
+Unfortunately, existing programmable GPU resource management policy solutions force developers into tradeoffs between user-space methods that lack global visibility and control over system-level GPU behaviors, and kernel-level implementations that introduce complexity and safety risks. Concretely, user-space frameworks [9,20,44,54] offer programmability, but lack cross-application visibility and management
+of low-level GPU mechanisms (e.g. thread timeslices and
+replayable page faults [17, 45]). These approaches bind to
+specific runtime frameworks, requiring application-level code
+changes and limiting portability and reuse. Conversely, kernelbased resource management approaches [17, 30, 31, 63, 68]
+provide visibility and control of GPU hardware states, their
+direct modification on static, vendor-specific kernel modules
+making them difficult to deploy and maintain, and posing
+stability concerns. GPU profiling frameworks [25, 46, 60], including our prior workshop version [65], enable kernel-level
+observation but lack runtime programmability and driver integration, limiting adaptive resource management.
+To address this, we argue that GPU resource management
+requires an OS policy interface for GPU providing safe, flexible and transparent programmability. The GPU driver layer is
+positioned to offer global visibility, enable cross-tenant coor-
+
+Performance in modern GPU-centric systems increasingly
+depends on resource management policies, including memory
+placement, scheduling, and observability. However, uniform
+policies typically yield suboptimal performance across diverse
+workloads. Existing approaches present a tradeoff: user-space
+runtimes provide programmability and flexibility but lack
+cross-tenant visibility and fine-grained control of hardware
+resources; meanwhile, modifications to the OS kernel introduce significant complexity and safety risks. To address this,
+we argue that the GPU driver and device layer should provide
+an extensible OS interface for policy enforcement. While the
+emerging eBPF technology shows potential, directly applying
+existing host-side eBPF is insufficient because they lack visibility and control into critical device-side events, and directly
+embedding policy code into GPU kernels could compromise
+safety and efficiency.
+We propose gpu_ext, an eBPF-based runtime that treats
+the GPU driver and device as a programmable OS subsystem.
+gpu_ext extends GPU drivers by exposing safe programmable
+hooks and introduces a device-side eBPF runtime capable
+of executing verified policy logic within GPU kernels, enabling coherent and transparent policies. Evaluation across
+realistic workloads including inference, training, and vector
+search demonstrates that gpu_ext improves throughput by up
+to 4.8× and reduces tail latency by up to 2×, incurring minimal overhead, without modifying or restarting applications.
+
+1
+
+Introduction
+
+The performance and efficiency of GPU-based systems increasingly depend not only on raw compute and memory performance but also on resource management policies. GPUs
+account for a growing share of compute resources in modern
+systems [27], supporting diverse workloads such as latencysensitive inference [2, 32, 66], compute-intensive training [52,
+56], graph analytics [10,35,62], vector search [7,49], and data
+= Equal contribution.
+
+1
+
+dination, and provide fine-grained management of privileged
+low-level GPU mechanisms without requiring application
+modifications. Recent CPU-side frameworks, such as eBPF,
+have demonstrated the feasibility of dynamic, kernel-level policy programmability with safety guarantees [6, 28, 40, 70, 71].
+Inspired by its success, we propose treating GPU resource
+management as a first-class programmable OS subsystem.
+However, naively extending host-only eBPF remains insufficient because scheduling and memory management decisions
+such as thread-block dispatch, warp-level execution scheduling, and memory synchronization occur within GPU hardware
+and remain invisible and uncontrollable from the host. Thus,
+a practical solution must expose programmable policy hooks
+within GPU drivers and execute verified policy logic inside
+GPU kernels.
+We present gpu_ext, a cross-layer policy runtime that transforms the GPU driver and device into a programmable OS subsystem. gpu_ext exposes stable, verified control-plane hooks
+within the GPU driver, enabling safe and customized programmable resource management policies. gpu_ext further
+supports injecting verified eBPF policy logic into GPU kernels, providing consistent and transparent policy enforcement
+across the host-device boundary.
+Designing gpu_ext has three technical challenges to solve:
+C1: Exposing low-level driver mechanisms provides expressiveness but risks instability; we balance this tension with a
+narrow policy interface built around hardware-aligned abstractions (§4.3). C2: Scalar eBPF semantics conflict with GPU
+SIMT parallelism, causing divergence and deadlocks. Thus,
+we introduce a SIMT-aware verifier and warp-level execution
+model for optimization (§4.4). C3: Host-device memory hierarchies differ in latency and consistency; we bridge them
+with cross-layer eBPF maps using relaxed consistency (§4.4).
+We implement gpu_ext on Linux by extending the NVIDIA
+open GPU kernel modules [45] and providing an eBPF runtime for GPU devices. We evaluate gpu_ext across GPU
+workloads including LLM inference pipelines, GNN training, vector search, and mixed-priority multi-tenant scenarios.
+Using gpu_ext, we implement adaptive memory prefetching
+and eviction policies, fine-grained kernel preemption strategies, dynamic work-stealing schedulers, and programmable
+GPU kernel observability tools. gpu_ext-based policies improve throughput by up to 4.8× and reduce tail latency by up
+to 2× compared to static heuristics, while instrumentationonly deployments incur low overhead. This demonstrates that
+cross-layer eBPF-based programmability spanning host and
+device is an effective abstraction for GPU-centric systems. In
+summary, our contributions are:
+
+tail latency across inference, training, and search workloads.
+
+2
+2.1
+
+Background and Motivation
+The Diversity of GPU-Centric Workloads
+
+Modern GPU systems run diverse workloads with conflicting
+resource demands. Generative AI inference exhibits computeintensive prefill, bandwidth-bound decoding [50, 69], irregular KV-cache offloading [32, 55], and sparse expert activations [19, 23]. Dense neural network training demands predictable synchronization, while GNN and embedding workloads exhibit irregular, pointer-chasing accesses resistant
+to prefetching. Vector search adds variability with randomaccess query and sequential indexing. These distinct memory behaviors (Figure 1) and imbalanced thread scheduling
+across SMs (Figure 2) are poorly served by static policies. In
+multi-tenant environments, latency-critical inference conflicts
+with throughput-maximizing training, creating contention that
+fixed partitioning cannot resolve.
+
+2.2
+
+GPU Systems Architecture
+
+Modern GPU software stacks consist of three major layers:
+User-Space Logic (Applications & Runtimes) High-level
+frameworks (e.g., PyTorch) and runtimes (e.g., CUDA libraries) operate in user space, managing operation graphs, tensor layouts, and command submissions via memory-mapped
+interfaces or ioctl calls to drivers. These components encode
+rich semantic information, such as neural network structures
+and latency constraints. Runtime systems like vLLM [32],
+fine-grained sharing frameworks such as Salus [67], and
+UVM-focused runtimes like PILOT [53] implement resource
+management policies at the application level.
+The One-size-fits-all Kernel Driver The GPU driver acts
+as the OS component for GPU systems, managing privileged low-level hardware mechanisms including the Memory Management Unit (MMU), hardware interrupts, and kernel scheduling. Typical drivers are monolithic, implementing application-agnostic resource-management algorithms
+such as Least Recently Used (LRU)-based page eviction,
+round-robin scheduling for context switching, and tree-based
+prefetching in Unified Virtual Memory scenarios [3,22]. However, these application-agnostic policies provide no mechanism to adapt eviction, prefetching, or scheduling decisions based on workload characteristics or runtime conditions [22, 53]. They also lack multi-tenant coordination primitives—such as priority-based resource allocation or performance isolation between co-located workloads—that modern
+datacenter deployments require [17, 63].
+
+• We design an extensible OS policy interface for GPU memory, scheduling, and observability.
+• We implement gpu_ext, an eBPF runtime with SIMT-aware
+verification spanning host driver and GPU device.
+• We show gpu_ext policies improve throughput and reduce
+2
+
+LLaMA Prefill
+
+FAISS Query
+
+FAISS Build
+
+LLaMA Decode
+
+PyTorch DNN Training
+
+Figure 1: Memory access (page fault) patterns vary across GPU workloads: faiss Build exhibits sequential scans; faiss Query
+random accesses; llama.cpp MoE Prefill shows periodic sequential patterns while Decode exhibits sparse random accesses;
+PyTorch DNN shows periodic block accesses.
+(a) SM Load Distribution
+
+(b) Warp Activity per SM
+
+300
+200
+100
+0
+
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+
+SM ID
+
+14
+12
+10
+8
+6
+4
+2
+0
+
+management logic into kernel-space or user-space driver modules. Despite improved performance, these approaches embed
+static policies requiring kernel modifications, restricting dynamic adaptation and safe deployment of new policies.
+
+300
+
+Thread Count
+
+Ideal (74)
+
+Warp ID
+
+Thread Count
+
+400 Load Balance: 48.6%
+
+200
+100
+0
+0
+
+2
+
+4
+
+6
+
+8
+
+SM ID
+
+10 12 14
+
+Host User-Space Runtimes and Libraries Recent frameworks such as Paella [44], Pie [20], XSched [54], and KTransformers [9] expose programmability at the user-space layer.
+Paella provides software-defined GPU scheduling for model
+serving; Pie enables developers to customize inference loops
+and KV-cache management via “inferlets”; XSched supports flexible, user-defined scheduling through its XQueue
+abstraction; and KTransformers exposes programmable hybrid CPU–GPU scheduling and expert-placement strategies.
+LithOS [14] also re-implements runtime stacks with OS-like
+abstractions in user-space.
+Despite this programmability, user-space systems share
+three limitations. First, programmability remains applicationbound: developers must write policies for a specific framework or runtime, often requiring code changes or porting
+applications onto specialized stacks, preventing reuse across
+ecosystems. Second, user-space runtimes lack global visibility and coordination across multi-tenant, multi-framework
+environments. Confined to isolated process silos, they cannot
+safely share memory or bandwidth, nor mitigate interference
+from co-located tenants. As a result, applications conservatively pre-allocate resources (e.g., GPU memory) at startup
+to avoid contention [64, 67]. Likewise, hardware partitioning
+such as NVIDIA’s Multi-Instance GPU (MIG) imposes fixed
+resource boundaries that user-space runtimes cannot dynamically rebalance. Third, user-space frameworks lack privileged
+access to low-level driver mechanisms, leaving policies constrained to coarse-grained GPU kernel launch boundaries.
+This precludes precise preemption for latency-sensitive tasks
+and prevents fine-grained compute–transfer overlap. Moreover, they cannot execute policy logic on latency-critical paths
+(e.g., page-fault handlers), nor exploit GPU-side warp-level
+or barrier-level access patterns.
+
+Figure 2: GPU thread scheduling imbalance observed via
+eBPF tracing. (a) SM load distribution shows 127× imbalance
+(SM 15: 382 threads vs SM 6: 3 threads). (b) Warp activity
+heatmap reveals SM 0 concentrates work in high-numbered
+warps while other SMs underutilize warp slots.
+
+Device-Side Execution The GPU device executes computations via user-defined device kernels and proprietary vendor
+firmware, which are compiled into static binaries specifying
+precise thread-level SIMT behaviors. GPU hardware schedulers manage thread execution at warp granularity. Device
+kernels and firmware lack runtime adaptability, making critical internal states (such as warp divergence, cache thrashing, and thread-level execution bottlenecks) opaque to hostside drivers. This architectural opacity constrains runtime
+workload-adaptive optimizations.
+In summary, modern GPU software stacks include
+statically-defined policy logic embedded within monolithic
+kernel drivers, closed-source firmware, and opaque device
+kernels. This architectural coupling limits runtime policy flexibility, programmability, and adaptability in GPU-centric systems.
+
+2.3 Limitations of Existing Extensibility Mechanisms
+Existing approaches face limitations:
+Driver-Level Kernel-Space Policies. Recent research has
+introduced driver-level resource control by moving policy
+decisions into kernel drivers or intercepting driver-level
+events. Systems like TimeGraph [30], Gdev [31], GPREEMPT [17], LithOS [14], GCAPS [63], and kernel interception methods [68] embed customized scheduling and memory-
+
+Binary Instrumentation and Profiling Tools on Device
+Tools such as NVBit [60] and Neutrino [25] inject logic directly into GPU binaries. NVBit supports dynamic SASS3
+
+level instrumentation, while Neutrino provides instructionlevel profiling via programmable assembly-layer probes with
+an eBPF-like interface. Despite high kernel visibility, these
+tools face three limitations. First, they lack safety guarantees, as injected logic can cause crashes or deadlocks. Second, they target offline profiling rather than online policy
+enforcement, operating in read-only modes that cannot control memory placement or thread scheduling. Third, lacking
+host-side integration, they cannot coordinate policies across
+processes. Additionally, assembly-level instrumentation restricts expressiveness and portability [25]. Our prior workshop
+paper eGPU [65] extends eBPF to GPU instrumentation but
+remains limited to observability with prohibitive overhead
+(see §6).
+
+flow, bounded resource usage, memory safety, and bounded
+overhead.
+
+gpu_ext Design
+
+4.1
+
+Challenges
+
+We elaborate on the three challenges introduced in §1.
+4.1.1
+
+C1: Lack of a Safe and Expressive OS-Level GPU
+Policy Interface
+
+GPU resource management needs to run at the driver layer
+to be effective, but GPU drivers were not designed to expose
+a programmable interface. Exposing low-level mechanisms
+(page tables, command buffers, interrupt handlers) to eBPF
+would give policies expressiveness but compromise driver
+stability and tenant isolation. Conversely, constraining programmability to high-level abstractions ensures safety but
+limits the expressiveness needed for complex memory placement and scheduling decisions. Thus, the challenge lies in
+carving out a narrow, stable, and verifiable GPU policy interface: expressive enough to implement policies, yet constrained
+enough to prevent buggy policies from corrupting device state
+or crashing the kernel.
+
+Host-Based Kernel Programmability (CPU eBPF) CPUside eBPF has been used to customize OS scheduling and
+resource management (e.g., sched_ext, cache_ext). However, extending this model to GPUs faces two barriers. First,
+host-based eBPF treats the GPU as a black box: it can trace
+driver commands but cannot observe internal execution state
+(e.g., warp divergence), preventing reaction to on-chip bottlenecks. Second, unlike the Linux CPU scheduler refactored
+to support sched_ext, monolithic GPU drivers expose no
+safe programmable extension points. Their resource management mechanisms are tightly coupled to low-level hardware
+interactions (e.g., MMU invalidation), and naïvely exposing
+such controls risks resource leaks, hardware hangs, or kernel
+panics.
+
+3
+
+4
+
+4.1.2
+
+C2: Mismatch Between CPU Extension Semantics
+and the GPU SIMT Execution Model
+
+Applying existing CPU-oriented eBPF mechanisms to GPU
+device is challenging due to semantic mismatches with the
+GPU SIMT execution model. CPU-side eBPF assumes singlethreaded execution, whereas GPU kernels execute in warps of
+32 threads that must follow warp-uniform control paths. Running scalar eBPF logic per thread introduces warp divergence,
+serialization overhead, and deadlock risks from thousands
+of concurrent memory operations unchecked by the CPUside verifier. Furthermore, GPUs lack isolation and recovery
+points, meaning an unbounded loop or invalid access in policy logic can halt the entire device. This semantic mismatch
+makes reuse of CPU-oriented eBPF inefficient and unsafe.
+
+Design Principles
+
+gpu_ext follows three design principles:
+Principle 1: OS-level, Transparent and Dynamically Programmable Interface. GPU resource management policies
+should reside at an OS-level interface, rather than within vendor drivers or application-specific runtimes. Policies must be
+dynamically separable from mechanisms, runtime-updateable
+without application restarts, and enforceable across unmodified GPU workloads.
+
+4.1.3
+
+Principle 2: Cross-layer host–device policy abstraction.
+Host and GPU devices should not be managed as separate
+execution domains. Instead, the system should provide a unified programming abstraction and shared control plane across
+CPU and GPU, allowing consistent policy decisions (e.g.,
+memory placement, scheduling).
+
+C3: Absence of Efficient Mechanisms for
+Host–Device Shared State
+
+GPU policies require coordinated host–device resource management, which today lacks efficient and consistent abstractions for shared policy state. GPU-accessible host memory
+exhibits orders-of-magnitude higher latency than GPU global
+memory, while GPU memory is capacity-limited and optimized for throughput. Meanwhile, CPU and GPU components operate asynchronously at different timescales, causing
+policy decisions to rely on stale or inconsistent state unless
+synchronized.
+
+Principle 3: SIMT-aware static safety and efficiency.
+Device-side policies must align with GPU SIMT execution
+semantics. The system should perform static, load-time verification and optimization, ensuring warp-uniform control
+4
+
+4.3
+
+gpu_ext Policy Interfaces
+
+gpu_ext introduces three eBPF program types: two
+in the driver-level ( BPF_PROG_TYPE_GPU_MEM for
+memory-placement policy and BPF_PROG_TYPE_GPU_SCHED
+for scheduling decisions), and one in the device-level (
+BPF_PROG_TYPE_GPU_DEV for GPU kernel instrumentation).
+These program types coexist with existing kernel eBPF
+program types and have different SIMT-specific verification
+rules.
+4.3.1
+
+gpu_ext treats memory placement as a programmable cache.
+It exposes four events (activate, access, evict_prepare, and
+prefetch) and allows host and device policies to cooperate.
+gpu_ext regions correspond to GPU hardware-managed units,
+such as 2MB physical UVM chunks or VA blocks, and finergrained 4KB pages. This granularity balances policy precision
+against metadata overhead. Using the regions abstraction,
+gpu_ext hides vendor-specific and hardware complexities.
+The host driver exports these events through a struct_ops
+table. Handlers encode decisions through an enum field in
+the context and may reorder but never remove regions in the
+kernel-maintained eviction list. The kernel enforces safety and
+correctness, including fallback FIFO eviction under pressure.
+Policies maintain their own metadata in maps and express
+placement and prefetch decisions through these handlers.
+Device policies can be triggered at given memory operations and receive a compact warp-uniform context. Operations
+like prefetch can be performed on device and then trigger hostside prefetch handlers, enabling the host to combine driver
+information with device-side predictive logic. The following
+interface illustrates the host and device memory policy hooks:
+
+Figure 3: gpu_ext architecture: cross-layer eBPF runtime
+spanning kernel driver and GPU device. The control plane
+deploys policies via (a) bpf syscall to verifier and driver hooks
+(b) GPU JIT after verification; (c) DBI injects trampolines
+into GPU kernels. Shared maps enable state coordination
+across layers.
+
+4.2
+
+Memory Interface
+
+High-Level Architecture
+
+Figure 3 shows the architecture of gpu_ext.
+User-space Control Plane. Policy authors use standard
+eBPF tooling (e.g., clang/libbpf, bpftool) to build policy bytecode. The control-plane links against a loader library
+that installs policies and configures eBPF maps. It enables
+runtime policy redeployment and reconfiguration (e.g., eviction thresholds, sampling rates, priorities) without application
+or kernel restarts, and exports runtime metrics (e.g., region
+hotness, tenant latencies).
+Host Driver and Device Runtime. gpu_ext provides a unified runtime across host driver and GPU device contexts, managing verification, compilation, and map placement. It employs a SIMT-aware verifier (§4.4) that extends standard eBPF
+checks to verify warp-uniformity, SIMT control flow, and
+GPU synchronization constraints. Verified programs are JITcompiled into native host code or GPU-compatible instructions (e.g., PTX). The runtime manages hierarchical logical
+eBPF map abstractions whose backing storage is automatically partitioned and replicated across host and device with
+consistency. Policy execution occurs at structured hook points
+defined in GPU drivers and device. On the host, gpu_extDriver exposes struct_ops-style hooks (e.g., region activate/eviction, GPU kernel scheduling). Host policies return
+concise policy decisions enforced via trusted kfuncs. On the
+GPU device, gpu_ext injects trampolines at hook points and
+invokes device-side handlers at warp granularity. Device handlers update cross-layer maps with performance signals and
+make control decisions (e.g., prefetch, block-level scheduling)
+via trusted helpers that the runtime enforces.
+
+1
+
+2
+3
+
+4
+5
+6
+7
+8
+
+9
+
+10
+11
+
+12
+
+// Host-side policy handlers for GPU memory
+management
+struct gpu_mem_ops {
+// Region created or eligible for device
+placement
+int (* gpu_activate )( gdrv_mem_add_ctx_t * ctx );
+// Memory subsystem observes region use;
+// decide cache hit/eviction policies
+int (* gpu_access )( gdrv_mem_access_ctx_t * ctx );
+// Region about to leave device-resident
+working set
+int
+(* gpu_evict_prepare )( gdrv_mem_remove_ctx_t
+* ctx );
+// Safe points (e.g. faults) for prefetch
+int (* gpu_prefetch )( gdrv_mem_prefetch_ctx_t
+* ctx );
+};
+
+13
+14
+
+15
+16
+
+17
+
+5
+
+// Host-side kfuncs: reorder regions in
+eviction list
+void bpf_gpu_move_head ( gdrv_mem_list_t * list ,
+gmem_region_t
+*r);
+void bpf_gpu_move_tail ( gdrv_mem_list_t * list ,
+
+gmem_region_t
+*r);
+
+18
+
+24
+
+20
+21
+22
+23
+24
+25
+26
+
+26
+
+// Device-side memory handler interface
+struct gdev_mem_ops {
+// Warp observed memory access;
+void (* access )( gdev_mem_access_ctx_t * ctx );
+// GPU kernel fence point
+void (* fence )( gdev_mem_fence_ctx_t * ctx );
+};
+
+27
+
+29
+
+30
+
+Scheduling Interface
+
+gpu_ext exposes scheduling policy control at two levels: hardware-queue lifecycle (host-side) and thread-block
+scheduling (device-side). The host participates in GPU queue
+admission and priority control through policies. Policies set
+queue priority, timeslice, and may reject or defer queue creation. Properties are written directly into firmware-visible
+structures, ensuring enforcement beyond user-space hints.
+Policies may also invoke the gdrv_sched_preempt kfunc
+to trigger cooperative preemption through the driver’s native
+context-switch mechanism.
+Within the GPU, gpu_ext provides a work-stealing
+thread-block scheduler. GPU kernels expose their logical
+work units; persistent worker blocks select and process units
+while device-side eBPF handlers steer scheduling decisions
+via gdev_block_ctx. The verifier ensures that scheduling
+decisions respect GPU kernel invariants (e.g., selecting only
+local work units). gpu_ext can inject this scheduler via binary
+rewriting or allow developers to integrate it.
+1
+2
+3
+4
+
+5
+6
+7
+8
+9
+
+4.4.1
+
+12
+
+13
+
+// Host-side policy handlers for GPU hardware
+// queue scheduling
+struct gpu_sched_ops {
+// Hardware queue creation; set
+prio/timeslice,
+// return 0 to accept or <0 to reject/defer
+int (* task_init )( gsched_queue_ctx_t * ctx );
+// Hardware queue destruction; cleanup policy
+void (* task_destroy )( gsched_queue_ctx_t * ctx );
+};
+
+4.4.2
+
+// Host-side kfuncs
+void bpf_gpu_set_attr ( gsched_queue_ctx_t *ctx ,
+u64 us );
+void bpf_gpu_reject_bind ( gsched_queue_ctx_t
+* ctx );
+
+16
+17
+18
+19
+
+// Device-side block scheduling handlers
+struct gdev_sched_ops {
+// Worker block starts/exits new work unit
+void (* enter )( gdev_block_ctx_t * ctx );
+void (* exit )( gdev_block_ctx_t * ctx );
+
+20
+21
+22
+23
+
+Warp-level Execution Optimizations
+
+Direct scalar execution of eBPF after SIMT verification on
+GPU threads still causes resource overhead (e.g. duplicate
+memory update to maps) due to the SIMT. To resolve this,
+gpu_ext introduces a warp-level aggregated execution model,
+executing policy logic once per warp using a designated "warp
+leader" (typically lane 0). Each hook invocation conceptually
+follows a two-phase approach: each lane independently computes lane-local contributions (e.g., effective addresses, counters) without influencing control flow or directly updating
+shared state. These contributions are then aggregated at warp
+granularity. Subsequently, the warp leader executes the policy
+
+14
+15
+
+SIMT-aware Verification
+
+To solve the SIMT mismatch described in C2, gpu_ext introduces a SIMT-aware static verification model enforcing
+warp-level uniformity constraints to ensure efficient and safe
+GPU-side policy execution. The key insight is that we distinguish warp-uniform values (identical across warp threads,
+e.g., region identifiers) from lane-varying values (thread-local
+GPU state). Policies may compute freely using lane-varying
+values, but these must not influence control-flow decisions or
+directly produce side effects visible outside a warp. To guarantee warp-level coherence, gpu_ext mandates that branch conditions, loop bounds, and map-update keys be warp-uniform
+or derived via warp-level aggregation. Additionally, gpu_ext
+prohibits GPU-wide barriers, global synchronization primitives, and non-uniform atomic operations, and imposes resource budgets per policy hook to bound memory and thread
+resource usage. These constraints ensure safe policy integration that respects GPU hardware execution semantics.
+
+10
+11
+
+Runtime Verification and Optimizations
+
+gpu_ext policies execute directly within privileged GPU
+driver and kernel contexts, making safety guarantees critical. We adopt a standard eBPF threat model: we trust system administrators loading policies, but consider policy code
+potentially buggy or misconfigured. The trusted computing
+base (TCB) includes the kernel and gpu_ext kernel module,
+GPU compiler backend, and GPU driver/firmware. Policy
+authors only interact with eBPF and do not write native device code. For host-side verification, we reuse the existing
+Linux kernel eBPF verifier unchanged, relying on standard
+type-checking, bounded-loop, and memory-safety constraints.
+gpu_ext-specific kfuncs and hooks are declared via BPF Type
+Format (BTF) metadata.
+
+// Device-side helpers
+// Request prefetch, triggers handler in host
+driver
+int gdev_mem_prefetch ( gmem_region_t * r);
+
+4.3.2
+
+};
+
+4.4
+
+27
+28
+
+// Return whether to steal work (TB scheduler)
+bool (* should_try_steal )( gdev_block_ctx_t
+* ctx );
+
+25
+
+19
+
+// Device function starts/ends
+void (* probe )( gdev_block_ctx_t * ctx );
+void (* retprobe )( gdev_block_ctx_t * ctx );
+
+6
+
+handler once using aggregated inputs and warp-uniform context. The resulting decision is broadcast back to all lanes. This
+design minimizes GPU overhead while preserving eBPF’s
+scalar semantics. To further reduce runtime overhead, gpu_ext
+employs compiler-level optimizations (specialization and inlining) tailored for warp-level execution.
+4.4.3
+
+GPU physical chunks, VA blocks or 4KB pages, fault address, block size) and invokes an attached eBPF handler. Currently, eviction hooks operate at 2MB block granularity, while
+prefetch hooks operate at page granularity. Each handler returns a decision to execute or bypass default kernel logic. The
+kernel maintains a doubly-linked eviction list; handlers may
+reorder regions via provided helpers, but the kernel retains
+eviction authority under memory pressure.
+We instrument Time-Slice Group (TSG) lifecycle
+events, including initialization (task_init) and teardown
+(task_destroy). The eBPF policy can configure scheduling
+parameters such as TSG priority, timeslice duration, and runlist interleave frequency via the bpf_gpu_set_attr kfunc,
+and can reject task binding via the bpf_gpu_reject_bind
+kfunc. Our kernel module extends the Linux eBPF verifier
+by registering GPU-specific struct_ops and kfunc interfaces,
+leveraging BTF annotations to enforce type and memory
+safety.
+
+Hierarchical Cross-layer Maps for State Coordination
+
+GPU policy decisions require coherent sharing of policy state
+across asynchronous CPU and GPU contexts. To transparently
+bridge CPU-GPU memory hierarchies, gpu_ext introduces
+cross-layer maps. Logically, each map is a single unified keyvalue store accessible from host-side driver hooks, GPU-side
+device policies, and user-space control planes, and verifiable
+through eBPF’s existing model. Physically, maps are realized as hierarchical shards across host DRAM, GPU global
+memory, and GPU-local storage (e.g., shared memory, SMlocal). The runtime dynamically determines shard placement
+based on access frequency, latency, and capacity constraints.
+Following eBPF’s soft-state philosophy, gpu_ext maps provide relaxed, eventual consistency. Instead of strong global
+ordering, our runtime periodically merges GPU-local map
+shards into canonical snapshots at synchronization points,
+such as GPU kernel completion boundaries. This snapshotbased model is sufficient for policy decisions relying on approximate statistics. Occasional staleness affects decision
+optimality but cannot violate correctness invariants such as
+memory integrity, which remain enforced by the GPU driver
+and hardware MMU.
+
+5
+5.1
+
+5.3
+
+After the Linux kernel verifies a gpu_ext device eBPF program, our loader forwards bytecode and BTF metadata to a
+userspace backend, translating the restricted eBPF subset into
+GPU PTX code. We reuse Linux’s eBPF verifier to enforce
+standard memory safety, bounded loops, and type correctness.
+An additional verifier pass leverages BTF metadata annotations that mark warp-uniform fields: at load time, our verifier
+performs dataflow analysis on eBPF bytecode, propagating
+warp-uniformity through arithmetic, logical, and memory operations. Control-flow constraints are enforced by traversing the policy’s CFG to reject lane-varying dependencies in
+branch predicates or loop bounds. Map-update instructions
+must use warp-uniform keys derived from uniform registers
+or warp-level reductions. GPU-wide barriers, global synchronization primitives, and non-uniform atomics are disallowed
+by pattern-matching. Each hook type carries resource budgets limiting instructions, helper invocations, and memory
+operations.
+Before each GPU kernel runs, gpu_ext dynamically intercepts CUDA runtime APIs to extract GPU kernel PTX,
+rewrite it with binary trampolines, and load instrumented
+GPU kernels back without recompilation or restarting the
+application. These trampolines, placed at GPU kernel entry, selected memory instructions (such as global loads
+and atomic operations), and execution-phase boundaries, insert prologue/epilogue logic for SIMT register preservation.
+In each trampoline, per-lane inputs are aggregated using
+__ballot_sync and __shfl_sync, with a warp leader selected via __ffs(__activemask()) to execute the scalar
+eBPF handler once per warp, broadcasting results via shuffle
+instructions; verified eBPF code executes after kernel launch,
+supported by pre-compiled GPU helper functions. During JIT
+compilation, we inline helper functions and map accesses to
+
+Implementation
+Components Overview
+
+We implemented gpu_ext on Linux 6.15, extending the kernel
+with a standalone file (∼1 KLOC) that handles hook registration and verifier extensions. We integrated lightweight instrumentation (∼100 LOC) into NVIDIA’s open GPU kernel
+modules to expose memory management and scheduling decision points (§5.2). Our userspace loader and JIT infrastructure (∼10 KLOC) builds upon bpftime’s framework, while an
+LLVM-based backend (∼1 KLOC) translates the restricted
+gpu_ext eBPF instruction subset into GPU device code (PTX)
+(§5.3).
+
+5.2
+
+GPU Runtime
+
+Host-side Integration
+
+gpu_ext extends the NVIDIA Open GPU Kernel Modules [45], instrumenting the UVM module at page fault handler and prefetch logic. At each hook, the driver constructs a
+context containing fields (e.g., region range aligned to 2MB
+7
+
+6.1
+
+reduce call overhead. For scheduling, gpu_ext implements
+policies using persistent GPU workers as long-lived kernels
+that poll and claim logical work units; on Blackwell GPUs, we
+use cluster launch control APIs to schedule thread blocks. For
+memory management instrumentation, gpu_ext attaches eBPF
+policy at memory instructions, GPU kernel function boundaries, and tracepoints to issue policy hints to the host driver.
+Unlike our prior work eGPU [65] which relies on atomic
+synchronization, gpu_ext avoids cross-SM synchronization
+primitives to prevent hardware stalls.
+
+We evaluate gpu_ext on two machines: Server A with Intel
+Core Ultra 9 285K (24 cores), 128 GB DDR5 RAM, and
+NVIDIA RTX 5090 GPU; Server B with dual Intel Gold 6138
+(80 cores), 256 GB RAM, and NVIDIA P40 GPU. Unless
+otherwise specified, experiments run on Server A, averaging
+10 trials using geometric mean. We compare against default
+UVM, UVM with user-space hints, native GPU scheduler,
+and framework-managed offloading where applicable. We
+use PyTorch (version 2.9.0) and vLLM (version 0.11.0) with
+custom allocator, llama.cpp (version 7101), and Faiss (version
+1.13.0) with UVM build config for our evaluation. All tests
+with gpu_ext policies require no application modifications.
+
+Hierarchical Maps and Cross-Domain State We use
+eBPF maps in GPU-accessible memory as a shared state abstraction between host-driver and GPU-device contexts. Map
+shards are placed according to access patterns: cold global
+state resides in host DRAM and is periodically refreshed from
+GPU-side snapshots; frequently accessed state resides in GPU
+global memory and is asynchronously flushed to host; hot perwarp or per-SM data is cached in GPU shared memory for low
+latency. Consistency across shards is maintained via snapshotbased aggregation at GPU kernel completion boundaries. A
+runtime daemon asynchronously flushes GPU-local shards to
+host-visible canonical map instances, providing coherent snapshots to host-side policies without synchronization overhead.
+Shard updates occur strictly at warp granularity through warpleader threads without GPU atomic operations. For example,
+GPU-side handlers accumulate per-region access counters
+in warp-local registers, aggregate them per warp, and store
+results into GPU-local shards. The periodic snapshot flush
+transfers these shards to the host for policy decisions.
+
+6
+
+Methodology and Setup
+
+6.2 RQ1: Single-Tenant Memory and Scheduling Policies
+We evaluate gpu_ext’s memory policy interface on oversubscribed single-tenant setups where memory placement and
+prefetching dominate performance.
+6.2.1
+
+Microbenchmarks
+
+Memory Policy Microbenchmarks. We evaluate hostdevice prefetch coordination using a modified vector-add
+GPU kernel [47] with stride access pattern and 40GB working set (1.25× oversubscription). Device-side L2 prefetch instructions (prefetch.global.L2) trigger non-blocking page
+faults, while host-side callbacks extend prefetching to additional pages. With device-only prefetch and default host
+prefetch at thread entry, we achieve 1.34× speedup; combined
+host-device stride-based eBPF prefetch achieves 1.77×. However, sequential prefetch degrades performance by 8% due to
+pattern mismatch, demonstrating that gpu_ext’s cross-layer
+design enables workload-aware prefetching where policy selection matters.
+
+Evaluation
+
+We evaluate gpu_ext using three research questions:
+• RQ1 (Single-Tenant Management): How much performance gain can gpu_ext’s programmable memory and
+scheduling policies provide on oversubscribed single-tenant
+workloads?
+
+Single-Tenant Block Scheduler. We apply a gpu_ext-based
+block scheduler driven by the GPU-side interface (Section 4.3.2) to workloads with load imbalance. Using clusterstyle launch where persistent worker blocks pull work units
+via should_try_steal, we evaluate three policies: FixedWork (static block assignment, no scheduler), Greedy (alwayssteal), and LatencyBudget (workload-aware with per-block
+time limits). Figure 4 compares these policies across two
+GEMM workloads. Under moderate imbalance (Figure 4a),
+both Greedy and LatencyBudget reduce latency by ∼11%,
+as always-steal scheduling reclaims wasted tail time. Under heavy-tail workloads where 10% of blocks perform 100–
+200× more work (Figure 4b), Greedy increases latency by
+20% due to contention on heavy blocks. LatencyBudget,
+which caps per-block stealing time, matches fixed-work baseline. This highlights gpu_ext’s programmability: different
+
+• RQ2 (Multi-Tenant Management): Does gpu_ext’s crosslayer policy runtime improve tail latency, throughput, and
+resource fairness compared to user-space and global policies in multi-tenant settings?
+• RQ3 (Programmability & Mechanism Overhead): Is
+gpu_ext sufficiently programmable to support diverse policies, and what is the overhead of its core mechanisms and
+observability capabilities?
+These questions cover single-tenant optimization (RQ1),
+multi-tenant coordination (RQ2), and system costs (RQ3).
+8
+
+-0.7%
+
+15
+
+0.025
+
+Greedy LatencyBudget
+
+60
+
+150
+
+40
+
+100
+
+20
+
+50
+0
+
+Greedy LatencyBudget
+
+e=64 cmoe=32 UVM only user hintUVM eBPF
+n
+UVM
+
+ncmo
+
+Figure 4: gpu_ext block-scheduling policies across workload
+regimes. No single policy dominates: always-steal works well
+under moderate imbalance (a) but becomes pathological under clustered heavy tails (b), where LatencyBudget matches
+baseline performance.
+
+0
+
+e=64 cmoe=32 UVM only user hintUVM eBPF
+n
+UVM
+
+ncmo
+
+Figure 5: Prefill (pp512) and decode (tg128) throughput
+for GPT-OSS-120B MoE (59 GiB) on RTX 5090 (32GB).
+gpu_ext eBPF prefetching achieves 4.8× speedup on decode
+(memory-bound) over framework offloading while maintaining competitive prefill performance.
+
+workloads require different scheduling strategies.
+
+Mean
+Median
+P99
+
+15000
+
+Time to First Token (ms)
+
+6.2.2
+
+Decode Throughput (tg128)
+80
+
+200
+
+5
+0 FixedWork
+
+Prefill Throughput (pp512)
+
+250
+
+10
+
+0.050
+0.000 FixedWork
+
++20.3%
+
+tokens/s
+
+0.075
+
+-10.8%
+
+(b) ClusteredHeavy
+
+Case Studies
+
+12500
+10000
+
+Expert Offloading (llama.cpp GPT-OSS-120B). We evaluate gpu_ext on GPT-OSS-120B MXFP4 MoE (59 GiB,
+116.83B parameters) in llama.cpp on RTX 5090 (32GB).
+The model requires 1.84× oversubscription, necessitating
+CPU-GPU memory tiering. We compare five configurations: framework-managed CPU offloading (ncmoe=32/64),
+default UVM, modify application to add user-space hints
+(cudaMemAdvise) with UVM, and gpu_ext with eBPF-based
+expert prefetching. Figure 5 shows prefill and decode throughput. For decode (memory-bound), gpu_ext achieves 4.8×
+speedup over framework offloading. For prefill (computebound), framework offloading achieves 13% higher throughput, but decode dominates end-to-end latency, so the 4.8×
+decode improvement outweighs the 13% prefill overhead.
+Static hints can affect default LRU algorithms to pin most
+of the memory on GPU to improve performance, but still
+falls behind our policy, confirming that UVM requires new
+algorithms. The key insight is that MoE workloads exhibit predictable stride patterns during weight access and non-uniform
+page-level access frequency. gpu_ext uses stride prefetch to
+overlap data transfer with computation, and LFU eviction to
+retain frequently-accessed pages. Unlike framework-level offloading that often migrates experts as atomic units, gpu_ext
+operates at page granularity, enabling finer-grained computetransfer overlap.
+
+7500
+5000
+2500
+0 CPU Offload UVM
+(8GB) Baseline
+
+UVM
+eBPF
+
+LMCache
+
+Time per Output Token (ms)
+
+-10.7%
+
+Latency (ms)
+
+Latency (ms)
+
+0.100
+
+20
+
+tokens/s
+
+(a) Imbalanced GEMM
+
+Mean
+Median
+P99
+
+1200
+1000
+800
+600
+400
+200
+0 CPU Offload UVM
+(8GB) Baseline
+
+UVM
+eBPF
+
+LMCache
+
+Figure 6: Time-to-first-token and decoding throughput on
+Qwen-30B FP8 MoE with 100 concurrent requests (≈60K
+tokens KV-cache). gpu_ext KV-aware sequential prefetch improves mean and p99 TTFT by 1.7–2× and decoding throughput by 1.3× over vLLM CPU-offload.
+We
+compare
+vLLM’s
+CPU-offload
+mode
+(-cpu-offload-gb 8) against gpu_ext with UVM
+and a sequential prefetch policy. Under memory pressure,
+the key challenge is managing two competing data types:
+KV-cache and model weights. KV-cache exhibits temporal
+locality (recent tokens accessed more frequently during
+attention) with per-request spatial locality, while expert
+weights show stride patterns during matrix operations.
+gpu_ext applies prefetching with adaptive aggressiveness
+based on PCIe utilization and memory region (stride-based
+for weights, sequential for KV-cache), and LFU eviction
+to retain frequently-accessed pages from both types. This
+prevents mutual thrashing that occurs with UVM’s default
+LRU when KV-cache growth displaces hot weight pages or
+vice versa.
+
+KV-cache Offloading (vLLM Qwen-30B MoE). We evaluate on the Qwen-30B FP8 MoE model (≈30GB) on RTX
+5090 (32GB). The model alone nearly fills GPU VRAM, so
+default no-offload configuration OOMs under load. We stress
+KV-cache growth by sending 100 concurrent requests from
+ShareGPT [61] (single-round, no prefix caching), resulting
+in total memory footprint of 36–40GB (configured KV-cache
+at ≈60K tokens). Existing solutions typically offload either
+KV-cache or MoE experts, but not both; in contrast, UVM
+attempts on-demand migration of both, leading to thrashing.
+
+gpu_ext improves mean and p99 time-to-first-token by 1.7–
+2× and decoding throughput by 1.3× over vLLM’s default
+framework-managed offload (Figure 6), matching the stateof-the-art KV cache offload framework LMCache [11] with
+better tail latency. Notably, UVM without gpu_ext policies
+performs worse than vLLM’s offload, while gpu_ext is 2–3×
+faster, showing driver-level policies can outperform framework offloading with better tail latency.
+9
+
+GPU Memory
+Limit (~8M)
+Time (seconds)
+
+250
+200
+150
+100
+50
+00
+
+2
+
+4
+
+6
+
+8
+
+10
+
+12
+
+Number of Nodes (Millions)
+
+No UVM (Baseline)
+UVM (no prefetch)
+
+UVM (no prefetch) eBPF
+UVM (prefetch)
+
+80
+70
+60
+50
+40
+30
+20
+10
+0
+
+(a) Index Build Time
+
+0
+
+CPU
+
+14
+UVM (prefetch) eBPF
+
+20
+
+40
+
+60
+
+80
+
+Vectors Added (millions)
+GPU
+
+UVM Baseline
+
+100
+
+Normalized Latency (Baseline = 1.0)
+
+Epoch Time (seconds)
+
+300
+
+UVM eBPF
+
+(b) Search Latency
+
+1.10
+1.05
+1.00
+
+1.5% 0.1%
+-11.1%
+0.90
+-15.9%
+
+-0.3%
+-10.5%
+
+0.95
+0.85
+0.80
+0.75
+
+1
+
+4
+
+SIFT50M (right)
+
+nprobe
+
+Lower is Better
+16
+
+SIFT100M (right)
+
+Baseline (1.0)
+
+Figure 8: Faiss index build time and query throughput under
+oversubscription. gpu_ext adaptive prefetch reduces build
+time by 21–29% and query latency by 10–16% compared to
+default UVM.
+
+Figure 7: GCN training epoch time vs graph size. Native GPU
+allocation (green) OOMs beyond memory capacity. Userspace prefetching (blue) eliminates page faults but requires
+application modification; gpu_ext eBPF prefetching (red)
+achieves similar benefits transparently. Combined approaches
+(dashed blue) provide additional benefits under severe oversubscription.
+
+memory). IVF indexes have a two-level structure: frequentlyaccessed centroids and larger posting lists. For oversubscribed
+datasets, gpu_ext prefetches posting lists sequentially rather
+than UVM’s default address-tree-based policy; device-side
+can also trigger prefetching of corresponding posting lists.
+For index construction, K-means iterations produce sequential scans that gpu_ext detects and prefetches using stride
+prediction. gpu_ext reduces build time by 21–29%, with benefits scaling from 27% to 40% as memory pressure grows. For
+search workloads, gpu_ext reduces latency by 10–16% across
+different nprobe settings despite the random access patterns
+inherent in ANN search.
+Across these applications, programmable region-based
+placement and prefetch policies in gpu_ext exploit workload
+structure (experts, KV-cache, graph structure, index layout)
+that existing UVM policies and framework-level offload mechanisms cannot leverage.
+
+Graph Neural Networks (GNN Training). We evaluate
+gpu_ext on PyTorch-based GCN training with random graphs
+of varying sizes (1M–15M nodes, 10 edges/node). Figure 7
+shows epoch time across five configurations: native GPU allocation (no UVM), UVM with and without user-space prefetching (cudaMemPrefetchAsync), and each UVM configuration
+with gpu_ext eBPF-based optimization.
+With UVM enabled via a custom allocator, each epoch allocates memory on CPU and migrates to GPU on demand, incurring overhead. gpu_ext uses sequential prefetch with uprobe
+to trace PyTorch memory allocations and prefetch in advance,
+using history patterns to determine prefetch range. Users
+can also express prefetching via cudaMemPrefetchAsync
+to eliminate page faults by migrating pages before GPU
+access, achieving 5.5× speedup at moderate oversubscription, but this requires application modification. When userexpressed prefetching is disabled, eBPF optimizes page fault
+handling by aggressive prefetching, achieving 2.65× speedup
+without modifying applications. Even with user-expressed
+prefetching, runtime page faults and eviction occur under
+memory pressure, and gpu_ext’s combined approach achieves
+1.44× additional speedup by prefetching larger regions and
+reducing blocking faults. Native GPU allocation (no UVM)
+achieves the highest performance when data fits in memory
+(1.89 s at 5M nodes) but fails with OOM beyond ∼8M nodes.
+UVM with gpu_ext prefetching enables training at 15M nodes
+(2.17× oversubscription) with acceptable overhead.
+
+6.3 RQ2: Multi-Tenant Memory, Bandwidth,
+and Scheduling
+We evaluate gpu_ext on multi-tenant GPU workloads, comparing per-tenant policies against global and frameworkmanaged approaches.
+6.3.1
+
+Microbenchmarks
+
+Compute-bound Timeslice Scheduler (LC + BE). We
+evaluate gpu_ext’s BPF struct_ops scheduling policies on
+compute-bound multi-tenant workloads where the bottleneck is GPU SM time rather than memory bandwidth. 2
+latency-critical (LC) processes and 4 best-effort (BE) processes run concurrently, each with 4 CUDA streams submitting 50 compute kernels. We compare the native scheduler
+against gpu_ext with differentiated timeslices (LC: 1s, BE:
+200µs) using a gpreempt-style preemption policy. Figure 9
+shows that gpu_ext reduces LC P99 launch latency by 95%,
+demonstrating scheduling stability. BE throughput remains
+
+Faiss Vector Search. We evaluate gpu_ext on vector similarity search using the SIFT dataset with an IVF4096,Flat
+index, scaling from 20M (9.5GB, fits in memory) to 50M
+(24GB, near boundary) and 100M (48GB, exceeds 32GB GPU
+10
+
+BPF Policy
+
+8
+6
+4
+2
+0
+
+Native
+
+50
+40
+
+BPF Policy
+
+Both Running
+
+Only Low Running
+
+GEMM
+
+30
+20
+10
+
+120
+100
+80
+60
+40
+20
+
+0 y
+0)
+0)
+0)
+c
+ler
+Poli chedu tch(0,2 h(20,8 t(20,8
+No
+tc
+S
+fe
+Evic
+Pre Prefe
+
+0 y
+0)
+0)
+0)
+c
+ler
+Poli chedu tch(0,2 h(20,8 t(20,8
+No
+tc
+S
+fe
+Evic
+Pre Prefe
+
+K-Means
+
+80
+60
+40
+20
+0 y
+0)
+0)
+0)
+c
+ler
+Poli chedu tch(0,2 h(20,8 t(20,8
+tc
+S
+fe
+Evic
+Pre Prefe
+
+No
+
+Figure 10: Multi-tenant memory priority differentiation on
+oversubscribed UVM workloads. gpu_ext memory policies
+improve total completion time by 55–92% and enforce priority differentiation; scheduler policies are ineffective on these
+memory-bound workloads. Single 1×: ideal single-process
+time; 2×Single 1×: theoretical lower bound.
+
+Figure 9: Multi-tenant GPU scheduling with gpu_ext BPF
+struct_ops policies on compute-bound workloads. gpu_ext reduces latency-critical (LC) P99 launch latency by 95% while
+maintaining best-effort (BE) throughput.
+unchanged, confirming that gpu_ext reduces LC tail latency
+without sacrificing BE throughput.
+
+(a) TTFT
+Latency (ms)
+
+1500
+
+Memory-bound Memory Priority Differentiation. We
+evaluate gpu_ext’s memory policies for priority differentiation on memory-bound workloads under UVM oversubscription using HotSpot [8] (spatial locality), GEMM from PolyBench [21] (compute-intensive), and K-Means [22] (sparse access). Each experiment runs two concurrent processes competing for GPU memory. Policy labels use priority values 0–100
+(lower value = higher priority): Prefetch(lo,hi) prefetches
+pages for processes in that range, while Evict(lo,hi) selects eviction victims accordingly. We compare against: (1)
+no-policy execution, (2) single-process runtime (Single 1×),
+and (3) theoretical optimum (2×Single 1×).
+Figure 10 shows that without policies, both processes degrade severely due to memory thrashing. With gpu_ext memory priority policies, total completion time improves by 55–
+92%, and high-priority processes complete 6–19% faster.
+Critically, for these memory-bound workloads, GPREEMPTstyle [17] scheduler timeslice policies are ineffective (<1%
+improvement) because the bottleneck is UVM page faults and
+PCIe bandwidth, not GPU compute time. This contrasts with
+compute-bound workloads where scheduler policies are effective. gpu_ext’s layered runtime allows applying appropriate
+policies based on workload characteristics.
+6.3.2
+
+2×Single 1x
+140
+
+Completion Time (s)
+
+10
+
+Single 1x
+
+Hotspot
+
+60
+
+Completion Time (s)
+
+11.47
+
+(b) TPOT
+60
+
+1392
+1203
+
+1000
+500
+0
+
+428
+
+Default
+UVM
+
+341
+
+eBPF
+UVM
+
+Single (Mean)
+2× Single (Mean)
+
+30
+
+56.1
+
+40
+20
+0
+
+33.4
+19.7
+10.9
+
+Default
+UVM
+
+Single (P99)
+2× Single (P99)
+
+eBPF
+UVM
+
+Epoch Time (s)
+
+Native
+
+11.38
+
+Latency (ms)
+
+53
+
+(b) BE Throughput [+0.8%]
+12
+
+Completion Time (s)
+
+1188
+
+Throughput (kernels/s)
+
+Per-run P99 (µs)
+
+(a) LC P99 Launch Latency [-96%]
+1200
+1000
+800
+600
+400
+200
+0
+
+Mean
+P99
+
+(c) GNN Training
+23.2s
+
+20
+
+16.7s
+
+10
+0 Default
+UVM
+
+Single
+2× Single
+
+eBPF
+UVM
+
+Figure 11: Two-tenant co-location: llama.cpp inference
+(LC) + GNN training (BE). gpu_ext achieves mutual improvement: LC latency better than single-tenant performance
+while BE training improves by 28%. Tenant-aware policies
+reduce contention rather than prioritizing one workload at the
+expense of another.
+per-tenant memory policies where the LC tenant receives
+prefetch priority and the BE tenant yields bandwidth during
+inference.
+Figure 11 shows the results. gpu_ext achieves mutual improvement for both tenants: LC latency reduces TPOT by
+40–45% and TTFT by 14–20%, while GNN training simultaneously improves by 28%, approaching the ideal fair share
+baseline. This shows gpu_ext reduces contention for both
+workloads rather than favoring one over the other.
+gpu_ext’s per-tenant policies improve both tail latency and
+fairness, benefiting high-priority tenants while reducing memory thrashing for background jobs.
+
+Case Studies
+
+We apply the policy primitives from the microbenchmarks to
+realistic multi-tenant scenarios.
+
+6.4 RQ3: Programmability and Mechanism
+Overhead
+
+Two-Tenant: High-Priority LLM Inference + Background
+Training. We run two tenants sharing a single GPU: T1 is
+a high-priority llama.cpp inference service (LC workload)
+serving 100 ShareGPT prompts at 0.2 RPS, and T2 is a background PyTorch GNN training job (BE workload) with 8M
+nodes requiring 36GB peak memory (oversubscribed). We
+compare default UVM (driver FIFO/LRU) against gpu_ext
+
+We evaluate gpu_ext’s programmability by examining policy
+complexity and reuse, and quantify the efficiency of its core
+mechanisms and observability capabilities.
+Policy Building Blocks. Table 1 shows policy building
+blocks with lines of code and execution domain. These components can be composed to construct policies; for example,
+11
+
+0
+
+-70%
+
+-65%
+
+-17%
+
+-68%
+
+-81%
+
+-69%
+
+-80%
+
+-78%
+
+-78%
+
+-79%
+
+y
+te uf
+er
+ce
+be
+be
+be
+xit
+up
+d arra
+y pro y pro Entry+E Exit pro rray look rray upda Ringb lobal tim Memtra
+a
+e
+r
+h
+G
+t
+A
+Empt Entr
+A
+PUPer-G
+
+Latency ( s)
+
+Overhead ( s)
+
+5
+
+(a) GPU-side Operations Overhead
+
+eGPU-style
+gBPF (ours)
+
+(b) CPU
+Map34ms
+(PCIe)
+34ms
+
+25000
+
+0
+
+Array
+
+e
+p
+looku ray updat
+r
+A
+
+CPU Map Op
+
+GPU-side Operation Type
+
+Figure 12: Device-side microbenchmark overhead. (a) GPU-side operation overhead comparing eGPU-style naive injection vs
+gpu_ext’s SIMT-aware execution. (b) eGPU CPU map access latency via PCIe, motivating gpu_ext’s hierarchical map design.
+
+Policy
+
+Tag
+
+Domain
+
+LOC
+
+Tool
+
+LOC
+
+Domain
+
+gpu_ext
+
+NVBit
+
+Global FIFO Eviction
+Global LFU Eviction
+Multi-tenant Quota
+LRU
+Adaptive
+Seq.
+Prefetch
+Stride Prefetch
+GPU L2 Stride
+Prefetch
+Tree-based Prefetch
+Dynamic Timeslice
+Preemption Control
+MaxSteals (CLC)
+LatencyBudget
+(CLC)
+
+Memory Eviction
+Memory Eviction
+Memory Multi-tenant
+
+Host
+Host
+Host
+
+145
+304
+472
+
+kernelretsnoop
+threadhist
+launchlate
+
+153
+89
+347
+
+Device
+Device
+Host+Device
+
+8%
+3%
+14%
+
+85%
+87%
+93%
+
+Memory Prefetch
+
+Host
+
+375
+
+Memory Prefetch
+Memory Prefetch
+
+Host
+Device
+
+472
+45
+
+Table 2: gpu_ext device-side observability tools and overhead
+comparison with NVBit.
+
+Memory Multi-tenant
+Scheduling
+Scheduling
+Scheduling Block
+Scheduling Block
+
+Host
+Host
+Host
+Device
+Device
+
+454
+408
+925
+16
+19
+
+token/s degradation during prefill. These tools show significantly lower overhead than NVBit [60] (3–14% vs 85–87%)
+due to gpu_ext’s warp-uniform execution avoiding divergent
+control flow and unnecessary memory accesses.
+Device-side Runtime Overhead and Optimization. We
+evaluate device-side gpu_ext mechanisms using a vector-add
+microbenchmark (32 elements, 10K iterations) from cudasample [47] on RTX 5090. Figure 12(a) compares gpu_ext’s
+SIMT-aware warp-level execution against our prior eGPU
+baseline [65] that injects eBPF bytecode without SIMTspecific optimizations. The eGPU-style approach incurs overhead due to per-thread execution and uncoalesced memory access, while gpu_ext’s warp-uniform execution and coalesced
+map access reduce overhead by 60–80% across operations.
+Figure 12(b) shows CPU map access via PCIe is 6000×
+slower than GPU-side operations, motivating gpu_ext’s hierarchical map design that keeps hot state on GPU. We do not
+compare policy-level performance against eGPU or Neutrino
+because they are limited to read-only observability (§2.3).
+
+Table 1: Policy support matrix. Domain indicates where the
+policy executes: Host (driver eBPF), Device (GPU eBPF), or
+both.
+multi-tenant benchmark in RQ2 combines Quota LRU, Priority Tree Prefetch, and Dynamic Timeslice. All policies attach
+to unmodified frameworks via runtime instrumentation, requiring only tens to hundreds of lines.
+6.4.1
+
+Host Runtime Overhead
+
+We quantify the overhead of the gpu_ext driver runtime independent of policy logic using GEMM from PolyBench [21]
+and HotSpot [8] (1.1× oversubscription, 35 GB working set)
+on RTX 5090. With hooks enabled but no policy attached, the
+overhead is less than 0.2%.
+6.4.2
+
+7
+
+Portability
+
+gpu_ext is designed for portability, though our current implementation targets NVIDIA GPUs. NVIDIA’s production
+drivers bypass Linux’s standard kernel interfaces, but our
+design aligns with generic Linux abstractions. On the host
+side, for memory management we follow Linux’s Heterogeneous Memory Management (HMM) and its migrate_vma
+interface, already adopted by AMD ROCm with XNACK
+retryable faults. For scheduling, we abstract GPU queues
+based on Linux DRM scheduler’s drm_sched_entity, map-
+
+Low-overhead GPU Observability
+
+We evaluate device-side observability tools built on gpu_ext
+(Table 2) on NVIDIA P40 GPU using llama.cpp prefill (Llama
+1B, IO3, sequence-mixed). Tools include kernelretsnoop
+for per-thread block finish timestamp recording, threadhist
+for load imbalance detection, and launchlate for GPU kernel launch latency measurement. Overhead is measured as
+12
+
+ping to NVIDIA TSGs and potentially AMD user-mode
+queues [4, 36–38]. On the device side, our compiler generates
+vendor-neutral eBPF bytecode using SPIR-V, enabling future
+compatibility with AMD ROCm and Intel Level Zero. Endto-end portability requires vendor-specific runtime support
+and hardware tuning, which remain future work [12, 48].
+
+8
+
+[6] Maximilian Bachl, Joachim Fabini, and Tanja Zseby. A
+flow-based ids using machine learning in ebpf. arXiv
+preprint arXiv:2102.09980, 2021.
+[7] Jiashen Cao, Rathijit Sen, Matteo Interlandi, Joy Arulraj, and Hyesoon Kim. Gpu database systems characterization and optimization. Proceedings of the VLDB
+Endowment, 17(3):441–454, 2023.
+
+Conclusion
+
+[8] Shuai Che, Michael Boyer, Jiayuan Meng, David Tarjan,
+Jeremy W Sheaffer, Sang-Ha Lee, and Kevin Skadron.
+Rodinia: A benchmark suite for heterogeneous computing. In 2009 IEEE international symposium on workload
+characterization (IISWC), pages 44–54. Ieee, 2009.
+
+We presented gpu_ext, a cross-layer, verifier-backed policy
+runtime that treats the GPU driver and device as a single
+programmable OS subsystem. gpu_ext exposes stable attach
+points for memory placement and scheduling, executes the
+same restricted eBPF IR on host and device, and shares state
+through cross-layer BPF maps, enabling low-overhead observability and adaptive policies. Across PyTorch, llama.cpp,
+vLLM, and Faiss, gpu_ext-based policies transparently improve throughput by up to 4.8× and reduce tail latency by
+up to 2× relative to static heuristics, while instrumentationonly deployments incur low overhead. gpu_ext demonstrates
+that kernel extensibility is an effective approach for GPU
+management.
+
+[9] Hongtao Chen, Weiyu Xie, Boxin Zhang, Jingqi Tang, Jiahao Wang, Jianwei Dong, Shaoyuan Chen, Ziwei Yuan,
+Chen Lin, Chengyu Qiu, et al. Ktransformers: Unleashing the full potential of cpu/gpu hybrid inference for moe
+models. In Proceedings of the ACM SIGOPS 31st Symposium on Operating Systems Principles, pages 1014–
+1029, 2025.
+[10] Xuhao Chen, Roshan Dathathri, Gurbinder Gill, and
+Keshav Pingali. Pangolin: An efficient and flexible
+graph mining system on cpu and gpu. Proceedings of
+the VLDB Endowment, 13(8):1190–1205, 2020.
+
+References
+[1] Amey Agrawal, Nitin Kedia, Jayashree Mohan, Ashish
+Panwar, Nipun Kwatra, Bhargav S Gulavani, Ramachandran Ramjee, and Alexey Tumanov. Vidur: A large-scale
+simulation framework for llm inference. Proceedings of
+Machine Learning and Systems, 6:351–366, 2024.
+
+[11] Yihua Cheng, Yuhan Liu, Jiayi Yao, Yuwei An, Xiaokun
+Chen, Shaoting Feng, Yuyang Huang, Samuel Shen,
+Kuntai Du, and Junchen Jiang. Lmcache: An efficient
+kv cache layer for enterprise-scale llm inference. arXiv
+preprint arXiv:2510.09665, 2025.
+
+[2] Amey Agrawal, Nitin Kedia, Ashish Panwar, Jayashree
+Mohan, Nipun Kwatra, Bhargav Gulavani, Alexey
+Tumanov, and Ramachandran Ramjee.
+Taming
+{Throughput-Latency} tradeoff in {LLM} inference
+with {Sarathi-Serve}. In 18th USENIX Symposium on
+Operating Systems Design and Implementation (OSDI
+24), pages 117–134, 2024.
+
+[12] LLVM Community. Rfc: Spir-v ir as a vendor agnostic
+gpu representation. LLVM Discourse, 2025. https:
+//discourse.llvm.org/t/rfc-spirv-ir-as-a-v
+endor-agnostic-gpu-representation/85115.
+[13] Bennett Cooper, Thomas RW Scogland, and Rong Ge.
+Shared virtual memory: Its design and performance implications for diverse applications. In Proceedings of the
+38th ACM International Conference on Supercomputing, ICS ’24, pages 26–37, New York, NY, USA, 2024.
+Association for Computing Machinery.
+
+[3] AMD Instinct Documentation. Oversubscription of
+hardware resources in AMD Instinct GPUs, 2023. ht
+tps://instinct.docs.amd.com/projects/amdgp
+u-docs/en/latest/conceptual/oversubscript
+ion.html.
+
+[14] Patrick H Coppock, Brian Zhang, Eliot H Solomon,
+Vasilis Kypriotis, Leon Yang, Bikash Sharma, Dan
+Schatzberg, Todd C Mowry, and Dimitrios Skarlatos.
+Lithos: An operating system for efficient machine learning on gpus. In Proceedings of the ACM SIGOPS 31st
+Symposium on Operating Systems Principles, pages 1–
+17, 2025.
+
+[4] AMD ROCm Documentation. GPU memory, 2024.
+https://rocm.docs.amd.com/en/docs-6.2.0/c
+onceptual/gpu-memory.html.
+[5] Pratheek B, Guilherme Cox, Jan Vesely, and Arkaprava
+Basu. SUV: Static analysis guided unified virtual memory. In Proceedings of the 2024 57th IEEE/ACM International Symposium on Microarchitecture, MICRO ’24,
+pages 293–308. IEEE Press, 2024.
+
+[15] Christina Delimitrou and Christos Kozyrakis. Paragon:
+Qos-aware scheduling for heterogeneous datacenters.
+Acm SIGPLAN Notices, 48(4):77–88, 2013.
+13
+
+[16] Christina Delimitrou and Christos Kozyrakis. Quasar:
+Resource-efficient and qos-aware cluster management.
+ACM Sigplan Notices, 49(4):127–144, 2014.
+
+[26] Suhas Jayaram Subramanya, Daiyaan Arfeen, Shouxu
+Lin, Aurick Qiao, Zhihao Jia, and Gregory R Ganger.
+Sia: Heterogeneity-aware, goodput-optimized ml-cluster
+scheduling. In Proceedings of the 29th Symposium on
+Operating Systems Principles, pages 642–657, 2023.
+
+[17] Ruwen Fan, Tingxu Ren, Minhui Xie, Shiwei Gao, Jiwu
+Shu, and Youyou Lu. {GPREEMPT}:{GPU} preemptive scheduling made general and efficient. In 2025
+USENIX Annual Technical Conference (USENIX ATC
+25), pages 263–272, 2025.
+
+[27] Myeongjae Jeon, Shivaram Venkataraman, Amar Phanishayee, Junjie Qian, Wencong Xiao, and Fan Yang.
+Analysis of {Large-Scale}{Multi-Tenant}{GPU} clusters for {DNN} training workloads. In 2019 USENIX
+Annual Technical Conference (USENIX ATC 19), pages
+947–960, 2019.
+
+[18] Yao Fu, Leyang Xue, Yeqi Huang, Andrei-Octavian
+Brabete, Dmitrii Ustiugov, Yuvraj Patel, and Luo Mai.
+{ServerlessLLM}:{Low-Latency} serverless inference
+for large language models. In 18th USENIX Symposium on Operating Systems Design and Implementation
+(OSDI 24), pages 135–153, 2024.
+
+[28] Jinghao Jia, YiFei Zhu, Dan Williams, Andrea Arcangeli, Claudio Canella, Hubertus Franke, Tobin
+Feldman-Fitzthum, Dimitrios Skarlatos, Daniel Gruss,
+and Tianyin Xu. Programmable system call security
+with ebpf. arXiv preprint arXiv:2302.10366, 2023.
+
+[19] Trevor Gale, Deepak Narayanan, Cliff Young, and Matei
+Zaharia. Megablocks: Efficient sparse training with
+mixture-of-experts. Proceedings of Machine Learning
+and Systems, 5:288–304, 2023.
+
+[29] Nathan Jones, Tyler Allen, and Rong Ge. HELM: Characterizing unified memory accesses to improve gpu performance under memory oversubscription. In Proceedings of the International Conference for High Performance Computing, Networking, Storage and Analysis,
+SC ’25, pages 490–504, New York, NY, USA, 2025. Association for Computing Machinery.
+
+[20] In Gim, Zhiyao Ma, Seung-seob Lee, and Lin Zhong.
+Pie: A programmable serving system for emerging llm
+applications. In Proceedings of the ACM SIGOPS 31st
+Symposium on Operating Systems Principles, pages 415–
+430, 2025.
+
+[30] Shinpei Kato, Karthik Lakshmanan, Ragunathan Rajkumar, Yutaka Ishikawa, et al. {TimeGraph}:{GPU}
+scheduling for {Real-Time}{Multi-Tasking} environments. In 2011 USENIX Annual Technical Conference
+(USENIX ATC 11), 2011.
+
+[21] Scott Grauer-Gray, Lifan Xu, Robert Searles, Sudhee
+Ayalasomayajula, and John Cavazos. Auto-tuning a
+high-level language targeted to gpu codes. In 2012
+innovative parallel computing (InPar), pages 1–10. Ieee,
+2012.
+
+[31] Shinpei Kato, Michael McThrow, Carlos Maltzahn, and
+Scott Brandt. Gdev:{First-Class}{GPU} resource management in the operating system. In 2012 USENIX
+Annual Technical Conference (USENIX ATC 12), pages
+401–412, 2012.
+
+[22] Yongbin Gu, Wenxuan Wu, Yunfan Li, and Lizhong
+Chen. Uvmbench: A comprehensive benchmark suite
+for researching unified virtual memory in gpus. arXiv
+preprint arXiv:2007.09822, 2020.
+
+[32] Woosuk Kwon, Zhuohan Li, Siyuan Zhuang, Ying
+Sheng, Lianmin Zheng, Cody Hao Yu, Joseph Gonzalez,
+Hao Zhang, and Ion Stoica. Efficient memory management for large language model serving with pagedattention. In Proceedings of the 29th Symposium on
+Operating Systems Principles, pages 611–626, 2023.
+
+[23] Jiaao He, Jiezhong Qiu, Aohan Zeng, Zhilin Yang,
+Jidong Zhai, and Jie Tang.
+Fastmoe: A fast
+mixture-of-expert training system. arXiv preprint
+arXiv:2103.13262, 2021.
+[24] Qinghao Hu, Meng Zhang, Peng Sun, Yonggang Wen,
+and Tianwei Zhang. Lucid: A non-intrusive, scalable
+and interpretable scheduler for deep learning training
+jobs. In Proceedings of the 28th ACM International
+Conference on Architectural Support for Programming
+Languages and Operating Systems, Volume 2, pages 457–
+472, 2023.
+
+[33] Baolin Li, Tirthak Patel, Siddharth Samsi, Vijay Gadepally, and Devesh Tiwari. Miso: exploiting multiinstance gpu capability on multi-tenant gpu clusters.
+In Proceedings of the 13th Symposium on Cloud Computing, pages 173–189, 2022.
+[34] Mao Lin, Yuan Feng, Guilherme Cox, and Hyeran Jeon.
+Forest: Access-aware gpu uvm management. In Proceedings of the 52nd Annual International Symposium
+on Computer Architecture, ISCA ’25, pages 137–152,
+New York, NY, USA, 2025. Association for Computing
+Machinery.
+
+[25] Songlin Huang and Chenshu Wu. Neutrino: Finegrained {GPU} kernel profiling via programmable probing. In 19th USENIX Symposium on Operating Systems
+Design and Implementation (OSDI 25), pages 331–355,
+2025.
+14
+
+[35] Yinnian Lin, Lei Zou, and Xunbin Su. Towards sufficient
+gpu-accelerated dynamic graph management: Survey
+and experiment. Proceedings of the VLDB Endowment,
+18(3):599–612, 2024.
+
+[46] NVIDIA. Cuda profiling tools interface (cupti), 2025.
+Accessed: 2025-03-02.
+[47] NVIDIA. Nvidia cuda samples. https://github.c
+om/NVIDIA/cuda-samples, 2025. Accessed: 2025-1211.
+
+[36] The Linux Kernel Documentation. GPU Shared Virtual
+Memory (GPU-SVM), 2023. Section “DRM GPU scheduler” and GPU-SVM overview, https://docs.kerne
+l.org/gpu/drm-mm.html.
+
+[48] oneAPI DPC++/LLVM. Proposed design for offloading
+model, 2023. https://intel.github.io/llvm/des
+ign/OffloadDesign.html.
+
+[37] The Linux Kernel Documentation. DRM GPU scheduler, 2024. https://docs.kernel.org/gpu/drm-m
+m.html.
+
+[49] James Jie Pan, Jianguo Wang, and Guoliang Li. Survey
+of vector database management systems. The VLDB
+Journal, 33(5):1591–1615, 2024.
+
+[38] The Linux Kernel Documentation. User Mode Queues,
+2024. https://docs.kernel.org/gpu/amdgpu/use
+rq.html.
+
+[50] Pratyush Patel, Esha Choukse, Chaojie Zhang, Aashaka
+Shah, Íñigo Goiri, Saeed Maleki, and Ricardo Bianchini.
+Splitwise: Efficient generative llm inference using phase
+splitting. In 2024 ACM/IEEE 51st Annual International
+Symposium on Computer Architecture (ISCA), pages
+118–132. IEEE, 2024.
+
+[39] David Lo, Liqun Cheng, Rama Govindaraju,
+Parthasarathy Ranganathan, and Christos Kozyrakis.
+Heracles: Improving resource efficiency at scale.
+In Proceedings of the 42nd Annual International
+Symposium on Computer Architecture, pages 450–462,
+2015.
+
+[51] Aurick Qiao, Sang Keun Choe, Suhas Jayaram Subramanya, Willie Neiswanger, Qirong Ho, Hao Zhang, Gregory R Ganger, and Eric P Xing. Pollux: Co-adaptive
+cluster scheduling for goodput-optimized deep learning.
+In 15th {USENIX} Symposium on Operating Systems
+Design and Implementation ({OSDI} 21), 2021.
+
+[40] Meta and Linux Kernel Community. sched_ext: Extensible scheduler class. https://github.com/sched-e
+xt/scx, 2023.
+[41] Kenneth Moreland, Christopher Sewell, William Usher,
+Li-ta Lo, Jeremy Meredith, David Pugmire, James Kress,
+Hendrik Schroots, Kwan-Liu Ma, Hank Childs, et al.
+Vtk-m: Accelerating the visualization toolkit for massively threaded architectures. IEEE computer graphics
+and applications, 36(3):48–58, 2016.
+
+[52] Jeff Rasley, Samyam Rajbhandari, Olatunji Ruwase, and
+Yuxiong He. Deepspeed: System optimizations enable
+training deep learning models with over 100 billion parameters. In Proceedings of the 26th ACM SIGKDD international conference on knowledge discovery & data
+mining, pages 3505–3506, 2020.
+
+[42] Deepak Narayanan, Keshav Santhanam, Fiodar
+Kazhamiaka, Amar Phanishayee, and Matei Zaharia.
+{Heterogeneity-Aware} cluster scheduling policies for
+deep learning workloads. In 14th USENIX Symposium
+on Operating Systems Design and Implementation
+(OSDI 20), pages 481–498, 2020.
+
+[53] John Ravi, Tri Nguyen, Huiyang Zhou, and Michela
+Becchi. Pilot: a runtime system to manage multi-tenant
+gpu unified memory footprint. In 2021 IEEE 28th International Conference on High Performance Computing, Data, and Analytics (HiPC), pages 442–447. IEEE,
+2021.
+
+[43] Nurlan Nazaraliyev, Elaheh Sadredini, and Nael AbuGhazaleh. DREAM: Device-driven efficient access to
+virtual memory. In Proceedings of the 39th ACM International Conference on Supercomputing, ICS ’25, pages
+1190–1205, New York, NY, USA, 2025. Association for
+Computing Machinery.
+
+[54] Weihang Shen, Mingcong Han, Jialong Liu, Rong Chen,
+and Haibo Chen. {XSched}: Preemptive scheduling
+for diverse {XPUs}. In 19th USENIX Symposium on
+Operating Systems Design and Implementation (OSDI
+25), pages 671–692, 2025.
+
+[44] Kelvin KW Ng, Henri Maxime Demoulin, and Vincent
+Liu. Paella: Low-latency model serving with softwaredefined gpu scheduling. In Proceedings of the 29th
+Symposium on Operating Systems Principles, pages 595–
+610, 2023.
+
+[55] Ying Sheng, Lianmin Zheng, Binhang Yuan, Zhuohan
+Li, Max Ryabinin, Beidi Chen, Percy Liang, Christopher
+Ré, Ion Stoica, and Ce Zhang. Flexgen: High-throughput
+generative inference of large language models with a
+single gpu. In International Conference on Machine
+Learning, pages 31094–31116. PMLR, 2023.
+
+[45] NVIDIA. NVIDIA open gpu kernel modules, 2022.
+Accessed: 2025.
+15
+
+[56] Mohammad Shoeybi, Mostofa Patwary, Raul Puri,
+Patrick LeGresley, Jared Casper, and Bryan Catanzaro.
+Megatron-lm: Training multi-billion parameter language models using model parallelism. arXiv preprint
+arXiv:1909.08053, 2019.
+
+on Heterogeneous Composable and Disaggregated Systems, pages 73–79, 2025.
+[66] Gyeong-In Yu, Joo Seong Jeong, Geon-Woo Kim, Soojeong Kim, and Byung-Gon Chun. Orca: A distributed
+serving system for {Transformer-Based} generative
+models. In 16th USENIX Symposium on Operating
+Systems Design and Implementation (OSDI 22), pages
+521–538, 2022.
+
+[57] Sudipta Saha Shubha, Haiying Shen, and Anand Iyer.
+{USHER}: Holistic interference avoidance for resource
+optimized {ML} inference. In 18th USENIX Symposium on Operating Systems Design and Implementation
+(OSDI 24), pages 947–964, 2024.
+
+[67] Peifeng Yu and Mosharaf Chowdhury. Fine-grained
+gpu sharing primitives for deep learning applications.
+Proceedings of Machine Learning and Systems, 2:98–
+111, 2020.
+
+[58] Foteini Strati, Xianzhe Ma, and Ana Klimovic. Orion:
+Interference-aware, fine-grained gpu sharing for ml applications. In Proceedings of the Nineteenth European
+Conference on Computer Systems, pages 1075–1092,
+2024.
+
+[68] Shulai Zhang et al. Efficient performance-aware GPU
+sharing with compatibility and isolation through kernel space interception. In USENIX Annual Technical
+Conference (ATC), 2025.
+
+[59] Biao Sun, Ziming Huang, Hanyu Zhao, Wencong Xiao,
+Xinyi Zhang, Yong Li, and Wei Lin. Llumnix: Dynamic
+scheduling for large language model serving. In 18th
+USENIX symposium on operating systems design and
+implementation (OSDI 24), pages 173–191, 2024.
+
+[69] Yinmin Zhong, Shengyu Liu, Junda Chen, Jianbo Hu,
+Yibo Zhu, Xuanzhe Liu, Xin Jin, and Hao Zhang.
+{DistServe}: Disaggregating prefill and decoding for
+goodput-optimized large language model serving. In
+18th USENIX Symposium on Operating Systems Design
+and Implementation (OSDI 24), pages 193–210, 2024.
+
+[60] Oreste Villa, Mark Stephenson, David Nellans, and
+Stephen W Keckler. Nvbit: A dynamic binary instrumentation framework for nvidia gpus. In Proceedings of
+the 52nd Annual IEEE/ACM International Symposium
+on Microarchitecture, pages 372–383, 2019.
+
+[70] Yuhong Zhong, Haoyu Li, Yu Jian Wu, Ioannis Zarkadas,
+Jeffrey Tao, Evan Mesterhazy, Michael Makris, Junfeng
+Yang, Amy Tai, Ryan Stutsman, and Asaf Cidon. XRP:
+In-Kernel storage functions with eBPF. In 16th USENIX
+Symposium on Operating Systems Design and Implementation (OSDI 22), pages 375–393, Carlsbad, CA,
+July 2022. USENIX Association.
+
+[61] G. Wang. openchat: advancing open-source language
+models with conversational datasets. 2023. Describes
+the ShareGPT dataset of 70k user-shared conversations.
+[62] Yangzihao Wang, Andrew Davidson, Yuechao Pan,
+Yuduo Wu, Andy Riffel, and John D Owens. Gunrock:
+A high-performance graph processing library on the gpu.
+In Proceedings of the 21st ACM SIGPLAN symposium
+on principles and practice of parallel programming,
+pages 1–12, 2016.
+
+[71] Tal Zussman, Ioannis Zarkadas, Jeremy Carin, Andrew
+Cheng, Hubertus Franke, Jonas Pfefferle, and Asaf
+Cidon. cache_ext: Customizing the page cache with
+ebpf. In Proceedings of the ACM SIGOPS 31st Symposium on Operating Systems Principles, pages 462–478,
+2025.
+
+[63] Yidi Wang, Cong Liu, Daniel Wong, and Hyoseung
+Kim. Gcaps: Gpu context-aware preemptive prioritybased scheduling for real-time tasks. arXiv preprint
+arXiv:2406.05221, 2024.
+[64] Wencong Xiao, Romil Bhardwaj, Ramachandran Ramjee, Muthian Sivathanu, Nipun Kwatra, Zhenhua Han,
+Pratyush Patel, Xuan Peng, Hanyu Zhao, Quanlu Zhang,
+et al. Gandiva: Introspective cluster scheduling for deep
+learning. In 13th USENIX Symposium on Operating
+Systems Design and Implementation (OSDI 18), pages
+595–610, 2018.
+[65] Yiwei Yang, Tong Yu, Yusheng Zheng, and Andrew
+Quinn. egpu: Extending ebpf programmability and observability to gpus. In Proceedings of the 4th Workshop
+16
+
+

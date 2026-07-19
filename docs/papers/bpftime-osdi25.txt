@@ -1,4 +1,18 @@
 Extending Applications Safely and Efficiently
+Yusheng Zheng, UC Santa Cruz; Tong Yu, eunomia-bpf Community;
+Yiwei Yang, UC Santa Cruz; Yanpeng Hu, ShanghaiTech University;
+Xiaozheng Lai, South China University of Technology;
+Dan Williams, Virginia Tech; Andi Quinn, UC Santa Cruz
+https://www.usenix.org/conference/osdi25/presentation/zheng-yusheng
+
+This paper is included in the Proceedings of the 19th USENIX Symposium
+on Operating Systems Design and Implementation.
+July 7–9, 2025 • Boston, MA, USA
+ISBN 978-1-939133-47-2
+Open access to the Proceedings of the 19th USENIX Symposium
+on Operating Systems Design and Implementation is sponsored by
+
+Extending Applications Safely and Efficiently
 Yusheng Zheng
 UC Santa Cruz
 
@@ -52,6 +66,8 @@ To extend software, a developer defines new logic for the
 program as a set of extensions, and associates each extension with a specific location in the host application, called
 an extension entry. When a user invokes the application, the
 
+USENIX Association
+
 system loads the host application and the user’s configured
 extensions. Each time an application thread reaches an extension entry, the thread jumps to the associated extension. It
 executes the extension in the extension runtime context; once
@@ -85,6 +101,10 @@ only the minimal set of features their use cases require. For
 example, a deployment that supports observability extensions
 for debugging and monitoring may have different interconnectedness/safety needs than one that supports extensions
 for customizing application behavior. Unfortunately, current
+
+19th USENIX Symposium on Operating Systems Design and Implementation
+
+557
 
 extension frameworks poorly support specifying and enforcing such deployment-specific interconnectedness/safety tradeoffs. Many frameworks (e.g., safe language runtimes [23, 38],
 NaCl [75]) cannot express an interconnectedness/safety tradeoff. Instead, they rely on applications to enforce their own
@@ -122,6 +142,8 @@ Wasm [23], NaCl [75]) enforce safety and isolation using software fault isolatio
 execution [29].
 Our second contribution is bpftime, a new extension runtime that efficiently supports EIM and extension isolation
 using two design principles. First, the system uses lightweight
+
+558
 
 approaches to provide extension safety and isolation. It enforces the safety in an EIM specification without any runtime overhead using extended Berkeley Packet Filter (eBPF)style verification, and it enforces isolation with minimal overhead using ERIM-style intraprocess hardware-supported isolation [66, 72]. Second, bpftime introduces concealed extension entries, which improve efficiency by eliminating runtime overhead from extension entries that are not in use by
 a running process. Concealed extension entries use binary
@@ -165,6 +187,10 @@ enable bpftime’s performance advantages and demonstrate
 bpftime’s compatibility with eBPF.
 1 Note: eBPF uprobes do not support all bpftime features.
 2 available at https://github.com/eunomia-bpf/bpftime.
+
+19th USENIX Symposium on Operating Systems Design and Implementation
+
+USENIX Association
 
 2.1
 What extensions
@@ -248,6 +274,8 @@ the key properties of extension frameworks (2.3), discusses
 limitations of the current state-of-the-art (2.4), and articulates
 the threat model (2.5).
 
+USENIX Association
+
 2.2
 
 Web-Server Example
@@ -275,6 +303,10 @@ host state and executing host-defined functions. The Nginx
 example extension programs highlights both of these features:
 extensions in the observability use-case require read access
 to host state, while the firewall, load balancing, and statistics
+
+19th USENIX Symposium on Operating Systems Design and Implementation
+
+559
 
 Bug
 Bilibili [73]
@@ -338,6 +370,8 @@ Efficiency. Extensions should be efficient, i.e., execute at
 near-native speed, since they may be deployed on the hot path
 of production systems. For example, the Nginx load balancer
 
+560
+
 extension is invoked on the hot path for all user requests.
 
 2.4
@@ -379,6 +413,10 @@ Aspect-oriented programming.. Aspect-oriented programming allows extensions, but
 For example, if an AspectJ extension were exploited [34],
 the attacker would have unrestricted ability to observe and
 modify the original host application.
+
+19th USENIX Symposium on Operating Systems Design and Implementation
+
+USENIX Association
 
 2.5
 
@@ -434,6 +472,8 @@ specifies precise interconnectedness/safety tradeoffs (§3.2).
 3.1
 
 Development-time EIM Specification
+
+USENIX Association
 
 4
 
@@ -497,6 +537,10 @@ and return values, high-level semantic facts, and boolean operators over other c
 high-level fats about the function that an extension framework could support. Currently, EIM supports allocation facts
 indicating that a function’s return was allocated, IO facts in-
 
+19th USENIX Symposium on Operating Systems Design and Implementation
+
+561
+
 Extension_Class(
 name = " observeProcessBegin " ,
 3
@@ -552,6 +596,8 @@ development-time EIM specification, and a set of capabilities
 allowed by the class. An extension class’ allowed capabilities can include capabilities outlined in the development-time
 EIM specification, state capabilities over the arguments in the
 extension entry’s prototype, and resource capabilities, which
+
+562
 
 eBPF Program
 Source Code
@@ -635,6 +681,10 @@ enforces EIM safety/interconnectedness tradeoffs without imposing any runtime ov
 bpftime introduces concealed extension entries, which use
 binary rewriting [10, 14, 18, 70] to inject extensions into the
 
+19th USENIX Symposium on Operating Systems Design and Implementation
+
+USENIX Association
+
 host application so that extension entries are zero-cost when
 not in use by an extension.
 bpftime is compatible with eBPF: it provides nearly identical development model, execution models, and even reuses
@@ -687,6 +737,8 @@ development-time EIM specifications through the use of annotations. Namely, appl
 using a set of annotations that are based upon eBPF’s kfunc
 annotations [35] to specify state capabilities, function capabilities, and extension entries. During compilation, bpftime
 
+USENIX Association
+
 uses static analysis to extracts the development-time EIM
 specification from the annotations as well as symbol and type
 information from the application’s debug symbols. The system encodes the resulting specification at the binary level that
@@ -727,6 +779,10 @@ bpftime support for extension programs
 bpftime supports extension programs that are similar to those
 supported by traditional eBPF. A developer writes an eventbased program consisting of two parts: (1) a set of bpftime
 extensions and (2) a userspace control application that loads
+
+19th USENIX Symposium on Operating Systems Design and Implementation
+
+563
 
 and communicates with the extensions. Each user-defined
 extension specifies an associated extension class from EIM.
@@ -776,6 +832,8 @@ compiler passes the compiled extensions to the rewriter.
 
 straints, so our implementation falls back to using PREVAIL [19] for these.
 
+564
+
 The Rewriter. The rewriter uses ptrace to pause the host
 application and load the bpftime user runtime (§4.3) into it,
 which allows the system to support use-cases that extend
@@ -819,6 +877,10 @@ sets the extension’s memory permissions to be non-readable.
 The system is currently susceptible to the syscall-based attacks on ERIM [13], but could adopt Jenny’s syscall filtering
 defenses [56] to resolve the issue.
 bpftime Maps. Conventional eBPF provides maps to store
+
+19th USENIX Symposium on Operating Systems Design and Implementation
+
+USENIX Association
 
 state across extension invocations. Unfortunately, eBPF maps
 support access to userspace programs through expensive system calls. So, bpftime provides a new map implementation to
@@ -864,6 +926,8 @@ uprobes on SSL/TLS encryption and decryption functions in
 OpenSSL. It suffers from high overhead due to eBPF uprobe
 inefficiencies. bpftime’s automated uprobes and observability extension classes enable sslsniff to work on bpftime
 
+USENIX Association
+
 without requiring changes.
 Syscount. Syscount [3], another bcc tool, allows aggregating system call activity for a process on a running system by
 using system-wide extensions on sysenters and sysexits.
@@ -907,6 +971,10 @@ durability through a write-ahead log (called an Append-Only
 4 The second extension must operate in the kernel since non-extended
 
 processes may unlink a cached file.
+
+19th USENIX Symposium on Operating Systems Design and Implementation
+
+565
 
 1
 
@@ -990,6 +1058,8 @@ However, the performance of highly durable configurations (i.e., small values of
 manager tries another extension. The new extension, delayedfsync (Figure 5), extends the behavior of fdatasync so that
 it waits for the previous call to fdatasync. This design ensures that the system loses at most 2 updates. The extension
 
+566
+
 6
 
 Evaluation
@@ -1032,6 +1102,10 @@ wrk (8 threads, 64 connections, 30s tests, averaged over 20
 runs). Figure 6 shows throughput results: bpftime introduces
 2% overhead compared to native Nginx. In contrast, Lua and
 WebAssembly incur 11% and 12%, so bpftime achieves 5.5×
+
+19th USENIX Symposium on Operating Systems Design and Implementation
+
+USENIX Association
 
 Lua
 
@@ -1266,6 +1340,8 @@ increases from 1KB to 256KB (Figure 7). Without DeepFlow, the microservice achie
 responses and 47,000 requests/s for large responses. With
 DeepFlow using eBPF, throughput drops by up to 54%. bpftime improves DeepFlow throughput by at least a factor of
 
+USENIX Association
+
 Durability Tuning
 
 We evaluate the Durability Tuning use-case on System A and
@@ -1287,6 +1363,10 @@ by a factor of 1.51.
 Delayed-fsync presents a powerful configuration. On its
 own, delayed-fsync achieves a throughput of 40k requests/second, which is 4.15 times larger than the Redis alwayson’s
 throughput. Adding the fast notify user-kernel interaction further accelerates Redis to 65k request/second, more than 5
+
+19th USENIX Symposium on Operating Systems Design and Implementation
+
+567
 
 Test
 
@@ -1313,8 +1393,6 @@ Kernel
 
 Requests/sec
 
-2500
-
 5000
 
 7500
@@ -1329,15 +1407,12 @@ Requests/sec
 
 20000
 
-Requests per Second (RPS)
-
 Figure 10: syscount test with nginx
 
 Kernel Uprobe
 bpftime
 Native
 
-8000
 6000
 4000
 2000
@@ -1413,6 +1488,21 @@ shows the results on FUSE and with bpftime caching. We
 observe that the caching extension implemented with bpftime
 accelerates the latency of the workloads by a factor of up to
 2.4 orders of magnitude.
+Sslsniff
+
+We evaluate sslsniff on System B while monitoring Nginx.
+Using the wrk benchmark, configured with 4 threads, 512
+concurrent connections, and a 10-second test duration. The
+evaluation includes three configurations: native, sslsniff
+
+568
+
+2500
+
+Requests per Second (RPS)
+
+8000
+
 6.1.5
 
 19705
@@ -1439,13 +1529,6 @@ Untargeted
 Targeted
 
 bpftime
-
-Sslsniff
-
-We evaluate sslsniff on System B while monitoring Nginx.
-Using the wrk benchmark, configured with 4 threads, 512
-concurrent connections, and a 10-second test duration. The
-evaluation includes three configurations: native, sslsniff
 
 with eBPF, and sslsniff with bpftime. We measure nginx
 throughput when varying response size from 1 KB to 256
@@ -1481,19 +1564,24 @@ order of magnitude faster than comparable eBPF operations,
 since bpftime’s extension compiler can inline calls and does
 not require the address space of kernel eBPF
 
+19th USENIX Symposium on Operating Systems Design and Implementation
+
+USENIX Association
+
 Strcmp Match
 500,000
 400,000
 300,000
 200,000
 100,000
-0
 
 Log2
 4,000
 3,000
 2,000
 1,000
+0
+
 0
 
 Prime
@@ -1611,6 +1699,8 @@ reran the experiments with MPK isolation on and off, and
 did not observe a measurable difference in average extension
 execution.
 
+USENIX Association
+
 6.3
 
 bpftime Compatibility
@@ -1646,6 +1736,10 @@ Kernel Extensions. Many systems support kernel extensions [5, 9, 15, 58, 63]; no
 rich set of fine-grained interconnectedness/safety trradeoffs.
 Moreover, most [5,9,58,63] use SFI to enforce safety and isolation, which imposes runtime overhead. eBPF has emerged as
 the de facto extension framework in linux and is increasingly
+
+19th USENIX Symposium on Operating Systems Design and Implementation
+
+569
 
 used in academia [15, 76] and industry [4, 12]. eBPF provides
 an interface for specifying per hook interconnectedness/safety
@@ -1695,6 +1789,8 @@ References
 Ligatti. Control-flow integrity principles, implementations, and applications. ACM Trans. Inf. Syst. Secur.,
 13(1), nov 2009.
 
+570
+
 [2] Christoph Anneser, Nesime Tatbul, David Cohen, Zhenggang Xu, Prithviraj Pandian, Nikolay Laptev, and Ryan
 Marcus. Autosteer: Learned query optimization for any
 sql database. Proc. VLDB Endow., 16(12):3515–3527,
@@ -1738,6 +1834,10 @@ software fault isolation. In Proceedings of the ACM
 SIGOPS 22nd Symposium on Operating Systems Principles, SOSP ’09, page 45–58, New York, NY, USA, 2009.
 Association for Computing Machinery.
 
+19th USENIX Symposium on Operating Systems Design and Implementation
+
+USENIX Association
+
 [10] Buddhika Chamith, Bo Joel Svensson, Luke Dalessandro, and Ryan R. Newton.
 Instruction punning:
 lightweight instrumentation for x86-64. In Proceedings
@@ -1780,6 +1880,8 @@ Narodytska, Jorge A. Navas, Noam Rinetzky, Leonid
 Ryzhyk, and Mooly Sagiv. Simple and precise static
 analysis of untrusted linux kernel extensions. In Proceedings of the 40th ACM SIGPLAN Conference on Programming Language Design and Implementation, PLDI
 2019, page 1069–1084, New York, NY, USA, 2019. Association for Computing Machinery.
+
+USENIX Association
 
 [20] Cristiano Giuffrida, Călin Iorgulescu, and Andrew S.
 Tanenbaum. Mutable checkpoint-restart: automating
@@ -1825,6 +1927,10 @@ USENIX Symposium on Operating Systems Design and
 Implementation (OSDI 22), pages 633–648, Carlsbad,
 CA, July 2022. USENIX Association.
 
+19th USENIX Symposium on Operating Systems Design and Implementation
+
+571
+
 [32] Alan Jowett. Cross-platform instrumentation and introspection library written in c. https://github.com/
 Alan-Jowett/bpf_conformance/.
 [33] Sanidhya Kashyap, Changwoo Min, Byoungyoung Lee,
@@ -1862,6 +1968,8 @@ networks. In 2016 International Conference on Embedded Software (EMSOFT), pages 
 Customize firefox.
 https://addons.
 mozilla.org/en-US/developers/.
+
+572
 
 [44] Shravan Narayan, Craig Disselkoen, Tal Garfinkel,
 Nathan Froyd, Eric Rahm, Sorin Lerner, Hovav
@@ -1903,6 +2011,10 @@ Martin Schwarzl, Michael Schwarz, Stefan Mangard,
 and Daniel Gruss. Donky: Domain keys–efficient {InProcess} isolation for {RISC-V} and x86. In 29th
 USENIX Security Symposium (USENIX Security 20),
 pages 1677–1694, 2020.
+
+19th USENIX Symposium on Operating Systems Design and Implementation
+
+USENIX Association
 
 [58] Margo I. Seltzer, Yasuhiro Endo, Christopher Small, and
 Keith A. Smith. Dealing with disaster: Surviving misbehaved kernel extensions. In USENIX 2nd Symposium
@@ -1947,6 +2059,8 @@ User-Space file systems. In 15th USENIX Conference on
 File and Storage Technologies (FAST 17), pages 59–72,
 Santa Clara, CA, February 2017. USENIX Association.
 
+USENIX Association
+
 [68] IO Visor. bpftrace: High-level tracing language for linux
 ebpf. GitHub repository, 2023. https://github.com/
 iovisor/bpftrace.
@@ -1988,6 +2102,10 @@ In-Kernel storage functions with eBPF. In 16th USENIX
 Symposium on Operating Systems Design and Implementation (OSDI 22), pages 375–393, Carlsbad, CA,
 July 2022. USENIX Association.
 
+19th USENIX Symposium on Operating Systems Design and Implementation
+
+573
+
 [77] Xiangfeng Zhu, Guozhen She, Bowen Xue, Yu Zhang,
 Yongsu Zhang, Xuan Kelvin Zou, XiongChun Duan,
 Peng He, Arvind Krishnamurthy, Matthew Lentz,
@@ -1995,5 +2113,11 @@ Danyang Zhuo, and Ratul Mahajan. Dissecting overheads of service mesh sidecars. 
 2023 ACM Symposium on Cloud Computing, SoCC ’23,
 page 142–157, New York, NY, USA, 2023. Association
 for Computing Machinery.
+
+574
+
+19th USENIX Symposium on Operating Systems Design and Implementation
+
+USENIX Association
 
 

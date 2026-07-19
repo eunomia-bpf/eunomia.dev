@@ -24,6 +24,8 @@ import { fileURLToPath } from "node:url";
  *     remains active.
  *  4. `/projects/agentsight/*` (+ `/zh/`, `/en/` variants) — an intermediate
  *     local docs path now redirects to the root-level AgentSight section.
+ *     `/others/papers/*` similarly redirects to the root-level `/papers/`
+ *     section after the papers library moved out of `/others/`.
  *  5. Explicit renamed blog URLs — a few public links were published with
  *     title-derived slugs before the post title changed. Map those URLs to the
  *     current canonical route by source file so future title edits do not leave
@@ -531,6 +533,60 @@ function generateLegacyGpttraceRedirects() {
   return count;
 }
 
+function generateMovedPapersRedirects() {
+  const movedPaths = [
+    ["others/papers", "papers"],
+    ["others/papers/osdi20-brunella", "papers/osdi20-brunella"]
+  ];
+  // Source-document compatibility stubs that generateManifestSourceRedirects()
+  // used to emit while the manifest still contained the pre-move
+  // `others/papers/*` sources; keep those crawler-learned URLs alive.
+  const movedSourcePaths = [
+    ["others/papers/README.md", "papers", "en"],
+    ["others/papers/README/", "papers", "en"],
+    ["others/papers/README.zh.md", "papers", "zh"],
+    ["others/papers/README.zh/", "papers", "zh"],
+    ["others/papers/osdi20-brunella.md", "papers/osdi20-brunella", "en"]
+  ];
+  // Raw text extractions that moved with the library (the old bpftime txt was
+  // replaced by the official OSDI'25 extraction).
+  const movedAssetPaths = [
+    [
+      "/_content-assets/docs/others/papers/osdi20-brunella.txt",
+      "/_content-assets/docs/papers/osdi20-brunella.txt"
+    ],
+    [
+      "/_content-assets/docs/others/papers/uXDP__Frictionless_XDP_Deployments_in_Userspace___Camera_Ready.txt",
+      "/_content-assets/docs/papers/uXDP__Frictionless_XDP_Deployments_in_Userspace___Camera_Ready.txt"
+    ],
+    [
+      "/_content-assets/docs/others/papers/Extending_Applications_Safely_and_Efficiently.txt",
+      "/_content-assets/docs/papers/bpftime-osdi25.txt"
+    ]
+  ];
+  let count = 0;
+
+  for (const [from, to] of movedPaths) {
+    if (writeRedirect(`/${from}/`, `/${to}/`)) count += 1;
+    if (writeRedirect(`/en/${from}/`, `/${to}/`)) count += 1;
+    if (writeRedirect(`/zh/${from}/`, `/zh/${to}/`)) count += 1;
+  }
+
+  for (const [from, to, locale] of movedSourcePaths) {
+    const enTarget = `/${to}/`;
+    const zhTarget = `/zh/${to}/`;
+    if (writeRedirect(`/${from}`, locale === "zh" ? zhTarget : enTarget)) count += 1;
+    if (writeRedirect(`/en/${from}`, locale === "zh" ? zhTarget : enTarget)) count += 1;
+    if (writeRedirect(`/zh/${from}`, zhTarget)) count += 1;
+  }
+
+  for (const [from, to] of movedAssetPaths) {
+    if (writeRedirect(from, to)) count += 1;
+  }
+
+  return count;
+}
+
 function generateMovedAgentsightRedirects() {
   const movedPaths = [
     ["projects/agentsight", "agentsight"],
@@ -793,6 +849,7 @@ const deprecatedTutorialCount = generateDeprecatedTutorialRedirects();
 const explicitPathCount = generateExplicitPathRedirects();
 const gpttraceCount = generateLegacyGpttraceRedirects();
 const movedAgentsightCount = generateMovedAgentsightRedirects();
+const movedPapersCount = generateMovedPapersRedirects();
 const renamedBlogCount = generateRenamedBlogRedirects();
 const enCount = generateEnMirror();
 
@@ -801,6 +858,7 @@ console.log(
     `${blogDescendantCount} blog descendant redirects, ${sourcePathCount} source path redirects, ` +
     `${tutorialTreeCount} tutorial tree redirects, ${deprecatedTutorialCount} deprecated tutorial redirects, ` +
     `${explicitPathCount} explicit path redirects, ${gpttraceCount} GPTtrace redirects, ` +
-    `${movedAgentsightCount} moved AgentSight redirects, ${renamedBlogCount} renamed blog redirects, ` +
+    `${movedAgentsightCount} moved AgentSight redirects, ${movedPapersCount} moved papers redirects, ` +
+    `${renamedBlogCount} renamed blog redirects, ` +
     `and ${enCount} /en/ redirects in ${outDir}`
 );

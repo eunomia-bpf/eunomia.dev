@@ -181,6 +181,9 @@ nav:
     - wasm-bpf:
       - wasm-bpf/index.md
       - ... | wasm-bpf/**/*.md
+    - Papers:
+      - papers/README.md
+      - ... | papers/**/*.md
     - ... | others/**/*.md
 
 extra:
@@ -391,7 +394,7 @@ extra:
         href: /reports/
       - label: Research Notes
         label_zh: 研究笔记
-        href: /others/papers/
+        href: /papers/
   section_sidebars:
     GPTtrace:
       - title: AI and eBPF
@@ -718,7 +721,7 @@ extra:
         tag:
           en: Research
           zh: 研究
-        href: /others/papers/
+        href: /papers/
         image: /_content-assets/docs/assets/logo.png
         image_alt: Eunomia research
         description:
@@ -727,7 +730,7 @@ extra:
         links:
           - label: Research
             label_zh: 研究
-            href: /others/papers/
+            href: /papers/
           - label: OSDI 2025
             label_zh: OSDI 2025
             href: https://www.usenix.org/conference/osdi25/presentation/zheng-yusheng
@@ -1000,7 +1003,7 @@ extra:
         - key: papers
           label: Papers
           label_zh: 论文
-          href: /others/papers/
+          href: /papers/
         - key: ideas
           label: Ideas
           label_zh: Ideas
