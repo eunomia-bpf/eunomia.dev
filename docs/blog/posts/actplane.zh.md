@@ -36,7 +36,7 @@ description: ActPlane 是一个基于 eBPF 的 AI Agent 策略引擎，在操作
 | **工具层守卫**（MCP gateway、AgentSpec） | 在工具 API 层面拦截和授权 | Agent shell out、链接 SDK、spawn 子进程时完全绕过 |
 | **沙箱**（容器、VM、E2B、Daytona） | 隔离整个执行环境 | 全有或全无：无法表达"文件 A 只能通过脚本 A 访问"或"提交前跑测试" |
 
-CLAUDE.md、AGENTS.md、system prompt 是目前最普遍的约束方式，本质上是自然语言指令，依赖模型在推理时"记住并遵守"。问题出在"记住"两个字上。当对话超过数万 token，早期约束在注意力分配中被后续的用户指令和工具输出稀释，模型并非忘记了规则，而是规则在决策权重中的占比随上下文膨胀而下降。我们在 [AgentCgroup 的刻画实验](agentcgroup-characterization.md)中观察到，一个任务内 Agent 平均执行几十次工具调用，对话上下文增长到非常大，约束越早设定、对话越长，被有效遵守的概率越低。比遗忘更难防的是间接违反：Agent 被告知"不要删除文件"，于是它写了一个 Makefile target 里面包含 `rm -rf`，然后调用 `make clean`。从 Agent 视角看它执行的是一个构建命令，每个决策点都是局部合理的，但全局行为链却违反了最初的策略。Prompt 约束管的是 Agent 的意图表达，实际行为不在它的管辖范围。
+CLAUDE.md、AGENTS.md、system prompt 是目前最普遍的约束方式，本质上是自然语言指令，依赖模型在推理时"记住并遵守"。问题出在"记住"两个字上。当对话超过数万 token，早期约束在注意力分配中被后续的用户指令和工具输出稀释，模型并非忘记了规则，而是规则在决策权重中的占比随上下文膨胀而下降。我们在 [AgentCgroup 的刻画实验](https://eunomia.dev/zh/blog/2026/02/17/agentcgroup-characterization/)中观察到，一个任务内 Agent 平均执行几十次工具调用，对话上下文增长到非常大，约束越早设定、对话越长，被有效遵守的概率越低。比遗忘更难防的是间接违反：Agent 被告知"不要删除文件"，于是它写了一个 Makefile target 里面包含 `rm -rf`，然后调用 `make clean`。从 Agent 视角看它执行的是一个构建命令，每个决策点都是局部合理的，但全局行为链却违反了最初的策略。Prompt 约束管的是 Agent 的意图表达，实际行为不在它的管辖范围。
 
 那就往下沉一层，在工具调用 API 拦截？MCP gateway、[AgentSpec](https://arxiv.org/abs/2503.18666)、[Progent](https://arxiv.org/abs/2504.11703) 确实比 prompt 可靠得多：如果 Agent 调用 `file_write("/etc/passwd", ...)`，工具层直接拒绝，检查的是操作本身而非意图。但几乎所有 Agent 框架都提供 shell 工具，因为 Agent 需要跑构建、执行测试、调用第三方 CLI。一旦 Agent 拿到 bash，它可以写一个 Python 脚本，脚本内部 `subprocess.run(["curl", "-X", "POST", ...])` 把数据发到外部网络。工具层看到的是 `python script.py`，对脚本内部启动了什么子进程完全不知道，调用链可能有三四层深，工具层只看到第一层。更隐蔽的是 Agent 生成的代码直接链接数据库驱动或 HTTP 客户端库，这些操作在运行时发生，根本不经过任何工具调用路径。工具层的视野止于注册工具的入口，代码执行产生的副作用全在视野之外。
 

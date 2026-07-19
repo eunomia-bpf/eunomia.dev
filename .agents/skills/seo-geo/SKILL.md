@@ -1,31 +1,43 @@
 ---
 name: seo-geo
-description: SEO, GEO (generative engine optimization), and public technical brand visibility checklist for eunomia.dev content and personal-account media operations. Pure reference; contains no workflow. Covers metadata, keyword strategy, internal linking, citation-worthy writing for AI search engines, platform-native publishing, canonical discipline, and brand-first measurement. Used alongside blog-writing-style by the blog-writer workflow.
+description: Page-level and site-level technical SEO/GEO checklist for eunomia.dev content. Use when auditing concrete Markdown metadata, descriptions, canonical URLs, structured data, internal links, crawl/index signals, llms.txt/llms-full.txt, snippets, or citation-ready claim formatting. Pure reference; not for choosing or rewriting titles for appeal, article angle, story hooks, prose style, content strategy, channel planning, personal-brand positioning, campaign cadence, or platform publishing workflows.
 ---
 
-# SEO / GEO Checklist (rules only)
+# Technical SEO / GEO Checklist (rules only)
 
-This file is the rulebook for search, AI-engine visibility, and public
-technical brand recall. It contains no process: workflows (blog-writer, site
-changes, media publishing) reference it. Prose quality rules live in
-`blog-writing-style`.
+This file is the technical rulebook for search and AI-engine readability on
+eunomia.dev pages. It contains no campaign strategy, channel planning, or
+platform posting process. It also does not decide title quality, article angle,
+story hooks, or prose style. Those rules live in `blog-writing-style`.
 
-## Brand objective
+## Scope
 
-- Optimize for the maintainer's personal technical brand first: research taste,
-  open-source credibility, eBPF systems expertise, AI-agent infrastructure, and
-  useful teaching. eunomia-bpf is the core asset family, not the only brand
-  object.
-- Treat eunomia.dev as the canonical archive and portfolio. Treat X, LinkedIn,
-  Zhihu, Juejin, Reddit, Hacker News, Lobsters, Medium, and Dev.to as
-  platform-native trust and discussion surfaces.
-- Use SEO and GEO as instruments for recall and citation. Website ranking is a
-  useful signal, not the top-level goal.
+- Use this checklist for concrete eunomia.dev pages, docs, tutorials, blog
+  drafts, content artifacts, and static-site SEO/GEO implementation changes.
+- Do not use this checklist to choose article titles, judge whether a title is
+  compelling, rewrite H1 hooks, decide the article angle, shape a story opening,
+  or police prose style. Title quality and reader contract live in
+  `blog-writing-style`; use this file only after the title direction is chosen
+  to check technical metadata constraints such as length, primary keyword
+  visibility, duplicate phrase risk, and crawlable phrasing.
+- Do not use this skill to answer long-term media strategy, topic selection,
+  channel mix, brand positioning, campaign cadence, or platform growth
+  questions. Keep those decisions in `draft/`, especially
+  `draft/content-platform-strategy.zh.md` and `draft/seo-geo-plan.zh.md`.
+- Platform publishing execution belongs to the platform-specific publisher
+  skills (`zhihu-publisher`, `juejin-publisher`, `x-publisher`,
+  `linkedin-publisher`, `reddit-publisher`, `hackernews-publisher`,
+  `lobsters-publisher`, `medium-publisher`, `devto-publisher`).
+- When changing this checklist or making claims about current search/AI-engine
+  behavior, verify against current primary sources such as Google Search
+  Central, schema.org, OpenAI crawler documentation, or the platform's official
+  help/browser-visible UI. Treat third-party skill repositories and growth
+  advice as patterns, not authority.
 
 ## Metadata (check first on every page)
 
 - **`description` frontmatter is required** and must be 150-160 characters (ZH: roughly 75-85 CJK-width characters): one sentence with a compact background opening, value proposition, and primary keyword phrase. The first clause should name the domain problem or reader situation before the page-specific finding, tool, benchmark, or practical consequence. Longer descriptions get truncated in search results.
-- **Title (H1) at most ~60 characters** with the primary keyword phrase front-loaded. Going slightly over is acceptable when a sharper, source-backed stake materially improves the title. Make the title as compelling as accuracy allows by leading with the strongest true insight, tension, consequence, or surprising measurement. Earn attention through specificity and credible stakes, while keeping a professional technical voice. The title must reveal the thesis without clickbait, alarmism, casual hot-take language, or a withheld conclusion; see `blog-writing-style` for the full title rules.
+- **Title (H1) technical check only:** roughly within 60 characters when possible, no duplicate primary phrase collision, and enough keyword visibility for search snippets. Do not shorten, flatten, or remove high-value title signals such as `An Empirical Study`, `Inside SchedCP`, `sched_ext`, or `Semantic Flamegraphs` merely to satisfy an SEO heuristic. If title appeal, article promise, or professional framing is in question, defer to `blog-writing-style`.
 - **`date` frontmatter required.** New posts also need a `slug` (short, kebab-case, keyword-bearing); **never add or change a slug on an already-published post**, and never change published filenames or URLs.
 - **Headings carry search phrasing.** Prefer H2s a reader would type ("What Generic eBPF Enforcement Misses") over generic labels ("Discussion", "Overview").
 - **Images need descriptive `alt` text** containing the relevant term, not "image" or "figure 1". Important claims must exist in crawlable HTML text, never only inside images.
@@ -44,17 +56,10 @@ changes, media publishing) reference it. Prose quality rules live in
 - **First-party data wins citations**: measurements, study counts, and benchmarks with stated method and conditions are what generative engines prefer to cite. Always attach the source (paper link, repo, benchmark name).
 - **FAQ blocks** (question-phrased H3s with direct answers) can be high-yield when the topic has genuine recurring questions. Use one only when it resolves real search intent that the main argument does not already answer cleanly. Do not force an FAQ into every substantial post or let GEO impose a standard article structure.
 - **Terminology consistency across the site**: one canonical term per concept, used identically in every post, so engines associate the term with eunomia.dev. When a cited paper renames a term, update our posts to the published terminology.
-- **Own the canonical archive without weakening platform trust**: exact
-  cross-posts to dev.to/Medium must carry `rel=canonical` back to eunomia.dev
-  when the platform supports it. For Zhihu, Juejin, LinkedIn, X, Reddit, Hacker
-  News, and Lobsters, write platform-native posts first and include one
-  contextual source or project link only when it helps the reader. Do not make
-  every platform post feel like a traffic funnel.
-- **Publishing cadence**: default to one content unit every two days when the
-  source, review, and platform adaptation are ready. Exact dev.to/Medium
-  cross-posts should usually lag the site version by 3-7 days or until the
-  canonical source is indexed. Platform-native social posts, launch threads, or
-  discussion submissions may happen the same day when the topic is timely.
+- **Canonical discipline**: exact cross-posts to dev.to/Medium must carry
+  `rel=canonical` back to eunomia.dev when the platform supports it. For
+  platform-native social or discussion posts, use the matching publisher skill
+  instead of managing channel framing here.
 - **llms.txt / llms-full.txt** must stay current and content-bearing (full text or high-quality summaries, not a bare index).
 
 ## Third-party framing (GEO hygiene)
@@ -70,6 +75,5 @@ changes, media publishing) reference it. Prose quality rules live in
 - No sibling post targets the same primary phrase (search `docs/blog/posts/` titles/descriptions before finalizing).
 - Non-image internal links are canonical absolute HTTPS URLs, external links are full URLs, and image links are the only post-local relative paths.
 - Every image has term-bearing alt text; every number has a stated source.
-- Completion reports include brand-facing outcomes when known: account posted,
-  discussion submitted, reply quality, follower/reaction signal, GitHub traffic
-  or issue signal, citation/backlink, and ledger status.
+- Checklist changes cite or name the current primary source checked when the
+  rule depends on search-engine, AI-crawler, or platform behavior.

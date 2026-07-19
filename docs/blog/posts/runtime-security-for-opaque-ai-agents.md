@@ -518,6 +518,6 @@ and enforcement layers respectively.
 - [OpenClaw Security Analysis](https://arxiv.org/html/2603.27517v2)
 - [SentinelOne: OneClaw Discovery and Observability](https://www.sentinelone.com/blog/oneclaw-discovery-and-observability-for-the-agentic-era/)
 - [Epsilla: ClawTrace Agent Observability](https://www.epsilla.com/blogs/clawtrace-launch-openclaw-agent-observability)
-- [AgentSight blog post](agentsight_paper.md)
+- [AgentSight blog post](https://eunomia.dev/blog/2025/08/26/agentsight-keeping-your-ai-agents-under-control-with-ebpf-powered-system-observability/)
 - [AgentSight repository](https://github.com/eunomia-bpf/agentsight/)
 - [ActPlane repository](https://github.com/eunomia-bpf/ActPlane)

@@ -1,12 +1,12 @@
 ---
 date: 2026-07-10
 slug: schedcp-agentic-linux-scheduler
-description: SchedCP gives AI agents a controlled path from workload intent to verified sched_ext policies, achieving up to 1.79x performance improvement and 13x lower optimization cost in the paper's evaluation.
+description: Linux scheduler tuning turns workload intent into measured tradeoffs, and SchedCP gives AI agents a verified sched_ext loop with 1.79x gains at 13x lower cost.
 ---
 
 # Can an AI Agent Tune the Linux Scheduler? Inside SchedCP
 
-Load a throughput-oriented scheduler and a parallel Linux kernel build may finish sooner. Keep the same policy for `schbench`, and wake-up latency can move in the wrong direction. Both runs keep the CPUs busy, so the scheduler's counters do not explain which outcome the operator values. The missing input is the workload's goal.
+A scheduler that makes a Linux kernel build faster can make `schbench` latency worse. Both runs may show busy CPUs, but the operator cares about throughput in one case and wake-up latency in the other, so an AI agent cannot tune the scheduler safely until workload intent becomes part of the control loop.
 
 An AI agent can read a request such as "reduce tail latency without starving the batch jobs" and turn it into an experiment. Giving that agent an unrestricted root shell also lets one hallucinated command, broken configuration, or invalid scheduler end the experiment before it produces useful feedback. Generated kernel policy code still needs to compile, pass safety checks, deploy correctly, and improve the target workload under measurement.
 

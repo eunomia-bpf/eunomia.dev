@@ -1,12 +1,12 @@
 ---
 date: 2026-07-10
 slug: schedcp-agentic-linux-scheduler
-description: SchedCP 为 AI Agent 建立一条从 workload 意图到经过验证的 sched_ext 策略的受控路径，在论文评测中实现最高 1.79x 性能提升，并把优化成本降低 13x。
+description: Linux 调度器调优要明确 workload 目标，SchedCP 用 sched_ext 验证闭环，让 AI Agent 获得 1.79x 提升并降低 13x 成本。
 ---
 
 # 让 AI Agent 调优 Linux 调度器：SchedCP 如何接入 sched_ext
 
-加载一个面向吞吐量的 scheduler，并行编译 Linux kernel 可能更快完成。把同一策略直接用于 `schbench`，wake-up latency 却可能朝相反方向变化。两次运行都让 CPU 保持繁忙，scheduler counters 无法说明 operator 更在意哪一个结果，缺失的输入是 workload goal。
+一个让 Linux kernel build 更快的调度策略，换到 `schbench` 上可能反而拉高唤醒延迟。两次运行都能让 CPU 忙起来，但运维者在前者关心吞吐量，在后者关心唤醒时间，所以 AI agent 要安全调优调度器，必须先把工作负载目标放进控制闭环。
 
 AI Agent 可以理解“降低 tail latency，同时避免 batch jobs 饥饿”这样的请求，再把它转换成实验。一个不受限制的 root shell 也会放大错误，一条幻觉命令、损坏的配置或无效 scheduler 都可能让实验在产生有效反馈前结束。生成的 kernel policy code 仍需成功编译、通过安全检查、正确部署，并在测量中改善目标 workload。
 

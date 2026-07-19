@@ -739,11 +739,11 @@ The text-based folded stack format provides multiple advantages over binary alte
 
 ### Internal Documentation
 
-- [`src/README.md`](src/README.md) - Source code overview
-- [`src/collectors/bpf/README.md`](src/collectors/bpf/README.md) - BPF collector details
-- [`src/stores/README.md`](src/stores/README.md) - GPU kernel store internals
-- [`docs/README.pvc.md`](docs/README.pvc.md) - PVC-specific setup (if exists)
-- [`docs/README.bmg.md`](docs/README.bmg.md) - Battlemage-specific setup (if exists)
+- [`src/README.md`](https://github.com/intel/iaprof/blob/main/src/README.md) - Source code overview
+- [`src/collectors/bpf/README.md`](https://github.com/intel/iaprof/blob/main/src/collectors/bpf/README.md) - BPF collector details
+- [`src/stores/README.md`](https://github.com/intel/iaprof/blob/main/src/stores/README.md) - GPU kernel store internals
+- [`docs/README.pvc.md`](https://github.com/intel/iaprof/blob/main/docs/README.pvc.md) - PVC-specific setup (if exists)
+- [`docs/README.bmg.md`](https://github.com/intel/iaprof/blob/main/docs/README.bmg.md) - Battlemage-specific setup (if exists)
 
 ## Flame Graph Generation Pipeline
 
