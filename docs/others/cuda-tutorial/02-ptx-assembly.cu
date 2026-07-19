@@ -83,19 +83,29 @@ __global__ void kernelWithCooperativeGroups(int* a, int* b, int* result, int n) 
 __global__ void kernelWithInternalFunctionPointer(int* a, int* b, int* result, int n) {
     // Set up function pointer on device
     void (*func)(int*, int*, int*, int) = device_vector_add_func;
-    
-    int idx = blockIdx.x * blockDim.x + threadIdx.x;
-    if (idx < n && func != nullptr) {
-        // Call the function pointer - but this calls the entire kernel for each thread
-        // which is not what we want. Let's just call it for the whole array from thread 0
-        if (idx == 0) {
-            func(a, b, result, n);
-        }
+
+    // Every launched thread calls the device function, which applies its own bounds check
+    if (func != nullptr) {
+        func(a, b, result, n);
     }
 }
 
+bool verifyVectorAdd(const int* a, const int* b, const int* result, int n) {
+    for (int i = 0; i < n; i++) {
+        int expected = a[i] + b[i];
+        if (result[i] != expected) {
+            printf("Verification failed at element %d: expected %d, got %d\n",
+                   i, expected, result[i]);
+            return false;
+        }
+    }
+
+    printf("Verification passed for all %d elements\n\n", n);
+    return true;
+}
+
 // Host function to demonstrate different approaches
-void demonstrateDevicePTXCalls() {
+bool demonstrateDevicePTXCalls(bool cooperative_launch_supported) {
     const int n = 1000;
     int *h_a, *h_b, *h_result;
     int *d_a, *d_b, *d_result;
@@ -128,7 +138,8 @@ void demonstrateDevicePTXCalls() {
     printf("1. Kernel with inline PTX assembly:\n");
     int blockSize = 256;
     int numBlocks = (n + blockSize - 1) / blockSize;
-    
+
+    cudaMemset(d_result, 0, size);
     kernelCallingPTX<<<numBlocks, blockSize>>>(d_a, d_b, d_result, n);
     cudaDeviceSynchronize();
     
@@ -138,25 +149,45 @@ void demonstrateDevicePTXCalls() {
     for (int i = 0; i < 5; i++) {
         printf("%d+%d=%d ", h_a[i], h_b[i], h_result[i]);
     }
-    printf("\n\n");
+    printf("\n");
+    bool all_results_valid = verifyVectorAdd(h_a, h_b, h_result, n);
     
     // Method 2: Cooperative Groups
     printf("2. Kernel with Cooperative Groups:\n");
     void* kernelArgs[] = {(void*)&d_a, (void*)&d_b, (void*)&d_result, (void*)&n};
-    
-    cudaLaunchCooperativeKernel((void*)kernelWithCooperativeGroups, 
-                               numBlocks, blockSize, kernelArgs, 0, 0);
-    cudaDeviceSynchronize();
-    
-    cudaMemcpy(h_result, d_result, size, cudaMemcpyDeviceToHost);
-    printf("First 5 results: ");
-    for (int i = 0; i < 5; i++) {
-        printf("%d+%d=%d ", h_a[i], h_b[i], h_result[i]);
+
+    if (!cooperative_launch_supported) {
+        printf("Skipped: this device does not support cooperative launch\n\n");
+    } else {
+        cudaMemset(d_result, 0, size);
+        cudaError_t launch_status = cudaLaunchCooperativeKernel(
+            (void*)kernelWithCooperativeGroups,
+            numBlocks, blockSize, kernelArgs, 0, 0);
+        if (launch_status != cudaSuccess) {
+            fprintf(stderr, "Cooperative kernel launch failed: %s\n\n",
+                    cudaGetErrorString(launch_status));
+            all_results_valid = false;
+        } else {
+            cudaError_t sync_status = cudaDeviceSynchronize();
+            if (sync_status != cudaSuccess) {
+                fprintf(stderr, "Cooperative kernel execution failed: %s\n\n",
+                        cudaGetErrorString(sync_status));
+                all_results_valid = false;
+            } else {
+                cudaMemcpy(h_result, d_result, size, cudaMemcpyDeviceToHost);
+                printf("First 5 results: ");
+                for (int i = 0; i < 5; i++) {
+                    printf("%d+%d=%d ", h_a[i], h_b[i], h_result[i]);
+                }
+                printf("\n");
+                all_results_valid &= verifyVectorAdd(h_a, h_b, h_result, n);
+            }
+        }
     }
-    printf("\n\n");
     
     // Method 2.5: Function Pointer Approach
     printf("2.5. Kernel with function pointer:\n");
+    cudaMemset(d_result, 0, size);
     kernelWithInternalFunctionPointer<<<numBlocks, blockSize>>>(d_a, d_b, d_result, n);
     cudaDeviceSynchronize();
     
@@ -165,7 +196,8 @@ void demonstrateDevicePTXCalls() {
     for (int i = 0; i < 5; i++) {
         printf("%d+%d=%d ", h_a[i], h_b[i], h_result[i]);
     }
-    printf("\n\n");
+    printf("\n");
+    all_results_valid &= verifyVectorAdd(h_a, h_b, h_result, n);
     
     // Cleanup
     free(h_a);
@@ -174,6 +206,8 @@ void demonstrateDevicePTXCalls() {
     cudaFree(d_a);
     cudaFree(d_b);
     cudaFree(d_result);
+
+    return all_results_valid;
 }
 
 // Traditional PTX loading approach (host-side)
@@ -190,39 +224,56 @@ std::string readPTXFile(const char* filename) {
     return content;
 }
 
-void demonstrateHostPTXLoading() {
+bool demonstrateHostPTXLoading() {
     printf("=== Traditional Host-side PTX Loading ===\n");
     
     // Initialize CUDA Driver API
     CUresult result = cuInit(0);
     if (result != CUDA_SUCCESS) {
         printf("Error: Failed to initialize CUDA Driver API\n");
-        return;
+        return false;
     }
     
     // Get CUDA device and create context
     CUdevice device;
     CUcontext context;
-    cuDeviceGet(&device, 0);
-    cuCtxCreate(&context, 0, device);
+    result = cuDeviceGet(&device, 0);
+    if (result != CUDA_SUCCESS) {
+        printf("Error: Failed to get CUDA device\n");
+        return false;
+    }
+
+    result = cuCtxCreate(&context, 0, device);
+    if (result != CUDA_SUCCESS) {
+        printf("Error: Failed to create CUDA context\n");
+        return false;
+    }
     
     // Load PTX module
     std::string ptxSource = readPTXFile("vector_add.ptx");
     if (ptxSource.empty()) {
         printf("Failed to read PTX file\n");
-        return;
+        cuCtxDestroy(context);
+        return false;
     }
     
     CUmodule module;
     result = cuModuleLoadData(&module, ptxSource.c_str());
     if (result != CUDA_SUCCESS) {
         printf("Error: Failed to load PTX module\n");
-        return;
+        cuCtxDestroy(context);
+        return false;
     }
     
     // Get function and execute
     CUfunction function;
-    cuModuleGetFunction(&function, module, "vector_add_ptx");
+    result = cuModuleGetFunction(&function, module, "vector_add_ptx");
+    if (result != CUDA_SUCCESS) {
+        printf("Error: Failed to find vector_add_ptx in PTX module\n");
+        cuModuleUnload(module);
+        cuCtxDestroy(context);
+        return false;
+    }
     
     const int n = 1000;
     size_t size = n * sizeof(int);
@@ -244,7 +295,9 @@ void demonstrateHostPTXLoading() {
     
     cuMemcpyHtoD(d_a, h_a, size);
     cuMemcpyHtoD(d_b, h_b, size);
-    
+
+    cuMemsetD8(d_result, 0, size);
+
     // Launch PTX kernel from host
     void* args[] = { (void*)&d_a, (void*)&d_b, (void*)&d_result, (void*)&n };
     cuLaunchKernel(function, (n + 255) / 256, 1, 1, 256, 1, 1, 0, nullptr, args, nullptr);
@@ -256,7 +309,8 @@ void demonstrateHostPTXLoading() {
     for (int i = 0; i < 5; i++) {
         printf("%d+%d=%d ", h_a[i], h_b[i], h_result[i]);
     }
-    printf("\n\n");
+    printf("\n");
+    bool results_valid = verifyVectorAdd(h_a, h_b, h_result, n);
     
     // Cleanup
     free(h_a);
@@ -266,6 +320,9 @@ void demonstrateHostPTXLoading() {
     cuMemFree(d_b);
     cuMemFree(d_result);
     cuModuleUnload(module);
+    cuCtxDestroy(context);
+
+    return results_valid;
 }
 
 int main() {
@@ -286,8 +343,13 @@ int main() {
     printf("\n");
     
     // Demonstrate different approaches
-    demonstrateDevicePTXCalls();
-    demonstrateHostPTXLoading();
+    bool device_calls_valid = demonstrateDevicePTXCalls(prop.cooperativeLaunch);
+    bool host_ptx_valid = demonstrateHostPTXLoading();
+
+    if (!device_calls_valid || !host_ptx_valid) {
+        fprintf(stderr, "One or more PTX demonstrations failed validation\n");
+        return 1;
+    }
     
     printf("=== Summary ===\n");
     printf("Methods for calling PTX from GPU kernels:\n");

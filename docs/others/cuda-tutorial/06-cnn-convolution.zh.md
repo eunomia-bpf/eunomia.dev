@@ -91,8 +91,8 @@ __global__ void convolutionDirectKernel(
 {
     int x = blockIdx.x * blockDim.x + threadIdx.x;
     int y = blockIdx.y * blockDim.y + threadIdx.y;
-    int k = blockIdx.z; // 输出通道
-    int b = threadIdx.z; // 批次索引
+    int k = blockIdx.z % kernelCount; // 输出通道
+    int b = blockIdx.z / kernelCount; // 批次索引
 
     if (x >= outputSize || y >= outputSize || k >= kernelCount || b >= batchSize)
         return;
@@ -118,7 +118,7 @@ __global__ void convolutionDirectKernel(
 }
 ```
 
-核 k 的线程 (x, y) 计算该滤波器的输出位置 (x, y)。它从输入读取 5×5 块，与核逐元素相乘，并求和结果。
+核 k 的线程 (x, y) 计算该滤波器的输出位置 (x, y)。网格的 z 维包含 `batchSize * kernelCount` 个线程块，因此每个线程块都从 `blockIdx.z` 解出一个批次和输出通道，同时将线程块保持为 8×8 个线程。它从输入读取 5×5 块，与核逐元素相乘，并求和结果。
 
 这能工作，但内存效率很差。看看相邻线程执行时发生什么。计算输出 (0, 0) 的线程读取输入像素 (0,0) 到 (4,4)。计算输出 (0, 1) 的线程读取输入像素 (0,1) 到 (4,5)。这些重叠了！像素 (0,1) 到 (0,4) 从全局内存读取了两次。
 

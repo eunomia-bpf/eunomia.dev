@@ -91,8 +91,8 @@ __global__ void convolutionDirectKernel(
 {
     int x = blockIdx.x * blockDim.x + threadIdx.x;
     int y = blockIdx.y * blockDim.y + threadIdx.y;
-    int k = blockIdx.z; // Output channel
-    int b = threadIdx.z; // Batch index
+    int k = blockIdx.z % kernelCount; // Output channel
+    int b = blockIdx.z / kernelCount; // Batch index
 
     if (x >= outputSize || y >= outputSize || k >= kernelCount || b >= batchSize)
         return;
@@ -118,7 +118,7 @@ __global__ void convolutionDirectKernel(
 }
 ```
 
-Thread (x, y) for kernel k computes output position (x, y) for that filter. It reads a 5×5 patch from the input, multiplies element-wise with the kernel, and sums the results.
+Thread (x, y) for kernel k computes output position (x, y) for that filter. The z grid dimension contains `batchSize * kernelCount` blocks, so each block decodes one batch and output channel from `blockIdx.z` while keeping the thread block at 8×8 threads. It reads a 5×5 patch from the input, multiplies element-wise with the kernel, and sums the results.
 
 This works, but has terrible memory efficiency. Look at what happens when adjacent threads execute. Thread computing output (0, 0) reads input pixels (0,0) through (4,4). Thread computing output (0, 1) reads input pixels (0,1) through (4,5). These overlap! Pixels (0,1) through (0,4) are read twice from global memory.
 

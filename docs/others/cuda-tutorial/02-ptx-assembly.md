@@ -247,7 +247,7 @@ make 02-ptx-assembly
 ./02-ptx-assembly
 ```
 
-The program demonstrates different PTX techniques including inline assembly, device function pointers, and cooperative groups. Study the output to understand how each approach works.
+The program demonstrates different PTX techniques including inline assembly, device function pointers, and cooperative groups. Each executed device-side method clears the output buffer first and validates all 1,000 results, so an incomplete launch cannot be hidden by values left by an earlier method. Devices without cooperative-launch support report that method as skipped.
 
 ## Understanding PTX Instruction Types
 

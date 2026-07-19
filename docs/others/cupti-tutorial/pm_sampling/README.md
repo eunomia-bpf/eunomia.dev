@@ -74,42 +74,21 @@ This creates the `pm_sampling` executable for performance monitoring.
 
 ### Sample Output
 
+The sample prints the metric names selected for the current GPU and their raw
+values for each sampling interval. Metric availability and numeric values vary
+with the GPU architecture, driver, CUDA toolkit, and workload, so the following
+is an example of the output format rather than a fixed expected result:
+
 ```
-=== Performance Monitor Sampling Results ===
-
-Kernel: vectorAdd
-Performance Metrics Analysis:
-
-Compute Efficiency:
-  SM Efficiency: 87.5%
-  Achieved Occupancy: 0.73
-  Instructions per Warp: 128.4
-  IPC (Instructions per Clock): 1.85
-  Branch Efficiency: 94.2%
-
-Memory Performance:
-  DRAM Utilization: 45.8%
-  L2 Cache Hit Rate: 78.9%
-  Global Memory Hit Rate: 82.3%
-  Texture Cache Hit Rate: N/A
-  Shared Memory Efficiency: 89.4%
-
-Throughput Metrics:
-  Global Load Throughput: 156.7 GB/s
-  Global Store Throughput: 142.3 GB/s
-  DRAM Read Throughput: 89.5 GB/s
-  DRAM Write Throughput: 76.2 GB/s
-
-Performance Analysis:
-  ✓ Good SM utilization (87.5% > 80%)
-  ⚠ Memory bandwidth underutilized (45.8% < 60%)
-  ✓ Excellent cache performance (78.9% L2 hit rate)
-  ✓ Minimal branch divergence (94.2% efficiency)
-
-Optimization Suggestions:
-  - Increase memory access intensity to better utilize bandwidth
-  - Consider memory access pattern optimization
-  - Current compute/memory balance favors compute-bound workloads
+Sample Index: 1
+Timestamps -> Start: [1756129650195534770] 	End: [1756129650195540050]
+-----------------------------------------------------------------------------------
+sm__cycles_active.avg                                                  13330.620
+sm__inst_executed_realtime.avg.per_cycle_active                            0.097
+gpu__time_duration.sum                                                  5280.000
+gr__cycles_elapsed.max                                                 10001.000
+gr__cycles_active.avg                                                  10001.000
+-----------------------------------------------------------------------------------
 ```
 
 ## Code Architecture
@@ -616,4 +595,4 @@ public:
 - Experiment with different metric combinations to identify bottlenecks
 - Integrate continuous monitoring into your development and production workflows
 - Develop custom analysis algorithms for your specific performance requirements
-- Combine PM sampling with other CUPTI features for comprehensive performance analysis 
+- Combine PM sampling with other CUPTI features for comprehensive performance analysis

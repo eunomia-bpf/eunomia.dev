@@ -104,8 +104,8 @@ __global__ void convolutionDirectKernel(
     // Calculate output position
     int x = blockIdx.x * blockDim.x + threadIdx.x;
     int y = blockIdx.y * blockDim.y + threadIdx.y;
-    int k = blockIdx.z; // Output channel (kernel number)
-    int b = threadIdx.z; // Batch index
+    int k = blockIdx.z % kernelCount; // Output channel (kernel number)
+    int b = blockIdx.z / kernelCount; // Batch index
     
     // Check bounds
     if (x >= outputSize || y >= outputSize || k >= kernelCount || b >= batchSize)
@@ -173,8 +173,8 @@ __global__ void convolutionSharedKernel(
     int ty = threadIdx.y;
     int bx = blockIdx.x;
     int by = blockIdx.y;
-    int k = blockIdx.z; // Output channel (kernel number)
-    int b = threadIdx.z; // Batch index
+    int k = blockIdx.z % kernelCount; // Output channel (kernel number)
+    int b = blockIdx.z / kernelCount; // Batch index
     
     // Output coordinates
     int out_x = bx * tileSize + tx;
@@ -332,11 +332,11 @@ void forwardCNN(
     cudaEventCreate(&stop);
     
     // 1. Convolution Layer
-    dim3 blockDim(8, 8, BATCH_SIZE); // Each block processes 8x8 output elements for all batches
+    dim3 blockDim(8, 8); // Each block processes an 8x8 output tile for one batch and output channel
     dim3 gridDim(
         (OUTPUT_SIZE + blockDim.x - 1) / blockDim.x,
         (OUTPUT_SIZE + blockDim.y - 1) / blockDim.y,
-        KERNEL_COUNT
+        BATCH_SIZE * KERNEL_COUNT
     );
     
     cudaEventRecord(start);
@@ -361,6 +361,7 @@ void forwardCNN(
             PADDING, STRIDE
         );
     }
+    CHECK_CUDA_ERROR(cudaGetLastError());
     
     cudaEventRecord(stop);
     cudaEventSynchronize(stop);
@@ -544,4 +545,4 @@ int main() {
     cudaFree(d_pooling_output_shared);
     
     return 0;
-} 
+}
