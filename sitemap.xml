@@ -2171,6 +2171,20 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/wasm-bpf/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/papers/</loc>
+    <lastmod>2026-07-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/papers/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/papers/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/papers/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/papers/</loc>
+    <lastmod>2026-07-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/papers/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/papers/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/papers/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/about/</loc>
     <lastmod>2026-05-23</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/about/" />
@@ -2410,14 +2424,14 @@
   </url>
   <url>
     <loc>https://eunomia.dev/agentsight/</loc>
-    <lastmod>2026-07-16</lastmod>
+    <lastmod>2026-07-19</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/agentsight/</loc>
-    <lastmod>2026-07-16</lastmod>
+    <lastmod>2026-07-19</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/" />
@@ -2452,14 +2466,14 @@
   </url>
   <url>
     <loc>https://eunomia.dev/agentsight/usage/</loc>
-    <lastmod>2026-07-16</lastmod>
+    <lastmod>2026-07-18</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/usage/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/usage/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/usage/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/agentsight/usage/</loc>
-    <lastmod>2026-07-16</lastmod>
+    <lastmod>2026-07-18</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/usage/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/usage/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/usage/" />
@@ -4039,34 +4053,6 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/nvbit-tutorial/tools/record_reg_vals/" />
   </url>
   <url>
-    <loc>https://eunomia.dev/others/papers/osdi20-brunella/</loc>
-    <lastmod>2025-10-07</lastmod>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/others/papers/osdi20-brunella/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/others/papers/osdi20-brunella/" />
-    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/papers/osdi20-brunella/" />
-  </url>
-  <url>
-    <loc>https://eunomia.dev/zh/others/papers/osdi20-brunella/</loc>
-    <lastmod>2025-10-07</lastmod>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/others/papers/osdi20-brunella/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/others/papers/osdi20-brunella/" />
-    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/papers/osdi20-brunella/" />
-  </url>
-  <url>
-    <loc>https://eunomia.dev/others/papers/</loc>
-    <lastmod>2026-07-11</lastmod>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/others/papers/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/others/papers/" />
-    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/papers/" />
-  </url>
-  <url>
-    <loc>https://eunomia.dev/zh/others/papers/</loc>
-    <lastmod>2026-07-11</lastmod>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/others/papers/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/others/papers/" />
-    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/papers/" />
-  </url>
-  <url>
     <loc>https://eunomia.dev/others/usecases/</loc>
     <lastmod>2024-10-02</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/others/usecases/" />
@@ -4079,6 +4065,20 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/others/usecases/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/others/usecases/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/usecases/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/papers/osdi20-brunella/</loc>
+    <lastmod>2026-07-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/papers/osdi20-brunella/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/papers/osdi20-brunella/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/papers/osdi20-brunella/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/papers/osdi20-brunella/</loc>
+    <lastmod>2026-07-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/papers/osdi20-brunella/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/papers/osdi20-brunella/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/papers/osdi20-brunella/" />
   </url>
   <url>
     <loc>https://eunomia.dev/projects/</loc>

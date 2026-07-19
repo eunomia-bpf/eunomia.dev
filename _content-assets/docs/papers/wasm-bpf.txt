@@ -1,0 +1,712 @@
+arXiv:2408.04856v1 [cs.OS] 9 Aug 2024
+
+WASM - BPF: Streamlining eBPF Deployment in Cloud
+Environments with WebAssembly
+Yusheng Zheng
+
+Tong Yu
+
+eunomia-bpf Community
+China
+yunwei356@gmail.com
+
+eunomia-bpf Community
+China
+yunwei356@gmail.com
+
+Yiwei Yang
+
+Andrew Quinn
+
+UC Santa Cruz
+China
+yyang363@ucsc.edu
+
+UC Santa Cruz
+USA
+aquinn@ucsc.edu
+
+ABSTRACT
+The extended Berkeley Packet Filter (eBPF) is extensively
+utilized for observability and performance analysis in cloudnative environments. However, deploying eBPF programs
+across a heterogeneous cloud environment presents challenges, including compatibility issues across different kernel
+versions, operating systems, runtimes, and architectures. Traditional deployment methods, such as standalone containers
+or tightly integrated core applications, are cumbersome and
+inefficient, particularly when dynamic plugin management
+is required. To address these challenges, we introduce Universal BPF (Wasm-bpf), a lightweight runtime on WebAssembly (Wasm) and the WebAssembly System Interface (WASI).
+Leveraging Wasm’s platform independence and WASI’s standardized system interface, with enhanced relocation for different architectures, Wasm-bpf ensures cross-platform compatibility for eBPF programs. It simplifies deployment by
+integrating with container toolchains, allowing eBPF programs to be packaged as Wasm modules that can be easily
+managed within cloud environments. Additionally, Wasmbpf supports dynamic plugin management in WebAssembly.
+Our implementation and evaluation demonstrate that Wasmbpf introduces minimal overhead compared to native eBPF
+implementations while simplifying the deployment process.
+
+1
+
+INTRODUCTION
+
+The extended Berkeley Packet Filter (eBPF) has emerged as
+a powerful technology for observability and performance in
+cloud-native environments[11, 26, 27, 31–33]. By enabling
+the execution of custom bytecode within the kernel, eBPF
+provides a versatile mechanism for monitoring and modifying system behavior without requiring kernel modifications.
+This capability is particularly valuable in containerized and
+cloud ecosystems where dynamism and scalability are critical.
+
+However, deploying eBPF programs heterogeneously at
+scale presents several significant challenges. eBPF runtimes
+extend beyond the Linux kernel, encompassing environments such as Windows[7] and FreeBSD kernels, as well as
+userspace eBPF runtimes like ubpf[13], rbpf[24], and bpftime[30].
+Additionally, eBPF must be compatible across multiple operating system versions, each with unique kernel data structures, eBPF features, and capabilities, resulting in inconsistent application behavior. Although Compile Once - Run
+Everywhere (CO-RE) support can mitigate some issues, it
+also introduces further complexity to the deployment process.
+Current methods for deploying eBPF programs in containers are often inefficient and cumbersome. Standalone
+containers, commonly used for eBPF deployment, do not
+optimize for the typically small and namespace-unaware nature of eBPF programs, leading to resource inefficiencies and
+management difficulties. Large-scale projects like Cilium[2],
+Pixie[12], Tetragon[3], and Deepflow[27] often integrate
+monitoring or management tools directly within the core
+application or "control plane", which can complicate management, especially in dynamic environments requiring frequent
+updates. Comprehensive observability agents like Deepflow
+necessitate dynamic plugin management to adapt to varying
+scenarios, a feature not adequately supported by traditional
+tools. Alternatively, some approaches use Remote Procedure
+Calls (RPCs) to interface between control plane applications
+and dedicated BPF daemons, as seen in tools like bpfman[5],
+Inspektor-Gadget[6], and bpfd[8]. While effective for specific
+eBPF tools, these methods are better suited for smaller-scale
+deployments and do not fully address broader compatibility
+and scalability issues.
+To illustrate, consider a scenario where we need to monitor
+network traffic across a heterogeneous cloud environment
+with nodes running different kernels and instruction sets.
+These nodes might include older versions of Linux that do
+not natively support eBPF, newer versions of Linux with full
+
+Conference’17, July 2017, Washington, DC, USA
+
+eBPF support, Windows, and servers with diverse architectures such as ARM64 and x86. To ensuring that the observed
+data is aware of container metadata and correlates with other
+data sources, such as API requests, developers may integrate
+this monitoring as a plugin with observability agents like
+Deepflow allows for comprehensive data collection and correlation. With traditional methods, deploying eBPF programs
+in this diverse environment would require significant effort
+to ensure compatibility across different kernels and architectures. This process could involve building and maintaining
+separate versions of eBPF programs for each environment,
+leading to increased complexity and potential errors.
+To address these challenges, we introduce Wasm-bpf, a
+lightweight runtime based on WebAssembly (Wasm) [4, 9,
+25] and the WebAssembly System Interface (WASI) [1]. Wasmbpf is designed to streamline the distribution and compatibility of eBPF programs in cloud-native environments. By
+leveraging Wasm’s platform independence and designing
+a standardized system interface based on WASI, Wasm-bpf
+ensures seamless cross-platform compatibility for both eBPF
+and control-plane programs. It includes WebAssembly libraries for C, Go, and Rust toolchains, and provides runtime
+support for loading and executing eBPF programs from the
+Wasm module. Wasm-bpf features an automatic mechanism
+for selecting appropriate runtimes—whether in the kernel or
+userspace—and supports various eBPF features such as ring
+buffers and perf events. Additionally, Wasm-bpf enhances
+Compile Once - Run Everywhere (CO-RE) capabilities, ensuring support across different architectures and runtimes,
+without serialization overhead for complex data types shared
+between user-space Wasm runtime and kernel eBPF runtime.
+Moreover, Wasm-bpf integrates seamlessly with container
+toolchains, simplifying the deployment and orchestration of
+eBPF programs within cloud environments. This integration
+addresses the complexities associated with current deployment methods, offering a more efficient and scalable solution.
+In summary, our contributions are:
+• Heterogeneous Platform Compatibility: Wasmbpf introduces a lightweight runtime ensuring compatibility across different architectures and operating systems for both eBPF and control-plane programs, based
+on standard WASI and Wasm. It includes features like
+arch-aware relocation, automatic BTF preparing and
+facilitates selecting between different runtimes and
+eBPF features. It can run various eBPF programs with
+binary compatible on different OS and runtimes.
+• Minor Performance Overhead We analyze the additional overhead introduced by the compatibility layer,
+including costs associated with BPF syscalls, ring buffer
+handling, and initialization latency.
+
+Yusheng Zheng, Tong Yu, Yiwei Yang, and Andrew Quinn
+
+• Faster and Easier Deployment Wasm-bpf integrates
+seamlessly with container toolchains, simplifying the
+deployment and orchestration of eBPF programs in
+cloud-native environments.
+
+2
+
+BACKGROUND
+
+This section overviews eBPF and WebAssembly (Wasm) applications and their importance in cloud computing environments.
+
+2.1
+
+eBPF application
+
+Initially developed for the Linux kernel to execute custom
+bytecode, eBPF has expanded to userspace runtimes like
+ubpf[13], rbpf[24], and bpftime[30], as well as in other operating system kernels such as Windows[18] and FreeBSD[10].
+An eBPF application typically consists of kernel bytecode
+and a userspace control plane application that loads this
+bytecode into the kernel and communicates through eBPF
+maps. The userspace application loads the eBPF bytecode, attaches it to the tracepoint sched_wakeup, creates BPF maps
+for communication, and periodically reads these maps to
+print the histogram. This structure allows dynamic and flexible interaction between userspace applications and eBPF
+programs running within the kernel.
+
+2.2
+
+Wasm and WASI
+
+WebAssembly (Wasm)[4] is a binary instruction format designed for safe and efficient execution of code across different environments. Originally developed for web browsers,
+Wasm has evolved to support a wide range of applications
+beyond the browser, including server-side[28, 29], embedded systems[23] and containers[17]. Its key advantages include platform independence, security through sandboxing,
+and near-native performance. By compiling programs into a
+portable binary format, Wasm ensures that they can run consistently across diverse architectures and operating systems
+without requiring source code modifications. This makes
+Wasm an ideal foundation for building cross-platform compatibility layers, such as Wasm-bpf.
+The WebAssembly System Interface (WASI) extends the
+capabilities of Wasm by providing a standardized API for
+interacting with the underlying operating system. WASI
+abstracts system-level functionalities such as file and network I/O, enabling Wasm modules to perform operations
+that would otherwise require platform-specific code. This
+abstraction layer allows developers to write code that is both
+portable and powerful, leveraging the full capabilities of the
+host environment while maintaining cross-platform compatibility.
+
+WASM - BPF: Streamlining eBPF Deployment in Cloud Environments with WebAssembly
+
+3
+
+EBPF DEPLOYMENT CHALLENGES
+
+This section outlines key challenges in deploying eBPF programs, including compatibility issues, cloud deployment
+complexities, and versioning difficulties.
+
+3.1
+
+Compatibility issues Across Different
+Runtimes and Architectures
+
+eBPF was initially designed for the Linux kernel, but its utility has led to implementations in other environments, such as
+Windows[18] and FreeBSD kernels[10], as well as userspace
+runtimes. Despite these diverse and heterogeneous runtimes
+adhering to the same instruction standard, they lack a unified standard for loading and deploying eBPF programs. Each
+operating system and runtime employs different methods to
+load eBPF bytecode. For instance, Linux utilizes bpf-related
+syscalls that directly accept eBPF bytecode. The eBPF-forWindows project provides source code level compatibility
+with the Linux kernel and a libbpf API, but still requires some
+code modifications to most applications. Userspace runtimes
+like uBPF and rBPF do not support using libbpf as a loader,
+making them incompatible with existing control plane applications. Different runtimes also support different features.
+For example, uprobe can be used by userspace eBPF runtimes
+and the Linux kernel but is not available on Windows. Additionally, varying support for eBPF features like ring buffers
+or perf events across different Linux versions complicates deployment. The lack of a standardized method for recognizing
+and distributing these features further complicates deployment. The Compile Once - Run Everywhere (CO-RE)[19]
+addresses varying kernel version issues by using BPF Type
+Format (BTF)[15] data, allowing eBPF programs to adapt dynamically and run on any compatible kernel without source
+code modifications, but this is still limited.
+Compatibility across architectures introduces additional
+complexities, such as the kprobe and uprobe eBPF program
+uses pt_regs, a structure that varies between different architectures. Differences in data structure layouts, endianness,
+and pointer widths also pose challenges.
+
+3.2
+
+Deployment challenges in Cloud
+Environments
+
+Orchestrating the lifecycle of eBPF programs in the cloud is
+complex, involving various states such as loading, attaching,
+detaching, and unloading eBPF programs.
+One common strategy is tight integration, where monitoring or management tools are integrated within the control plane application. This approach, used by projects like
+Cilium[2], Pixie[12], Tetragon[3], and Deepflow[27], allows
+seamless interaction with system internals for efficient observation and manipulation of low-level operations. However,
+
+Conference’17, July 2017, Washington, DC, USA
+
+it has drawbacks. Deploying smaller eBPF tools or probes using traditional containers can be resource-consuming. This
+method often requires extensive permissions, posing security risks due to its extensive privileges[11]. More granular
+capabilities like CAP_PERFMON and CAP_BPF have been
+introduced, but they still lack namespace constraints. Managing multi-user environments can also lead to conflicts where
+one eBPF program overrides another, resulting in silent failures or unpredictable behavior.
+An alternative strategy is using Remote Procedure Calls
+(RPCs) to communicate between the control plane application and a dedicated BPF daemon. Tools like bpfman[5],
+Inspektor-Gadget[6], and bpfd[8] use this approach. The
+BPF daemon manages the BPF lifecycle and permissions, decoupling the BPF functionality from the application. While
+this adds a layer of abstraction, it also introduces challenges.
+The addition of a critical component in production increases
+the risk of failures, making troubleshooting and debugging
+more difficult. Maintaining consistency during updates can
+be problematic; when new kernel features are introduced,
+both the kernel dependency and the daemon need updates,
+which can delay the adoption of new capabilities. This model
+also imposes an additional support burden, as loaders must
+be compatible with tight integration and daemon delegation
+scenarios, complicating the upgrade or downgrade process
+and potentially leading to compatibility issues. Furthermore,
+operating system distributions or cloud providers may introduce different daemons, leading to a fragmented ecosystem.
+
+3.3
+
+Challenges with Versioning and
+Pluggability
+
+Current eBPF tight coupling deployments make it difficult to
+version the eBPF program independently from its userspace
+counterpart. For example, suppose users must customize
+eBPF programs to track new proprietary protocols or analyze encrypted traffic with a specific userspace library. In
+that case, they must recompile the eBPF program and the
+userspace library, release a new version, and redeploy. This
+process becomes even more complex when the developer of
+the observability agent and the end user are from different
+organizations, as the developer may not have access to the
+proprietary protocols.
+Additionally, the lack of a standardized method for packaging and distributing eBPF programs leads to inconsistencies
+and management difficulties. Each user or organization may
+develop their own approach, resulting in fragmented and incompatible deployments. This lack of versioning and pluggability affects the flexibility and adaptability of eBPF programs,
+making updates cumbersome and error-prone. Without a
+modular and versioned approach, users cannot easily roll
+
+Conference’17, July 2017, Washington, DC, USA
+
+Host
+Application
+(Optional)
+
+Wasm module/WasmeBPF program #1
+#1 eBPF
+Bytecode
+
+#2 eBPF
+
+Wasm
+runtime
+
+Attach
+
+Load
+eBPF
+maps
+
+Yusheng Zheng, Tong Yu, Yiwei Yang, and Andrew Quinn
+
+eBPF Runtime
+
+eBPF ring
+buffer
+
+JIT
+read /
+write
+
+Uprobe
+
+Verifier
+Verify
+
+vm
+
+eBPF
+Events
+
+Compile
+
+Kprobe
+Machine
+Code
+
+Load
+
+tp
+xdp
+Sockets
+
+Figure 1: The runtime of Wasm-bpf
+
+back to previous versions in case of issues, increasing the
+risk associated with deploying updates.
+
+4
+
+DESIGN OF WASM-BPF
+
+This section details the design of Wasm-bpf, which can package the eBPF application, include userspace control-plane
+code into a Wasm module, and deploy it either as a standalone container and utilizing existing container tools to
+deploy eBPF programs, or as an embedded runtime, managing eBPF application plugins within host applications.
+
+4.1
+
+Architecture Overview
+
+The architecture of Wasm-bpf addresses the challenges associated with deploying eBPF programs across diverse environments, managing their lifecycle in containers, and handling versioning and pluggability. Wasm-bpf includes a WebAssembly (Wasm) library, toolchain, and runtime support
+for loading and executing eBPF programs, ensuring a consistent execution environment regardless of the underlying
+platform. Figure 1 illustrates the runtime architecture of
+Wasm-bpf.
+In the runtime, a Wasm module can correspond to multiple
+eBPF programs. An eBPF program instance can be dynamically loaded into the kernel from the Wasm sandbox. This
+allows the selection of the desired attach point and control
+over the lifecycle of multiple eBPF bytecode objects. Wasmbpf supports various types of maps and enables bidirectional
+communication with the kernel, including support for most
+map types. It efficiently transfers information between kernel and user space through ring buffers polling (or vice versa)
+and map accesses. Wasm-bpf is adaptable to nearly all use
+cases involving eBPF programs and can evolve and extend
+as kernel functionality evolves.
+
+Figure 2: Wasm-bpf’s ABI design
+
+4.2 Wasm-bpf ABI Design
+The ABI (Application Binary Interface) for Wasm-bpf is designed to facilitate interaction between the Wasm runtime
+and eBPF programs. The ABI exports functions to the WebAssembly System Interface (WASI), the code snippet below
+illustrates the ABI functions provided by Wasm-bpf.
+We define the WASI ABI interface in Figure 2 to ensure
+standardized interactions between eBPF programs and the
+Wasm runtime environment. The ABI functions cover operations such as loading eBPF objects, attaching eBPF programs
+to kernel hooks, polling eBPF buffers, and performing map
+operations. This design allows for robust and flexible management of eBPF programs within Wasm-bpf, enabling their
+deployment and operation across various environments with
+minimal friction.
+
+4.3
+
+Cross-Platform Compatibility
+
+While eBPF instructions themselves are inherently crossplatform, the userspace control applications that interact
+with the runtime are typically native binaries. This can lead
+to compatibility issues across different platforms. Wasm-bpf
+addresses this challenge by leveraging WebAssembly (Wasm)
+and the WebAssembly System Interface (WASI) for userspace
+control plane applications, creating a robust and portable
+compatibility layer.
+To ensure cross-platform access to function parameters in
+kprobe contexts, Wasm-bpf incorporates a specific Compile
+Once – Run Everywhere (CO-RE) [19] relocation pass for
+kprobe function parameters. This involves replacing pt_regs
+data structures with newer architecture-specific versions and
+modifying the BTF[15] information of the program. Consequently, Wasm-bpf can provide consistent access to function
+parameters in pt_regs across different platforms.
+
+WASM - BPF: Streamlining eBPF Deployment in Cloud Environments with WebAssembly
+
+Conference’17, July 2017, Washington, DC, USA
+
+Wasm-bpf automatically selects the appropriate runtime—whether
+inherently 64-bit, differences in data structure layouts, enin the kernel or userspace—and eBPF features to handle the
+dianness, and pointer widths can pose challenges. In the
+varying capabilities of different environments. This selection
+Wasm-bpf project, communication between Wasm and eBPF
+process ensures optimal performance and compatibility by
+virtual machines is optimized to eliminate the need for seriadapting to the target environment’s specific characteristics.
+alization and deserialization. Utilizing code generation techFor instance, in a Linux environment, Wasm-bpf checks the
+niques and support for BTF information in the toolchain,
+kernel configuration and version to determine the available
+Wasm-bpf ensures correct communication across different
+kernel features and then utilizes the suitable ones. Exammemory layouts with negligible runtime overhead. Data
+ples include using ring buffers to pass events to userspace in
+can be directly copied from kernel space to the Wasm virnewer kernel versions and using perf events in older kernel
+tual machine’s memory, avoiding the additional overhead of
+versions. If kernel eBPF is not available and the eBPF promultiple data transfers. Additionally, automatically generatgram is intended for uprobe, Wasm-bpf can automatically
+ing eBPF program skeletons and type definitions enhances
+use bpftime[30] as the userspace runtime.
+the development experience, making it more efficient and
+Wasm-bpf also enhances the CO-RE capabilities by indeveloper-friendly.
+corporating mechanisms to ensure compatibility across different runtimes. This includes automatic BTF downloading
+in the runtime to ensure that necessary BTF data is avail5 EVALUATION
+able on the host, and provide BTF for userspace eBPF runWe implemented Wasm-bpf using approximately 1386 lines
+times and host applications. As for a rich tapestry of kernel
+of Rust code and 510 lines of C++ code to answer the followfeature-interoperability issues, we require minor updates to
+ing research questions: the effectiveness of Wasm-bpf and
+the Wasm runtime code to make them compatible.
+its compatibility. The toolchain includes a modified version
+Wasm-bpf integrates seamlessly with container toolchains[14] of bpftool, which generates eBPF skeletons for development
+and Kubernetes. By replacing the standard containerd-shim
+and facilitates serialization-free communication between the
+with ctrd-wasmedge-shim and adhering to the specified imeBPF runtime and the Wasm runtime. To enable the develplementation, Wasm-bpf enables eBPF programs to be packopment of eBPF programs within a Wasm environment, we
+aged as Open Container Initiative[20] (OCI) images and manimplemented the Wasm-bpf library in C, Go, and Rust (e.g.,
+aged using standard container tools, streamlining the worklibbpf-wasm). This library interacts with the WASI interface
+flow for deploying and maintaining eBPF programs within
+and loads eBPF bytecode into the eBPF runtime. Additionally,
+cloud environments.
+we built the Wasm-bpf runtime on top of WasmEdge[16],
+
+4.4
+
+Versioning and Pluggability
+
+Leveraging Wasm toolchains, Wasm-bpf packages eBPF applications into Wasm OCI images and uses the ORAS [21]
+tools to simplify storage and distribution in cloud environments. This standardized approach ensures consistent behavior across environments and simplifies large-scale management. The Wasm component model [22] describes how wasm
+binary modules interact, allowing Wasm-bpf applications to
+function as versioned plugins or libraries. This modularity
+facilitates updates and customizations without needing to
+recompile and redeploy the entire application. Independent
+versioning reduces deployment risks, enhances adaptability,
+and makes it easier to roll back to previous versions if issues
+arise.
+
+4.5
+
+Performance Considerations
+
+Ensuring minimal performance overhead while facilitating
+robust communication between Wasm and eBPF environments is a critical aspect of Wasm-bpf. Given that Wasm
+can operate in both 32-bit and 64-bit modes, while eBPF is
+
+enabling interaction with the eBPF runtime and integration
+with container tools.
+Our evaluation focuses on the following research questions:
+• RQ1: How effective is Wasm-bpf at running control
+plane eBPF applications compared to native?
+• RQ2: How does the start-up latency and binary size
+of Wasm-bpf compare to standalone container deployments?
+• RQ3: What is the compatibility of the eBPF programs
+across different platforms?
+
+5.1
+
+Effectiveness
+
+The test environment includes an Intel Xeon E5-2697v2
+@ 3.5GHz, with kernel version 6.6. We conducted microbenchmarks to evaluate the performance of Wasm-bpf compared to native eBPF implementations in Table 2. Map Access measures the average time to access eBPF maps via
+syscall in both Wasm and native environments. Ring Buffer
+Polling measures the average latency per event for ring
+
+Conference’17, July 2017, Washington, DC, USA
+
+Yusheng Zheng, Tong Yu, Yiwei Yang, and Andrew Quinn
+
+Program
+Linux 5.5 Linux 6.10 Linux 6.10 arm64 Windows Userspace eBPF
+bootstrap
+-/O
+X/O
+X/O
+-/-/lsm
+-/X/O
+X/O
+-/-/opensnoop
+X/O
+X/O
+X/O
+-/-/O
+sockops
+X/O
+X/O
+X/O
+-/O
+-/kprobe
+X/O
+X/O
+-/O
+-/-/uprobe
+X/O
+X/O
+-/O
+-/-/O
+xdp
+X/O
+X/O
+X/O
+-/-/O
+Table 1: Compatibility matrix showing support for various eBPF programs and features across different platforms
+for both native and Wasm-bpf implementations.
+
+buffer polling operations in both Wasm and native environments. The results show that the Wasm abstraction introduces acceptable overhead compared to the native environment.
+Benchmark
+Wasm (avg ns) Native (avg ns)
+Map Access
+1885.26
+1117.43
+Ring Buffer Polling
+3186.83
+1509.18
+Table 2: Micro benchmark results for map access and
+ring buffer polling operations comparing Wasm and
+native environments.
+
+5.2
+
+Program
+Docker Size Wasm Size
+bootstrap
+1.3M
+72K
+execve
+1.3M
+37K
+lsm
+1.3M
+46K
+opensnoop
+1.3M
+64K
+runqlat
+1.3M
+92K
+sockfilter
+1.3M
+47K
+sockops
+1.3M
+49K
+uprobe
+1.3M
+45K
+xdp
+1.3M
+44K
+rust-bootstrap
+5.0M
+1.7M
+tcpconnlat-libbpf-rs
+5.1M
+1.8M
+Table 4: Binary sizes of native and Wasm eBPF programs.
+
+Container Deployment
+
+We measured the start-up latency using the bootstrap program, from the start of the container to the loading and
+attaching of eBPF programs. The results are presented in
+Table 3.
+Wasm Lightweight Container Docker
+0.176
+0.656
+Table 3: Start-up latency for loading and attaching eBPF
+programs using the bootstrap program.
+
+We also compared the binary sizes of Docker and Wasm
+eBPF programs, considering the size of the minimal image for
+container deployments. The results are shown in Table 4. The
+results indicate that Wasm-based programs are significantly
+smaller compared to docker, making them more suitable for
+lightweight container deployments.
+
+5.3
+
+Compatibility
+
+To evaluate the compatibility of Wasm-bpf, we tested various
+eBPF programs across different platforms, including multiple
+Linux versions, Windows, and userspace eBPF environments.
+The platforms considered include Linux 5.5, Linux 6.10, Linux
+6.10 on ARM64 architecture, Windows, and userspace eBPF.
+
+The matrix in Table 1 provides a view of the support for each
+eBPF program in both native and Wasm-bpf environments.
+The symbols used in the table are "X" for native eBPF and
+"O" for Wasm-bpf, while "-" indicates that the platform is
+not applicable.
+The compatibility results demonstrate that Wasm-bpf can
+effectively run a wide range of eBPF programs across different platforms, ensuring binary-level compatibility.
+
+6
+
+RELATED WORK
+
+WALI[25] extends the WebAssembly System Interface (WASI)
+by providing an interface for Wasm and the Linux kernel
+space to share resources. It supports various system calls,
+including execv and fork, along with auxiliary data. This
+extension enables a new class of virtualization where WebAssembly modules can interact with the host system more
+effectively. WebAssembly’s control flow integrity guarantees provide an additional level of protection against remote
+code injection attacks for modules using WALI. Furthermore,
+capability-based APIs can be virtualized and implemented in
+
+WASM - BPF: Streamlining eBPF Deployment in Cloud Environments with WebAssembly
+
+terms of WALI, enhancing reuse and robustness through better layering. Our work efficiently extends the eBPF program
+to the WASI layer for getting all the toolchain benefits.
+
+7
+
+CONCLUSION
+
+This paper introduced Wasm-bpf, a system leveraging WebAssembly (Wasm) and the WASI’s standardized system
+interface to address the challenges of deploying eBPF programs across diverse environments. Wasm-bpf ensures crossplatform compatibility, eliminates serialization overhead and
+introduces minimal overhead. It integrates seamlessly with
+container tools, simplifying the deployment and orchestration of eBPF programs within containerized ecosystems.
+
+REFERENCES
+[1] W. author. Wasi: Webassembly system interface. GitHub repository,
+2023. https://github.com/WebAssembly/WASI.
+[2] C. Authors. Cilium hubble: Network, service and security observability
+for kubernetes using ebpf, 2023. https://github.com/cilium/hubble.
+[3] T. Authors. Tetragon: ebpf-based security observability and runtime
+enforcement, 2023. https://tetragon.io/.
+[4] W. Authors. Webassembly specifications, 2024. https://webassembly.
+github.io/spec/.
+[5] bpfman. An ebpf manager for linux and kubernetes, 2024. https:
+//github.com/bpfman/bpfman.
+[6] bpfman. The ebpf tool and systems inspection framework for kubernetes, containers and linux hosts, 2024. https://github.com/inspektorgadget/inspektor-gadget.
+[7] eBPF for Windows Contributors. ebpf for windows, 2023. https:
+//github.com/microsoft/ebpf-for-windows.
+[8] genuinetools. The ebpf tool and systems inspection framework for
+kubernetes, containers and linux hosts., 2024. https://github.com/
+genuinetools/bpfd.
+[9] A. Haas, A. Rossberg, D. L. Schuff, B. L. Titzer, M. Holman, D. Gohman,
+L. Wagner, A. Zakai, and J. Bastien. Bringing the web up to speed with
+webassembly. In Proceedings of the 38th ACM SIGPLAN Conference on
+Programming Language Design and Implementation, pages 185–200,
+2017.
+[10] Y. Hayakawa. Ebpf implementation for freebsd, 2024. https:
+//papers.freebsd.org/2018/bsdcan/hayakawa-ebpf_implementation_
+for_freebsd/.
+[11] Y. He, R. Guo, Y. Xing, X. Che, K. Sun, Z. Liu, K. Xu, and Q. Li. Cross
+container attacks: The bewildered {eBPF} on clouds. In 32nd USENIX
+Security Symposium (USENIX Security 23), pages 5971–5988, 2023.
+[12] N. R. Inc. Pixie labs homepage, 2023. https://px.dev/.
+[13] iovisor. Userspace ebpf vm, 2024. https://github.com/iovisor/ubpf.
+[14] M. Irwin. Introducing the docker+wasm technical preview, 2024. https:
+//www.docker.com/blog/docker-wasm-technical-preview/.
+[15] L. kernel maintainers. Bpf type format (btf), 2024. https://docs.kernel.
+org/bpf/btf.html.
+[16] J. Long, H.-Y. Tai, S.-T. Hsieh, and M. J. Yuan. A lightweight design for
+serverless function as a service. IEEE Software, 38(1):75–80, 2020.
+[17] N. Mäkitalo, T. Mikkonen, C. Pautasso, V. Bankowski, P. Daubaris,
+R. Mikkola, and O. Beletski. Webassembly modules as lightweight
+containers for liquid iot applications. In International Conference on
+Web Engineering, pages 328–336. Springer, 2021.
+[18] microsoft. ebpf for windows, 2024. https://github.com/microsoft/ebpffor-windows.
+
+Conference’17, July 2017, Washington, DC, USA
+
+[19] nakryiko. Bpf co-re reference guide, 2024. https://nakryiko.com/posts/
+bpf-core-reference-guide/.
+[20] opencontainers. Oci image format, 2024. https://github.com/
+opencontainers/image-spec.
+[21] oras project. Oci registry client - managing content like artifacts,
+images, packages, 2024. https://github.com/oras-project/oras.
+[22] W. org. Repository for design and specification of the component
+model, 2024. https://github.com/WebAssembly/component-model.
+[23] N. Pereira, A. Rowe, M. W. Farb, I. Liang, E. Lu, and E. Riebling. Arena:
+The augmented reality edge networking architecture. In 2021 IEEE
+International Symposium on Mixed and Augmented Reality (ISMAR),
+pages 479–488. IEEE, 2021.
+[24] qmonnet. Rust virtual machine and jit compiler for ebpf programs,
+2024. https://github.com/qmonnet/rbpf.
+[25] A. Ramesh, T. Huang, B. L. Titzer, and A. Rowe. Stop hiding the
+sharp knives: The webassembly linux interface. arXiv preprint
+arXiv:2312.03858, 2023.
+[26] B. Sharma and D. Nadig. ebpf-enhanced complete observability solution for cloud-native microservices.
+[27] J. Shen, H. Zhang, Y. Xiang, X. Shi, X. Li, Y. Shen, Z. Zhang, Y. Wu,
+X. Yin, J. Wang, et al. Network-centric distributed tracing with deepflow: Troubleshooting your microservices in zero code. In Proceedings
+of the ACM SIGCOMM 2023 Conference, pages 420–437, 2023.
+[28] S. Shillaker and P. Pietzuch. Faasm: Lightweight isolation for efficient stateful serverless computing. In 2020 USENIX Annual Technical
+Conference (USENIX ATC 20), pages 419–433, 2020.
+[29] S. Shillaker, C. Segarra, E. Mappoura, M. Fournial, L. Vilanova, and
+P. Pietzuch. Faabric: Fine-grained distribution of scientific workloads
+in the cloud. arXiv preprint arXiv:2302.11358, 2023.
+[30] Y. Zheng, T. Yu, Y. Yang, Y. Hu, X. Lai, and A. Quinn. bpftime: userspace
+ebpf runtime for uprobe, syscall and kernel-user interactions. arXiv
+preprint arXiv:2311.07923, 2023.
+[31] Y. Zhong, H. Li, Y. J. Wu, I. Zarkadas, J. Tao, E. Mesterhazy, M. Makris,
+J. Yang, A. Tai, R. Stutsman, and A. Cidon. XRP: In-Kernel storage
+functions with eBPF. In 16th USENIX Symposium on Operating Systems
+Design and Implementation (OSDI 22), pages 375–393, Carlsbad, CA,
+July 2022. USENIX Association. ISBN 978-1-939133-28-1. URL https:
+//www.usenix.org/conference/osdi22/presentation/zhong.
+[32] Y. Zhou, Z. Wang, S. Dharanipragada, and M. Yu. Electrode: Accelerating distributed protocols with {eBPF}. In 20th USENIX Symposium
+on Networked Systems Design and Implementation (NSDI 23), pages
+1391–1407, 2023.
+[33] Y. Zhou, X. Xiang, M. Kiley, S. Dharanipragada, and M. Yu. {DINT}:
+Fast {In-Kernel} distributed transactions with {eBPF}. In 21st USENIX
+Symposium on Networked Systems Design and Implementation (NSDI
+24), pages 401–417, 2024.
+
+

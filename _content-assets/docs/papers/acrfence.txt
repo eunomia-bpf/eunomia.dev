@@ -1,0 +1,423 @@
+ACRFence: Preventing Semantic Rollback Attacks in
+Agent Checkpoint-Restore
+Yusheng Zheng1 , Yiwei Yang1 , Wei Zhang2 , Andi Quinn1
+1 UC Santa Cruz
+
+2 University of Connecticut
+
+{yzhen165, yyang363, aquinn1}@ucsc.edu, wei.13.zhang@uconn.edu
+
+arXiv:2603.20625v1 [cs.CR] 21 Mar 2026
+
+Abstract
+
+User
+
+1
+
+Agent
+
+Bank
+
+Bob’s MCP
+
+“Transfer $500 to Bob”
+
+LLM agent frameworks increasingly offer checkpoint-restore
+for error recovery and exploration, advising developers to
+make external tool calls safe to retry. This advice assumes
+that a retried call will be identical to the original, an assumption that holds for traditional programs but fails for
+LLM agents, which re-synthesize subtly different requests
+after restore. Servers treat these re-generated requests as
+new, enabling duplicate payments, unauthorized reuse of
+consumed credentials, and other irreversible side effects; we
+term these semantic rollback attacks. We identify two attack
+classes, Action Replay and Authority Resurrection, validate
+them in a proof of concept experiment, and find that the
+problem has been independently reported across framework
+communities. We propose ACRFence, a framework-agnostic
+mitigation that records irreversible tool effects and enforces
+replay-or-fork semantics upon restoration.
+
+CHECKPOINT
+
+transfer(ref=a1b2c3d4)
+Success, balance=$9500
+confirm receipt()
+malformed response → CRASH
+RESTORE to CHECKPOINT
+
+transfer(ref=f9a8b7c6)
+Success, balance=$9000
+Result:
+$1000 transferred
+(Bob gets 2×)
+
+Agent’s view:
+“I transferred once”
+
+ref changed!
+a1b2..→f9a8..
+
+Bank’s reality:
+Two transactions
+with different IDs
+
+Figure 1. Action Replay attack. A malicious payee (Bob)
+controls an MCP service in the agent’s tool chain and triggers
+a crash after a successful transfer. After restore, the LLM
+regenerates a different reference ID, so the bank accepts the
+retried call as a new transaction.
+
+Background and Motivation
+
+LLM agents. LLM agents are increasingly interacting with
+external services through tool calls [41, 42, 44], performing consequential real-world actions, including transferring
+money, provisioning cloud resources, and deleting customer
+data. To support error recovery, exploration of alternative
+strategies, and human-in-the-loop correction, agent frameworks and coding assistants such as LangGraph [16, 17],
+Cursor [9], Claude Code [6], and Google ADK [13] let operators rewind the agent to an earlier checkpoint and retry.
+This is convenient, but as we show, it creates a security gap
+that existing protections do not address.
+A motivating example. Consider the scenario in Figure 1. A user asks the agent to transfer $500 to Bob. The
+agent generates a UUID as a unique reference and completes
+the transfer. The agent then calls a receipt-confirmation service controlled by Bob, who returns a malformed response
+that crashes the agent. The framework automatically restores
+to the checkpoint before the transfer. The agent re-attempts
+the transfer but generates a different UUID. The bank finds
+no match and processes it as a new transaction. Bob receives $1000 instead of $500, and each transaction appears
+legitimate in the bank’s records because they carry distinct
+reference IDs. We call this class of vulnerabilities semantic
+rollback attacks.
+
+Root cause. Checkpoint-restore (CR) saves and restores
+local process state [8, 45] but cannot undo actions already
+performed on external services [10, 36]. All existing protection mechanisms [18] (unique request IDs [14, 35], recorded
+nondeterministic values [37], deterministic orchestrator
+logic [22]) share the same assumption: the caller will send
+identical requests on retry. LLM agents violate this assumption. Even under temperature=0, floating-point rounding
+in GPU kernels produces different token sequences across
+runs [2, 12, 15, 46], so a restored agent generates requests
+that servers accept as new.
+Real-world evidence. We surveyed 12 major agent frameworks and found that tool-call side-effect issues are pervasive
+(Table 1); no framework enforces exactly-once semantics at
+the tool boundary. Among the most notable cases, a LangGraph maintainer has confirmed the re-execution problem,
+acknowledging it is architecturally difficult to fix [5]; independent analyses have shown that resume from checkpoint causes tools to fire twice [31]; an industry study found
+that LangGraph, CrewAI, and Google ADK all lack built-in
+duplicate-execution prevention [32]; Google ADK’s official
+documentation explicitly warns that rewind cannot undo
+external side effects [13]; and OpenClaw issued a security
+1
+
+Table 1. Tool-call side-effect issues reported across 12 agent
+frameworks.
+
+framework to restore and the agent to re-issue the payment
+with a fresh reference ID [1, 35]. The attack is chainable:
+each crash-restore cycle produces an additional duplicate.
+It is also difficult to audit, since each transaction carries
+a distinct reference and appears legitimate in isolation. In
+our experiments, all 10 checkpoint-restore trials produced
+duplicate commits (100%), while a no-checkpoint baseline
+produced none (0/10), confirming the vulnerability is caused
+by the restore mechanism, not by general LLM behavior.
+Authority Resurrection. This attack targets single-use
+authorization tokens that reappear in rolled-back agent state.
+Consider a malicious employee who instructs the agent to
+delete a customer’s data under a legitimate GDPR request.
+The agent obtains a manager’s approval (a single-use token),
+executes the deletion, and the token is marked as consumed.
+The employee then uses the framework’s rewind feature to
+restore the agent to the state just after approval was granted.
+The agent now holds the token but has no memory of having
+used it. The employee redirects the agent to delete a different
+customer’s data using the same token. If the server validates
+tokens statelessly (checking only the cryptographic signature, not a consumption record), the request succeeds. The
+employee has effectively escalated a legitimate, scoped authorization into an unauthorized action on a different target.
+The audit trail shows the manager approved deletion for
+Alice, but Bob’s data was also deleted, a discrepancy visible
+only through cross-referencing approval and execution logs.
+In our experiments with stateless validation, all token-reuse
+attempts succeeded (2/2); with stateful validation (serverside revocation list), all were correctly rejected. The Vault
+snapshot-restore bug [24] demonstrates that this pattern
+occurs in production infrastructure.
+
+Framework
+Issues Key finding
+LangGraph [5]
+8+
+Tools re-fire on resume
+CrewAI [7]
+5
+Crew runs twice; emails resent
+Google ADK [13]
+4
+Rewind leaves stale external state
+AutoGen [3]
+3
+Entry node runs twice
+OpenAI Agents [26]
+3
+Repeated function calls
+Claude Code [6]
+5
+Tool re-fires after approval
+OpenClaw [27]
+6
+Webhook replay (GHSA advisory)
+Cursor [9]
+4
+Undo reverts unrelated agents
+OpenHands [28]
+1
+Parallel agents; repeated commits
+Vercel AI [38]
+1
+Repeated tool calls
+LiveKit [20]
+2
+Tools fire twice in preemption
+n8n [25]
+3
+Retry causes repeated charges
+
+advisory for webhook replay enabling duplicate processing [27]. Similar issues have been reported in CrewAI [7],
+AutoGen [3], OpenAI Agents [26], Claude Code [6], Cursor [9], OpenHands [28], Vercel AI [38], LiveKit [20], and
+n8n [25]. A HashiCorp Vault issue documents single-use
+tokens reappearing after snapshot restore [24].
+
+2
+
+Threat Model
+
+We enforce two invariants: (1) no replay of irreversible effects across restores, and (2) consumed credentials must stay
+consumed after restore. We consider two attacker models:
+Crash-Induced Restore, where an external attacker (e.g., a malicious service in the agent’s tool chain) triggers a crash after
+an irreversible action, causing the framework to auto-restore
+and the agent to re-execute with different parameters; and
+Deliberate Rollback Abuse, where an insider with access to
+the rewind feature (e.g., a malicious employee) intentionally restores to a prior checkpoint and redirects the agent
+to perform unauthorized actions using previously obtained
+credentials [16]. The first is analogous to crash-recovery exploits in distributed systems; the second parallels TEE restart
+attacks [21].
+
+3
+
+4
+
+Mitigation: ACRFence
+
+ACRFence interposes at the tool boundary (e.g., as an MCP
+proxy [23]) and records an effect log for each irreversible
+tool call, capturing thread and branch identifiers, tool name,
+arguments, and environment context via eBPF-based systemlevel monitors [47]. Because context is captured at the OS
+level, ACRFence requires no agent framework modifications.
+Upon restore, a lightweight analyzer LLM compares the new
+tool call against the logged entry, distinguishing fields that
+change across runs (request IDs, timestamps) from fields that
+reflect intent (amount, recipient), and classifies each postrestore call as: (1) semantically equivalent to the original, in
+which case ACRFence returns the recorded response without
+re-execution (replay); (2) semantically different (e.g., different recipient), in which case ACRFence blocks the call, shows
+the prior log, and requires an explicit fork (new branch identifier); or (3) a reuse of consumed credentials, in which case
+ACRFence informs the agent before the call is attempted [24].
+Using an LLM avoids manual annotation of tool schemas
+
+Attacks and Experimental Validation
+
+We identify two attack classes and validate them experimentally. Our testbed uses Claude Code CLI backed by Qwen332B, with its built-in checkpoint-restore mechanism. External services are simulated as MCP tool servers: a bank (transfer with UUID-based duplicate detection), a cloud provider
+(server creation), and an approval service (stateless/stateful
+token validation). Checkpoints are placed after verification
+but before the irreversible action.
+Action Replay. The basic mechanism is shown in Figure 1. Beyond accidental duplicates, this can be weaponized:
+a malicious payee who controls one service in the agent’s
+tool chain (e.g., an invoice-verification MCP server) can deliberately trigger a crash after a payment succeeds, causing the
+2
+
+and adapts to new tools without configuration; it runs only
+on the restore path.
+
+5
+
+[2] Berk Atil, Sarp Aykent, Alexa Chittams, Lisheng Fu, Rebecca J. Passonneau, Evan Radcliffe, Guru Rajan Rajagopal, Adam Sloan, Tomasz
+Tudrej, Ferhan Ture, Zhe Wu, Lixinyu Xu, and Breck Baldwin. 2025.
+Non-Determinism of “Deterministic” LLM Settings. arXiv:2408.04667.
+doi:10.48550/arXiv.2408.04667
+[3] AutoGen Community. 2025. Why is my first node in GraphFlow
+called twice? GitHub Discussion #6595, microsoft/autogen. https:
+//github.com/microsoft/autogen/discussions/6595
+[4] Andrew D. Birrell and Bruce Jay Nelson. 1984. Implementing Remote
+Procedure Calls. ACM Transactions on Computer Systems 2, 1 (1984),
+39–59. doi:10.1145/2080.357392
+[5] Caspar Broekhuizen. 2025. Do not re-execute a node that interrupted
+unless all of its interrupts have been resumed. GitHub Issue #6208,
+langchain-ai/langgraph. https://github.com/langchain-ai/langgraph/
+issues/6208 Opened Sep 2025; Accessed: 2026-03-20.
+[6] Claude Code Community. 2025. Agent calls tools twice after permission approval. GitHub Issue #13897, anthropics/claude-code.
+https://github.com/anthropics/claude-code/issues/13897
+[7] CrewAI Community. 2025. [BUG] Crew is running twice every time
+it is called. GitHub Issue #1978, crewAIInc/crewAI. https://github.
+com/crewAIInc/crewAI/issues/1978
+[8] CRIU Project. 2024. CRIU: Checkpoint/Restore In Userspace. https:
+//criu.org/.
+[9] Cursor Community. 2025. In 2.0 undo checkpoint is not agentindependent. https://forum.cursor.com/t/in-2-0-undo-checkpointis-not-agent-independent/139630.
+[10] Elmootazbell Y. Elnozahy, Lorenzo Alvisi, Yi-Min Wang, and David B.
+Johnson. 2002. A Survey of Rollback-Recovery Protocols in MessagePassing Systems. Comput. Surveys 34, 3 (2002), 375–408. doi:10.1145/
+568522.568525
+[11] Erhu Feng, Wenbo Zhou, Zibin Liu, Le Chen, Yunpeng Dong, Cheng
+Zhang, Yisheng Zhao, Dong Du, Zhichao Hua, Yubin Xia, and Haibo
+Chen. 2025. Get Experience from Practice: LLM Agents with Record
+& Replay. arXiv:2505.17716. doi:10.48550/arXiv.2505.17716
+[12] Tairan Fu, Gonzalo Martínez, Javier Conde, Carlos Arriaga, Pedro Reviriego, Xiuyuan Qi, and Shanshan Liu. 2026. Beyond Reproducibility:
+Token Probabilities Expose Large Language Model Nondeterminism.
+arXiv:2601.06118. https://arxiv.org/abs/2601.06118
+[13] Google. 2025. Google ADK Documentation: Session Rewind. https:
+//google.github.io/adk-docs/sessions/session/rewind/. Accessed: 202603-20.
+[14] IETF. 2025. The Idempotency-Key HTTP Header Field (Internet-Draft).
+https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-keyheader/. Accessed: 2026-02-05.
+[15] Raffi Khatchadourian. 2026.
+Replayable Financial Agents: A
+Determinism-Faithfulness Assurance Harness for Tool-Using LLM
+Agents. arXiv:2601.15322. doi:10.48550/arXiv.2601.15322
+[16] LangChain. 2024. LangGraph Persistence and Time Travel. https:
+//docs.langchain.com/oss/python/langgraph/persistence.
+[17] LangChain. 2025. LangGraph Documentation: Durable Execution. https://docs.langchain.com/oss/python/langgraph/durableexecution. Accessed: 2026-02-05.
+[18] LangChain. 2025. LangGraph Documentation: Functional API
+(Idempotency Guidance). https://docs.langchain.com/oss/python/
+langgraph/functional-api. Accessed: 2026-02-05.
+[19] Yang Li, Siqi Ping, Xiyu Chen, Xiaojian Qi, Zigan Wang, Ye Luo, and
+Xiaowei Zhang. 2025. AgentGit: A Version Control Framework for Reliable and Scalable LLM-Powered Multi-Agent Systems. arXiv preprint
+arXiv:2511.00628 (2025). https://arxiv.org/abs/2511.00628
+[20] LiveKit Community. 2025. preemptive_generation=True causes duplicate LLM requests and doubled token costs. GitHub Issue #4219,
+livekit/agents. https://github.com/livekit/agents/issues/4219
+[21] Sinisa Matetic, Mansoor Ahmed, Kari Kostiainen, Aritra Dhar, David M.
+Sommer, Arthur Gervais, Ari Juels, and Srdjan Capkun. 2017. ROTE:
+
+Related Work
+
+The inability of checkpoint-restore to undo external effects is a manifestation of the classic output commit problem [10, 36]. CR is increasingly used for exploring alternative
+agent execution paths [8, 39, 43, 45]. Recording effects for
+safe replay has precedents in I/O tabling [34] and durable
+execution engines [4, 37]; together with duplicate-detection
+protocols [14, 35], these all assume deterministic caller behavior. Agent record-and-replay improves reliability [11]
+and version-control systems provide rollback for agent
+traces [19], but neither addresses irreversible external effects. Security mechanisms enforce privilege control for
+agents [29, 33, 40] without considering checkpoint-restore
+interactions. TEE rollback protection [21, 30] assumes deterministic programs. Commercial LLM agents have been
+shown vulnerable to simple attacks in deployed settings [42].
+No prior work treats nondeterministic LLM re-synthesis
+after restore as a security attack surface.
+
+6
+
+Discussion and Conclusion
+
+Our experiments show that LLM agents inevitably produce
+different tool calls after restore, silently bypassing duplicatedetection mechanisms [17, 37]. ACRFence addresses this
+by using a lightweight analyzer LLM to perform semantic
+comparison at the tool boundary, enforcing replay-vs-fork
+semantics at each irreversible tool call. Unlike durable execution engines and I/O tabling approaches [34, 37] that
+assume deterministic callers, our approach recognizes that
+post-restore divergence can be legitimate exploration rather
+than harmful drift, and explicitly accommodates it through
+fork semantics. We use Claude Code’s built-in checkpointrestore rather than OS-level mechanisms such as CRIU; this
+mirrors the conversation-level checkpointing that frameworks like LangGraph actually provide [17]. Our evaluation
+validates the attacks but does not yet include an implementation of ACRFence itself; the analyzer LLM introduces its
+own failure modes (misclassification, adversarial evasion)
+that require further study. Extending to more models, largerscale experiments, and evaluating the analyzer’s accuracy
+and overhead remain future work.
+
+AI Use Statement
+AI tools (Claude) were used for text polishing and iterative
+editing of this manuscript. All technical content, experimental design, and analysis were conducted by the authors.
+
+References
+[1] Amazon Web Services. 2024. AWS Documentation: Ensuring Idempotency in Amazon ECS APIs (Client Token). https://docs.aws.amazon.
+com/AmazonECS/latest/APIReference/ECS_Idempotency.html. Accessed: 2026-02-05.
+3
+
+Rollback Protection for Trusted Execution. In Proceedings of the 26th
+USENIX Security Symposium (USENIX Security). 1289–1306.
+[22] Microsoft. 2025. Azure Durable Functions: Orchestrator Code Constraints. https://learn.microsoft.com/en-us/azure/azure-functions/
+durable/durable-functions-code-constraints. Accessed: 2026-03-20.
+[23] Model Context Protocol. 2025. Specification – Model Context Protocol
+(Version 2025-03-26). https://modelcontextprotocol.io/specification/
+2025-03-26. Hosted by The Linux Foundation; Accessed: 2026-02-05.
+[24] mossblaser. 2024. Single-use token used to create a snapshot reappears
+in the restored database and is irrevocable. GitHub issue #28378,
+hashicorp/vault. https://github.com/hashicorp/vault/issues/28378
+Accessed: 2026-02-05.
+[25] n8n Community. 2025. Stopping duplicate Stripe charges in n8n
+(webhook retries). https://community.n8n.io/t/stopping-duplicatestripe-charges-in-n8n-webhook-retries-simple-idempotencypattern/272743.
+[26] OpenAI Community. 2025. Duplicate item found with id when
+using conversation_id with function calling. GitHub Issue #1789,
+openai/openai-agents-python. https://github.com/openai/openaiagents-python/issues/1789
+[27] OpenClaw Project. 2026. Nextcloud Talk webhook replay could trigger
+duplicate inbound processing. Security Advisory GHSA-r9q5-c7qcp26w, openclaw/openclaw. https://github.com/openclaw/openclaw/
+security/advisories/GHSA-r9q5-c7qc-p26w
+[28] OpenHands Community. 2025. [Bug] Messages are sent twice and
+agent is invoked twice. GitHub Issue #9595, All-Hands-AI/OpenHands.
+https://github.com/All-Hands-AI/OpenHands/issues/9595
+[29] OWASP. 2024. OWASP Top 10 for Large Language Model Applications. https://owasp.org/www-project-top-10-for-large-languagemodel-applications/.
+[30] Bryan Parno, Jacob R. Lorch, John R. Douceur, James W. Mickens, and
+Jonathan M. McCune. 2011. Memoir: Practical State Continuity for
+Protected Modules. In Proceedings of the IEEE Symposium on Security
+and Privacy (S&P). 379–394.
+[31] Raed. 2025. LangGraph’s HITL Has a Double Execution Problem.
+https://blog.raed.dev/posts/langgraph-hitl. Accessed: 2026-03-20.
+[32] Yaron Schneider. 2026. Checkpoints Are Not Durable Execution: Why
+LangGraph, CrewAI, Google ADK, and Others Fall Short for Production Agent Workflows. https://www.diagrid.io/blog/checkpoints-arenot-durable-execution-why-langgraph-crewai-google-adk-andothers-fall-short-for-production-agent-workflows. Diagrid Blog;
+Accessed: 2026-03-20.
+[33] Tianneng Shi, Jingxuan He, Zhun Wang, Linyu Wu, Hongwei Li,
+Wenbo Guo, and Dawn Song. 2025. Progent: Programmable Privilege
+Control for LLM Agents. arXiv:2504.11703. https://arxiv.org/abs/2504.
+11703
+[34] Zoltan Somogyi. 2003. Idempotent I/O for Safe Time Travel. In Proceedings of the Fifth International Workshop on Automated Debugging
+(AADEBUG). Ghent, Belgium. arXiv:cs/0311040.
+[35] Stripe. 2024. Stripe API Reference: Idempotent Requests. https://docs.
+stripe.com/api/idempotent_requests. Accessed: 2026-02-05.
+[36] Robert E. Strom and Shaula A. Yemini. 1985. Optimistic Recovery
+in Distributed Systems. ACM Transactions on Computer Systems 3, 3
+(1985), 204–226. doi:10.1145/3959.3962
+[37] Temporal Technologies. 2024. Temporal Documentation (Go SDK):
+Side Effects. https://docs.temporal.io/develop/go/side-effects. Accessed: 2026-02-05.
+[38] Vercel Community. 2025. Double answers / Repeated tool-calls issue.
+GitHub Issue #7261, vercel/ai. https://github.com/vercel/ai/issues/
+7261
+[39] Cong Wang and Yusheng Zheng. 2026. Fork, Explore, Commit: OS
+Primitives for Agentic Exploration. arXiv:2602.08199. https://arxiv.
+org/abs/2602.08199
+
+[40] Haoyu Wang, Christopher M. Poskitt, and Jun Sun. 2025. AgentSpec:
+Customizable Runtime Enforcement for Safe and Reliable LLM Agents.
+arXiv:2503.18666. https://arxiv.org/abs/2503.18666
+[41] Xingyao Wang, Boxuan Li, Yufan Song, Frank F. Xu, Xiangru Tang,
+Mingchen Zhuge, Jiayi Pan, Yueqi Song, Bowen Li, Jaskirat Singh,
+Hoang H. Tran, Fuqiang Li, Ren Ma, Mingzhang Zheng, Bill Qian,
+Yanjun Shao, Niklas Muennighoff, Yizhe Zhang, Binyuan Hui, Junyang Lin, Robert Brennan, Hao Peng, Heng Ji, and Graham Neubig.
+2024. OpenHands: An Open Platform for AI Software Developers as
+Generalist Agents. arXiv:2407.16741. https://arxiv.org/abs/2407.16741
+[42] Jingwei Wu and Yizheng Yang. 2025. Commercial LLM Agents Are Already Vulnerable to Simple Yet Dangerous Attacks. arXiv:2502.08586.
+https://arxiv.org/abs/2502.08586
+[43] Jiakai Xu, Tianle Zhou, Eugene Wu, and Kostis Kaffes. 2025. Toward
+Systems Foundations for Agentic Exploration. arXiv:2510.05556. https:
+//arxiv.org/abs/2510.05556
+[44] John Yang, Carlos E. Jimenez, Alexander Wettig, Kilian Lieret, Shunyu
+Yao, Karthik Narasimhan, and Ofir Press. 2024. SWE-agent: AgentComputer Interfaces Enable Automated Software Engineering. In
+Advances in Neural Information Processing Systems. https://arxiv.org/
+abs/2405.15793
+[45] Yiwei Yang, Aibo Hu, Yusheng Zheng, Brian Zhao, Xinqi Zhang,
+Dawei Xiang, Kexin Chu, Wei Zhang, and Andi Quinn. 2025.
+MVVM: Deploy Your AI Agents-Securely, Efficiently, Everywhere.
+arXiv:2410.15894 [cs.OS] https://arxiv.org/abs/2410.15894
+[46] Jiayi Yuan, Hao Li, Xinheng Ding, Wenya Xie, Yu-Jhe Li, Wentian Zhao,
+Kun Wan, Jing Shi, Xia Hu, and Zirui Liu. 2025. Understanding and
+Mitigating Numerical Sources of Nondeterminism in LLM Inference.
+arXiv:2506.09501. https://arxiv.org/abs/2506.09501
+[47] Yusheng Zheng, Yanpeng Hu, Tong Yu, and Andi Quinn. 2025.
+AgentSight: System-Level Observability for AI Agents Using eBPF. In
+Proceedings of the 4th Workshop on Practical Adoption Challenges of
+ML for Systems. 110–115.
+
+4
+
+

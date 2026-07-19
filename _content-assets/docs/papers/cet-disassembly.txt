@@ -1,0 +1,1502 @@
+Exploiting Control-flow Enforcement Technology for
+Sound and Precise Static Binary Disassembly
+Brian Zhao, Yiwei Yang, Yusheng Zheng, Andi Quinn
+UC Santa Cruz, USA
+
+arXiv:2506.09426v1 [cs.AR] 11 Jun 2025
+
+Abstract
+
+An extreme example of over-approximation is superset
+disassembly,
+as implemented in Multiverse [1], which enRewriting x86_64 binaries—whether for security hardensures
+that
+any
+valid offset an indirect jump could target is
+ing, dynamic instrumentation, or performance profiling—
+treated
+as
+real
+code. Although this guarantees correctness,
+is notoriously difficult due to variable-length instructions,
+the
+resulting
+instrumentation
+often suffers from high cominterleaved code and data, and indirect jumps to arbipilation
+overhead
+and
+spurious
+execution paths. Dynamic
+trary byte offsets. Existing solutions (e.g., “superset disbinary
+instrumentation
+systems
+such as Intel Pin [16] and
+assembly”) ensure soundness but incur significant overDynamoRIO
+[2]
+also
+address
+soundness
+by intercepting
+head and produce large rewritten binaries, especially for
+instructions
+at
+runtime,
+but
+may
+incur
+substantial
+perforon-the-fly instrumentation. This paper addresses these chalmance
+penalties.
+lenges by introducing the Time Variance Authority (TVA),
+Recent hardware-based Control-Flow Integrity (CFI)
+which leverages Intel’s Control-Flow Enforcement Techmechanisms
+offer a way to limit this over-approximation.
+nology (CET). By recognizing endbr64 as the only valid
+Intel’s
+Control-Flow
+Enforcement Technology (CET) [12,
+indirect jump target, TVA prunes spurious disassembly
+13,
+18]
+uses
+endbr64
+instructions to denote valid indirect
+paths while preserving soundness and emulates CET conjump
+destinations,
+thereby
+making spurious transfers (e.g.,
+straints on processors lacking native CET support, effecjumping
+into
+the
+middle
+of
+an instruction) illegal in hardtively mitigating ROP/JOP exploits without new hardware.
+In
+principle,
+if
+a
+CET-enabled
+binary is rewritten, the
+ware. We implement TVA by modernizing the Multiverse
+rewriter
+can
+prune
+offsets
+that
+do
+not
+begin with endbr64.
+rewriter for 64-bit Linux. Our evaluation on SPEC CPU2017
+Moreover,
+shadow
+stacks
+[17]—whether
+in hardware or
+and real-world applications shows that TVA-guided rewritsoftware—further
+mitigate
+return-oriented
+programming
+ing achieves up to 1.3× faster instrumentation time. These
+(ROP)
+by
+ensuring
+that
+return
+addresses
+match
+their correresults underscore TVA’s feasibility as a high-performance,
+sponding
+call
+sites.
+uprobes-free alternative for robust x86_64 binary analysis
+In this paper, we present the Time Variance Authority
+and rewriting.
+(TVA), a CET-driven rewriting framework that builds on
+Multiverse and applies to both static and dynamic instru1 Introduction
+mentation scenarios. By treating endbr64 as the only legitModern software ecosystems routinely rely on post-compilation imate targets of indirect jumps, TVA avoids the worst-case
+code modifications for a variety of purposes: adding seexplosion in disassembly coverage while retaining fully
+curity hardening to prevent advanced exploits, injecting
+sound rewriting. Additionally, TVA enables software eminstrumentation for fine-grained performance profiling, or
+ulation of CET constraints for processors lacking native
+supporting fault isolation in closed-source environments.
+CET support; in so doing, it enforces shadow stack checks
+With the explosive growth of third-party libraries and
+and indirect-branch validity without requiring special hardprecompiled modules, it is no longer feasible to assume
+ware extensions. We implement our system as a drop-in ensource-level access for every component. As a result, bihancement over existing superset-disassembly workflows,
+nary rewriting has emerged as a critical mechanism to retroleveraging Multiverse’s robust approach for code layout
+fit protections and analyses into commercial-off-the-shelf
+while plugging in CET logic to reduce unnecessary paths.
+(COTS) software, yet performing it safely and efficiently
+Our code is available at https://github.com/SlugLab/tva.
+on x86_64 architectures remains an open challenge.
+TVA is depicted as a group of timeline moniRewriting x86_64 binaries for security hardening, intors tasked with preventing the existence of
+strumentation, or fault isolation poses significant difficulcertain timelines that are deemed too dangerties when source code is unavailable. As shown in Taous to the Multiverse.
+–
+ble 1, many static tools (e.g., RedFat [6], E9AFL [8]) apMarvell
+ply post-compilation transformations to detect memory
+errors or enable coverage-guided fuzzing, while others
+To summary our contributions:
+(NaCL [25], WebAssembly [14]) rely on specialized compiler toolchains to ensure sandboxing. Yet, soundness—
+• CET-guided precise disassembly. TVA leverages
+fully capturing all valid execution paths of an arbitrary
+CET’s endbr64 instructions as unique markers of
+binary—remains notoriously difficult. The primary obstavalid indirect jump targets, eliminating unnecessary
+cle is that x86_64 permits variable-length instructions, indisassembly paths and preserving soundness—a key
+terleaving of code and data, and indirect jumps to pracimprovement over traditional superset methods.
+tically any byte offset. Such complexities typically force
+• Software CET emulation. TVA enforces CET conrewriting frameworks to over-approximate the set of posstraints purely in software, enabling robust protecsible instruction boundaries, leading to bloated analysis
+tion against control-flow attacks (ROP/JOP) even
+times and excessive runtime overhead.
+on legacy CPUs without native CET support.
+1
+
+Brian Zhao, Yiwei Yang, Yusheng Zheng, Andi Quinn
+
+• High-performance instrumentation. Evaluation
+on SPEC CPU2017 demonstrates TVA’s practical
+benefits, showing up to 1.3× faster instrumentation.
+
+Figure 1 illustrates how instructions of varying lengths
+are tightly packed within a binary, highlighting the necessity for accurate boundary detection during disassembly.
+Existing approaches like superset disassembly attempt to
+ensure correctness by analyzing every potential instruction
+offset, inevitably leading to inflated runtime overhead due
+to excessive coverage.
+Given these challenges, a precise understanding of the
+underlying Instruction Set Architecture (ISA) becomes
+critical. The ISA defines every aspect of an instruction’s
+representation and semantics, including opcode definitions,
+operand types (registers, immediate values, or memory references), and encoding formats (prefixes, ModR/M bytes,
+displacements, and immediate fields). Accurate disassembly and rewriting depend on reliably interpreting these
+ISA-specified instruction details. Misinterpretation or incorrect handling at this foundational level can jeopardize
+both security and correctness, emphasizing why robust
+ISA-aware disassembly techniques are essential for modern static binary rewriting frameworks.
+In the sections that follow, we explore how emerging
+control-flow enforcement technologies like Intel’s ControlFlow Enforcement Technology (CET) influence static binary rewriting and disassembly processes, particularly by
+leveraging explicit ISA-level markers to reduce ambiguity
+and complexity during analysis.
+
+The rest of the paper is organized as follows. We first
+discuss background and technical challenges (Section 2),
+then present TVA’s design (Section 3) and implementation
+details (Section 3.4). We evaluate our system in Section 5
+and conclude in Section 7.
+
+2
+
+Background
+
+This section begins with a discussion of why x86_64 machine code complicates static analysis, followed by an
+overview of ROP and Intel CET. We then survey existing
+disassembly and rewriting techniques, highlighting how
+hardware-backed control-flow integrity (CFI) can prune
+impossible paths. Finally, we present key insights from
+Multiverse—a superset disassembly framework—and explain how our system builds on and refines those ideas.
+2.1 Complexities of x86_64 Machine Code
+Modern x86_64 processors implement a Complex Instruction Set Computing (CISC) architecture. A defining feature
+of this architecture is the use of variable-length instructions, which range from as short as one byte (e.g., nop) to
+as long as fifteen bytes (e.g., instructions containing multiple prefixes, ModR/M bytes, and displacement/immediate
+fields). Unlike certain Reduced Instruction Set Computing
+(RISC) designs such as ARM (in certain modes), x86_64
+does not require instructions to be aligned to word or halfword boundaries; instead, an instruction may begin at any
+arbitrary byte offset. This unaligned nature contributes significantly to the complexity faced by static disassembly
+and rewriting tools.
+The lack of enforced alignment allows the instruction
+encoding to be highly flexible and compact. However, this
+flexibility introduces considerable difficulties for static
+analysis tasks, including binary instrumentation, rewriting,
+and security analysis. Because each instruction is decoded
+sequentially, any decoding error, however slight, can propagate throughout subsequent instructions—a phenomenon
+known as disassembly drift. Such drift results when the
+disassembler mistakenly interprets data bytes as instructions or misses genuine instructions entirely. Additionally,
+legitimate binary code often interleaves literal data (such as
+jump tables or constant pools) within instruction streams,
+making the differentiation between code and data challenging based solely on byte inspection.
+Moreover, the variable-length and non-aligned nature
+of x86_64 instructions complicates binary patching and
+rewriting. Any naive insertion or deletion of code bytes
+can inadvertently shift the position of subsequent instructions. Such shifts risk corrupting instruction sequences,
+overwriting essential data literals, or misaligning indirect
+jump and call targets. Consequently, tools performing static
+rewriting must incorporate advanced handling mechanisms
+or heuristics—such as those employed in superset disassembly [1]—to maintain correctness and stability, especially when processing complex control-flow structures or
+position-independent code (PIC/PIE).
+
+2.2
+
+ROP attacks and CET
+
+Return-Oriented Programming (ROP) is a common exploit
+technique that allows an attacker to stitch together small
+code fragments (known as “gadgets”) already present in
+a binary, bypassing traditional non-executable memory
+protections such as DEP (Data Execution Prevention). Figure 1 shows a toy example of ROP payload steps in x86-64
+assembly.
+To mitigate such attacks, Intel introduced Control-Flow
+Enforcement Technology (CET). CET provides hardwarebased control-flow integrity by imposing restrictions on
+indirect branch targets using endbr64 instructions. Below
+is a simplified example showing how inserting endbr64
+at valid jump targets can prevent unwanted transfers of
+control. endbr64 can also acts as a hardware label for valid
+indirect jump targets. Even though CET instructions are
+interpreted as no-ops on older CPUs, they provide strong
+hints for static tools on where legitimate indirect jumps
+may land. Consequently, a static rewriting framework can
+ignore offsets that lack an endbr64 prefix, significantly
+pruning disassembly paths.
+2.3
+
+Disassembly and Rewriting Techniques
+
+Broadly, existing methods for rewriting x86_64 binaries
+fall into two categories:
+2.3.1 Reassemblable Disassembly. Tools like Uroboros [22],
+Retrowrite [4], DDisasm [7], and Multiverse [1] translate
+raw machine code into reassemblable assembly, modify it,
+and then reconstruct the binary. This can preserve much
+of the binary’s original structure, but the rewriting must
+handle position-independent code (PIC/PIE), relocation
+tables, and precise instruction boundaries.
+2
+
+Exploiting Control-flow Enforcement Technology for Sound and Precise Static Binary Disassembly
+
+Table 1. Comparison of Related Binary Rewriting and Hardening Tools
+Tool
+RedFat
+
+Approach
+Application
+Binary rewrit- Memory error
+ing of pointers detection
+(buffer overflows, UAF)
+SelectiveTaint Static binary Dynamic taint
+rewriting
+analysis
+E9AFL
+
+Static binary
+rewriting
+
+NaCl
+
+Custom compiler toolchain
+
+WebAssembly Custom compiler and VM
+environment
+
+Key Strength
+Detects pointer-related
+errors at runtime
+
+Limitation
+Potential performance overhead
+due to pointer “fatness”
+
+Automated injection of
+taint labels into rewritten code
+Fuzzing with- Eliminates need for
+out recompila- source code; direct intion
+strumentation of binaries
+Fault isolation Ensures untrusted x86
+/ sandboxing
+code complies with
+sandbox constraints
+Safe, portable High portability across
+execution
+platforms; reduced attack surface
+
+Can incur high performance
+overhead on large, complex binaries
+May not achieve complete coverage on highly obfuscated binaries
+Not purely binary-level rewriting; requires specialized compilation
+Requires re-targeting / compilation to Wasm; not a postcompilation tool
+
+Figure 1. A gadget that can be parsed from arbitrary offset.
+2.3.2 Direct Rewriting / Instruction Punning. Approaches
+such as Zipr [11], Egalito [23], zpoline[24], frida[3] or
+e9patch [5] lift code into an intermediate representation
+(IR) or create out-of-line trampolines. This strategy can
+reduce disruption to the original binary’s layout but still
+relies on identifying correct disassembly boundaries for
+jump insertion. Moreover, advanced transformations can
+be limited if the original code has deeply interwoven instructions and data.
+2.4
+
+Hardware-Accelerated CFI Mechanisms
+
+Beyond CET, hardware support for CFI has expanded
+in recent CPU generations. For example, AMD Zen3 introduces a hardware shadow stack to validate return addresses [15]. In principle, these features drastically reduce
+the runtime attack surface, as only labeled entry points are
+valid targets. However, to exploit these mechanisms fully
+at static rewrite time, one must ensure that the rewritten
+binary respects or emulates CET-style invariants. That is
+exactly what our approach does: even on CPUs lacking
+
+CET, endbr64 instructions can still serve as a filter for
+feasible indirect jumps, and a software-maintained shadow
+stack can mimic hardware protections against ROP.
+2.5
+
+Challenges and Insights from Multiverse
+
+Multiverse [1] pioneered the idea of superset disassembly,
+disassembling every potential offset to guarantee no valid
+code path is missed. This yields a sound rewrite—any
+legitimate indirect jump target is included—but at the cost
+of major over-approximation. Indeed, many “instructions”
+discovered in this manner are simply data bytes or offsets
+that are never actually taken at runtime.
+Multiverse also tackled five specific challenges:
+C1 Static Memory Address Relocation. Ensuring correct relocation for instructions referencing data or
+global symbols when the code layout changes.
+C2 Dynamic Address Computation. Handling registerbased address arithmetic that complicates static determination of control-flow edges.
+
+3
+
+Brian Zhao, Yiwei Yang, Yusheng Zheng, Andi Quinn
+
+C3 Code vs. Data Differentiation. Dealing with arbitrary interleaving of code and data in x86_64 segments.
+C4 Function Pointer Handling. Maintaining correct
+references to function pointers that may cross module boundaries or exist in data sections.
+C5 Position-Independent Code (PIC/PIE). Accounting for modern compilers and operating systems
+that routinely use relative addressing and dynamic
+relocation.
+
+Finally, the mapping phase maintains a lookup structure
+that associates original addresses with their rewritten counterparts. At runtime, this mapping is consulted whenever
+execution might revert to code segments whose execute
+permissions have been revoked, ensuring that the flow is
+correctly redirected into the instrumented binary.
+Like Multiverse, TVA performs these steps in two passes.
+The first pass scans and collects all offsets marked for
+relocation or patching and builds the mapping table. The
+second pass uses that mapping to produce the final binary,
+ensuring that all relative and absolute addresses remain
+accurate.
+
+To address these issues, Multiverse preserves most of the
+original layout (S1) and records an old-to-new offset mapping (S2), allowing instructions or data references to be
+correctly redirected. For PIC/PIE (S5), it defers to relative
+addressing so the resulting code remains relocatable.
+
+3.2
+
+Multiverse guarantees a sound disassembly of the original
+binary by iterating over every instruction offset. While this
+superset disassembly ensures no code path is missed, it
+can excessively inflate the number of instructions to be
+examined and mapped. On modern binaries, this can lead
+to significantly longer analysis and instrumentation times.
+
+Our Key Insight. Instead of continuing to disassemble all offsets (as in S3), we observe that many modern
+binaries are compiled with endbr64 instructions at legitimate indirect jump targets. By limiting disassembly to
+these labeled targets, our Time Variance Authority (TVA)
+framework both retains soundness (we cannot miss valid
+jump targets) and greatly reduces spurious code paths.
+The net effect is a faster, smaller rewrite that can also enforce CET-like semantics in software. Moreover, TVA ’s
+approach to function pointers and external libraries (S4)
+lets developers selectively instrument only the main binary or include libraries for a tighter security guarantee.
+In either case, endbr64 becomes a foundational element
+for pruning the search space, addressing many overhead
+concerns that plagued traditional superset disassembly.
+
+3
+
+3.2.1 TVA Disassembly. TVA addresses the overhead of
+superset disassembly by leveraging CET instructions. CET
+dictates that indirect jumps must target endbr64, effectively labeling legal landing pads within a function. Whenever TVA encounters a direct branch, it follows it normally.
+However, for indirect branches, TVA only initiates new
+disassembly paths at endbr64 offsets. This strategy reduces the number of spurious offsets that might never be
+legitimately branched to, thereby cutting down the total
+disassembly work.
+From a security standpoint, TVA also enforces CET-like
+guarantees in software. If an indirect branch attempts to
+jump to an offset that lacks a preceding endbr64, execution will be halted or trapped, mirroring the hardware
+behavior on CET-capable CPUs.
+
+System Design and Implementation
+
+Our work builds on Multiverse [1], modernizing it for
+64-bit x86 binaries and extending its functionality with
+TVA. Multiverse’s core design remains sound, requiring
+only minor changes to accommodate contemporary OS
+and compiler behaviors. This section describes the overall
+architecture of TVA, detailing how we have leveraged Multiverse’s existing machinery while adding a CET-driven
+disassembly mode.
+3.1
+
+Disassembly
+
+3.3
+
+Mapping
+
+Like Multiverse, TVA adopts a two-pass mapping strategy.
+In the first pass, all potential jump targets are collected:
+direct branches, endbr64 instructions, and (for call/return
+semantics) the instructions immediately following a call.
+The second pass synthesizes the new code sections and
+writes out the final instrumented binary. Any relocated
+instruction or data reference is updated to point to the new
+addresses according to the collected mapping.
+
+Overview
+
+TVA divides the rewriting process into three major components—disassembly, rewriting, and mapping—that work
+together through multiple passes to robustly transform the
+original code into its instrumented form.
+In the disassembly phase, TVA analyzes the binary to
+identify valid instructions and feasible code paths. Instead
+of enumerating every byte offset (as in Multiverse’s superset disassembly), TVA selectively follows legitimate
+indirect-branch targets by scanning for endbr64 instructions, while still preserving all direct branch paths.
+The rewriting phase then modifies instructions so that
+they point to newly allocated code regions, thus adjusting
+both direct and indirect control flow. During this stage,
+TVA also inserts additional instrumentation logic—such as
+shadow stack checks or software-based CET-like enforcement—to strengthen security or enable profiling.
+
+3.3.1 TVA Mapping. In practice, TVA expands on Multiverse’s mapping logic by restricting indirect branch targets to endbr64. This ensures every valid dynamic target
+is tracked. Attempts to jump to unmapped addresses in the
+original code region trigger a segfault, which our runtime
+mechanism intercepts and safely redirects or halts. Thus,
+even CPUs without CET extensions gain a CET-like level
+of control-flow validation.
+3.4
+
+Executing Lookups
+
+A key operational difference in TVA is how it prevents
+execution in the original code region. Specifically, TVA
+revokes execute permissions from those pages, so any attempt to run code there results in a segfault. This ensures
+4
+
+Exploiting Control-flow Enforcement Technology for Sound and Precise Static Binary Disassembly
+
+that the new, instrumented code is always the point of control flow, even for external libraries returning into what
+would normally be the original text section.
+
+lookup :
+push rbx
+mov rbx , r a x
+l e a rax , [ r i p + lookup − { l o o k u p _ o f f s e t }]
+add rbx , { s e l f . c o n t e x t . newbase − b a s e }
+s u b rbx , r a x
+jb outside
+cmp rbx , { s i z e }
+jae outside
+mov ebx , [ r a x + r b x * 4+{ m a p p i n g _ o f f s e t } ]
+cmp ebx , 0 x f f f f f f f f
+je failure
+add r a x , r b x
+pop r b x
+ret
+outside :
+add rbx , r a x
+s u b rbx , { s e l f . c o n t e x t . newbase − b a s e }
+mov r a x , r b x
+mov rbx , [ 0 x56780008 ]
+xchg rbx , [ r s p ]
+add r s p , 8
+jmp [ r s p − 8 ]
+failure :
+hlt
+
+3.4.1 Handling Segfaults. For uninstrumented libraries,
+such as libc, the system initially follows Multiverse’s design of attempting to map the call address, then the return
+address if necessary. In some scenarios, the original address might get used on return, which previously risked
+resuming execution in the old code. With execute permissions removed, such a return now triggers a segfault. Our
+segfault handler can then capture the offending address and
+consult the mapping table to find the correct instrumented
+address. Execution resumes safely in the rewritten code,
+maintaining consistent control-flow tracking and preventing any reversion to the original, uninstrumented regions.
+This mechanism allows TVA to function seamlessly
+alongside legacy binaries and system libraries, bridging
+gaps where full-library instrumentation might not be feasible or desirable. By relying on the segfault-based redirection, we minimize risk while still maintaining robust
+instrumentation for the main application code.
+Rather than proactively remapping the return address
+(as Multiverse originally did), we now allow it to remain
+unchanged. Upon return, the process will segfault if it
+attempts to use the original address, at which point we
+can remap it on demand. This preserves the original return
+address for any external library logic that relies on it, while
+still ensuring that execution ultimately transitions back into
+our instrumented code.
+
+Figure 2. Local lookup function
+
+TVA return addresses. Because we rely on segfaults
+to remap control flow from returning from functions we
+need those to be valid map locations. This means that
+we, unfortunately, need to relax valid mapping from just
+the endbr64 instructions that a normal CET processor
+would allow and include instructions directly after a call
+instruction as well. However, with a better implementation
+of a shadow stack we can also mitigate this issue as well.
+
+mean that if we try to execute in the original code section,
+the program will now segfault. In case that was not the
+intended behaviour, we add a segfault handler which calls
+the mapping function to get us back to the new code section
+to allow the program to finish running.
+The process for looking up the new address for an original address is done in up to three stages. First a local lookup
+is done, if it succeeds then we return immediately. Otherwise the local lookup defers to a global lookup, which
+checks for the appropriate local lookup function to call and
+passes it along. Finally it reaches the proper local lookup
+function which will handle the translation before returning.
+This overall process is the same between Multiverse and
+TVA.
+
+3.4.2 Mapping Functions. The address resolution itself
+is done in two stages. First a local mapping is used to check
+if, and translate if it is, an address is in the original code
+area of the current binary. If it is then we use Multiverse’s
+constant time lookup to determine the new offset. If the
+offset is 0xffffffff then we deem it as illegal and exit.
+Otherwise, the address will be outside the current mapped
+region and we need to consult the global mapping in order
+to determine if the correct mapping function to use, and
+tail call into it.
+The implementation of the mapping functions has deviated slightly to conform to generated code becoming
+position independent by nature of the widespread introduction of ASLR. Instead of having special cases for PIC, the
+default is to use RIP relative offsets to get the correct base
+address to determine code regions.
+
+Local Lookup. In Figure 2 we see the assembly for
+executing First it calculates the base address of where the
+program is loaded. The it gets the offset from the base that
+the address to be translated is at. If that address is outside
+the range, either it is at a negative offset or it is at an offset
+greater than the original size of the program, then we defer
+to the global lookup. Otherwise we use our mapping as a
+lookup table in order to do a constant time translation. If
+the offset is 0xffffffff then we deem it as illegal and
+halt the program. Otherwise we add it to the base address
+before returning it.
+The implementation of the mapping functions has changed
+slightly from Multiverse’s original form because most code
+is position independent code (PIC) by nature of the widespread introduction of ASLR. Instead of having special
+
+3.4.3 Executing Lookups. As we discussed in the last
+section, with a mapping in place we need some way to
+handle the actual translation of original addresses into
+new addresses. This is the job of the lookup function. As
+discussed in the section on fixing Multiverse, we removed
+execute permissions from the original code pages. This
+5
+
+Brian Zhao, Yiwei Yang, Yusheng Zheng, Andi Quinn
+
+passed in on the rbx register and we’ll see it when we look
+at how we rewrite call and return instructions.
+
+glookup :
+...
+mov r c x , 0 x56780000
+mov rbx , [ r c x ]
+x o r rdx , r d x
+searchloop :
+cmp rbx , r d x
+je failure
+add r c x , 24
+mov r10 , [ r c x + 8 ]
+neg r 1 0
+add r10 , r a x
+cmp r10 , [ r c x + 1 6 ]
+j l e success
+inc rdx
+jmp s e a r c h l o o p
+success :
+...
+external :
+pop r 1 0
+pop r d x
+pop r b x
+pop r c x
+t e s t rbx , r b x
+jz skip
+mov [ r s p − 6 4 ] , r a x
+mov r a x , [ r s p + 8 ]
+c a l l glookup
+mov [ r s p + 8 ] , r a x
+mov r a x , [ r s p − 6 4 ]
+skip :
+ret
+failure :
+hlt
+
+3.5
+
+Rewriting
+
+The tactics by which we rewrite control flow remain the
+same as Multiverse.
+For direct control flow, once we have a mapping we can
+immediately replace the offsets with the correct mapping.
+Branches are padded to be 4 bytes in case they were assembled to only have a 1 byte immediate value, so that we
+stay in sync with the mapping.
+Indirect branches are rewritten to use the mapping functions in order to translate from the old address to the new
+address.
+mov [ r s p − 6 4 ] , r a x
+mov [ r s p − 7 2 ] , r b x
+mov r a x , t a r g e t
+mov rbx , i s j m p
+c a l l lookup
+mov [ r s p − 8 ] , r a x
+mov r a x , [ r s p − 6 4 ]
+mov rbx , [ r s p − 7 2 ]
+jmp [ r s p − 8 ]
+Here we match Multiverse’s method with an added rbx
+store to use it to pass in whether the instruction is a call
+or not. In this case we will indicate that it is an indirect
+jump so that the mapping function will not try to remap
+the return address if we are going into an external address.
+3.5.1 Calls. On the other hand an indirect call will have
+a slightly longer variant to determine the return address
+is calculated with a lea. It is done this way because we
+are now dealing with PIC, so we cannot know the correct
+value for the return address at instrumentation time as we
+do not know where it will be loaded.
+mov [ r s p − 6 4 ] , r a x
+mov [ r s p − 7 2 ] , r b x
+mov r a x , t a r g e t
+mov rbx , i s j m p
+push rbx
+l e a rbx , r e t u r n _ a d d r e s s
+xchg rbx , [ r s p ]
+c a l l lookup
+mov [ r s p − 8 ] , r a x
+mov r a x , [ r s p − 5 6 ]
+mov rbx , [ r s p − 6 4 ]
+jmp [ r s p − 8 ]
+
+Figure 3. Global lookup function
+
+cases for PIC, the default is to use the offset from the base
+of where the program was loaded. This vastly reduces the
+complexity of having to handle different types of instrumentation differently.
+Global Lookup. In Figure 3 we see the assembly for
+the global lookup. The preamble for the global lookup includes storing a whole slew of registers that we’ll need. We
+have to do this because there’s no concept of caller saved
+registers because we don’t do analysis on what registers the
+program actually uses. Then we have a loop for searching
+for the proper mapping region. When we find the region
+that corresponds to the address we’re mapping, we can call
+the corresponding lookup function, here stored in rcx on
+line 21. If the look up function is not null then we use the
+mapped value from the lookup function. If the lookup function is null, then there is no lookup function and therefore
+it’s an external lib. In the case of external libs we have to
+determine if we need to remap the return address, which
+is at a known offset on the stack. This determination is
+
+We restore rax from rsp-56 instead of rsp-64 because
+we pushed the return address. And similarly for rbx.
+3.5.2 Return. Because we push the original code address
+for the return address, we need to remap that before we
+return.
+mov [ r s p − 5 6 ] , r a x
+pop r a x
+push rbx
+mov rbx , 0
+c a l l $+%s
+6
+
+Exploiting Control-flow Enforcement Technology for Sound and Precise Static Binary Disassembly
+
+pop
+mov
+mov
+jmp
+
+rbx
+[ rsp −8] , rax
+rax , [ rsp −56]
+[ rsp −8]
+
+from high overhead due to breakpoints, context switching,
+and frequent kernel intervention—particularly detrimental
+in real-time or high-throughput systems. By contrast, our
+framework reduces or eliminates these sources of overhead
+by injecting analysis code directly into the binary. Whether
+performed offline (static rewriting) or applied dynamically,
+this embedding avoids kernel-level traps and consolidates
+instrumentation logic into a single, self-contained executable. As a result, developers can achieve lower-latency
+tracing that remains easy to deploy: there is no need for
+specialized kernel modules or repeated probe registration.
+The final executable transparently includes all necessary
+trace hooks, allowing for predictable performance even
+under demanding workloads.
+
+Here we store away rax before grabbing the return address and setting rbx to remind the mapping functions that
+we are not a call, so that it does not try to remap something
+as the return address when it determines that we are going
+to an external address. Once we get the mapped return
+address we just need to restore our registers and then we
+can jump.
+Together, these changes allow TVA to manage the intricacies of 64-bit binary analysis and rewriting while preserving compatibility with modern Linux environments.
+By adapting the disassembly engine, addressing modes,
+and calling conventions, TVA can confidently handle large,
+complex binaries without losing soundness or precision.
+3.6
+
+4.2 Software CET Emulation
+Although recent hardware features (e.g., Intel CET or
+AMD’s Shadow Stack) offer built-in safeguards against
+control-flow attacks such as Return-Oriented Programming
+(ROP) and Jump/Call-Oriented Programming (JOP), many
+deployed systems lack these capabilities. Rather than requiring specific processors, our approach enforces CETlike semantics entirely in software, providing two main
+defenses for legacy binaries and virtualized environments.
+shadow stack protection preserves return-address integrity by instrumenting every call and return instruction. When a function call is invoked, the return address is
+pushed both onto the standard stack and onto a separate,
+software-maintained shadow stack. At return, these two
+addresses are compared; execution continues only if they
+match. If not, the process is halted, thwarting ROP-style
+attempts to corrupt the return address. While hardware
+shadow stacks on newer CPUs perform a similar check in
+a protected memory region, our software approach makes
+this defense available on any commodity x86_64 processor.
+indirect branch validation emulates the CET requirement that indirect jumps or calls must land on a specially
+labeled target (endbr64). Upon any indirect control transfer, our system checks whether the destination offset corresponds to a valid endbr64 site in the instrumented code. If
+it does not, execution is blocked. This design ensures that
+attackers cannot redirect control flow into mid-instruction
+bytes or other unintended regions, mirroring the hardwareenforced checks on CET-enabled CPUs.
+Together, these two protections address the main pillars
+of CET without relying on specialized hardware. By rewriting a binary to insert endbr64 markers and shadow stack
+instrumentation, our framework can detect both invalid
+return addresses and illegal branch targets. In practice, the
+added runtime overhead is modest, and developers can
+seamlessly retrofit these defenses into existing binaries or
+libraries. This software-based CET emulation thus offers
+broad compatibility and a compelling security advantage,
+especially in legacy or virtualized deployments where hardware CET is not yet available.
+
+CET
+
+For CET-enabled binaries Multiverse can, in theory, support, without modifications to the framework, an instrumentation pass that gives the resulting binary CET enforcement
+in software, if you have a non-supporting CPU. The insight
+of TVA is to use CET instructions to augment the disassembly process. Since we know that the execution expects
+to use the enforced semantics of CET instructions we can
+limit the disassembly to only start from CET indirect jump
+target instruction, endbr64.
+3.7
+
+Address Map Size
+
+The other change is for execution, since we know the only
+places we’ll be doing an indirect jump to is an indirect jump
+target, that’s the only things that we’ll need to add to our
+mapping are the indirect jump targets. Direct jump targets
+don’t need to be mapped because the instrumentation step
+puts in the offsets for those, so we can omit the mappings
+for those. The end result is we reduce the disassembled
+instruction count while improving the security properties
+of the final binary.
+
+4
+
+Use Cases
+
+Our framework enables high-value instrumentation and
+security features in settings that typically require specialized hardware or kernel-level support. In this section, we
+illustrate two representative applications: lightweight tracing and analysis[21], and software-based enforcement of
+CET-like semantics[19]. By instrumenting binaries either
+offline or at runtime, developers can achieve lower overhead than traditional kernel-level tracing methods, while
+still benefiting from control-flow protections that typically
+require modern CPU features. In legacy or virtualized environments lacking dedicated CET hardware, our approach
+provides a transparent way to retrofit security and observability into existing applications.
+4.1
+
+Lightweight Tracing and Analysis
+
+4.3
+
+Profiling or debugging complex software often relies on
+tracing frameworks that intercept function boundaries or
+specific code locations at runtime. While these approaches
+(e.g., perf, uprobe[26]) excel at flexibility, they can suffer
+
+Replacing DBI
+
+Dynamic binary instrumentation (DBI) frameworks[10,
+20] such as DynamoRIO [2] provide a powerful mechanism to insert analysis or security checks during runtime.
+7
+
+Brian Zhao, Yiwei Yang, Yusheng Zheng, Andi Quinn
+
+5
+
+Seconds
+
+1000
+750
+500
+250
+0
+
+mcf xalancbmk x264 deepsjeng leela
+
+xz
+
+552x
+
+20x
+35x
+
+30x
+46x
+
+10x
+15x
+
+40x
+67x
+
+mcf xalancbmk x264 deepsjeng leela
+
+2x
+2x
+
+tva
+mv
+base
+
+284x
+
+500
+400
+300
+200
+100
+0
+
+4x
+6x
+
+Normalized Scores (base=1)
+
+Figure 4. Runtime comparison for TVA, MV, and uninstrumented on CPU2017
+
+xz specrand
+
+14.2x
+mcf xalancbmk x264 deepsjeng leela
+
+2.0x
+4.0x
+
+1.4x
+1.0x
+
+2.1x
+2.1x
+
+1.7x
+
+3.0x
+2.6x
+
+tva
+dr
+base
+
+5.3x
+1.7x
+
+12.5
+10.0
+7.5
+5.0
+2.5
+0.0
+
+1.2x
+1.6x
+
+Normalized Scores (base=1)
+
+Figure 5. Compile time comparison for TVA, MV, and
+uninstrumented on CPU2017
+
+xz specrand
+
+1.0
+
+tva
+dr
+base
+
+1.3x
+1.2x
+
+1.3x
+1.1x
+
+1.6x
+1.5x
+
+1.4x
+1.4x
+
+1.4x
+
+1.2x
+1.4x
+
+1.7x
+
+1.5
+
+1.3x
+
+2.0
+
+2.1x
+
+Figure 6. Runtime comparison for TVA, Null tool DynamoRIO, and uninstrumented on CPU2017
+
+0.5
+
+Evaluation
+
+0.0
+
+This section presents our evaluation of the TVA prototype.
+We implement the 2 case studies on TVA. We answer the
+following questions:
+• How does TVA’s performance overhead compare to
+Multiverse?
+• Why does TVA impose lower runtime overhead than
+existing tools, i.e., from where does the system’s
+performance advantage arise?
+• How TVA can be useful in rewriting that prior work
+is not working? What’s the killer application for
+TVA?
+5.1
+
+tva
+mv
+base
+
+1250
+
+Normalized Instructions (base=1)
+
+They work by intercepting execution and translating basic blocks on the fly, typically caching instrumented code
+fragments in a code cache. While flexible, DBI approaches
+carry several drawbacks that TVA (and static rewriting in
+general) can overcome:
+DBI frameworks must maintain a code cache and translation engine, leading to significant overhead in CPU- and
+memory-intensive workloads. In contrast, TVA ’s static
+rewriting integrates instrumentation directly into the binary,
+eliminating the need for repeated runtime translations. As
+our evaluation shows, this reduces runtime slowdown and
+is crucial for latency-sensitive or large-scale workloads
+such as HPC or high-throughput servers. While there is
+some slowdown in Figure 6, we achieve a 10x speedup in
+memtrace. Compared to the null tool performance, we find
+that the instrumentation overhead and calling into external
+C/C++ code is very expensive [9].
+Because DBI tools modify code streams at runtime, they
+can introduce jitter, causing variable execution times as
+new paths are discovered and translated. For real-time
+or time-critical applications, this unpredictability can be
+unacceptable. By applying instrumentation offline, TVA
+ensures that the resulting executable maintains uniform
+behavior with stable timing characteristics.
+Dynamically instrumented programs often rely on hooking into system loaders or attaching to processes via debuggers, requiring specific runtime privileges such as LD_PRELOAD
+usage or container permissions that may be restricted in
+production or sandboxed environments. In contrast, TVA
+produces a fully self-contained rewritten binary that can
+be deployed like a normal executable, with no special privileges or environment variables required.
+DBI frameworks also impose a substantial memory overhead to maintain the code cache, analysis data structures,
+and runtime instrumentation logic. By adopting a static
+rewriting approach, TVA achieves a memory footprint
+comparable to the original binary, with only a minimal
+overhead for instrumentation stubs. This efficiency is particularly valuable in resource-constrained environments
+or large-scale servers, where additional memory usage is
+costly.
+
+mcf xalancbmk x264 deepsjeng leela
+
+xz specrand
+
+Figure 7. Instruction Count comparison for TVA, Null tool
+DynamoRIO, and uninstrumented on CPU2017
+number listed below is the average of 10 trials. We report
+averages using geometric mean when that is appropriate.
+5.2 Benchmarks
+While our evaluation centers on SPEC2017, there are certain workloads we cannot handle due to assumptions inherent in our approach. Specifically, our tool does not
+support self-modifying executables, ruling out the gcc
+benchmark in SPEC2017, which changes its own code
+at runtime. Other workloads also pose unique challenges:
+perlbench triggers failures when destructors attempt to
+call into code sections not recognized by our rewriter,
+
+Experimental Setup
+
+We evaluate TVA running on a dual-socket AMD EPYC
+7452 (32 cores, 64 SMT 2.35 GHz, 128 MB LLC) with
+256 GB DDR4 memory. Unless otherwise mentioned, each
+8
+
+libm.so
+
+3.8x
+
+3.9x
+
+Normalized size (base=1)
+
+5
+4
+3
+2
+1
+0
+
+5.2x
+
+Exploiting Control-flow Enforcement Technology for Sound and Precise Static Binary Disassembly
+
+libgcc_s.so
+
+For each benchmark, the tva (red bars) and mv (blue
+bars) bars measure the runtime of the statically-instrumented
+binaries, while the base (green bars) corresponds to the
+uninstrumented executable. As expected, both instrumented
+configurations incur an overhead above the baseline. However, tva consistently exhibits lower or comparable overhead when compared to mv.
+In benchmarks like 505.mcf_r4 and 531.deepsjeng_r4,
+we observe a moderate increase in runtime over base,
+largely due to additional control-flow checks. On other,
+more complex benchmarks such as 523.xalancbmk_r4 and
+525.x264_r4, the overhead becomes more pronounced, yet
+tva’s runtime still slightly outperforms that of mv. This improvement arises because tva avoids over-disassembly by
+leveraging endbr64 instructions, thus reducing the amount
+of code that needs to be instrumented.
+
+tva
+base
+
+libstdc++.so
+
+Figure 8. Library size comparison for TVA
+
+omnetpp references addresses in libgcc that remain unmapped after rewriting, and leela implicitly depends on
+libm in ways that complicate static analysis. These issues
+highlight a broader limitation of static instrumentation
+when confronted with dynamic or low-level runtime behaviors.
+5.3
+
+5.5
+
+Below, we highlight two main considerations: (1) whether
+to instrument external libraries, and (2) avoiding unnecessary address translations at runtime.
+
+Instrumentation
+
+In figure 5 we compare the usage of Multiverse and TVA.
+While we can disassemble and instrument any binary with
+multiverse and any binary with CET-enabled with TVA,
+we can only instrument the original binary. If the binary is
+self-modifying, where it changes code in the original code
+region, then the instrumented execution will be different
+from the original as the instrumented execution will not
+reflect any of those modifications. If the program relies on
+JIT and it stores the resulting instructions outside the original code area, that will be executed but not instrumented
+at all.
+The instrumentation time metric was measured by running the two systems with a null instrumentor, where
+there is no added instrumentation. We are able to see 30%
+speedups with TVA over Multiverse. Instrumentation time
+with the null instrumentor is linear with number of instructions that need to be disassembled and reassembled.
+Therefore we see that TVA is able to prune a third of the
+potential instructions that Multiverse otherwise tries to
+disassemble.
+5.4
+
+Performance Optimization
+
+Instrumenting vs. Ignoring Shared Libraries. A fundamental trade-off in TVA is whether to apply rewriting to
+shared libraries in addition to the main executable. Instrumenting these libraries can improve security coverage (and,
+in some instrumentation scenarios, increase observability),
+because every indirect call within library code also becomes constrained by CET-like checks. However, this may
+significantly increase overall rewriting time (especially for
+large libraries) and inflate the size of the final instrumented
+binaries.
+By contrast, ignoring libraries—rewriting only the main
+executable—leads to faster instrumentation (often by up
+to 30–40% in our experiments) and keeps final binary
+sizes closer to the uninstrumented baseline. The trade-off
+is that any indirect calls within library code remain uninstrumented. As a safeguard, TVA still revokes execute permissions for the original (baseline) code pages of the main
+binary, so returns from library code into old addresses trigger a segfault (see Section 3.4). At that point, the segfault
+handler looks up the correct rewritten address and resumes
+execution in the instrumented code. In practice, we find
+that this “on-demand” mapping does not add noticeable
+runtime overhead for most SPEC CPU2017 benchmarks,
+as shown in Figure 4.
+
+Performance Overhead
+
+Looking at Table 2 we can see how TVA and Multiverse
+compare on increasing memory footprint. We see that TVA
+uses almost half the new text size as Multiverse does. That
+is the only place that we currently see savings, though
+it’s possible that future work may be able to find more
+space savings by condensing the mapping used to translate
+addresses.
+With Table 3 we see the counts of various types of
+instructions that are being instrumented. Across the board,
+we see huge decreases in total instructions disassembled
+as well as in very expensive categories, like indirect calls
+and jumps.
+Figure 4 shows the execution times of the SPEC CPU2017
+benchmarks under three different configurations: our proposed tool (tva), the original Multiverse (mv), and an uninstrumented baseline (base). These benchmarks include
+505.mcf_r4, 523.xalancbmk_r4, 525.x264_r4, 531.deepsjeng_r4, 541.leela_r4, and 557.xz_r4.
+
+Segfault-Based Boundary Handling. When TVA does
+not instrument libraries, any library-to-executable returns
+(or callbacks) may still contain the original return address
+in the call stack. Because TVA marks the original code
+pages as non-executable, attempts to jump there cause a
+segfault. Our segfault handler consults TVA’s mapping to
+translate the old address into the new, instrumented offset.
+We found that for typical applications, these segfaults are
+rare enough in practice that the overall performance impact
+is minimal. This approach also simplifies deployment by
+avoiding the need to statically link large libraries or create
+fully instrumented versions of them.
+Minimizing Address-Translation Calls. Another optimization is to reduce the number of address translations
+(i.e., calls to lookup() or similar stubs) at runtime. TVA
+9
+
+Brian Zhao, Yiwei Yang, Yusheng Zheng, Andi Quinn
+
+Binary
+mcf
+xalancbmk
+x264
+deepsjeng
+leela
+xz
+
+Binary
+mcf
+xalancbmk
+x264
+deepsjeng
+leela
+xz
+
+Original
+New
+Text Size
+File Size Text Size
+File Size
+TVA
+19673
+125128
+106001
+280800
+MV
+19673
+125112
+194775
+369568
+TVA 4711945 79367160 26689195 106105328
+MV 4708409 79362016 46684765 126096800
+560673
+3330528
+2910577
+6292608
+TVA
+MV
+560401
+3330416
+5333702
+8715728
+82697
+451520
+432902
+935376
+TVA
+MV
+82585
+451488
+795836
+1298304
+TVA
+218421
+4596272
+1165596
+5813344
+MV
+218421
+4596256
+2068784
+6716528
+TVA
+144197
+992824
+768822
+1812032
+MV
+143541
+992560
+1379073
+2422288
+Table 2. Size before and after instrumentation
+
+Instrumenter
+
+Instrumenter
+TVA
+MV
+TVA
+MV
+TVA
+MV
+TVA
+MV
+TVA
+MV
+TVA
+MV
+
+Direct
+Indirect
+Call
+Jump
+Call Jump
+9584
+304
+276
+62
+42
+36428
+372
+404
+160
+120
+2267916 139268 101438 59606
+4280
+8662788 159688 120076 71640 27782
+262466
+6236
+6166
+1136
+172
+1044136
+9628
+9234
+2218
+1878
+38492
+1620
+1436
+4
+68
+151670
+2110
+1852
+110
+548
+96010
+7778
+3862
+8
+156
+389932
+9266
+4970
+378
+1222
+70574
+3010
+2540
+150
+126
+264152
+4094
+3380
+328
+806
+Table 3. Instructions Instrumented
+
+Instructions
+
+already prunes indirect jumps that cannot legally occur
+(due to CET’s endbr64 markers), but it can further minimize translation overhead by caching translation results
+for frequently used function pointers. If the binary makes
+heavy use of function pointer arrays or virtual calls (as in
+C++), memoizing their rewritten destinations can reduce
+repeated lookups. Our prototype implementation currently
+uses a simple hash-based cache; in future work, more sophisticated caching heuristics (e.g., hardware-assisted or
+kernel-based caching) could further improve performance.
+
+instrumentation code was inserted directly into original
+binary locations. However, such in-place patching imposes
+severe constraints on available space and can unintentionally overwrite embedded data. Subsequent approaches introduced table-driven solutions or symbolization to achieve
+a more robust and flexible rewriting [4, 7, 23]. Despite
+these advances, disassembly and pointer identification inaccuracies remain significant challenges in the presence of
+highly optimized or obfuscated x86-64 binaries.
+To address these limitations, Kim et al. [12] propose
+SURI, a framework for sound reassembly of modern x8664 binaries. Unlike prior solutions that often rely on ad-hoc
+disassembly heuristics, SURI constructs superset CFGs:
+it recursively follows direct branches and statically analyzes jump tables to over-approximate potential indirect
+branch targets. SURI also performs backward slicing for
+each indirect branch (e.g., jmp rdx) to discover symbolic
+expressions indicating possible jump-table addresses. By
+continuously applying dataflow analysis whenever new
+indirect edges appear, SURI ensures that no valid controlflow paths are missed. As a result, SURI significantly
+improves the soundness of reassembly, particularly for
+position-independent and Control-Flow Enforcement Technology (CET)-enabled binaries [12]. However, they are not
+sound since they do not make the target binary think they
+are not instrumented.
+
+Impact on Instrumentation Time and Binary Size. Ignoring libraries yields a 1.2×–1.3× faster instrumentation
+phase on average, but leads to a 10–15% chance of ondemand segfaults whenever external code returns to the
+original code region. For workloads that repeatedly cross
+from the main binary into library functions (and back),
+instrumenting libraries can amortize segfault overhead at
+runtime. However, if those library functions are large and
+seldom rely on indirect calls, rewriting them can inflate the
+final binary size by 1.5×–2× (see Figure 8).
+
+6
+
+Conditional
+Jump
+900
+1884
+165850
+435402
+16330
+43538
+4192
+7274
+8380
+20126
+6012
+13378
+
+Related Work
+
+Binary reassembly and rewriting have received considerable attention from both academia and industry. Early
+techniques employed patch-based modifications, wherein
+10
+
+Exploiting Control-flow Enforcement Technology for Sound and Precise Static Binary Disassembly
+
+7
+
+Conclusion
+
+[14] Matthew Kolosick, Shravan Narayan, Evan Johnson, Conrad Watt,
+Michael LeMay, Deepak Garg, Ranjit Jhala, and Deian Stefan.
+2022. Isolation without taxation: near-zero-cost transitions for
+WebAssembly and SFI. Proceedings of the ACM on Programming
+Languages 6, POPL (2022), 1–30.
+[15] Michael Larabel. [n. d.]. Intel’s Linux Shadow Stack Patches Should
+Work Fine With AMD CPUs. https://www.phoronix.com/news/
+Shadow-Stacks-Linux-AMD.
+[16] Chi-Keung Luk, Robert Cohn, Robert Muth, Harish Patil, Artur
+Klauser, Geoff Lowney, Steven Wallace, Vijay Janapa Reddi, and
+Kim Hazelwood. 2005. Pin: building customized program analysis
+tools with dynamic instrumentation. Acm sigplan notices 40, 6
+(2005), 190–200.
+[17] Vedvyas Shanbhogue, Deepak Gupta, and Ravi Sahita. 2019. Security Analysis of Processor Instruction Set Architecture for Enforcing Control-Flow Integrity. In Proceedings of the 8th International
+Workshop on Hardware and Architectural Support for Security
+and Privacy (Phoenix, AZ, USA) (HASP ’19). Association for
+Computing Machinery, New York, NY, USA, Article 8, 11 pages.
+
+We presented a 64-bit extension of Multiverse that preserves the strengths of superset disassembly while integrating with Intel CET to limit indirect jumps to endbr64
+targets. By leveraging hardware labels (or their software
+equivalents for non-CET CPUs), our framework eliminates
+many spurious paths in the rewriting process, reducing
+instrumentation overhead and maintaining strong controlflow integrity guarantees. Across SPEC CPU2017 and
+real-world applications, we demonstrated up to a 1.3×
+improvement in instrumentation speed, a 2% runtime overhead reduction. These results highlight the power of CETguided analysis for efficient, sound binary rewriting. Future work may extend this methodology to other ISAs or
+further explore how CET-like annotations can streamline
+additional security and performance optimizations.
+
+https://doi.org/10.1145/3337167.3337175
+
+[18] Intel teams. [n. d.]. Control Flow Enforcement Technology
+(CET). https://www.intel.com/content/dam/develop/external/us/
+en/documents/catc17-introduction-intel-cet-844137.pdf.
+[19] Mateus Tymburibá, Hugo Arúajo de Sousa, and Fernando
+Magno Quintao Pereira. 2019. Multilayer rop protection via microarchitectural units available in commodity hardware. In 2019
+49th Annual IEEE/IFIP International Conference on Dependable
+Systems and Networks (DSN). IEEE, 315–327.
+[20] Oreste Villa, Mark Stephenson, David Nellans, and Stephen W
+Keckler. 2019. Nvbit: A dynamic binary instrumentation framework
+for nvidia gpus. In Proceedings of the 52nd Annual IEEE/ACM
+International Symposium on Microarchitecture. 372–383.
+[21] Chenxi Wang, Haoran Ma, Shi Liu, Yifan Qiao, Jonathan Eyolfson, Christian Navasca, Shan Lu, and Guoqing Harry Xu. 2022.
+{MemLiner}: Lining up Tracing and Application for a {FarMemory-Friendly} Runtime. In 16th USENIX Symposium on Operating Systems Design and Implementation (OSDI 22). 35–53.
+[22] Shuai Wang, Pei Wang, and Dinghao Wu. 2016. Uroboros: Instrumenting stripped binaries with static reassembling. In 2016 IEEE
+23rd International Conference on Software Analysis, Evolution, and
+Reengineering (SANER), Vol. 1. IEEE, 236–247.
+[23] David Williams-King, Hidenori Kobayashi, Kent Williams-King,
+Graham Patterson, Frank Spano, Yu Jian Wu, Junfeng Yang, and
+Vasileios P Kemerlis. 2020. Egalito: Layout-agnostic binary recompilation. In Proceedings of the Twenty-Fifth International Conference on Architectural Support for Programming Languages and
+Operating Systems. 133–147.
+[24] Kenichi Yasukata, Hajime Tazaki, Pierre-Louis Aublin, and Kenta
+Ishiguro. 2023. zpoline: a system call hook mechanism based on
+binary rewriting. In 2023 USENIX Annual Technical Conference
+(USENIX ATC 23). 293–300.
+[25] Bennet Yee, David Sehr, Gregory Dardyk, J Bradley Chen, Robert
+Muth, Tavis Ormandy, Shiki Okasaka, Neha Narula, and Nicholas
+Fullagar. 2010. Native client: A sandbox for portable, untrusted
+x86 native code. Commun. ACM 53, 1 (2010), 91–99.
+[26] Yusheng Zheng, Tong Yu, Yiwei Yang, Yanpeng Hu, XiaoZheng
+Lai, and Andrew Quinn. 2023. bpftime: userspace eBPF Runtime
+for Uprobe, Syscall and Kernel-User Interactions. arXiv preprint
+arXiv:2311.07923 (2023).
+
+References
+[1] Erick Bauman, Zhiqiang Lin, Kevin W Hamlen, et al. 2018. Superset Disassembly: Statically Rewriting x86 Binaries Without
+Heuristics.. In NDSS.
+[2] Derek Bruening, Timothy Garnett, and Saman Amarasinghe. 2003.
+An infrastructure for adaptive dynamic optimization. In International Symposium on Code Generation and Optimization, 2003.
+CGO 2003. IEEE, 265–275.
+[3] Daniele Cono D’Elia, Emilio Coppa, Simone Nicchi, Federico
+Palmaro, and Lorenzo Cavallaro. 2019. SoK: Using dynamic binary
+instrumentation for security (and how you may get caught red
+handed). In Proceedings of the 2019 ACM Asia Conference on
+Computer and Communications Security. 15–27.
+[4] Sushant Dinesh, Nathan Burow, Dongyan Xu, and Mathias Payer.
+2020. Retrowrite: Statically instrumenting cots binaries for fuzzing
+and sanitization. In 2020 IEEE Symposium on Security and Privacy
+(SP). IEEE, 1497–1511.
+[5] Gregory J Duck, Xiang Gao, and Abhik Roychoudhury. 2020. Binary rewriting without control flow recovery. In Proceedings of the
+41st ACM SIGPLAN conference on programming language design
+and implementation. 151–163.
+[6] Gregory J Duck, Yuntong Zhang, and Roland HC Yap. 2022. Hardening binaries against more memory errors. In Proceedings of the
+Seventeenth European Conference on Computer Systems. 117–131.
+[7] Antonio Flores-Montoya and Eric Schulte. 2020. Datalog disassembly. In 29th USENIX Security Symposium (USENIX Security
+20). 1075–1092.
+[8] Xiang Gao, Gregory J Duck, and Abhik Roychoudhury. 2021.
+Scalable fuzzing of program binaries with E9AFL. In 2021 36th
+IEEE/ACM International Conference on Automated Software Engineering (ASE). IEEE, 1247–1251.
+[9] Google Group. 2012. Memtrace is slow. https://groups.google.com/
+g/dynamorio-users/c/JWEDu0loQ_0/m/KHcQzBjKEv8J?pli=1.
+[10] Qi Guo, Tianshi Chen, Yunji Chen, and Franz Franchetti. 2015.
+Accelerating architectural simulation via statistical techniques: A
+survey. IEEE Transactions on Computer-Aided Design of Integrated
+Circuits and Systems 35, 3 (2015), 433–446.
+[11] William H Hawkins, Jason D Hiser, Michele Co, Anh NguyenTuong, and Jack W Davidson. 2017. Zipr: Efficient static binary
+rewriting for security. In 2017 47th Annual IEEE/IFIP International
+Conference on Dependable Systems and Networks (DSN). IEEE,
+559–566.
+[12] Hyungseok Kim, Soomin Kim, and Sang Kil Cha. 2025. Towards
+Sound Reassembly of Modern x86-64 Binaries. In Proceedings
+of the 30th International Conference on Architectural Support for
+Programming Languages and Operating Systems (ASPLOS ’25).
+[13] Hyungseok Kim, Junoh Lee, Soomin Kim, Seungil Jung, and
+Sang Kil Cha. 2022. How’d Security Benefit Reverse Engineers?:
+The Implication of Intel CET on Function Identification. In 2022
+52nd Annual IEEE/IFIP International Conference on Dependable
+Systems and Networks (DSN). IEEE, 559–566.
+11
+
+
