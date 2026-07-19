@@ -7,7 +7,7 @@ description: Pinned-model process control for producing eunomia.dev blog posts, 
 
 Produce or improve the blog post given in `$ARGUMENTS`. If no argument is given, ask for the topic (new post) or file path (existing post). Posts live in `docs/blog/posts/` as `post.md` (English) and `post.zh.md` (Chinese) pairs.
 
-This skill is the workflow only. **Read both rulebooks first, every time**: `.agents/skills/blog-writing-style/SKILL.md` (prose mechanics, blog antipatterns, content-farm bans, length/richness, Chinese-English mixing, bilingual consistency) and `.agents/skills/seo-geo/SKILL.md` (metadata, keyword strategy, GEO citation-worthiness, syndication canonical discipline). Do not restate or override their rules here.
+This skill is the workflow only. **Read both rulebooks first, every time**: `.claude/skills/blog-writing-style/SKILL.md` (prose mechanics, blog antipatterns, content-farm bans, length/richness, Chinese-English mixing, bilingual consistency) and `.claude/skills/seo-geo/SKILL.md` (metadata, keyword strategy, GEO citation-worthiness, syndication canonical discipline). Do not restate or override their rules here.
 
 ## Pinned model roster
 
@@ -74,8 +74,7 @@ Git operations are allowed only through the checkpoint protocol above, on a feat
 5. **Terminology map first (mandatory before any ZH prose).** Build the post's EN→ZH term map from the rulebook's Chinese terminology discipline: which terms stay English (the four allowed classes), which translate (one rendering each), and which get a first-use gloss like 策略（policy）. Keep the map in your working notes and follow it for the entire ZH draft.
 6. Write the Chinese version from the architecture brief and source facts, not by translating English sentences. Keep H2/H3 progression, examples, figures, tables, claims, and caveats aligned, but let sentence, paragraph, and line boundaries differ wherever Chinese reads more naturally.
 7. Run Flow B (review), including its whole-post, density, overlap, and terminology passes, on the draft.
-8. Pass the reviewed draft through the sequential direct-edit workflow.
-9. After both external edit checkpoints, promote the latest pair from `draft/blog/` to the frozen paths under `docs/blog/posts/`, preserving the approved filenames, date, slug, and public identity. Run the independent reader-review gate on this published-path pair, apply the final targeted integration there, and rerun verification. Completion refers to the files under `docs/blog/posts/`, not working drafts.
+8. Pass the reviewed draft through the sequential direct-edit workflow and final verification before reporting completion.
 
 ## Flow B: reviewing/fixing an existing post
 

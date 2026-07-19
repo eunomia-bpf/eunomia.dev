@@ -250,7 +250,7 @@ Always state what was measured, how, and under what conditions. Link to papers, 
 
 ## SEO / GEO
 
-All search and AI-engine visibility rules (metadata, keyword strategy, citation-worthy writing, syndication canonical discipline, third-party framing hygiene) live in `.agents/skills/seo-geo/SKILL.md`. Read that rulebook alongside this one for every post.
+All search and AI-engine visibility rules (metadata, keyword strategy, citation-worthy writing, syndication canonical discipline, third-party framing hygiene) live in `.claude/skills/seo-geo/SKILL.md`. Read that rulebook alongside this one for every post.
 
 ---
 
