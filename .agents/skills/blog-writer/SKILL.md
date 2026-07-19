@@ -44,7 +44,7 @@ Every edit should be necessary and local. Preserve verified evidence, caveats, f
 - Choose an argument structure that fits the topic rather than copying a paper's RQ order or a house template.
 - Select only figures that materially support the thesis. A paper figure is never mandatory merely because it exists.
 - Write Chinese from the same facts and argument, not by translating English line by line. Keep claims, examples, figures, and section progression aligned while allowing natural sentence and paragraph boundaries.
-- End every blog with a compact `## References` / `## 参考文献` section containing the primary sources actually used. Keep inline attribution near supported claims and align the source list across languages.
+- End every blog with a compact `## References` / `## 参考文献` section containing 5–10 distinct primary sources actually used. Keep inline attribution near supported claims, do not pad the list, and align the sources across languages.
 
 ## Final validation
 

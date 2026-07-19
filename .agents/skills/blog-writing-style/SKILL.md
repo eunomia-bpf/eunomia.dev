@@ -87,7 +87,7 @@ Source accuracy, public-path stability, confidentiality, and edit-scope limits a
 ### References at the end
 
 - End each blog post with a compact `## References` section in English and `## 参考文献` in Chinese. Keep it as the final section so readers can distinguish supporting sources from related-reading links in the argument.
-- List the primary papers, official documentation, upstream repositories, datasets, or other first-party material that materially supports the post. Prefer the most direct source and descriptive linked titles; do not use raw URLs or pad the list with sources the article did not rely on.
+- List 5–10 distinct primary papers, official documentation pages, upstream repositories, datasets, or other first-party sources that materially support the post. Prefer the most direct source and descriptive linked titles; do not use raw URLs, split one work into duplicate entries, or pad the list with sources the article did not rely on.
 - EN and ZH should cite the same underlying sources in the same order, with link labels localized when useful. Inline links still belong near the claims they support; the final section is a compact source record, not a substitute for claim-level attribution.
 
 ### Transforming a paper into a blog post

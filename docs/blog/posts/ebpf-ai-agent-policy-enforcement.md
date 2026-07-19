@@ -158,3 +158,10 @@ For a team governing coding agents, the practical decision is narrower than "add
 
 - [ActPlane: Programmable OS-Level Policy Enforcement for Agent Harnesses](https://arxiv.org/abs/2606.25189)
 - [ActPlane source code and policy artifacts](https://github.com/eunomia-bpf/ActPlane)
+- [Agent READMEs: An Empirical Study of Context Files for Agentic Coding](https://arxiv.org/abs/2511.12884)
+- [Securing AI Agents with Information-Flow Control](https://arxiv.org/abs/2505.23643)
+- [Landlock: Unprivileged Access Control](https://www.kernel.org/doc/html/latest/userspace-api/landlock.html)
+- [Tetragon: eBPF-based Security Observability and Runtime Enforcement](https://tetragon.io/)
+- [OctoBench: Benchmarking Scaffold-Aware Instruction Following in Repository-Grounded Agentic Coding](https://arxiv.org/abs/2601.10343)
+- [OpenAgentSafety: A Comprehensive Framework for Evaluating Real-World AI Agent Safety](https://openreview.net/forum?id=xggSxCFQbA)
+- [AgentSight: System-Level Observability for AI Agents Using eBPF](https://doi.org/10.1145/3766882.3767169)
