@@ -6,9 +6,9 @@ description: Across 2,116 AI agent instruction statements, 64% are policies; of 
 
 # AI Agent Rules Need Context and Layered Enforcement
 
-An AI coding agent runs `git commit`, while the kernel sees a familiar process writing familiar files. The repository's CLAUDE.md says "Run the full test suite before committing," and the agent edited source code after its last test run. A conventional prompt-and-sandbox stack typically has no shared state recording that the earlier test result became stale after the source edit.
+When an AI coding agent runs `git commit`, the kernel sees only a familiar process writing familiar files, with no knowledge that the repository's CLAUDE.md requires a full test suite before committing or that a later source edit has already made the last test result stale. A conventional prompt-and-sandbox stack also lacks shared state that connects the rule, the test result, and subsequent edits, so neither the current prompt nor a single file operation reveals whether the commit is compliant.
 
-The [ActPlane paper](https://arxiv.org/abs/2606.25189) quantifies a policy problem that starts before enforcement technology enters the picture. Developers have already written the rules, with 64% of instruction-file statements expressing behavioral policies. Although 83% of those policies describe system-observable behavior, only the 29% per-event and 16% cross-event classes map directly to OS hooks, and 74% of the system-observable set still need project or task context. The missing layer must therefore resolve natural-language intent before deterministic enforcement can act.
+The [ActPlane paper](https://arxiv.org/abs/2606.25189) measures the gap between the behavioral rules developers write and the subset a system can actually check. Its statement-level analysis of 2,116 instructions shows that developers are not short of rules; the difficulty lies in turning natural-language requirements into state that a system can observe and evaluate over time. Many rules concern files, processes, or network activity but still depend on repository structure, task progress, or prior events, so a single OS hook can cover only part of the policy set.
 
 <!-- more -->
 

@@ -14,7 +14,7 @@ Source accuracy, public-path stability, confidentiality, and edit-scope limits a
 - **High-quality insight is the blog's highest priority.** Facts, figures, and polished prose are inputs, not the finished value. Every full post must offer a source-grounded, non-obvious synthesis that changes how a practitioner understands the problem boundary, mechanism, tradeoff, or next decision. A faithful paper summary with no new reader-facing insight is still a failed blog.
 - **Never change an existing published post's `slug`, filename, or URL.** Slugs are set once at creation. A missing slug on an already-published post stays missing; report it but do not add one, because adding it moves the URL.
 - **Write product and project names out in full** (AgentSight, ActPlane, eBPF, bpftime). Names in prose are keywords; never abbreviate them into pronouns across paragraphs.
-- **Never delete design decisions or technical content.** Compression means better prose, not less information.
+- **Preserve evidence-bearing design decisions and technical content.** Removing repetition should not erase information, but preserving information does not require packing every fact into the same paragraph; material can move to the point where the reader is ready for it.
 - **Never change the meaning** of a sentence. If unsure, flag it.
 - **Keep scope-bearing hedges** ("in our tests", "on covered hooks", "up to"): they keep claims honest. Only collapse stacked hedges down to one.
 - **Facts must be faithful to their source.** Posts about a paper use the paper's current published terminology and numbers, not an older draft's.
@@ -41,8 +41,16 @@ Source accuracy, public-path stability, confidentiality, and edit-scope limits a
 - English body paragraphs usually land between 40 and 90 words. Inspect every paragraph above 110 words. Three consecutive paragraphs above 90 words are a **Must fix** because the reader never gets a change of pace.
 - Chinese body paragraphs usually land between 120 and 260 Chinese characters. Inspect every paragraph above 320 characters. Three consecutive paragraphs above 260 characters are a **Must fix**.
 - These ranges are diagnostic tripwires, not quotas. A short transition can be one sentence, and a mechanism explanation can run longer when it cannot be split without losing logic.
+- Do not optimize for uniformly short sentences. When adjacent sentences share one subject or causal chain and the later sentence merely supplies the condition, cause, or consequence, consider joining them. A longer sentence is often clearer when it preserves one coherent thought; split where the reader benefits from a genuine conceptual pause.
 - Vary paragraph shape. Alternate explanation with an example, consequence, figure, quotation, or compact list. Do not make every paragraph a same-sized block of four or five declarative sentences.
 - Do not compress a long post by removing blank lines. When substantial word count is packed into unusually few Markdown lines, inspect it for overloaded paragraphs before calling it concise.
+
+### Information density and breathing room
+
+- A paragraph can have one job and still be too dense. Watch for stretches in which every sentence introduces a new percentage, term, scope qualifier, or logical turn, leaving no sentence that tells the reader what the evidence means.
+- After a dense result, consider giving the reader a plain-language interpretation, concrete example, or consequence before presenting the next result. This is useful explanation, not padding, when it reduces reconstruction work.
+- An opening should establish the problem and the post's distinctive insight without previewing every supporting number. Keep the evidence needed to earn the thesis, then let later sections introduce the detailed breakdown with its denominator and interpretation.
+- During a density pass, mark the points where a careful reader would need to stop and unpack the paragraph. Consider deferring secondary facts, replacing a jargon cluster with a concrete description, or separating evidence from interpretation. Do not solve density by deleting caveats or by turning one coherent causal chain into choppy sentences.
 
 ### Controlled structural variety
 
@@ -69,6 +77,8 @@ Source accuracy, public-path stability, confidentiality, and edit-scope limits a
 - Name the target reader before review, including what they likely know, what decision brought them to the post, and which terminology they should not be expected to know. Review the published reading experience, not the author's outline or the paper's contribution checklist.
 - Test the title and opening as a promise. After the excerpt, the reader should know why the topic matters, what concrete question the post will answer, and why this article offers evidence or insight they cannot get from a generic overview.
 - Follow the article in order and mark every point where a qualified reader would ask “why does this follow?”, “what does this term mean?”, “compared with what?”, “under which conditions?”, or “why should I care?”. Later clarification does not excuse an avoidable stumble at first use.
+- At the first mention of a study, result, problem, or mechanism, name the concrete relationship the reader needs: what was measured, compared, observed, or enforced; between which objects; and with what consequence. Do not make the next sentence retroactively supply an object that the current sentence omitted.
+- Trace each paragraph's information flow in reading order. Pronouns and abstractions such as “this problem,” “that layer,” “the gap,” or “enforcement technology” should have a concrete antecedent before they appear, and a causal claim should expose enough of its cause and effect to stand on first reading.
 - Every important number must arrive with enough denominator, condition, comparison, and interpretation for the reader to understand its consequence. A technically correct result that forces the reader to reconstruct the argument from a paper figure still fails.
 - Check reading momentum. Each section should create a reason to continue, vary the mode of explanation, and pay off the question raised before it. Flag dense stretches, repeated setup, jargon clusters, decorative figures, and detours into mechanisms already covered by sibling posts.
 - At the end, the reader should be able to state the post's distinctive insight, its evidence, its boundary, and the practical decision it changes. If the reader remembers only the project name or a pile of percentages, the post needs revision.
@@ -101,7 +111,7 @@ Source accuracy, public-path stability, confidentiality, and edit-scope limits a
 - Attraction must come from specificity, credible stakes, and a non-obvious relationship between facts. When attraction and fidelity conflict, fidelity wins; then find a sharper truthful angle rather than retreating to a generic title.
 - No listicle framing ("5 tips", "N 个技巧"), no hollow calls to action ("快来试试吧!", "give it a try today!"), no marketing self-praise ("powerful", "blazing fast" without numbers).
 - Open with a scenario, a measurement, or a problem, never with throat clearing or product promotion.
-- Every paragraph must add information the previous ones did not. Two adjacent paragraphs making the same point get merged.
+- Every paragraph should advance the argument, but reader-facing interpretation and a concrete example count as progress even when they introduce no new number. Merge adjacent paragraphs only when the second neither deepens understanding nor gives the reader useful breathing room.
 
 ---
 
@@ -139,6 +149,15 @@ Avoid starting sentences with "It is", "There is/are", "This is". Use a concrete
 
 **Bad:** `There are three hooks that the engine attaches to.`
 **Good:** `The engine attaches to three hooks.`
+
+### Missing objects and deferred explanations
+An abstract noun does not tell the reader what happened. Name the measured or compared objects and their relationship when the claim first appears, especially in an opening or transition.
+
+**Bad:** `论文量化的问题早于具体的强制执行技术。`
+**Good:** `论文量化了开发者写下的规则与系统能够确定性执行的规则之间的落差。`
+
+### Over-segmented causal chains
+Sentence boundaries should mark meaningful turns in thought, not enforce an artificial preference for brevity. When two or three short sentences describe one condition, action, and consequence, consider joining them with explicit connective tissue. Keep them separate when each sentence advances an independent idea; the goal is a complete causal unit, not a long sentence for its own sake.
 
 ### Subject-verb separation
 Keep the grammatical subject within 7 words of its verb. If a long modifier separates them, split the sentence.
@@ -302,3 +321,5 @@ Chinese posts are written in Chinese. The reference for what good looks like is 
 8. Does the sentence name the actor, mechanism, workload, or comparison that produced its evidence?
 9. Did an edit remove or broaden a scope-bearing hedge?
 10. (ZH) Is every English fragment in this sentence a term of art, spaced and punctuated correctly?
+11. Can a first-time reader name exactly what this sentence measures, compares, observes, or enforces without waiting for the next sentence?
+12. Did punctuation split one condition-cause-consequence chain into note-like fragments that would read more naturally as one sentence?
