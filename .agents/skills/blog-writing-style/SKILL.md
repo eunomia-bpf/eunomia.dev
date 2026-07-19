@@ -84,6 +84,12 @@ Source accuracy, public-path stability, confidentiality, and edit-scope limits a
 - At the end, the reader should be able to state the post's distinctive insight, its evidence, its boundary, and the practical decision it changes. If the reader remembers only the project name or a pile of percentages, the post needs revision.
 - Review trust as part of readability. Flag titles, transitions, takeaways, and claims that feel promotional, inflated, defensive, or content-farm-like even when no individual sentence is factually false.
 
+### References at the end
+
+- End each blog post with a compact `## References` section in English and `## 参考文献` in Chinese. Keep it as the final section so readers can distinguish supporting sources from related-reading links in the argument.
+- List the primary papers, official documentation, upstream repositories, datasets, or other first-party material that materially supports the post. Prefer the most direct source and descriptive linked titles; do not use raw URLs or pad the list with sources the article did not rely on.
+- EN and ZH should cite the same underlying sources in the same order, with link labels localized when useful. Inline links still belong near the claims they support; the final section is a compact source record, not a substitute for claim-level attribution.
+
 ### Transforming a paper into a blog post
 
 - The paper is the source of truth, not the source of structure or voice. Preserve terminology, numbers, scope, and caveats while rebuilding the exposition for a practitioner reader.
@@ -106,6 +112,7 @@ Source accuracy, public-path stability, confidentiality, and edit-scope limits a
 ## Anti-content-farm rules
 
 - **Titles should be as compelling as accuracy allows.** Lead with the post's strongest true insight, consequential tension, surprising measurement, or practical stake. A title earns attention through intellectual substance and gives a qualified reader a concrete reason to read, rather than merely labeling the topic or announcing that a study exists.
+- Let the strongest source-backed insight determine the title's shape. An empirical-study post may foreground the evidence type, a measured contrast, a boundary, an implication, or the practical consequence, depending on what best represents the article. Vary syntax and emphasis across posts; do not prefix every empirical article the same way or turn one successful title into a house template.
 - **Reveal the thesis without exhausting it.** No tease questions or withheld conclusions ("...告诉我们什么", "...缺什么", "what you don't know about X"), but do not flatten an insight into a generic report title. Prefer a precise tension such as a gap between what instructions demand and what one enforcement layer can observe. Numbers in titles must be real measurements with the same scope as the article.
 - Keep a professional research-and-engineering voice. Reject clickbait, alarmism, exclamation marks, vague superlatives, casual hot-take language, unsupported universals, and titles that are exciting only because they overstate the source. Do not use formulas such as "X is broken/dead", "you won't believe", "the truth about X", or "everything changes" unless the literal claim is rigorously established and still appropriate for a technical publication.
 - Attraction must come from specificity, credible stakes, and a non-obvious relationship between facts. When attraction and fidelity conflict, fidelity wins; then find a sharper truthful angle rather than retreating to a generic title.
@@ -303,6 +310,7 @@ Chinese posts are written in Chinese. The reference for what good looks like is 
 
 - Same macro structure: sections, argument flow, examples, figures, tables, claims, numbers, and caveats stay in the same order.
 - Section headings correspond (e.g., "Three Layers, Three Blind Spots" ↔ "三层约束，三种盲区").
+- Both versions end with corresponding `References` / `参考文献` sections that cite the same sources in the same order.
 - Both files need the same `date`; `description` is localized, both within the length budget.
 - Sentence boundaries, paragraph boundaries, and line counts do not need to match. Natural expression is mandatory, not optional.
 - When one version changes an argument, example, fact, figure, or caveat, update the other. Purely local phrasing edits need not be mirrored mechanically.

@@ -40,10 +40,11 @@ Every edit should be necessary and local. Preserve verified evidence, caveats, f
 
 - High-quality, source-grounded insight is the main goal. A polished paper summary without a reader-facing synthesis is not enough.
 - Let the topic determine length. Professional empirical posts may be long when each section contributes evidence, mechanism, interpretation, boundary, or a practical decision. Do not impose a word target.
-- Use a compelling, accurate, professional title. Avoid content-farm framing.
+- Use a compelling, accurate, professional title that makes the article's contract clear before the reader opens it. Let the strongest source-backed insight determine whether the title foregrounds a finding, tension, boundary, mechanism, evidence type, or practical consequence. Avoid content-farm framing, repeated title formulas, and house templates.
 - Choose an argument structure that fits the topic rather than copying a paper's RQ order or a house template.
 - Select only figures that materially support the thesis. A paper figure is never mandatory merely because it exists.
 - Write Chinese from the same facts and argument, not by translating English line by line. Keep claims, examples, figures, and section progression aligned while allowing natural sentence and paragraph boundaries.
+- End every blog with a compact `## References` / `## 参考文献` section containing the primary sources actually used. Keep inline attribution near supported claims and align the source list across languages.
 
 ## Final validation
 
@@ -51,7 +52,7 @@ Before completion, Codex checks:
 
 - every important claim, number, denominator, condition, and limitation against the current primary source;
 - information flow and density on first reading, including concrete measured or compared objects, defined antecedents, complete causal links, useful sentence boundaries, and enough interpretation or breathing room around dense evidence;
-- title, description, date, slug, `<!-- more -->`, links, image paths, and EN/ZH section correspondence;
+- title, description, date, slug, `<!-- more -->`, links, image paths, final references, and EN/ZH section correspondence;
 - the independent model's diff and the one-third budget;
 - paragraph flow, terminology, Chinese naturalness, sibling overlap, and the ending's practical takeaway, using the style checklist as guidance;
 - `git diff --check` and the smallest relevant site validation, with full repository validation when the PR or risk level calls for it;
