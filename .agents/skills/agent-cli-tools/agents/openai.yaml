@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent CLI Tools"
+  short_description: "Use local AI agent command-line tools"
+  default_prompt: "Use $agent-cli-tools to run or troubleshoot the local Codex, Claude, Kimi, and Grok CLI agents."
