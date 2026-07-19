@@ -1,12 +1,12 @@
 ---
 date: 2026-07-15
 slug: ebpf-ai-agent-policy-enforcement
-description: A study of 2,116 AI agent instruction statements finds 64% are policies, 83% are system-observable, but only 45% are directly enforceable at OS hooks.
+description: Across 2,116 AI agent instruction statements, 64% are policies; of those policies, 83% are system-observable and 45% directly enforceable at OS hooks.
 ---
 
 # AI Agent Rules Need Context and Layered Enforcement
 
-An AI coding agent runs `git commit`, while the kernel sees a familiar process writing familiar files. The repository's CLAUDE.md says "Run the full test suite before committing," and the agent edited source code after its last test run. That rule, drawn verbatim from the study's dataset, is not enforced by any layer in the stack.
+An AI coding agent runs `git commit`, while the kernel sees a familiar process writing familiar files. The repository's CLAUDE.md says "Run the full test suite before committing," and the agent edited source code after its last test run. A conventional prompt-and-sandbox stack typically has no shared state recording that the earlier test result became stale after the source edit.
 
 The [ActPlane paper](https://arxiv.org/abs/2606.25189) quantifies a policy problem that starts before enforcement technology enters the picture. Developers have already written the rules, with 64% of instruction-file statements expressing behavioral policies. Although 83% of those policies describe system-observable behavior, only the 29% per-event and 16% cross-event classes map directly to OS hooks, and 74% of the system-observable set still need project or task context. The missing layer must therefore resolve natural-language intent before deterministic enforcement can act.
 
@@ -20,9 +20,9 @@ The study examines 64 popular repositories containing CLAUDE.md and AGENTS.md fi
 
 Statements were extracted through a two-pass LLM agent-assisted pipeline that recorded source line ranges and four labels per statement: content type, topic, enforcement level, and context requirement. A validation script verified full source coverage and verbatim span matching, then two independent agents (Claude and Codex) cross-checked the results. A stratified sample of 100 statements went through independent human review, which confirmed the labels were correct.
 
-Across those 2,116 statements, 64% are policies that require, forbid, or condition a specific agent action. The remaining 36% are descriptive context, such as architecture notes or project background. Policy density varies widely across repositories, from 0% to 97%, with 70.1% of repositories containing more policy statements than descriptive ones. That spread is invisible when analysis stops at file or section headings, which is why statement-level classification matters.
+Across those 2,116 statements, 64% are policies that require, forbid, or condition a specific agent action. The remaining 36% are descriptive context, such as architecture notes or project background. Policy density varies widely across repositories, from 0% to 97%, with 70.1% of repositories containing more policy statements than descriptive ones. File- or heading-level studies do not report this statement-level distribution, which is why the finer classification matters.
 
-To understand how policies distribute across concerns, the study assigns each statement to one of 12 topic categories adapted from prior instruction-file research, applied at statement granularity rather than file granularity. Development Process and Implementation Details are the most policy-heavy topics at 87% and 85% respectively. Architecture is mostly descriptive at 23% because directory layouts and design summaries make up the bulk of those sections.
+To understand how policies distribute across concerns, the study assigns each statement to one of 12 topic categories adapted from prior instruction-file research, applied at statement granularity rather than file granularity. Development Process and Implementation Details are the most policy-heavy topics at 87% and 85% respectively. Architecture is mostly descriptive at 23% because directory layouts and design summaries make up the bulk of those sections. The imported source figures label instruction statements as directives and the system-observable subset as system-level directives; the prose uses the paper's statement, policy, and system-observable terminology.
 
 ![Policy fraction per repository across 64 repos with CLAUDE.md or AGENTS.md](imgs/actplane-empirical_rq1_policy_fraction.png)
 
@@ -44,7 +44,9 @@ Of the 1,361 policies in the dataset, only 17% are semantic-only. The remaining 
 
 ![Enforcement waterfall showing semantic-only, content, per-event, and cross-event distribution across 1,361 policies](imgs/actplane-empirical_waterfall_enforcement.png)
 
-These cross-event policies follow four recurring patterns. Temporal ordering constrains sequencing: "run tests before committing" requires that one event happened after another, not merely at some earlier point. Cross-file consistency links changes across artifacts: "update docs when behavior changes" couples a source edit to a documentation update. Multi-step workflows enforce release checklists with verification gates, where each step must complete before the next begins. Conditional triggers couple operations: "if you change specs, also update the SDK" fires only when a precondition is met. None of these can be decided from a single event, so enforcement must record what ran, in what order, and what has changed since. Such policies are widespread, with 81% of repositories containing at least one cross-event policy and 43% spanning all four enforcement tiers.
+These cross-event policies follow four recurring patterns. Temporal ordering constrains sequencing: "run tests before committing" requires that one event happened after another, not merely at some earlier point. Cross-file consistency links changes across artifacts: "update docs when behavior changes" couples a source edit to a documentation update. Multi-step workflows enforce release checklists with verification gates, where each step must complete before the next begins. Conditional triggers couple operations: "if you change specs, also update the SDK" fires only when a precondition is met.
+
+None of these can be decided from a single event, so enforcement must record what ran, in what order, and what has changed since. Such policies are widespread, with 81% of repositories containing at least one cross-event policy and 43% spanning all four enforcement tiers.
 
 Context dependence compounds the enforcement challenge. Of the 1,127 system-observable policies, only 26.4% are self-contained. The majority, 64.2%, require project context: "the test suite" or "upstream source" must be resolved against a specific repository before the policy becomes a concrete rule. Even a per-event policy like S5, "Never modify upstream source code," requires resolving which paths constitute "upstream source" before a file-write check can fire. Another 9.4% require task context, such as "unless explicitly requested" or "without approval."
 
