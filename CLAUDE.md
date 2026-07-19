@@ -22,6 +22,26 @@ unless the user explicitly asks.
 Before publishing a PR, inspect the worktree, stage only the intended files, run
 the smallest relevant validation, and preserve unrelated user changes.
 
+### Branch And Parallel Work
+
+Treat this checkout as shared with the user and possibly other agents. Before
+any branch, worktree, stash, rebase, reset, or commit operation, run
+`git status --short --branch` and understand the current branch, upstream state,
+dirty tracked files, and untracked files.
+
+Do not switch branches just to start from a clean base when the worktree
+contains uncommitted changes, untracked files, or an active task branch. Continue
+on the current branch when it matches the request. If a branch change is
+necessary, state the source branch, target branch, and dirty-file handling first,
+and preserve user work in place unless the user explicitly asks you to move,
+stash, or discard it.
+
+When another person or agent may be working in parallel, keep the scope narrow,
+edit only requested files, and stage with explicit pathspecs. Never stage
+unrelated dirty files or broad untracked directories. Prefer a separate worktree
+only when the user asks for it or when the requested change truly cannot share
+the current branch.
+
 ### Tech stack (current)
 
 The site is rendered by a **custom Next.js + React + Tailwind CSS frontend** living in `app/`, statically exported to plain HTML/CSS/JS. It is **not** a runtime MkDocs site anymore.
