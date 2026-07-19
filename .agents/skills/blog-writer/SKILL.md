@@ -1,146 +1,59 @@
 ---
 name: blog-writer
-description: Pinned-model process control for producing eunomia.dev blog posts, covering both writing a new post and reviewing/fixing an existing one under docs/blog/posts/. Drives topic-only comparison briefs, architecture-first drafting, paper-to-blog transformation, EN/ZH pairing, severity-ranked review, paragraph-density checks, mandatory different-model-family editing, independent reader-perspective review, editing discipline, and verification; all style/SEO rules come from the blog-writing-style checklist. Use for "write a blog", "draft a post", "review this post", or "fix the prose in X".
+description: Fast, pinned-model workflow for writing or revising bilingual eunomia.dev posts under docs/blog/posts/. Codex drafts, one different model performs a reader-focused review and limited direct edit, then Codex validates and finishes. Style and SEO details live in the companion checklists.
 ---
 
-# Blog Writer (process)
+# Blog Writer
 
-Produce or improve the blog post given in `$ARGUMENTS`. If no argument is given, ask for the topic (new post) or file path (existing post). Posts live in `docs/blog/posts/` as `post.md` (English) and `post.zh.md` (Chinese) pairs.
+Write or revise the requested post under `docs/blog/posts/`. English uses `post.md`; Chinese uses `post.zh.md`.
 
-This skill is the workflow only. **Read both rulebooks first, every time**: `.agents/skills/blog-writing-style/SKILL.md` (prose mechanics, blog antipatterns, content-farm bans, length/richness, Chinese-English mixing, bilingual consistency) and `.agents/skills/seo-geo/SKILL.md` (metadata, keyword strategy, GEO citation-worthiness, syndication canonical discipline). Do not restate or override their rules here.
+Read `.agents/skills/blog-writing-style/SKILL.md` and `.agents/skills/seo-geo/SKILL.md` before writing. Treat their style advice as guidance that supports judgment, not as a reason to add review rounds. Repository safety rules, source accuracy, public-path stability, and the edit budget below remain constraints.
 
-## Pinned model roster
+## Default workflow
 
-Use only these exact model configurations for model-authored blog drafts and external reviews unless the user explicitly changes this roster:
+Aim to finish an ordinary single-post task within about ten minutes when sources are already available and validation is healthy. Do not sacrifice factual accuracy to meet the target. If source retrieval, a long primary paper, or a failing build makes the task take longer, report that concrete cause instead of adding agents.
 
-- Kimi: `kimi-code/k3`
-- Grok: `grok-4.5`
-- OpenCode/GLM: `zai-coding-plan/glm-5.2`
-- Codex: `gpt-5.6-sol` with `model_reasoning_effort=xhigh`
-- Claude: `claude-opus-4-6[1m]`
+1. **Codex drafts.** Read the primary source and relevant sibling posts. Write a one-sentence thesis and identify the target reader, distinctive insight, evidence, mechanism, boundary, and practical decision. Draft or revise the complete EN/ZH pair. For new work, use `draft/blog/` until the public filename, date, and slug are settled.
+2. **One different model reviews and edits.** Select one non-Codex model before drafting. Give it the complete pair, primary source, sibling posts, and both checklists. It reviews from the target reader's perspective, verifies the current draft, and directly edits only sentences or paragraphs that materially improve accuracy, clarity, naturalness, or insight. A no-change verdict is acceptable when no necessary improvement exists.
+3. **Codex finishes.** Inspect the external model's diff, reject regressions, resolve only supported findings, verify facts and bilingual consistency, and run the smallest relevant local validation. Codex is the final editor and reviewer.
+4. **Publish once.** When the task is PR-bound, preserve separate local commits for the draft, external edit, and any final Codex fix when those stages changed files. Push once after final validation so intermediate commits do not queue redundant CI runs.
 
-Do not silently follow a provider's default alias and do not auto-upgrade a pinned model. A model-ID or reasoning-setting change requires an explicit roster update. Record the exact author and reviewer configurations in the completion report. Model identity controls reproducibility and reviewer independence; it does not replace the rulebooks or verification.
+This is the complete default writing workflow. Do not start a second external model, a separate reader subagent, or another review round unless the user explicitly requests it. A normal blog task should use no subagents; invoke the one different model through its local CLI.
 
-When the caller asks for multiple model versions, give every model the same **topic-only brief**. The brief may name the topic, primary sources, target files, required language pair, and content-preservation boundaries. It must not prescribe a thesis, preferred outline, target conclusion, or ledger of required numbers. Each writer selects source-backed evidence and constructs its own argument. Reviewers verify every selected number against the primary source, including its denominator and scope.
+## Model selection
 
-## Sequential direct-edit workflow
+Use the exact pinned configuration selected for the post:
 
-For a production post, Codex `gpt-5.6-sol` with `model_reasoning_effort=xhigh` writes the complete EN/ZH first draft. Before drafting, select and record exactly two different non-Codex model families from the pinned roster. Those two models edit the draft in sequence. Do not change the selected pair halfway through a post unless one model is unavailable and the user approves the replacement.
+- Codex author: `gpt-5.6-sol` with `model_reasoning_effort=xhigh`
+- Default independent editor: `grok-4.5`
+- Approved alternatives: `kimi-code/k3`, `zai-coding-plan/glm-5.2`, `claude-opus-4-6[1m]`
 
-When the user does not choose the pair, use `grok-4.5` followed by `kimi-code/k3` for bilingual technical blogs. The other pinned models remain approved alternatives, not mandatory passes.
+Run only one approved independent editor. Do not silently change its model ID or add another model. Record the author and editor configurations in the completion report.
 
-Do not assign specialized roles to these models. Give each model the same complete rulebooks, primary sources, relevant sibling posts, figure inventory, and the latest EN/ZH files. Each model reads the entire current draft, audits the previous model's commit, and then **edits only the necessary sentences, paragraphs, headings, metadata fields, or figure placements**. The next model always receives the previous model's committed and pushed files.
+## Edit boundary
 
-Except for Codex creating the first draft when no draft exists, a model pass must not touch more than one third of the prose paragraphs in either language. It must also keep the changed-line footprint within one third of each baseline file, measured as unique original or newly inserted lines touched by the pass rather than double-counting a replacement as one deletion plus one addition. Headings, metadata fields, figures, tables, and code blocks count as touched blocks. Stay comfortably below the limit when the count is ambiguous.
+The independent editor and the final Codex pass each stay within one third of the current EN file and one third of the current ZH file. Count changed prose paragraphs and changed Markdown blocks; metadata fields, headings, tables, figures, and code blocks count as blocks. Whole-file replacement, full-section replacement, broad reordering, and style-only reflow are out of scope.
 
-Each pass must preserve verified content and public identity. It may add source-backed evidence or figures that the current draft omitted, but it must not invent facts, silently delete technical content, change the slug, move the public path, reflow unaffected paragraphs, reorder the whole article, or replace either complete file. “Rewrite for consistency” is not sufficient justification for broad edits. After the two direct-edit passes, run the independent reader-review gate below before Codex integrates remaining consistency fixes under the same one-third limit and runs verification. Model passes return a concise change log after editing; they do not stop at a review report.
+Every edit should be necessary and local. Preserve verified evidence, caveats, figures, code, filenames, dates, slugs, and public paths. When a factual correction is needed, change the factual token and the minimum surrounding grammar rather than polishing the whole paragraph.
 
-### Per-model commit and push checkpoint
+## Content decisions
 
-For every model pass after the initial draft:
+- High-quality, source-grounded insight is the main goal. A polished paper summary without a reader-facing synthesis is not enough.
+- Let the topic determine length. Professional empirical posts may be long when each section contributes evidence, mechanism, interpretation, boundary, or a practical decision. Do not impose a word target.
+- Use a compelling, accurate, professional title. Avoid content-farm framing.
+- Choose an argument structure that fits the topic rather than copying a paper's RQ order or a house template.
+- Select only figures that materially support the thesis. A paper figure is never mandatory merely because it exists.
+- Write Chinese from the same facts and argument, not by translating English line by line. Keep claims, examples, figures, and section progression aligned while allowing natural sentence and paragraph boundaries.
 
-1. Start from a clean worktree at the pushed commit produced by the previous pass.
-2. Review `HEAD^..HEAD` before proposing new edits. Compare that diff with the primary source, both rulebooks, sibling posts, and EN/ZH counterpart. Confirm explicitly that the previous pass improved the post without losing facts, figures, caveats, or natural phrasing.
-3. If the previous pass introduced a regression, correct it before adding new improvements. If the correction plus necessary new edits would exceed the one-third budget, stop and report the checkpoint as failed instead of stacking more change on top.
-4. Name the exact sentences, paragraphs, headings, metadata fields, or figures that need work. Apply targeted patches only. Whole-file replacement, full-section replacement, broad paragraph reflow, and article-wide reordering are forbidden.
-5. Record baseline and touched-block counts for EN and ZH, the changed-line footprint, and the percentage consumed. A pass over one third fails and must be reduced before commit.
-6. Run source-fidelity, bilingual, figure, formatting, and smallest relevant site validation. Inspect the complete diff and confirm unrelated files are absent.
-7. Commit the pass separately with the model and exact version in the commit subject, then push the feature branch. Do not begin the next model until the push succeeds and the worktree is clean.
+## Final validation
 
-The orchestrating agent, not a nested model process, owns staging, committing, and pushing. Stage only the intended post, image, and workflow files for that checkpoint.
+Before completion, Codex checks:
 
-## Independent reader-review gate
+- every important claim, number, denominator, condition, and limitation against the current primary source;
+- title, description, date, slug, `<!-- more -->`, links, image paths, and EN/ZH section correspondence;
+- the independent model's diff and the one-third budget;
+- paragraph flow, terminology, Chinese naturalness, sibling overlap, and the ending's practical takeaway, using the style checklist as guidance;
+- `git diff --check` and the smallest relevant site validation, with full repository validation when the PR or risk level calls for it;
+- a clean worktree containing only intended files before the final push.
 
-The production chain requires a separate read-only review by an agent or subagent that did not write the initial draft and did not perform either direct-edit pass. A new session of an authoring or editing agent does not count as independent review. The reviewer must inspect the complete pushed EN/ZH pair from the target reader's point of view, not edit files and not merely verify source facts.
-
-Give the reviewer the target audience, both rulebooks, primary sources, relevant sibling posts, and the complete current pair. Do not pre-fill the prompt with a narrow defect list that biases the review. Require the reviewer to walk through the post in reading order and report severity-ranked findings on: (1) title promise and professional appeal, (2) hook clarity, (3) unexplained assumptions or terminology, (4) section-to-section momentum, (5) evidence interpretation and trust, (6) fatigue, scanability, and structural variety, (7) sibling overlap, and (8) the insight, boundary, and practical decision retained at the end.
-
-Codex applies only supported findings with targeted patches, preserves the one-third budget, validates, commits, and pushes the final integration. If that integration materially changes the title, excerpt, H2 progression, core takeaway, or ending, the independent reviewer rechecks the final pushed state. Completion requires a no-blocker verdict on the final reader-visible version.
-
-## Paper figure selection
-
-Before drafting from a paper, inventory every main-body figure and table by number, caption, source asset, and the claim it supports. Use that inventory to choose the smallest set of visuals that materially advances the blog's thesis. No figure is mandatory merely because the article retains its source section or because the topic is an empirical study. A style-only rewrite may remove a low-value source figure when the same evidence remains accurate and understandable in prose.
-
-Prefer repository-owned copies of selected source figures under the post's image directory. Keep image payloads identical across EN/ZH, localize alt text and surrounding explanation, and place each figure immediately after the paragraph that introduces its claim. For every selected figure, record which thesis-bearing claim it helps the reader understand. Verify that omitted figures do not leave retained claims unsupported, but do not treat omission itself as a defect.
-
-Git operations are allowed only through the checkpoint protocol above, on a feature branch, when the caller requested the multi-model production workflow. Never commit or push directly to `main`. Outside that protocol, return the files and report without Git operations.
-
-## Flow A: writing a new post
-
-1. Read the rulebooks, then gather the source material: the caller's outline, papers, repo docs, measured data, and relevant existing eunomia.dev posts. Every number must have a source; data posts require real measurements.
-2. Write an **architecture brief** before prose: one-sentence thesis, reader promise, unique angle relative to sibling posts, non-goals, opening scenario or measurement, and a coherent H2 progression chosen for this argument rather than copied from a house template. Name the structural form being used and why it fits the material, then confirm that nearby posts do not use an unnecessarily identical skeleton. Generate several truthful title candidates that emphasize different source-backed stakes, then choose the most compelling candidate that remains precise, differentiated, keyword-aware, professional, and faithful. Reject any candidate whose appeal depends on withheld information, inflated certainty, emotional manipulation, or content-farm phrasing. For paper-based posts, state why this outline does not mirror the paper's sections or RQs.
-3. Content boundary check: blogs carry arguments, data, design decisions, and war stories. Installation steps, command references, and walkthroughs belong in product docs; if the material is a tutorial, say so and route it to docs instead of writing the post.
-4. Draft the English version into `draft/blog/` (never directly into `docs/blog/posts/`): frontmatter (`date`, `slug`, `description` per the rulebooks), title that states the finding, hook before `<!-- more -->`, enough depth to carry the evidence and insight, and the paragraph-rhythm rules from the style rulebook.
-5. **Terminology map first (mandatory before any ZH prose).** Build the post's EN→ZH term map from the rulebook's Chinese terminology discipline: which terms stay English (the four allowed classes), which translate (one rendering each), and which get a first-use gloss like 策略（policy）. Keep the map in your working notes and follow it for the entire ZH draft.
-6. Write the Chinese version from the architecture brief and source facts, not by translating English sentences. Keep H2/H3 progression, examples, figures, tables, claims, and caveats aligned, but let sentence, paragraph, and line boundaries differ wherever Chinese reads more naturally.
-7. Run Flow B (review), including its whole-post, density, overlap, and terminology passes, on the draft.
-8. Pass the reviewed draft through the sequential direct-edit workflow.
-9. After both external edit checkpoints, promote the latest pair from `draft/blog/` to the frozen paths under `docs/blog/posts/`, preserving the approved filenames, date, slug, and public identity. Run the independent reader-review gate on this published-path pair, apply the final targeted integration there, and rerun verification. Completion refers to the files under `docs/blog/posts/`, not working drafts.
-
-## Flow B: reviewing/fixing an existing post
-
-1. Read the rulebooks, the entire target file, its bilingual counterpart, the primary source material, and 2-3 sibling posts that target the same project or keyword.
-2. **Whole-post architecture pass before line editing.** Write the post's thesis in one sentence and label the role of every H2. Flag a paper-order outline, abandoned hook, section with no thesis contribution, trailing summary, or duplicated sibling angle as **Must fix**. Confirm that adjacent H2s form an argument rather than a coverage checklist.
-3. **Source-transformation pass.** For a paper-based post, compare its H2 order with the paper's sections and RQs. Mark abstract-cascade paragraph openings, data ledgers, and exhaustive contribution summaries. Keep source fidelity while replacing the paper's structure and voice with practitioner-facing synthesis.
-4. Check frontmatter and SEO metadata from the SEO rulebook, including title length, title appeal, professional tone, description length, primary keyword placement, sibling cannibalization, and internal links. Treat a merely accurate but generic topic label as a title defect; sharpen it around the post's strongest truthful insight without turning it into clickbait or a casual hot take.
-5. **Depth, load, and rhythm pass.** Record `wc -w` and `wc -l` as diagnostics, then identify English paragraphs above 110 words, Chinese paragraphs above 320 characters, and any run of three dense paragraphs above the style rulebook's normal ranges. Judge whether the article has enough evidence and interpretation, whether every long section earns its space, and whether navigation and pacing prevent fatigue. Do not shorten a substantial post for crossing a total word-count threshold; reduce only repetition, detours, sibling overlap, or overloaded prose.
-6. **Terminology and Chinese-independence pass.** Apply the Chinese terminology discipline paragraph by paragraph: every English token must fall into one of the four allowed classes; concept nouns with standard renderings use one consistent Chinese form; no English-headed Chinese sentences (`grep -nE '^[A-Z][A-Za-z-]+ ' file.zh.md` on prose lines); table headers and quotations are Chinese; punctuation and CJK-Latin spacing are correct. Compare EN and ZH for facts and macro structure, but flag near line-for-line correspondence or translated English rhetoric as evidence that the Chinese needs recomposition. Violations are **Must fix**.
-7. **Paragraph and sentence pass.** Assign each paragraph one primary job, test whether its sentences can be reordered without loss, and apply every sentence-level rule. Rewrite overloaded, spec-sheet, and note-like paragraphs without deleting technical content.
-8. Report issues grouped by severity: **Must fix** (architecture, source transformation, overlap, clarity/logic, SEO metadata, faithfulness, missing depth, overloaded or over-compressed content, Chinese-independence errors), **Should fix** (antipatterns), **Consider** (style preferences). For each issue give the line number, quote the text, explain the problem, and suggest a concrete rewrite.
-9. Apply fixes with minimal targeted edits, Must fix first, then Should fix, then evaluate each Consider item and apply the ones that improve the text. Do not silently discard anything below Must fix. Exception: when invoked read-only, report findings only and make no edits.
-10. Send the resulting full draft through the sequential direct-edit workflow. Each pinned model edits the latest files directly, then Codex resolves remaining consistency issues and runs final verification.
-
-## Mandatory multi-model completion gate
-
-- A model-authored production post is unfinished until Codex has written and checkpointed the initial pair and the two selected non-Codex models have directly edited, validated, committed, and pushed the latest pair in sequence.
-- The author and direct editors do not satisfy the independent reader-review gate. A separate non-authoring agent or subagent must review the complete pushed pair and return a no-blocker verdict on the final reader-visible state.
-- A second session, subagent, or temperature setting of the same family does not replace a missing pinned-model pass.
-- Every pass receives the whole EN/ZH pair, both rulebooks, primary sources, sibling posts, and figure inventory. Do not feed it a narrow defect list that prevents whole-post judgment.
-- Require each model to inspect the complete post and previous commit before editing, make only necessary sub-one-third improvements, preserve verified content, and report the touched-block budget, what changed, and what remains uncertain.
-- After all model passes, Codex checks the accumulated diff against the primary source, resolves contradictions or style drift, and verifies that no valid Must-fix issue remains.
-- If one selected model is unavailable, stop before claiming completion and name the missing pass. Never silently substitute another pinned model or call a partial chain complete.
-
-## Editing discipline (both flows)
-
-- **Minimal targeted edits, one sentence at a time** when revising existing text. Never overwrite entire sections or paragraphs at once.
-- **Do not change technical content, code blocks, YAML examples, CLI output, or architecture diagrams** during prose edits.
-- **Preserve the author's meaning.** Do not soften or strengthen claims; flag questionable claims instead of rewriting them.
-- **Deep pass on first attempt.** Thorough review, not just mechanical surface fixes.
-- **Always diff-check** after multiple edits to ensure no content was lost.
-- When a post cites a paper, verify terminology and numbers against the paper's current published version before writing or editing claim sentences; flag any mismatch as Must fix.
-
-## Verification (before claiming done)
-
-- `grep -c '——' file.zh.md` returns 0 and `grep -cE ' — |—' file.md` returns 0 (code blocks excepted).
-- `description` present in both files and within length budget (EN 150-160 chars; ZH ~75-85 CJK-width).
-- EN and ZH have the same H2/H3 count and order; both have `<!-- more -->`.
-- `wc -w` and `wc -l` recorded for both files as diagnostics; review confirms that the post has sufficient depth, each long section earns its space, and no evidence or caveat was removed merely to reduce total length.
-- Paragraph-load audit recorded: all paragraphs beyond the review tripwires and every run of three dense paragraphs are fixed or justified.
-- Architecture audit recorded: one-sentence thesis, chosen structural form and rationale, role of each H2, hook resolution, source-outline comparison, unique angle versus sibling posts, and confirmation that optional FAQ/list/callout devices were not added from a fixed template.
-- Independent reader review recorded: reviewer identity, target-reader definition, severity-ranked findings, reader-path verdict, fixes accepted or rejected with reasons, final commit reviewed, and no-blocker verdict.
-- Paper figure inventory and selection rationale recorded: each included figure advances a thesis-bearing claim, omitted figures leave no retained claim unsupported, and EN/ZH use the same selected images in matching positions.
-- Structural-variety audit recorded: the post uses no more than two optional editorial accents, each list, quotation, or emphasized takeaway has a clear argumentative purpose, none substitutes for reasoning, and EN/ZH carry the same evidence or synthesis in corresponding places.
-- Terminology check ran as its own pass on every ZH file: `grep -nE '^[A-Z][A-Za-z-]+ ' file.zh.md` empty on prose lines, table headers Chinese, no untranslated concept nouns outside the four allowed classes.
-- EN/ZH macro structure, facts, numbers, examples, figures, and caveats match; sentence, paragraph, and line counts are allowed to differ.
-- Spot-check ZH mixing: no half-width commas in Chinese prose, spaces present between CJK and Latin/digits.
-- Multi-model chain recorded: exact model configuration, baseline and resulting commit IDs, previous-diff verdict, touched-block and changed-line percentages, validation results, pushed checkpoint, and unresolved concerns for every pass.
-
-## Fix priority
-
-1. **Faithfulness & public identity:** claims diverging from sources, changed slug/URL, missing date
-2. **Article architecture & differentiation:** paper-outline structure, missing thesis, abandoned hook, duplicated sibling angle, trailing restatement
-3. **SEO metadata:** missing/overlong description, overlong or teasing title, keyword cannibalization, missing internal links
-4. **Content scope & rhythm:** missing depth, redundant or over-compressed content, overloaded paragraphs, data ledgers, spec-sheet prose, reader fatigue
-5. **Clarity & bilingual independence:** vague referents, missing motivation, calques, line-locked translation, terminology inconsistency
-6. **Sentence mechanics & punctuation:** weak openings, passive voice, em dashes, colons before non-lists, semicolons joining independent clauses
-
-## Output format
-
-For review findings:
-```
-L<line>: "<quoted text>"
-  Problem: <what's wrong>
-  Fix: "<suggested rewrite>"
-```
-
-End with a summary: files produced/edited, total issues by severity, the top 3 most impactful changes, the architecture/density/overlap/Chinese-independence audit results, every verification result, every model checkpoint and diff budget, and the final Codex disposition. List any flagged text not changed, with reasons. Model identity documents reproducibility; it is never evidence of writing quality.
+Report the files changed, exact models, edit-budget usage, validation performed, and any remaining uncertainty. Do not claim completion while a factual or repository-safety blocker remains.

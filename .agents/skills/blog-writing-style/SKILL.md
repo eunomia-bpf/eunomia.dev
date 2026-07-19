@@ -1,13 +1,15 @@
 ---
 name: blog-writing-style
-description: Detailed prose and bilingual rule checklist for blog posts under docs/blog/posts/. Pure reference; contains no workflow. Use it when drafting or reviewing via blog-writer. Covers argument architecture, paper-to-blog transformation, paragraph load and rhythm, prose mechanics, blog antipatterns, length and richness, and Chinese-first bilingual writing. SEO/GEO rules live in the separate seo-geo skill.
+description: Detailed advisory prose and bilingual checklist for blog posts under docs/blog/posts/. Pure reference; contains no workflow. Use it when drafting or reviewing via blog-writer. Covers argument architecture, paper-to-blog transformation, paragraph load and rhythm, prose mechanics, blog antipatterns, length and richness, and Chinese-first bilingual writing. SEO/GEO guidance lives in the separate seo-geo skill.
 ---
 
-# Blog Style Checklist (rules only)
+# Blog Style Checklist (advisory)
 
-This file is the single source of truth for blog style rules. It contains no process; the workflow lives in the `blog-writer` skill.
+This file is a repertoire of writing recommendations, not an acceptance gate or a workflow. Authors and reviewers should use judgment, and they may depart from any item when the source, topic, audience, or natural expression benefits. Emphatic wording such as “must,” “never,” “ban,” and numeric tripwires indicates the strength of a preference, not a deterministic failure condition and not a reason to add another review round. Record the reason only when a deliberate departure materially affects the post.
 
-## Critical rules
+Source accuracy, public-path stability, confidentiality, and edit-scope limits are repository or workflow constraints, not style preferences; they live in `AGENTS.md` and the `blog-writer` skill.
+
+## Core recommendations
 
 - **High-quality insight is the blog's highest priority.** Facts, figures, and polished prose are inputs, not the finished value. Every full post must offer a source-grounded, non-obvious synthesis that changes how a practitioner understands the problem boundary, mechanism, tradeoff, or next decision. A faithful paper summary with no new reader-facing insight is still a failed blog.
 - **Never change an existing published post's `slug`, filename, or URL.** Slugs are set once at creation. A missing slug on an already-published post stays missing; report it but do not add one, because adding it moves the URL.
