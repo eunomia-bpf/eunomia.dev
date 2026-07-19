@@ -4,9 +4,9 @@ slug: agentpprof-semantic-flamegraph
 description: AI agent trace 会把预算热点藏在成千上万条 prompt 里，agentpprof 用语义 flamegraph 聚合意图、token、时间、文件和网络。
 ---
 
-# 用语义 Flamegraph 看清 AI Agent 预算去向
+# AI Agent 预算花到哪了：用语义 Flamegraph 诊断 Trace
 
-月底账单显示 AI agent 花了 $3000，却没有告诉团队这些预算到底消耗在代码审查、调试、文档生成，还是反复 continuation prompt 上。逐条检查 trace 可以解释一次调用发生了什么，却无法回答哪类 agent 工作贵到值得调整流程。
+一张 $3000 的 AI agent 账单不是诊断报告，它不会告诉团队钱是花在代码审查、调试、文档生成、工具重试，还是把同一个任务拖成多轮的 continuation prompt 上。真正的运营问题不只是 agent 花了多少钱，而是哪几类重复工作已经贵到值得重写流程。
 
 [agentpprof](https://github.com/eunomia-bpf/agentsight) 读取本地 agent 的 trace 历史，按语义意图将 prompt 和工具调用聚合成 flamegraph。在这个视图里，宽度代表 token 消耗、执行时间或操作次数的占比，团队可以先看出哪些类别占主导，再下钻到背后的具体 session。它是 [AgentSight](https://github.com/eunomia-bpf/agentsight) 项目的一部分，该项目提供基于 eBPF 的 AI agent 行为可观测性。
 

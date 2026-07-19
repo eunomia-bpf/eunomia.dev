@@ -4,9 +4,9 @@ slug: ebpf-verifier-errors-bpfix
 description: eBPF verifier errors hide the real repair point, and bpfix studies 235 rejections to show how proof-aware diagnostics locate lost proofs and guide real fixes.
 ---
 
-# Why eBPF Verifier Errors Are Hard to Fix
+# Why eBPF Verifier Errors Are Hard to Fix: 235 Rejections, Lost Proofs, and bpfix
 
-An eBPF verifier error can look precise while still leaving the real repair hidden. The kernel reports the instruction where verification stopped, but the repair often belongs earlier, at the point where the program lost the proof the verifier needed.
+An eBPF verifier error can look precise enough to be actionable, until the line it names keeps failing after the obvious fix. The kernel reports the instruction where verification stopped, but the repair often belongs earlier, at the point where the program lost the pointer, range, lifetime, or provenance proof the verifier later needed.
 
 The [bpfix paper](https://arxiv.org/abs/2607.02748) studies that gap directly across 235 reproduced verifier rejections, where `EINVAL` was the errno in 47% of cases and one normalized terminal error string mapped to as many as nine distinct root causes. The verifier log contains useful state, but the final error line shows only the last frame of a proof story.
 

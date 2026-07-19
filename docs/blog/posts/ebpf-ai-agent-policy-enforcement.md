@@ -4,9 +4,9 @@ slug: ebpf-ai-agent-policy-enforcement
 description: AI agent rules look simple in CLAUDE.md, but ActPlane's 2,116-statement study shows why context and layered OS enforcement decide what can be checked.
 ---
 
-# AI Agent Rules Need Context and Layered Enforcement
+# An Empirical Study: AI Agent Rules Need Context and Layered Enforcement
 
-When an AI coding agent runs `git commit`, the kernel sees only a familiar process writing familiar files, with no knowledge that the repository's CLAUDE.md requires a full test suite before committing or that a later source edit has already made the last test result stale. A conventional prompt-and-sandbox stack also lacks shared state that connects the rule, the test result, and subsequent edits, so neither the current prompt nor a single file operation reveals whether the commit is compliant.
+A rule like "run the full test suite before committing" looks simple until an AI coding agent edits a source file after the last test run and then calls `git commit`. The kernel sees an ordinary process writing a commit object, while the harness sees one more tool call, yet the decision depends on which test result is still fresh, which edit invalidated it, and whether this commit is allowed now.
 
 The [ActPlane paper](https://arxiv.org/abs/2606.25189) measures the gap between the behavioral rules developers write and the subset a system can actually check. Its statement-level analysis of 2,116 instructions shows that developers are not short of rules; the difficulty lies in turning natural-language requirements into state that a system can observe and evaluate over time. Many rules concern files, processes, or network activity but still depend on repository structure, task progress, or prior events, so a single OS hook can cover only part of the policy set.
 

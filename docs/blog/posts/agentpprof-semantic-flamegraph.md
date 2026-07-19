@@ -4,9 +4,9 @@ slug: agentpprof-semantic-flamegraph
 description: AI agent traces hide budget hotspots inside thousands of prompts, and agentpprof uses semantic flamegraphs to group intent, tokens, time, files, and network.
 ---
 
-# Where AI Agent Budgets Go in Semantic Flamegraphs
+# Where AI Agent Budgets Go: Semantic Flamegraphs for Agent Traces
 
-At the end of the month, an AI agent bill can say $3000 without saying whether review, debugging, documentation, or repeated continuation prompts consumed the budget. Teams can inspect individual traces, but that does not answer which kinds of agent work are expensive enough to change the workflow.
+A $3000 AI-agent bill is not a diagnosis. It does not tell you whether the money went to code review, debugging, documentation, tool retries, or continuation prompts that stretched one task across many turns. The operational question is not only how much the agent cost, but which recurring kinds of work are expensive enough to redesign.
 
 [agentpprof](https://github.com/eunomia-bpf/agentsight) reads local agent trace history and aggregates prompts and tool calls by semantic intent into flamegraphs. In the resulting view, width represents token consumption, execution time, or operation count, so a team can see which categories dominate before drilling into the sessions behind them. It is part of the [AgentSight](https://github.com/eunomia-bpf/agentsight) project, which provides eBPF-based observability for AI agent behavior.
 

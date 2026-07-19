@@ -58,7 +58,8 @@ Every edit should be necessary and local. Preserve verified evidence, caveats, f
   Broader cadence, channel mix, and brand-positioning decisions live in
   `draft/content-platform-strategy.zh.md`, not in this writing workflow.
 - Let the topic determine length. Professional empirical posts may be long when each section contributes evidence, mechanism, interpretation, boundary, or a practical decision. Do not impose a word target.
-- Use a compelling, accurate, professional title that makes the article's contract clear before the reader opens it. Let the strongest source-backed insight determine whether the title foregrounds a finding, tension, boundary, mechanism, evidence type, or practical consequence. Avoid content-farm framing, repeated title formulas, and house templates.
+- Use a compelling, accurate, professional title that makes the article's contract clear before the reader opens it. Let the strongest source-backed insight determine whether the title foregrounds a finding, tension, boundary, mechanism, evidence type, article form, or practical consequence. Preserve high-value title signals such as `An Empirical Study`, `Inside ...`, `Why ...`, `How ...`, concrete subsystem names, and method names when they improve trust or reader pull. Do not shorten a title merely to make a homepage card look cleaner, and do not use SEO/GEO guidance to override the style checklist's title judgment.
+- Make the first paragraph cash the title's promise. Open with a concrete scene, failure mode, measurement, or operator decision that shows why the article matters, then let the next paragraph name the paper, tool, or mechanism. Avoid opening with an abstract project summary after a title that promises a story, study, or inside look.
 - Choose an argument structure that fits the topic rather than copying a paper's RQ order or a house template.
 - Select only figures that materially support the thesis. A paper figure is never mandatory merely because it exists, but an empty figure set for a paper-based post must be the result of an explicit inventory and omit rationale, not a skipped step.
 - Write Chinese from the same facts and argument, not by translating English line by line. Keep claims, examples, figures, and section progression aligned while allowing natural sentence and paragraph boundaries.
@@ -71,9 +72,10 @@ Before completion, Codex checks:
 
 - every important claim, number, denominator, condition, and limitation against the current primary source;
 - the frontmatter `description`, excerpt, opening, and first section give enough domain background for the target reader before the first specialized result, tool claim, benchmark, or implementation detail, and make the problem, user value, and promised practical payoff explicit without turning promotional;
+- the title and first paragraph work together: the title preserves article type, core object, evidence or mechanism, and reader-facing tension, while the first paragraph proves that promise through a concrete scene, failure mode, measurement, or decision;
 - paper-based posts have a recorded figure/table inventory, selected images have descriptive alt text, and omitted figures do not leave a claim unsupported;
 - information flow and density on first reading, including concrete measured or compared objects, defined antecedents, complete causal links, useful sentence boundaries, and enough interpretation or breathing room around dense evidence;
-- title, description, date, slug, `<!-- more -->`, links, image paths, final references, and EN/ZH section correspondence;
+- title, description, date, slug, `<!-- more -->`, links, image paths, final references, and EN/ZH section correspondence. Title review comes from `blog-writing-style`; SEO/GEO only checks technical metadata constraints after the title direction is chosen;
 - all non-image internal links use canonical absolute HTTPS URLs, external links use full URLs, and only image links use post-local relative paths;
 - the independent model's diff and the one-third budget;
 - paragraph flow, terminology, Chinese naturalness, sibling overlap, and the ending's practical takeaway, using the style checklist as guidance;
