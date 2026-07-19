@@ -8,13 +8,13 @@
   <lastBuildDate>Wed, 15 Jul 2026 00:00:00 GMT</lastBuildDate>
   <atom:link href="https://eunomia.dev/zh/feed.xml" rel="self" type="application/rss+xml" />
   <item>
-  <title>2116 条 CLAUDE.md 和 AGENTS.md 规则：AI Agent 安全策略写了却没人执行</title>
+  <title>实证研究：AI Agent 规则需要上下文与分层强制执行</title>
   <link>https://eunomia.dev/zh/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/</link>
   <guid>https://eunomia.dev/zh/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/</guid>
   <pubDate>Wed, 15 Jul 2026 00:00:00 GMT</pubDate>
-  <description>一个 AI coding agent 执行 git commit，内核没有看到任何异常：一个熟悉的进程在写熟悉的文件。仓库的 CLAUDE.md 里写着 &quot;Run the full test suite before committing&quot;，而 agent 在上次测试之后又改了源码。这条规则来自论文数据集中的真实语句，今天没有任何一层在执行它。</description>
-  <author>1067852565@qq.com (云微)</author>
+  <description>一个 AI 编程 agent 执行 git commit 时，内核只看见一个熟悉的进程在写熟悉的文件，并不知道仓库的 CLAUDE.md 要求“提交前必须跑完整测试套件”，也不知道 agent 在上次测试后又修改了源码，已经让那次测试结果失效。常见的 prompt 与沙箱组合也缺少一份把规则、测试结果和后续源码修改串起来的共享状态，所以单看当前请求或这一次文件操作，无法判断这次提交是否合规。</description>
   <author>i@littlefisher.me (LinuxDev9002)</author>
+  <author>1067852565@qq.com (云微)</author>
   <category>AI agent observability</category>
 </item>
 <item>

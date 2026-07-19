@@ -8,13 +8,13 @@
   <lastBuildDate>Wed, 15 Jul 2026 00:00:00 GMT</lastBuildDate>
   <atom:link href="https://eunomia.dev/feed.xml" rel="self" type="application/rss+xml" />
   <item>
-  <title>What 2,116 CLAUDE.md and AGENTS.md Rules Reveal About AI Agent Safety</title>
+  <title>An Empirical Study: AI Agent Rules Need Context and Layered Enforcement</title>
   <link>https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/</link>
   <guid>https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/</guid>
   <pubDate>Wed, 15 Jul 2026 00:00:00 GMT</pubDate>
-  <description>An AI coding agent runs git commit, and the kernel sees nothing unusual: a familiar process writing familiar files.</description>
-  <author>1067852565@qq.com (云微)</author>
+  <description>When an AI coding agent runs git commit, the kernel sees only a familiar process writing familiar files, with no knowledge that the repository&#39;s CLAUDE.md requires a full test suite before committing or that a later</description>
   <author>i@littlefisher.me (LinuxDev9002)</author>
+  <author>1067852565@qq.com (云微)</author>
   <category>AI agent observability</category>
 </item>
 <item>
