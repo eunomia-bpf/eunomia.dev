@@ -11,6 +11,7 @@ type ArticleLayoutProps = PropsWithChildren<{
   path: string;
   title: string;
   description: string;
+  tags?: string[];
   sourceHref: string;
   metadata?: GitMetadata | null;
   headings?: HeadingEntry[];
@@ -25,6 +26,7 @@ export function ArticleLayout({
   path,
   title,
   description,
+  tags = [],
   sourceHref,
   metadata,
   headings = [],
@@ -40,6 +42,15 @@ export function ArticleLayout({
         <article className="min-w-0 max-w-3xl">
           {showBreadcrumbs ? (
             <Breadcrumbs locale={locale} currentTitle={title} sectionLink={continuation?.index} />
+          ) : null}
+          {tags.length ? (
+            <ul className="mb-3 flex flex-wrap gap-2" aria-label={locale === "zh" ? "文章标签" : "Article tags"}>
+              {tags.map((tag) => (
+                <li key={tag} className="rounded-md border border-slate-200 bg-slate-50 px-2 py-1 text-xs font-medium text-slate-600">
+                  {tag}
+                </li>
+              ))}
+            </ul>
           ) : null}
           <h1 className="text-3xl font-semibold tracking-tight text-ink md:text-[2.2rem]">{title}</h1>
           {description.trim() ? (

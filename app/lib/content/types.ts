@@ -34,6 +34,7 @@ export type ParsedMarkdown = {
   description: string;
   excerpt: string;
   body: string;
+  tags: string[];
   date?: string;
   slug?: string;
 };
@@ -89,6 +90,7 @@ export type BlogEntry = {
   title: string;
   description: string;
   excerpt: string;
+  tags: string[];
   sourceByLocale: Partial<Record<Locale, string>>;
 };
 
@@ -152,6 +154,7 @@ export type DocsPage = {
   descriptionIsExcerpt?: boolean;
   bodyHtml: string;
   date?: string;
+  tags?: string[];
   sourcePath: string;
   path: string;
   metadata?: GitMetadata | null;

@@ -53,6 +53,7 @@ export async function loadDocumentPage(
     description: document.description,
     descriptionIsExcerpt: !configuredPage && document.description === document.excerpt,
     bodyHtml: rendered.html,
+    tags: document.tags,
     ...(configuredPage?.reactPage ? { reactPage: configuredPage.reactPage } : {}),
     ...(configuredPage?.links.length ? { reactLinks: localizeReactLinks(configuredPage.links, locale) } : {}),
     ...(document.date ? { date: document.date } : {}),

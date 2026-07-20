@@ -71,6 +71,7 @@ function buildSearchDocumentsFromContent(locale: Locale): SearchDocument[] {
       document.description === document.excerpt
         ? document.description
         : `${document.description} ${document.excerpt}`;
+    const tagText = document.tags.join(" ");
 
     documents.push({
       title: document.title,
@@ -80,8 +81,8 @@ function buildSearchDocumentsFromContent(locale: Locale): SearchDocument[] {
       kind: record.kind,
       section: record.section,
       titleText: normalizeSearchValue(document.title),
-      descriptionText: normalizeSearchValue(descriptionText),
-      bodyTerms: buildBodyTerms(document.body, document.headings)
+      descriptionText: normalizeSearchValue(`${descriptionText} ${tagText}`),
+      bodyTerms: buildBodyTerms(`${tagText}\n\n${document.body}`, document.headings)
     });
 
     for (const heading of document.headings) {

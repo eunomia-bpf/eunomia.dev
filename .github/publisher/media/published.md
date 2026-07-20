@@ -50,7 +50,7 @@ Repo-referenced Zhihu URLs that should be kept but may need ownership/date verif
 
 Profile checked: <https://juejin.cn/user/4288563097635144/posts>
 
-Normal in-app browser pagination covered all four visible article pages and collected 39 unique authored article links. The machine ledger currently maps 25 of 105 Chinese source files; remaining gaps are treated as unpublished unless a later visible match is found.
+Normal in-app browser pagination covered all four visible article pages and collected 39 unique authored article links. The machine ledger currently maps 25 of 106 Chinese source files; remaining gaps are treated as unpublished unless a later visible match is found.
 
 | Status | Title | URL | Notes |
 | --- | --- | --- | --- |

@@ -33,7 +33,8 @@ export function getBlogEntriesForLocale(locale: Locale): BlogEntry[] {
         ...entry,
         title: document.title,
         description: document.description,
-        excerpt: document.excerpt
+        excerpt: document.excerpt,
+        tags: document.tags
       };
     });
 }

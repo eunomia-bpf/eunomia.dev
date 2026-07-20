@@ -44,7 +44,9 @@ Those actions belong to the routed skills below.
 
 - Invoke `eunomia-research-report` for broad current-news research, source
   verification, topic selection, thesis formation, and a new daily blog or deep
-  report. It may return "no defensible thesis" without creating a report.
+  report. It may return "no defensible thesis" without creating a report unless
+  the dated plan explicitly schedules a public analysis and the widened research
+  window supports a defensible alternative topic.
 - Invoke `eunomia-social-radar` to inspect every relevant published blog/post,
   current performance, external reposts or citations, comments, discussions,
   replies, and response opportunities.
@@ -66,6 +68,12 @@ this orchestrator.
    conversations around published content.
 3. Invoke `eunomia-research-report` when today's task calls for a new daily blog
    or report, or when the planned cadence requires a fresh research attempt.
+   When the dated task schedules an analysis publication, use the reviewed
+   `deep-report.zh.md` only as a working source, then move the final Chinese post
+   to `docs/blog/posts/<slug>.zh.md`. Keep public `date`, `slug`, `title`,
+   `description`, `research_question`, `research_window`, and precise tags;
+   remove workflow-only status, cutoff, and working-thesis fields. Do not create
+   a duplicate English post merely to satisfy pairing conventions.
 4. Collect the child results and identify publication, repost, or reply actions
    that are due today. Prefer finishing a ready item over creating additional
    drafts.

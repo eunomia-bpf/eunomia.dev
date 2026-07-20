@@ -58,6 +58,15 @@ export function BlogPostList({ entries, locale }: BlogPostListProps) {
                     {description}
                   </p>
                 )}
+                {post.tags.length ? (
+                  <ul className="mt-2 flex flex-wrap gap-1.5" aria-label={locale === "zh" ? "文章标签" : "Post tags"}>
+                    {post.tags.map((tag) => (
+                      <li key={tag} className="rounded-md border border-slate-200 px-1.5 py-0.5 text-[11px] font-medium text-slate-500">
+                        {tag}
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
               </div>
               <time
                 dateTime={post.date}

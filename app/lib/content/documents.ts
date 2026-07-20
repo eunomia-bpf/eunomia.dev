@@ -14,6 +14,7 @@ export type IndexedDocument = {
   description: string;
   excerpt: string;
   body: string;
+  tags: string[];
   date?: string;
   slug?: string;
   headings: MarkdownHeading[];
@@ -45,6 +46,7 @@ function buildDocument(sourceRelative: string): IndexedDocument {
     description,
     excerpt: configuredPage ? description : parsed.excerpt,
     body,
+    tags: parsed.tags,
     date: parsed.date,
     slug: parsed.slug,
     headings: extractMarkdownHeadings(body)

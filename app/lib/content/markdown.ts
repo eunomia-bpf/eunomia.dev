@@ -227,6 +227,21 @@ function parseSlug(rawValue: unknown): string | undefined {
   return slug || undefined;
 }
 
+function parseTags(rawValue: unknown): string[] {
+  const values = Array.isArray(rawValue)
+    ? rawValue
+    : typeof rawValue === "string"
+      ? rawValue.split(",")
+      : [];
+
+  return [...new Set(
+    values
+      .filter((value): value is string => typeof value === "string")
+      .map((value) => collapseWhitespace(value))
+      .filter(Boolean)
+  )];
+}
+
 export function parseMarkdown(relativePath: string): ParsedMarkdown {
   if (useContentCache) {
     const cached = markdownCache.get(relativePath);
@@ -260,6 +275,7 @@ export function parseMarkdown(relativePath: string): ParsedMarkdown {
     description,
     excerpt,
     body,
+    tags: parseTags(parsed.data.tags),
     date: parseDate(parsed.data.date),
     slug: parseSlug(parsed.data.slug)
   };

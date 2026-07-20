@@ -103,6 +103,7 @@ function buildBlogEntries(relativePrefix: "blog/posts" | "blogs"): Array<BlogEnt
       title: metadata.title,
       description: metadata.description,
       excerpt: metadata.excerpt,
+      tags: metadata.tags,
       sourceByLocale
     } satisfies BlogEntry;
   });

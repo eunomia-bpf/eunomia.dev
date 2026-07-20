@@ -110,6 +110,21 @@ test("blog entries can pin historical slugs from front matter", () => {
   assert.equal(entry.slug, "reverse-engineering-claude-codes-ssl-traffic-with-ebpf");
 });
 
+test("blog tags reach listings, article pages, RSS, and search", async () => {
+  const expectedTags = ["daily-analysis", "research", "AI Agent", "Agent Infrastructure", "Observability"];
+  const entry = getBlogEntries().find((candidate) => candidate.key === "agent-work-unit");
+  const localizedEntry = getBlogEntriesForLocale("zh").find((candidate) => candidate.key === "agent-work-unit");
+  const page = await loadBlogPage(["2026", "07", "20", "agent-work-unit"], "en");
+  const feed = renderFeed("en");
+  const searchResults = searchContent("daily-analysis", "en");
+
+  assert.deepEqual(entry?.tags, expectedTags);
+  assert.deepEqual(localizedEntry?.tags, expectedTags);
+  assert.deepEqual(page?.tags, expectedTags);
+  assert.match(feed, /<category>daily-analysis<\/category>/);
+  assert.ok(searchResults.some((result) => result.href === "/blog/2026/07/20/agent-work-unit/"));
+});
+
 test("home page data keeps markdown metadata but leaves layout to React", async () => {
   const home = await loadHomePage("en");
   const homeZh = await loadHomePage("zh");

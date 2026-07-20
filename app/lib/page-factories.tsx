@@ -91,6 +91,7 @@ function renderDocsBody(page: DocsPage, locale: Locale) {
       path={page.path}
       title={page.title}
       description={page.descriptionIsExcerpt ? "" : page.description}
+      tags={page.tags}
       sourceHref={page.sourcePath}
       metadata={page.metadata}
       headings={page.layout === "document" ? page.headings : []}

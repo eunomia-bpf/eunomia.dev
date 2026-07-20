@@ -38,11 +38,15 @@ export function renderFeed(locale: Locale): string {
         ? git.authors.map((a) => `  <author>${escapeXml(a.email ?? "noreply@eunomia.dev")} (${escapeXml(a.name)})</author>`).join("\n")
         : `  <author>noreply@eunomia.dev (${escapeXml(siteConfig.name)})</author>`;
 
-      const categoryXml = entry.slug.includes("bpftime")
-        ? `  <category>bpftime</category>`
+      const fallbackCategory = entry.slug.includes("bpftime")
+        ? "bpftime"
         : entry.slug.includes("agent") || entry.slug.includes("llm")
-          ? `  <category>AI agent observability</category>`
-          : `  <category>eBPF</category>`;
+          ? "AI agent observability"
+          : "eBPF";
+      const categories = metadata.tags.length ? metadata.tags : [fallbackCategory];
+      const categoryXml = categories
+        .map((category) => `  <category>${escapeXml(category)}</category>`)
+        .join("\n");
 
       return `<item>
   <title>${escapeXml(metadata.title)}</title>

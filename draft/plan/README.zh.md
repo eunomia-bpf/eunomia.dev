@@ -44,6 +44,14 @@
 - X/LinkedIn 为已发布长文写简短平台原生帖子和链接。
 - Reddit 等社区平台只在当前讨论和社区规则匹配时发布。
 
+## Analysis 三日节奏
+
+- 以 2026-07-20 为锚点，每 3 个自然日发布一篇新的中文技术 analysis；具体日期写在对应月份文件中，一直排到 2027-12。
+- 日期提前确定，标题、研究问题和结论不提前编造。执行当天先看最近 48 小时，必要时回溯最近工作日和 30 天机制窗口，再选择与既有文章实质不同的 thesis。
+- 工作稿可以从 `draft/media/YYYY-MM-DD/<topic-slug>/deep-report.zh.md` 开始；通过来源、反证和发布价值检查后，正式源必须进入 `docs/blog/posts/<slug>.zh.md`，不保留一份重复工作稿。
+- Analysis 默认中文先发，不为了形式完整强制生成英文翻译。公开 front matter 保留 `date`、`slug`、`title`、`description`、`research_question`、`research_window` 和少量 tags，删除 `status`、内部 cutoff、工作 thesis 等流程字段。
+- 同一天可以同时完成 analysis 和多个平台任务。发布后检查站点文章页、标题、摘要、tags、链接和中文路由，在 checklist 回填 source path 与公开 URL。
+
 ## 执行顺序
 
 1. 打开当前月份文件，例如 `draft/plan/2026-07.zh.md`。
@@ -56,8 +64,7 @@
 
 ## 计划文件
 
-- `2026-07.zh.md`
-- `2026-08.zh.md`
+- `2026-07.zh.md` 至 `2027-12.zh.md`，按月保存；每个 analysis 日期都是独立 checklist。
 
 ## 每日完成标准
 

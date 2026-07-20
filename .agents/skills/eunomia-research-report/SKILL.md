@@ -106,9 +106,13 @@ Create the working report at:
 `draft/media/YYYY-MM-DD/<topic-slug>/deep-report.zh.md`
 
 Give it a stable `report_id`, research question, research window, source cutoff
-date, status, and thesis. Make the latest 48-hour developments identifiable in
-the report while using older sources only where they add mechanism, prior art,
-baseline, or contradiction.
+date, status, thesis, and ordinary public `tags`. Reports produced by the daily
+research workflow use `daily-analysis`, `research`, and a small number of precise
+topic tags. Prefer established reader-facing names such as `eBPF`, `AI Agent`,
+`Agent Infrastructure`, `Observability`, `Security`, `Linux`, and `Open Source`.
+Use a topic tag only when the article materially covers it. Make the latest
+48-hour developments identifiable in the report while using older sources only
+where they add mechanism, prior art, baseline, or contradiction.
 
 Use the editorial functions in `references/research-method.md` without turning
 them into a rigid heading checklist. Keep the evidence chain in the article and
@@ -139,6 +143,8 @@ Check that:
   stays proportionate to its evidentiary role, and avoids first-person ownership
 - the tracking section stays problem-led rather than reading like a product
   watchlist, unless a named product is itself the report's subject
+- a daily research report has the public `daily-analysis` and `research` tags,
+  plus only the topic tags materially supported by the article
 - the final Chinese source section is named `参考资料`
 - the report is materially different from previous report questions and theses
 - no private strategy, customer information, pricing plans, or unreleased work

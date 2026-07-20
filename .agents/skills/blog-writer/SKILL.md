@@ -64,6 +64,7 @@ Every edit should be necessary and local. Preserve verified evidence, caveats, f
 - Select only figures that materially support the thesis. A paper figure is never mandatory merely because it exists, but an empty figure set for a paper-based post must still be a deliberate, source-grounded working decision, not a skipped step or a separate inventory file.
 - Write Chinese from the same facts and argument, not by translating English line by line. Keep claims, examples, figures, and section progression aligned while allowing natural sentence and paragraph boundaries.
 - Use canonical absolute HTTPS URLs for non-image internal links, such as `https://eunomia.dev/blog/2026/07/19/example/` or `https://eunomia.dev/zh/blog/2026/07/19/example/`, so copied Markdown still works on Medium and other syndication platforms. Image links may stay relative to the Markdown file, such as `imgs/example.png`, so post-local media remains portable before upload.
+- Use ordinary public `tags` in front matter. Keep them few and directly relevant. Use `research` for evidence-synthesis posts and `daily-analysis` for posts produced by the daily research workflow, then add topic tags using established reader-facing names such as `eBPF`, `AI Agent`, `Agent Infrastructure`, `Observability`, `Security`, `Linux`, and `Open Source`. Do not add a topic merely because it appears in one citation. EN and ZH versions use the same tags.
 - End every blog with a compact `## References` / `## 参考文献` section containing 5–10 distinct primary sources actually used. Keep inline attribution near supported claims, do not pad the list, and align the sources across languages.
 
 ## Final validation
@@ -75,7 +76,7 @@ Before completion, Codex checks:
 - the title and first paragraph work together: the title preserves article type, core object, evidence or mechanism, and reader-facing tension, while the first paragraph proves that promise through a concrete scene, failure mode, measurement, or decision;
 - paper-based posts have reviewed the relevant figure/table candidates, selected images have descriptive alt text, and omitted figures do not leave a claim unsupported;
 - information flow and density on first reading, including concrete measured or compared objects, defined antecedents, complete causal links, useful sentence boundaries, and enough interpretation or breathing room around dense evidence;
-- title, description, date, slug, `<!-- more -->`, links, image paths, final references, and EN/ZH section correspondence. Title review comes from `blog-writing-style`; SEO/GEO only checks technical metadata constraints after the title direction is chosen;
+- title, description, date, slug, tags, `<!-- more -->`, links, image paths, final references, and EN/ZH section correspondence. Title review comes from `blog-writing-style`; SEO/GEO only checks technical metadata constraints after the title direction is chosen;
 - all non-image internal links use canonical absolute HTTPS URLs, external links use full URLs, and only image links use post-local relative paths;
 - the independent model's diff and the one-third budget;
 - paragraph flow, terminology, Chinese naturalness, sibling overlap, and the ending's practical takeaway, using the style checklist as guidance;
