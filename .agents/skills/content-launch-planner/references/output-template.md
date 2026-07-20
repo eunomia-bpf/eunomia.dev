@@ -39,7 +39,10 @@ but preserve the fields needed for execution.
 - Draft root: `draft/media/YYYY-MM-DD/[source-slug]/`
 - Draft files: `[platform].md` for each publish/comment/share decision
 - Long-form body policy: [preserve canonical source path / full copy included]
-- Browser QA state: [not started / draft created / preview checked / blocked]
+- Browser QA state: [not started / draft created / editor preview checked /
+  published page checked / fixes applied / blocked]
+- Submit path: [web editor/import UI only / no publish API]
+- Skill lessons: [updated relevant publisher skill / not needed because...]
 
 ## Platform Matrix
 

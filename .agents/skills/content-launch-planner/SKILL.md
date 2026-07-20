@@ -51,9 +51,9 @@ Load references according to the task:
    it must record the exact title, links, tags/categories, source note, media,
    and QA state. Short posts, comments, and replies should include the full
    paste-ready copy.
-8. Hand off execution to the matching publisher skill. Do not paste into a
-   platform or publish from this skill unless the user explicitly asks to move
-   from planning into execution.
+8. Hand off execution to the matching publisher skill with the required browser
+   QA state. Do not paste into a platform or publish from this skill unless the
+   user explicitly asks to move from planning into execution.
 9. Include a follow-up plan for comments, private messages, GitHub issues,
    corrections, and retrospective notes.
 
@@ -69,7 +69,9 @@ Load references according to the task:
 - Do not include private strategy, customer claims, fundraising, pricing,
   partner/customer details, unreleased roadmaps, or unverifiable numbers.
 - Social and media platforms are browser-first. Do not use hidden platform APIs,
-  internal endpoints, background requests, or automatic posting tools.
+  internal endpoints, background requests, or automatic posting tools. Medium
+  and DEV publishing must use the normal web editor/import UI and visible submit
+  buttons, not publish APIs.
 - Stop at a plan, draft, editor, or confirmation screen unless the user clearly
   confirms final publishing.
 

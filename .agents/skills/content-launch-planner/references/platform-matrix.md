@@ -43,6 +43,9 @@ links, fix images/code/heading rendering, choose tags/categories, and add one
 low-key source or project note near the end. Do not rewrite the full article
 just to make it more "platform native."
 
+Medium and DEV execution must use their normal web import/editor and visible
+submit flows. Do not plan publish-API execution for either platform.
+
 ## Default Platform Fit
 
 | Platform | Best for | Default surface | Use when | Skip when | Handoff |

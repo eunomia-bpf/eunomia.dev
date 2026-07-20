@@ -38,7 +38,9 @@ content-platform planning.
 
 Do not directly access Medium APIs, internal endpoints, or background HTTP
 interfaces. All drafting, QA, screenshots, and ledger evidence must come from
-normal browser interactions.
+normal browser interactions. Use the Medium web import/editor UI and visible
+submit buttons for publication; Medium publish APIs are not part of the default
+workflow.
 
 ## Draft Preparation
 
@@ -73,14 +75,37 @@ Before stopping for user confirmation, verify:
 - no confidential or unreleased claims appear
 - the visible final `Publish` action has not been clicked
 
+Before confirmed publishing, scroll through the full imported/editor story in
+the browser preview or editor surface. After confirmed publishing, open the
+public Medium URL and scroll through the rendered story from top to bottom
+before updating the ledger. Verify images actually load, title/subtitle are not
+polluted by site suffixes, headings do not include empty artifacts, tables have
+survived or have readable fallbacks, code blocks are not mangled by language
+detection labels, canonical/source links work, and mobile/narrow rendering is
+usable when practical. If the public page exposes a formatting issue, edit the
+published story through the web UI and repeat the public-page check.
+
+Medium import is allowed to preserve the canonical body, but it is not safe to
+trust blindly. Specifically check whether imported titles carried the source
+site suffix such as `| eunomia`, whether Markdown tables were flattened into
+loose paragraphs, whether image captions are empty placeholders, and whether
+code block language labels appeared as prose. If Medium cannot preserve a table
+cleanly, replace that table with a readable list or compact prose fallback in
+the web editor before publishing.
+
 ## Follow-Up
 
-After confirmed publish, capture the Medium URL. Monitor responses, highlights,
-private notes, and publication feedback only when the user asks or follow-up was
-part of the task. Draft replies that add context rather than sell.
+After confirmed publish and public-page QA, capture the Medium URL. Monitor
+responses, highlights, private notes, and publication feedback only when the
+user asks or follow-up was part of the task. Draft replies that add context
+rather than sell.
 
 ## Ledger Update
 
 After confirmed publish, update `.github/publisher/media/published.md` with
 source path, canonical URL, Medium URL, date, tags/publication, media, and
 follow-up notes.
+
+Before final completion, add any Medium-specific issue encountered during this
+session to this skill or `references/platform-preferences.md`, then record the
+public-page QA result in the draft record.

@@ -76,8 +76,18 @@
 
 - Check canonical URL/import settings.
 - Check title, subtitle, cover image, alt text, credits, and topic tags.
-- Check code block formatting and image sizing on desktop and narrow viewport if
+- Before publishing, scroll the imported/editor story from top to bottom in the
+  browser preview or editor surface.
+- After publishing, open the public Medium URL and scroll the rendered story
+  from top to bottom before marking the post complete.
+- Check image loading, headings, code blocks, tables or readable table
+  fallbacks, link targets, and image sizing on desktop and narrow viewport if
   practical.
+- Fix public-page issues through the Medium web UI and re-check. Common import
+  failures include site suffixes in titles, flattened tables, empty heading
+  artifacts, and code-language labels inserted into prose.
+- Prefer readable list/prose fallbacks over fragile Markdown tables when Medium
+  import flattens table rows into separate paragraphs.
 - Check that the story does not read as sponsored content or a PR release.
 
 ## Post-Publish Follow-Up

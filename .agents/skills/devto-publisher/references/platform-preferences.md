@@ -76,9 +76,20 @@
 ## Browser Checks
 
 - Preview Markdown rendering before publishing.
+- Use the DEV web editor and visible submit buttons; do not publish through DEV
+  APIs or background endpoints.
 - Check H2/H3 hierarchy, code highlighting, image rendering, and embeds.
 - Check canonical URL and draft visibility.
 - Check that GitHub links point to specific repos, examples, issues, or docs.
+- After publishing, open the public DEV URL and scroll the rendered post from
+  top to bottom before marking the post complete.
+- Fix public-page issues through the DEV web UI and re-check. Common issues
+  include duplicated canonical/source notes, wrong tags, broken images, heading
+  artifacts, and code fences rendered as plain prose.
+- Verify selected tag chips after every tag change. Typed-but-unaccepted tags
+  are not selected tags.
+- With `canonical_url` enabled, rely on DEV's built-in "Originally published"
+  notice unless a manual source note adds distinct value.
 
 ## Post-Publish Follow-Up
 

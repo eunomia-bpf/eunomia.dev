@@ -8,7 +8,7 @@ Published URL: https://medium.com/@yunwei356/an-empirical-study-ai-agent-rules-n
 
 Source body: `docs/blog/posts/ebpf-ai-agent-policy-enforcement.md`
 
-Title: An Empirical Study: AI Agent Rules Need Context and Layered Enforcement | eunomia
+Title: An Empirical Study: AI Agent Rules Need Context and Layered Enforcement
 
 Subtitle: AI agent rules look simple in CLAUDE.md, but ActPlane's 2,116-statement study shows why context and layered OS enforcement decide what can be checked.
 
@@ -33,4 +33,13 @@ Browser QA:
 - Published from a fresh import draft, not the earlier corrupted title-edit draft.
 - Verified published story visible in the in-app browser.
 - Verified Medium platform URL and canonical URL separately: Medium `og:url` is the published URL, while `rel=canonical` points to eunomia.dev.
-- Verified ActPlane paper, GitHub, images, tables, and headings rendered in the published story preview path.
+- Post-publish fix: removed the imported `| eunomia` source-site suffix from the
+  Medium title through the Medium web editor and saved the published story
+  again.
+- Post-publish public-page QA verified the cleaned title, canonical URL,
+  ActPlane paper link, GitHub links, code block, headings, and article images.
+- Known Medium import limitation: Markdown tables were flattened into readable
+  prose-like rows on the public page. This was recorded in the Medium publisher
+  skill as a recurring import issue; future Medium imports should convert tables
+  to readable list/prose fallbacks before publishing when Medium cannot preserve
+  table structure.

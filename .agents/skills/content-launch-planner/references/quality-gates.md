@@ -114,6 +114,41 @@ Relevance, Contribution-First, Evidence, and Platform-Native gates pass:
 
 This is a publishing QA gate, not a reason to publish by itself.
 
+## Rendered Browser QA Gate
+
+For every platform post that is drafted or published through a logged-in web UI:
+
+- Use visible browser interaction in the target web editor. Medium and DEV must
+  use the web import/editor and submit flow, not publish APIs or background
+  endpoints.
+- Before final publishing, inspect the editor preview or imported story from top
+  to bottom, not only the first viewport.
+- After publishing, open the public URL and inspect the rendered page or post
+  from top to bottom before marking it confirmed.
+- Verify title/subtitle, heading levels, image loading, captions/alt text where
+  supported, tables or table fallbacks, code blocks, link targets, canonical or
+  source notes, tags/categories, and mobile/narrow rendering when practical.
+- If the public page reveals broken images, flattened tables, empty headings,
+  duplicated notes, wrong tags, or mangled code blocks, edit the published item
+  in the web UI and re-run the public-page check.
+- Record the preview/public-page QA state, fixes, blockers, and final URL in
+  the matching `draft/media/YYYY-MM-DD/<source-slug>/<platform>.md` file and
+  publishing ledger.
+
+## Publishing Lessons Gate
+
+At the end of every platform publishing session:
+
+- Name any concrete issue found during drafting, preview, publish, public-page
+  QA, or post-publish editing.
+- Update the matching publisher skill or reference file when the issue could
+  recur, including platform-specific checks or fallback behavior.
+- If the issue is one-off or account-specific, record it in the matching
+  `draft/media/YYYY-MM-DD/<source-slug>/<platform>.md` QA notes instead of
+  turning it into generic guidance.
+- Do not mark the launch workflow complete until either the skill/reference was
+  updated or the reason for not updating it is recorded.
+
 ## Browser And Approval Gate
 
 - Platform checks must use visible browser interaction when logged-in state is

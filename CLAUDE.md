@@ -31,6 +31,12 @@ move stable strategy or workflow guidance into the appropriate durable doc/skill
 open issues for concrete short-term fixes, then remove the temporary planning
 file.
 
+After every external platform publishing session, do a short publishing
+lessons pass before reporting completion. Any concrete problem encountered
+during drafting, preview, publishing, or public-page QA must be recorded in the
+matching publisher skill or reference file, so the same platform mistake does
+not recur in the next launch.
+
 Treat this repository as a mature open-source project for every change. Never
 push changes directly to `main`. Start from the current `main` branch, create a
 feature or fix branch, and publish the change through a normal, non-draft pull

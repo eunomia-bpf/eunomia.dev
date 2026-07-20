@@ -38,7 +38,8 @@ content-platform planning.
 
 Do not directly access DEV APIs, internal endpoints, or background HTTP
 interfaces. All drafting, QA, screenshots, and ledger evidence must come from
-normal browser interactions.
+normal browser interactions. Use the DEV web editor and visible submit buttons
+for publication; DEV publish APIs are not part of the default workflow.
 
 ## Draft Preparation
 
@@ -72,14 +73,35 @@ Before stopping for user confirmation, verify:
 - preview is readable and self-contained
 - the visible final publish action has not been clicked
 
+Before confirmed publishing, use the DEV web preview and inspect the full post
+from top to bottom. After confirmed publishing, open the public DEV URL and
+inspect the rendered post from top to bottom before updating the ledger. Verify
+canonical/source notes, title, tags, image loading, H2/H3 hierarchy, tables,
+code fences, link targets, embeds, and narrow rendering when practical. If the
+public page reveals duplicated source notes, wrong tags, broken images, heading
+artifacts, or mangled code blocks, edit the published post through the web UI
+and repeat the public-page check.
+
+DEV tags must be verified from the selected-tag chips after editing. Do not
+assume a desired tag exists or was accepted just because it was typed into the
+tag box; if the editor rejects a tag, choose a supported nearby tag and record
+the fallback. When `canonical_url` is set, DEV already displays its own
+"Originally published" notice, so avoid adding a duplicate manual source note
+at the end unless the user explicitly asks for one.
+
 ## Follow-Up
 
-After confirmed publish, capture the DEV URL. Monitor comments and
-notifications only when the user asks or follow-up was part of the task. Draft
-answers with reproducible details and move long-lived issues to GitHub.
+After confirmed publish and public-page QA, capture the DEV URL. Monitor
+comments and notifications only when the user asks or follow-up was part of the
+task. Draft answers with reproducible details and move long-lived issues to
+GitHub.
 
 ## Ledger Update
 
 After confirmed publish, update `.github/publisher/media/published.md` with
 source path, canonical URL, DEV URL, date, tags/series, media, and follow-up
 notes.
+
+Before final completion, add any DEV-specific issue encountered during this
+session to this skill or `references/platform-preferences.md`, then record the
+public-page QA result in the draft record.
