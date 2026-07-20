@@ -35,12 +35,16 @@ Load references according to the task:
 3. Classify the launch tier and reader intent: contribution-first technical
    education, project/tool launch, paper/research discussion, tutorial, release
    note, or follow-up.
-4. For long-form blog/tutorial/paper explainers with canonical English and/or
-   Chinese sources, default to canonical syndication: Medium/DEV use the
-   English version, Zhihu/Juejin use the Chinese version, and the body is not
-   rewritten unless the user asks or the source itself has a problem. Visible
-   canonical/source links are not mandatory on any platform; do not add one only
-   to satisfy a checklist.
+4. For long-form blog/tutorial/paper explainers, default to faithful
+   syndication: Medium/DEV use the existing English source and Zhihu/Juejin use
+   the existing Chinese source. Preserve the selected source title exactly and
+   keep the body substantively unchanged. Do not rewrite, shorten, expand,
+   reorder, split, localize, or add platform-native openings, examples, or
+   conclusions. Only mechanical rendering fixes and platform metadata are
+   allowed. If the source needs a content fix, update the source first and then
+   syndicate that corrected version. If no suitable source exists in the target
+   language, stop and get explicit translation or rewrite authorization.
+   Visible canonical/source links are optional on every platform.
 5. Select platforms by fit, not by desire to be everywhere. All-platform plans
    must still produce platform-native angles and may recommend "skip" for weak
    surfaces.
@@ -48,17 +52,17 @@ Load references according to the task:
    link, media, CTA, risks, and follow-up.
 7. Before browser/editor work, route platform-specific copy drafts to
    `draft/media/YYYY-MM-DD/<source-slug>/<platform>.md`, using the local date.
-   For long-form canonical syndication that preserves the article body, the
+   For long-form syndication that preserves the article body, the
    draft may reference the canonical source file instead of duplicating it, but
-   it must record the exact title, links, tags/categories, source note, media,
-   and QA state. Short posts, comments, and replies should include the full
-   paste-ready copy.
+   it must record the exact source title, links, tags/categories, media, and QA
+   state. Short posts, comments, and replies should include the full paste-ready
+   copy.
 8. For long-form posts on every platform, finish the platform-specific artifact
    locally before touching the platform editor whenever possible. Generate a
    temporary or `draft/media/YYYY-MM-DD/<source-slug>/` upload/import artifact
-   with the final title, duplicate body H1 removed, platform-specific
-   source/project note if useful, image URLs or uploaded images, table
-   fallbacks, code blocks, tags/categories, and links.
+   with the exact source title, duplicate body H1 removed, image URLs or
+   uploaded images, necessary table/code/formula rendering fallbacks,
+   tags/categories, and links already present in the source.
    Use the platform editor for import/upload, settings, and QA, not for writing
    or structural repair.
 9. Hand off execution to the matching publisher skill with the required browser
@@ -71,10 +75,12 @@ Load references according to the task:
 
 - Keep public content 80% contribution and 20% promotion. Project mentions are
   evidence, implementation artifacts, or next steps after useful explanation.
-- Do not recommend full rewrites for long-form syndicated posts by default.
-  Limit changes to title micro-tuning, useful source/GitHub/paper links,
-  images, code blocks, tags, and a low-key project/source note when it helps
-  the reader.
+- Do not make substantive changes to syndicated long-form posts. Preserve the
+  source title, opening, section order, claims, examples, and conclusion. Limit
+  platform changes to front matter, duplicate H1 removal, heading-level
+  conversion, image upload/URL repair, code/table/formula rendering, and
+  platform metadata. Add body text or links only when the user explicitly asks
+  or after making the same change in the source article.
 - Do not force visible canonical links on any platform. If a platform provides a
   dedicated canonical field, treat it as a hygiene setting when convenient; do
   not edit the article body just to add or repair a canonical/source link.

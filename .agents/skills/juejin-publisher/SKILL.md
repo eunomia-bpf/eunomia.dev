@@ -1,6 +1,6 @@
 ---
 name: juejin-publisher
-description: Prepare eunomia.dev Markdown articles for Juejin publishing. Use when asked to create, review, paste, QA, or record a Juejin draft or article for content from docs/blog/posts, docs/blogs, docs/tutorials, or other repository Markdown sources. Defaults long-form posts to Chinese canonical syndication rather than full rewrites, with browser-editor workflow, Juejin Markdown preview checks, category and tag selection, safe stop-before-publish behavior, and media ledger updates.
+description: Prepare eunomia.dev Markdown articles for Juejin publishing. Use when asked to create, paste, QA, or record a Juejin draft or article from repository Markdown. Preserves a syndicated long-form source title and body apart from mechanical Markdown/rendering fixes, with browser-editor workflow, category and tag selection, safe stop-before-publish behavior, and media ledger updates.
 ---
 
 # Juejin Publisher
@@ -51,11 +51,12 @@ and capturing screenshots.
    - preserve the article body by default
    - convert relative images to checked public URLs or prepare editor upload
    - ensure code fences have language labels
-   - micro-tune the title or intro only when needed for the same developer
-     promise
-   - add a short GitHub/project/paper note near the end only when useful
-3. Rewrite the body only when the user asks, the source is English-only, or a
-   concrete quality problem blocks publication.
+   - preserve the source title exactly
+   - preserve links already present in the source
+3. Keep the opening, section order, claims, examples, and conclusion unchanged.
+   If the source needs a content fix, update it first or skip syndication.
+   Rewrite, translate, shorten, expand, reorder, or split only when the user
+   explicitly asks for that specific publication.
 
 ## Draft Archive
 
@@ -90,19 +91,18 @@ then verify the preview and public page.
 
 ## Content Strategy
 
-Juejin readers reward immediately useful technical framing. Put the practical
-payoff in the title or first paragraph, use diagrams and command output only
-when they advance the tutorial, and prefer one article per concrete technique.
-For existing Chinese long-form eunomia.dev posts, preserve the canonical body
-and adapt only title, images, Markdown rendering, category, tags, and useful
-source/project links. For large docs, split into a series and link the full
-tutorial only when that helps the reader.
+Juejin-native short posts and new articles can use immediately useful technical
+framing. This guidance does not apply to syndicated long-form content. For an
+existing Chinese long-form eunomia.dev post, preserve the source title exactly
+and keep the body substantively unchanged. Only fix Markdown/rendering and set
+category, tags, cover, and summary metadata. Do not split a source article into
+a series by default.
 
 Optimize for the maintainer's personal technical account brand and practical
 developer trust, not only for search ranking or traffic back to eunomia.dev.
-Keep GitHub, tutorial, docs, or paper links as sources or extended reading, but
-make the Juejin version stand alone as a useful platform-native article. A
-visible eunomia.dev canonical/source note is optional.
+Preserve GitHub, tutorial, docs, or paper links already in the source. A visible
+eunomia.dev canonical/source note is optional and is not added to the body by
+default.
 
 ## Safety Boundary
 

@@ -16,6 +16,9 @@
   selling a product.
 - For long-form blogs, default to a short feed post with a share link. Do not
   republish the full article as a LinkedIn article unless the user asks.
+- When the user requests long-form syndication as a LinkedIn article, preserve
+  the source title exactly and keep the body substantively unchanged. Feed-post,
+  carousel, and short-copy rewrite guidance does not apply to the article body.
 - Keep the 80% contribution / 20% promotion ratio. Use the project as proof,
   implementation, or next step.
 

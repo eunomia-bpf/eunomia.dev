@@ -1,6 +1,6 @@
 ---
 name: medium-publisher
-description: Prepare eunomia.dev Markdown articles for Medium drafts, imports, and canonical syndication. Use when asked to adapt, paste, import, QA, or record Medium posts for blog, tutorial, project, paper, release, or GitHub content. Defaults long-form posts to English canonical syndication rather than full rewrites, with canonical URL checks, title/subtitle/cover QA, safe stop-before-publish behavior, response/private-note follow-up, and media ledger updates.
+description: Prepare eunomia.dev Markdown articles for Medium drafts, imports, and faithful long-form syndication. Use when asked to paste, import, QA, or record Medium posts for blog, tutorial, project, paper, release, or GitHub content. Preserves the English source title and body exactly apart from mechanical rendering fixes, with optional canonical settings, browser QA, safe stop-before-publish behavior, follow-up, and media ledger updates.
 ---
 
 # Medium Publisher
@@ -11,7 +11,8 @@ publishing unless the user explicitly confirms it.
 ## Inputs
 
 - Source Markdown path or source/canonical eunomia.dev URL.
-- Intended title, subtitle, publication, tags, cover, or optional canonical URL.
+- Source title, optional source subtitle, publication, tags, cover, or optional
+  canonical URL.
 - Optional GitHub link, paper link, or follow-up plan.
 
 If the source path is missing, inspect `.github/publisher/posts_queue.txt`,
@@ -46,21 +47,25 @@ workflow.
 
 1. Read the canonical English source and record the source URL, GitHub links,
    and paper links when known.
-2. Default to import/syndication that preserves the article body.
-3. Make only light adaptations: remove site front matter, micro-tune title or
-   subtitle without changing the promise, fix images/headings/code/links, add
-   relevant tags, and prepare alt text or image credits.
-4. Add or preserve GitHub, project, and paper links as evidence or extended
-   reading, not as the point of the story.
-5. Rewrite the body only when the user asks, the source is not suitable for
-   Medium, or a concrete quality problem blocks publication.
+2. Preserve the source title exactly and keep the body substantively unchanged.
+3. Make only mechanical adaptations: remove site front matter or a duplicate
+   H1, convert heading levels, repair image URLs/uploads, and preserve readable
+   code, tables, formulas, embeds, and links. Set Medium tags, publication,
+   cover, and other metadata without changing the article.
+4. Preserve GitHub, project, paper, and source links already in the article. Add
+   body text or links only after the same source change or an explicit user
+   request.
+5. If the source is not suitable for Medium, skip it or fix the source first.
+   Rewrite, translate, shorten, expand, reorder, or split it only when the user
+   explicitly asks for that specific publication.
 
 ## Draft Archive
 
 Before opening the Medium editor, write or update the Medium draft record under
 `draft/media/YYYY-MM-DD/<source-slug>/medium.md` using the local date. For
 canonical imports, this file may reference the source Markdown body instead of
-duplicating it, but it must record the exact Medium title/subtitle, canonical
+duplicating it, but it must record the exact source title, optional source
+subtitle, canonical
 relationship when configured, GitHub/paper links, tags, source/project note if
 useful, media choices, and QA state. For long-form posts, finish the
 Medium-specific artifact or import checklist locally before opening Medium; use
@@ -74,7 +79,8 @@ Before stopping for user confirmation, verify:
 - canonical/import relationship is correct when configured
 - the Medium body has not drifted from the canonical article except for
   necessary formatting/link/tag edits
-- title, subtitle, and cover accurately represent the story
+- title matches the source exactly; subtitle is unchanged from the source or
+  omitted unless the user requested one
 - code blocks, images, embeds, links, and headings render cleanly
 - tags are relevant and not spammy
 - no confidential or unreleased claims appear

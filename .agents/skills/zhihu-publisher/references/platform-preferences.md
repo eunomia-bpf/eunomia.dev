@@ -40,8 +40,10 @@ link placement, or "想法" adaptation.
 - Use a consulting/research/helping-solve-problems posture. Zhihu content should
   make the reader feel they learned a usable concept or judgment.
 - For eunomia.dev long-form posts, default to Chinese canonical syndication.
-  Preserve the article body and only adjust title, images, links, tags/column,
-  cover, and preview formatting unless the user asks for a rewrite.
+  Preserve the source title exactly and keep the body substantively unchanged.
+  Only fix rendering and set tags, column, cover, question, and other platform
+  metadata. Rewrite only when the user explicitly requests it for that
+  publication.
 - Keep the 80% contribution / 20% promotion ratio. Project links should appear
   as source code, artifact, or extended reading after the explanation.
 - Visible eunomia.dev original/canonical notes are optional. Do not add or edit
@@ -62,16 +64,15 @@ link placement, or "想法" adaptation.
 
 - Do not rewrite an already polished Chinese eunomia.dev article just to make it
   "Zhihu-native." Preserve the body and fix platform formatting.
-- Rewrite raw changelogs, README abstracts, English-only sources, or weak
-  openings into a Zhihu-native essay or answer.
-- Opening shape: problem/scenario -> why current approach is insufficient ->
-  mechanism -> project as evidence -> practical scenarios -> limitation/link.
-- For project posts, always explain what the system observes, enforces,
-  accelerates, or verifies. Avoid category-only descriptions.
+- If a raw changelog, README abstract, English-only source, or weak opening is
+  unsuitable for syndication, improve the source first or skip it. A
+  platform-only rewrite requires explicit user instruction.
+- For new Zhihu-native project posts, explain what the system observes,
+  enforces, accelerates, or verifies. Avoid category-only descriptions.
 - For Chinese copy, write naturally from the same facts instead of translating
   English sentence by sentence.
-- Add 3-5 concrete use cases when the project is unfamiliar and the canonical
-  article does not already make the scenarios clear.
+- For new project posts, include concrete use cases when they help. Do not add
+  platform-only examples to a syndicated long-form article.
 
 ## Adaptation Workflow
 
@@ -88,8 +89,8 @@ link placement, or "想法" adaptation.
   the editor. Prefer Zhihu's visible document import path when it works; if a
   pasted/imported draft needs major structural repair, regenerate the local
   artifact and import again rather than editing fragile rich text in place.
-- Run the anti-AI pass: remove "重磅", "赋能", "全面升级", slogan symmetry,
-  generic "安全、合规、可靠" stacks, and translated corporate phrasing.
+- Run the anti-AI pass on new short or platform-native copy. Do not use it to
+  rewrite syndicated long-form prose.
 
 ## What To Avoid
 
@@ -175,9 +176,9 @@ link placement, or "想法" adaptation.
 
 ## Quality Gate
 
-- The first screen says what problem this solves and why it matters.
-- The article gives the reader a reusable mental model before asking them to
-  click anything.
+- Before selecting a long-form source, confirm that its first screen states the
+  problem and that the article provides a reusable mental model. If it does not,
+  improve the source or skip syndication instead of rewriting the platform copy.
 - Project links are specific GitHub, docs, paper, or demo URLs.
 - The text names concrete use cases: safety, compliance, reliable instruction
   following, observability, debugging, performance, or production governance.

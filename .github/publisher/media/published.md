@@ -52,7 +52,7 @@ The following authored articles were visible on the first article page during th
 
 | Status | Title | URL | Notes |
 | --- | --- | --- | --- |
-| Pending review | 2116 条 CLAUDE.md/AGENTS.md 规则：AI Agent 策略为什么需要 OS 强制执行 | <https://juejin.cn/spost/7664151348536229903> | Submitted from `docs/blog/posts/ebpf-ai-agent-policy-enforcement.zh.md`; category `人工智能`; tags `Linux`, `AI编程`, `安全`; all four images, two tables, code, and outbound links verified on the article page while it displayed `审核中` |
+| Pending review | 实证研究：AI Agent 规则需要上下文与分层强制执行 | <https://juejin.cn/spost/7664151348536229903> | Submitted from `docs/blog/posts/ebpf-ai-agent-policy-enforcement.zh.md`; category `人工智能`; tags `Linux`, `AI编程`, `安全`; restored the exact source title; all four images, two tables, code, and outbound links verified on the article page while it displayed `审核中` |
 | Confirmed | 多智能体系统是人工智能的未来吗？探讨OpenAI的Swarm实验 | <https://juejin.cn/post/7424407625897492514> | Latest visible authored article |
 | Confirmed | eBPF 实践教程: 通过 socket 或 syscall 追踪 HTTP 等七层协议 | <https://juejin.cn/post/7280746975917228087> | Authored article |
 | Confirmed | eBPF 实践教程：使用 eBPF 用户态捕获多种库的 SSL/TLS 明文数据 | <https://juejin.cn/post/7269723528961261623> | Authored article |

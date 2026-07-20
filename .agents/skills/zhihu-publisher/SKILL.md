@@ -1,6 +1,6 @@
 ---
 name: zhihu-publisher
-description: Prepare eunomia.dev Markdown articles for Zhihu publishing. Use when asked to create, review, paste, QA, or record a Zhihu draft or article for content from docs/blog/posts, docs/blogs, docs/tutorials, or other repository Markdown sources. Defaults long-form posts to Chinese canonical syndication rather than full rewrites, with browser-editor workflow, Zhihu formatting checks, safe stop-before-publish behavior, and media ledger updates.
+description: Prepare eunomia.dev Markdown articles for Zhihu publishing. Use when asked to create, import, paste, QA, or record a Zhihu draft or article from repository Markdown. Preserves a syndicated long-form source title and body apart from mechanical rendering fixes, with browser-editor workflow, Zhihu formatting checks, safe stop-before-publish behavior, and media ledger updates.
 ---
 
 # Zhihu Publisher
@@ -51,17 +51,17 @@ and capturing screenshots.
 2. Build a Zhihu copy in canonical syndication mode:
    - remove YAML front matter
    - preserve the article body by default
-   - micro-tune the Chinese title only if it strengthens the same reader promise
-   - keep the first paragraph as the hook unless it has a concrete problem
+   - preserve the source title and first paragraph exactly
    - convert relative images to checked public URLs or prepare manual image
      upload
-   - simplify tables, formulas, Mermaid, footnotes, and complex HTML before
-     paste or import
-3. Add a short GitHub/project/paper note near the end only when it helps the
-   reader. A visible eunomia.dev original/canonical note is optional, not
-   required.
-4. Rewrite the body only when the user asks, the source is English-only, or a
-   concrete quality problem blocks publication.
+   - convert tables, formulas, Mermaid, footnotes, or complex HTML only when the
+     target editor cannot render them faithfully
+3. Preserve links already present in the source. A visible eunomia.dev
+   original/canonical note is optional and is not added by default.
+4. Keep the opening, section order, claims, examples, and conclusion unchanged.
+   If the source needs a content fix, update it first or skip syndication.
+   Rewrite, translate, shorten, expand, reorder, or split only when the user
+   explicitly asks for that specific publication.
 
 ## Draft Archive
 
@@ -101,10 +101,10 @@ note if useful, media choices, and QA state.
 
 Zhihu works best when the article reads like an explanatory essay rather than a
 release note. For existing Chinese long-form eunomia.dev posts, preserve the
-canonical body and use platform adaptation for title, images, links, cover,
-column, and preview quality. Rewrite only when the source is not already a
-usable Chinese essay. For long tutorials, publish the conceptual article on
-Zhihu and link to the complete code or tutorial.
+source title exactly and keep the body substantively unchanged. Platform work is
+limited to rendering, cover, column, tags, question selection, and preview
+quality. If the source is not already a usable Chinese essay, skip it or improve
+the source before syndication.
 
 Optimize for the maintainer's personal technical account brand: clear taste,
 useful explanation, research and engineering credibility, and discussion from

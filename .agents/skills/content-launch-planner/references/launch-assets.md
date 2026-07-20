@@ -49,8 +49,8 @@ Turn one source into native pieces:
 
 - Pillar: canonical blog/tutorial/project page/README.
 - Long-form syndication: Medium/DEV English, Zhihu/Juejin Chinese. Preserve the
-  canonical body by default; only adjust metadata, rendering, links, tags, and
-  a short source/project note when it helps the reader.
+  selected source title exactly and keep the body substantively unchanged. Only
+  make mechanical rendering fixes and set platform metadata.
 - Short derivatives: LinkedIn post and X post/thread with one useful insight
   plus a share link.
 - Micro-content: single X posts, LinkedIn comments, Zhihu ideas, screenshots,
@@ -76,8 +76,9 @@ Extract atoms before writing:
 - one limitation or caveat
 
 Short and community derivatives should add a platform-native angle, not merely
-shorten the pillar. Long-form syndication should keep the canonical article
-stable unless a real reader or formatting issue requires edits.
+shorten the pillar. Long-form syndication keeps the source article stable; a
+content problem is fixed in the source first, while platform copies receive only
+mechanical formatting fixes.
 
 ## Technical Project Framing
 

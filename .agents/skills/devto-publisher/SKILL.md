@@ -1,6 +1,6 @@
 ---
 name: devto-publisher
-description: Prepare eunomia.dev Markdown articles for DEV Community drafts and canonical syndication. Use when asked to adapt, paste, import, QA, or record DEV.to posts for blog, tutorial, project, paper, release, or GitHub content. Defaults long-form posts to English canonical syndication rather than full rewrites, with Markdown/frontmatter conversion, canonical_url checks, safe stop-before-publish behavior, comment follow-up, and media ledger updates.
+description: Prepare eunomia.dev Markdown articles for DEV Community drafts and faithful long-form syndication. Use when asked to paste, import, QA, or record DEV.to posts for blog, tutorial, project, paper, release, or GitHub content. Preserves the English source title and body apart from mechanical Markdown/rendering fixes, with optional canonical_url settings, browser QA, safe stop-before-publish behavior, follow-up, and media ledger updates.
 ---
 
 # DEV.to Publisher
@@ -11,7 +11,7 @@ final publishing unless the user explicitly confirms it.
 ## Inputs
 
 - Source Markdown path or source/canonical eunomia.dev URL.
-- Intended title, tags, series, cover image, or optional canonical URL.
+- Source title, tags, series metadata, cover image, or optional canonical URL.
 - Optional GitHub link, paper link, or follow-up plan.
 
 If the source path is missing, inspect `.github/publisher/posts_queue.txt`,
@@ -49,11 +49,14 @@ for publication; DEV publish APIs are not part of the default workflow.
    `canonical_url` when known and convenient, but do not add a visible body
    source link just to satisfy a checklist.
 3. Use H2 as the highest body heading because the post title is the H1.
-4. Preserve the article body by default; only fix headings, code fences,
-   images, links, tags, and DEV-specific Markdown rendering.
-5. Use GitHub/project links as implementation sources and next steps.
-6. Rewrite the body only when the user asks, the source is not developer
-   relevant enough for DEV, or a concrete quality problem blocks publication.
+4. Preserve the source title exactly and keep the body substantively unchanged.
+   Only fix frontmatter, heading levels, code fences, image URLs/uploads, tables,
+   formulas, embeds, links, tags, and DEV-specific rendering.
+5. Preserve GitHub/project/paper links already in the source. Add body text or
+   links only after the same source change or an explicit user request.
+6. If the source is not suitable for DEV, skip it or fix the source first.
+   Rewrite, translate, shorten, expand, reorder, or split it only when the user
+   explicitly asks for that specific publication.
 
 ## Draft Archive
 
@@ -69,7 +72,8 @@ than structural repair.
 
 Before stopping for user confirmation, verify:
 
-- title, description, tags, cover, and optional canonical URL are correct
+- title matches the source exactly; description, tags, cover, and optional
+  canonical URL accurately reflect the unchanged source
 - the DEV body has not drifted from the canonical article except for necessary
   Markdown/frontmatter/rendering edits
 - headings start at H2 and code fences have language labels

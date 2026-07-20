@@ -13,8 +13,9 @@
 - DEV should feel like a practical developer post: concrete setup, code,
   commands, result, and what to try next.
 - For eunomia.dev long-form posts, default to English canonical syndication.
-  Preserve the body and improve only frontmatter, headings, images, code
-  fences, links, tags, and preview rendering unless the user asks for a rewrite.
+  Preserve the source title exactly and keep the body substantively unchanged.
+  Only fix frontmatter/rendering and set platform metadata. Rewrite only when
+  the user explicitly requests it for that publication.
 - Keep the 80% contribution / 20% promotion ratio. The article should stand on
   DEV even though it links back to eunomia.dev or GitHub.
 - Treat the project as a reproducible implementation, not a banner ad.
@@ -34,12 +35,12 @@
 - Do not turn a research article into a fake tutorial. Keep the canonical body
   when it already has a developer-relevant problem, artifact, mechanism, or
   implementation lesson.
-- Shorten dense academic openings only when they block readability or the user
-  asks for a DEV-native rewrite.
+- Preserve the opening and section order. If either needs a content fix, update
+  the source first or skip syndication.
 - Keep code examples copy-pasteable with expected output when possible.
 - Use up to a small set of focused tags; do not tag every adjacent topic.
-- If the source is long, make it a series or split into one practical task per
-  post.
+- Do not split a syndicated source into a series because of length. Series and
+  restructuring require an explicit user request.
 
 ## Adaptation Workflow
 
@@ -73,7 +74,8 @@
   issue/docs section. Do not reply with generic appreciation only.
 - If a short post lacks runnable detail, save it as a draft idea until there is
   a reproducible example.
-- Titles should name the task and boundary, not only the technology category.
+- Titles for original short DEV posts should name the task and boundary. This
+  does not authorize changing a syndicated long-form title.
 - Descriptions should contain one problem, one mechanism/result, and one reason
   the author knows this from implementation work.
 

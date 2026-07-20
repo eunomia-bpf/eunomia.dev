@@ -26,7 +26,9 @@
 
 ## Rewrite Rules
 
-- Keep titles factual and close to the source.
+- For an existing long-form source, preserve the source title exactly. Write a
+  new title only for an original text submission or when the user explicitly
+  requests one.
 - Choose tags from the platform's predefined list; do not force a story onto
   Lobsters when no tag fits.
 - Prefer canonical eunomia.dev, paper, or GitHub URLs without analytics

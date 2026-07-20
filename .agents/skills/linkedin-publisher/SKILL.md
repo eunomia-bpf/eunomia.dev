@@ -50,15 +50,20 @@ normal browser interactions.
      plus a canonical/GitHub/paper link
    - document/carousel plan for a step-by-step visual explanation
    - article only when the user explicitly asks for long-form on LinkedIn
-3. Open with the result, tension, or professional lesson in the first lines.
-4. Use the project or GitHub link as evidence after the reader-facing value is
+3. For a LinkedIn article that syndicates an existing long-form source, preserve
+   the source title exactly and keep the body substantively unchanged. Only make
+   mechanical rendering fixes and set platform metadata. A rewrite requires an
+   explicit request for that article.
+4. Open short feed posts with the result, tension, or professional lesson.
+5. Use the project or GitHub link as evidence after the reader-facing value is
    clear.
 
 ## Draft Archive
 
 Before opening the LinkedIn composer, write or update the LinkedIn draft under
 `draft/media/YYYY-MM-DD/<source-slug>/linkedin.md` using the local date. Include
-the full paste-ready post/article outline, first-visible-lines check, primary
+the full paste-ready post or exact long-form source reference,
+first-visible-lines check, primary
 link, optional first-comment links, media/alt text, visibility target when
 known, and QA state.
 

@@ -15,6 +15,9 @@
 - For long-form blogs, default to a short native post or compact thread with a
   share link. Do not republish the whole article as an X Article unless the user
   asks.
+- When the user requests long-form syndication as an X Article, preserve the
+  source title exactly and keep the body substantively unchanged. Short-post and
+  thread rewrite guidance does not apply to the article body.
 - Keep the 80% contribution / 20% promotion ratio. The post should be valuable
   even if the reader never clicks the link.
 - Position the maintainer as a research-minded systems engineer sharing hard

@@ -104,7 +104,7 @@ platform editor:
 
 - A platform-specific artifact exists in a temporary directory or
   `draft/media/YYYY-MM-DD/<source-slug>/`.
-- The artifact has the final platform title, no duplicate body H1, checked image
+- The artifact has the exact source title, no duplicate body H1, checked image
   URLs or upload assets, table/formula/code fallbacks, links, tags/categories,
   and the intended source/project note when useful.
 - The platform editor is used for import/upload, metadata/settings, preview, and
@@ -119,17 +119,22 @@ For Medium/DEV/Zhihu/Juejin long-form posts, check these after the Strategic
 Relevance, Contribution-First, Evidence, and Platform-Native gates pass:
 
 - The canonical body is preserved unless the user asked for a rewrite or the
-  source has a concrete quality/formatting problem.
+  source was corrected first.
 - Medium and DEV use the English source; Zhihu and Juejin use the Chinese
   source when available.
-- Title changes are micro-edits that keep the same reader promise.
+- The source title is preserved exactly. A title change requires an explicit
+  user request for that specific publication.
+- The opening, section order, claims, examples, conclusion, and length are not
+  changed for platform style. Do not shorten, expand, localize, or split the
+  source into a series during syndication.
 - GitHub, docs, paper/arXiv, and project links are present when relevant.
 - Visible canonical/source links are optional on every platform. Dedicated
   canonical fields, when supported, are hygiene settings rather than growth
   strategy; do not edit the article body just to add a canonical/source link.
 - Images, code blocks, headings, tables, tags/categories, and previews are
   checked in the target editor.
-- A low-key project/source note appears near the end when useful.
+- Body text or links are added only after the same source change or an explicit
+  user request.
 
 This is a publishing QA gate, not a reason to publish by itself.
 
@@ -178,8 +183,8 @@ At the end of every platform publishing session:
   explicit user instruction.
 - A launch plan can recommend actions, but execution belongs to the matching
   publisher skill and must stop before final publish unless confirmed.
-- The `eunomia-content-patrol` standing authorization counts as confirmation
-  only for actions inside that skill's publishing and repost boundaries.
+- A scheduled automation, monthly plan, ledger entry, prepared draft, or
+  publisher skill does not count as final publish or repost confirmation.
 
 ## Scorecard
 

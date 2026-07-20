@@ -38,7 +38,8 @@ but preserve the fields needed for execution.
 
 - Draft root: `draft/media/YYYY-MM-DD/[source-slug]/`
 - Draft files: `[platform].md` for each publish/comment/share decision
-- Long-form body policy: [preserve canonical source path / full copy included]
+- Long-form title/body policy: [exact source title; substantively unchanged
+  source path / full copy included]
 - Browser QA state: [not started / draft created / editor preview checked /
   published page checked / fixes applied / blocked]
 - Submit path: [web editor/import UI only / no publish API]
@@ -94,8 +95,8 @@ evaluated, not every platform must receive a post.
 
 For each publish decision, produce a unique angle. Examples:
 
-- Medium/DEV: English canonical syndication, not a full rewrite by default
-- Zhihu/Juejin: Chinese canonical syndication, not a full rewrite by default
+- Medium/DEV: exact English source title and substantively unchanged body
+- Zhihu/Juejin: exact Chinese source title and substantively unchanged body
 - X: one sharp observation or compact thread plus share link
 - LinkedIn: professional consequence in a short feed post plus share link
 - HN/Lobsters: plain technical artifact

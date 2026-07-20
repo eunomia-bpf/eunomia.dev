@@ -15,8 +15,9 @@
 
 - Write as a researched technical essay with narrative clarity.
 - For eunomia.dev long-form posts, default to English canonical syndication.
-  Preserve the body and improve only metadata, rendering, links, and tags unless
-  the user asks for a rewrite.
+  Preserve the source title exactly and keep the body substantively unchanged.
+  Only fix rendering and set platform metadata. Rewrite only when the user
+  explicitly requests it for that publication.
 - Keep the 80% contribution / 20% promotion ratio. Medium explicitly disfavors
   content whose primary purpose is traffic, signups, sales, or PR.
 - Use first-hand engineering experience, measurements, implementation decisions,
@@ -33,12 +34,11 @@
 
 - Do not paste blindly: remove front matter, verify headings, images, code
   blocks, links, tags, and canonical/import settings.
-- Keep the article body intact when the canonical English source already has a
-  clear problem -> evidence -> mechanism -> lesson arc.
-- Only rewrite the opening/body if the source lacks context for Medium readers,
-  has formatting artifacts, or the user explicitly asks for a Medium-native
-  essay.
-- Prefer a strong subtitle that gives context and promises the reader value.
+- Keep the title, opening, section order, examples, claims, and conclusion intact.
+- If the source lacks context or has a content problem, fix the source first or
+  skip syndication. Do not repair prose in the Medium editor.
+- Preserve a source subtitle when one exists. Leave it blank when optional
+  rather than inventing new positioning for a syndicated article.
 - Use original diagrams/screenshots when they help; avoid generic AI cover art.
 - Keep GitHub links in "how to inspect/reproduce" positions.
 
@@ -48,9 +48,8 @@
   diagrams/images, canonical URL, GitHub links, and reader outcome.
 - Choose whether the piece is an imported canonical story, publication
   submission, or short field note. Medium should not receive every post.
-- Preserve the introduction by default. Add missing context only when the
-  existing English article would be unclear to a broader software-engineering
-  reader.
+- Preserve the introduction. Missing context belongs in the source article, not
+  in a platform-only variant.
 - Treat cover images, subtitles, and excerpts as separate writing surfaces. They
   should be specific, not generic "AI infrastructure" packaging.
 - Run the anti-AI pass: remove "deep dive", "unlock", "game-changer", inflated
@@ -60,8 +59,9 @@
 
 - Medium is mainly long-form, but titles, subtitles, excerpts, and publication
   notes need short-form discipline.
-- Title and subtitle should tell the reader what they will understand or be able
-  to do, without mystery hooks or tabloid energy.
+- For original Medium notes, titles and subtitles should state the reader value
+  without mystery hooks or tabloid energy. This does not authorize changing a
+  syndicated long-form title.
 - Excerpts should include one concrete problem, one mechanism/result, and the
   reason this author has first-hand insight.
 - Avoid AI-tell phrasing: generic "deep dive", "unlock", "game changer",

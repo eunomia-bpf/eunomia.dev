@@ -24,7 +24,10 @@
 
 ## Rewrite Rules
 
-- Rewrite the title for the subreddit, not for SEO.
+- For a link submission to an existing long-form source, preserve the source
+  title exactly unless a subreddit rule requires a prefix or flair. Native
+  titles may be written for original text posts or when the user explicitly
+  requests one; do not rewrite for SEO.
 - Prefer a question, technical lesson, benchmark, repo artifact, or concrete
   debugging story over a launch announcement.
 - Include a short context paragraph when submitting a link, but do not paste a

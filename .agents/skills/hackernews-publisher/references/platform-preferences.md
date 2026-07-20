@@ -25,8 +25,8 @@
 
 ## Rewrite Rules
 
-- Do not rewrite the title into a hook unless the source title is misleading or
-  promotional.
+- Preserve an existing long-form source title exactly except for a
+  platform-required marker such as `[pdf]`. Do not rewrite it into a hook.
 - Remove site names, gratuitous numbers/adjectives, all-caps, exclamation
   points, and praise from the title.
 - For Show HN, title the tryable artifact directly: "Show HN: <thing>".
@@ -51,8 +51,9 @@
 ## Short-Form Style
 
 - HN short-form work is mostly title selection and comment restraint.
-- Titles should be plain, curiosity-worthy, and close to the source. Do not add
-  marketing hooks, emojis, hype adjectives, or "why everyone should care".
+- For original submissions, titles should be plain and technical. Existing
+  long-form source titles stay exact; do not add marketing hooks, emojis, hype
+  adjectives, or "why everyone should care".
 - For Show HN text, state what it is, who it is for, and what is technically
   interesting in a few factual sentences.
 - For comments, do not post AI-polished replies verbatim. Draft only for user

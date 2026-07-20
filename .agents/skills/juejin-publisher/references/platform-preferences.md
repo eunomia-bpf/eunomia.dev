@@ -22,8 +22,8 @@ short post.
   what result, and what the reader can reproduce.
 - Prefer tutorials, debugging writeups, architecture explanations with code, and
   measured comparisons over broad thought pieces.
-- Use one article per concrete technique or decision. Split long docs into a
-  series when each part has its own practical payoff.
+- For new Juejin-native content, keep each article coherent around a useful
+  technical question. Do not split syndicated long-form sources by default.
 - Keep code fences labeled and command output readable. Explain the output
   enough that readers can compare it with their own environment.
 - Choose category and tags based on the reader path, not on every topic the
@@ -34,9 +34,10 @@ short post.
 - Use a practical developer-advisor voice. The article should help the reader
   build, debug, measure, or decide.
 - For eunomia.dev long-form posts, default to Chinese canonical syndication.
-  Preserve the body and improve only title, headings, images, code fences,
-  links, category, tags, and preview rendering unless the user asks for a
-  rewrite.
+  Preserve the source title exactly and keep the body substantively unchanged.
+  Only fix Markdown/rendering and set category, tags, cover, and summary
+  metadata. Rewrite only when the user explicitly requests it for that
+  publication.
 - Keep the 80% contribution / 20% promotion ratio. GitHub/eunomia.dev links are
   implementation sources and next steps, not the core value.
 - Visible eunomia.dev canonical/source notes are optional. Do not add or edit a
@@ -57,10 +58,10 @@ short post.
 
 - Do not rewrite an already polished Chinese eunomia.dev article just to make it
   "Juejin-native." Preserve the body and fix platform formatting.
-- Rewrite dense blog or paper openings only when they block developer
-  readability or the user asks for a Juejin-native rewrite.
-- Keep one concrete technique or decision per article; split large material into
-  a series.
+- Preserve the opening and section order. If either needs a content fix, update
+  the source first or skip syndication.
+- Do not shorten, expand, localize, reorder, or split syndicated long-form
+  material.
 - Preserve code, commands, environment assumptions, and expected output.
 - Convert project introductions into "why this helps the developer" before
   naming the repo.
@@ -72,8 +73,8 @@ short post.
   observed result, failure mode, artifact link, and the developer task.
 - Choose the container first: tutorial, debugging note, architecture explainer,
   series entry, or short practical update.
-- If the source is a project launch, convert it into a reproducible developer
-  lesson before naming the repo.
+- For a new Juejin-native project post, frame the project as a reproducible
+  developer lesson. Do not apply this rewrite to a syndicated article.
 - Keep one primary GitHub/eunomia.dev link per short update; use more links only
   in full tutorials where each link supports a step.
 - For long-form posts, finish the Juejin-specific Markdown artifact locally
@@ -97,8 +98,8 @@ short post.
   reproduce or evaluate the idea.
 - If the short item cannot stand alone, turn it into an article draft or series
   note instead of forcing a thin post.
-- Titles should promise a concrete payoff: reproduce, debug, compare, measure,
-  integrate, or understand a specific mechanism.
+- Titles for original short updates should promise a concrete payoff. This does
+  not authorize changing a syndicated long-form title.
 - Comments should answer with versions, commands, paths, or issue links. Do not
   answer with generic appreciation only.
 
@@ -112,10 +113,10 @@ short post.
 
 ## Quality Gate
 
-- The article is original and contains personal research, engineering insight,
-  implementation detail, or practice experience.
-- It is not just a glossary, raw paper summary, changelog, or personal memo.
-- The title promises a concrete technical payoff.
+- The source contains research, engineering insight, implementation detail, or
+  practice experience beyond a thin announcement.
+- A syndicated long-form title matches the source exactly; an original short
+  post uses a concrete technical title.
 - The body contains enough detail for a developer to apply or evaluate the
   idea.
 - Links are specific and useful; the article still stands alone.

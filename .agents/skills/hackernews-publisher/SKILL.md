@@ -43,8 +43,9 @@ interactions.
 
 1. Decide whether HN is appropriate for the item.
 2. Prefer the original source: GitHub repo, paper, demo, or canonical article.
-3. Use the original title unless it is misleading, linkbait, too promotional, or
-   needs a required tag such as `[pdf]`.
+3. For an existing long-form source, preserve the original title exactly except
+   for a platform-required marker such as `[pdf]`. A different title requires
+   explicit user instruction.
 4. Use Show HN only for something readers can try.
 5. Do not write generated comments for direct posting; draft comment options for
    user review and ownership.
