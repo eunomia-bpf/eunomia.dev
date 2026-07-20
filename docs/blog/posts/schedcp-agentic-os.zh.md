@@ -53,7 +53,7 @@ compile, verify, deploy, and measure
 
 MCP boundary 把这些操作暴露为职责清晰的工具：`list_schedulers` 查找已有 policies，`system_monitor` 收集 measurements，`create_and_verify_scheduler` 只在 verification 通过后接纳生成的 source。Agent 围绕这些工具规划，deployment details 则留在 SchedCP 内部。即使 benchmark harness 和 scheduler implementation 继续演进，上层 reasoning interface 也能保持稳定。
 
-![SchedCP control-plane 设计](https://raw.githubusercontent.com/eunomia-bpf/schedcp/master/document/design.png)
+![SchedCP control-plane 设计](imgs/schedcp-design.png)
 
 ## 为什么 `sched_ext` 适合 Agent 迭代优化
 

@@ -53,7 +53,7 @@ When existing policies fall short, the execution verifier controls the synthesis
 
 The MCP boundary exposes these operations as tools with narrow jobs: `list_schedulers` finds existing policies, `system_monitor` collects measurements, and `create_and_verify_scheduler` admits generated source only after verification. The agent plans across these tools while deployment details remain inside SchedCP. That boundary also lets the benchmark harness and scheduler implementation evolve without changing the reasoning interface.
 
-![SchedCP control-plane design](https://raw.githubusercontent.com/eunomia-bpf/schedcp/master/document/design.png)
+![SchedCP control-plane design](imgs/schedcp-design.png)
 
 ## Why `sched_ext` Fits Agentic Optimization
 
