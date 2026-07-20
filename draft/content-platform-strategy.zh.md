@@ -9,22 +9,22 @@
 
 SEO/GEO 是帮助内容被发现、引用和复述的技术手段，不是最高目标。最高目标是让目标读者在想到 eBPF、AI-agent infrastructure、runtime observability、systems safety、GPU/runtime research 时，能想起维护者的判断力、研究 taste、开源可信度和工程实践能力。
 
-这不是一个单纯的产品营销系统。更准确的公开表达是：由 maintainer 牵引的 systems infrastructure lab / open-source infrastructure studio，持续用开源项目、论文、技术报告、教程、demo 和服务入口证明一组能力：能识别复杂系统里的真实问题，能把约束讲清楚，能给出可复现证据，也能把机制落到可维护的工程里。
+这不是一个单纯的产品营销系统。统一的公开定位是：由维护者主导的开源系统工程团队（maintainer-led open-source systems engineering effort），持续用开源项目、论文、技术报告、教程、demo 和服务入口证明一组能力：能识别复杂系统里的真实问题，能把约束讲清楚，能给出可复现证据，也能把机制落到可维护的工程里。
 
 内容平台的战略主语不是“请来买我们的产品”，而是“我们持续贡献可验证的系统知识和工程工具”。产品、项目和服务可以出现，但它们应该作为证据、复现路径、集成入口或合作入口出现，不应该抢走问题本身的主角位置。
 
 ## 表达主线与账号定位
 
-长期表达应分成四层：
+长期表达包含四个可以独立成立的层次，不要求每条内容都把读者依次推进到合作：
 
 1. **问题层**：先讲目标读者真实遇到的 agent/runtime/eBPF/GPU/system 问题，以及为什么现有工具、日志、prompt、sandbox 或人工审批不够。
 2. **证据层**：用论文、benchmark、trace、demo、issue、代码、复现实验和公开讨论说明判断不是观点堆叠。
 3. **artifact 层**：在合适位置给出 AgentSight、ActPlane、bpftime、教程、报告或 GitHub 入口，帮助读者继续验证和使用。
 4. **合作层**：只在问题和证据成立后，引导高意图读者进入 scoped pilot、architecture review、production integration、benchmark、policy design 或 enterprise support。
 
-个人号可以发，而且现阶段应该优先作为主叙事入口。原因是这类内容卖的不是单个 SKU，而是维护者的判断力、研究 taste、工程边界感和长期可信度。个人号适合发布观点、研究判断、论文解读、工程复盘、demo 进展、公开问题意识和跨项目 synthesis。
+个人号可以发，而且现阶段应该优先作为观点和叙事入口。它承载维护者本人能够负责的判断、研究选择和工程经验，适合发布观点、论文解读、工程复盘、demo 进展、公开问题意识和跨项目综合分析；它不替代 Eunomia 对项目版本、许可、支持范围或合作交付的正式承诺。
 
-组织号或项目号更适合承接稳定公告：release、教程索引、案例回链、文档更新、roadmap 节点和招聘/合作类信息。不要让组织号替代个人号做所有判断表达，也不要让个人号变成纯广告位。健康结构是：个人号建立信任和问题意识，eunomia.dev 保存 canonical，GitHub 保存可验证 artifact，组织/项目号保存正式公告。
+组织号或项目号更适合承接稳定公告：release、教程索引、公开案例回链、文档更新、已公开里程碑和招聘/合作类信息。不要让组织号替代个人号做所有判断表达，也不要让个人号变成纯广告位。健康结构是：个人号建立信任和问题意识，eunomia.dev 保存机构级 canonical，GitHub 保存可验证 artifact，组织/项目号保存正式公告和承诺。
 
 账号签名和内容结尾可以稳定指向 eunomia.dev 或 GitHub，但语气应像维护者邀请高质量技术对话，而不是每条都导向 SaaS funnel。读者先获得解释、判断或工具，再决定是否继续对话。
 
@@ -51,7 +51,7 @@ canonical、description、tag、OG image、schema、llms-full、平台预览和 
 2. **选题判断层**：每个候选题记录来源、时效性、目标读者、独特角度、可用证据、适合平台、风险边界。
 3. **高质量报告层**：每两周产出一篇技术 report 或趋势 synthesis，优先展示判断力，而不是宣传项目。
 4. **canonical archive 层**：eunomia.dev 保存最完整、最可引用版本，覆盖 blog、tutorials、报告、项目页、llms-full、结构化数据和稳定 URL。
-5. **平台原生分发层**：每个平台重写角度，而不是复制粘贴。平台帖先给读者价值，再给项目或原文链接。
+5. **平台原生分发层**：短帖按平台重写角度；适合 canonical syndication 的长文保留正文，只调整标题、元数据、链接位置、媒体和 QA。两种形式都先给读者价值，再给项目或原文链接。
 6. **ledger 与复盘层**：一个平台一个 JSON，记录 source、发布状态、URL、截图、互动、后续动作和缺口。
 
 默认 source set 是当前 `docs/blog/posts/` 加 `docs/tutorials/`，不再把 legacy 内容作为默认盘点对象。

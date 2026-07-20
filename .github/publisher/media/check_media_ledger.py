@@ -162,9 +162,17 @@ def validate_platforms(
 
             if entry.get("status") == CONFIRMED_STATUS and not (entry.get("url") or entry.get("evidence_url")):
                 errors.append(f"confirmed entry {platform_id}/{entry_id} needs a url or evidence_url")
-            source_path = entry.get("source_path")
-            if source_path and not (repo_root / source_path).is_file():
-                errors.append(f"entry {platform_id}/{entry_id} source_path does not exist: {source_path}")
+            equivalent_source_paths = entry.get("equivalent_source_paths", [])
+            if not isinstance(equivalent_source_paths, list):
+                errors.append(
+                    f"entry {platform_id}/{entry_id} equivalent_source_paths must be a list"
+                )
+                equivalent_source_paths = []
+            for source_path in [entry.get("source_path"), *equivalent_source_paths]:
+                if source_path and not (repo_root / source_path).is_file():
+                    errors.append(
+                        f"entry {platform_id}/{entry_id} source path does not exist: {source_path}"
+                    )
 
     return errors
 
@@ -202,8 +210,11 @@ def scan_sources(config: dict[str, Any], repo_root: Path) -> list[dict[str, Any]
 def confirmed_source_paths(platform: dict[str, Any]) -> set[str]:
     paths: set[str] = set()
     for entry in platform.get("published", []):
-        if entry.get("status") == CONFIRMED_STATUS and entry.get("source_path"):
+        if entry.get("status") != CONFIRMED_STATUS:
+            continue
+        if entry.get("source_path"):
             paths.add(entry["source_path"])
+        paths.update(entry.get("equivalent_source_paths", []))
     return paths
 
 

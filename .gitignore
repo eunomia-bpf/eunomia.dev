@@ -15,6 +15,7 @@ __pycache__
 /venv
 /.venv
 /app/.next*
+/tmp
 /app/.generated
 /app/.static-builds
 /app/out

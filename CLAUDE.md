@@ -10,10 +10,12 @@ This repository is also responsible for the complete operation of the
 eunomia-bpf community, including documentation/site operations, community
 coordination, media publishing, and external communications/promotion.
 
-Public media work in this repository serves the maintainer's personal technical
-brand first, with eunomia-bpf, AgentSight, ActPlane, bpftime, papers, tutorials,
-and talks as the core public evidence assets. Treat eunomia.dev as the canonical
-archive and portfolio, but optimize platform posts for native account trust,
+Public media work separates voice from ownership. Personal accounts carry the
+maintainer's judgment, research choices, and engineering experience;
+organization and project accounts carry formal releases and commitments.
+Eunomia.dev is the institutional canonical archive and portfolio, with
+eunomia-bpf, AgentSight, ActPlane, bpftime, papers, tutorials, and talks as the
+core public evidence assets. Optimize platform posts for native account trust,
 discussion, and community reach rather than website ranking alone.
 
 ## Required Workflow

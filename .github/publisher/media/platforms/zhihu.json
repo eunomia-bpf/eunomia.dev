@@ -3,7 +3,7 @@
   "platform_id": "zhihu",
   "label": "Zhihu",
   "kind": "longform_chinese",
-  "last_checked": "2026-07-19",
+  "last_checked": "2026-07-20",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -13,7 +13,15 @@
       "handle": "云微",
       "url": "https://www.zhihu.com/people/yun-wei-64-11/posts",
       "status": "confirmed",
-      "observed_note": "Profile reported 文章111 during the browser check."
+      "observed_note": "Profile reported 文章114 during the latest browser check."
+    },
+    {
+      "checked_at": "2026-07-20",
+      "checked_via": "in_app_browser_normal_profile_scroll",
+      "profile_reported_article_count": 114,
+      "visible_article_links_collected": 113,
+      "profile_url": "https://www.zhihu.com/people/yun-wei-64-11/posts",
+      "notes": "Collected by normal rendered-page scrolling in the in-app browser. No Zhihu API or internal endpoint evidence is used. Exact title matching found two tutorial sources already covered by same-title blog posts; they are recorded as equivalent source paths instead of being republished."
     }
   ],
   "browser_observations": [
@@ -237,6 +245,9 @@
           "title": "eBPF 运行时安全性：面临的挑战与前沿创新",
           "url": "https://zhuanlan.zhihu.com/p/667257765",
           "source_path": "docs/blog/posts/ebpf-security.zh.md",
+          "equivalent_source_paths": [
+            "docs/tutorials/18-further-reading/ebpf-security.zh.md"
+          ],
           "checked_via": "in_app_browser_normal_profile_scroll"
         },
         {
@@ -245,6 +256,9 @@
           "title": "用户空间 eBPF 运行时：深度解析与应用实践",
           "url": "https://zhuanlan.zhihu.com/p/662734555",
           "source_path": "docs/blog/posts/userspace-ebpf.zh.md",
+          "equivalent_source_paths": [
+            "docs/tutorials/36-userspace-ebpf/README.zh.md"
+          ],
           "checked_via": "in_app_browser_normal_profile_scroll"
         },
         {
@@ -541,7 +555,7 @@
   ],
   "third_party_mentions": [],
   "pending_verification": [
-    "Profile reported 111 articles and normal browser scrolling collected 112 visible article links; keep this one-item discrepancy explicit until manually reconciled.",
+    "Profile reported 114 articles and normal browser scrolling collected 113 unique visible article links on 2026-07-20; keep this one-item discrepancy explicit until manually reconciled.",
     "The JSON maps the visible Zhihu posts that clearly correspond to configured repository source files. Older or non-eunomia personal posts remain visible in the browser observation but are not counted as eunomia.dev source coverage.",
     "Use only normal browser interactions for future Zhihu checks; do not use Zhihu APIs or hidden/internal endpoints."
   ]
