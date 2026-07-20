@@ -68,25 +68,25 @@ The examples below were generated from AgentSight's own Claude Code development 
 
 ### Tokens View Shows Where the Model Budget Went
 
-![Tokens flamegraph](https://github.com/eunomia-bpf/agentsight/raw/master/docs/flamegraph-example/agentsight-tokens.svg)
+![Tokens flamegraph](imgs/agentsight-tokens.svg)
 
 The token distribution shows that code review (`prompt:review`) dominated the model budget, followed by git operations (`prompt:git`), code work (`prompt:code`), editing (`prompt:edit`), and debugging (`prompt:debug`). Through the stack, you can trace which LLM calls each prompt category triggered. Here `call:llm/usage` marks token statistics events, `call:llm/code` and `call:llm/test` mark code-related responses, `call:llm/tool` marks tool calls, and `call:llm/edit` marks modification responses.
 
 ### Time View Shows Where Wall-Clock Time Went
 
-![Time flamegraph](https://github.com/eunomia-bpf/agentsight/raw/master/docs/flamegraph-example/agentsight-time.svg)
+![Time flamegraph](imgs/agentsight-time.svg)
 
 Wall-clock time distribution follows a similar pattern to token consumption. Review (`prompt:review`) leads, followed by git, edit, docs, and code prompts. Continuation prompts (`prompt:continue`) appear frequently, reflecting a workflow pattern where complex tasks required multiple follow-up exchanges. The `prompt:inspect` category captures quick look-at-this requests that are common in iterative development.
 
 ### Files View Shows Which Code Paths Were Touched
 
-![Files flamegraph](https://github.com/eunomia-bpf/agentsight/raw/master/docs/flamegraph-example/agentsight-files.svg)
+![Files flamegraph](imgs/agentsight-files.svg)
 
 File access patterns show heavy activity in `collector/src/` (the Rust codebase) and `collector/Cargo.toml`, consistent with development work. External paths (`external/tmp`, `external/home`, `external/codex`) appear frequently, reflecting tool invocations that touch temporary files, home directory configs, and Codex session data. The flamegraph distinguishes between read and write effects, revealing the balance of inspection versus modification across both project and external paths.
 
 ### Network View Shows Which External Services Were Contacted
 
-![Network flamegraph](https://github.com/eunomia-bpf/agentsight/raw/master/docs/flamegraph-example/agentsight-network.svg)
+![Network flamegraph](imgs/agentsight-network.svg)
 
 Network activity is sparse relative to file operations, confirming that most development work occurred locally. The contacted domains include `anthropic.com` for model inference, `crates.io` for Rust dependencies, `github.com` for version control, and various localhost ports for local development servers. Process chains visible in the upper frames show which tools initiated network requests, enabling attribution of network activity to specific agent actions.
 
