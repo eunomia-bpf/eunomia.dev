@@ -7,17 +7,15 @@
 
 **English** | [中文](https://github.com/eunomia-bpf/agentsight/blob/master/README.zh-CN.md)
 
-Your local first `perf`/`top`/`strace`/`nsight`-like tool for AI agents. See what agents actually do
-to your machine, and connect those actions back to the prompts, model calls, and
-tool decisions that triggered them.
+AI agents can run commands, rewrite files, spawn processes, and contact remote services—but when a run fails, stalls, or behaves unexpectedly, their logs rarely tell the whole story.
 
-Run `agentsight` around Claude Code, Codex, Gemini CLI,
-OpenCode, OpenClaw, or any command. AgentSight records:
+AgentSight is a local-first `top`/`strace`-like observability tool for AI agents. It connects prompts, model calls, and tool decisions to their real effects on your machine.
 
-- processes and child processes, shell commands, cwd, argv, exit status, and duration
-- files created, written, truncated, renamed, or deleted
-- network destinations contacted
-- prompts, responses, tool intent, and LLM/model/token
+- **See what the agent is doing now.** Monitor active sessions, processes, resource, model and tool calls, file and network activity.
+- **Understand failures and improve agent behavior.** Connect prompts and skills to errors, then turn them into better instructions and skills.
+- **Find where time, tokens, and resources go.** Spot slow steps, retry loops, repeated model or tool calls, token-heavy sessions, and resource-hungry processes.
+- **Audit data movement and security-sensitive effects.** See which services received requests, which files changed, and whether agents stayed and give safety/security suggestions.
+- **Use it with your existing agents.** Run AgentSight around Claude Code, Codex, Gemini CLI, OpenCode, OpenClaw, or any command—without an SDK, proxy, or vendor integration.
 
 No SDK, no proxy, no vendor integration. AgentSight observes with eBPF and TLS traffic tracing, so it works even when the agent is a
 closed-source CLI. **✨ Zero SDK Required**
