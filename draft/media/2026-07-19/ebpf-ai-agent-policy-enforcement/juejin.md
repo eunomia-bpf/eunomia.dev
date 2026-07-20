@@ -8,7 +8,7 @@ Source body: `docs/blog/posts/ebpf-ai-agent-policy-enforcement.zh.md`
 
 Title: 2116 条 CLAUDE.md/AGENTS.md 规则：AI Agent 策略为什么需要 OS 强制执行
 
-Canonical URL: https://eunomia.dev/zh/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/
+Source URL for ledger: https://eunomia.dev/zh/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/
 
 GitHub: https://github.com/eunomia-bpf/ActPlane
 
@@ -24,8 +24,8 @@ Body policy:
 - Preserve the Chinese canonical article body.
 - Remove YAML front matter.
 - Use the Juejin title above only if it reads better in preview; otherwise keep the canonical title.
-- Convert relative images under `imgs/` to public absolute URLs.
-- Add a short canonical/source note near the end.
+- Convert relative images under `imgs/` to checked public absolute URLs or editor uploads.
+- Add a short GitHub/project/paper note near the end only if useful.
 
 Browser QA:
 

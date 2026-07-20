@@ -39,6 +39,8 @@ short post.
   rewrite.
 - Keep the 80% contribution / 20% promotion ratio. GitHub/eunomia.dev links are
   implementation sources and next steps, not the core value.
+- Visible eunomia.dev canonical/source notes are optional. Do not add or edit a
+  body link solely to satisfy a checklist.
 - Prefer "how to reproduce", "what changed in the runtime", "where this helps",
   and "what failed before" over launch copy.
 
@@ -74,6 +76,10 @@ short post.
   lesson before naming the repo.
 - Keep one primary GitHub/eunomia.dev link per short update; use more links only
   in full tutorials where each link supports a step.
+- For long-form posts, finish the Juejin-specific Markdown artifact locally
+  before opening the editor. Paste/import the final artifact, then use the
+  editor for preview, metadata, and publish settings instead of structural
+  repair.
 - Run the anti-AI pass: remove "干货满满", "全面升级", "深度解析" without depth,
   vague benefit stacks, and slogans that do not help a reader reproduce.
 
@@ -112,7 +118,7 @@ short post.
 - The title promises a concrete technical payoff.
 - The body contains enough detail for a developer to apply or evaluate the
   idea.
-- Links are specific, canonical, and useful; the article still stands alone.
+- Links are specific and useful; the article still stands alone.
 
 ## Browser Checks
 
@@ -120,6 +126,9 @@ short post.
   settings.
 - Check Markdown preview for headings, code fences, command output, tables,
   images, and links.
+- Verify exact image URLs before publishing. Guessed eunomia.dev
+  article-relative image URLs may 404; prefer actual rendered URLs, stable
+  GitHub raw URLs for public repository images, or editor uploads.
 - Check that the intro gives practical value before any project promotion.
 - Check campaign/event requirements again when entering a Juejin activity.
 - Stop before final publish unless the user explicitly confirms.

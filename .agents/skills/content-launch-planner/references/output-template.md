@@ -17,7 +17,7 @@ but preserve the fields needed for execution.
 ## Source Brief
 
 - Artifact: [path/repo/paper/demo]
-- Canonical link: [URL]
+- Source/canonical link: [URL if useful]
 - GitHub link: [URL/path]
 - User pain: [what concrete problem the reader has]
 - Search/community intent: [what they search, ask, compare, debug, or decide]
@@ -39,7 +39,10 @@ but preserve the fields needed for execution.
 - Draft root: `draft/media/YYYY-MM-DD/[source-slug]/`
 - Draft files: `[platform].md` for each publish/comment/share decision
 - Long-form body policy: [preserve canonical source path / full copy included]
-- Browser QA state: [not started / draft created / preview checked / blocked]
+- Browser QA state: [not started / draft created / editor preview checked /
+  published page checked / fixes applied / blocked]
+- Submit path: [web editor/import UI only / no publish API]
+- Skill lessons: [updated relevant publisher skill / not needed because...]
 
 ## Platform Matrix
 
@@ -53,7 +56,7 @@ but preserve the fields needed for execution.
 | HN | publish/skip/comment | link/Show HN/Ask HN/comment | | | | |
 | Lobsters | publish/skip/comment | story/comment | | | | |
 | Medium | publish/skip | canonical English import/syndicated story | | | | |
-| DEV | publish/skip | canonical English article with canonical_url/series/comment | | | | |
+| DEV | publish/skip | canonical English article with optional canonical_url/series/comment | | | | |
 | Product Hunt | include/maybe/skip | launch page | | | | |
 
 ## Per-Platform Briefs

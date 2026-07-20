@@ -30,7 +30,7 @@ clicks, rendered profile/article/post pages, editor workflows, and screenshots.
    - Keep one clear H1 title.
    - Convert relative image links to public `https://eunomia.dev/...` URLs or upload images through the platform editor.
    - Review code blocks, tables, Mermaid, math, footnotes, and HTML blocks after paste/import.
-4. Stop automation on the editor page or publish-settings page. The final `发布`, `确定并发布`, comment, like, follow, or repost action requires explicit user confirmation.
+4. Stop automation on the editor page or publish-settings page unless the run is executing the standing authorization in `eunomia-content-patrol`. Outside that skill, the final `发布`, `确定并发布`, comment, like, follow, or repost action requires explicit user confirmation.
 5. After a real publish, add the platform URL to `published.md` and remove/update the item in `not-published.md`.
 
 ## What Others Do
@@ -45,6 +45,8 @@ For Zhihu, Markdown import/paste needs extra QA. Community tooling such as `md2z
 
 - Canonical Zhihu skill: [`../../../.agents/skills/zhihu-publisher/SKILL.md`](../../../.agents/skills/zhihu-publisher/SKILL.md)
 - Canonical Juejin skill: [`../../../.agents/skills/juejin-publisher/SKILL.md`](../../../.agents/skills/juejin-publisher/SKILL.md)
+- Canonical Xiaohongshu skill: [`../../../.agents/skills/xiaohongshu-publisher/SKILL.md`](../../../.agents/skills/xiaohongshu-publisher/SKILL.md)
+- Daily content patrol skill: [`../../../.agents/skills/eunomia-content-patrol/SKILL.md`](../../../.agents/skills/eunomia-content-patrol/SKILL.md)
 - Media Zhihu notes: [zhihu-skill.md](zhihu-skill.md)
 - Media Juejin notes: [juejin-skill.md](juejin-skill.md)
 - Source-set config: [sources.json](sources.json)

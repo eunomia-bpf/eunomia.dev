@@ -3,7 +3,7 @@
   "platform_id": "devto",
   "label": "Dev.to",
   "kind": "longform_syndication",
-  "last_checked": "2026-07-19",
+  "last_checked": "2026-07-20",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -26,13 +26,13 @@
       "canonical_url": "https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/",
       "source_path": "docs/blog/posts/ebpf-ai-agent-policy-enforcement.md",
       "tags": [
-        "security",
+        "opensource",
         "ai",
-        "linux",
-        "opensource"
+        "security",
+        "ebpf"
       ],
-      "checked_via": "in_app_browser_dev_editor_preview_and_published_story_visible",
-      "notes": "Published through DEV editor fields, set canonical URL in Advanced Options, and verified title, tags, images, tables, code blocks, GitHub links, arXiv links, and the visible Originally published at eunomia.dev note."
+      "checked_via": "in_app_browser_dev_editor_preview_save_and_public_story_full_scroll",
+      "notes": "Published through DEV editor fields, then fixed tags through selected tag chips, removed the duplicate manual source note, and replaced four 404 eunomia.dev image URLs with GitHub raw image URLs through the DEV web editor. Public-page full-scroll QA verified title, tags, canonical URL, four article images, tables, code block, GitHub links, arXiv links, and the visible Originally published at eunomia.dev notice."
     }
   ],
   "references": [],

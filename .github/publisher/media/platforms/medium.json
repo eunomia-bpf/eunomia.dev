@@ -3,7 +3,7 @@
   "platform_id": "medium",
   "label": "Medium",
   "kind": "longform_syndication",
-  "last_checked": "2026-07-19",
+  "last_checked": "2026-07-20",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -21,12 +21,12 @@
       "id": "medium-423adab48a1b",
       "status": "confirmed",
       "date": "2026-07-19",
-      "title": "An Empirical Study: AI Agent Rules Need Context and Layered Enforcement | eunomia",
+      "title": "An Empirical Study: AI Agent Rules Need Context and Layered Enforcement",
       "url": "https://medium.com/@yunwei356/an-empirical-study-ai-agent-rules-need-context-and-layered-enforcement-eunomia-423adab48a1b",
       "canonical_url": "https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/",
       "source_path": "docs/blog/posts/ebpf-ai-agent-policy-enforcement.md",
-      "checked_via": "in_app_browser_medium_import_and_published_story_visible",
-      "notes": "Imported the canonical eunomia.dev article, selected Medium topics Software Engineering, Artificial Intelligence, Cybersecurity, Open Source, and Programming, and verified the published story while rel=canonical pointed to eunomia.dev."
+      "checked_via": "in_app_browser_medium_editor_fix_and_public_story_full_scroll",
+      "notes": "Imported the canonical eunomia.dev article, then fixed the imported title suffix through the Medium web editor. Public-page QA verified the cleaned title, canonical URL, images, code block, GitHub links, and arXiv links. Medium flattened Markdown tables into readable prose-like rows; this recurring import limitation is recorded in the Medium publisher skill for future table fallback handling."
     }
   ],
   "references": [],

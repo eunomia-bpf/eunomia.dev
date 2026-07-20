@@ -44,6 +44,9 @@ link placement, or "想法" adaptation.
   cover, and preview formatting unless the user asks for a rewrite.
 - Keep the 80% contribution / 20% promotion ratio. Project links should appear
   as source code, artifact, or extended reading after the explanation.
+- Visible eunomia.dev original/canonical notes are optional. Do not add or edit
+  a body link solely to satisfy a checklist; prefer GitHub, paper, or docs links
+  when they are the more useful next step.
 - Prefer "我们在做这个项目时发现的问题" and "这个设计能解决什么边界" over
   product-style launch language.
 
@@ -81,6 +84,10 @@ link placement, or "想法" adaptation.
   what is enforced, where enforcement happens, and what failure it prevents.
 - Keep one clean source path per short item. GitHub is preferred when the repo
   is the artifact; eunomia.dev or papers are preferred for extended explanation.
+- For long-form posts, finish a local Zhihu-specific artifact before opening
+  the editor. Prefer Zhihu's visible document import path when it works; if a
+  pasted/imported draft needs major structural repair, regenerate the local
+  artifact and import again rather than editing fragile rich text in place.
 - Run the anti-AI pass: remove "重磅", "赋能", "全面升级", slogan symmetry,
   generic "安全、合规、可靠" stacks, and translated corporate phrasing.
 
@@ -100,8 +107,10 @@ link placement, or "想法" adaptation.
   idea, column, or AI Works form.
 - Check title length, first-screen hook, cover image crop, image rendering, code
   blocks, tables, and link destinations.
+- In the publish/settings step, choose a relevant question when Zhihu offers a
+  question selector. This is part of final QA, not an optional afterthought.
 - Check that GitHub/eunomia.dev/paper links are specific and placed as sources
-  or next steps.
+  or next steps. A visible eunomia.dev canonical/source note is optional.
 - Check whether column, tags, or project fields match the topic.
 - Stop before final publish/submit unless the user explicitly confirms.
 

@@ -64,7 +64,7 @@ rendering, link placement, tags/categories, and follow-up expectations. Do not
 force a full article rewrite when the canonical body already works.
 
 Reject unreviewed paste, context-free link drops, and duplicate posts without a
-canonical relationship.
+clear reader purpose and publishing ledger entry.
 
 ## Anti-AI-Tell Gate
 
@@ -97,6 +97,22 @@ Remove or block:
 This public repo may contain site operations and publishing guidance, but not
 private commercial strategy.
 
+## Local Artifact Gate
+
+For long-form posts on every platform, pass this before opening or changing the
+platform editor:
+
+- A platform-specific artifact exists in a temporary directory or
+  `draft/media/YYYY-MM-DD/<source-slug>/`.
+- The artifact has the final platform title, no duplicate body H1, checked image
+  URLs or upload assets, table/formula/code fallbacks, links, tags/categories,
+  and the intended source/project note when useful.
+- The platform editor is used for import/upload, metadata/settings, preview, and
+  QA. Do not rely on the platform editor for writing, large rewrites, link-heavy
+  tail-note edits, or structural repairs.
+- If a substantial body fix is needed after import, regenerate the local
+  artifact and re-import into a fresh draft when practical.
+
 ## Syndication Hygiene Gate
 
 For Medium/DEV/Zhihu/Juejin long-form posts, check these after the Strategic
@@ -107,12 +123,51 @@ Relevance, Contribution-First, Evidence, and Platform-Native gates pass:
 - Medium and DEV use the English source; Zhihu and Juejin use the Chinese
   source when available.
 - Title changes are micro-edits that keep the same reader promise.
-- Canonical eunomia.dev, GitHub, and paper/arXiv links are present when relevant.
+- GitHub, docs, paper/arXiv, and project links are present when relevant.
+- Visible canonical/source links are optional on every platform. Dedicated
+  canonical fields, when supported, are hygiene settings rather than growth
+  strategy; do not edit the article body just to add a canonical/source link.
 - Images, code blocks, headings, tables, tags/categories, and previews are
   checked in the target editor.
 - A low-key project/source note appears near the end when useful.
 
 This is a publishing QA gate, not a reason to publish by itself.
+
+## Rendered Browser QA Gate
+
+For every platform post that is drafted or published through a logged-in web UI:
+
+- Use visible browser interaction in the target web editor. Medium and DEV must
+  use the web import/editor and submit flow, not publish APIs or background
+  endpoints.
+- Before final publishing, inspect the editor preview or imported story from top
+  to bottom, not only the first viewport.
+- After publishing, open the public URL and inspect the rendered page or post
+  from top to bottom before marking it confirmed.
+- Verify title/subtitle, heading levels, image loading, captions/alt text where
+  supported, tables or table fallbacks, code blocks, link targets, canonical
+  fields when configured, source/project notes when present, tags/categories,
+  and mobile/narrow rendering when practical.
+- If the public page reveals broken images, flattened tables, empty headings,
+  duplicated notes, wrong tags, or mangled code blocks, edit the published item
+  in the web UI and re-run the public-page check.
+- Record the preview/public-page QA state, fixes, blockers, and final URL in
+  the matching `draft/media/YYYY-MM-DD/<source-slug>/<platform>.md` file and
+  publishing ledger.
+
+## Publishing Lessons Gate
+
+At the end of every platform publishing session:
+
+- Name any concrete issue found during drafting, preview, publish, public-page
+  QA, or post-publish editing.
+- Update the matching publisher skill or reference file when the issue could
+  recur, including platform-specific checks or fallback behavior.
+- If the issue is one-off or account-specific, record it in the matching
+  `draft/media/YYYY-MM-DD/<source-slug>/<platform>.md` QA notes instead of
+  turning it into generic guidance.
+- Do not mark the launch workflow complete until either the skill/reference was
+  updated or the reason for not updating it is recorded.
 
 ## Browser And Approval Gate
 
@@ -123,6 +178,8 @@ This is a publishing QA gate, not a reason to publish by itself.
   explicit user instruction.
 - A launch plan can recommend actions, but execution belongs to the matching
   publisher skill and must stop before final publish unless confirmed.
+- The `eunomia-content-patrol` standing authorization counts as confirmation
+  only for actions inside that skill's publishing and repost boundaries.
 
 ## Scorecard
 

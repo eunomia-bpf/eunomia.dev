@@ -29,7 +29,8 @@
 ## Syndication Rules
 
 - Convert site frontmatter to DEV fields and add `canonical_url` for syndicated
-  posts.
+  posts when known and convenient. Do not add a visible body source link solely
+  to satisfy a checklist.
 - Do not turn a research article into a fake tutorial. Keep the canonical body
   when it already has a developer-relevant problem, artifact, mechanism, or
   implementation lesson.
@@ -43,14 +44,17 @@
 ## Adaptation Workflow
 
 - Extract the source facts before drafting: developer task, prerequisites,
-  commands/code, expected result, GitHub path, canonical URL, and failure mode.
+  commands/code, expected result, GitHub path, source URL, and failure mode.
 - Decide whether the post is canonical syndication, tutorial, debugging note,
   comparison, series part, or practical announcement. Do not publish thin
   updates without developer value.
 - Keep the first screen useful: what the reader can build, inspect, reproduce,
   or avoid.
-- Use one canonical link plus specific GitHub links to code/examples/issues
-  when they support the task.
+- Use specific GitHub, docs, paper, or project links when they support the task.
+  A visible eunomia.dev original/canonical note is optional.
+- For long-form posts, finish the DEV frontmatter and Markdown artifact locally
+  before opening the editor. Use the web editor for preview, metadata, and
+  publish flow instead of structural repair.
 - Run the anti-AI pass: remove "ultimate guide" without scope, "deep dive",
   "unlock", "game changer", abstract benefit stacks, and examples that do not
   run.
@@ -76,9 +80,24 @@
 ## Browser Checks
 
 - Preview Markdown rendering before publishing.
+- Use the DEV web editor and visible submit buttons; do not publish through DEV
+  APIs or background endpoints.
 - Check H2/H3 hierarchy, code highlighting, image rendering, and embeds.
-- Check canonical URL and draft visibility.
+- Check `canonical_url` when configured and draft visibility.
 - Check that GitHub links point to specific repos, examples, issues, or docs.
+- After publishing, open the public DEV URL and scroll the rendered post from
+  top to bottom before marking the post complete.
+- Fix public-page issues through the DEV web UI and re-check. Common issues
+  include duplicated canonical/source notes, wrong tags, broken images, heading
+  artifacts, and code fences rendered as plain prose.
+- Verify selected tag chips after every tag change. Typed-but-unaccepted tags
+  are not selected tags.
+- With `canonical_url` enabled, rely on DEV's built-in "Originally published"
+  notice unless a manual source note adds distinct value.
+- Verify exact image URLs before saving. Guessed eunomia.dev article-relative
+  image URLs may 404; use actual rendered URLs, stable GitHub raw URLs for
+  public repository images, or DEV web-editor uploads, then full-scroll the
+  public page so lazy-loaded images enter the viewport.
 
 ## Post-Publish Follow-Up
 

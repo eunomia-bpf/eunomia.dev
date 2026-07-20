@@ -40,6 +40,12 @@
 
 - Extract the source facts before drafting: field observation, reader role,
   consequence, proof point, project/repo link, and one discussion question.
+- When the user asks to improve platform fit from current examples, skim a few
+  visible LinkedIn posts from adjacent technical creators or topics using
+  normal browser interactions. Record only the 2-3 structural observations that
+  will change the draft: first-line hook, proof type, post length, media/link
+  treatment, comment prompt, or audience framing. Do not copy distinctive
+  wording or use platform APIs.
 - Write from first principles for LinkedIn. A good X thread or Zhihu idea should
   be re-expanded into professional context, not pasted with line breaks.
 - Treat the first visible lines as the real headline. They should work before
@@ -75,6 +81,39 @@
   only when the list is genuinely the artifact.
 - Evaluate drafts with a scorecard: hook strength, voice fit, value density,
   structure, and publish readiness.
+
+## Platform-Observation Scan
+
+Use this scan when asked to "刷刷" LinkedIn, benchmark native posts, or improve
+weak draft fit:
+
+- Browse visible posts around AI agents, eBPF, observability, platform
+  engineering, security engineering, open source, and developer tools. Keep it
+  lightweight; it is an input to drafting, not a required ritual.
+- Record only reusable patterns, not copy: professional consequence in the
+  first two lines, evidence shape, media choice, link placement, paragraph
+  rhythm, and whether the discussion question is specific.
+- Convert the scan into a short edit checklist before rewriting: sharper first
+  line, stronger proof point, simpler body, less promotional phrasing, better
+  link placement, or more precise reader role.
+- Treat algorithm claims, exact timing rules, and engagement folklore as
+  unstable. Prefer observed reader fit and professional clarity.
+- Keep follow-up lessons in this reference or the draft archive so future
+  LinkedIn posts do not restart from taste-memory alone.
+
+## Recent Browser Observations
+
+2026-07-20 visible LinkedIn search results around AI-agent observability and
+eBPF/open-source observability showed a useful split:
+
+- Stronger posts led with a real debugging or adoption pain, then named the
+  tool/project as evidence. The best shape was: what was hard before -> what
+  the tool correlates or reveals -> current limitation -> repo/article link.
+- Link cards and short videos worked as proof when the body already explained
+  why the reader should care.
+- Weaker posts overused broad enterprise claims, long hashtag walls, and
+  project-first launch phrasing. For our posts, keep tags few and make the
+  first two lines carry the professional consequence.
 
 ## Browser Checks
 

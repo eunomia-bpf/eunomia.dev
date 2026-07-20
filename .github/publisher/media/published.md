@@ -117,7 +117,7 @@ New confirmed post:
 
 | Status | Date | Title | URL | Notes |
 | --- | --- | --- | --- | --- |
-| Confirmed | 2026-07-19 | An Empirical Study: AI Agent Rules Need Context and Layered Enforcement \| eunomia | <https://medium.com/@yunwei356/an-empirical-study-ai-agent-rules-need-context-and-layered-enforcement-eunomia-423adab48a1b> | Imported from canonical eunomia.dev article; `rel=canonical` points to <https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/> |
+| Confirmed | 2026-07-19 | An Empirical Study: AI Agent Rules Need Context and Layered Enforcement | <https://medium.com/@yunwei356/an-empirical-study-ai-agent-rules-need-context-and-layered-enforcement-eunomia-423adab48a1b> | Imported from canonical eunomia.dev article; post-publish web-editor fix removed the imported `\| eunomia` title suffix; `rel=canonical` points to <https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/>; Medium table flattening is recorded as a follow-up limitation |
 
 Machine-readable details: [`platforms/medium.json`](platforms/medium.json).
 
@@ -129,7 +129,7 @@ New confirmed post:
 
 | Status | Date | Title | URL | Notes |
 | --- | --- | --- | --- | --- |
-| Confirmed | 2026-07-19 | An Empirical Study: AI Agent Rules Need Context and Layered Enforcement | <https://dev.to/yunwei37/an-empirical-study-ai-agent-rules-need-context-and-layered-enforcement-43on> | Published from DEV editor with canonical URL set to <https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/>; tags `security`, `ai`, `linux`, `opensource` |
+| Confirmed | 2026-07-19 | An Empirical Study: AI Agent Rules Need Context and Layered Enforcement | <https://dev.to/yunwei37/an-empirical-study-ai-agent-rules-need-context-and-layered-enforcement-43on> | Published from DEV editor with canonical URL set to <https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/>; post-publish web-editor fixes removed duplicate manual source note, changed tags to `opensource`, `ai`, `security`, `ebpf`, and replaced four 404 eunomia.dev image URLs with GitHub raw image URLs |
 
 Machine-readable details: [`platforms/devto.json`](platforms/devto.json).
 

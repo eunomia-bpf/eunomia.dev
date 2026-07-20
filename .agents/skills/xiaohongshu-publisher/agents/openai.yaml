@@ -1,0 +1,4 @@
+interface:
+  display_name: "Xiaohongshu Publisher"
+  short_description: "Draft native Xiaohongshu posts"
+  default_prompt: "Use $xiaohongshu-publisher to draft a Xiaohongshu post for a eunomia.dev artifact without final publishing."

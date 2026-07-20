@@ -9,6 +9,25 @@
 
 SEO/GEO 是帮助内容被发现、引用和复述的技术手段，不是最高目标。最高目标是让目标读者在想到 eBPF、AI-agent infrastructure、runtime observability、systems safety、GPU/runtime research 时，能想起维护者的判断力、研究 taste、开源可信度和工程实践能力。
 
+这不是一个单纯的产品营销系统。更准确的公开表达是：由 maintainer 牵引的 systems infrastructure lab / open-source infrastructure studio，持续用开源项目、论文、技术报告、教程、demo 和服务入口证明一组能力：能识别复杂系统里的真实问题，能把约束讲清楚，能给出可复现证据，也能把机制落到可维护的工程里。
+
+内容平台的战略主语不是“请来买我们的产品”，而是“我们持续贡献可验证的系统知识和工程工具”。产品、项目和服务可以出现，但它们应该作为证据、复现路径、集成入口或合作入口出现，不应该抢走问题本身的主角位置。
+
+## 表达主线与账号定位
+
+长期表达应分成四层：
+
+1. **问题层**：先讲目标读者真实遇到的 agent/runtime/eBPF/GPU/system 问题，以及为什么现有工具、日志、prompt、sandbox 或人工审批不够。
+2. **证据层**：用论文、benchmark、trace、demo、issue、代码、复现实验和公开讨论说明判断不是观点堆叠。
+3. **artifact 层**：在合适位置给出 AgentSight、ActPlane、bpftime、教程、报告或 GitHub 入口，帮助读者继续验证和使用。
+4. **合作层**：只在问题和证据成立后，引导高意图读者进入 scoped pilot、architecture review、production integration、benchmark、policy design 或 enterprise support。
+
+个人号可以发，而且现阶段应该优先作为主叙事入口。原因是这类内容卖的不是单个 SKU，而是维护者的判断力、研究 taste、工程边界感和长期可信度。个人号适合发布观点、研究判断、论文解读、工程复盘、demo 进展、公开问题意识和跨项目 synthesis。
+
+组织号或项目号更适合承接稳定公告：release、教程索引、案例回链、文档更新、roadmap 节点和招聘/合作类信息。不要让组织号替代个人号做所有判断表达，也不要让个人号变成纯广告位。健康结构是：个人号建立信任和问题意识，eunomia.dev 保存 canonical，GitHub 保存可验证 artifact，组织/项目号保存正式公告。
+
+账号签名和内容结尾可以稳定指向 eunomia.dev 或 GitHub，但语气应像维护者邀请高质量技术对话，而不是每条都导向 SaaS funnel。读者先获得解释、判断或工具，再决定是否继续对话。
+
 ## 内容发布 skill 的优先级修正
 
 内容发布 skill 的第一层判断应该是用户问题和品牌心智，而不是平台矩阵、canonical、标签或格式检查。SEO/GEO 的目标也不是单纯提高 eunomia.dev 单站权重，而是提高整个品牌矩阵的权重：eunomia.dev 提供 canonical archive，GitHub 提供 artifact 和工程可信度，论文提供研究可信度，demo/talk 展示可体验证据，站外平台承载原生讨论和分发。

@@ -31,12 +31,36 @@ move stable strategy or workflow guidance into the appropriate durable doc/skill
 open issues for concrete short-term fixes, then remove the temporary planning
 file.
 
+After every external platform publishing session, do a short publishing
+lessons pass before reporting completion. Any concrete problem encountered
+during drafting, preview, publishing, or public-page QA must be recorded in the
+matching publisher skill or reference file, so the same platform mistake does
+not recur in the next launch.
+
+For long-form publishing on any external platform, prepare the platform-specific
+upload/import artifact locally before opening the editor whenever practical.
+Use a temporary file or `draft/media/YYYY-MM-DD/<source-slug>/<platform>.md`
+for the final title, body/H1 shape, image URLs or upload assets, table/code
+fallbacks, links, tags/categories, and source/project note. Use platform
+editors for import/upload, metadata/settings, preview, and QA, not for large
+rewrites or fragile structural repairs. No platform requires a visible
+canonical/source link in the article body; include one only when it helps the
+reader.
+
+Daily changes limited to `draft/` and `.agents/skills/` are a direct
+commit-and-push workflow. Do not open a pull request solely for those daily
+draft/skill maintenance updates; still inspect the worktree, stage explicit
+paths only, run a lightweight validation when relevant, and preserve unrelated
+dirty files.
+
 Treat this repository as a mature open-source project for every change. Never
-push changes directly to `main`. Start from the current `main` branch, create a
-feature or fix branch, and publish the change through a normal, non-draft pull
-request. Complete the independent review, Copilot-comment, validation, CI, and
-applicable live-acceptance gates from `oss-change-workflow`. Do not merge the PR
-unless the user explicitly asks.
+push changes directly to `main` unless the user has explicitly allowed the
+direct-push path for the current change type. Start from the current `main`
+branch, create a feature or fix branch, and publish the change through a
+normal, non-draft pull request for code, site, build, or other PR-bound changes.
+Complete the independent review, Copilot-comment, validation, CI, and applicable
+live-acceptance gates from `oss-change-workflow`. Do not merge the PR unless the
+user explicitly asks.
 
 Before publishing a PR, inspect the worktree, stage only the intended files, run
 the smallest relevant validation, and preserve unrelated user changes.
