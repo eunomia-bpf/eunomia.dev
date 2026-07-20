@@ -1,0 +1,4 @@
+interface:
+  display_name: "Eunomia Research Report"
+  short_description: "Research and write current AI systems reports"
+  default_prompt: "Use $eunomia-research-report to scan current AI, Agent, and infrastructure developments, select a thesis from the evidence, and draft a public report."

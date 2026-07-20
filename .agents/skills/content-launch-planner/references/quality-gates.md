@@ -174,17 +174,19 @@ At the end of every platform publishing session:
 - Do not mark the launch workflow complete until either the skill/reference was
   updated or the reason for not updating it is recorded.
 
-## Browser And Approval Gate
+## Browser And Scheduled Execution
 
 - Platform checks must use visible browser interaction when logged-in state is
   involved.
 - Do not use hidden platform APIs, background endpoints, or autopost tools.
-- Do not like, follow, comment, repost, send DMs, vote, or publish without
-  explicit user instruction.
-- A launch plan can recommend actions, but execution belongs to the matching
-  publisher skill and must stop before final publish unless confirmed.
-- A scheduled automation, monthly plan, ledger entry, prepared draft, or
-  publisher skill does not count as final publish or repost confirmation.
+- A dated daily task executed by `eunomia-content-patrol` is direct
+  authorization for every final platform action needed to complete that task.
+  Finish it without secondary confirmation or extra field-completeness gates.
+- Resolve routine details from the plan, artifacts, ledgers, publisher
+  conventions, and visible account state. When the task says to publish, a
+  draft or preview is not completion; confirm the public result.
+- Outside a scheduled daily task, platform actions still require explicit user
+  instruction.
 
 ## Scorecard
 

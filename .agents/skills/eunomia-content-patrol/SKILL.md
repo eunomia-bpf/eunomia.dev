@@ -1,16 +1,16 @@
 ---
 name: eunomia-content-patrol
-description: Run the scheduled or manual daily eunomia.dev content patrol. Use when Codex needs to execute the Eunomia daily publishing routine, browse current platform posts, identify 1-2 high-value repost or quote opportunities, prepare or publish planned platform content, produce a concise daily technical news/report brief, update media ledgers and daily logs, or revise the daily automation prompt. This skill is the versioned source of truth for the `eunomia` cron automation.
+description: Orchestrate the scheduled or manual daily eunomia.dev content operation. Use when Codex needs to read the current daily plan, invoke eunomia-research-report for new research and daily blogs, invoke eunomia-social-radar for publication performance and conversations, route ready content to the matching publisher skill, complete every scheduled task end to end without per-run confirmation, and consolidate results in the daily log. This skill is the versioned source of truth for the `eunomia` cron automation; it coordinates other skills and does not itself browse platforms, research topics, write reports, or draft platform copy.
 ---
 
 # Eunomia Content Patrol
 
-Run the daily Eunomia content and platform patrol as a real operating loop, not
-as a checklist that creates filler artifacts.
+Run the daily operation as a thin orchestrator. Delegate every substantive task
+to the skill that owns it, then consolidate outcomes without creating filler.
 
 ## Required Context
 
-Read these before acting:
+Read these before routing work:
 
 - `CLAUDE.md`
 - `.agents/README.md`
@@ -21,114 +21,109 @@ Read these before acting:
 - `.github/publisher/media/not-published.md`
 - relevant `.github/publisher/media/platforms/*.json`
 
-Read `draft/content-platform-strategy.zh.md` only when choosing a new direction
-not already covered by the current plan.
+Read `draft/content-platform-strategy.zh.md` only when the current plan does not
+provide enough direction and a durable strategy decision is actually required.
 
-## Daily Mission
+## Role Boundary
 
-Each run should do one or more meaningful public-facing actions:
+This skill reads operational state, enumerates every task due that day, invokes
+the owning skills, checks end-to-end completion, and records a compact run
+summary.
 
-- publish or advance planned owned content from the monthly plan
-- browse current platform posts and quote/repost 1-2 unusually valuable items
-- create a concise daily technical news/report brief from high-signal sources
-- prepare or publish a platform-native post using the matching publisher skill
-- update a platform ledger after a real publish, repost, or confirmed status
+It does not:
 
-Do not manufacture a "visible artifact" just to satisfy the scheduler. The
-daily log is required for auditability, but it does not count as the day's
-substantive output.
+- search news or choose a research thesis
+- browse social platforms or inspect post metrics
+- write a radar, blog, deep report, reply, repost, or platform post
+- perform platform QA or update platform-specific records directly
 
-## Action Priority
+Those actions belong to the routed skills below.
 
-1. Honor the dated monthly plan when it names a concrete source, platform, or
-   publication target.
-2. If a publish-ready owned item is queued or planned, prioritize real publish
-   over another draft.
-3. If no owned item is ready, run a light platform radar on LinkedIn,
-   Xiaohongshu, X, Zhihu, Juejin, or other relevant visible surfaces.
-4. If the radar finds exceptional public posts, quote/repost at most 1-2 with
-   concise original context.
-5. If platform posting is blocked or no item meets the bar, produce a daily
-   technical news/report brief using `references/daily-report-template.md`.
-6. If nothing clears the quality bar, log "no publish today" with the reason and
-   the next concrete unblocker. Do not create filler files.
+## Routing Map
 
-## Publishing Authorization
+- Invoke `eunomia-research-report` for broad current-news research, source
+  verification, topic selection, thesis formation, and a new daily blog or deep
+  report. It may return "no defensible thesis" without creating a report.
+- Invoke `eunomia-social-radar` to inspect every relevant published blog/post,
+  current performance, external reposts or citations, comments, discussions,
+  replies, and response opportunities.
+- Invoke the matching platform publisher skill for adaptation, browser QA,
+  publishing, reposting, or replying on LinkedIn, Xiaohongshu, Zhihu, Juejin, X,
+  Reddit, Medium, DEV, Hacker News, or Lobsters.
+- Invoke `content-launch-planner` only when a new multi-platform launch needs a
+  plan that the dated monthly plan does not already supply.
 
-This skill carries the standing authorization for the `eunomia` daily cron to
-perform real publishing within these bounds:
+Do not duplicate a child skill's workflow or silently complete its work inside
+this orchestrator.
 
-- publish owned eunomia.dev/GitHub/project content that is named by the current
-  monthly plan, a platform ledger, or a prepared draft path
-- quote/repost at most 1-2 public third-party posts when they pass the high-value
-  repost gate below
-- publish through normal visible browser UI for social/media platforms
-- use existing repository-supported Medium/DEV publishing workflow only when the
-  queued source and destination are clear
+## Daily Orchestration
 
-Before a final publish/repost click, verify the account, destination, exact
-content, visibility, link/media preview, and absence of private strategy,
-customer, pricing, unreleased roadmap, or unverifiable claims. If any of those
-are unclear, stop at the editor/preview and record the blocker.
+1. Read today's dated tasks, unfinished items, prepared artifacts, platform
+   queues, and the previous run's next action. Treat every task due today as
+   required work, not as a menu of optional candidates.
+2. Invoke `eunomia-social-radar` to refresh the observable results and active
+   conversations around published content.
+3. Invoke `eunomia-research-report` when today's task calls for a new daily blog
+   or report, or when the planned cadence requires a fresh research attempt.
+4. Collect the child results and identify publication, repost, or reply actions
+   that are due today. Prefer finishing a ready item over creating additional
+   drafts.
+5. Invoke the matching publisher skill for every due platform action. Let that
+   skill own copy adaptation, visible browser interaction, preview, final QA,
+   the action itself, and platform-ledger updates.
+6. Confirm the observable result returned by each child skill. Record completed
+   actions, real URLs, draft paths, blockers, and next actions in the daily log.
 
-Do not send DMs, connection requests, comments, likes, follows, votes, account
-settings changes, or monetization actions. Do not use hidden platform APIs,
-internal endpoints, background HTTP interfaces, or scraping datasets for
-LinkedIn, Xiaohongshu, Zhihu, Juejin, X, Reddit, Medium, DEV, HN, Lobsters, or
-similar platforms.
+The research and social-radar calls may be run independently when neither needs
+the other's output. Do not create a standalone orchestration report.
 
-## High-Value Repost Gate
+## Scheduled Execution Authority
 
-Quote/repost only when all are true:
+A dated daily task assigned to the scheduled `eunomia` patrol is the execution
+instruction and standing authorization for every action needed to finish that
+task. Complete it end to end, including the final publish, repost, quote, reply,
+or other platform action it calls for. Do not ask for another confirmation and
+do not let a child publisher skill's normal confirmation step stop the run.
 
-- the post is public and visible in the normal browser UI
-- the topic fits Eunomia's public pillars: eBPF, AI-agent observability,
-  runtime governance, policy enforcement, systems safety, GPU/runtime
-  performance, open-source infrastructure, or adjacent research
-- the post teaches something concrete, reports useful data, announces a
-  genuinely inspectable artifact, or opens a worthwhile technical discussion
-- the quote adds original technical context, not only praise
-- the action will not amplify confidential, misleading, inflammatory, or
-  purely promotional content
+Resolve routine implementation details from the daily plan, prepared artifacts,
+platform ledgers, repository context, and visible account state. Do not require
+the plan to repeat information already available elsewhere, and do not invent
+new approval or field-completeness gates. Preview, draft creation, and prepared
+copy are intermediate states when the task calls for publication; completion
+requires confirming the resulting public URL or observable platform state.
 
-Skip reposting if the value is merely topical, if the author/source looks
-unreliable, or if the only possible response is generic agreement.
+Do not mark a task blocked until practical recovery paths have been attempted
+and a real external condition prevents completion, such as unavailable account
+access or a platform failure. Record the exact attempted action and external
+condition instead of a generic process objection.
 
-## Platform Work
+Manual patrol runs do not inherit this standing authority unless the user asks
+to execute the daily tasks or otherwise authorizes the platform action.
 
-Use matching publisher skills for platform-specific copy and QA:
+Never infer authorization for DMs, connection requests, follows, likes, votes,
+account settings, monetization changes, or deletion. Never use hidden platform
+APIs, background endpoints, or scraping datasets.
 
-- `linkedin-publisher` for LinkedIn posts, quote/reposts, articles, or carousels
-- `xiaohongshu-publisher` for Xiaohongshu visual notes and carousel scripts
-- `zhihu-publisher` and `juejin-publisher` for Chinese long-form or technical
-  posts
-- `x-publisher`, `reddit-publisher`, `hackernews-publisher`,
-  `lobsters-publisher`, `medium-publisher`, and `devto-publisher` when those
-  surfaces fit
+## No-Filler Rule
 
-When a publisher skill says to stop before final publish, treat this patrol
-skill as the explicit standing confirmation only for actions that satisfy the
-Publishing Authorization section. Otherwise stop and record the reason.
+Do not manufacture a visible artifact to satisfy the scheduler. Match the
+outcome to the task: a publishing task requires a published item, while a
+research or monitoring task may produce a report, observation, response
+candidate, or evidence-backed no-thesis result. A draft or prepared artifact
+does not substitute for a scheduled publication. The daily log is an audit
+record, not the substantive output.
 
-## News/Report Brief
+## Run Summary
 
-Load `references/daily-report-template.md` when producing a daily news/report
-brief. Keep it short and source-grounded: 3-5 items, why each matters, and one
-possible Eunomia response. Use the browser for platform-visible posts and
-primary sources for papers, repos, releases, or project pages.
-
-## Records
-
-Every run must update `draft/content-daily-log-YYYY-MM.md` with:
+Update `draft/content-daily-log-YYYY-MM.md` with one compact entry containing:
 
 - date and run mode
-- real publish/repost/report actions completed
-- URLs and local draft/report paths
-- ledgers changed
-- blocked publish attempts and why they stopped
+- child skills invoked
+- published, reposted, or replied URLs
+- research report and prepared artifact paths
+- social-performance or conversation findings worth acting on
+- blocked actions and their exact missing condition
 - next concrete action
 
-After real publishing, update the relevant platform JSON and
-`.github/publisher/media/published.md` or `.github/publisher/media/not-published.md`.
-For reposts, record the external post URL, platform, our quote text or summary,
-and why it passed the high-value gate.
+Do not copy full child reports, browsing transcripts, or raw metric inventories
+into the summary.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Eunomia Social Radar"
+  short_description: "Monitor published content and conversations"
+  default_prompt: "Use $eunomia-social-radar to inspect current post performance, reposts, citations, discussions, comments, and reply opportunities across Eunomia's public platforms."
