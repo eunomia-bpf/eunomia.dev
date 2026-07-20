@@ -1,0 +1,4 @@
+interface:
+  display_name: "Eunomia Community Patrol"
+  short_description: "Triage and maintain Eunomia issues and pull requests"
+  default_prompt: "Use $eunomia-community-patrol to inspect and maintain all open issues and pull requests in the eunomia-bpf organization."
