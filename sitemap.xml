@@ -1023,6 +1023,20 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/blog/2026/07/20/agent-work-unit/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/blog/2026/07/20/agent-work-unit/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/blog/2026/07/20/agent-work-unit/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/2026/07/20/agent-work-unit/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/blog/2026/07/20/agent-work-unit/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/blog/2026/07/20/agent-work-unit/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/blog/2026/07/20/agent-work-unit/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/blog/2026/07/20/agent-work-unit/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/</loc>
     <lastmod>2026-07-19</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/" />

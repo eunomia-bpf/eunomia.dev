@@ -5,9 +5,22 @@
   <link>https://eunomia.dev/blog/</link>
   <description>Latest writing from eunomia.dev on eBPF, bpftime, AI tracing, and systems research.</description>
   <language>en-US</language>
-  <lastBuildDate>Wed, 15 Jul 2026 00:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Mon, 20 Jul 2026 00:00:00 GMT</lastBuildDate>
   <atom:link href="https://eunomia.dev/feed.xml" rel="self" type="application/rss+xml" />
   <item>
+  <title>From Tokens to Verifiable Work: Agent Infrastructure Is Changing Its Unit of Measure</title>
+  <link>https://eunomia.dev/blog/2026/07/20/agent-work-unit/</link>
+  <guid>https://eunomia.dev/blog/2026/07/20/agent-work-unit/</guid>
+  <pubDate>Mon, 20 Jul 2026 00:00:00 GMT</pubDate>
+  <description>For the past several years, AI infrastructure has been best at answering what happened during a model call.</description>
+  <author>yuxi4096@gmail.com (yuxi4096)</author>
+  <category>daily-analysis</category>
+  <category>research</category>
+  <category>AI Agent</category>
+  <category>Agent Infrastructure</category>
+  <category>Observability</category>
+</item>
+<item>
   <title>An Empirical Study: AI Agent Rules Need Context and Layered Enforcement</title>
   <link>https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/</link>
   <guid>https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/</guid>
@@ -290,17 +303,6 @@
   <description>We are excited to introduce llvmbpf, a new project aimed at empowering developers with a high-performance, multi-architecture eBPF virtual machine (VM) that leverages the LLVM framework for Just-In-Time (JIT) and</description>
   <author>yusen356@gmail.com (weekendfish)</author>
   <author>1067852565@qq.com (云微)</author>
-  <category>eBPF</category>
-</item>
-<item>
-  <title>The Past, Present, and Future of eBPF and Its Path to Revolutionizing Systems</title>
-  <link>https://eunomia.dev/blog/2024/08/11/the-past-present-and-future-of-ebpf-and-its-path-to-revolutionizing-systems/</link>
-  <guid>https://eunomia.dev/blog/2024/08/11/the-past-present-and-future-of-ebpf-and-its-path-to-revolutionizing-systems/</guid>
-  <pubDate>Sun, 11 Aug 2024 00:00:00 GMT</pubDate>
-  <description>This blog post mainly references Alexei Starovoitov&#39;s presentation &quot;Modernize BPF for the Next 10 Years&quot; at BPFConf 2024.</description>
-  <author>yusen356@gmail.com (weekendfish)</author>
-  <author>1067852565@qq.com (云微)</author>
-  <author>yunwei356@gmail.com (Yusheng Zheng)</author>
   <category>eBPF</category>
 </item>
 </channel>

@@ -5,9 +5,22 @@
   <link>https://eunomia.dev/zh/blog/</link>
   <description>eunomia.dev 上关于 eBPF、bpftime、AI tracing 和系统研究的最新文章。</description>
   <language>zh-CN</language>
-  <lastBuildDate>Wed, 15 Jul 2026 00:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Mon, 20 Jul 2026 00:00:00 GMT</lastBuildDate>
   <atom:link href="https://eunomia.dev/zh/feed.xml" rel="self" type="application/rss+xml" />
   <item>
+  <title>从 Token 到可验证工作：Agent Infra 正在改写它的计量单位</title>
+  <link>https://eunomia.dev/zh/blog/2026/07/20/agent-work-unit/</link>
+  <guid>https://eunomia.dev/zh/blog/2026/07/20/agent-work-unit/</guid>
+  <pubDate>Mon, 20 Jul 2026 00:00:00 GMT</pubDate>
+  <description>过去几年，AI 基础设施最容易回答的是一次模型调用发生了什么。用了哪个模型，输入和输出多少 token，延迟多长，是否报错。Agent 把这个问题拉长了。一次用户请求现在可能跨越几十次模型调用、多个工具、长时间暂停、人工审批、失败重试和外部系统状态变化。单次调用仍然可观测，却越来越难说明工作是否真的完成。</description>
+  <author>yuxi4096@gmail.com (yuxi4096)</author>
+  <category>daily-analysis</category>
+  <category>research</category>
+  <category>AI Agent</category>
+  <category>Agent Infrastructure</category>
+  <category>Observability</category>
+</item>
+<item>
   <title>实证研究：AI Agent 规则需要上下文与分层强制执行</title>
   <link>https://eunomia.dev/zh/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/</link>
   <guid>https://eunomia.dev/zh/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/</guid>
@@ -288,16 +301,6 @@
   <guid>https://eunomia.dev/zh/blog/2024/09/10/building-high-performance-userspace-ebpf-vms-with-llvm/</guid>
   <pubDate>Tue, 10 Sep 2024 00:00:00 GMT</pubDate>
   <description>我们很高兴向大家介绍 llvmbpf，这是一个全新的项目，旨在为开发者提供一个高性能、支持多架构的 eBPF 虚拟机（VM）。llvmbpf 利用 LLVM 框架实现了即时编译（JIT）和提前编译（AOT），让你能够在用户态中高效运行 eBPF 程序。</description>
-  <author>yusen356@gmail.com (weekendfish)</author>
-  <author>1067852565@qq.com (云微)</author>
-  <category>eBPF</category>
-</item>
-<item>
-  <title>eBPF的过去、现在与未来及其革新系统的道路</title>
-  <link>https://eunomia.dev/zh/blog/2024/08/11/the-past-present-and-future-of-ebpf-and-its-path-to-revolutionizing-systems/</link>
-  <guid>https://eunomia.dev/zh/blog/2024/08/11/the-past-present-and-future-of-ebpf-and-its-path-to-revolutionizing-systems/</guid>
-  <pubDate>Sun, 11 Aug 2024 00:00:00 GMT</pubDate>
-  <description>这篇博客文章主要参考了 Alexei Starovoitov 在 BPFConf 2024 上的演讲“《为未来十年现代化BPF》”。</description>
   <author>yusen356@gmail.com (weekendfish)</author>
   <author>1067852565@qq.com (云微)</author>
   <category>eBPF</category>
