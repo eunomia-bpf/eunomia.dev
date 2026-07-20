@@ -6,11 +6,30 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is the source code for the eunomia-bpf project website (https://eunomia.dev). The site provides comprehensive tutorials and documentation for eBPF programming, the eunomia-bpf framework, bpftime, and related projects.
 
+This repository is also responsible for the complete operation of the
+eunomia-bpf community, including documentation/site operations, community
+coordination, media publishing, and external communications/promotion.
+
+Public media work in this repository serves the maintainer's personal technical
+brand first, with eunomia-bpf, AgentSight, ActPlane, bpftime, papers, tutorials,
+and talks as the core public evidence assets. Treat eunomia.dev as the canonical
+archive and portfolio, but optimize platform posts for native account trust,
+discussion, and community reach rather than website ranking alone.
+
 ## Required Workflow
 
 For open-source code, documentation, synchronization, CI, release-readiness, or
 PR-bound changes in this repository, use the `oss-change-workflow` skill before
 editing. Follow its scope-control, validation, review, and CI guidance.
+
+Before adding or keeping planning material in the repository, classify it by
+lifespan. Short-term fixes, cleanup backlogs, one-off audits, and tactical
+remediation plans should be tracked as GitHub issues, not long-lived draft
+documents. Long-term decisions that are reusable, public-safe, and durable may
+remain as documentation or skill guidance. When a document mixes both, split it:
+move stable strategy or workflow guidance into the appropriate durable doc/skill,
+open issues for concrete short-term fixes, then remove the temporary planning
+file.
 
 Treat this repository as a mature open-source project for every change. Never
 push changes directly to `main`. Start from the current `main` branch, create a

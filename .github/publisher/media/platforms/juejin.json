@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "platform_id": "juejin",
+  "label": "Juejin",
+  "kind": "longform_chinese",
+  "last_checked": "2026-07-19",
+  "target_source_sets": [
+    "blog_posts_zh",
+    "tutorials_zh"
+  ],
+  "accounts": [
+    {
+      "handle": "yunwei",
+      "url": "https://juejin.cn/user/4288563097635144/posts",
+      "status": "confirmed"
+    }
+  ],
+  "published": [
+    {
+      "id": "juejin-7424407625897492514",
+      "status": "confirmed",
+      "title": "多智能体系统是人工智能的未来吗？探讨OpenAI的Swarm实验",
+      "url": "https://juejin.cn/post/7424407625897492514",
+      "checked_via": "logged_in_profile_visible",
+      "notes": "No reliable repository source_path was found in this pass."
+    },
+    {
+      "id": "juejin-7280746975917228087",
+      "status": "confirmed",
+      "title": "eBPF 实践教程: 通过 socket 或 syscall 追踪 HTTP 等七层协议",
+      "url": "https://juejin.cn/post/7280746975917228087",
+      "source_path": "docs/tutorials/23-http/README.zh.md",
+      "checked_via": "logged_in_profile_visible"
+    },
+    {
+      "id": "juejin-7269723528961261623",
+      "status": "confirmed",
+      "title": "eBPF 实践教程：使用 eBPF 用户态捕获多种库的 SSL/TLS 明文数据",
+      "url": "https://juejin.cn/post/7269723528961261623",
+      "source_path": "docs/tutorials/30-sslsniff/README.zh.md",
+      "checked_via": "logged_in_profile_visible"
+    },
+    {
+      "id": "juejin-7269763137808187453",
+      "status": "confirmed",
+      "title": "eBPF 入门实践教程：用 bpf_send_signal 发送信号终止恶意进程",
+      "url": "https://juejin.cn/post/7269763137808187453",
+      "source_path": "docs/tutorials/25-signal/README.zh.md",
+      "checked_via": "logged_in_profile_visible"
+    },
+    {
+      "id": "juejin-7241495840556073021",
+      "status": "confirmed",
+      "title": "OpenAI 新发布GPT 最佳实践：落地大模型应用的策略和战术",
+      "url": "https://juejin.cn/post/7241495840556073021",
+      "checked_via": "logged_in_profile_visible",
+      "notes": "No reliable repository source_path was found in this pass."
+    },
+    {
+      "id": "juejin-7240428977062903845",
+      "status": "confirmed",
+      "title": "eBPF 入门开发实践教程九：捕获进程调度延迟，以直方图方式记录",
+      "url": "https://juejin.cn/post/7240428977062903845",
+      "source_path": "docs/tutorials/9-runqlat/README.zh.md",
+      "checked_via": "logged_in_profile_visible"
+    },
+    {
+      "id": "juejin-7240427838343823415",
+      "status": "confirmed",
+      "title": "eBPF 入门开发实践教程十：在 eBPF 中使用 hardirqs 或 softirqs 捕获中断事件",
+      "url": "https://juejin.cn/post/7240427838343823415",
+      "source_path": "docs/tutorials/10-hardirqs/README.zh.md",
+      "checked_via": "logged_in_profile_visible"
+    },
+    {
+      "id": "juejin-7240404579131949112",
+      "status": "confirmed",
+      "title": "eBPF 入门开发实践教程十一：在 eBPF 中使用 libbpf 开发用户态程序并跟踪 exec() 和 exit() 系统调用",
+      "url": "https://juejin.cn/post/7240404579131949112",
+      "source_path": "docs/tutorials/11-bootstrap/README.zh.md",
+      "checked_via": "logged_in_profile_visible"
+    },
+    {
+      "id": "juejin-7240404579131916344",
+      "status": "confirmed",
+      "title": "eBPF 入门实践教程十二：使用 eBPF 程序 profile 进行性能分析",
+      "url": "https://juejin.cn/post/7240404579131916344",
+      "source_path": "docs/tutorials/12-profile/README.zh.md",
+      "checked_via": "logged_in_profile_visible"
+    },
+    {
+      "id": "juejin-7240371866286997563",
+      "status": "confirmed",
+      "title": "eBPF入门开发实践教程十三：统计 TCP 连接延时，并使用 libbpf 在用户态处理数据",
+      "url": "https://juejin.cn/post/7240371866286997563",
+      "source_path": "docs/tutorials/13-tcpconnlat/README.zh.md",
+      "checked_via": "logged_in_profile_visible"
+    }
+  ],
+  "references": [
+    {
+      "status": "verify_ownership",
+      "url": "https://juejin.cn/post/7043721713602789407",
+      "where_seen": "eBPF/Wasm posts"
+    }
+  ],
+  "third_party_mentions": [],
+  "pending_verification": [
+    "The manual check recorded only the first article page.",
+    "Use profile pagination/API carefully before treating full Juejin history as complete."
+  ]
+}

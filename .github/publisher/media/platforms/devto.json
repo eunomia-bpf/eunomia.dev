@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "platform_id": "devto",
+  "label": "Dev.to",
+  "kind": "longform_syndication",
+  "last_checked": "2026-07-19",
+  "target_source_sets": [
+    "blog_posts_en",
+    "tutorials_en"
+  ],
+  "accounts": [
+    {
+      "handle": "@yunwei37",
+      "url": "https://dev.to/yunwei37",
+      "status": "confirmed",
+      "observed_note": "Published the ActPlane empirical study from the logged-in DEV editor in the in-app browser."
+    }
+  ],
+  "published": [
+    {
+      "id": "devto-43on",
+      "status": "confirmed",
+      "date": "2026-07-19",
+      "title": "An Empirical Study: AI Agent Rules Need Context and Layered Enforcement",
+      "url": "https://dev.to/yunwei37/an-empirical-study-ai-agent-rules-need-context-and-layered-enforcement-43on",
+      "canonical_url": "https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/",
+      "source_path": "docs/blog/posts/ebpf-ai-agent-policy-enforcement.md",
+      "tags": [
+        "security",
+        "ai",
+        "linux",
+        "opensource"
+      ],
+      "checked_via": "in_app_browser_dev_editor_preview_and_published_story_visible",
+      "notes": "Published through DEV editor fields, set canonical URL in Advanced Options, and verified title, tags, images, tables, code blocks, GitHub links, arXiv links, and the visible Originally published at eunomia.dev note."
+    }
+  ],
+  "references": [],
+  "third_party_mentions": [],
+  "pending_verification": [
+    "Inspect Dev.to account history before backfilling older confirmed rows.",
+    ".github/publisher/posts_queue.txt was empty during the 2026-07-19 check."
+  ]
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "LinkedIn Publisher"
+  short_description: "Draft short LinkedIn share posts"
+  default_prompt: "Use $linkedin-publisher to draft a short LinkedIn share post for a eunomia.dev article without final publishing."

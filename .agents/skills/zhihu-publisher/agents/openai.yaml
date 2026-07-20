@@ -1,0 +1,4 @@
+interface:
+  display_name: "Zhihu Publisher"
+  short_description: "Syndicate Chinese posts to Zhihu"
+  default_prompt: "Use $zhihu-publisher to syndicate a eunomia.dev Chinese article to Zhihu without final publishing."

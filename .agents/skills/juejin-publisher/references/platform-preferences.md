@@ -1,0 +1,135 @@
+# Juejin Platform Preferences
+
+Use this reference when adapting eunomia.dev articles to Juejin, choosing
+category/tags, or deciding whether an item should become a tutorial, series, or
+short post.
+
+## Source Notes
+
+- Juejin describes itself as a Chinese developer technical content sharing and
+  exchange platform. Treat the default audience as builders who want practical
+  technical payoff.
+- Juejin community guidance says articles are less likely to be recommended
+  when they are non-original, only encyclopedic definitions, personal notes or
+  book notes without personal research/insight/practice, or too short in title
+  or body.
+- Activity rules and platform policies change. Re-check current event pages
+  before entering a campaign or contest.
+
+## What Juejin Rewards
+
+- Make the first paragraph useful immediately: what problem, what environment,
+  what result, and what the reader can reproduce.
+- Prefer tutorials, debugging writeups, architecture explanations with code, and
+  measured comparisons over broad thought pieces.
+- Use one article per concrete technique or decision. Split long docs into a
+  series when each part has its own practical payoff.
+- Keep code fences labeled and command output readable. Explain the output
+  enough that readers can compare it with their own environment.
+- Choose category and tags based on the reader path, not on every topic the
+  project touches.
+
+## Style And Positioning
+
+- Use a practical developer-advisor voice. The article should help the reader
+  build, debug, measure, or decide.
+- For eunomia.dev long-form posts, default to Chinese canonical syndication.
+  Preserve the body and improve only title, headings, images, code fences,
+  links, category, tags, and preview rendering unless the user asks for a
+  rewrite.
+- Keep the 80% contribution / 20% promotion ratio. GitHub/eunomia.dev links are
+  implementation sources and next steps, not the core value.
+- Prefer "how to reproduce", "what changed in the runtime", "where this helps",
+  and "what failed before" over launch copy.
+
+## Audience
+
+- Chinese developers who want working examples, commands, diagrams, and
+  implementation details.
+- Backend, Linux, cloud-native, security, AI-agent, performance, and
+  observability readers.
+- OSS practitioners who may star/fork only after the article proves practical
+  value.
+
+## Syndication Rules
+
+- Do not rewrite an already polished Chinese eunomia.dev article just to make it
+  "Juejin-native." Preserve the body and fix platform formatting.
+- Rewrite dense blog or paper openings only when they block developer
+  readability or the user asks for a Juejin-native rewrite.
+- Keep one concrete technique or decision per article; split large material into
+  a series.
+- Preserve code, commands, environment assumptions, and expected output.
+- Convert project introductions into "why this helps the developer" before
+  naming the repo.
+- Add category and tags after reading the final draft, not before.
+
+## Adaptation Workflow
+
+- Extract the source facts before drafting: environment, command/code path,
+  observed result, failure mode, artifact link, and the developer task.
+- Choose the container first: tutorial, debugging note, architecture explainer,
+  series entry, or short practical update.
+- If the source is a project launch, convert it into a reproducible developer
+  lesson before naming the repo.
+- Keep one primary GitHub/eunomia.dev link per short update; use more links only
+  in full tutorials where each link supports a step.
+- Run the anti-AI pass: remove "干货满满", "全面升级", "深度解析" without depth,
+  vague benefit stacks, and slogans that do not help a reader reproduce.
+
+## Short-Form Style
+
+- Treat short Juejin updates as practical developer notes: what failed, what
+  command/repo/example helps, and what the reader can try next.
+- Shape: problem/environment -> one technical finding -> minimal source link.
+- Prefer concrete phrases such as "在 Linux/eBPF/Agent runtime 里怎么复现" over
+  "项目上线", "能力升级", or "欢迎关注".
+- Add one reproducible detail: command, config, kernel/runtime version,
+  screenshot, trace, benchmark, or GitHub example path.
+- Avoid AI-tell phrasing: generic "干货满满", abstract benefit stacks, three
+  adjectives without code, and polished slogans that do not help a developer
+  reproduce or evaluate the idea.
+- If the short item cannot stand alone, turn it into an article draft or series
+  note instead of forcing a thin post.
+- Titles should promise a concrete payoff: reproduce, debug, compare, measure,
+  integrate, or understand a specific mechanism.
+- Comments should answer with versions, commands, paths, or issue links. Do not
+  answer with generic appreciation only.
+
+## Content Ratio
+
+- Keep the 80% contribution / 20% promotion posture.
+- Mention GitHub or eunomia.dev when it helps readers reproduce, inspect, or go
+  deeper. Do not make the Juejin article depend on leaving the platform.
+- Project announcements need at least one practical lesson, example, diagram,
+  checklist, or benchmark to earn the reader's time.
+
+## Quality Gate
+
+- The article is original and contains personal research, engineering insight,
+  implementation detail, or practice experience.
+- It is not just a glossary, raw paper summary, changelog, or personal memo.
+- The title promises a concrete technical payoff.
+- The body contains enough detail for a developer to apply or evaluate the
+  idea.
+- Links are specific, canonical, and useful; the article still stands alone.
+
+## Browser Checks
+
+- Check the logged-in account, title, category, tags, cover, and publish
+  settings.
+- Check Markdown preview for headings, code fences, command output, tables,
+  images, and links.
+- Check that the intro gives practical value before any project promotion.
+- Check campaign/event requirements again when entering a Juejin activity.
+- Stop before final publish unless the user explicitly confirms.
+
+## Post-Publish Follow-Up
+
+- Check comments, reactions, collections, and private messages only when the
+  user asks or follow-up was part of the task.
+- Reply with reproducible details, version context, GitHub issues, or docs
+  links.
+- Record repeated failure reports as docs/tutorial fixes.
+- Do not like, follow, repost, send private messages, or make commitments
+  without explicit user instruction.

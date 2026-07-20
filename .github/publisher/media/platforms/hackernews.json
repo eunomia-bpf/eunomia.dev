@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "platform_id": "hackernews",
+  "label": "Hacker News",
+  "kind": "community",
+  "last_checked": "2026-07-19",
+  "target_source_sets": [
+    "blog_posts_en",
+    "tutorials_en"
+  ],
+  "accounts": [],
+  "published": [],
+  "references": [],
+  "third_party_mentions": [],
+  "pending_verification": [
+    "No confirmed Hacker News submissions are recorded yet."
+  ]
+}

@@ -1,0 +1,111 @@
+# Output Template
+
+Use this template for launch planning. Keep the final user-facing plan concise,
+but preserve the fields needed for execution.
+
+## Standard Plan
+
+```markdown
+# Content Launch Plan: [Artifact]
+
+## Verdict
+
+- Launch tier: [Tier 1 / Tier 2 / Tier 3]
+- Recommendation: [full matrix / narrow launch / comment only / skip for now]
+- Reason: [1-3 sentences]
+
+## Source Brief
+
+- Artifact: [path/repo/paper/demo]
+- Canonical link: [URL]
+- GitHub link: [URL/path]
+- User pain: [what concrete problem the reader has]
+- Search/community intent: [what they search, ask, compare, debug, or decide]
+- Current alternatives: [what they use now]
+- Brand pillar: [AI Agent Observability & Harness / eBPF Infrastructure / GPU & Systems Research / specific paper/tutorial/release]
+- Reader promise: [what the reader learns or can do]
+- Evidence: [code, trace, benchmark, screenshot, paper, issue]
+- Missing assets: [blockers/nice-to-haves]
+
+## Research Check
+
+- Already published: [yes/no/unknown + evidence]
+- Duplicate/community scan: [queries + result]
+- Active discussions to join: [links or none]
+- Rule risks: [platform-specific risks]
+
+## Draft Archive
+
+- Draft root: `draft/media/YYYY-MM-DD/[source-slug]/`
+- Draft files: `[platform].md` for each publish/comment/share decision
+- Long-form body policy: [preserve canonical source path / full copy included]
+- Browser QA state: [not started / draft created / preview checked / blocked]
+
+## Platform Matrix
+
+| Platform | Decision | Surface | Angle | Primary link | Asset | Follow-up |
+| --- | --- | --- | --- | --- | --- | --- |
+| Zhihu | publish/skip/comment | canonical Chinese article/answer/idea/AI Works | | | | |
+| Juejin | publish/skip/comment | canonical Chinese article/series/note | | | | |
+| X | publish/skip/comment | short post/thread with share link/reply/quote | | | | |
+| LinkedIn | publish/skip/comment | short feed post with share link/article/carousel | | | | |
+| Reddit | publish/skip/comment | subreddit/comment | | | | |
+| HN | publish/skip/comment | link/Show HN/Ask HN/comment | | | | |
+| Lobsters | publish/skip/comment | story/comment | | | | |
+| Medium | publish/skip | canonical English import/syndicated story | | | | |
+| DEV | publish/skip | canonical English article with canonical_url/series/comment | | | | |
+| Product Hunt | include/maybe/skip | launch page | | | | |
+
+## Per-Platform Briefs
+
+### [Platform]
+
+- Target reader:
+- Surface:
+- Opening/hook:
+- Core contribution:
+- Project mention:
+- Link placement:
+- Media:
+- CTA or discussion prompt:
+- Browser checks:
+- Handoff skill:
+```
+
+## If The User Says "Select First" Or "Do Not Touch Yet"
+
+Only output:
+
+- recommended artifact
+- why it is worth publishing now
+- platform shortlist
+- risks and missing assets
+- exact next command/request to proceed
+
+Do not draft full posts, open platform composers, or edit ledgers.
+
+## If The User Asks For All-Platform Publishing
+
+Still include skip decisions. "All-platform" means every relevant platform is
+evaluated, not every platform must receive a post.
+
+For each publish decision, produce a unique angle. Examples:
+
+- Medium/DEV: English canonical syndication, not a full rewrite by default
+- Zhihu/Juejin: Chinese canonical syndication, not a full rewrite by default
+- X: one sharp observation or compact thread plus share link
+- LinkedIn: professional consequence in a short feed post plus share link
+- HN/Lobsters: plain technical artifact
+- Reddit: subreddit-specific answer or discussion
+- Product Hunt: tryable product listing, only if fit passes
+
+## Follow-Up Template
+
+```markdown
+## Follow-Up
+
+- First 2 hours: [what to monitor]
+- First 24 hours: [comments/questions/corrections]
+- Week 1: [docs/GitHub issues/follow-up post]
+- Retro notes: [best angle, worst angle, repeated questions, next action]
+```

@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "platform_id": "reddit",
+  "label": "Reddit",
+  "kind": "community",
+  "last_checked": "2026-07-19",
+  "target_source_sets": [
+    "blog_posts_en",
+    "tutorials_en"
+  ],
+  "accounts": [
+    {
+      "handle": "u/yunwei123",
+      "url": "https://www.reddit.com/user/yunwei123/",
+      "status": "confirmed"
+    }
+  ],
+  "published": [
+    {
+      "id": "reddit-linux-17dzoib",
+      "status": "confirmed",
+      "subreddit": "r/linux",
+      "title": "eBPF Tutorial by Example: Learning eBPF Step by Step with Tools",
+      "url": "https://www.reddit.com/r/linux/comments/17dzoib/ebpf_tutorial_by_example_learning_ebpf_step_by/",
+      "source_path": "docs/tutorials/index.md",
+      "checked_via": "reddit_search_or_direct_page"
+    },
+    {
+      "id": "reddit-ebpf-17hugts",
+      "status": "confirmed",
+      "subreddit": "r/eBPF",
+      "title": "eBPF Tutorial by Example: Learning eBPF Step by Step with Tools",
+      "url": "https://www.reddit.com/r/eBPF/comments/17hugts/ebpf_tutorial_by_example_learning_ebpf_step_by/",
+      "source_path": "docs/tutorials/index.md",
+      "checked_via": "reddit_search_or_direct_page"
+    },
+    {
+      "id": "reddit-linuxadmin-17dzl5b",
+      "status": "confirmed",
+      "subreddit": "r/linuxadmin",
+      "title": "eBPF Tutorial by Example: Learning eBPF Step by Step with Tools",
+      "url": "https://www.reddit.com/r/linuxadmin/comments/17dzl5b/ebpf_tutorial_by_example_learning_ebpf_step_by/",
+      "source_path": "docs/tutorials/index.md",
+      "checked_via": "reddit_search_or_direct_page"
+    },
+    {
+      "id": "reddit-ebpf-116e4cu",
+      "status": "confirmed",
+      "subreddit": "r/eBPF",
+      "title": "Using ChatGPT to Write and Trace Linux eBPF Programs with Natural Language",
+      "url": "https://www.reddit.com/r/eBPF/comments/116e4cu/using_chatgpt_to_write_and_trace_linux_ebpf/",
+      "source_path": "docs/blog/posts/GPTtrace.md",
+      "checked_via": "reddit_search_or_direct_page"
+    },
+    {
+      "id": "reddit-chatgptcoding-1fzkrpf",
+      "status": "confirmed",
+      "subreddit": "r/ChatGPTCoding",
+      "title": "Can LLMs help understanding Large-Scale Codebases like Linux kernel?",
+      "url": "https://www.reddit.com/r/ChatGPTCoding/comments/1fzkrpf/can_llms_help_understanding_largescale_codebases/",
+      "source_path": "docs/blog/posts/code-survey.md",
+      "checked_via": "reddit_search_or_direct_page"
+    },
+    {
+      "id": "reddit-cloud-11243ch",
+      "status": "confirmed",
+      "subreddit": "r/Cloud",
+      "title": "Wasm-bpf: Build and run eBPF programs in WebAssembly",
+      "url": "https://www.reddit.com/r/Cloud/comments/11243ch/wasmbpf_build_and_run_ebpf_programs_in_webassembly/",
+      "source_path": "docs/blog/posts/wasm-bpf.md",
+      "checked_via": "reddit_search_or_direct_page"
+    },
+    {
+      "id": "reddit-ebpf-10zwo7l",
+      "status": "confirmed",
+      "subreddit": "r/eBPF",
+      "title": "Wasm-bpf: Build and run eBPF programs in WebAssembly",
+      "url": "https://www.reddit.com/r/eBPF/comments/10zwo7l/wasmbpf_build_and_run_ebpf_programs_in_webassembly/",
+      "source_path": "docs/blog/posts/wasm-bpf.md",
+      "checked_via": "reddit_search_or_direct_page"
+    }
+  ],
+  "references": [],
+  "third_party_mentions": [
+    {
+      "status": "third_party",
+      "subreddit": "r/ReverseEngineering",
+      "title": "eunomia-bpf/bpftime: Userspace eBPF runtime for fast Uprobe & Syscall hook & Plugins",
+      "url": "https://www.reddit.com/r/ReverseEngineering/comments/17vjuvn/eunomiabpfbpftime_userspace_ebpf_runtime_for_fast/",
+      "notes": "Authored by tnavda, not u/yunwei123."
+    },
+    {
+      "status": "third_party_discussion",
+      "subreddit": "r/LocalLLaMA",
+      "title": "I built an eBPF tracer to monitor AI agents the same way you'd monitor malware in a sandbox",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1r8yvu5/i_built_an_ebpf_tracer_to_monitor_ai_agents_the/",
+      "notes": "The user commented with an AgentSight comparison, but the post is not ours."
+    }
+  ],
+  "pending_verification": [
+    "No full Reddit user export was done.",
+    "No evidence yet that current 2026 flagship posts were submitted to r/eBPF, r/netsec, r/LocalLLaMA, HN, or lobste.rs."
+  ]
+}
