@@ -11,12 +11,12 @@ Source:
 
 Status:
 
-- Medium: draft import attempted in browser; existing Medium draft should be recreated or overwritten before publishing because manual title editing duplicated the title.
-- DEV: not started in browser.
+- Medium: published 2026-07-19 via Medium import: https://medium.com/@yunwei356/an-empirical-study-ai-agent-rules-need-context-and-layered-enforcement-eunomia-423adab48a1b
+- DEV: published 2026-07-19: https://dev.to/yunwei37/an-empirical-study-ai-agent-rules-need-context-and-layered-enforcement-43on
 - Zhihu: not started in browser.
 - Juejin: not started in browser.
-- X: paste-ready short post prepared.
-- LinkedIn: paste-ready feed post prepared.
+- X: published 2026-07-19: https://x.com/yunwei37/status/2079002839440068969
+- LinkedIn: published 2026-07-19: https://www.linkedin.com/feed/update/urn:li:share:7484770128912465920
 - HN: skip new submission; an ActPlane paper thread already exists.
 - Reddit/Lobsters: comment or submit only after fresh community fit and duplicate checks.
 

@@ -2,11 +2,13 @@
 
 Platform: Medium
 
-Decision: publish after recreating/overwriting the browser draft.
+Decision: published via Medium import on 2026-07-19.
+
+Published URL: https://medium.com/@yunwei356/an-empirical-study-ai-agent-rules-need-context-and-layered-enforcement-eunomia-423adab48a1b
 
 Source body: `docs/blog/posts/ebpf-ai-agent-policy-enforcement.md`
 
-Title: An Empirical Study: AI Agent Rules Need Context and Layered Enforcement
+Title: An Empirical Study: AI Agent Rules Need Context and Layered Enforcement | eunomia
 
 Subtitle: AI agent rules look simple in CLAUDE.md, but ActPlane's 2,116-statement study shows why context and layered OS enforcement decide what can be checked.
 
@@ -16,7 +18,7 @@ GitHub: https://github.com/eunomia-bpf/ActPlane
 
 Paper: https://arxiv.org/abs/2606.25189
 
-Tags: AI Agents, Security, eBPF, Open Source, Systems
+Topics: Software Engineering, Artificial Intelligence, Cybersecurity, Open Source, Programming
 
 Body policy:
 
@@ -24,13 +26,11 @@ Body policy:
 - Remove YAML front matter.
 - Keep the article H1 as the Medium title, not inside the body.
 - Keep GitHub and paper links as evidence/source links.
-- Add a low-key source note near the end if not already visible through Medium import.
+- Medium import added the source note and `rel=canonical` points to the eunomia.dev URL.
 
 Browser QA:
 
-- Check the Medium import/canonical setting.
-- Recreate or overwrite the current Medium draft before publishing; the first import draft title was accidentally duplicated during manual title editing.
-- Check title has no `| eunomia` suffix.
-- Check images render.
-- Check tables, especially the statement/enforcement table and benchmark table, since Medium import may flatten tables.
-- Stop before `Publish` unless final publishing is explicitly confirmed.
+- Published from a fresh import draft, not the earlier corrupted title-edit draft.
+- Verified published story visible in the in-app browser.
+- Verified Medium platform URL and canonical URL separately: Medium `og:url` is the published URL, while `rel=canonical` points to eunomia.dev.
+- Verified ActPlane paper, GitHub, images, tables, and headings rendered in the published story preview path.

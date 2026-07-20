@@ -109,6 +109,30 @@ New confirmed post:
 
 Machine-readable details: [`platforms/linkedin.json`](platforms/linkedin.json). Current script coverage: 5 of 118 English target source files mapped as LinkedIn-published.
 
+## Medium
+
+Account checked in the in-app browser: <https://medium.com/@yunwei356>
+
+New confirmed post:
+
+| Status | Date | Title | URL | Notes |
+| --- | --- | --- | --- | --- |
+| Confirmed | 2026-07-19 | An Empirical Study: AI Agent Rules Need Context and Layered Enforcement \| eunomia | <https://medium.com/@yunwei356/an-empirical-study-ai-agent-rules-need-context-and-layered-enforcement-eunomia-423adab48a1b> | Imported from canonical eunomia.dev article; `rel=canonical` points to <https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/> |
+
+Machine-readable details: [`platforms/medium.json`](platforms/medium.json).
+
+## DEV Community
+
+Account checked in the in-app browser: <https://dev.to/yunwei37>
+
+New confirmed post:
+
+| Status | Date | Title | URL | Notes |
+| --- | --- | --- | --- | --- |
+| Confirmed | 2026-07-19 | An Empirical Study: AI Agent Rules Need Context and Layered Enforcement | <https://dev.to/yunwei37/an-empirical-study-ai-agent-rules-need-context-and-layered-enforcement-43on> | Published from DEV editor with canonical URL set to <https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/>; tags `security`, `ai`, `linux`, `opensource` |
+
+Machine-readable details: [`platforms/devto.json`](platforms/devto.json).
+
 ## Reddit
 
 Author checked through Reddit search and post pages: `u/yunwei123`.

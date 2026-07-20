@@ -12,14 +12,27 @@
     {
       "handle": "@yunwei356",
       "url": "https://medium.com/@yunwei356",
-      "status": "unverified_in_this_pass"
+      "status": "confirmed",
+      "observed_note": "Published the ActPlane empirical study from the logged-in Medium import/editor flow in the in-app browser."
     }
   ],
-  "published": [],
+  "published": [
+    {
+      "id": "medium-423adab48a1b",
+      "status": "confirmed",
+      "date": "2026-07-19",
+      "title": "An Empirical Study: AI Agent Rules Need Context and Layered Enforcement | eunomia",
+      "url": "https://medium.com/@yunwei356/an-empirical-study-ai-agent-rules-need-context-and-layered-enforcement-eunomia-423adab48a1b",
+      "canonical_url": "https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/",
+      "source_path": "docs/blog/posts/ebpf-ai-agent-policy-enforcement.md",
+      "checked_via": "in_app_browser_medium_import_and_published_story_visible",
+      "notes": "Imported the canonical eunomia.dev article, selected Medium topics Software Engineering, Artificial Intelligence, Cybersecurity, Open Source, and Programming, and verified the published story while rel=canonical pointed to eunomia.dev."
+    }
+  ],
   "references": [],
   "third_party_mentions": [],
   "pending_verification": [
-    "Inspect the Medium account/dashboard or API history before backfilling confirmed rows.",
+    "Inspect the Medium account/dashboard before backfilling older confirmed rows.",
     ".github/publisher/ledger.md is currently a scaffold/backfill worklist, not a confirmed history."
   ]
 }
