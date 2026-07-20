@@ -101,6 +101,12 @@ Profile checked in the in-app browser/sidebar: <https://www.linkedin.com/in/yunw
 
 The visible logged-in profile is `Yusheng Zheng`, with the headline `Founder of eunomia.dev | Building Infra for AI Agents with eBPF`. Recent activity and LinkedIn content search showed authored posts for ActPlane/AgentSight, ACRFence, GPU observability, agentpprof, and the BPFix paper. Exact permalinks were visible for the BPFix recent-activity item; some search-visible posts are recorded with evidence URLs until their post permalinks are captured.
 
+New confirmed post:
+
+| Status | Date | Title / visible text | URL | Notes |
+| --- | --- | --- | --- | --- |
+| Confirmed | 2026-07-19 | A rule like "run the full test suite before committing" looks simple | <https://www.linkedin.com/feed/update/urn:li:share:7484770128912465920> | Links to `docs/blog/posts/ebpf-ai-agent-policy-enforcement.md`; published from `draft/media/2026-07-19/ebpf-ai-agent-policy-enforcement/linkedin.md` |
+
 Machine-readable details: [`platforms/linkedin.json`](platforms/linkedin.json). Current script coverage: 5 of 118 English target source files mapped as LinkedIn-published.
 
 ## Reddit

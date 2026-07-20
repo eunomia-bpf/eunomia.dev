@@ -18,6 +18,16 @@
   ],
   "published": [
     {
+      "id": "linkedin-7484770128912465920",
+      "status": "confirmed",
+      "date": "2026-07-19",
+      "title": "A rule like run the full test suite before committing looks simple",
+      "url": "https://www.linkedin.com/feed/update/urn:li:share:7484770128912465920",
+      "source_path": "docs/blog/posts/ebpf-ai-agent-policy-enforcement.md",
+      "checked_via": "in_app_browser_post_success_toast_visible",
+      "notes": "Published from draft/media/2026-07-19/ebpf-ai-agent-policy-enforcement/linkedin.md; final body kept the eunomia.dev URL as the only raw link so the preview card resolved to the canonical article."
+    },
+    {
       "id": "linkedin-visible-actplane-agentsight-2026-07",
       "status": "confirmed",
       "date_observed_relative": "3 days before 2026-07-19",

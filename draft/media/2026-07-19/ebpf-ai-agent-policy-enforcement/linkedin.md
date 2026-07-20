@@ -2,7 +2,7 @@
 
 Platform: LinkedIn
 
-Decision: publish as a professional feed post after preview QA.
+Decision: published.
 
 Primary link: https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/
 
@@ -15,14 +15,14 @@ In the ActPlane study, we analyzed 2,116 statements from CLAUDE.md and AGENTS.md
 
 That is the gap prompt rules and tool-call guardrails miss. Useful agent policy enforcement has to compile human intent into concrete state, then enforce the OS-observable subset across subprocesses, files, network, and cross-event ordering.
 
-Full writeup: https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/
-Paper: https://arxiv.org/abs/2606.25189
-GitHub: https://github.com/eunomia-bpf/ActPlane
+Full writeup, with the arXiv paper and ActPlane GitHub repo linked inside:
+https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/
 ```
 
 Browser QA:
 
-- Check posting identity and visibility.
-- Check the first visible lines before "see more".
-- Check link card.
-- Stop before `Post` unless final publishing is explicitly confirmed.
+- Posting identity: Yusheng Zheng.
+- Visibility: public.
+- First visible lines checked in composer.
+- Link card resolved to eunomia.dev, not GitHub.
+- Published URL: https://www.linkedin.com/feed/update/urn:li:share:7484770128912465920
