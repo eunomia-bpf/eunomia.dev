@@ -2382,14 +2382,14 @@
   </url>
   <url>
     <loc>https://eunomia.dev/agentsight/build/</loc>
-    <lastmod>2026-06-03</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/build/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/build/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/build/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/agentsight/build/</loc>
-    <lastmod>2026-06-03</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/build/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/build/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/build/" />
@@ -2424,14 +2424,14 @@
   </url>
   <url>
     <loc>https://eunomia.dev/agentsight/</loc>
-    <lastmod>2026-07-19</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/agentsight/</loc>
-    <lastmod>2026-07-19</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/" />
@@ -2465,15 +2465,21 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/otel/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/zh/agentsight/repository-nebula/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/zh/agentsight/repository-nebula/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/repository-nebula/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/agentsight/usage/</loc>
-    <lastmod>2026-07-18</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/usage/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/usage/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/usage/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/agentsight/usage/</loc>
-    <lastmod>2026-07-18</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/usage/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/usage/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/usage/" />
