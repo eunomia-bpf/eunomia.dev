@@ -14,8 +14,10 @@
 - Write like a technical advisor sharing a useful lesson from real work.
 - Default positioning: consulting/research/helping solve hard problems, not
   selling a product.
-- For long-form blogs, default to a short feed post with a share link. Do not
-  republish the full article as a LinkedIn article unless the user asks.
+- For long-form blogs, default to the published article link plus one or two
+  sentences that surface its core problem, tension, result, or professional
+  consequence. Do not add a separate interpretation or summary, and do not
+  republish it as a LinkedIn article unless the user asks.
 - When the user requests long-form syndication as a LinkedIn article, preserve
   the source title exactly and keep the body substantively unchanged. Feed-post,
   carousel, and short-copy rewrite guidance does not apply to the article body.
@@ -32,25 +34,27 @@
 ## Rewrite Rules
 
 - First lines should name the problem, stake, or lesson without throat-clearing.
-- Use a professional story arc: problem seen in practice -> insight -> evidence
-  -> project/repo link -> discussion question.
-- Avoid turning Chinese-platform phrasing or X-thread fragments into LinkedIn
-  without rewriting. LinkedIn needs more context and professional consequence.
+- Do not manufacture a professional story arc for an existing long-form share.
+  The source carries the explanation; the feed post only earns attention with
+  one or two clear sentences and supplies the link.
+- Do not expand X copy or Chinese-platform phrasing into additional LinkedIn
+  interpretation unless the user explicitly requests a standalone post.
 - Use 1-3 topics per post. Do not overload one post with every project.
 - Use a small number of relevant hashtags only when they help discovery.
 
 ## Adaptation Workflow
 
-- Extract the source facts before drafting: field observation, reader role,
-  consequence, proof point, project/repo link, and one discussion question.
+- For a long-form share, extract only the article link and the single strongest
+  problem, tension, result, or professional consequence.
 - When the user asks to improve platform fit from current examples, skim a few
   visible LinkedIn posts from adjacent technical creators or topics using
   normal browser interactions. Record only the 2-3 structural observations that
   will change the draft: first-line hook, proof type, post length, media/link
   treatment, comment prompt, or audience framing. Do not copy distinctive
   wording or use platform APIs.
-- Write from first principles for LinkedIn. A good X thread or Zhihu idea should
-  be re-expanded into professional context, not pasted with line breaks.
+- When there is no long-form source and the user requests a standalone post,
+  write from first principles for LinkedIn. Do not apply that expansion rule to
+  a normal article share.
 - Treat the first visible lines as the real headline. They should work before
   "see more" and state the professional consequence.
 - Prefer evidence-backed hooks: a failed assumption, data point, production
@@ -78,8 +82,9 @@
   post. Never reply with only "great point", "agree", or a restatement.
 - End with a precise question when useful, such as asking where the reader puts
   an enforcement boundary. Do not end with generic engagement bait.
-- As a heuristic, 150-300 words is enough for most short posts; go longer only
-  when the story/evidence earns the space.
+- For long-form link shares, keep the body to one or two hook sentences plus the
+  link. The longer short-post heuristics apply only to explicitly requested
+  standalone commentary.
 - Use whitespace for scanning: short paragraphs, no wall of text, and bullets
   only when the list is genuinely the artifact.
 - Evaluate drafts with a scorecard: hook strength, voice fit, value density,

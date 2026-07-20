@@ -47,15 +47,16 @@ normal browser interactions.
 1. Read the source and extract the core claim, evidence, link, media, and
    follow-up target.
 2. Choose the format:
-   - single post for the default blog-share case: one concrete idea plus a
-     canonical/GitHub/paper link
-   - thread for a short argument or multi-step explanation
+   - single post for the default long-form share case: the published article
+     link plus one or two sentences stating its core problem, tension, or result
+   - thread only when the user explicitly asks for a multi-step explanation
    - X Article only when the user explicitly asks for long-form on X
 3. For an X Article that syndicates an existing long-form source, preserve the
    source title exactly and keep the body substantively unchanged. Only make
    mechanical rendering fixes and set platform metadata. A rewrite requires an
    explicit request for that article.
-4. Build short posts and threads around one useful idea before any CTA.
+4. Do not add a separate interpretation or summary to a long-form share. Let
+   one or two useful hook sentences earn the click, then provide the link.
 5. Prefer one specific source link: GitHub, eunomia.dev, paper, docs, or demo.
 6. Prepare media alt text when the UI allows it.
 

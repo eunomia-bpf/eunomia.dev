@@ -12,9 +12,9 @@
 
 - Be sharp, concrete, and useful. X should surface one technical observation,
   result, question, or artifact at a time.
-- For long-form blogs, default to a short native post or compact thread with a
-  share link. Do not republish the whole article as an X Article unless the user
-  asks.
+- For long-form blogs, default to the published article link plus one or two
+  concise sentences that surface the core problem, tension, or result. Do not
+  add a separate interpretation, summary, or thread unless the user asks.
 - When the user requests long-form syndication as an X Article, preserve the
   source title exactly and keep the body substantively unchanged. Short-post and
   thread rewrite guidance does not apply to the article body.
@@ -34,18 +34,19 @@
 
 - Lead with the takeaway, not the project name.
 - Use one concrete number, trace, repo artifact, or mechanism when available.
-- For threads, make each post carry one step: problem, mechanism, example,
-  limitation, link.
+- Use a thread only on explicit request. Then make each post carry one step:
+  problem, mechanism, example, limitation, link.
 - Prefer GitHub links for project artifacts and eunomia.dev links for full
   explanations. Use one primary link per post unless a thread needs sources.
 - Avoid broad hype terms without mechanism, such as "agent security solved".
 
 ## Adaptation Workflow
 
-- Extract the source facts before drafting: thesis, proof point, artifact link,
-  intended reader, and one useful takeaway that can stand alone on X.
-- Choose the container first: standalone post, short thread, reply, quote, or
-  launch note. Do not stretch one compact idea into a thread.
+- Extract only what the default share needs: source link and the one core
+  problem, tension, or result that earns attention.
+- Use a standalone post for long-form shares. Choose a thread, reply, quote, or
+  launch note only when explicitly requested or when there is no long-form
+  source to share.
 - Use a hook pattern only when the evidence supports it: contrarian take,
   data-point observation, build-in-public note, mini-list, curiosity gap, or
   "how this broke/changed" teardown.

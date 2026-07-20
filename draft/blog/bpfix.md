@@ -1,7 +1,7 @@
 ---
-date: 2026-07-19
+date: 2026-07-25
 slug: ebpf-verifier-errors-bpfix
-description: eBPF verifier errors hide the real repair point, and bpfix studies 235 rejections to show how proof-aware diagnostics locate lost proofs and guide real fixes.
+description: Across 235 eBPF verifier rejections, bpfix shows why the final error hides the repair point and how proof-aware diagnostics guide real fixes.
 ---
 
 # Why eBPF Verifier Errors Are Hard to Fix: 235 Rejections, Lost Proofs, and bpfix
@@ -123,7 +123,7 @@ The paper evaluates Qwen3.6 27B, GLM 5.2, and Qwen2.5 3B. With the raw verifier 
 
 Each model contributes paired bars comparing the raw verifier log with the bpfix diagnostic, so the chart is best read as localization evidence. The input program and test suite stay the same, while the diagnostic text changes from a raw verifier log to a bpfix explanation of the missing proof and relevant span. When success rises under that intervention, the evidence points to a better repair target, with the program, model, and acceptance tests held fixed.
 
-The failure-stage breakdown makes the result more specific. The bpfix diagnostic mainly reduced verifier-load failures and source-semantics failures, the two stages where a repair must restore the verifier-visible proof and still produce syntactically valid C. Compile failures stayed low for Qwen3.6 27B and GLM 5.2, so the gain did not come from making ordinary code generation easier. For Qwen2.5 3B, the raw log produced no accepted one-shot repairs, while the bpfix diagnostic produced 8 accepted repairs and eliminated several context-window failures that had occurred when the full raw log exceeded the small model's input budget.
+The failure-stage breakdown makes the result more specific. The bpfix diagnostic mainly reduced verifier-load failures and source-semantics failures, the two stages where a repair must restore the verifier-visible proof and still preserve the program's intended source semantics. Compile failures stayed low for Qwen3.6 27B and GLM 5.2, so the gain did not come from making ordinary code generation easier. For Qwen2.5 3B, the raw log produced no accepted one-shot repairs, while the bpfix diagnostic produced 8 accepted repairs and eliminated three context-window failures that had occurred when the full raw log exceeded the small model's input budget.
 
 That pattern matters beyond bpfix itself. In this benchmark, what changed the repair outcome was proof context in the prompt, with the program, model, and test suite otherwise held fixed.
 

@@ -51,8 +51,9 @@ Turn one source into native pieces:
 - Long-form syndication: Medium/DEV English, Zhihu/Juejin Chinese. Preserve the
   selected source title exactly and keep the body substantively unchanged. Only
   make mechanical rendering fixes and set platform metadata.
-- Short derivatives: LinkedIn post and X post/thread with one useful insight
-  plus a share link.
+- Short derivatives: LinkedIn and X share posts with the long-form link plus a
+  one- or two-sentence core hook. Do not create a separate interpretation by
+  default.
 - Micro-content: single X posts, LinkedIn comments, Zhihu ideas, screenshots,
   charts, HN/Lobsters titles, Reddit comments.
 

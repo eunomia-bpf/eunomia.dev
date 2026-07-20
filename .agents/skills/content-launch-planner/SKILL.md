@@ -46,8 +46,11 @@ Load references according to the task:
    language, stop and get explicit translation or rewrite authorization.
    Visible canonical/source links are optional on every platform.
 5. Select platforms by fit, not by desire to be everywhere. All-platform plans
-   must still produce platform-native angles and may recommend "skip" for weak
-   surfaces.
+   may recommend "skip" for weak surfaces. For an already published long-form
+   source, X and LinkedIn default to the source link plus one or two sentences
+   that state the core problem, tension, or result. Do not plan a separate
+   interpretation, article summary, thread, carousel, or professional story
+   arc unless the user explicitly asks for one.
 6. Prepare a per-platform brief: target reader, surface, angle, hook, proof,
    link, media, CTA, risks, and follow-up.
 7. Before browser/editor work, route platform-specific copy drafts to
@@ -105,10 +108,11 @@ Use the platform-specific publisher skill after the plan is accepted:
 
 - `zhihu-publisher` for Zhihu articles, answers, ideas, and AI Works.
 - `juejin-publisher` for Juejin developer articles and practical notes.
-- `x-publisher` for short X posts, threads, replies, quotes, and articles only
-  when explicitly useful.
-- `linkedin-publisher` for short LinkedIn feed posts, articles/carousels only
-  when explicitly useful, and comments.
+- `x-publisher` for default link shares with a one- or two-sentence hook;
+  threads, replies, quotes, and articles only when explicitly useful.
+- `linkedin-publisher` for default link shares with a one- or two-sentence
+  hook; articles, carousels, longer commentary, and comments only when
+  explicitly useful.
 - `xiaohongshu-publisher` for Xiaohongshu visual notes, carousel outlines,
   title/cover adaptation, and Chinese short-form technical explainers.
 - `reddit-publisher` for subreddit submissions and comments.

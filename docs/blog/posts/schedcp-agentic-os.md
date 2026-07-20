@@ -1,7 +1,7 @@
 ---
 date: 2026-07-10
 slug: schedcp-agentic-linux-scheduler
-description: Linux scheduler tuning turns workload intent into measured tradeoffs, and SchedCP gives AI agents a verified sched_ext loop with 1.79x gains at 13x lower cost.
+description: Linux scheduler tuning turns workload intent into measured tradeoffs, and the SchedCP paper reports up to 1.79x speedup and 13x lower search cost from a verified sched_ext loop.
 ---
 
 # Can an AI Agent Tune the Linux Scheduler? Inside SchedCP
@@ -16,7 +16,7 @@ An AI agent can read a request such as "reduce tail latency without starving the
 
 ## Faster According to Which Metric?
 
-Consider optimizing `schbench`. CPU utilization alone cannot tell the agent whether a candidate helped; it must extract a latency objective, preserve the workload parameters, and compare repeated runs. A mixed foreground and batch workload adds another constraint because improving average throughput can still starve the process on the critical path. Runtime counters describe what happened, while the request determines which measurements count as success.
+Consider optimizing `schbench`. CPU utilization alone cannot tell the agent whether a candidate helped. It must extract a latency objective, preserve the workload parameters, and compare repeated runs. A mixed foreground and batch workload adds another constraint because improving average throughput can still starve the process on the critical path. Runtime counters describe what happened, while the request determines which measurements count as success.
 
 A general-purpose agent can attempt all three steps in one conversation. That approach repeatedly spends model tokens rediscovering scheduler interfaces, parsing noisy output, and repairing generated code. It also places privileged actions next to unconstrained reasoning. A hallucinated command or an invalid scheduler configuration can end the experiment before the agent learns anything useful.
 
@@ -49,7 +49,7 @@ The loop matters because scheduler optimization is empirical. A policy that soun
 
 Three services keep the loop grounded. The workload analysis engine runs the exact target command and returns CPU, memory, scheduler, and application-level measurements. The policy repository records schedulers with their configurations, workload context, and previous results, giving the agent evidence to inspect before it spends time generating code.
 
-When existing policies fall short, the execution verifier controls the synthesis path. The agent submits scheduler source through a dedicated interface; SchedCP compiles it, applies static and dynamic checks, and only then makes it available for an experiment. Measurement happens through the same control plane, so a policy enters the repository with its workload context and observed result rather than an unsupported claim.
+When existing policies fall short, the execution verifier controls the synthesis path. The paper describes three gates. The kernel eBPF verifier checks memory safety and termination. Scheduler-specific static analysis looks for logic failures such as starvation and unfairness that the kernel verifier does not cover. Dynamic validation then runs the candidate in a secure micro-VM before a monitored canary deployment. Successful validation issues a signed deployment token, and a circuit breaker can roll back a policy when measured performance degrades.
 
 The MCP boundary exposes these operations as tools with narrow jobs: `list_schedulers` finds existing policies, `system_monitor` collects measurements, and `create_and_verify_scheduler` admits generated source only after verification. The agent plans across these tools while deployment details remain inside SchedCP. That boundary also lets the benchmark harness and scheduler implementation evolve without changing the reasoning interface.
 
@@ -63,9 +63,13 @@ This model gives SchedCP the iteration speed an agent needs. It can compile a po
 
 ## What the Evaluation Shows
 
-The paper evaluates SchedCP with workloads that include Linux kernel builds, `schbench`, and batch-processing tasks. Within that evaluation, the generated or selected policies improve performance by up to 1.79x. Reusing the control plane, policy repository, and structured tools also reduces optimization cost by 13x compared with the paper's naive agentic baseline.
+The paper labels this a preliminary evaluation. It uses two machines, Linux 6.13 and 6.14, with Claude Code running Opus 4. Each case is measured three times and averaged. The results show that the loop can recover from a poor first choice, but they do not establish universal scheduler improvement across machines and workloads.
 
-The 1.79x result is the best improvement within the evaluated workloads, and the 13x figure compares against the paper's naive agentic baseline. These measurements support a narrower claim than universal automatic speedup: the structured control plane lets an agent complete the end-to-end search with lower cost while every accepted candidate still passes verification and workload measurement. The repository includes the prompts, workloads, generated schedulers, and benchmark paths needed to inspect that process.
+For a Linux kernel build, the first selected scheduler, `scx_rusty`, produced a 1.63x speedup over EEVDF. Iterative refinement then selected `scx_layered` and reached 1.79x. The more instructive result comes from `schbench`. The first AI configuration, `scx_bpfland`, was worse than EEVDF. After three feedback iterations, the agent selected `scx_rusty`, reaching 2.11x better P99 latency and 1.60x higher throughput than EEVDF.
+
+For eight batch workloads with 39 short tasks and one long task, sched-agent inferred a Longest Job First policy and reduced average latency by 20%. The paper also reports a 13x improvement in scheduler-generation efficiency, reaching 2.5 minutes and a $0.45 synthesis cost per workload.
+
+These measurements support a narrower claim than universal automatic speedup. A structured control plane can make the search cheaper, reject unsafe candidates, and use workload feedback to overturn the agent's initial choice. The repository includes prompts, workloads, generated schedulers, and benchmark paths for inspecting that process, while a broader benchmark remains future work.
 
 ## Trying the Artifact
 
@@ -82,3 +86,11 @@ After building the repository and its `sched_ext` submodules, `autotune` accepts
 The [SchedCP repository](https://github.com/eunomia-bpf/schedcp) documents the kernel requirements, build steps, MCP tools, and paper workloads. The [paper](https://arxiv.org/abs/2509.01245) provides the architecture and evaluation methodology. Together they make the result inspectable at three levels: the agent's reasoning interface, the verified `sched_ext` policy, and the workload measurement that decides whether a candidate survives.
 
 Scheduler tuning gives agentic OS control a demanding test. The agent must translate intent into a metric, produce a policy the kernel can run, and accept the measured result even when it contradicts the initial plan. SchedCP makes those transitions explicit, leaving semantic choices with the agent and privileged changes with mechanisms that can verify, measure, and roll back each attempt.
+
+## References
+
+- [Towards Agentic OS: An LLM Agent Framework for Linux Schedulers](https://arxiv.org/abs/2509.01245)
+- [SchedCP repository](https://github.com/eunomia-bpf/schedcp)
+- [Linux kernel documentation: Extensible Scheduler Class](https://docs.kernel.org/scheduler/sched-ext.html)
+- [Model Context Protocol specification](https://modelcontextprotocol.io/specification/)
+- [schbench scheduler benchmark](https://kernel.googlesource.com/pub/scm/linux/kernel/git/mason/schbench/)

@@ -51,8 +51,8 @@ but preserve the fields needed for execution.
 | --- | --- | --- | --- | --- | --- | --- |
 | Zhihu | publish/skip/comment | canonical Chinese article/answer/idea/AI Works | | | | |
 | Juejin | publish/skip/comment | canonical Chinese article/series/note | | | | |
-| X | publish/skip/comment | short post/thread with share link/reply/quote | | | | |
-| LinkedIn | publish/skip/comment | short feed post with share link/article/carousel | | | | |
+| X | publish/skip/comment | long-form link plus 1-2 sentence hook; thread/reply/quote only when asked | | | | |
+| LinkedIn | publish/skip/comment | long-form link plus 1-2 sentence hook; article/carousel only when asked | | | | |
 | Reddit | publish/skip/comment | subreddit/comment | | | | |
 | HN | publish/skip/comment | link/Show HN/Ask HN/comment | | | | |
 | Lobsters | publish/skip/comment | story/comment | | | | |
@@ -97,8 +97,8 @@ For each publish decision, produce a unique angle. Examples:
 
 - Medium/DEV: exact English source title and substantively unchanged body
 - Zhihu/Juejin: exact Chinese source title and substantively unchanged body
-- X: one sharp observation or compact thread plus share link
-- LinkedIn: professional consequence in a short feed post plus share link
+- X: published long-form link plus a one- or two-sentence core hook
+- LinkedIn: published long-form link plus a one- or two-sentence core hook
 - HN/Lobsters: plain technical artifact
 - Reddit: subreddit-specific answer or discussion
 - Product Hunt: tryable product listing, only if fit passes

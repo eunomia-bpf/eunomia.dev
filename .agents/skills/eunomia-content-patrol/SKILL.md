@@ -72,8 +72,15 @@ this orchestrator.
    `deep-report.zh.md` only as a working source, then move the final Chinese post
    to `docs/blog/posts/<slug>.zh.md`. Keep public `date`, `slug`, `title`,
    `description`, `research_question`, `research_window`, and precise tags;
-   remove workflow-only status, cutoff, and working-thesis fields. Do not create
-   a duplicate English post merely to satisfy pairing conventions.
+   remove workflow-only status, cutoff, and working-thesis fields. Once the
+   Chinese source is stable, invoke `blog-writer` and `blog-writing-style` to
+   produce a high-quality English counterpart at
+   `docs/blog/posts/<slug>.md`. Preserve the title's promise, section order,
+   facts, examples, numbers, caveats, links, and references. Use idiomatic
+   technical English rather than line-locked translation. Limit Chinese edits
+   to punctuation, spacing, terminology consistency, and clear language errors.
+   Do not substantively rewrite either source. Use `seo-geo` only for technical
+   metadata, links, and indexing checks, then run one independent editor pass.
 4. Collect the child results and identify publication, repost, or reply actions
    that are due today. Prefer finishing a ready item over creating additional
    drafts.

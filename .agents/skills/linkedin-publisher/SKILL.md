@@ -43,20 +43,21 @@ normal browser interactions.
 
 ## Draft Preparation
 
-1. Read the source and identify the professional lesson, target reader, proof,
-   and single next step.
+1. For a long-form share, read the source and identify only its core problem,
+   tension, or result and the published link.
 2. Choose the format:
-   - feed post for the default blog-share case: a concise professional lesson
-     plus a canonical/GitHub/paper link
-   - document/carousel plan for a step-by-step visual explanation
+   - feed post for the default long-form share case: the published link plus one
+     or two hook sentences
+   - document/carousel only when the user explicitly asks for one
    - article only when the user explicitly asks for long-form on LinkedIn
 3. For a LinkedIn article that syndicates an existing long-form source, preserve
    the source title exactly and keep the body substantively unchanged. Only make
    mechanical rendering fixes and set platform metadata. A rewrite requires an
    explicit request for that article.
-4. Open short feed posts with the result, tension, or professional lesson.
-5. Use the project or GitHub link as evidence after the reader-facing value is
-   clear.
+4. Do not add a separate interpretation, summary, or professional story arc to
+   a long-form share. Use one or two sentences for the hook, then the link.
+5. Use a project, GitHub, or paper link instead only when that is the actual
+   long-form or primary artifact being shared.
 
 ## Draft Archive
 

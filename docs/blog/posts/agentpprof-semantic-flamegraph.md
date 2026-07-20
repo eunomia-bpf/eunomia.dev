@@ -10,13 +10,15 @@ A $3000 AI-agent bill is not a diagnosis. It does not tell you whether the money
 
 [agentpprof](https://github.com/eunomia-bpf/agentsight) reads local agent trace history and aggregates prompts and tool calls by semantic intent into flamegraphs. In the resulting view, width represents token consumption, execution time, or operation count, so a team can see which categories dominate before drilling into the sessions behind them. It is part of the [AgentSight](https://github.com/eunomia-bpf/agentsight) project, which provides eBPF-based observability for AI agent behavior.
 
+The widest bar is not automatically waste. A review-heavy profile may describe necessary work, repeated inspection of the same files, an overly broad context window, or all three. The profile gives the team a place to start asking which explanation is true.
+
 <!-- more -->
 
 ## The Aggregation Problem
 
-LLM observability platforms like LangSmith, Langfuse, and Phoenix can show token counts and latency for each call, but when you have 80,000 calls, they can only arrange them by timestamp into a timeline. You can inspect each one and see "this call used 500 tokens," but you cannot answer "how much did review tasks cost in total." These tools are designed for single-trace debugging. Timeline views help you locate the failing span at 14:03, span trees show call hierarchy, and waterfall charts reveal parallelism. They excel at answering "what happened" but for the question "where did the budget go by category," inspecting 80,000 spans one by one simply does not scale.
+Most LLM observability views are organized around one execution. Timelines locate a failing span, span trees show call hierarchy, and waterfall charts reveal parallelism. They are useful for asking what happened in one trace. The cross-session question has a different data shape. After tens of thousands of calls, the reader needs stable categories that can merge repeated work and carry a weight such as tokens, elapsed time, or effect count.
 
-Datadog and Laminar are starting to move in the right direction with semantic classification. Datadog uses topic clustering to group user messages, Laminar uses Signals to extract structured events from traces. But their clustering primarily targets the distribution of user inputs, not "width represents budget share" aggregate views. You can see "30% of users asked about code," but not "code review consumed 40% of the token budget."
+Topic clustering and structured trace extraction can group similar inputs, but an input distribution is not yet a budget profile. Knowing that many prompts mention code does not show how much model budget review consumed, which tools those review prompts invoked, or which files they affected. agentpprof focuses on that weighted, cross-session aggregation problem.
 
 CPU profilers solved a similar aggregation problem long ago. Flamegraphs compress millions of function calls into one chart, width representing time share. The stack indicates context, and repeated calls to the same function merge into wider bars. This works because function names are deterministic, so the same code path produces the same stack, and identical stacks can be directly merged.
 
@@ -50,9 +52,19 @@ agentpprof exposes several projections over the same data, with each view answer
 
 Start with `tokens` to find cost hotspots, use `time` to trace where wall-clock time went, and use `files` and `network` for security audits.
 
+### Start with One Repeatable Profile
+
+For a quick browser-openable profile of recent Codex or Claude Code traces associated with the current repository, run:
+
+```bash
+agentpprof --project-root . --view tokens --tagger regex --preset -o tokens.svg
+```
+
+The preset is a demo starting point, not a production taxonomy. For a repeatable comparison, pass explicit `--session-file` inputs and replace the preset with version-controlled rules for the project. Open the SVG, identify the widest meaningful prompt category, then inspect the sessions underneath it before changing a workflow.
+
 ## Real Examples from AgentSight Development
 
-The examples below were generated from AgentSight's own development traces (Claude Code). They demonstrate what insights each view provides.
+The examples below were generated from AgentSight's own Claude Code development traces. They are descriptive project profiles, not a controlled benchmark. Their category names depend on the tagging rules used for this project, while the views demonstrate what can be inspected once the traces share stable labels.
 
 ### Tokens View Shows Where the Model Budget Went
 
@@ -114,11 +126,11 @@ The advantage is operational predictability. It is deterministic, reproducible, 
 
 The cost is project-specific maintenance. Rules are brittle to prompt style changes and cannot handle semantic similarity, such as "fix the bug" versus "resolve the issue."
 
-**LLM Tagger** uses local inference via llama.cpp with grammar-constrained decoding to ensure valid one-word output. We use small models (0.6B-3B parameters) with aggressive caching.
+**LLM Tagger** uses local inference via llama.cpp. It constrains each result to a single tag and caches the output for reuse.
 
 The advantage is semantic coverage. It handles semantic similarity and multilingual prompts without requiring rule writing.
 
-The cost is stability and operational setup. The same prompt may get different tags across runs, the local model must be configured, and tag quality depends on model capability. Our experiments show 285/300 exact-stable fragments with a 3B model, meaning 5% of prompts get different tags on repeated runs.
+The cost is stability and operational setup. The same prompt may receive different tags across runs, the local model must be configured, and tag quality depends on model capability. Cache the results when repeatability matters, then convert useful categories into deterministic rules.
 
 **TF-IDF + K-Means Clustering** uses unsupervised clustering to discover natural groupings. It automatically selects cluster count (5-25) and generates tag names from cluster keywords.
 
@@ -130,7 +142,7 @@ The cost is interpretability. Cluster boundaries are arbitrary, tag names are ke
 
 Several fundamental questions remain open.
 
-**Tag adequacy** remains unproven. We can verify that tags are syntactically valid and stable across runs (our R180 experiment shows 900/900 grammar-valid outputs from three model sizes). But we have no evidence that one-word tags capture enough semantic information for human understanding. "debug" might conflate bug fixing, error investigation, and performance debugging, each of which has different cost implications.
+**Tag adequacy** remains unproven. Grammar-constrained output can keep labels syntactically valid, but that does not show that one-word tags preserve enough meaning for human decisions. "debug" might conflate bug fixing, error investigation, and performance debugging, each of which has different cost implications.
 
 **Cross-project transfer** is unknown. Rules developed for one project may not transfer to another. A Rust systems project has different prompt patterns than a React frontend project. We do not yet know how much rule overlap exists across project types.
 
@@ -140,7 +152,7 @@ Several fundamental questions remain open.
 
 ### Why We Ship Anyway
 
-Despite these limitations, agentpprof is useful in practice. The key insight is that perfect tagging is not required for useful aggregation. Even with 20% unmatched prompts and imperfect tag boundaries, the flamegraph reveals structure that was previously invisible, including which activity categories dominate, how token consumption distributes across intent types, and which prompts trigger the most tool calls.
+Despite these limitations, perfect tagging is not required to test whether the aggregation is useful. A profile can still reveal which labeled activities dominate, how token consumption is distributed, and which prompt categories trigger the most tool calls while leaving uncertain fragments explicitly unmatched.
 
 The goal is not ground-truth classification but actionable visibility. If the flamegraph shows "review" consuming 40% of tokens, the exact boundary of what counts as "review" matters less than knowing that review-like activities are the dominant cost driver.
 
@@ -163,7 +175,7 @@ agentpprof is the offline profiling component of [AgentSight](https://github.com
 
 A typical workflow combines both.
 
-1. Record agent activity with `agentsight record`
+1. Record agent activity with `sudo agentsight record -- claude`
 2. Generate summary reports with `agentsight report`
 3. Profile token consumption with `agentpprof --view tokens`
 4. Audit file access patterns with `agentpprof --view files`
@@ -177,13 +189,13 @@ Generating a flamegraph is the easy part. The harder question is what to do with
 
 CPU profilers lead to clear actions such as finding the hot function, optimizing the algorithm, and reducing allocations. Agent cost profiles are different.
 
-- You will not stop doing code review because it consumes 40% of tokens
+- You will not stop doing code review merely because it is the widest token category
 - You will not skip debugging because it is expensive
 - The flamegraph shows WHERE budget goes, not WHY it goes there or HOW to reduce it
 
 Making the view actionable requires drilling deeper.
 
-1. **Within-category analysis** asks why review consumes 40% of tokens. The cause might be repeated reviews of the same file, unnecessarily broad context windows, or verbose review prompts. The flamegraph shows the category, while understanding the cause requires examining individual sessions.
+1. **Within-category analysis** asks why review is the widest token category. The cause might be repeated reviews of the same file, unnecessarily broad context windows, or verbose review prompts. The flamegraph shows the category, while understanding the cause requires examining individual sessions.
 
 2. **Workflow pattern detection** looks for repeated interaction shapes. Frequent continuation prompts (`prompt:continue`) may indicate tasks that should be structured differently upfront, while high `prompt:unmatched` rates may indicate prompt styles that need standardization.
 
@@ -204,3 +216,11 @@ We are working on combining agentpprof with interaction analysis to produce repo
 ---
 
 agentpprof is open source and part of the [AgentSight project](https://github.com/eunomia-bpf/agentsight). Contributions and feedback are welcome.
+
+## References
+
+- [AgentSight repository](https://github.com/eunomia-bpf/agentsight)
+- [agentpprof documentation](https://github.com/eunomia-bpf/agentsight/blob/master/docs/agentpprof.md)
+- [AgentSight: System-Level Observability for AI Agents Using eBPF](https://arxiv.org/abs/2508.02736)
+- [Brendan Gregg, Flame Graphs](https://www.brendangregg.com/flamegraphs.html)
+- [Go diagnostics: profiling](https://go.dev/doc/diagnostics#profiling)

@@ -33,10 +33,10 @@ and clear brand-pillar fit.
   and convenient.
 - Zhihu: publish the Chinese version.
 - Juejin: publish the Chinese version.
-- X: write a short native post or compact thread with one useful observation
-  and a share link.
-- LinkedIn: write a short professional feed post with one lesson and a share
-  link.
+- X: share the published long-form link with one or two sentences that surface
+  its core problem or result.
+- LinkedIn: share the published long-form link with one or two sentences that
+  surface its core problem or professional consequence.
 - Xiaohongshu: write a visual-first Chinese note or carousel with one concrete
   scenario, screenshot, diagram, checklist, or result. Do not treat it as
   canonical long-form syndication.
@@ -60,8 +60,8 @@ submit flows. Do not plan publish-API execution for either platform.
 | --- | --- | --- | --- | --- | --- |
 | Zhihu | Chinese technical explanation, AI Works, conceptual essays | Canonical Chinese article, answer, idea, AI Works | Needs mechanism, scenario, and reader education | Only a changelog or thin repo link | `zhihu-publisher` |
 | Juejin | Chinese developer practice | Chinese article or practical note | Has commands, code, environment, or reproducible details | No practical developer payoff | `juejin-publisher` |
-| X | Fast technical observations, threads, build-in-public updates | Short post/thread with share link, reply, quote | One sharp idea, screenshot, benchmark, repo link, or ongoing discussion | Needs long context and cannot fit a clean thread | `x-publisher` |
-| LinkedIn | B2B/professional credibility | Short feed post with share link, article/carousel when asked | Engineering leaders, platform/security teams, consulting/research angle | Too niche without professional consequence | `linkedin-publisher` |
+| X | Fast technical observations and links | Long-form link plus a one- or two-sentence hook; thread/reply/quote when explicitly asked | One clear problem, result, screenshot, benchmark, repo link, or ongoing discussion | Needs a separate interpretation just to make the link relevant | `x-publisher` |
+| LinkedIn | Professional technical credibility | Long-form link plus a one- or two-sentence hook; article/carousel when explicitly asked | Engineering leaders, platform/security teams, consulting/research angle | Needs a manufactured professional story beyond the source | `linkedin-publisher` |
 | Xiaohongshu | Chinese visual technical entry points | Visual note, carousel, checklist, screenshot/diagram explainer | Has a concrete scenario, visual artifact, beginner-friendly bridge, or saveable checklist | Only a dense paper/blog with no visual proof or short reader payoff | `xiaohongshu-publisher` |
 | Reddit | Subreddit-specific discussion | Text post, link, comment | Solves a visible community question or invites technical critique | No subreddit fit or recent drive-by self-promo risk | `reddit-publisher` |
 | Hacker News | Technical curiosity | Link, Show HN, Ask HN, comment | Code, paper, demo, measurement, unusual systems behavior | Marketing announcement without substance | `hackernews-publisher` |
@@ -77,8 +77,9 @@ Use a narrow launch when the artifact is niche or fragile:
 - Long-form blog/tutorial/paper explainer: default to Medium/DEV English
   syndication, Zhihu/Juejin Chinese syndication, X/LinkedIn short share posts,
   and selective community platforms only when fit is real.
-- Paper/research discussion: Zhihu, X thread, LinkedIn, HN/Lobsters only if the
-  source is technically surprising.
+- Paper/research discussion: Zhihu, X/LinkedIn link shares, and HN/Lobsters only
+  if the source is technically surprising. Use a thread or longer LinkedIn
+  interpretation only when explicitly requested.
 - Practical tutorial: Juejin, DEV, X, maybe Reddit if a subreddit has a matching
   question; syndicate the complete source rather than splitting it for a
   platform.
