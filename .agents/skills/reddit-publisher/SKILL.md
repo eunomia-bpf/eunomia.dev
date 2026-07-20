@@ -52,10 +52,13 @@ come from normal browser interactions.
 
 ## Draft Archive
 
-Before opening the Reddit composer, write or update the Reddit draft under
-`draft/media/YYYY-MM-DD/<source-slug>/reddit.md` using the local date. Include
-the target subreddit, post type, title, link/self-text, flair, affiliation note,
-duplicate/rule check state, and full paste-ready comment or post body.
+For a pure link submission whose exact title, target subreddit, and URL are
+already fixed by the dated plan, use those fields directly in the visible
+composer. Do not create `reddit.md`, self-text, a first comment, or an
+affiliation paragraph unless the subreddit requires one. Create
+`draft/media/YYYY-MM-DD/<source-slug>/reddit.md` only when the task actually
+needs original self-text, nontrivial flair or disclosure notes, or paste-ready
+comment copy.
 
 ## Browser QA
 
@@ -64,8 +67,8 @@ Before stopping for user confirmation, verify:
 - target subreddit and flair are correct
 - title is factual and not editorialized
 - duplicate search did not reveal an active same-topic thread
-- Markdown preview renders links, code, and lists correctly
-- affiliation/self-promotion disclosure is present when needed
+- Markdown preview renders links, code, and lists correctly when self-text is used
+- affiliation/self-promotion disclosure is present only when required by the subreddit
 - the visible final `Post` action has not been clicked
 
 ## Follow-Up

@@ -50,11 +50,11 @@ Repo-referenced Zhihu URLs that should be kept but may need ownership/date verif
 
 Profile checked: <https://juejin.cn/user/4288563097635144/posts>
 
-The following authored articles were visible on the first article page during the check:
+Normal in-app browser pagination covered all four visible article pages and collected 39 unique authored article links. The machine ledger currently maps 25 of 105 Chinese source files; remaining gaps are treated as unpublished unless a later visible match is found.
 
 | Status | Title | URL | Notes |
 | --- | --- | --- | --- |
-| Pending review | 实证研究：AI Agent 规则需要上下文与分层强制执行 | <https://juejin.cn/spost/7664151348536229903> | Submitted from `docs/blog/posts/ebpf-ai-agent-policy-enforcement.zh.md`; category `人工智能`; tags `Linux`, `AI编程`, `安全`; restored the exact source title; all four images, two tables, code, and outbound links verified on the article page while it displayed `审核中` |
+| Confirmed | 实证研究：AI Agent 规则需要上下文与分层强制执行 | <https://juejin.cn/post/7664151348536229903> | Published from `docs/blog/posts/ebpf-ai-agent-policy-enforcement.zh.md`; category `人工智能`; tags `Linux`, `AI编程`, `安全`; exact source title, images, tables, code, and outbound links were verified on the public article page |
 | Confirmed | 多智能体系统是人工智能的未来吗？探讨OpenAI的Swarm实验 | <https://juejin.cn/post/7424407625897492514> | Latest visible authored article |
 | Confirmed | eBPF 实践教程: 通过 socket 或 syscall 追踪 HTTP 等七层协议 | <https://juejin.cn/post/7280746975917228087> | Authored article |
 | Confirmed | eBPF 实践教程：使用 eBPF 用户态捕获多种库的 SSL/TLS 明文数据 | <https://juejin.cn/post/7269723528961261623> | Authored article |
@@ -111,11 +111,13 @@ New confirmed post:
 | --- | --- | --- | --- | --- |
 | Confirmed | 2026-07-19 | A rule like "run the full test suite before committing" looks simple | <https://www.linkedin.com/feed/update/urn:li:share:7484770128912465920> | Links to `docs/blog/posts/ebpf-ai-agent-policy-enforcement.md`; published from `draft/media/2026-07-19/ebpf-ai-agent-policy-enforcement/linkedin.md` |
 
-Machine-readable details: [`platforms/linkedin.json`](platforms/linkedin.json). Current script coverage: 5 of 118 English target source files mapped as LinkedIn-published.
+Machine-readable details: [`platforms/linkedin.json`](platforms/linkedin.json). Current script coverage: 6 of 122 English target source files mapped as LinkedIn-published.
 
 ## Medium
 
 Account checked in the in-app browser: <https://medium.com/@yunwei356>
+
+Normal visible profile scrolling collected 62 authored story links. The machine ledger maps 60 of 122 English source files; the difference includes source-equivalent mappings and remaining unmatched profile items.
 
 New confirmed post:
 
@@ -128,6 +130,8 @@ Machine-readable details: [`platforms/medium.json`](platforms/medium.json).
 ## DEV Community
 
 Account checked in the in-app browser: <https://dev.to/yunwei37>
+
+The profile reports 57 posts; normal visible scrolling collected 54 unique public article links. The machine ledger maps 47 of 122 English source files, and scheduling uses only the resulting confirmed gaps.
 
 New confirmed post:
 

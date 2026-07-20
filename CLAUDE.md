@@ -49,6 +49,12 @@ rewrites or fragile structural repairs. No platform requires a visible
 canonical/source link in the article body; include one only when it helps the
 reader.
 
+If a same-day content-operations log is genuinely useful, write only
+`draft/media/YYYY-MM-DD/run-log.md`. Do not create monthly daily-log files or
+standalone figure inventories, platform-hook notes, per-article publish-QA
+notes, or other disposable files whose only purpose is to prove that a workflow
+step happened.
+
 Daily changes limited to `draft/` and `.agents/skills/` are a direct
 commit-and-push workflow. Do not open a pull request solely for those daily
 draft/skill maintenance updates; still inspect the worktree, stage explicit
