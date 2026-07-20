@@ -36,7 +36,7 @@
   <link>https://eunomia.dev/zh/blog/2026/07/10/schedcp-agentic-linux-scheduler/</link>
   <guid>https://eunomia.dev/zh/blog/2026/07/10/schedcp-agentic-linux-scheduler/</guid>
   <pubDate>Fri, 10 Jul 2026 00:00:00 GMT</pubDate>
-  <description>一个让 Linux kernel build 更快的调度策略，换到 schbench 上可能反而拉高唤醒延迟。两次运行都能让 CPU 忙起来，但运维者在前者关心吞吐量，在后者关心唤醒时间，所以 AI agent 要安全调优调度器，必须先把工作负载目标放进控制闭环。</description>
+  <description>一个让 Linux 内核编译更快的调度策略，换到 schbench 上可能反而拉高唤醒延迟。两次运行都能让 CPU 忙起来，但运维者在前者关心吞吐量，在后者关心唤醒时间，所以 AI Agent 要安全调优调度器，必须先把工作负载目标放进控制闭环。</description>
   <author>yuxi4096@gmail.com (yuxi4096)</author>
   <author>1067852565@qq.com (云微)</author>
   <author>i@littlefisher.me (LinuxDev9002)</author>

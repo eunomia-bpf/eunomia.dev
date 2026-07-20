@@ -8,11 +8,11 @@
   <lastBuildDate>Mon, 20 Jul 2026 00:00:00 GMT</lastBuildDate>
   <atom:link href="https://eunomia.dev/feed.xml" rel="self" type="application/rss+xml" />
   <item>
-  <title>From Tokens to Verifiable Work: Agent Infrastructure Is Changing Its Unit of Measure</title>
+  <title>From Tokens to Verifiable Work: Agent Infra Is Rewriting Its Unit of Measure</title>
   <link>https://eunomia.dev/blog/2026/07/20/agent-work-unit/</link>
   <guid>https://eunomia.dev/blog/2026/07/20/agent-work-unit/</guid>
   <pubDate>Mon, 20 Jul 2026 00:00:00 GMT</pubDate>
-  <description>For the past several years, AI infrastructure has been best at answering what happened during a model call.</description>
+  <description>For the past several years, AI infrastructure has found it easy to answer what happened during a single model call.</description>
   <author>yuxi4096@gmail.com (yuxi4096)</author>
   <category>daily-analysis</category>
   <category>research</category>
