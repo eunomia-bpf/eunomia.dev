@@ -94,7 +94,8 @@ note if useful, media choices, and QA state.
    publish; do not leave an unrelated default question selected.
 7. Set cover and column inclusion only when the user requested them or the
    choice is obvious from prior posts.
-8. Stop at preview, the visible `发布` button, or the publish-settings page.
+8. Stop at preview, the visible `发布` button, or the publish-settings page
+   unless the user explicitly authorized publishing the current item.
 
 ## Content Strategy
 
@@ -116,7 +117,7 @@ requirement.
 
 Do not automate:
 
-- final `发布`
+- final `发布` without explicit user authorization for the current item
 - direct Zhihu API access, internal endpoint reads, or browser-hidden data fetches
 - column submission unless the user names the exact column
 - deleting drafts or changing account settings
@@ -128,5 +129,9 @@ Do not automate:
 After a confirmed publish, update `.github/publisher/media/published.md` with
 title, source path, Zhihu URL, date, tags or column, and formatting fixes. Remove
 or update the matching row in `.github/publisher/media/not-published.md`.
+
+Before closing the publishing task, run a platform-lessons pass. Add any new,
+reproducible editor failure and its verified workaround to this skill or its
+references so the next publish does not repeat it.
 
 Keep screenshots and observed UI notes under `.github/publisher/media/`.

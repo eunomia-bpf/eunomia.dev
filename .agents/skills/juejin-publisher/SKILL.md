@@ -79,7 +79,8 @@ useful, media choices, and QA state.
    - eBPF tutorials: `后端`, `Linux`, `开源`, `云原生`, `架构`
    - AI agent or runtime posts: `人工智能`, `AIGC`, `后端`, `架构`, `安全`
    - GPU observability posts: `人工智能`, `后端`, `架构`, `Linux`, `性能优化`
-7. Stop before final `确定并发布`.
+7. Stop before final `确定并发布` unless the user explicitly authorized publishing
+   the current item.
 
 For images, verify the exact final URL used in Markdown before publishing. Do
 not assume `imgs/...` can be converted by guessing an eunomia.dev article path;
@@ -107,7 +108,7 @@ visible eunomia.dev canonical/source note is optional.
 
 Do not automate:
 
-- final `确定并发布`
+- final `确定并发布` without explicit user authorization for the current item
 - direct Juejin API access, internal endpoint reads, or browser-hidden data fetches
 - sign-in, phone verification, or CAPTCHA
 - `去签到`, likes, follows, comments, reposts, or private messages
@@ -119,5 +120,9 @@ Do not automate:
 After a confirmed publish, update `.github/publisher/media/published.md` with
 title, source path, Juejin URL, date, category, tags, and formatting fixes.
 Remove or update the matching row in `.github/publisher/media/not-published.md`.
+
+Before closing the publishing task, run a platform-lessons pass. Add any new,
+reproducible editor failure and its verified workaround to this skill or its
+references so the next publish does not repeat it.
 
 Keep screenshots and observed UI notes under `.github/publisher/media/`.

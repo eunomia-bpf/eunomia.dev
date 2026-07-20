@@ -133,6 +133,24 @@ short post.
 - Check campaign/event requirements again when entering a Juejin activity.
 - Stop before final publish unless the user explicitly confirms.
 
+### Editor And Review-State Checks
+
+- Populate the locally finished Markdown artifact in the editor, then validate
+  the rendered `.markdown-body`. CodeMirror virtualizes lines and its visible
+  line counter or DOM line count is not reliable evidence that newlines were
+  lost.
+- Wait until `图片解析中...` disappears. Verify every preview image has
+  non-zero natural dimensions and a Juejin-hosted URL, then repeat the image
+  check on the article page after submission.
+- Tag search results may exist in a hidden dropdown after text entry. Focus the
+  tag field to open the dropdown, then click only the visible `role=button`
+  option; do not click hidden mirror text or zero-sized options.
+- The generated 100-character summary may end mid-sentence. Replace it with a
+  complete standalone summary before submission.
+- A successful submission can redirect to `/published` and provide an article
+  URL that displays `审核中`. Record the URL and status separately; do not call
+  the item fully approved until the review marker disappears.
+
 ## Post-Publish Follow-Up
 
 - Check comments, reactions, collections, and private messages only when the

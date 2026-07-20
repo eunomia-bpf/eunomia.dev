@@ -28,6 +28,15 @@
   ],
   "published": [
     {
+      "id": "zhihu-2062539029892151274",
+      "status": "confirmed",
+      "title": "实证研究：AI Agent 规则需要上下文与分层强制执行",
+      "url": "https://zhuanlan.zhihu.com/p/2062539029892151274",
+      "source_path": "docs/blog/posts/ebpf-ai-agent-policy-enforcement.zh.md",
+      "checked_via": "published_article_page_visible",
+      "notes": "Published after local import QA; selected a production-readiness AI Agent question and uploaded the ActPlane architecture cover separately."
+    },
+    {
       "id": "zhihu-2049849241200235065",
       "status": "confirmed",
       "title": "ActPlane: 把 Agent Harness Enforcement 下沉到内核 eBPF",

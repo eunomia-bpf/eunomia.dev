@@ -13,8 +13,8 @@ Status:
 
 - Medium: published 2026-07-19 via Medium import: https://medium.com/@yunwei356/an-empirical-study-ai-agent-rules-need-context-and-layered-enforcement-eunomia-423adab48a1b
 - DEV: published 2026-07-19: https://dev.to/yunwei37/an-empirical-study-ai-agent-rules-need-context-and-layered-enforcement-43on
-- Zhihu: not started in browser.
-- Juejin: not started in browser.
+- Zhihu: published 2026-07-19: https://zhuanlan.zhihu.com/p/2062539029892151274
+- Juejin: submitted 2026-07-19; currently under review: https://juejin.cn/spost/7664151348536229903
 - X: published 2026-07-19: https://x.com/yunwei37/status/2079002839440068969
 - LinkedIn: published 2026-07-19: https://www.linkedin.com/feed/update/urn:li:share:7484770128912465920
 - HN: skip new submission; an ActPlane paper thread already exists.

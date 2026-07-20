@@ -16,6 +16,7 @@ Follow-up platform check on 2026-07-19 used normal in-app browser scrolling on t
 
 | Status | Title | URL | Notes |
 | --- | --- | --- | --- |
+| Confirmed | 实证研究：AI Agent 规则需要上下文与分层强制执行 | <https://zhuanlan.zhihu.com/p/2062539029892151274> | Published from `docs/blog/posts/ebpf-ai-agent-policy-enforcement.zh.md`; selected the production-readiness AI Agent question; imported a locally prepared image-free body after unstable image imports and uploaded the ActPlane architecture cover separately |
 | Confirmed | ActPlane: 把 Agent Harness Enforcement 下沉到内核 eBPF | <https://zhuanlan.zhihu.com/p/2049849241200235065> | Recent profile article |
 | Confirmed | ACRFence：防止 AI Agent 检查点恢复中的语义回滚攻击 | <https://zhuanlan.zhihu.com/p/2044683685539139618> | Matches `docs/blog/posts/agent-check-restore-safety.md` topic |
 | Confirmed | 基于 eBPF 的不透明 AI Agent 运行时可观测与执行控制：超越沙箱与审批 | <https://zhuanlan.zhihu.com/p/2044679839769159474> | Matches `docs/blog/posts/runtime-security-for-opaque-ai-agents.md` topic |
@@ -51,6 +52,7 @@ The following authored articles were visible on the first article page during th
 
 | Status | Title | URL | Notes |
 | --- | --- | --- | --- |
+| Pending review | 2116 条 CLAUDE.md/AGENTS.md 规则：AI Agent 策略为什么需要 OS 强制执行 | <https://juejin.cn/spost/7664151348536229903> | Submitted from `docs/blog/posts/ebpf-ai-agent-policy-enforcement.zh.md`; category `人工智能`; tags `Linux`, `AI编程`, `安全`; all four images, two tables, code, and outbound links verified on the article page while it displayed `审核中` |
 | Confirmed | 多智能体系统是人工智能的未来吗？探讨OpenAI的Swarm实验 | <https://juejin.cn/post/7424407625897492514> | Latest visible authored article |
 | Confirmed | eBPF 实践教程: 通过 socket 或 syscall 追踪 HTTP 等七层协议 | <https://juejin.cn/post/7280746975917228087> | Authored article |
 | Confirmed | eBPF 实践教程：使用 eBPF 用户态捕获多种库的 SSL/TLS 明文数据 | <https://juejin.cn/post/7269723528961261623> | Authored article |

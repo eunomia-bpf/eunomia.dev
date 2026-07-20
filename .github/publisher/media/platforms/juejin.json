@@ -17,6 +17,15 @@
   ],
   "published": [
     {
+      "id": "juejin-7664151348536229903",
+      "status": "pending_review",
+      "title": "2116 条 CLAUDE.md/AGENTS.md 规则：AI Agent 策略为什么需要 OS 强制执行",
+      "url": "https://juejin.cn/spost/7664151348536229903",
+      "source_path": "docs/blog/posts/ebpf-ai-agent-policy-enforcement.zh.md",
+      "checked_via": "publish_success_and_article_page_visible",
+      "notes": "Category 人工智能; tags Linux, AI编程, 安全. Article page, four images, two tables, code, and outbound links were verified while the page displayed 审核中."
+    },
+    {
       "id": "juejin-7424407625897492514",
       "status": "confirmed",
       "title": "多智能体系统是人工智能的未来吗？探讨OpenAI的Swarm实验",

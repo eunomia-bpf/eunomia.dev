@@ -2,9 +2,13 @@
 
 Platform: Juejin
 
-Decision: publish after editor preview QA.
+Decision: submitted after editor preview and public-page QA; under review.
+
+Published URL: https://juejin.cn/spost/7664151348536229903
 
 Source body: `docs/blog/posts/ebpf-ai-agent-policy-enforcement.zh.md`
+
+Upload artifact: `juejin-upload.md`
 
 Title: 2116 条 CLAUDE.md/AGENTS.md 规则：AI Agent 策略为什么需要 OS 强制执行
 
@@ -16,8 +20,8 @@ Paper: https://arxiv.org/abs/2606.25189
 
 Category/tags:
 
-- Category: 人工智能 or 后端
-- Tags: AIGC, 后端, Linux, 安全, 开源
+- Category: 人工智能
+- Tags: Linux, AI编程, 安全
 
 Body policy:
 
@@ -32,3 +36,13 @@ Browser QA:
 - Check Markdown preview for images, tables, code blocks, and links.
 - Check category/tags.
 - Stop before `确定并发布` unless final publishing is explicitly confirmed.
+
+Completed QA:
+
+- Verified 11 section headings, two tables, one fenced code block, 15 links,
+  and four images in the Markdown preview.
+- Verified that Juejin copied all four images to its own image host and that
+  every public-page image loaded with non-zero dimensions.
+- Replaced the automatically truncated summary with a complete 75-character
+  summary and uploaded the 1403 x 636 ActPlane architecture image as the cover.
+- The article page is available but currently displays `审核中`.

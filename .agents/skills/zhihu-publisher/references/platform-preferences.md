@@ -114,6 +114,25 @@ link placement, or "想法" adaptation.
 - Check whether column, tags, or project fields match the topic.
 - Stop before final publish/submit unless the user explicitly confirms.
 
+### Import And Image Failure Checks
+
+- Use the visible import path `导入` -> `导入文档` ->
+  `点击选择本地文档或拖动文件到窗口上传`. The first menu item and hidden file
+  input may not emit a usable file chooser in browser automation.
+- Normalize literal currency such as `$0.028` and `$11` to `0.028 美元` and
+  `11 美元` in the local upload artifact. Zhihu document import may pair the
+  dollar signs as inline math and silently delete everything between them.
+- Treat imported images as failed until each figure has neither `上传失败` nor
+  `加载失败` and its image has non-zero natural dimensions. Counting figure
+  nodes is insufficient because failed placeholders remain in the editor.
+- Remote Markdown images and DOCX-embedded images can fail partially and
+  nondeterministically. After one clean re-import attempt, prefer a no-inline-
+  image upload artifact plus a separately uploaded cover over repeated fragile
+  rich-text repair. Keep the richer platform draft as the content record.
+- Verify a cover in both places when possible: the editor should store a Zhihu
+  CDN URL with non-zero dimensions, and the public page should not show a
+  broken image or empty cover region.
+
 ## Zhihu "想法"
 
 - Keep one sharp thesis, one concrete example, and one link.
