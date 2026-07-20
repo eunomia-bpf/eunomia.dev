@@ -2,7 +2,7 @@
 
 Platform: X
 
-Decision: publish as a short share post after link-card QA.
+Decision: published.
 
 Primary link: https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/
 
@@ -18,7 +18,7 @@ https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/
 
 Browser QA:
 
-- Check posting account.
-- Check character count.
-- Check link card resolves to the eunomia.dev article.
-- Stop before `Post` unless final publishing is explicitly confirmed.
+- Posting account: `@yunwei37`.
+- Character count checked: 270.
+- Link card resolved to the eunomia.dev article in the X composer/home timeline.
+- Published URL: https://x.com/yunwei37/status/2079002839440068969

@@ -78,6 +78,7 @@ The following self-authored project posts were visible through X profile/status 
 
 | Status | Date | Title / visible text | URL | Notes |
 | --- | --- | --- | --- | --- |
+| Confirmed | 2026-07-19 | "Run tests before commit" is not just a prompt rule | <https://x.com/yunwei37/status/2079002839440068969> | Links to `docs/blog/posts/ebpf-ai-agent-policy-enforcement.md`; published from `draft/media/2026-07-19/ebpf-ai-agent-policy-enforcement/x.md` |
 | Confirmed | 2025-11-15 | A blog for GPU observability tools using bpftime | <https://x.com/yunwei37/status/1989812682502070525> | Links to the GPU observability blog on `eunomia.dev`; X showed `1.7万` views in the logged-in UI |
 | Confirmed | 2025-07-17 | 写了一个用 ebpf 追踪 AI Agent 的小玩意 | <https://x.com/yunwei37/status/1945767621707829452> | Links to `github.com/eunomia-bpf/agentsight`; visible status page showed 5,565 views |
 | Confirmed | 2024-01-21 | Bpftime now supports tracing USDT in userspace eBPF | <https://x.com/yunwei37/status/1749079236571213825> | Links to the bpftime USDT example |

@@ -24,6 +24,16 @@
   ],
   "published": [
     {
+      "id": "x-2079002839440068969",
+      "status": "confirmed",
+      "date": "2026-07-19",
+      "title": "Run tests before commit is not just a prompt rule",
+      "url": "https://x.com/yunwei37/status/2079002839440068969",
+      "source_path": "docs/blog/posts/ebpf-ai-agent-policy-enforcement.md",
+      "checked_via": "in_app_browser_post_toast_and_home_timeline_visible",
+      "notes": "Published from draft/media/2026-07-19/ebpf-ai-agent-policy-enforcement/x.md; link card resolved to eunomia.dev."
+    },
+    {
       "id": "x-1989812682502070525",
       "status": "confirmed",
       "date": "2025-11-15",
