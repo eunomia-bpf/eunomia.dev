@@ -57,6 +57,10 @@ Load references according to the task:
    it must record the exact source title, links, tags/categories, media, and QA
    state. Short posts, comments, and replies should include the full paste-ready
    copy.
+   Do not create standalone figure-inventory, platform-hook, or publish-QA
+   notes. Put paste-ready copy and required upload metadata in the final
+   platform artifact; record only real cross-run exceptions in the dated
+   `run-log.md` or reusable platform lessons in the matching publisher skill.
 8. For long-form posts on every platform, finish the platform-specific artifact
    locally before touching the platform editor whenever possible. Generate a
    temporary or `draft/media/YYYY-MM-DD/<source-slug>/` upload/import artifact

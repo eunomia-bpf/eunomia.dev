@@ -174,6 +174,20 @@ def validate_platforms(
                         f"entry {platform_id}/{entry_id} source path does not exist: {source_path}"
                     )
 
+        confirmed_source_urls = platform.get("confirmed_source_urls", {})
+        if not isinstance(confirmed_source_urls, dict):
+            errors.append(f"platform {platform_id} confirmed_source_urls must be an object")
+            confirmed_source_urls = {}
+        for source_path, url in confirmed_source_urls.items():
+            if not (repo_root / source_path).is_file():
+                errors.append(
+                    f"platform {platform_id} compact source path does not exist: {source_path}"
+                )
+            if not isinstance(url, str) or not url:
+                errors.append(
+                    f"platform {platform_id} compact source path needs a URL: {source_path}"
+                )
+
     return errors
 
 
@@ -215,6 +229,7 @@ def confirmed_source_paths(platform: dict[str, Any]) -> set[str]:
         if entry.get("source_path"):
             paths.add(entry["source_path"])
         paths.update(entry.get("equivalent_source_paths", []))
+    paths.update(platform.get("confirmed_source_urls", {}).keys())
     return paths
 
 
@@ -247,6 +262,7 @@ def build_report(
         confirmed_entries = [
             entry for entry in platform.get("published", []) if entry.get("status") == CONFIRMED_STATUS
         ]
+        compact_mapping_count = len(platform.get("confirmed_source_urls", {}))
         confirmed_without_source_path = [
             entry for entry in confirmed_entries if not entry.get("source_path")
         ]
@@ -258,7 +274,8 @@ def build_report(
             "target_source_count": len(target_sources),
             "published_source_count": len(covered_target_paths),
             "not_published_source_count": len(missing_sources),
-            "confirmed_entry_count": len(confirmed_entries),
+            "confirmed_entry_count": len(confirmed_entries) + compact_mapping_count,
+            "confirmed_compact_mapping_count": compact_mapping_count,
             "confirmed_entries_without_source_path": len(confirmed_without_source_path),
             "third_party_count": len(platform.get("third_party_mentions", [])),
             "reference_count": len(platform.get("references", [])),

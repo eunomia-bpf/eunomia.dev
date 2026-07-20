@@ -14,7 +14,8 @@ Read these before acting:
 
 - `CLAUDE.md`
 - current month plan: `draft/plan/YYYY-MM.zh.md`
-- current monthly log, if present: `draft/content-daily-log-YYYY-MM.md`
+- today's media workspace and run log, if present:
+  `draft/media/YYYY-MM-DD/` and `draft/media/YYYY-MM-DD/run-log.md`
 - previous reports under `draft/media/` and `docs/reports/` when checking topic
   duplication
 - `references/research-method.md`
@@ -64,13 +65,19 @@ or scraping datasets.
 
 Capture serious candidates compactly with source type, primary URL, publication
 date, event date, concrete claim, evidence strength, limitation, and any
-contradictory signal. Keep this in working context or the daily log; do not
+contradictory signal. Keep this in working context or the dated run log; do not
 create a visible source-inventory artifact.
 
 Cluster candidates by mechanism, change, or tension rather than shared keywords.
 Generate candidate research questions only after clustering. Compare candidates
 for timeliness, evidence independence, technical consequence, disagreement, and
 reader usefulness.
+
+Before choosing a thesis, build the compact evidence lattice described in
+`references/research-method.md`. A broad report should normally combine a
+current event, academic or methodological evidence, an implementation or open
+technical artifact, and deployment or community evidence. Do not fill a missing
+role with a weak source merely to complete the pattern.
 
 ### 5. Form And Test The Thesis
 
@@ -80,6 +87,17 @@ contradict, or be unrelated to existing Eunomia projects and editorial views.
 Before drafting, look for the strongest alternative explanation and evidence
 that could overturn the thesis. Narrow or discard a thesis that depends on one
 marketing claim, one repeated press release, or social posts quoting each other.
+
+Only after the thesis is formed, check `docs/papers/registry.yaml`, related
+public papers, projects, and existing Eunomia posts. Treat repository-owned work
+as ordinary third-party evidence in public prose. Include it only when it adds a
+mechanism, measurement, implementation, counterexample, or clearly bounded
+exploration. Usually weave the relevant result into an existing paragraph in one
+or two sentences, naming the paper or project directly without phrases such as
+"our research" or explaining repository affiliation. Apply the same evidence
+and caveat standards used for outside work. Omit the connection when it is not
+useful. Do not add a promotional project roundup, call to action, or forced
+tie-back.
 
 ### 6. Draft The Public Report
 
@@ -96,6 +114,12 @@ Use the editorial functions in `references/research-method.md` without turning
 them into a rigid heading checklist. Keep the evidence chain in the article and
 the raw browsing process out of it.
 
+End a Chinese report with `## 参考资料`. List only primary papers, datasets,
+standards, repositories, official technical documentation, or first-person
+engineering material that the argument actually uses. Product names may appear
+where they identify evidence, but the future-tracking section should normally
+name technical questions and capabilities rather than vendors or products.
+
 ### 7. Review For Publication Value
 
 Check that:
@@ -104,9 +128,18 @@ Check that:
 - every central factual claim resolves to a primary or clearly labeled source
 - current events are separated from older context and republished material
 - independent sources are truly independent
+- each central inference is supported or challenged by at least two independent
+  source types when the scope of the claim requires cross-validation
+- a broad technical report includes academic evidence and a non-vendor
+  implementation, standard, dataset, or reproducible artifact
 - contradictions, uncertainty, and source limitations remain visible
 - analysis explains mechanism and second-order effects instead of summarizing
 - developer or operator implications follow from the evidence
+- repository-owned work, if used, reads like an ordinary third-party source,
+  stays proportionate to its evidentiary role, and avoids first-person ownership
+- the tracking section stays problem-led rather than reading like a product
+  watchlist, unless a named product is itself the report's subject
+- the final Chinese source section is named `参考资料`
 - the report is materially different from previous report questions and theses
 - no private strategy, customer information, pricing plans, or unreleased work
   entered the public repository
@@ -118,10 +151,12 @@ report to look deep.
 
 ### 8. Record And Hand Back
 
-Update `draft/content-daily-log-YYYY-MM.md` with the research window, source
-families checked, selected topic or "no defensible thesis", report path, and
-next concrete action. When invoked by `eunomia-content-patrol`, return control to
-that skill for platform adaptation, publishing authorization, and ledger work.
+When a separate run record is useful, update
+`draft/media/YYYY-MM-DD/run-log.md` with the research window, source families
+checked, selected topic or "no defensible thesis", report path, and next
+concrete action. Do not create a monthly daily-log file. When invoked by
+`eunomia-content-patrol`, return control to that skill for platform adaptation,
+publishing authorization, and ledger work.
 
 This skill does not authorize a final publish, repost, comment, or other social
 action.

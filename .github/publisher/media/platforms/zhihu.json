@@ -509,12 +509,20 @@
           "source_path": "docs/blog/posts/lmp-eunomia.zh.md",
           "checked_via": "in_app_browser_normal_profile_scroll"
         },
-        {
-          "id": "zhihu-589784295",
+    {
+      "id": "zhihu-589784295",
           "status": "confirmed",
           "title": "eunomia-bpf 0.3.0 发布：只需编写内核态代码，轻松构建、打包、发布完整的 eBPF 应用",
           "url": "https://zhuanlan.zhihu.com/p/589784295",
           "source_path": "docs/blog/posts/0_3_0-release.zh.md",
+          "checked_via": "in_app_browser_normal_profile_scroll"
+        },
+        {
+          "id": "zhihu-600638396",
+          "status": "confirmed",
+          "title": "eunomia-bpf：展望 2023，让 eBPF 插上 Wasm 的翅膀",
+          "url": "https://zhuanlan.zhihu.com/p/600638396",
+          "source_path": "docs/blog/posts/coolbpf-eunomia.zh.md",
           "checked_via": "in_app_browser_normal_profile_scroll"
         },
         {

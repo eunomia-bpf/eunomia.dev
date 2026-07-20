@@ -1,6 +1,6 @@
 ---
 name: eunomia-content-patrol
-description: Orchestrate the scheduled or manual daily eunomia.dev content operation. Use when Codex needs to read the current daily plan, invoke eunomia-research-report for new research and daily blogs, invoke eunomia-social-radar for publication performance and conversations, route ready content to the matching publisher skill, complete every scheduled task end to end without per-run confirmation, and consolidate results in the daily log. This skill is the versioned source of truth for the `eunomia` cron automation; it coordinates other skills and does not itself browse platforms, research topics, write reports, or draft platform copy.
+description: Orchestrate the scheduled or manual daily eunomia.dev content operation. Use when Codex needs to read the current daily plan, invoke eunomia-research-report for new research and daily blogs, invoke eunomia-social-radar for publication performance and conversations, route ready content to the matching publisher skill, complete every scheduled task end to end without per-run confirmation, and consolidate useful results in the dated media workspace. This skill is the versioned source of truth for the `eunomia` cron automation; it coordinates other skills and does not itself browse platforms, research topics, write reports, or draft platform copy.
 ---
 
 # Eunomia Content Patrol
@@ -16,7 +16,8 @@ Read these before routing work:
 - `.agents/README.md`
 - `draft/plan/README.zh.md`
 - current month plan: `draft/plan/YYYY-MM.zh.md`
-- current monthly log, if present: `draft/content-daily-log-YYYY-MM.md`
+- today's media workspace and recent run log, if present:
+  `draft/media/YYYY-MM-DD/` and `draft/media/YYYY-MM-DD/run-log.md`
 - `.github/publisher/media/README.md`
 - `.github/publisher/media/not-published.md`
 - relevant `.github/publisher/media/platforms/*.json`
@@ -71,8 +72,10 @@ this orchestrator.
 5. Invoke the matching publisher skill for every due platform action. Let that
    skill own copy adaptation, visible browser interaction, preview, final QA,
    the action itself, and platform-ledger updates.
-6. Confirm the observable result returned by each child skill. Record completed
-   actions, real URLs, draft paths, blockers, and next actions in the daily log.
+6. Confirm the observable result returned by each child skill. Update the dated
+   plan and platform ledger first. If a separate run record is useful, write
+   completed actions, real URLs, artifact paths, blockers, and next actions to
+   `draft/media/YYYY-MM-DD/run-log.md`.
 
 The research and social-radar calls may be run independently when neither needs
 the other's output. Do not create a standalone orchestration report.
@@ -110,12 +113,17 @@ Do not manufacture a visible artifact to satisfy the scheduler. Match the
 outcome to the task: a publishing task requires a published item, while a
 research or monitoring task may produce a report, observation, response
 candidate, or evidence-backed no-thesis result. A draft or prepared artifact
-does not substitute for a scheduled publication. The daily log is an audit
-record, not the substantive output.
+does not substitute for a scheduled publication. A run log is an audit record,
+not the substantive output, and should not be created only to satisfy cadence.
+Do not create per-article figure inventories, platform-hook notes, publish-QA
+notes, or other disposable workflow evidence. Keep necessary checks in working
+context and put only final platform artifacts, durable skill lessons, or real
+exceptions in the repository.
 
 ## Run Summary
 
-Update `draft/content-daily-log-YYYY-MM.md` with one compact entry containing:
+When a separate run summary is useful, create or update
+`draft/media/YYYY-MM-DD/run-log.md` with one compact entry containing:
 
 - date and run mode
 - child skills invoked
@@ -125,5 +133,5 @@ Update `draft/content-daily-log-YYYY-MM.md` with one compact entry containing:
 - blocked actions and their exact missing condition
 - next concrete action
 
-Do not copy full child reports, browsing transcripts, or raw metric inventories
-into the summary.
+Do not create a monthly daily-log file. Do not copy full child reports, browsing
+transcripts, or raw metric inventories into the dated summary.

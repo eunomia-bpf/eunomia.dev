@@ -1,6 +1,6 @@
 # Not Published / Pending Media Ledger
 
-Last checked: 2026-07-19
+Last checked: 2026-07-20
 
 This file tracks source posts that still need platform work. The latest checked `.github/publisher/posts_queue.txt` is empty; historical rows below are retained as candidate-source tracking, not proof that Medium/Dev.to are still queued.
 
@@ -30,7 +30,7 @@ These items need follow-up before moving to `published.md` or clearing them:
 
 | Item | Why it needs verification | Suggested check |
 | --- | --- | --- |
-| Full Zhihu article history | Profile reports 111 articles, but this check only recorded the visible article page snapshot | Paginate or export profile article list before declaring the ledger complete |
+| Full Zhihu article history | Profile reports 114 articles; normal visible scrolling collected 113 unique links and exact-title matching resolved two tutorial/blog duplicates | Recheck visible title/keyword matches immediately before publishing any remaining Zhihu-missing tutorial; do not use APIs or hidden endpoints |
 | Full Juejin article history | This check only recorded the first article page | Use Juejin article pagination or profile API carefully to capture older posts |
 | Full X history | `from:yunwei37` search recorded visible project hits, but not a complete account export | Use X advanced search or account data export before declaring the ledger complete |
 | Full Reddit history | `author:yunwei123` search recorded visible project hits, but not all comments or deleted/crossposted content | Use Reddit user listing and subreddit search for `eunomia.dev`, `eunomia-bpf`, `bpftime`, `AgentSight` |

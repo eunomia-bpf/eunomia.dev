@@ -1,6 +1,6 @@
 # Published Media Ledger
 
-Last checked: 2026-07-19
+Last checked: 2026-07-20
 
 This ledger records platform posts confirmed from logged-in profile pages or explicit repository references. It is intentionally conservative: if authorship or completeness is not verified, the item is marked for follow-up instead of treated as complete.
 
@@ -10,9 +10,9 @@ Canonical machine-readable source: one JSON file per platform under [`platforms/
 
 Profile checked: <https://www.zhihu.com/people/yun-wei-64-11/posts>
 
-The profile reports `文章111`. The following recent articles were visible on the article page during the check:
+The profile reports `文章114`. The following recent articles were visible on the article page during the check:
 
-Follow-up platform check on 2026-07-19 used normal in-app browser scrolling on the Zhihu profile page. The page still reported `文章111`; scrolling collected 112 visible article links, which is recorded in [`platforms/zhihu.json`](platforms/zhihu.json). Do not use Zhihu API or hidden/internal endpoints for future checks.
+Follow-up platform check on 2026-07-20 used normal in-app browser scrolling on the Zhihu profile page. The page reported `文章114`; scrolling collected 113 unique visible article links, which is recorded in [`platforms/zhihu.json`](platforms/zhihu.json). Exact-title matching also confirmed that the userspace-eBPF and eBPF-runtime-security tutorial sources are already covered by same-title blog posts, so they are tracked as equivalent sources instead of being republished. Do not use Zhihu API or hidden/internal endpoints for future checks.
 
 | Status | Title | URL | Notes |
 | --- | --- | --- | --- |
@@ -33,6 +33,8 @@ Follow-up platform check on 2026-07-19 used normal in-app browser scrolling on t
 | Confirmed | eBPF 示例教程：实现 scx_nest 内核调度器 | <https://zhuanlan.zhihu.com/p/1918839417050755847> | Recent profile article |
 | Confirmed | eBPF 与机器学习可观测：追踪 CUDA GPU 操作 | <https://zhuanlan.zhihu.com/p/1918665090783224477> | Recent profile article |
 | Confirmed | eBPF 教程：BPF 调度器入门 | <https://zhuanlan.zhihu.com/p/1918657795798046505> | Recent profile article |
+| Confirmed | eBPF 运行时安全性：面临的挑战与前沿创新 | <https://zhuanlan.zhihu.com/p/667257765> | Covers both the blog source and `docs/tutorials/18-further-reading/ebpf-security.zh.md` |
+| Confirmed | 用户空间 eBPF 运行时：深度解析与应用实践 | <https://zhuanlan.zhihu.com/p/662734555> | Covers both the blog source and `docs/tutorials/36-userspace-ebpf/README.zh.md` |
 
 Repo-referenced Zhihu URLs that should be kept but may need ownership/date verification:
 

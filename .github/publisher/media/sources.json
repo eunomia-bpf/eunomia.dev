@@ -11,6 +11,7 @@
       "Legacy docs/blogs pages are intentionally excluded from default platform coverage.",
       "Only entries with status=confirmed and an existing source_path or equivalent_source_paths value count as published coverage.",
       "Use equivalent_source_paths when one platform article faithfully covers duplicate blog/tutorial source representations; do not republish the same article only to satisfy path-level coverage.",
+      "Use platform-level confirmed_source_urls for compact browser-verified historical backfills when detailed per-post metadata is not needed.",
       "A confirmed platform row should have either a stable post url or an evidence_url for a normal browser-visible page where the post was observed.",
       "Platform rows without a source_path are preserved as verified URLs but do not reduce the not-published count.",
       "Third-party mentions and repo references are tracked separately and are not counted as our own publishing."

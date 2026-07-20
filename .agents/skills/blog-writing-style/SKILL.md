@@ -91,11 +91,13 @@ Source accuracy, public-path stability, confidentiality, and edit-scope limits a
 - Check reading momentum. Each section should create a reason to continue, vary the mode of explanation, and pay off the question raised before it. Flag dense stretches, repeated setup, jargon clusters, decorative figures, and detours into mechanisms already covered by sibling posts.
 - At the end, the reader should be able to state the post's distinctive insight, its evidence, its boundary, and the practical decision it changes. If the reader remembers only the project name or a pile of percentages, the post needs revision.
 - Review trust as part of readability. Flag titles, transitions, takeaways, and claims that feel promotional, inflated, defensive, or content-farm-like even when no individual sentence is factually false.
+- When a Eunomia paper or project supports a broader research-led post, present it with the same editorial distance as any third-party source. Name the work and the relevant result directly, avoid "our research," "our project," and affiliation-setting prose, and usually keep the connection to one or two sentences inside the existing argument. Omit it when it adds no evidence or explanatory value.
 
 ### References at the end
 
-- End each blog post with a compact `## References` section in English and `## 参考文献` in Chinese. Keep it as the final section so readers can distinguish supporting sources from related-reading links in the argument.
+- End each blog post with a compact `## References` section in English and `## 参考资料` in Chinese. Keep it as the final section so readers can distinguish supporting sources from related-reading links in the argument.
 - List 5–10 distinct primary papers, official documentation pages, upstream repositories, datasets, or other first-party sources that materially support the post. Prefer the most direct source and descriptive linked titles; do not use raw URLs, split one work into duplicate entries, or pad the list with sources the article did not rely on.
+- Research-led posts should normally include academic evidence for mechanisms or measurement boundaries and implementation, standard, dataset, or first-person engineering evidence for operational claims. A product announcement can establish what changed in that product, but cannot independently validate the broader trend it promotes.
 - EN and ZH should cite the same underlying sources in the same order, with link labels localized when useful. Inline links still belong near the claims they support; the final section is a compact source record, not a substitute for claim-level attribution.
 
 ### Transforming a paper into a blog post
@@ -109,14 +111,13 @@ Source accuracy, public-path stability, confidentiality, and edit-scope limits a
 
 ### Figures from source papers
 
-- Build a numbered inventory of every main-body figure before outlining. Record what claim each figure supports and where the source asset comes from. The inventory is a source-fidelity aid and a selection pool, not a requirement to publish every figure.
-- Treat the inventory as evidence that the figure step happened. For each figure or table, record the supported claim, source page or file, include/omit decision, and how the claim remains supported when the item is omitted.
+- Review every main-body figure before outlining. For each figure or table, identify the supported claim, source page or file, include/omit decision, and how the claim remains supported when the item is omitted. Keep this in working context; do not create a standalone inventory file as process evidence.
 - Select figures by argumentative value. Include a figure only when it materially advances the post's thesis, makes an important comparison easier to grasp than prose, or supplies evidence the surrounding text cannot carry as clearly. Retaining a paper section, including an empirical-study section, does not make all of that section's figures mandatory.
 - Prefer a small set of high-signal figures over a paper-shaped gallery. Omit plots that are secondary to the post's topic, duplicate evidence already visible elsewhere, require disproportionate setup, or interrupt the argument. Preserve any important omitted result in prose and link to the paper for full detail.
 - Introduce a figure with the claim it supports, place it directly after that discussion, and interpret the visual instead of leaving it as decoration.
 - EN and ZH use the identical image payload and matching placement. Alt text and surrounding explanation are written naturally in each language.
 - Do not redraw a source plot merely to change its style. Prefer an exact repository-owned copy or a stable source asset, and preserve labels, scales, legends, and uncertainty information.
-- Never add a figure solely to satisfy completeness. Record the selection rationale for included figures and verify that omitting the rest does not leave a claim unsupported or misleading.
+- Never add a figure solely to satisfy completeness. Verify that each included figure has a clear argumentative purpose and that omitting the rest does not leave a claim unsupported or misleading.
 
 ## Anti-content-farm rules
 
@@ -331,7 +332,7 @@ This example works because it starts from a concrete capability, gives one measu
 
 - Same macro structure: sections, argument flow, examples, figures, tables, claims, numbers, and caveats stay in the same order.
 - Section headings correspond (e.g., "Three Layers, Three Blind Spots" ↔ "三层约束，三种盲区").
-- Both versions end with corresponding `References` / `参考文献` sections that cite the same sources in the same order.
+- Both versions end with corresponding `References` / `参考资料` sections that cite the same sources in the same order.
 - Both files need the same `date`; `description` is localized, both within the length budget.
 - Sentence boundaries, paragraph boundaries, and line counts do not need to match. Natural expression is mandatory, not optional.
 - When one version changes an argument, example, fact, figure, or caveat, update the other. Purely local phrasing edits need not be mirrored mechanically.

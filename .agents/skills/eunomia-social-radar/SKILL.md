@@ -15,7 +15,8 @@ Read these before inspecting platforms:
 
 - `CLAUDE.md`
 - `.agents/README.md`
-- current monthly log: `draft/content-daily-log-YYYY-MM.md`
+- today's media workspace and run log, if present:
+  `draft/media/YYYY-MM-DD/` and `draft/media/YYYY-MM-DD/run-log.md`
 - `.github/publisher/media/README.md`
 - `.github/publisher/media/published.md`
 - `.github/publisher/media/not-published.md`
@@ -117,7 +118,8 @@ Return a compact result to `eunomia-content-patrol` containing:
 - recommended actions and whether they are due in today's patrol
 - the next useful checkpoint
 
-Write one compact entry in `draft/content-daily-log-YYYY-MM.md`. Do not create a
+When a separate observation record is useful, write one compact entry in
+`draft/media/YYYY-MM-DD/run-log.md`. Do not create a monthly daily-log file or a
 standalone daily radar file unless the user explicitly requests a public or
 shareable analysis. Update platform ledgers only after a real action or when the
 existing ledger schema explicitly stores observation status.

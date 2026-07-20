@@ -51,7 +51,7 @@ When disagreement is credible, preserve it as potential counterevidence for
 
 ## Compact Record
 
-The daily-log entry should contain only:
+The dated `draft/media/YYYY-MM-DD/run-log.md` entry should contain only:
 
 - canonical or platform URL
 - observation timestamp

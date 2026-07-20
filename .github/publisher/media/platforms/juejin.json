@@ -3,27 +3,37 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-07-19",
+  "last_checked": "2026-07-20",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
   ],
   "accounts": [
     {
-      "handle": "yunwei",
+      "handle": "yunwei37",
       "url": "https://juejin.cn/user/4288563097635144/posts",
       "status": "confirmed"
+    }
+  ],
+  "browser_observations": [
+    {
+      "checked_at": "2026-07-20",
+      "checked_via": "in_app_browser_normal_profile_pagination",
+      "visible_pages_checked": 4,
+      "visible_article_links_collected": 39,
+      "profile_url": "https://juejin.cn/user/4288563097635144/posts",
+      "notes": "Followed the visible next-page links through cursors 10, 20, and 30. No platform API or hidden endpoint evidence is used."
     }
   ],
   "published": [
     {
       "id": "juejin-7664151348536229903",
-      "status": "pending_review",
+      "status": "confirmed",
       "title": "实证研究：AI Agent 规则需要上下文与分层强制执行",
-      "url": "https://juejin.cn/spost/7664151348536229903",
+      "url": "https://juejin.cn/post/7664151348536229903",
       "source_path": "docs/blog/posts/ebpf-ai-agent-policy-enforcement.zh.md",
       "checked_via": "publish_success_and_article_page_visible",
-      "notes": "Category 人工智能; tags Linux, AI编程, 安全. Article page, four images, two tables, code, and outbound links were verified while the page displayed 审核中."
+      "notes": "Category 人工智能; tags Linux, AI编程, 安全. The published article is visible on the authored profile page."
     },
     {
       "id": "juejin-7424407625897492514",
@@ -104,6 +114,136 @@
       "url": "https://juejin.cn/post/7240371866286997563",
       "source_path": "docs/tutorials/13-tcpconnlat/README.zh.md",
       "checked_via": "logged_in_profile_visible"
+    },
+    {
+      "id": "juejin-7240365776737599544",
+      "status": "confirmed",
+      "title": "eBPF入门实践教程十四：记录 TCP 连接状态与 TCP RTT",
+      "url": "https://juejin.cn/post/7240365776737599544",
+      "source_path": "docs/tutorials/14-tcpstates/README.zh.md",
+      "checked_via": "in_app_browser_normal_profile_pagination"
+    },
+    {
+      "id": "juejin-7240351482255605821",
+      "status": "confirmed",
+      "title": "eBPF 入门实践教程十六：编写 eBPF 程序 Memleak 监控内存泄漏",
+      "url": "https://juejin.cn/post/7240351482255605821",
+      "source_path": "docs/tutorials/16-memleak/README.zh.md",
+      "checked_via": "in_app_browser_normal_profile_pagination"
+    },
+    {
+      "id": "juejin-7240365776737321016",
+      "status": "confirmed",
+      "title": "eBPF 入门实践教程十五：使用 USDT 捕获用户态 Java GC 事件耗时",
+      "url": "https://juejin.cn/post/7240365776737321016",
+      "source_path": "docs/tutorials/15-javagc/README.zh.md",
+      "checked_via": "in_app_browser_normal_profile_pagination"
+    },
+    {
+      "id": "juejin-7203362527080955963",
+      "status": "confirmed",
+      "title": "使用 ChatGPT ，通过自然语言编写 eBPF 程序和追踪 Linux 系统",
+      "url": "https://juejin.cn/post/7203362527080955963",
+      "source_path": "docs/blog/posts/GPTtrace.zh.md",
+      "checked_via": "in_app_browser_normal_profile_pagination"
+    },
+    {
+      "id": "juejin-7198983763526156344",
+      "status": "confirmed",
+      "title": "在 WebAssembly 中使用 Rust 编写 eBPF 程序并发布 OCI 镜像",
+      "url": "https://juejin.cn/post/7198983763526156344",
+      "source_path": "docs/blog/posts/how-to-write-rust-in-wasm.zh.md",
+      "checked_via": "in_app_browser_normal_profile_pagination"
+    },
+    {
+      "id": "juejin-7198983763526123576",
+      "status": "confirmed",
+      "title": "在 WebAssembly 中使用 C/C++ 和 libbpf 编写 eBPF 程序",
+      "url": "https://juejin.cn/post/7198983763526123576",
+      "source_path": "docs/blog/posts/how-to-write-c-in-wasm.zh.md",
+      "checked_via": "in_app_browser_normal_profile_pagination"
+    },
+    {
+      "id": "juejin-7197653741218594871",
+      "status": "confirmed",
+      "title": "Wasm-bpf: 为云原生 Webassembly 提供通用的 eBPF 内核可编程能力",
+      "url": "https://juejin.cn/post/7197653741218594871",
+      "source_path": "docs/blog/posts/wasm-bpf.zh.md",
+      "checked_via": "in_app_browser_normal_profile_pagination"
+    },
+    {
+      "id": "juejin-7193664910885126199",
+      "status": "confirmed",
+      "title": "eBPF 入门实践教程七：捕获进程执行/退出时间，通过 perf event array 向用户态打印输出",
+      "url": "https://juejin.cn/post/7193664910885126199",
+      "source_path": "docs/tutorials/7-execsnoop/README.zh.md",
+      "checked_via": "in_app_browser_normal_profile_pagination",
+      "notes": "Published title reflects an older source revision but covers the same numbered tutorial and mechanism."
+    },
+    {
+      "id": "juejin-7193662595851632701",
+      "status": "confirmed",
+      "title": "eBPF 入门开发实践教程八：在 eBPF 中使用 exitsnoop 监控进程退出事件，使用 ring buffer 向用户态打印输出",
+      "url": "https://juejin.cn/post/7193662595851632701",
+      "source_path": "docs/tutorials/8-exitsnoop/README.zh.md",
+      "checked_via": "in_app_browser_normal_profile_pagination"
+    },
+    {
+      "id": "juejin-7193530024484405306",
+      "status": "confirmed",
+      "title": "eBPF 入门开发实践教程六：捕获进程发送信号的系统调用集合，使用 hash map 保存状态",
+      "url": "https://juejin.cn/post/7193530024484405306",
+      "source_path": "docs/tutorials/6-sigsnoop/README.zh.md",
+      "checked_via": "in_app_browser_normal_profile_pagination"
+    },
+    {
+      "id": "juejin-7192559227724890169",
+      "status": "confirmed",
+      "title": "eBPF 入门开发实践教程五：在 eBPF 中使用 uprobe 捕获 bash 的 readline 函数调用",
+      "url": "https://juejin.cn/post/7192559227724890169",
+      "source_path": "docs/tutorials/5-uprobe-bashreadline/README.zh.md",
+      "checked_via": "in_app_browser_normal_profile_pagination"
+    },
+    {
+      "id": "juejin-7192558559219941435",
+      "status": "confirmed",
+      "title": "eBPF 入门开发实践教程四：在 eBPF 中捕获进程打开文件的系统调用集合，使用全局变量过滤进程 pid",
+      "url": "https://juejin.cn/post/7192558559219941435",
+      "source_path": "docs/tutorials/4-opensnoop/README.zh.md",
+      "checked_via": "in_app_browser_normal_profile_pagination"
+    },
+    {
+      "id": "juejin-7191831755001692217",
+      "status": "confirmed",
+      "title": "eBPF 入门开发实践教程三：在 eBPF 中使用 fentry 监测捕获 unlink 系统调用",
+      "url": "https://juejin.cn/post/7191831755001692217",
+      "source_path": "docs/tutorials/3-fentry-unlink/README.zh.md",
+      "checked_via": "in_app_browser_normal_profile_pagination"
+    },
+    {
+      "id": "juejin-7191829855363661879",
+      "status": "confirmed",
+      "title": "eunomia-bpf：展望 2023，让 eBPF 插上 Wasm 的翅膀",
+      "url": "https://juejin.cn/post/7191829855363661879",
+      "source_path": "docs/blog/posts/coolbpf-eunomia.zh.md",
+      "checked_via": "in_app_browser_normal_profile_pagination"
+    },
+    {
+      "id": "juejin-7191829182416945208",
+      "status": "confirmed",
+      "title": "eBPF 入门开发实践教程二：在 eBPF 中使用 kprobe 监测捕获 unlink 系统调用",
+      "url": "https://juejin.cn/post/7191829182416945208",
+      "source_path": "docs/tutorials/2-kprobe-unlink/README.zh.md",
+      "checked_via": "in_app_browser_normal_profile_pagination"
+    },
+    {
+      "id": "juejin-7191829272930025533",
+      "status": "confirmed",
+      "title": "eBPF 入门开发实践教程一：介绍 eBPF 的基本概念、常见的开发工具",
+      "url": "https://juejin.cn/post/7191829272930025533",
+      "source_path": "docs/tutorials/0-introduce/README.zh.md",
+      "checked_via": "published_article_page_visible",
+      "notes": "The visible article is the older introductory edition for the current tutorial 0 topic. Do not republish it merely because the source title and numbering were later revised."
     }
   ],
   "references": [
@@ -115,7 +255,7 @@
   ],
   "third_party_mentions": [],
   "pending_verification": [
-    "The manual check recorded only the first article page.",
-    "Use profile pagination/API carefully before treating full Juejin history as complete."
+    "Normal visible pagination covered all four authored profile pages and collected 39 article links on 2026-07-20.",
+    "Only repository mappings supported by exact titles, numbered-series identity, or a visible article-body check are counted as source coverage."
   ]
 }
