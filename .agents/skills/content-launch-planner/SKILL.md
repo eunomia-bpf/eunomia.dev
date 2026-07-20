@@ -1,6 +1,6 @@
 ---
 name: content-launch-planner
-description: Plan contribution-first cross-platform launches for eunomia.dev content, GitHub projects, papers, tutorials, demos, and public updates. Use when asked where/when/whether to publish, whether to do all-platform posting, whether others already posted, how to adapt one artifact into a platform matrix, how to prepare Product Hunt or community launches, or how to coordinate Zhihu/Juejin/X/LinkedIn/Reddit/Hacker News/Lobsters/Medium/DEV publisher skills without posting yet.
+description: Plan contribution-first cross-platform launches for eunomia.dev content, GitHub projects, papers, tutorials, demos, and public updates. Use when asked where/when/whether to publish, whether to do all-platform posting, whether others already posted, how to adapt one artifact into a platform matrix, how to prepare Product Hunt or community launches, or how to coordinate Zhihu/Juejin/X/LinkedIn/Xiaohongshu/Reddit/Hacker News/Lobsters/Medium/DEV publisher skills without posting yet.
 ---
 
 # Content Launch Planner
@@ -38,7 +38,9 @@ Load references according to the task:
 4. For long-form blog/tutorial/paper explainers with canonical English and/or
    Chinese sources, default to canonical syndication: Medium/DEV use the
    English version, Zhihu/Juejin use the Chinese version, and the body is not
-   rewritten unless the user asks or the source itself has a problem.
+   rewritten unless the user asks or the source itself has a problem. Visible
+   canonical/source links are not mandatory on any platform; do not add one only
+   to satisfy a checklist.
 5. Select platforms by fit, not by desire to be everywhere. All-platform plans
    must still produce platform-native angles and may recommend "skip" for weak
    surfaces.
@@ -51,10 +53,18 @@ Load references according to the task:
    it must record the exact title, links, tags/categories, source note, media,
    and QA state. Short posts, comments, and replies should include the full
    paste-ready copy.
-8. Hand off execution to the matching publisher skill with the required browser
+8. For long-form posts on every platform, finish the platform-specific artifact
+   locally before touching the platform editor whenever possible. Generate a
+   temporary or `draft/media/YYYY-MM-DD/<source-slug>/` upload/import artifact
+   with the final title, duplicate body H1 removed, platform-specific
+   source/project note if useful, image URLs or uploaded images, table
+   fallbacks, code blocks, tags/categories, and links.
+   Use the platform editor for import/upload, settings, and QA, not for writing
+   or structural repair.
+9. Hand off execution to the matching publisher skill with the required browser
    QA state. Do not paste into a platform or publish from this skill unless the
    user explicitly asks to move from planning into execution.
-9. Include a follow-up plan for comments, private messages, GitHub issues,
+10. Include a follow-up plan for comments, private messages, GitHub issues,
    corrections, and retrospective notes.
 
 ## Boundaries
@@ -62,8 +72,12 @@ Load references according to the task:
 - Keep public content 80% contribution and 20% promotion. Project mentions are
   evidence, implementation artifacts, or next steps after useful explanation.
 - Do not recommend full rewrites for long-form syndicated posts by default.
-  Limit changes to title micro-tuning, canonical/GitHub/paper links, images,
-  code blocks, tags, and a low-key project/source note.
+  Limit changes to title micro-tuning, useful source/GitHub/paper links,
+  images, code blocks, tags, and a low-key project/source note when it helps
+  the reader.
+- Do not force visible canonical links on any platform. If a platform provides a
+  dedicated canonical field, treat it as a hygiene setting when convenient; do
+  not edit the article body just to add or repair a canonical/source link.
 - Preserve the maintainer posture: consulting, research, and helping solve hard
   technical problems, not selling a product.
 - Do not include private strategy, customer claims, fundraising, pricing,
@@ -85,6 +99,8 @@ Use the platform-specific publisher skill after the plan is accepted:
   when explicitly useful.
 - `linkedin-publisher` for short LinkedIn feed posts, articles/carousels only
   when explicitly useful, and comments.
+- `xiaohongshu-publisher` for Xiaohongshu visual notes, carousel outlines,
+  title/cover adaptation, and Chinese short-form technical explainers.
 - `reddit-publisher` for subreddit submissions and comments.
 - `hackernews-publisher` for HN titles, Show HN, Ask HN, and comments.
 - `lobsters-publisher` for Lobsters stories, tags, and comments.

@@ -10,8 +10,8 @@ final publishing unless the user explicitly confirms it.
 
 ## Inputs
 
-- Source Markdown path or canonical eunomia.dev URL.
-- Intended title, tags, series, cover image, or canonical URL.
+- Source Markdown path or source/canonical eunomia.dev URL.
+- Intended title, tags, series, cover image, or optional canonical URL.
 - Optional GitHub link, paper link, or follow-up plan.
 
 If the source path is missing, inspect `.github/publisher/posts_queue.txt`,
@@ -43,9 +43,11 @@ for publication; DEV publish APIs are not part of the default workflow.
 
 ## Draft Preparation
 
-1. Read the canonical English source and confirm the canonical URL.
-2. Convert frontmatter to DEV/Jekyll-style fields when useful, including
-   `canonical_url`.
+1. Read the canonical English source and record the source URL, GitHub links,
+   and paper links when known.
+2. Convert frontmatter to DEV/Jekyll-style fields when useful. Include
+   `canonical_url` when known and convenient, but do not add a visible body
+   source link just to satisfy a checklist.
 3. Use H2 as the highest body heading because the post title is the H1.
 4. Preserve the article body by default; only fix headings, code fences,
    images, links, tags, and DEV-specific Markdown rendering.
@@ -57,14 +59,17 @@ for publication; DEV publish APIs are not part of the default workflow.
 
 Before opening the DEV editor, write or update the DEV draft record under
 `draft/media/YYYY-MM-DD/<source-slug>/devto.md` using the local date. Include
-the exact title, description, tags, `canonical_url`, source body path or
-paste-ready body, GitHub/paper links, series/cover choices, and QA state.
+the exact title, description, tags, optional `canonical_url`, source body path
+or paste-ready body, GitHub/paper links, series/cover choices, and QA state.
+For long-form posts, finish this paste-ready/frontmatter artifact locally before
+opening DEV; use the web editor for preview, settings, and publish flow rather
+than structural repair.
 
 ## Browser QA
 
 Before stopping for user confirmation, verify:
 
-- title, description, tags, cover, and canonical URL are correct
+- title, description, tags, cover, and optional canonical URL are correct
 - the DEV body has not drifted from the canonical article except for necessary
   Markdown/frontmatter/rendering edits
 - headings start at H2 and code fences have language labels
@@ -76,11 +81,11 @@ Before stopping for user confirmation, verify:
 Before confirmed publishing, use the DEV web preview and inspect the full post
 from top to bottom. After confirmed publishing, open the public DEV URL and
 inspect the rendered post from top to bottom before updating the ledger. Verify
-canonical/source notes, title, tags, image loading, H2/H3 hierarchy, tables,
-code fences, link targets, embeds, and narrow rendering when practical. If the
-public page reveals duplicated source notes, wrong tags, broken images, heading
-artifacts, or mangled code blocks, edit the published post through the web UI
-and repeat the public-page check.
+canonical field when configured, source/project notes when present, title, tags,
+image loading, H2/H3 hierarchy, tables, code fences, link targets, embeds, and
+narrow rendering when practical. If the public page reveals duplicated source
+notes, wrong tags, broken images, heading artifacts, or mangled code blocks, edit
+the published post through the web UI and repeat the public-page check.
 
 DEV tags must be verified from the selected-tag chips after editing. Do not
 assume a desired tag exists or was accepted just because it was typed into the
@@ -88,6 +93,15 @@ tag box; if the editor rejects a tag, choose a supported nearby tag and record
 the fallback. When `canonical_url` is set, DEV already displays its own
 "Originally published" notice, so avoid adding a duplicate manual source note
 at the end unless the user explicitly asks for one.
+
+For images, verify the exact final URL that will appear in the DEV Markdown.
+Do not assume a relative `imgs/...` path becomes
+`https://eunomia.dev/<article>/imgs/...`; that guessed path can 404 even when
+the canonical article renders locally. Check each external image URL with a
+browser or HEAD request before saving. If the eunomia.dev URL is not directly
+200, use the actual rendered image URL, a stable GitHub raw URL for public repo
+images, or upload the image through the DEV web editor, then re-check the
+public page after lazy loading.
 
 ## Follow-Up
 

@@ -27,8 +27,10 @@ Body policy:
 
 - Preserve the English canonical article body.
 - Remove YAML front matter and H1 from the body because DEV uses the title field as H1.
-- Convert relative images under `imgs/` to public absolute URLs:
-  `https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/imgs/...`
+- Convert relative images under `imgs/` to checked public absolute URLs. The
+  guessed eunomia.dev article-relative image path returned 404, so the published
+  DEV article now uses stable GitHub raw URLs under
+  `https://raw.githubusercontent.com/eunomia-bpf/eunomia.dev/main/docs/blog/posts/imgs/...`.
 - Do not add a manual canonical/source note at the end when DEV's
   `canonical_url` notice is visible.
 
@@ -46,3 +48,7 @@ Browser QA:
 - Post-publish public-page QA verified the cleaned tags, DEV canonical notice,
   no manual source-note tail, article images, tables, code block, GitHub links,
   and arXiv links.
+- Post-publish image fix: replaced four 404 eunomia.dev image URLs with GitHub
+  raw image URLs through the DEV web editor. Public-page full-scroll QA verified
+  4 article images, 4 raw-proxied DEV image URLs, 0 old 404 image URLs, and no
+  broken article images.

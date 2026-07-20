@@ -50,7 +50,7 @@ Turn one source into native pieces:
 - Pillar: canonical blog/tutorial/project page/README.
 - Long-form syndication: Medium/DEV English, Zhihu/Juejin Chinese. Preserve the
   canonical body by default; only adjust metadata, rendering, links, tags, and
-  a short source/project note.
+  a short source/project note when it helps the reader.
 - Short derivatives: LinkedIn post and X post/thread with one useful insight
   plus a share link.
 - Micro-content: single X posts, LinkedIn comments, Zhihu ideas, screenshots,
@@ -62,8 +62,8 @@ Store platform-specific drafts before browser/editor work under
 `reddit.md`, `hackernews.md`, or `lobsters.md`. For unchanged long-form
 syndication, the file may point to the canonical source body instead of copying
 it, but it still records the platform fields, links, tags/categories, source
-note, media, and QA state. Short posts, comments, and replies include the full
-paste-ready copy.
+or project note if useful, media, and QA state. Short posts, comments, and
+replies include the full paste-ready copy.
 
 Extract atoms before writing:
 

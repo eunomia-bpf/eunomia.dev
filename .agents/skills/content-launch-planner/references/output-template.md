@@ -17,7 +17,7 @@ but preserve the fields needed for execution.
 ## Source Brief
 
 - Artifact: [path/repo/paper/demo]
-- Canonical link: [URL]
+- Source/canonical link: [URL if useful]
 - GitHub link: [URL/path]
 - User pain: [what concrete problem the reader has]
 - Search/community intent: [what they search, ask, compare, debug, or decide]
@@ -56,7 +56,7 @@ but preserve the fields needed for execution.
 | HN | publish/skip/comment | link/Show HN/Ask HN/comment | | | | |
 | Lobsters | publish/skip/comment | story/comment | | | | |
 | Medium | publish/skip | canonical English import/syndicated story | | | | |
-| DEV | publish/skip | canonical English article with canonical_url/series/comment | | | | |
+| DEV | publish/skip | canonical English article with optional canonical_url/series/comment | | | | |
 | Product Hunt | include/maybe/skip | launch page | | | | |
 
 ## Per-Platform Briefs

@@ -13,7 +13,7 @@ unless the user explicitly confirms it.
 
 - Source Markdown path or topic.
 - Intended title, language, and audience, if specified.
-- Optional cover, category, tags, or canonical eunomia.dev URL.
+- Optional cover, category, tags, source URL, GitHub link, or paper link.
 
 If the source path is missing, inspect `.github/publisher/posts_queue.txt`,
 `.github/publisher/media/not-published.md`, and recent `docs/blog/posts/`
@@ -45,15 +45,15 @@ and capturing screenshots.
 ## Draft Preparation
 
 1. Read the canonical Chinese source and extract title, summary, tags, images,
-   code blocks, and canonical URL.
+   code blocks, source URL for the ledger, GitHub links, and paper links.
 2. Build a Juejin copy in canonical syndication mode:
    - remove YAML front matter
    - preserve the article body by default
-   - convert relative images to public `https://eunomia.dev/...` URLs
+   - convert relative images to checked public URLs or prepare editor upload
    - ensure code fences have language labels
    - micro-tune the title or intro only when needed for the same developer
      promise
-   - add a short canonical link back to eunomia.dev near the end
+   - add a short GitHub/project/paper note near the end only when useful
 3. Rewrite the body only when the user asks, the source is English-only, or a
    concrete quality problem blocks publication.
 
@@ -62,14 +62,17 @@ and capturing screenshots.
 Before opening the Juejin editor, write or update the Juejin draft record under
 `draft/media/YYYY-MM-DD/<source-slug>/juejin.md` using the local date. For
 unchanged Chinese canonical syndication, the file may reference the source body
-instead of duplicating it, but it must record the exact title, canonical URL,
-GitHub/paper links, category/tags, source note, media choices, and QA state.
+instead of duplicating it, but it must record the exact title, source URL for
+the ledger if known, GitHub/paper links, category/tags, source/project note if
+useful, media choices, and QA state.
 
 ## Editor Workflow
 
 1. Open <https://juejin.cn/editor/drafts/new>.
 2. Fill the title field, observed as `输入文章标题...`.
-3. Paste the body into the Markdown editor.
+3. For long-form posts, finish the Juejin-specific Markdown artifact locally
+   before opening the editor. Paste or import that final artifact; do not use
+   the platform editor for large rewrites or link-heavy tail-note repair.
 4. Use `预览` to scan headings, images, links, code blocks, and table layout.
 5. Click `发布` only to inspect publish settings when needed.
 6. Choose category and tags carefully:
@@ -78,19 +81,27 @@ GitHub/paper links, category/tags, source note, media choices, and QA state.
    - GPU observability posts: `人工智能`, `后端`, `架构`, `Linux`, `性能优化`
 7. Stop before final `确定并发布`.
 
+For images, verify the exact final URL used in Markdown before publishing. Do
+not assume `imgs/...` can be converted by guessing an eunomia.dev article path;
+that path may return 404. Use actual rendered image URLs, stable GitHub raw URLs
+for public repository images, or upload images through the Juejin web editor,
+then verify the preview and public page.
+
 ## Content Strategy
 
 Juejin readers reward immediately useful technical framing. Put the practical
 payoff in the title or first paragraph, use diagrams and command output only
 when they advance the tutorial, and prefer one article per concrete technique.
 For existing Chinese long-form eunomia.dev posts, preserve the canonical body
-and adapt only title, images, Markdown rendering, category, tags, and source
-links. For large docs, split into a series and link the canonical full tutorial.
+and adapt only title, images, Markdown rendering, category, tags, and useful
+source/project links. For large docs, split into a series and link the full
+tutorial only when that helps the reader.
 
 Optimize for the maintainer's personal technical account brand and practical
 developer trust, not only for search ranking or traffic back to eunomia.dev.
-Keep the canonical/tutorial link as source or extended reading, but make the
-Juejin version stand alone as a useful platform-native article.
+Keep GitHub, tutorial, docs, or paper links as sources or extended reading, but
+make the Juejin version stand alone as a useful platform-native article. A
+visible eunomia.dev canonical/source note is optional.
 
 ## Safety Boundary
 

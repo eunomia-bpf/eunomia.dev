@@ -14,3 +14,7 @@ not hidden platform APIs or background endpoints.
 Keep skills procedural. Long-term brand strategy, channel mix, campaign
 cadence, and positioning plans belong under `draft/`, while skills should hold
 repeatable execution steps, constraints, platform QA, scripts, and validation.
+
+Use `eunomia-content-patrol` as the source of truth for the scheduled daily
+content patrol. The cron prompt should stay short and route execution through
+that skill rather than duplicating the full daily operating policy.

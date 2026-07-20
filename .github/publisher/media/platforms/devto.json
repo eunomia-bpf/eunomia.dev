@@ -32,7 +32,7 @@
         "ebpf"
       ],
       "checked_via": "in_app_browser_dev_editor_preview_save_and_public_story_full_scroll",
-      "notes": "Published through DEV editor fields, then fixed tags through selected tag chips and removed the duplicate manual source note because DEV shows its own canonical notice. Public-page QA verified title, tags, canonical URL, images, tables, code block, GitHub links, arXiv links, and the visible Originally published at eunomia.dev notice."
+      "notes": "Published through DEV editor fields, then fixed tags through selected tag chips, removed the duplicate manual source note, and replaced four 404 eunomia.dev image URLs with GitHub raw image URLs through the DEV web editor. Public-page full-scroll QA verified title, tags, canonical URL, four article images, tables, code block, GitHub links, arXiv links, and the visible Originally published at eunomia.dev notice."
     }
   ],
   "references": [],

@@ -13,7 +13,7 @@ confirms final publishing.
 
 - Source Markdown path or topic.
 - Intended language and title, if the user specifies them.
-- Optional target column, cover, tags, or canonical eunomia.dev URL.
+- Optional target column, cover, tags, source URL, GitHub link, or paper link.
 
 If the source path is missing, inspect `.github/publisher/posts_queue.txt`,
 `.github/publisher/media/not-published.md`, and recent `docs/blog/posts/`
@@ -47,17 +47,19 @@ and capturing screenshots.
 ## Draft Preparation
 
 1. Read the canonical Chinese source and extract title, summary, tags, images,
-   code blocks, and canonical URL.
+   code blocks, source URL for the ledger, GitHub links, and paper links.
 2. Build a Zhihu copy in canonical syndication mode:
    - remove YAML front matter
    - preserve the article body by default
    - micro-tune the Chinese title only if it strengthens the same reader promise
    - keep the first paragraph as the hook unless it has a concrete problem
-   - convert relative images to public `https://eunomia.dev/...` URLs or
-     prepare manual image upload
+   - convert relative images to checked public URLs or prepare manual image
+     upload
    - simplify tables, formulas, Mermaid, footnotes, and complex HTML before
      paste or import
-3. Add a short canonical-source/GitHub/paper note near the end when appropriate.
+3. Add a short GitHub/project/paper note near the end only when it helps the
+   reader. A visible eunomia.dev original/canonical note is optional, not
+   required.
 4. Rewrite the body only when the user asks, the source is English-only, or a
    concrete quality problem blocks publication.
 
@@ -66,24 +68,33 @@ and capturing screenshots.
 Before opening the Zhihu editor, write or update the Zhihu draft record under
 `draft/media/YYYY-MM-DD/<source-slug>/zhihu.md` using the local date. For
 unchanged Chinese canonical syndication, the file may reference the source body
-instead of duplicating it, but it must record the exact title, canonical URL,
-GitHub/paper links, column/tags if known, source note, media choices, and QA
-state.
+instead of duplicating it, but it must record the exact title, source URL for
+the ledger if known, GitHub/paper links, column/tags if known, source/project
+note if useful, media choices, and QA state.
 
 ## Editor Workflow
 
 1. Open <https://zhuanlan.zhihu.com/write>.
 2. Fill the title field, observed as `请输入标题（最多 100 个字）`.
-3. Paste or import the article body into `请输入正文`.
-4. Verify visually:
+3. For long-form posts, prefer a local `.md` or `.docx` artifact prepared before
+   opening the editor. Use Zhihu's visible document import path when available
+   (toolbar more/menu import); paste only for short text or when import is not
+   available.
+4. Avoid post-paste surgical repair in the Zhihu editor. If a long draft needs
+   structural fixes, regenerate the local artifact and re-import into a fresh
+   draft when practical.
+5. Verify visually:
    - heading hierarchy is preserved
    - code blocks are readable
    - tables do not collapse
    - images render
-   - links point to the intended canonical sources
-5. Set cover and column inclusion only when the user requested them or the
+   - links point to intended GitHub, docs, project, or paper sources
+6. In the publish/settings flow, choose a relevant question when Zhihu offers a
+   question selector. Verify the selected question is topical before final
+   publish; do not leave an unrelated default question selected.
+7. Set cover and column inclusion only when the user requested them or the
    choice is obvious from prior posts.
-6. Stop at preview, the visible `发布` button, or the publish-settings page.
+8. Stop at preview, the visible `发布` button, or the publish-settings page.
 
 ## Content Strategy
 
@@ -97,8 +108,9 @@ Zhihu and link to the complete code or tutorial.
 Optimize for the maintainer's personal technical account brand: clear taste,
 useful explanation, research and engineering credibility, and discussion from
 readers who care about eBPF systems, AI agents, and runtime observability. Keep
-the eunomia.dev, GitHub, or paper link as source or extended reading rather than
-making the article feel like outbound traffic acquisition.
+GitHub, docs, project, or paper links as sources or extended reading. Use an
+eunomia.dev link only when it helps the reader, not as a default canonical
+requirement.
 
 ## Safety Boundary
 

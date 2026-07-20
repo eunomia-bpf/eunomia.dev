@@ -129,7 +129,7 @@ New confirmed post:
 
 | Status | Date | Title | URL | Notes |
 | --- | --- | --- | --- | --- |
-| Confirmed | 2026-07-19 | An Empirical Study: AI Agent Rules Need Context and Layered Enforcement | <https://dev.to/yunwei37/an-empirical-study-ai-agent-rules-need-context-and-layered-enforcement-43on> | Published from DEV editor with canonical URL set to <https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/>; post-publish web-editor fix removed duplicate manual source note and changed tags to `opensource`, `ai`, `security`, `ebpf` |
+| Confirmed | 2026-07-19 | An Empirical Study: AI Agent Rules Need Context and Layered Enforcement | <https://dev.to/yunwei37/an-empirical-study-ai-agent-rules-need-context-and-layered-enforcement-43on> | Published from DEV editor with canonical URL set to <https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/>; post-publish web-editor fixes removed duplicate manual source note, changed tags to `opensource`, `ai`, `security`, `ebpf`, and replaced four 404 eunomia.dev image URLs with GitHub raw image URLs |
 
 Machine-readable details: [`platforms/devto.json`](platforms/devto.json).
 

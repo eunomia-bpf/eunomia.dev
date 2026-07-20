@@ -7,8 +7,8 @@ each platform expects.
 
 - Owned: eunomia.dev, GitHub repos, docs, README, release notes, examples.
   These are the canonical archive and durable technical proof.
-- Rented: Zhihu, Juejin, X, LinkedIn, Medium, DEV. These provide reach but need
-  platform-native framing.
+- Rented: Zhihu, Juejin, X, LinkedIn, Xiaohongshu, Medium, DEV. These provide
+  reach but need platform-native framing.
 - Borrowed/community: Reddit, Hacker News, Lobsters, Product Hunt, newsletters,
   other people's threads, and ecosystem lists. These require fit, restraint, and
   active follow-up.
@@ -29,19 +29,25 @@ concrete search/community intent, current alternatives, unique public evidence,
 and clear brand-pillar fit.
 
 - Medium: publish/syndicate the English version.
-- DEV: publish/syndicate the English version with `canonical_url`.
+- DEV: publish/syndicate the English version; use `canonical_url` when known
+  and convenient.
 - Zhihu: publish the Chinese version.
 - Juejin: publish the Chinese version.
 - X: write a short native post or compact thread with one useful observation
   and a share link.
 - LinkedIn: write a short professional feed post with one lesson and a share
   link.
+- Xiaohongshu: write a visual-first Chinese note or carousel with one concrete
+  scenario, screenshot, diagram, checklist, or result. Do not treat it as
+  canonical long-form syndication.
 
 For the four long-form surfaces, preserve the article body. Only adjust the
-title when it strengthens the same reader promise, add canonical/GitHub/paper
-links, fix images/code/heading rendering, choose tags/categories, and add one
-low-key source or project note near the end. Do not rewrite the full article
-just to make it more "platform native."
+title when it strengthens the same reader promise, keep useful
+GitHub/docs/paper/project links, fix images/code/heading rendering, choose
+tags/categories, and add one low-key source or project note near the end only
+when it helps the reader. Visible canonical/source links are optional on every
+platform. Do not rewrite the full article just to make it more "platform
+native."
 
 Medium and DEV execution must use their normal web import/editor and visible
 submit flows. Do not plan publish-API execution for either platform.
@@ -54,11 +60,12 @@ submit flows. Do not plan publish-API execution for either platform.
 | Juejin | Chinese developer practice | Canonical Chinese article, tutorial, series note | Has commands, code, environment, or reproducible details | No practical developer payoff | `juejin-publisher` |
 | X | Fast technical observations, threads, build-in-public updates | Short post/thread with share link, reply, quote | One sharp idea, screenshot, benchmark, repo link, or ongoing discussion | Needs long context and cannot fit a clean thread | `x-publisher` |
 | LinkedIn | B2B/professional credibility | Short feed post with share link, article/carousel when asked | Engineering leaders, platform/security teams, consulting/research angle | Too niche without professional consequence | `linkedin-publisher` |
+| Xiaohongshu | Chinese visual technical entry points | Visual note, carousel, checklist, screenshot/diagram explainer | Has a concrete scenario, visual artifact, beginner-friendly bridge, or saveable checklist | Only a dense paper/blog with no visual proof or short reader payoff | `xiaohongshu-publisher` |
 | Reddit | Subreddit-specific discussion | Text post, link, comment | Solves a visible community question or invites technical critique | No subreddit fit or recent drive-by self-promo risk | `reddit-publisher` |
 | Hacker News | Technical curiosity | Link, Show HN, Ask HN, comment | Code, paper, demo, measurement, unusual systems behavior | Marketing announcement without substance | `hackernews-publisher` |
 | Lobsters | Durable computing discussion | Story with tags, comment | Deep implementation, kernel/runtime/security/compiler work | No tag fit or mostly product news | `lobsters-publisher` |
 | Medium | Polished English long-form | Canonical English import/syndicated story | Needs narrative bridge for broader engineers | Better served as docs/tutorial only | `medium-publisher` |
-| DEV | Practical developer tutorial | Canonical English article with `canonical_url`, series, comment | Developer-relevant article, commands, code, or inspectable artifact | No practical developer payoff | `devto-publisher` |
+| DEV | Practical developer tutorial | Canonical English article, optional `canonical_url`, series, comment | Developer-relevant article, commands, code, or inspectable artifact | No practical developer payoff | `devto-publisher` |
 | Product Hunt | Tryable product/tool launch | Product launch page | Major public tool with clear URL, assets, support capacity, and feedback goal | Paper/blog-only artifact or no demo/product page | Plan only, no publisher yet |
 
 ## Platform Mix Patterns
@@ -73,8 +80,8 @@ Use a narrow launch when the artifact is niche or fragile:
 - Practical tutorial: Juejin, DEV, X, maybe Reddit if a subreddit has a matching
   question.
 - Project/tool launch: GitHub/eunomia.dev first, then X, LinkedIn, Zhihu/Juejin,
-  HN/Reddit/Lobsters if community fit is real, Product Hunt only for a tryable
-  product moment.
+  Xiaohongshu when a visual entry point exists, HN/Reddit/Lobsters if community
+  fit is real, Product Hunt only for a tryable product moment.
 - Follow-up/correction: publish on the original platform first, then update
   canonical docs or GitHub if the issue is durable.
 

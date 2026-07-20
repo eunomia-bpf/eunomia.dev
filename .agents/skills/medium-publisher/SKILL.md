@@ -10,8 +10,8 @@ publishing unless the user explicitly confirms it.
 
 ## Inputs
 
-- Source Markdown path or canonical eunomia.dev URL.
-- Intended title, subtitle, publication, tags, cover, or canonical URL.
+- Source Markdown path or source/canonical eunomia.dev URL.
+- Intended title, subtitle, publication, tags, cover, or optional canonical URL.
 - Optional GitHub link, paper link, or follow-up plan.
 
 If the source path is missing, inspect `.github/publisher/posts_queue.txt`,
@@ -44,7 +44,8 @@ workflow.
 
 ## Draft Preparation
 
-1. Read the canonical English source and confirm the canonical URL.
+1. Read the canonical English source and record the source URL, GitHub links,
+   and paper links when known.
 2. Default to import/syndication that preserves the article body.
 3. Make only light adaptations: remove site front matter, micro-tune title or
    subtitle without changing the promise, fix images/headings/code/links, add
@@ -60,13 +61,17 @@ Before opening the Medium editor, write or update the Medium draft record under
 `draft/media/YYYY-MM-DD/<source-slug>/medium.md` using the local date. For
 canonical imports, this file may reference the source Markdown body instead of
 duplicating it, but it must record the exact Medium title/subtitle, canonical
-URL, GitHub/paper links, tags, source note, media choices, and QA state.
+relationship when configured, GitHub/paper links, tags, source/project note if
+useful, media choices, and QA state. For long-form posts, finish the
+Medium-specific artifact or import checklist locally before opening Medium; use
+the web editor/import UI for import, settings, preview, and QA rather than
+structural repair.
 
 ## Browser QA
 
 Before stopping for user confirmation, verify:
 
-- canonical link/import relationship is correct when syndicating
+- canonical/import relationship is correct when configured
 - the Medium body has not drifted from the canonical article except for
   necessary formatting/link/tag edits
 - title, subtitle, and cover accurately represent the story
@@ -81,9 +86,10 @@ public Medium URL and scroll through the rendered story from top to bottom
 before updating the ledger. Verify images actually load, title/subtitle are not
 polluted by site suffixes, headings do not include empty artifacts, tables have
 survived or have readable fallbacks, code blocks are not mangled by language
-detection labels, canonical/source links work, and mobile/narrow rendering is
-usable when practical. If the public page exposes a formatting issue, edit the
-published story through the web UI and repeat the public-page check.
+detection labels, canonical settings when configured, source/project links work,
+and mobile/narrow rendering is usable when practical. If the public page exposes
+a formatting issue, edit the published story through the web UI and repeat the
+public-page check.
 
 Medium import is allowed to preserve the canonical body, but it is not safe to
 trust blindly. Specifically check whether imported titles carried the source

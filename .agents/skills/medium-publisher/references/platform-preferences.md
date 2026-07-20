@@ -8,7 +8,8 @@
 - As of Medium's June 29, 2026 guidance, English stories are eligible for Boost
   review while non-English stories are not currently Boosted.
 - Medium allows republishing from other sites; when syndicating eunomia.dev
-  material, preserve the canonical relationship.
+  material, preserve the canonical relationship when available. Do not add a
+  visible body source link solely to satisfy a checklist.
 
 ## Style And Positioning
 
@@ -74,7 +75,7 @@
 
 ## Browser Checks
 
-- Check canonical URL/import settings.
+- Check canonical URL/import settings when configured.
 - Check title, subtitle, cover image, alt text, credits, and topic tags.
 - Before publishing, scroll the imported/editor story from top to bottom in the
   browser preview or editor surface.
