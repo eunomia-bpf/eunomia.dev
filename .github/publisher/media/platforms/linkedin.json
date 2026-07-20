@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "platform_id": "linkedin",
+  "label": "LinkedIn",
+  "kind": "professional_social",
+  "last_checked": "2026-07-19",
+  "target_source_sets": [
+    "blog_posts_en",
+    "tutorials_en"
+  ],
+  "accounts": [
+    {
+      "handle": "Yusheng Zheng",
+      "url": "https://www.linkedin.com/in/yunwei37/",
+      "status": "confirmed",
+      "observed_note": "In-app browser showed the profile as the logged-in user with the headline Founder of eunomia.dev | Building Infra for AI Agents with eBPF."
+    }
+  ],
+  "published": [
+    {
+      "id": "linkedin-visible-actplane-agentsight-2026-07",
+      "status": "confirmed",
+      "date_observed_relative": "3 days before 2026-07-19",
+      "title": "Even the best model can delete your files because it doesn't realize it's your home dir",
+      "url": "https://www.linkedin.com/in/yunwei37/recent-activity/all/",
+      "source_path": "docs/blog/posts/actplane.md",
+      "checked_via": "in_app_browser_recent_activity_visible",
+      "notes": "Visible recent activity post links Actplane and Agentsight. Exact permalink was not captured; recent-activity page is retained as evidence."
+    },
+    {
+      "id": "linkedin-visible-agentsight-2026-07",
+      "status": "confirmed",
+      "date_observed_relative": "3 days before 2026-07-19",
+      "title": "Even the best model can delete your files because it doesn't realize it's your home dir",
+      "url": "https://www.linkedin.com/in/yunwei37/recent-activity/all/",
+      "source_path": "docs/blog/posts/agentsight_paper.md",
+      "checked_via": "in_app_browser_recent_activity_visible",
+      "notes": "Same visible LinkedIn post also links Agentsight."
+    },
+    {
+      "id": "linkedin-visible-acrfence-2026-06",
+      "status": "confirmed",
+      "date_observed_relative": "1 month before 2026-07-19",
+      "title": "ACRFence: Preventing Semantic Rollback Attacks in Agent Checkpoint-Restore",
+      "evidence_url": "https://www.linkedin.com/search/results/content/?keywords=eunomia.dev&origin=GLOBAL_SEARCH_HEADER",
+      "source_path": "docs/blog/posts/agent-check-restore-safety.md",
+      "checked_via": "in_app_browser_linkedin_content_search_visible",
+      "notes": "LinkedIn search result showed a Yusheng Zheng post linking the ACRFence eunomia.dev page; exact permalink was not captured."
+    },
+    {
+      "id": "linkedin-visible-gpu-observability-2025",
+      "status": "confirmed",
+      "date_observed_relative": "8 months before 2026-07-19",
+      "title": "The GPU Observability Gap: Why We Need eBPF on GPU devices",
+      "evidence_url": "https://www.linkedin.com/search/results/content/?keywords=bpftime&origin=GLOBAL_SEARCH_HEADER",
+      "source_path": "docs/blog/posts/gpu-observability-challenges.md",
+      "checked_via": "in_app_browser_linkedin_content_search_visible",
+      "notes": "LinkedIn search result showed a Yusheng Zheng post about GPU flamegraphs, bpftime, and the GPU observability blog."
+    },
+    {
+      "id": "linkedin-visible-agentpprof-2026-06",
+      "status": "confirmed",
+      "date_observed_relative": "3 weeks before 2026-07-19",
+      "title": "Introducing agentpprof as part of the Agentsight",
+      "evidence_url": "https://www.linkedin.com/search/results/content/?keywords=AgentSight&origin=GLOBAL_SEARCH_HEADER",
+      "source_path": "docs/blog/posts/agentpprof-semantic-flamegraph.md",
+      "checked_via": "in_app_browser_linkedin_content_search_visible",
+      "notes": "LinkedIn search result showed a Yusheng Zheng post about agentpprof and semantic flamegraphs."
+    },
+    {
+      "id": "linkedin-visible-bpfix-paper-2026-07",
+      "status": "confirmed",
+      "date_observed_relative": "1 week before 2026-07-19",
+      "title": "Characterizing and Bridging the Diagnostic Gap in eBPF Verifier Rejections",
+      "url": "https://www.linkedin.com/feed/update/urn:li:activity:7481167639831252992/",
+      "checked_via": "in_app_browser_recent_activity_visible",
+      "notes": "Visible recent activity post links code and the arXiv paper. No canonical docs/blog source_path is in the configured source sets yet."
+    }
+  ],
+  "references": [],
+  "third_party_mentions": [
+    {
+      "status": "third_party",
+      "url": "https://www.linkedin.com/search/results/content/?keywords=eunomia.dev&origin=GLOBAL_SEARCH_HEADER",
+      "notes": "Nizar Akbar Meilani post visibly links eunomia.dev tutorial material and a GitHub knowledge-pipeline repository."
+    },
+    {
+      "status": "third_party",
+      "url": "https://www.linkedin.com/search/results/content/?keywords=bpftime&origin=GLOBAL_SEARCH_HEADER",
+      "notes": "Stefano Salsano and Shamsher Ansari posts visibly mention bpftime, eBPF, or GPU observability."
+    },
+    {
+      "status": "third_party",
+      "url": "https://www.linkedin.com/search/results/content/?keywords=AgentSight&origin=GLOBAL_SEARCH_HEADER",
+      "notes": "Nexus Titan and other third-party results visibly discuss AgentSight."
+    }
+  ],
+  "pending_verification": [
+    "Use the in-app browser/sidebar only for LinkedIn inspection; do not use the main Chrome profile.",
+    "Continue scrolling the recent-activity page to backfill older exact post permalinks.",
+    "Some LinkedIn search-visible posts are recorded with evidence_url because the exact permalink was not visible in the normal browser result."
+  ]
+}

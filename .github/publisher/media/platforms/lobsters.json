@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "platform_id": "lobsters",
+  "label": "Lobsters",
+  "kind": "community",
+  "last_checked": "2026-07-19",
+  "target_source_sets": [
+    "blog_posts_en",
+    "tutorials_en"
+  ],
+  "accounts": [],
+  "published": [],
+  "references": [],
+  "third_party_mentions": [],
+  "pending_verification": [
+    "No confirmed Lobsters submissions are recorded yet."
+  ]
+}

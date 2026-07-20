@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "platform_id": "medium",
+  "label": "Medium",
+  "kind": "longform_syndication",
+  "last_checked": "2026-07-19",
+  "target_source_sets": [
+    "blog_posts_en",
+    "tutorials_en"
+  ],
+  "accounts": [
+    {
+      "handle": "@yunwei356",
+      "url": "https://medium.com/@yunwei356",
+      "status": "unverified_in_this_pass"
+    }
+  ],
+  "published": [],
+  "references": [],
+  "third_party_mentions": [],
+  "pending_verification": [
+    "Inspect the Medium account/dashboard or API history before backfilling confirmed rows.",
+    ".github/publisher/ledger.md is currently a scaffold/backfill worklist, not a confirmed history."
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "platform_id": "x",
+  "label": "X / Twitter",
+  "kind": "social",
+  "last_checked": "2026-07-19",
+  "target_source_sets": [
+    "blog_posts_en",
+    "tutorials_en"
+  ],
+  "accounts": [
+    {
+      "handle": "@yunwei37",
+      "url": "https://x.com/yunwei37",
+      "status": "confirmed",
+      "observed_note": "Logged-in profile showed eunomia.dev in the bio and 1,591 posts."
+    },
+    {
+      "handle": "@eaborai",
+      "url": "https://x.com/eaborai",
+      "status": "stale_or_unverified",
+      "observed_note": "The profile page showed 此账号不存在 during the check."
+    }
+  ],
+  "published": [
+    {
+      "id": "x-1989812682502070525",
+      "status": "confirmed",
+      "date": "2025-11-15",
+      "title": "A blog for GPU observability tools using bpftime",
+      "url": "https://x.com/yunwei37/status/1989812682502070525",
+      "source_path": "docs/blog/posts/gpu-observability-challenges.md",
+      "checked_via": "logged_in_status_visible",
+      "notes": "X UI showed 1.7万 views during the check."
+    },
+    {
+      "id": "x-1945767621707829452",
+      "status": "confirmed",
+      "date": "2025-07-17",
+      "title": "写了一个用 ebpf 追踪 AI Agent 的小玩意",
+      "url": "https://x.com/yunwei37/status/1945767621707829452",
+      "source_path": "docs/blog/posts/agentsight_paper.md",
+      "checked_via": "logged_in_status_visible",
+      "notes": "Links to github.com/eunomia-bpf/agentsight."
+    },
+    {
+      "id": "x-1749079236571213825",
+      "status": "confirmed",
+      "date": "2024-01-21",
+      "title": "Bpftime now supports tracing USDT in userspace eBPF",
+      "url": "https://x.com/yunwei37/status/1749079236571213825",
+      "checked_via": "logged_in_search_visible",
+      "notes": "Links a bpftime USDT example, not a single canonical eunomia.dev article."
+    },
+    {
+      "id": "x-1748025809741152475",
+      "status": "confirmed",
+      "date": "2024-01-18",
+      "title": "A new blog to introduce our userspace eBPF runtime: bpftime: Extending eBPF from Kernel to User Space",
+      "url": "https://x.com/yunwei37/status/1748025809741152475",
+      "source_path": "docs/blog/posts/bpftime.md",
+      "checked_via": "logged_in_search_visible"
+    },
+    {
+      "id": "x-1733168796444061973",
+      "status": "confirmed",
+      "date": "2023-12-08",
+      "title": "bpftime can do more than just tracing; bpf_override_return for userspace functions or syscall tracepoints",
+      "url": "https://x.com/yunwei37/status/1733168796444061973",
+      "checked_via": "logged_in_search_visible",
+      "notes": "Links an example rather than a single canonical article."
+    },
+    {
+      "id": "x-1724929227512791143",
+      "status": "confirmed",
+      "date": "2023-11-15",
+      "title": "A draft preprint about how bpftime works in userspace",
+      "url": "https://x.com/yunwei37/status/1724929227512791143",
+      "checked_via": "logged_in_search_visible",
+      "notes": "Preprint mention; no source_path counted."
+    }
+  ],
+  "references": [],
+  "third_party_mentions": [
+    {
+      "status": "third_party",
+      "url": "https://x.com/alexei_ast",
+      "notes": "Search snippet showed a github.com/eunomia-bpf/bpftime mention."
+    },
+    {
+      "status": "third_party",
+      "url": "https://x.com/VivekIntel/status/2062820166791286790/photo/1",
+      "notes": "Search snippet referenced AgentSight and github.com/eunomia-bpf/ag..."
+    },
+    {
+      "status": "third_party",
+      "url": "https://x.com/TonyNashNerd/status/2059253274662895722",
+      "notes": "Search snippet referenced eunomia.dev and the AgentSight paper."
+    },
+    {
+      "status": "third_party",
+      "url": null,
+      "notes": "Logged-in X search showed AgentSight/eunomia-bpf mentions by @wardy_ai, @zeeshan_utd, and @cr0nym; exact URLs still need capture."
+    }
+  ],
+  "pending_verification": [
+    "No full X archive export was done.",
+    "Paginate advanced search before treating X history as complete."
+  ]
+}

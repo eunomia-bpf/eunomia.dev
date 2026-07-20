@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "platform_id": "xiaohongshu",
+  "label": "Xiaohongshu / RedNote",
+  "kind": "visual_chinese",
+  "last_checked": "2026-07-19",
+  "target_source_sets": [
+    "blog_posts_zh",
+    "tutorials_zh"
+  ],
+  "accounts": [],
+  "published": [],
+  "references": [],
+  "third_party_mentions": [],
+  "pending_verification": [
+    "No confirmed account or published note was found for eunomia.dev, eunomia-bpf, bpftime, AgentSight, yunwei37, or 云微.",
+    "The browser search page required login during the check. Treat as not started until an account URL or published note URL is provided."
+  ]
+}

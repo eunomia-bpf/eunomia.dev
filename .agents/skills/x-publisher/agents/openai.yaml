@@ -1,0 +1,4 @@
+interface:
+  display_name: "X Publisher"
+  short_description: "Draft short X share posts"
+  default_prompt: "Use $x-publisher to draft a short X share post for a eunomia.dev article and stop before posting."

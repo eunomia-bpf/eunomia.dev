@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "ledger_name": "published-media-ledger",
+  "repo": "eunomia.dev",
+  "last_checked": "2026-07-19",
+  "policy": {
+    "coverage_key": "source_path",
+    "confirmed_status": "confirmed",
+    "notes": [
+      "The default source universe is current blog posts plus tutorials only.",
+      "Legacy docs/blogs pages are intentionally excluded from default platform coverage.",
+      "Only entries with status=confirmed and an existing source_path count as published coverage.",
+      "A confirmed platform row should have either a stable post url or an evidence_url for a normal browser-visible page where the post was observed.",
+      "Platform rows without a source_path are preserved as verified URLs but do not reduce the not-published count.",
+      "Third-party mentions and repo references are tracked separately and are not counted as our own publishing."
+    ]
+  },
+  "source_sets": [
+    {
+      "id": "blog_posts_en",
+      "label": "Current blog posts, English",
+      "language": "en",
+      "globs": [
+        "docs/blog/posts/*.md"
+      ],
+      "exclude_globs": [
+        "docs/blog/posts/*.zh.md"
+      ]
+    },
+    {
+      "id": "blog_posts_zh",
+      "label": "Current blog posts, Chinese",
+      "language": "zh",
+      "globs": [
+        "docs/blog/posts/*.zh.md"
+      ]
+    },
+    {
+      "id": "tutorials_en",
+      "label": "Tutorial and tutorial-adjacent docs, English",
+      "language": "en",
+      "globs": [
+        "docs/tutorials/**/*.md"
+      ],
+      "exclude_globs": [
+        "docs/tutorials/*.zh.md",
+        "docs/tutorials/**/*.zh.md"
+      ]
+    },
+    {
+      "id": "tutorials_zh",
+      "label": "Tutorial and tutorial-adjacent docs, Chinese",
+      "language": "zh",
+      "globs": [
+        "docs/tutorials/*.zh.md",
+        "docs/tutorials/**/*.zh.md"
+      ]
+    }
+  ]
+}

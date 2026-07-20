@@ -1,14 +1,16 @@
 ---
 name: seo-geo
-description: Page-level and site-level technical SEO/GEO checklist for eunomia.dev content. Use when auditing concrete Markdown metadata, descriptions, canonical URLs, structured data, internal links, crawl/index signals, llms.txt/llms-full.txt, snippets, or citation-ready claim formatting. Pure reference; not for choosing or rewriting titles for appeal, article angle, story hooks, prose style, content strategy, channel planning, personal-brand positioning, campaign cadence, or platform publishing workflows.
+description: Technical-only page-level and site-level SEO/GEO checklist for eunomia.dev content. Use when auditing concrete Markdown metadata, descriptions, canonical URLs, structured data, internal links, crawl/index signals, llms.txt/llms-full.txt, snippets, or citation-ready claim formatting. Pure implementation reference; not for user-pain discovery, topic priority, title appeal, article angle, story hooks, prose style, content strategy, channel planning, personal-brand positioning, campaign cadence, or platform publishing workflows.
 ---
 
-# Technical SEO / GEO Checklist (rules only)
+# Technical SEO / GEO Checklist
 
 This file is the technical rulebook for search and AI-engine readability on
-eunomia.dev pages. It contains no campaign strategy, channel planning, or
-platform posting process. It also does not decide title quality, article angle,
-story hooks, or prose style. Those rules live in `blog-writing-style`.
+eunomia.dev pages. It is an implementation and QA checklist only. It contains
+no user-pain discovery, campaign strategy, channel planning, platform posting
+process, or brand-priority judgment. It also does not decide title quality,
+article angle, story hooks, or prose style. Those rules live in
+`blog-writing-style` and strategy drafts.
 
 ## Scope
 
@@ -24,6 +26,9 @@ story hooks, or prose style. Those rules live in `blog-writing-style`.
   channel mix, brand positioning, campaign cadence, or platform growth
   questions. Keep those decisions in `draft/`, especially
   `draft/content-platform-strategy.zh.md` and `draft/seo-geo-plan.zh.md`.
+- Use this skill only after a user problem, reader promise, source artifact, and
+  brand-pillar fit have already been chosen by the appropriate planning or
+  writing workflow.
 - Platform publishing execution belongs to the platform-specific publisher
   skills (`zhihu-publisher`, `juejin-publisher`, `x-publisher`,
   `linkedin-publisher`, `reddit-publisher`, `hackernews-publisher`,

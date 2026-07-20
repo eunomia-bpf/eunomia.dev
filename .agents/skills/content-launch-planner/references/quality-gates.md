@@ -1,0 +1,143 @@
+# Quality Gates
+
+Use this reference before finalizing any content launch plan.
+
+## Strategic Relevance Gate
+
+Pass this gate before platform, syndication, or SEO/GEO details.
+
+- The target reader and user pain are named.
+- The search or community intent is concrete: what the reader would search,
+  ask, compare, debug, or decide.
+- Current alternatives are identified, such as SDK/OTel tracing, MCP proxy,
+  sandbox, Falco/Tetragon, commercial security tooling, logs, prompt policy, or
+  approval workflow.
+- The artifact has unique public evidence: GitHub repo, paper, benchmark,
+  trace, demo, screenshot, issue, reproducible command, or limitation.
+- The launch strengthens a clear brand pillar: AI Agent Observability &
+  Harness, eBPF Infrastructure, GPU & Systems Research, or a specific
+  paper/tutorial/release.
+- The next step is useful and proportionate: read, try, reproduce, compare,
+  comment, open an issue, or discuss a scoped technical problem.
+
+Skip, delay, or turn the item into a small note when it has only a platform
+slot, only a keyword, or only a project announcement without a real reader
+problem.
+
+## Contribution-First Gate
+
+Pass only if:
+
+- The reader receives useful knowledge without clicking.
+- Project promotion is evidence, implementation, source, or next step.
+- The plan stays close to 80% contribution and 20% promotion.
+- The maintainer posture is consulting/research/helping solve problems, not
+  product sales.
+
+## Evidence Gate
+
+Every platform angle needs at least one concrete support:
+
+- GitHub repo or file path
+- code snippet or command
+- benchmark or trace
+- paper/source citation
+- screenshot or diagram
+- real limitation or tradeoff
+- observed discussion/question from the target community
+
+Do not invent numbers, customers, quotes, rankings, or adoption claims.
+
+## Platform-Native Gate
+
+Pass only if each platform has:
+
+- a distinct reader and surface
+- an opening that fits the platform
+- a link placement plan
+- media/asset expectations
+- follow-up expectations
+- a reason to publish or a reason to skip
+
+For long-form canonical syndication, "native" means platform metadata,
+rendering, link placement, tags/categories, and follow-up expectations. Do not
+force a full article rewrite when the canonical body already works.
+
+Reject unreviewed paste, context-free link drops, and duplicate posts without a
+canonical relationship.
+
+## Anti-AI-Tell Gate
+
+Remove:
+
+- "excited to share", "proud to announce", "game-changer", "deep dive",
+  "unlock", "leverage", "transformative", "revolutionary"
+- generic three-benefit stacks without mechanisms
+- "not just X but Y" as a structural crutch
+- vague claims such as "secure, compliant, reliable" without naming what is
+  enforced and where
+- generic engagement bait: "thoughts?", "agree?", "let me know in the comments"
+- canned praise in replies
+- press-release rhythm and corporate abstractions
+
+Preserve technical accuracy, named projects, source links, and real caveats.
+
+## Public Boundary Gate
+
+Remove or block:
+
+- private strategy
+- customer names or customer conversations
+- fundraising/incubator details
+- pricing or sales commitments
+- unreleased roadmap
+- claims that require private evidence
+- secrets, tokens, private paths, or private screenshots
+
+This public repo may contain site operations and publishing guidance, but not
+private commercial strategy.
+
+## Syndication Hygiene Gate
+
+For Medium/DEV/Zhihu/Juejin long-form posts, check these after the Strategic
+Relevance, Contribution-First, Evidence, and Platform-Native gates pass:
+
+- The canonical body is preserved unless the user asked for a rewrite or the
+  source has a concrete quality/formatting problem.
+- Medium and DEV use the English source; Zhihu and Juejin use the Chinese
+  source when available.
+- Title changes are micro-edits that keep the same reader promise.
+- Canonical eunomia.dev, GitHub, and paper/arXiv links are present when relevant.
+- Images, code blocks, headings, tables, tags/categories, and previews are
+  checked in the target editor.
+- A low-key project/source note appears near the end when useful.
+
+This is a publishing QA gate, not a reason to publish by itself.
+
+## Browser And Approval Gate
+
+- Platform checks must use visible browser interaction when logged-in state is
+  involved.
+- Do not use hidden platform APIs, background endpoints, or autopost tools.
+- Do not like, follow, comment, repost, send DMs, vote, or publish without
+  explicit user instruction.
+- A launch plan can recommend actions, but execution belongs to the matching
+  publisher skill and must stop before final publish unless confirmed.
+
+## Scorecard
+
+Score each platform 0-2:
+
+- Fit: target readers are actually there.
+- Value: post stands alone without click.
+- Evidence: concrete artifact/source exists.
+- Native style: platform conventions are respected.
+- Risk: self-promotion, duplicate, confidentiality, or rule risk is controlled.
+- Follow-up: owner and response path are clear.
+
+Default recommendation:
+
+- 10-12: publish
+- 7-9: publish after fixes
+- 4-6: comment or narrow angle
+- 0-3: skip

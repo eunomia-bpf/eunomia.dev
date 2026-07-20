@@ -1,0 +1,4 @@
+interface:
+  display_name: "Lobsters Publisher"
+  short_description: "Prepare Lobsters submissions"
+  default_prompt: "Use $lobsters-publisher to prepare a Lobsters submission and stop before submitting."

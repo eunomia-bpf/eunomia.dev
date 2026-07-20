@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "platform_id": "devto",
+  "label": "Dev.to",
+  "kind": "longform_syndication",
+  "last_checked": "2026-07-19",
+  "target_source_sets": [
+    "blog_posts_en",
+    "tutorials_en"
+  ],
+  "accounts": [
+    {
+      "handle": "unknown",
+      "url": null,
+      "status": "unverified_in_this_pass"
+    }
+  ],
+  "published": [],
+  "references": [],
+  "third_party_mentions": [],
+  "pending_verification": [
+    "Inspect Dev.to account/API history before backfilling confirmed rows.",
+    ".github/publisher/posts_queue.txt was empty during the 2026-07-19 check."
+  ]
+}
