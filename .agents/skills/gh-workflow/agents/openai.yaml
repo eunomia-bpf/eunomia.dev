@@ -1,0 +1,4 @@
+interface:
+  display_name: "GitHub CLI Workflow"
+  short_description: "Use gh for GitHub PR and CI work"
+  default_prompt: "Use $gh-workflow to publish this branch with gh and monitor the PR."
