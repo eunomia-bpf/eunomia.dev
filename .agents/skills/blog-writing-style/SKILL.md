@@ -94,6 +94,26 @@ feel natural rather than templated. Technical depth should create
 understanding, not the sensation of reading an abstract, benchmark ledger, or
 promotion.
 
+- The opening supplies enough background to understand the first important
+  claim, without turning the article into a general primer.
+- When the article centers on work produced by the project, one natural
+  statement makes that relationship clear; the rest of the prose stays focused
+  on the technical argument.
+- Sentence length varies with the thought. Conditions, actions, causes, and
+  consequences that form one idea remain connected instead of being split into
+  a row of short declarative sentences.
+
+Examples of uncomfortable output:
+
+- `The kernel sees a write. The harness sees a tool call. Neither can decide.`
+  This chops one contrast-and-consequence chain into presentation notes. Keep
+  the relationship in one natural sentence when it is one thought.
+- `研究给出了分类。结果很明显。这进一步说明了方案的优势。` The sentences
+  contain no measured object or reasoning and could be reordered without loss.
+- An article opens with a project benchmark before explaining the problem, or
+  spends several paragraphs teaching generic AI history before reaching the
+  first relevant claim. Both fail to provide proportionate background.
+
 ### References at the end
 
 - End each blog post with a compact `## References` section in English and `## 参考资料` in Chinese. Keep it as the final section so readers can distinguish supporting sources from related-reading links in the argument.

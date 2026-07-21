@@ -30,7 +30,22 @@ and validation. Do not turn style recommendations into extra review rounds.
    with natural paragraph rhythm and a clear path from evidence to conclusion.
    It may recompose prose and paragraph boundaries wherever that genuinely
    improves the complete reading experience. It must preserve the factual and
-   publication boundaries below. A no-change result is valid.
+   publication boundaries below. Do not treat shorter sentences as clearer by
+   default: preserve a complete condition-action-cause-consequence unit when it
+   reads naturally as one sentence, and reserve short sentences for real
+   emphasis or conceptual turns. A no-change result is valid.
+
+   Give Opus concrete failure examples in the task prompt. In particular, it
+   must not turn one connected sentence such as "The kernel sees an ordinary
+   write, while the harness sees one tool call, yet neither can decide whether
+   the commit is allowed" into "The kernel sees a write. The harness sees a
+   tool call. Neither can decide." The same failure in Chinese is “内核看到一次
+   写入。Harness 看到一次调用。两者都无法判断。” Conditions, contrast, and
+   consequence belong together when they express one thought. Also reject
+   paragraphs that read as interchangeable fact cards, repeated transitions
+   such as "The study... The result... This shows...", or background that is
+   either absent before the first technical claim or expanded into an unrelated
+   general tutorial.
 3. **Codex validates.** Inspect the complete diff, reject factual or stylistic
    regressions, compare important claims and numbers with their sources, and
    verify EN/ZH correspondence. Make only the bounded corrections needed for
