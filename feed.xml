@@ -5,9 +5,18 @@
   <link>https://eunomia.dev/blog/</link>
   <description>Latest writing from eunomia.dev on eBPF, bpftime, AI tracing, and systems research.</description>
   <language>en-US</language>
-  <lastBuildDate>Mon, 20 Jul 2026 00:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Sat, 25 Jul 2026 00:00:00 GMT</lastBuildDate>
   <atom:link href="https://eunomia.dev/feed.xml" rel="self" type="application/rss+xml" />
   <item>
+  <title>Why eBPF Verifier Errors Are Hard to Fix: Lost Proofs, Ambiguous Messages, and bpfix</title>
+  <link>https://eunomia.dev/blog/2026/07/25/ebpf-verifier-errors-bpfix/</link>
+  <guid>https://eunomia.dev/blog/2026/07/25/ebpf-verifier-errors-bpfix/</guid>
+  <pubDate>Sat, 25 Jul 2026 00:00:00 GMT</pubDate>
+  <description>An eBPF verifier error can look precise enough to be actionable, until the line it names keeps failing after the obvious fix.</description>
+  <author>yuxi4096@gmail.com (yuxi4096)</author>
+  <category>eBPF</category>
+</item>
+<item>
   <title>From Tokens to Verifiable Work: Agent Infra Is Rewriting Its Unit of Measure</title>
   <link>https://eunomia.dev/blog/2026/07/20/agent-work-unit/</link>
   <guid>https://eunomia.dev/blog/2026/07/20/agent-work-unit/</guid>
@@ -58,7 +67,7 @@
   <link>https://eunomia.dev/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/</link>
   <guid>https://eunomia.dev/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/</guid>
   <pubDate>Sun, 31 May 2026 00:00:00 GMT</pubDate>
-  <description>You wrote a rule in CLAUDE.md: &quot;do not run git push.&quot; The agent obeyed, and it never called the git tool.</description>
+  <description>You wrote a rule in CLAUDE.md: &quot;do not run git push.&quot; The agent complied: it never called the git tool.</description>
   <author>yuxi4096@gmail.com (yuxi4096)</author>
   <author>i@littlefisher.me (LinuxDev9002)</author>
   <author>1067852565@qq.com (云微)</author>
@@ -294,16 +303,6 @@
   <author>yusen356@gmail.com (weekendfish)</author>
   <author>1067852565@qq.com (云微)</author>
   <category>AI agent observability</category>
-</item>
-<item>
-  <title>Building High-Performance Userspace eBPF VMs with LLVM</title>
-  <link>https://eunomia.dev/blog/2024/09/10/building-high-performance-userspace-ebpf-vms-with-llvm/</link>
-  <guid>https://eunomia.dev/blog/2024/09/10/building-high-performance-userspace-ebpf-vms-with-llvm/</guid>
-  <pubDate>Tue, 10 Sep 2024 00:00:00 GMT</pubDate>
-  <description>We are excited to introduce llvmbpf, a new project aimed at empowering developers with a high-performance, multi-architecture eBPF virtual machine (VM) that leverages the LLVM framework for Just-In-Time (JIT) and</description>
-  <author>yusen356@gmail.com (weekendfish)</author>
-  <author>1067852565@qq.com (云微)</author>
-  <category>eBPF</category>
 </item>
 </channel>
 </rss>

@@ -5,9 +5,18 @@
   <link>https://eunomia.dev/zh/blog/</link>
   <description>eunomia.dev 上关于 eBPF、bpftime、AI tracing 和系统研究的最新文章。</description>
   <language>zh-CN</language>
-  <lastBuildDate>Mon, 20 Jul 2026 00:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Sat, 25 Jul 2026 00:00:00 GMT</lastBuildDate>
   <atom:link href="https://eunomia.dev/zh/feed.xml" rel="self" type="application/rss+xml" />
   <item>
+  <title>为什么 eBPF verifier 报错难修：丢失的证明、模糊的消息与 bpfix</title>
+  <link>https://eunomia.dev/zh/blog/2026/07/25/ebpf-verifier-errors-bpfix/</link>
+  <guid>https://eunomia.dev/zh/blog/2026/07/25/ebpf-verifier-errors-bpfix/</guid>
+  <pubDate>Sat, 25 Jul 2026 00:00:00 GMT</pubDate>
+  <description>eBPF verifier 报错看起来精确到一条指令，开发者却常常改了那一行还是过不了验证。内核报告的是验证停止的位置，真正的修复点往往在更早的代码里，程序在那里丢掉了后续访问所需的指针类型、标量范围、生命周期或来源证明。</description>
+  <author>yuxi4096@gmail.com (yuxi4096)</author>
+  <category>eBPF</category>
+</item>
+<item>
   <title>从 Token 到可验证工作：Agent Infra 正在改写它的计量单位</title>
   <link>https://eunomia.dev/zh/blog/2026/07/20/agent-work-unit/</link>
   <guid>https://eunomia.dev/zh/blog/2026/07/20/agent-work-unit/</guid>
@@ -47,18 +56,18 @@
   <link>https://eunomia.dev/zh/blog/2026/06/24/agentpprof-semantic-flamegraph/</link>
   <guid>https://eunomia.dev/zh/blog/2026/06/24/agentpprof-semantic-flamegraph/</guid>
   <pubDate>Wed, 24 Jun 2026 00:00:00 GMT</pubDate>
-  <description>一张 $3000 的 AI agent 账单不是诊断报告，它不会告诉团队钱是花在代码审查、调试、文档生成、工具重试，还是把同一个任务拖成多轮的 continuation prompt 上。真正的运营问题不只是 agent 花了多少钱，而是哪几类重复工作已经贵到值得重写流程。</description>
+  <description>一张 $3000 的 AI agent 账单不是诊断报告，它不会告诉团队钱是花在代码审查、调试、文档生成、工具重试，还是把同一个任务拖成多轮的 continuation prompt 上。真正的运营问题是哪几类重复工作已经贵到值得重写流程。</description>
   <author>yuxi4096@gmail.com (yuxi4096)</author>
   <author>1067852565@qq.com (云微)</author>
   <author>i@littlefisher.me (LinuxDev9002)</author>
   <category>AI agent observability</category>
 </item>
 <item>
-  <title>ActPlane: 把 Agent Harness Enforcement 下沉到内核 eBPF</title>
+  <title>实证研究：AI Agent 规则需要上下文与分层强制执行</title>
   <link>https://eunomia.dev/zh/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/</link>
   <guid>https://eunomia.dev/zh/blog/2026/05/31/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf/</guid>
   <pubDate>Sun, 31 May 2026 00:00:00 GMT</pubDate>
-  <description>你在 CLAUDE.md 里写了一条规则：&quot;不要执行 git push&quot;。Agent 遵守了，它确实没有调用 git 工具。但它写了一个 Python 脚本，脚本里调了 subprocess.run([&quot;git&quot;, &quot;push&quot;])，代码推到了远端，而 Prompt 约束从未被违反。</description>
+  <description>“提交前必须跑测试”这条规则看起来很简单，直到 AI Agent 在上次测试后又改了源码，然后直接执行 git commit。内核只看见普通进程在写提交对象，harness 也只看见又一次工具调用，但真正决定这次提交能否放行的，是哪次测试结果仍然有效、哪次编辑让它失效，以及规则在当前任务里该如何实例化。</description>
   <author>yuxi4096@gmail.com (yuxi4096)</author>
   <author>i@littlefisher.me (LinuxDev9002)</author>
   <author>1067852565@qq.com (云微)</author>
@@ -294,16 +303,6 @@
   <author>yusen356@gmail.com (weekendfish)</author>
   <author>1067852565@qq.com (云微)</author>
   <category>AI agent observability</category>
-</item>
-<item>
-  <title>构建高性能的用户态 eBPF 虚拟机：基于 LLVM 的 llvmbpf 项目</title>
-  <link>https://eunomia.dev/zh/blog/2024/09/10/building-high-performance-userspace-ebpf-vms-with-llvm/</link>
-  <guid>https://eunomia.dev/zh/blog/2024/09/10/building-high-performance-userspace-ebpf-vms-with-llvm/</guid>
-  <pubDate>Tue, 10 Sep 2024 00:00:00 GMT</pubDate>
-  <description>我们很高兴向大家介绍 llvmbpf，这是一个全新的项目，旨在为开发者提供一个高性能、支持多架构的 eBPF 虚拟机（VM）。llvmbpf 利用 LLVM 框架实现了即时编译（JIT）和提前编译（AOT），让你能够在用户态中高效运行 eBPF 程序。</description>
-  <author>yusen356@gmail.com (weekendfish)</author>
-  <author>1067852565@qq.com (云微)</author>
-  <category>eBPF</category>
 </item>
 </channel>
 </rss>
