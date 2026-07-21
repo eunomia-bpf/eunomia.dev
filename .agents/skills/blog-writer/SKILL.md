@@ -55,12 +55,15 @@ and validation. Do not turn style recommendations into extra review rounds.
    nearby openings with a concrete result, example, comparison, or tension.
    Replacing every topic sentence with presenter cues such as `看看这些跨事件策略
    长什么样。` or generic rhetorical questions creates a different template
-   rather than natural variation. Do not repair choppiness by joining a list of
-   independent facts with semicolons or colons, and never replace correct
-   Chinese quotes, straight code quotes, or code literals with mismatched smart
-   punctuation. Reject translated hybrid noun clusters such as `AI 编程 agent`;
-   choose natural Chinese or the established technical term according to
-   meaning.
+   rather than natural variation. Variety is not a quota: do not assign one
+   question, one result opening, one topic sentence, and one "next layer"
+   transition merely to make adjacent paragraphs look different. Do not repair
+   choppiness by joining a list of independent facts with semicolons or colons,
+   and never replace correct Chinese quotes, straight code quotes, or code
+   literals with mismatched smart punctuation. Reject translated or
+   unnecessarily narrow labels such as
+   `AI 编程 agent` and `AI 编程助手`; use `AI Agent` unless a narrower source
+   boundary is material to the claim.
 
    Opus may improve content as well as wording when the supplied primary source
    supports the change. It may add missing background, interpretation, or a
@@ -122,6 +125,9 @@ Before completion, Codex checks:
   as malformed punctuation or a rejected hybrid term; a model summary is not
   evidence that the defect was removed
 - source fidelity for important claims, numbers, conditions, and limitations
+- preservation of evidence-bearing scope details and modal strength; a smoother
+  sentence must not drop a sample unit such as file count or change `may` into
+  `does`
 - title, description, date, slug, tags, excerpt marker, links, images, and final
   references
 - corresponding EN/ZH argument, evidence, figures, tables, and caveats

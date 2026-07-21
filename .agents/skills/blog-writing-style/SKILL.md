@@ -121,6 +121,9 @@ Examples of uncomfortable output:
   `那这套强制执行实际表现如何？` creates another repeated template. Presenter
   cues and questions are useful only where the surrounding argument genuinely
   calls for them.
+- Deliberately rotating through one question, one number-led opening, one topic
+  sentence, and one `往下一层` transition is still templated prose. Variety
+  should follow the argument, not a sentence-type quota.
 - Four short facts are joined with semicolons into one long enumeration. This
   changes punctuation without improving the argument. Natural prose may keep
   separate sentences, combine only one connected causal unit, or rebuild the
@@ -128,6 +131,9 @@ Examples of uncomfortable output:
 - Straight or Chinese quotation marks become mismatched smart quotes, or code
   literals change from `"git"` to `“git”`. A language rewrite must preserve
   typography and code exactly where the syntax or quotation direction matters.
+- A smoother sentence drops an evidence unit such as `84 份指令文件`, or turns
+  `可能延伸到真实任务` into `能延伸到真实任务`. Rhythm never overrides sample
+  scope, uncertainty, or another evidence-bearing qualifier.
 - An article opens with a project benchmark before explaining the problem, or
   spends several paragraphs teaching generic AI history before reaching the
   first relevant claim. Both fail to provide proportionate background.
@@ -352,10 +358,11 @@ Chinese posts are written in Chinese. The reference for what good looks like is 
 - **Table headers in ZH posts are Chinese** (proper nouns and acronyms like DCR excepted).
 - **English quotations are rendered in Chinese**; keep the original in parentheses or a footnote only when exact wording matters.
 - **Ordinary words stay in Chinese.** Never mix English verbs or common nouns into Chinese sentences ("我们 measure 了", "做了一个 comparison" are violations).
-- **Avoid hybrid noun clusters.** `AI 编程 agent` is an antipattern: the mixed
-  modifiers sound translated and `AI` and `agent` duplicate the category. Use
-  `AI 编程助手` for the general reader-facing role or `编程 agent` when the
-  technical agent distinction matters.
+- **Avoid hybrid or over-specialized agent labels.** `AI 编程 agent` sounds
+  translated, while `AI 编程助手` unnecessarily narrows a general Agent into a
+  coding-assistant product category. Use `AI Agent` when the argument concerns
+  agents generally. Name a narrower coding-agent scope only when that boundary
+  is material to the evidence.
 - **Natural Chinese.** Paragraphs should sound natural when read aloud. English
   appears where a recognized term, proper noun, acronym, or code identifier is
   clearer than a forced translation, not as the default language of the prose.
