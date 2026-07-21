@@ -21,8 +21,10 @@ and validation. Do not turn style recommendations into extra review rounds.
 
 1. **Codex prepares the pair.** Build or revise a complete EN/ZH article from
    verified sources. Establish one clear argument, preserve evidence and
-   limitations, and keep both languages aligned in claims, figures, tables,
-   code, and references. Use `draft/blog/` only while a new article's public
+   limitations, and improve missing background, mechanism explanation,
+   interpretation, or nearby caveats from those sources before language
+   polishing. Keep both languages aligned in claims, figures, tables, code, and
+   references. Use `draft/blog/` only while a new article's public
    filename, date, or slug is unsettled. Do not create process artifacts such
    as figure inventories, review logs, or publish-QA notes.
 2. **Opus rewrites once.** Run `claude-opus-4-5` on the complete pair. Ask it
@@ -45,14 +47,31 @@ and validation. Do not turn style recommendations into extra review rounds.
    paragraphs that read as interchangeable fact cards, repeated transitions
    such as "The study... The result... This shows...", or background that is
    either absent before the first technical claim or expanded into an unrelated
-   general tutorial. Consecutive Chinese paragraphs must not begin with abstract
-   outline announcements such as `跨事件策略反复出现为四类关系。`、`上下文依赖让
-   强制执行更难落地。`、`两类难点会叠加。`; the next paragraph should continue
-   from a concrete result, example, tension, or question whenever the argument
-   naturally does so.
+   general tutorial. Watch for a run of Chinese paragraphs that all begin with
+   abstract outline announcements such as `跨事件策略反复出现为四类关系。`、
+   `上下文依赖让强制执行更难落地。`、`两类难点会叠加。` The problem is the
+   repeated shape, not a forbidden sentence: keep an orienting topic sentence
+   when removing it would make the paragraph harder to understand, then vary
+   nearby openings with a concrete result, example, comparison, or tension.
+   Replacing every topic sentence with presenter cues such as `看看这些跨事件策略
+   长什么样。` or generic rhetorical questions creates a different template
+   rather than natural variation. Do not repair choppiness by joining a list of
+   independent facts with semicolons or colons, and never replace correct
+   Chinese quotes, straight code quotes, or code literals with mismatched smart
+   punctuation. Reject translated hybrid noun clusters such as `AI 编程 agent`;
+   choose natural Chinese or the established technical term according to
+   meaning.
+
+   Opus may improve content as well as wording when the supplied primary source
+   supports the change. It may add missing background, interpretation, or a
+   nearby limitation, remove redundant explanation, and reorganize paragraphs
+   within the selected argument. It must not introduce a new claim from memory,
+   broaden the article into a paper digest, or change the title and content
+   promise selected by the user.
 3. **Codex validates.** Inspect the complete diff, reject factual or stylistic
    regressions, compare important claims and numbers with their sources, and
-   verify EN/ZH correspondence. Make only the bounded corrections needed for
+   verify EN/ZH correspondence. Make
+   only the bounded corrections needed for
    accuracy, natural Chinese, metadata, links, images, or build health. Do not
    add another general rewrite pass.
 4. **Deliver once.** Run the smallest relevant site validation. For PR-bound
@@ -97,6 +116,11 @@ first-person narrative to make AI-assisted prose sound human.
 
 Before completion, Codex checks:
 
+- contextual review of supplied style examples across the whole passage; they
+  illustrate repetitive patterns rather than form a forbidden-string list
+- fixed-string search only for literal defects identified as hard errors, such
+  as malformed punctuation or a rejected hybrid term; a model summary is not
+  evidence that the defect was removed
 - source fidelity for important claims, numbers, conditions, and limitations
 - title, description, date, slug, tags, excerpt marker, links, images, and final
   references

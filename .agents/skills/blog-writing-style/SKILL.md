@@ -112,8 +112,22 @@ Examples of uncomfortable output:
   contain no measured object or reasoning and could be reordered without loss.
 - Consecutive paragraphs open with abstract labels such as `跨事件策略反复出现为
   四类关系。`、`上下文依赖让强制执行更难落地。`、`两类难点会叠加。`
-  Each sentence announces an outline slot instead of continuing from the
-  preceding evidence, example, or question.
+  The uncomfortable result comes from the repeated structure across the
+  passage, not from any one sentence. A clear topic sentence may remain when it
+  gives the reader necessary orientation; nearby paragraphs should vary by
+  beginning from a concrete policy relationship, measurement, example,
+  comparison, or tension.
+- Replacing every label with `看看这些跨事件策略长什么样。` or
+  `那这套强制执行实际表现如何？` creates another repeated template. Presenter
+  cues and questions are useful only where the surrounding argument genuinely
+  calls for them.
+- Four short facts are joined with semicolons into one long enumeration. This
+  changes punctuation without improving the argument. Natural prose may keep
+  separate sentences, combine only one connected causal unit, or rebuild the
+  paragraph around an example and its consequence.
+- Straight or Chinese quotation marks become mismatched smart quotes, or code
+  literals change from `"git"` to `“git”`. A language rewrite must preserve
+  typography and code exactly where the syntax or quotation direction matters.
 - An article opens with a project benchmark before explaining the problem, or
   spends several paragraphs teaching generic AI history before reaching the
   first relevant claim. Both fail to provide proportionate background.
@@ -338,6 +352,10 @@ Chinese posts are written in Chinese. The reference for what good looks like is 
 - **Table headers in ZH posts are Chinese** (proper nouns and acronyms like DCR excepted).
 - **English quotations are rendered in Chinese**; keep the original in parentheses or a footnote only when exact wording matters.
 - **Ordinary words stay in Chinese.** Never mix English verbs or common nouns into Chinese sentences ("我们 measure 了", "做了一个 comparison" are violations).
+- **Avoid hybrid noun clusters.** `AI 编程 agent` is an antipattern: the mixed
+  modifiers sound translated and `AI` and `agent` duplicate the category. Use
+  `AI 编程助手` for the general reader-facing role or `编程 agent` when the
+  technical agent distinction matters.
 - **Natural Chinese.** Paragraphs should sound natural when read aloud. English
   appears where a recognized term, proper noun, acronym, or code identifier is
   clearer than a forced translation, not as the default language of the prose.
