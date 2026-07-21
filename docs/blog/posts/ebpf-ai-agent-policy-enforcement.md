@@ -6,9 +6,9 @@ description: AI agent rules look simple in CLAUDE.md, but ActPlane's 2,116-state
 
 # An Empirical Study: AI Agent Rules Need Context and Layered Enforcement
 
-A rule like "run the full test suite before committing" looks simple until an AI coding agent edits a source file after the last test run and then calls `git commit`. The kernel sees an ordinary process writing a commit object, while the harness sees one more tool call, yet the decision depends on which test result is still fresh, which edit invalidated it, and whether this commit is allowed now.
+A rule like "run the full test suite before committing" looks simple until an AI Agent edits a source file after the last test run and then calls `git commit`. The kernel sees an ordinary process writing a commit object, while the harness, the software layer managing the agent's tool calls and session state, sees one more tool call. Deciding whether to allow the commit still depends on which test result remains valid and which edit invalidated it.
 
-The [ActPlane paper](https://arxiv.org/abs/2606.25189) measures the gap between the behavioral rules developers write and the subset a system can actually check. Its statement-level analysis of 2,116 instructions shows that developers are not short of rules; the difficulty lies in turning natural-language requirements into state that a system can observe and evaluate over time. Many rules concern files, processes, or network activity but still depend on repository structure, task progress, or prior events, so a single OS hook can cover only part of the policy set.
+The [ActPlane paper](https://arxiv.org/abs/2606.25189) measures the gap between the behavioral rules developers write and the subset a system can actually check. Its statement-level analysis of 2,116 instructions shows that developers are not short of rules; the difficulty lies in turning natural-language requirements into state that a system can observe and evaluate over time. Many rules concern files, processes, or network activity but still depend on repository structure, task progress, or prior events, so a single OS hook can cover only part of the policy set. This article draws on our ActPlane empirical study, then follows the gap into the system design and evaluation.
 
 <!-- more -->
 
@@ -44,7 +44,7 @@ Of the 1,361 policies in the dataset, only 17% are semantic-only. The remaining 
 
 ![Enforcement waterfall showing semantic-only, content, per-event, and cross-event distribution across 1,361 policies](imgs/actplane-empirical_waterfall_enforcement.png)
 
-These cross-event policies follow four recurring patterns. Temporal ordering constrains sequencing: "run tests before committing" requires that one event happened after another, not merely at some earlier point. Cross-file consistency links changes across artifacts: "update docs when behavior changes" couples a source edit to a documentation update. Multi-step workflows enforce release checklists with verification gates, where each step must complete before the next begins. Conditional triggers couple operations: "if you change specs, also update the SDK" fires only when a precondition is met.
+"Run tests before committing" belongs to temporal ordering because one event must happen after another, not merely at some earlier point. Three other relationships recur in the dataset. Cross-file consistency couples a source edit to a documentation update when behavior changes. Multi-step workflows require each release gate to complete before the next begins. Conditional triggers activate only when a precondition is met, as in "if you change specs, also update the SDK."
 
 None of these can be decided from a single event, so enforcement must record what ran, in what order, and what has changed since. Such policies are widespread, with 81% of repositories containing at least one cross-event policy and 43% spanning all four enforcement tiers.
 
