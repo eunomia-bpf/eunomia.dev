@@ -42,13 +42,14 @@ Before drafting a scheduled weekly analysis, materially review at least:
 
 - 20 distinct papers
 - 20 distinct industry or open-source projects
-- 10 other useful sources, such as standards, datasets, incident reports,
-  official engineering material, public-institution documents, or substantive
-  practitioner discussion
+- 10 distinct news or current-event sources published within the latest seven
+  days
 
 Count independent sources, not reposts or several pages repeating one
 announcement. If the topic cannot support this corpus without padding, skip the
-report or choose a better-supported question.
+report or choose a better-supported question. Older standards, documentation,
+datasets, and background material may strengthen the report but do not satisfy
+the 10-source current-news requirement.
 
 Search broad AI, Agent, and infrastructure topics before narrowing. Include
 model serving and inference, training systems, GPU/runtime performance,
@@ -98,9 +99,12 @@ that could overturn the thesis. Narrow or discard a thesis that depends on one
 marketing claim, one repeated press release, or social posts quoting each other.
 
 Only after the thesis is formed, check `docs/papers/registry.yaml`, related
-public papers, projects, and existing Eunomia posts. Apply the same evidence and
-caveat standards to repository-owned and outside work. Include repository-owned
-work only when it adds a mechanism, measurement, implementation,
+public papers, projects, and existing Eunomia posts. The selected thesis must be
+materially different from existing articles in its central question, argument,
+or conclusion. A new headline, news hook, product, or example alone does not
+make it a new thesis. Apply the same evidence and caveat standards to
+repository-owned and outside work. Include repository-owned work only when it
+adds a mechanism, measurement, implementation,
 counterexample, or clearly bounded exploration. Make its evidentiary role clear
 enough that the reader can distinguish a measured finding, the report's
 interpretation, a design response, and a project result. Mention provenance
@@ -138,6 +142,8 @@ name technical questions and capabilities rather than vendors or products.
 Check that:
 
 - the thesis emerged from the evidence and is not product advocacy by default
+- the central question, argument, or conclusion is materially different from
+  existing Eunomia articles
 - every central factual claim resolves to a primary or clearly labeled source
 - current events are separated from older context and republished material
 - independent sources are truly independent

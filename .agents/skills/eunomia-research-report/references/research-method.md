@@ -21,12 +21,14 @@ discovery priority. Neither is a freshness requirement for every citation.
 ## Source Coverage
 
 For a scheduled weekly analysis, materially review at least 20 distinct papers,
-20 distinct industry or open-source projects, and 10 other useful sources. A
-paper counts in the first group; a vendor system, production implementation, or
-open-source repository counts in the second; standards, datasets, incidents,
-public-institution documents, first-person engineering reports, and substantive
-community evidence may count in the third. Count a source once even when several
-articles repeat it. Do not create a separate inventory artifact.
+20 distinct industry or open-source projects, and 10 distinct news or
+current-event sources published within the latest seven days. A paper counts in
+the first group; a vendor system, production implementation, or open-source
+repository counts in the second. The third group exists to establish what
+changed during the reporting window. Older standards, datasets, documentation,
+and background material may strengthen the analysis but do not satisfy that
+current-news requirement. Count a source once even when several articles repeat
+it. Do not create a separate inventory artifact.
 
 - **Academic research:** conference papers, journals, arXiv, workshop material,
   datasets, benchmark papers, and author project pages.
@@ -98,6 +100,11 @@ A useful topic commonly has more than one of these properties:
 
 Prefer a narrower question with strong evidence over a broad trend supported by
 weak repetition. Do not choose a topic because it promotes a repository project.
+
+Compare the candidate with existing Eunomia articles before drafting. Its
+central question, argument, or conclusion must be materially different. A new
+headline, recent news hook, product, or example does not create a new thesis by
+itself.
 
 ## Evidence Roles
 
