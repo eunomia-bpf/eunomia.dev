@@ -55,23 +55,14 @@ standalone figure inventories, platform-hook notes, per-article publish-QA
 notes, or other disposable files whose only purpose is to prove that a workflow
 step happened.
 
-Daily changes limited to `draft/` and `.agents/skills/` are a direct
-commit-and-push workflow. Do not open a pull request solely for those daily
-draft/skill maintenance updates; still inspect the worktree, stage explicit
-paths only, run a lightweight validation when relevant, and preserve unrelated
-dirty files.
-
-Treat this repository as a mature open-source project for every change. Never
-push changes directly to `main` unless the user has explicitly allowed the
-direct-push path for the current change type. Start from the current `main`
-branch, create a feature or fix branch, and publish the change through a
-normal, non-draft pull request for code, site, build, or other PR-bound changes.
-Complete the independent review, Copilot-comment, validation, CI, and applicable
-live-acceptance gates from `oss-change-workflow`. Do not merge the PR unless the
-user explicitly asks.
-
-Before publishing a PR, inspect the worktree, stage only the intended files, run
-the smallest relevant validation, and preserve unrelated user changes.
+Work in this checkout directly on `main`. Do not create or switch to another
+branch or worktree, and do not open a pull request. Before committing, inspect
+the worktree, stage only explicit intended paths, run the smallest relevant
+validation, and preserve unrelated user changes. Commit the validated change on
+`main`, rebase onto `origin/main` when the remote has advanced, and push `main`
+directly. This standing repository rule applies to daily `draft/` and
+`.agents/skills/` maintenance as well as code, site, build, and documentation
+work unless the user explicitly replaces it.
 
 ### Branch And Parallel Work
 
@@ -80,18 +71,17 @@ any branch, worktree, stash, rebase, reset, or commit operation, run
 `git status --short --branch` and understand the current branch, upstream state,
 dirty tracked files, and untracked files.
 
-Do not switch branches just to start from a clean base when the worktree
-contains uncommitted changes, untracked files, or an active task branch. Continue
-on the current branch when it matches the request. If a branch change is
-necessary, state the source branch, target branch, and dirty-file handling first,
-and preserve user work in place unless the user explicitly asks you to move,
-stash, or discard it.
+Keep this checkout on `main`; branch changes are prohibited by the standing
+repository workflow. Preserve user work in place unless the user explicitly
+asks you to move, stash, or discard it.
 
 When another person or agent may be working in parallel, keep the scope narrow,
 edit only requested files, and stage with explicit pathspecs. Never stage
-unrelated dirty files or broad untracked directories. Prefer a separate worktree
-only when the user asks for it or when the requested change truly cannot share
-the current branch.
+unrelated dirty files or broad untracked directories.
+
+Do not set a timeout when invoking a Subagent. Let it finish naturally; stop it
+only when the user explicitly cancels it, its task has become obsolete, or it
+has been confirmed stuck.
 
 ### Tech stack (current)
 
