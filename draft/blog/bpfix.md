@@ -8,7 +8,7 @@ description: Across 235 eBPF verifier rejections, bpfix shows why the final erro
 
 An eBPF verifier error can look precise enough to be actionable, until the line it names keeps failing after the obvious fix. The kernel reports the instruction where verification stopped, but the repair often belongs earlier, at the point where the program lost the pointer, range, lifetime, or provenance proof the verifier later needed.
 
-The [bpfix paper](https://arxiv.org/abs/2607.02748) studies that gap directly across 235 reproduced verifier rejections, where `EINVAL` was the errno in 47% of cases and one normalized terminal error string mapped to as many as nine distinct root causes. The verifier log contains useful state, but the final error line shows only the last frame of a proof story.
+The [bpfix paper](https://arxiv.org/abs/2607.02748) studies that gap directly across 235 reproduced verifier rejections, where `EINVAL` was the errno in 47% of cases and one normalized terminal error string mapped to as many as nine distinct root causes. The verifier log contains useful state, but the final error line shows only the last frame of a proof story. This article presents our bpfix study and tool through that diagnostic gap, including the cases the current implementation still does not solve.
 
 <!-- more -->
 
@@ -109,6 +109,8 @@ The compiler-lowering case makes the layer distinction concrete. The paper inclu
 
 The bpfix diagnostic does more than make verifier output prettier. Pretty output helps, but localization is the important move because the diagnostic names the proof family that failed and points to the program transition that made the proof unavailable.
 
+The maintained 0.1.x CLI keeps that responsibility deliberately narrow. It reads verifier, build, `bpftool`, libbpf, Aya, or BCC logs produced by the workflow a developer already uses; optional object analysis can add control-flow context. The default path does not execute a loader command, replace the kernel verifier, check the semantics of an accepted program, or edit source automatically. bpfix supplies structured evidence for a repair, while the developer or repair agent still owns the change and must validate it against the kernel and the program's tests.
+
 ## Why This Matters for LLM Repair
 
 The verifier's diagnostic gap becomes even more visible when a model tries to repair a rejected program. A human can sometimes infer missing verifier state by experience, but an LLM only gets the text it is given, and the raw terminal error often leaves too many plausible repairs.
@@ -126,6 +128,8 @@ Each model contributes paired bars comparing the raw verifier log with the bpfix
 The failure-stage breakdown makes the result more specific. The bpfix diagnostic mainly reduced verifier-load failures and source-semantics failures, the two stages where a repair must restore the verifier-visible proof and still preserve the program's intended source semantics. Compile failures stayed low for Qwen3.6 27B and GLM 5.2, so the gain did not come from making ordinary code generation easier. For Qwen2.5 3B, the raw log produced no accepted one-shot repairs, while the bpfix diagnostic produced 8 accepted repairs and eliminated three context-window failures that had occurred when the full raw log exceeded the small model's input budget.
 
 That pattern matters beyond bpfix itself. In this benchmark, what changed the repair outcome was proof context in the prompt, with the program, model, and test suite otherwise held fixed.
+
+The remaining failures matter just as much as the gain. The strongest reported one-shot result accepts 38 of 75 repairs, leaving 37 unresolved; one failure-informed retry raises the count to 44, not to complete coverage. The experiment therefore supports localization as a useful input to repair, not the stronger claim that a proof-aware diagnostic turns current LLMs into reliable automatic eBPF repair systems.
 
 ## What to Check When the Verifier Fails
 
