@@ -28,7 +28,12 @@ Use this workflow for posts under `docs/blog/posts/` and article drafts under
    tables, code, references, and Markdown integrity. Codex may change punctuation
    or replace one or two words where necessary, such as replacing an em dash.
    It must not rewrite a sentence, paragraph, title, structure, argument, or
-   substantive content. Report any larger remaining issue instead of editing it.
+   substantive content. Apply this final reminder literally:
+   `检查标点符号和一两个词的多样性。除了符号和一两个词语的替换，不能改别的东西。`
+   Do not replace every em dash with the same mark; choose a comma, semicolon,
+   colon, parentheses, or period according to the existing relationship. Report
+   any larger remaining issue instead of editing it. Use the style skill to check more
+  style problem, and apply the minimal necessary fix.
 5. Run `git diff --check` and the smallest relevant content validation. Report
    changed files, the exact Opus model, validation performed, and unresolved
    factual issues.
