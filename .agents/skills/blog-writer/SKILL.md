@@ -45,7 +45,11 @@ and validation. Do not turn style recommendations into extra review rounds.
    paragraphs that read as interchangeable fact cards, repeated transitions
    such as "The study... The result... This shows...", or background that is
    either absent before the first technical claim or expanded into an unrelated
-   general tutorial.
+   general tutorial. Consecutive Chinese paragraphs must not begin with abstract
+   outline announcements such as `跨事件策略反复出现为四类关系。`、`上下文依赖让
+   强制执行更难落地。`、`两类难点会叠加。`; the next paragraph should continue
+   from a concrete result, example, tension, or question whenever the argument
+   naturally does so.
 3. **Codex validates.** Inspect the complete diff, reject factual or stylistic
    regressions, compare important claims and numbers with their sources, and
    verify EN/ZH correspondence. Make only the bounded corrections needed for

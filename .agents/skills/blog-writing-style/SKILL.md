@@ -110,6 +110,10 @@ Examples of uncomfortable output:
   the relationship in one natural sentence when it is one thought.
 - `研究给出了分类。结果很明显。这进一步说明了方案的优势。` The sentences
   contain no measured object or reasoning and could be reordered without loss.
+- Consecutive paragraphs open with abstract labels such as `跨事件策略反复出现为
+  四类关系。`、`上下文依赖让强制执行更难落地。`、`两类难点会叠加。`
+  Each sentence announces an outline slot instead of continuing from the
+  preceding evidence, example, or question.
 - An article opens with a project benchmark before explaining the problem, or
   spends several paragraphs teaching generic AI history before reaching the
   first relevant claim. Both fail to provide proportionate background.
