@@ -89,15 +89,15 @@ that could overturn the thesis. Narrow or discard a thesis that depends on one
 marketing claim, one repeated press release, or social posts quoting each other.
 
 Only after the thesis is formed, check `docs/papers/registry.yaml`, related
-public papers, projects, and existing Eunomia posts. Treat repository-owned work
-as ordinary third-party evidence in public prose. Include it only when it adds a
-mechanism, measurement, implementation, counterexample, or clearly bounded
-exploration. Usually weave the relevant result into an existing paragraph in one
-or two sentences, naming the paper or project directly without phrases such as
-"our research" or explaining repository affiliation. Apply the same evidence
-and caveat standards used for outside work. Omit the connection when it is not
-useful. Do not add a promotional project roundup, call to action, or forced
-tie-back.
+public papers, projects, and existing Eunomia posts. Apply the same evidence and
+caveat standards to repository-owned and outside work. Include repository-owned
+work only when it adds a mechanism, measurement, implementation,
+counterexample, or clearly bounded exploration. Make its evidentiary role clear
+enough that the reader can distinguish a measured finding, the report's
+interpretation, a design response, and a project result. Mention provenance
+when omitting it would mislead, but do not add an affiliation detour. Omit the
+connection when it is not useful, and do not add a promotional project roundup,
+call to action, or forced tie-back.
 
 ### 6. Draft The Public Report
 
@@ -139,8 +139,9 @@ Check that:
 - contradictions, uncertainty, and source limitations remain visible
 - analysis explains mechanism and second-order effects instead of summarizing
 - developer or operator implications follow from the evidence
-- repository-owned work, if used, reads like an ordinary third-party source,
-  stays proportionate to its evidentiary role, and avoids first-person ownership
+- repository-owned work, if used, follows the same evidence standard as an
+  outside source, has a clear and proportionate role in the argument, and does
+  not blur measured findings, interpretation, design, and project evaluation
 - the tracking section stays problem-led rather than reading like a product
   watchlist, unless a named product is itself the report's subject
 - a daily research report has the public `daily-analysis` and `research` tags,

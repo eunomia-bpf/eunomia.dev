@@ -5,7 +5,10 @@ description: Detailed advisory prose and bilingual checklist for blog posts unde
 
 # Blog Style Checklist (advisory)
 
-This file is a repertoire of writing recommendations, not an acceptance gate or a workflow. Authors and reviewers should use judgment, and they may depart from any item when the source, topic, audience, or natural expression benefits. Emphatic wording such as “must,” “never,” “ban,” and numeric tripwires indicates the strength of a preference, not a deterministic failure condition and not a reason to add another review round. Record the reason only when a deliberate departure materially affects the post.
+This file describes the qualities of a strong finished post, not an acceptance
+gate or workflow. Apply the guidance with judgment when the source, topic,
+audience, or natural expression benefits. Model choice, pass order, edit scope,
+and validation belong in `blog-writer`.
 
 Source accuracy, public-path stability, confidentiality, and edit-scope limits are repository or workflow constraints, not style preferences; they live in `AGENTS.md` and the `blog-writer` skill.
 
@@ -22,8 +25,6 @@ Source accuracy, public-path stability, confidentiality, and edit-scope limits a
 - **Keep scope-bearing hedges** ("in our tests", "on covered hooks", "up to"): they keep claims honest. Only collapse stacked hedges down to one.
 - **Facts must be faithful to their source.** Posts about a paper use the paper's current published terminology and numbers, not an older draft's.
 - **Never use absolute words without structural proof.** “Cannot,” “impossible,” “always,” and “never” are Must-fix unless the mechanism or source establishes the absolute claim.
-- **Never replace a complete paragraph or section during a review pass.** Fix only the necessary sentences and clauses. Splitting an overloaded paragraph is allowed only when every technical statement, qualifier, and relationship survives.
-- **Never combine a data correction with opportunistic prose churn.** When updating a number, denominator, label, or figure reference, change only the factual token and the minimum grammar needed to keep the sentence correct.
 - **Never silently remove a caveat, limitation, negative result, design rationale, or protected hedge.** Empty apology can be cut, but evidence-bearing boundaries are technical content.
 
 ---
@@ -36,14 +37,16 @@ Source accuracy, public-path stability, confidentiality, and edit-scope limits a
 - Let topic scope determine length. A release note or single-finding correction may be brief, while a professional empirical synthesis or mechanism analysis may be substantially longer. Neither form needs an apology or a fixed word target.
 - Rich means substance, not padding. Grow a post by adding concrete examples, real measured data, code or rule snippets, selected figures, mechanism explanations, limitations, and genuine reader questions; never by restating the same point in more words.
 - Reduce repetition, paper-digest detours, sibling overlap, and overloaded paragraphs. Do not remove source-backed technical depth, caveats, or useful evidence simply because the article is long.
-- Every H2 section must contain at least one thing only we can write: a first-party number, a real code/config example, a figure, or first-hand experience. A section that only paraphrases common knowledge gets cut or merged.
+- Every H2 contributes evidence, mechanism, interpretation, boundary, or a
+  practical decision. Sections that only paraphrase common knowledge weaken the
+  article.
 
 ### Paragraph load and rhythm
 
 - Give each paragraph one primary job: establish a scene, make a claim, explain a mechanism, present evidence, interpret evidence, state a limitation, or bridge to the next step. If a paragraph performs three or more jobs, split or restructure it.
-- English body paragraphs usually land between 40 and 90 words. Inspect every paragraph above 110 words. Three consecutive paragraphs above 90 words are a **Must fix** because the reader never gets a change of pace.
-- Chinese body paragraphs usually land between 120 and 260 Chinese characters. Inspect every paragraph above 320 characters. Three consecutive paragraphs above 260 characters are a **Must fix**.
-- These ranges are diagnostic tripwires, not quotas. A short transition can be one sentence, and a mechanism explanation can run longer when it cannot be split without losing logic.
+- Paragraph length follows the thought. Short transitions, fuller mechanism
+  explanations, examples, and evidence paragraphs should create a natural
+  change of pace rather than a row of equally sized blocks.
 - Do not optimize for uniformly short sentences. When adjacent sentences share one subject or causal chain and the later sentence merely supplies the condition, cause, or consequence, consider joining them. A longer sentence is often clearer when it preserves one coherent thought; split where the reader benefits from a genuine conceptual pause.
 - Chinese technical blog prose should not drop a period after every short clause. When a setup, contrast, condition, mechanism, and consequence belong to one thought, prefer one sentence with three or four natural clauses joined by commas or connective words, then use the period at the real turn in the argument. Split earlier only when the reader needs a conceptual pause, not because the sentence has become longer than the English version.
 - Vary paragraph shape. Alternate explanation with an example, consequence, figure, quotation, or compact list. Do not make every paragraph a same-sized block of four or five declarative sentences.
@@ -54,11 +57,15 @@ Source accuracy, public-path stability, confidentiality, and edit-scope limits a
 - A paragraph can have one job and still be too dense. Watch for stretches in which every sentence introduces a new percentage, term, scope qualifier, or logical turn, leaving no sentence that tells the reader what the evidence means.
 - After a dense result, consider giving the reader a plain-language interpretation, concrete example, or consequence before presenting the next result. This is useful explanation, not padding, when it reduces reconstruction work.
 - An opening should establish the problem and the post's distinctive insight without previewing every supporting number. Keep the evidence needed to earn the thesis, then let later sections introduce the detailed breakdown with its denominator and interpretation.
-- During a density pass, mark the points where a careful reader would need to stop and unpack the paragraph. Consider deferring secondary facts, replacing a jargon cluster with a concrete description, or separating evidence from interpretation. Do not solve density by deleting caveats or by turning one coherent causal chain into choppy sentences.
+- A careful reader should not repeatedly stop to unpack secondary facts or
+  jargon clusters. Dense evidence needs interpretation and breathing room, but
+  caveats and coherent causal chains remain intact.
 
 ### Controlled structural variety
 
-- A full post may use one or two editorial accents in total, such as a compact list, a source quotation, or a visually emphasized key takeaway. Technical code blocks, tables, and figures do not count toward this allowance. These accents are optional tools for rhythm, not a template or quota.
+- Editorial accents such as a compact list, source quotation, or emphasized
+  takeaway appear only when they improve comprehension. They should not become
+  a repeated template.
 - Use a list only when several parallel items become easier to compare or scan outside prose. Keep it compact, give every item the same grammatical role, and return to the argument immediately afterward. A numbered list is appropriate only when order, rank, or sequence matters. Numbered scenario tours, feature inventories, and expanded contribution lists remain banned.
 - A Markdown blockquote must contain either an exact, attributed source quotation or one complete, source-backed takeaway written in the author's voice. Never format paraphrase as somebody else's quotation, and never use a blockquote to manufacture drama.
 - An emphasized takeaway must be earned by the evidence immediately around it and add a useful synthesis rather than repeat the preceding paragraph. Emphasize one decisive sentence, not a paragraph of bold prose. Do not stack two editorial accents back to back.
@@ -68,7 +75,7 @@ Source accuracy, public-path stability, confidentiality, and edit-scope limits a
 
 ## Article architecture: build an argument, not a paper digest
 
-- Write a one-sentence thesis before the outline. Every H2 must advance that thesis, not merely cover another topic from the source material.
+- The post has one clear thesis, and every H2 advances it rather than merely covering another topic from the source material.
 - Give the reader a progression they can feel. A common systems-blog progression is scenario or measured problem -> why the obvious layers fail -> mechanism -> evidence -> boundary or practical consequence. Other progressions are valid, but adjacent sections must have an explicit "therefore" relationship.
 - Vary the macro structure to fit the material. A post may unfold as an investigation, a running case, a measurement-led argument, a mechanism walkthrough, a comparison, a failure analysis, or another coherent form. Do not reuse one standard H2 skeleton across posts, and do not add an FAQ, list, takeaway box, design section, or benchmark section merely because previous posts had one.
 - Treat an opening scenario as the article's backbone. Return to it when explaining the mechanism or evaluation, and resolve it before the ending. A vivid hook that disappears after `<!-- more -->` is decoration, not structure.
@@ -78,40 +85,33 @@ Source accuracy, public-path stability, confidentiality, and edit-scope limits a
 - Select evidence for the thesis. A blog about one empirical finding does not need to retell every mechanism and benchmark in the paper. Preserve omitted technical depth through a direct paper or sibling-post link.
 - End with a new implication, decision, boundary, or next action. Do not repeat the title, abstract, or section takeaways in a trailing summary.
 
-### Reader-perspective review
+### Reader experience
 
-- Name the target reader before review, including what they likely know, what decision brought them to the post, and which terminology they should not be expected to know. Review the published reading experience, not the author's outline or the paper's contribution checklist.
-- Test the title and opening as a promise. After the excerpt, the reader should know why the topic matters, what concrete question the post will answer, and why this article offers evidence or insight they cannot get from a generic overview.
-- Test the description the same way. If the first words of the `description` do not tell a new reader what area, failure mode, workflow, or decision the post belongs to, rewrite it before tuning keywords.
-- Check whether the first specialized claim has enough background. If the article names a tool, paper result, benchmark, kernel subsystem, model behavior, or implementation choice before explaining the surrounding problem and prerequisite terms, the opening needs a background pass.
-- Follow the article in order and mark every point where a qualified reader would ask “why does this follow?”, “what does this term mean?”, “compared with what?”, “under which conditions?”, or “why should I care?”. Later clarification does not excuse an avoidable stumble at first use.
-- At the first mention of a study, result, problem, or mechanism, name the concrete relationship the reader needs: what was measured, compared, observed, or enforced; between which objects; and with what consequence. Do not make the next sentence retroactively supply an object that the current sentence omitted.
-- Trace each paragraph's information flow in reading order. Pronouns and abstractions such as “this problem,” “that layer,” “the gap,” or “enforcement technology” should have a concrete antecedent before they appear, and a causal claim should expose enough of its cause and effect to stand on first reading.
-- Every important number must arrive with enough denominator, condition, comparison, and interpretation for the reader to understand its consequence. A technically correct result that forces the reader to reconstruct the argument from a paper figure still fails.
-- Check reading momentum. Each section should create a reason to continue, vary the mode of explanation, and pay off the question raised before it. Flag dense stretches, repeated setup, jargon clusters, decorative figures, and detours into mechanisms already covered by sibling posts.
-- At the end, the reader should be able to state the post's distinctive insight, its evidence, its boundary, and the practical decision it changes. If the reader remembers only the project name or a pile of percentages, the post needs revision.
-- Review trust as part of readability. Flag titles, transitions, takeaways, and claims that feel promotional, inflated, defensive, or content-farm-like even when no individual sentence is factually false.
-- When a Eunomia paper or project supports a broader research-led post, present it with the same editorial distance as any third-party source. Name the work and the relevant result directly, avoid "our research," "our project," and affiliation-setting prose, and usually keep the connection to one or two sentences inside the existing argument. Omit it when it adds no evidence or explanatory value.
+A technically qualified reader should be able to read the finished post once,
+comfortably and without reconstructing missing logic. The argument, evidence,
+mechanism, and boundaries remain clear, while paragraph rhythm and transitions
+feel natural rather than templated. Technical depth should create
+understanding, not the sensation of reading an abstract, benchmark ledger, or
+promotion.
 
 ### References at the end
 
 - End each blog post with a compact `## References` section in English and `## 参考资料` in Chinese. Keep it as the final section so readers can distinguish supporting sources from related-reading links in the argument.
-- List 5–10 distinct primary papers, official documentation pages, upstream repositories, datasets, or other first-party sources that materially support the post. Prefer the most direct source and descriptive linked titles; do not use raw URLs, split one work into duplicate entries, or pad the list with sources the article did not rely on.
+- List only the distinct primary papers, official documentation pages, upstream repositories, datasets, or other first-party sources that materially support the post. Prefer the most direct source and descriptive linked titles; do not use raw URLs, split one work into duplicate entries, or pad the list.
 - Research-led posts should normally include academic evidence for mechanisms or measurement boundaries and implementation, standard, dataset, or first-person engineering evidence for operational claims. A product announcement can establish what changed in that product, but cannot independently validate the broader trend it promotes.
 - EN and ZH should cite the same underlying sources in the same order, with link labels localized when useful. Inline links still belong near the claims they support; the final section is a compact source record, not a substitute for claim-level attribution.
 
 ### Transforming a paper into a blog post
 
 - The paper is the source of truth, not the source of structure or voice. Preserve terminology, numbers, scope, and caveats while rebuilding the exposition for a practitioner reader.
-- State the post's unique angle before drafting. Examples include an empirical finding, a mechanism walkthrough, an evaluation result, or a deployment lesson. If the angle needs an "and also" list of all paper contributions, it is still too broad.
+- The post has one distinct angle, such as an empirical finding, mechanism walkthrough, evaluation result, or deployment lesson. An "and also" list of every paper contribution is too broad.
 - Use an evidence sandwich for important results: state what the result means, give the number with method and conditions, then explain the consequence or limitation. Do not publish a ledger of percentages with no interpretation between them.
 - Avoid successive paragraph openings such as "The paper...", "The study...", "These findings...", "The evaluation...", and "The implementation...". Name the concrete actor, mechanism, or result, and write from the site's point of view.
-- Compare the outline with existing eunomia.dev posts before drafting. If a sibling already owns a mechanism, summarize only what the new argument needs and link to the deeper treatment. One post must not compete with or silently duplicate another post's core angle.
+- The post does not compete with or silently duplicate a sibling's core angle. A mechanism already covered elsewhere appears only to the depth this argument needs, with a link to the fuller treatment.
 - The author must add synthesis that the paper does not provide in the same form: a running example, operational implication, comparison across layers, deployment tradeoff, or explanation of why a number matters.
 
 ### Figures from source papers
 
-- Review every main-body figure before outlining. For each figure or table, identify the supported claim, source page or file, include/omit decision, and how the claim remains supported when the item is omitted. Keep this in working context; do not create a standalone inventory file as process evidence.
 - Select figures by argumentative value. Include a figure only when it materially advances the post's thesis, makes an important comparison easier to grasp than prose, or supplies evidence the surrounding text cannot carry as clearly. Retaining a paper section, including an empirical-study section, does not make all of that section's figures mandatory.
 - Prefer a small set of high-signal figures over a paper-shaped gallery. Omit plots that are secondary to the post's topic, duplicate evidence already visible elsewhere, require disproportionate setup, or interrupt the argument. Preserve any important omitted result in prose and link to the paper for full detail.
 - Introduce a figure with the claim it supports, place it directly after that discussion, and interpret the visual instead of leaving it as decoration.
@@ -124,7 +124,7 @@ Source accuracy, public-path stability, confidentiality, and edit-scope limits a
 - **Titles should be as compelling as accuracy allows.** Lead with the post's strongest true insight, consequential tension, surprising measurement, or practical stake. A title earns attention through intellectual substance and gives a qualified reader a concrete reason to read, rather than merely labeling the topic or announcing that a study exists.
 - Let the strongest source-backed insight determine the title's shape. An empirical-study post may foreground the evidence type, a measured contrast, a boundary, an implication, or the practical consequence, depending on what best represents the article. Vary syntax and emphasis across posts; do not prefix every empirical article the same way or turn one successful title into a house template.
 - A good title preserves high-value signals instead of flattening them for brevity. Keep the evidence type when it builds trust (`An Empirical Study`, `case study`, `benchmark`), the method or subsystem when it carries the technical hook (`sched_ext`, `semantic flamegraphs`, `eBPF verifier`), and the article form when it helps the reader know what they are opening (`Inside SchedCP`, `Why ...`, `How ...`). Do not replace these signals with a generic declarative title unless the original signal is inaccurate or genuinely weaker.
-- Judge title changes against nearby published titles before editing. If the current title already names the article type, core object, evidence or mechanism, and reader-facing tension, assume it is strong until a better alternative preserves those signals. Shorter is not automatically better, and homepage-card neatness is not a reason to erase distinctive technical information.
+- A strong title remains distinctive among nearby posts and preserves the article type, core object, evidence or mechanism, and reader-facing tension. Shorter is not automatically better, and homepage-card neatness is not a reason to erase useful technical information.
 - Treat the title and first paragraph as one promise. The title should make the reader want the article, and the first paragraph should immediately prove that promise with a concrete scene, failure mode, measurement, or decision that makes the technical question feel alive. Do not let the first paragraph collapse into an abstract, project description, or paper-summary lead after a strong title.
 - **Reveal the thesis without exhausting it.** No tease questions or withheld conclusions ("...告诉我们什么", "...缺什么", "what you don't know about X"), but do not flatten an insight into a generic report title. Prefer a precise tension such as a gap between what instructions demand and what one enforcement layer can observe. Numbers in titles must be real measurements with the same scope as the article.
 - Keep a professional research-and-engineering voice. Reject clickbait, alarmism, exclamation marks, vague superlatives, casual hot-take language, unsupported universals, and titles that are exciting only because they overstate the source. Do not use formulas such as "X is broken/dead", "you won't believe", "the truth about X", or "everything changes" unless the literal claim is rigorously established and still appropriate for a technical publication.
@@ -314,7 +314,9 @@ Chinese posts are written in Chinese. The reference for what good looks like is 
 - **Table headers in ZH posts are Chinese** (proper nouns and acronyms like DCR excepted).
 - **English quotations are rendered in Chinese**; keep the original in parentheses or a footnote only when exact wording matters.
 - **Ordinary words stay in Chinese.** Never mix English verbs or common nouns into Chinese sentences ("我们 measure 了", "做了一个 comparison" are violations).
-- **Read-aloud test.** Every paragraph must read as natural spoken Chinese. If reading it means switching to English every few words, the paragraph fails, whatever the individual rules say. As a density reference: in a good post, the English tokens in a body paragraph are mostly proper nouns and code; if more than half the concept nouns in a paragraph are English, that is a Must fix.
+- **Natural Chinese.** Paragraphs should sound natural when read aloud. English
+  appears where a recognized term, proper noun, acronym, or code identifier is
+  clearer than a forced translation, not as the default language of the prose.
 - **No calque sentence structures.** "即 2.0 到 3.2 倍的改进"、"每系统调用开销" are English word order transliterated; rewrite in Chinese grammar ("提升了 2.0 到 3.2 倍"、"单次系统调用的开销").
 - **No translated abstract voice.** Repeated subjects such as "论文"、"研究"、"这些发现"、"该评测" and phrases such as "优势在……展开"、"恢复率讲了同样的故事"、"开销可以放进工作流" usually preserve English rhetoric. Name the concrete result or rewrite around what the reader can now conclude.
 - **Use glosses selectively.** A standard Chinese term gets its English original only on first use and only when the paper term will recur or readers may need it for search. Do not turn ordinary vocabulary into a parenthetical glossary.
@@ -336,20 +338,3 @@ This example works because it starts from a concrete capability, gives one measu
 - Both files need the same `date`; `description` is localized, both within the length budget.
 - Sentence boundaries, paragraph boundaries, and line counts do not need to match. Natural expression is mandatory, not optional.
 - When one version changes an argument, example, fact, figure, or caveat, update the other. Purely local phrasing edits need not be mirrored mechanically.
-
----
-
-## Quick self-edit pass (apply to every sentence)
-
-1. Can I delete the first word/phrase without losing meaning?
-2. Is a verb hidden inside a noun? Undo the nominalization.
-3. Is the subject more than 7 words from its verb?
-4. Does the sentence end on the most important new information?
-5. Does "this/it/that" have a clear antecedent? If not, name the referent.
-6. Is an adverb doing the work a number should do?
-7. Does this sentence read like a paper abstract or meeting notes? Rewrite as blog prose.
-8. Does the sentence name the actor, mechanism, workload, or comparison that produced its evidence?
-9. Did an edit remove or broaden a scope-bearing hedge?
-10. (ZH) Is every English fragment in this sentence a term of art, spaced and punctuated correctly?
-11. Can a first-time reader name exactly what this sentence measures, compares, observes, or enforces without waiting for the next sentence?
-12. Did punctuation split one condition-cause-consequence chain into note-like fragments that would read more naturally as one sentence?
