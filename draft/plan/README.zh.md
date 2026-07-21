@@ -44,13 +44,15 @@
 - X/LinkedIn 默认只分享对应的已发布长文链接，并写 1-2 句能说明核心问题或结论的阅读钩子。不额外展开机制、重述全文或制作复杂解读；只有明确要求时才改成 thread、长帖、carousel 或 article。
 - Reddit 等社区平台只在当前讨论和社区规则匹配时发布。
 
-## Analysis 三日节奏
+## Analysis 七日节奏
 
-- 以 2026-07-20 为锚点，每 3 个自然日发布一篇新的中英文技术 analysis；具体日期写在对应月份文件中，一直排到 2027-12。
-- 日期提前确定，标题、研究问题和结论不提前编造。执行当天先看最近 48 小时，必要时回溯最近工作日和 30 天机制窗口，再选择与既有文章实质不同的 thesis。
+- 以 2026-07-20 为锚点，每 7 个自然日发布一篇新的中英文技术 analysis；具体日期写在对应月份文件中，一直排到 2027-12。
+- 日期提前确定，标题、研究问题和结论不提前编造。执行时覆盖最近 7 天，优先检查最近 48 小时，并用 7-30 天材料补足机制、部署、反证和背景。
+- 每篇至少实质参考 20 篇论文、20 个行业或开源项目，以及 10 份其他材料。重复报道同一来源只计一次；达不到来源门槛时换题或跳过，不用弱材料凑数。
+- Analysis 是长篇深度报告，需要综合来源、解释机制、比较相反证据, 不压缩成新闻摘要，也不设置为了凑篇幅的字数指标, 再选择与既有文章实质不同的 thesis。
 - 工作稿可以从 `draft/media/YYYY-MM-DD/<topic-slug>/deep-report.zh.md` 开始；通过来源、反证和发布价值检查后，正式源必须进入 `docs/blog/posts/<slug>.zh.md`，不保留一份重复工作稿。
 - Analysis 先稳定中文原稿，再生成高质量英文对应稿。中文只做符号、空格、术语和明显病句的轻量修整，不改标题、论点、事实、例子、结构或结论；英文保持相同的章节、数字、限定语、链接和参考资料，但使用自然的技术英语，不做逐句生硬直译。
-- 公开源进入 `docs/blog/posts/<slug>.zh.md` 和 `docs/blog/posts/<slug>.md`。两份 front matter 保留相同的 `date`、`slug`、精确 tags，以及各自语言的 `title`、`description`、`research_question`、`research_window`，删除 `status`、内部 cutoff、工作 thesis 等流程字段。
+- 公开源进入 `docs/blog/posts/<slug>.zh.md` 和 `docs/blog/posts/<slug>.md`。两份 front matter 保留相同的 `date`、`slug`、`weekly-analysis`、`research` 与精确主题 tags，以及各自语言的 `title`、`description`、`research_question`、`research_window`，删除 `status`、内部 cutoff、工作 thesis 等流程字段。
 - 同一天可以同时完成 analysis 和多个平台任务。发布后检查中英文文章页、标题、摘要、tags、链接、章节和事实对应关系，在 checklist 回填两个 source path 与公开 URL。
 
 ## 执行顺序

@@ -1,12 +1,12 @@
 ---
 name: eunomia-research-report
-description: Research and draft source-grounded Eunomia public reports or daily research blogs. Use when Codex needs to analyze the latest broad AI, Agent, and infrastructure news; scan papers, engineering practice, commercial products, open source, public institutions, and social discussion; select a topic and thesis only after research; create a distinct deep report; or continue a report invoked by eunomia-content-patrol. This skill prepares and validates local drafts but does not authorize final publishing.
+description: Research and draft source-grounded Eunomia weekly analysis reports. Use when Codex needs to analyze broad AI, Agent, and infrastructure change; synthesize papers, industry and open-source projects, and other primary material; select a topic and thesis only after research; create a substantial deep report; or continue a report invoked by eunomia-content-patrol. This skill prepares and validates local drafts but does not authorize final publishing.
 ---
 
 # Eunomia Research Report
 
-Research current technical change before choosing a thesis, then write a concise
-public report whose depth comes from evidence and analysis rather than length.
+Research current technical change before choosing a thesis, then write a
+substantial public report whose length is earned by evidence and analysis.
 
 ## Required Context
 
@@ -32,22 +32,31 @@ Begin with a wide editorial direction such as current AI, Agent, or systems
 infrastructure. Do not decide the thesis, preferred conclusion, or relationship
 to Eunomia projects before searching.
 
-### 2. Run The Current-News Scan
+### 2. Build The Weekly Research Corpus
 
-Search the latest 48 hours first. Cover every source family in
-`references/research-method.md`, including academic research, engineering
-practice, commercial products, open source, public institutions, and social or
-community discussion. Also consider benchmarks, datasets, incidents, security
-advisories, protocols, and standards.
+Cover the latest seven days, with the latest 48 hours receiving first attention.
+Use the wider 7-30 day window for mechanisms, contradictions, deployments, and
+context. Follow the source families in `references/research-method.md`.
+
+Before drafting a scheduled weekly analysis, materially review at least:
+
+- 20 distinct papers
+- 20 distinct industry or open-source projects
+- 10 other useful sources, such as standards, datasets, incident reports,
+  official engineering material, public-institution documents, or substantive
+  practitioner discussion
+
+Count independent sources, not reposts or several pages repeating one
+announcement. If the topic cannot support this corpus without padding, skip the
+report or choose a better-supported question.
 
 Search broad AI, Agent, and infrastructure topics before narrowing. Include
 model serving and inference, training systems, GPU/runtime performance,
 observability, security, evaluation, developer tooling, eBPF, and open-source
 infrastructure when they carry current signal.
 
-If the 48-hour window is sparse, as on weekends or holidays, keep that result
-visible and widen to the latest working day and then 7-30 days. Distinguish the
-date of the underlying event from the article, repost, or indexing date.
+Distinguish the date of the underlying event from the article, repost, or
+indexing date.
 
 ### 3. Search Efficiently And Verify Selectively
 
@@ -106,9 +115,9 @@ Create the working report at:
 `draft/media/YYYY-MM-DD/<topic-slug>/deep-report.zh.md`
 
 Give it a stable `report_id`, research question, research window, source cutoff
-date, status, thesis, and ordinary public `tags`. Reports produced by the daily
-research workflow use `daily-analysis`, `research`, and a small number of precise
-topic tags. Prefer established reader-facing names such as `eBPF`, `AI Agent`,
+date, status, thesis, and ordinary public `tags`. Reports produced by the weekly
+research workflow use `weekly-analysis`, `research`, and a small number of
+precise topic tags. Prefer established reader-facing names such as `eBPF`, `AI Agent`,
 `Agent Infrastructure`, `Observability`, `Security`, `Linux`, and `Open Source`.
 Use a topic tag only when the article materially covers it. Make the latest
 48-hour developments identifiable in the report while using older sources only
@@ -144,17 +153,20 @@ Check that:
   not blur measured findings, interpretation, design, and project evaluation
 - the tracking section stays problem-led rather than reading like a product
   watchlist, unless a named product is itself the report's subject
-- a daily research report has the public `daily-analysis` and `research` tags,
+- a weekly research report has the public `weekly-analysis` and `research` tags,
   plus only the topic tags materially supported by the article
+- the reviewed corpus contains at least 20 papers, 20 industry or open-source
+  projects, and 10 other useful sources, with repeated coverage of one source
+  counted only once
 - the final Chinese source section is named `参考资料`
 - the report is materially different from previous report questions and theses
 - no private strategy, customer information, pricing plans, or unreleased work
   entered the public repository
 - no em dash appears in public prose
 
-Prefer the shortest version that preserves the thesis, evidence chain,
-mechanism, counterargument, boundary, and practical significance. Do not pad a
-report to look deep.
+Give the report enough room to synthesize the corpus, develop the mechanism,
+compare competing evidence, and explain practical consequences. Do not compress
+it into a news summary, and do not pad it with unused sources.
 
 ### 8. Record And Hand Back
 

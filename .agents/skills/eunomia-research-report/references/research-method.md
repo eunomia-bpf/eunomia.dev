@@ -5,22 +5,28 @@ public report shape.
 
 ## Research Windows
 
-Start with the latest 48 hours to find current news, releases, papers, incidents,
-and discussion. Confirm both the publication date and the date of the underlying
-event. A new repost of an old result is not a new event.
+Cover the latest seven days to find current news, releases, papers, incidents,
+and discussion, reading the latest 48 hours first. Confirm both the publication
+date and the date of the underlying event. A new repost of an old result is not
+a new event.
 
 Widen to the latest working day and then the previous 7-30 days for slow-moving
 research, engineering writeups, and context that has not yet reached broad
 discussion. Use older primary sources for mechanisms, prior art, baselines, and
 counterevidence.
 
-The 48-hour window sets discovery priority. It is not a freshness requirement
-for every citation.
+The seven-day window sets the reporting cadence, while the latest 48 hours set
+discovery priority. Neither is a freshness requirement for every citation.
 
 ## Source Coverage
 
-Run a lightweight search across every family. Do not require a minimum number of
-results from any family, and do not create a separate artifact for each one.
+For a scheduled weekly analysis, materially review at least 20 distinct papers,
+20 distinct industry or open-source projects, and 10 other useful sources. A
+paper counts in the first group; a vendor system, production implementation, or
+open-source repository counts in the second; standards, datasets, incidents,
+public-institution documents, first-person engineering reports, and substantive
+community evidence may count in the third. Count a source once even when several
+articles repeat it. Do not create a separate inventory artifact.
 
 - **Academic research:** conference papers, journals, arXiv, workshop material,
   datasets, benchmark papers, and author project pages.
@@ -37,9 +43,10 @@ results from any family, and do not create a separate artifact for each one.
   News, Lobsters, Zhihu, Juejin, and public maintainer discussions. Use these to
   find practitioner experience, disagreement, and emerging questions.
 
-Searching every family does not mean citing every family. Include a source in
-reader-facing work only when it adds a fact, mechanism, contradiction, adoption
-signal, real failure, or useful research question.
+Every counted source must materially affect the report by adding a fact,
+mechanism, comparison, contradiction, adoption signal, real failure, or useful
+research question. If a source does not affect the analysis, it does not satisfy
+the corpus gate.
 
 ## Evidence Lattice
 
@@ -149,19 +156,17 @@ of named products, vendors, or anticipated launches unless the report studies
 that product directly. Product names belong in the evidence chain when needed,
 not in a closing watchlist that reads like promotion.
 
-End Chinese reports with `## 参考资料`. Keep 5-10 distinct primary sources that
-materially support the article, normally mixing papers with implementation,
-standards, datasets, or first-party engineering sources. Inline attribution
-still belongs beside the claim it supports. The final list is a compact record,
-not a substitute for cross-validation in the body.
+End Chinese reports with `## 参考资料`. A scheduled weekly report must account
+for the sources that materially informed it, including at least 20 papers, 20
+industry or open-source projects, and 10 other useful materials. Inline
+attribution still belongs beside the claim it supports. Do not inflate the list
+with unread or unused links.
 
-Keep the argument tighter than the research dossier. Chinese reports often land
-around 4,000-7,000 Chinese characters, but this is a soft editorial range, not a
-requirement. A shorter report is better when the thesis, evidence, mechanism,
-counterargument, and implications are already complete. Use 7,000-10,000 only
-when the topic genuinely needs additional cases or methodological explanation.
-Go beyond that for occasional flagship work, not routine depth. Never pad or cut
-solely to hit a number.
+Write a long-form analysis rather than a compressed news summary. Give the
+argument enough space to synthesize the required corpus, compare evidence,
+explain mechanisms, test alternatives, and derive practical consequences. There
+is no word-count quota; length follows the work the evidence requires. Never pad
+or cut solely to hit a number.
 
 ## No-Report Outcome
 

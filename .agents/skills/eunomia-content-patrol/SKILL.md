@@ -1,6 +1,6 @@
 ---
 name: eunomia-content-patrol
-description: Orchestrate the scheduled or manual daily eunomia.dev content operation. Use when Codex needs to read the current daily plan, invoke eunomia-research-report for new research and daily blogs, invoke eunomia-social-radar for publication performance and conversations, route ready content to the matching publisher skill, complete every scheduled task end to end without per-run confirmation, and consolidate useful results in the dated media workspace. This skill is the versioned source of truth for the `eunomia` cron automation; it coordinates other skills and does not itself browse platforms, research topics, write reports, or draft platform copy.
+description: Orchestrate the scheduled or manual daily eunomia.dev content operation. Use when Codex needs to read the current daily plan, invoke eunomia-research-report on scheduled weekly analysis dates, invoke eunomia-social-radar for publication performance and conversations, route ready content to the matching publisher skill, complete every scheduled task end to end without per-run confirmation, and consolidate useful results in the dated media workspace. This skill is the versioned source of truth for the `eunomia` cron automation; it coordinates other skills and does not itself browse platforms, research topics, write reports, or draft platform copy.
 ---
 
 # Eunomia Content Patrol
@@ -43,7 +43,7 @@ Those actions belong to the routed skills below.
 ## Routing Map
 
 - Invoke `eunomia-research-report` for broad current-news research, source
-  verification, topic selection, thesis formation, and a new daily blog or deep
+  verification, topic selection, thesis formation, and a scheduled weekly deep
   report. It may return "no defensible thesis" without creating a report unless
   the dated plan explicitly schedules a public analysis and the widened research
   window supports a defensible alternative topic.
@@ -66,8 +66,9 @@ this orchestrator.
    required work, not as a menu of optional candidates.
 2. Invoke `eunomia-social-radar` to refresh the observable results and active
    conversations around published content.
-3. Invoke `eunomia-research-report` when today's task calls for a new daily blog
-   or report, or when the planned cadence requires a fresh research attempt.
+3. Invoke `eunomia-research-report` when today's dated task schedules a weekly
+   analysis report. Do not infer an extra research report from an otherwise open
+   day.
    When the dated task schedules an analysis publication, use the reviewed
    `deep-report.zh.md` only as a working source, then move the final Chinese post
    to `docs/blog/posts/<slug>.zh.md`. Keep public `date`, `slug`, `title`,
