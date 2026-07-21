@@ -25,7 +25,7 @@
   <link>https://eunomia.dev/zh/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/</link>
   <guid>https://eunomia.dev/zh/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/</guid>
   <pubDate>Wed, 15 Jul 2026 00:00:00 GMT</pubDate>
-  <description>“提交前必须跑完整测试”这种规则看起来很简单，直到 AI 编程 agent 在上次测试后又改了源码，然后继续执行 git commit。内核只看见普通进程在写提交对象，harness 也只看见又一次工具调用，但真正决定这次提交能不能放行的，是哪次测试结果仍然有效、哪次编辑让它失效，以及规则在当前任务里该如何实例化。</description>
+  <description>“提交前必须跑完整测试”这种规则看起来很简单，直到 AI Agent 在上次测试后又改了源码，然后继续执行 git commit。内核只看见普通进程在写提交对象，负责管理 Agent 工具调用与会话状态的应用层也只看见又一次工具调用，但真正决定这次提交能不能放行的，是哪次测试结果仍然有效、哪次编辑让它失效，以及规则在当前任务里该如何实例化。</description>
   <author>yuxi4096@gmail.com (yuxi4096)</author>
   <author>i@littlefisher.me (LinuxDev9002)</author>
   <author>1067852565@qq.com (云微)</author>
@@ -36,7 +36,7 @@
   <link>https://eunomia.dev/zh/blog/2026/07/10/schedcp-agentic-linux-scheduler/</link>
   <guid>https://eunomia.dev/zh/blog/2026/07/10/schedcp-agentic-linux-scheduler/</guid>
   <pubDate>Fri, 10 Jul 2026 00:00:00 GMT</pubDate>
-  <description>一个让 Linux 内核编译更快的调度策略，换到 schbench 上可能反而拉高唤醒延迟。两次运行都能让 CPU 忙起来，但运维者在前者关心吞吐量，在后者关心唤醒时间，所以 AI Agent 要安全调优调度器，必须先把工作负载目标放进控制闭环。</description>
+  <description>AI Agent 能写调度器代码，但写出代码和真正调优调度器之间有一段距离。Linux 调度器看到的是可运行任务、唤醒、优先级和 CPU 时间片，而应用真正关心的目标可能是构建耗时、P99 延迟、吞吐量，或者批处理队列里那个最长任务什么时候能结束。成功的调度器调优需要明确优化目标、控制开销、避免饥饿，并在测试环境中保持稳定。</description>
   <author>yuxi4096@gmail.com (yuxi4096)</author>
   <author>1067852565@qq.com (云微)</author>
   <author>i@littlefisher.me (LinuxDev9002)</author>
