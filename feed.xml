@@ -32,11 +32,11 @@
   <category>AI agent observability</category>
 </item>
 <item>
-  <title>Can an AI Agent Tune the Linux Scheduler? Inside SchedCP</title>
+  <title>Can an AI Agent Tune the Linux Scheduler? Inside SchedCP and sched-agent</title>
   <link>https://eunomia.dev/blog/2026/07/10/schedcp-agentic-linux-scheduler/</link>
   <guid>https://eunomia.dev/blog/2026/07/10/schedcp-agentic-linux-scheduler/</guid>
   <pubDate>Fri, 10 Jul 2026 00:00:00 GMT</pubDate>
-  <description>An AI agent can write scheduler code, but that alone is a long way from tuning a scheduler.</description>
+  <description>Linux makes scheduling decisions based on runnable tasks, wakeups, priorities, and accumulated CPU time.</description>
   <author>yuxi4096@gmail.com (yuxi4096)</author>
   <author>1067852565@qq.com (云微)</author>
   <author>i@littlefisher.me (LinuxDev9002)</author>

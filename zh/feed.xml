@@ -32,11 +32,11 @@
   <category>AI agent observability</category>
 </item>
 <item>
-  <title>让 AI Agent 调优 Linux 调度器：SchedCP 如何接入 schedext</title>
+  <title>让 AI Agent 调优 Linux 调度器：SchedCP 与 sched-agent 的设计与评测</title>
   <link>https://eunomia.dev/zh/blog/2026/07/10/schedcp-agentic-linux-scheduler/</link>
   <guid>https://eunomia.dev/zh/blog/2026/07/10/schedcp-agentic-linux-scheduler/</guid>
   <pubDate>Fri, 10 Jul 2026 00:00:00 GMT</pubDate>
-  <description>AI Agent 能写调度器代码，但写出代码和真正调优调度器之间有一段距离。Linux 调度器看到的是可运行任务、唤醒、优先级和 CPU 时间片，而应用真正关心的目标可能是构建耗时、P99 延迟、吞吐量，或者批处理队列里那个最长任务什么时候能结束。成功的调度器调优需要明确优化目标、控制开销、避免饥饿，并在测试环境中保持稳定。</description>
+  <description>Linux 调度器根据可运行任务、唤醒事件、优先级和累积的 CPU 时间做出决策，应用却用另一套指标评价结果：编译内核时关心最后一个编译进程何时结束（makespan），在线服务盯着 P99 延迟和吞吐量，一组并行的批处理任务可能被其中最慢的那个拖住（长尾分布）。内核提供机制和测量手段，工作负载决定怎样才算“更好”。这种错位（论文称之为“语义鸿沟”）意味着默认的 EEVDF 调度器在面对需要不同权衡的工作负载时只能用一套通用策略应对。</description>
   <author>yuxi4096@gmail.com (yuxi4096)</author>
   <author>1067852565@qq.com (云微)</author>
   <author>i@littlefisher.me (LinuxDev9002)</author>
