@@ -8,11 +8,11 @@
   <lastBuildDate>Sat, 25 Jul 2026 00:00:00 GMT</lastBuildDate>
   <atom:link href="https://eunomia.dev/zh/feed.xml" rel="self" type="application/rss+xml" />
   <item>
-  <title>为什么 eBPF verifier 报错难修：拒绝位置与真正修复点之间的落差</title>
+  <title>为什么 eBPF verifier 报错难修：诊断鸿沟</title>
   <link>https://eunomia.dev/zh/blog/2026/07/25/ebpf-verifier-errors-bpfix/</link>
   <guid>https://eunomia.dev/zh/blog/2026/07/25/ebpf-verifier-errors-bpfix/</guid>
   <pubDate>Sat, 25 Jul 2026 00:00:00 GMT</pubDate>
-  <description>eBPF verifier 通常会给出一条具体指令和一句简短报错，看起来已经把问题缩小到某一行；开发者沿着这一行修改后，程序却可能继续被拒绝。原因在于内核报告的是验证停止的位置，源代码中的问题往往发生得更早，程序在那里丢掉了后续访问所需的指针类型、标量范围、生命周期或来源信息。</description>
+  <description>eBPF verifier 报错通常包含一条具体指令和一句简短消息，看起来已经把问题缩小到某一行；但开发者顺着这一行修改后，程序可能继续被拒绝。原因在于内核报告的是验证停止的位置，源代码中的问题往往更早出现：程序在那里丢掉了后续访问所需的指针类型、标量范围、生命周期或来源信息。</description>
   <author>yuxi4096@gmail.com (yuxi4096)</author>
   <category>eBPF</category>
 </item>

@@ -8,11 +8,11 @@
   <lastBuildDate>Sat, 25 Jul 2026 00:00:00 GMT</lastBuildDate>
   <atom:link href="https://eunomia.dev/feed.xml" rel="self" type="application/rss+xml" />
   <item>
-  <title>Why eBPF Verifier Errors Are Hard to Fix: The Gap Between Rejection and Repair</title>
+  <title>Why eBPF Verifier Errors Are Hard to Fix: The Diagnostic Gap</title>
   <link>https://eunomia.dev/blog/2026/07/25/ebpf-verifier-errors-bpfix/</link>
   <guid>https://eunomia.dev/blog/2026/07/25/ebpf-verifier-errors-bpfix/</guid>
   <pubDate>Sat, 25 Jul 2026 00:00:00 GMT</pubDate>
-  <description>An eBPF verifier rejection usually ends with a concrete instruction and a terse message, which makes the failure look more localized than it really is.</description>
+  <description>An eBPF verifier rejection ends with a concrete instruction and a terse message, which makes the failure look more localized than it is.</description>
   <author>yuxi4096@gmail.com (yuxi4096)</author>
   <category>eBPF</category>
 </item>
