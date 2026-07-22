@@ -21,7 +21,7 @@
   <link>https://eunomia.dev/zh/blog/2026/07/20/agent-work-unit/</link>
   <guid>https://eunomia.dev/zh/blog/2026/07/20/agent-work-unit/</guid>
   <pubDate>Mon, 20 Jul 2026 00:00:00 GMT</pubDate>
-  <description>过去几年，AI 基础设施最容易回答的是一次模型调用发生了什么。用了哪个模型，输入和输出多少 token，延迟多长，是否报错。Agent 把这个问题拉长了。一次用户请求现在可能跨越几十次模型调用、多个工具、长时间暂停、人工审批、失败重试和外部系统状态变化。单次调用仍然可观测，却越来越难说明工作是否真的完成。</description>
+  <description>一次模型调用容易记账：哪个模型、多少 token、多长延迟、有没有报错。Agent 打破了这种简洁。一次用户请求现在可能跨越几十次调用、多个工具、人工审批、重试、外部系统的状态变化。调用仍然可观测，但工作有没有真的完成，是另一个问题。</description>
   <author>yuxi4096@gmail.com (yuxi4096)</author>
   <category>daily-analysis</category>
   <category>research</category>

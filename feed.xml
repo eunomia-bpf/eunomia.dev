@@ -21,7 +21,7 @@
   <link>https://eunomia.dev/blog/2026/07/20/agent-work-unit/</link>
   <guid>https://eunomia.dev/blog/2026/07/20/agent-work-unit/</guid>
   <pubDate>Mon, 20 Jul 2026 00:00:00 GMT</pubDate>
-  <description>For the past several years, AI infrastructure has found it easy to answer what happened during a single model call.</description>
+  <description>A single model call is easy to account for. Which model, how many tokens, how long, whether it failed. Agents break this simplicity. One user request now sprawls across dozens of calls, tool invocations, pauses for</description>
   <author>yuxi4096@gmail.com (yuxi4096)</author>
   <category>daily-analysis</category>
   <category>research</category>
