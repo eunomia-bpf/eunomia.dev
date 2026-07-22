@@ -647,111 +647,131 @@ export function AgentRuntimeInfrastructurePage({ locale, links, projects }: Prod
     locale === "zh"
       ? {
           eyebrow: "旗舰 · AI Agent 可观测与执行控制",
-          title: "AI Agent 可观测与执行控制",
+          title: "看清 AI agent 在机器上真正做了什么",
           description:
-            "看清 AI agent 真正做了什么，并约束它能做什么，在系统边界、零插桩完成。AgentSight 负责观测，ActPlane 负责运行时执行控制。同一个 eBPF 层，位于应用之下，框架无关。",
-          metrics: ["零插桩", "约 3% 开销", "框架 / 语言无关", "来自内核的 ground truth"],
-          whyTitle: "为什么在系统层做",
+            "AI agent 会运行命令、改写文件、启动进程并访问远程服务，但当一次运行失败、卡住或行为异常时，应用日志往往解释不了机器上真正发生了什么。AgentSight 是本地优先的 AI agent top / strace，把 prompt、模型调用和工具决策连接到进程、文件、网络与资源行为；ActPlane 在这些系统边界上执行运行时策略。",
+          metrics: ["本地优先", "无需 SDK / proxy", "支持 closed-source CLI", "评估中 CPU 开销低于 3%"],
+          whyTitle: "应用 trace 之外发生了什么",
           whyDescription:
-            "应用层和 SDK tracer 只能看到 agent 自报的内容、需要插桩、带来 5–15% 开销。在应用之下的 eBPF/syscall 边界工作，拿到的是 agent 伪造不了的 ground truth，且无需改一行代码。",
-          appTitle: "应用 / SDK / proxy tracer",
-          appPoints: ["需要插桩或接入 proxy", "只看 agent 自报的 trace", "绑定特定框架", "5–15% 开销"],
-          sysTitle: "Eunomia · 系统层",
-          sysPoints: ["零插桩，开箱即用", "来自内核的 ground truth", "任意框架、任意语言", "约 3% 开销"],
+            "应用层工具适合在你拥有应用代码时观测 prompt、token、eval 和 latency。AgentSight 补上它们经常缺失的系统边界：从现有二进制和 closed-source CLI 外部观测，并把 LLM 流量与进程、文件和网络事件关联起来。",
+          appTitle: "应用层 / SDK / gateway",
+          appPoints: [
+            "每个应用需要接入 SDK、callback 或 gateway",
+            "closed-source CLI 只能依赖它主动暴露的日志",
+            "trace 通常停在 framework 或 process 边界",
+            "容易漏掉 subprocess 和本地文件活动"
+          ],
+          sysTitle: "AgentSight · 系统层",
+          sysPoints: [
+            "从进程外部观测，无需修改 agent 代码",
+            "适用于现有二进制和 closed-source CLI",
+            "关联 LLM、process、file 和 network 事件",
+            "本地记录，并可导出 OpenTelemetry GenAI spans"
+          ],
           stages: [
             {
-              title: "Observe 观测",
-              description: "AgentSight 从系统边界记录进程、TLS/网络和工具调用行为——无 SDK、无需改代码。"
+              title: "实时看见",
+              description: "查看活跃 session、进程、模型与工具调用，以及文件、网络和资源活动。"
             },
             {
-              title: "Enforce 执行控制",
-              description: "ActPlane 在 OS/eBPF 层执行 agent 运行时策略：syscall、exec、文件和网络层的 guardrail。"
+              title: "解释失败",
+              description: "把 prompt、skill 和工具决策关联到错误与系统效果，定位卡住、重试和异常行为。"
             },
             {
-              title: "Protect 保护",
-              description: "checkpoint/restore safety 关注语义回滚、恢复后的权限边界和 intent-aware fencing。"
+              title: "定位成本",
+              description: "发现慢步骤、重复模型或工具调用、token-heavy session 和高资源进程。"
             },
             {
-              title: "Operate 运维",
-              description: "把审计、策略、事件证据和可回放上下文交给企业 AgentOps 或平台团队。"
+              title: "审计影响",
+              description: "确认访问过哪些服务、修改过哪些文件，并保留可查询、可回放的执行记录。"
             }
           ],
-          icpTitle: "适合谁",
-          icpDescription: "在生产里真正跑 AI agent 的团队——coding agent、自治工作流、用工具的 agent。",
+          icpTitle: "当应用日志讲不清一次 agent 运行",
+          icpDescription: "从真实触发事件出发，选择需要解释、接入或控制的系统行为。",
           icp: [
             {
-              label: "AI infra / AgentOps",
-              title: "在生产环境运行 agent",
-              description: "需要超越应用日志的系统级证据、会话级行为关联，以及可执行的运行管控。"
+              label: "运行失败或行为异常",
+              title: "调试一次 coding agent session",
+              description: "模型和工具日志显示调用完成，但你仍需要知道它启动了什么进程、改了什么文件、访问了什么服务。"
             },
             {
               label: "Platform / SRE",
-              title: "把 agent 接入平台",
-              description: "用框架无关、低开销的方式，把 agent 行为接入已有 tracing、profiling 或 runtime 平台。"
+              title: "接入现有 observability 平台",
+              description: "无需逐个修改 agent，把 closed-source CLI 和不同框架的系统行为导出到已有 tracing 或 profiling 管线。"
             },
             {
-              label: "跑 coding agent 的团队",
-              title: "驾驭自治 agent",
-              description: "为会执行代码、读写文件、调工具的 agent 设定边界，并在出问题时拿到可回放的证据。"
+              label: "Security / governance",
+              title: "审计并约束系统影响",
+              description: "先用 AgentSight 取得进程、文件和网络证据，再由 ActPlane 在 exec、file、network 和 syscall 边界执行策略。"
             }
           ],
           componentsTitle: "组成",
           componentsDescription:
-            "这些能力组成同一个层：看清发生了什么、管控允许做什么，并保护恢复后的状态是否仍可信。"
+            "AgentSight 负责看见和解释真实系统行为；ActPlane 负责在同一组系统边界上执行控制。两者职责明确，也可以独立采用。"
         }
       : {
           eyebrow: "Flagship · AI Agent Observability & Enforcement",
-          title: "AI Agent Observability & Enforcement",
+          title: "See what your AI agents actually do on the machine",
           description:
-            "See what your AI agents actually do, and enforce what they are allowed to do at the system boundary, with zero instrumentation. AgentSight observes; ActPlane enforces runtime policy. One eBPF layer, below the app, framework-agnostic.",
-          metrics: ["Zero instrumentation", "~3% overhead", "Framework / language agnostic", "Kernel-level ground truth"],
-          whyTitle: "Why the system layer",
+            "AI agents can run commands, rewrite files, spawn processes, and contact remote services, but when a run fails, stalls, or behaves unexpectedly, application logs rarely explain what happened on the machine. AgentSight is a local-first top / strace for AI agents that connects prompts, model calls, and tool decisions to process, file, network, and resource activity; ActPlane enforces runtime policy at those system boundaries.",
+          metrics: ["Local-first", "No SDK or proxy", "Works with closed-source CLIs", "<3% CPU overhead in evaluation"],
+          whyTitle: "What happens beyond the application trace",
           whyDescription:
-            "App-layer and SDK tracers see only what the agent reports, need instrumentation, and add 5–15% overhead. Working below the app at the eBPF/syscall boundary gives ground truth the agent cannot forge — with no code changes.",
-          appTitle: "App / SDK / proxy tracers",
-          appPoints: ["Needs instrumentation or a proxy", "Sees self-reported traces", "Framework-specific", "5–15% overhead"],
-          sysTitle: "Eunomia · system layer",
-          sysPoints: ["Zero instrumentation, drop-in", "Ground truth from the kernel", "Any framework, any language", "~3% overhead"],
+            "Application-level tools are useful for prompts, tokens, evals, and latency when you own the application code. AgentSight fills the system-boundary gap they often leave: it observes existing binaries and closed-source CLIs from outside the process, then correlates LLM traffic with process, file, and network events.",
+          appTitle: "Application / SDK / gateway",
+          appPoints: [
+            "Each application needs an SDK, callback, or gateway integration",
+            "Closed-source CLIs are limited to the logs they expose",
+            "Traces often stop at framework or process boundaries",
+            "Subprocess and local file activity can be missed"
+          ],
+          sysTitle: "AgentSight · system layer",
+          sysPoints: [
+            "Observe from outside the process with no agent code changes",
+            "Works with existing binaries and closed-source CLIs",
+            "Correlates LLM, process, file, and network events",
+            "Records locally and exports OpenTelemetry GenAI spans"
+          ],
           stages: [
             {
-              title: "Observe",
-              description: "AgentSight records process, TLS/network, and tool behavior from the system boundary — no SDK, no code changes."
+              title: "See it live",
+              description: "Inspect active sessions, processes, model and tool calls, file and network activity, and resource use."
             },
             {
-              title: "Enforce",
-              description: "ActPlane enforces what agents can do at the OS/eBPF layer: syscall, exec, file, and network guardrails."
+              title: "Explain failures",
+              description: "Connect prompts, skills, and tool decisions to errors and system effects to find stalls, retries, and unexpected behavior."
             },
             {
-              title: "Protect",
-              description: "Checkpoint/restore safety covers semantic rollback risk, restored authority, and intent-aware fencing."
+              title: "Find the cost",
+              description: "Spot slow steps, repeated model or tool calls, token-heavy sessions, and resource-hungry processes."
             },
             {
-              title: "Operate",
-              description: "Give AgentOps and platform teams audit trails, policy points, evidence, and replayable context."
+              title: "Audit effects",
+              description: "See which services received requests and which files changed, with queryable and replayable execution records."
             }
           ],
-          icpTitle: "Who it's for",
-          icpDescription: "Teams running real AI agents in production — coding agents, autonomous workflows, and tool-using agents.",
+          icpTitle: "When application logs cannot explain an agent run",
+          icpDescription: "Start from the event that needs system-level explanation, integration, or control.",
           icp: [
             {
-              label: "AI infra / AgentOps",
-              title: "Running agents in production",
-              description: "Need system-level evidence beyond app logs, session-level behavior correlation, and enforceable runtime control."
+              label: "A failed or unexpected run",
+              title: "Debug a coding-agent session",
+              description: "Model and tool logs show completion, but you still need to know which processes started, which files changed, and which services were contacted."
             },
             {
               label: "Platform / SRE",
-              title: "Bringing agents onto the platform",
-              description: "Connect agent behavior to existing tracing, profiling, or runtime platforms in a framework-agnostic, low-overhead way."
+              title: "Connect existing observability",
+              description: "Export system behavior from closed-source CLIs and mixed agent frameworks into existing tracing or profiling pipelines without modifying each agent."
             },
             {
-              label: "Teams shipping coding agents",
-              title: "Steering autonomous agents",
-              description: "Set boundaries for agents that execute code, touch files, and call tools — with replayable evidence when something goes wrong."
+              label: "Security / governance",
+              title: "Audit and control system effects",
+              description: "Use AgentSight for process, file, and network evidence, then ActPlane for policy at exec, file, network, and syscall boundaries."
             }
           ],
           componentsTitle: "Components",
           componentsDescription:
-            "These capabilities form one layer: understand what happened, control what is allowed, and protect whether restored state can still be trusted."
+            "AgentSight observes and explains real system behavior; ActPlane enforces control at the same system boundaries. Their responsibilities stay explicit, and either can be adopted independently."
         };
 
   return (
@@ -776,7 +796,7 @@ export function AgentRuntimeInfrastructurePage({ locale, links, projects }: Prod
         <div className="mt-5">
           <StarBar repos={[{ repo: "agentsight", label: "AgentSight" }]} locale={locale} />
         </div>
-        <ActionRow links={[linkByKey.get("pilot")]} />
+        <ActionRow links={[linkByKey.get("agentsight-docs"), linkByKey.get("agentsight-github"), linkByKey.get("pilot")]} />
       </div>
 
       <div className="py-12">
@@ -827,12 +847,12 @@ export function AgentRuntimeInfrastructurePage({ locale, links, projects }: Prod
 
       <div className="grid gap-4 md:grid-cols-2">
         <article className="border border-slate-200 bg-white p-5">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-cyan-700">Observe &amp; safeguard</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-cyan-700">Observe &amp; explain</p>
           <h3 className="mt-3 text-lg font-semibold tracking-normal text-ink">AgentSight</h3>
           <p className="mt-3 text-sm leading-6 text-slate-600">
             {locale === "zh"
-              ? "面向 LLM 和 AI agent 的零插桩可观测性，关联进程与 TLS/网络行为；同时涵盖 checkpoint/restore safety（ACRFence）与资源/性能控制（agentcgroup）。"
-              : "Zero-instrumentation observability for LLM and AI agents — correlate process and TLS/network behavior. Also covers checkpoint/restore safety (ACRFence) and resource/performance control (agentcgroup)."}
+              ? "本地优先的 AI agent profiling 与 monitoring，把 prompt、模型和工具决策关联到进程、文件、网络与资源行为，并支持 report、agentpprof 和 OpenTelemetry 导出。"
+              : "Local-first AI agent profiling and monitoring that connects prompts, models, and tool decisions to process, file, network, and resource activity, with reports, agentpprof, and OpenTelemetry export."}
           </p>
           <ActionRow
             links={[linkByKey.get("agentsight-docs"), linkByKey.get("agentsight-github"), linkByKey.get("acrfence-article")]}
