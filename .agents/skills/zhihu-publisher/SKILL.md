@@ -89,6 +89,10 @@ note if useful, media choices, and QA state.
    - tables do not collapse
    - images render
    - links point to intended GitHub, docs, project, or paper sources
+   - Treat visible public-page DOM inspection as sufficient QA. If
+     `Page.captureScreenshot` times out, do not retry it; verify the title,
+     structure, code blocks, tables, image loading, and links through the
+     visible DOM/page instead.
 6. In the publish/settings flow, choose a relevant question when Zhihu offers a
    question selector. Verify the selected question is topical before final
    publish; do not leave an unrelated default question selected.

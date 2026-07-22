@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-07-20",
+  "last_checked": "2026-07-21",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -23,9 +23,26 @@
       "visible_article_links_collected": 39,
       "profile_url": "https://juejin.cn/user/4288563097635144/posts",
       "notes": "Followed the visible next-page links through cursors 10, 20, and 30. No platform API or hidden endpoint evidence is used."
+    },
+    {
+      "checked_at": "2026-07-21",
+      "checked_via": "in_app_browser_profile_exact_title_and_public_page_dom_qa",
+      "profile_url": "https://juejin.cn/user/4288563097635144/posts",
+      "profile_article_count": 40,
+      "article_url": "https://juejin.cn/post/7664864449153613824",
+      "notes": "The exact title was the first visible profile article. Public-page QA confirmed 51 paragraphs, 13 section headings, 10 code blocks, one 6-row table, one loaded 1700x1057 image, 11 outbound links, and visible tags Linux and 开源. No platform API, hidden endpoint, or screenshot evidence is used."
     }
   ],
   "published": [
+    {
+      "id": "juejin-7664864449153613824",
+      "status": "confirmed",
+      "title": "eBPF 教程：检查 exec 后真正安装的可执行镜像",
+      "url": "https://juejin.cn/post/7664864449153613824",
+      "source_path": "docs/tutorials/54-exec-image-inspector/README.zh.md",
+      "checked_via": "profile_exact_title_and_public_article_page_dom_qa",
+      "notes": "Published from the existing Juejin draft. The public page visibly shows tags Linux and 开源; exact title, body structure, code blocks, table, loaded image, and outbound links were confirmed."
+    },
     {
       "id": "juejin-7664151348536229903",
       "status": "confirmed",

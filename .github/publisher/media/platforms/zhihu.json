@@ -3,7 +3,7 @@
   "platform_id": "zhihu",
   "label": "Zhihu",
   "kind": "longform_chinese",
-  "last_checked": "2026-07-20",
+  "last_checked": "2026-07-21",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -35,6 +35,15 @@
     }
   ],
   "published": [
+    {
+      "id": "zhihu-2063162298781398619",
+      "status": "confirmed",
+      "title": "eBPF 教程：检查 exec 后真正安装的可执行镜像",
+      "url": "https://zhuanlan.zhihu.com/p/2063162298781398619",
+      "source_path": "docs/tutorials/54-exec-image-inspector/README.zh.md",
+      "checked_via": "published_article_page_visible",
+      "notes": "Exact title was confirmed on the visible profile article list; public-page DOM QA confirmed the rendered body, code blocks, table, image, and outbound links."
+    },
     {
       "id": "zhihu-2062539029892151274",
       "status": "confirmed",

@@ -16,6 +16,7 @@ Follow-up platform check on 2026-07-20 used normal in-app browser scrolling on t
 
 | Status | Title | URL | Notes |
 | --- | --- | --- | --- |
+| Confirmed | eBPF 教程：检查 exec 后真正安装的可执行镜像 | <https://zhuanlan.zhihu.com/p/2063162298781398619> | Published from `docs/tutorials/54-exec-image-inspector/README.zh.md`; exact title was confirmed on the visible profile article list, and public-page DOM QA confirmed the rendered body, code blocks, table, image, and outbound links |
 | Confirmed | 实证研究：AI Agent 规则需要上下文与分层强制执行 | <https://zhuanlan.zhihu.com/p/2062539029892151274> | Published from `docs/blog/posts/ebpf-ai-agent-policy-enforcement.zh.md`; selected the production-readiness AI Agent question; imported a locally prepared image-free body after unstable image imports and uploaded the ActPlane architecture cover separately |
 | Confirmed | ActPlane: 把 Agent Harness Enforcement 下沉到内核 eBPF | <https://zhuanlan.zhihu.com/p/2049849241200235065> | Recent profile article |
 | Confirmed | ACRFence：防止 AI Agent 检查点恢复中的语义回滚攻击 | <https://zhuanlan.zhihu.com/p/2044683685539139618> | Matches `docs/blog/posts/agent-check-restore-safety.md` topic |
@@ -50,10 +51,11 @@ Repo-referenced Zhihu URLs that should be kept but may need ownership/date verif
 
 Profile checked: <https://juejin.cn/user/4288563097635144/posts>
 
-Normal in-app browser pagination covered all four visible article pages and collected 39 unique authored article links. The machine ledger currently maps 25 of 106 Chinese source files; remaining gaps are treated as unpublished unless a later visible match is found.
+Normal in-app browser pagination covered all four visible article pages and collected 40 unique authored article links. The machine ledger currently maps 26 of 107 Chinese source files; remaining gaps are treated as unpublished unless a later visible match is found.
 
 | Status | Title | URL | Notes |
 | --- | --- | --- | --- |
+| Confirmed | eBPF 教程：检查 exec 后真正安装的可执行镜像 | <https://juejin.cn/post/7664864449153613824> | Published from `docs/tutorials/54-exec-image-inspector/README.zh.md`; the public page visibly shows tags `Linux` and `开源`; exact title, 51 paragraphs, 13 section headings, 10 code blocks, one 6-row table, the loaded 1700x1057 image, and 11 outbound links were confirmed through the normal article page |
 | Confirmed | 实证研究：AI Agent 规则需要上下文与分层强制执行 | <https://juejin.cn/post/7664151348536229903> | Published from `docs/blog/posts/ebpf-ai-agent-policy-enforcement.zh.md`; category `人工智能`; tags `Linux`, `AI编程`, `安全`; exact source title, images, tables, code, and outbound links were verified on the public article page |
 | Confirmed | 多智能体系统是人工智能的未来吗？探讨OpenAI的Swarm实验 | <https://juejin.cn/post/7424407625897492514> | Latest visible authored article |
 | Confirmed | eBPF 实践教程: 通过 socket 或 syscall 追踪 HTTP 等七层协议 | <https://juejin.cn/post/7280746975917228087> | Authored article |

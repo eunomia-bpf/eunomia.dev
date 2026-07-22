@@ -143,6 +143,9 @@ short post.
 - Wait until `图片解析中...` disappears. Verify every preview image has
   non-zero natural dimensions and a Juejin-hosted URL, then repeat the image
   check on the article page after submission.
+- Public article images are lazy-loaded. Scroll the normal article page until
+  each image is in view before treating zero natural dimensions as a broken
+  image, then repeat the dimension and rendered-size check.
 - Tag search results may exist in a hidden dropdown after text entry. Focus the
   tag field to open the dropdown, then click only the visible `role=button`
   option; do not click hidden mirror text or zero-sized options.
