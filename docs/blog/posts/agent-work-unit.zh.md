@@ -15,47 +15,47 @@ tags:
 
 # 从 Token 到可验证工作：Agent Infra 正在改写它的计量单位
 
-过去几年，AI 基础设施最容易回答的是一次模型调用发生了什么。用了哪个模型，输入和输出多少 token，延迟多长，是否报错。Agent 把这个问题拉长了。一次用户请求现在可能跨越几十次模型调用、多个工具、长时间暂停、人工审批、失败重试和外部系统状态变化。单次调用仍然可观测，却越来越难说明工作是否真的完成。
+一次模型调用容易记账：哪个模型、多少 token、多长延迟、有没有报错。Agent 打破了这种简洁。一次用户请求现在可能跨越几十次调用、多个工具、人工审批、重试、外部系统的状态变化。调用仍然可观测，但工作有没有真的完成，是另一个问题。
 
-最近一轮产品与工程信号把这种错位推到了台前。7 月 17 日，[OpenAI](https://openai.com/index/a-scorecard-for-the-ai-age/) 提议用完成的有用工作、成功任务成本和结果可靠性衡量 AI。[Google Cloud](https://cloud.google.com/blog/products/ai-machine-learning/13-demos-on-gemini-enterprise-agent-platform) 把 Agent Platform 展示为从构建、持久运行、治理到评估的完整生命周期。[GitHub](https://github.blog/changelog/2026-07-17-repository-level-github-copilot-usage-metrics-generally-available/) 将 Copilot 指标下沉到仓库和 Pull Request 活动。阿里云则在 7 月 20 日开始对 [AgentLoop](https://www.alibabacloud.com/en/notice/commercialization_notice_for_agentloop_795?_p_lc=1) 商业计费，并把 coding agent 的会话、工具调用、token、日志和 trace 纳入同一个观测系统。
+过去一周的一组发布让这个错位很难忽视。[OpenAI](https://openai.com/index/a-scorecard-for-the-ai-age/) 提议用完成的有用工作而非原始能力来衡量 AI。[Google Cloud](https://cloud.google.com/blog/products/ai-machine-learning/13-demos-on-gemini-enterprise-agent-platform) 演示 Agent Platform 的完整生命周期，包括构建、持续数周的运行、治理和评估。[GitHub](https://github.blog/changelog/2026-07-17-repository-level-github-copilot-usage-metrics-generally-available/) 开始按仓库和 PR 报告 Copilot 活动。阿里云的 [AgentLoop](https://www.alibabacloud.com/en/notice/commercialization_notice_for_agentloop_795?_p_lc=1) 于 7 月 20 日转入商用，把 AI Agent 的会话、工具调用、token 和 trace 打包成一个可计费的观测层。
 
-这些发布来自不同产品线，却指向同一个变化。**Agent infra 正在从“模型调用管理”走向“工作管理”。行业已经能记录一次工作的大部分过程，却还没有共同定义什么算完成、完成得是否正确，以及一次可靠完成究竟花了多少钱。**
+产品线不同，方向相同。**Agent infra 正在从管理模型调用转向管理工作。行业已经能记录 Agent 做的大部分事情，但还没有共识：工作何时算完成，结果是否正确，一次可靠完成究竟花多少钱。**
 
 <!-- more -->
 
-## 四个同时出现、却不能混用的计量单位
+## 四层，每一层都看不见上面那一层
 
-[OpenTelemetry 的 GenAI semantic conventions](https://opentelemetry.io/blog/2026/genai-observability/) 已经能把一次 Agent 执行拆成 `invoke_agent`、模型调用和 `execute_tool` 等 span，并记录模型、token、延迟和工具结果。它处理的是遥测层问题，包括系统做过什么、哪里慢、哪里失败。对于排查重试循环、慢工具和异常 token 消耗，这一层不可替代。
+[OpenTelemetry 的 GenAI conventions](https://opentelemetry.io/blog/2026/genai-observability/) 把 Agent 执行拆成多种 span，包括 `invoke_agent`、模型调用和 `execute_tool`，并附上 token 数、延迟和结果。这是纯遥测：系统做了什么、哪里慢、哪里坏。排查重试风暴或 token 跑飞，靠的就是这一层。
 
-Agent 平台正在其上增加第二层，即会话或执行轨迹。阿里云 AgentLoop 的文档把完整轨迹定义为从用户输入开始，经过模型、工具、检索和记忆，直到最终响应的全过程。Google 的 Agent Platform 示例则加入持久状态机、暂停与恢复、人工审批和跨 Agent 协议。这个单位比模型调用更接近真实执行，因为一个任务可以跨越多个调用，也可以运行数天。
+Agent 平台在其上加了一层：会话或执行轨迹。AgentLoop 把轨迹定义为从用户输入经模型、工具、检索、记忆到最终响应的完整路径。Google 的示例加入持久状态机、暂停恢复、人工审批。这一层比调用更接近真实执行，因为一个任务可以跨很多调用，也可以跑上好几天。
 
-GitHub 7 月 17 日上线的仓库级 Copilot 指标又往上走了一层。新接口按仓库报告 coding agent 创建和合并的 PR，以及 code review 处理的 PR 和建议数量。这里的计量对象已经不是推理请求，而是代码库里的交付活动。它能告诉管理者 AI 在哪些仓库产生了可见活动，却不能单独证明合并后的改动正确、必要或降低了维护成本。
+GitHub 新的仓库级 Copilot 指标再往上走。它统计 AI Agent 创建了多少 PR、合并了多少，以及 review 接受了多少条建议，计量的是交付活动而非推理请求。用来看 AI 在哪些仓库比较活跃，很方便；用来判断合并的改动是否正确、必要或真的降低了维护负担，就不太够了。
 
-OpenAI 同日提出的 scorecard 再向上一步，要求衡量完成了多少有用工作、每个成功任务的完整成本、结果是否可靠，以及每一美元能否随着规模扩大产生更多价值。它明确把重试、人工复核和返工放进成本，而不是只比较 token 单价。这个单位最接近业务结果，也最难自动获得。
+OpenAI 的 scorecard 瞄得最高：完成了多少有用工作、每个成功任务的完整成本、可靠性、规模化后每一美元的价值。成本明确包含重试、人工复核和返工，而不只是 token 单价。最接近业务结果，也最难自动度量。
 
-把四层放在一起，可以得到一条逐步接近结果的链。
+叠起来：
 
-`调用遥测 -> 执行轨迹 -> 交付活动 -> 可验证结果`
+`调用遥测 → 执行轨迹 → 交付活动 → 可验证结果`
 
-它们描述的是同一次工作，却不是可互换的指标。调用成功不等于轨迹合理，轨迹完整不等于 PR 值得合并，PR 已合并也不等于用户问题得到解决。把较低层的可见数字直接当成较高层的结果，会让仪表盘越来越丰富，决策却没有同步变可靠。
+每一层从更广的视角描述同一份工作，但不能互相替代。调用成功说明不了轨迹的连贯性，轨迹完整说明不了 PR 是否值得合并，PR 合并了也说明不了用户的问题是否解决。仪表盘越来越丰富，决策不会自动跟上。
 
-## 为什么这个变化在现在发生
+## 为什么是现在
 
-Agent 的工程形态正在同时拉长时间、扩大权限并增加失败路径。Google 的 13 个示例从简单 ADK Agent 一直覆盖到可运行数周的持久工作流、MCP 工具、A2A 多 Agent 管道、身份与网关、人工审批以及基于 OTel 数据的评估飞轮。一个 prompt tweak 可能改善三个样例，也可能破坏另外十个，因此部署动作自然需要历史数据、回归评估和失败聚类。
+Agent 同时在变长、变宽、变脆。Google 的 13 个示例从简单 ADK agent 一直跨到能跑数周的持久工作流，带 MCP 工具、多 Agent 管道、身份联邦、人工审批门禁，还有一个由 OTel trace 喂养的评估飞轮。一个 prompt tweak 可能改善三个示例，也可能破坏另外十个。回归测试不再是可选项。
 
-成本结构也随之改变。短对话可以近似用 token 计价，长任务却会受到规划质量、工具错误、权限阻塞、模型重试、人工等待和返工影响。便宜模型如果需要多次尝试，成功结果的总成本可能更高。昂贵模型如果一次通过验收，反而可能更便宜。模型路由由此不再只是每 token 价格比较，而是对“成功概率乘以完整执行成本”的优化。
+成本结构随形态改变。短对话可以按 token 计价，长任务不行：规划质量、工具失败、权限阻塞、重试、人工等待、返工都进账单。便宜模型如果要三次尝试，成本可能比贵模型一次通过还高。模型路由变成对预期完成成本的优化，而不是比较每 token 价格。
 
-商业产品已经开始围绕这条链收费和竞争。AgentLoop 在 7 月 20 日进入按量收费，其文档把 trace 转数据集、评估、实验、prompt 与 skill 版本管理、灰度发布和审计放进同一闭环。7 月 17 日更新的 coding agent 接入文档还提供本机 collector，用 hooks 或 plugins 采集 Claude Code、Codex、Cursor 等工具的会话与调用数据。这里值得注意的不是某一家产品是否已经兑现全部宣称，而是产品边界已经从 LLM observability 扩展到了 Agent 的生产生命周期。
+商业产品已经围绕这条链收费。AgentLoop 的文档把 trace 转数据集、评估、实验、prompt 版本管理、灰度发布和审计放在一个闭环里。AI Agent 接入指南现在附带本机 collector 和 hooks，可采集 Claude Code、Codex、Cursor 等工具的会话。值得注意的不是某一家产品是否兑现了所有承诺，而是产品边界已经从 LLM observability 扩展到了 Agent 的生产生命周期。
 
-## 轨迹不是结果，自动评分也不是验收
+## 轨迹不是结果
 
-最明显的矛盾来自这些发布本身。GitHub 的仓库级指标可以数出 PR 的创建、合并和 review 建议，OpenAI 却主张从“采用了多少”转向“完成了什么”。Google 和阿里云都把自动评估放在观测之后，希望从线上 trace 生成数据集，再由 AutoRater、LLM-as-a-Judge 或 Agent-as-a-Judge 识别回归。大家都在向结果靠近，但实际落点仍是不同强度的代理指标。
+矛盾就在这些发布里。GitHub 数 PR 的创建和合并，OpenAI 想从“采用了多少”转向“完成了什么”。Google 和阿里云都把自动评估放在观测之后，从生产 trace 生成数据集，再让 LLM judge 抓回归。大家都在向结果靠拢，但落点仍是不同强度的代理指标。
 
-自动评估的困难不是理论上的担忧。7 月初的一项 [coding agent benchmark 审计](https://arxiv.org/abs/2607.01211) 在四类云机器上重放 740 个性能优化任务，发现多个 benchmark 的参考补丁在跨机器环境中并不稳定。共同提交的排名还会随评分规则变化，28 对比较里有 9 对次序不一致。这个结果针对性能优化 benchmark，不足以否定所有 Agent 评估，却清楚说明了它的边界。即使有可执行测试和数值分数，环境、oracle 和聚合方式仍可能改变结论。
+困难不是理论上的。本月初的一项 [benchmark 审计](https://arxiv.org/abs/2607.01211) 在四类云机器上重放 740 个性能优化任务。在一种机器上通过的参考补丁，在另一种上失败。排名也会随评分规则变化：28 对两两比较里有 9 对顺序随聚合方式翻转。研究针对的是性能 benchmark，不能否定所有 Agent 评估，但标出了一个真实的边界：即使有可执行测试和数值分数，环境和聚合仍可能翻转结论。
 
-[DeepSWE](https://arxiv.org/abs/2607.07946) 提供了一个更接近“可验证工作单元”的正面对照。它为 91 个代码仓库中的 113 个长任务编写行为 verifier，在隔离环境里检查用户要求的功能，同时允许与参考补丁不同的实现。论文还释放 verifier 和完整轨迹。独立 LLM judge 与 DeepSWE verifier 的结论分歧率为 1.4%，与 SWE-Bench Pro 继承测试的分歧率则为 32.4%。这不能证明手写 verifier 等同于真实用户价值，却表明“任务描述、执行环境、验收器和完整轨迹”放在一起，比沿用仓库里原有测试更接近可复核的完成定义。
+[DeepSWE](https://arxiv.org/abs/2607.07946) 指向了更好的方向。它为 91 个仓库中的 113 个长任务手写行为 verifier，在隔离环境里检查用户要求的功能是否可用，而不是检查补丁是否与参考相同。它同时发布 verifier 和完整轨迹。独立 LLM judge 与 DeepSWE verifier 的分歧率为 1.4%，与 SWE-Bench Pro 继承测试的分歧率为 32.4%。手写 verifier 不等于真实用户价值，但把任务描述、执行环境、verifier 和轨迹打包在一起，比沿用合并 PR 时附带的测试更接近可复核的“完成”。
 
-社区层面的摩擦也提醒我们，漂亮的生命周期图不会消除基础设施故障。Google Developer Forums 在 7 月 20 日仍列出用户对 [Gemini Enterprise 自定义 MCP reload 返回 401](https://discuss.google.dev/t/gemini-enterprise-custom-mcp-reload-custom-actions-always-fails-with-401-ui-uses-api-key-instead-of-oauth-token/371907/2) 的报告。这只是个案，不能代表平台整体可靠性，但它展示了任务结果为何必须绑定外部状态。trace 可能完整记录了调用，用户需要的 action 却没有真正生效。
+漂亮的生命周期图不会消除基础设施故障。7 月 20 日，Google Developer Forums 上还有用户报告 [Gemini Enterprise 的自定义 MCP reload 返回 401](https://discuss.google.dev/t/gemini-enterprise-custom-mcp-reload-custom-actions-always-fails-with-401-ui-uses-api-key-instead-of-oauth-token/371907/2)。这是单个案例，不能代表平台整体，但说明为什么 trace 必须绑定外部状态。trace 可能完美记录了调用，用户需要的 action 却从未生效。
 
 因此，Agent 系统需要的不只是更多 trace，也不是给每条 trace 再附一个总分。更稳健的抽象应该把一次工作定义为可验证工作单元，至少包含：
 
