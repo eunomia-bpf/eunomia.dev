@@ -133,6 +133,9 @@ eBPF/open-source observability showed a useful split:
 - If Chrome blocks a local upload, enable "Allow access to file URLs" for the
   ChatGPT Chrome Extension or continue through the visible in-app browser. Do
   not silently substitute a different media file or format.
+- If LinkedIn reports that a GIF or video is too long, preserve the source and
+  upload a shorter platform derivative after verifying its duration and
+  animation.
 - Check the posting identity and visibility setting.
 - Check that mentions are intentional and not attention-seeking.
 
