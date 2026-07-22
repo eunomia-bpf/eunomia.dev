@@ -63,7 +63,10 @@ this orchestrator.
 
 1. Read today's dated tasks, unfinished items, prepared artifacts, platform
    queues, and the previous run's next action. Treat every task due today as
-   required work, not as a menu of optional candidates.
+   required work, not as a menu of optional candidates. A global pause or
+   blocker stated at the top of the monthly plan overrides the dated tasks it
+   covers; do not invoke publisher skills for those tasks until the plan
+   explicitly lifts the pause.
 2. Invoke `eunomia-social-radar` to refresh the observable results and active
    conversations around published content.
 3. Invoke `eunomia-research-report` when today's dated task schedules a weekly
