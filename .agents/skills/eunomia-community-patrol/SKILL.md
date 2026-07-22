@@ -140,6 +140,18 @@ update time, last-seen signature, last-public-action signature, next step,
 blocker, priority, and follow-up status. Never write internal state back to
 GitHub or commit it.
 
+## Write Public Replies as a Maintainer
+
+- Write every issue comment, pull request comment, and review as a normal
+  project maintainer response.
+- Start directly with the evidence, decision, action taken, validation result,
+  blocker, or requested next step that matters to the contributor.
+- Never mention the patrol, sweep, scheduled run, automation, agent process,
+  internal queue, memory, or tooling identity in public GitHub text.
+- Avoid status-banner or ceremonial preambles. When revisiting an item, explain
+  the new evidence or changed blocker rather than the maintenance process that
+  caused the recheck.
+
 ## Authorized Writes
 
 Without per-item confirmation, and only in `eunomia-bpf`, the task may:
