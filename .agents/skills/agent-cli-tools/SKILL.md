@@ -96,6 +96,12 @@ claude auth login
 
 Use `claude -p` for one-shot automation. Use the interactive TUI for multi-step code work where command approvals, diffs, and follow-ups matter.
 
+When delegating prose improvement, give Claude the target files and the
+reader-visible problem, not a proposed structure, rewrite recipe, or preferred
+solution. File scope and commit/push boundaries are operational constraints and
+may remain in the prompt. Run any requested punctuation or formatting check
+after the substantive edit, without turning it into another rewrite pass.
+
 ### Use Kimi Code
 
 ```powershell
