@@ -12,7 +12,7 @@
   <link>https://eunomia.dev/blog/2026/07/25/ebpf-verifier-errors-bpfix/</link>
   <guid>https://eunomia.dev/blog/2026/07/25/ebpf-verifier-errors-bpfix/</guid>
   <pubDate>Sat, 25 Jul 2026 00:00:00 GMT</pubDate>
-  <description>An eBPF verifier rejection ends with a concrete instruction and a terse message, which makes the failure look more localized than it is.</description>
+  <description>When developers load an eBPF program into the Linux kernel, the verifier must prove the program safe before any bytecode runs.</description>
   <author>yuxi4096@gmail.com (yuxi4096)</author>
   <category>eBPF</category>
 </item>

@@ -12,7 +12,7 @@
   <link>https://eunomia.dev/zh/blog/2026/07/25/ebpf-verifier-errors-bpfix/</link>
   <guid>https://eunomia.dev/zh/blog/2026/07/25/ebpf-verifier-errors-bpfix/</guid>
   <pubDate>Sat, 25 Jul 2026 00:00:00 GMT</pubDate>
-  <description>eBPF verifier 报错通常包含一条具体指令和一句简短消息，看起来已经把问题缩小到某一行；但开发者顺着这一行修改后，程序可能继续被拒绝。原因在于内核报告的是验证停止的位置，源代码中的问题往往更早出现：程序在那里丢掉了后续访问所需的指针类型、标量范围、生命周期或来源信息。</description>
+  <description>当开发者将 eBPF 程序加载到 Linux 内核时，verifier 必须在字节码执行之前证明程序安全。verifier 遍历程序的每一条可能执行路径，逐指令跟踪它对每个寄存器和栈槽的了解。如果发现某条指令无法证明安全，例如通过未验证的指针访问内存、读取超出数据包边界或存在无界循环，它就会拒绝程序并打印报错。</description>
   <author>yuxi4096@gmail.com (yuxi4096)</author>
   <category>eBPF</category>
 </item>
