@@ -14,4 +14,4 @@ https://github.com/eunomia-bpf/agentsight
 - Primary link: https://github.com/eunomia-bpf/agentsight
 - Media: the first 10 seconds of `agentvis/examples/actplane-agent-nebula.gif`, uploaded as the local platform derivative `actplane-agent-nebula-10s.gif` (1264 x 936, 300 frames, 10 seconds, 6.3 MB).
 - Alt text: Animated AgentNebula replay of ACTplane. Files appear as stars, top-level directories use stable colors, and ripples show file reads, writes, creates, renames, and deletes across multiple AI Agent sessions.
-- QA state: Draft only. Not opened or posted on X.
+- QA state: Ready in the visible X composer for `@yunwei37`. The 262-character post, GitHub link, 10-second GIF, and alt text all render correctly; the final Post button has not been clicked.
