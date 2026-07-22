@@ -127,6 +127,12 @@ eBPF/open-source observability showed a useful split:
 
 - Preview the collapsed feed version and confirm the first lines still work.
 - Check media crop, document preview, link card, and alt text where available.
+- When the body contains an outbound link, LinkedIn may generate a link card that
+  occupies the media slot. Remove that preview before attaching a requested
+  image or GIF, while leaving the link text in the post.
+- If Chrome blocks a local upload, enable "Allow access to file URLs" for the
+  ChatGPT Chrome Extension or continue through the visible in-app browser. Do
+  not silently substitute a different media file or format.
 - Check the posting identity and visibility setting.
 - Check that mentions are intentional and not attention-seeking.
 
