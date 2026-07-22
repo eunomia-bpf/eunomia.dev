@@ -3,7 +3,7 @@
   "platform_id": "linkedin",
   "label": "LinkedIn",
   "kind": "professional_social",
-  "last_checked": "2026-07-19",
+  "last_checked": "2026-07-22",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -14,6 +14,19 @@
       "url": "https://www.linkedin.com/in/yunwei37/",
       "status": "confirmed",
       "observed_note": "In-app browser showed the profile as the logged-in user with the headline Founder of eunomia.dev | Building Infra for AI Agents with eBPF."
+    }
+  ],
+  "browser_observations": [
+    {
+      "checked_at": "2026-07-22",
+      "checked_via": "in_app_browser_visible_post_and_latest_comments",
+      "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:7481167639831252992/",
+      "visible_impressions": 3138,
+      "visible_reactions": 60,
+      "visible_comments": 5,
+      "visible_reposts": 4,
+      "previous_impressions": 3121,
+      "notes": "Impressions increased by 17 from the 2026-07-21 checkpoint. The five visible comments comprised three reader comments and two author replies; no unanswered technical question was visible. No LinkedIn API or hidden endpoint evidence is used."
     }
   ],
   "published": [

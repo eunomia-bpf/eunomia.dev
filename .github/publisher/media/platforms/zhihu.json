@@ -3,7 +3,7 @@
   "platform_id": "zhihu",
   "label": "Zhihu",
   "kind": "longform_chinese",
-  "last_checked": "2026-07-21",
+  "last_checked": "2026-07-22",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -32,6 +32,14 @@
       "visible_article_links_collected": 112,
       "profile_url": "https://www.zhihu.com/people/yun-wei-64-11/posts",
       "notes": "Collected by normal rendered-page scrolling in the in-app browser. No Zhihu API or internal endpoint evidence is used. The visible link count is one higher than the profile article count; keep the discrepancy explicit."
+    },
+    {
+      "checked_at": "2026-07-22",
+      "checked_via": "in_app_browser_public_article_visible_dom_qa",
+      "article_url": "https://zhuanlan.zhihu.com/p/2063162298781398619",
+      "visible_upvotes": 3,
+      "visible_comments": 0,
+      "notes": "The tutorial 54 public page remained reachable. Its published title, rendered body, code, 6-row table, loaded 1440x895 content image, and 11 outbound links were visible. The current canonical source title uses 实际安装 after the 2026-07-22 sync, while this page retains the originally published 真正安装 title. No Zhihu API or hidden endpoint evidence is used."
     }
   ],
   "published": [

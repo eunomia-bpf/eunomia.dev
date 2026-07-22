@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-07-21",
+  "last_checked": "2026-07-22",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -31,6 +31,14 @@
       "profile_article_count": 40,
       "article_url": "https://juejin.cn/post/7664864449153613824",
       "notes": "The exact title was the first visible profile article. Public-page QA confirmed 51 paragraphs, 13 section headings, 10 code blocks, one 6-row table, one loaded 1700x1057 image, 11 outbound links, and visible tags Linux and 开源. No platform API, hidden endpoint, or screenshot evidence is used."
+    },
+    {
+      "checked_at": "2026-07-22",
+      "checked_via": "in_app_browser_public_article_visible_dom_qa",
+      "article_url": "https://juejin.cn/post/7664864449153613824",
+      "visible_views": 16,
+      "visible_comments": 0,
+      "notes": "The tutorial 54 public page remained reachable. Its published title, body structure, 10 code blocks, 6-row table, 11 outbound links, and lazy-loaded 1700x1057 image were visible after normal scrolling. No numeric like total was displayed, so it is treated as unavailable. The current canonical source title uses 实际安装 after the 2026-07-22 sync, while this page retains the originally published 真正安装 title. No Juejin API or hidden endpoint evidence is used."
     }
   ],
   "published": [
