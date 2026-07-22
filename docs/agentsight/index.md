@@ -25,7 +25,15 @@ closed-source CLI. **✨ Zero SDK Required**
 ```bash
 cargo install agentsight
 # or: wget https://github.com/eunomia-bpf/agentsight/releases/latest/download/agentsight && chmod +x agentsight
-agentsight vis
+```
+
+
+<div align="center">
+  <img src="https://github.com/eunomia-bpf/agentsight/raw/master/docs/top-mode-demo.png" alt="AgentSight top live session view" width="1000">
+  <p><em>Live sessions ranked by model, session tokens, health, process family, tool calls, file activity, and network activity</em></p>
+</div>
+
+```sh
 agentsight top
 ```
 
@@ -34,10 +42,9 @@ agentsight top
   <p><em>Agent Nebula replays how coding agents read, write, create, rename, and delete files across the ACTplane repository</em></p>
 </div>
 
-<div align="center">
-  <img src="https://github.com/eunomia-bpf/agentsight/raw/master/docs/top-mode-demo.png" alt="AgentSight top live session view" width="1000">
-  <p><em>Live sessions ranked by model, session tokens, health, process family, tool calls, file activity, and network activity</em></p>
-</div>
+```sh
+agentsight vis
+```
 
 <div align="center">
   <img src="https://github.com/eunomia-bpf/agentsight/raw/master/docs/flamegraph-example/semantic-flamegraph-top200.svg" alt="Semantic flamegraph of the top 200 agent stacks" width="1000">
