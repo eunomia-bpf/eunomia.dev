@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <cuda.h>
 #include <cupti.h>
+#include "cupti_activity_compat.h"
 
 #define CUPTI_CALL(call)                                                \
   do {                                                                  \
@@ -143,7 +144,7 @@ printActivity(CUpti_Activity *record)
   {
   case CUPTI_ACTIVITY_KIND_DEVICE:
     {
-      CUpti_ActivityDevice2 *device = (CUpti_ActivityDevice2 *) record;
+      CuptiActivityDevice *device = (CuptiActivityDevice *) record;
       printf("DEVICE %s (%u), capability %u.%u, global memory (bandwidth %u GB/s, size %u MB), "
              "multiprocessors %u, clock %u MHz\n",
              device->name, device->id,

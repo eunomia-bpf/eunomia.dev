@@ -25,6 +25,7 @@
 // CUPTI headers
 #include <cupti.h>
 #include <helper_cupti.h>
+#include "cupti_activity_compat.h"
 
 // Macros
 #define LINE_SIZE 2048
@@ -1250,7 +1251,7 @@ PrintActivity(
         }
         case CUPTI_ACTIVITY_KIND_DEVICE:
         {
-            CUpti_ActivityDevice5 *pDeviceRecord = (CUpti_ActivityDevice5 *)pRecord;
+            CuptiActivityDevice *pDeviceRecord = (CuptiActivityDevice *)pRecord;
 
             fprintf(pFileHandle, "%s %s [ %u ]\n",
                     GetActivityKindString(pDeviceRecord->kind),

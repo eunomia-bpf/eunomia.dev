@@ -133,7 +133,7 @@ printActivity(CUpti_Activity *record)
   case CUPTI_ACTIVITY_KIND_DEVICE:
     {
       // 打印设备信息
-      CUpti_ActivityDevice2 *device = (CUpti_ActivityDevice2 *)record;
+      CuptiActivityDevice *device = (CuptiActivityDevice *)record;
       printf("设备 %s (%u)，计算能力 %u.%u，...\n",
              device->name, device->id,
              device->computeCapabilityMajor, device->computeCapabilityMinor);
@@ -154,6 +154,8 @@ printActivity(CUpti_Activity *record)
   }
 }
 ```
+
+`CuptiActivityDevice` 定义在 `common/cupti_activity_compat.h` 中。CUPTI 13.2 及更新版本会选择 `CUpti_ActivityDevice6`，CUDA 12.9 等较早的受支持 Toolkit 则继续使用 `CUpti_ActivityDevice5`。
 
 ### 5. 测试内核和主函数
 
@@ -260,4 +262,4 @@ void finiTrace()
 - 尝试启用不同的活动类型以查看应用程序的不同方面
 - 修改代码以将记录存储在数据库或文件中以供后续分析
 - 实现自定义可视化工具以帮助理解时间线数据
-- 尝试在您自己的CUDA应用程序上运行异步跟踪器 
+- 尝试在您自己的CUDA应用程序上运行异步跟踪器

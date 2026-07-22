@@ -133,7 +133,7 @@ printActivity(CUpti_Activity *record)
   case CUPTI_ACTIVITY_KIND_DEVICE:
     {
       // Print device info
-      CUpti_ActivityDevice2 *device = (CUpti_ActivityDevice2 *)record;
+      CuptiActivityDevice *device = (CuptiActivityDevice *)record;
       printf("DEVICE %s (%u), capability %u.%u, ...\n",
              device->name, device->id,
              device->computeCapabilityMajor, device->computeCapabilityMinor);
@@ -154,6 +154,8 @@ printActivity(CUpti_Activity *record)
   }
 }
 ```
+
+`CuptiActivityDevice` is defined in `common/cupti_activity_compat.h`. It selects `CUpti_ActivityDevice6` for CUPTI 13.2 and newer, while CUDA 12.9 and other earlier supported toolkits continue to use `CUpti_ActivityDevice5`.
 
 ### 5. Test Kernel and Main Function
 
@@ -260,4 +262,4 @@ Asynchronous tracing offers several performance benefits:
 - Try enabling different activity kinds to see different aspects of your application
 - Modify the code to store records in a database or file for later analysis
 - Implement a custom visualization tool to help understand the timeline data
-- Try running the asynchronous tracer on your own CUDA applications 
+- Try running the asynchronous tracer on your own CUDA applications

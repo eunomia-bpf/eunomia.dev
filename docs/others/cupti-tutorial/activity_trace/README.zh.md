@@ -66,6 +66,8 @@ static void CUPTIAPI bufferCompleted(CUcontext ctx, uint32_t streamId, uint8_t *
 
 `printActivity` 函数是分析的核心，解释不同类型的活动：
 
+设备记录使用 `common/cupti_activity_compat.h` 中的 `CuptiActivityDevice` 兼容类型。CUPTI 13.2 及更新版本会选择 `CUpti_ActivityDevice6`，较早的受支持 Toolkit 则使用 `CUpti_ActivityDevice5`。
+
 ```cpp
 static void printActivity(CUpti_Activity *record)
 {
@@ -178,4 +180,4 @@ __global__ void vecAdd(const float *A, const float *B, float *C, int numElements
 - 尝试修改向量大小以查看它如何影响性能
 - 启用其他活动类型以收集更详细的信息
 - 比较您自己应用程序中不同GPU操作的时序
-- 探索CUPTI的其他基于活动的示例以获得更高级的跟踪功能 
+- 探索CUPTI的其他基于活动的示例以获得更高级的跟踪功能

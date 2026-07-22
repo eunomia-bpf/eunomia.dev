@@ -66,6 +66,8 @@ When CUPTI fills a buffer with activity data, this callback processes each recor
 
 The `printActivity` function is the heart of the analysis, interpreting different types of activities:
 
+Device records use the `CuptiActivityDevice` compatibility type from `common/cupti_activity_compat.h`, which selects `CUpti_ActivityDevice6` for CUPTI 13.2 and newer or `CUpti_ActivityDevice5` for earlier supported toolkits.
+
 ```cpp
 static void printActivity(CUpti_Activity *record)
 {
@@ -178,4 +180,4 @@ With this trace data, you can:
 - Try modifying the vector size to see how it affects performance
 - Enable additional activity kinds to gather more detailed information
 - Compare the timings of different GPU operations in your own applications
-- Explore CUPTI's other activity-based samples for more advanced tracing 
+- Explore CUPTI's other activity-based samples for more advanced tracing
