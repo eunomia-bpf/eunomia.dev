@@ -52,11 +52,11 @@
   <category>AI agent observability</category>
 </item>
 <item>
-  <title>AI Agent 预算花到哪了：用语义 Flamegraph 诊断 Trace</title>
+  <title>AI Agent Trace 的语义 Flamegraph</title>
   <link>https://eunomia.dev/zh/blog/2026/06/24/agentpprof-semantic-flamegraph/</link>
   <guid>https://eunomia.dev/zh/blog/2026/06/24/agentpprof-semantic-flamegraph/</guid>
   <pubDate>Wed, 24 Jun 2026 00:00:00 GMT</pubDate>
-  <description>一张 $3000 的 AI agent 账单不是诊断报告，它不会告诉团队钱是花在代码审查、调试、文档生成、工具重试，还是把同一个任务拖成多轮的 continuation prompt 上。真正的运营问题是哪几类重复工作已经贵到值得重写流程。</description>
+  <description>AI Agent 跑完一个月，你知道 token 总量却不知道分布。代码审查花了多少、调试花了多少？工具重试是否显著、continuation prompt 是否占主导？这些问题关乎工作流优化，但传统可观测性工具无法直接回答。</description>
   <author>yuxi4096@gmail.com (yuxi4096)</author>
   <author>1067852565@qq.com (云微)</author>
   <author>i@littlefisher.me (LinuxDev9002)</author>

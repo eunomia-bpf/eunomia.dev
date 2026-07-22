@@ -52,11 +52,11 @@
   <category>AI agent observability</category>
 </item>
 <item>
-  <title>Where AI Agent Budgets Go: Semantic Flamegraphs for Agent Traces</title>
+  <title>Semantic Flamegraphs for AI Agent Traces</title>
   <link>https://eunomia.dev/blog/2026/06/24/agentpprof-semantic-flamegraph/</link>
   <guid>https://eunomia.dev/blog/2026/06/24/agentpprof-semantic-flamegraph/</guid>
   <pubDate>Wed, 24 Jun 2026 00:00:00 GMT</pubDate>
-  <description>A $3000 AI-agent bill is not a diagnosis. It does not tell you whether the money went to code review, debugging, documentation, tool retries, or continuation prompts that stretched one task across many turns. The</description>
+  <description>When an AI Agent finishes a month of work, you know the total token spend but not the breakdown.</description>
   <author>yuxi4096@gmail.com (yuxi4096)</author>
   <author>1067852565@qq.com (云微)</author>
   <author>i@littlefisher.me (LinuxDev9002)</author>
