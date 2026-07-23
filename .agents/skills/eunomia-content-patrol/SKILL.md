@@ -1,6 +1,6 @@
 ---
 name: eunomia-content-patrol
-description: Orchestrate the scheduled or manual daily eunomia.dev content operation. Use when Codex needs to read the current daily plan, invoke eunomia-research-report on scheduled weekly analysis dates, invoke eunomia-social-radar for publication performance and conversations, route ready content to the matching publisher skill, complete every scheduled task end to end without per-run confirmation, and consolidate useful results in the dated media workspace. This skill is the versioned source of truth for the `eunomia` cron automation; it coordinates other skills and does not itself browse platforms, research topics, write reports, or draft platform copy.
+description: Orchestrate the scheduled or manual daily eunomia.dev content operation. Use when Codex needs to read the rolling publication queue, invoke eunomia-research-report when a weekly analysis becomes eligible, invoke eunomia-social-radar for publication performance and conversations, route an explicitly authorized ready item to the matching publisher skill, and consolidate useful results in the dated media workspace. This skill is the versioned source of truth for the `eunomia` cron automation; it coordinates other skills and does not itself browse platforms, research topics, write reports, or draft platform copy.
 ---
 
 # Eunomia Content Patrol
@@ -15,7 +15,7 @@ Read these before routing work:
 - `CLAUDE.md`
 - `.agents/README.md`
 - `draft/plan/README.zh.md`
-- current month plan: `draft/plan/YYYY-MM.zh.md`
+- rolling publication queue: `draft/plan/publishing-queue.zh.md`
 - today's media workspace and recent run log, if present:
   `draft/media/YYYY-MM-DD/` and `draft/media/YYYY-MM-DD/run-log.md`
 - `.github/publisher/media/README.md`
@@ -45,8 +45,8 @@ Those actions belong to the routed skills below.
 - Invoke `eunomia-research-report` for broad current-news research, source
   verification, topic selection, thesis formation, and a scheduled weekly deep
   report. It may return "no defensible thesis" without creating a report unless
-  the dated plan explicitly schedules a public analysis and the widened research
-  window supports a defensible alternative topic.
+  the rolling queue explicitly marks a public analysis as `可发布` and the
+  widened research window supports a defensible alternative topic.
 - Invoke `eunomia-social-radar` to inspect every relevant published blog/post,
   current performance, external reposts or citations, comments, discussions,
   replies, and response opportunities.
@@ -54,25 +54,24 @@ Those actions belong to the routed skills below.
   publishing, reposting, or replying on LinkedIn, Xiaohongshu, Zhihu, Juejin, X,
   Reddit, Medium, DEV, Hacker News, or Lobsters.
 - Invoke `content-launch-planner` only when a new multi-platform launch needs a
-  plan that the dated monthly plan does not already supply.
+  plan that the rolling queue does not already supply.
 
 Do not duplicate a child skill's workflow or silently complete its work inside
 this orchestrator.
 
 ## Daily Orchestration
 
-1. Read today's dated tasks, unfinished items, prepared artifacts, platform
-   queues, and the previous run's next action. Treat every task due today as
-   required work, not as a menu of optional candidates. A global pause or
-   blocker stated at the top of the monthly plan overrides the dated tasks it
-   covers; do not invoke publisher skills for those tasks until the plan
-   explicitly lifts the pause.
+1. Read the rolling queue, prepared artifacts, platform ledgers, and the
+   previous run's next action. A global pause or blocker at the top of the
+   queue overrides every item it covers. Only the first eligible unfinished
+   task explicitly marked `可发布` is due; `待确认`, `待复核`, `候补`, and
+   `阻塞` are not publication instructions.
 2. Invoke `eunomia-social-radar` to refresh the observable results and active
    conversations around published content.
-3. Invoke `eunomia-research-report` when today's dated task schedules a weekly
-   analysis report. Do not infer an extra research report from an otherwise open
-   day.
-   When the dated task schedules an analysis publication, use the reviewed
+3. Invoke `eunomia-research-report` when the weekly-analysis queue item is
+   eligible and marked `可发布`. Do not infer an extra research report merely
+   because no platform item is ready.
+   When the queue authorizes an analysis publication, use the reviewed
    `deep-report.zh.md` only as a working source, then move the final Chinese post
    to `docs/blog/posts/<slug>.zh.md`. Keep public `date`, `slug`, `title`,
    `description`, `research_question`, `research_window`, and precise tags;
@@ -85,29 +84,30 @@ this orchestrator.
    to punctuation, spacing, terminology consistency, and clear language errors.
    Do not substantively rewrite either source. Use `seo-geo` only for technical
    metadata, links, and indexing checks, then run one independent editor pass.
-4. Collect the child results and identify publication, repost, or reply actions
-   that are due today. Prefer finishing a ready item over creating additional
-   drafts.
-5. Invoke the matching publisher skill for every due platform action. Let that
+4. Collect the child results and identify the single publication action
+   authorized for the current window. Prefer finishing it over creating
+   additional drafts.
+5. Invoke the matching publisher skill for that action. Let that
    skill own copy adaptation, visible browser interaction, preview, final QA,
    the action itself, and platform-ledger updates.
-6. Confirm the observable result returned by each child skill. Update the dated
-   plan and platform ledger first. If a separate run record is useful, write
-   completed actions, real URLs, artifact paths, blockers, and next actions to
-   `draft/media/YYYY-MM-DD/run-log.md`.
+6. Confirm the observable result returned by each child skill. Update the
+   rolling queue and platform ledger first. If a separate run record is useful,
+   write completed actions, real URLs, artifact paths, blockers, and next
+   actions to `draft/media/YYYY-MM-DD/run-log.md`.
 
 The research and social-radar calls may be run independently when neither needs
 the other's output. Do not create a standalone orchestration report.
 
 ## Scheduled Execution Authority
 
-A dated daily task assigned to the scheduled `eunomia` patrol is the execution
-instruction and standing authorization for every action needed to finish that
-task. Complete it end to end, including the final publish, repost, quote, reply,
-or other platform action it calls for. Do not ask for another confirmation and
-do not let a child publisher skill's normal confirmation step stop the run.
+The first eligible rolling-queue item explicitly marked `可发布` is the
+execution instruction and standing authorization for every action needed to
+finish that item. Complete it end to end, including the final publish, repost,
+quote, reply, or other platform action it calls for. Do not ask for another
+confirmation and do not let a child publisher skill's normal confirmation step
+stop the run. No other queue status grants this authority.
 
-Resolve routine implementation details from the daily plan, prepared artifacts,
+Resolve routine implementation details from the rolling queue, prepared artifacts,
 platform ledgers, repository context, and visible account state. Do not require
 the plan to repeat information already available elsewhere, and do not invent
 new approval or field-completeness gates. Preview, draft creation, and prepared

@@ -77,7 +77,7 @@ canonical、description、tag、OG image、schema、llms-full、平台预览和 
 - GitHub issue/docs 回链
 - 月度或双周 report 摘要
 
-下一阶段执行规则见 `draft/plan/README.zh.md`，具体任务只写在对应月份文件中，不再维护平行的总索引或月度 daily log。
+下一阶段执行规则见 `draft/plan/README.zh.md`，具体任务按执行先后写入 `draft/plan/publishing-queue.zh.md`，不预先绑定具体日期，也不维护平行的月度索引或 daily log。
 
 Medium/Dev.to 适合延迟转载，支持 canonical 时回指 eunomia.dev。知乎、掘金、X、LinkedIn、Reddit、HN、Lobsters 更重要的是平台原生可信度，不要把每篇都写成外链漏斗。
 

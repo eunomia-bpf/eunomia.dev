@@ -13,7 +13,7 @@ substantial public report whose length is earned by evidence and analysis.
 Read these before acting:
 
 - `CLAUDE.md`
-- current month plan: `draft/plan/YYYY-MM.zh.md`
+- rolling publication queue: `draft/plan/publishing-queue.zh.md`
 - today's media workspace and run log, if present:
   `draft/media/YYYY-MM-DD/` and `draft/media/YYYY-MM-DD/run-log.md`
 - previous reports under `draft/media/` and `docs/reports/` when checking topic

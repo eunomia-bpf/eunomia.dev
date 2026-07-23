@@ -10,7 +10,7 @@ For full per-platform counts across all configured source files, run `python .gi
 
 | Source | Title | Medium/Dev.to | Zhihu | Juejin | Next action |
 | --- | --- | --- | --- | --- | --- |
-| `docs/tutorials/50-tcx` | eBPF Tutorial by Example 50: Composable Traffic Control with TCX Links | Confirmed on both | Confirmed missing | Confirmed missing | Publish the unchanged Chinese source on the scheduled Zhihu and Juejin dates |
+| `docs/tutorials/50-tcx` | eBPF Tutorial by Example 50: Composable Traffic Control with TCX Links | Confirmed on both | Confirmed missing | Confirmed missing | Keep the unchanged Chinese source in the rolling Zhihu and Juejin queue |
 | `docs/blog/posts/cpu-noise-gpu-inference.md` | When CPU Noise Slows Down GPU Inference: Measuring Scheduler and IRQ Impact with eBPF | Confirmed on both | Confirmed missing | Confirmed missing | Publish the unchanged Chinese source on the scheduled Zhihu and Juejin dates |
 | `docs/blog/posts/runtime-security-for-opaque-ai-agents.md` | Runtime Observability and Enforcement for Opaque AI Agents with eBPF: Beyond Sandboxes and Approvals | Confirmed on both | Confirmed | Confirmed missing | Publish the unchanged Chinese source to Juejin on its scheduled date |
 | `docs/blog/posts/agent-check-restore-safety.md` | ACRFence: Preventing Semantic Rollback Attacks in Agent Checkpoint-Restore | Confirmed on both | Confirmed | Confirmed missing | Publish the unchanged Chinese source to Juejin on its scheduled date |
