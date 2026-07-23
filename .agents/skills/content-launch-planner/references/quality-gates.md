@@ -179,10 +179,10 @@ At the end of every platform publishing session:
 - Platform checks must use visible browser interaction when logged-in state is
   involved.
 - Do not use hidden platform APIs, background endpoints, or autopost tools.
-- A rolling-queue task explicitly marked `可发布` and executed by
+- A rolling-queue task explicitly marked `排队` and executed by
   `eunomia-content-patrol` is direct authorization for every final platform
-  action needed to complete that task. `待确认`, `待复核`, `候补`, and `阻塞`
-  items are not publishing authorization.
+  action needed to complete that task. `待确认` and `阻塞` items are not
+  publishing authorization; `跳过` records an item rejected at execution.
 - Finish an authorized item without secondary confirmation or extra
   field-completeness gates.
 - Resolve routine details from the plan, artifacts, ledgers, publisher

@@ -1,6 +1,6 @@
 # Not Published / Pending Media Ledger
 
-Last checked: 2026-07-21
+Last checked: 2026-07-23
 
 This file tracks source posts that still need platform work. The latest checked `.github/publisher/posts_queue.txt` is empty; historical rows below are retained as candidate-source tracking, not proof that Medium/Dev.to are still queued.
 
@@ -8,12 +8,12 @@ For full per-platform counts across all configured source files, run `python .gi
 
 ## Current Publisher Queue
 
-| Source | Title | Medium/Dev.to | Zhihu | Juejin | Next action |
-| --- | --- | --- | --- | --- | --- |
-| `docs/tutorials/50-tcx` | eBPF Tutorial by Example 50: Composable Traffic Control with TCX Links | Confirmed on both | Confirmed missing | Confirmed missing | Keep the unchanged Chinese source in the rolling Zhihu and Juejin queue |
-| `docs/blog/posts/cpu-noise-gpu-inference.md` | When CPU Noise Slows Down GPU Inference: Measuring Scheduler and IRQ Impact with eBPF | Confirmed on both | Confirmed missing | Confirmed missing | Publish the unchanged Chinese source on the scheduled Zhihu and Juejin dates |
-| `docs/blog/posts/runtime-security-for-opaque-ai-agents.md` | Runtime Observability and Enforcement for Opaque AI Agents with eBPF: Beyond Sandboxes and Approvals | Confirmed on both | Confirmed | Confirmed missing | Publish the unchanged Chinese source to Juejin on its scheduled date |
-| `docs/blog/posts/agent-check-restore-safety.md` | ACRFence: Preventing Semantic Rollback Attacks in Agent Checkpoint-Restore | Confirmed on both | Confirmed | Confirmed missing | Publish the unchanged Chinese source to Juejin on its scheduled date |
+The machine ledger currently reports 43 unmatched Chinese sources on Zhihu and
+80 on Juejin. These raw counts include paused material, non-standalone index or
+reference pages, and duplicate source representations. The ordered platform
+actions that remain suitable candidates are maintained one-by-one in
+`draft/plan/publishing-queue.zh.md`; each checkbox is one platform task and the
+daily patrol completes at most one.
 
 ## Additional Platform Status
 
@@ -22,7 +22,7 @@ For full per-platform counts across all configured source files, run `python .gi
 | X / Twitter | Several historical self-authored posts are confirmed on `@yunwei37`; see `published.md` | The configured/planned `@eaborai` account currently showed `此账号不存在`; no full X archive export was done | Replace or verify `@eaborai` in planning/metadata; paginate/export `@yunwei37` before declaring full X history complete |
 | LinkedIn | In-app browser/sidebar confirmed `Yusheng Zheng` / `yunwei37` profile and visible authored posts for ActPlane/AgentSight, ACRFence, GPU observability, agentpprof, and BPFix; see `platforms/linkedin.json` | Current script coverage is 6/122 English target sources; several search-visible posts still lack exact post permalinks | Continue through normal LinkedIn browser UI only; scroll recent activity to backfill exact permalinks and older posts |
 | Zhihu | Normal visible scrolling collected 113 unique article links from a profile reporting 114 articles; machine ledger maps 64/107 Chinese sources | 43 configured Chinese sources remain unmatched | Publish only ledger-confirmed gaps and recheck the visible title immediately before submission |
-| Juejin | Normal visible pagination covered four pages and 40 unique authored article links; machine ledger maps 26/107 Chinese sources | 81 configured Chinese sources remain unmatched | Publish unchanged Chinese sources through the platform's independent schedule and normal editor |
+| Juejin | Normal visible pagination covered four pages and 40 unique authored article links; machine ledger maps 27/107 Chinese sources | 80 configured Chinese sources remain unmatched | Publish unchanged Chinese sources through the rolling one-platform-per-day queue and normal editor |
 | Medium | Normal visible scrolling collected 62 authored story links; machine ledger maps 60/122 English sources | 62 configured English sources remain unmatched | Publish confirmed gaps through the platform's independent schedule and normal Medium web editor |
 | DEV Community | Profile reports 57 posts and visible scrolling collected 54 unique links; machine ledger maps 47/122 English sources | 75 configured English sources remain unmatched | Publish confirmed gaps through the platform's independent schedule and normal DEV web editor |
 | Reddit | Historical `u/yunwei123` posts are confirmed for eBPF tutorial, GPTtrace, Code-Survey-like discussion, and Wasm-bpf; see `published.md` | No evidence yet that current 2026 flagship posts were submitted to r/eBPF, r/netsec, r/LocalLLaMA, HN, or lobste.rs | Use Reddit only manually for flagship posts; check subreddit fit before posting |

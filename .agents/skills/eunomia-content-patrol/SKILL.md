@@ -45,7 +45,7 @@ Those actions belong to the routed skills below.
 - Invoke `eunomia-research-report` for broad current-news research, source
   verification, topic selection, thesis formation, and a scheduled weekly deep
   report. It may return "no defensible thesis" without creating a report unless
-  the rolling queue explicitly marks a public analysis as `可发布` and the
+  the rolling queue explicitly marks a public analysis as `排队` and the
   widened research window supports a defensible alternative topic.
 - Invoke `eunomia-social-radar` to inspect every relevant published blog/post,
   current performance, external reposts or citations, comments, discussions,
@@ -64,12 +64,12 @@ this orchestrator.
 1. Read the rolling queue, prepared artifacts, platform ledgers, and the
    previous run's next action. A global pause or blocker at the top of the
    queue overrides every item it covers. Only the first eligible unfinished
-   task explicitly marked `可发布` is due; `待确认`, `待复核`, `候补`, and
-   `阻塞` are not publication instructions.
+   task explicitly marked `排队` is due; `待确认` and `阻塞` are not
+   publication instructions, while `跳过` records a rejected item.
 2. Invoke `eunomia-social-radar` to refresh the observable results and active
    conversations around published content.
 3. Invoke `eunomia-research-report` when the weekly-analysis queue item is
-   eligible and marked `可发布`. Do not infer an extra research report merely
+   eligible and marked `排队`. Do not infer an extra research report merely
    because no platform item is ready.
    When the queue authorizes an analysis publication, use the reviewed
    `deep-report.zh.md` only as a working source, then move the final Chinese post
@@ -100,7 +100,7 @@ the other's output. Do not create a standalone orchestration report.
 
 ## Scheduled Execution Authority
 
-The first eligible rolling-queue item explicitly marked `可发布` is the
+The first eligible rolling-queue item explicitly marked `排队` is the
 execution instruction and standing authorization for every action needed to
 finish that item. Complete it end to end, including the final publish, repost,
 quote, reply, or other platform action it calls for. Do not ask for another

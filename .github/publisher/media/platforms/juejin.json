@@ -68,8 +68,11 @@
       "title": "实证研究：AI Agent 规则需要上下文与分层强制执行",
       "url": "https://juejin.cn/post/7664151348536229903",
       "source_path": "docs/blog/posts/ebpf-ai-agent-policy-enforcement.zh.md",
+      "equivalent_source_paths": [
+        "docs/blog/posts/actplane.zh.md"
+      ],
       "checked_via": "publish_success_and_article_page_visible",
-      "notes": "Category 人工智能; tags Linux, AI编程, 安全. The published article is visible on the authored profile page."
+      "notes": "Category 人工智能; tags Linux, AI编程, 安全. The published article is visible on the authored profile page and supersedes the earlier same-title ActPlane source."
     },
     {
       "id": "juejin-7424407625897492514",
