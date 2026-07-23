@@ -12,6 +12,7 @@ type ArticleLayoutProps = PropsWithChildren<{
   title: string;
   description: string;
   tags?: string[];
+  publishedAt?: string;
   sourceHref: string;
   metadata?: GitMetadata | null;
   headings?: HeadingEntry[];
@@ -27,6 +28,7 @@ export function ArticleLayout({
   title,
   description,
   tags = [],
+  publishedAt,
   sourceHref,
   metadata,
   headings = [],
@@ -70,6 +72,7 @@ export function ArticleLayout({
             path={path}
             sourceHref={sourceHref}
             metadata={metadata}
+            publishedAt={publishedAt}
             continuation={continuation}
           />
         </article>

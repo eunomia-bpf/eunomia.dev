@@ -39,6 +39,14 @@
       "visible_views": 16,
       "visible_comments": 0,
       "notes": "The tutorial 54 public page remained reachable. Its published title, body structure, 10 code blocks, 6-row table, 11 outbound links, and lazy-loaded 1700x1057 image were visible after normal scrolling. No numeric like total was displayed, so it is treated as unavailable. The current canonical source title uses 实际安装 after the 2026-07-22 sync, while this page retains the originally published 真正安装 title. No Juejin API or hidden endpoint evidence is used."
+    },
+    {
+      "checked_at": "2026-07-22",
+      "checked_via": "in_app_browser_existing_article_update_and_staged_page_dom_qa",
+      "article_url": "https://juejin.cn/post/7664864449153613824",
+      "staged_url": "https://juejin.cn/spost/7664864449153613824",
+      "review_status": "pending",
+      "notes": "Submitted an in-place update through the visible editor. The staged review page shows the exact current source title, 15 section headings, 8 code blocks, one table, 11 outbound article links, one loaded 960x418 image, READY scope=system-wide, and the completed >= scheduled shutdown condition. The public /post page continues to show the prior version until Juejin review completes. No Juejin API or hidden endpoint was used."
     }
   ],
   "published": [
@@ -46,10 +54,13 @@
       "id": "juejin-7664864449153613824",
       "status": "confirmed",
       "title": "eBPF 教程：检查 exec 后真正安装的可执行镜像",
+      "pending_title": "eBPF 教程：检查 exec 后实际安装的可执行镜像",
+      "pending_review_url": "https://juejin.cn/spost/7664864449153613824",
+      "pending_update_status": "platform_review",
       "url": "https://juejin.cn/post/7664864449153613824",
       "source_path": "docs/tutorials/54-exec-image-inspector/README.zh.md",
-      "checked_via": "profile_exact_title_and_public_article_page_dom_qa",
-      "notes": "Published from the existing Juejin draft. The public page visibly shows tags Linux and 开源; exact title, body structure, code blocks, table, loaded image, and outbound links were confirmed."
+      "checked_via": "public_article_confirmed_update_pending_platform_review",
+      "notes": "The existing public article remains confirmed. A current-source update was submitted on 2026-07-22 and passed staged-page DOM QA, but the public URL retains the prior title and body while Juejin review is pending."
     },
     {
       "id": "juejin-7664151348536229903",

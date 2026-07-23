@@ -40,17 +40,23 @@
       "visible_upvotes": 3,
       "visible_comments": 0,
       "notes": "The tutorial 54 public page remained reachable. Its published title, rendered body, code, 6-row table, loaded 1440x895 content image, and 11 outbound links were visible. The current canonical source title uses 实际安装 after the 2026-07-22 sync, while this page retains the originally published 真正安装 title. No Zhihu API or hidden endpoint evidence is used."
+    },
+    {
+      "checked_at": "2026-07-22",
+      "checked_via": "in_app_browser_existing_article_update_and_public_page_dom_qa",
+      "article_url": "https://zhuanlan.zhihu.com/p/2063162298781398619",
+      "notes": "Updated the existing article through the visible editor. Public-page QA confirmed the exact current source title, 15 section headings, 8 rendered code blocks, one table, 11 outbound article links, one loaded 960x418 content image, READY scope=system-wide, and the completed >= scheduled shutdown condition. No Zhihu API or hidden endpoint was used."
     }
   ],
   "published": [
     {
       "id": "zhihu-2063162298781398619",
       "status": "confirmed",
-      "title": "eBPF 教程：检查 exec 后真正安装的可执行镜像",
+      "title": "eBPF 教程：检查 exec 后实际安装的可执行镜像",
       "url": "https://zhuanlan.zhihu.com/p/2063162298781398619",
       "source_path": "docs/tutorials/54-exec-image-inspector/README.zh.md",
-      "checked_via": "published_article_page_visible",
-      "notes": "Exact title was confirmed on the visible profile article list; public-page DOM QA confirmed the rendered body, code blocks, table, image, and outbound links."
+      "checked_via": "existing_article_update_and_public_article_page_dom_qa",
+      "notes": "Updated in place from the current canonical source. Public-page DOM QA confirmed the exact title, complete section progression, code blocks, table, loaded image, outbound links, and current system-wide implementation text."
     },
     {
       "id": "zhihu-2062539029892151274",

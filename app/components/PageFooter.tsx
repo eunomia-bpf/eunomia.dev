@@ -11,6 +11,7 @@ type PageFooterProps = {
   path: string;
   sourceHref: string;
   metadata?: GitMetadata | null;
+  publishedAt?: string;
   continuation?: PageContinuation;
 };
 
@@ -24,14 +25,14 @@ function joinAuthors(metadata?: GitMetadata | null) {
 
 const MAX_DISPLAYED_AUTHORS = 4;
 
-export function PageFooter({ locale, title, path, sourceHref, metadata, continuation }: PageFooterProps) {
+export function PageFooter({ locale, title, path, sourceHref, metadata, publishedAt, continuation }: PageFooterProps) {
   const labels = pageFooterCopyByLocale[locale];
 
   const absolutePath = new URL(path, siteConfig.siteUrl).toString();
   const shareTitle = encodeURIComponent(`${title}\n`);
   const shareUrl = encodeURIComponent(absolutePath);
   const updated = formatDate(metadata?.updatedAt, locale, { dateStyle: "medium" });
-  const created = formatDate(metadata?.createdAt, locale, { dateStyle: "medium" });
+  const created = formatDate(publishedAt ?? metadata?.createdAt, locale, { dateStyle: "medium" });
   const authors =
     metadata?.authors.length && metadata.authors.length > MAX_DISPLAYED_AUTHORS
       ? `${metadata.authors
