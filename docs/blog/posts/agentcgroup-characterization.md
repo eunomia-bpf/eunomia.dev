@@ -1,13 +1,13 @@
 ---
 date: 2026-02-17
-description: AgentCgroup characterizes resource bursts in AI coding agents and uses eBPF, sched_ext, and cgroup v2 to enforce tool-call-granularity CPU and memory control without discarding agent state.
+description: AgentCgroup characterizes resource bursts in AI agents and uses eBPF, sched_ext, and cgroup v2 to enforce tool-call-granularity CPU and memory control without discarding agent state.
 ---
 
-# AgentCgroup: What Happens When AI Coding Agents Meet OS Resources?
+# AgentCgroup: What Happens When AI Agents Meet OS Resources?
 
-An AI coding agent spends several quiet minutes reading and editing files, then launches `pytest`. Memory can rise by hundreds of megabytes in a second as the test process loads dependencies, only to fall again when the command exits. A container-level controller sees one workload cross a limit. It cannot tell that the burst belongs to a short-lived tool process while the long-lived agent runtime holds the conversation, partial diagnosis, and edits that make the task recoverable.
+An AI agent spends several quiet minutes reading and editing files, then launches `pytest`. Memory can rise by hundreds of megabytes in a second as the test process loads dependencies, only to fall again when the command exits. A container-level controller sees one workload cross a limit. It cannot tell that the burst belongs to a short-lived tool process while the long-lived agent runtime holds the conversation, partial diagnosis, and edits that make the task recoverable.
 
-We measured how often that pattern occurs by running 144 SWE-rebench tasks with two LLM backends. OS work such as container setup and tool execution consumes 56% to 74% of end-to-end latency, and memory reaches 15.4 times its average level with sub-second changes up to 3 GB/s. Even two Bash calls can differ by 13.7 times in memory demand because one runs `git status` while another launches a test suite. Token count offers almost no warning of the next peak: its correlation with peak memory is −0.14 for Haiku and +0.02 for GLM.
+We measured how often that pattern occurs by running 144 SWE-rebench tasks with two LLM backends. OS work such as container setup and tool execution consumes 55% to 60% of end-to-end latency, and memory reaches 15.4 times its average level with sub-second changes up to 3 GB/s. Even two Bash calls can differ by 13.7 times in memory demand because one runs `git status` while another launches a test suite. Token count offers almost no warning of the next peak: its correlation with peak memory is −0.14 for Haiku and +0.02 for GLM.
 
 Static allocation reacts badly to this combination. Reserving the observed peak wastes up to 93% of provisioned capacity during quiet phases, while killing the container at the peak discards minutes of accumulated, non-reproducible agent state. The [AgentCgroup paper](https://arxiv.org/abs/2602.09345) starts from these measurements and develops an eBPF-based controller that can respond at tool-call granularity.
 
@@ -47,13 +47,13 @@ The opening `pytest` process is not an edge case hidden beneath model inference.
 
 ### Most Time Is Spent Outside the Model
 
-Contrary to the intuition that "the LLM is the bottleneck," our measurements show that LLM reasoning accounts for only 26–44% of end-to-end task latency. The remaining 56–74% is OS-level overhead:
+Contrary to the intuition that "the LLM is the bottleneck," our measurements show that LLM reasoning accounts for only 40–45% of end-to-end task latency. The remaining 55–60% is OS-level overhead:
 
 | Latency Component | Haiku | GLM |
 |-------------------|-------|-----|
 | Container + agent initialization | 47.7% | 31.0% |
-| Tool execution | 25.9% | 25.5% |
-| LLM reasoning | 26.4% | 43.5% |
+| Tool execution | 10.4% | 24.1% |
+| LLM reasoning | 41.9% | 44.9% |
 
 Container startup alone averages 26.5 seconds (median 23.0s, max 97s), driven by Podman's user-namespace ID remapping of overlay layers that scales with image size. Since SWE-rebench container images range from 2.9 GB to 17.3 GB (median 3.5 GB), roughly 7x larger than typical microservice images and 70x larger than serverless functions, this initialization overhead is substantial.
 
