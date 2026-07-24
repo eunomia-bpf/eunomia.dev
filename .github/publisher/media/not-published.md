@@ -20,6 +20,10 @@ tutorial from 50 through 54. SchedCP, AgentCgroup, CPU noise, Weekly Analysis
 reports, and content with confirmed LinkedIn publication records are not
 included in this LinkedIn batch.
 
+Medium and DEV each have one faithful long-form syndication task for BPFix and
+tutorials 50 through 54. These tasks preserve the English source title and body
+and allow only the mechanical rendering adaptations required by each platform.
+
 ## Additional Platform Status
 
 | Platform | Confirmed published | Not published / unresolved | Next action |
