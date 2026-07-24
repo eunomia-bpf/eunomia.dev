@@ -16,7 +16,6 @@
 
 ## 发布队列
 
-- [ ] `排队` 知乎：`docs/blog/posts/schedcp-agentic-os.zh.md`。
 - [ ] `排队` 掘金：`docs/blog/posts/schedcp-agentic-os.zh.md`。
 - [ ] `排队` 知乎：`docs/blog/posts/bpfix.zh.md`。
 - [ ] `排队` 掘金：`docs/blog/posts/bpfix.zh.md`。
