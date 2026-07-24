@@ -12,7 +12,8 @@
 - 暂停：AgentPProf 暂不进入发布队列；Hacker News 暂不发；Lobsters 没有账号。
 - 阻塞：小红书尚未确认账号 URL、登录状态和图片卡片工作流。
 - Ledger 基线：知乎有 43 个未映射中文源，掘金在补记 ActPlane 等价源后有 80 个；其中 AgentPProf、目录/兼容性/进一步阅读页和两个重复教程表示不进入发布队列。
-- 当前队列：知乎 39 条、掘金 74 条、Medium/DEV 2 条，共 115 个平台任务；按每天一条约需 115 个发布日，后续新增内容直接插入合适位置。
+- LinkedIn 只安排新的 tutorial 50–54；SchedCP、AgentCgroup、CPU noise、Weekly Analysis 和已有发布记录的内容不重复安排。
+- 当前队列：知乎 38 条、掘金 74 条、Medium/DEV 2 条、LinkedIn 5 条，共 119 个平台任务；按每天一条约需 119 个发布日，后续新增内容直接插入合适位置。
 
 ## 发布队列
 
@@ -21,14 +22,19 @@
 - [ ] `排队` 掘金：`docs/blog/posts/bpfix.zh.md`。
 - [ ] `排队` 知乎：`docs/tutorials/50-tcx/README.zh.md`。
 - [ ] `排队` 掘金：`docs/tutorials/50-tcx/README.zh.md`。
+- [ ] `排队` LinkedIn：`docs/tutorials/50-tcx/README.md`。
 - [ ] `排队` 知乎：`docs/tutorials/51-tcp-quarantine/README.zh.md`。
 - [ ] `排队` 掘金：`docs/tutorials/51-tcp-quarantine/README.zh.md`。
+- [ ] `排队` LinkedIn：`docs/tutorials/51-tcp-quarantine/README.md`。
 - [ ] `排队` 知乎：`docs/tutorials/52-fsession-latency/README.zh.md`。
 - [ ] `排队` 掘金：`docs/tutorials/52-fsession-latency/README.zh.md`。
+- [ ] `排队` LinkedIn：`docs/tutorials/52-fsession-latency/README.md`。
 - [ ] `排队` 知乎：`docs/tutorials/53-egress-pacer/README.zh.md`。
 - [ ] `排队` 掘金：`docs/tutorials/53-egress-pacer/README.zh.md`。
+- [ ] `排队` LinkedIn：`docs/tutorials/53-egress-pacer/README.md`。
 - [ ] `排队` Medium：`docs/tutorials/54-exec-image-inspector/README.md`。
 - [ ] `排队` DEV：`docs/tutorials/54-exec-image-inspector/README.md`。
+- [ ] `排队` LinkedIn：`docs/tutorials/54-exec-image-inspector/README.md`。
 - [ ] `排队` 知乎：`docs/blog/posts/agent-work-unit.zh.md`。
 - [ ] `排队` 掘金：`docs/blog/posts/agent-work-unit.zh.md`。
 - [ ] `排队` 知乎：`docs/blog/posts/agentcgroup-characterization.zh.md`。

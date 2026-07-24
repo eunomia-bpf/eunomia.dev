@@ -15,6 +15,11 @@ actions that remain suitable candidates are maintained one-by-one in
 `draft/plan/publishing-queue.zh.md`; each checkbox is one platform task and the
 daily patrol completes at most one.
 
+The rolling queue also includes one LinkedIn link-share task for each new
+tutorial from 50 through 54. SchedCP, AgentCgroup, CPU noise, Weekly Analysis
+reports, and content with confirmed LinkedIn publication records are not
+included in this LinkedIn batch.
+
 ## Additional Platform Status
 
 | Platform | Confirmed published | Not published / unresolved | Next action |
