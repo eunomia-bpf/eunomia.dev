@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-07-22",
+  "last_checked": "2026-07-25",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -47,20 +47,41 @@
       "staged_url": "https://juejin.cn/spost/7664864449153613824",
       "review_status": "pending",
       "notes": "Submitted an in-place update through the visible editor. The staged review page shows the exact current source title, 15 section headings, 8 code blocks, one table, 11 outbound article links, one loaded 960x418 image, READY scope=system-wide, and the completed >= scheduled shutdown condition. The public /post page continues to show the prior version until Juejin review completes. No Juejin API or hidden endpoint was used."
+    },
+    {
+      "checked_at": "2026-07-25",
+      "checked_via": "in_app_browser_profile_and_public_article_visible_dom_qa",
+      "article_url": "https://juejin.cn/post/7664864449153613824",
+      "visible_profile_views": 28,
+      "visible_article_views": 23,
+      "notes": "The tutorial 54 update is now public with the current source title. The article page shows all 15 section headings and the 960x418 image loads after normal scrolling. The profile and article surfaces displayed different view totals during the same check, so neither is treated as a precise comparative signal. No Juejin API or hidden endpoint was used."
+    },
+    {
+      "checked_at": "2026-07-25",
+      "checked_via": "in_app_browser_submit_success_and_staged_page_dom_qa",
+      "staged_url": "https://juejin.cn/spost/7666245761520615439",
+      "review_status": "pending",
+      "notes": "Submitted the exact SchedCP source title and substantively unchanged body through the visible editor. The staged review page shows the title, seven rendered headings including the article H1, six outbound links, one loaded 788x600 image, and tags Linux, 人工智能, and 后端. No Juejin API or hidden endpoint was used."
     }
   ],
   "published": [
     {
+      "id": "juejin-7666245761520615439",
+      "status": "platform_review",
+      "title": "让 AI Agent 调优 Linux 调度器：SchedCP 与 sched-agent 的设计与评测",
+      "url": "https://juejin.cn/spost/7666245761520615439",
+      "source_path": "docs/blog/posts/schedcp-agentic-os.zh.md",
+      "checked_via": "visible_submit_success_and_staged_page_dom_qa",
+      "notes": "Category 人工智能; tags Linux, 人工智能, 后端. Submission succeeded on 2026-07-25 and the staged page passed formatting, link, and image QA, but it remains marked 审核中 and is not yet recorded as a confirmed public article."
+    },
+    {
       "id": "juejin-7664864449153613824",
       "status": "confirmed",
-      "title": "eBPF 教程：检查 exec 后真正安装的可执行镜像",
-      "pending_title": "eBPF 教程：检查 exec 后实际安装的可执行镜像",
-      "pending_review_url": "https://juejin.cn/spost/7664864449153613824",
-      "pending_update_status": "platform_review",
+      "title": "eBPF 教程：检查 exec 后实际安装的可执行镜像",
       "url": "https://juejin.cn/post/7664864449153613824",
       "source_path": "docs/tutorials/54-exec-image-inspector/README.zh.md",
-      "checked_via": "public_article_confirmed_update_pending_platform_review",
-      "notes": "The existing public article remains confirmed. A current-source update was submitted on 2026-07-22 and passed staged-page DOM QA, but the public URL retains the prior title and body while Juejin review is pending."
+      "checked_via": "public_article_confirmed_after_update_review",
+      "notes": "The 2026-07-22 update is public with the current source title. Public-page QA on 2026-07-25 confirmed all 15 section headings and the lazy-loaded 960x418 image through normal visible browsing."
     },
     {
       "id": "juejin-7664151348536229903",

@@ -18,7 +18,7 @@
 
 ## 发布队列
 
-- [ ] `排队` 掘金：`docs/blog/posts/schedcp-agentic-os.zh.md`。
+- [x] `排队` 掘金：`docs/blog/posts/schedcp-agentic-os.zh.md`。2026-07-25 已提交，审核中：<https://juejin.cn/spost/7666245761520615439>；ledger 已记录为 `platform_review`。
 - [ ] `排队` 知乎：`docs/blog/posts/bpfix.zh.md`。
 - [ ] `排队` 掘金：`docs/blog/posts/bpfix.zh.md`。
 - [ ] `排队` Medium：`docs/blog/posts/bpfix.md`。

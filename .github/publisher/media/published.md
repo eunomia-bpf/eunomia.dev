@@ -1,6 +1,6 @@
 # Published Media Ledger
 
-Last checked: 2026-07-20
+Last checked: 2026-07-25
 
 This ledger records platform posts confirmed from logged-in profile pages or explicit repository references. It is intentionally conservative: if authorship or completeness is not verified, the item is marked for follow-up instead of treated as complete.
 
@@ -51,11 +51,12 @@ Repo-referenced Zhihu URLs that should be kept but may need ownership/date verif
 
 Profile checked: <https://juejin.cn/user/4288563097635144/posts>
 
-Normal in-app browser pagination covered all four visible article pages and collected 40 unique authored article links. The machine ledger currently maps 26 of 107 Chinese source files; remaining gaps are treated as unpublished unless a later visible match is found.
+Normal in-app browser pagination covered all four visible article pages and collected 40 unique authored article links. A 2026-07-25 profile check showed 41 public articles. The machine ledger remains conservative: submissions under platform review are not counted as confirmed source coverage.
 
 | Status | Title | URL | Notes |
 | --- | --- | --- | --- |
-| Confirmed | eBPF 教程：检查 exec 后真正安装的可执行镜像 | <https://juejin.cn/post/7664864449153613824> | Published from `docs/tutorials/54-exec-image-inspector/README.zh.md`; the public page visibly shows tags `Linux` and `开源`; exact title, 51 paragraphs, 13 section headings, 10 code blocks, one 6-row table, the loaded 1700x1057 image, and 11 outbound links were confirmed through the normal article page |
+| Platform review | 让 AI Agent 调优 Linux 调度器：SchedCP 与 sched-agent 的设计与评测 | <https://juejin.cn/spost/7666245761520615439> | Submitted from `docs/blog/posts/schedcp-agentic-os.zh.md` on 2026-07-25; the staged page passed title, heading, link, image, category, and tag QA but still displays `审核中` |
+| Confirmed | eBPF 教程：检查 exec 后实际安装的可执行镜像 | <https://juejin.cn/post/7664864449153613824> | Published from `docs/tutorials/54-exec-image-inspector/README.zh.md`; the 2026-07-22 update is now public, and the 2026-07-25 visible article check confirmed all 15 section headings and the loaded 960x418 image |
 | Confirmed | 实证研究：AI Agent 规则需要上下文与分层强制执行 | <https://juejin.cn/post/7664151348536229903> | Published from `docs/blog/posts/ebpf-ai-agent-policy-enforcement.zh.md`; category `人工智能`; tags `Linux`, `AI编程`, `安全`; exact source title, images, tables, code, and outbound links were verified on the public article page |
 | Confirmed | 多智能体系统是人工智能的未来吗？探讨OpenAI的Swarm实验 | <https://juejin.cn/post/7424407625897492514> | Latest visible authored article |
 | Confirmed | eBPF 实践教程: 通过 socket 或 syscall 追踪 HTTP 等七层协议 | <https://juejin.cn/post/7280746975917228087> | Authored article |
