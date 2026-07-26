@@ -110,6 +110,9 @@ link placement, or "想法" adaptation.
   blocks, tables, and link destinations.
 - In the publish/settings step, choose a relevant question when Zhihu offers a
   question selector. This is part of final QA, not an optional afterthought.
+- Exact English technical terms in the question selector can return unrelated
+  matches or no results. Broaden to the Chinese parent topic, then inspect the
+  visible candidates and choose the closest technical question manually.
 - Check that GitHub/eunomia.dev/paper links are specific and placed as sources
   or next steps. A visible eunomia.dev canonical/source note is optional.
 - Check whether column, tags, or project fields match the topic.

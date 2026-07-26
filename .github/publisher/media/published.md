@@ -1,6 +1,6 @@
 # Published Media Ledger
 
-Last checked: 2026-07-25
+Last checked: 2026-07-26
 
 This ledger records platform posts confirmed from logged-in profile pages or explicit repository references. It is intentionally conservative: if authorship or completeness is not verified, the item is marked for follow-up instead of treated as complete.
 
@@ -16,6 +16,7 @@ Follow-up platform check on 2026-07-20 used normal in-app browser scrolling on t
 
 | Status | Title | URL | Notes |
 | --- | --- | --- | --- |
+| Confirmed | 为什么 eBPF verifier 报错难修：诊断鸿沟 | <https://zhuanlan.zhihu.com/p/2064970067830480995> | Published from `docs/blog/posts/bpfix.zh.md` through the normal visible Zhihu UI; selected `linux内核调试方式？`; public-page QA confirmed the exact title and complete body, 7 section headings, 3 code blocks, 4 tables, 2 loaded content images, and 10 outbound source links |
 | Confirmed | eBPF 教程：检查 exec 后真正安装的可执行镜像 | <https://zhuanlan.zhihu.com/p/2063162298781398619> | Published from `docs/tutorials/54-exec-image-inspector/README.zh.md`; exact title was confirmed on the visible profile article list, and public-page DOM QA confirmed the rendered body, code blocks, table, image, and outbound links |
 | Confirmed | 实证研究：AI Agent 规则需要上下文与分层强制执行 | <https://zhuanlan.zhihu.com/p/2062539029892151274> | Published from `docs/blog/posts/ebpf-ai-agent-policy-enforcement.zh.md`; selected the production-readiness AI Agent question; imported a locally prepared image-free body after unstable image imports and uploaded the ActPlane architecture cover separately |
 | Confirmed | ActPlane: 把 Agent Harness Enforcement 下沉到内核 eBPF | <https://zhuanlan.zhihu.com/p/2049849241200235065> | Recent profile article |
