@@ -38,7 +38,7 @@
 当前同步原则：
 
 - 知乎和掘金优先处理 ledger 确认缺失的中文长文和 tutorial。
-- 历史回补默认只保留 tutorial；2023–2025 年的非 tutorial Blog 不因平台
+- 历史回补默认只保留 tutorial；2026 年以前的非 tutorial Blog 不因平台
   ledger 缺失自动排队，只有新增证据、结论或明确发布需求时才重新评估。
 - Medium 和 DEV 只处理 ledger 确认缺失的英文长文。
 - X 和 LinkedIn 默认分享已发布长文链接，外加 1-2 句核心钩子；项目演示
