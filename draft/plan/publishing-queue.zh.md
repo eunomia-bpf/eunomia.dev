@@ -12,9 +12,10 @@
 - 暂停：AgentPProf 暂不进入发布队列；Hacker News 暂不发；Lobsters 没有账号。
 - 阻塞：小红书尚未确认账号 URL、登录状态和图片卡片工作流。
 - Ledger 基线：知乎有 43 个未映射中文源，掘金在补记 ActPlane 等价源后有 80 个；其中 AgentPProf、目录/兼容性/进一步阅读页和两个重复教程表示不进入发布队列。
+- 历史回补：2023–2025 年的非 tutorial Blog 不进入常规平台同步队列；只有出现新的证据、结论或明确发布需求时才单独重新评估。
 - LinkedIn 只安排新的 tutorial 50–54；SchedCP、AgentCgroup、CPU noise、Weekly Analysis 和已有发布记录的内容不重复安排。
 - Medium 与 DEV 分别安排 BPFix 和 tutorial 50–54，保留英文原文标题和正文，只做必要的平台格式适配。
-- 当前队列：知乎 38 条、掘金 74 条、Medium/DEV 12 条、LinkedIn 5 条，共 129 个平台任务；按每天一条约需 129 个发布日，后续新增内容直接插入合适位置。
+- 剩余队列：知乎 30 条、掘金 53 条、Medium/DEV 12 条、LinkedIn 5 条，共 100 个平台任务；后续新增内容直接插入合适位置。
 
 ## 发布队列
 
@@ -58,11 +59,6 @@
 - [ ] `排队` 掘金：`docs/blog/posts/agent_sandbox.zh.md`。
 - [ ] `排队` 掘金：`docs/blog/posts/agent-check-restore-safety.zh.md`。
 - [ ] `排队` 掘金：`docs/blog/posts/runtime-security-for-opaque-ai-agents.zh.md`。
-- [ ] `排队` 掘金：`docs/blog/posts/agentsight_paper.zh.md`。
-- [ ] `排队` 知乎：`docs/blog/posts/kgent.zh.md`。
-- [ ] `排队` 掘金：`docs/blog/posts/kgent.zh.md`。
-- [ ] `排队` 知乎：`docs/blog/posts/llvmbpf.zh.md`。
-- [ ] `排队` 掘金：`docs/blog/posts/llvmbpf.zh.md`。
 - [ ] `排队` 知乎：`docs/tutorials/48-energy/README.zh.md`。
 - [ ] `排队` 掘金：`docs/tutorials/48-energy/README.zh.md`。
 - [ ] `排队` 掘金：`docs/tutorials/47-cuda-events/README.zh.md`。
@@ -101,32 +97,9 @@
 - [ ] `排队` 掘金：`docs/tutorials/20-tc/README.zh.md`。
 - [ ] `排队` 掘金：`docs/tutorials/19-lsm-connect/README.zh.md`。
 - [ ] `排队` 掘金：`docs/tutorials/17-biopattern/README.zh.md`。
-- [ ] `排队` 知乎：`docs/blog/posts/wasm-bpf.zh.md`。
-- [ ] `排队` 掘金：`docs/blog/posts/userspace-ebpf.zh.md`。
 - [ ] `排队` 知乎：`docs/blog/posts/test-for-Android.zh.md`。
 - [ ] `排队` 掘金：`docs/blog/posts/test-for-Android.zh.md`。
-- [ ] `排队` 知乎：`docs/blog/posts/ten-years.zh.md`。
-- [ ] `排队` 掘金：`docs/blog/posts/ten-years.zh.md`。
-- [ ] `排队` 掘金：`docs/blog/posts/osdi-sosp-obser-debug.zh.md`。
 - [ ] `排队` 掘金：`docs/blog/posts/lmp-eunomia.zh.md`。
-- [ ] `排队` 知乎：`docs/blog/posts/introduce-to-wasm-bpf-bpf-community.zh.md`。
-- [ ] `排队` 掘金：`docs/blog/posts/introduce-to-wasm-bpf-bpf-community.zh.md`。
-- [ ] `排队` 知乎：`docs/blog/posts/inline-hook.zh.md`。
-- [ ] `排队` 掘金：`docs/blog/posts/inline-hook.zh.md`。
-- [ ] `排队` 掘金：`docs/blog/posts/gpu-profile-tools-analysis.zh.md`。
-- [ ] `排队` 掘金：`docs/blog/posts/gpu-profile-tool-impl.zh.md`。
-- [ ] `排队` 掘金：`docs/blog/posts/gpu-observability-challenges.zh.md`。
-- [ ] `排队` 掘金：`docs/blog/posts/github-templates.zh.md`。
-- [ ] `排队` 知乎：`docs/blog/posts/eunomia-bpf的三月进展.zh.md`。
-- [ ] `排队` 掘金：`docs/blog/posts/eunomia-bpf的三月进展.zh.md`。
-- [ ] `排队` 掘金：`docs/blog/posts/ebpf-wasm.zh.md`。
-- [ ] `排队` 掘金：`docs/blog/posts/ebpf-security.zh.md`。
-- [ ] `排队` 掘金：`docs/blog/posts/ebpf-papers.zh.md`。
-- [ ] `排队` 掘金：`docs/blog/posts/bpftime.zh.md`。
-- [ ] `排队` 掘金：`docs/blog/posts/bpf-news.zh.md`。
-- [ ] `排队` 知乎：`docs/blog/posts/1_0-release.zh.md`。
-- [ ] `排队` 掘金：`docs/blog/posts/1_0-release.zh.md`。
-- [ ] `排队` 掘金：`docs/blog/posts/0_3_0-release.zh.md`。
 - [ ] `排队` 掘金：`docs/tutorials/1-helloworld/README.zh.md`。
 - [ ] `排队` 知乎：`docs/tutorials/6-sigsnoop/README.zh.md`。
 - [ ] `排队` 知乎：`docs/tutorials/bpftrace-tutorial/README.zh.md`。
@@ -153,5 +126,6 @@
 - 每次巡检从顶部找到第一条仍为 `排队` 的任务，当天只处理这一条；同一源同步到两个平台是两个独立任务。
 - 发布前立即确认 ledger 仍缺失、源文是可独立阅读的完整文章。发现重复、过时或不适合平台时，把该行改为 `跳过` 并写一句原因，然后继续寻找当天唯一可发布项。
 - 长文保持源标题和正文，只处理本地上传 artifact、图片、代码、链接、标签和平台渲染。
+- 历史回补默认只处理 tutorial；2023–2025 年的非 tutorial Blog 不因 ledger 缺失自动进入队列。
 - 发布后改为 `[x]`，紧跟公开 URL、审核状态和 ledger 结果；真实异常或待跟进事项才写 `draft/media/YYYY-MM-DD/run-log.md`。
 - Weekly Analysis 距离上一篇至少 7 天且达到来源门槛时，先作为一条新任务插到队列顶部；当天不再发布其他内容。
