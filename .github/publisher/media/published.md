@@ -56,7 +56,7 @@ Normal in-app browser pagination covered all four visible article pages and coll
 
 | Status | Title | URL | Notes |
 | --- | --- | --- | --- |
-| Platform review | 让 AI Agent 调优 Linux 调度器：SchedCP 与 sched-agent 的设计与评测 | <https://juejin.cn/spost/7666245761520615439> | Submitted from `docs/blog/posts/schedcp-agentic-os.zh.md` on 2026-07-25; the staged page passed title, heading, link, image, category, and tag QA but still displays `审核中` |
+| Confirmed | 让 AI Agent 调优 Linux 调度器：SchedCP 与 sched-agent 的设计与评测 | <https://juejin.cn/post/7666245761520615439> | Published from `docs/blog/posts/schedcp-agentic-os.zh.md` on 2026-07-25; category `人工智能`; tags `Linux`, `人工智能`, `后端`; front matter and `<!-- more -->` were removed and the relative image URL was replaced without changing the substantive body; the 2026-07-26 visible public-page check confirmed the exact title, complete rendered body, seven article headings, and the loaded 788x600 content image |
 | Confirmed | eBPF 教程：检查 exec 后实际安装的可执行镜像 | <https://juejin.cn/post/7664864449153613824> | Published from `docs/tutorials/54-exec-image-inspector/README.zh.md`; the 2026-07-22 update is now public, and the 2026-07-25 visible article check confirmed all 15 section headings and the loaded 960x418 image |
 | Confirmed | 实证研究：AI Agent 规则需要上下文与分层强制执行 | <https://juejin.cn/post/7664151348536229903> | Published from `docs/blog/posts/ebpf-ai-agent-policy-enforcement.zh.md`; category `人工智能`; tags `Linux`, `AI编程`, `安全`; exact source title, images, tables, code, and outbound links were verified on the public article page |
 | Confirmed | 多智能体系统是人工智能的未来吗？探讨OpenAI的Swarm实验 | <https://juejin.cn/post/7424407625897492514> | Latest visible authored article |

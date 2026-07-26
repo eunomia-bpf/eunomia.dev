@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-07-25",
+  "last_checked": "2026-07-26",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -62,17 +62,23 @@
       "staged_url": "https://juejin.cn/spost/7666245761520615439",
       "review_status": "pending",
       "notes": "Submitted the exact SchedCP source title and substantively unchanged body through the visible editor. The staged review page shows the title, seven rendered headings including the article H1, six outbound links, one loaded 788x600 image, and tags Linux, 人工智能, and 后端. No Juejin API or hidden endpoint was used."
+    },
+    {
+      "checked_at": "2026-07-26",
+      "checked_via": "in_app_browser_public_article_visible_dom_and_media_qa",
+      "article_url": "https://juejin.cn/post/7666245761520615439",
+      "notes": "The SchedCP article is public with the exact source title and complete rendered body. Normal visible scrolling confirmed the single content image loaded at its natural 788x600 dimensions. No Juejin API or hidden endpoint was used."
     }
   ],
   "published": [
     {
       "id": "juejin-7666245761520615439",
-      "status": "platform_review",
+      "status": "confirmed",
       "title": "让 AI Agent 调优 Linux 调度器：SchedCP 与 sched-agent 的设计与评测",
-      "url": "https://juejin.cn/spost/7666245761520615439",
+      "url": "https://juejin.cn/post/7666245761520615439",
       "source_path": "docs/blog/posts/schedcp-agentic-os.zh.md",
-      "checked_via": "visible_submit_success_and_staged_page_dom_qa",
-      "notes": "Category 人工智能; tags Linux, 人工智能, 后端. Submission succeeded on 2026-07-25 and the staged page passed formatting, link, and image QA, but it remains marked 审核中 and is not yet recorded as a confirmed public article."
+      "checked_via": "in_app_browser_public_article_visible_dom_and_media_qa",
+      "notes": "Category 人工智能; tags Linux, 人工智能, 后端. Published on 2026-07-25 after front matter and the excerpt marker were mechanically removed and the relative image URL was replaced. Public-page QA on 2026-07-26 confirmed the exact title, complete rendered body, seven article headings, and one loaded 788x600 content image through normal visible browsing."
     },
     {
       "id": "juejin-7664864449153613824",

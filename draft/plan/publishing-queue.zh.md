@@ -7,11 +7,11 @@
 ## 当前状态
 
 - 全局暂停：2026-07-22 至 2026-07-23 不发布、同步或分享新内容，最早从 2026-07-24 恢复。
-- 待审核：SchedCP 掘金文章已提交并通过格式检查，当前仍在平台审核；tutorial 54 的掘金更新已确认通过审核。
+- 已核定：SchedCP 掘金文章与 tutorial 54 的掘金更新均已确认公开。
 - 待确认：AgentNebula 的 LinkedIn 与 X 草稿及 10 秒素材已经准备好，继续停在发布前。
 - 暂停：AgentPProf 暂不进入发布队列；Hacker News 暂不发；Lobsters 没有账号。
 - 阻塞：小红书尚未确认账号 URL、登录状态和图片卡片工作流。
-- Ledger 基线：知乎有 42 个未映射中文源，掘金在补记 ActPlane 等价源后有 80 个；其中 AgentPProf、目录/兼容性/进一步阅读页和两个重复教程表示不进入发布队列。
+- Ledger 基线：知乎有 42 个未映射中文源，掘金在确认 SchedCP 公开并补记 ActPlane 等价源后有 79 个；其中 AgentPProf、目录/兼容性/进一步阅读页和两个重复教程表示不进入发布队列。
 - 历史回补：2026 年以前的非 tutorial Blog 不进入常规平台同步队列；只有出现新的证据、结论或明确发布需求时才单独重新评估。
 - LinkedIn 只安排新的 tutorial 50–54；SchedCP、AgentCgroup、CPU noise、Weekly Analysis 和已有发布记录的内容不重复安排。
 - Medium 与 DEV 分别安排 BPFix 和 tutorial 50–54，保留英文原文标题和正文，只做必要的平台格式适配。
@@ -19,7 +19,7 @@
 
 ## 发布队列
 
-- [x] `排队` 掘金：`docs/blog/posts/schedcp-agentic-os.zh.md`。2026-07-25 已提交，审核中：<https://juejin.cn/spost/7666245761520615439>；ledger 已记录为 `platform_review`。
+- [x] `排队` 掘金：`docs/blog/posts/schedcp-agentic-os.zh.md`。2026-07-25 已发布：<https://juejin.cn/post/7666245761520615439>；2026-07-26 公开页正文和图片 QA 通过，ledger 已记录为 `confirmed`。
 - [x] `排队` 知乎：`docs/blog/posts/bpfix.zh.md`。2026-07-26 已发布：<https://zhuanlan.zhihu.com/p/2064970067830480995>；公开页标题、正文、图片、表格、代码块和链接 QA 已通过。
 - [ ] `排队` 掘金：`docs/blog/posts/bpfix.zh.md`。
 - [ ] `排队` Medium：`docs/blog/posts/bpfix.md`。
