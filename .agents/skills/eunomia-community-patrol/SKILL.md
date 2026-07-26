@@ -148,8 +148,9 @@ GitHub or commit it.
   blocker, or requested next step that matters to the contributor. Acknowledge
   the contributor's effort or context when appropriate, explain evidence
   without blame, and distinguish confirmed facts from inferences.
-- Never mention the patrol, sweep, scheduled run, automation, agent process,
-  internal queue, memory, or tooling identity in public GitHub text.
+- Apart from the required disclosure footer below, never mention the patrol,
+  sweep, scheduled run, automation process, internal queue, memory, or tooling
+  details in public GitHub text.
 - Avoid status-banner or ceremonial preambles. When revisiting an item, explain
   the new evidence or changed blocker rather than the maintenance process that
   caused the recheck.
@@ -169,6 +170,18 @@ GitHub or commit it.
   gathering evidence, requesting specific information, reproducing a problem,
   or preparing a narrow verified fix. Age, inactivity, or an apparently obvious
   choice never creates authority to decide on someone's behalf.
+- End every issue comment, pull request conversation comment, inline review
+  reply, and submitted review authored by the patrol with this exact standalone
+  final paragraph:
+
+  `AI-generated response; a maintainer will review and follow up later`
+
+- Keep the disclosure exactly as written, in English, and include it exactly
+  once. When editing an existing patrol reply, preserve its substantive text
+  and add the footer if it is missing.
+- Apply this disclosure only to public GitHub replies authored by the patrol.
+  Do not add it to pull request bodies, branch names, commit messages, release
+  text, repository documentation, or unrelated open-source work.
 
 ## Authorized Writes
 
