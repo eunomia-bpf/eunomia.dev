@@ -1,0 +1,22 @@
+# 掘金发布记录
+
+- 源文件：`docs/blog/posts/bpfix.zh.md`
+- 上传正文：`juejin-upload.md`
+- 标题：为什么 eBPF verifier 报错难修：诊断鸿沟
+- 源页面：<https://eunomia.dev/zh/blog/2026/07/25/ebpf-verifier-errors-bpfix/>
+- GitHub：<https://github.com/eunomia-bpf/bpfix>
+- 论文：<https://arxiv.org/abs/2607.02748>
+- 分类：后端
+- 标签：Linux、后端、开源
+- 摘要：对 235 个可复现 eBPF verifier 拒绝案例的研究表明，最后一条报错只指出验证停止的位置。本文解释 bpfix 如何从 verifier 日志重建证明生命周期，定位根因与修复层次。
+- 正文图片：
+  - `https://eunomia.dev/_content-assets/docs/blog/posts/imgs/bpfix-figure-1-diagnostic-gap.png`（1040 × 1680）
+  - `https://eunomia.dev/_content-assets/docs/blog/posts/imgs/bpfix-figure-6-repair-success.png`（950 × 690）
+- 封面：优先使用第二张修复成功率图；若平台裁切预览影响可读性，则不设置可选封面。
+- 正文：从源文件机械移除 YAML front matter、`<!-- more -->` 和编辑器中会重复显示的 H1，替换两张相对图片地址；段落、章节、论断、代码、表格、链接和参考资料保持不变。
+- 发布前核验：2026-07-27 本地掘金 ledger 与机器账本均未映射该源文；当时可见账号内“已发布”搜索未发现同标题文章。源站正文独立完整，含 7 个二级标题、3 个代码块、4 张表、2 张正常加载的正文图。
+- 恢复核验：2026-07-29 父任务再次恢复时，可见个人文章列表已将同标题文章列为最新公开文章，摘要和 `Linux`、`后端`、`开源` 标签与本记录一致；因此未重新进入新建编辑器，也未重复提交。
+- 发布结果：已公开，<https://juejin.cn/post/7667474278616547380>。
+- 状态确认：公开页没有“审核中”标记；个人文章列表在 2026-07-29 显示该文发布于约 20 小时前。
+- QA：公开页标题与源标题完全一致，正文完整渲染 7 个二级标题、3 个代码块、4 张表和 10 个外链。两张正文图均为掘金托管地址，经正常滚动后分别以 1040 × 1680 和 950 × 690 的自然尺寸加载。
+- 编辑器说明：真实提交发生在父任务中断前，恢复时文章已经公开，无法也无需重复执行编辑器预览；本次以更严格的公开页渲染与媒体 QA 完成核定。

@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-07-26",
+  "last_checked": "2026-07-29",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -68,9 +68,25 @@
       "checked_via": "in_app_browser_public_article_visible_dom_and_media_qa",
       "article_url": "https://juejin.cn/post/7666245761520615439",
       "notes": "The SchedCP article is public with the exact source title and complete rendered body. Normal visible scrolling confirmed the single content image loaded at its natural 788x600 dimensions. No Juejin API or hidden endpoint was used."
+    },
+    {
+      "checked_at": "2026-07-29",
+      "checked_via": "in_app_browser_profile_duplicate_check_and_public_article_visible_dom_media_qa",
+      "profile_url": "https://juejin.cn/user/4288563097635144/posts",
+      "article_url": "https://juejin.cn/post/7667474278616547380",
+      "notes": "After an interrupted parent task, the visible authored profile already showed the exact BPFix title as its newest public article. The public page had no 审核中 marker and confirmed one H1, seven H2 headings, three code blocks, four tables, ten outbound links, and two Juejin-hosted images loading at their natural 1040x1680 and 950x690 dimensions after normal scrolling. No duplicate submission was attempted. No Juejin API or hidden endpoint was used."
     }
   ],
   "published": [
+    {
+      "id": "juejin-7667474278616547380",
+      "status": "confirmed",
+      "title": "为什么 eBPF verifier 报错难修：诊断鸿沟",
+      "url": "https://juejin.cn/post/7667474278616547380",
+      "source_path": "docs/blog/posts/bpfix.zh.md",
+      "checked_via": "in_app_browser_profile_duplicate_check_and_public_article_visible_dom_media_qa",
+      "notes": "Category 后端; tags Linux, 后端, 开源. The upload artifact exactly matches the canonical body after mechanically removing front matter, the repeated H1, and the excerpt marker, and replacing the two relative image URLs. Public-page QA on 2026-07-29 confirmed the exact title, complete rendered body, seven H2 headings, three code blocks, four tables, ten outbound links, and two loaded content images."
+    },
     {
       "id": "juejin-7666245761520615439",
       "status": "confirmed",

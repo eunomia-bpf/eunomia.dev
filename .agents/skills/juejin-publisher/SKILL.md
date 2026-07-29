@@ -69,6 +69,12 @@ useful, media choices, and QA state.
 
 ## Editor Workflow
 
+When resuming an interrupted publish, first inspect the normal visible authored
+profile for the exact title and source identity. The final submission may have
+succeeded before the parent task stopped. If the article is already public, do
+not reopen a new draft or submit again; verify the public page and reconcile the
+artifact, ledger, queue, and snapshots instead.
+
 1. Open <https://juejin.cn/editor/drafts/new>.
 2. Fill the title field, observed as `输入文章标题...`.
 3. For long-form posts, finish the Juejin-specific Markdown artifact locally

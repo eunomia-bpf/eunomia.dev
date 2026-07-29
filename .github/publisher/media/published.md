@@ -52,10 +52,11 @@ Repo-referenced Zhihu URLs that should be kept but may need ownership/date verif
 
 Profile checked: <https://juejin.cn/user/4288563097635144/posts>
 
-Normal in-app browser pagination covered all four visible article pages and collected 40 unique authored article links. A 2026-07-25 profile check showed 41 public articles. The machine ledger remains conservative: submissions under platform review are not counted as confirmed source coverage.
+Normal in-app browser pagination covered all four visible article pages and collected 40 unique authored article links. A 2026-07-25 profile check showed 41 public articles. On 2026-07-29, a visible first-page duplicate check found BPFix as the newest public article. The machine ledger remains conservative: submissions under platform review are not counted as confirmed source coverage.
 
 | Status | Title | URL | Notes |
 | --- | --- | --- | --- |
+| Confirmed | 为什么 eBPF verifier 报错难修：诊断鸿沟 | <https://juejin.cn/post/7667474278616547380> | Published from `docs/blog/posts/bpfix.zh.md`; category `后端`; tags `Linux`, `后端`, `开源`; front matter, the repeated H1, and `<!-- more -->` were mechanically removed and two relative image URLs were replaced without changing the substantive body; the 2026-07-29 visible public-page check confirmed the exact title, complete body, seven H2 headings, three code blocks, four tables, ten outbound links, and two loaded content images |
 | Confirmed | 让 AI Agent 调优 Linux 调度器：SchedCP 与 sched-agent 的设计与评测 | <https://juejin.cn/post/7666245761520615439> | Published from `docs/blog/posts/schedcp-agentic-os.zh.md` on 2026-07-25; category `人工智能`; tags `Linux`, `人工智能`, `后端`; front matter and `<!-- more -->` were removed and the relative image URL was replaced without changing the substantive body; the 2026-07-26 visible public-page check confirmed the exact title, complete rendered body, seven article headings, and the loaded 788x600 content image |
 | Confirmed | eBPF 教程：检查 exec 后实际安装的可执行镜像 | <https://juejin.cn/post/7664864449153613824> | Published from `docs/tutorials/54-exec-image-inspector/README.zh.md`; the 2026-07-22 update is now public, and the 2026-07-25 visible article check confirmed all 15 section headings and the loaded 960x418 image |
 | Confirmed | 实证研究：AI Agent 规则需要上下文与分层强制执行 | <https://juejin.cn/post/7664151348536229903> | Published from `docs/blog/posts/ebpf-ai-agent-policy-enforcement.zh.md`; category `人工智能`; tags `Linux`, `AI编程`, `安全`; exact source title, images, tables, code, and outbound links were verified on the public article page |

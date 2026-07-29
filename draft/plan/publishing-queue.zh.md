@@ -1,6 +1,6 @@
 # 内容发布滚动队列
 
-> 状态：内部执行 checklist，不发布。更新时间：2026-07-26。
+> 状态：内部执行 checklist，不发布。更新时间：2026-07-29。
 > 节奏：从上到下处理，每个 checkbox 是一个平台发布任务，每个自然日最多完成一条。
 > 授权：`排队` 表示定时巡检可以完成该任务的准备、浏览器预览、真实发布和公开页检查；`待确认` 与 `阻塞` 不授权发布。
 
@@ -11,17 +11,17 @@
 - 待确认：AgentNebula 的 LinkedIn 与 X 草稿及 10 秒素材已经准备好，继续停在发布前。
 - 暂停：AgentPProf 暂不进入发布队列；Hacker News 暂不发；Lobsters 没有账号。
 - 阻塞：小红书尚未确认账号 URL、登录状态和图片卡片工作流。
-- Ledger 基线：知乎有 42 个未映射中文源，掘金在确认 SchedCP 公开并补记 ActPlane 等价源后有 79 个；其中 AgentPProf、目录/兼容性/进一步阅读页和两个重复教程表示不进入发布队列。
+- Ledger 基线：知乎有 42 个未映射中文源，掘金在确认 BPFix 公开后有 78 个；其中 AgentPProf、目录/兼容性/进一步阅读页和两个重复教程表示不进入发布队列。
 - 历史回补：2026 年以前的非 tutorial Blog 不进入常规平台同步队列；只有出现新的证据、结论或明确发布需求时才单独重新评估。
 - LinkedIn 只安排新的 tutorial 50–54；SchedCP、AgentCgroup、CPU noise、Weekly Analysis 和已有发布记录的内容不重复安排。
 - Medium 与 DEV 分别安排 BPFix 和 tutorial 50–54，保留英文原文标题和正文，只做必要的平台格式适配。
-- 剩余队列：知乎 28 条、掘金 51 条、Medium/DEV 12 条、LinkedIn 5 条，共 96 个平台任务；后续新增内容直接插入合适位置。
+- 剩余队列：知乎 28 条、掘金 50 条、Medium/DEV 12 条、LinkedIn 5 条，共 95 个平台任务；后续新增内容直接插入合适位置。
 
 ## 发布队列
 
 - [x] `排队` 掘金：`docs/blog/posts/schedcp-agentic-os.zh.md`。2026-07-25 已发布：<https://juejin.cn/post/7666245761520615439>；2026-07-26 公开页正文和图片 QA 通过，ledger 已记录为 `confirmed`。
 - [x] `排队` 知乎：`docs/blog/posts/bpfix.zh.md`。2026-07-26 已发布：<https://zhuanlan.zhihu.com/p/2064970067830480995>；公开页标题、正文、图片、表格、代码块和链接 QA 已通过。
-- [ ] `排队` 掘金：`docs/blog/posts/bpfix.zh.md`。
+- [x] `排队` 掘金：`docs/blog/posts/bpfix.zh.md`。2026-07-29 恢复任务时在可见个人文章列表发现已公开：<https://juejin.cn/post/7667474278616547380>；未重复提交，公开页标题、正文、图片、表格、代码块和链接 QA 已通过，ledger 已记录为 `confirmed`。
 - [ ] `排队` Medium：`docs/blog/posts/bpfix.md`。
 - [ ] `排队` DEV：`docs/blog/posts/bpfix.md`。
 - [ ] `排队` 知乎：`docs/tutorials/50-tcx/README.zh.md`。
