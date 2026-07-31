@@ -232,7 +232,7 @@ export function AgentSystemLayerPresentation({ links }: PresentationProps) {
         <div className="grid min-h-[calc(100svh-16rem)] gap-12 py-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
           <div>
             <p className="text-sm font-semibold text-cyan-800">Imagine an agent works for</p>
-            <p className="mt-3 text-7xl font-semibold text-slate-950 sm:text-8xl">72 hours.</p>
+            <p className="mt-3 text-7xl font-semibold text-slate-950 sm:text-8xl">1 week.</p>
             <h2 className="mt-10 text-3xl font-semibold tracking-normal sm:text-4xl">Which actions mattered?</h2>
             <p className="mt-5 max-w-xl text-lg leading-8 text-slate-600">
               A syscall trace can reconstruct execution. It cannot tell you which attempt changed the design, which retry repeated a failure, or why the agent moved its attention to another part of the codebase.
@@ -385,7 +385,7 @@ export function AgentSystemLayerPresentation({ links }: PresentationProps) {
           <div className="mt-12 border-y border-emerald-200/30">
             <div className="grid gap-4 py-6 md:grid-cols-[13rem_1fr] md:items-center">
               <p className="text-sm font-semibold text-emerald-200">AI applications</p>
-              <p className="text-lg text-white">Claude &nbsp; Codex &nbsp; Cursor &nbsp; OpenHands &nbsp; AutoGen &nbsp; ...</p>
+              <p className="text-lg text-white">Claude &nbsp; Codex &nbsp; OpenCode &nbsp; Grok &nbsp; Kimi &nbsp; ...</p>
             </div>
             <div className="grid gap-5 border-t border-emerald-200/30 bg-white/5 py-8 md:grid-cols-[13rem_1fr] md:items-start">
               <p className="text-sm font-semibold text-emerald-200">Agent system layer</p>
