@@ -64,6 +64,8 @@ export function AboutLandingPage({ locale, links, projects }: AboutLandingPagePr
           activity: "活动报告",
           activityDescription:
             "每月自动归档 GitHub org 的 issue、PR、star 和 commit 指标，让外部用户能看到项目持续活跃。",
+          resources: "更多资料",
+          resourcesDescription: "兼容性、基准测试、路线图和其他仍在维护的资料入口。",
           community: "社区入口",
           communityDescription:
             "GitHub、discussion 和公开文档仍然是主要协作渠道；商业支持放在 Products。"
@@ -82,6 +84,8 @@ export function AboutLandingPage({ locale, links, projects }: AboutLandingPagePr
           activity: "Activity reports",
           activityDescription:
             "Monthly GitHub organization reports archive issues, PRs, stars, and commit activity so visitors can see sustained project momentum.",
+          resources: "More resources",
+          resourcesDescription: "Compatibility notes, benchmarks, roadmaps, and other maintained project resources.",
           community: "Community",
           communityDescription:
             "GitHub, discussions, and public documentation remain the main collaboration paths. Commercial support lives under Products."
@@ -170,6 +174,20 @@ export function AboutLandingPage({ locale, links, projects }: AboutLandingPagePr
             <LocalLink link={linkByKey.get("products")} />
           </div>
         </article>
+      </div>
+
+      <div className="grid gap-8 border-t border-slate-200 py-12 lg:grid-cols-[18rem_minmax(0,1fr)]">
+        <div>
+          <h2 className="text-2xl font-semibold tracking-normal text-ink">{copy.resources}</h2>
+          <p className="mt-3 text-sm leading-6 text-slate-600">{copy.resourcesDescription}</p>
+        </div>
+        <div className="flex flex-wrap content-start gap-3">
+          <LocalLink link={linkByKey.get("bpf-benchmark")} />
+          <LocalLink link={linkByKey.get("bpf-compatible")} />
+          <LocalLink link={linkByKey.get("ebpf-gpts")} />
+          <LocalLink link={linkByKey.get("bpftime-roadmap")} />
+          <LocalLink link={linkByKey.get("contribute")} />
+        </div>
       </div>
 
       <ContactCard locale={locale} />

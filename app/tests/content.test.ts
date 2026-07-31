@@ -293,12 +293,14 @@ test("configured section landing copy is sourced from mkdocs config", async () =
       "mailto:yusheng@eunomia.dev",
       "https://github.com/eunomia-bpf/bpftime",
       "/products/agent-runtime-infrastructure/",
+      "/presentations/agent-system-layer/",
       "/products/services/"
     ]
   );
   assert.equal(products?.reactPage, "products");
   assert.equal(products?.reactLinks?.find((link) => link.key === "bpftime")?.href, "/bpftime/");
   assert.equal(products?.reactLinks?.find((link) => link.key === "agent-infra")?.href, "/products/agent-runtime-infrastructure/");
+  assert.equal(products?.reactLinks?.find((link) => link.key === "presentation")?.href, "/presentations/agent-system-layer/");
   assert.equal(bpftime?.reactPage, "bpftime-product");
   assert.equal(bpftime?.reactLinks?.find((link) => link.key === "bpftime-docs")?.href, "/bpftime/documents/introduction/");
   assert.equal(agentInfra?.reactPage, "agent-runtime-infrastructure");
@@ -308,6 +310,7 @@ test("configured section landing copy is sourced from mkdocs config", async () =
   assert.equal(services?.reactPage, "services");
   assert.equal(about?.reactPage, "about");
   assert.equal(about?.reactLinks?.find((link) => link.key === "cuda-tutorial")?.href, "/others/cuda-tutorial/");
+  assert.equal(about?.reactLinks?.find((link) => link.key === "bpf-benchmark")?.href, "/others/bpf-benchmark/");
   assert.equal(projects?.title, "Projects");
   assert.equal(projects?.landingPage?.variant, "project-index");
   assert.ok(projects?.projectCatalog?.projects.some((project) => project.key === "agentsight"));
@@ -670,6 +673,8 @@ test("listSitemapRoutes keeps section routes but excludes noindex'd legacy blog 
   assert.ok(routes.has("/GPTtrace/gpttrace/"));
   assert.ok(!routes.has("/GPTtrace/agentsight/"));
   assert.ok(!routes.has("/zh/GPTtrace/agentsight/"));
+  assert.ok(!routes.has("/about/"));
+  assert.ok(!routes.has("/zh/about/"));
   assert.ok(!routes.has("/eunomia-bpf/ecli/ecli-dockerfile-usage/"));
   assert.equal(routes.size, rawRoutes.length);
 });

@@ -35,6 +35,12 @@ function getTocTitle(locale: Locale): string {
   return locale === "zh" ? "本页目录" : "On this page";
 }
 
+function getDocsRobots(path: string): string | undefined {
+  return /\/(blogs|zh\/blogs)\//.test(path) || path === "/about/" || path === "/zh/about/"
+    ? "noindex,follow"
+    : undefined;
+}
+
 function renderCustomReactPage(kind: NonNullable<DocsPage["reactPage"]>, locale: Locale, page: DocsPage) {
   const links = page.reactLinks ?? [];
   const projects = page.projectCatalog?.projects ?? [];
@@ -133,7 +139,7 @@ export function DocsPageView({
         article={page.layout === "document"}
         publishedAt={page.date}
         metadata={page.metadata}
-        robots={/\/(blogs|zh\/blogs)\//.test(page.path) ? "noindex,follow" : undefined}
+        robots={getDocsRobots(page.path)}
         isTutorial={/\/(tutorials|zh\/tutorials)\//.test(page.path)}
         isCodeProject={/\/(bpftime|eunomia-bpf|GPTtrace)\/?/.test(page.path)}
         repoUrl={

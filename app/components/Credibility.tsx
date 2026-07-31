@@ -9,9 +9,9 @@ const SHIELD = "https://img.shields.io/github/stars/eunomia-bpf";
 const CONTACT_EMAIL = "yusheng@eunomia.dev";
 
 /** Fallback shown until the live count resolves, or if the GitHub API is rate-limited.
- *  Set to the org-wide total as of 2026-05; the live fetch paginates all repos and
+ *  Set to the org-wide total verified on 2026-07-31; the live fetch paginates all repos and
  *  overrides this on success. */
-const FALLBACK_TOTAL_STARS = 9300;
+const FALLBACK_TOTAL_STARS = 9950;
 
 /**
  * Live, org-wide GitHub star total. shields.io has no "sum across an org" badge,
@@ -27,15 +27,23 @@ export function OrgStarTotal({ locale, className = "" }: { locale: Locale; class
     (async () => {
       try {
         let sum = 0;
+        let complete = false;
         for (let page = 1; page <= 5; page += 1) {
           const res = await fetch(`${ORG_API}?per_page=100&type=public&page=${page}`);
-          if (!res.ok) break;
+          if (!res.ok) return;
           const repos = (await res.json()) as Array<{ stargazers_count?: number }>;
-          if (!Array.isArray(repos) || repos.length === 0) break;
+          if (!Array.isArray(repos)) return;
+          if (repos.length === 0) {
+            complete = true;
+            break;
+          }
           sum += repos.reduce((acc, repo) => acc + (repo.stargazers_count ?? 0), 0);
-          if (repos.length < 100) break;
+          if (repos.length < 100) {
+            complete = true;
+            break;
+          }
         }
-        if (!cancelled && sum > 0) setTotal(sum);
+        if (!cancelled && complete && sum > 0) setTotal(sum);
       } catch {
         /* keep the fallback */
       }
@@ -45,8 +53,7 @@ export function OrgStarTotal({ locale, className = "" }: { locale: Locale; class
     };
   }, []);
 
-  const value = total ?? FALLBACK_TOTAL_STARS;
-  const display = `${(Math.floor(value / 100) * 100).toLocaleString("en-US")}+`;
+  const display = `${(total ?? FALLBACK_TOTAL_STARS).toLocaleString("en-US")}${total === null ? "+" : ""}`;
 
   return (
     <a

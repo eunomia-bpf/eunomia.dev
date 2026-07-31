@@ -36,7 +36,7 @@ May have a chance to publish papers on top conference.
 
 ### Useful References
 
-* [Running BPF After Application Exits (eunomia blog)](https://eunomia.dev/tutorials/bpf-application-exits/)
+* [Running eBPF After Application Exits (eunomia tutorial)](/tutorials/28-detach/)
 * [kernel.org – eBPF Map Documentation](https://docs.kernel.org/bpf/map_data.html)
 
 ## sched_ext‑Based Coz‑Style Causal Profiler (“SchedCoz”)

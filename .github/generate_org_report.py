@@ -15,6 +15,23 @@ from typing import List, Dict, Any
 DEFAULT_REPORT_ITEM_LIMIT = 100
 
 
+def parse_gh_api_output(stdout: str, paginate: bool = False) -> Any:
+    """Parse gh api output, merging the JSON document emitted for each page."""
+    if not paginate:
+        return json.loads(stdout)
+
+    all_items = []
+    for line in stdout.strip().splitlines():
+        if not line:
+            continue
+        data = json.loads(line)
+        if isinstance(data, list):
+            all_items.extend(data)
+        else:
+            all_items.append(data)
+    return all_items
+
+
 def run_gh_api(endpoint: str, params: Dict[str, str] = None, paginate: bool = False) -> List[Dict[str, Any]]:
     """Run gh api command and return parsed JSON results."""
     cmd = ["gh", "api"]
@@ -28,30 +45,17 @@ def run_gh_api(endpoint: str, params: Dict[str, str] = None, paginate: bool = Fa
     cmd.append(endpoint)
 
     try:
-        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+        result = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", check=True)
     except subprocess.CalledProcessError as e:
         print(f"Error running gh api command: {' '.join(cmd)}", file=sys.stderr)
         print(f"stdout: {e.stdout}", file=sys.stderr)
         print(f"stderr: {e.stderr}", file=sys.stderr)
         raise
 
-    # Handle paginated results (multiple JSON objects)
-    if paginate:
-        lines = result.stdout.strip().split('\n')
-        all_items = []
-        for line in lines:
-            if line:
-                data = json.loads(line)
-                if isinstance(data, list):
-                    all_items.extend(data)
-                else:
-                    all_items.append(data)
-        return all_items
-    else:
-        return json.loads(result.stdout)
+    return parse_gh_api_output(result.stdout, paginate)
 
 
-def run_gh_api_with_header(endpoint: str, headers: List[str], params: Dict[str, str] = None, paginate: bool = False) -> Dict[str, Any]:
+def run_gh_api_with_header(endpoint: str, headers: List[str], params: Dict[str, str] = None, paginate: bool = False) -> Any:
     """Run gh api command with custom headers."""
     cmd = ["gh", "api"]
 
@@ -68,14 +72,14 @@ def run_gh_api_with_header(endpoint: str, headers: List[str], params: Dict[str, 
     cmd.append(endpoint)
 
     try:
-        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+        result = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", check=True)
     except subprocess.CalledProcessError as e:
         print(f"Error running gh api command: {' '.join(cmd)}", file=sys.stderr)
         print(f"stdout: {e.stdout}", file=sys.stderr)
         print(f"stderr: {e.stderr}", file=sys.stderr)
         raise
 
-    return json.loads(result.stdout)
+    return parse_gh_api_output(result.stdout, paginate)
 
 
 def parse_github_timestamp(value: str):
@@ -142,41 +146,43 @@ def write_markdown_list(f, items: List[str], empty_text: str = "- (none)", limit
         f.write(f"- ... {omitted} more omitted from this website archive\n")
 
 
-def get_new_stars(org: str, start_z: str, end_z: str) -> tuple[int, List[str]]:
-    """Get new stars across all repos in the organization, returning total and per-repo breakdown."""
+def get_new_stars(org: str, start_z: str, end_z: str) -> tuple[int, List[str], int]:
+    """Return new stars for active repos, their breakdown, and the current org total."""
     total_stars = 0
     repo_stars = []
+    failed_repos = []
+    repos = run_gh_api(f"/orgs/{org}/repos?per_page=100&type=public", paginate=True)
+    current_total = sum(repo.get("stargazers_count", 0) for repo in repos)
 
-    try:
-        # Get all repos in org
-        repos = run_gh_api(f"/orgs/{org}/repos", paginate=True)
+    for repo in repos:
+        if repo.get("archived"):
+            continue
+        repo_name = repo["name"]
+        repo_full_name = repo["full_name"]
+        try:
+            stargazers = run_gh_api_with_header(
+                f"/repos/{org}/{repo_name}/stargazers?per_page=100",
+                ["Accept: application/vnd.github.star+json"],
+                paginate=True
+            )
+            count = sum(
+                1
+                for star in stargazers
+                if start_z <= star.get("starred_at", "") <= end_z
+            )
+            if count > 0:
+                repo_stars.append(f"  - [{repo_full_name}]({repo['html_url']}): **{count}** new stars")
+            total_stars += count
+        except Exception as exc:
+            print(f"Error: Failed to get stars for {org}/{repo_name}: {exc}", file=sys.stderr)
+            failed_repos.append(repo_full_name)
 
-        for repo in repos:
-            repo_name = repo["name"]
-            repo_full_name = repo["full_name"]
-            try:
-                # Get stargazers with timestamps
-                stargazers = run_gh_api_with_header(
-                    f"/repos/{org}/{repo_name}/stargazers",
-                    ["Accept: application/vnd.github.star+json"],
-                    paginate=True
-                )
+    if failed_repos:
+        raise RuntimeError(
+            "Star report is incomplete; failed repositories: " + ", ".join(failed_repos)
+        )
 
-                # Count stars in date range
-                if isinstance(stargazers, list):
-                    count = sum(1 for s in stargazers
-                               if s.get("starred_at", "") >= start_z and s.get("starred_at", "") <= end_z)
-                    if count > 0:
-                        repo_stars.append(f"  - [{repo_full_name}]({repo['html_url']}): **{count}** new stars")
-                    total_stars += count
-            except Exception as e:
-                print(f"Warning: Failed to get stars for {org}/{repo_name}: {e}", file=sys.stderr)
-                continue
-
-        return total_stars, repo_stars
-    except Exception as e:
-        print(f"Warning: Failed to count stars: {e}", file=sys.stderr)
-        return 0, []
+    return total_stars, repo_stars, current_total
 
 
 def get_new_repos(org: str, start_z: str, end_z: str) -> List[str]:
@@ -430,8 +436,9 @@ def append_org_activity(org: str, start: str, end: str, output_file: str = "issu
 
         # New stars
         f.write("### New Stars\n")
-        total_stars, repo_stars = get_new_stars(org, start_z, end_z)
-        f.write(f"- Total new stars: **{total_stars}**\n")
+        total_stars, repo_stars, current_total = get_new_stars(org, start_z, end_z)
+        f.write(f"- Total new stars (non-archived repositories): **{total_stars}**\n")
+        f.write(f"- Current organization total at report generation: **{current_total}**\n")
         if repo_stars:
             f.write("\n**By Repository:**\n")
             f.write("\n".join(repo_stars) + "\n")

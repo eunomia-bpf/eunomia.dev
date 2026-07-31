@@ -941,6 +941,10 @@ extra:
           label_zh: 了解 AI Agent 可观测与执行控制
           href: /products/agent-runtime-infrastructure/
           variant: primary
+        - key: presentation
+          label: View the system-layer presentation
+          label_zh: 查看系统层演示
+          href: /presentations/agent-system-layer/
         - key: services
           label: View services
           label_zh: 查看服务
@@ -1052,6 +1056,26 @@ extra:
           label: Activity reports
           label_zh: 活动报告
           href: /reports/
+        - key: bpf-benchmark
+          label: eBPF benchmarks
+          label_zh: eBPF 基准测试
+          href: /others/bpf-benchmark/
+        - key: bpf-compatible
+          label: eBPF compatibility
+          label_zh: eBPF 兼容性
+          href: /others/bpf-compatible/
+        - key: ebpf-gpts
+          label: eBPF GPTs
+          label_zh: eBPF GPTs
+          href: /others/ebpf-gpts/
+        - key: bpftime-roadmap
+          label: bpftime roadmap
+          label_zh: bpftime 路线图
+          href: /others/miscellaneous/bpftime-roadmap/
+        - key: contribute
+          label: Contribute
+          label_zh: 参与贡献
+          href: /others/contribute/
       title:
         en: About Eunomia
         zh: 关于 Eunomia

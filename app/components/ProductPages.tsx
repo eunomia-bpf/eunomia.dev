@@ -453,7 +453,7 @@ export function ProductsLandingPage({ locale, links, projects }: ProductPageProp
             title="AI Agent Observability & Enforcement"
             description={copy.agent}
             href={linkByKey.get("agent-infra")}
-            links={[linkByKey.get("agent-infra")]}
+            links={[linkByKey.get("agent-infra"), linkByKey.get("presentation")]}
             visualLabel="agent observe + enforce"
             visualLines={["observe.agent()", "enforce.policy()", "audit.runtime()"]}
           />
