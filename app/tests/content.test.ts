@@ -94,10 +94,10 @@ test("slugifyTitle normalizes punctuation and accents into stable slugs", () => 
   assert.equal(slugifyTitle("Caf\u00e9 Noir / 2026"), "cafe-noir-2026");
 });
 
-test("blog entries derive dated slugs from parsed metadata", () => {
+test("blog entries preserve dated metadata and localized sources", () => {
   const entry = getBlogEntries().find((candidate) => candidate.key === "agentcgroup-characterization");
   assert.ok(entry);
-  assert.equal(entry.slug, slugifyTitle(entry.title));
+  assert.equal(entry.slug, "agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources");
   assert.deepEqual([entry.year, entry.month, entry.day], ["2026", "02", "17"]);
   assert.equal(entry.sourceByLocale.en, "blog/posts/agentcgroup-characterization.md");
   assert.equal(entry.sourceByLocale.zh, "blog/posts/agentcgroup-characterization.zh.md");
