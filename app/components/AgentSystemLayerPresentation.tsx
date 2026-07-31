@@ -355,7 +355,6 @@ export function AgentSystemLayerPresentation({ links }: PresentationProps) {
             <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600">
               Agent sessions contain decisions, commands, failed attempts, and private working context. Akeep preserves the provider-native files as versioned history so work can be inspected and recovered without turning it into another agent-memory format.
             </p>
-            <p className="mt-5 text-sm font-semibold text-amber-800">Akeep is currently pre-alpha.</p>
             <div className="mt-7">
               <ProjectLink link={linkByKey.get("akeep-github")} accent="border-emerald-300 bg-white text-emerald-900 hover:border-emerald-500" />
             </div>
