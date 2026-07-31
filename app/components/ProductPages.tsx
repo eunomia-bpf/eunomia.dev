@@ -222,7 +222,7 @@ function EditionsSection({ locale, contact }: { locale: Locale; contact?: ReactP
           eyebrow: "Open-core",
           title: "开源、独立、可持续",
           description:
-            "core 是 MIT、可免费自托管且不阉割。企业版加购和支持让项目保持独立——无需 VC。",
+            "core 是 MIT、可免费自托管且不阉割；需要生产集成和 SLA 的团队可按需采用商业功能与支持。",
           columns: [
             {
               name: "开源 (MIT)",
@@ -260,7 +260,7 @@ function EditionsSection({ locale, contact }: { locale: Locale; contact?: ReactP
           eyebrow: "Open-core",
           title: "Open source, independent, and sustainable",
           description:
-            "The core is MIT and free to self-host with no crippling. Commercial add-ons and support keep the project independent — no VC required.",
+            "The core is MIT and free to self-host with no crippling; commercial add-ons and support are available for teams that need production integration and SLAs.",
           columns: [
             {
               name: "Open source (MIT)",
