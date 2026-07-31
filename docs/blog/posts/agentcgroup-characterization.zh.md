@@ -1,5 +1,6 @@
 ---
 date: 2026-02-17
+slug: agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources
 description: AgentCgroup 刻画 AI Agent 的突发资源行为，并通过 eBPF、sched_ext 和 cgroup v2 在工具调用粒度控制 CPU 与内存，同时保留 Agent 已积累的执行状态。
 ---
 

@@ -1,5 +1,6 @@
 ---
 date: 2026-02-17
+slug: agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources
 description: AgentCgroup characterizes resource bursts in AI agents and uses eBPF, sched_ext, and cgroup v2 to enforce tool-call-granularity CPU and memory control without discarding agent state.
 ---
 
