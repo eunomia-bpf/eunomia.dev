@@ -1,5 +1,6 @@
 import { ArticleLayout } from "../components/ArticleLayout";
 import { AboutLandingPage } from "../components/AboutLandingPage";
+import { AgentSystemLayerPresentation } from "../components/AgentSystemLayerPresentation";
 import { BlogListing } from "../components/BlogListing";
 import { CardGrid } from "../components/CardGrid";
 import { HomePageHero, HomePageLanding } from "../components/HomePageLanding";
@@ -46,6 +47,9 @@ function renderCustomReactPage(kind: NonNullable<DocsPage["reactPage"]>, locale:
   }
   if (kind === "agent-runtime-infrastructure") {
     return <AgentRuntimeInfrastructurePage locale={locale} links={links} projects={projects} />;
+  }
+  if (kind === "agent-system-layer-presentation") {
+    return <AgentSystemLayerPresentation links={links} />;
   }
   if (kind === "services") {
     return <ServicesProductPage locale={locale} links={links} projects={projects} />;

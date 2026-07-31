@@ -39,6 +39,7 @@ export type MkdocsReactPageVariant =
   | "products"
   | "bpftime-product"
   | "agent-runtime-infrastructure"
+  | "agent-system-layer-presentation"
   | "services"
   | "about";
 
@@ -953,6 +954,7 @@ function normalizeReactPageVariant(value: string | undefined, context: string): 
     "products",
     "bpftime-product",
     "agent-runtime-infrastructure",
+    "agent-system-layer-presentation",
     "services",
     "about"
   ]);

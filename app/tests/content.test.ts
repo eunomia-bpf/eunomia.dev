@@ -279,6 +279,7 @@ test("configured section landing copy is sourced from mkdocs config", async () =
   const products = await loadSectionPage("products", [], "en");
   const bpftime = await loadSectionPage("bpftime", [], "en");
   const agentInfra = await loadSectionPage("products", ["agent-runtime-infrastructure"], "en");
+  const agentSystemLayer = await loadSectionPage("presentations", ["agent-system-layer"], "en");
   const services = await loadSectionPage("products", ["services"], "en");
   const about = await loadSectionPage("others", [], "en");
 
@@ -301,6 +302,8 @@ test("configured section landing copy is sourced from mkdocs config", async () =
   assert.equal(bpftime?.reactPage, "bpftime-product");
   assert.equal(bpftime?.reactLinks?.find((link) => link.key === "bpftime-docs")?.href, "/bpftime/documents/introduction/");
   assert.equal(agentInfra?.reactPage, "agent-runtime-infrastructure");
+  assert.equal(agentSystemLayer?.reactPage, "agent-system-layer-presentation");
+  assert.equal(agentSystemLayer?.reactLinks?.find((link) => link.key === "akeep-github")?.href, "https://github.com/eunomia-bpf/akeep");
   assert.equal(agentInfra?.reactLinks?.find((link) => link.key === "actplane-docs"), undefined);
   assert.equal(services?.reactPage, "services");
   assert.equal(about?.reactPage, "about");

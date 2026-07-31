@@ -867,6 +867,30 @@ extra:
       en: All posts
       zh: 全部文章
   section_pages:
+    presentations/agent-system-layer.md:
+      react_page: agent-system-layer-presentation
+      links:
+        - key: agentsight-github
+          label: AgentSight on GitHub
+          label_zh: AgentSight on GitHub
+          href: https://github.com/eunomia-bpf/agentsight
+        - key: actplane-github
+          label: ActPlane on GitHub
+          label_zh: ActPlane on GitHub
+          href: https://github.com/eunomia-bpf/ActPlane
+        - key: akeep-github
+          label: Akeep on GitHub
+          label_zh: Akeep on GitHub
+          href: https://github.com/eunomia-bpf/akeep
+      title:
+        en: The System Layer for AI Agents
+        zh: The System Layer for AI Agents
+      description:
+        en: A systems keynote opening on the missing operating-system abstractions for long-running AI agents.
+        zh: A systems keynote opening on the missing operating-system abstractions for long-running AI agents.
+      body:
+        en: This page is rendered as an interactive presentation.
+        zh: This page is rendered as an interactive presentation.
     bpftime/index.md:
       react_page: bpftime-product
       links:
