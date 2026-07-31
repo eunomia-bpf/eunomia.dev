@@ -23,12 +23,10 @@ const retiredLegacySitemapPaths = new Set([
 // they are intentionally excluded from the app sitemap (see isSitemapExcludedRoute).
 const retiredLegacyBlogPattern = /^\/(?:zh\/)?blogs(?:\/|$)/;
 const expectedAppOnlyPaths = new Set([
-  "/about/",
   "/products/",
   "/products/agent-runtime-infrastructure/",
   "/products/services/",
   "/projects/",
-  "/zh/about/",
   "/zh/products/",
   "/zh/products/agent-runtime-infrastructure/",
   "/zh/products/services/",
