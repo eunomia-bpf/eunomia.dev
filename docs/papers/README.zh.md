@@ -7,7 +7,7 @@ author: eunomia-bpf community
 
 # 论文与研究
 
-本页是 eunomia-bpf 社区研究成果的正本库。每篇论文附有：已发表或 arXiv 版本链接、本地 PDF 副本、可供人和 LLM 工具直接阅读的纯文本提取、公开 artifact，以及面向开发者的技术 Blog 解读（如已撰写）。收录政策：只有已发表论文或公开 arXiv 版本会进入本库；处于评审中的工作不会出现在此处。元数据与 arXiv 版本锁定记录在本目录的 `registry.yaml` 中。
+本页是 eunomia-bpf 社区研究成果的正本库。每篇论文附有：已发表版本或公开预印本链接、本地 PDF 副本、可供人和 LLM 工具直接阅读的纯文本提取、公开 artifact，以及面向开发者的技术 Blog 解读（如已撰写）。收录政策：只有已发表论文或明确公开的预印本会进入本库；仍处于评审且尚未公开的工作不会出现在此处。元数据与 arXiv 版本锁定记录在本目录的 `registry.yaml` 中。
 
 ## 研究脉络
 
@@ -49,6 +49,7 @@ ActPlane（[arXiv 2606.25189](https://arxiv.org/abs/2606.25189)）将上述线�
 
 | 论文 | PDF / 文本 | 开源实现 | 技术 Blog | 状态 |
 |---|---|---|---|---|
+| [AgentPProf: Semantic Profiler for Long Horizon AI Agents](agentpprof.pdf) | [PDF](agentpprof.pdf) · [txt](agentpprof.txt) | [AgentSight](https://github.com/eunomia-bpf/agentsight) | [阅读 Blog](../blog/posts/agentpprof-semantic-flamegraph.zh.md) | 公开预印本 |
 | [Characterizing and Bridging the Diagnostic Gap in eBPF Verifier Rejections](https://arxiv.org/abs/2607.02748) | [PDF](bpfix.pdf) · [txt](bpfix.txt) | [bpfix](https://github.com/eunomia-bpf/bpfix) | 待补 Blog | arXiv preprint |
 | [ActPlane: Programmable OS-Level Policy Enforcement for Agent Harnesses](https://arxiv.org/abs/2606.25189) | [PDF](actplane.pdf) · [txt](actplane.txt) | [ActPlane](https://github.com/eunomia-bpf/ActPlane) | [阅读 Blog](../blog/posts/actplane.zh.md) | arXiv preprint，v2 |
 | [Kops: Safely Extending the eBPF Compilation Pipeline with Native Operations](https://arxiv.org/abs/2606.24213) | [PDF](kops.pdf) · [txt](kops.txt) | [Kops artifact](https://github.com/eunomia-bpf/bpf-benchmark) | 待补 Blog | arXiv preprint |

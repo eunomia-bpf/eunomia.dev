@@ -1,0 +1,1331 @@
+AgentPProf: Semantic Profiler for Long Horizon AI Agents
+Yusheng Zheng1,2, Chaokun Chang3, Yu Mao4, Tianyuan Wu3, Yuxi Huang2, Tao Ma5, Wenan
+Mao5, Shuyi Cheng5, Andi Quinn1, Wei Wang3
+1UC Santa Cruz 2Eunomia Labs 3HKUST 4Independent Researcher 5Alibaba Group
+Abstract
+AIagentsincreasinglyorchestratelong-runningactivitieswith
+users, tools, and system resources for days and weeks. To im-
+prove quality, safety, and cost efficiency of AI agents, devel-
+opers need to determine where failures happen, what triggers
+unsafeeffects,andwhattasksconsumethemostbudget.They
+canthenoptimizethosetaskstoreducetokenandtimecost.In
+systems software, profiling answers similar questions by ag-
+gregating resource consumption and attributing it to respon-
+sible code paths to identify hotspots. Yet existing agent ob-
+servabilitytoolsfocusonper-executiondebuggingandtracing
+ratherthancross-run,longtermprofiling,makingtheseques-
+tions difficult to answer at scale. Agent observability needs
+profiling,notonlydebugging.Profilingagentsischallenging:
+the responsible entities are task intent likediagnose authenti-
+cation,comparebranchesratherthancodepaths,andlacksta-
+ble identifiers for aggregation. We propose asemantic opera-
+tionstackmodelthatadaptsprofilingtoagenttrajectories.Uni-
+formoperationsrepresent all activities, andoperation stacks
+replace the runtime call stack, enabling hierarchical attribu-
+tion at different granularities. We observe that an agent’s task
+occupies a contiguous span and decomposes into subtasks,
+so we introducerecursive operation segmentation, which re-
+cursively splits trajectories at task boundaries.AgentPProf
+is a profiler that aggregates agent trajectories into pprof-
+compatible profiles, enabling flame graph visualization and
+analysis.OnCodeTraceBench,AgentPProfreaches0.764B 3
+F1againsthumanannotations.Onthreeproblem-localization
+benchmarks, the profile raises MAP by up to 56%.AgentP-
+Profeffectively attributes resources, locates problems, and
+helps optimize token cost at practical cost.AgentPProfis
+available at https://github.com/eunomia-bpf/agentsight.
+Introduction
+AIagents(Yangetal.2024;Anthropic2025;Xieetal.2024)
+orchestrate multi-step activities that span two layers, high-
+level intent (prompts, LLM calls, tool invocations) and low-
+level system effects (process spawns, file and network I/O).
+Asagentsevolvefromshort,scriptedworkflowsintocomplex
+systems that run for hours and days, with a large number of
+interactions each, production teams accumulate many such
+trajectories over weeks or months.
+To improve agent quality, safety, and cost efficiency, de-
+velopers need to analyze operational behavior across tra-
+jectories and interactions. Which categories of tasks con-
+sume the most token budget? Where do failures concentrate
+Copyright©2027, Association for the Advancement of Artificial
+Intelligence (www.aaai.org). All rights reserved.
+Figure 1: One renderer, four standard pprof profiles.(a)
+CPU time in a Go HTTP service.(b, c)Three agent exe-
+cutions under one fixed hierarchy: width is operation count
+(b) or tokens (c).(d)Token profile focused ondiagnose
+authentication.
+across workflows? Which behavioral patterns trigger unsafe
+system effects? Answering these questions is the first step.
+Acting on the answers, by optimizing high-cost tasks and
+fixing failure-prone workflows, is the goal. Answering these
+questions requires analysis and evaluation across many tra-
+jectories (Mazaheri and Mazaheri 2026; Lù et al. 2025), a
+taskbecomingcostlyformanualinspectionorper-trajectory
+LLM evaluation (Zheng et al. 2023) at scale. In traditional
+systemssoftware,profilinganswersthesequestionsbyaggre-
+arXiv:submit/7887721  [cs.AI]  31 Jul 2026
+
+gatingresourceconsumptionandattributingittoresponsible
+entities, distinct from per-execution debugging and tracing.
+Yet existing agent tools support debugging and tracing
+but not profiling. Some (LangChain 2024; Langfuse 2024;
+Arize AI 2024a; OpenTelemetry 2024) organize events into
+per-execution span trees, effective for diagnosing a single
+runbutunabletoaggregatebytaskintentorworkflowphase.
+Others (Datadog 2025; Laminar 2025) cluster inputs or ex-
+tract structured signals, but characterizeinput distributions
+(“30% of users ask code questions”) rather thanresource
+attribution(“review tasks consume 40% of the token bud-
+get”), because tags at the request level do not propagate to
+downstream tool calls and system effects.
+Adapting profiling to agent trajectories is challenging. In
+traditional software, the responsible entities are code paths,
+and profiling is straightforward because function names are
+stableandruntimecallnestingprovidestheattributionhierar-
+chy. Agent behavior differs. To answer the questions above,
+the responsible entities must be task intent and workflow
+phase, not code paths. Agent trajectories lack the two prop-
+erties that make traditional profiling possible. Prompts are
+natural language, so two prompts expressing the same in-
+tent share no common string. Agent events have no runtime
+call-stack hierarchy because prompts, tool calls, and system
+effects are not nested by execution the way function calls
+produce stack frames. A sequence of prompts can be a task
+or multiple tasks, and a task can be part of a bigger task.
+Despite these differences, the fundamental profiling
+methodology transfers to agent trajectories by projecting re-
+sourcesontoresponsibleentities,assigningstableidentifiers,
+andattributinghierarchically.Weproposeasemanticopera-
+tion stack modelwith two components.Operationsare uni-
+form records with string fields and additive measures that
+represent all agent activities (prompts, LLM calls, tool in-
+vocations, and system effects) without type-specific objects.
+Operation stacksprovide hierarchical attribution, replacing
+the runtime call stack. Choosing different fields changes the
+attributiongranularity:thesameoperationscanbeattributed
+by task category, by execution phase, by session, or by ac-
+tiontype,andonefixedhierarchyreplaysunderanyadditive
+measure (Figure 1).
+We implement this model inAgentPProf, an offline
+profiler that compiles local agent trajectories into pprof-
+compatible profiles (Figure 2). One algorithm,recursive op-
+eration segmentation, supplies the missing identifiers. La-
+beling every prompt individually would be prohibitively ex-
+pensive, but task structure is recoverable at lower cost: a
+task occupies a contiguous span of a trajectory and decom-
+posesintocontiguoussubtasks,sorecoveringitrequiresonly
+finding the transitions between them. The algorithm finds
+where responsibility changes, names the resulting intervals,
+andyieldsshortnamesstartingwithaverb(likediagnose
+authentication)thatfoldacrosssessions.Theinterface
+is implementation-neutral.
+We evaluate whetherAgentPProfeffectively at-
+tributes resources, locates problems, and recovers human-
+recognizable task structure at practical cost. Across all 405
+CodeTraceBench (Li et al. 2026) trajectories, recursive seg-
+mentation agrees with human stage annotations at 0.764 B3
+F1 (Bagga and Baldwin 1998), versus 0.663 for a statisti-
+cal baseline and 0.541 for raw actions. On three complete
+localization benchmarks, the profile improves ranking over
+each benchmark’s own diagnostic, raising MAP by 0.031,
+0.107, and 0.117; as a navigation aid, it reduces content to
+inspect by 12 percentage points at equal ranking quality. A
+profile-derived repair reduces agent tokens by 19% without
+degrading task quality, and annotation cost is reduced by
+20%.
+This paper makes three contributions:
+1.Semantic operation stack model.We identify the miss-
+ing profiling layer in agent observability and propose a
+model of uniform operations and query-time operation
+stacks (Background and Design).
+2.System:AgentPProf.A profiler that implements this
+model, producing pprof-compatible output.
+3.Evaluation.Weevaluateprofileroutputagainstindepen-
+dent ground-truth annotations that stay hidden from the
+profiler,oneightpublicbenchmarksandthreerealtrajec-
+tory datasets.
+Background and Motivation
+LLMs and AI Agents.A typical agent trajectory inter-
+leaves two layers of activity. At the intent layer, the agent
+receives a user prompt, issues LLM calls, and invokes tools
+(code execution, web search, file editing). Each tool invoca-
+tiontriggerssystemeffectsatthelowerlayer:processspawns,
+file reads and writes, and network requests. A single tra-
+jectory may contain hundreds of cycles between intent and
+systemeffects,andaproductionteamaccumulatesmanytra-
+jectories over time.
+System Profiling.In traditional software, the profiling
+pipelineworksasfollows:aprofilerperiodicallysamplesexe-
+cutionstate,attacheseachsampletothecurrentcallstack,and
+merges samples with identical stacks. Flame graphs (Gregg
+2011) and pprof (Google 2024) call graphs visualize the
+result, where width or node size represents aggregate cost.
+Engineers use these profiles to find where CPU or memory
+budget is spent, then optimize the responsible code paths
+to reduce cost. These tools support flexible aggregation, but
+they all assume stable function names and a runtime call
+stack. Pprof’stagroot/tagleafoptions can add label-
+derivedpseudo-frames,butonlyontopofanexistingexecu-
+tion stack that agent trajectories do not have.
+A Motivating Case.Three independent agent attempts at
+one real Git-deployment task all failed to deliver the re-
+quested password-authenticated endpoint. The developer’s
+question iswhat went wrong, and is it the same problem
+across all three runs?Reading three transcripts totaling 489
+operationsand4.6Mtokenswouldtakehours.Figure1places
+a conventional CPU profile beside the semantic profile of
+those three runs. Both are standard pprof profiles drawn by
+one renderer and read by identical rules, where width is
+aggregate cost, a parent contains its children, and identi-
+calstacksrecordedatdifferentmomentsfoldintooneframe.
+Whatdiffersiswheretheframescomefrom.Acallstacksup-
+pliesnet/http.( *conn).serveat every sample for
+
+free, but nothing in an agent trajectory suppliesdiagnose
+authenticationbecause the three runs express that in-
+tentthroughdifferentpromptsanddifferentshellcommands.
+Once that name is constructed, the profile answers the engi-
+neer’s question directly.
+The profile answers in one view (Figure 1): all three runs
+shareadiagnose authenticationresponsibilitythat
+consumes46%oftheircombinedtokenbudgetbutonly21%
+of operation count. Expanding the view shows all three exe-
+cutions verifying substitute transport paths without ever es-
+tablishing the target endpoint. The insight is that the agents
+keptretryingSSHvariantsinsteadoffixingtheactualcreden-
+tialissue,andoperationcountalonewouldhidethisbecause
+authenticationcommandsarecheaptoissuebutexpensiveto
+verify.Theprofilepointstowheretointervene.Addingearly
+credential validation or limiting retry depth indiagnose
+authenticationcould cut token cost for similar tasks.
+Challenges for Agent Profiling.Adapting profiling to
+agent trajectories faces two core challenges. The first is that
+the responsible entities differ. In traditional software, profil-
+ing attributes cost to code paths, but in agent trajectories the
+relevantentitiesaretaskintentandworkflowphase.Existing
+tools (OpenTelemetry 2024; Arize AI 2024b) do not cap-
+turetheseentitiesbecausepromptsarenaturallanguage:two
+promptsexpressingthesameintentmaydiffer,sotheprofiler
+cannot aggregate them the way it aggregates identical func-
+tion names. The second challenge is that agent trajectories
+have no runtime hierarchy for attribution. In CPU profiling,
+thecallstackdeterminesattributionateverylevel:malloc’s
+costbelongstoparse,toprocess,andtomainsimulta-
+neously. In AI Agents, sequence of prompts may constitute
+one task or several, and a task may be part of a larger work-
+flow, but no runtime mechanism marks these boundaries or
+determines at which granularity to attribute cost.
+Design
+Agent profiling needs the three mechanisms that call stacks
+provide automatically, but must achieve them without a call
+stack:R1(cross-layerprojection):connectsystem-layercon-
+sumption to intent-level categories;R2(stable identifiers):
+derive short, repeatable identifiers from natural-language
+prompts before folding;R3(hierarchical attribution): con-
+struct attribution hierarchies from data, not execution nest-
+ing.OperationssatisfyR1byrepresentingintentandsystem-
+effect activities in a single record with tag inheritance, so
+intent tags propagate to the system effects they trigger via
+AgentSight (Zheng et al. 2025).Recursive operation seg-
+mentationsatisfies R2 and R3 together by deriving short,
+stable interval names from trajectory content and nesting
+thoseintervalsintotheattributionhierarchythatreplacesthe
+runtime call stack.Operation stacksthen attribute resources
+at every level of that hierarchy at query time, so the same
+data supports multiple views without rebuilding the input.
+The profiling pipeline has four stages: (1) parse raw trajec-
+tories into operations, (2) segment trajectories into named
+nested intervals (or apply mapping rules), (3) project each
+operationontoastack framesequencechosenatquerytime,
+and (4) fold operations with identical stacks, summing their
+Agent
+Trajectories
+Operation
+Segmentation
+once per trajectory
+Projection
+query time
+Output
+pprof
+Figure 2: Data-flow pipeline. Local histories and public
+datasetsbothproduceuniformoperations;segmentationruns
+once, projection and folding at query time.
+weights.
+Semantic Operation Stack Model
+Thissectiondefinesoperationsandoperationstacks,thedata
+structures that satisfy R1 (cross-layer projection) and enable
+R3 (hierarchical attribution). R2 (stable identifiers) requires
+deriving identifiers from trajectory content and is addressed
+in Section .
+Becauseagentactivitiesspanbothintentandsystem-effect
+layers, a profiler should not distinguish between them in the
+data representation.AgentPProftherefore represents every
+activityasasingleabstraction,theoperation,aweighted
+record with string fields and additive measures. Each oper-
+ation carries string fields (project,agent,session,
+prompt_tag,kind,model,path,domain,status,
+...) and additive measures (token count, duration, event
+count). A prompt, an LLM call, a tool invocation, a file
+read,aGUIclick,andaprocesseventarealloperationswith
+the same schema, distinguished only by which fields carry
+values.
+Anoperation stackprovides hierarchical attribu-
+tionforagenttrajectories,replacingtheruntimecallstack.An
+ordered list of fields[f1, f2, . . . , fk]projects each operation
+oto a frame sequence⟨o.f1, o.f2, . . . , o.fk⟩, and operations
+withidenticalsequencesaremerged,summingtheirweights.
+Unlike a call stack, the fields are chosen at query time, not
+determinedbyexecution.Changingthefieldschangestheat-
+tribution without changing the data, so the same operations
+can be attributed by task, by session, or by action type. Ses-
+sionsandspansareoptionalfields,sothesamedatasupports
+bothdebugging(includesession)andaggregateprofiling
+(exclude it). Built-in views cover common questions (e.g.,
+tokens,time,files).
+Recursive Operation Segmentation
+Operation stacks can project any field an operation already
+carries, but agent trajectories lack the two fields that make
+traditional profiling work: stable task identifiers and a nest-
+ing hierarchy. Labeling every prompt individually would be
+prohibitively expensive. Recursive operation segmentation
+derives both fields from trajectory content at lower cost
+by marking only the transition points where responsibility
+changes.
+The algorithm rests on one structural intuition: an agent’s
+task occupies a contiguous span of the trajectory, and it de-
+composes into smaller contiguous subtasks. We model task
+structure as a set of nested named intervals, and recovering
+it only requires finding the transition points between them.
+Thealgorithmreadsatrajectory,findsthetransitionpoints
+where the agent’s responsibility changes, and names the in-
+
+tervals on both sides. It then recurses into each interval,
+cuttingagainwhereverafinerresponsibilitychangeremains,
+and stops when an interval reads as one coherent piece of
+work.Formally,atrajectoryisanorderedstepsequenceT=
+(t1, . . . , tn),andasegmentationisasetSofnamedintervals
+overTthatisnested(anytwointervalsaredisjointoronecon-
+tains the other), covers every step, and contains the session-
+wide interval as its root. The algorithm computesSby one
+recursive rule:Segment(I)selects zero or more transition
+points inside intervalI, which partitionIinto consecutive
+childintervals.Eachchildreceivesashortnamestartingwith
+a verb and is segmented recursively. Selecting no transition
+terminates the branch. A step’s operation path is the name
+chain of the intervals containing it, from the session root to
+itsinnermostinterval.Equalpathsfoldacrosssessions.Con-
+cretely, in one Git-deployment execution the algorithm cuts
+the session intobuild deployment systemand, in-
+sideit,cutsagainwheretheagentstopswritingconfiguration
+andstartsdebuggingaccess,yieldingdeploy branches
+anddiagnose authentication. A step inside the
+latter carries the pathbuild deployment system >
+diagnose authentication, and because the same
+names reappear in the other two executions, their costs fold
+together in Figure 1. Any implementation able to find tran-
+sitions and name intervals (an agent, a language model, or a
+statisticalrule)canserveasthesegmenter.Inevaluation,we
+use Codex (OpenAI 2025) with GPT-5.6-sol-high, with one
+fixed instruction per trajectory:
+Input:one trajectory (each step’s prompt, command, and
+output summary, with no labels or scores).
+Action:read it, emit a mark wherever the responsibility
+changes, and useAgentPProfto check and update the
+segmentation, and re-read and update the marks iteratively
+until you think the segmentation is complete.
+Output:sparse path marks, e.g.,
+step 1: [deploy git server]
+step 4: [deploy git server, diagnose
+SSH access]
+step 15: [deploy git server, verify web
+endpoint]
+—one line only where the path changes; names start with a
+verb, one to three words.
+The sparse marks still produce a complete segmentation
+becausestepsbetweentwomarksinherittheprecedingpath.
+Segmentation is iterative, so the agent can revise marks in-
+crementally without re-annotating the entire trajectory. The
+modelsupportsbothofflineevaluationandonlineannotation
+during execution.
+Implementation
+This section describes howAgentPProfrealizes the design
+from Section .AgentPProfis implemented as a Rust CLI
+(∼9.8KLOC,Figure2).ItreadsCodexandClaudeCodelo-
+cal JSONL history files and AgentSight (Zheng et al. 2025)
+recordings for system effects. These files are written incre-
+mentally during agent execution, soAgentPProfcan build
+profileswhiletheagentisstillrunning.Thepipelinehastwo
+stages: (1) preprocessing extracts a readable trajectory sum-
+mary, and (2) the segmentation agent reads this summary
+and writes interval marks to an annotation file, which it can
+reviseuntilsatisfied.TheCLIvalidatesthatmarksarenested
+and cover every step, then emits a standard pprof protobuf
+profile thatgo tool pprofreads directly. Projection is
+deterministic: each operation contributes its semantic path
+andLLM/toolevidence,withsessionidentitieskeptaspprof
+labels rather than visible frames, so equal semantic prefixes
+fold across sessions. Switching the additive measure replays
+the same annotations and changes only stack widths.
+Fields already recorded literally (e.g., skill invocations)
+become stack levels without annotation cost. Multi-agent
+orchestration works automatically because subagent oper-
+ations inherit the outer agent’s semantic path. A non-LLM
+statistical segmenter is also available, scoring transitions by
+NPMI(Bouma2009)andcalibratinganunsupervisedcutoff
+withk-means (MacQueen 1967).
+Evaluation
+We evaluate whetherAgentPProfeffectively attributes re-
+sources,locatesproblems,andrecovershuman-recognizable
+taskstructureatpracticalcost.Theevaluationusesthreedata
+classes.Real inputs: 41 long-horizon coding-agent sessions
+(three of which repeat one Git-deployment task and form
+the RQ1 case), 440 mixed web-agent trajectories (Lù et al.
+2025), and one developer’s complete local session history
+from the authors’ workstation (1,394 sessions), whose 42
+long-horizon development sessions are the annotated por-
+tion.Annotated trajectories: 405 CodeTraceBench trajec-
+tories with 20,866 operations and 2,948 human-annotated
+stages(Lietal.2026),287OSWorld-Humansessions(Wuk-
+Lab 2025), 1,012 AgentBoard goals (Ma et al. 2024), and
+2,737 published action labels (Bouzenia and Pradel 2025).
+Problem-localization benchmarks: the complete AgentPro-
+cessBench,HINTBench,andTraceElephantworkloads,with
+independently annotated faulty operations, over 27,346 op-
+erations (Fan et al. 2026; Wang et al. 2026b; Chen et al.
+2026a). All annotations, outcomes, and scores stay hidden
+from every method until its output is produced. Benchmark
+trajectories average 8–52 operations (short to medium). The
+42-session portion from the research of this paper supplies
+long-horizon coverage, whose longest sessions span tens of
+hours, and the RQ4 union covers 27,765 operations.
+RQ1: Does Semantic Profiling Improve Resource
+Attribution?
+Setup.If semantic profiling improves resource attribution,
+thenthesamefixedhierarchyshould(1)reunitecross-runre-
+sponsibility that alternative organizations scatter, and (2) re-
+veal materially different bottlenecks when the additive mea-
+sure changes. We test both on 41 real long-horizon agent
+trajectories (3,146 user turns, 5,750 operations), including
+three independent executions of one Git-deployment task
+whose 735 steps receive 96 recursive annotations reaching
+semantic depth five.
+The motivating case revisited.The Git-deployment case
+from Section demonstrates that semantic organization re-
+unites cross-run responsibility that alternative organizations
+scatter. Here we add a third measure (elapsed time) to show
+
+measure-sensitivity. The same hierarchy replays under all
+threemeasureswithexactconservation,andthediagnose
+authenticationsubtree’ssharerisesfrom21%(count)
+through 37% (time) to 46% (tokens). Changing only the
+measure moves the attributed share by more than a factor
+of two. A quantitative control shows why both alternatives
+fail.Raw-action grouping(by literal action-type, e.g.,run,
+edit)fails:of105authenticationoperations,102carryonly
+the labelrun, and that same bucket mixes in 97 unrelated
+operations.Acoarseraction-kindgroupingscattersthework
+across six kinds (execute 39%, version-control 22%, edit
+19%, inspect 12%, search 7%, install 1%).Native call trees
+(each operation under its source LLM or tool call) place
+each operation under a distinct source call with no shared
+responsibility node. Only the semantic hierarchy reunites
+authentication into one focusable cross-run path while pre-
+serving all call/tool evidence as leaf nodes. Separately, real
+AgentSight (Zheng et al. 2025) eBPF recordings replay the
+same way, and all 1,520 captured process spawns and file
+operationsfoldundertaskresponsibilitieswithexactconser-
+vation, demonstrating the system-effect layer end to end.
+Usecase2:wheredidthisproject’sagentbudgetgo?A
+developer spent weeks buildingAgentPProfand this pa-
+per with coding agents, accumulating a local session his-
+tory whose long-horizon portion (42 sessions, 18 Codex
+and 24 Claude Code, with 1,252 prompts, 5,620 LLM calls,
+and 1.38 billion tokens) is annotated here. The question is
+whatdidtheagentsactuallyspendtokensdoing?Theprofile
+shows the answer is not one dominant sink but a broad dis-
+tribution,andthelargestpath(refine paper > align
+evaluation)holdsonly1.7%oftokens.Thethreelongest
+sessions(spanningtensofhourseach)keepdistinctdominant
+responsibilities (evaluation alignment, evidence inspection,
+and merge resolution). Switching to operation count shifts
+where mass concentrates. Token mass stays at prompt depth
+(70%),whileoperationmassresolvesdeeper(44%atdepths
+three and four). The history also demonstrates multi-agent
+composition at scale, with 98 subagent delegations across
+14 sessions where each delegation contains all downstream
+subagent operations and composes with annotated semantic
+levels.
+The same hierarchy replays under FILE-READ, FILE-
+WRITE, and NETWORK-target widths, making side effects
+auditable by responsibility and revealing which tasks wrote
+most artifact files or made most network calls.
+Skill invocations appear literally in the session log and
+cost no annotation, so they cover the developer’s com-
+plete history (1,394 sessions, 6.9B tokens). Under that level,
+paper-writing-styleleads both measures (29M to-
+kens,99.47%cachereads),highlightingitsrepeated-context
+workflow as the first thing to inspect. The largest single ses-
+sion holds only 31% of that mass, so the priority appears
+onlyafter folding.The99.47% cache-readratiosuggeststhe
+workflow repeatedly rebuilds similar context. Restructuring
+ittoreusecontextacrossinvocationscouldreducetokencost.
+Across 440 AgentRewardBench trajectories (7,229 oper-
+ations, 51,904,621 tokens, both conserved exactly), ranking
+operations by count versus tokens yields high agreement
+(a) Recovery focus
+455 (12%) 🠆  3286 (86.9%)
+root
+operation:execute_browser_task
+operation:execute_website_task operation:execute_enterprise_workflow operation:answer_informatio
+operation:recover_interaction operation:recover_interaction operation:recover_intera
+tool:click operation:i tool:fill operationopetooopetoo tool:click operatootoo operation:rectool:c
+tool:clic tool:click tool tool tool:click
+(b) Completion focus
+191 (5.1%) 🠆  135 (3.6%)
+root
+operation:execute_browser_task
+operation:execute_website_task operation:execute_enterprise_workflow operation:execute_visual_operation:answer_inform
+operation:report_completion operation:report_completion operation:reoperation:postoperation:report_comple
+tool:send_msg_to_user tool:report tool:send_msg_to_user operation:reoperation:report_complet tool:send_msg_to_user
+tool:send_mtool:noop
+Figure 3: Stock-pprof differential flame graphs (bad minus
+good). Box width sums both contributions; inset shows net
+difference (rose: bad excess; green: good excess). Recovery
+dominates bad runs; completion favors good runs.
+(meantau-b0.886).The13%oftaskswhereagreementfalls
+below 0.7 are exactly where multi-measure profiling adds
+value (details in Appendix ).
+Takeaway.Both conditions hold: the semantic hierarchy
+reunites cross-run responsibility that raw-action and native
+organizationsscatter(theauthenticationcase),andswitching
+the measure on that fixed hierarchy moves attributed share
+by more than 2×(21% to 46%), revealing bottlenecks that
+operationcountalonewouldhide.Thesebottlenecksareop-
+timization targets: tasks consuming disproportionate budget
+can be restructured to reduce cost.
+RQ2: Does Profiler Output Correspond to Real
+Problems?
+Setup.Toevaluatewhetherprofileroutputcorrespondstoin-
+dependently annotated real problems, we apply three tests:
+(1)differential analysischecks whether the profile’s failure
+structure matches expert behavioral labels across 440 runs;
+(2)localizationchecks whether adding profile scores to ex-
+isting benchmark judges improves fault ranking; (3)reading
+studychecks whether semantic names help an LLM agent
+reach the same ranking while inspecting less content.
+Use case 3: what do failing runs do differently?A team
+has 440 web-agent runs (Lù et al. 2025) over 125 tasks,
+where every task has both successful and failed attempts
+(202 successful, 238 failed). The question iswhat behav-
+ior separates success from failure?Reading 440 transcripts
+(7,229operations)isinfeasible.Wepairfailedandsuccessful
+runs within each task (338 pair occurrences), build a profile
+for each group, and subtract (failed minus successful) to get
+a signed difference profile (Figure 3). The answer is imme-
+diate: failed runs spend 44.6% of their steps inrecover
+interaction(retrying, re-searching, re-navigating) ver-
+sus only 12.0% for successful runs. The hierarchy decom-
+posestherecoveryresponsibilityintoverificationchallenges,
+repeated searches, mistaken navigation, and record retries,
+with source labels identifying which sessions contributed
+eachwidth.Theinsightisthatfailingagentsgetstuckinretry
+loopsratherthanbackingoutandtryingadifferentapproach.
+Thisstructurematchesindependentexpertloopinglabelson
+435trajectoriesatAP.634versusrandombaseline.398(dif-
+
+AgentProcess
+Bench
+HINTBench TraceElephant
+0.0
+0.5
+1.0
+MAP
+Direct+AgentProf Direct only AgentProf only
+Figure 4: MAP over the complete RQ2 datasets (614, 400,
+and 220 queries included in MAP). Higher is better.
+ferenceinterval[.181,.293]),confirmingtheprofilesurfaces
+a real behavioral pattern. A fixed-chain repeated/error con-
+trol reaches the same detection quality (AP .656), but only
+the recursive profile provides the decomposition above with
+navigation to source.
+Supplementing benchmark’s own diagnostics.Setup.
+Each query included in MAP has one or more annotated
+faultyoperations.Amethodoutputsarankingofthatquery’s
+operations,scoredbyaverageprecision(APequalsreciprocal
+rankforonefaultyoperation)andaveragedasMAP(Robert-
+son2008).WerunthecompleteAgentProcessBench,HINT-
+Bench(thecompletereleasedtestsnapshot,536ofthepaper-
+reported629trajectories),andTraceElephantworkloads.All
+profileroutputsarecomputedbeforeanyfaultannotationsare
+revealed. We report per-query AP averaged over 614, 400,
+and220queriesincludedinMAP.The522trajectorieswith-
+out an annotated faulty operation are consumed for dataset
+coverage but excluded from MAP. Thedirect diagnosticis
+theper-operationoutputofeachbenchmark’sownjudge,in-
+cluding LLM-as-judge methods; it reads the full trace and
+reference answer before naming the responsible agent and
+decisivestep.Direct-onlyranksbythatdiagnosticalone;Di-
+rect+AgentPProfbreakstiesbygroupscore(votemeanfor
+AgentProcessBench; 95% Wilson bound otherwise), with
+HINTBench field order fixed on 80 validation trajectories;
+AgentPProf-onlyuses only the profiler without the bench-
+mark diagnostic (Figure 4).
+Results.Direct+AgentPProfbeats Direct-only by 0.031,
+0.107,and0.117MAPonthethreeworkloads(allstatistically
+significant;95%intervalsinAppendix;Figure4).Grouping
+withretainedevidencedrivesthelocalizationgain.Semantic
+namingenablescross-runattribution(RQ1)andconcentrates
+the reader’s attention, reducing evidence opened from 65%
+to 53% (measured below).
+Profile-guided reading on TraceElephant.On 220
+queries, a Grok 4.5 (xAI 2026) agent-as-judge ranks op-
+erationsbylikelyfault.Full-tracereadingreachesMAP.502
+at 12.6K tokens/query. A profile-guided reader selects at
+mostfivegroupsandreaches.455whileopening53%ofthe
+source, versus .465 and 65% with raw-action names (inter-
+vals in Appendix ). A per-query full read is also bounded
+by the model context window.Takeaway.Failure structure
+surfaced by the profile matches independent human labels
+across 435 trajectories. Profiles add localization signal on
+Method B 3 P B 3 R B3 F1 Bound. F1
+Codex segmentation 0.793 0.7360.764 0.480
+Statistical recurrence 0.782 0.575 0.663 0.266
+Causal Qwen2.5-3B task stack 0.557 0.792 0.650 0.257
+Raw-action grouping 0.891 0.388 0.541 —
+Native source tree 0.975 0.249 0.397 0.259
+Source-native step 0.983 0.221 0.361 0.246
+Table 1: Agreement with human stages on all 405 Code-
+TraceBench trajectories.
+top of existing judges, and semantic names concentrate the
+agent’s attention, reducing source characters opened from
+65% to 53%.
+Use case 4: guiding a real repair.The preceding exper-
+iments establish correspondence and inspection value; this
+case tests whether a profile finding can guide an effective
+repair.AstandardAgentPProfprofileovereightToolSand-
+boxscenariosisolatesarecurringcall-IDsyntaxfailure(5/21
+tool operations). A profile-only analyst—receiving only the
+pprof output, not raw traces—identifies the compatibility-
+layer boundary as the repair target. The derived one-line fix
+removesallsyntaxfailuresand,on23held-outconfirmation
+scenarios (69 BEFORE/repair pairs), reduces agent-model
+tokens by 19.0% while passing a fixed−.05quality thresh-
+old on official similarity (details in Appendix ).
+RQ3: How Accurate Are the Identifiers?
+Setup.To evaluate whether recursive segmentation recovers
+taskstructurethathumanswouldrecognize,wecompareseg-
+mentationoutputagainst2,948human-annotatedstagesover
+all405CodeTraceBenchtrajectories.F1(BaggaandBaldwin
+1998) asks whether operations that belong together end up
+groupedtogether;exactadjacent-boundaryF1(Ruokolainen
+etal.2016)askswhethercutslandexactlywherehumanscut.
+Baselines receive identical inputs (Table 1). Each method
+output is evaluated at the level it predicts. Literal names use
+accuracy and macro-F1 (Lewis et al. 2004), permutation-
+invariantpartitionsbyV-measure(RosenbergandHirschberg
+2007)orordinaryB 3,andadjacentintervalboundariesbyex-
+actprecision,recall,andF1.Forlegacyfield-valueddatasets
+a conversion step maps each predicted group into the same
+interval-annotation format beforeAgentPProffolds the
+original additive weights. Codex (OpenAI 2025) receives
+eachtrajectory(prompts,commands,andoutputsummaries,
+with no labels or scores visible) and emits sparse interval
+marks over 17,148 steps without access to stage annotations
+(loaded after all 405 outputs were fixed): 4,496 marks at se-
+manticdepthone(3),two(2,873),three(1,588),orfour(32),
+with no prompt requesting a specific depth. Name normal-
+ization then maps the 3,895 free-form interval names to 783
+stableshortnames(e.g.,diagnose authentication)
+with zero adjacent display-path collisions, rejecting unre-
+solved ones. Identical names across sessions merge so that
+identical paths fold in the final profile.
+Results.Codex segmentation reaches 0.764 B 3 F1 and
+0.480boundaryF1,beatingthestrongestautomaticbaseline
+
+(multi-resolution recurrence) by +0.101 and +0.214 (inter-
+vals in Appendix ). A stateful per-turn Qwen2.5-3B base-
+line reaches 0.650 B3 F1, showing smaller models can also
+segment meaningfully. The marks conserve exactly 20,866
+operationsand494,862,929tokens.Predictedgroupsremain
+largely pure subsets of gold stages (B3 precision 0.793), and
+the residual error is over-segmentation rather than missed
+transitions:whensegmentationdisagreeswithhumanstages,
+it subdivides work rather than merging unrelated responsi-
+bilities, preserving per-group coherence (breakdown in Ap-
+pendix ). The interface generalizes across method families:
+on OSWorld-Human (WukLab 2025), a supervised Naive
+Bayes predictor reaches 0.816 B3 F1, and a no-LLM re-
+currence segmenter reaches 0.786 (details in Appendix ).
+The framework supports different segmentation scales: on
+OSWorld-Human, the unchanged Codex instruction uses
+coarser task-level boundaries (0.448 B3 F1), while a su-
+pervised adapter matched to its finer action-group granular-
+ity reaches 0.816. For closed-label literal tags, a Qwen3.6-
+27B (Qwen Team 2026) classifier labels 1,012 AgentBoard
+goals (Ma et al. 2024) at 0.695 macro-F1, and 2,737 action
+labels from AutoCodeRover, OpenHands, and RepairAgent
+trajectories(Sajadietal.2026;BouzeniaandPradel2025)at
+0.498macro-F1(detailsinAppendix).Takeaway.Recursive
+segmentation recovers human-recognizable task structure:
+0.764 B3 F1 against human stages, beating the strongest au-
+tomatic baseline by +0.101. When segmentation disagrees
+with humans, it predominantly over-segments (subdivides
+work)ratherthanmergingunrelatedresponsibilities,preserv-
+ing per-group coherence. Non-LLM methods implementing
+thesameinterfaceremainviablewhennomodelisavailable.
+RQ4: What Is the Profiling Cost?
+Setup.Toevaluatewhetherprofilingcostispractical,wemea-
+sure segmentation time and tokens and profile replay speed.
+Cost separates into a one-time automatic segmentation pass
+percorpusanddeterministicconstruction/replayafterwards.
+Results.Segmenting all 405 CodeTraceBench trajectories
+withCodex(GPT-5.6-sol-high)completesin37minuteswith
+up to four workers, averaging 29,754 input and 573 output
+tokens per trajectory. With marks fixed, construction scales
+linearly: the 27,765-operation union completes in 1.16s at
+465MiBpeakRSS,addingonly5.25MiB(1.14%)overraw-
+action grouping (details in Appendix ). Deterministic con-
+structionofthefull440trajectoriestakes0.26sforoperations
+and 0.25s for tokens, so construction cost is dominated by
+the segmentation step while construction stays sub-second.
+Reducing annotation cost.Automatic annotation domi-
+nates profile construction. Showing only a compact skele-
+ton plus selected full results (SELECTIVE) instead of every
+turn’s complete content (FULL) reduces provider tokens by
+20.4% on 32 held-out CodeTraceBench task clusters while
+retaining100%operationcoverageandmeetingafixed−.03
+quality threshold on B3 and boundary F1 (details in Ap-
+pendix ).
+Takeaway.Segmentationisaone-timepass(37minfor405
+trajectories);everylaterview,measureswitch,andinspection
+costs about one second. Selective evidence reduces annota-
+tiontokensby20.4%withcompletecoverageandmaintained
+structural quality.
+Related Work
+Classic profilers fold runtime call stacks over stable code
+identity, and Pivot Tracing groups causally related mea-
+surements (Google 2024; Gregg 2011; Mace, Roelke, and
+Fonseca2015).AgentobservabilityplatformssuchasLang-
+Smith, Langfuse, and Phoenix (LangChain 2024; Langfuse
+2024; Arize AI 2024a) record spans with metadata for per-
+execution debugging. Analytics layers such as Datadog Pat-
+terns and LangSmith Insights (Datadog 2026; LangChain
+2026) roll up cross-trace hierarchies or input distributions,
+but none constructs recursive semantic responsibility with
+conservedadditivemeasuresinastandardprofile.Cross-run
+analyses(TraceProbe,Graphectory,Act·onomy,CHIEF,Ho-
+doscope,TraceGraph)(Shuetal.2026;Liuetal.2026a;Gao
+et al. 2026; Wang et al. 2026c; Zhong, Saxena, and Raghu-
+nathan 2026; Nian et al. 2026) and per-run diagnosis and
+localization(Barkeetal.2026;Wangetal.2026a;Mazaheri
+and Mazaheri 2026; Liu et al. 2026b; Mulian et al. 2026; Li
+et al. 2026; Fan et al. 2026; Wang et al. 2026b; Chen et al.
+2026a; In et al. 2026) answer what an agent did and which
+step went wrong.AgentPProfinstead asks how much of
+an additive resource a task or workflow phase is responsi-
+ble for. It recovers variable-depth responsibility from source
+content(whereAct·onomyfixesthreelevelsandTraceProbe
+one), conserves measures exactly across count, token, and
+time widths, keeps LLM/tool calls as leaf nodes, and emits
+standard pprof. No compared system provides all four, and
+AgentPProfstays complementary to per-run diagnosis, as
+RQ2 measures directly.
+Conclusion
+Agent observability needs profiling, not only debugging.
+AgentPProfshowsthatthesemanticoperationstackmodel,
+driven by recursive operation segmentation, brings hierar-
+chical attribution to agent trajectories. Against independent
+annotations, segmentation recovers human stage structure at
+0.764 B3 F1, profiles add localization signal on three com-
+plete public benchmarks, and one hierarchy replays across
+additive measures with exact conservation. A repair guided
+byasingleprofilereducesagent-sidemodeltokensby19.0%
+withoutmaterialofficial-qualityloss;selectiveannotationre-
+ducesprovidertokensby20.4%withcompletecoverageand
+maintained structural quality. Profilers and debuggers are
+complementary.Theprofileanswerscross-runquestionsand
+guides inspection to the content worth opening, reducing
+opened content by 12 percentage points while reaching sim-
+ilarranking.Multi-projectevaluationandtracing-ecosystem
+integration are the most impactful next steps.
+References
+Anthropic. 2025. Claude Code: An Agentic Coding Tool.
+https://code.claude.com/docs/en/overview.
+Arize AI. 2024a. Arize Phoenix. https://arize.com/docs/
+phoenix.
+
+ArizeAI.2024b. OpenInferenceSpecification. https://arize-
+ai.github.io/openinference/spec/.
+Bagga, A.; and Baldwin, B. 1998. Entity-Based Cross-
+DocumentCoreferencingUsingtheVectorSpaceModel. In
+36th Annual Meeting of the Association for Computational
+Linguistics and 17th International Conference on Computa-
+tional Linguistics, Volume 1, 79–85.
+Barke, S.; Goyal, A.; Khare, A.; Singh, A.; Nath, S.;
+and Bansal, C. 2026. AgentRx: Diagnosing AI Agent
+Failures from Execution Trajectories. arXiv preprint
+arXiv:2602.02475.
+Bouma, G. 2009. Normalized (Pointwise) Mutual Informa-
+tion in Collocation Extraction. InFrom Form to Meaning:
+ProcessingTextsAutomatically,ProceedingsoftheBiennial
+GSCL Conference 2009, 31–40.
+Bouzenia, I.; and Pradel, M. 2025. Understanding Software
+EngineeringAgents:AStudyofThought-Action-ResultTra-
+jectories. In2025IEEE/ACM40thInternationalConference
+on Automated Software Engineering (ASE), 2846–2857.
+Chen,M.;Wang,J.;Mu,F.;Wang,Y.;Liu,Z.;Feng,H.;and
+Wang,Q.2026a. SeeingtheWholeElephant:ABenchmark
+for Failure Attribution in LLM-Based Multi-Agent Systems.
+arXiv preprint arXiv:2604.22708.
+Chen, X.; Yin, Z.; He, S.; Huang, B.; Lei, S.; et al. 2026b.
+Safactory: A Scalable Agentic Infrastructure for Train-
+ing Trustworthy Autonomous Intelligence. arXiv preprint
+arXiv:2605.06230.
+Datadog.2025. LLMObservability. https://docs.datadoghq.
+com/llm_observability/.
+Datadog. 2026. LLM Observability Patterns. https://docs.
+datadoghq.com/llm_observability/monitoring/patterns/.
+Fan, S.; Ye, X.; Huo, Y.; Chen, Z.-Y.; Guo, Y.; Yang, S.;
+Yang, W.; Ye, S.; Chen, J.; Chen, H.; Cong, X.; and Lin, Y.
+2026. AgentProcessBench: Diagnosing Step-Level Process
+Quality in Tool-Using Agents. InProceedings of KDD.
+Gao, J.; Sun, K.; Huang, J.-t.; Van Koevering, K.; Ji,
+S.; Huang, H.; Shi, W.; Lu, Z.; Xiao, Z.; Khashabi, D.;
+and Dredze, M. 2026. How to Interpret Agent Behavior.
+arXiv:2605.13625.
+Google. 2024. pprof. https://github.com/google/pprof.
+Gregg, B. 2011. Flame Graphs. https://www.brendangregg.
+com/flamegraphs.html.
+In, Y.; Tanjim, M.; Subramanian, J.; Kim, S.; Bhattacharya,
+U.;Kim,W.;Park,S.;Sarkhel,S.;andPark,C.2026.Rethink-
+ing Failure Attribution in Multi-Agent Systems: A Multi-
+Perspective Benchmark and Evaluation. arXiv:2603.25001.
+Laminar. 2025. Signals: Structured Event Extraction from
+Traces. https://docs.lmnr.ai/signals/introduction.
+LangChain. 2024. LangSmith Observability. https://docs.
+langchain.com/langsmith/observability.
+LangChain. 2026. LangSmith Insights. https://docs.
+langchain.com/langsmith/insights.
+Langfuse. 2024. Langfuse Observability. https://langfuse.
+com/docs/observability/overview.
+Lewis, D. D.; Yang, Y.; Rose, T. G.; and Li, F. 2004. RCV1:
+A New Benchmark Collection for Text Categorization Re-
+search.JournalofMachineLearningResearch,5:361–397.
+Li, H.; Yao, Y.; Zhu, L.; Feng, R.; Ye, H.; Wang, J.; He, Y.;
+Zou, P.; Zhang, L.; Lei, X.; Huang, H.; Deng, K.; Sun, M.;
+Zhang, Z.; Ye, H.; and Liu, J. 2026. CodeTracer: Towards
+Traceable Agent States. arXiv:2604.11641.
+Liu, S.; Chen, Y.; Krishna, R.; Sinha, S.; Ganhotra, J.; and
+Jabbarvand, R. 2026a. Process-Centric Analysis of Agentic
+SoftwareSystems.ProceedingsoftheACMonProgramming
+Languages, 10(OOPSLA1): 1961–1988.
+Liu, Y.; Zhang, C.; Han, Z.; Liu, H.; Wang, Y.; Yu, Y.;
+Wang, X.; and Yin, Y. 2026b. TrajAD: Trajectory Anomaly
+Detection for Trustworthy LLM Agents. arXiv preprint
+arXiv:2602.06443.
+Lu, J.; Holleis, T.; Zhang, Y.; Aumayer, B.; Nan, F.; Bai,
+H.; Ma, S.; Ma, S.; Li, M.; Yin, G.; Wang, Z.; and Pang, R.
+2025. ToolSandbox: A Stateful, Conversational, Interactive
+Evaluation Benchmark for LLM Tool Use Capabilities. In
+Findings of the Association for Computational Linguistics:
+NAACL 2025, 1160–1183. Association for Computational
+Linguistics.
+Lù, X. H.; Kazemnejad, A.; Meade, N.; Patel, A.; Shin,
+D.; Zambrano, A.; Stańczak, K.; Shaw, P.; Pal, C. J.; and
+Reddy, S. 2025. AgentRewardBench: Evaluating Auto-
+maticEvaluationsofWebAgentTrajectories. arXivpreprint
+arXiv:2504.08942.
+Ma, C.; Zhang, J.; Zhu, Z.; Yang, C.; Yang, Y.; Jin, Y.; Lan,
+Z.; Kong, L.; and He, J. 2024. AgentBoard: An Analytical
+EvaluationBoardofMulti-turnLLMAgents. InAdvancesin
+Neural Information Processing Systems, volume 37, 74325–
+74362.
+Mace, J.; Roelke, R.; and Fonseca, R. 2015. Pivot Tracing:
+Dynamic Causal Monitoring for Distributed Systems. In
+Proceedings of the 25th Symposium on Operating Systems
+Principles, 378–393.
+MacQueen, J. B. 1967. Some Methods for Classification
+and Analysis of Multivariate Observations. InProceedings
+of the Fifth Berkeley Symposium on Mathematical Statistics
+and Probability, volume 1, 281–297.
+Mazaheri, P.; and Mazaheri, K. 2026. AgentAtlas: Beyond
+Outcome Leaderboards for LLM Agents. arXiv preprint
+arXiv:2605.20530.
+McCallum,A.;andNigam,K.1998. AComparisonofEvent
+Models for Naive Bayes Text Classification. InAAAI-98
+Workshop on Learning for Text Categorization, 41–48.
+Mulian, H.; Zeltyn, S.; Levy, I.; Galanti, L.; Yaeli, A.; and
+Shlomov,S.2026.AgentFixer:FromFailureDetectiontoFix
+RecommendationsinLLMAgenticSystems. InProceedings
+of the 1st International Workshop on Agentic Engineering
+(AGENT ’26, co-located with ICSE).
+Nian, J.; Chen, K.; Zhang, G.; Cao, Y.; and Jiang, Y. 2026.
+TraceGraph: Shared Decision Landscapes for Diagnosing
+and Improving Agent Trajectories. arXiv:2605.31308.
+OpenAI.2025. CodexCLI:LightweightCodingAgentThat
+Runs in Your Terminal. https://github.com/openai/codex.
+
+OpenTelemetry. 2024. OpenTelemetry GenAI Semantic
+Conventions. https://github.com/open-telemetry/semantic-
+conventions-genai.
+QwenTeam.2026. Qwen3.6-27B:Flagship-LevelCodingin
+a 27B Dense Model. Official model card.
+Robertson, S. 2008. A New Interpretation of Average Preci-
+sion. InProceedings of the 31st Annual International ACM
+SIGIRconferenceonResearchandDevelopmentinInforma-
+tion Retrieval, 689–690.
+Rosenberg,A.;andHirschberg,J.2007. V-Measure:ACon-
+ditional Entropy-Based External Cluster Evaluation Mea-
+sure. InProceedings of the 2007 Joint Conference on Em-
+pirical Methods in Natural Language Processing and Com-
+putational Natural Language Learning, 410–420.
+Ruokolainen, T.; Kohonen, O.; Sirts, K.; Grönroos, S.-A.;
+Kurimo,M.;andVirpioja,S.2016. AComparativeStudyof
+Minimally Supervised Morphological Segmentation.Com-
+putational Linguistics, 42(1): 91–120.
+Sajadi,A.;Nguyen,T.;Huynh,K.;Parra,E.;andChatterjee,
+P. 2026. TraceView: Interactive Visualization of Agentic
+Program Repair Trajectories. arXiv:2606.22110.
+Shu, R.; Chong, C. Y.; Zhou, X.; Peng, Y.; Wu, Z.; Han, X.;
+Zhuang,Z.;Yuan,G.;andWang,Y.2026.WhatResolveRate
+Hides: Trajectory Structure Diagnostics for Coding Agents.
+arXiv:2607.06184.
+Wang, J.; Feng, Z.; Wu, J.; Li, R.; Xie, Q.; Ren, Y.;
+Zhu, H.; Han, X.; Meng, F.; Feng, J.; and Liu, J. 2026a.
+Where Do Deep-Research Agents Go Wrong? Span-Level
+Error Localization in Agent Trajectories. arXiv preprint
+arXiv:2606.02060.
+Wang, J.; Hou, J.; Wang, F.; Jian, P.; Bao, C.; and Lv, Z.
+2026b. HINTBench: Horizon-Agent Intrinsic Non-Attack
+Trajectory Benchmark. arXiv preprint arXiv:2604.13954.
+Wang, X.; Wang, B.; Lu, D.; Yang, J.; Xie, T.; et al.
+2025. AgentNet. https://huggingface.co/datasets/xlangai/
+AgentNet.
+Wang,Y.;Wu,W.;Wang,J.;andWang,Q.2026c. FromFlat
+Logs to Causal Graphs: Hierarchical Failure Attribution for
+LLM-based Multi-Agent Systems. arXiv:2602.23701.
+WukLab. 2025. OSWorld-Human. https://github.com/
+WukLab/osworld-human.
+xAI.2026. IntroducingGrok4.5. https://x.ai/news/grok-4-5.
+Xie, T.; Zhang, D.; Chen, J.; Li, X.; Zhao, S.; Cao, R.; Hua,
+T.J.;Cheng,Z.;Shi,D.;Tong,J.;Lu,K.-W.;Garg,V.;Wang,
+Y.; Dai, Z.; Li, F.; Bisk, Y.; and Yu, T. 2024. OSWorld:
+Benchmarking Multimodal Agents for Open-Ended Tasks
+in Real Computer Environments. InAdvances in Neural
+InformationProcessingSystems37(NeurIPS),Datasetsand
+Benchmarks Track.
+Yang, J.; Jimenez, C. E.; Wettig, A.; Lieret, K.; Yao, S.;
+Narasimhan, K.; and Press, O. 2024. SWE-agent: Agent-
+Computer Interfaces Enable Automated Software Engineer-
+ing. InAdvances in Neural Information Processing Systems
+37 (NeurIPS).
+Zheng, L.; Chiang, W.-L.; Sheng, Y.; Zhuang, S.; Wu, Z.;
+Zhuang, Y.; Lin, Z.; Li, Z.; Li, D.; Xing, E. P.; Zhang, H.;
+Gonzalez,J.E.;andStoica,I.2023.JudgingLLM-as-a-Judge
+with MT-Bench and Chatbot Arena. InAdvances in Neural
+InformationProcessingSystems36(NeurIPS),Datasetsand
+Benchmarks Track.
+Zheng, Y.; Hu, Y.; Yu, T.; and Quinn, A. 2025. AgentSight:
+System-Level Observability for AI Agents Using eBPF. In
+Proceedings of the 4th Workshop on Practical Adoption
+Challenges of ML for Systems (PACMI ’25, co-located with
+SOSP).
+Zhong, Z.; Saxena, S.; and Raghunathan, A. 2026. Ho-
+doscope: Unsupervised Monitoring for AI Misbehaviors.
+arXiv:2604.11072.
+
+Technical Appendix
+Reproducibility Scope and Data
+The eight primary public benchmarks are AgentReward-
+Bench, AgentProcessBench, HINTBench, TraceElephant,
+CodeTraceBench, OSWorld-Human, AgentBoard, and the
+TraceView/ASE action corpus. Mind2Web and Science-
+Worldprovidetwoadditionalfield-mappingchecks.Nonovel
+benchmark dataset is introduced. Public benchmark targets,
+humanstages,outcomes,andscoresareusedonlybyscorers
+after each method’s output is fixed.
+The paper’s theoretical contribution is the semantic op-
+eration stack model, specified by the formal definitions in
+the Design section.AgentPProfis a 9.8K-LOC imple-
+mentation. Its executable source, preprocessing scripts, and
+released-data manifests accompany the paper in the code-
+and-data package.
+Automatic Segmentation and Identity
+ThedirectannotationbackendistheOpenAICodexCLI(ver-
+sion 0.145.0, modelgpt-5.6-sol, high reasoning effort,
+default decoding, sandboxed non-interactive mode). Each
+worker receives one source-only trajectory packet, makes
+oneannotationcallwithatmostoneformatretry,andshares
+no state with other workers. Prompt and response previews
+aretruncatedto1,800characters,toolcommandsto600,and
+status previews to 200; additive measures come from struc-
+turedcountersandarenottruncated.Thefixedinstructionis
+reproduced in the main paper. It emits sparse path changes
+whose names begin with a verb and contain one to three
+words; intervening steps inherit the preceding path.
+Operationally, each call is one isolated backend request.
+Here,recursionreferstothevariable-depthnesteddecompo-
+sitionconstructedbytheannotationagentwithinthatrequest,
+rather than to a sequence of backend requests. “Iteratively”
+refers to revising the mark set before returning one final
+sparse annotation file.
+Before folding, one fixed source-only action–object map
+canonicalizes free-form interval names. The map is imple-
+mented as ordered verb, object, and qualifier phrase tables
+with fixed aliases and stop words. It reads operation names
+and sparse source-only marks, independent of task IDs,
+benchmark names, outcomes, target stages, and score rows.
+Unmatched source words remain available to the boundary-
+saferefinement.Ifcanonicalizationwouldmakeadjacentdis-
+playpathsequal,therefinementretainstheminimumsource
+words needed to distinguish them; unresolved collisions fail
+closed. Equal canonical names receive one stable operation
+IDacross sessions.Onthe fullCodeTraceBenchdataset,the
+map covers all 3,895 free-form names, applies 503 name-
+specific refinements, and produces 783 stable names. Re-
+finement reduces 329 initial adjacent collisions to zero, so
+theobservedfail-closedcountiszero,whilepreservingevery
+temporal mark.
+The non-LLM recurrence backend counts adjacent action
+transitions in reference sessions and scores each transition
+by normalized pointwise mutual information (NPMI),
+NPMI(a, b) = ln[p(a, b)/(pL(a)pR(b))]
+−lnp(a, b) ,
+where all probabilities use the same transition sample space
+(Bouma 2009). Weighted one-dimensionalk-means with
+k= 2initializes at the minimum and maximum scores,
+assigns distance ties to the lower center, and uses the con-
+verged midpoint as the cutoff (MacQueen 1967). The same
+deterministic procedure is applied to action-changing tran-
+sitions. Same-action pairs use the global cutoff; different-
+action pairs use the smaller cutoff. A detailed(action,
+action_detail)arm may remove a coarse boundary
+but never add one; missing or unseen detail falls back to the
+coarse decision.
+RQ1 Details
+The Git case’s 735 source nodes comprise 3 sessions, 3
+prompts, 240 LLM calls, and 489 profiled tool operations.
+System-effect alignment.For RQ1’s controlled cross-
+layer test, AgentSight first matches each timestamped pro-
+cess,file,ornetworkeventtothesame-PIDprocessinstance
+whose lifetime contains it. It then links that process to a
+recorded tool call by an explicit tool/event ID when avail-
+able, or by recorded root-process identity and overlapping
+process/tool lifetimes; descendants are accepted only within
+that tool window. The matched wrapper tool identifies the
+task-level semantic interval, while unmatched events remain
+unassigned. Across 20 real Codex tasks, this rule attributes
+1,520 of 1,574 scoped process/file effects (100% precision,
+96.57% recall) and rejects all 1,629 concurrent-control ef-
+fects.AgentPProfthen folds exactly those joined events
+as unit-weight operations, preserving all 1,520 samples and
+every task-category total.
+On AgentRewardBench, ranking operations by count ver-
+sustokensyieldsmeanKendall’stau-b0.886with95%inter-
+val[0.857,0.915]overthe77taskswithatleastthreedistinct
+operations.Pooledrankingagreesattau-b0.929.The13%of
+tasks (10 of 77) where agreement falls below 0.7 are exactly
+where multi-measure profiling adds value.
+RQ2 Protocol
+AgentRewardBench pairing enumerates every failed–
+successful combination within each task. The 202 distinct
+successful and 238 distinct failed trajectories are therefore
+reused when a task has multiple runs, yielding 338 pair oc-
+currences over the 125 mixed-outcome tasks. The signed
+aggregate is pair-occurrence weighted and contains all 338
+failed sides and all 338 successful sides.
+Within each workload, operations, target-blind paths,
+benchmarkjudge/localizerpredictions,andscoringrulesare
+fixed before test targets are loaded. AgentProcessBench av-
+erages frozen judge votes within a group. HINTBench and
+TraceElephantassigneachroot-to-frameprefixthe95%Wil-
+sonlowerboundofitsfrozenpositive-predictionfraction;an
+operationreceivesthemaximumscoreoverprefixescontain-
+ing it. The released HINTBench snapshot contains 536 of
+the paper-reported 629 trajectories. A separate 80-trajectory
+validation snapshot selects one of 24 field orders before the
+536 test trajectories are scored.
+The three localization workloads contain 1,756 trajecto-
+ries. Their 1,234 queries included in MAP contribute 614,
+
+400, and 220 AP values, respectively, while the other 522
+trajectories without an annotated faulty operation remain in
+thedatasetinputs.APequalsreciprocalrankforaquerywith
+one relevant operation and also handles queries with mul-
+tiple relevant operations. MAP is the arithmetic mean over
+these queries because AP is undefined without a relevant
+item. The reported Direct+AgentPProf-minus-Direct-only
+intervals use 10,000 paired resamples of trajectory clusters
+within benchmark-defined groups. AgentProcessBench uses
+seed 20260723, HINTBench uses 20260823, and TraceEle-
+phant uses 20260923.
+The 95% confidence intervals for Direct+AgentPProf-
+minus-Direct-only are [0.024, 0.039], [0.093, 0.120], and
+[0.088, 0.148] for the three workloads respectively. For the
+reading study, paired raw-minus-semantic differences are
++.010[−.021,+.042]MAPand+.120[+.103,+.137]con-
+tent fraction.
+RQ2 Repair Case Details
+Setup.We run ToolSandbox’s official stateful scenarios
+and evaluator with a local tool-using agent (Lu et al.
+2025). One standardAgentPProfpprof over eight real no-
+policy BEFORE traces contains 21 tool operations. Stock
+pprof shows that 5/21 carrycall_id:invalidand
+result:invalid-call-id; four of those failures are
+followedbyanexactsame-tool,same-argumentrecoveryre-
+peat.
+Analyst and repair.An independent analyst—a profile-
+only Codex agent that receives only the pprof output and
+experiment plan, without access to the raw traces or Tool-
+Sandbox internals—prioritizes the compatibility-layer call-
+ID boundary as the repair target rather than suppressing the
+useful retries. Inspection of that boundary reveals that the
+compatibility converter interpolates an opaque protocol call
+IDintoexecutablePythonsource.Therepairretainstheorig-
+inalIDinassistant/toolprotocolhistorybutderivesaseparate
+Python-identifier-safeinternalvariableforexecution;itdoes
+notchangetoolnames,arguments,order,scenariostate,user,
+agent policy, or evaluator.
+Validation.Exact-statereplayofall21profiledoperations
+reproduceseveryoriginalBEFOREresponseandpost-state,
+removes all five affected syntax failures, preserves all 21
+protocol IDs, and leaves the responses and post-states of
+all 16 valid-ID controls unchanged. After development on
+eight scenarios, the unchanged repair runs on 23 disjoint
+confirmation scenarios, each repeated three times. All 69
+BEFORE/repair pairs complete with the official evaluator
+and enter the full-run analysis (Table 2).
+Interpretation.Agent-side model tokens fall by 19.0%,
+and model calls, tool calls, and turns fall with them. Official
+similarity changes from .831 to .857; its scenario-cluster
+interval passes the fixed−.05quality threshold but crosses
+zero,sothisisanefficiencyresultwithoutqualitylossrather
+than a significant outcome-improvement claim. The server
+does not request-seed its opaque-ID allocator, so the two
+methodsencounterdifferentnumbersofrawinvalidIDs;the
+Metric BEFORE Repair
+Raw invalid IDs 28 19
+Python syntax failures 280
+Agent model tokens 211,222171,139
+Agent model calls 255227
+Tool calls 159137
+Turns 457401
+Official similarity .831 .857
+Table 2: Profile-guided repair on 23 ToolSandbox con-
+firmation scenarios with three repetitions each (69 pairs,
+138 episodes). Agent-token AFTER/BEFORE ratio is .810
+(scenario-cluster 95% interval [.734,.921]); the official-
+similarity delta is +.026 [-.022,.076].
+19.0% reduction is the full-run effect, not a per-invalid-ID
+saving.
+For the TraceElephant reading study, the Grok 4.5 CLI
+reader is invoked with tools and subagents disabled. Full-
+trace reading uses one single-turn call per query. Profile-
+guided reading first exposes only the target-blind operation
+skeleton; the reader selects at most five groups, after which
+asecondsingle-turncallreceivesonlythosegroups’source-
+visibleevidence.Unrankedoperationsareappendedinorig-
+inal order. Semantic and raw-action conditions differ only
+in the operation names used by the skeleton. The observed
+reduction from 65% to 53% is a paired difference of 0.120,
+or 12 percentage points.
+RQ3 Protocol
+For CodeTraceBench, all 405 annotations are materialized
+beforethe2,948humanstagelabelsareloadedbythescorer.
+Codexreceivesprompts,commands,andoutputsummaries,
+but no label or score. It emits 4,496 sparse marks over
+17,148 source-native steps. CodeTraceBench stage labels
+define trajectory-local temporal groups, so B3 scores the re-
+sulting operation partition and exact adjacent-boundary pre-
+cision, recall, and F1 score the transition decisions. Paired
+task-cluster intervals preserve the benchmark’s task group-
+ing. Literal-name accuracy is evaluated separately on the
+complete AgentBoard and TraceView/ASE datasets.
+The 95% paired task-cluster intervals for Codex improve-
+ment over baseline are [0.087, 0.116] for B3 F1 and [0.193,
+0.235] for boundary F1. The stateful Qwen2.5-3B baseline
+thatmakespush/replace/stay/popdecisionsreaches0.650B 3
+F1 and 0.257 boundary F1. Boundary error breakdown: re-
+call 0.626, precision 0.389.
+The OSWorld-Human study uses all 287 sessions, con-
+taining 3,978 operations, 3,691 adjacent pairs, and 2,042
+human groups. The supervised Bernoulli Naive Bayes pre-
+dictor (McCallum and Nigam 1998) fixes its model family,
+nine input fields, adjacent-pair features, and training proce-
+dure.Fivesession-held-outfoldsfitparametersandthedeci-
+sionthresholdontrainingsessionsandpredicteachheld-out
+sessionexactlyonce.Label-freerecurrenceusesonlyvisible
+transitions from the other four folds. Reference-calibrated
+recurrence additionally fits one scalar NPMI cutoff using
+the training-fold group annotations; it never reads held-out
+
+groups.
+Detailed OSWorld-Human results: supervised Naive
+Bayes reaches 0.739 boundary F1 / 0.816 B 3 F1; cali-
+brated recurrence reaches 0.734 / 0.801; no-LLM recur-
+rence segmenter reaches 0.680 / 0.786 (strongest control:
+0.645/0.678).OnMind2Web(9sessions)andScienceWorld
+(100 sessions), unsupervised TF-IDF/K-Means reaches V-
+measure 0.557 and 0.815 respectively. The same Codex in-
+struction without adaptation uses coarser task-level bound-
+aries (0.448 B3 F1 on OSWorld-Human).
+The evaluation-only Qwen3.6-27B llama.cpp backend
+classifies all 1,012 AgentBoard goals from goal text and
+the nine declared family descriptions. Three complete runs
+produceidenticalassignments.Theaction-labeladapteruses
+the fixed eight TraceView action definitions and the current
+thought/action only; two complete runs over all 2,737 labels
+produce identical assignments. Literal labels use accuracy
+andmacro-F1,partitionsuseV-measureorordinaryB 3,and
+transitionsuseexactadjacent-boundaryprecision,recall,and
+F1.
+AgentBoardgoalclassification:0.695macro-F1and0.733
+accuracy(majoritybaseline0.044/0.248).Action-labelclas-
+sificationon AutoCodeRover,OpenHands,andRepairAgent
+trajectories: 0.498 macro-F1 and 0.628 accuracy (majority
+baseline0.061/0.323).The0.437macro-F1gainhasa95%
+bootstrap interval of [0.380, 0.494]. The fixed runtime is
+llama.cpp version 9870 at revision2d973636ewith the
+Qwen3.6-27BQ4_K_Martifact.Itusesone4,096-tokenslot,
+full GPU offload, Jinja templates, reasoning disabled, and
+both RAM cache and prompt reuse disabled.
+RQ4 Construction Cost
+Workload Ops
+Semantic
+(s)
+Raw action
+(s)
+Peak RSS
+(MiB)
+AgentRewardBench 729 0.04 0.03 19.3
+SATraj-OS 4,285 0.17 0.14 73.9
+OSWorld-Human 6,010 0.24 0.21 109.1
+AgentNet 16,741 0.70 0.58 279.3
+Union 27,765 1.16 0.97 465.2
+Table 3: RQ4 profile-construction cost (Chen et al. 2026b;
+Wang et al. 2025): three-run median times and largest
+semantic-profile peak RSS. The 729-operation AgentRe-
+wardBench row is the fixed public release sample used
+for cost measurement, distinct from RQ2’s 7,229-operation
+mixed dataset.
+Reducing Annotation Cost
+We compare two annotation methods: FULL shows ev-
+ery turn’s complete content to the LLM agent, while SE-
+LECTIVE shows only a compact skeleton (intent, action,
+progress) for each turn plus full results for a selected subset.
+Both use the same model, instruction, output schema, and
+retrylimit;SELECTIVEstillreturnsmarksforthecomplete
+trajectory.
+The confirmation dataset contains 32task_nameclus-
+ters balanced across four agent frameworks, covering 1,639
+operations. Table 4 counts input plus output tokens from
+every attempt, including one format retry per method.
+Metric FULL SELECTIVE Difference
+Provider tokens 984,321783,121−20.4%
+B3 F1 .732 .758+.026
+Boundary F1 .429 .453+.024
+Covered operations 1,639 1,639 0
+Provider calls 33 33 0
+Table 4: Paired annotation cost on 32 CodeTraceBench
+task_nameclusters. The SELECTIVE/FULL token ratio
+is.796(task-cluster95%interval[.734,.863]);B 3andbound-
+ary deltas meet the fixed−.03quality threshold.
+SELECTIVE reduces tokens by 20.4%, and the task-
+cluster ratio interval has an upper bound below one. Both
+methodsretain100%operationcoverage;SELECTIVE’sB 3
+and boundary F1 point estimates are higher, and their lower
+confidence bounds exceed the fixed−.03quality threshold.
+Runs, Uncertainty, and Computing Environment
+The CodeTraceBench direct backend completed 405 trajec-
+tories in 415 calls. The ten calls after each trajectory’s first
+include format retries and one authorized repair call for tra-
+jectory 53. All 405 final annotations pass the same schema
+validation.RQ2fixesoneprofileandonebenchmarkpredic-
+tion per trajectory, then computes uncertainty with 10,000
+paired resamples. The TraceElephant reader makes one call
+per stage and query. OSWorld-Human uses five held-out
+folds. The closed-label repeat counts are given above. RQ4
+constructiontimesaremediansofthreecompleteruns;peak
+RSS is the largest observed semantic-profile peak. Once
+marks are fixed, projection, folding, serialization, and pprof
+readback are deterministic.
+The RQ4 construction measurements useagentpprof
+0.2.37ona24-coreIntelCoreUltra9285Kwith125GiB
+RAM and Linux 6.15.11. The 27,765-operation union com-
+pletes semantic construction in 1.16s at 465.2MiB peak
+RSS, versus 0.97s for raw-action grouping. This observed
+range spans 729 to 27,765 operations, with 23,935 opera-
+tions/s at the union scale.
+The automatic CodeTraceBench pass consumes
+12,050,384 input tokens, including 6,008,320 cached
+tokens, and 231,886 output tokens. These totals average
+29,754inputand573outputtokensover405trajectories.Up
+to four isolated workers complete 8,689.405s of summed
+backend requests in 2,215.858s of active wall time, and the
+deterministic downstream pipeline takes 11.516s.
+The separate AgentRewardBench pass processes 440 tra-
+jectories in 12 outcome-blind batches on a fixed two-
+worker schedule. It completes in 3,521.621s of end-to-end
+wall time and consumes 12,039,417 input tokens, includ-
+ing 10,929,408 cached tokens, and 312,433 output tokens.
+These totals average 27,362 input and 710 output tokens per
+trajectory. All 12 batches pass profile validation. Determin-
+isticconstructionthentakes0.26sforoperationweightsand
+0.25sfortokenweights.Thetokencountersseparatecached
+
+input,uncachedinput,output,andreasoningoutputindepen-
+dently of provider pricing.
+Privacy, Ethics, and Responsible Use
+Agent histories can contain prompts, model responses,
+source code, file paths, commands, network targets, and
+system-effectrecords.Theevaluationkeepslocalcase-study
+historieslocalandreportsaggregatemeasurementsandtask-
+level paths. The reproduction package uses the cited public
+datasets.
+Automatic annotation applies fixed preview bounds and
+supportsfieldminimization,credentialandpersonal-datafil-
+tering,andapprovedprovider-retentionpolicies.Localmodel
+servingandthenon-LLMrecurrencebackendprovidelocal-
+processing options. Profiles, annotations, and intermediate
+packets receive the same access control and retention policy
+as their source traces.
+The intended use is authorized engineering inspection,
+resource analysis, and source-linked debugging. Operators
+scopecapturetosystemsandtrajectoriestheyareauthorized
+to observe, and human review remains part of operational
+access-control and safety decisions.
+The reported benchmark results characterize the named
+datasets. Reusing fixed annotations avoids repeated infer-
+ence, while the non-LLM backend offers a deterministic al-
+ternative.
+Selective Annotation Protocol
+SELECTIVEannotationretainsacompactskeletonforevery
+turn:intent,plannedaction,progressindicator,andoperation
+ID.Onlyturnsselectedbyadeterministicsource-visiblerule
+receive full visible results.
+The selector uses only source-visible information: result
+length, error/pass/timeout status, test/build/verify actions,
+and progress changes. It does not read human stages, re-
+wards, final outcomes, or existing model annotations. Both
+FULL and SELECTIVE use the same model (Codex GPT-
+5.6-sol-high),thesameone-calloutputformat,thesameretry
+limit (one format retry), and the same downstream scorer.
+The confirmation dataset contains 32task_nameclus-
+tersbalancedacrossfouragentframeworks(AutoCodeRover,
+OpenHands, RepairAgent, CodeAct), covering 1,639 opera-
+tions.Providertokensareinputplusoutputtokensfromevery
+attempt, including one format retry per method.
+The SELECTIVE/FULL token ratio is .796 (task-cluster
+bootstrap 95% interval [.734,.863]). B3 difference is +.026
+and boundary F1 difference is +.024; both exceed the preset
+−.03quality threshold.
+Reproducibility Checklist Notes
+Checklistitemsconcerningnoveldatasetsarenotapplicable
+becausethepaperintroducesnobenchmarkdataset.Thepa-
+per’stheoreticalcontributionisthesemanticoperationstack
+model, specified through the Design section’s formal defi-
+nitions. Its claims require neither theorems nor proofs. This
+appendix supplies the final algorithm settings, target-blind
+freezingrules,evaluationmetrics,runcounts,andmeasured
+RQ4 environment. The accompanying code-and-data pack-
+age supplies preprocessing and experiment source.

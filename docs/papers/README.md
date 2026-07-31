@@ -7,7 +7,7 @@ author: eunomia-bpf community
 
 # Papers and Research
 
-This page is the canonical library of research produced by or directly connected to the eunomia-bpf community. Each paper carries a link to its published or arXiv version, a local PDF copy, a plain-text extraction readable by both people and LLM tools, the public artifact, and the developer-oriented blog explanation when one exists. Only published papers or public arXiv versions enter this library; work under review never appears here. Metadata and pinned arXiv versions live in `registry.yaml` in this directory.
+This page is the canonical library of research produced by or directly connected to the eunomia-bpf community. Each paper carries a link to its published version or public preprint, a local PDF copy, a plain-text extraction readable by both people and LLM tools, the public artifact, and the developer-oriented blog explanation when one exists. Only published papers or explicitly public preprints enter this library; private work under review never appears here. Metadata and pinned arXiv versions live in `registry.yaml` in this directory.
 
 ## The research arc
 
@@ -49,6 +49,7 @@ ActPlane ([arXiv 2606.25189](https://arxiv.org/abs/2606.25189)) synthesizes thes
 
 | Paper | PDF / Text | Artifact | Technical blog | Status |
 |---|---|---|---|---|
+| [AgentPProf: Semantic Profiler for Long Horizon AI Agents](agentpprof.pdf) | [PDF](agentpprof.pdf) · [txt](agentpprof.txt) | [AgentSight](https://github.com/eunomia-bpf/agentsight) | [Read the blog](../blog/posts/agentpprof-semantic-flamegraph.md) | Public preprint |
 | [Characterizing and Bridging the Diagnostic Gap in eBPF Verifier Rejections](https://arxiv.org/abs/2607.02748) | [PDF](bpfix.pdf) · [txt](bpfix.txt) | [bpfix](https://github.com/eunomia-bpf/bpfix) | Blog pending | arXiv preprint |
 | [ActPlane: Programmable OS-Level Policy Enforcement for Agent Harnesses](https://arxiv.org/abs/2606.25189) | [PDF](actplane.pdf) · [txt](actplane.txt) | [ActPlane](https://github.com/eunomia-bpf/ActPlane) | [Read the blog](../blog/posts/actplane.md) | arXiv preprint, v2 |
 | [Kops: Safely Extending the eBPF Compilation Pipeline with Native Operations](https://arxiv.org/abs/2606.24213) | [PDF](kops.pdf) · [txt](kops.txt) | [Kops artifact](https://github.com/eunomia-bpf/bpf-benchmark) | Blog pending | arXiv preprint |
