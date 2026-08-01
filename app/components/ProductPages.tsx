@@ -228,7 +228,7 @@ function EditionsSection({ locale, contact }: { locale: Locale; contact?: ReactP
               name: "开源 (MIT)",
               accent: false,
               points: [
-                "完整的 AgentSight + ActPlane + bpftime",
+                "完整的 AgentSight + ActPlane + Akeep + bpftime",
                 "自托管，无功能阉割",
                 "可免费用于生产",
                 "通过 GitHub 获得社区支持"
@@ -266,7 +266,7 @@ function EditionsSection({ locale, contact }: { locale: Locale; contact?: ReactP
               name: "Open source (MIT)",
               accent: false,
               points: [
-                "Full AgentSight + ActPlane + bpftime",
+                "Full AgentSight + ActPlane + Akeep + bpftime",
                 "Self-host with no feature limits",
                 "Free to run in production",
                 "Community support via GitHub"
@@ -338,15 +338,15 @@ export function ProductsLandingPage({ locale, links, projects }: ProductPageProp
     locale === "zh"
       ? {
           eyebrow: "Products",
-          title: "AI Agent 可观测与运行管控，及其底层 eBPF 运行时",
+          title: "AI Agent 系统层，及其底层 eBPF 运行时",
           description:
-            "旗舰方向是在系统/eBPF 边界对 AI agent 做可观测与运行管控；bpftime 是支撑它的高性能运行时引擎。开源 core 免费自托管，企业版与支持按需采用。",
+            "旗舰方向是在系统层观察、约束并保留 AI Agent 的长期执行过程；bpftime 是支撑低开销系统观测与扩展的运行时引擎。开源 core 免费自托管，企业版与支持按需采用。",
           mapEyebrow: "Product map",
           mapTitle: "选择适合的工程路径",
           mapDescription:
-            "从旗舰的 AI agent 可观测/管控，到底层 bpftime 运行时引擎，再到企业支持。",
+            "从 AgentSight、ActPlane 与 Akeep 组成的系统层，到底层 bpftime 运行时引擎，再到企业支持。",
           agent:
-            "旗舰：在系统/eBPF 边界对 AI agent 做零插桩可观测（AgentSight）与运行时管控（ActPlane）——框架无关、约 3% 开销、内核级 ground truth。",
+            "旗舰：AgentSight 观察和解释执行过程，ActPlane 在系统边界执行策略，Akeep 保存可检查、可恢复的原生会话历史。",
           bpftime:
             "底层引擎与护城河：高性能 userspace eBPF runtime，同时支撑低开销 tracing、GPU paths 和定制 runtime extension。",
           services:
@@ -354,7 +354,7 @@ export function ProductsLandingPage({ locale, links, projects }: ProductPageProp
           buyersTitle: "适合的团队",
           buyersDescription:
             "面向在生产里运行 AI agent，并需要把开源系统工程落地的 AI infra、platform 团队。",
-          flowLabels: ["AI agent 可观测/管控", "bpftime 引擎", "企业支持"],
+          flowLabels: ["AI Agent 系统层", "bpftime 引擎", "企业支持"],
           buyers: [
             {
               label: "AI infra / AgentOps",
@@ -368,22 +368,22 @@ export function ProductsLandingPage({ locale, links, projects }: ProductPageProp
             },
             {
               label: "需要运行管控的团队",
-              title: "系统边界上的 agentharness",
-              description: "在进程、文件、网络、exec 和 checkpoint/restore 边界建立可审计、可执行的策略点。"
+              title: "系统边界上的执行平面",
+              description: "在进程、文件、网络和 exec 边界建立可审计的策略点，并保留可检查、可恢复的会话历史。"
             }
           ]
         }
       : {
           eyebrow: "Products",
-          title: "AI agent observability & enforcement, and the eBPF runtime underneath",
+          title: "The AI agent system layer, and the eBPF runtime underneath",
           description:
-            "The flagship is system-boundary observability and runtime enforcement for AI agents; bpftime is the high-performance runtime engine that powers it. Open-source core is free to self-host, with enterprise features and support adopted as needed.",
+            "The flagship observes, governs, and preserves long-running AI agent execution at the system layer; bpftime is the runtime engine underneath. The open-source core is free to self-host, with enterprise features and support adopted as needed.",
           mapEyebrow: "Product map",
           mapTitle: "Clear engineering paths",
           mapDescription:
-            "From the flagship AI agent observability & enforcement, to the bpftime runtime engine underneath, to enterprise support.",
+            "From the AgentSight, ActPlane, and Akeep system layer, to the bpftime runtime engine underneath, to enterprise support.",
           agent:
-            "Flagship: zero-instrumentation observability (AgentSight) and runtime enforcement (ActPlane) for AI agents at the system/eBPF boundary, framework-agnostic, ~3% overhead, kernel-level ground truth.",
+            "Flagship: AgentSight observes and explains execution, ActPlane enforces policy at system boundaries, and Akeep preserves inspectable, recoverable native session history.",
           bpftime:
             "The engine and moat: a high-performance userspace eBPF runtime that also powers low-overhead tracing, GPU paths, and custom runtime extension.",
           services:
@@ -391,7 +391,7 @@ export function ProductsLandingPage({ locale, links, projects }: ProductPageProp
           buyersTitle: "Who it helps",
           buyersDescription:
             "Built for AI infrastructure and platform teams running AI agents in production that need open-source systems engineering to land.",
-          flowLabels: ["AI agent observability & enforcement", "bpftime engine", "Enterprise support"],
+          flowLabels: ["AI agent system layer", "bpftime engine", "Enterprise support"],
           buyers: [
             {
               label: "AI infra / AgentOps",
@@ -405,7 +405,7 @@ export function ProductsLandingPage({ locale, links, projects }: ProductPageProp
             },
             {
               label: "Teams that need runtime control",
-              title: "agentharness at system boundaries",
+              title: "An execution plane at system boundaries",
               description: "Create auditable, enforceable policy points across process, file, network, exec, and checkpoint/restore boundaries."
             }
           ]
@@ -450,12 +450,12 @@ export function ProductsLandingPage({ locale, links, projects }: ProductPageProp
         <div className="mt-6">
           <ProductEntry
             eyebrow={locale === "zh" ? "旗舰 · Agent" : "Flagship · Agent"}
-            title="AI Agent Observability & Enforcement"
+            title="Agent System Layer"
             description={copy.agent}
             href={linkByKey.get("agent-infra")}
             links={[linkByKey.get("agent-infra"), linkByKey.get("presentation")]}
-            visualLabel="agent observe + enforce"
-            visualLines={["observe.agent()", "enforce.policy()", "audit.runtime()"]}
+            visualLabel="observe + enforce + recover"
+            visualLines={["observe.agent()", "enforce.policy()", "recover.session()"]}
           />
           <ProductEntry
             eyebrow={locale === "zh" ? "引擎" : "Engine"}
@@ -643,17 +643,18 @@ export function BpftimeProductPage({ locale, links, projects }: ProductPageProps
 export function AgentRuntimeInfrastructurePage({ locale, links, projects }: ProductPageProps) {
   const linkByKey = linkMap(links);
   const agentSightImage = projectImage(projects, "agentsight");
+  const actPlaneImage = "/_content-assets/docs/presentations/agent-system-layer/images/actplane-policy-dsl.png";
   const copy =
     locale === "zh"
       ? {
-          eyebrow: "旗舰 · AI Agent 可观测与执行控制",
-          title: "看清 AI agent 在机器上真正做了什么",
+          eyebrow: "Agent System Layer",
+          title: "AI Agent 的操作系统级执行平面",
           description:
-            "AI agent 会运行命令、改写文件、启动进程并访问远程服务，但当一次运行失败、卡住或行为异常时，应用日志往往解释不了机器上真正发生了什么。AgentSight 是本地优先的 AI agent top / strace，把 prompt、模型调用和工具决策连接到进程、文件、网络与资源行为；ActPlane 在这些系统边界上执行运行时策略。",
-          metrics: ["本地优先", "无需 SDK / proxy", "支持 closed-source CLI", "评估中 CPU 开销低于 3%"],
-          whyTitle: "应用 trace 之外发生了什么",
+            "长期运行的 AI Agent 会跨越模型、工具、进程、文件和网络。AgentSight 观察并解释这些执行活动，ActPlane 把策略落实到操作系统边界，Akeep 保存 provider-native 会话历史，让几天或几周的工作仍然可以检查和恢复。",
+          metrics: ["适配现有 Agent", "操作系统级证据", "内核路径执行控制", "可恢复的会话历史"],
+          whyTitle: "长期运行的 Agent 需要应用 trace 之外的系统层",
           whyDescription:
-            "应用层工具适合在你拥有应用代码时观测 prompt、token、eval 和 latency。AgentSight 补上它们经常缺失的系统边界：从现有二进制和 closed-source CLI 外部观测，并把 LLM 流量与进程、文件和网络事件关联起来。",
+            "应用层工具适合观测 prompt、token、eval 和 latency。系统层继续回答实际执行了什么、策略是否真正生效，以及工作中断后能否从可信历史恢复。",
           appTitle: "应用层 / SDK / gateway",
           appPoints: [
             "每个应用需要接入 SDK、callback 或 gateway",
@@ -661,38 +662,38 @@ export function AgentRuntimeInfrastructurePage({ locale, links, projects }: Prod
             "trace 通常停在 framework 或 process 边界",
             "容易漏掉 subprocess 和本地文件活动"
           ],
-          sysTitle: "AgentSight · 系统层",
+          sysTitle: "Agent system layer",
           sysPoints: [
-            "从进程外部观测，无需修改 agent 代码",
-            "适用于现有二进制和 closed-source CLI",
-            "关联 LLM、process、file 和 network 事件",
-            "本地记录，并可导出 OpenTelemetry GenAI spans"
+            "AgentSight 从进程外部关联 LLM、process、file 和 network 事件",
+            "ActPlane 在 exec、file、network 和 syscall 路径执行策略",
+            "Akeep 保存 provider-native 历史，并支持完整性检查与恢复",
+            "三部分可以独立使用，也可以组成同一个执行平面"
           ],
           stages: [
             {
-              title: "实时看见",
+              title: "观察",
               description: "查看活跃 session、进程、模型与工具调用，以及文件、网络和资源活动。"
             },
             {
-              title: "解释失败",
-              description: "把 prompt、skill 和工具决策关联到错误与系统效果，定位卡住、重试和异常行为。"
+              title: "解释",
+              description: "把 prompt、skill 和工具决策关联到系统效果，理解注意力、迭代与失败路径。"
             },
             {
-              title: "定位成本",
-              description: "发现慢步骤、重复模型或工具调用、token-heavy session 和高资源进程。"
+              title: "执行控制",
+              description: "把高层意图和时序上下文编译成操作系统边界上的 allow、block、kill 或 notify。"
             },
             {
-              title: "审计影响",
-              description: "确认访问过哪些服务、修改过哪些文件，并保留可查询、可回放的执行记录。"
+              title: "保存与恢复",
+              description: "版本化保存原生会话文件，检查历史完整性，并在设备或 provider 变化后继续工作。"
             }
           ],
-          icpTitle: "当应用日志讲不清一次 agent 运行",
-          icpDescription: "从真实触发事件出发，选择需要解释、接入或控制的系统行为。",
+          icpTitle: "这个系统层回答什么问题",
+          icpDescription: "从长期运行、平台接入和安全治理中的真实问题出发。",
           icp: [
             {
-              label: "运行失败或行为异常",
-              title: "调试一次 coding agent session",
-              description: "模型和工具日志显示调用完成，但你仍需要知道它启动了什么进程、改了什么文件、访问了什么服务。"
+              label: "几天或几周的自主工作",
+              title: "30 秒理解 Agent 做了什么",
+              description: "看见注意力如何移动、哪些文件和模块真正变化、测试与实现如何交替，以及哪些尝试反复失败。"
             },
             {
               label: "Platform / SRE",
@@ -701,23 +702,23 @@ export function AgentRuntimeInfrastructurePage({ locale, links, projects }: Prod
             },
             {
               label: "Security / governance",
-              title: "审计并约束系统影响",
-              description: "先用 AgentSight 取得进程、文件和网络证据，再由 ActPlane 在 exec、file、network 和 syscall 边界执行策略。"
+              title: "审计、约束并恢复系统影响",
+              description: "用 AgentSight 取得执行证据，由 ActPlane 强制策略，再用 Akeep 保留可验证、可恢复的会话历史。"
             }
           ],
-          componentsTitle: "组成",
+          componentsTitle: "三个明确的系统职责",
           componentsDescription:
-            "AgentSight 负责看见和解释真实系统行为；ActPlane 负责在同一组系统边界上执行控制。两者职责明确，也可以独立采用。"
+            "AgentSight 负责观察与解释，ActPlane 负责执行控制，Akeep 负责历史保存与恢复。三者共享系统层视角，但不混淆职责。"
         }
       : {
-          eyebrow: "Flagship · AI Agent Observability & Enforcement",
-          title: "See what your AI agents actually do on the machine",
+          eyebrow: "Agent System Layer",
+          title: "The OS-level execution plane for AI agents",
           description:
-            "AI agents can run commands, rewrite files, spawn processes, and contact remote services, but when a run fails, stalls, or behaves unexpectedly, application logs rarely explain what happened on the machine. AgentSight is a local-first top / strace for AI agents that connects prompts, model calls, and tool decisions to process, file, network, and resource activity; ActPlane enforces runtime policy at those system boundaries.",
-          metrics: ["Local-first", "No SDK or proxy", "Works with closed-source CLIs", "<3% CPU overhead in evaluation"],
-          whyTitle: "What happens beyond the application trace",
+            "Long-running AI agents cross models, tools, processes, files, and networks. AgentSight observes and explains that execution, ActPlane turns policy into enforcement at operating-system boundaries, and Akeep preserves provider-native session history so days or weeks of work remain inspectable and recoverable.",
+          metrics: ["Works with existing agents", "OS-level evidence", "Enforcement on the execution path", "Recoverable session history"],
+          whyTitle: "Long-running agents need a system layer beyond application traces",
           whyDescription:
-            "Application-level tools are useful for prompts, tokens, evals, and latency when you own the application code. AgentSight fills the system-boundary gap they often leave: it observes existing binaries and closed-source CLIs from outside the process, then correlates LLM traffic with process, file, and network events.",
+            "Application-level tools explain prompts, tokens, evals, and latency. The system layer continues the story: what actually executed, whether policy held on the execution path, and whether interrupted work can be recovered from trustworthy history.",
           appTitle: "Application / SDK / gateway",
           appPoints: [
             "Each application needs an SDK, callback, or gateway integration",
@@ -725,38 +726,38 @@ export function AgentRuntimeInfrastructurePage({ locale, links, projects }: Prod
             "Traces often stop at framework or process boundaries",
             "Subprocess and local file activity can be missed"
           ],
-          sysTitle: "AgentSight · system layer",
+          sysTitle: "Agent system layer",
           sysPoints: [
-            "Observe from outside the process with no agent code changes",
-            "Works with existing binaries and closed-source CLIs",
-            "Correlates LLM, process, file, and network events",
-            "Records locally and exports OpenTelemetry GenAI spans"
+            "AgentSight correlates LLM, process, file, and network events from outside the process",
+            "ActPlane enforces policy across exec, file, network, and syscall paths",
+            "Akeep preserves provider-native history with integrity checks and recovery",
+            "Adopt each component independently or use them as one execution plane"
           ],
           stages: [
             {
-              title: "See it live",
+              title: "Observe",
               description: "Inspect active sessions, processes, model and tool calls, file and network activity, and resource use."
             },
             {
-              title: "Explain failures",
-              description: "Connect prompts, skills, and tool decisions to errors and system effects to find stalls, retries, and unexpected behavior."
+              title: "Explain",
+              description: "Connect prompts, skills, and tool decisions to system effects, attention shifts, iteration paths, and failures."
             },
             {
-              title: "Find the cost",
-              description: "Spot slow steps, repeated model or tool calls, token-heavy sessions, and resource-hungry processes."
+              title: "Enforce",
+              description: "Compile intent and temporal context into allow, block, kill, or notify decisions at operating-system boundaries."
             },
             {
-              title: "Audit effects",
-              description: "See which services received requests and which files changed, with queryable and replayable execution records."
+              title: "Preserve & recover",
+              description: "Version provider-native session files, verify history integrity, and continue after a device or provider changes."
             }
           ],
-          icpTitle: "When application logs cannot explain an agent run",
-          icpDescription: "Start from the event that needs system-level explanation, integration, or control.",
+          icpTitle: "What the system layer should answer",
+          icpDescription: "Start from real problems in long-running work, platform integration, and governance.",
           icp: [
             {
-              label: "A failed or unexpected run",
-              title: "Debug a coding-agent session",
-              description: "Model and tool logs show completion, but you still need to know which processes started, which files changed, and which services were contacted."
+              label: "Days or weeks of autonomous work",
+              title: "Understand the run in 30 seconds",
+              description: "See where attention moved, which files and modules changed, how tests and implementation alternated, and where attempts repeatedly failed."
             },
             {
               label: "Platform / SRE",
@@ -765,13 +766,13 @@ export function AgentRuntimeInfrastructurePage({ locale, links, projects }: Prod
             },
             {
               label: "Security / governance",
-              title: "Audit and control system effects",
-              description: "Use AgentSight for process, file, and network evidence, then ActPlane for policy at exec, file, network, and syscall boundaries."
+              title: "Audit, govern, and recover system effects",
+              description: "Use AgentSight for execution evidence, ActPlane for enforced policy, and Akeep for verifiable, recoverable session history."
             }
           ],
-          componentsTitle: "Components",
+          componentsTitle: "Three explicit system responsibilities",
           componentsDescription:
-            "AgentSight observes and explains real system behavior; ActPlane enforces control at the same system boundaries. Their responsibilities stay explicit, and either can be adopted independently."
+            "AgentSight observes and explains, ActPlane enforces, and Akeep preserves and recovers history. They share a system-layer view without collapsing into one opaque product."
         };
 
   return (
@@ -794,9 +795,16 @@ export function AgentRuntimeInfrastructurePage({ locale, links, projects }: Prod
           ))}
         </div>
         <div className="mt-5">
-          <StarBar repos={[{ repo: "agentsight", label: "AgentSight" }]} locale={locale} />
+          <StarBar
+            repos={[
+              { repo: "agentsight", label: "AgentSight" },
+              { repo: "ActPlane", label: "ActPlane" },
+              { repo: "akeep", label: "Akeep" }
+            ]}
+            locale={locale}
+          />
         </div>
-        <ActionRow links={[linkByKey.get("agentsight-docs"), linkByKey.get("agentsight-github"), linkByKey.get("pilot")]} />
+        <ActionRow links={[linkByKey.get("agentsight-docs"), linkByKey.get("presentation"), linkByKey.get("pilot")]} />
       </div>
 
       <div className="py-12">
@@ -838,14 +846,19 @@ export function AgentRuntimeInfrastructurePage({ locale, links, projects }: Prod
         </div>
       </div>
 
-      <div className="grid gap-8 border-t border-slate-200 py-12 lg:grid-cols-[minmax(0,1fr)_28rem] lg:items-start">
+      <div className="border-t border-slate-200 py-12">
         <SectionHeading title={copy.componentsTitle} description={copy.componentsDescription} />
-        <VisualPanel image={agentSightImage} imageAlt="AgentSight architecture">
-          <p className="font-mono text-xs uppercase tracking-[0.16em] text-cyan-700">agent runtime infra</p>
-        </VisualPanel>
+        <div className="mt-7 grid gap-4 lg:grid-cols-2">
+          <VisualPanel image={agentSightImage} imageAlt="AgentSight architecture">
+            <p className="font-mono text-xs uppercase tracking-[0.16em] text-cyan-700">observe</p>
+          </VisualPanel>
+          <VisualPanel image={actPlaneImage} imageAlt="ActPlane policy compiled into operating-system enforcement">
+            <p className="font-mono text-xs uppercase tracking-[0.16em] text-rose-700">enforce</p>
+          </VisualPanel>
+        </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-4 md:grid-cols-3">
         <article className="border border-slate-200 bg-white p-5">
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-cyan-700">Observe &amp; explain</p>
           <h3 className="mt-3 text-lg font-semibold tracking-normal text-ink">AgentSight</h3>
@@ -855,18 +868,28 @@ export function AgentRuntimeInfrastructurePage({ locale, links, projects }: Prod
               : "Local-first AI agent profiling and monitoring that connects prompts, models, and tool decisions to process, file, network, and resource activity, with reports, agentpprof, and OpenTelemetry export."}
           </p>
           <ActionRow
-            links={[linkByKey.get("agentsight-docs"), linkByKey.get("agentsight-github"), linkByKey.get("acrfence-article")]}
+            links={[linkByKey.get("agentsight-docs"), linkByKey.get("agentsight-github")]}
           />
         </article>
         <article className="border border-slate-200 bg-white p-5">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-emerald-700">Harness</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-rose-700">Enforce</p>
           <h3 className="mt-3 text-lg font-semibold tracking-normal text-ink">ActPlane</h3>
           <p className="mt-3 text-sm leading-6 text-slate-600">
             {locale === "zh"
-              ? "OS-level harness，在 syscall、exec、file 和 network 边界用系统级策略约束 agent 行为，并提供应用层日志之外的执行证据。"
-              : "An OS-level harness that shapes agent behavior with system-boundary policy across syscall, exec, file, and network — plus execution evidence beyond application logs."}
+              ? "把高层意图与时序上下文编译成系统策略，在 syscall、exec、file 和 network 路径执行 allow、block、kill 或 notify。"
+              : "Compiles intent and temporal context into policy enforced across syscall, exec, file, and network paths, with concrete feedback when an action is denied."}
           </p>
-          <ActionRow links={[linkByKey.get("actplane-github")]} />
+          <ActionRow links={[linkByKey.get("actplane-docs"), linkByKey.get("actplane-github")]} />
+        </article>
+        <article className="border border-slate-200 bg-white p-5">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-emerald-700">Preserve &amp; recover</p>
+          <h3 className="mt-3 text-lg font-semibold tracking-normal text-ink">Akeep</h3>
+          <p className="mt-3 text-sm leading-6 text-slate-600">
+            {locale === "zh"
+              ? "版本化保存 Agent 的 provider-native 会话文件，支持完整性检查、差异比较与恢复，无需把历史转换成另一套 memory 格式。"
+              : "Versions provider-native agent session files for integrity checks, diffs, and recovery without converting history into another agent-memory format."}
+          </p>
+          <ActionRow links={[linkByKey.get("akeep-github")]} />
         </article>
       </div>
 

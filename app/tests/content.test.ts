@@ -306,7 +306,9 @@ test("configured section landing copy is sourced from mkdocs config", async () =
   assert.equal(agentInfra?.reactPage, "agent-runtime-infrastructure");
   assert.equal(agentSystemLayer?.reactPage, "agent-system-layer-presentation");
   assert.equal(agentSystemLayer?.reactLinks?.find((link) => link.key === "akeep-github")?.href, "https://github.com/eunomia-bpf/akeep");
-  assert.equal(agentInfra?.reactLinks?.find((link) => link.key === "actplane-docs"), undefined);
+  assert.equal(agentInfra?.reactLinks?.find((link) => link.key === "presentation")?.href, "/presentations/agent-system-layer/");
+  assert.equal(agentInfra?.reactLinks?.find((link) => link.key === "actplane-docs")?.href, "/actplane/");
+  assert.equal(agentInfra?.reactLinks?.find((link) => link.key === "akeep-github")?.href, "https://github.com/eunomia-bpf/akeep");
   assert.equal(services?.reactPage, "services");
   assert.equal(about?.reactPage, "about");
   assert.equal(about?.reactLinks?.find((link) => link.key === "cuda-tutorial")?.href, "/others/cuda-tutorial/");

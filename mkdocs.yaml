@@ -133,7 +133,7 @@ nav:
   - Blog: blog
   - Products:
     - products/index.md
-    - AI Agent Observability & Enforcement: products/agent-runtime-infrastructure.md
+    - Agent System Layer: products/agent-runtime-infrastructure.md
     - Services / Enterprise Support: products/services.md
   - bpftime:
     - bpftime/index.md
@@ -347,8 +347,8 @@ extra:
       - label: bpftime
         label_zh: bpftime
         href: /bpftime/
-      - label: AI Agent Observability & Enforcement
-        label_zh: AI Agent 可观测与执行控制
+      - label: Agent System Layer
+        label_zh: AI Agent 系统层
         href: /products/agent-runtime-infrastructure/
       - label: Services / Enterprise Support
         label_zh: 服务 / 企业支持
@@ -975,27 +975,39 @@ extra:
           label: GitHub
           label_zh: GitHub
           href: https://github.com/eunomia-bpf/agentsight
+        - key: presentation
+          label: View the system-layer presentation
+          label_zh: 查看系统层演示
+          href: /presentations/agent-system-layer/
         - key: runtime-security-guide
           label: AI agent enforcement guide
           label_zh: AI Agent 执行控制指南
           href: /blog/2026/07/15/ebpf-ai-agent-policy-enforcement/
+        - key: actplane-docs
+          label: Docs
+          label_zh: 文档
+          href: /actplane/
         - key: actplane-github
           label: GitHub
           label_zh: GitHub
           href: https://github.com/eunomia-bpf/ActPlane
+        - key: akeep-github
+          label: GitHub
+          label_zh: GitHub
+          href: https://github.com/eunomia-bpf/akeep
         - key: acrfence-article
           label: Research article
           label_zh: 研究文章
           href: /blog/2026/05/21/acrfence-preventing-semantic-rollback-attacks-in-agent-checkpoint-restore/
       title:
-        en: AI Agent Observability & Enforcement
-        zh: AI Agent 可观测与执行控制
+        en: Agent System Layer
+        zh: AI Agent 系统层
       description:
-        en: Zero-instrumentation observability and runtime enforcement for AI agents at the system/eBPF boundary.
-        zh: 在系统/eBPF 边界，为 AI agent 提供零插桩可观测与运行时执行控制。
+        en: An OS-level execution plane for observing, enforcing, and recovering long-running AI agent work.
+        zh: 面向长期运行 AI Agent 的操作系统级执行平面，覆盖观测、执行控制与恢复。
       body:
-        en: This page is rendered by the React AI Agent Observability & Enforcement component.
-        zh: 这个页面由 React 的 AI Agent 可观测与执行控制组件渲染。
+        en: This page is rendered by the React Agent System Layer component.
+        zh: 这个页面由 React 的 AI Agent 系统层组件渲染。
     products/services.md:
       react_page: services
       links:
