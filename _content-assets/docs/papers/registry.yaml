@@ -5,14 +5,29 @@
 # from this file, and blog posts must cite paper numbers as recorded here,
 # with their measurement conditions.
 #
-# Policy: only published papers or public arXiv versions enter docs/papers/.
-# Papers under review must never appear in this repository in any form.
+# Policy: only published papers or explicitly public preprints enter docs/papers/.
+# Papers that remain private or under review must never appear here.
 #
 # `arxiv_version` pins the version the local pdf/text copies were taken from.
 # When the weekly audit detects a new arXiv version, refresh the pdf/text
 # pair, update the pin, and re-verify every key number cited on the site.
 
 papers:
+  - slug: agentpprof
+    title: "AgentPProf: Semantic Profiler for Long Horizon AI Agents"
+    status: Public preprint
+    artifact: https://github.com/eunomia-bpf/agentsight
+    pdf: agentpprof.pdf
+    text: agentpprof.txt
+    blog:
+      en: blog/posts/agentpprof-semantic-flamegraph.md
+      zh: blog/posts/agentpprof-semantic-flamegraph.zh.md
+    key_numbers:
+      - value: "0.764 B^3 F1"
+        condition: "CodeTraceBench recursive operation segmentation against human annotations"
+      - value: "up to 56% higher MAP"
+        condition: "profile-guided localization across three problem-localization benchmarks"
+
   - slug: bpfix
     title: "Characterizing and Bridging the Diagnostic Gap in eBPF Verifier Rejections"
     arxiv: "2607.02748"

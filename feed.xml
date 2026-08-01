@@ -103,11 +103,13 @@
   <category>AI agent observability</category>
 </item>
 <item>
-  <title>AgentCgroup: What Happens When AI Coding Agents Meet OS Resources?</title>
+  <title>AgentCgroup: What Happens When AI Agents Meet OS Resources?</title>
   <link>https://eunomia.dev/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/</link>
   <guid>https://eunomia.dev/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/</guid>
   <pubDate>Tue, 17 Feb 2026 00:00:00 GMT</pubDate>
-  <description>An AI coding agent spends several quiet minutes reading and editing files, then launches pytest.</description>
+  <description>An AI agent spends several quiet minutes reading and editing files, then launches pytest.</description>
+  <author>i@littlefisher.me (Littlefisher619)</author>
+  <author>yuxi4096@gmail.com (yuxi4096)</author>
   <author>1067852565@qq.com (云微)</author>
   <author>i@littlefisher.me (LinuxDev9002)</author>
   <author>linuxdev8883@example.com (LinuxDev9002)</author>

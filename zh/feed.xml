@@ -103,11 +103,13 @@
   <category>AI agent observability</category>
 </item>
 <item>
-  <title>AgentCgroup：当 AI 编程 Agent 遇到操作系统资源</title>
+  <title>AgentCgroup：当 AI Agent 遇到操作系统资源</title>
   <link>https://eunomia.dev/zh/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/</link>
   <guid>https://eunomia.dev/zh/blog/2026/02/17/agentcgroup-what-happens-when-ai-coding-agents-meet-os-resources/</guid>
   <pubDate>Tue, 17 Feb 2026 00:00:00 GMT</pubDate>
-  <description>一个 AI 编程 Agent 安静地读了几分钟代码，改完文件后启动 pytest。测试进程加载依赖时，内存可能在一秒内增加数百 MB，命令退出后又迅速回落。容器级 controller 只看到整个 workload 越过阈值，却分不清这次 burst 来自短命的工具进程，而长时间运行的 Agent runtime 还保存着对话、诊断过程和未完成的修改。</description>
+  <description>一个 AI Agent 安静地读了几分钟代码，改完文件后启动 pytest。测试进程加载依赖时，内存可能在一秒内增加数百 MB，命令退出后又迅速回落。容器级控制器只看到整个工作负载越过阈值，却分不清这次突发来自短命的工具进程，而长时间运行的 Agent 运行时还保存着对话、诊断过程和未完成的修改。</description>
+  <author>i@littlefisher.me (Littlefisher619)</author>
+  <author>yuxi4096@gmail.com (yuxi4096)</author>
   <author>1067852565@qq.com (云微)</author>
   <author>i@littlefisher.me (LinuxDev9002)</author>
   <author>linuxdev8883@example.com (LinuxDev9002)</author>
