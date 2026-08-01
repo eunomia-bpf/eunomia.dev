@@ -2269,20 +2269,6 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/papers/" />
   </url>
   <url>
-    <loc>https://eunomia.dev/about/</loc>
-    <lastmod>2026-05-23</lastmod>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/about/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/about/" />
-    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/about/" />
-  </url>
-  <url>
-    <loc>https://eunomia.dev/zh/about/</loc>
-    <lastmod>2026-05-23</lastmod>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/about/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/about/" />
-    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/about/" />
-  </url>
-  <url>
     <loc>https://eunomia.dev/actplane/agent-integrations/</loc>
     <lastmod>2026-06-26</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/actplane/agent-integrations/" />
@@ -2508,14 +2494,14 @@
   </url>
   <url>
     <loc>https://eunomia.dev/agentsight/</loc>
-    <lastmod>2026-07-26</lastmod>
+    <lastmod>2026-07-31</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/agentsight/</loc>
-    <lastmod>2026-07-26</lastmod>
+    <lastmod>2026-07-31</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/agentsight/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/agentsight/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/agentsight/" />
@@ -3738,14 +3724,14 @@
   </url>
   <url>
     <loc>https://eunomia.dev/others/ideas/</loc>
-    <lastmod>2026-02-11</lastmod>
+    <lastmod>2026-07-31</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/others/ideas/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/others/ideas/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/ideas/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/others/ideas/</loc>
-    <lastmod>2026-02-11</lastmod>
+    <lastmod>2026-07-31</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/others/ideas/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/others/ideas/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/others/ideas/" />
@@ -4200,14 +4186,14 @@
   </url>
   <url>
     <loc>https://eunomia.dev/reports/</loc>
-    <lastmod>2026-07-01</lastmod>
+    <lastmod>2026-08-01</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/reports/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/reports/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/reports/" />
   </url>
   <url>
     <loc>https://eunomia.dev/zh/reports/</loc>
-    <lastmod>2026-07-01</lastmod>
+    <lastmod>2026-08-01</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/reports/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/reports/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/reports/" />
@@ -4239,5 +4225,19 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/reports/org/monthly/2026-06/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/reports/org/monthly/2026-06/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/reports/org/monthly/2026-06/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/reports/org/monthly/2026-07/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/reports/org/monthly/2026-07/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/reports/org/monthly/2026-07/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/reports/org/monthly/2026-07/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/reports/org/monthly/2026-07/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/reports/org/monthly/2026-07/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/reports/org/monthly/2026-07/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/reports/org/monthly/2026-07/" />
   </url>
 </urlset>
