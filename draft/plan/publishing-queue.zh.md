@@ -8,6 +8,7 @@
 
 - 全局暂停：2026-07-22 至 2026-07-23 不发布、同步或分享新内容，最早从 2026-07-24 恢复。
 - 发布阻塞：BPFix Medium 上传稿已完成，但可控浏览器没有 Medium 登录状态；已登录 Chrome 控制扩展持续超时，Windows 可见界面输入权限被系统拒绝。保留登录页，完成登录后继续。
+- 发布阻塞：BPFix DEV 上传稿、源文完整性与两张图片 URL 已核对，公开资料页的 57 篇文章中无精确标题匹配；内置浏览器连续两次无法连接可交互页面，Chrome 在 `https://dev.to/new` 显示未登录页。未创建 DEV 草稿、未发布，也未使用 API；可控可见浏览器完成 DEV 登录后继续。
 - 已核定：SchedCP 掘金文章与 tutorial 54 的掘金更新均已确认公开。
 - 待确认：AgentNebula 的 LinkedIn 与 X 草稿及 10 秒素材已经准备好，继续停在发布前。
 - 暂停：AgentPProf 暂不进入发布队列；Hacker News 暂不发；Lobsters 没有账号。
@@ -24,8 +25,8 @@
 - [x] `排队` 知乎：`docs/blog/posts/bpfix.zh.md`。2026-07-26 已发布：<https://zhuanlan.zhihu.com/p/2064970067830480995>；公开页标题、正文、图片、表格、代码块和链接 QA 已通过。
 - [x] `排队` 掘金：`docs/blog/posts/bpfix.zh.md`。2026-07-29 恢复任务时在可见个人文章列表发现已公开：<https://juejin.cn/post/7667474278616547380>；未重复提交，公开页标题、正文、图片、表格、代码块和链接 QA 已通过，ledger 已记录为 `confirmed`。
 - [ ] `阻塞` Medium：`docs/blog/posts/bpfix.md`。上传稿与表格降级格式已完成；缺少可控浏览器中的 Medium 登录状态，尚未创建或发布文章。
-- [ ] `排队` DEV：`docs/blog/posts/bpfix.md`。
-- [ ] `排队` 知乎：`docs/tutorials/50-tcx/README.zh.md`。
+- [ ] `阻塞` DEV：`docs/blog/posts/bpfix.md`。`draft/media/2026-07-31/bpfix/devto.md` 已完成；内置浏览器无法连接页面，Chrome 可见会话未登录 DEV，尚未创建草稿或发布。
+- [x] `排队` 知乎：`docs/tutorials/50-tcx/README.zh.md`。2026-08-01 已发布：<https://zhuanlan.zhihu.com/p/2067144957194924576>；公开页标题、21 个正文标题、8 个代码块、2 个表格（12 行）和 10 个正文外链 QA 已通过，ledger 已记录为 `confirmed`。
 - [ ] `排队` 掘金：`docs/tutorials/50-tcx/README.zh.md`。
 - [ ] `排队` Medium：`docs/tutorials/50-tcx/README.md`。
 - [ ] `排队` DEV：`docs/tutorials/50-tcx/README.md`。

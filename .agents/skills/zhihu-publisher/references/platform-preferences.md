@@ -110,6 +110,10 @@ link placement, or "想法" adaptation.
   blocks, tables, and link destinations.
 - In the publish/settings step, choose a relevant question when Zhihu offers a
   question selector. This is part of final QA, not an optional afterthought.
+- In the current article editor, the button named `投稿至问题` beside the label
+  opens an explanatory help dialog. Open the adjacent combobox showing
+  `未选择` or `已选 1 个问题` to reach the actual question search and selection
+  UI.
 - Exact English technical terms in the question selector can return unrelated
   matches or no results. Broaden to the Chinese parent topic, then inspect the
   visible candidates and choose the closest technical question manually.

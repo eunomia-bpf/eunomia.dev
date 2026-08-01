@@ -3,7 +3,7 @@
   "platform_id": "zhihu",
   "label": "Zhihu",
   "kind": "longform_chinese",
-  "last_checked": "2026-07-26",
+  "last_checked": "2026-08-01",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -25,6 +25,13 @@
     }
   ],
   "browser_observations": [
+    {
+      "checked_at": "2026-08-01",
+      "checked_via": "chrome_visible_document_import_publish_preview_and_public_page_dom_qa",
+      "article_url": "https://zhuanlan.zhihu.com/p/2067144957194924576",
+      "question_url": "https://www.zhihu.com/question/60124044",
+      "notes": "Published through the normal visible Zhihu document-import and editor UI with the source title and substantive body preserved. Selected topics ebpf and Linux 内核. Public-page QA confirmed the exact title, 21 body headings, 8 visible code blocks, 2 tables with 12 rows, 10 outbound article links, and no failure placeholders. No Zhihu API or hidden endpoint was used."
+    },
     {
       "checked_at": "2026-07-26",
       "checked_via": "in_app_browser_document_import_publish_and_public_page_visible_dom_qa",
@@ -56,6 +63,15 @@
     }
   ],
   "published": [
+    {
+      "id": "zhihu-2067144957194924576",
+      "status": "confirmed",
+      "title": "eBPF 入门实践教程第五十篇：使用 TCX Link 实现可组合的流量控制",
+      "url": "https://zhuanlan.zhihu.com/p/2067144957194924576",
+      "source_path": "docs/tutorials/50-tcx/README.zh.md",
+      "checked_via": "chrome_visible_document_import_publish_preview_and_public_page_dom_qa",
+      "notes": "Published 2026-08-01 with the source title and substantive body unchanged. The source H1 was carried by the Zhihu title field and the relative lesson-20 link was converted to its public eunomia.dev URL. Selected question linux内核如何实践？ and topics ebpf and Linux 内核. Public-page QA confirmed 21 body headings, 8 code blocks, 2 tables with 12 rows, and 10 outbound article links."
+    },
     {
       "id": "zhihu-2064970067830480995",
       "status": "confirmed",

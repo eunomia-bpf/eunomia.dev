@@ -3,7 +3,7 @@
   "platform_id": "devto",
   "label": "Dev.to",
   "kind": "longform_syndication",
-  "last_checked": "2026-07-20",
+  "last_checked": "2026-07-31",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -91,12 +91,20 @@
       "visible_article_links_collected": 54,
       "profile_url": "https://dev.to/yunwei37",
       "notes": "Normal rendered-page scrolling reached a stable set of 54 unique public post links while the profile reported 57 published posts. Historical source mappings use exact titles, unambiguous numbered-tutorial identity, or same-title duplicate-source identity."
+    },
+    {
+      "checked_at": "2026-07-31",
+      "checked_via": "in_app_browser_then_chrome_visible_ui",
+      "url": "https://dev.to/new",
+      "status": "blocked",
+      "notes": "BPFix remains absent from the published ledger, and the normal public @yunwei37 profile page showed 57 published posts with no exact-title BPFix match. Its canonical source and paste-ready DEV artifact were verified, but the in-app browser could not attach to a page after two attempts and Chrome showed the logged-out DEV sign-in page. No DEV editor draft or public post was created; no API or hidden endpoint was used."
     }
   ],
   "references": [],
   "third_party_mentions": [],
   "pending_verification": [
     "The profile reports 57 published posts but normal visible scrolling exposed 54 unique public links; keep the three-item discrepancy explicit.",
-    ".github/publisher/posts_queue.txt was empty during the 2026-07-19 check."
+    ".github/publisher/posts_queue.txt was empty during the 2026-07-19 check.",
+    "Publish docs/blog/posts/bpfix.md only after a controllable visible browser has an authenticated DEV session, then complete editor preview and public-page QA."
   ]
 }
