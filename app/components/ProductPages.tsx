@@ -215,6 +215,36 @@ function VisualPanel({
   );
 }
 
+function ProductFigure({
+  image,
+  imageAlt,
+  caption,
+  className = ""
+}: {
+  image: string;
+  imageAlt: string;
+  caption: string;
+  className?: string;
+}) {
+  return (
+    <figure className={`overflow-hidden border border-slate-200 bg-white ${className}`.trim()}>
+      <div className="relative aspect-video bg-slate-950">
+        <Image
+          src={image}
+          alt={imageAlt}
+          fill
+          sizes="(min-width: 1024px) 38rem, 100vw"
+          className="object-contain"
+          unoptimized
+        />
+      </div>
+      <figcaption className="border-t border-slate-200 px-4 py-3 text-sm leading-6 text-slate-600">
+        {caption}
+      </figcaption>
+    </figure>
+  );
+}
+
 function EditionsSection({ locale, contact }: { locale: Locale; contact?: ReactPageLink }) {
   const copy =
     locale === "zh"
@@ -643,7 +673,13 @@ export function BpftimeProductPage({ locale, links, projects }: ProductPageProps
 export function AgentRuntimeInfrastructurePage({ locale, links, projects }: ProductPageProps) {
   const linkByKey = linkMap(links);
   const agentSightImage = projectImage(projects, "agentsight");
+  const agentNebulaImage = "/_content-assets/docs/presentations/agent-system-layer/images/agent-nebula.png";
+  const agentSightTopImage = "/_content-assets/docs/agentsight/images/top-mode-demo.png";
+  const agentSightFlamegraphImage =
+    "/_content-assets/docs/agentsight/flamegraph-example/semantic-flamegraph-top200.svg";
   const actPlaneImage = "/_content-assets/docs/presentations/agent-system-layer/images/actplane-policy-dsl.png";
+  const actPlaneRuntimeImage =
+    "/_content-assets/docs/presentations/agent-system-layer/images/actplane-runtime-loop.png";
   const copy =
     locale === "zh"
       ? {
@@ -706,9 +742,28 @@ export function AgentRuntimeInfrastructurePage({ locale, links, projects }: Prod
               description: "用 AgentSight 取得执行证据，由 ActPlane 强制策略，再用 Akeep 保留可验证、可恢复的会话历史。"
             }
           ],
-          componentsTitle: "三个明确的系统职责",
+          componentsTitle: "看看系统层实际呈现什么",
           componentsDescription:
-            "AgentSight 负责观察与解释，ActPlane 负责执行控制，Akeep 负责历史保存与恢复。三者共享系统层视角，但不混淆职责。"
+            "这些画面来自项目现有界面和演示：AgentSight 把长期执行变成可观察的结构，ActPlane 把策略落实到执行路径，Akeep 保留可以检查和恢复的原生历史。",
+          agentSightVisuals: {
+            title: "AgentSight · 观察与解释",
+            description: "从当前正在运行的 Agent，到一周内注意力如何移动，再到时间和工具调用花在哪里。",
+            nebula: "AgentNebula 按真实读写时间回放文件结构与注意力的变化。",
+            top: "实时 top 视图汇总 session、模型、token、健康状态、进程、工具和文件活动。",
+            flamegraph: "语义火焰图把 prompt 与工具路径连接到带权重的系统效果。",
+            architecture: "AgentSight 从系统事件中关联 Agent、模型调用与执行行为。"
+          },
+          actPlaneVisuals: {
+            title: "ActPlane · 在执行路径上强制策略",
+            description: "高层规则被编译成系统策略；解释留在用户态，强制执行落在进程必须经过的内核路径。",
+            policy: "策略 DSL 保留意图和时序上下文，并在操作系统边界执行。",
+            runtime: "运行闭环连接策略、编译器、权限检查、IFC 引擎与语义反馈。"
+          },
+          akeepVisuals: {
+            title: "Akeep · 保留与恢复原生会话历史",
+            description: "Akeep 直接版本化 provider-native 文件；普通流程可以只用 commit，需要时再做 diff、完整性检查和恢复。",
+            boundary: "设备或 provider 发生变化后，历史仍可检查、验证并恢复。"
+          }
         }
       : {
           eyebrow: "Agent System Layer",
@@ -770,9 +825,28 @@ export function AgentRuntimeInfrastructurePage({ locale, links, projects }: Prod
               description: "Use AgentSight for execution evidence, ActPlane for enforced policy, and Akeep for verifiable, recoverable session history."
             }
           ],
-          componentsTitle: "Three explicit system responsibilities",
+          componentsTitle: "See what the system layer actually produces",
           componentsDescription:
-            "AgentSight observes and explains, ActPlane enforces, and Akeep preserves and recovers history. They share a system-layer view without collapsing into one opaque product."
+            "These are existing project interfaces and presentation visuals: AgentSight makes long-running execution observable, ActPlane moves policy onto the execution path, and Akeep preserves native history for inspection and recovery.",
+          agentSightVisuals: {
+            title: "AgentSight · Observe and explain",
+            description: "Move from agents running now, to attention moving across a week, to where time and tool calls accumulated.",
+            nebula: "AgentNebula replays file structure and attention using the agent's actual read and write timing.",
+            top: "The live top view summarizes sessions, models, tokens, health, processes, tools, and file activity.",
+            flamegraph: "The semantic flamegraph connects prompts and tool paths to weighted system effects.",
+            architecture: "AgentSight correlates agents, model calls, and execution behavior from system events."
+          },
+          actPlaneVisuals: {
+            title: "ActPlane · Enforce on the execution path",
+            description: "High-level rules compile into system policy; interpretation stays in userspace while enforcement sits on kernel paths every process must cross.",
+            policy: "The policy DSL carries intent and temporal context into operating-system enforcement.",
+            runtime: "The runtime loop connects policy, compilation, authority checks, the IFC engine, and semantic feedback."
+          },
+          akeepVisuals: {
+            title: "Akeep · Preserve and recover native session history",
+            description: "Akeep versions provider-native files directly. Ordinary use can be a commit; diff, integrity checks, and recovery are available when needed.",
+            boundary: "When a device or provider changes, the history remains inspectable, verifiable, and recoverable."
+          }
         };
 
   return (
@@ -848,13 +922,66 @@ export function AgentRuntimeInfrastructurePage({ locale, links, projects }: Prod
 
       <div className="border-t border-slate-200 py-12">
         <SectionHeading title={copy.componentsTitle} description={copy.componentsDescription} />
-        <div className="mt-7 grid gap-4 lg:grid-cols-2">
-          <VisualPanel image={agentSightImage} imageAlt="AgentSight architecture">
-            <p className="font-mono text-xs uppercase tracking-[0.16em] text-cyan-700">observe</p>
-          </VisualPanel>
-          <VisualPanel image={actPlaneImage} imageAlt="ActPlane policy compiled into operating-system enforcement">
-            <p className="font-mono text-xs uppercase tracking-[0.16em] text-rose-700">enforce</p>
-          </VisualPanel>
+        <div className="mt-10">
+          <h3 className="text-xl font-semibold tracking-normal text-ink">{copy.agentSightVisuals.title}</h3>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">{copy.agentSightVisuals.description}</p>
+          <div className="mt-6 grid gap-4 lg:grid-cols-2">
+            <ProductFigure
+              image={agentNebulaImage}
+              imageAlt="AgentNebula replay of AI agent file activity"
+              caption={copy.agentSightVisuals.nebula}
+              className="lg:col-span-2"
+            />
+            <ProductFigure
+              image={agentSightTopImage}
+              imageAlt="AgentSight top view showing live AI agent sessions"
+              caption={copy.agentSightVisuals.top}
+            />
+            <ProductFigure
+              image={agentSightFlamegraphImage}
+              imageAlt="AgentSight semantic flamegraph of AI agent activity"
+              caption={copy.agentSightVisuals.flamegraph}
+            />
+            {agentSightImage ? (
+              <ProductFigure
+                image={agentSightImage}
+                imageAlt="AgentSight architecture"
+                caption={copy.agentSightVisuals.architecture}
+                className="lg:col-span-2"
+              />
+            ) : null}
+          </div>
+        </div>
+
+        <div className="mt-12 border-t border-slate-200 pt-10">
+          <h3 className="text-xl font-semibold tracking-normal text-ink">{copy.actPlaneVisuals.title}</h3>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">{copy.actPlaneVisuals.description}</p>
+          <div className="mt-6 grid gap-4 lg:grid-cols-2">
+            <ProductFigure
+              image={actPlaneImage}
+              imageAlt="ActPlane policy DSL compiled into operating-system enforcement"
+              caption={copy.actPlaneVisuals.policy}
+            />
+            <ProductFigure
+              image={actPlaneRuntimeImage}
+              imageAlt="ActPlane runtime architecture with policy, compiler, IFC engine, and feedback"
+              caption={copy.actPlaneVisuals.runtime}
+            />
+          </div>
+        </div>
+
+        <div className="mt-12 border-t border-slate-200 pt-10">
+          <h3 className="text-xl font-semibold tracking-normal text-ink">{copy.akeepVisuals.title}</h3>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">{copy.akeepVisuals.description}</p>
+          <div className="mt-6 border border-slate-800 bg-slate-950 p-6 font-mono text-sm leading-8 text-slate-300 sm:p-8">
+            <p><span className="text-emerald-300">Day 1</span> &nbsp; akeep commit -m &quot;first working path&quot;</p>
+            <p><span className="text-emerald-300">Day 2</span> &nbsp; akeep commit -m &quot;after failed migration&quot;</p>
+            <p><span className="text-emerald-300">Day 7</span> &nbsp; akeep diff HEAD~1 HEAD</p>
+            <p className="mt-5 border-t border-slate-700 pt-5 text-slate-400">{copy.akeepVisuals.boundary}</p>
+            <p className="mt-5 text-white">akeep fsck HEAD</p>
+            <p className="text-white">akeep checkout HEAD --to /tmp/recovery</p>
+            <p className="mt-5 text-emerald-300">Continue.</p>
+          </div>
         </div>
       </div>
 
