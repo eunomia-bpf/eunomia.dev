@@ -3,7 +3,7 @@
   "platform_id": "linkedin",
   "label": "LinkedIn",
   "kind": "professional_social",
-  "last_checked": "2026-07-22",
+  "last_checked": "2026-08-01",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -27,9 +27,39 @@
       "visible_reposts": 4,
       "previous_impressions": 3121,
       "notes": "Impressions increased by 17 from the 2026-07-21 checkpoint. The five visible comments comprised three reader comments and two author replies; no unanswered technical question was visible. No LinkedIn API or hidden endpoint evidence is used."
+    },
+    {
+      "checked_at": "2026-08-01",
+      "checked_via": "normal_visible_public_profile_activity",
+      "post_url": "https://www.linkedin.com/posts/yunwei37_aiagents-observability-developertools-activity-7485819115337637888-iFAK",
+      "notes": "Public profile activity showed the complete AgentNebula post, AgentSight link, and uploaded animation."
+    },
+    {
+      "checked_at": "2026-08-01",
+      "checked_via": "normal_visible_public_profile_activity",
+      "post_url": "https://www.linkedin.com/posts/yunwei37_github-eunomia-bpfakeep-privacy-first-activity-7489412627769548800-SV__",
+      "notes": "Public profile activity showed the Akeep project post and GitHub preview card."
     }
   ],
   "published": [
+    {
+      "id": "linkedin-7489412627769548800",
+      "status": "confirmed",
+      "date": "2026-08-01",
+      "title": "A tool for backup, recovery and migration of AI agent session history",
+      "url": "https://www.linkedin.com/posts/yunwei37_github-eunomia-bpfakeep-privacy-first-activity-7489412627769548800-SV__",
+      "checked_via": "normal_visible_public_profile_activity",
+      "notes": "Links to https://github.com/eunomia-bpf/akeep. Project post, so no configured blog/tutorial source_path applies."
+    },
+    {
+      "id": "linkedin-7485819115337637888",
+      "status": "confirmed",
+      "date": "2026-07-22",
+      "title": "Introducing AgentNebula: See days or weeks of your AI Agent's work in 30 seconds",
+      "url": "https://www.linkedin.com/posts/yunwei37_aiagents-observability-developertools-activity-7485819115337637888-iFAK",
+      "checked_via": "normal_visible_public_profile_activity",
+      "notes": "Published from draft/media/2026-07-22/agentsight-agent-nebula/linkedin.md with the 10-second AgentNebula animation and AgentSight GitHub link. Project post, so no configured blog/tutorial source_path applies."
+    },
     {
       "id": "linkedin-7484770128912465920",
       "status": "confirmed",

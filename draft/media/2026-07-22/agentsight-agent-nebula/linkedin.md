@@ -35,4 +35,5 @@ https://github.com/eunomia-bpf/agentsight
 - Media: the first 10 seconds of `agentvis/examples/actplane-agent-nebula.gif`, uploaded as the local platform derivative `actplane-agent-nebula-10s.gif` (1264 x 936, 300 frames, 10 seconds, 6.3 MB).
 - Alt text: Animated AgentNebula replay of ACTplane. Files appear as stars, top-level directories use stable colors, and ripples show file reads, writes, creates, renames, and deletes across multiple AI Agent sessions.
 - Visibility target: Public.
-- QA state: Ready in the visible LinkedIn composer. LinkedIn rejected the original 27 MB GIF as too long; the 10-second derivative renders at 1264 x 936 without an error, alt text is set, the posting identity is Yusheng Zheng, visibility is public, and the final Publish button has not been clicked.
+- Published URL: https://www.linkedin.com/posts/yunwei37_aiagents-observability-developertools-activity-7485819115337637888-iFAK
+- QA state: Published and publicly verified. LinkedIn rejected the original 27 MB GIF as too long; the published post uses the 10-second derivative at 1264 x 936 with the intended text, GitHub link, and public visibility.

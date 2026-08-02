@@ -3,7 +3,7 @@
   "platform_id": "x",
   "label": "X / Twitter",
   "kind": "social",
-  "last_checked": "2026-07-19",
+  "last_checked": "2026-08-01",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -23,6 +23,24 @@
     }
   ],
   "published": [
+    {
+      "id": "x-2083647587132035205",
+      "status": "confirmed",
+      "date": "2026-08-01",
+      "title": "A tool for backup, recovery and migration of AI agent session history",
+      "url": "https://x.com/yunwei37/status/2083647587132035205",
+      "checked_via": "normal_visible_logged_in_profile",
+      "notes": "Links to https://github.com/eunomia-bpf/akeep. Project post, so no configured blog/tutorial source_path applies."
+    },
+    {
+      "id": "x-2080063281637830665",
+      "status": "confirmed",
+      "date": "2026-07-22",
+      "title": "Introducing AgentNebula: See days or weeks of your AI Agent's work in 30 seconds",
+      "url": "https://x.com/yunwei37/status/2080063281637830665",
+      "checked_via": "normal_visible_logged_in_search",
+      "notes": "Published from draft/media/2026-07-22/agentsight-agent-nebula/x.md with the 10-second AgentNebula animation, alt text, and AgentSight GitHub link. Project post, so no configured blog/tutorial source_path applies."
+    },
     {
       "id": "x-2079002839440068969",
       "status": "confirmed",

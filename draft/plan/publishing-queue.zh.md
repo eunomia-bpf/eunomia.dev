@@ -10,7 +10,7 @@
 - 发布阻塞：BPFix Medium 上传稿已完成，但可控浏览器没有 Medium 登录状态；已登录 Chrome 控制扩展持续超时，Windows 可见界面输入权限被系统拒绝。保留登录页，完成登录后继续。
 - 发布阻塞：BPFix DEV 上传稿、源文完整性与两张图片 URL 已核对，公开资料页的 57 篇文章中无精确标题匹配；内置浏览器连续两次无法连接可交互页面，Chrome 在 `https://dev.to/new` 显示未登录页。未创建 DEV 草稿、未发布，也未使用 API；可控可见浏览器完成 DEV 登录后继续。
 - 已核定：SchedCP 掘金文章与 tutorial 54 的掘金更新均已确认公开。
-- 待确认：AgentNebula 的 LinkedIn 与 X 草稿及 10 秒素材已经准备好，继续停在发布前。
+- 已核定：AgentNebula 已发布到 [LinkedIn](https://www.linkedin.com/posts/yunwei37_aiagents-observability-developertools-activity-7485819115337637888-iFAK) 和 [X](https://x.com/yunwei37/status/2080063281637830665)；Akeep 已发布到 [LinkedIn](https://www.linkedin.com/posts/yunwei37_github-eunomia-bpfakeep-privacy-first-activity-7489412627769548800-SV__) 和 [X](https://x.com/yunwei37/status/2083647587132035205)，不再重复排期。
 - 暂停：AgentPProf 暂不进入发布队列；Hacker News 暂不发；Lobsters 没有账号。
 - 阻塞：小红书尚未确认账号 URL、登录状态和图片卡片工作流。
 - Ledger 基线：知乎有 42 个未映射中文源，掘金在确认 BPFix 公开后有 78 个；其中 AgentPProf、目录/兼容性/进一步阅读页和两个重复教程表示不进入发布队列。
