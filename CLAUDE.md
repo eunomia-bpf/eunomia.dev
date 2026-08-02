@@ -39,6 +39,12 @@ during drafting, preview, publishing, or public-page QA must be recorded in the
 matching publisher skill or reference file, so the same platform mistake does
 not recur in the next launch.
 
+Medium and DEV.to are API-first publishing platforms. Use locally supplied
+`MEDIUM_API_KEY` and `DEV_TO_API_KEY` credentials, never print or commit them,
+and finish every API publication with normal visible-browser QA of the public
+article. Other social/media platforms remain visible-browser-only unless the
+user explicitly establishes a different durable rule.
+
 For long-form publishing on any external platform, prepare the platform-specific
 upload/import artifact locally before opening the editor whenever practical.
 Use a temporary file or `draft/media/YYYY-MM-DD/<source-slug>/<platform>.md`

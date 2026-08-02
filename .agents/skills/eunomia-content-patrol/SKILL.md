@@ -19,6 +19,7 @@ Read these before routing work:
 - today's media workspace and recent run log, if present:
   `draft/media/YYYY-MM-DD/` and `draft/media/YYYY-MM-DD/run-log.md`
 - `.github/publisher/media/README.md`
+- `.github/publisher/media/community-feedback.md`
 - `.github/publisher/media/not-published.md`
 - relevant `.github/publisher/media/platforms/*.json`
 
@@ -87,13 +88,16 @@ this orchestrator.
 4. Collect the child results and identify the single publication action
    authorized for the current window. Prefer finishing it over creating
    additional drafts.
-5. Invoke the matching publisher skill for that action. Let that
-   skill own copy adaptation, visible browser interaction, preview, final QA,
-   the action itself, and platform-ledger updates.
+5. Invoke the matching publisher skill for that action. Let that skill own copy
+   adaptation, its documented API or visible-browser submission path, preview,
+   final public-page QA, the action itself, and platform-ledger updates.
 6. Confirm the observable result returned by each child skill. Update the
    rolling queue and platform ledger first. If a separate run record is useful,
    write completed actions, real URLs, artifact paths, blockers, and next
    actions to `draft/media/YYYY-MM-DD/run-log.md`.
+7. Confirm that `eunomia-social-radar` appended today's compact checkpoint to
+   `.github/publisher/media/community-feedback.md`. Do not copy that checkpoint
+   into the run log.
 
 The research and social-radar calls may be run independently when neither needs
 the other's output. Do not create a standalone orchestration report.
@@ -123,8 +127,10 @@ Manual patrol runs do not inherit this standing authority unless the user asks
 to execute the daily tasks or otherwise authorizes the platform action.
 
 Never infer authorization for DMs, connection requests, follows, likes, votes,
-account settings, monetization changes, or deletion. Never use hidden platform
-APIs, background endpoints, or scraping datasets.
+account settings, monetization changes, or deletion. Medium and DEV publishers
+use their documented APIs by default; all other platform actions remain normal
+visible-browser workflows. Never use hidden platform APIs, background
+endpoints, or scraping datasets.
 
 ## No-Filler Rule
 

@@ -7,9 +7,12 @@ and Codex share the same skill set. On Windows with `core.symlinks=false`, the
 pointer may appear as a small text file; edit the real skill folders under
 `.agents/skills`.
 
-Keep platform publishing skills browser-first. Social/media platform audits,
-drafts, screenshots, and ledger evidence must use normal browser interactions,
-not hidden platform APIs or background endpoints.
+Keep platform publishing skills browser-first except for Medium and DEV.to,
+which are API-first through their documented publishing endpoints. Their API
+credentials stay local and secret, and their resulting public articles still
+require normal visible-browser QA. Audits and all other social/media platform
+actions use normal browser interactions, not hidden platform APIs or background
+endpoints.
 
 Keep workflow skills procedural. Long-term brand strategy, channel mix,
 campaign cadence, and positioning plans belong under `draft/`, while workflow

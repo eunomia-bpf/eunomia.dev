@@ -1,6 +1,6 @@
 # Not Published / Pending Media Ledger
 
-Last checked: 2026-08-01
+Last checked: 2026-08-02
 
 This file tracks source posts that still need platform work. The latest checked `.github/publisher/posts_queue.txt` is empty; historical rows below are retained as candidate-source tracking, not proof that Medium/Dev.to are still queued.
 
@@ -20,9 +20,10 @@ tutorial from 50 through 54. SchedCP, AgentCgroup, CPU noise, Weekly Analysis
 reports, and content with confirmed LinkedIn publication records are not
 included in this LinkedIn batch.
 
-Medium and DEV each have one faithful long-form syndication task for BPFix and
-tutorials 50 through 54. These tasks preserve the English source title and body
-and allow only the mechanical rendering adaptations required by each platform.
+Medium and DEV have completed BPFix and tutorial 50. Each platform still has
+four faithful long-form syndication tasks for tutorials 51 through 54. These
+tasks preserve the English source title and body and allow only the mechanical
+rendering adaptations required by each platform.
 
 ## Additional Platform Status
 
@@ -32,8 +33,8 @@ and allow only the mechanical rendering adaptations required by each platform.
 | LinkedIn | In-app browser/sidebar confirmed `Yusheng Zheng` / `yunwei37` profile and visible authored posts for ActPlane/AgentSight, ACRFence, GPU observability, agentpprof, and BPFix; see `platforms/linkedin.json` | Current script coverage is 6/122 English target sources; several search-visible posts still lack exact post permalinks | Continue through normal LinkedIn browser UI only; scroll recent activity to backfill exact permalinks and older posts |
 | Zhihu | Normal visible browser checks confirmed the TCX tutorial publication on 2026-08-01; machine ledger maps 66/107 Chinese sources | 41 configured Chinese sources remain unmatched | Publish only ledger-confirmed gaps and recheck the visible title immediately before submission |
 | Juejin | Normal visible pagination covered four pages and 40 unique authored article links; a 2026-07-29 visible first-page check confirmed BPFix public; machine ledger maps 29/107 Chinese sources | 78 configured Chinese sources remain unmatched | Publish unchanged Chinese sources through the rolling one-platform-per-day queue and normal editor |
-| Medium | Normal visible scrolling collected 62 authored story links; machine ledger maps 60/122 English sources | 62 configured English sources remain unmatched | Publish confirmed gaps through the platform's independent schedule and normal Medium web editor |
-| DEV Community | Profile reports 57 posts and visible scrolling collected 54 unique links; machine ledger maps 47/122 English sources | 75 configured English sources remain unmatched | Publish confirmed gaps through the platform's independent schedule and normal DEV web editor |
+| Medium | BPFix was published by API and passed full public-page QA on 2026-08-02; machine ledger includes the confirmed URL | Run the ledger checker for current unmatched-source coverage | Publish confirmed gaps through the Medium API, then perform visible public-page QA |
+| DEV Community | BPFix was published by API and passed full public-page QA on 2026-08-02; machine ledger includes the confirmed URL | Run the ledger checker for current unmatched-source coverage | Publish confirmed gaps through the DEV API, then perform visible public-page QA |
 | Reddit | Historical `u/yunwei123` posts are confirmed for eBPF tutorial, GPTtrace, Code-Survey-like discussion, and Wasm-bpf; see `published.md` | No evidence yet that current 2026 flagship posts were submitted to r/eBPF, r/netsec, r/LocalLLaMA, HN, or lobste.rs | Use Reddit only manually for flagship posts; check subreddit fit before posting |
 | Xiaohongshu / RedNote | None confirmed | No account URL or published note URL found; current browser search requires login; public search found no clear `eunomia.dev` / `eunomia-bpf` / `bpftime` / `AgentSight` result | Treat as not started; create account and visual-note workflow only after there is image-card/video capacity |
 

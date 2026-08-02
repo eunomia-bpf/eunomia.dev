@@ -20,6 +20,7 @@ Read these before inspecting platforms:
 - `.github/publisher/media/README.md`
 - `.github/publisher/media/published.md`
 - `.github/publisher/media/not-published.md`
+- `.github/publisher/media/community-feedback.md`
 - relevant `.github/publisher/media/platforms/*.json`
 - matching publisher skill for any platform being inspected
 
@@ -118,11 +119,18 @@ Return a compact result to `eunomia-content-patrol` containing:
 - recommended actions and whether they are due in today's patrol
 - the next useful checkpoint
 
-When a separate observation record is useful, write one compact entry in
-`draft/media/YYYY-MM-DD/run-log.md`. Do not create a monthly daily-log file or a
-standalone daily radar file unless the user explicitly requests a public or
-shareable analysis. Update platform ledgers only after a real action or when the
-existing ledger schema explicitly stores observation status.
+After each real monitoring run, append one compact dated checkpoint to
+`.github/publisher/media/community-feedback.md`. Record meaningful public
+feedback, external echoes, actionable defects, the decision taken, and the next
+checkpoint. When nothing actionable changed, one concise line is enough; do
+not copy praise-only reactions, private analytics, raw metric dumps, or browsing
+transcripts.
+
+Use `draft/media/YYYY-MM-DD/run-log.md` only for real execution exceptions or
+same-day actions that are not already captured in the feedback ledger. Do not
+duplicate the checkpoint there, create a monthly daily-log file, or create a
+standalone daily radar file. Update platform ledgers only after a real action or
+when the existing ledger schema explicitly stores observation status.
 
 Load `references/observation-guide.md` when comparing performance or deciding
 whether a conversation warrants action.

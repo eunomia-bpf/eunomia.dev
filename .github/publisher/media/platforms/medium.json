@@ -3,7 +3,7 @@
   "platform_id": "medium",
   "label": "Medium",
   "kind": "longform_syndication",
-  "last_checked": "2026-07-20",
+  "last_checked": "2026-08-02",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -27,9 +27,21 @@
       "source_path": "docs/blog/posts/ebpf-ai-agent-policy-enforcement.md",
       "checked_via": "in_app_browser_medium_editor_fix_and_public_story_full_scroll",
       "notes": "Imported the canonical eunomia.dev article, then fixed the imported title suffix through the Medium web editor. Public-page QA verified the cleaned title, canonical URL, images, code block, GitHub links, and arXiv links. Medium flattened Markdown tables into readable prose-like rows; this recurring import limitation is recorded in the Medium publisher skill for future table fallback handling."
+    },
+    {
+      "id": "medium-d7904b9432f0",
+      "status": "confirmed",
+      "date": "2026-08-02",
+      "title": "Why eBPF Verifier Errors Are Hard to Fix: The Diagnostic Gap",
+      "url": "https://medium.com/@yunwei356/why-ebpf-verifier-errors-are-hard-to-fix-the-diagnostic-gap-d7904b9432f0",
+      "canonical_url": null,
+      "source_path": "docs/blog/posts/bpfix.md",
+      "checked_via": "medium_api_html_publish_then_visible_editor_title_repair_and_public_full_scroll",
+      "notes": "Published through the Medium API after its Markdown parser returned error 2012. The prepared artifact was converted to semantic HTML; the visible H1 was then restored through the supported web editor. Public full-scroll QA verified the exact title, seven body headings, three code blocks, readable table fallbacks, references, links, and both loaded article images."
     }
   ],
   "confirmed_source_urls": {
+    "docs/blog/posts/bpfix.md": "https://medium.com/@yunwei356/why-ebpf-verifier-errors-are-hard-to-fix-the-diagnostic-gap-d7904b9432f0",
     "docs/blog/posts/actplane.md": "https://medium.com/@yunwei356/actplane-pushing-agent-harness-enforcement-down-to-kernel-ebpf-8077f9164a34",
     "docs/blog/posts/agent-check-restore-safety.md": "https://medium.com/@yunwei356/acrfence-preventing-semantic-rollback-attacks-in-agent-checkpoint-restore-b0d00f5e8b7b",
     "docs/blog/posts/runtime-security-for-opaque-ai-agents.md": "https://medium.com/@yunwei356/runtime-observability-and-enforcement-for-opaque-ai-agents-with-ebpf-beyond-sandboxes-and-6f4eb21edc7f",

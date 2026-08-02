@@ -127,12 +127,13 @@ Machine-readable details: [`platforms/linkedin.json`](platforms/linkedin.json). 
 
 Account checked in the in-app browser: <https://medium.com/@yunwei356>
 
-Normal visible profile scrolling collected 62 authored story links. The machine ledger maps 60 of 122 English source files; the difference includes source-equivalent mappings and remaining unmatched profile items.
+Earlier visible profile scrolling collected 62 authored story links; the new BPFix public URL was verified independently. The machine ledger maps 61 of 124 English source files; the difference includes source-equivalent mappings and remaining unmatched profile items.
 
 New confirmed post:
 
 | Status | Date | Title | URL | Notes |
 | --- | --- | --- | --- | --- |
+| Confirmed | 2026-08-02 | Why eBPF Verifier Errors Are Hard to Fix: The Diagnostic Gap | <https://medium.com/@yunwei356/why-ebpf-verifier-errors-are-hard-to-fix-the-diagnostic-gap-d7904b9432f0> | Published through the Medium API using semantic HTML after Markdown parser error 2012; the visible H1 was restored in the supported web editor; public full-scroll QA verified headings, code, table fallbacks, references, links, and both images |
 | Confirmed | 2026-07-19 | An Empirical Study: AI Agent Rules Need Context and Layered Enforcement | <https://medium.com/@yunwei356/an-empirical-study-ai-agent-rules-need-context-and-layered-enforcement-eunomia-423adab48a1b> | Imported from canonical eunomia.dev article; post-publish web-editor fix removed the imported `\| eunomia` title suffix; `rel=canonical` points to <https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/>; Medium table flattening is recorded as a follow-up limitation |
 
 Machine-readable details: [`platforms/medium.json`](platforms/medium.json).
@@ -141,12 +142,13 @@ Machine-readable details: [`platforms/medium.json`](platforms/medium.json).
 
 Account checked in the in-app browser: <https://dev.to/yunwei37>
 
-The profile reports 57 posts; normal visible scrolling collected 54 unique public article links. The machine ledger maps 47 of 122 English source files, and scheduling uses only the resulting confirmed gaps.
+The earlier profile check reported 57 posts and visible scrolling collected 54 unique public article links; the new BPFix public URL was verified independently. The machine ledger maps 48 of 124 English source files, and scheduling uses only the resulting confirmed gaps.
 
 New confirmed post:
 
 | Status | Date | Title | URL | Notes |
 | --- | --- | --- | --- | --- |
+| Confirmed | 2026-08-02 | Why eBPF Verifier Errors Are Hard to Fix: The Diagnostic Gap | <https://dev.to/yunwei37/why-ebpf-verifier-errors-are-hard-to-fix-the-diagnostic-gap-443o> | Published through the DEV API with canonical URL, `ebpf`, `linux`, `opensource`, and `ai`; public full-scroll QA verified title, headings, code blocks, tables, references, links, and both images |
 | Confirmed | 2026-07-19 | An Empirical Study: AI Agent Rules Need Context and Layered Enforcement | <https://dev.to/yunwei37/an-empirical-study-ai-agent-rules-need-context-and-layered-enforcement-43on> | Published from DEV editor with canonical URL set to <https://eunomia.dev/blog/2026/07/15/ebpf-ai-agent-policy-enforcement/>; post-publish web-editor fixes removed duplicate manual source note, changed tags to `opensource`, `ai`, `security`, `ebpf`, and replaced four 404 eunomia.dev image URLs with GitHub raw image URLs |
 
 Machine-readable details: [`platforms/devto.json`](platforms/devto.json).

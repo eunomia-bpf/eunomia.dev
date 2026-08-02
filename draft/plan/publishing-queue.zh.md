@@ -1,35 +1,33 @@
 # 内容发布滚动队列
 
-> 状态：内部执行 checklist，不发布。更新时间：2026-07-30。
+> 状态：内部执行 checklist，不发布。更新时间：2026-08-02。
 > 节奏：从上到下处理，每个 checkbox 是一个平台发布任务，每个自然日最多完成一条。
 > 授权：`排队` 表示定时巡检可以完成该任务的准备、浏览器预览、真实发布和公开页检查；`待确认` 与 `阻塞` 不授权发布。
 
 ## 当前状态
 
-- 全局暂停：2026-07-22 至 2026-07-23 不发布、同步或分享新内容，最早从 2026-07-24 恢复。
-- 发布阻塞：BPFix Medium 上传稿已完成，但可控浏览器没有 Medium 登录状态；已登录 Chrome 控制扩展持续超时，Windows 可见界面输入权限被系统拒绝。保留登录页，完成登录后继续。
-- 发布阻塞：BPFix DEV 上传稿、源文完整性与两张图片 URL 已核对，公开资料页的 57 篇文章中无精确标题匹配；内置浏览器连续两次无法连接可交互页面，Chrome 在 `https://dev.to/new` 显示未登录页。未创建 DEV 草稿、未发布，也未使用 API；可控可见浏览器完成 DEV 登录后继续。
+- 已核定：BPFix 已通过 API 发布到 Medium 和 DEV，公开页完整滚动检查通过；Medium 的可见标题已通过网页编辑器修复。
 - 已核定：SchedCP 掘金文章与 tutorial 54 的掘金更新均已确认公开。
 - 已核定：AgentNebula 已发布到 [LinkedIn](https://www.linkedin.com/posts/yunwei37_aiagents-observability-developertools-activity-7485819115337637888-iFAK) 和 [X](https://x.com/yunwei37/status/2080063281637830665)；Akeep 已发布到 [LinkedIn](https://www.linkedin.com/posts/yunwei37_github-eunomia-bpfakeep-privacy-first-activity-7489412627769548800-SV__) 和 [X](https://x.com/yunwei37/status/2083647587132035205)，不再重复排期。
 - 暂停：AgentPProf 暂不进入发布队列；Hacker News 暂不发；Lobsters 没有账号。
 - 阻塞：小红书尚未确认账号 URL、登录状态和图片卡片工作流。
-- Ledger 基线：知乎有 42 个未映射中文源，掘金在确认 BPFix 公开后有 78 个；其中 AgentPProf、目录/兼容性/进一步阅读页和两个重复教程表示不进入发布队列。
+- Ledger 基线：知乎有 41 个未映射中文源，掘金有 78 个；其中 AgentPProf、目录/兼容性/进一步阅读页和两个重复教程表示不进入发布队列。
 - 历史回补：2026 年以前的非 tutorial Blog 不进入常规平台同步队列；只有出现新的证据、结论或明确发布需求时才单独重新评估。
 - LinkedIn 只安排新的 tutorial 50–54；SchedCP、AgentCgroup、CPU noise、Weekly Analysis 和已有发布记录的内容不重复安排。
-- Medium 与 DEV 分别安排 BPFix 和 tutorial 50–54，保留英文原文标题和正文，只做必要的平台格式适配。
-- 剩余队列：知乎 28 条、掘金 50 条、Medium/DEV 12 条、LinkedIn 5 条，共 95 个平台任务；后续新增内容直接插入合适位置。
+- Medium 与 DEV 的 BPFix 和 tutorial 50 已完成；tutorial 51–54 继续保留英文原文标题和正文，只做必要的平台格式适配。
+- 剩余队列：知乎 28 条、掘金 50 条、Medium/DEV 8 条、LinkedIn 5 条，共 91 个平台任务；后续新增内容直接插入合适位置。
 
 ## 发布队列
 
 - [x] `排队` 掘金：`docs/blog/posts/schedcp-agentic-os.zh.md`。2026-07-25 已发布：<https://juejin.cn/post/7666245761520615439>；2026-07-26 公开页正文和图片 QA 通过，ledger 已记录为 `confirmed`。
 - [x] `排队` 知乎：`docs/blog/posts/bpfix.zh.md`。2026-07-26 已发布：<https://zhuanlan.zhihu.com/p/2064970067830480995>；公开页标题、正文、图片、表格、代码块和链接 QA 已通过。
 - [x] `排队` 掘金：`docs/blog/posts/bpfix.zh.md`。2026-07-29 恢复任务时在可见个人文章列表发现已公开：<https://juejin.cn/post/7667474278616547380>；未重复提交，公开页标题、正文、图片、表格、代码块和链接 QA 已通过，ledger 已记录为 `confirmed`。
-- [ ] `阻塞` Medium：`docs/blog/posts/bpfix.md`。上传稿与表格降级格式已完成；缺少可控浏览器中的 Medium 登录状态，尚未创建或发布文章。
-- [ ] `阻塞` DEV：`docs/blog/posts/bpfix.md`。`draft/media/2026-07-31/bpfix/devto.md` 已完成；内置浏览器无法连接页面，Chrome 可见会话未登录 DEV，尚未创建草稿或发布。
+- [x] `排队` Medium：`docs/blog/posts/bpfix.md`。2026-08-02 已发布：<https://medium.com/@yunwei356/why-ebpf-verifier-errors-are-hard-to-fix-the-diagnostic-gap-d7904b9432f0>；公开页标题、正文结构、代码块、表格降级、链接和两张图片 QA 通过。
+- [x] `排队` DEV：`docs/blog/posts/bpfix.md`。2026-08-02 已发布：<https://dev.to/yunwei37/why-ebpf-verifier-errors-are-hard-to-fix-the-diagnostic-gap-443o>；公开页标题、canonical、正文结构、代码块、表格、链接和两张图片 QA 通过。
 - [x] `排队` 知乎：`docs/tutorials/50-tcx/README.zh.md`。2026-08-01 已发布：<https://zhuanlan.zhihu.com/p/2067144957194924576>；公开页标题、21 个正文标题、8 个代码块、2 个表格（12 行）和 10 个正文外链 QA 已通过，ledger 已记录为 `confirmed`。
 - [ ] `排队` 掘金：`docs/tutorials/50-tcx/README.zh.md`。
-- [ ] `排队` Medium：`docs/tutorials/50-tcx/README.md`。
-- [ ] `排队` DEV：`docs/tutorials/50-tcx/README.md`。
+- [x] `排队` Medium：`docs/tutorials/50-tcx/README.md`。已核定公开：<https://medium.com/@yunwei356/ebpf-tutorial-by-example-50-composable-traffic-control-with-tcx-links-0b64b72f7a59>。
+- [x] `排队` DEV：`docs/tutorials/50-tcx/README.md`。已核定公开：<https://dev.to/yunwei37/ebpf-tutorial-by-example-50-composable-traffic-control-with-tcx-links-5hmo>。
 - [ ] `排队` LinkedIn：`docs/tutorials/50-tcx/README.md`。
 - [ ] `排队` 知乎：`docs/tutorials/51-tcp-quarantine/README.zh.md`。
 - [ ] `排队` 掘金：`docs/tutorials/51-tcp-quarantine/README.zh.md`。

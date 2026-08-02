@@ -5,8 +5,9 @@ description: Prepare eunomia.dev Markdown articles for DEV Community drafts and 
 
 # DEV.to Publisher
 
-Prepare DEV Community drafts from canonical eunomia.dev content and stop before
-final publishing unless the user explicitly confirms it.
+Prepare and publish DEV Community articles from canonical eunomia.dev content
+through the DEV API. Stop before final publishing unless the user explicitly
+confirms it or a rolling queue item is already authorized.
 
 ## Inputs
 
@@ -19,6 +20,9 @@ If the source path is missing, inspect `.github/publisher/posts_queue.txt`,
 
 ## Platform Entry Points
 
+- Account preflight: `GET https://dev.to/api/users/me`
+- Duplicate check: `GET https://dev.to/api/articles/me/all`
+- Create article: `POST https://dev.to/api/articles`
 - New post: <https://dev.to/new>
 - Dashboard: <https://dev.to/dashboard>
 - Editor guide: <https://dev.to/p/editor_guide>
@@ -34,12 +38,17 @@ shape, browser QA, promotion balance, or follow-up. Do not load broad strategy
 drafts for routine publishing unless the user asks for campaign or
 content-platform planning.
 
-## Browser-Only Platform Boundary
+## API-First Platform Boundary
 
-Do not directly access DEV APIs, internal endpoints, or background HTTP
-interfaces. All drafting, QA, screenshots, and ledger evidence must come from
-normal browser interactions. Use the DEV web editor and visible submit buttons
-for publication; DEV publish APIs are not part of the default workflow.
+Publish through the documented DEV API by default, using `DEV_TO_API_KEY` from
+the local `.env` or an approved secret-backed publisher. Never print, record,
+or commit the token. Verify the authenticated account, query the author's full
+article list for an exact-title duplicate, then create the article with
+`POST /api/articles`. Do not use hidden or internal DEV endpoints.
+
+The visible web editor is a repair surface for behavior the API cannot correct,
+not the default submission path. Every API-created article still requires a
+normal visible-browser check of the complete public page.
 
 ## Draft Preparation
 
@@ -57,20 +66,24 @@ for publication; DEV publish APIs are not part of the default workflow.
 6. If the source is not suitable for DEV, skip it or fix the source first.
    Rewrite, translate, shorten, expand, reorder, or split it only when the user
    explicitly asks for that specific publication.
+7. Strip local YAML front matter and internal HTML comments from the API
+   `body_markdown`. Send the exact title separately, keep H2 as the highest body
+   heading, include up to four accepted DEV tags, and set `canonical_url` only
+   when it is useful and available; it is optional.
 
 ## Draft Archive
 
-Before opening the DEV editor, write or update the DEV draft record under
+Before sending the DEV API request, write or update the DEV draft record under
 `draft/media/YYYY-MM-DD/<source-slug>/devto.md` using the local date. Include
 the exact title, description, tags, optional `canonical_url`, source body path
 or paste-ready body, GitHub/paper links, series/cover choices, and QA state.
-For long-form posts, finish this paste-ready/frontmatter artifact locally before
-opening DEV; use the web editor for preview, settings, and publish flow rather
-than structural repair.
+For long-form posts, finish this API-ready Markdown artifact locally before
+publishing. Use the web editor only for supported metadata changes or repairs
+that remain necessary after creation.
 
 ## Browser QA
 
-Before stopping for user confirmation, verify:
+Before stopping for user confirmation or sending the API request, verify:
 
 - title matches the source exactly; description, tags, cover, and optional
   canonical URL accurately reflect the unchanged source
@@ -80,11 +93,11 @@ Before stopping for user confirmation, verify:
 - images render and have descriptions where supported
 - links and embeds resolve
 - preview is readable and self-contained
-- the visible final publish action has not been clicked
+- the API request has not been sent
 
-Before confirmed publishing, use the DEV web preview and inspect the full post
-from top to bottom. After confirmed publishing, open the public DEV URL and
-inspect the rendered post from top to bottom before updating the ledger. Verify
+Before confirmed publishing, inspect the complete local upload artifact. After
+confirmed publishing, open the public DEV URL and inspect the rendered post
+from top to bottom before updating the ledger. Verify
 canonical field when configured, source/project notes when present, title, tags,
 image loading, H2/H3 hierarchy, tables, code fences, link targets, embeds, and
 narrow rendering when practical. If the public page reveals duplicated source

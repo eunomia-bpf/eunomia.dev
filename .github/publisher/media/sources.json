@@ -2,7 +2,7 @@
   "schema_version": 1,
   "ledger_name": "published-media-ledger",
   "repo": "eunomia.dev",
-  "last_checked": "2026-07-20",
+  "last_checked": "2026-08-02",
   "policy": {
     "coverage_key": "source_path + equivalent_source_paths",
     "confirmed_status": "confirmed",

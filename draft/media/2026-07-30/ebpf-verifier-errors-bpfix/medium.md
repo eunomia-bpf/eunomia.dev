@@ -37,11 +37,13 @@ Pre-publication checks:
 - The source is independently readable without eunomia.dev navigation or
   surrounding site context.
 
-Browser QA: pending publication.
+Public-page QA: passed on 2026-08-02. The exact title is visible; seven body
+headings, three code blocks, readable table fallbacks, references, links, and
+both article images render correctly after a complete scroll.
 
-Published URL: pending.
+Published URL: https://medium.com/@yunwei356/why-ebpf-verifier-errors-are-hard-to-fix-the-diagnostic-gap-d7904b9432f0
 
-Blocker: the controllable browser has no authenticated Medium session; the
-logged-in Chrome control extension timed out and Windows visible-input control
-was denied. Resume from the preserved login page without rebuilding this
-artifact.
+Publishing note: Medium rejected the prepared Markdown with parser error 2012,
+so the local artifact was converted to semantic HTML and published through the
+Medium API. Because the API `title` field does not render a visible story H1,
+the exact title was restored through the supported web editor before final QA.

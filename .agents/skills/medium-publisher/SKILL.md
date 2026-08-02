@@ -5,8 +5,9 @@ description: Prepare eunomia.dev Markdown articles for Medium drafts, imports, a
 
 # Medium Publisher
 
-Prepare Medium drafts from canonical eunomia.dev content and stop before final
-publishing unless the user explicitly confirms it.
+Prepare and publish Medium stories from canonical eunomia.dev content through
+the Medium API. Stop before final publishing unless the user explicitly
+confirms it or a rolling queue item is already authorized.
 
 ## Inputs
 
@@ -20,6 +21,8 @@ If the source path is missing, inspect `.github/publisher/posts_queue.txt`,
 
 ## Platform Entry Points
 
+- Account preflight: `GET https://api.medium.com/v1/me`
+- Create post: `POST https://api.medium.com/v1/users/{authorId}/posts`
 - New story: <https://medium.com/new-story>
 - Import story: <https://medium.com/p/import>
 - Stories: <https://medium.com/me/stories/drafts>
@@ -35,13 +38,18 @@ tags, browser QA, promotion balance, or follow-up. Do not load broad strategy
 drafts for routine publishing unless the user asks for campaign or
 content-platform planning.
 
-## Browser-Only Platform Boundary
+## API-First Platform Boundary
 
-Do not directly access Medium APIs, internal endpoints, or background HTTP
-interfaces. All drafting, QA, screenshots, and ledger evidence must come from
-normal browser interactions. Use the Medium web import/editor UI and visible
-submit buttons for publication; Medium publish APIs are not part of the default
-workflow.
+Publish through the documented Medium API by default, using `MEDIUM_API_KEY`
+from the local `.env` or an approved secret-backed publisher. Never print,
+record, or commit the token. Verify the authenticated account with `/v1/me`,
+check the public profile for an exact-title duplicate, and create the story with
+`POST /v1/users/{authorId}/posts`.
+
+The Medium API is archived and unsupported, so treat every response as
+untrusted until the public story has been checked. Do not use private or hidden
+Medium endpoints. Use the visible web editor only for repairs the API cannot
+perform, then repeat public-page QA.
 
 ## Draft Preparation
 
@@ -58,23 +66,28 @@ workflow.
 5. If the source is not suitable for Medium, skip it or fix the source first.
    Rewrite, translate, shorten, expand, reorder, or split it only when the user
    explicitly asks for that specific publication.
+6. Include the visible article H1 inside the API `content`; the API `title`
+   field controls listing and SEO metadata but does not render the story title.
+   If Medium rejects otherwise valid Markdown with parser error `2012`, convert
+   the prepared artifact to semantic HTML and publish with
+   `contentFormat: "html"`. Keep no more than three tags because Medium ignores
+   additional tags.
 
 ## Draft Archive
 
-Before opening the Medium editor, write or update the Medium draft record under
+Before sending the Medium API request, write or update the Medium draft record under
 `draft/media/YYYY-MM-DD/<source-slug>/medium.md` using the local date. For
 canonical imports, this file may reference the source Markdown body instead of
 duplicating it, but it must record the exact source title, optional source
 subtitle, canonical
 relationship when configured, GitHub/paper links, tags, source/project note if
 useful, media choices, and QA state. For long-form posts, finish the
-Medium-specific artifact or import checklist locally before opening Medium; use
-the web editor/import UI for import, settings, preview, and QA rather than
-structural repair.
+Medium-specific artifact locally before publishing. Use the web editor only for
+supported metadata changes or repairs that remain necessary after creation.
 
 ## Browser QA
 
-Before stopping for user confirmation, verify:
+Before stopping for user confirmation or sending the API request, verify:
 
 - canonical/import relationship is correct when configured
 - the Medium body has not drifted from the canonical article except for
@@ -84,12 +97,12 @@ Before stopping for user confirmation, verify:
 - code blocks, images, embeds, links, and headings render cleanly
 - tags are relevant and not spammy
 - no confidential or unreleased claims appear
-- the visible final `Publish` action has not been clicked
+- the API request has not been sent
 
-Before confirmed publishing, scroll through the full imported/editor story in
-the browser preview or editor surface. After confirmed publishing, open the
-public Medium URL and scroll through the rendered story from top to bottom
-before updating the ledger. Verify images actually load, title/subtitle are not
+Before confirmed publishing, inspect the complete local upload artifact. After
+confirmed publishing, open the public Medium URL and scroll through the rendered
+story from top to bottom before updating the ledger. Verify images actually
+load, title/subtitle are not
 polluted by site suffixes, headings do not include empty artifacts, tables have
 survived or have readable fallbacks, code blocks are not mangled by language
 detection labels, canonical settings when configured, source/project links work,
@@ -97,9 +110,9 @@ and mobile/narrow rendering is usable when practical. If the public page exposes
 a formatting issue, edit the published story through the web UI and repeat the
 public-page check.
 
-Medium import is allowed to preserve the canonical body, but it is not safe to
-trust blindly. Specifically check whether imported titles carried the source
-site suffix such as `| eunomia`, whether Markdown tables were flattened into
+Medium API conversion or import is allowed to preserve the canonical body, but
+it is not safe to trust blindly. Specifically check whether titles carried the
+source site suffix such as `| eunomia`, whether Markdown tables were flattened into
 loose paragraphs, whether image captions are empty placeholders, and whether
 code block language labels appeared as prose. If Medium cannot preserve a table
 cleanly, replace that table with a readable list or compact prose fallback in
@@ -120,4 +133,6 @@ follow-up notes.
 
 Before final completion, add any Medium-specific issue encountered during this
 session to this skill or `references/platform-preferences.md`, then record the
-public-page QA result in the draft record.
+public-page QA result in the draft record. In particular, check that API-created
+stories visibly contain their H1 and that HTML conversion preserved images,
+headings, code blocks, links, and readable table fallbacks.

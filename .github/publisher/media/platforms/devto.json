@@ -3,7 +3,7 @@
   "platform_id": "devto",
   "label": "Dev.to",
   "kind": "longform_syndication",
-  "last_checked": "2026-07-31",
+  "last_checked": "2026-08-02",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -33,9 +33,27 @@
       ],
       "checked_via": "in_app_browser_dev_editor_preview_save_and_public_story_full_scroll",
       "notes": "Published through DEV editor fields, then fixed tags through selected tag chips, removed the duplicate manual source note, and replaced four 404 eunomia.dev image URLs with GitHub raw image URLs through the DEV web editor. Public-page full-scroll QA verified title, tags, canonical URL, four article images, tables, code block, GitHub links, arXiv links, and the visible Originally published at eunomia.dev notice."
+    },
+    {
+      "id": "devto-4291629",
+      "status": "confirmed",
+      "date": "2026-08-02",
+      "title": "Why eBPF Verifier Errors Are Hard to Fix: The Diagnostic Gap",
+      "url": "https://dev.to/yunwei37/why-ebpf-verifier-errors-are-hard-to-fix-the-diagnostic-gap-443o",
+      "canonical_url": "https://eunomia.dev/blog/2026/07/25/ebpf-verifier-errors-bpfix/",
+      "source_path": "docs/blog/posts/bpfix.md",
+      "tags": [
+        "ebpf",
+        "linux",
+        "opensource",
+        "ai"
+      ],
+      "checked_via": "dev_api_publish_and_public_story_full_scroll",
+      "notes": "Published through the documented DEV API after an exact-title duplicate check. Public full-scroll QA verified the exact title, canonical URL, nine headings, three code blocks, four tables, references, links, and both loaded article images."
     }
   ],
   "confirmed_source_urls": {
+    "docs/blog/posts/bpfix.md": "https://dev.to/yunwei37/why-ebpf-verifier-errors-are-hard-to-fix-the-diagnostic-gap-443o",
     "docs/blog/posts/agent-check-restore-safety.md": "https://dev.to/yunwei37/acrfence-preventing-semantic-rollback-attacks-in-agent-checkpoint-restore-5eja",
     "docs/blog/posts/runtime-security-for-opaque-ai-agents.md": "https://dev.to/yunwei37/runtime-observability-and-enforcement-for-opaque-ai-agents-with-ebpf-beyond-sandboxes-and-approvals-8n6",
     "docs/blog/posts/cpu-noise-gpu-inference.md": "https://dev.to/yunwei37/when-cpu-noise-slows-down-gpu-inference-measuring-scheduler-and-irq-impact-with-ebpf-egg",
@@ -104,7 +122,6 @@
   "third_party_mentions": [],
   "pending_verification": [
     "The profile reports 57 published posts but normal visible scrolling exposed 54 unique public links; keep the three-item discrepancy explicit.",
-    ".github/publisher/posts_queue.txt was empty during the 2026-07-19 check.",
-    "Publish docs/blog/posts/bpfix.md only after a controllable visible browser has an authenticated DEV session, then complete editor preview and public-page QA."
+    ".github/publisher/posts_queue.txt was empty during the 2026-07-19 check."
   ]
 }

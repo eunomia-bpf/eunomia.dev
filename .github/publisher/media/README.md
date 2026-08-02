@@ -1,8 +1,9 @@
 # Media Publishing Notes
 
-Last checked: 2026-07-18
+Last checked: 2026-08-02
 
-This folder records the manual publishing workflow for Chinese technical media platforms that are not covered by the current automated publisher.
+This folder records cross-platform publishing state, public-page QA, and
+community feedback for eunomia.dev content.
 
 Canonical machine-readable ledgers use one JSON file per platform under [platforms/](platforms/), with shared source scanning rules in [sources.json](sources.json). To refresh the per-platform coverage count, run:
 
@@ -12,25 +13,40 @@ python .github/publisher/media/check_media_ledger.py --show-missing
 
 ## Current Setup
 
-The existing publisher in `.github/publisher/` is API-based and only targets Medium and Dev.to through `publish.py`. It reads `.github/publisher/posts_queue.txt`, extracts the first Markdown title, publishes through `https://media-publisher.vercel.app/api/publish-multi`, then removes the entry from the queue after success.
+Medium and DEV.to are API-first. Use their documented endpoints with local
+`MEDIUM_API_KEY` and `DEV_TO_API_KEY` credentials, or the approved secret-backed
+publisher in `.github/publisher/`. Never print or commit credentials. Check for
+an exact-title duplicate before creation, then inspect the complete public page
+in a normal visible browser after publication.
+
+The legacy shared `publish.py` path removes the source H1 before sending a
+shared content body. Medium's API does not render its separate `title` field in
+the article body, so any shared publisher must explicitly restore the visible
+H1 for Medium. Medium may also reject Markdown with parser error `2012`; the
+reliable fallback is semantic HTML generated from the prepared local artifact.
 
 Zhihu and Juejin currently need browser-based manual review because their editors, account state, category/tag choices, and final publish dialogs are platform UI workflows rather than stable local APIs.
 
-For all social/media platforms in this folder, do not directly access platform
-APIs, hidden endpoints, or background HTTP interfaces. Ledger evidence should
-come only from normal browser interactions: navigation, scrolling, visible
-clicks, rendered profile/article/post pages, editor workflows, and screenshots.
+Other social/media platforms remain visible-browser-only. Never use hidden
+endpoints or background interfaces. API response data establishes creation for
+Medium and DEV.to, while normal browser interaction establishes final rendered
+QA and ongoing community observations.
 
 ## Recommended Model
 
 1. Keep the canonical draft in `docs/blog/posts/` or the relevant docs/tutorial source. Default coverage intentionally excludes legacy `docs/blogs/` pages.
-2. Use `.github/publisher/posts_queue.txt` only as the Medium/Dev.to queue; use `platforms/*.json` as the canonical cross-platform ledger, with `published.md` and `not-published.md` as readable snapshots.
-3. Prepare a platform copy before opening the editor:
+2. Use `.github/publisher/posts_queue.txt` only as an optional Medium/DEV.to
+   input queue; use `platforms/*.json` as the canonical cross-platform ledger,
+   with `published.md` and `not-published.md` as readable snapshots.
+3. Prepare a platform copy before calling the API or opening an editor:
    - Remove YAML front matter.
    - Keep one clear H1 title.
    - Convert relative image links to public `https://eunomia.dev/...` URLs or upload images through the platform editor.
    - Review code blocks, tables, Mermaid, math, footnotes, and HTML blocks after paste/import.
-4. Stop automation on the editor page or publish-settings page unless the run is executing the standing authorization in `eunomia-content-patrol`. Outside that skill, the final `发布`, `确定并发布`, comment, like, follow, or repost action requires explicit user confirmation.
+4. Stop before the API creation call or visible publish action unless the user
+   has authorized publication or the run is executing a `排队` item through
+   `eunomia-content-patrol`. Comments, likes, follows, reposts, and other social
+   actions still require their own authorization.
 5. After a real publish, add the platform URL to `published.md` and remove/update the item in `not-published.md`.
 
 ## What Others Do
@@ -51,6 +67,7 @@ For Zhihu, Markdown import/paste needs extra QA. Community tooling such as `md2z
 - Media Juejin notes: [juejin-skill.md](juejin-skill.md)
 - Source-set config: [sources.json](sources.json)
 - Per-platform JSON ledgers: [platforms/](platforms/)
+- [Community feedback ledger](community-feedback.md)
 - Ledger checker: [check_media_ledger.py](check_media_ledger.py)
 - [Confirmed published items](published.md)
 - [Not published / pending items](not-published.md)

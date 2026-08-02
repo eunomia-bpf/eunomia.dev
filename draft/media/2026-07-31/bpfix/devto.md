@@ -1,6 +1,6 @@
 ---
 title: "Why eBPF Verifier Errors Are Hard to Fix: The Diagnostic Gap"
-published: false
+published: true
 description: "A study of 235 reproduced eBPF verifier rejections shows that the terminal error identifies where verification stopped, not where the program lost the proof the verifier required. bpfix reconstructs the proof lifecycle from the verifier log to close the diagnostic gap."
 tags: ebpf, linux, opensource, ai
 canonical_url: https://eunomia.dev/blog/2026/07/25/ebpf-verifier-errors-bpfix/
@@ -12,7 +12,8 @@ project_url: https://github.com/eunomia-bpf/bpfix
 paper_url: https://arxiv.org/abs/2607.02748
 series: none
 cover_image: none
-qa_state: blocked before editor; canonical source and both image URLs verified, and the public @yunwei37 profile had no exact-title BPFix match, but the in-app browser could not attach to a page after two attempts and Chrome showed the logged-out DEV sign-in page at https://dev.to/new; no DEV draft or public post was created
+published_url: https://dev.to/yunwei37/why-ebpf-verifier-errors-are-hard-to-fix-the-diagnostic-gap-443o
+qa_state: published through the DEV API on 2026-08-02 after an exact-title duplicate check; public full-scroll QA verified the exact title, canonical URL, nine headings, three code blocks, four tables, references, links, and both article images
 adaptations: source frontmatter, H1, and excerpt marker removed; image URLs changed to verified public asset URLs
 -->
 
