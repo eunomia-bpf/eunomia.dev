@@ -26,6 +26,11 @@ entries before asking the user.
 - Observed article list: <https://juejin.cn/user/4288563097635144/posts>
 
 Use a browser surface with the logged-in session when UI work is required.
+For the maintained `yunwei37` account, prefer the existing Chrome `Yunwei`
+profile, which carries the verified Juejin login. A fresh in-app browser session
+may be logged out; do not treat that state as evidence that the account itself
+is unavailable. Confirm the avatar and creator controls on the visible page
+before proceeding.
 Never bypass authentication with search results or alternate sources.
 
 ## References

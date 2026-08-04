@@ -1,5 +1,5 @@
 # 2026-08-03 Content Run
 
-- The delegated `eunomia-social-radar` browser session timed out before opening a page, so it did not inspect Medium, DEV, or recent community conversations and did not append a feedback checkpoint.
-- The delegated Juejin publisher session returned no observable browser or repository result after a recovery attempt. A direct parent-session diagnostic immediately connected to the in-app browser and loaded the public Juejin profile, confirming that Juejin and the browser itself were available; the failure was isolated to delegated browser-session takeover.
-- The first queued publication remains Juejin for `docs/tutorials/50-tcx/README.zh.md`. No draft submission or public URL was confirmed, so the queue and ledger remain unchanged. No Weekly Analysis item is currently marked `排队`.
+- `eunomia-social-radar` completed through normal visible browser checks and appended the compact checkpoint to `.github/publisher/media/community-feedback.md`. The actionable observation is a Zhihu comment on the TCX tutorial asking whether `pipe` is sufficient; no reply was sent.
+- The earlier delegated Juejin failure was isolated to browser-session selection. The authenticated Chrome `Yunwei` profile remained logged in, so the Juejin publisher resumed there and submitted `docs/tutorials/50-tcx/README.zh.md`: <https://juejin.cn/spost/7669635386159824936>.
+- The Juejin staged page is `审核中`. Visible-page QA confirmed the exact title, 21 body headings, 8 code blocks, 2 tables with 12 rows, 10 article links, and no image placeholders. The queue and ledger record it as pending review rather than confirmed coverage. The next queued publication is the tutorial 50 LinkedIn share on the next natural day; no Weekly Analysis item is marked `排队`.

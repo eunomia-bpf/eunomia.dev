@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-07-29",
+  "last_checked": "2026-08-03",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -75,9 +75,25 @@
       "profile_url": "https://juejin.cn/user/4288563097635144/posts",
       "article_url": "https://juejin.cn/post/7667474278616547380",
       "notes": "After an interrupted parent task, the visible authored profile already showed the exact BPFix title as its newest public article. The public page had no 审核中 marker and confirmed one H1, seven H2 headings, three code blocks, four tables, ten outbound links, and two Juejin-hosted images loading at their natural 1040x1680 and 950x690 dimensions after normal scrolling. No duplicate submission was attempted. No Juejin API or hidden endpoint was used."
+    },
+    {
+      "checked_at": "2026-08-03",
+      "checked_via": "chrome_yunwei_visible_editor_submit_success_and_staged_page_dom_qa",
+      "staged_url": "https://juejin.cn/spost/7669635386159824936",
+      "review_status": "pending",
+      "notes": "Submitted tutorial 50 through the normal visible Juejin editor in the authenticated Chrome Yunwei profile. Category 后端; tags Linux, 开源, 云原生. The source H1 was carried by the title field and the relative lesson-20 link was converted to its public eunomia.dev URL without substantive body changes. The staged review page shows the exact title, 21 body headings, eight code blocks, two tables with 12 rows, ten article links, and no image placeholders."
     }
   ],
   "published": [
+    {
+      "id": "juejin-7669635386159824936",
+      "status": "pending_review",
+      "title": "eBPF 入门实践教程第五十篇：使用 TCX Link 实现可组合的流量控制",
+      "url": "https://juejin.cn/spost/7669635386159824936",
+      "source_path": "docs/tutorials/50-tcx/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_editor_submit_success_and_staged_page_dom_qa",
+      "notes": "Submitted on 2026-08-03 and currently displays 审核中. Do not count as confirmed coverage until the public /post page replaces the staged review page."
+    },
     {
       "id": "juejin-7667474278616547380",
       "status": "confirmed",
