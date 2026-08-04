@@ -1,5 +1,5 @@
 # 2026-08-03 Content Run
 
-- `eunomia-social-radar` completed through normal visible browser checks and appended the compact checkpoint to `.github/publisher/media/community-feedback.md`. The actionable observation is a Zhihu comment on the TCX tutorial asking whether `pipe` is sufficient; no reply was sent.
+- `eunomia-social-radar` completed through normal visible browser checks and appended the compact checkpoint to `.github/publisher/media/community-feedback.md`. The Zhihu TCX question about whether `pipe` is sufficient was answered through the normal visible comment UI; the reply distinguishes simple continuation from TCX lifecycle, ordering, and revision-aware update behavior.
 - The earlier delegated Juejin failure was isolated to browser-session selection. The authenticated Chrome `Yunwei` profile remained logged in, so the Juejin publisher resumed there and submitted `docs/tutorials/50-tcx/README.zh.md`: <https://juejin.cn/spost/7669635386159824936>.
 - The Juejin staged page is `审核中`. Visible-page QA confirmed the exact title, 21 body headings, 8 code blocks, 2 tables with 12 rows, 10 article links, and no image placeholders. The queue and ledger record it as pending review rather than confirmed coverage. The next queued publication is the tutorial 50 LinkedIn share on the next natural day; no Weekly Analysis item is marked `排队`.
