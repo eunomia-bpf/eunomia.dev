@@ -1,6 +1,6 @@
 # 内容发布滚动队列
 
-> 状态：内部执行 checklist，不发布。更新时间：2026-08-02。
+> 状态：内部执行 checklist，不发布。更新时间：2026-08-04。
 > 节奏：从上到下处理，每个 checkbox 是一个平台发布任务，每个自然日最多完成一条。
 > 授权：`排队` 表示定时巡检可以完成该任务的准备、浏览器预览、真实发布和公开页检查；`待确认` 与 `阻塞` 不授权发布。
 
@@ -25,7 +25,7 @@
 - [x] `排队` Medium：`docs/blog/posts/bpfix.md`。2026-08-02 已发布：<https://medium.com/@yunwei356/why-ebpf-verifier-errors-are-hard-to-fix-the-diagnostic-gap-d7904b9432f0>；公开页标题、正文结构、代码块、表格降级、链接和两张图片 QA 通过。
 - [x] `排队` DEV：`docs/blog/posts/bpfix.md`。2026-08-02 已发布：<https://dev.to/yunwei37/why-ebpf-verifier-errors-are-hard-to-fix-the-diagnostic-gap-443o>；公开页标题、canonical、正文结构、代码块、表格、链接和两张图片 QA 通过。
 - [x] `排队` 知乎：`docs/tutorials/50-tcx/README.zh.md`。2026-08-01 已发布：<https://zhuanlan.zhihu.com/p/2067144957194924576>；公开页标题、21 个正文标题、8 个代码块、2 个表格（12 行）和 10 个正文外链 QA 已通过，ledger 已记录为 `confirmed`。
-- [x] `排队` 掘金：`docs/tutorials/50-tcx/README.zh.md`。2026-08-03 已通过 Chrome `Yunwei` 的正常可见编辑器提交：<https://juejin.cn/spost/7669635386159824936>；当前为 `审核中`，暂不计入 confirmed source coverage。审核页已确认标题、21 个正文标题、8 个代码块、2 张表格（12 行）和 10 个正文链接完整。
+- [x] `排队` 掘金：`docs/tutorials/50-tcx/README.zh.md`。2026-08-03 已提交，2026-08-04 确认公开：<https://juejin.cn/post/7669635386159824936>；公开页标题、21 个正文标题、8 个代码块、2 张表格（12 行）和 10 个正文链接完整，ledger 已记录为 `confirmed`。
 - [x] `排队` Medium：`docs/tutorials/50-tcx/README.md`。已核定公开：<https://medium.com/@yunwei356/ebpf-tutorial-by-example-50-composable-traffic-control-with-tcx-links-0b64b72f7a59>。
 - [x] `排队` DEV：`docs/tutorials/50-tcx/README.md`。已核定公开：<https://dev.to/yunwei37/ebpf-tutorial-by-example-50-composable-traffic-control-with-tcx-links-5hmo>。
 - [ ] `排队` LinkedIn：`docs/tutorials/50-tcx/README.md`。

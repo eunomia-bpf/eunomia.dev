@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-08-03",
+  "last_checked": "2026-08-04",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -82,17 +82,24 @@
       "staged_url": "https://juejin.cn/spost/7669635386159824936",
       "review_status": "pending",
       "notes": "Submitted tutorial 50 through the normal visible Juejin editor in the authenticated Chrome Yunwei profile. Category 后端; tags Linux, 开源, 云原生. The source H1 was carried by the title field and the relative lesson-20 link was converted to its public eunomia.dev URL without substantive body changes. The staged review page shows the exact title, 21 body headings, eight code blocks, two tables with 12 rows, ten article links, and no image placeholders."
+    },
+    {
+      "checked_at": "2026-08-04",
+      "checked_via": "in_app_browser_public_article_visible_dom_qa",
+      "article_url": "https://juejin.cn/post/7669635386159824936",
+      "visible_comments": 0,
+      "notes": "The TCX tutorial passed review and is publicly reachable. The visible page retains the exact title and complete rendered article, including 21 body headings, eight code blocks, two tables with 12 rows, and ten article links. The comment section reports zero comments. No Juejin API or hidden endpoint was used."
     }
   ],
   "published": [
     {
       "id": "juejin-7669635386159824936",
-      "status": "pending_review",
+      "status": "confirmed",
       "title": "eBPF 入门实践教程第五十篇：使用 TCX Link 实现可组合的流量控制",
-      "url": "https://juejin.cn/spost/7669635386159824936",
+      "url": "https://juejin.cn/post/7669635386159824936",
       "source_path": "docs/tutorials/50-tcx/README.zh.md",
-      "checked_via": "chrome_yunwei_visible_editor_submit_success_and_staged_page_dom_qa",
-      "notes": "Submitted on 2026-08-03 and currently displays 审核中. Do not count as confirmed coverage until the public /post page replaces the staged review page."
+      "checked_via": "in_app_browser_public_article_visible_dom_qa",
+      "notes": "Submitted on 2026-08-03 and confirmed public on 2026-08-04. The visible article preserves the exact title and complete rendered body; the comment section reports zero comments."
     },
     {
       "id": "juejin-7667474278616547380",

@@ -20,6 +20,12 @@ found during daily monitoring. It is not a metrics dashboard or a browsing log.
 
 ## Monitoring Log
 
+### 2026-08-04
+
+- The [TCX Juejin tutorial](https://juejin.cn/post/7669635386159824936) has passed review and is publicly reachable with the exact title and complete rendered body; the visible comment section reports zero comments. The [Zhihu version](https://zhuanlan.zhihu.com/p/2067144957194924576) still shows 1 endorsement and the two-message technical thread, with no follow-up after our `TC_ACT_PIPE` / TCX clarification. No response is due.
+- BPFix remains intact on [Medium](https://medium.com/@yunwei356/why-ebpf-verifier-errors-are-hard-to-fix-the-diagnostic-gap-d7904b9432f0) and [DEV](https://dev.to/yunwei37/why-ebpf-verifier-errors-are-hard-to-fix-the-diagnostic-gap-443o); both article images load in normal visible browsing, DEV remains at 1 reaction and 0 comments, and Medium exposes no usable response count. An exact-title Google search now shows an AI Overview that directly cites the [eunomia.dev article](https://eunomia.dev/blog/2026/07/25/ebpf-verifier-errors-bpfix/) for the rejection-location/root-cause gap, a useful GEO durability signal; no independent new discussion was found.
+- The [Akeep X thread](https://x.com/yunwei37/status/2083647587132035205) moved modestly to 1.2K views, 24 likes, 1 repost, 6 bookmarks, and 3 replies, with no new substantive question. The [LinkedIn post](https://www.linkedin.com/posts/yunwei37_github-eunomia-bpfakeep-privacy-first-activity-7489412627769548800-SV__) remains publicly reachable with 22 reactions; comments were unavailable on the signed-out public surface. No interaction is due; revisit only after a new comment, citation, or publication signal.
+
 ### 2026-08-03
 
 - BPFix remains intact on [eunomia.dev](https://eunomia.dev/blog/2026/07/25/ebpf-verifier-errors-bpfix/), [Medium](https://medium.com/@yunwei356/why-ebpf-verifier-errors-are-hard-to-fix-the-diagnostic-gap-d7904b9432f0), and [DEV](https://dev.to/yunwei37/why-ebpf-verifier-errors-are-hard-to-fix-the-diagnostic-gap-443o). Titles, article structure, code blocks, tables or fallbacks, links, and image resources remain available. DEV shows 1 reaction and no comments; Medium exposes no usable response count on the normal story page. Exact-title searches found no new external echo beyond the canonical and known syndications.
