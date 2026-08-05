@@ -52,9 +52,7 @@ export function SiteHeader({ locale, currentPath, sidebar, alternates }: SiteHea
         </a>
         <nav className="hidden items-center gap-1 text-sm font-medium text-slate-600 lg:flex">
           {nav.map((item) => {
-            const active =
-              isActivePath(normalizedCurrentPath, item.href) ||
-              item.children?.some((child) => isActivePath(normalizedCurrentPath, child.href)) === true;
+            const active = isActivePath(normalizedCurrentPath, item.href);
             const itemClassName = `inline-flex items-center gap-1.5 rounded-md px-3 py-2 transition ${
               active
                 ? "bg-slate-100 text-ink"
