@@ -1,522 +1,337 @@
 ---
 date: 2026-08-05
-title: "Parallel Agents Need a Commit Protocol: From Effect Serializability to Contract-Valid Execution"
-description: "Parallel tool calls, worktrees, reducers, and clean merges can all coexist with a wrong combined outcome. This research brief audits current agent runtimes, separates four layers of concurrency correctness, and proposes contract-valid effect serializability across code, APIs, authority, and irreversible actions."
+title: "When Several AI Agents Work at Once, Who Makes Sure the Final Result Is Right?"
+description: "Worktrees, sandboxes, and parallel tool calls can isolate workers, but they do not guarantee that the combined result still satisfies one user task. This research brief explains why parallel agents need a shared commit step that rechecks state, authority, cross-task constraints, and irreversible effects."
 tags:
   - Research
   - AI Agent
   - Concurrency
   - Distributed Systems
   - Systems
-research_question: "What correctness contract lets tool-using AI agents execute concurrently against shared mutable state without silently violating user intent?"
+research_question: "When several tool-using AI agents modify the same repository, budget, or external system, where should the runtime validate and commit their combined effects?"
 source_cutoff: 2026-08-05
 status: reviewed-research-brief
 ---
 
-# Parallel Agents Need a Commit Protocol: From Effect Serializability to Contract-Valid Execution
+# When Several AI Agents Work at Once, Who Makes Sure the Final Result Is Right?
 
-Parallelism is becoming the default behavior of agent runtimes. A model can emit several tool calls in one turn. An orchestrator can launch multiple specialists against the same repository. A graph can fan out into concurrent nodes. A coding platform can give every worker a separate worktree and merge their patches later.
+Consider a common parallel coding workflow.
 
-These mechanisms reduce latency when tasks are independent. They also create a familiar systems problem in an unfamiliar place. Two agents can read the same old state, make locally reasonable plans, and commit a globally wrong result. They may edit different files while violating the same API invariant, independently spend the same remaining budget, publish contradictory messages, consume one approval twice, or perform external actions whose order cannot be repaired by a Git merge.
+A user asks an agent system to upgrade a service's authentication scheme. The orchestrator gives one worker the token-validation code and another worker the deployment configuration. They work in separate Git worktrees, never overwrite each other's files, pass their local tests, and produce patches that merge cleanly.
 
-The usual safeguards each cover only part of this problem. A sandbox separates processes. A worktree separates file writes. A reducer combines graph state. A CRDT guarantees convergence. A database transaction protects rows. A policy engine checks whether an action is allowed. None of these, by itself, states what it means for a complete set of concurrent agent effects to be correct.
+The deployed service is still wrong. One worker changed the expected token audience, while the other kept the old value in production configuration. There was no line-level conflict and no traditional data race. Two locally reasonable changes composed into a globally invalid system.
+
+The same pattern appears outside source code. Two purchasing agents can each read that a project has $1,000 left and independently place an $800 order. Two communications agents can publish contradictory announcements. Two subagents can consume the same one-time approval. Two tool calls can send the same email, trigger the same deployment, or make the same payment twice.
+
+Sandboxes, worktrees, reducers, locks, and database transactions each prevent some failures. None of them automatically knows whether several successful local results still satisfy the user's overall task.
 
 <!-- more -->
 
-This brief develops that missing contract. The starting point is classical serializability: a concurrent history is acceptable when its observable effect is equivalent to some serial execution of the same transactions. For tool-using agents, even this is not enough. The selected serial order must also remain valid under the intent, authority, state assumptions, and outcome conditions that justified each agent's work.
+The central argument of this brief is simple:
 
-The proposed property is **contract-valid effect serializability**. A concurrent agent run is acceptable only if there exists a serial order of committed work units such that:
+> **Treat each agent as a worker that prepares a proposal, not as an independent owner that may publish effects whenever it finishes. Let reasoning run in parallel, but put shared and irreversible effects through one validation and commit step.**
 
-1. the order respects explicit causality, delegation, approval, and real-time constraints;
-2. every work unit's relevant reads are still valid, or the work unit has repaired its plan against the state that precedes its commit;
-3. its authority and policy predicates hold at commit time;
-4. its local outcome contract and the workflow's global outcome contract hold after commit; and
-5. externally visible effects are observationally equivalent to that valid serial execution.
+That commit step needs to answer five questions:
 
-This is a stronger target than "the branches merged" or "the tools did not write the same key." It lets independent reasoning proceed in parallel while forcing conflicting effects through an explicit validation and commit boundary.
+1. Are the facts and versions the agent relied on still current?
+2. Do several results violate one hidden constraint even when they touch different files or records?
+3. Are the required permissions and approvals still valid at commit time?
+4. Does the combined result satisfy the workflow's end-to-end acceptance conditions?
+5. Will externally visible actions occur in the right order and exactly the intended number of times?
 
-> **Research question.** What correctness contract lets tool-using AI agents execute concurrently against shared mutable state without silently violating user intent?
->
-> **Central claim.** Parallel agent systems need a commit protocol over semantic effects. Workspace isolation, state convergence, ordinary serializability, and policy checks are useful components, but the full execution is safe only when the committed history is both effect-serializable and valid under task, authority, and outcome contracts at commit time.
+This does not mean that every agent must run sequentially. Search, analysis, read-only inspection, and candidate generation can remain highly parallel. The coordination boundary belongs where work becomes shared state, consumed authority, or an externally visible effect.
 
-## Concurrency arrived before its correctness contract
+## Parallel execution and correct composition are different properties
 
-A manual audit of current official runtime documentation shows that parallel execution is already a normal capability, while the safety semantics of side effects remain largely an application decision.
+Parallel tool use is already a normal feature of agent runtimes. The OpenAI Agents SDK can start multiple local function tools emitted in one model turn and lets applications cap that concurrency. Anthropic's tool-use documentation says that a response may contain several tool calls, while the application decides whether to execute them concurrently, sequentially, or in a mixed strategy based on side effects, shared state, and ordering requirements. Google ADK runs `ParallelAgent` subagents in isolated branches and points developers to additional coordination for shared state. LangGraph reducers can combine graph-state updates from parallel nodes, but external effects performed inside those nodes need their own semantics.
 
-| Runtime or protocol | Documented concurrent behavior | Protection it explicitly provides | Boundary left to the application |
-| --- | --- | --- | --- |
-| [OpenAI Agents SDK](https://openai.github.io/openai-agents-python/running_agents/) | By default, all local function calls emitted in one turn are started; a concurrency cap is available | Tool input guardrails can be revalidated immediately before execution; sandbox agents provide workspace-scoped execution | No cross-tool atomic commit or isolation contract is implied by the concurrency setting |
-| [Claude tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/parallel-tool-use) | A response may contain several tool calls; the application chooses concurrent, sequential, or mixed execution | The documentation distinguishes independent read-only calls from calls with side effects or ordering requirements | Execution order, interference control, and rollback are explicitly left to the application |
-| [AutoGen](https://microsoft.github.io/autogen/stable/user-guide/agentchat-user-guide/tutorial/agents.html) | Multiple tool calls execute in parallel by default | Parallelism can be disabled | The documentation warns that side effects may interfere and requires parallel calls to be disabled for stateful agent and team tools |
-| [Google ADK ParallelAgent](https://adk.dev/agents/workflow-agents/parallel-agents/) | Subagents run concurrently in independent branches | Conversation history and branch state are not automatically shared | Shared context requires locks; other shared state needs an external coordination mechanism |
-| [LangGraph](https://docs.langchain.com/oss/python/langgraph/use-graph-api) | Nodes in a fan-out run concurrently in the same superstep | Reducers define how graph-state updates combine; a failing superstep does not apply its graph-state updates | The transactional statement concerns graph state. Side effects already performed inside a node need their own semantics |
-| [MCP sampling with tools](https://modelcontextprotocol.io/specification/2025-11-25/client/sampling) | A model may return an array of tool requests for parallel use | A common representation for tool calls and results | The protocol representation does not itself define a multi-tool transaction, isolation level, commit point, or compensation rule |
+These mechanisms answer scheduling questions: can work overlap, and how should intermediate state be combined? They do not, by themselves, define correctness for the final outcome.
 
-This is not a defect in any one SDK. These interfaces expose execution mechanisms. A Python function, shell command, MCP server, database operation, browser action, and cloud API have different effect models, so a general runtime cannot infer a safe transaction boundary from a tool name alone.
+For read-only work, the distinction may be minor. Two agents can search different documents at the same time, and the main risk is duplicated compute. Once tools create side effects, the distinction becomes fundamental:
 
-The gap becomes dangerous when a developer interprets "parallel tool use is supported" as "parallel effects are correct." Support means that calls can overlap. Correctness needs a separate contract.
+- "Both tools returned successfully" does not imply that the combined outcome is correct.
+- "Both branches merge cleanly" does not imply that they used compatible assumptions.
+- "Both database transactions can commit" does not imply that a shared budget, approval, or business rule still holds.
+- "Each action is individually allowed" does not imply that the set of actions is allowed.
 
-## Four layers that are often confused
+The most dangerous failure in a parallel agent system is often not a crash or merge conflict. It is a run in which every component reports success while the final artifact quietly violates the user's intent.
 
-Agent concurrency discussions commonly collapse four different properties into one word: isolation. Separating them explains why apparently safe systems still produce wrong outcomes.
+## Three failure modes that ordinary isolation misses
 
-### 1. Execution parallelism
+### Different files can share one invariant
 
-Execution parallelism answers a scheduling question: can several model calls, tools, nodes, or subagents run at the same time?
+Many repository conflicts are semantic rather than textual.
 
-A concurrency limit, task group, worker pool, or graph fan-out belongs here. This layer determines throughput and latency. It says nothing about whether two operations interfere.
+One agent changes an API input contract while another adds a caller in a different package. One agent renames a configuration field while another updates a deployment template using the old name. One agent changes retry semantics while another writes error handling against the previous behavior. The agents can edit disjoint files and pass local tests.
 
-### 2. State separation or convergence
+A worktree is useful because it gives each worker a stable filesystem view. It does not prove that the workers' assumptions are compatible. Git detects overlapping lines, not a shared API invariant. The integration step must rebuild the combined tree, run cross-module tests, and determine whether important premises changed while the workers were running.
 
-State separation answers whether workers overwrite each other's intermediate representation.
+### Different records can consume one budget or approval
 
-Worktrees, containers, copy-on-write filesystems, separate graph branches, reducers, and CRDTs belong here. They can prevent physical write corruption or guarantee that replicas converge to one representation.
+Many constraints apply across objects rather than to one file or database row.
 
-Convergence is weaker than semantic correctness. Two patches can merge without a textual conflict and still disagree about a function contract. Two document edits can converge while retaining contradictory claims. Two append-only logs can preserve every update and still violate a budget or uniqueness invariant.
+Two purchasing agents may create different order records while drawing from one budget. Two cloud agents may create different instances while exceeding one quota. Two data agents may query different tables while relying on one approval that permits a single export.
 
-### 3. Effect serializability
+Locks and transactions work well once the system knows the protected resource. Agent tools often expose only a shell command, HTTP request, browser action, or generic MCP call. The logical resource may instead be "the remaining launch budget," "a one-time approval," "the release window," or "the API contract that several files must preserve."
 
-Effect serializability asks whether the combined, externally visible history is equivalent to some serial order of the same work units.
+A conflict detector that watches only paths and keys will miss these aggregate constraints.
 
-This layer detects anomalies such as lost updates, stale-read decisions, write skew, duplicate consumption, and order-dependent external actions. It spans more than files. The relevant resources may include database rows, API objects, deployment state, messages, quotas, approvals, and user-visible artifacts.
+### External actions cannot be repaired by a merge
 
-### 4. Contract validity
+Source changes can usually remain private in a branch until validation succeeds. Email, payments, tickets, releases, and production deployments behave differently.
 
-Contract validity asks whether the serial explanation is one the user would accept.
+A sent email can be followed by a correction, but it cannot be unsent. A payment can be refunded, but the original transaction, fees, and audit history remain. A deployment can be rolled back after it has already served requests. A public release can be withdrawn without erasing copies or notifications.
 
-Classical serializability assumes each transaction is correct when run serially. Agent work weakens that assumption. A work unit's plan is synthesized from a snapshot, a task interpretation, a set of permissions, and intermediate observations. Even if the runtime can place its effects in a serial order, the work may no longer be justified in the state at which it commits.
+A runtime therefore needs to classify effects before speculative execution:
 
-Consider two procurement agents. Both read that $1,000 remains. Each plans an $800 purchase. A serializable system can order the purchases, but the second transaction must recheck the budget and abort. Now add a policy that permits one purchase only after a manager approves a particular vendor. A database-serializable history is still insufficient if the approval is stale, vendor-scoped, consumed, or revoked. Finally, the two purchases may individually satisfy policy but jointly fail the user's task, for example because the user asked for one redundant supplier, not two copies of the same component.
+- **Bufferable:** can remain private until commit, such as a patch in an isolated workspace.
+- **Reversible:** has a reliable inverse that restores the relevant invariant.
+- **Compensatable:** can be amended, but its history remains externally visible.
+- **Irreversible:** cannot be safely undone, or repetition creates a new consequence.
 
-The upper layers therefore constrain the lower ones:
+The closer an action is to the irreversible end, the less freedom an individual parallel worker should have to execute it immediately.
 
-```text
-contract-valid execution
-    requires effect serializability
-        requires meaningful effect and dependency tracking
-            while allowing execution parallelism where safe
-```
+## What current mechanisms do and do not guarantee
 
-## Why familiar mechanisms stop short
-
-The missing contract is easier to see by examining mechanisms that are often presented as complete solutions.
-
-### Worktrees isolate bytes, then defer the hard question
-
-A worktree gives each coding agent a stable filesystem view. It prevents one worker from observing half-written files from another and lets each branch produce a coherent patch. That is valuable.
-
-The hard part moves to merge time. A clean Git merge only proves that line-oriented merge rules found no textual collision. It does not prove that both agents used compatible assumptions. One agent may rename an internal concept while another adds a caller using the old behavior. They can edit different files, pass their local tests, and produce a combined build that fails or, worse, passes incomplete tests with a latent invariant violation.
-
-Recent systems make this gap measurable. [STORM](https://arxiv.org/abs/2605.20563) argues that per-agent worktrees defer conflicts until recovery is expensive and reports better benchmark results from write-time state mediation. [AgenticFlict](https://arxiv.org/abs/2604.03551) finds textual conflicts in 27.67% of more than 107,000 merge-simulated agent pull requests, although its sample and textual-conflict method do not measure higher-level semantic conflicts. The evidence does not imply that worktrees are bad. It shows that isolation and integration are separate stages.
-
-### Reducers and CRDTs define combination, not intent
-
-LangGraph requires reducers for graph keys updated by parallel nodes. This prevents an ambiguous last writer from silently winning. A CRDT goes further by guaranteeing deterministic convergence without locking.
-
-A reducer answers "how should these values combine?" It does not answer "should both values be accepted?" Appending two proposed deployment targets is deterministic even when only one target is valid. Unioning two permission sets converges even when privilege should not expand. Merging two lists of factual claims preserves both sides, including contradictions.
-
-[CodeCRDT](https://arxiv.org/abs/2510.18893) demonstrates both sides of this trade-off. It reports deterministic convergence and zero merge failures, but still observes semantic conflicts and finds that parallel execution ranges from speedup to substantial slowdown depending on task structure. [S-Bus](https://arxiv.org/abs/2605.17076) reconstructs agent read sets and prevents structural races in shared shards, yet its own evaluation reports that the same preservation behavior is harmful in single-shard collaborative writing because concurrent contradictions propagate. Stronger structural consistency can faithfully preserve a semantically invalid combination.
-
-### Locks and optimistic validation inherit agent-specific costs
-
-Classical concurrency control offers two broad strategies.
-
-Pessimistic control acquires locks before conflicting access. This avoids wasted work but is poorly matched to agents that spend minutes reasoning between reads and writes. Locking a repository, budget, or cloud resource across model inference and human approval can remove most useful parallelism and create deadlocks across heterogeneous tools.
-
-Optimistic control lets work proceed, then validates before commit. The foundational [optimistic concurrency-control work](https://db.cs.cmu.edu/publications/) assumes conflicts are uncommon enough that abort and retry are cheaper than blocking. Agent aborts are expensive in a new currency: model tokens, tool calls, external rate limits, and human review. [ATCC](https://arxiv.org/abs/2603.13906) studies this problem for long, irregular SQL transactions generated by data agents and adaptively switches between optimistic and pessimistic strategies while accounting for abort cost.
-
-Neither strategy solves resource identification automatically. A database knows the rows or predicates a transaction touches. An agent runtime sees a shell command, an HTTP request, or a browser action. The logical resource may be "the public API contract," "the remaining project budget," or "the right to send the launch announcement," none of which maps cleanly to one path or key.
-
-### Compensation cannot make every effect disappear
-
-Long-running transactions often use [Sagas](https://www.cs.princeton.edu/research/techreps/598): commit smaller steps and run compensating actions when later work fails. Compensation is practical, but it is not equivalent to rollback.
-
-A deleted cloud instance can sometimes be recreated, but its identity and attached state may differ. A sent email can be followed by a correction, not unsent. A payment can be refunded, but the original transfer, fees, and audit events remain. A public release can be withdrawn, but copies and notifications may persist.
-
-Agent systems therefore need to classify effects before speculative execution:
-
-- **bufferable:** can remain private until commit, such as a file patch in an isolated workspace;
-- **reversible:** has a reliable inverse that restores the relevant contract;
-- **compensatable:** can be amended but leaves observable history;
-- **irreversible:** cannot be safely undone or repeated.
-
-A system that discovers this classification only after an abort is already too late.
-
-## A formal model: from tool calls to work-unit contracts
-
-The unit of concurrency should not be an individual model call. It should be a durable **work unit** whose state includes the task, evidence, authority, effects, and acceptance conditions needed to decide whether its result may commit.
-
-Let work unit \(W_i\) be:
-
-\[
-W_i = \langle I_i, S_i, A_i, R_i, E_i, O_i \rangle
-\]
-
-where:
-
-- \(I_i\) is the task intent and its declared scope;
-- \(S_i\) is the snapshot or authority epoch from which planning began;
-- \(A_i\) is the authority contract, including principal, capability, target, limits, and expiry;
-- \(R_i\) is the observed read set, including versions and semantic dependencies;
-- \(E_i\) is a proposed set of effects over logical resources;
-- \(O_i\) is an outcome predicate that defines acceptable completion.
-
-An effect is more than a write:
-
-\[
-e = \langle resource, operation, value, visibility, reversibility, authority \rangle
-\]
-
-The `resource` field may be physical, such as a file inode or database row, or semantic, such as an API invariant, a shared quota, a release channel, or a one-time approval. `visibility` says whether other actors can observe the effect before commit. `reversibility` determines which abort paths are honest.
-
-For a concurrent history \(H\) of committed work units, ordinary effect serializability requires a serial permutation \(\pi\) such that:
-
-\[
-Obs_Q(H) \equiv Obs_Q(W_{\pi(1)}; W_{\pi(2)}; \ldots; W_{\pi(n)})
-\]
-
-Here, \(Obs_Q\) is an observation contract. For buffered file changes, final-state equivalence may be enough. For messages, payments, or audit events, the visible effect trace and real-time order may matter.
-
-Contract-valid effect serializability adds four requirements. For every \(W_{\pi(k)}\):
-
-\[
-ValidRead(R_{\pi(k)}, state_{k-1}) \lor Repaired(W_{\pi(k)}, state_{k-1})
-\]
-
-\[
-Authorized(A_{\pi(k)}, E_{\pi(k)}, state_{k-1})
-\]
-
-\[
-O_{\pi(k)}(state_{k-1}, state_k, E_{\pi(k)}) = true
-\]
-
-and, for the full workflow:
-
-\[
-G(state_0, state_n, H) = true
-\]
-
-The first condition rejects stale reasoning unless the agent repairs the affected part of its plan. The second revalidates authority immediately before effects become visible. The third checks the work unit's own result. The fourth checks a global task contract that cannot be reduced to independent local successes.
-
-This distinction matters because **serializable does not mean desirable**. A runtime may find a legal serial order for two deployments, two purchases, or two announcements while the user's request permits only one. The global contract selects the acceptable serial histories.
-
-### Conflict classes
-
-A practical implementation needs a conflict graph richer than path overlap.
-
-| Conflict class | Example | Why file or key overlap misses it |
+| Mechanism | What it handles well | What it does not automatically decide |
 | --- | --- | --- |
-| Physical write-write | Two agents edit the same function | Directly detectable |
-| Stale read-write | One agent reads a schema while another changes it | The reader may write a different file |
-| Semantic invariant | Two patches modify different modules but violate one API contract | No shared physical write |
-| Aggregate constraint | Two agents each spend the same remaining budget | Writes may target different purchase records |
-| Authority conflict | Two branches consume or extend one approval | The protected object is a capability, not only data |
-| External-order conflict | Two announcements, deployments, or tickets must occur in order | Both effects can be individually valid |
-| Irreversible duplicate | Two branches send the same payment or email | Deduplication may require semantic identity |
-| Outcome conflict | Two locally successful subtasks make the overall result invalid | The conflict exists only at workflow level |
+| Sandboxes, containers, and worktrees | Process, filesystem, and intermediate-state isolation | Whether several results preserve one API, budget, approval, or business invariant |
+| Reducers and CRDTs | Deterministic combination or convergence of updates | Whether all converged values should have been accepted |
+| Database transactions and locks | Known rows, keys, predicates, and resources | How to identify logical resources behind shell, browser, and cross-service tools |
+| Human approval | Permission for an action at a particular moment | Whether the approval remains applicable after state, target, or delegation changes |
+| Per-agent tests | Local behavior of one branch or candidate | Cross-module and end-to-end behavior after composition |
+| Compensation | Remediation for some partially failed effects | Erasing external history that has already become visible |
 
-The graph may contain false positives. That is acceptable if the system exposes why it believes two work units conflict and allows deterministic validation to discharge the edge. What is unsafe is silently assuming independence because paths differ.
+The conclusion is not that these mechanisms are weak. They operate at different layers. A complete parallel-agent system needs to place them inside one prepare, validate, and commit path.
 
-## What recent systems collectively show
+## A practical model: prepare in parallel, commit together
 
-No single project supplies the full contract above, but recent work makes its components concrete.
-
-Several systems discussed in this section are recent 2026 preprints rather than established production standards. Their reported results are evidence about promising mechanisms, not independent confirmation that the mechanisms generalize. The synthesis below relies more on the boundaries exposed across the papers than on any single headline number.
-
-[Atomix](https://arxiv.org/abs/2602.14849) is the closest tool-effect transaction system. It tags calls with epochs, tracks per-resource frontiers, buffers effects where possible, and compensates externalized effects on abort. Its results show that progress-aware commit can prevent contamination from losing speculative branches and preserve correctness under contention. Atomix establishes that tool calls can be mediated as transactional effects rather than accepted immediately.
-
-[CoAgent](https://arxiv.org/abs/2606.15376) directly targets multi-agent concurrency. It observes that long inference intervals make both locks and full optimistic retry expensive, then uses a predetermined serialization order, order-filtered reads, effect repair, and undoable tools. Its reported results suggest that agent-assisted repair can recover concurrency that classical schemes lose. The important design lesson is that a runtime can ask an agent to repair a dependency without discarding the whole trajectory, but the runtime still needs mechanical effect tracking and undo semantics.
-
-[Provenact](https://arxiv.org/abs/2608.02764) isolates another missing dimension: authorization can become stale while shared budgets, inventory, approvals, or risk state change. It defines policy-state serializability, requiring committed effects to be authorized against the policy state immediately before they occur. This is stronger than passing policy state as ordinary prompt context. It also shows why concurrency control and governance cannot be separate control planes.
-
-[STORM](https://arxiv.org/abs/2605.20563), [S-Bus](https://arxiv.org/abs/2605.17076), and [CodeCRDT](https://arxiv.org/abs/2510.18893) address workspace and shared-state coordination from different directions. Together they show that write-time mediation, observable read sets, and deterministic convergence are all useful, but their value depends on workload topology and semantic invariants.
-
-[Semisolates and `try`](https://www.usenix.org/conference/osdi26/presentation/lamprou) and [`hS`](https://www.usenix.org/conference/osdi26/presentation/liargkovas) demonstrate that a runtime can capture, inspect, defer, and selectively apply effects from opaque processes without rewriting every component. These mechanisms matter for agents because many tools are shell commands or third-party binaries that cannot be instrumented with an agent SDK. System-level effect capture is feasible; attaching task semantics and authority remains the next layer.
-
-Two empirical studies explain why a commit protocol matters even when agents communicate. [CooperBench](https://arxiv.org/abs/2601.13295) reports an average 30% success reduction when two coding agents collaborate compared with one agent performing both tasks, attributing failures to poor communication, broken commitments, and incorrect expectations. AgenticFlict reports frequent textual merge conflict at ecosystem scale. Neither study proves that contract-valid serializability is the only solution. They show that coordination cannot be assumed to emerge reliably from more messages or more capable models.
-
-The synthesis is therefore not "put every tool call in one database transaction." The emerging systems divide the problem into effect capture, read-set reconstruction, state coordination, adaptive scheduling, policy validation, repair, and compensation. A general agent runtime needs a contract that tells these mechanisms what successful composition means.
-
-## A commit architecture for parallel agents
-
-The architecture below lets reasoning and read-only exploration remain parallel while making effect visibility an explicit protocol decision.
+A useful execution model has three stages.
 
 ```mermaid
-flowchart TD
-    U[User task and global outcome contract] --> P[Planner creates work units]
-    P --> X[Snapshot and authority epochs]
-    X --> A[Agent A speculative execution]
-    X --> B[Agent B speculative execution]
-    A --> EA[Read set and effect manifest]
-    B --> EB[Read set and effect manifest]
-    EA --> G[Semantic conflict graph]
-    EB --> G
-    G --> V[Read, policy, authority, and outcome validation]
-    V -->|independent or repairable| O[Choose valid commit order]
-    V -->|stale or invalid| R[Rebase, repair, replan, or abort]
-    O --> C[Commit bufferable and reversible effects]
-    C --> I[Linearize irreversible effects]
-    I --> Q[Verify global outcome contract and record provenance]
+flowchart LR
+    U[User task and acceptance conditions] --> P[Agents read, analyze, and prepare proposals in parallel]
+    P --> M[Each agent returns a candidate plus an effect manifest]
+    M --> V[Commit coordinator validates state, conflicts, authority, and global outcome]
+    V -->|valid| C[Commit bufferable changes]
+    V -->|stale or conflicting| R[Repair, serialize, or ask the user]
+    C --> E[Execute irreversible external actions last]
 ```
 
-### 1. Declare the work unit before execution
+### Stage 1: parallel preparation
 
-The orchestrator creates a stable work-unit identity with:
+Each agent works from a stable snapshot and prepares code, a plan, tool arguments, or another candidate artifact. The result should remain private where possible.
 
-- parent task and delegation path;
-- intent and target objects;
-- snapshot epoch;
-- authority epoch and capability scope;
-- expected output and outcome checks;
-- risk class and maximum effect class;
-- estimated reasoning and abort cost.
+Alongside the artifact, the worker returns a small effect manifest:
 
-The declaration can be incomplete. Agents discover dependencies dynamically. Its purpose is to establish what must be updated when the task changes and what the commit coordinator is allowed to accept.
+- important versions and objects it read;
+- resources it proposes to modify or consume;
+- assumptions that justify the plan;
+- authority or approval it expects to use;
+- acceptance conditions it believes define success.
 
-### 2. Run in an effect-aware speculative environment
+For example:
 
-Each work unit receives an isolated or semisolated execution view:
-
-- a worktree, copy-on-write filesystem, container, browser profile, or database snapshot;
-- intercepted tool adapters for known APIs;
-- system-level observation for opaque subprocesses;
-- a local effect buffer where possible;
-- explicit barriers before compensatable or irreversible actions.
-
-Read-only network and search operations can execute immediately. File writes can remain private. Cloud mutation, messaging, payment, publication, and credential use require a stronger gate.
-
-### 3. Reconstruct physical and semantic footprints
-
-Tool schemas should declare resource templates when possible:
-
-```text
-read:  repo:{id}:symbol:{name}
-write: repo:{id}:api-contract:{service}
-use:   budget:{project}
-send:  channel:{launch-announcement}
-consume: approval:{approval-id}
+```yaml
+work_unit: update-authentication
+intent: migrate service authentication to the new audience value
+reads:
+  - resource: api/auth-contract
+    version: git:8f31c2
+  - resource: deployment/config
+    version: git:27a9d0
+proposed_effects:
+  - modify: src/auth/validator.ts
+  - modify: deploy/service.yaml
+shared_constraints:
+  - token audience must match across code and deployment
+authority:
+  scope: repository:eunomia/service-a
+acceptance:
+  - integration test passes
+  - old audience is absent from production config
 ```
 
-Declarations will be incomplete, so the runtime augments them with:
+The manifest will never predict every effect perfectly. Its purpose is to give the commit layer more information than an unstructured answer and a zero exit code.
 
-- file, process, database, and network observations;
-- versioned tool inputs and outputs;
-- repository dependency graphs and test coverage;
-- policy labels and capability identifiers;
-- application invariants;
-- agent-produced dependency explanations with confidence.
+### Stage 2: shared validation
 
-An LLM may help propose semantic edges, but it should not be the sole commit oracle. Deterministic schemas, version checks, tests, policies, and resource keys should discharge most high-consequence decisions. Model judgments are most useful for locating possible conflicts and requesting targeted validation.
+The commit coordinator collects candidate results and checks whether they can safely compose.
 
-### 4. Build a conflict graph, not a global lock
+At minimum, it checks:
 
-The coordinator adds an edge when one work unit may invalidate another. Edges carry a reason and a validation method:
+1. **Stale reads.** Did a relevant file, object, policy, or external resource change after the worker planned its action?
+2. **Direct conflicts.** Do workers write the same resource or depend on incompatible versions?
+3. **Shared constraints.** Do disjoint changes jointly exceed a budget, violate uniqueness, or break an API invariant?
+4. **Authority.** Does the principal, scope, target, budget, approval, and delegation chain still cover the actual effects?
+5. **Local and global acceptance.** Does each candidate work, and does the combined result complete the user's overall task?
+6. **External ordering.** Which actions must happen exactly once, and which must wait until other changes have committed?
 
-```text
-A -> B
-reason: B read API schema v12; A proposes v13
-discharge: rerun B's compatibility test against v13
-```
+A failed validation does not always require restarting the whole task. The coordinator can ask only the affected worker to repair its plan against the latest state, serialize the conflicting portion, or present the user with a concrete decision instead of a generic "merge conflict."
 
-The graph identifies independent components that can commit concurrently. It also lets the system serialize only the effects that actually conflict, instead of locking an entire repository or task for the duration of reasoning.
+### Stage 3: effect commit
 
-### 5. Validate at commit time
+After validation, the system commits bufferable changes first, such as files, database transactions, and staged configuration. It performs email, payment, deletion, release, and production deployment last.
 
-Commit-time validation has four parts.
+This ordering avoids a common failure pattern: an agent performs the irreversible action, then discovers that the code, approval, or another branch cannot commit. Delaying high-consequence effects keeps more failure modes recoverable and makes the resulting history easier to explain.
 
-**Read validation.** Have the state versions or assumptions used by the plan changed? If so, can the affected suffix be repaired without rerunning the whole work unit?
+## The commit layer must protect logical resources
 
-**Policy and authority validation.** Is the principal still authorized for this exact effect, target, amount, environment, and time? Has the capability been consumed, revoked, narrowed, or delegated?
+Path-based conflict detection is straightforward. Logical conflict detection is harder and more important.
 
-**Outcome validation.** Do tests, deployment probes, ledger predicates, document consistency checks, or other task-specific oracles still pass after earlier commits?
+A logical resource can be:
 
-**Global validation.** Does the proposed combined result satisfy the original task? A collection of locally successful outputs is not automatically one successful workflow.
+- an API or data-format compatibility invariant;
+- a shared budget or quota;
+- a one-time approval;
+- a release window;
+- a user decision that permits only one of several alternatives;
+- code and deployment configuration that must stay consistent;
+- an information-flow boundary or sensitive-data policy.
 
-Approval should not freeze these checks. A human may approve a proposal at time \(t\), but state can change before execution at \(t+\Delta\). Approval records intent and authority; the runtime still needs a commit-time state predicate.
+No general runtime can infer all business semantics automatically. A practical design combines several sources:
 
-### 6. Commit effects in risk order
+- tools and applications explicitly declare resources, preconditions, and effects;
+- system observation adds actual file, database, process, and network behavior;
+- schemas, tests, policies, and invariant checkers provide deterministic validation;
+- models help identify possible semantic conflicts where structured rules are incomplete;
+- high-risk and irreversible actions retain an explicit human commit point.
 
-A safe default order is:
+A model can flag that two patches appear to change one interface in incompatible ways. It should not be the only authority deciding that a payment, deletion, or production release is safe. Wherever versions, types, tests, policy, and transaction semantics can prove a property, the system should prefer those deterministic mechanisms.
 
-1. metadata and provenance;
-2. bufferable local state;
-3. reversible external effects;
-4. compensatable effects;
-5. irreversible effects.
+## Which work should remain fully parallel?
 
-Irreversible effects receive an explicit linearization point and semantic idempotency identity. If a later step fails, the record must say that compensation occurred rather than pretending the original effect vanished.
+Coordination should be proportional to effect risk.
 
-### 7. Repair the affected suffix
+| Work type | Recommended strategy | Examples |
+| --- | --- | --- |
+| Independent read-only work | Run directly in parallel | Documentation search, reading separate logs, independent analysis |
+| Bufferable work on clearly disjoint resources | Prepare in parallel, validate versions before commit | Patches in independent modules, candidate reports |
+| Work with possible hidden shared constraints | Prepare in parallel, run shared integration and invariant checks | API changes, schemas, budgets, release plans |
+| Known hot resources | Lock, partition, or serialize | One configuration object, one quota, one approval |
+| Compensatable external effects | Commit centrally and record compensation semantics | Ticket creation, reversible infrastructure changes |
+| Irreversible or high-consequence effects | Execute last with explicit approval where appropriate | Payments, messages, destructive deletion, production release |
 
-Aborting an entire long trajectory wastes reasoning that may remain valid. CoAgent's direction suggests a more agent-native mechanism: notify the work unit of the changed dependency, identify the part of the plan that used it, undo or discard only dependent effects, and ask the agent to repair that suffix.
+This leads to an important performance rule: a commit protocol should not force every task through its heaviest path. Read-only and genuinely independent work can remain fully parallel. Extra coordination belongs only where workers touch shared state, authority, or externally visible effects.
 
-The runtime, not the model, must decide which effects were visible and whether their inverse succeeded. The model may repair intent-dependent reasoning; it should not be trusted to narrate an effect away.
+## How this relates to database serializability
 
-## Isolation levels for agent runtimes
+Database serializability asks whether a concurrent history is equivalent to running the same transactions one at a time in some order.
 
-A single strongest mode will be too expensive for every task. Runtimes should expose named levels with explicit anomalies, much as databases do.
+That is a useful starting point, but it is not enough for agents. A database typically assumes that each transaction is correct when run serially. An agent's plan may instead depend on an outdated repository, stale permission, incomplete observation, or mistaken interpretation of the task. The runtime may find a serial order that is internally consistent but still unacceptable to the user.
 
-| Level | Guarantee | Appropriate workloads | Remaining risk |
-| --- | --- | --- | --- |
-| Parallel read | Concurrent read-only calls; no shared mutation | Search, retrieval, independent analysis | External sources can still change between reads |
-| Workspace snapshot | Each worker sees an isolated file or environment snapshot | Independent code generation and artifact production | Clean merge can hide semantic and global conflicts |
-| Effect snapshot isolation | Track effect sets and validate write-write conflicts at commit | Low-contention code and data tasks | Write skew, stale semantic reads, authority drift |
-| Effect serializable | Committed effects equal some serial work-unit order | Shared repositories, databases, cloud resources | The selected serial history may violate task or authority contracts |
-| Contract-valid effect serializable | Serial order plus read repair, commit-time authority, local and global outcome predicates | Consequential multi-agent workflows | Depends on the completeness of contracts and effect mapping |
-| Strict contract-valid | Also preserves real-time constraints for completed approvals and visible effects | Payments, deployment control, security, publication | Highest coordination cost |
+An agent commit therefore needs stronger conditions. For every work unit:
 
-The important product decision is not "parallel on or off." It is which anomalies the workload can tolerate.
+- important reads remain valid, or the plan is repaired against current state;
+- authority still covers the effects at commit time;
+- the work unit's own acceptance conditions pass;
+- the combined workflow satisfies a global outcome condition;
+- the externally visible history matches this valid serial explanation.
 
-## Scheduling should be adaptive and effect-aware
+A precise research name for this property is **contract-valid effect serializability**. The name is less important than the distinction: the system needs not only a possible serial order, but a serial order that remains justified by current state, authority, and user intent.
 
-The best concurrency policy depends on conflict probability, abort cost, effect reversibility, and consequence.
+## An implementable architecture
 
-A practical scheduler can classify each work unit along four dimensions:
+A general system can start with a small set of components rather than a complete "agent database":
 
-\[
-score(W) = f(P_{conflict}, C_{abort}, C_{block}, R_{effect})
-\]
+1. **Stable work-unit identity.** Bind the model calls, tool calls, subprocesses, and delegated agents that belong to one piece of work.
+2. **Effect adapters.** Record reads, writes, consumption, and externally visible actions at file, Git, database, cloud API, browser, and MCP boundaries.
+3. **Versions and preconditions.** Track hashes, ETags, policy versions, object revisions, and other comparable state.
+4. **Conflict detection.** Handle physical conflicts first, then use schemas, tests, policies, and semantic analysis for higher-level conflicts.
+5. **Authority revalidation.** Recheck principal, scope, target, budget, approval, and delegation immediately before effects become visible.
+6. **Global validation.** Run cross-branch tests, budget checks, release rules, and user-defined outcome checks.
+7. **Commit log.** Record which candidates were accepted, rejected, repaired, or serialized, and when irreversible actions occurred.
 
-- \(P_{conflict}\): estimated probability of conflict from historical traces, declared resources, and current activity;
-- \(C_{abort}\): tokens, tool time, human review, and external work lost on repair;
-- \(C_{block}\): latency and resource cost of waiting;
-- \(R_{effect}\): consequence and reversibility of proposed effects.
+System-level observation is useful because an agent may create undeclared effects through a shell script, Python subprocess, or third-party tool. File, process, and network observation can reveal that a supposedly read-only tool wrote data or contacted an external destination. Those events show what happened; they do not, on their own, determine whether the result satisfies the task. The commit layer still needs resource, authority, and outcome semantics.
 
-Low-conflict read-heavy work should run optimistically. High-contention, short mutations can use locks. Long reasoning with repairable outputs should run speculatively with suffix repair. Irreversible effects should be serialized at a narrow commit gate even if their preparation is parallel.
+## How to evaluate the design
 
-This produces a useful principle:
+A convincing evaluation must measure both correctness and coordination cost.
 
-> Parallelize evidence gathering and proposal construction aggressively. Serialize only the smallest effect boundary needed to preserve the contract.
+Useful workload families include:
 
-That boundary may be one API call, a set of related repository changes, a budget allocation, or the publication of a final artifact.
+- **Collaborative coding:** agents edit different files while sharing API, schema, configuration, or test invariants.
+- **Data and budget tasks:** agents write separate records while sharing quotas, uniqueness rules, or approval.
+- **Cloud operations:** agents prepare deployments, scaling, rollback, and release steps in parallel.
+- **External communication:** agents create tickets, messages, announcements, or other visible effects.
 
-## How to evaluate the proposal
+Baselines should include:
 
-A convincing evaluation must compare strategies at equal task quality and include conflicts that textual merges cannot detect.
+- parallel execution without coordination;
+- independent worktrees followed by ordinary merge;
+- fully serial execution;
+- locking on known resources;
+- optimistic version validation only;
+- shared commit with state, constraint, authority, and global-outcome checks.
 
-### Workload corpus
+Important metrics include:
 
-The corpus should include:
+- end-to-end task correctness rather than tool success rate;
+- recall for direct and semantic conflicts;
+- latency lost to unnecessary serialization;
+- abort, repair, and model-token cost;
+- duplicate or incorrect external effects;
+- commits that succeed after authority has become stale;
+- user interruptions and reapproval frequency;
+- explanation quality when a commit is rejected.
 
-1. independent read-only research;
-2. disjoint file edits with no shared invariant;
-3. same-file write conflicts;
-4. cross-file API or schema conflicts;
-5. stale-read configuration changes;
-6. aggregate budget, quota, and inventory write skew;
-7. one-time approval and delegated-authority conflicts;
-8. ordered external actions such as deploy-then-announce;
-9. duplicate irreversible effects;
-10. document tasks where facts and conclusions can contradict without textual overlap.
+Ablation should remove state validation, shared constraints, authority checks, and global acceptance one at a time. A layer that does not prevent real failures should not become a permanent default cost.
 
-The ground truth should specify allowed serial orders, global outcome predicates, and which effects are reversible.
+## Scope, limitations, and falsification
 
-### Baselines
+This design targets tool-using agents that modify shared state, use delegated authority, or create external effects. Chat, independent retrieval, and fully isolated candidate generation usually do not need such a protocol.
 
-Compare:
+The design also has real limits:
 
-- sequential single-agent execution;
-- naive parallel tool execution;
-- isolated worktrees or sandboxes with post-hoc merge;
-- reducer or CRDT-based state convergence;
-- pessimistic resource locking;
-- optimistic effect validation with full retry;
-- effect serializability without task or authority contracts;
-- contract-valid effect serializability with targeted repair.
+- logical resources and global invariants cannot all be discovered automatically;
+- semantic conflict detection may produce false positives and serialize safe work;
+- aborting a long-running agent can waste substantial model and tool cost;
+- external services without idempotency, conditional updates, or a prepare phase limit the guarantees a coordinator can provide;
+- user intent may be too vague to express as a reliable acceptance condition;
+- model judgment cannot replace deterministic authorization and transaction boundaries.
 
-### Metrics
+The central claim would be weakened by any of the following findings:
 
-Measure:
+- at equal resource and review cost, ordinary worktrees, merge, and comprehensive tests reach the same final correctness;
+- cross-file, cross-service, and aggregate-constraint conflicts are rare enough that coordination costs more than the failures it prevents;
+- most high-risk tools already provide complete transaction semantics below the agent runtime;
+- global validation does not find failures earlier or more accurately than per-agent checks;
+- maintaining semantic resource declarations and conflict rules is impractical in production.
 
-- final task success;
-- serializability violations;
-- contract violations despite serializable state;
-- semantic conflict recall and false-positive rate;
-- irreversible-effect leakage;
-- wall-clock speedup;
-- model and tool cost;
-- full aborts versus suffix repairs;
-- blocked time and deadlocks;
-- human review time;
-- commit-protocol overhead;
-- percentage of effects with unknown or incorrect reversibility.
+These are measurable conditions. A more complex commit protocol is justified only when it prevents real errors at an acceptable cost.
 
-Ablations should remove semantic resource mapping, authority revalidation, global outcome predicates, and random post-commit audits separately. If these components do not change correctness or diagnosis, the stronger contract is unnecessary.
+## A practical starting point
 
-## Scope and alternative explanations
+Developers can adopt several useful rules without waiting for a full system:
 
-This proposal targets tool-using agents that mutate shared or externally visible state. Read-only fan-out, independent simulation, and embarrassingly parallel retrieval do not need a heavy commit protocol.
+1. Run independent read-only tools in parallel by default. Require side-effecting tools to declare whether parallel execution is safe.
+2. Let coding agents prepare patches in isolated workspaces, but treat merge, integration testing, and release as a separate commit stage.
+3. Protect budgets, quotas, approvals, and versions with compare-and-set, ETags, one-time tokens, or server-side consumption records.
+4. Place messages, payments, deletion, and production release after all bufferable changes have validated.
+5. Define at least one global acceptance condition for the user's whole task instead of trusting each subagent's "success" status.
+6. Record which work unit caused each external effect, which authority it used, and which resource versions justified it.
 
-Several alternative explanations could weaken the case.
-
-First, better task decomposition may eliminate most conflicts. If a planner can reliably assign disjoint resources and invariants, workspace isolation plus tests may be enough. Current evidence from coding benchmarks suggests decomposition is imperfect, but the result may improve with better models and project metadata.
-
-Second, service APIs may absorb the problem. A database can provide serializable transactions, a payment API can enforce idempotency, and a deployment service can expose compare-and-swap. This reduces runtime responsibility. It does not remove cross-service contracts, such as coordinating a repository change, a feature flag, a message, and an approval.
-
-Third, stronger automatic tests may make semantic dependency tracking redundant for code. Tests are excellent outcome predicates. They are usually incomplete, run after expensive work, and cannot undo effects already exposed outside the test environment.
-
-Fourth, model-based repair may be less reliable than rerunning. A repair request can preserve an invalid hidden assumption or introduce new changes. The runtime should therefore compare targeted repair with full replay and fall back when the dependency slice is uncertain.
-
-Fifth, the contract-authoring burden may exceed the benefit. Hand-writing every resource and invariant would not scale. The architecture depends on progressive adoption: strong defaults for common effects, automatic physical footprints, reusable policy schemas, and explicit contracts only at high-consequence boundaries.
-
-## Falsification conditions
-
-The central claim should be rejected or narrowed if evidence shows any of the following:
-
-- At equal cost, worktree isolation plus ordinary tests matches contract-valid effect serializability on semantic conflicts, external effects, and authority changes.
-- Real production workloads have conflict rates low enough that naive parallelism plus human review yields lower total cost without materially worse outcomes.
-- Dynamic effect and dependency reconstruction cannot reach useful recall without so many false positives that the system serializes most work.
-- Commit-time authority and global outcome predicates add no violations beyond resource-level serializability.
-- Targeted repair is less reliable or more expensive than full retry across long-running agent tasks.
-- Service-level transactions and idempotency cover nearly all cross-tool workflows in practice.
-- The coordination overhead and latency of the commit protocol exceed the operational loss from the anomalies it prevents.
-
-These conditions are measurable. A research program should report where the weaker mechanism wins, not assume the strongest level everywhere.
-
-## What builders can do now
-
-A complete runtime is not required to improve current systems.
-
-1. **Classify tools.** Mark each tool read-only, bufferable, reversible, compensatable, or irreversible. Disable parallel execution for unknown high-consequence tools.
-2. **Give work units stable identities.** Carry task, branch, snapshot, policy, and authority epochs across model calls and subprocesses.
-3. **Record read versions as well as writes.** A patch can be stale even when it writes a unique file.
-4. **Make effects private before commit.** Use worktrees, semisolates, staging APIs, dry runs, and preview modes.
-5. **Revalidate approvals.** Bind approval to target, amount, state predicate, and expiry; check it immediately before the effect.
-6. **Define one global outcome predicate.** Tests for each branch are not enough when the combined result has a higher-level goal.
-7. **Linearize irreversible actions.** Prepare in parallel, then execute once through a narrow coordinator with semantic idempotency.
-8. **Expose the isolation level.** A user should know whether "parallel" means only concurrent execution, isolated workspaces, or a serializable commit contract.
-9. **Keep provenance.** Record why a work unit was committed, repaired, reordered, or aborted, including the conflict edges and validation results.
-10. **Measure wasted reasoning.** Abort cost is part of concurrency control for agents, not a separate model-serving metric.
+These practices do not solve every semantic conflict. They replace the most dangerous pattern, several agents independently succeeding and immediately publishing effects, with a clearer model: several agents prepare in parallel, and one explicit boundary decides what becomes real.
 
 ## Conclusion
 
-Parallel agents are not simply a faster version of sequential agents. Once they read and mutate shared state, they become a distributed transaction system with unusual transactions: plans are generated online, read sets are opaque, execution lasts minutes, authority changes, effects cross unrelated services, and some actions cannot be undone.
+The hard part of parallel agents is not running several models or tools at once. It is proving that their combined result still satisfies one user task.
 
-The industry already has mechanisms for each layer. Agent SDKs schedule parallel calls. Worktrees and sandboxes isolate intermediate state. Reducers and CRDTs converge updates. Databases serialize rows. Atomix mediates transactional tool effects. CoAgent repairs concurrent trajectories. Provenact revalidates policy state. Semisolates capture opaque process effects.
+Worktrees and sandboxes isolate execution. Reducers and CRDTs combine state. Database transactions protect known resources. Policy engines check individual actions. None of them alone can decide whether several local successes jointly violate an API, budget, approval, release order, or user objective.
 
-The missing piece is the composition contract. A correct run needs more than one converged state and more than some serial explanation. It needs a serial explanation that remains valid under the task, authority, and outcome conditions that justified the work.
+A more reliable design lets agents prepare candidate results in parallel, then validates them before real effects occur. The commit step rechecks important reads, detects physical and semantic conflicts, confirms authority, runs local and global acceptance checks, and leaves irreversible actions until the end.
 
-Contract-valid effect serializability provides that target. It does not require serial reasoning. It lets agents search, plan, generate, and test in parallel, then forces only the conflicting and consequential effects through a commit protocol. The resulting system can explain not only that its branches merged, but why the combined result was still authorized, current, and correct.
+This does not remove uncertainty, and it should not serialize every task. It creates a clear responsibility boundary: parallel workers propose results; the commit layer decides which results may become part of the external world together.
 
 ## References
 
-1. OpenAI, [Running agents: function-tool concurrency](https://openai.github.io/openai-agents-python/running_agents/).
+1. OpenAI Agents SDK, [Running agents](https://openai.github.io/openai-agents-python/running_agents/).
 2. Anthropic, [Parallel tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/parallel-tool-use).
-3. Microsoft, [AutoGen agents and parallel tool calls](https://microsoft.github.io/autogen/stable/user-guide/agentchat-user-guide/tutorial/agents.html).
-4. Google, [ADK ParallelAgent](https://adk.dev/agents/workflow-agents/parallel-agents/).
-5. LangChain, [LangGraph Graph API](https://docs.langchain.com/oss/python/langgraph/use-graph-api) and [concurrent update errors](https://docs.langchain.com/oss/python/langgraph/errors/INVALID_CONCURRENT_GRAPH_UPDATE).
-6. Model Context Protocol, [Sampling with tools and parallel tool use](https://modelcontextprotocol.io/specification/2025-11-25/client/sampling).
-7. Kung and Robinson, [On Optimistic Methods for Concurrency Control](https://db.cs.cmu.edu/papers/1981/kung-tods1981.pdf), ACM TODS 1981.
-8. Garcia-Molina and Salem, [Sagas](https://www.cs.princeton.edu/research/techreps/598), 1987.
-9. Mohammadi et al., [Atomix: Timely, Transactional Tool Use for Reliable Agentic Workflows](https://arxiv.org/abs/2602.14849), 2026.
-10. Lyu et al., [CoAgent: Concurrency Control for Multi-Agent Systems](https://arxiv.org/abs/2606.15376), 2026.
-11. Peng and Wu, [Stateful Governance for Concurrent Agentic Systems](https://arxiv.org/abs/2608.02764), 2026.
-12. Zhou et al., [ATCC: Adaptive Concurrency Control for Unforeseen Agentic Transactions](https://arxiv.org/abs/2603.13906), 2026.
-13. Liu et al., [Multi-agent Collaboration with State Management](https://arxiv.org/abs/2605.20563), 2026.
-14. Khan, [S-Bus: Automatic Read-Set Reconstruction for Multi-Agent LLM State Coordination](https://arxiv.org/abs/2605.17076), 2026.
-15. Pugachev, [CodeCRDT: Observation-Driven Coordination for Multi-Agent LLM Code Generation](https://arxiv.org/abs/2510.18893), 2025.
-16. Khatua et al., [CooperBench: Why Coding Agents Cannot be Your Teammates Yet](https://arxiv.org/abs/2601.13295), 2026.
-17. Ogenrwot and Businge, [AgenticFlict](https://arxiv.org/abs/2604.03551), 2026.
-18. Lamprou et al., [Controlling Opaque-Component Effects with Semisolates and Try](https://www.usenix.org/conference/osdi26/presentation/lamprou), OSDI 2026.
-19. Liargkovas et al., [hS: Speculative Script Reordering at Subprocess Granularity](https://www.usenix.org/conference/osdi26/presentation/liargkovas), OSDI 2026.
+3. Google Agent Development Kit, [Parallel agents](https://adk.dev/agents/workflow-agents/parallel-agents/).
+4. Microsoft AutoGen, [Agents and tool execution](https://microsoft.github.io/autogen/stable/user-guide/agentchat-user-guide/tutorial/agents.html).
+5. LangChain, [LangGraph Graph API](https://docs.langchain.com/oss/python/langgraph/use-graph-api).
+6. Model Context Protocol, [Sampling with tools specification](https://modelcontextprotocol.io/specification/2025-11-25/client/sampling).
+7. Philip A. Bernstein, Vassos Hadzilacos, and Nathan Goodman, [Concurrency Control and Recovery in Database Systems](https://www.microsoft.com/en-us/research/people/philbe/book/), 1987.
+8. Hector Garcia-Molina and Kenneth Salem, [Sagas](https://www.cs.princeton.edu/research/techreps/598), 1987.
+9. Marc Shapiro et al., [Conflict-Free Replicated Data Types](https://inria.hal.science/inria-00609399), 2011.
+10. Eunomia Research, [What Should an AI Agent Trace Keep? Observability Under a Fixed Evidence Budget](https://eunomia.dev/research/agent-trace-evidence-budget/), 2026.
