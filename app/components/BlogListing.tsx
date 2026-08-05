@@ -1,4 +1,5 @@
 import type { BlogEntry } from "../lib/content/types";
+import { localizePath } from "../lib/paths";
 import type { Locale } from "../lib/site-data";
 import { BlogPostList, BlogPostYearGroups } from "./BlogPostList";
 
@@ -19,12 +20,14 @@ export function BlogListing({ title, description, entries, locale }: BlogListing
       ? {
           latest: "最新文章",
           archive: "全部文章",
-          empty: "没有找到文章。"
+          empty: "没有找到文章。",
+          research: "阅读研究文章"
         }
       : {
           latest: "Latest writing",
           archive: "All posts",
-          empty: "No posts found."
+          empty: "No posts found.",
+          research: "Read research"
         };
 
   return (
@@ -34,6 +37,12 @@ export function BlogListing({ title, description, entries, locale }: BlogListing
         {showDescription && (
           <p className="mt-5 max-w-3xl text-base leading-7 text-slate-600">{cleanDescription}</p>
         )}
+        <a
+          href={localizePath("/research/", locale)}
+          className="mt-6 inline-flex rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-400 hover:text-ink"
+        >
+          {copy.research}
+        </a>
       </div>
 
       {featuredEntries.length ? (

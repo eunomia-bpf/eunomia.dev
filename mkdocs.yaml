@@ -343,6 +343,13 @@ extra:
         footer_project: true
       order: 100
   primary_nav_children:
+    blog:
+      - label: Blog
+        label_zh: 博客
+        href: /blog/
+      - label: Research
+        label_zh: 研究
+        href: /research/
     products:
       - label: bpftime
         label_zh: bpftime
