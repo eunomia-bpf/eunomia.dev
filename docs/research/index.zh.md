@@ -1,19 +1,19 @@
 ---
 title: 研究
-description: "基于一手来源的系统研究简报，提出可验证论点，比较互相竞争的证据，并明确架构影响、适用范围和可证伪条件。"
+description: "面向人类技术读者、基于一手来源的系统研究简报，提出可验证论点，并明确架构影响、适用范围和可证伪条件。"
 ---
 
 # 研究
 
-Eunomia Research 发布基于一手来源的系统研究简报。目标不是总结一轮新闻，而是从一个精确技术问题出发，比较独立证据，识别冲突与替代解释，并说明结论会改变哪项架构或工程决策。
+Eunomia Research 面向工程师、研究者和维护者发布基于一手来源的系统研究简报。每篇文章从一个具体技术问题出发，提出可验证的判断，比较独立证据，并说明结论会改变哪项架构或工程决策。
 
 这些页面属于经过审查的研究简报，除非页面另有说明，并不等同于同行评审论文。每项判断都受证据范围、来源截止时间、假设和可证伪条件约束。后续证据改变结论时，应更新稳定页面，而不是再创建一篇高度重复的文章。
 
 ## 当前研究
 
-### [并行 Agent 需要 Commit Protocol：从 Effect Serializability 到契约有效执行](https://eunomia.dev/zh/research/parallel-agent-effect-serializability/)
+### [多个 AI Agent 同时工作时，谁来保证最终结果是对的？](https://eunomia.dev/zh/research/parallel-agent-effect-serializability/)
 
-并行调用、worktree、reducer 和可串行化的资源更新，仍然可能组合成违背用户任务或使用过期权限的结果。本文审视当前 Agent runtime，并针对代码、API、预算、审批与不可逆动作提出 contract-valid effect serializability。
+`worktree`、沙箱和并行工具调用可以隔离 worker，却仍可能产生错误的组合结果。本文用代码修改、共享预算、审批和不可逆操作说明：并行 Agent 的结果在真正生效前，需要经过一次统一的验证和提交。
 
 ### [AI Agent 轨迹到底该保留什么：固定证据预算下的可观测性设计](https://eunomia.dev/zh/research/agent-trace-evidence-budget/)
 
@@ -24,6 +24,7 @@ Eunomia Research 发布基于一手来源的系统研究简报。目标不是总
 一篇研究简报必须提供比流畅综述更多的价值：
 
 - 问题会影响真实的系统或工程决策；
+- 开头应让没有读过来源材料的技术读者直接理解；
 - 使用相互独立的一手来源，并在可能时加入实现或测量证据；
 - 存在真实张力、矛盾或替代解释；
 - 综合结论不能从任意单篇来源直接复制；
