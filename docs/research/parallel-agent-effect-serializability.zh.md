@@ -1,518 +1,335 @@
 ---
 date: 2026-08-05
-title: "并行 Agent 需要 Commit Protocol：从 Effect Serializability 到契约有效执行"
-description: "并行工具调用、worktree、reducer 和无冲突合并，都可能与错误的最终结果同时出现。本文审视当前 Agent runtime 的并发语义，区分四层正确性，并提出跨代码、API、权限和不可逆动作的契约有效 effect serializability。"
+title: "多个 AI Agent 同时工作时，谁来保证最终结果是对的？"
+description: "Worktree、沙箱和并行工具调用可以隔离执行，却不能保证多个 Agent 的结果合在一起仍满足同一项用户任务。本文用代码修改、共享预算和外部操作三个场景说明：并行 Agent 在产生真实副作用前，需要一个统一的提交步骤，重新检查状态、权限、共享约束和最终结果。"
 tags:
   - Research
   - AI Agent
   - Concurrency
   - Distributed Systems
   - Systems
-research_question: "工具型 AI Agent 应该遵守什么正确性契约，才能并发操作共享可变状态而不悄悄违背用户意图？"
+research_question: "当多个工具型 AI Agent 同时修改同一仓库、共享预算或外部系统时，运行时应在什么边界验证并提交它们的结果？"
 source_cutoff: 2026-08-05
 status: reviewed-research-brief
 ---
 
-# 并行 Agent 需要 Commit Protocol：从 Effect Serializability 到契约有效执行
+# 多个 AI Agent 同时工作时，谁来保证最终结果是对的？
 
-并行正在成为 Agent runtime 的默认能力。模型可以在一轮响应里发出多个工具调用，orchestrator 可以让几个 specialist 同时修改同一个仓库，图执行引擎可以把一个节点 fan-out 成多条并发分支，coding agent 平台也可以给每个 worker 创建独立 worktree，最后再合并补丁。
+想象一个很常见的并行 coding agent 工作流。
 
-任务彼此独立时，这些机制可以直接缩短延迟。问题在于，一旦两个 Agent 读取同一份旧状态并产生外部效果，它们就进入了传统并发控制研究了几十年的领域。两个局部合理的计划可以组合成一个全局错误的结果：它们也许修改不同文件，却一起破坏同一条 API invariant；也许分别花掉同一笔剩余预算；也许发布互相矛盾的公告；也许重复消费一份审批；也许执行两个无法通过 Git merge 修复的外部动作。
+用户要求升级一个服务的认证机制。系统把任务拆给两个 Agent：第一个修改 token 校验逻辑，第二个更新部署配置。它们各自在独立 `worktree` 中工作，没有覆盖彼此的文件；各自的局部测试也都通过；Git 最后甚至可以无冲突合并。
 
-常见保护机制都只覆盖其中一部分。Sandbox 隔离进程，worktree 隔离文件写入，reducer 合并 graph state，CRDT 保证副本收敛，数据库事务保护数据行，policy engine 判断动作是否允许。任何一个机制单独拿出来，都没有说明一组并发 Agent 效果在整体上什么时候才算正确。
+结果上线后，服务仍然出错。第一个 Agent 把 token 的 audience 改成了新值，第二个 Agent 却沿用旧配置。它们没有写同一行代码，也没有发生传统意义上的数据竞争，但两个局部正确的修改组合成了一个全局错误的系统。
+
+同样的问题不只出现在代码里。两个采购 Agent 可以分别看到“还剩 1,000 美元预算”，然后各自下单 800 美元；两个运营 Agent 可以同时发布互相矛盾的公告；两个子 Agent 可以分别使用同一份一次性审批；两个工具调用也可能把同一封邮件、付款或部署执行两次。`sandbox`、`worktree`、锁和数据库事务各自能挡住一部分错误，却没有一个机制天然知道“这些结果合在一起是否仍然完成了用户真正交代的任务”。
 
 <!-- more -->
 
-本文讨论的正是这项缺失的契约。起点是数据库中的 serializability：如果一段并发历史与某种串行执行具有等价的可观察效果，那么这段历史可以被接受。对工具型 Agent 来说，仅有这一点仍然不够。被选中的串行顺序还必须符合每个 Agent 开始工作时依赖的任务意图、权限、状态假设和结果条件。
+本文的核心判断很简单：
 
-本文提出的目标是 **contract-valid effect serializability**，即“契约有效的效果可串行化”。一段并发 Agent 运行只有在存在某个 work unit 串行顺序，并同时满足以下条件时才可接受：
+> **把每个 Agent 当成并行准备方案的 worker，而不是可以随时把结果写进真实世界的独立 owner。并行发生在准备阶段，真正的副作用应当经过一次统一的验证和提交。**
 
-1. 顺序遵守明确的因果、委派、审批和实时约束；
-2. 每个 work unit 的关键读取仍然有效，或者它已经针对 commit 前状态修复了受影响的计划；
-3. 权限和策略谓词在 commit 时仍成立；
-4. 局部 outcome contract 与整个 workflow 的 global outcome contract 都成立；
-5. 对外可见的效果与这段有效串行执行在相应观察模型下等价。
+这个提交步骤需要回答五个问题：
 
-这比“分支能够合并”或“两个工具没有写同一个 key”强得多。它允许独立的推理并行进行，只把真正冲突的效果送入显式 validation 和 commit 边界。
+1. Agent 做决定时读取的状态现在还有效吗？
+2. 多个结果是否触碰了同一条隐藏约束，即使它们修改的是不同文件或对象？
+3. 执行所需的权限和审批在提交时仍然有效吗？
+4. 每个局部结果合在一起后，是否满足整项任务的验收条件？
+5. 邮件、付款、部署等不可逆动作，是否以正确的次数和顺序发生？
 
-> **研究问题：**工具型 AI Agent 应该遵守什么正确性契约，才能并发操作共享可变状态而不悄悄违背用户意图？
->
-> **中心论点：**并行 Agent 系统需要针对语义效果的 commit protocol。Workspace isolation、状态收敛、普通 serializability 和 policy check 都是有用组件，但完整执行只有在已 commit 历史同时满足 effect serializability，并且在 commit 时仍符合任务、权限和结果契约时才安全。
+这不是要把所有 Agent 都改成串行运行。真正的目标是把“可以并行思考”和“可以并行产生外部效果”分开：读取、搜索、分析和生成候选方案可以高度并行；修改共享状态、消耗预算、使用审批和触发不可逆操作，则需要明确的提交边界。
 
-## 并发能力已经普及，正确性契约还没有跟上
+## 并行执行和正确结果是两件事
 
-对当前官方 runtime 文档做一次人工审计，可以看到一个一致趋势：并行执行已经是常规能力，side effect 的安全语义仍主要交给应用决定。
+当前 Agent runtime 已经普遍支持并行工具调用。OpenAI Agents SDK 在模型一轮发出多个本地函数工具调用时，可以同时启动这些调用，并允许应用限制并发数；Anthropic 的文档也明确说明，一次响应可以包含多个工具调用，但这些调用究竟并行、串行还是混合执行，由应用根据副作用、共享状态和顺序要求决定。Google ADK 的 `ParallelAgent` 会让子 Agent 在隔离分支中运行，同时提醒共享状态需要额外协调。LangGraph 可以通过 reducer 合并并行节点的 graph state，但节点内部已经执行的外部操作并不会因此自动获得事务语义。
 
-| Runtime 或协议 | 文档中的并发行为 | 明确提供的保护 | 留给应用的边界 |
-| --- | --- | --- | --- |
-| [OpenAI Agents SDK](https://openai.github.io/openai-agents-python/running_agents/) | 默认启动模型在一轮中发出的全部本地 function tool call，也可以限制并发数 | 工具输入 guardrail 可以在真正执行前重新验证；sandbox agent 提供 workspace-scoped execution | 并发设置本身不意味着跨工具 atomic commit 或 isolation contract |
-| [Claude tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/parallel-tool-use) | 一次响应可以包含多个工具调用，应用自行选择并发、串行或混合执行 | 文档明确区分独立只读工具和具有副作用、共享状态或顺序要求的工具 | 执行顺序、干扰控制和 rollback 明确由应用负责 |
-| [AutoGen](https://microsoft.github.io/autogen/stable/user-guide/agentchat-user-guide/tutorial/agents.html) | 多个工具调用默认并行执行 | 可以关闭 parallel tool call | 文档警告 side effect 可能互相干扰，并要求 stateful AgentTool 和 TeamTool 禁用并行 |
-| [Google ADK ParallelAgent](https://adk.dev/agents/workflow-agents/parallel-agents/) | Subagent 在独立分支中并发运行 | Conversation history 与分支状态不会自动共享 | 共享 context 需要锁，其他共享状态需要外部协调机制 |
-| [LangGraph](https://docs.langchain.com/oss/python/langgraph/use-graph-api) | Fan-out 节点在同一 superstep 中并发执行 | Reducer 定义 graph-state update 怎样合并；失败 superstep 不应用其 graph state update | “Transactional”保证针对 graph state，节点内部已经产生的外部效果需要另一套语义 |
-| [MCP sampling with tools](https://modelcontextprotocol.io/specification/2025-11-25/client/sampling) | 模型可以返回一组并行 tool request | 提供跨模型供应商的工具调用与结果表示 | 协议表示本身没有定义 multi-tool transaction、isolation level、commit point 或 compensation rule |
+这些能力解决的是调度问题：多个工作能不能同时进行，以及中间状态怎样组合。它们没有自动回答最终正确性问题。
 
-这不是某个 SDK 的 bug。接口暴露的是执行机制，而 Python 函数、shell 命令、MCP server、数据库操作、浏览器动作和 cloud API 具有完全不同的效果模型。通用 runtime 无法只看 tool name 就推导出安全事务边界。
+对只读任务来说，这个区别通常不重要。两个 Agent 同时搜索不同文档，最坏情况往往只是浪费一些计算。对有副作用的任务来说，区别会迅速放大：
 
-真正危险的是把“支持 parallel tool use”理解成“parallel effect 是正确的”。支持只说明这些调用可以重叠，正确性需要另一份契约。
+- “两个工具都成功返回”不等于“组合结果正确”；
+- “两个分支可以 clean merge”不等于“它们使用了兼容的设计假设”；
+- “两个数据库事务都可提交”不等于“总预算、审批范围或用户目标仍然成立”；
+- “每个动作单独被允许”不等于“这组动作整体被允许”。
 
-## 经常被混为一谈的四层性质
+并行系统最危险的失败，不一定是进程崩溃或 merge conflict，而是所有组件都报告成功，最终产物却悄悄偏离了用户目标。
 
-Agent 并发讨论里经常把四种不同性质都叫作 isolation。把它们分开以后，很多“看起来已经安全”的系统为什么仍会出错就清楚了。
+## 三类常见失败
 
-### 第一层：execution parallelism
+### 不同文件，破坏同一条系统约束
 
-Execution parallelism 回答的是调度问题：多个 model call、tool、node 或 subagent 能不能同时运行？
+代码仓库中的冲突常常不是文本冲突，而是语义冲突。
 
-Concurrency limit、task group、worker pool 和 graph fan-out 都属于这一层。它决定 throughput 与 latency，不说明两个操作会不会互相干扰。
+一个 Agent 修改 API 的输入约定，另一个 Agent 在另一目录里新增调用者；一个 Agent 重命名配置项，另一个 Agent 更新部署模板时仍使用旧名字；一个 Agent 改变错误处理语义，另一个 Agent 根据旧语义编写重试逻辑。它们可以编辑完全不同的文件，也可以各自通过局部测试。
 
-### 第二层：state separation 或 convergence
+`worktree` 很适合隔离写入，但它只把冲突推迟到集成阶段。Git 能发现两段补丁是否修改同一行，却不知道两个补丁是否依赖互相矛盾的接口假设。最终的提交者仍然需要重新构建、运行跨模块测试，并检查两个 Agent 开始工作后是否有关键前提已经变化。
 
-这一层回答 worker 会不会覆盖彼此的中间表示，以及最终表示能不能收敛。
+### 不同记录，共享同一个预算或审批
 
-Worktree、container、copy-on-write filesystem、独立 graph branch、reducer 和 CRDT 都属于这里。它们可以避免物理写入破坏，也可以保证多个副本最终合并成一个确定表示。
+很多业务约束不是某个文件或数据库行的属性，而是多个动作共同消耗的资源。
 
-收敛比语义正确弱得多。两个 patch 可以没有 textual conflict，却违反同一条函数契约；两段文档修改可以稳定合并，却同时保留互相矛盾的结论；两个 append-only log 可以完整保存所有 update，却一起突破预算或唯一性约束。
+两个采购 Agent 可能写入不同订单记录，却共享同一笔预算；两个 cloud Agent 可能创建不同实例，却一起突破项目配额；两个数据处理 Agent 可能读取不同表，却共同使用一份只允许一次导出的审批。
 
-### 第三层：effect serializability
+传统锁可以保护已知对象，但前提是系统已经知道应该锁什么。Agent 工具往往只暴露一个 shell 命令、HTTP 请求或浏览器动作，真正需要保护的逻辑资源却可能是“本周剩余预算”“一次性审批”“发布窗口”或“不能同时变更的 API 契约”。
 
-Effect serializability 询问一段并发、对外可见的历史，是否等价于相同 work unit 的某种串行顺序。
+如果运行时只按物理路径和 key 检测冲突，它会漏掉这类聚合约束。
 
-这一层处理 lost update、stale-read decision、write skew、重复消费和依赖顺序的外部动作。资源也不只是文件，还包括数据库行、API object、deployment state、消息、quota、approval 和用户可见 artifact。
+### 外部动作无法靠 merge 或 rollback 修复
 
-### 第四层：contract validity
+文件修改通常可以暂存在分支里，等验证通过再合并。邮件、付款、工单、发布和部署则不同。
 
-Contract validity 进一步问：这个串行解释是不是用户愿意接受的那个解释？
+一封邮件发出后，后续“补偿”只能再发一封更正邮件；一次付款可以退款，但原交易、手续费和审计记录仍然存在；一个生产部署可以回滚，却已经影响过请求；一个公开发布可以撤回，却无法保证没有人看到或复制。
 
-经典 serializability 假设每个 transaction 单独串行运行时本身是正确的。Agent work unit 削弱了这个前提。它的计划来自某个 snapshot、对任务的解释、一组权限以及中间观察。即使 runtime 能找到一个串行顺序，计划在真正 commit 时也可能已经没有依据。
+因此，Agent runtime 必须在执行前区分四类效果：
 
-考虑两个采购 Agent。它们都读取到项目还剩 1,000 美元，并各自计划采购 800 美元。Serializable system 可以确定先后顺序，但第二个 transaction 必须重新检查预算并 abort。现在再加入一条策略：采购只在经理批准特定 vendor 后允许。即使数据库历史可串行化，如果审批已经过期、只绑定另一个 vendor、已经被消费或已撤销，仍然不能执行。最后，即使两笔采购都符合 policy，它们也可能一起违背用户目标，例如用户要的是两个冗余供应商，而不是同一部件的两份副本。
+- **可缓冲：**可以在提交前保持私有，例如独立工作区里的代码补丁；
+- **可逆：**存在可靠的反向操作，并能恢复关键系统约束；
+- **可补偿：**可以追加修正，但历史效果仍然可见；
+- **不可逆：**无法安全撤销，或者重复执行会产生新的后果。
 
-因此，上层性质会约束下层性质：
+越接近不可逆的一端，越不能让每个并行 Agent 自行决定何时“落地”。
 
-```text
-contract-valid execution
-    需要 effect serializability
-        需要有意义的 effect 与 dependency tracking
-            同时尽量保留安全的 execution parallelism
-```
+## 现有机制分别解决了什么
 
-## 为什么熟悉机制仍然停在半路
-
-### Worktree 隔离字节，却把真正的问题推迟到 merge
-
-Worktree 为每个 coding agent 提供稳定 filesystem view，避免 worker 看见另一个 worker 写到一半的文件，也能让每条分支独立形成 coherent patch。这很有价值。
-
-困难被移到了 merge time。一次 clean Git merge 只证明基于文本行的 merge rule 没找到冲突，不证明两个 Agent 使用了兼容假设。一个 Agent 可能修改内部概念的含义，另一个 Agent 在另一文件里继续依赖旧行为。它们可以编辑不同文件，各自通过局部测试，合并后却 build failure，或者在测试覆盖不足时留下 latent invariant violation。
-
-近期系统把这个差距变成了可测对象。[STORM](https://arxiv.org/abs/2605.20563) 认为 per-agent worktree 会把冲突推迟到恢复成本很高的阶段，并报告 write-time state mediation 在 benchmark 上优于 worktree baseline。[AgenticFlict](https://arxiv.org/abs/2604.03551) 对超过 107,000 个 Agent PR 做确定性 merge simulation，发现 27.67% 存在 textual conflict。这个数据集只覆盖特定样本与文本冲突，不能代表所有并发或 semantic conflict，但足以说明 isolation 和 integration 是两个不同阶段。
-
-### Reducer 和 CRDT 定义怎样合并，不定义是否应该合并
-
-LangGraph 要求并行节点更新同一个 graph key 时提供 reducer，以免某个不明确的 last writer 悄悄获胜。CRDT 更进一步，可以在无锁条件下保证确定性收敛。
-
-Reducer 回答“这些值怎样组合”，不回答“这些值是否都应该被接受”。把两个 deployment target append 到列表里是确定的，即使只有一个 target 合法；把两个 permission set 做 union 会稳定收敛，即使权限本来不应该扩张；合并两组 factual claim 可以保留双方，包括互相冲突的事实。
-
-[CodeCRDT](https://arxiv.org/abs/2510.18893) 同时展示了优势与边界。它实现确定性收敛和零 merge failure，但仍观察到 semantic conflict，而且并行执行会随着 task structure 从 speedup 变成明显 slowdown。[S-Bus](https://arxiv.org/abs/2605.17076) 重建 Agent read set，在 shared shard 中防止 structural race；其评测也报告，同一套 preservation 机制在 single-shard collaborative writing 中反而有害，因为它把并发矛盾一起传播。更强的结构一致性可以非常忠实地保存一个语义错误的组合。
-
-### Lock 和 optimistic validation 会继承 Agent 特有成本
-
-经典 concurrency control 大致有两类策略。
-
-Pessimistic control 在冲突访问前拿锁。它避免浪费工作，却不适合在 read 与 write 之间进行几分钟推理的 Agent。如果在 model inference、tool call 和 human approval 整段期间锁住仓库、预算或 cloud resource，大部分有用并行度都会消失，还可能跨多个异构工具形成 deadlock。
-
-Optimistic control 允许工作先进行，commit 前再验证。经典 [optimistic concurrency control](https://db.cs.cmu.edu/papers/1981/kung-tods1981.pdf) 假设冲突足够少，abort 和 retry 比等待更便宜。Agent abort 出现了一种新的成本单位：model token、tool call、external rate limit 和 human review。[ATCC](https://arxiv.org/abs/2603.13906) 针对 data agent 生成的长时间、不规则 SQL transaction，动态在 optimistic 与 pessimistic strategy 之间切换，并把 abort cost 纳入调度。
-
-两种方法都不能自动解决 resource identification。数据库知道 transaction 触碰哪些 row 或 predicate，Agent runtime 看到的却可能只是 shell command、HTTP request 或 browser action。真实逻辑资源可能是“公开 API contract”“项目剩余预算”或“发布 launch announcement 的权利”，它们都无法直接映射成一个 path 或 key。
-
-### Compensation 不能让所有效果消失
-
-长事务经常使用 [Saga](https://www.cs.princeton.edu/research/techreps/598)：把流程拆成多个可 commit step，后续失败时运行 compensating action。这个方式实用，但 compensation 并不等于 rollback。
-
-被删除的 cloud instance 有时可以重建，但 identity 和 attached state 可能已经不同；发出的邮件只能追加更正，不能“未发送”；支付可以退款，但原交易、手续费和 audit event 仍然存在；公开 release 可以撤回，通知和副本不会一起消失。
-
-因此，Agent system 必须在 speculative execution 以前给 effect 分类：
-
-- **bufferable**：可以在 commit 前保持私有，例如 isolated workspace 中的 file patch；
-- **reversible**：存在可靠 inverse，可以恢复相关契约；
-- **compensatable**：可以补救，但会留下可观察历史；
-- **irreversible**：无法安全撤销或重复。
-
-如果系统直到 abort 后才发现一个效果属于哪一类，已经太迟。
-
-## 从 tool call 到 work-unit contract 的形式模型
-
-并发单位不应是单个 model call，而应是持久的 **work unit**。它需要携带任务、证据、权限、效果和 acceptance condition，才能决定结果是否可以 commit。
-
-定义 work unit \(W_i\)：
-
-\[
-W_i = \langle I_i, S_i, A_i, R_i, E_i, O_i \rangle
-\]
-
-其中：
-
-- \(I_i\) 表示任务意图和声明的 scope；
-- \(S_i\) 表示开始计划时使用的 snapshot 或 authority epoch；
-- \(A_i\) 表示 authority contract，包括 principal、capability、target、limit 和 expiry；
-- \(R_i\) 表示观察到的 read set，包括 version 与 semantic dependency；
-- \(E_i\) 表示针对逻辑资源提出的 effect set；
-- \(O_i\) 表示怎样才算完成的 outcome predicate。
-
-Effect 也不只是 write：
-
-\[
-e = \langle resource, operation, value, visibility, reversibility, authority \rangle
-\]
-
-`resource` 可以是 file inode、database row 这样的 physical resource，也可以是 API invariant、共享 quota、release channel 或 one-time approval 这样的 semantic resource。`visibility` 决定其他 actor 是否会在 commit 前看到效果，`reversibility` 决定 abort path 是否真实可信。
-
-对一段包含若干 committed work unit 的并发历史 \(H\)，普通 effect serializability 要求存在一个串行排列 \(\pi\)，使：
-
-\[
-Obs_Q(H) \equiv Obs_Q(W_{\pi(1)}; W_{\pi(2)}; \ldots; W_{\pi(n)})
-\]
-
-这里的 \(Obs_Q\) 是 observation contract。对 buffered file change，final-state equivalence 可能已经足够；对消息、支付和 audit event，可见 effect trace 与 real-time order 也可能属于正确性的一部分。
-
-Contract-valid effect serializability 再增加四个要求。对每个 \(W_{\pi(k)}\)：
-
-\[
-ValidRead(R_{\pi(k)}, state_{k-1}) \lor Repaired(W_{\pi(k)}, state_{k-1})
-\]
-
-\[
-Authorized(A_{\pi(k)}, E_{\pi(k)}, state_{k-1})
-\]
-
-\[
-O_{\pi(k)}(state_{k-1}, state_k, E_{\pi(k)}) = true
-\]
-
-并且完整 workflow 满足：
-
-\[
-G(state_0, state_n, H) = true
-\]
-
-第一项拒绝 stale reasoning，除非 Agent 已修复受影响计划；第二项在 effect 变得可见以前重新验证 authority；第三项检查 work unit 自己的结果；第四项检查无法拆成独立局部成功的 global task contract。
-
-这个区分很重要，因为 **serializable 不等于 desirable**。Runtime 也许能为两个 deployment、两笔采购或两条公告找到合法串行顺序，但用户只允许其中一个。Global contract 用来筛掉形式上可串行化、实质上不符合任务的历史。
-
-### 冲突类型
-
-实际系统需要的 conflict graph 不能只看 path overlap。
-
-| 冲突类型 | 示例 | 为什么 file/key overlap 看不到 |
+| 机制 | 它擅长解决的问题 | 它没有自动解决的问题 |
 | --- | --- | --- |
-| Physical write-write | 两个 Agent 修改同一函数 | 可以直接检测 |
-| Stale read-write | 一个 Agent 读取 schema，另一个修改 schema | Reader 可能写另一个文件 |
-| Semantic invariant | 两个 patch 修改不同 module，却一起破坏 API contract | 没有共享 physical write |
-| Aggregate constraint | 两个 Agent 分别花掉同一笔剩余预算 | 写入可能落在不同 purchase record |
-| Authority conflict | 两条分支消费或扩张同一份 approval | 被保护对象是 capability，不只是数据 |
-| External-order conflict | Announcement、deployment 或 ticket 必须按顺序发生 | 单个 effect 都可能合法 |
-| Irreversible duplicate | 两条分支重复发送付款或邮件 | Deduplication 需要 semantic identity |
-| Outcome conflict | 两个局部成功 subtask 组成一个无效整体 | 冲突只存在于 workflow level |
+| `sandbox`、容器、独立 `worktree` | 隔离进程、文件和中间状态 | 多个结果是否满足同一条 API、预算或业务约束 |
+| reducer、CRDT | 让并行更新以确定方式合并或收敛 | 合并后的值是否符合用户目标 |
+| 数据库事务和锁 | 保护已知行、key、predicate 或资源 | shell、浏览器和跨服务工具背后的逻辑资源怎样识别 |
+| 人工审批 | 在某个时刻批准一个动作 | 状态、目标或权限变化后，旧审批是否仍适用 |
+| 单 Agent 局部测试 | 验证一个分支在局部环境中的行为 | 多个分支合并后的跨模块和全局结果 |
+| 补偿操作 | 在部分失败后修正可补偿效果 | 让已经发生的外部历史真正消失 |
 
-Conflict graph 可以有 false positive。只要系统说明为什么认为两个 work unit 冲突，并允许 deterministic validation 消除 edge，这种保守性可以接受。真正不安全的是因为 path 不同，就默认任务彼此独立。
+这些机制都值得保留。问题不是它们无效，而是它们位于不同层次。一个完整的并行 Agent 系统需要把它们放进同一条“准备、验证、提交”路径里。
 
-## 近期系统放在一起说明了什么
+## 一个更实用的执行模型：先准备，再提交
 
-没有一个项目直接实现本文全部契约，但近期工作已经让各个组件变得具体。
-
-这一节引用的若干系统是 2026 年刚发布的 preprint，还不是已经稳定下来的 production standard。文中的实验数字应被理解为作者报告的机制证据，而不是独立确认的普适结论。下面的综合主要依赖多篇工作共同暴露出的边界，而不是某一个 headline number。
-
-[Atomix](https://arxiv.org/abs/2602.14849) 是最接近 tool-effect transaction 的系统。它给调用标记 epoch，维护 per-resource frontier，在可能时 buffer effect，并在 abort 时补偿已经 externalized 的效果。其实验说明，progress-aware commit 可以避免 losing speculative branch 污染外部环境，也能在 contention 下保持正确性。它证明 tool call 可以被当作 transaction effect 管理，而不是立即接受。
-
-[CoAgent](https://arxiv.org/abs/2606.15376) 直接研究 multi-agent concurrency。它指出，长 inference interval 让 lock 和完整 optimistic retry 都很昂贵，于是使用预先确定的 serialization order、order-filtered read、effect repair 和 undoable tool。报告结果说明，Agent-assisted repair 有可能恢复经典方案丢掉的并行度。这里最重要的设计启示是：runtime 可以要求 Agent 修复受影响 dependency，而不必丢弃整条 trajectory；但 effect tracking 与 undo semantics 仍必须由机械机制保证。
-
-[Provenact](https://arxiv.org/abs/2608.02764) 揭示另一个缺失维度：共享 budget、inventory、approval 和 risk state 在变化时，authorization 会过期。它定义 policy-state serializability，要求 effect 在真正 commit 以前，针对紧邻 commit 的 policy state 仍然被授权。这比把 policy state 当普通 prompt context 强得多，也说明 concurrency control 与 governance 不能放在两个互不知情的 control plane。
-
-[STORM](https://arxiv.org/abs/2605.20563)、[S-Bus](https://arxiv.org/abs/2605.17076) 和 [CodeCRDT](https://arxiv.org/abs/2510.18893) 分别从 workspace state mediation、observable read set 和 deterministic convergence 处理协作。它们合起来说明，write-time mediation、read-set reconstruction 与收敛都很重要，但价值取决于 workload topology 和 semantic invariant。
-
-[Semisolates 与 `try`](https://www.usenix.org/conference/osdi26/presentation/lamprou) 以及 [`hS`](https://www.usenix.org/conference/osdi26/presentation/liargkovas) 说明，即使组件是 opaque subprocess，runtime 也可以在不重写组件的情况下捕获、检查、延迟并选择性应用 effect。Agent 的许多工具正是 shell command 或第三方 binary，无法依赖 SDK 内插桩。这些系统说明 system-level effect capture 是可行的，下一层工作是把它和 task semantics、authority 连接起来。
-
-两项经验研究说明，即使 Agent 会互相通信，也不能假设正确协调会自然出现。[CooperBench](https://arxiv.org/abs/2601.13295) 报告两个 coding agent 协作时，平均成功率比单个 Agent 完成两个任务低 30%，并把问题归因于模糊或错误通信、违背承诺和对对方计划的错误预期。AgenticFlict 则在生态尺度观察到频繁 textual conflict。它们都不能证明 contract-valid serializability 是唯一解法，但足以反驳“更强模型加更多消息就能自动解决并发”的假设。
-
-因此，综合结论不是“把全部 tool call 塞进一个数据库 transaction”。正在出现的系统已经把问题拆成 effect capture、read-set reconstruction、state coordination、adaptive scheduling、policy validation、repair 和 compensation。通用 Agent runtime 还需要一份契约，告诉这些机制什么叫作成功组合。
-
-## 面向并行 Agent 的 commit architecture
-
-下面这套架构允许 reasoning 和 read-only exploration 保持并行，同时把 effect visibility 变成显式协议决定。
+可以把并行 Agent 的工作分成三个阶段。
 
 ```mermaid
-flowchart TD
-    U[用户任务与 global outcome contract] --> P[Planner 创建 work unit]
-    P --> X[Snapshot epoch 与 authority epoch]
-    X --> A[Agent A speculative execution]
-    X --> B[Agent B speculative execution]
-    A --> EA[Read set 与 effect manifest]
-    B --> EB[Read set 与 effect manifest]
-    EA --> G[Semantic conflict graph]
-    EB --> G
-    G --> V[Read, policy, authority, outcome validation]
-    V -->|独立或可修复| O[选择有效 commit order]
-    V -->|过期或无效| R[Rebase, repair, replan 或 abort]
-    O --> C[Commit bufferable 与 reversible effect]
-    C --> I[Linearize irreversible effect]
-    I --> Q[验证 global outcome contract 并记录 provenance]
+flowchart LR
+    U[用户任务与验收条件] --> P[多个 Agent 并行读取、分析和准备方案]
+    P --> M[每个 Agent 输出候选结果和效果清单]
+    M --> V[统一提交器检查状态、冲突、权限和全局结果]
+    V -->|通过| C[提交可缓冲修改]
+    V -->|状态已变化或存在冲突| R[局部重做、降级为串行或请求用户决定]
+    C --> E[最后执行不可逆外部动作]
 ```
 
-### 1. 执行前声明 work unit
+### 第一阶段：并行准备
 
-Orchestrator 先创建稳定 work-unit identity，至少包含：
+每个 Agent 可以在稳定快照上进行分析、生成代码、构建候选计划或准备工具参数。此时尽量不要让结果对外可见。
 
-- parent task 与 delegation path；
-- intent 和 target object；
-- snapshot epoch；
-- authority epoch 与 capability scope；
-- expected output 与 outcome check；
-- risk class 和允许的最高 effect class；
-- 预计 reasoning cost 与 abort cost。
+除了补丁或工具调用，Agent 还应返回一份简短的“效果清单”，说明：
 
-声明可以不完整，dependency 仍由 Agent 动态发现。它的作用是确定任务变化时哪些字段必须更新，以及 commit coordinator 有权接受什么。
+- 它读取了哪些关键版本和对象；
+- 它计划修改或消费什么；
+- 它依赖哪些假设；
+- 它使用什么权限或审批；
+- 它认为怎样才算完成。
 
-### 2. 在 effect-aware speculative environment 中运行
+例如：
 
-每个 work unit 获得 isolated 或 semisolated execution view：
-
-- worktree、copy-on-write filesystem、container、browser profile 或 database snapshot；
-- 已知 API 的 intercepted tool adapter；
-- opaque subprocess 的 system-level observation；
-- 能够 buffer 的本地 effect；
-- compensatable 或 irreversible action 前的明确 barrier。
-
-Read-only network/search 可以立即执行，file write 可以保持私有。Cloud mutation、message、payment、publication 和 credential use 需要更强 gate。
-
-### 3. 重建 physical 与 semantic footprint
-
-Tool schema 应尽可能声明 resource template：
-
-```text
-read:    repo:{id}:symbol:{name}
-write:   repo:{id}:api-contract:{service}
-use:     budget:{project}
-send:    channel:{launch-announcement}
-consume: approval:{approval-id}
+```yaml
+work_unit: update-authentication
+intent: migrate service authentication to the new audience value
+reads:
+  - resource: api/auth-contract
+    version: git:8f31c2
+  - resource: deployment/config
+    version: git:27a9d0
+proposed_effects:
+  - modify: src/auth/validator.ts
+  - modify: deploy/service.yaml
+shared_constraints:
+  - token audience must match across code and deployment
+authority:
+  scope: repository:eunomia/service-a
+acceptance:
+  - integration test passes
+  - old audience is absent from production config
 ```
 
-声明总会不完整，因此 runtime 还要补充：
+这份清单不需要完美预测所有副作用。它首先让提交器拥有比“Agent 返回了一段文本或一个 exit code”更多的结构化信息。
 
-- file、process、database 和 network observation；
-- versioned tool input/output；
-- repository dependency graph 与 test coverage；
-- policy label 与 capability identifier；
-- application invariant；
-- Agent 产生的 dependency explanation 及 confidence。
+### 第二阶段：统一验证
 
-LLM 可以帮助提出 semantic edge，但不应成为唯一 commit oracle。高后果决策应主要由 deterministic schema、version check、test、policy 和 resource key 决定。模型更适合高召回地定位潜在冲突，再请求针对性验证。
+提交器收集多个候选结果后，检查它们是否可以安全组合。
 
-### 4. 构建 conflict graph，而不是拿一把 global lock
+它至少需要检查：
 
-当一个 work unit 可能使另一个失效时，coordinator 建立 edge，并记录原因和消除方式：
+1. **关键读取是否过期。** Agent 开始工作后，相关文件、数据库对象、策略或外部资源是否已经变化？
+2. **是否存在直接冲突。** 两个工作单元是否写同一对象，或依赖彼此的旧版本？
+3. **是否违反共享约束。** 不同对象上的修改是否共同突破预算、配额、唯一性或 API invariant？
+4. **权限是否仍有效。** 审批、凭据和委派关系在真正提交时是否仍覆盖这些效果？
+5. **局部和全局验收是否通过。** 每个结果单独正确之外，合并后的系统是否完成用户的整项任务？
+6. **外部动作的顺序是否正确。** 哪些动作必须只执行一次，哪些必须在其他修改成功后才能发生？
 
-```text
-A -> B
-reason: B 读取 API schema v12；A 提议 v13
-discharge: 在 v13 上重新运行 B 的 compatibility test
-```
+验证失败不一定意味着整项任务重做。提交器可以只让受影响的 Agent 在新状态上重新规划，也可以把冲突部分降级为串行执行，或者向用户呈现一个具体决策，而不是简单地说“merge conflict”。
 
-Graph 可以找出仍能并行 commit 的独立 component，也可以只 serialize 真正冲突的 effect，而不是在整个 reasoning 期间锁住完整 repository 或 task。
+### 第三阶段：提交真实效果
 
-### 5. Commit-time validation
+验证通过后，系统先提交可缓冲的修改，例如文件、数据库事务或暂存配置；最后再执行邮件、付款、生产部署等不可逆动作。
 
-Commit 前至少做四类验证。
+这个顺序能减少一种常见错误：Agent 先把外部动作做了，随后才发现代码、审批或其他分支无法提交。不可逆动作越晚发生，系统越容易在失败时保持一个诚实、可恢复的状态。
 
-**Read validation：**计划依赖的 state version 或假设有没有变化？如果变化，能否只修复受影响 suffix，而不是重跑整个 work unit？
+## 提交器真正需要保护的是“逻辑资源”
 
-**Policy and authority validation：**当前 principal 是否仍然可以对这个 target、amount、environment 和时间执行精确 effect？Capability 是否已消费、撤销、缩小或重新委派？
+按文件路径检测冲突很容易，按逻辑资源检测冲突更难，但后者决定了系统是否真的可靠。
 
-**Outcome validation：**Earlier commit 发生以后，test、deployment probe、ledger predicate、document consistency check 或其他 oracle 是否仍通过？
+逻辑资源可以是：
 
-**Global validation：**组合结果是否满足原始用户任务？一组 locally successful output 不会自动构成成功 workflow。
+- 一个 API 或数据格式的兼容性约束；
+- 一笔共享预算或一个配额；
+- 一份一次性审批；
+- 一个发布窗口；
+- 一项“只能选择一个方案”的用户决策；
+- 一组必须保持一致的代码与部署配置；
+- 一条信息流策略或敏感数据边界。
 
-Human approval 不能冻结这些检查。用户可以在时间 \(t\) 批准 proposal，但真正执行的 \(t+\Delta\) 时状态可能已经改变。Approval 记录 intent 与 authority，runtime 仍需检查 commit-time state predicate。
+运行时不可能自动理解所有业务语义，因此需要组合几种方法：
 
-### 6. 按风险顺序 commit effect
+- 工具和应用显式声明资源、前置条件和效果；
+- 系统根据文件、数据库、进程和网络行为补充实际读写集合；
+- 测试、schema、policy 和 invariant checker 提供确定性验证；
+- 模型只在结构化规则无法覆盖时辅助识别可能的语义冲突；
+- 高风险或不可逆动作保留明确的人工提交点。
 
-一个安全的默认顺序是：
+模型可以帮助发现“两个补丁似乎修改了同一接口语义”，但最终安全边界不应只依赖模型一句“看起来没问题”。能用版本、类型、测试、策略和事务证明的部分，应尽量使用确定性机制。
 
-1. metadata 与 provenance；
-2. bufferable local state；
-3. reversible external effect；
-4. compensatable effect；
-5. irreversible effect。
+## 哪些任务可以直接并行
 
-Irreversible effect 需要明确 linearization point 和 semantic idempotency identity。后续失败时，记录必须说明发生了 compensation，而不是假装原 effect 从未存在。
+并行不是越多越好。一个实用调度器可以按效果风险选择不同策略。
 
-### 7. 修复受影响 suffix
+| 工作类型 | 推荐策略 | 例子 |
+| --- | --- | --- |
+| 独立只读任务 | 直接并行 | 搜索文档、读取不同日志、运行互不影响的分析 |
+| 可缓冲且资源明确不同 | 并行准备，提交前做版本验证 | 在独立模块生成补丁、准备多个候选报告 |
+| 可能共享隐藏约束 | 并行准备，统一运行集成测试和约束检查 | 修改 API、schema、预算、发布计划 |
+| 已知热点资源 | 锁定、分片或直接串行 | 同一配置对象、同一额度、同一审批 |
+| 可补偿外部动作 | 统一提交并记录补偿语义 | 创建工单、可回滚的基础设施修改 |
+| 不可逆或高后果动作 | 最后执行，并保留明确审批 | 付款、发信、删除数据、生产发布 |
 
-完整 abort 一条长 trajectory 会浪费大量仍然有效的 reasoning。CoAgent 展示了更符合 Agent 特征的方向：通知 work unit 哪个 dependency 已改变，定位 plan 中使用它的部分，只撤销或丢弃 dependent effect，再让 Agent 修复这个 suffix。
+这也给出一个性能上的重要结论：提交协议不应该让所有工作都走最重的路径。大量只读和真正独立的任务可以保持完全并行；只有触碰共享状态、权限或外部效果的部分需要额外协调。
 
-哪些 effect 已经可见、inverse 是否成功，必须由 runtime 判断，而不是让模型自行叙述。模型可以修复依赖 intent 的 reasoning，不能把已经发生的 effect 通过文字“解释掉”。
+## 这和数据库的可串行化有什么关系
 
-## Agent runtime 的 isolation level
+数据库中的可串行化要求：一段并发执行的结果，应当等价于这些事务按照某个顺序一个接一个执行。
 
-对所有任务强制最强模式会很昂贵。Runtime 应像数据库一样暴露有名字、有明确 anomaly 的 level。
+这个思想对 Agent 很有用，但还不够。数据库通常假设每个 transaction 在串行执行时本身就是正确的；Agent 的计划却可能基于已经过时的仓库、旧权限、错误任务理解或不完整观察。即使系统能找到某个串行顺序，那个顺序也可能不是用户允许的结果。
 
-| Level | 保证 | 适合场景 | 剩余风险 |
-| --- | --- | --- | --- |
-| Parallel read | 并发只读调用，不共享 mutation | Search、retrieval、独立分析 | 外部 source 仍可能在两次 read 之间变化 |
-| Workspace snapshot | 每个 worker 使用 isolated file/environment snapshot | 独立 code generation 与 artifact production | Clean merge 仍可能隐藏 semantic/global conflict |
-| Effect snapshot isolation | 记录 effect set，commit 时验证 write-write conflict | 低 contention 的代码与数据任务 | Write skew、stale semantic read、authority drift |
-| Effect serializable | Committed effect 等价于某个串行 work-unit order | 共享 repository、database、cloud resource | 被选中的串行历史仍可能违背 task/authority contract |
-| Contract-valid effect serializable | 串行顺序加 read repair、commit-time authority、local/global outcome predicate | 有后果的 multi-agent workflow | 正确性依赖 contract 和 effect mapping 的完整度 |
-| Strict contract-valid | 还保留已完成 approval 与 visible effect 的 real-time constraint | Payment、deployment control、security、publication | 协调成本最高 |
+因此，Agent 提交还需要更强的条件。对每个准备提交的工作单元，都要保证：
 
-真正的产品决策不是“parallel on/off”，而是 workload 能容忍哪些 anomaly。
+- 它依赖的关键读取仍然有效，或者已经针对新状态修复；
+- 它的权限在提交时仍覆盖实际效果；
+- 它自己的验收条件成立；
+- 所有工作单元合在一起后，整项任务的全局验收条件成立；
+- 外部可见历史与这个合法的串行解释一致。
 
-## 调度需要 adaptive，也需要 effect-aware
+如果需要一个研究术语，可以把这个性质称为“契约有效的效果可串行化”（contract-valid effect serializability）。名字不是重点。重点是串行顺序不仅要存在，还必须在当前状态、权限和用户目标下仍然成立。
 
-最佳策略取决于冲突概率、abort cost、effect reversibility 和后果：
+## 一个可实现的系统架构
 
-\[
-score(W) = f(P_{conflict}, C_{abort}, C_{block}, R_{effect})
-\]
+一个通用实现不需要先发明完整的“Agent 数据库”。可以从几个独立组件开始：
 
-- \(P_{conflict}\)：根据历史 trace、声明 resource 和当前活动估计冲突概率；
-- \(C_{abort}\)：repair 会损失的 token、tool time、human review 与 external work；
-- \(C_{block}\)：等待带来的 latency 和 resource cost；
-- \(R_{effect}\)：effect consequence 与 reversibility。
+1. **工作单元标识。** 把跨多个 model call、tool call 和子进程的同一项工作绑定到稳定 ID。
+2. **效果适配器。** 在文件、Git、数据库、cloud API、浏览器和 MCP 工具边界记录读、写、消费和外部可见动作。
+3. **版本与前置条件。** 为关键资源保存版本、hash、ETag、policy version 或其他可比较状态。
+4. **冲突检测器。** 先处理明确的物理冲突，再使用 schema、测试、policy 和语义分析发现更高层冲突。
+5. **权限重新验证。** 在效果即将提交时，重新检查 principal、scope、目标、预算、审批和委派链。
+6. **全局验收器。** 运行跨分支测试、预算约束、发布规则和用户定义的最终结果检查。
+7. **提交日志。** 记录哪些候选结果被接受、拒绝、重做，以及不可逆动作何时发生。
 
-低冲突 read-heavy work 适合 optimistic execution；高 contention、短 mutation 适合 lock；长 reasoning、输出可修复时适合 speculative execution 加 suffix repair；不可逆 effect 即使准备阶段并行，也应该在狭窄 commit gate 中 serialize。
+系统级观测在这里有一个实际作用：Agent 可能通过 shell script、Python 子进程或第三方工具产生没有在 harness 中声明的效果。文件、进程和网络层的观察可以补全效果清单，并发现“工具声称只读，实际却写了文件或访问了外部网络”的情况。不过，系统事件只能告诉提交器发生了什么，不能单独判断这些效果是否符合用户任务；它仍需要上层的资源和验收语义。
 
-由此可以得到一条实用原则：
+## 怎样评估这个设计
 
-> 尽量并行 evidence gathering 与 proposal construction，只 serialize 为保存契约所需的最小 effect boundary。
+一个可信的评测需要同时测正确性和协调成本，而不是只展示“成功阻止了几个冲突”。
 
-这个 boundary 可能是一条 API call、一组相关 repository change、一次 budget allocation，或者最终 artifact 的 publication。
+可以构建四类工作负载：
 
-## 怎样评估这项提案
+- **代码协作：**多个 Agent 修改不同文件，但共享 API、schema、配置或测试约束；
+- **数据与预算：**多个 Agent 写不同记录，却共享额度、唯一性和审批；
+- **云与运维：**多个 Agent 并行准备部署、扩容、回滚和发布；
+- **外部沟通：**多个 Agent 创建工单、邮件、公告或其他可见效果。
 
-有说服力的实验必须在相同 task quality 下比较，并覆盖 textual merge 检测不到的冲突。
+对比基线包括：
 
-### Workload corpus
+- 无协调的并行执行；
+- 独立 `worktree` 加普通 merge；
+- 全局串行；
+- 已知资源上的锁；
+- 仅做版本验证的 optimistic commit；
+- 加入共享约束、权限和全局验收的统一提交。
 
-至少包含：
+核心指标应包括：
 
-1. 独立 read-only research；
-2. 不共享 invariant 的 disjoint file edit；
-3. same-file write conflict；
-4. cross-file API/schema conflict；
-5. stale-read configuration change；
-6. aggregate budget、quota、inventory write skew；
-7. one-time approval 与 delegated-authority conflict；
-8. deploy-then-announce 这类有顺序的 external action；
-9. duplicate irreversible effect；
-10. 文本没有 overlap、事实和结论却互相矛盾的 document task。
+- 最终任务正确率，而不只是工具成功率；
+- 直接冲突和语义冲突的召回率；
+- 不必要串行化造成的延迟；
+- abort、重做和模型 token 成本；
+- 重复或错误外部效果的数量；
+- 权限过期后仍成功提交的比例；
+- 用户被打断和重新审批的次数；
+- 提交失败后能否解释具体原因。
 
-Ground truth 应声明允许的 serial order、global outcome predicate 和 effect reversibility。
+最重要的消融实验是逐项移除状态验证、共享约束、权限检查和全局验收。假如某一层对真实错误没有贡献，它就不应成为默认成本。
 
-### Baseline
+## 适用范围与可证伪条件
 
-比较：
+这个设计主要面向会修改共享状态、使用权限或产生外部效果的工具型 Agent。聊天、独立检索和完全隔离的候选生成任务，通常不需要这样的提交协议。
 
-- sequential single-agent execution；
-- naive parallel tool execution；
-- isolated worktree/sandbox 加 post-hoc merge；
-- reducer 或 CRDT state convergence；
-- pessimistic resource locking；
-- optimistic effect validation 加完整 retry；
-- 不含 task/authority contract 的 effect serializability；
-- 带 targeted repair 的 contract-valid effect serializability。
+它也有明显局限：
 
-### Metric
+- 逻辑资源和全局约束不可能全部自动发现；
+- 语义冲突检测可能产生误报，使本可并行的任务被串行化；
+- 长时间 Agent 被 abort 后，重做会消耗大量 token 和工具成本；
+- 外部服务如果不提供幂等键、版本条件或准备阶段，提交器很难提供强保证；
+- 用户目标本身可能模糊，无法转成可靠的验收条件；
+- 模型辅助判断不能替代确定性的权限和事务边界。
 
-测量：
+本文的中心判断会在以下结果下被削弱：
 
-- final task success；
-- serializability violation；
-- state 可串行化但 contract 仍被违反的比例；
-- semantic conflict recall 与 false-positive rate；
-- irreversible-effect leakage；
-- wall-clock speedup；
-- model/tool cost；
-- full abort 与 suffix repair 数量；
-- blocked time 与 deadlock；
-- human review time；
-- commit-protocol overhead；
-- reversibility 未知或错误的 effect 比例。
+- 在相同资源和人工成本下，普通 `worktree`、merge 和完整测试已经能达到同样的最终正确率；
+- 真实并行 Agent 工作中，跨文件、跨服务和聚合约束冲突极少，协调成本长期高于避免的损失；
+- 大多数高风险工具都能由底层数据库或 API 自己提供完整事务语义，Agent runtime 不需要跨工具提交；
+- 全局验收无法比单 Agent 局部检查更早或更准确地发现错误；
+- 语义资源声明和冲突检测的维护成本高到无法在生产中使用。
 
-Ablation 应分别移除 semantic resource mapping、authority revalidation、global outcome predicate 和 random post-commit audit。如果这些组件不改变 correctness 或 diagnosis，更强契约就没有必要。
+这些都是可以测量的条件。一个更复杂的提交协议只有在它能以可接受成本减少真实错误时才值得部署。
 
-## 适用范围与替代解释
+## 现在可以先做什么
 
-本文面向会修改共享或外部可见状态的工具型 Agent。Read-only fan-out、独立 simulation 和 embarrassingly parallel retrieval 不需要重型 commit protocol。
+不需要等待完整系统，开发者现在就可以采用几个简单规则：
 
-几种替代解释可能削弱本文判断。
+1. 默认只并行执行独立只读工具；有副作用的工具需要显式声明是否可以并行。
+2. 让 coding agent 在独立工作区生成补丁，但把合并、集成测试和发布视为单独的提交阶段。
+3. 对预算、配额、审批和版本使用 compare-and-set、ETag、一次性 token 或服务端消费记录。
+4. 把邮件、付款、删除和生产发布放在所有可缓冲修改验证成功之后。
+5. 为整项用户任务定义至少一个全局验收条件，不要只依赖每个子 Agent 的“成功”状态。
+6. 记录每个外部动作属于哪个工作单元、使用了什么权限、基于什么资源版本。
 
-第一，更好的 task decomposition 也许能消除绝大多数冲突。如果 planner 能稳定分配 disjoint resource 和 invariant，workspace isolation 加测试可能足够。当前 coding benchmark 说明 decomposition 仍不可靠，但更强模型和更好的项目 metadata 可能改善这一点。
-
-第二，service API 可以吸收一部分问题。数据库提供 serializable transaction，支付 API 提供 idempotency，deployment service 提供 compare-and-swap，这些都会降低 runtime 责任。但跨 service contract 仍存在，例如同时协调 repository change、feature flag、message 与 approval。
-
-第三，更强自动测试可能让 semantic dependency tracking 在代码场景中显得多余。Test 是很好的 outcome predicate，但通常不完整，往往在昂贵工作已经完成后运行，也不能撤销 test environment 以外已经暴露的 effect。
-
-第四，model-based repair 可能不如完整 rerun 可靠。Repair request 也可能保留无效 hidden assumption 或引入新变化。因此 runtime 应比较 targeted repair 与 full replay，在 dependency slice 不确定时回退。
-
-第五，contract authoring burden 可能超过收益。手工标注每个 resource 和 invariant 无法扩展。架构必须渐进采用：为常见 effect 提供强默认值，自动采集 physical footprint，复用 policy schema，只在高后果 boundary 显式声明 contract。
-
-## 可证伪条件
-
-出现下列证据时，本文中心判断应被拒绝或缩小范围：
-
-- 在相同成本下，worktree isolation 加普通测试已经能在 semantic conflict、external effect 和 authority change 上匹配 contract-valid effect serializability。
-- 真实生产 workload 的冲突率足够低，naive parallelism 加 human review 总成本更低，结果也没有实质变差。
-- Dynamic effect/dependency reconstruction 无法在不过度制造 false positive 的情况下达到有用 recall，最终迫使系统 serialize 大多数工作。
-- Commit-time authority 和 global outcome predicate 没有发现 resource-level serializability 以外的新违规。
-- Targeted repair 在长任务中比 full retry 更不可靠或更昂贵。
-- Service-level transaction 与 idempotency 在实践中覆盖了几乎所有 cross-tool workflow。
-- Commit protocol 的协调开销和 latency 超过它避免的 operational loss。
-
-这些条件都可以测量。研究应该报告弱机制在哪些地方更好，而不是默认所有任务使用最强 level。
-
-## 开发者现在可以做什么
-
-不需要先实现完整 runtime，也能立刻改善系统。
-
-1. **给 tool 分类。** 标注 read-only、bufferable、reversible、compensatable 和 irreversible；未知且高后果的 tool 默认关闭并行。
-2. **给 work unit 稳定 identity。** 跨 model call 和 subprocess 携带 task、branch、snapshot、policy 与 authority epoch。
-3. **记录 read version，不只记录 write。** Patch 即使写独立文件，也可能基于过期 schema。
-4. **Commit 前保持 effect 私有。** 使用 worktree、semisolate、staging API、dry run 和 preview mode。
-5. **重新验证 approval。** Approval 绑定 target、amount、state predicate 和 expiry，并在 effect 前立即检查。
-6. **定义一个 global outcome predicate。** 每条 branch 的 test 都通过，不代表组合目标正确。
-7. **Linearize irreversible action。** 准备阶段并行，真正执行只通过一个带 semantic idempotency 的窄 coordinator。
-8. **暴露 isolation level。** 用户应该知道“parallel”只是 concurrent execution、isolated workspace，还是包含 serializable commit contract。
-9. **保存 provenance。** 记录 work unit 为什么 commit、repair、reorder 或 abort，以及对应 conflict edge 和 validation result。
-10. **测量 wasted reasoning。** Abort cost 是 Agent concurrency control 的一部分，不只是独立的 model-serving metric。
+这些做法不能解决所有语义冲突，但能把最危险的模式从“多个 Agent 各自成功后直接落地”，改成“多个 Agent 并行准备，由一个明确边界决定哪些结果真正生效”。
 
 ## 结论
 
-并行 Agent 不是串行 Agent 的简单加速版。一旦它们读取和修改共享状态，就变成一种特殊 distributed transaction system：计划在线生成，read set 不透明，执行持续数分钟，权限会变化，effect 跨越多个互不相关的 service，而且部分动作无法撤销。
+并行 Agent 的难点不是让几个模型或工具同时运行。真正困难的是，当它们都完成以后，系统怎样证明组合结果仍然符合用户任务。
 
-产业已经拥有每一层的机制。Agent SDK 调度并行调用，worktree 与 sandbox 隔离中间状态，reducer 与 CRDT 合并 update，数据库 serialize row，Atomix 管理 transactional tool effect，CoAgent 修复并发 trajectory，Provenact 重新验证 policy state，semisolate 捕获 opaque process effect。
+`worktree` 和 `sandbox` 可以隔离执行，reducer 和 CRDT 可以合并状态，数据库事务可以保护已知资源，policy engine 可以检查单个动作。这些机制都不能单独判断多个局部结果是否共同破坏 API、预算、审批、发布顺序或用户目标。
 
-缺失的是组合契约。正确运行不仅需要一个收敛状态，也不仅需要某种串行解释；它需要一个在任务、权限与结果条件下仍然有效的串行解释。
+更可靠的设计是让 Agent 并行准备候选结果，并在真实副作用出现前经过统一提交：重新验证关键读取，检查物理和语义冲突，确认权限，运行局部与全局验收，并把不可逆动作留到最后。
 
-Contract-valid effect serializability 提供了这样的目标。它不要求 reasoning 串行。Agent 仍然可以并行 search、plan、generate 和 test，只把真正冲突且有后果的 effect 送入 commit protocol。这样，系统最终能回答的不只是“这些分支合并成功了吗”，还包括“组合结果为什么在 commit 时仍被授权、仍基于当前状态，并且仍然满足用户任务”。
+这样做不会消除 Agent 的不确定性，也不应该把所有任务都变成串行。它提供的是一个清楚的责任边界：并行 worker 负责提出方案，提交器负责决定哪些方案可以一起成为真实世界的一部分。
 
 ## 参考资料
 
-1. OpenAI, [Running agents: function-tool concurrency](https://openai.github.io/openai-agents-python/running_agents/).
+1. OpenAI Agents SDK, [Running agents](https://openai.github.io/openai-agents-python/running_agents/).
 2. Anthropic, [Parallel tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/parallel-tool-use).
-3. Microsoft, [AutoGen agents and parallel tool calls](https://microsoft.github.io/autogen/stable/user-guide/agentchat-user-guide/tutorial/agents.html).
-4. Google, [ADK ParallelAgent](https://adk.dev/agents/workflow-agents/parallel-agents/).
-5. LangChain, [LangGraph Graph API](https://docs.langchain.com/oss/python/langgraph/use-graph-api) 与 [concurrent update errors](https://docs.langchain.com/oss/python/langgraph/errors/INVALID_CONCURRENT_GRAPH_UPDATE).
-6. Model Context Protocol, [Sampling with tools and parallel tool use](https://modelcontextprotocol.io/specification/2025-11-25/client/sampling).
-7. Kung and Robinson, [On Optimistic Methods for Concurrency Control](https://db.cs.cmu.edu/papers/1981/kung-tods1981.pdf), ACM TODS 1981.
-8. Garcia-Molina and Salem, [Sagas](https://www.cs.princeton.edu/research/techreps/598), 1987.
-9. Mohammadi et al., [Atomix: Timely, Transactional Tool Use for Reliable Agentic Workflows](https://arxiv.org/abs/2602.14849), 2026.
-10. Lyu et al., [CoAgent: Concurrency Control for Multi-Agent Systems](https://arxiv.org/abs/2606.15376), 2026.
-11. Peng and Wu, [Stateful Governance for Concurrent Agentic Systems](https://arxiv.org/abs/2608.02764), 2026.
-12. Zhou et al., [ATCC: Adaptive Concurrency Control for Unforeseen Agentic Transactions](https://arxiv.org/abs/2603.13906), 2026.
-13. Liu et al., [Multi-agent Collaboration with State Management](https://arxiv.org/abs/2605.20563), 2026.
-14. Khan, [S-Bus: Automatic Read-Set Reconstruction for Multi-Agent LLM State Coordination](https://arxiv.org/abs/2605.17076), 2026.
-15. Pugachev, [CodeCRDT: Observation-Driven Coordination for Multi-Agent LLM Code Generation](https://arxiv.org/abs/2510.18893), 2025.
-16. Khatua et al., [CooperBench: Why Coding Agents Cannot be Your Teammates Yet](https://arxiv.org/abs/2601.13295), 2026.
-17. Ogenrwot and Businge, [AgenticFlict](https://arxiv.org/abs/2604.03551), 2026.
-18. Lamprou et al., [Controlling Opaque-Component Effects with Semisolates and Try](https://www.usenix.org/conference/osdi26/presentation/lamprou), OSDI 2026.
-19. Liargkovas et al., [hS: Speculative Script Reordering at Subprocess Granularity](https://www.usenix.org/conference/osdi26/presentation/liargkovas), OSDI 2026.
+3. Google Agent Development Kit, [Parallel agents](https://adk.dev/agents/workflow-agents/parallel-agents/).
+4. Microsoft AutoGen, [Agents and tool execution](https://microsoft.github.io/autogen/stable/user-guide/agentchat-user-guide/tutorial/agents.html).
+5. LangChain, [LangGraph Graph API](https://docs.langchain.com/oss/python/langgraph/use-graph-api).
+6. Model Context Protocol, [Sampling with tools specification](https://modelcontextprotocol.io/specification/2025-11-25/client/sampling).
+7. Philip A. Bernstein, Vassos Hadzilacos, and Nathan Goodman, [Concurrency Control and Recovery in Database Systems](https://www.microsoft.com/en-us/research/people/philbe/book/), 1987.
+8. Hector Garcia-Molina and Kenneth Salem, [Sagas](https://www.cs.princeton.edu/research/techreps/598), 1987.
+9. Marc Shapiro et al., [Conflict-Free Replicated Data Types](https://inria.hal.science/inria-00609399), 2011.
+10. Eunomia Research, [What Should an AI Agent Trace Keep? Observability Under a Fixed Evidence Budget](https://eunomia.dev/research/agent-trace-evidence-budget/), 2026.
