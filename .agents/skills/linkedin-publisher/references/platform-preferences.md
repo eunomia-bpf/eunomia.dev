@@ -137,6 +137,9 @@ eBPF/open-source observability showed a useful split:
   upload a shorter platform derivative after verifying its duration and
   animation.
 - Check the posting identity and visibility setting.
+- If the feed composer is visible but does not reliably accept text input, open
+  `https://www.linkedin.com/preload/sharebox/` in the same authenticated visible
+  browser session and repeat the preview checks there before publishing.
 - Check that mentions are intentional and not attention-seeking.
 
 ## Post-Publish Follow-Up

@@ -3,7 +3,7 @@
   "platform_id": "linkedin",
   "label": "LinkedIn",
   "kind": "professional_social",
-  "last_checked": "2026-08-01",
+  "last_checked": "2026-08-04",
   "target_source_sets": [
     "blog_posts_en",
     "tutorials_en"
@@ -42,6 +42,16 @@
     }
   ],
   "published": [
+    {
+      "id": "linkedin-7490597138595229696",
+      "status": "confirmed",
+      "date": "2026-08-04",
+      "title": "eBPF Tutorial by Example 50: Composable Traffic Control with TCX Links",
+      "url": "https://www.linkedin.com/feed/update/urn:li:share:7490597138595229696",
+      "source_path": "docs/tutorials/50-tcx/README.md",
+      "checked_via": "normal_visible_public_post",
+      "notes": "Published from draft/media/2026-08-04/50-tcx/linkedin.md. Public-page QA confirmed the exact two-sentence body, public visibility, eunomia.dev link, and the tutorial preview card with its title and image."
+    },
     {
       "id": "linkedin-7489412627769548800",
       "status": "confirmed",

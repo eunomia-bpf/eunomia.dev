@@ -118,11 +118,12 @@ New confirmed posts:
 
 | Status | Date | Title / visible text | URL | Notes |
 | --- | --- | --- | --- | --- |
+| Confirmed | 2026-08-04 | eBPF Tutorial by Example 50: Composable Traffic Control with TCX Links | <https://www.linkedin.com/feed/update/urn:li:share:7490597138595229696> | Published from `docs/tutorials/50-tcx/README.md` using `draft/media/2026-08-04/50-tcx/linkedin.md`; normal visible public-page QA confirmed the exact two-sentence body, public visibility, eunomia.dev link, and tutorial preview card with its title and image |
 | Confirmed | 2026-08-01 | A tool for backup, recovery and migration of AI agent session history | <https://www.linkedin.com/posts/yunwei37_github-eunomia-bpfakeep-privacy-first-activity-7489412627769548800-SV__> | Links to `github.com/eunomia-bpf/akeep`; verified in normal visible public profile activity |
 | Confirmed | 2026-07-22 | Introducing AgentNebula: See days or weeks of your AI Agent's work in 30 seconds | <https://www.linkedin.com/posts/yunwei37_aiagents-observability-developertools-activity-7485819115337637888-iFAK> | Published from `draft/media/2026-07-22/agentsight-agent-nebula/linkedin.md` with the 10-second animation and AgentSight GitHub link |
 | Confirmed | 2026-07-19 | A rule like "run the full test suite before committing" looks simple | <https://www.linkedin.com/feed/update/urn:li:share:7484770128912465920> | Links to `docs/blog/posts/ebpf-ai-agent-policy-enforcement.md`; published from `draft/media/2026-07-19/ebpf-ai-agent-policy-enforcement/linkedin.md` |
 
-Machine-readable details: [`platforms/linkedin.json`](platforms/linkedin.json). Current script coverage: 6 of 122 English target source files mapped as LinkedIn-published.
+Machine-readable details: [`platforms/linkedin.json`](platforms/linkedin.json). Current script coverage: 7 of 124 English target source files mapped as LinkedIn-published.
 
 ## Medium
 

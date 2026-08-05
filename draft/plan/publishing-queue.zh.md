@@ -15,7 +15,7 @@
 - 历史回补：2026 年以前的非 tutorial Blog 不进入常规平台同步队列；只有出现新的证据、结论或明确发布需求时才单独重新评估。
 - LinkedIn 只安排新的 tutorial 50–54；SchedCP、AgentCgroup、CPU noise、Weekly Analysis 和已有发布记录的内容不重复安排。
 - Medium 与 DEV 的 BPFix 和 tutorial 50 已完成；tutorial 51–54 继续保留英文原文标题和正文，只做必要的平台格式适配。
-- 剩余队列：知乎 28 条、掘金 49 条、Medium/DEV 8 条、LinkedIn 5 条，共 90 个平台任务；后续新增内容直接插入合适位置。
+- 剩余队列：知乎 28 条、掘金 49 条、Medium/DEV 8 条、LinkedIn 4 条，共 89 个平台任务；后续新增内容直接插入合适位置。
 
 ## 发布队列
 
@@ -28,7 +28,7 @@
 - [x] `排队` 掘金：`docs/tutorials/50-tcx/README.zh.md`。2026-08-03 已提交，2026-08-04 确认公开：<https://juejin.cn/post/7669635386159824936>；公开页标题、21 个正文标题、8 个代码块、2 张表格（12 行）和 10 个正文链接完整，ledger 已记录为 `confirmed`。
 - [x] `排队` Medium：`docs/tutorials/50-tcx/README.md`。已核定公开：<https://medium.com/@yunwei356/ebpf-tutorial-by-example-50-composable-traffic-control-with-tcx-links-0b64b72f7a59>。
 - [x] `排队` DEV：`docs/tutorials/50-tcx/README.md`。已核定公开：<https://dev.to/yunwei37/ebpf-tutorial-by-example-50-composable-traffic-control-with-tcx-links-5hmo>。
-- [ ] `排队` LinkedIn：`docs/tutorials/50-tcx/README.md`。
+- [x] `排队` LinkedIn：`docs/tutorials/50-tcx/README.md`。2026-08-04 已发布：<https://www.linkedin.com/feed/update/urn:li:share:7490597138595229696>；公开页两句正文、公开可见范围、eunomia.dev 链接以及带标题和图片的教程预览卡片 QA 已通过，ledger 已记录为 `confirmed`。
 - [ ] `排队` 知乎：`docs/tutorials/51-tcp-quarantine/README.zh.md`。
 - [ ] `排队` 掘金：`docs/tutorials/51-tcp-quarantine/README.zh.md`。
 - [ ] `排队` Medium：`docs/tutorials/51-tcp-quarantine/README.md`。
