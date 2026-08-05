@@ -1,19 +1,19 @@
 ---
 title: Research
-description: "Source-grounded systems research briefs with testable claims, competing evidence, architecture consequences, explicit scope, and falsification conditions."
+description: "Source-grounded systems research briefs written for human technical readers, with testable claims, architecture consequences, explicit scope, and falsification conditions."
 ---
 
 # Research
 
-Eunomia Research publishes source-grounded systems briefs that develop a testable claim rather than summarize a news cycle. Each brief starts from a precise technical question, compares independent primary evidence, identifies tensions or alternative explanations, and states which architecture decision the conclusion would change.
+Eunomia Research publishes source-grounded systems briefs for engineers, researchers, and maintainers. Each brief starts from a concrete technical problem, develops a testable claim, compares independent primary evidence, and explains which architecture or engineering decision should change.
 
-These pages are reviewed research briefs, not peer-reviewed papers unless a page says otherwise. Claims remain bounded by their stated evidence, source cutoff, assumptions, and falsification conditions. When later evidence changes the conclusion, the stable page should be revised rather than replaced by a near-duplicate article.
+These pages are reviewed research briefs, not peer-reviewed papers unless a page says otherwise. Claims remain bounded by their evidence, source cutoff, assumptions, and falsification conditions. When later evidence changes a conclusion, the stable page should be revised instead of being replaced by a near-duplicate article.
 
 ## Current research
 
-### [Parallel Agents Need a Commit Protocol: From Effect Serializability to Contract-Valid Execution](https://eunomia.dev/research/parallel-agent-effect-serializability/)
+### [When Several AI Agents Work at Once, Who Makes Sure the Final Result Is Right?](https://eunomia.dev/research/parallel-agent-effect-serializability/)
 
-Parallel calls, worktrees, reducers, and serializable resource updates can still compose into a result that violates the user's task or stale authority. This brief audits current agent runtimes and proposes contract-valid effect serializability across code, APIs, budgets, approvals, and irreversible actions.
+Worktrees, sandboxes, and parallel tool calls can isolate workers while still producing a wrong combined outcome. This brief uses code changes, shared budgets, approvals, and irreversible actions to explain why parallel agents need one validation and commit step before their effects become real.
 
 ### [What Should an AI Agent Trace Keep? Observability Under a Fixed Evidence Budget](https://eunomia.dev/research/agent-trace-evidence-budget/)
 
@@ -24,6 +24,7 @@ AI agent traces can generate hundreds of system events around each model call wh
 A research brief must provide more than a fluent literature survey. It should contain:
 
 - a question that affects a real systems or engineering decision;
+- an opening that a technically qualified reader can understand without reading the source corpus;
 - independent primary evidence, including implementation or measurement evidence where available;
 - a genuine tension, contradiction, or alternative explanation;
 - a new synthesis that cannot be copied from any single source;
