@@ -1,0 +1,52 @@
+name: Validate SEO Operations
+
+on:
+  pull_request:
+    paths:
+      - ".gitmodules"
+      - ".github/seo-skills"
+      - ".github/seo-data/**"
+      - ".github/workflows/seo-data-validate.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - ".gitmodules"
+      - ".github/seo-skills"
+      - ".github/seo-data/**"
+      - ".github/workflows/seo-data-validate.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository and pinned SEO skills
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          submodules: recursive
+
+      - name: Verify pinned submodule
+        shell: bash
+        run: |
+          set -euo pipefail
+          expected="$(git ls-tree HEAD .github/seo-skills | awk '{print $3}')"
+          actual="$(git -C .github/seo-skills rev-parse HEAD)"
+          test -n "${expected}"
+          test "${actual}" = "${expected}"
+          test "$(git config -f .gitmodules --get 'submodule..github/seo-skills.url')" = \
+            "https://github.com/AutoArchive/seo-skill.git"
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.x"
+
+      - name: Validate public SEO operating data
+        run: |
+          python .github/seo-skills/scripts/validate_seo_data.py \
+            --data-root .github/seo-data
