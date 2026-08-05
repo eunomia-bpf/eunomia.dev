@@ -3,7 +3,7 @@
   "platform_id": "zhihu",
   "label": "Zhihu",
   "kind": "longform_chinese",
-  "last_checked": "2026-08-01",
+  "last_checked": "2026-08-05",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -13,7 +13,7 @@
       "handle": "云微",
       "url": "https://www.zhihu.com/people/yun-wei-64-11/posts",
       "status": "confirmed",
-      "observed_note": "Profile reported 文章114 during the latest browser check."
+      "observed_note": "Profile reported 文章119 after the latest visible-browser publication check."
     },
     {
       "checked_at": "2026-07-20",
@@ -25,6 +25,13 @@
     }
   ],
   "browser_observations": [
+    {
+      "checked_at": "2026-08-05",
+      "checked_via": "chrome_visible_markdown_import_publish_and_public_page_dom_qa",
+      "article_url": "https://zhuanlan.zhihu.com/p/2068597605345531007",
+      "question_url": "https://www.zhihu.com/question/22254332",
+      "notes": "Published through the normal visible Zhihu Markdown-import and editor UI with the source title and substantive body preserved. Selected topics TCP and ebpf. Public-page QA confirmed the exact title, 15 body headings, 9 visible code blocks, 1 table with 7 rows, 6 outbound article links, no inline images, and no failure placeholders. No Zhihu API or hidden endpoint was used."
+    },
     {
       "checked_at": "2026-08-01",
       "checked_via": "chrome_visible_document_import_publish_preview_and_public_page_dom_qa",
@@ -63,6 +70,15 @@
     }
   ],
   "published": [
+    {
+      "id": "zhihu-2068597605345531007",
+      "status": "confirmed",
+      "title": "eBPF 教程：精准隔离已建立的 TCP 连接",
+      "url": "https://zhuanlan.zhihu.com/p/2068597605345531007",
+      "source_path": "docs/tutorials/51-tcp-quarantine/README.zh.md",
+      "checked_via": "chrome_visible_markdown_import_publish_and_public_page_dom_qa",
+      "notes": "Published 2026-08-05 with the source title and substantive body unchanged. The source H1 was carried by the Zhihu title field. Selected question TCP服务器如何处理恶意连接？ and topics TCP and ebpf. Public-page QA confirmed 15 body headings, 9 code blocks, 1 table with 7 rows, 6 outbound article links, no inline images, and no failure placeholders."
+    },
     {
       "id": "zhihu-2067144957194924576",
       "status": "confirmed",

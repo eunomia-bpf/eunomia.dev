@@ -1,6 +1,6 @@
 # Published Media Ledger
 
-Last checked: 2026-08-03
+Last checked: 2026-08-05
 
 This ledger records platform posts confirmed from logged-in profile pages or explicit repository references. It is intentionally conservative: if authorship or completeness is not verified, the item is marked for follow-up instead of treated as complete.
 
@@ -10,12 +10,13 @@ Canonical machine-readable source: one JSON file per platform under [`platforms/
 
 Profile checked: <https://www.zhihu.com/people/yun-wei-64-11/posts>
 
-The profile reports `文章114`. The following recent articles were visible on the article page during the check:
+The profile reports `文章119` after the 2026-08-05 publication. The following recent articles were visible on the article page during the check:
 
 Follow-up platform check on 2026-07-20 used normal in-app browser scrolling on the Zhihu profile page. The page reported `文章114`; scrolling collected 113 unique visible article links, which is recorded in [`platforms/zhihu.json`](platforms/zhihu.json). Exact-title matching also confirmed that the userspace-eBPF and eBPF-runtime-security tutorial sources are already covered by same-title blog posts, so they are tracked as equivalent sources instead of being republished. Do not use Zhihu API or hidden/internal endpoints for future checks.
 
 | Status | Title | URL | Notes |
 | --- | --- | --- | --- |
+| Confirmed | eBPF 教程：精准隔离已建立的 TCP 连接 | <https://zhuanlan.zhihu.com/p/2068597605345531007> | Published 2026-08-05 from `docs/tutorials/51-tcp-quarantine/README.zh.md` through the normal visible Zhihu Markdown-import and editor UI; selected `TCP服务器如何处理恶意连接？` and topics `TCP`, `ebpf`; source H1 was carried by the title field without changing the substantive body; public-page QA confirmed the exact title, 15 body headings, 9 code blocks, 1 table with 7 rows, 6 outbound article links, no inline images, and no failure placeholders |
 | Confirmed | eBPF 入门实践教程第五十篇：使用 TCX Link 实现可组合的流量控制 | <https://zhuanlan.zhihu.com/p/2067144957194924576> | Published 2026-08-01 from `docs/tutorials/50-tcx/README.zh.md` through the normal visible Zhihu document-import and editor UI; selected `linux内核如何实践？` and topics `ebpf`, `Linux 内核`; removed the source H1 from the imported body and converted the relative lesson-20 link to its public eunomia.dev URL without changing the substantive body; public-page QA confirmed the exact title, 21 body headings, 8 code blocks, 2 tables with 12 rows, and 10 outbound article links |
 | Confirmed | 为什么 eBPF verifier 报错难修：诊断鸿沟 | <https://zhuanlan.zhihu.com/p/2064970067830480995> | Published from `docs/blog/posts/bpfix.zh.md` through the normal visible Zhihu UI; selected `linux内核调试方式？`; public-page QA confirmed the exact title and complete body, 7 section headings, 3 code blocks, 4 tables, 2 loaded content images, and 10 outbound source links |
 | Confirmed | eBPF 教程：检查 exec 后真正安装的可执行镜像 | <https://zhuanlan.zhihu.com/p/2063162298781398619> | Published from `docs/tutorials/54-exec-image-inspector/README.zh.md`; exact title was confirmed on the visible profile article list, and public-page DOM QA confirmed the rendered body, code blocks, table, image, and outbound links |

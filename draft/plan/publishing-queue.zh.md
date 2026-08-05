@@ -29,7 +29,7 @@
 - [x] `排队` Medium：`docs/tutorials/50-tcx/README.md`。已核定公开：<https://medium.com/@yunwei356/ebpf-tutorial-by-example-50-composable-traffic-control-with-tcx-links-0b64b72f7a59>。
 - [x] `排队` DEV：`docs/tutorials/50-tcx/README.md`。已核定公开：<https://dev.to/yunwei37/ebpf-tutorial-by-example-50-composable-traffic-control-with-tcx-links-5hmo>。
 - [x] `排队` LinkedIn：`docs/tutorials/50-tcx/README.md`。2026-08-04 已发布：<https://www.linkedin.com/feed/update/urn:li:share:7490597138595229696>；公开页两句正文、公开可见范围、eunomia.dev 链接以及带标题和图片的教程预览卡片 QA 已通过，ledger 已记录为 `confirmed`。
-- [ ] `排队` 知乎：`docs/tutorials/51-tcp-quarantine/README.zh.md`。
+- [x] `排队` 知乎：`docs/tutorials/51-tcp-quarantine/README.zh.md`。2026-08-05 已发布：<https://zhuanlan.zhihu.com/p/2068597605345531007>；公开页标题、15 个正文标题、9 个代码块、1 个表格（7 行）和 6 个正文外链 QA 已通过，ledger 已记录为 `confirmed`。
 - [ ] `排队` 掘金：`docs/tutorials/51-tcp-quarantine/README.zh.md`。
 - [ ] `排队` Medium：`docs/tutorials/51-tcp-quarantine/README.md`。
 - [ ] `排队` DEV：`docs/tutorials/51-tcp-quarantine/README.md`。
