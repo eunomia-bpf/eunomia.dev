@@ -1,0 +1,4 @@
+[submodule ".github/seo-skills"]
+	path = .github/seo-skills
+	url = https://github.com/AutoArchive/seo-skill.git
+	branch = main
