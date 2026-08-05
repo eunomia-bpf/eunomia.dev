@@ -141,7 +141,7 @@ agentsight report token                      # token usage from latest DB, or lo
 agentsight report token --group-by dir       # token usage by session/process working directory
 agentsight report audit --json               # process spawns, file opens, API calls
 agentsight report serve                      # open the web UI for the latest session in this directory
-agentsight report export -o snapshot.json    # export for web dashboard
+agentsight report export -o snapshot.json    # export for web dashboard; see docs/snapshot-schema.md
 agentsight report --local                    # summarize native Claude/Codex/Gemini sessions
 ```
 
@@ -211,6 +211,8 @@ For a saved SQLite session, run `agentsight report serve --db run.db` and open t
 |-------|---------|
 | Claude Code | `sudo ./agentsight record -- claude` |
 | Gemini CLI | `sudo ./agentsight record -- gemini` |
+| Kimi Code | `sudo ./agentsight record -- kimi` |
+| Grok Build | `sudo ./agentsight record -- grok` |
 | Python (aider, open-interpreter, …) | `sudo ./agentsight record -c python` |
 | Docker containers (OpenClaw, …) | `sudo ./agentsight record -c node --binary-path docker://openclaw` |
 | Any command | `sudo ./agentsight record -- <command>` |
