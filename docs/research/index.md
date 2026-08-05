@@ -11,6 +11,10 @@ These pages are reviewed research briefs, not peer-reviewed papers unless a page
 
 ## Current research
 
+### [Parallel Agents Need a Commit Protocol: From Effect Serializability to Contract-Valid Execution](https://eunomia.dev/research/parallel-agent-effect-serializability/)
+
+Parallel calls, worktrees, reducers, and serializable resource updates can still compose into a result that violates the user's task or stale authority. This brief audits current agent runtimes and proposes contract-valid effect serializability across code, APIs, budgets, approvals, and irreversible actions.
+
 ### [What Should an AI Agent Trace Keep? Observability Under a Fixed Evidence Budget](https://eunomia.dev/research/agent-trace-evidence-budget/)
 
 AI agent traces can generate hundreds of system events around each model call while still omitting decisive state, authority, or provenance. This brief develops an evidence-portfolio architecture that combines representative sampling, anomaly capture, a causal flight recorder, and explicit outcome evidence.
