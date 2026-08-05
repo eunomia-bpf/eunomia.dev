@@ -11,6 +11,10 @@ Eunomia Research 发布基于一手来源的系统研究简报。目标不是总
 
 ## 当前研究
 
+### [并行 Agent 需要 Commit Protocol：从 Effect Serializability 到契约有效执行](https://eunomia.dev/zh/research/parallel-agent-effect-serializability/)
+
+并行调用、worktree、reducer 和可串行化的资源更新，仍然可能组合成违背用户任务或使用过期权限的结果。本文审视当前 Agent runtime，并针对代码、API、预算、审批与不可逆动作提出 contract-valid effect serializability。
+
 ### [AI Agent 轨迹到底该保留什么：固定证据预算下的可观测性设计](https://eunomia.dev/zh/research/agent-trace-evidence-budget/)
 
 一次模型调用周围可能产生数百个系统事件，完整轨迹却仍可能缺少决定性的状态、权限和 provenance。本文提出一种 evidence portfolio，把代表性采样、异常捕获、因果 flight recorder 与 outcome evidence 组合起来。
