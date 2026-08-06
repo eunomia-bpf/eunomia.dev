@@ -1,6 +1,6 @@
 # 内容发布滚动队列
 
-> 状态：内部执行 checklist，不发布。更新时间：2026-08-04。
+> 状态：内部执行 checklist，不发布。更新时间：2026-08-05。
 > 节奏：从上到下处理，每个 checkbox 是一个平台发布任务，每个自然日最多完成一条。
 > 授权：`排队` 表示定时巡检可以完成该任务的准备、浏览器预览、真实发布和公开页检查；`待确认` 与 `阻塞` 不授权发布。
 
@@ -11,11 +11,12 @@
 - 已核定：AgentNebula 已发布到 [LinkedIn](https://www.linkedin.com/posts/yunwei37_aiagents-observability-developertools-activity-7485819115337637888-iFAK) 和 [X](https://x.com/yunwei37/status/2080063281637830665)；Akeep 已发布到 [LinkedIn](https://www.linkedin.com/posts/yunwei37_github-eunomia-bpfakeep-privacy-first-activity-7489412627769548800-SV__) 和 [X](https://x.com/yunwei37/status/2083647587132035205)，不再重复排期。
 - 暂停：AgentPProf 暂不进入发布队列；Hacker News 暂不发；Lobsters 没有账号。
 - 阻塞：小红书尚未确认账号 URL、登录状态和图片卡片工作流。
-- Ledger 基线：知乎有 41 个未映射中文源，掘金有 78 个；其中 AgentPProf、目录/兼容性/进一步阅读页和两个重复教程表示不进入发布队列。
+- Ledger 基线：知乎有 40 个未映射中文源，掘金有 77 个；其中 AgentPProf、目录/兼容性/进一步阅读页和两个重复教程表示不进入发布队列。
 - 历史回补：2026 年以前的非 tutorial Blog 不进入常规平台同步队列；只有出现新的证据、结论或明确发布需求时才单独重新评估。
-- LinkedIn 只安排新的 tutorial 50–54；SchedCP、AgentCgroup、CPU noise、Weekly Analysis 和已有发布记录的内容不重复安排。
-- Medium 与 DEV 的 BPFix 和 tutorial 50 已完成；tutorial 51–54 继续保留英文原文标题和正文，只做必要的平台格式适配。
-- 剩余队列：知乎 28 条、掘金 49 条、Medium/DEV 8 条、LinkedIn 4 条，共 89 个平台任务；后续新增内容直接插入合适位置。
+- LinkedIn 只安排新的 tutorial 50–54；SchedCP、AgentCgroup、CPU noise 和已有发布记录的内容不重复安排。
+- Medium 与 DEV 的 BPFix 和 tutorial 50 已完成；tutorial 51–54 以及 AgentCgroup、CPU noise、Agent Sandbox、ACRFence、Runtime Security 的英文长文交叉排入现有队列，保留英文原文标题和正文，只做必要的平台格式适配。
+- Weekly Analysis 和研究报告由独立研究流程负责，不进入本发布队列。
+- 剩余队列：知乎 26 条、掘金 49 条、Medium 9 条、DEV 9 条、LinkedIn 4 条，共 97 个平台任务；后续新增内容直接插入合适位置。
 
 ## 发布队列
 
@@ -48,15 +49,25 @@
 - [ ] `排队` DEV：`docs/tutorials/54-exec-image-inspector/README.md`。
 - [ ] `排队` LinkedIn：`docs/tutorials/54-exec-image-inspector/README.md`。
 - [ ] `排队` 知乎：`docs/blog/posts/agent-work-unit.zh.md`。
+- [ ] `排队` Medium：`docs/blog/posts/agentcgroup-characterization.md`。
 - [ ] `排队` 掘金：`docs/blog/posts/agent-work-unit.zh.md`。
+- [ ] `排队` DEV：`docs/blog/posts/cpu-noise-gpu-inference.md`。
 - [ ] `排队` 知乎：`docs/blog/posts/agentcgroup-characterization.zh.md`。
+- [ ] `排队` Medium：`docs/blog/posts/agent_sandbox.md`。
 - [ ] `排队` 掘金：`docs/blog/posts/agentcgroup-characterization.zh.md`。
+- [ ] `排队` DEV：`docs/blog/posts/agent-check-restore-safety.md`。
 - [ ] `排队` 知乎：`docs/blog/posts/cpu-noise-gpu-inference.zh.md`。
+- [ ] `排队` Medium：`docs/blog/posts/runtime-security-for-opaque-ai-agents.md`。
 - [ ] `排队` 掘金：`docs/blog/posts/cpu-noise-gpu-inference.zh.md`。
+- [ ] `排队` DEV：`docs/blog/posts/agentcgroup-characterization.md`。
 - [ ] `排队` 知乎：`docs/tutorials/49-hid/README.zh.md`。
+- [ ] `排队` Medium：`docs/blog/posts/cpu-noise-gpu-inference.md`。
 - [ ] `排队` 掘金：`docs/tutorials/49-hid/README.zh.md`。
+- [ ] `排队` DEV：`docs/blog/posts/agent_sandbox.md`。
 - [ ] `排队` 知乎：`docs/blog/posts/agent_sandbox.zh.md`。
+- [ ] `排队` Medium：`docs/blog/posts/agent-check-restore-safety.md`。
 - [ ] `排队` 掘金：`docs/blog/posts/agent_sandbox.zh.md`。
+- [ ] `排队` DEV：`docs/blog/posts/runtime-security-for-opaque-ai-agents.md`。
 - [ ] `排队` 掘金：`docs/blog/posts/agent-check-restore-safety.zh.md`。
 - [ ] `排队` 掘金：`docs/blog/posts/runtime-security-for-opaque-ai-agents.zh.md`。
 - [ ] `排队` 知乎：`docs/tutorials/48-energy/README.zh.md`。
@@ -125,4 +136,3 @@
 - 长文保持源标题和正文，只处理本地上传 artifact、图片、代码、链接、标签和平台渲染。
 - 历史回补默认只处理 tutorial；2026 年以前的非 tutorial Blog 不因 ledger 缺失自动进入队列。
 - 发布后改为 `[x]`，紧跟公开 URL、审核状态和 ledger 结果；真实异常或待跟进事项才写 `draft/media/YYYY-MM-DD/run-log.md`。
-- Weekly Analysis 距离上一篇至少 7 天且达到来源门槛时，先作为一条新任务插到队列顶部；当天不再发布其他内容。
