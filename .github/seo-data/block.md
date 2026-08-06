@@ -1,18 +1,37 @@
-# Human-only blockers
+# External blockers
 
-No human-only blockers.
+## Daily scheduler is not configured
 
-## Known non-blocking limitations
+- Blocked action: automatic once-per-day invocation of `DAILY_TASK.md`.
+- Evidence: the repository has no daily agent workflow, and no external scheduler
+  has been configured or verified.
+- Impact: the repository now defines the complete operation, but nothing invokes
+  it every day.
+- Minimal external action: create one daily task in `America/Los_Angeles` with
+  exactly this instruction:
 
-- Google Analytics 4 and Search Console Drive exports are disabled in `site.md`
-  until a public-safe export folder and filename contract are configured.
-- Cloudflare collection is disabled until a read-only supported connector or
-  GraphQL route is available.
-- Disabled sources must be reported as unavailable, never as zero traffic.
+  > Open `eunomia-bpf/eunomia.dev`, read `DAILY_TASK.md` from the current default
+  > branch, and complete the task exactly as the repository instructs. Treat the
+  > repository as authoritative.
 
-The automation is authorized to perform all normal collection, repository,
-branch, pull-request, CI-wait, self-review, squash-merge, deployment-wait,
-verification, and closeout steps. Add a blocker only when an external system
-truly requires a human-only action or the required account permission does not
-exist. Include the exact blocked action, evidence, impact, and minimal human
-action needed. Remove resolved items in the next pull request.
+Do not copy the rest of the operating policy into the scheduler.
+
+## Private analytics sources are not configured
+
+- Blocked actions: source-native Search Console, GA4, and Cloudflare analysis.
+- Evidence: all three private sources are disabled or unconfigured in `site.md`.
+- Impact: query, acquisition, engagement, edge-traffic, bot, cache, and some
+  outcome analysis remains unavailable.
+- Minimal external action: authorize or configure supported read-only access or a
+  public-safe export path for each source, without committing IDs, credentials,
+  private URLs, raw private data, or personal information.
+
+## Partial operation remains required
+
+These blockers do not justify skipping the daily operation once a scheduler
+exists. Each run must still analyze live-site technical evidence, public GitHub
+repository evidence, and public primary-source evidence; it must mark private
+sources unavailable and must never convert missing coverage into zero.
+
+Remove or narrow a blocker in the next daily pull request after the external
+condition is verified as resolved.
