@@ -3,6 +3,8 @@
 ## Operating state
 
 - Authoritative task: `DAILY_TASK.md`
+- Technical SEO subtask: `.github/seo-data/daily-task.md`
+- Daily Report subtask: `.agents/skills/eunomia-research-report/SKILL.md`
 - External daily scheduler: not configured or verified
 - Scheduler timezone: `America/Los_Angeles`
 - Last completed daily run: none
