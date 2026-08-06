@@ -12,7 +12,9 @@ The external scheduler should contain only this instruction:
 > branch, and complete the task exactly as the repository instructs. Treat the
 > repository as authoritative.
 
-Run once per day in the timezone declared in `.github/seo-data/site.md`. The
+Run once per day in the timezone declared in `.github/seo-data/site.md`. Maintain
+exactly one external scheduler for this operation; do not split analytics, SEO,
+and content production into independent schedules that can race or diverge. The
 scheduler owns only timing and invocation. This repository owns scope, data
 sources, quality gates, delivery rules, and operating state.
 
