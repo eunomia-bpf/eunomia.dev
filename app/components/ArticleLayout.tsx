@@ -1,4 +1,4 @@
-import type { PropsWithChildren } from "react";
+import type { PropsWithChildren, ReactNode } from "react";
 
 import type { GitMetadata, HeadingEntry, PageContinuation } from "../lib/content/types";
 import type { Locale } from "../lib/site-data";
@@ -19,6 +19,7 @@ type ArticleLayoutProps = PropsWithChildren<{
   continuation?: PageContinuation;
   tocTitle?: string;
   showBreadcrumbs?: boolean;
+  footerNote?: ReactNode;
 }>;
 
 export function ArticleLayout({
@@ -34,7 +35,8 @@ export function ArticleLayout({
   headings = [],
   continuation,
   tocTitle = "On this page",
-  showBreadcrumbs = true
+  showBreadcrumbs = true,
+  footerNote
 }: ArticleLayoutProps) {
   const hasToc = headings.length > 0;
 
@@ -75,6 +77,7 @@ export function ArticleLayout({
             publishedAt={publishedAt}
             continuation={continuation}
           />
+          {footerNote}
         </article>
         <TableOfContents headings={headings} className="hidden xl:block" title={tocTitle} />
       </div>
