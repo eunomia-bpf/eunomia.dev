@@ -3,10 +3,8 @@ import { AboutLandingPage } from "../components/AboutLandingPage";
 import { AgentSystemLayerPresentation } from "../components/AgentSystemLayerPresentation";
 import { BlogListing } from "../components/BlogListing";
 import { CardGrid } from "../components/CardGrid";
-import {
-  DailyReportDisclosure,
-  DailyReportResearchDirections
-} from "../components/DailyReportEnhancements";
+import { DailyReportResearchDirections } from "../components/DailyReportEnhancements";
+import { DailyReportFooterNote } from "../components/DailyReportFooterNote";
 import { HomePageHero, HomePageLanding } from "../components/HomePageLanding";
 import {
   AgentRuntimeInfrastructurePage,
@@ -19,7 +17,13 @@ import { SeoHead } from "../components/SeoHead";
 import { SiteChrome } from "../components/SiteChrome";
 import { canonicalAlternates } from "./seo";
 import { MarkdownContent } from "../components/MarkdownContent";
-import type { BlogEntry, DocsPage, GitMetadata, LocaleAlternates } from "./content/types";
+import type {
+  BlogEntry,
+  DocsPage,
+  GitMetadata,
+  HeadingEntry,
+  LocaleAlternates
+} from "./content/types";
 import type { MkdocsHomeConfig } from "./content/mkdocs-config";
 import type { Locale } from "./site-data";
 
@@ -56,6 +60,43 @@ function getDailyReportLabel(locale: Locale): string {
 function getDailyReportTags(tags: string[] | undefined, locale: Locale): string[] {
   const label = getDailyReportLabel(locale);
   return (tags ?? []).map((tag) => (tag === "Research" ? label : tag));
+}
+
+const dailyReportTextReplacements: Record<Locale, ReadonlyArray<readonly [string, string]>> = {
+  en: [
+    ["Scope, limitations, and falsification", "What would change this conclusion?"],
+    ["scope-limitations-and-falsification", "what-would-change-this-conclusion"]
+  ],
+  zh: [
+    ["适用范围、局限与可证伪条件", "哪些结果会改变这个判断？"],
+    ["适用范围局限与可证伪条件", "哪些结果会改变这个判断"],
+    ["适用范围、局限性与可证伪条件", "哪些结果会改变这个判断？"],
+    ["适用范围局限性与可证伪条件", "哪些结果会改变这个判断"],
+    ["适用范围、局限与可证伪性", "哪些结果会改变这个判断？"],
+    ["适用范围局限与可证伪性", "哪些结果会改变这个判断"],
+    ["适用范围、局限性和可证伪性", "哪些结果会改变这个判断？"],
+    ["适用范围局限性和可证伪性", "哪些结果会改变这个判断"],
+    ["适用范围、限制与可证伪条件", "哪些结果会改变这个判断？"],
+    ["适用范围限制与可证伪条件", "哪些结果会改变这个判断"]
+  ]
+};
+
+function rewriteDailyReportText(value: string, locale: Locale): string {
+  return dailyReportTextReplacements[locale].reduce(
+    (current, [source, replacement]) => current.split(source).join(replacement),
+    value
+  );
+}
+
+function rewriteDailyReportHeadings(
+  headings: HeadingEntry[] | undefined,
+  locale: Locale
+): HeadingEntry[] {
+  return (headings ?? []).map((heading) => ({
+    ...heading,
+    id: rewriteDailyReportText(heading.id, locale),
+    text: rewriteDailyReportText(heading.text, locale)
+  }));
 }
 
 function renderCustomReactPage(kind: NonNullable<DocsPage["reactPage"]>, locale: Locale, page: DocsPage) {
@@ -113,6 +154,13 @@ function renderDocsBody(page: DocsPage, locale: Locale) {
   }
 
   const dailyReport = isDailyReportPath(page.path);
+  const headings =
+    page.layout === "document"
+      ? dailyReport
+        ? rewriteDailyReportHeadings(page.headings, locale)
+        : page.headings
+      : [];
+  const bodyHtml = dailyReport ? rewriteDailyReportText(page.bodyHtml, locale) : page.bodyHtml;
 
   return (
     <ArticleLayout
@@ -124,20 +172,19 @@ function renderDocsBody(page: DocsPage, locale: Locale) {
       publishedAt={page.date}
       sourceHref={page.sourcePath}
       metadata={dailyReport ? null : page.metadata}
-      headings={page.layout === "document" ? page.headings : []}
+      headings={headings}
       continuation={page.layout === "document" ? page.continuation : undefined}
       tocTitle={getTocTitle(locale)}
       showBreadcrumbs={page.layout === "document"}
+      footerNote={dailyReport ? <DailyReportFooterNote locale={locale} /> : undefined}
     >
-      {dailyReport ? <DailyReportDisclosure locale={locale} placement="top" /> : null}
-      <MarkdownContent html={page.bodyHtml} />
+      <MarkdownContent html={bodyHtml} />
       {dailyReport ? <DailyReportResearchDirections locale={locale} path={page.path} /> : null}
       {page.cards?.length ? (
         <section className="mt-12">
           <CardGrid cards={page.cards} compact />
         </section>
       ) : null}
-      {dailyReport ? <DailyReportDisclosure locale={locale} placement="footer" /> : null}
     </ArticleLayout>
   );
 }
