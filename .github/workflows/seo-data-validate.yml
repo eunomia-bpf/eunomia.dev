@@ -43,6 +43,19 @@ jobs:
           test "$(git config -f .gitmodules --get 'submodule..github/seo-skills.url')" = \
             "https://github.com/AutoArchive/seo-skill.git"
 
+      - name: Validate authoritative daily task contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f DAILY_TASK.md
+          grep -Fq "# Daily site operation" DAILY_TASK.md
+          grep -Fq "## Scheduler contract" DAILY_TASK.md
+          grep -Fq "Treat the repository as authoritative." DAILY_TASK.md
+          grep -Fq "## Daily responsibilities" DAILY_TASK.md
+          grep -Fq "## 1. Analyze data first" DAILY_TASK.md
+          grep -Fq "## 2. Choose zero or one coherent public change" DAILY_TASK.md
+          grep -Fq "## 3. Deliver and verify" DAILY_TASK.md
+
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
