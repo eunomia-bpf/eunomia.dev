@@ -13,12 +13,13 @@ The purpose is not to imitate a paper. The purpose is to help engineers and
 researchers understand a real problem, see what current work still misses, and
 find ideas worth implementing and evaluating.
 
-## Non-Negotiable Public Contract
+## Non-Negotiable Publishing Rules
 
 Every public Daily Report must satisfy all of these rules:
 
-- It is explicitly labeled **AI-generated and not human-reviewed** near the top
-  and again at the bottom of the rendered page.
+- The rendered page carries one low-contrast disclosure line at the absolute
+  bottom, after navigation, feedback, and sharing controls. Do not place a
+  review-status banner at the top.
 - It never claims to be reviewed, peer-reviewed, maintainer-endorsed, or written
   by a human unless that review or authorship actually happened and is recorded.
 - Human Git commit authors are not presented as article authors merely because
@@ -106,7 +107,7 @@ discovery, competing explanations, and citation collection.
 Its report is research input, not publishable prose. Before using it:
 
 - open and inspect the important primary sources;
-- verify dates, metrics, experimental scope, and quoted conclusions;
+- verify dates, metrics, experimental bounds, and quoted conclusions;
 - remove unsupported extrapolation;
 - identify which sources are independent;
 - compare the candidate with existing Eunomia content;
@@ -187,7 +188,7 @@ Cover two to five concrete gaps. For each gap, explain:
   adoption;
 - what observation or experiment would show that the gap is real.
 
-Do not confuse an author's limitation paragraph with a field-level gap. The
+Do not confuse an author's caveat paragraph with a field-level gap. The
 report must synthesize across evidence.
 
 ### 7. Write The Required Ideas Section
@@ -232,8 +233,8 @@ In Chinese:
 
 Before publication, verify that every `/research/` and `/zh/research/` page:
 
-- displays the AI-generated, not-human-reviewed notice near the top;
-- repeats the notice at the bottom;
+- displays one low-contrast review-status note only at the absolute bottom;
+- does not display a disclosure banner before or inside the report body;
 - uses the public label Daily Report or 每日报告 in navigation and section UI;
 - does not expose a human author through article metadata by default;
 - keeps canonical and hreflang URLs unchanged;
@@ -262,7 +263,7 @@ Reject or revise the report when any of these are true:
 - the title depends on an unexplained coined term;
 - the opening reads like an abstract rather than a human explanation;
 - the report summarizes papers one by one;
-- the gap section contains generic limitations;
+- the gap section contains generic caveats;
 - the ideas section lacks an implementable artifact or discriminating
   evaluation;
 - academic value is claimed only because the topic is new;

@@ -146,7 +146,7 @@ proposed_effects:
 shared_constraints:
   - token audience must match across code and deployment
 authority:
-  scope: repository:eunomia/service-a
+  permissions: repository:eunomia/service-a
 acceptance:
   - integration test passes
   - old audience is absent from production config
@@ -163,7 +163,7 @@ At minimum, it checks:
 1. **Stale reads.** Did a relevant file, object, policy, or external resource change after the worker planned its action?
 2. **Direct conflicts.** Do workers write the same resource or depend on incompatible versions?
 3. **Shared constraints.** Do disjoint changes jointly exceed a budget, violate uniqueness, or break an API invariant?
-4. **Authority.** Does the principal, scope, target, budget, approval, and delegation chain still cover the actual effects?
+4. **Authority.** Does the principal, permissions, target, budget, approval, and delegation chain still cover the actual effects?
 5. **Local and global acceptance.** Does each candidate work, and does the combined result complete the user's overall task?
 6. **External ordering.** Which actions must happen exactly once, and which must wait until other changes have committed?
 
@@ -238,7 +238,7 @@ A general system can start with a small set of components rather than a complete
 2. **Effect adapters.** Record reads, writes, consumption, and externally visible actions at file, Git, database, cloud API, browser, and MCP boundaries.
 3. **Versions and preconditions.** Track hashes, ETags, policy versions, object revisions, and other comparable state.
 4. **Conflict detection.** Handle physical conflicts first, then use schemas, tests, policies, and semantic analysis for higher-level conflicts.
-5. **Authority revalidation.** Recheck principal, scope, target, budget, approval, and delegation immediately before effects become visible.
+5. **Authority revalidation.** Recheck principal, permissions, target, budget, approval, and delegation immediately before effects become visible.
 6. **Global validation.** Run cross-branch tests, budget checks, release rules, and user-defined outcome checks.
 7. **Commit log.** Record which candidates were accepted, rejected, repaired, or serialized, and when irreversible actions occurred.
 
@@ -277,7 +277,7 @@ Important metrics include:
 
 Ablation should remove state validation, shared constraints, authority checks, and global acceptance one at a time. A layer that does not prevent real failures should not become a permanent default cost.
 
-## Scope, limitations, and falsification
+## What would change this conclusion?
 
 This design targets tool-using agents that modify shared state, use delegated authority, or create external effects. Chat, independent retrieval, and fully isolated candidate generation usually do not need such a protocol.
 

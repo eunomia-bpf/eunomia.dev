@@ -88,7 +88,7 @@ Tail sampling 仍然重要，但 Agent 系统需要中间 commitment point，例
 
 Flight recorder 对 Agent 很重要，因为证据债务无法事后偿还。Trigger 触发以后，backend 可以收集更多未来数据，却无法找回从未记录的前因。一次可疑上传可能依赖二十分钟前的文件读取。如果系统只在上传时开启详细 tracing，它会看到外发行为，却看不到数据来源。
 
-Hubble 也清楚展示了局限。论文指出，根因和症状距离太远时，前因可能已经被 ring buffer 覆盖。Agent 更容易遇到这种情况，因为因果距离可能跨越许多工具调用和 workspace transition，而不是几毫秒。因此，Agent flight recorder 不能只保留固定时间窗口，还必须让部分因果锚点活得比原始 buffer 更久。
+Hubble 同时暴露了一个边界。论文指出，根因和症状距离太远时，前因可能已经被 ring buffer 覆盖。Agent 更容易遇到这种情况，因为因果距离可能跨越许多工具调用和 workspace transition，而不是几毫秒。因此，Agent flight recorder 不能只保留固定时间窗口，还必须让部分因果锚点活得比原始 buffer 更久。
 
 ### 统计摘要依赖重复执行结构
 
@@ -210,7 +210,7 @@ Anchor 是在决策相关边界产生的稀疏持久记录，例如：
 
 - `观察到 artifact A@v3`；
 - `根据证据集合 {A@v3, B@v8} 形成计划 P`；
-- `在 policy Y@v4 和 credential scope Z 下执行工具 X`；
+- `在 policy Y@v4 和 credential permissions Z 下执行工具 X`；
 - `repository tree 从 H1 变为 H2`；
 - `oracle O 通过后发布结果 R`。
 
@@ -277,7 +277,7 @@ Capsule 是交给人工调查者或 reasoning model 的单位。它要小到可�
 | 进程行为 | process tree、executable identity、exit status、resource summary | argv、部分 environment、选定 syscall sequence | subprocess 承载 harness 以下的真实 effect |
 | 文件行为 | operation、repository/object identity、path class、before/after digest | 精确路径与授权内容 diff | 状态改变通常比每次 read 更重要 |
 | 网络行为 | destination identity、protocol、transfer class、byte count | request metadata 或授权 payload | 目的地和 provenance 经常决定风险 |
-| Authority | principal、credential scope、sandbox/policy version | approval evidence 与 delegated capability chain | 相同动作在不同权限下含义不同 |
+| Authority | principal、credential permissions、sandbox/policy version | approval evidence 与 delegated capability chain | 相同动作在不同权限下含义不同 |
 | Environment | image、package、repository 和配置版本 | 选定 manifest 与 state snapshot | 可复现性要求行为绑定到状态 |
 | Outcome | oracle identity、result、final-state digest | log、test 和 reviewer evidence | tool exit success 不等于任务正确 |
 
@@ -333,7 +333,7 @@ Reasoning system 应该可以请求正在运行的 trajectory 临时展开：保
 
 Baseline 不能只有“保存全部”和“保存 1%”。还应该包括 probability head sampling、error/outcome tail sampling、固定时间 ring buffer、anomaly-only retention、低基数 summary 和本文证据组合。评估还要逐一移除三个视角。如果删除随机探索预算不影响新问题发现和总体估计，它就没有必要；如果 causal anchor 不改善关键步骤定位，说明 schema 过弱或信息重复。
 
-## 适用范围、局限与可证伪条件
+## 哪些结果会改变这个判断？
 
 本文针对会调用工具、操作可变 workspace 并与外部系统交互的长期 Agent。它不要求采集隐藏 chain-of-thought。真正相关的是可观察执行、声明意图、authority、state transition 和 outcome。没有外部 effect 的 chat-only interaction 面临的 retention 问题简单得多。
 
