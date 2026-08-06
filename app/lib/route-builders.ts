@@ -4,6 +4,7 @@ import { loadHomePage, resolveContentPage } from "./content";
 import { listRenderableRoutesForLocale } from "./content/manifest";
 import { buildSearchSidebar } from "./content/sidebar";
 import type { SidebarGroup } from "./content/types";
+import { prepareDailyReportPage } from "./daily-report";
 import type { HomePageData } from "./page-factories";
 import type { ContentPageProps } from "./page-builders";
 import { localizePath } from "./paths";
@@ -71,7 +72,7 @@ export function createContentPageRoute(locale: Locale) {
     return {
       props: {
         eyebrow: resolved.eyebrow,
-        page: resolved.page
+        page: prepareDailyReportPage(resolved.page, locale)
       }
     };
   };
