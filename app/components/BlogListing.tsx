@@ -21,13 +21,13 @@ export function BlogListing({ title, description, entries, locale }: BlogListing
           latest: "最新文章",
           archive: "全部文章",
           empty: "没有找到文章。",
-          research: "阅读研究文章"
+          dailyReport: "阅读每日报告"
         }
       : {
           latest: "Latest writing",
           archive: "All posts",
           empty: "No posts found.",
-          research: "Read research"
+          dailyReport: "Read Daily Report"
         };
 
   return (
@@ -41,7 +41,7 @@ export function BlogListing({ title, description, entries, locale }: BlogListing
           href={localizePath("/research/", locale)}
           className="mt-6 inline-flex rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-400 hover:text-ink"
         >
-          {copy.research}
+          {copy.dailyReport}
         </a>
       </div>
 
