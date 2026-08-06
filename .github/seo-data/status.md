@@ -1,6 +1,6 @@
-# Daily site operation status
+# SEO status
 
-## Operating state
+## Current state
 
 - Authoritative task: `DAILY_TASK.md`
 - Technical SEO subtask: `.github/seo-data/daily-task.md`
@@ -14,7 +14,7 @@
 - Last verified production deployment from a daily run: none
 - Skill submodule commit: `516e9e2dcf012506a677a749049d64c5914643e9`
 
-## Data coverage
+## Current signals
 
 - Live-site technical evidence: available
 - Public GitHub repository evidence: available
