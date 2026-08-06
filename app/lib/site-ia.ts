@@ -24,8 +24,16 @@ export type PrimaryNavItem = PrimaryNavChild & {
   children?: PrimaryNavChild[];
 };
 
+function dailyReportLabels(): Record<Locale, string> {
+  return {
+    en: "Daily Report",
+    zh: "每日报告"
+  };
+}
+
 const sectionDefinitions: SiteSectionDefinition[] = siteSectionPayload.sections.map((section) => ({
   ...section,
+  labels: section.key === "research" ? dailyReportLabels() : section.labels,
   ...section.published,
   href: (locale) => section.hrefByLocale[locale]
 }));
@@ -61,8 +69,9 @@ function localizeConfiguredHref(href: string, locale: Locale): string {
 }
 
 function serializeNavChild(link: SerializedSiteNavLink, locale: Locale): PrimaryNavChild {
+  const label = link.href === "/research/" ? dailyReportLabels()[locale] : link.labels[locale];
   return {
-    label: link.labels[locale],
+    label,
     href: localizeConfiguredHref(link.href, locale)
   };
 }

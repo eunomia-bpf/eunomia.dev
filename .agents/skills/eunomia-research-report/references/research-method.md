@@ -1,264 +1,288 @@
-# Research Method
+# Daily Report Research Method
 
-Use this reference for source coverage, topic selection, evidence grading, and
-the shape of a public report.
+Use this reference for source coverage, evidence grading, gap analysis, idea
+design, and public report structure. The public section is called **Daily
+Report**, while its stable filesystem and URLs remain `docs/research/` and
+`/research/`.
+
+Every public report is AI-generated and not human-reviewed unless a named human
+review is explicitly recorded. This editorial status must be visible near the
+top and bottom of every rendered page.
 
 ## Research Windows
 
-Use the latest seven days to find current releases, papers, incidents, and
-discussion when the assignment is time-sensitive. Read the latest 48 hours
-first, then widen to the previous 7-30 days for mechanisms, contradictions,
-deployments, and engineering context.
+Use the latest seven days for current releases, papers, incidents, and public
+engineering discussion when the assignment depends on recent change. Read the
+latest 48 hours first, then widen to 7-30 days for mechanisms, contradictions,
+and deployment evidence.
 
-Use older primary sources for standards, prior art, baselines, and theory.
-Confirm both the publication date and the date of the underlying event. A recent
-repost of an old result is not a recent event.
+Use older primary sources for theory, standards, prior art, and baselines.
+Confirm both the publication date and the date of the underlying event.
 
-A durable Research brief does not need a news hook. Its source cutoff should
-still be explicit so later readers know which evidence the claim includes.
+A durable Daily Report does not need a news hook. It still needs a source cutoff
+so readers can tell which evidence the analysis includes.
 
-## Source Coverage
+## Source Families
 
-For a scheduled broad weekly analysis, materially review at least:
+Prefer sources that expose inspectable evidence:
 
-- 20 distinct papers
-- 20 distinct industry or open-source projects
-- 10 distinct current-event sources published within the latest seven days
+- peer-reviewed papers and method-complete preprints;
+- datasets, benchmarks, and reproducible artifacts;
+- standards and official technical specifications;
+- source code, releases, commits, issues, and maintainer discussions;
+- first-person engineering reports and postmortems;
+- production measurements with enough methodology to interpret them;
+- official documentation for current runtime behavior.
 
-This gate exists to prevent a broad landscape report from being built from a
-small or repetitive sample. It does not apply mechanically to every focused
-Research brief. A focused brief should use enough primary evidence to establish
-the mechanism, the strongest alternative, and the boundary of the claim. Do not
-pad a narrow question with unrelated sources.
+Marketing pages and social posts can establish that someone announced or
+observed something. They do not establish a general technical fact without
+corroboration.
 
-Count a source only when it changes the analysis by adding a fact, mechanism,
-comparison, contradiction, adoption signal, failure, or useful question.
-Several articles repeating one announcement remain one piece of evidence.
+Count independent evidence, not links. Ten articles repeating one announcement
+are one evidence cluster.
 
-Useful source families include:
+## Evidence Map
 
-- **Academic research:** conference papers, journals, arXiv papers, workshop
-  material, datasets, benchmarks, and author artifacts.
-- **Engineering practice:** architecture notes, postmortems, performance
-  studies, migration reports, and security disclosures.
-- **Official product material:** release notes, specifications, system cards,
-  and detailed documentation. Treat marketing metrics as claims until they are
-  independently supported.
-- **Open source:** repositories, releases, commits, issues, pull requests,
-  discussions, maintainer notes, and reproducible artifacts.
-- **Public institutions:** standards bodies, foundations, agencies, research
-  laboratories, and formal consultations.
-- **Community evidence:** public maintainer discussions and practitioner reports
-  that expose disagreement or operational friction.
+For every serious source, record privately:
 
-Discovery sources such as newsletters, aggregators, and social posts are leads,
-not final support for factual claims.
+- primary URL and source family;
+- publication date and underlying event date;
+- concrete claim or measured result;
+- method, workload, scale, and assumptions;
+- available code, data, logs, or implementation detail;
+- limitation and possible conflict of interest;
+- independent support or counterevidence;
+- which architecture or engineering decision it changes.
+
+A source counts only when it changes the analysis through a fact, mechanism,
+comparison, contradiction, deployment failure, or useful question.
 
 ## Evidence Lattice
 
-Before choosing a broad thesis, try to fill several independent evidence roles:
+A strong report normally combines several roles:
 
-- **Current change:** a release, incident, paper, policy change, or adoption
-  event that explains why the question matters now.
-- **Mechanism evidence:** a paper, benchmark, dataset, or systematic study that
-  tests or defines the underlying mechanism.
-- **Implementation evidence:** source code, a standard, detailed documentation,
-  or a reproducible artifact showing how the mechanism is built.
-- **Deployment evidence:** a postmortem, issue, maintainer discussion, or
-  first-person report showing where the mechanism succeeds or fails.
-- **Counterevidence:** a result, workload, or explanation that would narrow or
-  overturn the thesis.
+- **Mechanism evidence:** why a failure or trade-off occurs.
+- **Implementation evidence:** how a system or interface actually works.
+- **Deployment evidence:** where the mechanism matters in practice.
+- **Counterevidence:** a workload or result that narrows the central claim.
+- **Measurement evidence:** a method that can distinguish alternatives.
 
-A broad report should normally use at least three roles, including mechanism
-evidence and one non-vendor technical artifact. A narrow report may use fewer
-when one primary source directly answers the question. Never add a weak citation
-solely to complete the pattern.
-
-## Candidate Record
-
-For each serious candidate, capture:
-
-- title and primary URL
-- source family and owner
-- publication date and underlying event date
-- concrete new fact or claim
-- available data, code, logs, or implementation detail
-- independent support
-- limitation, conflict of interest, or missing evidence
-- possible mechanism or tension
-- question it could help answer
-
-Keep this compact and private to the research process.
+A focused report should use the smallest corpus that supports its question,
+strongest alternative, gap, and boundary. Do not pad it to resemble a survey.
 
 ## Topic Selection
 
-A useful topic commonly has more than one of these properties:
+Prefer a question that changes a decision and exposes a concrete gap. Useful
+signals include:
 
-- independent sources point to the same underlying change;
-- a new artifact or dataset makes a claim inspectable;
-- research results and production experience disagree;
-- a release changes what developers can build, operate, secure, or afford;
-- a failure mode or second-order effect is missing from surface coverage;
-- the evidence can change a reader's technical decision.
+- papers and production experience disagree;
+- a new workload breaks an old abstraction;
+- current benchmarks omit an important failure mode;
+- a capability exists but lacks a safe or portable interface;
+- systems optimize a proxy that does not measure the real outcome;
+- a mechanism works only because of an unstated workload assumption;
+- an operational problem cannot be compared because there is no shared metric or
+  dataset.
 
-Prefer a narrow question with strong evidence over a broad trend supported by
-repetition.
+Compare the candidate with existing Daily Reports and Blog posts. A new title,
+product, example, or coined term does not make the thesis new.
 
-Compare the candidate with existing Eunomia Research pages and blog posts before
-drafting. The central question, argument, or conclusion must be materially
-different. A new headline, product, example, or named abstraction does not make
-a thesis new.
+## Gap Analysis
 
-## Evidence Roles And Attribution
+The gap section must synthesize the field rather than repeat limitation
+paragraphs from individual papers.
 
-Prefer primary data, code, experiments, standards, official documentation, and
-first-person engineering reports. Peer-reviewed work and method-complete
-preprints can establish mechanisms and measured results. Commercial pages can
-establish what an organization announced, not a general fact without
-corroboration.
+A strong gap has four parts:
 
-Cross-validate a central inference with independent source types when the claim
-extends beyond one source's own system. Look for agreement on mechanism rather
-than identical wording.
+1. **Current capability:** what leading systems already achieve.
+2. **Missing element:** the exact interface, guarantee, dataset, measurement,
+   mechanism, or deployment property that is absent.
+3. **Consequence:** why the absence matters to correctness, performance,
+   security, cost, operation, or adoption.
+4. **Test:** what experiment or observation would establish whether the gap is
+   material.
 
-Place attribution near the claim it supports. A reference list is not a
-substitute for an evidence chain in the article.
+Examples of specific gaps:
 
-## Repository-Owned Work
+- no benchmark contains hidden cross-resource conflicts;
+- no schema connects model decisions to system effects and authority;
+- evaluation assumes a complete trace although production retention is lossy;
+- a runtime exposes parallel execution but no commit semantics;
+- published metrics count tool success rather than final task correctness;
+- privacy cost is omitted from adaptive observability evaluation.
 
-After a thesis exists, inspect `docs/papers/registry.yaml`, public paper text,
-project artifacts, and related Eunomia posts for genuinely relevant evidence.
+Reject generic statements such as:
 
-Use repository-owned work as one evidence node. Give it the same editorial
-distance, limitations, and verification standard as outside work. Avoid a
-dedicated promotional section or a forced tie-back to Eunomia products.
+- more research is needed;
+- scalability remains a challenge;
+- security could be improved;
+- future work should evaluate more models;
+- an LLM could automate the process.
 
-Omit the connection when it does not improve the reader's model.
+## Idea Design
+
+The ideas section is the main value of the Daily Report. Prefer two or three
+ideas that can support a real artifact and discriminating evaluation.
+
+For each idea, write an internal design card before public prose:
+
+### Gap
+
+What exact missing capability or evidence does the idea address?
+
+### Mechanism
+
+What components, state, control path, algorithm, abstraction, or protocol would
+exist? Describe the system without relying on labels such as AI-powered,
+agentic, intelligent, or eBPF-based.
+
+### Delta From Related Work
+
+Name the strongest adjacent approach and state the technical difference. A new
+application domain alone is usually not enough novelty.
+
+### Artifact
+
+What can be implemented or released?
+
+Examples include:
+
+- a runtime or proxy;
+- a kernel or userspace mechanism;
+- a portable schema or protocol;
+- a benchmark and ground-truth dataset;
+- a compiler or verifier extension;
+- a trace corpus and replay harness;
+- a scheduling or retention controller;
+- a reproducible production study.
+
+### Evaluation
+
+Specify:
+
+- workload families;
+- strongest baselines;
+- correctness and performance metrics;
+- a fixed resource, privacy, or review budget when relevant;
+- an ablation that isolates the new mechanism;
+- a counterexample or workload where the simpler design should win.
+
+### Academic Value
+
+State the generalizable research question, property, model, or method. Do not
+claim academic value only because the topic is recent.
+
+### Production Value
+
+Identify the operator or developer who could deploy the artifact, the boundary
+where it integrates, and the failure, cost, or manual work it reduces.
+
+### Failure Condition
+
+State what result would show that the extra mechanism is unnecessary, too
+expensive, too inaccurate, or not general enough.
+
+## Idea Quality Tests
+
+An idea is not ready when it is only:
+
+- apply an LLM to classify events;
+- use eBPF to observe more data;
+- build a unified platform;
+- add a control plane;
+- use multi-agent collaboration;
+- make the model more accurate;
+- combine several existing systems without a new property or trade-off.
+
+Ask instead:
+
+- What information becomes available that was previously unavailable?
+- What decision becomes enforceable or measurable?
+- What cost or correctness property changes?
+- Why can existing interfaces not provide it?
+- What workload exposes the difference?
+- What would make the proposed mechanism lose to a simpler baseline?
 
 ## Human-Readable Synthesis
 
-The public article is not the research notebook and not the output of a search
-tool.
+The public page is not a research notebook and not the direct output of platform
+Deep Research.
 
-Write for a technically qualified reader who knows the broad domain but has not
-read the source corpus. Build the article around the reader's decisions:
+Write for a technically qualified reader who has not read the sources. A useful
+progression is:
 
-1. show a concrete situation;
-2. explain why the obvious mental model fails;
-3. identify the mechanism;
-4. state the design or decision that changes;
-5. introduce evidence where it changes the argument;
-6. test alternatives and boundaries.
+1. concrete situation and consequence;
+2. why the obvious solution appears sufficient;
+3. the missing mechanism;
+4. evidence and competing explanations;
+5. architecture or engineering consequence;
+6. current gaps;
+7. promising directions;
+8. evaluation, limitations, and falsification.
 
-Use one recurring scenario when possible. It gives the reader a stable object
-to revisit as the article moves from failure to mechanism and design.
+Use a recurring scenario when possible. Introduce a formal term only after the
+reader understands the pattern it names.
 
-Do not start with:
+Do not begin with a source matrix, field overview, taxonomy, formula, or coined
+abstraction.
 
-- a field overview;
-- a dense table of products or papers;
-- a source-by-source literature survey;
-- a taxonomy with no prior example;
-- a formula;
-- a coined term.
+## Required Public Sections
 
-A new abstraction should compress a pattern the reader already understands. If
-the reader must learn the term before seeing the problem, the order is wrong.
+Every Daily Report article must render these functions, either from Markdown or
+from a route-specific rendering component:
 
-### Titles And Openings
+- `Where current work is still weak` / `现有研究还缺什么`
+- `Promising directions with academic and production value` /
+  `兼具学术价值与生产价值的方向`
 
-A title should name the problem or decision in ordinary language. A subtitle or
-later section can introduce the formal term.
+The gap section should contain two to five concrete gaps. The idea section should
+contain a small number of developed directions, not a brainstorm list.
 
-Within the first 250 English words or 500 Chinese characters, establish:
+## Disclosure And Metadata
 
-- the affected actor or system;
-- the concrete failure or unmet need;
-- why existing practice is insufficient;
-- the article's main claim.
+New pages use `Daily Report` as the public tag and
+`status: ai-generated-unreviewed` by default.
 
-Do not use the opening to list credentials, sources, or claims of novelty.
+The rendered page must say, near the top and bottom, that:
 
-### Technical Depth
+- it was generated with automated research and writing tools;
+- no human editor verified every citation, fact, metric, or recommendation;
+- errors may remain;
+- readers should inspect primary sources and independently validate important
+  conclusions.
 
-Depth should appear as:
+Do not expose a human Git committer as an article author by default.
 
-- a causal mechanism;
-- a meaningful comparison;
-- a non-obvious consequence;
-- an architecture choice;
-- an evaluation that can distinguish alternatives;
-- an explicit condition that would falsify the claim.
+## Bilingual Writing
 
-Term density, equations, and article length are not evidence of depth.
-
-Formal notation is optional. Use it after an intuitive explanation and only when
-it removes ambiguity. Define every symbol locally and explain what engineering
-decision the formalism changes.
-
-### Literature And Tables
-
-Synthesize literature by mechanism or disagreement. A paragraph should not exist
-merely to mention another paper.
-
-Use a table only when all rows share the same comparison dimensions. Put dense
-runtime or related-work tables after the reader understands the problem, not in
-the opening third.
-
-### Chinese And English
-
-Chinese and English versions share evidence and claims, not sentence boundaries.
+English and Chinese versions share evidence and claims, not sentence boundaries.
 Write each version naturally.
 
-In Chinese prose, use Chinese for ordinary concepts. Include an English term on
-first mention when it is a recognized term of art or useful search key. Do not
-make a sentence's grammar depend on a stack of English nouns.
+In Chinese, use Chinese for ordinary concepts. Keep English for proper nouns,
+identifiers, code, and useful terms of art. Do not let a sentence's grammar rely
+on a stack of English nouns.
 
-## Public Report Shape
+## Publication Validation
 
-A report normally needs these editorial functions, but they do not have to be
-rigid headings:
+Before merge, verify:
 
-- a concrete problem and reader stakes;
-- a clear, contestable thesis in ordinary language;
-- the mechanism connecting the evidence;
-- what existing mechanisms solve and leave open;
-- a design, architecture, or decision consequence;
-- competing evidence and alternative explanations;
-- implementation or operational implications;
-- evaluation criteria;
-- uncertainty, applicability limits, and falsification conditions.
+- title, description, opening, gaps, ideas, limits, and references;
+- primary-source support for central factual claims;
+- disclosure near the top and bottom of every section page;
+- Daily Report labels in desktop and mobile navigation and the Blog call to
+  action;
+- stable `/research/` and `/zh/research/` canonical URLs;
+- bilingual hreflang pairs;
+- no human author metadata on unreviewed AI pages;
+- sitemap, structured data, internal links, and browser rendering;
+- full repository CI.
 
-Long form is justified when the argument needs room. It is not a requirement to
-include every source reviewed.
-
-End Chinese reports with `## 参考资料`. List only sources materially used in the
-argument.
-
-## One-Pass Reader Test
-
-Before publication, read only the title, description, opening, headings, and
-conclusion. A qualified reader should be able to answer:
-
-- What problem is being solved?
-- Who experiences it?
-- What is the central claim?
-- What design or operational decision changes?
-- What evidence matters most?
-- What would make the claim false?
-
-Then read the full article once. Rewrite if the reader must:
-
-- remember several undefined terms;
-- reconstruct missing premises;
-- infer why a source was mentioned;
-- translate English-heavy Chinese clauses;
-- read a formal definition before seeing an example;
-- confuse a worker's local success with the workflow's final correctness.
+After merge, verify the exact merge commit deployed and inspect the public
+English and Chinese pages.
 
 ## No-Report Outcome
 
-If the scan produces interesting links but no defensible thesis, do not draft a
-deep report. Record the strongest unresolved question and the evidence that
-would unblock it. A truthful no-report outcome is better than a topical summary
-disguised as analysis.
+Do not publish when the scan produces only interesting sources or a fluent
+summary. Record the strongest unresolved question and the evidence required to
+support a real gap and testable idea. Cadence never overrides the publication
+contract.
