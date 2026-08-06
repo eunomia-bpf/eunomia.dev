@@ -1,10 +1,5 @@
 import type { Locale } from "../lib/site-data";
 
-type DailyReportDisclosureProps = {
-  locale: Locale;
-  placement: "top" | "footer";
-};
-
 type DirectionItem = {
   title: string;
   body: string;
@@ -21,38 +16,6 @@ type DirectionCopy = {
 
 function canonicalReportPath(path: string): string {
   return path.startsWith("/zh/") ? path.slice(3) : path;
-}
-
-export function DailyReportDisclosure({ locale, placement }: DailyReportDisclosureProps) {
-  const copy =
-    locale === "zh"
-      ? {
-          title: "AI 生成，未经人工审核",
-          top:
-            "本页由自动化研究与写作工具生成，尚无人逐项核验引用、事实、数字和建议。请把它当作研究起点，回看一手来源，并在用于生产系统或重要决策前独立验证。",
-          footer:
-            "披露：本页由 AI 生成，未经过人工编辑审核，仍可能包含遗漏、误读或错误。请通过页面中的一手来源核验关键结论，并可通过源码链接提交修正。"
-        }
-      : {
-          title: "AI-generated and not human-reviewed",
-          top:
-            "This page was produced with automated research and writing tools. No human editor has verified every citation, fact, metric, or recommendation. Treat it as a starting point, check the primary sources, and independently validate it before using it in production or important decisions.",
-          footer:
-            "Disclosure: this page is AI-generated and has not received human editorial review. Omissions, misreadings, and errors may remain. Verify important claims against the primary sources and use the source link to propose corrections."
-        };
-
-  return (
-    <aside
-      role="note"
-      className={[
-        "border border-amber-300 bg-amber-50 px-5 py-4 text-amber-950",
-        placement === "top" ? "mb-8" : "mt-12"
-      ].join(" ")}
-    >
-      <p className="font-semibold">{copy.title}</p>
-      <p className="mt-2 text-sm leading-6">{placement === "top" ? copy.top : copy.footer}</p>
-    </aside>
-  );
 }
 
 const traceDirections: Record<Locale, DirectionCopy> = {
