@@ -9,7 +9,7 @@ Produce technically serious, source-grounded analysis for the public **Daily Rep
 
 The purpose is to help engineers and researchers understand a real problem, see what current work still misses, and find ideas worth implementing and evaluating. Depth comes from evidence, mechanism, comparison, and testable design, not from academic tone or terminology density.
 
-## Public Contract
+## Publishing Rules
 
 Every Daily Report must satisfy these rules:
 
@@ -19,7 +19,7 @@ Every Daily Report must satisfy these rules:
 - The report contains a small number of developed directions with both academic and production relevance.
 - The report states the assumptions behind its conclusion and the evidence that would change it, using reader-facing language.
 - The report is not published when the scan yields only a fluent summary and no defensible gap, mechanism, or useful idea.
-- Do not add provenance banners, warning boxes, generation-process badges, or footer disclaimers to the public page.
+- Do not add provenance banners, warning boxes, generation-process badges, or repeated disclosures. The only status text is one low-contrast line at the absolute bottom, after navigation, feedback, and sharing controls.
 - Do not infer an article byline from Git commit metadata.
 
 ## Required Context
@@ -220,7 +220,7 @@ Reject or revise the report when any of these are true:
 - academic value is claimed only because the topic is new;
 - production value is claimed without a deployable boundary or user;
 - repository-owned work is treated more generously than outside work;
-- the page contains process-oriented warning boxes or provenance notes that distract from the analysis;
+- the page contains process-oriented warning boxes, repeated disclosures, or a prominent provenance note;
 - the new page substantially duplicates an existing question or thesis;
 - important claims cannot be traced to primary evidence.
 
