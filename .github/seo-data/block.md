@@ -1,4 +1,7 @@
-# External blockers
+# Human-only blockers
+
+The entries below are external account or scheduler conditions that the repository
+cannot truthfully mark as resolved by itself.
 
 ## Daily scheduler is not configured
 
