@@ -10,7 +10,7 @@
 
 - Default branch: `main`
 - Authoritative daily task: `DAILY_TASK.md`
-- Automation branch prefix: `seo/`
+- Automation branch prefix: `daily/`
 - Skill submodule path: `.github/seo-skills`
 - Skill source: `https://github.com/AutoArchive/seo-skill`
 - Allowed skill update branch: `main`
