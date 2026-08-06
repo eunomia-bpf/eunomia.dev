@@ -1,0 +1,189 @@
+name: Apply Daily Report output cleanup
+
+on:
+  push:
+    branches:
+      - agent/clean-daily-report-public-output
+
+permissions:
+  contents: write
+
+concurrency:
+  group: agent-clean-daily-report-public-output
+  cancel-in-progress: false
+
+jobs:
+  apply-cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Apply deterministic cleanup
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          def replace_required(text: str, old: str, new: str, label: str, count: int | None = None) -> str:
+              found = text.count(old)
+              if found == 0:
+                  raise SystemExit(f"missing expected text for {label}: {old!r}")
+              if count is not None and found != count:
+                  raise SystemExit(f"unexpected occurrence count for {label}: expected {count}, got {found}")
+              return text.replace(old, new)
+
+          def update(path: str, replacements: list[tuple[str, str, str, int | None]]) -> None:
+              file = Path(path)
+              text = file.read_text(encoding="utf-8")
+              for old, new, label, count in replacements:
+                  text = replace_required(text, old, new, f"{path}: {label}", count)
+              file.write_text(text, encoding="utf-8")
+
+          update(
+              "docs/research/agent-trace-evidence-budget.md",
+              [
+                  ("## Scope, limitations, and falsification", "## What would change this conclusion?", "reader-facing conclusion heading", 1),
+                  ("credential scope Z", "credential permissions Z", "credential wording", 1),
+                  ("principal, credential scope, sandbox/policy version", "principal, credential permissions, sandbox/policy version", "authority table wording", 1),
+                  ("should be scoped to a durable agent work unit", "should follow a durable agent work unit", "work-unit wording", 1),
+              ],
+          )
+
+          update(
+              "docs/research/agent-trace-evidence-budget.zh.md",
+              [
+                  ("## 适用范围、局限与可证伪条件", "## 哪些结果会改变这个判断？", "读者导向的结论检验标题", 1),
+                  ("credential scope Z", "credential permissions Z", "凭据措辞", 1),
+                  ("principal、credential scope、sandbox/policy version", "principal、credential permissions、sandbox/policy version", "权限表格措辞", 1),
+                  ("Hubble 也清楚展示了局限。", "Hubble 同时暴露了一个边界。", "Hubble 边界措辞", 1),
+              ],
+          )
+
+          update(
+              "docs/research/parallel-agent-effect-serializability.md",
+              [
+                  ("## Scope, limitations, and falsification", "## What would change this conclusion?", "reader-facing conclusion heading", 1),
+                  ("    scope: repository:eunomia/service-a", "    permissions: repository:eunomia/service-a", "effect manifest authority field", 1),
+                  ("principal, scope, target", "principal, permissions, target", "authority wording", 2),
+              ],
+          )
+
+          update(
+              "docs/research/parallel-agent-effect-serializability.zh.md",
+              [
+                  ("## 适用范围与可证伪条件", "## 哪些结果会改变这个判断？", "读者导向的结论检验标题", 1),
+                  ("    scope: repository:eunomia/service-a", "    permissions: repository:eunomia/service-a", "效果清单权限字段", 1),
+                  ("principal、scope、目标", "principal、权限边界、目标", "权限措辞", 1),
+                  ("它也有明显局限：", "这套设计还会遇到几类困难：", "困难措辞", 1),
+              ],
+          )
+
+          page_path = Path("app/lib/page-factories.tsx")
+          page = page_path.read_text(encoding="utf-8")
+          page = replace_required(page, "  HeadingEntry,\n", "", "remove temporary heading import", 1)
+          page, count = re.subn(
+              r"\nconst dailyReportTextReplacements:.*?\nfunction renderCustomReactPage",
+              "\nfunction renderCustomReactPage",
+              page,
+              flags=re.S,
+          )
+          if count != 1:
+              raise SystemExit(f"expected one temporary replacement-helper block, got {count}")
+          page, count = re.subn(
+              r"  const headings =\n    page\.layout === \"document\"\n      \? dailyReport\n        \? rewriteDailyReportHeadings\(page\.headings, locale\)\n        : page\.headings\n      : \[\];\n  const bodyHtml = dailyReport \? rewriteDailyReportText\(page\.bodyHtml, locale\) : page\.bodyHtml;\n",
+              "  const headings = page.layout === \"document\" ? page.headings : [];\n",
+              page,
+          )
+          if count != 1:
+              raise SystemExit(f"expected one temporary body/heading rewrite block, got {count}")
+          page = replace_required(page, "      <MarkdownContent html={bodyHtml} />", "      <MarkdownContent html={page.bodyHtml} />", "render source HTML directly", 1)
+          page_path.write_text(page, encoding="utf-8")
+
+          skill_path = Path(".agents/skills/eunomia-research-report/SKILL.md")
+          skill = skill_path.read_text(encoding="utf-8")
+          skill = replace_required(skill, "## Non-Negotiable Public Contract", "## Non-Negotiable Publishing Rules", "internal rules heading", 1)
+          skill = replace_required(
+              skill,
+              "- It is explicitly labeled **AI-generated and not human-reviewed** near the top\n  and again at the bottom of the rendered page.",
+              "- The rendered page carries one low-contrast disclosure line at the absolute\n  bottom, after navigation, feedback, and sharing controls. Do not place a\n  review-status banner at the top.",
+              "single final disclosure rule",
+              1,
+          )
+          skill = replace_required(skill, "experimental scope", "experimental bounds", "Deep Research verification wording", 1)
+          skill = replace_required(skill, "an author's limitation paragraph", "an author's caveat paragraph", "gap-analysis wording", 1)
+          skill = replace_required(
+              skill,
+              "- displays the AI-generated, not-human-reviewed notice near the top;\n- repeats the notice at the bottom;",
+              "- displays one low-contrast review-status note only at the absolute bottom;\n- does not display a disclosure banner before or inside the report body;",
+              "rendering disclosure rules",
+              1,
+          )
+          skill = replace_required(skill, "the gap section contains generic limitations", "the gap section contains generic caveats", "publication review wording", 1)
+          skill_path.write_text(skill, encoding="utf-8")
+
+          method_path = Path(".agents/skills/eunomia-research-report/references/research-method.md")
+          method = method_path.read_text(encoding="utf-8")
+          method = replace_required(
+              method,
+              "Every public report is AI-generated and not human-reviewed unless a named human\nreview is explicitly recorded. This editorial status must be visible near the\ntop and bottom of every rendered page.",
+              "Every public report is generated by the automated reporting workflow unless a\nnamed human review is explicitly recorded. The rendered page carries one quiet\nreview-status line only at the absolute bottom, after the page controls.",
+              "single final status note",
+              1,
+          )
+          method = replace_required(method, "- limitation and possible conflict of interest;", "- caveats and possible conflicts of interest;", "evidence-map wording", 1)
+          method = replace_required(method, "repeat limitation\nparagraphs", "repeat caveat\nparagraphs", "gap-analysis wording", 1)
+          method = replace_required(method, "8. evaluation, limitations, and falsification.", "8. evaluation, uncertainty, and falsification.", "reader progression wording", 1)
+          old_disclosure = """The rendered page must say, near the top and bottom, that:\n\n- it was generated with automated research and writing tools;\n- no human editor verified every citation, fact, metric, or recommendation;\n- errors may remain;\n- readers should inspect primary sources and independently validate important\n  conclusions.\n\nDo not expose a human Git committer as an article author by default."""
+          new_disclosure = """The rendered page must show one low-contrast, single-line status note only at\nthe absolute bottom, after navigation, feedback, and sharing controls. Do not\nplace a disclosure banner at the top or repeat the note inside the report body.\nThe section index should introduce the reports and list current entries, not\npublish an editorial contract, route-history explanation, or internal process\nchecklist.\n\nDo not expose a human Git committer as an article author by default."""
+          method = replace_required(method, old_disclosure, new_disclosure, "public presentation rules", 1)
+          method = replace_required(method, "- title, description, opening, gaps, ideas, limits, and references;", "- title, description, opening, gaps, ideas, conclusion checks, and references;", "validation wording", 1)
+          method = replace_required(method, "- disclosure near the top and bottom of every section page;", "- one low-contrast status note at the absolute bottom of every section page;", "validation disclosure rule", 1)
+          method = replace_required(method, "Cadence never overrides the publication\ncontract.", "Cadence never overrides the publication\nstandard.", "no-report wording", 1)
+          method_path.write_text(method, encoding="utf-8")
+
+          public_agents = Path("docs/research/AGENTS.md")
+          if not public_agents.exists():
+              raise SystemExit("expected docs/research/AGENTS.md to exist before cleanup")
+          public_agents.unlink()
+
+          public_files = [
+              Path("docs/research/agent-trace-evidence-budget.md"),
+              Path("docs/research/agent-trace-evidence-budget.zh.md"),
+              Path("docs/research/parallel-agent-effect-serializability.md"),
+              Path("docs/research/parallel-agent-effect-serializability.zh.md"),
+          ]
+          forbidden_en = re.compile(r"\b(?:scope|scoped|limitation|limitations)\b", re.I)
+          forbidden_zh = re.compile(r"局限|适用范围")
+          for file in public_files:
+              text = file.read_text(encoding="utf-8")
+              match = forbidden_en.search(text)
+              if match:
+                  line = text.count("\n", 0, match.start()) + 1
+                  raise SystemExit(f"forbidden public term {match.group()!r} remains in {file}:{line}")
+              match = forbidden_zh.search(text)
+              if match:
+                  line = text.count("\n", 0, match.start()) + 1
+                  raise SystemExit(f"forbidden public term {match.group()!r} remains in {file}:{line}")
+
+          if "dailyReportTextReplacements" in page or "rewriteDailyReportText" in page or "rewriteDailyReportHeadings" in page:
+              raise SystemExit("temporary render-time replacement code remains")
+          if Path("docs/research/AGENTS.md").exists():
+              raise SystemExit("public AGENTS page still exists")
+          if "near the top" in skill or "top and bottom" in skill:
+              raise SystemExit("old disclosure placement remains in skill")
+          if "near the top and bottom" in method:
+              raise SystemExit("old disclosure placement remains in research method")
+          PY
+
+      - name: Commit cleanup and remove helper workflow
+        run: |
+          set -euo pipefail
+          rm .github/workflows/agent-clean-daily-report-output.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --check
+          git commit -m "Clean Daily Report public presentation"
+          git push origin HEAD
