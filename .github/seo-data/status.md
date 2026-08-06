@@ -1,29 +1,46 @@
-# SEO status
+# Daily site operation status
 
-## Current state
+## Operating state
 
-- Last completed run: none
+- Authoritative task: `DAILY_TASK.md`
+- External daily scheduler: not configured or verified
+- Scheduler timezone: `America/Los_Angeles`
+- Last completed daily run: none
 - Last data window: none
-- Last site-change pull request: none
-- Last squash merge: none
-- Last closeout pull request: none
-- Last successful production deployment: none
-- Last public verification: none
+- Latest daily record: none
+- Last public-change pull request: none
+- Last verified production deployment from a daily run: none
 - Skill submodule commit: `516e9e2dcf012506a677a749049d64c5914643e9`
 
-## Current signals
+## Data coverage
 
+- Live-site technical evidence: available
+- Public GitHub repository evidence: available
+- Public web and primary-source evidence: available
 - Google Analytics 4: not configured
 - Google Search Console: not configured
 - Cloudflare: not configured
-- Technical baseline: the repository already generates sitemap, robots, canonical,
-  hreflang, Open Graph, structured data, and HTTP audit artifacts; the new SEO
-  operating workflow has not yet completed its first independent baseline run.
 
-## Active focus
+Until the private sources are connected, daily analysis is partial. It must still
+inspect live-site and public repository evidence, state the missing coverage, and
+must not present unavailable metrics as zero.
 
-- Complete the first public-safe evidence and technical baseline run.
-- Keep unavailable analytics sources explicit rather than inferring zero traffic.
-- Select future site changes from verified evidence, not from a fixed output quota.
+## Current technical baseline
 
-This file is the current verified summary. Detailed history belongs in `daily/`.
+The repository generates sitemap, robots, canonical, `hreflang`, Open Graph,
+structured data, and HTTP audit artifacts. Production deploys through the
+`Deploy Static App` workflow. The unified daily operation has not completed its
+first independent baseline run.
+
+## Current focus
+
+1. Merge the repository-owned daily operating contract.
+2. Configure and verify one external daily scheduler using only the minimal
+   instruction in `DAILY_TASK.md`.
+3. Configure public-safe, read-only Search Console and GA4 collection; add
+   Cloudflare when a supported path exists.
+4. Run the first mandatory daily analysis with available evidence and record a
+   defensible technical SEO, Daily Report, or no-change decision.
+
+This file is the current verified summary. Detailed history belongs in
+`.github/seo-data/daily/` and the merged daily pull requests.
