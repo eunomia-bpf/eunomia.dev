@@ -1,67 +1,81 @@
-# Daily SEO task
+# Daily technical SEO subtask
+
+`DAILY_TASK.md` is the only scheduled entrypoint and the authoritative daily
+operating contract. An external scheduler must not target this file directly.
+Use this file only when the daily operation evaluates or selects technical SEO
+and GEO work.
 
 ## Objective
 
-Run one fully autonomous, evidence-backed SEO operating cycle for eunomia.dev.
-No normal collection, repository, review, merge, deployment, or verification
-step requires human approval.
+Use measured search, acquisition, repository, and live-site evidence to maintain
+and improve eunomia.dev's technical discoverability, indexability,
+retrievability, and citation quality. Do not create a site edit merely because a
+daily run occurred.
 
-## Schedule
+## Required context
 
-- Frequency: daily when invoked by an authorized agent scheduler
-- Timezone: use `site.md`
-- Data window: use the lookback and finalization lag in `site.md`
-- Maximum site changes: one coherent, evidence-backed change per main pull request
+Read:
 
-## Scoped workflow override
+- `DAILY_TASK.md`;
+- `CLAUDE.md`;
+- every Markdown file under `.github/seo-data/`;
+- the newest record under `.github/seo-data/daily/`, when present;
+- `.agents/skills/seo-geo/SKILL.md`;
+- the pinned collection, change, and validation skills under
+  `.github/seo-skills`.
 
-For work invoked through this file, the fresh-branch and pull-request contract
-below replaces the repository's general direct-`main` workflow. This standing
-override is limited to SEO evidence collection, `.github/seo-data` maintenance,
-submodule updates, and evidence-backed SEO/GEO site changes. Use the `seo/`
-branch prefix from `site.md`; never push an automated SEO change directly to
-`main`.
+The root daily task controls branching, pull requests, merging, deployment,
+verification, records, and completion. Do not duplicate those rules here.
 
-## Required sequence
+## Technical analysis
 
-1. Read the pinned `$collect-seo-data` skill and, when a site change is justified,
-   `$change-seo-site`; also read repository instructions, all
-   `.github/seo-data/*.md` files, and the newest daily records.
-2. Fetch the remote default branch and create a fresh branch from it.
-3. Check whether the `seo-skills` submodule has a newer allowed commit and include
-   an available compatible update in the same main pull request.
-4. Collect evidence only from sources marked enabled in `site.md`. Record a
-   disabled, missing, stale, partial, or unavailable source explicitly; never
-   convert missing evidence into zero. Public repository and live-site evidence
-   may supplement analytics but does not replace source-native metrics.
-5. Write or append `.github/seo-data/daily/YYYY-MM-DD.md`; refresh `status.md`,
-   keep durable future work in `plan.md`, and reserve `block.md` for genuine
-   human-only or permission blockers.
-6. When evidence supports a site improvement, implement at most one coherent
-   change and define its production acceptance check before editing. Use
-   `.agents/skills/seo-geo/SKILL.md` as the site-specific technical checklist;
-   the pinned skills remain authoritative for evidence collection and delivery.
-7. Validate with the pinned validator and the smallest authoritative repository
-   checks, inspect the intended diff, push the branch, and create a real
-   non-draft pull request.
-8. Wait for every required and expected CI check, then self-review the complete
-   final diff, commits, generated output, and check results. Fix issues on the
-   same branch and repeat CI and review as needed.
-9. Squash-merge the pull request and delete its branch only after green CI and a
-   clean final self-review.
-10. For a site change, identify and wait for the production deployment triggered
-    by the exact squash commit, then verify the defined behavior on the public
-    site.
-11. Open a metadata-only closeout pull request with the verified delivery facts;
-    apply the same CI, self-review, squash-merge, and branch-deletion rules.
-12. Do not manufacture content, site edits, promotion, or visible artifacts only
-    to satisfy cadence. Promotion must follow the existing publication queue and
-    platform-specific publisher skills.
+Use every enabled source in `site.md` and the windows defined there. Missing,
+stale, partial, disabled, or inaccessible sources are unavailable, not zero.
+Public repository and live-site evidence may supplement analytics but does not
+replace source-native search or acquisition metrics.
 
-## Daily completion
+Evaluate at least:
 
-A day is complete only after its main pull request and closeout pull request are
-squash-merged. A site-change day also requires a successful production deployment
-for the exact squash commit and public verification. A failed, missing, queued,
-skipped, or cancelled CI check, a local-only commit, issue, draft pull request,
-workflow URL, or HTTP 200 alone is not completion.
+- crawl access, robots, sitemap coverage, status codes, redirects, and broken
+  internal links;
+- canonical URLs, duplicate routes, indexability, pagination, and URL stability;
+- English and Chinese `hreflang` pairs and language navigation;
+- titles, descriptions, headings, structured data, Open Graph, and semantic
+  page identity;
+- internal linking, orphan pages, hub structure, repository/paper/tutorial
+  pathways, and citation-ready source presentation;
+- rendering, performance, accessibility signals relevant to discovery, and the
+  production deployment state;
+- important query, page, landing-page, referrer, and outbound movements when
+  Search Console or analytics coverage exists.
+
+Record the evidence and interpretation in the day's shared record under
+`.github/seo-data/daily/`; do not create a second SEO-only run log.
+
+## Change gate
+
+A technical change is justified only when the evidence identifies a concrete
+problem or opportunity and the expected outcome is observable. Define the
+production acceptance check before editing.
+
+Prefer one coherent change such as:
+
+- repairing canonical, sitemap, robots, redirect, or language-alternate behavior;
+- improving one information architecture or internal-linking path;
+- correcting structured data or metadata for a well-defined page family;
+- removing an indexability or rendering defect;
+- improving retrievability for a technically important topic supported by search
+  or reader evidence.
+
+Do not bundle unrelated cleanup, speculative keyword insertion, mass-generated
+pages, promotion, or a routine skill-submodule update. Update the pinned SEO
+skills only when a compatible change is needed for the current operation or
+clearly fixes the operating mechanism.
+
+## Delivery
+
+Follow `DAILY_TASK.md`: use the daily branch and pull request, pass the
+repository's authoritative checks, self-review the complete output, squash
+merge, and verify the exact production deployment when the public site changes.
+Do not create a separate closeout pull request; use the merged pull request's
+compact closeout comment as the final delivery record.
