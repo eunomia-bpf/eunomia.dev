@@ -4255,6 +4255,20 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/agent-trace-evidence-budget/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/research/AGENTS/</loc>
+    <lastmod>2026-08-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/AGENTS/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/AGENTS/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/AGENTS/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/research/AGENTS/</loc>
+    <lastmod>2026-08-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/AGENTS/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/research/AGENTS/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/research/AGENTS/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/research/</loc>
     <lastmod>2026-08-06</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/research/" />
