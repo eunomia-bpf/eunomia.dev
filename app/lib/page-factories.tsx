@@ -4,7 +4,6 @@ import { AgentSystemLayerPresentation } from "../components/AgentSystemLayerPres
 import { BlogListing } from "../components/BlogListing";
 import { CardGrid } from "../components/CardGrid";
 import { DailyReportResearchDirections } from "../components/DailyReportEnhancements";
-import { DailyReportFooterNote } from "../components/DailyReportFooterNote";
 import { HomePageHero, HomePageLanding } from "../components/HomePageLanding";
 import {
   AgentRuntimeInfrastructurePage,
@@ -132,7 +131,6 @@ function renderDocsBody(page: DocsPage, locale: Locale) {
       continuation={page.layout === "document" ? page.continuation : undefined}
       tocTitle={getTocTitle(locale)}
       showBreadcrumbs={page.layout === "document"}
-      footerNote={dailyReport ? <DailyReportFooterNote locale={locale} /> : undefined}
     >
       <MarkdownContent html={page.bodyHtml} />
       {dailyReport ? <DailyReportResearchDirections locale={locale} path={page.path} /> : null}
