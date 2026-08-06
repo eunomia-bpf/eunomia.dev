@@ -3,6 +3,7 @@ name: Validate SEO Operations
 on:
   pull_request:
     paths:
+      - "DAILY_TASK.md"
       - ".gitmodules"
       - ".github/seo-skills"
       - ".github/seo-data/**"
@@ -11,6 +12,7 @@ on:
     branches:
       - main
     paths:
+      - "DAILY_TASK.md"
       - ".gitmodules"
       - ".github/seo-skills"
       - ".github/seo-data/**"
