@@ -209,7 +209,7 @@ Do not use a templated heading built around the words `scope` or `limitations`.
 
 ## Public Presentation
 
-The public page should read as a carefully edited technical report. Do not add process-oriented banners, warning boxes, generation badges, provenance callouts, or repeated disclosures. The only status text is one low-contrast, single-line note at the absolute bottom, after navigation, feedback, and sharing controls. Keep the reader's attention on the question, evidence, reasoning, gaps, and proposed directions.
+The public page should read as a carefully edited technical report. Do not add process-oriented banners, warning boxes, generation badges, provenance callouts, review-status text, or footer disclaimers. Keep the reader's attention on the question, evidence, reasoning, gaps, and proposed directions.
 
 Do not expose a Git committer as the article author merely because they merged the text.
 
@@ -225,7 +225,7 @@ Before merge, verify:
 
 - title, description, opening, gaps, ideas, decisive counterevidence, and references;
 - primary-source support for central factual claims;
-- one low-contrast final status line and no top, in-content, or repeated disclosure;
+- no process-oriented callout, provenance note, review-status line, or footer disclaimer;
 - Daily Report labels in desktop and mobile navigation and the Blog call to action;
 - stable `/research/` and `/zh/research/` canonical URLs;
 - bilingual hreflang pairs;
@@ -237,4 +237,4 @@ After merge, verify that the exact merge commit deployed and inspect the public 
 
 ## No-Report Outcome
 
-Do not publish when the scan produces only interesting sources or a fluent summary. Record the strongest unresolved question and the evidence required to support a real gap and testable idea. Cadence never overrides the publication standard.
+Do not publish when the scan produces only interesting sources or a fluent summary. Record the strongest unresolved question and the evidence required to support a real gap and testable idea. Cadence never overrides the publication contract.
