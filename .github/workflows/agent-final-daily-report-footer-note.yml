@@ -1,0 +1,242 @@
+name: Apply final Daily Report footer note
+
+on:
+  push:
+    branches:
+      - agent/final-daily-report-footer-note
+
+permissions:
+  contents: write
+
+concurrency:
+  group: agent-final-daily-report-footer-note
+  cancel-in-progress: false
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Apply final public presentation
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          def replace_exact(path: str, old: str, new: str, expected: int = 1) -> None:
+              file = Path(path)
+              text = file.read_text(encoding="utf-8")
+              count = text.count(old)
+              if count != expected:
+                  raise SystemExit(f"{path}: expected {expected} copies of {old!r}, found {count}")
+              file.write_text(text.replace(old, new), encoding="utf-8")
+
+          Path("app/components/DailyReportFooterNote.tsx").write_text(
+              '''import type { Locale } from "../lib/site-data";\n\nexport function DailyReportFooterNote({ locale }: { locale: Locale }) {\n  const text =\n    locale === "zh"\n      ? "本页由自动化工具生成，未经人工逐项核验；使用前请结合引用的一手资料独立验证。"\n      : "Generated automatically and not individually verified by an editor; check the cited primary sources before relying on it.";\n\n  return (\n    <p role="note" className="mt-4 max-w-3xl text-[11px] leading-5 text-slate-400">\n      {text}\n    </p>\n  );\n}\n''',
+              encoding="utf-8",
+          )
+
+          replace_exact(
+              "docs/research/agent-trace-evidence-budget.md",
+              "## Scope, limitations, and falsification",
+              "## What would change this conclusion?",
+          )
+          replace_exact(
+              "docs/research/agent-trace-evidence-budget.md",
+              "credential scope Z",
+              "credential permissions Z",
+          )
+          replace_exact(
+              "docs/research/agent-trace-evidence-budget.md",
+              "principal, credential scope, sandbox/policy version",
+              "principal, credential permissions, sandbox/policy version",
+          )
+          replace_exact(
+              "docs/research/agent-trace-evidence-budget.md",
+              "should be scoped to a durable agent work unit",
+              "should follow a durable agent work unit",
+          )
+
+          replace_exact(
+              "docs/research/agent-trace-evidence-budget.zh.md",
+              "## 适用范围、局限与可证伪条件",
+              "## 哪些结果会改变这个判断？",
+          )
+          replace_exact(
+              "docs/research/agent-trace-evidence-budget.zh.md",
+              "credential scope Z",
+              "credential permissions Z",
+          )
+          replace_exact(
+              "docs/research/agent-trace-evidence-budget.zh.md",
+              "principal、credential scope、sandbox/policy version",
+              "principal、credential permissions、sandbox/policy version",
+          )
+          replace_exact(
+              "docs/research/agent-trace-evidence-budget.zh.md",
+              "Hubble 也清楚展示了局限。",
+              "Hubble 同时暴露了一个边界。",
+          )
+
+          replace_exact(
+              "docs/research/parallel-agent-effect-serializability.md",
+              "## Scope, limitations, and falsification",
+              "## What would change this conclusion?",
+          )
+          replace_exact(
+              "docs/research/parallel-agent-effect-serializability.md",
+              "principal, scope, target",
+              "principal, permissions, target",
+              expected=2,
+          )
+
+          replace_exact(
+              "docs/research/parallel-agent-effect-serializability.zh.md",
+              "## 适用范围与可证伪条件",
+              "## 哪些结果会改变这个判断？",
+          )
+          replace_exact(
+              "docs/research/parallel-agent-effect-serializability.zh.md",
+              "principal、scope、目标",
+              "principal、权限边界、目标",
+          )
+          replace_exact(
+              "docs/research/parallel-agent-effect-serializability.zh.md",
+              "它也有明显局限：",
+              "这套设计还会遇到几类困难：",
+          )
+
+          for path in (
+              "docs/research/parallel-agent-effect-serializability.md",
+              "docs/research/parallel-agent-effect-serializability.zh.md",
+          ):
+              file = Path(path)
+              text = file.read_text(encoding="utf-8")
+              text, count = re.subn(
+                  r"(?m)^(\s*)scope:\s*repository:eunomia/service-a\s*$",
+                  r"\1permissions: repository:eunomia/service-a",
+                  text,
+              )
+              if count != 1:
+                  raise SystemExit(f"{path}: expected one manifest scope field, found {count}")
+              file.write_text(text, encoding="utf-8")
+
+          page_path = Path("app/lib/page-factories.tsx")
+          page = page_path.read_text(encoding="utf-8")
+          if page.count("  HeadingEntry,\n") != 1:
+              raise SystemExit("page-factories.tsx: unexpected HeadingEntry import count")
+          page = page.replace("  HeadingEntry,\n", "")
+          page, count = re.subn(
+              r"\nconst dailyReportTextReplacements:.*?\nfunction renderCustomReactPage",
+              "\nfunction renderCustomReactPage",
+              page,
+              flags=re.S,
+          )
+          if count != 1:
+              raise SystemExit(f"page-factories.tsx: expected one replacement helper block, found {count}")
+          page, count = re.subn(
+              r"  const headings =\n    page\.layout === \"document\"\n      \? dailyReport\n        \? rewriteDailyReportHeadings\(page\.headings, locale\)\n        : page\.headings\n      : \[\];\n  const bodyHtml = dailyReport \? rewriteDailyReportText\(page\.bodyHtml, locale\) : page\.bodyHtml;\n",
+              "  const headings = page.layout === \"document\" ? page.headings : [];\n",
+              page,
+          )
+          if count != 1:
+              raise SystemExit(f"page-factories.tsx: expected one body rewrite block, found {count}")
+          if page.count("      <MarkdownContent html={bodyHtml} />") != 1:
+              raise SystemExit("page-factories.tsx: unexpected bodyHtml renderer count")
+          page = page.replace(
+              "      <MarkdownContent html={bodyHtml} />",
+              "      <MarkdownContent html={page.bodyHtml} />",
+          )
+          page_path.write_text(page, encoding="utf-8")
+
+          skill_path = Path(".agents/skills/eunomia-research-report/SKILL.md")
+          skill = skill_path.read_text(encoding="utf-8")
+          skill_edits = [
+              ("## Public Contract", "## Publishing Rules"),
+              (
+                  "- Do not add provenance banners, warning boxes, generation-process badges, or footer disclaimers to the public page.",
+                  "- Do not add provenance banners, warning boxes, generation-process badges, or repeated disclosures. The only status text is one low-contrast line at the absolute bottom, after navigation, feedback, and sharing controls.",
+              ),
+              (
+                  "- the page contains process-oriented warning boxes or provenance notes that distract from the analysis;",
+                  "- the page contains process-oriented warning boxes, repeated disclosures, or a prominent provenance note;",
+              ),
+          ]
+          for old, new in skill_edits:
+              count = skill.count(old)
+              if count != 1:
+                  raise SystemExit(f"SKILL.md: expected one copy of {old!r}, found {count}")
+              skill = skill.replace(old, new)
+          skill_path.write_text(skill, encoding="utf-8")
+
+          method_path = Path(".agents/skills/eunomia-research-report/references/research-method.md")
+          method = method_path.read_text(encoding="utf-8")
+          old_presentation = (
+              "The public page should read as a carefully edited technical report. Do not add process-oriented banners, warning boxes, generation badges, provenance callouts, or footer disclaimers. Keep the reader's attention on the question, evidence, reasoning, gaps, and proposed directions."
+          )
+          new_presentation = (
+              "The public page should read as a carefully edited technical report. Do not add process-oriented banners, warning boxes, generation badges, provenance callouts, or repeated disclosures. The only status text is one low-contrast, single-line note at the absolute bottom, after navigation, feedback, and sharing controls. Keep the reader's attention on the question, evidence, reasoning, gaps, and proposed directions."
+          )
+          if method.count(old_presentation) != 1:
+              raise SystemExit("research-method.md: public presentation paragraph changed unexpectedly")
+          method = method.replace(old_presentation, new_presentation)
+          old_validation = "- no process-oriented public callouts or empty visual note boxes;"
+          new_validation = "- one low-contrast final status line and no top, in-content, or repeated disclosure;"
+          if method.count(old_validation) != 1:
+              raise SystemExit("research-method.md: validation bullet changed unexpectedly")
+          method = method.replace(old_validation, new_validation)
+          method = method.replace(
+              "Cadence never overrides the publication contract.",
+              "Cadence never overrides the publication standard.",
+          )
+          method_path.write_text(method, encoding="utf-8")
+
+          public_rules = Path("docs/research/AGENTS.md")
+          if public_rules.exists():
+              public_rules.unlink()
+
+          public_files = [
+              Path("docs/research/agent-trace-evidence-budget.md"),
+              Path("docs/research/agent-trace-evidence-budget.zh.md"),
+              Path("docs/research/parallel-agent-effect-serializability.md"),
+              Path("docs/research/parallel-agent-effect-serializability.zh.md"),
+          ]
+          forbidden_en = re.compile(r"\b(?:scope|scoped|limitation|limitations)\b", re.I)
+          forbidden_zh = re.compile(r"局限|适用范围")
+          for file in public_files:
+              text = file.read_text(encoding="utf-8")
+              for pattern in (forbidden_en, forbidden_zh):
+                  match = pattern.search(text)
+                  if match:
+                      line = text.count("\n", 0, match.start()) + 1
+                      raise SystemExit(f"{file}:{line}: forbidden public term {match.group()!r}")
+
+          if any(
+              token in page
+              for token in (
+                  "dailyReportTextReplacements",
+                  "rewriteDailyReportText",
+                  "rewriteDailyReportHeadings",
+              )
+          ):
+              raise SystemExit("page-factories.tsx: temporary render replacement code remains")
+          if Path("docs/research/AGENTS.md").exists():
+              raise SystemExit("docs/research/AGENTS.md still exists")
+          footer = Path("app/components/DailyReportFooterNote.tsx").read_text(encoding="utf-8")
+          if footer.count('role="note"') != 1 or footer.count("text-[11px]") != 1:
+              raise SystemExit("DailyReportFooterNote.tsx: final subtle note is not configured exactly once")
+          PY
+
+      - name: Commit final patch and remove helper workflow
+        run: |
+          set -euo pipefail
+          rm .github/workflows/agent-final-daily-report-footer-note.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --check
+          git commit -m "Finalize Daily Report footer note"
+          git push origin HEAD
