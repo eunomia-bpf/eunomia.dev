@@ -3,6 +3,10 @@ import { AboutLandingPage } from "../components/AboutLandingPage";
 import { AgentSystemLayerPresentation } from "../components/AgentSystemLayerPresentation";
 import { BlogListing } from "../components/BlogListing";
 import { CardGrid } from "../components/CardGrid";
+import {
+  DailyReportDisclosure,
+  DailyReportResearchDirections
+} from "../components/DailyReportEnhancements";
 import { HomePageHero, HomePageLanding } from "../components/HomePageLanding";
 import {
   AgentRuntimeInfrastructurePage,
@@ -39,6 +43,19 @@ function getDocsRobots(path: string): string | undefined {
   return /\/(blogs|zh\/blogs)\//.test(path) || path === "/about/" || path === "/zh/about/"
     ? "noindex,follow"
     : undefined;
+}
+
+function isDailyReportPath(path: string): boolean {
+  return /^\/(?:zh\/)?research(?:\/|$)/.test(path);
+}
+
+function getDailyReportLabel(locale: Locale): string {
+  return locale === "zh" ? "每日报告" : "Daily Report";
+}
+
+function getDailyReportTags(tags: string[] | undefined, locale: Locale): string[] {
+  const label = getDailyReportLabel(locale);
+  return (tags ?? []).map((tag) => (tag === "Research" ? label : tag));
 }
 
 function renderCustomReactPage(kind: NonNullable<DocsPage["reactPage"]>, locale: Locale, page: DocsPage) {
@@ -95,27 +112,32 @@ function renderDocsBody(page: DocsPage, locale: Locale) {
     );
   }
 
+  const dailyReport = isDailyReportPath(page.path);
+
   return (
     <ArticleLayout
       locale={locale}
       path={page.path}
       title={page.title}
       description={page.descriptionIsExcerpt ? "" : page.description}
-      tags={page.tags}
+      tags={dailyReport ? getDailyReportTags(page.tags, locale) : page.tags}
       publishedAt={page.date}
       sourceHref={page.sourcePath}
-      metadata={page.metadata}
+      metadata={dailyReport ? null : page.metadata}
       headings={page.layout === "document" ? page.headings : []}
       continuation={page.layout === "document" ? page.continuation : undefined}
       tocTitle={getTocTitle(locale)}
       showBreadcrumbs={page.layout === "document"}
     >
+      {dailyReport ? <DailyReportDisclosure locale={locale} placement="top" /> : null}
       <MarkdownContent html={page.bodyHtml} />
+      {dailyReport ? <DailyReportResearchDirections locale={locale} path={page.path} /> : null}
       {page.cards?.length ? (
         <section className="mt-12">
           <CardGrid cards={page.cards} compact />
         </section>
       ) : null}
+      {dailyReport ? <DailyReportDisclosure locale={locale} placement="footer" /> : null}
     </ArticleLayout>
   );
 }
@@ -129,6 +151,8 @@ export function DocsPageView({
   locale: Locale;
   eyebrow: string;
 }) {
+  const dailyReport = isDailyReportPath(page.path);
+
   return (
     <>
       <SeoHead
@@ -138,7 +162,7 @@ export function DocsPageView({
         alternates={canonicalAlternates(page.alternates)}
         article={page.layout === "document"}
         publishedAt={page.date}
-        metadata={page.metadata}
+        metadata={dailyReport ? null : page.metadata}
         robots={getDocsRobots(page.path)}
         isTutorial={/\/(tutorials|zh\/tutorials)\//.test(page.path)}
         isCodeProject={/\/(bpftime|eunomia-bpf|GPTtrace)\/?/.test(page.path)}
@@ -154,7 +178,7 @@ export function DocsPageView({
       />
       <SiteChrome
         locale={locale}
-        eyebrow={eyebrow}
+        eyebrow={dailyReport ? getDailyReportLabel(locale) : eyebrow}
         title={page.title}
         intro={page.description}
         leadMode="none"
