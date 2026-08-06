@@ -144,7 +144,7 @@ proposed_effects:
 shared_constraints:
   - token audience must match across code and deployment
 authority:
-  scope: repository:eunomia/service-a
+  permissions: repository:eunomia/service-a
 acceptance:
   - integration test passes
   - old audience is absent from production config
@@ -236,7 +236,7 @@ acceptance:
 2. **效果适配器。** 在文件、Git、数据库、cloud API、浏览器和 MCP 工具边界记录读、写、消费和外部可见动作。
 3. **版本与前置条件。** 为关键资源保存版本、hash、ETag、policy version 或其他可比较状态。
 4. **冲突检测器。** 先处理明确的物理冲突，再使用 schema、测试、policy 和语义分析发现更高层冲突。
-5. **权限重新验证。** 在效果即将提交时，重新检查 principal、scope、目标、预算、审批和委派链。
+5. **权限重新验证。** 在效果即将提交时，重新检查 principal、权限边界、目标、预算、审批和委派链。
 6. **全局验收器。** 运行跨分支测试、预算约束、发布规则和用户定义的最终结果检查。
 7. **提交日志。** 记录哪些候选结果被接受、拒绝、重做，以及不可逆动作何时发生。
 
@@ -275,11 +275,11 @@ acceptance:
 
 最重要的消融实验是逐项移除状态验证、共享约束、权限检查和全局验收。假如某一层对真实错误没有贡献，它就不应成为默认成本。
 
-## 适用范围与可证伪条件
+## 哪些结果会改变这个判断？
 
 这个设计主要面向会修改共享状态、使用权限或产生外部效果的工具型 Agent。聊天、独立检索和完全隔离的候选生成任务，通常不需要这样的提交协议。
 
-它也有明显局限：
+这套设计还会遇到几类困难：
 
 - 逻辑资源和全局约束不可能全部自动发现；
 - 语义冲突检测可能产生误报，使本可并行的任务被串行化；

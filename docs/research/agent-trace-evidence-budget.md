@@ -210,7 +210,7 @@ Anchors are durable, sparse records created at decision-relevant boundaries. Exa
 
 - `observed artifact A@v3`;
 - `derived plan P from evidence set {A@v3, B@v8}`;
-- `executed tool X under policy Y@v4 and credential scope Z`;
+- `executed tool X under policy Y@v4 and credential permissions Z`;
 - `changed repository tree from H1 to H2`;
 - `published result R after oracle O passed`.
 
@@ -277,7 +277,7 @@ The answer depends on the question, but the following split is a reasonable star
 | Process activity | process tree, executable identity, exit status, resource summary | argv, environment subset, selected syscall sequence | subprocesses carry effects below the harness |
 | File activity | operation, repository/object identity, path class, before/after digest | exact path and authorized content diff | state change matters more than every read event |
 | Network activity | destination identity, protocol, transfer class, byte counts | request metadata or authorized payload | destination and provenance often establish risk |
-| Authority | principal, credential scope, sandbox/policy version | approval evidence and delegated capability chain | identical actions differ under different authority |
+| Authority | principal, credential permissions, sandbox/policy version | approval evidence and delegated capability chain | identical actions differ under different authority |
 | Environment | image, package, repository, and configuration versions | selected manifests and state snapshots | reproducibility requires binding behavior to state |
 | Outcome | oracle identity, result, final-state digest | logs, tests, reviewer evidence | a successful tool exit is not task correctness |
 
@@ -295,7 +295,7 @@ Treating retention as an evidence portfolio leads to several concrete design cho
 
 ### The observability unit should follow the work unit, not only the request
 
-The flight recorder, causal anchors, and budget should be scoped to a durable agent work unit that survives individual model calls and tool invocations. This does not require one giant trace object. It requires a stable identity and explicit parent/delegation relations across requests, processes, sandboxes, checkpoints, and human interventions.
+The flight recorder, causal anchors, and budget should follow a durable agent work unit that survives individual model calls and tool invocations. This does not require one giant trace object. It requires a stable identity and explicit parent/delegation relations across requests, processes, sandboxes, checkpoints, and human interventions.
 
 ### Sampling state becomes policy state
 
@@ -333,7 +333,7 @@ At a fixed runtime and storage budget, measure:
 
 The important baselines are not only “retain everything” and “retain 1%.” They should include probability head sampling, outcome/error tail sampling, time-window ring buffers, anomaly-only retention, low-cardinality summaries, and the proposed portfolio. The test should also remove each lens in turn. If eliminating the random exploration reserve does not hurt discovery or population estimates, it is unnecessary. If causal anchors do not improve critical-step localization, their schema is probably too weak or redundant.
 
-## Scope, limitations, and falsification
+## What would change this conclusion?
 
 This proposal targets long-running, tool-using agents that interact with mutable workspaces and external systems. It does not require collecting hidden chain-of-thought. The relevant evidence is observable execution, declared intent, authority, state transitions, and outcomes. Chat-only interactions with no external effects have a much simpler retention problem.
 
