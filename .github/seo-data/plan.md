@@ -1,4 +1,4 @@
-# Site growth plan
+# SEO plan
 
 ## Purpose
 
