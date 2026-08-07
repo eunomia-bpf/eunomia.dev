@@ -28,10 +28,15 @@
 
 ## Google data
 
-- Google Drive enabled: no
-- Google Drive folder name: not configured
-- GA4 export filename pattern: `ga4-*.csv`
-- Search Console export filename pattern: `gsc-*.csv`
+- Google Drive enabled: yes
+- Google Drive folder name: `eunomia.dev SEO Weekly CSV`
+- GA4 export filename pattern: `*_ga4_*.csv`
+- Search Console export filename pattern: `*_gsc_*.csv`
+- Verified export window: `2026-07-27` through `2026-08-02`
+- Expected refresh cadence: weekly; verify freshness and coverage on every run
+
+The Drive folder is discovered by its configured name. Do not store its folder ID,
+property IDs, account identifiers, credentials, or private URLs in Git.
 
 ## Cloudflare data
 
@@ -45,9 +50,10 @@
 - Public GitHub repository evidence enabled: yes
 - Public web and primary-source evidence enabled: yes
 
-These sources support a partial daily analysis while private search, acquisition,
-or edge data remains unavailable. They do not replace Search Console, GA4, or
-Cloudflare source-native metrics.
+Search Console and GA4 exports now support source-native weekly analysis. The
+current folder contains one complete weekly window, so longer comparisons remain
+unavailable until more history is present. Public repository and live-site data
+supplement these exports but do not replace their source-native meanings.
 
 ## Deployment
 
