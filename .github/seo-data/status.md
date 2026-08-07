@@ -9,7 +9,7 @@
 - Scheduler timezone: `America/Los_Angeles`
 - Last completed daily run: none
 - Last verified data window: `2026-07-27` through `2026-08-02`
-- Latest daily record: none
+- Latest daily record: `2026-08-06` (pending pull-request merge)
 - Last public-change pull request: none
 - Last verified production deployment from a daily run: none
 - Skill submodule commit: `516e9e2dcf012506a677a749049d64c5914643e9`
@@ -49,7 +49,8 @@ first independently scheduled run.
 
 ## Current focus
 
-1. Merge the repository-owned daily operating contract.
+1. Merge the repository-owned daily operating contract and verified analytics
+   baseline.
 2. Configure and verify one external daily scheduler using only the minimal
    instruction in `DAILY_TASK.md`.
 3. Use the verified weekly GA4 and Search Console exports in every run; never mark
