@@ -65,6 +65,10 @@ jobs:
           series = Path(".github/seo-data/content-series.md").read_text(encoding="utf-8")
           report_skill = Path(".agents/skills/eunomia-research-report/SKILL.md").read_text(encoding="utf-8")
 
+          daily_flat = " ".join(daily.split())
+          series_flat = " ".join(series.split())
+          report_flat = " ".join(report_skill.split())
+
           scheduler_quote = " ".join(
               line.removeprefix("> ").strip()
               for line in daily.splitlines()
@@ -74,14 +78,14 @@ jobs:
 
           # Daily publication is mandatory; a weak candidate must be replaced,
           # not converted into a no-report day.
-          assert "exactly **one new Daily Report page every run**" in daily
-          assert "`no-report`" in daily and "not completion" in daily
-          assert "There is no `no-report` outcome" in report_skill
+          assert "exactly **one new Daily Report page every run**" in daily_flat
+          assert "`no-report`" in daily_flat and "not completion" in daily_flat
+          assert "There is no `no-report` outcome" in report_flat
 
           # Topic mix is a repository-enforced editorial contract.
-          assert "5–7 of 10" in series
-          assert "Pure AI-agent topics are capped at 1–2 of 10" in series
-          assert "Active series — eBPF Runtime, Extensibility, and Composition" in series
+          assert "5–7 of 10" in series_flat
+          assert "Pure AI-agent topics are capped at 1–2 of 10" in series_flat
+          assert "Active series — eBPF Runtime, Extensibility, and Composition" in series_flat
           PY
 
       - name: Set up Python
