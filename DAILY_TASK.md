@@ -16,7 +16,8 @@ Run once per day in the timezone declared in `.github/seo-data/site.md`. Maintai
 exactly one external scheduler for this operation; do not split analytics, SEO,
 and content production into independent schedules that can race or diverge. The
 scheduler owns only timing and invocation. This repository owns scope, data
-sources, quality gates, delivery rules, and operating state.
+sources, quality gates, delivery rules, content-series strategy, and operating
+state.
 
 ## Daily responsibilities
 
@@ -28,9 +29,10 @@ Every run performs these three responsibilities in order:
 2. **Technical SEO and GEO.** Inspect crawlability, indexing signals, canonical
    ownership, language alternates, structured data, internal links, performance,
    and retrievability. Make a change only when evidence supports it.
-3. **Technical content production.** Research a Daily Report candidate and
-   publish only when it passes the repository's evidence, gap, novelty, and
-   usefulness gates. Daily research does not impose a daily publication quota.
+3. **Technical content production.** Research a Daily Report candidate inside the
+   active content series and publish only when it passes the repository's
+   evidence, gap, novelty, continuity, and usefulness gates. Daily research does
+   not impose a daily publication quota.
 
 Data should determine the work. Do not manufacture an article, SEO edit, or
 visible artifact merely to satisfy cadence.
@@ -45,6 +47,8 @@ Start from the latest remote default branch and read:
 - `.github/seo-data/status.md`;
 - `.github/seo-data/plan.md`;
 - `.github/seo-data/block.md`;
+- `.github/seo-data/content-series.md` for the active Daily Report series and
+  thematic roadmap;
 - the newest record under `.github/seo-data/daily/`, when present;
 - `.github/seo-data/daily-task.md` for the technical SEO subtask;
 - `.agents/skills/seo-geo/SKILL.md` and the pinned `.github/seo-skills` skills;
@@ -92,18 +96,25 @@ and the next evidence that would distinguish competing explanations.
 After analysis, choose the highest-value action supported by evidence:
 
 - one coherent technical SEO/GEO improvement;
-- one strong Daily Report or revision;
+- one strong Daily Report or revision inside the active series;
 - a content change together with directly coupled technical metadata;
 - or no public change, with the reason recorded.
+
+For content work, **series continuity is the default**. Search and research inside
+the active series first. A new report must advance a distinct question in the
+series instead of restating an existing thesis with different examples. Leave the
+active series only for a material external development with durable systems
+consequences, and record why that interruption was justified. Do not switch
+series merely because another topic is trending.
 
 Do not ship unrelated SEO and content edits in one pull request. Put durable
 future work in `plan.md`; use `block.md` only for real external permission or
 human-only blockers.
 
 For technical SEO, follow `.github/seo-data/daily-task.md`. For a Daily Report,
-follow `.agents/skills/eunomia-research-report/SKILL.md`. A fluent summary without
-a defensible systems gap, mechanism, and testable direction is a no-publish
-result.
+follow `.agents/skills/eunomia-research-report/SKILL.md` and
+`.github/seo-data/content-series.md`. A fluent summary without a defensible
+systems gap, mechanism, and testable direction is a no-publish result.
 
 ## 3. Deliver and verify
 
@@ -134,6 +145,8 @@ A daily run is complete only when:
 - `status.md`, `plan.md`, and `block.md` reflect current verified state as needed;
 - the run selected at most one coherent public change or recorded a defensible
   no-change decision;
+- any Daily Report work follows the active series or explicitly records a justified
+  interruption;
 - the pull request passed CI, final self-review, and squash merge;
 - any public change deployed from the exact merge commit and was verified;
 - the merged pull request contains the compact closeout record.
