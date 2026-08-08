@@ -18,7 +18,7 @@ permissions:
 
 concurrency:
   group: static-app-pages-${{ github.ref }}
-  queue: max
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   sync-external-docs:
