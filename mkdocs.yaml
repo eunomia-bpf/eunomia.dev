@@ -361,9 +361,6 @@ extra:
       - label: Research
         label_zh: 研究
         href: /research/
-      - label: Reports
-        label_zh: 报告
-        href: /reports/
       - label: eBPF Q&A
         label_zh: eBPF 问答
         href: /ebpf-qa/
@@ -533,8 +530,8 @@ extra:
       - title: Activity reports
         title_zh: 动态报告
         items:
-          - label: Monthly org reports
-            label_zh: 每月组织报告
+          - label: Report dashboard
+            label_zh: 报告看板
             href: /reports/
   section_landing_pages:
     projects:
@@ -891,6 +888,17 @@ extra:
       en: All posts
       zh: 全部文章
   section_pages:
+    reports/index.md:
+      react_page: reports-dashboard
+      title:
+        en: Community activity reports
+        zh: 社区活动报告
+      description:
+        en: A public dashboard generated from weekly and monthly Eunomia organization reports.
+        zh: 从 Eunomia 每周和每月组织活动报告自动生成的公开看板。
+      body:
+        en: This page is rendered as an automatically updated reports dashboard.
+        zh: 这个页面由自动更新的报告看板组件渲染。
     presentations/agent-system-layer.md:
       react_page: agent-system-layer-presentation
       links:

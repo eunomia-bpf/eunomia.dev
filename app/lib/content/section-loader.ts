@@ -7,6 +7,7 @@ import type { DocsPage } from "./types";
 import { resolveDocument } from "./documents";
 import { loadDocumentPage, withContinuation } from "./page-loader-utils";
 import { readMkdocsHomeConfig, readMkdocsSectionLandingPages } from "./mkdocs-config";
+import { getReportEntries } from "./reports";
 
 export async function loadSectionPage(
   section: string,
@@ -36,6 +37,9 @@ export async function loadSectionPage(
   return {
     ...withContinuation(page, continuation),
     ...buildSectionLandingProps(section, locale, slugSegments ?? []),
+    ...(section === "reports" && (slugSegments ?? []).length === 0
+      ? { reportEntries: getReportEntries(locale) }
+      : {}),
     ...(page.reactPage ? buildProjectCatalogProps() : {}),
     sidebar: buildSectionSidebar(section, locale)
   };

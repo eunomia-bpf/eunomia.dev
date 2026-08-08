@@ -1,4 +1,4 @@
-version: 1
+version: 2
 purpose: >-
   Approved sources for recurring technical-question monitoring. This file is an
   allowlist, not a credential store or a request to archive conversations.
@@ -6,12 +6,21 @@ purpose: >-
 policy:
   cadence: daily
   max_public_qa_per_day: 1
-  publish_only_when_useful: true
+  publish_one_combined_qa_and_brief_per_successful_run: true
+  primary_review_window_hours: 24
+  unresolved_question_fallback_days: 7
+  require_real_question: true
+  require_public_primary_sources: true
+  review_all_accessible_allowlisted_channels: true
   visible_browser_for_chat: true
   exclude_private_channels: true
   exclude_direct_messages: true
   store_raw_transcripts: false
   public_output: docs/ebpf-qa/
+  article_order:
+    - detailed answer
+    - references
+    - anonymized daily community discussion
 
 sources:
   - id: eunomia-discord

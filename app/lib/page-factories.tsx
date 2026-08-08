@@ -12,6 +12,7 @@ import {
   ServicesProductPage
 } from "../components/ProductPages";
 import { ProjectLandingPage } from "../components/ProjectLandingPage";
+import { ReportsDashboard } from "../components/ReportsDashboard";
 import { SeoHead } from "../components/SeoHead";
 import { SiteChrome } from "../components/SiteChrome";
 import { canonicalAlternates } from "./seo";
@@ -75,6 +76,9 @@ function renderCustomReactPage(kind: NonNullable<DocsPage["reactPage"]>, locale:
   }
   if (kind === "agent-system-layer-presentation") {
     return <AgentSystemLayerPresentation links={links} />;
+  }
+  if (kind === "reports-dashboard") {
+    return <ReportsDashboard locale={locale} entries={page.reportEntries ?? []} />;
   }
   if (kind === "services") {
     return <ServicesProductPage locale={locale} links={links} projects={projects} />;

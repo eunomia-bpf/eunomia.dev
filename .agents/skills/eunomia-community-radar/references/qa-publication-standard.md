@@ -15,7 +15,8 @@ verify it, and state where the answer stops applying.
 3. Explain the mechanism that makes the answer true.
 4. Give a small verification or debugging path.
 5. State the important limitation or alternative.
-6. Link the public primary sources used to verify the answer.
+6. Add a References section with the public primary sources used.
+7. End with an anonymized analysis of the day's wider community discussion.
 
 Use only the sections the question needs. This is a useful shape, not a required
 template.
@@ -47,6 +48,20 @@ raw values are absent from maps, buffers, logs, traces, and exported telemetry.
 
 ## Publication Floor
 
-Daily monitoring does not create a daily content quota. Publish only when the
-answer is technically useful, independently verifiable, non-duplicative, and
-safe after anonymization. Publish at most one Q&A per day.
+Every successful daily run publishes one technically useful, independently
+verifiable, non-duplicative Q&A that remains safe after anonymization. When no
+single message is sufficient, combine related same-day signals or use the most
+recent unresolved recurring question from the previous seven days. Never invent
+a question or publish a placeholder. If access or evidence is insufficient, the
+run fails explicitly instead of claiming completion.
+
+## Daily Community Briefing
+
+The Q&A page also carries the daily community report. After the references:
+
+- state how many communities and allowlisted channels were actually reviewed;
+- group discussion by technical theme rather than source or participant;
+- explain what practitioners are trying to accomplish and where they are stuck;
+- distinguish quiet channels from inaccessible channels; and
+- omit names, handles, employers, channel names, message URLs, exact timestamps,
+  raw quotes, and distinctive deployment details.

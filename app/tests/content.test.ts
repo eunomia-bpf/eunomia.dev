@@ -203,7 +203,7 @@ test("primary nav children and section sidebars are sourced from mkdocs config",
   );
   assert.deepEqual(
     navChildren.get("blog")?.map((item) => item.href),
-    ["/blog/", "/research/", "/reports/", "/ebpf-qa/"]
+    ["/blog/", "/research/", "/ebpf-qa/"]
   );
   assert.deepEqual(
     navChildren.get("tutorials")?.map((item) => item.href),
@@ -558,7 +558,7 @@ test("primary nav follows the configured external site order", () => {
   );
   assert.deepEqual(
     getPrimaryNav("en").find((item) => item.href === "/blog/")?.children?.map((item) => item.href),
-    ["/blog/", "/research/", "/reports/", "/ebpf-qa/"]
+    ["/blog/", "/research/", "/ebpf-qa/"]
   );
   assert.deepEqual(
     getSectionSidebarOverride("projects", "zh")?.map((group) => group.title),
@@ -604,6 +604,18 @@ test("eBPF Q&A routes resolve in both locales", async () => {
   assert.equal(englishIndex?.page.title, "eBPF Q&A");
   assert.equal(chineseAnswer?.eyebrow, "eBPF 问答");
   assert.match(chineseAnswer?.page.title ?? "", /eBPF 能否识别网络流量中的密钥/);
+});
+
+test("reports dashboard is generated from weekly and monthly Markdown", async () => {
+  const english = await resolveContentPage("/reports/", "en");
+  const chinese = await resolveContentPage("/zh/reports/", "zh");
+
+  assert.equal(english?.page.reactPage, "reports-dashboard");
+  assert.equal(chinese?.page.reactPage, "reports-dashboard");
+  assert.ok((english?.page.reportEntries?.length ?? 0) >= 3);
+  assert.equal(english?.page.reportEntries?.[0]?.href, "/reports/org/monthly/2026-07/");
+  assert.equal(chinese?.page.reportEntries?.[0]?.href, "/zh/reports/org/monthly/2026-07/");
+  assert.equal(english?.page.reportEntries?.[0]?.totalItems, 139);
 });
 
 test("manifest resolves historical Claude Code SSL blog route aliases", () => {
