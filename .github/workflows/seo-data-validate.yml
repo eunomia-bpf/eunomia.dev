@@ -7,6 +7,7 @@ on:
       - ".gitmodules"
       - ".github/seo-skills"
       - ".github/seo-data/**"
+      - ".agents/skills/eunomia-research-report/**"
       - ".github/workflows/seo-data-validate.yml"
   push:
     branches:
@@ -16,6 +17,7 @@ on:
       - ".gitmodules"
       - ".github/seo-skills"
       - ".github/seo-data/**"
+      - ".agents/skills/eunomia-research-report/**"
       - ".github/workflows/seo-data-validate.yml"
   workflow_dispatch:
 
@@ -48,22 +50,38 @@ jobs:
         run: |
           set -euo pipefail
           test -f DAILY_TASK.md
+          test -f .github/seo-data/content-series.md
+          test -f .agents/skills/eunomia-research-report/SKILL.md
           grep -Fq "# Daily site operation" DAILY_TASK.md
           grep -Fq "## Scheduler contract" DAILY_TASK.md
           grep -Fq "## Daily responsibilities" DAILY_TASK.md
           grep -Fq "## 1. Analyze data first" DAILY_TASK.md
-          grep -Fq "## 2. Choose zero or one coherent public change" DAILY_TASK.md
+          grep -Fq "## 2. Select today's report and SEO work" DAILY_TASK.md
           grep -Fq "## 3. Deliver and verify" DAILY_TASK.md
           python - <<'PY'
           from pathlib import Path
 
-          text = Path("DAILY_TASK.md").read_text(encoding="utf-8")
+          daily = Path("DAILY_TASK.md").read_text(encoding="utf-8")
+          series = Path(".github/seo-data/content-series.md").read_text(encoding="utf-8")
+          report_skill = Path(".agents/skills/eunomia-research-report/SKILL.md").read_text(encoding="utf-8")
+
           scheduler_quote = " ".join(
               line.removeprefix("> ").strip()
-              for line in text.splitlines()
+              for line in daily.splitlines()
               if line.startswith("> ")
           )
           assert "Treat the repository as authoritative." in scheduler_quote
+
+          # Daily publication is mandatory; a weak candidate must be replaced,
+          # not converted into a no-report day.
+          assert "exactly **one new Daily Report page every run**" in daily
+          assert "`no-report`" in daily and "not completion" in daily
+          assert "There is no `no-report` outcome" in report_skill
+
+          # Topic mix is a repository-enforced editorial contract.
+          assert "5–7 of 10" in series
+          assert "Pure AI-agent topics are capped at 1–2 of 10" in series
+          assert "Active series — eBPF Runtime, Extensibility, and Composition" in series
           PY
 
       - name: Set up Python
