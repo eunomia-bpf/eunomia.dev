@@ -1,0 +1,4 @@
+interface:
+  display_name: "Eunomia Community Radar"
+  short_description: "Monitor communities and publish anonymous Q&A"
+  default_prompt: "Use $eunomia-community-radar to monitor approved technical communities and publish at most one source-grounded anonymous eBPF Q&A when the evidence supports it."

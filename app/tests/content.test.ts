@@ -180,6 +180,8 @@ test("site IA labels and publication flags are sourced from mkdocs config", () =
   assert.equal(sections.get("bpftime")?.published?.nav, false);
   assert.equal(sections.get("agentsight")?.labels?.en, "AgentSight");
   assert.equal(sections.get("agentsight")?.published?.nav, false);
+  assert.equal(sections.get("ebpf-qa")?.labels?.zh, "eBPF 问答");
+  assert.equal(sections.get("ebpf-qa")?.published?.footerExplore, true);
   assert.equal(sections.get("GPTtrace")?.labels?.en, "AI × eBPF");
   assert.equal(sections.get("GPTtrace")?.published?.nav, true);
   assert.equal(sections.get("about")?.published?.nav, false);
@@ -198,6 +200,10 @@ test("primary nav children and section sidebars are sourced from mkdocs config",
   assert.deepEqual(
     navChildren.get("products")?.map((item) => item.href),
     ["/bpftime/", "/products/agent-runtime-infrastructure/", "/products/services/"]
+  );
+  assert.deepEqual(
+    navChildren.get("blog")?.map((item) => item.href),
+    ["/blog/", "/research/", "/reports/", "/ebpf-qa/"]
   );
   assert.deepEqual(
     navChildren.get("tutorials")?.map((item) => item.href),
@@ -513,6 +519,7 @@ test("site IA derives sections from discovered content and keeps stable override
   assert.ok(sections.some((section) => section.key === "bpftime" && section.indexSource === "bpftime/index.md"));
   assert.ok(sections.some((section) => section.key === "wasm-bpf" && section.indexSource === "wasm-bpf/index.md"));
   assert.ok(sections.some((section) => section.key === "legacy-blog" && section.indexSource === "blogs/index.md"));
+  assert.ok(sections.some((section) => section.key === "ebpf-qa" && section.indexSource === "ebpf-qa/index.md"));
   assert.ok(sections.every((section) => section.discovered));
 });
 
@@ -550,6 +557,10 @@ test("primary nav follows the configured external site order", () => {
     ["/bpftime/", "/eunomia-bpf/", "/wasm-bpf/", "/agentsight/", "/actplane/"]
   );
   assert.deepEqual(
+    getPrimaryNav("en").find((item) => item.href === "/blog/")?.children?.map((item) => item.href),
+    ["/blog/", "/research/", "/reports/", "/ebpf-qa/"]
+  );
+  assert.deepEqual(
     getSectionSidebarOverride("projects", "zh")?.map((group) => group.title),
     ["项目总览", "项目文档", "学习与文章"]
   );
@@ -581,6 +592,18 @@ test("manifest resolves section index routes back to the canonical section recor
   assert.ok(record);
   assert.equal(record.kind, "section-page");
   assert.equal(record.key, "section:bpftime:");
+});
+
+test("eBPF Q&A routes resolve in both locales", async () => {
+  const englishIndex = await resolveContentPage("/ebpf-qa/", "en");
+  const chineseAnswer = await resolveContentPage(
+    "/zh/ebpf-qa/2026-08-08-detect-secrets-with-ebpf/",
+    "zh"
+  );
+
+  assert.equal(englishIndex?.page.title, "eBPF Q&A");
+  assert.equal(chineseAnswer?.eyebrow, "eBPF 问答");
+  assert.match(chineseAnswer?.page.title ?? "", /eBPF 能否识别网络流量中的密钥/);
 });
 
 test("manifest resolves historical Claude Code SSL blog route aliases", () => {

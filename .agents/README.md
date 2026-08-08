@@ -30,3 +30,8 @@ satisfies the stated outcomes over adding mandatory review rounds.
 Use `eunomia-content-patrol` as the source of truth for the scheduled daily
 content patrol. The cron prompt should stay short and route execution through
 that skill rather than duplicating the full daily operating policy.
+
+Use `eunomia-community-radar` for proactive monitoring of approved external
+technical communities and anonymous eBPF Q&A publication. Keep it separate from
+`eunomia-social-radar`, which follows discussion around content already
+published by Eunomia, and from GitHub issue or pull-request patrol.

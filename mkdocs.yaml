@@ -265,6 +265,17 @@ extra:
         footer_explore: true
         footer_project: false
       order: 55
+    ebpf-qa:
+      labels:
+        en: eBPF Q&A
+        zh: eBPF 问答
+      published:
+        nav: false
+        home_track: false
+        home_explore: false
+        footer_explore: true
+        footer_project: false
+      order: 56
     agentsight:
       labels:
         en: AgentSight
@@ -275,7 +286,7 @@ extra:
         home_explore: false
         footer_explore: false
         footer_project: false
-      order: 56
+      order: 57
     actplane:
       labels:
         en: ActPlane
@@ -286,7 +297,7 @@ extra:
         home_explore: false
         footer_explore: false
         footer_project: false
-      order: 57
+      order: 58
     about:
       labels:
         en: About
@@ -350,6 +361,12 @@ extra:
       - label: Research
         label_zh: 研究
         href: /research/
+      - label: Reports
+        label_zh: 报告
+        href: /reports/
+      - label: eBPF Q&A
+        label_zh: eBPF 问答
+        href: /ebpf-qa/
     products:
       - label: bpftime
         label_zh: bpftime

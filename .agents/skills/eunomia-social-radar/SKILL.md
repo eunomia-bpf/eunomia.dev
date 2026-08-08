@@ -9,6 +9,10 @@ Follow what happens after publication. Observe each relevant published item over
 time, understand the surrounding conversation, and return only findings that can
 improve distribution, responses, or future editorial work.
 
+Use `eunomia-community-radar` instead when the task starts from external
+technical communities and seeks recurring questions rather than echoes of a
+known Eunomia publication.
+
 ## Required Context
 
 Read these before inspecting platforms:

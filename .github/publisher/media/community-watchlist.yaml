@@ -1,0 +1,91 @@
+version: 1
+purpose: >-
+  Approved sources for recurring technical-question monitoring. This file is an
+  allowlist, not a credential store or a request to archive conversations.
+
+policy:
+  cadence: daily
+  max_public_qa_per_day: 1
+  publish_only_when_useful: true
+  visible_browser_for_chat: true
+  exclude_private_channels: true
+  exclude_direct_messages: true
+  store_raw_transcripts: false
+  public_output: docs/ebpf-qa/
+
+sources:
+  - id: eunomia-discord
+    surface: Discord
+    workspace: eunomia-bpf
+    priority: primary
+    channels:
+      - general
+      - github
+      - blog-and-tutorials
+    topics:
+      - project usage
+      - eBPF development questions
+      - documentation gaps
+
+  - id: sched-ext-discord
+    surface: Discord
+    workspace: sched-ext
+    priority: primary
+    channels:
+      - questions
+      - support
+    topics:
+      - sched_ext
+      - scheduler debugging
+      - workload evaluation
+
+  - id: cilium-ebpf-slack
+    surface: Slack
+    workspace: Cilium and eBPF
+    join_url: https://slack.cilium.io/
+    priority: primary
+    channels:
+      - ebpf
+    topics:
+      - eBPF development
+      - verifier and loader behavior
+      - networking and observability
+
+  - id: cncf-slack
+    surface: Slack
+    workspace: Cloud Native Computing Foundation
+    join_url: https://slack.cncf.io/
+    priority: primary
+    channels:
+      - otel-ebpf-instrumentation
+      - otel-genai-instrumentation
+    topics:
+      - OpenTelemetry eBPF Instrumentation
+      - privacy-aware observability
+      - AI agent telemetry
+
+  - id: bpf-mailing-list
+    surface: mailing-list
+    workspace: bpf@vger.kernel.org
+    public_archive: https://lore.kernel.org/bpf/
+    priority: primary
+    topics:
+      - kernel BPF development
+      - verifier behavior
+      - libbpf and tooling
+
+  - id: reddit-ebpf
+    surface: Reddit
+    workspace: r/eBPF
+    public_url: https://www.reddit.com/r/eBPF/
+    priority: secondary
+    topics:
+      - practitioner questions
+      - project discovery
+
+excluded:
+  - restricted Discord channels
+  - private Slack channels
+  - direct messages
+  - customer or partner conversations
+  - channels not explicitly listed above
