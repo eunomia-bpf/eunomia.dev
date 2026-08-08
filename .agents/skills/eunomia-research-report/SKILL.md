@@ -5,7 +5,7 @@ description: Research, write, validate, and publish source-grounded Eunomia Dail
 
 # Eunomia Daily Report
 
-Produce technically serious, source-grounded analysis for the public **Daily Report** section. The repository is the source of truth for the publication contract, content, routes, and delivery workflow.
+Produce technically serious, source-grounded analysis for the public **Daily Report** section. The repository is the source of truth for the publication contract, content, routes, topic mix, and delivery workflow.
 
 The purpose is to help engineers and researchers understand a real problem, see what current work still misses, and find ideas worth implementing and evaluating. Depth comes from evidence, mechanism, comparison, and testable design, not from academic tone or terminology density.
 
@@ -18,7 +18,8 @@ Every Daily Report must satisfy these rules:
 - The report contains a concrete section explaining where current research or production practice is still weak.
 - The report contains a small number of developed directions with both academic and production relevance.
 - The report states the assumptions behind its conclusion and the evidence that would change it, using reader-facing language.
-- The report is not published when the scan yields only a fluent summary and no defensible gap, mechanism, or useful idea.
+- Every scheduled daily run publishes one new report. A weak candidate is rejected, but the run must continue researching another approved question until one passes the quality gates.
+- The rolling topic mix in `.github/seo-data/content-series.md` is mandatory: normally 5–7 of the most recent 10 reports explicitly center eBPF, while pure Agent topics remain at most 1–2 of 10.
 - Do not add provenance banners, warning boxes, generation-process badges, review-status text, or footer disclaimers to the public page.
 - Do not infer an article byline from Git commit metadata.
 
@@ -28,12 +29,13 @@ Read these before acting:
 
 - `CLAUDE.md`
 - `.agents/skills/blog-writing-style/SKILL.md`
+- `.github/seo-data/content-series.md`
 - existing pages under `docs/research/`
 - related posts under `docs/blog/` and `docs/reports/`
 - `references/research-method.md`
 - `docs/papers/registry.yaml` only after a candidate question exists
 
-When invoked by a scheduled repository task, also read the task entrypoint, current operating records, and any explicit publication constraints stored in the repository.
+When invoked by a scheduled repository task, also read the task entrypoint, current operating records, rolling topic mix, and any explicit publication constraints stored in the repository.
 
 ## Output Location And Metadata
 
@@ -42,7 +44,7 @@ A bilingual report uses:
 - `docs/research/<topic>.md`
 - `docs/research/<topic>.zh.md`
 
-Keep an existing URL when revising an article.
+Keep an existing URL when revising an article. Scheduled daily publication, however, requires one **new** report page; revising an existing page does not satisfy that day's publication requirement.
 
 New Daily Report frontmatter should include:
 
@@ -58,11 +60,27 @@ source_cutoff: YYYY-MM-DD
 status: daily-report
 ```
 
+## Topic Selection
+
+Daily Report is eBPF-first.
+
+Before research begins:
+
+1. calculate the rolling mix from the most recent published reports;
+2. prefer the active series in `.github/seo-data/content-series.md`;
+3. keep 5–7 of the most recent 10 reports centered on eBPF;
+4. keep pure Agent reports to at most 1–2 of 10;
+5. use the remaining slots for adjacent systems topics such as Linux, profiling, networking, security, runtimes, GPU/heterogeneous systems, distributed systems, storage, and compilers.
+
+An eBPF-centered report must make eBPF essential to the mechanism, comparison, runtime boundary, or experiment. Mentioning eBPF in the introduction or future-work section does not make a report eBPF-centered.
+
+Because the current small archive already contains two Agent-centered reports, the next reports should strongly favor eBPF before another pure Agent report is considered.
+
 ## Workflow
 
 ### 1. Start With A Real Reader Question
 
-Begin from a broad systems area, then search before choosing a thesis. Prefer a question that changes an architecture, implementation, security, operations, or research decision.
+Begin from the active eBPF or approved adjacent-systems series, then search before choosing a thesis. Prefer a question that changes an architecture, implementation, security, operations, or research decision.
 
 Good questions expose one of these:
 
@@ -117,6 +135,8 @@ Before drafting, state in ordinary language:
 7. what result would change the claim.
 
 The gap must identify a missing benchmark, interface, mechanism, guarantee, dataset, measurement, deployment property, or boundary condition. Reject generic statements such as "more research is needed" or "scalability remains challenging."
+
+If the candidate fails this gate, discard it and immediately research the next candidate in the approved series roadmap. The daily run does not terminate without a report.
 
 ### 5. Design The Reader Path
 
@@ -196,21 +216,23 @@ Explain assumptions, counterexamples, and decisive future evidence in prose. Kee
 
 ### 10. Validate And Publish
 
-When publication is authorized, complete the whole delivery:
+Every scheduled daily run must finish with one new bilingual report deployed publicly.
 
 1. create a focused branch;
-2. change only files in scope;
-3. run the repository's full verification workflow;
-4. inspect the complete PR diff;
-5. merge only after required checks pass;
-6. verify that the exact merge commit deploys;
-7. inspect the public English and Chinese pages, navigation, canonical URLs, gap sections, idea sections, and rendered conclusion heading.
+2. add exactly one new Daily Report topic in English and Chinese;
+3. change only files in scope plus directly coupled navigation/metadata/operating records;
+4. run the repository's full verification workflow;
+5. inspect the complete PR diff;
+6. merge only after required checks pass;
+7. verify that the exact merge commit deploys;
+8. inspect the public English and Chinese pages, navigation, canonical URLs, gap sections, idea sections, and rendered conclusion heading;
+9. record the report's series and topic classification for the next rolling-mix calculation.
 
-A draft, open PR, or green pre-merge check is not a completed deployment.
+A draft, open PR, green pre-merge check, revision-only day, or unpublished report is not completed daily delivery.
 
 ## Publication Review
 
-Reject or revise the report when any of these are true:
+Reject or revise the candidate when any of these are true:
 
 - the title depends on an unexplained coined term;
 - the opening reads like an abstract rather than a human explanation;
@@ -222,8 +244,21 @@ Reject or revise the report when any of these are true:
 - repository-owned work is treated more generously than outside work;
 - the page contains process-oriented warning boxes, provenance notes, review-status text, or footer disclaimers;
 - the new page substantially duplicates an existing question or thesis;
-- important claims cannot be traced to primary evidence.
+- important claims cannot be traced to primary evidence;
+- the topic would violate the rolling eBPF/Agent editorial mix.
 
-## No-Report Outcome
+Rejecting one candidate does not end the daily run. Select another question from the active or approved series and repeat the research process until one report passes.
 
-If research produces interesting sources but no defensible gap and no non-trivial idea, do not publish. Record the strongest unresolved question and the evidence that would unblock it. A truthful no-report result is better than a generic summary added only to satisfy cadence.
+## Daily Fallback
+
+There is no `no-report` outcome for the scheduled daily operation.
+
+If the initial candidate lacks a defensible gap, mechanism, evidence base, or non-trivial idea:
+
+1. preserve any useful evidence internally;
+2. reject the candidate;
+3. move to the next question in the active eBPF series;
+4. if necessary, move to another approved eBPF or adjacent-systems series while respecting the rolling mix;
+5. continue until one candidate meets the full publication standard.
+
+The fallback is broader research, not weaker writing.
