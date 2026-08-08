@@ -2625,6 +2625,34 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/bpftime/EIM/draft-spec/spec/" />
   </url>
   <url>
+    <loc>https://eunomia.dev/ebpf-qa/2026-08-08-detect-secrets-with-ebpf/</loc>
+    <lastmod>2026-08-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/2026-08-08-detect-secrets-with-ebpf/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/2026-08-08-detect-secrets-with-ebpf/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-08-08-detect-secrets-with-ebpf/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/ebpf-qa/2026-08-08-detect-secrets-with-ebpf/</loc>
+    <lastmod>2026-08-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/2026-08-08-detect-secrets-with-ebpf/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/2026-08-08-detect-secrets-with-ebpf/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/2026-08-08-detect-secrets-with-ebpf/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/ebpf-qa/</loc>
+    <lastmod>2026-08-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/" />
+  </url>
+  <url>
+    <loc>https://eunomia.dev/zh/ebpf-qa/</loc>
+    <lastmod>2026-08-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/ebpf-qa/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eunomia.dev/ebpf-qa/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://eunomia.dev/zh/ebpf-qa/" />
+  </url>
+  <url>
     <loc>https://eunomia.dev/eunomia-bpf/architecture/</loc>
     <lastmod>2026-03-08</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://eunomia.dev/eunomia-bpf/architecture/" />
