@@ -20,6 +20,11 @@ found during daily monitoring. It is not a metrics dashboard or a browsing log.
 
 ## Monitoring Log
 
+### 2026-08-07
+
+- The 48-72 hour checkpoint for the [TCX LinkedIn post](https://www.linkedin.com/feed/update/urn:li:share:7490597138595229696) found the post, eunomia.dev link, and preview card intact. The public page shows 39 reactions, up from 36 on 2026-08-05; comment and private analytics counts were unavailable on the signed-out surface rather than treated as zero. Exact-title search now surfaces the canonical tutorial, known Medium and LinkedIn copies, and a Google AI Overview citing eunomia.dev, with no independent new discussion. No action is due; revisit only after a new comment or citation.
+- The latest [TCP quarantine tutorial on Zhihu](https://zhuanlan.zhihu.com/p/2068597605345531007) remains complete and publicly reachable, with 9 endorsements, 15 saves, 1 like, and no comments. Its [English](https://eunomia.dev/tutorials/51-tcp-quarantine/) and [Chinese](https://eunomia.dev/zh/tutorials/51-tcp-quarantine/) canonical pages are reachable with the expected title and article structure; exact-title search also shows a Google AI Overview citing eunomia.dev, but no independent discussion. No interaction or correction is needed; check again only after a new public signal or another platform publication.
+
 ### 2026-08-05
 
 - The [TCX LinkedIn post](https://www.linkedin.com/feed/update/urn:li:share:7490597138595229696) reached 1,949 impressions, 36 reactions, and 1 repost about 20 hours after publication. Its text, eunomia.dev link, and preview card remain intact, and no comment is visible. The [Zhihu thread](https://zhuanlan.zhihu.com/p/2067144957194924576) remains at 1 endorsement and 2 comments with no follow-up to our clarification; the [Juejin article](https://juejin.cn/post/7669635386159824936) shows 18 reads, 1 like, and 0 comments. Exact-title search surfaces the canonical tutorial and known syndications but no independent new discussion. No interaction is due; take one more LinkedIn checkpoint in the 48-72 hour window.

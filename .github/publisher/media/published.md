@@ -1,6 +1,6 @@
 # Published Media Ledger
 
-Last checked: 2026-08-05
+Last checked: 2026-08-07
 
 This ledger records platform posts confirmed from logged-in profile pages or explicit repository references. It is intentionally conservative: if authorship or completeness is not verified, the item is marked for follow-up instead of treated as complete.
 
@@ -58,6 +58,7 @@ Normal in-app browser pagination covered all four visible article pages and coll
 
 | Status | Title | URL | Notes |
 | --- | --- | --- | --- |
+| Confirmed | eBPF 教程：精准隔离已建立的 TCP 连接 | <https://juejin.cn/post/7671185597861675008> | Submitted and confirmed public 2026-08-07 from `docs/tutorials/51-tcp-quarantine/README.zh.md` through the normal visible Juejin editor in Chrome `Yunwei`; category `后端`; tags `Linux`, `开源`, `安全`; the public page preserves the exact title and complete body with 15 body headings, 9 code blocks, 1 table with 7 rows, 6 source links, no source image placeholders, and 0 comments |
 | Confirmed | eBPF 入门实践教程第五十篇：使用 TCX Link 实现可组合的流量控制 | <https://juejin.cn/post/7669635386159824936> | Submitted 2026-08-03 from `docs/tutorials/50-tcx/README.zh.md` through the normal visible Juejin editor in Chrome `Yunwei`; category `后端`; tags `Linux`, `开源`, `云原生`; confirmed public on 2026-08-04 with the exact title, complete rendered body, 21 body headings, 8 code blocks, 2 tables with 12 rows, 10 article links, and no comments |
 | Confirmed | 为什么 eBPF verifier 报错难修：诊断鸿沟 | <https://juejin.cn/post/7667474278616547380> | Published from `docs/blog/posts/bpfix.zh.md`; category `后端`; tags `Linux`, `后端`, `开源`; front matter, the repeated H1, and `<!-- more -->` were mechanically removed and two relative image URLs were replaced without changing the substantive body; the 2026-07-29 visible public-page check confirmed the exact title, complete body, seven H2 headings, three code blocks, four tables, ten outbound links, and two loaded content images |
 | Confirmed | 让 AI Agent 调优 Linux 调度器：SchedCP 与 sched-agent 的设计与评测 | <https://juejin.cn/post/7666245761520615439> | Published from `docs/blog/posts/schedcp-agentic-os.zh.md` on 2026-07-25; category `人工智能`; tags `Linux`, `人工智能`, `后端`; front matter and `<!-- more -->` were removed and the relative image URL was replaced without changing the substantive body; the 2026-07-26 visible public-page check confirmed the exact title, complete rendered body, seven article headings, and the loaded 788x600 content image |

@@ -3,7 +3,7 @@
   "platform_id": "juejin",
   "label": "Juejin",
   "kind": "longform_chinese",
-  "last_checked": "2026-08-04",
+  "last_checked": "2026-08-07",
   "target_source_sets": [
     "blog_posts_zh",
     "tutorials_zh"
@@ -89,9 +89,28 @@
       "article_url": "https://juejin.cn/post/7669635386159824936",
       "visible_comments": 0,
       "notes": "The TCX tutorial passed review and is publicly reachable. The visible page retains the exact title and complete rendered article, including 21 body headings, eight code blocks, two tables with 12 rows, and ten article links. The comment section reports zero comments. No Juejin API or hidden endpoint was used."
+    },
+    {
+      "checked_at": "2026-08-07",
+      "checked_via": "chrome_yunwei_visible_profile_duplicate_check_editor_submit_staged_and_public_page_dom_qa",
+      "profile_url": "https://juejin.cn/user/4288563097635144/posts",
+      "staged_url": "https://juejin.cn/spost/7671185597861675008",
+      "article_url": "https://juejin.cn/post/7671185597861675008",
+      "review_status": "confirmed",
+      "visible_comments": 0,
+      "notes": "The visible authored-profile search found no exact-title or same-source duplicate. Submitted tutorial 51 through the normal visible Juejin editor in the authenticated Chrome Yunwei profile. Category 后端; tags Linux, 开源, 安全. The source H1 is carried by the title field and the remaining body matches the source without substantive changes. Editor preview, staged-page QA, and public-page QA confirmed the exact title, 15 body headings, nine code blocks, one table with seven rows, six source links, no source image placeholders, and zero comments. The staged page initially showed 审核中, then redirected to the public /post URL with the marker removed. No Juejin API or hidden endpoint was used."
     }
   ],
   "published": [
+    {
+      "id": "juejin-7671185597861675008",
+      "status": "confirmed",
+      "title": "eBPF 教程：精准隔离已建立的 TCP 连接",
+      "url": "https://juejin.cn/post/7671185597861675008",
+      "source_path": "docs/tutorials/51-tcp-quarantine/README.zh.md",
+      "checked_via": "chrome_yunwei_visible_public_article_dom_qa",
+      "notes": "Submitted and confirmed public on 2026-08-07. Category 后端; tags Linux, 开源, 安全. The visible article preserves the exact title and substantively unchanged body with 15 headings, nine code blocks, one table with seven rows, six source links, no source image placeholders, and zero comments."
+    },
     {
       "id": "juejin-7669635386159824936",
       "status": "confirmed",
