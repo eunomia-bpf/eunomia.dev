@@ -9,6 +9,10 @@ Eunomia Daily Report examines concrete systems questions, compares primary evide
 
 ## Current reports
 
+### [What Is Missing Before Userspace eBPF Becomes a Real Runtime?](https://eunomia.dev/research/userspace-ebpf-runtime-contract/)
+
+A BPF VM can execute the instruction set without defining how programs attach, which capabilities they receive, who owns state, or how extensions are revoked and accounted for. This report compares Linux eBPF, uBPF, bpftime, and eBPF for Windows, then proposes a machine-readable runtime contract, capability-aware attach handles, and per-extension resource accounting.
+
 ### [When Several AI Agents Work at Once, Who Makes Sure the Final Result Is Right?](https://eunomia.dev/research/parallel-agent-effect-serializability/)
 
 Worktrees, sandboxes, and parallel tool calls can isolate workers while still producing a wrong combined outcome. This report uses code changes, shared budgets, approvals, and irreversible actions to explain why parallel agents need one validation and commit step before their effects become real. It also identifies missing benchmarks and effect contracts, then proposes an agent transaction layer, a semantic-conflict benchmark, and adaptive concurrency control.
