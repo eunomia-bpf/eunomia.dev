@@ -20,6 +20,10 @@ found during daily monitoring. It is not a metrics dashboard or a browsing log.
 
 ## Monitoring Log
 
+### 2026-08-08
+
+- The new [anonymous eBPF Q&A](https://eunomia.dev/zh/ebpf-qa/2026-08-08-detect-secrets-with-ebpf/) and [userspace eBPF runtime report](https://eunomia.dev/research/userspace-ebpf-runtime-contract/) are publicly reachable with their expected titles, article structure, references, and locale links. An exact-title Google check already surfaces the eBPF Q&A index and its new question, but no independent discussion or citation was found. The latest [TCP quarantine tutorial on Juejin](https://juejin.cn/post/7671185597861675008) remains complete with its links and code blocks intact and still shows 0 comments. No reply or correction is due; revisit after a new comment, citation, or platform publication.
+
 ### 2026-08-07
 
 - The 48-72 hour checkpoint for the [TCX LinkedIn post](https://www.linkedin.com/feed/update/urn:li:share:7490597138595229696) found the post, eunomia.dev link, and preview card intact. The public page shows 39 reactions, up from 36 on 2026-08-05; comment and private analytics counts were unavailable on the signed-out surface rather than treated as zero. Exact-title search now surfaces the canonical tutorial, known Medium and LinkedIn copies, and a Google AI Overview citing eunomia.dev, with no independent new discussion. No action is due; revisit only after a new comment or citation.
